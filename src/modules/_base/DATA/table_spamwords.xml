@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="spamwords" prefix="yes">
+<fields>
+<field name="spamword" type="string" size="100"  null="no"/>
+<field name="spamcategory_ident" type="string" size="10"  null="no"/>
+<field name="spamword_count" type="integer" size="8"  null="no"/>
+<field name="spamword_lngid" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>spamword</field><field>spamword_lngid</field><field>spamcategory_ident</field></primary-key>
+<key name="papaya_spamwords_fkindex1">
+<field>spamcategory_ident</field></key>
+</keys>
+</table>

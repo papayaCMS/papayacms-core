@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table name="boxgroups" prefix="yes" type="transactions">
+  <fields>
+    <field name="boxgroup_id" type="integer" size="2" null="no" autoinc="yes"/>
+    <field name="boxgroup_title" type="string" size="100" null="no"/>
+    <field name="boxgroup_name" type="string" size="40" null="no"/>
+    <field name="boxgroup_linkable" type="integer" size="2" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>boxgroup_id</field>
+    </primary-key>
+    <key name="boxgroup_title">
+      <field>boxgroup_title</field>
+    </key>
+    <key name="boxgroup_linkable">
+      <field>boxgroup_linkable</field>
+    </key>
+  </keys>
+</table>

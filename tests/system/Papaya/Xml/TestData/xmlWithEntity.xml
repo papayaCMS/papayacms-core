@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!DOCTYPE sample [
+    <!ENTITY entity SYSTEM
+    "data://text/plain,ENTITY_STRING"
+    >
+]>
+<sample>&entity;</sample>

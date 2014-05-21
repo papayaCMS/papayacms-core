@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="mimetypes" prefix="yes">
+<fields>
+<field name="mimetype_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="mimetype_ext" type="string" size="10"  null="no"/>
+<field name="mimetype_text" type="string" size="50"  null="no"/>
+<field name="mimetype_icon" type="string" size="20"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>mimetype_id</field></primary-key>
+</keys>
+</table>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="auth_try" prefix="yes">
+  <fields>
+    <field name="authtry_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="authtry_username" type="string" size="200" null="no"/>
+    <field name="authtry_time" type="integer" size="8" null="no"/>
+    <field name="authtry_ip" type="string" size="32" null="no"/>
+    <field name="authtry_group" type="string" size="20" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>authtry_id</field>
+    </primary-key>
+    <key name="authtry_username">
+      <field>authtry_username</field>
+      <field>authtry_time</field>
+    </key>
+    <key name="authtry_time">
+      <field>authtry_ip</field>
+      <field>authtry_time</field>
+    </key>
+  </keys>
+</table>

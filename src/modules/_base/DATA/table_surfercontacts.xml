@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="surfercontacts" prefix="yes">
+  <fields>
+    <field name="surfercontact_id" type="integer" size="4" null="no" autoinc="yes"/>
+    <field name="surfercontact_requestor" type="string" size="32" null="no"/>
+    <field name="surfercontact_requested" type="string" size="32" null="no"/>
+    <field name="surfercontact_status" type="integer" size="4" null="no"/>
+    <field name="surfercontact_timestamp" type="integer" size="4" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>surfercontact_id</field>
+    </primary-key>
+    <key name="surfercontact_timestamp">
+      <field>surfercontact_timestamp</field>
+    </key>
+    <key name="surfercontact_requestor">
+      <field>surfercontact_requestor</field>
+    </key>
+    <key name="surfercontact_requested">
+      <field>surfercontact_requested</field>
+    </key>
+  </keys>
+</table>

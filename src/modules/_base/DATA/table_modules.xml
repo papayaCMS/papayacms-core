@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="modules" prefix="yes">
+  <fields>
+    <field name="module_guid" type="string" size="32" null="no"/>
+    <field name="module_type" type="string" size="50" null="no"/>
+    <field name="module_class" type="string" size="255" null="no"/>
+    <field name="module_useoutputfilter" type="integer" size="2" null="no" default="1"/>
+    <field name="module_file" type="string" size="100" null="no"/>
+    <field name="module_title" type="string" size="100" null="no"/>
+    <field name="module_title_org" type="string" size="100" null="no"/>
+    <field name="module_description" type="string" size="65535" null="no"/>
+    <field name="module_active" type="integer" size="2" null="no"/>
+    <field name="module_perm" type="integer" size="4" null="no"/>
+    <field name="module_glyph" type="string" size="200" null="no"/>
+    <field name="module_path" type="string" size="65535" null="no"/>
+    <field name="modulegroup_id" type="integer" size="4" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>module_guid</field>
+    </primary-key>
+    <key name="module_title">
+      <field>module_title</field>
+    </key>
+    <key name="module_type">
+      <field>module_type</field>
+      <field>module_title</field>
+    </key>
+    <key name="module_class">
+      <field>module_class</field>
+    </key>
+    <key name="module_active">
+      <field>module_active</field>
+    </key>
+  </keys>
+</table>

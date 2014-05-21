@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="tag_category" prefix="yes">
+<fields>
+<field name="category_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="parent_id" type="integer" size="4"  null="no"/>
+<field name="parent_path" type="string" size="250"  null="no"/>
+<field name="permission_mode" type="string" size="32"  null="no"/>
+<field name="creator_type" type="string" size="32"  null="no"/>
+<field name="creator_id" type="string" size="64"  null="no"/>
+<field name="creation_time" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>category_id</field></primary-key>
+</keys>
+</table>

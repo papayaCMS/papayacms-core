@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="phrase" prefix="yes">
+<fields>
+<field name="phrase_id" type="integer" size="8"  null="no" autoinc="yes"/>
+<field name="phrase_text" type="string" size="255"  null="no"/>
+<field name="phrase_text_lower" type="string" size="255"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>phrase_id</field></primary-key>
+<key name="phrase_text">
+<field>phrase_text</field></key>
+<key name="phrase_text_lower">
+<field>phrase_text_lower</field></key>
+</keys>
+</table>

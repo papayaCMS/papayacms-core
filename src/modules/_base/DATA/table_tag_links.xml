@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table name="tag_links" prefix="yes" type="transactions">
+  <fields>
+    <field name="link_type" type="string" size="100" null="no"/>
+    <field name="link_id" type="string" size="100" null="no"/>
+    <field name="link_priority" type="integer" size="4" null="no" default="50"/>
+    <field name="tag_id" type="integer" size="8" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>link_type</field>
+      <field>link_id</field>
+      <field>tag_id</field>
+    </primary-key>
+  </keys>
+</table>

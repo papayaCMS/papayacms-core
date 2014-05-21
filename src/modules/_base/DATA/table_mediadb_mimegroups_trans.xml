@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="mediadb_mimegroups_trans" prefix="yes">
+<fields>
+<field name="mimegroup_id" type="integer" size="4"  null="no"/>
+<field name="lng_id" type="integer" size="4"  null="no"/>
+<field name="mimegroup_title" type="string" size="100"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>mimegroup_id</field><field>lng_id</field></primary-key>
+</keys>
+</table>

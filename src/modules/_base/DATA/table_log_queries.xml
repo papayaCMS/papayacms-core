@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="log_queries" prefix="yes">
+  <fields>
+    <field name="query_id" type="integer" size="4" null="no" autoinc="yes"/>
+    <field name="query_class" type="string" size="255" null="no"/>
+    <field name="query_count" type="integer" size="4" null="no"/>
+    <field name="query_conn" type="string" size="10" null="no"/>
+    <field name="query_time" type="float" size="10,5" null="no"/>
+    <field name="query_records" type="integer" size="4" null="no"/>
+    <field name="query_limit" type="integer" size="4" null="no"/>
+    <field name="query_offset" type="integer" size="4" null="no"/>
+    <field name="query_content" type="string" size="65535" null="no"/>
+    <field name="query_hash" type="string" size="32" null="no"/>
+    <field name="query_explain" type="string" size="65535" null="no"/>
+    <field name="query_backtrace" type="string" size="65535" null="no"/>
+    <field name="query_request" type="string" size="32" null="no"/>
+    <field name="query_uri" type="string" size="65535" null="no"/>
+    <field name="query_timestamp" type="integer" size="4" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>query_id</field>
+    </primary-key>
+    <key name="query_time">
+      <field>query_time</field>
+    </key>
+    <key name="query_request">
+      <field>query_request</field>
+    </key>
+    <key name="query_hash">
+      <field>query_hash</field>
+    </key>
+  </keys>
+</table>

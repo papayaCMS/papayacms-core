@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table name="surfergroups" prefix="yes">
+  <fields>
+    <field name="surfergroup_id" type="integer" size="4" null="no" autoinc="yes"/>
+    <field name="surfergroup_title" type="string" size="100" null="no"/>
+    <field name="surfergroup_profile_page" type="integer" size="4" null="no"/>
+    <field name="surfergroup_redirect_page" type="integer" size="4" null="no"/>
+    <field name="surfergroup_admin_group" type="integer" size="4" null="no"/>
+    <field name="surfergroup_identifier" type="string" size="255" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>surfergroup_id</field>
+    </primary-key>
+    <key name="surfergroup_identifier">
+      <field>surfergroup_identifier</field>
+    </key>
+  </keys>
+</table>

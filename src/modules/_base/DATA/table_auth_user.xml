@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table name="auth_user" prefix="yes" type="transactions">
+  <fields>
+    <field name="user_id" type="string" size="32" null="no"/>
+    <field name="username" type="string" size="20" null="no"/>
+    <field name="user_password" type="string" size="255" null="no"/>
+    <field name="active" type="integer" size="2" null="no" default="1"/>
+    <field name="surname" type="string" size="100" null="no"/>
+    <field name="givenname" type="string" size="60" null="no"/>
+    <field name="email" type="string" size="100" null="no"/>
+    <field name="group_id" type="integer" size="2" null="no" default="1"/>
+    <field name="userperm" type="string" size="65535" null="no"/>
+    <field name="start_node" type="integer" size="8" null="no"/>
+    <field name="sub_level" type="integer" size="2" null="no"/>
+    <field name="init_node" type="integer" size="8" null="no"/>
+    <field name="chg_id" type="string" size="32" null="no"/>
+    <field name="chg_time" type="integer" size="8" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>user_id</field>
+    </primary-key>
+    <key name="user_id" unique="yes">
+      <field>user_id</field>
+      <field>username</field>
+    </key>
+    <key name="username">
+      <field>username</field>
+    </key>
+    <key name="active">
+      <field>active</field>
+      <field>username</field>
+    </key>
+  </keys>
+</table>

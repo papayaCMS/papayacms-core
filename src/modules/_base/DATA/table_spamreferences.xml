@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="spamreferences" prefix="yes">
+<fields>
+<field name="spamreference_id" type="integer" size="8"  null="no" autoinc="yes"/>
+<field name="spamcategory_ident" type="string" size="10"  null="no"/>
+<field name="spamreference_data" type="string" size="65535"  null="no"/>
+<field name="spamreference_lngid" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>spamreference_id</field></primary-key>
+<key name="spamreference_lngid">
+<field>spamreference_lngid</field><field>spamreference_id</field></key>
+<key name="papaya_spamreferences_fkindex1">
+<field>spamcategory_ident</field></key>
+</keys>
+</table>

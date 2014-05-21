@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table name="mediadb_files_trans" prefix="yes">
+  <fields>
+    <field name="file_id" type="string" size="32" null="no"/>
+    <field name="lng_id" type="integer" size="4" null="no"/>
+    <field name="file_title" type="string" size="255" null="no"/>
+    <field name="file_description" type="string" size="65535" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>file_id</field>
+      <field>lng_id</field>
+    </primary-key>
+  </keys>
+</table>

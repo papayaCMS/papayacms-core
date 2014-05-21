@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="tag_trans" prefix="yes">
+<fields>
+<field name="tag_id" type="integer" size="4"  null="no"/>
+<field name="lng_id" type="integer" size="4"  null="no"/>
+<field name="tag_title" type="string" size="200"  null="no"/>
+<field name="tag_image" type="string" size="100" null="yes"/>
+<field name="tag_description" type="string" size="65535" null="yes"/>
+<field name="tag_char" type="string" size="1" null="yes"/>
+</fields>
+<keys>
+  <primary-key>
+    <field>tag_id</field><field>lng_id</field>
+  </primary-key>
+  <key name="lng_id">
+    <field>lng_id</field><field>tag_title</field>
+  </key>
+  <key name="tag_title">
+    <field>tag_title</field><field>lng_id</field>
+  </key>
+  <key name="tag_char">
+    <field>tag_char</field>
+  </key>
+</keys>
+</table>

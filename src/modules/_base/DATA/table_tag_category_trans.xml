@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="tag_category_trans" prefix="yes">
+<fields>
+<field name="category_id" type="integer" size="4"  null="no"/>
+<field name="lng_id" type="integer" size="4"  null="no"/>
+<field name="category_title" type="string" size="200"  null="no"/>
+<field name="category_description" type="string" size="65535"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>category_id</field><field>lng_id</field></primary-key>
+</keys>
+</table>

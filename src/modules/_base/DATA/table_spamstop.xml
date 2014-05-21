@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="spamstop" prefix="yes">
+<fields>
+<field name="spamstop_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="spamstop_word" type="string" size="100"  null="no"/>
+<field name="spamstop_lngid" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>spamstop_id</field></primary-key>
+<key name="spamstop_words">
+<field>spamstop_lngid</field><field>spamstop_word</field></key>
+</keys>
+</table>

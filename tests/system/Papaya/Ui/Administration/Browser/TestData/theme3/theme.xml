@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<papaya-theme>
+  <name>Theme 3</name>
+  <templates directory="theme-3" />
+  <version number="6.7" date="2009-12-31" />
+  <author>Papaya Software GmbH</author>
+  <description>This is the 3rd test theme.</description>
+</papaya-theme>

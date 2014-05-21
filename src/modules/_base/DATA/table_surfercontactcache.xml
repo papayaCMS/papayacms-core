@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="surfercontactcache" prefix="yes">
+  <fields>
+    <field name="contactcache_id" type="integer" size="4" null="no" autoinc="yes"/>
+    <field name="contactcache_start" type="string" size="32" null="no"/>
+    <field name="contactcache_target" type="string" size="32" null="no"/>
+    <field name="contactcache_paths" type="string" size="16777215" null="no"/>
+    <field name="contactcache_surfers" type="string" size="16777215" null="no"/>
+    <field name="contactcache_timestamp" type="integer" size="4" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>contactcache_id</field>
+    </primary-key>
+    <key name="contactcache_start">
+      <field>contactcache_start</field>
+    </key>
+    <key name="contactcache_target">
+      <field>contactcache_target</field>
+    </key>
+    <key name="contactcache_timestamp">
+      <field>contactcache_timestamp</field>
+    </key>
+  </keys>
+</table>

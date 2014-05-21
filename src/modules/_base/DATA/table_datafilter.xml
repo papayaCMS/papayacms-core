@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="datafilter" prefix="yes">
+<fields>
+<field name="datafilter_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="datafilter_title" type="string" size="200"  null="no"/>
+<field name="module_guid" type="string" size="32"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>datafilter_id</field></primary-key>
+</keys>
+</table>

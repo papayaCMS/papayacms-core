@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="linktypes" prefix="yes">
+<fields>
+<field name="linktype_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="linktype_name" type="string" size="100"  null="no"/>
+<field name="linktype_is_visible" type="integer" size="4"  null="no"/>
+<field name="linktype_class" type="string" size="100"  null="no"/>
+<field name="linktype_target" type="string" size="100"  null="no"/>
+<field name="linktype_is_popup" type="integer" size="4"  null="no"/>
+<field name="linktype_popup_config" type="string" size="65535"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>linktype_id</field></primary-key>
+<key name="linktype_name">
+<field>linktype_is_visible</field><field>linktype_name</field></key>
+</keys>
+</table>

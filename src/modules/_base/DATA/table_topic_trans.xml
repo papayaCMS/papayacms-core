@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="topic_trans" prefix="yes">
+<fields>
+<field name="topic_id" type="integer" size="8"  null="no"/>
+<field name="lng_id" type="integer" size="4"  null="no"/>
+<field name="topic_title" type="string" size="255"  null="no"/>
+<field name="topic_content" type="string" size="4294967295"  null="no"/>
+<field name="author_id" type="string" size="32"  null="no"/>
+<field name="author_group" type="integer" size="2"  null="no"/>
+<field name="author_perm" type="string" size="3"  null="no" default="777"/>
+<field name="module_guid" type="string" size="32"  null="no"/>
+<field name="view_id" type="integer" size="8"  null="no"/>
+<field name="topic_trans_created" type="integer" size="8"  null="no"/>
+<field name="topic_trans_modified" type="integer" size="8"  null="no"/>
+<field name="topic_trans_weight" type="string" size="255"  null="no" default="zzz"/>
+<field name="meta_title" type="string" size="200"  null="no"/>
+<field name="meta_keywords" type="string" size="65535"  null="no"/>
+<field name="meta_descr" type="string" size="65535"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>topic_id</field><field>lng_id</field></primary-key>
+<key name="lng_id">
+<field>lng_id</field><field>topic_id</field></key>
+</keys>
+</table>

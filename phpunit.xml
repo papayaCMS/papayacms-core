@@ -1,0 +1,14 @@
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         syntaxCheck="false">
+  <testsuites>
+    <testsuite name="papayaCMS">
+      <directory suffix="Test.php">tests</directory>
+    </testsuite>
+  </testsuites>
+  <filter>
+    <whitelist addUncoveredFilesFromWhitelist="true">
+      <directory>src/</directory>
+    </whitelist>
+  </filter>
+</phpunit>

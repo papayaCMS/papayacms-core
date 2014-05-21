@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="surferdatatitles" prefix="yes">
+  <fields>
+    <field name="surferdatatitle_id" type="integer" size="4"  null="no" autoinc="yes"/>
+    <field name="surferdatatitle_field" type="integer" size="4"  null="no"/>
+    <field name="surferdatatitle_lang" type="integer" size="4"  null="no"/>
+    <field name="surferdatatitle_title" type="string" size="65535"  null="no"/>
+    <field name="surferdatatitle_type" type="string" size="20"  null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>surferdatatitle_id</field></primary-key>
+    <key name="surferdatatitle_title" fulltext="yes">
+      <field>surferdatatitle_title</field></key>
+  </keys>
+</table>

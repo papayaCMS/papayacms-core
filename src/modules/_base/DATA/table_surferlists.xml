@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="surferlists" prefix="yes">
+<fields>
+<field name="surferlist_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="surferlist_surferid" type="string" size="32"  null="no"/>
+<field name="surferlist_contact" type="string" size="32"  null="no"/>
+<field name="surferlist_bookmark" type="integer" size="4"  null="no"  default="0"/>
+<field name="surferlist_blocked" type="integer" size="4"  null="no"  default="0"/>
+</fields>
+<keys>
+<primary-key>
+<field>surferlist_id</field></primary-key>
+<key name="surferlist_surferid">
+<field>surferlist_surferid</field></key>
+<key name="surferlist_contact">
+<field>surferlist_contact</field></key>
+</keys>
+</table>

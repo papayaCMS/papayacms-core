@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="modulegroups" prefix="yes">
+  <fields>
+    <field name="modulegroup_id" type="integer" size="4" null="no" autoinc="yes"/>
+    <field name="modulegroup_title" type="string" size="100" null="no"/>
+    <field name="modulegroup_path" type="string" size="65535" null="no"/>
+    <field name="modulegroup_tables" type="string" size="65535" null="no"/>
+    <field name="modulegroup_prefix" type="string" size="100" null="no"/>
+    <field name="modulegroup_classes" type="string" size="100" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>modulegroup_id</field>
+    </primary-key>
+  </keys>
+</table>

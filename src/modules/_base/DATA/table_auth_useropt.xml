@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="auth_useropt" prefix="yes">
+<fields>
+<field name="user_id" type="string" size="32"  null="no"/>
+<field name="opt_name" type="string" size="35"  null="no"/>
+<field name="opt_value" type="string" size="200"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>user_id</field><field>opt_name</field></primary-key>
+<key name="user_id">
+<field>user_id</field></key>
+</keys>
+</table>

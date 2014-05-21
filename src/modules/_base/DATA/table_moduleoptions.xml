@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="moduleoptions" prefix="yes">
+<fields>
+<field name="module_guid" type="string" size="32"  null="no"/>
+<field name="moduleoption_name" type="string" size="50"  null="no"/>
+<field name="moduleoption_value" type="string" size="65535"  null="no"/>
+<field name="moduleoption_type" type="string" size="10"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>module_guid</field><field>moduleoption_name</field></primary-key>
+</keys>
+</table>

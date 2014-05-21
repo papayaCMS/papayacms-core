@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="topic_versions" prefix="yes">
+  <fields>
+    <field name="version_id" type="integer" size="8"  null="no" autoinc="yes"/>
+    <field name="version_time" type="integer" size="8"  null="no"/>
+    <field name="version_author_id" type="string" size="32"  null="no"/>
+    <field name="version_message" type="string" size="250"  null="no"/>
+    <field name="topic_id" type="integer" size="8"  null="no"/>
+    <field name="topic_modified" type="integer" size="8"  null="no"/>
+    <field name="topic_audited" type="integer" size="8"  null="no"/>
+    <field name="topic_weight" type="string" size="200"  null="no"/>
+    <field name="topic_changefreq" type="integer" size="2"  null="no" default="2"/>
+    <field name="topic_priority" type="integer" size="2"  null="no" default="50"/>
+    <field name="meta_useparent" type="integer" size="2"  null="no"/>
+    <field name="box_useparent" type="integer" size="2"  null="no"/>
+    <field name="topic_mainlanguage" type="integer" size="4"  null="no"/>
+    <field name="topic_change_level" type="integer" size="2"  null="no"/>
+    <field name="linktype_id" type="integer" size="4"  null="no" default="1"/>
+    <field name="topic_protocol" type="integer" size="2"  null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>version_id</field>
+    </primary-key>
+    <key name="topic_id">
+      <field>topic_id</field>
+      <field>version_time</field>
+      <field>version_id</field>
+    </key>
+  </keys>
+</table>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="surferactivity" prefix="yes">
+<fields>
+<field name="surferactivity_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="surferactivity_surferid" type="string" size="32"  null="no"/>
+<field name="surferactivity_date" type="integer" size="4"  null="no"/>
+<field name="surferactivity_active" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>surferactivity_id</field></primary-key>
+<key name="surferactivity_surferid">
+<field>surferactivity_surferid</field><field>surferactivity_date</field></key>
+</keys>
+</table>

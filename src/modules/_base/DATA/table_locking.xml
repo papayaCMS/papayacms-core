@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="locking" prefix="yes">
+<fields>
+<field name="locking_type" type="integer" size="4"  null="no"/>
+<field name="locking_ident" type="string" size="100"  null="no"/>
+<field name="locking_time" type="integer" size="4"  null="no"/>
+<field name="locking_sid" type="string" size="32"  null="no"/>
+<field name="user_id" type="string" size="32"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>locking_type</field><field>locking_ident</field></primary-key>
+</keys>
+</table>

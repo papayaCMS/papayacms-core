@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table name="surfer" prefix="yes">
+  <fields>
+    <field name="surfer_id" type="string" size="32" null="no"/>
+    <field name="surfer_handle" type="string" size="255" null="no"/>
+    <field name="surfergroup_id" type="integer" size="4" null="no"/>
+    <field name="surfer_password" type="string" size="255" null="no"/>
+    <field name="surfer_givenname" type="string" size="20" null="no"/>
+    <field name="surfer_surname" type="string" size="30" null="no"/>
+    <field name="surfer_email" type="string" size="255" null="no"/>
+    <field name="surfer_valid" type="integer" size="2" null="no"/>
+    <field name="surfer_registration" type="integer" size="4" null="no"/>
+    <field name="surfer_lastlogin" type="integer" size="4" null="no"/>
+    <field name="surfer_lastaction" type="integer" size="4" null="no"/>
+    <field name="surfer_gender" type="string" size="1" null="no"/>
+    <field name="surfer_avatar" type="string" size="128" null="no"/>
+    <field name="auth_user_id" type="string" size="32" null="no"/>
+    <field name="surfer_status" type="integer" size="4" null="no"/>
+    <field name="surfer_lastmodified" type="integer" size="4" null="no"/>
+    <field name="surfer_relogin" type="string" size="32" null="no"/>
+    <field name="surfer_reloginby" type="string" size="32" null="no"/>
+    <field name="surfer_apikey" type="string" size="255" null="no"/>
+    <field name="surfer_language" type="integer" size="4" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>surfer_id</field>
+    </primary-key>
+    <key name="surfer_handle">
+      <field>surfer_handle</field>
+    </key>
+    <key name="auth_user_id">
+      <field>auth_user_id</field>
+    </key>
+    <key name="surfer_email">
+      <field>surfer_email</field>
+    </key>
+    <key name="surfer_registration">
+      <field>surfer_registration</field>
+    </key>
+    <key name="surfer_fullname" fulltext="yes">
+      <field>surfer_handle</field>
+      <field>surfer_givenname</field>
+      <field>surfer_surname</field>
+    </key>
+    <key name="surfer_relogin" fulltext="yes">
+      <field>surfer_relogin</field>
+    </key>
+    <key name="surfer_apikey">
+      <field>surfer_apikey</field>
+    </key>
+  </keys>
+</table>

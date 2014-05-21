@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="auth_perm" prefix="yes">
+<fields>
+<field name="perm_id" type="integer" size="8"  null="no" autoinc="yes"/>
+<field name="perm_title" type="string" size="40"  null="no"/>
+<field name="perm_active" type="integer" size="2"  null="no" default="1"/>
+<field name="permgroup_id" type="integer" size="2"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>perm_id</field></primary-key>
+<key name="perm_title">
+<field>perm_title</field></key>
+</keys>
+</table>

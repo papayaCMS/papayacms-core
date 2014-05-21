@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="cronjobs" prefix="yes">
+<fields>
+<field name="cronjob_id" type="integer" size="8"  null="no" autoinc="yes"/>
+<field name="cronjob_title" type="string" size="150"  null="no"/>
+<field name="cronjob_description" type="string" size="65535"  null="no"/>
+<field name="cronjob_active" type="integer" size="2"  null="no"/>
+<field name="cronjob_created" type="integer" size="8"  null="no"/>
+<field name="cronjob_modified" type="integer" size="8"  null="no"/>
+<field name="cronjob_lastexec" type="integer" size="8"  null="no"/>
+<field name="cronjob_nextexec" type="integer" size="8"  null="no"/>
+<field name="cronjob_start" type="integer" size="8"  null="no"/>
+<field name="cronjob_end" type="integer" size="8"  null="no"/>
+<field name="cron_module_guid" type="string" size="32"  null="no"/>
+<field name="cron_data" type="string" size="65535"  null="no"/>
+<field name="job_module_guid" type="string" size="32"  null="no"/>
+<field name="job_data" type="string" size="65535"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>cronjob_id</field></primary-key>
+</keys>
+</table>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="todos" prefix="yes">
+<fields>
+<field name="todo_id" type="integer" size="8"  null="no" autoinc="yes"/>
+<field name="topic_id" type="integer" size="8"  null="no"/>
+<field name="title" type="string" size="255"  null="no"/>
+<field name="priority" type="integer" size="2"  null="no"/>
+<field name="date_from" type="integer" size="8"  null="no"/>
+<field name="date_to" type="integer" size="8"  null="no"/>
+<field name="comment" type="string" size="255"  null="no"/>
+<field name="status" type="integer" size="2"  null="no"/>
+<field name="user_id_from" type="string" size="32"  null="no"/>
+<field name="user_id_to" type="string" size="32"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>todo_id</field></primary-key>
+</keys>
+</table>

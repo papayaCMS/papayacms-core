@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="auth_groups" prefix="yes">
+  <fields>
+    <field name="group_id" type="integer" size="2"  null="no" autoinc="yes"/>
+    <field name="grouptitle" type="string" size="40"  null="no"/>
+    <field name="groupperm" type="string" size="65535"  null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>group_id</field>
+    </primary-key>
+    <key name="grouptitle">
+      <field>grouptitle</field>
+    </key>
+  </keys>
+</table>

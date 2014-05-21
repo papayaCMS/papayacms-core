@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="tag_category_permissions" prefix="yes">
+<fields>
+<field name="category_id" type="integer" size="4"  null="no"/>
+<field name="permission_type" type="string" size="32"  null="no"/>
+<field name="permission_value" type="string" size="32"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>category_id</field><field>permission_type</field><field>permission_value</field></primary-key>
+</keys>
+</table>

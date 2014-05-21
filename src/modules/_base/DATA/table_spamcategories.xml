@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="spamcategories" prefix="yes">
+<fields>
+<field name="spamcategory_ident" type="string" size="10"  null="no"/>
+<field name="spamcategory_probability" type="float" size="5,4"  null="no"/>
+<field name="spamcategory_words" type="integer" size="8"  null="no"/>
+<field name="spamcategory_lngid" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>spamcategory_ident</field><field>spamcategory_lngid</field></primary-key>
+</keys>
+</table>

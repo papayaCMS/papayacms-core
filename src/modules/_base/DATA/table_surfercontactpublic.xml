@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?><table name="surfercontactpublic" prefix="yes">
+<fields>
+<field name="surfercontactpublic_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="surfercontactpublic_surferid" type="string" size="32"  null="no"/>
+<field name="surfercontactpublic_partner" type="string" size="32"  null="no"/>
+<field name="surfercontactpublic_data" type="integer" size="4"  null="no"/>
+<field name="surfercontactpublic_public" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>surfercontactpublic_id</field></primary-key>
+</keys>
+</table>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="phrase_relmod" prefix="yes">
+<fields>
+<field name="phrase_id" type="integer" size="8"  null="no"/>
+<field name="module_id" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>phrase_id</field><field>module_id</field></primary-key>
+<key name="module_id">
+<field>module_id</field><field>phrase_id</field></key>
+</keys>
+</table>

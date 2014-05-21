@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="mediadb_folders" prefix="yes">
+<fields>
+<field name="folder_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="parent_id" type="integer" size="4"  null="no"/>
+<field name="parent_path" type="string" size="200"  null="no"/>
+<field name="permission_mode" type="string" size="32"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>folder_id</field></primary-key>
+</keys>
+</table>

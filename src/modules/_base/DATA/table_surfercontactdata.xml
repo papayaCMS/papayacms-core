@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="surfercontactdata" prefix="yes">
+  <fields>
+    <field name="surfercontactdata_id" type="integer" size="4" null="no" autoinc="yes"/>
+    <field name="surfercontactdata_surferid" type="string" size="32" null="no"/>
+    <field name="surfercontactdata_property" type="integer" size="4" null="no"/>
+    <field name="surfercontactdata_value" type="string" size="65535" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>surfercontactdata_id</field>
+    </primary-key>
+    <key name="surfercontactdata">
+      <field>surfercontactdata_property</field>
+      <field>surfercontactdata_surferid</field>
+    </key>
+    <key name="surfercontactdata_property">
+      <field>surfercontactdata_property</field>
+    </key>
+    <key name="surfercontactdata_surferid">
+      <field>surfercontactdata_surferid</field>
+    </key>
+    <key name="surfercontactdata_value" fulltext="yes">
+      <field>surfercontactdata_value</field>
+    </key>
+  </keys>
+</table>

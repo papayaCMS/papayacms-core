@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="mediadb_folders_trans" prefix="yes">
+<fields>
+<field name="folder_id" type="integer" size="4"  null="no"/>
+<field name="lng_id" type="integer" size="4"  null="no"/>
+<field name="folder_name" type="string" size="100"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>folder_id</field><field>lng_id</field></primary-key>
+</keys>
+</table>

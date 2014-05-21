@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="phrase_trans" prefix="yes">
+<fields>
+<field name="phrase_id" type="integer" size="8"  null="no"/>
+<field name="lng_id" type="integer" size="2"  null="no"/>
+<field name="translation" type="string" size="65535"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>phrase_id</field><field>lng_id</field></primary-key>
+</keys>
+</table>

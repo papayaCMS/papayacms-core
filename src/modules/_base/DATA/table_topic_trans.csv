@@ -1,0 +1,148 @@
+"topic_id","lng_id","topic_title","topic_content","author_id","author_group","author_perm","module_guid","view_id","topic_trans_created","topic_trans_modified","topic_trans_weight","meta_title","meta_keywords","meta_descr"
+"1","1","www.domain.tld","<data><data-element name=""url""><![CDATA[2]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","5","1142413361","1142416236","zzz","","",""
+"1","2","www.domain.tld","<data><data-element name=""url""><![CDATA[2]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","5","1142413386","1142413714","zzz","","",""
+"2","2","Startseite","<data><data-element name=""nl2br""><![CDATA[1]]></data-element>
+<data-element name=""title""><![CDATA[Willkommen bei papaya CMS&#33;]]></data-element>
+<data-element name=""subtitle""><![CDATA[&#46;&#46;&#46;willkommen zu Ihrer neuen Webseite&#33;]]></data-element>
+<data-element name=""teaser""><![CDATA[]]></data-element>
+<data-element name=""image""><![CDATA[]]></data-element>
+<data-element name=""imgalign""><![CDATA[left]]></data-element>
+<data-element name=""breakstyle""><![CDATA[none]]></data-element>
+<data-element name=""text""><![CDATA[Sie haben papaya CMS installiert und k&#195;&#182;nnen nun Ihre Webseite &#195;&#188;ber den Browser editieren&#46;  &#60;br &#47;&#62;&#60;br &#47;&#62;Dies ist eine Platzhalter-Seite, die automatisch bei der Installation angelegt wird&#46; &#40;Sicher m&#195;&#182;chten Sie die enthaltenen Demo-Inhalte durch Ihre eigenen ersetzen und das Design Ihren Vorstellungen anpassen&#46;&#41;&#60;br &#47;&#62;&#60;br &#47;&#62;Die Demoseite dient nur zu Demonstrationszwecken und hat nichts mit dem Webangebot der papaya Software GmbH bzw&#46; den offizellen Seiten zum papaya CMS zu tun - diese Seiten finden Sie &#60;papaya&#58;link text&#61;&#34;hier&#34; href&#61;&#34;http&#58;&#47;&#47;www&#46;papaya-cms&#46;com&#34; &#47;&#62;&#46; Dort finden Sie auch weitere Informationen zum papaya CMS sowie die Anwender- und Entwicklerdokumentation&#46;  &#60;br &#47;&#62;&#60;br &#47;&#62;Danke, dass Sie sich f&#195;&#188;r papaya CMS entschieden haben&#33; Wir w&#195;&#188;nschen Ihnen viel Erfolg mit Ihrem Webangebot und nat&#195;&#188;rlich viel Spa&#195;&#159; bei der Arbeit mit dem Programm&#46;  &#60;br &#47;&#62;&#60;br &#47;&#62;Das papaya-Team]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","3","1142413683","1171357150","zzz","","",""
+"3","2","Rezepte","<data><data-element name=""max""><![CDATA[10000]]></data-element>
+<data-element name=""columns""><![CDATA[2]]></data-element>
+<data-element name=""sort""><![CDATA[0]]></data-element>
+<data-element name=""image""><![CDATA[]]></data-element>
+<data-element name=""imgalign""><![CDATA[left]]></data-element>
+<data-element name=""breakstyle""><![CDATA[none]]></data-element>
+<data-element name=""nl2br""><![CDATA[1]]></data-element>
+<data-element name=""title""><![CDATA[Rezepte]]></data-element>
+<data-element name=""subtitle""><![CDATA[]]></data-element>
+<data-element name=""teaser""><![CDATA[]]></data-element>
+<data-element name=""text""><![CDATA[Papaya ist freilich nicht nur der Name unseres CMS, sondern auch eine sehr aromatische tropische Frucht&#46; Auf den folgenden Seiten sind einige Cocktail-Rezepte aufgef&#195;&#188;hrt, mit denen Sie auf den Papaya-Geschmack kommen k&#195;&#182;nnen&#46;]]></data-element>
+<data-element name=""thumbwidth""><![CDATA[100]]></data-element>
+<data-element name=""thumbheight""><![CDATA[100]]></data-element>
+<data-element name=""resizemode""><![CDATA[max]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","2","1142413956","1142416023","zzz","","",""
+"4","2","Orangen-Papaya-Lassie","<data><data-element name=""nl2br""><![CDATA[1]]></data-element>
+<data-element name=""title""><![CDATA[Orangen-Papaya-Lassie]]></data-element>
+<data-element name=""subtitle""><![CDATA[]]></data-element>
+<data-element name=""teaser""><![CDATA[Ein frischer, fruchtiger Cocktail&#46;]]></data-element>
+<data-element name=""image""><![CDATA[]]></data-element>
+<data-element name=""imgalign""><![CDATA[left]]></data-element>
+<data-element name=""breakstyle""><![CDATA[none]]></data-element>
+<data-element name=""text""><![CDATA[&#60;h3&#62;Zutaten&#60;&#47;h3&#62;&#13;&#10;&#60;ul&#62;&#13;&#10;  &#60;li&#62;450 g Orangen &#40;3 St&#195;&#188;ck&#41;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;200 g Papaya &#40;1 vollreife mittelgro&#195;&#159;e&#41;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;2 gestrichene Essl&#195;&#182;ffel Zitronensaft&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;1 gestrichener Teel&#195;&#182;ffel Honig&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;2 g Zitronenmelisse &#40;einige Bl&#195;&#164;ttchen&#41;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;1 g Vanille &#40;Mark von 1&#47;4 Schote&#41;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;375 g Buttermilch&#60;&#47;li&#62;&#13;&#10;&#60;&#47;ul&#62;&#13;&#10;&#60;h3&#62;Zubereitung&#60;&#47;h3&#62;&#13;&#10;&#60;ol&#62;&#13;&#10;  &#60;li&#62;Orangen auspressen, Papaya halbieren, Kerne herausl&#195;&#182;sen&#46;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;Fruchtfleisch sch&#195;&#164;len und in W&#195;&#188;rfel schneiden&#46; Mit Orangen- und Zitronensaft, Honig und abgebrauster Zitronenmelisse in einem Standmixer oder mit einem P&#195;&#188;rierstab kr&#195;&#164;ftig durchmixen&#46;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;Alles mit einigen Eisw&#195;&#188;rfeln in zwei Longdrinkgl&#195;&#164;ser f&#195;&#188;llen&#46;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;Vanillemark und Buttermilch verr&#195;&#188;hren, Fruchtsaft damit auff&#195;&#188;llen&#46;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;Drinks mit Zitronenmelissebl&#195;&#164;ttchen garnieren und genie&#195;&#159;en&#33;&#60;&#47;li&#62;&#13;&#10;&#60;&#47;ol&#62;]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","3","1142414122","1142414431","zzz","","",""
+"6","2","Batida de Papaya","<data><data-element name=""nl2br""><![CDATA[1]]></data-element>
+<data-element name=""title""><![CDATA[Batida de Papaya]]></data-element>
+<data-element name=""subtitle""><![CDATA[]]></data-element>
+<data-element name=""teaser""><![CDATA[Mix it&#46;]]></data-element>
+<data-element name=""image""><![CDATA[]]></data-element>
+<data-element name=""imgalign""><![CDATA[left]]></data-element>
+<data-element name=""breakstyle""><![CDATA[none]]></data-element>
+<data-element name=""text""><![CDATA[&#60;h3&#62;Zutaten&#60;&#47;h3&#62;&#13;&#10;&#60;ul&#62;&#13;&#10;  &#60;li&#62;4 cl Cacha&#195;&#167;a&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;3 Essl&#195;&#182;ffel frische Papayast&#195;&#188;cke&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;1 cl frischer Limettensaft&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;2 Teel&#195;&#182;ffel Rohrzucker&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;Dekoration nach Belieben&#60;br &#47;&#62;&#60;&#47;li&#62;&#13;&#10;&#60;&#47;ul&#62;&#13;&#10;&#60;h3&#62;Zubereitung&#60;&#47;h3&#62;&#13;&#10;&#60;ol&#62;&#13;&#10;  &#60;li&#62;Alle Zutaten mit ein wenig Crushed Ice im Mixer p&#195;&#188;rieren&#46;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;In ein Cocktailglas einf&#195;&#188;llen und mit Crushed Ice auff&#195;&#188;llen&#46;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;Dekorieren und genie&#195;&#159;en &#46; &#46; &#46; Salute&#33;&#60;&#47;li&#62;&#13;&#10;&#60;&#47;ol&#62;]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","3","1142414481","1142414695","zzz","","",""
+"7","2","Kontakt","<data><data-element name=""title""><![CDATA[Kontaktformular]]></data-element>
+<data-element name=""msg_mailto""><![CDATA[name&#64;domain&#46;tld]]></data-element>
+<data-element name=""msg_hello""><![CDATA[Hinweis&#58; Um das Formular nutzen zu k&#195;&#182;nnen, m&#195;&#188;ssen Sie nat&#195;&#188;rlich die eingestellte Mailadresse &#195;&#164;ndern &#40;name&#64;domain&#46;tld existiert nicht&#33;&#41;&#46;&#13;&#10;&#13;&#10;Wir empfehlen, an dieser Stelle Ihre Kontaktdaten einzutragen&#46;&#13;&#10;&#13;&#10;]]></data-element>
+<data-element name=""msg_subject""><![CDATA[&#91;Comment&#93; &#123;&#37;subject&#37;&#125;]]></data-element>
+<data-element name=""msg_body""><![CDATA[Name&#58; &#123;&#37;NAME&#37;&#125;&#13;&#10;Email&#58; &#123;&#37;FROM&#37;&#125;&#13;&#10;&#13;&#10;Comment&#58;&#13;&#10;&#123;&#37;TEXT&#37;&#125;]]></data-element>
+<data-element name=""cap_sender""><![CDATA[Ihr Name]]></data-element>
+<data-element name=""cap_email""><![CDATA[Ihre E-Mail-Adresse]]></data-element>
+<data-element name=""cap_subject""><![CDATA[Betreff]]></data-element>
+<data-element name=""cap_message""><![CDATA[Ihre Nachricht]]></data-element>
+<data-element name=""confirm_subject""><![CDATA[]]></data-element>
+<data-element name=""confirm_body""><![CDATA[Thank you for your comment&#46; We will handle it as soon as possible&#46;]]></data-element>
+<data-element name=""msg_error""><![CDATA[Please check your input&#46;]]></data-element>
+<data-element name=""msg_send""><![CDATA[Message sent&#46; Thank You&#46;]]></data-element>
+<data-element name=""msg_notsend""><![CDATA[Send Error&#46; Please try again&#46;]]></data-element>
+<data-element name=""msg_privacy""><![CDATA[]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","6","1142414726","1142415000","zzz","","",""
+"8","2","Sitemap","<data><data-element name=""title""><![CDATA[Sitemap]]></data-element>
+<data-element name=""text""><![CDATA[Mit der Sitemap geben Sie den Besuchern Ihres Webangebots den vollen &#195;&#156;berblick &#195;&#188;ber die Seitenstruktur&#46;]]></data-element>
+<data-element name=""cols""><![CDATA[2]]></data-element>
+<data-element name=""root""><![CDATA[1]]></data-element>
+<data-element name=""format""><![CDATA[path]]></data-element>
+<data-element name=""forstart""><![CDATA[1]]></data-element>
+<data-element name=""forend""><![CDATA[3]]></data-element>
+<data-element name=""focus""><![CDATA[dyna]]></data-element>
+<data-element name=""foclevels""><![CDATA[0]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","4","1142415043","1142415337","zzz","","",""
+"2","1","Homepage","<data><data-element name=""nl2br""><![CDATA[1]]></data-element>
+<data-element name=""title""><![CDATA[Welcome to papaya CMS&#33;]]></data-element>
+<data-element name=""subtitle""><![CDATA[&#46;&#46;&#46; and welcome to your new web site&#33;]]></data-element>
+<data-element name=""teaser""><![CDATA[]]></data-element>
+<data-element name=""image""><![CDATA[]]></data-element>
+<data-element name=""imgalign""><![CDATA[left]]></data-element>
+<data-element name=""breakstyle""><![CDATA[none]]></data-element>
+<data-element name=""text""><![CDATA[You have installed papaya CMS and are now able to edit your web pages with your browser&#46;&#60;br &#47;&#62;&#60;br &#47;&#62;This page is only a placeholder which is created automatically during installation&#46; &#40;You will certainly want to replace the demo-content with your own pages and apply changes to the layout of the web template according to your own taste&#46;&#41;&#60;br &#47;&#62;&#60;br &#47;&#62;The pages shown in this standard installation have only the purpose to demonstrate the look and feel of papaya CMS and are not related to papaya Software GmbH&#46;   Your can find the company&#39;s pages &#60;papaya&#58;link text&#61;&#34;here&#34; href&#61;&#34;http&#58;&#47;&#47;www&#46;papaya-cms&#46;com&#34; altmode&#61;&#34;auto&#34; &#47;&#62;&#46; Check this site to learn more about papaya CMS and to read the developer&#39;s and user&#39;s manual&#46;&#60;br &#47;&#62;&#60;br &#47;&#62;Thank you for choosing papaya CMS&#46; We hope that you will be successful with your web project and, of course, that you will enjoy using our program&#46;&#60;br &#47;&#62;&#60;br &#47;&#62;The papaya CMS team]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","3","1142416197","1161172038","zzz","","",""
+"3","1","Recipes","<data><data-element name=""max""><![CDATA[10000]]></data-element>
+<data-element name=""columns""><![CDATA[2]]></data-element>
+<data-element name=""sort""><![CDATA[0]]></data-element>
+<data-element name=""image""><![CDATA[]]></data-element>
+<data-element name=""imgalign""><![CDATA[left]]></data-element>
+<data-element name=""breakstyle""><![CDATA[none]]></data-element>
+<data-element name=""nl2br""><![CDATA[1]]></data-element>
+<data-element name=""title""><![CDATA[]]></data-element>
+<data-element name=""subtitle""><![CDATA[]]></data-element>
+<data-element name=""teaser""><![CDATA[]]></data-element>
+<data-element name=""text""><![CDATA[Papaya, the tropical fruit that gave our CMS the name, shows to be quite aromatic when you use it for long drinks and cocktails&#46; The following pages contain a collection of our favorite papaya drinks&#46;]]></data-element>
+<data-element name=""thumbwidth""><![CDATA[100]]></data-element>
+<data-element name=""thumbheight""><![CDATA[100]]></data-element>
+<data-element name=""resizemode""><![CDATA[max]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","2","1142417000","1161172072","zzz","","",""
+"4","1","Orange Papaya Lassie","<data><data-element name=""max""><![CDATA[10000]]></data-element>
+<data-element name=""columns""><![CDATA[2]]></data-element>
+<data-element name=""sort""><![CDATA[0]]></data-element>
+<data-element name=""image""><![CDATA[]]></data-element>
+<data-element name=""imgalign""><![CDATA[left]]></data-element>
+<data-element name=""breakstyle""><![CDATA[none]]></data-element>
+<data-element name=""nl2br""><![CDATA[1]]></data-element>
+<data-element name=""title""><![CDATA[]]></data-element>
+<data-element name=""subtitle""><![CDATA[]]></data-element>
+<data-element name=""teaser""><![CDATA[A fresh and fruity cocktail]]></data-element>
+<data-element name=""text""><![CDATA[&#60;h3&#62;Ingredients&#60;&#47;h3&#62;&#13;&#10;&#60;span class&#61;&#34;recipetitle&#34;&#62;&#13;&#10;&#60;ul&#62;&#13;&#10;  &#60;li&#62;3 oranges&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;1 papaya &#40;ripe&#41;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;2 tablespoons lemon juice&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;1 tea spoon honey&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;a few leaves of lemon balm&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;1 gram Vanilla&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;375 g Buttermilk&#60;&#47;li&#62;&#13;&#10;&#60;&#47;ul&#62;&#13;&#10;&#60;h3&#62;Directions&#60;&#47;h3&#62;&#13;&#10;&#60;span class&#61;&#34;recipetitle&#34;&#62;&#13;&#10;&#60;ol&#62;&#13;&#10;  &#60;li&#62;Squeeze out oranges, peel and chop papaya and remove the stones&#46;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;Put papaya, orange juice, lemon juice, honey, washed lemon balm in a mixer and mix it for 15 to 30 seconds&#46;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;Pour mixed fruit into two long drink glasses, fill in a few ice cubes&#46;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;Combine Vanilla with buttermilk, and use it to fill up the long drink&#46;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;Decorate the drinks with lemon balm and enjoy&#33;&#60;&#47;li&#62;&#13;&#10;&#60;&#47;ol&#62;&#13;&#10;&#60;&#47;span&#62;&#60;&#47;span&#62;]]></data-element>
+<data-element name=""thumbwidth""><![CDATA[100]]></data-element>
+<data-element name=""thumbheight""><![CDATA[100]]></data-element>
+<data-element name=""resizemode""><![CDATA[max]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","2","1142417861","1142426171","zzz","","",""
+"6","1","Batida de Papaya","<data><data-element name=""nl2br""><![CDATA[1]]></data-element>
+<data-element name=""title""><![CDATA[Batida de Papaya]]></data-element>
+<data-element name=""subtitle""><![CDATA[]]></data-element>
+<data-element name=""teaser""><![CDATA[Mix it&#46;]]></data-element>
+<data-element name=""image""><![CDATA[]]></data-element>
+<data-element name=""imgalign""><![CDATA[left]]></data-element>
+<data-element name=""breakstyle""><![CDATA[none]]></data-element>
+<data-element name=""text""><![CDATA[&#60;h3&#62;Ingredients&#60;&#47;h3&#62;&#13;&#10;&#60;ul&#62;&#13;&#10;  &#60;li&#62;4 cl Cacha&#195;&#167;a&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;3 tablespoons pulp of a fresh papaya fruit&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;1 cl fresh lime juice&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;2 tea spoons cane sugar&#60;&#47;li&#62;&#13;&#10;&#60;&#47;ul&#62;&#13;&#10;&#60;h3&#62;Directions&#60;&#47;h3&#62;&#13;&#10;&#60;ol&#62;&#13;&#10;  &#60;li&#62;Put all ingredients with crushed ice into a mixer and mix it&#46;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;Pour into a cocktail glas and fill up with crushed ice&#46;&#60;&#47;li&#62;&#13;&#10;  &#60;li&#62;Decorate and enjoy&#33;&#60;&#47;li&#62;&#13;&#10;&#60;&#47;ol&#62;]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","3","1142419307","1142426195","zzz","","",""
+"7","1","Contact us","<data><data-element name=""title""><![CDATA[Contact Form]]></data-element>
+<data-element name=""msg_mailto""><![CDATA[name&#64;domain&#46;tld]]></data-element>
+<data-element name=""msg_hello""><![CDATA[Hint&#58; In order to be able to use this form you have to change the email address &#40;name&#64;domain&#46;tld doesn&#39;t exist&#33;&#41;&#46;&#13;&#10;&#13;&#10;We suggest that you insert your contact information here&#46;&#13;&#10;&#13;&#10;]]></data-element>
+<data-element name=""msg_subject""><![CDATA[&#91;Comment&#93; &#123;&#37;subject&#37;&#125;]]></data-element>
+<data-element name=""msg_body""><![CDATA[Name&#58; &#123;&#37;NAME&#37;&#125;&#13;&#10;Email&#58; &#123;&#37;FROM&#37;&#125;&#13;&#10;&#13;&#10;Comment&#58;&#13;&#10;&#123;&#37;TEXT&#37;&#125;]]></data-element>
+<data-element name=""cap_sender""><![CDATA[Your name]]></data-element>
+<data-element name=""cap_email""><![CDATA[Your email address]]></data-element>
+<data-element name=""cap_subject""><![CDATA[Subject]]></data-element>
+<data-element name=""cap_message""><![CDATA[Your message]]></data-element>
+<data-element name=""confirm_subject""><![CDATA[]]></data-element>
+<data-element name=""confirm_body""><![CDATA[Thank you for your comment&#46; We will handle it as soon as possible&#46;]]></data-element>
+<data-element name=""msg_error""><![CDATA[Please check your input&#46;]]></data-element>
+<data-element name=""msg_send""><![CDATA[Message sent&#46; Thank You&#46;]]></data-element>
+<data-element name=""msg_notsend""><![CDATA[Send Error&#46; Please try again&#46;]]></data-element>
+<data-element name=""msg_privacy""><![CDATA[]]></data-element>
+<data-element name=""nl2br""><![CDATA[0]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","6","1142419686","1161172114","zzz","","",""
+"8","1","Sitemap","<data><data-element name=""title""><![CDATA[Sitemap]]></data-element>
+<data-element name=""text""><![CDATA[The sitemap gives the visitors of your web site a quick overview of the site structure&#46;]]></data-element>
+<data-element name=""cols""><![CDATA[2]]></data-element>
+<data-element name=""root""><![CDATA[1]]></data-element>
+<data-element name=""format""><![CDATA[path]]></data-element>
+<data-element name=""forstart""><![CDATA[1]]></data-element>
+<data-element name=""forend""><![CDATA[3]]></data-element>
+<data-element name=""focus""><![CDATA[dyna]]></data-element>
+<data-element name=""foclevels""><![CDATA[0]]></data-element>
+</data>","c70d84d1c5c5751e28380574639fc302","0","777","","4","1142420104","1142420205","zzz","","",""

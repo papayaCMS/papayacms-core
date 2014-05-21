@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="mediadb_mimetypes_extensions" prefix="yes">
+<fields>
+<field name="mimetype_id" type="integer" size="4"  null="no"/>
+<field name="mimetype_extension" type="string" size="32"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>mimetype_id</field><field>mimetype_extension</field></primary-key>
+</keys>
+</table>

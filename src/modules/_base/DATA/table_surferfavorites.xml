@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="surferfavorites" prefix="yes">
+<fields>
+<field name="favorite_surferid" type="string" size="32"  null="no"/>
+<field name="favorite_timestamp" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>favorite_surferid</field></primary-key>
+</keys>
+</table>

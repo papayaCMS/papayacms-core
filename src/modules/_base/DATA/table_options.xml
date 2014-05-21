@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="options" prefix="yes">
+<fields>
+<field name="opt_name" type="string" size="60"  null="no" default="optionname"/>
+<field name="opt_value" type="string" size="200"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>opt_name</field></primary-key>
+</keys>
+</table>

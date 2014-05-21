@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="auth_modperm_link" prefix="yes">
+<fields>
+<field name="group_id" type="integer" size="2"  null="no"/>
+<field name="user_id" type="string" size="32"  null="no"/>
+<field name="module_id" type="string" size="32"  null="no"/>
+<field name="module_perms" type="string" size="250"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>group_id</field><field>user_id</field><field>module_id</field></primary-key>
+<key name="user_id">
+<field>user_id</field><field>group_id</field><field>module_id</field></key>
+</keys>
+</table>

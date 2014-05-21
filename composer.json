@@ -1,0 +1,20 @@
+{
+  "name": "papaya/cms-core",
+  "description": "papaya CMS core framework",
+  "minimum-stability": "dev",
+  "extra" : {
+    "document-root" : "htdocs/"
+  },
+  "require-dev": {
+    "papaya/cms-administration": "*",
+    "papaya/template-responsive": "*",
+    "papaya/theme-dynamic": "*",
+    "papaya/unittest-framework": "*"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://composer.dev.dim/"
+    }
+  ]
+}

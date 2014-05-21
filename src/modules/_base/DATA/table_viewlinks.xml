@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="viewlinks" prefix="yes">
+<fields>
+<field name="view_id" type="integer" size="4"  null="no"/>
+<field name="viewmode_id" type="integer" size="4"  null="no"/>
+<field name="viewlink_data" type="string" size="65535"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>view_id</field><field>viewmode_id</field></primary-key>
+</keys>
+</table>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?><table name="surferdataclasstitles" prefix="yes">
+  <fields>
+    <field name="surferdataclasstitle_id" type="integer" size="4"  null="no" autoinc="yes"/>
+    <field name="surferdataclasstitle_classid" type="integer" size="4"  null="no"/>
+    <field name="surferdataclasstitle_lang" type="integer" size="4"  null="no"/>
+    <field name="surferdataclasstitle_name" type="string" size="100"  null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>surferdataclasstitle_id</field></primary-key>
+    <key name="surferdataclasstitle_lang">
+      <field>surferdataclasstitle_lang</field><field>surferdataclasstitle_name</field></key>
+  </keys>
+</table>

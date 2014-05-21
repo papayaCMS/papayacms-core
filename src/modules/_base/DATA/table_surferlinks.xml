@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="surferlinks" prefix="yes">
+<fields>
+<field name="surfer_permid" type="integer" size="8"  null="no"/>
+<field name="surfergroup_id" type="integer" size="8"  null="no"/>
+</fields>
+<keys>
+<key name="surfer_permid">
+<field>surfer_permid</field><field>surfergroup_id</field></key>
+<key name="surfer_id">
+<field>surfergroup_id</field></key>
+</keys>
+</table>

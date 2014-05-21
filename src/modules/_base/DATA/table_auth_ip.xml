@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="auth_ip" prefix="yes">
+<fields>
+<field name="auth_ip" type="string" size="15"  null="no"/>
+<field name="auth_ip_status" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>auth_ip</field></primary-key>
+</keys>
+</table>

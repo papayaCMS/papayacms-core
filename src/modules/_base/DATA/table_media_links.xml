@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="media_links" prefix="yes">
+<fields>
+<field name="page_id" type="integer" size="8"  null="no"/>
+<field name="language_id" type="integer" size="8"  null="no"/>
+<field name="file_id" type="string" size="200"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>page_id</field><field>file_id</field></primary-key>
+</keys>
+</table>

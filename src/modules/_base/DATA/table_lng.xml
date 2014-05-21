@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="lng" prefix="yes">
+<fields>
+<field name="lng_id" type="integer" size="2"  null="no" autoinc="yes"/>
+<field name="lng_ident" type="string" size="3"  null="no"/>
+<field name="lng_short" type="string" size="7"  null="no"/>
+<field name="lng_title" type="string" size="30"  null="no"/>
+<field name="lng_glyph" type="string" size="30"  null="no"/>
+<field name="is_interface_lng" type="integer" size="2"  null="no" default="1"/>
+<field name="is_content_lng" type="integer" size="2"  null="no" default="1"/>
+</fields>
+<keys>
+<primary-key>
+<field>lng_id</field></primary-key>
+<key name="lng_ident" unique="yes">
+<field>lng_ident</field></key>
+</keys>
+</table>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="phrase_module" prefix="yes">
+<fields>
+<field name="module_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="module_title" type="string" size="255"  null="no"/>
+<field name="module_title_lower" type="string" size="255"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>module_id</field></primary-key>
+<key name="module_title_lower">
+<field>module_title_lower</field></key>
+</keys>
+</table>

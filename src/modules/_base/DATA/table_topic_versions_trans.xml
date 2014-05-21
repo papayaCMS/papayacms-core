@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="topic_versions_trans" prefix="yes">
+<fields>
+<field name="version_id" type="integer" size="8"  null="no"/>
+<field name="lng_id" type="integer" size="4"  null="no"/>
+<field name="topic_id" type="integer" size="8"  null="no"/>
+<field name="topic_title" type="string" size="255"  null="no"/>
+<field name="topic_content" type="string" size="4294967295"  null="no"/>
+<field name="topic_trans_weight" type="string" size="255"  null="no" default="zzz"/>
+<field name="author_id" type="string" size="32"  null="no"/>
+<field name="view_id" type="integer" size="8"  null="no"/>
+<field name="meta_title" type="string" size="200"  null="no"/>
+<field name="meta_keywords" type="string" size="65535"  null="no"/>
+<field name="meta_descr" type="string" size="65535"  null="no"/>
+<field name="version_published" type="integer" size="4"  null="no" default="1"/>
+</fields>
+<keys>
+<primary-key>
+<field>version_id</field><field>lng_id</field></primary-key>
+<key name="version_id">
+<field>version_id</field></key>
+<key name="lng_id">
+<field>lng_id</field></key>
+</keys>
+</table>

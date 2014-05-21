@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="messages" prefix="yes">
+<fields>
+<field name="msg_id" type="integer" size="8"  null="no" autoinc="yes"/>
+<field name="msg_prev_id" type="integer" size="8"  null="no"/>
+<field name="msg_thread_id" type="integer" size="8"  null="no"/>
+<field name="msg_folder_id" type="integer" size="4"  null="no"/>
+<field name="msg_owner_id" type="string" size="32"  null="no"/>
+<field name="msg_to" type="string" size="65535"  null="no"/>
+<field name="msg_cc" type="string" size="65535"  null="no"/>
+<field name="msg_bcc" type="string" size="65535"  null="no"/>
+<field name="msg_from" type="string" size="32"  null="no"/>
+<field name="msg_datetime" type="integer" size="8"  null="no"/>
+<field name="msg_subject" type="string" size="200"  null="no"/>
+<field name="msg_text" type="string" size="65535"  null="no"/>
+<field name="msg_priority" type="integer" size="2"  null="no"/>
+<field name="msg_type" type="integer" size="2"  null="no"/>
+<field name="msg_new" type="integer" size="2"  null="no" default="1"/>
+<field name="msg_rel_topic_id" type="integer" size="8"  null="no"/>
+<field name="msg_rel_box_id" type="integer" size="8"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>msg_id</field></primary-key>
+<key name="msg_prev_id">
+<field>msg_prev_id</field><field>msg_id</field></key>
+<key name="msg_owner_id">
+<field>msg_owner_id</field><field>msg_datetime</field></key>
+</keys>
+</table>

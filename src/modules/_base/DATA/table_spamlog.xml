@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="spamlog" prefix="yes">
+<fields>
+<field name="spamlog_id" type="integer" size="8"  null="no" autoinc="yes"/>
+<field name="spamcategory_id" type="integer" size="4"  null="no"/>
+<field name="spamlog_time" type="integer" size="8"  null="no"/>
+<field name="spamlog_info" type="string" size="200"  null="no"/>
+<field name="spamlog_text" type="string" size="65535"  null="no"/>
+<field name="spamlog_lngid" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>spamlog_id</field></primary-key>
+<key name="papaya_spamlog_fkindex1">
+<field>spamcategory_id</field></key>
+</keys>
+</table>

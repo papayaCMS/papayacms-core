@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="topic" prefix="yes">
+  <fields>
+    <field name="topic_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="prev" type="integer" size="8" null="no"/>
+    <field name="prev_path" type="string" size="65535" null="no"/>
+    <field name="is_deleted" type="integer" size="2" null="no"/>
+    <field name="author_id" type="string" size="32" null="no"/>
+    <field name="author_group" type="integer" size="2" null="no"/>
+    <field name="author_perm" type="string" size="3" null="no" default="777"/>
+    <field name="topic_mainlanguage" type="integer" size="4" null="no"/>
+    <field name="topic_created" type="integer" size="8" null="no"/>
+    <field name="topic_modified" type="integer" size="8" null="no"/>
+    <field name="topic_weight" type="string" size="200" null="no" default="zzz"/>
+    <field name="topic_changefreq" type="integer" size="2" null="no" default="2"/>
+    <field name="topic_priority" type="integer" size="2" null="no" default="50"/>
+    <field name="meta_useparent" type="integer" size="2" null="no"/>
+    <field name="box_useparent" type="integer" size="2" null="no" default="1"/>
+    <field name="surfer_useparent" type="integer" size="2" null="no" default="2"/>
+    <field name="surfer_permids" type="string" size="255" null="no"/>
+    <field name="linktype_id" type="integer" size="4" null="no" default="1"/>
+    <field name="topic_protocol" type="integer" size="2"  null="no"/>
+    <field name="topic_cachemode" type="integer" size="4"  null="no" default="1"/>
+    <field name="topic_cachetime" type="integer" size="4"  null="no"/>
+    <field name="topic_expiresmode" type="integer" size="4" null="no" default="1"/>
+    <field name="topic_expirestime" type="integer" size="4" null="no"/>
+    <field name="topic_sessionmode" type="integer" size="4" null="no"/>
+    <field name="topic_unpublished_languages" type="integer" size="4" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>topic_id</field>
+    </primary-key>
+    <key name="prev">
+      <field>prev</field>
+      <field>topic_id</field>
+    </key>
+    <key name="topic_weight">
+      <field>topic_weight</field>
+      <field>topic_created</field>
+    </key>
+    <key name="prev_path">
+      <field size="250">prev_path</field>
+    </key>
+    <key name="topic_modified">
+      <field>topic_modified</field>
+    </key>
+  </keys>
+</table>

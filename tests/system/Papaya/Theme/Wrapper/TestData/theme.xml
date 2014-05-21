@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<papaya-theme>
+  <wrapper-groups>
+    <css-group name="main" recursive="yes">
+      <file href="basic.css" />
+      <file href="main.css" />
+    </css-group>
+    <css-group name="colors">
+      <file href="colors.css" />
+    </css-group>
+    <js-group name="main">
+      <file href="main.js" />
+    </js-group>
+  </wrapper-groups>
+</papaya-theme>

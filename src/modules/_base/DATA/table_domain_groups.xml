@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="domain_groups" prefix="yes">
+  <fields>
+    <field name="domaingroup_id" type="integer" size="4" null="no" autoinc="yes"/>
+    <field name="domaingroup_title" type="string" size="100" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>domaingroup_id</field>
+    </primary-key>
+    <key name="domaingroup_title">
+      <field>domaingroup_title</field>
+    </key>
+  </keys>
+</table>

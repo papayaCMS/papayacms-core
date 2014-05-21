@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="surferperm" prefix="yes">
+  <fields>
+    <field name="surferperm_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="surferperm_title" type="string" size="255" null="no"/>
+    <field name="surferperm_active" type="integer" size="2" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>surferperm_id</field>
+    </primary-key>
+  </keys>
+</table>

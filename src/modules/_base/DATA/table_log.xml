@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="log" prefix="yes">
+  <fields>
+    <field name="log_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="log_time" type="integer" size="8" null="no"/>
+    <field name="log_msgtype" type="integer" size="2" null="no"/>
+    <field name="log_msgno" type="integer" size="4" null="no"/>
+    <field name="log_msg_short" type="string" size="255" null="no"/>
+    <field name="log_msg_long" type="string" size="65535" null="no"/>
+    <field name="log_msg_uri" type="string" size="65535" null="no"/>
+    <field name="log_msg_script" type="string" size="65535" null="no"/>
+    <field name="log_msg_from_ip" type="string" size="65535" null="no"/>
+    <field name="log_msg_referer" type="string" size="65535" null="no"/>
+    <field name="log_msg_cookies" type="string" size="65535" null="no"/>
+    <field name="log_version_papaya" type="string" size="50" null="no"/>
+    <field name="log_version_project" type="string" size="50" null="no"/>
+    <field name="user_id" type="string" size="32" null="no"/>
+    <field name="username" type="string" size="50" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>log_id</field>
+    </primary-key>
+    <key name="log_msgno">
+      <field>log_msgno</field>
+      <field>log_msgtype</field>
+    </key>
+    <key name="log_msgtype">
+      <field>log_msgtype</field>
+      <field>log_msgno</field>
+    </key>
+    <key name="log_time">
+      <field>log_time</field>
+      <field>log_id</field>
+    </key>
+  </keys>
+</table>

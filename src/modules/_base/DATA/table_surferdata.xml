@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="surferdata" prefix="yes">
+<fields>
+<field name="surferdata_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="surferdata_name" type="string" size="50"  null="no"/>
+<field name="surferdata_type" type="string" size="20"  null="no" default="input"/>
+<field name="surferdata_values" type="string" size="65535"  null="yes"/>
+<field name="surferdata_check" type="string" size="20"  null="no" default="isNoHTML"/>
+<field name="surferdata_class" type="integer" size="4"  null="no"/>
+<field name="surferdata_available" type="integer" size="4"  null="no"/>
+<field name="surferdata_mandatory" type="integer" size="4"  null="no"/>
+<field name="surferdata_needsapproval" type="integer" size="4"  null="no"/>
+<field name="surferdata_approvaldefault" type="integer" size="4"  null="no"/>
+<field name="surferdata_order" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>surferdata_id</field></primary-key>
+<key name="surferdata_title">
+<field>surferdata_class</field></key>
+<key name="surferdata_name">
+<field>surferdata_name</field></key>
+</keys>
+</table>

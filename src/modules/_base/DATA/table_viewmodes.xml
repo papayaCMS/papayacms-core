@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="viewmodes" prefix="yes">
+  <fields>
+    <field name="viewmode_id" type="integer" size="4" null="no" autoinc="yes"/>
+    <field name="viewmode_ext" type="string" size="20" null="no"/>
+    <field name="viewmode_type" type="string" size="20" null="no" default="page" />
+    <field name="viewmode_charset" type="string" size="50" null="no"/>
+    <field name="viewmode_contenttype" type="string" size="50" null="no"/>
+    <field name="module_guid" type="string" size="32" null="no"/>
+    <field name="viewmode_path" type="string" size="50" null="no"/>
+    <field name="viewmode_sessionmode" type="integer" size="2" null="no"/>
+    <field name="viewmode_sessionredirect" type="integer" size="2" null="no" default="1"/>
+    <field name="viewmode_sessioncache" type="integer" size="2" null="no" default="0"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>viewmode_id</field>
+    </primary-key>
+    <key name="viewmode_ext" unique="yes">
+      <field>viewmode_ext</field>
+    </key>
+  </keys>
+</table>

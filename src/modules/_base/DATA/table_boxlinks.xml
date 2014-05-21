@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="boxlinks" prefix="yes">
+  <fields>
+    <field name="boxlink_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="box_id" type="integer" size="8" null="no"/>
+    <field name="boxgroup_id" type="integer" size="8" null="no"/>
+    <field name="topic_id" type="integer" size="8" null="no"/>
+    <field name="box_sort" type="integer" size="4" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>boxlink_id</field>
+    </primary-key>
+    <key name="box_id">
+      <field>box_id</field>
+    </key>
+    <key name="boxgroup_id">
+      <field>boxgroup_id</field>
+    </key>
+    <key name="topic_id">
+      <field>topic_id</field>
+      <field>box_sort</field>
+    </key>
+  </keys>
+</table>

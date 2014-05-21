@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table name="urls" prefix="yes">
+  <fields>
+    <field name="id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="path" type="string" size="255" null="no"/>
+    <field name="path_pattern" type="string" size="255" null="no"/>
+    <field name="topic_id" type="integer" size="8" null="no"/>
+    <field name="lng_id" type="integer" size="4" null="no"/>
+    <field name="viewmode_id" type="integer" size="4" null="no"/>
+    <field name="url_domain" type="string" size="200" null="no"/>
+    <field name="url_params" type="string" size="65535" null="no"/>
+    <field name="url_redirectmode" type="integer" size="4" null="no"/>
+    <field name="module_guid" type="string" size="32" null="yes"/>
+    <field name="module_params" type="string" size="65535" null="yes"/>
+    <field name="target_url" type="string" size="65535" null="yes"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>id</field>
+    </primary-key>
+    <key name="path">
+      <field>path</field>
+    </key>
+  </keys>
+</table>

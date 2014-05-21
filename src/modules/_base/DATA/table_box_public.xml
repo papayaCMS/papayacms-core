@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="box_public" prefix="yes">
+  <fields>
+    <field name="box_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="box_name" type="string" size="100" null="no"/>
+    <field name="boxgroup_id" type="integer" size="4" null="no"/>
+    <field name="box_created" type="integer" size="8" null="no"/>
+    <field name="box_modified" type="integer" size="8" null="no"/>
+    <field name="box_deliverymode" type="integer" size="4" null="no"/>
+    <field name="box_cachemode" type="integer" size="4" null="no"/>
+    <field name="box_cachetime" type="integer" size="4" null="no"/>
+    <field name="box_expiresmode" type="integer" size="4" null="no" default="1"/>
+    <field name="box_expirestime" type="integer" size="4" null="no"/>
+    <field name="box_public_from" type="integer" size="8" null="no"/>
+    <field name="box_public_to" type="integer" size="8" null="no"/>
+    <field name="box_position" type="integer" size="8" null="no" default="999999"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>box_id</field>
+    </primary-key>
+  </keys>
+</table>

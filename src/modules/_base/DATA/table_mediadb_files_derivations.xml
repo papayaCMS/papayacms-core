@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="mediadb_files_derivations" prefix="yes">
+<fields>
+<field name="head_file_id" type="string" size="32"  null="no"/>
+<field name="parent_file_id" type="string" size="32"  null="no"/>
+<field name="parent_file_version_id" type="integer" size="4"  null="no"/>
+<field name="child_file_id" type="string" size="32"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>parent_file_id</field><field>parent_file_version_id</field><field>child_file_id</field></primary-key>
+</keys>
+</table>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<papaya-theme>
+  <name>Sample Papaya Theme</name>
+  <version number="1.0" date="2012-07-23" />
+  <author>papaya Software GmbH</author>
+  <description>Sample description</description>
+  <thumbs>
+    <thumb size="medium" src="default48.jpg" />
+    <thumb size="large" src="default100.jpg" />
+  </thumbs>
+  <templates directory="template-path" />
+  <dynamic-values>
+    <page name="MAIN" title="Sample Page 1">
+      <group name="FONT" title="Sample Group 1.1">
+        <value name="COLOR" title="Font color" type="text" field="color" default="#FF0000">
+          <hint>main font color</hint>
+        </value>
+      </group>
+      <group name="PARAGRAPH" title="Sample Group 1.2">
+        <value name="ALIGNMENT" title="Alignment" field="select" default="left" hint="Text Alignment">
+          <field-parameter key="justify">Justify</field-parameter>
+          <field-parameter key="left">Left</field-parameter>
+          <field-parameter key="right">Right</field-parameter>
+        </value>
+      </group>
+      <group name="HEADER" title="Sample Group 1.3">
+        <value name="TITLE" title="Title" field="text" field-parameter="200"/>
+        <value name="BACKGROUND_IMAGE" title="Background image" field="select">
+          <field-parameter>foo.png</field-parameter>
+          <field-parameter>bar.png</field-parameter>
+        </value> 
+      </group>
+    </page>
+  </dynamic-values>
+</papaya-theme>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="domains" prefix="yes">
+  <fields>
+    <field name="domain_id" type="integer" size="4" null="no" autoinc="yes"/>
+    <field name="domaingroup_id" type="integer" size="4" null="no"/>
+    <field name="domain_hostname" type="string" size="100" null="no"/>
+    <field name="domain_hostlength" type="integer" size="4" null="no"/>
+    <field name="domain_protocol" type="integer" size="4" null="no"/>
+    <field name="domain_language_id" type="integer" size="4" null="no"/>
+    <field name="domain_mode" type="integer" size="4" null="no"/>
+    <field name="domain_data" type="string" size="255" null="no"/>
+    <field name="domain_options" type="string" size="65535" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>domain_id</field>
+    </primary-key>
+    <key name="domain_hostname">
+      <field>domain_hostname</field>
+      <field>domain_protocol</field>
+    </key>
+  </keys>
+</table>

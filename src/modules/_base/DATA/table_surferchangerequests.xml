@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?><table name="surferchangerequests" prefix="yes">
+  <fields>
+    <field name="surferchangerequest_id" type="integer" size="4"  null="no" autoinc="yes"/>
+    <field name="surferchangerequest_surferid" type="string" size="32"  null="no"/>
+    <field name="surferchangerequest_type" type="string" size="50"  null="no" default="email"/>
+    <field name="surferchangerequest_data" type="string" size="255"  null="no"/>
+    <field name="surferchangerequest_token" type="string" size="32"  null="no"/>
+    <field name="surferchangerequest_time" type="integer" size="4"  null="no"/>
+    <field name="surferchangerequest_expiry" type="integer" size="4"  null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>surferchangerequest_id</field></primary-key>
+  </keys>
+</table>

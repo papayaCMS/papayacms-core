@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="theme_sets" prefix="yes">
+  <fields>
+    <field name="themeset_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="themeset_title" type="string" size="250" null="no"/>
+    <field name="theme_name" type="string" size="250" null="no"/>
+    <field name="themeset_values" type="string" size="4294967295" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>themeset_id</field>
+    </primary-key>
+    <key name="themeset_title">
+      <field>themeset_title</field>
+    </key>
+    <key name="theme_name">
+      <field>theme_name</field>
+    </key>
+  </keys>
+</table>

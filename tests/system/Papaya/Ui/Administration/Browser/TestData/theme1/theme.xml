@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<papaya-theme>
+  <name>Theme 1</name>
+  <templates directory="theme-1" />
+  <version number="1.0" date="2010-04-07" />
+  <author>Papaya Software GmbH</author>
+  <description>This is the 1st test theme.</description>
+  <thumbs>
+    <thumb size="medium" src="thumb1_theme1.jpg" />
+    <thumb size="large" src="thumb2_theme1.jpg" />
+  </thumbs>
+</papaya-theme>

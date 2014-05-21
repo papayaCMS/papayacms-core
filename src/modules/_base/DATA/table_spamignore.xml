@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="spamignore" prefix="yes">
+<fields>
+<field name="spamignore_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="spamignore_word" type="string" size="100"  null="no"/>
+<field name="spamignore_lngid" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>spamignore_id</field></primary-key>
+<key name="spamignore_words">
+<field>spamignore_lngid</field><field>spamignore_word</field></key>
+</keys>
+</table>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?><table name="surfercontactrequests" prefix="yes">
+  <fields>
+    <field name="surfercontactrequest_id" type="integer" size="4"  null="no"/>
+    <field name="surfercontactrequest_requestor" type="string" size="32"  null="no"/>
+    <field name="surfercontactrequest_requested" type="string" size="32"  null="no"/>
+    <field name="surfercontactrequest_status" type="integer" size="4"  null="no" default="0"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>surfercontactrequest_id</field></primary-key>
+  </keys>
+</table>

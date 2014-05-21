@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?><table name="surferdataclasses" prefix="yes">
+  <fields>
+    <field name="surferdataclass_id" type="integer" size="4"  null="no" autoinc="yes"/>
+    <field name="surferdataclass_perm" type="integer" size="4"  null="no"/>
+    <field name="surferdataclass_order" type="integer" size="4" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>surferdataclass_id</field></primary-key>
+  </keys>
+</table>

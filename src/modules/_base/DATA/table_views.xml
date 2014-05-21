@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table name="views" prefix="yes">
+  <fields>
+    <field name="view_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="view_title" type="string" size="60" null="no"/>
+    <field name="view_limits" type="string" size="255" null="no"/>
+    <field name="module_guid" type="string" size="32" null="no"/>
+    <field name="view_is_cacheable" type="integer" size="2" null="no"/>
+    <field name="view_is_deprecated" type="integer" size="2" null="no"/>
+    <field name="view_note" type="string" size="65535"  null="no"/>
+    <field name="view_checksum" type="string" size="65" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>view_id</field>
+    </primary-key>
+    <key name="content_id">
+      <field>module_guid</field>
+    </key>
+  </keys>
+</table>

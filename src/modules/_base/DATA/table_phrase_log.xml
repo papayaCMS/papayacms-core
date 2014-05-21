@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="phrase_log" prefix="yes">
+<fields>
+<field name="log_id" type="integer" size="8"  null="no" autoinc="yes"/>
+<field name="log_phrase" type="string" size="255"  null="no"/>
+<field name="log_phrase_id" type="integer" size="8"  null="no"/>
+<field name="log_msg" type="string" size="65535"  null="no"/>
+<field name="log_module" type="string" size="50"  null="no"/>
+<field name="log_datetime" type="integer" size="8"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>log_id</field></primary-key>
+</keys>
+</table>

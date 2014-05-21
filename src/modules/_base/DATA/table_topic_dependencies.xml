@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="topic_dependencies" prefix="yes">
+  <fields>
+    <field name="topic_id" type="integer" size="8" null="no"/>
+    <field name="topic_origin_id" type="integer" size="8" null="no"/>
+    <field name="topic_synchronization" type="integer" size="4" null="no"/>
+    <field name="topic_note" type="string" size="65535" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>topic_id</field>
+    </primary-key>
+    <key name="topic_origin_id">
+      <field>topic_origin_id</field>
+    </key>
+  </keys>
+</table>

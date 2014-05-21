@@ -1,0 +1,12 @@
+"view_id","viewmode_id","viewlink_data"
+"1","1","<data><data-element name=""xslfile""><![CDATA[box_navigation.xsl]]></data-element><data-element name=""fullpage""><![CDATA[0]]></data-element></data>"
+"2","1","<data><data-element name=""xslfile""><![CDATA[page_main.xsl]]></data-element><data-element name=""fullpage""><![CDATA[0]]></data-element></data>"
+"3","1","<data><data-element name=""xslfile""><![CDATA[page_main.xsl]]></data-element><data-element name=""fullpage""><![CDATA[0]]></data-element></data>"
+"4","1","<data><data-element name=""xslfile""><![CDATA[page_sitemap&#46;xsl]]></data-element>
+<data-element name=""fullpage""><![CDATA[0]]></data-element>
+</data>"
+"5","1",""
+"6","1","<data><data-element name=""xslfile""><![CDATA[page_feedback&#46;xsl]]></data-element>
+<data-element name=""fullpage""><![CDATA[0]]></data-element>
+</data>"
+"7","1",""

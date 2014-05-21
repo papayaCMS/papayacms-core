@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="surferblacklist" prefix="yes">
+  <fields>
+    <field name="blacklist_id" type="integer" size="4" null="no" autoinc="yes" />
+    <field name="blacklist_type" type="string" size="10" null="no" />
+    <field name="blacklist_match" type="string" size="50" null="no" />
+    <field name="blacklist_delay" type="integer" size="4" null="no" />
+  </fields>
+  <keys>
+    <primary-key>
+      <field>blacklist_id</field>
+    </primary-key>
+    <key name="blacklist_type">
+      <field>blacklist_type</field>
+    </key>
+    <key name="blacklist_match">
+      <field>blacklist_match</field>
+    </key>
+  </keys>
+</table>

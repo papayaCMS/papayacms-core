@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="tag" prefix="yes">
+<fields>
+<field name="tag_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="default_lng_id" type="integer" size="4"  null="no"/>
+<field name="category_id" type="integer" size="4"  null="no"/>
+<field name="creator_type" type="string" size="32"  null="no"/>
+<field name="creator_id" type="string" size="64"  null="no"/>
+<field name="creation_time" type="integer" size="4"  null="no"/>
+<field name="tag_uri" type="string" size="255"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>tag_id</field></primary-key>
+</keys>
+</table>

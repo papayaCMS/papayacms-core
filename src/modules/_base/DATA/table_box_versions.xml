@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="box_versions" prefix="yes">
+  <fields>
+    <field name="version_id" type="integer" size="8" null="no" autoinc="yes"/>
+    <field name="version_time" type="integer" size="8" null="no"/>
+    <field name="version_author_id" type="string" size="32" null="no"/>
+    <field name="version_message" type="string" size="250" null="no"/>
+    <field name="box_id" type="integer" size="8" null="no"/>
+    <field name="box_name" type="string" size="100" null="no"/>
+    <field name="boxgroup_id" type="integer" size="4" null="no"/>
+    <field name="box_modified" type="integer" size="8" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>version_id</field>
+    </primary-key>
+    <key name="box_id">
+      <field>box_id</field>
+      <field>version_time</field>
+    </key>
+  </keys>
+</table>

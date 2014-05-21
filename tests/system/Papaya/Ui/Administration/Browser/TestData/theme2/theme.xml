@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<papaya-theme>
+  <name>Theme 2</name>
+  <templates directory="theme-2" />
+</papaya-theme>

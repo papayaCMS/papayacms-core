@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="mediadb_mimetypes" prefix="yes">
+<fields>
+<field name="mimetype_id" type="integer" size="4"  null="no" autoinc="yes"/>
+<field name="mimetype" type="string" size="100"  null="no"/>
+<field name="mimetype_icon" type="string" size="100"  null="no"/>
+<field name="mimetype_ext" type="string" size="50"  null="no"/>
+<field name="mimegroup_id" type="integer" size="4"  null="no"/>
+<field name="range_support" type="integer" size="2"  null="no"/>
+<field name="shaping" type="integer" size="4"  null="no"/>
+<field name="shaping_limit" type="integer" size="4"  null="no"/>
+<field name="shaping_offset" type="integer" size="4"  null="no"/>
+</fields>
+<keys>
+<primary-key>
+<field>mimetype_id</field></primary-key>
+<key name="mimetype" unique="yes">
+<field>mimetype</field></key>
+</keys>
+</table>

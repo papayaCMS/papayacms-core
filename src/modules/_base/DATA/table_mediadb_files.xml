@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<table name="mediadb_files" prefix="yes">
+  <fields>
+    <field name="file_id" type="string" size="32" null="no"/>
+    <field name="folder_id" type="integer" size="4" null="no"/>
+    <field name="surfer_id" type="string" size="32" null="no"/>
+    <field name="file_name" type="string" size="200" null="no"/>
+    <field name="file_date" type="integer" size="4" null="no"/>
+    <field name="file_created" type="string" size="20" null="no"/>
+    <field name="file_size" type="integer" size="4" null="no"/>
+    <field name="file_sort" type="string" size="16" null="no"/>
+    <field name="file_source" type="string" size="65535" null="no"/>
+    <field name="file_source_url" type="string" size="65535" null="no"/>
+    <field name="file_keywords" type="string" size="65535" null="no"/>
+    <field name="mimetype_id" type="integer" size="4" null="no"/>
+    <field name="current_version_id" type="integer" size="4" null="no"/>
+    <field name="width" type="integer" size="4" null="no"/>
+    <field name="height" type="integer" size="4" null="no"/>
+    <field name="metadata" type="string" size="65535" null="no"/>
+  </fields>
+  <keys>
+    <primary-key>
+      <field>file_id</field>
+    </primary-key>
+    <key name="folder_id">
+      <field>folder_id</field>
+    </key>
+    <key name="file_name">
+      <field>file_name</field>
+    </key>
+    <key name="file_date">
+      <field>file_date</field>
+    </key>
+    <key name="file_size">
+      <field>file_size</field>
+    </key>
+  </keys>
+</table>
