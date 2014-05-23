@@ -10,9 +10,16 @@
   },
   "require-dev": {
     "papaya/cms-administration": "*",
+
     "papaya/template-responsive": "*",
     "papaya/theme-dynamic": "*",
-    "papaya/unittest-framework": "*"
+
+    "papaya/test-framework": "*",
+
+    "papaya/module-default": "*",
+    "papaya/module-standard": "*",
+
+    "papaya/module-domains": "*"
   },
   "repositories": [
     {

@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__).'/../../../vendor/papaya/unittest-framework/PapayaTestCase.php');
+require_once(dirname(__FILE__).'/../../../vendor/papaya/test-framework/src/PapayaTestCase.php');
 
 require_once(dirname(__FILE__).'/../../../src/system/Papaya/Autoloader.php');
 require_once(dirname(__FILE__).'/../../../src/system/Papaya/Util/File/Path.php');

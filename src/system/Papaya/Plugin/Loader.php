@@ -247,7 +247,7 @@ class PapayaPluginLoader extends PapayaObject {
   private function preparePluginFile(array $pluginData) {
     $this->prepareAutoloader($pluginData);
     if (!class_exists($pluginData['class'], TRUE)) {
-      $fileName = $this->getPluginPath($pluginData['path'].$pluginData['file']);
+      $fileName = $this->getPluginPath($pluginData['path']).$pluginData['file'];
       /** @noinspection PhpIncludeInspection */
       if (!(
             file_exists($fileName) &&
@@ -282,25 +282,32 @@ class PapayaPluginLoader extends PapayaObject {
    * otherwise just return it.
    *
    * @param string $path
-   * @return string
+   * @throws
+   * @return string|FALSE
    */
   private function getPluginPath($path = '') {
     if (preg_match('(^(?:/|[a-zA-Z]:))', $path)) {
       return $path;
     }
-    if (substr($path, 0, 4) == 'src:') {
-      return PapayaUtilFilePath::cleanup(
-        PapayaUtilFilePath::getDocumentRoot().'../src/'
-      ).substr($path, 4);
-    } else {
-      $basePath = str_replace('\\', '/', $this->papaya()->options['PAPAYA_INCLUDE_PATH']);
-      if (FALSE !== ($position = strpos($basePath, '/vendor/'))) {
-        $basePath = substr($basePath, 0, $position + 7);
-      } else {
-        $basePath .= '/modules';
+    $map = array(
+      'vendor:' => '../vendor/',
+      'src:' => '../src/'
+    );
+    foreach ($map as $prefix => $mapPath) {
+      if (0 === strpos($path, $prefix)) {
+        $basePath = PapayaUtilFilePath::getDocumentRoot().$mapPath;
+        $relativePath = substr($path, strlen($prefix));
+        return PapayaUtilFilePath::cleanup(
+          $basePath.$relativePath, TRUE
+        );
       }
     }
-    return PapayaUtilFilePath::cleanup($basePath, TRUE).$path;
+    if ($includePath = $this->papaya()->options->get('PAPAYA_INCLUDE_PATH', '')) {
+      return PapayaUtilFilePath::cleanup(
+        $includePath.'/modules/', TRUE
+      ).$path;
+    }
+    return FALSE;
   }
 
   /**

@@ -494,8 +494,9 @@ class papaya_page extends base_object {
     }
     if ($status != 404) {
       $pathData = $this->papaya()->request->getParameters(PapayaRequest::SOURCE_PATH);
+      $themeWrappers = array('css.php', 'js.php');
       if (
-           $pathData['mode'] != '' ||
+           ($pathData['mode'] != '' && !in_array($pathData['file_name'], $themeWrappers)) ||
            ($pathData['file_path'] == '/' && $pathData['file_name'] == '')
          ) {
         return FALSE;
@@ -557,8 +558,7 @@ class papaya_page extends base_object {
       case 'text/javascript' :
       case 'text/css' :
         $themeWrapper = new PapayaThemeWrapper($themeWrapperUrl);
-        $themeWrapper->getResponse()->send();
-        exit;
+        $themeWrapper->getResponse()->send(TRUE);
       }
 
       $urlMounter = new base_urlmounter;
@@ -2544,7 +2544,7 @@ class papaya_page extends base_object {
     $controller->setStatus($status);
     $controller->setError($errorCode, $errorString);
     $controller->execute($application, $application->request, $application->response);
-    $application->response->end();
+    $application->response->send(TRUE);
   }
 
   /**
