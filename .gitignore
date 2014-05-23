@@ -22,3 +22,4 @@ composer.lock
 /htdocs/papaya/
 /htdocs/papaya-themes/
 /papaya-data
+/templates

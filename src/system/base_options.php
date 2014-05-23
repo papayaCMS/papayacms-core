@@ -64,6 +64,7 @@ class base_options extends base_db {
       array(TRUE => 'on', FALSE => 'off'), 1),
 
     'PAPAYA_PATH_DATA' => array(2, 'isPath', 'input', '100', ''),
+    'PAPAYA_PATH_TEMPLATES' => array(2, 'isPath', 'input', '100', '', TRUE),
     'PAPAYA_PATH_WEB' => array(2, 'isPath', 'input', '100', '/'),
     'PAPAYA_PATH_THEMES' => array(2, 'isPath', 'input', '100', '/papaya-themes/'),
     'PAPAYA_CDN_THEMES' => array(2, 'isHTTPX', 'input', '200', '', TRUE),

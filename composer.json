@@ -2,9 +2,6 @@
   "name": "papaya/cms-core",
   "description": "papaya CMS core framework",
   "minimum-stability": "dev",
-  "extra" : {
-    "document-root" : "htdocs/"
-  },
   "autoload" : {
     "files" : ["src/core.php"]
   },
