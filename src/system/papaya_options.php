@@ -668,6 +668,7 @@ class papaya_options extends base_options {
   function initOptionDialog() {
     if (!(isset($this->optionDialog) && is_object($this->optionDialog))) {
       $option = $this->options[$this->params['id']];
+      $activeValue = $this->papaya()->options->get($option['opt_name'], '');
       $hidden = array(
         'save' => 1,
         'cmd' => 'edit',
@@ -676,14 +677,13 @@ class papaya_options extends base_options {
       $data = array(
         'opt_name' => $option['opt_name'],
         'opt_value' => $option['opt_value'],
-        'opt_active_value' => defined($option['opt_name']) ? constant($option['opt_name']) : ''
+        'opt_active_value' => $activeValue
       );
       if (isset(self::$optFields[$option['opt_name']])
           && self::$optFields[$option['opt_name']][2] == 'combo'
-          && isset(self::$optFields[$option['opt_name']][3][$option['opt_value']])) {
-        $data['opt_active_value'] = self::$optFields[$option['opt_name']][3][$option['opt_value']];
-      } else {
-        $data['opt_active_value'] = $option['opt_value'];
+          && isset(self::$optFields[$option['opt_name']][3][$activeValue])) {
+        $data['opt_active_value'] =
+          self::$optFields[$option['opt_name']][3][$activeValue];
       }
       $fields = array(
         'opt_name' => array('Name', '', FALSE, 'info', 0, '',
