@@ -58,11 +58,6 @@ class papaya_modulemanager extends base_db {
   */
   var $modulesFileName = 'modules.xml';
   /**
-  * Modules path
-  * @var string modulesPath
-  */
-  var $modulesPath = 'modules/';
-  /**
   * Modules parameter names
   * @var array $modulesParamNames
   */
@@ -159,40 +154,31 @@ class papaya_modulemanager extends base_db {
   }
 
   /**
-  * Get modules path
-  *
-  * @access public
-  * @return string path
-  */
-  public function getModulesPath() {
-    $basePath = str_replace('\\', '/', realpath($this->papaya()->options['PAPAYA_INCLUDE_PATH']));
-    if (FALSE !== ($position = strpos($basePath, '/vendor/'))) {
-      $basePath = substr($basePath, 0, $position + 7);
-    } else {
-      $basePath .= '/modules';
-    }
-    return PapayaUtilFilePath::cleanup($basePath, TRUE);
-  }
-
-  /**
    * Get the absolute path of directory file
    */
   public function prependModulePath($path) {
-    if (substr($path, 0, 4) == 'src:') {
-      return PapayaUtilFilePath::cleanup(
-        PapayaUtilFilePath::getDocumentRoot().'../src'
-      ).substr($path, 4);
+    $map = array(
+      'vendor:' => '../vendor/',
+      'src:' => '../src/'
+    );
+    foreach ($map as $prefix => $mapPath) {
+      if (0 === strpos($path, $prefix)) {
+        $basePath = PapayaUtilFilePath::getDocumentRoot().$mapPath;
+        $relativePath = substr($path, strlen($prefix));
+        return PapayaUtilFilePath::cleanup(
+          $basePath.$relativePath, TRUE
+        );
+      }
     }
-    return $this->getModulesPath().$path;
+    return realpath($path);
   }
 
   /**
    * Strip the base modules path from the absolute path, returning the relative path
    */
   public function stripModulePath($path) {
-    $modulePath = $this->getModulesPath();
-    if (0 === strpos($path, $modulePath)) {
-      return substr($path, strlen($modulePath));
+    if ($position = strpos($path, '/vendor/')) {
+      return 'vendor:'.substr($path, $position + 7);
     } elseif ($position = strpos($path, '/src/')) {
       return 'src:'.substr($path, $position + 5);
     } else {
@@ -1229,7 +1215,7 @@ class papaya_modulemanager extends base_db {
     $this->packages = array();
     $this->modules = array();
     $paths = array(
-      $this->getModulesPath(),
+      PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().'../vendor/'),
       PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().'../src/')
     );
     foreach ($paths as $path) {

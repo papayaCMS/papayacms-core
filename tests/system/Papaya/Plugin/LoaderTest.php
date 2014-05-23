@@ -502,29 +502,23 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   /**
   * @covers PapayaPluginLoader
   */
-  public function testGetFileNameWithComposerPathFromOptions() {
+  public function testGetFileNameWithComposerPath() {
     PapayaAutoloader::clear();
     $loader = new PapayaPluginLoader();
-    $loader->papaya(
-      $this->mockPapaya()->application(
-        array(
-          'options' => $this->mockPapaya()->options(array('PAPAYA_INCLUDE_PATH' => '/foobar/vendor/papaya/core'))
-        )
-      )
-    );
+    $loader->papaya($this->mockPapaya()->application());
     $loader->plugins(
       $this->getPluginListFixture(
         array(
           'guid' => '123',
-          'path' => 'sample/path/',
+          'path' => 'vendor:/sample/path/',
           'file' => 'sample.php',
           'class' => 'SampleClass',
           'prefix' => 'PluginLoaderAutoloadPrefix',
         )
       )
     );
-    $this->assertEquals(
-      '/foobar/vendor/sample/path/sample.php', $loader->getFileName('123')
+    $this->assertStringEndsWith(
+      '/vendor/sample/path/sample.php', $loader->getFileName('123')
     );
     PapayaAutoloader::clear();
   }
