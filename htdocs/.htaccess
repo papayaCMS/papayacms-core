@@ -1,0 +1,33 @@
+RewriteEngine On
+
+# remove session id
+RewriteRule ^/?sid[a-z]*([a-zA-Z0-9,-]{20,40})(/.*) $2 [QSA]
+
+# admin pages
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/?papaya/module_([^/.]+)\.[a-z]{3,4} /papaya/module.php?p_module=$1 [L,QSA]
+
+# media files - public / static
+RewriteRule ^/?[^./]*\.(thumb)\.((.).*) - [E=mediaFile:/papaya-files/thumbs/$3/$2]
+RewriteRule ^/?[^./]*\.(media)\.((.).*) - [E=mediaFile:/papaya-files/files/$3/$2]
+RewriteCond %{DOCUMENT_ROOT}%{ENV:mediaFile} -f
+RewriteRule ^/?[^./]*\.(thumb|media)\.((.).*) %{ENV:mediaFile} [L]
+
+# page bootstrap
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !^/papaya/
+RewriteRule .* /index.php [QSA,L]
+
+#optimize cache headers for static content (if possible)
+FileETag none
+<IfModule mod_expires.c>
+  ExpiresActive on
+  ExpiresDefault A5184000
+</IfModule>
+<IfModule headers_module>
+  <FilesMatch "\.(?!(php[345]?|phtml|cgi)$)">
+    Header set Cache-Control "public, max-age=5184000, pre-check=5184000"
+  </FilesMatch>
+</IfModule>

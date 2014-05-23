@@ -5,6 +5,9 @@
   "extra" : {
     "document-root" : "htdocs/"
   },
+  "autoload" : {
+    "files" : ["src/core.php"]
+  },
   "require-dev": {
     "papaya/cms-administration": "*",
     "papaya/template-responsive": "*",

@@ -1,6 +1,7 @@
 # Composer
 /vendor
 composer.phar
+composer.lock
 
 # PHPStorm
 /.idea
@@ -18,7 +19,8 @@ composer.phar
 
 # papaya CMS
 /papaya.php
-/htdocs
+/htdocs/papaya/
+/htdocs/papaya-themes/
 /papaya-data
 
 
