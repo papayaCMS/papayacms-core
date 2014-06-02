@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns="http://www.papaya-cms.com/ns/database-table" 
+  targetNamespace="http://www.papaya-cms.com/ns/database-table" 
+  elementFormDefault="qualified">  
+  
+  <!-- 
+    the root is a element <table> 
+  -->
+  <xs:element name="table" type="table"/>
+  <!-- 
+    <table> contains definitions for the <fields> and (optionally) for
+    the <keys>. 
+    
+    A "name" is required. It defines the table name.
+    
+    The "prefix" attribute is optional. If it is set to "no" the table
+    is not prefix with the configuration specific prefix. By default the
+    table name is prefixed.
+    
+    An optional attribute "type" can be used to preselect a table type
+    if needed. This can be ignored if a table property (like a FULLTEXT index)
+    requires a different table type.
+  --> 
+  <xs:complexType name="table">
+    <xs:all>
+      <xs:element name="fields" type="fields" minOccurs="1"/>
+      <xs:element name="keys" type="keys" minOccurs="0"/>
+    </xs:all>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="prefix" type="yesno"/>
+    <xs:attribute name="type" type="table-type"/>
+  </xs:complexType>
+  
+  <!--
+    The <fields> definition needs at least one <field> element.
+  -->
+  <xs:complexType name="fields">
+    <xs:sequence minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="field" type="field"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!--
+    The <keys> definition can contain one or no <primary-key> and
+    any count of <key> elements.
+  -->
+  <xs:complexType name="keys">
+    <xs:sequence>
+      <xs:element name="primary-key" type="primary-key" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="key" type="key" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- 
+    Each field definition needs "name", "type" and "size" attributes.
+    
+    The "name" attribute is the field name. 
+    
+    The field "type" is one of three values and the "size" attribute depends
+    on it.
+    
+    "string"
+    A text, the size is the character length.
+    
+    "integer"
+    An integer number, size defines the bytes used to store it
+    
+    "float" 
+    A float number, size contains two numbers separated by a komma, 
+    defining the digits before and after the decimal separator.
+    
+  -->  
+  <xs:complexType name="field">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="type" type="field-type" use="required"/>
+    <xs:attribute name="size" type="field-size" use="required"/>
+    <xs:attribute name="null" type="yesno"/>
+    <xs:attribute name="autoinc" type="yesno"/>
+    <xs:attribute name="default" type="xs:string"/>
+  </xs:complexType>
+  
+  <!-- 
+    The primary key is always unique and never a fulltext index.
+    It can be compiled from different fields
+  -->
+  <xs:complexType name="primary-key">
+    <xs:sequence minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="field" type="key-field"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- 
+    Each defined key can be compiled from one or more fields.
+    
+    The attributes define if the key is "unique" (default: no) or
+    a Fulltext-Index (default: no). 
+  -->
+  <xs:complexType name="key">
+    <xs:sequence minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="field" type="key-field"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="unique" type="yesno"/>
+    <xs:attribute name="fulltext" type="yesno"/>
+  </xs:complexType>  
+  <!--
+    The field element adds a field to the key. An optional size
+    attribute defines how many characters of the field are put in the index.
+    This is important for text fields.
+  -->
+  <xs:complexType name="key-field">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="size" type="xs:integer"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  
+  <!-- 
+    Attribute types 
+  -->
+  
+  <!--
+    Type definition for attributes like  <table prefix=""> that can 
+    contain only "yes" or "no"
+  -->
+  <xs:simpleType name="yesno">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="yes"/>
+      <xs:enumeration value="no"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <!--
+    The table type can be used to force a transactional table handler in 
+    mysql. This is ignored if one of the keys is a Fulltext-Index
+  -->
+  <xs:simpleType name="table-type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="default"/>
+      <xs:enumeration value="transactions"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <!--
+    Field type enumeration
+  -->
+  <xs:simpleType name="field-type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="string"/>
+      <xs:enumeration value="integer"/>
+      <xs:enumeration value="float"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <!--
+    Field size validation pattern
+  -->
+  <xs:simpleType name="field-size">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(\d+,)?\d+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+</xs:schema>

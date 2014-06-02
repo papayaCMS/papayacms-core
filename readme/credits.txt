@@ -1,0 +1,33 @@
+papaya CMS was developed by the papaya Software GmbH. Please point
+your browser to www.papaya-cms.com for more information.
+
+
+We would like to thank the developers of the projects listed below
+for their code or their inspiration:
+
+
+  * Bitsream Vera fonts   -    http://www.bitstream.com/
+
+  * DeJaVu fonts          -    http://dejavu.sourceforge.net/
+
+  * TinyMCE               -    http://tinymce.moxiecode.com/
+
+  * FlowPlayer            -    http://flowplayer.sourceforge.net/
+
+  * FPDF                  -    http://www.fpdf.org/
+
+  * FPDI                  -    http://fpdi.setasign.de/
+
+  * GeoLite Country       -    This product includes GeoLite data created by MaxMind,
+                               available from http://maxmind.com/
+
+  * OpenSymbol fonts      -    http://www.openoffice.org/
+
+  * PclZip Library        -    http://www.phpconcept.net/
+
+  * Pear                  -    http://pear.php.net/
+
+  * rc_SEReferer          -    http://reducedcomplexity.com/
+
+  * UFPDF                 -    http://www.acko.net/node/56
+
