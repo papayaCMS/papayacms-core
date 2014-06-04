@@ -980,7 +980,7 @@ class PapayaDatabaseObjectRecord_TestProxy extends PapayaDatabaseObjectRecord {
     return parent::_insertRecord($table, $identifier, $convertValuesCallback);
   }
 
-  public function _updateRecord($table, $filter, $convertValuesCallback = NULL) {
+  public function _updateRecord($table, array $filter, $convertValuesCallback = NULL) {
     return parent::_updateRecord($table, $filter, $convertValuesCallback);
   }
 

@@ -151,7 +151,7 @@ class PapayaUiDialogElement_TestProxy extends PapayaUiDialogElement {
   public function appendTo(PapayaXmlElement $parent) {
   }
 
-  public function _getParameterName($key) {
-    return parent::_getParameterName($key);
+  public function _getParameterName($key, $withGroup = TRUE) {
+    return parent::_getParameterName($key, $withGroup);
   }
 }

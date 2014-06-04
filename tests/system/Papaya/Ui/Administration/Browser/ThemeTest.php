@@ -580,11 +580,11 @@ class PapayaUiAdministrationBrowserThemeTest extends PapayaTestCase {
 class PapayaUiAdministrationBrowserTheme_ProxyForListView
   extends PapayaUiAdministrationBrowserTheme {
 
-  public function getXmlListButtons() {
+  public function getXmlListButtons($currentMode) {
     return '';
   }
 
-  public function getXmlListViewElement() {
+  public function getXmlListViewElement($themeName, $themeConfiguration, $currentMode) {
     return '';
   }
 }
@@ -592,15 +592,15 @@ class PapayaUiAdministrationBrowserTheme_ProxyForListView
 class PapayaUiAdministrationBrowserTheme_ProxyForDialog
   extends PapayaUiAdministrationBrowserTheme {
 
-  public function getXmlListButtons() {
+  public function getXmlListButtons($currentMode) {
     return '';
   }
 
-  public function getXmlListViewElement() {
+  public function getXmlListViewElement($themeName, $themeConfiguration, $currentMode) {
     return '';
   }
 
-  public function getXmlListView() {
+  public function getXmlListView($themes, $currentMode) {
     return '';
   }
 }
