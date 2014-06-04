@@ -10,7 +10,6 @@
   "require-dev": {
     "papaya/cms-administration": "*",
 
-    "papaya/template-responsive": "*",
     "papaya/theme-dynamic": "*",
 
     "papaya/test-framework": "*",
