@@ -1,6 +1,7 @@
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         syntaxCheck="false">
+         syntaxCheck="false"
+         bootstrap="tests/bootstrap.php">
   <testsuites>
     <testsuite name="papayaCMS">
       <directory suffix="Test.php">tests</directory>
