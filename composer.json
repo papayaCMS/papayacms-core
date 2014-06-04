@@ -1,6 +1,8 @@
 {
   "name": "papaya/cms-core",
   "description": "papaya CMS core framework",
+  "license": "GPL-2.0",
+  "homepage": "http://www.papaya-cms.com/",
   "minimum-stability": "dev",
   "autoload" : {
     "files" : ["src/core.php"]
@@ -17,11 +19,5 @@
     "papaya/module-standard": "*",
 
     "papaya/module-domains": "*"
-  },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "http://composer.dev.dim/"
-    }
-  ]
+  }
 }

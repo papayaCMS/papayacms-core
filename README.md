@@ -108,7 +108,7 @@ this release of papaya CMS.
 
 ##  Installation
 
-The installation is using Composer and Phing.
+The installation is using [Composer](http://getcomposer.org) and [Phing](http://www.phing.info).
 
 ### Creating new project
 
