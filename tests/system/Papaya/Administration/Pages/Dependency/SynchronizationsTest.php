@@ -202,7 +202,7 @@ class PapayaAdministrationPagesDependencySynchronizations_TestProxy
     return $this->actionMock;
   }
 
-  public function getTargets($synchronization) {
+  public function getTargets($originId, $synchronization) {
     return $this->targetsList;
   }
 }

@@ -192,7 +192,7 @@ class PapayaDatabaseSequence_TestProxy extends PapayaDatabaseSequence {
     return $this->idCounter++;
   }
 
-  public function checkIdentifiers($identifiers) {
+  public function checkIdentifiers(array $identifiers) {
     return parent::checkIdentifiers($identifiers);
   }
 

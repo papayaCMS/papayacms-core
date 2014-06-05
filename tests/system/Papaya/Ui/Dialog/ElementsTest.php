@@ -24,7 +24,7 @@ class PapayaUiDialogElementsTest extends PapayaTestCase {
     $element
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->equalTo($node));
+      ->with($this->isInstanceOf('PapayaXmlElement'));
     $elements = new PapayaUiDialogElements_TestProxy();
     $elements->add($element);
     $elements->appendTo($node);

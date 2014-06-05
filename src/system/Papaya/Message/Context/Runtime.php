@@ -88,7 +88,7 @@ class PapayaMessageContextRuntime
         self::$_previousTime,
         $stop
       );
-      $this->rememberTime($stop);
+      self::rememberTime($stop);
       $this->_mode = self::MODE_GLOBAL;
     } else {
       $this->setTimeValues(
@@ -136,7 +136,7 @@ class PapayaMessageContextRuntime
   *
   * @param integer $current
   */
-  public function rememberTime($current) {
+  public static function rememberTime($current) {
     self::$_previousTime = $current;
   }
 
