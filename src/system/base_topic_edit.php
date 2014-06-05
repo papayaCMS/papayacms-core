@@ -14,7 +14,7 @@
 *
 * @package Papaya
 * @subpackage Core
-* @version $Id: base_topic_edit.php 39833 2014-05-21 13:08:42Z weinert $
+* @version $Id: base_topic_edit.php 39851 2014-06-05 10:00:12Z kersken $
 */
 
 /**
@@ -1934,6 +1934,15 @@ class base_topic_edit extends base_topic {
                 );
                 if (FALSE !== $this->databaseQueryFmtWrite($sql, $params)) {
                   $this->deleteCache();
+                  $data['languages'] = $languages;
+                  if (!isset($data['topic_id'])) {
+                    $data['topic_id'] = $this->topicId;
+                  }
+                  $actionsConnector = $this
+                    ->papaya()
+                    ->plugins
+                    ->get('79f18e7c40824a0f975363346716ff62');
+                  $actionsConnector->call('default', 'onPublishPage', $data);
                   return TRUE;
                 }
               }
