@@ -14,7 +14,7 @@
 *
 * @package Papaya
 * @subpackage Core
-* @version $Id: papaya_parser.php 39732 2014-04-08 15:34:45Z weinert $
+* @version $Id: papaya_parser.php 39855 2014-06-05 13:57:21Z weinert $
 */
 
 /**
@@ -943,7 +943,7 @@ class papaya_parser extends base_db {
     }
     $containerMode = $this->papaya()->options->get('PAPAYA_MEDIA_ELEMENTS_IMAGE', 0);
     if ($subtitleHtml) {
-      $subtitleHtml = '<!--googleoff: snippet-->'.$subtitleHtml.'<!--googleon: snippet-->';
+      $subtitleHtml = '<!--googleoff: all-->'.$subtitleHtml.' <!--googleon: all-->';
       switch ($containerMode) {
       case self::ELEMENTS_FIGURE :
       case self::ELEMENTS_FIGURE_MANDATORY :
