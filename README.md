@@ -4,6 +4,10 @@ Content Management System (CMS) and application framework<br/>
 Version 5, Copyright: 2002-2014 dimensional GmbH (www.dimensional.de)
 
 [![Build Status](https://travis-ci.org/papayaCMS/papayacms-core.svg)](https://travis-ci.org/papayaCMS/papayacms-core)
+[![License](https://poser.pugx.org/papaya/cms-core/license.svg)](https://packagist.org/packages/papaya/cms-core)
+[![Total Downloads](https://poser.pugx.org/papaya/cms-core/downloads.svg)](https://packagist.org/packages/papaya/cms-core)
+[![Latest Stable Version](https://poser.pugx.org/papaya/cms-core/v/stable.svg)](https://packagist.org/packages/papaya/cms-core)
+[![Latest Unstable Version](https://poser.pugx.org/papaya/cms-core/v/unstable.svg)](https://packagist.org/packages/papaya/cms-core)
 
 While we are trying to give a useful overview with this readme file,
 please refer to our website www.papaya-cms.com for further details.
