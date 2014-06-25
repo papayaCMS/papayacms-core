@@ -3,7 +3,7 @@
 * Basic class for page modules
 *
 * All page modules must inherit from this object
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
+* @copyright 2001-2014 by dimensional GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
 * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
 *
