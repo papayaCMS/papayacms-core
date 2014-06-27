@@ -18,10 +18,8 @@ class PapayaUiDialogFieldXhtmlTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldXhtml::content
   */
   public function testContentGetAfterSet() {
-    $content = $this
-      ->getMockBuilder('PapayaXmlElement')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $dom = new PapayaXmlDocument();
+    $content = $dom->appendElement('html');
     $xhtml = new PapayaUiDialogFieldXhtml();
     $this->assertSame($content, $xhtml->content($content));
   }

@@ -106,10 +106,8 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   * @covers PapayaContentThemeSet::setValuesXml
   */
   public function testSetValuesXml() {
-    $element = $this
-      ->getMockBuilder('PapayaXmlElement')
-      ->disableOriginalConstructor()
-      ->getMock();
+    $dom = new PapayaXmlDocument();
+    $element = $dom->appendElement('set');
     $definition = $this->getMock('PapayaContentStructure');
     $definition
       ->expects($this->once())

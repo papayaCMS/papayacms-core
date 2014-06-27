@@ -420,7 +420,6 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   private function getProcessorMock($class = 'XsltProcessor') {
     $result = $this
       ->getMockBuilder($class)
-      ->disableOriginalConstructor()
       ->setMethods(
         array(
           'importStylesheet', 'transformToXML', 'setParameter'

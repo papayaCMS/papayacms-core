@@ -32,7 +32,7 @@ class PapayaUiMessagesTest extends PapayaTestCase {
   public function testAppendToWithoutElements() {
     $parent = $this
       ->getMockBuilder('PapayaXmlElement')
-      ->disableOriginalConstructor()
+      ->setConstructorArgs(array('messages'))
       ->getMock();
     $parent
       ->expects($this->never())
