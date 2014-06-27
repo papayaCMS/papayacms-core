@@ -14,7 +14,7 @@
 *
 * @package Papaya
 * @subpackage Core
-* @version $Id: base_options.php 39707 2014-03-31 15:00:40Z weinert $
+* @version $Id: base_options.php 39863 2014-06-27 09:47:01Z kersken $
 */
 
 /**
@@ -64,7 +64,6 @@ class base_options extends base_db {
       array(TRUE => 'on', FALSE => 'off'), 1),
 
     'PAPAYA_PATH_DATA' => array(2, 'isPath', 'input', '100', ''),
-    'PAPAYA_PATH_TEMPLATES' => array(2, 'isPath', 'input', '100', '', TRUE),
     'PAPAYA_PATH_WEB' => array(2, 'isPath', 'input', '100', '/'),
     'PAPAYA_PATH_THEMES' => array(2, 'isPath', 'input', '100', '/papaya-themes/'),
     'PAPAYA_CDN_THEMES' => array(2, 'isHTTPX', 'input', '200', '', TRUE),
@@ -114,6 +113,8 @@ class base_options extends base_db {
     'PAPAYA_SPAM_SCOREMIN_PERCENT' => array(5, 'isNum', 'input', 3, 10),
     'PAPAYA_SPAM_SCOREMAX_PERCENT' => array(5, 'isNum', 'input', 3, 90),
     'PAPAYA_SPAM_STOPWORD_MAX' => array(5, 'isNum', 'input', 3, 10),
+    'PAPAYA_PUBLISH_SOCIALMEDIA' => array(5, 'isNum', 'combo',
+       array(TRUE => 'on', FALSE => 'off'), 0),
 
     'PAPAYA_PASSWORD_ALGORITHM' => array(
       7,
