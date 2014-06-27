@@ -15,7 +15,7 @@
 *
 * @package Papaya-Library
 * @subpackage Configuration
-* @version $Id: Cms.php 39707 2014-03-31 15:00:40Z weinert $
+* @version $Id: Cms.php 39863 2014-06-27 09:47:01Z kersken $
 */
 
 /**
@@ -87,7 +87,6 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
 
     // paths and path urls
     'PAPAYA_PATH_DATA' => '',
-    'PAPAYA_PATH_TEMPLATES' => '',
     'PAPAYA_PATH_WEB' => '/',
     'PAPAYA_PATH_THEMES' => '/papaya-themes/',
     'PAPAYA_CDN_THEMES' => '',
@@ -117,6 +116,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
 
     'PAPAYA_PAGE_STATISTIC' => FALSE,
     'PAPAYA_STATISTIC_PRESERVE_IP' => FALSE,
+    'PAPAYA_PUBLISH_SOCIALMEDIA' => FALSE,
 
      // spam filter
     'PAPAYA_SPAM_LOG' => FALSE,
@@ -288,6 +288,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
 
     //internal path options
     'PAPAYA_PATH_CACHE' => NULL,
+    'PAPAYA_PATH_TEMPLATES' => NULL,
     'PAPAYA_PATHWEB_ADMIN' => NULL,
     'PAPAYA_PATH_MEDIAFILES' => NULL,
     'PAPAYA_PATH_THUMBFILES' => NULL,
@@ -377,19 +378,10 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
     $this->set('PAPAYA_PATH_MEDIAFILES', $basePath.'media/files/');
     $this->set('PAPAYA_PATH_THUMBFILES', $basePath.'media/thumbs/');
 
-    if ($this->get('PAPAYA_PATH_TEMPLATES', '') == '') {
-      $templatePaths = array(
-        PapayaUtilFilePath::getDocumentRoot().'/../templates/',
-        $this->get('PAPAYA_PATH_DATA').'templates/'
-      );
-      foreach ($templatePaths as $templatePath) {
-        $templatePath = PapayaUtilFilePath::cleanup($templatePath);
-        $this->set('PAPAYA_PATH_TEMPLATES', $templatePath);
-        if (file_exists($templatePath) && is_dir($templatePath)) {
-          break;
-        }
-      }
-    }
+    $this->set(
+      'PAPAYA_PATH_TEMPLATES',
+      PapayaUtilFilePath::cleanup($this->get('PAPAYA_PATH_DATA').'templates/')
+    );
     $this->set(
       'PAPAYA_PATHWEB_ADMIN',
       PapayaUtilFilePath::cleanup(

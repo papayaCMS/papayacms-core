@@ -14,7 +14,7 @@
 *
 * @package Papaya
 * @subpackage Core
-* @version $Id: base_topic_edit.php 39851 2014-06-05 10:00:12Z kersken $
+* @version $Id: base_topic_edit.php 39863 2014-06-27 09:47:01Z kersken $
 */
 
 /**
@@ -54,6 +54,11 @@ class base_topic_edit extends base_topic {
    * @var base_dialog
    */
   private $dialogProperties = NULL;
+  
+  /**
+   * @var base_dialog
+   */
+  private $dialogSocialMedia = NULL;
 
   /**
    * @var papaya_todo
@@ -608,6 +613,7 @@ class base_topic_edit extends base_topic {
         // public version
         $this->loadTranslationsInfo();
         $this->layout->add($this->publishExecute());
+        $this->layout->add($this->socialMediaExecute());
         $this->load($this->topicId, $this->papaya()->administrationLanguage->id);
         $this->loadTranslationsInfo();
         $this->layout->add($this->getPublicData());
@@ -4317,6 +4323,9 @@ class base_topic_edit extends base_topic {
                     empty($this->params['public_languages'])
                       ? NULL : $this->params['public_languages']
                   );
+                  if (defined('PAPAYA_PUBLISH_SOCIALMEDIA') && PAPAYA_PUBLISH_SOCIALMEDIA) {
+                    $this->layout->addCenter($this->getSocialMediaDialogXml());
+                  }
                 } else {
                   $this->addMsg(MSG_ERROR, $this->_gt('Couldn\'t publish this page.'));
                 }
@@ -4400,6 +4409,49 @@ class base_topic_edit extends base_topic {
       }
     }
     return $result;
+  }
+
+  /**
+  * Social media execute
+  *
+  */
+  public function socialMediaExecute() {
+    if (isset($this->params['cmd']) && $this->params['cmd'] == 'social') {
+      $twitter = $this->papaya()->plugins->get('3239c62be16c65bc389f45f95cfef6e8');
+      $options = $twitter->getOptions();
+      if (empty($options)) {
+        $this->addMsg(MSG_ERROR, 'Cannot send tweets. Twitter account data not configured.');
+        return;
+      }
+      $twitter->setConfiguration($options);
+      $languages = isset($this->params['languages']) ?
+        unserialize($this->params['languages']) :
+        NULL;
+      if (!empty($languages)) {
+        $count = 0;
+        $success = 0;
+        foreach ($languages as $languageId) {
+          if (isset($this->params['tweet_'.$languageId]) &&
+            $this->params['tweet_'.$languageId] == TRUE &&
+            isset($this->params['message_'.$languageId]) &&
+            !empty($this->params['message_'.$languageId])) {
+            $try = $twitter->update($this->params['message_'.$languageId]);
+            $count++;
+            $success += $try ? 1 : 0;
+          }
+        }
+        if ($count > 0) {
+          if ($success == $count) {
+            $this->addMsg(MSG_INFO, sprintf('%d tweet(s) successfully sent.', $count));
+          } else {
+            $this->addMsg(
+              MSG_ERROR,
+              sprintf('Could not send %d out of %d tweet(s).', $count - $success)
+            );
+          }
+        }
+      }
+    }
   }
 
   /**
@@ -4548,6 +4600,123 @@ class base_topic_edit extends base_topic {
       return $this->dialogPublish->getXml();
     }
     return '';
+  }
+
+  /**
+  * Get social media form
+  *
+  * @return string
+  */
+  function getSocialMediaDialogXml() {
+    $this->initializeSocialMediaDialog();
+    if (isset($this->dialogSocialMedia) && is_object($this->dialogSocialMedia)) {
+      return $this->dialogSocialMedia->getXml();
+    }
+    return '';
+  }
+
+  /**
+  * Initialize social media dialog
+  */
+  function initializeSocialMediaDialog() {
+    $languages = $this->dialogPublish->data()->get('public_languages', array());
+    $connector = $this->papaya()->plugins->get('3239c62be16c65bc389f45f95cfef6e8');
+    if (is_object($connector)) {
+      $this->dialogSocialMedia = new PapayaUiDialog();
+      $this->dialogSocialMedia->caption = new PapayaUiStringTranslated('Social media');
+      $this->dialogSocialMedia->parameterGroup($this->paramName);
+      $this->dialogSocialMedia->hiddenFields()->merge(
+        array(
+          'cmd' => 'social',
+          'page_id' => $this->topicId,
+          'id' => $this->topicId,
+          'languages' => serialize($languages)
+        )
+      );
+      foreach ($languages as $languageId) {
+        $languageName = $this
+          ->papaya()
+          ->languages
+          ->getLanguage($languageId)
+          ->title;
+        $languageIdentifier = $this
+          ->papaya()
+          ->languages
+          ->getLanguage($languageId)
+          ->identifier;
+        $this->dialogSocialMedia->fields[] =
+          new PapayaUiDialogFieldInputCheckbox(
+            new PapayaUiStringTranslated(
+              'Send tweet (%s)',
+              array($languageName)
+            ),
+            'tweet_'.$languageId
+          );
+        $pageTitle = $this->getShortTitle($this->topicId, $languageId);
+        if (!empty($pageTitle)) {
+          $message = new PapayaUiStringTranslated(
+            'New page "%s" out: %s',
+            array(
+              $pageTitle,
+              $this->getShortWebLink($this->topicId, $languageIdentifier)
+            )
+          );
+        } else {
+          $message = new PapayaUiStringTranslated(
+            'New page out: %s',
+            array(
+              $this->getShortWebLink($this->topicId, $languageIdentifier)
+            )
+          );
+        }
+        $this->dialogSocialMedia->fields[] =
+          new PapayaUiDialogFieldInput(
+            'Message',
+            'message_'.$languageId,
+            140,
+            $message
+          );
+      }
+      $this->dialogSocialMedia->buttons[] = new PapayaUiDialogButtonSubmit(
+        new PapayaUiStringTranslated('Send tweets')
+      );
+    }
+  }
+
+  /**
+  * Get a shortened link using the link shortener connector
+  *
+  * @param integer $topicId
+  * @param string $languageIdentifier
+  * @return string
+  */
+  function getShortWebLink($topicId, $languageIdentifier) {
+    $reference = $this->papaya()->pageReferences->get($languageIdentifier, $topicId);
+    $reference->setPreview(FALSE);
+    $link = $reference->get();
+    $shortener = $this->papaya()->plugins->get('6451e8560ad3c880d9ba17075d0a408d');
+    if (is_object($shortener)) {
+      $link = $shortener->getShort($link);
+    }
+    return $link;
+  }
+
+  /**
+  * Get the page title; shorten if necessary
+  *
+  * @param integer $topicId
+  * @param string $languageIdentifier
+  * @return string
+  */
+  function getShortTitle($topicId, $languageId) {
+    $pages = new PapayaContentPagesPublications();
+    $pages->load(array('id' => array($topicId), 'language_id' => $languageId));
+    $pageTitles = PapayaUtilArrayMapper::byIndex($pages, 'title');
+    $pageTitle = isset($pageTitles[$topicId]) ? $pageTitles[$topicId] : '';
+    if (strlen($pageTitle) > 60) {
+      $pageTitle = substr($pageTitle, 0, 57)."...";
+    }
+    return $pageTitle;
   }
 
   /**
