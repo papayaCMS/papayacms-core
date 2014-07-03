@@ -197,10 +197,10 @@ class PapayaPhrases extends PapayaObject {
    * @param string $groupName
    * @return string
    */
-  public function getTextFmt($phrase, $values, $groupName = NULL) {
+  public function getTextFmt($phrase, $values = array(), $groupName = NULL) {
     $result = new PapayaUiString(
       $this->_storage->get($phrase, $this->getGroupName($groupName), $this->_language->id),
-      $values
+      is_array($values) ? $values : array($values)
     );
     return (string)$result;
   }
