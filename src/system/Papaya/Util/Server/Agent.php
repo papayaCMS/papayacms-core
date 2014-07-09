@@ -86,7 +86,7 @@ class PapayaUtilServerAgent {
     'WebWasher', 'WebarooBot', 'Webshuttle', 'Webster Pro', 'Webverzeichnis.de',
     'West Wind Internet Protocols', 'Wget', 'WhizBang', 'Whizbang',
     'Wildsoft Surfer', 'WinSysClean', 'WinSysClean', 'WordPress', 'XenTarY',
-    'Xenu Link Sleuth', 'Yahoo Pipes', 'Yahoo! Mindset', 'YooW!', 'ZyBorg',
+    'Xenu Link Sleuth', 'XoviBot', 'Yahoo Pipes', 'Yahoo! Mindset', 'YooW!', 'ZyBorg',
     'agadine', 'aipbot', 'appie', 'asterias', 'bigfoot.com', 'blogchecker',
     'blogsear.ch', 'bot', 'bumblebee@relevare.com', 'cHAINsAW massacre', 'cfetch',
     'cometrics-bot', 'cosmos', 'crawl', 'csci', 'curiosity', 'curl', 'db/0.2; spc',
