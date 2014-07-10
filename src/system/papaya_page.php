@@ -429,20 +429,14 @@ class papaya_page extends base_object {
   * @param string $reason
   */
   function doRedirect($code, $targetUrl, $reason = NULL) {
-    $lineBreaks = array("\r", "\n");
-    $code = ($code == 301) ? $code : 302;
-    $this->sendHTTPStatus($code);
-    if (!empty($reason)) {
-      $this->sendHeader('X-Papaya-Status: '.str_replace($lineBreaks, '', $reason));
-    }
-    $this->sendHeader('Location: '.str_replace($lineBreaks, '', $targetUrl));
-    $this->sendHeader('Expires: '.gmdate('D, d M Y H:i:s', (time() - 31536000)).' GMT');
-    $this->sendHeader(
-      'Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0'
+    $response = new PapayaResponseRedirect(
+      $targetUrl,
+      ($code == 301) ? $code : 302,
+      $reason
     );
-    $this->sendHeader('Pragma: no-cache');
+    $response->send(FALSE);
     $this->papaya()->profiler->store();
-    exit;
+    $response->end();
   }
 
   /**

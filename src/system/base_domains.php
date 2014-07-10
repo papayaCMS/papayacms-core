@@ -239,20 +239,18 @@ class base_domains extends base_db {
           if ($hostName != $domain) {
             //use current protocol
             $url = $protocol.'://'.$domain.$paramString;
-            if (!(defined('PAPAYA_DISABLE_XHEADERS') && PAPAYA_DISABLE_XHEADERS)) {
-              header('X-Papaya-Status: domain redirect');
-            }
-            header('Location: '.$url);
-            exit;
+            $response = new PapayaResponseRedirect(
+              $url, 301, 'domain redirect'
+            );
+            $response->send();
           }
         } elseif ($protocol.'://'.$hostName != $domain) {
           //use target domain protocol
           $url = $domain.$paramString;
-          if (!(defined('PAPAYA_DISABLE_XHEADERS') && PAPAYA_DISABLE_XHEADERS)) {
-            header('X-Papaya-Status: domain redirect');
-          }
-          header('Location: '.$url);
-          exit;
+          $response = new PapayaResponseRedirect(
+            $url, 301, 'domain redirect'
+          );
+          $response->send();
         }
         break;
       case PAPAYA_DOMAIN_MODE_PAGE :
@@ -267,11 +265,10 @@ class base_domains extends base_db {
           }
           $checkDomain = 0 !== strpos($targetUrl, $protocol.'://'.$hostName);
           if ($checkDomain && PapayaFilterFactory::isUrl($targetUrl, TRUE)) {
-            if (!(defined('PAPAYA_DISABLE_XHEADERS') && PAPAYA_DISABLE_XHEADERS)) {
-              header('X-Papaya-Status: domain page redirect');
-            }
-            header('Location: '.$targetUrl);
-            exit;
+            $response = new PapayaResponseRedirect(
+              $targetUrl, 301, 'domain page redirect'
+            );
+            $response->send();
           }
         }
         break;
@@ -287,11 +284,10 @@ class base_domains extends base_db {
               $hostName = $this->getHostName();
               $protocol = $this->getHTTPProtocol();
               $url = $protocol.'://'.$hostName.'/index.'.$lng.$ext;
-              if (!(defined('PAPAYA_DISABLE_XHEADERS') && PAPAYA_DISABLE_XHEADERS)) {
-                header('X-Papaya-Status: domain language redirect');
-              }
-              header('Location: '.$url);
-              exit;
+              $response = new PapayaResponseRedirect(
+                $url, 301, 'domain language redirect'
+              );
+              $response->send();
             }
           }
         }
@@ -326,11 +322,10 @@ class base_domains extends base_db {
         $this->papaya()->request->getParameters(PapayaRequest::SOURCE_QUERY)
       );
       if ($reference->valid()) {
-        $response = $this->papaya()->response;
-        $response->setStatus(301);
-        $response->sendHeader('X-Papaya-Status: domain language redirect');
-        $response->sendHeader('Location: '.$reference->get());
-        $response->send(TRUE);
+        $response = new PapayaResponseRedirect(
+          $reference->get(), 301, 'domain language redirect'
+        );
+        $response->send();
       }
     }
   }
@@ -370,5 +365,3 @@ class base_domains extends base_db {
     return empty($this->domainData['domain_id']) ? 0 : $this->domainData['domain_id'];
   }
 }
-
-
