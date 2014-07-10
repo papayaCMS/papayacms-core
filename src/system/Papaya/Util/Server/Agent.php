@@ -64,7 +64,7 @@ class PapayaUtilServerAgent {
     'NECBot', 'NG-Search', 'NG/1.0', 'NG/2.0', 'NPBot', 'NaverBot', 'NetObjects',
     'NetResearchServer', 'NetSprint', 'Netcraft', 'Netluchs', 'Netprospector',
     'NextGenSearchBot', 'Norton', 'NuSpidr', 'Nutch', 'OPen sourfce retriver',
-    'OctBot', 'Octora', 'Offline Explorer', 'OmniExplorer_Bot', 'Openfind',
+    'OctBot', 'Octora', 'Offline Explorer', 'OmniExplorer_Bot', 'Openfind', 'Optimizer',
     'Oracle Ultra Search', 'Oracle Ultra Search', 'PEAR', 'PHOTO CHECK', 'PHP',
     'POE-Component-Client', 'Pagebull', 'Perl', 'PictureOfInternet',
     'Pluck Soap Client', 'Plucker', 'Plumtree', 'Poirot', 'Pompos', 'PostFavorites',
