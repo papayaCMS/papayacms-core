@@ -234,7 +234,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   */
   function _gtfile($fileName) {
     $administrationUser = $this->papaya()->administrationUser;
-    if (!empty($administrationUser['PAPAYA_UI_LANGUAGE'])) {
+    if (!empty($administrationUser->options['PAPAYA_UI_LANGUAGE'])) {
       $lng = $administrationUser->options['PAPAYA_UI_LANGUAGE'];
     } else {
       $lng = $this->papaya()->options['PAPAYA_UI_LANGUAGE'];
