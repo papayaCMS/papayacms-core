@@ -977,6 +977,7 @@ class papaya_page extends base_object {
           '.'.$cacheIdGzip,
           PAPAYA_CACHE_TIME_OUTPUT
         );
+        flush();
         if ($contentGzip && FALSE !== $mtime && !headers_sent()) {
           $this->sendHTTPStatus(200);
           $this->setVisitorLanguage($this->topic->currentLanguage['lng_ident']);
@@ -1386,6 +1387,7 @@ class papaya_page extends base_object {
               }
               if ($this->filter->checkConfiguration()) {
                 $str = $this->filter->parsePage($this->topic, $this->layout);
+                flush();
                 $this->sendHTTPStatus();
                 $this->sendHeader('Last-modified: '.gmdate('D, d M Y H:i:s').' GMT');
                 $this->output->sendHeader();
