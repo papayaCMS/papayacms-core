@@ -87,6 +87,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
 
     // paths and path urls
     'PAPAYA_PATH_DATA' => '',
+    'PAPAYA_PATH_TEMPLATES' => '',
     'PAPAYA_PATH_WEB' => '/',
     'PAPAYA_PATH_THEMES' => '/papaya-themes/',
     'PAPAYA_CDN_THEMES' => '',
@@ -288,7 +289,6 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
 
     //internal path options
     'PAPAYA_PATH_CACHE' => NULL,
-    'PAPAYA_PATH_TEMPLATES' => NULL,
     'PAPAYA_PATHWEB_ADMIN' => NULL,
     'PAPAYA_PATH_MEDIAFILES' => NULL,
     'PAPAYA_PATH_THUMBFILES' => NULL,
@@ -378,10 +378,19 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
     $this->set('PAPAYA_PATH_MEDIAFILES', $basePath.'media/files/');
     $this->set('PAPAYA_PATH_THUMBFILES', $basePath.'media/thumbs/');
 
-    $this->set(
-      'PAPAYA_PATH_TEMPLATES',
-      PapayaUtilFilePath::cleanup($this->get('PAPAYA_PATH_DATA').'templates/')
-    );
+    if ($this->get('PAPAYA_PATH_TEMPLATES', '') == '') {
+      $templatePaths = array(
+        PapayaUtilFilePath::getDocumentRoot().'/../templates/',
+        $this->get('PAPAYA_PATH_DATA').'templates/'
+      );
+      foreach ($templatePaths as $templatePath) {
+        $templatePath = PapayaUtilFilePath::cleanup($templatePath);
+        $this->set('PAPAYA_PATH_TEMPLATES', $templatePath);
+        if (file_exists($templatePath) && is_dir($templatePath)) {
+          break;
+        }
+      }
+    }
     $this->set(
       'PAPAYA_PATHWEB_ADMIN',
       PapayaUtilFilePath::cleanup(
