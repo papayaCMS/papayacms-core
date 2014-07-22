@@ -1948,7 +1948,9 @@ class base_topic_edit extends base_topic {
                     ->papaya()
                     ->plugins
                     ->get('79f18e7c40824a0f975363346716ff62');
-                  $actionsConnector->call('default', 'onPublishPage', $data);
+                  if (is_object($actionsConnector)) {
+                    $actionsConnector->call('default', 'onPublishPage', $data);
+                  }
                   return TRUE;
                 }
               }
@@ -4418,6 +4420,9 @@ class base_topic_edit extends base_topic {
   public function socialMediaExecute() {
     if (isset($this->params['cmd']) && $this->params['cmd'] == 'social') {
       $twitter = $this->papaya()->plugins->get('3239c62be16c65bc389f45f95cfef6e8');
+      if (!is_object($twitter)) {
+        return;
+      }
       $options = $twitter->getOptions();
       if (empty($options)) {
         $this->addMsg(MSG_ERROR, 'Cannot send tweets. Twitter account data not configured.');
