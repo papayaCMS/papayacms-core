@@ -1387,7 +1387,6 @@ class papaya_page extends base_object {
               }
               if ($this->filter->checkConfiguration()) {
                 $str = $this->filter->parsePage($this->topic, $this->layout);
-                flush();
                 $this->sendHTTPStatus();
                 $this->sendHeader('Last-modified: '.gmdate('D, d M Y H:i:s').' GMT');
                 $this->output->sendHeader();
