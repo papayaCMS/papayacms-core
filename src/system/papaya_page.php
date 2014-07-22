@@ -930,6 +930,15 @@ class papaya_page extends base_object {
   }
 
   /**
+   * Check if here is something that does not allow to use gzip
+   *
+   * @return bool
+   */
+  private function canUseGzip() {
+    return (!headers_sent() && (ob_get_level() < 1 || ob_get_contents() == ''));
+  }
+
+  /**
   * Get cache
   *
   * @param integer $cacheId
@@ -977,8 +986,7 @@ class papaya_page extends base_object {
           '.'.$cacheIdGzip,
           PAPAYA_CACHE_TIME_OUTPUT
         );
-        flush();
-        if ($contentGzip && FALSE !== $mtime && !headers_sent()) {
+        if ($contentGzip && FALSE !== $mtime && $this->canUseGzip()) {
           $this->sendHTTPStatus(200);
           $this->setVisitorLanguage($this->topic->currentLanguage['lng_ident']);
           $this->output->sendHeader();
@@ -1400,7 +1408,7 @@ class papaya_page extends base_object {
                 $response->sendHeader('X-Papaya-Cache: no');
                 if ($this->acceptGzip  &&
                     $this->papaya()->options->get('PAPAYA_COMPRESS_OUTPUT', FALSE) &&
-                    !headers_sent()) {
+                    $this->canUseGzip()) {
                   $response->sendHeader('Content-Encoding: gzip');
                   $response->sendHeader('X-Papaya-Gzip: yes');
                   $response->content(new PapayaResponseContentString(gzencode($str)));
