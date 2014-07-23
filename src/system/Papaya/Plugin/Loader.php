@@ -229,11 +229,12 @@ class PapayaPluginLoader extends PapayaObject {
     }
     if (!empty($pluginData['classes'])) {
       $path = substr($this->getPluginPath($pluginData['path']), 0, -1);
-      if (!PapayaAutoloader::hasClassMap($path)) {
-        /** @noinspection PhpIncludeInspection */
-        PapayaAutoloader::registerClassMap(
-          $path, include($path.'/'.$pluginData['classes'])
-        );
+      /** @noinspection PhpIncludeInspection */
+      if (
+        !PapayaAutoloader::hasClassMap($path) &&
+        ($classMap = include($path.'/'.$pluginData['classes']))
+      ) {
+        PapayaAutoloader::registerClassMap($path, $classMap);
       }
     }
   }
