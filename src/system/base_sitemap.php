@@ -261,12 +261,13 @@ class base_sitemap extends base_db {
   * Get XML
   *
   * @param boolean $navigationOnly optional, default value TRUE
+  * @param boolean $includeRootElement optional, default value TRUE
   * @access public
   * @return string ''
   */
-  function getXML($navigationOnly = TRUE) {
+  function getXML($navigationOnly = TRUE, $includeRootElement = TRUE) {
     if ($this->initializeNavTree($navigationOnly)) {
-      $result = $this->getSitemap();
+      $result = $this->getSitemap($includeRootElement);
       return $result;
     }
     return '';
@@ -863,18 +864,24 @@ class base_sitemap extends base_db {
   * Get sitemap
   *
   * @access public
+  * @param boolean $includeRootElement optional, default TRUE
   * @return string
   */
-  function getSitemap() {
-    $result = sprintf(
-      '<sitemap format="%s" date="%s">'.LF,
-      papaya_strings::escapeHTMLChars($this->data['format']),
-      papaya_strings::escapeHTMLChars(date('Y-m-d H:i:s'))
-    );
+  function getSitemap($includeRootElement = TRUE) {
+    $result = '';
+    if ($includeRootElement) {
+      $result .= sprintf(
+        '<sitemap format="%s" date="%s">'.LF,
+        papaya_strings::escapeHTMLChars($this->data['format']),
+        papaya_strings::escapeHTMLChars(date('Y-m-d H:i:s'))
+      );
+    }
     if (isset($this->rootIds) && is_array($this->rootIds)) {
       $result .= $this->getItems($this->rootIds);
     }
-    $result .= '</sitemap>'.LF;
+    if ($includeRootElement) {
+      $result .= '</sitemap>'.LF;
+    }
     return $result;
   }
 
