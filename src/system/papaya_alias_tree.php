@@ -710,7 +710,7 @@ class papaya_alias_tree extends base_db {
         $fields['viewmode_id'] = array(
           'Ouput filter', 'isNum', TRUE, 'function', 'callbackViewModeList'
         );
-        $fields['url_params'] = array('Params', 'isNoHTML', FALSE, 'input',
+        $fields['url_params'] = array('Params', 'isSomeText', FALSE, 'input',
           1000, 'Use {name} to insert values from the dynamic part of the path', '');
       } elseif ($data['url_redirectmode'] == 2) {
         $fields['module_guid'] = array ('Module', 'isGuid', TRUE, 'function',
