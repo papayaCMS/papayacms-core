@@ -264,8 +264,12 @@ class base_urlmounter extends base_db {
   function loadAlias($path) {
     $paths = array('/*');
     $strippedAliasPath = NULL;
-    $pathWeb = $this->papaya()->options->get('PAPAYA_PATH_WEB', '/');
-    if ($pathWeb != '/' && strpos($path, $pathWeb) == 0) {
+    $pathWeb = $this->papaya()->options->get(
+      'PAPAYA_PATH_WEB',
+      '/',
+      new PapayaFilterNotEmpty()
+    );
+    if ($pathWeb != '/' && strpos($path, $pathWeb) === 0) {
       $strippedAliasPath = substr($path, strlen($pathWeb) - 1);
       $pathParts = explode('/', substr($strippedAliasPath, 1, -1));
       $numPathParts = count($pathParts) - 1;
