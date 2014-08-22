@@ -350,6 +350,7 @@ class PapayaRequest
         new PapayaRequestParserThumbnail(),
         new PapayaRequestParserMedia(),
         new PapayaRequestParserImage(),
+        new PapayaRequestParserWrapper(),
         new PapayaRequestParserStart()
       );
     }
