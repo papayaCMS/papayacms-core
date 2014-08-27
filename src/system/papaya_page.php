@@ -488,10 +488,9 @@ class papaya_page extends base_object {
     }
     if ($status != 404) {
       $pathData = $this->papaya()->request->getParameters(PapayaRequest::SOURCE_PATH);
-      $themeWrappers = array('css.php', 'js.php');
       if (
-           ($pathData['mode'] != '' && !in_array($pathData['file_name'], $themeWrappers)) ||
-           ($pathData['file_path'] == '/' && $pathData['file_name'] == '')
+           ($pathData['mode'] != '' && $pathData['mode'] != '.theme-wrapper')  ||
+           ($pathData['is_startpage'])
          ) {
         return FALSE;
       }

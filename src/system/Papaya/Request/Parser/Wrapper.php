@@ -44,7 +44,7 @@ class PapayaRequestParserWrapper extends PapayaRequestParser {
   public function parse($url) {
     if (preg_match($this->_pattern, $url->getPath(), $matches)) {
       $result = array();
-      $result['mode'] = 'wrapper';
+      $result['mode'] = '.theme-wrapper';
       $result['output_mode'] = $matches['group'];
       return $result;
     }

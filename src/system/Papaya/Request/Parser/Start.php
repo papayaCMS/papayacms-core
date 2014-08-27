@@ -48,6 +48,7 @@ class PapayaRequestParserStart extends PapayaRequestParser {
     if (preg_match($this->_pattern, $url->getPath(), $matches)) {
       $result = array();
       $result['mode'] = 'page';
+      $result['is_startpage'] = TRUE;
       $result['output_mode'] = $matches['mode'];
       if (!empty($matches['preview'])) {
         $result['preview'] = TRUE;

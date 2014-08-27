@@ -29,28 +29,28 @@ class PapayaRequestParserWrapperTest extends PapayaTestCase {
       array(
         '/css.php',
         array(
-          'mode' => 'wrapper',
+          'mode' => '.theme-wrapper',
           'output_mode' => 'css'
         )
       ),
       array(
         '/css',
         array(
-          'mode' => 'wrapper',
+          'mode' => '.theme-wrapper',
           'output_mode' => 'css'
         )
       ),
       array(
         '/js.php',
         array(
-          'mode' => 'wrapper',
+          'mode' => '.theme-wrapper',
           'output_mode' => 'js'
         )
       ),
       array(
         '/js',
         array(
-          'mode' => 'wrapper',
+          'mode' => '.theme-wrapper',
           'output_mode' => 'js'
         )
       )

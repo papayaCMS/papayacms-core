@@ -30,6 +30,7 @@ class PapayaRequestParserStartTest extends PapayaTestCase {
         '/index.html',
         array(
           'mode' => 'page',
+          'is_startpage' => TRUE,
           'output_mode' => 'html',
           'page_title' => 'index'
         )
@@ -38,6 +39,7 @@ class PapayaRequestParserStartTest extends PapayaTestCase {
         '/index.html.preview',
         array(
           'mode' => 'page',
+          'is_startpage' => TRUE,
           'output_mode' => 'html',
           'preview' => TRUE,
           'page_title' => 'index'
@@ -47,6 +49,7 @@ class PapayaRequestParserStartTest extends PapayaTestCase {
         '/index.html.preview.1240848952',
         array(
           'mode' => 'page',
+          'is_startpage' => TRUE,
           'output_mode' => 'html',
           'preview' => TRUE,
           'preview_time' => 1240848952,
@@ -61,6 +64,7 @@ class PapayaRequestParserStartTest extends PapayaTestCase {
         '/index.de.html',
         array(
           'mode' => 'page',
+          'is_startpage' => TRUE,
           'output_mode' => 'html',
           'page_title' => 'index',
           'language' => 'de'
@@ -70,6 +74,7 @@ class PapayaRequestParserStartTest extends PapayaTestCase {
         '/foobar.rss',
         array(
           'mode' => 'page',
+          'is_startpage' => TRUE,
           'output_mode' => 'rss',
           'page_title' => 'foobar',
         )
@@ -78,6 +83,7 @@ class PapayaRequestParserStartTest extends PapayaTestCase {
         '/index.rss',
         array(
           'mode' => 'page',
+          'is_startpage' => TRUE,
           'output_mode' => 'rss',
           'page_title' => 'index',
         )
@@ -86,6 +92,7 @@ class PapayaRequestParserStartTest extends PapayaTestCase {
         '/index.de.rss',
         array(
           'mode' => 'page',
+          'is_startpage' => TRUE,
           'output_mode' => 'rss',
           'page_title' => 'index',
           'language' => 'de'
