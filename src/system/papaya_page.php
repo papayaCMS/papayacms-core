@@ -481,6 +481,7 @@ class papaya_page extends base_object {
   * returns int page-ID of alias if the request URI is an alias.
   */
   function checkAlias() {
+    $options = $this->papaya()->options;
     if (!empty($_SERVER['REDIRECT_PAPAYA_STATUS'])) {
       $status = (int)$_SERVER['REDIRECT_PAPAYA_STATUS'];
     } else {
@@ -490,13 +491,11 @@ class papaya_page extends base_object {
       $pathData = $this->papaya()->request->getParameters(PapayaRequest::SOURCE_PATH);
       if (
            ($pathData['mode'] != '' && $pathData['mode'] != '.theme-wrapper')  ||
-           ($pathData['is_startpage'])
+           ($pathData['is_startpage'] || $pathData['file_path'] == $options->get('PAPAYA_PATH_WEB', '/'))
          ) {
         return FALSE;
       }
     }
-    /** @var PapayaConfigurationCms $options */
-    $options = $this->papaya()->options;
     $options->setupPaths();
     $requestURI = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
     $publicFilesPath = $options->get('PAPAYA_PATH_PUBLICFILES', '');
