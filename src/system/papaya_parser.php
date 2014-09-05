@@ -1333,10 +1333,7 @@ class papaya_parser extends base_db {
                 $this->getWebLink(
                   (int)$params['topic'],
                   NULL,
-                  $this->_linkOutputMode,
-                  NULL,
-                  NULL,
-                  $caption
+                  $this->_linkOutputMode
                 )
               ),
               papaya_strings::escapeHTMLChars(
@@ -1379,10 +1376,7 @@ class papaya_parser extends base_db {
                 $this->getWebLink(
                   (int)$params['topic'],
                   NULL,
-                  $this->_linkOutputMode,
-                  NULL,
-                  NULL,
-                  $caption
+                  $this->_linkOutputMode
                 )
               ),
               papaya_strings::escapeHTMLChars(
