@@ -1449,6 +1449,9 @@ class papaya_parser extends base_db {
         } else {
           $link = $params['href'];
         }
+        if (isset($params['nofollow']) && $params['nofollow'] == 'yes') {
+          $additionalAttributes .= ' rel="nofollow"';
+        }
         return sprintf(
           '<a href="%s" class="%s"%s>%s</a>',
           papaya_strings::escapeHTMLChars($link),
