@@ -41,9 +41,9 @@ class PapayaThemeWrapperUrl {
   private $_requestUrl = NULL;
 
   private $_mimetypeIdentification = array(
-    'text/javascript' => '(/[^/]+/js(\\.php)?$)',
-    'text/css' => '(/[^/]+/css(\\.php)?$)',
-    'image/*' => '(/[^/]+/image(\\.php)?$)',
+    'text/javascript' => '((/[^/]+)?/js(\\.php)?$)',
+    'text/css' => '((/[^/]+)?/css(\\.php)?$)',
+    'image/*' => '((/[^/]+)?/image(\\.php)?$)',
   );
 
   /**

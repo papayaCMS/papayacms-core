@@ -489,10 +489,15 @@ class papaya_page extends base_object {
     }
     if ($status != 404) {
       $pathData = $this->papaya()->request->getParameters(PapayaRequest::SOURCE_PATH);
+      $isPageMode = $pathData['mode'] == '' || $pathData['mode'] == 'page';
       if (
-           ($pathData['mode'] != '' && $pathData['mode'] != '.theme-wrapper')  ||
-           ($pathData['is_startpage'] || $pathData['file_path'] == $options->get('PAPAYA_PATH_WEB', '/'))
-         ) {
+         !$isPageMode ||
+         (
+           $isPageMode &&
+           $pathData['file_path'] == $options->get('PAPAYA_PATH_WEB', '/') &&
+           $pathData['file_name'] == ''
+         )
+      ) {
         return FALSE;
       }
     }
@@ -545,14 +550,6 @@ class papaya_page extends base_object {
       $this->getMediaThumbFile(substr($requestURI, strrpos($requestURI, '/') + 1));
       exit;
     } else {
-      $themeWrapperUrl = new PapayaThemeWrapperUrl();
-      switch ($themeWrapperUrl->getMimetype()) {
-      case 'text/javascript' :
-      case 'text/css' :
-        $themeWrapper = new PapayaThemeWrapper($themeWrapperUrl);
-        $themeWrapper->getResponse()->send(TRUE);
-      }
-
       $urlMounter = new base_urlmounter;
       $this->allowSessionRedirects = FALSE;
       if ($alias = $urlMounter->locate()) {
@@ -1062,20 +1059,21 @@ class papaya_page extends base_object {
   * @access public
   */
   function initPageMode() {
+    $pathParameters = $this->papaya()->request->getParameters(PapayaRequest::SOURCE_PATH);
     $this->versionDateTime = 0;
-    if (isset($_GET['p_date'])) {
-      $this->versionDateTime = (int)$_GET['p_date'];
-    } elseif (isset($this->requestData['datetime']) &&
-              $this->requestData['datetime'] > 0) {
-      $this->versionDateTime = (int)$this->requestData['datetime'];
+    if (isset($pathParameters['preview_time']) &&
+              $pathParameters['preview_time'] > 0) {
+      $this->versionDateTime = (int)$pathParameters['preview_time'];
     }
     if (!$this->isPreview()) {
       $this->versionDateTime = 0;
     }
-    if (!isset($this->requestData['ext'])) {
-      $this->requestData['ext'] = 'php';
+    if (!empty($pathParameters['mode']) && $pathParameters['mode'] != 'page') {
+      $pathParameters['output_mode'] = $pathParameters['mode'];
+    } elseif (empty($pathParameters['output_mode'])) {
+      $pathParameters['output_mode'] = 'html';
     }
-    switch ($this->requestData['ext']) {
+    switch ($pathParameters['output_mode']) {
     case 'xml':
       $this->mode = 'xml';
       break;
@@ -1083,16 +1081,16 @@ class papaya_page extends base_object {
       $this->mode = $this->papaya()->options->get('PAPAYA_URL_EXTENSION', 'html');
       break;
     default:
-      $this->mode = $this->requestData['ext'];
+      $this->mode = $pathParameters['output_mode'];
     }
-
     unset($this->output);
     $this->output = new papaya_output;
-
     $pageModes = array(
-      'urls', 'status', 'thumb', 'thumbnail', 'media', 'popup', 'download', 'image'
+      'urls', 'status', 'thumb', 'thumbnail', 'media', 'popup', 'download', 'image', '.theme-wrapper'
     );
-    if (isset($this->mode) && in_array($this->mode, $pageModes)) {
+    if (
+      (isset($this->mode) && in_array($this->mode, $pageModes))
+    ) {
       $this->readOnlySession = ($this->mode != 'image');
       $this->allowSession = PapayaSession::ACTIVATION_DYNAMIC;
       $this->allowSessionRedirects = FALSE;
@@ -1190,11 +1188,27 @@ class papaya_page extends base_object {
     case 'xml':
       $controllers->add(new PapayaControllerCallback(array($this, 'getXMLOutput')));
       break;
+    case '.theme-wrapper' :
+      $controllers->add(new PapayaControllerCallback(array($this, 'getThemeFile')));
+      break;
     default:
       $controllers->add(new PapayaControllerCallback(array($this, 'getPageOutput')));
       break;
     }
     return $controllers;
+  }
+
+  public function getThemeFile() {
+    $themeWrapperUrl = new PapayaThemeWrapperUrl();
+    switch ($themeWrapperUrl->getMimetype()) {
+    case 'text/javascript' :
+    case 'text/css' :
+      $themeWrapper = new PapayaThemeWrapper($themeWrapperUrl);
+      $response = $themeWrapper->getResponse();
+      $response->send(TRUE);
+      return TRUE;
+    }
+    return FALSE;
   }
 
   /**
