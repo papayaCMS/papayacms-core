@@ -353,6 +353,10 @@ class PapayaRequest
         new PapayaRequestParserWrapper(),
         new PapayaRequestParserStart()
       );
+      /** @var PapayaRequestParser $parser */
+      foreach ($this->_parsers as $parser) {
+        $parser->papaya($this->papaya());
+      }
     }
   }
 

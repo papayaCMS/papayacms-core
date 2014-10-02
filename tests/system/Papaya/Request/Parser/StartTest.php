@@ -10,10 +10,11 @@ class PapayaRequestParserStartTest extends PapayaTestCase {
   public function testParse($path, $expected) {
     $url = $this->getMock('PapayaUrl', array('getPath'));
     $url
-      ->expects($this->once())
+      ->expects($this->any())
       ->method('getPath')
       ->will($this->returnValue($path));
     $parser = new PapayaRequestParserStart();
+    $parser->papaya($this->mockPapaya()->application());
     $this->assertSame(
       $expected,
       $parser->parse($url)
@@ -72,12 +73,7 @@ class PapayaRequestParserStartTest extends PapayaTestCase {
       ),
       array(
         '/foobar.rss',
-        array(
-          'mode' => 'page',
-          'is_startpage' => TRUE,
-          'output_mode' => 'rss',
-          'page_title' => 'foobar',
-        )
+        false
       ),
       array(
         '/index.rss',

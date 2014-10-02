@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Request
 */
-abstract class PapayaRequestParser {
+abstract class PapayaRequestParser extends PapayaObject {
 
   /**
   * parse request

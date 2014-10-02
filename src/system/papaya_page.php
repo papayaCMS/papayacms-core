@@ -490,14 +490,8 @@ class papaya_page extends base_object {
     if ($status != 404) {
       $pathData = $this->papaya()->request->getParameters(PapayaRequest::SOURCE_PATH);
       $isPageMode = $pathData['mode'] == '' || $pathData['mode'] == 'page';
-      if (
-         !$isPageMode ||
-         (
-           $isPageMode &&
-           $pathData['file_path'] == $options->get('PAPAYA_PATH_WEB', '/') &&
-           $pathData['file_name'] == ''
-         )
-      ) {
+      $isStartPage = isset($pathData['is_startpage']) && $pathData['is_startpage'];
+      if (!$isPageMode || $isStartPage) {
         return FALSE;
       }
     }

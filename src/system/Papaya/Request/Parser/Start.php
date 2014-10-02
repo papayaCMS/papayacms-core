@@ -26,11 +26,11 @@
 class PapayaRequestParserStart extends PapayaRequestParser {
 
   /**
-  * PCRE pattern for thumbnail links
+  * PCRE pattern
   * @var string
   */
   private $_pattern = '(/
-    (?:(?P<page_title>[a-zA-Z\d_-]+)\.) # title
+    (?:(?P<page_title>index)\.) # title
     (?:(?P<language>[a-zA-Z]{2,4})\.)? # language identifier
     (?:(?P<mode>(?:[a-oq-z]+|p(?!review))[a-z]*)) # output mode
     (?:\.
@@ -45,7 +45,14 @@ class PapayaRequestParserStart extends PapayaRequestParser {
    * @return FALSE|array
    */
   public function parse($url) {
-    if (preg_match($this->_pattern, $url->getPath(), $matches)) {
+    if ($url->getPath() == $this->papaya()->options->get('PAPAYA_PATH_WEB', '/')) {
+      return array(
+        'mode' => 'page',
+        'is_startpage' => TRUE,
+        'output_mode' => 'html',
+        'preview' => FALSE
+      );
+    } elseif (preg_match($this->_pattern, $url->getPath(), $matches)) {
       $result = array();
       $result['mode'] = 'page';
       $result['is_startpage'] = TRUE;
