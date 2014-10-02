@@ -242,6 +242,7 @@ class base_urlmounter extends base_db {
         }
         ++$i;
       }
+      $path = preg_replace('('.preg_quote($separator).'+$)', '', $path);
       $protocol = PapayaUtilServerProtocol::get();
       $result = $protocol.'://'.$_SERVER['HTTP_HOST'].$path;
       if (!empty($requestData['query'])) {
