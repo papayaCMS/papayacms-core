@@ -66,8 +66,7 @@ class checkit {
    * @return mixed
    */
   public static function validate($value, $functionName, $mustContainValue = FALSE) {
-    $arguments = func_get_args();
-    array_shift($arguments);
+    $arguments = array($value, $mustContainValue);
     return call_user_func_array(__CLASS__.'::'.$functionName, $arguments);
   }
 
