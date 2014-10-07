@@ -2434,16 +2434,16 @@ class base_topic_edit extends base_topic {
       $fields = array();
       if (isset($this->topic['TRANSLATION'])) {
         $data = $this->topic['TRANSLATION'];
-        $fields['topic_title'] = array('Title', 'isNoHTML', TRUE,
+        $fields['topic_title'] = array('Title', PapayaFilter::IS_NOT_EMPTY, TRUE,
           'input', 400, '', 1);
         if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_METADATA_EDIT) &&
             !$this->topic['meta_useparent']) {
           $fields[] = 'Metatags';
-          $fields['meta_title'] = array('Page Title', 'isNoHTML', FALSE,
+          $fields['meta_title'] = array('Page Title', PapayaFilter::IS_NOT_EMPTY, FALSE,
             'input', 400, '', '');
-          $fields['meta_keywords'] = array('Keywords', 'isNoHTML',
+          $fields['meta_keywords'] = array('Keywords', PapayaFilter::IS_NOT_EMPTY,
             FALSE, 'input', 400, '', '');
-          $fields['meta_descr'] = array('Description', 'isNoHTML',
+          $fields['meta_descr'] = array('Description', PapayaFilter::IS_NOT_EMPTY,
             FALSE, 'textarea', 6, '', '');
         }
       }
