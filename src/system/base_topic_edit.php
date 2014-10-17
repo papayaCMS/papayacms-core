@@ -3961,6 +3961,7 @@ class base_topic_edit extends base_topic {
                AND version_id = %d';
     $params = array($this->tableTopicsVersionsTrans, (int)$this->topicId,
       $this->params['version_id']);
+    $languages = array();
     if ($res = $this->databaseQueryFmt($sql, $params)) {
       while ($row = $res->fetchRow()) {
         $lngId = $row[0];
@@ -3969,7 +3970,6 @@ class base_topic_edit extends base_topic {
         }
       }
     }
-    $languages = array();
     foreach ($languages as $lngId => $lng) {
       $result .= sprintf(
         '<input type="checkbox" class="dialogCheckbox" name="%s[%s][]" value="%d"/>%s (%s)'.LF,
