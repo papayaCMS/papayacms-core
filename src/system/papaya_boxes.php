@@ -1529,7 +1529,7 @@ class papaya_boxes extends base_boxes {
 
       $fields = array();
       if (isset($this->box['TRANSLATION']) && is_array($this->box['TRANSLATION'])) {
-        $fields['box_title'] = array('Title', 'isNoHTML', FALSE, 'input', 100);
+        $fields['box_title'] = array('Title', new PapayaFilterNotEmpty(), FALSE, 'input', 100);
       }
       $fields[] = 'Language independent';
       $fields['box_name'] = array('Name', 'isNoHTML', TRUE, 'input', 100);
