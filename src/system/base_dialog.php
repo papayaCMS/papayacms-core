@@ -1012,6 +1012,7 @@ class base_dialog extends base_object {
         break;
       case 'mediafolder':
         $mediadb = new base_mediadb();
+        $mediadb->paramName = $this->paramName;
         if ($str = $mediadb->callbackFolders($name, $element, $data)) {
           $result .= $str;
         }
