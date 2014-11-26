@@ -711,7 +711,7 @@ class papaya_parser extends base_db {
       }
       $data = $this->createThumbnail($params, $data);
       $imageData = array(
-        'src' => $this->getWebMediaLink($data['filename'], 'thumb', $data['title']),
+        'src' => $this->getWebMediaLink($data['file_id'], 'thumb', $data['title']),
         'width' => (int)$data['width'],
         'height' => (int)$data['height'],
         'storage_group' => $data['storage_group'],
