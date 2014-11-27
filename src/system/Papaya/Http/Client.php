@@ -341,10 +341,11 @@ class PapayaHttpClient {
     } else {
       $server = empty($this->_url['host'])
         ? 'localhost' : $this->_url['host'];
+      $defaultPort = $this->_url['scheme'] == 'https' ? 443 : 80;
       $port = empty($this->_url['port']) || $this->_url['port'] <= 0
-        ? 80 : (int)$this->_url['port'];
+        ? $defaultPort : (int)$this->_url['port'];
     }
-    $opened = $socket->open($server, $port, $this->_timeout);
+    $opened = $socket->open($server, $port, $this->_timeout, $this->_url['scheme']);
     if ($opened) {
       if (strtolower($this->getHeader('Connection')) === 'close') {
         $socket->setKeepAlive(FALSE);
