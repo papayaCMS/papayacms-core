@@ -152,7 +152,7 @@ class PapayaContentPages extends PapayaDatabaseRecordsLazy {
               FROM %s AS t
          $joinMode JOIN %s AS tt ON (tt.topic_id = t.topic_id AND tt.lng_id = '%d')
               LEFT JOIN %s AS tp ON (tp.topic_id = t.topic_id)
-              JOIN %s AS v ON (v.view_id = tt.view_id)
+              LEFT JOIN %s AS v ON (v.view_id = tt.view_id)
               LEFT JOIN %s AS vm ON (vm.view_id = tt.view_id AND vm.viewmode_id = '%d')
               LEFT JOIN %s AS au ON (t.author_id = au.user_id)
                    ".$this->_compileCondition($filter)."
