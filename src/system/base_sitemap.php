@@ -976,12 +976,15 @@ class base_sitemap extends base_db {
           );
           if (
             !empty($this->baseURL) &&
-            0 !== strpos($href, $this->baseURL) &&
-            preg_match('(^(https?)://[^/]+/(.*))', $href, $matches)
+            0 !== strpos($href, $this->baseURL)
           ) {
-            $href = $this->baseURL.(isset($matches[2]) ? $matches[2] : '');
-            if (!preg_match('(^(https?):)', $href)) {
-              $href = $matches[1].$href;
+            if (preg_match('(^(https?)://[^/]+/(.*))', $href, $matches)) {
+              $href = $this->baseURL.(isset($matches[2]) ? $matches[2] : '');
+              if (!preg_match('(^(https?):)', $href)) {
+                $href = $matches[1].$href;
+              }
+            } else {
+              $href = $this->baseURL.$href;
             }
           }
         }
