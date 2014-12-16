@@ -153,7 +153,7 @@ class PapayaMediaStorageServiceS3Handler {
       }
     }
     // path is the request URI from first / up to the query string
-    $urlPattern = '(^[^:/]+://(?P<bucket>[^/.]+)\.[^/?]+'
+    $urlPattern = '(^[^:/]+://(?P<bucket>[^/.]+)\.s3\amazonaws[^/?]+'
       .'(?P<path>(?:/[^?]*)?)(?P<queryString>(?:\?.*)?)$)';
     $result = preg_match($urlPattern, $url, $matches);
     if (1 !== $result) {
