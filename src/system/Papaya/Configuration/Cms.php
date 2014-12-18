@@ -351,7 +351,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
         $this->get('PAPAYA_MEDIA_STORAGE_S3_KEYID'),
         $this->get('PAPAYA_MEDIA_STORAGE_S3_KEY')
       );
-      stream_wrapper_register('s3', 'PapayaStreamwrapperS3', STREAM_IS_URL);
+      PapayaStreamwrapperS3::register('s3');
       $this->set('PAPAYA_MEDIA_STORAGE_SUBDIRECTORY', 'media/');
       break;
     default :

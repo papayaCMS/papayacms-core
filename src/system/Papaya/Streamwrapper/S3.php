@@ -132,6 +132,21 @@ class PapayaStreamwrapperS3 {
   }
 
   /**
+   * Register stream wrapper if not defined
+   * @param string $protocol
+   * @return bool
+   */
+  public static function register($protocol) {
+    $wrappers = stream_get_wrappers();
+    foreach ($wrappers as $wrapper) {
+      if ($wrapper === $protocol) {
+        stream_wrapper_unregister($protocol);
+      }
+    }
+    return stream_wrapper_register($protocol, 'PapayaStreamwrapperS3', STREAM_IS_URL);
+  }
+
+  /**
    * Set Amazon S3 handler object
    * @param PapayaStreamwrapperS3Handler $handler
    */
