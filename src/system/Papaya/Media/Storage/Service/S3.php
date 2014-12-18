@@ -370,6 +370,15 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   }
 
   /**
+   * S3 generally supports public files
+   *
+   * @return bool
+   */
+  public function allowPublic() {
+    return TRUE;
+  }
+
+  /**
   * check if storage id is public
   *
   * @param string $storageGroup

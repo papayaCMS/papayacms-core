@@ -397,6 +397,11 @@ class papaya_parser extends base_db {
           'extension' => $file['mimetype_ext'],
           'mimetype' => $file['mimetype'],
         );
+        $permissions = $this->mediaDB->calculateFolderPermissions($file['folder_id']);
+        if (!isset($permissions['surfer_view']) &&
+            !isset($permissions['surfer_edit'])) {
+          $this->files[$fileId]['PUBLIC_FILE'] = TRUE;
+        }
       }
     }
   }
@@ -698,26 +703,50 @@ class papaya_parser extends base_db {
       switch ($this->papaya()->options['PAPAYA_THUMBS_FILETYPE']) {
       case 1 :
         $mimetype = 'image/gif';
+        $ext = 'gif';
         break;
       case 2 :
         $mimetype = 'image/jpeg';
+        $ext = 'jpg';
         break;
       case 3 :
         $mimetype = 'image/png';
+        $ext = 'png';
         break;
       default:
         $mimetype = '';
+        $ext = '';
         break;
       }
       $data = $this->createThumbnail($params, $data);
-      $imageData = array(
-        'src' => $this->getWebMediaLink($data['file_id'], 'thumb', $data['title']),
-        'width' => (int)$data['width'],
-        'height' => (int)$data['height'],
-        'storage_group' => $data['storage_group'],
-        'storage_id' => $data['storage_id'],
-        'mimetype' => $mimetype,
-      );
+      if (
+        $data['width'] != $orgWidth || $data['height'] != $orgHeight
+      ) {
+        $imageData = array(
+          'src' => $this->getWebMediaLink(
+            $data['filename'], 'thumb', $data['title']
+          ),
+          'width' => (int)$data['width'],
+          'height' => (int)$data['height'],
+          'storage_group' => $data['storage_group'],
+          'storage_id' => $data['storage_id'],
+          'mimetype' => $mimetype,
+        );
+      } else {
+        $imageData = array(
+          'src' => $this->getWebMediaLink(
+            $data['file_id'].'v'.$data['version_id'],
+            'media',
+            $data['title'],
+            $data['extension']
+          ),
+          'width' => $orgWidth,
+          'height' => $orgHeight,
+          'storage_group' => 'files',
+          'storage_id' => $data['file_id'].'v'.$data['version_id'],
+          'mimetype' => $data['mimetype'],
+        );
+      }
     } else {
       $imageData = array(
         'src' => $this->getWebMediaLink(
@@ -734,16 +763,23 @@ class papaya_parser extends base_db {
       );
     }
     $storage = $this->getStorageService();
-    if (
-      $storage->isPublic(
-        $imageData['storage_group'], $imageData['storage_id'], $imageData['mimetype']
-      )
-    ) {
-      $imageData['src'] = $storage->getUrl(
-        $imageData['storage_group'],
-        $imageData['storage_id'],
-        $imageData['mimetype']
-      );
+    if ($storage->allowPublic()) {
+      if (isset($data['PUBLIC_FILE']) && ($data['PUBLIC_FILE'])) {
+        if (
+          $storage->isPublic(
+            $imageData['storage_group'], $imageData['storage_id'], $imageData['mimetype']
+          ) ||
+          $storage->setPublic(
+            $imageData['storage_group'], $imageData['storage_id'], TRUE, $imageData['mimetype']
+          )
+        ) {
+          $imageData['src'] = $storage->getUrl(
+            $imageData['storage_group'],
+            $imageData['storage_id'],
+            $imageData['mimetype']
+          );
+        }
+      }
     }
     if (
       isset($params['topic']) &&

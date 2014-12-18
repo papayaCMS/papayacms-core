@@ -56,6 +56,9 @@ class PapayaMediaStorageService_TestProxy extends PapayaMediaStorageService {
   public function exists($storageGroup, $storageId) {
   }
 
+  public function allowPublic() {
+  }
+
   public function isPublic($storageGroup, $storageId, $mimeType) {
   }
 
