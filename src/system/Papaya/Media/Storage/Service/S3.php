@@ -44,10 +44,28 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   private $_storageDirectoryDepth = 1;
 
   /**
+  * how long is the status cache valid (in seconds)
+  * @var integer $_storageCacheExpire
+  */
+  private $_storageCacheExpire = 86400;
+
+  /**
   * handler object
   * @var PapayaMediaStorageServiceS3Handler
   */
   private $_handler = NULL;
+
+  /**
+   * @var PapayaCacheService cache for meta information
+   */
+  private $_cacheService;
+
+  /**
+   * Name for the cache group (public status information)
+   *
+   * @var string
+   */
+  private $_statusCacheName = 'mediastatus';
 
   /**
    * Set the storage configuration values.
@@ -74,6 +92,18 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
     $this->_storageDirectoryDepth = $configuration->get(
       'PAPAYA_MEDIA_STORAGE_DIRECTORY_DEPTH', $this->_storageDirectoryDepth
     );
+    $this->_storageCacheExpire = $configuration->get(
+      'PAPAYA_MEDIA_STORAGE_CACHE_EXPIRE', $this->_storageCacheExpire
+    );
+  }
+
+  public function cache(PapayaCacheService $service = NULL) {
+    if (isset($service)) {
+      $this->_cacheService = $service;
+    } elseif (NULL === $this->_cacheService) {
+      $this->_cacheService = PapayaCache::get(PapayaCache::DATA, $this->papaya()->options);
+    }
+    return $this->_cacheService;
   }
 
   /**
@@ -387,6 +417,16 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   * @return boolean $isPublic
   */
   public function isPublic($storageGroup, $storageId, $mimeType) {
+    $cacheParameters = array($storageId, $mimeType);
+    if ($cache = $this->cache()) {
+      if (
+        $status = $cache->read(
+          $this->_statusCacheName, $storageGroup, $cacheParameters, $this->_storageCacheExpire
+        )
+      ) {
+        return $status == 'public';
+      }
+    }
     $client = $this->_handler->setUpRequest(
       $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId),
       'HEAD'
@@ -406,7 +446,17 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
     $userPattern = 'aws:Grantee/aws:URI/text() = "http://acs.amazonaws.com/groups/global/AllUsers"';
     $permissionPattern = 'string(//aws:Grant['.$userPattern.']/aws:Permission/text())';
     $permission = $response->evaluate($permissionPattern);
-    return ($permission == 'READ' || $permission == 'FULL_CONTROL');
+    $isPublic = ($permission == 'READ' || $permission == 'FULL_CONTROL');
+    if ($cache) {
+      $cache->write(
+        'mediastatus',
+        $storageGroup,
+        $cacheParameters,
+        $isPublic ? 'public' : 'private',
+        $this->_storageCacheExpire
+      );
+    }
+    return $isPublic;
   }
 
   /**
@@ -432,6 +482,19 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
       )
     );
     $client->send();
-    return ($client->getResponseStatus() == 200);
+    if ($client->getResponseStatus() == 200) {
+      $cacheParameters = array($storageId, $mimeType);
+      if ($cache = $this->cache()) {
+        $cache->write(
+          $this->_statusCacheName,
+          $storageGroup,
+          $cacheParameters,
+          $isPublic ? 'public' : 'private',
+          $this->_storageCacheExpire
+        );
+      }
+      return TRUE;
+    }
+    return FALSE;
   }
 }
