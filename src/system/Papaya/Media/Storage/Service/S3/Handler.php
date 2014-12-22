@@ -162,7 +162,6 @@ class PapayaMediaStorageServiceS3Handler {
     )x';
     $result = preg_match($urlPattern, $url, $matches);
     if (1 !== $result) {
-      var_dump($url, $result, $matches);
       trigger_error(
         'Can not parse URL to Amazon S3.',
         E_USER_WARNING
