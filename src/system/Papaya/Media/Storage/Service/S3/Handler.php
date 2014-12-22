@@ -153,17 +153,26 @@ class PapayaMediaStorageServiceS3Handler {
       }
     }
     // path is the request URI from first / up to the query string
-    $urlPattern = '(^[^:/]+://(?P<bucket>[^/]+)\.s3\.amazonaws[^/?]+'
-      .'/(?P<path>(?:[^?]*)?)(?P<queryString>(?:\?.*)?)$)';
+    $urlPattern = '(^
+      [^:/]+://
+      (?P<bucket>[^/]+)
+      \\.s3\\.amazonaws[^/?]+
+      (?:/(?P<path>(?:[^?]*)?))?
+      (?P<queryString>(?:\\?.*)?)$
+    )x';
     $result = preg_match($urlPattern, $url, $matches);
     if (1 !== $result) {
+      var_dump($url, $result, $matches);
       trigger_error(
         'Can not parse URL to Amazon S3.',
         E_USER_WARNING
       );
       return '';
     }
-    $signatureData .= '/'.$matches['bucket'].'/'.$matches['path'];
+    $signatureData .= '/'.$matches['bucket'];
+    if (!empty($matches['path'])) {
+      $signatureData .= '/'.$matches['path'];
+    }
     if ($matches['queryString'] === '?acl') {
       $signatureData .= $matches['queryString'];
     }
