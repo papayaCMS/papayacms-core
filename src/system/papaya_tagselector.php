@@ -275,7 +275,7 @@ class papaya_tagselector extends base_tags {
       }
     }
     $selectedCategories = $this->getCategories(
-      $selectedCatIds, $this->parentObj->lngSelect->currentLanguageId
+      $selectedCatIds, (int)$this->parentObj->getContentLanguageId()
     );
     $allParents = array();
     foreach ($selectedCategories as $selectedCategory) {
@@ -291,7 +291,7 @@ class papaya_tagselector extends base_tags {
       }
     }
     $moreCategories = $this->getCategories(
-      $allParents, $this->parentObj->lngSelect->currentLanguageId
+      $allParents, (int)$this->parentObj->getContentLanguageId()
     );
     foreach ($moreCategories as $category) {
       $this->categories[$category['category_id']] = $category;
@@ -482,7 +482,7 @@ class papaya_tagselector extends base_tags {
 
     $lngCondition = $this->databaseGetSQLCondition(
       'ct.lng_id',
-      $this->parentObj->lngSelect->currentLanguageId
+      (int)$this->parentObj->getContentLanguageId()
     );
     $parentCondition = $this->databaseGetSQLCondition('c.parent_id', $parentIds);
     $availableCategories = $this->getAvailableCategories(
@@ -812,7 +812,7 @@ class papaya_tagselector extends base_tags {
     if (isset($this->selectedTags)) {
       $selectedTagsData = $this->getTags(
         array_keys($this->selectedTags),
-        $this->parentObj->lngSelect->currentLanguageId
+        (int)$this->parentObj->getContentLanguageId()
       );
     } else {
       $this->selectedTags = array();
