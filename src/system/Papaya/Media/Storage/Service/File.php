@@ -445,6 +445,15 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   }
 
   /**
+   * The file handler needs a public file directory (to link public files)
+   *
+   * @return bool
+   */
+  public function allowPublic() {
+    return !empty($this->_publicDirectory);
+  }
+
+  /**
   * check if stored file is public (is linked in public directory)
   *
   * @param string $storageGroup
@@ -453,7 +462,7 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
   * @return boolean $isPublic
   */
   public function isPublic($storageGroup, $storageId, $mimeType) {
-    if (!empty($this->_publicDirectory)) {
+    if ($this->allowPublic()) {
       $publicFilename = $this->_getPublicFilename(
         $storageGroup, $storageId, $mimeType, FALSE
       );

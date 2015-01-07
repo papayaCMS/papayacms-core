@@ -784,9 +784,10 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   function getWebMediaLink($mid, $mode = 'media', $text = '', $ext = '') {
     $application = $this->papaya();
     $request = $application->request;
-    if (in_array($mode, array('thumb', 'thumbnail'))) {
+    if (in_array($mode, array('thumb', 'thumbs', 'thumbnail'))) {
       $reference = new PapayaUiReferenceThumbnail();
       $storageGroup = 'thumbs';
+      $mode = 'thumbnail';
     } else {
       $reference = new PapayaUiReferenceMedia();
       $reference->setMode($mode);
@@ -795,10 +796,9 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
     $reference->load($request);
     $reference->setMediaUri($mid);
     $options = $this->papaya()->options;
-    $pathPublicFiles = $options->get('PAPAYA_PATH_PUBLICFILES', '');
+    $mimeType = '';
     $isPublic = isset($GLOBALS['PAPAYA_PAGE']) && $GLOBALS['PAPAYA_PAGE']->public;
-    if (!empty($pathPublicFiles) || empty($text) || empty ($ext)) {
-      $mimeType = '';
+    if (empty($text) || empty ($ext)) {
       if (strlen($mid) > 0 && strpos($mid, '.') === FALSE) {
         if ($storageGroup == 'thumbs') {
           $thumbsFileType = $options->get('PAPAYA_THUMBS_FILETYPE', IMAGETYPE_PNG);
@@ -822,7 +822,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
           unset($mediaDb);
         }
       }
-      if ($isPublic && !empty($pathPublicFiles)) {
+      if ($isPublic) {
         $storage = PapayaMediaStorage::getService(
           $options->get('PAPAYA_MEDIA_STORAGE_SERVICE', ''),
           $options
@@ -833,11 +833,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
                   $storage->isPublic($storageGroup, $mid.$versionSuffix, $mimeType)) {
           return $storage->getUrl($storageGroup, $mid.$versionSuffix, $mimeType);
         }
-        unset($storageGroup);
-        unset($versionSuffix);
-        unset($mimeType);
       }
-      unset($pathPublicFiles);
     }
     $reference->setPreview(!$isPublic);
     if (!empty($ext)) {

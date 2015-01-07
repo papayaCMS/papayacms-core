@@ -241,6 +241,18 @@ class PapayaMediaStorageServiceS3HandlerTest extends PapayaTestCase {
         'http://sample_bucket.s3.amazonaws.com?acl',
         "GET\n\ntext/plain\nMon, 02 Nov 2009 13:06:00 +0000".
         "\n/sample_bucket?acl"
+      ),
+      array(
+        array(
+          'Content-Type' => 'text/plain',
+          'Date' => 'Mon, 02 Nov 2009 13:06:00 +0000',
+          'x-amz-acl' => '',
+          'x-amz-copy-source' => '',
+          'x-amz-metadata-directive' => '',
+        ),
+        'http://sample.bucket.s3.amazonaws.com?acl',
+        "GET\n\ntext/plain\nMon, 02 Nov 2009 13:06:00 +0000".
+        "\n/sample.bucket?acl"
       )
     );
   }

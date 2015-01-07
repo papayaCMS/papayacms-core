@@ -594,7 +594,6 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       '    </Grant>'.
       '  </AccessControlList>'.
       '</AccessControlPolicy>';
-    $configuration = $this->getMockConfigurationObjectFixture();
     $client = $this->getMock('PapayaHttpClient');
     $client
       ->expects($this->exactly(2))
@@ -626,6 +625,92 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       ->will($this->returnValue($client));
     $configuration = $this->getMockConfigurationObjectFixture();
     $service = new PapayaMediaStorageServiceS3($configuration);
+    $service->papaya($this->mockPapaya()->application());
+    $service->setHandler($handler);
+    $this->assertTrue(
+      $service->isPublic(
+        'sample_group',
+        'sample_id',
+        'image/gif'
+      )
+    );
+  }
+
+  public function testIsPublicWithPublicFileReadingCache() {
+    $cache = $this->getMock('PapayaCacheService');
+    $cache
+      ->expects($this->once())
+      ->method('read')
+      ->with('mediastatus', 'sample_group', array('sample_id', 'image/gif'), 86400, NULL)
+      ->will($this->returnValue('public'));
+    $configuration = $this->getMockConfigurationObjectFixture();
+    $service = new PapayaMediaStorageServiceS3($configuration);
+    $service->papaya($this->mockPapaya()->application());
+    $service->cache($cache);
+    $this->assertTrue(
+      $service->isPublic(
+        'sample_group',
+        'sample_id',
+        'image/gif'
+      )
+    );
+  }
+
+  public function testIsPublicWithPublicFileWritingCache() {
+    $responseXML = '<?xml version="1.0" encoding="UTF-8"?>'.
+      '<AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/">'.
+      '  <AccessControlList>'.
+      '    <Grant>'.
+      '      <Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group">'.
+      '        <URI>http://acs.amazonaws.com/groups/global/AllUsers</URI>'.
+      '      </Grantee>'.
+      '      <Permission>READ</Permission>'.
+      '    </Grant>'.
+      '  </AccessControlList>'.
+      '</AccessControlPolicy>';
+    $client = $this->getMock('PapayaHttpClient');
+    $client
+      ->expects($this->exactly(2))
+      ->method('send');
+    $client
+      ->expects($this->exactly(2))
+      ->method('getResponseStatus')
+      ->will($this->returnValue(200));
+    $client
+      ->expects($this->once())
+      ->method('getResponseHeader')
+      ->with($this->equalTo('Content-Type'))
+      ->will($this->returnValue('image/gif'));
+    $client
+      ->expects($this->once())
+      ->method('getResponseData')
+      ->will($this->returnValue($responseXML));
+    $handler = $this->getMock('PapayaMediaStorageServiceS3Handler');
+    $handler
+      ->expects($this->exactly(2))
+      ->method('setUpRequest')
+      ->with(
+        $this->logicalOr(
+          'http://sample_bucket.s3.amazonaws.com/d/i/rectory/sample_group/sample_id',
+          'http://sample_bucket.s3.amazonaws.com/d/i/rectory/sample_group/sample_id?acl'
+        ),
+        $this->logicalOr('HEAD', 'GET')
+      )
+      ->will($this->returnValue($client));
+    $cache = $this->getMock('PapayaCacheService');
+    $cache
+      ->expects($this->once())
+      ->method('read')
+      ->with('mediastatus', 'sample_group', array('sample_id', 'image/gif'), 86400, NULL)
+      ->will($this->returnValue(NULL));
+    $cache
+      ->expects($this->once())
+      ->method('write')
+      ->with('mediastatus', 'sample_group', array('sample_id', 'image/gif'), 'public', 86400);
+    $configuration = $this->getMockConfigurationObjectFixture();
+    $service = new PapayaMediaStorageServiceS3($configuration);
+    $service->papaya($this->mockPapaya()->application());
+    $service->cache($cache);
     $service->setHandler($handler);
     $this->assertTrue(
       $service->isPublic(
@@ -642,7 +727,6 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       '  <AccessControlList>'.
       '  </AccessControlList>'.
       '</AccessControlPolicy>';
-    $configuration = $this->getMockConfigurationObjectFixture();
     $client = $this->getMock('PapayaHttpClient');
     $client
       ->expects($this->exactly(2))
@@ -664,7 +748,28 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       ->will($this->returnValue($client));
     $configuration = $this->getMockConfigurationObjectFixture();
     $service = new PapayaMediaStorageServiceS3($configuration);
+    $service->papaya($this->mockPapaya()->application());
     $service->setHandler($handler);
+    $this->assertFalse(
+      $service->isPublic(
+        'sample_group',
+        'sample_id',
+        'image/gif'
+      )
+    );
+  }
+
+  public function testIsPublicWithPrivateFileReadingCache() {
+    $cache = $this->getMock('PapayaCacheService');
+    $cache
+      ->expects($this->once())
+      ->method('read')
+      ->with('mediastatus', 'sample_group', array('sample_id', 'image/gif'), 86400, NULL)
+      ->will($this->returnValue('private'));
+    $configuration = $this->getMockConfigurationObjectFixture();
+    $service = new PapayaMediaStorageServiceS3($configuration);
+    $service->papaya($this->mockPapaya()->application());
+    $service->cache($cache);
     $this->assertFalse(
       $service->isPublic(
         'sample_group',
@@ -688,6 +793,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       ->will($this->returnValue($client));
     $configuration = $this->getMockConfigurationObjectFixture();
     $service = new PapayaMediaStorageServiceS3($configuration);
+    $service->papaya($this->mockPapaya()->application());
     $service->setHandler($handler);
     $this->assertFalse(
       $service->isPublic(
@@ -717,6 +823,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       ->will($this->returnValue($client));
     $configuration = $this->getMockConfigurationObjectFixture();
     $service = new PapayaMediaStorageServiceS3($configuration);
+    $service->papaya($this->mockPapaya()->application());
     $service->setHandler($handler);
     $this->assertFalse(
       $service->isPublic(
@@ -748,6 +855,41 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       )
       ->will($this->returnValue($this->getMockHTTPClient(NULL)));
     $service = new PapayaMediaStorageServiceS3($configuration);
+    $service->papaya($this->mockPapaya()->application());
+    $service->setHandler($handler);
+    $this->assertTrue(
+      $service->setPublic('sample_group', 'sample_id', TRUE, 'image/gif')
+    );
+  }
+
+  public function testSetPublicWithStatusTrueWritesCache() {
+    $configuration = $this->getMockConfigurationObjectFixture();
+    $handler = $this->getMock('PapayaMediaStorageServiceS3Handler');
+    $handler
+      ->expects($this->once())
+      ->method('setUpRequest')
+      ->with(
+        $this->equalTo('http://sample_bucket.s3.amazonaws.com/d/i/rectory/sample_group/sample_id'),
+        $this->equalTo('PUT'),
+        $this->equalTo(array()),
+        $this->equalTo(
+          array(
+            'Content-Type' => 'image/gif',
+            'x-amz-acl' => 'public-read',
+            'x-amz-copy-source' => '/sample_bucket/d/i/rectory/sample_group/sample_id',
+            'x-amz-metadata-directive' => 'REPLACE',
+          )
+        )
+      )
+      ->will($this->returnValue($this->getMockHTTPClient(NULL)));
+    $cache = $this->getMock('PapayaCacheService');
+    $cache
+      ->expects($this->once())
+      ->method('write')
+      ->with('mediastatus', 'sample_group', array('sample_id', 'image/gif'), 'public', 86400);
+    $service = new PapayaMediaStorageServiceS3($configuration);
+    $service->papaya($this->mockPapaya()->application());
+    $service->cache($cache);
     $service->setHandler($handler);
     $this->assertTrue(
       $service->setPublic('sample_group', 'sample_id', TRUE, 'image/gif')
@@ -775,6 +917,41 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       )
       ->will($this->returnValue($this->getMockHTTPClient(NULL)));
     $service = new PapayaMediaStorageServiceS3($configuration);
+    $service->papaya($this->mockPapaya()->application());
+    $service->setHandler($handler);
+    $this->assertTrue(
+      $service->setPublic('sample_group', 'sample_id', FALSE, 'image/gif')
+    );
+  }
+
+  public function testSetPublicWithStatusFalseWriteCache() {
+    $configuration = $this->getMockConfigurationObjectFixture();
+    $handler = $this->getMock('PapayaMediaStorageServiceS3Handler');
+    $handler
+      ->expects($this->once())
+      ->method('setUpRequest')
+      ->with(
+        $this->equalTo('http://sample_bucket.s3.amazonaws.com/d/i/rectory/sample_group/sample_id'),
+        $this->equalTo('PUT'),
+        $this->equalTo(array()),
+        $this->equalTo(
+          array(
+            'Content-Type' => 'image/gif',
+            'x-amz-acl' => 'private',
+            'x-amz-copy-source' => '/sample_bucket/d/i/rectory/sample_group/sample_id',
+            'x-amz-metadata-directive' => 'REPLACE',
+          )
+        )
+      )
+      ->will($this->returnValue($this->getMockHTTPClient(NULL)));
+    $cache = $this->getMock('PapayaCacheService');
+    $cache
+      ->expects($this->once())
+      ->method('write')
+      ->with('mediastatus', 'sample_group', array('sample_id', 'image/gif'), 'private', 86400);
+    $service = new PapayaMediaStorageServiceS3($configuration);
+    $service->papaya($this->mockPapaya()->application());
+    $service->cache($cache);
     $service->setHandler($handler);
     $this->assertTrue(
       $service->setPublic('sample_group', 'sample_id', FALSE, 'image/gif')
@@ -815,6 +992,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       ->will($this->returnValue($client));
     $configuration = $this->getMockConfigurationObjectFixture();
     $service = new PapayaMediaStorageServiceS3($configuration);
+    $service->papaya($this->mockPapaya()->application());
     $service->setHandler($handler);
     $this->assertSame(
       'http://sample_bucket.s3.amazonaws.com/d/i/rectory/sample_group/sample_id',
@@ -850,6 +1028,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       ->will($this->returnValue($client));
     $configuration = $this->getMockConfigurationObjectFixture();
     $service = new PapayaMediaStorageServiceS3($configuration);
+    $service->papaya($this->mockPapaya()->application());
     $service->setHandler($handler);
     $this->assertNull(
       $service->getUrl('sample_group', 'sample_id', 'image/gif')

@@ -547,23 +547,31 @@ class base_thumbnail extends base_object {
     }
 
     $this->mediaDB = base_mediadb::getInstance();
-    if (NULL === $fileVersion) {
-      $file = $this->mediaDB->getFile($fileId);
-      $fileVersion = $file['current_version_id'];
-    }
+    $file = $this->mediaDB->getFile($fileId);
+    $fileVersion = ($fileVersion > 0) ? $fileVersion : $file['current_version_id'];
 
-    return $this->getThumb($fileId, $fileVersion, $bgColor);
+    return $this->getThumb(
+      $fileId,
+      $fileVersion,
+      $bgColor,
+      array(
+        'width' => $file['width'],
+        'height' => $file['height'],
+        'type' => $this->mediaDB->mimeToInteger($file['mimetype'])
+      )
+    );
   }
 
   /**
-  * Get thumb (filename or image resource)
-  *
-  * @param string $fileId
-  * @param integer $versionId
-  * @param string $bgColor
-  * @return string|FALSE thumb file name
-  */
-  function getThumb($fileId, $versionId, $bgColor = NULL) {
+   * Get thumb (filename or image resource)
+   *
+   * @param string $fileId
+   * @param integer $versionId
+   * @param string $bgColor
+   * @param array $fileData
+   * @return FALSE|string thumb file name
+   */
+  function getThumb($fileId, $versionId, $bgColor = NULL, array $fileData = NULL) {
     if (empty($bgColor) &&
         defined('PAPAYA_THUMBS_BACKGROUND') &&
         PAPAYA_THUMBS_BACKGROUND != '') {
@@ -577,7 +585,13 @@ class base_thumbnail extends base_object {
       $this->backgroundColor = $this->htmlToColor($bgColor);
 
       // load image data
-      list($orgWidth, $orgHeight, $orgType) = @getimagesize($srcFileName);
+      if ($fileData) {
+        $orgWidth = $fileData['width'];
+        $orgHeight = $fileData['height'];
+        $orgType = $fileData['type'];
+      } else {
+        list($orgWidth, $orgHeight, $orgType) = @getimagesize($srcFileName);
+      }
 
       // if the file is no image, quit
       if (!$orgType) {
@@ -616,6 +630,7 @@ class base_thumbnail extends base_object {
           $this->yOffset
         );
         $srcFileName = $this->thumbnailDirectory.$thumbCropName;
+
         list($orgWidth, $orgHeight, $orgType) = @getimagesize($srcFileName);
 
         $thumbParams = array(

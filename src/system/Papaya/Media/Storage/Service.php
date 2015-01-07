@@ -23,7 +23,7 @@
 * @package Papaya-Library
 * @subpackage Media-Storage
 */
-abstract class PapayaMediaStorageService {
+abstract class PapayaMediaStorageService extends PapayaObject {
 
   /**
   * Constructor - set configuration if provided
@@ -97,6 +97,13 @@ abstract class PapayaMediaStorageService {
   * @return boolean
   */
   abstract public function exists($storageGroup, $storageId);
+
+  /**
+  * Check if the configuration allows public urls with this storage handler
+  *
+  * @return boolean
+  */
+  abstract public function allowPublic();
 
   /**
   * check if storage id is public
