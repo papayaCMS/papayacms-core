@@ -107,7 +107,7 @@ class base_topic_edit extends base_topic {
   /**
    * @var PapayaUiDialog
    */
-  protected $dialogPublish = NULL;
+  public $dialogPublish = NULL;
 
   /**
    * @var papaya_locking
