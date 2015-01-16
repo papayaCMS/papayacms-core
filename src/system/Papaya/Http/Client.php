@@ -41,9 +41,15 @@ class PapayaHttpClient {
 
   /**
   * remote url
-  * @var integer
+  * @var string
   */
   private $_url = '';
+
+  /**
+  * Transport protocol
+  * @var string
+  */
+  private $_transport = '';
 
   /**
   * proxy server data
@@ -220,6 +226,30 @@ class PapayaHttpClient {
   }
 
   /**
+  * Set the transport protocol
+  *
+  * @param string $transport
+  * @return boolean TRUE if empty or available in stream_get_transports(), FALSE otherwise
+  */
+  public function setTransport($transport) {
+    $result = FALSE;
+    if ($transport == '' || in_array($transport, stream_get_transports())) {
+      $this->_transport = $transport;
+      $result = TRUE;
+    }
+    return $result;
+  }
+
+  /**
+  * Get the transport protocol
+  *
+  * @return string
+  */
+  public function getTransport() {
+    return $this->_transport;
+  }
+
+  /**
   * set proxy server data
   *
   * @param string $server
@@ -344,8 +374,17 @@ class PapayaHttpClient {
       $defaultPort = $this->_url['scheme'] == 'https' ? 443 : 80;
       $port = empty($this->_url['port']) || $this->_url['port'] <= 0
         ? $defaultPort : (int)$this->_url['port'];
+      if ($this->_url['scheme'] == 'https' && empty($this->_transport)) {
+        $this->setTransport('tls');
+      }
     }
-    $opened = $socket->open($server, $port, $this->_timeout, $this->_url['scheme']);
+    $opened = $socket->open(
+      $server,
+      $port,
+      $this->_timeout,
+      $this->_url['scheme'],
+      $this->_transport
+    );
     if ($opened) {
       if (strtolower($this->getHeader('Connection')) === 'close') {
         $socket->setKeepAlive(FALSE);

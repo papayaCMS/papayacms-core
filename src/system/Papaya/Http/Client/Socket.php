@@ -109,10 +109,11 @@ class PapayaHttpClientSocket {
   * @param integer $port
   * @param integer $timeout optional, default value 10
   * @param string $scheme optional, default value 'http'
+  * @param string $transport optional, default value ''
   * @access public
   * @return boolean
   */
-  public function open($host, $port, $timeout = 10, $scheme = 'http') {
+  public function open($host, $port, $timeout = 10, $scheme = 'http', $transport = '') {
     $this->_contentLength = -1;
     $this->_host = $host;
     $this->_port = $port;
@@ -120,8 +121,8 @@ class PapayaHttpClientSocket {
     $this->_resource = $this->getPool()->getConnection($host, $port);
     if (NULL === $this->_resource) {
       $ip = gethostbyname($host);
-      if ($scheme == 'https') {
-        $ip = 'ssl://'.$ip;
+      if (!empty($transport)) {
+        $ip = $transport.'://'.$ip;
       }
       $errorNo = 0;
       $errorString = '';
