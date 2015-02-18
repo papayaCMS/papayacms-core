@@ -1420,7 +1420,7 @@ class papaya_page extends base_object {
                   $response->content(new PapayaResponseContentString(gzencode($str)));
                 } else {
                   $this->sendHeader('X-Papaya-Gzip: disabled');
-                  $response->content(new PapayaResponseContentString($str));
+                  $response->content(new PapayaResponseContentString((string)$str));
                 }
                 if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
                   PapayaRequestLog::getInstance()->logTime('Page delivered');
