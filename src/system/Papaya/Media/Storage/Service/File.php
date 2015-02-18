@@ -499,7 +499,7 @@ class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
         $storageFilename = $this->_getStorageFilename($storageGroup, $storageId, FALSE);
         if ($this->_existLocalFile($storageFilename) &&
             !file_exists($publicFilename)) {
-          return @link($storageFilename, $publicFilename);
+          return @symlink($storageFilename, $publicFilename);
         }
       }
     } else {
