@@ -784,10 +784,17 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   function getWebMediaLink($mid, $mode = 'media', $text = '', $ext = '') {
     $application = $this->papaya();
     $request = $application->request;
+    $thumbsFileType = $this->papaya()->options->get('PAPAYA_THUMBS_FILETYPE', IMAGETYPE_PNG);
     if (in_array($mode, array('thumb', 'thumbs', 'thumbnail'))) {
       $reference = new PapayaUiReferenceThumbnail();
       $storageGroup = 'thumbs';
       $mode = 'thumbnail';
+      $extensions = array(
+        IMAGETYPE_PNG => 'png',
+        IMAGETYPE_JPEG => 'jpg',
+        IMAGETYPE_GIF => 'gif'
+      );
+      $ext = $extensions[$thumbsFileType];
     } else {
       $reference = new PapayaUiReferenceMedia();
       $reference->setMode($mode);
@@ -801,9 +808,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
     if (empty($text) || empty ($ext)) {
       if (strlen($mid) > 0 && strpos($mid, '.') === FALSE) {
         if ($storageGroup == 'thumbs') {
-          $thumbsFileType = $options->get('PAPAYA_THUMBS_FILETYPE', IMAGETYPE_PNG);
           $mimeType = image_type_to_mime_type($thumbsFileType);
-          unset($thumbsFileType);
         } else {
           $mediaDb = base_mediadb::getInstance();
           $mediaFile = $mediaDb->getFile($mid);
