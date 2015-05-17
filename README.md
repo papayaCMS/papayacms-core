@@ -1,7 +1,9 @@
 # papaya CMS
 
-Content Management System (CMS) and application framework<br/>
-Version 5, Copyright: 2002-2014 dimensional GmbH (www.dimensional.de)
+[papaya CMS](https://github.com/papayaCMS/) Content Management System and web application framework<br/>
+Version 5, Copyright: 2002-2015 dimensional GmbH (www.dimensional.de)
+
+[(see project website to find out more about papaya CMS)](http://www.papaya-cms.com/)
 
 [![Build Status](https://travis-ci.org/papayaCMS/papayacms-core.svg)](https://travis-ci.org/papayaCMS/papayacms-core)
 [![License](https://poser.pugx.org/papaya/cms-core/license.svg)](https://packagist.org/packages/papaya/cms-core)
