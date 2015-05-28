@@ -14,7 +14,7 @@
 *
 * @package Papaya
 * @subpackage Core
-* @version $Id: base_tags.php 39803 2014-05-07 16:06:43Z weinert $
+* @version $Id: base_tags.php 39973 2015-05-28 13:13:36Z kersken $
 */
 
 /**
@@ -438,6 +438,71 @@ class base_tags extends base_db {
         $result[$row['category_id']][$row['tag_id']] = $row;
       }
       $this->absCount = $res->absCount();
+    }
+    return $result;
+  }
+
+  /**
+   * Load tags by type and link IDs
+   *
+   * You can either provide a single link ID, resulting in an array
+   * of tags for that link, or an array of link IDs, resulting in an
+   * array of tag arrays for each link in which the link IDs are the keys.
+   * If you provide a language ID, localized information for that language
+   * will be provided, otherwise just the language-independent data.
+   *
+   * @todo Refactor into a "PageTags" class
+   * @param string $type
+   * @param integer|array $linkIds
+   * @param integer $lngId optional, default NULL
+   * @retun array
+   */
+  function getTagsByTypeAndLinkIds($type, $linkIds, $lngId = NULL) {
+    $multiple = TRUE;
+    if (!is_array($linkIds)) {
+      $multiple = FALSE;
+    }
+    $result = array();
+    $condition = $this->databaseGetSQLCondition('tl.link_id', $linkIds);
+    if ($lngId !== NULL) {
+      $sql = "SELECT t.tag_id, t.tag_uri, tt.tag_title, tt.tag_description,
+                     tt.tag_image, tl.link_id
+                FROM %s tl
+               INNER JOIN %s t
+                  ON tl.tag_id = t.tag_id
+                LEFT JOIN %s tt
+                  ON t.tag_id = tt.tag_id
+               WHERE tl.link_type = '%s'
+                 AND ".str_replace('%', '%%', $condition);
+      $parameters = array(
+        $this->tableTagLinks,
+        $this->tableTag,
+        $this->tableTagTrans,
+        $type
+      );
+    } else {
+      $sql = "SELECT t.tag_id, t.tag_uri, tl.link_id
+                FROM %s tl
+               INNER JOIN %s t
+                  ON tl.tag_id = t.tag_id
+               WHERE tl.link_type = '%s'
+                 AND ".str_replace('%', '%%', $condition);
+      $parameters = array(
+        $this->tableTagLinks,
+        $this->tableTag,
+        $type
+      );
+    }
+    if ($res = $this->databaseQueryFmt($sql, $parameters)) {
+      while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
+        if (!isset($result[$row['link_id']])) {
+          $result[$row['link_id']] = array();
+        }
+        $result[$row['link_id']][$row['tag_id']] = $row;
+      }
+    }
+    if (!$multiple && isset($result[$linkIds])) {
+      $result = $result[$linkIds];
     }
     return $result;
   }

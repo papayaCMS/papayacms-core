@@ -14,7 +14,7 @@
 *
 * @package Papaya
 * @subpackage Core
-* @version $Id: base_sitemap.php 39728 2014-04-07 19:51:21Z weinert $
+* @version $Id: base_sitemap.php 39973 2015-05-28 13:13:36Z kersken $
 */
 
 /**
@@ -163,19 +163,41 @@ class base_sitemap extends base_db {
   */
   var $baseURL;
 
+  /**
+  * View mode
+  * @var string
+  */
   var $viewMode = NULL;
 
+  /**
+  * Link types
+  * @var array
+  */
   var $linkTypes = array();
 
   /**
-   * @var string
-   */
+  * Topic path root
+  * @var array
+  */
   private $topicPathRoot = array();
 
   /**
-   * @var array
-   */
+  * Topic positions
+  * @var array
+  */
   private $topicPositions = array();
+
+  /**
+  * Tags object
+  * @var base_tags
+  */
+  private $_tags = NULL;
+
+  /**
+  * Tag list
+  * @var array
+  */
+  private $tagList = array();
 
   /**
    * base sitemap
@@ -195,6 +217,11 @@ class base_sitemap extends base_db {
       empty($this->topicObj->topic['prev_path']) ? '' : $this->topicObj->topic['prev_path'],
       empty($this->topicObj->topic['prev']) ? '' : $this->topicObj->topic['prev']
     );
+    $tagModes = array('basic', 'full');
+    $addTags = 'none';
+    if (isset($fields['add_tags']) && in_array($fields['add_tags'], $tagModes)) {
+      $addTags = $fields['add_tags'];
+    }
     $this->data = array(
       'xslfile' => (isset($fields['xslfile'])) ? $fields['xslfile'] : '',
       'title' => (isset($fields['title'])) ? $fields['title'] : '',
@@ -204,7 +231,8 @@ class base_sitemap extends base_db {
       'forend' => empty($fields['forend']) ? 0 : (int)$fields['forend'],
       'foclevels' => empty($fields['foclevels']) ? 0 : (int)$fields['foclevels'],
       'format' => empty($fields['format']) ? '' : $fields['format'],
-      'sort' => (isset($fields['sort'])) ? $fields['sort'] : FALSE
+      'sort' => (isset($fields['sort'])) ? $fields['sort'] : FALSE,
+      'tags' => $addTags
     );
     $this->paramName = $this->paramName.'_'.$this->data['root'];
     $this->sessionParamName = 'PAPAYA_SESS_sitemap_'.$this->paramName;
@@ -863,7 +891,6 @@ class base_sitemap extends base_db {
   /**
   * Get sitemap
   *
-  * @access public
   * @param boolean $includeRootElement optional, default TRUE
   * @return string
   */
@@ -884,6 +911,33 @@ class base_sitemap extends base_db {
     }
     return $result;
   }
+  /**
+  * Initialize tags
+  *
+  */
+  function initializeTags() {
+    if ($this->data['tags'] != 'none') {
+      $tags = $this->tags();
+      $lngId = $this->topicObj->getContentLanguageId();
+      $this->tagList = $tags->getTagsByTypeAndLinkIds(
+        'topic',
+        array_keys($this->topics),
+        $this->data['tags'] == 'basic' ? NULL : $lngId
+      );
+    }
+  }
+
+  /**
+  * Initialize/get the tags object
+  *
+  * @return base_tags
+  */
+  function tags() {
+    if ($this->_tags === NULL) {
+      $this->_tags = new base_tags();
+    }
+    return $this->_tags;
+  }
 
   /**
   * Get items
@@ -893,6 +947,7 @@ class base_sitemap extends base_db {
   * @return string
   */
   function getItems($nodes) {
+    $this->initializeTags();
     $result = '';
     if (isset($nodes) && is_array($nodes)) {
       foreach ($nodes as $id) {
@@ -1090,6 +1145,31 @@ class base_sitemap extends base_db {
         date('Y-m-d H:i:s', $row['topic_modified']),
         $linkClassAttribute
       );
+      if ($this->data['tags'] != 'none' && isset($this->tagList[$id])) {
+        $result .= '<tags>'.LF;
+        foreach ($this->tagList[$id] as $tagId => $tagData) {
+          if ($this->data['tags'] == 'basic') {
+            $result .= sprintf(
+              '<tag id="%d" uri="%s" />'.LF,
+              $tagId,
+              papaya_strings::escapeHTMLChars($tagData['tag_uri'])
+            );
+          } else {
+            $tagTitle = isset($tagData['tag_title']) ? $tagData['tag_title'] : '';
+            $tagDescription = isset($tagData['tag_description']) ? $tagData['tag_description'] : '';
+            $tagImage = isset($tagData['tag_image']) ? $tagData['tag_image'] : '';
+            $result .= sprintf(
+              '<tag id="%d" uri="%s" title="%s" description="%s" image="%s" />'.LF,
+              $tagId,
+              $tagData['tag_uri'],
+              papaya_strings::escapeHTMLChars($tagTitle),
+              papaya_strings::escapeHTMLChars($tagDescription),
+              papaya_strings::escapeHTMLChars($tagImage)
+            );
+          }
+        }
+        $result .= '</tags>'.LF;
+      }
       $result .= $subResult;
       $result .= '</mapitem>'.LF;
       $counter += $subCounter;
