@@ -355,6 +355,7 @@ class papaya_overview extends base_db {
         } else {
           $title .= $topic['topic_title'];
         }
+        $title .= ' #'.$topic['topic_id'];
         if (isset($topic['topic_published']) &&
             $topic['topic_published'] < $topic['topic_modified']) {
           $image = 'status-page-modified';
