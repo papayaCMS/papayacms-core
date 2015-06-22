@@ -394,7 +394,7 @@ class papaya_overview extends base_db {
 
         if ($showDetails) {
           $text = $topic['view_title'];
-          if (!empty($topic['module_title'])) {
+          if (!empty($topic['module_title']) && $topic['module_title'] != $topic['view_title']) {
             $text .= ' ('.$topic['module_title'].')';
           }
           $item->subitems[] = $subitem = new PapayaUiListviewSubitemText($text);
@@ -405,10 +405,20 @@ class papaya_overview extends base_db {
     return '';
   }
 
-  public function getAncestorsTitle($ids) {
+  public function getAncestorsTitle($ids, $limit = 3) {
     $result = '';
     $pages = $this->pages();
-    foreach ($ids as $id) {
+    if ($limit < count($ids)) {
+      $before = floor($limit / 2);
+      $after = ceil($limit / 2);
+      array_splice($ids, $before, -$after);
+    } else {
+      $before = $limit;
+    }
+    foreach ($ids as $index => $id) {
+      if ($before == $index) {
+        $result .= ' ... > ';
+      }
       if (isset($pages[$id])) {
         $result .= sprintf('%s #%d > ', $pages[$id]['title'], $id);
       }
