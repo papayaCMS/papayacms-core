@@ -347,15 +347,19 @@ class papaya_overview extends base_db {
 
       foreach ($this->topics as $topic) {
         $title = '';
-        if (isset($topic['ancestors'])) {
-          $title .= $this->getAncestorsTitle($topic['ancestors']);
-        }
         if (empty($topic['topic_title'])) {
-          $title .= new PapayaUiStringTranslated('No Title');
+          $pageTitle = new PapayaUiStringTranslated('No Title');
         } else {
-          $title .= $topic['topic_title'];
+          $pageTitle = $topic['topic_title'];
         }
-        $title .= ' #'.$topic['topic_id'];
+        $pageTitle .= ' #'.$topic['topic_id'];
+        if (isset($topic['ancestors'])) {
+          $title .= $this->getAncestorsTitle(
+            $topic['ancestors'],
+            $this->papaya()->options->get('PAPAYA_UI_LISTITEM_CHARACTER_LIMIT', 100) - strlen($pageTitle)
+          );
+        }
+        $title .= $pageTitle;
         if (isset($topic['topic_published']) &&
             $topic['topic_published'] < $topic['topic_modified']) {
           $image = 'status-page-modified';
@@ -405,25 +409,30 @@ class papaya_overview extends base_db {
     return '';
   }
 
-  public function getAncestorsTitle($ids, $limit = 3) {
+  public function getAncestorsTitle($ids, $characterLimit = 20) {
     $result = '';
     $pages = $this->pages();
-    if ($limit < count($ids)) {
-      $before = floor($limit / 2);
-      $after = ceil($limit / 2);
-      array_splice($ids, $before, -$after);
-    } else {
-      $before = $limit;
+    $sorted = [];
+    $max = ceil(count($ids) / 2);
+    for ($i = 0; $i < $max; $i++) {
+      $sorted[] = $ids[$i];
+      $x = count($ids) - $i;
+      if ($i < $x && $ids[$x]) {
+        $sorted[] = $ids[$x];
+      }
     }
-    foreach ($ids as $index => $id) {
-      if ($before == $index) {
-        $result .= ' ... > ';
+    $buffers = [ 0 => '', 1 => ''];
+    foreach ($sorted as $index => $id) {
+      if (
+        (strlen($buffers[0]) + strlen($buffers[1]) + strlen($pages[$id]['title']) + 4) >= $characterLimit
+      ) {
+        return $buffers[0] . ' … > ' . $buffers[1];
       }
       if (isset($pages[$id])) {
-        $result .= sprintf('%s #%d > ', $pages[$id]['title'], $id);
+        $buffers[$index % 2] .= sprintf('%s #%d > ', $pages[$id]['title'], $id);
       }
     }
-    return $result;
+    return $buffers[0] . $buffers[1];
   }
 
   /**
