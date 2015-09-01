@@ -235,7 +235,7 @@ class base_domains extends base_db {
           $domain = substr($domain, 0, -1);
         }
         // target domain no protocol defined
-        if (FALSE === strpos($protocol, '://')) {
+        if (FALSE === strpos($domain, '://')) {
           if ($hostName != $domain) {
             //use current protocol
             $url = $protocol.'://'.$domain.$paramString;
