@@ -364,4 +364,13 @@ class base_domains extends base_db {
   public function getCurrentId() {
     return empty($this->domainData['domain_id']) ? 0 : $this->domainData['domain_id'];
   }
+
+  /**
+   * Return the id of the current domain if here is one that machted the host.
+   *
+   * @return integer
+   */
+  public function getCurrentLanguageId() {
+    return empty($this->domainData['domain_language_id']) ? 0 : $this->domainData['domain_language_id'];
+  }
 }

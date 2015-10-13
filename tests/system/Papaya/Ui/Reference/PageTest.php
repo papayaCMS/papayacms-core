@@ -514,6 +514,52 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
     );
   }
 
+  /**
+   * @covers PapayaUiReferencePage::isStartPage
+   */
+  public function testIsStartPageWithoutPageReferencesExpectingFalse() {
+    $reference = new PapayaUiReferencePage();
+    $this->assertFalse(
+      $reference->isStartPage()
+    );
+  }
+
+  /**
+   * @covers PapayaUiReferencePage::isStartPage
+   */
+  public function testIsStartPageExpectingTrue() {
+    $references = $this->getMock('PapayaUiReferencePageFactory');
+    $references
+      ->expects($this->once())
+      ->method('isStartPage')
+      ->willReturn(TRUE);
+
+    $reference = new PapayaUiReferencePage();
+    $reference->papaya($this->mockPapaya()->application());
+    $reference->pageReferences($references);
+    $this->assertTrue(
+      $reference->isStartPage()
+    );
+  }
+
+  /**
+   * @covers PapayaUiReferencePage::isStartPage
+   */
+  public function testIsStartPageExpectingFalse() {
+    $references = $this->getMock('PapayaUiReferencePageFactory');
+    $references
+      ->expects($this->once())
+      ->method('isStartPage')
+      ->willReturn(FALSE);
+
+    $reference = new PapayaUiReferencePage();
+    $reference->papaya($this->mockPapaya()->application());
+    $reference->pageReferences($references);
+    $this->assertFalse(
+      $reference->isStartPage()
+    );
+  }
+
   /**********************************
   * Fixtures
   **********************************/

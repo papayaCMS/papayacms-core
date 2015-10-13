@@ -256,13 +256,17 @@ class papaya_page extends base_object {
     $this->domains = new base_domains();
     $this->domains->handleDomain($application->request->languageId);
     $this->_currentDomainId = $this->domains->getCurrentId();
+    $languageId = $this->domains->getCurrentLanguageId();
+    $request = $application->request;
+    if ($request->languageId !== $languageId) {
+      $request->language($this->papaya()->languages->getLanguage($languageId));
+    }
 
     $options->defineDatabaseTables();
     $options->setupPaths();
     $application->messages->setUp($application->options);
 
     /* handle redirected errors */
-    $request = $application->request;
     $redirectErrorCode = $request->getParameter(
       'redirect', 0, NULL, PapayaRequest::SOURCE_QUERY
     );
