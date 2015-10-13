@@ -1599,6 +1599,12 @@ class papaya_page extends base_object {
       }
       $this->layout->parameters()->set('PAGE_URL', $url);
       $this->layout->parameters()->set(
+        'PAGE_REQUEST_QUERYSTRING', $this->papaya()->request->url->getQuery()
+      );
+      $this->layout->parameters()->set(
+        'PAGE_REQUEST_METHOD', $this->papaya()->request->getMethod()
+      );
+      $this->layout->parameters()->set(
         'PAGE_REQUEST_URL', (string)$this->papaya()->request->url
       );
       $this->layout->parameters()->set(
