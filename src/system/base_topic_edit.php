@@ -3200,6 +3200,7 @@ class base_topic_edit extends base_topic {
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
           $linkData[] = array(
             'box_id' => $row['box_id'],
+            'box_sort' => $row['box_sort'],
             'boxgroup_id' => 0,
             'topic_id' => $this->topicId
           );
