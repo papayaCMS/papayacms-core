@@ -945,6 +945,7 @@ class papaya_parser extends base_db {
       );
     }
     if ($hrefData && isset($hrefData['data-popup'])) {
+      var_dump($params);
       $result = sprintf(
         '<a href="%s" target="%s" data-popup="%s" title="%s">%s</a>',
         papaya_strings::escapeHTMLChars($hrefData['href']),
@@ -961,16 +962,33 @@ class papaya_parser extends base_db {
         papaya_strings::escapeHTMLChars($hrefData['title']),
         $result
       );
-    } elseif (isset($params['popup']) && trim($params['popup']) != '' &&
-              $orgWidth > 0 && $orgHeight > 0) {
+    } elseif (
+      isset($params['lightbox']) && trim($params['lightbox']) != '' && $orgWidth > 0 && $orgHeight > 0
+    ) {
       $result = sprintf(
-        '<a href="%s" target="%s" data-popup="%s">%s</a>',
+        '<a href="%s" target="_blank" data-lightbox-link="%s">%s</a>',
+        papaya_strings::escapeHTMLChars(
+          $this->getWebMediaLink(
+            $params['src'], 'lightbox', $data['title'], $data['extension']
+          )
+        ),
+        papaya_strings::escapeHTMLChars(
+          json_encode(
+            array('type' => 'image')
+          )
+        ),
+        $result
+      );
+    }  elseif (
+      isset($params['popup']) && trim($params['popup']) != '' && $orgWidth > 0 && $orgHeight > 0
+    ) {
+      $result = sprintf(
+        '<a href="%s" target="_blank" data-popup="%s">%s</a>',
         papaya_strings::escapeHTMLChars(
           $this->getWebMediaLink(
             $params['src'], 'popup', $data['title'], $data['extension']
           )
         ),
-        papaya_strings::escapeHTMLChars($params['popup']),
         papaya_strings::escapeHTMLChars(
           self::getDataPopupAttribute($orgWidth, $orgHeight, FALSE, FALSE, FALSE)
         ),
