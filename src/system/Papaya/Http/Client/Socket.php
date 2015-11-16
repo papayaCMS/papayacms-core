@@ -119,17 +119,14 @@ class PapayaHttpClientSocket {
     $this->_port = $port;
     $this->_keepAlive = TRUE;
     $this->_resource = $this->getPool()->getConnection($host, $port);
+
     if (NULL === $this->_resource) {
-      $ip = gethostbyname($host);
-      if (!empty($transport)) {
-        $ip = $transport.'://'.$ip;
-      }
+      $hostUri = $transport.'://'.$host;
       $errorNo = 0;
       $errorString = '';
-      $this->_resource = @fsockopen(
-        $ip, $port, $errorNo, $errorString, $timeout
+      $this->_resource = fsockopen(
+        $hostUri, $port, $errorNo, $errorString, $timeout
       );
-
     }
     return is_resource($this->_resource);
   }
