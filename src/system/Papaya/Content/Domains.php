@@ -37,15 +37,47 @@ class PapayaContentDomains extends PapayaDatabaseRecords {
     'language_id' => 'domain_language_id',
     'group_id' => 'domaingroup_id',
     'mode' => 'domain_mode',
-    'data' => 'domain_data'
+    'data' => 'domain_data',
+    'options' => 'domain_options'
   );
 
   /**
-  * Table containing domain informations
+  * Table containing domain information
   *
   * @var string
   */
   protected $_tableName = PapayaContentTables::DOMAINS;
 
   protected $_identifierProperties = array('id');
+
+  /**
+   * Attach callbacks for serialized field values
+   *
+   * @see PapayaDatabaseRecord::_createMapping()
+   */
+  public function _createMapping() {
+    $mapping = parent::_createMapping();
+    $mapping->callbacks()->onMapValueFromFieldToProperty = array(
+      $this, 'callbackMapValueFromFieldToProperty'
+    );
+    return $mapping;
+  }
+
+
+  /**
+   * Deserialize path and permissions field values
+   *
+   * @param object $context
+   * @param string $property
+   * @param string $field
+   * @param string $value
+   * @return mixed
+   */
+  public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
+    switch ($property) {
+    case 'options' :
+      return PapayaUtilStringXml::unserializeArray($value);
+    }
+    return $value;
+  }
 }

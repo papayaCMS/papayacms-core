@@ -526,4 +526,13 @@ class PapayaUiReferencePageFactory extends PapayaObject {
     }
     return $filter;
   }
+
+  /**
+   * Set start page reference
+   * @param PapayaUiReferencePage $page
+   * @return boolean
+   */
+  public function isStartPage(PapayaUiReferencePage $page) {
+    return $this->domains()->isStartPage($page);
+  }
 }

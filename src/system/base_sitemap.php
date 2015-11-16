@@ -496,7 +496,7 @@ class base_sitemap extends base_db {
   * @access public
   * @return boolean
   */
-  private function checkFilter($id, $row) {
+  private function checkFilter($id, &$row) {
     if (isset($row) && is_array($row)) {
       if ($this->useSurfer && is_object($this->surfer)) {
         if (!$this->surfer->canView($id)) {

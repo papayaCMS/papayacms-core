@@ -2052,7 +2052,7 @@ class papaya_mediadb extends base_mediadb_edit {
       }
       if (
         (isset($this->currentFile['DERIVED']) && $this->currentFile['DERIVED']) ||
-        count($this->currentFile['DERIVATIONS']) > 0
+        (isset($this->currentFile['DERIVATIONS']) && count($this->currentFile['DERIVATIONS']) > 0)
       ) {
         $this->fileToolBar->addButton(
           'Derivations',

@@ -65,7 +65,7 @@ class PapayaDomains extends PapayaObject {
   }
 
   /**
-  * Return the domain that machtes the given host
+  * Return the domain that matches the given host
   *
   * @param string $host
   * @param integer $scheme
@@ -178,5 +178,31 @@ class PapayaDomains extends PapayaObject {
       $this->_domains->papaya($this->papaya());
     }
     return $this->_domains;
+  }
+
+  public function isStartPage(PapayaUiReferencePage $page) {
+    $targetDomain = $this->getDomainByHost(
+      $page->url()->getHost(),
+      $page->url()->getScheme() == 'https'
+        ? PapayaUtilServerProtocol::HTTPS : PapayaUtilServerProtocol::HTTP
+    );
+    $pageId = isset($targetDomain['options']['PAPAYA_PAGEID_DEFAULT']) ?
+      $targetDomain['options']['PAPAYA_PAGEID_DEFAULT'] : $this->papaya()->options['PAPAYA_PAGEID_DEFAULT'];
+    $outputMode = $this->papaya()->options['PAPAYA_URL_EXTENSION'];
+    if ($targetDomain['language_id'] > 0) {
+      $languageId = $targetDomain['language_id'];
+    } elseif ($targetDomain['options']['PAPAYA_CONTENT_LANGUAGE']) {
+      $languageId = $targetDomain['options']['PAPAYA_CONTENT_LANGUAGE'];
+    } else {
+      $languageId = $this->papaya()->options['PAPAYA_CONTENT_LANGUAGE'];
+    }
+    if (!($language = $this->papaya()->languages->getLanguage($languageId))) {
+      return FALSE;
+    }
+    return (
+      ($pageId == $page->getPageId()) &&
+      ($language['identifier'] == $page->getPageLanguage()) &&
+      ($outputMode == $page->getOutputMode())
+    );
   }
 }

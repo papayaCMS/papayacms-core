@@ -47,7 +47,7 @@ class base_outputfilter extends base_plugin {
   * Error status code (optional, default 500)
   * @var string
   */
-  var $errorStatus = 500;
+  var $errorStatus = 404;
 
   /**
    * Parse page

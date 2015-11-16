@@ -961,16 +961,39 @@ class papaya_parser extends base_db {
         papaya_strings::escapeHTMLChars($hrefData['title']),
         $result
       );
-    } elseif (isset($params['popup']) && trim($params['popup']) != '' &&
-              $orgWidth > 0 && $orgHeight > 0) {
+    } elseif (
+      isset($params['lightbox']) && trim($params['lightbox']) != '' && $orgWidth > 0 && $orgHeight > 0
+    ) {
+      $hrefData['data-lightbox-link'] = json_encode(
+        array(
+          'type' => 'image',
+          'src' => $this->getWebMediaLink(
+            $params['src'], 'lightbox', $data['title'], $data['extension']
+          )
+        )
+      );
       $result = sprintf(
-        '<a href="%s" target="%s" data-popup="%s">%s</a>',
+        '<a href="%s" target="_blank" data-lightbox-link="%s">%s</a>',
+        papaya_strings::escapeHTMLChars(
+          $this->getWebMediaLink(
+            $params['src'], 'lightbox', $data['title'], $data['extension']
+          )
+        ),
+        papaya_strings::escapeHTMLChars(
+          $hrefData['data-lightbox-link']
+        ),
+        $result
+      );
+    }  elseif (
+      isset($params['popup']) && trim($params['popup']) != '' && $orgWidth > 0 && $orgHeight > 0
+    ) {
+      $result = sprintf(
+        '<a href="%s" target="_blank" data-popup="%s">%s</a>',
         papaya_strings::escapeHTMLChars(
           $this->getWebMediaLink(
             $params['src'], 'popup', $data['title'], $data['extension']
           )
         ),
-        papaya_strings::escapeHTMLChars($params['popup']),
         papaya_strings::escapeHTMLChars(
           self::getDataPopupAttribute($orgWidth, $orgHeight, FALSE, FALSE, FALSE)
         ),
@@ -978,22 +1001,25 @@ class papaya_parser extends base_db {
       );
     }
     $containerMode = $this->papaya()->options->get('PAPAYA_MEDIA_ELEMENTS_IMAGE', 0);
+    $subtitleAttributes = '';
     if ($subtitleHtml) {
+      $subtitleAttributes .= $hrefData['data-lightbox-link']
+        ? sprintf(' data-lightbox-link="%s"', papaya_strings::escapeHTMLChars($hrefData['data-lightbox-link'])) : '';
       $subtitleHtml = '<!--googleoff: all-->'.$subtitleHtml.' <!--googleon: all-->';
       switch ($containerMode) {
       case self::ELEMENTS_FIGURE :
       case self::ELEMENTS_FIGURE_MANDATORY :
         $pattern =
-          '<figure class="%s" style="%s">%s<figcaption class="%s">%s</figcaption></figure>';
+          '<figure class="%1$s" style="%2$s">%3$s<figcaption class="%4$s"%6$s>%5$s</figcaption></figure>';
         break;
       case self::ELEMENTS_SPAN :
       default :
         $pattern =
-          '<span class="%s" style="%s">%s<span class="%s">%s</span></span>';
+          '<span class="%1$s" style="%2$s">%3$s<span class="%4$s"%6$s>%5$s</span></span>';
         break;
       }
     } elseif ($containerMode == self::ELEMENTS_FIGURE_MANDATORY) {
-      $pattern = '<figure class="%s" style="%s">%s</figure>';
+      $pattern = '<figure class="%1$s" style="%2$s">%3$s</figure>';
     } else {
       $pattern = FALSE;
     }
@@ -1012,7 +1038,8 @@ class papaya_parser extends base_db {
             $params, 'PAPAYA_MEDIA_CSSCLASS_SUBTITLE', 'papayaSubTitle'
           )
         ),
-        $subtitleHtml
+        $subtitleHtml,
+        $subtitleAttributes
       );
     }
     return $result;

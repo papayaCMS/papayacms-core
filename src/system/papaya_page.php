@@ -256,13 +256,17 @@ class papaya_page extends base_object {
     $this->domains = new base_domains();
     $this->domains->handleDomain($application->request->languageId);
     $this->_currentDomainId = $this->domains->getCurrentId();
+    $languageId = $this->domains->getCurrentLanguageId();
+    $request = $application->request;
+    if ($request->languageId !== $languageId) {
+      $request->language($this->papaya()->languages->getLanguage($languageId));
+    }
 
     $options->defineDatabaseTables();
     $options->setupPaths();
     $application->messages->setUp($application->options);
 
     /* handle redirected errors */
-    $request = $application->request;
     $redirectErrorCode = $request->getParameter(
       'redirect', 0, NULL, PapayaRequest::SOURCE_QUERY
     );
@@ -1595,6 +1599,12 @@ class papaya_page extends base_object {
       }
       $this->layout->parameters()->set('PAGE_URL', $url);
       $this->layout->parameters()->set(
+        'PAGE_REQUEST_QUERYSTRING', $this->papaya()->request->url->getQuery()
+      );
+      $this->layout->parameters()->set(
+        'PAGE_REQUEST_METHOD', $this->papaya()->request->getMethod()
+      );
+      $this->layout->parameters()->set(
         'PAGE_REQUEST_URL', (string)$this->papaya()->request->url
       );
       $this->layout->parameters()->set(
@@ -1816,7 +1826,7 @@ class papaya_page extends base_object {
               }
             } else {
               $this->getError(
-                500,
+                404,
                 'Output mode "'.
                   papaya_strings::escapeHTMLChars(basename($this->mode)).'" for page #'.
                   $this->topicId.' not found',
@@ -1825,7 +1835,7 @@ class papaya_page extends base_object {
             }
           } else {
             $this->getError(
-              500,
+              404,
               'View "'.
                 papaya_strings::escapeHTMLChars(basename($this->mode)).'" for page #'.
                 $this->topicId.' not found',

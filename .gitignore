@@ -1,7 +1,6 @@
 # Composer
 /vendor
 composer.phar
-composer.lock
 
 # PHPStorm
 /.idea

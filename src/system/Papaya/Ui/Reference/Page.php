@@ -56,22 +56,24 @@ class PapayaUiReferencePage extends PapayaUiReference {
   */
   public function get() {
     $result = $this->url()->getHostUrl().$this->_basePath;
-    $result .= $this->_pageData['title'];
-    if ($this->_pageData['category_id'] > 0) {
-      $result .= '.'.$this->_pageData['category_id'];
-    }
-    if ($this->_pageData['id'] > 0 ||
-        $this->_pageData['category_id'] > 0) {
-      $result .= '.'.$this->_pageData['id'];
-    }
-    if (!empty($this->_pageData['language'])) {
-      $result .= '.'.$this->_pageData['language'];
-    }
-    $result .= '.'.$this->_pageData['mode'];
-    if ($this->_pageData['preview']) {
-      $result .= '.preview';
-      if ($this->_pageData['preview_time'] > 0) {
-        $result .= '.'.$this->_pageData['preview_time'];
+    if (!$this->isStartPage()) {
+      $result .= $this->_pageData['title'];
+      if ($this->_pageData['category_id'] > 0) {
+        $result .= '.'.$this->_pageData['category_id'];
+      }
+      if ($this->_pageData['id'] > 0 ||
+          $this->_pageData['category_id'] > 0) {
+        $result .= '.'.$this->_pageData['id'];
+      }
+      if (!empty($this->_pageData['language'])) {
+        $result .= '.'.$this->_pageData['language'];
+      }
+      $result .= '.'.$this->_pageData['mode'];
+      if ($this->_pageData['preview']) {
+        $result .= '.preview';
+        if ($this->_pageData['preview_time'] > 0) {
+          $result .= '.'.$this->_pageData['preview_time'];
+        }
       }
     }
     $result .= $this->getQueryString();
@@ -206,6 +208,15 @@ class PapayaUiReferencePage extends PapayaUiReference {
   }
 
   /**
+  * Get output mode identifier
+  *
+  * @return string
+  */
+  public function getOutputMode() {
+    return $this->_pageData['mode'];
+  }
+
+  /**
   * Set preview mode and time
   *
   * @param boolean $isPreview
@@ -237,5 +248,18 @@ class PapayaUiReferencePage extends PapayaUiReference {
       $this->_pageReferences = $this->papaya()->pageReferences;
     }
     return $this->_pageReferences;
+  }
+
+  /**
+   * @return bool
+   */
+  public function isStartPage() {
+    if ($this->_pageData['preview'] || $this->_pageData['category_id']) {
+      return FALSE;
+    }
+    if ($pageReferences = $this->pageReferences()) {
+      return $pageReferences->isStartPage($this);
+    }
+    return FALSE;
   }
 }
