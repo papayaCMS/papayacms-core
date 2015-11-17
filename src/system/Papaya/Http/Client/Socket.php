@@ -129,7 +129,6 @@ class PapayaHttpClientSocket {
       $this->_resource = fsockopen(
         $hostUri, $port, $errorNo, $errorString, $timeout
       );
-      return is_resource($this->_resource);
     }
 
     if (NULL === $this->_resource) {
@@ -144,7 +143,6 @@ class PapayaHttpClientSocket {
       $this->_resource = @fsockopen(
         $ip, $port, $errorNo, $errorString, $timeout
       );
-      return is_resource($this->_resource);
     }
 
     return is_resource($this->_resource);
