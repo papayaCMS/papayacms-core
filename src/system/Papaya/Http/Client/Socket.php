@@ -124,7 +124,7 @@ class PapayaHttpClientSocket {
     if (NULL === $this->_resource) {
       $errorNo = 0;
       $errorString = '';
-      $this->_resource = fsockopen(
+      $this->_resource = @fsockopen(
         $hostUri, $port, $errorNo, $errorString, $timeout
       );
     }
