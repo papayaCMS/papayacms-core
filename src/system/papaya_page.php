@@ -1826,7 +1826,7 @@ class papaya_page extends base_object {
               }
             } else {
               $this->getError(
-                500,
+                404,
                 'Output mode "'.
                   papaya_strings::escapeHTMLChars(basename($this->mode)).'" for page #'.
                   $this->topicId.' not found',
@@ -1835,7 +1835,7 @@ class papaya_page extends base_object {
             }
           } else {
             $this->getError(
-              500,
+              404,
               'View "'.
                 papaya_strings::escapeHTMLChars(basename($this->mode)).'" for page #'.
                 $this->topicId.' not found',

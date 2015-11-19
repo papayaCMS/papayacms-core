@@ -34,6 +34,9 @@ class PapayaHttpClientSocketPoolTest extends PapayaTestCase {
     $pool = new PapayaHttpClientSocketPool();
     $resource = fopen('data://text/plain,test', 'r');
     fread($resource, 4);
+    if (!feof($resource)) {
+      $this->markTestSkipped('Resource can not be set to EOF');
+    }
     $pool->putConnection($resource, "example.com", 80);
     $this->assertNull($pool->getConnection("example.com", 80));
     $this->assertFalse(is_resource($resource));

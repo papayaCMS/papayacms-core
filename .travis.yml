@@ -9,3 +9,5 @@ php:
 install: composer install
 
 script: phpunit --configuration phpunit.xml
+
+sudo: false

@@ -930,6 +930,7 @@ class base_auth extends base_db {
         }
       }
     }
+    $this->databaseDeleteRecord($this->tableAuthUserLinks, array('user_id' => $userId, 'group_id' => 0 ));
   }
 
   /**
