@@ -148,7 +148,7 @@ class base_module_options extends base_db {
   function saveOption($moduleGuid, $optionName, $value) {
     $optionName = PapayaUtilStringIdentifier::toUnderscoreUpper($optionName);
     if (preg_match('~^[a-fA-F\d]{32}$~', $moduleGuid) &&
-        preg_match('~^[A-Z_-\d]{3,50}$~', $optionName)) {
+        preg_match('~^[A-Z_\d-]{3,50}$~', $optionName)) {
       $sql = "SELECT moduleoption_value
                 FROM %s
                WHERE module_guid = '%s'
