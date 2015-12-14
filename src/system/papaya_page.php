@@ -2315,6 +2315,11 @@ class papaya_page extends base_object {
       // and then allow or forbid the access.
       // Otherwise it could be set in getFolderPermissions.
 
+      if ($this->isPreview()) {
+        $this->papaya()->administrationUser->initialize();
+        $this->papaya()->administrationUser->login();
+      }
+
       if (!$this->isPreview() || !$this->papaya()->administrationUser->isValid) {
         // if the file's folder has no surfer related permissions it may be returned
         $mediaDB = base_mediadb::getInstance();
