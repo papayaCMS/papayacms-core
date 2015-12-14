@@ -80,7 +80,6 @@ abstract class PapayaAdministrationPagePart extends PapayaUiControlInteractive {
    * (Navigation -> Content -> Information).
    *
    * @param PapayaUiToolbarSet $toolbar
-   * @internal param \PapayaUiToolbarSet $toolbarSet
    * @return PapayaUiToolbarSet
    */
   public function toolbar(PapayaUiToolbarSet $toolbar = NULL) {

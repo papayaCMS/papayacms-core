@@ -1,6 +1,6 @@
 <?php
 /**
-* Cav writer allows you write data as csv into a stream or output.
+* Csv writer allows you write data as csv into a stream or output.
 *
 * @copyright 2010 by papaya Software GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
@@ -14,7 +14,7 @@
 *
 * @package Papaya-Library
 * @subpackage Csv
-* @version $Id: Writer.php 39721 2014-04-07 13:13:23Z weinert $
+* @version $Id: Writer.php 40033 2015-11-19 09:10:59Z kersken $
 */
 
 /**
@@ -46,10 +46,18 @@ class PapayaCsvWriter {
   * used.
   *
   * @param resource|NULL $stream
+  * @param boolean $addByteOrderMark optional, default FALSE
   */
-  public function __construct($stream = NULL) {
+  public function __construct($stream = NULL, $addByteOrderMark = FALSE) {
     if (isset($stream)) {
       $this->_stream = $stream;
+    }
+    if ($addByteOrderMark) {
+      if (isset($this->_stream)) {
+        fwrite($this->_stream, chr(239).chr(187).chr(191));
+      } else {
+        echo chr(239).chr(187).chr(191);
+      }
     }
   }
 
