@@ -191,7 +191,7 @@ class PapayaDomains extends PapayaObject {
     $outputMode = $this->papaya()->options['PAPAYA_URL_EXTENSION'];
     if ($targetDomain['language_id'] > 0) {
       $languageId = $targetDomain['language_id'];
-    } elseif ($targetDomain['options']['PAPAYA_CONTENT_LANGUAGE']) {
+    } elseif (!empty($targetDomain['options']['PAPAYA_CONTENT_LANGUAGE'])) {
       $languageId = $targetDomain['options']['PAPAYA_CONTENT_LANGUAGE'];
     } else {
       $languageId = $this->papaya()->options['PAPAYA_CONTENT_LANGUAGE'];
