@@ -330,7 +330,7 @@ class papaya_strings {
   * @param string $string
   * @return string
   */
-  function strtoupper($string) {
+  public static function strtoupper($string) {
     if (function_exists('mb_strtoupper')) {
       return mb_strtoupper($string, 'UTF-8');
     } else {
