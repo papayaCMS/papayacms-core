@@ -207,18 +207,27 @@ class base_topic extends base_db {
   * @return integer | NULL result field or null
   */
   function getLastPublicationTime($topicId, $lngId = 0) {
-    $sql = "SELECT MAX(version_time) AS topic_published,
-                   MAX(topic_audited) AS topic_audited
-              FROM %s
-             WHERE topic_id = %d";
     if ($lngId > 0) {
-      $sql .= " AND lng_id = %d";
+      $sql = "SELECT MAX(v.version_time) topic_published,
+                     MAX(v.topic_audited) topic_audited
+                FROM %s AS v, %s AS vt
+               WHERE vt.version_id = v.version_id AND v.topic_id = %d AND vt.lng_id = %d";
+      $params = array(
+        $this->tableTopicsVersions,
+        $this->tableTopicsVersionsTrans,
+        $topicId,
+        $lngId
+      );
+    } else {
+      $sql = "SELECT MAX(version_time) topic_published,
+                     MAX(topic_audited) topic_audited
+                FROM %s
+               WHERE topic_id = %d";
+      $params = array(
+        $this->tableTopicsVersions,
+        $topicId
+      );
     }
-    $params = array(
-      $lngId > 0 ? $this->tableTopicsPublicTrans : $this->tableTopicsVersions,
-      $topicId,
-      $lngId
-    );
     if ($res = $this->databaseQueryFmt($sql, $params)) {
       return $res->fetchRow(DB_FETCHMODE_ASSOC);
     }
@@ -1132,3 +1141,4 @@ class base_topic extends base_db {
     return NULL;
   }
 }
+
