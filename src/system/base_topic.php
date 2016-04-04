@@ -201,16 +201,24 @@ class base_topic extends base_db {
   /**
   * Get last publication/validation time
   *
-  * @param integer $topicId
+   * @param integer $topicId
+   * @param integer $lngId
   * @access public
   * @return integer | NULL result field or null
   */
-  function getLastPublicationTime($topicId) {
+  function getLastPublicationTime($topicId, $lngId = 0) {
     $sql = "SELECT MAX(version_time) AS topic_published,
                    MAX(topic_audited) AS topic_audited
               FROM %s
              WHERE topic_id = %d";
-    $params = array($this->tableTopicsVersions, $topicId);
+    if ($lngId > 0) {
+      $sql .= " AND lng_id = %d";
+    }
+    $params = array(
+      $lngId > 0 ? $this->tableTopicsPublicTrans : $this->tableTopicsVersions,
+      $topicId,
+      $lngId
+    );
     if ($res = $this->databaseQueryFmt($sql, $params)) {
       return $res->fetchRow(DB_FETCHMODE_ASSOC);
     }
@@ -479,17 +487,19 @@ class base_topic extends base_db {
   * @return string
   */
   function getContentTopicTag($tagName = 'topic', $emptyTag = FALSE) {
-    if ($publicationTimes = $this->getLastPublicationTime($this->topicId)) {
-      $published = $publicationTimes['topic_published'];
-      $audited = $publicationTimes['topic_audited'];
-    } else {
-      $published = 0;
-      $audited = 0;
-      if (!empty($this->topic['TRANSLATION']['topic_trans_modified'])) {
-        $published = $this->topic['TRANSLATION']['topic_trans_modified'];
-      } elseif (!empty($this->topic['topic_modified'])) {
-        $published = $this->topic['topic_modified'];
+    $published = 0;
+    $audited = 0;
+    if (!empty($this->topic['TRANSLATION']['topic_trans_modified'])) {
+      $published = $this->topic['TRANSLATION']['topic_trans_modified'];
+    }
+    if ($publicationTimes = $this->getLastPublicationTime($this->topicId, $this->getPageLanguage()->id)) {
+      if (empty($published)) {
+        $publicationTimes['topic_published'];
       }
+      $audited = $publicationTimes['topic_audited'];
+    }
+    if (empty($published)) {
+      $published = $this->topic['topic_modified'];
     }
     $result = sprintf(
       '<%s no="%s" title="%s" href="%s" author="%s %s" created="%s"'.
@@ -1122,4 +1132,3 @@ class base_topic extends base_db {
     return NULL;
   }
 }
-
