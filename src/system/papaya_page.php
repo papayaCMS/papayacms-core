@@ -2156,8 +2156,11 @@ class papaya_page extends base_object {
       }
     } elseif ($this->topic->topicExists($this->topicId)) {
       if ($str = $this->getPageXML()) {
-        $this->sendHeader('Content-type: text/xml; charset: utf-8');
-        echo $str;
+        $response = $this->papaya()->response;
+        $response->setCache('nocache');
+        $response->setContentType('text/xml', 'charset: utf-8');
+        $response->content(new PapayaResponseContentString($str));
+        $response->send(TRUE);
       } else {
         $this->getError(
           404,
