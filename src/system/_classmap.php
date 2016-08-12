@@ -76,6 +76,7 @@ return array(
   'dbcon_mysqli' => '/db/mysqli.php',
   'dbcon_pgsql' => '/db/pgsql.php',
   'dbcon_sqlite' => '/db/sqlite.php',
+  'dbcon_sqlite3' => '/db/sqlite3.php',
   'imgconv_common' => '/image/common.php',
   'imgconv_gd' => '/image/gd.php',
   'imgconv_graphicsmagick' => '/image/graphicsmagick.php',
