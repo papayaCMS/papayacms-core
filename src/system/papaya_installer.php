@@ -1316,7 +1316,7 @@ class papaya_installer extends base_db {
     $modules = new papaya_modulemanager();
     $path = dirname(dirname(__FILE__));
     $modules->loadTables = TRUE;
-    $modules->searchModules($path.'/'.$modules->modulesPath);
+    $modules->searchModules();
     if (isset($modules->packages) && is_array($modules->packages) &&
         count($modules->packages) > 0 && isset($modules->modules) &&
         is_array($modules->modules) && count($modules->modules) > 0) {
