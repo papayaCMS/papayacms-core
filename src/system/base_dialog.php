@@ -1289,6 +1289,9 @@ class base_dialog extends base_object {
     case 'upload':
       $dir = PAPAYA_PATH_DATA.$path;
       break;
+    case 'templates':
+      $dir = $this->papaya()->options->get('PAPAYA_PATH_TEMPLATES', PAPAYA_PATH_DATA.'templates/').$path;
+      break;
     default:
       $dir = $path;
       break;
@@ -1296,7 +1299,6 @@ class base_dialog extends base_object {
     if (substr($dir, -1) != '/') {
       $dir .= '/';
     }
-
     if (file_exists($dir) && $dh = @opendir($dir)) {
       $result = sprintf(
         '<select name="%s[%s]" class="dialogSelect dialogScale" fid="%s">'.LF,
