@@ -911,7 +911,7 @@ class base_dialog extends base_object {
         break;
       case 'function' :
         if (method_exists($this->owner, $element[4])) {
-          if ($str = $this->owner->$element[4]($name, $element, $data)) {
+          if ($str = call_user_func(array($this->owner, $element[4]), $name, $element, $data)) {
             $result .= $str;
           }
         }
