@@ -82,9 +82,11 @@ class PapayaUiReferencePage extends PapayaUiReference {
   }
 
   /**
-  * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#load($request)
-  */
-  public function load($request) {
+   * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#load($request)
+   * @param PapayaRequest $request
+   * @return $this|PapayaUiReference
+   */
+  public function load(PapayaRequest $request) {
     parent::load($request);
     $this->setPageTitle(
       $request->getParameter('page_title', 'index', NULL, PapayaRequest::SOURCE_PATH)
@@ -104,6 +106,7 @@ class PapayaUiReferencePage extends PapayaUiReference {
       $request->getParameter('preview', FALSE, NULL, PapayaRequest::SOURCE_PATH),
       $request->getParameter('preview_time', 0, NULL, PapayaRequest::SOURCE_PATH)
     );
+    return $this;
   }
 
   /**

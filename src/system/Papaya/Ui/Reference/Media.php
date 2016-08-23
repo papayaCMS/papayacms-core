@@ -72,13 +72,16 @@ class PapayaUiReferenceMedia extends PapayaUiReference {
   }
 
   /**
-  * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#load($request)
-  */
-  public function load($request) {
+   * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#load($request)
+   * @param PapayaRequest $request
+   * @return $this|PapayaUiReference
+   */
+  public function load(PapayaRequest $request) {
     parent::load($request);
     $this->setPreview(
       $request->getParameter('preview', FALSE, NULL, PapayaRequest::SOURCE_PATH)
     );
+    return $this;
   }
 
   /**

@@ -283,11 +283,12 @@ class base_dialog extends base_object {
    * Translates given phrases only, when $this->translate has not been set to FALSE.
    *
    * @param string $phrase
+   * @param string|NULL $module
    * @return string $phrase OR translation($phrase)
    */
-  function _gt($phrase) {
+  function _gt($phrase, $module = NULL) {
     if ($this->translate) {
-      return parent::_gt($phrase);
+      return parent::_gt($phrase, $module);
     } else {
       return $phrase;
     }
