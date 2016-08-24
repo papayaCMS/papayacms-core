@@ -146,7 +146,7 @@ class PapayaAdministrationLanguagesSwitch extends PapayaUiControlInteractive {
     $languages = NULL;
     if (is_null($this->_current)) {
       $languages = $this->languages();
-      $languages->load(PapayaContentLanguages::FILTER_IS_CONTENT);
+      $languages->loadByUsage(PapayaContentLanguages::FILTER_IS_CONTENT);
       if ($id = $this->parameters()->get('lngsel[language_select]')) {
         $this->_current = $languages->getLanguage($id);
       } elseif ($id = $application->session->values()->get(array($this, 'CONTENT_LANGUAGE'))) {

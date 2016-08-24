@@ -100,7 +100,8 @@ class PapayaUiToolbars extends PapayaUiControl {
   * @param string $name
   * @param PapayaUiToolbar $value
   */
-  public function __set($name, PapayaUiToolbar $value) {
+  public function __set($name, $value) {
+    PapayaUtilConstraints::assertInstanceOf('PapayaUiToolbar', $value);
     if (array_key_exists($name, $this->_positions)) {
       $this->_toolbars[$name] = $value;
     } else {

@@ -127,7 +127,7 @@ class PapayaContentPages extends PapayaDatabaseRecordsLazy {
    * @param NULL|integer $offset
    * @return bool
    */
-  public function load(array $filter = array(), $limit = NULL, $offset = NULL) {
+  public function load($filter = array(), $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
     $joinMode = $this->_translationNeeded ? 'INNER' : 'LEFT';
     if (isset($filter['language_id'])) {

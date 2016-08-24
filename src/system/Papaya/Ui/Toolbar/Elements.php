@@ -62,10 +62,11 @@ class PapayaUiToolbarElements extends PapayaUiControlCollection {
   * Additionally to the standard validation, we block the groups in groups to avoid recursion.
   *
   * @throws InvalidArgumentException
-  * @param $item
+  * @param PapayaUiControlCollectionItem|PapayaUiToolbarElement $item
   * @return bool
   */
-  protected function validateItemClass(PapayaUiToolbarElement $item) {
+  protected function validateItemClass(PapayaUiControlCollectionItem $item) {
+    PapayaUtilConstraints::assertInstanceOf('PapayaUiToolbarElement', $item);
     parent::validateItemClass($item);
     if (!$this->_allowGroups &&
         $item instanceof PapayaUiToolbarGroup) {

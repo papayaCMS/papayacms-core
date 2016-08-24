@@ -4091,18 +4091,14 @@ class papaya_mediadb extends base_mediadb_edit {
     if (!(isset($this->surfer) && is_array($this->surfer) && count($this->surfer) > 0)) {
       $administrationUser = $this->papaya()->administrationUser;
       if ($surferId = $administrationUser->getSurferId()) {
-        $surferConnectorGUID = '06648c9c955e1a0e06a7bd381748c4e4';
-        /** @var connector_surfers $surferObj */
-        if ($surferObj = $this->papaya()->plugins->get($surferConnectorGUID, $this)) {
-          if ($this->surfer = $surferObj->getNameById($surferId)) {
-            // since getNameById doesn't include the surfer_id in the array, we put it there
-            $this->surfer['surfer_id'] = $surferId;
-            return TRUE;
-          } else {
-            $this->addMsg(MSG_ERROR, $this->_gt('Could not load surfer details.'));
-          }
+        $surfer = new base_surfer();
+        $surfer->load($surferId);
+        if ($surfer->surfer) {
+          $this->surfer = $surfer->surfer;
+          $this->surfer['surfer_id'] = $surferId;
+          return TRUE;
         } else {
-          $this->addMsg(MSG_ERROR, $this->_gt('Could not load initialize surfer object.'));
+          $this->addMsg(MSG_ERROR, $this->_gt('Could not load surfer details.'));
         }
       } else {
         $this->addMsg(MSG_ERROR, $this->_gt('Could not determine surfer id for this user.'));

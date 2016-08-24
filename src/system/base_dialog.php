@@ -283,11 +283,12 @@ class base_dialog extends base_object {
    * Translates given phrases only, when $this->translate has not been set to FALSE.
    *
    * @param string $phrase
+   * @param string|NULL $module
    * @return string $phrase OR translation($phrase)
    */
-  function _gt($phrase) {
+  function _gt($phrase, $module = NULL) {
     if ($this->translate) {
-      return parent::_gt($phrase);
+      return parent::_gt($phrase, $module);
     } else {
       return $phrase;
     }
@@ -911,7 +912,7 @@ class base_dialog extends base_object {
         break;
       case 'function' :
         if (method_exists($this->owner, $element[4])) {
-          if ($str = $this->owner->$element[4]($name, $element, $data)) {
+          if ($str = call_user_func(array($this->owner, $element[4]), $name, $element, $data)) {
             $result .= $str;
           }
         }
@@ -1289,6 +1290,9 @@ class base_dialog extends base_object {
     case 'upload':
       $dir = PAPAYA_PATH_DATA.$path;
       break;
+    case 'templates':
+      $dir = $this->papaya()->options->get('PAPAYA_PATH_TEMPLATES', PAPAYA_PATH_DATA.'templates/').$path;
+      break;
     default:
       $dir = $path;
       break;
@@ -1296,7 +1300,6 @@ class base_dialog extends base_object {
     if (substr($dir, -1) != '/') {
       $dir .= '/';
     }
-
     if (file_exists($dir) && $dh = @opendir($dir)) {
       $result = sprintf(
         '<select name="%s[%s]" class="dialogSelect dialogScale" fid="%s">'.LF,

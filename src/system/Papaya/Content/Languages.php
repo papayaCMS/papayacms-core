@@ -66,6 +66,11 @@ class PapayaContentLanguages extends PapayaDatabaseRecords {
   protected $_tableName = PapayaContentTables::LANGUAGES;
 
   /**
+   * @var string
+   */
+  protected $_identifierProperties = array('id');
+
+  /**
   * A mapping of the unique language codes (de-DE) to the internal id
   *
   * @var array(string=>string,...)
@@ -80,31 +85,36 @@ class PapayaContentLanguages extends PapayaDatabaseRecords {
   protected $_mapIdentifiers = array();
 
   /**
-  * load languages from database, this can be filtered by usage
-  *
-  * @param integer $usageFilter
-  * @return boolean
-  */
-  public function load($usageFilter = self::FILTER_NONE) {
-    $databaseAccess = $this->getDatabaseAccess();
-    $filters = array(
-       self::FILTER_NONE => '',
-       self::FILTER_IS_CONTENT => " WHERE is_content_lng = 1 ",
-       self::FILTER_IS_INTERFACE => " WHERE is_interface_lng = 1 "
-    );
-    $filter = $filters[$usageFilter];
-    $sql = "SELECT lng_id, lng_ident, lng_short,
-                   lng_title, lng_glyph,
-                   is_interface_lng, is_content_lng
-              FROM %s
-              $filter
-             ORDER BY lng_title";
-    $parameters = array(
-      $databaseAccess->getTableName($this->_tableName)
-    );
-    if ($result = $this->_loadRecords($sql, $parameters, NULL, NULL, 'id')) {
-      $this->_mapCodes = array();
-      $this->_mapIdentifiers = array();
+   * load languages from database, this can be filtered by usage
+   *
+   * @param integer $usageFilter
+   * @return boolean
+   */
+  public function loadByUsage($usageFilter = self::FILTER_NONE) {
+    $filter = [];
+    switch ($usageFilter) {
+    case self::FILTER_IS_CONTENT :
+      $filter['is_content'] = TRUE;
+      break;
+    case self::FILTER_IS_INTERFACE :
+      $filter['is_interface'] = TRUE;
+      break;
+    }
+    return $this->load($filter);
+  }
+
+  /**
+   * load languages from database
+   *
+   * @param array $filter
+   * @param null $limit
+   * @param int $offset
+   * @return bool
+   */
+  public function load($filter = [], $limit = NULL, $offset = 0) {
+    $this->_mapCodes = array();
+    $this->_mapIdentifiers = array();
+    if ($result = parent::load($filter, $limit, $offset)) {
       foreach ($this as $language) {
         $this->_mapCodes[$language['code']] = $language['id'];
         $this->_mapIdentifiers[$language['identifier']] = $language['id'];

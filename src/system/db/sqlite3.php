@@ -409,6 +409,9 @@ class dbcon_sqlite3 extends dbcon_base {
       if ($type != 'integer' || (isset($row['dflt_value']) && $row['dflt_value'] != 0)) {
         $default = $row['dflt_value'];
       }
+      if (substr($default, 0, 1) == "'" && substr($default, -1) == "'") {
+        $default = substr($default, 1, -1);
+      }
     } else {
       $notNull = FALSE;
     }
@@ -1087,7 +1090,7 @@ class dbresult_sqlite3 extends dbresult_base {
         $this->result->fetchArray(SQLITE3_NUM);
         ++$this->recNo;
       }
-      return ($this->_recNo == $index);
+      return ($this->recNo == $index);
     }
     return FALSE;
   }
