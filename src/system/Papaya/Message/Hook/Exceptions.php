@@ -60,9 +60,9 @@ class PapayaMessageHookExceptions
   /**
   * Actual exception handler, just generate an message for it.
   *
-  * @param Exception $exception
+  * @param Exception|Throwable $exception
   */
-  public function handle(Exception $exception) {
+  public function handle($exception) {
     if ($exception instanceof ErrorException) {
       $this->_messageManager->dispatch(
         new PapayaMessagePhpException($exception)
