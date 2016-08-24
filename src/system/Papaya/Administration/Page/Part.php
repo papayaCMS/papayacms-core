@@ -85,12 +85,22 @@ abstract class PapayaAdministrationPagePart extends PapayaUiControlInteractive {
   public function toolbar(PapayaUiToolbarSet $toolbar = NULL) {
     if (isset($toolbar)) {
       $this->_toolbar = $toolbar;
+      if (count($toolbar->elements) < 1) {
+        $this->_initializeToolbar($this->_toolbar);
+      }
     } elseif (is_null($this->_toolbar)) {
       $this->_toolbar = new PapayaUiToolbarSet();
-      PapayaUtilConstraints::assertInstanceOf('PapayaUiToolbarSet', $this->_toolbar);
-      $this->_toolbar->papaya($this->papaya());
+      $toolbar->papaya($this->papaya());
+      $this->_initializeToolbar($this->_toolbar);
     }
     return $this->_toolbar;
   }
 
+  /**
+   * Initialize the toolbar with buttons and other elements
+   *
+   * @param PapayaUiToolbarSet $toolbar
+   */
+  protected function _initializeToolbar(PapayaUiToolbarSet $toolbar) {
+  }
 }

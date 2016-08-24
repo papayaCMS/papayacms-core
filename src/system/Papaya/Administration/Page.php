@@ -35,7 +35,7 @@ abstract class PapayaAdministrationPage extends PapayaObject {
   private $_parts = NULL;
   private $_toolbar = NULL;
 
-  protected $_parameterGroup = 'theme';
+  protected $_parameterGroup = '';
 
   /**
    * Create page object and store layout object for later use
