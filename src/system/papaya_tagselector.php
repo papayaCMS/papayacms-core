@@ -92,7 +92,7 @@ class papaya_tagselector extends base_tags {
   * @param PapayaObjectInterface $parentObj parent object, must hold msgs, authUser, images
   * @return object $tagLinks instance of base_taglinks
   */
-  public static function getInstance($parentObj) {
+  public static function getInstance($parentObj = NULL) {
     $administrationUser = $parentObj->papaya()->administrationUser;
     if ($administrationUser->hasPerm(PapayaAdministrationPermissions::TAG_MANAGE)) {
       $instance = new papaya_tagselector($parentObj, $parentObj->paramName);
@@ -472,7 +472,7 @@ class papaya_tagselector extends base_tags {
   * load categories and category tree
   */
   function loadCategories() {
-    unset($this->categories);
+    $this->categories = NULL;
     unset($this->categoryTree);
 
     if (isset($this->sessionParams['open_categories'])) {
@@ -511,7 +511,7 @@ class papaya_tagselector extends base_tags {
         $this->categories[(int)$row['category_id']] = $row;
         $this->categoryTree[(int)$row['parent_id']][$row['category_id']] = $row['category_id'];
       }
-      $this->loadCategoryCounts();
+      $this->loadCategoryCounts($this->categories);
       return TRUE;
     }
     return FALSE;
@@ -520,11 +520,10 @@ class papaya_tagselector extends base_tags {
   /**
   * load number of subnodes of each category
   */
-  function loadCategoryCounts() {
-    if (isset($this->categories) && is_array($this->categories) &&
-        (count($this->categories) > 0)) {
+  function loadCategoryCounts(&$categories) {
+    if (is_array($categories) && count($categories) > 0) {
       $categoryCondition = $this->databaseGetSQLCondition(
-        'parent_id', array_keys($this->categories)
+        'parent_id', array_keys($categories)
       );
       $sql = "SELECT COUNT(*) AS count, parent_id
                 FROM %s

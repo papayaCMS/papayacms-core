@@ -63,10 +63,11 @@ class base_tags extends base_db {
   protected $categories;
 
   /**
-  * Create/return single object instance (Singleton)
-  * @return base_tags
-  */
-  public static function getInstance() {
+   * Create/return single object instance (Singleton)
+   * @param null $parentObj
+   * @return base_tags
+   */
+  public static function getInstance($parentObj = NULL) {
     static $tagObj;
     if (!(isset($tagObj) && is_object($tagObj) && is_a($tagObj, 'base_tags'))) {
       $tagObj = new base_tags();
