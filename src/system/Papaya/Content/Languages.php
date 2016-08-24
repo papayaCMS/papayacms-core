@@ -66,6 +66,11 @@ class PapayaContentLanguages extends PapayaDatabaseRecords {
   protected $_tableName = PapayaContentTables::LANGUAGES;
 
   /**
+   * @var string
+   */
+  protected $_identifierProperties = array('id');
+
+  /**
   * A mapping of the unique language codes (de-DE) to the internal id
   *
   * @var array(string=>string,...)
