@@ -231,6 +231,9 @@ class dbcon_sqlite3 extends dbcon_base {
         } elseif ($value !== NULL) {
           $fieldString .= $this->escapeString($field).', ';
           $valueString .= "'".$this->escapeString($value)."', ";
+        } elseif ($field == $idField) {
+          $fieldString .= $this->escapeString($field).', ';
+          $valueString .= "NULL, ";
         }
       }
       $fieldString = substr($fieldString, 0, -2);
