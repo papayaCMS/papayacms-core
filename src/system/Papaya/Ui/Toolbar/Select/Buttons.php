@@ -43,6 +43,9 @@ class PapayaUiToolbarSelectButtons extends PapayaUiToolbarSelect {
     $parameterName = new PapayaRequestParametersName($this->_parameterName);
     foreach ($this->_options as $value => $data) {
       if (is_array($data)) {
+        if (array_key_exists('enabled', $data) && !$data['enabled']) {
+          continue;
+        }
         $caption = PapayaUtilArray::get($data, array('caption', 0), '');
         $image = PapayaUtilArray::get($data, array('image', 1), '');
       } else {

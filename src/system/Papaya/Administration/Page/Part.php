@@ -36,6 +36,22 @@ abstract class PapayaAdministrationPagePart extends PapayaUiControlInteractive {
   private $_toolbar = NULL;
 
   /**
+   * @var PapayaAdministrationPage
+   */
+  private $_page = NULL;
+
+  public function __construct(PapayaAdministrationPage $page = NULL) {
+    $this->_page = $page;
+  }
+
+  /**
+   * @return PapayaAdministrationPage
+   */
+  public function getPage() {
+    return $this->_page;
+  }
+
+  /**
    * Execute command controller and append output. Page parts are append in the order of
    * (Content -> Navigation -> Information). They share their parameters.
    *
