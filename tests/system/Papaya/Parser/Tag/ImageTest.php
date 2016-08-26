@@ -1,0 +1,20 @@
+<?php
+require_once(dirname(__FILE__).'/../../../../bootstrap.php');
+
+class PapayaParserTagImageTest extends PHPUnit_Framework_TestCase {
+  /**
+   * @covers PapayaParserTagImage::appendTo
+   */
+  public function testAppendTo() {
+    $image = new PapayaParserTagImage('d74f6d0324f5d90b23bb3771200ddf7d,60,96,max');
+    $document = new PapayaXmlDocument();
+    $container = $document->appendElement('container');
+    $image->appendTo($container);
+    $this->assertEquals(
+      '<container><papaya:media xmlns:papaya="http://www.papaya-cms.com/namespace/papaya"'
+      .' width="60" height="96" resize="max"></papaya:media></container>
+',
+      $document->saveHTML()
+    );
+  }
+}
