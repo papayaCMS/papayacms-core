@@ -108,7 +108,7 @@ class PapayaParserTagImage extends PapayaParserTag {
           $regs
         )
       ) {
-      $this->source = papaya_strings::escapeHTMLChars($regs[1]).'"';
+      $this->_source = papaya_strings::escapeHTMLChars($regs[1]);
       if ($this->_width == 0 && isset($regs[4])) {
         $this->_width = (int)$regs[4];
       }

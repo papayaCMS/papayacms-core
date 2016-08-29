@@ -12,6 +12,7 @@ class PapayaParserTagImageTest extends PHPUnit_Framework_TestCase {
     $image->appendTo($container);
     $this->assertEquals(
       '<container><papaya:media xmlns:papaya="http://www.papaya-cms.com/namespace/papaya"'
+      .' src="d74f6d0324f5d90b23bb3771200ddf7d"'
       .' width="60" height="96" resize="max"></papaya:media></container>
 ',
       $document->saveHTML()
