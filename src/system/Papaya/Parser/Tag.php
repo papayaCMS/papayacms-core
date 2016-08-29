@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * TO DO: implement a PapayaParserTagPart class similar to PapayaUiControlPart for easier attribute handling
+ */
 abstract class PapayaParserTag implements PapayaXmlAppendable {
   /**
    * Compile output xml for the user interface element.
