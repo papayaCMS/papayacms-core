@@ -4,6 +4,11 @@ class PapayaParserTagImage extends PapayaParserTag {
   /**
    * @var string
    */
+  private $_mediaPropertyString = '';
+
+  /**
+   * @var string
+   */
   private $_source = '';
 
   /**
@@ -38,11 +43,34 @@ class PapayaParserTagImage extends PapayaParserTag {
   private $_papayaTagPattern = '/<(papaya|ndim):([a-z]\w+)\s?([^>]*)\/?>(<\/(\1):(\2)>)?/ims';
 
   /**
+   * Constructor
+   *
+   * @param string $mediaPropertyString this is the string the dialog type image(?)
+   *                    contains like "32242...,max,200,300"
+   * @param integer $width optional, default value 0
+   * @param integer $height optional, default value 0
+   * @param string $alt optional, default value ''
+   * @param string $resize optional, default value NULL
+   * @param string $subTitle optional, default value ''
+   */
+  public function __construct(
+    $mediaPropertyString, $width = 0, $height = 0, $alt = '', $resize = NULL, $subTitle = ''
+  ) {
+    $this->_mediaPropertyString = $mediaPropertyString;
+    $this->_width = $width;
+    $this->_height = $height;
+    $this->_alt = $alt;
+    $this->_resize = $resize;
+    $this->_subTitle = $subTitle;
+  }
+
+  /**
    * Append the generated papaya:media element to a parent node
    *
    * @param PapayaXmlElement $parent
    */
   public function appendTo(PapayaXmlElement $parent) {
+    $this->parseImageData();
     $attributes = [];
     if (!empty($this->_source)) {
       $attributes['src'] = $this->_source;
@@ -70,50 +98,25 @@ class PapayaParserTagImage extends PapayaParserTag {
     $parent->appendChild($imageTag);
   }
 
-  /**
-   * Parse attributes from string
-   *
-   * @param string $mediaPropertyString this is the string the dialog type image(?)
-   *                    contains like "32242...,max,200,300"
-   * @param integer $width optional, default value 0
-   * @param integer $height optional, default value 0
-   * @param string $alt optional, default value ''
-   * @param string $resize optional, default value NULL
-   * @param string $subTitle optional, default value ''
-   */
-  public function parseString(
-      $mediaPropertyString = '', $width = 0, $height = 0, $alt = '', $resize = NULL, $subTitle = ''
-  ) {
-    if (preg_match($this->_papayaTagPattern, $mediaPropertyString, $regs)) {
-      $this->parseMediaTag($mediaPropertyString);
+  private function parseImageData() {
+    if (preg_match($this->_papayaTagPattern, $this->_mediaPropertyString, $regs)) {
+      $this->parseMediaTag($this->_mediaPropertyString);
     } elseif (
         preg_match(
           '~^([^.,]+(\.\w+)?)(,(\d+)(,(\d+)(,(\w+))?)?)?$~i',
-          $mediaPropertyString,
+          $this->_mediaPropertyString,
           $regs
         )
       ) {
-      $this->_source = $regs[1];
-      if ($width > 0) {
-        $this->_width = $width;
-      } elseif (isset($regs[4])) {
+      $this->_source = papaya_strings::escapeHTMLChars($regs[1]);
+      if ($this->_width == 0 && isset($regs[4])) {
         $this->_width = (int)$regs[4];
       }
-      if ($height > 0) {
-        $this->_height = $height;
-      } elseif (isset($regs[6])) {
+      if ($this->_height == 0 && isset($regs[6])) {
         $this->_height = (int)$regs[6];
       }
-      if (!empty($resize)) {
-        $this->_resize = $resize;
-      } elseif (isset($regs[8])) {
-        $this->_resize = $regs[8];
-      }
-      if (!empty($alt)) {
-        $this->_alt = $alt;
-      }
-      if (!empty($subTitle)) {
-        $this->_subTitle = $subTitle;
+      if (empty($this->_resize) && isset($regs[8])) {
+        $this->_resize = papaya_strings::escapeHTMLChars($regs[8]);
       }
     }
   }
