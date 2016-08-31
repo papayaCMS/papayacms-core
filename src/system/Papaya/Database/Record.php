@@ -178,10 +178,14 @@ abstract class PapayaDatabaseRecord
       return FALSE;
     }
     if ($filter = $this->key()->getFilter()) {
-      return FALSE !== $this->getDatabaseAccess()->deleteRecord(
+      $result = FALSE !== $this->getDatabaseAccess()->deleteRecord(
         $this->getDatabaseAccess()->getTableName($this->_tableName),
         $this->mapping()->mapPropertiesToFields($filter, $this->_tableAlias)
       );
+      if ($result) {
+        $this->callbacks()->onAfterDelete($this);
+      }
+      return $result;
     } else {
       return FALSE;
     }
@@ -223,6 +227,7 @@ abstract class PapayaDatabaseRecord
       );
     if ($result) {
       $this->key()->assign($this->toArray());
+      $this->callbacks()->onAfterUpdate($this);
     }
     return $result;
   }
@@ -268,6 +273,7 @@ abstract class PapayaDatabaseRecord
       }
       $this->assign($this->mapping()->mapFieldsToProperties($record));
       $this->key()->assign($this->toArray());
+      $this->callbacks()->onAfterInsert($this);
       return $this->key();
     } else {
       return FALSE;
