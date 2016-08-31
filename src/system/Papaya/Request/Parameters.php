@@ -61,6 +61,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    *
    * @param int|string|array|Traversable $offsets
    * @param mixed $value
+   * @return $this
    */
   public function set($offsets, $value = NULL) {
     if (is_array($offsets) || $offsets instanceof Traversable) {
@@ -70,6 +71,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
     } else {
       $this[$offsets] = $value;
     }
+    return $this;
   }
 
   /**
@@ -77,6 +79,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    * parameter name.
    *
    * @param int|string|array(string) $offsets
+   * @return $this
    */
   public function remove($offsets) {
     if (!(is_array($offsets) || $offsets instanceof Traversable)) {
@@ -85,6 +88,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
     foreach ($offsets as $offset) {
       unset($this[$offset]);
     }
+    return $this;
   }
 
   /**
@@ -146,11 +150,13 @@ class PapayaRequestParameters extends PapayaObjectParameters {
 
   /**
    * @param string $queryString
+   * @return $this
    */
   public function setQueryString($queryString) {
     $query = new PapayaRequestParametersQuery();
     $query->setString($queryString);
     $this->assign($query->values());
+    return $this;
   }
 
   /**
