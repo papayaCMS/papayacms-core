@@ -74,11 +74,11 @@ abstract class PapayaDatabaseRecords
    */
   public function truncate($filterOrAll = FALSE) {
     $databaseAccess = $this->getDatabaseAccess();
-    if (is_array($filterOrAll) && !empty($filter)) {
+    if (is_array($filterOrAll) && !empty($filterOrAll)) {
       return (
         FALSE !== $databaseAccess->deleteRecord(
           $databaseAccess->getTableName($this->_tableName),
-          $this->mapping()->mapPropertiesToFields($filter, FALSE)
+          $this->mapping()->mapPropertiesToFields($filterOrAll, FALSE)
         )
       );
     } elseif (is_bool($filterOrAll) && $filterOrAll) {
