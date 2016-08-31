@@ -69,6 +69,29 @@ abstract class PapayaDatabaseRecords
   }
 
   /**
+   * @param array|bool $filterOrAll delete records defined by the filter or all if it is set to true
+   * @return bool
+   */
+  public function truncate($filterOrAll = FALSE) {
+    $databaseAccess = $this->getDatabaseAccess();
+    if (is_array($filterOrAll) && !empty($filter)) {
+      return (
+        FALSE !== $databaseAccess->deleteRecord(
+          $databaseAccess->getTableName($this->_tableName),
+          $this->mapping()->mapPropertiesToFields($filter, FALSE)
+        )
+      );
+    } elseif (is_bool($filterOrAll) && $filterOrAll) {
+      return (
+        FALSE !== $databaseAccess->emptyTable(
+          $databaseAccess->getTableName($this->_tableName)
+        )
+      );
+    }
+    return FALSE;
+  }
+
+  /**
    * A protected method that does the actual loading. The separation allows to overload load, to
    * create and own logic that defines the sql and parameters.
    *
@@ -212,6 +235,7 @@ abstract class PapayaDatabaseRecords
           if (isset($values[$property])) {
             $identifier[] = $values[$property];
           } else {
+            var_dump($values);
             throw new UnexpectedValueException(
               sprintf(
                 'The property "%s" was not found, but is needed to create the identifier.',
