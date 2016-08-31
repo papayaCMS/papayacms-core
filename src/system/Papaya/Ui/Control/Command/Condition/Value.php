@@ -1,6 +1,6 @@
 <?php
 /**
-* A command condition based on a callback.
+* A command condition based on a value.
 *
 * @copyright 2010 by papaya Software GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
@@ -18,33 +18,28 @@
 */
 
 /**
-* A command condition based on a callback.
+* A command condition based on a value.
 *
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiControlCommandConditionCallback extends PapayaUiControlCommandCondition {
+class PapayaUiControlCommandConditionValue extends PapayaUiControlCommandCondition {
 
   /**
-  * member variable to store the callback
+  * member variable to store the value
   *
-  * @var callable
+  * @var boolean
   */
-  private $_callback = NULL;
+  private $_value = NULL;
 
   /**
    * Create object and store callback.
    *
-   * @param callable $callback
+   * @param boolean $value
    * @throws InvalidArgumentException
    */
-  public function __construct($callback) {
-    if (!is_callable($callback)) {
-      throw new InvalidArgumentException(
-        'InvalidArgumentException: provided $callback is not callable.'
-      );
-    }
-    $this->_callback = $callback;
+  public function __construct($value) {
+    $this->_value = (boolean)$value;
   }
 
   /**
@@ -53,6 +48,6 @@ class PapayaUiControlCommandConditionCallback extends PapayaUiControlCommandCond
   * @return boolean
   */
   public function validate() {
-    return (boolean)call_user_func($this->_callback);
+    return $this->_value;
   }
 }
