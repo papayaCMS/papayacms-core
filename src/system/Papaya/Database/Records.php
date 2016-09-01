@@ -92,6 +92,19 @@ abstract class PapayaDatabaseRecords
   }
 
   /**
+   * @param [array] $data
+   * @return bool
+   */
+  public function insert(array $data) {
+    $databaseAccess = $this->getDatabaseAccess();
+    $records = array();
+    foreach ($data as $values) {
+      $records[] = $this->mapping()->mapPropertiesToFields($values, FALSE);
+    }
+    return $databaseAccess->insertRecords($databaseAccess->getTableName($this->_tableName), $records);
+  }
+
+  /**
    * A protected method that does the actual loading. The separation allows to overload load, to
    * create and own logic that defines the sql and parameters.
    *
