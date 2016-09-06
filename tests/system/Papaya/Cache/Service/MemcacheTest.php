@@ -645,16 +645,18 @@ class PapayaCacheServiceMemcacheTest extends PapayaTestCase {
     $canConnected = FALSE,
     $memcacheClassName = 'Memcached'
   ) {
-    $memcacheObject = $this->getMock(
-      $memcacheClassName,
-      array(
-        'addServer',
-        'flush',
-        'get',
-        'set',
-        'replace'
-      )
-    );
+    $memcacheObject = $this
+      ->getMockBuilder($memcacheClassName)
+      ->allowMockingUnknownTypes()
+      ->setMethods(
+        array(
+          'addServer',
+          'flush',
+          'get',
+          'set',
+          'replace'
+        )
+      )->getMock();
     $memcacheObject
       ->expects($this->any())
       ->method('addServer')
