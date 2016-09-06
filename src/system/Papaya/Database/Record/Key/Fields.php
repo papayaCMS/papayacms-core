@@ -103,7 +103,7 @@ class PapayaDatabaseRecordKeyFields implements PapayaDatabaseInterfaceKey {
         $filter[$field] = $value;
       }
     }
-    if (empty($filter)) {
+    if (empty($filter) || count($filter) != count($values)) {
       return FALSE;
     }
     $databaseAccess = $this->_record->getDatabaseAccess();

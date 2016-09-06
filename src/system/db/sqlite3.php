@@ -1105,10 +1105,11 @@ class dbresult_sqlite3 extends dbresult_base {
   */
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;
+    /** @var SQLite3Result $res */
     if ($res = $this->connection->executeQuery($explainQuery)) {
-      if ($res->numRows() > 0) {
+      if ($res->numColumns() > 0) {
         $explain = new PapayaMessageContextTable('Explain');
-        while ($row = $res->fetchRow(SQLITE3_NUM)) {
+        while ($row = $res->fetchArray(SQLITE3_NUM)) {
           $explain->addRow($row);
         }
         return $explain;

@@ -347,6 +347,7 @@ abstract class dbcon_base extends base_object {
     switch ($operator) {
     case 'ISNULL' :
       return $escapedField.' IS NULL';
+    case 'LIKE' :
     case '>' :
     case '<' :
     case '>=' :

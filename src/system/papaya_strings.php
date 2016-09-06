@@ -318,11 +318,7 @@ class papaya_strings {
   * @return string
   */
   public static function strtolower($string) {
-    if (function_exists('mb_strtolower')) {
-      return mb_strtolower($string, 'UTF-8');
-    } else {
-      return strtolower($string);
-    }
+    PapayaUtilStringUtf8::toLowerCase($string);
   }
 
   /**
@@ -331,11 +327,7 @@ class papaya_strings {
   * @return string
   */
   public static function strtoupper($string) {
-    if (function_exists('mb_strtoupper')) {
-      return mb_strtoupper($string, 'UTF-8');
-    } else {
-      return strtoupper($string);
-    }
+    PapayaUtilStringUtf8::toUpperCase($string);
   }
 
   /**
