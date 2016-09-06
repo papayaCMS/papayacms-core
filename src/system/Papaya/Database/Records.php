@@ -248,7 +248,6 @@ abstract class PapayaDatabaseRecords
           if (isset($values[$property])) {
             $identifier[] = $values[$property];
           } else {
-            var_dump($values);
             throw new UnexpectedValueException(
               sprintf(
                 'The property "%s" was not found, but is needed to create the identifier.',

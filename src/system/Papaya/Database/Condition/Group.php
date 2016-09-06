@@ -88,7 +88,6 @@ class PapayaDatabaseConditionGroup
     case 'contains' :
       list($field, $value) = $arguments;
       $this->_conditions[] = $condition = new PapayaDatabaseConditionContains($this, $field, $value);
-      var_dump($condition->getSql());
       return $condition;
     default :
       if (isset($this->_classes[$name])) {
