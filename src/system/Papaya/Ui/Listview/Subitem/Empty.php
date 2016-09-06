@@ -20,7 +20,7 @@
 /**
 * An empty listview subitem.
 *
-* Empty subitems are needed to avoid
+* Empty subitems are needed to avoid broken output.
 *
 * @package Papaya-Library
 * @subpackage Ui

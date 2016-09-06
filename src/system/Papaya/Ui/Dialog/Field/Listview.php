@@ -66,5 +66,4 @@ class PapayaUiDialogFieldListview extends PapayaUiDialogField {
     $field->append($this->listview());
     return $field;
   }
-
 }
