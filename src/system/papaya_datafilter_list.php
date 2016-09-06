@@ -80,11 +80,12 @@ class papaya_datafilter_list extends base_datafilter_list {
   public $images = array();
 
   /**
-  * Initialization
-  *
-  * @access public
-  */
-  function initialize() {
+   * Initialization
+   *
+   * @access public
+   * @param null $contentObj
+   */
+  function initialize($contentObj = NULL) {
     $this->initializeParams();
   }
 

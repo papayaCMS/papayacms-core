@@ -8,6 +8,10 @@
     "files" : ["src/core.php"]
   },
   "require-dev": {
+    "php": ">=5.6.0",
+    "ext-dom": "*",
+    "ext-xsl": "*",
+
     "papaya/cms-administration": "*",
 
     "papaya/theme-dynamic": "*",

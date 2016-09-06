@@ -65,7 +65,7 @@ class PapayaContentViews extends PapayaDatabaseRecordsLazy {
   * @param NULL|integer $offset
   * @return boolean
   */
-  public function load(array $filter = array(), $limit = NULL, $offset = NULL) {
+  public function load($filter = array(), $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
     $fields = implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields

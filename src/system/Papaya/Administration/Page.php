@@ -95,14 +95,14 @@ abstract class PapayaAdministrationPage extends PapayaObject {
   public function execute() {
     $parts = $this->parts();
     $restoreParameters = ($this->papaya()->request->method == 'get') && !empty($this->_parameterGroup);
-    $parametersName = [get_class($this), 'parameters', $this->_parameterGroup];
+    $parametersName = array(get_class($this), 'parameters', $this->_parameterGroup);
     if ($restoreParameters && $parts->parameters()->isEmpty()) {
       $value = $this->papaya()->session->getValue($parametersName);
-      $parts->parameters()->merge(is_array($value) ? $value : []);
+      $parts->parameters()->merge(is_array($value) ? $value : array());
       $this->papaya()->request->setParameters(
         PapayaRequest::SOURCE_QUERY,
         $this->papaya()->request->getParameters(PapayaRequest::SOURCE_QUERY)->set(
-          $this->_parameterGroup, is_array($value) ? $value : []
+          $this->_parameterGroup, is_array($value) ? $value : array()
         )
       );
     }

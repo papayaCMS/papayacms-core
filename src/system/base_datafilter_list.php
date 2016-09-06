@@ -59,11 +59,12 @@ class base_datafilter_list extends base_db {
   var $contentObj = NULL;
 
   /**
-  * Initialize contentObj, load filter guids and objects
-  *
-  * @access public
-  */
-  function initialize($contentObj) {
+   * Initialize contentObj, load filter guids and objects
+   *
+   * @access public
+   * @param null $contentObj
+   */
+  function initialize($contentObj = NULL) {
     $this->contentObj = $contentObj;
     if (isset($contentObj) && is_object($contentObj) &&
         $this->loadFilterConfigurations($contentObj->parentObj->getViewId())) {
