@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../../../../bootstrap.php');
 
-class PapayaContentViewConfigurationsTest extends \PHPUnit_Framework_TestCase {
+class PapayaContentViewConfigurationsTest extends PapayaTestCase {
 
   /**
    * @covers PapayaContentViewConfigurations
