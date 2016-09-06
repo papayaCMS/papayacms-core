@@ -11,7 +11,10 @@ class PapayaUiStringTranslatedTest extends PapayaTestCase {
     /* PapayaPhraseManager will be the new implementation of the phrase translations,
        just mock it for now, so we dont have to handle the constant declarations in the
        current class */
-    $phrases = $this->getMock('PapayaPhraseManager', array('getText'));
+    $phrases = $this
+      ->getMockBuilder('PapayaPhraseManager')
+      ->setMethods(array('getText'))
+      ->getMock();
     $phrases
       ->expects($this->once())
       ->method('getText')

@@ -153,13 +153,21 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
     $wrapper->start();
     $id = session_id();
     $wrapper->regenerateId();
-    $this->assertEquals(
-      array(
-        'PapayaSessionHandler_TestClass::open' => 1,
-        'PapayaSessionHandler_TestClass::read' => 1,
-        'PapayaSessionHandler_TestClass::destroy' => 1
-      ),
-      PapayaSessionHandler_TestClass::$calls
+    $this->assertThat(
+      PapayaSessionHandler_TestClass::$calls,
+      $this->logicalOr(
+        array(
+          'PapayaSessionHandler_TestClass::open' => 1,
+          'PapayaSessionHandler_TestClass::read' => 1,
+          'PapayaSessionHandler_TestClass::destroy' => 1
+        ),
+        array(
+          'PapayaSessionHandler_TestClass::open' => 2,
+          'PapayaSessionHandler_TestClass::read' => 2,
+          'PapayaSessionHandler_TestClass::destroy' => 1,
+          'PapayaSessionHandler_TestClass::close' => 1
+        )
+      )
     );
     $this->assertNotEquals(
       $id, session_id()
