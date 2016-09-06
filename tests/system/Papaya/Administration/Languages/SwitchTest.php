@@ -117,7 +117,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
   */
   public function testLanguagesGetCurrentFromList() {
     $switch = new PapayaAdministrationLanguagesSwitch();
-    $switch->languages($this->getLanguagesFixture(array('id' => 21)));
+    $switch->languages($this->getLanguagesFixture(array(21 => array('id' => 21))));
     $switch->papaya(
       $this->mockPapaya()->application(
         array(
@@ -262,13 +262,29 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnCallback(array($this, 'callbackLangugageData')));
 
+    $defaultLanguageData = is_array($languages)
+      ? reset($languages)
+      : array(
+        'id' => 21,
+        'identifier' => 'en',
+        'code' => 'en-US',
+        'title' => 'English',
+        'image' => 'us.gif',
+        'is_content' => 1,
+        'is_interface' => 1
+      );
+    $defaultLanguage = new PapayaContentLanguage();
+    if (is_array($defaultLanguageData)) {
+      $defaultLanguage->assign($defaultLanguageData);
+    }
+
     $result = $this->getMock(
       'PapayaContentLanguages',
-      array('load', 'getLanguage', 'getLanguageByCode', 'getIterator', 'itemAt')
+      array('loadByUsage', 'getLanguage', 'getLanguageByCode', 'getIterator', 'getDefault')
     );
     $result
       ->expects($this->once())
-      ->method('load')
+      ->method('loadByUsage')
       ->with($this->equalTo(PapayaContentLanguages::FILTER_IS_CONTENT))
       ->will($this->returnValue(TRUE));
     $result
@@ -281,6 +297,10 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
       ->method('getLanguageByCode')
       ->withAnyParameters()
       ->will($this->returnValue($language));
+    $result
+      ->expects($this->any())
+      ->method('getDefault')
+      ->willReturn(is_array($defaultLanguageData) ? $defaultLanguage : NULL);
     $result
       ->expects($this->any())
       ->method('getIterator')

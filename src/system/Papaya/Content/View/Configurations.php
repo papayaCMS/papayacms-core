@@ -45,7 +45,7 @@ class PapayaContentViewConfigurations extends PapayaDatabaseRecordsLazy {
   */
   protected $_tableName = PapayaContentTables::VIEW_CONFIGURATIONS;
 
-  public function load($filter, $limit = NULL, $offset = NULL) {
+  public function load($filter = array(), $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
     $filter = PapayaUtilString::escapeForPrintf($this->_compileCondition($filter));
     $sql = "(SELECT vl.view_id,

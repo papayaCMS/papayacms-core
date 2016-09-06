@@ -33,7 +33,7 @@ class PapayaAdministrationPagesDependencySynchronizationView
    * @param array $targetIds
    * @return boolean
    */
-  protected function updateTranslations(PapayaContentPageTranslation $origin, $targetIds) {
+  protected function updateTranslations(PapayaContentPageTranslation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
       $databaseAccess->getTableName(PapayaContentTables::PAGE_TRANSLATIONS),
