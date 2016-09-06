@@ -213,6 +213,36 @@ class PapayaUtilStringUtf8 {
     return FALSE;
   }
 
+  public static function toLowerCase($string) {
+    switch (self::getExtension()) {
+    case self::EXT_INTL :
+      if (class_exists('Transliterator', FALSE)) {
+        return \Transliterator::create('Any-Lower')->transliterate($string);
+      } elseif (extension_loaded('mbstring')) {
+        return mb_strtolower($string, 'utf-8');
+      }
+      break;
+    case self::EXT_MBSTRING :
+      return mb_strtolower($string, 'utf-8');
+    }
+    return $string;
+  }
+
+  public static function toUpperCase($string) {
+    switch (self::getExtension()) {
+    case self::EXT_INTL :
+      if (class_exists('Transliterator', FALSE)) {
+        return \Transliterator::create('Any-Upper')->transliterate($string);
+      } elseif (extension_loaded('mbstring')) {
+        return mb_strtoupper($string, 'utf-8');
+      }
+      break;
+    case self::EXT_MBSTRING :
+      return mb_strtoupper($string, 'utf-8');
+    }
+    return $string;
+  }
+
   /**
   * Determine which extension is available and should be used for utf-8 operations.
   * Preference is ext/intl, ext/mbstring and fallback
