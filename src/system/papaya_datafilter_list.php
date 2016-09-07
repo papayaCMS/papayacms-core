@@ -214,37 +214,56 @@ class papaya_datafilter_list extends base_datafilter_list {
   function executeFilterLinkEdit($viewId, $filterId) {
     if ($this->loadFilterLink($viewId, $filterId)) {
       $parent = NULL;
-      /**
-       * @var base_datafilter $moduleObj
-       */
-      $moduleObj = $this->papaya()->plugins->get(
+      $plugin = $this->papaya()->plugins->get(
         $this->filterLink['module_guid'],
         $parent,
         $this->filterLink['datafilter_data']
       );
-      if (isset($moduleObj) && is_object($moduleObj)) {
-        $moduleObj->paramName = $this->paramName;
-        $hidden = array(
+      if ($plugin instanceof PapayaPluginEditable) {
+        $pluginNode = $this->layout->values()->getValueByPath('/page/centercol');
+        if ($plugin->content()->editor()) {
+          $plugin->content()->editor()->context()->merge(
+            array(
+              $this->paramName => array(
+                'view_id' => $this->filterLink['view_id'],
+                'datafilter_id' => $this->filterLink['datafilter_id'],
+                'cmd' => 'datafilterlink_edit'
+              )
+            )
+          );
+          $pluginNode->append($plugin->content()->editor());
+          if ($plugin->content()->modified()) {
+            $saved = $this->saveFilterLinkContent(
+              $this->filterLink['view_id'], $this->filterLink['datafilter_id'], $plugin->content()->getXml()
+            );
+            if ($saved) {
+              $this->addMsg(MSG_INFO, $this->_gt('Changes saved.'));
+            }
+          }
+        }
+        return TRUE;
+      } elseif ($plugin instanceof base_datafilter) {
+        $plugin->paramName = $this->paramName;
+        $hidden = [
           'view_id' => $this->filterLink['view_id'],
           'datafilter_id' => $this->filterLink['datafilter_id'],
           'cmd' => 'datafilterlink_edit'
-        );
-        $moduleObj->initializeDialog($hidden);
-        if ($moduleObj->modified()) {
-          if ($moduleObj->checkData()) {
+        ];
+        $plugin->initializeDialog($hidden);
+        if ($plugin->modified()) {
+          if ($plugin->checkData()) {
             if (
-              $this->saveFilterLinkContent(
-                $this->filterLink['view_id'],
-                $this->filterLink['datafilter_id'],
-                $moduleObj->getData()
-              )
+            $this->saveFilterLinkContent(
+              $this->filterLink['view_id'],
+              $this->filterLink['datafilter_id'],
+              $plugin->getData()
+            )
             ) {
               $this->addMsg(MSG_INFO, $this->_gt('Changes saved.'));
             }
           }
         }
-        $this->layout->add($moduleObj->getForm());
-        unset($moduleObj);
+        $this->layout->add($plugin->getForm());
         return TRUE;
       }
     }
