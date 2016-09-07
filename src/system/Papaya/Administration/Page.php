@@ -132,7 +132,9 @@ abstract class PapayaAdministrationPage extends PapayaObject {
     } elseif (NULL === $this->_parts) {
       $this->_parts = new PapayaAdministrationPageParts($this);
       $this->_parts->papaya($this->papaya());
-      $this->_parts->parameterGroup($this->_parameterGroup);
+      if (!empty($this->_parameterGroup)) {
+        $this->_parts->parameterGroup($this->_parameterGroup);
+      }
     }
     return $this->_parts;
   }

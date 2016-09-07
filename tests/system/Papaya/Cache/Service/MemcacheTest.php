@@ -645,16 +645,9 @@ class PapayaCacheServiceMemcacheTest extends PapayaTestCase {
     $canConnected = FALSE,
     $memcacheClassName = 'Memcached'
   ) {
-    $memcacheObject = $this->getMock(
-      $memcacheClassName,
-      array(
-        'addServer',
-        'flush',
-        'get',
-        'set',
-        'replace'
-      )
-    );
+    $memcacheObject = $this
+      ->getMockBuilder($memcacheClassName)
+      ->getMock();
     $memcacheObject
       ->expects($this->any())
       ->method('addServer')
@@ -771,6 +764,28 @@ class PapayaCacheServiceMemcache_FlushTestProxy extends PapayaCacheServiceMemcac
 
   public function _createMemcacheObject() {
     return $this->memcacheObjects[$this->memcacheObjectCounter++];
+  }
+}
+
+if (!class_exists('Memcache', FALSE)) {
+
+  class Memcache {
+    function addServer() {}
+    function flush() {}
+    function get() {}
+    function set() {}
+    function replace() {}
+  }
+}
+
+if (!class_exists('Memcached', FALSE)) {
+
+  class Memcached {
+    function addServer() {}
+    function flush() {}
+    function get() {}
+    function set() {}
+    function replace() {}
   }
 }
 

@@ -702,7 +702,6 @@ class dbresult_base extends base_object implements PapayaDatabaseResult {
   function free() {
     if (isset($this->result) && is_resource($this->result)) {
       unset($this->result);
-      unset($this);
     }
   }
 

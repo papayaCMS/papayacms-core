@@ -30,7 +30,6 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherCli::allow
   */
   public function testAllowWithDisabledDispatcherExpectingFalse() {
-    $message = $this->getMock('PapayaMessageLogable');
     $dispatcher = new PapayaMessageDispatcherCli();
     $dispatcher->phpSapiName('nosapi');
     $this->assertFalse(
@@ -42,7 +41,6 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherCli::allow
   */
   public function testAllowExpectingTrue() {
-    $message = $this->getMock('PapayaMessageLogable');
     $dispatcher = new PapayaMessageDispatcherCli();
     $dispatcher->phpSapiName('cli');
     $this->assertTrue(
@@ -99,7 +97,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherCli::dispatch
   */
   public function testDispatchWarning() {
-    $context = $this->getMock('PapayaMessageContext', array('asString'));
+    $context = $this->getMockBuilder('PapayaMessageContextInterfaceString')->getMock();
     $context
       ->expects($this->any())
       ->method('asString')
@@ -133,7 +131,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherCli::dispatch
   */
   public function testDispatchDebug() {
-    $context = $this->getMock('PapayaMessageContext', array('asString'));
+    $context = $this->getMockBuilder('PapayaMessageContextInterfaceString')->getMock();
     $context
       ->expects($this->any())
       ->method('asString')

@@ -9,7 +9,10 @@ class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
   */
   public function testLoad() {
     $record = new PapayaMediaDatabaseItemRecord();
-    $dbResult = $this->getMock('dbresult_common', array('fetchRow'));
+    $dbResult = $this
+      ->getMockBuilder('dbresult_base')
+      ->disableOriginalConstructor()
+      ->getMock();
     $dbResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -47,7 +50,10 @@ class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
   */
   public function testLoadExpectingFalse() {
     $record = new PapayaMediaDatabaseItemRecord();
-    $dbResult = $this->getMock('dbresult_common', array('fetchRow'));
+    $dbResult = $this
+      ->getMockBuilder('dbresult_base')
+      ->disableOriginalConstructor()
+      ->getMock();
     $dbResult
       ->expects($this->once())
       ->method('fetchRow')

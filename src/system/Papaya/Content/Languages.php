@@ -199,4 +199,15 @@ class PapayaContentLanguages extends PapayaDatabaseRecords {
     }
     return NULL;
   }
+
+  /**
+   * @return PapayaContentLanguage
+   */
+  public function getDefault() {
+    if (count($this->_records) > 0 && ($id = array_keys($this->_records)[0])) {
+      return $this->getLanguage($id);
+    } else {
+      return NULL;
+    }
+  }
 }

@@ -162,8 +162,8 @@ class PapayaAdministrationLanguagesSwitch extends PapayaUiControlInteractive {
       }
     }
     if (is_null($this->_current) && isset($languages)) {
-      if ($language = reset(iterator_to_array($languages))) {
-        $this->_current = $languages->getLanguage($language['id']);
+      if ($language = $languages->getDefault()) {
+        $this->_current = $language;
       } else {
         $this->_current = $this->getDefault();
       }
