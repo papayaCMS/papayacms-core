@@ -34,7 +34,8 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
    * @param PapayaXmlElement $parent
    */
   public function appendTo(PapayaXmlElement $parent) {
-    if ($context = $this->context()) {
+    $context = $this->context();
+    if (!$context->isEmpty()) {
       $this->dialog()->hiddenValues()->merge($context);
     }
     if ($this->dialog()->execute()) {

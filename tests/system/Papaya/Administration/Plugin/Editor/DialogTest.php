@@ -124,7 +124,6 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
 
     $editor = new PapayaAdministrationPluginEditorDialog($pluginContent);
     $editor->papaya($this->mockPapaya()->application());
-    $editor->context(new PapayaRequestParameters(array('context' => 'sample')));
 
     $this->assertInstanceOf('PapayaUiDialog', $dialog = $editor->dialog());
     $this->assertXmlStringEqualsXmlString(
@@ -139,7 +138,6 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
            <option name="TOP_BUTTONS" value="yes"/>
            <option name="BOTTOM_BUTTONS" value="yes"/>
          </options>
-         <input type="hidden" name="context" value="sample"/>
          <input type="hidden" name="content[confirmation]" value="true"/>
          <input type="hidden" name="content[token]"/>
          <button type="submit" align="right">Save</button>
