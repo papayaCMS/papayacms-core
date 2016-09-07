@@ -48,7 +48,7 @@ class PapayaContentViewConfigurations extends PapayaDatabaseRecordsLazy {
   public function load($filter = array(), $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
     $filter = PapayaUtilString::escapeForPrintf($this->_compileCondition($filter));
-    $sql = "(SELECT vl.view_id,
+    $sql = "SELECT vl.view_id,
                     vl.viewmode_id,
                     vl.viewlink_data,
                     m.module_guid,
@@ -56,9 +56,9 @@ class PapayaContentViewConfigurations extends PapayaDatabaseRecordsLazy {
                FROM %s vl
                JOIN %s vm ON (vm.viewmode_id = vl.viewmode_id)
                JOIN %s m ON (m.module_guid = vm.module_guid)
-               $filter)
+               $filter
             UNION
-            (SELECT vl.view_id,
+            SELECT vl.view_id,
                     vl.datafilter_id viewmode_id,
                     vl.datafilter_data viewlink_data,
                     m.module_guid,
@@ -66,7 +66,7 @@ class PapayaContentViewConfigurations extends PapayaDatabaseRecordsLazy {
                FROM %s vl
                JOIN %s vm ON (vm.datafilter_id = vl.datafilter_id)
                JOIN %s m ON (m.module_guid = vm.module_guid)
-               $filter)";
+               $filter";
     $parameters = array(
       $databaseAccess->getTableName(PapayaContentTables::VIEW_CONFIGURATIONS),
       $databaseAccess->getTableName(PapayaContentTables::VIEW_MODES),
