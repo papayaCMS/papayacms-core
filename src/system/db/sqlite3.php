@@ -66,16 +66,18 @@ class dbcon_sqlite3 extends dbcon_base {
    * Establish connection to database
    *
    * @throws PapayaDatabaseExceptionConnect
-   * @return resource $this->databaseConnection connection ID
+   * @return SQLite3 $this->databaseConnection connection ID
    */
   public function connect() {
     if (isset($this->databaseConnection) && ($this->databaseConnection instanceof SQLite3)) {
-      return TRUE;
+      return $this->databaseConnection;
     } else {
       try {
         $this->databaseConnection = new SQLite3($this->databaseConfiguration->filename);
-        $this->databaseConnection->query('PRAGMA journal_mode=WAL;');
-        return TRUE;
+        $this->databaseConnection->enableExceptions(TRUE);
+        $this->databaseConnection->busyTimeout(10000);
+        $this->databaseConnection->exec('PRAGMA journal_mode = DELETE');
+        return $this->databaseConnection;
       } catch (\Exception $e) {
         throw new PapayaDatabaseExceptionConnect($e->getMessage());
       }
@@ -91,6 +93,7 @@ class dbcon_sqlite3 extends dbcon_base {
       ($this->databaseConnection instanceof SQLite3)
     ) {
       $this->databaseConnection->close();
+      $this->databaseConnection = NULL;
     }
   }
 
@@ -102,10 +105,12 @@ class dbcon_sqlite3 extends dbcon_base {
    * @return \SQLite3Result
    */
   public function executeQuery($sql) {
-    if ($result = @$this->databaseConnection->query($sql)) {
+    try {
+      $result = $this->databaseConnection->query($sql);
       return $result;
+    } catch (Exception $e) {
+      throw $this->_createQueryException($sql);
     }
-    throw $this->_createQueryException($sql);
   }
 
   /**
@@ -162,7 +167,7 @@ class dbcon_sqlite3 extends dbcon_base {
   * @access public
   * @return mixed FALSE or number of affected_rows or database result object
   */
-  function &query($sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = false) {
+  function query($sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = false) {
     if ($freeLastResult &&
         is_object($this->lastResult) &&
         is_a($this->lastResult, 'dbresult_sqlite')) {
@@ -1015,8 +1020,8 @@ class dbresult_sqlite3 extends dbresult_base {
   */
   function free() {
     if ($this->isValid()) {
-      unset($this->result);
-      unset($this);
+      $this->result->finalize();
+      $this->result = NULL;
     }
   }
 

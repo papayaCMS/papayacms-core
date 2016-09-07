@@ -113,16 +113,6 @@ abstract class dbcon_base extends base_object {
   }
 
   /**
-  * Supply error
-  *
-  * @return array error data
-  * @access public
-  */
-  function getError() {
-    return NULL;
-  }
-
-  /**
    * Escape a string for database sql
    *
    * @deprecated
