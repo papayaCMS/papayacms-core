@@ -5,12 +5,17 @@ class PapayaPluginFilterContentGroup
   implements PapayaPluginFilterContent, IteratorAggregate {
 
   private $_filters = array();
-  private $_options = array();
+
+  /**
+   * @var PapayaObjectParameters
+   */
+  private $_options;
   private $_page = NULL;
 
   public function __construct($page) {
     PapayaUtilConstraints::assertObject($page);
     $this->_page = $page;
+    $this->_options = new PapayaObjectParameters([]);
   }
 
   /**
@@ -28,11 +33,11 @@ class PapayaPluginFilterContentGroup
     return new ArrayIterator($this->_filters);
   }
 
-  public function prepare($content, $options = array()) {
-    $this->_options = $options;
+  public function prepare($content, PapayaObjectParameters $options = NULL) {
+    $this->_options = isset($options) ? $options : new PapayaObjectParameters([]);
     foreach ($this as $filter) {
       if ($filter instanceof PapayaPluginFilterContent) {
-        $filter->prepare($content);
+        $filter->prepare($content, $this->_options);
       } elseif (method_exists($filter, 'prepareFilterData')) {
         if (method_exists($filter, 'initialize')) {
           $bc = new stdClass();
@@ -66,7 +71,7 @@ class PapayaPluginFilterContentGroup
         $parent->append($filter);
       } elseif (method_exists($filter, 'getFilterData')) {
         $parent->appendXml(
-          $filter->getFilterData(PapayaUtilArray::ensure($this->_options))
+          $filter->getFilterData(PapayaUtilArray::ensure(iterator_to_array($this->_options)))
         );
       }
     }

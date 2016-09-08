@@ -27,9 +27,9 @@ interface PapayaPluginFilterContent extends PapayaXmlAppendable {
 
   /**
    * @param string $content
-   * @param array|Traversable $options
+   * @param PapayaObjectParameters $options
    */
-  function prepare($content, $options = array());
+  function prepare($content, PapayaObjectParameters $options = NULL);
 
   /**
    * @param string $content
