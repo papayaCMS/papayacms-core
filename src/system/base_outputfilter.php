@@ -103,7 +103,7 @@ class base_outputfilter extends base_plugin {
   * @access public
   * @return string
   */
-  function getDialog() {
+  function getDialog($dialogTitlePrefix = '', $dialogIcon = '') {
     $this->initializeDialog();
     $this->dialog->dialogTitle = $this->_gt('Edit filter properties');
     $this->dialog->dialogDoubleButtons = FALSE;

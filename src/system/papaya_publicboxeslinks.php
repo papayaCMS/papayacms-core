@@ -63,7 +63,7 @@ class papaya_public_boxeslinks extends base_boxeslinks {
   * @access public
   * @return boolean
   */
-  function loadDataList($lngId, $viewModeId) {
+  function loadDataList($lngId, $viewModeId, $now = NULL) {
     $this->_cacheDefinition = NULL;
     return parent::loadDataList($lngId, $viewModeId, time());
   }
