@@ -18,7 +18,9 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherXhtml::dispatch
   */
   public function testDispatch() {
-    $context = $this->getMock('PapayaMessageContext', array('asXhtml'));
+    $context = $this
+      ->getMockBuilder('PapayaMessageContextInterfaceXhtml')
+      ->getMock();
     $context
       ->expects($this->any())
       ->method('asXhtml')

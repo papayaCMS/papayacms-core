@@ -65,7 +65,7 @@ abstract class PapayaUiControlCommand extends PapayaUiControlInteractive {
   * Condition can be used to validate if an command can be executed.
   *
   * @param PapayaUiControlCommandCondition $condition
-  * @return TRUE|PapayaUiControlCommandCondition
+  * @return PapayaUiControlCommandCondition
   */
   public function condition(PapayaUiControlCommandCondition $condition = NULL) {
     if (isset($condition)) {
@@ -78,12 +78,12 @@ abstract class PapayaUiControlCommand extends PapayaUiControlInteractive {
   }
 
   /**
-  * The default condition is just the boolean value TRUE.
+  * The default condition is just the boolean value TRUE encapsulated in an object.
   *
-  * @return TRUE|PapayaUiControlCommandCondition
+  * @return PapayaUiControlCommandCondition
   */
   public function createCondition() {
-    return TRUE;
+    return new PapayaUiControlCommandConditionValue(TRUE);
   }
 
   /**

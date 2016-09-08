@@ -34,6 +34,10 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
    * @param PapayaXmlElement $parent
    */
   public function appendTo(PapayaXmlElement $parent) {
+    $context = $this->context();
+    if (!$context->isEmpty()) {
+      $this->dialog()->hiddenValues()->merge($context);
+    }
     if ($this->dialog()->execute()) {
       $this->getContent()->assign($this->dialog()->data());
     } elseif ($this->dialog()->isSubmitted()) {
@@ -59,9 +63,6 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
       $this->_dialog = $this->createDialog();
-      if ($context = $this->context()) {
-        $this->_dialog->hiddenValues()->merge($context);
-      }
     }
     return $this->_dialog;
   }

@@ -63,10 +63,11 @@ class PapayaUiControlCommandList
   /**
    * Overload owner method to set owner on all commands, too.
    *
-   * @param PapayaUiControlInteractive $owner
-   * @return PapayaUiControlInteractive
+   * @param PapayaRequestParametersInterface|PapayaUiControlInteractive $owner
+   * @return PapayaRequestParametersInterface
    */
-  public function owner(PapayaUiControlInteractive $owner = NULL) {
+  public function owner(PapayaRequestParametersInterface $owner = NULL) {
+    PapayaUtilConstraints::assertInstanceOf('PapayaUiControlInteractive', $owner);
     if (isset($owner)) {
       /** @var PapayaUiControlCommand $command */
       foreach ($this->_commands as $command) {

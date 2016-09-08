@@ -251,9 +251,8 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   *****************************/
 
   public function getParserFixture(array $tokens = array()) {
-    return new PapayaTemplateSimpleParser_TestProxy(
-      $this->createTokens($tokens)
-    );
+    $tokens = $this->createTokens($tokens);
+    return new PapayaTemplateSimpleParser_TestProxy($tokens);
   }
 
   public function getParserFixtureWithReference(array &$tokens) {

@@ -19,7 +19,8 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   */
   public function testConditionGetExpectingTrue() {
     $command = new PapayaUiControlCommand_TestProxy();
-    $this->assertTrue($command->condition());
+    $this->assertInstanceOf('PapayaUiControlCommandConditionValue', $command->condition());
+    $this->assertTrue($command->condition()->validate());
   }
 
   /**

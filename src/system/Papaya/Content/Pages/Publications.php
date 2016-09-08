@@ -48,11 +48,11 @@ class PapayaContentPagesPublications extends PapayaContentPages {
    * accessible.
    *
    * @see papaya-lib/system/Papaya/Content/PapayaContentPages#getConditions($filter)
-   * @param array $filter
+   * @param mixed $filter
    * @param string $prefix
    * @return array
    */
-  protected function _compileCondition(array $filter, $prefix = 'WHERE') {
+  protected function _compileCondition($filter, $prefix = 'WHERE') {
     $conditions = parent::_compileCondition($filter, $prefix);
     if (isset($filter['time'])) {
       $conditions .= empty($conditions) ? $prefix : ' AND ';

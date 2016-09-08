@@ -113,16 +113,6 @@ abstract class dbcon_base extends base_object {
   }
 
   /**
-  * Supply error
-  *
-  * @return array error data
-  * @access public
-  */
-  function getError() {
-    return NULL;
-  }
-
-  /**
    * Escape a string for database sql
    *
    * @deprecated
@@ -347,6 +337,7 @@ abstract class dbcon_base extends base_object {
     switch ($operator) {
     case 'ISNULL' :
       return $escapedField.' IS NULL';
+    case 'LIKE' :
     case '>' :
     case '<' :
     case '>=' :
@@ -701,7 +692,6 @@ class dbresult_base extends base_object implements PapayaDatabaseResult {
   function free() {
     if (isset($this->result) && is_resource($this->result)) {
       unset($this->result);
-      unset($this);
     }
   }
 

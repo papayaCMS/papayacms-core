@@ -11,6 +11,7 @@
  * @method PapayaDatabaseConditionGroup isGreaterThanOrEqual(string $field, mixed $value)
  * @method PapayaDatabaseConditionGroup isLessThan(string $field, mixed $value)
  * @method PapayaDatabaseConditionGroup isLessThanOrEqual(string $field, mixed $value)
+ * @method PapayaDatabaseConditionGroup contains(string $field, mixed $value)
  */
 class PapayaDatabaseConditionGroup
   extends PapayaDatabaseConditionElement
@@ -27,7 +28,7 @@ class PapayaDatabaseConditionGroup
     'isgreaterthan' => array('PapayaDatabaseConditionElement', '>'),
     'isgreaterthanorequal' => array('PapayaDatabaseConditionElement', '>='),
     'islessthan' => array('PapayaDatabaseConditionElement', '<'),
-    'islessthanorequal' => array('PapayaDatabaseConditionElement', '<='),
+    'islessthanorequal' => array('PapayaDatabaseConditionElement', '<=')
   );
 
   /**
@@ -83,6 +84,10 @@ class PapayaDatabaseConditionGroup
       return $condition;
     case 'logicalnot' :
       $this->_conditions[] = $condition = new PapayaDatabaseConditionGroup($this, NULL, 'NOT');
+      return $condition;
+    case 'contains' :
+      list($field, $value) = $arguments;
+      $this->_conditions[] = $condition = new PapayaDatabaseConditionContains($this, $field, $value);
       return $condition;
     default :
       if (isset($this->_classes[$name])) {

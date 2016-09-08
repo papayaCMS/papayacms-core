@@ -28,6 +28,7 @@ class PapayaAdministrationPageTest extends PapayaTestCase {
       ->method('addMenu')
       ->with('');
     $page = new PapayaAdministrationPage_TestProxy($layout);
+    $page->papaya($this->mockPapaya()->application());
     $page->execute();
   }
 

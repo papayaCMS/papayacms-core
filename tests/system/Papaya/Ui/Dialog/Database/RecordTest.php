@@ -231,9 +231,6 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
     $dialog = $this->getDialogFixture(
       array('datafield_one' => 'sample', 'datafield_two' => '23', 'indexfield' => 42)
     );
-    $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('updateRecord'), array(new stdClass)
-    );
     $dialog->setPermissionCallback(array($this, 'callbackPermissionFailed'));
     $this->assertFalse($dialog->execute());
     $this->assertEquals(
@@ -259,19 +256,19 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaUiDialogDatabaseRecord::checkRecordPermission
   */
   public function testCheckRecordPermissionExpectingTrue() {
-    $callback = $this->getMock(
-      'PapayaUiDialogDatabaseRecord_CheckPerrmissonsMock',
-      array('checkRecordPermission')
-    );
-    $callback
-      ->expects($this->once())
-      ->method('checkRecordPermission')
-      ->with(PapayaUiDialogDatabaseRecord::ACTION_INSERT, 'tablename', array())
-      ->will($this->returnValue(TRUE));
+    $arguments = [];
+    $callback = function() use (&$arguments) {
+      $arguments = func_get_args();
+      return TRUE;
+    };
     $dialog = new PapayaUiDialogDatabaseRecord('tablename', 'indexfield', array());
-    $dialog->setPermissionCallback(array($callback, 'checkRecordPermission'));
+    $dialog->setPermissionCallback($callback);
     $this->assertTrue(
       $dialog->checkRecordPermission(PapayaUiDialogDatabaseRecord::ACTION_INSERT, array())
+    );
+    $this->assertEquals(
+      array(PapayaUiDialogDatabaseRecord::ACTION_INSERT, 'tablename', array()),
+      $arguments
     );
   }
 
@@ -279,17 +276,13 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaUiDialogDatabaseRecord::checkRecordPermission
   */
   public function testCheckRecordPermissionExpectingFalse() {
-    $callback = $this->getMock(
-      'PapayaUiDialogDatabaseRecord_CheckPerrmissonsMock',
-      array('checkRecordPermission')
-    );
-    $callback
-      ->expects($this->once())
-      ->method('checkRecordPermission')
-      ->with(PapayaUiDialogDatabaseRecord::ACTION_INSERT, 'tablename', array())
-      ->will($this->returnValue(FALSE));
+    $arguments = [];
+    $callback = function() use (&$arguments) {
+      $arguments = func_get_args();
+      return FALSE;
+    };
     $dialog = new PapayaUiDialogDatabaseRecord('tablename', 'indexfield', array());
-    $dialog->setPermissionCallback(array($callback, 'checkRecordPermission'));
+    $dialog->setPermissionCallback($callback);
     $this->assertFalse(
       $dialog->checkRecordPermission(PapayaUiDialogDatabaseRecord::ACTION_INSERT, array())
     );

@@ -102,11 +102,13 @@ class PapayaSessionRedirect extends PapayaResponse {
   }
 
   /**
-  * Send the redirect to the client (browser)
-  */
-  public function send() {
+   * Send the redirect to the client (browser)
+   * @param bool $end
+   * @param bool $force
+   */
+  public function send($end = FALSE, $force = FALSE) {
     $this->prepare();
-    parent::send();
+    parent::send($end, $force);
   }
 
   /**

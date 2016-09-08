@@ -184,7 +184,7 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
   * Return the collection for the item, overload for code completion and type check
   *
   * @param PapayaUiListviewItems|PapayaUiControlCollection $items
-  * @return PapayaUiListviewItems
+  * @return PapayaUiListviewItems|PapayaUiControlCollection
   */
   public function collection(PapayaUiControlCollection $items = NULL) {
     PapayaUtilConstraints::assertInstanceOfOrNull('PapayaUiListviewItems', $items);

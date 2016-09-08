@@ -105,9 +105,9 @@ abstract class PapayaAdministrationPagePart extends PapayaUiControlInteractive {
         $this->_initializeToolbar($this->_toolbar);
       }
     } elseif (is_null($this->_toolbar)) {
-      $this->_toolbar = new PapayaUiToolbarSet();
+      $this->_toolbar = $toolbar = new PapayaUiToolbarSet();
       $toolbar->papaya($this->papaya());
-      $this->_initializeToolbar($this->_toolbar);
+      $this->_initializeToolbar($toolbar);
     }
     return $this->_toolbar;
   }

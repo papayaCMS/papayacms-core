@@ -93,7 +93,7 @@ class PapayaCacheServiceMemcache extends PapayaCacheService {
 
   /**
   * get memcache object instance
-  * @return memcache|memcached|NULL
+  * @return memcache|memcached|NULL|FALSE
   */
   public function getMemcacheObject() {
     if (!isset($this->_memcache)) {

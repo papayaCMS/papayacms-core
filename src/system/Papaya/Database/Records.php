@@ -69,6 +69,42 @@ abstract class PapayaDatabaseRecords
   }
 
   /**
+   * @param array|bool $filterOrAll delete records defined by the filter or all if it is set to true
+   * @return bool
+   */
+  public function truncate($filterOrAll = FALSE) {
+    $databaseAccess = $this->getDatabaseAccess();
+    if (is_array($filterOrAll) && !empty($filterOrAll)) {
+      return (
+        FALSE !== $databaseAccess->deleteRecord(
+          $databaseAccess->getTableName($this->_tableName),
+          $this->mapping()->mapPropertiesToFields($filterOrAll, FALSE)
+        )
+      );
+    } elseif (is_bool($filterOrAll) && $filterOrAll) {
+      return (
+        FALSE !== $databaseAccess->emptyTable(
+          $databaseAccess->getTableName($this->_tableName)
+        )
+      );
+    }
+    return FALSE;
+  }
+
+  /**
+   * @param [array] $data
+   * @return bool
+   */
+  public function insert(array $data) {
+    $databaseAccess = $this->getDatabaseAccess();
+    $records = array();
+    foreach ($data as $values) {
+      $records[] = $this->mapping()->mapPropertiesToFields($values, FALSE);
+    }
+    return $databaseAccess->insertRecords($databaseAccess->getTableName($this->_tableName), $records);
+  }
+
+  /**
    * A protected method that does the actual loading. The separation allows to overload load, to
    * create and own logic that defines the sql and parameters.
    *

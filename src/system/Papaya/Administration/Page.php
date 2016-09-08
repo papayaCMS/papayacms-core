@@ -31,10 +31,23 @@
 */
 abstract class PapayaAdministrationPage extends PapayaObject {
 
+  /**
+   * @var PapayaTemplate
+   */
   private $_layout = NULL;
+  /**
+   * @var PapayaAdministrationPageParts
+   */
   private $_parts = NULL;
+
+  /**
+   * @var PapayaUiToolbar
+   */
   private $_toolbar = NULL;
 
+  /**
+   * @var string
+   */
   protected $_parameterGroup = '';
 
   /**
@@ -80,12 +93,28 @@ abstract class PapayaAdministrationPage extends PapayaObject {
    * Execute the module and add the xml to the layout object
    */
   public function execute() {
-    foreach ($this->parts() as $name => $part) {
+    $parts = $this->parts();
+    $restoreParameters = ($this->papaya()->request->method == 'get') && !empty($this->_parameterGroup);
+    $parametersName = array(get_class($this), 'parameters', $this->_parameterGroup);
+    if ($restoreParameters && $parts->parameters()->isEmpty()) {
+      $value = $this->papaya()->session->getValue($parametersName);
+      $parts->parameters()->merge(is_array($value) ? $value : array());
+      $this->papaya()->request->setParameters(
+        PapayaRequest::SOURCE_QUERY,
+        $this->papaya()->request->getParameters(PapayaRequest::SOURCE_QUERY)->set(
+          $this->_parameterGroup, is_array($value) ? $value : array()
+        )
+      );
+    }
+    foreach ($parts as $name => $part) {
       if ($part instanceof PapayaAdministrationPagePart) {
         if ($xml = $part->getXml()) {
           $this->_layout->add($xml, $this->parts()->getTarget($name));
         }
       }
+    }
+    if ($restoreParameters) {
+      $this->papaya()->session->setValue($parametersName, $parts->parameters()->toArray());
     }
     $this->parts()->toolbar()->toolbar($this->toolbar());
     $this->_layout->addMenu($this->parts()->toolbar()->getXml());
@@ -103,7 +132,9 @@ abstract class PapayaAdministrationPage extends PapayaObject {
     } elseif (NULL === $this->_parts) {
       $this->_parts = new PapayaAdministrationPageParts($this);
       $this->_parts->papaya($this->papaya());
-      $this->_parts->parameterGroup($this->_parameterGroup);
+      if (!empty($this->_parameterGroup)) {
+        $this->_parts->parameterGroup($this->_parameterGroup);
+      }
     }
     return $this->_parts;
   }

@@ -185,6 +185,8 @@ class PapayaAdministrationPageParts
     $previous = current($this->_parts);
     if ($previous) {
       $this->parameters($previous->parameters());
+    } else {
+      $this->parameters($this->parameters());
     }
     next($this->_parts);
   }

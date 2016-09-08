@@ -91,6 +91,16 @@ abstract class PapayaDatabaseRecordLazy
   }
 
   /**
+   * @param PapayaDatabaseInterfaceKey|NULL $key
+   * @return PapayaDatabaseInterfaceKey
+   */
+  public function key(PapayaDatabaseInterfaceKey $key = NULL) {
+    $key = parent::key($key);
+    $this->lazyLoad();
+    return $key;
+  }
+
+  /**
   * Get the values as an array
   *
   * @return array

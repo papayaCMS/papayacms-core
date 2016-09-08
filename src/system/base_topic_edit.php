@@ -2317,8 +2317,7 @@ class base_topic_edit extends base_topic {
       $select->defaultCaption = $current;
     }
     if (isset($this->params['preview_domain'])) {
-      $this->papaya()->session->values['PAGE_PREVIEW_DOMAIN'] =
-        (string)$this->params['preview_domain'];
+      $this->papaya()->session->setValue('PAGE_PREVIEW_DOMAIN', (string)$this->params['preview_domain']);
     } elseif (isset($this->papaya()->session->values['PAGE_PREVIEW_DOMAIN'])) {
       $select->setCurrentValue($this->papaya()->session->values['PAGE_PREVIEW_DOMAIN']);
     }

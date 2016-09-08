@@ -1,6 +1,6 @@
 <?php
 /**
-* Callbacks that are used by the record mapping object
+* Callbacks that are used by the record object
 *
 * @copyright 2010 by papaya Software GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
@@ -18,20 +18,23 @@
 */
 
 /**
-* Callbacks that are used by the record mapping object
-*
-* More specific callbacks are called before the unspecific, like "onMapValueFromFieldToProperty()"
-* before "onMapValue".
+* Callbacks that are used by the record object
 *
 * @package Papaya-Library
 * @subpackage Database
 *
-* @property PapayaObjectCallback $onBeforeUpdate
-* @property PapayaObjectCallback $onBeforeInsert
-* @property PapayaObjectCallback $onBeforeDelete
-* @method boolean onBeforeUpdate
-* @method boolean onBeforeInsert
-* @method boolean onBeforeDelete
+ * @property PapayaObjectCallback $onBeforeUpdate
+ * @property PapayaObjectCallback $onBeforeInsert
+ * @property PapayaObjectCallback $onBeforeDelete
+ * @property PapayaObjectCallback $onAfterUpdate
+ * @property PapayaObjectCallback $onAfterInsert
+ * @property PapayaObjectCallback $onAfterDelete
+ * @method boolean onBeforeUpdate
+ * @method boolean onBeforeInsert
+ * @method boolean onBeforeDelete
+ * @method boolean onAfterUpdate
+ * @method boolean onAfterInsert
+ * @method boolean onAfterDelete
 */
 class PapayaDatabaseRecordCallbacks extends PapayaObjectCallbacks {
 
@@ -41,6 +44,9 @@ class PapayaDatabaseRecordCallbacks extends PapayaObjectCallbacks {
         'onBeforeUpdate' => TRUE,
         'onBeforeInsert' => TRUE,
         'onBeforeDelete' => TRUE,
+        'onAfterUpdate' => TRUE,
+        'onAfterInsert' => TRUE,
+        'onAfterDelete' => TRUE,
       )
     );
   }

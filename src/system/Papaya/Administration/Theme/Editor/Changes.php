@@ -48,10 +48,10 @@ class PapayaAdministrationThemeEditorChanges extends PapayaAdministrationPagePar
   /**
   * Commands, actual actions
   *
-  * @param PapayaUiControlCommandController $commands
-  * @return PapayaUiControlCommandController
+  * @param PapayaUiControlCommandController|PapayaUiControlCommand $commands
+  * @return PapayaUiControlCommandController|PapayaUiControlCommand
   */
-  public function commands(PapayaUiControlCommandController $commands = NULL) {
+  public function commands(PapayaUiControlCommand $commands = NULL) {
     if (isset($commands)) {
       $this->_commands = $commands;
     } elseif (is_null($this->_commands)) {

@@ -167,7 +167,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends PapayaTestCase {
       ->will($this->returnValue(FALSE));
     $dialog = $this->getMock(
       'PapayaUiDialog',
-      array('isSubmitted', 'execute', 'appendTo', 'parameters'),
+      array('isSubmitted', 'execute', 'appendTo', 'parameters', 'data'),
       array(new stdClass())
     );
     $dialog
