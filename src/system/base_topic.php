@@ -676,7 +676,7 @@ class base_topic extends base_db {
           $params = array(
             $this->tableTopics,
             $this->tableTopicsTrans,
-            $this->currentLanguage['lng_id']
+            $this->currentLanguage['id']
           );
           if ($res = $this->databaseQueryFmt($sql, $params)) {
             while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -701,7 +701,7 @@ class base_topic extends base_db {
         'meta_keywords' => $metaKeywords,
         'meta_descr' => $metaDescr,
         'meta_title' => $metaTitle,
-        'meta_language' => $this->currentLanguage['lng_short']
+        'meta_language' => $this->currentLanguage['code']
       );
       return $result;
     }
