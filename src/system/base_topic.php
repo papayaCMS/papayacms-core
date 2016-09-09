@@ -149,7 +149,7 @@ class base_topic extends base_db {
 
   /**
   * current content language
-  * @var array $currentLanguage
+  * @var PapayaContentLanguage $currentLanguage
   */
   var $currentLanguage = NULL;
 
@@ -265,27 +265,14 @@ class base_topic extends base_db {
   * @return boolean
   */
   function loadCurrentLanguage($lngId = NULL, $forceReload = FALSE) {
-    static $languages;
     if (empty($lngId)) {
       $lngId = $this->getContentLanguageId();
     }
-    if ((!$forceReload) && isset($languages) && isset($languages[$lngId])) {
-      $this->currentLanguage = $languages[$lngId];
+    if (isset($this->papaya()->languages[$lngId])) {
+      $this->currentLanguage = $this->papaya()->languages[$lngId];
       return TRUE;
-    } else {
-      $sql = "SELECT lng_ident, lng_id, lng_title, lng_short
-                FROM %s
-               WHERE lng_id = '%s'";
-      $params = array($this->tableLanguages, trim($lngId));
-      if ($res = $this->databaseQueryFmt($sql, $params)) {
-        if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-          $this->currentLanguage = $row;
-          $languages[$lngId] = $row;
-          return TRUE;
-        }
-      }
-      return FALSE;
     }
+    return FALSE;
   }
 
   /**
@@ -1080,7 +1067,7 @@ class base_topic extends base_db {
       $pageFileName = $this->escapeForFilename(
         $this->topic['TRANSLATION']['topic_title'],
         'index',
-        $this->currentLanguage['lng_ident']
+        $this->currentLanguage['code']
       );
       if (isset($this->moduleObj) && is_object($this->moduleObj) &&
           method_exists($this->moduleObj, 'checkURLFileName')) {
