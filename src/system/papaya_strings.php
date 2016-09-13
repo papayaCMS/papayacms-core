@@ -318,7 +318,7 @@ class papaya_strings {
   * @return string
   */
   public static function strtolower($string) {
-    PapayaUtilStringUtf8::toLowerCase($string);
+    return PapayaUtilStringUtf8::toLowerCase($string);
   }
 
   /**
@@ -327,7 +327,7 @@ class papaya_strings {
   * @return string
   */
   public static function strtoupper($string) {
-    PapayaUtilStringUtf8::toUpperCase($string);
+    return PapayaUtilStringUtf8::toUpperCase($string);
   }
 
   /**
