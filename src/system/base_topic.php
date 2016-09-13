@@ -269,7 +269,7 @@ class base_topic extends base_db {
       $lngId = $this->getContentLanguageId();
     }
     if (isset($this->papaya()->languages[$lngId])) {
-      $this->currentLanguage = $this->papaya()->languages[$lngId];
+      $this->currentLanguage = $this->papaya()->languages->getLanguage($lngId);
       return TRUE;
     }
     return FALSE;

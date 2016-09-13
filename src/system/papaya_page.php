@@ -1583,7 +1583,7 @@ class papaya_page extends base_object {
       $this->topic->getTranslationsData($this->topic->topic['TRANSLATION']['lng_id']),
       'translations'
     );
-    $this->setVisitorLanguage($this->topic->currentLanguage['identifier']);
+    $this->setVisitorLanguage($this->topic->currentLanguage['code']);
     if ($outputContent) {
       $serverUrl = PapayaUtilServerProtocol::get().'://'.PapayaUtilServerName::get();
       $url = strtr(
