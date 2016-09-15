@@ -32,6 +32,11 @@
 abstract class PapayaAdministrationPage extends PapayaObject {
 
   /**
+   * @var string|NULL
+   */
+  private $_moduleId;
+
+  /**
    * @var PapayaTemplate
    */
   private $_layout = NULL;
@@ -54,9 +59,18 @@ abstract class PapayaAdministrationPage extends PapayaObject {
    * Create page object and store layout object for later use
    *
    * @param PapayaTemplate $layout
+   * @param null|string $moduleId
    */
-  public function __construct($layout) {
+  public function __construct($layout, $moduleId = NULL) {
     $this->_layout = $layout;
+    $this->_moduleId = $moduleId;
+  }
+
+  /**
+   * @return null|string
+   */
+  public function getModuleId() {
+    return $this->_moduleId;
   }
 
   /**
