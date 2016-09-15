@@ -1373,8 +1373,11 @@ class papaya_page extends base_object {
   */
   function getPage() {
     $this->contentLanguage = $this->topic->currentLanguage;
-    if (!empty($this->requestData['language']) &&
-      $this->contentLanguage['id'] != $this->papaya()->request->languageId) {
+    if (
+      !empty($this->requestData['language']) &&
+      !$this->isPreview() &&
+      $this->contentLanguage['id'] != $this->papaya()->request->languageId
+    ) {
       $this->doRedirect(
         301,
         $this->getAbsoluteURL(
