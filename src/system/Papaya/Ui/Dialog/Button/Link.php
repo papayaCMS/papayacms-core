@@ -1,8 +1,8 @@
 <?php
 /**
-* A simple submit button with a caption and without a name.
+ * A simple button with a caption and without a name. That links to the specified reference.
 *
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
+* @copyright 2016 by papaya Software GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
 * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
 *
@@ -14,11 +14,10 @@
 *
 * @package Papaya-Library
 * @subpackage Ui
-* @version $Id: Submit.php 35573 2011-03-29 10:48:18Z weinert $
 */
 
 /**
-* A simple submit button with a caption and without a name.
+* A simple button with a caption and without a name. That links to the specified reference.
 *
 * Usage:
 *   $dialog->buttons()->add(new PapayaUiDialogButtonSubmit('Save'));
@@ -33,13 +32,18 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogButtonSubmit extends PapayaUiDialogButton {
+class PapayaUiDialogButtonLink extends PapayaUiDialogButton {
 
   /**
   * Button caption
   * @var string|PapayaUiString
   */
   protected $_caption = 'Submit';
+
+  /**
+   * @var PapayaUiReference
+   */
+  private $_reference;
 
   /**
   * Initialize object, set caption and alignment
@@ -61,10 +65,25 @@ class PapayaUiDialogButtonSubmit extends PapayaUiDialogButton {
     $parent->appendElement(
       'button',
       array(
-        'type' => 'submit',
-        'align' => ($this->_align == PapayaUiDialogButton::ALIGN_LEFT) ? 'left' : 'right'
+        'type' => 'link',
+        'align' => ($this->_align == PapayaUiDialogButton::ALIGN_LEFT) ? 'left' : 'right',
+        'href' => $this->reference()
       ),
       (string)$this->_caption
     );
+  }
+
+  /**
+   * @param PapayaUiReference|NULL $reference
+   * @return PapayaUiReference
+   */
+  public function reference(PapayaUiReference $reference = NULL) {
+    if (isset($reference)) {
+      $this->_reference = $reference;
+    } elseif (NULL === $this->_reference) {
+      $this->_reference = new PapayaUiReference();
+      $this->_reference->papaya($this->papaya());
+    }
+    return $this->_reference;
   }
 }
