@@ -92,10 +92,11 @@ abstract class PapayaDatabaseRecords
   }
 
   /**
-   * @param [array] $data
+   * @param Traversable|[] $data
    * @return bool
    */
-  public function insert(array $data) {
+  public function insert($data) {
+    PapayaUtilConstraints::assertArrayOrTraversable($data);
     $databaseAccess = $this->getDatabaseAccess();
     $records = array();
     foreach ($data as $values) {
