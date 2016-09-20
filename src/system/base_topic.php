@@ -1069,7 +1069,9 @@ class base_topic extends base_db {
         'index',
         $this->currentLanguage['code']
       );
-      if (isset($this->moduleObj) && is_object($this->moduleObj) &&
+      if ($this->moduleObj instanceof PapayaPluginAddressable) {
+        $url = $this->moduleObj->validateUrl($this->papaya()->request);
+      } elseif (isset($this->moduleObj) && is_object($this->moduleObj) &&
           method_exists($this->moduleObj, 'checkURLFileName')) {
         $url = $this->moduleObj->checkURLFileName($currentFileName, $outputMode);
       } elseif ($currentFileName != $pageFileName) {
