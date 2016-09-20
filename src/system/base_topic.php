@@ -1069,21 +1069,35 @@ class base_topic extends base_db {
         'index',
         $this->currentLanguage['code']
       );
+      $isValid = NULL;
       if ($this->moduleObj instanceof PapayaPluginAddressable) {
         $url = $this->moduleObj->validateUrl($this->papaya()->request);
+        if ($url === TRUE) {
+          $isValid = TRUE;
+        } elseif (is_string($url) && !empty($url)) {
+          $isValid = FALSE;
+        }
       } elseif (isset($this->moduleObj) && is_object($this->moduleObj) &&
           method_exists($this->moduleObj, 'checkURLFileName')) {
         $url = $this->moduleObj->checkURLFileName($currentFileName, $outputMode);
-      } elseif ($currentFileName != $pageFileName) {
-        $url = $this->getWebLink(
-          $this->topicId, NULL, $outputMode, NULL, NULL, $pageFileName
-        );
-        $queryString = (isset($_SERVER['QUERY_STRING'])) ? $_SERVER['QUERY_STRING'] : '';
-        $url = $this->getAbsoluteURL($url).$this->recodeQueryString($queryString);
-      } else {
-        $url = FALSE;
+        if ($url === FALSE) {
+          $isValid = TRUE;
+        } elseif (is_string($url) && !empty($url)) {
+          $isValid = FALSE;
+        }
       }
-      if ($url) {
+      if (!isset($isValid)) {
+        if ($currentFileName != $pageFileName) {
+          $url = $this->getWebLink(
+            $this->topicId, NULL, $outputMode, NULL, NULL, $pageFileName
+          );
+          $queryString = (isset($_SERVER['QUERY_STRING'])) ? $_SERVER['QUERY_STRING'] : '';
+          $url = $this->getAbsoluteURL($url).$this->recodeQueryString($queryString);
+        } else {
+          $isValid = TRUE;
+        }
+      }
+      if (!$isValid) {
         $allowFixation = $this->papaya()->options->get('PAPAYA_URL_FIXATION', FALSE);
         if ($allowFixation) {
           if ($this->papaya()->request->getMethod() != 'get') {
@@ -1095,7 +1109,7 @@ class base_topic extends base_db {
             $allowFixation = FALSE;
           }
         }
-        // if the strict url fixation is disabled 'index' and $pageFileName are alyways allowed
+        // if the strict url fixation is disabled 'index' and $pageFileName are always allowed
         if (!$allowFixation &&
             ($currentFileName == 'index' || $currentFileName == $pageFileName)) {
           return FALSE;
