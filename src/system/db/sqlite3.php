@@ -444,7 +444,7 @@ class dbcon_sqlite3 extends dbcon_base {
    * @return string
    */
   function getSQLiteFieldType($field, $primaryKey = FALSE) {
-    if (isset($field['autoinc']) && $field['autoinc'] == 'yes') {
+    if ($primaryKey && isset($field['autoinc']) && $field['autoinc'] == 'yes') {
       return 'INTEGER PRIMARY KEY';
     } else {
       if (isset($field['null']) && $field['null'] == 'yes') {
@@ -534,26 +534,26 @@ class dbcon_sqlite3 extends dbcon_base {
     if ($res = $this->query($sql)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $fields[$row['name']] = $this->parseSQLiteFieldData($row);
-        if ($row['pk'] == 1) {
+        if ($row['pk'] > 0) {
           if (isset($keys['PRIMARY']) && is_array($keys['PRIMARY'])) {
-            $keys['PRIMARY']['fields'][] = $row['name'];
+            $keys['PRIMARY']['fields'][$row['pk']] = $row['name'];
           } else {
             $keys['PRIMARY']['orgname'] = 'PRIMARY';
             $keys['PRIMARY']['name'] = 'PRIMARY';
             $keys['PRIMARY']['unique'] = 'yes';
-            $keys['PRIMARY']['fields'] = array($row['name']);
+            $keys['PRIMARY']['fields'] = array($row['pk'] => $row['name']);
             $keys['PRIMARY']['fulltext'] = 'no';
             $keys['PRIMARY']['autoinc'] = ($row['type'] == 'INTEGER')
               ? 'yes' : 'no';
           }
+          ksort($keys['PRIMARY']['fields']);
         }
       }
     }
     $sql = "PRAGMA index_list('".$this->escapeString($table)."')";
     if ($res = $this->query($sql)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-        $pattern = '(\('.preg_quote($table).' autoindex (\d+)\))';
-        if (preg_match($pattern, $row['name'])) {
+        if ($row['origin'] == 'pk') {
           continue;
         } elseif (strpos($row['name'], $table) === 0) {
           $keyName = substr($row['name'], strlen($table) + 1);
@@ -597,11 +597,14 @@ class dbcon_sqlite3 extends dbcon_base {
       } else {
         $table = trim($tableData['name']);
       }
-      if (isset($tableData['keys']) && isset($tableData['keys']['PRIMARY']) &&
-          isset($tableData['keys']['PRIMARY']['fields']) &&
-          is_array($tableData['keys']['PRIMARY']['fields']) &&
-          count($tableData['keys']['PRIMARY']['fields']) == 1) {
-        $primaryKeyField = $tableData['keys']['PRIMARY']['fields'][0];
+      if (
+        isset($tableData['keys']) &&
+        isset($tableData['keys']['PRIMARY']) &&
+        isset($tableData['keys']['PRIMARY']['fields']) &&
+        is_array($tableData['keys']['PRIMARY']['fields']) &&
+        count($tableData['keys']['PRIMARY']['fields']) == 1
+      ) {
+        $primaryKeyField = reset($tableData['keys']['PRIMARY']['fields']);
       } else {
         $primaryKeyField = '';
       }
