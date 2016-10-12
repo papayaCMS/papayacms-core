@@ -1,39 +1,39 @@
 <?php
 /**
-* SQLite database access classes
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: sqlite.php 39625 2014-03-19 12:36:16Z weinert $
-*/
+ * SQLite database access classes
+ *
+ * @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ * You can redistribute and/or modify this script under the terms of the GNU General Public
+ * License (GPL) version 2, provided that the copyright and license notes, including these
+ * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ * @version $Id: sqlite.php 39625 2014-03-19 12:36:16Z weinert $
+ */
 
 /**
-* basic database connection and result class
-*/
+ * basic database connection and result class
+ */
 require_once(dirname(__FILE__).'/base.php');
 
 /**
-* DB-abstraction layer - SQLite
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
+ * DB-abstraction layer - SQLite
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
 class dbcon_sqlite3 extends dbcon_base {
 
   /**
-  * Connect error string
-  * @var string $connectErrorString
-  */
+   * Connect error string
+   * @var string $connectErrorString
+   */
   var $connectErrorString = '';
 
   /**
@@ -42,9 +42,9 @@ class dbcon_sqlite3 extends dbcon_base {
   var $databaseConnection = NULL;
 
   /**
-  * Callbacks
-  * @var array $callbacks
-  */
+   * Callbacks
+   * @var array $callbacks
+   */
   var $callbacks = array();
 
   /**
@@ -85,8 +85,8 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * close connection
-  */
+   * close connection
+   */
   public function close() {
     if (
       isset($this->databaseConnection) &&
@@ -145,32 +145,34 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * String ecsaping for SQLite use
-  *
-  * @param mixed $value Value to escape
-  * @access public
-  * @return string escaped value.
-  */
+   * String ecsaping for SQLite use
+   *
+   * @param mixed $value Value to escape
+   * @access public
+   * @return string escaped value.
+   */
   function escapeString($value) {
     $value = parent::escapeString($value);
     return $this->databaseConnection->escapeString($value);
   }
 
   /**
-  * Execute SQLite-query
-  *
-  * @param string $sql SQL-String with query
-  * @param integer $max maximum number of returned records
-  * @param integer $offset Offset
+   * Execute SQLite-query
+   *
+   * @param string $sql SQL-String with query
+   * @param integer $max maximum number of returned records
+   * @param integer $offset Offset
    * @param boolean $freeLastResult free last result (if here is one)
    * @param boolean $enableCounter free last result (if here is one)
-  * @access public
-  * @return mixed FALSE or number of affected_rows or database result object
-  */
+   * @access public
+   * @return mixed FALSE or number of affected_rows or database result object
+   */
   function query($sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = false) {
-    if ($freeLastResult &&
-        is_object($this->lastResult) &&
-        is_a($this->lastResult, 'dbresult_sqlite3')) {
+    if (
+      $freeLastResult &&
+      is_object($this->lastResult) &&
+      is_a($this->lastResult, 'dbresult_sqlite3')
+    ) {
       $this->lastResult->free();
     }
     if (isset($max) && $max > 0 && strpos(trim($sql), 'SELECT') === 0) {
@@ -198,12 +200,12 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Rewrite query to get record count of a limited query and execute it.
-  *
-  * @param string $sql SQL string
-  * @access public
-  * @return integer | FALSE record count or failure
-  */
+   * Rewrite query to get record count of a limited query and execute it.
+   *
+   * @param string $sql SQL string
+   * @access public
+   * @return integer | FALSE record count or failure
+   */
   function queryRecordCount($sql) {
     if ($countSql = $this->getCountQuerySql($sql)) {
       if ($res = $this->executeQuery($countSql, $this->databaseConnection)) {
@@ -214,14 +216,14 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Insert record into table
-  *
-  * @param string $table table
-  * @param string $idField primary key value
-  * @param array $values insert values
-  * @access public
-  * @return mixed FALSE or Id of new record
-  */
+   * Insert record into table
+   *
+   * @param string $table table
+   * @param string $idField primary key value
+   * @param array $values insert values
+   * @access public
+   * @return mixed FALSE or Id of new record
+   */
   function insertRecord($table, $idField, $values = NULL) {
     if (isset($idField)) {
       $values[$idField] = NULL;
@@ -256,25 +258,25 @@ class dbcon_sqlite3 extends dbcon_base {
     return FALSE;
   }
   /**
-  * Fetch the last inserted id
-  *
-  * @param string $table
-  * @param string $idField
-  * @return int|string|null
-  */
+   * Fetch the last inserted id
+   *
+   * @param string $table
+   * @param string $idField
+   * @return int|string|null
+   */
   public function lastInsertId($table, $idField) {
     return $this->databaseConnection->lastInsertRowID();
   }
 
 
   /**
-  * Insert records
-  *
-  * @param string $table
-  * @param array $values
-  * @access public
-  * @return boolean
-  */
+   * Insert records
+   *
+   * @param string $table
+   * @param array $values
+   * @access public
+   * @return boolean
+   */
   function insertRecords($table, $values) {
     $lastFields = NULL;
     $this->lastSQLQuery = '';
@@ -294,15 +296,15 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Update records via filter
-  *
-  * @param string $table table name
-  * @param array $values update values
-  * @param string $filter Filter string without WHERE condition
-  * @access public
-  * @return mixed FALSE or number of affected_rows or database result object
-  * @see dbcon_base::getSQLCondition()
-  */
+   * Update records via filter
+   *
+   * @param string $table table name
+   * @param array $values update values
+   * @param string $filter Filter string without WHERE condition
+   * @access public
+   * @return mixed FALSE or number of affected_rows or database result object
+   * @see dbcon_base::getSQLCondition()
+   */
   function updateRecord($table, $values, $filter) {
     if (isset($values) && is_array($values) && count($values) > 0) {
       $sql = FALSE;
@@ -330,13 +332,13 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Delete records by filter
-  *
-  * @param string $table table name
-  * @param string $filter Filter string without WHERE condition
-  * @access public
-  * @return mixed FALSE or number of affected_rows or database result object
-  */
+   * Delete records by filter
+   *
+   * @param string $table table name
+   * @param string $filter Filter string without WHERE condition
+   * @access public
+   * @return mixed FALSE or number of affected_rows or database result object
+   */
   function deleteRecord($table, $filter) {
     $sql = "DELETE FROM $table
              WHERE ".$this->getSQLCondition($filter);
@@ -344,11 +346,11 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Get table names
-  *
-  * @access public
-  * @return array
-  */
+   * Get table names
+   *
+   * @access public
+   * @return array
+   */
   function queryTableNames() {
     $sql = "SELECT name
               FROM sqlite_master
@@ -363,12 +365,12 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Parse SQLite field data
-  *
-  * @param array $row
-  * @access private
-  * @return array
-  */
+   * Parse SQLite field data
+   *
+   * @param array $row
+   * @access private
+   * @return array
+   */
   function parseSQLiteFieldData($row) {
     $autoIncrement = FALSE;
     $default = NULL;
@@ -414,10 +416,10 @@ class dbcon_sqlite3 extends dbcon_base {
       $notNull = TRUE;
     } elseif (isset($row['notnull']) && $row['notnull'] != 0) {
       $notNull = TRUE;
-      if ($type != 'integer' || (isset($row['dflt_value']) && $row['dflt_value'] != 0)) {
+      if (isset($row['dflt_value'])) {
         $default = $row['dflt_value'];
       }
-      if (substr($default, 0, 1) == "'" && substr($default, -1) == "'") {
+      if (substr($default, 0, 1) === "'" && substr($default, -1) === "'") {
         $default = substr($default, 1, -1);
       }
     } else {
@@ -515,13 +517,13 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Query table structure
-  *
-  * @param string $tableName
-  * @param string $tablePrefix optional, default value ''
-  * @access public
-  * @return array
-  */
+   * Query table structure
+   *
+   * @param string $tableName
+   * @param string $tablePrefix optional, default value ''
+   * @access public
+   * @return array
+   */
   function queryTableStructure($tableName, $tablePrefix = '') {
     $fields = array();
     $keys = array();
@@ -583,13 +585,13 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Create given table
-  *
-  * @param string $tableData
-  * @param string $tablePrefix
-  * @access public
-  * @return boolean
-  */
+   * Create given table
+   *
+   * @param string $tableData
+   * @param string $tablePrefix
+   * @access public
+   * @return boolean
+   */
   function createTable($tableData, $tablePrefix = '') {
     if (is_array($tableData['fields']) && trim($tableData['name']) != '') {
       if ($tablePrefix) {
@@ -619,10 +621,10 @@ class dbcon_sqlite3 extends dbcon_base {
       if (is_array($tableData['keys'])) {
         foreach ($tableData['keys'] as $keyName => $key) {
           if ($keyName == 'PRIMARY' && is_array($key['fields']) &&
-              count($key['fields']) > 1) {
+            count($key['fields']) > 1) {
             $sql .= 'PRIMARY KEY ('.implode(',', $key['fields'])."),\n";
           } elseif ($keyName != 'PRIMARY' &&
-                    isset($key['unique']) && $key['unique'] == 'yes') {
+            isset($key['unique']) && $key['unique'] == 'yes') {
             $sql .= 'CONSTRAINT '.$this->escapeString(strtolower($table)).'_'.
               $keyName.' UNIQUE ';
             $sql .= '('.implode(',', $key['fields'])."),\n";
@@ -641,49 +643,49 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Add Field
-  *
-  * @param string $table
-  * @param array $fieldData
-  * @access public
-  * @return boolean
-  */
+   * Add Field
+   *
+   * @param string $table
+   * @param array $fieldData
+   * @access public
+   * @return boolean
+   */
   function addField($table, $fieldData) {
     return $this->changeField($table, $fieldData);
   }
 
   /**
-  * Change Field
-  *
-  * @param string $table
-  * @param array $fieldData
-  * @access public
-  * @return boolean
-  */
+   * Change Field
+   *
+   * @param string $table
+   * @param array $fieldData
+   * @access public
+   * @return boolean
+   */
   function changeField($table, $fieldData) {
     return $this->alterTable($table, 'change', $fieldData);
   }
 
   /**
-  * Drop field
-  *
-  * @param string $table
-  * @param string $field fieldname
-  * @access public
-  * @return boolean
-  */
+   * Drop field
+   *
+   * @param string $table
+   * @param string $field fieldname
+   * @access public
+   * @return boolean
+   */
   function dropField($table, $field) {
     return $this->alterTable($table, 'drop', $field);
   }
 
   /**
-  * Change table structure
-  *
-  * @param string $table
-  * @param string $action
-  * @param array|string $fieldData
-  * @return boolean
-  */
+   * Change table structure
+   *
+   * @param string $table
+   * @param string $action
+   * @param array|string $fieldData
+   * @return boolean
+   */
   function alterTable($table, $action, $fieldData) {
     $result = FALSE;
     // get current table definitions
@@ -752,13 +754,13 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Get index info
-  *
-  * @param string $table
-  * @param string $key
-  * @access public
-  * @return array $result
-  */
+   * Get index info
+   *
+   * @param string $table
+   * @param string $key
+   * @access public
+   * @return array $result
+   */
   function getIndexInfo($table, $key) {
     $result = FALSE;
     if ($key == 'PRIMARY') {
@@ -784,7 +786,7 @@ class dbcon_sqlite3 extends dbcon_base {
       if ($res = $this->query($sql)) {
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
           if (strpos($row['name'], $table) === 0 &&
-              $keyName == substr($row['name'], strlen($table) + 1)) {
+            $keyName == substr($row['name'], strlen($table) + 1)) {
             $result['orgname'] = $row['name'];
             $result['name'] = $keyName;
             $result['unique'] = ($row['unique'] == '1') ? 'yes' : 'no';
@@ -806,26 +808,26 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Add index
-  *
-  * @param string $table
-  * @param array $index
-  * @access public
-  * @return boolean
-  */
+   * Add index
+   *
+   * @param string $table
+   * @param array $index
+   * @access public
+   * @return boolean
+   */
   function addIndex($table, $index) {
     return $this->changeIndex($table, $index, FALSE);
   }
 
   /**
-  * Change Index
-  *
-  * @param string $table
-  * @param array $index
-  * @param boolean $dropCurrent optional, default value TRUE
-  * @access public
-  * @return boolean
-  */
+   * Change Index
+   *
+   * @param string $table
+   * @param array $index
+   * @param boolean $dropCurrent optional, default value TRUE
+   * @access public
+   * @return boolean
+   */
   function changeIndex($table, $index, $dropCurrent = TRUE) {
     $key = $this->getIndexInfo($table, $index['name']);
     if ($dropCurrent && $key) {
@@ -839,7 +841,7 @@ class dbcon_sqlite3 extends dbcon_base {
       } elseif (isset($index['unique']) && $index['unique'] == 'yes') {
         $sql = 'CREATE UNIQUE INDEX '.$this->escapeString($table).'_'.
           $this->escapeString($index['name']).' ON '.$this->escapeString($table).
-            ' '.$fields;
+          ' '.$fields;
       } else {
         $sql = 'CREATE INDEX '.$this->escapeString($table).'_'.
           $this->escapeString($index['name']).' ON '.
@@ -851,13 +853,13 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Drop Index
-  *
-  * @param string $table
-  * @param string $name
-  * @access public
-  * @return boolean
-  */
+   * Drop Index
+   *
+   * @param string $table
+   * @param string $name
+   * @access public
+   * @return boolean
+   */
   function dropIndex($table, $name) {
     $sql = "PRAGMA index_list('".$this->escapeString($table)."')";
     if ($res = $this->query($sql)) {
@@ -867,7 +869,7 @@ class dbcon_sqlite3 extends dbcon_base {
         if ($row['origin'] == 'pk' || $row['origin'] == 'u') {
           continue;
         }
-        if (strpos($row['name'], $name) === 0) {
+        if (strpos($row['name'], $name) === 0 || strpos($row['name'], $table.'_'.$name) === 0) {
           $keyName = $row['name'];
         } else {
           continue;
@@ -884,13 +886,13 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * DBMS spezific SQL source
-  *
-  * @param string $function sql function
-  * @param array $params params
-  * @access public
-  * @return mixed sql string or FALSE
-  */
+   * DBMS spezific SQL source
+   *
+   * @param string $function sql function
+   * @param array $params params
+   * @access public
+   * @return mixed sql string or FALSE
+   */
   function getSQLSource($function, array $params = NULL) {
     switch (strtoupper($function)) {
     case 'CONCAT':
@@ -931,14 +933,14 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * sqllite callback locate position
-  *
-  * @param string $needle
-  * @param string $haystack
-  * @param integer $offset optional, default value 0
-  * @access public
-  * @return integer position
-  */
+   * sqllite callback locate position
+   *
+   * @param string $needle
+   * @param string $haystack
+   * @param integer $offset optional, default value 0
+   * @access public
+   * @return integer position
+   */
   function sqliteCallBackLOCATE($needle, $haystack, $offset = 0) {
     $pos = strpos($haystack, $needle, $offset);
     if ($pos !== FALSE) {
@@ -949,30 +951,30 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Compare field structure
-  *
-  * @param array $xmlField
-  * @param array $databaseField
-  * @access public
-  * @return boolean
-  */
+   * Compare field structure
+   *
+   * @param array $xmlField
+   * @param array $databaseField
+   * @access public
+   * @return boolean
+   */
   function compareFieldStructure($xmlField, $databaseField) {
     if ($xmlField['type'] != $databaseField['type']) {
       return TRUE;
     } elseif ($xmlField['size'] != $databaseField['size']) {
       if ($xmlField['type'] == 'string' &&
-          $xmlField['size'] > 255 &&
-          $databaseField['size'] > 255) {
+        $xmlField['size'] > 255 &&
+        $databaseField['size'] > 255) {
         return FALSE;
       }
       if ($xmlField['type'] == 'integer' &&
-          $databaseField['autoinc'] == 'yes' &&
-          $xmlField['autoinc'] == 'yes') {
+        $databaseField['autoinc'] == 'yes' &&
+        $xmlField['autoinc'] == 'yes') {
         return FALSE;
       }
       return TRUE;
     } elseif ($xmlField['autoinc'] == 'yes' &&
-              $databaseField['autoinc'] != 'yes') {
+      $databaseField['autoinc'] != 'yes') {
       return TRUE;
     } elseif ($xmlField['default'] != $databaseField['default']) {
       if (!(empty($xmlField['default']) && empty($databaseField['default']))) {
@@ -983,19 +985,19 @@ class dbcon_sqlite3 extends dbcon_base {
   }
 
   /**
-  * Compare key structure
-  *
-  * @param array $xmlKey
-  * @param array $databaseKey
-  * @access public
-  * @return boolean
-  */
+   * Compare key structure
+   *
+   * @param array $xmlKey
+   * @param array $databaseKey
+   * @access public
+   * @return boolean
+   */
   function compareKeyStructure($xmlKey, $databaseKey) {
     if (($xmlKey['unique'] == 'yes' || $xmlKey['name'] == "PRIMARY") !=
-        ($databaseKey['unique'] == 'yes' || $databaseKey['name'] == "PRIMARY")) {
+      ($databaseKey['unique'] == 'yes' || $databaseKey['name'] == "PRIMARY")) {
       return TRUE;
     } elseif (count(array_intersect($xmlKey['fields'], $databaseKey['fields'])) !=
-              count($xmlKey['fields'])) {
+      count($xmlKey['fields'])) {
       return TRUE;
     }
     return FALSE;
@@ -1003,10 +1005,10 @@ class dbcon_sqlite3 extends dbcon_base {
 }
 
 /**
-* DB-Abstractionslayer - result object - SQLite
-* @package Papaya-Library
-* @subpackage Database
-*/
+ * DB-Abstractionslayer - result object - SQLite
+ * @package Papaya-Library
+ * @subpackage Database
+ */
 class dbresult_sqlite3 extends dbresult_base {
 
   /**
@@ -1015,12 +1017,12 @@ class dbresult_sqlite3 extends dbresult_base {
   var $result;
 
   /**
-  * destructor
-  *
-  * Free memory, unset self and resultID
-  *
-  * @access public
-  */
+   * destructor
+   *
+   * Free memory, unset self and resultID
+   *
+   * @access public
+   */
   function free() {
     if ($this->isValid()) {
       $this->result->finalize();
@@ -1033,12 +1035,12 @@ class dbresult_sqlite3 extends dbresult_base {
   }
 
   /**
-  * Fetch next row of result
-  *
-  * @param integer $mode line return modus
-  * @access public
-  * @return mixed FALSE or next line
-  */
+   * Fetch next row of result
+   *
+   * @param integer $mode line return modus
+   * @access public
+   * @return mixed FALSE or next line
+   */
   function fetchRow($mode = DB_FETCHMODE_DEFAULT) {
     if ($this->isValid()) {
       if ($mode == DB_FETCHMODE_ASSOC) {
@@ -1069,11 +1071,11 @@ class dbresult_sqlite3 extends dbresult_base {
   }
 
   /**
-  * Number rows affected by query
-  *
-  * @access public
-  * @return mixed number of rows or FALSE
-  */
+   * Number rows affected by query
+   *
+   * @access public
+   * @return mixed number of rows or FALSE
+   */
   function count() {
     if ($this->isValid()) {
       return $this->result->numColumns();
@@ -1082,15 +1084,15 @@ class dbresult_sqlite3 extends dbresult_base {
   }
 
   /**
-  * Search index
-  *
-  * Move record pointer to given index
-  * next call of pg_fetch_row() returns wanted value
-  *
-  * @param integer $index
-  * @access public
-  * @return boolean
-  */
+   * Search index
+   *
+   * Move record pointer to given index
+   * next call of pg_fetch_row() returns wanted value
+   *
+   * @param integer $index
+   * @access public
+   * @return boolean
+   */
   function seek($index) {
     if ($this->isValid()) {
       if ($index < $this->recNo) {
@@ -1107,10 +1109,10 @@ class dbresult_sqlite3 extends dbresult_base {
   }
 
   /**
-  * Compile database explain for SELECT query
-  *
-  * @return NULL|PapayaMessageContextInterface
-  */
+   * Compile database explain for SELECT query
+   *
+   * @return NULL|PapayaMessageContextInterface
+   */
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;
     /** @var SQLite3Result $res */
