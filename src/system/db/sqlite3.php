@@ -76,7 +76,7 @@ class dbcon_sqlite3 extends dbcon_base {
         $this->databaseConnection = new SQLite3($this->databaseConfiguration->filename);
         $this->databaseConnection->enableExceptions(TRUE);
         $this->databaseConnection->busyTimeout(10000);
-        $this->databaseConnection->exec('PRAGMA journal_mode = DELETE');
+        $this->databaseConnection->exec('PRAGMA journal_mode = WAL');
         return $this->databaseConnection;
       } catch (\Exception $e) {
         throw new PapayaDatabaseExceptionConnect($e->getMessage());
@@ -170,7 +170,7 @@ class dbcon_sqlite3 extends dbcon_base {
   function query($sql, $max = NULL, $offset = NULL, $freeLastResult = TRUE, $enableCounter = false) {
     if ($freeLastResult &&
         is_object($this->lastResult) &&
-        is_a($this->lastResult, 'dbresult_sqlite')) {
+        is_a($this->lastResult, 'dbresult_sqlite3')) {
       $this->lastResult->free();
     }
     if (isset($max) && $max > 0 && strpos(trim($sql), 'SELECT') === 0) {
