@@ -203,12 +203,6 @@ class base_options extends base_db {
         0 => 'papaya',
         1 => 'ext/translit',
       ), 0),
-    'PAPAYA_DATAFILTER_USE' => array(7, 'isNum', 'combo',
-      array(TRUE => 'on', FALSE => 'off'), 0),
-    'PAPAYA_IMPORTFILTER_USE' => array(7, 'isNum', 'combo',
-      array(TRUE => 'on', FALSE => 'off'), 0),
-    'PAPAYA_PUBLICATION_AUDITING' => array(7, 'isNum', 'combo',
-      array(TRUE => 'on', FALSE => 'off'), 0),
     'PAPAYA_PUBLICATION_CHANGE_LEVEL' => array(7, 'isNum', 'combo',
       array(TRUE => 'on', FALSE => 'off'), 0),
     'PAPAYA_GMAPS_API_KEY' => array (7, 'isSomeText', 'input', '500', 0),
@@ -484,6 +478,22 @@ class base_options extends base_db {
       ), 'rewrite'),
     'PAPAYA_SESSION_CACHE' => array(17, 'isAlpha', 'combo',
       array('private' => 'private', 'nocache' => 'nocache'), 'private'),
+
+    // features
+    'PAPAYA_DATAFILTER_USE' => array(
+      18, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 0
+    ),
+    'PAPAYA_PUBLICATION_AUDITING' => array(
+      18, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 0
+    ),
+    'PAPAYA_FEATURE_BOXGROUPS_LINKABLE' => array(
+      18, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 0
+    ),
+
+    // experimental features
+    'PAPAYA_IMPORTFILTER_USE' => array(
+      19, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 0
+    )
   );
 
   /**

@@ -75,6 +75,8 @@ abstract class base_statictables {
       15 => 'Cache',
       16 => 'Log',
       17 => 'Session',
+      18 => 'Features',
+      19 => 'Experimental Features'
     );
   }
 

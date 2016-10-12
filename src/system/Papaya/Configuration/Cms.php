@@ -295,7 +295,10 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
     'PAPAYA_MEDIA_PUBLIC_DIRECTORY' => NULL,
     'PAPAYA_MEDIA_PUBLIC_URL' => NULL,
     'PAPAYA_MEDIA_STORAGE_DIRECTORY' => NULL,
-    'PAPAYA_MEDIA_STORAGE_SUBDIRECTORY' => NULL
+    'PAPAYA_MEDIA_STORAGE_SUBDIRECTORY' => NULL,
+
+    // feature toggles
+    'PAPAYA_FEATURE_BOXGROUPS_LINKABLE' => FALSE
   );
 
   /**
