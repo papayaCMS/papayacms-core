@@ -555,7 +555,7 @@ class dbcon_sqlite3 extends dbcon_base {
     $sql = "PRAGMA index_list('".$this->escapeString($table)."')";
     if ($res = $this->query($sql)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-        if ($row['origin'] == 'pk') {
+        if ($row['origin'] == 'pk' || $row['origin'] == 'u') {
           continue;
         } elseif (strpos($row['name'], $table) === 0) {
           $keyName = substr($row['name'], strlen($table) + 1);
