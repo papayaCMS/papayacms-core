@@ -421,7 +421,7 @@ class papaya_overview extends base_db {
     for ($i = 0; $i < $max; $i++) {
       $sorted[] = $ids[$i];
       $x = count($ids) - $i;
-      if ($i < $x && $ids[$x]) {
+      if ($i < $x && isset($ids[$x])) {
         $sorted[] = $ids[$x];
       }
     }
