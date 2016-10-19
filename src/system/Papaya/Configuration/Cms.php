@@ -135,6 +135,8 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
     'PAPAYA_UI_SECURE_WARNING' => TRUE,
     'PAPAYA_UI_THEME' => 'green',
     'PAPAYA_UI_SKIN' => 'default',
+    'PAPAYA_UI_SEARCH_ANCESTOR_LIMIT' => 6,
+    'PAPAYA_UI_SEARCH_CHARACTER_LIMIT' => 100,
 
     'PAPAYA_PROTECT_FORM_CHANGES' => TRUE,
 

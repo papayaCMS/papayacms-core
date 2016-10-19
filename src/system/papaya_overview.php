@@ -356,7 +356,8 @@ class papaya_overview extends base_db {
         if (isset($topic['ancestors'])) {
           $title .= $this->getAncestorsTitle(
             $topic['ancestors'],
-            $this->papaya()->options->get('PAPAYA_UI_LISTITEM_CHARACTER_LIMIT', 100) - strlen($pageTitle)
+            $this->papaya()->options->get('PAPAYA_UI_SEARCH_CHARACTER_LIMIT', 100) - strlen($pageTitle),
+            $this->papaya()->options->get('PAPAYA_UI_SEARCH_ANCESTOR_LIMIT',  0)
           );
         }
         $title .= $pageTitle;
@@ -409,9 +410,12 @@ class papaya_overview extends base_db {
     return '';
   }
 
-  public function getAncestorsTitle($ids, $characterLimit = 20) {
+  public function getAncestorsTitle($ids, $characterLimit = 20, $itemLimit = 1) {
     $result = '';
     $pages = $this->pages();
+    if ($itemLimit == 0) {
+      return '';
+    }
     $sorted = [];
     $max = ceil(count($ids) / 2);
     for ($i = 0; $i < $max; $i++) {
@@ -423,8 +427,10 @@ class papaya_overview extends base_db {
     }
     $buffers = [ 0 => '', 1 => ''];
     foreach ($sorted as $index => $id) {
+      $itemLimit--;
       if (
-        (strlen($buffers[0]) + strlen($buffers[1]) + strlen($pages[$id]['title']) + 4) >= $characterLimit
+        (strlen($buffers[0]) + strlen($buffers[1]) + strlen($pages[$id]['title']) + 4) >= $characterLimit ||
+        $itemLimit < 0
       ) {
         return $buffers[0] . ' … > ' . $buffers[1];
       }
