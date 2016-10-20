@@ -1994,7 +1994,7 @@ class base_topic_edit extends base_topic {
           ->plugins
           ->get('79f18e7c40824a0f975363346716ff62');
         if (is_object($actionsConnector)) {
-          foreach ($this->languages as $lngId) {
+          foreach ($languages as $lngId) {
             $actionsConnector->call(
               'default',
               'onUnpublishPage',
