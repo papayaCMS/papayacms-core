@@ -77,9 +77,9 @@ class papaya_page extends base_object {
   public $readOnlySession = FALSE;
 
   /**
-   * @var array
+   * @var PapayaContentLanguage
    */
-  public $contentLanguage = array();
+  public $contentLanguage;
 
   /**
    * @var string
@@ -744,7 +744,7 @@ class papaya_page extends base_object {
     } else {
       unset($this->sessionParams[$name]);
     }
-    $this->papaya()->session->values['PAPAYA_SESSION_PAGE_PARAMS'] = $this->sessionParams;
+    $this->papaya()->session->setValue('PAPAYA_SESSION_PAGE_PARAMS', $this->sessionParams);
   }
 
   /**
@@ -953,7 +953,7 @@ class papaya_page extends base_object {
                This is just to be safe, so the client (e.g. a proxy) doesn't
                forget it from his cached version.
              */
-            $this->setVisitorLanguage($this->topic->currentLanguage['lng_ident']);
+            $this->setVisitorLanguage($this->topic->currentLanguage['identifier']);
             /* Etag, Expires and Cache-Control were set before and the client
                already has all the other headers from his cached version
              */
@@ -981,7 +981,7 @@ class papaya_page extends base_object {
         );
         if ($contentGzip && FALSE !== $mtime && $this->canUseGzip()) {
           $this->sendHTTPStatus(200);
-          $this->setVisitorLanguage($this->topic->currentLanguage['lng_ident']);
+          $this->setVisitorLanguage($this->topic->currentLanguage['identifier']);
           $this->output->sendHeader();
           $this->sendHeader('Last-Modified: '.gmdate('D, d M Y H:i:s', $mtime).' GMT');
           $this->sendHeader('Content-Encoding: gzip');
@@ -1008,7 +1008,7 @@ class papaya_page extends base_object {
         );
         if ($content && FALSE !== $mtime) {
           $this->sendHTTPStatus(200);
-          $this->setVisitorLanguage($this->topic->currentLanguage['lng_ident']);
+          $this->setVisitorLanguage($this->topic->currentLanguage['identifier']);
           $this->output->sendHeader();
           $this->sendHeader('Last-Modified: '.gmdate('D, d M Y H:i:s', $mtime).' GMT');
           $this->sendHeader('X-Papaya-Cache: yes');
@@ -1373,14 +1373,17 @@ class papaya_page extends base_object {
   */
   function getPage() {
     $this->contentLanguage = $this->topic->currentLanguage;
-    if (!empty($this->requestData['language']) &&
-      $this->contentLanguage['lng_ident'] != $this->requestData['language']) {
+    if (
+      !empty($this->requestData['language']) &&
+      !$this->isPreview() &&
+      $this->contentLanguage['id'] != $this->papaya()->request->languageId
+    ) {
       $this->doRedirect(
         301,
         $this->getAbsoluteURL(
           $this->getWebLink(
             NULL,
-            $this->contentLanguage['lng_ident'],
+            $this->contentLanguage['identifier'],
             NULL,
             $this->papaya()->getObject('Request')->getParameters(
               PapayaRequest::SOURCE_QUERY
@@ -1583,7 +1586,7 @@ class papaya_page extends base_object {
       $this->topic->getTranslationsData($this->topic->topic['TRANSLATION']['lng_id']),
       'translations'
     );
-    $this->setVisitorLanguage($this->topic->currentLanguage['lng_ident']);
+    $this->setVisitorLanguage($this->topic->currentLanguage['code']);
     if ($outputContent) {
       $serverUrl = PapayaUtilServerProtocol::get().'://'.PapayaUtilServerName::get();
       $url = strtr(
@@ -1625,7 +1628,7 @@ class papaya_page extends base_object {
       );
       $this->layout->parameters()->set(
         'PAGE_LANGUAGE',
-        $this->topic->currentLanguage['lng_short']
+        $this->topic->currentLanguage['code']
       );
       $this->layout->parameters()->set('PAGE_MODE_PUBLIC', $this->isPreview() ? 0 : 1);
       $this->layout->parameters()->set('PAGE_OUTPUTMODE_CURRENT', $currentViewMode);

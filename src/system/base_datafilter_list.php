@@ -80,12 +80,15 @@ class base_datafilter_list extends base_db {
   */
   function prepareFilterData($keys) {
     foreach ($this->filterConfs as $filterId => $conf) {
-      if (isset($this->filterObjects[$filterId]) &&
-          ($filter = $this->filterObjects[$filterId]) &&
-          $filter instanceof base_datafilter) {
-        $filter->prepareFilterData(
-          $this->contentObj->data, $keys
-        );
+      if (
+        isset($this->filterObjects[$filterId]) &&
+        ($filter = $this->filterObjects[$filterId])
+      ) {
+        if  ($filter instanceof base_datafilter) {
+          $filter->prepareFilterData(
+            $this->contentObj->data, $keys
+          );
+        }
       }
     }
   }
@@ -97,12 +100,18 @@ class base_datafilter_list extends base_db {
    */
   function loadFilterData() {
     foreach ($this->filterConfs as $filterId => $conf) {
-      if (isset($this->filterObjects[$filterId]) &&
-          ($filter = $this->filterObjects[$filterId]) &&
-          $filter instanceof base_datafilter) {
-        $filter->loadFilterData(
-          $this->contentObj->data
-        );
+      if (
+        isset($this->filterObjects[$filterId]) &&
+        ($filter = $this->filterObjects[$filterId])
+      ) {
+        if ($filter instanceof base_datafilter) {
+          $filter->loadFilterData(
+            $this->contentObj->data
+          );
+        } elseif ($filter instanceof PapayaPluginFilterContent) {
+          $content = strip_tags(implode(' ', $this->contentObj->data));
+          $filter->prepare($content);
+        }
       }
     }
   }
@@ -116,10 +125,15 @@ class base_datafilter_list extends base_db {
   */
   function applyFilterData($string) {
     foreach ($this->filterConfs as $filterId => $conf) {
-      if (isset($this->filterObjects[$filterId]) &&
-          ($filter = $this->filterObjects[$filterId]) &&
-          $filter instanceof base_datafilter) {
-        $string = $filter->applyFilterData($string);
+      if (
+        isset($this->filterObjects[$filterId]) &&
+        ($filter = $this->filterObjects[$filterId])
+      ) {
+        if ($filter instanceof base_datafilter) {
+          $string = $filter->applyFilterData($string);
+        } elseif ($filter instanceof PapayaPluginFilterContent) {
+          $string = $filter->applyTo($string);
+        }
       }
     }
     return $string;
@@ -137,10 +151,18 @@ class base_datafilter_list extends base_db {
     if (isset($this->filterConfs) && is_array($this->filterConfs) &&
         count($this->filterConfs) > 0) {
       foreach ($this->filterConfs as $filterId => $conf) {
-        if (isset($this->filterObjects[$filterId]) &&
-            ($filter = $this->filterObjects[$filterId]) &&
-            $filter instanceof base_datafilter) {
-          $result .= $filter->getFilterData($parseParams);
+        if (
+          isset($this->filterObjects[$filterId]) &&
+          ($filter = $this->filterObjects[$filterId])
+        ) {
+          if ($filter instanceof base_datafilter) {
+            $result .= $filter->getFilterData($parseParams);
+          } elseif ($filter instanceof PapayaPluginFilterContent) {
+            $document = new PapayaXmlDocument();
+            $content = $document->appendElement('content');
+            $filter->appendTo($content);
+            $result .= $content->saveFragment();
+          }
         }
       }
     }
@@ -203,10 +225,14 @@ class base_datafilter_list extends base_db {
   * @param object $parent parent object
   * @param mixed $data optional, default value NULL
   * @access public
-  * @return base_datafilter filter
+  * @return base_datafilter|PapayaPluginFilterContent|NULL filter
   */
   function createFilterObject($guid, $parent = NULL, $data = NULL) {
-    return $this->papaya()->plugins->get($guid, $parent, $data);
+    $filter = $this->papaya()->plugins->get($guid, $parent, $data);
+    if ($filter instanceof base_datafilter || $filter instanceof PapayaPluginFilterContent) {
+      return $filter;
+    }
+    return NULL;
   }
 
 }

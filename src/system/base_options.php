@@ -135,47 +135,6 @@ class base_options extends base_db {
     'PAPAYA_DATABASE_CLUSTER_SWITCH' => array(7, 'isNum', 'combo',
       array(0 => 'manual', 1 => 'object', 2 => 'connection'), 0),
     'PAPAYA_VERSIONS_MAXCOUNT' => array(7, 'isNum', 'input', '5', 200),
-    'PAPAYA_UI_LANGUAGE' => array(7, 'isAlpha', 'function',
-      'getInterfaceLanguageCombo', 'en-US'),
-    'PAPAYA_UI_SECURE' => array(7, 'isNum', 'combo',
-      array(TRUE => 'on', FALSE => 'off'), 0),
-    'PAPAYA_UI_SECURE_WARNING' => array(7, 'isNum', 'combo',
-      array(TRUE => 'on', FALSE => 'off'), TRUE),
-    'PAPAYA_UI_THEME' => array(
-      7,
-      'isAlpha',
-      'combo',
-      array(
-        'green' => 'Green (Default)',
-        'black' => 'Black',
-        'blue' => 'Blue',
-        'brown' => 'Brown',
-        'orange' => 'Orange',
-        'pink' => 'Pink',
-        'purple' => 'Purple',
-        'red' => 'Red'
-      ),
-      'green'
-    ),
-    'PAPAYA_UI_SKIN' => array(7, 'isAlphaNum', 'dircombo',
-      array('skins/', 'admin'), 'default'),
-    'PAPAYA_USE_RICHTEXT' => array(7, 'isNum', 'combo',
-      array(TRUE => 'on', FALSE => 'off'), 1),
-    'PAPAYA_RICHTEXT_TEMPLATES_FULL' => array(
-      7, '(^([a-z]+)(,[a-z+])*)', 'input', 200, 'p,div,h2,h3,h4,h5,h6,blockquote'
-    ),
-    'PAPAYA_RICHTEXT_TEMPLATES_SIMPLE' => array(
-      7, '(^([a-z]+)(,[a-z+])*)', 'input', 200, 'p,div,h2,h3'
-    ),
-    'PAPAYA_RICHTEXT_CONTENT_CSS' => array(
-      7, 'isFile', 'filecombo',
-      array('', '(^.+\.css$)', TRUE, 'current_theme'), 'tinymce.css', TRUE),
-    'PAPAYA_RICHTEXT_LINK_TARGET' => array(
-      7, 'isAlphaChar', 'combo', array('_self' => '_self', '_blank' => '_blank'), '_self'
-    ),
-    'PAPAYA_RICHTEXT_BROWSER_SPELLCHECK' => array(
-      7, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), FALSE
-    ),
     'PAPAYA_XSLT_EXTENSION' => array(7, 'isAlpha', 'function',
       'getXSLTExtensionsCombo', '', TRUE),
     'PAPAYA_BROWSER_CRONJOBS' => array(7, 'isNum', 'combo',
@@ -203,12 +162,6 @@ class base_options extends base_db {
         0 => 'papaya',
         1 => 'ext/translit',
       ), 0),
-    'PAPAYA_DATAFILTER_USE' => array(7, 'isNum', 'combo',
-      array(TRUE => 'on', FALSE => 'off'), 0),
-    'PAPAYA_IMPORTFILTER_USE' => array(7, 'isNum', 'combo',
-      array(TRUE => 'on', FALSE => 'off'), 0),
-    'PAPAYA_PUBLICATION_AUDITING' => array(7, 'isNum', 'combo',
-      array(TRUE => 'on', FALSE => 'off'), 0),
     'PAPAYA_PUBLICATION_CHANGE_LEVEL' => array(7, 'isNum', 'combo',
       array(TRUE => 'on', FALSE => 'off'), 0),
     'PAPAYA_GMAPS_API_KEY' => array (7, 'isSomeText', 'input', '500', 0),
@@ -263,13 +216,6 @@ class base_options extends base_db {
         'utf8_turkish_ci' => 'utf8_turkish_ci',
         'utf8_unicode_ci' => 'utf8_unicode_ci'
       ), 'utf8_general_ci'),
-
-    'PAPAYA_OVERVIEW_ITEMS_UNPUBLISHED' => array(11, 'isNum', 'input', 2, 15),
-    'PAPAYA_OVERVIEW_ITEMS_PUBLISHED' => array(11, 'isNum', 'input', 2, 10),
-    'PAPAYA_OVERVIEW_ITEMS_MESSAGES' => array(11, 'isNum', 'input', 2, 10),
-    'PAPAYA_OVERVIEW_ITEMS_TASKS' => array(11, 'isNum', 'input', 2, 10),
-    'PAPAYA_OVERVIEW_TASK_NOTIFY' => array(11, 'isNum', 'combo',
-      array(TRUE => 'on', FALSE => 'off'), 0),
 
     'PAPAYA_LOGIN_RESTRICTION' => array(12, 'isNum', 'combo',
       array(
@@ -484,6 +430,80 @@ class base_options extends base_db {
       ), 'rewrite'),
     'PAPAYA_SESSION_CACHE' => array(17, 'isAlpha', 'combo',
       array('private' => 'private', 'nocache' => 'nocache'), 'private'),
+
+    // features
+    'PAPAYA_DATAFILTER_USE' => array(
+      18, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 0
+    ),
+    'PAPAYA_PUBLICATION_AUDITING' => array(
+      18, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 0
+    ),
+    'PAPAYA_FEATURE_BOXGROUPS_LINKABLE' => array(
+      18, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 0
+    ),
+
+    // experimental features
+    'PAPAYA_IMPORTFILTER_USE' => array(
+      19, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 0
+    ),
+
+    // Administration UI
+    'PAPAYA_OVERVIEW_ITEMS_UNPUBLISHED' => array(11, 'isNum', 'input', 2, 15),
+    'PAPAYA_OVERVIEW_ITEMS_PUBLISHED' => array(11, 'isNum', 'input', 2, 10),
+    'PAPAYA_OVERVIEW_ITEMS_MESSAGES' => array(11, 'isNum', 'input', 2, 10),
+    'PAPAYA_OVERVIEW_ITEMS_TASKS' => array(11, 'isNum', 'input', 2, 10),
+    'PAPAYA_OVERVIEW_TASK_NOTIFY' => array(
+      11, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 0
+    ),
+    'PAPAYA_UI_SEARCH_CHARACTER_LIMIT' => array(11, 'isNum', 'input', 4, 100),
+    'PAPAYA_UI_SEARCH_ANCESTOR_LIMIT' => array(11, 'isNum', 'input', 3, 7),
+    'PAPAYA_UI_LANGUAGE' => array(
+      11, 'isAlpha', 'function', 'getInterfaceLanguageCombo', 'en-US'
+    ),
+    'PAPAYA_UI_SECURE' => array(
+      11, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 0
+    ),
+    'PAPAYA_UI_SECURE_WARNING' => array(
+      11, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), TRUE
+    ),
+    'PAPAYA_UI_THEME' => array(
+      11,
+      'isAlpha',
+      'combo',
+      array(
+        'green' => 'Green (Default)',
+        'black' => 'Black',
+        'blue' => 'Blue',
+        'brown' => 'Brown',
+        'orange' => 'Orange',
+        'pink' => 'Pink',
+        'purple' => 'Purple',
+        'red' => 'Red'
+      ),
+      'green'
+    ),
+    'PAPAYA_UI_SKIN' => array(
+      11, 'isAlphaNum', 'dircombo', array('skins/', 'admin'), 'default'
+    ),
+    'PAPAYA_USE_RICHTEXT' => array(
+      11, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 1
+    ),
+    'PAPAYA_RICHTEXT_TEMPLATES_FULL' => array(
+      11, '(^([a-z]+)(,[a-z+])*)', 'input', 200, 'p,div,h2,h3,h4,h5,h6,blockquote'
+    ),
+    'PAPAYA_RICHTEXT_TEMPLATES_SIMPLE' => array(
+      11, '(^([a-z]+)(,[a-z+])*)', 'input', 200, 'p,div,h2,h3'
+    ),
+    'PAPAYA_RICHTEXT_CONTENT_CSS' => array(
+      11, 'isFile', 'filecombo',
+      array('', '(^.+\.css$)', TRUE, 'current_theme'), 'tinymce.css', TRUE
+    ),
+    'PAPAYA_RICHTEXT_LINK_TARGET' => array(
+      11, 'isAlphaChar', 'combo', array('_self' => '_self', '_blank' => '_blank'), '_self'
+    ),
+    'PAPAYA_RICHTEXT_BROWSER_SPELLCHECK' => array(
+      11, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), FALSE
+    )
   );
 
   /**

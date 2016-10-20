@@ -149,7 +149,7 @@ class base_topic extends base_db {
 
   /**
   * current content language
-  * @var array $currentLanguage
+  * @var PapayaContentLanguage $currentLanguage
   */
   var $currentLanguage = NULL;
 
@@ -265,27 +265,14 @@ class base_topic extends base_db {
   * @return boolean
   */
   function loadCurrentLanguage($lngId = NULL, $forceReload = FALSE) {
-    static $languages;
     if (empty($lngId)) {
       $lngId = $this->getContentLanguageId();
     }
-    if ((!$forceReload) && isset($languages) && isset($languages[$lngId])) {
-      $this->currentLanguage = $languages[$lngId];
+    if (isset($this->papaya()->languages[$lngId])) {
+      $this->currentLanguage = $this->papaya()->languages->getLanguage($lngId);
       return TRUE;
-    } else {
-      $sql = "SELECT lng_ident, lng_id, lng_title, lng_short
-                FROM %s
-               WHERE lng_id = '%s'";
-      $params = array($this->tableLanguages, trim($lngId));
-      if ($res = $this->databaseQueryFmt($sql, $params)) {
-        if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-          $this->currentLanguage = $row;
-          $languages[$lngId] = $row;
-          return TRUE;
-        }
-      }
-      return FALSE;
     }
+    return FALSE;
   }
 
   /**
@@ -676,7 +663,7 @@ class base_topic extends base_db {
           $params = array(
             $this->tableTopics,
             $this->tableTopicsTrans,
-            $this->currentLanguage['lng_id']
+            $this->currentLanguage['id']
           );
           if ($res = $this->databaseQueryFmt($sql, $params)) {
             while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -701,7 +688,7 @@ class base_topic extends base_db {
         'meta_keywords' => $metaKeywords,
         'meta_descr' => $metaDescr,
         'meta_title' => $metaTitle,
-        'meta_language' => $this->currentLanguage['lng_short']
+        'meta_language' => $this->currentLanguage['code']
       );
       return $result;
     }
@@ -1080,21 +1067,37 @@ class base_topic extends base_db {
       $pageFileName = $this->escapeForFilename(
         $this->topic['TRANSLATION']['topic_title'],
         'index',
-        $this->currentLanguage['lng_ident']
+        $this->currentLanguage['code']
       );
-      if (isset($this->moduleObj) && is_object($this->moduleObj) &&
+      $isValid = NULL;
+      if ($this->moduleObj instanceof PapayaPluginAddressable) {
+        $url = $this->moduleObj->validateUrl($this->papaya()->request);
+        if ($url === TRUE) {
+          $isValid = TRUE;
+        } elseif (is_string($url) && !empty($url)) {
+          $isValid = FALSE;
+        }
+      } elseif (isset($this->moduleObj) && is_object($this->moduleObj) &&
           method_exists($this->moduleObj, 'checkURLFileName')) {
         $url = $this->moduleObj->checkURLFileName($currentFileName, $outputMode);
-      } elseif ($currentFileName != $pageFileName) {
-        $url = $this->getWebLink(
-          $this->topicId, NULL, $outputMode, NULL, NULL, $pageFileName
-        );
-        $queryString = (isset($_SERVER['QUERY_STRING'])) ? $_SERVER['QUERY_STRING'] : '';
-        $url = $this->getAbsoluteURL($url).$this->recodeQueryString($queryString);
-      } else {
-        $url = FALSE;
+        if ($url === FALSE) {
+          $isValid = TRUE;
+        } elseif (is_string($url) && !empty($url)) {
+          $isValid = FALSE;
+        }
       }
-      if ($url) {
+      if (!isset($isValid)) {
+        if ($currentFileName != $pageFileName) {
+          $url = $this->getWebLink(
+            $this->topicId, NULL, $outputMode, NULL, NULL, $pageFileName
+          );
+          $queryString = (isset($_SERVER['QUERY_STRING'])) ? $_SERVER['QUERY_STRING'] : '';
+          $url = $this->getAbsoluteURL($url).$this->recodeQueryString($queryString);
+        } else {
+          $isValid = TRUE;
+        }
+      }
+      if (!$isValid) {
         $allowFixation = $this->papaya()->options->get('PAPAYA_URL_FIXATION', FALSE);
         if ($allowFixation) {
           if ($this->papaya()->request->getMethod() != 'get') {
@@ -1106,7 +1109,7 @@ class base_topic extends base_db {
             $allowFixation = FALSE;
           }
         }
-        // if the strict url fixation is disabled 'index' and $pageFileName are alyways allowed
+        // if the strict url fixation is disabled 'index' and $pageFileName are always allowed
         if (!$allowFixation &&
             ($currentFileName == 'index' || $currentFileName == $pageFileName)) {
           return FALSE;

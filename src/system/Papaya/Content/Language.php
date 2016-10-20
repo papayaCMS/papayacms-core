@@ -53,4 +53,29 @@ class PapayaContentLanguage extends PapayaDatabaseRecordLazy {
   );
 
   protected $_tableName = PapayaContentTables::LANGUAGES;
+
+  public function offsetGet($name) {
+    switch ($name) {
+    case 'lng_id' :
+      return parent::offsetGet('id');
+    case 'lng_ident' :
+      return parent::offsetGet('identifier');
+    case 'lng_short' :
+      return parent::offsetGet('code');
+    case 'lng_title' :
+      return parent::offsetGet('title');
+    }
+    return parent::offsetGet($name);
+  }
+
+  public function offsetExists($name) {
+    switch ($name) {
+    case 'lng_id' :
+    case 'lng_ident' :
+    case 'lng_short' :
+    case 'lng_title' :
+      return TRUE;
+    }
+    return parent::offsetExists($name);
+  }
 }

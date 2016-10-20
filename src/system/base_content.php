@@ -105,7 +105,7 @@ class base_content extends base_plugin {
   * Initialize data filter objects
   *
   * @access public
-  * @return object $dataFilterObj base_datafilter_list
+  * @return base_datafilter_list|FALSE $dataFilterObj base_datafilter_list
   */
   function &initDataFilterObject() {
     if (defined('PAPAYA_DATAFILTER_USE') && PAPAYA_DATAFILTER_USE) {
