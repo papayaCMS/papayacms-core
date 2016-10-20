@@ -1970,11 +1970,39 @@ class base_topic_edit extends base_topic {
   * @return boolean
   */
   function deletePublicTopic() {
+    $languages = [];
+    $sql = "SELECT lng_id
+              FROM %s
+             WHERE topic_id = %d";
+    $parameters = [
+      $this->tableTopicsPublicTrans,
+      $this->topicId
+    ];
+    if ($res = $this->databaseQueryFmt($sql, $parameters)) {
+      while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
+        $languages[] = $row['lng_id'];
+      }
+    }
     if (
       FALSE !== $this->databaseDeleteRecord(
         $this->tableTopicsPublicTrans, 'topic_id', $this->topicId
       )
     ) {
+      if (!empty($languages)) {
+        $actionsConnector = $this
+          ->papaya()
+          ->plugins
+          ->get('79f18e7c40824a0f975363346716ff62');
+        if (is_object($actionsConnector)) {
+          foreach ($this->languages as $lngId) {
+            $actionsConnector->call(
+              'default',
+              'onUnpublishPage',
+              ['topic_id' => $this->topicId, 'lng_id' => $lngId]
+            );
+          }
+        }
+      }
       if (
         FALSE !== $this->databaseDeleteRecord($this->tableTopicsPublic, 'topic_id', $this->topicId)
       ) {
