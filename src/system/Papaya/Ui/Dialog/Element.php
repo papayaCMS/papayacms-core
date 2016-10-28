@@ -48,16 +48,10 @@ abstract class PapayaUiDialogElement extends PapayaUiControlCollectionItem {
   * @return string
   */
   protected function _getParameterName($key, $withGroup = TRUE) {
-    if ($withGroup && $this->hasDialog()) {
-      $name = $this->getDialog()->getParameterName($key);
-      $prefix = $this->getDialog()->parameterGroup();
-      if (isset($prefix)) {
-        $name->prepend($prefix);
-      }
-    } else {
-      $name = new PapayaRequestParametersName($key);
-    }
-    return (string)$name;
+    $name = new PapayaUiDialogFieldParameterName(
+      $this->hasDialog() ? $this->getDialog() : NULL, $key
+    );
+    return $name->get($withGroup);
   }
 
   /**
