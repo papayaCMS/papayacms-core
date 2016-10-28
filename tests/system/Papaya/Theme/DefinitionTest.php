@@ -18,6 +18,7 @@ class PapayaThemeDefinitionTest extends PapayaTestCase {
     $definition->load(__DIR__.'/TestData/theme.xml');
     $this->assertAttributeEquals(
       array(
+        'name' => 'TestData',
         'title' => 'Sample Papaya Theme',
         'version' => '1.0',
         'version_date' => '2012-07-23',

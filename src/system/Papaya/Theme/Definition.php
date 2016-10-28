@@ -23,6 +23,7 @@
  * @package Papaya-Library
  * @subpackage Theme
  *
+ * @property string $name
  * @property string $title
  * @property string $version
  * @property string $versionDate
@@ -37,6 +38,7 @@ class PapayaThemeDefinition extends PapayaContentStructure {
    * @var array
    */
   private $_properties = array(
+    'name' => '',
     'title' => '',
     'version' => '',
     'version_date' => '',
@@ -63,6 +65,7 @@ class PapayaThemeDefinition extends PapayaContentStructure {
     $dom = new PapayaXmlDocument();
     $dom->load($location);
     $xpath = $dom->xpath();
+    $this->_properties['name'] = basename(dirname($location));
     $this->_properties['title'] = $xpath->evaluate('string(/papaya-theme/name)');
     $this->_properties['version'] = $xpath->evaluate('string(/papaya-theme/version/@number)');
     $this->_properties['version_date'] = $xpath->evaluate('string(/papaya-theme/version/@date)');
