@@ -43,12 +43,15 @@ class PapayaContentDomainGroups extends PapayaDatabaseRecordsLazy {
   protected $_identifierProperties = array('id');
 
   /**
-   * @param int $id
+   * @param int|array|NULL $filter
    * @return PapayaContentDomainGroup
    */
-  public function getItem($id) {
+  public function getItem($filter = NULL) {
     $result = new PapayaContentDomainGroup();
-    $result->activateLazyLoad(array('id' => $id));
+    if (is_scalar($filter)) {
+      $filter = ['id' => $filter];
+    }
+    $result->activateLazyLoad($filter);
     return $result;
   }
 }
