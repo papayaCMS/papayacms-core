@@ -189,7 +189,7 @@ abstract class PapayaTemplate extends PapayaObject {
    * can be a simple element name or a sequence of element names separated by '/'.
    * If an element in the path does not exists, it will be created.
    *
-   * @param string|PapayaXmlElement $xml data
+   * @param string|PapayaXmlAppendable|\DOMNode $xml data
    * @param string $path optional, default value 'centercol' the element path relative to '/page'
    * @param boolean $encodeInvalidEntities encode invalid entities like &
    * @return mixed

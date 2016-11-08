@@ -78,6 +78,11 @@ class papaya_options extends base_options {
   private $optionDialog;
 
   /**
+   * @var PapayaAdministrationThemeBrowser
+   */
+  private $_themeBrowser;
+
+  /**
   * get XML Buttons
   *
   * @access public
@@ -165,24 +170,31 @@ class papaya_options extends base_options {
         unset($this->sessionParams['opened'][$this->params['gid']]);
         break;
       case 'edit':
-        $this->initOptionDialog();
-        if ($this->optionDialog->checkDialogInput() &&
-            isset($this->params['id']) &&
-            $this->checkOptionSpecial($this->params['id'], $this->params[$this->params['id']])) {
-          if ($this->save($this->params['id'])) {
-            $this->addMsg(MSG_INFO, $this->_gt('Option modified.'));
-            // if saving theme option was successful, save also templates option
-            if ($this->params['id'] == 'PAPAYA_LAYOUT_THEME' &&
-                isset($this->params['PAPAYA_LAYOUT_TEMPLATES']) &&
-                !empty($this->params['PAPAYA_LAYOUT_TEMPLATES'])) {
-              if ($this->save('PAPAYA_LAYOUT_TEMPLATES')) {
+        if (isset($this->params['id']) && $this->params['id'] == 'PAPAYA_LAYOUT_THEME') {
+          if ($this->themeBrowser()->dialog()->execute()) {
+            $theme = $this->themeBrowser()->getCurrent();
+            if ($this->save('PAPAYA_LAYOUT_THEME', $theme->name)) {
+              $this->addMsg(MSG_INFO, $this->_gt('Option modified.'));
+              if (
+                $theme->templatePath != $this->papaya()->options->get('PAPAYA_LAYOUT_TEMPLATES', '') &&
+                $this->save('PAPAYA_LAYOUT_TEMPLATES', $theme->templatePath)
+              ) {
                 $this->addMsg(MSG_INFO, $this->_gt('Templates option modified.'));
-              } else {
-                $this->addMsg(MSG_ERROR, $this->_gt('Cannot change templates option.'));
               }
+            } else {
+              $this->addMsg(MSG_ERROR, $this->_gt('Cannot change option.'));
             }
-          } else {
-            $this->addMsg(MSG_ERROR, $this->_gt('Cannot change option.'));
+          }
+        } else {
+          $this->initOptionDialog();
+          if ($this->optionDialog->checkDialogInput() &&
+              isset($this->params['id']) &&
+              $this->checkOptionSpecial($this->params['id'], $this->params[$this->params['id']])) {
+            if ($this->save($this->params['id'])) {
+              $this->addMsg(MSG_INFO, $this->_gt('Option modified.'));
+            } else {
+              $this->addMsg(MSG_ERROR, $this->_gt('Cannot change option.'));
+            }
           }
         }
         break;
@@ -272,7 +284,7 @@ class papaya_options extends base_options {
     $this->getSearchForm();
     $this->getList();
     if (isset($this->params['id']) && $this->params['id'] == 'PAPAYA_LAYOUT_THEME') {
-      $this->layout->addRight($this->getLayoutDialogXML());
+      $this->layout->addRight($this->themeBrowser()->getXml());
       $this->layout->addRight($this->getOptionHelp($this->params['id']));
     } else {
       $this->getForm();
@@ -286,47 +298,14 @@ class papaya_options extends base_options {
     }
   }
 
-
-  /**
-  * Generate the theme browser dialog output.
-  *
-  * @return string output xml
-  */
-  public function getLayoutDialogXML() {
-    $result = '';
-    try {
-      // initialize dialog for retrieving hidden fields and token
-      $this->initOptionDialog();
-      // collect hidden fields for browser dialog
-      $hiddenFields = array_merge(
-        $this->optionDialog->hidden,
-        array('token' => $this->optionDialog->getDialogToken())
-      );
-      // choose from where data gets its values
-      if (isset($this->params['save'])) {
-        // select requested data after saving
-        $data = array(
-          'opt_name' => $this->params['id'],
-          'opt_value' => $this->params[$this->params['id']]
-        );
-      } else {
-        // select loaded data from db
-        $data = $this->optionDialog->data;
-      }
-      // use theme browser object to generate output xml
-      $themeBrowser = new PapayaUiAdministrationBrowserTheme(
-        $this,
-        $this->params,
-        $this->paramName,
-        $data,
-        $this->params['id'],
-        $hiddenFields
-      );
-      $result = $themeBrowser->getXml();
-    } catch (InvalidArgumentException $e) {
-      $this->addMsg(MSG_ERROR, $this->_gt($e->getMessage()));
+  public function themeBrowser(PapayaAdministrationThemeBrowser $themeBrowser = NULL) {
+    if (isset($themeBrowser)) {
+      $this->_themeBrowser = $themeBrowser;
+    } elseif (NULL === $this->_themeBrowser) {
+      $this->_themeBrowser = $browser = new PapayaAdministrationThemeBrowser();
+      $browser->papaya($this->papaya());
     }
-    return $result;
+    return $this->_themeBrowser;
   }
 
   /**
@@ -500,13 +479,14 @@ class papaya_options extends base_options {
    * Save option to database table
    *
    * @param string $id
-   * @return boolean
+   * @param null $value
+   * @return bool
    */
-  function save($id) {
+  function save($id, $value = NULL) {
     $result = FALSE;
     $option = $this->options[$id];
-    if (isset($this->params[$id])) {
-      $value = (string)$this->params[$id];
+    if (NULL !== $value) {
+      $value = (string)$value;
     } elseif (isset($option) && isset($option['opt_value'])) {
       $value = (string)$option['opt_value'];
     } elseif (isset(self::$optFields[$id][4])) {

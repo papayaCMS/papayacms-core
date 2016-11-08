@@ -30,6 +30,7 @@
  * @property string $author
  * @property string $description
  * @property string $templatePath
+ * @property array('medium' => string, 'large' => string) $thumbnails
  */
 class PapayaThemeDefinition extends PapayaContentStructure {
 
