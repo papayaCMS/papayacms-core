@@ -2385,7 +2385,8 @@ class base_topic_edit extends base_topic {
       2 => 'https://',
     );
     foreach ($domains as $domain) {
-      $value = $schemes[$domain['scheme']].$domain['host'];
+      $scheme = isset($schemes[$domain['scheme']]) ? $schemes[$domain['scheme']] : $schemes[0];
+      $value = $scheme.$domain['host'];
       $result[$value] = $value;
     }
     return $result;
