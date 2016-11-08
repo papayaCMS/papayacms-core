@@ -251,10 +251,11 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
   }
 
   /**
-  * Append list item xml to parent xml element.
-  *
-  * @param PapayaXmlElement $parent
-  */
+   * Append list item xml to parent xml element.
+   *
+   * @param PapayaXmlElement $parent
+   * @return PapayaXmlElement
+   */
   public function appendTo(PapayaXmlElement $parent) {
     $itemNode = $parent->appendElement(
       'listitem',
@@ -286,6 +287,7 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
     }
     $itemNode->append($this->node());
     $itemNode->append($this->subitems());
+    return $itemNode;
   }
 
   /**
