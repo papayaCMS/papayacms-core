@@ -1014,7 +1014,7 @@ class dbresult_sqlite3 extends dbresult_base {
   /**
    * @var SQLite3Result
    */
-  var $result;
+  var $result = NULL;
 
   /**
    * destructor
@@ -1025,7 +1025,12 @@ class dbresult_sqlite3 extends dbresult_base {
    */
   function free() {
     if ($this->isValid()) {
-      $this->result->finalize();
+      try {
+        $this->result->finalize();
+      } catch (Exception $e) {
+      }
+      $this->result = NULL;
+    } else {
       $this->result = NULL;
     }
   }
