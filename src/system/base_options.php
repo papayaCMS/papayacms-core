@@ -169,7 +169,7 @@ class base_options extends base_db {
       '50.94794501585774, 6.944365873932838'),
 
     'PAPAYA_LAYOUT_TEMPLATES' => array(8, 'isAlphaNum', 'dircombo',
-      array('templates/', 'upload'), 'default-xhtml'),
+      array('', 'templates'), 'default-xhtml'),
     'PAPAYA_LAYOUT_THEME' => array(8, 'isAlphaNum', 'dircombo',
       array('papaya-themes/', 'page'), 'default'),
     'PAPAYA_LAYOUT_THEME_SET' => array(8, 'isAlphaNum', 'function',
