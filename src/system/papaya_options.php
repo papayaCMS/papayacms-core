@@ -190,7 +190,11 @@ class papaya_options extends base_options {
           if ($this->optionDialog->checkDialogInput() &&
               isset($this->params['id']) &&
               $this->checkOptionSpecial($this->params['id'], $this->params[$this->params['id']])) {
-            if ($this->save($this->params['id'])) {
+            $value = NULL;
+            if (isset($this->params[$this->params['id']])) {
+              $value = $this->params[$this->params['id']];
+            }
+            if ($this->save($this->params['id'], $value)) {
               $this->addMsg(MSG_INFO, $this->_gt('Option modified.'));
             } else {
               $this->addMsg(MSG_ERROR, $this->_gt('Cannot change option.'));
