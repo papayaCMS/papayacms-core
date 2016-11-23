@@ -132,7 +132,11 @@ class PapayaUiContentTeasers extends PapayaUiControl {
             'page-id' => $record['id'],
             'plugin-guid' => $record['module_guid'],
             'plugin' => get_class($plugin),
-            'href' => $reference->getRelative()
+            'href' => $reference->getRelative(),
+            'published' => PapayaUtilDate::timestampToString(
+              $record['published'] > 0 ? $record['published'] : $record['modified']
+            ),
+            'created' => PapayaUtilDate::timestampToString($record['created'])
           )
         );
         if ($plugin instanceof PapayaPluginQuoteable) {
