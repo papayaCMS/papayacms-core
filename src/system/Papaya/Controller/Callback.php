@@ -27,6 +27,9 @@
  */
 class PapayaControllerCallback implements PapayaController {
 
+  /**
+   * @var callable
+   */
   private $_callback = NULL;
 
   /**
@@ -54,6 +57,7 @@ class PapayaControllerCallback implements PapayaController {
     PapayaRequest &$request,
     PapayaResponse &$response
   ) {
-    return call_user_func($this->_callback, $application, $request, $response);
+    $callback = $this->_callback;
+    return $callback($application, $request, $response);
   }
 }
