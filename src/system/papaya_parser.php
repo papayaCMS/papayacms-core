@@ -1003,7 +1003,7 @@ class papaya_parser extends base_db {
     $containerMode = $this->papaya()->options->get('PAPAYA_MEDIA_ELEMENTS_IMAGE', 0);
     $subtitleAttributes = '';
     if ($subtitleHtml) {
-      $subtitleAttributes .= $hrefData['data-lightbox-link']
+      $subtitleAttributes .= (!empty($hrefData['data-lightbox-link']))
         ? sprintf(' data-lightbox-link="%s"', papaya_strings::escapeHTMLChars($hrefData['data-lightbox-link'])) : '';
       $subtitleHtml = '<!--googleoff: all-->'.$subtitleHtml.' <!--googleon: all-->';
       switch ($containerMode) {
