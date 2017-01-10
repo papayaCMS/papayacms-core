@@ -21,6 +21,7 @@
     "papaya/module-default": "*",
     "papaya/module-standard": "*",
 
-    "papaya/module-domains": "*"
+    "papaya/module-domains": "*",
+    "papaya/module-default-cronjobs": "*"
   }
 }
