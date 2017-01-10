@@ -109,8 +109,15 @@ class base_datafilter_list extends base_db {
             $this->contentObj->data
           );
         } elseif ($filter instanceof PapayaPluginFilterContent) {
-          $content = strip_tags(implode(' ', $this->contentObj->data));
-          $filter->prepare($content);
+          $content = '';
+          if (is_array($this->contentObj->data) || $this->contentObj->data instanceof Traversable) {
+            foreach ($this->contentObj->data as $text) {
+              if (is_scalar($text)) {
+                $content .= ' '.$text;
+              }
+            }
+          }
+          $filter->prepare(strip_tags($content));
         }
       }
     }
