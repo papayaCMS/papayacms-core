@@ -294,9 +294,10 @@ class PapayaPluginLoader extends PapayaObject {
       'vendor:' => '../vendor/',
       'src:' => '../src/'
     );
+    $documentRoot = $this->papaya()->options->get('PAPAYA_DOCUMENT_ROOT', PapayaUtilFilePath::getDocumentRoot());
     foreach ($map as $prefix => $mapPath) {
       if (0 === strpos($path, $prefix)) {
-        $basePath = PapayaUtilFilePath::getDocumentRoot().$mapPath;
+        $basePath = $documentRoot.$mapPath;
         $relativePath = substr($path, strlen($prefix));
         return PapayaUtilFilePath::cleanup(
           $basePath.$relativePath, TRUE
