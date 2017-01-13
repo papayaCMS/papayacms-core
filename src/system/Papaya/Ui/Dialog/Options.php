@@ -31,7 +31,7 @@
 * @property integer $captionStyle visibility/position of the field captions
 * @property boolean $topButtons show buttons at dialog top
 * @property boolean $bottomButtons show buttons at dialog bottom
-* @property boolean $dialogWidth larger dialogs have more space for captions
+* @property string $dialogWidth larger dialogs have more space for captions
 *
 * @package Papaya-Library
 * @subpackage Ui
@@ -58,19 +58,39 @@ class PapayaUiDialogOptions
   const CAPTION_TOP = 2;
 
   /**
-  * @var integer
-  */
-  const SIZE_SMALL = 0;
+   * @var string
+   */
+  const SIZE_XS = 's';
 
   /**
-  * @var integer
-  */
-  const SIZE_MEDIUM = 1;
+   * @var string
+   */
+  const SIZE_S = 's';
 
   /**
-  * @var integer
-  */
-  const SIZE_LARGE = 2;
+   * @var string
+   */
+  const SIZE_M = 'm';
+
+  /**
+   * @var string
+   */
+  const SIZE_L = 'l';
+
+  /**
+   * @var string
+   */
+  const SIZE_SMALL = self::SIZE_S;
+
+  /**
+   * @var string
+   */
+  const SIZE_MEDIUM = self::SIZE_M;
+
+  /**
+   * @var string
+   */
+  const SIZE_LARGE = self::SIZE_L;
 
   /**
   * Dialog option definitions: The key is the option name, the element a list of possible values.
@@ -88,7 +108,7 @@ class PapayaUiDialogOptions
     'USE_TOKEN' => array(TRUE, FALSE),
     'PROTECT_CHANGES' => array(TRUE, FALSE),
     'CAPTION_STYLE' => array(self::CAPTION_NONE, self::CAPTION_SIDE, self::CAPTION_TOP),
-    'DIALOG_WIDTH' => array(self::SIZE_SMALL, self::SIZE_MEDIUM, self::SIZE_LARGE),
+    'DIALOG_WIDTH' => array(self::SIZE_XS, self::SIZE_S, self::SIZE_M, self::SIZE_L),
     'TOP_BUTTONS' => array(TRUE, FALSE),
     'BOTTOM_BUTTONS' => array(TRUE, FALSE)
   );
