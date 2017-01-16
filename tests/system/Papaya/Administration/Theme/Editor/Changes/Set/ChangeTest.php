@@ -22,7 +22,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
           '<option name="USE_TOKEN" value="no"/>'.
           '<option name="PROTECT_CHANGES" value="yes"/>'.
           '<option name="CAPTION_STYLE" value="1"/>'.
-          '<option name="DIALOG_WIDTH" value="1"/>'.
+          '<option name="DIALOG_WIDTH" value="m"/>'.
           '<option name="TOP_BUTTONS" value="no"/>'.
           '<option name="BOTTOM_BUTTONS" value="yes"/>'.
         '</options>'.
@@ -63,7 +63,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
           '<option name="USE_TOKEN" value="no"/>'.
           '<option name="PROTECT_CHANGES" value="yes"/>'.
           '<option name="CAPTION_STYLE" value="1"/>'.
-          '<option name="DIALOG_WIDTH" value="1"/>'.
+          '<option name="DIALOG_WIDTH" value="m"/>'.
           '<option name="TOP_BUTTONS" value="no"/>'.
           '<option name="BOTTOM_BUTTONS" value="yes"/>'.
         '</options>'.
@@ -104,7 +104,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
           '<option name="USE_TOKEN" value="no"/>'.
           '<option name="PROTECT_CHANGES" value="yes"/>'.
           '<option name="CAPTION_STYLE" value="1"/>'.
-          '<option name="DIALOG_WIDTH" value="1"/>'.
+          '<option name="DIALOG_WIDTH" value="m"/>'.
           '<option name="TOP_BUTTONS" value="no"/>'.
           '<option name="BOTTOM_BUTTONS" value="yes"/>'.
         '</options>'.

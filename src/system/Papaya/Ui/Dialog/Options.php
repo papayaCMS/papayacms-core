@@ -108,7 +108,7 @@ class PapayaUiDialogOptions
     'USE_TOKEN' => array(TRUE, FALSE),
     'PROTECT_CHANGES' => array(TRUE, FALSE),
     'CAPTION_STYLE' => array(self::CAPTION_NONE, self::CAPTION_SIDE, self::CAPTION_TOP),
-    'DIALOG_WIDTH' => array(self::SIZE_XS, self::SIZE_S, self::SIZE_M, self::SIZE_L),
+    'DIALOG_WIDTH' => array(self::SIZE_M, self::SIZE_S, self::SIZE_XS,self::SIZE_L),
     'TOP_BUTTONS' => array(TRUE, FALSE),
     'BOTTOM_BUTTONS' => array(TRUE, FALSE)
   );

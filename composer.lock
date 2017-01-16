@@ -14,12 +14,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/papayaCMS/papayacms-administration.git",
-                "reference": "dd97c9366bef505239d69d6abaf399d6cc601d40"
+                "reference": "944dad947cf2771deb77e8bdcc1b7aebb442375d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/papayaCMS/papayacms-administration/zipball/dd97c9366bef505239d69d6abaf399d6cc601d40",
-                "reference": "dd97c9366bef505239d69d6abaf399d6cc601d40",
+                "url": "https://api.github.com/repos/papayaCMS/papayacms-administration/zipball/944dad947cf2771deb77e8bdcc1b7aebb442375d",
+                "reference": "944dad947cf2771deb77e8bdcc1b7aebb442375d",
                 "shasum": ""
             },
             "require": {
@@ -27,7 +27,7 @@
             },
             "type": "papaya-administration-ui",
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2016-10-28 15:09:45"
+            "time": "2017-01-13 14:36:58"
         },
         {
             "name": "papaya/composer-plugins",

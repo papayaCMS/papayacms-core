@@ -134,7 +134,8 @@ class PapayaUiContentTeasers extends PapayaUiControl {
             'plugin' => get_class($plugin),
             'href' => $reference->getRelative(),
             'published' => PapayaUtilDate::timestampToString(
-              $record['published'] > 0 ? $record['published'] : $record['modified']
+              (isset($record['published']) && $record['published'] > 0)
+                ? $record['published'] : $record['modified']
             ),
             'created' => PapayaUtilDate::timestampToString($record['created'])
           )

@@ -18,7 +18,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
           '<option name="USE_TOKEN" value="no"/>'.
           '<option name="PROTECT_CHANGES" value="yes"/>'.
           '<option name="CAPTION_STYLE" value="0"/>'.
-          '<option name="DIALOG_WIDTH" value="0"/>'.
+          '<option name="DIALOG_WIDTH" value="s"/>'.
           '<option name="TOP_BUTTONS" value="no"/>'.
           '<option name="BOTTOM_BUTTONS" value="yes"/>'.
         '</options>'.

@@ -73,7 +73,9 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
           'language_id' => 1,
           'title' => 'implementing PapayaPluginQuoteable',
           'module_guid' => '12345678901234567890123456789042',
-          'content' => 'data'
+          'content' => 'data',
+          'created' => strtotime('2017-01-16T1-:21Z'),
+          'modified' => strtotime('2017-01-16T1-:21Z')
         )
       )
     );
@@ -111,7 +113,9 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
           'language_id' => 1,
           'title' => 'calling getParsedTeaser',
           'module_guid' => '12345678901234567890123456789021',
-          'content' => 'data'
+          'content' => 'data',
+          'created' => strtotime('2017-01-16T1-:21Z'),
+          'modified' => strtotime('2017-01-16T1-:21Z')
         )
       )
     );
@@ -150,7 +154,9 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
           'language_id' => 1,
           'title' => 'invalid',
           'module_guid' => '12345678901234567890123456789023',
-          'content' => 'data'
+          'content' => 'data',
+          'created' => strtotime('2017-01-16T1-:21Z'),
+          'modified' => strtotime('2017-01-16T1-:21Z')
         )
       )
     );
@@ -184,7 +190,9 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
           'language_id' => 1,
           'title' => 'callback and thumbnails',
           'module_guid' => '12345678901234567890123456789042',
-          'content' => 'data'
+          'content' => 'data',
+          'created' => strtotime('2017-01-16T1-:21Z'),
+          'modified' => strtotime('2017-01-16T1-:21Z')
         )
       )
     );
@@ -202,6 +210,8 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
     $this->assertXmlStringEqualsXmlString(
       '<teasers>
         <teaser
+          created="1970-01-01 01:00:00+0100 Thu"
+          published="1970-01-01 01:00:00+0100 Thu"
           page-id="42"
           plugin-guid="12345678901234567890123456789042"
           plugin="PapayaUiContentTeasers_PagePluginMockClass"
