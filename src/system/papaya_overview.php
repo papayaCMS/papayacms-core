@@ -747,7 +747,7 @@ class papaya_overview extends base_db {
         'modified' => $this->_gt('modified'),
         'published' => $this->_gt('published')
       );
-      $this->modules()->load(array('type' => 'page'));
+      $this->modules()->load(array('type' => 'page', 'is_active' => TRUE));
       $modules = iterator_to_array(
         new PapayaIteratorMultiple(
           PapayaIteratorMultiple::MIT_KEYS_ASSOC,
