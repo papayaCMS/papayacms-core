@@ -26,7 +26,7 @@ if (file_exists($requestedPath)) {
   if (!(file_exists($file) && is_file($file))) {
     $file .= '/index.php';
   }
-  include($file);
+  return FALSE;
 } else {
   chdir(__DIR__);
   include(__DIR__.'/index.php');
