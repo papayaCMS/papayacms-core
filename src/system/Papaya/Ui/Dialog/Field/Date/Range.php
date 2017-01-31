@@ -94,4 +94,28 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
       return date('Y-m-d', $timestamp);
     }
   }
+
+  /**
+   * If not mandatory allow the whole value as empty or each sub value.
+   *
+   * @return NULL|PapayaFilter
+   */
+  public function getFilter() {
+    $filter = parent::getFilter();
+    if ($this->getMandatory() && isset($filter)) {
+      return $filter;
+    } elseif (isset($filter)) {
+      return new PapayaFilterLogicalOr(
+        new PapayaFilterArrayAssociative(
+          [
+            'start' => new PapayaFilterEmpty(),
+            'end' => new PapayaFilterEmpty()
+          ]
+        ),
+        $filter
+      );
+    } else {
+      return NULL;
+    }
+  }
 }
