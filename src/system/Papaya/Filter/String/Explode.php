@@ -33,7 +33,7 @@ class PapayaFilterStringExplode implements PapayaFilter {
   /**
    * @var string
    */
-  private $_separator;
+  private $_separator = ',';
 
   /**
    * @var PapayaFilter
@@ -46,9 +46,11 @@ class PapayaFilterStringExplode implements PapayaFilter {
   private $_options;
 
   public function __construct(
-    $separator = ',', PapayaFilter $elementFilter = NULL, $options = self::TRIM_TOKENS
+    $separator = NULL, PapayaFilter $elementFilter = NULL, $options = self::TRIM_TOKENS
   ) {
-    $this->_separator = $separator;
+    if (is_string($separator)) {
+      $this->_separator = $separator;
+    }
     $this->_filter = $elementFilter;
     $this->_options = $options;
   }
