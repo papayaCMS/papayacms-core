@@ -63,7 +63,7 @@ class PapayaFilterStringNormalize implements PapayaFilter {
     if (PapayaUtilBitwise::inBitmask(self::OPTION_LOWERCASE, $this->_options)) {
       $value = PapayaUtilStringUtf8::toLowerCase($value);
     }
-    return $value;
+    return $value !== '' ? $value : NULL;
   }
 
 }

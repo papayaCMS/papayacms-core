@@ -42,7 +42,7 @@ class PapayaFilterStringNormalizeTest extends PapayaTestCase {
 
   public static function provideValuesToNormalize() {
     return [
-      ['', ''],
+      [NULL, ''],
       [NULL, []],
       ['trim', ' trim '],
       ['123', ' 123 '],
