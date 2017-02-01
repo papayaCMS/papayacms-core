@@ -267,7 +267,8 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
       ),
       array(
         '((MATCH (foo) AGAINST (\' ( +bar) \' IN BOOLEAN MODE)))', array('match-boolean:foo' => 'bar')
-      )
+      ),
+      array('((((foo LIKE \'%foo%\') OR (bar LIKE \'%foo%\'))))', array('match-contains:foo,bar' => 'foo'))
     );
   }
 

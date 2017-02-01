@@ -14,7 +14,8 @@ class PapayaDatabaseConditionGenerator {
     'lessorequal' => 'isLessThanOrEqual',
     'contains' => 'contains',
     'match' => 'match',
-    'match-boolean' => 'matchBoolean'
+    'match-boolean' => 'matchBoolean',
+    'match-contains' => 'matchContains'
   );
 
   /**
