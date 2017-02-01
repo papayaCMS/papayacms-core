@@ -257,7 +257,17 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
       array('(foo < bar)', array('foo,less' => 'bar')),
       array('(foo >= bar)', array('foo,greaterOrEqual' => 'bar')),
       array('(foo <= bar)', array('foo,lessOrEqual' => 'bar')),
-      array('(foo != bar)', array('foo,notEqual' => 'bar'))
+      array('(foo != bar)', array('foo,notEqual' => 'bar')),
+      array('(foo != bar)', array('notEqual:foo' => 'bar')),
+      array('(((MATCH (foo) AGAINST (\'bar\'))))', array('match:foo' => 'bar')),
+      array('(((MATCH (f1,f2) AGAINST (\'bar\'))))', array('match:f1,f2' => 'bar')),
+      array(
+        '(((MATCH (field) AGAINST (\'foo\')) AND (MATCH (field) AGAINST (\'bar\'))))',
+        array('match:field' => 'foo bar')
+      ),
+      array(
+        '((MATCH (foo) AGAINST (\' ( +bar) \' IN BOOLEAN MODE)))', array('match-boolean:foo' => 'bar')
+      )
     );
   }
 

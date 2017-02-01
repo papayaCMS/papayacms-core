@@ -1,23 +1,28 @@
 <?php
 
-class PapayaDatabaseConditionElement {
+abstract class PapayaDatabaseConditionFulltext {
 
   private $_parent = NULL;
-  private $_field = '';
-  private $_value = '';
-
-  protected $_operator = '=';
+  protected $_fields = '';
+  protected $_searchFor = '';
 
   public function __construct(
-    PapayaDatabaseConditionGroup $parent, $field = '', $value = NULL, $operator = NULL
+    PapayaDatabaseConditionGroup $parent, $fields = '', $searchFor
   ) {
     $this->_parent = $parent;
-    $this->_field = $field;
-    $this->_value = $value;
+    $this->_fields = is_array($fields) ? $fields : [$fields];
+    $this->_searchFor = $searchFor;
     if (isset($operator)) {
       $this->_operator = $operator;
     }
   }
+
+  /**
+   * @param PapayaParserSearchString $tokens
+   * @param array|Traversable $fields
+   * @return mixed
+   */
+  abstract protected function getFullTextCondition(PapayaParserSearchString $tokens, array $fields);
 
   public function getDatabaseAccess() {
     return $this->getParent()->getDatabaseAccess();
@@ -31,33 +36,10 @@ class PapayaDatabaseConditionElement {
     return $this->_parent;
   }
 
-  public function getField() {
-    return $this->_field;
-  }
-
   public function getSql($silent = FALSE) {
     try {
-      if (is_array($this->_field)) {
-        $conditions = [];
-        foreach ($this->_field as $field) {
-          $conditions[] = $this->getDatabaseAccess()->getSqlCondition(
-            array(
-              $this->mapFieldName($field, $silent) => $this->_value
-            ),
-            NULL,
-            $this->_operator
-          );
-        }
-        return ' ('.implode(' AND ', $conditions).') ';
-      } else {
-        return $this->getDatabaseAccess()->getSqlCondition(
-          [
-            $this->mapFieldName($this->_field, $silent) => $this->_value
-          ],
-          NULL,
-          $this->_operator
-        );
-      }
+      $tokens = new PapayaParserSearchString($this->_searchFor);
+      return $this->getFullTextCondition($tokens, array_map([$this, 'mapFieldName'], $this->_fields));
     } catch (LogicException $e) {
       if (!$silent) {
         throw $e;
@@ -71,7 +53,7 @@ class PapayaDatabaseConditionElement {
     return $result ? $result : '';
   }
 
-  protected function mapFieldName($name) {
+  private function mapFieldName($name) {
     if (empty($name)) {
       throw new LogicException(
         'Can not generate condition, provided name was empty.'

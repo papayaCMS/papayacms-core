@@ -12,7 +12,9 @@ class PapayaDatabaseConditionGenerator {
     'greaterorequal' => 'isGreaterThanOrEqual',
     'less' => 'isLessThan',
     'lessorequal' => 'isLessThanOrEqual',
-    'contains' => 'contains'
+    'contains' => 'contains',
+    'match' => 'match',
+    'match-boolean' => 'matchBoolean'
   );
 
   /**
@@ -42,9 +44,14 @@ class PapayaDatabaseConditionGenerator {
 
   private function appendConditions(PapayaDatabaseConditionGroup $group, $filter, $limit = 42) {
     foreach ($filter as $key => $value) {
-      $definition = explode(',', $key);
-      $field = PapayaUtilArray::get($definition, 0, '');
-      $condition = strtoLower(PapayaUtilArray::get($definition, 1, 'equal'));
+      if (preg_match('((?<type>[\w-]+):(?<fields>.*))', $key, $match)) {
+        $condition = strtoLower($match['type']);
+        $field = FALSE !== strpos($match['fields'], ',') ? explode(',', $match['fields']) : $match['fields'];
+      } else {
+        $definition = explode(',', $key);
+        $field = PapayaUtilArray::get($definition, 0, '');
+        $condition = strtoLower(PapayaUtilArray::get($definition, 1, 'equal'));
+      }
       if ($condition == 'and' && is_array($value)) {
         $this->appendConditions($group->logicalAnd(), $value, $limit - 1);
       } elseif ($condition == 'or' && is_array($value)) {

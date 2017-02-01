@@ -85,6 +85,14 @@ class PapayaDatabaseConditionGroup
     case 'logicalnot' :
       $this->_conditions[] = $condition = new PapayaDatabaseConditionGroup($this, NULL, 'NOT');
       return $condition;
+    case 'match' :
+      list($fields, $value) = $arguments;
+      $this->_conditions[] = $condition = new PapayaDatabaseConditionFulltextMatch($this, $fields, $value);
+      return $condition;
+    case 'matchboolean' :
+      list($fields, $value) = $arguments;
+      $this->_conditions[] = $condition = new PapayaDatabaseConditionFulltextBoolean($this, $fields, $value);
+      return $condition;
     case 'contains' :
       list($field, $value) = $arguments;
       $this->_conditions[] = $condition = new PapayaDatabaseConditionContains($this, $field, $value);
