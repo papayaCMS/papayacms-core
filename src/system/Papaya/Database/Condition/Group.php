@@ -12,6 +12,9 @@
  * @method PapayaDatabaseConditionGroup isLessThan(string $field, mixed $value)
  * @method PapayaDatabaseConditionGroup isLessThanOrEqual(string $field, mixed $value)
  * @method PapayaDatabaseConditionGroup contains(string $field, mixed $value)
+ * @method PapayaDatabaseConditionGroup match(string $field, mixed $value)
+ * @method PapayaDatabaseConditionGroup matchBoolean(string $field, mixed $value)
+ * @method PapayaDatabaseConditionGroup matchContains(string $field, mixed $value)
  */
 class PapayaDatabaseConditionGroup
   extends PapayaDatabaseConditionElement
