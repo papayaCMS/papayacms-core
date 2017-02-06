@@ -131,28 +131,42 @@ class PapayaContentLanguages extends PapayaDatabaseRecords {
    * @param string|int $language
    * @return PapayaContentLanguage
    */
-  public function getLanguage($language) {
+  public function getLanguage($language, $usageFilter = self::FILTER_NONE) {
     if (is_int($language) || preg_match('(^\\d+$)D', $language)) {
       $id = (int)$language;
     } else {
       $id = 0;
     }
+    $result = NULL;
     if ($id > 0) {
       $result = new PapayaContentLanguage();
       $result->papaya($this->papaya());
       $result->setDatabaseAccess($this->getDatabaseAccess());
       if (isset($this[$id])) {
         $result->assign($this[$id]);
-        return $result;
-      } elseif ($result->load($id)) {
-        return $result;
+      } elseif (!$result->load($id)) {
+        $result = NULL;
       }
     } elseif (preg_match('(^[a-zA-Z\\d]+-[a-zA-Z\\d]+$)', $language)) {
-      return $this->getLanguageByCode($language);
+      $result = $this->getLanguageByCode($language);
     } elseif (preg_match('(^[a-zA-Z\\d]+$)', $language)) {
-      return $this->getLanguageByIdentifier($language);
+      $result = $this->getLanguageByIdentifier($language);
     }
-    return NULL;
+    if ($result) {
+      switch ($usageFilter) {
+      case self::FILTER_IS_CONTENT:
+        if (!$result['is_content']) {
+          return NULL;
+        }
+        break;
+      case self::FILTER_IS_INTERFACE:
+        if (!$result['is_interface']) {
+          return NULL;
+        }
+        break;
+      }
+    }
+    return $result;
   }
 
   /**

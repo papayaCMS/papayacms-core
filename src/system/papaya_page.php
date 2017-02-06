@@ -259,9 +259,10 @@ class papaya_page extends base_object {
     $languageId = $this->domains->getCurrentLanguageId();
     $request = $application->request;
     if ($request->languageId !== $languageId) {
-      $request->language($this->papaya()->languages->getLanguage($languageId));
+      $request->language(
+        $this->papaya()->languages->getLanguage($languageId, PapayaContentLanguages::FILTER_IS_CONTENT)
+      );
     }
-
     $options->defineDatabaseTables();
     $options->setupPaths();
     $application->messages->setUp($application->options);
@@ -1378,20 +1379,21 @@ class papaya_page extends base_object {
       !$this->isPreview() &&
       $this->contentLanguage['id'] != $this->papaya()->request->languageId
     ) {
+      $url = $this->getAbsoluteURL(
+        $this->getWebLink(
+          NULL,
+          $this->contentLanguage['identifier'],
+          NULL,
+          $this->papaya()->getObject('Request')->getParameters(
+            PapayaRequest::SOURCE_QUERY
+          ),
+          NULL,
+          $this->topic->topic['TRANSLATION']['topic_title']
+        )
+      );
       $this->doRedirect(
         301,
-        $this->getAbsoluteURL(
-          $this->getWebLink(
-            NULL,
-            $this->contentLanguage['identifier'],
-            NULL,
-            $this->papaya()->getObject('Request')->getParameters(
-              PapayaRequest::SOURCE_QUERY
-            ),
-            NULL,
-            $this->topic->topic['TRANSLATION']['topic_title']
-          )
-        ),
+        $url,
         'Invalid language'
       );
     }
