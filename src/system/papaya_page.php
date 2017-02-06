@@ -1377,7 +1377,13 @@ class papaya_page extends base_object {
     if (
       !empty($this->requestData['language']) &&
       !$this->isPreview() &&
-      $this->contentLanguage['id'] != $this->papaya()->request->languageId
+      (
+        $this->contentLanguage['id'] != $this->papaya()->request->languageId ||
+        !(
+          empty($this->requestData['language']) ||
+          $this->contentLanguage['identifier'] == $this->requestData['language']
+        )
+      )
     ) {
       $url = $this->getAbsoluteURL(
         $this->getWebLink(
