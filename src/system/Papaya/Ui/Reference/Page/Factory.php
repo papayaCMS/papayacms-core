@@ -1,33 +1,33 @@
 <?php
 /**
-* A application width object that provides data for references
-*
-* Allows to load pages and provides basic function for the working copy and publication.
-*
-* This is an abstract superclass, please use {@see PapayaContentPageWork} to modify the
-* working copy of a page or {@see PapayaContentPagePublication} to use the published page.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Factory.php 39698 2014-03-27 16:57:37Z weinert $
-*/
+ * A application width object that provides data for references
+ *
+ * Allows to load pages and provides basic function for the working copy and publication.
+ *
+ * This is an abstract superclass, please use {@see PapayaContentPageWork} to modify the
+ * working copy of a page or {@see PapayaContentPagePublication} to use the published page.
+ *
+ * @copyright 2010 by papaya Software GmbH - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ * You can redistribute and/or modify this script under the terms of the GNU General Public
+ * License (GPL) version 2, provided that the copyright and license notes, including these
+ * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ * @version $Id: Factory.php 39698 2014-03-27 16:57:37Z weinert $
+ */
 
 /**
-* A application width object that provides data for references
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
+ * A application width object that provides data for references
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
 class PapayaUiReferencePageFactory extends PapayaObject {
 
   /**
@@ -75,10 +75,10 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * Create and configure a page reference
-  *
-  * @param string $languageIdentifier
-  * @param integer $pageId
+   * Create and configure a page reference
+   *
+   * @param string $languageIdentifier
+   * @param integer $pageId
    * @return \PapayaUiReferencePage
    */
   public function get($languageIdentifier, $pageId) {
@@ -92,9 +92,9 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * Configure a given page reference
-  *
-  * @param PapayaUiReferencePage $reference
+   * Configure a given page reference
+   *
+   * @param PapayaUiReferencePage $reference
    * @return \PapayaUiReferencePage
    */
   public function configure(PapayaUiReferencePage $reference) {
@@ -132,12 +132,12 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * Prepare the page ttile to be used in the filename/url.
-  *
-  * @param string $title
-  * @param string $languageIdentifier
-  * @return string
-  */
+   * Prepare the page ttile to be used in the filename/url.
+   *
+   * @param string $title
+   * @param string $languageIdentifier
+   * @return string
+   */
   private function prepareTitle($title, $languageIdentifier) {
     return strtolower(
       PapayaUtilFile::normalizeName(
@@ -149,19 +149,19 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * Check if the object/cms is in preview mode or not
-  *
-  * @return boolean
-  */
+   * Check if the object/cms is in preview mode or not
+   *
+   * @return boolean
+   */
   public function isPreview() {
     return $this->_preview;
   }
 
   /**
-  * Set the preview stat, unset the pages subobject if needed.
-  *
-  * @param boolean $preview
-  */
+   * Set the preview stat, unset the pages subobject if needed.
+   *
+   * @param boolean $preview
+   */
   public function setPreview($preview) {
     if ($this->_preview != $preview) {
       $this->_preview = (boolean)$preview;
@@ -170,34 +170,38 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * Get the page data
-  *
-  * @param string $languageIdentifier
-  * @param integer $pageId
-  * @return array|FALSE
-  */
+   * Get the page data
+   *
+   * @param string $languageIdentifier
+   * @param integer $pageId
+   * @return array|FALSE
+   */
   public function getPageData($languageIdentifier, $pageId) {
     $languageIdentifier = $this->validateLanguageIdentifier($languageIdentifier);
     $this->lazyLoadPage($languageIdentifier, $pageId);
-    if ($this->isPageLoaded($languageIdentifier, $pageId) &&
-        is_array($this->_pageData[$languageIdentifier][$pageId])) {
+    if (
+      $this->isPageLoaded($languageIdentifier, $pageId) &&
+      is_array($this->_pageData[$languageIdentifier][$pageId])
+    ) {
       return $this->_pageData[$languageIdentifier][$pageId];
     }
     return FALSE;
   }
 
   /**
-  * Lazy load the data for given page (translation)
-  *
-  * @param string $languageIdentifier
-  * @param integer $pageId
-  */
+   * Lazy load the data for given page (translation)
+   *
+   * @param string $languageIdentifier
+   * @param integer $pageId
+   */
   private function lazyLoadPage($languageIdentifier, $pageId) {
     if (!$this->isPageLoaded($languageIdentifier, $pageId)) {
       $language = $this->languages()->getLanguageByIdentifier($languageIdentifier);
       $pages = $this->pages();
-      if ($language &&
-          $pages->load($this->getFilter($pageId, $language->id))) {
+      if (
+        $language &&
+        $pages->load($this->getFilter($pageId, $language->id))
+      ) {
         $this->_pageData[$languageIdentifier][$pageId] = isset($pages[$pageId])
           ? $pages[$pageId] : FALSE;
       }
@@ -205,12 +209,12 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * Check if the data for a given language and page id is loaded.
-  *
-  * @param string $languageIdentifier
-  * @param integer $pageId
-  * @return boolean
-  */
+   * Check if the data for a given language and page id is loaded.
+   *
+   * @param string $languageIdentifier
+   * @param integer $pageId
+   * @return boolean
+   */
   private function isPageLoaded($languageIdentifier, $pageId) {
     if (isset($this->_pageData[$languageIdentifier][$pageId])) {
       return TRUE;
@@ -220,18 +224,18 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * Get domain data for the specified language/page.
-  *
-  * TRUE means that it is the same domain and a relative url is possible
-  * FALSE means it is not accessible
-  * array() is the target domain
-  *
-  * The data ist stored for each page, so it needs to be caclulated only once for each page.
-  *
-  * @param string $languageIdentifier
-  * @param integer $pageId
-  * @return array|boolean
-  */
+   * Get domain data for the specified language/page.
+   *
+   * TRUE means that it is the same domain and a relative url is possible
+   * FALSE means it is not accessible
+   * array() is the target domain
+   *
+   * The data ist stored for each page, so it needs to be caclulated only once for each page.
+   *
+   * @param string $languageIdentifier
+   * @param integer $pageId
+   * @return array|boolean
+   */
   public function getDomainData($languageIdentifier, $pageId) {
     $result = FALSE;
     if ($pageData = $this->getPageData($languageIdentifier, $pageId)) {
@@ -242,17 +246,22 @@ class PapayaUiReferencePageFactory extends PapayaObject {
         array_push($path, $pageData['parent'], $pageData['id']);
         $domains = $this->domains()->getDomainsByPath($path);
         $current = $this->domains()->getCurrent();
-        $languageId = $this->languages()->getLanguage($languageIdentifier)->id;
+        $language = $this->languages()->getLanguage(
+          $languageIdentifier, PapayaContentLanguages::FILTER_IS_CONTENT
+        );
+        $languageId = $language ? $language->id : 0;
         if ($current &&
-            isset($domains[$current['id']]) &&
-            $this->isDomainWithLanguage($current, $languageId)) {
+          isset($domains[$current['id']]) &&
+          $this->isDomainWithLanguage($current, $languageId)) {
           // given page is accessible on current domain
           $result = TRUE;
         } else {
           // return the first domain that can show this page in the requested language
           foreach ($domains as $domain) {
-            if ($this->isDomainWithLanguage($domain, $languageId) &&
-                $this->isDomainWithoutWildcards($domain)) {
+            if (
+              $this->isDomainWithLanguage($domain, $languageId) &&
+              $this->isDomainWithoutWildcards($domain)
+            ) {
               if (!$result) {
                 $result = $domain;
               }
@@ -274,11 +283,11 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * A callback to filter out all domain with wildcards in the hostname. These domains
-  * are ambigous and can not be used as target. However it can be the current domain, so they
-  * can not be filtered on loading.
-  *
-  * @param array $domain
+   * A callback to filter out all domain with wildcards in the hostname. These domains
+   * are ambigous and can not be used as target. However it can be the current domain, so they
+   * can not be filtered on loading.
+   *
+   * @param array $domain
    * @return bool
    */
   public function isDomainWithoutWildcards($domain) {
@@ -293,12 +302,12 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * Get link attributes object for the given page
-  *
-  * @param string $languageIdentifier
-  * @param integer $pageId
-  * @return NULL|PapayaUiLinkAttributes
-  */
+   * Get link attributes object for the given page
+   *
+   * @param string $languageIdentifier
+   * @param integer $pageId
+   * @return NULL|PapayaUiLinkAttributes
+   */
   public function getLinkAttributes($languageIdentifier, $pageId) {
     if ($pageData = $this->getPageData($languageIdentifier, $pageId)) {
       $linkTypes = $this->linkTypes();
@@ -364,13 +373,13 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * set a bit in the options bitmask, depending on a true/false option value
-  *
-  * @param integer $bitmask
-  * @param integer $bit
-  * @param array $options
-  * @param string $name
-  * @param boolean $default
+   * set a bit in the options bitmask, depending on a true/false option value
+   *
+   * @param integer $bitmask
+   * @param integer $bit
+   * @param array $options
+   * @param string $name
+   * @param boolean $default
    * @return int
    */
   private function setLinkPopupOption($bitmask, $bit, $options, $name, $default = FALSE) {
@@ -381,11 +390,11 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * The pages subobject is used to load the acutal page data
-  *
-  * @param PapayaContentPages $pages
-  * @return PapayaContentPages
-  */
+   * The pages subobject is used to load the acutal page data
+   *
+   * @param PapayaContentPages $pages
+   * @return PapayaContentPages
+   */
   public function pages(PapayaContentPages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;
@@ -398,11 +407,11 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * Access to the link types
-  *
-  * @param PapayaContentLinkTypes $linkTypes
-  * @return PapayaContentLinkTypes
-  */
+   * Access to the link types
+   *
+   * @param PapayaContentLinkTypes $linkTypes
+   * @return PapayaContentLinkTypes
+   */
   public function linkTypes(PapayaContentLinkTypes $linkTypes = NULL) {
     if (isset($linkTypes)) {
       $this->_linkTypes = $linkTypes;
@@ -415,11 +424,11 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * The domains subobject is used to load get domain data for the page id
-  *
-  * @param PapayaDomains $domains
-  * @return PapayaDomains
-  */
+   * The domains subobject is used to load get domain data for the page id
+   *
+   * @param PapayaDomains $domains
+   * @return PapayaDomains
+   */
   public function domains(PapayaDomains $domains = NULL) {
     if (isset($domains)) {
       $this->_domains = $domains;
@@ -431,11 +440,11 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * Getter/Setter for a content languages record list.
-  *
-  * @param PapayaContentLanguages $languages
-  * @return PapayaContentLanguages
-  */
+   * Getter/Setter for a content languages record list.
+   *
+   * @param PapayaContentLanguages $languages
+   * @return PapayaContentLanguages
+   */
   public function languages(PapayaContentLanguages $languages = NULL) {
     if (isset($languages)) {
       $this->_languages = $languages;
@@ -446,20 +455,20 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * Validate language identifer. If the given language identifer is not valid, try to get it from
-  * the request object and if that is empty from the option. Store it in a member variable
-  * for a repeated call.
-  *
-  * @param string $languageIdentifier
-  * @return string
-  */
+   * Validate language identifer. If the given language identifer is not valid, try to get it from
+   * the request object and if that is empty from the option. Store it in a member variable
+   * for a repeated call.
+   *
+   * @param string $languageIdentifier
+   * @return string
+   */
   public function validateLanguageIdentifier($languageIdentifier) {
     $language = NULL;
     $languages = $this->languages();
     if (preg_match('(^[a-z]{1,6}$)', $languageIdentifier)) {
       $language = $languages->getLanguageByIdentifier($languageIdentifier);
     }
-    if (!$language) {
+    if (!($language && $language->isContent)) {
       if (isset($this->_currentLanguage)) {
         return $this->_currentLanguage->identifier;
       }
@@ -468,9 +477,10 @@ class PapayaUiReferencePageFactory extends PapayaObject {
           'language', '', NULL, PapayaRequest::SOURCE_PATH
         )
       );
-      if (!$language) {
+      if (!($language && $language->isContent)) {
         $language = $languages->getLanguage(
-          $this->papaya()->options->get('PAPAYA_CONTENT_LANGUAGE', 1)
+          $this->papaya()->options->get('PAPAYA_CONTENT_LANGUAGE', 1),
+          PapayaContentLanguages::FILTER_IS_CONTENT
         );
       }
       $this->_currentLanguage = $language;
@@ -479,19 +489,13 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   }
 
   /**
-  * Preload page data for a given list of page ids
-  *
-  * @param string|integer $language Identifier or id
-  * @param array $pageIds
-  */
+   * Preload page data for a given list of page ids
+   *
+   * @param string|integer $language Identifier or id
+   * @param array $pageIds
+   */
   public function preload($language, array $pageIds) {
-    if (is_int($language)) {
-      $language = $this->languages()->getLanguage($language);
-    } else {
-      $language = $this->languages()->getLanguageByIdentifier(
-        $this->validateLanguageIdentifier($language)
-      );
-    }
+    $language = $this->languages()->getLanguage($language, PapayaContentLanguages::FILTER_IS_CONTENT);
     if ($language) {
       if (isset($this->_pageData[$language->identifier])) {
         $pageIds = array_values(
@@ -499,8 +503,10 @@ class PapayaUiReferencePageFactory extends PapayaObject {
         );
       }
       $pages = $this->pages();
-      if (!empty($pageIds) &&
-          $pages->load($this->getFilter($pageIds, $language->id))) {
+      if (
+        !empty($pageIds) &&
+        $pages->load($this->getFilter($pageIds, $language->id))
+      ) {
         foreach ($pageIds as $pageId) {
           $this->_pageData[$language->identifier][$pageId] =
             isset($pages[$pageId]) ? $pages[$pageId] : FALSE;

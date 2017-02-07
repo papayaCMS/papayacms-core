@@ -1140,7 +1140,8 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
         $this->returnValueMap(
           array(
             array('id', 2),
-            array('identifier', 'de')
+            array('identifier', 'de'),
+            array('isContent', TRUE)
           )
         )
       );
@@ -1163,10 +1164,10 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
       ->will(
         $this->returnValueMap(
           array(
-            array(2, $languageGerman),
-            array('de', $languageGerman),
-            array(1, NULL),
-            array(0, NULL)
+            array(2, PapayaContentLanguages::FILTER_IS_CONTENT, $languageGerman),
+            array('de', PapayaContentLanguages::FILTER_IS_CONTENT, $languageGerman),
+            array(1, PapayaContentLanguages::FILTER_IS_CONTENT, NULL),
+            array(0, PapayaContentLanguages::FILTER_IS_CONTENT, NULL)
           )
         )
       );
