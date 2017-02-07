@@ -1374,15 +1374,13 @@ class papaya_page extends base_object {
   */
   function getPage() {
     $this->contentLanguage = $this->topic->currentLanguage;
+    $requestedLanguage = $this->papaya()->request->getParameter('language', '');
     if (
-      !empty($this->requestData['language']) &&
       !$this->isPreview() &&
+      !empty($requestedLanguage) &&
       (
         $this->contentLanguage['id'] != $this->papaya()->request->languageId ||
-        !(
-          empty($this->requestData['language']) ||
-          $this->contentLanguage['identifier'] == $this->requestData['language']
-        )
+        $this->contentLanguage['identifier'] != $requestedLanguage
       )
     ) {
       $url = $this->getAbsoluteURL(
