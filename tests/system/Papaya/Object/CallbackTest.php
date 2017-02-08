@@ -35,6 +35,20 @@ class PapayaObjectCallbackTest extends PapayaTestCase {
   }
 
   /**
+   * @covers PapayaObjectCallback::execute
+   */
+  public function testExecuteWithDefinedCallbackWithoutContext() {
+    $callback = new PapayaObjectCallback(NULL);
+    $callback->callback = array($this, 'callbackSampleNoContext');
+    $callback->context->prefix = 'foo';
+    $this->assertEquals('bar', $callback->execute('bar'));
+  }
+
+  public function callbackSampleNoContext($argument) {
+    return $argument;
+  }
+
+  /**
   * @covers PapayaObjectCallback::__isset
   * @covers PapayaObjectCallback::getPropertyName
   */

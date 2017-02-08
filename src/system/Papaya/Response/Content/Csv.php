@@ -37,13 +37,45 @@ class PapayaResponseContentCsv implements PapayaResponseContent {
   private $_encodedLinebreak = '\\n';
 
   /**
-   * @param Traversable $traversable
-   * @param string $lineEnd
+   * @var array
    */
-  public function __construct(Traversable $traversable, array $columns = NULL, callable $onMapValue = NULL) {
+  private $_columns;
+  /**
+   * @var callable
+   */
+  private $_onMapValue;
+
+  /**
+   * @var PapayaResponseContentCsvCallbacks
+   */
+  private $_callbacks;
+
+  /**
+   * @param Traversable $traversable
+   * @param array $columns
+   */
+  public function __construct(Traversable $traversable, array $columns = NULL) {
     $this->_traversable = $traversable;
     $this->_columns = $columns;
-    $this->_onMapValue = $onMapValue ?: function($value) { return $value; };
+  }
+
+  /**
+   * Getter/Setter for the callbacks, if you set your own callback object, make sure it has the
+   * needed definitions.
+   *
+   * @param PapayaResponseContentCsvCallbacks $callbacks
+   * @return PapayaResponseContentCsvCallbacks
+   */
+  public function callbacks(PapayaResponseContentCsvCallbacks $callbacks = NULL) {
+    if (isset($callbacks)) {
+      $this->_callbacks = $callbacks;
+    }
+    if (is_null($this->_callbacks)) {
+      $this->_callbacks = new PapayaResponseContentCsvCallbacks();
+      $this->_callbacks->onMapRow = function($value) { return $value; };
+      $this->_callbacks->onMapField = function($value) { return $value; };
+    }
+    return $this->_callbacks;
   }
 
   /**
@@ -61,15 +93,16 @@ class PapayaResponseContentCsv implements PapayaResponseContent {
    * @return string
    */
   public function output() {
-    $onMapValue = $this->_onMapValue;
+    $callbacks = $this->callbacks();
     if (is_array($this->_columns)) {
       $this->outputCSVLine($this->_columns);
       flush();
       foreach ($this->_traversable as $values) {
+        $values = $callbacks->onMapRow($values);
         $row = [];
         foreach ($this->_columns as $key => $label) {
           if (isset($values[$key])) {
-            $row[] = $onMapValue($values[$key], $key);
+            $row[] = $callbacks->onMapField($values[$key], $key);
           } else {
             $row[] = '';
           }
@@ -79,9 +112,10 @@ class PapayaResponseContentCsv implements PapayaResponseContent {
       }
     } else {
       foreach ($this->_traversable as $values) {
+        $values = $callbacks->onMapRow($values);
         $row = [];
         foreach ($values as $key => $value) {
-          $row[] = $onMapValue($value, $key);
+          $row[] = $callbacks->onMapField($value, $key);
         }
         echo $this->outputCSVLine($row);
         flush();
@@ -90,12 +124,12 @@ class PapayaResponseContentCsv implements PapayaResponseContent {
   }
 
   private function outputCSVLine($values) {
-    $seperator = FALSE;
+    $separator = FALSE;
     foreach (array_values($values) as $value) {
-      if ($seperator) {
-        echo $seperator;
+      if ($separator) {
+        echo $separator;
       } else {
-        $seperator = $this->_separator;
+        $separator = $this->_separator;
       }
       echo $this->csvQuote($value);
     }

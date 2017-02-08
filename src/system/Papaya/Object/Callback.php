@@ -51,13 +51,20 @@ class PapayaObjectCallback {
   private $_context = NULL;
 
   /**
-  * Create callback object, set default return value and create context object.
-  *
-  * @param mixed $defaultReturn
-  */
-  public function __construct($defaultReturn = NULL) {
+   * @var bool
+   */
+  private $_addContext = TRUE;
+
+  /**
+   * Create callback object, set default return value and create context object.
+   *
+   * @param mixed $defaultReturn
+   * @param bool $addContext
+   */
+  public function __construct($defaultReturn = NULL, $addContext = TRUE) {
     $this->_defaultReturn = $defaultReturn;
     $this->_context = new stdClass();
+    $this->_addContext = (bool)$addContext;
   }
 
   /**
@@ -68,7 +75,9 @@ class PapayaObjectCallback {
   public function execute() {
     if (isset($this->_callback)) {
       $arguments = func_get_args();
-      array_unshift($arguments, $this->_context);
+      if ($this->_addContext) {
+        array_unshift($arguments, $this->_context);
+      }
       return call_user_func_array($this->_callback, $arguments);
     } else {
       return $this->_defaultReturn;

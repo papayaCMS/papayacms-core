@@ -76,4 +76,29 @@ class PapayaResponseContentCsvTest extends PapayaTestCase {
     );
   }
 
+  /**
+   * @covers PapayaResponseContentFile::output
+   */
+  public function testOutputMappingRowAndField() {
+    $content = new PapayaResponseContentCsv(
+      new ArrayIterator([1, 2])
+    );
+    $content->callbacks()->onMapRow = function($original) {
+      $data = [
+        1 => ['one', $original],
+        2 => ['two', $original]
+      ];
+      return $data[$original];
+    };
+    $content->callbacks()->onMapField = function($original) {
+      return strtoupper($original);
+    };
+    ob_start();
+    $content->output();
+    $this->assertEquals(
+      "ONE,1\r\nTWO,2\r\n",
+      ob_get_clean()
+    );
+  }
+
 }

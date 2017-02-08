@@ -42,11 +42,18 @@ class PapayaObjectCallbacks implements IteratorAggregate {
   private $_defaults = array();
 
   /**
-  * Create list and initialize callbacks and default return values.
-  *
-  * @param array $definitions
-  */
-  public function __construct(array $definitions) {
+   * @var bool
+   */
+  private $_addContext = TRUE;
+
+  /**
+   * Create list and initialize callbacks and default return values.
+   *
+   * @param array $definitions
+   * @param bool $addContext Add the context as first argument
+   */
+  public function __construct(array $definitions, $addContext = TRUE) {
+    $this->_addContext = (bool)$addContext;
     $this->defineCallbacks($definitions);
   }
 
@@ -74,7 +81,7 @@ class PapayaObjectCallbacks implements IteratorAggregate {
           )
         );
       }
-      $this->_callbacks[$name] = new PapayaObjectCallback($defaultReturn);
+      $this->_callbacks[$name] = new PapayaObjectCallback($defaultReturn, $this->_addContext);
       $this->_defaults[$name] = $defaultReturn;
     }
   }
@@ -111,7 +118,7 @@ class PapayaObjectCallbacks implements IteratorAggregate {
   public function __set($name, $callback) {
     $this->validateName($name);
     if (is_null($callback)) {
-      $this->_callbacks[$name] = new PapayaObjectCallback($this->_defaults[$name]);
+      $this->_callbacks[$name] = new PapayaObjectCallback($this->_defaults[$name], $this->_addContext);
     } elseif ($callback instanceof PapayaObjectCallback) {
       $this->_callbacks[$name] = $callback;
     } elseif (is_callable($callback)) {
