@@ -1645,9 +1645,22 @@ class base_topic_edit extends base_topic {
               if (FALSE !== $this->databaseDeleteRecord($this->tableTopicsVersions, $filter)) {
                 //delete page
                 if (FALSE !== $this->databaseDeleteRecord($this->tableTopicsTrans, $filter)) {
-                  return FALSE !== $this->databaseDeleteRecord(
-                    $this->tableTopics, $filter
-                  );
+                  if (FALSE !== $this->databaseDeleteRecord($this->tableTopics, $filter)) {
+
+                    $actionsConnector = $this
+                        ->papaya()
+                        ->plugins
+                        ->get('79f18e7c40824a0f975363346716ff62');
+
+                    if (is_object($actionsConnector)) {
+                      $actionsConnector->call(
+                          'default',
+                          'onDeletePages',
+                          ['topic_ids' => $ids]
+                      );
+                    }
+                    return TRUE;
+                  }
                 }
               }
             }
