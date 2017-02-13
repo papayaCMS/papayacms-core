@@ -1635,6 +1635,8 @@ class base_topic_edit extends base_topic {
     }
     if (isset($ids) && is_array($ids)) {
       $filter = array("topic_id" => $ids);
+
+      $topicTranslations = $this->loadTopicTranslations($ids);
       //delete boxes
       if (FALSE !== $this->databaseDeleteRecord($this->tableBoxesLinks, $filter)) {
         //delete public pages
@@ -1656,7 +1658,7 @@ class base_topic_edit extends base_topic {
                       $actionsConnector->call(
                           'default',
                           'onDeletePages',
-                          ['topic_ids' => $ids]
+                          ['topic_ids' => $ids, 'topic_translations' => $topicTranslations]
                       );
                     }
                     return TRUE;
@@ -1669,6 +1671,30 @@ class base_topic_edit extends base_topic {
       }
     }
     return FALSE;
+  }
+
+  /**
+   * Load page translations, topic id with language id
+   * @param array $topicIds
+   * @return array
+   */
+  public function loadTopicTranslations($topicIds) {
+    $topicTranslations = [];
+
+    $filter = str_replace('%', '%%', $this->databaseGetSqlCondition('topic_id', $topicIds));
+
+    $sql = "SELECT topic_id, lng_id
+              FROM %s
+             WHERE $filter";
+    $parameters = [
+        $this->databaseGetTableName('topic_public_trans')
+    ];
+    if ($res = $this->databaseQueryFmt($sql, $parameters)) {
+      while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
+        $topicTranslations[] = $row;
+      }
+    }
+    return $topicTranslations;
   }
 
   /**
