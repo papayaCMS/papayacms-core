@@ -145,6 +145,28 @@ class PapayaSessionIdTest extends PapayaTestCase {
   }
 
   /**
+   * @covers PapayaSessionId::_readCookie
+   * @covers PapayaSessionId::_isCookieUnique
+   * @backupGlobals enabled
+   * @dataProvider provideAmbiguousCookieStrings
+   */
+  public function testGetIdWithTwoCookiesWithTheSameValue($cookieString) {
+    $request = $this->getParameterStubFixture(
+      array(
+        PapayaRequest::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
+      )
+    );
+    $_SERVER['HTTP_COOKIE'] = 'sample=25b482735512613d6b61983c400bd3d9; sample=25b482735512613d6b61983c400bd3d9';
+    $sid = new PapayaSessionId('sample');
+    $sid->papaya(
+      $this->mockPapaya()->application(array('Request' => $request))
+    );
+    $this->assertEquals(
+      '25b482735512613d6b61983c400bd3d9', $sid->getId()
+    );
+  }
+
+  /**
   * @covers PapayaSessionId::getId
   * @covers PapayaSessionId::_readCookie
   * @covers PapayaSessionId::_readPath
@@ -301,8 +323,11 @@ class PapayaSessionIdTest extends PapayaTestCase {
 
   public static function provideAmbiguousCookieStrings() {
     return array(
-      'duplicate' => array(
+      'two cookies' => array(
         'sample=25b482735512613d6b61983c400bd3d9; sample=e3ad802bfca87740d29ddc43c4397c44'
+      ),
+      'three cookies, two exact duplicates' => array(
+        'sample=25b482735512613d6b61983c400bd3d9; sample=25b482735512613d6b61983c400bd3d9; sample=e3ad802bfca87740d29ddc43c4397c44'
       )
     );
   }

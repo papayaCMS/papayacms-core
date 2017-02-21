@@ -196,11 +196,11 @@ class PapayaSessionId extends PapayaObject {
   * @return boolean
   */
   public function _isCookieUnique() {
-    $pattern = '((?:^|;\s*)'.preg_quote($this->_name).'=)';
+    $pattern = '((?:^|;\s*)'.preg_quote($this->_name).'=(?<sid>[^\s;=]+))';
     if (!empty($_SERVER['HTTP_COOKIE']) &&
         substr_count($_SERVER['HTTP_COOKIE'], $this->_name.'=') > 1 &&
-        preg_match_all($pattern, $_SERVER['HTTP_COOKIE'], $cookieMatches, PREG_SET_ORDER)) {
-      if (count($cookieMatches) > 1) {
+        preg_match_all($pattern, $_SERVER['HTTP_COOKIE'], $cookieMatches, PREG_PATTERN_ORDER)) {
+      if (count(array_unique($cookieMatches['sid'])) > 1) {
         return FALSE;
       }
     }
