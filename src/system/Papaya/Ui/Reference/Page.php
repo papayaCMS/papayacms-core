@@ -57,7 +57,7 @@ class PapayaUiReferencePage extends PapayaUiReference {
    * @return string
    */
   public function get($forPublic = FALSE) {
-    $result = $this->cleanupPath($this->url()->getHostUrl().$this->_basePath);
+    $result = $this->cleanupPath($this->url()->getHostUrl().$this->_basePath, $forPublic);
     if (!$this->isStartPage()) {
       $result .= $this->_pageData['title'];
       if ($this->_pageData['category_id'] > 0) {
