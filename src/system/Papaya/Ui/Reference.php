@@ -146,14 +146,28 @@ class PapayaUiReference extends PapayaObject {
   }
 
   /**
-  * Get reference string
-  * @return string
-  */
-  public function get() {
+   * Get reference string
+   * @param bool $forPublic URL is for public use (do not include the session id)
+   * @return string
+   */
+  public function get($forPublic = FALSE) {
     if (!$this->valid()) {
       return '';
     }
-    return $this->url()->getPathUrl().$this->getQueryString().$this->getFragment();
+    return $this->cleanupPath($this->url()->getPathUrl(), $forPublic).$this->getQueryString($forPublic).$this->getFragment();
+  }
+
+  /**
+   * @param $path
+   * @param bool $forPublic URL is for public use (do not include the session id)
+   * @return string
+   */
+  protected function cleanupPath($path, $forPublic = FALSE) {
+    $sessionParameterName = isset($this->papaya()->session) ? $this->papaya()->session->name : 'sid';
+    if ($forPublic && $sessionParameterName !== '') {
+      return preg_replace('(/'.preg_quote($sessionParameterName).'[^/?#]+)', '', $path);
+    }
+    return $path;
   }
 
   /**
@@ -256,12 +270,20 @@ class PapayaUiReference extends PapayaObject {
   }
 
   /**
-  * Get reference query string prefixed by "?"
-  * @return string
-  */
-  public function getQueryString() {
+   * Get reference query string prefixed by "?"
+   * @param bool $forPublic remove session id parameter for public urls
+   * @return string
+   */
+  public function getQueryString($forPublic = FALSE) {
     if (isset($this->_parametersObject)) {
-      $queryString = $this->_parametersObject->getQueryString(
+      $sessionParameterName = isset($this->papaya()->session) ? $this->papaya()->session->name : 'sid';
+      if ($forPublic && $this->_parametersObject->has($sessionParameterName)) {
+        $parameters = clone $this->_parametersObject;
+        unset($parameters[$sessionParameterName]);
+      } else {
+        $parameters = $this->_parametersObject;
+      }
+      $queryString = $parameters->getQueryString(
         $this->_parameterGroupSeparator
       );
       return empty($queryString) ? '' : '?'.$queryString;

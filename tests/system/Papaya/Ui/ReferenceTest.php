@@ -184,6 +184,22 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   }
 
   /**
+   * @covers PapayaUiReference::get
+   */
+  public function testGetRemoveSessionIdFromPath() {
+    $url = $this->getMock('PapayaUrl');
+    $url->expects($this->once())
+        ->method('getPathUrl')
+        ->will($this->returnValue('http://www.sample.tld/sid123456/path/file.html'));
+    $reference = new PapayaUiReference();
+    $reference->url($url);
+    $this->assertEquals(
+      'http://www.sample.tld/path/file.html',
+      $reference->get(TRUE)
+    );
+  }
+
+  /**
   * @covers PapayaUiReference::get
   */
   public function testGetWithQueryString() {
@@ -197,6 +213,23 @@ class PapayaUiReferenceTest extends PapayaTestCase {
     $this->assertEquals(
       'http://www.sample.tld/path/file.html?arg=1',
       $reference->get()
+    );
+  }
+
+  /**
+   * @covers PapayaUiReference::get
+   */
+  public function testGetWithQueryStringRemoveSessionIdFromParameters() {
+    $url = $this->getMock('PapayaUrl');
+    $url->expects($this->once())
+        ->method('getPathUrl')
+        ->will($this->returnValue('http://www.sample.tld/sid123456/path/file.html'));
+    $reference = new PapayaUiReference();
+    $reference->url($url);
+    $reference->setParameters(array('arg' => 1, 'sid' => '1234'));
+    $this->assertEquals(
+      'http://www.sample.tld/path/file.html?arg=1',
+      $reference->get(TRUE)
     );
   }
 

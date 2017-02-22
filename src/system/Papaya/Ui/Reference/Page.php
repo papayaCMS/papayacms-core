@@ -52,10 +52,12 @@ class PapayaUiReferencePage extends PapayaUiReference {
   }
 
   /**
-  * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#get()
-  */
-  public function get() {
-    $result = $this->url()->getHostUrl().$this->_basePath;
+   * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#get()
+   * @param bool $forPublic
+   * @return string
+   */
+  public function get($forPublic = FALSE) {
+    $result = $this->cleanupPath($this->url()->getHostUrl().$this->_basePath);
     if (!$this->isStartPage()) {
       $result .= $this->_pageData['title'];
       if ($this->_pageData['category_id'] > 0) {
