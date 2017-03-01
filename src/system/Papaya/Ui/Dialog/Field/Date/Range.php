@@ -5,6 +5,11 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
   private $_includeTime = FALSE;
 
   /**
+   * @var Traversable additional labels for the field
+   */
+  private $_labels;
+
+  /**
    * Creates dialog field for date range, two inputs for a start and an end value
    *
    * @param string|PapayaUiString $caption
@@ -55,6 +60,10 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
       $end = PapayaUtilDate::stringToTimestamp($values['end']);
     }
     $group = $field->appendElement('group');
+    $labels = $group->appendElement('labels');
+    foreach ($this->labels() as $id => $label) {
+      $labels->appendElement('label', ['for' => $id ], $label);
+    }
     $group->appendElement(
       'input',
       [
@@ -76,6 +85,26 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
         $end, $this->_includeTime != PapayaFilterDate::DATE_NO_TIME
       )
     );
+  }
+
+  public function labels(Traversable $labels = NULL) {
+    if (isset($labels)) {
+      $this->_labels = $labels;
+    } elseif (NULL === $this->_labels) {
+      if ($this->papaya()->request->isAdministration) {
+        $this->_labels = new PapayaUiStringTranslatedList(
+          [
+            'page-in' => 'In',
+            'page-fromto' => 'From/To',
+            'page-from' => 'From',
+            'page-to' => 'To'
+          ]
+        );
+      } else {
+        $this->_labels = new EmptyIterator();
+      }
+    }
+    return $this->_labels;
   }
 
   /**

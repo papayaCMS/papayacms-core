@@ -177,6 +177,8 @@ class PapayaRequest
       return $this->getParameter(
         'preview', FALSE, NULL, PapayaRequest::SOURCE_PATH
       );
+    case 'isAdministration' :
+      return defined('PAPAYA_ADMIN_PAGE') && constant('PAPAYA_ADMIN_PAGE');
     case 'content' :
       return $this->content();
     case 'contentLength' :
