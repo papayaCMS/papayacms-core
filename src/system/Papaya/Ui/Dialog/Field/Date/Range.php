@@ -94,7 +94,7 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
       if ($this->papaya()->request->isAdministration) {
         $this->_labels = new PapayaUiStringTranslatedList(
           [
-            'page-in' => 'In',
+            'page-in' => 'In (Year: YYYY, Year-Month: YYYY-MM)',
             'page-fromto' => 'From/To',
             'page-from' => 'From',
             'page-to' => 'To'
