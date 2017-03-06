@@ -39,8 +39,14 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
     $this->setFilter(
       new PapayaFilterArrayAssociative(
         [
-          'start' => new PapayaFilterDate($this->_includeTime),
-          'end' => new PapayaFilterDate($this->_includeTime),
+          'start' => new PapayaFilterLogicalOr(
+            new PapayaFilterEmpty(),
+            new PapayaFilterDate($this->_includeTime)
+          ),
+          'end' => new PapayaFilterLogicalOr(
+            new PapayaFilterEmpty(),
+            new PapayaFilterDate($this->_includeTime)
+          ),
           'mode' => new PapayaFilterLogicalOr(
             new PapayaFilterEmpty(),
             new PapayaFilterList(['fromTo', 'in', 'from', 'to'])
@@ -57,10 +63,13 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
       'data-include-time', ($this->_includeTime == PapayaFilterDate::DATE_NO_TIME) ? 'false' : 'true'
     );
     $fieldName = $this->getName();
+    $values = $this->getCurrentValue();
     $start = '';
     $end = '';
-    if ($values = $this->getCurrentValue()) {
+    if (!empty($values['start'])) {
       $start = PapayaUtilDate::stringToTimestamp($values['start']);
+    }
+    if (!empty($values['end'])) {
       $end = PapayaUtilDate::stringToTimestamp($values['end']);
     }
     $group = $field->appendElement('group');
