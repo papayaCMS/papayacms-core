@@ -40,7 +40,11 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
       new PapayaFilterArrayAssociative(
         [
           'start' => new PapayaFilterDate($this->_includeTime),
-          'end' => new PapayaFilterDate($this->_includeTime)
+          'end' => new PapayaFilterDate($this->_includeTime),
+          'mode' => new PapayaFilterLogicalOr(
+            new PapayaFilterEmpty(),
+            new PapayaFilterList(['fromTo', 'in', 'from', 'to'])
+          )
         ]
       )
     );
@@ -64,6 +68,10 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
     foreach ($this->labels() as $id => $label) {
       $labels->appendElement('label', ['for' => $id ], $label);
     }
+    $group->setAttribute(
+      'data-selected-page',
+      empty($values['mode']) ? 'fromTo' : $values['mode']
+    );
     $group->appendElement(
       'input',
       [
@@ -138,7 +146,8 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
         new PapayaFilterArrayAssociative(
           [
             'start' => new PapayaFilterEmpty(),
-            'end' => new PapayaFilterEmpty()
+            'end' => new PapayaFilterEmpty(),
+            'mode' => new PapayaFilterEmpty()
           ]
         ),
         $filter
