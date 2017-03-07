@@ -94,10 +94,10 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
       if ($this->papaya()->request->isAdministration) {
         $this->_labels = new PapayaUiStringTranslatedList(
           [
-            'page-in' => 'In',
-            'page-fromto' => 'From/To',
-            'page-from' => 'From',
-            'page-to' => 'To'
+            'page-in' => 'In (Year, Year-Month)',
+            'page-fromto' => 'Date Between',
+            'page-from' => 'Date After',
+            'page-to' => 'Date Before'
           ]
         );
       } else {
