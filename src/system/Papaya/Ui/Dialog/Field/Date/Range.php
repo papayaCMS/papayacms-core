@@ -39,8 +39,18 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
     $this->setFilter(
       new PapayaFilterArrayAssociative(
         [
-          'start' => new PapayaFilterDate($this->_includeTime),
-          'end' => new PapayaFilterDate($this->_includeTime)
+          'start' => new PapayaFilterLogicalOr(
+            new PapayaFilterEmpty(),
+            new PapayaFilterDate($this->_includeTime)
+          ),
+          'end' => new PapayaFilterLogicalOr(
+            new PapayaFilterEmpty(),
+            new PapayaFilterDate($this->_includeTime)
+          ),
+          'mode' => new PapayaFilterLogicalOr(
+            new PapayaFilterEmpty(),
+            new PapayaFilterList(['fromTo', 'in', 'from', 'to'])
+          )
         ]
       )
     );
@@ -53,10 +63,13 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
       'data-include-time', ($this->_includeTime == PapayaFilterDate::DATE_NO_TIME) ? 'false' : 'true'
     );
     $fieldName = $this->getName();
+    $values = $this->getCurrentValue();
     $start = '';
     $end = '';
-    if ($values = $this->getCurrentValue()) {
+    if (!empty($values['start'])) {
       $start = PapayaUtilDate::stringToTimestamp($values['start']);
+    }
+    if (!empty($values['end'])) {
       $end = PapayaUtilDate::stringToTimestamp($values['end']);
     }
     $group = $field->appendElement('group');
@@ -64,6 +77,10 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
     foreach ($this->labels() as $id => $label) {
       $labels->appendElement('label', ['for' => $id ], $label);
     }
+    $group->setAttribute(
+      'data-selected-page',
+      empty($values['mode']) ? 'fromTo' : $values['mode']
+    );
     $group->appendElement(
       'input',
       [
@@ -138,7 +155,8 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
         new PapayaFilterArrayAssociative(
           [
             'start' => new PapayaFilterEmpty(),
-            'end' => new PapayaFilterEmpty()
+            'end' => new PapayaFilterEmpty(),
+            'mode' => new PapayaFilterEmpty()
           ]
         ),
         $filter
