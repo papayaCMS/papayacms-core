@@ -74,6 +74,8 @@ class PapayaParserTagImage extends PapayaParserTag {
     $attributes = [];
     if (!empty($this->_source)) {
       $attributes['src'] = $this->_source;
+    } else {
+      return;
     }
     if ($this->_width > 0) {
       $attributes['width'] = $this->_width;
