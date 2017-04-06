@@ -81,10 +81,10 @@ class PapayaUiDialogFieldBuilderArray {
     'dircombo' => 'select_directory',
     'simplerichtext' => 'richtext_simple',
     'individualrichtext' => 'richtext_individual',
-    'mediafile' => 'media_file',
-    'mediaimage' => 'media_image',
-    'imagefixed' => 'media_image',
-    'image' => 'media_image_resized'
+    'mediafile' => 'input_media_file',
+    'mediaimage' => 'input_media_image',
+    'imagefixed' => 'input_media_image',
+    'image' => 'input_media_image_resized'
   );
 
   /**
