@@ -78,11 +78,17 @@ class PapayaXmlXpath extends DOMXpath {
    */
   public function evaluate($expression, DOMNode $contextnode = NULL, $registerNodeNS = NULL) {
     if ($registerNodeNS || (NULL === $registerNodeNS && $this->_registerNodeNamespaces)) {
-      return isset($contextnode)
+      $result = isset($contextnode)
         ? parent::evaluate($expression, $contextnode)
         : parent::evaluate($expression);
+    } else {
+      $result = parent::evaluate($expression, $contextnode, FALSE);
     }
-    return parent::evaluate($expression, $contextnode, FALSE);
+    if (is_float($result) && is_nan($result)) {
+      return 0.0;
+    } else {
+      return $result;
+    }
   }
 
   /**
