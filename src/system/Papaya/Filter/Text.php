@@ -73,7 +73,7 @@ class PapayaFilterText implements PapayaFilter {
    * @return TRUE
    */
   public function validate($value) {
-    if (trim($value) == '') {
+    if (trim($value) == '' || is_null($value) || is_array($value)) {
       throw new PapayaFilterExceptionEmpty();
     }
     $pattern = $this->getPattern();
