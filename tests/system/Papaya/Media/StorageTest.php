@@ -19,6 +19,7 @@ class PapayaMediaStorageTest extends PapayaTestCase {
   public function testGetServiceWithConfiguration() {
     $configuration = $this->mockPapaya()->options();
     $service = PapayaMediaStorage::getService('file', $configuration, FALSE);
+    $this->assertTrue($service instanceof PapayaMediaStorageService);
   }
 
   public function testGetServiceNonStatic() {

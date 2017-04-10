@@ -51,9 +51,11 @@ class PapayaUiReferenceThumbnail extends PapayaUiReference {
   }
 
   /**
-  * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#get()
-  */
-  public function get() {
+   * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#get()
+   * @param bool $forPublic
+   * @return null|string
+   */
+  public function get($forPublic = FALSE) {
     if (!empty($this->_pageData['media_id'])) {
       $result = $this->url()->getHostUrl().$this->_basePath;
       $result .= $this->_pageData['title'];
@@ -62,7 +64,7 @@ class PapayaUiReferenceThumbnail extends PapayaUiReference {
       } else {
         $result .= '.media';
       }
-      if ($this->_pageData['preview']) {
+      if ((!$forPublic) && $this->_pageData['preview']) {
         $result .= '.preview';
       }
       $result .= '.'.$this->_pageData['media_id'];

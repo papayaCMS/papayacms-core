@@ -335,9 +335,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   */
   public function testMagicMethodsGetForUndefinedProperty() {
     $engine = new PapayaTemplateEngine_TestProxy();
-    $this->setExpectedException(
-      'PHPUnit_Framework_Error_Notice'
-    );
+    $this->expectError(E_NOTICE);
     $engine->dynamic_property;
   }
 

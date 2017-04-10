@@ -438,7 +438,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
     $context
       ->expects($this->exactly(2))
       ->method('getRow')
-      ->with($this->isType(PHPUnit_Framework_Constraint_IsType::TYPE_INT))
+      ->withConsecutive([0], [1])
       ->will(
         $this->onConsecutiveCalls(
           $this->returnValue(array('1.1', '1.2')),

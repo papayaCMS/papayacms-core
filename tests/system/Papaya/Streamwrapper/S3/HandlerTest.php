@@ -184,7 +184,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
       ->method('close');
     $handler = new PapayaStreamwrapperS3Handler();
     $handler->setHTTPClient($client);
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
+    $this->expectError(E_WARNING);
     $handler->getFileInformations(
       self::$_testFile,
       STREAM_REPORT_ERRORS
@@ -227,7 +227,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
       ->method('close');
     $handler = new PapayaStreamwrapperS3Handler();
     $handler->setHTTPClient($client);
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
+    $this->expectError(E_WARNING);
     $handler->getFileInformations(
       self::$_testFile,
       STREAM_REPORT_ERRORS
@@ -678,7 +678,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
     $handler = new PapayaStreamwrapperS3Handler();
     $handler->setHTTPClient($client);
     $handler->openWriteFile(self::$_testFile, STREAM_REPORT_ERRORS);
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
+    $this->expectError(E_WARNING);
     $handler->closeWriteFile(STREAM_REPORT_ERRORS);
   }
 
@@ -712,7 +712,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
     $handler = new PapayaStreamwrapperS3Handler();
     $handler->setHTTPClient($client);
     $handler->openWriteFile(self::$_testFile, STREAM_REPORT_ERRORS);
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
+    $this->expectError(E_WARNING);
     $handler->closeWriteFile(STREAM_REPORT_ERRORS);
   }
 

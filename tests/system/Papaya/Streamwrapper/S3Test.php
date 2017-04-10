@@ -58,7 +58,7 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
   */
   public function testParsePathTriggersError() {
     $wrapper = new PapayaStreamwrapperS3();
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
+    $this->expectError(E_WARNING);
     $wrapper->parsePath('INVALID', STREAM_REPORT_ERRORS);
   }
 
@@ -328,7 +328,7 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
     $wrapper = new PapayaStreamwrapperS3();
     $wrapper->setHandler($handler);
     $openedPath = NULL;
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
+    $this->expectError(E_WARNING);
     $wrapper->stream_open(
       self::TEST_FILE,
       'r',
@@ -361,7 +361,7 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
   public function testStreamOpenUnsupportedModeWarning($mode) {
     $wrapper = new PapayaStreamwrapperS3();
     $openedPath = NULL;
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
+    $this->expectError(E_WARNING);
     $wrapper->stream_open(
       self::TEST_FILE,
       $mode,
@@ -1097,7 +1097,7 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
       ->will($this->returnValue(NULL));
     $wrapper = new PapayaStreamwrapperS3();
     $wrapper->setHandler($handler);
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
+    $this->expectError(E_WARNING);
     $wrapper->dir_opendir(
       self::TEST_FILE,
       0
@@ -1254,7 +1254,7 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
       self::TEST_FILE,
       STREAM_REPORT_ERRORS
     );
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
+    $this->expectError(E_WARNING);
     $wrapper->dir_readdir();
   }
 

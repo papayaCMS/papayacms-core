@@ -60,6 +60,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
       )
     );
     $changer->prepare();
+    $this->assertEquals(42, $changer->getPageId());
   }
 
   /**

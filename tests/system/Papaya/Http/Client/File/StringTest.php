@@ -19,7 +19,7 @@ class PapayaHttpClientFileStringTest extends PapayaTestCase {
   }
 
   function testConstructorExpectingError() {
-    $this->setExpectedException('PHPUnit_Framework_Error_Warning');
+    $this->expectError(E_WARNING);
     $file = new PapayaHttpClientFileString('', '', '', '');
   }
 

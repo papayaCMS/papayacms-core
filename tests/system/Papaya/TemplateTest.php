@@ -173,7 +173,7 @@ class PapayaTemplateTest extends PapayaTestCase {
 
   /**
    * @covers PapayaTemplate
-   * @dataProvider testAddWithTarget
+   * @dataProvider providesDataForAddWithTarget
    */
   public function testAddWithDynamicMethods($expected, $method) {
     $template = $this->getMockForAbstractClass('PapayaTemplate');
@@ -261,7 +261,7 @@ class PapayaTemplateTest extends PapayaTestCase {
    * Data Provider
    *********************/
 
-  public static function testAddWithTarget() {
+  public static function providesDataForAddWithTarget() {
     return array(
       'navigation' => array(
         '<page><leftcol><foo/></leftcol></page>',
