@@ -49,6 +49,26 @@ class PapayaFilterTextTest extends PapayaTestCase {
   }
 
   /**
+   * @covers PapayaFilterText::validate
+   * @covers PapayaFilterText::getPattern
+   */
+  public function testValidateWithNullValueExpectingException() {
+    $filter = new PapayaFilterText();
+    $this->setExpectedException('PapayaFilterExceptionEmpty');
+    $filter->validate(NULL);
+  }
+
+  /**
+   * @covers PapayaFilterText::validate
+   * @covers PapayaFilterText::getPattern
+   */
+  public function testValidateWithArrayValueExpectingException() {
+    $filter = new PapayaFilterText();
+    $this->setExpectedException('PapayaFilterExceptionType');
+    $filter->validate(array());
+  }
+
+  /**
    * @covers PapayaFilterText::filter
    * @covers PapayaFilterText::getPattern
    * @dataProvider provideFilterValues
@@ -86,6 +106,7 @@ class PapayaFilterTextTest extends PapayaTestCase {
   public static function provideFilterValues() {
     return array(
       array(NULL, '123'),
+      array(NULL, array()),
       array('Hello', 'Hello'),
       array('Hello World', 'Hello World'),
       array('HelloWorld', 'Hello World', 0),
