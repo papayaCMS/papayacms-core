@@ -280,7 +280,7 @@ class PapayaHttpClient {
         }
       }
     } else {
-      trigger_error('Invalid proxy server', E_USER_ERROR);
+      trigger_error('Invalid proxy server', E_ERROR);
     }
   }
 
