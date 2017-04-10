@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../../../bootstrap.php');
 
-class PapayaParserTagTest extends PHPUnit_Framework_TestCase {
+class PapayaParserTagTest extends PapayaTestCase {
   /**
    * @covers PapayaParserTag::getXml
    */
