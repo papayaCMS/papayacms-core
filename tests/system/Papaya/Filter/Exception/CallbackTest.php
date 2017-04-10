@@ -41,7 +41,7 @@ class PapayaFilterExceptionCallbackTest extends PapayaTestCase {
   public static function provideCallbacks() {
     return array(
       array('strpos', 'strpos'),
-      array('function() {...}', create_function('$value', '')),
+      array('function() {...}', function() {}),
       array(
         'PapayaFilterExceptionCallback_SampleCallback->sample',
         array(new PapayaFilterExceptionCallback_SampleCallback(), 'sample')
