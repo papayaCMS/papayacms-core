@@ -73,6 +73,9 @@ class PapayaFilterText implements PapayaFilter {
    * @return TRUE
    */
   public function validate($value) {
+    if (is_array($value)) {
+      throw new PapayaFilterExceptionType('string');
+    }
     if (trim($value) == '') {
       throw new PapayaFilterExceptionEmpty();
     }
@@ -85,12 +88,15 @@ class PapayaFilterText implements PapayaFilter {
 
 
   /**
-   * Remove all invlaid characters from the value, return NULL if the value is empty after that
+   * Remove all invalid characters from the value, return NULL if the value is empty after that
    *
    * @param mixed|NULL $value
    * @return string|NULL
    */
   public function filter($value) {
+    if (is_array($value)) {
+      return NULL;
+    }
     $value = preg_replace($this->getPattern(), '', $value);
     return empty($value) ? NULL : $value;
   }
