@@ -26,6 +26,7 @@
 class PapayaFilterStringNormalize implements PapayaFilter {
 
   const OPTION_LOWERCASE = 1;
+  const OPTION_ALLOW_ASTERISK = 2;
 
   /**
    * @var int
@@ -59,7 +60,9 @@ class PapayaFilterStringNormalize implements PapayaFilter {
     if (!(isset($value) && is_scalar($value))) {
       return NULL;
     }
-    $value = trim(preg_replace('([^\pL\pN]+)u', ' ', $value));
+    $asterisk = PapayaUtilBitwise::inBitmask(self::OPTION_ALLOW_ASTERISK, $this->_options) ? '*' : '';
+    $pattern = '([^\pL\pN'.($asterisk).']+)u';
+    $value = trim(preg_replace($pattern, ' ', $value));
     if (PapayaUtilBitwise::inBitmask(self::OPTION_LOWERCASE, $this->_options)) {
       $value = PapayaUtilStringUtf8::toLowerCase($value);
     }

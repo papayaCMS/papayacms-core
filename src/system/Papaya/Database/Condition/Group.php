@@ -12,6 +12,7 @@
  * @method PapayaDatabaseConditionGroup isLessThan(string $field, mixed $value)
  * @method PapayaDatabaseConditionGroup isLessThanOrEqual(string $field, mixed $value)
  * @method PapayaDatabaseConditionGroup contains(string $field, mixed $value)
+ * @method PapayaDatabaseConditionGroup like(string $field, mixed $value)
  * @method PapayaDatabaseConditionGroup match(string $field, mixed $value)
  * @method PapayaDatabaseConditionGroup matchBoolean(string $field, mixed $value)
  * @method PapayaDatabaseConditionGroup matchContains(string $field, mixed $value)
@@ -91,6 +92,10 @@ class PapayaDatabaseConditionGroup
     case 'contains' :
       list($field, $value) = $arguments;
       $this->_conditions[] = $condition = new PapayaDatabaseConditionContains($this, $field, $value);
+      return $condition;
+    case 'like' :
+      list($field, $value) = $arguments;
+      $this->_conditions[] = $condition = new PapayaDatabaseConditionLike($this, $field, $value);
       return $condition;
     case 'match' :
       list($fields, $value) = $arguments;
