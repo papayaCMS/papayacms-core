@@ -101,7 +101,7 @@ abstract class PapayaAdministrationPagePart extends PapayaUiControlInteractive {
   public function toolbar(PapayaUiToolbarSet $toolbar = NULL) {
     if (isset($toolbar)) {
       $this->_toolbar = $toolbar;
-      if (count($toolbar->elements) < 1) {
+      if (!$toolbar->elements || count($toolbar->elements) < 1) {
         $this->_initializeToolbar($this->_toolbar);
       }
     } elseif (is_null($this->_toolbar)) {

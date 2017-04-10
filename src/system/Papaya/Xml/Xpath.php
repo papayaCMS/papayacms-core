@@ -72,17 +72,17 @@ class PapayaXmlXpath extends DOMXpath {
    *
    * @see DOMXPath::evaluate()
    * @param string $expression
-   * @param DOMNode $contextnode
+   * @param DOMNode $contextNode
    * @param null|boolean $registerNodeNS
    * @return DOMNodelist|String|Float|Integer|Boolean|FALSE
    */
-  public function evaluate($expression, DOMNode $contextnode = NULL, $registerNodeNS = NULL) {
+  public function evaluate($expression, DOMNode $contextNode = NULL, $registerNodeNS = NULL) {
     if ($registerNodeNS || (NULL === $registerNodeNS && $this->_registerNodeNamespaces)) {
-      $result = isset($contextnode)
-        ? parent::evaluate($expression, $contextnode)
+      $result = isset($contextNode)
+        ? parent::evaluate($expression, $contextNode)
         : parent::evaluate($expression);
     } else {
-      $result = parent::evaluate($expression, $contextnode, FALSE);
+      $result = parent::evaluate($expression, $contextNode, FALSE);
     }
     if (is_float($result) && is_nan($result)) {
       return 0.0;

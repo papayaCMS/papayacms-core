@@ -24,7 +24,7 @@ class PapayaAdministrationPagePartTest extends PapayaTestCase {
   /**
    * @covers PapayaAdministrationPagePart::commands
    */
-  public function testcommandsGetAfterSet() {
+  public function testCommandsGetAfterSet() {
     $part = new PapayaAdministrationPagePart_TestProxy();
     $part->commands($commands = $this->getMock('PapayaUiControlCommand'));
     $this->assertSame($commands, $part->commands());
@@ -34,7 +34,7 @@ class PapayaAdministrationPagePartTest extends PapayaTestCase {
    * @covers PapayaAdministrationPagePart::commands
    * @covers PapayaAdministrationPagePart::_createCommands
    */
-  public function testcommandsGetImplicitCreate() {
+  public function testCommandsGetImplicitCreate() {
     $part = new PapayaAdministrationPagePart_TestProxy();
     $this->assertInstanceOf('PapayaUiControlCommandController', $part->commands());
   }

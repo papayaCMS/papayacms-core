@@ -247,7 +247,8 @@ abstract class PapayaDatabaseRecord
     );
     $qualities = $this->key()->getQualities();
     if ($qualities & PapayaDatabaseInterfaceKey::DATABASE_PROVIDED) {
-      list($idField) = each($filter);
+      reset($filter);
+      $idField = key($filter);
       if (array_key_exists($idField, $record)) {
         unset($record[$idField]);
       }

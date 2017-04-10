@@ -309,6 +309,13 @@ class PapayaDatabaseAccess extends PapayaObject {
     if (isset($delegateFunction) &&
         isset($this->_delegateFunctions[$delegateFunction])) {
       $connector = $this->getDatabaseConnector();
+      if (!($connector instanceof db_simple)) {
+        throw new BadMethodCallException(
+          sprintf(
+            'Invalid function call. Can not fetch database connector.'
+          )
+        );
+      }
       if (method_exists($connector, $delegateFunction)) {
         array_unshift($arguments, $this->_owner);
         try {
@@ -326,7 +333,7 @@ class PapayaDatabaseAccess extends PapayaObject {
         throw new BadMethodCallException(
           sprintf(
             'Invalid function call. Method %s::%s does not exist.',
-            get_class($connector),
+            is_object($connector) ? get_class($connector) : gettype($connector),
             $functionName
           )
         );

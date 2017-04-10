@@ -62,7 +62,7 @@ class PapayaContentStructureValues extends PapayaObjectList {
         $value->fieldParameters = $node->getAttribute('field-parameter');
       } else {
         $parameterNodes = $document->xpath()->evaluate('field-parameter', $node);
-        if (count($parameterNodes) > 0) {
+        if ($parameterNodes->length > 0) {
           $fieldParameters = array();
           /** @var PapayaXmlElement $parameterNode */
           foreach ($parameterNodes as $parameterNode) {
