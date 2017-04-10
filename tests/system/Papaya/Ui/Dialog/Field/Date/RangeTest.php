@@ -8,7 +8,7 @@ class PapayaUiDialogFieldDateRangeTest extends PapayaTestCase {
     $field->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       '<field caption="Caption" class="DialogFieldDateRange" data-include-time="false" error="no">'.
-        '<group>'.
+        '<group data-selected-page="fromTo">'.
           '<labels/>'.
             '<input name = "name[start]" type = "date" />'.
             '<input name = "name[end]" type = "date" />'.
