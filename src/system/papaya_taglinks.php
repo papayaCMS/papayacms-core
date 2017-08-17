@@ -97,6 +97,12 @@ class papaya_taglinks extends base_tags {
   var $linkParams = array();
 
   /**
+  * Escape link separator ('&amp;' instead of '&')?
+  * @var boolean
+  */
+  var $escapeLinkSeparator = TRUE;
+
+  /**
    * @var array
    */
   public $alternativeCategoryNames;
@@ -1338,7 +1344,9 @@ class papaya_taglinks extends base_tags {
         if (empty($queryString)) {
           $queryString = $this->encodeQueryString($this->linkParams);
         } else {
-          $queryString .= '&amp;'.substr($this->encodeQueryString($this->linkParams), 1);
+          $linkSeparator = $this->escapeLinkSeparator ? '&amp;' : '&';
+          $queryString .= $linkSeparator
+            .substr($this->encodeQueryString($this->linkParams), 1);
         }
         return $this->getBaseLink().$queryString;
       } else {
