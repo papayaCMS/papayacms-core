@@ -1,9 +1,19 @@
 <?php
-class PapayaMediaImageSvgInfo extends PapayaMediaImageInfo {
+class PapayaMediaFileInfoSvg extends PapayaMediaFileInfo {
 
   public $forceDOM = FALSE;
 
   const XMLNS_SVG = 'http://www.w3.org/2000/svg';
+
+  public function isSupported(array $fileProperties = []) {
+    return (
+      isset($fileProperties['mimetype']) &&
+      (
+        $fileProperties['mimetype'] === 'image/svg' ||
+        $fileProperties['mimetype'] === 'image/svg+xml'
+      )
+    );
+  }
 
   protected function fetchProperties() {
     $properties = [

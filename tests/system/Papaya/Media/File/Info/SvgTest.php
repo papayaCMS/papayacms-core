@@ -2,13 +2,13 @@
 require_once(__DIR__.'/../../../../../bootstrap.php');
 PapayaTestCase::defineConstantDefaults('DB_FETCHMODE_ASSOC');
 
-class PapayaMediaImageSvgInfoTest extends PapayaTestCase {
+class PapayaMediaFileInfoSvgTest extends PapayaTestCase {
 
   public function testReadUsingXMLReader() {
     if (!extension_loaded('xmlreader')) {
       $this->markTestSkipped('XMLReader not available');
     }
-    $info = new PapayaMediaImageSvgInfo(__DIR__.'/TestData/minimum.svg');
+    $info = new PapayaMediaFileInfoSvg(__DIR__.'/TestData/minimum.svg');
     $this->assertTrue($info['is_valid']);
     $this->assertEquals(139, $info['width']);
     $this->assertEquals(144, $info['height']);;
@@ -18,12 +18,12 @@ class PapayaMediaImageSvgInfoTest extends PapayaTestCase {
     if (!extension_loaded('xmlreader')) {
       $this->markTestSkipped('XMLReader not available');
     }
-    $info = new PapayaMediaImageSvgInfo('data://text/plain,');
+    $info = new PapayaMediaFileInfoSvg('data://text/plain,');
     $this->assertFalse($info['is_valid']);
   }
 
   public function testReadUsingDOM() {
-    $info = new PapayaMediaImageSvgInfo(__DIR__.'/TestData/minimum.svg');
+    $info = new PapayaMediaFileInfoSvg(__DIR__.'/TestData/minimum.svg');
     $info->forceDOM = TRUE;
     $this->assertTrue($info['is_valid']);
     $this->assertEquals(139, $info['width']);
@@ -34,7 +34,7 @@ class PapayaMediaImageSvgInfoTest extends PapayaTestCase {
     if (!extension_loaded('xmlreader')) {
       $this->markTestSkipped('XMLReader not available');
     }
-    $info = new PapayaMediaImageSvgInfo('data://text/plain,');
+    $info = new PapayaMediaFileInfoSvg('data://text/plain,');
     $this->assertFalse($info['is_valid']);
   }
 

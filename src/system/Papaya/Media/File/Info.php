@@ -1,5 +1,5 @@
 <?php
-abstract class PapayaMediaImageInfo implements \ArrayAccess {
+abstract class PapayaMediaFileInfo extends PapayaObject implements \ArrayAccess, \IteratorAggregate {
 
   private $_fileName;
   private $_properties;
@@ -12,7 +12,19 @@ abstract class PapayaMediaImageInfo implements \ArrayAccess {
     return $this->_fileName;
   }
 
-  abstract protected function fetchProperties();
+  public function isSupported(array $fileProperties = []) {
+    return TRUE;
+  }
+
+  public function getIterator() {
+    return new ArrayIterator($this->getProperties());
+  }
+
+  protected function fetchProperties() {
+    return [
+      'filesize' => filesize($this->_fileName)
+    ];
+  }
 
   private function getProperties() {
     if (NULL === $this->_properties) {
