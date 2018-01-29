@@ -56,7 +56,7 @@ class papaya_file_delivery {
   * @access public
   * @return string
   */
-  function _getUserAgent() {
+  public static function _getUserAgent() {
     if (empty($_SERVER['HTTP_USER_AGENT'])) {
       $agentString = '';
     } else {
@@ -77,7 +77,7 @@ class papaya_file_delivery {
   * @access private
   * @return float
   */
-  function _microtimeFloat() {
+  public static function _microtimeFloat() {
     list($usec, $sec) = explode(" ", microtime());
     return ((float)$usec + (float)$sec);
   }
@@ -88,7 +88,7 @@ class papaya_file_delivery {
   * @param string $data
   * @return void
   */
-  function _outputTimeHeaders($localFileName, $data) {
+  public static function _outputTimeHeaders($localFileName, $data) {
     if (isset($data['file_date'])) {
       $lastModified = $data['file_date'];
     } else {
@@ -124,7 +124,7 @@ class papaya_file_delivery {
   * @access public
   * @return string
   */
-  function _escapeFileName($fileName) {
+  public static function _escapeFileName($fileName) {
     $result = str_replace(array('\\', '"'), array('\\\\', '\\"'), $fileName);
     return $result;
   }
@@ -135,7 +135,7 @@ class papaya_file_delivery {
   * @param string $fileName
   * @return boolean
   */
-  function validateFile($fileName) {
+  public static function validateFile($fileName) {
     if (file_exists($fileName) && is_file($fileName) && is_readable($fileName)) {
       return TRUE;
     }
@@ -150,7 +150,7 @@ class papaya_file_delivery {
    * @param boolean $forceDownload optional
    * @return bool
    */
-  function _outputFileData($localFileName, $data, $forceDownload = FALSE) {
+  public static function _outputFileData($localFileName, $data, $forceDownload = FALSE) {
     if (self::validateFile($localFileName)) {
       //close session if it is still open
       papaya_file_delivery::_closeSession();
@@ -347,7 +347,7 @@ class papaya_file_delivery {
   *
   * @access private
   */
-  function _closeSession() {
+  public static function _closeSession() {
     /** @var PapayaApplicationCms $application */
     $application = PapayaApplication::getInstance();
     $application->session->close();
