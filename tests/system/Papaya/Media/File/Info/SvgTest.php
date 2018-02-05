@@ -1,6 +1,5 @@
 <?php
 require_once(__DIR__.'/../../../../../bootstrap.php');
-PapayaTestCase::defineConstantDefaults('DB_FETCHMODE_ASSOC');
 
 class PapayaMediaFileInfoSvgTest extends PapayaTestCase {
 

@@ -1,24 +1,36 @@
 <?php
-class PapayaMediaImageFileProperties extends PapayaMediaFileInfo {
+class PapayaMediaFileProperties extends PapayaMediaFileInfo {
 
   private $_fetchers;
 
   protected function fetchProperties() {
-    $properties = [];
-    foreach ($this->getFetchers() as $fetcher) {
-      if ($fetcher->isSupported($properties)) {
-        /** @noinspection SlowArrayOperationsInLoopInspection */
-        $properties = array_merge($properties, iterator_to_array($fetcher));
+    $file = $this->getFile();
+    if (\file_exists($file) && \is_file($file) && \is_readable($file)) {
+      $properties = [];
+      foreach ($this->fetchers() as $fetcher) {
+        if ($fetcher->isSupported($properties)) {
+          /** @noinspection SlowArrayOperationsInLoopInspection */
+          $properties = \array_merge($properties, \iterator_to_array($fetcher));
+        }
       }
+      return $properties;
     }
-    return $properties;
+    return [
+      'is_valid' => FALSE
+    ];
   }
 
-  public function getFetchers() {
-    if (NULL === $this->_fetchers) {
+  public function fetchers(PapayaMediaFileInfo ...$fetchers) {
+    if (\count($fetchers) > 0) {
+      $this->_fetchers = $fetchers;
+    } elseif (NULL === $this->_fetchers) {
+      $file = $this->getFile();
+      $originalName = $this->getOriginalFileName();
       $this->_fetchers = [
-        new PapayaMediaFileInfoImage($this->getFileName()),
-        new PapayaMediaFileInfoSvg($this->getFileName()),
+        new PapayaMediaFileInfoBasic($file, $originalName),
+        new PapayaMediaFileInfoMimetype($file, $originalName),
+        new PapayaMediaFileInfoImage($file, $originalName),
+        new PapayaMediaFileInfoSvg($file, $originalName),
       ];
     }
     return $this->_fetchers;

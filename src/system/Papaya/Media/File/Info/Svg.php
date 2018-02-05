@@ -6,11 +6,17 @@ class PapayaMediaFileInfoSvg extends PapayaMediaFileInfo {
   const XMLNS_SVG = 'http://www.w3.org/2000/svg';
 
   public function isSupported(array $fileProperties = []) {
+    $extension = strrchr($this->getOriginalFileName(), '.');
     return (
-      isset($fileProperties['mimetype']) &&
       (
-        $fileProperties['mimetype'] === 'image/svg' ||
-        $fileProperties['mimetype'] === 'image/svg+xml'
+        isset($fileProperties['mimetype']) &&
+        (
+          $fileProperties['mimetype'] === 'image/svg' ||
+          $fileProperties['mimetype'] === 'image/svg+xml'
+        )
+      ) ||
+      (
+        $extension === '.svg'
       )
     );
   }
@@ -23,7 +29,7 @@ class PapayaMediaFileInfoSvg extends PapayaMediaFileInfo {
     ];
     if (!$this->forceDOM && class_exists('XMLReader')) {
       $reader = new XMLReader();
-      if (@$reader->open($this->getFileName())) {
+      if (@$reader->open($this->getFile())) {
         $found = @$reader->read();
         while ($found && !($reader->localName === 'svg' && $reader->namespaceURI === self::XMLNS_SVG)) {
           $found = $reader->next('svg');
@@ -36,7 +42,7 @@ class PapayaMediaFileInfoSvg extends PapayaMediaFileInfo {
       }
     } else {
       $document = new PapayaXmlDocument();
-      if (@$document->load($this->getFileName())) {
+      if (@$document->load($this->getFile())) {
         $node = $document->documentElement;
         if ($node && $node->localName === 'svg' && $node->namespaceURI === self::XMLNS_SVG) {
           $properties['is_valid'] = TRUE;

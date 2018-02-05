@@ -1,5 +1,5 @@
 <?php
-class PapayaMediaFileInfoCommand extends PapayaMediaFileInfo {
+class PapayaMediaFileInfoMimetype extends PapayaMediaFileInfo {
 
   private $_fallbackMimeType = 'application/octet-stream';
 
@@ -11,7 +11,7 @@ class PapayaMediaFileInfoCommand extends PapayaMediaFileInfo {
   }
 
   private function getMimeType() {
-    $file = $this->getFileName();
+    $file = $this->getFile();
     if (!empty($file) && is_file($file)) {
       if (
         function_exists('mime_content_type') &&
@@ -20,9 +20,9 @@ class PapayaMediaFileInfoCommand extends PapayaMediaFileInfo {
         return mime_content_type($file);
       }
       if (extension_loaded('fileinfo')) {
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = finfo_file($finfo, $file);
-        finfo_close($finfo);
+        $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_file($fileInfo, $file);
+        finfo_close($fileInfo);
         return $mimeType;
       }
 
