@@ -38,7 +38,7 @@ class base_pluginloader extends base_db {
   * @access public
   * @return base_pluginloader
   */
-  public function getInstance() {
+  public static function getInstance() {
     if (is_null(self::$_instance)) {
       self::$_instance = new self();
     }
@@ -70,7 +70,7 @@ class base_pluginloader extends base_db {
   * @access public
   * @return base_plugin
   */
-  function getPluginInstance(
+  public static function getPluginInstance(
     $guid, $parent = NULL, $data = NULL, $class = NULL, $file = NULL, $singleton = FALSE
   ) {
     $pluginLoader = self::getInstance()->getPluginLoader();
@@ -83,7 +83,7 @@ class base_pluginloader extends base_db {
   * @param string $guid module guid
   * @return string $result full path to the guids module directory
   */
-  function getPluginPath($guid) {
+  public static function getPluginPath($guid) {
     $pluginLoader = self::getInstance()->getPluginLoader();
     return dirname($pluginLoader->getFileName($guid)).'/';
   }
@@ -96,7 +96,7 @@ class base_pluginloader extends base_db {
    * @return TRUE
    * @access public
    */
-  function loadData($guids) {
+  public static function loadData($guids) {
     $pluginLoader = self::getInstance()->getPluginLoader();
     /** @noinspection PhpDeprecationInspection */
     return $pluginLoader->preload(is_array($guids) ? $guids : array($guids));
@@ -112,7 +112,7 @@ class base_pluginloader extends base_db {
   * @param string $file
   * @access public
   */
-  function addPluginData($guid, $class, $file) {
+  public static function addPluginData($guid, $class, $file) {
     //not used any more
   }
 
@@ -128,7 +128,7 @@ class base_pluginloader extends base_db {
   * @access public
   * @return base_plugin
   */
-  function createObject($guid, $parent = NULL, $data = NULL, $singleton = FALSE) {
+  public static function createObject($guid, $parent = NULL, $data = NULL, $singleton = FALSE) {
     $pluginLoader = self::getInstance()->getPluginLoader();
     return $pluginLoader->get($guid, $parent, $data, $singleton);
   }
@@ -140,7 +140,7 @@ class base_pluginloader extends base_db {
   * @access public
   * @return boolean
   */
-  function includeFile($guid) {
+  public static function includeFile($guid) {
     $pluginLoader = self::getInstance()->getPluginLoader();
     /** @noinspection PhpIncludeInspection */
     return include_once($pluginLoader->getFileName($guid));
