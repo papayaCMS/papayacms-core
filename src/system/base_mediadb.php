@@ -1283,157 +1283,31 @@ class base_mediadb extends base_db {
   * @param string $fileLocation location of file on local disk
   * @param string $originalFileName original name of the file (no path)
   * @param array $meta default for meta information
-  * @return array $result list of file properties
+  * @return array $properties list of file properties
   *   * size, extension, mimetype_id, mimetype, metadata (yet to conceive)
   *   * for images:  width, height, imagetype, bits, channels
   */
   function getFileProperties($fileLocation, $originalFileName, array $meta = array()) {
     $this->initializeMimeObject();
-    $fileSize = 0;
-    $fileExists = (
-      is_file($fileLocation) &&
-      ($fileSize = filesize($fileLocation)) && $fileSize > 0
-    );
-    $result['size'] = (int)$fileSize;
-    $result['metadata'] = '';
-    $result['extension'] = $this->getFileExtension($originalFileName);
-    $result['file_created'] = 0;
-    $result['file_source'] = PapayaUtilArray::get($meta, 'file_source', '');
-    $result['file_source_url'] = PapayaUtilArray::get($meta, 'file_source_url', '');
-    $result['file_keywords'] = PapayaUtilArray::get($meta, 'file_keywords', '');
 
-    // We must select the mimetype from file extension at first, because getimagesize()
-    // need too much memory when you import a large video file
-
-    // using unix file command may be considered here to determine filetype
-    if ((
-         $result['extension'] != '' &&
-         ($mimeType = $this->mimeObj->getMimeTypeByExtension($result['extension']))
-        ) ||
-        ($mimeType = $this->mimeObj->getMimeType($this->fallbackMimeType))) {
-      $result['mimetype_id'] = $mimeType['mimetype_id'];
-      $result['mimetype'] = $mimeType['mimetype'];
+    $properties = iterator_to_array(new PapayaMediaFileProperties($fileLocation, $originalFileName));
+    if (empty($properties['extension'])) {
+      $properties['extension'] = $this->getFileExtension($originalFileName);
+    }
+    if (
+      ($mimeType = $this->mimeObj->getMimeType($properties['mimetype'])) ||
+      ($mimeType = $this->mimeObj->getMimeTypeByExtension($properties['extension']))
+    ) {
+      $properties['mimetype_id'] = $mimeType['mimetype_id'];
+      $properties['mimetype'] = $mimeType['mimetype'];
     } else {
-      $result['mimetype_id'] = 0;
+      $properties['mimetype_id'] = 0;
     }
-
-    if ($fileExists && in_array($result['mimetype'], $this->getImageSizeWhiteList)) {
-      $itpc = array();
-      $data = getimagesize($fileLocation, $itpc);
-    }
-
-    // file is an IMAGE
-    if (isset($data) &&
-        is_array($data) &&
-        count($data) > 0 &&
-        isset($data[2]) &&
-        $data[2] > 0) {
-      $mimeTypeImage = $this->mimeObj->getMimeType($data['mime']);
-      if (!isset($mimeTypeImage['mimetype']) || $mimeTypeImage['mimetype'] == '') {
-        // this should only occur with bmp files, since getimagesize returns
-        // mimetype image/bmp and the file command uses image/x-ms-bmp though,
-        // if the mimetype for any other format is not found, try this
-        $guessedMimeType = $fileExists
-          ? $this->guessMimeType($fileLocation) : $this->fallbackMimeType;
-        $mimeTypeImage = $this->mimeObj->getMimeType($guessedMimeType);
-      }
-      $result['width'] = $data[0];
-      $result['height'] = $data[1];
-      $result['imagetype'] = $data[2];
-      $result['mimetype'] = $mimeTypeImage['mimetype'];
-      $result['mimetype_id'] = $mimeTypeImage['mimetype_id'];
-      $result['bits'] = empty($data['bits']) ? 0 : (int)$data['bits'];
-      $result['channels'] = empty($data['channels']) ? 0 : (int)$data['channels'];
-
-      $exifFormats = array(IMAGETYPE_JPEG, IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM);
-      if ($fileExists &&
-          in_array($result['imagetype'], $exifFormats) &&
-          function_exists('exif_read_data') &&
-          is_callable('exif_read_data')) {
-        $exifData = @exif_read_data($fileLocation, '', TRUE);
-        if (is_array($exifData)) {
-          $created = FALSE;
-          if (isset($exifData['EXIF']['DateTimeOriginal'])) {
-            $created = $exifData['EXIF']['DateTimeOriginal'];
-          }
-          if (!$created && isset($exifData['IFD0']['DateTime'])) {
-            $created = $exifData['IFD0']['DateTime'];
-          }
-          if ($created) {
-            $result['file_created'] = implode('-', explode(':', $created, 3));
-          }
-        }
-      }
-      // it needs to be specified what metadata contains and how it is structured
-      // it also needs to be evaluated, whether a metadata key value table could by an option
-      $result['metadata'] = '';
-    } else {
-      // file is flv, mpeg, avi, ...: get video size, length, etc. via ffmpeg or so
-      // file is PDF, XML, DOC, ODT, ...: add metadata, etc.
-      //
-      //                 IMPORTANT NOTE ON METADATA:
-      //
-      //   Metadata should only contain information, that can be restored from
-      //   the binary file, like pdf/doc/odt pages count, Exif, etc.
-      if ($fileExists &&
-          ($mimeType = $this->guessMimeType($fileLocation)) &&
-          $mimeType != $this->fallbackMimeType &&
-          ($mimeTypeData = $this->mimeObj->getMimeType($mimeType))) {
-        $result['mimetype_id'] = $mimeTypeData['mimetype_id'];
-        $result['mimetype'] = $mimeType;
-      } elseif ($pos = strrpos($originalFileName, '.')) {
-        $extension = substr($originalFileName, $pos + 1);
-        if ($mimeTypeData = $this->mimeObj->getMimeTypeByExtension($extension)) {
-          $result['mimetype_id'] = $mimeTypeData['mimetype_id'];
-          $result['mimetype'] = $mimeTypeData['mimetype'];
-        }
-      }
-    }
-    return $result;
-  }
-
-  /**
-  * guess a files mimetype using unix file command if possible
-  *
-  * use this function to determine the mimetype of a file by its binary data
-  *
-  * @param string $file location of the file to check
-  * @return mixed the mimetype identification string, e.g. image/jpeg
-  */
-  function guessMimeType($file) {
-    // the file must exist
-    if (!empty($file) && is_file($file)) {
-      if (function_exists('mime_content_type') &&
-          is_callable('mime_content_type')) {
-        return mime_content_type($file);
-      } elseif (extension_loaded('fileinfo')) {
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = finfo_file($finfo, $file);
-        finfo_close($finfo);
-        return $mimeType;
-      } elseif (FALSE === strpos(ini_get('disable_functions'), 'escapeshellcmd')) {
-        if (defined('PAPAYA_FILE_CMD_PATH') &&
-            PAPAYA_FILE_CMD_PATH != '' &&
-            file_exists(PAPAYA_FILE_CMD_PATH) &&
-            !is_dir(PAPAYA_FILE_CMD_PATH)) {
-          $fileCmd = PAPAYA_FILE_CMD_PATH;
-        } elseif (@file_exists('/usr/bin/file') &&
-                  !is_dir('/usr/bin/file')) {
-          $fileCmd = '/usr/bin/file';
-        } else {
-          return $this->fallbackMimeType;
-        }
-        $cmd = escapeshellcmd($fileCmd).' -i -b '.escapeshellarg($file);
-        $mimeType = NULL;
-        $null = NULL;
-        $this->execCmd($cmd, $mimeType, $null);
-        if (isset($mimeType) &&
-          preg_match('~^([\w-\d]+/[\w-\d]+)~', $mimeType, $matches)) {
-          return $matches[1];
-        }
-      }
-    }
-    return $this->fallbackMimeType;
+    $properties['metadata'] = '';
+    $properties['file_source'] = PapayaUtilArray::get($meta, 'file_source', '');
+    $properties['file_source_url'] = PapayaUtilArray::get($meta, 'file_source_url', '');
+    $properties['file_keywords'] = PapayaUtilArray::get($meta, 'file_keywords', '');
+    return $properties;
   }
 
 

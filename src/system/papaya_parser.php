@@ -529,6 +529,8 @@ class papaya_parser extends base_db {
           return $this->createFLVTag($params, $data);
         case '.pdf':
           return $this->createPDFTag($params, $data);
+        case '.svg':
+          return $this->createImageTag($params, $data);
         }
         return $this->createDownloadTag($params, $data);
       }
@@ -698,9 +700,12 @@ class papaya_parser extends base_db {
     if (empty($params['height'])) {
       $params['height'] = 0;
     }
-    if (($params['width'] > 0 || $params['height'] > 0) &&
-        $orgWidth > 0 && $orgHeight > 0) {
-            switch ($this->papaya()->options['PAPAYA_THUMBS_FILETYPE']) {
+    if (
+      ($params['width'] > 0 || $params['height'] > 0) &&
+      $orgWidth > 0 &&
+      $orgHeight > 0
+    ) {
+      switch ($this->papaya()->options['PAPAYA_THUMBS_FILETYPE']) {
       case 1 :
         $mimetype = 'image/gif';
         $ext = 'gif';
@@ -1194,7 +1199,7 @@ class papaya_parser extends base_db {
       if (!empty($params['yoff'])) {
         $thumbParams['y_offset'] = $params['yoff'];
       }
-      if (isset($data['file_id']) && $data['file_id'] != '') {
+      if (isset($data['file_id']) && $data['file_id'] !== '' && $data['mimetype'] !== 'image/svg+xml') {
         $thumbFile = $thumbnail->getThumbnail(
           $data['file_id'],
           $data['version_id'],

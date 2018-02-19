@@ -199,7 +199,7 @@ class papaya_mediadb_browser extends base_mediadb {
     if (isset($this->params['search'])) {
       $searchParams = $this->params['search'];
       if (isset($this->params['imagesonly']) && $this->params['imagesonly']) {
-        $searchParams['ext'] = array('png', 'jpg', 'jpeg', 'gif');
+        $searchParams['ext'] = array('png', 'jpg', 'jpeg', 'gif', 'svg');
       }
       $this->files = $this->findFiles(
         $searchParams,
@@ -210,7 +210,7 @@ class papaya_mediadb_browser extends base_mediadb {
       $this->files = $this->findFiles(
         array(
           'folders' => array($folderId),
-          'ext' => array('png', 'jpg', 'jpeg', 'gif')
+          'ext' => array('png', 'jpg', 'jpeg', 'gif', 'svg')
         ),
         $this->params['limit'],
         $this->params['offset']
@@ -436,6 +436,10 @@ class papaya_mediadb_browser extends base_mediadb {
             $thumbFileName, 'thumb', $file['file_name']
           );
         }
+      } elseif ($file['mimetype'] === 'image/svg+xml') {
+        $icon = $this->getWebMediaLink(
+          $file['file_id'], 'media', $file['file_name']
+        );
       }
       $result .= sprintf(
         '<listitem href="%s" title="%s" subtitle="%s" hint="%s" image="%s"%s/>',
@@ -532,9 +536,9 @@ class papaya_mediadb_browser extends base_mediadb {
         (int)$file['height']
       );
       // file is an image
-      if (($imageType >= 1 && $imageType <= 4) || $imageType == 13) {
+      if (($imageType >= 1 && $imageType <= 4) || $imageType == 13 || $file['mimetype'] === 'image/svg+xml') {
         $tempFileName = $file['file_id'].'v'.$file['current_version_id'];
-        if ($imageType >= 1 && $imageType <= 3) {
+        if (($imageType >= 1 && $imageType <= 3)  || $file['mimetype'] === 'image/svg+xml') {
           $result .= sprintf(
             '<img style="%s" src="%s" id="preview" onclick="resizeImage();"'.
             ' alt="" width="%d" height="%d"/>',

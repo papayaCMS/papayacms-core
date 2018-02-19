@@ -582,13 +582,17 @@ class papaya_rpc extends base_object {
         }
 
         if ($createThumbnail) {
-          $thumbnail = new base_thumbnail;
-          $thumbFileName = $thumbnail->getThumbnail(
-            $file['file_id'], $file['current_version_id'], 48, 48
-          );
-          $params['thumbnail_src'] = $this->getWebMediaLink($thumbFileName, 'thumb');
-          $params['thumbnail_width'] = $thumbnail->lastThumbSize[0];
-          $params['thumbnail_height'] = $thumbnail->lastThumbSize[1];
+          if ($file['mimetype'] === 'image/svg+xml') {
+            $params['thumbnail_src'] = $this->getWebMediaLink($file['file_id'], 'media');
+          } else {
+            $thumbnail = new base_thumbnail;
+            $thumbFileName = $thumbnail->getThumbnail(
+              $file['file_id'], $file['current_version_id'], 48, 48
+            );
+            $params['thumbnail_src'] = $this->getWebMediaLink($thumbFileName, 'thumb');
+            $params['thumbnail_width'] = $thumbnail->lastThumbSize[0];
+            $params['thumbnail_height'] = $thumbnail->lastThumbSize[1];
+          }
         }
       }
     }

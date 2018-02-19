@@ -2256,6 +2256,8 @@ class papaya_mediadb extends base_mediadb_edit {
                   $thumbFile, 'thumb', $name
                 );
               }
+            } elseif ($file['mimetype'] === 'image/svg+xml') {
+              $icon = $this->getWebMediaLink($file['file_id']);
             }
             $result .= sprintf(
               '<listitem href="%s" image="%s" title="%s" subtitle="%s" hint="%s" %s>'.LF,

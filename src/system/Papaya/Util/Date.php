@@ -40,9 +40,9 @@ class PapayaUtilDate {
           (?::(?P<second>[0-9]{1,2})
             (?:\.(?P<millisecond>[0-9]{1,3}))?
             (?:(?P<offsetOperator>[+-])
-              (?:(?P<offsetHour>[0-9]{1,2})
-                (?::(?P<offsetMinute>[0-9]{1,2})
-                  (?::(?P<offsetSecond>[0-9]{1,2}))?
+              (?:(?P<offsetHour>[0-9]{2})
+                (?::?(?P<offsetMinute>[0-9]{2})?
+                  (?::(?P<offsetSecond>[0-9]{2}))?
                 )?
               )?
             )?
