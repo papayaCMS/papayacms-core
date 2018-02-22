@@ -6,7 +6,7 @@ class PapayaMediaFileProperties extends PapayaMediaFileInfo {
   protected function fetchProperties() {
     $file = $this->getFile();
     if (\file_exists($file) && \is_file($file) && \is_readable($file)) {
-      $properties = [];
+      $properties = array();
       foreach ($this->fetchers() as $fetcher) {
         if ($fetcher->isSupported($properties)) {
           /** @noinspection SlowArrayOperationsInLoopInspection */
@@ -26,12 +26,12 @@ class PapayaMediaFileProperties extends PapayaMediaFileInfo {
     } elseif (NULL === $this->_fetchers) {
       $file = $this->getFile();
       $originalName = $this->getOriginalFileName();
-      $this->_fetchers = [
+      $this->_fetchers = array(
         new PapayaMediaFileInfoBasic($file, $originalName),
         new PapayaMediaFileInfoMimetype($file, $originalName),
         new PapayaMediaFileInfoImage($file, $originalName),
         new PapayaMediaFileInfoSvg($file, $originalName),
-      ];
+      );
     }
     return $this->_fetchers;
   }

@@ -5,9 +5,9 @@ class PapayaMediaFileInfoMimetype extends PapayaMediaFileInfo {
 
   protected function fetchProperties() {
     $mimeType = $this->getMimeType();
-    return [
+    return array(
       'mimetype' => $mimeType
-    ];
+    );
   }
 
   private function getMimeType() {

@@ -2,7 +2,7 @@
 class PapayaMediaFileInfoImage extends PapayaMediaFileInfo {
 
   protected function fetchProperties() {
-    $properties = [
+    $properties = array(
       'is_valid' => FALSE,
       'mimetype' => NULL,
       'imagetype' => 0,
@@ -11,7 +11,7 @@ class PapayaMediaFileInfoImage extends PapayaMediaFileInfo {
       'height' => 0,
       'bits' => 0,
       'channels' => 0
-    ];
+    );
     $data = getimagesize($this->getFile());
     if ($data && isset($data[2]) && ($data[2] > 0)) {
       $properties['is_valid'] = TRUE;

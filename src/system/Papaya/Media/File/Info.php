@@ -18,7 +18,7 @@ abstract class PapayaMediaFileInfo extends PapayaObject implements \ArrayAccess,
     return $this->_originalFileName;
   }
 
-  public function isSupported(array $fileProperties = []) {
+  public function isSupported(array $fileProperties = array()) {
     return TRUE;
   }
 
@@ -27,9 +27,9 @@ abstract class PapayaMediaFileInfo extends PapayaObject implements \ArrayAccess,
   }
 
   protected function fetchProperties() {
-    return [
+    return array(
       'filesize' => filesize($this->_file)
-    ];
+    );
   }
 
   private function getProperties() {

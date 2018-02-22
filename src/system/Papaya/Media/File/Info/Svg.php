@@ -22,11 +22,11 @@ class PapayaMediaFileInfoSvg extends PapayaMediaFileInfo {
   }
 
   protected function fetchProperties() {
-    $properties = [
+    $properties = array(
       'is_valid' => FALSE,
       'width' => 0,
       'height' => 0
-    ];
+    );
     if (!$this->forceDOM && class_exists('XMLReader')) {
       $reader = new XMLReader();
       if (@$reader->open($this->getFile())) {
