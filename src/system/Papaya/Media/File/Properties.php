@@ -20,7 +20,8 @@ class PapayaMediaFileProperties extends PapayaMediaFileInfo {
     ];
   }
 
-  public function fetchers(PapayaMediaFileInfo ...$fetchers) {
+  public function fetchers() {
+    $fetchers = func_get_args();
     if (\count($fetchers) > 0) {
       $this->_fetchers = $fetchers;
     } elseif (NULL === $this->_fetchers) {
