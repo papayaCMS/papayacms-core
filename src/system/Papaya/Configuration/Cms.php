@@ -168,9 +168,9 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
     'PAPAYA_GMAPS_API_KEY' => '',
     'PAPAYA_GMAPS_DEFAULT_POSITION' => '50.94794501585774, 6.944365873932838',
 
-    'PAPAYA_LAYOUT_THEME' => 'default',
+    'PAPAYA_LAYOUT_THEME' => 'dynamic',
     'PAPAYA_LAYOUT_THEME_SET' => '',
-    'PAPAYA_LAYOUT_TEMPLATES' => 'default-xhtml',
+    'PAPAYA_LAYOUT_TEMPLATES' => 'responsive',
 
     'PAPAYA_PAGEID_DEFAULT' => 1,
     'PAPAYA_PAGEID_USERDATA' => 0,
