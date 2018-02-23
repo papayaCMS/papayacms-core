@@ -110,13 +110,13 @@ class PapayaDatabaseSourceName {
       (?:\\((?P<platform>[A-Za-z\d]+)\\))? # platform name, optional - default is the api name
       :(?://)? # separator : or ://
       (?: # authentication, optional
-        (?P<user>[^:@]+) # username, any char except : and @
+        (?P<user>[^.:@][^:@]*) # username, any char except : and @ (no . as first char)
         (?::(?P<pass>[^@]+))? # password, any char except @, optional
         @
       )?
       (?: # host or socket
         (?:
-          (?P<host>[a-zA-Z\d._-]+) # host name or ip
+          (?P<host>[a-zA-Z\d][a-zA-Z\d._-]*) # host name or ip
           (?::(?P<port>\d+))? # port number, optional
         )|
         (?:
@@ -132,7 +132,8 @@ class PapayaDatabaseSourceName {
       :(?://)?  # separator : or ://
       (?P<file>
         (?:[a-zA-Z]:(?:[/\\\\][^?<>/\\\\:*|]+)+)| # local windows file name
-        (?:[/\\\\][^?<>/\\\\:*|]+)+ # unix file name
+        (?:(?:[/\\\\][^?<>/\\\\:*|]+)+)| # unix file name
+        (?:[.]{1,2}(?:[/\\\\][^?<>/\\\\:*|]+)+) # relative file name
       )
     $)xD';
     $queryStringStart = strpos($name, '?');

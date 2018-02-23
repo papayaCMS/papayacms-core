@@ -73,7 +73,13 @@ class dbcon_sqlite3 extends dbcon_base {
       return $this->databaseConnection;
     } else {
       try {
-        $this->databaseConnection = new SQLite3($this->databaseConfiguration->filename);
+        $fileName = $this->databaseConfiguration->filename;
+        if (\substr($fileName, 0, 1) === '.') {
+          $fileName = PapayaUtilFilePath::cleanup(
+            PapayaUtilFilePath::getDocumentRoot().'../'.$fileName, FALSE
+          );
+        }
+        $this->databaseConnection = new SQLite3($fileName);
         $this->databaseConnection->enableExceptions(TRUE);
         $this->databaseConnection->busyTimeout(10000);
         $this->databaseConnection->exec('PRAGMA journal_mode = WAL');

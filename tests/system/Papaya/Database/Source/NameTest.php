@@ -235,6 +235,20 @@ class PapayaDatabaseSourceNameTest extends PapayaTestCase {
           'socket' => NULL,
           'database' => NULL
         )
+      ),
+      array(
+        'sqlite3:./file.sqlite',
+        array(
+          'api' => 'sqlite3',
+          'platform' => 'sqlite3',
+          'filename' => './file.sqlite',
+          'username' => NULL,
+          'password' => NULL,
+          'host' => NULL,
+          'port' => 0,
+          'socket' => NULL,
+          'database' => NULL
+        )
       )
     );
   }
