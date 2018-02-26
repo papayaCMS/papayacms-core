@@ -92,16 +92,23 @@ this release of papaya CMS.
 ## System Requirements
 
 ### Server:
- * Apache httpd 2.x
-    * mod_rewrite
-    * PHP >= 5.2
-        * XML (ext/xml)
-        * XSLT (ext/xsl)
-        * MySQL or PostgreSQL(ext/mysql, ext/mysqli or ext/pgsql)
-        * Sessions (ext/session)
-        * PCRE (ext/pcre)
-        * GD (ext/gd)
- * MySQL >= 4.1.x or PostgreSQL >= 8.0
+ * PHP >= 5.6
+    * XML (ext/xml)
+    * XSLT (ext/xsl)
+    * Database extension (ext/sqlite3, ext/mysql, ext/mysqli or ext/pgsql)
+    * Sessions (ext/session)
+    * PCRE (ext/pcre)
+    * GD (ext/gd)
+    
+    
+ * Webserver
+    * PHP embedded webserver (for development)
+    * Apache httpd 2.x
+        * mod_rewrite
+ * Database
+    * SQLite 3
+    * MySQL >= 4.1.x
+    * PostgreSQL >= 8.0
 
 ### Client (for Administration):
  * Webbrowser (Firefox recommended)
@@ -129,10 +136,12 @@ database uri option.
 
 The database address following this scheme:
 
-   "protocol://user:password@hostname/database"
+   "protocol://user:password@hostname/database" or
+   "protocol://./path/file" or
 
    e.g.
-   "mysql://web1:secret@localhost/usr_web1_1"
+   "mysql://web1:secret@localhost/usr_web1_1" or
+   "sqlite3://./papaya.sqlite"
 
 You should have received this information from your ISP or System
 Administrator.
