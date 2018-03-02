@@ -12,18 +12,18 @@ class PapayaMediaFilePropertiesTest extends PapayaTestCase {
     $infoMock
       ->expects($this->once())
       ->method('getIterator')
-      ->willReturn(new ArrayIterator(['foo' => 'bar']));
-    $info = new PapayaMediaFileProperties('example.file');
+      ->willReturn(new ArrayIterator(array('foo' => 'bar')));
+    $info = new PapayaMediaFileProperties(__FILE__);
     $info->fetchers($infoMock);
 
     $this->assertEquals(
-      ['foo' => 'bar'],
+      array('foo' => 'bar'),
       iterator_to_array($info)
     );
   }
 
   public function testLazyIntializationOfFetchers() {
     $info = new PapayaMediaFileProperties('example.file');
-    $this->assertCount(3, $info->fetchers());
+    $this->assertCount(4, $info->fetchers());
   }
 }

@@ -14,7 +14,7 @@ class PapayaMediaFileInfoImageTest extends PapayaTestCase {
         'height' => 20,
         'bits' => 8,
         'channels' => 0,
-        'file_created' => NULL
+        'extension' => 'png'
       ],
       iterator_to_array($info, TRUE)
     );
