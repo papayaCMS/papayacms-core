@@ -158,6 +158,10 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('getMessage')
       ->will($this->returnValue('Hello'));
+    $message
+      ->expects($this->any())
+      ->method('context')
+      ->will($this->returnValue($this->getMock('PapayaMessageContextGroup')));
     $dispatcher = new PapayaMessageDispatcherWildfire();
     $dispatcher->setHandler($handler);
     $dispatcher->send($message);
