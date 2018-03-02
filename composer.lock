@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/papayaCMS/papayacms-administration.git",
-                "reference": "6f02aad818b576cc527041a055b0885d0488ae35"
+                "reference": "5670e03b12461df54a1b68df08b532e5ff934ad0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/papayaCMS/papayacms-administration/zipball/6f02aad818b576cc527041a055b0885d0488ae35",
-                "reference": "6f02aad818b576cc527041a055b0885d0488ae35",
+                "url": "https://api.github.com/repos/papayaCMS/papayacms-administration/zipball/5670e03b12461df54a1b68df08b532e5ff934ad0",
+                "reference": "5670e03b12461df54a1b68df08b532e5ff934ad0",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
             },
             "type": "papaya-administration-ui",
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2017-09-04T12:51:30+00:00"
+            "time": "2018-02-05 12:51:54"
         },
         {
             "name": "papaya/composer-plugins",
@@ -67,12 +67,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/papayaCMS/papayacms-module-default.git",
-                "reference": "61f0450813190903158f1bf04d5d28a00f4db6bb"
+                "reference": "0a98cd074c7e8292d0631b9e88c9bf992b7b224d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/papayaCMS/papayacms-module-default/zipball/61f0450813190903158f1bf04d5d28a00f4db6bb",
-                "reference": "61f0450813190903158f1bf04d5d28a00f4db6bb",
+                "url": "https://api.github.com/repos/papayaCMS/papayacms-module-default/zipball/0a98cd074c7e8292d0631b9e88c9bf992b7b224d",
+                "reference": "0a98cd074c7e8292d0631b9e88c9bf992b7b224d",
                 "shasum": ""
             },
             "require": {
@@ -92,7 +92,7 @@
                 "GPL-2.0"
             ],
             "homepage": "http://www.papaya-cms.com/",
-            "time": "2018-01-08 11:30:04"
+            "time": "2018-02-16 13:55:22"
         },
         {
             "name": "papaya/module-default-cronjobs",
