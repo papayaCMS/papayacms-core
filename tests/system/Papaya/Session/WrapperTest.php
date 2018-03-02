@@ -1,6 +1,9 @@
 <?php
 require_once(dirname(__FILE__).'/../../../bootstrap.php');
 
+/**
+ * @runTestsInSeparateProcesses
+ */
 class PapayaSessionWrapperTest extends PapayaTestCase {
 
   public function setUp() {

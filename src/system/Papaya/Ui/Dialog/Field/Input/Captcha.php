@@ -119,8 +119,9 @@ class PapayaUiDialogFieldInputCaptcha extends PapayaUiDialogFieldInput {
         $this->getName(), array()
       );
       if (!empty($token)) {
-        list($identifier, $value) = each($token);
-        $captchas = $this->papaya()->session->getValue('PAPAYA_SESS_CAPTCHA', array());
+        $value = reset($token);
+        $identifier = key($token);
+        $captchas = $this->papaya()->session->getValue('PAPAYA_SESS_CAPTCHA', []);
         if (isset($captchas[$identifier]) && ($captchas[$identifier] == $value)) {
           unset($captchas[$identifier]);
           $this->papaya()->session->setValue('PAPAYA_SESS_CAPTCHA', $captchas);

@@ -26,6 +26,7 @@ class PapayaSessionTest extends PapayaTestCase {
   /**
   * @covers PapayaSession::isActive
   * @backupGlobals enabled
+  * @runInSeparateProcess
   */
   public function testIsActiveAfterActivationExpectingTrue() {
     $session = new PapayaSession();
@@ -385,7 +386,8 @@ class PapayaSessionTest extends PapayaTestCase {
   * @covers PapayaSession::configure
   * @covers PapayaSession::redirectIfNeeded
   * @backupGlobals enabled
-  * @dataProvider provideSessionSourcesNoRedirect
+   * @runInSeparateProcess
+   * @dataProvider provideSessionSourcesNoRedirect
   */
   public function testActivateExpectingSuccess($sources, $fallback) {
     $_SERVER['HTTP_USER_AGENT'] =
@@ -421,7 +423,8 @@ class PapayaSessionTest extends PapayaTestCase {
   * @covers PapayaSession::_createRedirect
   * @covers PapayaSession::redirectIfNeeded
   * @backupGlobals enabled
-  * @dataProvider provideSessionSourcesTriggeringRedirect
+   * @runInSeparateProcess
+   * @dataProvider provideSessionSourcesTriggeringRedirect
   */
   public function testActivateExpectingRedirect($sources, $fallback, $transport) {
     $_SERVER['HTTP_USER_AGENT'] =
@@ -447,7 +450,8 @@ class PapayaSessionTest extends PapayaTestCase {
   * @covers PapayaSession::redirectIfNeeded
   * @covers PapayaSession::_createRedirect
   * @backupGlobals enabled
-  */
+   * @runInSeparateProcess
+   */
   public function testActivateWithoutIdExpectingRedirect() {
     $_SERVER['HTTP_USER_AGENT'] =
       'Mozilla/5.0 (Windows; U; Windows NT 6.0; de; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2';
@@ -478,7 +482,8 @@ class PapayaSessionTest extends PapayaTestCase {
   /**
   * @covers PapayaSession::close
   * @backupGlobals enabled
-  */
+   * @runInSeparateProcess
+   */
   public function testClose() {
     $session = $this->getActiveSessionMockFixture(PapayaSessionId::SOURCE_COOKIE);
     $session
@@ -494,7 +499,8 @@ class PapayaSessionTest extends PapayaTestCase {
   /**
   * @covers PapayaSession::reset
   * @backupGlobals enabled
-  */
+   * @runInSeparateProcess
+   */
   public function testReset() {
     $_SESSION = array('foo' => 'bar');
     $session = $this->getActiveSessionMockFixture(PapayaSessionId::SOURCE_COOKIE);
@@ -507,7 +513,8 @@ class PapayaSessionTest extends PapayaTestCase {
   /**
   * @covers PapayaSession::destroy
   * @backupGlobals enabled
-  */
+   * @runInSeparateProcess
+   */
   public function testDestroy() {
     $session = $this->getActiveSessionMockFixture(PapayaSessionId::SOURCE_COOKIE);
     $session
@@ -523,7 +530,8 @@ class PapayaSessionTest extends PapayaTestCase {
   /**
   * @covers PapayaSession::regenerateId
   * @backupGlobals enabled
-  */
+   * @runInSeparateProcess
+   */
   public function testRegenerateId() {
     $session = $this->getActiveSessionMockFixture(PapayaSessionId::SOURCE_COOKIE);
     $session
@@ -539,7 +547,8 @@ class PapayaSessionTest extends PapayaTestCase {
   /**
   * @covers PapayaSession::regenerateId
   * @backupGlobals enabled
-  */
+   * @runInSeparateProcess
+   */
   public function testRegenerateIdExpectingPathRedirect() {
     $session = $this->getActiveSessionMockFixture(PapayaSessionId::SOURCE_PATH);
     $session
@@ -555,7 +564,8 @@ class PapayaSessionTest extends PapayaTestCase {
   /**
   * @covers PapayaSession::regenerateId
   * @backupGlobals enabled
-  */
+   * @runInSeparateProcess
+   */
   public function testRegenerateIdExpectingPathRedirectToTargetUrl() {
     $session = $this->getActiveSessionMockFixture(PapayaSessionId::SOURCE_PATH);
     $session
