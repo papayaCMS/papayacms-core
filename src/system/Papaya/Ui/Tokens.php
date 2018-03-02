@@ -63,7 +63,7 @@ class PapayaUiTokens extends PapayaObject {
       return NULL;
     }
     $this->loadTokens();
-    if (count($this->_tokens) >= $this->_maximum) {
+    if (isset($this->_tokens) && count($this->_tokens) >= $this->_maximum) {
       $this->cleanup();
     }
     do {
