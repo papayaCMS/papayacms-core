@@ -38,9 +38,19 @@ abstract class base_datafilter extends base_plugin {
   * @access public
   * @return string
   */
-  function getDialog() {
+  function getDialog($dialogTitlePrefix = '', $dialogIcon = '') {
     $this->initializeDialog();
-    $this->dialog->dialogTitle = $this->_gt('Edit filter properties');
+    if (empty($dialogTitlePrefix)) {
+      $this->dialog->dialogTitle =
+        papaya_strings::escapeHTMLChars($this->_gt('Edit filter properties'));
+    } else {
+      $this->dialog->dialogTitle =
+        papaya_strings::escapeHTMLChars($dialogTitlePrefix).
+        papaya_strings::escapeHTMLChars($this->_gt('Edit filter properties'));
+    }
+    if (!empty($dialogIcon)) {
+      $this->dialog->dialogIcon = papaya_strings::escapeHTMLChars($dialogIcon);
+    }
     $this->dialog->dialogDoubleButtons = FALSE;
     return $this->dialog->getDialogXML();
   }
