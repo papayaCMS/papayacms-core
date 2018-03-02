@@ -998,7 +998,6 @@ class dbresult_sqlite extends dbresult_base {
   function free() {
     if (isset($this->result) && is_resource($this->result)) {
       unset($this->result);
-      unset($this);
     }
   }
 

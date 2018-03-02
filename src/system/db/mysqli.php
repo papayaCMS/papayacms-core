@@ -1033,7 +1033,6 @@ class dbresult_mysqli extends dbresult_base {
     if (isset($this->result) && is_object($this->result)) {
       $this->result->free();
       unset($this->result);
-      unset($this);
     }
   }
 

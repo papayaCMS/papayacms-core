@@ -1078,7 +1078,6 @@ class dbresult_pgsql extends dbresult_base {
     if (isset($this->result) && is_resource($this->result)) {
       pg_free_result($this->result);
       unset($this->result);
-      unset($this);
     }
   }
 

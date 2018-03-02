@@ -1069,7 +1069,6 @@ class dbresult_mysql extends dbresult_base {
     if (isset($this->result) && is_resource($this->result)) {
       @mysql_free_result($this->result);
       unset($this->result);
-      unset($this);
     }
   }
 
