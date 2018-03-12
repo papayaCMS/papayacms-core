@@ -1,5 +1,6 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../bootstrap.php');
+require_once(__DIR__.'/../../../../../bootstrap.php');
+require_once(__DIR__.'/../../../../../../src/system/db/base.php');
 PapayaTestCase::defineConstantDefaults('DB_FETCHMODE_ASSOC');
 
 class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
@@ -12,6 +13,7 @@ class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
     $dbResult = $this
       ->getMockBuilder('dbresult_base')
       ->disableOriginalConstructor()
+      ->allowMockingUnknownTypes()
       ->getMock();
     $dbResult
       ->expects($this->once())
@@ -53,6 +55,7 @@ class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
     $dbResult = $this
       ->getMockBuilder('dbresult_base')
       ->disableOriginalConstructor()
+      ->allowMockingUnknownTypes()
       ->getMock();
     $dbResult
       ->expects($this->once())

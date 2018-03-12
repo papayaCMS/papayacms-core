@@ -150,7 +150,7 @@ class PapayaHttpClientTest extends PapayaTestCase {
 
   public function testInvalidSetProxy() {
     $client = new PapayaHttpClient('http://www.sample.tld');
-    $this->expectError(E_USER_ERROR);
+    $this->expectException('InvalidArgumentException');
     $client->setProxy('');
   }
 

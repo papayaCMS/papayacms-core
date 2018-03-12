@@ -250,15 +250,16 @@ class PapayaHttpClient {
   }
 
   /**
-  * set proxy server data
-  *
-  * @param string $server
-  * @param integer $port optional, default value NULL
-  * @param string $user optional, default value NULL
-  * @param string $password optional, default value NULL
-  * @access public
-  * @return void
-  */
+   * set proxy server data
+   *
+   * @param string $server
+   * @param integer $port optional, default value NULL
+   * @param string $user optional, default value NULL
+   * @param string $password optional, default value NULL
+   * @access public
+   * @return void
+   * @throws \InvalidArgumentException
+   */
   public function setProxy($server, $port = NULL, $user = NULL, $password = NULL) {
     $this->_proxy = NULL;
     $this->_proxyAuthorization = NULL;
@@ -280,7 +281,7 @@ class PapayaHttpClient {
         }
       }
     } else {
-      trigger_error('Invalid proxy server', E_USER_ERROR);
+      throw new \InvalidArgumentException('Invalid proxy server');
     }
   }
 
