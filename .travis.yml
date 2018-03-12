@@ -20,7 +20,7 @@ matrix:
 before_install:
   - composer self-update
   - composer clear-cache
-  - wget https://phar.phpunit.de/phpunit-5.phar
+  - wget -O phpunit.phar https://phar.phpunit.de/phpunit-5.phar
 
 install: composer install
 
