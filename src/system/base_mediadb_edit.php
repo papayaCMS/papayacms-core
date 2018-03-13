@@ -647,7 +647,7 @@ class base_mediadb_edit extends base_mediadb {
    */
   function deleteFile($fileId) {
     $file = $this->getFile($fileId);
-    if (is_array($file) && count($fileId)) {
+    if (is_array($file) && !empty($fileId)) {
       $thumbnail = new base_thumbnail;
       $thumbnail->deleteThumbs($fileId);
 
