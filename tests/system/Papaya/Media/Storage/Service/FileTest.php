@@ -299,7 +299,7 @@ class PapayaMediaStorageServiceFileTest extends PapayaTestCase {
 
   public function testSetPublicToTrueWithPrivateFile() {
     if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-      $this->markTestSkipped('Symlinl on Windows is severly restricted.');
+      $this->markTestSkipped('Symlink on Windows is severly restricted.');
     }
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();

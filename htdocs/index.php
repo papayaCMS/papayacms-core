@@ -4,7 +4,7 @@
 * file delivery (if not static or themes). It also handles basic system errors like lack
 * of the papaya library, static error document and maintenance mode.
 *
-* @copyright 2002-2014 by papaya Software GmbH - All rights reserved.
+* @copyright 2002-2014 by dimensional GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
 * @license   GNU General Public Licence (GPL) 2 http://www.gnu.org/copyleft/gpl.html
 *
@@ -21,10 +21,11 @@
 /**
 * Including the basic configuration file
 */
-$configuration =  file_exists('./conf.inc.php') ? './conf.inc.php': '../papaya.php';
+$configuration =  file_exists(__DIR__.'/conf.inc.php')
+  ? __DIR__.'/conf.inc.php': __DIR__.'/../papaya.php';
 require_once($configuration);
 
-$bootstrap = dirname(__FILE__).'/../vendor/autoload.php';
+$bootstrap = __DIR__.'/../vendor/autoload.php';
 $error = FALSE;
 if (defined('PAPAYA_MAINTENANCE_MODE') && PAPAYA_MAINTENANCE_MODE) {
   $maintenanceFile = defined('PAPAYA_ERRORDOCUMENT_MAINTENANCE')
@@ -45,7 +46,7 @@ if (defined('PAPAYA_MAINTENANCE_MODE') && PAPAYA_MAINTENANCE_MODE) {
   }
 }
 if ($error) {
-  if (PHP_SAPI == 'cgi' || PHP_SAPI == 'fast-cgi') {
+  if (PHP_SAPI === 'cgi' || PHP_SAPI === 'fast-cgi') {
     @header('Status: 503 Service Unavailable');
   } else {
     @header('HTTP/1.1 503 Service Unavailable');

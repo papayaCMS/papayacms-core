@@ -702,7 +702,7 @@ class dbresult_base extends base_object implements PapayaDatabaseResult {
   * @access public
   * @return array data record
   */
-  function fetchRow($mode = DB_FETCHMODE_DEFAULT) {
+  public function fetchRow($mode = DB_FETCHMODE_DEFAULT) {
     return FALSE;
   }
 

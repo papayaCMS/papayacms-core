@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="papaya Project" default="build">
+
+  <property name="directory.export" value="./build" override="true" />
+  <property name="directory.src" value="${project.basedir}" override="true" />
+
+  <property name="mode.writeable" value="0777" override="true"/>
+
+  <property file="dist.build.properties" prefix="configuration" override="true"/>
+  <property file="build.properties" prefix="configuration" override="true"/>
+
+  <property name="executable.composer" value="${configuration.executable.composer}" override="true" />
+  <property name="executable.svn" value="${configuration.executable.svn}" override="true" />
+  <property name="executable.git" value="${configuration.executable.git}" override="true" />
+
+  <property name="database.uri" value="${configuration.database.uri}" override="true" />
+  <property name="dist.database.uri" value="${configuration.dist.database.uri}" override="true" />
+
+  <property name="revision.current" value="" override="true" />
+
+  <tstamp prefix="time"/>
+  <property name="time.current" value="${time.DSTAMP}T${time.TSTAMP}"/>
+
+  <fileset id="public" dir="${directory.src}/htdocs">
+    <include name="**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="conf.inc.php"/>
+    <exclude name="papaya/**"/>
+  </fileset>
+
+  <fileset id="source" dir="${directory.src}">
+    <include name="src/**"/>
+    <exclude name="templates/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.git/**"/>
+  </fileset>
+
+  <fileset id="dependencies" dir="${directory.src}">
+    <include name="composer.json"/>
+    <include name="composer.lock"/>
+  </fileset>
+
+  <fileset id="archives" dir="${directory.export}">
+    <include name="*.tar.gz"/>
+    <include name="*.zip"/>
+  </fileset>
+
+  <target name="build" depends="composer,config,prepare" description="Install/Configure"/>
+
+  <!--
+    Determine the current code revision from SVN or Git metadata
+   -->
+  <target name="current-revision">
+    <trycatch property="vcs.error">
+      <try>
+        <if>
+          <available file=".git" type="dir" />
+          <then>
+            <gitlog
+              gitPath="${executable.git}"
+              repository="."
+              maxCount="1"
+              format="%h"
+              outputProperty="revision.current" />
+          </then>
+
+          <elseif>
+            <available file=".svn" type="dir" />
+            <then>
+              <svnlastrevision
+                svnpath="${executable.svn}"
+                workingcopy="."
+                propertyname="revision.current" />
+            </then>
+          </elseif>
+
+          <else>
+            <property name="revision.current" value="dev" override="true" />
+          </else>
+        </if>
+        <echo message="Current revision is ${revision.current}" />
+      </try>
+      <catch>
+        <echo level="warning">There was an error while reading revision information. Current revision is unknown.</echo>
+        <echo level="warning">Please make sure VersionControl_Git and VersionControl_Svn from PEAR are installed.</echo>
+        <echo level="warning">To see the detailed error message, please run phing in debug mode.</echo>
+        <echo level="debug">${vcs.error}</echo>
+        <property name="revision.current" value="unknown" override="true" />
+      </catch>
+    </trycatch>
+  </target>
+
+  <!--
+    Install composer dependencies
+   -->
+  <target name="composer" description="Install dependecies">
+    <exec executable="${executable.composer}" passthru="true">
+      <arg value="-n"/>
+      <arg value="install"/>
+    </exec>
+  </target>
+
+  <!--
+    Update composer dependencies
+   -->
+  <target name="composer-update" description="Update dependecies">
+    <exec executable="${executable.composer}" passthru="true">
+      <arg value="-n"/>
+      <arg value="update"/>
+    </exec>
+  </target>
+
+  <!--
+    Configure working copy
+   -->
+  <target name="config" description="Generate configuration">
+    <property name="config.template" value="${directory.src}/dist.papaya.php" />
+    <property name="config.file" value="${directory.src}/papaya.php" />
+    <property name="papaya.database.uri" value="${database.uri}" />
+    <property name="papaya.development.active" value="(bool)TRUE" />
+    <if>
+      <not>
+        <available file="${config.file}"/>
+      </not>
+      <then>
+        <copy file="${config.template}" tofile="${config.file}">
+          <filterchain>
+            <expandproperties />
+          </filterchain>
+        </copy>
+      </then>
+      <else>
+        <warn message="papaya.php already exists. Skipped."/>
+      </else>
+    </if>
+  </target>
+
+  <target name="config-remove" description="Remove configuration" hidden="yes">
+    <property name="config.file" value="${directory.src}/papaya.php" />
+    <delete file="${config.file}"/>
+  </target>
+
+  <target name="config-regenerate"  depends="config-remove,config" description="Regenerate configuration"/>
+
+  <target name="prepare" description="Generate directories">
+    <mkdir dir="${directory.src}/papaya-data/cache" mode="${mode.writeable}"/>
+    <mkdir dir="${directory.src}/papaya-data/media/files" mode="${mode.writeable}"/>
+    <mkdir dir="${directory.src}/papaya-data/media/thumbs" mode="${mode.writeable}"/>
+  </target>
+
+  <!--
+    Generate distribution export directories (Copy files)
+  -->
+  <target name="export" depends="clean-build,current-revision" description="Export distribution">
+    <echo message="Prepare export directory" />
+    <mkdir dir="${directory.export}/source" />
+    <echo message="Copy files" />
+    <copy todir="${directory.export}/source/htdocs">
+      <fileset refid="public"/>
+    </copy>
+    <copy todir="${directory.export}/source">
+      <fileset refid="source"/>
+      <fileset refid="dependencies"/>
+    </copy>
+    <echo message="Create configuration file" />
+    <property name="config.template" value="${directory.src}/dist.papaya.php" />
+    <property name="config.file" value="${directory.export}/source/papaya.php" />
+    <property name="papaya.database.uri" value="${dist.database.uri}" />
+    <property name="papaya.development.active" value="(bool)FALSE" />
+    <copy file="${config.template}" tofile="${config.file}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
+    <echo message="Run composer --no-interaction --no-dev install"/>
+    <exec executable="${executable.composer}" passthru="true">
+      <arg value="install"/>
+      <arg value="--no-interaction"/>
+      <arg value="--no-dev"/>
+      <arg value="--working-dir"/>
+      <arg path="${directory.export}/source"/>
+    </exec>
+  </target>
+
+  <!--
+    Generate directory with date
+  -->
+  <target name="directory" depends="export" description="Creating directory with date">
+    <copy todir="${directory.export}/build${time.current}-${revision.current}">
+      <fileset dir="${directory.export}/source">
+        <include name="**" />
+      </fileset>
+    </copy>
+  </target>
+
+  <!--
+    Generate tar.gz archive
+  -->
+  <target name="tgz" depends="export" description="Creating tar.gz archive">
+    <tar destfile="${directory.export}/latest.tar.gz" compression="gzip">
+      <fileset dir="${directory.export}/source">
+        <include name="*" />
+      </fileset>
+    </tar>
+    <copy
+      file="${directory.export}/latest.tar.gz"
+      tofile="${directory.export}/build${time.current}-${revision.current}.tar.gz">
+    </copy>
+  </target>
+
+  <!--
+    Generate zip archive
+  -->
+  <target name="zip" depends="export" description="Creating zip archive">
+    <zip destfile="${directory.export}/latest.zip">
+      <fileset dir="${directory.export}/source">
+        <include name="*" />
+      </fileset>
+    </zip>
+    <copy
+      file="${directory.export}/latest.zip"
+      tofile="${directory.export}/build${time.current}-${revision.current}.zip">
+    </copy>
+  </target>
+
+  <target name="clean-build" description="Remove build data">
+    <delete dir="${directory.export}/source"/>
+  </target>
+
+  <target name="clean-archives" description="Remove exported archives">
+    <delete>
+      <fileset refid="archives"/>
+    </delete>
+  </target>
+
+</project>
