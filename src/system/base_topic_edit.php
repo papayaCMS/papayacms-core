@@ -2619,7 +2619,7 @@ class base_topic_edit extends base_topic {
       );
       $this->dialogProperties->loadParams();
       $this->dialogProperties->dialogTitle =
-        $this->papaya()->administrationLanguage->title.$this->_gt('Properties');
+        $this->papaya()->administrationLanguage->title.' - '.$this->_gt('Properties');
       $this->dialogProperties->dialogIcon = $this->papaya()->administrationLanguage->image;
       $this->dialogProperties->dialogDoubleButtons = FALSE;
       $this->dialogProperties->textYes = 'Yes';
