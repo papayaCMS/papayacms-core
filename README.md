@@ -1,7 +1,7 @@
 # papaya CMS
 
 [papaya CMS](https://github.com/papayaCMS/) Content Management System and web application framework<br/>
-Version 5, Copyright: 2002-2015 dimensional GmbH (www.dimensional.de)
+Version 5, Copyright: 2002-2018 dimensional GmbH (www.dimensional.de)
 
 [(see project website to find out more about papaya CMS)](http://www.papaya-cms.com/)
 
@@ -125,34 +125,87 @@ The installation is using [Composer](http://getcomposer.org) and [Phing](http://
 
 ### Creating new project
 
+Call Composer to get the project skeleton.
+
 ```
 composer create-project papaya/cms-project projectname
 ```
 
-### Basic configuration
+#### Quick Setup (for development) 
 
-Copy `dist.build.properties` to `build.properties` and change the
-database uri option.
-
-The database address following this scheme:
-
-   "protocol://user:password@hostname/database" or
-   "protocol://./path/file" or
-
-   e.g.
-   "mysql://web1:secret@localhost/usr_web1_1" or
-   "sqlite3://./papaya.sqlite"
-
-You should have received this information from your ISP or System
-Administrator.
+Call Phing in the project directory 
 
 ```
 cd projectname
 phing
 ```
 
-Call Phing inside the project directory. This will call Composer to install
-the dependencies and create the configuration file (`papaya.php`).
+Start the PHP builtin webserver
+
+```
+php -S localhost:80 -t ./htdocs server.php
+```
+
+Open your `http://localhost/papaya` in you browser (make sure Javascript is active) and
+follow the installation steps.
+
+You can initialize the project directory as a git repository and push it to
+a server. You can read more about this in the section "Installation and Configuration" further 
+below.
+
+### Basic configuration
+
+Copy `dist.build.properties` to `build.properties` and change the
+database uri option. `build.properties` will not be committed to Git, so any developer
+can have its own local build configuration.
+
+Here are two database options: `database.uri` is for the local installation, 
+`dist.database.uri` is for the distribution/release.
+
+The database address following this scheme:
+
+* `protocol://user:password@hostname/database` or
+*  `protocol://./path/file`
+
+e.g.
+* `mysql://web1:secret@localhost/usr_web1_1` or
+* `sqlite3://./papaya.sqlite`
+   
+You should have received this information from your ISP or System
+Administrator.
+
+Calling Phing inside the project directory will trigger Composer to install
+the dependencies and create the configuration file (`papaya.php`). An
+existing `papaya.php` will not be overwritten.
+
+To overwrite `papaya.php` call
+
+```
+phing config-regenerate
+```
+
+
+### Export project for distribution
+
+The Phing build file contains targets to compile project builds for distribution.
+
+Create a directory (`./build/source/`): 
+
+```
+phing export
+```
+
+Create a tar gz archive: 
+
+```
+phing tgz
+```
+
+Create a zip archive: 
+
+```
+phing zip
+```
 
 ## Directories
 
@@ -214,9 +267,6 @@ Write permission has to be granted to the webserver for the folder
 "papaya-data". File permissions can be set by using Windows
 Explorer and right-clicking on the folder. However, Windows
 installations do not usually require permissions to be set.
-
-papaya CMS is now installed. Continue on to the
-*Initialization and Configuration* section of this document.
 
 #### Setting Permissions for Unix (linux, unix, BSD etc)
 

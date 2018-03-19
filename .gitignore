@@ -1,9 +1,9 @@
 # Composer
-/vendor
+/vendor/
 composer.phar
 
 # PHPStorm
-/.idea
+/.idea/
 
 # Eclipse
 /.settings
@@ -11,14 +11,17 @@ composer.phar
 /.buildpath
 
 # Netbeans
-/nbproject
+/nbproject/
 
 # Build Artifacts
-/build
+/build/
 
 # papaya CMS
 /papaya.php
 /htdocs/papaya/
 /htdocs/papaya-themes/
-/papaya-data
-/templates
+/papaya-data/
+/templates/
+
+# default database file
+/papaya.sqlite
