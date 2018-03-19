@@ -192,7 +192,7 @@ The Phing build file contains targets to compile project builds for distribution
 Create a directory (`./build/source/`): 
 
 ```
-phing export
+phing directory
 ```
 
 Create a tar gz archive: 
