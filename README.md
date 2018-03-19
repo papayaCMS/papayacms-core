@@ -217,7 +217,7 @@ provide it in the composer.json.
 ```javascript
 {
   "extra" : {
-    "document-root : "htdocs/"
+    "document-root" : "htdocs/"
   }
 }
 ```
