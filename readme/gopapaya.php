@@ -1,8 +1,6 @@
 <?php
 /**
 * Test your server
-*
-* @package Papaya-Help
 */
 
 
@@ -27,14 +25,6 @@ define('TESTRESULT_OPTIONAL', 4);
 */
 define('TESTRESULT_NOT_IMPLEMENTED', 0);
 
-/**
-* Papaya_testsystem class.
-* No inheritance.
-* implements tests for required software and libraries
-* for papaya 5 install
-*
-* @package Papaya-Help
-*/
 class papaya_testsystem {
 
   /**
@@ -49,8 +39,6 @@ class papaya_testsystem {
     'PHP Version' => 'infoPHPVersion',
     // find out where server docs are
     'Document Root' => 'infoDocumentRoot',
-    // pcre version information
-    'PCRE Version' => 'infoPcreVersion',
     // Either - Mysql database
     'MySQL Client' => 'infoMySQLVersion',
     // or - Mysql database / advanced interface
@@ -70,21 +58,14 @@ class papaya_testsystem {
   var $tests = array(
     // PHP versions
     'PHP version' => 'testPHPVersion',
-    // PHP versions
-    'E_STRICT disabled' => 'testErrorLevelStrict',
     // mandatory webserver extension : support rewrite rules
     'mod_rewrite (Apache extension)' => 'testModRewrite',
     // exercise the db with this
     'Database Extension' => 'testDatabase',
-    // Check crypt library (needed for passwords)
-    'Crypt' => 'testCrypt',
-    // pcre supports unicode
-    'PCRE Unicode Support' => 'testPcreUnicode',
     // exercise XML parsing with this
     'XML Extension' => 'testXML',
     // exercise XSLT transformation with this
     'XSLT Extension' => 'testXSLT',
-    'eXSLT Support' => 'testEXslt',
     // exercise the Graphic library
     'GD Extension' => 'testGD',
     // check graphic library is post 2004 - gif support enabled
@@ -92,7 +73,7 @@ class papaya_testsystem {
     'GD GIF write' => 'testGDGIFWrite',
     // check graphic library supports jpeg format.
     'GD JPEG read/write' => 'testGDJPEG',
-    'GD PNG read/write' => 'testGDPNG'
+    'GD PNG read/write' => 'testGDPNG',
   );
 
   /**
@@ -121,12 +102,11 @@ class papaya_testsystem {
   }
 
   /**
-   * Check if certain PHP class methods exist, then
-   * use them to obtain information about the php environment
-   * @access private
-   * @param $method
-   * @return string
-   */
+  * Check if certain PHP class methods exist, then
+  * use them to obtain information about the php environment
+  * @access private
+  * @return string
+  */
   function getInformation($method) {
     if (method_exists($this, $method)) {
       return $this->$method();
@@ -136,11 +116,10 @@ class papaya_testsystem {
   }
 
   /**
-   * Check if certain PHP class methods exist, then
-   * use them to test if conditions for papaya are fulfilled
-   * @param $method
-   * @return integer
-   */
+  * Check if certain PHP class methods exist, then
+  * use them to test if conditions for papaya are fulfilled
+  * @return integer
+  */
   function runTest($method) {
     if (method_exists($this, $method)) {
       return $this->$method();
@@ -166,19 +145,6 @@ class papaya_testsystem {
   */
   function infoPHPVersion() {
     return PHP_VERSION;
-  }
-
-  /**
-  * get pcre version string
-  *
-  * @access private
-  * @return string
-  */
-  function infoPcreVersion() {
-    if (defined('PCRE_VERSION')) {
-      return PCRE_VERSION;
-    }
-    return '';
   }
 
   /**
@@ -240,9 +206,9 @@ class papaya_testsystem {
   * @return string
   */
   function infoSQLiteVersion() {
-    if (function_exists('sqlite_libversion')) {
-      $result = sqlite_libversion();
-      return $result['client'];
+    if (extension_loaded('sqlite3')) {
+      $result = sqlite3::version();
+      return $result['versionString'];
     }
     return 'None';
   }
@@ -290,24 +256,11 @@ class papaya_testsystem {
   * @return integer
   */
   function testDatabase() {
-    $extensions = array('mysql', 'mysqli', 'pgsql', 'sqlite');
+    $extensions = array('mysql', 'mysqli', 'pgsql', 'sqlite3');
     foreach ($extensions as $ext) {
       if (extension_loaded($ext)) {
         return TESTRESULT_OK;
       }
-    }
-    return TESTRESULT_FAILED;
-  }
-
-  /**
-  * use a simple pattern to check for unicode property support in pcre
-  *
-  * @access private
-  * @return integer
-  */
-  function testPcreUnicode() {
-    if (preg_match('(^\p{Nd}$)u', '1')) {
-      return TESTRESULT_OK;
     }
     return TESTRESULT_FAILED;
   }
@@ -326,30 +279,19 @@ class papaya_testsystem {
   }
 
   /**
-  * test if the XSLT php library is loaded
-  * test for sablotron, DOM-XML and xsl extensions
+  * test if a XSL php library is loaded
   * @access private
   * @return integer
   */
   function testXSLT() {
-    if (extension_loaded('xsl')) {
+    if (extension_loaded('xslt')) {
       return TESTRESULT_OK;
     }
-    return TESTRESULT_FAILED;
-  }
-
-  /**
-  * is eXSLT support availiable?
-  *
-  * @access private
-  * @return integer
-  */
-  function testExslt() {
+    if (extension_loaded('domxml') && function_exists('domxml_xslt_stylesheet_file')) {
+      return TESTRESULT_OK;
+    }
     if (extension_loaded('xsl')) {
-      $xsl = new XSLTProcessor;
-      if ($xsl->hasExsltSupport()) {
-        return TESTRESULT_OK;
-      }
+      return TESTRESULT_OK;
     }
     return TESTRESULT_FAILED;
   }
@@ -381,15 +323,13 @@ class papaya_testsystem {
   * @return integer
   */
   function testPHPVersion() {
-    if (version_compare(PHP_VERSION, '5.2', '>=')) {
-      return TESTRESULT_OK;
-    } elseif (version_compare(PHP_VERSION, '5', '>=')) {
-      return TESTRESULT_OPTIONAL;
-    } elseif (version_compare(PHP_VERSION, '4.4', '>=')) {
-      return TESTRESULT_OPTIONAL;
-    } else {
-      return TESTRESULT_FAILED;
+    if (PHP_VERSION_ID >= 70000) {
+    return TESTRESULT_OK;
     }
+    if (PHP_VERSION_ID >= 50600) {
+    return TESTRESULT_OPTIONAL;
+    }
+    return TESTRESULT_FAILED;
   }
 
   /**
@@ -495,40 +435,15 @@ class papaya_testsystem {
     }
     return TESTRESULT_FAILED;
   }
-
-  /**
-  * Check if crypt() is available
-  *
-  * @access private
-  * @return integer
-  */
-  function testCrypt() {
-    if (function_exists('crypt')) {
-      return TESTRESULT_OK;
-    }
-    return TESTRESULT_FAILED;
-  }
-
-  /**
-   * Validate that E_STRICT is disabled.
-   *
-   * @return integer
-   */
-  function testErrorLevelStrict() {
-    if ((error_reporting() | E_STRICT) == E_STRICT) {
-      return TESTRESULT_FAILED;
-    }
-    return TESTRESULT_OK;
-  }
 }
 
 $test = new papaya_testsystem();
 $test->execute();
-// @codingStandardsIgnoreStart
+
 ?>
 <html>
 <head>
-  <title>papaya CMS 5 System Test</title>
+  <title>papaya CMS - System Test</title>
   <style type="text/css">
     body {
       font-size: 0.8em;
@@ -575,9 +490,9 @@ $test->execute();
     }
 
   </style>
-<head>
+</head>
 <body>
-  <h1>papaya CMS 5 System Test</h1>
+  <h1>papaya CMS - System Test</h1>
   <h2>Tests</h2>
   <table class="legend">
     <tr>
@@ -585,7 +500,7 @@ $test->execute();
       <td>Test passed</td>
     </tr>
     <tr>
-      <th class="testFAILED testNOTIMPLEMENTED">FAILED</th>
+      <th class="testFAILED">FAILED</th>
       <td>Test failed - Here is a problem</td>
     </tr>
     <tr>
