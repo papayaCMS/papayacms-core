@@ -189,22 +189,22 @@ phing config-regenerate
 
 The Phing build file contains targets to compile project builds for distribution.
 
-Create a directory (`./build/source/`): 
+Create a directory: 
 
 ```
-phing directory
+phing export-directory
 ```
 
 Create a tar gz archive: 
 
 ```
-phing tgz
+phing export-tgz
 ```
 
 Create a zip archive: 
 
 ```
-phing zip
+phing export-zip
 ```
 
 ## Directories
