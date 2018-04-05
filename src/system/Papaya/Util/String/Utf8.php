@@ -225,7 +225,13 @@ class PapayaUtilStringUtf8 {
     case self::EXT_MBSTRING :
       return mb_strtolower($string, 'utf-8');
     }
-    return $string;
+    return preg_replace_callback(
+      '([A-Z]+)u',
+      function($match) {
+        return strtolower($match[0]);
+      },
+      $string
+    );
   }
 
   public static function toUpperCase($string) {
@@ -240,7 +246,13 @@ class PapayaUtilStringUtf8 {
     case self::EXT_MBSTRING :
       return mb_strtoupper($string, 'utf-8');
     }
-    return $string;
+    return preg_replace_callback(
+      '([a-z]+)u',
+      function($match) {
+        return strtoupper($match[0]);
+      },
+      $string
+    );
   }
 
   /**

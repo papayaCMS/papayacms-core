@@ -114,6 +114,32 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   }
 
   /**
+   * @param string $expected
+   * @param string $input
+   * @covers PapayaUtilStringUtf8::toLowerCase
+   * @testWith
+   *   ["abc", "ABC"]
+   *   ["abcÄdef", "ABCÄDEF"]
+   */
+  public function testLowerCaseUsingPcreFallback($expected, $input) {
+    PapayaUtilStringUtf8::setExtension(PapayaUtilStringUtf8::EXT_PCRE);
+    $this->assertEquals($expected, PapayaUtilStringUtf8::toLowerCase($input));
+  }
+
+  /**
+   * @param string $expected
+   * @param string $input
+   * @covers PapayaUtilStringUtf8::toUpperCase
+   * @testWith
+   *   ["ABC", "abc"]
+   *   ["ABCäDEF", "abcädef"]
+   */
+  public function testUpperCaseUsingPcreFallback($expected, $input) {
+    PapayaUtilStringUtf8::setExtension(PapayaUtilStringUtf8::EXT_PCRE);
+    $this->assertEquals($expected, PapayaUtilStringUtf8::toUpperCase($input));
+  }
+
+    /**
   * @covers PapayaUtilStringUtf8::getExtension
   */
   public function testGetExtension() {
