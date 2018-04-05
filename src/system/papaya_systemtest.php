@@ -62,6 +62,7 @@ class papaya_systemtest {
     'Operating System' => 'infoOperatingSystem',
     'PHP Version' => 'infoPHPVersion',
     'Server API' => 'infoServerAPI',
+    'Unicode Support' => 'infoUnicodeSupport',
     'PCRE Version' => 'infoPcreVersion',
     'MySQL Client' => 'infoMySQLVersion',
     'MySQLi Client' => 'infoMySQLiVersion',
@@ -88,6 +89,7 @@ class papaya_systemtest {
       'testDatabasePermissions', 'http://www.papaya-cms.com/installhelp/dbperm', 1
     ),
     'Crypt' => 'testCrypt',
+    'Unicode Support' => 'testUnicodeSupport',
     'PCRE Unicode Support' => array('testPcreUnicode'),
     'XML Extension' => array('testXML', 'http://www.papaya-cms.com/installhelp/xml'),
     'XSLT Extension' => array('testXSLT', 'http://www.papaya-cms.com/installhelp/xslt'),
@@ -290,6 +292,19 @@ class papaya_systemtest {
       return $_SERVER['DOCUMENT_ROOT'];
     }
     return '';
+  }
+
+  /**
+   * Get information about availabe unicode extensions
+   */
+  public function infoUnicodeSupport() {
+    if (extension_loaded('intl')) {
+      return 'ext/intl'.(class_exists('Transliterator', FALSE) ? '' : ' (Transliterator missing)');
+    }
+    if (extension_loaded('mb_string')) {
+      return (extension_loaded('intl')  ? ', ' : '').'ext/mb_string';
+    }
+    return 'None';
   }
 
   /**
@@ -500,6 +515,21 @@ class papaya_systemtest {
         }
       }
     } catch (PapayaDatabaseException $e) {
+    }
+    return TESTRESULT_FAILED;
+  }
+
+  /**
+   * Check for unicode extensions
+   *
+   * @return int
+   */
+  public function testUnicodeSupport() {
+    if (extension_loaded('intl') && class_exists('Transliterator', FALSE)) {
+      return TESTRESULT_OK;
+    }
+    if (extension_loaded('mb_string')) {
+      return TESTRESULT_OK;
     }
     return TESTRESULT_FAILED;
   }
