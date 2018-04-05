@@ -12,16 +12,16 @@
     "ext-dom": "*",
     "ext-xsl": "*",
 
-    "papaya/cms-administration": "*",
+    "papaya/cms-administration": "6.*",
 
-    "papaya/theme-dynamic": "*",
+    "papaya/theme-dynamic": "1.*",
 
-    "papaya/test-framework": "*",
+    "papaya/test-framework": "6.*",
 
-    "papaya/module-default": "*",
-    "papaya/module-standard": "*",
+    "papaya/module-default": "1.*",
+    "papaya/module-standard": "1.*",
 
-    "papaya/module-domains": "*",
-    "papaya/module-default-cronjobs": "*"
+    "papaya/module-domains": "1.*",
+    "papaya/module-default-cronjobs": "1.*"
   }
 }
