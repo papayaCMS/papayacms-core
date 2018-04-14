@@ -25,3 +25,4 @@
 *.woff binary
 *.pyc binary
 *.pdf binary
+*.z binary
