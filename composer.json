@@ -7,11 +7,12 @@
   "autoload" : {
     "files" : ["src/core.php"]
   },
-  "require-dev": {
-    "php": ">=5.4.0",
+  "require": {
+    "php": ">=5.6.0",
     "ext-dom": "*",
-    "ext-xsl": "*",
-
+    "ext-xsl": "*"
+  },
+  "require-dev": {
     "papaya/cms-administration": "6.*",
 
     "papaya/theme-dynamic": "1.*",
