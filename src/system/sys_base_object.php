@@ -787,6 +787,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
     $thumbsFileType = $this->papaya()->options->get('PAPAYA_THUMBS_FILETYPE', IMAGETYPE_PNG);
     if (in_array($mode, array('thumb', 'thumbs', 'thumbnail'))) {
       $reference = new PapayaUiReferenceThumbnail();
+      $reference->papaya($this->papaya());
       $storageGroup = 'thumbs';
       $mode = 'thumbnail';
       $extensions = array(
@@ -797,6 +798,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
       $ext = $extensions[$thumbsFileType];
     } else {
       $reference = new PapayaUiReferenceMedia();
+      $reference->papaya($this->papaya());
       $reference->setMode($mode);
       $storageGroup = 'files';
     }
