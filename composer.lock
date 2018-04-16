@@ -4,12 +4,12 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b84b7ee899b5a007929c180fd72e82b5",
+    "content-hash": "7d98bdd60d8fadb34b7e0b13ddbb1b9e",
     "packages": [],
     "packages-dev": [
         {
             "name": "papaya/cms-administration",
-            "version": "6.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/papayaCMS/papayacms-administration.git",
@@ -206,7 +206,7 @@
         },
         {
             "name": "papaya/test-framework",
-            "version": "6.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/papayaCMS/papayacms-test-framework.git",
@@ -257,13 +257,16 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "papaya/cms-administration": 20,
+        "papaya/test-framework": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": {
-        "php": ">=5.4.0",
+    "platform": {
+        "php": ">=5.6.0",
         "ext-dom": "*",
         "ext-xsl": "*"
-    }
+    },
+    "platform-dev": []
 }

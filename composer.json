@@ -13,15 +13,13 @@
     "ext-xsl": "*"
   },
   "require-dev": {
-    "papaya/cms-administration": "6.*",
+    "papaya/cms-administration": "dev-master",
+    "papaya/test-framework": "dev-master",
 
     "papaya/theme-dynamic": "1.*",
 
-    "papaya/test-framework": "6.*",
-
     "papaya/module-default": "1.*",
     "papaya/module-standard": "1.*",
-
     "papaya/module-domains": "1.*",
     "papaya/module-default-cronjobs": "1.*"
   }
