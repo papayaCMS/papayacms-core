@@ -140,13 +140,13 @@ cd projectname
 phing
 ```
 
-Start the PHP builtin webserver
+Start the PHP builtin webserver 
 
 ```
-php -S localhost:80 -t ./htdocs server.php
+php -S localhost:8080 -t ./htdocs server.php
 ```
 
-Open your `http://localhost/papaya` in you browser (make sure Javascript is active) and
+Open the URL `http://localhost:8080/papaya` in you browser (make sure Javascript is active) and
 follow the installation steps.
 
 You can initialize the project directory as a git repository and push it to
