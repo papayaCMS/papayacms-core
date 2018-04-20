@@ -1355,7 +1355,7 @@ class papaya_installer extends base_db {
     }
     $result = '<sheet><text>'.LF;
     $result .= '<div class="installer">';
-    $result .= '<h1>papaya CMS 5 installation tests.</h1>'.LF;
+    $result .= '<h1>papaya CMS installation tests.</h1>'.LF;
     $result .= '<p>The Installer has run some tests.</p>'.LF;
     $result .= '<table>';
     if ($testSummary[TESTRESULT_FAILED] > 0) {
@@ -1387,7 +1387,7 @@ class papaya_installer extends base_db {
         papaya_strings::escapeHTMLChars($this->getLink(array('step' => $link)))
       );
     } else {
-      $result .= '<p class="error">Your server does not support <i>papaya CMS 5</i>'.
+      $result .= '<p class="error">Your server does not support <i>papaya CMS</i>'.
         ' currently. The installation can not continue.</p>'.LF;
     }
     $result .= '<p>If you need more information about the system requirements and'.
@@ -1415,9 +1415,9 @@ class papaya_installer extends base_db {
     $result .= '<text>'.LF;
     $result .= '<div class="installer">';
     $result .= '<br/>'.LF;
-    $result .= '<h1>Welcome to the papaya CMS 5 installation.</h1>'.LF;
+    $result .= '<h1>Welcome to the papaya CMS installation.</h1>'.LF;
     $result .= '<p>The installer will guide you through the installation of'.
-      ' papaya CMS 5 step by step.</p>'.LF;
+      ' papaya CMS step by step.</p>'.LF;
     $result .= sprintf(
       '<a href="%s" class="nextLink">Next &gt;&gt;</a>',
       papaya_strings::escapeHTMLChars($this->getLink(array('step' => 'license')))
@@ -1448,8 +1448,8 @@ class papaya_installer extends base_db {
     $data = $this->getLicense();
     $result = '<sheet width="800px" align="center">';
     $result .= '<text><div class="installer">';
-    $result .= '<h1 style="padding-left: 4px;">papaya CMS 5 license.</h1>'.LF;
-    $result .= '<p style="padding-left: 4px;">To install papaya CMS 5 please read the'.
+    $result .= '<h1 style="padding-left: 4px;">papaya CMS license.</h1>'.LF;
+    $result .= '<p style="padding-left: 4px;">To install papaya CMS please read the'.
       ' terms of the following license before you continue.</p>'.LF;
     $result .= '<br/>'.LF;
     $result .= '<div style="text-align: center; padding-top: 2em; font-weight: bold;">';
@@ -1487,7 +1487,7 @@ class papaya_installer extends base_db {
   function getXMLDefaultsText() {
     $result = '<sheet width="300px" align="center">';
     $result .= '<text><div class="installer">';
-    $result .= '<h1 style="padding-left: 4px;">papaya CMS 5 default data.</h1>'.LF;
+    $result .= '<h1 style="padding-left: 4px;">papaya CMS default data.</h1>'.LF;
     if ($this->getOptionsValidator()->validate()) {
       $result .= sprintf(
         '<a href="%s" class="nextLink">Next &gt;&gt;</a>',

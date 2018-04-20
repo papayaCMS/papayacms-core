@@ -302,7 +302,7 @@ class papaya_help extends base_object {
         'CC'
       );
     }
-    $email->setSubject('papaya CMS 5 Bug Report');
+    $email->setSubject('papaya CMS Bug Report');
     $body = $this->bugReportDialog->data['description']."\n";
     if (isset($this->bugReportDialog->data['testdata']) &&
         $this->bugReportDialog->data['testdata']) {
