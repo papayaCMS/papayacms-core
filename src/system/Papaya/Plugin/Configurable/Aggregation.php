@@ -20,7 +20,7 @@
  * This a standard implementation for a configurable plugin. It
  * add a configuration() getter/setter method to the plugin.
  *
- * It contains information about the data and output filters.
+ * It contains information from the output filter/configuration.
  *
  * @package Papaya-Library
  * @subpackage Plugins
