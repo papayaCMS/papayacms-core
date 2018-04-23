@@ -33,5 +33,5 @@ interface PapayaPluginEditable {
    * @param PapayaPluginEditableContent $content
    * @return PapayaPluginEditableContent
    */
-  function content(PapayaPluginEditableContent $content = NULL);
+  public function content(PapayaPluginEditableContent $content = NULL);
 }
