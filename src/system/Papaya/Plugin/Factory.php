@@ -1,11 +1,11 @@
 <?php
 /**
-* The PluginFactory is a superclass for specialized plguin factories. It allows to define
+* The PluginFactory is a superclass for specialized plugin factories. It allows to define
 * an array of name => guid pairs and access the plugin by the "local" name.
 *
 * This allows to avoid conflicts, while still using names for plugin access and not guids.
 *
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
+* @copyright 2010-2018 by papaya Software GmbH - All rights reserved.
 * @link http://www.papaya-cms.com/
 * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
 *
@@ -74,10 +74,9 @@ abstract class PapayaPluginFactory extends PapayaObject {
   * @return PapayaPluginLoader
   */
   public function loader(PapayaPluginLoader $pluginLoader = NULL) {
-    if (isset($pluginLoader)) {
+    if ($pluginLoader !== NULL) {
       $this->_pluginLoader = $pluginLoader;
-    }
-    if (is_null($this->_pluginLoader)) {
+    } elseif (null === $this->_pluginLoader) {
       $this->_pluginLoader = $this->papaya()->plugins;
     }
     return $this->_pluginLoader;
@@ -107,7 +106,7 @@ abstract class PapayaPluginFactory extends PapayaObject {
         $this->_plugins[$pluginName], $this->_owner, NULL, $singleInstance
       );
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf(
           'InvalidArgumentException: "%s" does not know plugin "%s".',
           get_class($this),
@@ -130,6 +129,29 @@ abstract class PapayaPluginFactory extends PapayaObject {
   }
 
   /**
+   * @param $pluginName
+   * @return bool
+   */
+  public function __isset($pluginName) {
+    return $this->has($pluginName);
+  }
+
+  /**
+   * @param string $pluginName
+   * @param mixed $plugin
+   */
+  public function __set($pluginName, $plugin) {
+    throw new \BadMethodCallException('Can not set plugins.');
+  }
+
+  /**
+   * @param string $pluginName
+   */
+  public function __unset($pluginName) {
+    throw new \BadMethodCallException('Can not unset plugins.');
+  }
+
+  /**
   * Getter/setter the module options object of the given plugin.
   *
   * @param string $pluginName
@@ -138,7 +160,7 @@ abstract class PapayaPluginFactory extends PapayaObject {
   */
   public function options($pluginName, PapayaConfiguration $options = NULL) {
     if ($this->has($pluginName)) {
-      if (isset($options)) {
+      if ($options !== NULL) {
         $this->_options[$pluginName] = $options;
       } elseif (!isset($this->_options[$pluginName])) {
         $this->_options[$pluginName] = $this

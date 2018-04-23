@@ -50,7 +50,6 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testHasExpectingFalse() {
     $factory = new PapayaPluginFactory_TestProxy();
-    $factory = new PapayaPluginFactory_TestProxy();
     $this->assertFalse($factory->has('undefinedPlugin'));
   }
 
@@ -98,6 +97,23 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   }
 
   /**
+   * @covers PapayaPluginFactory::__isset
+   */
+  public function testMagicMethodIssetExpectingTrue() {
+    $factory = new PapayaPluginFactory_TestProxy();
+    $this->assertTrue(isset($factory->samplePlugin));
+  }
+
+  /**
+   * @covers PapayaPluginFactory::__isset
+   */
+  public function testMagicMethodIssetExpectingFalse() {
+    $factory = new PapayaPluginFactory_TestProxy();
+    $this->assertFalse(isset($factory->undefinedPlugin));
+  }
+
+
+  /**
   * @covers PapayaPluginFactory::__get
   */
   public function testMagicMethodGet() {
@@ -111,6 +127,25 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
     $factory->loader($loader);
     $this->assertInstanceOf('stdClass', $factory->samplePlugin);
   }
+
+  /**
+   * @covers PapayaPluginFactory::__set
+   */
+  public function testMagicMethodSetExpectingException() {
+    $factory = new PapayaPluginFactory_TestProxy();
+    $this->expectException('BadMethodCallException');
+    $factory->samplePlugin = '123';
+  }
+
+  /**
+   * @covers PapayaPluginFactory::__unset
+   */
+  public function testMagicMethodUnsetExpectingException() {
+    $factory = new PapayaPluginFactory_TestProxy();
+    $this->expectException('BadMethodCallException');
+    unset($factory->samplePlugin);
+  }
+
 
   /**
   * @covers PapayaPluginFactory::options
