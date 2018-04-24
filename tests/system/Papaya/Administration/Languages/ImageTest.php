@@ -31,7 +31,7 @@ class PapayaAdministrationLanguagesImageTest extends PapayaTestCase {
   * @covers PapayaAdministrationLanguagesImage
   */
   public function testToStringFetchingCurrentLanguage() {
-    $switch = $this->getMock('PapayaAdministrationLanguagesSwitch');
+    $switch = $this->createMock(PapayaAdministrationLanguagesSwitch::class);
     $switch
       ->expects($this->once())
       ->method('getCurrent')
@@ -47,14 +47,14 @@ class PapayaAdministrationLanguagesImageTest extends PapayaTestCase {
   * @covers PapayaAdministrationLanguagesImage
   */
   public function testToStringFetchingDefinedLanguage() {
-    $languages = $this->getMock('PapayaContentLanguages');
+    $languages = $this->createMock(PapayaContentLanguages::class);
     $languages
       ->expects($this->once())
       ->method('getLanguage')
       ->with(42)
       ->will($this->returnValue(array('image' => 'sample.png')));
 
-    $switch = $this->getMock('PapayaAdministrationLanguagesSwitch');
+    $switch = $this->createMock(PapayaAdministrationLanguagesSwitch::class);
     $switch
       ->expects($this->once())
       ->method('languages')
@@ -70,14 +70,14 @@ class PapayaAdministrationLanguagesImageTest extends PapayaTestCase {
   * @covers PapayaAdministrationLanguagesImage
   */
   public function testToStringWithNonExistingLanguageExpectingEmptyString() {
-    $languages = $this->getMock('PapayaContentLanguages');
+    $languages = $this->createMock(PapayaContentLanguages::class);
     $languages
       ->expects($this->once())
       ->method('getLanguage')
       ->with(23)
       ->will($this->returnValue(NULL));
 
-    $switch = $this->getMock('PapayaAdministrationLanguagesSwitch');
+    $switch = $this->createMock(PapayaAdministrationLanguagesSwitch::class);
     $switch
       ->expects($this->once())
       ->method('languages')

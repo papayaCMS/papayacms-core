@@ -7,7 +7,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
   * @covers PapayaAdministrationLanguagesSwitch::languages
   */
   public function testLanguagesGetAfterSet() {
-    $languages = $this->getMock('PapayaContentLanguages');
+    $languages = $this->createMock(PapayaContentLanguages::class);
     $switch = new PapayaAdministrationLanguagesSwitch();
     $this->assertSame(
       $languages, $switch->languages($languages)
@@ -20,7 +20,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
   public function testLanguagesGetImplicitCreate() {
     $switch = new PapayaAdministrationLanguagesSwitch();
     $this->assertInstanceOf(
-      'PapayaContentLanguages', $switch->languages()
+      PapayaContentLanguages::class, $switch->languages()
     );
   }
 
@@ -168,11 +168,12 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationLanguagesSwitch::getCurrent
-  * @covers PapayaAdministrationLanguagesSwitch::prepare
-  * @dataProvider provideLanguageOptions
-  */
-  public function testLanguagesGetCurrentFromOption($options) {
+   * @covers       PapayaAdministrationLanguagesSwitch::getCurrent
+   * @covers       PapayaAdministrationLanguagesSwitch::prepare
+   * @dataProvider provideLanguageOptions
+   * @param array $options
+   */
+  public function testLanguagesGetCurrentFromOption(array $options) {
     $switch = new PapayaAdministrationLanguagesSwitch();
     $switch->languages($this->getLanguagesFixture());
     $switch->papaya(
@@ -226,16 +227,19 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
       )
     );
     $switch->appendTo($dom->appendElement('sample'));
-    $this->assertEquals(
-      '<sample>'.
-        '<links title="Content Language">'.
-          '<link href="http://www.test.tld/test.html?lngsel[language_select]=21"'.
-          ' title="English" image="us.gif" selected="selected"/>'.
-          '<link href="http://www.test.tld/test.html?lngsel[language_select]=23"'.
-          ' title="German" image="de.gif"/>'.
-        '</links>'.
-      '</sample>',
-      $dom->saveXml($dom->documentElement)
+    $this->assertXmlStringEqualsXmlString(
+       // language=xml
+      '<sample>
+        <links title="Content Language">
+          <link 
+            href="http://www.test.tld/test.html?lngsel[language_select]=21" 
+            title="English" 
+            image="us.gif" 
+            selected="selected"/>
+          <link href="http://www.test.tld/test.html?lngsel[language_select]=23" title="German" image="de.gif"/>
+        </links>
+      </sample>',
+      $dom->saveXML($dom->documentElement)
     );
   }
 
@@ -250,12 +254,18 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
     );
   }
 
-  /*************************
-  * Fixtures
-  **************************/
 
+  /*************************
+   * Fixtures
+   *************************
+
+  /*
+   *
+   * @param array $languages
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentLanguages
+   */
   public function getLanguagesFixture($languages = NULL) {
-    $language = $this->getMock('PapayaContentLanguage');
+    $language = $this->createMock(PapayaContentLanguage::class);
     $language
       ->expects($this->any())
       ->method('__get')
@@ -278,10 +288,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
       $defaultLanguage->assign($defaultLanguageData);
     }
 
-    $result = $this->getMock(
-      'PapayaContentLanguages',
-      array('loadByUsage', 'getLanguage', 'getLanguageByCode', 'getIterator', 'getDefault')
-    );
+    $result = $this->createMock(PapayaContentLanguages::class);
     $result
       ->expects($this->once())
       ->method('loadByUsage')
@@ -308,7 +315,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
       ->will(
         $this->returnValue(
           new ArrayIterator(
-            isset($languages)
+            NULL !== $languages
               ? $languages
               : array(
                   21 => array(
@@ -352,16 +359,16 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
 
   public function getSessionFixture($languageSet = NULL, $languageGet = NULL) {
     $values = $this
-      ->getMockBuilder('PapayaSessionValues')
+      ->getMockBuilder(PapayaSessionValues::class)
       ->disableOriginalConstructor()
       ->getMock();
-    if (isset($languageSet)) {
+    if (NULL !== $languageSet) {
       $values
         ->expects($this->once())
         ->method('set')
         ->with($this->isType('array'), $languageSet);
     }
-    if (isset($languageGet)) {
+    if (NULL !== $languageGet) {
       $values
         ->expects($this->once())
         ->method('get')
@@ -374,7 +381,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
         ->withAnyParameters()
         ->will($this->returnValue(NULL));
     }
-    $session = $this->getMock('PapayaSession', array('values'));
+    $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->any())
       ->method('values')

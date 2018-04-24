@@ -28,20 +28,27 @@ class PapayaAdministrationLanguagesCaptionTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationLanguagesCaption
-  * @dataProvider provideSampleWithoutLanguageSwitch
-  */
+   * @covers       PapayaAdministrationLanguagesCaption
+   * @dataProvider provideSampleWithoutLanguageSwitch
+   * @param string $expected
+   * @param string $suffix
+   * @param string $separator
+   */
   public function testToStringWithoutAdministrationLanguage($expected, $suffix, $separator) {
     $caption = new PapayaAdministrationLanguagesCaption($suffix, $separator);
     $this->assertEquals($expected, (string)$caption);
   }
 
   /**
-  * @covers PapayaAdministrationLanguagesCaption
-  * @dataProvider provideSampleWithLanguageSwitch
-  */
+   * @covers       PapayaAdministrationLanguagesCaption
+   * @dataProvider provideSampleWithLanguageSwitch
+   * @param string $expected
+   * @param array $language
+   * @param string $suffix
+   * @param string $separator
+   */
   public function testToStringWithAdministrationLanguage($expected, $language, $suffix, $separator) {
-    $switch = $this->getMock('PapayaAdministrationLanguagesSwitch');
+    $switch = $this->createMock(PapayaAdministrationLanguagesSwitch::class);
     $switch
       ->expects($this->once())
       ->method('getCurrent')
