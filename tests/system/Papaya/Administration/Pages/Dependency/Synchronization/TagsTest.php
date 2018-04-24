@@ -8,7 +8,7 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends PapayaT
   * @covers PapayaAdministrationPagesDependencySynchronizationTags::synchronizeTags
   */
   public function testSynchronize() {
-    $tags = $this->getMock('PapayaContentPageTags');
+    $tags = $this->createMock(PapayaContentPageTags::class);
     $tags
       ->expects($this->once())
       ->method('load')
@@ -55,7 +55,7 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends PapayaT
   * @covers PapayaAdministrationPagesDependencySynchronizationTags::synchronizeTags
   */
   public function testSynchronizeLoadFailed() {
-    $tags = $this->getMock('PapayaContentPageTags');
+    $tags = $this->createMock(PapayaContentPageTags::class);
     $tags
       ->expects($this->once())
       ->method('load')
@@ -72,7 +72,7 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends PapayaT
   * @covers PapayaAdministrationPagesDependencySynchronizationTags::synchronizeTags
   */
   public function testSynchronizeClearOnly() {
-    $tags = $this->getMock('PapayaContentPageTags');
+    $tags = $this->createMock(PapayaContentPageTags::class);
     $tags
       ->expects($this->once())
       ->method('load')
@@ -100,7 +100,7 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends PapayaT
   * @covers PapayaAdministrationPagesDependencySynchronizationTags::synchronizeTags
   */
   public function testSynchronizeClearFailedExpectingFalse() {
-    $tags = $this->getMock('PapayaContentPageTags');
+    $tags = $this->createMock(PapayaContentPageTags::class);
     $tags
       ->expects($this->once())
       ->method('load')
@@ -127,7 +127,7 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends PapayaT
   * @covers PapayaAdministrationPagesDependencySynchronizationTags::tags
   */
   public function testTagsGetAfterSet() {
-    $tags = $this->getMock('PapayaContentPageTags');
+    $tags = $this->createMock(PapayaContentPageTags::class);
     $action = new PapayaAdministrationPagesDependencySynchronizationTags();
     $this->assertSame(
       $tags, $action->tags($tags)
@@ -140,7 +140,7 @@ class PapayaAdministrationPagesDependencySynchronizationTagsTest extends PapayaT
   public function testTagsGetImplicitCreate() {
     $action = new PapayaAdministrationPagesDependencySynchronizationTags();
     $this->assertInstanceOf(
-      'PapayaContentPageTags', $action->tags()
+      PapayaContentPageTags::class, $action->tags()
     );
   }
 }

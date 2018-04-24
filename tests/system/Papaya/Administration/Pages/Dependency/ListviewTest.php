@@ -99,60 +99,57 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
       )
     );
     $this->assertXmlStringEqualsXmlString(
-      '<listview title="Dependent pages of page &quot;[...] #42&quot;">'.
-        '<cols>'.
-          '<col align="left">Page</col>'.
-          '<col align="center">GoTo</col>'.
-          '<col align="center">Synchronization</col>'.
-          '<col align="center">Modified</col>'.
-        '</cols>'.
-        '<items>'.
-          '<listitem title="Dependencies" image="folder.png">'.
-            '<subitem align="center">'.
-              '<glyph src="up.png" hint="Go to origin page"'.
-              ' href="http://www.test.tld/test.html?page_id=42"/>'.
-            '</subitem>'.
-            '<subitem align="center"/>'.
-            '<subitem align="center"/>'.
-          '</listitem>'.
-          '<listitem title="selected page #21" image="page.png" subtitle="sample text"'.
-          ' href="http://www.test.tld/test.html?page_id=21" indent="1" selected="selected">'.
-            '<subitem align="center"/>'.
-            '<subitem align="center"><glyphs/></subitem>'.
-            '<subitem align="center">2011-01-01 12:00</subitem>'.
-          '</listitem>'.
-          '<listitem title="page #23" image="page.png"'.
-          ' href="http://www.test.tld/test.html?page_id=23" indent="1">'.
-            '<subitem align="center"/>'.
-            '<subitem align="center"><glyphs/></subitem>'.
-            '<subitem align="center">2011-01-01 12:00</subitem>'.
-          '</listitem>'.
-          '<listitem title="References" image="folder.png" span="4"/>'.
-          '<listitem title="page 21 #21" image="link.png" subtitle="note 21 -&gt; 42"'.
-          ' href="http://www.test.tld/test.html'.
-              '?cmd=reference_change&amp;page_id=42&amp;target_id=21" '.
-            'indent="1">'.
-            '<subitem align="center">'.
-              '<glyph src="page.png" hint="Go to page page 21 #21"'.
-              ' href="http://www.test.tld/test.html'.
-                '?cmd=reference_change&amp;page_id=21&amp;target_id=42"/>'.
-            '</subitem>'.
-            '<subitem align="center"></subitem>'.
-            '<subitem align="center">2011-01-01 12:00</subitem>'.
-          '</listitem><listitem title="page 84 #84" image="link.png" subtitle="note 42 -&gt; 84"'.
-          ' href="http://www.test.tld/test.html'.
-              '?cmd=reference_change&amp;page_id=42&amp;target_id=84" '.
-            'indent="1">'.
-            '<subitem align="center">'.
-              '<glyph src="page.png" hint="Go to page page 84 #84"'.
-              ' href="http://www.test.tld/test.html'.
-                '?cmd=reference_change&amp;page_id=84&amp;target_id=42"/>'.
-            '</subitem>'.
-            '<subitem align="center"></subitem>'.
-            '<subitem align="center">2011-01-01 12:00</subitem>'.
-          '</listitem>'.
-        '</items>'.
-      '</listview>',
+      // language=xml
+      '<listview title="Dependent pages of page &quot;[...] #42&quot;">
+        <cols>
+          <col align="left">Page</col>
+          <col align="center">GoTo</col>
+          <col align="center">Synchronization</col>
+          <col align="center">Modified</col>
+        </cols>
+        <items>
+          <listitem title="Dependencies" image="folder.png">
+            <subitem align="center">
+              <glyph src="up.png" hint="Go to origin page"
+               href="http://www.test.tld/test.html?page_id=42"/>
+            </subitem>
+            <subitem align="center"/>
+            <subitem align="center"/>
+          </listitem>
+          <listitem title="selected page #21" image="page.png" subtitle="sample text"
+           href="http://www.test.tld/test.html?page_id=21" indent="1" selected="selected">
+            <subitem align="center"/>
+            <subitem align="center"><glyphs/></subitem>
+            <subitem align="center">2011-01-01 12:00</subitem>
+          </listitem>
+          <listitem title="page #23" image="page.png"
+           href="http://www.test.tld/test.html?page_id=23" indent="1">
+            <subitem align="center"/>
+            <subitem align="center"><glyphs/></subitem>
+            <subitem align="center">2011-01-01 12:00</subitem>
+          </listitem>
+          <listitem title="References" image="folder.png" span="4"/>
+          <listitem title="page 21 #21" image="link.png" subtitle="note 21 -&gt; 42"
+           href="http://www.test.tld/test.html?cmd=reference_change&amp;page_id=42&amp;target_id=21" 
+            indent="1">
+            <subitem align="center">
+              <glyph src="page.png" hint="Go to page page 21 #21"
+               href="http://www.test.tld/test.html?cmd=reference_change&amp;page_id=21&amp;target_id=42"/>
+            </subitem>
+            <subitem align="center"/>
+            <subitem align="center">2011-01-01 12:00</subitem>
+          </listitem><listitem title="page 84 #84" image="link.png" subtitle="note 42 -&gt; 84"
+            href="http://www.test.tld/test.html?cmd=reference_change&amp;page_id=42&amp;target_id=84" 
+            indent="1">
+            <subitem align="center">
+              <glyph src="page.png" hint="Go to page page 84 #84"
+               href="http://www.test.tld/test.html?cmd=reference_change&amp;page_id=84&amp;target_id=42"/>
+            </subitem>
+            <subitem align="center"/>
+            <subitem align="center">2011-01-01 12:00</subitem>
+          </listitem>
+        </items>
+      </listview>',
       $listview->getXml()
     );
   }
@@ -161,7 +158,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
   * @covers PapayaAdministrationPagesDependencyListview::pages
   */
   public function testPagesGetAfterSet() {
-    $pages = $this->getMock('PapayaContentPages');
+    $pages = $this->createMock(PapayaContentPages::class);
     $dependencies = $this->getDependenciesFixture();
     $references = $this->getReferencesFixture();
     $synchronizations = $this->getSynchronizationsFixture();
@@ -192,8 +189,12 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
   * Fixtures
   **************************/
 
-  public function getDependenciesFixture($data = array()) {
-    $dependencies = $this->getMock('PapayaContentPageDependencies');
+  /**
+   * @param array $data
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageDependencies
+   */
+  public function getDependenciesFixture(array $data = array()) {
+    $dependencies = $this->createMock(PapayaContentPageDependencies::class);
     $dependencies
       ->expects($this->any())
       ->method('count')
@@ -205,8 +206,12 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
     return $dependencies;
   }
 
-  public function getReferencesFixture($data = array()) {
-    $references = $this->getMock('PapayaContentPageReferences');
+  /**
+   * @param array $data
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageReferences
+   */
+  public function getReferencesFixture(array $data = array()) {
+    $references = $this->createMock(PapayaContentPageReferences::class);
     $references
       ->expects($this->any())
       ->method('count')
@@ -218,19 +223,22 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
     return $references;
   }
 
+  /**
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaAdministrationPagesDependencySynchronizations
+   */
   public function getSynchronizationsFixture() {
-    $icons = $this->getMock('PapayaUiIconList');
+    $icons = $this->createMock(PapayaUiIconList::class);
     $icons
       ->expects($this->any())
       ->method('getIterator')
       ->will($this->returnValue(new ArrayIterator()));
-    $sychronizations = $this->getMock('PapayaAdministrationPagesDependencySynchronizations');
-    $sychronizations
+    $synchronizations = $this->createMock(PapayaAdministrationPagesDependencySynchronizations::class);
+    $synchronizations
       ->expects($this->any())
       ->method('getIcons')
       ->will(
         $this->returnValue($icons)
       );
-    return $sychronizations;
+    return $synchronizations;
   }
 }

@@ -165,7 +165,7 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
    * @param boolean $reset , reset cache and load record again
    * @return array
    */
-  public function getSynchonizedViews($language, $reset = FALSE) {
+  public function getSynchronizedViews($language, $reset = FALSE) {
     $result = array();
     $this->prepare(NULL, $reset);
     if ($this->dependency()->isOrigin($this->_pageId) &&

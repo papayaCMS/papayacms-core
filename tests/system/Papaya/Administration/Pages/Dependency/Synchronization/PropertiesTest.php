@@ -3,11 +3,14 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends PapayaTestCase {
 
+  private $_translationData;
+  private $_pageData;
+
   /**
   * @covers PapayaAdministrationPagesDependencySynchronizationProperties::page
   */
   public function testPageGetAfterSet() {
-    $page = $this->getMock('PapayaContentPageWork');
+    $page = $this->createMock(PapayaContentPageWork::class);
     $action = new PapayaAdministrationPagesDependencySynchronizationProperties();
     $this->assertSame(
       $page, $action->page($page)
@@ -62,7 +65,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
           'title' => 'Test Title',
           'metaTitle' => 'Test Meta Title',
           'metaDescription' => 'Test Meta Description',
-          'metaKeywords' => 'Keyowrd1, Keyword2'
+          'metaKeywords' => 'Keyword1, Keyword2'
         )
       )
     );
@@ -73,7 +76,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
         'topic_trans',
         array(
           'meta_descr' => 'Test Meta Description',
-          'meta_keywords' => 'Keyowrd1, Keyword2',
+          'meta_keywords' => 'Keyword1, Keyword2',
           'meta_title' => 'Test Meta Title',
           'topic_title' => 'Test Title'
         ),
@@ -149,7 +152,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
           'title' => 'Test Title',
           'metaTitle' => 'Test Meta Title',
           'metaDescription' => 'Test Meta Description',
-          'metaKeywords' => 'Keyowrd1, Keyword2'
+          'metaKeywords' => 'Keyword1, Keyword2'
         )
       )
     );
@@ -160,7 +163,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
         'topic_trans',
         array(
           'meta_descr' => 'Test Meta Description',
-          'meta_keywords' => 'Keyowrd1, Keyword2',
+          'meta_keywords' => 'Keyword1, Keyword2',
           'meta_title' => 'Test Meta Title',
           'topic_title' => 'Test Title'
         ),
@@ -177,11 +180,15 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
   }
 
   /********************************
-  * Fixtures
-  ********************************/
+   * Fixtures
+   *******************************/
 
-  private function getDatabaseAccessFixture($targetRecords = array()) {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+  /**
+   * @param array $targetRecords
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseAccess
+   */
+  private function getDatabaseAccessFixture(array $targetRecords = array()) {
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -192,7 +199,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
         )
       );
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array('getTimestamp', 'queryFmt', 'getSqlCondition', 'updateRecord', 'deleteRecord')
@@ -220,10 +227,18 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
     return $databaseAccess;
   }
 
+  /**
+   * @param PapayaDatabaseAccess|PHPUnit_Framework_MockObject_MockObject $databaseAccess
+   * @param array $translations
+   * @param PapayaContentPageTranslation|PHPUnit_Framework_MockObject_MockObject|NULL $translation
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageTranslations
+   */
   private function getTranslationsFixture(
-                     $databaseAccess, $translations = array(), $translation = NULL
-                   ) {
-    $result = $this->getMock('PapayaContentPageTranslations');
+    PapayaDatabaseAccess $databaseAccess,
+    array $translations = array(),
+    PapayaContentPageTranslation $translation = NULL
+  ) {
+    $result = $this->createMock(PapayaContentPageTranslations::class);
     $result
       ->expects($this->once())
       ->method('load')
@@ -237,7 +252,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
       ->expects($this->any())
       ->method('getDatabaseAccess')
       ->will($this->returnValue($databaseAccess));
-    if (isset($translation)) {
+    if (NULL !== $translation) {
       $result
         ->expects($this->once())
         ->method('getTranslation')
@@ -261,23 +276,30 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
     return $result;
   }
 
-  private function getTranslationFixture($data = array()) {
-    $this->_translationData = $data;
-    $translation = $this->getMock('PapayaContentPageTranslation');
+  /**
+   * @param array $data
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageTranslation
+   */
+  private function getTranslationFixture(array $data = array()) {
+    $translation = $this->createMock(PapayaContentPageTranslation::class);
     $translation
       ->expects($this->any())
       ->method('__get')
-      ->will($this->returnCallback(array($this, 'callbackTranslationData')));
+      ->willReturnCallback(
+        function($name) use ($data) {
+          return $data[$name];
+        }
+      );
     return $translation;
   }
 
-  public function callbackTranslationData($name) {
-    return $this->_translationData[$name];
-  }
-
-  private function getPageFixture($databaseAccess, $data = array()) {
-    $this->_pageData = $data;
-    $page = $this->getMock('PapayaContentPageWork');
+  /**
+   * @param PapayaDatabaseAccess $databaseAccess
+   * @param array $data
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageWork
+   */
+  private function getPageFixture(PapayaDatabaseAccess $databaseAccess, array $data = array()) {
+    $page = $this->createMock(PapayaContentPageWork::class);
     $page
       ->expects($this->any())
       ->method('load')
@@ -285,15 +307,15 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
     $page
       ->expects($this->any())
       ->method('__get')
-      ->will($this->returnCallback(array($this, 'callbackPageData')));
+      ->willReturnCallback(
+        function($name) use ($data) {
+          return $data[$name];
+        }
+      );
     $page
       ->expects($this->any())
       ->method('getDatabaseAccess')
       ->will($this->returnValue($databaseAccess));
     return $page;
-  }
-
-  public function callbackPageData($name) {
-    return $this->_pageData[$name];
   }
 }

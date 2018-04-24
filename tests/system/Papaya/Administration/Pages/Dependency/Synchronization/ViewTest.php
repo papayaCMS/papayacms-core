@@ -3,6 +3,8 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationPagesDependencySynchronizationViewTest extends PapayaTestCase {
 
+  private $_translationData;
+
   /**
   * @covers PapayaAdministrationPagesDependencySynchronizationView::updateTranslations
   */
@@ -46,11 +48,15 @@ class PapayaAdministrationPagesDependencySynchronizationViewTest extends PapayaT
   }
 
   /********************************
-  * Fixtures
-  ********************************/
+   * Fixtures
+   *******************************/
 
-  private function getDatabaseAccessFixture($targetRecords = array()) {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+  /**
+   * @param array $targetRecords
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseResult
+   */
+  private function getDatabaseAccessFixture(array $targetRecords = array()) {
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -61,7 +67,7 @@ class PapayaAdministrationPagesDependencySynchronizationViewTest extends PapayaT
         )
       );
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt', 'getSqlCondition', 'updateRecord', 'deleteRecord'))
       ->getMock();
@@ -83,10 +89,18 @@ class PapayaAdministrationPagesDependencySynchronizationViewTest extends PapayaT
     return $databaseAccess;
   }
 
+  /**
+   * @param PapayaDatabaseAccess|PHPUnit_Framework_MockObject_MockObject $databaseAccess
+   * @param array $translations
+   * @param PapayaContentPageTranslation|PHPUnit_Framework_MockObject_MockObject|NULL $translation
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageTranslations
+   */
   private function getTranslationsFixture(
-                     $databaseAccess, $translations = array(), $translation = NULL
-                   ) {
-    $result = $this->getMock('PapayaContentPageTranslations');
+    PapayaDatabaseAccess $databaseAccess,
+    array $translations = array(),
+    PapayaContentPageTranslation $translation = NULL
+  ) {
+    $result = $this->createMock(PapayaContentPageTranslations::class);
     $result
       ->expects($this->once())
       ->method('load')
@@ -100,7 +114,7 @@ class PapayaAdministrationPagesDependencySynchronizationViewTest extends PapayaT
       ->expects($this->any())
       ->method('getDatabaseAccess')
       ->will($this->returnValue($databaseAccess));
-    if (isset($translation)) {
+    if (NULL !== $translation) {
       $result
         ->expects($this->once())
         ->method('getTranslation')
@@ -124,17 +138,20 @@ class PapayaAdministrationPagesDependencySynchronizationViewTest extends PapayaT
     return $result;
   }
 
-  private function getTranslationFixture($data = array()) {
-    $this->_translationData = $data;
-    $translation = $this->getMock('PapayaContentPageTranslation');
+  /**
+   * @param array $data
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageTranslation
+   */
+  private function getTranslationFixture(array $data = array()) {
+    $translation = $this->createMock(PapayaContentPageTranslation::class);
     $translation
       ->expects($this->any())
       ->method('__get')
-      ->will($this->returnCallback(array($this, 'callbackTranslationData')));
+      ->willReturnCallback(
+        function($name) use ($data) {
+          return $data[$name];
+        }
+      );
     return $translation;
-  }
-
-  public function callbackTranslationData($name) {
-    return $this->_translationData[$name];
   }
 }

@@ -3,11 +3,13 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationPagesDependencySynchronizationAccessTest extends PapayaTestCase {
 
+  private $_pageData;
+
   /**
   * @covers PapayaAdministrationPagesDependencySynchronizationAccess::page
   */
   public function testTranslationsGetAfterSet() {
-    $page = $this->getMock('PapayaContentPageWork');
+    $page = $this->createMock(PapayaContentPageWork::class);
     $action = new PapayaAdministrationPagesDependencySynchronizationAccess();
     $this->assertSame(
       $page, $action->page($page)
@@ -20,7 +22,7 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
   public function testTranslationsGetImplicitCreate() {
     $action = new PapayaAdministrationPagesDependencySynchronizationAccess();
     $this->assertInstanceOf(
-      'PapayaContentPageWork', $action->page()
+      PapayaContentPageWork::class, $action->page()
     );
   }
 
@@ -61,7 +63,7 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
   * @covers PapayaAdministrationPagesDependencySynchronizationAccess::synchronize
   */
   public function testSynchronizePageNotLoaded() {
-    $page = $this->getMock('PapayaContentPageWork');
+    $page = $this->createMock(PapayaContentPageWork::class);
     $page
       ->expects($this->once())
       ->method('load')
@@ -75,9 +77,12 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
   * Fixtures
   ********************************/
 
+  /**
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseAccess
+   */
   private function getDatabaseAccessFixture() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array('getTimestamp', 'updateRecord')
@@ -90,9 +95,8 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
     return $databaseAccess;
   }
 
-  private function getPageFixture($databaseAccess, $data = array()) {
-    $this->_pageData = $data;
-    $page = $this->getMock('PapayaContentPageWork');
+  private function getPageFixture(PapayaDatabaseAccess $databaseAccess, array $data = array()) {
+    $page = $this->createMock(PapayaContentPageWork::class);
     $page
       ->expects($this->once())
       ->method('load')
@@ -100,15 +104,15 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
     $page
       ->expects($this->any())
       ->method('__get')
-      ->will($this->returnCallback(array($this, 'callbackPageData')));
+      ->willReturnCallback(
+        function($name) use ($data) {
+          return $data[$name];
+        }
+      );
     $page
       ->expects($this->any())
       ->method('getDatabaseAccess')
       ->will($this->returnValue($databaseAccess));
     return $page;
-  }
-
-  public function callbackPageData($name) {
-    return $this->_pageData[$name];
   }
 }

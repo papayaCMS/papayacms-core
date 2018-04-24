@@ -3,6 +3,8 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends PapayaTestCase {
 
+  private $_mockData;
+
   /**
   * @covers PapayaAdministrationPagesDependencySynchronizationPublication::synchronize
   * @covers PapayaAdministrationPagesDependencySynchronizationPublication::getVersionData
@@ -57,7 +59,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   * @covers PapayaAdministrationPagesDependencySynchronizationPublication::publication
   */
   public function testPublicationGetAfterSet() {
-    $publication = $this->getMock('PapayaContentPagePublication');
+    $publication = $this->createMock(PapayaContentPagePublication::class);
     $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
     $this->assertSame(
       $publication, $action->publication($publication)
@@ -70,7 +72,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   public function testPublicationGetImplicitCreate() {
     $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
     $this->assertInstanceOf(
-      'PapayaContentPagePublication', $action->publication()
+      PapayaContentPagePublication::class, $action->publication()
     );
   }
 
@@ -78,7 +80,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   * @covers PapayaAdministrationPagesDependencySynchronizationPublication::page
   */
   public function testPageGetAfterSet() {
-    $page = $this->getMock('PapayaContentPageWork');
+    $page = $this->createMock(PapayaContentPageWork::class);
     $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
     $this->assertSame(
       $page, $action->page($page)
@@ -91,7 +93,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   public function testPageGetImplicitCreate() {
     $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
     $this->assertInstanceOf(
-      'PapayaContentPageWork', $action->page()
+      PapayaContentPageWork::class, $action->page()
     );
   }
 
@@ -99,7 +101,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   * @covers PapayaAdministrationPagesDependencySynchronizationPublication::version
   */
   public function testVersionGetAfterSet() {
-    $version = $this->getMock('PapayaContentPageVersion');
+    $version = $this->createMock(PapayaContentPageVersion::class);
     $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
     $this->assertSame(
       $version, $action->version($version)
@@ -112,7 +114,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   public function testVersionGetImplicitCreate() {
     $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
     $this->assertInstanceOf(
-      'PapayaContentPageVersion', $action->version()
+      PapayaContentPageVersion::class, $action->version()
     );
   }
 
@@ -120,21 +122,30 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   * Fixtures
   ******************************/
 
+  /**
+   * @param array $publicationData
+   * @param array $latestVersionData
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPagePublication
+   */
   private function getPublicationFixture($publicationData = NULL, $latestVersionData = NULL) {
-    $this->_mockData['publication'] = $publicationData;
-    $publication = $this->getMock('PapayaContentPagePublication');
+    $publication = $this->createMock(PapayaContentPagePublication::class);
     $publication
       ->expects($this->once())
       ->method('load')
       ->with(23)
-      ->will($this->returnValue(isset($publicationData)));
+      ->will($this->returnValue(NULL !== $publicationData));
     $publication
       ->expects($this->any())
       ->method('__get')
-      ->will($this->returnCallback(array($this, 'callbackPublicationData')));
-    if (isset($latestVersionData)) {
+      ->willReturnCallback(
+        function($name) use ($publicationData) {
+          return $publicationData[$name];
+        }
+      );
+    if (NULL !== $latestVersionData) {
+      $databaseResult = NULL;
       if ($latestVersionData) {
-        $databaseResult = $this->getMock('PapayaDatabaseResult');
+        $databaseResult = $this->createMock(PapayaDatabaseResult::class);
         $databaseResult
           ->expects($this->any())
           ->method('fetchRow')
@@ -144,16 +155,14 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
           );
       }
       $databaseAccess = $this
-        ->getMockBuilder('PapayaDatabaseAccess')
+        ->getMockBuilder(PapayaDatabaseAccess::class)
         ->disableOriginalConstructor()
         ->setMethods(array('queryFmt'))
         ->getMock();
       $databaseAccess
         ->expects($this->once())
         ->method('queryFmt')
-        ->will($this->returnValue(
-          ($latestVersionData) ? $databaseResult : NULL)
-        );
+        ->will($this->returnValue($databaseResult));
       $publication
         ->expects($this->once())
         ->method('getDatabaseAccess')
@@ -162,12 +171,11 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
     return $publication;
   }
 
-  public function callbackPublicationData($offset) {
-    return $this->_mockData['publication'][$offset];
-  }
-
+  /**
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageWork
+   */
   private function getPageFixture() {
-    $page = $this->getMock('PapayaContentPageWork');
+    $page = $this->createMock(PapayaContentPageWork::class);
     $page
       ->expects($this->once())
       ->method('load')
@@ -181,8 +189,12 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
     return $page;
   }
 
+  /**
+   * @param $versionData
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageVersion
+   */
   private function getVersionFixture($versionData) {
-    $version = $this->getMock('PapayaContentPageVersion');
+    $version = $this->createMock(PapayaContentPageVersion::class);
     $version
       ->expects($this->exactly(2))
       ->method('__set')

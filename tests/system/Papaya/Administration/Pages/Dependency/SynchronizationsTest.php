@@ -9,7 +9,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
   public function testGetIcons() {
     $synchronizations = new PapayaAdministrationPagesDependencySynchronizations();
     $icons = $synchronizations->getIcons();
-    $this->assertInstanceOf('PapayaUiIconList', $icons);
+    $this->assertInstanceOf(PapayaUiIconList::class, $icons);
     $this->assertSame($icons, $synchronizations->getIcons());
   }
 
@@ -28,7 +28,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
   */
   public function testDependenciesGetAfterSet() {
     $synchronizations = new PapayaAdministrationPagesDependencySynchronizations();
-    $dependencies = $this->getMock('PapayaContentPageDependencies');
+    $dependencies = $this->createMock(PapayaContentPageDependencies::class);
     $this->assertSame($dependencies, $synchronizations->dependencies($dependencies));
   }
 
@@ -37,7 +37,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
   */
   public function testDependenciesGetImplicitCreate() {
     $synchronizations = new PapayaAdministrationPagesDependencySynchronizations();
-    $this->assertInstanceOf('PapayaContentPageDependencies', $synchronizations->dependencies());
+    $this->assertInstanceOf(PapayaContentPageDependencies::class, $synchronizations->dependencies());
   }
 
   /**
@@ -47,7 +47,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
     $synchronizations = new PapayaAdministrationPagesDependencySynchronizations();
     $action = $synchronizations->getAction(PapayaContentPageDependency::SYNC_PROPERTIES);
     $this->assertInstanceOf(
-      'PapayaAdministrationPagesDependencySynchronization',
+      PapayaAdministrationPagesDependencySynchronization::class,
       $action
     );
   }
@@ -66,7 +66,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
   * @covers PapayaAdministrationPagesDependencySynchronizations::getTargets
   */
   public function testGetTargets() {
-    $dependencies = $this->getMock('PapayaContentPageDependencies');
+    $dependencies = $this->createMock(PapayaContentPageDependencies::class);
     $dependencies
       ->expects($this->once())
       ->method('load')
@@ -103,7 +103,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
   * @covers PapayaAdministrationPagesDependencySynchronizations::getTargets
   */
   public function testGetTargetsExpectingNull() {
-    $dependencies = $this->getMock('PapayaContentPageDependencies');
+    $dependencies = $this->createMock(PapayaContentPageDependencies::class);
     $dependencies
       ->expects($this->once())
       ->method('load')
@@ -137,7 +137,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
         'synchronization' => PapayaContentPageDependency::SYNC_PROPERTIES
       )
     );
-    $action = $this->getMock('PapayaAdministrationPagesDependencySynchronization');
+    $action = $this->createMock(PapayaAdministrationPagesDependencySynchronization::class);
     $action
       ->expects($this->once())
       ->method('synchronize')
@@ -152,7 +152,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
   * @covers PapayaAdministrationPagesDependencySynchronizations::synchronizeAction
   */
   public function testSynchronizeAction() {
-    $action = $this->getMock('PapayaAdministrationPagesDependencySynchronization');
+    $action = $this->createMock(PapayaAdministrationPagesDependencySynchronization::class);
     $action
       ->expects($this->once())
       ->method('synchronize')
@@ -170,9 +170,12 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
   * Fixtures
   **************************/
 
-  public function getRecordFixture($data = array()) {
-    $this->_dependencyRecordData = $data;
-    $record = $this->getMock('PapayaContentPageDependency');
+  /**
+   * @param array $data
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageDependency
+   */
+  public function getRecordFixture(array $data = array()) {
+    $record = $this->createMock(PapayaContentPageDependency::class);
     $record
       ->expects($this->any())
       ->method('getIterator')
@@ -183,20 +186,20 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
       ->expects($this->any())
       ->method('__get')
       ->withAnyParameters()
-      ->will($this->returnCallback(array($this, 'callbackRecordData')));
+      ->willReturnCallback(
+        function($name) use ($data) {
+          return $data[$name];
+        }
+      );
     return $record;
-  }
-
-  public function callbackRecordData($name) {
-    return $this->_dependencyRecordData[$name];
   }
 }
 
 class PapayaAdministrationPagesDependencySynchronizations_TestProxy
   extends PapayaAdministrationPagesDependencySynchronizations {
 
-  public $actionMock = NULL;
-  public $targetList = NULL;
+  public $actionMock;
+  public $targetsList;
 
   public function getAction($synchronization) {
     return $this->actionMock;

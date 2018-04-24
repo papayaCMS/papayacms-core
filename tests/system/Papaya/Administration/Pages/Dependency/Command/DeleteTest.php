@@ -1,12 +1,15 @@
 <?php
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
+/**
+ * @property array _dependencyRecordData
+ */
 class PapayaAdministrationPagesDependencyCommandDeleteTest extends PapayaTestCase {
   /**
   * @covers PapayaAdministrationPagesDependencyCommandDelete::createDialog
   */
   public function testCreateDialog() {
-    $owner = $this->getMock('PapayaAdministrationPagesDependencyChanger');
+    $owner = $this->createMock(PapayaAdministrationPagesDependencyChanger::class);
     $owner
       ->expects($this->once())
       ->method('getPageId')
@@ -19,7 +22,7 @@ class PapayaAdministrationPagesDependencyCommandDeleteTest extends PapayaTestCas
     $command = new PapayaAdministrationPagesDependencyCommandDelete();
     $command->owner($owner);
     $dialog = $command->createDialog();
-    $this->assertEquals(1, count($dialog->fields));
+    $this->assertCount(1, $dialog->fields);
     $this->assertTrue(isset($command->callbacks()->onExecuteSuccessful));
   }
 
@@ -27,11 +30,11 @@ class PapayaAdministrationPagesDependencyCommandDeleteTest extends PapayaTestCas
   * @covers PapayaAdministrationPagesDependencyCommandDelete::dispatchDeleteMessage
   */
   public function testDispatchDeleteMessage() {
-    $messages = $this->getMock('PapayaMessageManager');
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageDisplayTranslated'));
+      ->with($this->isInstanceOf(PapayaMessageDisplayTranslated::class));
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages
@@ -46,9 +49,13 @@ class PapayaAdministrationPagesDependencyCommandDeleteTest extends PapayaTestCas
   * Fixtures
   **************************/
 
-  public function getRecordFixture($data = array()) {
+  /**
+   * @param array $data
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageDependency
+   */
+  public function getRecordFixture(array $data = array()) {
     $this->_dependencyRecordData = $data;
-    $record = $this->getMock('PapayaContentPageDependency');
+    $record = $this->createMock(PapayaContentPageDependency::class);
     $record
       ->expects($this->any())
       ->method('toArray')

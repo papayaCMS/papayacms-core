@@ -40,11 +40,11 @@ class PapayaAdministrationPagesDependencyCounter extends PapayaDatabaseObject {
   private $_loaded = FALSE;
 
   /**
-  * Store actual counting loaded from database
+  * Store actual amount loaded from database
   *
   * @var array('dependencies' => integer,'references' => integer)
   */
-  protected $_countings = array(
+  protected $_amounts = array(
     'dependencies' => 0,
     'references' => 0
   );
@@ -66,7 +66,7 @@ class PapayaAdministrationPagesDependencyCounter extends PapayaDatabaseObject {
   */
   public function getDependencies() {
     $this->lazyLoad();
-    return $this->_countings['dependencies'];
+    return $this->_amounts['dependencies'];
   }
 
   /**
@@ -76,7 +76,7 @@ class PapayaAdministrationPagesDependencyCounter extends PapayaDatabaseObject {
   */
   public function getReferences() {
     $this->lazyLoad();
-    return $this->_countings['references'];
+    return $this->_amounts['references'];
   }
 
   /**
@@ -85,7 +85,7 @@ class PapayaAdministrationPagesDependencyCounter extends PapayaDatabaseObject {
    * @return integer
    */
   public function load() {
-    $this->_countings = array(
+    $this->_amounts = array(
       'dependencies' => 0,
       'references' => 0
     );
@@ -104,9 +104,9 @@ class PapayaAdministrationPagesDependencyCounter extends PapayaDatabaseObject {
     );
     if ($databaseResult = $this->databaseQueryFmt($sql, $parameters)) {
       while ($row = $databaseResult->fetchRow(PapayaDatabaseResult::FETCH_ASSOC)) {
-        $this->_countings[$row['name']] = $row['counter'];
+        $this->_amounts[$row['name']] = $row['counter'];
       }
-      return TRUE;
+      return $this->_loaded = TRUE;
     }
     return FALSE;
   }
@@ -133,13 +133,13 @@ class PapayaAdministrationPagesDependencyCounter extends PapayaDatabaseObject {
   public function getLabel($separator = '/', $prefix = ' (', $suffix = ')') {
     $this->lazyLoad();
     $result = '';
-    if (array_sum($this->_countings) > 0) {
+    if (array_sum($this->_amounts) > 0) {
       $result .= $prefix;
-      if ($this->_countings['dependencies'] > 0) {
-        $result .= $this->_countings['dependencies'];
+      if ($this->_amounts['dependencies'] > 0) {
+        $result .= $this->_amounts['dependencies'];
         $result .= $separator;
       }
-      $result .= $this->_countings['references'];
+      $result .= $this->_amounts['references'];
       $result .= $suffix;
     }
     return $result;

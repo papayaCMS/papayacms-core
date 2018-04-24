@@ -15,7 +15,7 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
   * @covers PapayaAdministrationPagesDependencyCounter::load
   */
   public function testLoad() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -32,8 +32,10 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
           )
         )
       );
+
+    /** @var PapayaDatabaseAccess|PHPUnit_Framework_MockObject_MockObject $databaseAccess */
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt'))
       ->getMock();
@@ -55,14 +57,8 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
     $counter = new PapayaAdministrationPagesDependencyCounter(42);
     $counter->setDatabaseAccess($databaseAccess);
     $this->assertTrue($counter->load());
-    $this->assertAttributeEquals(
-      array(
-        'dependencies' => 21,
-        'references' => 23,
-      ),
-      '_countings',
-      $counter
-    );
+    $this->assertEquals(21, $counter->getDependencies());
+    $this->assertEquals(23, $counter->getReferences());
   }
 
   /**
@@ -70,7 +66,7 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
   */
   public function testLoadFailedExpectingFalse() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt'))
       ->getMock();
@@ -108,10 +104,13 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencyCounter::getLabel
-  * @covers PapayaAdministrationPagesDependencyCounter::lazyLoad
-  * @dataProvider provideCountingsForGetLabel
-  */
+   * @covers PapayaAdministrationPagesDependencyCounter::getLabel
+   * @covers PapayaAdministrationPagesDependencyCounter::lazyLoad
+   * @dataProvider provideCountingsForGetLabel
+   * @param string $expected
+   * @param int $dependencies
+   * @param int $references
+   */
   public function testGetLabel($expected, $dependencies, $references) {
     $counter = new PapayaAdministrationPagesDependencyCounter_TestProxy(42);
     $counter->countingSamples = array(
@@ -158,7 +157,7 @@ class PapayaAdministrationPagesDependencyCounter_TestProxy
 
   public function load() {
     if (is_array($this->countingSamples)) {
-      $this->_countings = $this->countingSamples;
+      $this->_amounts = $this->countingSamples;
       return TRUE;
     }
     return FALSE;

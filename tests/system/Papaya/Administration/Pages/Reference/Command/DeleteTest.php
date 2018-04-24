@@ -6,7 +6,7 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends PapayaTestCase
   * @covers PapayaAdministrationPagesReferenceCommandDelete::createDialog
   */
   public function testCreateDialog() {
-    $owner = $this->getMock('PapayaAdministrationPagesDependencyChanger');
+    $owner = $this->createMock(PapayaAdministrationPagesDependencyChanger::class);
     $owner
       ->expects($this->atLeastOnce())
       ->method('getPageId')
@@ -19,7 +19,7 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends PapayaTestCase
     $command = new PapayaAdministrationPagesReferenceCommandDelete();
     $command->owner($owner);
     $dialog = $command->createDialog();
-    $this->assertEquals(1, count($dialog->fields));
+    $this->assertCount(1, $dialog->fields);
     $this->assertTrue(isset($command->callbacks()->onExecuteSuccessful));
   }
 
@@ -27,11 +27,11 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends PapayaTestCase
   * @covers PapayaAdministrationPagesReferenceCommandDelete::dispatchDeleteMessage
   */
   public function testDispatchDeleteMessage() {
-    $messages = $this->getMock('PapayaMessageManager');
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageDisplayTranslated'));
+      ->with($this->isInstanceOf(PapayaMessageDisplayTranslated::class));
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages
@@ -43,12 +43,15 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends PapayaTestCase
   }
 
   /**************************
-  * Fixtures
-  **************************/
+   * Fixtures
+   *************************/
 
-  public function getRecordFixture($data = array()) {
-    $this->_dependencyRecordData = $data;
-    $record = $this->getMock('PapayaContentPageReference');
+  /**
+   * @param array $data
+   * @return PHPUnit_Framework_MockObject_MockObject
+   */
+  public function getRecordFixture(array $data = array()) {
+    $record = $this->createMock(PapayaContentPageReference::class);
     $record
       ->expects($this->any())
       ->method('toArray')

@@ -1375,7 +1375,7 @@ class base_topic_edit extends base_topic {
   function saveContent($moduleGuid, $content) {
     if (isset($this->topic['TRANSLATION']) && is_array($this->topic['TRANSLATION'])) {
       $dependencyBlocker = $this->getDependencyBlocker();
-      $pageViews = $dependencyBlocker->getSynchonizedViews(
+      $pageViews = $dependencyBlocker->getSynchronizedViews(
         $this->topic['TRANSLATION']['lng_id']
       );
       foreach ($pageViews as $pageId => $view) {
@@ -2924,7 +2924,7 @@ class base_topic_edit extends base_topic {
       if ($selectView->loadView($this->params['view_id'])) {
         $dependency = $this->getDependencyBlocker()->dependency();
         if ($dependency->isOrigin($this->topicId)) {
-          $pageViews = $this->getDependencyBlocker()->getSynchonizedViews(
+          $pageViews = $this->getDependencyBlocker()->getSynchronizedViews(
             $this->topic['TRANSLATION']['lng_id']
           );
           foreach ($pageViews as $pageId => $view) {
