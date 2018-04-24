@@ -27,3 +27,6 @@
 
 # default database file
 /papaya.sqlite
+
+# modules test directory
+/src/modules/test/
