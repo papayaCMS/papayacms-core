@@ -270,7 +270,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('__get')
       ->withAnyParameters()
-      ->will($this->returnCallback(array($this, 'callbackLangugageData')));
+      ->will($this->returnCallback(array($this, 'callbackLanguageData')));
 
     $defaultLanguageData = is_array($languages)
       ? reset($languages)
@@ -344,7 +344,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
     return $result;
   }
 
-  public function callbackLangugageData($name) {
+  public function callbackLanguageData($name) {
     $data = array(
       'id' => 21,
       'identifier' => 'en',
