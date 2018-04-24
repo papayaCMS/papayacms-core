@@ -16,7 +16,7 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   */
   public function testRegisterHandler() {
     $wrapper = new PapayaSessionWrapper();
-    $this->assertTrue($wrapper->registerHandler('PapayaSessionHandler_TestClass'));
+    $this->assertTrue($wrapper->registerHandler(PapayaSessionHandler_TestClass::class));
   }
 
   /**
@@ -24,7 +24,7 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   */
   public function testRegisterHandlerExpectingException() {
     $wrapper = new PapayaSessionWrapper();
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $wrapper->registerHandler('INVALID_NON_EXISTING_CLASS');
   }
 
@@ -91,7 +91,7 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   public function testStart() {
     PapayaSessionHandler_TestClass::$calls = array();
     $wrapper = new PapayaSessionWrapper();
-    $wrapper->registerHandler('PapayaSessionHandler_TestClass');
+    $wrapper->registerHandler(PapayaSessionHandler_TestClass::class);
     $this->assertTrue($wrapper->start());
     $this->assertEquals(
       array(
@@ -109,7 +109,7 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   public function testWriteClose() {
     PapayaSessionHandler_TestClass::$calls = array();
     $wrapper = new PapayaSessionWrapper();
-    $wrapper->registerHandler('PapayaSessionHandler_TestClass');
+    $wrapper->registerHandler(PapayaSessionHandler_TestClass::class);
     $wrapper->start();
     $wrapper->writeClose();
     $this->assertEquals(
@@ -129,7 +129,7 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   public function testDestroy() {
     PapayaSessionHandler_TestClass::$calls = array();
     $wrapper = new PapayaSessionWrapper();
-    $wrapper->registerHandler('PapayaSessionHandler_TestClass');
+    $wrapper->registerHandler(PapayaSessionHandler_TestClass::class);
     $wrapper->start();
     $wrapper->destroy();
     $this->assertEquals(
@@ -152,7 +152,7 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   public function testRegenerateId() {
     PapayaSessionHandler_TestClass::$calls = array();
     $wrapper = new PapayaSessionWrapper();
-    $wrapper->registerHandler('PapayaSessionHandler_TestClass');
+    $wrapper->registerHandler(PapayaSessionHandler_TestClass::class);
     $wrapper->start();
     $id = session_id();
     $wrapper->regenerateId();

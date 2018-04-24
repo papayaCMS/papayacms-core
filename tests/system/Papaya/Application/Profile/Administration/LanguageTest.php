@@ -11,7 +11,7 @@ class PapayaApplicationProfileAdministrationLanguageTest extends PapayaTestCase 
     $profile = new PapayaApplicationProfileAdministrationLanguage();
     $switch = $profile->createObject($application);
     $this->assertInstanceOf(
-      'PapayaAdministrationLanguagesSwitch',
+      PapayaAdministrationLanguagesSwitch::class,
       $switch
     );
   }

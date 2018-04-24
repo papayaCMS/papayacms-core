@@ -9,7 +9,7 @@ class PapayaCacheIdentifierDefinitionValuesTest extends PapayaTestCase {
   public function testGetStatus() {
     $definition = new PapayaCacheIdentifierDefinitionValues('21', '42');
     $this->assertEquals(
-      array('PapayaCacheIdentifierDefinitionValues' => array('21', '42')),
+      array(PapayaCacheIdentifierDefinitionValues::class => array('21', '42')),
       $definition->getStatus()
     );
   }

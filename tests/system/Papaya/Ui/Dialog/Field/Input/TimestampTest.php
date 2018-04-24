@@ -8,7 +8,7 @@ class PapayaUiDialogFieldInputTimestampTest extends PapayaTestCase {
   */
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('appendTo', 'isSubmitted', 'execute', 'parameters'),
       array(new stdClass())
     );

@@ -18,7 +18,7 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
   */
   public function testFillWithDefaultCallbacks() {
     $items = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
@@ -27,7 +27,7 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf('PapayaUiListviewItem'));
+      ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
     $builder = new PapayaUiListviewItemsBuilder(
       array('Sample One')
     );
@@ -39,7 +39,7 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
   */
   public function testFillWithDefinedCallbacks() {
     $item = $this
-      ->getMockBuilder('PapayaUiListviewItem')
+      ->getMockBuilder(PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
     $callbacks = $this->createMock(PapayaUiListviewItemsBuilderCallbacks::class);
@@ -52,7 +52,7 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
       ->method('__call')
       ->will($this->returnValue(TRUE));
     $items = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
@@ -83,18 +83,18 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
   */
   public function testCallbacksGetImplicitCreate() {
     $builder = new PapayaUiListviewItemsBuilder(array());
-    $this->assertInstanceOf('PapayaUiListviewItemsBuilderCallbacks', $builder->callbacks());
+    $this->assertInstanceOf(PapayaUiListviewItemsBuilderCallbacks::class, $builder->callbacks());
   }
 
   public function testCreateItem() {
     $items = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf('PapayaUiListviewItem'));
+      ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
     $builder = new PapayaUiListviewItemsBuilder(array());
     $builder->createItem(NULL, $items, 'Sample', 0);
   }

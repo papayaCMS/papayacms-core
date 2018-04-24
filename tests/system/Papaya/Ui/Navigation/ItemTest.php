@@ -30,7 +30,7 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
     $item = new PapayaUiNavigationItem_TestProxy(NULL);
     $item->reference($reference);
     $this->assertInstanceOf(
-      'PapayaXmlElement', $item->appendTo($parent)
+      PapayaXmlElement::class, $item->appendTo($parent)
     );
     $this->assertEquals(
       '<test><link href="test.html"/></test>',
@@ -53,7 +53,7 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
     $item->selected(TRUE);
     $item->reference($reference);
     $this->assertInstanceOf(
-      'PapayaXmlElement', $item->appendTo($parent)
+      PapayaXmlElement::class, $item->appendTo($parent)
     );
     $this->assertEquals(
       '<test><link href="test.html" selected="selected"/></test>',
@@ -102,7 +102,7 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
       ->will($this->returnValue($reference));
     $item = new PapayaUiNavigationItem_TestProxy(NULL);
     $item->collection($collection);
-    $this->assertInstanceOf('PapayaUiReference', $item->reference());
+    $this->assertInstanceOf(PapayaUiReference::class, $item->reference());
     $this->assertNotSame($reference, $item->reference());
   }
 
@@ -113,7 +113,7 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
     $item = new PapayaUiNavigationItem_TestProxy(NULL);
     $item->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaUiReference', $reference = $item->reference()
+      PapayaUiReference::class, $reference = $item->reference()
     );
     $this->assertSame(
       $papaya, $reference->papaya()

@@ -8,14 +8,14 @@ class PapayaUiDialogDatabaseDeleteTest extends PapayaTestCase {
   */
   public function testExecuteExpectingTrue() {
     $callbacks = $this
-      ->getMockBuilder('PapayaUiDialogDatabaseCallbacks')
+      ->getMockBuilder(PapayaUiDialogDatabaseCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onBeforeDelete'))
       ->getMock();
     $callbacks
       ->expects($this->once())
       ->method('onBeforeDelete')
-      ->with($this->isInstanceOf('PapayaDatabaseObjectRecord'))
+      ->with($this->isInstanceOf(PapayaDatabaseObjectRecord::class))
       ->will($this->returnValue(TRUE));
     $record = $this->getRecordFixture();
     $record
@@ -32,14 +32,14 @@ class PapayaUiDialogDatabaseDeleteTest extends PapayaTestCase {
   */
   public function testExecuteBlockedByCallbackExpectingFalse() {
     $callbacks = $this
-      ->getMockBuilder('PapayaUiDialogDatabaseCallbacks')
+      ->getMockBuilder(PapayaUiDialogDatabaseCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onBeforeDelete'))
       ->getMock();
     $callbacks
       ->expects($this->once())
       ->method('onBeforeDelete')
-      ->with($this->isInstanceOf('PapayaDatabaseObjectRecord'))
+      ->with($this->isInstanceOf(PapayaDatabaseObjectRecord::class))
       ->will($this->returnValue(FALSE));
     $record = $this->getRecordFixture();
     $record

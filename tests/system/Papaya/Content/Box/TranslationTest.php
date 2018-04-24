@@ -27,7 +27,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -73,7 +73,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(0));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt', 'insertRecord'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt', 'insertRecord'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -126,7 +126,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(1));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt', 'updateRecord'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt', 'updateRecord'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -185,7 +185,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
   */
   public function testSaveCheckFailesExpectingFalse() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())

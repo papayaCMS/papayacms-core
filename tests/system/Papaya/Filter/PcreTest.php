@@ -38,7 +38,7 @@ class PapayaFilterPcreTest extends PapayaTestCase {
   */
   public function testValidateExpectingException() {
     $filter = new PapayaFilterPcre('(^foo$)');
-    $this->setExpectedException('PapayaFilterExceptionPcre');
+    $this->setExpectedException(PapayaFilterExceptionPcre::class);
     $filter->validate('bar');
   }
 

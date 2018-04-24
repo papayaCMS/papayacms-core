@@ -83,12 +83,12 @@ class PapayaUiDialogErrorsTest extends PapayaTestCase {
   */
   public function testGetSourceCaptions() {
     $errors = new PapayaUiDialogErrors();
-    $fieldOne = $this->getMock('PapayaUiDialogField', array('getCaption', 'appendTo'));
+    $fieldOne = $this->getMock(PapayaUiDialogField::class, array('getCaption', 'appendTo'));
     $fieldOne
       ->expects($this->once())
       ->method('getCaption')
       ->will($this->returnValue('FieldOne'));
-    $fieldTwo = $this->getMock('PapayaUiDialogField', array('getCaption', 'appendTo'));
+    $fieldTwo = $this->getMock(PapayaUiDialogField::class, array('getCaption', 'appendTo'));
     $fieldTwo
       ->expects($this->once())
       ->method('getCaption')

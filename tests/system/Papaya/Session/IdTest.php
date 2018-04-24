@@ -249,7 +249,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
   * @covers PapayaSessionId::getId
   */
   public function testGetIdFromCachedValue() {
-    $request = $this->getMock('PapayaRequest', array('getParameter'));
+    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -285,7 +285,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
 
   public function getParameterStubFixture($parameters) {
     $this->requestParameters = $parameters;
-    $request = $this->getMock('PapayaRequest', array('getParameter'));
+    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
     $request
       ->expects($this->any())
       ->method('getParameter')

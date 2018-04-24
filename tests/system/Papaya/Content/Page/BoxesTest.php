@@ -169,7 +169,7 @@ class PapayaContentPageBoxesTest extends PapayaTestCase {
 
   private function getDatabaseAccessMock() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getTableName', 'queryFmt', 'deleteRecord', 'insertRecords'))
       ->getMock();

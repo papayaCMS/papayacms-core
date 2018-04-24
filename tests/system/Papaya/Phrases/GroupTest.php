@@ -8,7 +8,7 @@ class PapayaPhrasesGroupTest extends PapayaTestCase {
    */
   public function testGet() {
     $phrases = $this
-      ->getMockBuilder('PapayaPhrases')
+      ->getMockBuilder(PapayaPhrases::class)
       ->disableOriginalConstructor()
       ->getMock();
     $phrases
@@ -18,7 +18,7 @@ class PapayaPhrasesGroupTest extends PapayaTestCase {
       ->will($this->returnValue('Success'));
     $group = new PapayaPhrasesGroup($phrases, '#default');
     $phrase = $group->get('Test');
-    $this->assertInstanceOf('PapayaUiStringTranslated', $phrase);
+    $this->assertInstanceOf(PapayaUiStringTranslated::class, $phrase);
     $this->assertEquals('Success', (string)$phrase);
   }
 
@@ -27,7 +27,7 @@ class PapayaPhrasesGroupTest extends PapayaTestCase {
    */
   public function testGetList() {
     $phrases = $this
-      ->getMockBuilder('PapayaPhrases')
+      ->getMockBuilder(PapayaPhrases::class)
       ->disableOriginalConstructor()
       ->getMock();
     $phrases
@@ -37,7 +37,7 @@ class PapayaPhrasesGroupTest extends PapayaTestCase {
       ->will($this->returnValue('Success'));
     $group = new PapayaPhrasesGroup($phrases, '#default');
     $phraseList = $group->getList(array('One' => 'Test'));
-    $this->assertInstanceOf('PapayaUiStringTranslatedList', $phraseList);
+    $this->assertInstanceOf(PapayaUiStringTranslatedList::class, $phraseList);
     $list = iterator_to_array($phraseList);
     $this->assertEquals('Success', (string)$list['One']);
   }

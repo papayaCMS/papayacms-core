@@ -44,7 +44,7 @@ class PapayaMessageContextVariableTest extends PapayaTestCase {
   */
   public function testSetDepthWithInvalidDepthExpectingException() {
     $context = new PapayaMessageContextVariable(NULL);
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $context->setDepth(0);
   }
 
@@ -77,7 +77,7 @@ class PapayaMessageContextVariableTest extends PapayaTestCase {
   */
   public function testSetStringLengthWithInvalidLengthExpectingException() {
     $context = new PapayaMessageContextVariable(NULL);
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $context->setStringLength(-1);
   }
 
@@ -86,7 +86,7 @@ class PapayaMessageContextVariableTest extends PapayaTestCase {
   */
   public function testAcceptVisitor() {
     $visitor = $this->getMock(
-      'PapayaMessageContextVariableVisitorString', array('visitVariable'), array(21, 42)
+      PapayaMessageContextVariableVisitorString::class, array('visitVariable'), array(21, 42)
     );
     $visitor
       ->expects($this->once())

@@ -7,7 +7,7 @@ class PapayaUiDialogElementsTest extends PapayaTestCase {
   * @covers PapayaUiDialogElements::__construct
   */
   public function testConstructorWithOwner() {
-    $dialog = $this->getMock('PapayaUiDialog', array(), array(new stdClass()));
+    $dialog = $this->getMock(PapayaUiDialog::class, array(), array(new stdClass()));
     $elements = new PapayaUiDialogElements_TestProxy($dialog);
     $this->assertSame(
       $dialog, $elements->owner()
@@ -20,11 +20,11 @@ class PapayaUiDialogElementsTest extends PapayaTestCase {
   public function testAppendTo() {
     $dom = new PapayaXmlDocument();
     $node = $dom->createElement('dummy');
-    $element = $this->getMock('PapayaUiDialogElement', array('owner', 'appendTo'));
+    $element = $this->getMock(PapayaUiDialogElement::class, array('owner', 'appendTo'));
     $element
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $elements = new PapayaUiDialogElements_TestProxy();
     $elements->add($element);
     $elements->appendTo($node);
@@ -35,7 +35,7 @@ class PapayaUiDialogElementsTest extends PapayaTestCase {
   */
   public function testCollect() {
     $element = $this->getMock(
-      'PapayaUiDialogElement', array('owner', 'appendTo', 'collect')
+      PapayaUiDialogElement::class, array('owner', 'appendTo', 'collect')
     );
     $element
       ->expects($this->once())

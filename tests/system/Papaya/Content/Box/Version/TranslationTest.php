@@ -26,7 +26,7 @@ class PapayaContentBoxVersionTranslationTest extends PapayaTestCase {
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())

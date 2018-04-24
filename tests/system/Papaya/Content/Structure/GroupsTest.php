@@ -8,11 +8,11 @@ class PapayaContentStructureGroupsTest extends PapayaTestCase {
    */
   public function testConstructor() {
     $page = $this
-      ->getMockBuilder('PapayaContentStructurePage')
+      ->getMockBuilder(PapayaContentStructurePage::class)
       ->disableOriginalConstructor()
       ->getMock();
     $groups = new PapayaContentStructureGroups($page);
-    $this->assertEquals('PapayaContentStructureGroup', $groups->getItemClass());
+    $this->assertEquals(PapayaContentStructureGroup::class, $groups->getItemClass());
   }
 
   /**
@@ -20,7 +20,7 @@ class PapayaContentStructureGroupsTest extends PapayaTestCase {
    */
   public function testLoad() {
     $page = $this
-      ->getMockBuilder('PapayaContentStructurePage')
+      ->getMockBuilder(PapayaContentStructurePage::class)
       ->disableOriginalConstructor()
       ->getMock();
     $dom = new PapayaXmlDocument();

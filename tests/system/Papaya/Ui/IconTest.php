@@ -151,7 +151,7 @@ class PapayaUiIconTest extends PapayaTestCase {
       $this->mockPapaya()->application()
     );
     $this->assertInstanceOf(
-      'PapayaUiReference', $icon->reference()
+      PapayaUiReference::class, $icon->reference()
     );
   }
 }

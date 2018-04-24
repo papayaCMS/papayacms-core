@@ -54,7 +54,7 @@ class PapayaMessageHookExceptionsTest extends PapayaTestCase {
     $manager
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessagePhpException'));
+      ->with($this->isInstanceOf(PapayaMessagePhpException::class));
     $hook = new PapayaMessageHookExceptions($manager);
     $hook->handle(new ErrorException('Sample Message', 0, E_USER_ERROR, 'file.php', 42));
   }
@@ -67,7 +67,7 @@ class PapayaMessageHookExceptionsTest extends PapayaTestCase {
     $manager
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessagePhpException'));
+      ->with($this->isInstanceOf(PapayaMessagePhpException::class));
     $hook = new PapayaMessageHookExceptions($manager);
     $hook->handle(new Exception('Sample Message'));
   }

@@ -8,7 +8,7 @@ class PapayaRequestParserStartTest extends PapayaTestCase {
   * @dataProvider parseDataProvider
   */
   public function testParse($path, $expected) {
-    $url = $this->getMock('PapayaUrl', array('getPath'));
+    $url = $this->getMock(PapayaUrl::class, array('getPath'));
     $url
       ->expects($this->any())
       ->method('getPath')

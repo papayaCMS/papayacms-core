@@ -37,7 +37,7 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
     $client = $this->createMock(PapayaStreamwrapperS3Handler::class);
     $wrapper = new PapayaStreamwrapperS3();
     $this->assertInstanceOf(
-      'PapayaStreamwrapperS3Handler', $wrapper->getHandler()
+      PapayaStreamwrapperS3Handler::class, $wrapper->getHandler()
     );
   }
 
@@ -97,7 +97,7 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
       )
     );
     $this->assertAttributeSame(
-      $secrets, '_secrets', 'PapayaStreamwrapperS3'
+      $secrets, '_secrets', PapayaStreamwrapperS3::class
     );
     $wrapper->setSecret($id, NULL);
   }
@@ -117,7 +117,7 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
       )
     );
     $this->assertAttributeSame(
-      array(), '_secrets', 'PapayaStreamwrapperS3'
+      array(), '_secrets', PapayaStreamwrapperS3::class
     );
   }
 
@@ -133,7 +133,7 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
       )
     );
     $this->assertAttributeSame(
-      array(), '_secrets', 'PapayaStreamwrapperS3'
+      array(), '_secrets', PapayaStreamwrapperS3::class
     );
   }
 

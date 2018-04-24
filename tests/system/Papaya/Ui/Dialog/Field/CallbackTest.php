@@ -75,7 +75,7 @@ class PapayaUiDialogFieldCallbackTest extends PapayaTestCase {
     $result
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     return $result;
   }
 }

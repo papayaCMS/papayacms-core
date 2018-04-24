@@ -122,7 +122,7 @@ class PapayaCsvWriterTest extends PapayaTestCase {
   */
   public function testWriteHeaderCallsCallback() {
     $callbacks = $this
-      ->getMockBuilder('PapayaCsvWriterCallbacks')
+      ->getMockBuilder(PapayaCsvWriterCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('__isset', 'onMapHeader'))
       ->getMock();
@@ -169,7 +169,7 @@ class PapayaCsvWriterTest extends PapayaTestCase {
   */
   public function testWriteRowCallsCallback() {
     $callbacks = $this
-      ->getMockBuilder('PapayaCsvWriterCallbacks')
+      ->getMockBuilder(PapayaCsvWriterCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('__isset', 'onMapRow'))
       ->getMock();
@@ -264,7 +264,7 @@ class PapayaCsvWriterTest extends PapayaTestCase {
   */
   public function testCallbacksGetWithImplizitCreate() {
     $writer = new PapayaCsvWriter();
-    $this->assertInstanceOf('PapayaCsvWriterCallbacks', $writer->callbacks());
+    $this->assertInstanceOf(PapayaCsvWriterCallbacks::class, $writer->callbacks());
   }
 
   public static function provideSampleRowsAndExpectedOutput() {

@@ -8,11 +8,11 @@ class PapayaUiToolbarTest extends PapayaTestCase {
   */
   public function testElementsGetAfterSet() {
     $menu = new PapayaUiToolbar();
-    $elements = $this->getMock('PapayaUiToolbarElements', array(), array($menu));
+    $elements = $this->getMock(PapayaUiToolbarElements::class, array(), array($menu));
     $elements
       ->expects($this->once())
       ->method('owner')
-      ->with($this->isInstanceOf('PapayaUiToolbar'));
+      ->with($this->isInstanceOf(PapayaUiToolbar::class));
     $this->assertSame(
       $elements, $menu->elements($elements)
     );
@@ -24,7 +24,7 @@ class PapayaUiToolbarTest extends PapayaTestCase {
   public function testElementsImplicitCreate() {
     $menu = new PapayaUiToolbar();
     $this->assertInstanceOf(
-      'PapayaUiToolbarElements', $menu->elements()
+      PapayaUiToolbarElements::class, $menu->elements()
     );
     $this->assertSame(
       $menu, $menu->elements()->owner()
@@ -38,7 +38,7 @@ class PapayaUiToolbarTest extends PapayaTestCase {
     $dom = new PapayaXmlDocument();
     $parent = $dom->appendElement('sample');
     $menu = new PapayaUiToolbar();
-    $elements = $this->getMock('PapayaUiToolbarElements', array(), array($menu));
+    $elements = $this->getMock(PapayaUiToolbarElements::class, array(), array($menu));
     $elements
       ->expects($this->once())
       ->method('count')
@@ -46,7 +46,7 @@ class PapayaUiToolbarTest extends PapayaTestCase {
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $menu->elements($elements);
     $menu->appendTo($parent);
     $this->assertEquals(
@@ -62,7 +62,7 @@ class PapayaUiToolbarTest extends PapayaTestCase {
     $dom = new PapayaXmlDocument();
     $parent = $dom->appendElement('sample');
     $menu = new PapayaUiToolbar();
-    $elements = $this->getMock('PapayaUiToolbarElements', array(), array($menu));
+    $elements = $this->getMock(PapayaUiToolbarElements::class, array(), array($menu));
     $elements
       ->expects($this->once())
       ->method('count')

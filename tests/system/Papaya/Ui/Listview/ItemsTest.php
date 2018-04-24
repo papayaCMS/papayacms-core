@@ -38,7 +38,7 @@ class PapayaUiListviewItemsTest extends PapayaTestCase {
       ->will($this->returnValue($this->createMock(PapayaUiReference::class)));
     $items = new PapayaUiListviewItems($listview);
     $this->assertInstanceOf(
-      'PapayaUiReference', $items->reference()
+      PapayaUiReference::class, $items->reference()
     );
   }
 }

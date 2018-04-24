@@ -19,7 +19,7 @@ class PapayaUrlTransformerRelativeTest extends PapayaTestCase {
       'getQuery' => 'query',
       'getFragment' => 'fragment',
     );
-    $urlObject = $this->getMock('PapayaUrl', array_keys($mapping));
+    $urlObject = $this->getMock(PapayaUrl::class, array_keys($mapping));
     if (empty($url)) {
       $urlData = array();
     } else {

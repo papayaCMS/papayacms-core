@@ -40,7 +40,7 @@ class PapayaUiControlCommandDialogPluginContentTest extends PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $content = $this->createMock(PapayaPluginEditableContent::class);
     $command = new PapayaUiControlCommandDialogPluginContent($content);
     $command->dialog($dialog);
@@ -63,7 +63,7 @@ class PapayaUiControlCommandDialogPluginContentTest extends PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $content = $this->createMock(PapayaPluginEditableContent::class);
     $command = new PapayaUiControlCommandDialogPluginContent($content);
     $command->dialog($dialog);
@@ -85,7 +85,7 @@ class PapayaUiControlCommandDialogPluginContentTest extends PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $content = $this->createMock(PapayaPluginEditableContent::class);
     $content
       ->expects($this->once())

@@ -64,7 +64,7 @@ class PapayaSvnTagsTest extends PapayaTestCase {
   public function testSvnClientCreate() {
     $tags = new PapayaSvnTags('');
     $this->assertInstanceOf(
-      'PapayaSvnClientExtension',
+      PapayaSvnClientExtension::class,
       $tags->svnClient()
     );
   }

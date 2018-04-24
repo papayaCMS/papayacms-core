@@ -231,7 +231,7 @@ class PapayaRequestParametersValidatorTest extends PapayaTestCase {
     $parameters = new PapayaRequestParameters(array());
     $definitions = array();
     $validator = new PapayaRequestParametersValidator($definitions, $parameters);
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $validator['foo'] = 'bar';
   }
 
@@ -249,7 +249,7 @@ class PapayaRequestParametersValidatorTest extends PapayaTestCase {
     $parameters = new PapayaRequestParameters(array('foo' => 21));
     $definitions = array();
     $validator = new PapayaRequestParametersValidator($definitions, $parameters);
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     unset($validator['foo']);
   }
 

@@ -7,13 +7,13 @@ class PapayaFilterLogicalAndTest extends PapayaTestCase {
   * @covers PapayaFilterLogicalAnd::validate
   */
   public function testValidateExpectingTrue() {
-    $subFilterOne = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterOne = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterOne
       ->expects($this->once())
       ->method('validate')
       ->with($this->equalTo('foo'))
       ->will($this->returnValue(TRUE));
-    $subFilterTwo = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterTwo = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterTwo
       ->expects($this->once())
       ->method('validate')
@@ -29,7 +29,7 @@ class PapayaFilterLogicalAndTest extends PapayaTestCase {
   * @covers PapayaFilterLogicalAnd::validate
   */
   public function testValidateWithScalarValuesExpectingTrue() {
-    $subFilterOne = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterOne = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterOne
       ->expects($this->once())
       ->method('validate')
@@ -45,14 +45,14 @@ class PapayaFilterLogicalAndTest extends PapayaTestCase {
   * @covers PapayaFilterLogicalAnd::validate
   */
   public function testValidateWithScalarValuesExpectingException() {
-    $subFilterOne = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterOne = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterOne
       ->expects($this->once())
       ->method('validate')
       ->with($this->equalTo('foo'))
       ->will($this->returnValue(TRUE));
     $filter = new PapayaFilterLogicalAnd($subFilterOne, 'bar');
-    $this->setExpectedException('PapayaFilterException');
+    $this->setExpectedException(PapayaFilterException::class);
     $filter->validate('foo');
   }
 
@@ -60,13 +60,13 @@ class PapayaFilterLogicalAndTest extends PapayaTestCase {
   * @covers PapayaFilterLogicalAnd::filter
   */
   public function testFilter() {
-    $subFilterOne = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterOne = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterOne
       ->expects($this->once())
       ->method('filter')
       ->with($this->equalTo('foo'))
       ->will($this->returnValue('foo'));
-    $subFilterTwo = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterTwo = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterTwo
       ->expects($this->once())
       ->method('filter')
@@ -83,13 +83,13 @@ class PapayaFilterLogicalAndTest extends PapayaTestCase {
   * @covers PapayaFilterLogicalAnd::filter
   */
   public function testFilterExpectingNullFromFirstSubFilter() {
-    $subFilterOne = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterOne = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterOne
       ->expects($this->once())
       ->method('filter')
       ->with($this->equalTo('foo'))
       ->will($this->returnValue(NULL));
-    $subFilterTwo = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterTwo = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterTwo
       ->expects($this->never())
       ->method('filter');
@@ -103,13 +103,13 @@ class PapayaFilterLogicalAndTest extends PapayaTestCase {
   * @covers PapayaFilterLogicalAnd::filter
   */
   public function testFilterExpectingNullFromSecondSubFilter() {
-    $subFilterOne = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterOne = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterOne
       ->expects($this->once())
       ->method('filter')
       ->with($this->equalTo('foo'))
       ->will($this->returnValue('foo'));
-    $subFilterTwo = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterTwo = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterTwo
       ->expects($this->once())
       ->method('filter')

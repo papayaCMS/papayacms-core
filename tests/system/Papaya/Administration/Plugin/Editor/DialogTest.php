@@ -130,7 +130,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
     $editor = new PapayaAdministrationPluginEditorDialog($pluginContent);
     $editor->papaya($this->mockPapaya()->application());
 
-    $this->assertInstanceOf('PapayaUiDialog', $dialog = $editor->dialog());
+    $this->assertInstanceOf(PapayaUiDialog::class, $dialog = $editor->dialog());
     $this->assertXmlStringEqualsXmlString(
       // language=xml
       '<dialog-box action="http://www.test.tld/test.html" method="post">

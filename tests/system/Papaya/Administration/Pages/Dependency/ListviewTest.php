@@ -181,7 +181,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
       21, 42, $dependencies, $references, $synchronizations
     );
     $this->assertInstanceOf(
-      'PapayaContentPages', $listview->pages()
+      PapayaContentPages::class, $listview->pages()
     );
   }
 

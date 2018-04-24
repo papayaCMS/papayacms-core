@@ -12,7 +12,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   public function testLoad() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -44,7 +44,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   public function testLoadWithConditionObject() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -63,7 +63,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
       )
       ->will($this->returnValue($databaseResult));
     $condition = $this
-      ->getMockBuilder('PapayaDatabaseConditionElement')
+      ->getMockBuilder(PapayaDatabaseConditionElement::class)
       ->disableOriginalConstructor()
       ->getMock();
     $condition
@@ -85,7 +85,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   public function testLoadWithoutConditions() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt'))
       ->getMock();
@@ -116,7 +116,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
       ->will($this->returnValue('>>ORDERBY<<'));
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt'))
       ->getMock();
@@ -140,7 +140,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   */
   public function testLoadExpectingFalse() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -167,17 +167,17 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   */
   public function testCreateFilter() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->getMock();
     $mapping = $this
-      ->getMockBuilder('PapayaDatabaseInterfaceMapping')
+      ->getMockBuilder(PapayaDatabaseInterfaceMapping::class)
       ->getMock();
     $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $records->mapping($mapping);
     $filter = $records->createFilter();
-    $this->assertInstanceOf('PapayaDatabaseConditionRoot', $filter);
+    $this->assertInstanceOf(PapayaDatabaseConditionRoot::class, $filter);
     $this->assertSame($databaseAccess, $filter->getDatabaseAccess());
     $this->assertSame($mapping, $filter->getMapping());
   }
@@ -319,7 +319,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   public function testMappingGetImplicitCreate() {
     $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
     $this->assertInstanceOf(
-      'PapayaDatabaseRecordMapping', $records->mapping()
+      PapayaDatabaseRecordMapping::class, $records->mapping()
     );
   }
 
@@ -473,7 +473,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   */
   public function testGetDatabaseAccessAfterSet() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->getMock();
     $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
@@ -488,7 +488,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   */
   public function testGetDatabaseAccessImplicitCreate() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->getMock();
     $databaseManager = $this->createMock(PapayaDatabaseManager::class);
@@ -513,7 +513,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
    */
   public function testGetItemExpectingException() {
     $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $records->getItem();
   }
 
@@ -523,8 +523,8 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
    */
   public function testGetItem() {
     $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
-    $records->_itemClass = 'PapayaDatabaseRecordsUnbuffered_TestItemProxy';
-    $this->assertInstanceOf('PapayaDatabaseRecordsUnbuffered_TestItemProxy', $records->getItem());
+    $records->_itemClass = PapayaDatabaseRecordsUnbuffered_TestItemProxy::class;
+    $this->assertInstanceOf(PapayaDatabaseRecordsUnbuffered_TestItemProxy::class, $records->getItem());
   }
 
   /**

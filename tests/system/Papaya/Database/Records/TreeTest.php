@@ -108,7 +108,7 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
   */
   public function testLoadExpectingFalse() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -159,7 +159,7 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt'))
       ->getMock();

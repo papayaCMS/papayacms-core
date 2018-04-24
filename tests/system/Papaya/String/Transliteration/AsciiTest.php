@@ -35,7 +35,7 @@ class PapayaStringTransliterationAsciiTest extends PapayaTestCase {
     $mappingOne = $transliterator->mapping();
     $transliterator->resetMapping();
     $mappingTwo = $transliterator->mapping();
-    $this->assertInstanceOf('PapayaStringTransliterationAsciiMapping', $mappingTwo);
+    $this->assertInstanceOf(PapayaStringTransliterationAsciiMapping::class, $mappingTwo);
     $this->assertNotSame($mappingOne, $mappingTwo);
   }
 

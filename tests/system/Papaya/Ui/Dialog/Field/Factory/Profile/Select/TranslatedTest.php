@@ -17,8 +17,8 @@ class PapayaUiDialogFieldFactoryProfileSelectTranslatedTest extends PapayaTestCa
     );
     $profile = new PapayaUiDialogFieldFactoryProfileSelectTranslated();
     $profile->options($options);
-    $this->assertInstanceOf('PapayaUiDialogFieldSelect', $field = $profile->getField());
-    $this->assertAttributeInstanceOf('PapayaUiStringTranslatedList', '_values', $field);
+    $this->assertInstanceOf(PapayaUiDialogFieldSelect::class, $field = $profile->getField());
+    $this->assertAttributeInstanceOf(PapayaUiStringTranslatedList::class, '_values', $field);
   }
 
   /**
@@ -35,7 +35,7 @@ class PapayaUiDialogFieldFactoryProfileSelectTranslatedTest extends PapayaTestCa
     );
     $profile = new PapayaUiDialogFieldFactoryProfileSelectTranslated();
     $profile->options($options);
-    $this->assertInstanceOf('PapayaUiDialogFieldSelect', $field = $profile->getField());
+    $this->assertInstanceOf(PapayaUiDialogFieldSelect::class, $field = $profile->getField());
   }
 
   /**

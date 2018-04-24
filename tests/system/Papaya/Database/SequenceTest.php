@@ -20,7 +20,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   * @covers PapayaDatabaseSequence::__construct
   */
   public function testConstructorWithEmptyTableExpectingException() {
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $sequence = new PapayaDatabaseSequence_TestProxy('', 'field');
   }
 
@@ -28,7 +28,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   * @covers PapayaDatabaseSequence::__construct
   */
   public function testConstructorWithEmptyFieldExpectingException() {
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $sequence = new PapayaDatabaseSequence_TestProxy('table', '');
   }
 
@@ -45,7 +45,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
       ->method('fetchRow')
       ->will($this->onConsecutiveCalls(array(1), array(2), NULL));
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -104,7 +104,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -141,7 +141,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   public function testNextDatabaseQueryFailed() {
     $sequence = new PapayaDatabaseSequence_TestProxy('table', 'field');
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -168,7 +168,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   public function testNextBrokenCreateMethod() {
     $sequence = new PapayaDatabaseSequence_TestProxyBroken('table', 'field');
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -179,7 +179,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
       ->will($this->returnValue(""));
     $sequence->setDatabaseAccess($databaseAccess);
 
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $sequence->next();
   }
 }

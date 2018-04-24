@@ -16,6 +16,6 @@ class PapayaUiDialogFieldFactoryProfileColorTest extends PapayaTestCase {
     );
     $profile = new PapayaUiDialogFieldFactoryProfileColor();
     $profile->options($options);
-    $this->assertInstanceOf('PapayaUiDialogFieldInputColor', $profile->getField());
+    $this->assertInstanceOf(PapayaUiDialogFieldInputColor::class, $profile->getField());
   }
 }

@@ -24,7 +24,7 @@ class PapayaPhrasesTest extends PapayaTestCase {
       $this->createMock(PapayaContentLanguage::class)
     );
     $groups = $this
-      ->getMockBuilder('PapayaPhrasesGroups')
+      ->getMockBuilder(PapayaPhrasesGroups::class)
       ->disableOriginalConstructor()
       ->getMock();
     $phrases->groups = $groups;
@@ -39,7 +39,7 @@ class PapayaPhrasesTest extends PapayaTestCase {
       $this->createMock(PapayaPhrasesStorage::class),
       $this->createMock(PapayaContentLanguage::class)
     );
-    $this->assertInstanceOf('PapayaPhrasesGroups', $phrases->groups);
+    $this->assertInstanceOf(PapayaPhrasesGroups::class, $phrases->groups);
   }
 
   /**
@@ -86,7 +86,7 @@ class PapayaPhrasesTest extends PapayaTestCase {
     $phrases->papaya($this->mockPapaya()->application());
     $phrases->defaultGroup('TestGroup');
     $phrase = $phrases->get('Some Phrase');
-    $this->assertInstanceOf('PapayaUiString', $phrase);
+    $this->assertInstanceOf(PapayaUiString::class, $phrase);
     $this->assertEquals('Success', (string)$phrase);
   }
 
@@ -110,7 +110,7 @@ class PapayaPhrasesTest extends PapayaTestCase {
     $phrases->papaya($this->mockPapaya()->application());
     $phrases->defaultGroup('TestGroup');
     $list = iterator_to_array($phrases->getList(array('Some Phrase')));
-    $this->assertInstanceOf('PapayaUiString', $list[0]);
+    $this->assertInstanceOf(PapayaUiString::class, $list[0]);
     $this->assertEquals('Success', (string)$list[0]);
   }
 

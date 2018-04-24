@@ -41,7 +41,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    */
   public function testGetProfile() {
     $factory = new PapayaFilterFactory();
-    $this->assertInstanceOf('PapayaFilterFactoryProfile', $factory->getProfile('isEmail'));
+    $this->assertInstanceOf(PapayaFilterFactoryProfile::class, $factory->getProfile('isEmail'));
   }
 
   /**
@@ -49,7 +49,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    */
   public function testGetProfileExpectingException() {
     $factory = new PapayaFilterFactory();
-    $this->setExpectedException('PapayaFilterFactoryExceptionInvalidProfile');
+    $this->setExpectedException(PapayaFilterFactoryExceptionInvalidProfile::class);
     $factory->getProfile('SomeInvalidProfileName');
   }
 
@@ -67,8 +67,8 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
       ->will($this->returnValue($this->createMock(PapayaFilter::class)));
     $factory = new PapayaFilterFactory();
     $filter = $factory->getFilter($profile);
-    $this->assertInstanceOf('PapayaFilter', $filter);
-    $this->assertNotInstanceOf('PapayaFilterLogicalOr', $filter);
+    $this->assertInstanceOf(PapayaFilter::class, $filter);
+    $this->assertNotInstanceOf(PapayaFilterLogicalOr::class, $filter);
   }
 
   /**
@@ -85,7 +85,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
       ->will($this->returnValue($this->createMock(PapayaFilter::class)));
     $factory = new PapayaFilterFactory();
     $filter = $factory->getFilter($profile, FALSE);
-    $this->assertInstanceOf('PapayaFilterLogicalOr', $filter);
+    $this->assertInstanceOf(PapayaFilterLogicalOr::class, $filter);
   }
 
   /**
@@ -103,7 +103,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
       ->will($this->returnValue($this->createMock(PapayaFilter::class)));
     $factory = new PapayaFilterFactory();
     $filter = $factory->getFilter($profile, TRUE, 'data');
-    $this->assertInstanceOf('PapayaFilter', $filter);
+    $this->assertInstanceOf(PapayaFilter::class, $filter);
   }
 
   /**
@@ -111,7 +111,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    */
   public function testGetFilterWithNamedProfile() {
     $factory = new PapayaFilterFactory();
-    $this->assertInstanceOf('PapayaFilter', $factory->getFilter(PapayaFilter::IS_EMAIL));
+    $this->assertInstanceOf(PapayaFilter::class, $factory->getFilter(PapayaFilter::IS_EMAIL));
   }
 
   /**
@@ -209,7 +209,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    * @covers PapayaFilterFactory
    */
   public function testValidateUsingCallStaticMagicMethodWithoutArguments() {
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     /** @noinspection PhpParamsInspection */
     PapayaFilterFactory::isEmail();
   }
@@ -218,7 +218,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    * @covers PapayaFilterFactory
    */
   public function testCallUnknownFunctionExpectingException() {
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     /** @noinspection PhpUndefinedMethodInspection */
     PapayaFilterFactory::someUnknownFunction();
   }

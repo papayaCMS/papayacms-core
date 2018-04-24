@@ -17,6 +17,6 @@ class PapayaUiDialogFieldFactoryProfileSelectRadioTest extends PapayaTestCase {
     );
     $profile = new PapayaUiDialogFieldFactoryProfileSelectRadio();
     $profile->options($options);
-    $this->assertInstanceOf('PapayaUiDialogFieldSelectRadio', $field = $profile->getField());
+    $this->assertInstanceOf(PapayaUiDialogFieldSelectRadio::class, $field = $profile->getField());
   }
 }

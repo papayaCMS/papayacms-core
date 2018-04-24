@@ -72,7 +72,7 @@ class PapayaObjectInteractiveTest extends PapayaTestCase {
         array('Request' => $request)
       )
     );
-    $this->assertInstanceOf('PapayaRequestParameters', $parts->parameters());
+    $this->assertInstanceOf(PapayaRequestParameters::class, $parts->parameters());
   }
 
   /**
@@ -92,7 +92,7 @@ class PapayaObjectInteractiveTest extends PapayaTestCase {
       )
     );
     $parts->parameterGroup('group');
-    $this->assertInstanceOf('PapayaRequestParameters', $parts->parameters());
+    $this->assertInstanceOf(PapayaRequestParameters::class, $parts->parameters());
   }
 }
 

@@ -49,7 +49,7 @@ class PapayaPluginHookableContextTest extends PapayaTestCase {
    */
   public function testGetParentWithoutParentExpectingException() {
     $context = new PapayaPluginHookableContext();
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $context->getParent();
   }
 
@@ -58,7 +58,7 @@ class PapayaPluginHookableContextTest extends PapayaTestCase {
    */
   public function testGetDataImplicitCreate() {
     $context = new PapayaPluginHookableContext();
-    $this->assertInstanceOf('PapayaPluginEditableContent', $context->data());
+    $this->assertInstanceOf(PapayaPluginEditableContent::class, $context->data());
   }
 
   /**

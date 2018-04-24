@@ -54,7 +54,7 @@ class PapayaTemplateEngineSimpleTest extends PapayaTestCase {
   * @covers PapayaTemplateEngineSimple::getResult
    */
   public function testGetResult() {
-    $visitor = $this->getMock('PapayaTemplateSimpleVisitor', array('__toString', 'clear'));
+    $visitor = $this->getMock(PapayaTemplateSimpleVisitor::class, array('__toString', 'clear'));
     $visitor
       ->expects($this->once())
       ->method('__toString')
@@ -139,7 +139,7 @@ class PapayaTemplateEngineSimpleTest extends PapayaTestCase {
   */
   public function testSetTemplateFileWithInvalidFileNameExpectingException() {
     $engine = new PapayaTemplateEngineSimple();
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $engine->setTemplateFile('NONEXISTING_FILENAME.CSS');
   }
 
@@ -158,7 +158,7 @@ class PapayaTemplateEngineSimpleTest extends PapayaTestCase {
   */
   public function testAstGetImplicitCreate() {
     $engine = new PapayaTemplateEngineSimple();
-    $this->assertInstanceOf('PapayaTemplateSimpleAst', $engine->ast());
+    $this->assertInstanceOf(PapayaTemplateSimpleAst::class, $engine->ast());
   }
 
   /**
@@ -176,6 +176,6 @@ class PapayaTemplateEngineSimpleTest extends PapayaTestCase {
   */
   public function testVisitorGetImplicitCreate() {
     $engine = new PapayaTemplateEngineSimple();
-    $this->assertInstanceOf('PapayaTemplateSimpleVisitor', $engine->visitor());
+    $this->assertInstanceOf(PapayaTemplateSimpleVisitor::class, $engine->visitor());
   }
 }

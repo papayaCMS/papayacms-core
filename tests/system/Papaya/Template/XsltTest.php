@@ -36,7 +36,7 @@ class PapayaTemplateXsltTest extends PapayaTestCase {
   public function testEngineGetImplicitCreate() {
     $template = new PapayaTemplateXslt();
     $template->papaya($this->mockPapaya()->application());
-    $this->assertInstanceOf('PapayaTemplateEngineXsl', $template->engine());
+    $this->assertInstanceOf(PapayaTemplateEngineXsl::class, $template->engine());
   }
 
   /**
@@ -165,7 +165,7 @@ class PapayaTemplateXsltTest extends PapayaTestCase {
     $response
       ->expects($this->once())
       ->method('content')
-      ->with($this->isInstanceOf('PapayaResponseContentString'));
+      ->with($this->isInstanceOf(PapayaResponseContentString::class));
     $response
       ->expects($this->once())
       ->method('send')
@@ -218,7 +218,7 @@ class PapayaTemplateXsltTest extends PapayaTestCase {
     $engine
       ->expects($this->once())
       ->method('values')
-      ->with($this->isInstanceOf('DOMDocument'));
+      ->with($this->isInstanceOf(DOMDocument::class));
     $engine
       ->expects($this->once())
       ->method('prepare');

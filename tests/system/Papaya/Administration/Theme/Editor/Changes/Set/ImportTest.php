@@ -152,7 +152,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageDisplay'));
+      ->with($this->isInstanceOf(PapayaMessageDisplay::class));
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
     $themeHandler

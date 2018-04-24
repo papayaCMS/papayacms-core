@@ -25,7 +25,7 @@ class PapayaContentViewConfigurationsTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())

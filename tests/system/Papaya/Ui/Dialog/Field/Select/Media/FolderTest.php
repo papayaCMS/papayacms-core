@@ -38,7 +38,7 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
     $select = new PapayaUiDialogFieldSelectMediaFolder(
       'Caption', 'name'
     );
-    $this->assertInstanceOf('PapayaContentMediaFolders', $select->mediaFolders());
+    $this->assertInstanceOf(PapayaContentMediaFolders::class, $select->mediaFolders());
   }
 
   /**

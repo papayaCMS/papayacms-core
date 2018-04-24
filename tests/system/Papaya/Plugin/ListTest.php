@@ -26,7 +26,7 @@ class PapayaPluginListTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getTableName', 'queryFmt'))
       ->getMock();

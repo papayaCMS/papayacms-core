@@ -16,7 +16,7 @@ class PapayaFilterFactoryProfileIsTimeTest extends PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new PapayaFilterFactoryProfileIsTime();
-    $this->setExpectedException('PapayaFilterException');
+    $this->setExpectedException(PapayaFilterException::class);
     $profile->getFilter()->validate('foo');
   }
 }

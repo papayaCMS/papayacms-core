@@ -109,7 +109,7 @@ class PapayaXmlXpathTest extends PapayaTestCase {
   */
   public function testQueryExpectingException() {
     $xpath = new PapayaXmlXpath($dom = new PapayaXmlDocument());
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $xpath->query('');
   }
 }

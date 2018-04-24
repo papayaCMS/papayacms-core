@@ -21,7 +21,7 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
   * @covers PapayaFilterIpV4::__construct
   */
   public function testConstructInvalidArgumentException() {
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $filter = new PapayaFilterIpV4('InvalidConfiguration');
   }
 
@@ -30,7 +30,7 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
   * @dataProvider getConfigurationOutOfRangeDataProvider
   */
   public function testConstructOutOfBoundsException($config) {
-    $this->setExpectedException('OutOfRangeException');
+    $this->setExpectedException(OutOfRangeException::class);
     $filter = new PapayaFilterIpV4($config);
   }
 
@@ -69,7 +69,7 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
   */
   public function testValidateExceptionCountMismatch($ip) {
     $filter = new PapayaFilterIpV4();
-    $this->setExpectedException('PapayaFilterExceptionCountMismatch');
+    $this->setExpectedException(PapayaFilterExceptionCountMismatch::class);
     $filter->validate($ip);
   }
 
@@ -89,7 +89,7 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
   */
   public function testValidateExceptionPartInvalid($ip) {
     $filter = new PapayaFilterIpV4();
-    $this->setExpectedException('PapayaFilterExceptionPartInvalid');
+    $this->setExpectedException(PapayaFilterExceptionPartInvalid::class);
     $filter->validate($ip);
   }
 
@@ -110,7 +110,7 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
   */
   public function testValidateInvalidArgumentException($ip, $conf) {
     $filter = new PapayaFilterIpV4($conf);
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $filter->validate($ip);
   }
 

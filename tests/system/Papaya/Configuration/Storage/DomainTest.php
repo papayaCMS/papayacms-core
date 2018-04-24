@@ -31,7 +31,7 @@ class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
   */
   public function testDomainGetImplicitCreate() {
     $storage = new PapayaConfigurationStorageDomain('sample.tld');
-    $this->assertInstanceOf('PapayaContentDomain', $storage->domain());
+    $this->assertInstanceOf(PapayaContentDomain::class, $storage->domain());
   }
 
   /**

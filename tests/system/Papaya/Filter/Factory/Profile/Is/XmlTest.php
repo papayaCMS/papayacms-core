@@ -8,6 +8,6 @@ class PapayaFilterFactoryProfileIsXmlTest extends PapayaTestCase {
    */
   public function testGetFilterExpectTrue() {
     $profile = new PapayaFilterFactoryProfileIsXml();
-    $this->assertInstanceOf('PapayaFilterXml', $profile->getFilter());
+    $this->assertInstanceOf(PapayaFilterXml::class, $profile->getFilter());
   }
 }

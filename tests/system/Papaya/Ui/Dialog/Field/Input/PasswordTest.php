@@ -9,7 +9,7 @@ class PapayaUiDialogFieldInputPasswordTest extends PapayaTestCase {
   public function testConstructorCreatesDefaultFilter() {
     $field = new PapayaUiDialogFieldInputPassword('Caption', 'fieldname');
     $field->setMandatory(TRUE);
-    $this->assertInstanceOf('PapayaFilterPassword', $field->getFilter());
+    $this->assertInstanceOf(PapayaFilterPassword::class, $field->getFilter());
   }
 
   /**
@@ -36,7 +36,7 @@ class PapayaUiDialogFieldInputPasswordTest extends PapayaTestCase {
    */
   public function testGetCurrentValueIgnoreData() {
     $dialog = $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('appendTo', 'isSubmitted', 'execute', 'parameters', 'data'),
       array(new stdClass())
     );
@@ -57,7 +57,7 @@ class PapayaUiDialogFieldInputPasswordTest extends PapayaTestCase {
    */
   public function testGetCurrentValueReadParameter() {
     $dialog = $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('appendTo', 'isSubmitted', 'execute', 'parameters'),
       array(new stdClass())
     );

@@ -37,7 +37,7 @@ class PapayaContentPageTranslationsTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -73,7 +73,7 @@ class PapayaContentPageTranslationsTest extends PapayaTestCase {
   */
   public function testLoadExpectingFalse() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -95,7 +95,7 @@ class PapayaContentPageTranslationsTest extends PapayaTestCase {
   */
   public function testGetTranslation() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'getSqlCondition', 'queryFmt'),
       array(new stdClass)
     );
@@ -103,7 +103,7 @@ class PapayaContentPageTranslationsTest extends PapayaTestCase {
     $list->setDatabaseAccess($databaseAccess);
     $translation = $list->getTranslation(42, 21);
     $this->assertInstanceOf(
-      'PapayaContentPageTranslation', $translation
+      PapayaContentPageTranslation::class, $translation
     );
   }
 }

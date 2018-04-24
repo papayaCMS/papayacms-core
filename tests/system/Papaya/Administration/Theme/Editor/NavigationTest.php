@@ -178,7 +178,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     );
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
     $items = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
@@ -407,7 +407,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
    */
   private function getBuilderFixture($depth = 0) {
     $iterator = $this
-      ->getMockBuilder('RecursiveIteratorIterator')
+      ->getMockBuilder(RecursiveIteratorIterator::class)
       ->setConstructorArgs(array($this->createMock(RecursiveIterator::class)))
       ->getMock();
     $iterator

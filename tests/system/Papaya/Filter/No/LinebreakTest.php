@@ -16,7 +16,7 @@ class PapayaFilterNoLinebreakTest extends PapayaTestCase {
   */
   public function testValidateExpectingException() {
     $filter = new PapayaFilterNoLinebreak();
-    $this->setExpectedException('PapayaFilterExceptionCharacterInvalid');
+    $this->setExpectedException(PapayaFilterExceptionCharacterInvalid::class);
     $filter->validate("Two\r\nLines");
   }
 

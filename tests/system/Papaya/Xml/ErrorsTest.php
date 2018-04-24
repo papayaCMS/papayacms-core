@@ -48,7 +48,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageLogable'));
+      ->with($this->isInstanceOf(PapayaMessageLogable::class));
     $errors = new PapayaXmlErrors();
     $errors->papaya(
       $this->mockPapaya()->application(
@@ -70,7 +70,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageLogable'));
+      ->with($this->isInstanceOf(PapayaMessageLogable::class));
     $errors = new PapayaXmlErrors();
     $errors->papaya(
       $this->mockPapaya()->application(
@@ -112,7 +112,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
     $errors = new PapayaXmlErrors();
     $dom = new DOMDocument('1.0', 'UTF-8');
     $dom->loadXml('<foo>');
-    $this->setExpectedException('PapayaXmlException');
+    $this->setExpectedException(PapayaXmlException::class);
     $errors->emit();
   }
 
@@ -154,7 +154,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
     $errors = new PapayaXmlErrors();
     $context = $errors->getMessageFromError($error)->context();
     $this->assertInstanceOf(
-      'PapayaMessageContextFile', $context->current()
+      PapayaMessageContextFile::class, $context->current()
     );
   }
 

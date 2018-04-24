@@ -66,7 +66,7 @@ class PapayaControllerImageTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('generateImage')
       ->will($this->returnValue(TRUE));
-    $dispatcher = $this->getMock('papaya_page', array('validateEditorAccess', 'logRequest'));
+    $dispatcher = $this->getMock(papaya_page::class, array('validateEditorAccess', 'logRequest'));
     $controller->setImageGenerator($generator);
     $this->assertTrue(
       $controller->execute($application, $request, $response)
@@ -95,10 +95,10 @@ class PapayaControllerImageTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('generateImage')
       ->will($this->returnValue(FALSE));
-    $dispatcher = $this->getMock('papaya_page', array('validateEditorAccess', 'logRequest'));
+    $dispatcher = $this->getMock(papaya_page::class, array('validateEditorAccess', 'logRequest'));
     $controller->setImageGenerator($generator);
     $this->assertInstanceOf(
-      'PapayaControllerError',
+      PapayaControllerError::class,
       $controller->execute($application, $request, $response)
     );
   }
@@ -117,10 +117,10 @@ class PapayaControllerImageTest extends PapayaTestCase {
     );
     $response = $this->mockPapaya()->response();
     $generator = $this->createMock(base_imagegenerator::class);
-    $dispatcher = $this->getMock('papaya_page', array('validateEditorAccess', 'logRequest'));
+    $dispatcher = $this->getMock(papaya_page::class, array('validateEditorAccess', 'logRequest'));
     $controller->setImageGenerator($generator);
     $this->assertInstanceOf(
-      'PapayaControllerError',
+      PapayaControllerError::class,
       $controller->execute($application, $request, $response)
     );
   }
@@ -145,7 +145,7 @@ class PapayaControllerImageTest extends PapayaTestCase {
     $generator = $this->createMock(base_imagegenerator::class);
     $controller->setImageGenerator($generator);
     $this->assertInstanceOf(
-      'PapayaControllerError',
+      PapayaControllerError::class,
       $controller->execute($application, $request, $response)
     );
   }

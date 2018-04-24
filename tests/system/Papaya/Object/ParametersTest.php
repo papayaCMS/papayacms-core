@@ -46,7 +46,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   */
   public function testMergeWithInvalidArgument() {
     $parameters = new PapayaObjectParameters();
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $parameters->merge('foo');
   }
 
@@ -121,7 +121,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   */
   public function testGetWithObjectDefaultValueExpectingParameterValue() {
     $defaultValue = $this
-      ->getMockBuilder('PapayaUiString')
+      ->getMockBuilder(PapayaUiString::class)
       ->disableOriginalConstructor()
       ->getMock();
     $parameters = new PapayaObjectParameters();
@@ -140,7 +140,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   * @covers PapayaObjectParameters::get
   */
   public function testGetWithObjectDefaultValueExpectingDefaultValue() {
-    $defaultValue = $this->getMock('PapayaUiString', array('__toString'), array(' '));
+    $defaultValue = $this->getMock(PapayaUiString::class, array('__toString'), array(' '));
     $defaultValue
       ->expects($this->once())
       ->method('__toString')
@@ -161,7 +161,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   * @covers PapayaObjectParameters::get
   */
   public function testGetWithFilter() {
-    $filter = $this->getMock('PapayaFilter', array('filter', 'validate'));
+    $filter = $this->getMock(PapayaFilter::class, array('filter', 'validate'));
     $filter
       ->expects($this->once('filter'))
       ->method('filter')
@@ -183,7 +183,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   * @covers PapayaObjectParameters::get
   */
   public function testGetWithFilterExpectingDefaultValue() {
-    $filter = $this->getMock('PapayaFilter', array('filter', 'validate'));
+    $filter = $this->getMock(PapayaFilter::class, array('filter', 'validate'));
     $filter
       ->expects($this->once('filter'))
       ->method('filter')

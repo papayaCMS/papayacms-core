@@ -170,7 +170,7 @@ class PapayaDomainsTest extends PapayaTestCase {
   public function testDomainGetImplicitCreate() {
     $domains = new PapayaDomains();
     $domains->papaya($papaya = $this->mockPapaya()->application());
-    $this->assertInstanceOf('PapayaContentDomains', $data = $domains->domains());
+    $this->assertInstanceOf(PapayaContentDomains::class, $data = $domains->domains());
     $this->assertSame($papaya, $data->papaya());
   }
 

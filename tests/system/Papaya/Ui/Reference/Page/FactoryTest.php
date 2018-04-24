@@ -9,7 +9,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   public function testCreate() {
     $factory = new PapayaUiReferencePageFactory();
     $this->assertInstanceOf(
-      'PapayaUiReferencePage',
+      PapayaUiReferencePage::class,
       $factory->create()
     );
   }
@@ -458,9 +458,9 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   */
   public function testSetPreviewToTrueResetsPagesObject() {
     $factory = new PapayaUiReferencePageFactory();
-    $this->assertInstanceOf('PapayaContentPagesPublications', $pages = $factory->pages());
+    $this->assertInstanceOf(PapayaContentPagesPublications::class, $pages = $factory->pages());
     $factory->setPreview(TRUE);
-    $this->assertNotInstanceOf('PapayaContentPagesPublications', $pages = $factory->pages());
+    $this->assertNotInstanceOf(PapayaContentPagesPublications::class, $pages = $factory->pages());
   }
 
   /**
@@ -469,9 +469,9 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   public function testSetPreviewToFalseResetsPagesObject() {
     $factory = new PapayaUiReferencePageFactory();
     $factory->setPreview(TRUE);
-    $this->assertNotInstanceOf('PapayaContentPagesPublications', $pages = $factory->pages());
+    $this->assertNotInstanceOf(PapayaContentPagesPublications::class, $pages = $factory->pages());
     $factory->setPreview(FALSE);
-    $this->assertInstanceOf('PapayaContentPagesPublications', $pages = $factory->pages());
+    $this->assertInstanceOf(PapayaContentPagesPublications::class, $pages = $factory->pages());
   }
 
   /**
@@ -850,7 +850,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   */
   public function testPagesGetImplicitCreatePagesPublications() {
     $factory = new PapayaUiReferencePageFactory();
-    $this->assertInstanceOf('PapayaContentPagesPublications', $pages = $factory->pages());
+    $this->assertInstanceOf(PapayaContentPagesPublications::class, $pages = $factory->pages());
   }
 
   /**
@@ -859,7 +859,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   public function testPagesGetImplicitCreatePagesInPreviewMode() {
     $factory = new PapayaUiReferencePageFactory();
     $factory->setPreview(TRUE);
-    $this->assertNotInstanceOf('PapayaContentPagesPublications', $pages = $factory->pages());
+    $this->assertNotInstanceOf(PapayaContentPagesPublications::class, $pages = $factory->pages());
   }
 
   /**
@@ -877,7 +877,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   */
   public function testLinkTypesGetImplicitCreatePagesPublications() {
     $factory = new PapayaUiReferencePageFactory();
-    $this->assertInstanceOf('PapayaContentLinkTypes', $linkTypes = $factory->linkTypes());
+    $this->assertInstanceOf(PapayaContentLinkTypes::class, $linkTypes = $factory->linkTypes());
   }
 
   /**
@@ -895,7 +895,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   */
   public function testDomainsGetImplicitCreatePagesPublications() {
     $factory = new PapayaUiReferencePageFactory();
-    $this->assertInstanceOf('PapayaDomains', $domains = $factory->domains());
+    $this->assertInstanceOf(PapayaDomains::class, $domains = $factory->domains());
   }
 
   /**
@@ -919,7 +919,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
         array('languages' => $languages)
       )
     );
-    $this->assertInstanceOf('PapayaContentLanguages', $languages = $factory->languages());
+    $this->assertInstanceOf(PapayaContentLanguages::class, $languages = $factory->languages());
   }
 
   /**

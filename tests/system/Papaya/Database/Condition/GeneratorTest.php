@@ -8,12 +8,12 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    */
   public function testConstructor() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->getMock();
     $generator = new PapayaDatabaseConditionGenerator($databaseAccess);
     $condition = $generator->fromArray(array());
-    $this->assertInstanceOf('PapayaDatabaseConditionGroup', $condition);
+    $this->assertInstanceOf(PapayaDatabaseConditionGroup::class, $condition);
     $this->assertSame($databaseAccess, $condition->getDatabaseAccess());
   }
 
@@ -22,7 +22,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    */
   public function testConstructorWithInterfaceDatabaseAccess() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->getMock();
     $parent = $this
@@ -41,7 +41,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionGenerator
    */
   public function testConstructorWithInvalidParent() {
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $group = new PapayaDatabaseConditionGenerator(new stdClass());
   }
 
@@ -50,7 +50,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    */
   public function testFromArrayWithSimpleEqualsFilter() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getSqlCondition'))
       ->disableOriginalConstructor()
       ->getMock();
@@ -78,7 +78,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
       ->with('field')
       ->will($this->returnValue('mapped_field'));
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getSqlCondition'))
       ->disableOriginalConstructor()
       ->getMock();
@@ -107,7 +107,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
       ->with('field')
       ->will($this->returnValue(NULL));
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getSqlCondition'))
       ->disableOriginalConstructor()
       ->getMock();
@@ -128,7 +128,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    */
   public function testFromArrayWithConditionInAnd() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getSqlCondition'))
       ->disableOriginalConstructor()
       ->getMock();
@@ -163,7 +163,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    */
   public function testFromArrayWithConditionInOr() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getSqlCondition'))
       ->disableOriginalConstructor()
       ->getMock();
@@ -198,7 +198,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    */
   public function testFromArrayWithConditionInNot() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getSqlCondition'))
       ->disableOriginalConstructor()
       ->getMock();
@@ -234,7 +234,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    */
   public function testSimpleFiltersWithScalars($expected, $filter) {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getSqlCondition'))
       ->disableOriginalConstructor()
       ->getMock();

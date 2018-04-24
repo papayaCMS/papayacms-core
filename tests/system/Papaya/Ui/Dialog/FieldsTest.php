@@ -45,7 +45,7 @@ class PapayaUiDialogFieldsTest extends PapayaTestCase {
 
   private function getMockField() {
     $item = $this->getMock(
-      'PapayaUiDialogField', array('collection', 'index', 'appendTo', 'validate')
+      PapayaUiDialogField::class, array('collection', 'index', 'appendTo', 'validate')
     );
     return $item;
   }

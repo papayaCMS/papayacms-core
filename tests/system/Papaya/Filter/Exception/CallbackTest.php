@@ -48,7 +48,7 @@ class PapayaFilterExceptionCallbackTest extends PapayaTestCase {
       ),
       array(
         'PapayaFilterExceptionCallback_SampleCallback::sample',
-        array('PapayaFilterExceptionCallback_SampleCallback', 'sample')
+        array(PapayaFilterExceptionCallback_SampleCallback::class, 'sample')
       )
     );
   }

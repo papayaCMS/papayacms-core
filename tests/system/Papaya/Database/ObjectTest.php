@@ -8,7 +8,7 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
   */
   public function testSetDatabaseAccess() {
     $databaseObject = new PapayaDatabaseObject();
-    $databaseAccess = $this->getMock('PapayaDatabaseAccess', array(), array($databaseObject));
+    $databaseAccess = $this->getMock(PapayaDatabaseAccess::class, array(), array($databaseObject));
     $databaseObject->setDatabaseAccess($databaseAccess);
     $this->assertAttributeSame(
       $databaseAccess,
@@ -22,7 +22,7 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
   */
   public function testGetDatabaseAccess() {
     $databaseObject = new PapayaDatabaseObject();
-    $databaseAccess = $this->getMock('PapayaDatabaseAccess', array(), array($databaseObject));
+    $databaseAccess = $this->getMock(PapayaDatabaseAccess::class, array(), array($databaseObject));
     $databaseObject->setDatabaseAccess($databaseAccess);
     $this->assertSame(
       $databaseAccess,
@@ -39,7 +39,7 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
     $databaseObject->papaya($application);
     $databaseAccess = $databaseObject->getDatabaseAccess();
     $this->assertInstanceOf(
-      'PapayaDatabaseAccess', $databaseAccess
+      PapayaDatabaseAccess::class, $databaseAccess
     );
     $this->assertSame(
       $application,
@@ -53,7 +53,7 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
   public function testDelegation() {
     $databaseObject = new PapayaDatabaseObject();
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('queryFmt'), array($databaseObject)
+      PapayaDatabaseAccess::class, array('queryFmt'), array($databaseObject)
     );
     $databaseAccess
       ->expects($this->once())
@@ -71,7 +71,7 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
   */
   public function testDelegationWihtInvalidFunction() {
     $databaseObject = new PapayaDatabaseObject();
-    $this->setExpectedException('BadMethodCallException');
+    $this->setExpectedException(BadMethodCallException::class);
     $databaseObject->invalidFunctionName();
   }
 }

@@ -41,7 +41,7 @@ class PapayaMessageSandboxTest extends PapayaTestCase {
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessagePhpException'));
+      ->with($this->isInstanceOf(PapayaMessagePhpException::class));
     $sandbox = new PapayaMessageSandbox(array($this, 'callbackThrowErrorException'));
     $sandbox->papaya($this->mockPapaya()->application(array('messages' => $messages)));
     $this->assertNull($sandbox());
@@ -55,7 +55,7 @@ class PapayaMessageSandboxTest extends PapayaTestCase {
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageException'));
+      ->with($this->isInstanceOf(PapayaMessageException::class));
     $sandbox = new PapayaMessageSandbox(array($this, 'callbackThrowException'));
     $sandbox->papaya($this->mockPapaya()->application(array('messages' => $messages)));
     $this->assertNull($sandbox());

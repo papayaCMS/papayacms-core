@@ -27,7 +27,7 @@ class PapayaProfilerStorageXhguiTest extends PapayaTestCase {
   */
   public function testSaveRun() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmtWrite'))
       ->getMock();
@@ -49,7 +49,7 @@ class PapayaProfilerStorageXhguiTest extends PapayaTestCase {
   */
   public function testGetDatabaseAccessAfterSet() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->getMock();
     $storage = new PapayaProfilerStorageXhgui('database', 'table', 'foo');
@@ -66,7 +66,7 @@ class PapayaProfilerStorageXhguiTest extends PapayaTestCase {
     $storage = new PapayaProfilerStorageXhgui('database', 'table', 'foo');
     $storage->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaDatabaseAccess', $storage->getDatabaseAccess()
+      PapayaDatabaseAccess::class, $storage->getDatabaseAccess()
     );
     $this->assertSame(
       $storage->papaya(), $storage->getDatabaseAccess()->papaya()

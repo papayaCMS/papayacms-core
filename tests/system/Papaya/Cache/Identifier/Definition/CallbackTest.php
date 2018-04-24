@@ -10,7 +10,7 @@ class PapayaCacheIdentifierDefinitionCallbackTest extends PapayaTestCase {
     $definition = new PapayaCacheIdentifierDefinitionCallback(array($this, 'callbackReturnString'));
     $this->assertEquals(
       array(
-        'PapayaCacheIdentifierDefinitionCallback' => 'success'
+        PapayaCacheIdentifierDefinitionCallback::class => 'success'
       ),
       $definition->getStatus()
     );

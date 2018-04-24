@@ -20,7 +20,7 @@ class PapayaThemeWrapperUrlTest extends PapayaTestCase {
   public function testConstructorWithoutUrl() {
     $wrapperUrl = new PapayaThemeWrapperUrl();
     $this->assertAttributeInstanceOf(
-      'PapayaUrlCurrent', '_requestUrl', $wrapperUrl
+      PapayaUrlCurrent::class, '_requestUrl', $wrapperUrl
     );
   }
 
@@ -91,7 +91,7 @@ class PapayaThemeWrapperUrlTest extends PapayaTestCase {
   public function testParametersGetParametersImplicitCreate() {
     $wrapper = new PapayaThemeWrapperUrl(new PapayaUrl('http://www.sample.tld?foo=bar'));
     $parameters = $wrapper->parameters();
-    $this->assertInstanceOf('PapayaRequestParameters', $parameters);
+    $this->assertInstanceOf(PapayaRequestParameters::class, $parameters);
     $this->assertEquals(array('foo' => 'bar'), $parameters->toArray());
   }
 

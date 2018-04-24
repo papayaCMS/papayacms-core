@@ -8,7 +8,7 @@ class PapayaContentStructureValueTest extends PapayaTestCase {
    */
   public function testConstructor() {
     $group = $this
-      ->getMockBuilder('PapayaContentStructureGroup')
+      ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $value = new PapayaContentStructureValue($group);
@@ -20,7 +20,7 @@ class PapayaContentStructureValueTest extends PapayaTestCase {
    */
   public function testGetIdentifier() {
     $group = $this
-      ->getMockBuilder('PapayaContentStructureGroup')
+      ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group

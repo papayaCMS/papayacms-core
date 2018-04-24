@@ -60,7 +60,7 @@ class PapayaTemplateSimpleScannerStatusTest extends PapayaTestCase {
    */
   public function testIsEndTokenExpectingFalse() {
     $token = $this
-      ->getMockBuilder('PapayaTemplateSimpleScannerToken')
+      ->getMockBuilder(PapayaTemplateSimpleScannerToken::class)
       ->disableOriginalConstructor()
       ->getMock();
     $status = new PapayaTemplateSimpleScannerStatus_TestProxy();
@@ -72,7 +72,7 @@ class PapayaTemplateSimpleScannerStatusTest extends PapayaTestCase {
    */
   public function testGetNewStatusExpectungNull() {
     $token = $this
-      ->getMockBuilder('PapayaTemplateSimpleScannerToken')
+      ->getMockBuilder(PapayaTemplateSimpleScannerToken::class)
       ->disableOriginalConstructor()
       ->getMock();
     $status = new PapayaTemplateSimpleScannerStatus_TestProxy();

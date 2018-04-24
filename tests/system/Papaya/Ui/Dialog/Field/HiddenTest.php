@@ -20,7 +20,7 @@ class PapayaUiDialogFieldHiddenTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldHidden::__construct
   */
   public function testConstructorWithAllParameters() {
-    $filter = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $filter = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $input = new PapayaUiDialogFieldHidden('name', 'value', $filter);
     $this->assertAttributeSame(
       $filter, '_filter', $input

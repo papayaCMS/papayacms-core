@@ -10,7 +10,7 @@ class PapayaCacheIdentifierDefinitionEnvironmentTest extends PapayaTestCase {
     $_SERVER['TEST_VARIABLE'] = 'success';
     $definition = new PapayaCacheIdentifierDefinitionEnvironment('TEST_VARIABLE');
     $this->assertEquals(
-      array('PapayaCacheIdentifierDefinitionEnvironment' => array('TEST_VARIABLE' => 'success')),
+      array(PapayaCacheIdentifierDefinitionEnvironment::class => array('TEST_VARIABLE' => 'success')),
       $definition->getStatus()
     );
     unset($_SERVER['TEST_VARIABLE']);

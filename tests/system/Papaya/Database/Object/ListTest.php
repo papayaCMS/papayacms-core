@@ -161,7 +161,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
       ->method('absCount')
       ->will($this->returnValue(42));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->once())
@@ -191,7 +191,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   */
   public function testLoadRecordsExpectingFalse() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->once())

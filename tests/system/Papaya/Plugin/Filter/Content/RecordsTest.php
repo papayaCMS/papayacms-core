@@ -17,7 +17,7 @@ class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
    */
   public function testRecordsImplicitCreate() {
     $filterGroup = new PapayaPluginFilterContentRecords($this->getPageFixture());
-    $this->assertInstanceOf('PapayaContentViewConfigurations', $filterGroup->records());
+    $this->assertInstanceOf(PapayaContentViewConfigurations::class, $filterGroup->records());
   }
 
   /**
@@ -28,7 +28,7 @@ class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
     $plugins
       ->expects($this->once())
       ->method('get')
-      ->with('guid', $this->isInstanceOf('PapayaUiContentPage'), 'options')
+      ->with('guid', $this->isInstanceOf(PapayaUiContentPage::class), 'options')
       ->will($this->returnValue($this->createMock(PapayaPluginFilterContent::class)));
 
     $records = $this->createMock(PapayaContentViewConfigurations::class);
@@ -57,7 +57,7 @@ class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
 
   public function getPageFixture($viewId = NULL) {
     $page = $this
-      ->getMockBuilder('PapayaUiContentPage')
+      ->getMockBuilder(PapayaUiContentPage::class)
       ->disableOriginalConstructor()
       ->getMock();
     if (isset($viewId)) {

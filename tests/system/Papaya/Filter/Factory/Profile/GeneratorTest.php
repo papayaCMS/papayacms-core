@@ -8,9 +8,9 @@ class PapayaFilterFactoryProfileGeneratorTest extends PapayaTestCase {
    */
   public function testGetFilterWithIntegerMinAndMax() {
     $profile = new PapayaFilterFactoryProfileGenerator();
-    $profile->options(array('PapayaFilterInteger', 1, 42));
+    $profile->options(array(PapayaFilterInteger::class, 1, 42));
     $filter = $profile->getFilter();
-    $this->assertInstanceOf('PapayaFilterInteger', $filter);
+    $this->assertInstanceOf(PapayaFilterInteger::class, $filter);
     $this->assertTrue($filter->validate('21'));
   }
 
@@ -20,7 +20,7 @@ class PapayaFilterFactoryProfileGeneratorTest extends PapayaTestCase {
   public function testGetFilterWithInvalidOptionsExpectingException() {
     $profile = new PapayaFilterFactoryProfileGenerator();
     $profile->options(NULL);
-    $this->setExpectedException('PapayaFilterFactoryExceptionInvalidOptions');
+    $this->setExpectedException(PapayaFilterFactoryExceptionInvalidOptions::class);
     $profile->getFilter();
   }
 
@@ -30,7 +30,7 @@ class PapayaFilterFactoryProfileGeneratorTest extends PapayaTestCase {
   public function testGetFilterWithInvalidFilterClass() {
     $profile = new PapayaFilterFactoryProfileGenerator();
     $profile->options(array('stdClass'));
-    $this->setExpectedException('PapayaFilterFactoryExceptionInvalidFilter');
+    $this->setExpectedException(PapayaFilterFactoryExceptionInvalidFilter::class);
     $profile->getFilter();
   }
 }

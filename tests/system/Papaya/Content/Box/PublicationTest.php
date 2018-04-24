@@ -8,14 +8,14 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
   */
   public function testSaveCreateNew() {
     $databaseResult = $this->getMock(
-      'PapayaDatabaseAccess', array('fetchField'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('fetchField'), array(new stdClass)
     );
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
       ->will($this->returnValue(0));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'queryFmt', 'insertRecord'),
       array(new stdClass)
     );
@@ -73,14 +73,14 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
   */
   public function testSaveUpdateExisting() {
     $databaseResult = $this->getMock(
-      'PapayaDatabaseAccess', array('fetchField'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('fetchField'), array(new stdClass)
     );
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
       ->will($this->returnValue(1));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'queryFmt', 'updateRecord'),
       array(new stdClass)
     );
@@ -146,7 +146,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
   */
   public function testSaveWithSqlErrorOnCheckExistingExpectingFalse() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getTableName', 'queryFmt', 'updateRecord'))
       ->disableOriginalConstructor()
       ->getMock();

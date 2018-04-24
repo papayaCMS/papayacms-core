@@ -30,7 +30,7 @@ class PapayaTemplateSimpleScannerStatusCssTest extends PapayaTestCase {
     );
     $status = new PapayaTemplateSimpleScannerStatusCss();
     $this->assertInstanceOf(
-      'PapayaTemplateSimpleScannerStatusCssValue',
+      PapayaTemplateSimpleScannerStatusCssValue::class,
       $status->getNewStatus($token)
     );
   }
@@ -44,7 +44,7 @@ class PapayaTemplateSimpleScannerStatusCssTest extends PapayaTestCase {
     );
     $status = new PapayaTemplateSimpleScannerStatusCss();
     $this->assertInstanceOf(
-      'PapayaTemplateSimpleScannerStatusCssComment',
+      PapayaTemplateSimpleScannerStatusCssComment::class,
       $status->getNewStatus($token)
     );
   }

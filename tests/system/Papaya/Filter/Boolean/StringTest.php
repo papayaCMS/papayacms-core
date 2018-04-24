@@ -18,7 +18,7 @@ class PapayaFilterBooleanStringTest extends PapayaTestCase {
    */
   public function testValidateExpectingException($value) {
     $filter = new PapayaFilterBooleanString();
-    $this->setExpectedException('PapayaFilterException');
+    $this->setExpectedException(PapayaFilterException::class);
     $filter->validate($value);
   }
 

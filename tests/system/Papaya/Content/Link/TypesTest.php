@@ -26,7 +26,7 @@ class PapayaContentLinkTypesTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt'))
       ->getMock();
@@ -78,7 +78,7 @@ class PapayaContentLinkTypesTest extends PapayaTestCase {
   public function testCreateMapping() {
     $linkTypes = new PapayaContentLinkTypes();
     $this->assertInstanceOf(
-      'PapayaDatabaseInterfaceMapping',
+      PapayaDatabaseInterfaceMapping::class,
       $mapping = $linkTypes->mapping()
     );
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));

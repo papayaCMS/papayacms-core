@@ -32,7 +32,7 @@ class PapayaUiHierarchyItemsTest extends PapayaTestCase {
   */
   public function testSpacerGetAfterSet() {
     $items = new PapayaUiHierarchyItems();
-    $spacer = $this->getMock('PapayaUiHierarchyItem', array(), array('...'));
+    $spacer = $this->getMock(PapayaUiHierarchyItem::class, array(), array('...'));
     $this->assertSame(
       $spacer, $items->spacer($spacer)
     );
@@ -45,7 +45,7 @@ class PapayaUiHierarchyItemsTest extends PapayaTestCase {
     $items = new PapayaUiHierarchyItems();
     $items->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaUiHierarchyItem', $spacer = $items->spacer()
+      PapayaUiHierarchyItem::class, $spacer = $items->spacer()
     );
     $this->assertSame(
       $papaya, $spacer->papaya()
@@ -53,7 +53,7 @@ class PapayaUiHierarchyItemsTest extends PapayaTestCase {
   }
 
   public function getItemFixture($expectAppend) {
-    $item = $this->getMock('PapayaUiHierarchyItem', array(), array('item'));
+    $item = $this->getMock(PapayaUiHierarchyItem::class, array(), array('item'));
     $item
       ->expects($expectAppend ? $this->once() : $this->never())
       ->method('appendTo');

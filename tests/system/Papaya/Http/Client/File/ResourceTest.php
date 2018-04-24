@@ -31,7 +31,7 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   * @covers PapayaHttpClientFileResource::__construct
   */
   function testConstructorExpectingError() {
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     new PapayaHttpClientFileResource('', '', '', '');
   }
 
@@ -112,7 +112,7 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     fclose($this->_fileResource);
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $file->send($socket, TRUE);
   }
 }

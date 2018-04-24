@@ -17,7 +17,7 @@ class PapayaFilterFactoryProfileIsGermanZipTest extends PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new PapayaFilterFactoryProfileIsGermanZip();
-    $this->setExpectedException('PapayaFilterException');
+    $this->setExpectedException(PapayaFilterException::class);
     $profile->getFilter()->validate('foo');
   }
 

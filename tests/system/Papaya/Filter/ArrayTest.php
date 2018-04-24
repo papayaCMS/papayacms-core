@@ -28,7 +28,7 @@ class PapayaFilterArrayTest extends PapayaTestCase {
   */
   public function testValidateExpectingException($value, $elementFilter = NULL) {
     $filter = new PapayaFilterArray($elementFilter);
-    $this->setExpectedException('PapayaFilterException');
+    $this->setExpectedException(PapayaFilterException::class);
     $filter->validate($value);
   }
 

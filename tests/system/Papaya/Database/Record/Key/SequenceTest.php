@@ -132,7 +132,7 @@ class PapayaDatabaseRecordKeySequenceTest extends PapayaTestCase {
 
   private function getSequenceFixture() {
     $sequence = $this
-      ->getMockBuilder('PapayaDatabaseSequence')
+      ->getMockBuilder(PapayaDatabaseSequence::class)
       ->disableOriginalConstructor()
       ->getMock();
     return $sequence;

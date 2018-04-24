@@ -65,7 +65,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testGetListview() {
     $listview = $this->createMock(PapayaUiListview::class);
-    $items = $this->getMock('PapayaUiListviewItems', array(), array($listview));
+    $items = $this->getMock(PapayaUiListviewItems::class, array(), array($listview));
     $items
       ->expects($this->once())
       ->method('owner')
@@ -73,7 +73,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
     $item = new PapayaUiListviewItem('', '');
     $item->collection($items);
     $this->assertInstanceOf(
-      'PapayaUiListview', $item->getListview()
+      PapayaUiListview::class, $item->getListview()
     );
   }
 
@@ -82,7 +82,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testCollectionGetAfterSet() {
     $items = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $item = new PapayaUiListviewItem('', '');
@@ -97,11 +97,11 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testSubitemsGetAfterSet() {
     $item = new PapayaUiListviewItem('', '');
-    $subitems = $this->getMock('PapayaUiListviewSubitems', array(), array($item));
+    $subitems = $this->getMock(PapayaUiListviewSubitems::class, array(), array($item));
     $subitems
       ->expects($this->once())
       ->method('owner')
-      ->with($this->isInstanceOf('PapayaUiListviewItem'));
+      ->with($this->isInstanceOf(PapayaUiListviewItem::class));
     $this->assertSame(
       $subitems, $item->subitems($subitems)
     );
@@ -113,7 +113,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   public function testSubitemsImplicitCreate() {
     $item = new PapayaUiListviewItem('', '');
     $this->assertInstanceOf(
-      'PapayaUiListviewSubitems', $item->subitems()
+      PapayaUiListviewSubitems::class, $item->subitems()
     );
     $this->assertSame(
       $item, $item->subitems()->owner()
@@ -125,7 +125,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testNodeGetAfterSet() {
     $item = new PapayaUiListviewItem('', '');
-    $node = $this->getMock('PapayaUiListviewItemNode', array(), array($item));
+    $node = $this->getMock(PapayaUiListviewItemNode::class, array(), array($item));
     $this->assertSame(
       $node, $item->node($node)
     );
@@ -137,7 +137,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   public function testNodeImplicitCreate() {
     $item = new PapayaUiListviewItem('', '');
     $this->assertInstanceOf(
-      'PapayaUiListviewItemNode', $item->node()
+      PapayaUiListviewItemNode::class, $item->node()
     );
     $this->assertSame(
       $item, $item->node()->item
@@ -171,7 +171,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   public function testReferenceGetFromCollection() {
     $reference = $this->createMock(PapayaUiReference::class);
     $listview = $this->createMock(PapayaUiListview::class);
-    $collection = $this->getMock('PapayaUiListviewItems', array(), array($listview));
+    $collection = $this->getMock(PapayaUiListviewItems::class, array(), array($listview));
     $collection
       ->expects($this->once())
       ->method('reference')
@@ -182,7 +182,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
       ->will($this->returnValue($listview));
     $item = new PapayaUiListviewItem('', '');
     $item->collection($collection);
-    $this->assertInstanceOf('PapayaUiReference', $item->reference());
+    $this->assertInstanceOf(PapayaUiReference::class, $item->reference());
     $this->assertNotSame($reference, $item->reference());
   }
 
@@ -191,16 +191,16 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testAppendTo() {
     $item = new PapayaUiListviewItem('image', 'caption');
-    $node = $this->getMock('PapayaUiListviewItemNode', array(), array($item));
+    $node = $this->getMock(PapayaUiListviewItemNode::class, array(), array($item));
     $node
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
-    $subitems = $this->getMock('PapayaUiListviewSubitems', array(), array($item));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
+    $subitems = $this->getMock(PapayaUiListviewSubitems::class, array(), array($item));
     $subitems
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $item->node($node);
     $item->subitems($subitems);
     $item->papaya(
@@ -217,11 +217,11 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testAppendToWithEmptyImage() {
     $item = new PapayaUiListviewItem('image', 'caption');
-    $subitems = $this->getMock('PapayaUiListviewSubitems', array(), array($item));
+    $subitems = $this->getMock(PapayaUiListviewSubitems::class, array(), array($item));
     $subitems
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $item->subitems($subitems);
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => '')))
@@ -250,7 +250,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getRelative')
       ->will($this->returnValue('#success'));
-    $collection = $this->getMock('PapayaUiListviewItems', array(), array($listview));
+    $collection = $this->getMock(PapayaUiListviewItems::class, array(), array($listview));
     $collection
       ->expects($this->once())
       ->method('reference')
@@ -338,7 +338,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testAppendToWithColumnSpanReadFromListview() {
     $columns = $this
-      ->getMockBuilder('PapayaUiListviewColumns')
+      ->getMockBuilder(PapayaUiListviewColumns::class)
       ->disableOriginalConstructor()
       ->getMock();
     $columns
@@ -351,7 +351,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
       ->method('columns')
       ->will($this->returnValue($columns));
     $collection = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection

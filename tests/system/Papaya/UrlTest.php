@@ -133,7 +133,7 @@ class PapayaUrlTest extends PapayaTestCase {
   public function testSetSchemeExpectingException() {
     $urlObject = new PapayaUrl();
     $urlObject->setUrl('http://www.domain.tld');
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $urlObject->setScheme('http://');
   }
 
@@ -222,7 +222,7 @@ class PapayaUrlTest extends PapayaTestCase {
   public function testSetPathExpectingException() {
     $urlObject = new PapayaUrl();
     $urlObject->setUrl('http://www.domain.tld');
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $urlObject->setPath('bar');
   }
 
@@ -253,7 +253,7 @@ class PapayaUrlTest extends PapayaTestCase {
   public function testSetQueryExpectingException() {
     $urlObject = new PapayaUrl();
     $urlObject->setUrl('http://www.domain.tld');
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $urlObject->setQuery('?bar');
   }
 
@@ -273,7 +273,7 @@ class PapayaUrlTest extends PapayaTestCase {
   */
   public function testMagicMethodCallExpectingException() {
     $urlObject = new PapayaUrl('http://username:password@hostname:8080/path?arg=value#anchor');
-    $this->setExpectedException('BadMethodCallException');
+    $this->setExpectedException(BadMethodCallException::class);
     /** @noinspection PhpUndefinedMethodInspection */
     $urlObject->invalidMethod();
   }
@@ -294,7 +294,7 @@ class PapayaUrlTest extends PapayaTestCase {
   */
   public function testMagicMethodGetExpectingException() {
     $urlObject = new PapayaUrl('http://username:password@hostname:8080/path?arg=value#anchor');
-    $this->setExpectedException('BadMethodCallException');
+    $this->setExpectedException(BadMethodCallException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $urlObject->invalidProperty;
   }
@@ -317,7 +317,7 @@ class PapayaUrlTest extends PapayaTestCase {
   */
   public function testMagicMethodSetWithInvalidValueExpectionException($property, $value) {
     $urlObject = new PapayaUrl('http://test.tld');
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $urlObject->$property = $value;
   }
 
@@ -326,7 +326,7 @@ class PapayaUrlTest extends PapayaTestCase {
   */
   public function testMagicMethodSetReadonlyExpectingException() {
     $urlObject = new PapayaUrl('http://username:password@hostname:8080/path?arg=value#anchor');
-    $this->setExpectedException('BadMethodCallException');
+    $this->setExpectedException(BadMethodCallException::class);
     $urlObject->user = 'readonly';
   }
 
@@ -335,7 +335,7 @@ class PapayaUrlTest extends PapayaTestCase {
   */
   public function testMagicMethodSetInvalidExpectingException() {
     $urlObject = new PapayaUrl('http://username:password@hostname:8080/path?arg=value#anchor');
-    $this->setExpectedException('BadMethodCallException');
+    $this->setExpectedException(BadMethodCallException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $urlObject->invalidProperty = 'non existing';
   }

@@ -19,7 +19,7 @@ class PapayaUiDialogFieldGroupButtonsTest extends PapayaTestCase {
   public function testFieldsGetImplicitCreate() {
     $group = new PapayaUiDialogFieldGroupButtons('Group Caption');
     $this->assertInstanceOf(
-      'PapayaUiDialogButtons', $group->buttons()
+      PapayaUiDialogButtons::class, $group->buttons()
     );
   }
 
@@ -28,7 +28,7 @@ class PapayaUiDialogFieldGroupButtonsTest extends PapayaTestCase {
   */
   public function testFieldsGetImplicitCreateWithDialog() {
     $dialog = $this->getMock(
-      'PapayaUiDialog', array('isSubmitted', 'appendTo', 'execute'), array(new stdClass())
+      PapayaUiDialog::class, array('isSubmitted', 'appendTo', 'execute'), array(new stdClass())
     );
     $group = new PapayaUiDialogFieldGroupButtons('Group Caption');
     $group->collection($this->getCollectionMock($dialog));
@@ -42,11 +42,11 @@ class PapayaUiDialogFieldGroupButtonsTest extends PapayaTestCase {
   */
   public function testFieldsSet() {
     $dialog = $this->getMock(
-      'PapayaUiDialog', array('isSubmitted', 'appendTo', 'execute'), array(new stdClass())
+      PapayaUiDialog::class, array('isSubmitted', 'appendTo', 'execute'), array(new stdClass())
     );
     $group = new PapayaUiDialogFieldGroupButtons('Group Caption');
     $group->collection($this->getCollectionMock($dialog));
-    $buttons = $this->getMock('PapayaUiDialogButtons', array('owner'));
+    $buttons = $this->getMock(PapayaUiDialogButtons::class, array('owner'));
     $buttons
       ->expects($this->once())
       ->method('owner')
@@ -62,11 +62,11 @@ class PapayaUiDialogFieldGroupButtonsTest extends PapayaTestCase {
   */
   public function testFieldsGetAfterSet() {
     $dialog = $this->getMock(
-      'PapayaUiDialog', array('isSubmitted', 'appendTo', 'execute'), array(new stdClass())
+      PapayaUiDialog::class, array('isSubmitted', 'appendTo', 'execute'), array(new stdClass())
     );
     $group = new PapayaUiDialogFieldGroupButtons('Group Caption');
     $group->collection($this->getCollectionMock($dialog));
-    $buttons = $this->getMock('PapayaUiDialogButtons', array('owner'));
+    $buttons = $this->getMock(PapayaUiDialogButtons::class, array('owner'));
     $buttons
       ->expects($this->once())
       ->method('owner')
@@ -81,7 +81,7 @@ class PapayaUiDialogFieldGroupButtonsTest extends PapayaTestCase {
   */
   public function testValidateExpectingTrue() {
     $dialog = $this->getMock(
-      'PapayaUiDialog', array('isSubmitted', 'appendTo', 'execute'), array(new stdClass())
+      PapayaUiDialog::class, array('isSubmitted', 'appendTo', 'execute'), array(new stdClass())
     );
     $group = new PapayaUiDialogFieldGroupButtons('Group Caption');
     $this->assertTrue($group->validate());
@@ -100,9 +100,9 @@ class PapayaUiDialogFieldGroupButtonsTest extends PapayaTestCase {
   */
   public function testCollect() {
     $dialog = $this->getMock(
-      'PapayaUiDialog', array('isSubmitted', 'appendTo', 'execute'), array(new stdClass())
+      PapayaUiDialog::class, array('isSubmitted', 'appendTo', 'execute'), array(new stdClass())
     );
-    $buttons = $this->getMock('PapayaUiDialogButtons', array('collect'));
+    $buttons = $this->getMock(PapayaUiDialogButtons::class, array('collect'));
     $buttons
       ->expects($this->once())
       ->method('collect')
@@ -130,7 +130,7 @@ class PapayaUiDialogFieldGroupButtonsTest extends PapayaTestCase {
     $buttons
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $buttons
       ->expects($this->once())
       ->method('count')
@@ -148,11 +148,11 @@ class PapayaUiDialogFieldGroupButtonsTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldGroupButtons::appendTo
   */
   public function testAppendToWithId() {
-    $buttons = $this->getMock('PapayaUiDialogButtons', array('appendTo', 'count'));
+    $buttons = $this->getMock(PapayaUiDialogButtons::class, array('appendTo', 'count'));
     $buttons
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $buttons
       ->expects($this->once())
       ->method('count')

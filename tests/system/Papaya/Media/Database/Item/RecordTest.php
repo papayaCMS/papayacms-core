@@ -11,7 +11,7 @@ class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
   public function testLoad() {
     $record = new PapayaMediaDatabaseItemRecord();
     $dbResult = $this
-      ->getMockBuilder('dbresult_base')
+      ->getMockBuilder(dbresult_base::class)
       ->disableOriginalConstructor()
       ->allowMockingUnknownTypes()
       ->getMock();
@@ -33,7 +33,7 @@ class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
         )
       );
     $dbCon = $this->getMock(
-      'PapayaDatabaseAccess', array('queryFmt', 'getTableName'), array($record)
+      PapayaDatabaseAccess::class, array('queryFmt', 'getTableName'), array($record)
     );
     $dbCon
       ->expects($this->exactly(2))
@@ -53,7 +53,7 @@ class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
   public function testLoadExpectingFalse() {
     $record = new PapayaMediaDatabaseItemRecord();
     $dbResult = $this
-      ->getMockBuilder('dbresult_base')
+      ->getMockBuilder(dbresult_base::class)
       ->disableOriginalConstructor()
       ->allowMockingUnknownTypes()
       ->getMock();
@@ -62,7 +62,7 @@ class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
       ->method('fetchRow')
       ->will($this->returnValue(NULL));
     $dbCon = $this->getMock(
-      'PapayaDatabaseAccess', array('queryFmt', 'getTableName'), array($record)
+      PapayaDatabaseAccess::class, array('queryFmt', 'getTableName'), array($record)
     );
     $dbCon
       ->expects($this->exactly(2))

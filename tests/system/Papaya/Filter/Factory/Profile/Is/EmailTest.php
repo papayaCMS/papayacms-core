@@ -8,6 +8,6 @@ class PapayaFilterFactoryProfileIsEmailTest extends PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new PapayaFilterFactoryProfileIsEmail();
-    $this->assertInstanceOf('PapayaFilterEmail', $profile->getFilter());
+    $this->assertInstanceOf(PapayaFilterEmail::class, $profile->getFilter());
   }
 }

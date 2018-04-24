@@ -25,7 +25,7 @@ class PapayaContentPageVersionTranslationsTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -60,13 +60,13 @@ class PapayaContentPageVersionTranslationsTest extends PapayaTestCase {
   */
   public function testGetTranslation() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $list = new PapayaContentPageVersionTranslations();
     $list->setDatabaseAccess($databaseAccess);
     $translation = $list->getTranslation(42, 21);
     $this->assertInstanceOf(
-      'PapayaContentPageVersionTranslation', $translation
+      PapayaContentPageVersionTranslation::class, $translation
     );
   }
 }

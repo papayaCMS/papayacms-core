@@ -212,7 +212,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
   */
   public function testAppendToWithDefaultValue() {
     $dialog = $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('isSubmitted', 'execute', 'appendTo', 'parameters'),
       array(new stdClass())
     );
@@ -335,7 +335,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
   */
   public function testCallbacksGetAfterSet() {
     $callbacks = $this
-      ->getMockBuilder('PapayaUiDialogFieldSelectCallbacks')
+      ->getMockBuilder(PapayaUiDialogFieldSelectCallbacks::class)
       ->disableOriginalConstructor()
       ->getMock();
     $select = new PapayaUiDialogFieldSelect(
@@ -355,7 +355,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     );
     $callbacks = $select->callbacks();
     $this->assertInstanceOf(
-      'PapayaObjectCallbacks', $callbacks
+      PapayaObjectCallbacks::class, $callbacks
     );
   }
 

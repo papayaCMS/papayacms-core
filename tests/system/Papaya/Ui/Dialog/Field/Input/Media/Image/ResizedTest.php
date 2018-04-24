@@ -18,7 +18,7 @@ class PapayaUiDialogFieldInputMediaImageResizedTest extends PapayaTestCase {
    */
   public function testConstructorInitializesFilterExpectingExceptionForInvalidValues($value) {
     $field = new PapayaUiDialogFieldInputMediaImageResized('caption', 'name', TRUE);
-    $this->setExpectedException('PapayaFilterException');
+    $this->setExpectedException(PapayaFilterException::class);
     $field->getFilter()->validate($value);
   }
 

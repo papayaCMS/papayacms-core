@@ -23,7 +23,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
   public function testPageGetImplicitCreate() {
     $action = new PapayaAdministrationPagesDependencySynchronizationProperties();
     $this->assertInstanceOf(
-      'PapayaContentPageWork', $action->page()
+      PapayaContentPageWork::class, $action->page()
     );
   }
 

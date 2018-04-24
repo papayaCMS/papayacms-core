@@ -70,7 +70,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   */
   public function testSetHandler() {
     $callback = array($this, 'collectHeader');
-    $handler = $this->getMock('PapayaMessageDispatcherWildfireHandler', array(), array($callback));
+    $handler = $this->getMock(PapayaMessageDispatcherWildfireHandler::class, array(), array($callback));
     $dispatcher = new PapayaMessageDispatcherWildfire();
     $dispatcher->setHandler($handler);
     $this->assertAttributeSame(
@@ -85,7 +85,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   */
   public function testGetHandler() {
     $callback = array($this, 'collectHeader');
-    $handler = $this->getMock('PapayaMessageDispatcherWildfireHandler', array(), array($callback));
+    $handler = $this->getMock(PapayaMessageDispatcherWildfireHandler::class, array(), array($callback));
     $dispatcher = new PapayaMessageDispatcherWildfire();
     $dispatcher->setHandler($handler);
     $this->assertSame(
@@ -101,7 +101,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
     $callback = array($this, 'collectHeader');
     $dispatcher = new PapayaMessageDispatcherWildfire();
     $this->assertInstanceOf(
-      'PapayaMessageDispatcherWildfireHandler',
+      PapayaMessageDispatcherWildfireHandler::class,
       $dispatcher->getHandler()
     );
   }
@@ -144,7 +144,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   */
   public function testSendWithSimpleMessage() {
     $callback = array($this, 'collectHeader');
-    $handler = $this->getMock('PapayaMessageDispatcherWildfireHandler', array(), array($callback));
+    $handler = $this->getMock(PapayaMessageDispatcherWildfireHandler::class, array(), array($callback));
     $handler
       ->expects($this->once())
       ->method('sendMessage')
@@ -172,7 +172,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   */
   public function testSendWithMessageIncludingContext() {
     $callback = array($this, 'collectHeader');
-    $handler = $this->getMock('PapayaMessageDispatcherWildfireHandler', array(), array($callback));
+    $handler = $this->getMock(PapayaMessageDispatcherWildfireHandler::class, array(), array($callback));
     $handler
       ->expects($this->once())
       ->method('startGroup')
@@ -209,7 +209,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   */
   public function testSendContextWithString() {
     $callback = array($this, 'collectHeader');
-    $handler = $this->getMock('PapayaMessageDispatcherWildfireHandler', array(), array($callback));
+    $handler = $this->getMock(PapayaMessageDispatcherWildfireHandler::class, array(), array($callback));
     $handler
       ->expects($this->once())
       ->method('sendMessage')
@@ -230,16 +230,16 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   */
   public function testSendContextWithVariable() {
     $callback = array($this, 'collectHeader');
-    $handler = $this->getMock('PapayaMessageDispatcherWildfireHandler', array(), array($callback));
+    $handler = $this->getMock(PapayaMessageDispatcherWildfireHandler::class, array(), array($callback));
     $handler
       ->expects($this->once())
       ->method('sendDump')
       ->with(NULL);
-    $context = $this->getMock('PapayaMessageContextVariable', array(), array(42));
+    $context = $this->getMock(PapayaMessageContextVariable::class, array(), array(42));
     $context
       ->expects($this->once())
       ->method('acceptVisitor')
-      ->with($this->isInstanceOf('PapayaMessageContextVariableVisitor'));
+      ->with($this->isInstanceOf(PapayaMessageContextVariableVisitor::class));
     $dispatcher = new PapayaMessageDispatcherWildfire();
     $dispatcher->setHandler($handler);
     $dispatcher->sendContext($context);
@@ -250,7 +250,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   */
   public function testSendContextWithList() {
     $callback = array($this, 'collectHeader');
-    $handler = $this->getMock('PapayaMessageDispatcherWildfireHandler', array(), array($callback));
+    $handler = $this->getMock(PapayaMessageDispatcherWildfireHandler::class, array(), array($callback));
     $handler
       ->expects($this->at(0))
       ->method('startGroup')
@@ -267,10 +267,10 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
       ->expects($this->at(3))
       ->method('endGroup');
     $context = $this->getMock(
-      'PapayaMessageContextInterfaceList',
+      PapayaMessageContextInterfaceList::class,
       array(),
       array(),
-      'PapayaMessageContextInterfaceList_UnitTest_Mock'
+      PapayaMessageContextInterfaceList_UnitTest_Mock::class
     );
     $context
       ->expects($this->any())
@@ -329,7 +329,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
       )
     );
     $callback = array($this, 'collectHeader');
-    $handler = $this->getMock('PapayaMessageDispatcherWildfireHandler', array(), array($callback));
+    $handler = $this->getMock(PapayaMessageDispatcherWildfireHandler::class, array(), array($callback));
     $handler
       ->expects($this->once())
       ->method('sendMessage')
@@ -350,7 +350,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   */
   public function testSendContextWithEmptyBacktrace() {
     $callback = array($this, 'collectHeader');
-    $handler = $this->getMock('PapayaMessageDispatcherWildfireHandler', array(), array($callback));
+    $handler = $this->getMock(PapayaMessageDispatcherWildfireHandler::class, array(), array($callback));
     $handler
       ->expects($this->never())
       ->method('sendMessage');
@@ -371,7 +371,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   */
   public function testSendContextWithTableWithColumns() {
     $callback = array($this, 'collectHeader');
-    $handler = $this->getMock('PapayaMessageDispatcherWildfireHandler', array(), array($callback));
+    $handler = $this->getMock(PapayaMessageDispatcherWildfireHandler::class, array(), array($callback));
     $handler
       ->expects($this->once())
       ->method('sendMessage')
@@ -415,7 +415,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   */
   public function testSendContextWithTableWithoutColumns() {
     $callback = array($this, 'collectHeader');
-    $handler = $this->getMock('PapayaMessageDispatcherWildfireHandler', array(), array($callback));
+    $handler = $this->getMock(PapayaMessageDispatcherWildfireHandler::class, array(), array($callback));
     $handler
       ->expects($this->once())
       ->method('sendMessage')

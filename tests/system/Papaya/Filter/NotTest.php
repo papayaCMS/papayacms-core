@@ -10,7 +10,7 @@ class PapayaFilterNotTest extends PapayaTestCase {
     $filterMock = $this->createMock(PapayaFilter::class);
     $filter = new PapayaFilterNot($filterMock);
     $this->assertAttributeInstanceOf(
-      'PapayaFilter', '_filter', $filter
+      PapayaFilter::class, '_filter', $filter
     );
   }
 
@@ -57,7 +57,7 @@ class PapayaFilterNotTest extends PapayaTestCase {
   *************************************/
 
   public function callbackThrowFilterException() {
-    throw $this->getMock('PapayaFilterException', array(), array('Test Exception'));
+    throw $this->getMock(PapayaFilterException::class, array(), array('Test Exception'));
   }
 
 }

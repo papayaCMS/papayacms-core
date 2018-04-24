@@ -14,7 +14,7 @@ class PapayaApplicationProfilePluginsTest extends PapayaTestCase {
     $profile = new PapayaApplicationProfilePlugins();
     $plugins = $profile->createObject($application);
     $this->assertInstanceOf(
-      'PapayaPluginLoader',
+      PapayaPluginLoader::class,
       $plugins
     );
     $this->assertSame($application, $plugins->papaya());

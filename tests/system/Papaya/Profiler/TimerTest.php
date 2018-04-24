@@ -64,7 +64,7 @@ class PapayaProfilerTimerTest extends PapayaTestCase {
         PapayaMessageLogable::GROUP_DEBUG,
         PapayaMessage::SEVERITY_DEBUG,
         $this->isType('string'),
-        $this->isInstanceOf('PapayaMessageContextRuntime')
+        $this->isInstanceOf(PapayaMessageContextRuntime::class)
       );
     $timer = new PapayaProfilerTimer();
     $timer->papaya(

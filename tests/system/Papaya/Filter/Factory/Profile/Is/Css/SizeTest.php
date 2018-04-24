@@ -17,7 +17,7 @@ class PapayaFilterFactoryProfileIsCssSizeTest extends PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new PapayaFilterFactoryProfileIsCssSize();
-    $this->setExpectedException('PapayaFilterException');
+    $this->setExpectedException(PapayaFilterException::class);
     $profile->getFilter()->validate('foo');
   }
 

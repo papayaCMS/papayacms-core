@@ -17,7 +17,7 @@ class PapayaFilterIssetTest extends PapayaTestCase {
   */
   public function testCheckExpectingException() {
     $filter = new PapayaFilterIsset();
-    $this->setExpectedException('PapayaFilterExceptionUndefined');
+    $this->setExpectedException(PapayaFilterExceptionUndefined::class);
     $filter->validate(NULL);
   }
 

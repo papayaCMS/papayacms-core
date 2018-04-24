@@ -97,7 +97,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherCli::dispatch
   */
   public function testDispatchWarning() {
-    $context = $this->getMockBuilder('PapayaMessageContextInterfaceString')->getMock();
+    $context = $this->getMockBuilder(PapayaMessageContextInterfaceString::class)->getMock();
     $context
       ->expects($this->any())
       ->method('asString')
@@ -131,7 +131,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherCli::dispatch
   */
   public function testDispatchDebug() {
-    $context = $this->getMockBuilder('PapayaMessageContextInterfaceString')->getMock();
+    $context = $this->getMockBuilder(PapayaMessageContextInterfaceString::class)->getMock();
     $context
       ->expects($this->any())
       ->method('asString')
@@ -186,7 +186,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   */
   public function testStreamGetWithInvalidTargetExpectingException() {
     $dispatcher = new PapayaMessageDispatcherCli();
-    $this->setExpectedException('InvalidArgumentException', 'Invalid output target "fail".');
+    $this->setExpectedException(InvalidArgumentException::class, 'Invalid output target "fail".');
     $dispatcher->stream('fail', 0);
   }
 
@@ -195,7 +195,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   */
   public function testStreamGetWithInvalidStreamExpectingException() {
     $dispatcher = new PapayaMessageDispatcherCli();
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $dispatcher->stream(PapayaMessageDispatcherCli::TARGET_STDOUT, 0);
   }
 

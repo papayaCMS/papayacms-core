@@ -53,7 +53,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -99,7 +99,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -145,7 +145,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -181,7 +181,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue(FALSE));
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -207,7 +207,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testLoadExpectingFalse() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -248,7 +248,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -264,7 +264,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
       )
       ->will($this->returnValue($databaseResult));
     $condition = $this
-      ->getMockBuilder('PapayaDatabaseConditionElement')
+      ->getMockBuilder(PapayaDatabaseConditionElement::class)
       ->disableOriginalConstructor()
       ->getMock();
     $condition
@@ -282,17 +282,17 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testCreateFilter() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->getMock();
     $mapping = $this
-      ->getMockBuilder('PapayaDatabaseInterfaceMapping')
+      ->getMockBuilder(PapayaDatabaseInterfaceMapping::class)
       ->getMock();
     $records = new PapayaDatabaseRecord_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $records->mapping($mapping);
     $filter = $records->createFilter();
-    $this->assertInstanceOf('PapayaDatabaseConditionRoot', $filter);
+    $this->assertInstanceOf(PapayaDatabaseConditionRoot::class, $filter);
     $this->assertSame($databaseAccess, $filter->getDatabaseAccess());
     $this->assertSame($mapping, $filter->getMapping());
   }
@@ -323,7 +323,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();
@@ -349,7 +349,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testSaveInsertsRecordUsingDefaultAutoincrement() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('insertRecord'))
       ->getMock();
@@ -374,7 +374,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testSaveInsertsRecordUsingDefaultAutoincrementUseCallback() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('insertRecord'))
       ->getMock();
@@ -406,7 +406,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testSaveInsertsRecordBlockedByCallback() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('insertRecord'))
       ->getMock();
@@ -446,7 +446,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
       ->will($this->returnValue(0));
 
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('insertRecord'))
       ->getMock();
@@ -473,7 +473,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testSaveInsertsRecordFailed() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('insertRecord'))
       ->getMock();
@@ -498,7 +498,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testSaveUpdatesRecordUsingDefaultAutoincrement() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('updateRecord'))
       ->getMock();
@@ -530,7 +530,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testSaveUpdatesRecordUsingDefaultAutoincrementAndCallback() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('updateRecord'))
       ->getMock();
@@ -569,7 +569,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testSaveUpdatesRecordBlockedByCallback() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('updateRecord'))
       ->getMock();
@@ -596,7 +596,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testDelete() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('deleteRecord'))
       ->getMock();
@@ -655,7 +655,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   public function testMappingGetImplicitCreate() {
     $record = new PapayaDatabaseRecord_TestProxy();
     $this->assertInstanceOf(
-      'PapayaDatabaseRecordMapping', $record->mapping()
+      PapayaDatabaseRecordMapping::class, $record->mapping()
     );
   }
 
@@ -678,7 +678,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   public function testKeyGetImplicitCreate() {
     $record = new PapayaDatabaseRecord_TestProxy();
     $this->assertInstanceOf(
-      'PapayaDatabaseRecordKeyAutoincrement', $record->key()
+      PapayaDatabaseRecordKeyAutoincrement::class, $record->key()
     );
   }
 
@@ -688,7 +688,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testGetDatabaseAccessAfterSet() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->getMock();
     $record = new PapayaDatabaseRecord_TestProxy();
@@ -705,7 +705,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
     $record = new PapayaDatabaseRecord_TestProxy();
     $record->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaDatabaseAccess', $record->getDatabaseAccess()
+      PapayaDatabaseAccess::class, $record->getDatabaseAccess()
     );
     $this->assertSame(
       $record->papaya(), $record->getDatabaseAccess()->papaya()
@@ -728,7 +728,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testCallbacksImplicitCreate() {
     $record = new PapayaDatabaseRecord_TestProxy();
-    $this->assertInstanceOf('PapayaDatabaseRecordCallbacks', $record->callbacks());
+    $this->assertInstanceOf(PapayaDatabaseRecordCallbacks::class, $record->callbacks());
   }
 }
 

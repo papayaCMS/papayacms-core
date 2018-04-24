@@ -7,7 +7,7 @@ class PapayaUiDialogFieldFactoryExceptionTest extends PapayaTestCase {
    * @covers PapayaUiDialogFieldFactoryException
    */
   public function testThrowException() {
-    $this->setExpectedException('PapayaUiDialogFieldFactoryException');
+    $this->setExpectedException(PapayaUiDialogFieldFactoryException::class);
     throw new PapayaUiDialogFieldFactoryException_TestProxy();
   }
 

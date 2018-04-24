@@ -16,7 +16,7 @@ class PapayaFilterFactoryProfileIsGermanDateTest extends PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new PapayaFilterFactoryProfileIsGermanDate();
-    $this->setExpectedException('PapayaFilterException');
+    $this->setExpectedException(PapayaFilterException::class);
     $profile->getFilter()->validate('foo');
   }
 }

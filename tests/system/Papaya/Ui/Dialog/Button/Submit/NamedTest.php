@@ -51,7 +51,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends PapayaTestCase {
   */
   public function testAppendToWithDialogParameterGroup() {
     $dialog = $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('isSubmitted', 'execute', 'appendTo', 'parameterGroup'),
       array(new stdClass())
     );
@@ -79,19 +79,19 @@ class PapayaUiDialogButtonSubmitNamedTest extends PapayaTestCase {
   * @covers PapayaUiDialogButtonSubmitNamed::collect
   */
   public function testCollectExpectingTrue() {
-    $parameters = $this->getMock('PapayaRequestParameters', array('has'));
+    $parameters = $this->getMock(PapayaRequestParameters::class, array('has'));
     $parameters
       ->expects($this->once())
       ->method('has')
       ->with($this->equalTo('buttonname[42]'))
       ->will($this->returnValue(TRUE));
-    $data = $this->getMock('PapayaRequestParameters', array('set'));
+    $data = $this->getMock(PapayaRequestParameters::class, array('set'));
     $data
       ->expects($this->once())
       ->method('set')
       ->with($this->equalTo('buttonname'), $this->equalTo(42));
     $dialog = $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('isSubmitted', 'execute', 'appendTo', 'parameters', 'data'),
       array(new stdClass())
     );
@@ -115,19 +115,19 @@ class PapayaUiDialogButtonSubmitNamedTest extends PapayaTestCase {
   * @covers PapayaUiDialogButtonSubmitNamed::collect
   */
   public function testCollectWithGroupExpectingTrue() {
-    $parameters = $this->getMock('PapayaRequestParameters', array('has'));
+    $parameters = $this->getMock(PapayaRequestParameters::class, array('has'));
     $parameters
       ->expects($this->once())
       ->method('has')
       ->with($this->equalTo('buttonname[42]'))
       ->will($this->returnValue(TRUE));
-    $data = $this->getMock('PapayaRequestParameters', array('set'));
+    $data = $this->getMock(PapayaRequestParameters::class, array('set'));
     $data
       ->expects($this->once())
       ->method('set')
       ->with($this->equalTo('buttonname'), $this->equalTo(42));
     $dialog = $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('isSubmitted', 'execute', 'appendTo', 'parameterGroup', 'parameters', 'data'),
       array(new stdClass())
     );
@@ -159,14 +159,14 @@ class PapayaUiDialogButtonSubmitNamedTest extends PapayaTestCase {
   * @covers PapayaUiDialogButtonSubmitNamed::collect
   */
   public function testCollectExpectingFalse() {
-    $parameters = $this->getMock('PapayaRequestParameters', array('has'));
+    $parameters = $this->getMock(PapayaRequestParameters::class, array('has'));
     $parameters
       ->expects($this->once())
       ->method('has')
       ->with($this->equalTo('buttonname[42]'))
       ->will($this->returnValue(FALSE));
     $dialog = $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('isSubmitted', 'execute', 'appendTo', 'parameters', 'data'),
       array(new stdClass())
     );

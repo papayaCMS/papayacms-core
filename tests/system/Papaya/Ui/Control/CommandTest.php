@@ -19,7 +19,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   */
   public function testConditionGetExpectingTrue() {
     $command = new PapayaUiControlCommand_TestProxy();
-    $this->assertInstanceOf('PapayaUiControlCommandConditionValue', $command->condition());
+    $this->assertInstanceOf(PapayaUiControlCommandConditionValue::class, $command->condition());
     $this->assertTrue($command->condition()->validate());
   }
 
@@ -110,7 +110,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::validatePermission
   */
   public function testValidatePermissionWithPermissionExpectingFalse() {
-    $user = $this->getMock('base_auth', array('hasPerm'));
+    $user = $this->getMock(base_auth::class, array('hasPerm'));
     $user
       ->expects($this->once())
       ->method('hasPerm')
@@ -132,7 +132,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::validatePermission
   */
   public function testValidatePermissionWithPermissionExpectingTrue() {
-    $user = $this->getMock('base_auth', array('hasPerm'));
+    $user = $this->getMock(base_auth::class, array('hasPerm'));
     $user
       ->expects($this->once())
       ->method('hasPerm')
@@ -154,7 +154,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::validatePermission
   */
   public function testValidatePermissionWithModulePermissionExpectingFalse() {
-    $user = $this->getMock('base_auth', array('hasPerm'));
+    $user = $this->getMock(base_auth::class, array('hasPerm'));
     $user
       ->expects($this->once())
       ->method('hasPerm')
@@ -176,7 +176,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::validatePermission
   */
   public function testValidatePermissionWithModulePermissionExpectingTrue() {
-    $user = $this->getMock('base_auth', array('hasPerm'));
+    $user = $this->getMock(base_auth::class, array('hasPerm'));
     $user
       ->expects($this->once())
       ->method('hasPerm')
@@ -199,7 +199,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   */
   public function testOwnerGetAfterSet() {
     $application = $this->mockPapaya()->application();
-    $owner = $this->getMock('PapayaUiControlInteractive', array('papaya', 'appendTo'));
+    $owner = $this->getMock(PapayaUiControlInteractive::class, array('papaya', 'appendTo'));
     $owner
       ->expects($this->once())
       ->method('papaya')

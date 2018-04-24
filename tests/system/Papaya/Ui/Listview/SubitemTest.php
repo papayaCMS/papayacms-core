@@ -19,14 +19,14 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
   * @covers PapayaUiListviewSubitem::getAlign
   */
   public function testGetAlignFetchFromColumn() {
-    $column = $this->getMock('PapayaUiListviewColumn', array(), array(''));
+    $column = $this->getMock(PapayaUiListviewColumn::class, array(), array(''));
     $column
       ->expects($this->once())
       ->method('getAlign')
       ->will($this->returnValue(PapayaUiOptionAlign::CENTER));
     $listview = $this->createMock(PapayaUiListview::class);
     $columns = $this->getMock(
-      'PapayaUiListviewColumns', array('has', 'get'), array($listview)
+      PapayaUiListviewColumns::class, array('has', 'get'), array($listview)
     );
     $columns
       ->expects($this->once())
@@ -43,9 +43,9 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
       ->method('columns')
       ->will($this->returnValue($columns));
     $subitems = $this->getMock(
-      'PapayaUiListviewSubitems',
+      PapayaUiListviewSubitems::class,
       array(),
-      array($this->getMock('PapayaUiListviewItem', array(), array('', '')))
+      array($this->getMock(PapayaUiListviewItem::class, array(), array('', '')))
     );
     $subitems
       ->expects($this->atLeastOnce())
@@ -64,7 +64,7 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
   public function testGetAlignUseDefaultValue() {
     $listview = $this->createMock(PapayaUiListview::class);
     $columns = $this->getMock(
-      'PapayaUiListviewColumns', array('has', 'get'), array($listview)
+      PapayaUiListviewColumns::class, array('has', 'get'), array($listview)
     );
     $columns
       ->expects($this->once())
@@ -76,9 +76,9 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
       ->method('columns')
       ->will($this->returnValue($columns));
     $subitems = $this->getMock(
-      'PapayaUiListviewSubitems',
+      PapayaUiListviewSubitems::class,
       array(),
-      array($this->getMock('PapayaUiListviewItem', array(), array('', '')))
+      array($this->getMock(PapayaUiListviewItem::class, array(), array('', '')))
     );
     $subitems
       ->expects($this->atLeastOnce())

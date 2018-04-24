@@ -21,7 +21,7 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
   */
   public function testSetFilterExpectingException() {
     $input = new PapayaUiDialogFieldHoneypot('Caption', 'name');
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $input->setFilter($this->createMock(PapayaFilter::class));
   }
 
@@ -30,7 +30,7 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
   */
   public function testSetMandatoryExpectingException() {
     $input = new PapayaUiDialogFieldHoneypot('Caption', 'name');
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $input->setMandatory(FALSE);
   }
 
@@ -58,7 +58,7 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue('group'));
     $collection = $this
-      ->getMockBuilder('PapayaUiDialogFields')
+      ->getMockBuilder(PapayaUiDialogFields::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection
@@ -106,7 +106,7 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue(NULL));
     $collection = $this
-      ->getMockBuilder('PapayaUiDialogFields')
+      ->getMockBuilder(PapayaUiDialogFields::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection

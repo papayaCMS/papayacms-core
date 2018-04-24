@@ -173,7 +173,7 @@ class PapayaSessionParametersTest extends PapayaTestCase {
   private function getSessionValuesFixture($data = array()) {
     $this->_sessionData = $data;
     $sessionValues = $this
-      ->getMockBuilder('PapayaSessionValues')
+      ->getMockBuilder(PapayaSessionValues::class)
       ->disableOriginalConstructor()
       ->getMock();
     $sessionValues

@@ -42,7 +42,7 @@ class PapayaFilterNumberTest extends PapayaTestCase {
     try {
       $filter->validate('I am not a number');
     } catch(PapayaFilterExceptionType $e) {
-      $this->assertInstanceOf('PapayaFilterExceptionType', $e);
+      $this->assertInstanceOf(PapayaFilterExceptionType::class, $e);
       return;
     }
     $this->fail('Expected exception not thrown.');
@@ -56,7 +56,7 @@ class PapayaFilterNumberTest extends PapayaTestCase {
     try {
       $filter->validate('22');
     } catch(PapayaFilterExceptionRangeMinimum $e) {
-      $this->assertInstanceOf('PapayaFilterExceptionRangeMinimum', $e);
+      $this->assertInstanceOf(PapayaFilterExceptionRangeMinimum::class, $e);
       return;
     }
     $this->fail('Expected exception not thrown.');
@@ -70,7 +70,7 @@ class PapayaFilterNumberTest extends PapayaTestCase {
     try {
       $filter->validate('2222');
     } catch(PapayaFilterExceptionRangeMaximum $e) {
-      $this->assertInstanceOf('PapayaFilterExceptionRangeMaximum', $e);
+      $this->assertInstanceOf(PapayaFilterExceptionRangeMaximum::class, $e);
       return;
     }
     $this->fail('Expected exception not thrown.');

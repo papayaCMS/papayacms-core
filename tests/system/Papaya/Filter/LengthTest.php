@@ -39,7 +39,7 @@ class PapayaFilterLengthTest extends PapayaTestCase {
   * @covers PapayaFilterLength::__construct
   */
   public function testConstructorWithMaximumToSmallExpectingException() {
-    $this->setExpectedException('RangeException');
+    $this->setExpectedException(RangeException::class);
     $filter = new PapayaFilterLength(4, 2);
   }
 
@@ -62,7 +62,7 @@ class PapayaFilterLengthTest extends PapayaTestCase {
     $value, $minimum, $maximum = TRUE, $isUtf8 = FALSE
   ) {
     $filter = new PapayaFilterLength($minimum, $maximum, $isUtf8);
-    $this->setExpectedException('PapayaFilterException');
+    $this->setExpectedException(PapayaFilterException::class);
     $filter->validate($value);
   }
 
@@ -79,7 +79,7 @@ class PapayaFilterLengthTest extends PapayaTestCase {
   */
   public function testValidateWithValueToShortExpectingException() {
     $filter = new PapayaFilterLength(21, 42);
-    $this->setExpectedException('PapayaFilterExceptionLengthMinimum');
+    $this->setExpectedException(PapayaFilterExceptionLengthMinimum::class);
     $filter->validate('foo');
   }
 
@@ -88,7 +88,7 @@ class PapayaFilterLengthTest extends PapayaTestCase {
   */
   public function testValidateWithValueToLongExpectingException() {
     $filter = new PapayaFilterLength(0, 1);
-    $this->setExpectedException('PapayaFilterExceptionLengthMaximum');
+    $this->setExpectedException(PapayaFilterExceptionLengthMaximum::class);
     $filter->validate('foo');
   }
 

@@ -24,7 +24,7 @@ class PapayaUiToolbarElementTest extends PapayaTestCase {
       $application = $this->mockPapaya()->application()
     );
     $this->assertInstanceOf(
-      'PapayaUiReference', $button->reference()
+      PapayaUiReference::class, $button->reference()
     );
     $this->assertSame(
       $application, $button->reference()->papaya()

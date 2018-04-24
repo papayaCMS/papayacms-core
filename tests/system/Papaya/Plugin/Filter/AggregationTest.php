@@ -5,18 +5,18 @@ class PapayaPluginFilterAggregationTest extends PapayaTestCase {
 
   public function testContentGetAfterSet() {
     $plugin = new PapayaPluginFilterAggregation_TestProxy(
-      $page = $this->createMock('PapayaUiContentPage')
+      $page = $this->createMock(PapayaUiContentPage::class)
     );
-    $plugin->filters($content = $this->createMock('PapayaPluginFilterContent'));
+    $plugin->filters($content = $this->createMock(PapayaPluginFilterContent::class));
     $this->assertSame($content, $plugin->filters());
   }
 
   public function testContentGetWithImplicitCreate() {
     $plugin = new PapayaPluginFilterAggregation_TestProxy(
-      $page = $this->createMock('PapayaUiContentPage')
+      $page = $this->createMock(PapayaUiContentPage::class)
     );
     $content = $plugin->filters();
-    $this->assertInstanceOf('PapayaPluginFilterContent', $content);
+    $this->assertInstanceOf(PapayaPluginFilterContent::class, $content);
     $this->assertSame($content, $plugin->filters());
   }
 

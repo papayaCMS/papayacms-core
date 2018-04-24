@@ -21,7 +21,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
   */
   public function testDispatchExpectingTrue() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getTableName', 'insertRecord'))
       ->getMock();
@@ -74,7 +74,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
   */
   public function testDispatchWithDebugMessageExpectingTrue() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getTableName', 'insertRecord'))
       ->getMock();
@@ -88,7 +88,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
       ->method('insertRecord')
       ->with($this->equalTo('papaya_log'), $this->isNull(), $this->isType('array'))
       ->will($this->returnValue(TRUE));
-    $user = $this->getMock('base_auth', array('isLoggedIn', 'getUserId', 'getDisplayName'));
+    $user = $this->getMock(base_auth::class, array('isLoggedIn', 'getUserId', 'getDisplayName'));
     $user
       ->expects($this->once())
       ->method('isLoggedIn')
@@ -187,7 +187,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
   */
   public function testDispatchWithRecursion() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getTableName', 'insertRecord'))
       ->getMock();

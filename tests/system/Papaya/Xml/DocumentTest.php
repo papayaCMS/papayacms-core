@@ -9,7 +9,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   public function testConstructor() {
     $document = new PapayaXmlDocument();
     $this->assertInstanceOf(
-      'PapayaXmlElement', $document->createElement('test')
+      PapayaXmlElement::class, $document->createElement('test')
     );
   }
 
@@ -79,7 +79,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   */
   public function testGetNamespaceExpectingException() {
     $document = new PapayaXmlDocument();
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $this->assertEquals('urn:a', $document->getNamespace('a'));
   }
 

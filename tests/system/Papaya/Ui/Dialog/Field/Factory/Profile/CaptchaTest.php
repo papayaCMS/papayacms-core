@@ -15,6 +15,6 @@ class PapayaUiDialogFieldFactoryProfileCaptchaTest extends PapayaTestCase {
     );
     $profile = new PapayaUiDialogFieldFactoryProfileCaptcha();
     $profile->options($options);
-    $this->assertInstanceOf('PapayaUiDialogFieldInputCaptcha', $field = $profile->getField());
+    $this->assertInstanceOf(PapayaUiDialogFieldInputCaptcha::class, $field = $profile->getField());
   }
 }

@@ -112,7 +112,7 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
         )
       )
     );
-    $this->assertInstanceOf('PapayaCacheService', $status->cache());
+    $this->assertInstanceOf(PapayaCacheService::class, $status->cache());
   }
 
   /****************
@@ -132,7 +132,7 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();

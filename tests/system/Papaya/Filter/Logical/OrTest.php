@@ -7,13 +7,13 @@ class PapayaFilterLogicalOrTest extends PapayaTestCase {
   * @covers PapayaFilterLogicalOr::validate
   */
   public function testValidateExpectingTrueFromFirstSubFilter() {
-    $subFilterOne = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterOne = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterOne
       ->expects($this->once())
       ->method('validate')
       ->with($this->equalTo('foo'))
       ->will($this->returnValue(TRUE));
-    $subFilterTwo = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterTwo = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterTwo
       ->expects($this->never())
       ->method('validate');
@@ -27,13 +27,13 @@ class PapayaFilterLogicalOrTest extends PapayaTestCase {
   * @covers PapayaFilterLogicalOr::validate
   */
   public function testValidateExpectingTrueFromSecondSubFilter() {
-    $subFilterOne = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterOne = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterOne
       ->expects($this->once())
       ->method('validate')
       ->with($this->equalTo('foo'))
       ->will($this->returnCallback(array($this, 'callbackThrowFilterException')));
-    $subFilterTwo = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterTwo = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterTwo
       ->expects($this->once())
       ->method('validate')
@@ -49,20 +49,20 @@ class PapayaFilterLogicalOrTest extends PapayaTestCase {
   * @covers PapayaFilterLogicalOr::validate
   */
   public function testValidateExpectingException() {
-    $subFilterOne = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterOne = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterOne
       ->expects($this->once())
       ->method('validate')
       ->with($this->equalTo('foo'))
       ->will($this->returnCallback(array($this, 'callbackThrowFilterException')));
-    $subFilterTwo = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterTwo = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterTwo
       ->expects($this->once())
       ->method('validate')
       ->with($this->equalTo('foo'))
       ->will($this->returnCallback(array($this, 'callbackThrowFilterException')));
     $filter = new PapayaFilterLogicalOr($subFilterOne, $subFilterTwo);
-    $this->setExpectedException('PapayaFilterException');
+    $this->setExpectedException(PapayaFilterException::class);
     $filter->validate('foo');
   }
 
@@ -70,13 +70,13 @@ class PapayaFilterLogicalOrTest extends PapayaTestCase {
   * @covers PapayaFilterLogicalOr::filter
   */
   public function testFilter() {
-    $subFilterOne = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterOne = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterOne
       ->expects($this->once())
       ->method('filter')
       ->with($this->equalTo('foo'))
       ->will($this->returnValue('foo'));
-    $subFilterTwo = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterTwo = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterTwo
       ->expects($this->never())
       ->method('filter');
@@ -91,13 +91,13 @@ class PapayaFilterLogicalOrTest extends PapayaTestCase {
   * @covers PapayaFilterLogicalOr::filter
   */
   public function testFilterUsingSecondFilter() {
-    $subFilterOne = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterOne = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterOne
       ->expects($this->once())
       ->method('filter')
       ->with($this->equalTo('foo'))
       ->will($this->returnValue(NULL));
-    $subFilterTwo = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterTwo = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterTwo
       ->expects($this->once())
       ->method('filter')
@@ -114,13 +114,13 @@ class PapayaFilterLogicalOrTest extends PapayaTestCase {
   * @covers PapayaFilterLogicalOr::filter
   */
   public function testFilterExpectingNull() {
-    $subFilterOne = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterOne = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterOne
       ->expects($this->once())
       ->method('filter')
       ->with($this->equalTo('foo'))
       ->will($this->returnValue(NULL));
-    $subFilterTwo = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $subFilterTwo = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $subFilterTwo
       ->expects($this->once())
       ->method('filter')
@@ -137,6 +137,6 @@ class PapayaFilterLogicalOrTest extends PapayaTestCase {
   *************************************/
 
   public function callbackThrowFilterException() {
-    throw $this->getMock('PapayaFilterException', array(), array('Test Exception'));
+    throw $this->getMock(PapayaFilterException::class, array(), array('Test Exception'));
   }
 }

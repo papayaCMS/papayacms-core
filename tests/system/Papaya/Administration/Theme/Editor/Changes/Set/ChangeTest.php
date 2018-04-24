@@ -134,7 +134,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageDisplay'));
+      ->with($this->isInstanceOf(PapayaMessageDisplay::class));
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
     $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $command = new PapayaAdministrationThemeEditorChangesSetChange($record);
@@ -166,7 +166,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageDisplay'));
+      ->with($this->isInstanceOf(PapayaMessageDisplay::class));
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
     $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $command = new PapayaAdministrationThemeEditorChangesSetChange($record);

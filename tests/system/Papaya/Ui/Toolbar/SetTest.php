@@ -8,11 +8,11 @@ class PapayaUiToolbarSetTest extends PapayaTestCase {
   */
   public function testElementsGetAfterSet() {
     $group = new PapayaUiToolbarSet();
-    $elements = $this->getMock('PapayaUiToolbarElements', array(), array($group));
+    $elements = $this->getMock(PapayaUiToolbarElements::class, array(), array($group));
     $elements
       ->expects($this->once())
       ->method('owner')
-      ->with($this->isInstanceOf('PapayaUiToolbarSet'));
+      ->with($this->isInstanceOf(PapayaUiToolbarSet::class));
     $this->assertSame(
       $elements, $group->elements($elements)
     );
@@ -24,7 +24,7 @@ class PapayaUiToolbarSetTest extends PapayaTestCase {
   public function testElementsImplicitCreate() {
     $group = new PapayaUiToolbarSet();
     $this->assertInstanceOf(
-      'PapayaUiToolbarElements', $group->elements()
+      PapayaUiToolbarElements::class, $group->elements()
     );
     $this->assertSame(
       $group, $group->elements()->owner()
@@ -36,11 +36,11 @@ class PapayaUiToolbarSetTest extends PapayaTestCase {
   */
   public function testAppendTo() {
     $group = new PapayaUiToolbarSet();
-    $elements = $this->getMock('PapayaUiToolbarElements', array(), array($group));
+    $elements = $this->getMock(PapayaUiToolbarElements::class, array(), array($group));
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXMlElement'));
+      ->with($this->isInstanceOf(PapayaXMlElement::class));
     $group->elements($elements);
     $this->assertEquals(
       '',

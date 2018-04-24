@@ -8,7 +8,7 @@ class PapayaUiReferenceMediaTest extends PapayaTestCase {
   */
   public function testStaticFunctionCreate() {
     $this->assertInstanceOf(
-      'PapayaUiReferenceMedia',
+      PapayaUiReferenceMedia::class,
       PapayaUiReferenceMedia::create()
     );
   }

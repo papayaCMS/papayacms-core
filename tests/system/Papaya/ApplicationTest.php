@@ -10,7 +10,7 @@ class PapayaApplicationTest extends PapayaTestCase {
     $app1 = PapayaApplication::getInstance();
     $app2 = PapayaApplication::getInstance();
     $this->assertInstanceOf(
-      'PapayaApplication',
+      PapayaApplication::class,
       $app1
     );
     $this->assertSame(
@@ -24,7 +24,7 @@ class PapayaApplicationTest extends PapayaTestCase {
     $app1 = PapayaApplication::getInstance();
     $app2 = PapayaApplication::getInstance(TRUE);
     $this->assertInstanceOf(
-      'PapayaApplication',
+      PapayaApplication::class,
       $app1
     );
     $this->assertNotSame(
@@ -84,7 +84,7 @@ class PapayaApplicationTest extends PapayaTestCase {
   */
   public function testRegisterProfileWithInvalidProfileExpectingException() {
     $app = new PapayaApplication();
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $app->registerProfile('SampleClass', new stdClass());
   }
 
@@ -331,7 +331,7 @@ class PapayaApplicationTest extends PapayaTestCase {
   */
   public function testRemoveObjectUnknownExpectingException() {
     $app = new PapayaApplication();
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $app->removeObject('SampleClass');
   }
 
@@ -371,7 +371,7 @@ class PapayaApplicationTest extends PapayaTestCase {
   */
   public function testMagicMethodSetWithInvalidValueExpectingException() {
     $app = new PapayaApplication();
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $app->propertyName = 'INVALID_VALUE';
   }
 

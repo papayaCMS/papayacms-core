@@ -10,7 +10,7 @@ class PapayaUiMenuTest extends PapayaTestCase {
     $dom = new PapayaXmlDocument();
     $dom->appendElement('sample');
     $menu = new PapayaUiMenu();
-    $elements = $this->getMock('PapayaUiToolbarElements', array(), array($menu));
+    $elements = $this->getMock(PapayaUiToolbarElements::class, array(), array($menu));
     $elements
       ->expects($this->once())
       ->method('count')
@@ -18,7 +18,7 @@ class PapayaUiMenuTest extends PapayaTestCase {
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $menu->elements($elements);
     $menu->appendTo($dom->documentElement);
     $this->assertEquals(
@@ -34,7 +34,7 @@ class PapayaUiMenuTest extends PapayaTestCase {
     $dom = new PapayaXmlDocument();
     $dom->appendElement('sample');
     $menu = new PapayaUiMenu();
-    $elements = $this->getMock('PapayaUiToolbarElements', array(), array($menu));
+    $elements = $this->getMock(PapayaUiToolbarElements::class, array(), array($menu));
     $elements
       ->expects($this->once())
       ->method('count')
@@ -42,7 +42,7 @@ class PapayaUiMenuTest extends PapayaTestCase {
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $menu->elements($elements);
     $menu->identifier = 'sample_id';
     $menu->appendTo($dom->documentElement);
@@ -59,7 +59,7 @@ class PapayaUiMenuTest extends PapayaTestCase {
     $dom = new PapayaXmlDocument();
     $dom->appendElement('sample');
     $menu = new PapayaUiMenu();
-    $elements = $this->getMock('PapayaUiToolbarElements', array(), array($menu));
+    $elements = $this->getMock(PapayaUiToolbarElements::class, array(), array($menu));
     $elements
       ->expects($this->once())
       ->method('count')

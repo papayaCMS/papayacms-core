@@ -100,7 +100,7 @@ class PapayaUiHierarchyItemTest extends PapayaTestCase {
     $item = new PapayaUiHierarchyItem('sample');
     $item->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaUiReference', $item->reference()
+      PapayaUiReference::class, $item->reference()
     );
     $this->assertSame(
       $papaya, $item->papaya()

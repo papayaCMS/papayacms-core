@@ -11,7 +11,7 @@ class PapayaAdministrationThemeEditorTest extends PapayaTestCase {
     $template = $this->createMock(PapayaTemplate::class);
     $page = new PapayaAdministrationThemeEditor_TestProxy($template);
     $this->assertInstanceOf(
-      'PapayaAdministrationPagePart', $page->createContent()
+      PapayaAdministrationPagePart::class, $page->createContent()
     );
   }
 
@@ -23,7 +23,7 @@ class PapayaAdministrationThemeEditorTest extends PapayaTestCase {
     $template = $this->createMock(PapayaTemplate::class);
     $page = new PapayaAdministrationThemeEditor_TestProxy($template);
     $this->assertInstanceOf(
-      'PapayaAdministrationPagePart', $page->createNavigation()
+      PapayaAdministrationPagePart::class, $page->createNavigation()
     );
   }
 }

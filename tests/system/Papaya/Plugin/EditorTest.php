@@ -27,7 +27,7 @@ class PapayaPluginEditorTest extends PapayaTestCase {
    */
   public function testContextGetImplicitCreate() {
     $editor = new PapayaPluginEditor_TestProxy($this->createMock(PapayaPluginEditableContent::class));
-    $this->assertInstanceOf('PapayaRequestParameters', $editor->context());
+    $this->assertInstanceOf(PapayaRequestParameters::class, $editor->context());
   }
 
 }

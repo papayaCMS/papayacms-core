@@ -9,7 +9,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
   public function testCreateKey() {
     $reference = new PapayaContentPageReference();
     $key = $reference->key();
-    $this->assertInstanceOf('PapayaDatabaseRecordKeyFields', $key);
+    $this->assertInstanceOf(PapayaDatabaseRecordKeyFields::class, $key);
     $this->assertEquals(array('source_id', 'target_id'), $key->getProperties());
   }
 
@@ -19,7 +19,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
   public function testCreateMapping() {
     $reference = new PapayaContentPageReference();
     $mapping = $reference->mapping();
-    $this->assertInstanceOf('PapayaDatabaseRecordMapping', $mapping);
+    $this->assertInstanceOf(PapayaDatabaseRecordMapping::class, $mapping);
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
   }
 
@@ -45,7 +45,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(1));
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt'))
       ->getMock();
@@ -69,7 +69,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(0));
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt'))
       ->getMock();
@@ -88,7 +88,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
   */
   public function testExistsWithDatabaseErrorExpectingFalse() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt'))
       ->getMock();

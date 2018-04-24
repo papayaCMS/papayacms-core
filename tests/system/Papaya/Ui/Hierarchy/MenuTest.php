@@ -15,7 +15,7 @@ class PapayaUiHierarchyMenuTest extends PapayaTestCase {
     $items
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
 
     $menu = new PapayaUiHierarchyMenu();
     $menu->items($items);
@@ -60,7 +60,7 @@ class PapayaUiHierarchyMenuTest extends PapayaTestCase {
     $menu = new PapayaUiHierarchyMenu();
     $menu->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaUiHierarchyItems', $menu->items()
+      PapayaUiHierarchyItems::class, $menu->items()
     );
     $this->assertSame(
       $papaya, $menu->papaya()

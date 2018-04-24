@@ -10,7 +10,7 @@ class PapayaApplicationProfileSessionTest extends PapayaTestCase {
     $profile = new PapayaApplicationProfileSession();
     $session = $profile->createObject($application = NULL);
     $this->assertInstanceOf(
-      'PapayaSession', $session
+      PapayaSession::class, $session
     );
   }
 }

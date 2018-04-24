@@ -8,11 +8,11 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
    */
   public function testConstructor() {
     $group = $this
-      ->getMockBuilder('PapayaContentStructureGroup')
+      ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $values = new PapayaContentStructureValues($group);
-    $this->assertEquals('PapayaContentStructureValue', $values->getItemClass());
+    $this->assertEquals(PapayaContentStructureValue::class, $values->getItemClass());
   }
 
   /**
@@ -20,7 +20,7 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
    */
   public function testLoad() {
     $group = $this
-      ->getMockBuilder('PapayaContentStructureGroup')
+      ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $dom = new PapayaXmlDocument();
@@ -41,7 +41,7 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
    */
   public function testLoadValueWithMultipleParameters() {
     $group = $this
-      ->getMockBuilder('PapayaContentStructureGroup')
+      ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $dom = new PapayaXmlDocument();
@@ -65,7 +65,7 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
    */
   public function testLoadValueWithSinpleParameterAsAttribute() {
     $group = $this
-      ->getMockBuilder('PapayaContentStructureGroup')
+      ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $dom = new PapayaXmlDocument();
@@ -81,7 +81,7 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
    */
   public function testLoadValueWithParametersList() {
     $group = $this
-      ->getMockBuilder('PapayaContentStructureGroup')
+      ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $dom = new PapayaXmlDocument();

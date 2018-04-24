@@ -79,7 +79,7 @@ class PapayaUiListviewSubitemTextTest extends PapayaTestCase {
       ->method('reference')
       ->will($this->returnValue($reference));
     $collection = $this
-      ->getMockBuilder('PapayaUiListviewSubitems')
+      ->getMockBuilder(PapayaUiListviewSubitems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection

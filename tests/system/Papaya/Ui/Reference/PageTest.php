@@ -8,7 +8,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   */
   public function testStaticFunctionCreate() {
     $this->assertInstanceOf(
-      'PapayaUiReferencePage',
+      PapayaUiReferencePage::class,
       PapayaUiReferencePage::create()
     );
   }
@@ -124,7 +124,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
     $pageReferences
       ->expects($this->once())
       ->method('configure')
-      ->with($this->isInstanceOf('PapayaUiReferencePage'));
+      ->with($this->isInstanceOf(PapayaUiReferencePage::class));
 
     $reference = new PapayaUiReferencePage();
     $reference->papaya(
@@ -298,7 +298,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
     $pageReferences
       ->expects($this->once())
       ->method('configure')
-      ->with($this->isInstanceOf('PapayaUiReferencePage'));
+      ->with($this->isInstanceOf(PapayaUiReferencePage::class));
 
     $reference = new PapayaUiReferencePage();
     $reference->papaya(
@@ -565,7 +565,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   **********************************/
 
   private function getUrlObjectMockFixture() {
-    $url = $this->getMock('PapayaUrl', array('getHostUrl'));
+    $url = $this->getMock(PapayaUrl::class, array('getHostUrl'));
     $url
       ->expects($this->once())
       ->method('getHostUrl')

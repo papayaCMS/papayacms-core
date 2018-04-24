@@ -127,14 +127,14 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends PapayaTestCas
   public function testValidateOriginAndSynchronizationsEqualsPageIdExpectingFalse() {
     $context = new stdClass();
     $context->originIdField = $this
-      ->getMockBuilder('PapayaUiDialogField')
+      ->getMockBuilder(PapayaUiDialogField::class)
       ->disableOriginalConstructor()
       ->getMock();
     $context
       ->originIdField
       ->expects($this->once())
       ->method('handleValidationFailure')
-      ->with($this->isInstanceOf('PapayaFilterException'));
+      ->with($this->isInstanceOf(PapayaFilterException::class));
     $record = $this->getRecordFixture(
       array(
         'id' => 21,
@@ -152,14 +152,14 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends PapayaTestCas
   public function testValidateOriginAndSynchronizationsIsDependencyExpectingFalse() {
     $context = new stdClass();
     $context->originIdField = $this
-      ->getMockBuilder('PapayaUiDialogField')
+      ->getMockBuilder(PapayaUiDialogField::class)
       ->disableOriginalConstructor()
       ->getMock();
     $context
       ->originIdField
       ->expects($this->once())
       ->method('handleValidationFailure')
-      ->with($this->isInstanceOf('PapayaFilterException'));
+      ->with($this->isInstanceOf(PapayaFilterException::class));
     $record = $this->getRecordFixture(
       array(
         'id' => 42,

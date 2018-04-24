@@ -24,12 +24,12 @@ class PapayaUiDialogFieldFactoryProfileSelectDirectoryTest extends PapayaTestCas
     $profile = new PapayaUiDialogFieldFactoryProfileSelectDirectory();
     $profile->fileSystem($this->getFileSystemFixture(array('sample.txt')));
     $profile->options($options);
-    $this->assertInstanceOf('PapayaUiDialogFieldSelect', $field = $profile->getField());
+    $this->assertInstanceOf(PapayaUiDialogFieldSelect::class, $field = $profile->getField());
   }
 
   private function getFileSystemFixture(array $files = NULL, $filter = '') {
     $directory = $this
-      ->getMockBuilder('PapayaFileSystemDirectory')
+      ->getMockBuilder(PapayaFileSystemDirectory::class)
       ->disableOriginalConstructor()
       ->getMock();
     $directory

@@ -8,6 +8,6 @@ class PapayaFilterFactoryProfileIsCssColorTest extends PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new PapayaFilterFactoryProfileIsCssColor();
-    $this->assertInstanceOf('PapayaFilterColor', $profile->getFilter());
+    $this->assertInstanceOf(PapayaFilterColor::class, $profile->getFilter());
   }
 }

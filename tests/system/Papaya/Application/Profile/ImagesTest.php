@@ -10,7 +10,7 @@ class PapayaApplicationProfileImagesTest extends PapayaTestCase {
     $profile = new PapayaApplicationProfileImages();
     $images = $profile->createObject($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaUiImages',
+      PapayaUiImages::class,
       $images
     );
   }

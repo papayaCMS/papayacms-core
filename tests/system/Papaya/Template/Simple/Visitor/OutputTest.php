@@ -42,7 +42,7 @@ class PapayaTemplateSimpleVisitorOutputTest extends PapayaTestCase {
    */
   public function testVisitWithValue() {
     $callbacks = $this
-      ->getMockBuilder('PapayaTemplateSimpleVisitorOutputCallbacks')
+      ->getMockBuilder(PapayaTemplateSimpleVisitorOutputCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onGetValue'))
       ->getMock();
@@ -72,7 +72,7 @@ class PapayaTemplateSimpleVisitorOutputTest extends PapayaTestCase {
    */
   public function testVisitWithValueMappingReturnsNull() {
     $callbacks = $this
-      ->getMockBuilder('PapayaTemplateSimpleVisitorOutputCallbacks')
+      ->getMockBuilder(PapayaTemplateSimpleVisitorOutputCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onGetValue'))
       ->getMock();
@@ -111,6 +111,6 @@ class PapayaTemplateSimpleVisitorOutputTest extends PapayaTestCase {
    */
   public function testCallbacksGetImplicitCreate() {
     $visitor = new PapayaTemplateSimpleVisitorOutput();
-    $this->assertInstanceOf('PapayaTemplateSimpleVisitorOutputCallbacks', $visitor->callbacks());
+    $this->assertInstanceOf(PapayaTemplateSimpleVisitorOutputCallbacks::class, $visitor->callbacks());
   }
 }

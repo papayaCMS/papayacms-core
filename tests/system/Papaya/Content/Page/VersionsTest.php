@@ -25,7 +25,7 @@ class PapayaContentPageVersionsTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -61,7 +61,7 @@ class PapayaContentPageVersionsTest extends PapayaTestCase {
   */
   public function testGetVersion() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -77,7 +77,7 @@ class PapayaContentPageVersionsTest extends PapayaTestCase {
     $list->setDatabaseAccess($databaseAccess);
     $version = $list->getVersion(21);
     $this->assertInstanceOf(
-      'PapayaContentPageVersion', $version
+      PapayaContentPageVersion::class, $version
     );
   }
 }

@@ -20,7 +20,7 @@ class PapayaUiToolbarGroupTest extends PapayaTestCase {
     $dom = new PapayaXmlDocument();
     $dom->appendElement('sample');
     $group = new PapayaUiToolbarGroup('group caption');
-    $elements = $this->getMock('PapayaUiToolbarElements', array(), array($group));
+    $elements = $this->getMock(PapayaUiToolbarElements::class, array(), array($group));
     $elements
       ->expects($this->once())
       ->method('count')
@@ -28,9 +28,9 @@ class PapayaUiToolbarGroupTest extends PapayaTestCase {
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $group->elements($elements);
-    $this->assertInstanceOf('PapayaXmlElement', $group->appendTo($dom->documentElement));
+    $this->assertInstanceOf(PapayaXmlElement::class, $group->appendTo($dom->documentElement));
     $this->assertEquals(
       '<group title="group caption"/>',
       $dom->documentElement->saveFragment()
@@ -44,7 +44,7 @@ class PapayaUiToolbarGroupTest extends PapayaTestCase {
     $dom = new PapayaXmlDocument();
     $dom->appendElement('sample');
     $group = new PapayaUiToolbarGroup('group caption');
-    $elements = $this->getMock('PapayaUiToolbarElements', array(), array($group));
+    $elements = $this->getMock(PapayaUiToolbarElements::class, array(), array($group));
     $elements
       ->expects($this->once())
       ->method('count')

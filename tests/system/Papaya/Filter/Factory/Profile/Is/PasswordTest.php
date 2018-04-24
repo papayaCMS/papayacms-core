@@ -8,6 +8,6 @@ class PapayaFilterFactoryProfileIsPasswordTest extends PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new PapayaFilterFactoryProfileIsPassword();
-    $this->assertInstanceOf('PapayaFilterPassword', $profile->getFilter());
+    $this->assertInstanceOf(PapayaFilterPassword::class, $profile->getFilter());
   }
 }

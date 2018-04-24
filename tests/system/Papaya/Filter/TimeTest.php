@@ -41,7 +41,7 @@ class PapayaFilterTimeTest extends PapayaTestCase {
     try {
       $filter->validate($timeString);
     } catch(PapayaFilterExceptionType $e) {
-      $this->assertInstanceOf('PapayaFilterExceptionType', $e);
+      $this->assertInstanceOf(PapayaFilterExceptionType::class, $e);
       return;
     }
     $this->fail('Expected exception not thrown.');
@@ -56,7 +56,7 @@ class PapayaFilterTimeTest extends PapayaTestCase {
     try {
       $filter->validate($timeString);
     } catch(PapayaFilterExceptionRangeMaximum $e) {
-      $this->assertInstanceOf('PapayaFilterExceptionRangeMaximum', $e);
+      $this->assertInstanceOf(PapayaFilterExceptionRangeMaximum::class, $e);
       return;
     }
     $this->fail('Expected exception not thrown.');
@@ -70,7 +70,7 @@ class PapayaFilterTimeTest extends PapayaTestCase {
     try {
       $filter->validate('17:45');
     } catch(PapayaFilterExceptionType $e) {
-      $this->assertInstanceOf('PapayaFilterExceptionType', $e);
+      $this->assertInstanceOf(PapayaFilterExceptionType::class, $e);
       return;
     }
     $this->fail('Expected exception not thrown.');
@@ -89,7 +89,7 @@ class PapayaFilterTimeTest extends PapayaTestCase {
   * @covers PapayaFilterTime::_toTimestamp
   */
   public function testToTimestamp() {
-    $filter = $this->getProxy('PapayaFilterTime');
+    $filter = $this->getProxy(PapayaFilterTime::class);
     $this->assertEquals(3661, $filter->_toTimestamp(1, 1, 1));
   }
 

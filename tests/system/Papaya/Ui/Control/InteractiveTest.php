@@ -62,7 +62,7 @@ class PapayaUiControlInteractiveTest extends PapayaTestCase {
   * @covers PapayaUiControlInteractive::parameters
   */
   public function testParamtersGetImplicit() {
-    $request = $this->getMock('PapayaRequest', array('getParameters'));
+    $request = $this->getMock(PapayaRequest::class, array('getParameters'));
     $request
       ->expects($this->once())
       ->method('getParameters')
@@ -79,7 +79,7 @@ class PapayaUiControlInteractiveTest extends PapayaTestCase {
   * @covers PapayaUiControlInteractive::parameters
   */
   public function testParamtersGetImplicitWithGroup() {
-    $request = $this->getMock('PapayaRequest', array('getParameterGroup'));
+    $request = $this->getMock(PapayaRequest::class, array('getParameterGroup'));
     $request
       ->expects($this->once())
       ->method('getParameterGroup')

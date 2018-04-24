@@ -54,7 +54,7 @@ class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
          )
        );
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'getSqlCondition', 'queryFmt'),
       array(new stdClass)
     );
@@ -114,7 +114,7 @@ class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
   */
   public function testLoadWithDatabaseError() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'getSqlCondition', 'queryFmt'),
       array(new stdClass)
     );

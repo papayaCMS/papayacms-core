@@ -71,6 +71,6 @@ class PapayaPluginOptionStorageTest extends PapayaTestCase {
   */
   public function testOptionsGetImplicitCreate() {
     $storage = new PapayaPluginOptionStorage('ab123456789012345678901234567890');
-    $this->assertInstanceOf('PapayaContentModuleOptions', $options = $storage->options());
+    $this->assertInstanceOf(PapayaContentModuleOptions::class, $options = $storage->options());
   }
 }

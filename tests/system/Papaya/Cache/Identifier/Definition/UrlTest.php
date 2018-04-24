@@ -16,7 +16,7 @@ class PapayaCacheIdentifierDefinitionUrlTest extends PapayaTestCase {
     $definition = new PapayaCacheIdentifierDefinitionUrl();
     $this->assertEquals(
       array(
-        'PapayaCacheIdentifierDefinitionUrl' => 'https://www.sample.tld/'
+        PapayaCacheIdentifierDefinitionUrl::class => 'https://www.sample.tld/'
       ),
       $definition->getStatus()
     );

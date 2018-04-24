@@ -8,7 +8,7 @@ class PapayaRequestParametersNameTest extends PapayaTestCase {
   */
   public function testContructorWithoutParameters() {
     $this->assertInstanceOf(
-      'PapayaRequestParametersName', new PapayaRequestParametersName()
+      PapayaRequestParametersName::class, new PapayaRequestParametersName()
     );
   }
 
@@ -123,7 +123,7 @@ class PapayaRequestParametersNameTest extends PapayaTestCase {
   */
   public function testParseWithInvalidArgument() {
     $name = new PapayaRequestParametersName();
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $name->parse(NULL);
   }
 

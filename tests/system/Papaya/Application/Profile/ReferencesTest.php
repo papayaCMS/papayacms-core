@@ -17,7 +17,7 @@ class PapayaApplicationProfileReferenceTest extends PapayaTestCase {
     $profile = new PapayaApplicationProfileReferences();
     $reference = $profile->createObject($application);
     $this->assertInstanceOf(
-      'PapayaUiReferenceFactory',
+      PapayaUiReferenceFactory::class,
       $reference
     );
   }

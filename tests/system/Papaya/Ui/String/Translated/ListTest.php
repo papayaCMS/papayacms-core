@@ -8,7 +8,7 @@ class PapayaUiStringTranslatedListTest extends PapayaTestCase {
    */
   public function testConstructorWithArray() {
     $list = new PapayaUiStringTranslatedList(array('foo'));
-    $this->assertInstanceOf('PapayaIteratorTraversable', $list->getInnerIterator());
+    $this->assertInstanceOf(PapayaIteratorTraversable::class, $list->getInnerIterator());
   }
 
   /**
@@ -16,7 +16,7 @@ class PapayaUiStringTranslatedListTest extends PapayaTestCase {
    */
   public function testIterationCallsTranslation() {
     $phrases = $this
-      ->getMockBuilder('PapayaPhrases')
+      ->getMockBuilder(PapayaPhrases::class)
       ->disableOriginalConstructor()
       ->getMock();
     $phrases
@@ -40,7 +40,7 @@ class PapayaUiStringTranslatedListTest extends PapayaTestCase {
   public function testPapayaGetUsingSingleton() {
     $list = new PapayaUiStringTranslatedList(array());
     $this->assertInstanceOf(
-      'PapayaApplication', $list->papaya()
+      PapayaApplication::class, $list->papaya()
     );
   }
 

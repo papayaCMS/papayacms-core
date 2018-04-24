@@ -21,7 +21,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandController::getCurrent
   */
   public function testAppendToWithoutCommand() {
-    $owner = $this->getMock('PapayaUiControlInteractive', array('parameters', 'appendTo'));
+    $owner = $this->getMock(PapayaUiControlInteractive::class, array('parameters', 'appendTo'));
     $owner
       ->expects($this->once())
       ->method('parameters')
@@ -36,7 +36,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandController::getCurrent
   */
   public function testAppendToWithCommandSpecifiedByParameter() {
-    $owner = $this->getMock('PapayaUiControlInteractive', array('parameters', 'appendTo'));
+    $owner = $this->getMock(PapayaUiControlInteractive::class, array('parameters', 'appendTo'));
     $owner
       ->expects($this->once())
       ->method('parameters')
@@ -53,7 +53,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
     $command
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'))
+      ->with($this->isInstanceOf(PapayaXmlElement::class))
       ->will($this->returnValue(NULL));
 
     $controller = new PapayaUiControlCommandController('sample', 'default');
@@ -67,7 +67,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandController::getCurrent
   */
   public function testAppendToWithDefaultCommand() {
-    $owner = $this->getMock('PapayaUiControlInteractive', array('parameters', 'appendTo'));
+    $owner = $this->getMock(PapayaUiControlInteractive::class, array('parameters', 'appendTo'));
     $owner
       ->expects($this->once())
       ->method('parameters')
@@ -84,7 +84,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
     $command
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'))
+      ->with($this->isInstanceOf(PapayaXmlElement::class))
       ->will($this->returnValue(NULL));
 
     $controller = new PapayaUiControlCommandController('sample', 'default');
@@ -98,7 +98,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandController::getCurrent
   */
   public function testAppendToWithDefaultCommandPermissionValidationFailed() {
-    $owner = $this->getMock('PapayaUiControlInteractive', array('parameters', 'appendTo'));
+    $owner = $this->getMock(PapayaUiControlInteractive::class, array('parameters', 'appendTo'));
     $owner
       ->expects($this->once())
       ->method('parameters')
@@ -127,7 +127,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandController::getCurrent
   */
   public function testAppendToWithDefaultCommandConditionValidationFailed() {
-    $owner = $this->getMock('PapayaUiControlInteractive', array('parameters', 'appendTo'));
+    $owner = $this->getMock(PapayaUiControlInteractive::class, array('parameters', 'appendTo'));
     $owner
       ->expects($this->once())
       ->method('parameters')
@@ -160,7 +160,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('validate')
       ->will($this->returnValue(FALSE));
-    $owner = $this->getMock('PapayaUiControlInteractive', array('parameters', 'appendTo'));
+    $owner = $this->getMock(PapayaUiControlInteractive::class, array('parameters', 'appendTo'));
     $owner
       ->expects($this->never())
       ->method('parameters');
@@ -218,7 +218,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
     $command
       ->expects($this->once())
       ->method('owner')
-      ->with($this->isInstanceOf('PapayaUiControl'));
+      ->with($this->isInstanceOf(PapayaUiControl::class));
     $controller = new PapayaUiControlCommandController('sample', 'default');
     $controller->owner($owner);
     $controller['default'] = $command;

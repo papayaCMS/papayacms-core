@@ -17,7 +17,7 @@ class PapayaUiDialogFieldFactoryProfileRichtextSimpleTest extends PapayaTestCase
     $profile = new PapayaUiDialogFieldFactoryProfileRichtextSimple();
     $profile->options($options);
     $this->assertInstanceOf(
-      'PapayaUiDialogFieldTextareaRichtext', $field = $profile->getField()
+      PapayaUiDialogFieldTextareaRichtext::class, $field = $profile->getField()
     );
     $this->assertEquals(
       PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE,

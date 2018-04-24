@@ -26,7 +26,7 @@ class PapayaStringUtf8Test extends PapayaTestCase {
    */
   public function testSetModeWithInvalidMode() {
     $string = new PapayaStringUtf8('TEST');
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $string->setMode(999999);
   }
 
@@ -114,7 +114,7 @@ class PapayaStringUtf8Test extends PapayaTestCase {
     $string = new PapayaStringUtf8('ÄÖÜ Hellö ÄÖÜ');
     $string->setMode($mode);
     $substring = $string->substr(4, 5);
-    $this->assertInstanceOf('PapayaStringUtf8', $substring);
+    $this->assertInstanceOf(PapayaStringUtf8::class, $substring);
     $this->assertEquals('Hellö', (string)$substring);
   }
 
@@ -165,7 +165,7 @@ class PapayaStringUtf8Test extends PapayaTestCase {
    */
   public function testOffsetSetWithInvalidArgumentExpectingException() {
     $string = new PapayaStringUtf8('ÄÖÜ');
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $string[1] = 'öüä';
   }
 
@@ -174,7 +174,7 @@ class PapayaStringUtf8Test extends PapayaTestCase {
    */
   public function testOffsetUnsetWithInvalidArgumentExpectingException() {
     $string = new PapayaStringUtf8('ÄÖÜ');
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     unset($string[1]);
   }
 

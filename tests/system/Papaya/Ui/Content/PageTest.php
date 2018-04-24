@@ -69,7 +69,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       42, $this->createMock(PapayaContentLanguage::class)
     );
     $pageContent = $page->page();
-    $this->assertInstanceOf('PapayaContentPagePublication', $pageContent);
+    $this->assertInstanceOf(PapayaContentPagePublication::class, $pageContent);
     $this->assertEquals(array(42), $pageContent->getLazyLoadParameters());
   }
 
@@ -81,8 +81,8 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       42, $this->createMock(PapayaContentLanguage::class), FALSE
     );
     $pageContent = $page->page();
-    $this->assertInstanceOf('PapayaContentPage', $pageContent);
-    $this->assertNotInstanceOf('PapayaContentPagePublication', $pageContent);
+    $this->assertInstanceOf(PapayaContentPage::class, $pageContent);
+    $this->assertNotInstanceOf(PapayaContentPagePublication::class, $pageContent);
     $this->assertEquals(array(42), $pageContent->getLazyLoadParameters());
   }
 
@@ -112,7 +112,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       42, $language
     );
     $contentTranslation = $page->translation();
-    $this->assertInstanceOf('PapayaContentPagePublicationTranslation', $contentTranslation);
+    $this->assertInstanceOf(PapayaContentPagePublicationTranslation::class, $contentTranslation);
     $this->assertEquals(
       array(
         array(
@@ -138,8 +138,8 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       42, $language, FALSE
     );
     $contentTranslation = $page->translation();
-    $this->assertInstanceOf('PapayaContentPageTranslation', $contentTranslation);
-    $this->assertNotInstanceOf('PapayaContentPagePublicationTranslation', $contentTranslation);
+    $this->assertInstanceOf(PapayaContentPageTranslation::class, $contentTranslation);
+    $this->assertNotInstanceOf(PapayaContentPagePublicationTranslation::class, $contentTranslation);
     $this->assertEquals(
       array(
         array(
@@ -180,7 +180,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       ->will($this->returnValue($this->createMock(PapayaContentLanguage::class)));
     $page = new PapayaUiContentPage(42, 'de');
     $page->papaya($this->mockPapaya()->application(array('languages' => $languages)));
-    $this->assertInstanceOf('PapayaContentLanguage', $page->getPageLanguage());
+    $this->assertInstanceOf(PapayaContentLanguage::class, $page->getPageLanguage());
     $this->assertSame($page->getPageLanguage(), $page->getPageLanguage());
   }
 

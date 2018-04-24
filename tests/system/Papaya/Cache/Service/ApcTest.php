@@ -26,7 +26,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   */
   public function testGetApcObject() {
     $service = new PapayaCacheServiceApc();
-    $this->assertInstanceOf('PapayaCacheServiceApcObject', $service->getApcObject());
+    $this->assertInstanceOf(PapayaCacheServiceApcObject::class, $service->getApcObject());
   }
 
   /**
@@ -65,7 +65,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
         ->will($this->returnValue(FALSE));
     $service = new PapayaCacheServiceApc();
     $service->setApcObject($apc);
-    $this->setExpectedException('LogicException', 'APC is not available');
+    $this->setExpectedException(LogicException::class, 'APC is not available');
     $service->verify(FALSE);
   }
 

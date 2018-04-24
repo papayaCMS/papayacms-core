@@ -48,13 +48,13 @@ class PapayaHttpClientTest extends PapayaTestCase {
 
   public function testSetURLWithEmptyParameter() {
     $client = new PapayaHttpClient();
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $client->setUrl('');
   }
 
   public function testGetSocket() {
     $client = new PapayaHttpClient('http://www.sample.tld');
-    $this->assertInstanceOf('PapayaHttpClientSocket', $client->getSocket());
+    $this->assertInstanceOf(PapayaHttpClientSocket::class, $client->getSocket());
   }
 
   public function testSetSocket() {

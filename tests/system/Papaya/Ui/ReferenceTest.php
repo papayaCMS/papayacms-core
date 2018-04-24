@@ -17,7 +17,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   */
   public function testStaticFunctionCreate() {
     $this->assertInstanceOf(
-      'PapayaUiReference',
+      PapayaUiReference::class,
       PapayaUiReference::create()
     );
   }
@@ -289,7 +289,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
     $reference = new PapayaUiReference();
     $reference->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaUrl',
+      PapayaUrl::class,
       $reference->url()
     );
   }
@@ -340,7 +340,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   public function testGetParamtersWithImplizitCreate() {
     $reference = new PapayaUiReference();
     $parameters = $reference->getParameters();
-    $this->assertInstanceOf('PapayaRequestParameters', $parameters);
+    $this->assertInstanceOf(PapayaRequestParameters::class, $parameters);
   }
 
   /**
@@ -573,7 +573,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
     $reference->url($this->createMock(PapayaUrl::class));
     $reference->setParameters(array('foo' => 'bar'));
     $clone = clone $reference;
-    $this->assertInstanceOf('PapayaUrl', $clone->url());
+    $this->assertInstanceOf(PapayaUrl::class, $clone->url());
     $this->assertNotSame($reference->url(), $clone->url());
     $this->assertNotSame($reference->getParameters(), $clone->getParameters());
   }

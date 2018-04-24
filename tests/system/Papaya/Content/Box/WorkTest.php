@@ -8,7 +8,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   */
   public function testSaveCreateNew() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'insertRecord'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'insertRecord'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->once())
@@ -53,7 +53,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   */
   public function testSaveUpdateExisting() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'updateRecord'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'updateRecord'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->once())
@@ -102,12 +102,12 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   * @covers PapayaContentBoxWork::_createPublicationObject
   */
   public function testCreatePublicationObject() {
-    $databaseAccess = $this->getMock('PapayaDatabaseAccess', array(), array(new stdClass));
+    $databaseAccess = $this->getMock(PapayaDatabaseAccess::class, array(), array(new stdClass));
     $box = new PapayaContentBoxWork_TestProxy();
     $box->setDatabaseAccess($databaseAccess);
     $publication = $box->_createPublicationObject();
     $this->assertInstanceOf(
-      'PapayaContentBoxPublication', $publication
+      PapayaContentBoxPublication::class, $publication
     );
     $this->assertSame(
       $databaseAccess, $publication->getDatabaseAccess()
@@ -179,14 +179,14 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   */
   public function testPublishWithLanguagesPeriod() {
     $box = $this->getContentBoxFixture();
-    $translations = $this->getMock('PapayaContentBoxTranslations', array('count'));
+    $translations = $this->getMock(PapayaContentBoxTranslations::class, array('count'));
     $translations
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(3));
     $box->translations($translations);
 
-    $publicTranslations = $this->getMock('PapayaContentBoxTranslations', array('count'));
+    $publicTranslations = $this->getMock(PapayaContentBoxTranslations::class, array('count'));
     $publicTranslations
       ->expects($this->once())
       ->method('count')
@@ -195,7 +195,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $publication
       ->expects($this->once())
       ->method('assign')
-      ->with($this->isInstanceOf('PapayaContentBoxWork'));
+      ->with($this->isInstanceOf(PapayaContentBoxWork::class));
     $publication
       ->expects($this->exactly(2))
       ->method('__set')
@@ -214,7 +214,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $box->publicationObject = $publication;
 
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'getSqlCondition', 'deleteRecord', 'queryFmt', 'updateRecord'),
       array(new stdClass)
     );
@@ -257,7 +257,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $publication
       ->expects($this->once())
       ->method('assign')
-      ->with($this->isInstanceOf('PapayaContentBoxWork'));
+      ->with($this->isInstanceOf(PapayaContentBoxWork::class));
     $publication
       ->expects($this->exactly(2))
       ->method('__set')
@@ -272,7 +272,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $box->publicationObject = $publication;
 
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'getSqlCondition', 'deleteRecord', 'queryFmt', 'updateRecord'),
       array(new stdClass)
     );
@@ -302,7 +302,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $publication
       ->expects($this->once())
       ->method('assign')
-      ->with($this->isInstanceOf('PapayaContentBoxWork'));
+      ->with($this->isInstanceOf(PapayaContentBoxWork::class));
     $publication
       ->expects($this->exactly(2))
       ->method('__set')
@@ -317,7 +317,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $box->publicationObject = $publication;
 
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'getSqlCondition', 'deleteRecord', 'queryFmt', 'updateRecord'),
       array(new stdClass)
     );

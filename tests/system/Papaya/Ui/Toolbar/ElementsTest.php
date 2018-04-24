@@ -21,7 +21,7 @@ class PapayaUiToolbarElementsTest extends PapayaTestCase {
   public function testAddElementWhileGroupsAllowed() {
     $elements = new PapayaUiToolbarElements($this->createMock(PapayaUiMenu::class));
     $elements->allowGroups = TRUE;
-    $group = $this->getMock('PapayaUiToolbarGroup', array(), array('caption'));
+    $group = $this->getMock(PapayaUiToolbarGroup::class, array(), array('caption'));
     $elements->add($group);
     $this->assertEquals(
       $group, $elements[0]

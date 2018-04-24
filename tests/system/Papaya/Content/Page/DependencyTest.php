@@ -9,7 +9,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   public function testCreateKey() {
     $dependency = new PapayaContentPageDependency();
     $key = $dependency->key();
-    $this->assertInstanceOf('PapayaDatabaseRecordKeyFields', $key);
+    $this->assertInstanceOf(PapayaDatabaseRecordKeyFields::class, $key);
     $this->assertEquals(array('id'), $key->getProperties());
   }
 
@@ -84,7 +84,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   */
   public function testSaveInsertsRecordExpectingTrue() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getTableName', 'getSqlCondition', 'queryFmt', 'insertRecord'))
       ->disableOriginalConstructor()
       ->getMock();
@@ -140,7 +140,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(1));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -167,7 +167,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(0));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -189,7 +189,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   */
   public function testIsDependencyWithDatabaseErrorExpectingFalse() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -216,7 +216,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(1));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -243,7 +243,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(0));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -265,7 +265,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   */
   public function testIsOriginWithDatabaseErrorExpectingFalse() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())

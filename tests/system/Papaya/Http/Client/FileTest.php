@@ -11,7 +11,7 @@ class PapayaHttpClientFileTest extends PapayaTestCase {
 
   public function testGetNameIfEmpty() {
     $file = new PapayaHttpClientFile_TestProxy();
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $file->getName();
   }
 

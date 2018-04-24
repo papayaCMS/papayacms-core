@@ -174,7 +174,7 @@ class PapayaSessionValuesTest extends PapayaTestCase {
   *************************/
 
   public function getSessionFixture($isActive = FALSE) {
-    $session = $this->getMock('PapayaSession', array('isActive'));
+    $session = $this->getMock(PapayaSession::class, array('isActive'));
     $session
       ->expects($this->any())
       ->method('isActive')

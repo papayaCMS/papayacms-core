@@ -8,7 +8,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   */
   public function testSaveCreateNew() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'insertRecord'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'insertRecord'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->once())
@@ -85,7 +85,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   */
   public function testInsertExpectingFalse() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'insertRecord'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'insertRecord'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->once())
@@ -107,7 +107,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   */
   public function testSaveUpdateExisting() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'updateRecord'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'updateRecord'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->once())
@@ -254,12 +254,12 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   * @covers PapayaContentPageWork::_createPublicationObject
   */
   public function testCreatePublicationObject() {
-    $databaseAccess = $this->getMock('PapayaDatabaseAccess', array(), array(new stdClass));
+    $databaseAccess = $this->getMock(PapayaDatabaseAccess::class, array(), array(new stdClass));
     $page = new PapayaContentPageWork_TestProxy();
     $page->setDatabaseAccess($databaseAccess);
     $publication = $page->_createPublicationObject();
     $this->assertInstanceOf(
-      'PapayaContentPagePublication', $publication
+      PapayaContentPagePublication::class, $publication
     );
     $this->assertSame(
       $databaseAccess, $publication->getDatabaseAccess()
@@ -309,7 +309,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $publication
       ->expects($this->once())
       ->method('assign')
-      ->with($this->isInstanceOf('PapayaContentPageWork'));
+      ->with($this->isInstanceOf(PapayaContentPageWork::class));
     $publication
       ->expects($this->exactly(2))
       ->method('__set')
@@ -331,14 +331,14 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   */
   public function testPublishWithLanguagesPeriod() {
     $page = $this->getContentPageFixture();
-    $translations = $this->getMock('PapayaContentPageTranslations', array('count'));
+    $translations = $this->getMock(PapayaContentPageTranslations::class, array('count'));
     $translations
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(3));
     $page->translations($translations);
 
-    $publicTranslations = $this->getMock('PapayaContentPageTranslations', array('count'));
+    $publicTranslations = $this->getMock(PapayaContentPageTranslations::class, array('count'));
     $publicTranslations
       ->expects($this->once())
       ->method('count')
@@ -347,7 +347,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $publication
       ->expects($this->once())
       ->method('assign')
-      ->with($this->isInstanceOf('PapayaContentPageWork'));
+      ->with($this->isInstanceOf(PapayaContentPageWork::class));
     $publication
       ->expects($this->exactly(2))
       ->method('__set')
@@ -366,7 +366,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $page->publicationObject = $publication;
 
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'getSqlCondition', 'deleteRecord', 'queryFmtWrite', 'updateRecord'),
       array(new stdClass)
     );
@@ -409,7 +409,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $publication
       ->expects($this->once())
       ->method('assign')
-      ->with($this->isInstanceOf('PapayaContentPageWork'));
+      ->with($this->isInstanceOf(PapayaContentPageWork::class));
     $publication
       ->expects($this->exactly(2))
       ->method('__set')
@@ -424,7 +424,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $page->publicationObject = $publication;
 
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'getSqlCondition', 'deleteRecord', 'queryFmtWrite', 'updateRecord'),
       array(new stdClass)
     );
@@ -454,7 +454,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $publication
       ->expects($this->once())
       ->method('assign')
-      ->with($this->isInstanceOf('PapayaContentPageWork'));
+      ->with($this->isInstanceOf(PapayaContentPageWork::class));
     $publication
       ->expects($this->exactly(2))
       ->method('__set')
@@ -469,7 +469,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $page->publicationObject = $publication;
 
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'getSqlCondition', 'deleteRecord', 'queryFmtWrite', 'updateRecord'),
       array(new stdClass)
     );

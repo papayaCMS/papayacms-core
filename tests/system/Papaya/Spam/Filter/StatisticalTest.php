@@ -19,7 +19,7 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   */
   public function testGetReferenceImplicitCreate() {
     $filter = new PapayaSpamFilterStatistical();
-    $this->assertInstanceOf('PapayaSpamFilterStatisticalReference', $filter->getReference());
+    $this->assertInstanceOf(PapayaSpamFilterStatisticalReference::class, $filter->getReference());
   }
 
   /**
@@ -292,7 +292,7 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
 
   private function getSpamReferenceMock() {
     $reference = $this->getMock(
-      'PapayaSpamFilterStatisticalReference',
+      PapayaSpamFilterStatisticalReference::class,
       array('load', 'item', 'getHamCount', 'getSpamCount')
     );
     $reference

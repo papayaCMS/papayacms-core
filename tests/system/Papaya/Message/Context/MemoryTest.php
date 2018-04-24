@@ -29,7 +29,7 @@ class PapayaMessageContextMemoryTest extends PapayaTestCase {
     $this->assertAttributeEquals(
       42,
       '_previousUsage',
-      'PapayaMessageContextMemory'
+      PapayaMessageContextMemory::class
     );
   }
 

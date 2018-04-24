@@ -8,7 +8,7 @@ class PapayaFileSystemFactoryTest extends PapayaTestCase {
    */
   public function testGetFile() {
     $factory = new PapayaFileSystemFactory();
-    $this->assertInstanceOf('PapayaFileSystemFile', $factory->getFile('/path/file.txt'));
+    $this->assertInstanceOf(PapayaFileSystemFile::class, $factory->getFile('/path/file.txt'));
   }
 
   /**
@@ -16,6 +16,6 @@ class PapayaFileSystemFactoryTest extends PapayaTestCase {
    */
   public function testGetDirectory() {
     $factory = new PapayaFileSystemFactory();
-    $this->assertInstanceOf('PapayaFileSystemDirectory', $factory->getDirectory('/path'));
+    $this->assertInstanceOf(PapayaFileSystemDirectory::class, $factory->getDirectory('/path'));
   }
 }

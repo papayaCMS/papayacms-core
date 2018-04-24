@@ -7,7 +7,7 @@ class PapayaUiDialogButtonsTest extends PapayaTestCase {
   * @covers PapayaUiDialogButtons::add
   */
   public function testAdd() {
-    $button = $this->getMock('PapayaUiDialogButton', array('owner', 'appendTo'));
+    $button = $this->getMock(PapayaUiDialogButton::class, array('owner', 'appendTo'));
     $buttons = new PapayaUiDialogButtons();
     $buttons->add($button);
     $this->assertAttributeEquals(

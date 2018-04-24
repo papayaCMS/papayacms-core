@@ -19,7 +19,7 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
   */
   public function testDispatch() {
     $context = $this
-      ->getMockBuilder('PapayaMessageContextInterfaceXhtml')
+      ->getMockBuilder(PapayaMessageContextInterfaceXhtml::class)
       ->getMock();
     $context
       ->expects($this->any())

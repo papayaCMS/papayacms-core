@@ -11,7 +11,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
     $pages
       ->expects($this->once())
       ->method('load')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
 
     $definition = new PapayaContentStructure();
     $definition->pages($pages);
@@ -26,7 +26,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
     $pages
       ->expects($this->once())
       ->method('load')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
 
     $definition = new PapayaContentStructure();
     $definition->pages($pages);
@@ -58,7 +58,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
     $pages
       ->expects($this->once())
       ->method('load')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
 
     $definition = new PapayaContentStructure();
     $definition->pages($pages);
@@ -248,7 +248,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
    */
   public function testPagesImplicitCreate() {
     $definition = new PapayaContentStructure();
-    $this->assertInstanceOf('PapayaContentStructurePages', $definition->pages());
+    $this->assertInstanceOf(PapayaContentStructurePages::class, $definition->pages());
   }
 
   /**
@@ -256,7 +256,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
    */
   public function testGetIteratorReturnsPages() {
     $definition = new PapayaContentStructure();
-    $this->assertInstanceOf('PapayaContentStructurePages', $definition->getIterator());
+    $this->assertInstanceOf(PapayaContentStructurePages::class, $definition->getIterator());
   }
 
   /**

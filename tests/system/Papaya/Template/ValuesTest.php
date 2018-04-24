@@ -9,7 +9,7 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
   public function testConstructor() {
     $values = new PapayaTemplateValues();
     $this->assertAttributeInstanceOf(
-      'PapayaXmlDocument', '_document', $values
+      PapayaXmlDocument::class, '_document', $values
     );
   }
 
@@ -112,7 +112,7 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
   */
   public function testGetValueByPathWithInvalidPathExpectingException() {
     $values = new PapayaTemplateValues();
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $value = $values->getValueByPath('');
   }
 
@@ -144,7 +144,7 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
   public function testGetValueWithNull() {
     $values = new PapayaTemplateValues();
     $this->assertInstanceOf(
-      'PapayaXmlDocument', $values->getValue()->node()
+      PapayaXmlDocument::class, $values->getValue()->node()
     );
   }
 
@@ -165,7 +165,7 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
   */
   public function testGetValueWithInvalidElementExpectingException() {
     $values = new PapayaTemplateValues();
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $value = $values->getValue(23);
   }
 

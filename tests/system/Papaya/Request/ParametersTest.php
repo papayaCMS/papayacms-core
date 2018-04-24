@@ -25,7 +25,7 @@ class PapayaRequestParametersTest extends PapayaTestCase {
       array('group' => array('foo' => 'bar'))
     );
     $this->assertInstanceOf(
-      'PapayaRequestParameters',
+      PapayaRequestParameters::class,
       $group = $parameters->getGroup('group')
     );
     $this->assertEquals(
@@ -233,7 +233,7 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   public function testArrayAccessOffsetGetWithArray() {
     $parameters = new PapayaRequestParameters(array('foo' => array('bar' => 'foobar')));
     $this->assertInstanceOf(
-      'PapayaRequestParameters', $parameters['foo']
+      PapayaRequestParameters::class, $parameters['foo']
     );
     $this->assertEquals(
       'foobar', $parameters['foo']['bar']

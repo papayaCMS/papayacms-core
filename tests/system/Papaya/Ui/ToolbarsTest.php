@@ -36,7 +36,7 @@ class PapayaUiToolbarsTest extends PapayaTestCase {
   */
   public function testGetWithImplicitCreate() {
     $toolbars = new PapayaUiToolbars();
-    $this->assertInstanceOf('PapayaUiToolbar', $toolbar = $toolbars->topLeft);
+    $this->assertInstanceOf(PapayaUiToolbar::class, $toolbar = $toolbars->topLeft);
     $this->assertSame($toolbar, $toolbars->topLeft);
   }
 

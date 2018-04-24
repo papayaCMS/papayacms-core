@@ -21,7 +21,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   * @covers PapayaConfiguration::defineOptions
   */
   public function testConstructorDefinesInvalidOptionExpectingException() {
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $config = new PapayaConfiguration(
       array('sample' => new stdClass)
     );
@@ -239,7 +239,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   public function testGetIterator() {
     $config = new PapayaConfiguration_TestProxy();
     $iterator = $config->getIterator();
-    $this->assertInstanceOf('PapayaConfigurationIterator', $iterator);
+    $this->assertInstanceOf(PapayaConfigurationIterator::class, $iterator);
     $this->assertAttributeEquals(
       array('SAMPLE_INT', 'PAPAYA_INCLUDE_PATH'),
       '_names',

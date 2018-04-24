@@ -16,7 +16,7 @@ class PapayaUiDialogFieldFactoryProfileTextareaTest extends PapayaTestCase {
     );
     $profile = new PapayaUiDialogFieldFactoryProfileTextarea();
     $profile->options($options);
-    $this->assertInstanceOf('PapayaUiDialogFieldTextarea', $field = $profile->getField());
+    $this->assertInstanceOf(PapayaUiDialogFieldTextarea::class, $field = $profile->getField());
   }
 
   /**

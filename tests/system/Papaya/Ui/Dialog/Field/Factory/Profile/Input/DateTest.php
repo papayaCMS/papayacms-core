@@ -16,7 +16,7 @@ class PapayaUiDialogFieldFactoryProfileInputDateTest extends PapayaTestCase {
     );
     $profile = new PapayaUiDialogFieldFactoryProfileInputDate();
     $profile->options($options);
-    $this->assertInstanceOf('PapayaUiDialogFieldInputDate', $field = $profile->getField());
+    $this->assertInstanceOf(PapayaUiDialogFieldInputDate::class, $field = $profile->getField());
   }
 
   /**

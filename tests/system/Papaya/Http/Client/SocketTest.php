@@ -284,13 +284,13 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testGetPool() {
     $socket = new PapayaHttpClientSocket();
-    $this->assertInstanceOf('PapayaHttpClientSocketPool', $socket->getPool());
+    $this->assertInstanceOf(PapayaHttpClientSocketPool::class, $socket->getPool());
   }
 
   public function testSetPool() {
     $socket = new PapayaHttpClientSocket();
     $socket->setPool(new PapayaHttpClientSocketPool);
-    $this->assertAttributeInstanceOf('PapayaHttpClientSocketPool', '_pool', $socket);
+    $this->assertAttributeInstanceOf(PapayaHttpClientSocketPool::class, '_pool', $socket);
   }
 
   public function testSetKeepAliveWithInvalidType() {

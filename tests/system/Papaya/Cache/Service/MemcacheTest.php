@@ -45,7 +45,7 @@ class PapayaCacheServiceMemcacheTest extends PapayaTestCase {
   */
   public function testGetMemcacheObjectExistingAndFallbackClass() {
     $service = new PapayaCacheServiceMemcache_TestProxy();
-    $service->_memcacheClasses = array('stdClass', 'PapayaCacheServiceMemcache');
+    $service->_memcacheClasses = array('stdClass', PapayaCacheServiceMemcache::class);
     $this->assertInstanceOf('stdClass', $service->getMemcacheObject());
   }
 

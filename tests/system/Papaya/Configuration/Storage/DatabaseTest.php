@@ -17,7 +17,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
   */
   public function testRecordsGetImplicitCreate() {
     $storage = new PapayaConfigurationStorageDatabase();
-    $this->assertInstanceOf('PapayaContentConfiguration', $storage->records());
+    $this->assertInstanceOf(PapayaContentConfiguration::class, $storage->records());
   }
 
   /**
@@ -25,7 +25,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
   */
   public function testLoad() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->getMock();
     $databaseAccess

@@ -44,9 +44,9 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   */
   public function testRegisterPath() {
     PapayaAutoloader::clear();
-    PapayaAutoloader::registerPath('PapayaModuleSample', '/foo/bar');
+    PapayaAutoloader::registerPath(PapayaModuleSample::class, '/foo/bar');
     $this->assertAttributeEquals(
-      array('/Papaya/Module/Sample/' => '/foo/bar/'), '_paths', 'PapayaAutoloader'
+      array('/Papaya/Module/Sample/' => '/foo/bar/'), '_paths', PapayaAutoloader::class
     );
   }
 
@@ -64,7 +64,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
         '/Papaya/Module/' => '/bar/foo/foobar/'
       ),
       '_paths',
-      'PapayaAutoloader'
+      PapayaAutoloader::class
     );
   }
 
@@ -75,7 +75,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
     PapayaAutoloader::registerPath('PapayaModuleSample', '/foo/bar');
     PapayaAutoloader::clear();
     $this->assertAttributeEquals(
-      array(), '_paths', 'PapayaAutoloader'
+      array(), '_paths', PapayaAutoloader::class
     );
   }
 

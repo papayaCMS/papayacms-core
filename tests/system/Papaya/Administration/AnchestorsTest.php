@@ -14,7 +14,7 @@ class PapayaAdministrationPagesAnchestorsTest extends PapayaTestCase {
     $menu
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'))
+      ->with($this->isInstanceOf(PapayaXmlElement::class))
       ->will($this->returnValue($dom->documentElement->appendElement('menu')));
     $ancestors = new PapayaAdministrationPagesAnchestors();
     $ancestors->menu($menu);

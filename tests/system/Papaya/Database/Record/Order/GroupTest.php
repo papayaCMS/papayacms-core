@@ -57,7 +57,7 @@ class PapayaDatabaseRecordOrderGroupTest extends PapayaTestCase {
     $fields = array();
     foreach ($fieldNames as $name) {
       $fields[] = $field = $this
-        ->getMockBuilder('PapayaDatabaseRecordOrderField')
+        ->getMockBuilder(PapayaDatabaseRecordOrderField::class)
         ->disableOriginalConstructor()
         ->getMock();
       $field
@@ -66,7 +66,7 @@ class PapayaDatabaseRecordOrderGroupTest extends PapayaTestCase {
         ->will($this->returnValue($name));
     }
     $result = $this
-      ->getMockBuilder('PapayaDatabaseRecordOrderByFields')
+      ->getMockBuilder(PapayaDatabaseRecordOrderByFields::class)
       ->disableOriginalConstructor()
       ->getMock();
     $result

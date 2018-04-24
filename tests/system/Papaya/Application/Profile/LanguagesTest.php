@@ -8,7 +8,7 @@ class PapayaApplicationProfileLanguagesTest extends PapayaTestCase {
   */
   public function testCreateObject() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt'))
       ->getMock();
@@ -30,7 +30,7 @@ class PapayaApplicationProfileLanguagesTest extends PapayaTestCase {
     $profile = new PapayaApplicationProfileLanguages();
     $request = $profile->createObject($application);
     $this->assertInstanceOf(
-      'PapayaContentLanguages',
+      PapayaContentLanguages::class,
       $request
     );
   }

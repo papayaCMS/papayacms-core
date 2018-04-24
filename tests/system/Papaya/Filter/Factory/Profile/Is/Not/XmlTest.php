@@ -18,7 +18,7 @@ class PapayaFilterFactoryProfileIsNotXmlTest extends PapayaTestCase {
    */
   public function testGetFilterExpectException($string) {
     $profile = new PapayaFilterFactoryProfileIsNotXml();
-    $this->setExpectedException('PapayaFilterException');
+    $this->setExpectedException(PapayaFilterException::class);
     $profile->getFilter()->validate($string);
   }
 

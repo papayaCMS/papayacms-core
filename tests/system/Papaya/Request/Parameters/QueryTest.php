@@ -30,7 +30,7 @@ class PapayaRequestParametersQueryTest extends PapayaTestCase {
   */
   public function testSetSeparatorWithInvalidValueExpectingException() {
     $query = new PapayaRequestParametersQuery();
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $query->setSeparator('I');
   }
 
@@ -40,7 +40,7 @@ class PapayaRequestParametersQueryTest extends PapayaTestCase {
   public function testValuesReadImplicitCreate() {
     $query = new PapayaRequestParametersQuery();
     $this->assertInstanceOf(
-      'PapayaRequestParameters', $query->values()
+      PapayaRequestParameters::class, $query->values()
     );
   }
 
@@ -104,7 +104,7 @@ class PapayaRequestParametersQueryTest extends PapayaTestCase {
   * @covers PapayaRequestParametersQuery::_encode
   */
   public function testGetStringWithObjectArgument() {
-    $mock = $this->getMock('stdClass', array('__toString'));
+    $mock = $this->getMock(stdClass::class, array('__toString'));
     $mock
       ->expects($this->any())
       ->method('__toString')

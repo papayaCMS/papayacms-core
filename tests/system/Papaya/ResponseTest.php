@@ -32,7 +32,7 @@ class PapayaResponseTest extends PapayaTestCase {
   public function testHelperGetHelperImplizitCreate() {
     $response = new PapayaResponse();
     $this->assertInstanceOf(
-      'PapayaResponseHelper', $response->helper()
+      PapayaResponseHelper::class, $response->helper()
     );
   }
 
@@ -65,7 +65,7 @@ class PapayaResponseTest extends PapayaTestCase {
   public function testHeadersGetHeadersImplizitCreate() {
     $response = new PapayaResponse();
     $this->assertInstanceOf(
-      'PapayaResponseHeaders', $response->headers()
+      PapayaResponseHeaders::class, $response->headers()
     );
   }
 
@@ -98,7 +98,7 @@ class PapayaResponseTest extends PapayaTestCase {
   public function testContentGetContentImplizitCreate() {
     $response = new PapayaResponse();
     $this->assertInstanceOf(
-      'PapayaResponseContent', $response->content()
+      PapayaResponseContent::class, $response->content()
     );
   }
 
@@ -139,7 +139,7 @@ class PapayaResponseTest extends PapayaTestCase {
   * @covers PapayaResponse::setContentType
   */
   public function testSetContentType() {
-    $headers = $this->getMock('PapayaResponseHeaders', array('set'));
+    $headers = $this->getMock(PapayaResponseHeaders::class, array('set'));
     $headers
       ->expects($this->once())
       ->method('set')
@@ -153,7 +153,7 @@ class PapayaResponseTest extends PapayaTestCase {
   * @covers PapayaResponse::setContentType
   */
   public function testSetContentTypeAndEncoding() {
-    $headers = $this->getMock('PapayaResponseHeaders', array('set'));
+    $headers = $this->getMock(PapayaResponseHeaders::class, array('set'));
     $headers
       ->expects($this->once())
       ->method('set')
@@ -327,7 +327,7 @@ class PapayaResponseTest extends PapayaTestCase {
   * @covers PapayaResponse::send
   */
   public function testSendWithCustomHeaders() {
-    $headers = $this->getMock('PapayaResponseHeaders', array('getIterator'));
+    $headers = $this->getMock(PapayaResponseHeaders::class, array('getIterator'));
     $headers
       ->expects($this->once())
       ->method('getIterator')

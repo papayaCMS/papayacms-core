@@ -35,7 +35,7 @@ class PapayaObjectTest extends PapayaTestCase {
     $object = new PapayaObject_TestProxy();
     $app = $object->getApplication();
     $this->assertInstanceOf(
-      'PapayaApplication',
+      PapayaApplication::class,
       $app
     );
     $this->assertAttributeSame(
@@ -58,7 +58,7 @@ class PapayaObjectTest extends PapayaTestCase {
   public function testPapayaGetUsingSingleton() {
     $object = new PapayaObject_TestProxy();
     $application = $object->papaya();
-    $this->assertInstanceOf('PapayaApplication', $object->papaya());
+    $this->assertInstanceOf(PapayaApplication::class, $object->papaya());
     $this->assertSame($application, $object->papaya());
   }
 }

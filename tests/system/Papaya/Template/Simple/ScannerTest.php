@@ -73,7 +73,7 @@ class PapayaTemplateSimpleScannerTest extends PapayaTestCase {
     );
     $scanner = new PapayaTemplateSimpleScanner($status);
     $tokens = array();
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $scanner->scan($tokens, 'SAMPLE');
   }
 
@@ -211,7 +211,7 @@ class PapayaTemplateSimpleScannerTest extends PapayaTestCase {
 
   private function getTokenMockObjectFixture($length) {
     $token = $this
-      ->getMockBuilder('PapayaTemplateSimpleScannerToken')
+      ->getMockBuilder(PapayaTemplateSimpleScannerToken::class)
       ->disableOriginalConstructor()
       ->getMock();
     $token
@@ -242,7 +242,7 @@ class PapayaTemplateSimpleScannerTest extends PapayaTestCase {
       $status
         ->expects($this->any())
         ->method('isEndToken')
-        ->with($this->isInstanceOf('PapayaTemplateSimpleScannerToken'))
+        ->with($this->isInstanceOf(PapayaTemplateSimpleScannerToken::class))
         ->will($this->returnValue($isEndToken));
     }
     return $status;

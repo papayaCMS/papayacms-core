@@ -148,7 +148,7 @@ class PapayaAdministrationPagesDependencyBlockerTest extends PapayaTestCase {
   public function testDependenciesGetImplicitCreate() {
     $blocker = new PapayaAdministrationPagesDependencyBlocker(42);
     $this->assertInstanceOf(
-      'PapayaContentPageDependencies', $blocker->dependencies()
+      PapayaContentPageDependencies::class, $blocker->dependencies()
     );
   }
 
@@ -170,7 +170,7 @@ class PapayaAdministrationPagesDependencyBlockerTest extends PapayaTestCase {
   public function testViewsGetImplicitCreate() {
     $blocker = new PapayaAdministrationPagesDependencyBlocker(42);
     $this->assertInstanceOf(
-      'PapayaContentViews', $blocker->views()
+      PapayaContentViews::class, $blocker->views()
     );
   }
 
@@ -191,7 +191,7 @@ class PapayaAdministrationPagesDependencyBlockerTest extends PapayaTestCase {
   public function testPagesGetImplicitCreate() {
     $blocker = new PapayaAdministrationPagesDependencyBlocker(42);
     $this->assertInstanceOf(
-      'PapayaContentPages', $blocker->pages()
+      PapayaContentPages::class, $blocker->pages()
     );
   }
 
@@ -200,7 +200,7 @@ class PapayaAdministrationPagesDependencyBlockerTest extends PapayaTestCase {
   */
   public function testCounterGetAfterSet() {
     $counter = $this
-      ->getMockBuilder('PapayaAdministrationPagesDependencyCounter')
+      ->getMockBuilder(PapayaAdministrationPagesDependencyCounter::class)
       ->disableOriginalConstructor()
       ->getMock();
     $blocker = new PapayaAdministrationPagesDependencyBlocker(42);

@@ -27,7 +27,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'getSqlCondition', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
@@ -94,7 +94,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'getSqlCondition', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
@@ -142,7 +142,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
   */
   public function testLoadFailedExpectingFalse() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -178,7 +178,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue(FALSE));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -213,7 +213,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(0));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'getSqlCondition', 'queryFmt', 'insertRecord'),
       array(new stdClass)
     );
@@ -279,7 +279,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(1));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'getSqlCondition', 'queryFmt', 'updateRecord'),
       array(new stdClass)
     );

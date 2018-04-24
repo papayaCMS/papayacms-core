@@ -30,7 +30,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -74,7 +74,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   public function testGetDependency() {
     $dependencies = new PapayaContentPageDependencies_TestProxy();
     $dependency = $dependencies->getDependency(21);
-    $this->assertInstanceOf('PapayaContentPageDependency', $dependency);
+    $this->assertInstanceOf(PapayaContentPageDependency::class, $dependency);
     $this->assertAttributeEquals(
       array(
         'id' => NULL,
@@ -124,7 +124,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   */
   public function testDelete() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'deleteRecord'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'deleteRecord'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -148,7 +148,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   */
   public function testDeleteChangesRecords() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'deleteRecord'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'deleteRecord'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -198,7 +198,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(0));
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array(

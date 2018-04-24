@@ -35,7 +35,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
    */
   public function testSetInvalidPropertyExpectingException() {
     $node = new PapayaContentStructureNode_TestProxy();
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $node->INVALID = 'foo';
   }
 
@@ -44,7 +44,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
    */
   public function testGetInvalidPropertyExpectingException() {
     $node = new PapayaContentStructureNode_TestProxy();
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $result = $node->INVALID;
   }
 
@@ -53,7 +53,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
    */
   public function testSetInvalidPropertyNameExpectingException() {
     $node = new PapayaContentStructureNode_TestProxy();
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $node->name = ':';
   }
 

@@ -16,7 +16,7 @@ class PapayaUiDialogFieldFactoryProfileInputTest extends PapayaTestCase {
     );
     $profile = new PapayaUiDialogFieldFactoryProfileInput();
     $profile->options($options);
-    $this->assertInstanceOf('PapayaUiDialogFieldInput', $field = $profile->getField());
+    $this->assertInstanceOf(PapayaUiDialogFieldInput::class, $field = $profile->getField());
   }
 
   /**

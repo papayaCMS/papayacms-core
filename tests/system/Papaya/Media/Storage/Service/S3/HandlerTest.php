@@ -17,7 +17,7 @@ class PapayaMediaStorageServiceS3HandlerTest extends PapayaTestCase {
     $configuration = $this->getMockConfigurationObjectFixture();
     $service = new PapayaMediaStorageServiceS3Handler($configuration);
     $service->initHTTPClient();
-    $this->assertInstanceOf('PapayaHttpClient', $this->readAttribute($service, '_client'));
+    $this->assertInstanceOf(PapayaHttpClient::class, $this->readAttribute($service, '_client'));
   }
 
   public function testSetHTTPClient() {

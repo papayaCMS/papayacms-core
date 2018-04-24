@@ -20,7 +20,7 @@ class PapayaUrlTransformerAbsoluteTest extends PapayaTestCase {
       'getFragment' => 'fragment',
     );
     $urlObject = $this->getMock(
-      'PapayaUrl', array_merge(array('getHostUrl'), array_keys($mapping))
+      PapayaUrl::class, array_merge(array('getHostUrl'), array_keys($mapping))
     );
     if (empty($url)) {
       $urlData = array();

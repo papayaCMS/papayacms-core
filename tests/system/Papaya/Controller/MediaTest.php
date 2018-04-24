@@ -30,7 +30,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
     $response = $this->mockPapaya()->response();
     $controller = new PapayaControllerMedia();
     $this->assertInstanceOf(
-      'PapayaControllerError',
+      PapayaControllerError::class,
       $controller->execute($application, $request, $response)
     );
   }
@@ -57,7 +57,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
     $controller->setMediaDatabase($generator);
 
     $this->assertInstanceOf(
-      'PapayaControllerError',
+      PapayaControllerError::class,
       $controller->execute($application, $request, $response)
     );
   }
@@ -129,7 +129,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   * @covers PapayaControllerMedia::_outputPublicFile
   */
   public function testOutputPublicFileWithFolderPermissions() {
-    $surfer = $this->getMockBuilder('base_surfer')->getMock();
+    $surfer = $this->getMockBuilder(base_surfer::class)->getMock();
     $surfer
       ->expects($this->once())
       ->method('hasOnePermOf')
@@ -164,7 +164,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   * @covers PapayaControllerMedia::_outputPublicFile
   */
   public function testOutputPublicFile() {
-    $surfer = $this->getMockBuilder('base_surfer')->getMock();
+    $surfer = $this->getMockBuilder(base_surfer::class)->getMock();
     $surfer
       ->expects($this->once())
       ->method('hasOnePermOf')

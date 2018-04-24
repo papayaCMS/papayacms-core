@@ -66,11 +66,11 @@ class PapayaRequestLogTest extends PapayaTestCase {
   * @covers PapayaRequestLog::emit
   */
   public function testEmitWithStopMessage() {
-    $messages = $this->getMock('PapayaMessageManager', array('dispatch'));
+    $messages = $this->getMock(PapayaMessageManager::class, array('dispatch'));
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageLog'))
+      ->with($this->isInstanceOf(PapayaMessageLog::class))
       ->will($this->returnCallback(array($this, 'checkLogMessageContextWithStop')));
     $log = new PapayaRequestLog();
     $log->papaya(
@@ -87,11 +87,11 @@ class PapayaRequestLogTest extends PapayaTestCase {
   * @covers PapayaRequestLog::emit
   */
   public function testEmitWithoutStopMessage() {
-    $messages = $this->getMock('PapayaMessageManager', array('dispatch'));
+    $messages = $this->getMock(PapayaMessageManager::class, array('dispatch'));
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageLog'))
+      ->with($this->isInstanceOf(PapayaMessageLog::class))
       ->will($this->returnCallback(array($this, 'checkLogMessageContext')));
     $log = new PapayaRequestLog();
     $log->papaya(

@@ -9,7 +9,7 @@ class PapayaUiListviewSubitemsTest extends PapayaTestCase {
   */
   public function testConstructor() {
     $item = $this
-      ->getMockBuilder('PapayaUiListviewItem')
+      ->getMockBuilder(PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
     $subitems = new PapayaUiListviewSubitems($item);
@@ -24,7 +24,7 @@ class PapayaUiListviewSubitemsTest extends PapayaTestCase {
   public function testGetListview() {
     $listview = $this->createMock(PapayaUiListview::class);
     $collection = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection
@@ -32,7 +32,7 @@ class PapayaUiListviewSubitemsTest extends PapayaTestCase {
       ->method('owner')
       ->will($this->returnValue($listview));
     $item = $this
-      ->getMockBuilder('PapayaUiListviewItem')
+      ->getMockBuilder(PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
     $item

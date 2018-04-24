@@ -79,7 +79,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends PapayaTestCase {
   */
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('appendTo', 'isSubmitted', 'execute', 'parameters'),
       array(new stdClass())
     );
@@ -99,7 +99,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends PapayaTestCase {
   */
   public function testGetCurrentValueFromSubmittedDialog() {
     $dialog = $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('appendTo', 'isSubmitted', 'execute', 'parameters'),
       array(new stdClass())
     );

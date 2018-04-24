@@ -7,14 +7,14 @@ class PapayaFilterBeforeTest extends PapayaTestCase {
    * @covers PapayaFilterBefore
    */
   public function testValidate() {
-    $before = $this->getMockBuilder('PapayaFilter')->getMock();
+    $before = $this->getMockBuilder(PapayaFilter::class)->getMock();
     $before
       ->expects($this->once())
       ->method('filter')
       ->with('foo')
       ->willReturn('success');
 
-    $after = $this->getMockBuilder('PapayaFilter')->getMock();
+    $after = $this->getMockBuilder(PapayaFilter::class)->getMock();
     $after
       ->expects($this->once())
       ->method('validate')
@@ -31,14 +31,14 @@ class PapayaFilterBeforeTest extends PapayaTestCase {
    * @covers PapayaFilterBefore
    */
   public function testFilter() {
-    $before = $this->getMockBuilder('PapayaFilter')->getMock();
+    $before = $this->getMockBuilder(PapayaFilter::class)->getMock();
     $before
       ->expects($this->once())
       ->method('filter')
       ->with('foo')
       ->willReturn('success');
 
-    $after = $this->getMockBuilder('PapayaFilter')->getMock();
+    $after = $this->getMockBuilder(PapayaFilter::class)->getMock();
     $after
       ->expects($this->once())
       ->method('filter')

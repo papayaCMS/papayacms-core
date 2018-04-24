@@ -47,7 +47,7 @@ class PapayaUiDialogButtonSubmitTest extends PapayaTestCase {
   * @covers PapayaUiDialogButtonSubmit::appendTo
   */
   public function testAppendToWithInterfaceStringObject() {
-    $caption = $this->getMock('PapayaUiString', array('__toString'), array('.'));
+    $caption = $this->getMock(PapayaUiString::class, array('__toString'), array('.'));
     $caption
       ->expects($this->once())
       ->method('__toString')

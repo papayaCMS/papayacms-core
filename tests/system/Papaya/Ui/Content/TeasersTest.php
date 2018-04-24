@@ -35,7 +35,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
    */
   public function testReferenceGetImplicitCreate() {
     $teasers = new PapayaUiContentTeasers($this->getPagesFixture());
-    $this->assertInstanceOf('PapayaUiReferencePage', $teasers->reference());
+    $this->assertInstanceOf(PapayaUiReferencePage::class, $teasers->reference());
   }
 
   /**
@@ -121,7 +121,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
     );
 
     $plugin = $this
-      ->getMockBuilder('base_content')
+      ->getMockBuilder(base_content::class)
       ->disableOriginalConstructor()
       ->getMock();
 

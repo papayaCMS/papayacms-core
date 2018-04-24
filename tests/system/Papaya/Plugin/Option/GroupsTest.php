@@ -8,7 +8,7 @@ class PapayaPluginOptionGroupsTest extends PapayaTestCase {
   */
   public function testOffsetExistsExpectingTrue() {
     $options = $this
-      ->getMockBuilder('PapayaConfiguration')
+      ->getMockBuilder(PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $groups = new PapayaPluginOptionGroups();
@@ -21,7 +21,7 @@ class PapayaPluginOptionGroupsTest extends PapayaTestCase {
   */
   public function testOffsetExistsExpectingFalse() {
     $options = $this
-      ->getMockBuilder('PapayaConfiguration')
+      ->getMockBuilder(PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $groups = new PapayaPluginOptionGroups();
@@ -36,7 +36,7 @@ class PapayaPluginOptionGroupsTest extends PapayaTestCase {
   */
   public function testOffsetGetAfterOffsetSet() {
     $options = $this
-      ->getMockBuilder('PapayaConfiguration')
+      ->getMockBuilder(PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $groups = new PapayaPluginOptionGroups();
@@ -51,7 +51,7 @@ class PapayaPluginOptionGroupsTest extends PapayaTestCase {
   public function testOffsetGetImplicitCreate() {
     $groups = new PapayaPluginOptionGroups();
     $this->assertInstanceOf(
-      'PapayaConfiguration',
+      PapayaConfiguration::class,
       $groups['123456789012345678901234567890ab']
     );
   }
@@ -61,7 +61,7 @@ class PapayaPluginOptionGroupsTest extends PapayaTestCase {
   */
   public function testOffsetUnset() {
     $options = $this
-      ->getMockBuilder('PapayaConfiguration')
+      ->getMockBuilder(PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $groups = new PapayaPluginOptionGroups();

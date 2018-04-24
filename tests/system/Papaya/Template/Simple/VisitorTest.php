@@ -31,7 +31,7 @@ class PapayaTemplateSimpleVisitorTest extends PapayaTestCase {
   public function testVisitWithFullClassnameMappedToFunction() {
     $visitor = new PapayaTemplateSimpleVisitor_TestProxy();
     $node = $this
-      ->getMockBuilder('PapayaTemplateSimpleAstNode')
+      ->getMockBuilder(PapayaTemplateSimpleAstNode::class)
       ->setMockClassName('TestClass_PapayaTemplateSimpleAstNode')
       ->getMock();
     $visitor->visit($node);

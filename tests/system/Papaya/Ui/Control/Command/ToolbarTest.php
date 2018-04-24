@@ -32,7 +32,7 @@ class PapayaUiControlCommandToolbarTest extends PapayaTestCase {
     $elements
       ->expects($this->once())
       ->method('add')
-      ->with($this->isInstanceOf('PapayaUiToolbarElement'));
+      ->with($this->isInstanceOf(PapayaUiToolbarElement::class));
 
     $dom = new PapayaXmlDocument();
     $dom->appendElement('test');

@@ -8,7 +8,7 @@ class PapayaContentStructurePagesTest extends PapayaTestCase {
    */
   public function testConstructor() {
     $pages = new PapayaContentStructurePages();
-    $this->assertEquals('PapayaContentStructurePage', $pages->getItemClass());
+    $this->assertEquals(PapayaContentStructurePage::class, $pages->getItemClass());
   }
 
   /**

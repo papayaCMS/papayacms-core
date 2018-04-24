@@ -12,12 +12,12 @@ class PapayaMessageContextRuntimeTest extends PapayaTestCase {
     $this->assertAttributeGreaterThan(
       0,
       '_startTime',
-      'PapayaMessageContextRuntime'
+      PapayaMessageContextRuntime::class
     );
     $this->assertAttributeGreaterThan(
       0,
       '_previousTime',
-      'PapayaMessageContextRuntime'
+      PapayaMessageContextRuntime::class
     );
     $this->assertAttributeEquals(
       PapayaMessageContextRuntime::MODE_GLOBAL,
@@ -84,12 +84,12 @@ class PapayaMessageContextRuntimeTest extends PapayaTestCase {
     $this->assertAttributeEquals(
       42,
       '_startTime',
-      'PapayaMessageContextRuntime'
+      PapayaMessageContextRuntime::class
     );
     $this->assertAttributeEquals(
       42,
       '_previousTime',
-      'PapayaMessageContextRuntime'
+      PapayaMessageContextRuntime::class
     );
   }
 
@@ -101,7 +101,7 @@ class PapayaMessageContextRuntimeTest extends PapayaTestCase {
     $this->assertAttributeEquals(
       42,
       '_previousTime',
-      'PapayaMessageContextRuntime'
+      PapayaMessageContextRuntime::class
     );
   }
 

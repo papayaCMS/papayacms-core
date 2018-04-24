@@ -8,7 +8,7 @@ class PapayaEmailHeadersTest extends PapayaTestCase {
   */
   public function testConstruct() {
     $object = new PapayaEmailHeaders();
-    $this->assertInstanceOf('PapayaHttpHeaders', $object);
+    $this->assertInstanceOf(PapayaHttpHeaders::class, $object);
   }
 
 }

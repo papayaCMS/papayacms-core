@@ -10,23 +10,23 @@ class PapayaUiListviewTest extends PapayaTestCase {
     $dom = new PapayaXmlDocument();
     $dom->appendElement('sample');
     $listview = new PapayaUiListview();
-    $items = $this->getMock('PapayaUiListviewItems', array(), array($listview));
+    $items = $this->getMock(PapayaUiListviewItems::class, array(), array($listview));
     $items
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $listview->items($items);
-    $columns = $this->getMock('PapayaUiListviewColumns', array(), array($listview));
+    $columns = $this->getMock(PapayaUiListviewColumns::class, array(), array($listview));
     $columns
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $listview->columns($columns);
     $toolbars = $this->createMock(PapayaUiToolbars::class);
     $toolbars
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $listview->toolbars($toolbars);
     $listview->appendTo($dom->documentElement);
     $this->assertEquals(
@@ -70,7 +70,7 @@ class PapayaUiListviewTest extends PapayaTestCase {
   */
   public function testItemsGetAfterSet() {
     $listview = new PapayaUiListview();
-    $items = $this->getMock('PapayaUiListviewItems', array(), array($listview));
+    $items = $this->getMock(PapayaUiListviewItems::class, array(), array($listview));
     $this->assertSame($items, $listview->items($items));
   }
 
@@ -80,13 +80,13 @@ class PapayaUiListviewTest extends PapayaTestCase {
   */
   public function testItemsGetAfterSettingBuilder() {
     $builder = $this
-      ->getMockBuilder('PapayaUiListviewItemsBuilder')
+      ->getMockBuilder(PapayaUiListviewItemsBuilder::class)
       ->disableOriginalConstructor()
       ->getMock();
     $builder
       ->expects($this->once())
       ->method('fill')
-      ->with($this->isInstanceOf('PapayaUiListviewItems'));
+      ->with($this->isInstanceOf(PapayaUiListviewItems::class));
     $listview = new PapayaUiListview();
     $listview->builder($builder);
     $listview->items();
@@ -99,7 +99,7 @@ class PapayaUiListviewTest extends PapayaTestCase {
   public function testItemsGetImplicitCreate() {
     $listview = new PapayaUiListview();
     $items = $listview->items();
-    $this->assertInstanceOf('PapayaUiListviewItems', $items);
+    $this->assertInstanceOf(PapayaUiListviewItems::class, $items);
     $this->assertSame($listview, $items->owner());
   }
 
@@ -108,7 +108,7 @@ class PapayaUiListviewTest extends PapayaTestCase {
   */
   public function testColumnsGetAfterSet() {
     $listview = new PapayaUiListview();
-    $columns = $this->getMock('PapayaUiListviewColumns', array(), array($listview));
+    $columns = $this->getMock(PapayaUiListviewColumns::class, array(), array($listview));
     $this->assertSame($columns, $listview->columns($columns));
   }
 
@@ -118,7 +118,7 @@ class PapayaUiListviewTest extends PapayaTestCase {
   public function testColumnsGetImplicitCreate() {
     $listview = new PapayaUiListview();
     $columns = $listview->columns();
-    $this->assertInstanceOf('PapayaUiListviewColumns', $columns);
+    $this->assertInstanceOf(PapayaUiListviewColumns::class, $columns);
     $this->assertSame($listview, $columns->owner());
   }
 
@@ -137,7 +137,7 @@ class PapayaUiListviewTest extends PapayaTestCase {
   public function testToolbarsGetImplicitCreate() {
     $listview = new PapayaUiListview();
     $toolbars = $listview->toolbars();
-    $this->assertInstanceOf('PapayaUiToolbars', $toolbars);
+    $this->assertInstanceOf(PapayaUiToolbars::class, $toolbars);
   }
 
   /**
@@ -157,7 +157,7 @@ class PapayaUiListviewTest extends PapayaTestCase {
   public function testReferenceGetImplicitCreate() {
     $listview = new PapayaUiListview();
     $this->assertInstanceOf(
-      'PapayaUiReference', $listview->reference()
+      PapayaUiReference::class, $listview->reference()
     );
   }
 

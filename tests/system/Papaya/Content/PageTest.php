@@ -7,7 +7,7 @@ class PapayaContentPageTest extends PapayaTestCase {
   * @covers PapayaContentPage
   */
   public function testLoad() {
-    $translations = $this->getMock('PapayaContentPageTranslations', array('load'));
+    $translations = $this->getMock(PapayaContentPageTranslations::class, array('load'));
     $translations
       ->expects($this->once())
       ->method('load')
@@ -45,7 +45,7 @@ class PapayaContentPageTest extends PapayaTestCase {
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->once())
@@ -106,7 +106,7 @@ class PapayaContentPageTest extends PapayaTestCase {
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue(FALSE));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmt'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->once())
@@ -155,7 +155,7 @@ class PapayaContentPageTest extends PapayaTestCase {
   public function testTranslationsGetImplicitCreate() {
     $page = new PapayaContentPage();
     $this->assertInstanceOf(
-      'PapayaContentPageTranslations', $page->translations()
+      PapayaContentPageTranslations::class, $page->translations()
     );
   }
 

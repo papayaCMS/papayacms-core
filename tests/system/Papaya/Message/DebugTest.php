@@ -21,7 +21,7 @@ class PapayaMessageDebugTest extends PapayaTestCase {
       $message
     );
     $this->assertAttributeInstanceOf(
-      'PapayaMessageContextGroup',
+      PapayaMessageContextGroup::class,
       '_context',
       $message
     );
@@ -61,9 +61,9 @@ class PapayaMessageDebugTest extends PapayaTestCase {
     }
     $this->assertEquals(
       array(
-        'PapayaMessageContextMemory',
-        'PapayaMessageContextRuntime',
-        'PapayaMessageContextBacktrace'
+        PapayaMessageContextMemory::class,
+        PapayaMessageContextRuntime::class,
+        PapayaMessageContextBacktrace::class
       ),
       $found
     );

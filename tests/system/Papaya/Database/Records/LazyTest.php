@@ -9,7 +9,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   */
   public function testActivateLazyLoadDoesNotTriggerLoading() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt'))
       ->getMock();
@@ -93,7 +93,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
       ->method('absCount')
       ->will($this->returnValue(7));
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt', 'getSqlCondition', 'absCount'))
       ->getMock();
@@ -239,7 +239,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt', 'getSqlCondition'))
       ->getMock();

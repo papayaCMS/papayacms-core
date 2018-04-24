@@ -36,7 +36,7 @@ class PapayaFilterXmlTest extends PapayaTestCase {
    */
   public function testValidateExpectingException($fragment) {
     $filter = new PapayaFilterXml();
-    $this->setExpectedException('PapayaFilterExceptionXml');
+    $this->setExpectedException(PapayaFilterExceptionXml::class);
     $filter->validate($fragment);
   }
 
@@ -45,7 +45,7 @@ class PapayaFilterXmlTest extends PapayaTestCase {
    */
   public function testValidateWithEmptyStringExpectingException() {
     $filter = new PapayaFilterXml();
-    $this->setExpectedException('PapayaFilterExceptionEmpty');
+    $this->setExpectedException(PapayaFilterExceptionEmpty::class);
     $filter->validate('');
   }
 
@@ -54,7 +54,7 @@ class PapayaFilterXmlTest extends PapayaTestCase {
    */
   public function testValidateWithDocumentExpectingException() {
     $filter = new PapayaFilterXml(FALSE);
-    $this->setExpectedException('PapayaFilterExceptionXml');
+    $this->setExpectedException(PapayaFilterExceptionXml::class);
     $filter->validate('TEXT');
   }
 

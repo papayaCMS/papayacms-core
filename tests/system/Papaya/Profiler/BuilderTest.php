@@ -8,7 +8,7 @@ class PapayaProfilerBuilderTest extends PapayaTestCase {
   */
   public function testCreateCollector() {
     $builder = new PapayaProfilerBuilder();
-    $this->assertInstanceOf('PapayaProfilerCollectorXhprof', $builder->createCollector());
+    $this->assertInstanceOf(PapayaProfilerCollectorXhprof::class, $builder->createCollector());
   }
 
   /**
@@ -27,7 +27,7 @@ class PapayaProfilerBuilderTest extends PapayaTestCase {
     );
     $storage = $builder->createStorage();
     $this->removeTemporaryDirectory();
-    $this->assertInstanceOf('PapayaProfilerStorageFile', $storage);
+    $this->assertInstanceOf(PapayaProfilerStorageFile::class, $storage);
   }
 
   /**
@@ -47,6 +47,6 @@ class PapayaProfilerBuilderTest extends PapayaTestCase {
       )
     );
     $storage = $builder->createStorage();
-    $this->assertInstanceOf('PapayaProfilerStorageXhgui', $storage);
+    $this->assertInstanceOf(PapayaProfilerStorageXhgui::class, $storage);
   }
 }

@@ -53,43 +53,43 @@ class PapayaCacheIdentifierDefinitionParametersTest extends PapayaTestCase {
         array('foo' => 'bar')
       ),
       array(
-        array('PapayaCacheIdentifierDefinitionParameters' => array('foo' => 'bar')),
+        array(PapayaCacheIdentifierDefinitionParameters::class => array('foo' => 'bar')),
         NULL,
         array('foo'),
         array('foo' => 'bar')
       ),
       array(
-        array('PapayaCacheIdentifierDefinitionParameters' => array('foo' => '')),
+        array(PapayaCacheIdentifierDefinitionParameters::class => array('foo' => '')),
         NULL,
         array('foo'),
         array('foo' => '')
       ),
       array(
-        array('PapayaCacheIdentifierDefinitionParameters' => array('bar' => '42')),
+        array(PapayaCacheIdentifierDefinitionParameters::class => array('bar' => '42')),
         NULL,
         array('foo', 'bar'),
         array('bar' => '42')
       ),
       array(
-        array('PapayaCacheIdentifierDefinitionParameters' => array('foo' => '21', 'bar' => '42')),
+        array(PapayaCacheIdentifierDefinitionParameters::class => array('foo' => '21', 'bar' => '42')),
         NULL,
         array('foo', 'bar'),
         array('foo' => '21', 'bar' => '42')
       ),
       array(
-        array('PapayaCacheIdentifierDefinitionParameters' => array('bar' => '42')),
+        array(PapayaCacheIdentifierDefinitionParameters::class => array('bar' => '42')),
         'foo',
         array('bar'),
         array('foo' => array('bar' => '42'))
       ),
       array(
-        array('PapayaCacheIdentifierDefinitionParameters' => array('foo[bar]' => '42')),
+        array(PapayaCacheIdentifierDefinitionParameters::class => array('foo[bar]' => '42')),
         NULL,
         array('foo/bar'),
         array('foo' => array('bar' => '42'))
       ),
       array(
-        array('PapayaCacheIdentifierDefinitionParameters' => array('bar' => '42')),
+        array(PapayaCacheIdentifierDefinitionParameters::class => array('bar' => '42')),
         NULL,
         'bar',
         array('bar' => '42')

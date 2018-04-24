@@ -152,7 +152,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testOptionsGetAfterSet() {
     $options = $this
-      ->getMockBuilder('PapayaConfiguration')
+      ->getMockBuilder(PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $factory = new PapayaPluginFactory_TestProxy();
@@ -165,7 +165,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testOptionsGetFromLoader() {
     $options = $this
-      ->getMockBuilder('PapayaConfiguration')
+      ->getMockBuilder(PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $groups = $this->createMock(PapayaPluginOptionGroups::class);
@@ -199,7 +199,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testGetOption() {
     $options = $this
-      ->getMockBuilder('PapayaConfiguration')
+      ->getMockBuilder(PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $options

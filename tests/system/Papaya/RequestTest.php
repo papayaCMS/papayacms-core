@@ -117,7 +117,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaUrlCurrent',
+      PapayaUrlCurrent::class,
       $request->getUrl()
     );
   }
@@ -129,7 +129,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaUrlCurrent',
+      PapayaUrlCurrent::class,
       $request->url
     );
   }
@@ -142,7 +142,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaContentLanguage',
+      PapayaContentLanguage::class,
       $request->language
     );
   }
@@ -311,7 +311,7 @@ class PapayaRequestTest extends PapayaTestCase {
   */
   public function testGetInvalidPropertyExpectingException() {
     $request = new PapayaRequest();
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $dummy = $request->INVALID_PROPERTY;
   }
 
@@ -320,7 +320,7 @@ class PapayaRequestTest extends PapayaTestCase {
   */
   public function testSetInvalidPropertyExpectingException() {
     $request = new PapayaRequest();
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $request->INVALID_PROPERTY = 'fail';
   }
 
@@ -656,7 +656,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request->load($this->getUrlMockFixture('group[e1]=success'));
     $parameters = $request->getParameterGroup('group', PapayaRequest::SOURCE_QUERY);
     $this->assertInstanceOf(
-      'PapayaRequestParameters',
+      PapayaRequestParameters::class,
       $parameters
     );
     $this->assertEquals(
@@ -695,7 +695,7 @@ class PapayaRequestTest extends PapayaTestCase {
   */
   public function testSetParametersWithInvalidSource() {
     $request = new PapayaRequest();
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $request->setParameters(PapayaRequest::SOURCE_ALL, new PapayaRequestParameters());
   }
 
@@ -704,7 +704,7 @@ class PapayaRequestTest extends PapayaTestCase {
   */
   public function testSetParametersWithInvalidParameters() {
     $request = new PapayaRequest();
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $request->setParameters(PapayaRequest::SOURCE_QUERY, NULL);
   }
 
@@ -884,7 +884,7 @@ class PapayaRequestTest extends PapayaTestCase {
    */
   public function testContentImplicitCreate() {
     $request = new PapayaRequest();
-    $this->assertInstanceOf('PapayaRequestContent', $request->content());
+    $this->assertInstanceOf(PapayaRequestContent::class, $request->content());
   }
 
   /**
@@ -893,7 +893,7 @@ class PapayaRequestTest extends PapayaTestCase {
    */
   public function testGetPropertyContent() {
     $content = $this
-      ->getMockBuilder('PapayaRequestContent')
+      ->getMockBuilder(PapayaRequestContent::class)
       ->setMethods(array('__toString'))
       ->getMock();
     $content
@@ -942,7 +942,7 @@ class PapayaRequestTest extends PapayaTestCase {
   }
 
   public function getUrlMockFixture($queryString = '') {
-    $url = $this->getMock('PapayaUrl', array('getQuery'));
+    $url = $this->getMock(PapayaUrl::class, array('getQuery'));
     $url
       ->expects($this->any())
       ->method('getQuery')

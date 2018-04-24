@@ -8,6 +8,6 @@ class PapayaFilterFactoryProfileIsIntegerTest extends PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new PapayaFilterFactoryProfileIsInteger();
-    $this->assertInstanceOf('PapayaFilterInteger', $profile->getFilter());
+    $this->assertInstanceOf(PapayaFilterInteger::class, $profile->getFilter());
   }
 }

@@ -31,7 +31,7 @@ class PapayaUiControlCommandDialogDatabaseRecordTest extends PapayaTestCase {
     $command = new PapayaUiControlCommandDialogDatabaseRecord($record);
     $command->papaya($this->mockPapaya()->application());
     $dialog = $command->dialog();
-    $this->assertInstanceOf('PapayaUiDialogDatabaseSave', $dialog);
+    $this->assertInstanceOf(PapayaUiDialogDatabaseSave::class, $dialog);
     $this->assertSame($command->papaya(), $dialog->papaya());
     $this->assertSame($record, $dialog->record());
   }
@@ -47,7 +47,7 @@ class PapayaUiControlCommandDialogDatabaseRecordTest extends PapayaTestCase {
     );
     $command->papaya($this->mockPapaya()->application());
     $dialog = $command->dialog();
-    $this->assertInstanceOf('PapayaUiDialogDatabaseDelete', $dialog);
+    $this->assertInstanceOf(PapayaUiDialogDatabaseDelete::class, $dialog);
     $this->assertSame($command->papaya(), $dialog->papaya());
     $this->assertSame($record, $dialog->record());
   }

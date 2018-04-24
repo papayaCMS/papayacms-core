@@ -8,6 +8,6 @@ class PapayaFilterFactoryProfileIsUrlHostTest extends PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new PapayaFilterFactoryProfileIsUrlHost();
-    $this->assertInstanceOf('PapayaFilterUrlHost', $profile->getFilter());
+    $this->assertInstanceOf(PapayaFilterUrlHost::class, $profile->getFilter());
   }
 }

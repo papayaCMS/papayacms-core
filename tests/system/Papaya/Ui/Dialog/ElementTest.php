@@ -119,7 +119,7 @@ class PapayaUiDialogElementTest extends PapayaTestCase {
 
   private function getDialogMock() {
     return $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('isSubmitted', 'execute', 'appendTo', 'parameterGroup'),
       array(new stdClass())
     );

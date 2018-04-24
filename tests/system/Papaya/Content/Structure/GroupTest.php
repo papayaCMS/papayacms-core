@@ -17,7 +17,7 @@ class PapayaContentStructureGroupTest extends PapayaTestCase {
   public function testGroupsGetAfterSet() {
     $group = new PapayaContentStructureGroup($this->createMock(PapayaContentStructurePage::class));
     $values = $this
-      ->getMockBuilder('PapayaContentStructureValues')
+      ->getMockBuilder(PapayaContentStructureValues::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group->values($values);
@@ -29,7 +29,7 @@ class PapayaContentStructureGroupTest extends PapayaTestCase {
    */
   public function testGroupsGetImplicitCreate() {
     $group = new PapayaContentStructureGroup($this->createMock(PapayaContentStructurePage::class));
-    $this->assertInstanceOf('PapayaContentStructureValues', $group->values());
+    $this->assertInstanceOf(PapayaContentStructureValues::class, $group->values());
   }
 
   /**
@@ -37,7 +37,7 @@ class PapayaContentStructureGroupTest extends PapayaTestCase {
    */
   public function testGetIdentifier() {
     $page = $this
-      ->getMockBuilder('PapayaContentStructurePage')
+      ->getMockBuilder(PapayaContentStructurePage::class)
       ->disableOriginalConstructor()
       ->getMock();
     $page

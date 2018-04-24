@@ -50,7 +50,7 @@ class PapayaCacheIdentifierDefinitionGroupTest extends PapayaTestCase {
     $definition = new PapayaCacheIdentifierDefinitionGroup($one, $two);
     $this->assertEquals(
       array(
-        'PapayaCacheIdentifierDefinitionGroup' => array(
+        PapayaCacheIdentifierDefinitionGroup::class => array(
            array('foo' => '21'), array('bar' => '48')
         )
       ),
@@ -99,7 +99,7 @@ class PapayaCacheIdentifierDefinitionGroupTest extends PapayaTestCase {
     $definition->add($two);
     $this->assertEquals(
       array(
-        'PapayaCacheIdentifierDefinitionGroup' => array(
+        PapayaCacheIdentifierDefinitionGroup::class => array(
            array('foo' => '21'), array('bar' => '48')
         )
       ),

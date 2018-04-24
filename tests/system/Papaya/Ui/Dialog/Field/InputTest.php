@@ -20,7 +20,7 @@ class PapayaUiDialogFieldInputTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldInput::__construct
   */
   public function testConstructorWithAllParameters() {
-    $filter = $this->getMock('PapayaFilter', array('validate', 'filter'));
+    $filter = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
     $input = new PapayaUiDialogFieldInput('Caption', 'name', 42, '50670', $filter);
     $this->assertAttributeEquals(
       42, '_maximumLength', $input

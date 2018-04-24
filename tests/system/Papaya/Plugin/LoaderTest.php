@@ -20,7 +20,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   public function testPluginsGetWithImplicitCreate() {
     $loader = new PapayaPluginLoader();
     $this->assertInstanceOf(
-      'PapayaPluginList', $loader->plugins()
+      PapayaPluginList::class, $loader->plugins()
     );
   }
 
@@ -41,7 +41,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   public function testOptionsGetWithImplicitCreate() {
     $loader = new PapayaPluginLoader();
     $this->assertInstanceOf(
-      'PapayaPluginOptionGroups', $loader->options()
+      PapayaPluginOptionGroups::class, $loader->options()
     );
   }
 
@@ -294,11 +294,11 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers PapayaPluginLoader
   */
   public function testGetWithInvalidPluginFileExpectingMessage() {
-    $messages = $this->getMock('PapayaMessageManager', array('dispatch'));
+    $messages = $this->getMock(PapayaMessageManager::class, array('dispatch'));
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageLog'));
+      ->with($this->isInstanceOf(PapayaMessageLog::class));
     $loader = new PapayaPluginLoader();
     $loader->papaya(
       $this->mockPapaya()->application(
@@ -325,7 +325,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   */
   public function testGetWithAutloaderPrefix() {
     PapayaAutoloader::clear();
-    $messages = $this->getMock('PapayaMessageManager', array('dispatch'));
+    $messages = $this->getMock(PapayaMessageManager::class, array('dispatch'));
     $messages
       ->expects($this->any())
       ->method('dispatch')
@@ -356,7 +356,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
         '/Plugin/Loader/Autoload/Prefix/' => str_replace('\\', '/', dirname(__FILE__)).'/TestData/'
       ),
       '_paths',
-      'PapayaAutoloader'
+      PapayaAutoloader::class
     );
     PapayaAutoloader::clear();
   }
@@ -388,11 +388,11 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers PapayaPluginLoader
   */
   public function testGetWithInvalidPluginClassExpectingMessage() {
-    $messages = $this->getMock('PapayaMessageManager', array('dispatch'));
+    $messages = $this->getMock(PapayaMessageManager::class, array('dispatch'));
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageLog'));
+      ->with($this->isInstanceOf(PapayaMessageLog::class));
     $loader = new PapayaPluginLoader();
     $loader->papaya(
       $this->mockPapaya()->application(
@@ -440,7 +440,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
         '/Plugin/Loader/Autoload/Prefix/' => '/base/path/sample/path/'
       ),
       '_paths',
-      'PapayaAutoloader'
+      PapayaAutoloader::class
     );
     PapayaAutoloader::clear();
   }

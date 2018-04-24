@@ -11,7 +11,7 @@ class PapayaFileSystemChangeNotifierTest extends PapayaTestCase {
   public function testConstructorWithScript() {
     $notifier = new PapayaFileSystemChangeNotifier('/sample/script.php');
     $this->assertInstanceOf(
-      'PapayaFileSystemActionScript', $notifier->action()
+      PapayaFileSystemActionScript::class, $notifier->action()
     );
   }
 
@@ -23,7 +23,7 @@ class PapayaFileSystemChangeNotifierTest extends PapayaTestCase {
   public function testConstructorWithUrl() {
     $notifier = new PapayaFileSystemChangeNotifier('http://example.tld/sample/script.php');
     $this->assertInstanceOf(
-      'PapayaFileSystemActionUrl', $notifier->action()
+      PapayaFileSystemActionUrl::class, $notifier->action()
     );
   }
 

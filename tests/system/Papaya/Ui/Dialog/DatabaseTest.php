@@ -23,7 +23,7 @@ class PapayaUiDialogDatabaseTest extends PapayaTestCase {
   */
   public function testCallbacksGetAfterSet() {
     $callbacks = $this
-      ->getMockBuilder('PapayaUiDialogDatabaseCallbacks')
+      ->getMockBuilder(PapayaUiDialogDatabaseCallbacks::class)
       ->disableOriginalConstructor()
       ->getMock();
     $dialog = new PapayaUiDialogDatabase_TestProxy($this->getRecordFixture());
@@ -39,7 +39,7 @@ class PapayaUiDialogDatabaseTest extends PapayaTestCase {
     $dialog = new PapayaUiDialogDatabase_TestProxy($this->getRecordFixture());
     $callbacks = $dialog->callbacks();
     $this->assertInstanceOf(
-      'PapayaObjectCallbacks', $callbacks
+      PapayaObjectCallbacks::class, $callbacks
     );
   }
 

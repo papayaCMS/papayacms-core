@@ -48,7 +48,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
     $definition->papaya($this->mockPapaya()->application());
     $this->assertEquals(
       array(
-        'PapayaCacheIdentifierDefinitionPage' => array(
+        PapayaCacheIdentifierDefinitionPage::class => array(
           'scheme' => 'https',
           'host' => 'www.sample.tld',
           'port' => 443,
@@ -78,7 +78,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
     return array(
       array(
         array(
-          'PapayaCacheIdentifierDefinitionPage' => array(
+          PapayaCacheIdentifierDefinitionPage::class => array(
             'scheme' => 'http',
             'host' => '',
             'port' => 80,
@@ -92,7 +92,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
       ),
       array(
         array(
-          'PapayaCacheIdentifierDefinitionPage' => array(
+          PapayaCacheIdentifierDefinitionPage::class => array(
             'scheme' => 'http',
             'host' => '',
             'port' => 80,
@@ -108,7 +108,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
       ),
       array(
         array(
-          'PapayaCacheIdentifierDefinitionPage' => array(
+          PapayaCacheIdentifierDefinitionPage::class => array(
             'scheme' => 'http',
             'host' => '',
             'port' => 80,
@@ -124,7 +124,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
       ),
       array(
         array(
-          'PapayaCacheIdentifierDefinitionPage' => array(
+          PapayaCacheIdentifierDefinitionPage::class => array(
             'scheme' => 'http',
             'host' => '',
             'port' => 80,
@@ -143,7 +143,7 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
       ),
       array(
         array(
-          'PapayaCacheIdentifierDefinitionPage' => array(
+          PapayaCacheIdentifierDefinitionPage::class => array(
             'scheme' => 'http',
             'host' => '',
             'port' => 80,

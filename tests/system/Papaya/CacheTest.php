@@ -13,7 +13,7 @@ class PapayaCacheTest extends PapayaTestCase {
   public function testGetServiceDefault() {
     $configuration = $this->mockPapaya()->options();
     $service = PapayaCache::getService($configuration);
-    $this->assertInstanceOf('PapayaCacheService', $service);
+    $this->assertInstanceOf(PapayaCacheService::class, $service);
     $serviceTwo = PapayaCache::getService($configuration);
     $this->assertSame($service, $serviceTwo);
   }
@@ -24,7 +24,7 @@ class PapayaCacheTest extends PapayaTestCase {
   public function testGetServiceInvalid() {
     $options = new PapayaCacheConfiguration();
     $options['SERVICE'] = 'InvalidName';
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $service = PapayaCache::getService($options, FALSE);
   }
 
@@ -34,7 +34,7 @@ class PapayaCacheTest extends PapayaTestCase {
   public function testGetServiceEmpty() {
     $options = new PapayaCacheConfiguration();
     $options['SERVICE'] = '';
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $service = PapayaCache::getService($options, FALSE);
   }
 
@@ -44,7 +44,7 @@ class PapayaCacheTest extends PapayaTestCase {
   public function testGetServiceStaticExpectingSameObject() {
     $configuration = $this->mockPapaya()->options();
     $service = PapayaCache::getService($configuration);
-    $this->assertInstanceOf('PapayaCacheServiceFile', $service);
+    $this->assertInstanceOf(PapayaCacheServiceFile::class, $service);
     $serviceTwo = PapayaCache::getService($configuration);
     $this->assertSame($service, $serviceTwo);
   }
@@ -55,7 +55,7 @@ class PapayaCacheTest extends PapayaTestCase {
   public function testGetServiceNonStaticExpectingDifferentObjects() {
     $configuration = $this->mockPapaya()->options();
     $service = PapayaCache::getService($configuration, FALSE);
-    $this->assertInstanceOf('PapayaCacheServiceFile', $service);
+    $this->assertInstanceOf(PapayaCacheServiceFile::class, $service);
     $serviceTwo = PapayaCache::getService($configuration, FALSE);
     $this->assertNotSame($service, $serviceTwo);
   }
@@ -82,7 +82,7 @@ class PapayaCacheTest extends PapayaTestCase {
       )
     );
     $options = PapayaCache::prepareConfiguration($configuration);
-    $this->assertInstanceOf('PapayaCacheConfiguration', $options);
+    $this->assertInstanceOf(PapayaCacheConfiguration::class, $options);
     $this->assertEquals(
       array(
         'SERVICE' => 'sample',
@@ -125,7 +125,7 @@ class PapayaCacheTest extends PapayaTestCase {
     );
     $service = PapayaCache::get($for, $configuration);
     $this->assertInstanceOf(
-      'PapayaCacheServiceApc', $service
+      PapayaCacheServiceApc::class, $service
     );
   }
 
@@ -153,7 +153,7 @@ class PapayaCacheTest extends PapayaTestCase {
     PapayaCache::getService($configuration);
     PapayaCache::reset();
     $this->assertAttributeEquals(
-      array(), '_serviceObjects', 'PapayaCache'
+      array(), '_serviceObjects', PapayaCache::class
     );
   }
 

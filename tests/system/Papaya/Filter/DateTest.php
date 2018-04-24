@@ -55,7 +55,7 @@ class PapayaFilterDateTest extends PapayaTestCase {
     try {
       $filter->validate($value);
     } catch(PapayaFilterExceptionType $e) {
-      $this->assertInstanceOf('PapayaFilterExceptionType', $e);
+      $this->assertInstanceOf(PapayaFilterExceptionType::class, $e);
       return;
     }
     $this->fail('Expected exception not thrown.');
@@ -70,7 +70,7 @@ class PapayaFilterDateTest extends PapayaTestCase {
     try {
       $filter->validate($value);
     } catch(PapayaFilterExceptionRangeMaximum $e) {
-      $this->assertInstanceOf('PapayaFilterExceptionRangeMaximum', $e);
+      $this->assertInstanceOf(PapayaFilterExceptionRangeMaximum::class, $e);
       return;
     }
     $this->fail('Expected exception not thrown.');

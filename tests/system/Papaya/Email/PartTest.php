@@ -43,7 +43,7 @@ class PapayaEmailPartTest extends PapayaTestCase {
   public function testHeadersGetImplicitCreate() {
     $part = new PapayaEmailPart($this->createMock(PapayaEmailContent::class));
     $this->assertInstanceOf(
-      'PapayaEmailHeaders', $part->headers()
+      PapayaEmailHeaders::class, $part->headers()
     );
   }
 
@@ -64,7 +64,7 @@ class PapayaEmailPartTest extends PapayaTestCase {
   public function testMagicMethodGetForPropertyHeaders() {
     $part = new PapayaEmailPart($this->createMock(PapayaEmailContent::class));
     $this->assertInstanceOf(
-      'PapayaEmailHeaders', $part->headers
+      PapayaEmailHeaders::class, $part->headers
     );
   }
 

@@ -75,7 +75,7 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
    */
   public function testThemeHandlerGetImplicitCreate() {
     $path = new PapayaConfigurationPath('', '');
-    $this->assertInstanceOf('PapayaThemeHandler', $path->themeHandler());
+    $this->assertInstanceOf(PapayaThemeHandler::class, $path->themeHandler());
   }
 
   /**

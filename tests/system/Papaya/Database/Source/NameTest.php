@@ -36,7 +36,7 @@ class PapayaDatabaseSourceNameTest extends PapayaTestCase {
   * @covers PapayaDatabaseSourceName::setName
   */
   public function testConstructorWithEmptyDsnExpectingException() {
-    $this->setExpectedException('PapayaDatabaseExceptionConnect');
+    $this->setExpectedException(PapayaDatabaseExceptionConnect::class);
     $dsn = new PapayaDatabaseSourceName('');
   }
 
@@ -45,7 +45,7 @@ class PapayaDatabaseSourceNameTest extends PapayaTestCase {
   * @covers PapayaDatabaseSourceName::setName
   */
   public function testConstructorWithInvalidDsnExpectingException() {
-    $this->setExpectedException('PapayaDatabaseExceptionConnect');
+    $this->setExpectedException(PapayaDatabaseExceptionConnect::class);
     $dsn = new PapayaDatabaseSourceName('xxx');
   }
 
@@ -92,7 +92,7 @@ class PapayaDatabaseSourceNameTest extends PapayaTestCase {
   * @covers PapayaDatabaseSourceName::__get
   */
   public function testMagicMethodGetWithInvalidPropertyExpectingException() {
-    $this->setExpectedException('ErrorException');
+    $this->setExpectedException(ErrorException::class);
     $dsn = new PapayaDatabaseSourceName('mysqli(mysql)://user:pass@server:42/database');
     $foo = $dsn->INVALID_ARGUMENT_NAME;
   }
@@ -101,7 +101,7 @@ class PapayaDatabaseSourceNameTest extends PapayaTestCase {
   * @covers PapayaDatabaseSourceName::__set
   */
   public function testMagicMethodSetExpectingException() {
-    $this->setExpectedException('BadMethodCallException');
+    $this->setExpectedException(BadMethodCallException::class);
     $dsn = new PapayaDatabaseSourceName('mysqli(mysql)://user:pass@server:42/database');
     $dsn->api = 'FOO';
   }

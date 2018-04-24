@@ -16,7 +16,7 @@ class PapayaUiDialogFieldFactoryProfileInputGeoPositionTest extends PapayaTestCa
     );
     $profile = new PapayaUiDialogFieldFactoryProfileInputGeoPosition();
     $profile->options($options);
-    $this->assertInstanceOf('PapayaUiDialogFieldInputGeoPosition', $field = $profile->getField());
+    $this->assertInstanceOf(PapayaUiDialogFieldInputGeoPosition::class, $field = $profile->getField());
   }
 
   /**

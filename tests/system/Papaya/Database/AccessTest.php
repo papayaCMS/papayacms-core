@@ -65,7 +65,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
     $owner = new stdClass;
     // set a random id for equal check
     $owner->randomObjectId = rand();
-    $connector = $this->getMock('db_simple', array($functionName));
+    $connector = $this->getMock(db_simple::class, array($functionName));
     $this->delegationCallbackArguments = array_merge(
       array($owner),
       $arguments
@@ -91,7 +91,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   */
   public function testDelegationWithUpperCaseFunctionName() {
     $owner = new stdClass;
-    $connector = $this->getMock('db_simple', array('queryFmt'));
+    $connector = $this->getMock(db_simple::class, array('queryFmt'));
     $connector
       ->expects($this->once())
       ->method('queryFmt')
@@ -109,14 +109,14 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   */
   public function testDelegationWithDatabaseErrorExpectingMessage() {
     $owner = new stdClass;
-    $connector = $this->getMock('db_simple', array('queryFmt'));
+    $connector = $this->getMock(db_simple::class, array('queryFmt'));
     $connector
       ->expects($this->once())
       ->method('queryFmt')
       ->withAnyParameters()
       ->will($this->returnCallback(array($this, 'callbackThrowDatabaseError')));
     $access = new PapayaDatabaseAccess($owner, 'read', 'write');
-    $databaseManager = $this->getMock('PapayaDatabaseManager', array('getConnector'));
+    $databaseManager = $this->getMock(PapayaDatabaseManager::class, array('getConnector'));
     $databaseManager
       ->expects($this->atLeastOnce())
       ->method('getConnector')
@@ -126,7 +126,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
     $messageManager
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageLog'));
+      ->with($this->isInstanceOf(PapayaMessageLog::class));
     $application = $this->mockPapaya()->application(
       array(
         'Database' => $databaseManager,
@@ -142,18 +142,18 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   * @covers PapayaDatabaseAccess::_handleDatabaseException
   */
   public function testDelegationWithDatabaseErrorExpectingMessageOnErrorHandler() {
-    $callbackMock = $this->getMock('stdClass', array('errorCallback'));
+    $callbackMock = $this->getMock(stdClass::class, array('errorCallback'));
     $callbackMock
       ->expects($this->once())
       ->method('errorCallback')
-      ->with($this->isInstanceOf('PapayaDatabaseException'));
-    $connector = $this->getMock('db_simple', array('queryFmt'));
+      ->with($this->isInstanceOf(PapayaDatabaseException::class));
+    $connector = $this->getMock(db_simple::class, array('queryFmt'));
     $connector
       ->expects($this->once())
       ->method('queryFmt')
       ->withAnyParameters()
       ->will($this->returnCallback(array($this, 'callbackThrowDatabaseError')));
-    $databaseManager = $this->getMock('PapayaDatabaseManager', array('getConnector'));
+    $databaseManager = $this->getMock(PapayaDatabaseManager::class, array('getConnector'));
     $databaseManager
       ->expects($this->atLeastOnce())
       ->method('getConnector')
@@ -177,7 +177,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
     $owner = new stdClass();
     $connector = new stdClass();
     $access = $this->getFixtureDatabaseAccess($owner, $connector);
-    $this->setExpectedException('BadMethodCallException');
+    $this->setExpectedException(BadMethodCallException::class);
     $dummy = $access->query('SQL');
   }
 
@@ -187,7 +187,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   public function testDelegationInvalidFunction() {
     $owner = new stdClass();
     $access = new PapayaDatabaseAccess($owner, 'read', 'write');
-    $this->setExpectedException('BadMethodCallException');
+    $this->setExpectedException(BadMethodCallException::class);
     $access->invalidMethodName();
   }
 
@@ -245,7 +245,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   */
   public function testTablesImplicitCreate() {
     $access = new PapayaDatabaseAccess(new stdClass(), 'read', 'write');
-    $this->assertInstanceOf('PapayaContentTables', $access->tables());
+    $this->assertInstanceOf(PapayaContentTables::class, $access->tables());
   }
 
   /**
@@ -260,7 +260,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   * @covers PapayaDatabaseAccess::masterOnly
   */
   public function testMasterOnlySetForObjectAndConnection() {
-    $connector = $this->getMock('db_simple', array('masterOnly'));
+    $connector = $this->getMock(db_simple::class, array('masterOnly'));
     $connector
       ->expects($this->once())
       ->method('masterOnly')
@@ -273,7 +273,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   * @covers PapayaDatabaseAccess::masterOnly
   */
   public function testMasterOnlyReadConnection() {
-    $connector = $this->getMock('db_simple', array('masterOnly'));
+    $connector = $this->getMock(db_simple::class, array('masterOnly'));
     $connector
       ->expects($this->once())
       ->method('masterOnly')
@@ -286,7 +286,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   * @covers PapayaDatabaseAccess::readOnly
   */
   public function testReadOnlyNoContextExpectingTrue() {
-    $connector = $this->getMock('db_simple', array('masterOnly'));
+    $connector = $this->getMock(db_simple::class, array('masterOnly'));
     $connector
       ->expects($this->once())
       ->method('masterOnly')
@@ -299,7 +299,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   * @covers PapayaDatabaseAccess::readOnly
   */
   public function testReadOnlyNoContextExpectingFalse() {
-    $connector = $this->getMock('db_simple', array('masterOnly'));
+    $connector = $this->getMock(db_simple::class, array('masterOnly'));
     $connector
       ->expects($this->once())
       ->method('masterOnly')
@@ -312,7 +312,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   * @covers PapayaDatabaseAccess::readOnly
   */
   public function testReadOnlySetObjectContextExpectingFalse() {
-    $connector = $this->getMock('db_simple', array('setDataModified'));
+    $connector = $this->getMock(db_simple::class, array('setDataModified'));
     $connector
       ->expects($this->once())
       ->method('setDataModified');
@@ -327,7 +327,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
     $options = $this->mockPapaya()->options(
       array('PAPAYA_DATABASE_CLUSTER_SWITCH' => 1)
     );
-    $connector = $this->getMock('db_simple', array('masterOnly'));
+    $connector = $this->getMock(db_simple::class, array('masterOnly'));
     $connector
       ->expects($this->once())
       ->method('masterOnly')
@@ -343,7 +343,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
     $options = $this->mockPapaya()->options(
       array('PAPAYA_DATABASE_CLUSTER_SWITCH' => 2)
     );
-    $connector = $this->getMock('db_simple', array('masterOnly', 'readOnly'));
+    $connector = $this->getMock(db_simple::class, array('masterOnly', 'readOnly'));
     $connector
       ->expects($this->once())
       ->method('masterOnly')
@@ -360,7 +360,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   * @covers PapayaDatabaseAccess::setDataModified
   */
   public function testSetDataModified() {
-    $connector = $this->getMock('db_simple', array('setDataModified'));
+    $connector = $this->getMock(db_simple::class, array('setDataModified'));
     $connector
       ->expects($this->once())
       ->method('setDataModified');
@@ -415,7 +415,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
 
   public function getFixtureDatabaseAccess($owner, $connector, $options = NULL) {
     $access = new PapayaDatabaseAccess($owner, 'read', 'write');
-    $databaseManager = $this->getMock('PapayaDatabaseManager', array('getConnector'));
+    $databaseManager = $this->getMock(PapayaDatabaseManager::class, array('getConnector'));
     $databaseManager
       ->expects($this->atLeastOnce())
       ->method('getConnector')

@@ -79,7 +79,7 @@ class PapayaXmlElementTest extends PapayaTestCase {
   public function testAppendToWithNodeTargetExpectingException() {
     $document = new PapayaXmlDocument();
     $element = $document->createElement('test');
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $element->appendTo($document->createTextNode('_'));
   }
 

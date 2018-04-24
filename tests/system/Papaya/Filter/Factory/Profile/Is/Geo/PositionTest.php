@@ -8,6 +8,6 @@ class PapayaFilterFactoryProfileIsGeoPositionTest extends PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new PapayaFilterFactoryProfileIsGeoPosition();
-    $this->assertInstanceOf('PapayaFilterGeoPosition', $profile->getFilter());
+    $this->assertInstanceOf(PapayaFilterGeoPosition::class, $profile->getFilter());
   }
 }

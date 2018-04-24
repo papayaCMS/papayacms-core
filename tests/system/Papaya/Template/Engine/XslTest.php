@@ -44,7 +44,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   */
   public function testSetTemplateFileWithInvalidFileNameExpectingException() {
     $engine = new PapayaTemplateEngineXsl();
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $engine->setTemplateFile('NONEXISTING_FILENAME.XSL');
   }
 
@@ -139,7 +139,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   */
   public function testSetProcessorWithInvalidProcessorExpectingException() {
     $engine = new PapayaTemplateEngineXsl();
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $engine->setProcessor(new stdClass);
   }
 
@@ -213,7 +213,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   public function testGetErrorHandlerWithImplicitCreate() {
     $engine = new PapayaTemplateEngineXsl();
     $this->assertInstanceOf(
-      'PapayaXmlErrors',
+      PapayaXmlErrors::class,
       $engine->getErrorHandler()
     );
   }
@@ -230,7 +230,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
       ->with($this->equalTo($templateFile), $this->equalTo(TRUE))
       ->will($this->returnValue(TRUE));
     $errors = $this->getMock(
-      'PapayaXmlErrors', array('activate', 'deactivate', 'emit')
+      PapayaXmlErrors::class, array('activate', 'deactivate', 'emit')
     );
     $errors
       ->expects($this->once())
@@ -256,10 +256,10 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
     $processor
       ->expects($this->once())
       ->method('importStylesheet')
-      ->with($this->isInstanceOf('DOMDocument'))
+      ->with($this->isInstanceOf(DOMDocument::class))
       ->will($this->returnValue(TRUE));
     $errors = $this->getMock(
-      'PapayaXmlErrors', array('activate', 'deactivate', 'emit')
+      PapayaXmlErrors::class, array('activate', 'deactivate', 'emit')
     );
     $errors
       ->expects($this->once())
@@ -285,10 +285,10 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
     $processor
       ->expects($this->once())
       ->method('importStylesheet')
-      ->with($this->isInstanceOf('DOMDocument'))
+      ->with($this->isInstanceOf(DOMDocument::class))
       ->will($this->returnValue(TRUE));
     $errors = $this->getMock(
-      'PapayaXmlErrors', array('activate', 'deactivate', 'emit')
+      PapayaXmlErrors::class, array('activate', 'deactivate', 'emit')
     );
     $errors
       ->expects($this->once())
@@ -313,7 +313,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
     $templateFile = dirname(__FILE__).'/TestData/empty.xsl';
     $processor = $this->getProcessorMock('XsltProcessor');
     $errors = $this->getMock(
-      'PapayaXmlErrors', array('activate', 'deactivate', 'emit')
+      PapayaXmlErrors::class, array('activate', 'deactivate', 'emit')
     );
     $errors
       ->expects($this->once())
@@ -327,7 +327,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
     $engine->setErrorHandler($errors);
     $engine->setTemplateFile($templateFile);
 
-    $this->setExpectedException('PapayaXmlException');
+    $this->setExpectedException(PapayaXmlException::class);
     $engine->prepare();
   }
 
@@ -345,10 +345,10 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
     $processor
       ->expects($this->once())
       ->method('transformToXML')
-      ->with($this->isInstanceOf('DOMDocument'))
+      ->with($this->isInstanceOf(DOMDocument::class))
       ->will($this->returnValue('success'));
     $errors = $this->getMock(
-      'PapayaXmlErrors', array('activate', 'deactivate', 'emit')
+      PapayaXmlErrors::class, array('activate', 'deactivate', 'emit')
     );
     $errors
       ->expects($this->once())
@@ -380,10 +380,10 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
     $processor
       ->expects($this->once())
       ->method('transformToXML')
-      ->with($this->isInstanceOf('DOMDocument'))
+      ->with($this->isInstanceOf(DOMDocument::class))
       ->will($this->returnCallback(array($this, 'throwXmlException')));
     $errors = $this->getMock(
-      'PapayaXmlErrors', array('activate', 'deactivate', 'emit')
+      PapayaXmlErrors::class, array('activate', 'deactivate', 'emit')
     );
     $errors
       ->expects($this->once())

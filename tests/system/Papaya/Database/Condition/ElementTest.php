@@ -8,7 +8,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testConstructor() {
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $element = new PapayaDatabaseConditionElement_TestProxy($group);
@@ -20,7 +20,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testConstructorWithField() {
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $element = new PapayaDatabaseConditionElement_TestProxy($group, 'sample');
@@ -32,7 +32,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testConstructorWithOperator() {
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $element = new PapayaDatabaseConditionElement_TestProxy($group, NULL, '=');
@@ -44,11 +44,11 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testGetDatabaseAccess() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group
@@ -64,11 +64,11 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testGetMapping() {
     $mapping = $this
-      ->getMockBuilder('PapayaDatabaseInterfaceMapping')
+      ->getMockBuilder(PapayaDatabaseInterfaceMapping::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group
@@ -84,7 +84,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testGetMappingExpectingNull() {
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $element = new PapayaDatabaseConditionElement_TestProxy($group);
@@ -96,7 +96,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testMagicMethodToString() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getSqlCondition'))
       ->disableOriginalConstructor()
       ->getMock();
@@ -105,7 +105,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
       ->method('getSqlCondition')
       ->will($this->returnValue('sql string'));
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group
@@ -123,7 +123,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testMapFieldName() {
     $mapping = $this
-      ->getMockBuilder('PapayaDatabaseInterfaceMapping')
+      ->getMockBuilder(PapayaDatabaseInterfaceMapping::class)
       ->disableOriginalConstructor()
       ->getMock();
     $mapping
@@ -132,7 +132,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
       ->with('field')
       ->will($this->returnValue('mapped_field'));
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group
@@ -148,11 +148,11 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testMapFieldNameWithoutMapping() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $element = new PapayaDatabaseConditionElement_TestProxy($group);
@@ -164,7 +164,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testMapFieldNameWithInvalidMappingExpectingException() {
     $mapping = $this
-      ->getMockBuilder('PapayaDatabaseInterfaceMapping')
+      ->getMockBuilder(PapayaDatabaseInterfaceMapping::class)
       ->disableOriginalConstructor()
       ->getMock();
     $mapping
@@ -173,7 +173,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
       ->with('field')
       ->will($this->returnValue(''));
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group
@@ -181,7 +181,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
       ->method('getMapping')
       ->will($this->returnValue($mapping));
     $element = new PapayaDatabaseConditionElement_TestProxy($group);
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $element->mapFieldName('field');
   }
 
@@ -190,15 +190,15 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testMapFieldNameWithEmptyFieldNameException() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $element = new PapayaDatabaseConditionElement_TestProxy($group);
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $element->mapFieldName('');
   }
 
@@ -207,7 +207,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testGetSqlWithScalar() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getSqlCondition'))
       ->disableOriginalConstructor()
       ->getMock();
@@ -223,7 +223,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
       );
 
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group
@@ -244,7 +244,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testGetSqlWithList() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getSqlCondition'))
       ->disableOriginalConstructor()
       ->getMock();
@@ -262,7 +262,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
       );
 
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group
@@ -285,7 +285,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testGetSqlWithInvalidFieldNameExpectingException() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getSqlCondition'))
       ->disableOriginalConstructor()
       ->getMock();
@@ -294,7 +294,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
       ->method('getSqlCondition');
 
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group
@@ -303,7 +303,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
       ->will($this->returnValue($databaseAccess));
 
     $condition = new PapayaDatabaseConditionElement_TestProxy($group, '', NULL, '=');
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $condition->getSql();
   }
 
@@ -312,7 +312,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testGetSqlWithExceptionInSilentMode() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->setMethods(array('getSqlCondition'))
       ->disableOriginalConstructor()
       ->getMock();
@@ -321,7 +321,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
       ->method('getSqlCondition');
 
     $group = $this
-      ->getMockBuilder('PapayaDatabaseConditionGroup')
+      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group

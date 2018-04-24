@@ -11,7 +11,7 @@ class PapayaApplicationProfileDatabaseTest extends PapayaTestCase {
     $profile = new PapayaApplicationProfileDatabase();
     $request = $profile->createObject($application);
     $this->assertInstanceOf(
-      'PapayaDatabaseManager',
+      PapayaDatabaseManager::class,
       $request
     );
 

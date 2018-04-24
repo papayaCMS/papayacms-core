@@ -9,7 +9,7 @@ class PapayaUiStringTranslatedTest extends PapayaTestCase {
   */
   public function testMagicMethodToString() {
     $phrases = $this
-      ->getMockBuilder('PapayaPhrases')
+      ->getMockBuilder(PapayaPhrases::class)
       ->disableOriginalConstructor()
       ->getMock();
     $phrases

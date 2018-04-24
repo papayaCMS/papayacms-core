@@ -15,7 +15,7 @@ class PapayaContentPagesPublicationsTest extends PapayaTestCase {
       ->method('fetchRow')
       ->will($this->returnValue(FALSE));
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'queryFmt'))
       ->getMock();

@@ -25,7 +25,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
     );
     $callbackThree->callback = 'substr';
     $mapping = $this
-      ->getMockBuilder('PapayaDatabaseRecordMapping')
+      ->getMockBuilder(PapayaDatabaseRecordMapping::class)
       ->disableOriginalConstructor()
       ->getMock();
     $mapping
@@ -77,7 +77,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
       )
     );
     $mapping = $this
-      ->getMockBuilder('PapayaDatabaseRecordMapping')
+      ->getMockBuilder(PapayaDatabaseRecordMapping::class)
       ->disableOriginalConstructor()
       ->getMock();
     $mapping
@@ -132,7 +132,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
       )
     );
     $mapping = $this
-      ->getMockBuilder('PapayaDatabaseRecordMapping')
+      ->getMockBuilder(PapayaDatabaseRecordMapping::class)
       ->disableOriginalConstructor()
       ->getMock();
     $mapping

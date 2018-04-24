@@ -52,7 +52,7 @@ class PapayaUtilStringBase32Test extends PapayaTestCase {
   * @dataProvider provideInvalidDecodeSamples
   */
   public function testDecodeExpectingException($encoded) {
-    $this->setExpectedException('OutOfBoundsException');
+    $this->setExpectedException(OutOfBoundsException::class);
     PapayaUtilStringBase32::decode($encoded);
   }
 

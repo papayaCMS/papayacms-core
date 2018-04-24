@@ -27,7 +27,7 @@ class PapayaRequestParameterFileTest extends PapayaTestCase {
    */
   public function testConstructorWithNameObject() {
     $name = $this
-      ->getMockBuilder('PapayaRequestParametersName')
+      ->getMockBuilder(PapayaRequestParametersName::class)
       ->disableOriginalConstructor()
       ->getMock();
     $file = new PapayaRequestParameterFile($name);
@@ -185,7 +185,7 @@ class PapayaRequestParameterFileTest extends PapayaTestCase {
    */
   public function testOffsetSetExpectingException() {
     $file = new PapayaRequestParameterFile('foo');
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $file['type'] = '';
   }
 
@@ -194,7 +194,7 @@ class PapayaRequestParameterFileTest extends PapayaTestCase {
    */
   public function testOffsetUnsetExpectingException() {
     $file = new PapayaRequestParameterFile('foo');
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     unset($file['size']);
   }
 
@@ -216,7 +216,7 @@ class PapayaRequestParameterFileTest extends PapayaTestCase {
 
   public function getFileSystemFixtureWithUploadedFile($isUploadedFile) {
     $file = $this
-      ->getMockBuilder('PapayaFileSystemFile')
+      ->getMockBuilder(PapayaFileSystemFile::class)
       ->disableOriginalConstructor()
       ->getMock();
     $file

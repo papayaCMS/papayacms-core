@@ -71,7 +71,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
     $configuration = new PapayaCacheConfiguration();
     $configuration['FILESYSTEM_PATH'] = '/foo';
     $service = new PapayaCacheServiceFile($configuration);
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $this->assertFalse($service->verify(FALSE));
   }
 
@@ -99,7 +99,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
 
     $path = str_replace('\\', '/', $this->_temporaryDirectory);
     $notifier = $this
-      ->getMockBuilder('PapayaFileSystemChangeNotifier')
+      ->getMockBuilder(PapayaFileSystemChangeNotifier::class)
       ->disableOriginalConstructor()
       ->getMock();
     $notifier
@@ -271,7 +271,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
 
     $path = str_replace('\\', '/', $this->_temporaryDirectory);
     $notifier = $this
-      ->getMockBuilder('PapayaFileSystemChangeNotifier')
+      ->getMockBuilder(PapayaFileSystemChangeNotifier::class)
       ->disableOriginalConstructor()
       ->getMock();
     $notifier
@@ -294,7 +294,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
 
     $path = str_replace('\\', '/', $this->_temporaryDirectory);
     $notifier = $this
-      ->getMockBuilder('PapayaFileSystemChangeNotifier')
+      ->getMockBuilder(PapayaFileSystemChangeNotifier::class)
       ->disableOriginalConstructor()
       ->getMock();
     $notifier
@@ -329,7 +329,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
 
     $path = str_replace('\\', '/', $this->_temporaryDirectory);
     $notifier = $this
-      ->getMockBuilder('PapayaFileSystemChangeNotifier')
+      ->getMockBuilder(PapayaFileSystemChangeNotifier::class)
       ->disableOriginalConstructor()
       ->getMock();
     $notifier
@@ -380,7 +380,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
   */
   public function testGetCacheIdentificationExpectingError($group, $identifier, $parameters) {
     $service = new PapayaCacheServiceFile_TestProxy();
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $service->_getCacheIdentification($group, $identifier, $parameters);
   }
 
@@ -389,7 +389,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
   */
   public function testNofifierGetAfterSet() {
     $notifier = $this
-      ->getMockBuilder('PapayaFileSystemChangeNotifier')
+      ->getMockBuilder(PapayaFileSystemChangeNotifier::class)
       ->disableOriginalConstructor()
       ->getMock();
 
@@ -407,7 +407,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
     $configuration['FILESYSTEM_NOTIFIER_SCRIPT'] = '/foo/bar.php';
 
     $service = new PapayaCacheServiceFile($configuration);
-    $this->assertInstanceOf('PapayaFileSystemChangeNotifier', $service->notifier());
+    $this->assertInstanceOf(PapayaFileSystemChangeNotifier::class, $service->notifier());
   }
 
   /**

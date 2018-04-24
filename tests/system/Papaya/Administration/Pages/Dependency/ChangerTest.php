@@ -93,13 +93,13 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
       ->method('load')
       ->with(array('id' => 21, 'language_id' => 1));
     $listview = $this
-      ->getMockBuilder('PapayaAdministrationPagesDependencyListview')
+      ->getMockBuilder(PapayaAdministrationPagesDependencyListview::class)
       ->disableOriginalConstructor()
       ->getMock();
     $listview
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $listview
       ->expects($this->once())
       ->method('pages')
@@ -271,7 +271,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   public function testDependencyGetImplicitCreate() {
     $changer = new PapayaAdministrationPagesDependencyChanger();
     $this->assertInstanceOf(
-      'PapayaContentPageDependency', $changer->dependency()
+      PapayaContentPageDependency::class, $changer->dependency()
     );
   }
 
@@ -292,7 +292,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   public function testDependenciesGetImplicitCreate() {
     $changer = new PapayaAdministrationPagesDependencyChanger();
     $this->assertInstanceOf(
-      'PapayaContentPageDependencies', $changer->dependencies()
+      PapayaContentPageDependencies::class, $changer->dependencies()
     );
   }
 
@@ -313,7 +313,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   public function testReferenceGetImplicitCreate() {
     $changer = new PapayaAdministrationPagesDependencyChanger();
     $this->assertInstanceOf(
-      'PapayaContentPageReference', $changer->reference()
+      PapayaContentPageReference::class, $changer->reference()
     );
   }
 
@@ -334,7 +334,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   public function testReferencesGetImplicitCreate() {
     $changer = new PapayaAdministrationPagesDependencyChanger();
     $this->assertInstanceOf(
-      'PapayaContentPageReferences', $changer->references()
+      PapayaContentPageReferences::class, $changer->references()
     );
   }
 
@@ -355,7 +355,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   public function testMenuGetImplicitCreate() {
     $changer = new PapayaAdministrationPagesDependencyChanger();
     $this->assertInstanceOf(
-      'PapayaUiToolbar', $changer->menu()
+      PapayaUiToolbar::class, $changer->menu()
     );
   }
 

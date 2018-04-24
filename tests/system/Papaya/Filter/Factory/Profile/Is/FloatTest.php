@@ -8,6 +8,6 @@ class PapayaFilterFactoryProfileIsFloatTest extends PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new PapayaFilterFactoryProfileIsFloat();
-    $this->assertInstanceOf('PapayaFilterFloat', $profile->getFilter());
+    $this->assertInstanceOf(PapayaFilterFloat::class, $profile->getFilter());
   }
 }

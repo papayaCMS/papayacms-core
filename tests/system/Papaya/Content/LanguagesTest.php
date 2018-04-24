@@ -36,7 +36,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getTableName', 'queryFmt'),
       array(new stdClass)
     );
@@ -103,10 +103,10 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
     $languages = new PapayaContentLanguages_TestProxy();
     $languages->papaya($this->mockPapaya()->application());
     $languages->setDatabaseAccess(
-      $this->getMock('PapayaDatabaseAccess', array(), array(new stdClass))
+      $this->getMock(PapayaDatabaseAccess::class, array(), array(new stdClass))
     );
     $language = $languages->getLanguage($languageFilter);
-    $this->assertInstanceOf('PapayaContentLanguage', $language);
+    $this->assertInstanceOf(PapayaContentLanguage::class, $language);
     $this->assertAttributeEquals(
       array(
         'id' => 2,
@@ -153,7 +153,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
         )
       );
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getSqlCondition', 'queryFmt'),
       array(new stdClass)
     );
@@ -170,7 +170,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
     $languages = new PapayaContentLanguages();
     $languages->setDatabaseAccess($databaseAccess);
     $language = $languages->getLanguage(2);
-    $this->assertInstanceOf('PapayaContentLanguage', $language);
+    $this->assertInstanceOf(PapayaContentLanguage::class, $language);
     $this->assertAttributeEquals(
       array(
         'id' => 2,
@@ -197,7 +197,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue(FALSE));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getSqlCondition', 'queryFmt'),
       array(new stdClass)
     );
@@ -223,7 +223,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   public function testGetLanguageByCode() {
     $languages = new PapayaContentLanguages_TestProxy();
     $language = $languages->getLanguageByCode('de-DE');
-    $this->assertInstanceOf('PapayaContentLanguage', $language);
+    $this->assertInstanceOf(PapayaContentLanguage::class, $language);
     $this->assertAttributeEquals(
       array(
         'id' => 2,
@@ -254,7 +254,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   public function testGetLanguageByIdentifier() {
     $languages = new PapayaContentLanguages_TestProxy();
     $language = $languages->getLanguageByIdentifier('de');
-    $this->assertInstanceOf('PapayaContentLanguage', $language);
+    $this->assertInstanceOf(PapayaContentLanguage::class, $language);
     $this->assertAttributeEquals(
       array(
         'id' => 2,
@@ -286,7 +286,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
     $languages = new PapayaContentLanguages_TestProxy();
     $languages->papaya($this->mockPapaya()->application());
     $languages->setDatabaseAccess(
-      $this->getMock('PapayaDatabaseAccess', array(), array(new stdClass))
+      $this->getMock(PapayaDatabaseAccess::class, array(), array(new stdClass))
     );
     $this->assertEquals(
       'de', $languages->getIdentiferById(2)
@@ -304,7 +304,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue(FALSE));
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess',
+      PapayaDatabaseAccess::class,
       array('getSqlCondition', 'queryFmt'),
       array(new stdClass)
     );

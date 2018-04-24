@@ -23,7 +23,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
    * @covers PapayaTemplateSimpleScannerToken::__construct
    */
   public function testConstructorWithInvalidTypeExpectignException() {
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $token = new PapayaTemplateSimpleScannerToken(-23, 0, '');
   }
 
@@ -107,7 +107,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
     $token = new PapayaTemplateSimpleScannerToken(
       PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, ''
     );
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $token->offset = 23;
   }
 }

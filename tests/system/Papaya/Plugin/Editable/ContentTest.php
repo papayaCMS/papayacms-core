@@ -102,7 +102,7 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
    */
   public function testEditorGetAfterSet() {
     $editor = $this
-      ->getMockBuilder('PapayaPluginEditor')
+      ->getMockBuilder(PapayaPluginEditor::class)
       ->disableOriginalConstructor()
       ->getMock();
     $content = new PapayaPluginEditableContent();
@@ -115,7 +115,7 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
    */
   public function testEditorGetImplicitCreateWithoutCallback() {
     $content = new PapayaPluginEditableContent();
-    $this->assertInstanceOf('PapayaPluginEditor', $content->editor());
+    $this->assertInstanceOf(PapayaPluginEditor::class, $content->editor());
   }
 
   /**
@@ -124,7 +124,7 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
   public function testEditorImplicitCreateWithInvalidCallbackExpectingException() {
     $content = new PapayaPluginEditableContent();
     $content->callbacks()->onCreateEditor = array($this, 'callbackOnCreateEditorReturnNull');
-    $this->setExpectedException('LogicException');
+    $this->setExpectedException(LogicException::class);
     $content->editor();
   }
 
@@ -138,12 +138,12 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
   public function testEditorImplicitCreateUsingCallback() {
     $content = new PapayaPluginEditableContent();
     $content->callbacks()->onCreateEditor = array($this, 'callbackOnCreateEditor');
-    $this->assertInstanceOf('PapayaPluginEditor', $content->editor());
+    $this->assertInstanceOf(PapayaPluginEditor::class, $content->editor());
   }
 
   public function callbackOnCreateEditor() {
     return $this
-      ->getMockBuilder('PapayaPluginEditor')
+      ->getMockBuilder(PapayaPluginEditor::class)
       ->disableOriginalConstructor()
       ->getMock();
   }
@@ -162,6 +162,6 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
    */
   public function testCallbacksGetImplicitCreate() {
     $content = new PapayaPluginEditableContent();
-    $this->assertInstanceOf('PapayaPluginEditableContentCallbacks', $content->callbacks());
+    $this->assertInstanceOf(PapayaPluginEditableContentCallbacks::class, $content->callbacks());
   }
 }

@@ -17,7 +17,7 @@ class PapayaApplicationProfileProfilerTest extends PapayaTestCase {
     $profile->builder($this->getBuilderFixture());
     $profiler = $profile->createObject($application);
     $this->assertInstanceOf(
-      'PapayaProfiler', $profiler
+      PapayaProfiler::class, $profiler
     );
     $this->assertFalse(
       $profiler->allowRun()
@@ -39,7 +39,7 @@ class PapayaApplicationProfileProfilerTest extends PapayaTestCase {
     $profile->builder($this->getBuilderFixture());
     $profiler = $profile->createObject($application);
     $this->assertInstanceOf(
-      'PapayaProfiler', $profiler
+      PapayaProfiler::class, $profiler
     );
     $this->assertTrue(
       $profiler->allowRun()
@@ -61,7 +61,7 @@ class PapayaApplicationProfileProfilerTest extends PapayaTestCase {
   */
   public function testBuilderGetImplicitCreate() {
     $profile = new PapayaApplicationProfileProfiler();
-    $this->assertInstanceOf('PapayaProfilerBuilder', $profile->builder());
+    $this->assertInstanceOf(PapayaProfilerBuilder::class, $profile->builder());
   }
 
   private function getBuilderFixture() {
@@ -69,7 +69,7 @@ class PapayaApplicationProfileProfilerTest extends PapayaTestCase {
     $builder
       ->expects($this->once())
       ->method('papaya')
-      ->with($this->isInstanceOf('PapayaApplication'));
+      ->with($this->isInstanceOf(PapayaApplication::class));
     $builder
       ->expects($this->once())
       ->method('createCollector')

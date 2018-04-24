@@ -8,6 +8,6 @@ class PapayaFilterFactoryProfileIsFileNameTest extends PapayaTestCase {
    */
   public function testGetFilterExpectTrue() {
     $profile = new PapayaFilterFactoryProfileIsFileName();
-    $this->assertInstanceOf('PapayaFilterFileName', $profile->getFilter());
+    $this->assertInstanceOf(PapayaFilterFileName::class, $profile->getFilter());
   }
 }

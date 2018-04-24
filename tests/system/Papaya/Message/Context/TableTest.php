@@ -45,7 +45,7 @@ class PapayaMessageContextTableTest extends PapayaTestCase {
   */
   public function testSetColumnsWithEmptyArrayExpectingException() {
     $context = new PapayaMessageContextTable('');
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException(InvalidArgumentException::class);
     $context->setColumns(array());
   }
 

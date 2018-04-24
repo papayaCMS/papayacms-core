@@ -36,7 +36,7 @@ class PapayaThemeListTest extends PapayaTestCase {
     $list = new PapayaThemeList();
     $list->handler($handler);
     $this->assertInstanceOf(
-      'PapayaContentStructure',
+      PapayaContentStructure::class,
       $list->getDefinition('theme-sample')
     );
   }
@@ -55,7 +55,7 @@ class PapayaThemeListTest extends PapayaTestCase {
    */
   public function testHandlerGetImplicitCreate() {
     $list = new PapayaThemeList();
-    $this->assertInstanceOf('PapayaThemeHandler', $list->handler());
+    $this->assertInstanceOf(PapayaThemeHandler::class, $list->handler());
   }
 }
 

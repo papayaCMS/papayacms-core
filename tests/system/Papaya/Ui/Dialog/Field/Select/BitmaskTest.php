@@ -96,7 +96,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
   */
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('appendTo', 'isSubmitted', 'execute', 'parameters'),
       array(new stdClass())
     );
@@ -116,7 +116,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
   */
   public function testGetCurrentValueWhileDialogWasSendButNoOptionSelected() {
     $dialog = $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('appendTo', 'isSubmitted', 'execute', 'parameters'),
       array(new stdClass())
     );
@@ -140,7 +140,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
   */
   public function testGetCurrentValueWhileDialogWasNotSend() {
     $dialog = $this->getMock(
-      'PapayaUiDialog',
+      PapayaUiDialog::class,
       array('appendTo', 'isSubmitted', 'execute', 'parameters'),
       array(new stdClass())
     );

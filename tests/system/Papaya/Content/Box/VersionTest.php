@@ -34,7 +34,7 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
   */
   public function testSave() {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmtWrite', 'lastInsertId'))
       ->getMock();
@@ -77,7 +77,7 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
   */
   public function testSaveWithDatabaseErrorInFirstQueryExpectingFalse() {
     $databaseAccess = $this->getMock(
-      'PapayaDatabaseAccess', array('getTableName', 'queryFmtWrite'), array(new stdClass)
+      PapayaDatabaseAccess::class, array('getTableName', 'queryFmtWrite'), array(new stdClass)
     );
     $databaseAccess
       ->expects($this->any())
@@ -125,7 +125,7 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
   public function testTranslationsGetWithImplicitCreate() {
     $version = new PapayaContentBoxVersion();
     $this->assertInstanceOf(
-      'PapayaContentBoxVersionTranslations',
+      PapayaContentBoxVersionTranslations::class,
       $version->translations()
     );
   }

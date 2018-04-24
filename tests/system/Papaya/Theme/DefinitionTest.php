@@ -11,7 +11,7 @@ class PapayaThemeDefinitionTest extends PapayaTestCase {
     $pages
       ->expects($this->once())
       ->method('load')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
 
     $definition = new PapayaThemeDefinition();
     $definition->pages($pages);
@@ -62,7 +62,7 @@ class PapayaThemeDefinitionTest extends PapayaTestCase {
    */
   public function testMagicMethodGetExpectingException() {
     $definition = new PapayaThemeDefinition();
-    $this->setExpectedException('UnexpectedValueException');
+    $this->setExpectedException(UnexpectedValueException::class);
     $definition->invalidProperty;
   }
 }

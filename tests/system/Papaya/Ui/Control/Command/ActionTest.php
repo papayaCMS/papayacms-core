@@ -44,7 +44,7 @@ class PapayaUiControlCommandActionTest extends PapayaTestCase {
   */
   public function testDataGetAfterSet() {
     $validator = $this
-      ->getMockBuilder('PapayaRequestParametersValidator')#
+      ->getMockBuilder(PapayaRequestParametersValidator::class)#
       ->disableOriginalConstructor()
       ->getMock();
     $command = new PapayaUiControlCommandAction();
@@ -82,6 +82,6 @@ class PapayaUiControlCommandActionTest extends PapayaTestCase {
   */
   public function testCallbacksGetImplicitCreate() {
     $command = new PapayaUiControlCommandAction();
-    $this->assertInstanceOf('PapayaUiControlCommandActionCallbacks', $command->callbacks());
+    $this->assertInstanceOf(PapayaUiControlCommandActionCallbacks::class, $command->callbacks());
   }
 }

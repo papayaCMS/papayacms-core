@@ -62,7 +62,7 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
       $this->mockPapaya()->application()
     );
     $this->assertInstanceOf(
-      'PapayaUrl', $redirect->url()
+      PapayaUrl::class, $redirect->url()
     );
   }
 

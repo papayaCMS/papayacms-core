@@ -22,15 +22,15 @@ class PapayaUiListviewSubitemImageListTest extends PapayaTestCase {
   */
   public function testAppendToUseValues() {
     $iconValid = $this
-      ->getMockBuilder('PapayaUiIcon')
+      ->getMockBuilder(PapayaUiIcon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconValid
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $iconInvalid = $this
-      ->getMockBuilder('PapayaUiIcon')
+      ->getMockBuilder(PapayaUiIcon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconInvalid
@@ -42,7 +42,7 @@ class PapayaUiListviewSubitemImageListTest extends PapayaTestCase {
       ->method('appendTo')
       ->withAnyParameters();
     $icons = $this->getMock(
-      'PapayaUiIconList', array('getIterator'));
+      PapayaUiIconList::class, array('getIterator'));
     $icons
       ->expects($this->once())
       ->method('getIterator')
@@ -73,15 +73,15 @@ class PapayaUiListviewSubitemImageListTest extends PapayaTestCase {
   */
   public function testAppendToUseKeys() {
     $iconValid = $this
-      ->getMockBuilder('PapayaUiIcon')
+      ->getMockBuilder(PapayaUiIcon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconValid
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $iconInvalid = $this
-      ->getMockBuilder('PapayaUiIcon')
+      ->getMockBuilder(PapayaUiIcon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconInvalid
@@ -93,7 +93,7 @@ class PapayaUiListviewSubitemImageListTest extends PapayaTestCase {
       ->method('appendTo')
       ->withAnyParameters();
     $icons = $this->getMock(
-      'PapayaUiIconList', array('getIterator'));
+      PapayaUiIconList::class, array('getIterator'));
     $icons
       ->expects($this->once())
       ->method('getIterator')
@@ -128,15 +128,15 @@ class PapayaUiListviewSubitemImageListTest extends PapayaTestCase {
   */
   public function testAppendToUseBitmask() {
     $iconValid = $this
-      ->getMockBuilder('PapayaUiIcon')
+      ->getMockBuilder(PapayaUiIcon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconValid
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $iconInvalid = $this
-      ->getMockBuilder('PapayaUiIcon')
+      ->getMockBuilder(PapayaUiIcon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $iconInvalid
@@ -148,7 +148,7 @@ class PapayaUiListviewSubitemImageListTest extends PapayaTestCase {
       ->method('appendTo')
       ->withAnyParameters();
     $icons = $this->getMock(
-      'PapayaUiIconList', array('getIterator'));
+      PapayaUiIconList::class, array('getIterator'));
     $icons
       ->expects($this->once())
       ->method('getIterator')

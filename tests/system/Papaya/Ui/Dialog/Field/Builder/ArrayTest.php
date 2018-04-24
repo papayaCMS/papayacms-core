@@ -49,7 +49,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
     $this->assertInstanceOf(
-      'PapayaUiDialogField', $fields[0]
+      PapayaUiDialogField::class, $fields[0]
     );
   }
 
@@ -116,7 +116,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
     $builder->fieldFactory($fieldFactory);
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
-    $this->assertInstanceOf('PapayaUiDialogField', $fields[0]);
+    $this->assertInstanceOf(PapayaUiDialogField::class, $fields[0]);
   }
 
   /**
@@ -152,7 +152,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
     $builder->fieldFactory($fieldFactory);
     $fields = $builder->getFields();
     $this->assertInstanceOf(
-      'PapayaUiDialogFieldGroup', $fields[0]
+      PapayaUiDialogFieldGroup::class, $fields[0]
     );
     $this->assertCount(1, $fields[0]->fields);
   }
@@ -185,7 +185,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
     $this->assertAttributeInstanceOf(
-      'PapayaUiStringTranslated', '_caption', $fields[0]
+      PapayaUiStringTranslated::class, '_caption', $fields[0]
     );
   }
 
@@ -203,6 +203,6 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
   */
   public function testFieldFactoryGetImplicitCreate() {
     $builder = new PapayaUiDialogFieldBuilderArray(new stdClass, array(), TRUE);
-    $this->assertInstanceOf('PapayaUiDialogFieldFactory', $builder->fieldFactory());
+    $this->assertInstanceOf(PapayaUiDialogFieldFactory::class, $builder->fieldFactory());
   }
 }

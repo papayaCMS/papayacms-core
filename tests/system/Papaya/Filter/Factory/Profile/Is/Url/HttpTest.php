@@ -8,6 +8,6 @@ class PapayaFilterFactoryProfileIsUrlHttpTest extends PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new PapayaFilterFactoryProfileIsUrlHttp();
-    $this->assertInstanceOf('PapayaFilterUrlHttp', $profile->getFilter());
+    $this->assertInstanceOf(PapayaFilterUrlHttp::class, $profile->getFilter());
   }
 }

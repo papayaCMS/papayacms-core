@@ -5,7 +5,7 @@ class PapayaConfigurationIteratorTest extends PapayaTestCase {
 
   public function testIterator() {
     $config = $this
-      ->getMockBuilder('PapayaConfiguration')
+      ->getMockBuilder(PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $config

@@ -16,6 +16,6 @@ class PapayaUiDialogFieldFactoryProfileSelectMediaFolderTest extends PapayaTestC
 
     $profile = new PapayaUiDialogFieldFactoryProfileSelectMediaFolder();
     $profile->options($options);
-    $this->assertInstanceOf('PapayaUiDialogFieldSelectMediaFolder', $profile->getField());
+    $this->assertInstanceOf(PapayaUiDialogFieldSelectMediaFolder::class, $profile->getField());
   }
 }

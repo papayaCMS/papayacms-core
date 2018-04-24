@@ -9,7 +9,7 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   public function testCreateMapping() {
     $themeSet = new PapayaContentThemeSet();
     $this->assertInstanceOf(
-      'PapayaDatabaseInterfaceMapping',
+      PapayaDatabaseInterfaceMapping::class,
       $mapping = $themeSet->mapping()
     );
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));
@@ -99,7 +99,7 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
       ->with(array())
       ->will($this->returnValue(new PapayaXmlDocument));
     $themeSet = new PapayaContentThemeSet();
-    $this->assertInstanceOf('PapayaXmlDocument', $themeSet->getValuesXml($definition));
+    $this->assertInstanceOf(PapayaXmlDocument::class, $themeSet->getValuesXml($definition));
   }
 
   /**
@@ -112,7 +112,7 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
     $definition
       ->expects($this->once())
       ->method('getArray')
-      ->with($this->isInstanceOf('PapayaXmlElement'))
+      ->with($this->isInstanceOf(PapayaXmlElement::class))
       ->will($this->returnValue(array('foo' => 'bar')));
     $themeSet = new PapayaContentThemeSet();
     $themeSet->setValuesXml($definition, $element);

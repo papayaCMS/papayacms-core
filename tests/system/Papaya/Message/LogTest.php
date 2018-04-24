@@ -120,7 +120,7 @@ class PapayaMessageLogTest extends PapayaTestCase {
       'Sample Message'
     );
     $this->assertInstanceOf(
-      'PapayaMessageContextGroup',
+      PapayaMessageContextGroup::class,
       $message->context()
     );
   }

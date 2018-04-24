@@ -54,7 +54,7 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
     $filterOne
       ->expects($this->once())
       ->method('initialize')
-      ->with($this->isInstanceOf('stdClass'));
+      ->with($this->isInstanceOf(stdClass::class));
     $filterOne
       ->expects($this->once())
       ->method('prepareFilterData')
@@ -114,7 +114,7 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
     $filterOne
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
 
     $filterGroup = new PapayaPluginFilterContentGroup($page = $this->getPageFixture());
     $filterGroup->add($filterOne);
@@ -145,7 +145,7 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
 
   public function getPageFixture() {
     $page = $this
-      ->getMockBuilder('PapayaUiContentPage')
+      ->getMockBuilder(PapayaUiContentPage::class)
       ->disableOriginalConstructor()
       ->getMock();
     return $page;

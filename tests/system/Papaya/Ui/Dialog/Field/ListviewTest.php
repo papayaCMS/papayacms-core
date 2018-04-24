@@ -23,7 +23,7 @@ class PapayaUiDialogFieldListviewTest extends PapayaTestCase {
     $listview
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $field = new PapayaUiDialogFieldListview($listview);
     $this->assertEquals(
       '<field class="DialogFieldListview" error="no"/>',

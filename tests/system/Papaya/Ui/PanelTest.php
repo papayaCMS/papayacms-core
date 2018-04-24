@@ -46,7 +46,7 @@ class PapayaUiPanelTest extends PapayaTestCase {
   public function testToolbarsGetImplicitCreate() {
     $panel = new PapayaUiPanel_TestProxy();
     $toolbars = $panel->toolbars();
-    $this->assertInstanceOf('PapayaUiToolbars', $toolbars);
+    $this->assertInstanceOf(PapayaUiToolbars::class, $toolbars);
   }
 }
 

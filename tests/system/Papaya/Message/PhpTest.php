@@ -9,7 +9,7 @@ class PapayaMessagePhpTest extends PapayaTestCase {
   public function testConstructor() {
     $message = new PapayaMessagePhp();
     $this->assertAttributeInstanceOf(
-      'PapayaMessageContextGroup',
+      PapayaMessageContextGroup::class,
       '_context',
       $message
     );
@@ -67,7 +67,7 @@ class PapayaMessagePhpTest extends PapayaTestCase {
   public function testContext() {
     $message = new PapayaMessagePhp();
     $this->assertInstanceOf(
-      'PapayaMessageContextGroup',
+      PapayaMessageContextGroup::class,
       $message->context()
     );
   }

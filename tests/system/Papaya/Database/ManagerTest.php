@@ -109,7 +109,7 @@ class PapayaDatabaseManagerTest extends PapayaTestCase {
   */
   public function testClose() {
     $manager = new PapayaDatabaseManager();
-    $connector = $this->getMock('db_simple', array('close'));
+    $connector = $this->getMock(db_simple::class, array('close'));
     $connector
       ->expects($this->once())
       ->method('close');
@@ -124,7 +124,7 @@ class PapayaDatabaseManagerTest extends PapayaTestCase {
     $manager = new PapayaDatabaseManager();
     $manager->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaDatabaseAccess', $databaseAccess = $manager->createDatabaseAccess(new stdClass)
+      PapayaDatabaseAccess::class, $databaseAccess = $manager->createDatabaseAccess(new stdClass)
     );
     $this->assertSame(
       $papaya, $databaseAccess->papaya()

@@ -16,7 +16,7 @@ class PapayaUiDialogFieldFactoryProfileSelectBooleanTest extends PapayaTestCase 
     );
     $profile = new PapayaUiDialogFieldFactoryProfileSelectBoolean();
     $profile->options($options);
-    $this->assertInstanceOf('PapayaUiDialogFieldSelectRadio', $field = $profile->getField());
-    $this->assertAttributeInstanceOf('PapayaUiStringTranslatedList', '_values', $field);
+    $this->assertInstanceOf(PapayaUiDialogFieldSelectRadio::class, $field = $profile->getField());
+    $this->assertAttributeInstanceOf(PapayaUiStringTranslatedList::class, '_values', $field);
   }
 }

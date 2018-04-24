@@ -33,7 +33,7 @@ class PapayaFilterLocaleGermanyZipTest extends PapayaTestCase {
   */
   public function testValidateExpectCharacterInvalidException() {
     $filter = new PapayaFilterLocaleGermanyZip(TRUE);
-    $this->setExpectedException('PapayaFilterExceptionCharacterInvalid');
+    $this->setExpectedException(PapayaFilterExceptionCharacterInvalid::class);
     $filter->validate('11235');
   }
 
@@ -42,7 +42,7 @@ class PapayaFilterLocaleGermanyZipTest extends PapayaTestCase {
   */
   public function testValidateExpectLengthMinimumException() {
     $filter = new PapayaFilterLocaleGermanyZip();
-    $this->setExpectedException('PapayaFilterExceptionLengthMinimum');
+    $this->setExpectedException(PapayaFilterExceptionLengthMinimum::class);
     $filter->validate('123');
   }
 
@@ -51,7 +51,7 @@ class PapayaFilterLocaleGermanyZipTest extends PapayaTestCase {
   */
   public function testValidateExpectLengthMaximumException() {
     $filter = new PapayaFilterLocaleGermanyZip();
-    $this->setExpectedException('PapayaFilterExceptionLengthMaximum');
+    $this->setExpectedException(PapayaFilterExceptionLengthMaximum::class);
     $filter->validate('342423432424');
   }
 
@@ -60,7 +60,7 @@ class PapayaFilterLocaleGermanyZipTest extends PapayaTestCase {
   */
   public function testValidateExpectCharacterInvalidExceptionInPostalcode() {
     $filter = new PapayaFilterLocaleGermanyZip();
-    $this->setExpectedException('PapayaFilterExceptionCharacterInvalid');
+    $this->setExpectedException(PapayaFilterExceptionCharacterInvalid::class);
     $filter->validate('23a91');
   }
 

@@ -19,7 +19,7 @@ class PapayaCacheIdentifierDefinitionSurferTest extends PapayaTestCase {
       )
     );
     $this->assertEquals(
-      array('PapayaCacheIdentifierDefinitionSurfer' => '012345678901234567890123456789ab'),
+      array(PapayaCacheIdentifierDefinitionSurfer::class => '012345678901234567890123456789ab'),
       $definition->getStatus()
     );
   }

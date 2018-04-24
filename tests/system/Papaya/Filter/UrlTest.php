@@ -16,7 +16,7 @@ class PapayaFilterUrlTest extends PapayaTestCase {
   */
   public function testValidateExpectingException() {
     $filter = new PapayaFilterUrl();
-    $this->setExpectedException('PapayaFilterExceptionType');
+    $this->setExpectedException(PapayaFilterExceptionType::class);
     $filter->validate("invalid url");
   }
 

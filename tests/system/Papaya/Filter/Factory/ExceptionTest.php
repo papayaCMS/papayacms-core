@@ -7,7 +7,7 @@ class PapayaFilterFactoryExceptionTest extends PapayaTestCase {
    * @covers PapayaFilterFactoryException
    */
   public function testThrowException() {
-    $this->setExpectedException('PapayaFilterFactoryException');
+    $this->setExpectedException(PapayaFilterFactoryException::class);
     throw new PapayaFilterFactoryException_TestProxy();
   }
 

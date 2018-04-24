@@ -9,7 +9,7 @@ class PapayaContentCommunityUsersTest extends PapayaTestCase {
   */
   public function testCompileCondition($expected, $filter) {
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('getSqlCondition', 'escapeString'))
       ->getMock();

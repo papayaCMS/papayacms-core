@@ -8,14 +8,14 @@ class PapayaUiDialogDatabaseSaveTest extends PapayaTestCase {
   */
   public function testExecuteExpectingTrue() {
     $callbacks = $this
-      ->getMockBuilder('PapayaUiDialogDatabaseCallbacks')
+      ->getMockBuilder(PapayaUiDialogDatabaseCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onBeforeSave'))
       ->getMock();
     $callbacks
       ->expects($this->once())
       ->method('onBeforeSave')
-      ->with($this->isInstanceOf('PapayaDatabaseInterfaceRecord'))
+      ->with($this->isInstanceOf(PapayaDatabaseInterfaceRecord::class))
       ->will($this->returnValue(TRUE));
     $record = $this->getRecordFixture();
     $record
@@ -35,14 +35,14 @@ class PapayaUiDialogDatabaseSaveTest extends PapayaTestCase {
   */
   public function testExecuteBlockedByCallbackExpectingFalse() {
     $callbacks = $this
-      ->getMockBuilder('PapayaUiDialogDatabaseCallbacks')
+      ->getMockBuilder(PapayaUiDialogDatabaseCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onBeforeSave'))
       ->getMock();
     $callbacks
       ->expects($this->once())
       ->method('onBeforeSave')
-      ->with($this->isInstanceOf('PapayaDatabaseInterfaceRecord'))
+      ->with($this->isInstanceOf(PapayaDatabaseInterfaceRecord::class))
       ->will($this->returnValue(FALSE));
     $record = $this->getRecordFixture();
     $record

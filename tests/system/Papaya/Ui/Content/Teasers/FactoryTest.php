@@ -15,8 +15,8 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
     $teasers = $factory->byFilter(
       array('parent' => 21, 'view_id' => 42, 'language_id' => 1), $orderBy
     );
-    $this->assertInstanceOf('PapayaUiContentTeasers', $teasers);
-    $this->assertInstanceOf('PapayaContentPagesPublications', $teasers->pages());
+    $this->assertInstanceOf(PapayaUiContentTeasers::class, $teasers);
+    $this->assertInstanceOf(PapayaContentPagesPublications::class, $teasers->pages());
 
   }
 
@@ -45,9 +45,9 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
     );
 
     $teasers = $factory->byParent(42);
-    $this->assertInstanceOf('PapayaUiContentTeasers', $teasers);
-    $this->assertInstanceOf('PapayaContentPages', $teasers->pages());
-    $this->assertNotInstanceOf('PapayaContentPagesPublications', $teasers->pages());
+    $this->assertInstanceOf(PapayaUiContentTeasers::class, $teasers);
+    $this->assertInstanceOf(PapayaContentPages::class, $teasers->pages());
+    $this->assertNotInstanceOf(PapayaContentPagesPublications::class, $teasers->pages());
   }
 
   /**
@@ -60,8 +60,8 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
     $factory->papaya($this->mockPapaya()->application());
 
     $teasers = $factory->byParent(array(21, 42), $orderBy);
-    $this->assertInstanceOf('PapayaUiContentTeasers', $teasers);
-    $this->assertInstanceOf('PapayaContentPagesPublications', $teasers->pages());
+    $this->assertInstanceOf(PapayaUiContentTeasers::class, $teasers);
+    $this->assertInstanceOf(PapayaContentPagesPublications::class, $teasers->pages());
   }
 
   /**
@@ -72,8 +72,8 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
     $factory->papaya($this->mockPapaya()->application());
 
     $teasers = $factory->byParent(array(21, 42), 'invalid');
-    $this->assertInstanceOf('PapayaUiContentTeasers', $teasers);
-    $this->assertInstanceOf('PapayaContentPagesPublications', $teasers->pages());
+    $this->assertInstanceOf(PapayaUiContentTeasers::class, $teasers);
+    $this->assertInstanceOf(PapayaContentPagesPublications::class, $teasers->pages());
   }
 
   /**
@@ -84,8 +84,8 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
     $factory->papaya($this->mockPapaya()->application());
 
     $teasers = $factory->byPageId(42);
-    $this->assertInstanceOf('PapayaUiContentTeasers', $teasers);
-    $this->assertInstanceOf('PapayaContentPagesPublications', $teasers->pages());
+    $this->assertInstanceOf(PapayaUiContentTeasers::class, $teasers);
+    $this->assertInstanceOf(PapayaContentPagesPublications::class, $teasers->pages());
   }
 
 }

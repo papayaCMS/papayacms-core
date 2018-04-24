@@ -41,7 +41,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
     $client = $this->createMock(PapayaHttpClient::class);
     $wrapper = new PapayaStreamwrapperS3Handler();
     $this->assertInstanceOf(
-      'PapayaHttpClient', $wrapper->getHTTPClient()
+      PapayaHttpClient::class, $wrapper->getHTTPClient()
     );
   }
 
@@ -649,7 +649,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
     $client
       ->expects($this->once())
       ->method('addRequestFile')
-      ->with($this->isInstanceOf('PapayaHttpClientFileResource'));
+      ->with($this->isInstanceOf(PapayaHttpClientFileResource::class));
     $client
       ->expects($this->once())
       ->method('getResponseStatus')
