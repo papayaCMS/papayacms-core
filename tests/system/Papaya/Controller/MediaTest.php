@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../bootstrap.php');
+require_once __DIR__.'/../../../bootstrap.php';
 PapayaTestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_MEDIADB_FILES',
   'PAPAYA_DB_TBL_MEDIADB_FILES_DERIVATIONS',
