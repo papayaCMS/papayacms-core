@@ -230,7 +230,7 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
   public function setParameterNameMapping($identifier, $name) {
     if (!isset($this->_parameterNames[$identifier])) {
       throw new InvalidArgumentException(
-        sprintf('Unknown parameter identifer "%s".', $identifier)
+        sprintf('Unknown parameter identifier "%s".', $identifier)
       );
     }
     PapayaUtilConstraints::assertNotEmpty($name);

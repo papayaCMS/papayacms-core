@@ -9,32 +9,32 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   public function testPrepare() {
     $dialog = new PapayaAdministrationCommunityUsersListDialog();
     $dialog->papaya($this->mockPapaya()->application());
-    $dialog->prepare($this->mockPapaya()->application());
-    $this->assertEquals(
-      '<dialog-box action="http://www.test.tld/test.html" method="get">'.
-        '<title caption="Users"/>'.
-        '<options>'.
-          '<option name="USE_CONFIRMATION" value="no"/>'.
-          '<option name="USE_TOKEN" value="no"/>'.
-          '<option name="PROTECT_CHANGES" value="yes"/>'.
-          '<option name="CAPTION_STYLE" value="0"/>'.
-          '<option name="DIALOG_WIDTH" value="s"/>'.
-          '<option name="TOP_BUTTONS" value="no"/>'.
-          '<option name="BOTTOM_BUTTONS" value="yes"/>'.
-        '</options>'.
-        '<field caption="Search" class="DialogFieldInput" error="no">'.
-          '<input type="text" name="filter" maxlength="1024"/>'.
-        '</field>'.
-        '<field class="DialogFieldButtons" error="no">'.
-          '<buttons>'.
-            '<button type="submit" align="right">Filter</button>'.
-            '<button type="submit" align="left" name="filter-reset[1]">Reset</button>'.
-          '</buttons>'.
-        '</field>'.
-        '<field class="DialogFieldListview" error="no">'.
-          '<listview><toolbar position="bottom right"/></listview>'.
-        '</field>'.
-      '</dialog-box>',
+    $dialog->prepare();
+    $this->assertXmlStringEqualsXmlString(
+      // language=xml
+      '<dialog-box action="http://www.test.tld/test.html" method="get">
+        <title caption="Users"/>
+        <options>
+          <option name="USE_CONFIRMATION" value="no"/>
+          <option name="USE_TOKEN" value="no"/>
+          <option name="PROTECT_CHANGES" value="yes"/>
+          <option name="CAPTION_STYLE" value="0"/>
+          <option name="DIALOG_WIDTH" value="s"/>
+          <option name="TOP_BUTTONS" value="no"/>
+          <option name="BOTTOM_BUTTONS" value="yes"/>
+        </options>
+        <field caption="Search" class="DialogFieldInput" error="no">
+          <input type="text" name="filter" maxlength="1024"/></field>
+        <field class="DialogFieldButtons" error="no">
+          <buttons>
+            <button type="submit" align="right">Filter</button>
+            <button type="submit" align="left" name="filter-reset[1]">Reset</button>
+          </buttons>
+        </field>
+        <field class="DialogFieldListview" error="no">
+          <listview><toolbar position="bottom right"/></listview>
+        </field>
+      </dialog-box>',
       $dialog->getXml()
     );
   }
@@ -43,7 +43,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   * @covers PapayaAdministrationCommunityUsersListDialog::execute
   */
   public function testExecute() {
-    $users = $this->getMock('PapayaContentCommunityUsers');
+    $users = $this->createMock(PapayaContentCommunityUsers::class);
     $users
       ->expects($this->once())
       ->method('load')
@@ -63,7 +63,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   * @covers PapayaAdministrationCommunityUsersListDialog::execute
   */
   public function testExecuteWithFilter() {
-    $users = $this->getMock('PapayaContentCommunityUsers');
+    $users = $this->createMock(PapayaContentCommunityUsers::class);
     $users
       ->expects($this->once())
       ->method('load')
@@ -96,7 +96,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   * @covers PapayaAdministrationCommunityUsersListDialog::execute
   */
   public function testExecuteWithFilterReset() {
-    $users = $this->getMock('PapayaContentCommunityUsers');
+    $users = $this->createMock(PapayaContentCommunityUsers::class);
     $users
       ->expects($this->once())
       ->method('load')
@@ -123,7 +123,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   * @covers PapayaAdministrationCommunityUsersListDialog::users
   */
   public function testUsersGetAfterset() {
-    $users = $this->getMock('PapayaContentCommunityUsers');
+    $users = $this->createMock(PapayaContentCommunityUsers::class);
     $dialog = new PapayaAdministrationCommunityUsersListDialog();
     $dialog->users($users);
     $this->assertSame($users, $dialog->users());
@@ -134,14 +134,14 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   */
   public function testUsersImplicitCreate() {
     $dialog = new PapayaAdministrationCommunityUsersListDialog();
-    $this->assertInstanceOf('PapayaContentCommunityUsers', $dialog->users());
+    $this->assertInstanceOf(PapayaContentCommunityUsers::class, $dialog->users());
   }
 
   /**
   * @covers PapayaAdministrationCommunityUsersListDialog::listview
   */
   public function testListviewGetAfterSet() {
-    $listview = $this->getMock('PapayaUiListview');
+    $listview = $this->createMock(PapayaUiListview::class);
     $dialog = new PapayaAdministrationCommunityUsersListDialog();
     $dialog->listview($listview);
     $this->assertSame($listview, $dialog->listview());
@@ -153,7 +153,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   public function testListviewImplicitCreate() {
     $dialog = new PapayaAdministrationCommunityUsersListDialog();
     $dialog->papaya($this->mockPapaya()->application());
-    $this->assertInstanceOf('PapayaUiListview', $dialog->listview());
+    $this->assertInstanceOf(PapayaUiListview::class, $dialog->listview());
   }
 
   /**
@@ -163,11 +163,10 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
     $dialog = new PapayaAdministrationCommunityUsersListDialog();
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->createUserItem(
-      new stdClass, $dialog->listview()->items, array('id' => 42, 'caption' => 'test'), 0
+      new stdClass, $dialog->listview()->items, array('id' => 42, 'caption' => 'test')
     );
-    $this->assertEquals(
-      '<listitem title="test"'.
-      ' href="http://www.test.tld/test.html?page=1&amp;user_id=42"/>',
+    $this->assertXmlStringEqualsXmlString(
+      '<listitem title="test" href="http://www.test.tld/test.html?page=1&amp;user_id=42"/>',
       $dialog->listview()->items[0]->getXml()
     );
   }
@@ -177,7 +176,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   */
   public function testPagingGetAfterSet() {
     $paging = $this
-      ->getMockBuilder('PapayaUiToolbarPaging')
+      ->getMockBuilder(PapayaUiToolbarPaging::class)
       ->disableOriginalConstructor()
       ->getMock();
     $dialog = new PapayaAdministrationCommunityUsersListDialog();
@@ -190,14 +189,14 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   */
   public function testPagingImplicitCreate() {
     $dialog = new PapayaAdministrationCommunityUsersListDialog();
-    $this->assertInstanceOf('PapayaUiToolbarPaging', $dialog->paging());
+    $this->assertInstanceOf(PapayaUiToolbarPaging::class, $dialog->paging());
   }
 
   /**
   * @covers PapayaAdministrationCommunityUsersListDialog::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->getMock('PapayaUiReference');
+    $reference = $this->createMock(PapayaUiReference::class);
     $dialog = new PapayaAdministrationCommunityUsersListDialog();
     $dialog->reference($reference);
     $this->assertSame($reference, $dialog->reference());
@@ -208,7 +207,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   */
   public function testReferenceImplicitCreate() {
     $dialog = new PapayaAdministrationCommunityUsersListDialog();
-    $this->assertInstanceOf('PapayaUiReference', $dialog->reference());
+    $this->assertInstanceOf(PapayaUiReference::class, $dialog->reference());
   }
 
   /**
@@ -221,11 +220,10 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
     $dialog->setParameterNameMapping('page', 'offset_page');
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->createUserItem(
-      new stdClass, $dialog->listview()->items, array('id' => 42, 'caption' => 'test'), 0
+      new stdClass, $dialog->listview()->items, array('id' => 42, 'caption' => 'test')
     );
-    $this->assertEquals(
-      '<listitem title="test"'.
-      ' href="http://www.test.tld/test.html?offset_page=1&amp;surfer_id=42"/>',
+    $this->assertXmlStringEqualsXmlString(
+      '<listitem title="test" href="http://www.test.tld/test.html?offset_page=1&amp;surfer_id=42"/>',
       $dialog->listview()->items[0]->getXml()
     );
   }
@@ -235,10 +233,8 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   */
   public function testSetParamterNameMappingExpectingException() {
     $dialog = new PapayaAdministrationCommunityUsersListDialog();
-    $this->setExpectedException(
-      'InvalidArgumentException',
-      'Unknown parameter identifer "unknown-parameter".'
-    );
+    $this->expectException(\InvalidArgumentException::class);
+    $this->expectExceptionMessage('Unknown parameter identifier "unknown-parameter".');
     $dialog->setParameterNameMapping('unknown-parameter', 'some');
   }
 
