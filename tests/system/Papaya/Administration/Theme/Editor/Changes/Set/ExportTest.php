@@ -7,7 +7,7 @@ class PapayaAdministrationThemeEditorChangesSetExportTest extends PapayaTestCase
    * @covers PapayaAdministrationThemeEditorChangesSetExport
    */
   public function testAppendTo() {
-    $response = $this->getMock('PapayaResponse');
+    $response = $this->createMock(PapayaResponse::class);
     $response
       ->expects($this->once())
       ->method('setStatus')
@@ -27,22 +27,24 @@ class PapayaAdministrationThemeEditorChangesSetExportTest extends PapayaTestCase
     $response
       ->expects($this->once())
       ->method('content')
-      ->with($this->isInstanceOf('PapayaResponseContentString'));
+      ->with($this->isInstanceOf(PapayaResponseContentString::class));
 
-    $themeHandler = $this->getMock('PapayaThemeHandler');
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
+    $themeHandler = $this->createMock(PapayaThemeHandler::class);
     $themeHandler
       ->expects($this->once())
       ->method('getDefinition')
       ->with('theme')
-      ->will($this->returnValue($this->getMock('PapayaContentStructure')));
+      ->will($this->returnValue($this->createMock(PapayaContentStructure::class)));
 
-    $document = $this->getMock('PapayaXmlDocument');
+    $document = $this->createMock(PapayaXmlDocument::class);
     $document
       ->expects($this->once())
       ->method('saveXml')
       ->will($this->returnValue('<theme/>'));
 
-    $themeSet = $this->getMock('PapayaContentThemeSet');
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentThemeSet $themeSet */
+    $themeSet = $this->createMock(PapayaContentThemeSet::class);
     $themeSet
       ->expects($this->once())
       ->method('load')
@@ -61,7 +63,7 @@ class PapayaAdministrationThemeEditorChangesSetExportTest extends PapayaTestCase
     $themeSet
       ->expects($this->once())
       ->method('getValuesXml')
-      ->with($this->isInstanceOf('PapayaContentStructure'))
+      ->with($this->isInstanceOf(PapayaContentStructure::class))
       ->will($this->returnValue($document));
 
     $export = new PapayaAdministrationThemeEditorChangesSetExport($themeSet, $themeHandler);

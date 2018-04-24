@@ -7,7 +7,9 @@ class PapayaAdministrationThemeEditorTest extends PapayaTestCase {
    * @covers PapayaAdministrationThemeEditor::createContent
    */
   public function testCreateContent() {
-    $page = new PapayaAdministrationThemeEditor_TestProxy($this->getMock('papaya_xsl'));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
+    $template = $this->createMock(PapayaTemplate::class);
+    $page = new PapayaAdministrationThemeEditor_TestProxy($template);
     $this->assertInstanceOf(
       'PapayaAdministrationPagePart', $page->createContent()
     );
@@ -17,7 +19,9 @@ class PapayaAdministrationThemeEditorTest extends PapayaTestCase {
    * @covers PapayaAdministrationThemeEditor::createNavigation
    */
   public function testCreateNavigation() {
-    $page = new PapayaAdministrationThemeEditor_TestProxy($this->getMock('papaya_xsl'));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
+    $template = $this->createMock(PapayaTemplate::class);
+    $page = new PapayaAdministrationThemeEditor_TestProxy($template);
     $this->assertInstanceOf(
       'PapayaAdministrationPagePart', $page->createNavigation()
     );

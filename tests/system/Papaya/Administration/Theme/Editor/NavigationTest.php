@@ -7,7 +7,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
    * @covers PapayaAdministrationThemeEditorNavigation::appendTo
    */
   public function testAppendTo() {
-    $listview = $this->getMock('PapayaUiListview');
+    $listview = $this->createMock(PapayaUiListview::class);
     $listview
       ->expects($this->once())
       ->method('appendTo');
@@ -23,18 +23,19 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   public function testToolbarButtonsWithSelectedTheme() {
     $navigation = new PapayaAdministrationThemeEditorNavigation();
     $navigation->papaya($this->mockPapaya()->application());
-    $navigation->listview($this->getMock('PapayaUiListview'));
+    $navigation->listview($this->createMock(PapayaUiListview::class));
     $navigation->parameters(new PapayaRequestParameters(array('theme' => 'default')));
     $navigation->getXml();
-    $this->assertEquals(
-      '<button'.
-        ' href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=0&amp;theme=default"'.
-        ' target="_self"'.
-        ' title="Add set"/>'.
-      '<button'.
-        ' href="http://www.test.tld/test.html?cmd=set_import&amp;set_id=0&amp;theme=default"'.
-        ' target="_self"'.
-        ' title="Import"/>',
+    $this->assertXmlFragmentEqualsXmlFragment(
+      // language=xml prefix=<fragment> suffix=</fragment>
+      '<button
+         href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=0&amp;theme=default"
+         target="_self"
+         title="Add set"/>
+      <button
+         href="http://www.test.tld/test.html?cmd=set_import&amp;set_id=0&amp;theme=default"
+         target="_self"
+         title="Import"/>',
       $navigation->toolbar()->getXml()
     );
   }
@@ -45,26 +46,27 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   public function testToolbarButtonsWithSelectedSet() {
     $navigation = new PapayaAdministrationThemeEditorNavigation();
     $navigation->papaya($this->mockPapaya()->application());
-    $navigation->listview($this->getMock('PapayaUiListview'));
+    $navigation->listview($this->createMock(PapayaUiListview::class));
     $navigation->parameters(
       new PapayaRequestParameters(array('theme' => 'default', 'set_id' => 42))
     );
     $navigation->getXml();
-    $this->assertEquals(
-      '<button'.
-        ' href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=0&amp;theme=default"'.
-        ' target="_self"'.
-        ' title="Add set"/>'.
-      '<button'.
-        ' href="http://www.test.tld/test.html?cmd=set_delete&amp;set_id=42&amp;theme=default"'.
-        ' target="_self"'.
-        ' title="Delete set"/>'.
-      '<button href="http://www.test.tld/test.html?cmd=set_import&amp;set_id=42&amp;theme=default"'.
-        ' target="_self"'.
-        ' title="Import"/>'.
-      '<button href="http://www.test.tld/test.html?cmd=set_export&amp;set_id=42&amp;theme=default"'.
-        ' target="_self"'.
-        ' title="Export"/>',
+    $this->assertXmlFragmentEqualsXmlFragment(
+    // language=xml prefix=<fragment> suffix=</fragment>
+      '<button
+         href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=0&amp;theme=default"
+         target="_self"
+         title="Add set"/>
+      <button
+         href="http://www.test.tld/test.html?cmd=set_delete&amp;set_id=42&amp;theme=default"
+         target="_self"
+         title="Delete set"/>
+      <button href="http://www.test.tld/test.html?cmd=set_import&amp;set_id=42&amp;theme=default"
+         target="_self"
+         title="Import"/>
+      <button href="http://www.test.tld/test.html?cmd=set_export&amp;set_id=42&amp;theme=default"
+         target="_self"
+         title="Export"/>',
       $navigation->toolbar()->getXml()
     );
   }
@@ -74,7 +76,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
    */
   public function testListviewGetAfterSet() {
     $navigation = new PapayaAdministrationThemeEditorNavigation();
-    $navigation->listview($listview = $this->getMock('PapayaUiListview'));
+    $navigation->listview($listview = $this->createMock(PapayaUiListview::class));
     $this->assertSame(
       $listview, $navigation->listview()
     );
@@ -88,7 +90,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $navigation = new PapayaAdministrationThemeEditorNavigation();
     $navigation->parameters(new PapayaRequestParameters());
     $this->assertInstanceOf(
-      'PapayaUiListview', $navigation->listview()
+      PapayaUiListview::class, $navigation->listview()
     );
   }
 
@@ -100,7 +102,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $navigation = new PapayaAdministrationThemeEditorNavigation();
     $navigation->parameters(new PapayaRequestParameters(array('theme' => 'default')));
     $this->assertInstanceOf(
-      'PapayaUiListview', $navigation->listview()
+      PapayaUiListview::class, $navigation->listview()
     );
   }
 
@@ -114,7 +116,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       new PapayaRequestParameters(array('theme' => 'default', 'set_id' => 23))
     );
     $this->assertInstanceOf(
-      'PapayaUiListview', $navigation->listview()
+      PapayaUiListview::class, $navigation->listview()
     );
   }
 
@@ -123,8 +125,9 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
    */
   public function testCallbackCreateItemForInvalidElement() {
     $navigation = new PapayaAdministrationThemeEditorNavigation();
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
     $items = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $this->assertNull(
@@ -140,22 +143,24 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $papaya = $this->mockPapaya()->application(
       array('images' => array('items-theme' => 'theme.png'))
     );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
     $items = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf('PapayaUiListviewItem'));
+      ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
     $navigation = new PapayaAdministrationThemeEditorNavigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
-    $this->assertEquals(
-      '<listitem'.
-        ' title="sample"'.
-        ' image="theme.png"'.
-        ' href="http://www.test.tld/test.html?cmd=theme_show&amp;theme=sample"/>',
+    $this->assertXmlStringEqualsXmlString(
+      // language=xml
+      '<listitem
+         title="sample"
+         image="theme.png"
+         href="http://www.test.tld/test.html?cmd=theme_show&amp;theme=sample"/>',
       $item->getXml()
     );
   }
@@ -171,6 +176,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
         'images' => array('items-theme' => 'theme.png')
       )
     );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
     $items = $this
       ->getMockBuilder('PapayaUiListviewItems')
       ->disableOriginalConstructor()
@@ -178,16 +184,17 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf('PapayaUiListviewItem'));
+      ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
     $navigation = new PapayaAdministrationThemeEditorNavigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
-    $this->assertEquals(
-      '<listitem'.
-        ' title="sample"'.
-        ' image="theme.png"'.
-        ' href="http://www.test.tld/test.html?cmd=theme_show&amp;theme=sample"'.
-        ' selected="selected"/>',
+    $this->assertXmlStringEqualsXmlString(
+      // language=xml
+      '<listitem
+         title="sample"
+         image="theme.png"
+         href="http://www.test.tld/test.html?cmd=theme_show&amp;theme=sample"
+         selected="selected"/>',
       $item->getXml()
     );
   }
@@ -203,22 +210,24 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
         'images' => array('items-theme' => 'theme.png')
       )
     );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
     $items = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf('PapayaUiListviewItem'));
+      ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
     $navigation = new PapayaAdministrationThemeEditorNavigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
-    $this->assertEquals(
-      '<listitem'.
-        ' title="sample"'.
-        ' image="theme.png"'.
-        ' href="http://www.test.tld/test.html?cmd=theme_show&amp;theme=sample"/>',
+    $this->assertXmlStringEqualsXmlString(
+      // language=xml
+      '<listitem
+         title="sample"
+         image="theme.png"
+         href="http://www.test.tld/test.html?cmd=theme_show&amp;theme=sample"/>',
       $item->getXml()
     );
   }
@@ -233,14 +242,15 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
         'images' => array('items-folder' => 'folder.png')
       )
     );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
     $items = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf('PapayaUiListviewItem'));
+      ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
     $navigation = new PapayaAdministrationThemeEditorNavigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem(
@@ -249,12 +259,13 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       array('id' => 23, 'title' => 'sample title', 'theme' => 'sample'),
       0
     );
-    $this->assertEquals(
-      '<listitem'.
-        ' title="sample title"'.
-        ' image="folder.png"'.
-        ' href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=23&amp;theme=sample"'.
-        ' indent="1"/>',
+    $this->assertXmlStringEqualsXmlString(
+      // language=xml
+      '<listitem
+         title="sample title"
+         image="folder.png"
+         href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=23&amp;theme=sample"
+         indent="1"/>',
       $item->getXml()
     );
   }
@@ -270,14 +281,15 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
         'images' => array('items-folder' => 'folder.png')
       )
     );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
     $items = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf('PapayaUiListviewItem'));
+      ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
     $navigation = new PapayaAdministrationThemeEditorNavigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem(
@@ -286,13 +298,14 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       array('id' => 23, 'title' => 'sample title', 'theme' => 'sample'),
       0
     );
-    $this->assertEquals(
-      '<listitem'.
-        ' title="sample title"'.
-        ' image="folder.png"'.
-        ' href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=23&amp;theme=sample"'.
-        ' indent="1"'.
-        ' selected="selected"/>',
+    $this->assertXmlStringEqualsXmlString(
+      // language=xml
+      '<listitem
+         title="sample title"
+         image="folder.png"
+         href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=23&amp;theme=sample"
+         indent="1"
+         selected="selected"/>',
       $item->getXml()
     );
   }
@@ -308,14 +321,15 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
         'images' => array('items-folder' => 'folder.png')
       )
     );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
     $items = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf('PapayaUiListviewItem'));
+      ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
 
     $page = new PapayaContentStructurePage();
     $page->title = 'Page title';
@@ -329,12 +343,13 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       $page,
       0
     );
-    $this->assertEquals(
-      '<listitem'.
-        ' title="Page title"'.
-        ' image="folder.png"'.
-        ' href="http://www.test.tld/test.html?cmd=values_edit&amp;page_identifier=SAMPLE_PAGE&amp;set_id=23&amp;theme=sample"'.
-        ' indent="2"/>',
+    $this->assertXmlStringEqualsXmlString(
+      // language=xml
+      '<listitem
+         title="Page title"
+         image="folder.png"
+         href="http://www.test.tld/test.html?cmd=values_edit&amp;page_identifier=SAMPLE_PAGE&amp;set_id=23&amp;theme=sample"
+         indent="2"/>',
       $item->getXml()
     );
   }
@@ -352,14 +367,15 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
         'images' => array('items-folder' => 'folder.png')
       )
     );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
     $items = $this
-      ->getMockBuilder('PapayaUiListviewItems')
+      ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $items
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf('PapayaUiListviewItem'));
+      ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
 
     $page = new PapayaContentStructurePage();
     $page->title = 'Page title';
@@ -373,28 +389,33 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       $page,
       0
     );
-    $this->assertEquals(
-      '<listitem'.
-        ' title="Page title"'.
-        ' image="folder.png"'.
-        ' href="http://www.test.tld/test.html?cmd=values_edit&amp;page_identifier=SAMPLE_PAGE&amp;set_id=23&amp;theme=sample"'.
-        ' indent="2"'.
-        ' selected="selected"/>',
+    $this->assertXmlStringEqualsXmlString(
+      // language=xml
+      '<listitem
+         title="Page title"
+         image="folder.png"
+         href="http://www.test.tld/test.html?cmd=values_edit&amp;page_identifier=SAMPLE_PAGE&amp;set_id=23&amp;theme=sample"
+         indent="2"
+         selected="selected"/>',
       $item->getXml()
     );
   }
 
+  /**
+   * @param int $depth
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItemsBuilder
+   */
   private function getBuilderFixture($depth = 0) {
     $iterator = $this
       ->getMockBuilder('RecursiveIteratorIterator')
-      ->setConstructorArgs(array($this->getMock('RecursiveIterator')))
+      ->setConstructorArgs(array($this->createMock(RecursiveIterator::class)))
       ->getMock();
     $iterator
       ->expects($this->once())
       ->method('getDepth')
       ->will($this->returnValue($depth));
     $builder = $this
-      ->getMockBuilder('PapayaUiListviewItemsBuilder')
+      ->getMockBuilder(PapayaUiListviewItemsBuilder::class)
       ->disableOriginalConstructor()
       ->getMock();
     $builder
