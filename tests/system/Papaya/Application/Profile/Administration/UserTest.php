@@ -17,7 +17,7 @@ class PapayaApplicationProfileAdministrationUserTest extends PapayaTestCase {
   * @covers PapayaApplicationProfileAdministrationUser::createObject
   */
   public function testCreateObject() {
-    $options = $this->getMock('PapayaConfigurationCms');
+    $options = $this->createMock(PapayaConfigurationCms::class);
     $options
       ->expects($this->once())
       ->method('defineDatabaseTables');

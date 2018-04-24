@@ -57,14 +57,14 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    * @covers PapayaFilterFactory
    */
   public function testGetFilter() {
-    $profile = $this->getMock('PapayaFilterFactoryProfile');
+    $profile = $this->createMock(PapayaFilterFactoryProfile::class);
     $profile
       ->expects($this->never())
       ->method('options');
     $profile
       ->expects($this->once())
       ->method('getFilter')
-      ->will($this->returnValue($this->getMock('PapayaFilter')));
+      ->will($this->returnValue($this->createMock(PapayaFilter::class)));
     $factory = new PapayaFilterFactory();
     $filter = $factory->getFilter($profile);
     $this->assertInstanceOf('PapayaFilter', $filter);
@@ -75,14 +75,14 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    * @covers PapayaFilterFactory
    */
   public function testGetFilterNotMandatory() {
-    $profile = $this->getMock('PapayaFilterFactoryProfile');
+    $profile = $this->createMock(PapayaFilterFactoryProfile::class);
     $profile
       ->expects($this->never())
       ->method('options');
     $profile
       ->expects($this->once())
       ->method('getFilter')
-      ->will($this->returnValue($this->getMock('PapayaFilter')));
+      ->will($this->returnValue($this->createMock(PapayaFilter::class)));
     $factory = new PapayaFilterFactory();
     $filter = $factory->getFilter($profile, FALSE);
     $this->assertInstanceOf('PapayaFilterLogicalOr', $filter);
@@ -92,7 +92,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    * @covers PapayaFilterFactory
    */
   public function testGetFilterNotMandatoryWithOptions() {
-    $profile = $this->getMock('PapayaFilterFactoryProfile');
+    $profile = $this->createMock(PapayaFilterFactoryProfile::class);
     $profile
       ->expects($this->once())
       ->method('options')
@@ -100,7 +100,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
     $profile
       ->expects($this->once())
       ->method('getFilter')
-      ->will($this->returnValue($this->getMock('PapayaFilter')));
+      ->will($this->returnValue($this->createMock(PapayaFilter::class)));
     $factory = new PapayaFilterFactory();
     $filter = $factory->getFilter($profile, TRUE, 'data');
     $this->assertInstanceOf('PapayaFilter', $filter);

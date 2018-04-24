@@ -7,7 +7,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
    * @covers PapayaContentStructure::load
    */
   public function testLoad() {
-    $pages = $this->getMock('PapayaContentStructurePages');
+    $pages = $this->createMock(PapayaContentStructurePages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -22,7 +22,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
    * @covers PapayaContentStructure::load
    */
   public function testLoadWithString() {
-    $pages = $this->getMock('PapayaContentStructurePages');
+    $pages = $this->createMock(PapayaContentStructurePages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -37,7 +37,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
    * @covers PapayaContentStructure::load
    */
   public function testLoadWithEmptyString() {
-    $pages = $this->getMock('PapayaContentStructurePages');
+    $pages = $this->createMock(PapayaContentStructurePages::class);
     $pages
       ->expects($this->never())
       ->method('load');
@@ -54,7 +54,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
     $dom = new PapayaXmlDocument();
     $node = $dom->appendElement('structure');
 
-    $pages = $this->getMock('PapayaContentStructurePages');
+    $pages = $this->createMock(PapayaContentStructurePages::class);
     $pages
       ->expects($this->once())
       ->method('load')

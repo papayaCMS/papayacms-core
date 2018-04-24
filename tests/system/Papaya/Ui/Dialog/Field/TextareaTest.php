@@ -55,7 +55,7 @@ class PapayaUiDialogFieldTextareaTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $textarea->papaya($application);
-    $textarea->collection($this->getMock('PapayaUiDialogFields'));
+    $textarea->collection($this->createMock(PapayaUiDialogFields::class));
     $textarea->appendTo($node);
     $this->assertEquals(
       '<sample>'.
@@ -78,7 +78,7 @@ class PapayaUiDialogFieldTextareaTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $textarea->papaya($application);
-    $textarea->collection($this->getMock('PapayaUiDialogFields'));
+    $textarea->collection($this->createMock(PapayaUiDialogFields::class));
     $textarea->setDefaultValue(50670);
     $textarea->appendTo($node);
     $this->assertEquals(

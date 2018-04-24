@@ -16,7 +16,7 @@ class PapayaUiDialogFieldInputPasswordTest extends PapayaTestCase {
    * @covers PapayaUiDialogFieldInputPassword::__construct
    */
   public function testConstructorAttachingFilter() {
-    $filter = $this->getMock('PapayaFilter');
+    $filter = $this->createMock(PapayaFilter::class);
     $field = new PapayaUiDialogFieldInputPassword('Caption', 'fieldname', 42, $filter);
     $field->setMandatory(TRUE);
     $this->assertSame($filter, $field->getFilter());
@@ -71,7 +71,7 @@ class PapayaUiDialogFieldInputPasswordTest extends PapayaTestCase {
   }
 
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->getMock('PapayaUiDialogFields');
+    $collection = $this->createMock(PapayaUiDialogFields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

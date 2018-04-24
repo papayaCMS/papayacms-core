@@ -145,7 +145,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectList::_loadRecords
   */
   public function testLoadRecords() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -214,7 +214,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectList::_fetchRecords
   */
   public function testFetchRecords() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -238,7 +238,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectList::_fetchRecords
   */
   public function testFetchRecordsWithIndex() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

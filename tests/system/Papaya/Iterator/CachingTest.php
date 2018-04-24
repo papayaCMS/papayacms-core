@@ -32,7 +32,7 @@ class PapayaIteratorCachingTest extends PapayaTestCase {
   * @covers PapayaIteratorCaching::__construct
   */
   public function testConstructorWithTraversable() {
-    $traversable = $this->getMock('IteratorAggregate');
+    $traversable = $this->createMock(IteratorAggregate::class);
     $iterator = new PapayaIteratorCaching(
       $traversable,
       array($this, 'callbackThrowException')

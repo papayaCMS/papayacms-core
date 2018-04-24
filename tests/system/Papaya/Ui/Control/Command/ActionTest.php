@@ -72,7 +72,7 @@ class PapayaUiControlCommandActionTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandAction::callbacks
   */
   public function testCallbacksGetAfterSet() {
-    $callbacks = $this->getMock('PapayaUiControlCommandActionCallbacks');
+    $callbacks = $this->createMock(PapayaUiControlCommandActionCallbacks::class);
     $command = new PapayaUiControlCommandAction();
     $this->assertSame($callbacks, $command->callbacks($callbacks));
   }

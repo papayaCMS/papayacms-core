@@ -33,7 +33,7 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
    * @covers PapayaConfigurationPath
    */
   public function testPathThemeCallsThemeHandler() {
-    $themeHandler = $this->getMock('PapayaThemeHandler');
+    $themeHandler = $this->createMock(PapayaThemeHandler::class);
     $themeHandler
       ->expects($this->once())
       ->method('getLocalPath')
@@ -49,7 +49,7 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
    * @covers PapayaConfigurationPath
    */
   public function testPathCurrentThemeCallsThemeHandler() {
-    $themeHandler = $this->getMock('PapayaThemeHandler');
+    $themeHandler = $this->createMock(PapayaThemeHandler::class);
     $themeHandler
       ->expects($this->once())
       ->method('getLocalThemePath')
@@ -66,7 +66,7 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
    */
   public function testThemeHandlerGetAfterSet() {
     $path = new PapayaConfigurationPath('', '');
-    $path->themeHandler($handler = $this->getMock('PapayaThemeHandler'));
+    $path->themeHandler($handler = $this->createMock(PapayaThemeHandler::class));
     $this->assertSame($handler, $path->themeHandler());
   }
 

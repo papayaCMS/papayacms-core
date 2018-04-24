@@ -8,7 +8,7 @@ class PapayaTemplateSimpleAstNodesTest extends PapayaTestCase {
    */
   public function testLimitIsInitializedAndAllowsAdd() {
     $nodes = new PapayaTemplateSimpleAstNodes();
-    $nodes[] = $node = $this->getMock('PapayaTemplateSimpleAstNode');
+    $nodes[] = $node = $this->createMock(PapayaTemplateSimpleAstNode::class);
     $this->assertSame($node, $nodes[0]);
   }
 
@@ -27,8 +27,8 @@ class PapayaTemplateSimpleAstNodesTest extends PapayaTestCase {
   public function testConstructorWithNodes() {
     $nodes = new PapayaTemplateSimpleAstNodes(
       array(
-        $this->getMock('PapayaTemplateSimpleAstNode'),
-        $this->getMock('PapayaTemplateSimpleAstNode')
+        $this->createMock(PapayaTemplateSimpleAstNode::class),
+        $this->createMock(PapayaTemplateSimpleAstNode::class)
       )
     );
     $this->assertCount(2, $nodes);
@@ -38,13 +38,13 @@ class PapayaTemplateSimpleAstNodesTest extends PapayaTestCase {
    * @covers PapayaTemplateSimpleAstNodes::accept
    */
   public function testVisitorIsSentToEachChild() {
-    $visitor = $this->getMock('PapayaTemplateSimpleVisitor');
-    $nodeOne = $this->getMock('PapayaTemplateSimpleAstNode');
+    $visitor = $this->createMock(PapayaTemplateSimpleVisitor::class);
+    $nodeOne = $this->createMock(PapayaTemplateSimpleAstNode::class);
     $nodeOne
       ->expects($this->once())
       ->method('accept')
       ->with($visitor);
-    $nodeTwo = $this->getMock('PapayaTemplateSimpleAstNode');
+    $nodeTwo = $this->createMock(PapayaTemplateSimpleAstNode::class);
     $nodeTwo
       ->expects($this->once())
       ->method('accept')

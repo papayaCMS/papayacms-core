@@ -175,7 +175,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
   *************************/
 
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->getMock('PapayaUiDialogFields');
+    $collection = $this->createMock(PapayaUiDialogFields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

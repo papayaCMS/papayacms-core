@@ -7,7 +7,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
   * @covers PapayaConfigurationStorageDatabase::records
   */
   public function testRecordsGetAfterSet() {
-    $records = $this->getMock('PapayaContentConfiguration');
+    $records = $this->createMock(PapayaContentConfiguration::class);
     $storage = new PapayaConfigurationStorageDatabase();
     $this->assertSame($records, $storage->records($records));
   }
@@ -33,7 +33,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
       ->method('errorHandler')
       ->with($this->isType('array'));
 
-    $records = $this->getMock('PapayaContentConfiguration');
+    $records = $this->createMock(PapayaContentConfiguration::class);
     $records
       ->expects($this->once())
       ->method('getDatabaseAccess')
@@ -56,7 +56,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
         'PAPAYA_DBG_DEVMODE' => TRUE
       )
     );
-    $response = $this->getMock('PapayaResponse');
+    $response = $this->createMock(PapayaResponse::class);
     $response
       ->expects($this->once())
       ->method('sendHeader')
@@ -82,7 +82,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
   * @covers PapayaConfigurationStorageDatabase::handleError
   */
   public function testHandleErrorNoDevmodeSilent() {
-    $response = $this->getMock('PapayaResponse');
+    $response = $this->createMock(PapayaResponse::class);
     $response
       ->expects($this->never())
       ->method('sendHeader');
@@ -106,7 +106,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
   * @covers PapayaConfigurationStorageDatabase::getIterator
   */
   public function testGetIterator() {
-    $records = $this->getMock('PapayaContentConfiguration');
+    $records = $this->createMock(PapayaContentConfiguration::class);
     $records
       ->expects($this->once())
       ->method('getIterator')

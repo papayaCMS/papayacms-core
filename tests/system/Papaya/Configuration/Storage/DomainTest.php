@@ -21,7 +21,7 @@ class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
   * @covers PapayaConfigurationStorageDomain::domain
   */
   public function testDomainGetAfterSet() {
-    $domain = $this->getMock('PapayaContentDomain');
+    $domain = $this->createMock(PapayaContentDomain::class);
     $storage = new PapayaConfigurationStorageDomain('sample.tld');
     $this->assertSame($domain, $storage->domain($domain));
   }
@@ -38,7 +38,7 @@ class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
   * @covers PapayaConfigurationStorageDomain::load
   */
   public function testLoad() {
-    $domain = $this->getMock('PapayaContentDomain');
+    $domain = $this->createMock(PapayaContentDomain::class);
     $domain
       ->expects($this->once())
       ->method('load')
@@ -54,7 +54,7 @@ class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
   * @covers PapayaConfigurationStorageDomain::getIterator
   */
   public function testGetIterator() {
-    $domain = $this->getMock('PapayaContentDomain');
+    $domain = $this->createMock(PapayaContentDomain::class);
     $domain
       ->expects($this->atLeastOnce())
       ->method('__get')

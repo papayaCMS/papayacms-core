@@ -7,7 +7,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   * @covers PapayaTemplateEngine::parameters
   */
   public function testParametersSetter() {
-    $parameters = $this->getMock('PapayaObjectOptionsList');
+    $parameters = $this->createMock(PapayaObjectOptionsList::class);
     $engine = new PapayaTemplateEngine_TestProxy();
     $engine->parameters($parameters);
     $this->assertAttributeSame(
@@ -21,7 +21,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   * @covers PapayaTemplateEngine::parameters
   */
   public function testParametersGetter() {
-    $parameters = $this->getMock('PapayaObjectOptionsList');
+    $parameters = $this->createMock(PapayaObjectOptionsList::class);
     $engine = new PapayaTemplateEngine_TestProxy();
     $engine->parameters($parameters);
     $this->assertSame(
@@ -181,13 +181,13 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   public function testValuesSetterUsingLoaderMechanism() {
     $document = new PapayaXmlDocument();
     $document->appendElement('test');
-    $loaderFailure = $this->getMock('PapayaTemplateEngineValuesLoadable');
+    $loaderFailure = $this->createMock(PapayaTemplateEngineValuesLoadable::class);
     $loaderFailure
       ->expects($this->once())
       ->method('load')
       ->with($this->equalTo('DATA'))
       ->will($this->returnValue(FALSE));
-    $loaderSuccess = $this->getMock('PapayaTemplateEngineValuesLoadable');
+    $loaderSuccess = $this->createMock(PapayaTemplateEngineValuesLoadable::class);
     $loaderSuccess
       ->expects($this->once())
       ->method('load')
@@ -294,7 +294,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   * @covers PapayaTemplateEngine::__set
   */
   public function testMagicMethodSetForParameters() {
-    $parameters = $this->getMock('PapayaObjectOptionsList');
+    $parameters = $this->createMock(PapayaObjectOptionsList::class);
     $engine = new PapayaTemplateEngine_TestProxy();
     $engine->parameters = $parameters;
     $this->assertAttributeSame(

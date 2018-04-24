@@ -7,7 +7,7 @@ class PapayaFilterNotTest extends PapayaTestCase {
   * @covers PapayaFilterNot::__construct
   */
   public function testConstructor() {
-    $filterMock = $this->getMock('PapayaFilter');
+    $filterMock = $this->createMock(PapayaFilter::class);
     $filter = new PapayaFilterNot($filterMock);
     $this->assertAttributeInstanceOf(
       'PapayaFilter', '_filter', $filter
@@ -19,7 +19,7 @@ class PapayaFilterNotTest extends PapayaTestCase {
   * @expectedException PapayaFilterException
   */
   public function testValidateExpectingException() {
-    $filterMock = $this->getMock('PapayaFilter');
+    $filterMock = $this->createMock(PapayaFilter::class);
     $filterMock
       ->expects($this->once())
       ->method('validate')
@@ -33,7 +33,7 @@ class PapayaFilterNotTest extends PapayaTestCase {
   * @covers PapayaFilterNot::validate
   */
   public function testValidateExpectingTrue() {
-    $filterMock = $this->getMock('PapayaFilter');
+    $filterMock = $this->createMock(PapayaFilter::class);
     $filterMock
       ->expects($this->once())
       ->method('validate')
@@ -47,7 +47,7 @@ class PapayaFilterNotTest extends PapayaTestCase {
    * @covers PapayaFilterNot::filter
    */
   public function testFilter() {
-    $filterMock = $this->getMock('PapayaFilter');
+    $filterMock = $this->createMock(PapayaFilter::class);
     $filter = new PapayaFilterNot($filterMock);
     $this->assertEquals('Test', $filter->filter('Test'));
   }

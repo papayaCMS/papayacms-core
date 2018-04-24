@@ -37,7 +37,7 @@ class PapayaTemplateSimpleAstNodeTest extends PapayaTestCase {
   public function testAccept() {
     $node = new PapayaTemplateSimpleAstNode_TestProxy();
 
-    $visitor = $this->getMock('PapayaTemplateSimpleVisitor');
+    $visitor = $this->createMock(PapayaTemplateSimpleVisitor::class);
     $visitor
       ->expects($this->once())
       ->method('visit')

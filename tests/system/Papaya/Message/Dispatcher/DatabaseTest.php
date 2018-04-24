@@ -35,7 +35,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
       ->method('insertRecord')
       ->with($this->equalTo('papaya_log'), $this->isNull(), $this->isType('array'))
       ->will($this->returnValue(TRUE));
-    $message = $this->getMock('PapayaMessageLogable');
+    $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->once())
       ->method('getGroup')
@@ -51,7 +51,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
     $message
       ->expects($this->exactly(2))
       ->method('context')
-      ->will($this->returnValue($this->getMock('PapayaMessageContextGroup')));
+      ->will($this->returnValue($this->createMock(PapayaMessageContextGroup::class)));
     $dispatcher = new PapayaMessageDispatcherDatabase();
     $dispatcher->papaya(
       $this->mockPapaya()->application(
@@ -101,7 +101,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getDisplayName')
       ->will($this->returnValue('Sample User'));
-    $message = $this->getMock('PapayaMessageLogable');
+    $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->once())
       ->method('getGroup')
@@ -117,7 +117,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
     $message
       ->expects($this->exactly(2))
       ->method('context')
-      ->will($this->returnValue($this->getMock('PapayaMessageContextGroup')));
+      ->will($this->returnValue($this->createMock(PapayaMessageContextGroup::class)));
     $dispatcher = new PapayaMessageDispatcherDatabase();
     $dispatcher->papaya(
       $this->mockPapaya()->application(
@@ -140,7 +140,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherDatabase::dispatch
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
-    $message = $this->getMock('PapayaMessage');
+    $message = $this->createMock(PapayaMessage::class);
     $dispatcher = new PapayaMessageDispatcherDatabase();
     $this->assertFalse($dispatcher->dispatch($message));
   }
@@ -149,7 +149,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherDatabase::dispatch
   */
   public function testDispatchWithDebugMessageExpectingFalse() {
-    $message = $this->getMock('PapayaMessageLogable');
+    $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->once())
       ->method('getType')
@@ -197,7 +197,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->never())
       ->method('insertRecord');
-    $message = $this->getMock('PapayaMessageLogable');
+    $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->once())
       ->method('getGroup')
@@ -213,7 +213,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
     $message
       ->expects($this->exactly(2))
       ->method('context')
-      ->will($this->returnValue($this->getMock('PapayaMessageContextGroup')));
+      ->will($this->returnValue($this->createMock(PapayaMessageContextGroup::class)));
     $dispatcher = new PapayaMessageDispatcherDatabaseProxy();
     $dispatcher->papaya(
       $this->mockPapaya()->application(
@@ -245,7 +245,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
   * @param boolean $dispatcherHandleDebug
   */
   public function testAllow($expected, $type, $dispatcherActive, $dispatcherHandleDebug) {
-    $message = $this->getMock('PapayaMessageLogable');
+    $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->any())
       ->method('getType')

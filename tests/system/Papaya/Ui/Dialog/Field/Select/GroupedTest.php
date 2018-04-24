@@ -51,7 +51,7 @@ class PapayaUiDialogFieldSelectGroupedTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->getMock('PapayaUiDialogFields'));
+    $select->collection($this->createMock(PapayaUiDialogFields::class));
     $select->appendTo($node);
     $this->assertEquals(
       '<field caption="Caption" class="DialogFieldSelectGrouped" error="yes" mandatory="yes">'.
@@ -87,7 +87,7 @@ class PapayaUiDialogFieldSelectGroupedTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->getMock('PapayaUiDialogFields'));
+    $select->collection($this->createMock(PapayaUiDialogFields::class));
     $select->appendTo($node);
     $this->assertEquals(
       '<field caption="Caption" class="DialogFieldSelectGrouped" error="yes" mandatory="yes">'.

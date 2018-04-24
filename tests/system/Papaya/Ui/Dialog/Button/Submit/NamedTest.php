@@ -190,7 +190,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends PapayaTestCase {
   *****************************/
 
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->getMock('PapayaUiDialogElements');
+    $collection = $this->createMock(PapayaUiDialogElements::class);
     if ($owner) {
       $collection
         ->expects($this->any())

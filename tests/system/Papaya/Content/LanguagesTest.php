@@ -7,7 +7,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   * @covers PapayaContentLanguages::load
   */
   public function testLoad() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -134,7 +134,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   * @covers PapayaContentLanguages::getLanguage
   */
   public function testGetLanguageImplicitLoad() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -190,7 +190,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   * @covers PapayaContentLanguages::getLanguage
   */
   public function testGetLanguageImplicitLoadExpectingNull() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -297,7 +297,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   * @covers PapayaContentLanguages::getIdentiferById
   */
   public function testGetIdentiferByIdExpectingNull() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')

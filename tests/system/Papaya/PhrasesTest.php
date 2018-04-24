@@ -8,8 +8,8 @@ class PapayaPhrasesTest extends PapayaTestCase {
    */
   public function testConstructor() {
     $phrases = new PapayaPhrases(
-      $storage = $this->getMock('PapayaPhrasesStorage'),
-      $language = $this->getMock('PapayaContentLanguage')
+      $storage = $this->createMock(PapayaPhrasesStorage::class),
+      $language = $this->createMock(PapayaContentLanguage::class)
     );
     $this->assertSame($storage, $phrases->getStorage());
     $this->assertSame($language, $phrases->getLanguage());
@@ -20,8 +20,8 @@ class PapayaPhrasesTest extends PapayaTestCase {
    */
   public function testGetGroupsAfterSet() {
     $phrases = new PapayaPhrases(
-      $this->getMock('PapayaPhrasesStorage'),
-      $this->getMock('PapayaContentLanguage')
+      $this->createMock(PapayaPhrasesStorage::class),
+      $this->createMock(PapayaContentLanguage::class)
     );
     $groups = $this
       ->getMockBuilder('PapayaPhrasesGroups')
@@ -36,8 +36,8 @@ class PapayaPhrasesTest extends PapayaTestCase {
    */
   public function testGetGroupsImplicitCreate() {
     $phrases = new PapayaPhrases(
-      $this->getMock('PapayaPhrasesStorage'),
-      $this->getMock('PapayaContentLanguage')
+      $this->createMock(PapayaPhrasesStorage::class),
+      $this->createMock(PapayaContentLanguage::class)
     );
     $this->assertInstanceOf('PapayaPhrasesGroups', $phrases->groups);
   }
@@ -47,8 +47,8 @@ class PapayaPhrasesTest extends PapayaTestCase {
    */
   public function testDefaultGroupGetAfterSet() {
     $phrases = new PapayaPhrases(
-      $this->getMock('PapayaPhrasesStorage'),
-      $this->getMock('PapayaContentLanguage')
+      $this->createMock(PapayaPhrasesStorage::class),
+      $this->createMock(PapayaContentLanguage::class)
     );
     $phrases->defaultGroup('TestGroup');
     $this->assertEquals('TestGroup', $phrases->defaultGroup());
@@ -59,8 +59,8 @@ class PapayaPhrasesTest extends PapayaTestCase {
    */
   public function testDefaultGroupImplicitInit() {
     $phrases = new PapayaPhrases(
-      $this->getMock('PapayaPhrasesStorage'),
-      $this->getMock('PapayaContentLanguage')
+      $this->createMock(PapayaPhrasesStorage::class),
+      $this->createMock(PapayaContentLanguage::class)
     );
     $phrases->papaya($this->mockPapaya()->application());
     $this->assertEquals('test.html', $phrases->defaultGroup());
@@ -70,13 +70,13 @@ class PapayaPhrasesTest extends PapayaTestCase {
    * @covers PapayaPhrases::get
    */
   public function testGetCreatesStringObject() {
-    $language = $this->getMock('PapayaContentLanguage');
+    $language = $this->createMock(PapayaContentLanguage::class);
     $language
       ->expects($this->once())
       ->method('__get')
       ->with('id')
       ->will($this->returnValue(1));
-    $storage =$this->getMock('PapayaPhrasesStorage');
+    $storage =$this->createMock(PapayaPhrasesStorage::class);
     $storage
       ->expects($this->once())
       ->method('get')
@@ -94,13 +94,13 @@ class PapayaPhrasesTest extends PapayaTestCase {
    * @covers PapayaPhrases::getList
    */
   public function testGetListCreatesListObject() {
-    $language = $this->getMock('PapayaContentLanguage');
+    $language = $this->createMock(PapayaContentLanguage::class);
     $language
       ->expects($this->once())
       ->method('__get')
       ->with('id')
       ->will($this->returnValue(1));
-    $storage =$this->getMock('PapayaPhrasesStorage');
+    $storage =$this->createMock(PapayaPhrasesStorage::class);
     $storage
       ->expects($this->once())
       ->method('get')
@@ -118,13 +118,13 @@ class PapayaPhrasesTest extends PapayaTestCase {
    * @covers PapayaPhrases::getList
    */
   public function testGetText() {
-    $language = $this->getMock('PapayaContentLanguage');
+    $language = $this->createMock(PapayaContentLanguage::class);
     $language
       ->expects($this->once())
       ->method('__get')
       ->with('id')
       ->will($this->returnValue(1));
-    $storage =$this->getMock('PapayaPhrasesStorage');
+    $storage =$this->createMock(PapayaPhrasesStorage::class);
     $storage
       ->expects($this->once())
       ->method('get')

@@ -11,7 +11,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       'sample_id' => 42,
       'sample_title' => 'title text'
     );
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -180,7 +180,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_saveRecordWithDefinedId
   */
   public function testSaveInsertsRecordWithDefinedIdExistanceQueryFailed() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -232,7 +232,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_saveRecordWithDefinedId
   */
   public function testSaveInsertsRecordWithDefinedIdInsertQueryFailed() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseAccess = $this->getMock(
       'PapayaDatabaseAccess',
       array('queryFmt', 'insertRecord', 'updateRecord'),
@@ -314,7 +314,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_saveRecordWithDefinedId
   */
   public function testSaveUpdatesRecordWithDefinedId() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -579,7 +579,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       'sample_id' => 42,
       'sample_title' => 'title text'
     );
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -622,7 +622,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       'sample_id' => 42,
       'sample_title' => 'title text'
     );
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -659,7 +659,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_loadRecord
   */
   public function testLoadRecordWithEmptyResult() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')

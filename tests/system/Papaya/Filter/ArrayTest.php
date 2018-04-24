@@ -7,7 +7,7 @@ class PapayaFilterArrayTest extends PapayaTestCase {
   * @covers PapayaFilterArray::__construct
   */
   public function testConstructorWithElementFilter() {
-    $filter = new PapayaFilterArray($subFilter = $this->getMock('PapayaFilter'));
+    $filter = new PapayaFilterArray($subFilter = $this->createMock(PapayaFilter::class));
     $this->assertAttributeSame(
       $subFilter, '_elementFilter', $filter
     );

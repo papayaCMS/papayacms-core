@@ -8,7 +8,7 @@ class PapayaMessageDispatcherTemplateTest extends PapayaTestCase {
   * @backupGlobals enabled
   */
   public function testDispatch() {
-    $message = $this->getMock('PapayaMessageDisplayable');
+    $message = $this->createMock(PapayaMessageDisplayable::class);
     $message
       ->expects($this->once())
       ->method('getType')
@@ -17,7 +17,7 @@ class PapayaMessageDispatcherTemplateTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getMessage')
       ->will($this->returnValue('Sample message'));
-    $values = $this->getMock('PapayaTemplateValues');
+    $values = $this->createMock(PapayaTemplateValues::class);
     $values
       ->expects($this->once())
       ->method('append')
@@ -29,7 +29,7 @@ class PapayaMessageDispatcherTemplateTest extends PapayaTestCase {
         ),
         $this->equalTo('Sample message')
       );
-    $GLOBALS['PAPAYA_LAYOUT'] = $this->getMock('PapayaTemplate');
+    $GLOBALS['PAPAYA_LAYOUT'] = $this->createMock(PapayaTemplate::class);
     $GLOBALS['PAPAYA_LAYOUT']
       ->expects($this->once())
       ->method('values')
@@ -42,7 +42,7 @@ class PapayaMessageDispatcherTemplateTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherTemplate::dispatch
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
-    $message = $this->getMock('PapayaMessage');
+    $message = $this->createMock(PapayaMessage::class);
     $dispatcher = new PapayaMessageDispatcherTemplate();
     $this->assertFalse($dispatcher->dispatch($message));
   }
@@ -51,7 +51,7 @@ class PapayaMessageDispatcherTemplateTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherTemplate::dispatch
   */
   public function testDispatchWithoutGlobalObjectExpectingFalse() {
-    $message = $this->getMock('PapayaMessageDisplayable');
+    $message = $this->createMock(PapayaMessageDisplayable::class);
     $dispatcher = new PapayaMessageDispatcherTemplate();
     $this->assertFalse($dispatcher->dispatch($message));
   }

@@ -24,7 +24,7 @@ class PapayaTemplateXsltTest extends PapayaTestCase {
    * @covers PapayaTemplateXslt
    */
   public function testEngineGetAfterSet() {
-    $engine = $this->getMock('PapayaTemplateEngineXsl');
+    $engine = $this->createMock(PapayaTemplateEngineXsl::class);
     $template = new PapayaTemplateXslt();
     $template->engine($engine);
     $this->assertSame($engine, $template->engine());
@@ -113,7 +113,7 @@ class PapayaTemplateXsltTest extends PapayaTestCase {
    * @covers PapayaTemplateXslt
    */
   public function testParseWithProfiling() {
-    $messages = $this->getMock('PapayaMessageManager');
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->exactly(2))
       ->method('log');
@@ -157,7 +157,7 @@ class PapayaTemplateXsltTest extends PapayaTestCase {
    * @covers PapayaTemplateXslt
    */
   public function testGetOutputExpectingXmlOutput() {
-    $response = $this->getMock('PapayaResponse');
+    $response = $this->createMock(PapayaResponse::class);
     $response
       ->expects($this->once())
       ->method('setContentType')
@@ -200,12 +200,12 @@ class PapayaTemplateXsltTest extends PapayaTestCase {
    *********************/
 
   public function getEngineFixture($result) {
-    $parameters = $this->getMock('PapayaTemplateParameters');
+    $parameters = $this->createMock(PapayaTemplateParameters::class);
     $parameters
       ->expects($this->once())
       ->method('assign');
 
-    $engine = $this->getMock('PapayaTemplateEngineXsl');
+    $engine = $this->createMock(PapayaTemplateEngineXsl::class);
     $engine
       ->expects($this->once())
       ->method('setTemplateFile')

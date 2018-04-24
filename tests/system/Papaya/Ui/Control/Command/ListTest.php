@@ -7,7 +7,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandList::__construct
   */
   public function testConstructor() {
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $list = new PapayaUiControlCommandList($command);
     $this->assertSame(
       $command, $list[0]
@@ -18,7 +18,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandList::appendTo
   */
   public function testAppendToWithOneValidCommand() {
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
       ->method('validateCondition')
@@ -38,7 +38,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandList::appendTo
   */
   public function testAppendToWithOneCommandInvalidPermission() {
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
       ->method('validateCondition')
@@ -58,7 +58,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandList::appendTo
   */
   public function testAppendToWithOneCommandInvalidCondition() {
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
       ->method('validateCondition')
@@ -77,7 +77,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandList::appendTo
   */
   public function testAppendToWithTwoCommandsFirstCommandBlocked() {
-    $commandBlocked = $this->getMock('PapayaUiControlCommand');
+    $commandBlocked = $this->createMock(PapayaUiControlCommand::class);
     $commandBlocked
       ->expects($this->once())
       ->method('validateCondition')
@@ -88,7 +88,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
     $commandBlocked
       ->expects($this->never())
       ->method('appendTo');
-    $commandOk = $this->getMock('PapayaUiControlCommand');
+    $commandOk = $this->createMock(PapayaUiControlCommand::class);
     $commandOk
       ->expects($this->once())
       ->method('validateCondition')
@@ -108,7 +108,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandList::appendTo
   */
   public function testAppendToWithTwoCommandsSecondCommandBlocked() {
-    $commandBlocked = $this->getMock('PapayaUiControlCommand');
+    $commandBlocked = $this->createMock(PapayaUiControlCommand::class);
     $commandBlocked
       ->expects($this->once())
       ->method('validateCondition')
@@ -119,7 +119,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
     $commandBlocked
       ->expects($this->never())
       ->method('appendTo');
-    $commandOk = $this->getMock('PapayaUiControlCommand');
+    $commandOk = $this->createMock(PapayaUiControlCommand::class);
     $commandOk
       ->expects($this->once())
       ->method('validateCondition')
@@ -139,8 +139,8 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandList::owner
   */
   public function testOwner() {
-    $owner = $this->getMock('PapayaUiControlInteractive');
-    $command = $this->getMock('PapayaUiControlCommand');
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
       ->method('owner')
@@ -153,7 +153,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandList::offsetExists
   */
   public function testOffsetExistsExpectingTrue() {
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $list = new PapayaUiControlCommandList($command);
     $this->assertTrue(isset($list[0]));
   }
@@ -162,7 +162,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandList::offsetExists
   */
   public function testOffsetExistsExpectingFalse() {
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $list = new PapayaUiControlCommandList($command);
     $this->assertFalse(isset($list[99]));
   }
@@ -172,7 +172,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandList::offsetSet
   */
   public function testOffsetGetAfterSet() {
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $list = new PapayaUiControlCommandList();
     $list[] = $command;
     $this->assertSame(
@@ -196,7 +196,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandList::offsetUnset
   */
   public function testOffsetUnset() {
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $list = new PapayaUiControlCommandList($command);
     unset($list[0]);
     $this->assertFalse(isset($list[0]));
@@ -215,8 +215,8 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   */
   public function testCountExpectingTwo() {
     $list = new PapayaUiControlCommandList(
-      $this->getMock('PapayaUiControlCommand'),
-      $this->getMock('PapayaUiControlCommand')
+      $this->createMock(PapayaUiControlCommand::class),
+      $this->createMock(PapayaUiControlCommand::class)
     );
     $this->assertEquals(2, count($list));
   }
@@ -226,8 +226,8 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   */
   public function testGetIterator() {
     $list = new PapayaUiControlCommandList(
-      $one = $this->getMock('PapayaUiControlCommand'),
-      $two = $this->getMock('PapayaUiControlCommand')
+      $one = $this->createMock(PapayaUiControlCommand::class),
+      $two = $this->createMock(PapayaUiControlCommand::class)
     );
     $iterator = $list->getIterator();
     $this->assertSame(

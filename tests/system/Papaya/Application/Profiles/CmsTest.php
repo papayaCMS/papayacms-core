@@ -7,7 +7,7 @@ class PapayaApplicationProfilesCmsTest extends PapayaTestCase {
   * @covers PapayaApplicationProfilesCms::getProfiles
   */
   public function testGetProfiles() {
-    $application = $this->getMock('PapayaApplication');
+    $application = $this->createMock(PapayaApplication::class);
     $profiles = new PapayaApplicationProfilesCms();
     $list = $profiles->getProfiles($application);
     $this->assertEquals(

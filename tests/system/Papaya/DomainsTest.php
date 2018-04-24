@@ -158,7 +158,7 @@ class PapayaDomainsTest extends PapayaTestCase {
   * @covers PapayaDomains::domains
   */
   public function testDomainsGetAfterSet() {
-    $data = $this->getMock('PapayaContentDomains');
+    $data = $this->createMock(PapayaContentDomains::class);
     $domains = new PapayaDomains();
     $domains->domains($data);
     $this->assertSame($data, $domains->domains());
@@ -251,7 +251,7 @@ class PapayaDomainsTest extends PapayaTestCase {
         )
       );
     }
-    $data = $this->getMock('PapayaContentDomains');
+    $data = $this->createMock(PapayaContentDomains::class);
     $data
       ->expects($this->once())
       ->method('load')

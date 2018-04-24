@@ -8,7 +8,7 @@ class PapayaUiListviewColumnsTest extends PapayaTestCase {
   * @covers PapayaUiListviewColumns::owner
   */
   public function testConstructor() {
-    $listview = $this->getMock('PapayaUiListview');
+    $listview = $this->createMock(PapayaUiListview::class);
     $columns = new PapayaUiListviewColumns($listview);
     $this->assertSame(
       $listview, $columns->owner()

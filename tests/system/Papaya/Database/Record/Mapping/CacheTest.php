@@ -7,7 +7,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::__construct
    */
   public function testConstructor() {
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $cache = new PapayaDatabaseRecordMappingCache($mapping);
     $this->assertAttributeSame($mapping, '_mapping', $cache);
   }
@@ -47,7 +47,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::mapFieldsToProperties
    */
   public function testMapFieldsToProperties() {
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->once())
       ->method('getProperty')
@@ -102,7 +102,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::mapPropertiesToFields
    */
   public function testMapPropertiesToFields() {
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->once())
       ->method('getField')
@@ -157,7 +157,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::getProperties
    */
   public function testGetProperties() {
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->once())
       ->method('getProperties')
@@ -172,7 +172,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::getFields
    */
   public function testGetFields() {
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->exactly(2))
       ->method('getFields')
@@ -188,7 +188,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::getProperty
    */
   public function testGetProperty() {
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->exactly(2))
       ->method('getProperty')
@@ -204,7 +204,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::getField
    */
   public function testGetField() {
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->exactly(3))
       ->method('getField')
@@ -218,7 +218,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
   }
 
   private function getCallbacksMock(array $events = array()) {
-    $callbacks = $this->getMock('PapayaDatabaseRecordMappingCallbacks');
+    $callbacks = $this->createMock(PapayaDatabaseRecordMappingCallbacks::class);
     $callbacks
       ->expects($this->any())
       ->method('getIterator')

@@ -7,7 +7,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
   * @covers PapayaContentPages
   */
   public function testLoadWithTranslationNeeded() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -68,7 +68,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
   * @covers PapayaContentPages
   */
   public function testLoadWithEmptyFilter() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -129,7 +129,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
   * @covers PapayaContentPages
   */
   public function testLoadWithId() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -195,7 +195,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
   * @covers PapayaContentPages
   */
   public function testLoadWithStatus() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -265,7 +265,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
   * @covers PapayaContentPages
   */
   public function testLoadWithParentId() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

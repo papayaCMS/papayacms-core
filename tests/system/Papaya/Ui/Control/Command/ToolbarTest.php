@@ -8,7 +8,7 @@ class PapayaUiControlCommandToolbarTest extends PapayaTestCase {
   */
   public function testConstructor() {
     $command = new PapayaUiControlCommandToolbar_TestProxy(
-      $elements = $this->getMock('PapayaUiToolbarElements')
+      $elements = $this->createMock(PapayaUiToolbarElements::class)
     );
     $this->assertSame($elements, $command->elements());
   }
@@ -18,9 +18,9 @@ class PapayaUiControlCommandToolbarTest extends PapayaTestCase {
   */
   public function testGetAfterSet() {
     $command = new PapayaUiControlCommandToolbar_TestProxy(
-      $this->getMock('PapayaUiToolbarElements')
+      $this->createMock(PapayaUiToolbarElements::class)
     );
-    $command->elements($elements = $this->getMock('PapayaUiToolbarElements'));
+    $command->elements($elements = $this->createMock(PapayaUiToolbarElements::class));
     $this->assertSame($elements, $command->elements());
   }
 
@@ -28,7 +28,7 @@ class PapayaUiControlCommandToolbarTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandToolbar
   */
   public function testAppendTo() {
-    $elements = $this->getMock('PapayaUiToolbarElements');
+    $elements = $this->createMock(PapayaUiToolbarElements::class);
     $elements
       ->expects($this->once())
       ->method('add')
@@ -37,7 +37,7 @@ class PapayaUiControlCommandToolbarTest extends PapayaTestCase {
     $dom = new PapayaXmlDocument();
     $dom->appendElement('test');
     $command = new PapayaUiControlCommandToolbar_TestProxy($elements);
-    $command->testCase = $this;
+    $command->testElement = $this->createMock(PapayaUiToolbarElement::class);
     $command->appendTo($dom->documentElement);
     $this->assertEquals('<test/>', $dom->documentElement->saveXml());
   }
@@ -46,9 +46,9 @@ class PapayaUiControlCommandToolbarTest extends PapayaTestCase {
 
 class PapayaUiControlCommandToolbar_TestProxy extends PapayaUiControlCommandToolbar {
 
-  public $testCase = NULL;
+  public $testElement;
 
   public function appendToolbarElements() {
-    $this->elements()->add($this->testCase->getMock('PapayaUiToolbarElement'));
+    $this->elements()->add($this->testElement);
   }
 }

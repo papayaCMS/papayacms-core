@@ -22,7 +22,7 @@ class PapayaUiListviewSubitemsTest extends PapayaTestCase {
   * @covers PapayaUiListviewSubitems::getListview
   */
   public function testGetListview() {
-    $listview = $this->getMock('PapayaUiListview');
+    $listview = $this->createMock(PapayaUiListview::class);
     $collection = $this
       ->getMockBuilder('PapayaUiListviewItems')
       ->disableOriginalConstructor()

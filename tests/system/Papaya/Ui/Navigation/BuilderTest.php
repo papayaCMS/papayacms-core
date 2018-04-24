@@ -19,7 +19,7 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
   * @covers PapayaUiNavigationBuilder::elements
   */
   public function testConstructorWithIterator() {
-    $builder = new PapayaUiNavigationBuilder($iterator = $this->getMock('Iterator'));
+    $builder = new PapayaUiNavigationBuilder($iterator = $this->createMock(Iterator::class));
     $this->assertSame(
       $iterator, $builder->elements()
     );
@@ -50,7 +50,7 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
   * @covers PapayaUiNavigationBuilder::appendTo
   */
   public function testAppendTo() {
-    $items = $this->getMock('PapayaUiNavigationItems');
+    $items = $this->createMock(PapayaUiNavigationItems::class);
     $items
       ->expects($this->once())
       ->method('clear');
@@ -103,7 +103,7 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
       ->method('onAfterAppendItem')
       ->with($this->isInstanceOf('PapayaUiNavigationItem'), 'Item One', 1);
 
-    $items = $this->getMock('PapayaUiNavigationItems');
+    $items = $this->createMock(PapayaUiNavigationItems::class);
     $items
       ->expects($this->once())
       ->method('clear');

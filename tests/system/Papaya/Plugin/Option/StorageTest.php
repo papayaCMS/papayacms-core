@@ -17,7 +17,7 @@ class PapayaPluginOptionStorageTest extends PapayaTestCase {
   * @covers PapayaPluginOptionStorage::load
   */
   public function testLoad() {
-    $options = $this->getMock('PapayaContentModuleOptions');
+    $options = $this->createMock(PapayaContentModuleOptions::class);
     $options
       ->expects($this->once())
       ->method('load')
@@ -32,7 +32,7 @@ class PapayaPluginOptionStorageTest extends PapayaTestCase {
   * @covers PapayaPluginOptionStorage::getIterator
   */
   public function testGetIterator() {
-    $options = $this->getMock('PapayaContentModuleOptions');
+    $options = $this->createMock(PapayaContentModuleOptions::class);
     $options
       ->expects($this->once())
       ->method('getIterator')
@@ -60,7 +60,7 @@ class PapayaPluginOptionStorageTest extends PapayaTestCase {
   * @covers PapayaPluginOptionStorage::options
   */
   public function testOptionsGetAfterSet() {
-    $options = $this->getMock('PapayaContentModuleOptions');
+    $options = $this->createMock(PapayaContentModuleOptions::class);
     $storage = new PapayaPluginOptionStorage('ab123456789012345678901234567890');
     $storage->options($options);
     $this->assertSame($options, $storage->options());

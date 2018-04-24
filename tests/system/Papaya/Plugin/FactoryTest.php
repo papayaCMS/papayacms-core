@@ -18,7 +18,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testLoaderGetAfterSet() {
     $factory = new PapayaPluginFactory_TestProxy();
-    $loader = $this->getMock('PapayaPluginLoader');
+    $loader = $this->createMock(PapayaPluginLoader::class);
     $this->assertSame($loader, $factory->loader($loader));
   }
 
@@ -30,7 +30,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
     $factory->papaya(
       $this->mockPapaya()->application(
         array(
-          'plugins' => $loader = $this->getMock('PapayaPluginLoader')
+          'plugins' => $loader = $this->createMock(PapayaPluginLoader::class)
         )
       )
     );
@@ -58,7 +58,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testGet() {
     $factory = new PapayaPluginFactory_TestProxy();
-    $loader = $this->getMock('PapayaPluginLoader');
+    $loader = $this->createMock(PapayaPluginLoader::class);
     $loader
       ->expects($this->once())#
       ->method('get')
@@ -73,7 +73,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testGetWithAllParameters() {
     $factory = new PapayaPluginFactory_TestProxy($owner = new stdClass);
-    $loader = $this->getMock('PapayaPluginLoader');
+    $loader = $this->createMock(PapayaPluginLoader::class);
     $loader
       ->expects($this->once())#
       ->method('get')
@@ -118,7 +118,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testMagicMethodGet() {
     $factory = new PapayaPluginFactory_TestProxy();
-    $loader = $this->getMock('PapayaPluginLoader');
+    $loader = $this->createMock(PapayaPluginLoader::class);
     $loader
       ->expects($this->once())#
       ->method('get')
@@ -168,13 +168,13 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
       ->getMockBuilder('PapayaConfiguration')
       ->disableOriginalConstructor()
       ->getMock();
-    $groups = $this->getMock('PapayaPluginOptionGroups');
+    $groups = $this->createMock(PapayaPluginOptionGroups::class);
     $groups
       ->expects($this->once())
       ->method('offsetGet')
       ->with('123456789012345678901234567890ab')
       ->will($this->returnValue($options));
-    $loader = $this->getMock('PapayaPluginLoader');
+    $loader = $this->createMock(PapayaPluginLoader::class);
     $loader
       ->expects($this->once())#
       ->method('__get')

@@ -7,7 +7,7 @@ class PapayaCacheIdentifierDefinitionGroupTest extends PapayaTestCase {
    * @covers PapayaCacheIdentifierDefinitionGroup
    */
   public function testGetStatusWithOneDefinitionReturingTrue() {
-    $mockDefinition = $this->getMock('PapayaCacheIdentifierDefinition');
+    $mockDefinition = $this->createMock(PapayaCacheIdentifierDefinition::class);
     $mockDefinition
       ->expects($this->once())
       ->method('getStatus')
@@ -20,12 +20,12 @@ class PapayaCacheIdentifierDefinitionGroupTest extends PapayaTestCase {
    * @covers PapayaCacheIdentifierDefinitionGroup
    */
   public function testGetStatusWithTwoDefinitionsReturingFalseSecondNeverCalled() {
-    $one = $this->getMock('PapayaCacheIdentifierDefinition');
+    $one = $this->createMock(PapayaCacheIdentifierDefinition::class);
     $one
       ->expects($this->once())
       ->method('getStatus')
       ->will($this->returnValue(FALSE));
-    $two = $this->getMock('PapayaCacheIdentifierDefinition');
+    $two = $this->createMock(PapayaCacheIdentifierDefinition::class);
     $two
       ->expects($this->never())
       ->method('getStatus');
@@ -37,12 +37,12 @@ class PapayaCacheIdentifierDefinitionGroupTest extends PapayaTestCase {
    * @covers PapayaCacheIdentifierDefinitionGroup
    */
   public function testGetStatusWithTwoDefinitionsMergingReturns() {
-    $one = $this->getMock('PapayaCacheIdentifierDefinition');
+    $one = $this->createMock(PapayaCacheIdentifierDefinition::class);
     $one
       ->expects($this->once())
       ->method('getStatus')
       ->will($this->returnValue(array('foo' => '21')));
-    $two = $this->getMock('PapayaCacheIdentifierDefinition');
+    $two = $this->createMock(PapayaCacheIdentifierDefinition::class);
     $two
       ->expects($this->once())
       ->method('getStatus')
@@ -63,12 +63,12 @@ class PapayaCacheIdentifierDefinitionGroupTest extends PapayaTestCase {
    * @dataProvider provideSourceExamples
    */
   public function testGetSourcesFromTwoDefinitions($expected, $sourceOne, $sourceTwo) {
-    $one = $this->getMock('PapayaCacheIdentifierDefinition');
+    $one = $this->createMock(PapayaCacheIdentifierDefinition::class);
     $one
       ->expects($this->once())
       ->method('getSources')
       ->will($this->returnValue($sourceOne));
-    $two = $this->getMock('PapayaCacheIdentifierDefinition');
+    $two = $this->createMock(PapayaCacheIdentifierDefinition::class);
     $two
       ->expects($this->once())
       ->method('getSources')
@@ -84,12 +84,12 @@ class PapayaCacheIdentifierDefinitionGroupTest extends PapayaTestCase {
    * @covers PapayaCacheIdentifierDefinitionGroup
    */
   public function testAdd() {
-    $one = $this->getMock('PapayaCacheIdentifierDefinition');
+    $one = $this->createMock(PapayaCacheIdentifierDefinition::class);
     $one
       ->expects($this->once())
       ->method('getStatus')
       ->will($this->returnValue(array('foo' => '21')));
-    $two = $this->getMock('PapayaCacheIdentifierDefinition');
+    $two = $this->createMock(PapayaCacheIdentifierDefinition::class);
     $two
       ->expects($this->once())
       ->method('getStatus')

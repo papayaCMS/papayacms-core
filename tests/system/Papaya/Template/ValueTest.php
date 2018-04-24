@@ -148,7 +148,7 @@ class PapayaTemplateValueTest extends PapayaTestCase {
   * @covers PapayaTemplateValue::append
   */
   public function testAppendWithPapayaXmlAppendable() {
-    $appendable = $this->getMock('PapayaXmlAppendable');
+    $appendable = $this->createMock(PapayaXmlAppendable::class);
     $appendable
       ->expects($this->once())
       ->method('appendTo')

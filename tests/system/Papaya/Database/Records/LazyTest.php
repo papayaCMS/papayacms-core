@@ -75,7 +75,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordsLazy::absCount
   */
   public function testAbsCount() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -225,7 +225,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   *************************/
 
   private function getDatabaseAccessFixture() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

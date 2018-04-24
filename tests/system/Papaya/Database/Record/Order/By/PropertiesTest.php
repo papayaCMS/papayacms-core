@@ -95,7 +95,7 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends PapayaTestCase {
     foreach ($mapping as $property => $field) {
       $valueMap[] = array($property, TRUE, $field);
     }
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->any())
       ->method('getField')

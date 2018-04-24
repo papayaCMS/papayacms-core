@@ -134,7 +134,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherWildfire::dispatch
   */
   public function testDispatchExpectingFalse() {
-    $message = $this->getMock('PapayaMessage');
+    $message = $this->createMock(PapayaMessage::class);
     $dispatcher = new PapayaMessageDispatcherWildfire();
     $this->assertFalse($dispatcher->dispatch($message));
   }
@@ -149,7 +149,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('sendMessage')
       ->with($this->equalTo('Hello'), 'LOG');
-    $message = $this->getMock('PapayaMessageLogable');
+    $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->any())
       ->method('getType')
@@ -161,7 +161,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
     $message
       ->expects($this->any())
       ->method('context')
-      ->will($this->returnValue($this->getMock('PapayaMessageContextGroup')));
+      ->will($this->returnValue($this->createMock(PapayaMessageContextGroup::class)));
     $dispatcher = new PapayaMessageDispatcherWildfire();
     $dispatcher->setHandler($handler);
     $dispatcher->send($message);
@@ -184,7 +184,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
     $handler
       ->expects($this->once())
       ->method('endGroup');
-    $message = $this->getMock('PapayaMessageLogable');
+    $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->any())
       ->method('getType')
@@ -197,7 +197,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('context')
       ->will(
-        $this->returnValue(array($this->getMock('PapayaContext')))
+        $this->returnValue(array($this->createMock(PapayaMessageContextInterface::class)))
       );
     $dispatcher = new PapayaMessageDispatcherWildfire();
     $dispatcher->setHandler($handler);
@@ -214,7 +214,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('sendMessage')
       ->with($this->equalTo('Hello'), 'LOG');
-    $context = $this->getMock('PapayaMessageContextInterfaceString');
+    $context = $this->createMock(PapayaMessageContextInterfaceString::class);
     $context
       ->expects($this->any())
       ->method('asString')
@@ -334,7 +334,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('sendMessage')
       ->with($this->equalTo($expected), 'TRACE');
-    $context = $this->getMock('PapayaMessageContextBacktrace');
+    $context = $this->createMock(PapayaMessageContextBacktrace::class);
     $context
       ->expects($this->once())
       ->method('getBacktrace')
@@ -354,7 +354,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
     $handler
       ->expects($this->never())
       ->method('sendMessage');
-    $context = $this->getMock('PapayaMessageContextBacktrace');
+    $context = $this->createMock(PapayaMessageContextBacktrace::class);
     $context
       ->expects($this->once())
       ->method('getBacktrace')
@@ -385,7 +385,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
         'TABLE',
         'Sample Table'
       );
-    $context = $this->getMock('PapayaMessageContextInterfaceTable');
+    $context = $this->createMock(PapayaMessageContextInterfaceTable::class);
     $context
       ->expects($this->once())
       ->method('getLabel')
@@ -426,7 +426,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
         'TABLE',
         'Sample Table'
       );
-    $context = $this->getMock('PapayaMessageContextInterfaceTable');
+    $context = $this->createMock(PapayaMessageContextInterfaceTable::class);
     $context
       ->expects($this->once())
       ->method('getLabel')

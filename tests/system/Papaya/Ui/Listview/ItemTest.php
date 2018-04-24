@@ -64,7 +64,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   * @covers PapayaUiListviewItem::getListview
   */
   public function testGetListview() {
-    $listview = $this->getMock('PapayaUiListview');
+    $listview = $this->createMock(PapayaUiListview::class);
     $items = $this->getMock('PapayaUiListviewItems', array(), array($listview));
     $items
       ->expects($this->once())
@@ -149,7 +149,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testReferenceGetAfterSet() {
     $item = new PapayaUiListviewItem('', '');
-    $item->reference($reference = $this->getMock('PapayaUiReference'));
+    $item->reference($reference = $this->createMock(PapayaUiReference::class));
     $this->assertSame($reference, $item->reference());
   }
 
@@ -169,8 +169,8 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   * @covers PapayaUiListviewItem::reference
   */
   public function testReferenceGetFromCollection() {
-    $reference = $this->getMock('PapayaUiReference');
-    $listview = $this->getMock('PapayaUiListview');
+    $reference = $this->createMock(PapayaUiReference::class);
+    $listview = $this->createMock(PapayaUiListview::class);
     $collection = $this->getMock('PapayaUiListviewItems', array(), array($listview));
     $collection
       ->expects($this->once())
@@ -236,12 +236,12 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   * @covers PapayaUiListviewItem::appendTo
   */
   public function testAppendToWithActionParameters() {
-    $listview = $this->getMock('PapayaUiListview');
+    $listview = $this->createMock(PapayaUiListview::class);
     $listview
       ->expects($this->once())
       ->method('parameterGroup')
       ->will($this->returnValue('group'));
-    $reference = $this->getMock('PapayaUiReference');
+    $reference = $this->createMock(PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('setParameters')
@@ -345,7 +345,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(42));
-    $listview = $this->getMock('PapayaUiListview');
+    $listview = $this->createMock(PapayaUiListview::class);
     $listview
       ->expects($this->once())
       ->method('columns')

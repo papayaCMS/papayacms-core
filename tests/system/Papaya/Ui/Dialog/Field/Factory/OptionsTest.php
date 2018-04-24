@@ -145,7 +145,7 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    */
   public function testGetValidationWithFilter() {
     $options = new PapayaUiDialogFieldFactoryOptions();
-    $options->validation = $filter = $this->getMock('PapayaFilter');
+    $options->validation = $filter = $this->createMock(PapayaFilter::class);
     $this->assertSame($filter, $options->validation);
   }
 
@@ -178,12 +178,12 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    * @covers PapayaUiDialogFieldFactoryOptions::getValidation
    */
   public function testGetValidationWithArray() {
-    $factory = $this->getMock('PapayaFilterFactory');
+    $factory = $this->createMock(PapayaFilterFactory::class);
     $factory
       ->expects($this->once())
       ->method('getFilter')
       ->with('generator', FALSE, array('PapayaFilterSample', 'ArgumentOne'))
-      ->will($this->returnValue($this->getMock('PapayaFilter')));
+      ->will($this->returnValue($this->createMock(PapayaFilter::class)));
 
     $options = new PapayaUiDialogFieldFactoryOptions();
     $options->filterFactory($factory);
@@ -197,12 +197,12 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    * @covers PapayaUiDialogFieldFactoryOptions::getValidation
    */
   public function testGetValidationWithClass() {
-    $factory = $this->getMock('PapayaFilterFactory');
+    $factory = $this->createMock(PapayaFilterFactory::class);
     $factory
       ->expects($this->once())
       ->method('getFilter')
       ->with('generator', FALSE, array('PapayaFilterNotEmpty'))
-      ->will($this->returnValue($this->getMock('PapayaFilter')));
+      ->will($this->returnValue($this->createMock(PapayaFilter::class)));
 
     $options = new PapayaUiDialogFieldFactoryOptions();
     $options->filterFactory($factory);
@@ -216,12 +216,12 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    * @covers PapayaUiDialogFieldFactoryOptions::getValidation
    */
   public function testGetValidationWithRegex() {
-    $factory = $this->getMock('PapayaFilterFactory');
+    $factory = $this->createMock(PapayaFilterFactory::class);
     $factory
       ->expects($this->once())
       ->method('getFilter')
       ->with('regex', FALSE, '(sample)')
-      ->will($this->returnValue($this->getMock('PapayaFilter')));
+      ->will($this->returnValue($this->createMock(PapayaFilter::class)));
 
     $options = new PapayaUiDialogFieldFactoryOptions();
     $options->filterFactory($factory);
@@ -235,12 +235,12 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    * @covers PapayaUiDialogFieldFactoryOptions::getValidation
    */
   public function testGetValidationWithNamedFilterProfile() {
-    $factory = $this->getMock('PapayaFilterFactory');
+    $factory = $this->createMock(PapayaFilterFactory::class);
     $factory
       ->expects($this->once())
       ->method('getFilter')
       ->with('isSomething', FALSE)
-      ->will($this->returnValue($this->getMock('PapayaFilter')));
+      ->will($this->returnValue($this->createMock(PapayaFilter::class)));
 
     $options = new PapayaUiDialogFieldFactoryOptions();
     $options->filterFactory($factory);
@@ -253,7 +253,7 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    */
   public function testFilterFactoryGetAfterSet() {
     $options = new PapayaUiDialogFieldFactoryOptions();
-    $options->filterFactory($factory = $this->getMock('PapayaFilterFactory'));
+    $options->filterFactory($factory = $this->createMock(PapayaFilterFactory::class));
     $this->assertSame($factory, $options->filterFactory());
   }
 

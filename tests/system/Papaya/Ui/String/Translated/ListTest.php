@@ -49,7 +49,7 @@ class PapayaUiStringTranslatedListTest extends PapayaTestCase {
   */
   public function testPapayaGetAfterSet() {
     $list = new PapayaUiStringTranslatedList(array());
-    $application = $this->getMock('PapayaApplication');
+    $application = $this->createMock(PapayaApplication::class);
     $this->assertSame($application, $list->papaya($application));
   }
 }

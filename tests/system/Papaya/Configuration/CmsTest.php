@@ -29,7 +29,7 @@ class PapayaConfigurationCmsTest extends PapayaTestCase {
   * @runInSeparateProcess
   */
   public function testLoadAndDefineExpectingFalse() {
-    $storage = $this->getMock('PapayaConfigurationStorage');
+    $storage = $this->createMock(PapayaConfigurationStorage::class);
     $storage
       ->expects($this->once())
       ->method('load')
@@ -48,7 +48,7 @@ class PapayaConfigurationCmsTest extends PapayaTestCase {
   * @runInSeparateProcess
   */
   public function testLoadAndDefine() {
-    $storage = $this->getMock('PapayaConfigurationStorage');
+    $storage = $this->createMock(PapayaConfigurationStorage::class);
     $storage
       ->expects($this->once())
       ->method('load')

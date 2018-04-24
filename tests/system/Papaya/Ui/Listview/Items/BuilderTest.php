@@ -8,7 +8,7 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
   * @covers PapayaUiListviewItemsBuilder::getDataSource
   */
   public function testConstructor() {
-    $iterator = $this->getMock('Iterator');
+    $iterator = $this->createMock(Iterator::class);
     $builder = new PapayaUiListviewItemsBuilder($iterator);
     $this->assertSame($iterator, $builder->getDataSource());
   }
@@ -42,7 +42,7 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
       ->getMockBuilder('PapayaUiListviewItem')
       ->disableOriginalConstructor()
       ->getMock();
-    $callbacks = $this->getMock('PapayaUiListviewItemsBuilderCallbacks');
+    $callbacks = $this->createMock(PapayaUiListviewItemsBuilderCallbacks::class);
     $callbacks
       ->expects($this->once())
       ->method('__isset')
@@ -72,7 +72,7 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
   * @covers PapayaUiListviewItemsBuilder::callbacks
   */
   public function testCallbacksGetAfterSet() {
-    $callbacks = $this->getMock('PapayaUiListviewItemsBuilderCallbacks');
+    $callbacks = $this->createMock(PapayaUiListviewItemsBuilderCallbacks::class);
     $builder = new PapayaUiListviewItemsBuilder(array());
     $builder->callbacks($callbacks);
     $this->assertSame($callbacks, $builder->callbacks());

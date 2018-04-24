@@ -56,7 +56,7 @@ class PapayaProfilerTimerTest extends PapayaTestCase {
    * @covers PapayaProfilerTimer
    */
   public function testEmit() {
-    $messages = $this->getMock('PapayaMessageManager');
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('log')

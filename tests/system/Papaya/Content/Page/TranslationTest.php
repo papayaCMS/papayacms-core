@@ -20,7 +20,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       'view_id' => '21',
       'module_guid' => '123456789012345678901234567890ab'
     );
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -87,7 +87,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       'view_id' => '21',
       'module_guid' => '123456789012345678901234567890ab'
     );
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -171,7 +171,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
   * @covers PapayaContentPageTranslation
   */
   public function testLoadNoRecordExpectingFalse() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -207,7 +207,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
   * @covers PapayaContentPageTranslation
   */
   public function testSaveCreateNew() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -273,7 +273,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
   * @covers PapayaContentPageTranslation
   */
   public function testSaveUpdateExisting() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')

@@ -7,7 +7,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   * @covers PapayaUiReference::__construct
   */
   public function testConstructorWithUrl() {
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $reference = new PapayaUiReference($url);
     $this->assertSame($url, $reference->url());
   }
@@ -26,7 +26,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   * @covers PapayaUiReference::create
   */
   public function testStaticFunctionCreateWithUrl() {
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $reference = PapayaUiReference::create($url);
     $this->assertSame($url, $reference->url());
   }
@@ -35,7 +35,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   * @covers PapayaUiReference::valid
   */
   public function testValidGetAfterSetExpectingFalse() {
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $reference = PapayaUiReference::create($url);
     $reference->valid(FALSE);
     $this->assertFalse($reference->valid());
@@ -45,7 +45,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   * @covers PapayaUiReference::valid
   */
   public function testValidGetAfterSetExpectingTrue() {
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $reference = PapayaUiReference::create($url);
     $reference->valid(TRUE);
     $this->assertTrue($reference->valid());
@@ -55,8 +55,8 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   * @covers PapayaUiReference::load
   */
   public function testLoadRequest() {
-    $url = $this->getMock('PapayaUrl');
-    $request = $this->getMock('PapayaRequest');
+    $url = $this->createMock(PapayaUrl::class);
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getUrl')
@@ -80,9 +80,9 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   * @covers PapayaUiReference::prepare
   */
   public function testPrepare() {
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $url->testIdentifier = rand();
-    $request = $this->getMock('PapayaRequest');
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getUrl')
@@ -171,7 +171,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   * @covers PapayaUiReference::get
   */
   public function testGet() {
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $url->expects($this->once())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/path/file.html'));
@@ -187,7 +187,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
    * @covers PapayaUiReference::get
    */
   public function testGetRemoveSessionIdFromPath() {
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $url->expects($this->once())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/sid123456/path/file.html'));
@@ -203,7 +203,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   * @covers PapayaUiReference::get
   */
   public function testGetWithQueryString() {
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $url->expects($this->once())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/path/file.html'));
@@ -220,7 +220,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
    * @covers PapayaUiReference::get
    */
   public function testGetWithQueryStringRemoveSessionIdFromParameters() {
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $url->expects($this->once())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/sid123456/path/file.html'));
@@ -239,7 +239,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   * @covers PapayaUiReference::getFragment
   */
   public function testGetWithFragment() {
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $url->expects($this->atLeastOnce())
         ->method('getPathUrl')
         ->will($this->returnValue('http://www.sample.tld/path/file.html'));
@@ -275,7 +275,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   */
   public function testUrlGetAfterSet() {
     $reference = new PapayaUiReference();
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $this->assertSame(
       $url,
       $reference->url($url)
@@ -570,7 +570,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   */
   public function testMagicMethodClone() {
     $reference = new PapayaUiReference();
-    $reference->url($this->getMock('PapayaUrl'));
+    $reference->url($this->createMock(PapayaUrl::class));
     $reference->setParameters(array('foo' => 'bar'));
     $clone = clone $reference;
     $this->assertInstanceOf('PapayaUrl', $clone->url());

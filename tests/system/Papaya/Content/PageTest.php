@@ -38,7 +38,7 @@ class PapayaContentPageTest extends PapayaTestCase {
       'topic_expirestime' => 0,
       'topic_unpublished_languages' => 0
     );
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -99,7 +99,7 @@ class PapayaContentPageTest extends PapayaTestCase {
   * @covers PapayaContentPage
   */
   public function testLoadExpectingFalse() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -129,7 +129,7 @@ class PapayaContentPageTest extends PapayaTestCase {
   * @covers PapayaContentPage
   */
   public function testTranslationsSet() {
-    $translations = $this->getMock('PapayaContentPageTranslations');
+    $translations = $this->createMock(PapayaContentPageTranslations::class);
     $page = new PapayaContentPage();
     $page->translations($translations);
     $this->assertAttributeSame(
@@ -141,7 +141,7 @@ class PapayaContentPageTest extends PapayaTestCase {
   * @covers PapayaContentPage
   */
   public function testTranslationsGetAfterSet() {
-    $translations = $this->getMock('PapayaContentPageTranslations');
+    $translations = $this->createMock(PapayaContentPageTranslations::class);
     $page = new PapayaContentPage();
     $page->translations($translations);
     $this->assertSame(

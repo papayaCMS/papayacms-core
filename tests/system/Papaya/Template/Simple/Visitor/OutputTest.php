@@ -100,7 +100,7 @@ class PapayaTemplateSimpleVisitorOutputTest extends PapayaTestCase {
    * @covers PapayaTemplateSimpleVisitorOutput::callbacks
    */
   public function testCallbacksGetAfterSet() {
-    $callbacks = $this->getMock('PapayaTemplateSimpleVisitorOutputCallbacks');
+    $callbacks = $this->createMock(PapayaTemplateSimpleVisitorOutputCallbacks::class);
     $visitor = new PapayaTemplateSimpleVisitorOutput();
     $visitor->callbacks($callbacks);
     $this->assertSame($callbacks, $visitor->callbacks());

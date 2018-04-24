@@ -7,7 +7,7 @@ class PapayaTemplateTest extends PapayaTestCase {
    * @covers PapayaTemplate
    */
   public function testValuesGetAfterSet() {
-    $values = $this->getMock('PapayaTemplateValues');
+    $values = $this->createMock(PapayaTemplateValues::class);
     $template = $this->getMockForAbstractClass('PapayaTemplate');
     $template->values($values);
     $this->assertSame($values, $template->values());
@@ -25,12 +25,12 @@ class PapayaTemplateTest extends PapayaTestCase {
    * @covers PapayaTemplate
    */
   public function testSetXml() {
-    $document = $this->getMock('PapayaXmlDocument');
+    $document = $this->createMock(PapayaXmlDocument::class);
     $document
       ->expects($this->once())
       ->method('loadXml')
       ->with('<page/>');
-    $values = $this->getMock('PapayaTemplateValues');
+    $values = $this->createMock(PapayaTemplateValues::class);
     $values
       ->expects($this->once())
       ->method('document')
@@ -44,12 +44,12 @@ class PapayaTemplateTest extends PapayaTestCase {
    * @covers PapayaTemplate
    */
   public function testGetXml() {
-    $document = $this->getMock('PapayaXmlDocument');
+    $document = $this->createMock(PapayaXmlDocument::class);
     $document
       ->expects($this->once())
       ->method('saveXml')
       ->will($this->returnValue('<page/>'));
-    $values = $this->getMock('PapayaTemplateValues');
+    $values = $this->createMock(PapayaTemplateValues::class);
     $values
       ->expects($this->once())
       ->method('document')
@@ -63,7 +63,7 @@ class PapayaTemplateTest extends PapayaTestCase {
    * @covers PapayaTemplate
    */
   public function testParametersGetAfterSet() {
-    $parameters = $this->getMock('PapayaTemplateParameters');
+    $parameters = $this->createMock(PapayaTemplateParameters::class);
     $template = $this->getMockForAbstractClass('PapayaTemplate');
     $template->parameters($parameters);
     $this->assertSame($parameters, $template->parameters());
@@ -92,7 +92,7 @@ class PapayaTemplateTest extends PapayaTestCase {
    * @covers PapayaTemplate
    */
   public function testErrorsGetAfterSet() {
-    $errors = $this->getMock('PapayaXmlErrors');
+    $errors = $this->createMock(PapayaXmlErrors::class);
     $template = $this->getMockForAbstractClass('PapayaTemplate');
     $template->errors($errors);
     $this->assertSame($errors, $template->errors());
@@ -123,7 +123,7 @@ class PapayaTemplateTest extends PapayaTestCase {
    * @covers PapayaTemplate
    */
   public function testAddWithXmlAppendable() {
-    $appendable = $this->getMock('PapayaXmlAppendable');
+    $appendable = $this->createMock(PapayaXmlAppendable::class);
     $appendable
       ->expects($this->once())
       ->method('appendTo');
@@ -242,12 +242,12 @@ class PapayaTemplateTest extends PapayaTestCase {
    * @covers PapayaTemplate
    */
   public function testXml() {
-    $document = $this->getMock('PapayaXmlDocument');
+    $document = $this->createMock(PapayaXmlDocument::class);
     $document
       ->expects($this->once())
       ->method('saveXml')
       ->will($this->returnValue('<page/>'));
-    $values = $this->getMock('PapayaTemplateValues');
+    $values = $this->createMock(PapayaTemplateValues::class);
     $values
       ->expects($this->once())
       ->method('document')

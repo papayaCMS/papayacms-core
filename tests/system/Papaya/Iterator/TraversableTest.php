@@ -8,7 +8,7 @@ class PapayaIteratorTraversableTest extends PapayaTestCase {
   * @covers PapayaIteratorTraversable::getInnerIterator
   */
   public function testConstructor() {
-    $traversable = $this->getMock('IteratorAggregate');
+    $traversable = $this->createMock(IteratorAggregate::class);
     $traversable
       ->expects($this->never())
       ->method('getIterator');
@@ -27,7 +27,7 @@ class PapayaIteratorTraversableTest extends PapayaTestCase {
   * @covers PapayaIteratorTraversable::rewind
   */
   public function testIteration() {
-    $traversable = $this->getMock('IteratorAggregate');
+    $traversable = $this->createMock(IteratorAggregate::class);
     $traversable
       ->expects($this->once())
       ->method('getIterator')
@@ -42,7 +42,7 @@ class PapayaIteratorTraversableTest extends PapayaTestCase {
   * @covers PapayaIteratorTraversable::getIteratorForTraversable
   */
   public function testIterationIsCalledOnlyOnce() {
-    $traversable = $this->getMock('IteratorAggregate');
+    $traversable = $this->createMock(IteratorAggregate::class);
     $traversable
       ->expects($this->once())
       ->method('getIterator')
@@ -59,7 +59,7 @@ class PapayaIteratorTraversableTest extends PapayaTestCase {
   */
   public function testGetIteratorForTraversableUsingIteratorAggregate() {
     $innerIterator = new ArrayIterator(array(42));
-    $traversable = $this->getMock('IteratorAggregate');
+    $traversable = $this->createMock(IteratorAggregate::class);
     $traversable
       ->expects($this->once())
       ->method('getIterator')
@@ -74,7 +74,7 @@ class PapayaIteratorTraversableTest extends PapayaTestCase {
   * @covers PapayaIteratorTraversable::getIteratorForTraversable
   */
   public function testGetIteratorForTraversableUsingIterator() {
-    $traversable = $this->getMock('Iterator');
+    $traversable = $this->createMock(Iterator::class);
     $iterator = new PapayaIteratorTraversable($traversable);
     $this->assertEquals(
       $traversable, $iterator->getIteratorForTraversable()

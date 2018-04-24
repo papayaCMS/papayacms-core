@@ -7,7 +7,7 @@ class PapayaContentCommunityGroupsTest extends PapayaTestCase {
   * @covers PapayaContentCommunityGroups::loadByPermission
   */
   public function testLoadByPermission() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')

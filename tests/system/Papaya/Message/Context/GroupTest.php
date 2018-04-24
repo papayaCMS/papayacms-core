@@ -7,7 +7,7 @@ class PapayaMessageContextGroupTest extends PapayaTestCase {
   * @covers PapayaMessageContextGroup::append
   */
   public function testAppend() {
-    $element = $this->getMock('PapayaMessageContextInterface');
+    $element = $this->createMock(PapayaMessageContextInterface::class);
     $group = new PapayaMessageContextGroup();
     $this->assertSame(
       $group,
@@ -128,17 +128,17 @@ class PapayaMessageContextGroupTest extends PapayaTestCase {
 
   public function getContextGroupFixture() {
     $group = new PapayaMessageContextGroup();
-    $elementLabeled = $this->getMock('PapayaMessageContextInterfaceLabeled');
+    $elementLabeled = $this->createMock(PapayaMessageContextInterfaceLabeled::class);
     $elementLabeled
       ->expects($this->any())
       ->method('getLabel')
       ->will($this->returnValue('Universe'));
-    $elementString = $this->getMock('PapayaMessageContextInterfaceString');
+    $elementString = $this->createMock(PapayaMessageContextInterfaceString::class);
     $elementString
       ->expects($this->any())
       ->method('asString')
       ->will($this->returnValue('Hello <World>'));
-    $elementXhtml = $this->getMock('PapayaMessageContextInterfaceXhtml');
+    $elementXhtml = $this->createMock(PapayaMessageContextInterfaceXhtml::class);
     $elementXhtml
       ->expects($this->any())
       ->method('asXhtml')

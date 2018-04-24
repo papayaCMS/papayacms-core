@@ -153,7 +153,7 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
    */
   public function testCallbacksGetAfterSet() {
     $content = new PapayaPluginEditableContent();
-    $content->callbacks($callbacks = $this->getMock('PapayaPluginEditableContentCallbacks'));
+    $content->callbacks($callbacks = $this->createMock(PapayaPluginEditableContentCallbacks::class));
     $this->assertSame($callbacks, $content->callbacks());
   }
 

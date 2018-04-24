@@ -7,7 +7,7 @@ class PapayaThemeDefinitionTest extends PapayaTestCase {
    * @covers PapayaThemeDefinition::load
    */
   public function testLoad() {
-    $pages = $this->getMock('PapayaContentStructurePages');
+    $pages = $this->createMock(PapayaContentStructurePages::class);
     $pages
       ->expects($this->once())
       ->method('load')

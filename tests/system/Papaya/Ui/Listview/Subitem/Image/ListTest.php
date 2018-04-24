@@ -7,7 +7,7 @@ class PapayaUiListviewSubitemImageListTest extends PapayaTestCase {
   * @covers PapayaUiListviewSubitemImageList::__construct
   */
   public function testConstructor() {
-    $icons = $this->getMock('PapayaUiIconList');
+    $icons = $this->createMock(PapayaUiIconList::class);
     $subitem = new PapayaUiListviewSubitemImageList(
       $icons, 'foo', PapayaUiListviewSubitemImageList::VALIDATE_BITMASK
     );

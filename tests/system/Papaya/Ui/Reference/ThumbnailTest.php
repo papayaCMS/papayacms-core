@@ -17,7 +17,7 @@ class PapayaUiReferenceThumbnailTest extends PapayaTestCase {
   * @covers PapayaUiReferenceThumbnail::load
   */
   public function testLoad() {
-    $request = $this->getMock('PapayaRequest');
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getUrl')
@@ -340,7 +340,7 @@ class PapayaUiReferenceThumbnailTest extends PapayaTestCase {
   **********************************/
 
   private function getUrlObjectMockFixture() {
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $url
       ->expects($this->any())
       ->method('getHostUrl')

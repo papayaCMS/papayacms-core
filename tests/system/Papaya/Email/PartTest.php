@@ -8,7 +8,7 @@ class PapayaEmailPartTest extends PapayaTestCase {
   * @covers PapayaEmailPart::content
   */
   public function testConstructor() {
-    $content = $this->getMock('PapayaEmailContent');
+    $content = $this->createMock(PapayaEmailContent::class);
     $part = new PapayaEmailPart($content);
     $this->assertAttributeSame(
       $content, '_content', $part
@@ -19,7 +19,7 @@ class PapayaEmailPartTest extends PapayaTestCase {
   * @covers PapayaEmailPart::content
   */
   public function testContentGetter() {
-    $content = $this->getMock('PapayaEmailContent');
+    $content = $this->createMock(PapayaEmailContent::class);
     $part = new PapayaEmailPart($content);
     $this->assertSame(
       $content, $part->content()
@@ -30,8 +30,8 @@ class PapayaEmailPartTest extends PapayaTestCase {
   * @covers PapayaEmailPart::headers
   */
   public function testHeadersGetAfterSet() {
-    $part = new PapayaEmailPart($this->getMock('PapayaEmailContent'));
-    $headers = $this->getMock('PapayaEmailHeaders');
+    $part = new PapayaEmailPart($this->createMock(PapayaEmailContent::class));
+    $headers = $this->createMock(PapayaEmailHeaders::class);
     $this->assertSame(
       $headers, $part->headers($headers)
     );
@@ -41,7 +41,7 @@ class PapayaEmailPartTest extends PapayaTestCase {
   * @covers PapayaEmailPart::headers
   */
   public function testHeadersGetImplicitCreate() {
-    $part = new PapayaEmailPart($this->getMock('PapayaEmailContent'));
+    $part = new PapayaEmailPart($this->createMock(PapayaEmailContent::class));
     $this->assertInstanceOf(
       'PapayaEmailHeaders', $part->headers()
     );
@@ -51,7 +51,7 @@ class PapayaEmailPartTest extends PapayaTestCase {
   * @covers PapayaEmailPart::__get
   */
   public function testMagicMethodGetForPropertyContent() {
-    $content = $this->getMock('PapayaEmailContent');
+    $content = $this->createMock(PapayaEmailContent::class);
     $part = new PapayaEmailPart($content);
     $this->assertSame(
       $content, $part->content
@@ -62,7 +62,7 @@ class PapayaEmailPartTest extends PapayaTestCase {
   * @covers PapayaEmailPart::__get
   */
   public function testMagicMethodGetForPropertyHeaders() {
-    $part = new PapayaEmailPart($this->getMock('PapayaEmailContent'));
+    $part = new PapayaEmailPart($this->createMock(PapayaEmailContent::class));
     $this->assertInstanceOf(
       'PapayaEmailHeaders', $part->headers
     );
@@ -72,7 +72,7 @@ class PapayaEmailPartTest extends PapayaTestCase {
   * @covers PapayaEmailPart::__get
   */
   public function testMagicMethodGetWithInvalidPropertyExpectingException() {
-    $part = new PapayaEmailPart($this->getMock('PapayaEmailContent'));
+    $part = new PapayaEmailPart($this->createMock(PapayaEmailContent::class));
     $this->setExpectedException(
       'LogicException',
       'LogicException: Unknown property "PapayaEmailPart::$invalidProperty".'
@@ -84,8 +84,8 @@ class PapayaEmailPartTest extends PapayaTestCase {
   * @covers PapayaEmailPart::__set
   */
   public function testMagicMethodSetForPropertyContent() {
-    $part = new PapayaEmailPart($this->getMock('PapayaEmailContent'));
-    $content = $this->getMock('PapayaEmailContent');
+    $part = new PapayaEmailPart($this->createMock(PapayaEmailContent::class));
+    $content = $this->createMock(PapayaEmailContent::class);
     $part->content = $content;
     $this->assertAttributeSame(
       $content, '_content', $part
@@ -96,8 +96,8 @@ class PapayaEmailPartTest extends PapayaTestCase {
   * @covers PapayaEmailPart::__set
   */
   public function testMagicMethodSetForPropertyHeaders() {
-    $part = new PapayaEmailPart($this->getMock('PapayaEmailContent'));
-    $headers = $this->getMock('PapayaEmailHeaders');
+    $part = new PapayaEmailPart($this->createMock(PapayaEmailContent::class));
+    $headers = $this->createMock(PapayaEmailHeaders::class);
     $part->headers = $headers;
     $this->assertAttributeSame(
       $headers, '_headers', $part
@@ -108,7 +108,7 @@ class PapayaEmailPartTest extends PapayaTestCase {
   * @covers PapayaEmailPart::__set
   */
   public function testMagicMethodSetWithInvalidPropertyExpectingException() {
-    $part = new PapayaEmailPart($this->getMock('PapayaEmailContent'));
+    $part = new PapayaEmailPart($this->createMock(PapayaEmailContent::class));
     $this->setExpectedException(
       'LogicException',
       'LogicException: Unknown property "PapayaEmailPart::$invalidProperty".'

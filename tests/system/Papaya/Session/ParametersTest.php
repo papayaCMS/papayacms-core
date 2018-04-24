@@ -12,7 +12,7 @@ class PapayaSessionParametersTest extends PapayaTestCase {
   public function testConstructor() {
     $sessionParameters = new PapayaSessionParameters(
       $group = new stdClass,
-      $parameters = $this->getMock('PapayaRequestParameters')
+      $parameters = $this->createMock(PapayaRequestParameters::class)
     );
     $this->assertSame(
       $parameters, $sessionParameters->parameters()
@@ -29,7 +29,7 @@ class PapayaSessionParametersTest extends PapayaTestCase {
     $sessionValues = $this->getSessionValuesFixture();
     $sessionParameters = new PapayaSessionParameters(
       new stdClass,
-      $this->getMock('PapayaRequestParameters')
+      $this->createMock(PapayaRequestParameters::class)
     );
     $this->assertSame(
       $sessionValues, $sessionParameters->values($sessionValues)
@@ -41,7 +41,7 @@ class PapayaSessionParametersTest extends PapayaTestCase {
   */
   public function testValuesGetFromApplication() {
     $sessionValues = $this->getSessionValuesFixture();
-    $session = $this->getMock('PapayaSession');
+    $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->any())
       ->method('__get')
@@ -49,7 +49,7 @@ class PapayaSessionParametersTest extends PapayaTestCase {
       ->will($this->returnValue($sessionValues));
     $sessionParameters = new PapayaSessionParameters(
       new stdClass,
-      $this->getMock('PapayaRequestParameters')
+      $this->createMock(PapayaRequestParameters::class)
     );
     $sessionParameters->papaya(
       $this->mockPapaya()->application(

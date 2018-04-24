@@ -8,8 +8,8 @@ class PapayaControllerGroupTest extends PapayaTestCase {
    */
   public function testConstructorWithTwoControllers() {
     $controller = new PapayaControllerGroup(
-      $one = $this->getMock('PapayaController'),
-      $two = $this->getMock('PapayaController')
+      $one = $this->createMock(PapayaController::class),
+      $two = $this->createMock(PapayaController::class)
     );
     $this->assertEquals(
       array($one, $two),
@@ -29,13 +29,13 @@ class PapayaControllerGroupTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $response = $this->mockPapaya()->response();
 
-    $one = $this->getMock('PapayaController');
+    $one = $this->createMock(PapayaController::class);
     $one
       ->expects($this->once())
       ->method('execute')
       ->with($application, $request, $response)
       ->will($this->returnValue(FALSE));
-    $two = $this->getMock('PapayaController');
+    $two = $this->createMock(PapayaController::class);
     $two
       ->expects($this->once())
       ->method('execute')
@@ -66,13 +66,13 @@ class PapayaControllerGroupTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $response = $this->mockPapaya()->response();
 
-    $one = $this->getMock('PapayaController');
+    $one = $this->createMock(PapayaController::class);
     $one
       ->expects($this->once())
       ->method('execute')
       ->with($application, $request, $response)
       ->will($this->returnValue(TRUE));
-    $two = $this->getMock('PapayaController');
+    $two = $this->createMock(PapayaController::class);
     $two
       ->expects($this->once())
       ->method('execute')
@@ -90,7 +90,7 @@ class PapayaControllerGroupTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $response = $this->mockPapaya()->response();
 
-    $one = $this->getMock('PapayaController');
+    $one = $this->createMock(PapayaController::class);
     $one
       ->expects($this->exactly(20))
       ->method('execute')

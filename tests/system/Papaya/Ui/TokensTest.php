@@ -55,7 +55,7 @@ class PapayaUiTokensTest extends PapayaTestCase {
     $values = $this->getMock(
       'PapayaSessionValues',
       array('get', 'set'),
-      array($this->getMock('PapayaSession'))
+      array($this->createMock(PapayaSession::class))
     );
     $values
       ->expects($this->once())

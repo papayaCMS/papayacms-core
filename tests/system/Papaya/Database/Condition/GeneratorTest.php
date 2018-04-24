@@ -26,7 +26,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
       ->disableOriginalConstructor()
       ->getMock();
     $parent = $this
-      ->getMock('PapayaDatabaseInterfaceAccess');
+      ->createMock(PapayaDatabaseInterfaceAccess::class);
     $parent
       ->expects($this->once())
       ->method('getDatabaseAccess')
@@ -71,7 +71,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionGenerator
    */
   public function testFromArrayWithFieldMapping() {
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->once())
       ->method('getField')
@@ -100,7 +100,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionGenerator
    */
   public function testFromArrayWithFieldMappingReturnsNoFieldname() {
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->once())
       ->method('getField')

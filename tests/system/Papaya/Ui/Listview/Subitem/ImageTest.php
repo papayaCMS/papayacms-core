@@ -31,7 +31,7 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
   */
   public function testReferenceGetAfterSet() {
     $subitem = new PapayaUiListviewSubitemImage('sample.png', 'quickinfo', array('foo' => 'bar'));
-    $subitem->reference($reference = $this->getMock('PapayaUiReference'));
+    $subitem->reference($reference = $this->createMock(PapayaUiReference::class));
     $this->assertSame(
       $reference, $subitem->reference()
     );
@@ -41,8 +41,8 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
   * @covers PapayaUiListviewSubitemImage::reference
   */
   public function testReferenceGetFromListview() {
-    $reference = $this->getMock('PapayaUiReference');
-    $listview = $this->getMock('PapayaUiListview');
+    $reference = $this->createMock(PapayaUiReference::class);
+    $listview = $this->createMock(PapayaUiListview::class);
     $listview
       ->expects($this->once())
       ->method('reference')
@@ -106,7 +106,7 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
   public function testAppendToWithReference() {
     $dom = new PapayaXmlDocument();
     $dom->appendElement('test');
-    $reference = $this->getMock('PapayaUiReference');
+    $reference = $this->createMock(PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('setParameters')
@@ -135,7 +135,7 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
   public function testAppendToWithReferenceFromListview() {
     $dom = new PapayaXmlDocument();
     $dom->appendElement('test');
-    $reference = $this->getMock('PapayaUiReference');
+    $reference = $this->createMock(PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('setParameters')
@@ -144,7 +144,7 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getRelative')
       ->will($this->returnValue('sample.html'));
-    $listview = $this->getMock('PapayaUiListview');
+    $listview = $this->createMock(PapayaUiListview::class);
     $listview
       ->expects($this->once())
       ->method('reference')

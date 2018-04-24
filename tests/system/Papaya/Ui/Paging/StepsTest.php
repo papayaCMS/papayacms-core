@@ -133,7 +133,7 @@ class PapayaUiPagingStepsTest extends PapayaTestCase {
   * @covers PapayaUiPagingSteps::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->getMock('PapayaUiReference');
+    $reference = $this->createMock(PapayaUiReference::class);
     $steps = new PapayaUiPagingSteps('steps', 20, array(10, 20, 30));
     $steps->reference($reference);
     $this->assertSame(

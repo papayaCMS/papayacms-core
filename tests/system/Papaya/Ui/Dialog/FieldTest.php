@@ -85,7 +85,7 @@ class PapayaUiDialogFieldTest extends PapayaTestCase {
   * @covers PapayaUiDialogField::description
   */
   public function testDescriptionGetAfterSet() {
-    $description = $this->getMock('PapayaUiDialogElementDescription');
+    $description = $this->createMock(PapayaUiDialogElementDescription::class);
     $field = new PapayaUiDialogField_TestProxy();
     $field->description($description);
     $this->assertSame($description, $field->description());
@@ -680,7 +680,7 @@ class PapayaUiDialogFieldTest extends PapayaTestCase {
   * @covers PapayaUiDialogField::_appendFieldTo
   */
   public function testAppendFieldToWithFullData() {
-    $description = $this->getMock('PapayaUiDialogElementDescription');
+    $description = $this->createMock(PapayaUiDialogElementDescription::class);
     $description
       ->expects($this->once())
       ->method('appendTo')
@@ -795,7 +795,7 @@ class PapayaUiDialogFieldTest extends PapayaTestCase {
   *************************/
 
   public function throwFilterExceptionCallback() {
-    throw $this->getMock('PapayaFilterException');
+    throw $this->createMock(PapayaFilterException::class);
   }
 
   /*************************
@@ -803,7 +803,7 @@ class PapayaUiDialogFieldTest extends PapayaTestCase {
   *************************/
 
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->getMock('PapayaUiDialogFields');
+    $collection = $this->createMock(PapayaUiDialogFields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

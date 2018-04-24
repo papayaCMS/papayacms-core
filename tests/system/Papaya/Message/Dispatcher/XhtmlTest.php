@@ -7,7 +7,7 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherXhtml::dispatch
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
-    $message = $this->getMock('PapayaMessage');
+    $message = $this->createMock(PapayaMessage::class);
     $dispatcher = new PapayaMessageDispatcherXhtml();
     $this->assertFalse(
       $dispatcher->dispatch($message)
@@ -25,7 +25,7 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('asXhtml')
       ->will($this->returnValue('CONTEXT'));
-    $message = $this->getMock('PapayaMessageLogable');
+    $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->any())
       ->method('getType')
@@ -57,7 +57,7 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherXhtml::allow
   */
   public function testAllowWithDisabledDispatcherExpectingFalse() {
-    $message = $this->getMock('PapayaMessageLogable');
+    $message = $this->createMock(PapayaMessageLogable::class);
     $dispatcher = new PapayaMessageDispatcherXhtml();
     $dispatcher->papaya(
       $this->getFixtureApplicationObject(FALSE, FALSE)

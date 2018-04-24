@@ -8,7 +8,7 @@ class PapayaUiListviewSubitemImageSelectTest extends PapayaTestCase {
   * @covers PapayaUiListviewSubitemImageSelect::setIcons
   */
   public function testConstructor() {
-    $icons = $this->getMock('PapayaUiIconList');
+    $icons = $this->createMock(PapayaUiIconList::class);
     $subitem = new PapayaUiListviewSubitemImageSelect($icons, 'foo');
     $this->assertSame($icons, $subitem->icons);
     $this->assertEquals('foo', $subitem->selection);

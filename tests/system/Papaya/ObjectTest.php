@@ -8,7 +8,7 @@ class PapayaObjectTest extends PapayaTestCase {
   */
   public function testSetApplication() {
     $object = new PapayaObject_TestProxy();
-    $app = $this->getMock('PapayaApplication');
+    $app = $this->createMock(PapayaApplication::class);
     $object->setApplication($app);
     $this->assertAttributeSame(
       $app, '_applicationObject', $object
@@ -20,7 +20,7 @@ class PapayaObjectTest extends PapayaTestCase {
   */
   public function testGetApplication() {
     $object = new PapayaObject_TestProxy();
-    $app = $this->getMock('PapayaApplication');
+    $app = $this->createMock(PapayaApplication::class);
     $object->setApplication($app);
     $this->assertSame(
       $app,
@@ -48,7 +48,7 @@ class PapayaObjectTest extends PapayaTestCase {
   */
   public function testPapayaGetAfterSet() {
     $object = new PapayaObject_TestProxy();
-    $application = $this->getMock('PapayaApplication');
+    $application = $this->createMock(PapayaApplication::class);
     $this->assertSame($application, $object->papaya($application));
   }
 

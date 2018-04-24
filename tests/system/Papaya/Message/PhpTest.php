@@ -76,7 +76,7 @@ class PapayaMessagePhpTest extends PapayaTestCase {
   * @covers PapayaMessagePhp::setContext
   */
   public function testSetContext() {
-    $context = $this->getMock('PapayaMessageContextGroup');
+    $context = $this->createMock(PapayaMessageContextGroup::class);
     $message = new PapayaMessagePhp();
     $message->setContext($context);
     $this->assertAttributeSame(

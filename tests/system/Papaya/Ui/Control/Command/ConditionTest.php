@@ -8,7 +8,7 @@ class PapayaUiControlCommandConditionTest extends PapayaTestCase {
   */
   public function testCommandGetAfterSet() {
     $application = $this->mockPapaya()->application();
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
       ->method('papaya')
@@ -36,7 +36,7 @@ class PapayaUiControlCommandConditionTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandCondition::hasCommand
   */
   public function testHascommandExpectingTrue() {
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $condition = new PapayaUiControlCommandCondition_TestProxy();
     $condition->command($command);
     $this->assertTrue($condition->hasCommand());

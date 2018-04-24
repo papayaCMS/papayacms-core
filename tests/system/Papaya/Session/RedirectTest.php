@@ -34,7 +34,7 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   */
   public function testUrlSet() {
     $redirect = new PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $redirect->url($url);
     $this->assertAttributeSame(
       $url, '_url', $redirect
@@ -46,7 +46,7 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   */
   public function testUrlGetAfterSet() {
     $redirect = new PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
-    $url = $this->getMock('PapayaUrl');
+    $url = $this->createMock(PapayaUrl::class);
     $redirect->url($url);
     $this->assertSame(
       $url, $redirect->url()
@@ -102,7 +102,7 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   */
   public function testSend() {
     $application = $this->mockPapaya()->application();
-    $helper = $this->getMock('PapayaResponseHelper');
+    $helper = $this->createMock(PapayaResponseHelper::class);
     $helper
       ->expects($this->exactly(8))
       ->method('header')

@@ -75,7 +75,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->getMock('PapayaUiDialogFields'));
+    $select->collection($this->createMock(PapayaUiDialogFields::class));
     $this->assertEquals(
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">'.
         '<select name="name" type="dropdown">'.
@@ -100,7 +100,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->getMock('PapayaUiDialogFields'));
+    $select->collection($this->createMock(PapayaUiDialogFields::class));
     $this->assertEquals(
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">'.
         '<select name="name" type="dropdown">'.
@@ -130,7 +130,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->getMock('PapayaUiDialogFields'));
+    $select->collection($this->createMock(PapayaUiDialogFields::class));
     $this->assertEquals(
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">'.
         '<select name="name" type="dropdown">'.
@@ -155,7 +155,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->getMock('PapayaUiDialogFields'));
+    $select->collection($this->createMock(PapayaUiDialogFields::class));
     $this->assertEquals(
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">'.
         '<select name="name" type="dropdown">'.
@@ -188,7 +188,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->getMock('PapayaUiDialogFields'));
+    $select->collection($this->createMock(PapayaUiDialogFields::class));
     $this->assertEquals(
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">'.
         '<select name="name" type="dropdown">'.
@@ -364,7 +364,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
   *************************/
 
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->getMock('PapayaUiDialogFields');
+    $collection = $this->createMock(PapayaUiDialogFields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

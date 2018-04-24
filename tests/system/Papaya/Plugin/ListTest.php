@@ -7,7 +7,7 @@ class PapayaPluginListTest extends PapayaTestCase {
   * @covers PapayaPluginList::load
   */
   public function testLoad() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->exactly(2))
       ->method('fetchRow')

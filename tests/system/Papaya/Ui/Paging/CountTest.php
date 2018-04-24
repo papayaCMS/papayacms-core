@@ -304,7 +304,7 @@ class PapayaUiPagingCountTest extends PapayaTestCase {
   * @covers PapayaUiPagingCount::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->getMock('PapayaUiReference');
+    $reference = $this->createMock(PapayaUiReference::class);
     $paging = new PapayaUiPagingCount('page', 0, 30);
     $paging->reference($reference);
     $this->assertSame(

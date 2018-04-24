@@ -21,7 +21,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
       ->method('offsetGet')
       ->with('bar')
       ->will($this->returnValue('session_value'));
-    $session = $this->getMock('PapayaSession');
+    $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('isActive')
@@ -63,7 +63,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
       ->method('offsetGet')
       ->with('foo')
       ->will($this->returnValue(NULL));
-    $session = $this->getMock('PapayaSession');
+    $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('isActive')
@@ -90,7 +90,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
    * @covers PapayaCacheIdentifierDefinitionSessionParameters
    */
   public function testGetStatusNoSessionActive() {
-    $session = $this->getMock('PapayaSession');
+    $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('isActive')
@@ -134,7 +134,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
           )
         )
       );
-    $session = $this->getMock('PapayaSession');
+    $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('isActive')

@@ -8,7 +8,7 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   * @covers PapayaSpamFilterStatistical::getReference
   */
   public function testGetReferenceAfterSet() {
-    $reference = $this->getMock('PapayaSpamFilterStatisticalReference');
+    $reference = $this->createMock(PapayaSpamFilterStatisticalReference::class);
     $filter = new PapayaSpamFilterStatistical();
     $filter->setReference($reference);
     $this->assertSame($reference, $filter->getReference());

@@ -74,7 +74,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherCli::dispatch
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
-    $message = $this->getMock('PapayaMessage');
+    $message = $this->createMock(PapayaMessage::class);
     $dispatcher = new PapayaMessageDispatcherCli();
     $this->assertFalse(
       $dispatcher->dispatch($message)
@@ -85,7 +85,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherCli::dispatch
   */
   public function testDispatchWhileDisabledExpectingFalse() {
-    $message = $this->getMock('PapayaMessageLogable');
+    $message = $this->createMock(PapayaMessageLogable::class);
     $dispatcher = new PapayaMessageDispatcherCli();
     $dispatcher->phpSapiName('nosapi');
     $this->assertFalse(
@@ -102,7 +102,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('asString')
       ->will($this->returnValue('CONTEXT'));
-    $message = $this->getMock('PapayaMessageLogable');
+    $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->any())
       ->method('getType')
@@ -136,7 +136,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('asString')
       ->will($this->returnValue('CONTEXT'));
-    $message = $this->getMock('PapayaMessageLogable');
+    $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->any())
       ->method('getType')

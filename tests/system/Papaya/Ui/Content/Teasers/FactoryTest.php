@@ -7,7 +7,7 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
    * @covers PapayaUiContentTeasersFactory
    */
   public function testByFilterWithParentIdAndViewId() {
-    $orderBy = $this->getMock('PapayaDatabaseInterfaceOrder');
+    $orderBy = $this->createMock(PapayaDatabaseInterfaceOrder::class);
 
     $factory = new PapayaUiContentTeasersFactory();
     $factory->papaya($this->mockPapaya()->application());
@@ -54,7 +54,7 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
    * @covers PapayaUiContentTeasersFactory
    */
   public function testByParentWithTwoPageIdsWithIndividualOrderBy() {
-    $orderBy = $this->getMock('PapayaDatabaseInterfaceOrder');
+    $orderBy = $this->createMock(PapayaDatabaseInterfaceOrder::class);
 
     $factory = new PapayaUiContentTeasersFactory();
     $factory->papaya($this->mockPapaya()->application());

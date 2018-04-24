@@ -7,7 +7,7 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
   * @covers PapayaContentPageTags::load
   */
   public function testLoad() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -73,7 +73,7 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
   * @covers PapayaContentPageTags::load
   */
   public function testLoadWithLanguageId() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

@@ -69,7 +69,7 @@ class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
     $request = $this->getMockRequestObject();
     $application = $this->getMockApplicationObject(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->getMock('PapayaUiDialogFields'));
+    $input->collection($this->createMock(PapayaUiDialogFields::class));
     $input->appendTo($node);
     $this->assertEquals(
       '<sample>'.
@@ -92,7 +92,7 @@ class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
     $request = $this->getMockRequestObject();
     $application = $this->getMockApplicationObject(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->getMock('PapayaUiDialogFields'));
+    $input->collection($this->createMock(PapayaUiDialogFields::class));
     $input->setDefaultValue(50670);
     $input->appendTo($node);
     $this->assertEquals(

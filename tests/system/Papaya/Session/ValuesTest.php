@@ -165,7 +165,7 @@ class PapayaSessionValuesTest extends PapayaTestCase {
   * @dataProvider provideIdentfierData
   */
   public function testGetKey($expected, $identifierData) {
-    $values = new PapayaSessionValues($this->getMock('PapayaSession'));
+    $values = new PapayaSessionValues($this->createMock(PapayaSession::class));
     $this->assertSame($expected, $values->getKey($identifierData));
   }
 

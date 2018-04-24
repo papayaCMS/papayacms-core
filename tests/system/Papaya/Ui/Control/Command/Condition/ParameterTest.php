@@ -4,7 +4,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiControlCommandConditionParameterTest extends PapayaTestCase {
 
   public function testValidateExpectingTrue() {
-    $filter = $this->getMock('PapayaFilter');
+    $filter = $this->createMock(PapayaFilter::class);
     $filter
       ->expects($this->once())
       ->method('filter')
@@ -16,7 +16,7 @@ class PapayaUiControlCommandConditionParameterTest extends PapayaTestCase {
   }
 
   public function testValidateExpectingFalse() {
-    $filter = $this->getMock('PapayaFilter');
+    $filter = $this->createMock(PapayaFilter::class);
     $filter
       ->expects($this->once())
       ->method('filter')
@@ -28,18 +28,18 @@ class PapayaUiControlCommandConditionParameterTest extends PapayaTestCase {
   }
 
   public function getCommandFixture() {
-    $parameters = $this->getMock('PapayaRequestParameters');
+    $parameters = $this->createMock(PapayaRequestParameters::class);
     $parameters
       ->expects($this->once())
       ->method('get')
       ->with('name')
       ->will($this->returnValue('value'));
-    $owner = $this->getMock('PapayaUiControlInteractive');
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('parameters')
       ->will($this->returnValue($parameters));
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
       ->method('owner')

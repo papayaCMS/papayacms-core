@@ -8,7 +8,7 @@ class PapayaUiDialogFieldCallbackTest extends PapayaTestCase {
   */
   public function testConstructorWithAllArguments() {
     $xhtml = new PapayaUiDialogFieldCallback(
-      'Caption', 'name', array($this, 'callbackGetFieldString'), 42, $this->getMock('PapayaFilter')
+      'Caption', 'name', array($this, 'callbackGetFieldString'), 42, $this->createMock(PapayaFilter::class)
     );
     $this->assertXmlStringEqualsXmlString(
       '<field caption="Caption" class="DialogFieldCallback" error="no">'.
@@ -71,7 +71,7 @@ class PapayaUiDialogFieldCallbackTest extends PapayaTestCase {
   }
 
   public function callbackGetFieldPapayaXmlAppendable($name, $field, $data) {
-    $result = $this->getMock('PapayaXmlAppendable');
+    $result = $this->createMock(PapayaXmlAppendable::class);
     $result
       ->expects($this->once())
       ->method('appendTo')

@@ -36,7 +36,7 @@ class PapayaUiPanelTest extends PapayaTestCase {
   */
   public function testToolbarsGetAfterSet() {
     $panel = new PapayaUiPanel_TestProxy();
-    $toolbars = $this->getMock('PapayaUiToolbars');
+    $toolbars = $this->createMock(PapayaUiToolbars::class);
     $this->assertSame($toolbars, $panel->toolbars($toolbars));
   }
 

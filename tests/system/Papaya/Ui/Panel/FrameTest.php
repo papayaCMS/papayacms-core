@@ -46,7 +46,7 @@ class PapayaUiPanelFrameTest extends PapayaTestCase {
   * @covers PapayaUiPanelFrame::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->getMock('PapayaUiReference');
+    $reference = $this->createMock(PapayaUiReference::class);
     $frame = new PapayaUiPanelFrame('Sample Caption', 'sampleframe');
     $this->assertSame(
       $reference, $frame->reference($reference)

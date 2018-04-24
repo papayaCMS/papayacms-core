@@ -255,7 +255,7 @@ class PapayaCsvWriterTest extends PapayaTestCase {
   */
   public function testCallbacksGetAfterSet() {
     $writer = new PapayaCsvWriter();
-    $writer->callbacks($callbacks = $this->getMock('PapayaCsvWriterCallbacks'));
+    $writer->callbacks($callbacks = $this->createMock(PapayaCsvWriterCallbacks::class));
     $this->assertSame($callbacks, $writer->callbacks());
   }
 

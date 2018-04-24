@@ -39,7 +39,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
   * @covers PapayaContentPageReference::exists
   */
   public function testExistsExpectingTrue() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -63,7 +63,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
   * @covers PapayaContentPageReference::exists
   */
   public function testExistsExpectingFalse() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')

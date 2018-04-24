@@ -8,7 +8,7 @@ class PapayaThemeListTest extends PapayaTestCase {
    * @covers PapayaThemeList::callbackGetName
    */
   public function testGetIterator() {
-    $handler = $this->getMock('PapayaThemeHandler');
+    $handler = $this->createMock(PapayaThemeHandler::class);
     $handler
       ->expects($this->once())
       ->method('getLocalPath')
@@ -27,7 +27,7 @@ class PapayaThemeListTest extends PapayaTestCase {
    * @covers PapayaThemeList::getDefinition
    */
   public function testGetDefinition() {
-    $handler = $this->getMock('PapayaThemeHandler');
+    $handler = $this->createMock(PapayaThemeHandler::class);
     $handler
       ->expects($this->once())
       ->method('getDefinition')
@@ -46,7 +46,7 @@ class PapayaThemeListTest extends PapayaTestCase {
    */
   public function testHandlerGetAfterSet() {
     $list = new PapayaThemeList();
-    $list->handler($handler =  $this->getMock('PapayaThemeHandler'));
+    $list->handler($handler =  $this->createMock(PapayaThemeHandler::class));
     $this->assertSame($handler, $list->handler());
   }
 

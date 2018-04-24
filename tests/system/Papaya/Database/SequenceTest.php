@@ -39,7 +39,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   */
   public function testNext() {
     $sequence = new PapayaDatabaseSequence_TestProxy('table', 'field');
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->exactly(3))
       ->method('fetchRow')
@@ -72,7 +72,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   */
   public function testNextAllInDatabaseFirstTime() {
     $sequence = new PapayaDatabaseSequence_TestProxy('table', 'field');
-    $databaseResultOne = $this->getMock('PapayaDatabaseResult');
+    $databaseResultOne = $this->createMock(PapayaDatabaseResult::class);
     $databaseResultOne
       ->expects($this->any())
       ->method('fetchRow')
@@ -91,7 +91,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseResultTwo = $this->getMock('PapayaDatabaseResult');
+    $databaseResultTwo = $this->createMock(PapayaDatabaseResult::class);
     $databaseResultTwo
       ->expects($this->any())
       ->method('fetchRow')

@@ -20,7 +20,7 @@ class PapayaTemplateSimpleVisitorTest extends PapayaTestCase {
    */
   public function testVisitIgnoresUnknownFunction() {
     $visitor = new PapayaTemplateSimpleVisitor_TestProxy();
-    $node = $this->getMock('PapayaTemplateSimpleAstNode');
+    $node = $this->createMock(PapayaTemplateSimpleAstNode::class);
     $visitor->visit($node);
     $this->assertNull($visitor->visited);
   }

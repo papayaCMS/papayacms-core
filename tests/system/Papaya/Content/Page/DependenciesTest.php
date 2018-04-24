@@ -7,7 +7,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   * @covers PapayaContentPageDependencies::load
   */
   public function testLoad() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -186,13 +186,13 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   * @covers PapayaContentPageDependencies::changeOrigin
   */
   public function testChangeOrigin() {
-    $databaseResultLoad = $this->getMock('PapayaDatabaseResult');
+    $databaseResultLoad = $this->createMock(PapayaDatabaseResult::class);
     $databaseResultLoad
       ->expects($this->any())
       ->method('fetchRow')
       ->with($this->isType('integer'))
       ->will($this->returnValue(FALSE));
-    $databaseResultCheck = $this->getMock('PapayaDatabaseResult');
+    $databaseResultCheck = $this->createMock(PapayaDatabaseResult::class);
     $databaseResultCheck
       ->expects($this->any())
       ->method('fetchField')

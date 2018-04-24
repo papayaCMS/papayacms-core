@@ -24,7 +24,7 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getAlign')
       ->will($this->returnValue(PapayaUiOptionAlign::CENTER));
-    $listview = $this->getMock('PapayaUiListview');
+    $listview = $this->createMock(PapayaUiListview::class);
     $columns = $this->getMock(
       'PapayaUiListviewColumns', array('has', 'get'), array($listview)
     );
@@ -62,7 +62,7 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
   * @covers PapayaUiListviewSubitem::getAlign
   */
   public function testGetAlignUseDefaultValue() {
-    $listview = $this->getMock('PapayaUiListview');
+    $listview = $this->createMock(PapayaUiListview::class);
     $columns = $this->getMock(
       'PapayaUiListviewColumns', array('has', 'get'), array($listview)
     );

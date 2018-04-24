@@ -74,7 +74,7 @@ class PapayaIteratorMultipleTest extends PapayaTestCase {
   * @covers PapayaIteratorMultiple::getIteratorIdentifier
   */
   public function testAttachIteratorWithIteratorAggregate() {
-    $traversable = $this->getMock('IteratorAggregate');
+    $traversable = $this->createMock(IteratorAggregate::class);
     $iterator = new PapayaIteratorMultiple();
     $iterator->attachIterator($traversable);
     $this->assertTrue($iterator->containsIterator($traversable));
@@ -84,8 +84,8 @@ class PapayaIteratorMultipleTest extends PapayaTestCase {
   * @covers PapayaIteratorMultiple::attachIterators
   */
   public function testAttachIteratorsWithTwoIteratorAggregate() {
-    $traversableOne = $this->getMock('IteratorAggregate');
-    $traversableTwo = $this->getMock('IteratorAggregate');
+    $traversableOne = $this->createMock(IteratorAggregate::class);
+    $traversableTwo = $this->createMock(IteratorAggregate::class);
     $iterator = new PapayaIteratorMultiple();
     $iterator->attachIterators($traversableOne, $traversableTwo);
     $this->assertEquals(2, $iterator->countIterators());
@@ -197,7 +197,7 @@ class PapayaIteratorMultipleTest extends PapayaTestCase {
   * @covers PapayaIteratorMultiple::valid
   */
   public function testIterationWithTraversable() {
-    $traversable = $this->getMock('IteratorAggregate');
+    $traversable = $this->createMock(IteratorAggregate::class);
     $traversable
       ->expects($this->once())
       ->method('getIterator')

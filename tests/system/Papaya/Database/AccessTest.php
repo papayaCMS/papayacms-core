@@ -122,7 +122,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
       ->method('getConnector')
       ->with($this->equalTo('read'), $this->equalTo('write'))
       ->will($this->returnValue($connector));
-    $messageManager = $this->getMock('PapayaMessageManager');
+    $messageManager = $this->createMock(PapayaMessageManager::class);
     $messageManager
       ->expects($this->once())
       ->method('dispatch')
@@ -195,7 +195,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   * @covers PapayaDatabaseAccess::getTableName
   */
   public function testGetTableName() {
-    $tables = $this->getMock('PapayaContentTables');
+    $tables = $this->createMock(PapayaContentTables::class);
     $tables
       ->expects($this->once())
       ->method('get')
@@ -210,7 +210,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   * @covers PapayaDatabaseAccess::getTableName
   */
   public function testGetTableNameWithoutPrefix() {
-    $tables = $this->getMock('PapayaContentTables');
+    $tables = $this->createMock(PapayaContentTables::class);
     $tables
       ->expects($this->once())
       ->method('get')
@@ -235,7 +235,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   * @covers PapayaDatabaseAccess::tables
   */
   public function testTablesGetAfterSet() {
-    $tables = $this->getMock('PapayaContentTables');
+    $tables = $this->createMock(PapayaContentTables::class);
     $access = new PapayaDatabaseAccess(new stdClass(), 'read', 'write');
     $this->assertSame($tables, $access->tables($tables));
   }

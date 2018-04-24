@@ -26,7 +26,7 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
       'Caption', 'name'
     );
     $select->mediaFolders(
-      $mediaFolders = $this->getMock('PapayaContentMediaFolders')
+      $mediaFolders = $this->createMock(PapayaContentMediaFolders::class)
     );
     $this->assertSame($mediaFolders, $select->mediaFolders());
   }
@@ -77,7 +77,7 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
       )
     );
 
-    $mediaFolders = $this->getMock('PapayaContentMediaFolders');
+    $mediaFolders = $this->createMock(PapayaContentMediaFolders::class);
     $mediaFolders
       ->expects($this->once())#
       ->method('getIterator')

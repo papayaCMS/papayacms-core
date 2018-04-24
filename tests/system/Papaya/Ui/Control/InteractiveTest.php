@@ -51,7 +51,7 @@ class PapayaUiControlInteractiveTest extends PapayaTestCase {
   * @covers PapayaUiControlInteractive::parameters
   */
   public function testParametersGetAfterSet() {
-    $parameters = $this->getMock('PapayaRequestParameters');
+    $parameters = $this->createMock(PapayaRequestParameters::class);
     $dialog = new PapayaUiControlInteractive_TestProxy();
     $this->assertSame(
       $parameters, $dialog->parameters($parameters)
@@ -97,7 +97,7 @@ class PapayaUiControlInteractiveTest extends PapayaTestCase {
   * @covers PapayaUiControlInteractive::isPostRequest
   */
   public function testIsPostRequestExpectingTrue() {
-    $request = $this->getMock('PapayaRequest');
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -111,7 +111,7 @@ class PapayaUiControlInteractiveTest extends PapayaTestCase {
   * @covers PapayaUiControlInteractive::isPostRequest
   */
   public function testIsPostRequestExpectingFalse() {
-    $request = $this->getMock('PapayaRequest');
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getMethod')

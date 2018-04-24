@@ -89,7 +89,7 @@ class PapayaUiDialogFieldSelectLanguageTest extends PapayaTestCase {
    * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentLanguages
    */
   private function getLanguagesFixture() {
-    $languages = $this->getMock('PapayaContentLanguages');
+    $languages = $this->createMock(PapayaContentLanguages::class);
     $languages
       ->expects($this->any())
       ->method('getIterator')

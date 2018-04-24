@@ -177,7 +177,7 @@ class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
   *************************/
 
   private function getDatabaseAccessFixture() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

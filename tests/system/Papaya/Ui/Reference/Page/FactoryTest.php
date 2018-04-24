@@ -167,7 +167,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::prepareTitle
   */
   public function testConfigureWithTargetDomain() {
-    $domains = $this->getMock('PapayaDomains');
+    $domains = $this->createMock(PapayaDomains::class);
     $domains
       ->expects($this->once())
       ->method('getDomainsByPath')
@@ -230,7 +230,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::prepareTitle
   */
   public function testConfigureWithTargetDomainWithoutProtocol() {
-    $domains = $this->getMock('PapayaDomains');
+    $domains = $this->createMock(PapayaDomains::class);
     $domains
       ->expects($this->once())
       ->method('getDomainsByPath')
@@ -352,7 +352,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::prepareTitle
   */
   public function testConfigureWithInvalidDomain() {
-    $domains = $this->getMock('PapayaDomains');
+    $domains = $this->createMock(PapayaDomains::class);
     $domains
       ->expects($this->once())
       ->method('getDomainsByPath')
@@ -478,7 +478,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::getDomainData
   */
   public function testGetDomainDataExpectingSameDomainReturnTrue() {
-    $domains = $this->getMock('PapayaDomains');
+    $domains = $this->createMock(PapayaDomains::class);
     $domains
       ->expects($this->once())
       ->method('getDomainsByPath')
@@ -525,7 +525,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::getDomainData
   */
   public function testGetDomainDataExpectingNoDomainReturnFalse() {
-    $domains = $this->getMock('PapayaDomains');
+    $domains = $this->createMock(PapayaDomains::class);
     $domains
       ->expects($this->once())
       ->method('getDomainsByPath')
@@ -560,7 +560,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::getDomainData
   */
   public function testGetDomainDataExpectingUnrestrictedCurrentDomainReturnTrue() {
-    $domains = $this->getMock('PapayaDomains');
+    $domains = $this->createMock(PapayaDomains::class);
     $domains
       ->expects($this->once())
       ->method('getDomainsByPath')
@@ -585,7 +585,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::getDomainData
   */
   public function testGetDomainDataRepeatCallExpectingCached() {
-    $domains = $this->getMock('PapayaDomains');
+    $domains = $this->createMock(PapayaDomains::class);
     $domains
       ->expects($this->once())
       ->method('getDomainsByPath')
@@ -611,7 +611,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::getDomainData
   */
   public function testGetDomainDataExpectingTargetDomain() {
-    $domains = $this->getMock('PapayaDomains');
+    $domains = $this->createMock(PapayaDomains::class);
     $domains
       ->expects($this->once())
       ->method('getDomainsByPath')
@@ -839,7 +839,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::pages
   */
   public function testPagesGetAfterSet() {
-    $pages = $this->getMock('PapayaContentPages');
+    $pages = $this->createMock(PapayaContentPages::class);
     $factory = new PapayaUiReferencePageFactory();
     $factory->pages($pages);
     $this->assertSame($pages, $factory->pages());
@@ -866,7 +866,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::linkTypes
   */
   public function testLinkTypesGetAfterSet() {
-    $linkTypes = $this->getMock('PapayaContentLinkTypes');
+    $linkTypes = $this->createMock(PapayaContentLinkTypes::class);
     $factory = new PapayaUiReferencePageFactory();
     $factory->linkTypes($linkTypes);
     $this->assertSame($linkTypes, $factory->linkTypes());
@@ -884,7 +884,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::domains
   */
   public function testDomainsGetAfterSet() {
-    $domains = $this->getMock('PapayaDomains');
+    $domains = $this->createMock(PapayaDomains::class);
     $factory = new PapayaUiReferencePageFactory();
     $factory->domains($domains);
     $this->assertSame($domains, $factory->domains());
@@ -902,7 +902,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::languages
   */
   public function testLanguagesGetAfterSet() {
-    $languages = $this->getMock('PapayaContentLanguages');
+    $languages = $this->createMock(PapayaContentLanguages::class);
     $factory = new PapayaUiReferencePageFactory();
     $factory->languages($languages);
     $this->assertSame($languages, $factory->languages());
@@ -912,7 +912,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::languages
   */
   public function testLanguagesGetImplicitFromApplicationRegistry() {
-    $languages = $this->getMock('PapayaContentLanguages');
+    $languages = $this->createMock(PapayaContentLanguages::class);
     $factory = new PapayaUiReferencePageFactory();
     $factory->papaya(
       $this->mockPapaya()->application(
@@ -1001,7 +1001,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::getFilter
   */
   public function testPreload() {
-    $pages = $this->getMock('PapayaContentPages');
+    $pages = $this->createMock(PapayaContentPages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -1044,7 +1044,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::getFilter
   */
   public function testPreloadOptimizesLoading() {
-    $pages = $this->getMock('PapayaContentPages');
+    $pages = $this->createMock(PapayaContentPages::class);
     $pages
       ->expects($this->exactly(2))
       ->method('load')
@@ -1090,7 +1090,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   */
   public function testPreloadWithLanguageIdentifier() {
 
-    $pages = $this->getMock('PapayaContentPages');
+    $pages = $this->createMock(PapayaContentPages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -1113,7 +1113,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::getFilter
   */
   public function testPreloadWithPublicDataExpectingTimeInFilter() {
-    $pages = $this->getMock('PapayaContentPages');
+    $pages = $this->createMock(PapayaContentPages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -1132,7 +1132,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   **************************/
 
   public function getLanguagesFixture() {
-    $languageGerman = $this->getMock('PapayaContentLanguage');
+    $languageGerman = $this->createMock(PapayaContentLanguage::class);
     $languageGerman
       ->expects($this->any())
       ->method('__get')
@@ -1146,7 +1146,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
         )
       );
 
-    $languages = $this->getMock('PapayaContentLanguages');
+    $languages = $this->createMock(PapayaContentLanguages::class);
     $languages
       ->expects($this->any())
       ->method('getLanguageByIdentifier')
@@ -1185,7 +1185,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
         'linktype_id' => 1
       );
     }
-    $pages = $this->getMock('PapayaContentPages');
+    $pages = $this->createMock(PapayaContentPages::class);
     $pages
       ->expects($this->any())
       ->method('load')
@@ -1216,7 +1216,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   }
 
   public function getDomainsFixture() {
-    $domains = $this->getMock('PapayaDomains');
+    $domains = $this->createMock(PapayaDomains::class);
     $domains
       ->expects($this->any())
       ->method('getDomainsByPath')
@@ -1231,7 +1231,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   }
 
   public function getLinkTypesFixture($linkData) {
-    $linkTypes = $this->getMock('PapayaContentLinkTypes');
+    $linkTypes = $this->createMock(PapayaContentLinkTypes::class);
     $linkTypes
       ->expects($this->any())
       ->method('offsetExists')

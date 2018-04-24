@@ -128,7 +128,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   */
   public function testPublishWithoutLanguagesOrPeriod() {
     $box = $this->getContentBoxFixture();
-    $publication = $this->getMock('PapayaContentBoxPublication');
+    $publication = $this->createMock(PapayaContentBoxPublication::class);
     $publication
       ->expects($this->once())
       ->method('assign')
@@ -153,7 +153,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   */
   public function testPublishFailed() {
     $box = $this->getContentBoxFixture();
-    $publication = $this->getMock('PapayaContentBoxPublication');
+    $publication = $this->createMock(PapayaContentBoxPublication::class);
     $publication
       ->expects($this->once())
       ->method('assign')
@@ -191,7 +191,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(2));
-    $publication = $this->getMock('PapayaContentBoxPublication');
+    $publication = $this->createMock(PapayaContentBoxPublication::class);
     $publication
       ->expects($this->once())
       ->method('assign')
@@ -253,7 +253,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   */
   public function testPublishTranslationDeletionFailedExpetingFalse() {
     $box = $this->getContentBoxFixture();
-    $publication = $this->getMock('PapayaContentBoxPublication');
+    $publication = $this->createMock(PapayaContentBoxPublication::class);
     $publication
       ->expects($this->once())
       ->method('assign')
@@ -298,7 +298,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   public function testPublishTranslationFailedExpetingFalse() {
     $box = $this->getContentBoxFixture();
 
-    $publication = $this->getMock('PapayaContentBoxPublication');
+    $publication = $this->createMock(PapayaContentBoxPublication::class);
     $publication
       ->expects($this->once())
       ->method('assign')

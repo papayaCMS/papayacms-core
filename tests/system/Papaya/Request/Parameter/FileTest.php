@@ -225,7 +225,7 @@ class PapayaRequestParameterFileTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue($isUploadedFile));
 
-    $fileSystem = $this->getMock('PapayaFileSystemFactory');
+    $fileSystem = $this->createMock(PapayaFileSystemFactory::class);
     $fileSystem
       ->expects($this->any())
       ->method('getFile')

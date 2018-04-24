@@ -35,7 +35,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $host = 'www.papaya-cms.com';
     $port = 80;
     $socket = new PapayaHttpClientSocket();
-    $pool = $this->getMock('PapayaHttpClientSocketPool');
+    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $ms = $this->getMemoryStreamFixture('TEST');
     $pool
       ->expects($this->once())
@@ -64,7 +64,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket = new PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(4);
-    $pool = $this->getMock('PapayaHttpClientSocketPool');
+    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->once())
       ->method('putConnection');
@@ -117,7 +117,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket = new PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(-2);
-    $pool = $this->getMock('PapayaHttpClientSocketPool');
+    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->once())
       ->method('putConnection');
@@ -210,7 +210,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket = new PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(0);
-    $pool = $this->getMock('PapayaHttpClientSocketPool');
+    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->once())
       ->method('putConnection');
@@ -224,7 +224,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket = new PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(4);
-    $pool = $this->getMock('PapayaHttpClientSocketPool');
+    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->once())
       ->method('putConnection');
@@ -239,7 +239,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket = new PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(10 * 1024 * 1024);
-    $pool = $this->getMock('PapayaHttpClientSocketPool');
+    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->never())
       ->method('putConnection');
@@ -253,7 +253,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket = new PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(-1);
-    $pool = $this->getMock('PapayaHttpClientSocketPool');
+    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->never())
       ->method('putConnection');
@@ -273,7 +273,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket->setKeepAlive(FALSE);
     $socket->setResource($ms);
     $socket->setContentLength(0);
-    $pool = $this->getMock('PapayaHttpClientSocketPool');
+    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->never())
       ->method('putConnection');

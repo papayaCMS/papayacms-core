@@ -7,7 +7,7 @@ class PapayaContentDomainsTest extends PapayaTestCase {
   * @covers PapayaContentDomains::load
   */
   public function testLoad() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -50,7 +50,7 @@ class PapayaContentDomainsTest extends PapayaTestCase {
   * @covers PapayaContentDomains::load
   */
   public function testLoadWithFilter() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

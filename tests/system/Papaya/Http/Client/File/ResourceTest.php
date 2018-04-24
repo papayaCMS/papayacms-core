@@ -50,7 +50,7 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   * @covers PapayaHttpClientFileResource::send
   */
   function testSend() {
-    $socket = $this->getMock('PapayaHttpClientSocket');
+    $socket = $this->createMock(PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -67,7 +67,7 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   * @covers PapayaHttpClientFileResource::send
   */
   function testSendLimited() {
-    $socket = $this->getMock('PapayaHttpClientSocket');
+    $socket = $this->createMock(PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -87,7 +87,7 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   * @covers PapayaHttpClientFileResource::send
   */
   function testSendChunked() {
-    $socket = $this->getMock('PapayaHttpClientSocket');
+    $socket = $this->createMock(PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -107,7 +107,7 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   * @covers PapayaHttpClientFileResource::send
   */
   function testSendInvalidResourceExpectingError() {
-    $socket = $this->getMock('PapayaHttpClientSocket');
+    $socket = $this->createMock(PapayaHttpClientSocket::class);
     $file = new PapayaHttpClientFileResource(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );

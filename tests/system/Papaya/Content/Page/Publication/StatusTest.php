@@ -7,7 +7,7 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
   * @covers PapayaContentPagePublicationStatus::load
   */
   public function testLoadReadingFromCache() {
-    $cache = $this->getMock('PapayaCacheService');
+    $cache = $this->createMock(PapayaCacheService::class);
     $cache
       ->expects($this->once())
       ->method('read')
@@ -41,7 +41,7 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
   * @covers PapayaContentPagePublicationStatus::load
   */
   public function testLoadWritingCache() {
-    $cache = $this->getMock('PapayaCacheService');
+    $cache = $this->createMock(PapayaCacheService::class);
     $cache
       ->expects($this->once())
       ->method('read')
@@ -90,7 +90,7 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
   * @covers PapayaContentPagePublicationStatus::cache
   */
   public function testCacheGetAfterSet() {
-    $cache = $this->getMock('PapayaCacheService');
+    $cache = $this->createMock(PapayaCacheService::class);
     $status = new PapayaContentPagePublicationStatus();
     $status->cache($cache);
     $this->assertSame($cache, $status->cache());
@@ -120,7 +120,7 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
   ****************/
 
   public function getDatabaseAccessFixture($recordData) {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')

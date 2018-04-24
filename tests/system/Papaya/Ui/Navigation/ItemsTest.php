@@ -7,7 +7,7 @@ class PapayaUiNavigationItemsTest extends PapayaTestCase {
   * @covers PapayaUiNavigationItems::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->getMock('PapayaUiReference');
+    $reference = $this->createMock(PapayaUiReference::class);
     $items = new PapayaUiNavigationItems();
     $this->assertSame(
       $reference, $items->reference($reference)

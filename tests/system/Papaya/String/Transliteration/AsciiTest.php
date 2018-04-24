@@ -19,7 +19,7 @@ class PapayaStringTransliterationAsciiTest extends PapayaTestCase {
   * @covers PapayaStringTransliterationAscii::mapping
   */
   public function testMappingGetAfterSet() {
-    $mapping = $this->getMock('PapayaStringTransliterationAsciiMapping');
+    $mapping = $this->createMock(PapayaStringTransliterationAsciiMapping::class);
     $transliteratorOne = new PapayaStringTransliterationAscii();
     $transliteratorTwo = new PapayaStringTransliterationAscii();
     $transliteratorOne->mapping($mapping);

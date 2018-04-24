@@ -22,7 +22,7 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
   public function testAppendTo() {
     $dom = new PapayaXmlDocument();
     $parent = $dom->appendElement('test');
-    $reference = $this->getMock('PapayaUiReference');
+    $reference = $this->createMock(PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('getRelative')
@@ -44,7 +44,7 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
   function testAppendToWithSelectedItem() {
     $dom = new PapayaXmlDocument();
     $parent = $dom->appendElement('test');
-    $reference = $this->getMock('PapayaUiReference');
+    $reference = $this->createMock(PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('getRelative')
@@ -83,7 +83,7 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
   * @covers PapayaUiNavigationItem::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->getMock('PapayaUiReference');
+    $reference = $this->createMock(PapayaUiReference::class);
     $item = new PapayaUiNavigationItem_TestProxy(NULL);
     $this->assertSame(
       $reference, $item->reference($reference)
@@ -94,8 +94,8 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
   * @covers PapayaUiNavigationItem::reference
   */
   public function testReferenceGetFromCollection() {
-    $reference = $this->getMock('PapayaUiReference');
-    $collection = $this->getMock('PapayaUiNavigationItems');
+    $reference = $this->createMock(PapayaUiReference::class);
+    $collection = $this->createMock(PapayaUiNavigationItems::class);
     $collection
       ->expects($this->once())
       ->method('reference')

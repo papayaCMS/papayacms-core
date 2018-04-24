@@ -96,7 +96,7 @@ class PapayaPluginOptionsTest extends PapayaTestCase {
   }
 
   public function getStorageFixture($data = array(), $requireLoading = FALSE) {
-    $storage = $this->getMock('PapayaConfigurationStorage');
+    $storage = $this->createMock(PapayaConfigurationStorage::class);
     $storage
       ->expects($requireLoading ? $this->once() : $this->any())
       ->method('load')

@@ -15,7 +15,7 @@ class PapayaDatabaseRecordOrderListTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordOrderList::__construct
   */
   public function testContructorWithArguments() {
-    $child = $this->getMock('PapayaDatabaseInterfaceOrder');
+    $child = $this->createMock(PapayaDatabaseInterfaceOrder::class);
     $orderBy = new PapayaDatabaseRecordOrderList($child);
     $this->assertEquals(1, $orderBy->count());
   }
@@ -24,12 +24,12 @@ class PapayaDatabaseRecordOrderListTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordOrderList::__toString
   */
   public function testToStringWithTwoItems() {
-    $one = $this->getMock('PapayaDatabaseInterfaceOrder');
+    $one = $this->createMock(PapayaDatabaseInterfaceOrder::class);
     $one
       ->expects($this->once())
       ->method('__toString')
       ->will($this->returnValue('field_one ASC'));
-    $two = $this->getMock('PapayaDatabaseInterfaceOrder');
+    $two = $this->createMock(PapayaDatabaseInterfaceOrder::class);
     $two
       ->expects($this->once())
       ->method('__toString')

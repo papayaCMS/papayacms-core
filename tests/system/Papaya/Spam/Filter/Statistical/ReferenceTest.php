@@ -10,7 +10,7 @@ class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
   * @covers PapayaSpamFilterStatisticalReference::getSpamCount
   */
   public function testLoad() {
-    $totalsDatabaseResult = $this->getMock('PapayaDatabaseResult');
+    $totalsDatabaseResult = $this->createMock(PapayaDatabaseResult::class);
     $totalsDatabaseResult
        ->expects($this->any())
        ->method('fetchRow')
@@ -28,7 +28,7 @@ class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
            NULL
          )
        );
-    $recordsDatabaseResult = $this->getMock('PapayaDatabaseResult');
+    $recordsDatabaseResult = $this->createMock(PapayaDatabaseResult::class);
     $recordsDatabaseResult
        ->expects($this->any())
        ->method('fetchRow')

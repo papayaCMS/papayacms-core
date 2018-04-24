@@ -7,7 +7,7 @@ class PapayaUiHierarchyMenuTest extends PapayaTestCase {
   * @covers PapayaUiHierarchyMenu::appendTo
   */
   public function testAppendTo() {
-    $items = $this->getMock('PapayaUiHierarchyItems');
+    $items = $this->createMock(PapayaUiHierarchyItems::class);
     $items
       ->expects($this->once())
       ->method('count')
@@ -29,7 +29,7 @@ class PapayaUiHierarchyMenuTest extends PapayaTestCase {
   * @covers PapayaUiHierarchyMenu::appendTo
   */
   public function testAppendToWithoutItemsExpectingEmptyString() {
-    $items = $this->getMock('PapayaUiHierarchyItems');
+    $items = $this->createMock(PapayaUiHierarchyItems::class);
     $items
       ->expects($this->once())
       ->method('count')
@@ -47,7 +47,7 @@ class PapayaUiHierarchyMenuTest extends PapayaTestCase {
   */
   public function testItemsGetAfterSet() {
     $menu = new PapayaUiHierarchyMenu();
-    $items = $this->getMock('PapayaUiHierarchyItems');
+    $items = $this->createMock(PapayaUiHierarchyItems::class);
     $this->assertSame(
       $items, $menu->items($items)
     );

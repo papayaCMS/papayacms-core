@@ -20,7 +20,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
       'module_guid' => '123456789012345678901234567890ab',
       'module_title' => 'module title'
     );
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -67,7 +67,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
   * @covers PapayaContentBoxTranslation::_insert
   */
   public function testSaveCreateNew() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -120,7 +120,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
   * @covers PapayaContentBoxTranslation::_update
   */
   public function testSaveUpdateExisting() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')

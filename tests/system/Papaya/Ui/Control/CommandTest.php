@@ -28,7 +28,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   */
   public function testConditionGetAfterSet() {
     $command = new PapayaUiControlCommand_TestProxy();
-    $command->condition($condition = $this->getMock('PapayaUiControlCommandCondition'));
+    $command->condition($condition = $this->createMock(PapayaUiControlCommandCondition::class));
     $this->assertEquals($condition, $command->condition());
   }
 
@@ -44,7 +44,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::validateCondition
   */
   public function testValidateConditionWithConditionExpectingTrue() {
-    $condition = $this->getMock('PapayaUiControlCommandCondition');
+    $condition = $this->createMock(PapayaUiControlCommandCondition::class);
     $condition
       ->expects($this->once())
       ->method('validate')
@@ -58,7 +58,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::validateCondition
   */
   public function testValidateConditionWithConditionExpectingFalse() {
-    $condition = $this->getMock('PapayaUiControlCommandCondition');
+    $condition = $this->createMock(PapayaUiControlCommandCondition::class);
     $condition
       ->expects($this->once())
       ->method('validate')
@@ -226,7 +226,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::hasOwner
   */
   public function testHasOwnerExpectingTrue() {
-    $owner = $this->getMock('PapayaUiControlInteractive');
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
     $command = new PapayaUiControlCommand_TestProxy();
     $command->owner($owner);
     $this->assertTrue($command->hasOwner());
@@ -255,7 +255,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::parameterMethod
   */
   public function testParameterMethodGetAfterSetWithOwner() {
-    $owner = $this->getMock('PapayaUiControlInteractive');
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('parameterMethod')
@@ -284,7 +284,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::parameterGroup
   */
   public function testParameterGroupGetAfterSetWithOwner() {
-    $owner = $this->getMock('PapayaUiControlInteractive');
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('parameterGroup')
@@ -302,7 +302,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::parameters
   */
   public function testParametersGetAfterSet() {
-    $parameters = $this->getMock('PapayaRequestParameters');
+    $parameters = $this->createMock(PapayaRequestParameters::class);
     $command = new PapayaUiControlCommand_TestProxy();
     $this->assertSame(
       $parameters,
@@ -314,8 +314,8 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::parameters
   */
   public function testParametersGetAfterSetWithOwner() {
-    $parameters = $this->getMock('PapayaRequestParameters');
-    $owner = $this->getMock('PapayaUiControlInteractive');
+    $parameters = $this->createMock(PapayaRequestParameters::class);
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('parameters')

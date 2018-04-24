@@ -8,7 +8,7 @@ class PapayaUiDialogFieldFactoryProfileTest extends PapayaTestCase {
    */
   public function testOptionsGetAfterSet() {
     $profile = new PapayaUiDialogFieldFactoryProfile_TestProxy();
-    $profile->options($options = $this->getMock('PapayaUiDialogFieldFactoryOptions'));
+    $profile->options($options = $this->createMock(PapayaUiDialogFieldFactoryOptions::class));
     $this->assertSame(
       $options,
       $profile->options()

@@ -19,8 +19,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testClone() {
     $record = new PapayaDatabaseRecord_TestProxy();
-    $record->key($this->getMock('PapayaDatabaseInterfaceKey'));
-    $record->mapping($this->getMock('PapayaDatabaseInterfaceMapping'));
+    $record->key($this->createMock(PapayaDatabaseInterfaceKey::class));
+    $record->mapping($this->createMock(PapayaDatabaseInterfaceMapping::class));
     $clone = clone $record;
     $this->assertNotSame($record->key(), $clone->key());
     $this->assertNotSame($record->mapping(), $clone->mapping());
@@ -41,7 +41,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::_compileCondition
   */
   public function testLoad() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
@@ -87,7 +87,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::_compileCondition
   */
   public function testLoadWithScalar() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
@@ -133,7 +133,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::_compileCondition
   */
   public function testLoadWithoutCondition() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
@@ -174,7 +174,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::_compileCondition
   */
   public function testLoadWithoutConditionWithEmptyResult() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
@@ -236,7 +236,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::_compileCondition
   */
   public function testLoadWithConditionObject() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
@@ -311,7 +311,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::isLoaded
   */
   public function testIsLoadedAfterLoadExpectingTrue() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
@@ -430,7 +430,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::_insertRecord
   */
   public function testSaveInsertsRecordWithClientSideKey() {
-    $key = $this->getMock('PapayaDatabaseInterfaceKey');
+    $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
     $key
       ->expects($this->any())
       ->method('exists')
@@ -624,7 +624,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::delete
   */
   public function testDeleteWithEmptyFilterExpectingFalse() {
-    $key = $this->getMock('PapayaDatabaseInterfaceKey');
+    $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
     $key
       ->expects($this->any())
       ->method('getFilter')
@@ -640,7 +640,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::mapping
   */
   public function testMappingGetAfterSet() {
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $record = new PapayaDatabaseRecord_TestProxy();
     $record->mapping($mapping);
     $this->assertSame(
@@ -663,7 +663,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::key
   */
   public function testKeyGetAfterSet() {
-    $key = $this->getMock('PapayaDatabaseInterfaceKey');
+    $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
     $record = new PapayaDatabaseRecord_TestProxy();
     $record->key($key);
     $this->assertSame(
@@ -716,7 +716,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::callbacks
   */
   public function testCallbacksGetAfterSet() {
-    $callbacks = $this->getMock('PapayaDatabaseRecordCallbacks');
+    $callbacks = $this->createMock(PapayaDatabaseRecordCallbacks::class);
     $record = new PapayaDatabaseRecord_TestProxy();
     $record->callbacks($callbacks);
     $this->assertSame($callbacks, $record->callbacks());

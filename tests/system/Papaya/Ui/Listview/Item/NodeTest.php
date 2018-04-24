@@ -62,7 +62,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
       ->getMockBuilder('PapayaUiListviewItem')
       ->disableOriginalConstructor()
       ->getMock();
-    $reference = $this->getMock('PapayaUiReference');
+    $reference = $this->createMock(PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('__toString')
@@ -83,7 +83,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
       ->getMockBuilder('PapayaUiListviewItem')
       ->disableOriginalConstructor()
       ->getMock();
-    $reference = $this->getMock('PapayaUiReference');
+    $reference = $this->createMock(PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('__toString')
@@ -105,7 +105,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
       ->disableOriginalConstructor()
       ->getMock();
     $node = new PapayaUiListviewItemNode($item, PapayaUiListviewItemNode::NODE_OPEN);
-    $node->reference($reference = $this->getMock('PapayaUiReference'));
+    $node->reference($reference = $this->createMock(PapayaUiReference::class));
     $this->assertSame($reference, $node->reference);
   }
 
@@ -120,7 +120,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
     $item
       ->expects($this->once())
       ->method('reference')
-      ->will($this->returnValue($this->getMock('PapayaUiReference')));
+      ->will($this->returnValue($this->createMock(PapayaUiReference::class)));
     $node = new PapayaUiListviewItemNode($item);
     $this->assertInstanceOf('PapayaUiReference', $node->reference);
   }

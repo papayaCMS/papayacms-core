@@ -8,7 +8,7 @@ class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
    */
   public function testRecordsGetAfterSet() {
     $filterGroup = new PapayaPluginFilterContentRecords($this->getPageFixture());
-    $filterGroup->records($records = $this->getMock('PapayaContentViewConfigurations'));
+    $filterGroup->records($records = $this->createMock(PapayaContentViewConfigurations::class));
     $this->assertSame($records, $filterGroup->records());
   }
 
@@ -24,14 +24,14 @@ class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
    * @covers PapayaPluginFilterContentRecords
    */
   public function testIteratorFetchesPlugins() {
-    $plugins = $this->getMock('PapayaPluginLoader');
+    $plugins = $this->createMock(PapayaPluginLoader::class);
     $plugins
       ->expects($this->once())
       ->method('get')
       ->with('guid', $this->isInstanceOf('PapayaUiContentPage'), 'options')
-      ->will($this->returnValue($this->getMock('PapayaPluginFilterContent')));
+      ->will($this->returnValue($this->createMock(PapayaPluginFilterContent::class)));
 
-    $records = $this->getMock('PapayaContentViewConfigurations');
+    $records = $this->createMock(PapayaContentViewConfigurations::class);
     $records
       ->expects($this->once())
       ->method('getIterator')

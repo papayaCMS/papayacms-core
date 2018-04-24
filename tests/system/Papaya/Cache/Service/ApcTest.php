@@ -15,7 +15,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::setApcObject
   */
   public function testSetApcObject() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $service = new PapayaCacheServiceApc();
     $service->setApcObject($apc);
     $this->assertSame($apc, $this->readAttribute($service, '_apcObject'));
@@ -33,7 +33,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::verify
   */
   public function testVerifyExpectingTrue() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -46,7 +46,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::verify
   */
   public function testVerifyExpectingFalse() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(FALSE));
@@ -59,7 +59,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::verify
   */
   public function testVerifyExpectingError() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(FALSE));
@@ -73,7 +73,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::write
   */
   public function testWrite() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -97,7 +97,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::write
   */
   public function testWriteExpectingFalse() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -122,7 +122,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::_read
   */
   public function testRead() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -147,7 +147,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::_read
   */
   public function testReadExpired() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -173,7 +173,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   public function testReadDeprecated() {
     $lastHour = time() - 3600;
     $threeMinutesAgo = time() - 180;
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -196,7 +196,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::read
   */
   public function testReadExpectingFalse() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(FALSE));
@@ -209,7 +209,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::exists
   */
   public function testExists() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -234,7 +234,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   public function testExistsDeprecated() {
     $lastHour = time() - 3600;
     $threeMinutesAgo = time() - 180;
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -257,7 +257,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::exists
   */
   public function testExistsUsingCachedResult() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -273,7 +273,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::exists
   */
   public function testExistsExpectingFalse() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(FALSE));
@@ -287,7 +287,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   */
   public function testCreated() {
     $lastHour = time() - 3600;
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -312,7 +312,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   */
   public function testCreatedWithExpiredExpectingFalse() {
     $lastHour = time() - 3600;
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -336,7 +336,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   */
   public function testCreatedWithCachedResult() {
     $lastHour = time() - 3600;
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->any())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -361,7 +361,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::delete
   */
   public function testDelete() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -378,7 +378,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   * @covers PapayaCacheServiceApc::delete
   */
   public function testDeleteExpectingFalse() {
-    $apc = $this->getMock('PapayaCacheServiceApcObject');
+    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(FALSE));

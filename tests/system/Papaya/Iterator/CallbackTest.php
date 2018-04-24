@@ -9,7 +9,7 @@ class PapayaIteratorCallbackTest extends PapayaTestCase {
   */
   public function testConstructor() {
     $iterator = new PapayaIteratorCallback(
-      $innerIterator = $this->getMock('Iterator'),
+      $innerIterator = $this->createMock(Iterator::class),
       array($this, 'callbackChangeValue')
     );
     $this->assertSame(

@@ -7,7 +7,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::__construct
   */
   public function testConstructorWithUrl() {
-    $wrapperUrl = $this->getMock('PapayaThemeWrapperUrl');
+    $wrapperUrl = $this->createMock(PapayaThemeWrapperUrl::class);
     $wrapper = new PapayaThemeWrapper($wrapperUrl);
     $this->assertAttributeSame(
       $wrapperUrl, '_wrapperUrl', $wrapper
@@ -40,7 +40,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::group
   */
   public function testGroupImplicitCreate() {
-    $handler = $this->getMock('PapayaThemeHandler');
+    $handler = $this->createMock(PapayaThemeHandler::class);
     $handler
       ->expects($this->once())
       ->method('getLocalThemePath')
@@ -56,7 +56,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::handler
   */
   public function testHandlerSetHandler() {
-    $handler = $this->getMock('PapayaThemeHandler');
+    $handler = $this->createMock(PapayaThemeHandler::class);
     $wrapper = new PapayaThemeWrapper();
     $wrapper->handler($handler);
     $this->assertAttributeSame(
@@ -68,7 +68,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::handler
   */
   public function testHandlerGetHandlerAfterSet() {
-    $handler = $this->getMock('PapayaThemeHandler');
+    $handler = $this->createMock(PapayaThemeHandler::class);
     $wrapper = new PapayaThemeWrapper();
     $this->assertSame(
       $handler, $wrapper->handler($handler)
@@ -91,7 +91,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::themeSet
   */
   public function testThemeSetGetAfterSet() {
-    $themeSet = $this->getMock('PapayaContentThemeSet');
+    $themeSet = $this->createMock(PapayaContentThemeSet::class);
     $wrapper = new PapayaThemeWrapper();
     $this->assertSame(
       $themeSet, $wrapper->themeSet($themeSet)
@@ -114,7 +114,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::templateEngine
   */
   public function testTemplateEngineGetAfterSet() {
-    $engine = $this->getMock('PapayaTemplateEngine');
+    $engine = $this->createMock(PapayaTemplateEngine::class);
     $wrapper = new PapayaThemeWrapper();
     $this->assertSame(
       $engine, $wrapper->templateEngine($engine)
@@ -133,7 +133,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::cache
   */
   public function testCacheSetCache() {
-    $service = $this->getMock('PapayaCacheService');
+    $service = $this->createMock(PapayaCacheService::class);
     $wrapper = new PapayaThemeWrapper();
     $wrapper->cache($service);
     $this->assertAttributeSame(
@@ -145,7 +145,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::cache
   */
   public function testCacheGetCacheAfterSet() {
-    $service = $this->getMock('PapayaCacheService');
+    $service = $this->createMock(PapayaCacheService::class);
     $wrapper = new PapayaThemeWrapper();
     $this->assertSame(
       $service, $wrapper->cache($service)
@@ -205,7 +205,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::getCompiledContent
   */
   public function testGetCompiledContentUsingTemplates() {
-    $engine = $this->getMock('PapayaTemplateEngine');
+    $engine = $this->createMock(PapayaTemplateEngine::class);
     $engine
       ->expects($this->once())
       ->method('setTemplateString')
@@ -220,7 +220,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getResult')
       ->will($this->returnValue('SUCCESS'));
-    $themeSet = $this->getMock('PapayaContentThemeSet');
+    $themeSet = $this->createMock(PapayaContentThemeSet::class);
     $themeSet
       ->expects($this->once())
       ->method('load')

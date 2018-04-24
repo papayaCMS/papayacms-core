@@ -8,7 +8,7 @@ class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
   */
   public function testConstructor() {
     $iterator = new PapayaDatabaseResultIterator(
-      $databaseResult = $this->getMock('PapayaDatabaseResult')
+      $databaseResult = $this->createMock(PapayaDatabaseResult::class)
     );
     $this->assertAttributeSame(
       $databaseResult, '_databaseResult', $iterator
@@ -20,7 +20,7 @@ class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
   */
   public function testConstructorWithAllParameters() {
     $iterator = new PapayaDatabaseResultIterator(
-      $this->getMock('PapayaDatabaseResult'),
+      $this->createMock(PapayaDatabaseResult::class),
       PapayaDatabaseResult::FETCH_ORDERED
     );
     $this->assertAttributeSame(
@@ -36,7 +36,7 @@ class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
   * @covers PapayaDatabaseResultIterator::valid
   */
   public function testIterate() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -66,13 +66,13 @@ class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
   * @covers PapayaDatabaseResultIterator::current
   */
   public function testIterateWithMapping() {
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->any())
       ->method('mapFieldsToProperties')
       ->with($this->isType('array'))
       ->will($this->returnCallback(array($this, 'callbackMapFieldsToProperties')));
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -105,7 +105,7 @@ class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
   * @covers PapayaDatabaseResultIterator::rewind
   */
   public function testRewindAfterIteration() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -138,8 +138,8 @@ class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
   * @covers PapayaDatabaseResultIterator::getMapping
   */
   public function testSetMappingGetAfterSet() {
-    $iterator = new PapayaDatabaseResultIterator($this->getMock('PapayaDatabaseResult'));
-    $iterator->setMapping($mapping = $this->getMock('PapayaDatabaseInterfaceMapping'));
+    $iterator = new PapayaDatabaseResultIterator($this->createMock(PapayaDatabaseResult::class));
+    $iterator->setMapping($mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class));
     $this->assertSame(
       $mapping, $iterator->getMapping()
     );

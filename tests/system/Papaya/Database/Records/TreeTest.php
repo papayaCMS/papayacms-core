@@ -135,7 +135,7 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
   ************************/
 
   public function getDatabaseFixture() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

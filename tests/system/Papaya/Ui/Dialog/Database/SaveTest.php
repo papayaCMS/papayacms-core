@@ -68,7 +68,7 @@ class PapayaUiDialogDatabaseSaveTest extends PapayaTestCase {
   **************************/
 
   public function getRecordFixture($data = array()) {
-    $record = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $record
       ->expects($this->any())
       ->method('toArray')

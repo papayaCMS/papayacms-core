@@ -6,7 +6,7 @@ class PapayaContentBoxVersionsTest extends PapayaTestCase {
   * @covers PapayaContentBoxVersions::load
   */
   public function testLoad() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

@@ -152,7 +152,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   * @covers PapayaConfiguration::storage
   */
   public function testStorageGetAfterSet() {
-    $storage = $this->getMock('PapayaConfigurationStorage');
+    $storage = $this->createMock(PapayaConfigurationStorage::class);
     $config = new PapayaConfiguration_TestProxy();
     $this->assertSame(
       $storage, $config->storage($storage)
@@ -175,7 +175,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   * @covers PapayaConfiguration::load
   */
   public function testLoad() {
-    $storage = $this->getMock('PapayaConfigurationStorage');
+    $storage = $this->createMock(PapayaConfigurationStorage::class);
     $storage
       ->expects($this->once())
       ->method('load')
@@ -196,7 +196,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   * @covers PapayaConfiguration::load
   */
   public function testLoadWithUnknownOptionsAreIgnored() {
-    $storage = $this->getMock('PapayaConfigurationStorage');
+    $storage = $this->createMock(PapayaConfigurationStorage::class);
     $storage
       ->expects($this->once())
       ->method('load')
@@ -221,7 +221,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   * @covers PapayaConfiguration::load
   */
   public function testLoadFailure() {
-    $storage = $this->getMock('PapayaConfigurationStorage');
+    $storage = $this->createMock(PapayaConfigurationStorage::class);
     $storage
       ->expects($this->once())
       ->method('load')

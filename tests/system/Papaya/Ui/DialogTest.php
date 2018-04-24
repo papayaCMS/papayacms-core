@@ -28,7 +28,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   * @covers PapayaUiDialog::hiddenValues
   */
   public function testHiddenValuesSet() {
-    $values = $this->getMock('PapayaRequestParameters');
+    $values = $this->createMock(PapayaRequestParameters::class);
     $dialog = new PapayaUiDialog(new stdClass());
     $dialog->hiddenValues($values);
     $this->assertAttributeSame(
@@ -40,7 +40,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   * @covers PapayaUiDialog::hiddenValues
   */
   public function testHiddenValuesGetAfterSet() {
-    $values = $this->getMock('PapayaRequestParameters');
+    $values = $this->createMock(PapayaRequestParameters::class);
     $dialog = new PapayaUiDialog(new stdClass());
     $this->assertSame(
       $values, $dialog->hiddenValues($values)
@@ -61,7 +61,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   * @covers PapayaUiDialog::hiddenFields
   */
   public function testHiddenFieldsSet() {
-    $fields = $this->getMock('PapayaRequestParameters');
+    $fields = $this->createMock(PapayaRequestParameters::class);
     $dialog = new PapayaUiDialog(new stdClass());
     $dialog->hiddenFields($fields);
     $this->assertAttributeSame(
@@ -73,7 +73,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   * @covers PapayaUiDialog::hiddenFields
   */
   public function testHiddenFieldsGetAfterSet() {
-    $fields = $this->getMock('PapayaRequestParameters');
+    $fields = $this->createMock(PapayaRequestParameters::class);
     $dialog = new PapayaUiDialog(new stdClass());
     $this->assertSame(
       $fields, $dialog->hiddenFields($fields)
@@ -126,7 +126,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   * @covers PapayaUiDialog::tokens
   */
   public function testTokensSet() {
-    $tokens = $this->getMock('PapayaUiTokens');
+    $tokens = $this->createMock(PapayaUiTokens::class);
     $dialog = new PapayaUiDialog(new stdClass());
     $dialog->tokens($tokens);
     $this->assertAttributeSame(
@@ -138,7 +138,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   * @covers PapayaUiDialog::tokens
   */
   public function testTokensGetAfterSet() {
-    $tokens = $this->getMock('PapayaUiTokens');
+    $tokens = $this->createMock(PapayaUiTokens::class);
     $dialog = new PapayaUiDialog(new stdClass());
     $this->assertSame(
       $tokens, $dialog->tokens($tokens)
@@ -204,7 +204,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   * @covers PapayaUiDialog::errors
   */
   public function testErrorsSet() {
-    $errors = $this->getMock('PapayaUiDialogErrors');
+    $errors = $this->createMock(PapayaUiDialogErrors::class);
     $dialog = new PapayaUiDialog(new stdClass());
     $dialog->errors($errors);
     $this->assertAttributeSame(
@@ -216,7 +216,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   * @covers PapayaUiDialog::errors
   */
   public function testErrorsGetAfterSet() {
-    $errors = $this->getMock('PapayaUiDialogErrors');
+    $errors = $this->createMock(PapayaUiDialogErrors::class);
     $dialog = new PapayaUiDialog(new stdClass());
     $this->assertSame(
       $errors, $dialog->errors($errors)
@@ -248,8 +248,8 @@ class PapayaUiDialogTest extends PapayaTestCase {
     $dialog = new PapayaUiDialog(new stdClass());
     $dialog->errors($errors);
     $dialog->handleValidationFailure(
-      $this->getMock('PapayaFilterException'),
-      $this->getMock('PapayaUiDialogField')
+      $this->createMock(PapayaFilterException::class),
+      $this->createMock(PapayaUiDialogField::class)
     );
     $this->assertFalse($dialog->execute());
   }
@@ -441,7 +441,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo');
 
-    $description = $this->getMock('PapayaUiDialogElementDescription');
+    $description = $this->createMock(PapayaUiDialogElementDescription::class);
     $description
       ->expects($this->once())
       ->method('appendTo')
@@ -472,7 +472,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   */
   public function testOptionsSet() {
     $dialog = new PapayaUiDialog(new stdClass());
-    $options = $this->getMock('PapayaUiDialogOptions');
+    $options = $this->createMock(PapayaUiDialogOptions::class);
     $dialog->options($options);
     $this->assertAttributeSame(
       $options, '_options', $dialog
@@ -484,7 +484,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   */
   public function testOptionsGetAfterSet() {
     $dialog = new PapayaUiDialog(new stdClass());
-    $options = $this->getMock('PapayaUiDialogOptions');
+    $options = $this->createMock(PapayaUiDialogOptions::class);
     $this->assertSame(
       $options, $dialog->options($options)
     );
@@ -557,8 +557,8 @@ class PapayaUiDialogTest extends PapayaTestCase {
   public function testFieldsSetFromTraversable() {
     $fields = new ArrayIterator(
       array(
-        $this->getMock('PapayaUiDialogField'),
-        $this->getMock('PapayaUiDialogField')
+        $this->createMock(PapayaUiDialogField::class),
+        $this->createMock(PapayaUiDialogField::class)
       )
     );
     $dialog = new PapayaUiDialog(new stdClass());
@@ -652,7 +652,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   */
   public function testDataSet() {
     $dialog = new PapayaUiDialog(new stdClass());
-    $data = $this->getMock('PapayaRequestParameters');
+    $data = $this->createMock(PapayaRequestParameters::class);
     $dialog->data($data);
     $this->assertAttributeSame(
       $data, '_data', $dialog
@@ -664,7 +664,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   */
   public function testDataGetAfterSet() {
     $dialog = new PapayaUiDialog(new stdClass());
-    $data = $this->getMock('PapayaRequestParameters');
+    $data = $this->createMock(PapayaRequestParameters::class);
     $this->assertSame(
       $data, $dialog->data($data)
     );
@@ -675,7 +675,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   */
   public function testDescriptionGetAfterSet() {
     $dialog = new PapayaUiDialog(new stdClass());
-    $description = $this->getMock('PapayaUiDialogElementDescription');
+    $description = $this->createMock(PapayaUiDialogElementDescription::class);
     $this->assertSame(
       $description, $dialog->description($description)
     );

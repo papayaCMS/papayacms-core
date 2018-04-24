@@ -51,7 +51,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordKeyFields::getFilter
   */
   public function testGetFilterWithRecord() {
-    $record = $this->getMock('PapayaDatabaseRecord');
+    $record = $this->createMock(PapayaDatabaseRecord::class);
     $record
       ->expects($this->atLeastOnce())
       ->method('offsetExists')
@@ -94,7 +94,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordKeyFields::exists
   */
   public function testExistsExpectingTrue() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -116,14 +116,14 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
       ->with("SELECT COUNT(*) FROM %s WHERE {CONDITION}", array('sometable'))
       ->will($this->returnValue($databaseResult));
 
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->once())
       ->method('mapPropertiesToFields')
       ->with(array('fk_one_id' => 21, 'fk_two_id' => 42))
       ->will($this->returnValue(array('field_one_id' => 21, 'field_two_id' => 42)));
 
-    $record = $this->getMock('PapayaDatabaseRecord');
+    $record = $this->createMock(PapayaDatabaseRecord::class);
     $record
       ->expects($this->any())
       ->method('getDatabaseAccess')
@@ -158,14 +158,14 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
       ->with("SELECT COUNT(*) FROM %s WHERE {CONDITION}", array('sometable'))
       ->will($this->returnValue(FALSE));
 
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->once())
       ->method('mapPropertiesToFields')
       ->with(array('fk_one_id' => 21, 'fk_two_id' => 42))
       ->will($this->returnValue(array('field_one_id' => 21, 'field_two_id' => 42)));
 
-    $record = $this->getMock('PapayaDatabaseRecord');
+    $record = $this->createMock(PapayaDatabaseRecord::class);
     $record
       ->expects($this->any())
       ->method('getDatabaseAccess')
@@ -184,13 +184,13 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordKeyFields::exists
   */
   public function testExistsWithEmptyMappingResult() {
-    $mapping = $this->getMock('PapayaDatabaseInterfaceMapping');
+    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->once())
       ->method('mapPropertiesToFields')
       ->with(array('fk_one_id' => NULL, 'fk_two_id' => NULL))
       ->will($this->returnValue(array()));
-    $record = $this->getMock('PapayaDatabaseRecord');
+    $record = $this->createMock(PapayaDatabaseRecord::class);
     $record
       ->expects($this->any())
       ->method('mapping')
@@ -228,7 +228,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
 
   public function getKeyFixture(PapayaDatabaseRecord $record = NULL) {
     if (is_null($record)) {
-      $record = $this->getMock('PapayaDatabaseRecord');
+      $record = $this->createMock(PapayaDatabaseRecord::class);
     }
     return new PapayaDatabaseRecordKeyFields(
       $record, 'sometable', array('fk_one_id', 'fk_two_id')

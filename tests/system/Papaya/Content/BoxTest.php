@@ -25,7 +25,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
       'box_expirestime' => 0,
       'box_unpublished_languages' => 0
     );
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -97,7 +97,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   * @covers PapayaContentBox::translations
   */
   public function testTranslationsSet() {
-    $translations = $this->getMock('PapayaContentBoxTranslations');
+    $translations = $this->createMock(PapayaContentBoxTranslations::class);
     $box = new PapayaContentBox_TestProxy();
     $box->translations($translations);
     $this->assertAttributeSame(
@@ -109,7 +109,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   * @covers PapayaContentBox::translations
   */
   public function testTranslationsGetAfterSet() {
-    $translations = $this->getMock('PapayaContentBoxTranslations');
+    $translations = $this->createMock(PapayaContentBoxTranslations::class);
     $box = new PapayaContentBox_TestProxy();
     $box->translations($translations);
     $this->assertSame(

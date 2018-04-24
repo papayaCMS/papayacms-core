@@ -7,7 +7,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers PapayaPluginLoader
   */
   public function testPluginsGetAfterSet() {
-    $plugins = $this->getMock('PapayaPluginList');
+    $plugins = $this->createMock(PapayaPluginList::class);
     $loader = new PapayaPluginLoader();
     $this->assertSame(
       $plugins, $loader->plugins($plugins)
@@ -28,7 +28,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers PapayaPluginLoader
   */
   public function testOptionsGetAfterSet() {
-    $options = $this->getMock('PapayaPluginOptionGroups');
+    $options = $this->createMock(PapayaPluginOptionGroups::class);
     $loader = new PapayaPluginLoader();
     $this->assertSame(
       $options, $loader->options($options)
@@ -49,7 +49,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers PapayaPluginLoader
   */
   public function testMagicPropertyPlguinsGetAfterSet() {
-    $plugins = $this->getMock('PapayaPluginList');
+    $plugins = $this->createMock(PapayaPluginList::class);
     $loader = new PapayaPluginLoader();
     $loader->plugins = $plugins;
     $this->assertSame(
@@ -61,7 +61,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers PapayaPluginLoader
   */
   public function testMagicPropertyOptionsGetAfterSet() {
-    $options = $this->getMock('PapayaPluginOptionGroups');
+    $options = $this->createMock(PapayaPluginOptionGroups::class);
     $loader = new PapayaPluginLoader();
     $loader->options = $options;
     $this->assertSame(
@@ -113,7 +113,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers PapayaPluginLoader
   */
   public function testHasExpectingFalse() {
-    $plugins = $this->getMock('PapayaPluginList');
+    $plugins = $this->createMock(PapayaPluginList::class);
     $loader = new PapayaPluginLoader();
     $loader->plugins($plugins);
     $this->assertFalse($loader->has('123'));
@@ -541,7 +541,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   *************************/
 
   private function getPluginListFixture($record) {
-    $plugins = $this->getMock('PapayaPluginList');
+    $plugins = $this->createMock(PapayaPluginList::class);
     $plugins
       ->expects($this->any())
       ->method('offsetExists')

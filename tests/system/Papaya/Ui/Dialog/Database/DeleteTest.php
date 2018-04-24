@@ -91,7 +91,7 @@ class PapayaUiDialogDatabaseDeleteTest extends PapayaTestCase {
   **************************/
 
   public function getRecordFixture($data = array()) {
-    $record = $this->getMock('PapayaDatabaseObjectRecord');
+    $record = $this->createMock(PapayaDatabaseObjectRecord::class);
     $record
       ->expects($this->once())
       ->method('toArray')

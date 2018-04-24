@@ -9,7 +9,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecords::getIdentifier
   */
   public function testLoad() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -53,7 +53,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecords::_loadRecords
   */
   public function testLoadWithEmptyResult() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -85,7 +85,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecords::_loadRecords
   */
   public function testLoadWithoutConditions() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -124,12 +124,12 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecords::_loadRecords
   */
   public function testLoadWithoutConditionsWithOrderBy() {
-    $orderBy = $this->getMock('PapayaDatabaseInterfaceOrder');
+    $orderBy = $this->createMock(PapayaDatabaseInterfaceOrder::class);
     $orderBy
       ->expects($this->once())
       ->method('__toString')
       ->will($this->returnValue('>>ORDERBY<<'));
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -194,7 +194,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecords::getIdentifier
   */
   public function testLoadWithIdentifierField() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -240,7 +240,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecords::getIdentifier
   */
   public function testLoadWithInvalidIdentifierFields() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -285,7 +285,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecords::reset
   */
   public function testResetAfterLoad() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

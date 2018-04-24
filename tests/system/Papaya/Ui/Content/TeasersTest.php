@@ -26,7 +26,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
    */
   public function testReferenceGetAfterSet() {
     $teasers = new PapayaUiContentTeasers($this->getPagesFixture());
-    $teasers->reference($reference = $this->getMock('PapayaUiReferencePage'));
+    $teasers->reference($reference = $this->createMock(PapayaUiReferencePage::class));
     $this->assertSame($reference, $teasers->reference());
   }
 
@@ -79,12 +79,12 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
         )
       )
     );
-    $plugin = $this->getMock('PapayaUiContentTeasers_PagePluginMockClass');
+    $plugin = $this->createMock(PapayaUiContentTeasers_PagePluginMockClass::class);
     $plugin
       ->expects($this->once())
       ->method('appendQuoteTo');
 
-    $plugins = $this->getMock('PapayaPluginLoader');
+    $plugins = $this->createMock(PapayaPluginLoader::class);
     $plugins
       ->expects($this->once())
       ->method('get')
@@ -125,7 +125,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
       ->disableOriginalConstructor()
       ->getMock();
 
-    $plugins = $this->getMock('PapayaPluginLoader');
+    $plugins = $this->createMock(PapayaPluginLoader::class);
     $plugins
       ->expects($this->once())
       ->method('get')
@@ -161,7 +161,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
       )
     );
 
-    $plugins = $this->getMock('PapayaPluginLoader');
+    $plugins = $this->createMock(PapayaPluginLoader::class);
     $plugins
       ->expects($this->once())
       ->method('get')
@@ -197,7 +197,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
       )
     );
 
-    $plugins = $this->getMock('PapayaPluginLoader');
+    $plugins = $this->createMock(PapayaPluginLoader::class);
     $plugins
       ->expects($this->once())
       ->method('get')
@@ -248,7 +248,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
    ************************/
 
   private function getPagesFixture(array $pageRecords = array()) {
-    $pages = $this->getMock('PapayaContentPages');
+    $pages = $this->createMock(PapayaContentPages::class);
     $pages
       ->expects($this->any())
       ->method('getIterator')

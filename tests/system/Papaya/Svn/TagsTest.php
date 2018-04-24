@@ -51,7 +51,7 @@ class PapayaSvnTagsTest extends PapayaTestCase {
   */
   public function testSvnClientSet() {
     $tags = new PapayaSvnTags('');
-    $client = $this->getMock('PapayaSvnClient');
+    $client = $this->createMock(PapayaSvnClient::class);
     $this->assertSame(
       $client,
       $tags->svnClient($client)
@@ -77,7 +77,7 @@ class PapayaSvnTagsTest extends PapayaTestCase {
     $expectedRevision = 28;
     $tags = new PapayaSvnTags($expectedUri, $expectedRevision);
 
-    $client = $this->getMock('PapayaSvnClient');
+    $client = $this->createMock(PapayaSvnClient::class);
     $client
       ->expects($this->once())
       ->method('ls')
@@ -97,7 +97,7 @@ class PapayaSvnTagsTest extends PapayaTestCase {
     $expectedUri = 'testuri';
     $tags = new PapayaSvnTags($expectedUri);
 
-    $client = $this->getMock('PapayaSvnClient');
+    $client = $this->createMock(PapayaSvnClient::class);
     $client
       ->expects($this->once())
       ->method('ls')
@@ -117,7 +117,7 @@ class PapayaSvnTagsTest extends PapayaTestCase {
     $expectedUri = 'testuri';
     $tags = new PapayaSvnTags($expectedUri);
 
-    $client = $this->getMock('PapayaSvnClient');
+    $client = $this->createMock(PapayaSvnClient::class);
     $client
       ->expects($this->once())
       ->method('ls')
@@ -137,7 +137,7 @@ class PapayaSvnTagsTest extends PapayaTestCase {
     $url = 'http://example.com/foo/tags/foo/';
     $tags = new PapayaSvnTags($url);
 
-    $client = $this->getMock('PapayaSvnClient');
+    $client = $this->createMock(PapayaSvnClient::class);
     $client
       ->expects($this->once())
       ->method('ls')
@@ -158,7 +158,7 @@ class PapayaSvnTagsTest extends PapayaTestCase {
   public function testFind($url, $lsResult, $expected, $expectedRevision) {
     $tags = new PapayaSvnTags($url, 28);
 
-    $client = $this->getMock('PapayaSvnClient');
+    $client = $this->createMock(PapayaSvnClient::class);
     $client
       ->expects($this->once())
       ->method('ls')

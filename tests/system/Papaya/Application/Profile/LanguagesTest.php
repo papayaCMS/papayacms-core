@@ -16,12 +16,12 @@ class PapayaApplicationProfileLanguagesTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('queryFmt')
       ->will($this->returnValue(FALSE));
-    $databaseManager = $this->getMock('PapayaDatabaseManager');
+    $databaseManager = $this->createMock(PapayaDatabaseManager::class);
     $databaseManager
       ->expects($this->once())
       ->method('createDatabaseAccess')
       ->will($this->returnValue($databaseAccess));
-    $application = $this->getMock('PapayaApplication');
+    $application = $this->createMock(PapayaApplication::class);
     $application
       ->expects($this->any())
       ->method('__get')

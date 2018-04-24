@@ -69,7 +69,7 @@ class PapayaMessageLogTest extends PapayaTestCase {
       PapayaMessage::SEVERITY_WARNING,
       'Sample Message'
     );
-    $context = $this->getMock('PapayaMessageContextGroup');
+    $context = $this->createMock(PapayaMessageContextGroup::class);
     $message->setContext($context);
     $this->assertAttributeSame(
       $context,
@@ -87,7 +87,7 @@ class PapayaMessageLogTest extends PapayaTestCase {
       PapayaMessage::SEVERITY_WARNING,
       'Sample Message'
     );
-    $context = $this->getMock('PapayaMessageContextGroup');
+    $context = $this->createMock(PapayaMessageContextGroup::class);
     $message->setContext($context);
     $this->assertSame(
       $context,

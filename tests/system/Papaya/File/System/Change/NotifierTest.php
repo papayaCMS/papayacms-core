@@ -44,12 +44,12 @@ class PapayaFileSystemChangeNotifierTest extends PapayaTestCase {
    */
   public function testActionGetAfterSet() {
     $notifier = new PapayaFileSystemChangeNotifier('');
-    $notifier->action($action = $this->getMock('PapayaFileSystemAction'));
+    $notifier->action($action = $this->createMock(PapayaFileSystemAction::class));
     $this->assertSame($action, $notifier->action());
   }
 
   public function testNotify() {
-    $action = $this->getMock('PapayaFileSystemAction');
+    $action = $this->createMock(PapayaFileSystemAction::class);
     $action
       ->expects($this->once())
       ->method('execute')

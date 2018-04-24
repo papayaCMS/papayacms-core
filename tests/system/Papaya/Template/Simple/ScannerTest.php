@@ -7,7 +7,7 @@ class PapayaTemplateSimpleScannerTest extends PapayaTestCase {
   * @covers PapayaTemplateSimpleScanner::__construct
   */
   public function testConstructor() {
-    $status = $this->getMock('PapayaTemplateSimpleScannerStatus');
+    $status = $this->createMock(PapayaTemplateSimpleScannerStatus::class);
     $scanner = new PapayaTemplateSimpleScanner($status);
     $this->assertAttributeSame(
       $status, '_status', $scanner
@@ -222,7 +222,7 @@ class PapayaTemplateSimpleScannerTest extends PapayaTestCase {
   }
 
   private function getStatusMockObjectFixture($tokens, $isEndToken = NULL) {
-    $status = $this->getMock('PapayaTemplateSimpleScannerStatus');
+    $status = $this->createMock(PapayaTemplateSimpleScannerStatus::class);
     if (count($tokens) > 0) {
       $status
         ->expects($this->exactly(count($tokens)))

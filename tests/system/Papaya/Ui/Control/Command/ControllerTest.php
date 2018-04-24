@@ -41,7 +41,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('parameters')
       ->will($this->returnValue(new PapayaRequestParameters(array('sample' => 'command'))));
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
       ->method('validateCondition')
@@ -72,7 +72,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('parameters')
       ->will($this->returnValue(new PapayaRequestParameters()));
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
       ->method('validateCondition')
@@ -103,7 +103,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('parameters')
       ->will($this->returnValue(new PapayaRequestParameters()));
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
       ->method('validateCondition')
@@ -132,7 +132,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('parameters')
       ->will($this->returnValue(new PapayaRequestParameters()));
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
       ->method('validateCondition')
@@ -155,7 +155,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandController::getCurrent
   */
   public function testAppendToWithSelfConditionValidationFailed() {
-    $condition = $this->getMock('PapayaUiControlCommandCondition');
+    $condition = $this->createMock(PapayaUiControlCommandCondition::class);
     $condition
       ->expects($this->once())
       ->method('validate')
@@ -164,7 +164,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
     $owner
       ->expects($this->never())
       ->method('parameters');
-    $command = $this->getMock('PapayaUiControlCommand');
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $command
       ->expects($this->never())
       ->method('validateCondition');
@@ -187,7 +187,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   */
   public function testOffsetExistsExpectingTrue() {
     $controller = new PapayaUiControlCommandController('sample', 'default');
-    $controller['default'] = $this->getMock('PapayaUiControlCommand');
+    $controller['default'] = $this->createMock(PapayaUiControlCommand::class);
     $this->assertTrue(isset($controller['default']));
   }
 
@@ -205,7 +205,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   */
   public function testOffsetGetAfterSet() {
     $controller = new PapayaUiControlCommandController('sample', 'default');
-    $controller['default'] = $command = $this->getMock('PapayaUiControlCommand');
+    $controller['default'] = $command = $this->createMock(PapayaUiControlCommand::class);
     $this->assertSame($command, $controller['default']);
   }
 
@@ -213,8 +213,8 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandController::offsetSet
   */
   public function testOffsetSetWithOwner() {
-    $owner = $this->getMock('PapayaUiControlInteractive');
-    $command = $this->getMock('PapayaUiControlCommand');
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
       ->method('owner')
@@ -229,7 +229,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   */
   public function testOffsetUnset() {
     $controller = new PapayaUiControlCommandController('sample', 'default');
-    $controller['default'] = $this->getMock('PapayaUiControlCommand');
+    $controller['default'] = $this->createMock(PapayaUiControlCommand::class);
     unset($controller['default']);
     $this->assertFalse(isset($controller['default']));
   }
@@ -239,7 +239,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   public function testMagicMethodIssetExpectingTrue() {
     $controller = new PapayaUiControlCommandController('sample', 'default');
     /** @noinspection PhpUndefinedFieldInspection */
-    $controller->default = $this->getMock('PapayaUiControlCommand');
+    $controller->default = $this->createMock(PapayaUiControlCommand::class);
     $this->assertTrue(isset($controller->default));
   }
 
@@ -258,7 +258,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   public function testMagicMethodGetAfterSet() {
     $controller = new PapayaUiControlCommandController('sample', 'default');
     /** @noinspection PhpUndefinedFieldInspection */
-    $controller->default = $command = $this->getMock('PapayaUiControlCommand');
+    $controller->default = $command = $this->createMock(PapayaUiControlCommand::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $this->assertSame($command, $controller->default);
   }
@@ -269,7 +269,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   public function testMagicMethodUnsetUnset() {
     $controller = new PapayaUiControlCommandController('sample', 'default');
     /** @noinspection PhpUndefinedFieldInspection */
-    $controller->default = $this->getMock('PapayaUiControlCommand');
+    $controller->default = $this->createMock(PapayaUiControlCommand::class);
     unset($controller->default);
     $this->assertFalse(isset($controller->default));
   }
@@ -287,8 +287,8 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   */
   public function testCountExpectingTwo() {
     $controller = new PapayaUiControlCommandController('sample', 'default');
-    $controller['one'] = $this->getMock('PapayaUiControlCommand');
-    $controller['two'] = $this->getMock('PapayaUiControlCommand');
+    $controller['one'] = $this->createMock(PapayaUiControlCommand::class);
+    $controller['two'] = $this->createMock(PapayaUiControlCommand::class);
     $this->assertEquals(2, count($controller));
   }
 
@@ -297,8 +297,8 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   */
   public function testGetIterator() {
     $commands = array(
-      'one' => $this->getMock('PapayaUiControlCommand'),
-      'two' => $this->getMock('PapayaUiControlCommand')
+      'one' => $this->createMock(PapayaUiControlCommand::class),
+      'two' => $this->createMock(PapayaUiControlCommand::class)
     );
     $controller = new PapayaUiControlCommandController('sample', 'default');
     $controller['one'] = $commands['one'];
@@ -312,8 +312,8 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandController::owner
   */
   public function testOwner() {
-    $owner = $this->getMock('PapayaUiControlInteractive');
-    $command = $this->getMock('PapayaUiControlCommand');
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
+    $command = $this->createMock(PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
       ->method('owner')

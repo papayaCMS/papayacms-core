@@ -17,10 +17,10 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
   public function testAddAndIterator() {
     $filter = new PapayaPluginFilterContentGroup($page = $this->getPageFixture());
     $filter->add(
-      $filterOne = $this->getMock('PapayaPluginFilterContent')
+      $filterOne = $this->createMock(PapayaPluginFilterContent::class)
     );
     $filter->add(
-      $filterTwo = $this->getMock('PapayaPluginFilterContent')
+      $filterTwo = $this->createMock(PapayaPluginFilterContent::class)
     );
     $this->assertSame(
       array($filterOne, $filterTwo),
@@ -32,7 +32,7 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
    * @covers PapayaPluginFilterContentGroup
    */
   public function testPrepare() {
-    $filterOne = $this->getMock('PapayaPluginFilterContent');
+    $filterOne = $this->createMock(PapayaPluginFilterContent::class);
     $filterOne
       ->expects($this->once())
       ->method('prepare')
@@ -73,7 +73,7 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
    * @covers PapayaPluginFilterContentGroup
    */
   public function testApplyTo() {
-    $filterOne = $this->getMock('PapayaPluginFilterContent');
+    $filterOne = $this->createMock(PapayaPluginFilterContent::class);
     $filterOne
       ->expects($this->once())
       ->method('applyTo')
@@ -110,7 +110,7 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
   public function testAppendTo() {
     $dom = new PapayaXmlDocument();
     $node = $dom->appendElement('test');
-    $filterOne = $this->getMock('PapayaPluginFilterContent');
+    $filterOne = $this->createMock(PapayaPluginFilterContent::class);
     $filterOne
       ->expects($this->once())
       ->method('appendTo')

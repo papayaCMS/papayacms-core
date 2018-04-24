@@ -9,7 +9,7 @@ class PapayaUiControlCollectionItemTest extends PapayaTestCase {
   * @covers PapayaUiControlCollectionItem::hasCollection
   */
   public function testHasCollection() {
-    $collection = $this->getMock('PapayaUiControlCollection');
+    $collection = $this->createMock(PapayaUiControlCollection::class);
     $item = new PapayaUiControlCollectionItem_TestProxy();
     $item->collection($collection);
     $this->assertTrue(
@@ -22,7 +22,7 @@ class PapayaUiControlCollectionItemTest extends PapayaTestCase {
   */
   public function testCollectionGetAfterSet() {
     $papaya = $this->mockPapaya()->application();
-    $collection = $this->getMock('PapayaUiControlCollection');
+    $collection = $this->createMock(PapayaUiControlCollection::class);
     $collection
       ->expects($this->once())
       ->method('papaya')
@@ -62,7 +62,7 @@ class PapayaUiControlCollectionItemTest extends PapayaTestCase {
   * @covers PapayaUiControlCollectionItem::index
   */
   public function testIndexSetWithInvalidValue() {
-    $collection = $this->getMock('PapayaUiControlCollection');
+    $collection = $this->createMock(PapayaUiControlCollection::class);
     $collection
       ->expects($this->once())
       ->method('get')
@@ -81,7 +81,7 @@ class PapayaUiControlCollectionItemTest extends PapayaTestCase {
   * @covers PapayaUiControlCollectionItem::index
   */
   public function testIndex() {
-    $collection = $this->getMock('PapayaUiControlCollection');
+    $collection = $this->createMock(PapayaUiControlCollection::class);
     $collection
       ->expects($this->once())
       ->method('get')

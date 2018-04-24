@@ -82,7 +82,7 @@ class PapayaPluginHookableContextTest extends PapayaTestCase {
    * @covers PapayaPluginHookableContext::data
    */
   public function testDataReturnsContentObjectFromConstructor() {
-    $data = $this->getMock('PapayaPluginEditableContent');
+    $data = $this->createMock(PapayaPluginEditableContent::class);
     $context = new PapayaPluginHookableContext(NULL, $data);
     $this->assertSame($data, $context->data());
   }
@@ -91,7 +91,7 @@ class PapayaPluginHookableContextTest extends PapayaTestCase {
    * @covers PapayaPluginHookableContext::data
    */
   public function testDataAssingingNewContentObject() {
-    $data = $this->getMock('PapayaPluginEditableContent');
+    $data = $this->createMock(PapayaPluginEditableContent::class);
     $context = new PapayaPluginHookableContext();
     $context->data($data);
     $this->assertSame($data, $context->data());

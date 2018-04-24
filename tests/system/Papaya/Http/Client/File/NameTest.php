@@ -26,7 +26,7 @@ class PapayaHttpClientFileNameTest extends PapayaTestCase {
   }
 
   function testSend() {
-    $socket = $this->getMock('PapayaHttpClientSocket');
+    $socket = $this->createMock(PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -38,7 +38,7 @@ class PapayaHttpClientFileNameTest extends PapayaTestCase {
   }
 
   function testSendLimited() {
-    $socket = $this->getMock('PapayaHttpClientSocket');
+    $socket = $this->createMock(PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -53,7 +53,7 @@ class PapayaHttpClientFileNameTest extends PapayaTestCase {
   }
 
   function testSendChunked() {
-    $socket = $this->getMock('PapayaHttpClientSocket');
+    $socket = $this->createMock(PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -68,7 +68,7 @@ class PapayaHttpClientFileNameTest extends PapayaTestCase {
   }
 
   function testSendInvalidFileExpectingError() {
-    $socket = $this->getMock('PapayaHttpClientSocket');
+    $socket = $this->createMock(PapayaHttpClientSocket::class);
     $file = new PapayaHttpClientFileName_TestProxy('test', $this->_sampleFile, 'text/plain');
     $file->_fileName = 'INVALID_FILE';
     $this->setExpectedException('LogicException');

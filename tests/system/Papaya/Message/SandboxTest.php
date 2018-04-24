@@ -37,7 +37,7 @@ class PapayaMessageSandboxTest extends PapayaTestCase {
    * @covers PapayaMessageSandbox::__invoke
    */
   public function testInvokeWithErrorException() {
-    $messages = $this->getMock('PapayaMessageManager');
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
@@ -51,7 +51,7 @@ class PapayaMessageSandboxTest extends PapayaTestCase {
    * @covers PapayaMessageSandbox::__invoke
    */
   public function testInvokewithLogicException() {
-    $messages = $this->getMock('PapayaMessageManager');
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')

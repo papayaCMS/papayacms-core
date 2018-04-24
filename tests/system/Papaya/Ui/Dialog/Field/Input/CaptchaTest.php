@@ -52,12 +52,12 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
    */
   public function testGetCurrentValueAttachedFieldNoTokenExpectingFalse() {
     $field = new PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'name', 'somecaptcha');
-    $dialog = $this->getMock('PapayaUiDialog');
+    $dialog = $this->createMock(PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('parameters')
       ->will($this->returnValue(new PapayaRequestParameters()));
-    $collection = $this->getMock('PapayaUiDialogFields');
+    $collection = $this->createMock(PapayaUiDialogFields::class);
     $collection
       ->expects($this->once())
       ->method('hasOwner')
@@ -76,7 +76,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
    */
   public function testGetCurrentValueAttachedFieldInvalidTokenExpectingFalse() {
     $field = new PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
-    $dialog = $this->getMock('PapayaUiDialog');
+    $dialog = $this->createMock(PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('parameters')
@@ -85,7 +85,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
           new PapayaRequestParameters(array('somecaptcha' => array('someident' => 'somevalue')))
         )
       );
-    $collection = $this->getMock('PapayaUiDialogFields');
+    $collection = $this->createMock(PapayaUiDialogFields::class);
     $collection
       ->expects($this->once())
       ->method('hasOwner')
@@ -94,7 +94,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('owner')
       ->will($this->returnValue($dialog));
-    $session = $this->getMock('PapayaSession');
+    $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('getValue')
@@ -112,7 +112,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
    */
   public function testGetCurrentValueTwoTimeExpectingOnlyOnFetch() {
     $field = new PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
-    $dialog = $this->getMock('PapayaUiDialog');
+    $dialog = $this->createMock(PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('parameters')
@@ -121,7 +121,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
           new PapayaRequestParameters(array('somecaptcha' => array('someident' => 'somevalue')))
         )
       );
-    $collection = $this->getMock('PapayaUiDialogFields');
+    $collection = $this->createMock(PapayaUiDialogFields::class);
     $collection
       ->expects($this->any())
       ->method('hasOwner')
@@ -130,7 +130,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('owner')
       ->will($this->returnValue($dialog));
-    $session = $this->getMock('PapayaSession');
+    $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('getValue')
@@ -149,7 +149,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
    */
   public function testGetCurrentValueAttachedFieldValidTokenExpectingTrue() {
     $field = new PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
-    $dialog = $this->getMock('PapayaUiDialog');
+    $dialog = $this->createMock(PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('parameters')
@@ -158,7 +158,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
           new PapayaRequestParameters(array('somecaptcha' => array('someident' => 'somevalue')))
         )
       );
-    $collection = $this->getMock('PapayaUiDialogFields');
+    $collection = $this->createMock(PapayaUiDialogFields::class);
     $collection
       ->expects($this->once())
       ->method('hasOwner')
@@ -167,7 +167,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('owner')
       ->will($this->returnValue($dialog));
-    $session = $this->getMock('PapayaSession');
+    $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('getValue')

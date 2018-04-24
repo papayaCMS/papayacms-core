@@ -22,7 +22,7 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
   public function testSetFilterExpectingException() {
     $input = new PapayaUiDialogFieldHoneypot('Caption', 'name');
     $this->setExpectedException('LogicException');
-    $input->setFilter($this->getMock('PapayaFilter'));
+    $input->setFilter($this->createMock(PapayaFilter::class));
   }
 
   /**
@@ -38,7 +38,7 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldHoneypot
   */
   public function testAppendTo() {
-    $dialog = $this->getMock('PapayaUiDialog');
+    $dialog = $this->createMock(PapayaUiDialog::class);
     $dialog
       ->expects($this->any())
       ->method('isSubmitted')
@@ -86,7 +86,7 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldHoneypot
   */
   public function testAppendToExpectingError() {
-    $dialog = $this->getMock('PapayaUiDialog');
+    $dialog = $this->createMock(PapayaUiDialog::class);
     $dialog
       ->expects($this->any())
       ->method('isSubmitted')

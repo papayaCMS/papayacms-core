@@ -72,8 +72,8 @@ class PapayaUiListviewSubitemTextTest extends PapayaTestCase {
   * @covers PapayaUiListviewSubitemText::reference
   */
   public function testReferenceGetFromListview() {
-    $reference = $this->getMock('PapayaUiReference');
-    $listview = $this->getMock('PapayaUiListview');
+    $reference = $this->createMock(PapayaUiReference::class);
+    $listview = $this->createMock(PapayaUiListview::class);
     $listview
       ->expects($this->once())
       ->method('reference')

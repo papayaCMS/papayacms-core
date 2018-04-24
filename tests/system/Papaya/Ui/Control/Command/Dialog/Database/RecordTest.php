@@ -7,7 +7,7 @@ class PapayaUiControlCommandDialogDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandDialogDatabaseRecord::__construct
   */
   public function testConstructor() {
-    $record = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $command = new PapayaUiControlCommandDialogDatabaseRecord($record);
     $this->assertSame($record, $command->record());
   }
@@ -17,9 +17,9 @@ class PapayaUiControlCommandDialogDatabaseRecordTest extends PapayaTestCase {
   */
   public function testRecordGetAfterSet() {
     $command = new PapayaUiControlCommandDialogDatabaseRecord(
-      $this->getMock('PapayaDatabaseInterfaceRecord')
+      $this->createMock(PapayaDatabaseInterfaceRecord::class)
     );
-    $command->record($record = $this->getMock('PapayaDatabaseInterfaceRecord'));
+    $command->record($record = $this->createMock(PapayaDatabaseInterfaceRecord::class));
     $this->assertSame($record, $command->record());
   }
 
@@ -27,7 +27,7 @@ class PapayaUiControlCommandDialogDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandDialogDatabaseRecord::createDialog
   */
   public function testCreateSaveDialog() {
-    $record = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $command = new PapayaUiControlCommandDialogDatabaseRecord($record);
     $command->papaya($this->mockPapaya()->application());
     $dialog = $command->dialog();
@@ -40,7 +40,7 @@ class PapayaUiControlCommandDialogDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandDialogDatabaseRecord::createDialog
   */
   public function testCreateDeleteDialog() {
-    $record = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $command = new PapayaUiControlCommandDialogDatabaseRecord(
       $record,
       PapayaUiControlCommandDialogDatabaseRecord::ACTION_DELETE

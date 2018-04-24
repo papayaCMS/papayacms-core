@@ -40,7 +40,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
       ->disableOriginalConstructor()
       ->getMock();
     $parent = $this
-      ->getMock('PapayaDatabaseInterfaceAccess');
+      ->createMock(PapayaDatabaseInterfaceAccess::class);
     $parent
       ->expects($this->once())
       ->method('getDatabaseAccess')

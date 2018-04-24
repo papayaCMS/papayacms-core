@@ -8,7 +8,7 @@ class PapayaPluginEditorTest extends PapayaTestCase {
    * @covers PapayaPluginEditor::getContent
    */
   public function testConstructorAndGetContent() {
-    $content = $this->getMock('PapayaPluginEditableContent');
+    $content = $this->createMock(PapayaPluginEditableContent::class);
     $editor = new PapayaPluginEditor_TestProxy($content);
     $this->assertSame($content, $editor->getContent());
   }
@@ -17,8 +17,8 @@ class PapayaPluginEditorTest extends PapayaTestCase {
    * @covers PapayaPluginEditor::context
    */
   public function testContextGetAfterSet() {
-    $editor = new PapayaPluginEditor_TestProxy($this->getMock('PapayaPluginEditableContent'));
-    $editor->context($context = $this->getMock('PapayaRequestParameters'));
+    $editor = new PapayaPluginEditor_TestProxy($this->createMock(PapayaPluginEditableContent::class));
+    $editor->context($context = $this->createMock(PapayaRequestParameters::class));
     $this->assertSame($context, $editor->context());
   }
 
@@ -26,7 +26,7 @@ class PapayaPluginEditorTest extends PapayaTestCase {
    * @covers PapayaPluginEditor::context
    */
   public function testContextGetImplicitCreate() {
-    $editor = new PapayaPluginEditor_TestProxy($this->getMock('PapayaPluginEditableContent'));
+    $editor = new PapayaPluginEditor_TestProxy($this->createMock(PapayaPluginEditableContent::class));
     $this->assertInstanceOf('PapayaRequestParameters', $editor->context());
   }
 

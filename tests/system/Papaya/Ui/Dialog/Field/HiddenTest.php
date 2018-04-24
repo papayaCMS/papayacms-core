@@ -38,7 +38,7 @@ class PapayaUiDialogFieldHiddenTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->getMock('PapayaUiDialogFields'));
+    $input->collection($this->createMock(PapayaUiDialogFields::class));
     $input->appendTo($node);
     $this->assertEquals(
       '<sample>'.
@@ -62,7 +62,7 @@ class PapayaUiDialogFieldHiddenTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->getMock('PapayaUiDialogFields'));
+    $input->collection($this->createMock(PapayaUiDialogFields::class));
     $input->appendTo($node);
     $this->assertEquals(
       '<sample>'.

@@ -218,7 +218,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   */
   public function testCallbacksGetAfterSet() {
     $mapping = new PapayaDatabaseRecordMapping(array());
-    $mapping->callbacks($callbacks = $this->getMock('PapayaDatabaseRecordMappingCallbacks'));
+    $mapping->callbacks($callbacks = $this->createMock(PapayaDatabaseRecordMappingCallbacks::class));
     $this->assertSame($callbacks, $mapping->callbacks());
   }
 

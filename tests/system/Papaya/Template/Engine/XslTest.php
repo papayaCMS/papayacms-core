@@ -184,7 +184,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   * @covers PapayaTemplateEngineXsl::setErrorHandler
   */
   public function testSetErrorHandler() {
-    $errors = $this->getMock('PapayaXmlErrors');
+    $errors = $this->createMock(PapayaXmlErrors::class);
     $engine = new PapayaTemplateEngineXsl();
     $engine->setErrorHandler($errors);
     $this->assertAttributeSame(
@@ -198,7 +198,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   * @covers PapayaTemplateEngineXsl::getErrorHandler
   */
   public function testGetErrorHandler() {
-    $errors = $this->getMock('PapayaXmlErrors');
+    $errors = $this->createMock(PapayaXmlErrors::class);
     $engine = new PapayaTemplateEngineXsl();
     $engine->setErrorHandler($errors);
     $this->assertSame(

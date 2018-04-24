@@ -44,7 +44,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   * @covers PapayaXmlErrors::emit
   */
   public function testEmit() {
-    $messages = $this->getMock('PapayaMessageManager');
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
@@ -66,7 +66,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   * @covers PapayaXmlErrors::omit
   */
   public function testOmit() {
-    $messages = $this->getMock('PapayaMessageManager');
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
@@ -88,7 +88,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   * @covers PapayaXmlErrors::emit
   */
   public function testEmitIgnoringNonFatal() {
-    $messages = $this->getMock('PapayaMessageManager');
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->never())
       ->method('dispatch');
@@ -174,7 +174,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   * @covers PapayaXmlErrors::encapsulate
   */
   public function testEncapsulateWithError() {
-    $messages = $this->getMock('PapayaMessageManager');
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('log');
@@ -193,7 +193,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   * @covers PapayaXmlErrors::encapsulate
   */
   public function testEncapsulateWithErrorNotEmitted() {
-    $messages = $this->getMock('PapayaMessageManager');
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->never())
       ->method('log');
@@ -211,7 +211,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   * @covers PapayaXmlErrors::encapsulate
   */
   public function testEncapsulateWithNonFatalNotEmitted() {
-    $messages = $this->getMock('PapayaMessageManager');
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->never())
       ->method('dispatch');

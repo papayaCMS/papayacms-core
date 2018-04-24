@@ -25,7 +25,7 @@ class PapayaUiToolbarsTest extends PapayaTestCase {
   */
   public function testGetAfterSet($position) {
     $toolbars = new PapayaUiToolbars();
-    $toolbars->$position = $toolbar = $this->getMock('PapayaUiToolbar');
+    $toolbars->$position = $toolbar = $this->createMock(PapayaUiToolbar::class);
     $this->assertSame(
       $toolbar, $toolbars->$position
     );
@@ -50,7 +50,7 @@ class PapayaUiToolbarsTest extends PapayaTestCase {
       'UnexpectedValueException: Invalid toolbar position requested.'
     );
     /** @noinspection PhpUndefinedFieldInspection */
-    $toolbars->invalidPosition = $this->getMock('PapayaUiToolbar');
+    $toolbars->invalidPosition = $this->createMock(PapayaUiToolbar::class);
   }
 
   /**

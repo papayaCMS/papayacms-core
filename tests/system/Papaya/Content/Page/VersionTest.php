@@ -116,7 +116,7 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
   * @covers PapayaContentPageVersion::translations
   */
   public function testTranslationsGetAfterSet() {
-    $translations = $this->getMock('PapayaContentPageVersionTranslations');
+    $translations = $this->createMock(PapayaContentPageVersionTranslations::class);
     $version = new PapayaContentPageVersion();
     $this->assertSame($translations, $version->translations($translations));
   }

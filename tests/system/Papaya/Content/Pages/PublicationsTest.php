@@ -9,7 +9,7 @@ class PapayaContentPagesPublicationsTest extends PapayaTestCase {
   * @covers PapayaContentPagesPublications::_compileCondition
   */
   public function testLoadWithTranslationNeeded() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

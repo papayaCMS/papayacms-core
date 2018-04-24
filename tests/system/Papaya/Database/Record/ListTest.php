@@ -7,7 +7,7 @@ class PapayaDatabaseRecordListTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordList::__construct
    */
   public function testConstructor() {
-    $record = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $list = new PapayaDatabaseRecordList();
     $list[] = $record;
     $this->assertEquals(
@@ -19,7 +19,7 @@ class PapayaDatabaseRecordListTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordList::toArray
    */
   public function testToArray() {
-    $record = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $record
       ->expects($this->once())
       ->method('toArray')
@@ -35,12 +35,12 @@ class PapayaDatabaseRecordListTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordList::save
    */
   public function testSave() {
-    $recordOne = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $recordOne = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $recordOne
       ->expects($this->once())
       ->method('save')
       ->will($this->returnValue(TRUE));
-    $recordTwo = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $recordTwo = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $recordTwo
       ->expects($this->once())
       ->method('save')
@@ -55,12 +55,12 @@ class PapayaDatabaseRecordListTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordList::save
    */
   public function testSaveWithDatabaseErrorExpectingFalse() {
-    $recordOne = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $recordOne = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $recordOne
       ->expects($this->once())
       ->method('save')
       ->will($this->returnValue(FALSE));
-    $recordTwo = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $recordTwo = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $recordTwo
       ->expects($this->never())
       ->method('save');
@@ -74,12 +74,12 @@ class PapayaDatabaseRecordListTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordList::delete
    */
   public function testDelete() {
-    $recordOne = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $recordOne = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $recordOne
       ->expects($this->once())
       ->method('delete')
       ->will($this->returnValue(TRUE));
-    $recordTwo = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $recordTwo = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $recordTwo
       ->expects($this->once())
       ->method('delete')
@@ -94,12 +94,12 @@ class PapayaDatabaseRecordListTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordList::delete
    */
   public function testDeleteWithDatabaseErrorExpectingFalse() {
-    $recordOne = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $recordOne = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $recordOne
       ->expects($this->once())
       ->method('delete')
       ->will($this->returnValue(FALSE));
-    $recordTwo = $this->getMock('PapayaDatabaseInterfaceRecord');
+    $recordTwo = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $recordTwo
       ->expects($this->never())
       ->method('delete');

@@ -47,7 +47,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
     );
     $response = $this->mockPapaya()->response();
 
-    $generator = $this->getMock('base_mediadb');
+    $generator = $this->createMock(base_mediadb::class);
     $generator
       ->expects($this->once())
       ->method('getFile')
@@ -76,7 +76,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
     );
     $response = $this->mockPapaya()->response();
 
-    $generator = $this->getMock('base_mediadb');
+    $generator = $this->createMock(base_mediadb::class);
     $generator
       ->expects($this->once())
       ->method('getFile')
@@ -93,7 +93,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   * @covers PapayaControllerMedia::setMediaDatabase
   */
   public function testSetMediaDatabase() {
-    $generator = $this->getMock('base_mediadb');
+    $generator = $this->createMock(base_mediadb::class);
     $controller = new PapayaControllerMedia();
     $controller->setMediaDatabase($generator);
     $this->assertAttributeSame(
@@ -105,7 +105,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   * @covers PapayaControllerMedia::getMediaDatabase
   */
   public function testGetMediaDatabase() {
-    $generator = $this->getMock('base_mediadb');
+    $generator = $this->createMock(base_mediadb::class);
     $controller = new PapayaControllerMedia();
     $controller->setMediaDatabase($generator);
     $this->assertSame(

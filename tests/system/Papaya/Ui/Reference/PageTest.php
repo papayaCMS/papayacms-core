@@ -17,7 +17,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   * @covers PapayaUiReferencePage::load
   */
   public function testLoad() {
-    $request = $this->getMock('PapayaRequest');
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getUrl')
@@ -120,7 +120,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   * @covers PapayaUiReferencePage::get
   */
   public function testSetPageIdCallsConfigure() {
-    $pageReferences = $this->getMock('PapayaUiReferencePageFactory');
+    $pageReferences = $this->createMock(PapayaUiReferencePageFactory::class);
     $pageReferences
       ->expects($this->once())
       ->method('configure')
@@ -294,7 +294,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   * @covers PapayaUiReferencePage::get
   */
   public function testSetPageLanguageCallsConfigure() {
-    $pageReferences = $this->getMock('PapayaUiReferencePageFactory');
+    $pageReferences = $this->createMock(PapayaUiReferencePageFactory::class);
     $pageReferences
       ->expects($this->once())
       ->method('configure')
@@ -480,7 +480,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
    * @covers PapayaUiReferencePage::pageReferences
    */
   public function testPageReferencesGetAfterSet() {
-    $factory = $this->getMock('PapayaUiReferencePageFactory');
+    $factory = $this->createMock(PapayaUiReferencePageFactory::class);
     $reference = new PapayaUiReferencePage();
     $reference->pageReferences($factory);
     $this->assertSame(
@@ -494,7 +494,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   public function testPageReferencesFetchFromApplication() {
     $application = $this->mockPapaya()->application(
       array(
-        'pageReferences' => $factory = $this->getMock('PapayaUiReferencePageFactory')
+        'pageReferences' => $factory = $this->createMock(PapayaUiReferencePageFactory::class)
       )
     );
     $reference = new PapayaUiReferencePage();
@@ -528,7 +528,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
    * @covers PapayaUiReferencePage::isStartPage
    */
   public function testIsStartPageExpectingTrue() {
-    $references = $this->getMock('PapayaUiReferencePageFactory');
+    $references = $this->createMock(PapayaUiReferencePageFactory::class);
     $references
       ->expects($this->once())
       ->method('isStartPage')
@@ -546,7 +546,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
    * @covers PapayaUiReferencePage::isStartPage
    */
   public function testIsStartPageExpectingFalse() {
-    $references = $this->getMock('PapayaUiReferencePageFactory');
+    $references = $this->createMock(PapayaUiReferencePageFactory::class);
     $references
       ->expects($this->once())
       ->method('isStartPage')

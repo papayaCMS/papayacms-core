@@ -7,7 +7,7 @@ class PapayaThemeWrapperUrlTest extends PapayaTestCase {
   * @covers PapayaThemeWrapperUrl::__construct
   */
   public function testConstructorWithUrl() {
-    $requestUrl = $this->getMock('PapayaUrl');
+    $requestUrl = $this->createMock(PapayaUrl::class);
     $wrapperUrl = new PapayaThemeWrapperUrl($requestUrl);
     $this->assertAttributeSame(
       $requestUrl, '_requestUrl', $wrapperUrl
@@ -66,7 +66,7 @@ class PapayaThemeWrapperUrlTest extends PapayaTestCase {
   * @covers PapayaThemeWrapperUrl::parameters
   */
   public function testParametersSetParameters() {
-    $parameters = $this->getMock('PapayaRequestParameters');
+    $parameters = $this->createMock(PapayaRequestParameters::class);
     $wrapper = new PapayaThemeWrapperUrl(new PapayaUrl('http://www.sample.tld'));
     $wrapper->parameters($parameters);
     $this->assertAttributeSame(
@@ -78,7 +78,7 @@ class PapayaThemeWrapperUrlTest extends PapayaTestCase {
   * @covers PapayaThemeWrapperUrl::parameters
   */
   public function testParametersGetParametersAfterSet() {
-    $parameters = $this->getMock('PapayaRequestParameters');
+    $parameters = $this->createMock(PapayaRequestParameters::class);
     $wrapper = new PapayaThemeWrapperUrl(new PapayaUrl('http://www.sample.tld'));
     $this->assertSame(
       $parameters, $wrapper->parameters($parameters)

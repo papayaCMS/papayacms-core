@@ -7,7 +7,7 @@ class PapayaApplicationProfileOptionsTest extends PapayaTestCase {
   * @covers PapayaApplicationProfileOptions::createObject
   */
   public function testCreateObject() {
-    $application = $this->getMock('PapayaApplication');
+    $application = $this->createMock(PapayaApplication::class);
     $profile = new PapayaApplicationProfileOptions();
     $options = $profile->createObject($application);
     $this->assertInstanceOf(

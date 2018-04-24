@@ -8,7 +8,7 @@ class PapayaUiToolbarElementsTest extends PapayaTestCase {
   * @covers PapayaUiToolbarElements::owner
   */
   public function testConstructor() {
-    $menu = $this->getMock('PapayaUiMenu');
+    $menu = $this->createMock(PapayaUiMenu::class);
     $elements = new PapayaUiToolbarElements($menu);
     $this->assertSame(
       $menu, $elements->owner()
@@ -19,7 +19,7 @@ class PapayaUiToolbarElementsTest extends PapayaTestCase {
   * @covers PapayaUiToolbarElements::validateItemClass
   */
   public function testAddElementWhileGroupsAllowed() {
-    $elements = new PapayaUiToolbarElements($this->getMock('PapayaUiMenu'));
+    $elements = new PapayaUiToolbarElements($this->createMock(PapayaUiMenu::class));
     $elements->allowGroups = TRUE;
     $group = $this->getMock('PapayaUiToolbarGroup', array(), array('caption'));
     $elements->add($group);
@@ -32,7 +32,7 @@ class PapayaUiToolbarElementsTest extends PapayaTestCase {
   * @covers PapayaUiToolbarElements::validateItemClass
   */
   public function testAddElementWhileGroupsNotAllowedExpectingException() {
-    $elements = new PapayaUiToolbarElements($this->getMock('PapayaUiMenu'));
+    $elements = new PapayaUiToolbarElements($this->createMock(PapayaUiMenu::class));
     $elements->allowGroups = FALSE;
     $group = new PapayaUiToolbarGroup('caption');
     $this->setExpectedException(

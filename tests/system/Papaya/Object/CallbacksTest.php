@@ -84,7 +84,7 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
   * @covers PapayaObjectCallbacks::validateName
   */
   public function testGetAfterSetWithPapayaObjectCallbackObject() {
-    $callback = $this->getMock('PapayaObjectCallback');
+    $callback = $this->createMock(PapayaObjectCallback::class);
     $list = new PapayaObjectCallbacks_TestProxy(array('sample' => 23));
     $list->sample = $callback;
     $this->assertSame($callback, $list->sample);
@@ -166,7 +166,7 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
   * @covers PapayaObjectCallbacks::getIterator
   */
   public function testGetIteratorAfterSet() {
-    $callback = $this->getMock('PapayaObjectCallback');
+    $callback = $this->createMock(PapayaObjectCallback::class);
     $list = new PapayaObjectCallbacks_TestProxy(array('sample' => 23));
     $list->sample = $callback;
     $this->assertSame(array('sample' => $callback), iterator_to_array($list));
