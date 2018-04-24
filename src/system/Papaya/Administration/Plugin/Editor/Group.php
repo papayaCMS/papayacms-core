@@ -30,16 +30,32 @@ class PapayaAdministrationPluginEditorGroup extends PapayaPluginEditor {
 
   private $_editors = [];
   private $_toolbar;
-  private $_indexParameterName = 'editor_index';
+  private $_indexParameterName;
 
-  public function __construct(PapayaPluginEditableContent $content) {
+  /**
+   * PapayaAdministrationPluginEditorGroup constructor.
+   *
+   * @param PapayaPluginEditableContent $content
+   * @param string $indexParameterName
+   */
+  public function __construct(PapayaPluginEditableContent $content, $indexParameterName = 'editor_index') {
     parent::__construct($content);
+    $this->_indexParameterName = $indexParameterName;
   }
 
+  /**
+   * @param PapayaPluginEditor $editor
+   * @param $buttonCaption
+   * @param string $buttonImage
+   */
   public function add(PapayaPluginEditor $editor, $buttonCaption, $buttonImage = '') {
     $this->_editors[] = [$editor, $buttonCaption, $buttonImage];
   }
 
+  /**
+   * @param PapayaUiToolbar|NULL $toolbar
+   * @return PapayaUiToolbar
+   */
   public function toolbar(PapayaUiToolbar $toolbar = NULL) {
     if (NULL !== $toolbar) {
       $this->_toolbar = $toolbar;
@@ -62,6 +78,9 @@ class PapayaAdministrationPluginEditorGroup extends PapayaPluginEditor {
     return $this->_toolbar;
   }
 
+  /**
+   * @return PapayaPluginEditor
+   */
   private function getCurrentEditor() {
     $editorIndex = $this->parameters()->get($this->_indexParameterName, 0);
     $editorIndex = isset($this->_editors[$editorIndex]) ? $editorIndex : 0;
