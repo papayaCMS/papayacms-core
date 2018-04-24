@@ -102,7 +102,7 @@ class PapayaAdministrationPermissionsTest extends PapayaTestCase {
    * @covers PapayaAdministrationPermissions::reset
    */
   public function testIsActiveAfterLoadingExpectingFalse() {
-    $databaseResult = $this->getMock('PapayaDatabaseResult');
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
@@ -115,8 +115,9 @@ class PapayaAdministrationPermissionsTest extends PapayaTestCase {
           FALSE
         )
       );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseAccess $databaseAccess */
     $databaseAccess = $this
-      ->getMockBuilder('PapayaDatabaseAccess')
+      ->getMockBuilder(PapayaDatabaseAccess::class)
       ->disableOriginalConstructor()
       ->setMethods(array('queryFmt'))
       ->getMock();
@@ -141,7 +142,7 @@ class PapayaAdministrationPermissionsTest extends PapayaTestCase {
    */
   public function testGroupsGetAfterSet() {
     $permissions = new PapayaAdministrationPermissions();
-    $permissions->groups($groups = $this->getMock('PapayaAdministrationPermissionGroups'));
+    $permissions->groups($groups = $this->createMock(PapayaAdministrationPermissionGroups::class));
     $this->assertSame($groups, $permissions->groups());
   }
 
@@ -150,7 +151,7 @@ class PapayaAdministrationPermissionsTest extends PapayaTestCase {
    */
   public function testGroupsGetImplicitCreate() {
     $permissions = new PapayaAdministrationPermissions();
-    $this->assertInstanceOf('PapayaAdministrationPermissionGroups', $permissions->groups());
+    $this->assertInstanceOf(PapayaAdministrationPermissionGroups::class, $permissions->groups());
   }
 
 }

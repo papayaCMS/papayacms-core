@@ -10,23 +10,23 @@ class PapayaAdministrationPagesAnchestorsTest extends PapayaTestCase {
     $dom = new PapayaXmlDocument();
     $dom->appendElement('sample');
 
-    $menu = $this->getMock('PapayaUiHierarchyMenu');
+    $menu = $this->createMock(PapayaUiHierarchyMenu::class);
     $menu
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf('PapayaXmlElement'))
       ->will($this->returnValue($dom->documentElement->appendElement('menu')));
-    $anchestors = new PapayaAdministrationPagesAnchestors();
-    $anchestors->menu($menu);
+    $ancestors = new PapayaAdministrationPagesAnchestors();
+    $ancestors->menu($menu);
 
-    $this->assertInstanceOf('PapayaXmlElement', $anchestors->appendTo($dom->documentElement));
+    $this->assertInstanceOf(PapayaXmlElement::class, $ancestors->appendTo($dom->documentElement));
   }
 
   /**
   * @covers PapayaAdministrationPagesAnchestors::setIds
   */
   public function testSetIds() {
-    $pages = $this->getMock('PapayaContentPages');
+    $pages = $this->createMock(PapayaContentPages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -47,25 +47,26 @@ class PapayaAdministrationPagesAnchestorsTest extends PapayaTestCase {
         )
       );
 
-    $anchestors = new PapayaAdministrationPagesAnchestors();
-    $anchestors->papaya(
+    $ancestors = new PapayaAdministrationPagesAnchestors();
+    $ancestors->papaya(
       $this->mockPapaya()->application(
         array(
           'AdministrationLanguage' => $this->getLanguageSwitchFixture()
         )
       )
     );
-    $anchestors->pages($pages);
+    $ancestors->pages($pages);
 
-    $anchestors->setIds(array(42));
-    $this->assertEquals(
-      '<hierarchy-menu>'.
-        '<items>'.
-          '<item caption="test" mode="both"'.
-          ' href="http://www.test.tld/test.html?tt[page_id]=42"/>'.
-        '</items>'.
-      '</hierarchy-menu>',
-      $anchestors->getXml()
+    $ancestors->setIds(array(42));
+    $this->assertXmlStringEqualsXmlString(
+      // language=xml
+      '<hierarchy-menu>
+        <items>
+          <item caption="test" mode="both"
+           href="http://www.test.tld/test.html?tt[page_id]=42"/>
+        </items>
+      </hierarchy-menu>',
+      $ancestors->getXml()
     );
   }
 
@@ -73,10 +74,10 @@ class PapayaAdministrationPagesAnchestorsTest extends PapayaTestCase {
   * @covers PapayaAdministrationPagesAnchestors::pages
   */
   public function testPagesGetAfterSet() {
-    $anchestors = new PapayaAdministrationPagesAnchestors();
-    $pages = $this->getMock('PapayaContentPages');
+    $ancestors = new PapayaAdministrationPagesAnchestors();
+    $pages = $this->createMock(PapayaContentPages::class);
     $this->assertSame(
-      $pages, $anchestors->pages($pages)
+      $pages, $ancestors->pages($pages)
     );
   }
 
@@ -84,13 +85,13 @@ class PapayaAdministrationPagesAnchestorsTest extends PapayaTestCase {
   * @covers PapayaAdministrationPagesAnchestors::pages
   */
   public function testPagesGetWithImpliciteCreate() {
-    $anchestors = new PapayaAdministrationPagesAnchestors();
-    $anchestors->papaya($papaya = $this->mockPapaya()->application());
+    $ancestors = new PapayaAdministrationPagesAnchestors();
+    $ancestors->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaContentPages', $anchestors->pages()
+      PapayaContentPages::class, $ancestors->pages()
     );
     $this->assertSame(
-      $papaya, $anchestors->papaya()
+      $papaya, $ancestors->papaya()
     );
   }
 
@@ -98,10 +99,10 @@ class PapayaAdministrationPagesAnchestorsTest extends PapayaTestCase {
   * @covers PapayaAdministrationPagesAnchestors::menu
   */
   public function testItemsGetAfterSet() {
-    $anchestors = new PapayaAdministrationPagesAnchestors();
-    $menu = $this->getMock('PapayaUiHierarchyMenu');
+    $ancestors = new PapayaAdministrationPagesAnchestors();
+    $menu = $this->createMock(PapayaUiHierarchyMenu::class);
     $this->assertSame(
-      $menu, $anchestors->menu($menu)
+      $menu, $ancestors->menu($menu)
     );
   }
 
@@ -109,13 +110,13 @@ class PapayaAdministrationPagesAnchestorsTest extends PapayaTestCase {
   * @covers PapayaAdministrationPagesAnchestors::menu
   */
   public function testItemsGetWithImpliciteCreate() {
-    $anchestors = new PapayaAdministrationPagesAnchestors();
-    $anchestors->papaya($papaya = $this->mockPapaya()->application());
+    $ancestors = new PapayaAdministrationPagesAnchestors();
+    $ancestors->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      'PapayaUiHierarchyMenu', $anchestors->menu()
+      PapayaUiHierarchyMenu::class, $ancestors->menu()
     );
     $this->assertSame(
-      $papaya, $anchestors->papaya()
+      $papaya, $ancestors->papaya()
     );
   }
 
@@ -126,7 +127,7 @@ class PapayaAdministrationPagesAnchestorsTest extends PapayaTestCase {
   private function getLanguageSwitchFixture() {
     $language = new stdClass();
     $language->id = 1;
-    $switch = $this->getMock('PapayaAdministrationLanguagesSwitch');
+    $switch = $this->createMock(PapayaAdministrationLanguagesSwitch::class);
     $switch
       ->expects($this->any())
       ->method('getCurrent')
