@@ -23,7 +23,7 @@ class PapayaAdministrationPagePartsTest extends PapayaTestCase {
     $parts = new PapayaAdministrationPageParts(
       $page = $this->getPageFixture()
     );
-    $parts->content = $part = $this->getMock('PapayaAdministrationPagePart');
+    $parts->content = $part = $this->createMock(PapayaAdministrationPagePart::class);
     $this->assertSame($part, $parts->content);
   }
 
@@ -35,7 +35,7 @@ class PapayaAdministrationPagePartsTest extends PapayaTestCase {
     $parts = new PapayaAdministrationPageParts(
       $page = $this->getPageFixture()
     );
-    $parts->set('content', $part = $this->getMock('PapayaAdministrationPagePart'));
+    $parts->set('content', $part = $this->createMock(PapayaAdministrationPagePart::class));
     $this->assertSame($part, $parts->get('content'));
   }
 
@@ -49,9 +49,9 @@ class PapayaAdministrationPagePartsTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('createPart')
       ->with('content')
-      ->will($this->returnValue($this->getMock('PapayaAdministrationPagePart')));
+      ->will($this->returnValue($this->createMock(PapayaAdministrationPagePart::class)));
     $parts = new PapayaAdministrationPageParts($page);
-    $this->assertInstanceOf('PapayaAdministrationPagePart', $parts->get('content'));
+    $this->assertInstanceOf(PapayaAdministrationPagePart::class, $parts->get('content'));
   }
 
   /**
@@ -75,7 +75,7 @@ class PapayaAdministrationPagePartsTest extends PapayaTestCase {
    */
   public function testGetWithInvalidNameExpectingException() {
     $parts = new PapayaAdministrationPageParts($this->getPageFixture());
-    $this->setExpectedException('UnexpectedValueException');
+    $this->expectException(\UnexpectedValueException::class);
     $parts->get('INVALID');
   }
 
@@ -84,13 +84,15 @@ class PapayaAdministrationPagePartsTest extends PapayaTestCase {
    */
   public function testSetWithInvalidNameExpectingException() {
     $parts = new PapayaAdministrationPageParts($this->getPageFixture());
-    $this->setExpectedException('UnexpectedValueException');
-    $parts->set('INVALID', $this->getMock('PapayaAdministrationPagePart'));
+    $this->expectException(\UnexpectedValueException::class);
+    $parts->set('INVALID', $this->createMock(PapayaAdministrationPagePart::class));
   }
 
   /**
    * @covers PapayaAdministrationPageParts::getTarget
    * @dataProvider providePartsAndTargets
+   * @param string $expected
+   * @param string $partName
    */
   public function testGetTarget($expected, $partName) {
     $parts = new PapayaAdministrationPageParts($this->getPageFixture());
@@ -110,7 +112,7 @@ class PapayaAdministrationPagePartsTest extends PapayaTestCase {
    */
   public function testGetTargetWithInvalidNameExpectingException() {
     $parts = new PapayaAdministrationPageParts($this->getPageFixture());
-    $this->setExpectedException('UnexpectedValueException');
+    $this->expectException(\UnexpectedValueException::class);
     $parts->getTarget('INVALID');
   }
 
@@ -121,7 +123,7 @@ class PapayaAdministrationPagePartsTest extends PapayaTestCase {
     $parts = new PapayaAdministrationPageParts($this->getPageFixture());
     $parts->toolbar(
       $toolbar = $this
-        ->getMockBuilder('PapayaUiToolbarComposed')
+        ->getMockBuilder(PapayaUiToolbarComposed::class)
         ->disableOriginalConstructor()
         ->getMock()
     );
@@ -133,7 +135,7 @@ class PapayaAdministrationPagePartsTest extends PapayaTestCase {
    */
   public function testToolbarGetImplicitCreate() {
     $parts = new PapayaAdministrationPageParts($this->getPageFixture());
-    $this->assertInstanceOf('PapayaUiToolbarComposed', $parts->toolbar());
+    $this->assertInstanceOf(PapayaUiToolbarComposed::class, $parts->toolbar());
   }
 
   /**
@@ -158,23 +160,26 @@ class PapayaAdministrationPagePartsTest extends PapayaTestCase {
     );
   }
 
+  /**
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaAdministrationPage
+   */
   private function getPageFixture() {
     return $this
-      ->getMockBuilder('PapayaAdministrationPage')
+      ->getMockBuilder(PapayaAdministrationPage::class)
       ->disableOriginalConstructor()
       ->getMock();
   }
 
   private function getPartFixture() {
-    $part = $this->getMock('PapayaAdministrationPagePart');
+    $part = $this->createMock(PapayaAdministrationPagePart::class);
     $part
       ->expects($this->at(0))
       ->method('parameters')
-      ->with($this->isInstanceOf('PapayaRequestParameters'));
+      ->with($this->isInstanceOf(PapayaRequestParameters::class));
     $part
       ->expects($this->at(1))
       ->method('parameters')
-      ->will($this->returnValue($this->getMock('PapayaRequestParameters')));
+      ->will($this->returnValue($this->createMock(PapayaRequestParameters::class)));
     return $part;
   }
 }

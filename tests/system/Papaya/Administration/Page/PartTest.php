@@ -7,11 +7,11 @@ class PapayaAdministrationPagePartTest extends PapayaTestCase {
    * @covers PapayaAdministrationPagePart::appendTo
    */
   public function testAppendTo() {
-    $commands = $this->getMock('PapayaUiControlCommand');
+    $commands = $this->createMock(PapayaUiControlCommand::class);
     $commands
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf('PapayaXmlElement'));
+      ->with($this->isInstanceOf(PapayaXmlElement::class));
     $part = new PapayaAdministrationPagePart_TestProxy();
     $part->commands($commands);
 
@@ -26,7 +26,7 @@ class PapayaAdministrationPagePartTest extends PapayaTestCase {
    */
   public function testCommandsGetAfterSet() {
     $part = new PapayaAdministrationPagePart_TestProxy();
-    $part->commands($commands = $this->getMock('PapayaUiControlCommand'));
+    $part->commands($commands = $this->createMock(PapayaUiControlCommand::class));
     $this->assertSame($commands, $part->commands());
   }
 
@@ -36,7 +36,7 @@ class PapayaAdministrationPagePartTest extends PapayaTestCase {
    */
   public function testCommandsGetImplicitCreate() {
     $part = new PapayaAdministrationPagePart_TestProxy();
-    $this->assertInstanceOf('PapayaUiControlCommandController', $part->commands());
+    $this->assertInstanceOf(PapayaUiControlCommandController::class, $part->commands());
   }
 
   /**
@@ -44,7 +44,7 @@ class PapayaAdministrationPagePartTest extends PapayaTestCase {
    */
   public function testToolbarGetAfterSet() {
     $part = new PapayaAdministrationPagePart_TestProxy();
-    $part->toolbar($toolbar = $this->getMock('PapayaUiToolbarSet'));
+    $part->toolbar($toolbar = $this->createMock(PapayaUiToolbarSet::class));
     $this->assertSame($toolbar, $part->toolbar());
   }
 
@@ -53,7 +53,7 @@ class PapayaAdministrationPagePartTest extends PapayaTestCase {
    */
   public function testToolbarGetImplicitCreate() {
     $part = new PapayaAdministrationPagePart_TestProxy();
-    $this->assertInstanceOf('PapayaUiToolbarSet', $part->toolbar());
+    $this->assertInstanceOf(PapayaUiToolbarSet::class, $part->toolbar());
   }
 }
 
