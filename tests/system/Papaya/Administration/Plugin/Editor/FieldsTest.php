@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../bootstrap.php');
+require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaAdministrationPluginEditorFieldsTest extends PapayaTestCase {
 
@@ -8,7 +8,7 @@ class PapayaAdministrationPluginEditorFieldsTest extends PapayaTestCase {
    */
   public function testConstructor() {
     $editor = new PapayaAdministrationPluginEditorFields(
-      $content = $this->getMock('PapayaPluginEditableContent'),
+      $content = $this->createMock(PapayaPluginEditableContent::class),
       array()
     );
     $this->assertSame($content, $editor->getContent());
@@ -19,7 +19,7 @@ class PapayaAdministrationPluginEditorFieldsTest extends PapayaTestCase {
    * @covers PapayaAdministrationPluginEditorFields::createDialog
    */
   public function testDialogGetImplicitCreate() {
-    $languageSwitch = $this->getMock('PapayaAdministrationLanguagesSwitch');
+    $languageSwitch = $this->createMock(PapayaAdministrationLanguagesSwitch::class);
     $languageSwitch
       ->expects($this->any())
       ->method('getCurrent')
@@ -29,14 +29,14 @@ class PapayaAdministrationPluginEditorFieldsTest extends PapayaTestCase {
         )
       );
 
-    $pluginContent = $this->getMock('PapayaPluginEditableContent');
+    $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
     $pluginContent
       ->expects($this->any())
       ->method('getIterator')
       ->will($this->returnValue(new EmptyIterator()));
 
     $builder = $this
-      ->getMockBuilder('PapayaUiDialogFieldBuilderArray')
+      ->getMockBuilder(PapayaUiDialogFieldBuilderArray::class)
       ->disableOriginalConstructor()
       ->getMock();
     $builder
@@ -53,7 +53,7 @@ class PapayaAdministrationPluginEditorFieldsTest extends PapayaTestCase {
     $editor->builder($builder);
     $editor->context(new PapayaRequestParameters(array('context' => 'sample')));
 
-    $this->assertInstanceOf('PapayaUiDialog', $dialog = $editor->dialog());
+    $this->assertInstanceOf(PapayaUiDialog::class, $dialog = $editor->dialog());
   }
 
   /**
@@ -61,11 +61,11 @@ class PapayaAdministrationPluginEditorFieldsTest extends PapayaTestCase {
    */
   public function testBuilderGetAfterSet() {
     $builder = $this
-      ->getMockBuilder('PapayaUiDialogFieldBuilderArray')
+      ->getMockBuilder(PapayaUiDialogFieldBuilderArray::class)
       ->disableOriginalConstructor()
       ->getMock();
     $editor = new PapayaAdministrationPluginEditorFields(
-      $this->getMock('PapayaPluginEditableContent'),
+      $this->createMock(PapayaPluginEditableContent::class),
       array()
     );
     $editor->builder($builder);
@@ -77,9 +77,9 @@ class PapayaAdministrationPluginEditorFieldsTest extends PapayaTestCase {
    */
   public function testBuilderGetImpliciteCreate() {
     $editor = new PapayaAdministrationPluginEditorFields(
-      $this->getMock('PapayaPluginEditableContent'),
+      $this->createMock(PapayaPluginEditableContent::class),
       array()
     );
-    $this->assertInstanceOf('PapayaUiDialogFieldBuilderArray', $editor->builder());
+    $this->assertInstanceOf(PapayaUiDialogFieldBuilderArray::class, $editor->builder());
   }
 }
