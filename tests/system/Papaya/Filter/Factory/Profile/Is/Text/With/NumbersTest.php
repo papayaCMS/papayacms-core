@@ -16,7 +16,7 @@ class PapayaFilterFactoryProfileIsTextWithNumbersTest extends PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new PapayaFilterFactoryProfileIsTextWithNumbers();
-    $this->setExpectedException(PapayaFilterException::class);
+    $this->expectException(PapayaFilterException::class);
     $profile->getFilter()->validate('');
   }
 }

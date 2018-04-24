@@ -27,7 +27,7 @@ class PapayaTemplateSimpleAstNodeTest extends PapayaTestCase {
    */
   public function testPropertyWriteThrowsException() {
     $node = new PapayaTemplateSimpleAstNode_TestProxy();
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     $node->foo = 23;
   }
 

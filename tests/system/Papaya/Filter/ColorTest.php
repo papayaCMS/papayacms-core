@@ -16,7 +16,7 @@ class PapayaFilterColorTest extends PapayaTestCase {
   */
   public function testValidateExpectingException() {
     $filter = new PapayaFilterColor();
-    $this->setExpectedException(PapayaFilterExceptionType::class);
+    $this->expectException(PapayaFilterExceptionType::class);
     $filter->validate("invalid color");
   }
 

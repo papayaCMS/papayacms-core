@@ -103,7 +103,7 @@ class PapayaMessageHookErrorsTest extends PapayaTestCase {
   public function testHandleWithError() {
     $manager = $this->createMock(PapayaMessageManager::class);
     $hook = new PapayaMessageHookErrors($manager);
-    $this->setExpectedException(ErrorException::class);
+    $this->expectException(ErrorException::class);
     $hook->handle(E_USER_ERROR, 'Sample Message', 'file.php', 42, 'CONTEXT');
   }
 

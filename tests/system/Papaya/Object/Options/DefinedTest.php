@@ -46,7 +46,7 @@ class PapayaObjectOptionsDefinedTest extends PapayaTestCase {
   */
   public function testSetOptionExpectingException() {
     $options = new PapayaObjectOptionsDefined_TestProxy();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $options->invalidOption = FALSE;
   }
 
@@ -72,7 +72,7 @@ class PapayaObjectOptionsDefinedTest extends PapayaTestCase {
   */
   public function testGetOptionExpectingException() {
     $options = new PapayaObjectOptionsDefined_TestProxy();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $dummy = $options->invalidOption;
   }
 

@@ -38,7 +38,7 @@ class PapayaFilterStringExplodeTest extends PapayaTestCase {
    */
   public function testValidateWithEmptyValueExpectingException() {
     $filter = new PapayaFilterStringExplode(',', new PapayaFilterInteger());
-    $this->setExpectedException(PapayaFilterExceptionEmpty::class);
+    $this->expectException(PapayaFilterExceptionEmpty::class);
     $filter->validate('');
   }
 

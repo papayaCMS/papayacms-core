@@ -44,7 +44,7 @@ class PapayaUiDialogFieldFactoryTest extends PapayaTestCase {
    */
   public function testGetProfileExpectingException() {
     $factory = new PapayaUiDialogFieldFactory();
-    $this->setExpectedException(PapayaUiDialogFieldFactoryExceptionInvalidProfile::class);
+    $this->expectException(PapayaUiDialogFieldFactoryExceptionInvalidProfile::class);
     $profile = $factory->getProfile('INVALIDE_PROFILE_CLASSNAME');
   }
 

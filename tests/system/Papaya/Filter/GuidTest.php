@@ -18,7 +18,7 @@ class PapayaFilterGuidTest extends PapayaTestCase {
   */
   public function testValidateExpectingException() {
     $filter = new PapayaFilterGuid();
-    $this->setExpectedException(PapayaFilterException::class);
+    $this->expectException(PapayaFilterException::class);
     $filter->validate('foo');
   }
 }

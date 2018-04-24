@@ -73,7 +73,7 @@ class PapayaTemplateSimpleScannerTest extends PapayaTestCase {
     );
     $scanner = new PapayaTemplateSimpleScanner($status);
     $tokens = array();
-    $this->setExpectedException(UnexpectedValueException::class);
+    $this->expectException(UnexpectedValueException::class);
     $scanner->scan($tokens, 'SAMPLE');
   }
 

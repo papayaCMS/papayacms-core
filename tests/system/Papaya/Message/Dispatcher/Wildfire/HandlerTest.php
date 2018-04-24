@@ -22,7 +22,7 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherWildfireHandler::__construct
   */
   public function testConstructorWithInvalidCallbackExpectingException() {
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     new PapayaMessageDispatcherWildfireHandler(NULL);
   }
 

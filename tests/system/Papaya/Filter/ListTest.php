@@ -37,7 +37,7 @@ class PapayaFilterListTest extends PapayaTestCase {
   */
   public function testValidateExpectingException($value, $validValues) {
     $filter = new PapayaFilterList($validValues);
-    $this->setExpectedException(PapayaFilterException::class);
+    $this->expectException(PapayaFilterException::class);
     $filter->validate($value);
   }
 

@@ -17,7 +17,7 @@ class PapayaFilterIpV6Test extends PapayaTestCase {
   */
   public function testValidateExpectingCountMismatch($ip) {
     $ipV6 = new PapayaFilterIpV6();
-    $this->setExpectedException(PapayaFilterExceptionCountMismatch::class);
+    $this->expectException(PapayaFilterExceptionCountMismatch::class);
     $ipV6->validate($ip);
   }
 
@@ -27,7 +27,7 @@ class PapayaFilterIpV6Test extends PapayaTestCase {
   */
   public function testValidateExpectingEmptyException() {
     $ipV6 = new PapayaFilterIpV6();
-    $this->setExpectedException(PapayaFilterExceptionEmpty::class);
+    $this->expectException(PapayaFilterExceptionEmpty::class);
     $ipV6->validate('');
   }
 
@@ -37,7 +37,7 @@ class PapayaFilterIpV6Test extends PapayaTestCase {
   */
   public function testValidateExpectingPartInvalid($ip) {
     $ipV6 = new PapayaFilterIpV6();
-    $this->setExpectedException(PapayaFilterExceptionPartInvalid::class);
+    $this->expectException(PapayaFilterExceptionPartInvalid::class);
     $ipV6->validate($ip);
   }
 

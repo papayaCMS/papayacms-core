@@ -57,7 +57,7 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    */
   public function testMagicMethodGetWithUnknownOptionExpectingException() {
     $options = new PapayaUiDialogFieldFactoryOptions();
-    $this->setExpectedException(PapayaUiDialogFieldFactoryExceptionInvalidOption::class);
+    $this->expectException(PapayaUiDialogFieldFactoryExceptionInvalidOption::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $options->invalidOptionName;
   }

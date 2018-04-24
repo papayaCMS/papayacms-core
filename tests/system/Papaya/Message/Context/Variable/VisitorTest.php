@@ -98,7 +98,7 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   */
   public function testPopObjectStackExpectingException() {
     $visitor = $this->getVisitorFixtureForObjectTest();
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     $visitor->_popObjectStack('hash1');
   }
 

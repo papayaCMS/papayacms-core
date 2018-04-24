@@ -38,7 +38,7 @@ class PapayaFilterFloatTest extends PapayaTestCase {
   */
   public function testValidate() {
     $filter = new PapayaFilterFloat();
-    $this->setExpectedException("PapayaFilterExceptionNotFloat");
+    $this->expectException("PapayaFilterExceptionNotFloat");
     $filter->validate("sgs");
   }
 
@@ -47,7 +47,7 @@ class PapayaFilterFloatTest extends PapayaTestCase {
   */
   public function testValidateWithMinumum(){
     $filter = new PapayaFilterFloat("-20.0");
-    $this->setExpectedException("PapayaFilterExceptionRangeMinimum");
+    $this->expectException("PapayaFilterExceptionRangeMinimum");
     $filter->validate("-40");
   }
 
@@ -56,7 +56,7 @@ class PapayaFilterFloatTest extends PapayaTestCase {
   */
   public function testValidateWithMinumumAndMaximum(){
     $filter = new PapayaFilterFloat("-20.0", "40.5");
-    $this->setExpectedException("PapayaFilterExceptionRangeMaximum");
+    $this->expectException("PapayaFilterExceptionRangeMaximum");
     $filter->validate("50");
   }
 

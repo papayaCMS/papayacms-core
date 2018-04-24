@@ -84,7 +84,7 @@ class PapayaApplicationTest extends PapayaTestCase {
   */
   public function testRegisterProfileWithInvalidProfileExpectingException() {
     $app = new PapayaApplication();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $app->registerProfile('SampleClass', new stdClass());
   }
 
@@ -331,7 +331,7 @@ class PapayaApplicationTest extends PapayaTestCase {
   */
   public function testRemoveObjectUnknownExpectingException() {
     $app = new PapayaApplication();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $app->removeObject('SampleClass');
   }
 
@@ -371,7 +371,7 @@ class PapayaApplicationTest extends PapayaTestCase {
   */
   public function testMagicMethodSetWithInvalidValueExpectingException() {
     $app = new PapayaApplication();
-    $this->setExpectedException(UnexpectedValueException::class);
+    $this->expectException(UnexpectedValueException::class);
     $app->propertyName = 'INVALID_VALUE';
   }
 

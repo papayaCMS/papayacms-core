@@ -189,7 +189,7 @@ class PapayaTemplateTest extends PapayaTestCase {
    */
   public function testAddWithInvalidContentExpectingException() {
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     /** @noinspection PhpParamsInspection */
     $template->addContent();
   }
@@ -199,7 +199,7 @@ class PapayaTemplateTest extends PapayaTestCase {
    */
   public function testAddWithInvalidTargetExpectingException() {
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     /** @noinspection PhpUndefinedMethodInspection */
     $template->addInvalidTarget('<foo/>');
   }
@@ -209,7 +209,7 @@ class PapayaTemplateTest extends PapayaTestCase {
    */
   public function testCallInvalidDynamicMethodExpectingException() {
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     /** @noinspection PhpUndefinedMethodInspection */
     $template->invalidMethod('<foo/>');
   }

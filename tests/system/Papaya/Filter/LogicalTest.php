@@ -53,7 +53,7 @@ class PapayaFilterLogicalTest extends PapayaTestCase {
   * @covers PapayaFilterLogical::_setFilters
   */
   public function testContructorWithOneFilterExpectingException() {
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $filter = new PapayaFilterLogical_TestProxy(
       $this->getMock(PapayaFilter::class, array('validate', 'filter'))
     );
@@ -64,7 +64,7 @@ class PapayaFilterLogicalTest extends PapayaTestCase {
   * @covers PapayaFilterLogical::_setFilters
   */
   public function testContructorWithInvalidObjectsExpectingException() {
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $filter = new PapayaFilterLogical_TestProxy(
       new stdClass(), new stdClass()
     );

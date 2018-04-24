@@ -18,7 +18,7 @@ class PapayaFilterFactoryProfileIsNotEmptyTest extends PapayaTestCase {
    */
   public function testGetFilterExpectException($string) {
     $profile = new PapayaFilterFactoryProfileIsNotEmpty();
-    $this->setExpectedException(PapayaFilterException::class);
+    $this->expectException(PapayaFilterException::class);
     $profile->getFilter()->validate($string);
   }
 

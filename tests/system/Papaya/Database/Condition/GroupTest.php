@@ -75,7 +75,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionGroup
    */
   public function testConstructorWithInvalidParent() {
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $group = new PapayaDatabaseConditionGroup_TestProxy(new stdClass());
   }
 
@@ -223,7 +223,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
       ->disableOriginalConstructor()
       ->getMock();
     $group = new PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
-    $this->setExpectedException(BadMethodCallException::class);
+    $this->expectException(BadMethodCallException::class);
     $group->isUnknownCondition();
   }
 }

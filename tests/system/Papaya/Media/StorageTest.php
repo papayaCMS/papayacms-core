@@ -12,7 +12,7 @@ class PapayaMediaStorageTest extends PapayaTestCase {
   }
 
   public function testGetServiceInvalid() {
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     PapayaMediaStorage::getService('InvalidServiceName');
   }
 

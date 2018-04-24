@@ -16,7 +16,7 @@ class PapayaFilterFactoryProfileIsIpAddressV4Test extends PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new PapayaFilterFactoryProfileIsIpAddressV4();
-    $this->setExpectedException(PapayaFilterException::class);
+    $this->expectException(PapayaFilterException::class);
     $profile->getFilter()->validate('foo');
   }
 }

@@ -71,7 +71,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
     $configuration = new PapayaCacheConfiguration();
     $configuration['FILESYSTEM_PATH'] = '/foo';
     $service = new PapayaCacheServiceFile($configuration);
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     $this->assertFalse($service->verify(FALSE));
   }
 
@@ -380,7 +380,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
   */
   public function testGetCacheIdentificationExpectingError($group, $identifier, $parameters) {
     $service = new PapayaCacheServiceFile_TestProxy();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $service->_getCacheIdentification($group, $identifier, $parameters);
   }
 

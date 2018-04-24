@@ -34,7 +34,7 @@ class PapayaFilterTextTest extends PapayaTestCase {
     $value, $options = PapayaFilterText::ALLOW_SPACES
   ) {
     $filter = new PapayaFilterText($options);
-    $this->setExpectedException(PapayaFilterExceptionCharacterInvalid::class);
+    $this->expectException(PapayaFilterExceptionCharacterInvalid::class);
     $filter->validate($value);
   }
 
@@ -44,7 +44,7 @@ class PapayaFilterTextTest extends PapayaTestCase {
    */
   public function testValidateWithEmptyValueExpectingException() {
     $filter = new PapayaFilterText();
-    $this->setExpectedException(PapayaFilterExceptionEmpty::class);
+    $this->expectException(PapayaFilterExceptionEmpty::class);
     $filter->validate('');
   }
 
@@ -54,7 +54,7 @@ class PapayaFilterTextTest extends PapayaTestCase {
    */
   public function testValidateWithNullValueExpectingException() {
     $filter = new PapayaFilterText();
-    $this->setExpectedException(PapayaFilterExceptionEmpty::class);
+    $this->expectException(PapayaFilterExceptionEmpty::class);
     $filter->validate(NULL);
   }
 
@@ -64,7 +64,7 @@ class PapayaFilterTextTest extends PapayaTestCase {
    */
   public function testValidateWithArrayValueExpectingException() {
     $filter = new PapayaFilterText();
-    $this->setExpectedException(PapayaFilterExceptionType::class);
+    $this->expectException(PapayaFilterExceptionType::class);
     $filter->validate(array());
   }
 

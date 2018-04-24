@@ -44,7 +44,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   */
   public function testSetTemplateFileWithInvalidFileNameExpectingException() {
     $engine = new PapayaTemplateEngineXsl();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $engine->setTemplateFile('NONEXISTING_FILENAME.XSL');
   }
 
@@ -139,7 +139,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   */
   public function testSetProcessorWithInvalidProcessorExpectingException() {
     $engine = new PapayaTemplateEngineXsl();
-    $this->setExpectedException(UnexpectedValueException::class);
+    $this->expectException(UnexpectedValueException::class);
     $engine->setProcessor(new stdClass);
   }
 
@@ -327,7 +327,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
     $engine->setErrorHandler($errors);
     $engine->setTemplateFile($templateFile);
 
-    $this->setExpectedException(PapayaXmlException::class);
+    $this->expectException(PapayaXmlException::class);
     $engine->prepare();
   }
 

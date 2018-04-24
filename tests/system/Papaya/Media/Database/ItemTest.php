@@ -21,7 +21,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodSetWithInvalidName() {
     $item = new PapayaMediaDatabaseItem($this->createMock(PapayaMediaStorageService::class));
-    $this->setExpectedException(BadMethodCallException::class);
+    $this->expectException(BadMethodCallException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $item->invalidPropertyName = '';
   }
@@ -47,7 +47,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodSetNameWithInvalidValue() {
     $item = new PapayaMediaDatabaseItem($this->createMock(PapayaMediaStorageService::class));
-    $this->setExpectedException(BadMethodCallException::class);
+    $this->expectException(BadMethodCallException::class);
     $item->name = '';
   }
 
@@ -69,7 +69,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodSetMediaIdWithInvalidValue() {
     $item = new PapayaMediaDatabaseItem($this->createMock(PapayaMediaStorageService::class));
-    $this->setExpectedException(BadMethodCallException::class);
+    $this->expectException(BadMethodCallException::class);
     $item->mediaId = 'abc';
   }
 
@@ -91,7 +91,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodSetVersionIdWithInvalidValue() {
     $item = new PapayaMediaDatabaseItem($this->createMock(PapayaMediaStorageService::class));
-    $this->setExpectedException(BadMethodCallException::class);
+    $this->expectException(BadMethodCallException::class);
     $item->versionId = 'a';
   }
 
@@ -123,7 +123,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodGetWithInvalidName() {
     $item = new PapayaMediaDatabaseItem($this->createMock(PapayaMediaStorageService::class));
-    $this->setExpectedException(BadMethodCallException::class);
+    $this->expectException(BadMethodCallException::class);
     $dummy = $item->invalidPropertyName;
   }
 
@@ -227,7 +227,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
       ->method('load')
       ->will($this->returnValue(FALSE));
     $item->setDatabaseAccessObject($record);
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $item->load(NULL);
   }
 

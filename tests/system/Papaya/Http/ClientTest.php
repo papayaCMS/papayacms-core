@@ -48,7 +48,7 @@ class PapayaHttpClientTest extends PapayaTestCase {
 
   public function testSetURLWithEmptyParameter() {
     $client = new PapayaHttpClient();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $client->setUrl('');
   }
 

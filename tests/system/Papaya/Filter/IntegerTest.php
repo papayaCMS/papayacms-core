@@ -33,7 +33,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   * @covers PapayaFilterInteger::__construct
   */
   public function testConstructorWithMaximumOnlyExpectingException() {
-    $this->setExpectedException(RangeException::class);
+    $this->expectException(RangeException::class);
     $filter = new PapayaFilterInteger(NULL, 4);
   }
 
@@ -41,7 +41,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   * @covers PapayaFilterInteger::__construct
   */
   public function testConstructorWithMaximumToSmallExpectingException() {
-    $this->setExpectedException(RangeException::class);
+    $this->expectException(RangeException::class);
     $filter = new PapayaFilterInteger(4, 2);
   }
 
@@ -60,7 +60,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   */
   public function testValidateWithLimitsExpectingException($value, $minimum, $maximum) {
     $filter = new PapayaFilterInteger($minimum, $maximum);
-    $this->setExpectedException(PapayaFilterException::class);
+    $this->expectException(PapayaFilterException::class);
     $filter->validate($value);
   }
 
@@ -77,7 +77,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   */
   public function testValidateWithStringExpectingException() {
     $filter = new PapayaFilterInteger();
-    $this->setExpectedException(PapayaFilterException::class);
+    $this->expectException(PapayaFilterException::class);
     $filter->validate('foo');
   }
 
@@ -86,7 +86,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   */
   public function testValidateWithFloatExpectingException() {
     $filter = new PapayaFilterInteger();
-    $this->setExpectedException(PapayaFilterException::class);
+    $this->expectException(PapayaFilterException::class);
     $filter->validate(42.21);
   }
 
@@ -95,7 +95,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   */
   public function testValidateWithValueToSmallExpectingException() {
     $filter = new PapayaFilterInteger(21, 42);
-    $this->setExpectedException(PapayaFilterExceptionRangeMinimum::class);
+    $this->expectException(PapayaFilterExceptionRangeMinimum::class);
     $filter->validate(1);
   }
 
@@ -104,7 +104,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   */
   public function testValidateWithValueToLargeExpectingException() {
     $filter = new PapayaFilterInteger(0, 1);
-    $this->setExpectedException(PapayaFilterExceptionRangeMaximum::class);
+    $this->expectException(PapayaFilterExceptionRangeMaximum::class);
     $filter->validate(21);
   }
 

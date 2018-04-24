@@ -45,7 +45,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   */
   public function testReadMismatch($tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
-    $this->setExpectedException(PapayaTemplateSimpleExceptionParser::class);
+    $this->expectException(PapayaTemplateSimpleExceptionParser::class);
     $parser->read($allowedTokens);
   }
 
@@ -70,7 +70,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   */
   public function testDirectLookaheadMismatch($tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
-    $this->setExpectedException(PapayaTemplateSimpleExceptionParser::class);
+    $this->expectException(PapayaTemplateSimpleExceptionParser::class);
     $parser->lookahead($allowedTokens);
   }
 
@@ -95,7 +95,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   */
   public function testLookaheadMismatch($tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
-    $this->setExpectedException(PapayaTemplateSimpleExceptionParser::class);
+    $this->expectException(PapayaTemplateSimpleExceptionParser::class);
     $parser->lookahead($allowedTokens, 1);
   }
 
@@ -242,7 +242,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   */
   public function testDelegateWithInvalidClassExpectingException() {
     $parser = $this->getParserFixture();
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     $parser->delegate('stdClass');
   }
 

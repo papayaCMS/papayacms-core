@@ -168,7 +168,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
    * @covers PapayaUtilStringXml::isQName
    */
   public function testIsQNameWithEmptyNameExpectingException() {
-    $this->setExpectedException(UnexpectedValueException::class);
+    $this->expectException(UnexpectedValueException::class);
     PapayaUtilStringXml::isQName('');
   }
 

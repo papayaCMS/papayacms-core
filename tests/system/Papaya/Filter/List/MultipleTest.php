@@ -28,7 +28,7 @@ class PapayaFilterListMultipleTest extends PapayaTestCase {
   */
   public function testValidateExpectingException($value, $validValues) {
     $filter = new PapayaFilterListMultiple($validValues);
-    $this->setExpectedException(PapayaFilterException::class);
+    $this->expectException(PapayaFilterException::class);
     $filter->validate($value);
   }
 

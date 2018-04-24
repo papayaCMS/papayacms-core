@@ -30,7 +30,7 @@ class PapayaFilterBitmaskTest extends PapayaTestCase {
   */
   public function testValidateExpectingInvalidValueException($bitmask) {
     $filter = new PapayaFilterBitmask(array(1, 2, 4, 16));
-    $this->setExpectedException(PapayaFilterExceptionInvalid::class);
+    $this->expectException(PapayaFilterExceptionInvalid::class);
     $filter->validate($bitmask);
   }
 
@@ -39,7 +39,7 @@ class PapayaFilterBitmaskTest extends PapayaTestCase {
   */
   public function testValidateExpectingInvalidValueTypeException() {
     $filter = new PapayaFilterBitmask(array(1, 2, 4, 16));
-    $this->setExpectedException(PapayaFilterExceptionType::class);
+    $this->expectException(PapayaFilterExceptionType::class);
     $filter->validate('fail');
   }
 

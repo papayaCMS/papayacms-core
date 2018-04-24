@@ -47,7 +47,7 @@ class PapayaMessageContextBacktraceTest extends PapayaTestCase {
   */
   public function testSetOffsetWithInvalidOffsetExpectingException() {
     $backtrace = new PapayaMessageContextBacktrace();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $backtrace->setOffset(-1);
   }
 

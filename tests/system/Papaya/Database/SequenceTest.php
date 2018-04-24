@@ -20,7 +20,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   * @covers PapayaDatabaseSequence::__construct
   */
   public function testConstructorWithEmptyTableExpectingException() {
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $sequence = new PapayaDatabaseSequence_TestProxy('', 'field');
   }
 
@@ -28,7 +28,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   * @covers PapayaDatabaseSequence::__construct
   */
   public function testConstructorWithEmptyFieldExpectingException() {
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $sequence = new PapayaDatabaseSequence_TestProxy('table', '');
   }
 
@@ -179,7 +179,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
       ->will($this->returnValue(""));
     $sequence->setDatabaseAccess($databaseAccess);
 
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $sequence->next();
   }
 }

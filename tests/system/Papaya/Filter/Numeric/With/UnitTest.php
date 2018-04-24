@@ -57,7 +57,7 @@ class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
   * @covers PapayaFilterNumericWithUnit::__construct
   */
   public function testConstructExceptionMissingUnit() {
-    $this->setExpectedException(UnexpectedValueException::class);
+    $this->expectException(UnexpectedValueException::class);
     $filter = new PapayaFilterNumericWithUnit('');
   }
 
@@ -92,7 +92,7 @@ class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
   */
   public function testValidateExpectedFilterNotEnclosedException() {
     $filter = new PapayaFilterNumericWithUnit('px');
-    $this->setExpectedException(PapayaFilterExceptionNotEnclosed::class);
+    $this->expectException(PapayaFilterExceptionNotEnclosed::class);
     $filter->validate('99abc');
   }
 
@@ -101,7 +101,7 @@ class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
   */
   public function testValidateExpectedCharacterInvalidExceptionNegativeValue() {
     $filter = new PapayaFilterNumericWithUnit('em', 1, 1000, '-');
-    $this->setExpectedException(PapayaFilterExceptionCharacterInvalid::class);
+    $this->expectException(PapayaFilterExceptionCharacterInvalid::class);
     $filter->validate('999em');
   }
 
@@ -110,7 +110,7 @@ class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
   */
   public function testValidateExpectedCharacterInvalidExceptionPositveValue() {
     $filter = new PapayaFilterNumericWithUnit('em', 1, 1000, '+');
-    $this->setExpectedException(PapayaFilterExceptionCharacterInvalid::class);
+    $this->expectException(PapayaFilterExceptionCharacterInvalid::class);
     $filter->validate('-999em');
   }
 
@@ -119,7 +119,7 @@ class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
   */
   public function testValidateExpectedFilterRangeMinimumException() {
     $filter = new PapayaFilterNumericWithUnit('px', -10);
-    $this->setExpectedException(PapayaFilterExceptionRangeMinimum::class);
+    $this->expectException(PapayaFilterExceptionRangeMinimum::class);
     $filter->validate('-999px');
   }
 
@@ -128,7 +128,7 @@ class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
   */
   public function testValidateExpectedFilterRangeMaximumException() {
     $filter = new PapayaFilterNumericWithUnit('px', -10, 999);
-    $this->setExpectedException(PapayaFilterExceptionRangeMaximum::class);
+    $this->expectException(PapayaFilterExceptionRangeMaximum::class);
     $filter->validate('1000px');
   }
 

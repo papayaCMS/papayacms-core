@@ -259,7 +259,7 @@ class PapayaSessionTest extends PapayaTestCase {
   */
   public function testPropertyGetExpectingException() {
     $session = new PapayaSession();
-    $this->setExpectedException(UnexpectedValueException::class);
+    $this->expectException(UnexpectedValueException::class);
     $dummy = $session->INVALID_PROPERTY_NAME;
   }
 
@@ -268,7 +268,7 @@ class PapayaSessionTest extends PapayaTestCase {
   */
   public function testPropertySetExpectingException() {
     $session = new PapayaSession();
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     $session->values = 'foo';
   }
 

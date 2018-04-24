@@ -54,7 +54,7 @@ class PapayaContentViewModeTypesTest extends PapayaTestCase {
    */
   public function testArrayAccessBlockedSet() {
     $types = new PapayaContentViewModeTypes();
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     $types[PapayaContentViewModeTypes::FEED] = 'invalid';
   }
 
@@ -63,7 +63,7 @@ class PapayaContentViewModeTypesTest extends PapayaTestCase {
    */
   public function testArrayAccessBlockedUnset() {
     $types = new PapayaContentViewModeTypes();
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     unset($types[PapayaContentViewModeTypes::FEED]);
   }
 

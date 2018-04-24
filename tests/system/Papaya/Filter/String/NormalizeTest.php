@@ -18,7 +18,7 @@ class PapayaFilterStringNormalizeTest extends PapayaTestCase {
    */
   public function testValidateWithEmptyValueExpectingException() {
     $filter = new PapayaFilterStringNormalize();
-    $this->setExpectedException(PapayaFilterExceptionEmpty::class);
+    $this->expectException(PapayaFilterExceptionEmpty::class);
     $filter->validate('');
   }
 
@@ -27,7 +27,7 @@ class PapayaFilterStringNormalizeTest extends PapayaTestCase {
    */
   public function testValidateWithArrayValueExpectingException() {
     $filter = new PapayaFilterStringNormalize();
-    $this->setExpectedException(PapayaFilterExceptionType::class);
+    $this->expectException(PapayaFilterExceptionType::class);
     $filter->validate(['foo']);
   }
 

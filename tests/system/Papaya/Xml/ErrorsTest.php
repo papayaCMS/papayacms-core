@@ -112,7 +112,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
     $errors = new PapayaXmlErrors();
     $dom = new DOMDocument('1.0', 'UTF-8');
     $dom->loadXml('<foo>');
-    $this->setExpectedException(PapayaXmlException::class);
+    $this->expectException(PapayaXmlException::class);
     $errors->emit();
   }
 

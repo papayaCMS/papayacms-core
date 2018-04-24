@@ -177,7 +177,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
     $owner = new stdClass();
     $connector = new stdClass();
     $access = $this->getFixtureDatabaseAccess($owner, $connector);
-    $this->setExpectedException(BadMethodCallException::class);
+    $this->expectException(BadMethodCallException::class);
     $dummy = $access->query('SQL');
   }
 
@@ -187,7 +187,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   public function testDelegationInvalidFunction() {
     $owner = new stdClass();
     $access = new PapayaDatabaseAccess($owner, 'read', 'write');
-    $this->setExpectedException(BadMethodCallException::class);
+    $this->expectException(BadMethodCallException::class);
     $access->invalidMethodName();
   }
 

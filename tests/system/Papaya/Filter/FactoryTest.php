@@ -49,7 +49,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    */
   public function testGetProfileExpectingException() {
     $factory = new PapayaFilterFactory();
-    $this->setExpectedException(PapayaFilterFactoryExceptionInvalidProfile::class);
+    $this->expectException(PapayaFilterFactoryExceptionInvalidProfile::class);
     $factory->getProfile('SomeInvalidProfileName');
   }
 
@@ -209,7 +209,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    * @covers PapayaFilterFactory
    */
   public function testValidateUsingCallStaticMagicMethodWithoutArguments() {
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     /** @noinspection PhpParamsInspection */
     PapayaFilterFactory::isEmail();
   }
@@ -218,7 +218,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    * @covers PapayaFilterFactory
    */
   public function testCallUnknownFunctionExpectingException() {
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     /** @noinspection PhpUndefinedMethodInspection */
     PapayaFilterFactory::someUnknownFunction();
   }

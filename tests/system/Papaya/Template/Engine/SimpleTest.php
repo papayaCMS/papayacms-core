@@ -139,7 +139,7 @@ class PapayaTemplateEngineSimpleTest extends PapayaTestCase {
   */
   public function testSetTemplateFileWithInvalidFileNameExpectingException() {
     $engine = new PapayaTemplateEngineSimple();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $engine->setTemplateFile('NONEXISTING_FILENAME.CSS');
   }
 

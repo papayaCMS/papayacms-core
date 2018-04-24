@@ -58,7 +58,7 @@ class PapayaObjectListTest extends PapayaTestCase {
   */
   public function testSetItemClassWithInvalidArgument() {
     $list = new PapayaObjectList();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $list->setItemClass('NONEXISTING_CLASSNAME');
   }
 
@@ -339,7 +339,7 @@ class PapayaObjectListTest extends PapayaTestCase {
   */
   public function testOffsetSetWithInvalidIndexExpectingException() {
     $list = new PapayaObjectList('stdClass');
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $list->offsetSet(99, new stdClass);
   }
 
@@ -348,7 +348,7 @@ class PapayaObjectListTest extends PapayaTestCase {
   */
   public function testOffsetSetWithInvalidValueExpectingException() {
     $list = new PapayaObjectList('stdClass');
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $list->offsetSet(99, 'A String');
   }
 

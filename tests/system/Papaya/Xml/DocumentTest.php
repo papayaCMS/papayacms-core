@@ -79,7 +79,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   */
   public function testGetNamespaceExpectingException() {
     $document = new PapayaXmlDocument();
-    $this->setExpectedException(UnexpectedValueException::class);
+    $this->expectException(UnexpectedValueException::class);
     $this->assertEquals('urn:a', $document->getNamespace('a'));
   }
 

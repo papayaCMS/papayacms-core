@@ -20,7 +20,7 @@ class PapayaFilterFactoryProfileGeneratorTest extends PapayaTestCase {
   public function testGetFilterWithInvalidOptionsExpectingException() {
     $profile = new PapayaFilterFactoryProfileGenerator();
     $profile->options(NULL);
-    $this->setExpectedException(PapayaFilterFactoryExceptionInvalidOptions::class);
+    $this->expectException(PapayaFilterFactoryExceptionInvalidOptions::class);
     $profile->getFilter();
   }
 
@@ -30,7 +30,7 @@ class PapayaFilterFactoryProfileGeneratorTest extends PapayaTestCase {
   public function testGetFilterWithInvalidFilterClass() {
     $profile = new PapayaFilterFactoryProfileGenerator();
     $profile->options(array('stdClass'));
-    $this->setExpectedException(PapayaFilterFactoryExceptionInvalidFilter::class);
+    $this->expectException(PapayaFilterFactoryExceptionInvalidFilter::class);
     $profile->getFilter();
   }
 }

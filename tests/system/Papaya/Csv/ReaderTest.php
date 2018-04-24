@@ -48,7 +48,7 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   */
   public function testIsValidDisallowLocalFilesExpectingException() {
     $reader = new PapayaCsvReader(dirname(__FILE__).'/TestData/sample.csv');
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     $reader->isValid(FALSE);
   }
 
@@ -57,7 +57,7 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   */
   public function testIsValidNonExistingFileExpectingException() {
     $reader = new PapayaCsvReader(dirname(__FILE__).'/TestData/INVALID_FILENAME.csv');
-    $this->setExpectedException(UnexpectedValueException::class);
+    $this->expectException(UnexpectedValueException::class);
     $reader->isValid(FALSE);
   }
 
@@ -66,7 +66,7 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   */
   public function testIsValidEmptyFileExpectingException() {
     $reader = new PapayaCsvReader(dirname(__FILE__).'/TestData/empty.csv');
-    $this->setExpectedException(LengthException::class);
+    $this->expectException(LengthException::class);
     $reader->isValid(TRUE);
   }
 
@@ -76,7 +76,7 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   public function testIsValidFileToLargeExpectingException() {
     $reader = new PapayaCsvReader(dirname(__FILE__).'/TestData/sample.csv');
     $reader->setMaximumFileSize(3);
-    $this->setExpectedException(LengthException::class);
+    $this->expectException(LengthException::class);
     $reader->isValid(TRUE);
   }
 

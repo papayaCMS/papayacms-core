@@ -451,7 +451,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   */
   public function testOffetGetWithInvalidField() {
     $record = new PapayaDatabaseObjectRecord_TestProxy();
-    $this->setExpectedException(OutOfBoundsException::class);
+    $this->expectException(OutOfBoundsException::class);
     $dummy = $record['invalid_field'];
   }
 
@@ -481,7 +481,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   */
   public function testOffetSetWithInvalidField() {
     $record = new PapayaDatabaseObjectRecord_TestProxy();
-    $this->setExpectedException(OutOfBoundsException::class);
+    $this->expectException(OutOfBoundsException::class);
     $record['invalid_field'] = 'fail';
   }
 
@@ -556,7 +556,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   */
   public function testPropertySetTestingNormalizationExpectingException() {
     $record = new PapayaDatabaseObjectRecord_TestProxy();
-    $this->setExpectedException(OutOfBoundsException::class);
+    $this->expectException(OutOfBoundsException::class);
     $record->{'1_invalid__argument'} = 'success';
   }
 
@@ -901,7 +901,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   */
   public function testApplyCallbackWithoutCallbackExpectingException() {
     $item = new PapayaDatabaseObjectRecord_TestProxy();
-    $this->setExpectedException(UnexpectedValueException::class);
+    $this->expectException(UnexpectedValueException::class);
     $item->_applyCallback(NULL, NULL, array());
   }
 

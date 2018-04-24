@@ -41,7 +41,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionGenerator
    */
   public function testConstructorWithInvalidParent() {
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $group = new PapayaDatabaseConditionGenerator(new stdClass());
   }
 

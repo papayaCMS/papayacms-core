@@ -181,7 +181,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
       ->method('getMapping')
       ->will($this->returnValue($mapping));
     $element = new PapayaDatabaseConditionElement_TestProxy($group);
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     $element->mapFieldName('field');
   }
 
@@ -198,7 +198,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
       ->disableOriginalConstructor()
       ->getMock();
     $element = new PapayaDatabaseConditionElement_TestProxy($group);
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     $element->mapFieldName('');
   }
 
@@ -303,7 +303,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
       ->will($this->returnValue($databaseAccess));
 
     $condition = new PapayaDatabaseConditionElement_TestProxy($group, '', NULL, '=');
-    $this->setExpectedException(LogicException::class);
+    $this->expectException(LogicException::class);
     $condition->getSql();
   }
 

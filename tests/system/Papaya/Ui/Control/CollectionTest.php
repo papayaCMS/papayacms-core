@@ -95,7 +95,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
   */
   public function testOwnerSetNoObjectExpectingException() {
     $collection = new PapayaUiControlCollection();
-    $this->setExpectedException(UnexpectedValueException::class);
+    $this->expectException(UnexpectedValueException::class);
     $collection->owner('WRONG');
   }
 
@@ -104,7 +104,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
   */
   public function testOwnerSetInvalidClassExpectingException() {
     $collection = new PapayaUiControlCollection_TestProxy();
-    $this->setExpectedException(UnexpectedValueException::class);
+    $this->expectException(UnexpectedValueException::class);
     $collection->owner(new stdClass());
   }
 
@@ -345,7 +345,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     $collection = new PapayaUiControlCollection_TestProxy();
     $collection->_itemClass = PapayaUiControlCollection_TestItem::class;
     $collection->add($itemOne);
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $collection->set(0, $itemTwo);
   }
 

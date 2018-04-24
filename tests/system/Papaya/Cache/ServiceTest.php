@@ -31,7 +31,7 @@ class PapayaCacheServiceTest extends PapayaTestCase {
   */
   public function testGetCacheIdentifierExpectingException($group, $identifier, $parameters) {
     $service = new PapayaCacheService_TestProxy();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $service->getCacheIdentifier('', '', '');
   }
 
@@ -40,7 +40,7 @@ class PapayaCacheServiceTest extends PapayaTestCase {
   */
   public function testGetCacheIdentifierToLargeExpectingException() {
     $service = new PapayaCacheService_TestProxy();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $service->getCacheIdentifier('group', 'element', str_repeat('x', 300));
   }
 
@@ -86,7 +86,7 @@ class PapayaCacheServiceTest extends PapayaTestCase {
   */
   public function testGetCacheIdentificationExpectingError($group, $identifier, $parameters) {
     $service = new PapayaCacheService_TestProxy();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $service->_getCacheIdentification($group, $identifier, $parameters);
   }
 

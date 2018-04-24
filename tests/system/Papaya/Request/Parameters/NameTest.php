@@ -123,7 +123,7 @@ class PapayaRequestParametersNameTest extends PapayaTestCase {
   */
   public function testParseWithInvalidArgument() {
     $name = new PapayaRequestParametersName();
-    $this->setExpectedException(InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     $name->parse(NULL);
   }
 

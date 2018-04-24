@@ -62,7 +62,7 @@ class PapayaFilterLogicalOrTest extends PapayaTestCase {
       ->with($this->equalTo('foo'))
       ->will($this->returnCallback(array($this, 'callbackThrowFilterException')));
     $filter = new PapayaFilterLogicalOr($subFilterOne, $subFilterTwo);
-    $this->setExpectedException(PapayaFilterException::class);
+    $this->expectException(PapayaFilterException::class);
     $filter->validate('foo');
   }
 
