@@ -21,12 +21,13 @@ class PapayaApplicationProfileLanguagesTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('createDatabaseAccess')
       ->will($this->returnValue($databaseAccess));
-    $application = $this->createMock(PapayaApplication::class);
-    $application
-      ->expects($this->any())
-      ->method('__get')
-      ->with('database')
-      ->will($this->returnValue($databaseManager));
+    $application = $this
+      ->mockPapaya()
+      ->application(
+        array(
+          'database' => $databaseManager
+        )
+      );
     $profile = new PapayaApplicationProfileLanguages();
     $request = $profile->createObject($application);
     $this->assertInstanceOf(

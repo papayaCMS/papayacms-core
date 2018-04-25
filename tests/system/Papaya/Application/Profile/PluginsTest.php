@@ -10,9 +10,8 @@ class PapayaApplicationProfilePluginsTest extends PapayaTestCase {
   * @covers PapayaApplicationProfilePlugins::createObject
   */
   public function testCreateObject() {
-    $application = $this->createMock(PapayaApplication::class);
     $profile = new PapayaApplicationProfilePlugins();
-    $plugins = $profile->createObject($application);
+    $plugins = $profile->createObject($application = $this->mockPapaya()->application());
     $this->assertInstanceOf(
       PapayaPluginLoader::class,
       $plugins
