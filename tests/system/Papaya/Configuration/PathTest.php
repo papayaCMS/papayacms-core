@@ -7,9 +7,12 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
    * @covers PapayaConfigurationPath
    * @backupGlobals enabled
    * @dataProvider providePathSamples
+   * @param string $expected
+   * @param string $identifier
+   * @param string $subPath
    */
-  public function testPathAsString($expected, $identifer, $subPath) {
-    $path = new PapayaConfigurationPath($identifer, $subPath);
+  public function testPathAsString($expected, $identifier, $subPath) {
+    $path = new PapayaConfigurationPath($identifier, $subPath);
     $_SERVER['DOCUMENT_ROOT'] = '/document/root';
     $path->papaya(
       $this->mockPapaya()->application(

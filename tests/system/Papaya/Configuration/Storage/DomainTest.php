@@ -4,9 +4,12 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaConfigurationStorageDomain::__construct
-  * @dataProvider provideHostUrls
-  */
+   * @covers PapayaConfigurationStorageDomain::__construct
+   * @dataProvider provideHostUrls
+   * @param string $expectedScheme
+   * @param string $expectedHost
+   * @param string $hostUrl
+   */
   public function testConstructor($expectedScheme, $expectedHost, $hostUrl) {
     $storage = new PapayaConfigurationStorageDomain($hostUrl);
     $this->assertAttributeEquals(
