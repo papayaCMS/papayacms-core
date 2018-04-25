@@ -4,15 +4,13 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaContentCommunityUsersTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentCommunityUsers::_compileCondition
-  * @dataProvider provideFilterArrays
-  */
-  public function testCompileCondition($expected, $filter) {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'escapeString'))
-      ->getMock();
+   * @covers PapayaContentCommunityUsers::_compileCondition
+   * @dataProvider provideFilterArrays
+   * @param string $expected
+   * @param array $filter
+   */
+  public function testCompileCondition($expected, array $filter) {
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getSqlCondition')
@@ -24,7 +22,7 @@ class PapayaContentCommunityUsersTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnArgument(0));
 
-    $users = new PapayaContentCommunityUsers_TestProxy();
+    $users = new PapayaContentCommunityUsers();
     $users->setDatabaseAccess($databaseAccess);
     $this->assertEquals(
       $expected,
@@ -36,19 +34,22 @@ class PapayaContentCommunityUsersTest extends PapayaTestCase {
   * @covers PapayaContentCommunityUsers::_createMapping
   */
   public function testCreateMapping() {
-    $users = new PapayaContentCommunityUsers_TestProxy();
+    $users = new PapayaContentCommunityUsers();
+    /** @var PapayaDatabaseRecordMapping $mapping */
     $mapping = $users->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onAfterMappingFieldsToProperties));
   }
 
   /**
-  * @covers PapayaContentCommunityUsers::callbackAfterMappingFieldsToProperties
-  * @dataProvider provideRecordsForMapping
-  */
-  public function testCallbackAfterMappingFieldsToProperties($expected, $values) {
-    $users = new PapayaContentCommunityUsers_TestProxy();
+   * @covers PapayaContentCommunityUsers::callbackAfterMappingFieldsToProperties
+   * @dataProvider provideRecordsForMapping
+   * @param $expected
+   * @param $values
+   */
+  public function testCallbackAfterMappingFieldsToProperties(array $expected, array $values) {
+    $users = new PapayaContentCommunityUsers();
     $this->assertEquals(
-      $expected, $users->callbackAfterMappingFieldsToProperties(new stdClass, $values, array())
+      $expected, $users->callbackAfterMappingFieldsToProperties(new stdClass, $values)
     );
   }
 
@@ -122,12 +123,5 @@ class PapayaContentCommunityUsersTest extends PapayaTestCase {
         )
       )
     );
-  }
-}
-
-class PapayaContentCommunityUsers_TestProxy extends PapayaContentCommunityUsers {
-
-  public function _compileCondition($filter, $prefix = " WHERE ") {
-    return parent::_compileCondition($filter, $prefix);
   }
 }

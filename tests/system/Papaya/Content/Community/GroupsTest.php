@@ -21,19 +21,15 @@ class PapayaContentCommunityGroupsTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
         array(
-          PapayaContentTables::COMMUNITY_GROUPS,
-          PapayaContentTables::COMMUNITY_GROUP_PERMISSIONS,
+          'table_'.PapayaContentTables::COMMUNITY_GROUPS,
+          'table_'.PapayaContentTables::COMMUNITY_GROUP_PERMISSIONS,
           23
         )
       )
