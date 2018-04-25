@@ -24,14 +24,7 @@ class PapayaContentPageVersionsTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->with($this->isType('string'))
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -60,14 +53,7 @@ class PapayaContentPageVersionsTest extends PapayaTestCase {
   * @covers PapayaContentPageVersions::getVersion
   */
   public function testGetVersion() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')

@@ -7,23 +7,12 @@ class PapayaContentPagePublicationTest extends PapayaTestCase {
   * @covers PapayaContentPagePublication
   */
   public function testSaveCreateNew() {
-    $databaseResult = $this->getMock(
-      PapayaDatabaseAccess::class, array('fetchField'), array(new stdClass)
-    );
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
       ->will($this->returnValue(0));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class,
-      array('getTableName', 'queryFmt', 'insertRecord', 'getSqlCondition'),
-      array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->with($this->isType('string'))
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getSqlCondition')
@@ -110,23 +99,12 @@ class PapayaContentPagePublicationTest extends PapayaTestCase {
   * @covers PapayaContentPagePublication
   */
   public function testSaveUpdateExisting() {
-    $databaseResult = $this->getMock(
-      PapayaDatabaseAccess::class, array('fetchField'), array(new stdClass)
-    );
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
       ->will($this->returnValue(1));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class,
-      array('getTableName', 'queryFmt', 'updateRecord', 'getSqlCondition'),
-      array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->with($this->isType('string'))
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getSqlCondition')

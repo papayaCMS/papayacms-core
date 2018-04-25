@@ -35,16 +35,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class,
-      array('getTableName', 'queryFmt'),
-      array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -152,11 +143,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
           )
         )
       );
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class,
-      array('getSqlCondition', 'queryFmt'),
-      array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -196,11 +183,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
       ->method('fetchRow')
       ->withAnyParameters()
       ->will($this->returnValue(FALSE));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class,
-      array('getSqlCondition', 'queryFmt'),
-      array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getSqlCondition')
@@ -303,11 +286,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
       ->method('fetchRow')
       ->withAnyParameters()
       ->will($this->returnValue(FALSE));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class,
-      array('getSqlCondition', 'queryFmt'),
-      array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getSqlCondition')

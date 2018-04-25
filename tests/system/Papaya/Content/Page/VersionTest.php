@@ -74,14 +74,7 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
   * @covers PapayaContentPageVersion::create
   */
   public function testSaveWithDatabaseErrorInFirstQueryExpectingFalse() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmtWrite'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmtWrite')

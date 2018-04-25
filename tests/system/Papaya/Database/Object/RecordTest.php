@@ -17,18 +17,11 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('fetchRow')
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue($record));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('sample_table')
-      ->will($this->returnValue('papaya_sample_table'));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('papaya_sample_table', 42))
+      ->with($this->isType('string'), array('sample_table', 42))
       ->will($this->returnValue($databaseResult));
     $item = new PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
@@ -53,19 +46,12 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_insertRecord
   */
   public function testSaveInsertsRecordWithAutoId() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'insertRecord'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('sample_table')
-      ->will($this->returnValue('papaya_sample_table'));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
       ->with(
-        'papaya_sample_table',
+        'sample_table',
         'sample_id',
         array(
           'sample_title' => 'title text'
@@ -90,19 +76,12 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_insertRecord
   */
   public function testSaveInsertsRecordFailed() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'insertRecord'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('sample_table')
-      ->will($this->returnValue('papaya_sample_table'));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
       ->with(
-        'papaya_sample_table',
+        'sample_table',
         'sample_id',
         array(
           'sample_title' => 'title text'
@@ -133,29 +112,20 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('fetchField')
       ->will($this->returnValue(0));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class,
-      array('getTableName', 'queryFmt', 'insertRecord', 'updateRecord'),
-      array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('sample_table')
-      ->will($this->returnValue('papaya_sample_table'));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->equalTo("SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
-        $this->equalTo(array('papaya_sample_table', 42))
+        $this->equalTo(array('sample_table', 42))
       )
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
       ->with(
-        'papaya_sample_table',
+        'sample_table',
         NULL,
         array(
           'sample_id' => 42,
@@ -185,29 +155,20 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('fetchField')
       ->will($this->returnValue(0));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class,
-      array('getTableName', 'queryFmt', 'insertRecord', 'updateRecord'),
-      array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('sample_table')
-      ->will($this->returnValue('papaya_sample_table'));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->equalTo("SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
-        $this->equalTo(array('papaya_sample_table', 42))
+        $this->equalTo(array('sample_table', 42))
       )
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
       ->with(
-        'papaya_sample_table',
+        'sample_table',
         NULL,
         array(
           'sample_id' => 42,
@@ -232,12 +193,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_saveRecordWithDefinedId
   */
   public function testSaveInsertsRecordWithDefinedIdInsertQueryFailed() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class,
-      array('queryFmt', 'insertRecord', 'updateRecord'),
-      array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -280,19 +236,12 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_saveRecordWithAutoId
   */
   public function testSaveUpdatesRecordWithAutoId() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'updateRecord'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('sample_table')
-      ->will($this->returnValue('papaya_sample_table'));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
       ->with(
-        'papaya_sample_table',
+        'sample_table',
         array('sample_id' => 23, 'sample_title' => 'title text'),
         array('sample_id' => 23)
       )
@@ -319,29 +268,20 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('fetchField')
       ->will($this->returnValue(1));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class,
-      array('getTableName', 'queryFmt', 'insertRecord', 'updateRecord'),
-      array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('sample_table')
-      ->will($this->returnValue('papaya_sample_table'));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->equalTo("SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
-        $this->equalTo(array('papaya_sample_table', 42))
+        $this->equalTo(array('sample_table', 42))
       )
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
       ->with(
-        'papaya_sample_table',
+        'sample_table',
         array(
           'sample_id' => 42,
           'sample_title' => 'title text'
@@ -585,9 +525,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('fetchRow')
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue($record));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -628,9 +566,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('fetchRow')
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue($record));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -665,9 +601,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('fetchRow')
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue(NULL));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -684,9 +618,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_loadRecord
   */
   public function testLoadRecordWithSqlError() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -703,9 +635,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_insertRecord
   */
   public function testInsertRecord() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('insertRecord'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
@@ -729,9 +659,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_insertRecord
   */
   public function testInsertRecordRemovingOldId() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('insertRecord'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
@@ -756,9 +684,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_insertRecord
   */
   public function testInsertRecordWithoutId() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('insertRecord'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
@@ -790,9 +716,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_updateRecord
   */
   public function testUpdateRecord() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('updateRecord'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
@@ -815,18 +739,11 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_deleteRecord
   */
   public function testDelete() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'deleteRecord'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('sample_table')
-      ->will($this->returnValue('papaya_sample_table'));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
-      ->with('papaya_sample_table', array('sample_id' => 42))
+      ->with('sample_table', array('sample_id' => 42))
       ->will($this->returnValue(1));
     $item = new PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
@@ -846,14 +763,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_deleteRecord
   */
   public function testDeleteWithoutIdExpectingFalse() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'deleteRecord'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('sample_table')
-      ->will($this->returnValue('papaya_sample_table'));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->never())
       ->method('deleteRecord');

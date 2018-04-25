@@ -192,11 +192,7 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends PapayaTestCas
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('queryFmt'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -251,11 +247,7 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends PapayaTestCas
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('queryFmt'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')

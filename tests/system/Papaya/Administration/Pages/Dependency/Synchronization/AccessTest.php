@@ -81,13 +81,7 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
    * @return PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseAccess
    */
   private function getDatabaseAccessFixture() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(
-        array('getTimestamp', 'updateRecord')
-      )
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getTimestamp')

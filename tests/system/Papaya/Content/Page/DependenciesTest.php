@@ -29,14 +29,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -123,14 +116,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   * @covers PapayaContentPageDependencies::delete
   */
   public function testDelete() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'deleteRecord'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
@@ -147,14 +133,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   * @covers PapayaContentPageDependencies::delete
   */
   public function testDeleteChangesRecords() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'deleteRecord'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')

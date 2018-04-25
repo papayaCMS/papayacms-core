@@ -44,18 +44,11 @@ class PapayaContentPageTest extends PapayaTestCase {
       ->method('fetchRow')
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue($record));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('topic')
-      ->will($this->returnValue('papaya_topic'));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('papaya_topic'))
+      ->with($this->isType('string'), array('topic'))
       ->will($this->returnValue($databaseResult));
     $page = new PapayaContentPage();
     $page->setDatabaseAccess($databaseAccess);
@@ -105,18 +98,11 @@ class PapayaContentPageTest extends PapayaTestCase {
       ->method('fetchRow')
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue(FALSE));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('topic')
-      ->will($this->returnValue('papaya_topic'));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('papaya_topic'))
+      ->with($this->isType('string'), array('topic'))
       ->will($this->returnValue($databaseResult));
     $page = new PapayaContentPage();
     $page->setDatabaseAccess($databaseAccess);

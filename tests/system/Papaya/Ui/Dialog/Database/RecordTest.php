@@ -72,9 +72,7 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
     $dialog = $this->getDialogFixture(
       array('indexfield' => 42), FALSE
     );
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('loadRecord'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('loadRecord')
@@ -113,9 +111,7 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
     $dialog = $this->getDialogFixture(
       array('datafield_one' => 'sample', 'datafield_two' => '23', 'indexfield' => NULL)
     );
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('insertRecord'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
@@ -147,9 +143,7 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
     $dialog = $this->getDialogFixture(
       array('datafield_one' => 'sample', 'datafield_two' => '23', 'indexfield' => NULL)
     );
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('insertRecord'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
@@ -197,9 +191,7 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
     $dialog = $this->getDialogFixture(
       array('datafield_one' => 'sample', 'datafield_two' => '23', 'indexfield' => 42)
     );
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('updateRecord'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
@@ -303,7 +295,7 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
   */
   public function testSetDatabaseAccess() {
     $dialog = new PapayaUiDialogDatabaseRecord('tablename', 'indexfield', array());
-    $databaseAccess = $this->getMock(PapayaDatabaseAccess::class, array(), array($dialog));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $dialog->setDatabaseAccess($databaseAccess);
     $this->assertAttributeSame(
       $databaseAccess,
@@ -317,7 +309,7 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
   */
   public function testGetDatabaseAccess() {
     $dialog = new PapayaUiDialogDatabaseRecord('tablename', 'indexfield', array());
-    $databaseAccess = $this->getMock(PapayaDatabaseAccess::class, array(), array($dialog));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $dialog->setDatabaseAccess($databaseAccess);
     $this->assertSame(
       $databaseAccess,

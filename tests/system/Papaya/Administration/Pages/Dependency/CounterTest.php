@@ -33,12 +33,7 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
         )
       );
 
-    /** @var PapayaDatabaseAccess|PHPUnit_Framework_MockObject_MockObject $databaseAccess */
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -65,11 +60,7 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
   * @covers PapayaAdministrationPagesDependencyCounter::load
   */
   public function testLoadFailedExpectingFalse() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')

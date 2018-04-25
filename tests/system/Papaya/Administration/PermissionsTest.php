@@ -115,12 +115,7 @@ class PapayaAdministrationPermissionsTest extends PapayaTestCase {
           FALSE
         )
       );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseAccess $databaseAccess */
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')

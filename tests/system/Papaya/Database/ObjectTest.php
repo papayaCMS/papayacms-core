@@ -8,7 +8,7 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
   */
   public function testSetDatabaseAccess() {
     $databaseObject = new PapayaDatabaseObject();
-    $databaseAccess = $this->getMock(PapayaDatabaseAccess::class, array(), array($databaseObject));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseObject->setDatabaseAccess($databaseAccess);
     $this->assertAttributeSame(
       $databaseAccess,
@@ -22,7 +22,7 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
   */
   public function testGetDatabaseAccess() {
     $databaseObject = new PapayaDatabaseObject();
-    $databaseAccess = $this->getMock(PapayaDatabaseAccess::class, array(), array($databaseObject));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseObject->setDatabaseAccess($databaseAccess);
     $this->assertSame(
       $databaseAccess,
@@ -52,9 +52,7 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
   */
   public function testDelegation() {
     $databaseObject = new PapayaDatabaseObject();
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('queryFmt'), array($databaseObject)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')

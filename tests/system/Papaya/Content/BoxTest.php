@@ -31,18 +31,11 @@ class PapayaContentBoxTest extends PapayaTestCase {
       ->method('fetchRow')
       ->with(PapayaDatabaseResult::FETCH_ASSOC)
       ->will($this->returnValue($record));
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('box')
-      ->will($this->returnValue('papaya_box'));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('papaya_box', 42))
+      ->with($this->isType('string'), array('box', 42))
       ->will($this->returnValue($databaseResult));
     $box = new PapayaContentBox_TestProxy();
     $box->setDatabaseAccess($databaseAccess);
@@ -73,18 +66,11 @@ class PapayaContentBoxTest extends PapayaTestCase {
   * @covers PapayaContentBox::load
   */
   public function testLoadFailedExpectingFalse() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('box')
-      ->will($this->returnValue('papaya_box'));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('papaya_box', 42))
+      ->with($this->isType('string'), array('box', 42))
       ->will($this->returnValue(FALSE));
     $box = new PapayaContentBox_TestProxy();
     $box->setDatabaseAccess($databaseAccess);
