@@ -27,7 +27,7 @@ class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
     $editorGroup->add($editor, 'TEST CAPTION');
 
     $this->assertXmlFragmentEqualsXmlFragment(
-      // language=xml
+      /** @lang XML */
       '<toolbar>
           <button down="down" href="http://www.test.tld/test.html?editor_index=0" title="TEST CAPTION"/>
         </toolbar>',
@@ -57,7 +57,7 @@ class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
     $editorGroup->add($editor, 'TEST CAPTION');
 
     $this->assertXmlFragmentEqualsXmlFragment(
-      // language=xml
+      /** @lang XML */
       '<toolbar>
           <button down="down" href="http://www.test.tld/test.html?editor_index=0&amp;foo=bar" title="TEST CAPTION"/>
         </toolbar>',
@@ -103,7 +103,7 @@ class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
     $editorGroup->add($editorTwo, 'TWO', 'image2');
 
     $this->assertXmlFragmentEqualsXmlFragment(
-      // language=xml
+      /** @lang XML */
       '<toolbar>
         <button href="http://www.test.tld/test.html?dialog-index=0" title="ONE"/>
         <button down="down" href="http://www.test.tld/test.html?dialog-index=1" title="TWO"/>

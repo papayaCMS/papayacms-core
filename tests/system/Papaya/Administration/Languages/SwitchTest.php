@@ -228,7 +228,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
     );
     $switch->appendTo($dom->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(
-       // language=xml
+       /** @lang XML */
       '<sample>
         <links title="Content Language">
           <link 

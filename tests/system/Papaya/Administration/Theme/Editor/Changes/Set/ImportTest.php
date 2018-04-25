@@ -24,7 +24,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
       )
     );
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post" enctype="multipart/form-data">
         <title caption="Import"/>
         <options>
@@ -72,7 +72,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
       )
     );
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post" enctype="multipart/form-data">
         <title caption="Import"/>
         <options>

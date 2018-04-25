@@ -99,7 +99,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
       )
     );
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<listview title="Dependent pages of page &quot;[...] #42&quot;">
         <cols>
           <col align="left">Page</col>

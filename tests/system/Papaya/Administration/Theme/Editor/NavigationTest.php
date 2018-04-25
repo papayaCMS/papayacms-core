@@ -27,7 +27,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $navigation->parameters(new PapayaRequestParameters(array('theme' => 'default')));
     $navigation->getXml();
     $this->assertXmlFragmentEqualsXmlFragment(
-      // language=xml prefix=<fragment> suffix=</fragment>
+       /* language=xml prefix=<fragment> suffix=</fragment> */
       '<button
          href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=0&amp;theme=default"
          target="_self"
@@ -52,7 +52,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     );
     $navigation->getXml();
     $this->assertXmlFragmentEqualsXmlFragment(
-    // language=xml prefix=<fragment> suffix=</fragment>
+       /* language=xml prefix=<fragment> suffix=</fragment> */
       '<button
          href="http://www.test.tld/test.html?cmd=set_edit&amp;set_id=0&amp;theme=default"
          target="_self"
@@ -156,7 +156,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<listitem
          title="sample"
          image="theme.png"
@@ -189,7 +189,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<listitem
          title="sample"
          image="theme.png"
@@ -223,7 +223,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<listitem
          title="sample"
          image="theme.png"
@@ -260,7 +260,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       0
     );
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<listitem
          title="sample title"
          image="folder.png"
@@ -299,7 +299,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       0
     );
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<listitem
          title="sample title"
          image="folder.png"
@@ -344,7 +344,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       0
     );
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<listitem
          title="Page title"
          image="folder.png"
@@ -390,7 +390,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       0
     );
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<listitem
          title="Page title"
          image="folder.png"

@@ -88,7 +88,7 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
         'topic_trans',
         array(
           'topic_content' =>
-            //language=xml
+            /** @lang XML */
             '<data version="2"/>',
           'topic_trans_modified' => 123
         ),
@@ -136,7 +136,7 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
         'topic_trans',
         array(
           'topic_content' =>
-            //language=xml
+            /** @lang XML */
             '<data version="2"/>',
           'topic_trans_modified' => 123
         ),

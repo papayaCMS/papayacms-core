@@ -11,7 +11,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->prepare();
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="get">
         <title caption="Users"/>
         <options>

@@ -108,7 +108,7 @@ class PapayaAdministrationPagesDependencyBlockerTest extends PapayaTestCase {
     $blocker->pages($pages);
     $blocker->parameterGroup('tt');
     $this->assertXmlStringEqualsXmlString(
-       // language=xml
+       /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Page dependency"/>
         <options>

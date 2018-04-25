@@ -15,7 +15,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Add theme set"/>
         <options>
@@ -58,7 +58,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Change theme set"/>
         <options>
@@ -101,7 +101,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <title caption="Add theme set"/>
         <options>

@@ -132,7 +132,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
 
     $this->assertInstanceOf(PapayaUiDialog::class, $dialog = $editor->dialog());
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
          <title caption="Edit content"/>
          <options>

@@ -59,7 +59,7 @@ class PapayaAdministrationPagesAnchestorsTest extends PapayaTestCase {
 
     $ancestors->setIds(array(42));
     $this->assertXmlStringEqualsXmlString(
-      // language=xml
+      /** @lang XML */
       '<hierarchy-menu>
         <items>
           <item caption="test" mode="both"
