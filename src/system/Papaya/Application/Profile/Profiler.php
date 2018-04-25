@@ -1,21 +1,17 @@
 <?php
 /**
-* Application object profile for profiler
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Application
-* @version $Id: Profiler.php 39484 2014-03-03 11:21:06Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Application object profile for profiler
@@ -30,7 +26,7 @@ class PapayaApplicationProfileProfiler implements PapayaApplicationProfile {
   /**
   * Create the profile object and return it
   * @param PapayaApplication|PapayaApplicationCms $application
-  * @return stdClass
+  * @return PapayaProfiler
   */
   public function createObject($application) {
     $builder = $this->builder();
@@ -51,9 +47,9 @@ class PapayaApplicationProfileProfiler implements PapayaApplicationProfile {
    * @return PapayaProfilerBuilder
    */
   public function builder(PapayaProfilerBuilder $builder = NULL) {
-    if (isset($builder)) {
+    if (NULL !== $builder) {
       $this->_builder = $builder;
-    } elseif (is_null($this->_builder)) {
+    } elseif (NULL === $this->_builder) {
       $this->_builder = new PapayaProfilerBuilder();
     }
     return $this->_builder;
