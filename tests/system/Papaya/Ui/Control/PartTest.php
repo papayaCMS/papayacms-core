@@ -54,6 +54,7 @@ class PapayaUiControlPartTest extends PapayaTestCase {
     $this->expectExceptionMessage(
       'Invalid declaration: Can not write readonly property "PapayaUiControlPart_TestProxy::$propertyThree".'
     );
+    /** @noinspection Annotator */
     $control->propertyThree = 'fail';
   }
 

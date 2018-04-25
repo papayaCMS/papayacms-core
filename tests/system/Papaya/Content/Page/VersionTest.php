@@ -8,6 +8,7 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
   */
   public function testSaveBlockingUpdateExpectingException() {
     $version = new PapayaContentPageVersion();
+    /** @noinspection Annotator */
     $version->id = 42;
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('LogicException: Page versions can not be changed.');

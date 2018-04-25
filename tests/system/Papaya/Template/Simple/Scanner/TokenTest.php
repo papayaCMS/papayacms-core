@@ -107,6 +107,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
       PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, ''
     );
     $this->expectException(LogicException::class);
+    /** @noinspection Annotator */
     $token->offset = 23;
   }
 }

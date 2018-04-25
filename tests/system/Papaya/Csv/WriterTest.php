@@ -48,6 +48,7 @@ class PapayaCsvWriterTest extends PapayaTestCase {
     $writer = new PapayaCsvWriter();
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Can not write read only property "separatorLength".');
+    /** @noinspection Annotator */
     $writer->separatorLength = 23;
   }
 

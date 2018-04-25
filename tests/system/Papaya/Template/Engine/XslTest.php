@@ -310,7 +310,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   */
   public function testPrepareWithXsltProcessorAndEmptyFileExpectingException() {
     $this->_internalErrors = libxml_use_internal_errors(TRUE);
-    $templateFile = dirname(__FILE__).'/TestData/empty.xsl';
+    $templateFile = __DIR__.'/TestData/empty.txt';
     $processor = $this->getProcessorMock('XsltProcessor');
     $errors = $this->getMock(
       PapayaXmlErrors::class, array('activate', 'deactivate', 'emit')
