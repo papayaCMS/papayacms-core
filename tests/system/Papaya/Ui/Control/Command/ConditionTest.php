@@ -24,10 +24,9 @@ class PapayaUiControlCommandConditionTest extends PapayaTestCase {
   */
   public function testCommandGetExpectingException() {
     $condition = new PapayaUiControlCommandCondition_TestProxy();
-    $this->setExpectedException(
-      'LogicException',
-      'LogicException:'.
-        ' Instance of "PapayaUiControlCommandCondition_TestProxy" has no command assigned.'
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage(
+      'LogicException: Instance of "PapayaUiControlCommandCondition_TestProxy" has no command assigned.'
     );
     $command = $condition->command();
   }

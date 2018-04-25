@@ -95,10 +95,8 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
     $records = new PapayaDatabaseRecordsTree_TestProxy();
     $records->_identifierProperties = array();
     $records->setDatabaseAccess($this->getDatabaseFixture());
-    $this->setExpectedException(
-      'LogicException',
-      'Identifier properties needed to link children to parents.'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('Identifier properties needed to link children to parents.');
     $records->load();
   }
 

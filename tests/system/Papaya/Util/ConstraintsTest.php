@@ -116,9 +116,8 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   * @covers PapayaUtilConstraints::assertContains
   */
   public function testAssertContainsExpectingException() {
-    $this->setExpectedException(
-      'UnexpectedValueException', 'Array does not contains the given value.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Array does not contains the given value.');
     PapayaUtilConstraints::assertContains(array('yes', 'no'), 'maybe');
   }
 
@@ -126,7 +125,8 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   * @covers PapayaUtilConstraints::assertContains
   */
   public function testAssertContainsExpectingExceptionWithIndividualMessage() {
-    $this->setExpectedException(UnexpectedValueException::class, 'NOT IN LIST');
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('NOT IN LIST');
     PapayaUtilConstraints::assertContains(array('yes', 'no'), 'maybe', 'NOT IN LIST');
   }
 
@@ -349,10 +349,8 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   * @covers PapayaUtilConstraints::createException
   */
   public function testCreateExceptionWithScalar() {
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'Unexpected value type: Expected "string" but "integer" given.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Unexpected value type: Expected "string" but "integer" given.');
     throw PapayaUtilConstraints_TestProxy::createException('string', 42, '');
   }
 
@@ -360,10 +358,8 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   * @covers PapayaUtilConstraints::createException
   */
   public function testCreateExceptionWithObject() {
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'Unexpected value type: Expected "integer, float" but "stdClass" given.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Unexpected value type: Expected "integer, float" but "stdClass" given.');
     throw PapayaUtilConstraints_TestProxy::createException('integer, float', new stdClass, '');
   }
 
@@ -371,10 +367,8 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   * @covers PapayaUtilConstraints::createException
   */
   public function testCreateExceptionWithIndividualMessage() {
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'SAMPLE MESSAGE'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('SAMPLE MESSAGE');
     throw PapayaUtilConstraints_TestProxy::createException('', new stdClass, 'SAMPLE MESSAGE');
   }
 

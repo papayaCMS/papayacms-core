@@ -186,7 +186,8 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   */
   public function testStreamGetWithInvalidTargetExpectingException() {
     $dispatcher = new PapayaMessageDispatcherCli();
-    $this->setExpectedException(InvalidArgumentException::class, 'Invalid output target "fail".');
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('Invalid output target "fail".');
     $dispatcher->stream('fail', 0);
   }
 

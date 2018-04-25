@@ -49,10 +49,8 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   */
   public function testSetItemsCountExpectingException() {
     $paging = new PapayaUiToolbarPaging('foo/page', 30);
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'UnexpectedValueException: Item count can not be negative.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('UnexpectedValueException: Item count can not be negative.');
     $paging->itemsCount = -42;
   }
 
@@ -78,10 +76,8 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   */
   public function testSetItemsPerPageExpectingException() {
     $paging = new PapayaUiToolbarPaging('foo/page', 30);
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'UnexpectedValueException: Item page limit can not be less than 1.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('UnexpectedValueException: Item page limit can not be less than 1.');
     $paging->itemsPerPage = 0;
   }
 
@@ -107,10 +103,8 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   */
   public function testSetButtonLimitExpectingException() {
     $paging = new PapayaUiToolbarPaging('foo/page', 30);
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'UnexpectedValueException: Button limit can not be less than 3.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('UnexpectedValueException: Button limit can not be less than 3.');
     $paging->buttonLimit = 2;
   }
 

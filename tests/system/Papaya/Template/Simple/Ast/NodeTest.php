@@ -16,9 +16,8 @@ class PapayaTemplateSimpleAstNodeTest extends PapayaTestCase {
    */
   public function testPropertyReadUnkownPropertyExpectingException() {
     $node = new PapayaTemplateSimpleAstNode_TestProxy();
-    $this->setExpectedException(
-      'LogicException', 'Unknown property: PapayaTemplateSimpleAstNode_TestProxy::$UNKNOWN'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('Unknown property: PapayaTemplateSimpleAstNode_TestProxy::$UNKNOWN');
     $node->UNKNOWN;
   }
 

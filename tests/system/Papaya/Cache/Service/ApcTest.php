@@ -65,7 +65,8 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
         ->will($this->returnValue(FALSE));
     $service = new PapayaCacheServiceApc();
     $service->setApcObject($apc);
-    $this->setExpectedException(LogicException::class, 'APC is not available');
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('APC is not available');
     $service->verify(FALSE);
   }
 

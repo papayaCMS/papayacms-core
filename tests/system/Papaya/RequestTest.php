@@ -392,10 +392,8 @@ class PapayaRequestTest extends PapayaTestCase {
   */
   public function testSetParameterGroupSeparatorExpectingError() {
     $request = new PapayaRequest();
-    $this->setExpectedException(
-      'InvalidArgumentException',
-      'Invalid parameter level separator: X'
-    );
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('Invalid parameter level separator: X');
     $request->setParameterGroupSeparator('X');
   }
 

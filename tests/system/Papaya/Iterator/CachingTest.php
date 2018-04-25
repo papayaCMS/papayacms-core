@@ -45,10 +45,8 @@ class PapayaIteratorCachingTest extends PapayaTestCase {
   * @covers PapayaIteratorCaching::setCallback
   */
   public function testConstructorWithInvalidCallbackExpectingException() {
-    $this->setExpectedException(
-      'InvalidArgumentException',
-      'Provided callback parameter is not valid.'
-    );
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('Provided callback parameter is not valid.');
     $iterator = new PapayaIteratorCaching(
       $innerIterator = new EmptyIterator(),
       new stdClass()

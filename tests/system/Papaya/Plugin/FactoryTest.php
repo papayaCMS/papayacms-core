@@ -88,10 +88,9 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testGetWithInvalidNameExpectingException() {
     $factory = new PapayaPluginFactory_TestProxy();
-    $this->setExpectedException(
-      'InvalidArgumentException',
-      'InvalidArgumentException: "PapayaPluginFactory_TestProxy"'.
-        ' does not know plugin "invalid plugin".'
+    $this->expectException('InvalidArgumentException');
+    $this->expectExceptionMessage(
+      'InvalidArgumentException: "PapayaPluginFactory_TestProxy" does not know plugin "invalid plugin".'
     );
     $factory->get('invalid plugin');
   }
@@ -133,7 +132,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
    */
   public function testMagicMethodSetExpectingException() {
     $factory = new PapayaPluginFactory_TestProxy();
-    $this->expectException('BadMethodCallException');
+    $this->expectException(BadMethodCallException::class);
     $factory->samplePlugin = '123';
   }
 
@@ -142,7 +141,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
    */
   public function testMagicMethodUnsetExpectingException() {
     $factory = new PapayaPluginFactory_TestProxy();
-    $this->expectException('BadMethodCallException');
+    $this->expectException(BadMethodCallException::class);
     unset($factory->samplePlugin);
   }
 

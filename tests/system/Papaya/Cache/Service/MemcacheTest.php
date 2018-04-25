@@ -124,9 +124,8 @@ class PapayaCacheServiceMemcacheTest extends PapayaTestCase {
     $memcache = $this->getMemcacheMockObjectFixture(FALSE);
     $service = new PapayaCacheServiceMemcache();
     $service->setMemcacheObject($memcache);
-    $this->setExpectedException(
-      'BadMethodCallException', 'Memcache not available or invalid server.'
-    );
+    $this->expectException(BadMethodCallException::class);
+    $this->expectExceptionMessage('Memcache not available or invalid server.');
     $service->verify(FALSE);
   }
 

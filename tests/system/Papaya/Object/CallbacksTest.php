@@ -17,10 +17,8 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
   * @covers PapayaObjectCallbacks::defineCallbacks
   */
   public function testConstructorWithoutDefinitionsExpectingException() {
-    $this->setExpectedException(
-      'LogicException',
-      'No callback definitions provided.'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('No callback definitions provided.');
     new PapayaObjectCallbacks(array());
   }
 
@@ -29,10 +27,8 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
   * @covers PapayaObjectCallbacks::defineCallbacks
   */
   public function testConstructorWithInvalidDefinitionsExpectingException() {
-    $this->setExpectedException(
-      'LogicException',
-      'Method "blocker" does already exists and can not be defined as a callback.'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('Method "blocker" does already exists and can not be defined as a callback.');
     new PapayaObjectCallbacks_TestProxy(array('blocker' => NULL));
   }
 
@@ -96,10 +92,8 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
   */
   public function testGetWithInvalidValueExpectingException() {
     $list = new PapayaObjectCallbacks_TestProxy(array('sample' => 23));
-    $this->setExpectedException(
-      'LogicException',
-      'Argument $callback must be an valid Callback or an instance of PapayaObjectCallback.'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('Argument $callback must be an valid Callback or an instance of PapayaObjectCallback.');
     $list->sample = new stdClass;
   }
 
@@ -109,10 +103,8 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
   */
   public function testGetWithInvalidNameExpectingException() {
     $list = new PapayaObjectCallbacks_TestProxy(array('sample' => 23));
-    $this->setExpectedException(
-      'LogicException',
-      'Invalid callback name: UNKNOWN.'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('Invalid callback name: UNKNOWN.');
     $list->UNKNOWN = NULL;
   }
 
@@ -144,10 +136,8 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
   */
   public function testCallWithInvalidNameExpectingException() {
     $list = new PapayaObjectCallbacks_TestProxy(array('sample' => 23));
-    $this->setExpectedException(
-      'LogicException',
-      'Invalid callback name: UNKNOWN.'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('Invalid callback name: UNKNOWN.');
     $list->UNKNOWN();
   }
 

@@ -90,10 +90,8 @@ class PapayaUiPagingStepsTest extends PapayaTestCase {
   */
   public function testSetXmlWithInvalidElement() {
     $steps = new PapayaUiPagingSteps('foo/steps', 20, array(10, 20, 30));
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'Invalid/unknown xml name element "invalid" with value "PagingLinks".'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Invalid/unknown xml name element "invalid" with value "PagingLinks".');
     $steps->setXmlNames(
       array(
         'invalid' => 'PagingLinks'
@@ -106,10 +104,8 @@ class PapayaUiPagingStepsTest extends PapayaTestCase {
   */
   public function testSetXmlWithInvalidElementName() {
     $steps = new PapayaUiPagingSteps('foo/steps', 20, array(10, 20, 30));
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'Invalid/unknown xml name element "list" with value "23Invalid".'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Invalid/unknown xml name element "list" with value "23Invalid".');
     $steps->setXmlNames(
       array(
         'list' => '23Invalid'

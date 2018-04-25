@@ -46,9 +46,8 @@ class PapayaCsvWriterTest extends PapayaTestCase {
   */
   public function testSeparatorLengthExpectingException() {
     $writer = new PapayaCsvWriter();
-    $this->setExpectedException(
-      'UnexpectedValueException', 'Can not write read only property "separatorLength".'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Can not write read only property "separatorLength".');
     $writer->separatorLength = 23;
   }
 
@@ -87,9 +86,8 @@ class PapayaCsvWriterTest extends PapayaTestCase {
   */
   public function testSetPropertyWithInvalidNameExpectingException() {
     $writer = new PapayaCsvWriter();
-    $this->setExpectedException(
-      'UnexpectedValueException', 'Can not write undefined property "invalidPropertyName".'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Can not write undefined property "invalidPropertyName".');
     $writer->invalidPropertyName = ' ';
   }
 
@@ -98,9 +96,8 @@ class PapayaCsvWriterTest extends PapayaTestCase {
   */
   public function testGetPropertyWithInvalidNameExpectingException() {
     $writer = new PapayaCsvWriter();
-    $this->setExpectedException(
-      'UnexpectedValueException', 'Can not read undefined property "invalidPropertyName".'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Can not read undefined property "invalidPropertyName".');
     $dummy = $writer->invalidPropertyName;
   }
 

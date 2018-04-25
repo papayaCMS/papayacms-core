@@ -274,10 +274,8 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
     $records->_identifierProperties = array('id', 'invalid');
     $records->setDatabaseAccess($databaseAccess);
 
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'The property "invalid" was not found, but is needed to create the identifier.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('The property "invalid" was not found, but is needed to create the identifier.');
     $records->load(42);
   }
 

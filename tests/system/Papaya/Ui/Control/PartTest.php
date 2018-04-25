@@ -29,10 +29,8 @@ class PapayaUiControlPartTest extends PapayaTestCase {
   */
   public function testPropertyGetUnknownExpectingException() {
     $control = new PapayaUiControlPart_TestProxy();
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'Can not read unknown property "PapayaUiControlPart_TestProxy::$propertyUnknown".'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Can not read unknown property "PapayaUiControlPart_TestProxy::$propertyUnknown".');
     /** @noinspection PhpUndefinedFieldInspection */
     $dummy = $control->propertyUnknown;
   }
@@ -42,10 +40,8 @@ class PapayaUiControlPartTest extends PapayaTestCase {
   */
   public function testPropertyGetInvalidExpectingException() {
     $control = new PapayaUiControlPart_TestProxy();
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'Invalid declaration: Can not read property "PapayaUiControlPart_TestProxy::$propertyFour".'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Invalid declaration: Can not read property "PapayaUiControlPart_TestProxy::$propertyFour".');
     $dummy = $control->propertyFour;
   }
 
@@ -54,10 +50,9 @@ class PapayaUiControlPartTest extends PapayaTestCase {
   */
   public function testPropertyReadOnlyExpectingException() {
     $control = new PapayaUiControlPart_TestProxy();
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'Invalid declaration:'.
-        ' Can not write readonly property "PapayaUiControlPart_TestProxy::$propertyThree".'
+    $this->expectException('UnexpectedValueException');
+    $this->expectExceptionMessage(
+      'Invalid declaration: Can not write readonly property "PapayaUiControlPart_TestProxy::$propertyThree".'
     );
     $control->propertyThree = 'fail';
   }
@@ -67,10 +62,8 @@ class PapayaUiControlPartTest extends PapayaTestCase {
   */
   public function testPropertySetUnknownExpectingException() {
     $control = new PapayaUiControlPart_TestProxy();
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'Can not write unknown property "PapayaUiControlPart_TestProxy::$propertyUnknown".'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Can not write unknown property "PapayaUiControlPart_TestProxy::$propertyUnknown".');
     /** @noinspection PhpUndefinedFieldInspection */
     $control->propertyUnknown = 'success';
   }
@@ -80,10 +73,8 @@ class PapayaUiControlPartTest extends PapayaTestCase {
   */
   public function testPropertySetInvalidExpectingException() {
     $control = new PapayaUiControlPart_TestProxy();
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      ' Can not write property "PapayaUiControlPart_TestProxy::$propertyFour".'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage(' Can not write property "PapayaUiControlPart_TestProxy::$propertyFour".');
     $control->propertyFour = 'fail';
   }
 }

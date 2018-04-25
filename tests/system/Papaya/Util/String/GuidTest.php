@@ -25,9 +25,8 @@ class PapayaUtilStringGuidTest extends PapayaTestCase {
   * @covers PapayaUtilStringGuid::validate
   */
   public function testValidateExpectingException() {
-    $this->setExpectedException(
-      'UnexpectedValueException', 'Invalid guid: "invalid".'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Invalid guid: "invalid".');
     PapayaUtilStringGuid::validate('invalid');
   }
 

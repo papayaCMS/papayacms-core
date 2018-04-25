@@ -38,10 +38,8 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   */
   public function testSetRelevanceLimitExpectingException() {
     $filter = new PapayaSpamFilterStatistical();
-    $this->setExpectedException(
-      'RangeException',
-      'RangeException: $derivation must be between 0 and 0.4'
-    );
+    $this->expectException(RangeException::class);
+    $this->expectExceptionMessage('RangeException: $derivation must be between 0 and 0.4');
     $filter->setRelevanceLimit(1);
   }
 
@@ -61,10 +59,8 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   */
   public function testSetTokenLimitExpectingException() {
     $filter = new PapayaSpamFilterStatistical();
-    $this->setExpectedException(
-      'RangeException',
-      'RangeException: $count must be greater than 0'
-    );
+    $this->expectException(RangeException::class);
+    $this->expectExceptionMessage('RangeException: $count must be greater than 0');
     $filter->setTokenLimit(-23);
   }
 

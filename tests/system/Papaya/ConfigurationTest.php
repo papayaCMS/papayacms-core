@@ -164,10 +164,8 @@ class PapayaConfigurationTest extends PapayaTestCase {
   */
   public function testStorageGetBeforeSetExpectingException() {
     $config = new PapayaConfiguration_TestProxy();
-    $this->setExpectedException(
-      'LogicException',
-      'No storage assigned to configuration.'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('No storage assigned to configuration.');
     $storage = $config->storage();
   }
 
@@ -318,10 +316,8 @@ class PapayaConfigurationTest extends PapayaTestCase {
   */
   public function testOffsetUnsetExpectingException() {
     $config = new PapayaConfiguration_TestProxy();
-    $this->setExpectedException(
-      'LogicException',
-      'LogicException: You can only read or write options, not remove them.'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('LogicException: You can only read or write options, not remove them.');
     unset($config['SAMPLE_INT']);
   }
 }

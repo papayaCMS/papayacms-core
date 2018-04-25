@@ -126,10 +126,8 @@ class PapayaApplicationTest extends PapayaTestCase {
     $profileTwo = $this->createMock(PapayaApplicationProfile::class);
     $app = new PapayaApplication();
     $app->registerProfile('SampleClass', $profileOne);
-    $this->setExpectedException(
-      'InvalidArgumentException',
-      'Duplicate application object profile:'
-    );
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('Duplicate application object profile:');
     $app->registerProfile('SampleClass', $profileTwo, PapayaApplication::DUPLICATE_ERROR);
   }
 
@@ -152,10 +150,8 @@ class PapayaApplicationTest extends PapayaTestCase {
   public function testGetObjectWithoutSetExpectingError() {
     $object = new stdClass();
     $app = new PapayaApplication();
-    $this->setExpectedException(
-      'InvalidArgumentException',
-      'Unknown profile identifier:'
-    );
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('Unknown profile identifier:');
     $app->getObject('SAMPLE');
   }
 
@@ -208,10 +204,8 @@ class PapayaApplicationTest extends PapayaTestCase {
   public function testSetObjectDuplicateError() {
     $app = new PapayaApplication();
     $app->setObject('SampleClass', new stdClass());
-    $this->setExpectedException(
-      'LogicException',
-      'Application object does already exists:'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('Application object does already exists:');
     $app->setObject('SampleClass', new stdClass());
   }
 

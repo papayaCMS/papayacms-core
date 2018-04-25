@@ -9,10 +9,8 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
   public function testSaveBlockingUpdateExpectingException() {
     $version = new PapayaContentPageVersion();
     $version->id = 42;
-    $this->setExpectedException(
-      'LogicException',
-      'LogicException: Page versions can not be changed.'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('LogicException: Page versions can not be changed.');
     $version->save();
   }
 
@@ -21,10 +19,8 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
   */
   public function testSaveInsertWhileMissingValuesExcpectingException() {
     $version = new PapayaContentPageVersion();
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'UnexpectedValueException: page id, owner or message are missing.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('UnexpectedValueException: page id, owner or message are missing.');
     $version->save();
   }
 

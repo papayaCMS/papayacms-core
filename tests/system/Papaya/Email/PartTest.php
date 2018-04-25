@@ -73,10 +73,8 @@ class PapayaEmailPartTest extends PapayaTestCase {
   */
   public function testMagicMethodGetWithInvalidPropertyExpectingException() {
     $part = new PapayaEmailPart($this->createMock(PapayaEmailContent::class));
-    $this->setExpectedException(
-      'LogicException',
-      'LogicException: Unknown property "PapayaEmailPart::$invalidProperty".'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('LogicException: Unknown property "PapayaEmailPart::$invalidProperty".');
     $dummy = $part->invalidProperty;
   }
 
@@ -109,10 +107,8 @@ class PapayaEmailPartTest extends PapayaTestCase {
   */
   public function testMagicMethodSetWithInvalidPropertyExpectingException() {
     $part = new PapayaEmailPart($this->createMock(PapayaEmailContent::class));
-    $this->setExpectedException(
-      'LogicException',
-      'LogicException: Unknown property "PapayaEmailPart::$invalidProperty".'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('LogicException: Unknown property "PapayaEmailPart::$invalidProperty".');
     $part->invalidProperty = 'test';
   }
 }

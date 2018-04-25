@@ -20,9 +20,8 @@ class PapayaUiToolbarComposedTest extends PapayaTestCase {
   * @covers PapayaUiToolbarComposed::setNames
   */
   public function testConstructorWithEmptySetList() {
-    $this->setExpectedException(
-      'InvalidArgumentException', 'No sets defined'
-    );
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('No sets defined');
     $composed = new PapayaUiToolbarComposed(array());
   }
 
@@ -31,9 +30,8 @@ class PapayaUiToolbarComposedTest extends PapayaTestCase {
   * @covers PapayaUiToolbarComposed::setNames
   */
   public function testConstructorWithInvalidSetName() {
-    $this->setExpectedException(
-      'InvalidArgumentException', 'Invalid set name "" in index "0".'
-    );
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('Invalid set name "" in index "0".');
     $composed = new PapayaUiToolbarComposed(array(''));
   }
 
@@ -125,9 +123,8 @@ class PapayaUiToolbarComposedTest extends PapayaTestCase {
   */
   public function testGetWithUndefinedNameExpectingException() {
     $composed = new PapayaUiToolbarComposed(array('someSet'));
-    $this->setExpectedException(
-      'UnexpectedValueException', 'Invalid toolbar set requested.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Invalid toolbar set requested.');
     /** @noinspection PhpUndefinedFieldInspection */
     $dummy = $composed->unknownSet;
   }
@@ -137,9 +134,8 @@ class PapayaUiToolbarComposedTest extends PapayaTestCase {
   */
   public function testSetWithUndefinedNameExpectingException() {
     $composed = new PapayaUiToolbarComposed(array('someSet'));
-    $this->setExpectedException(
-      'UnexpectedValueException', 'Invalid toolbar set requested.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Invalid toolbar set requested.');
     /** @noinspection PhpUndefinedFieldInspection */
     $composed->unknownSet = $this->createMock(PapayaUiToolbarSet::class);
   }

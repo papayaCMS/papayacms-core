@@ -41,10 +41,8 @@ class PapayaUiControlCollectionItemTest extends PapayaTestCase {
   */
   public function testCollectionWithoutSetExpectingExpcetion() {
     $item = new PapayaUiControlCollectionItem_TestProxy();
-    $this->setExpectedException(
-      'BadMethodCallException',
-      'BadMethodCallException: Item ist not part of a collection.'
-    );
+    $this->expectException(BadMethodCallException::class);
+    $this->expectExceptionMessage('BadMethodCallException: Item ist not part of a collection.');
     $collection = $item->collection();
   }
 
@@ -70,10 +68,8 @@ class PapayaUiControlCollectionItemTest extends PapayaTestCase {
       ->will($this->returnValue(new PapayaUiControlCollectionItem_TestProxy()));
     $item = new PapayaUiControlCollectionItem_TestProxy();
     $item->collection($collection);
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'UnexpectedValueException: Index "42" does not match the collection item.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('UnexpectedValueException: Index "42" does not match the collection item.');
     $item->index(42);
   }
 

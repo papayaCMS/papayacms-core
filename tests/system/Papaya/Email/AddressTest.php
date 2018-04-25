@@ -71,10 +71,8 @@ class PapayaEmailAddressTest extends PapayaTestCase {
   */
   public function testSetUnknownPropertyExpectingException() {
     $address = new PapayaEmailAddress();
-    $this->setExpectedException(
-      'InvalidArgumentException',
-      'InvalidArgumentException: Unknown property "unknown".'
-    );
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('InvalidArgumentException: Unknown property "unknown".');
     $address->unknown = 'test';
   }
 
@@ -83,10 +81,8 @@ class PapayaEmailAddressTest extends PapayaTestCase {
   */
   public function testGetUnknownPropertyExpectingException() {
     $address = new PapayaEmailAddress();
-    $this->setExpectedException(
-      'InvalidArgumentException',
-      'InvalidArgumentException: Unknown property "unknown".'
-    );
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('InvalidArgumentException: Unknown property "unknown".');
     $dummy = $address->unknown;
   }
 }

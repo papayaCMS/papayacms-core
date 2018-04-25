@@ -157,10 +157,8 @@ class PapayaObjectCallbackTest extends PapayaTestCase {
   */
   public function testMagicSetWithUnknownProperty() {
     $callback = new PapayaObjectCallback(NULL);
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'Unknown property PapayaObjectCallback::$UNKNOWN'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('Unknown property PapayaObjectCallback::$UNKNOWN');
     $callback->UNKNOWN = NULL;
   }
 }

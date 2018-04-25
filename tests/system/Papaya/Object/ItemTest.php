@@ -66,10 +66,8 @@ class PapayaObjectItemTest extends PapayaTestCase {
   */
   public function testAssignExpectingInvalid() {
     $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
-    $this->setExpectedException(
-      'InvalidArgumentException',
-      'Argument $data must be an array or instance of Taversable.'
-    );
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('Argument $data must be an array or instance of Taversable.');
     $item->assign('INVALID');
   }
 

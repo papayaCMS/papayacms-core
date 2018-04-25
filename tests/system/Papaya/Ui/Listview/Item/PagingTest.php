@@ -152,10 +152,8 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
   */
   public function testSetItemsCountExpectingException() {
     $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'UnexpectedValueException: Item count can not be negative.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('UnexpectedValueException: Item count can not be negative.');
     $item->itemsCount = -42;
   }
 
@@ -173,10 +171,8 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
   */
   public function testSetItemsPerPageExpectingException() {
     $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'UnexpectedValueException: Item page limit can not be less than 1.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('UnexpectedValueException: Item page limit can not be less than 1.');
     $item->itemsPerPage = 0;
   }
 
@@ -194,10 +190,8 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
   */
   public function testSetPageLimitExpectingException() {
     $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'UnexpectedValueException: Page limit can not be less than 1.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('UnexpectedValueException: Page limit can not be less than 1.');
     $item->pageLimit = 0;
   }
 

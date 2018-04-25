@@ -9,10 +9,8 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
   public function testSaveBlockingUpdateExpectingException() {
     $version = new PapayaContentBoxVersion();
     $version->id = 42;
-    $this->setExpectedException(
-      'LogicException',
-      'LogicException: Box versions can not be changed.'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('LogicException: Box versions can not be changed.');
     $version->save();
   }
 
@@ -21,10 +19,8 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
   */
   public function testSaveInsertWhileMissingValuesExcpectingException() {
     $version = new PapayaContentBoxVersion();
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'UnexpectedValueException: box id, owner or message are missing.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('UnexpectedValueException: box id, owner or message are missing.');
     $version->save();
   }
 

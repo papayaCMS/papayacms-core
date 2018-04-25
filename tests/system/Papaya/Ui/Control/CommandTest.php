@@ -99,10 +99,8 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   public function testValidatePermissionWithInvalidPermissionExpectingException() {
     $command = new PapayaUiControlCommand_TestProxy();
     $command->permission(new stdClass());
-    $this->setExpectedException(
-      'UnexpectedValueException',
-      'UnexpectedValueException: Invalid permission value.'
-    );
+    $this->expectException(UnexpectedValueException::class);
+    $this->expectExceptionMessage('UnexpectedValueException: Invalid permission value.');
     $command->validatePermission();
   }
 
@@ -215,10 +213,8 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   */
   public function testOwnerGetExpectingException() {
     $command = new PapayaUiControlCommand_TestProxy();
-    $this->setExpectedException(
-      'LogicException',
-      'LogicException: Instance of "PapayaUiControlCommand_TestProxy" has no owner assigned.'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('LogicException: Instance of "PapayaUiControlCommand_TestProxy" has no owner assigned.');
     $owner = $command->owner();
   }
 

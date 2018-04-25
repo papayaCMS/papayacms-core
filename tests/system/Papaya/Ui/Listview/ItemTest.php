@@ -53,10 +53,8 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testPropertyIndentationWithNegativeValueExpectingException() {
     $item = new PapayaUiListviewItem('', '');
-    $this->setExpectedException(
-      'InvalidArgumentException',
-      'InvalidArgumentException: $indentation must be greater or equal zero.'
-    );
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('InvalidArgumentException: $indentation must be greater or equal zero.');
     $item->indentation = -2;
   }
 

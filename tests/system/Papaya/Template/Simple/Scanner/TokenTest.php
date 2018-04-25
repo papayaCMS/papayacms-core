@@ -94,9 +94,8 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
     $token = new PapayaTemplateSimpleScannerToken(
       PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, 'foo'
     );
-    $this->setExpectedException(
-      'LogicException', 'Unknown property: PapayaTemplateSimpleScannerToken::$UNKNOWN'
-    );
+    $this->expectException(LogicException::class);
+    $this->expectExceptionMessage('Unknown property: PapayaTemplateSimpleScannerToken::$UNKNOWN');
     $token->UNKNOWN;
   }
 

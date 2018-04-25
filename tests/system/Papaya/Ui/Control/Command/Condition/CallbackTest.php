@@ -7,10 +7,8 @@ class PapayaUiControlCommandConditionCallbackTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandConditionCallback::__construct
   */
   public function testConstructorExpectingException() {
-    $this->setExpectedException(
-      'InvalidArgumentException',
-        'InvalidArgumentException: provided $callback is not callable.'
-    );
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('InvalidArgumentException: provided $callback is not callable.');
     new PapayaUiControlCommandConditionCallback(23);
   }
 
