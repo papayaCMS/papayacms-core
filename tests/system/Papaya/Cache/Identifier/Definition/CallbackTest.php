@@ -7,7 +7,7 @@ class PapayaCacheIdentifierDefinitionCallbackTest extends PapayaTestCase {
    * @covers PapayaCacheIdentifierDefinitionCallback
    */
   public function testGetStatus() {
-    $definition = new PapayaCacheIdentifierDefinitionCallback(array($this, 'callbackReturnString'));
+    $definition = new PapayaCacheIdentifierDefinitionCallback(function() { return 'success'; });
     $this->assertEquals(
       array(
         PapayaCacheIdentifierDefinitionCallback::class => 'success'
@@ -20,7 +20,7 @@ class PapayaCacheIdentifierDefinitionCallbackTest extends PapayaTestCase {
    * @covers PapayaCacheIdentifierDefinitionCallback
    */
   public function testGetStatusExpectingFalse() {
-    $definition = new PapayaCacheIdentifierDefinitionCallback(array($this, 'callbackReturnFalse'));
+    $definition = new PapayaCacheIdentifierDefinitionCallback(function() { return FALSE; });
     $this->assertFalse($definition->getStatus());
   }
 
@@ -28,17 +28,10 @@ class PapayaCacheIdentifierDefinitionCallbackTest extends PapayaTestCase {
    * @covers PapayaCacheIdentifierDefinitionCallback
    */
   public function testGetSources() {
-    $definition = new PapayaCacheIdentifierDefinitionCallback(array($this, 'callbackReturnFalse'));
+    $definition = new PapayaCacheIdentifierDefinitionCallback(function() { return FALSE; });
     $this->assertEquals(
       PapayaCacheIdentifierDefinition::SOURCE_VARIABLES,
       $definition->getSources()
     );
-  }
-
-  public function callbackReturnString() {
-    return 'success';
-  }
-  public function callbackReturnFalse() {
-    return FALSE;
   }
 }

@@ -5,13 +5,13 @@ class PapayaCacheServiceApcObjectTest extends PapayaTestCase {
 
   public function skipIfApcIsAvailable() {
     if (extension_loaded('apc')) {
-      $this->markTestSkipped('Apc is availiable');
+      $this->markTestSkipped('Apc is available');
     }
   }
 
   public function skipIfApcIsNotAvailable() {
     if (!extension_loaded('apc')) {
-      $this->markTestSkipped('Apc is not availiable');
+      $this->markTestSkipped('Apc is not available');
     }
   }
 
@@ -49,9 +49,7 @@ class PapayaCacheServiceApcObjectTest extends PapayaTestCase {
   public function testFetch() {
     $this->skipIfApcIsNotAvailable();
     $apc = new PapayaCacheServiceApcObject();
-    $success = FALSE;
-    $apc->fetch('SAMPLE', $success);
-    $this->assertInternalType('boolean', $success);
+    $this->assertNull($apc->fetch('SAMPLE'));
   }
 
   /**

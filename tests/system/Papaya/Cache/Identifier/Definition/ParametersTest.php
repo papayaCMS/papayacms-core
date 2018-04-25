@@ -6,6 +6,10 @@ class PapayaCacheIdentifierDefinitionParametersTest extends PapayaTestCase {
   /**
    * @covers PapayaCacheIdentifierDefinitionParameters
    * @dataProvider provideParameterData
+   * @param mixed $expected
+   * @param mixed $group
+   * @param mixed $names
+   * @param mixed $data
    */
   public function testGetStatus($expected, $group, $names, $data) {
     $definition = new PapayaCacheIdentifierDefinitionParameters($names, $group);

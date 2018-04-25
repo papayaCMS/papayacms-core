@@ -55,7 +55,7 @@ class PapayaCacheServiceApcObject {
   */
   public function fetch($cacheId) {
     $data = apc_fetch($cacheId, $success);
-    return ($success) ? $data : NULL;
+    return $success ? $data : NULL;
   }
 
   /**

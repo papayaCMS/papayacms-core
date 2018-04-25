@@ -23,7 +23,7 @@ class PapayaCacheIdentifierDefinitionBooleanTest extends PapayaTestCase {
    * @covers PapayaCacheIdentifierDefinitionBoolean
    */
   public function testGetStatusForCallableReturningTrue() {
-    $definition = new PapayaCacheIdentifierDefinitionBoolean(array($this, 'callbackReturnTrue'));
+    $definition = new PapayaCacheIdentifierDefinitionBoolean(function() { return TRUE; });
     $this->assertTrue($definition->getStatus());
   }
 
@@ -31,7 +31,7 @@ class PapayaCacheIdentifierDefinitionBooleanTest extends PapayaTestCase {
    * @covers PapayaCacheIdentifierDefinitionBoolean
    */
   public function testGetStatusForCallableReturningFalse() {
-    $definition = new PapayaCacheIdentifierDefinitionBoolean(array($this, 'callbackReturnFalse'));
+    $definition = new PapayaCacheIdentifierDefinitionBoolean(function() { return FALSE; });
     $this->assertFalse($definition->getStatus());
   }
 
@@ -44,13 +44,5 @@ class PapayaCacheIdentifierDefinitionBooleanTest extends PapayaTestCase {
       PapayaCacheIdentifierDefinition::SOURCE_VARIABLES,
       $definition->getSources()
     );
-  }
-
-  public function callbackReturnTrue() {
-    return TRUE;
-  }
-
-  public function callbackReturnFalse() {
-    return FALSE;
   }
 }

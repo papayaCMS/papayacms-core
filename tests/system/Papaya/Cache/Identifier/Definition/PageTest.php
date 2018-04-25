@@ -6,8 +6,10 @@ class PapayaCacheIdentifierDefinitionPageTest extends PapayaTestCase {
   /**
    * @covers PapayaCacheIdentifierDefinitionPage
    * @dataProvider provideParameterData
+   * @param array $expected
+   * @param array $parameters
    */
-  public function testGetStatus($expected, $parameters) {
+  public function testGetStatus(array $expected, array  $parameters) {
     $definition = new PapayaCacheIdentifierDefinitionPage();
     $definition->papaya(
       $this->mockPapaya()->application(

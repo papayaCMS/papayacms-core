@@ -295,10 +295,10 @@ class PapayaCacheServiceFile extends PapayaCacheService {
   * about the file change.
   *
   * @param PapayaFileSystemChangeNotifier $notifier
-  * @return PapayaFileSystemChangeNotifier
+  * @return PapayaFileSystemChangeNotifier|FALSE
   */
   public function notifier(PapayaFileSystemChangeNotifier $notifier = NULL) {
-    if (isset($notifier)) {
+    if (NULL !== $notifier) {
       $this->_notifier = $notifier;
     } elseif (NULL === $this->_notifier) {
       if ($this->_notifierScript) {

@@ -207,7 +207,6 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
   */
   public function testExistsWithDeprecatedFile() {
     $service = $this->getServiceObjectFixture(TRUE);
-    $yesterday = time() - 86400;
     $lastHour = time() - 3600;
     $threeMinutesAgo = time() - 180;
     touch(
@@ -224,7 +223,6 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
   */
   public function testCreated() {
     $service = $this->getServiceObjectFixture(TRUE);
-    $yesterday = time() - 86400;
     $lastHour = time() - 3600;
     touch(
       $this->_temporaryDirectory.'/GROUP/ELEMENT/PARAMETERS',
@@ -241,7 +239,6 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
   */
   public function testCreatedWithExpiredExpectingFalse() {
     $service = $this->getServiceObjectFixture(TRUE);
-    $yesterday = time() - 86400;
     $lastHour = time() - 3600;
     $threeMinutesAgo = time() - 180;
     touch(
@@ -255,9 +252,12 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
 
 
   /**
-  * @covers PapayaCacheServiceFile::delete
-  * @dataProvider deleteArgumentsDataProvider
-  */
+   * @covers PapayaCacheServiceFile::delete
+   * @dataProvider deleteArgumentsDataProvider
+   * @param NULL|string $group
+   * @param NULL|string $element
+   * @param NULL|string $parameters
+   */
   public function testDelete($group, $element, $parameters) {
     $service = $this->getServiceObjectFixture(TRUE);
     $this->assertEquals(1, $service->delete($group, $element, $parameters));
@@ -363,9 +363,13 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceFile::_getCacheIdentification
-  * @dataProvider getCacheIdentificationDataProvider
-  */
+   * @covers PapayaCacheServiceFile::_getCacheIdentification
+   * @dataProvider getCacheIdentificationDataProvider
+   * @param string $group
+   * @param string $identifier
+   * @param mixed $parameters
+   * @param array $expected
+   */
   public function testGetCacheIdentification($group, $identifier, $parameters, $expected) {
     $service = new PapayaCacheServiceFile_TestProxy();
     $this->assertSame(
@@ -375,9 +379,12 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceFile::_getCacheIdentification
-  * @dataProvider getInvalidCacheIdentificationDataProvider
-  */
+   * @covers PapayaCacheServiceFile::_getCacheIdentification
+   * @dataProvider getInvalidCacheIdentificationDataProvider
+   * @param string $group
+   * @param string $identifier
+   * @param mixed $parameters
+   */
   public function testGetCacheIdentificationExpectingError($group, $identifier, $parameters) {
     $service = new PapayaCacheServiceFile_TestProxy();
     $this->expectException(InvalidArgumentException::class);
@@ -387,7 +394,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
   /**
   * @covers PapayaCacheServiceFile::notifier
   */
-  public function testNofifierGetAfterSet() {
+  public function testNotifierGetAfterSet() {
     $notifier = $this
       ->getMockBuilder(PapayaFileSystemChangeNotifier::class)
       ->disableOriginalConstructor()
