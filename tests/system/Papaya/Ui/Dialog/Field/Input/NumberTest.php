@@ -20,14 +20,10 @@ class PapayaUiDialogFieldInputNumberTest extends PapayaTestCase {
   * @dataProvider constructFailureProvider
   */
   public function testConstructFailure($minimumLength, $maximumLength) {
-    try {
-      $input = new PapayaUiDialogFieldInputNumber('Number', 'number', '123', TRUE,
-          $minimumLength, $maximumLength);
-    } catch(UnexpectedValueException $e) {
-      $this->assertInstanceOf('UnexpectedValueException', $e);
-      return;
-    }
-    $this->fail('Expected exception not thrown.');
+    $this->expectException(UnexpectedValueException::class);
+    new PapayaUiDialogFieldInputNumber(
+      'Number', 'number', '123', TRUE, $minimumLength, $maximumLength
+    );
   }
 
   /**

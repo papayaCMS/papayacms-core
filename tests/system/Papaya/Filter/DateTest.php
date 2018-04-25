@@ -15,26 +15,16 @@ class PapayaFilterDateTest extends PapayaTestCase {
   * @covers PapayaFilterDate::__construct
   */
   public function testConstructExpectsExceptionIncludeTime() {
-    try {
-      $filter = new PapayaFilterDate(1000);
-    } catch(UnexpectedValueException $e) {
-      $this->assertInstanceOf('UnexpectedValueException', $e);
-      return;
-    }
-    $this->fail('Expected exception not thrown.');
+    $this->expectException(UnexpectedValueException::class);
+    new PapayaFilterDate(1000);
   }
 
   /**
   * @covers PapayaFilterDate::__construct
   */
   public function testConstructExpectsExceptionStep() {
-    try {
-      $filter = new PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME, -1);
-    } catch(UnexpectedValueException $e) {
-      $this->assertInstanceOf('UnexpectedValueException', $e);
-      return;
-    }
-    $this->fail('Expected exception not thrown.');
+    $this->expectException(UnexpectedValueException::class);
+    new PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME, -1);
   }
 
   /**
@@ -52,13 +42,9 @@ class PapayaFilterDateTest extends PapayaTestCase {
   */
   public function testValidateExceptionFormat($includeTime, $value) {
     $filter = new PapayaFilterDate($includeTime);
-    try {
-      $filter->validate($value);
-    } catch(PapayaFilterExceptionType $e) {
-      $this->assertInstanceOf(PapayaFilterExceptionType::class, $e);
-      return;
-    }
-    $this->fail('Expected exception not thrown.');
+    $this->expectException(PapayaFilterExceptionType::class);
+    /** @noinspection PhpUnhandledExceptionInspection */
+    $filter->validate($value);
   }
 
   /**
@@ -67,13 +53,9 @@ class PapayaFilterDateTest extends PapayaTestCase {
   */
   public function testValidateExceptionRange($value) {
     $filter = new PapayaFilterDate(PapayaFilterDate::DATE_NO_TIME);
-    try {
-      $filter->validate($value);
-    } catch(PapayaFilterExceptionRangeMaximum $e) {
-      $this->assertInstanceOf(PapayaFilterExceptionRangeMaximum::class, $e);
-      return;
-    }
-    $this->fail('Expected exception not thrown.');
+    $this->expectException(PapayaFilterExceptionRangeMaximum::class);
+    /** @noinspection PhpUnhandledExceptionInspection */
+    $filter->validate($value);
   }
 
   /**

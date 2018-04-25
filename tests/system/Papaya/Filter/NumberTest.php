@@ -16,13 +16,8 @@ class PapayaFilterNumberTest extends PapayaTestCase {
   * @dataProvider constructFailureProvider
   */
   public function testConstructFailure($minimumLength, $maximumLength) {
-    try {
-      $filter = new PapayaFilterNumber($minimumLength, $maximumLength);
-    } catch(UnexpectedValueException $e) {
-      $this->assertInstanceOf('UnexpectedValueException', $e);
-      return;
-    }
-    $this->fail('Expected exception not thrown.');
+    $this->expectException(UnexpectedValueException::class);
+    new PapayaFilterNumber($minimumLength, $maximumLength);
   }
 
   /**
@@ -31,6 +26,7 @@ class PapayaFilterNumberTest extends PapayaTestCase {
   */
   public function testValidateSuccess($value) {
     $filter = new PapayaFilterNumber(3, 4);
+    /** @noinspection PhpUnhandledExceptionInspection */
     $this->assertTrue($filter->validate($value));
   }
 
@@ -39,13 +35,9 @@ class PapayaFilterNumberTest extends PapayaTestCase {
   */
   public function testValidateFailureFormat() {
     $filter = new PapayaFilterNumber();
-    try {
-      $filter->validate('I am not a number');
-    } catch(PapayaFilterExceptionType $e) {
-      $this->assertInstanceOf(PapayaFilterExceptionType::class, $e);
-      return;
-    }
-    $this->fail('Expected exception not thrown.');
+    $this->expectException(PapayaFilterExceptionType::class);
+    /** @noinspection PhpUnhandledExceptionInspection */
+    $filter->validate('I am not a number');
   }
 
   /**
@@ -53,13 +45,9 @@ class PapayaFilterNumberTest extends PapayaTestCase {
   */
   public function testValidateFailureTooShort() {
     $filter = new PapayaFilterNumber(3);
-    try {
-      $filter->validate('22');
-    } catch(PapayaFilterExceptionRangeMinimum $e) {
-      $this->assertInstanceOf(PapayaFilterExceptionRangeMinimum::class, $e);
-      return;
-    }
-    $this->fail('Expected exception not thrown.');
+    $this->expectException(PapayaFilterExceptionRangeMinimum::class);
+    /** @noinspection PhpUnhandledExceptionInspection */
+    $filter->validate('22');
   }
 
   /**
@@ -67,13 +55,9 @@ class PapayaFilterNumberTest extends PapayaTestCase {
   */
   public function testValidateFailureTooLong() {
     $filter = new PapayaFilterNumber(NULL, 3);
-    try {
-      $filter->validate('2222');
-    } catch(PapayaFilterExceptionRangeMaximum $e) {
-      $this->assertInstanceOf(PapayaFilterExceptionRangeMaximum::class, $e);
-      return;
-    }
-    $this->fail('Expected exception not thrown.');
+    $this->expectException(PapayaFilterExceptionRangeMaximum::class);
+    /** @noinspection PhpUnhandledExceptionInspection */
+    $filter->validate('2222');
   }
 
   /**

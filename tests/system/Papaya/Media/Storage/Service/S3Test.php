@@ -1035,22 +1035,6 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
     );
   }
 
-  /**********************
-  * Mock Callbacks
-  **********************/
-
-  /**
-   * @param $name
-   * @return mixed
-   */
-  public function getHeaderCallback($name) {
-    if (isset($this->expectedHeaders[$name])) {
-      return $this->expectedHeaders[$name];
-    }
-    /** @noinspection PhpVoidFunctionResultUsedInspection */
-    return $this->fail('Unknown header name value: '.$name);
-  }
-
 }
 
 

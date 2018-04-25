@@ -262,7 +262,6 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   ************************/
 
   public function getMockRecordLoadFixture($data) {
-    $this->_mockRecordData = $data;
     $record = $this->createMock(PapayaMediaDatabaseItemRecord::class);
     $record
       ->expects($this->once())
@@ -271,25 +270,16 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
     $record
       ->expects($this->any())
       ->method('offsetGet')
-      ->will(
-        $this->returnCallBack(
-          array($this, 'callbackMockRecordLoadData')
-        )
+      ->willReturnCallback(
+        function($name) use ($data) {
+          if (isset($data[$name])) {
+            return $data[$name];
+          }
+          /** @noinspection PhpVoidFunctionResultUsedInspection */
+          return $this->fail(sprintf('Unknown field in record "%s"', $name));
+        }
       );
     return $record;
-  }
-
-  /**
-   * @param $name
-   * @return mixed
-   */
-  public function callbackMockRecordLoadData($name) {
-    if (isset($this->_mockRecordData[$name])) {
-      return $this->_mockRecordData[$name];
-    } else {
-      /** @noinspection PhpVoidFunctionResultUsedInspection */
-      return $this->fail(sprintf('Unknown field in record "%s"', $name));
-    }
   }
 }
 

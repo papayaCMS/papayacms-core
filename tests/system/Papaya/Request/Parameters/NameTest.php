@@ -27,16 +27,9 @@ class PapayaRequestParametersNameTest extends PapayaTestCase {
   */
   public function testSetSeparatorExpectingException() {
     $name = new PapayaRequestParametersName();
-    try {
-      $name->separator('fail');
-    } catch (InvalidArgumentException $e) {
-      $this->assertEquals(
-        'Invalid parameter group separator: "fail".',
-        $e->getMessage()
-      );
-      return;
-    }
-    $this->fail('The expected InvalidArgumentException has not been raised.');
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('Invalid parameter group separator: "fail".');
+    $name->separator('fail');
   }
 
   /**

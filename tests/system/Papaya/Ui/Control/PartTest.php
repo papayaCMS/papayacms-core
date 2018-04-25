@@ -50,7 +50,7 @@ class PapayaUiControlPartTest extends PapayaTestCase {
   */
   public function testPropertyReadOnlyExpectingException() {
     $control = new PapayaUiControlPart_TestProxy();
-    $this->expectException('UnexpectedValueException');
+    $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage(
       'Invalid declaration: Can not write readonly property "PapayaUiControlPart_TestProxy::$propertyThree".'
     );

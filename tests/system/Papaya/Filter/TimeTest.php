@@ -14,13 +14,8 @@ class PapayaFilterTimeTest extends PapayaTestCase {
   * @covers PapayaFilterTime::__construct
   */
   public function testConstructFailure() {
-    try {
-      $filter = new PapayaFilterTime(-1);
-    } catch(UnexpectedValueException $e) {
-      $this->assertInstanceOf('UnexpectedValueException', $e);
-      return;
-    }
-    $this->fail('Expected exception not thrown.');
+    $this->expectException(UnexpectedValueException::class);
+    new PapayaFilterTime(-1);
   }
 
   /**
@@ -29,6 +24,7 @@ class PapayaFilterTimeTest extends PapayaTestCase {
   */
   public function testValidateSuccess($timeString) {
     $filter = new PapayaFilterTime(1);
+    /** @noinspection PhpUnhandledExceptionInspection */
     $this->assertTrue($filter->validate($timeString));
   }
 
@@ -38,13 +34,9 @@ class PapayaFilterTimeTest extends PapayaTestCase {
   */
   public function testValidateExceptionType($timeString) {
     $filter = new PapayaFilterTime();
-    try {
-      $filter->validate($timeString);
-    } catch(PapayaFilterExceptionType $e) {
-      $this->assertInstanceOf(PapayaFilterExceptionType::class, $e);
-      return;
-    }
-    $this->fail('Expected exception not thrown.');
+    $this->expectException(PapayaFilterExceptionType::class);
+    /** @noinspection PhpUnhandledExceptionInspection */
+    $filter->validate($timeString);
   }
 
   /**
@@ -53,13 +45,9 @@ class PapayaFilterTimeTest extends PapayaTestCase {
   */
   public function testValidateExceptionRangeMaximum($timeString) {
     $filter = new PapayaFilterTime();
-    try {
-      $filter->validate($timeString);
-    } catch(PapayaFilterExceptionRangeMaximum $e) {
-      $this->assertInstanceOf(PapayaFilterExceptionRangeMaximum::class, $e);
-      return;
-    }
-    $this->fail('Expected exception not thrown.');
+    $this->expectException(PapayaFilterExceptionRangeMaximum::class);
+    /** @noinspection PhpUnhandledExceptionInspection */
+    $filter->validate($timeString);
   }
 
   /**
@@ -67,13 +55,9 @@ class PapayaFilterTimeTest extends PapayaTestCase {
   */
   public function testValidateExceptionTypeForStepMismatch() {
     $filter = new PapayaFilterTime(1800);
-    try {
-      $filter->validate('17:45');
-    } catch(PapayaFilterExceptionType $e) {
-      $this->assertInstanceOf(PapayaFilterExceptionType::class, $e);
-      return;
-    }
-    $this->fail('Expected exception not thrown.');
+    $this->expectException(PapayaFilterExceptionType::class);
+    /** @noinspection PhpUnhandledExceptionInspection */
+    $filter->validate('17:45');
   }
 
   /**

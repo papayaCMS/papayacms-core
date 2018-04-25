@@ -88,7 +88,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testGetWithInvalidNameExpectingException() {
     $factory = new PapayaPluginFactory_TestProxy();
-    $this->expectException('InvalidArgumentException');
+    $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage(
       'InvalidArgumentException: "PapayaPluginFactory_TestProxy" does not know plugin "invalid plugin".'
     );

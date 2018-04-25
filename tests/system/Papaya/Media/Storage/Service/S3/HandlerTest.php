@@ -35,14 +35,23 @@ class PapayaMediaStorageServiceS3HandlerTest extends PapayaTestCase {
   */
   public function testGetSignatureData($headers, $url, $expected) {
     $client = $this->createMock(PapayaHttpClient::class);
-    $this->expectedHeaders = $headers;
-    $client->expects($this->once())
-           ->method('getMethod')
-           ->will($this->returnValue('GET'));
-    $client->expects($this->any())
-           ->method('getHeader')
-           ->withAnyParameters()
-           ->will($this->returnCallback(array($this, 'getHeaderCallback')));
+    $client
+      ->expects($this->once())
+      ->method('getMethod')
+      ->will($this->returnValue('GET'));
+    $client
+      ->expects($this->any())
+      ->method('getHeader')
+      ->withAnyParameters()
+      ->willReturnCallback(
+        function($name) use ($headers) {
+          if (isset($headers[$name])) {
+            return $headers[$name];
+          }
+          /** @noinspection PhpVoidFunctionResultUsedInspection */
+          return $this->fail('Unknown header name value: '.$name);
+        }
+      );
     $service = new PapayaMediaStorageServiceS3Handler();
     $service->setHTTPClient($client);
     $this->assertEquals(
@@ -179,22 +188,6 @@ class PapayaMediaStorageServiceS3HandlerTest extends PapayaTestCase {
     $handler->setHTTPClient($client);
     $actual = $handler->setUpRequest($url, $method, $parameters, $headers);
     $this->assertSame($client, $actual);
-  }
-
-  /**********************
-  * Mock Callbacks
-  **********************/
-
-  /**
-   * @param $name
-   * @return mixed
-   */
-  public function getHeaderCallback($name) {
-    if (isset($this->expectedHeaders[$name])) {
-      return $this->expectedHeaders[$name];
-    }
-    /** @noinspection PhpVoidFunctionResultUsedInspection */
-    return $this->fail('Unknown header name value: '.$name);
   }
 
   /**********************

@@ -142,9 +142,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   */
   public function testAssignWithInvalidArgumentExpectingException() {
     $config = new PapayaConfiguration_TestProxy();
-    $this->expectException(
-      'UnexpectedValueException'
-    );
+    $this->expectException(UnexpectedValueException::class);
     $config->assign('STRING');
   }
 
