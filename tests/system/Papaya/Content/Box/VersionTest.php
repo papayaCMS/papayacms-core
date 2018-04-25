@@ -41,8 +41,8 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         $this->logicalOr(
-          array('box_versions', 123, 'sample user id', 'test message', 'box', 21),
-          array('box_versions_trans', 42, 'box_trans', 21)
+          array('table_box_versions', 123, 'sample user id', 'test message', 'table_box', 21),
+          array('table_box_versions_trans', 42, 'table_box_trans', 21)
         )
       )
       ->will(
@@ -76,7 +76,7 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         $this->logicalOr(
-          array('box_versions', 123, 'sample user id', 'test message', 'box', 21)
+          array('table_box_versions', 123, 'sample user id', 'test message', 'table_box', 21)
         )
       )
       ->will($this->returnValue(FALSE));

@@ -39,7 +39,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array(PapayaContentTables::LANGUAGES))
+      ->with($this->isType('string'), array('table_'.PapayaContentTables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
     $languages = new PapayaContentLanguages();
     $languages->setDatabaseAccess($databaseAccess);
@@ -152,7 +152,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array(PapayaContentTables::LANGUAGES))
+      ->with($this->isType('string'), array('table_'.PapayaContentTables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
     $languages = new PapayaContentLanguages();
     $languages->setDatabaseAccess($databaseAccess);
@@ -192,7 +192,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array(PapayaContentTables::LANGUAGES))
+      ->with($this->isType('string'), array('table_'.PapayaContentTables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
     $languages = new PapayaContentLanguages();
     $languages->setDatabaseAccess($databaseAccess);
@@ -295,7 +295,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array(PapayaContentTables::LANGUAGES))
+      ->with($this->isType('string'), array('table_'.PapayaContentTables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
     $languages = new PapayaContentLanguages();
     $languages->setDatabaseAccess($databaseAccess);

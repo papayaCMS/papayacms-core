@@ -35,7 +35,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('box', 42))
+      ->with($this->isType('string'), array('table_box', 42))
       ->will($this->returnValue($databaseResult));
     $box = new PapayaContentBox_TestProxy();
     $box->setDatabaseAccess($databaseAccess);
@@ -70,7 +70,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('box', 42))
+      ->with($this->isType('string'), array('table_box', 42))
       ->will($this->returnValue(FALSE));
     $box = new PapayaContentBox_TestProxy();
     $box->setDatabaseAccess($databaseAccess);

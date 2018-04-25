@@ -18,7 +18,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        $this->equalTo(array('box_public', 42))
+        $this->equalTo(array('table_box_public', 42))
       )
       ->will($this->returnValue($databaseResult));
     $databaseAccess
@@ -43,7 +43,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
   }
 
   public function checkInsertData($table, $idField, $data) {
-    $this->assertEquals('box_public', $table);
+    $this->assertEquals('table_box_public', $table);
     $this->assertNull($idField);
     $this->assertEquals(42, $data['box_id']);
     $this->assertEquals(21, $data['boxgroup_id']);
@@ -69,7 +69,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        $this->equalTo(array('box_public', 42))
+        $this->equalTo(array('table_box_public', 42))
       )
       ->will($this->returnValue($databaseResult));
     $databaseAccess
@@ -94,7 +94,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
   }
 
   public function checkUpdateData($table, $data, $filter) {
-    $this->assertEquals('box_public', $table);
+    $this->assertEquals('table_box_public', $table);
     $this->assertEquals('Box Name', $data['box_name']);
     $this->assertEquals(21, $data['boxgroup_id']);
     $this->assertEquals(123, $data['box_created']);
@@ -123,7 +123,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        $this->equalTo(array('box_public', 42))
+        $this->equalTo(array('table_box_public', 42))
       )
       ->will($this->returnValue(FALSE));
     $page = new PapayaContentBoxPublication();

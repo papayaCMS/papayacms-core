@@ -48,7 +48,7 @@ class PapayaContentPageTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('topic'))
+      ->with($this->isType('string'), array('table_topic'))
       ->will($this->returnValue($databaseResult));
     $page = new PapayaContentPage();
     $page->setDatabaseAccess($databaseAccess);
@@ -102,7 +102,7 @@ class PapayaContentPageTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('topic'))
+      ->with($this->isType('string'), array('table_topic'))
       ->will($this->returnValue($databaseResult));
     $page = new PapayaContentPage();
     $page->setDatabaseAccess($databaseAccess);

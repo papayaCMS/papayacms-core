@@ -30,7 +30,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   }
 
   public function checkInsertData($table, $idField, $data) {
-    $this->assertEquals('box', $table);
+    $this->assertEquals('table_box', $table);
     $this->assertEquals('box_id', $idField);
     $this->assertEquals('Box Name', $data['box_name']);
     $this->assertEquals(21, $data['boxgroup_id']);
@@ -70,7 +70,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   }
 
   public function checkUpdateData($table, $data, $filter) {
-    $this->assertEquals('box', $table);
+    $this->assertEquals('table_box', $table);
     $this->assertEquals('Box Name', $data['box_name']);
     $this->assertEquals(21, $data['boxgroup_id']);
     $this->assertEquals(1, $data['box_created']);
@@ -206,7 +206,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
-      ->with('box_public_trans', array('box_id' => 21, 'lng_id' => array(23, 42)))
+      ->with('table_box_public_trans', array('box_id' => 21, 'lng_id' => array(23, 42)))
       ->will($this->returnValue(0));
     $databaseAccess
       ->expects($this->once())
@@ -216,7 +216,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
-      ->with('box', array('box_unpublished_languages' => 1), array('box_id' => 21));
+      ->with('table_box', array('box_unpublished_languages' => 1), array('box_id' => 21));
     $box->setDatabaseAccess($databaseAccess);
 
     $this->assertTrue($box->publish(array(23, 42), 123, 456));
@@ -250,7 +250,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
-      ->with('box_public_trans', array('box_id' => 21, 'lng_id' => array(23, 42)))
+      ->with('table_box_public_trans', array('box_id' => 21, 'lng_id' => array(23, 42)))
       ->will($this->returnValue(FALSE));
     $box->setDatabaseAccess($databaseAccess);
 
@@ -291,7 +291,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
-      ->with('box_public_trans', array('box_id' => 21, 'lng_id' => array(23, 42)))
+      ->with('table_box_public_trans', array('box_id' => 21, 'lng_id' => array(23, 42)))
       ->will($this->returnValue(0));
     $databaseAccess
       ->expects($this->once())

@@ -30,7 +30,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('box_trans', 'views', 'modules', 42, 1))
+      ->with($this->isType('string'), array('table_box_trans', 'table_views', 'table_modules', 42, 1))
       ->will($this->returnValue($databaseResult));
     $translation = new PapayaContentBoxTranslation();
     $translation->setDatabaseAccess($databaseAccess);
@@ -69,7 +69,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), $this->equalTo(array('box_trans', 42, 21)))
+      ->with($this->isType('string'), $this->equalTo(array('table_box_trans', 42, 21)))
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())
@@ -90,7 +90,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
   }
 
   public function checkInsertData($table, $idField, array $data) {
-    $this->assertEquals('box_trans', $table);
+    $this->assertEquals('table_box_trans', $table);
     $this->assertNull($idField);
     $this->assertEquals(42, $data['box_id']);
     $this->assertEquals(21, $data['lng_id']);
@@ -118,7 +118,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), $this->equalTo(array('box_trans', 42, 21)))
+      ->with($this->isType('string'), $this->equalTo(array('table_box_trans', 42, 21)))
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())
@@ -139,7 +139,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
   }
 
   public function checkUpdateData($table, $data, $filter) {
-    $this->assertEquals('box_trans', $table);
+    $this->assertEquals('table_box_trans', $table);
     $this->assertEquals('box title', $data['box_title']);
     $this->assertEquals(
       /** @lang XML */
@@ -167,7 +167,7 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), $this->equalTo(array('box_trans', 42, 21)))
+      ->with($this->isType('string'), $this->equalTo(array('table_box_trans', 42, 21)))
       ->will($this->returnValue(FALSE));
     $translation = new PapayaContentBoxTranslation();
     $translation->setDatabaseAccess($databaseAccess);

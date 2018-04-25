@@ -28,7 +28,7 @@ class PapayaContentPageVersionsTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('topic_versions', 42), 10, 0)
+      ->with($this->isType('string'), array('table_topic_versions', 42), 10, 0)
       ->will($this->returnValue($databaseResult));
     $list = new PapayaContentPageVersions();
     $list->setDatabaseAccess($databaseAccess);
@@ -57,7 +57,7 @@ class PapayaContentPageVersionsTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('topic_versions', 21))
+      ->with($this->isType('string'), array('table_topic_versions', 21))
       ->will($this->returnValue(FALSE));
     $list = new PapayaContentPageVersions();
     $list->setDatabaseAccess($databaseAccess);

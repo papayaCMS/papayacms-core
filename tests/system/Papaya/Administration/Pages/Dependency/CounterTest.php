@@ -40,8 +40,8 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          PapayaContentTables::PAGE_DEPENDENCIES,
-          PapayaContentTables::PAGE_REFERENCES,
+          'table_'.PapayaContentTables::PAGE_DEPENDENCIES,
+          'table_'.PapayaContentTables::PAGE_REFERENCES,
           42
         )
       )

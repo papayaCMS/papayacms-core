@@ -21,7 +21,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('sample_table', 42))
+      ->with($this->isType('string'), array('table_sample_table', 42))
       ->will($this->returnValue($databaseResult));
     $item = new PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
@@ -51,7 +51,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('insertRecord')
       ->with(
-        'sample_table',
+        'table_sample_table',
         'sample_id',
         array(
           'sample_title' => 'title text'
@@ -81,7 +81,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('insertRecord')
       ->with(
-        'sample_table',
+        'table_sample_table',
         'sample_id',
         array(
           'sample_title' => 'title text'
@@ -118,14 +118,14 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->equalTo("SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
-        $this->equalTo(array('sample_table', 42))
+        $this->equalTo(array('table_sample_table', 42))
       )
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
       ->with(
-        'sample_table',
+        'table_sample_table',
         NULL,
         array(
           'sample_id' => 42,
@@ -161,14 +161,14 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->equalTo("SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
-        $this->equalTo(array('sample_table', 42))
+        $this->equalTo(array('table_sample_table', 42))
       )
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
       ->with(
-        'sample_table',
+        'table_sample_table',
         NULL,
         array(
           'sample_id' => 42,
@@ -199,7 +199,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->equalTo("SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
-        $this->equalTo(array('sample_table', 42))
+        $this->equalTo(array('table_sample_table', 42))
       )
       ->will($this->returnValue(FALSE));
     $item = new PapayaDatabaseObjectRecord_TestProxy();
@@ -241,7 +241,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('updateRecord')
       ->with(
-        'sample_table',
+        'table_sample_table',
         array('sample_id' => 23, 'sample_title' => 'title text'),
         array('sample_id' => 23)
       )
@@ -274,14 +274,14 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->equalTo("SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
-        $this->equalTo(array('sample_table', 42))
+        $this->equalTo(array('table_sample_table', 42))
       )
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
       ->with(
-        'sample_table',
+        'table_sample_table',
         array(
           'sample_id' => 42,
           'sample_title' => 'title text'
@@ -530,7 +530,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
-        "SELECT sample_id, sample_title FROM %s WHERE sample_id= '%s'", array('sample_table', 42)
+        "SELECT sample_id, sample_title FROM %s WHERE sample_id= '%s'", array('table_sample_table', 42)
       )
       ->will($this->returnValue($databaseResult));
     $item = new PapayaDatabaseObjectRecord_TestProxy();
@@ -540,7 +540,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     );
     $item->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
-      $item->_loadRecordFromTable('sample_table', 'id', 42)
+      $item->_loadRecordFromTable('table_sample_table', 'id', 42)
     );
     $this->assertAttributeEquals(
       array(
@@ -570,7 +570,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with('SQL', array('sample_table', 42))
+      ->with('SQL', array('table_sample_table', 42))
       ->will($this->returnValue($databaseResult));
     $item = new PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
@@ -579,7 +579,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     );
     $item->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
-      $item->_loadRecord('SQL', array('sample_table', 42))
+      $item->_loadRecord('SQL', array('table_sample_table', 42))
     );
     $this->assertAttributeEquals(
       array(
@@ -605,12 +605,12 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with('SQL', array('sample_table', 42))
+      ->with('SQL', array('table_sample_table', 42))
       ->will($this->returnValue($databaseResult));
     $item = new PapayaDatabaseObjectRecord_TestProxy();
     $item->setDatabaseAccess($databaseAccess);
     $this->assertFalse(
-      $item->_loadRecord('SQL', array('sample_table', 42))
+      $item->_loadRecord('SQL', array('table_sample_table', 42))
     );
   }
 
@@ -622,12 +622,12 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with('SQL', array('sample_table', 42))
+      ->with('SQL', array('table_sample_table', 42))
       ->will($this->returnValue(FALSE));
     $item = new PapayaDatabaseObjectRecord_TestProxy();
     $item->setDatabaseAccess($databaseAccess);
     $this->assertFalse(
-      $item->_loadRecord('SQL', array('sample_table', 42))
+      $item->_loadRecord('SQL', array('table_sample_table', 42))
     );
   }
 
@@ -639,7 +639,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
-      ->with('sample_table', 'sample_id', array('sample_title' => 'title text'))
+      ->with('table_sample_table', 'sample_id', array('sample_title' => 'title text'))
       ->will($this->returnValue(21));
     $item = new PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
@@ -651,7 +651,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     );
     $item->setDatabaseAccess($databaseAccess);
     $this->assertEquals(
-      21, $item->_insertRecord('sample_table', 'id')
+      21, $item->_insertRecord('table_sample_table', 'id')
     );
   }
 
@@ -663,7 +663,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
-      ->with('sample_table', 'sample_id', array('sample_title' => 'title text'))
+      ->with('table_sample_table', 'sample_id', array('sample_title' => 'title text'))
       ->will($this->returnValue(21));
     $item = new PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
@@ -676,7 +676,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     );
     $item->setDatabaseAccess($databaseAccess);
     $this->assertEquals(
-      21, $item->_insertRecord('sample_table', 'id')
+      21, $item->_insertRecord('table_sample_table', 'id')
     );
   }
 
@@ -689,7 +689,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('insertRecord')
       ->with(
-        'sample_table',
+        'table_sample_table',
         NULL,
         array(
           'sample_id' => 23,
@@ -708,7 +708,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     );
     $item->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
-      $item->_insertRecord('sample_table', NULL)
+      $item->_insertRecord('table_sample_table', NULL)
     );
   }
 
@@ -720,7 +720,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
-      ->with('sample_table', array('sample_title' => 'title text'), array('sample_id' => 23))
+      ->with('table_sample_table', array('sample_title' => 'title text'), array('sample_id' => 23))
       ->will($this->returnValue(1));
     $item = new PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
@@ -731,7 +731,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       'title' => 'title text'
     );
     $item->setDatabaseAccess($databaseAccess);
-    $this->assertTrue($item->_updateRecord('sample_table', array('sample_id' => 23)));
+    $this->assertTrue($item->_updateRecord('table_sample_table', array('sample_id' => 23)));
   }
 
   /**
@@ -743,7 +743,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
-      ->with('sample_table', array('sample_id' => 42))
+      ->with('table_sample_table', array('sample_id' => 42))
       ->will($this->returnValue(1));
     $item = new PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(

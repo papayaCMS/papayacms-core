@@ -27,7 +27,7 @@ class PapayaContentBoxVersionsTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('box_versions', 42), 10, 0)
+      ->with($this->isType('string'), array('table_box_versions', 42), 10, 0)
       ->will($this->returnValue($databaseResult));
     $list = new PapayaContentBoxVersions();
     $list->setDatabaseAccess($databaseAccess);
@@ -55,7 +55,7 @@ class PapayaContentBoxVersionsTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('box_versions', 21))
+      ->with($this->isType('string'), array('table_box_versions', 21))
       ->will($this->returnValue(FALSE));
     $list = new PapayaContentBoxVersions();
     $list->setDatabaseAccess($databaseAccess);

@@ -143,7 +143,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('topic_dependencies', 42))
+      ->with($this->isType('string'), array('table_topic_dependencies', 42))
       ->will($this->returnValue($databaseResult));
     $dependency = new PapayaContentPageDependency();
     $dependency->setDatabaseAccess($databaseAccess);
@@ -163,7 +163,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('topic_dependencies', 42))
+      ->with($this->isType('string'), array('table_topic_dependencies', 42))
       ->will($this->returnValue($databaseResult));
     $dependency = new PapayaContentPageDependency();
     $dependency->setDatabaseAccess($databaseAccess);
@@ -178,7 +178,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('topic_dependencies', 42))
+      ->with($this->isType('string'), array('table_topic_dependencies', 42))
       ->will($this->returnValue(FALSE));
     $dependency = new PapayaContentPageDependency();
     $dependency->setDatabaseAccess($databaseAccess);
@@ -198,7 +198,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('topic_dependencies', 42))
+      ->with($this->isType('string'), array('table_topic_dependencies', 42))
       ->will($this->returnValue($databaseResult));
     $dependency = new PapayaContentPageDependency();
     $dependency->setDatabaseAccess($databaseAccess);
@@ -218,7 +218,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('topic_dependencies', 42))
+      ->with($this->isType('string'), array('table_topic_dependencies', 42))
       ->will($this->returnValue($databaseResult));
     $dependency = new PapayaContentPageDependency();
     $dependency->setDatabaseAccess($databaseAccess);
@@ -233,7 +233,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('topic_dependencies', 42))
+      ->with($this->isType('string'), array('table_topic_dependencies', 42))
       ->will($this->returnValue(FALSE));
     $dependency = new PapayaContentPageDependency();
     $dependency->setDatabaseAccess($databaseAccess);

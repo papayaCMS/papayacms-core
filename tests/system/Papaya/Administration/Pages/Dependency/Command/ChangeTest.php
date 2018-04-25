@@ -196,7 +196,7 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends PapayaTestCas
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('topic_trans', 'views', 21, 42))
+      ->with($this->isType('string'), array('table_topic_trans', 'table_views', 21, 42))
       ->will($this->returnValue($databaseResult));
 
     $record = $this->getRecordFixture(
@@ -251,7 +251,7 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends PapayaTestCas
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('topic_trans', 'views', 21, 42))
+      ->with($this->isType('string'), array('table_topic_trans', 'table_views', 21, 42))
       ->will($this->returnValue($databaseResult));
 
     $record = $this->getRecordFixture(

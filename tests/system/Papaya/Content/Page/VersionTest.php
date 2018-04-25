@@ -80,9 +80,7 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
       ->method('queryFmtWrite')
       ->with(
         $this->isType('string'),
-        $this->logicalOr(
-          array('topic_versions', 123, 'sample user id', 'test message', 1, 'topic', 21)
-        )
+        array('table_topic_versions', 123, 'sample user id', 'test message', 1, 'table_topic', 21)
       )
       ->will($this->returnValue(FALSE));
 

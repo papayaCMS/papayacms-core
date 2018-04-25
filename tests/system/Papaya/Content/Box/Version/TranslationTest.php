@@ -29,7 +29,7 @@ class PapayaContentBoxVersionTranslationTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('box_versions_trans', 'views', 'modules', 42, 1))
+      ->with($this->isType('string'), array('table_box_versions_trans', 'table_views', 'table_modules', 42, 1))
       ->will($this->returnValue($databaseResult));
     $translation = new PapayaContentBoxVersionTranslation();
     $translation->setDatabaseAccess($databaseAccess);

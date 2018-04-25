@@ -31,12 +31,12 @@ class PapayaContentViewConfigurationsTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          PapayaContentTables::VIEW_CONFIGURATIONS,
-          PapayaContentTables::VIEW_MODES,
-          PapayaContentTables::MODULES,
-          PapayaContentTables::VIEW_DATAFILTER_CONFIGURATIONS,
-          PapayaContentTables::VIEW_DATAFILTERS,
-          PapayaContentTables::MODULES
+          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.PapayaContentTables::VIEW_MODES,
+          'table_'.PapayaContentTables::MODULES,
+          'table_'.PapayaContentTables::VIEW_DATAFILTER_CONFIGURATIONS,
+          'table_'.PapayaContentTables::VIEW_DATAFILTERS,
+          'table_'.PapayaContentTables::MODULES
         ),
         10,
         0

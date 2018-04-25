@@ -23,14 +23,14 @@ class PapayaContentPagePublicationTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        $this->equalTo(array('topic_public'))
+        $this->equalTo(array('table_topic_public'))
       )
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
       ->with(
-        $this->equalTo('topic_public'),
+        $this->equalTo('table_topic_public'),
         $this->isNull(),
         $this->isType('array')
       )
@@ -115,14 +115,14 @@ class PapayaContentPagePublicationTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        $this->equalTo(array('topic_public'))
+        $this->equalTo(array('table_topic_public'))
       )
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
       ->with(
-        $this->equalTo('topic_public'),
+        $this->equalTo('table_topic_public'),
         $this->isType('array'),
         $this->equalTo(array('topic_id' => 42))
       )

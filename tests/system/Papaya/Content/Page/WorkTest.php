@@ -11,7 +11,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
-      ->with($this->equalTo('topic'), $this->equalTo('topic_id'), $this->isType('array'))
+      ->with($this->equalTo('table_topic'), $this->equalTo('topic_id'), $this->isType('array'))
       ->will($this->returnCallback(array($this, 'checkInsertData')));
     $page = new PapayaContentPageWork();
     $page->papaya($this->mockPapaya()->application());
@@ -97,7 +97,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('updateRecord')
       ->with(
-        $this->equalTo('topic'),
+        $this->equalTo('table_topic'),
         $this->isType('array'),
         $this->equalTo(array('topic_id' => '42'))
       )
@@ -353,7 +353,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
-      ->with('topic_public_trans', array('topic_id' => 21, 'lng_id' => array(23, 42)))
+      ->with('table_topic_public_trans', array('topic_id' => 21, 'lng_id' => array(23, 42)))
       ->will($this->returnValue(0));
     $databaseAccess
       ->expects($this->once())
@@ -363,7 +363,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
-      ->with('topic', array('topic_unpublished_languages' => 1), array('topic_id' => 21));
+      ->with('table_topic', array('topic_unpublished_languages' => 1), array('topic_id' => 21));
     $page->setDatabaseAccess($databaseAccess);
 
     $this->assertTrue($page->publish(array(23, 42), 123, 456));
@@ -397,7 +397,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
-      ->with('topic_public_trans', array('topic_id' => 21, 'lng_id' => array(23, 42)))
+      ->with('table_topic_public_trans', array('topic_id' => 21, 'lng_id' => array(23, 42)))
       ->will($this->returnValue(FALSE));
     $page->setDatabaseAccess($databaseAccess);
 
@@ -438,7 +438,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
-      ->with('topic_public_trans', array('topic_id' => 21, 'lng_id' => array(23, 42)))
+      ->with('table_topic_public_trans', array('topic_id' => 21, 'lng_id' => array(23, 42)))
       ->will($this->returnValue(0));
     $databaseAccess
       ->expects($this->once())

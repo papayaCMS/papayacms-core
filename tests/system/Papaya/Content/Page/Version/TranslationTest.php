@@ -30,7 +30,7 @@ class PapayaContentPageVersionTranslationTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('topic_versions_trans', 'views'))
+      ->with($this->isType('string'), array('table_topic_versions_trans', 'table_views'))
       ->will($this->returnValue($databaseResult));
     $translation = new PapayaContentPageVersionTranslation();
     $translation->setDatabaseAccess($databaseAccess);

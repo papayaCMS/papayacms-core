@@ -43,7 +43,7 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
       ->expects($this->once())
       ->method('updateRecord')
       ->with(
-        'topic',
+        'table_topic',
         array(
           'topic_modified' => 84,
           'surfer_useparent' => 1,

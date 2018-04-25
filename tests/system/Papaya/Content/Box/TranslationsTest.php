@@ -57,7 +57,7 @@ class PapayaContentBoxTranslationsTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('box_trans', 'views', 'modules', 42, 21))
+      ->with($this->isType('string'), array('table_box_trans', 'table_views', 'table_modules', 42, 21))
       ->will($this->returnValue(FALSE));
     $list = new PapayaContentBoxTranslations();
     $list->setDatabaseAccess($databaseAccess);

@@ -121,7 +121,7 @@ class PapayaAdministrationPermissionsTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array(PapayaContentTables::AUTHENTICATION_PERMISSIONS)
+        array('table_'.PapayaContentTables::AUTHENTICATION_PERMISSIONS)
       )
       ->will($this->returnValue($databaseResult));
     $permissions = new PapayaAdministrationPermissions();

@@ -33,8 +33,8 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          PapayaContentTables::PAGE_TRANSLATIONS,
-          PapayaContentTables::VIEWS
+          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.PapayaContentTables::VIEWS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -92,8 +92,8 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          PapayaContentTables::PAGE_TRANSLATIONS,
-          PapayaContentTables::VIEWS
+          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.PapayaContentTables::VIEWS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -132,8 +132,8 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          PapayaContentTables::PAGE_TRANSLATIONS,
-          PapayaContentTables::VIEWS
+          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.PapayaContentTables::VIEWS
         )
       )
       ->will($this->returnValue(FALSE));
@@ -161,8 +161,8 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          PapayaContentTables::PAGE_TRANSLATIONS,
-          PapayaContentTables::VIEWS
+          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.PapayaContentTables::VIEWS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -191,12 +191,12 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), $this->equalTo(array('topic_trans')))
+      ->with($this->isType('string'), $this->equalTo(array('table_topic_trans')))
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
-      ->with($this->equalTo('topic_trans'), $this->equalTo(NULL), $this->isType('array'))
+      ->with($this->equalTo('table_topic_trans'), $this->equalTo(NULL), $this->isType('array'))
       ->will($this->returnCallback(array($this, 'checkInsertData')));
     $translation = new PapayaContentPageTranslation();
     $translation->setDatabaseAccess($databaseAccess);
@@ -248,13 +248,13 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), $this->equalTo(array('topic_trans')))
+      ->with($this->isType('string'), $this->equalTo(array('table_topic_trans')))
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
       ->with(
-        $this->equalTo('topic_trans'),
+        $this->equalTo('table_topic_trans'),
         $this->isType('array'),
         $this->equalTo(
           array('topic_id' => 42, 'lng_id' => 21)
