@@ -8,6 +8,7 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
   */
   public function testSaveBlockingUpdateExpectingException() {
     $version = new PapayaContentBoxVersion();
+    /** @noinspection PhpUndefinedFieldInspection */
     $version->id = 42;
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('LogicException: Box versions can not be changed.');
@@ -29,11 +30,12 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
   * @covers PapayaContentBoxVersion::create
   */
   public function testSave() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmtWrite', 'lastInsertId'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
+    $databaseAccess
+      ->expects($this->any())
+      ->method('getTableName')
+      ->withAnyParameters()
+      ->will($this->returnArgument(0));
     $databaseAccess
       ->expects($this->any())
       ->method('lastInsertId')
@@ -72,9 +74,7 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
   * @covers PapayaContentBoxVersion::create
   */
   public function testSaveWithDatabaseErrorInFirstQueryExpectingFalse() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmtWrite'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getTableName')

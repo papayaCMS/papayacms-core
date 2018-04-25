@@ -7,9 +7,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   * @covers PapayaContentBoxWork::save
   */
   public function testSaveCreateNew() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'insertRecord'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getTableName')
@@ -18,7 +16,6 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
-      ->with($this->equalTo('papaya_box'), $this->equalTo('box_id'), $this->isType('array'))
       ->will($this->returnCallback(array($this, 'checkInsertData')));
     $box = new PapayaContentBoxWork();
     $box->papaya($this->mockPapaya()->application());
@@ -38,6 +35,8 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   }
 
   public function checkInsertData($table, $idField, $data) {
+    $this->assertEquals('papaya_box', $table);
+    $this->assertEquals('box_id', $idField);
     $this->assertEquals('Box Name', $data['box_name']);
     $this->assertEquals(21, $data['boxgroup_id']);
     $this->assertGreaterThan(0, $data['box_created']);
@@ -52,9 +51,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   * @covers PapayaContentBoxWork::save
   */
   public function testSaveUpdateExisting() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'updateRecord'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getTableName')
@@ -63,11 +60,6 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
-      ->with(
-        $this->equalTo('papaya_box'),
-        $this->isType('array'),
-        $this->equalTo(array('box_id' => 42))
-      )
       ->will($this->returnCallback(array($this, 'checkUpdateData')));
     $box = new PapayaContentBoxWork();
     $box->papaya($this->mockPapaya()->application());
@@ -88,6 +80,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   }
 
   public function checkUpdateData($table, $data, $filter) {
+    $this->assertEquals('papaya_box', $table);
     $this->assertEquals('Box Name', $data['box_name']);
     $this->assertEquals(21, $data['boxgroup_id']);
     $this->assertEquals(1, $data['box_created']);
@@ -95,6 +88,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $this->assertEquals(PapayaContentOptions::CACHE_SYSTEM, $data['box_cachemode']);
     $this->assertEquals(0, $data['box_cachetime']);
     $this->assertEquals(0, $data['box_unpublished_languages']);
+    $this->assertEquals(array('box_id' => 42), $filter);
     return 42;
   }
 
@@ -102,7 +96,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   * @covers PapayaContentBoxWork::_createPublicationObject
   */
   public function testCreatePublicationObject() {
-    $databaseAccess = $this->getMock(PapayaDatabaseAccess::class, array(), array(new stdClass));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $box = new PapayaContentBoxWork_TestProxy();
     $box->setDatabaseAccess($databaseAccess);
     $publication = $box->_createPublicationObject();
@@ -179,14 +173,14 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   */
   public function testPublishWithLanguagesPeriod() {
     $box = $this->getContentBoxFixture();
-    $translations = $this->getMock(PapayaContentBoxTranslations::class, array('count'));
+    $translations = $this->createMock(PapayaContentBoxTranslations::class);
     $translations
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(3));
     $box->translations($translations);
 
-    $publicTranslations = $this->getMock(PapayaContentBoxTranslations::class, array('count'));
+    $publicTranslations = $this->createMock(PapayaContentBoxTranslations::class);
     $publicTranslations
       ->expects($this->once())
       ->method('count')
@@ -213,11 +207,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
       ->will($this->returnValue($publicTranslations));
     $box->publicationObject = $publication;
 
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class,
-      array('getTableName', 'getSqlCondition', 'deleteRecord', 'queryFmt', 'updateRecord'),
-      array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getTableName')
@@ -271,11 +261,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
       ->will($this->returnValue(TRUE));
     $box->publicationObject = $publication;
 
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class,
-      array('getTableName', 'getSqlCondition', 'deleteRecord', 'queryFmt', 'updateRecord'),
-      array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getTableName')
@@ -316,11 +302,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
       ->will($this->returnValue(TRUE));
     $box->publicationObject = $publication;
 
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class,
-      array('getTableName', 'getSqlCondition', 'deleteRecord', 'queryFmt', 'updateRecord'),
-      array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getTableName')
@@ -366,10 +348,10 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
 
 class PapayaContentBoxWork_TestProxy extends PapayaContentBoxWork {
 
-  public $publicationObject = NULL;
+  public $publicationObject;
 
   public function _createPublicationObject() {
-    if (isset($this->publicationObject)) {
+    if (NULL !== $this->publicationObject) {
       return $this->publicationObject;
     }
     return parent::_createPublicationObject();

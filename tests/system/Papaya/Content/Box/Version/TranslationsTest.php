@@ -24,9 +24,7 @@ class PapayaContentBoxVersionTranslationsTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getTableName')
@@ -39,7 +37,7 @@ class PapayaContentBoxVersionTranslationsTest extends PapayaTestCase {
       ->will($this->returnValue($databaseResult));
     $list = new PapayaContentBoxVersionTranslations();
     $list->setDatabaseAccess($databaseAccess);
-    $this->assertTrue($list->load(42, 1));
+    $this->assertTrue($list->load(42));
     $this->assertAttributeEquals(
       array(
         '1' => array(
@@ -59,9 +57,7 @@ class PapayaContentBoxVersionTranslationsTest extends PapayaTestCase {
   * @covers PapayaContentBoxVersionTranslations::getTranslation
   */
   public function testGetTranslation() {
-    $databaseAccess = $this->getMock(
-      PapayaDatabaseAccess::class, array('getTableName', 'queryFmt'), array(new stdClass)
-    );
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getTableName')
