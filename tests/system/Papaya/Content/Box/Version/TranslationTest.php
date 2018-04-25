@@ -27,11 +27,6 @@ class PapayaContentBoxVersionTranslationTest extends PapayaTestCase {
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
-    $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with($this->isType('string'), array('box_versions_trans', 'views', 'modules', 42, 1))

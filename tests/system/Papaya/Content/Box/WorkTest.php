@@ -10,11 +10,6 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
-      ->method('getTableName')
-      ->with('box')
-      ->will($this->returnValue('papaya_box'));
-    $databaseAccess
-      ->expects($this->once())
       ->method('insertRecord')
       ->will($this->returnCallback(array($this, 'checkInsertData')));
     $box = new PapayaContentBoxWork();
@@ -35,7 +30,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   }
 
   public function checkInsertData($table, $idField, $data) {
-    $this->assertEquals('papaya_box', $table);
+    $this->assertEquals('box', $table);
     $this->assertEquals('box_id', $idField);
     $this->assertEquals('Box Name', $data['box_name']);
     $this->assertEquals(21, $data['boxgroup_id']);
@@ -52,11 +47,6 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   */
   public function testSaveUpdateExisting() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $databaseAccess
-      ->expects($this->once())
-      ->method('getTableName')
-      ->with('box')
-      ->will($this->returnValue('papaya_box'));
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
@@ -80,7 +70,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
   }
 
   public function checkUpdateData($table, $data, $filter) {
-    $this->assertEquals('papaya_box', $table);
+    $this->assertEquals('box', $table);
     $this->assertEquals('Box Name', $data['box_name']);
     $this->assertEquals(21, $data['boxgroup_id']);
     $this->assertEquals(1, $data['box_created']);
@@ -209,11 +199,6 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
 
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->with($this->isType('string'))
-      ->will($this->returnArgument(0));
-    $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
       ->with($this->equalTo('lng_id'), $this->equalTo(array(23, 42)))
@@ -263,11 +248,6 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
 
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->with($this->isType('string'))
-      ->will($this->returnArgument(0));
-    $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
       ->with('box_public_trans', array('box_id' => 21, 'lng_id' => array(23, 42)))
@@ -303,11 +283,6 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $box->publicationObject = $publication;
 
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->with($this->isType('string'))
-      ->will($this->returnArgument(0));
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')

@@ -26,11 +26,6 @@ class PapayaContentBoxVersionTranslationsTest extends PapayaTestCase {
       );
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->with($this->isType('string'))
-      ->will($this->returnArgument(0));
-    $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->withAnyParameters()
@@ -58,11 +53,6 @@ class PapayaContentBoxVersionTranslationsTest extends PapayaTestCase {
   */
   public function testGetTranslation() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')

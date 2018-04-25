@@ -12,17 +12,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('fetchField')
       ->will($this->returnValue(0));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseAccess $databaseAccess */
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getTableName', 'queryFmt', 'insertRecord'))
-      ->setConstructorArgs(array(new stdClass))
-      ->getMock();
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->with($this->isType('string'))
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -74,11 +64,6 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(1));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->with($this->isType('string'))
-      ->will($this->returnArgument(0));
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -132,17 +117,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
   * @covers PapayaContentBoxPublication::save
   */
   public function testSaveWithSqlErrorOnCheckExistingExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseAccess $databaseAccess */
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getTableName', 'queryFmt', 'updateRecord'))
-      ->disableOriginalConstructor()
-      ->getMock();
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->with($this->isType('string'))
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')

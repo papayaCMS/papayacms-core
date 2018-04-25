@@ -33,11 +33,6 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
-    $databaseAccess
-      ->expects($this->any())
       ->method('lastInsertId')
       ->will($this->returnValue(42));
     $databaseAccess
@@ -75,11 +70,6 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
   */
   public function testSaveWithDatabaseErrorInFirstQueryExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmtWrite')

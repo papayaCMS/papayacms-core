@@ -25,11 +25,6 @@ class PapayaContentBoxVersionsTest extends PapayaTestCase {
       );
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->with($this->isType('string'))
-      ->will($this->returnArgument(0));
-    $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with($this->isType('string'), array('box_versions', 42), 10, 0)
@@ -57,11 +52,6 @@ class PapayaContentBoxVersionsTest extends PapayaTestCase {
   */
   public function testGetVersion() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')

@@ -28,11 +28,6 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
-    $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with($this->isType('string'), array('box_trans', 'views', 'modules', 42, 1))
@@ -71,11 +66,6 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(0));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -126,11 +116,6 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
       ->will($this->returnValue(1));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
-    $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with($this->isType('string'), $this->equalTo(array('box_trans', 42, 21)))
@@ -179,11 +164,6 @@ class PapayaContentBoxTranslationTest extends PapayaTestCase {
   */
   public function testSaveCheckFailesExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
