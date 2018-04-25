@@ -29,7 +29,7 @@ class PapayaFilterFactoryProfileGeneratorTest extends PapayaTestCase {
    */
   public function testGetFilterWithInvalidFilterClass() {
     $profile = new PapayaFilterFactoryProfileGenerator();
-    $profile->options(array('stdClass'));
+    $profile->options(array(stdClass::class));
     $this->expectException(PapayaFilterFactoryExceptionInvalidFilter::class);
     $profile->getFilter();
   }

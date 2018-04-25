@@ -229,7 +229,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
       'false' => array('', FALSE),
       'array' => array(array('42', 'hello', '1', ''), array(42, 'hello', TRUE, FALSE)),
       'array of array' => array(array(array('foo' => '42')), array(array('foo' => 42))),
-      'object' => array('stdClass', new stdClass()),
+      'object' => array(stdClass::class, new stdClass()),
       'object with __toString' => array('sample', new PapayaUiString('sample'))
     );
   }

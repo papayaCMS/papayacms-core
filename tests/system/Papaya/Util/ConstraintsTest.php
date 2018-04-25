@@ -153,7 +153,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   */
   public function testAssertInstanceOf() {
     $this->assertTrue(
-      PapayaUtilConstraints::assertInstanceOf('stdClass', new stdClass)
+      PapayaUtilConstraints::assertInstanceOf(stdClass::class, new stdClass)
     );
   }
 
@@ -171,7 +171,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   */
   public function testAssertInstanceOfWithTwoClasses() {
     $this->assertTrue(
-      PapayaUtilConstraints::assertInstanceOf(array('stdClass', PapayaTestCase::class), $this)
+      PapayaUtilConstraints::assertInstanceOf(array(stdClass::class, PapayaTestCase::class), $this)
     );
   }
 
@@ -180,7 +180,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   */
   public function testAssertInstanceOfFailureExpectingException() {
     $this->expectException(UnexpectedValueException::class);
-    PapayaUtilConstraints::assertInstanceOf('stdClass', $this);
+    PapayaUtilConstraints::assertInstanceOf(stdClass::class, $this);
   }
 
   /**
@@ -188,7 +188,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   */
   public function testAssertInstanceOfWithTwoClassesFailureExpectingException() {
     $this->expectException(UnexpectedValueException::class);
-    PapayaUtilConstraints::assertInstanceOf(array(PapayaUrl::class, 'stdClass'), $this);
+    PapayaUtilConstraints::assertInstanceOf(array(PapayaUrl::class, stdClass::class), $this);
   }
 
   /**

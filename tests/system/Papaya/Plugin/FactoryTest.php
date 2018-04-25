@@ -65,7 +65,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
       ->with('123456789012345678901234567890ab', NULL, NULL, FALSE)
       ->will($this->returnValue(new stdClass));
     $factory->loader($loader);
-    $this->assertInstanceOf('stdClass', $factory->get('samplePlugin'));
+    $this->assertInstanceOf(stdClass::class, $factory->get('samplePlugin'));
   }
 
   /**
@@ -80,7 +80,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
       ->with('123456789012345678901234567890ab', $owner, NULL, TRUE)
       ->will($this->returnValue(new stdClass));
     $factory->loader($loader);
-    $this->assertInstanceOf('stdClass', $factory->get('samplePlugin', TRUE));
+    $this->assertInstanceOf(stdClass::class, $factory->get('samplePlugin', TRUE));
   }
 
   /**
@@ -124,7 +124,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
       ->with('123456789012345678901234567890ab', NULL, NULL, FALSE)
       ->will($this->returnValue(new stdClass));
     $factory->loader($loader);
-    $this->assertInstanceOf('stdClass', $factory->samplePlugin);
+    $this->assertInstanceOf(stdClass::class, $factory->samplePlugin);
   }
 
   /**

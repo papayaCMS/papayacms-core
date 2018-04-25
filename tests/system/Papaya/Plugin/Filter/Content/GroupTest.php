@@ -48,7 +48,7 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
    */
   public function testPrepareBC() {
     $filterOne = $this->getMock(
-      'stdClass',
+      stdClass::class,
       array('initialize', 'prepareFilterData', 'loadFilterData')
     );
     $filterOne
@@ -90,7 +90,7 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
    */
   public function testApplyToBC() {
     $filterOne = $this->getMock(
-      'stdClass',
+      stdClass::class,
       array('applyFilterData')
     );
     $filterOne
@@ -128,7 +128,7 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
     $dom = new PapayaXmlDocument();
     $node = $dom->appendElement('test');
     $filterOne = $this->getMock(
-      'stdClass',
+      stdClass::class,
       array('getFilterData')
     );
     $filterOne
