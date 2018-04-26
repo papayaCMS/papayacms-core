@@ -113,7 +113,7 @@ class PapayaContentPageDependency extends PapayaDatabaseRecord {
    *
    * @throw UnexpectedValueException
    * @throws UnexpectedValueException
-   * @return boolean
+   * @return bool|PapayaDatabaseInterfaceKey
    */
   public function save() {
     if ($this->id < 1) {

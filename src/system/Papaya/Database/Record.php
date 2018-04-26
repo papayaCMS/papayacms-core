@@ -158,7 +158,7 @@ abstract class PapayaDatabaseRecord
   /**
   * Save record to database
   *
-  * @return mixed
+  * @return bool|PapayaDatabaseInterfaceKey
   */
   public function save() {
     if ($this->key()->exists()) {
