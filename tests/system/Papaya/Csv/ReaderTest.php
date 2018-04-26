@@ -39,7 +39,7 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   * @covers PapayaCsvReader::isValid
   */
   public function testIsValidExpectingTrue() {
-    $reader = new PapayaCsvReader(dirname(__FILE__).'/TestData/sample.csv');
+    $reader = new PapayaCsvReader(__DIR__.'/TestData/sample.csv');
     $this->assertTrue($reader->isValid(TRUE));
   }
 
@@ -47,7 +47,7 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   * @covers PapayaCsvReader::isValid
   */
   public function testIsValidDisallowLocalFilesExpectingException() {
-    $reader = new PapayaCsvReader(dirname(__FILE__).'/TestData/sample.csv');
+    $reader = new PapayaCsvReader(__DIR__.'/TestData/sample.csv');
     $this->expectException(LogicException::class);
     $reader->isValid(FALSE);
   }
@@ -56,7 +56,7 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   * @covers PapayaCsvReader::isValid
   */
   public function testIsValidNonExistingFileExpectingException() {
-    $reader = new PapayaCsvReader(dirname(__FILE__).'/TestData/INVALID_FILENAME.csv');
+    $reader = new PapayaCsvReader(__DIR__.'/TestData/INVALID_FILENAME.csv');
     $this->expectException(UnexpectedValueException::class);
     $reader->isValid(FALSE);
   }
@@ -65,7 +65,7 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   * @covers PapayaCsvReader::isValid
   */
   public function testIsValidEmptyFileExpectingException() {
-    $reader = new PapayaCsvReader(dirname(__FILE__).'/TestData/empty.csv');
+    $reader = new PapayaCsvReader(__DIR__.'/TestData/empty.csv');
     $this->expectException(LengthException::class);
     $reader->isValid(TRUE);
   }
@@ -74,7 +74,7 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   * @covers PapayaCsvReader::isValid
   */
   public function testIsValidFileToLargeExpectingException() {
-    $reader = new PapayaCsvReader(dirname(__FILE__).'/TestData/sample.csv');
+    $reader = new PapayaCsvReader(__DIR__.'/TestData/sample.csv');
     $reader->setMaximumFileSize(3);
     $this->expectException(LengthException::class);
     $reader->isValid(TRUE);
@@ -86,7 +86,7 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   * @dataProvider provideDataForFetchAssoc
   */
   public function testFetchAssoc($startOffset, $limit, $expectedOffset, $expectedData) {
-    $reader = new PapayaCsvReader(dirname(__FILE__).'/TestData/sample.csv');
+    $reader = new PapayaCsvReader(__DIR__.'/TestData/sample.csv');
     $offset = $startOffset;
     $data = $reader->fetchAssoc($offset, $limit);
     $this->assertEquals(

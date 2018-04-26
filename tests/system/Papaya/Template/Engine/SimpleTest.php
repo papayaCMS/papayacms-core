@@ -122,13 +122,13 @@ class PapayaTemplateEngineSimpleTest extends PapayaTestCase {
   */
   public function testSetTemplateFile() {
     $engine = new PapayaTemplateEngineSimple();
-    $engine->setTemplateFile(dirname(__FILE__).'/TestData/valid.css');
+    $engine->setTemplateFile(__DIR__.'/TestData/valid.css');
     $this->assertAttributeNotEmpty(
       '_template',
       $engine
     );
     $this->assertAttributeEquals(
-      dirname(__FILE__).'/TestData/valid.css',
+      __DIR__.'/TestData/valid.css',
       '_templateFile',
       $engine
     );

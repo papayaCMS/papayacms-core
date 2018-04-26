@@ -44,7 +44,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
     $handler
       ->expects($this->once())
       ->method('getLocalThemePath')
-      ->will($this->returnValue(dirname(__FILE__).'/TestData/'));
+      ->will($this->returnValue(__DIR__.'/TestData/'));
     $wrapper = new PapayaThemeWrapper();
     $wrapper->handler($handler);
     $this->assertInstanceOf(
@@ -172,7 +172,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getLocalThemePath')
       ->with('theme')
-      ->will($this->returnValue(dirname(__FILE__).'/TestData/'));
+      ->will($this->returnValue(__DIR__.'/TestData/'));
     $wrapper = new PapayaThemeWrapper();
     $wrapper->handler($handler);
     $this->assertEquals(
@@ -192,7 +192,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getLocalThemePath')
       ->with('theme')
-      ->will($this->returnValue(dirname(__FILE__).'/TestData/'));
+      ->will($this->returnValue(__DIR__.'/TestData/'));
     $wrapper = new PapayaThemeWrapper();
     $wrapper->handler($handler);
     $this->assertEquals(
@@ -231,7 +231,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('getLocalThemePath')
       ->with('theme')
-      ->will($this->returnValue(dirname(__FILE__).'/TestData/'));
+      ->will($this->returnValue(__DIR__.'/TestData/'));
     $wrapper = new PapayaThemeWrapper();
     $wrapper->handler($handler);
     $wrapper->templateEngine($engine);
@@ -619,7 +619,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
     $handler
       ->expects($this->any())
       ->method('getLocalThemePath')
-      ->will($this->returnValue(dirname(__FILE__).'/TestData/'));
+      ->will($this->returnValue(__DIR__.'/TestData/'));
     return $handler;
   }
 

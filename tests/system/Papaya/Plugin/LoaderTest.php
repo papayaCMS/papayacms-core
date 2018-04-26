@@ -126,7 +126,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
       $this->getPluginListFixture(
         array(
           'guid' => '123',
-          'path' => dirname(__FILE__).'/TestData/',
+          'path' => __DIR__.'/TestData/',
           'file' => 'SampleClass.php',
           'class' => 'PluginLoader_SampleClass'
         )
@@ -340,7 +340,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
       $this->getPluginListFixture(
         array(
           'guid' => '123',
-          'path' => str_replace('\\', '/', dirname(__FILE__)).'/TestData/',
+          'path' => str_replace('\\', '/', __DIR__).'/TestData/',
           'file' => 'SampleClass.php',
           'class' => 'PluginLoader_InvalidSampleClass',
           'prefix' => 'PluginLoaderAutoloadPrefix',
@@ -351,7 +351,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
     $this->assertNull($loader->get('123'));
     $this->assertAttributeEquals(
       array(
-        '/Plugin/Loader/Autoload/Prefix/' => str_replace('\\', '/', dirname(__FILE__)).'/TestData/'
+        '/Plugin/Loader/Autoload/Prefix/' => str_replace('\\', '/', __DIR__).'/TestData/'
       ),
       '_paths',
       PapayaAutoloader::class
@@ -369,7 +369,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
       $this->getPluginListFixture(
         array(
           'guid' => '123',
-          'path' => str_replace('\\', '/', dirname(__FILE__)).'/TestData/',
+          'path' => str_replace('\\', '/', __DIR__).'/TestData/',
           'file' => 'SampleClass.php',
           'class' => 'PluginLoader_SampleClass',
           'prefix' => '',
@@ -454,7 +454,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
       $this->getPluginListFixture(
         array(
           'guid' => '123',
-          'path' => $path = str_replace('\\', '/', dirname(__FILE__)).'/TestData/',
+          'path' => $path = str_replace('\\', '/', __DIR__).'/TestData/',
           'file' => '',
           'class' => 'PluginLoader_SampleClass',
           'classes' => '_classmap.php',

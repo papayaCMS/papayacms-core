@@ -1,5 +1,5 @@
 <?php
-include_once(dirname(__FILE__).'/../../../bootstrap.php');
+include_once(__DIR__.'/../../../bootstrap.php');
 
 class PapayaStringUtf8Test extends PapayaTestCase {
 

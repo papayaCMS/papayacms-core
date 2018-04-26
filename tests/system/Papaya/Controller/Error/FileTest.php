@@ -3,9 +3,9 @@ require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaControllerErrorFileTest extends PapayaTestCase {
 
-  function testSetTemplateFile() {
+  public function testSetTemplateFile() {
     $controller = new PapayaControllerErrorFile();
-    $fileName = dirname(__FILE__).'/TestData/template.txt';
+    $fileName = __DIR__.'/TestData/template.txt';
     $this->assertTrue(
       $controller->setTemplateFile($fileName)
     );
@@ -15,7 +15,7 @@ class PapayaControllerErrorFileTest extends PapayaTestCase {
     );
   }
 
-  function testSetTemplateFileWithInvalidArgument() {
+  public function testSetTemplateFileWithInvalidArgument() {
     $controller = new PapayaControllerErrorFile();
     $this->assertFalse(
       $controller->setTemplateFile('INVALID_FILENAME.txt')

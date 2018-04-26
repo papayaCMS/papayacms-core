@@ -25,7 +25,7 @@ class PapayaControllerFactoryTest extends PapayaTestCase {
   */
   public function testCreateErrorWithFile() {
     $error = PapayaControllerFactory::createError(
-      404, 'Test', 'TEST', dirname(__FILE__).'/Error/TestData/template.txt'
+      404, 'Test', 'TEST', __DIR__.'/Error/TestData/template.txt'
     );
     $this->assertInstanceOf(PapayaControllerErrorFile::class, $error);
     $this->assertAttributeEquals(

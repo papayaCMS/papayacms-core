@@ -9,7 +9,7 @@ class PapayaUtilStringAsciiArtworkTest extends PapayaTestCase {
   */
   public function testGet($string, $fileName) {
     $this->assertStringEqualsFile(
-      dirname(__FILE__).'/TestData/'.$fileName,
+      __DIR__.'/TestData/'.$fileName,
       PapayaUtilStringAsciiArtwork::get($string)
     );
   }

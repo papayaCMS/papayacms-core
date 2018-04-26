@@ -4,11 +4,11 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaHttpClientFileStringTest extends PapayaTestCase {
 
   function setUp() {
-    $this->_fileContents = file_get_contents(dirname(__FILE__).'/DATA/sample.txt');
+    $this->_fileContents = file_get_contents(__DIR__.'/DATA/sample.txt');
   }
 
   function testConstructor() {
-    $fileName = dirname(__FILE__);
+    $fileName = __DIR__;
     $file = new PapayaHttpClientFileString(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );

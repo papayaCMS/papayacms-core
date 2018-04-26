@@ -4,7 +4,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaHttpClientFileResourceTest extends PapayaTestCase {
 
   function setUp() {
-    $this->_fileResource = fopen(dirname(__FILE__).'/DATA/sample.txt', 'r');
+    $this->_fileResource = fopen(__DIR__.'/DATA/sample.txt', 'r');
   }
 
   function tearDown() {
@@ -17,7 +17,7 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   * @covers PapayaHttpClientFileResource::__construct
   */
   function testConstructor() {
-    $fileName = dirname(__FILE__);
+    $fileName = __DIR__;
     $file = new PapayaHttpClientFileResource(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );

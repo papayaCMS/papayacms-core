@@ -84,7 +84,7 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   public function testReadableWithDirectory() {
     $context = new PapayaMessageContextFile(__FILE__);
     $this->assertFalse(
-      $context->readable(dirname(__FILE__))
+      $context->readable(__DIR__)
     );
   }
 
@@ -112,7 +112,7 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   * @covers PapayaMessageContextFile::asString
   */
   public function testAsString() {
-    $context = new PapayaMessageContextFile(dirname(__FILE__).'/TestData/sample.txt');
+    $context = new PapayaMessageContextFile(__DIR__.'/TestData/sample.txt');
     $this->assertEquals(
       "Line1\nLine2\nLine3",
       $context->asString()
@@ -134,7 +134,7 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   * @covers PapayaMessageContextFile::asArray
   */
   public function testAsArray() {
-    $context = new PapayaMessageContextFile(dirname(__FILE__).'/TestData/sample.txt');
+    $context = new PapayaMessageContextFile(__DIR__.'/TestData/sample.txt');
     $this->assertEquals(
       array("Line1", "Line2", "Line3"),
       $context->asArray()
@@ -156,7 +156,7 @@ class PapayaMessageContextFileTest extends PapayaTestCase {
   * @covers PapayaMessageContextFile::asXhtml
   */
   public function testAsXhtml() {
-    $context = new PapayaMessageContextFile(dirname(__FILE__).'/TestData/sample.txt', 2, 3);
+    $context = new PapayaMessageContextFile(__DIR__.'/TestData/sample.txt', 2, 3);
     $this->assertEquals(
       '<ol class="file" style="white-space: pre; font-family: monospace;">'.
       '<li style="list-style-position: outside;">Line1</li>'.

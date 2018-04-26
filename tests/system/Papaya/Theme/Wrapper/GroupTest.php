@@ -108,7 +108,7 @@ class PapayaThemeWrapperGroupTest extends PapayaTestCase {
   * @covers PapayaThemeWrapperGroup::getDocument
   */
   public function testGetDocumentLoadingFile() {
-    $group = new PapayaThemeWrapperGroup(dirname(__FILE__).'/TestData/theme.xml');
+    $group = new PapayaThemeWrapperGroup(__DIR__.'/TestData/theme.xml');
     $this->assertInstanceOf('DOMDocument', $group->getDocument());
   }
 
@@ -118,7 +118,7 @@ class PapayaThemeWrapperGroupTest extends PapayaTestCase {
 
   public function getThemeDocumentFixture() {
     $document = new DOMDocument('1.0', 'UTF-8');
-    $document->load(dirname(__FILE__).'/TestData/theme.xml');
+    $document->load(__DIR__.'/TestData/theme.xml');
     return $document;
   }
 }

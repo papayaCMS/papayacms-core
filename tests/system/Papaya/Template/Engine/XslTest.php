@@ -16,7 +16,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   */
   public function testSetTemplateString() {
     $engine = new PapayaTemplateEngineXsl();
-    $engine->setTemplateString($string = file_get_contents(dirname(__FILE__).'/TestData/valid.xsl'));
+    $engine->setTemplateString($string = file_get_contents(__DIR__.'/TestData/valid.xsl'));
     $this->assertAttributeEquals(
       $string, '_template', $engine
     );
@@ -31,9 +31,9 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   */
   public function testSetTemplateFile() {
     $engine = new PapayaTemplateEngineXsl();
-    $engine->setTemplateFile(dirname(__FILE__).'/TestData/valid.xsl');
+    $engine->setTemplateFile(__DIR__.'/TestData/valid.xsl');
     $this->assertAttributeEquals(
-      dirname(__FILE__).'/TestData/valid.xsl',
+      __DIR__.'/TestData/valid.xsl',
       '_templateFile',
       $engine
     );
@@ -222,7 +222,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   * @covers PapayaTemplateEngineXsl::prepare
   */
   public function testPrepareWithXsltCache() {
-    $templateFile = dirname(__FILE__).'/TestData/valid.xsl';
+    $templateFile = __DIR__.'/TestData/valid.xsl';
     $processor = $this->getProcessorMock('XsltCache');
     $processor
       ->expects($this->once())
@@ -251,7 +251,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   * @covers PapayaTemplateEngineXsl::prepare
   */
   public function testPrepareWithXsltProcessorOnFile() {
-    $templateFile = dirname(__FILE__).'/TestData/valid.xsl';
+    $templateFile = __DIR__.'/TestData/valid.xsl';
     $processor = $this->getProcessorMock('XsltProcessor');
     $processor
       ->expects($this->once())
@@ -280,7 +280,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   * @covers PapayaTemplateEngineXsl::prepare
   */
   public function testPrepareWithXsltProcessorOnString() {
-    $templateString = file_get_contents(dirname(__FILE__).'/TestData/valid.xsl');
+    $templateString = file_get_contents(__DIR__.'/TestData/valid.xsl');
     $processor = $this->getProcessorMock('XsltProcessor');
     $processor
       ->expects($this->once())

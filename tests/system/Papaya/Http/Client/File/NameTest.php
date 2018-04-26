@@ -4,7 +4,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaHttpClientFileNameTest extends PapayaTestCase {
 
   function setUp() {
-    $this->_sampleFile = dirname(__FILE__).'/DATA/sample.txt';
+    $this->_sampleFile = __DIR__.'/DATA/sample.txt';
   }
 
   function testConstructor() {

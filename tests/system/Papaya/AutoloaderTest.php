@@ -15,7 +15,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   * @covers PapayaAutoloader
   */
   public function testLoad() {
-    PapayaAutoloader::load('AutoloaderTestClass', dirname(__FILE__).'/TestData/class.php');
+    PapayaAutoloader::load('AutoloaderTestClass', __DIR__.'/TestData/class.php');
     $this->assertTrue(class_exists('AutoloaderTestClass', FALSE));
   }
 
