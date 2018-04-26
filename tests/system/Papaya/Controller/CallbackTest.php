@@ -11,17 +11,18 @@ class PapayaControllerCallbackTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $response = $this->mockPapaya()->response();
 
-    $controller = new PapayaControllerCallback(array($this, 'callbackReturnsTrue'));
+    $controller = new PapayaControllerCallback(
+      function(
+        /** @noinspection PhpUnusedParameterInspection */
+        PapayaApplication $application,
+        PapayaRequest &$request,
+        PapayaResponse &$response
+      ) {
+        return TRUE;
+      }
+    );
     $this->assertTrue(
       $controller->execute($application, $request, $response)
     );
-  }
-
-  public function callbackReturnsTrue(
-    PapayaApplication $application,
-    PapayaRequest &$request,
-    PapayaResponse &$response
-  ) {
-    return TRUE;
   }
 }

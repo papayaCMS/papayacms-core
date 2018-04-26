@@ -12,6 +12,7 @@ class PapayaControllerImageTest extends PapayaTestCase {
   * @covers PapayaControllerImage::setImageGenerator
   */
   public function testSetImageGenerator() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|base_imagegenerator $generator */
     $generator = $this->createMock(base_imagegenerator::class);
     $controller = new PapayaControllerImage();
     $controller->setImageGenerator($generator);
@@ -24,6 +25,7 @@ class PapayaControllerImageTest extends PapayaTestCase {
   * @covers PapayaControllerImage::getImageGenerator
   */
   public function testGetImageGenerator() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|base_imagegenerator $generator */
     $generator = $this->createMock(base_imagegenerator::class);
     $controller = new PapayaControllerImage();
     $controller->setImageGenerator($generator);
@@ -36,10 +38,10 @@ class PapayaControllerImageTest extends PapayaTestCase {
   /**
   * @covers PapayaControllerImage::getImageGenerator
   */
-  public function testGetImageGeneratorImplizitCreate() {
+  public function testGetImageGeneratorImplicitCreate() {
     $controller = new PapayaControllerImage();
     $this->assertInstanceOf(
-      'base_imagegenerator',
+      base_imagegenerator::class,
       $controller->getImageGenerator()
     );
   }
@@ -57,6 +59,7 @@ class PapayaControllerImageTest extends PapayaTestCase {
     );
     $response = $this->mockPapaya()->response();
     $controller = new PapayaControllerImage();
+    /** @var PHPUnit_Framework_MockObject_MockObject|base_imagegenerator $generator */
     $generator = $this->createMock(base_imagegenerator::class);
     $generator
       ->expects($this->once())
@@ -66,7 +69,6 @@ class PapayaControllerImageTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('generateImage')
       ->will($this->returnValue(TRUE));
-    $dispatcher = $this->getMock(papaya_page::class, array('validateEditorAccess', 'logRequest'));
     $controller->setImageGenerator($generator);
     $this->assertTrue(
       $controller->execute($application, $request, $response)
@@ -86,6 +88,7 @@ class PapayaControllerImageTest extends PapayaTestCase {
     );
     $response = $this->mockPapaya()->response();
     $controller = new PapayaControllerImage();
+    /** @var PHPUnit_Framework_MockObject_MockObject|base_imagegenerator $generator */
     $generator = $this->createMock(base_imagegenerator::class);
     $generator
       ->expects($this->once())
@@ -95,7 +98,6 @@ class PapayaControllerImageTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('generateImage')
       ->will($this->returnValue(FALSE));
-    $dispatcher = $this->getMock(papaya_page::class, array('validateEditorAccess', 'logRequest'));
     $controller->setImageGenerator($generator);
     $this->assertInstanceOf(
       PapayaControllerError::class,
@@ -116,8 +118,8 @@ class PapayaControllerImageTest extends PapayaTestCase {
       )
     );
     $response = $this->mockPapaya()->response();
+    /** @var PHPUnit_Framework_MockObject_MockObject|base_imagegenerator $generator */
     $generator = $this->createMock(base_imagegenerator::class);
-    $dispatcher = $this->getMock(papaya_page::class, array('validateEditorAccess', 'logRequest'));
     $controller->setImageGenerator($generator);
     $this->assertInstanceOf(
       PapayaControllerError::class,
@@ -142,6 +144,7 @@ class PapayaControllerImageTest extends PapayaTestCase {
     );
     $response = $this->mockPapaya()->response();
     $controller = new PapayaControllerImage();
+    /** @var PHPUnit_Framework_MockObject_MockObject|base_imagegenerator $generator */
     $generator = $this->createMock(base_imagegenerator::class);
     $controller->setImageGenerator($generator);
     $this->assertInstanceOf(

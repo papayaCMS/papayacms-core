@@ -47,6 +47,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
     );
     $response = $this->mockPapaya()->response();
 
+    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
     $generator = $this->createMock(base_mediadb::class);
     $generator
       ->expects($this->once())
@@ -76,6 +77,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
     );
     $response = $this->mockPapaya()->response();
 
+    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
     $generator = $this->createMock(base_mediadb::class);
     $generator
       ->expects($this->once())
@@ -93,6 +95,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   * @covers PapayaControllerMedia::setMediaDatabase
   */
   public function testSetMediaDatabase() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
     $generator = $this->createMock(base_mediadb::class);
     $controller = new PapayaControllerMedia();
     $controller->setMediaDatabase($generator);
@@ -105,6 +108,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   * @covers PapayaControllerMedia::getMediaDatabase
   */
   public function testGetMediaDatabase() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
     $generator = $this->createMock(base_mediadb::class);
     $controller = new PapayaControllerMedia();
     $controller->setMediaDatabase($generator);
@@ -137,10 +141,8 @@ class PapayaControllerMediaTest extends PapayaTestCase {
 
     $application = $this->mockPapaya()->application(array('Surfer' => $surfer));
 
-    $generator = $this->getMock(
-      'base_mediadb',
-      array('getFolderPermissions')
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
+    $generator = $this->createMock(base_mediadb::class);
     $generator
       ->expects($this->once())
       ->method('getFolderPermissions')
@@ -172,10 +174,8 @@ class PapayaControllerMediaTest extends PapayaTestCase {
 
     $application = $this->mockPapaya()->application(array('Surfer' => $surfer));
 
-    $generator = $this->getMock(
-      'base_mediadb',
-      array('getFolderPermissions')
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
+    $generator = $this->createMock(base_mediadb::class);
     $generator
       ->expects($this->once())
       ->method('getFolderPermissions')
@@ -199,10 +199,8 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   * @covers PapayaControllerMedia::_outputPublicFile
   */
   public function testOutputPublicFileWithoutFolderPermissions() {
-    $generator = $this->getMock(
-      'base_mediadb',
-      array('getFolderPermissions')
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
+    $generator = $this->createMock(base_mediadb::class);
     $generator
       ->expects($this->once())
       ->method('getFolderPermissions')
