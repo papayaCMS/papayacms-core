@@ -7,7 +7,9 @@ class PapayaContentStructureGroupTest extends PapayaTestCase {
    * @covers PapayaContentStructureGroup::__construct
    */
   public function testConstructor() {
-    $group = new PapayaContentStructureGroup($page =$this->createMock(PapayaContentStructurePage::class));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructurePage $page */
+    $page =$this->createMock(PapayaContentStructurePage::class);
+    $group = new PapayaContentStructureGroup($page);
     $this->assertAttributeSame($page, '_page', $group);
   }
 
@@ -15,7 +17,9 @@ class PapayaContentStructureGroupTest extends PapayaTestCase {
    * @covers PapayaContentStructureGroup::values
    */
   public function testGroupsGetAfterSet() {
-    $group = new PapayaContentStructureGroup($this->createMock(PapayaContentStructurePage::class));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructurePage $page */
+    $page =$this->createMock(PapayaContentStructurePage::class);
+    $group = new PapayaContentStructureGroup($page);
     $values = $this
       ->getMockBuilder(PapayaContentStructureValues::class)
       ->disableOriginalConstructor()
@@ -28,7 +32,9 @@ class PapayaContentStructureGroupTest extends PapayaTestCase {
    * @covers PapayaContentStructureGroup::values
    */
   public function testGroupsGetImplicitCreate() {
-    $group = new PapayaContentStructureGroup($this->createMock(PapayaContentStructurePage::class));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructurePage $page */
+    $page =$this->createMock(PapayaContentStructurePage::class);
+    $group = new PapayaContentStructureGroup($page);
     $this->assertInstanceOf(PapayaContentStructureValues::class, $group->values());
   }
 
@@ -36,10 +42,8 @@ class PapayaContentStructureGroupTest extends PapayaTestCase {
    * @covers PapayaContentStructureGroup::getIdentifier
    */
   public function testGetIdentifier() {
-    $page = $this
-      ->getMockBuilder(PapayaContentStructurePage::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructurePage $page */
+    $page =$this->createMock(PapayaContentStructurePage::class);
     $page
       ->expects($this->once())
       ->method('getIdentifier')

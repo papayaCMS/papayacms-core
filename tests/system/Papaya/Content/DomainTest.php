@@ -8,6 +8,7 @@ class PapayaContentDomainTest extends PapayaTestCase {
   */
   public function testCreateMapping() {
     $record = new PapayaContentDomain();
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
     $mapping = $record->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValue));
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
@@ -19,6 +20,7 @@ class PapayaContentDomainTest extends PapayaTestCase {
   public function testCallbackFieldSerializationSerializeOptions() {
     $record = new PapayaContentDomain();
     $this->assertEquals(
+      /** @lang XML */
       '<data version="2"><data-element name="SAMPLE_OPTION">sample data</data-element></data>',
       $record->callbackFieldSerialization(
         new stdClass(),
@@ -42,6 +44,7 @@ class PapayaContentDomainTest extends PapayaTestCase {
         PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY,
         'options',
         'domain_options',
+        /** @lang XML */
         '<data version="2"><data-element name="SAMPLE_OPTION">sample data</data-element></data>'
       )
     );
@@ -78,6 +81,7 @@ class PapayaContentDomainTest extends PapayaTestCase {
         'domain_mode' => PapayaContentDomain::MODE_VIRTUAL_DOMAIN,
         'domain_data' => 'domain data',
         'domain_options' =>
+          /** @lang XML */
           '<data><data-element name="SAMPLE_OPTION">sample data</data-element></data>'
       ),
       $record->callbackUpdateHostLength(
@@ -100,6 +104,7 @@ class PapayaContentDomainTest extends PapayaTestCase {
           'domain_mode' => PapayaContentDomain::MODE_VIRTUAL_DOMAIN,
           'domain_data' => 'domain data',
           'domain_options' =>
+            /** @lang XML */
             '<data><data-element name="SAMPLE_OPTION">sample data</data-element></data>'
         )
       )
@@ -141,6 +146,7 @@ class PapayaContentDomainTest extends PapayaTestCase {
           'domain_mode' => PapayaContentDomain::MODE_VIRTUAL_DOMAIN,
           'domain_data' => 'domain data',
           'domain_options' =>
+            /** @lang XML */
             '<data><data-element name="SAMPLE_OPTION">sample data</data-element></data>'
         )
       )

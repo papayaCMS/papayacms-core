@@ -7,7 +7,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   * @covers PapayaContentBox::load
   */
   public function testLoad() {
-    $translations = $this->getMock(PapayaContentBoxTranslations::class, array('load'));
+    $translations = $this->createMock(PapayaContentBoxTranslations::class);
     $translations
       ->expects($this->once())
       ->method('load')

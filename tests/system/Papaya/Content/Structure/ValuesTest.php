@@ -7,6 +7,7 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
    * @covers PapayaContentStructureValues::__construct
    */
   public function testConstructor() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructureGroup $group */
     $group = $this
       ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
@@ -19,6 +20,7 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
    * @covers PapayaContentStructureValues::load
    */
   public function testLoad() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructureGroup $group */
     $group = $this
       ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
@@ -40,6 +42,7 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
    * @covers PapayaContentStructureValues::load
    */
   public function testLoadValueWithMultipleParameters() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructureGroup $group */
     $group = $this
       ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
@@ -63,7 +66,8 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
   /**
    * @covers PapayaContentStructureValues::load
    */
-  public function testLoadValueWithSinpleParameterAsAttribute() {
+  public function testLoadValueWithSimpleParameterAsAttribute() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructureGroup $group */
     $group = $this
       ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
@@ -80,6 +84,7 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
    * @covers PapayaContentStructureValues::load
    */
   public function testLoadValueWithParametersList() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructureGroup $group */
     $group = $this
       ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()

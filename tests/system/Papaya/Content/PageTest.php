@@ -7,7 +7,7 @@ class PapayaContentPageTest extends PapayaTestCase {
   * @covers PapayaContentPage
   */
   public function testLoad() {
-    $translations = $this->getMock(PapayaContentPageTranslations::class, array('load'));
+    $translations = $this->createMock(PapayaContentPageTranslations::class);
     $translations
       ->expects($this->once())
       ->method('load')

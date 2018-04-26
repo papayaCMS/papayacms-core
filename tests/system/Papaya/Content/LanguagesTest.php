@@ -87,14 +87,15 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentLanguages::getLanguage
-  * @dataProvider provideLanguageFilterVariants
-  */
+   * @covers PapayaContentLanguages::getLanguage
+   * @dataProvider provideLanguageFilterVariants
+   * @param mixed $languageFilter
+   */
   public function testGetLanguage($languageFilter) {
     $languages = new PapayaContentLanguages_TestProxy();
     $languages->papaya($this->mockPapaya()->application());
     $languages->setDatabaseAccess(
-      $this->getMock(PapayaDatabaseAccess::class, array(), array(new stdClass))
+      $this->mockPapaya()->databaseAccess()
     );
     $language = $languages->getLanguage($languageFilter);
     $this->assertInstanceOf(PapayaContentLanguage::class, $language);
@@ -265,11 +266,11 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   /**
   * @covers PapayaContentLanguages::getIdentiferById
   */
-  public function testGetIdentiferById() {
+  public function testGetIdentifierById() {
     $languages = new PapayaContentLanguages_TestProxy();
     $languages->papaya($this->mockPapaya()->application());
     $languages->setDatabaseAccess(
-      $this->getMock(PapayaDatabaseAccess::class, array(), array(new stdClass))
+      $this->mockPapaya()->databaseAccess()
     );
     $this->assertEquals(
       'de', $languages->getIdentiferById(2)
@@ -279,7 +280,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   /**
   * @covers PapayaContentLanguages::getIdentiferById
   */
-  public function testGetIdentiferByIdExpectingNull() {
+  public function testGetIdentifierByIdExpectingNull() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())

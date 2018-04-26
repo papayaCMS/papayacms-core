@@ -312,7 +312,9 @@ class PapayaContentPagesTest extends PapayaTestCase {
   */
   public function testMappingImplicitCreateAttachesCallback() {
     $pages = new PapayaContentPages();
-    $this->assertTrue(isset($pages->mapping()->callbacks()->onMapValue));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    $mapping = $pages->mapping();
+    $this->assertTrue(isset($mapping->callbacks()->onMapValue));
   }
 
   /**

@@ -24,7 +24,7 @@ class PapayaContentPagesPublicationsTest extends PapayaTestCase {
           $this->stringContains(
             "((t.published_from <= '123456789' AND t.published_to >= '123456789')"
           ),
-          $this->stringContains("OR t.published_to <= t.published_from)")
+          $this->stringContains('OR t.published_to <= t.published_from)')
         ),
         array(
           'table_'.PapayaContentTables::PAGE_PUBLICATIONS,

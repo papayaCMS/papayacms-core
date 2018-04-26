@@ -23,6 +23,9 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
   /**
    * @covers PapayaContentStructureNode
    * @dataProvider providePropertyValues
+   * @param mixed $expected
+   * @param string $name
+   * @param mixed $value
    */
   public function testGetAfterSet($expected, $name, $value) {
     $node = new PapayaContentStructureNode_TestProxy();
@@ -36,6 +39,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
   public function testSetInvalidPropertyExpectingException() {
     $node = new PapayaContentStructureNode_TestProxy();
     $this->expectException(UnexpectedValueException::class);
+    /** @noinspection PhpUndefinedFieldInspection */
     $node->INVALID = 'foo';
   }
 
@@ -45,7 +49,8 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
   public function testGetInvalidPropertyExpectingException() {
     $node = new PapayaContentStructureNode_TestProxy();
     $this->expectException(UnexpectedValueException::class);
-    $result = $node->INVALID;
+    /** @noinspection PhpUndefinedFieldInspection */
+    $node->INVALID;
   }
 
   /**
@@ -54,6 +59,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
   public function testSetInvalidPropertyNameExpectingException() {
     $node = new PapayaContentStructureNode_TestProxy();
     $this->expectException(UnexpectedValueException::class);
+    /** @noinspection PhpUndefinedFieldInspection */
     $node->name = ':';
   }
 
@@ -61,7 +67,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
     return array(
       array('success', 'name', 'success'),
       array('success', 'getter', ''),
-      array('success', 'setter', ''),
+      array('success', 'setter', 'success'),
       array('success', 'property', 'success')
     );
   }
@@ -84,8 +90,8 @@ class PapayaContentStructureNode_TestProxy extends PapayaContentStructureNode {
     return 'success';
   }
 
-  public function setSetter($value) {
-    $this->setValue('setter', 'success');
+  public function setSetter($value = 'success') {
+    $this->setValue('setter', $value);
   }
 
 }
