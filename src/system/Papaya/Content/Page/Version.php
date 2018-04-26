@@ -25,8 +25,8 @@
 * @package Papaya-Library
 * @subpackage Content
 *
-* @property-read integer $id
-* @property-read integer $created
+* @property integer $id
+* @property integer $created
 * @property string $owner
 * @property string $message
 * @property integer $level
@@ -35,8 +35,8 @@
 * @property integer $position page position relative to its siblings
 * @property boolean $inheritBoxes box inheritance
 * @property integer $defaultLanguage default/fallback language,
-* @property integer $linkType page link type for navigations,
-* @property boolean $inheritMetaInfo inherit meta informations like page title and keywords,
+* @property integer $linkType page link type for navigation,
+* @property boolean $inheritMetaInfo inherit meta information like page title and keywords,
 * @property integer $changeFrequency change frequency (for search engines)
 * @property integer $priority content priority (for search engines)
 * @property integer $scheme page scheme (http, https or both)
@@ -95,7 +95,7 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
   *
   * @var PapayaContentPageVersionTranslations
   */
-  private $_translations = NULL;
+  private $_translations;
 
   /**
    * Saving an existing version is not allowed. The creation of a new version will be directly from
@@ -108,13 +108,13 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
   public function save() {
     if (isset($this->id)) {
       throw new LogicException('LogicException: Page versions can not be changed.');
-    } elseif (empty($this->pageId) || empty($this->owner) || empty($this->message)) {
+    }
+    if (empty($this->pageId) || empty($this->owner) || empty($this->message)) {
       throw new UnexpectedValueException(
         'UnexpectedValueException: page id, owner or message are missing.'
       );
-    } else {
-      return $this->create();
     }
+    return $this->create();
   }
 
   /**
@@ -123,17 +123,18 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
   * @return integer|FALSE
   */
   private function create() {
-    $sql = "INSERT INTO %s (
-                   version_time, version_author_id, version_message, topic_change_level,
-                   topic_id, topic_modified, topic_weight, topic_changefreq, topic_priority,
-                   meta_useparent, box_useparent, topic_mainlanguage, linktype_id, topic_protocol
-            )
-            SELECT
-                   '%d', '%s', '%s', '%d',
-                   topic_id, topic_modified, topic_weight, topic_changefreq, topic_priority,
-                   meta_useparent, box_useparent, topic_mainlanguage, linktype_id, topic_protocol
-              FROM %s
-             WHERE topic_id = '%d'";
+    $sql = /** @lang Text */
+      "INSERT INTO %s (
+             version_time, version_author_id, version_message, topic_change_level,
+             topic_id, topic_modified, topic_weight, topic_changefreq, topic_priority,
+             meta_useparent, box_useparent, topic_mainlanguage, linktype_id, topic_protocol
+      )
+      SELECT
+             '%d', '%s', '%s', '%d',
+             topic_id, topic_modified, topic_weight, topic_changefreq, topic_priority,
+             meta_useparent, box_useparent, topic_mainlanguage, linktype_id, topic_protocol
+        FROM %s
+       WHERE topic_id = '%d'";
     $parameters = array(
       $this->databaseGetTableName($this->_tableName),
       isset($this->created) ? $this->created : time(),
@@ -147,16 +148,17 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
       $newId = $this->databaseLastInsertId(
         $this->databaseGetTableName($this->_tableName), 'version_id'
       );
-      $sql = "INSERT INTO %s (
-                     version_id, lng_id, version_published,
-                     topic_id, topic_title, topic_content, author_id,
-                     view_id, meta_title, meta_keywords, meta_descr
-              )
-              SELECT '%d', tt.lng_id, 0, tt.topic_id, tt.topic_title,
-                     tt.topic_content, tt.author_id,
-                     tt.view_id, tt.meta_title, tt.meta_keywords, tt.meta_descr
-                FROM %s tt
-               WHERE tt.topic_id = %d";
+      $sql = /** @lang Text */
+        "INSERT INTO %s (
+               version_id, lng_id, version_published,
+               topic_id, topic_title, topic_content, author_id,
+               view_id, meta_title, meta_keywords, meta_descr
+        )
+        SELECT '%d', tt.lng_id, 0, tt.topic_id, tt.topic_title,
+               tt.topic_content, tt.author_id,
+               tt.view_id, tt.meta_title, tt.meta_keywords, tt.meta_descr
+          FROM %s tt
+         WHERE tt.topic_id = %d";
       $parameters = array(
         $this->databaseGetTableName(PapayaContentTables::PAGE_VERSION_TRANSLATIONS),
         $newId,
@@ -176,10 +178,10 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
    * @return PapayaContentPageVersionTranslations
    */
   public function translations(PapayaContentPageVersionTranslations $translations = NULL) {
-    if (isset($translations)) {
+    if (NULL !== $translations) {
       $this->_translations = $translations;
     }
-    if (is_null($this->_translations)) {
+    if (NULL === $this->_translations) {
       $this->_translations = new PapayaContentPageVersionTranslations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
     }

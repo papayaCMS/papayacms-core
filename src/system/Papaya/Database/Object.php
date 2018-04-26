@@ -50,9 +50,9 @@
 * @method int|FALSE databaseUpdateRecord() databaseUpdateRecord(string $table, array $values, mixed $filter, mixed $value = NULL)
 * @method array databaseQueryTableNames() databaseQueryTableNames()
 * @method array databaseQueryTableStructure() databaseQueryTableStructure(string $tableName)
-* @method array databaseGetTableName() databaseGetTableName($tableIdentifier, $usePrefix = TRUE)
-* @method array databaseGetTimestamp() databaseGetTimestamp()
-* @method int|string|NULL databaseLastInsertId() databaseLastInsertId()
+* @method string databaseGetTableName() databaseGetTableName($tableIdentifier, $usePrefix = TRUE)
+* @method int databaseGetTimestamp() databaseGetTimestamp()
+* @method int|string|NULL databaseLastInsertId() databaseLastInsertId(string $table, string $idField)
 */
 class PapayaDatabaseObject
   extends PapayaObject
