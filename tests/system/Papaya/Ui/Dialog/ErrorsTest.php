@@ -26,7 +26,7 @@ class PapayaUiDialogErrorsTest extends PapayaTestCase {
   public function testCountable() {
     $errors = new PapayaUiDialogErrors();
     $errors->add(new Exception(), new stdClass());
-    $this->assertEquals(1, count($errors));
+    $this->assertCount(1, $errors);
   }
 
   /**

@@ -18,7 +18,7 @@ class PapayaResponseHeadersTest extends PapayaTestCase {
   */
   public function testCountExpectingZero() {
     $headers = new PapayaResponseHeaders();
-    $this->assertEquals(0, count($headers));
+    $this->assertCount(0, $headers);
   }
 
   /**
@@ -27,7 +27,7 @@ class PapayaResponseHeadersTest extends PapayaTestCase {
   public function testCountExpectingOne() {
     $headers = new PapayaResponseHeaders();
     $headers['X-Sample'] = 'success';
-    $this->assertEquals(1, count($headers));
+    $this->assertCount(1, $headers);
   }
 
   /**

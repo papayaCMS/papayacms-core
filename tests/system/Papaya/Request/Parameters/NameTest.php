@@ -288,7 +288,7 @@ class PapayaRequestParametersNameTest extends PapayaTestCase {
   */
   public function testCountable() {
     $name = new PapayaRequestParametersName('foo/bar');
-    $this->assertEquals(2, count($name));
+    $this->assertCount(2, $name);
   }
 
   /**

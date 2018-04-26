@@ -183,10 +183,7 @@ class PapayaMessageManagerTest extends PapayaTestCase {
   */
   public function testHooksReadHooksImplizitCreate() {
     $manager = new PapayaMessageManager();
-    $this->assertEquals(
-      2,
-      count($manager->hooks())
-    );
+    $this->assertCount(2, $manager->hooks());
   }
 
   /**

@@ -19,10 +19,7 @@ class PapayaMessageExceptionTest extends PapayaTestCase {
       "Uncaught exception 'PapayaMessageException_Exception' with message 'Sample Error' in '",
       $this->readAttribute($message, '_message')
     );
-    $this->assertEquals(
-      1,
-      count($message->context())
-    );
+    $this->assertCount(1, $message->context());
   }
 }
 

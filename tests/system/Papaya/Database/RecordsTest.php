@@ -425,7 +425,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
     $records = new PapayaDatabaseRecords_TestProxy();
     $records[] = array('id' => 21, 'data' => 'Hello World');
     $records[] = array('id' => 42, 'data' => 'Hello World');
-    $this->assertEquals(2, count($records));
+    $this->assertCount(2, $records);
   }
 }
 

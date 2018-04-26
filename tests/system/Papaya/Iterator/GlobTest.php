@@ -70,8 +70,6 @@ class PapayaIteratorGlobTest extends PapayaTestCase {
   */
   public function testCount() {
     $glob = new PapayaIteratorGlob(dirname(__FILE__).'/TestDataGlob/*.*');
-    $this->assertEquals(
-      2, count($glob)
-    );
+    $this->assertCount(2, $glob);
   }
 }

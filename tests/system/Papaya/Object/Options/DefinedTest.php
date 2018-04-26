@@ -20,10 +20,7 @@ class PapayaObjectOptionsDefinedTest extends PapayaTestCase {
   */
   public function testCount() {
     $options = new PapayaObjectOptionsDefined_TestProxy();
-    $this->assertEquals(
-      1,
-      count($options)
-    );
+    $this->assertCount(1, $options);
   }
 
   /**

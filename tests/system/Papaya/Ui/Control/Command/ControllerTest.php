@@ -279,7 +279,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   */
   public function testCountExpectingZero() {
     $controller = new PapayaUiControlCommandController('sample', 'default');
-    $this->assertEquals(0, count($controller));
+    $this->assertCount(0, $controller);
   }
 
   /**
@@ -289,7 +289,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
     $controller = new PapayaUiControlCommandController('sample', 'default');
     $controller['one'] = $this->createMock(PapayaUiControlCommand::class);
     $controller['two'] = $this->createMock(PapayaUiControlCommand::class);
-    $this->assertEquals(2, count($controller));
+    $this->assertCount(2, $controller);
   }
 
   /**

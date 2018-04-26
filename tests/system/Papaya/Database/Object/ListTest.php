@@ -29,9 +29,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   */
   public function testCount() {
     $list = new PapayaDatabaseObjectList_TestProxy();
-    $this->assertEquals(
-      2, count($list)
-    );
+    $this->assertCount(2, $list);
   }
 
   /**

@@ -502,9 +502,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     $collection = new PapayaUiControlCollection();
     $collection->add($itemOne);
     $collection->add($itemTwo);
-    $this->assertEquals(
-      2, count($collection)
-    );
+    $this->assertCount(2, $collection);
   }
 
   /**

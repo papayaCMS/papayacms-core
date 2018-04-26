@@ -205,7 +205,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
   */
   public function testCountExpectingZero() {
     $list = new PapayaUiControlCommandList();
-    $this->assertEquals(0, count($list));
+    $this->assertCount(0, $list);
   }
 
   /**
@@ -216,7 +216,7 @@ class PapayaUiControlCommandListTest extends PapayaTestCase {
       $this->createMock(PapayaUiControlCommand::class),
       $this->createMock(PapayaUiControlCommand::class)
     );
-    $this->assertEquals(2, count($list));
+    $this->assertCount(2, $list);
   }
 
   /**

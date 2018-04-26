@@ -48,9 +48,7 @@ class PapayaHttpHeadersTest extends PapayaTestCase {
     $headers = new PapayaHttpHeaders(
       array('X-Hello' => 'World', 'X-World' => 'Hello')
     );
-    $this->assertEquals(
-      2, count($headers)
-    );
+    $this->assertCount(2, $headers);
   }
 
   /**

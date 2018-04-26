@@ -65,7 +65,7 @@ class PapayaUiIconListTest extends PapayaTestCase {
   */
   public function testCountExpectingZero() {
     $list = new PapayaUiIconList();
-    $this->assertEquals(0, count($list));
+    $this->assertCount(0, $list);
   }
 
   /**
@@ -75,7 +75,7 @@ class PapayaUiIconListTest extends PapayaTestCase {
     $list = new PapayaUiIconList();
     $list['one'] = $icon = new PapayaUiIcon('one.png');
     $list['two'] = $icon = new PapayaUiIcon('two.png');
-    $this->assertEquals(2, count($list));
+    $this->assertCount(2, $list);
   }
 
   /**

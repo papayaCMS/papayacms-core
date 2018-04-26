@@ -105,14 +105,10 @@ class PapayaRequestLogTest extends PapayaTestCase {
   }
 
   public function checkLogMessageContextWithStop($logMessage) {
-    $this->assertEquals(
-      3, count($logMessage->context())
-    );
+    $this->assertCount(3, $logMessage->context());
   }
 
   public function checkLogMessageContext($logMessage) {
-    $this->assertEquals(
-      2, count($logMessage->context())
-    );
+    $this->assertCount(2, $logMessage->context());
   }
 }

@@ -18,9 +18,6 @@ class PapayaMessagePhpErrorTest extends PapayaTestCase {
       '_message',
       $message
     );
-    $this->assertEquals(
-      2,
-      count($message->context())
-    );
+    $this->assertCount(2, $message->context());
   }
 }
