@@ -8,6 +8,7 @@ class PapayaContentMediaFoldersTest extends PapayaTestCase {
    */
   public function testCreateMapping() {
     $records = new PapayaContentMediaFolders();
+    /** @var PapayaDatabaseRecordMapping $mapping */
     $mapping = $records->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));
     $this->assertTrue(isset($mapping->callbacks()->onGetFieldForProperty));
@@ -54,11 +55,13 @@ class PapayaContentMediaFoldersTest extends PapayaTestCase {
   /**
    * @covers PapayaContentMediaFolders::callbackGetFieldForProperty
    * @dataProvider providePropertyToFieldValues
+   * @param string $expected
+   * @param string $property
    */
   public function testCallbackGetFieldForProperty($expected, $property) {
     $records = new PapayaContentMediaFolders();
     $this->assertEquals(
-      $expected, $records->callbackGetFieldForProperty(new stdClass, $property, '')
+      $expected, $records->callbackGetFieldForProperty(new stdClass, $property)
     );
   }
 
@@ -105,17 +108,13 @@ class PapayaContentMediaFoldersTest extends PapayaTestCase {
           )
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('mediadb_folders', 'mediadb_folders_trans', 1)
+        array('table_mediadb_folders', 'table_mediadb_folders_trans', 1)
       )
       ->will($this->returnValue($databaseResult));
 
@@ -173,17 +172,13 @@ class PapayaContentMediaFoldersTest extends PapayaTestCase {
           )
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('mediadb_folders', 'mediadb_folders_trans', 0)
+        array('table_mediadb_folders', 'table_mediadb_folders_trans', 0)
       )
       ->will($this->returnValue($databaseResult));
 
