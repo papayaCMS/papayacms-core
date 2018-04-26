@@ -29,12 +29,12 @@
  * @property PapayaObjectCallback $onAfterUpdate
  * @property PapayaObjectCallback $onAfterInsert
  * @property PapayaObjectCallback $onAfterDelete
- * @method boolean onBeforeUpdate
- * @method boolean onBeforeInsert
- * @method boolean onBeforeDelete
- * @method boolean onAfterUpdate
- * @method boolean onAfterInsert
- * @method boolean onAfterDelete
+ * @method boolean onBeforeUpdate(PapayaDatabaseRecord $record)
+ * @method boolean onBeforeInsert(PapayaDatabaseRecord $record)
+ * @method boolean onBeforeDelete(PapayaDatabaseRecord $record)
+ * @method boolean onAfterUpdate(PapayaDatabaseRecord $record)
+ * @method boolean onAfterInsert(PapayaDatabaseRecord $record)
+ * @method boolean onAfterDelete(PapayaDatabaseRecord $record)
 */
 class PapayaDatabaseRecordCallbacks extends PapayaObjectCallbacks {
 
