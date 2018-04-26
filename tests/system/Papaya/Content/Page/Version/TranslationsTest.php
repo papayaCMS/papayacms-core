@@ -32,7 +32,7 @@ class PapayaContentPageVersionTranslationsTest extends PapayaTestCase {
       ->will($this->returnValue($databaseResult));
     $list = new PapayaContentPageVersionTranslations();
     $list->setDatabaseAccess($databaseAccess);
-    $this->assertTrue($list->load(42, 1));
+    $this->assertTrue($list->load(42));
     $this->assertAttributeEquals(
       array(
         '1' => array(

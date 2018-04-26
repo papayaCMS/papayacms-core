@@ -29,11 +29,6 @@ class PapayaContentPagePublicationTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
-      ->with(
-        $this->equalTo('table_topic_public'),
-        $this->isNull(),
-        $this->isType('array')
-      )
       ->will($this->returnCallback(array($this, 'checkInsertData')));
     $page = new PapayaContentPagePublication();
     $page->papaya($this->mockPapaya()->application());
@@ -68,6 +63,8 @@ class PapayaContentPagePublicationTest extends PapayaTestCase {
   }
 
   public function checkInsertData($table, $idField, $data) {
+    $this->assertEquals('table_topic_public', $table);
+    $this->assertNull($idField);
     $this->assertEquals(42, $data['topic_id']);
     $this->assertEquals(21, $data['prev']);
     $this->assertEquals(';0;11;', $data['prev_path']);
@@ -121,11 +118,6 @@ class PapayaContentPagePublicationTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
-      ->with(
-        $this->equalTo('table_topic_public'),
-        $this->isType('array'),
-        $this->equalTo(array('topic_id' => 42))
-      )
       ->will($this->returnCallback(array($this, 'checkUpdateData')));
     $page = new PapayaContentPagePublication();
     $page->papaya($this->mockPapaya()->application());
@@ -160,6 +152,7 @@ class PapayaContentPagePublicationTest extends PapayaTestCase {
   }
 
   public function checkUpdateData($table, $data, $filter) {
+    $this->assertEquals('table_topic_public', $table);
     $this->assertEquals(21, $data['prev']);
     $this->assertEquals(';0;11;', $data['prev_path']);
     $this->assertEquals('123456789012345678901234567890ab', $data['author_id']);
@@ -183,6 +176,8 @@ class PapayaContentPagePublicationTest extends PapayaTestCase {
     $this->assertEquals(0, $data['topic_cachetime']);
     $this->assertEquals(PapayaContentOptions::CACHE_SYSTEM, $data['topic_expiresmode']);
     $this->assertEquals(0, $data['topic_expirestime']);
+
+    $this->assertEquals(array('topic_id' => 42), $filter);
     return 42;
   }
 

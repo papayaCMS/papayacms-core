@@ -18,16 +18,21 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
   */
   public function testCreateMapping() {
     $reference = new PapayaContentPageReference();
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
     $mapping = $reference->mapping();
     $this->assertInstanceOf(PapayaDatabaseRecordMapping::class, $mapping);
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
   }
 
   /**
-  * @covers PapayaContentPageReference::callbackSortPageIds
-  * @dataProvider provideMappingData
-  */
-  public function testCallbackSortPageIds($expected, $mode, $values, $record) {
+   * @covers PapayaContentPageReference::callbackSortPageIds
+   * @dataProvider provideMappingData
+   * @param array $expected
+   * @param int $mode
+   * @param array $values
+   * @param array $record
+   */
+  public function testCallbackSortPageIds(array $expected, $mode, array $values, array $record) {
     $reference = new PapayaContentPageReference();
     $this->assertEquals(
       $expected,

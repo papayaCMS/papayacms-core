@@ -92,7 +92,10 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->any())
       ->method('queryFmt')
-      ->with('SELECT COUNT(*) FROM %s WHERE >>CONDITION<<', array('table_topic_dependencies'))
+      ->with(
+        /** @lang Text */'SELECT COUNT(*) FROM %s WHERE >>CONDITION<<',
+        array('table_topic_dependencies')
+      )
       ->will($this->returnValue(NULL));
     $databaseAccess
       ->expects($this->once())

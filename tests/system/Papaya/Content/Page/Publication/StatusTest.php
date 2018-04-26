@@ -119,7 +119,11 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
   * Fixtures
   ****************/
 
-  public function getDatabaseAccessFixture($recordData) {
+  /**
+   * @param array $recordData
+   * @return PapayaDatabaseAccess|PHPUnit_Framework_MockObject_MockObject
+   */
+  public function getDatabaseAccessFixture(array $recordData) {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->atLeastOnce())
@@ -136,7 +140,7 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getSqlCondition')
       ->with($this->isType('array'))
-      ->will($this->returnValue(">>CONDITION<<"));
+      ->will($this->returnValue('>>CONDITION<<'));
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')

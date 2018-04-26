@@ -18,7 +18,7 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
   /**
   * @covers PapayaContentPageVersion::save
   */
-  public function testSaveInsertWhileMissingValuesExcpectingException() {
+  public function testSaveInsertWhileMissingValuesExpectingException() {
     $version = new PapayaContentPageVersion();
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: page id, owner or message are missing.');

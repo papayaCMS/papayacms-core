@@ -196,7 +196,6 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
-      ->with($this->equalTo('table_topic_trans'), $this->equalTo(NULL), $this->isType('array'))
       ->will($this->returnCallback(array($this, 'checkInsertData')));
     $translation = new PapayaContentPageTranslation();
     $translation->setDatabaseAccess($databaseAccess);
@@ -216,10 +215,13 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
   }
 
   public function checkInsertData($table, $idField, $data) {
+    $this->assertEquals('table_topic_trans', $table);
+    $this->assertNull($idField);
     $this->assertEquals(42, $data['topic_id']);
     $this->assertEquals(21, $data['lng_id']);
     $this->assertEquals('page title', $data['topic_title']);
     $this->assertEquals(
+      /** @lang XML */
       '<data version="2"><data-element name="foo">bar</data-element></data>',
       $data['topic_content']
     );
@@ -253,13 +255,6 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
-      ->with(
-        $this->equalTo('table_topic_trans'),
-        $this->isType('array'),
-        $this->equalTo(
-          array('topic_id' => 42, 'lng_id' => 21)
-        )
-      )
       ->will($this->returnCallback(array($this, 'checkUpdateData')));
     $translation = new PapayaContentPageTranslation();
     $translation->setDatabaseAccess($databaseAccess);
@@ -279,8 +274,10 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
   }
 
   public function checkUpdateData($table, $data, $filter) {
+    $this->assertEquals('table_topic_trans', $table);
     $this->assertEquals('page title', $data['topic_title']);
     $this->assertEquals(
+    /** @lang XML */
       '<data version="2"><data-element name="foo">bar</data-element></data>',
       $data['topic_content']
     );
@@ -288,6 +285,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
     $this->assertEquals('meta keywords', $data['meta_keywords']);
     $this->assertEquals('meta description', $data['meta_descr']);
     $this->assertEquals(23, $data['view_id']);
+    $this->assertEquals(array('topic_id' => 42, 'lng_id' => 21), $filter);
     return TRUE;
   }
 

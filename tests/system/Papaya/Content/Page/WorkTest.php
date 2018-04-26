@@ -11,7 +11,6 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
-      ->with($this->equalTo('table_topic'), $this->equalTo('topic_id'), $this->isType('array'))
       ->will($this->returnCallback(array($this, 'checkInsertData')));
     $page = new PapayaContentPageWork();
     $page->papaya($this->mockPapaya()->application());
@@ -46,6 +45,8 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   }
 
   public function checkInsertData($table, $idField, $data) {
+    $this->assertEquals('table_topic', $table);
+    $this->assertEquals('topic_id', $idField);
     $this->assertEquals(21, $data['prev']);
     $this->assertEquals(';0;11;', $data['prev_path']);
     $this->assertEquals('123456789012345678901234567890ab', $data['author_id']);
@@ -96,11 +97,6 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
-      ->with(
-        $this->equalTo('table_topic'),
-        $this->isType('array'),
-        $this->equalTo(array('topic_id' => '42'))
-      )
       ->will($this->returnCallback(array($this, 'checkUpdateData')));
     $page = new PapayaContentPageWork();
     $page->setDatabaseAccess($databaseAccess);
@@ -140,6 +136,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   }
 
   public function checkUpdateData($table, $data, $filter) {
+    $this->assertEquals('table_topic', $table);
     $this->assertEquals(21, $data['prev']);
     $this->assertEquals(';0;11;', $data['prev_path']);
     $this->assertEquals('123456789012345678901234567890ab', $data['author_id']);
@@ -160,6 +157,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $this->assertEquals(0, $data['topic_cachetime']);
     $this->assertEquals(PapayaContentOptions::CACHE_SYSTEM, $data['topic_expiresmode']);
     $this->assertEquals(0, $data['topic_expirestime']);
+    $this->assertEquals(array('topic_id' => 42), $filter);
     return TRUE;
   }
 
@@ -310,14 +308,14 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   */
   public function testPublishWithLanguagesPeriod() {
     $page = $this->getContentPageFixture();
-    $translations = $this->getMock(PapayaContentPageTranslations::class, array('count'));
+    $translations = $this->createMock(PapayaContentPageTranslations::class);
     $translations
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(3));
     $page->translations($translations);
 
-    $publicTranslations = $this->getMock(PapayaContentPageTranslations::class, array('count'));
+    $publicTranslations = $this->createMock(PapayaContentPageTranslations::class);
     $publicTranslations
       ->expects($this->once())
       ->method('count')
@@ -485,10 +483,10 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
 
 class PapayaContentPageWork_TestProxy extends PapayaContentPageWork {
 
-  public $publicationObject = NULL;
+  public $publicationObject;
 
   public function _createPublicationObject() {
-    if (isset($this->publicationObject)) {
+    if (NULL !== $this->publicationObject) {
       return $this->publicationObject;
     }
     return parent::_createPublicationObject();
