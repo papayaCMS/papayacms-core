@@ -1,21 +1,17 @@
 <?php
 /**
-* Csv reader class
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Csv
-* @version $Id: Reader.php 39633 2014-03-19 15:16:46Z gies $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Csv reader class
@@ -75,14 +71,16 @@ class PapayaCsvReader {
   }
 
   /**
-  * Check if the given file can be loaded.
-  *
-  * Throws differenc exceptions depending on the error.
-  *
-  * @throws Exception
-  * @param boolean $allowLocal
-  * @return TRUE
-  */
+   * Check if the given file can be loaded.
+   *
+   * Throws differenc exceptions depending on the error.
+   *
+   * @param boolean $allowLocal
+   * @return TRUE
+   * @throws \UnexpectedValueException
+   * @throws \LogicException
+   * @throws \LengthException
+   */
   public function isValid($allowLocal = FALSE) {
     if (file_exists($this->_fileName) &&
         is_file($this->_fileName) &&
