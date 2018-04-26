@@ -8,15 +8,19 @@ class PapayaContentModuleOptionsTest extends PapayaTestCase {
   */
   public function testCreateMapping() {
     $content = new PapayaContentModuleOptions();
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
     $mapping = $content->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
   }
 
   /**
-  * @covers PapayaContentModuleOptions::callbackConvertValueByType
-  * @dataProvider providePropertiesToFieldsData
-  */
-  public function testCallbackConvertValueByTypeIntoFields($expected, $properties, $fields) {
+   * @covers PapayaContentModuleOptions::callbackConvertValueByType
+   * @dataProvider providePropertiesToFieldsData
+   * @param array $expected
+   * @param array $properties
+   * @param array $fields
+   */
+  public function testCallbackConvertValueByTypeIntoFields(array $expected, array $properties, array $fields) {
     $content = new PapayaContentModuleOptions();
     $this->assertEquals(
       $expected,
@@ -30,10 +34,13 @@ class PapayaContentModuleOptionsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentModuleOptions::callbackConvertValueByType
-  * @dataProvider provideFieldsToPropertiesData
-  */
-  public function testCallbackConvertValueByTypeIntoProperties($expected, $properties, $fields) {
+   * @covers PapayaContentModuleOptions::callbackConvertValueByType
+   * @dataProvider provideFieldsToPropertiesData
+   * @param array $expected
+   * @param array $properties
+   * @param array $fields
+   */
+  public function testCallbackConvertValueByTypeIntoProperties(array $expected, array $properties, array $fields) {
     $content = new PapayaContentModuleOptions();
     $this->assertEquals(
       $expected,
@@ -84,10 +91,8 @@ class PapayaContentModuleOptionsTest extends PapayaTestCase {
           'module_guid' => 'ab123456789012345678901234567890',
           'moduleoption_name' => 'SAMPLE_NAME',
           'moduleoption_value' =>
-            '<data version="2">'.
-              '<data-element name="0">21</data-element>'.
-              '<data-element name="1">42</data-element>'.
-            '</data>',
+            /** @lang XML */
+            '<data version="2"><data-element name="0">21</data-element><data-element name="1">42</data-element></data>',
           'moduleoption_type' => 'array'
         ),
         array(
@@ -190,20 +195,16 @@ class PapayaContentModuleOptionsTest extends PapayaTestCase {
           'guid' => 'ab123456789012345678901234567890',
           'name' => 'SAMPLE_NAME',
           'value' =>
-            '<data version="2">'.
-              '<data-element name="0">21</data-element>'.
-              '<data-element name="1">42</data-element>'.
-            '</data>',
+          /** @lang XML */
+            '<data version="2"><data-element name="0">21</data-element><data-element name="1">42</data-element></data>',
           'type' => 'array'
         ),
         array(
           'module_guid' => 'ab123456789012345678901234567890',
           'moduleoption_name' => 'SAMPLE_NAME',
           'moduleoption_value' =>
-            '<data version="2">'.
-              '<data-element name="0">21</data-element>'.
-              '<data-element name="1">42</data-element>'.
-            '</data>',
+          /** @lang XML */
+            '<data version="2"><data-element name="0">21</data-element><data-element name="1">42</data-element></data>',
           'moduleoption_type' => 'array'
         )
       )
