@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaCsvWriterTest extends PapayaTestCase {
@@ -15,7 +29,7 @@ class PapayaCsvWriterTest extends PapayaTestCase {
   * @covers PapayaCsvWriter::__construct
   */
   public function testConstructorWithStream() {
-    $writer = new PapayaCsvWriter($ms = fopen('php://memory', 'rw'));
+    $writer = new PapayaCsvWriter($ms = fopen('php://memory', 'rwb'));
     $this->assertSame($ms, $writer->stream);
   }
 
@@ -25,7 +39,7 @@ class PapayaCsvWriterTest extends PapayaTestCase {
   */
   public function testStreamGetAfterSet() {
     $writer = new PapayaCsvWriter();
-    $writer->stream = $ms = fopen('php://memory', 'rw');
+    $writer->stream = $ms = fopen('php://memory', 'rwb');
     $this->assertSame($ms, $writer->stream);
   }
 
@@ -48,7 +62,6 @@ class PapayaCsvWriterTest extends PapayaTestCase {
     $writer = new PapayaCsvWriter();
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Can not write read only property "separatorLength".');
-    /** @noinspection Annotator */
     $writer->separatorLength = 23;
   }
 
@@ -89,6 +102,7 @@ class PapayaCsvWriterTest extends PapayaTestCase {
     $writer = new PapayaCsvWriter();
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Can not write undefined property "invalidPropertyName".');
+    /** @noinspection PhpUndefinedFieldInspection */
     $writer->invalidPropertyName = ' ';
   }
 
@@ -99,7 +113,8 @@ class PapayaCsvWriterTest extends PapayaTestCase {
     $writer = new PapayaCsvWriter();
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Can not read undefined property "invalidPropertyName".');
-    $dummy = $writer->invalidPropertyName;
+    /** @noinspection PhpUndefinedFieldInspection */
+    $writer->invalidPropertyName;
   }
 
   /**
@@ -146,12 +161,14 @@ class PapayaCsvWriterTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCsvWriter::writeRow
-  * @covers PapayaCsvWriter::quoteValue
-  * @covers PapayaCsvWriter::write
-  * @covers PapayaCsvWriter::writeString
-  * @dataProvider provideSampleRowsAndExpectedOutput
-  */
+   * @covers PapayaCsvWriter::writeRow
+   * @covers PapayaCsvWriter::quoteValue
+   * @covers PapayaCsvWriter::write
+   * @covers PapayaCsvWriter::writeString
+   * @dataProvider provideSampleRowsAndExpectedOutput
+   * @param $expected
+   * @param $row
+   */
   public function testWriteRow($expected, $row) {
     $writer = new PapayaCsvWriter();
     ob_start();
@@ -238,7 +255,7 @@ class PapayaCsvWriterTest extends PapayaTestCase {
       array('one', 'two', 'three'),
       array('four', 'five', 'six')
     );
-    $ms = fopen('php://memory', 'rw');
+    $ms = fopen('php://memory', 'rwb');
     $writer = new PapayaCsvWriter($ms);
     $writer->writeList($list);
     fseek($ms, 0);

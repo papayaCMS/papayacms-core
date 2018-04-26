@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaCsvReaderTest extends PapayaTestCase {
@@ -36,8 +50,8 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCsvReader::isValid
-  */
+   * @covers PapayaCsvReader::isValid
+   */
   public function testIsValidExpectingTrue() {
     $reader = new PapayaCsvReader(__DIR__.'/TestData/sample.csv');
     $this->assertTrue($reader->isValid(TRUE));
@@ -81,10 +95,14 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCsvReader::fetchAssoc
-  * @covers PapayaCsvReader::_getFileResource
-  * @dataProvider provideDataForFetchAssoc
-  */
+   * @covers PapayaCsvReader::fetchAssoc
+   * @covers PapayaCsvReader::_getFileResource
+   * @dataProvider provideDataForFetchAssoc
+   * @param int $startOffset
+   * @param int $limit
+   * @param int $expectedOffset
+   * @param string $expectedData
+   */
   public function testFetchAssoc($startOffset, $limit, $expectedOffset, $expectedData) {
     $reader = new PapayaCsvReader(__DIR__.'/TestData/sample.csv');
     $offset = $startOffset;
@@ -109,27 +127,33 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCsvReader::_getStyle
-  * @covers PapayaCsvReader::_getFirstCharacter
-  * @dataProvider provideDataForGetStyle
-  */
-  public function testGetStyle($expected, $csvData) {
+   * @covers PapayaCsvReader::_getStyle
+   * @covers PapayaCsvReader::_getFirstCharacter
+   * @dataProvider provideDataForGetStyle
+   * @param array $expected
+   * @param string $csvData
+   */
+  public function testGetStyle(array $expected, $csvData) {
     $reader = new PapayaCsvReader_TestProxy('sample.csv');
     $this->assertEquals(
-      $expected, $reader->_getStyle(fopen('data://text/plain,'.$csvData, 'r'))
+      $expected, $reader->_getStyle(fopen('data://text/plain,'.$csvData, 'rb'))
     );
   }
 
   /**
-  * @covers PapayaCsvReader::_readLine
-  * @dataProvider provideDataForReadLine
-  */
+   * @covers PapayaCsvReader::_readLine
+   * @dataProvider provideDataForReadLine
+   * @param array $expected
+   * @param string $csvData
+   * @param string $separator
+   * @param string $enclosure
+   */
   public function testReadLine($expected, $csvData, $separator, $enclosure) {
     $reader = new PapayaCsvReader_TestProxy('sample.csv');
     $this->assertEquals(
       $expected,
       $reader->_readLine(
-        fopen('data://text/plain,'.$csvData, 'r'),
+        fopen('data://text/plain,'.$csvData, 'rb'),
         $separator,
         $enclosure
       )
