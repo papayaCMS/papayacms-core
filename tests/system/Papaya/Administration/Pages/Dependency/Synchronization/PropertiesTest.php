@@ -70,41 +70,39 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
       )
     );
     $databaseAccess
-      ->expects($this->at(2))
+      ->expects($this->exactly(2))
       ->method('updateRecord')
-      ->with(
-        'topic_trans',
+      ->withConsecutive(
         array(
-          'meta_descr' => 'Test Meta Description',
-          'meta_keywords' => 'Keyword1, Keyword2',
-          'meta_title' => 'Test Meta Title',
-          'topic_title' => 'Test Title'
+          'table_topic_trans',
+          array(
+            'meta_descr' => 'Test Meta Description',
+            'meta_keywords' => 'Keyword1, Keyword2',
+            'meta_title' => 'Test Meta Title',
+            'topic_title' => 'Test Title'
+          ),
+          array(
+            'lng_id' => 1,
+            'topic_id' => array(21)
+          ),
         ),
         array(
-          'lng_id' => 1,
-          'topic_id' => array(21)
-        )
-      )
-      ->will($this->returnValue(TRUE));
-    $databaseAccess
-      ->expects($this->at(4))
-      ->method('updateRecord')
-      ->with(
-        'topic',
-        array(
-          'topic_mainlanguage' => 1,
-          'topic_modified' => 84,
-          'linktype_id' => 23,
-          'topic_changefreq' => 50,
-          'topic_priority' => 99,
-          'topic_protocol' => 1,
-          'topic_cachemode' => 2,
-          'topic_cachetime' => 3600,
-          'topic_expiresmode' => 2,
-          'topic_expirestime' => 3600
-        ),
-        array(
-          'topic_id' => array(21)
+          'table_topic',
+          array(
+            'topic_mainlanguage' => 1,
+            'topic_modified' => 84,
+            'linktype_id' => 23,
+            'topic_changefreq' => 50,
+            'topic_priority' => 99,
+            'topic_protocol' => 1,
+            'topic_cachemode' => 2,
+            'topic_cachetime' => 3600,
+            'topic_expiresmode' => 2,
+            'topic_expirestime' => 3600
+          ),
+          array(
+            'topic_id' => array(21)
+          )
         )
       )
       ->will($this->returnValue(TRUE));
@@ -160,7 +158,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
       ->expects($this->once())
       ->method('updateRecord')
       ->with(
-        'topic_trans',
+        'table_topic_trans',
         array(
           'meta_descr' => 'Test Meta Description',
           'meta_keywords' => 'Keyword1, Keyword2',
@@ -198,17 +196,11 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
           array($this, 'onConsecutiveCalls'), $targetRecords
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(
-        array('getTimestamp', 'queryFmt', 'getSqlCondition', 'updateRecord', 'deleteRecord')
-      )
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array(PapayaContentTables::PAGE_TRANSLATIONS))
+      ->with($this->isType('string'), array('table_'.PapayaContentTables::PAGE_TRANSLATIONS))
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())

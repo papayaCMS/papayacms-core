@@ -21,11 +21,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
           )
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -36,7 +32,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('tablename')
+        array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
     $records = new PapayaDatabaseRecords_TestProxy();
@@ -58,17 +54,13 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('fetchRow')
       ->will($this->returnValue(FALSE));
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('tablename')
+        array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
     $records = new PapayaDatabaseRecords_TestProxy();
@@ -97,17 +89,13 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
           )
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('tablename')
+        array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
     $records = new PapayaDatabaseRecords_TestProxy();
@@ -141,17 +129,13 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
           )
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->stringContains('>>ORDERBY<<'),
-        array('tablename')
+        array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
     $records = new PapayaDatabaseRecords_TestProxy();
@@ -165,11 +149,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecords::_loadRecords
   */
   public function testLoadExpectingFalse() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -180,7 +160,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('tablename')
+        array('table_tablename')
       )
       ->will($this->returnValue(FALSE));
     $records = new PapayaDatabaseRecords_TestProxy();
@@ -206,11 +186,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
           )
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -221,7 +197,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('tablename')
+        array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
     $records = new PapayaDatabaseRecords_TestProxy();
@@ -252,11 +228,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
           )
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -267,7 +239,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('tablename')
+        array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
     $records = new PapayaDatabaseRecords_TestProxy();
@@ -295,11 +267,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
           )
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -310,7 +278,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('tablename')
+        array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
     $records = new PapayaDatabaseRecords_TestProxy();
@@ -472,5 +440,6 @@ class PapayaDatabaseRecords_TestProxy extends PapayaDatabaseRecords {
 
   protected $_tableName = 'tablename';
 
-  public $_identifierProperties = array();
+  public /** @noinspection PropertyInitializationFlawsInspection */
+    $_identifierProperties = array();
 }

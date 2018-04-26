@@ -154,11 +154,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
             $this->onConsecutiveCalls($latestVersionData, FALSE)
           );
       }
-      $databaseAccess = $this
-        ->getMockBuilder(PapayaDatabaseAccess::class)
-        ->disableOriginalConstructor()
-        ->setMethods(array('queryFmt'))
-        ->getMock();
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
       $databaseAccess
         ->expects($this->once())
         ->method('queryFmt')

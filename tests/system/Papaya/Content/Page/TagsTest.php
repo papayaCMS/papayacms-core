@@ -33,15 +33,11 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('tag_links', 'tag_trans', 0, 'topic', 23))
+      ->with($this->isType('string'), array('table_tag_links', 'table_tag_trans', 0, 'topic', 23))
       ->will($this->returnValue($databaseResult));
     $tags = new PapayaContentPageTags();
     $tags->setDatabaseAccess($databaseAccess);
@@ -99,15 +95,11 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('tag_links', 'tag_trans', 2, 'topic', 23))
+      ->with($this->isType('string'), array('table_tag_links', 'table_tag_trans', 2, 'topic', 23))
       ->will($this->returnValue($databaseResult));
     $tags = new PapayaContentPageTags();
     $tags->setDatabaseAccess($databaseAccess);
@@ -139,16 +131,12 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
   * @covers PapayaContentPageTags::clear
   */
   public function testClear() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('deleteRecord'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
       ->with(
-        'tag_links',
+        'table_tag_links',
         array(
           'link_type' => 'topic',
           'link_id' => 23
@@ -164,16 +152,12 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
   * @covers PapayaContentPageTags::insert
   */
   public function testInsert() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('insertRecords'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecords')
       ->with(
-        'tag_links',
+        'table_tag_links',
         array(
           array(
             'link_type' => 'topic',

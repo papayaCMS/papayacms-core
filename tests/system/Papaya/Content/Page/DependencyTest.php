@@ -83,16 +83,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   * @covers PapayaContentPageDependency::save
   */
   public function testSaveInsertsRecordExpectingTrue() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getTableName', 'getSqlCondition', 'queryFmt', 'insertRecord'))
-      ->disableOriginalConstructor()
-      ->getMock();
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->with($this->isType('string'))
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getSqlCondition')
@@ -101,13 +92,13 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->any())
       ->method('queryFmt')
-      ->with('SELECT COUNT(*) FROM %s WHERE >>CONDITION<<', array('topic_dependencies'))
+      ->with('SELECT COUNT(*) FROM %s WHERE >>CONDITION<<', array('table_topic_dependencies'))
       ->will($this->returnValue(NULL));
     $databaseAccess
       ->expects($this->once())
       ->method('insertRecord')
       ->with(
-        'topic_dependencies',
+        'table_topic_dependencies',
         NULL,
         array(
           'topic_id' => 21,

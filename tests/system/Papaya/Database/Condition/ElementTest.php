@@ -43,10 +43,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionElement
    */
   public function testGetDatabaseAccess() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $group = $this
       ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
@@ -95,11 +92,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionElement
    */
   public function testMagicMethodToString() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -147,10 +140,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionElement
    */
   public function testMapFieldNameWithoutMapping() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $group = $this
       ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
@@ -189,10 +179,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionElement
    */
   public function testMapFieldNameWithEmptyFieldNameException() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $group = $this
       ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
@@ -206,11 +193,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionElement
    */
   public function testGetSqlWithScalar() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -243,11 +226,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionElement
    */
   public function testGetSqlWithList() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -284,11 +263,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionElement
    */
   public function testGetSqlWithInvalidFieldNameExpectingException() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->never())
       ->method('getSqlCondition');
@@ -311,11 +286,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionElement
    */
   public function testGetSqlWithExceptionInSilentMode() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->never())
       ->method('getSqlCondition');

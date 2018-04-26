@@ -44,11 +44,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
       ->expects($this->exactly(3))
       ->method('fetchRow')
       ->will($this->onConsecutiveCalls(array(1), array(2), NULL));
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -103,11 +99,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getSqlCondition')
@@ -140,11 +132,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   */
   public function testNextDatabaseQueryFailed() {
     $sequence = new PapayaDatabaseSequence_TestProxy('table', 'field');
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -167,11 +155,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   */
   public function testNextBrokenCreateMethod() {
     $sequence = new PapayaDatabaseSequence_TestProxyBroken('table', 'field');
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')

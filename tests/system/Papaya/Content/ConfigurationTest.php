@@ -20,15 +20,11 @@ class PapayaContentConfigurationTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('options'))
+      ->with($this->isType('string'), array('table_options'))
       ->will($this->returnValue($databaseResult));
     $configuration = new PapayaContentConfiguration();
     $configuration->setDatabaseAccess($databaseAccess);

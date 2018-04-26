@@ -3,8 +3,6 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationPagesDependencySynchronizationViewTest extends PapayaTestCase {
 
-  private $_translationData;
-
   /**
   * @covers PapayaAdministrationPagesDependencySynchronizationView::updateTranslations
   */
@@ -31,7 +29,7 @@ class PapayaAdministrationPagesDependencySynchronizationViewTest extends PapayaT
       ->expects($this->once())
       ->method('updateRecord')
       ->with(
-        'topic_trans',
+        'table_topic_trans',
         array(
           'view_id' => 33,
           'topic_trans_modified' => 123
@@ -66,15 +64,11 @@ class PapayaAdministrationPagesDependencySynchronizationViewTest extends PapayaT
           array($this, 'onConsecutiveCalls'), $targetRecords
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt', 'getSqlCondition', 'updateRecord', 'deleteRecord'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array(PapayaContentTables::PAGE_TRANSLATIONS))
+      ->with($this->isType('string'), array('table_'.PapayaContentTables::PAGE_TRANSLATIONS))
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())

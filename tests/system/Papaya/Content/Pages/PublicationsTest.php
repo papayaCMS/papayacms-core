@@ -14,11 +14,7 @@ class PapayaContentPagesPublicationsTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('fetchRow')
       ->will($this->returnValue(FALSE));
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
@@ -31,14 +27,14 @@ class PapayaContentPagesPublicationsTest extends PapayaTestCase {
           $this->stringContains("OR t.published_to <= t.published_from)")
         ),
         array(
-          PapayaContentTables::PAGE_PUBLICATIONS,
-          PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS,
+          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
+          'table_'.PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS,
           1,
-          PapayaContentTables::PAGE_PUBLICATIONS,
-          PapayaContentTables::VIEWS,
-          PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
+          'table_'.PapayaContentTables::VIEWS,
+          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
           0,
-          PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.PapayaContentTables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));

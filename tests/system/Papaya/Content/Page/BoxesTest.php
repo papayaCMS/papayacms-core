@@ -26,11 +26,11 @@ class PapayaContentPageBoxesTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this->getDatabaseAccessMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('boxlinks', 21))
+      ->with($this->isType('string'), array('table_boxlinks', 21))
       ->will($this->returnValue($databaseResult));
     $boxes = new PapayaContentPageBoxes();
     $boxes->setDatabaseAccess($databaseAccess);
@@ -57,7 +57,7 @@ class PapayaContentPageBoxesTest extends PapayaTestCase {
   * @covers PapayaContentPageBoxes::delete
   */
   public function testDelete() {
-    $databaseAccess = $this->getDatabaseAccessMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
@@ -72,7 +72,7 @@ class PapayaContentPageBoxesTest extends PapayaTestCase {
   * @covers PapayaContentPageBoxes::copyTo
   */
   public function testCopyTo() {
-    $databaseAccess = $this->getDatabaseAccessMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
@@ -138,7 +138,7 @@ class PapayaContentPageBoxesTest extends PapayaTestCase {
   * @covers PapayaContentPageBoxes::copyTo
   */
   public function testCopyToWhileDeleteFailedExpectingFalse() {
-    $databaseAccess = $this->getDatabaseAccessMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('deleteRecord')
@@ -161,23 +161,5 @@ class PapayaContentPageBoxesTest extends PapayaTestCase {
       )
     );
     $this->assertFalse($boxes->copyTo(array(42, 23)));
-  }
-
-  /*****************
-  * Fixtures
-  *****************/
-
-  private function getDatabaseAccessMock() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getTableName', 'queryFmt', 'deleteRecord', 'insertRecords'))
-      ->getMock();
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
-    return $databaseAccess;
   }
 }

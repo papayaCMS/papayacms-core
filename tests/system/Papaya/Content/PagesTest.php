@@ -24,25 +24,21 @@ class PapayaContentPagesTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->logicalAnd($this->isType('string'), $this->stringContains('INNER JOIN')),
         array(
-          PapayaContentTables::PAGES,
-          PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.PapayaContentTables::PAGES,
+          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
           1,
-          PapayaContentTables::PAGE_PUBLICATIONS,
-          PapayaContentTables::VIEWS,
-          PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
+          'table_'.PapayaContentTables::VIEWS,
+          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
           23,
-          PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.PapayaContentTables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -85,25 +81,21 @@ class PapayaContentPagesTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->logicalAnd($this->isType('string'), $this->stringContains('LEFT JOIN')),
         array(
-          PapayaContentTables::PAGES,
-          PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.PapayaContentTables::PAGES,
+          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
           0,
-          PapayaContentTables::PAGE_PUBLICATIONS,
-          PapayaContentTables::VIEWS,
-          PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
+          'table_'.PapayaContentTables::VIEWS,
+          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
           0,
-          PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.PapayaContentTables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -146,11 +138,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -162,14 +150,14 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ->with(
         $this->logicalAnd($this->isType('string'), $this->stringContains('LEFT JOIN')),
         array(
-          PapayaContentTables::PAGES,
-          PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.PapayaContentTables::PAGES,
+          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
           1,
-          PapayaContentTables::PAGE_PUBLICATIONS,
-          PapayaContentTables::VIEWS,
-          PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
+          'table_'.PapayaContentTables::VIEWS,
+          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
           0,
-          PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.PapayaContentTables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -212,11 +200,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -228,14 +212,14 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          PapayaContentTables::PAGES,
-          PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.PapayaContentTables::PAGES,
+          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
           1,
-          PapayaContentTables::PAGE_PUBLICATIONS,
-          PapayaContentTables::VIEWS,
-          PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
+          'table_'.PapayaContentTables::VIEWS,
+          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
           0,
-          PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.PapayaContentTables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -282,11 +266,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -298,14 +278,14 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          PapayaContentTables::PAGES,
-          PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.PapayaContentTables::PAGES,
+          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
           1,
-          PapayaContentTables::PAGE_PUBLICATIONS,
-          PapayaContentTables::VIEWS,
-          PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
+          'table_'.PapayaContentTables::VIEWS,
+          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
           0,
-          PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.PapayaContentTables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));

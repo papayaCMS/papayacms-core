@@ -85,7 +85,7 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
       ->expects($this->once())
       ->method('updateRecord')
       ->with(
-        'topic_trans',
+        'table_topic_trans',
         array(
           'topic_content' =>
             /** @lang XML */
@@ -133,7 +133,7 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
       ->expects($this->once())
       ->method('updateRecord')
       ->with(
-        'topic_trans',
+        'table_topic_trans',
         array(
           'topic_content' =>
             /** @lang XML */
@@ -181,7 +181,7 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
       ->expects($this->once())
       ->method('deleteRecord')
       ->with(
-        'topic_trans',
+        'table_topic_trans',
         array(
           'lng_id' => 1,
           'topic_id' => array(21)
@@ -298,15 +298,11 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
           array($this, 'onConsecutiveCalls'), $targetRecords
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt', 'getSqlCondition', 'updateRecord', 'deleteRecord'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array(PapayaContentTables::PAGE_TRANSLATIONS))
+      ->with($this->isType('string'), array('table_'.PapayaContentTables::PAGE_TRANSLATIONS))
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())

@@ -7,11 +7,7 @@ class PapayaDatabaseConditionRootTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionRoot
    */
   public function testCallAddingFirstElement() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -31,11 +27,7 @@ class PapayaDatabaseConditionRootTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionRoot
    */
   public function testCallAddingSecondElementExpectingException() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $element = new PapayaDatabaseConditionRoot($databaseAccess);
     $element->isEqual('foo', 'bar');
     $this->expectException(LogicException::class);
@@ -46,11 +38,7 @@ class PapayaDatabaseConditionRootTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionRoot
    */
   public function testGetSqlWithoutElement() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $element = new PapayaDatabaseConditionRoot($databaseAccess);
     $this->assertEquals('', $element->getSql());
   }

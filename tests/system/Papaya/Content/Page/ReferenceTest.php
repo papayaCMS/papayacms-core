@@ -44,15 +44,11 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('fetchField')
       ->will($this->returnValue(1));
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array(PapayaContentTables::PAGE_REFERENCES, 21, 48))
+      ->with($this->isType('string'), array('table_'.PapayaContentTables::PAGE_REFERENCES, 21, 48))
       ->will($this->returnValue($databaseResult));
     $reference = new PapayaContentPageReference();
     $reference->setDatabaseAccess($databaseAccess);
@@ -68,15 +64,11 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('fetchField')
       ->will($this->returnValue(0));
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array(PapayaContentTables::PAGE_REFERENCES, 21, 48))
+      ->with($this->isType('string'), array('table_'.PapayaContentTables::PAGE_REFERENCES, 21, 48))
       ->will($this->returnValue($databaseResult));
     $reference = new PapayaContentPageReference();
     $reference->setDatabaseAccess($databaseAccess);
@@ -87,15 +79,11 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
   * @covers PapayaContentPageReference::exists
   */
   public function testExistsWithDatabaseErrorExpectingFalse() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array(PapayaContentTables::PAGE_REFERENCES, 21, 48))
+      ->with($this->isType('string'), array('table_'.PapayaContentTables::PAGE_REFERENCES, 21, 48))
       ->will($this->returnValue(FALSE));
     $reference = new PapayaContentPageReference();
     $reference->setDatabaseAccess($databaseAccess);

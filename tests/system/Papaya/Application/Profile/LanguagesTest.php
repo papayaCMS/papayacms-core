@@ -7,11 +7,7 @@ class PapayaApplicationProfileLanguagesTest extends PapayaTestCase {
   * @covers PapayaApplicationProfileLanguages::createObject
   */
   public function testCreateObject() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')

@@ -30,11 +30,7 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
   * @covers PapayaContentPageVersion::create
   */
   public function testSave() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmtWrite', 'lastInsertId'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('lastInsertId')
@@ -45,8 +41,8 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         $this->logicalOr(
-          array('topic_versions', 123, 'sample user id', 'test message', 1, 'topic', 21),
-          array('topic_versions_trans', 42, 'topic_trans', 21)
+          array('table_topic_versions', 123, 'sample user id', 'test message', 1, 'table_topic', 21),
+          array('table_topic_versions_trans', 42, 'table_topic_trans', 21)
         )
       )
       ->will(

@@ -7,10 +7,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionGenerator
    */
   public function testConstructor() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $generator = new PapayaDatabaseConditionGenerator($databaseAccess);
     $condition = $generator->fromArray(array());
     $this->assertInstanceOf(PapayaDatabaseConditionGroup::class, $condition);
@@ -21,10 +18,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionGenerator
    */
   public function testConstructorWithInterfaceDatabaseAccess() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $parent = $this
       ->createMock(PapayaDatabaseInterfaceAccess::class);
     $parent
@@ -49,11 +43,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionGenerator
    */
   public function testFromArrayWithSimpleEqualsFilter() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -77,11 +67,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
       ->method('getField')
       ->with('field')
       ->will($this->returnValue('mapped_field'));
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -106,11 +92,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
       ->method('getField')
       ->with('field')
       ->will($this->returnValue(NULL));
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->never())
       ->method('getSqlCondition');
@@ -127,11 +109,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionGenerator
    */
   public function testFromArrayWithConditionInAnd() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getSqlCondition')
@@ -162,11 +140,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionGenerator
    */
   public function testFromArrayWithConditionInOr() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getSqlCondition')
@@ -197,11 +171,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    * @covers PapayaDatabaseConditionGenerator
    */
   public function testFromArrayWithConditionInNot() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getSqlCondition')
@@ -233,11 +203,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    * @dataProvider provideFilterSamples
    */
   public function testSimpleFiltersWithScalars($expected, $filter) {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->setMethods(array('getSqlCondition'))
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->any())
       ->method('getSqlCondition')

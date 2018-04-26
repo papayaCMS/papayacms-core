@@ -98,11 +98,7 @@ class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordsGrouped::_loadRecords
   */
   public function testLoadExpectingFalse() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -113,7 +109,7 @@ class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('tablename')
+        array('table_tablename')
       )
       ->will($this->returnValue(FALSE));
     $records = new PapayaDatabaseRecordsGrouped_TestProxy();
@@ -149,17 +145,13 @@ class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
           )
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('tablename')
+        array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
     return $databaseAccess;

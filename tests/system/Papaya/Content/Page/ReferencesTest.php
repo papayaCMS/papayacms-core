@@ -37,20 +37,16 @@ class PapayaContentPageReferencesTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
         array(
-          PapayaContentTables::PAGE_REFERENCES,
-          PapayaContentTables::PAGES,
-          PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.PapayaContentTables::PAGE_REFERENCES,
+          'table_'.PapayaContentTables::PAGES,
+          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
           42,
           1
         )

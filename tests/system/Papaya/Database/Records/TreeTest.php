@@ -105,11 +105,7 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordsTree::_loadRecords
   */
   public function testLoadExpectingFalse() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -120,7 +116,7 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('tablename')
+        array('table_tablename')
       )
       ->will($this->returnValue(FALSE));
     $records = new PapayaDatabaseRecordsTree_TestProxy();
@@ -156,17 +152,13 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
           )
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('tablename')
+        array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
     return $databaseAccess;

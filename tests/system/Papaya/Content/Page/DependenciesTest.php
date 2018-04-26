@@ -176,25 +176,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('fetchField')
       ->will($this->returnValue(0));
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(
-        array(
-          'getTableName',
-          'queryFmt',
-          'deleteRecord',
-          'updateRecord',
-          'insertRecord',
-          'getSqlCondition'
-        )
-      )
-      ->getMock();
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->exactly(2))
       ->method('getSqlCondition')
@@ -208,7 +190,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('updateRecord')
-      ->with('topic_dependencies', array('topic_origin_id' => 42), array('topic_origin_id' => 21))
+      ->with('table_topic_dependencies', array('topic_origin_id' => 42), array('topic_origin_id' => 21))
       ->will($this->returnValue(TRUE));
     $databaseAccess
       ->expects($this->exactly(3))
@@ -223,7 +205,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('insertRecord')
       ->with(
-        'topic_dependencies',
+        'table_topic_dependencies',
         NULL,
         array(
           'topic_id' => 21,

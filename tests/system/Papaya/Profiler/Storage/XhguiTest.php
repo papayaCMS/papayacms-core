@@ -26,11 +26,7 @@ class PapayaProfilerStorageXhguiTest extends PapayaTestCase {
   * @covers PapayaProfilerStorageXhgui::removeSid
   */
   public function testSaveRun() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmtWrite'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmtWrite')
@@ -48,10 +44,7 @@ class PapayaProfilerStorageXhguiTest extends PapayaTestCase {
   * @covers PapayaProfilerStorageXhgui::getDatabaseAccess
   */
   public function testGetDatabaseAccessAfterSet() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $storage = new PapayaProfilerStorageXhgui('database', 'table', 'foo');
     $storage->setDatabaseAccess($databaseAccess);
     $this->assertSame(

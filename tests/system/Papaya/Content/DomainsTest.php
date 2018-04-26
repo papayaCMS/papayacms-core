@@ -22,17 +22,13 @@ class PapayaContentDomainsTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array(PapayaContentTables::DOMAINS)
+        array('table_'.PapayaContentTables::DOMAINS)
       )
       ->will($this->returnValue($databaseResult));
     $pages = new PapayaContentDomains();
@@ -65,11 +61,7 @@ class PapayaContentDomainsTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -80,7 +72,7 @@ class PapayaContentDomainsTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array(PapayaContentTables::DOMAINS)
+        array('table_'.PapayaContentTables::DOMAINS)
       )
       ->will($this->returnValue($databaseResult));
     $pages = new PapayaContentDomains();

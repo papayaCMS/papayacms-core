@@ -25,20 +25,11 @@ class PapayaPluginListTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getTableName', 'queryFmt'))
-      ->getMock();
-    $databaseAccess
-      ->expects($this->any())
-      ->method('getTableName')
-      ->withAnyParameters()
-      ->will($this->returnArgument(0));
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), $this->equalTo(array('modules', 'modulegroups')))
+      ->with($this->isType('string'), $this->equalTo(array('table_modules', 'table_modulegroups')))
       ->will($this->returnValue($databaseResult));
     $list = new PapayaPluginList();
     $list->setDatabaseAccess($databaseAccess);

@@ -100,11 +100,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
       ->method('fetchField')
       ->will($this->returnValue(1));
 
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -113,7 +109,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with("SELECT COUNT(*) FROM %s WHERE {CONDITION}", array('sometable'))
+      ->with("SELECT COUNT(*) FROM %s WHERE {CONDITION}", array('table_sometable'))
       ->will($this->returnValue($databaseResult));
 
     $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
@@ -142,11 +138,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordKeyFields::exists
   */
   public function testExistsWithDatabaseErrorExpectingFalse() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmt'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -155,7 +147,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with("SELECT COUNT(*) FROM %s WHERE {CONDITION}", array('sometable'))
+      ->with("SELECT COUNT(*) FROM %s WHERE {CONDITION}", array('table_sometable'))
       ->will($this->returnValue(FALSE));
 
     $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);

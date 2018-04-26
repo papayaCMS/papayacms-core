@@ -8,11 +8,7 @@ class PapayaAdministrationPagesDependencySynchronizationBoxesTest extends Papaya
   * @covers PapayaAdministrationPagesDependencySynchronizationBoxes::setInheritanceStatus
   */
   public function testSynchronize() {
-    $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
-      ->disableOriginalConstructor()
-      ->setMethods(array('getSqlCondition', 'queryFmtWrite'))
-      ->getMock();
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
@@ -21,7 +17,7 @@ class PapayaAdministrationPagesDependencySynchronizationBoxesTest extends Papaya
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmtWrite')
-      ->with("UPDATE %s SET box_useparent = '%d' WHERE topic_id = '42'", array('topic', 1))
+      ->with("UPDATE %s SET box_useparent = '%d' WHERE topic_id = '42'", array('table_topic', 1))
       ->will($this->returnValue(TRUE));
 
     $page = $this->createMock(PapayaContentPageWork::class);
