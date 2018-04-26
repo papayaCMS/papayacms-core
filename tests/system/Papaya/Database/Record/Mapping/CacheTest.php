@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
@@ -7,6 +21,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::__construct
    */
   public function testConstructor() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceMapping $mapping */
     $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $cache = new PapayaDatabaseRecordMappingCache($mapping);
     $this->assertAttributeSame($mapping, '_mapping', $cache);
@@ -24,6 +39,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
       )
     );
     $callbackThree->callback = 'substr';
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceMapping $mapping */
     $mapping = $this
       ->getMockBuilder(PapayaDatabaseRecordMapping::class)
       ->disableOriginalConstructor()
@@ -47,6 +63,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::mapFieldsToProperties
    */
   public function testMapFieldsToProperties() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceMapping $mapping */
     $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->once())
@@ -76,6 +93,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
         'onAfterMapping' => new PapayaObjectCallback(array('propertyTwo' => 23)),
       )
     );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
     $mapping = $this
       ->getMockBuilder(PapayaDatabaseRecordMapping::class)
       ->disableOriginalConstructor()
@@ -102,6 +120,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::mapPropertiesToFields
    */
   public function testMapPropertiesToFields() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceMapping $mapping */
     $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->once())
@@ -131,6 +150,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
         'onAfterMapping' => new PapayaObjectCallback(array('fieldOne' => 23)),
       )
     );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
     $mapping = $this
       ->getMockBuilder(PapayaDatabaseRecordMapping::class)
       ->disableOriginalConstructor()
@@ -141,7 +161,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
       ->will($this->returnValue($callbacks));
     $mapping
       ->expects($this->once())
-      ->method('getField', 'alias')
+      ->method('getField')
       ->with('propertyTwo')
       ->will($this->returnValue('fieldTwo'));
     $cache = new PapayaDatabaseRecordMappingCache($mapping);
@@ -157,6 +177,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::getProperties
    */
   public function testGetProperties() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceMapping $mapping */
     $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->once())
@@ -172,6 +193,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::getFields
    */
   public function testGetFields() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceMapping $mapping */
     $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->exactly(2))
@@ -188,6 +210,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::getProperty
    */
   public function testGetProperty() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceMapping $mapping */
     $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->exactly(2))
@@ -204,6 +227,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
    * @covers PapayaDatabaseRecordMappingCache::getField
    */
   public function testGetField() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceMapping $mapping */
     $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
     $mapping
       ->expects($this->exactly(3))

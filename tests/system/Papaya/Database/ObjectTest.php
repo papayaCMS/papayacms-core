@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaDatabaseObjectTest extends PapayaTestCase {
@@ -33,7 +47,7 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
   /**
   * @covers PapayaDatabaseObject::getDatabaseAccess
   */
-  public function testGetDatabaseAccessImplizitCreate() {
+  public function testGetDatabaseAccessImplicitCreate() {
     $application = $this->mockPapaya()->application();
     $databaseObject = new PapayaDatabaseObject();
     $databaseObject->papaya($application);
@@ -56,20 +70,21 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->equalTo('SQL'), $this->equalTo('SAMPLE'))
+      ->with($this->equalTo('SQL'), $this->equalTo(array('SAMPLE')))
       ->will($this->returnValue(TRUE));
     $databaseObject->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
-      $databaseObject->databaseQueryFmt('SQL', 'SAMPLE')
+      $databaseObject->databaseQueryFmt('SQL', array('SAMPLE'))
     );
   }
 
   /**
   * @covers PapayaDatabaseObject::__call
   */
-  public function testDelegationWihtInvalidFunction() {
+  public function testDelegationWithInvalidFunction() {
     $databaseObject = new PapayaDatabaseObject();
     $this->expectException(BadMethodCallException::class);
+    /** @noinspection PhpUndefinedMethodInspection */
     $databaseObject->invalidFunctionName();
   }
 }

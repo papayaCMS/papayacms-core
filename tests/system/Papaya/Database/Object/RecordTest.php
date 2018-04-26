@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
@@ -105,9 +119,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectRecord::_insertRecord
   */
   public function testSaveInsertsRecordWithDefinedId() {
-    $databaseResult = $this->getMock(
-      PapayaDatabaseResult::class
-    );
+    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -117,7 +129,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
-        $this->equalTo("SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
+        $this->equalTo(/** @lang Text */"SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
         $this->equalTo(array('table_sample_table', 42))
       )
       ->will($this->returnValue($databaseResult));
@@ -149,7 +161,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   /**
   * @covers PapayaDatabaseObjectRecord::_saveRecordWithDefinedId
   */
-  public function testSaveInsertsRecordWithDefinedIdExistanceQueryFailed() {
+  public function testSaveInsertsRecordWithDefinedIdExistenceQueryFailed() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->once())
@@ -160,7 +172,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
-        $this->equalTo("SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
+        $this->equalTo(/** @lang Text */"SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
         $this->equalTo(array('table_sample_table', 42))
       )
       ->will($this->returnValue($databaseResult));
@@ -198,7 +210,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
-        $this->equalTo("SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
+        $this->equalTo(/** @lang Text */ "SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
         $this->equalTo(array('table_sample_table', 42))
       )
       ->will($this->returnValue(FALSE));
@@ -273,7 +285,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
-        $this->equalTo("SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
+        $this->equalTo(/** @lang Text */ "SELECT COUNT(*) FROM %s WHERE sample_id = '%s'"),
         $this->equalTo(array('table_sample_table', 42))
       )
       ->will($this->returnValue($databaseResult));
@@ -392,7 +404,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   public function testOffetGetWithInvalidField() {
     $record = new PapayaDatabaseObjectRecord_TestProxy();
     $this->expectException(OutOfBoundsException::class);
-    $dummy = $record['invalid_field'];
+    $record['invalid_field'];
   }
 
   /**
@@ -451,6 +463,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   */
   public function testPropertyGet() {
     $record = new PapayaDatabaseObjectRecord_TestProxy();
+    /** @noinspection PhpUndefinedFieldInspection */
     $this->assertEquals(
       'value1', $record->field1
     );
@@ -472,9 +485,10 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObjectRecord::__set
-  * @dataProvider provideValidOffsetVariations
-  */
+   * @covers PapayaDatabaseObjectRecord::__set
+   * @dataProvider provideValidOffsetVariations
+   * @param string $offset
+   */
   public function testPropertySetTestingNormalization($offset) {
     $record = new PapayaDatabaseObjectRecord_TestProxy();
     $record->_fields = array(
@@ -859,8 +873,11 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
 }
 
 /**
-* Proxy class with some predefined values
-*/
+ * Proxy class with some predefined values
+ *
+ * @property string field1
+ * @property string field2
+ */
 class PapayaDatabaseObjectRecord_TestProxy extends PapayaDatabaseObjectRecord {
 
   public $_fields = array(

@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaDatabaseSourceNameTest extends PapayaTestCase {
@@ -37,7 +51,7 @@ class PapayaDatabaseSourceNameTest extends PapayaTestCase {
   */
   public function testConstructorWithEmptyDsnExpectingException() {
     $this->expectException(PapayaDatabaseExceptionConnect::class);
-    $dsn = new PapayaDatabaseSourceName('');
+    new PapayaDatabaseSourceName('');
   }
 
   /**
@@ -46,14 +60,16 @@ class PapayaDatabaseSourceNameTest extends PapayaTestCase {
   */
   public function testConstructorWithInvalidDsnExpectingException() {
     $this->expectException(PapayaDatabaseExceptionConnect::class);
-    $dsn = new PapayaDatabaseSourceName('xxx');
+    new PapayaDatabaseSourceName('xxx');
   }
 
   /**
-  * @covers PapayaDatabaseSourceName::setName
-  * @covers PapayaDatabaseSourceName::_getMatchValue
-  * @dataProvider provideValidDatabaseSourceNames
-  */
+   * @covers PapayaDatabaseSourceName::setName
+   * @covers PapayaDatabaseSourceName::_getMatchValue
+   * @dataProvider provideValidDatabaseSourceNames
+   * @param string $name
+   * @param mixed $expected
+   */
   public function testSetName($name, $expected) {
     $dsn = new PapayaDatabaseSourceName($name);
     $this->assertAttributeEquals(
@@ -78,9 +94,11 @@ class PapayaDatabaseSourceNameTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseSourceName::__get
-  * @dataProvider provideValidPropertyNames
-  */
+   * @covers       PapayaDatabaseSourceName::__get
+   * @dataProvider provideValidPropertyNames
+   * @param string $property
+   * @param mixed $expected
+   */
   public function testMagicMethodGet($property, $expected) {
     $dsn = new PapayaDatabaseSourceName('mysqli(mysql)://user:pass@server:42/database');
     $this->assertEquals(
@@ -94,7 +112,8 @@ class PapayaDatabaseSourceNameTest extends PapayaTestCase {
   public function testMagicMethodGetWithInvalidPropertyExpectingException() {
     $this->expectException(ErrorException::class);
     $dsn = new PapayaDatabaseSourceName('mysqli(mysql)://user:pass@server:42/database');
-    $foo = $dsn->INVALID_ARGUMENT_NAME;
+    /** @noinspection PhpUndefinedFieldInspection */
+    $dsn->INVALID_ARGUMENT_NAME;
   }
 
   /**

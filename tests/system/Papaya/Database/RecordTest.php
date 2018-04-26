@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaDatabaseRecordTest extends PapayaTestCase {
@@ -137,7 +151,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
-        "SELECT field_id, field_data FROM %s ",
+        /** @lang Text */'SELECT field_id, field_data FROM %s ',
         array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
@@ -167,7 +181,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
-        "SELECT field_id, field_data FROM %s ",
+        /** @lang Text */'SELECT field_id, field_data FROM %s ',
         array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
@@ -288,7 +302,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
-        "SELECT field_id, field_data FROM %s ",
+        /** @lang Text */'SELECT field_id, field_data FROM %s ',
         array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
@@ -333,14 +347,15 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
     $record->assign(
       array('data' => 'inserted')
     );
-    $record->callbacks()->onBeforeInsert = array($this, 'callbackBeforeInsert');
+    $record->callbacks()->onBeforeInsert = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, PapayaDatabaseRecord_TestProxy $record
+    ) {
+      $record->data = 'before insert';
+      return TRUE;
+    };
     $this->assertEquals(array('id' => 42), $record->save()->getFilter());
     $this->assertEquals('before insert', $record->data);
-  }
-
-  public function callbackBeforeInsert($context, PapayaDatabaseRecord $record) {
-    $record->data = 'before insert';
-    return TRUE;
   }
 
   /**
@@ -466,14 +481,15 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
       )
     );
     $record->key()->assign($values);
-    $record->callbacks()->onBeforeUpdate = array($this, 'callbackBeforeUpdate');
+    $record->callbacks()->onBeforeUpdate = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, PapayaDatabaseRecord_TestProxy $record
+    ) {
+      $record->data = 'before update';
+      return TRUE;
+    };
     $this->assertTrue($record->save());
     $this->assertEquals('before update', $record->data);
-  }
-
-  public function callbackBeforeUpdate($context, PapayaDatabaseRecord $record) {
-    $record->data = 'before update';
-    return TRUE;
   }
 
   /**
@@ -628,6 +644,10 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 }
 
+/**
+ * @property $id
+ * @property $data
+ */
 class PapayaDatabaseRecord_TestProxy extends PapayaDatabaseRecord {
 
   protected $_fields = array(

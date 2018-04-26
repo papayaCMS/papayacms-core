@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaDatabaseObjectListTest extends PapayaTestCase {
@@ -37,9 +51,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   */
   public function testCountAll() {
     $list = new PapayaDatabaseObjectList_TestProxy();
-    $this->assertEquals(
-      2, $list->countAll()
-    );
+    $this->assertEquals(2, $list->countAll());
   }
 
   /**
@@ -208,6 +220,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectList::_fetchRecords
   */
   public function testFetchRecords() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseResult $databaseResult */
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
@@ -232,6 +245,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers PapayaDatabaseObjectList::_fetchRecords
   */
   public function testFetchRecordsWithIndex() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseResult $databaseResult */
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
@@ -274,10 +288,11 @@ class PapayaDatabaseObjectList_TestProxy extends PapayaDatabaseObjectList {
     'field2' => 'property2'
   );
 
-  public $_recordCount = 0;
+  public $_recordCount;
 
-  public function _loadRecords($sql, $parameters, $idProperty = NULL,
-                               $limit = NULL, $offset = NULL) {
+  public function _loadRecords(
+    $sql, $parameters, $idProperty = NULL, $limit = NULL, $offset = NULL
+  ) {
     return parent::_loadRecords($sql, $parameters, $idProperty, $limit, $offset);
   }
 

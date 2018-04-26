@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
@@ -109,7 +123,9 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with("SELECT COUNT(*) FROM %s WHERE {CONDITION}", array('table_sometable'))
+      ->with(
+        /** @lang Text */ 'SELECT COUNT(*) FROM %s WHERE {CONDITION}', array('table_sometable')
+      )
       ->will($this->returnValue($databaseResult));
 
     $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
@@ -147,7 +163,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with("SELECT COUNT(*) FROM %s WHERE {CONDITION}", array('table_sometable'))
+      ->with(/** @lang Text */ 'SELECT COUNT(*) FROM %s WHERE {CONDITION}', array('table_sometable'))
       ->will($this->returnValue(FALSE));
 
     $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
@@ -218,8 +234,12 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
     $this->assertSame('', (string)$key);
   }
 
+  /**
+   * @param PapayaDatabaseRecord|NULL|PHPUnit_Framework_MockObject_MockObject $record
+   * @return PapayaDatabaseRecordKeyFields
+   */
   public function getKeyFixture(PapayaDatabaseRecord $record = NULL) {
-    if (is_null($record)) {
+    if (NULL === $record) {
       $record = $this->createMock(PapayaDatabaseRecord::class);
     }
     return new PapayaDatabaseRecordKeyFields(

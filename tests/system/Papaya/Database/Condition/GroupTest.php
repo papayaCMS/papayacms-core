@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
@@ -30,8 +44,8 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
    */
   public function testConstructorWithInterfaceDatabaseAccess() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $parent = $this
-      ->createMock(PapayaDatabaseInterfaceAccess::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceAccess $parent */
+    $parent = $this->createMock(PapayaDatabaseInterfaceAccess::class);
     $parent
       ->expects($this->once())
       ->method('getDatabaseAccess')
@@ -46,6 +60,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
    */
   public function testConstructorWithGroup() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseConditionGroup $parent */
     $parent = $this
       ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
@@ -64,13 +79,15 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
    */
   public function testConstructorWithInvalidParent() {
     $this->expectException(InvalidArgumentException::class);
-    $group = new PapayaDatabaseConditionGroup_TestProxy(new stdClass());
+    /** @noinspection PhpParamsInspection */
+    new PapayaDatabaseConditionGroup_TestProxy(new stdClass());
   }
 
   /**
    * @covers PapayaDatabaseConditionGroup
    */
   public function testEnd() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseConditionGroup $parent */
     $parent = $this
       ->getMockBuilder(PapayaDatabaseConditionGroup::class)
       ->disableOriginalConstructor()
@@ -185,6 +202,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $group = new PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
     $this->expectException(BadMethodCallException::class);
+    /** @noinspection PhpUndefinedMethodInspection */
     $group->isUnknownCondition();
   }
 }
