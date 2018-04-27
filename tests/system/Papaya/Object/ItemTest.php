@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaObjectItemTest extends PapayaTestCase {
@@ -67,7 +81,8 @@ class PapayaObjectItemTest extends PapayaTestCase {
   public function testAssignExpectingInvalid() {
     $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
     $this->expectException(InvalidArgumentException::class);
-    $this->expectExceptionMessage('Argument $data must be an array or instance of Taversable.');
+    $this->expectExceptionMessage('Argument $data must be an array or instance of Traversable.');
+    /** @noinspection PhpParamsInspection */
     $item->assign('INVALID');
   }
 
@@ -197,24 +212,26 @@ class PapayaObjectItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaObjectItem::_prepareName
-  * @dataProvider provideNameVariants
-  */
-  public function testPropertyConvert($name) {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one'));
-    $item['sample_one'] = 'success';
+   * @covers PapayaObjectItem::_prepareName
+   * @dataProvider provideNameVariants
+   * @param string $name
+   * @param string $normalizedName
+   */
+  public function testPropertyConvert($name, $normalizedName) {
+    $item = new PapayaObjectItem_TestProxy(array($name));
+    $item[$name] = 'success';
     $this->assertEquals(
-      array('sample_one' => 'success'),
+      array($normalizedName => 'success'),
       $item->toArray()
     );
   }
 
   public static function provideNameVariants() {
     return array(
-      'lowercase' => array('sample_one'),
-      'uppercase' => array('SAMPLE_TWO'),
-      'camel case' => array('sampleTwo'),
-      'camel case first upper' => array('SampleTwo')
+      'lowercase' => array('sample_one', 'sample_one'),
+      'uppercase' => array('SAMPLE_TWO', 'sample_two'),
+      'camel case' => array('sampleTwo', 'sample_two'),
+      'camel case first upper' => array('SampleTwo', 'sample_two')
     );
   }
 
@@ -223,16 +240,15 @@ class PapayaObjectItemTest extends PapayaTestCase {
   */
   public function testPropertyValidationExpectingExceptionForUnknown() {
     $item = new PapayaObjectItem_TestProxy(array());
-    try {
-      $item->test = 'fail';
-    } catch (OutOfBoundsException $e) {
-      $this->assertEquals(
-        'Property/Index "test" is not defined for item class "PapayaObjectItem_TestProxy".',
-        $e->getMessage()
-      );
-    }
+    $this->expectException(OutOfBoundsException::class);
+    $this->expectExceptionMessage('Property/Index "test" is not defined for item class "PapayaObjectItem_TestProxy".');
+    /** @noinspection PhpUndefinedFieldInspection */
+    $item->test = 'fail';
   }
 }
 
+/**
+ * @property string sampleOne
+ */
 class PapayaObjectItem_TestProxy extends PapayaObjectItem {
 }

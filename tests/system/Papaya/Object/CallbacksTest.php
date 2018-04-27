@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaObjectCallbacksTest extends PapayaTestCase {
@@ -57,6 +71,7 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
   public function testGetAfterSetWithNull() {
     $list = new PapayaObjectCallbacks_TestProxy(array('sample' => 23));
     $list->sample = 'substr';
+    $this->assertSame('substr', $list->sample->callback);
     $list->sample = NULL;
     $this->assertNull($list->sample->callback);
     $this->assertEquals(23, $list->sample->defaultReturn);
@@ -105,6 +120,7 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
     $list = new PapayaObjectCallbacks_TestProxy(array('sample' => 23));
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('Invalid callback name: UNKNOWN.');
+    /** @noinspection PhpUndefinedFieldInspection */
     $list->UNKNOWN = NULL;
   }
 
@@ -123,12 +139,13 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
   */
   public function testCallExecutesCallback() {
     $list = new PapayaObjectCallbacks_TestProxy(array('sample' => 23));
-    $list->sample = array($this, 'callbackSample');
+    $list->sample = function(
+      /** @noinspection PhpUnusedParameterInspection */
+      $context, $argument
+    ) {
+      return $argument;
+    };
     $this->assertEquals(42, $list->sample(42));
-  }
-
-  public function callbackSample($context, $argument) {
-    return $argument;
   }
 
   /**
@@ -138,6 +155,7 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
     $list = new PapayaObjectCallbacks_TestProxy(array('sample' => 23));
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('Invalid callback name: UNKNOWN.');
+    /** @noinspection PhpUndefinedMethodInspection */
     $list->UNKNOWN();
   }
 
@@ -165,7 +183,7 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
 
 /**
  * @property PapayaObjectCallback $sample
- * @method mixed sample
+ * @method mixed sample($argument)
  */
 class PapayaObjectCallbacks_TestProxy extends PapayaObjectCallbacks {
   public function blocker() {

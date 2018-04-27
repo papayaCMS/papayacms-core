@@ -144,9 +144,7 @@ class PapayaMessageManagerTest extends PapayaTestCase {
     $message = new PapayaMessageLog(
       PapayaMessage::SEVERITY_INFO, PapayaMessageLogable::GROUP_COMMUNITY, 'TEST'
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextInterface $context */
-    $context = $this->createMock(PapayaMessageContextInterface::class);
-    $message->context()->append($context);
+    $message->context()->append(new PapayaMessageContextVariable('data'));
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcher $dispatcher */
     $dispatcher = $this->createMock(PapayaMessageDispatcher::class);
     $dispatcher

@@ -1,4 +1,19 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+/** @noinspection PhpIllegalArrayKeyTypeInspection */
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaObjectParametersTest extends PapayaTestCase {
@@ -47,6 +62,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   public function testMergeWithInvalidArgument() {
     $parameters = new PapayaObjectParameters();
     $this->expectException(UnexpectedValueException::class);
+    /** @noinspection PhpParamsInspection */
     $parameters->merge('foo');
   }
 
@@ -105,9 +121,12 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaObjectParameters::get
-  * @dataProvider provideOffsetsAndDefaultValues
-  */
+   * @covers PapayaObjectParameters::get
+   * @dataProvider provideOffsetsAndDefaultValues
+   * @param string $name
+   * @param mixed $defaultValue
+   * @param mixed $expected
+   */
   public function testGet($name, $defaultValue, $expected) {
     $parameters = new PapayaObjectParameters($this->getSampleArray());
     $this->assertSame(
@@ -140,7 +159,11 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   * @covers PapayaObjectParameters::get
   */
   public function testGetWithObjectDefaultValueExpectingDefaultValue() {
-    $defaultValue = $this->getMock(PapayaUiString::class, array('__toString'), array(' '));
+    $defaultValue = $this
+      ->getMockBuilder(PapayaUiString::class)
+      ->setMethods(array('__toString'))
+      ->setConstructorArgs(array(' '))
+      ->getMock();
     $defaultValue
       ->expects($this->once())
       ->method('__toString')
@@ -161,9 +184,9 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   * @covers PapayaObjectParameters::get
   */
   public function testGetWithFilter() {
-    $filter = $this->getMock(PapayaFilter::class, array('filter', 'validate'));
+    $filter = $this->createMock(PapayaFilter::class);
     $filter
-      ->expects($this->once('filter'))
+      ->expects($this->once())
       ->method('filter')
       ->with($this->equalTo('42'))
       ->will($this->returnValue(42));
@@ -183,9 +206,9 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   * @covers PapayaObjectParameters::get
   */
   public function testGetWithFilterExpectingDefaultValue() {
-    $filter = $this->getMock(PapayaFilter::class, array('filter', 'validate'));
+    $filter = $this->createMock(PapayaFilter::class);
     $filter
-      ->expects($this->once('filter'))
+      ->expects($this->once())
       ->method('filter')
       ->with($this->equalTo('42'))
       ->will($this->returnValue(NULL));
@@ -331,6 +354,8 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   /**
    * @covers PapayaObjectParameters::offsetGet
    * @dataProvider provideOffsetsAndValues
+   * @param string $name
+   * @param mixed $expected
    */
   public function testOffsetGet($name, $expected) {
     $parameters = new PapayaObjectParameters($this->getSampleArray());
@@ -343,6 +368,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   /**
    * @covers PapayaObjectParameters::offsetExists
    * @dataProvider provideExistingOffsets
+   * @param string $name
    */
   public function testOffsetExistsExpectingTrue($name) {
     $parameters = new PapayaObjectParameters($this->getSampleArray());
@@ -352,6 +378,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   /**
    * @covers PapayaObjectParameters::offsetExists
    * @dataProvider provideNonExistingOffsets
+   * @param string $name
    */
   public function testOffsetExistsExpectingFalse($name) {
     $parameters = new PapayaObjectParameters($this->getSampleArray());
@@ -361,6 +388,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   /**
    * @covers PapayaObjectParameters::offsetUnset
    * @dataProvider provideExistingOffsets
+   * @param string $name
    */
   public function testOffsetUnset($name) {
     $parameters = new PapayaObjectParameters($this->getSampleArray());
@@ -371,6 +399,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   /**
    * @covers PapayaObjectParameters::offsetUnset
    * @dataProvider provideNonExistingOffsets
+   * @param string $name
    */
   public function testOffsetUnsetWithNonExistingParameters($name) {
     $parameters = new PapayaObjectParameters($this->getSampleArray());
@@ -435,7 +464,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
       'string, integer default, return typecasted value' =>
         array('integer', 0, 42),
       'string, float default, return typecasted value' =>
-        array('float', (float)0, (float)42.21),
+        array('float', 0.0, 42.21),
       'array, array default, return array value' =>
         array('array', array(), array('1', '2', '3')),
       'array, array default, return default' =>
