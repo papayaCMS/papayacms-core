@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaMediaStorageServiceTest extends PapayaTestCase {
@@ -23,7 +37,7 @@ class PapayaMediaStorageServiceTest extends PapayaTestCase {
 
 class PapayaMediaStorageService_TestProxy extends PapayaMediaStorageService {
 
-  public $configurationBuffer = NULL;
+  public $configurationBuffer;
 
   public function setConfiguration($configuration) {
     $this->configurationBuffer = $configuration;
@@ -39,14 +53,13 @@ class PapayaMediaStorageService_TestProxy extends PapayaMediaStorageService {
   public function browse($storageGroup, $startsWith = '') {
   }
 
-  public function store($storageGroup, $storageId, $content,
-                        $mimeType = 'application/octet-stream',
-                        $isPublic = FALSE) {
+  public function store(
+    $storageGroup, $storageId, $content, $mimeType = 'application/octet-stream', $isPublic = FALSE
+  ) {
   }
 
-  public function storeLocalFile($storageGroup, $storageId, $filename,
-                                 $mimeType = 'application/octet-stream',
-                                 $isPublic = FALSE) {
+  public function storeLocalFile(
+    $storageGroup, $storageId, $filename, $mimeType = 'application/octet-stream', $isPublic = FALSE) {
   }
 
   public function remove($storageGroup, $storageId) {
@@ -73,8 +86,8 @@ class PapayaMediaStorageService_TestProxy extends PapayaMediaStorageService {
   public function getLocalFile($storageGroup, $storageId) {
   }
 
-  public function output($storageGroup, $storageId, $rangeFrom = 0, $rangeTo = 0,
-                         $bufferSize = 1024) {
+  public function output(
+    $storageGroup, $storageId, $rangeFrom = 0, $rangeTo = 0, $bufferSize = 1024) {
   }
 }
 

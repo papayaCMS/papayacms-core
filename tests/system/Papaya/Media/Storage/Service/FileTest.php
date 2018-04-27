@@ -1,7 +1,24 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaMediaStorageServiceFileTest extends PapayaTestCase {
+
+  private $_storageDirectory;
+  private $_publicDirectory;
 
   public function setUp() {
     if ($directory = $this->createTemporaryDirectory()) {
@@ -151,7 +168,7 @@ class PapayaMediaStorageServiceFileTest extends PapayaTestCase {
       $service->store(
         'media',
         '012345678901234567890123456789012_v1',
-        fopen('data://text/plain,SAMPLE_DATA', 'r')
+        fopen('data://text/plain,SAMPLE_DATA', 'rb')
       )
     );
     $this->assertFileExists(
@@ -298,7 +315,7 @@ class PapayaMediaStorageServiceFileTest extends PapayaTestCase {
   }
 
   public function testSetPublicToTrueWithPrivateFile() {
-    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+    if (0 === stripos(PHP_OS, 'WIN')) {
       $this->markTestSkipped('Symlink on Windows is severly restricted.');
     }
     $this->createSampleFilesFixture();
@@ -430,8 +447,7 @@ class PapayaMediaStorageServiceFileTest extends PapayaTestCase {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
     $service = new PapayaMediaStorageServiceFile($configuration);
-    $this->assertSame(
-      NULL,
+    $this->assertNull(
       $service->get('INVALID_GROUP', 'INVALID_STORAGE_ID')
     );
   }
@@ -571,7 +587,6 @@ class PapayaMediaStorageServiceFileTest extends PapayaTestCase {
   }
 
   public function testOutputLocalFileWithNonExistingFile() {
-    $configuration = $this->getMockConfigurationObjectFixture();
     $service = new PapayaMediaStorageServiceFile_TestProxy();
     $this->assertFalse(
       @$service->_outputLocalFile('INVALID_FILENAME', 0, 0, 0)
