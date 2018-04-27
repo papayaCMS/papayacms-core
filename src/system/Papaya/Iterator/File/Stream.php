@@ -1,21 +1,17 @@
 <?php
 /**
-* This wraps an stream resource into an line iterator.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-* @version $Id: Stream.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This wraps an stream resource into an line iterator.
@@ -28,8 +24,8 @@ class PapayaIteratorFileStream implements Iterator {
   const TRIM_NONE = 0;
   const TRIM_RIGHT = 1;
 
-  private $_stream = NULL;
-  private $_trim = self::TRIM_NONE;
+  private $_stream;
+  private $_trim;
 
   private $_line = -1;
   private $_current = FALSE;
@@ -39,6 +35,7 @@ class PapayaIteratorFileStream implements Iterator {
    *
    * @param resource $stream
    * @param int $trim
+   * @throws \InvalidArgumentException
    */
   public function __construct($stream, $trim = self::TRIM_NONE) {
     $this->setStream($stream);
@@ -51,6 +48,7 @@ class PapayaIteratorFileStream implements Iterator {
   public function __destruct() {
     if (is_resource($this->_stream)) {
       fclose($this->_stream);
+      $this->_stream = NULL;
     }
   }
 
@@ -123,6 +121,6 @@ class PapayaIteratorFileStream implements Iterator {
   * Has an valid line in buffer.
   */
   public function valid() {
-    return $this->_current !== FALSE;
+    return FALSE !== $this->_current;
   }
 }
