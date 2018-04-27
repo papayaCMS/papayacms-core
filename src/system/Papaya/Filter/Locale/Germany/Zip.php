@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya filter class for german zip code
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Zip.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya filter class for German zip code
@@ -29,7 +25,7 @@ class PapayaFilterLocaleGermanyZip implements PapayaFilter {
    * Check flag for country prefix
    * @var boolean|NULL
    */
-  private $_allowCountryPrefix = NULL;
+  private $_allowCountryPrefix;
 
   /**
    * Constructor
@@ -37,7 +33,7 @@ class PapayaFilterLocaleGermanyZip implements PapayaFilter {
    * @param bool|NULL $allowCountryPrefix
    */
   public function __construct($allowCountryPrefix = NULL) {
-    if (!empty($allowCountryPrefix) && is_bool($allowCountryPrefix)) {
+    if (NULL !== $allowCountryPrefix && is_bool($allowCountryPrefix)) {
       $this->_allowCountryPrefix = $allowCountryPrefix;
     }
   }
@@ -68,7 +64,7 @@ class PapayaFilterLocaleGermanyZip implements PapayaFilter {
       $value,
       $matches
     );
-    if ($found && $this->_allowCountryPrefix === TRUE && empty($matches['prefix'])) {
+    if ($found && TRUE === $this->_allowCountryPrefix && empty($matches['prefix'])) {
       throw new PapayaFilterExceptionCharacterInvalid($value, 0);
     }
     if (!$found || empty($matches['zipcode']) || strlen($matches['zipcode']) < 5) {
