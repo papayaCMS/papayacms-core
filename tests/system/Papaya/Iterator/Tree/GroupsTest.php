@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaIteratorTreeGroupsTest extends PapayaTestCase {
@@ -129,31 +143,31 @@ class PapayaIteratorTreeGroupsTest extends PapayaTestCase {
     );
   }
 
-  public function callbackGetFirstChar($element, $index) {
+  public function callbackGetFirstChar($element) {
     return $element[0];
   }
 
-  public function callbackGetFirstCharAsArray($element, $index) {
+  public function callbackGetFirstCharAsArray($element) {
     return array('character' => $element[0]);
   }
 
-  public function callbackGetFirstCharAsObject($element, $index) {
+  public function callbackGetFirstCharAsObject($element) {
     return new PapayaIteratorTreeGroups_SampleGroup($element[0]);
   }
 
-  public function callbackGetNull($element, $index) {
+  public function callbackGetNull() {
     return NULL;
   }
 
-  public function callbackGetFirstCharIfA($element, $index) {
+  public function callbackGetFirstCharIfA($element) {
     return (0 === strpos($element, 'A')) ? 'A' : NULL;
   }
 }
 
 class PapayaIteratorTreeGroups_SampleGroup {
-  private $_character = '';
+  public  $character = '';
 
   public function __construct($character) {
-    $this->_character = $character;
+    $this->character = $character;
   }
 }

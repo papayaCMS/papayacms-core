@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaIteratorRepeatCallbackTest extends PapayaTestCase {
@@ -19,7 +33,7 @@ class PapayaIteratorRepeatCallbackTest extends PapayaTestCase {
   */
   public function testIterationAfterRewind() {
     $iterator = new PapayaIteratorRepeatCallback(array($this, 'incrementToThree'), 0);
-    $first = iterator_to_array($iterator);
+    iterator_to_array($iterator);
     $this->assertEquals(
       array(1, 2, 3),
       iterator_to_array($iterator)
@@ -32,7 +46,7 @@ class PapayaIteratorRepeatCallbackTest extends PapayaTestCase {
   public function testConstructorWithInvalidCallbackExpectingException() {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid callback provided.');
-    $iterator = new PapayaIteratorRepeatCallback(NULL);
+    new PapayaIteratorRepeatCallback(NULL);
   }
 
   public function incrementToThree($value, $key) {
@@ -40,8 +54,7 @@ class PapayaIteratorRepeatCallbackTest extends PapayaTestCase {
     $key++;
     if ($value < 4) {
       return array($value, $key);
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 }

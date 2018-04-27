@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaIteratorMultipleTest extends PapayaTestCase {
@@ -74,6 +88,7 @@ class PapayaIteratorMultipleTest extends PapayaTestCase {
   * @covers PapayaIteratorMultiple::getIteratorIdentifier
   */
   public function testAttachIteratorWithIteratorAggregate() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|IteratorAggregate $traversable */
     $traversable = $this->createMock(IteratorAggregate::class);
     $iterator = new PapayaIteratorMultiple();
     $iterator->attachIterator($traversable);
@@ -84,7 +99,9 @@ class PapayaIteratorMultipleTest extends PapayaTestCase {
   * @covers PapayaIteratorMultiple::attachIterators
   */
   public function testAttachIteratorsWithTwoIteratorAggregate() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|IteratorAggregate $traversableOne */
     $traversableOne = $this->createMock(IteratorAggregate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|IteratorAggregate $traversableTwo */
     $traversableTwo = $this->createMock(IteratorAggregate::class);
     $iterator = new PapayaIteratorMultiple();
     $iterator->attachIterators($traversableOne, $traversableTwo);
@@ -121,7 +138,7 @@ class PapayaIteratorMultipleTest extends PapayaTestCase {
   /**
   * @covers PapayaIteratorMultiple::containsIterator
   */
-  function testContainsIteratorExpectingFalse() {
+  public function testContainsIteratorExpectingFalse() {
     $iterator = new PapayaIteratorMultiple();
     $innerIterator = new ArrayIterator();
     $this->assertFalse($iterator->containsIterator($innerIterator));

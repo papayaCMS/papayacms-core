@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaIteratorFileStreamTest extends PapayaTestCase {
@@ -10,7 +24,7 @@ class PapayaIteratorFileStreamTest extends PapayaTestCase {
   */
   public function testConstructor() {
     $iterator = new PapayaIteratorFileStream($this->getStreamFixture());
-    $this->assertTrue(is_resource($iterator->getStream()));
+    $this->assertInternalType('resource', $iterator->getStream());
   }
 
   /**
@@ -20,7 +34,7 @@ class PapayaIteratorFileStreamTest extends PapayaTestCase {
   public function testConstructorWithInvaloidStreamExpectingException() {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Provided file stream is invalid');
-    $iterator = new PapayaIteratorFileStream(NULL);
+    new PapayaIteratorFileStream(NULL);
   }
 
   /**
@@ -29,7 +43,7 @@ class PapayaIteratorFileStreamTest extends PapayaTestCase {
   public function testDestructor() {
     $iterator = new PapayaIteratorFileStream($this->getStreamFixture());
     $iterator->__destruct();
-    $this->assertFalse(is_resource($iterator->getStream()));
+    $this->assertNull($iterator->getStream());
   }
 
   /**
@@ -42,7 +56,7 @@ class PapayaIteratorFileStreamTest extends PapayaTestCase {
   public function testIteration() {
     $iterator = new PapayaIteratorFileStream($this->getStreamFixture());
     $this->assertEquals(
-      array("line1\n", "line2\n", "line3"),
+      array("line1\n", "line2\n", 'line3'),
       iterator_to_array($iterator)
     );
   }
@@ -59,7 +73,7 @@ class PapayaIteratorFileStreamTest extends PapayaTestCase {
       $this->getStreamFixture(), PapayaIteratorFileStream::TRIM_RIGHT
     );
     $this->assertEquals(
-      array("line1", "line2", "line3"),
+      array('line1', 'line2', 'line3'),
       iterator_to_array($iterator)
     );
   }
@@ -67,7 +81,7 @@ class PapayaIteratorFileStreamTest extends PapayaTestCase {
   public function getStreamFixture() {
     return fopen(
       "data:text/plain,line1\nline2\nline3",
-      'r'
+      'rb'
     );
   }
 }
