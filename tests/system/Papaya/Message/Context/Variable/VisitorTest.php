@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
@@ -8,12 +22,12 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   */
   public function testConstructor() {
     $visitor = new PapayaMessageContextVariableVisitorProxy(21, 42);
-    $this->assertattributeEquals(
+    $this->assertAttributeEquals(
       21,
       '_depth',
       $visitor
     );
-    $this->assertattributeEquals(
+    $this->assertAttributeEquals(
       42,
       '_stringLength',
       $visitor
@@ -32,9 +46,11 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariableVisitor::visitVariable
-  * @dataProvider dataProviderForVisitVariable
-  */
+   * @covers PapayaMessageContextVariableVisitor::visitVariable
+   * @dataProvider dataProviderForVisitVariable
+   * @param string $expected
+   * @param mixed $with
+   */
   public function testVisitVariable($expected, $with) {
     $visitor = new PapayaMessageContextVariableVisitorProxy(21, 42);
     $visitor->visitVariable($with);
@@ -53,7 +69,7 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
       array('float', 42.21),
       array('null', NULL),
       array('object', new stdClass()),
-      array('resource', fopen('php://memory', 'rw')),
+      array('resource', fopen('php://memory', 'rwb')),
       array('string', ''),
     );
   }

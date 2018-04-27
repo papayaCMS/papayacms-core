@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaMessageContextVariableVisitorStringTest extends PapayaTestCase {
@@ -66,7 +80,7 @@ class PapayaMessageContextVariableVisitorStringTest extends PapayaTestCase {
     $visitor = new PapayaMessageContextVariableVisitorString(21, 42);
     $visitor->visitBoolean(TRUE);
     $this->assertAttributeEquals(
-      "bool(true)",
+      'bool(true)',
       '_variableString',
       $visitor
     );
@@ -79,7 +93,7 @@ class PapayaMessageContextVariableVisitorStringTest extends PapayaTestCase {
     $visitor = new PapayaMessageContextVariableVisitorString(21, 42);
     $visitor->visitBoolean(FALSE);
     $this->assertAttributeEquals(
-      "bool(false)",
+      'bool(false)',
       '_variableString',
       $visitor
     );
@@ -92,7 +106,7 @@ class PapayaMessageContextVariableVisitorStringTest extends PapayaTestCase {
     $visitor = new PapayaMessageContextVariableVisitorString(21, 42);
     $visitor->visitInteger(3117);
     $this->assertAttributeEquals(
-      "int(3117)",
+      'int(3117)',
       '_variableString',
       $visitor
     );
@@ -105,7 +119,7 @@ class PapayaMessageContextVariableVisitorStringTest extends PapayaTestCase {
     $visitor = new PapayaMessageContextVariableVisitorString(21, 42);
     $visitor->visitFloat(31.17);
     $this->assertAttributeEquals(
-      "float(31.17)",
+      'float(31.17)',
       '_variableString',
       $visitor
     );
@@ -118,7 +132,7 @@ class PapayaMessageContextVariableVisitorStringTest extends PapayaTestCase {
     $visitor = new PapayaMessageContextVariableVisitorString(21, 42);
     $visitor->visitNull(NULL);
     $this->assertAttributeEquals(
-      "NULL",
+      'NULL',
       '_variableString',
       $visitor
     );
@@ -139,6 +153,8 @@ class PapayaMessageContextVariableVisitorStringTest extends PapayaTestCase {
       '  int(2)'."\n".
       '  [public:publicProperty]=>'."\n".
       '  int(3)'."\n".
+      '  [public:recursion]=>'."\n".
+      '  NULL'."\n".
       '}',
       '_variableString',
       $visitor
@@ -162,6 +178,8 @@ class PapayaMessageContextVariableVisitorStringTest extends PapayaTestCase {
       '  int(4)'."\n".
       '  [protected:protectedProperty]=>'."\n".
       '  int(2)'."\n".
+      '  [public:recursion]=>'."\n".
+      '  NULL'."\n".
       '}',
       '_variableString',
       $visitor
@@ -230,6 +248,8 @@ class PapayaMessageContextVariableVisitorStringTest extends PapayaTestCase {
       '    int(2)'."\n".
       '    [public:publicProperty]=>'."\n".
       '    int(3)'."\n".
+      '    [public:recursion]=>'."\n".
+      '    NULL'."\n".
       '  }'."\n".
       '  [1]=>'."\n".
       '  object(PapayaMessageContextVariableVisitorString_SampleClass) #1 {'."\n".
@@ -245,7 +265,7 @@ class PapayaMessageContextVariableVisitorStringTest extends PapayaTestCase {
   * @covers PapayaMessageContextVariableVisitorString::visitResource
   */
   public function testVisitResource() {
-    $resource = fopen('php://memory', 'rw');
+    $resource = fopen('php://memory', 'rwb');
     $visitor = new PapayaMessageContextVariableVisitorString(21, 42);
     $visitor->visitResource($resource);
     $this->assertRegExp(
@@ -283,14 +303,17 @@ class PapayaMessageContextVariableVisitorStringTest extends PapayaTestCase {
 }
 
 class PapayaMessageContextVariableVisitorString_SampleClass{
-  private $privateProperty = 1;
+  private /** @noinspection PhpUnusedPrivateFieldInspection */
+    $privateProperty = 1;
   protected $protectedProperty = 2;
   public $publicProperty = 3;
+  public $recursion;
 }
 
 class PapayaMessageContextVariableVisitorString_SampleChildClass
   extends PapayaMessageContextVariableVisitorString_SampleClass {
-  private static $privateStaticProperty = 5;
+  private static /** @noinspection PhpUnusedPrivateFieldInspection */
+    $privateStaticProperty = 5;
   protected static $publicStaticProperty = 6;
   public $publicProperty = 4;
 }

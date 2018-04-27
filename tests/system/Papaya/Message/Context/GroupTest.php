@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaMessageContextGroupTest extends PapayaTestCase {
@@ -7,6 +21,7 @@ class PapayaMessageContextGroupTest extends PapayaTestCase {
   * @covers PapayaMessageContextGroup::append
   */
   public function testAppend() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextInterface $element */
     $element = $this->createMock(PapayaMessageContextInterface::class);
     $group = new PapayaMessageContextGroup();
     $this->assertSame(
@@ -128,16 +143,19 @@ class PapayaMessageContextGroupTest extends PapayaTestCase {
 
   public function getContextGroupFixture() {
     $group = new PapayaMessageContextGroup();
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextInterface $elementLabeled */
     $elementLabeled = $this->createMock(PapayaMessageContextInterfaceLabeled::class);
     $elementLabeled
       ->expects($this->any())
       ->method('getLabel')
       ->will($this->returnValue('Universe'));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextInterface $elementString */
     $elementString = $this->createMock(PapayaMessageContextInterfaceString::class);
     $elementString
       ->expects($this->any())
       ->method('asString')
       ->will($this->returnValue('Hello <World>'));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextInterface $elementXhtml */
     $elementXhtml = $this->createMock(PapayaMessageContextInterfaceXhtml::class);
     $elementXhtml
       ->expects($this->any())
