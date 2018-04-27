@@ -1,13 +1,29 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaHttpClientFileResourceTest extends PapayaTestCase {
 
-  function setUp() {
-    $this->_fileResource = fopen(__DIR__.'/DATA/sample.txt', 'r');
+  private $_fileResource;
+
+  public function setUp() {
+    $this->_fileResource = fopen(__DIR__.'/DATA/sample.txt', 'rb');
   }
 
-  function tearDown() {
+  public function tearDown() {
     if (is_resource($this->_fileResource)) {
       fclose($this->_fileResource);
     }
@@ -16,29 +32,28 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   /**
   * @covers PapayaHttpClientFileResource::__construct
   */
-  function testConstructor() {
-    $fileName = __DIR__;
+  public function testConstructor() {
     $file = new PapayaHttpClientFileResource(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
     $this->assertAttributeEquals('test', '_name', $file);
     $this->assertAttributeEquals('sample.txt', '_fileName', $file);
     $this->assertAttributeEquals('text/plain', '_mimeType', $file);
-    $this->assertTrue(is_resource($this->readAttribute($file, '_resource')));
+    $this->assertInternalType('resource', $this->readAttribute($file, '_resource'));
   }
 
   /**
   * @covers PapayaHttpClientFileResource::__construct
   */
-  function testConstructorExpectingError() {
+  public function testConstructorExpectingError() {
     $this->expectException(InvalidArgumentException::class);
-    new PapayaHttpClientFileResource('', '', '', '');
+    new PapayaHttpClientFileResource('', '', NULL, '');
   }
 
   /**
   * @covers PapayaHttpClientFileResource::getSize
   */
-  function testGetSize() {
+  public function testGetSize() {
     $file = new PapayaHttpClientFileResource(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
@@ -49,7 +64,8 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   /**
   * @covers PapayaHttpClientFileResource::send
   */
-  function testSend() {
+  public function testSend() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocket $socket */
     $socket = $this->createMock(PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
@@ -66,7 +82,8 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   /**
   * @covers PapayaHttpClientFileResource::send
   */
-  function testSendLimited() {
+  public function testSendLimited() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocket $socket */
     $socket = $this->createMock(PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
@@ -86,7 +103,8 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   /**
   * @covers PapayaHttpClientFileResource::send
   */
-  function testSendChunked() {
+  public function testSendChunked() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocket $socket */
     $socket = $this->createMock(PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
@@ -106,7 +124,8 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   /**
   * @covers PapayaHttpClientFileResource::send
   */
-  function testSendInvalidResourceExpectingError() {
+  public function testSendInvalidResourceExpectingError() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocket $socket */
     $socket = $this->createMock(PapayaHttpClientSocket::class);
     $file = new PapayaHttpClientFileResource(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'

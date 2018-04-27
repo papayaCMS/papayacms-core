@@ -1,14 +1,29 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaHttpClientFileStringTest extends PapayaTestCase {
 
-  function setUp() {
+  private $_fileContents;
+
+  public function setUp() {
     $this->_fileContents = file_get_contents(__DIR__.'/DATA/sample.txt');
   }
 
-  function testConstructor() {
-    $fileName = __DIR__;
+  public function testConstructor() {
     $file = new PapayaHttpClientFileString(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
@@ -18,12 +33,12 @@ class PapayaHttpClientFileStringTest extends PapayaTestCase {
     $this->assertAttributeEquals($this->_fileContents, '_data', $file);
   }
 
-  function testConstructorExpectingError() {
+  public function testConstructorExpectingError() {
     $this->expectError(E_WARNING);
-    $file = new PapayaHttpClientFileString('', '', '', '');
+    new PapayaHttpClientFileString('', '', '', '');
   }
 
-  function testGetSize() {
+  public function testGetSize() {
     $file = new PapayaHttpClientFileString(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
@@ -31,31 +46,38 @@ class PapayaHttpClientFileStringTest extends PapayaTestCase {
     $this->assertEquals(6, $file->getSize());
   }
 
-  function testSend() {
+  public function testSend() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocket $socket */
     $socket = $this->createMock(PapayaHttpClientSocket::class);
-    $socket->expects($this->at(0))
-           ->method('isActive')
-           ->will($this->returnValue(TRUE));
-    $socket->expects($this->at(1))
-           ->method('write')
-           ->with($this->equalTo('sample'));
+    $socket
+      ->expects($this->at(0))
+      ->method('isActive')
+      ->will($this->returnValue(TRUE));
+    $socket
+      ->expects($this->at(1))
+      ->method('write')
+      ->with($this->equalTo('sample'));
     $file = new PapayaHttpClientFileString(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
     $file->send($socket);
   }
 
-  function testSendChunked() {
+  public function testSendChunked() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocket $socket */
     $socket = $this->createMock(PapayaHttpClientSocket::class);
-    $socket->expects($this->at(0))
-           ->method('isActive')
-           ->will($this->returnValue(TRUE));
-    $socket->expects($this->at(1))
-           ->method('writeChunk')
-           ->with($this->equalTo('sample'));
-    $socket->expects($this->at(2))
-           ->method('writeChunk')
-           ->with($this->equalTo("\r\n"));
+    $socket
+      ->expects($this->at(0))
+      ->method('isActive')
+      ->will($this->returnValue(TRUE));
+    $socket
+      ->expects($this->at(1))
+      ->method('writeChunk')
+      ->with($this->equalTo('sample'));
+    $socket
+      ->expects($this->at(2))
+      ->method('writeChunk')
+      ->with($this->equalTo("\r\n"));
     $file = new PapayaHttpClientFileString(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
