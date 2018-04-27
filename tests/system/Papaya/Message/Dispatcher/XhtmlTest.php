@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
@@ -7,6 +21,7 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherXhtml::dispatch
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessage $message */
     $message = $this->createMock(PapayaMessage::class);
     $dispatcher = new PapayaMessageDispatcherXhtml();
     $this->assertFalse(
@@ -18,13 +33,12 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherXhtml::dispatch
   */
   public function testDispatch() {
-    $context = $this
-      ->getMockBuilder(PapayaMessageContextInterfaceXhtml::class)
-      ->getMock();
+    $context = $this->createMock(PapayaMessageContextInterfaceXhtml::class);
     $context
       ->expects($this->any())
       ->method('asXhtml')
       ->will($this->returnValue('CONTEXT'));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
     $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->any())
@@ -57,6 +71,7 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherXhtml::allow
   */
   public function testAllowWithDisabledDispatcherExpectingFalse() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
     $message = $this->createMock(PapayaMessageLogable::class);
     $dispatcher = new PapayaMessageDispatcherXhtml();
     $dispatcher->papaya(
@@ -101,9 +116,6 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
 
   /**
   * @covers PapayaMessageDispatcherXhtml::getHeaderOptionsFromType
-  *
-  * @param array $expected
-  * @param integer $type
   */
   public function testGetHeaderOptionsFromType() {
     $dispatcher = new PapayaMessageDispatcherXhtml();
@@ -115,9 +127,6 @@ class PapayaMessageDispatcherXhtmlTest extends PapayaTestCase {
 
   /**
   * @covers PapayaMessageDispatcherXhtml::getHeaderOptionsFromType
-  *
-  * @param array $expected
-  * @param integer $type
   */
   public function testGetHeaderOptionsFromTypeWithInvalidTypeExpectingErrorOptions() {
     $dispatcher = new PapayaMessageDispatcherXhtml();

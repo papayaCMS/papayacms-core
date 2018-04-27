@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 PapayaTestCase::defineConstantDefaults(
   array(
@@ -26,6 +40,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
       ->method('insertRecord')
       ->with($this->equalTo('table_log'), $this->isNull(), $this->isType('array'))
       ->will($this->returnValue(TRUE));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
     $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->once())
@@ -70,7 +85,10 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
       ->method('insertRecord')
       ->with($this->equalTo('table_log'), $this->isNull(), $this->isType('array'))
       ->will($this->returnValue(TRUE));
-    $user = $this->getMock(base_auth::class, array('isLoggedIn', 'getUserId', 'getDisplayName'));
+    $user = $this
+      ->getMockBuilder(base_auth::class)
+      ->setMethods(array('isLoggedIn', 'getUserId', 'getDisplayName'))
+      ->getMock();
     $user
       ->expects($this->once())
       ->method('isLoggedIn')
@@ -83,6 +101,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getDisplayName')
       ->will($this->returnValue('Sample User'));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
     $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->once())
@@ -122,6 +141,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherDatabase::dispatch
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
     $message = $this->createMock(PapayaMessage::class);
     $dispatcher = new PapayaMessageDispatcherDatabase();
     $this->assertFalse($dispatcher->dispatch($message));
@@ -131,6 +151,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherDatabase::dispatch
   */
   public function testDispatchWithDebugMessageExpectingFalse() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
     $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->once())
@@ -172,6 +193,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->never())
       ->method('insertRecord');
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
     $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->once())
@@ -220,6 +242,7 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
   * @param boolean $dispatcherHandleDebug
   */
   public function testAllow($expected, $type, $dispatcherActive, $dispatcherHandleDebug) {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
     $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->any())

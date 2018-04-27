@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaMessageDispatcherCliTest extends PapayaTestCase {
@@ -21,7 +35,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   public function testPhpSapiNameInit() {
     $dispatcher = new PapayaMessageDispatcherCli();
     $this->assertSame(
-      php_sapi_name(),
+      PHP_SAPI,
       $dispatcher->phpSapiName()
     );
   }
@@ -74,6 +88,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherCli::dispatch
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessage $message */
     $message = $this->createMock(PapayaMessage::class);
     $dispatcher = new PapayaMessageDispatcherCli();
     $this->assertFalse(
@@ -85,6 +100,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherCli::dispatch
   */
   public function testDispatchWhileDisabledExpectingFalse() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
     $message = $this->createMock(PapayaMessageLogable::class);
     $dispatcher = new PapayaMessageDispatcherCli();
     $dispatcher->phpSapiName('nosapi');
@@ -102,6 +118,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('asString')
       ->will($this->returnValue('CONTEXT'));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
     $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->any())
@@ -117,7 +134,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
       ->will($this->returnValue($context));
     $dispatcher = new PapayaMessageDispatcherCli();
     $dispatcher->phpSapiName('cli');
-    $output = fopen('php://memory', 'rw');
+    $output = fopen('php://memory', 'rwb');
     $dispatcher->stream(PapayaMessageDispatcherCli::TARGET_STDERR, $output);
     $dispatcher->dispatch($message);
     fseek($output, 0);
@@ -131,11 +148,12 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   * @covers PapayaMessageDispatcherCli::dispatch
   */
   public function testDispatchDebug() {
-    $context = $this->getMockBuilder(PapayaMessageContextInterfaceString::class)->getMock();
+    $context = $this->createMock(PapayaMessageContextInterfaceString::class);
     $context
       ->expects($this->any())
       ->method('asString')
       ->will($this->returnValue('CONTEXT'));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageLogable $message */
     $message = $this->createMock(PapayaMessageLogable::class);
     $message
       ->expects($this->any())
@@ -151,7 +169,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
       ->will($this->returnValue($context));
     $dispatcher = new PapayaMessageDispatcherCli();
     $dispatcher->phpSapiName('cli');
-    $output = fopen('php://memory', 'rw');
+    $output = fopen('php://memory', 'rwb');
     $dispatcher->stream(PapayaMessageDispatcherCli::TARGET_STDOUT, $output);
     $dispatcher->dispatch($message);
     fseek($output, 0);
@@ -166,7 +184,7 @@ class PapayaMessageDispatcherCliTest extends PapayaTestCase {
   */
   public function testStreamGetAfterSet() {
     $dispatcher = new PapayaMessageDispatcherCli();
-    $output = fopen('php://memory', 'rw');
+    $output = fopen('php://memory', 'rwb');
     $dispatcher->stream(PapayaMessageDispatcherCli::TARGET_STDOUT, $output);
     $this->assertSame($output, $dispatcher->stream(PapayaMessageDispatcherCli::TARGET_STDOUT));
   }

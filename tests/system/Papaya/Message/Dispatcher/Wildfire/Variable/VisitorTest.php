@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaMessageDispatcherWildfireVariableVisitorTest extends PapayaTestCase {
@@ -153,7 +167,8 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends PapayaTestCase 
         '__className' => 'PapayaMessageDispatcherWildfireVariableVisitor_SampleClass #1',
         'private:privateProperty' => 1,
         'protected:protectedProperty' => 2,
-        'public:publicProperty' => 3
+        'public:publicProperty' => 3,
+        'public:recursion' => NULL
       ),
       '_dump',
       $visitor
@@ -173,7 +188,8 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends PapayaTestCase 
         'static:private:privateStaticProperty' => 5,
         'static:protected:publicStaticProperty' => 6,
         'public:publicProperty' => 4,
-        'protected:protectedProperty' => 2
+        'protected:protectedProperty' => 2,
+        'public:recursion' => NULL
       ),
       '_dump',
       $visitor
@@ -239,7 +255,8 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends PapayaTestCase 
           '__className' => 'PapayaMessageDispatcherWildfireVariableVisitor_SampleClass #1',
           'private:privateProperty' => 1,
           'protected:protectedProperty' => 2,
-          'public:publicProperty' => 3
+          'public:publicProperty' => 3,
+          'public:recursion' => NULL
         ),
         '** Object Duplication (PapayaMessageDispatcherWildfireVariableVisitor_SampleClass #1) **'
       ),
@@ -252,7 +269,7 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends PapayaTestCase 
   * @covers PapayaMessageDispatcherWildfireVariableVisitor::visitResource
   */
   public function testVisitResource() {
-    $resource = fopen('php://memory', 'rw');
+    $resource = fopen('php://memory', 'rwb');
     $visitor = new PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
     $visitor->visitResource($resource);
     $this->assertRegExp(
@@ -290,14 +307,17 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends PapayaTestCase 
 }
 
 class PapayaMessageDispatcherWildfireVariableVisitor_SampleClass{
-  private $privateProperty = 1;
+  private /** @noinspection PhpUnusedPrivateFieldInspection */
+    $privateProperty = 1;
   protected $protectedProperty = 2;
   public $publicProperty = 3;
+  public $recursion;
 }
 
 class PapayaMessageDispatcherWildfireVariableVisitor_SampleChildClass
   extends PapayaMessageDispatcherWildfireVariableVisitor_SampleClass {
-  private static $privateStaticProperty = 5;
+  private static /** @noinspection PhpUnusedPrivateFieldInspection */
+    $privateStaticProperty = 5;
   protected static $publicStaticProperty = 6;
   public $publicProperty = 4;
 }
