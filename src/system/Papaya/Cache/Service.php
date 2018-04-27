@@ -1,22 +1,17 @@
 <?php
 /**
-* Abstract class for Papaya Cache Services
-*
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya:Library
-* @subpackage Cache
-* @version $Id: Service.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Abstract class for Papaya Cache Services
@@ -33,10 +28,12 @@ abstract class PapayaCacheService {
   protected $_configuration;
 
   /**
-  * constructor
-  */
-  public function __construct($configuration = NULL) {
-    if (isset($configuration)) {
+   * constructor
+   *
+   * @param PapayaCacheConfiguration|NULL $configuration
+   */
+  public function __construct(PapayaCacheConfiguration $configuration = NULL) {
+    if (NULL !== $configuration) {
       $this->setConfiguration($configuration);
     }
   }
@@ -47,80 +44,80 @@ abstract class PapayaCacheService {
   * @param PapayaCacheConfiguration $configuration
   * @return void
   */
-  abstract function setConfiguration(PapayaCacheConfiguration $configuration);
+  abstract public function setConfiguration(PapayaCacheConfiguration $configuration);
 
   /**
   * Verify that the cache has a valid configuration
   * @param boolean $silent
   */
-  abstract function verify($silent = TRUE);
+  abstract public function verify($silent = TRUE);
 
   /**
   * Write element to cache
   *
   * @param string $group
   * @param string $element
-  * @param string $parameters
+  * @param string|array $parameters
   * @param string $data Element data
   * @param integer $expires Maximum age in seconds
   * @return boolean
   */
-  abstract function write($group, $element, $parameters, $data, $expires = NULL);
+  abstract public function write($group, $element, $parameters, $data, $expires = NULL);
 
   /**
   * Read element from cache
   *
   * @param string $group
   * @param string $element
-  * @param string $parameters
+  * @param string|array $parameters
   * @param integer $expires Maximum age in seconds
   * @param integer $ifModifiedSince first possible creation time
   * @return string|FALSE
   */
-  abstract function read($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
+  abstract public function read($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
 
   /**
   * Check if element in cache exists and is still valid
   *
   * @param string $group
   * @param string $element
-  * @param string $parameters
+  * @param string|array $parameters
   * @param integer $expires Maximum age in seconds
   * @param integer $ifModifiedSince first possible creation time
   * @return boolean
   */
-  abstract function exists($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
+  abstract public function exists($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
 
   /**
   * Check if element in cache exists and return creation time
   *
   * @param string $group
   * @param string $element
-  * @param string $parameters
+  * @param string|array $parameters
   * @param integer $expires Maximum age in seconds
   * @param integer $ifModifiedSince first possible creation time
   * @return integer|FALSE
   */
-  abstract function created($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
+  abstract public function created($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
 
   /**
   * Delete element(s) from cache
   *
   * @param string $group
   * @param string $element
-  * @param string $parameters
+  * @param string|array $parameters
   * @return integer
   */
-  abstract function delete($group = NULL, $element = NULL, $parameters = NULL);
+  abstract public function delete($group = NULL, $element = NULL, $parameters = NULL);
 
   /**
    * get the cache identifier string
    *
-   * @param $group
-   * @param $element
-   * @param $parameters
+   * @param string $group
+   * @param string $element
+   * @param string|array$parameters
    * @throws InvalidArgumentException
-   * @return string
+   * @return array
    */
   protected function _getCacheIdentification($group, $element, $parameters) {
     if (empty($group)) {
@@ -170,9 +167,8 @@ abstract class PapayaCacheService {
   protected function _escapeIdentifierString($string) {
     if (preg_match('(^[A-Za-z\d.-]+$)D', $string)) {
       return $string;
-    } else {
-      return rawurlencode($string);
     }
+    return rawurlencode($string);
   }
 
   /**
@@ -181,10 +177,6 @@ abstract class PapayaCacheService {
    * @return string
    */
   protected function _serializeParameters($parameters) {
-    if (is_array($parameters) || is_object($parameters)) {
-      return md5(serialize($parameters));
-    } else {
-      return (string)$parameters;
-    }
+    return is_array($parameters) || is_object($parameters) ? md5(serialize($parameters)) : (string)$parameters;
   }
 }

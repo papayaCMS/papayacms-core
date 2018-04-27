@@ -1,21 +1,17 @@
 <?php
 /**
-* Amazon S3 based storage service for Papaya Media Storage
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Media-Storage
-* @version $Id: S3.php 39725 2014-04-07 17:19:34Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Amazon S3 based storage service for Papaya Media Storage
@@ -53,7 +49,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   * handler object
   * @var PapayaMediaStorageServiceS3Handler
   */
-  private $_handler = NULL;
+  private $_handler;
 
   /**
    * @var PapayaCacheService cache for meta information
@@ -85,7 +81,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
     );
     if (!empty($this->_storageDirectory)) {
       $lastChar = substr($this->_storageDirectory, -1);
-      if ($lastChar !== '/') {
+      if ('/' !== $lastChar) {
         $this->_storageDirectory .= '/';
       }
     }
@@ -98,7 +94,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   }
 
   public function cache(PapayaCacheService $service = NULL) {
-    if (isset($service)) {
+    if (NULL !== $service) {
       $this->_cacheService = $service;
     } elseif (NULL === $this->_cacheService) {
       $this->_cacheService = PapayaCache::get(PapayaCache::DATA, $this->papaya()->options);
@@ -141,7 +137,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   /**
   * Set the used handler object.
   *
-  * @param object PapayaMediaStorageServiceS3Handler $handler
+  * @param PapayaMediaStorageServiceS3Handler $handler
   * @return void
   */
   public function setHandler(PapayaMediaStorageServiceS3Handler $handler) {
@@ -152,12 +148,12 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   * Get response xml and create xpath object
   *
   * @param PapayaHttpClient $client
-  * @return object DOMXPath
+  * @return DOMXPath
   */
   private function _doXmlRequest(PapayaHttpClient $client) {
     $client->send();
     $dom = new DOMDocument('1.0', 'UTF-8');
-    if ($client->getResponseStatus() == 200) {
+    if (200 === $client->getResponseStatus()) {
       $xml = $client->getResponseData();
       $dom->loadXML($xml);
     }
@@ -184,7 +180,8 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
     );
     $response = $this->_doXmlRequest($client);
     $offset = strlen($storageGroup) + 1;
-    foreach ($response->query('//aws:Key') as $file) {
+    /** @noinspection ForeachSourceInspection */
+    foreach ($response->evaluate('//aws:Key') as $file) {
       $result[] = substr($file->nodeValue, $offset);
     }
     return $result;
@@ -202,7 +199,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
       $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId)
     );
     $client->send();
-    if ($client->getResponseStatus() == 200) {
+    if (200 === $client->getResponseStatus()) {
       return $client->getResponseData();
     }
     return NULL;
@@ -228,7 +225,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   *
   * @param string $storageGroup
   * @param string $storageId
-  * @return array array('filename' => string, 'is_temporary' => boolean)
+  * @return array|FALSE array('filename' => string, 'is_temporary' => boolean)
   */
   public function getLocalFile($storageGroup, $storageId) {
     $tempDirectory = (0 === strpos(PHP_OS, 'WIN')) ? 'c:\tmp' :  '/tmp';
@@ -236,12 +233,12 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
       $tempDirectory = sys_get_temp_dir();
     }
     $localFile = tempnam($tempDirectory, 'papayaMedia');
-    if ($fh = fopen($localFile, 'w')) {
+    if ($fh = fopen($localFile, 'wb')) {
       $client = $this->_handler->setUpRequest(
         $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId)
       );
       $client->send();
-      if ($client->getResponseStatus() == 200) {
+      if (200 === $client->getResponseStatus()) {
         $socket = $client->getSocket();
         while (!$socket->eof()) {
           fwrite($fh, $socket->read());
@@ -288,7 +285,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
     );
     $client->send();
     $code = $client->getResponseStatus();
-    if ($code == 200 || $code == 206) {
+    if (200 === $code || 206 === $code) {
       $socket = $client->getSocket();
       while (!$socket->eof()) {
         echo $socket->read($bufferSize);
@@ -322,19 +319,20 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
     );
     $client->addRequestFile($resource);
     $client->send();
-    return ($client->getResponseStatus() == 200);
+    return (200 === $client->getResponseStatus());
   }
 
   /**
-  * save a resource into the storage
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param mixed $content data string or resource id
-  * @param string $mimeType
-  * @param boolean $isPublic
-  * @return boolean
-  */
+   * save a resource into the storage
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param mixed $content data string or resource id
+   * @param string $mimeType
+   * @param boolean $isPublic
+   * @return boolean
+   * @throws \InvalidArgumentException
+   */
   public function store(
     $storageGroup,
     $storageId,
@@ -351,15 +349,16 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   }
 
   /**
-  * save a file into the storage
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param string $filename
-  * @param string $mimeType
-  * @param boolean $isPublic
-  * @return boolean
-  */
+   * save a file into the storage
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param string $filename
+   * @param string $mimeType
+   * @param boolean $isPublic
+   * @return boolean
+   * @throws \LogicException
+   */
   public function storeLocalFile(
     $storageGroup, $storageId, $filename, $mimeType = 'application/octet-stream', $isPublic = FALSE
   ) {
@@ -380,7 +379,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
       'DELETE'
     );
     $client->send();
-    return ($client->getResponseStatus() == 204);
+    return (204 === $client->getResponseStatus());
   }
 
   /**
@@ -396,7 +395,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
       'HEAD'
     );
     $client->send();
-    return ($client->getResponseStatus() == 200);
+    return (200 === $client->getResponseStatus());
   }
 
   /**
@@ -418,21 +417,22 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   */
   public function isPublic($storageGroup, $storageId, $mimeType) {
     $cacheParameters = array($storageId, $mimeType);
-    if ($cache = $this->cache()) {
-      if (
+    if (
+      ($cache = $this->cache()) &&
+      (
         $status = $cache->read(
           $this->_statusCacheName, $storageGroup, $cacheParameters, $this->_storageCacheExpire
         )
-      ) {
-        return $status == 'public';
-      }
+      )
+    ) {
+      return 'public' === $status;
     }
     $client = $this->_handler->setUpRequest(
       $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId),
       'HEAD'
     );
     $client->send();
-    if ($client->getResponseStatus() !== 200) {
+    if (200 !== $client->getResponseStatus()) {
       return FALSE;
     }
     if ($mimeType !== $client->getResponseHeader('Content-Type')) {
@@ -446,7 +446,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
     $userPattern = 'aws:Grantee/aws:URI/text() = "http://acs.amazonaws.com/groups/global/AllUsers"';
     $permissionPattern = 'string(//aws:Grant['.$userPattern.']/aws:Permission/text())';
     $permission = $response->evaluate($permissionPattern);
-    $isPublic = ($permission == 'READ' || $permission == 'FULL_CONTROL');
+    $isPublic = ('READ' === $permission || 'FULL_CONTROL' === $permission);
     if ($cache) {
       $cache->write(
         'mediastatus',
@@ -474,7 +474,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
       'PUT',
       array(),
       array(
-        'x-amz-acl' => ($isPublic) ? 'public-read' : 'private',
+        'x-amz-acl' => $isPublic ? 'public-read' : 'private',
         'x-amz-copy-source' => '/'.$this->_storageBucket.'/'
           .$this->_getStorageObject($storageGroup, $storageId),
         'x-amz-metadata-directive' => 'REPLACE',
@@ -482,7 +482,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
       )
     );
     $client->send();
-    if ($client->getResponseStatus() == 200) {
+    if (200 === $client->getResponseStatus()) {
       $cacheParameters = array($storageId, $mimeType);
       if ($cache = $this->cache()) {
         $cache->write(
