@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaPluginLoaderTest extends PapayaTestCase {
@@ -76,7 +90,8 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
     $loader = new PapayaPluginLoader();
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('Can not read unkown property PapayaPluginLoader::$unkownProperty');
-    $dummy = $loader->unkownProperty;
+    /** @noinspection PhpUndefinedFieldInspection */
+    $loader->unkownProperty;
   }
 
   /**
@@ -86,6 +101,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
     $loader = new PapayaPluginLoader();
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('Can not write unkown property PapayaPluginLoader::$unkownProperty');
+    /** @noinspection PhpUndefinedFieldInspection */
     $loader->unkownProperty = 'dummy';
   }
 
@@ -152,8 +168,9 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
         )
       )
     );
+    /** @noinspection PhpDeprecationInspection */
     $this->assertInstanceOf(
-      'PluginLoader_SampleClass', $loader->getPluginInstance('123')
+      PluginLoader_SampleClass::class, $loader->getPluginInstance('123')
     );
   }
 
@@ -173,8 +190,8 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
       )
     );
     $samplePlugin = $loader->get('123', NULL, array('foo' => 'bar'));
-    $this->assertEquals(
-      '<data version="2"><data-element name="foo">bar</data-element></data>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */'<data version="2"><data-element name="foo">bar</data-element></data>',
       $samplePlugin->data
     );
   }
@@ -197,10 +214,10 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
     $samplePlugin = $loader->get(
       '123',
       NULL,
-      '<data version="2"><data-element name="foo">bar</data-element></data>'
+      /** @lang XML */'<data version="2"><data-element name="foo">bar</data-element></data>'
     );
     $this->assertEquals(
-      '<data version="2"><data-element name="foo">bar</data-element></data>',
+    /** @lang XML */'<data version="2"><data-element name="foo">bar</data-element></data>',
       $samplePlugin->data
     );
   }
@@ -223,7 +240,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
     );
     $samplePlugin = $loader->get('123', NULL, array('foo' => 'bar'));
     $this->assertEquals(
-      '<data version="2"><data-element name="foo">bar</data-element></data>',
+    /** @lang XML */'<data version="2"><data-element name="foo">bar</data-element></data>',
       $samplePlugin->content->getXml()
     );
   }
@@ -246,10 +263,10 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
     $samplePlugin = $loader->get(
       '123',
       NULL,
-      '<data version="2"><data-element name="foo">bar</data-element></data>'
+      /** @lang XML */'<data version="2"><data-element name="foo">bar</data-element></data>'
     );
     $this->assertEquals(
-      '<data version="2"><data-element name="foo">bar</data-element></data>',
+    /** @lang XML */'<data version="2"><data-element name="foo">bar</data-element></data>',
       $samplePlugin->content->getXml()
     );
   }
@@ -292,7 +309,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers PapayaPluginLoader
   */
   public function testGetWithInvalidPluginFileExpectingMessage() {
-    $messages = $this->getMock(PapayaMessageManager::class, array('dispatch'));
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
@@ -323,7 +340,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   */
   public function testGetWithAutloaderPrefix() {
     PapayaAutoloader::clear();
-    $messages = $this->getMock(PapayaMessageManager::class, array('dispatch'));
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->any())
       ->method('dispatch')
@@ -386,7 +403,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers PapayaPluginLoader
   */
   public function testGetWithInvalidPluginClassExpectingMessage() {
-    $messages = $this->getMock(PapayaMessageManager::class, array('dispatch'));
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
@@ -535,9 +552,13 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   }
 
   /*************************
-  * Fixtures
-  *************************/
+   * Fixtures
+   ************************/
 
+  /**
+   * @param mixed $record
+   * @return PHPUnit_Framework_MockObject_MockObject
+   */
   private function getPluginListFixture($record) {
     $plugins = $this->createMock(PapayaPluginList::class);
     $plugins

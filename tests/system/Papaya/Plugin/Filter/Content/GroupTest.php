@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
@@ -47,10 +61,10 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
    * @covers PapayaPluginFilterContentGroup
    */
   public function testPrepareBC() {
-    $filterOne = $this->getMock(
-      stdClass::class,
-      array('initialize', 'prepareFilterData', 'loadFilterData')
-    );
+    $filterOne = $this
+      ->getMockBuilder(stdClass::class)
+      ->setMethods(array('initialize', 'prepareFilterData', 'loadFilterData', 'applyFilterData', 'getFilterData'))
+      ->getMock();
     $filterOne
       ->expects($this->once())
       ->method('initialize')
@@ -89,10 +103,10 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
    * @covers PapayaPluginFilterContentGroup
    */
   public function testApplyToBC() {
-    $filterOne = $this->getMock(
-      stdClass::class,
-      array('applyFilterData')
-    );
+    $filterOne = $this
+      ->getMockBuilder(stdClass::class)
+      ->setMethods(array('initialize', 'prepareFilterData', 'loadFilterData', 'applyFilterData', 'getFilterData'))
+      ->getMock();
     $filterOne
       ->expects($this->once())
       ->method('applyFilterData')
@@ -127,10 +141,10 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
   public function testAppendToBC() {
     $dom = new PapayaXmlDocument();
     $node = $dom->appendElement('test');
-    $filterOne = $this->getMock(
-      stdClass::class,
-      array('getFilterData')
-    );
+    $filterOne = $this
+      ->getMockBuilder(stdClass::class)
+      ->setMethods(array('initialize', 'prepareFilterData', 'loadFilterData', 'applyFilterData', 'getFilterData'))
+      ->getMock();
     $filterOne
       ->expects($this->once())
       ->method('getFilterData')

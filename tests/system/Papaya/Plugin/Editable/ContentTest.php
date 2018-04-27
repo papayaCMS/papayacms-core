@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaPluginEditableContentTest extends PapayaTestCase {
@@ -9,6 +23,7 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
   public function testGetXml() {
     $content = new PapayaPluginEditableContent(array('foo' => 'bar', 'bar' => 'foo'));
     $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<data version="2">
         <data-element name="foo">bar</data-element>
         <data-element name="bar">foo</data-element>
@@ -23,6 +38,7 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
   public function testSetXml() {
     $content = new PapayaPluginEditableContent();
     $content->setXml(
+      /** @lang XML */
       '<data version="2">
         <data-element name="foo">bar</data-element>
         <data-element name="bar">foo</data-element>
@@ -40,6 +56,7 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
   public function testSetXmlReplacesAllData() {
     $content = new PapayaPluginEditableContent(array('foo' => 'bar'));
     $content->setXml(
+      /** @lang XML */
       '<data version="2">
         <data-element name="bar">foo</data-element>
       </data>'
@@ -53,14 +70,14 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
   /**
    * @covers PapayaPluginEditableContent::modified
    */
-  public function testModfiedIsTrueOnNewObject() {
+  public function testModifiedIsTrueOnNewObject() {
     $content = new PapayaPluginEditableContent();
     $this->assertTrue($content->modified());
   }
   /**
    * @covers PapayaPluginEditableContent::modified
    */
-  public function testModfiedIsFalseAfterSetXml() {
+  public function testModifiedIsFalseAfterSetXml() {
     $content = new PapayaPluginEditableContent();
     $content->setXml('');
     $this->assertFalse($content->modified());
@@ -69,9 +86,10 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
   /**
    * @covers PapayaPluginEditableContent::modified
    */
-  public function testModfiedIsTrueAfterChange() {
+  public function testModifiedIsTrueAfterChange() {
     $content = new PapayaPluginEditableContent();
     $content->setXml(
+      /** @lang XML */
       '<data version="2">
         <data-element name="bar">foo</data-element>
       </data>'
@@ -86,6 +104,7 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
   public function testModfiedIsFalseForEqualData() {
     $content = new PapayaPluginEditableContent();
     $content->setXml(
+      /** @lang XML */
       '<data version="2">
         <data-element name="foo">bar</data-element>
         <data-element name="bar">foo</data-element>
