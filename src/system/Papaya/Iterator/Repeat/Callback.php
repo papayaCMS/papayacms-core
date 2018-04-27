@@ -1,21 +1,17 @@
 <?php
 /**
-* This iterator uses a callback to fetch the next entry as long as the callback return TRUE.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-* @version $Id: Callback.php 39404 2014-02-27 14:55:43Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This iterator uses a callback to fetch the next entry as long as the callback returns new
@@ -29,11 +25,11 @@
 */
 class PapayaIteratorRepeatCallback implements Iterator {
 
-  private $_callback = NULL;
-  private $_startValue = NULL;
-  private $_startKey = -1;
+  private $_callback;
+  private $_startValue;
+  private $_startKey;
 
-  private $_currentValue = NULL;
+  private $_currentValue;
   private $_currentKey = -1;
   private $_valid = FALSE;
 
@@ -41,7 +37,7 @@ class PapayaIteratorRepeatCallback implements Iterator {
   * Create object store callback, start value and key.
   *
   * @throws InvalidArgumentException
-  * @param string $callback
+  * @param callable $callback
   * @param mixed $startValue
   * @param mixed $startKey
   */
