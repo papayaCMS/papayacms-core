@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaFilterBooleanStringTest extends PapayaTestCase {
@@ -6,8 +20,14 @@ class PapayaFilterBooleanStringTest extends PapayaTestCase {
   /**
    * @covers PapayaFilterBooleanString
    * @dataProvider provideValidBooleanStrings
+   * @param mixed $expected
+   * @param mixed $value
+   * @throws PapayaFilterException
    */
-  public function testValidateExpectingTrue($expected, $value) {
+  public function testValidateExpectingTrue(
+    /** @noinspection PhpUnusedParameterInspection */
+    $expected, $value
+  ) {
     $filter = new PapayaFilterBooleanString();
     $this->assertTrue($filter->validate($value));
   }
@@ -15,6 +35,8 @@ class PapayaFilterBooleanStringTest extends PapayaTestCase {
   /**
    * @covers PapayaFilterBooleanString
    * @dataProvider provideInvalidBooleanStrings
+   * @param mixed $value
+   * @throws PapayaFilterException
    */
   public function testValidateExpectingException($value) {
     $filter = new PapayaFilterBooleanString();
@@ -25,6 +47,8 @@ class PapayaFilterBooleanStringTest extends PapayaTestCase {
   /**
    * @covers PapayaFilterBooleanString
    * @dataProvider provideValidBooleanStrings
+   * @param mixed $expected
+   * @param mixed $value
    */
   public function testFilter($expected, $value) {
     $filter = new PapayaFilterBooleanString();
@@ -34,6 +58,7 @@ class PapayaFilterBooleanStringTest extends PapayaTestCase {
   /**
    * @covers PapayaFilterBooleanString
    * @dataProvider provideInvalidBooleanStrings
+   * @param mixed $value
    */
   public function testFilterExpectingNull($value) {
     $filter = new PapayaFilterBooleanString();

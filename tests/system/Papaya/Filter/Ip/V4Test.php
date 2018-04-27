@@ -1,11 +1,25 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaFilterIpV4Test extends PapayaTestCase {
 
   /**
-  * @covers PapayaFilterIpV4::__construct
-  */
+   * @covers PapayaFilterIpV4::__construct
+   */
   public function testConstructSuccess() {
     $filter = new PapayaFilterIpV4(
       PapayaFilterIpV4::ALLOW_LINK_LOCAL | PapayaFilterIpV4::ALLOW_LOOPBACK
@@ -18,23 +32,24 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterIpV4::__construct
-  */
+   * @covers PapayaFilterIpV4::__construct
+   */
   public function testConstructInvalidArgumentException() {
     $this->expectException(InvalidArgumentException::class);
-    $filter = new PapayaFilterIpV4('InvalidConfiguration');
+    new PapayaFilterIpV4('InvalidConfiguration');
   }
 
   /**
-  * @covers PapayaFilterIpV4::__construct
-  * @dataProvider getConfigurationOutOfRangeDataProvider
-  */
-  public function testConstructOutOfBoundsException($config) {
+   * @covers PapayaFilterIpV4::__construct
+   * @dataProvider getConfigurationOutOfRangeDataProvider
+   * @param int $configuration
+   */
+  public function testConstructOutOfBoundsException($configuration) {
     $this->expectException(OutOfRangeException::class);
-    $filter = new PapayaFilterIpV4($config);
+    new PapayaFilterIpV4($configuration);
   }
 
-  static public function getConfigurationOutOfRangeDataProvider() {
+  public static function getConfigurationOutOfRangeDataProvider() {
     return array(
       array(-1),
       array(32767)
@@ -42,15 +57,19 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterIpV4::validate
-  * @dataProvider getValidateDataProvider
-  */
+   * @covers PapayaFilterIpV4::validate
+   * @dataProvider getValidateDataProvider
+   * @param string $ip
+   * @param int $config
+   * @throws PapayaFilterExceptionCountMismatch
+   * @throws PapayaFilterExceptionPartInvalid
+   */
   public function testValidate($ip, $config = 15) {
     $filter = new PapayaFilterIpV4($config);
     $this->assertTrue($filter->validate($ip));
   }
 
-  static public function getValidateDataProvider() {
+  public static function getValidateDataProvider() {
     return array(
       array('0.0.0.0'),
       array('1.1.1.1'),
@@ -64,16 +83,19 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterIpV4::validate
-  * @dataProvider getValidateExceptionCountMismatchDataProvider
-  */
+   * @covers PapayaFilterIpV4::validate
+   * @param string $ip
+   * @throws PapayaFilterExceptionCountMismatch
+   * @throws PapayaFilterExceptionPartInvalid
+   * @dataProvider getValidateExceptionCountMismatchDataProvider
+   */
   public function testValidateExceptionCountMismatch($ip) {
     $filter = new PapayaFilterIpV4();
     $this->expectException(PapayaFilterExceptionCountMismatch::class);
     $filter->validate($ip);
   }
 
-  static public function getValidateExceptionCountMismatchDataProvider() {
+  public static function getValidateExceptionCountMismatchDataProvider() {
     return array(
       array(''),
       array('1.1.1'),
@@ -84,16 +106,19 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterIpV4::validate
-  * @dataProvider getValidateExceptionPartInvalidDataProvider
-  */
+   * @covers PapayaFilterIpV4::validate
+   * @dataProvider getValidateExceptionPartInvalidDataProvider
+   * @param string $ip
+   * @throws PapayaFilterExceptionCountMismatch
+   * @throws PapayaFilterExceptionPartInvalid
+   */
   public function testValidateExceptionPartInvalid($ip) {
     $filter = new PapayaFilterIpV4();
     $this->expectException(PapayaFilterExceptionPartInvalid::class);
     $filter->validate($ip);
   }
 
-  static public function getValidateExceptionPartInvalidDataProvider() {
+  public static function getValidateExceptionPartInvalidDataProvider() {
     return array(
       array('1...1'),
       array('1.1a.1.1'),
@@ -105,16 +130,20 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterIpV4::validate
-  * @dataProvider getValidateInvalidArgumentExceptionDataProvider
-  */
-  public function testValidateInvalidArgumentException($ip, $conf) {
-    $filter = new PapayaFilterIpV4($conf);
+   * @covers PapayaFilterIpV4::validate
+   * @dataProvider getValidateInvalidArgumentExceptionDataProvider
+   * @param string $ip
+   * @param int $configuration
+   * @throws PapayaFilterExceptionCountMismatch
+   * @throws PapayaFilterExceptionPartInvalid
+   */
+  public function testValidateInvalidArgumentException($ip, $configuration) {
+    $filter = new PapayaFilterIpV4($configuration);
     $this->expectException(InvalidArgumentException::class);
     $filter->validate($ip);
   }
 
-  static public function getValidateInvalidArgumentExceptionDataProvider() {
+  public static function getValidateInvalidArgumentExceptionDataProvider() {
     return array(
       array('0.0.0.0', 0),
       array('255.255.255.255', 1),
@@ -124,15 +153,18 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterIpV4::filter
-  * @dataProvider getFilterDataProvider
-  */
-  public function testFilter($expected, $input, $config = 15) {
-    $filter = new PapayaFilterIpV4($config);
+   * @covers PapayaFilterIpV4::filter
+   * @dataProvider getFilterDataProvider
+   * @param string $expected
+   * @param string $input
+   * @param int $configuration
+   */
+  public function testFilter($expected, $input, $configuration = 15) {
+    $filter = new PapayaFilterIpV4($configuration);
     $this->assertEquals($expected, $filter->filter($input));
   }
 
-  static public function getFilterDataProvider() {
+  public static function getFilterDataProvider() {
     return array(
       array('1.1.1.1', ' 1.1.1.1'),
       array('1.1.1.1', '1.1.1.1 '),

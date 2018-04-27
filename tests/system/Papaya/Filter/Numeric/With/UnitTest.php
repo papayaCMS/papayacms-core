@@ -1,12 +1,31 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaFilterNumericWithUnit::__construct
-  * @dataProvider providerConstructArguments
-  */
+   * @covers PapayaFilterNumericWithUnit::__construct
+   * @dataProvider providerConstructArguments
+   * @param string|array $units
+   * @param array $expectedUnits
+   * @param float $minimum
+   * @param float $maximum
+   * @param string $algebraicSign
+   */
   public function testConstruct($units, $expectedUnits, $minimum, $maximum, $algebraicSign) {
     $filter = new PapayaFilterNumericWithUnit($units, $minimum, $maximum, $algebraicSign);
     $this->assertAttributeEquals($expectedUnits, '_units', $filter);
@@ -58,7 +77,7 @@ class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
   */
   public function testConstructExceptionMissingUnit() {
     $this->expectException(UnexpectedValueException::class);
-    $filter = new PapayaFilterNumericWithUnit('');
+    new PapayaFilterNumericWithUnit('');
   }
 
   /**
@@ -133,9 +152,11 @@ class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterNumericWithUnit::filter
-  * @dataProvider providerFilter
-  */
+   * @covers PapayaFilterNumericWithUnit::filter
+   * @dataProvider providerFilter
+   * @param string|NULL $expects
+   * @param mixed $value
+   */
   public function testFilter($expects, $value) {
     $filter = new PapayaFilterNumericWithUnit('px');
     $this->assertEquals($expects, $filter->filter($value));

@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaFilterIntegerTest extends PapayaTestCase {
@@ -19,7 +33,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   /**
   * @covers PapayaFilterInteger::__construct
   */
-  public function testConstructorwithMinimumAndMaximum() {
+  public function testConstructorWithMinimumAndMaximum() {
     $filter = new PapayaFilterInteger(21, 42);
     $this->assertAttributeSame(
       21, '_minimum', $filter
@@ -34,7 +48,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   */
   public function testConstructorWithMaximumOnlyExpectingException() {
     $this->expectException(RangeException::class);
-    $filter = new PapayaFilterInteger(NULL, 4);
+    new PapayaFilterInteger(NULL, 4);
   }
 
   /**
@@ -42,22 +56,30 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   */
   public function testConstructorWithMaximumToSmallExpectingException() {
     $this->expectException(RangeException::class);
-    $filter = new PapayaFilterInteger(4, 2);
+    new PapayaFilterInteger(4, 2);
   }
 
   /**
-  * @covers PapayaFilterInteger::validate
-  * @dataProvider provideValidValidateData
-  */
+   * @covers PapayaFilterInteger::validate
+   * @dataProvider provideValidValidateData
+   * @param int $value
+   * @param int $minimum
+   * @param int $maximum
+   * @throws PapayaFilterException
+   */
   public function testValidateWithLimitsExpectingTrue($value, $minimum, $maximum) {
     $filter = new PapayaFilterInteger($minimum, $maximum);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-  * @covers PapayaFilterInteger::validate
-  * @dataProvider provideInvalidValidateData
-  */
+   * @covers PapayaFilterInteger::validate
+   * @dataProvider provideInvalidValidateData
+   * @param int $value
+   * @param int $minimum
+   * @param int $maximum
+   * @throws PapayaFilterException
+   */
   public function testValidateWithLimitsExpectingException($value, $minimum, $maximum) {
     $filter = new PapayaFilterInteger($minimum, $maximum);
     $this->expectException(PapayaFilterException::class);

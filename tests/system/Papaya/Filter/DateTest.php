@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaFilterDateTest extends PapayaTestCase {
@@ -28,40 +42,51 @@ class PapayaFilterDateTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterDate::validate
-  * @dataProvider validateSuccessProvider
-  */
+   * @covers PapayaFilterDate::validate
+   * @dataProvider validateSuccessProvider
+   * @param int $includeTime
+   * @param mixed $value
+   * @throws PapayaFilterExceptionRangeMaximum
+   * @throws PapayaFilterExceptionType
+   */
   public function testValidateSuccess($includeTime, $value) {
     $filter = new PapayaFilterDate($includeTime);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-  * @covers PapayaFilterDate::validate
-  * @dataProvider validateExceptionFormatProvider
-  */
+   * @covers PapayaFilterDate::validate
+   * @dataProvider validateExceptionFormatProvider
+   * @param int $includeTime
+   * @param mixed $value
+   * @throws PapayaFilterExceptionRangeMaximum
+   * @throws PapayaFilterExceptionType
+   */
   public function testValidateExceptionFormat($includeTime, $value) {
     $filter = new PapayaFilterDate($includeTime);
     $this->expectException(PapayaFilterExceptionType::class);
-    /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate($value);
   }
 
   /**
-  * @covers PapayaFilterDate::validate
-  * @dataProvider validateExceptionRangeProvider
-  */
+   * @covers PapayaFilterDate::validate
+   * @dataProvider validateExceptionRangeProvider
+   * @param mixed $value
+   * @throws PapayaFilterExceptionRangeMaximum
+   * @throws PapayaFilterExceptionType
+   */
   public function testValidateExceptionRange($value) {
     $filter = new PapayaFilterDate(PapayaFilterDate::DATE_NO_TIME);
     $this->expectException(PapayaFilterExceptionRangeMaximum::class);
-    /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate($value);
   }
 
   /**
-  * @covers PapayaFilterDate::filter
-  * @dataProvider filterSuccessProvider
-  */
+   * @covers PapayaFilterDate::filter
+   * @dataProvider filterSuccessProvider
+   * @param mixed $value
+   * @param string $result
+   */
   public function testFilterSuccess($value, $result) {
     $filter = new PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME);
     $this->assertEquals($result, $filter->filter($value));

@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaFilterLengthTest extends PapayaTestCase {
@@ -40,26 +54,36 @@ class PapayaFilterLengthTest extends PapayaTestCase {
   */
   public function testConstructorWithMaximumToSmallExpectingException() {
     $this->expectException(RangeException::class);
-    $filter = new PapayaFilterLength(4, 2);
+    new PapayaFilterLength(4, 2);
   }
 
   /**
-  * @covers PapayaFilterLength::validate
-  * @dataProvider provideValidValidateData
-  */
+   * @covers PapayaFilterLength::validate
+   * @dataProvider provideValidValidateData
+   * @param mixed $value
+   * @param int|0 $minimum
+   * @param int|NULL $maximum
+   * @param bool $isUtf8
+   * @throws PapayaFilterException
+   */
   public function testValidateWithLimitsExpectingTrue(
-    $value, $minimum, $maximum = TRUE, $isUtf8 = FALSE
+    $value, $minimum, $maximum = NULL, $isUtf8 = FALSE
   ) {
     $filter = new PapayaFilterLength($minimum, $maximum, $isUtf8);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-  * @covers PapayaFilterLength::validate
-  * @dataProvider provideInvalidValidateData
-  */
+   * @covers PapayaFilterLength::validate
+   * @dataProvider provideInvalidValidateData
+   * @param mixed $value
+   * @param int|0 $minimum
+   * @param int|NULL $maximum
+   * @param bool $isUtf8
+   * @throws PapayaFilterException
+   */
   public function testValidateWithLimitsExpectingException(
-    $value, $minimum, $maximum = TRUE, $isUtf8 = FALSE
+    $value, $minimum, $maximum = NULL, $isUtf8 = FALSE
   ) {
     $filter = new PapayaFilterLength($minimum, $maximum, $isUtf8);
     $this->expectException(PapayaFilterException::class);

@@ -1,20 +1,16 @@
 <?php
 /**
- * Papaya filter class for an array with specific elements. It validates the specified elements
- * in the array.
+ * papaya CMS
  *
- * @copyright 2017 by papaya Software GmbH - All rights reserved.
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package Papaya-Library
- * @subpackage Filter
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
 /**
@@ -60,7 +56,7 @@ class PapayaFilterArrayAssociative implements PapayaFilter {
    * Check the array elements against each filter.
    *
    * @throws PapayaFilterException
-   * @param string $value
+   * @param mixed $value
    * @return TRUE
    */
   public function validate($value) {
@@ -79,7 +75,7 @@ class PapayaFilterArrayAssociative implements PapayaFilter {
   /**
    * Use the filter for each element. Build a result of the filtered values that are not NULL
    *
-   * @param string $value
+   * @param mixed $value
    * @return array|NULL
    */
   public function filter($value) {
