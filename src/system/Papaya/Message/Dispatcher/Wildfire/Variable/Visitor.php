@@ -1,21 +1,17 @@
 <?php
 /**
-* Visitor to convert a variable into a plain text string dump
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Messages
-* @version $Id: Visitor.php 39730 2014-04-07 21:05:30Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Visitor to convert a variable into a plain text string dump
@@ -36,22 +32,22 @@ class PapayaMessageDispatcherWildfireVariableVisitor
   * Dump result buffer variable
   * @var mixed
   */
-  protected $_dump = NULL;
+  protected $_dump;
 
   /**
-  * Current element reference (to $_dump) to add subelements.
+  * Current element reference (to $_dump) to add nested elements.
   * @var mixed
   */
-  protected $_parent = NULL;
+  protected $_parent;
 
   /**
-  * Key for next subelement (buffer variable)
+  * Key for next nested element (buffer variable)
   * @var mixed
   */
-  protected $_currentKey = NULL;
+  protected $_currentKey;
 
   /**
-  * Dump stack, parant path references
+  * Dump stack, parent path references
   * @var mixed
   */
   protected $_stack = array();
@@ -147,10 +143,11 @@ class PapayaMessageDispatcherWildfireVariableVisitor
   }
 
   /**
-  * Visit an object variable, handle recursions and duplicates
-  *
-  * @param object $object
-  */
+   * Visit an object variable, handle recursions and duplicates
+   *
+   * @param object $object
+   * @throws \LogicException
+   */
   public function visitObject($object) {
     $reflection = new ReflectionObject($object);
     $hash = spl_object_hash($object);
@@ -250,7 +247,7 @@ class PapayaMessageDispatcherWildfireVariableVisitor
    * @return mixed
    */
   private function &_addElement($element) {
-    if (is_null($this->_dump)) {
+    if (NULL === $this->_dump) {
       $this->_dump = &$element;
     } else {
       $this->_parent[$this->_currentKey] = &$element;
@@ -264,16 +261,14 @@ class PapayaMessageDispatcherWildfireVariableVisitor
   * @return boolean
   */
   protected function _checkIndentLimit() {
-    if (count($this->_stack) < ($this->_depth)) {
-      return TRUE;
-    } else {
-      return FALSE;
-    }
+    return count($this->_stack) < $this->_depth;
   }
 
   /**
-  * Increase indent
-  */
+   * Increase indent
+   *
+   * @param mixed $reference
+   */
   protected function _increaseIndent(&$reference) {
     $this->_parent = &$reference;
     $this->_stack[] = &$reference;

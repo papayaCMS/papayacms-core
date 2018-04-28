@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Message Dispatcher Wildfire, send out log messages using the Wildfire protocol
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Messages
-* @version $Id: Wildfire.php 39468 2014-02-28 19:51:17Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Message Dispatcher Wildfire, send out log messages using the Wildfire protocol
@@ -34,14 +30,15 @@ class PapayaMessageDispatcherWildfire
   extends PapayaObject
   implements PapayaMessageDispatcher {
 
-  private $_handler = NULL;
+  private $_handler;
 
   /**
-  * Send log message to browser using the Wildfire protocol if possible
-  *
-  * @param PapayaMessage $message
-  * @return boolean
-  */
+   * Send log message to browser using the Wildfire protocol if possible
+   *
+   * @param PapayaMessage $message
+   * @return boolean
+   * @throws \InvalidArgumentException
+   */
   public function dispatch(PapayaMessage $message) {
     if ($message instanceof PapayaMessageLogable &&
         $this->allow()) {
@@ -56,22 +53,27 @@ class PapayaMessageDispatcherWildfire
    * Check if it is allowed to use the dispatcher
    *
    * @param Callback $usableCallback function to test technical conditions, if it is not set
-   *   self::useable is used.
+   *   self::usable is used.
    * @return bool|mixed
    */
   public function allow($usableCallback = NULL) {
     $options = $this->papaya()->options;
-    if ($options->get('PAPAYA_PROTOCOL_WILDFIRE', FALSE) &&
-        isset($_SERVER['HTTP_USER_AGENT']) &&
-        FALSE !== strpos($_SERVER['HTTP_USER_AGENT'], 'FirePHP')) {
-      if (is_null($usableCallback)) {
-        return self::useable();
-      } else {
-        return call_user_func($usableCallback);
+    if (
+      $options->get('PAPAYA_PROTOCOL_WILDFIRE', FALSE) &&
+      (
+        isset($_SERVER['HTTP_X_FIREPHP_VERSION']) ||
+        (
+          isset($_SERVER['HTTP_USER_AGENT']) &&
+          FALSE !== strpos($_SERVER['HTTP_USER_AGENT'], 'FirePHP')
+        )
+      )
+    ) {
+      if (NULL === $usableCallback) {
+        return self::usable();
       }
-    } else {
-      return FALSE;
+      return $usableCallback();
     }
+    return FALSE;
   }
 
   /**
@@ -79,8 +81,8 @@ class PapayaMessageDispatcherWildfire
   *
   * @return boolean
   */
-  public static function useable() {
-    return (function_exists('json_encode') && PHP_SAPI != 'cli' && !headers_sent());
+  public static function usable() {
+    return (function_exists('json_encode') && 'cli' !== PHP_SAPI && !headers_sent());
   }
 
   /**
@@ -93,22 +95,24 @@ class PapayaMessageDispatcherWildfire
   }
 
   /**
-  * Get Wildfire protocol handler object, create one if none ist set
-  *
-  * @return PapayaMessageDispatcherWildfireHandler
-  */
+   * Get Wildfire protocol handler object, create one if none ist set
+   *
+   * @return PapayaMessageDispatcherWildfireHandler
+   * @throws \InvalidArgumentException
+   */
   public function getHandler() {
-    if (is_null($this->_handler)) {
+    if (NULL === $this->_handler) {
       $this->_handler = new PapayaMessageDispatcherWildfireHandler('header');
     }
     return $this->_handler;
   }
 
   /**
-  * Send log message using the Wildfire protocol
-  *
-  * @param PapayaMessageLogable $message
-  */
+   * Send log message using the Wildfire protocol
+   *
+   * @param PapayaMessageLogable $message
+   * @throws \InvalidArgumentException
+   */
   public function send(PapayaMessageLogable $message) {
     $wildfire = $this->getHandler();
     if (count($message->context()) > 0) {
@@ -131,10 +135,11 @@ class PapayaMessageDispatcherWildfire
   }
 
   /**
-  * Send a message context using the Wildfire protocol
-  *
-  * @param PapayaMessageContextInterface $context
-  */
+   * Send a message context using the Wildfire protocol
+   *
+   * @param PapayaMessageContextInterface $context
+   * @throws \InvalidArgumentException
+   */
   public function sendContext($context) {
     if ($context instanceof PapayaMessageContextVariable) {
       $this->_sendContextVariable($context);
@@ -145,7 +150,7 @@ class PapayaMessageDispatcherWildfire
     } else {
       $wildfire = $this->getHandler();
       if ($context instanceof PapayaMessageContextInterfaceLabeled) {
-        $wildfire->startGroup($context->getLabel(), TRUE);
+        $wildfire->startGroup($context->getLabel());
       }
       if ($context instanceof PapayaMessageContextInterfaceList) {
         foreach ($context->asArray() as $index => $item) {
@@ -206,6 +211,7 @@ class PapayaMessageDispatcherWildfire
    * Variables dumps need to have a special format to display as much informations as possible.
    *
    * @param PapayaMessageContextVariable $context
+   * @throws \InvalidArgumentException
    */
   private function _sendContextVariable(PapayaMessageContextVariable $context) {
     $visitor = new PapayaMessageDispatcherWildfireVariableVisitor(
@@ -222,6 +228,7 @@ class PapayaMessageDispatcherWildfire
    * output a list.
    *
    * @param \PapayaMessageContextBacktrace $context
+   * @throws \InvalidArgumentException
    */
   private function _sendContextTrace(PapayaMessageContextBacktrace $context) {
     $trace = $context->getBacktrace();
@@ -285,16 +292,17 @@ class PapayaMessageDispatcherWildfire
   }
 
   /**
-  * Send a tabular context
-  *
-  * FirePHP has a special formatted output for tables.
-  *
-  * @param PapayaMessageContextInterfaceTable $context
-  */
+   * Send a tabular context
+   *
+   * FirePHP has a special formatted output for tables.
+   *
+   * @param PapayaMessageContextInterfaceTable $context
+   * @throws \InvalidArgumentException
+   */
   private function _sendContextTable(PapayaMessageContextInterfaceTable $context) {
     $table = array();
     $columns = $context->getColumns();
-    if (isset($columns)) {
+    if (NULL !== $columns) {
       $table[] = array_values($columns);
     } else {
       $table[] = array();
