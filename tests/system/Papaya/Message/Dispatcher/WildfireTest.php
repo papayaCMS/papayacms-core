@@ -38,7 +38,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
 
   /**
   * @covers PapayaMessageDispatcherWildfire::allow
-  * @covers PapayaMessageDispatcherWildfire::useable
+  * @covers PapayaMessageDispatcherWildfire::usable
   * @backupGlobals
   */
   public function testAllowWithUserAgentAllowExpectingFalse() {
