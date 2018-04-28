@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
@@ -14,6 +28,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamwrapperS3Handler::setHTTPClient
   */
   public function testSetHTTPClient() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $wrapper = new PapayaStreamwrapperS3Handler();
     $wrapper->setHTTPClient($client);
@@ -26,6 +41,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamwrapperS3Handler::getHTTPClient
   */
   public function testGetHTTPClient() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $wrapper = new PapayaStreamwrapperS3Handler();
     $wrapper->setHTTPClient($client);
@@ -38,7 +54,6 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamwrapperS3Handler::getHTTPClient
   */
   public function testGetHTTPClientImplicitCreate() {
-    $client = $this->createMock(PapayaHttpClient::class);
     $wrapper = new PapayaStreamwrapperS3Handler();
     $this->assertInstanceOf(
       PapayaHttpClient::class, $wrapper->getHTTPClient()
@@ -49,7 +64,8 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::getFileInformations
   * @covers PapayaStreamWrapperS3Handler::_sendRequest
   */
-  public function testGetFileInformations() {
+  public function testGetFileInformation() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -117,6 +133,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::_sendRequest
   */
   public function testGetFileInformationsWithDirectory() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -148,6 +165,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::_sendRequest
   */
   public function testGetFileInformationsWithNotFound() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -174,6 +192,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::_sendRequest
   */
   public function testGetFileInformationsExpectingWarningPermissionDenied() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -196,6 +215,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::_sendRequest
   */
   public function testGetFileInformationsWithSuppressedWarningPermissionDenied() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -217,6 +237,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::_sendRequest
   */
   public function testGetFileInformationsExpectingWarningUnexpectedResponse() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -239,6 +260,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::_sendRequest
   */
   public function testGetFileInformationsWithSuppressedWarningUnexpectedResponse() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -260,6 +282,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::_sendRequest
   */
   public function testGetDirectoryInformations() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -362,6 +385,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::getDirectoryInformations
   */
   public function testGetDirectoryInformationsWithHTTPError() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -381,6 +405,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::getDirectoryInformations
   */
   public function testGetDirectoryInformationsWithEmptyResult() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -410,6 +435,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::getDirectoryInformations
   */
   public function testGetDirectoryInformationsWithSlash() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->exactly(4))
@@ -452,6 +478,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::readFileContent
   */
   public function testReadFileContent() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -531,6 +558,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::readFileContent
   */
   public function testReadFileContentWithoutRange() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -543,7 +571,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
         'Content-Range'
       )
       ->will(
-        $this->returnValue("")
+        $this->returnValue('')
       );
     $client
       ->expects($this->never())
@@ -567,6 +595,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::readFileContent
   */
   public function testReadFileContentForEmptyResult() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -588,6 +617,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::openWriteFile
   */
   public function testOpenWriteFile() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -627,8 +657,9 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::writeFileContent
   */
   public function testWriteFileContent() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
-    $content = "testContent";
+    $content = 'testContent';
     $handler = new PapayaStreamwrapperS3Handler();
     $handler->setHTTPClient($client);
     $handler->openWriteFile(self::$_testFile, STREAM_REPORT_ERRORS);
@@ -642,6 +673,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::closeWriteFile
   */
   public function testCloseWriteFile() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -667,6 +699,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::closeWriteFile
   */
   public function testCloseWriteFileExpectingWarningPermissionDenied() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -686,6 +719,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::closeWriteFile
   */
   public function testCloseWriteFileWithSuppressedWarningPermissionDenied() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -701,6 +735,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::closeWriteFile
   */
   public function testCloseWriteFileExpectingWarningUnexpectedResponse() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -720,6 +755,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::closeWriteFile
   */
   public function testCloseWriteFileWithSuppressedWarningUnexpectedResponse() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -735,6 +771,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::removeFile
   */
   public function testRemoveFile() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
@@ -776,6 +813,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   * @covers PapayaStreamWrapperS3Handler::removeFile
   */
   public function testRemoveFileExpectingFalse() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClient $client */
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->once())
