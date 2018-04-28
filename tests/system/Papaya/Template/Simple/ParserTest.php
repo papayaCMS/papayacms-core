@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaTemplateSimpleParserTest extends PapayaTestCase {
@@ -19,11 +33,15 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::read
-  * @covers PapayaTemplateSimpleParser::matchToken
-  * @dataProvider provideDirectMatchingTokens
-  */
-  public function testReadMatch($expectedResult, $tokens, $allowedTokens) {
+   * @covers PapayaTemplateSimpleParser::read
+   * @covers PapayaTemplateSimpleParser::matchToken
+   * @dataProvider provideDirectMatchingTokens
+   * @param int $expectedResult
+   * @param array $tokens
+   * @param array|int $allowedTokens
+   * @throws PapayaTemplateSimpleException
+   */
+  public function testReadMatch($expectedResult, array $tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
     $originalTokens = $parser->_tokens;
     $readToken = array_shift($originalTokens);
@@ -38,22 +56,29 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::read
-  * @covers PapayaTemplateSimpleParser::matchToken
-  * @covers PapayaTemplateSimpleParser::createMismatchException
-  * @dataProvider provideDirectMismatchingTokens
-  */
-  public function testReadMismatch($tokens, $allowedTokens) {
+   * @covers PapayaTemplateSimpleParser::read
+   * @covers PapayaTemplateSimpleParser::matchToken
+   * @covers PapayaTemplateSimpleParser::createMismatchException
+   * @dataProvider provideDirectMismatchingTokens
+   * @param array $tokens
+   * @param array|int $allowedTokens
+   * @throws PapayaTemplateSimpleException
+   */
+  public function testReadMismatch(array $tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
     $this->expectException(PapayaTemplateSimpleExceptionParser::class);
     $parser->read($allowedTokens);
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::lookahead
-  * @dataProvider provideDirectMatchingTokens
-  */
-  public function testDirectLookaheadMatch($expectedResult, $tokens, $allowedTokens) {
+   * @covers PapayaTemplateSimpleParser::lookahead
+   * @dataProvider provideDirectMatchingTokens
+   * @param int $expectedResult
+   * @param array $tokens
+   * @param array|int $allowedTokens
+   * @throws PapayaTemplateSimpleException
+   */
+  public function testDirectLookaheadMatch($expectedResult, array $tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
     $originalTokens = $parser->_tokens;
 
@@ -65,20 +90,27 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::lookahead
-  * @dataProvider provideDirectMismatchingTokens
-  */
-  public function testDirectLookaheadMismatch($tokens, $allowedTokens) {
+   * @covers PapayaTemplateSimpleParser::lookahead
+   * @dataProvider provideDirectMismatchingTokens
+   * @param array $tokens
+   * @param array|int $allowedTokens
+   * @throws PapayaTemplateSimpleException
+   */
+  public function testDirectLookaheadMismatch(array $tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
     $this->expectException(PapayaTemplateSimpleExceptionParser::class);
     $parser->lookahead($allowedTokens);
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::lookahead
-  * @dataProvider provideLookaheadMatchingTokens
+   * @covers PapayaTemplateSimpleParser::lookahead
+   * @dataProvider provideLookaheadMatchingTokens
+   * @param int $expectedResult
+   * @param array $tokens
+   * @param array|int $allowedTokens
+   * @throws PapayaTemplateSimpleException
   */
-  public function testLookaheadMatch($expectedResult, $tokens, $allowedTokens) {
+  public function testLookaheadMatch($expectedResult, array $tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
     $originalTokens = $parser->_tokens;
 
@@ -90,10 +122,13 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::lookahead
-  * @dataProvider provideLookaheadMismatchingTokens
-  */
-  public function testLookaheadMismatch($tokens, $allowedTokens) {
+   * @covers PapayaTemplateSimpleParser::lookahead
+   * @dataProvider provideLookaheadMismatchingTokens
+   * @param array $tokens
+   * @param array|int $allowedTokens
+   * @throws PapayaTemplateSimpleException
+   */
+  public function testLookaheadMismatch(array $tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
     $this->expectException(PapayaTemplateSimpleExceptionParser::class);
     $parser->lookahead($allowedTokens, 1);
@@ -250,21 +285,27 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   * Fixtures
   *****************************/
 
+  /**
+   * @param array $tokens
+   * @return PapayaTemplateSimpleParser_TestProxy
+   */
   public function getParserFixture(array $tokens = array()) {
     $tokens = $this->createTokens($tokens);
     return new PapayaTemplateSimpleParser_TestProxy($tokens);
   }
 
+  /**
+   * @param array $tokens
+   * @return PapayaTemplateSimpleParser_TestProxy
+   */
   public function getParserFixtureWithReference(array &$tokens) {
     return new PapayaTemplateSimpleParser_TestProxy($tokens);
   }
 
   public function createTokens($data) {
     $tokens = array();
-    if (count($data) > 0) {
-      if (is_integer($data[0])) {
-        $data = array($data);
-      }
+    if (count($data) > 0 && is_int($data[0])) {
+      $data = array($data);
     }
     foreach ($data as $token) {
       if ($token instanceof PapayaTemplateSimpleScannerToken) {

@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaTemplateValueTest extends PapayaTestCase {
@@ -91,7 +105,7 @@ class PapayaTemplateValueTest extends PapayaTestCase {
     $newValue = $value->append('node', array('sample' => 'yes'), 'content');
     $this->assertEquals(
       '<node sample="yes">content</node>',
-      $dom->saveXml($this->readAttribute($newValue, '_node'))
+      $dom->saveXML($this->readAttribute($newValue, '_node'))
     );
   }
 
@@ -106,7 +120,7 @@ class PapayaTemplateValueTest extends PapayaTestCase {
     $newValue = $value->append($node, array('sample' => 'yes'), 'content');
     $this->assertEquals(
       '<node sample="yes">content</node>',
-      $dom->saveXml($this->readAttribute($newValue, '_node'))
+      $dom->saveXML($this->readAttribute($newValue, '_node'))
     );
   }
 
@@ -121,7 +135,7 @@ class PapayaTemplateValueTest extends PapayaTestCase {
     $newValue = $value->append($dom, array('sample' => 'yes'), 'content');
     $this->assertEquals(
       '<node sample="yes">content</node>',
-      $dom->saveXml($this->readAttribute($newValue, '_node'))
+      $dom->saveXML($this->readAttribute($newValue, '_node'))
     );
   }
 
@@ -129,18 +143,18 @@ class PapayaTemplateValueTest extends PapayaTestCase {
   * @covers PapayaTemplateValue::append
   * @covers PapayaTemplateValue::_getDocument
   */
-  public function testAppendOnDomelement() {
+  public function testAppendOnDOMElement() {
     $dom = new PapayaXmlDocument();
     $dom->appendChild($node = $dom->createElement('node'));
     $value = new PapayaTemplateValue($node);
     $newValue = $value->append('child');
     $this->assertEquals(
       '<node><child/></node>',
-      $dom->saveXml($this->readAttribute($value, '_node'))
+      $dom->saveXML($this->readAttribute($value, '_node'))
     );
     $this->assertEquals(
       '<child/>',
-      $dom->saveXml($this->readAttribute($newValue, '_node'))
+      $dom->saveXML($this->readAttribute($newValue, '_node'))
     );
   }
 
@@ -191,7 +205,7 @@ class PapayaTemplateValueTest extends PapayaTestCase {
     $newValue = $value->appendXml('<child/>');
     $this->assertEquals(
       '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<child/>'."\n",
-      $dom->saveXml($this->readAttribute($newValue, '_node'))
+      $dom->saveXML($this->readAttribute($newValue, '_node'))
     );
   }
 

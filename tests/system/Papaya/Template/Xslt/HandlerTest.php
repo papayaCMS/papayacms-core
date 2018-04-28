@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
@@ -7,7 +21,7 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
   * @covers PapayaTemplateXsltHandler::getLocalPath
   */
   public function testGetLocalPath() {
-    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -36,7 +50,7 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
   * @covers PapayaTemplateXsltHandler::getTemplate
   */
   public function testGetTemplateInPublicMode() {
-    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -64,17 +78,17 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
   * @covers PapayaTemplateXsltHandler::getTemplate
   */
   public function testGetTemplateInPreviewMode() {
-    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
       ->will($this->returnValue(TRUE));
-    $session = $this->getMock(PapayaSession::class, array('__get'));
-    $values = $this->getMock(PapayaSessionValues::class, array('get'), array($session));
+    $session = $this->createMock(PapayaSession::class);
+    $values = $this->getMockBuilder(PapayaSessionValues::class)->disableOriginalConstructor()->getMock();
     $values
       ->expects($this->once())
       ->method('get')
-      ->with($this->equalTo(PapayaPreviewTemplate::class))
+      ->with($this->equalTo('PapayaPreviewTemplate'))
       ->will($this->returnValue('TemplateFromSession'));
     $session
       ->expects($this->once())
@@ -105,12 +119,12 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
   * @covers PapayaTemplateXsltHandler::setTemplatePreview
   */
   public function testSetTemplatePreview() {
-    $session = $this->getMock(PapayaSession::class, array('__get'));
-    $values = $this->getMock(PapayaSessionValues::class, array('set'), array($session));
+    $session = $this->createMock(PapayaSession::class);
+    $values = $this->getMockBuilder(PapayaSessionValues::class)->disableOriginalConstructor()->getMock();
     $values
       ->expects($this->once())
       ->method('set')
-      ->with($this->equalTo(PapayaPreviewTemplate::class), $this->equalTo('Sample'));
+      ->with($this->equalTo('PapayaPreviewTemplate'), $this->equalTo('Sample'));
     $session
       ->expects($this->once())
       ->method('__get')
@@ -127,12 +141,12 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
   * @covers PapayaTemplateXsltHandler::removeTemplatePreview
   */
   public function testRemoveTemplatePreview() {
-    $session = $this->getMock(PapayaSession::class, array('__get'));
-    $values = $this->getMock(PapayaSessionValues::class, array('set'), array($session));
+    $session = $this->createMock(PapayaSession::class);
+    $values = $this->getMockBuilder(PapayaSessionValues::class)->disableOriginalConstructor()->getMock();
     $values
       ->expects($this->once())
       ->method('set')
-      ->with($this->equalTo(PapayaPreviewTemplate::class), $this->equalTo(NULL));
+      ->with($this->equalTo('PapayaPreviewTemplate'), $this->equalTo(NULL));
     $session
       ->expects($this->once())
       ->method('__get')
@@ -142,7 +156,7 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
     $handler->papaya(
       $this->mockPapaya()->application(array('Session' => $session))
     );
-    $handler->removeTemplatePreview('Sample');
+    $handler->removeTemplatePreview();
   }
 
 

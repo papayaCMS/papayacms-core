@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaTemplateEngineTest extends PapayaTestCase {
@@ -65,11 +79,10 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   * @covers PapayaTemplateEngine::loaders
   */
   public function testLoadersSetter() {
-    $loaders = $this->getMock(
-      PapayaObjectList::class,
-      array(),
-      array(PapayaTemplateEngineValuesLoadable::class)
-    );
+    $loaders = $this
+      ->getMockBuilder(PapayaObjectList::class)
+      ->setConstructorArgs(array(PapayaTemplateEngineValuesLoadable::class))
+      ->getMock();
     $loaders
       ->expects($this->any())
       ->method('getItemClass')
@@ -87,7 +100,10 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   * @covers PapayaTemplateEngine::loaders
   */
   public function testLoadersSetterWithInvalidObjectList() {
-    $loaders = $this->getMock(PapayaObjectList::class, array(), array(stdClass::class));
+    $loaders = $this
+      ->getMockBuilder(PapayaObjectList::class)
+      ->setConstructorArgs(array(stdClass::class))
+      ->getMock();
     $loaders
       ->expects($this->any())
       ->method('getItemClass')
@@ -102,11 +118,10 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   * @covers PapayaTemplateEngine::loaders
   */
   public function testLoadersGetter() {
-    $loaders = $this->getMock(
-      PapayaObjectList::class,
-      array(),
-      array(PapayaTemplateEngineValuesLoadable::class)
-    );
+    $loaders = $this
+      ->getMockBuilder(PapayaObjectList::class)
+      ->setConstructorArgs(array(PapayaTemplateEngineValuesLoadable::class))
+      ->getMock();
     $loaders
       ->expects($this->any())
       ->method('getItemClass')
@@ -143,7 +158,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
     $engine->values($document);
     $this->assertXmlStringEqualsXmlString(
       '<?xml version="1.0" encoding="UTF-8"?><test/>',
-      $engine->values()->saveXml($engine->getContext())
+      $engine->values()->saveXML($engine->getContext())
     );
   }
 
@@ -158,7 +173,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
     $engine = new PapayaTemplateEngine_TestProxy();
     $engine->values($node);
     $this->assertEquals(
-      '<sample/>', $engine->values()->saveXml($engine->getContext())
+      '<sample/>', $engine->values()->saveXML($engine->getContext())
     );
   }
 
@@ -171,7 +186,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
     $engine = new PapayaTemplateEngine_TestProxy();
     $engine->values($node);
     $this->assertEquals(
-      '<test/>', $engine->values()->saveXml($engine->getContext())
+      '<test/>', $engine->values()->saveXML($engine->getContext())
     );
   }
 
@@ -263,11 +278,10 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   * @covers PapayaTemplateEngine::__set
   */
   public function testMagicMethodSetForLoaders() {
-    $loaders = $this->getMock(
-      PapayaObjectList::class,
-      array(),
-      array(PapayaTemplateEngineValuesLoadable::class)
-    );
+    $loaders = $this
+      ->getMockBuilder(PapayaObjectList::class)
+      ->setConstructorArgs(array(PapayaTemplateEngineValuesLoadable::class))
+      ->getMock();
     $loaders
       ->expects($this->any())
       ->method('getItemClass')
@@ -352,6 +366,9 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 }
 
+/**
+ * @property PapayaObjectList|PapayaObjectOptionsList|PapayaXmlDocument dynamic_property
+ */
 class PapayaTemplateEngine_TestProxy extends PapayaTemplateEngine {
 
   public function prepare() {
