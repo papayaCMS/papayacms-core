@@ -1,5 +1,19 @@
 <?php
-include_once(__DIR__.'/../../../bootstrap.php');
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+include_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaStringUtf8Test extends PapayaTestCase {
 
@@ -14,6 +28,7 @@ class PapayaStringUtf8Test extends PapayaTestCase {
   /**
    * @covers PapayaStringUtf8
    * @dataProvider dataProviderSupportedModes
+   * @param int $mode
    */
   public function testSetMode($mode) {
     $string = new PapayaStringUtf8('TEST');
@@ -41,6 +56,7 @@ class PapayaStringUtf8Test extends PapayaTestCase {
   /**
    * @covers PapayaStringUtf8
    * @dataProvider dataProviderSupportedModes
+   * @param int $mode
    */
   public function testCharAt($mode) {
     $string = new PapayaStringUtf8('ÄÖÜ');
@@ -50,9 +66,8 @@ class PapayaStringUtf8Test extends PapayaTestCase {
 
   /**
    * @covers PapayaStringUtf8
-   * @dataProvider dataProviderSupportedModes
    */
-  public function testIndexOf($mode) {
+  public function testIndexOf() {
     $string = new PapayaStringUtf8('ÄÖÜ');
     $this->assertEquals(1, $string->indexOf('Ö'));
   }
@@ -60,6 +75,7 @@ class PapayaStringUtf8Test extends PapayaTestCase {
   /**
    * @covers PapayaStringUtf8
    * @dataProvider dataProviderSupportedModes
+   * @param int $mode
    */
   public function testIndexOfWithOffset($mode) {
     $string = new PapayaStringUtf8('ÄÖÜÄÖÜ');
@@ -70,6 +86,7 @@ class PapayaStringUtf8Test extends PapayaTestCase {
   /**
    * @covers PapayaStringUtf8
    * @dataProvider dataProviderSupportedModes
+   * @param int $mode
    */
   public function testIndexOfWithoutMatch($mode) {
     $string = new PapayaStringUtf8('ÄÖÜÄÖÜ');
@@ -79,9 +96,8 @@ class PapayaStringUtf8Test extends PapayaTestCase {
 
   /**
    * @covers PapayaStringUtf8
-   * @dataProvider dataProviderSupportedModes
    */
-  public function testLastIndexOf($mode) {
+  public function testLastIndexOf() {
     $string = new PapayaStringUtf8('ÄÖÜÄÖÜ');
     $this->assertEquals(4, $string->lastIndexOf('Ö'));
   }
@@ -89,6 +105,7 @@ class PapayaStringUtf8Test extends PapayaTestCase {
   /**
    * @covers PapayaStringUtf8
    * @dataProvider dataProviderSupportedModes
+   * @param int $mode
    */
   public function testLastIndexOfWithOffset($mode) {
     $string = new PapayaStringUtf8('ÄÖÜÄÖÜ');
@@ -99,6 +116,7 @@ class PapayaStringUtf8Test extends PapayaTestCase {
   /**
    * @covers PapayaStringUtf8
    * @dataProvider dataProviderSupportedModes
+   * @param int $mode
    */
   public function testLastIndexOfWithoutMatch($mode) {
     $string = new PapayaStringUtf8('ÄÖÜÄÖÜ');
@@ -109,6 +127,7 @@ class PapayaStringUtf8Test extends PapayaTestCase {
   /**
    * @covers PapayaStringUtf8
    * @dataProvider dataProviderSupportedModes
+   * @param int $mode
    */
   public function testSubstr($mode) {
     $string = new PapayaStringUtf8('ÄÖÜ Hellö ÄÖÜ');
@@ -152,6 +171,7 @@ class PapayaStringUtf8Test extends PapayaTestCase {
   /**
    * @covers PapayaStringUtf8
    * @dataProvider dataProviderSupportedModes
+   * @param int $mode
    */
   public function testOffsetSet($mode) {
     $string = new PapayaStringUtf8('ÄÖÜ');
