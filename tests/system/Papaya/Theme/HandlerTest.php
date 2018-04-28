@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaThemeHandlerTest extends PapayaTestCase {
@@ -7,12 +21,12 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   * @covers PapayaThemeHandler::getUrl
   */
   public function testGetUrl() {
-    $url = $this->getMock(PapayaUrl::class, array('getHostUrl'));
+    $url = $this->getMockBuilder(PapayaUrl::class)->setMethods(array('getHostUrl'))->getMock();
     $url
       ->expects($this->once())
       ->method('getHostUrl')
       ->will($this->returnValue('http://test.tld'));
-    $request = $this->getMock(PapayaRequest::class, array('getParameter', 'getUrl'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -46,12 +60,12 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   * @covers PapayaThemeHandler::getUrl
   */
   public function testGetUrlWithThemeNameParameter() {
-    $url = $this->getMock(PapayaUrl::class, array('getHostUrl'));
+    $url = $this->getMockBuilder(PapayaUrl::class)->setMethods(array('getHostUrl'))->getMock();
     $url
       ->expects($this->once())
       ->method('getHostUrl')
       ->will($this->returnValue('http://test.tld'));
-    $request = $this->getMock(PapayaRequest::class, array('getParameter', 'getUrl'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getUrl')
@@ -81,7 +95,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   * @covers PapayaThemeHandler::getUrl
   */
   public function testGetUrlWithCdn() {
-    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -112,7 +126,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   */
   public function testGetUrlWithSecureCdn() {
     $_SERVER['HTTPS'] = 'on';
-    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -167,7 +181,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   */
   public function testGetLocalThemePath() {
     $_SERVER['DOCUMENT_ROOT'] = '/document/root';
-    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -245,7 +259,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   * @covers PapayaThemeHandler::getTheme
   */
   public function testGetThemeInPublicMode() {
-    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -273,17 +287,20 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   * @covers PapayaThemeHandler::getTheme
   */
   public function testGetThemeInPreviewMode() {
-    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
       ->will($this->returnValue(TRUE));
-    $session = $this->getMock(PapayaSession::class, array('__get'));
-    $values = $this->getMock(PapayaSessionValues::class, array('get'), array($session));
+    $session = $this->createMock(PapayaSession::class);
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($session))
+      ->getMock();
     $values
       ->expects($this->once())
       ->method('get')
-      ->with($this->equalTo(PapayaPreviewTheme::class))
+      ->with($this->equalTo('PapayaPreviewTheme'))
       ->will($this->returnValue('ThemeFromSession'));
     $session
       ->expects($this->once())
@@ -314,7 +331,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   * @covers PapayaThemeHandler::getThemeSet
   */
   public function testGetThemeSetInPublicMode() {
-    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -342,17 +359,20 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   * @covers PapayaThemeHandler::getThemeSet
   */
   public function testGetThemeSetInPreviewMode() {
-    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
       ->will($this->returnValue(TRUE));
-    $session = $this->getMock(PapayaSession::class, array('__get'));
-    $values = $this->getMock(PapayaSessionValues::class, array('get'), array($session));
+    $session = $this->createMock(PapayaSession::class);
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($session))
+      ->getMock();
     $values
       ->expects($this->once())
       ->method('get')
-      ->with($this->equalTo(PapayaPreviewThemeSet::class))
+      ->with($this->equalTo('PapayaPreviewThemeSet'))
       ->will($this->returnValue('42 (yeah)'));
     $session
       ->expects($this->once())
@@ -383,12 +403,15 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   * @covers PapayaThemeHandler::setThemePreview
   */
   public function testSetThemePreview() {
-    $session = $this->getMock(PapayaSession::class, array('__get'));
-    $values = $this->getMock(PapayaSessionValues::class, array('set'), array($session));
+    $session = $this->createMock(PapayaSession::class);
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($session))
+      ->getMock();
     $values
       ->expects($this->once())
       ->method('set')
-      ->with($this->equalTo(PapayaPreviewTheme::class), $this->equalTo('Sample'));
+      ->with($this->equalTo('PapayaPreviewTheme'), $this->equalTo('Sample'));
     $session
       ->expects($this->once())
       ->method('__get')
@@ -405,12 +428,15 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   * @covers PapayaThemeHandler::removeThemePreview
   */
   public function testRemoveThemePreview() {
-    $session = $this->getMock(PapayaSession::class, array('__get'));
-    $values = $this->getMock(PapayaSessionValues::class, array('set'), array($session));
+    $session = $this->createMock(PapayaSession::class);
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($session))
+      ->getMock();
     $values
       ->expects($this->once())
       ->method('set')
-      ->with($this->equalTo(PapayaPreviewTheme::class), $this->equalTo(NULL));
+      ->with($this->equalTo('PapayaPreviewTheme'), $this->equalTo(NULL));
     $session
       ->expects($this->once())
       ->method('__get')
@@ -420,6 +446,6 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
     $handler->papaya(
       $this->mockPapaya()->application(array('Session' => $session))
     );
-    $handler->removeThemePreview('Sample');
+    $handler->removeThemePreview();
   }
 }

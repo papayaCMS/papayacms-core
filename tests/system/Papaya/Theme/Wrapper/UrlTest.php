@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaThemeWrapperUrlTest extends PapayaTestCase {
@@ -25,18 +39,21 @@ class PapayaThemeWrapperUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeWrapperUrl::getMimetype
-  * @dataProvider provideValidWrapperUrls
-  */
+   * @covers PapayaThemeWrapperUrl::getMimetype
+   * @dataProvider provideValidWrapperUrls
+   * @param string $mimetype
+   * @param string $url
+   */
   public function testGetMimetypeExpectingMimeType($mimetype, $url) {
     $wrapperUrl = new PapayaThemeWrapperUrl(new PapayaUrl($url));
     $this->assertEquals($mimetype, $wrapperUrl->getMimetype());
   }
 
   /**
-  * @covers PapayaThemeWrapperUrl::getMimetype
-  * @dataProvider provideInvalidWrapperUrls
-  */
+   * @covers PapayaThemeWrapperUrl::getMimetype
+   * @dataProvider provideInvalidWrapperUrls
+   * @param string $url
+   */
   public function testGetMimetypeExpectingFalse($url) {
     $wrapperUrl = new PapayaThemeWrapperUrl(new PapayaUrl($url));
     $this->assertFalse($wrapperUrl->getMimetype());
@@ -120,15 +137,17 @@ class PapayaThemeWrapperUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeWrapperUrl::getTheme
-  * @dataProvider provideThemesFromUrl
-  */
+   * @covers PapayaThemeWrapperUrl::getTheme
+   * @dataProvider provideThemesFromUrl
+   * @param string $theme
+   * @param string $url
+   */
   public function testGetTheme($theme, $url) {
     $wrapperUrl = new PapayaThemeWrapperUrl(
       new PapayaUrl($url)
     );
     $this->assertEquals(
-      $theme, $wrapperUrl->getTheme($url)
+      $theme, $wrapperUrl->getTheme()
     );
   }
 
