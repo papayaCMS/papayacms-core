@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaRequestParametersNameTest extends PapayaTestCase {
@@ -121,11 +135,14 @@ class PapayaRequestParametersNameTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParametersName::setString
-  * @covers PapayaRequestParametersName::parseString
-  * @dataProvider provideNameStrings
-  */
-  public function testSetString($nameArray, $nameString, $separator) {
+   * @covers PapayaRequestParametersName::setString
+   * @covers PapayaRequestParametersName::parseString
+   * @dataProvider provideNameStrings
+   * @param array $nameArray
+   * @param string $nameString
+   * @param string $separator
+   */
+  public function testSetString(array $nameArray, $nameString, $separator) {
     $name = new PapayaRequestParametersName();
     $name->setString($nameString, $separator);
     $this->assertAttributeEquals(
@@ -168,10 +185,13 @@ class PapayaRequestParametersNameTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParametersName::insertBefore
-  * @dataProvider provideInsertBeforeData
+   * @covers PapayaRequestParametersName::insertBefore
+   * @dataProvider provideInsertBeforeData
+   * @param array $expected
+   * @param int $index
+   * @param string $additional
    */
-  public function testInsertBefore($expected, $index, $additional) {
+  public function testInsertBefore(array $expected, $index, $additional) {
     $name = new PapayaRequestParametersName(array('foo', 'bar'));
     $name->insertBefore($index, $additional);
     $this->assertEquals(
@@ -181,10 +201,13 @@ class PapayaRequestParametersNameTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParametersName::getString
-  * @dataProvider provideNameStrings
-  */
-  public function testGetString($nameArray, $nameString, $separator) {
+   * @covers PapayaRequestParametersName::getString
+   * @dataProvider provideNameStrings
+   * @param array $nameArray
+   * @param string $nameString
+   * @param string $separator
+   */
+  public function testGetString(array $nameArray, $nameString, $separator) {
     $name = new PapayaRequestParametersName($nameArray);
     $this->assertEquals(
       $nameString, $name->getString($separator)

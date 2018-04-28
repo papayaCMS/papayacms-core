@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaRequestParametersTest extends PapayaTestCase {
@@ -35,14 +49,18 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::set
-  * @covers PapayaRequestParameters::_parseParameterName
-  * @dataProvider setDataProvider
-  */
+   * @covers PapayaRequestParameters::set
+   * @covers PapayaRequestParameters::_parseParameterName
+   * @dataProvider setDataProvider
+   * @param array $before
+   * @param string $parameter
+   * @param mixed $value
+   * @param array $expected
+   */
   public function testSet($before, $parameter, $value, $expected) {
     $parameters = new PapayaRequestParameters();
     $parameters->merge($before);
-    $parameters->set($parameter, $value, ':');
+    $parameters->set($parameter, $value);
     $this->assertEquals(
       $expected,
       (array)$parameters
@@ -68,9 +86,11 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::has
-  * @dataProvider hasDataProviderExpectingTrue
-  */
+   * @covers PapayaRequestParameters::has
+   * @dataProvider hasDataProviderExpectingTrue
+   * @param string $parameterName
+   * @param mixed $parameterData
+   */
   public function testHasExpectingTrue($parameterName, $parameterData) {
     $parameters = new PapayaRequestParameters();
     $parameters->set($parameterData);
@@ -78,9 +98,11 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::has
-  * @dataProvider hasDataProviderExpectingFalse
-  */
+   * @covers PapayaRequestParameters::has
+   * @dataProvider hasDataProviderExpectingFalse
+   * @param string $parameterName
+   * @param mixed $parameterData
+   */
   public function testHasExpectingFalse($parameterName, $parameterData) {
     $parameters = new PapayaRequestParameters();
     $parameters->set($parameterData);
@@ -88,9 +110,12 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::get
-  * @dataProvider getDataProvider
-  */
+   * @covers PapayaRequestParameters::get
+   * @dataProvider getDataProvider
+   * @param string $name
+   * @param mixed $defaultValue
+   * @param mixed $expected
+   */
   public function testGet($name, $defaultValue, $expected) {
     $parameters = new PapayaRequestParameters();
     $parameters->merge(
@@ -114,6 +139,9 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   /**
   * @covers PapayaRequestParameters::remove
   * @dataProvider removeDataProvider
+   * @param array $before
+   * @param string $parameter
+   * @param array $expected
   */
   public function testRemove($before, $parameter, $expected) {
     $parameters = new PapayaRequestParameters();
@@ -150,10 +178,13 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::getList
-  * @covers PapayaRequestParameters::flattenArray
-  * @dataProvider getListDataProvider
-  */
+   * @covers PapayaRequestParameters::getList
+   * @covers PapayaRequestParameters::flattenArray
+   * @dataProvider getListDataProvider
+   * @param array $expected
+   * @param array $parameterArray
+   * @param string $separator
+   */
   public function testGetList($expected, $parameterArray, $separator) {
     $parameters = new PapayaRequestParameters($parameterArray);
     $this->assertSame(
@@ -162,9 +193,12 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParameters::prepareParameter
-  * @dataProvider prepareParameterDataProvider
-  */
+   * @covers PapayaRequestParameters::prepareParameter
+   * @dataProvider prepareParameterDataProvider
+   * @param mixed $value
+   * @param bool $stripSlashes
+   * @param array|string $expected
+   */
   public function testPrepareParameter($value, $stripSlashes, $expected) {
     $parameters = new PapayaRequestParameters();
     $this->assertEquals(
@@ -343,10 +377,10 @@ class PapayaRequestParametersTest extends PapayaTestCase {
         array('array', NULL, array('1', '2', '3')),
       'string default, return value' =>
         array('string', '', 'test'),
-      'string, integer default, return typecasted value' =>
+      'string, integer default, return typecast value' =>
         array('integer', 0, 42),
-      'string, float default, return typecasted value' =>
-        array('float', (float)0, (float)42.21),
+      'string, float default, return typecast value' =>
+        array('float', 0.0, 42.21),
       'array, array default, return array value' =>
         array('array', array(), array('1', '2', '3')),
       'array, array default, return default' =>

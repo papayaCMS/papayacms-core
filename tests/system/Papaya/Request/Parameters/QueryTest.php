@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaRequestParametersQueryTest extends PapayaTestCase {
@@ -14,9 +28,11 @@ class PapayaRequestParametersQueryTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParametersQuery::setSeparator
-  * @dataProvider provideValidSeparators
-  */
+   * @covers PapayaRequestParametersQuery::setSeparator
+   * @dataProvider provideValidSeparators
+   * @param string $separator
+   * @param string $expected
+   */
   public function testSetSeparator($separator, $expected) {
     $query = new PapayaRequestParametersQuery();
     $query->setSeparator($separator);
@@ -69,11 +85,14 @@ class PapayaRequestParametersQueryTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParametersQuery::setString
-  * @covers PapayaRequestParametersQuery::_decode
-  * @covers PapayaRequestParametersQuery::_prepare
-  * @dataProvider provideQueryStringsForDecode
-  */
+   * @covers PapayaRequestParametersQuery::setString
+   * @covers PapayaRequestParametersQuery::_decode
+   * @covers PapayaRequestParametersQuery::_prepare
+   * @dataProvider provideQueryStringsForDecode
+   * @param string $queryString
+   * @param bool $stripSlashes
+   * @param array $expected
+   */
   public function testSetString($queryString, $stripSlashes, $expected) {
     $query = new PapayaRequestParametersQuery(':');
     $this->assertSame(
@@ -85,10 +104,13 @@ class PapayaRequestParametersQueryTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaRequestParametersQuery::GetString
-  * @covers PapayaRequestParametersQuery::_encode
-  * @dataProvider provideValuesForEncode
-  */
+   * @covers PapayaRequestParametersQuery::GetString
+   * @covers PapayaRequestParametersQuery::_encode
+   * @dataProvider provideValuesForEncode
+   * @param array $values
+   * @param string $groupSeparator
+   * @param string $expected
+   */
   public function testGetString($values, $groupSeparator, $expected) {
     $query = new PapayaRequestParametersQuery($groupSeparator);
     $parameters = new PapayaRequestParameters();
@@ -104,7 +126,10 @@ class PapayaRequestParametersQueryTest extends PapayaTestCase {
   * @covers PapayaRequestParametersQuery::_encode
   */
   public function testGetStringWithObjectArgument() {
-    $mock = $this->getMock(stdClass::class, array('__toString'));
+    $mock = $this
+      ->getMockBuilder(stdClass::class)
+      ->setMethods(array('__toString'))
+      ->getMock();
     $mock
       ->expects($this->any())
       ->method('__toString')

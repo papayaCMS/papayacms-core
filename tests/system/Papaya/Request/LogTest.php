@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaRequestLogTest extends PapayaTestCase {
@@ -66,7 +80,7 @@ class PapayaRequestLogTest extends PapayaTestCase {
   * @covers PapayaRequestLog::emit
   */
   public function testEmitWithStopMessage() {
-    $messages = $this->getMock(PapayaMessageManager::class, array('dispatch'));
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
@@ -87,7 +101,7 @@ class PapayaRequestLogTest extends PapayaTestCase {
   * @covers PapayaRequestLog::emit
   */
   public function testEmitWithoutStopMessage() {
-    $messages = $this->getMock(PapayaMessageManager::class, array('dispatch'));
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
@@ -104,11 +118,11 @@ class PapayaRequestLogTest extends PapayaTestCase {
     $log->emit(FALSE);
   }
 
-  public function checkLogMessageContextWithStop($logMessage) {
+  public function checkLogMessageContextWithStop(PapayaMessageLogable $logMessage) {
     $this->assertCount(3, $logMessage->context());
   }
 
-  public function checkLogMessageContext($logMessage) {
+  public function checkLogMessageContext(PapayaMessageLogable $logMessage) {
     $this->assertCount(2, $logMessage->context());
   }
 }
