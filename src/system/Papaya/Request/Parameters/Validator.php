@@ -1,22 +1,17 @@
 <?php
 /**
-* Papaya Request Parameter validation, allows to validate a group of parameters
-* against an definition and access them in a filtered variant
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Request
-* @version $Id: Validator.php 39525 2014-03-06 09:39:38Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Request Parameter validation, allows to validate a group of parameters
@@ -31,7 +26,7 @@ class PapayaRequestParametersValidator
   /**
    * @var PapayaRequestParameters
    */
-  private $_parameters = NULL;
+  private $_parameters;
 
   /**
    * @var array
@@ -51,8 +46,15 @@ class PapayaRequestParametersValidator
   /**
    * @var null|boolean
    */
-  private $_validationResult = NULL;
+  private $_validationResult;
 
+  /**
+   * PapayaRequestParametersValidator constructor.
+   *
+   * @param array $definitions
+   * @param array|PapayaRequestParameters $parameters
+   * @throws \UnexpectedValueException
+   */
   public function __construct(array $definitions, $parameters) {
     $this->setDefinitions($definitions);
     if (is_array($parameters)) {
@@ -66,6 +68,7 @@ class PapayaRequestParametersValidator
    * Validate and store the definitions, throw exceptions for invalid definitions
    *
    * @param array $definitions
+   * @throws \UnexpectedValueException
    */
   private function setDefinitions(array $definitions) {
     foreach ($definitions as $definition) {
@@ -80,7 +83,7 @@ class PapayaRequestParametersValidator
       } else {
         $filter = PapayaUtilArray::get($definition, array('filter', 2), NULL);
       }
-      if (isset($filter)) {
+      if (NULL !== $filter) {
         PapayaUtilConstraints::assertInstanceOf('PapayaFilter', $filter);
       }
       $this->_definitions[$name] = array(
@@ -107,7 +110,7 @@ class PapayaRequestParametersValidator
             $name, $definition['default'], $filter
           );
           $this->_values[$name] = $value;
-          if (isset($filter)) {
+          if (NULL !== $filter) {
             $filter->validate($value);
           }
         } catch (PapayaFilterException $e) {
@@ -155,19 +158,18 @@ class PapayaRequestParametersValidator
    * @param mixed $name
    * @param mixed $value
    * @throws InvalidArgumentException
-   * @throws PapayaFilterException
    */
   public function offsetSet($name, $value) {
     $this->validate();
     if (isset($this->_definitions[$name])) {
       $definition = $this->_definitions[$name];
-      if (isset($value) && isset($definition['filter'])) {
+      if (isset($value, $definition['filter'])) {
         /** @noinspection PhpUndefinedMethodInspection */
         $value = $definition['filter']->filter($value);
       }
-      if (is_null($value)) {
+      if (NULL === $value) {
         $value = $definition['default'];
-      } elseif (!is_null($definition['default'])) {
+      } elseif (NULL !== $definition['default']) {
         if (is_array($definition['default'])) {
           $value = is_array($value) ? $value : $definition['default'];
         } elseif (is_object($definition['default'])) {
@@ -221,9 +223,9 @@ class PapayaRequestParametersValidator
   }
 
   /**
-   * Public read access to the collected filter exception
+   * Public read access to the collected filter exceptions
    *
-   * @return Iterator
+   * @return array
    */
   public function getErrors() {
     $this->validate();
