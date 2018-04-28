@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaSessionParametersTest extends PapayaTestCase {
@@ -10,9 +24,10 @@ class PapayaSessionParametersTest extends PapayaTestCase {
   * @covers PapayaSessionParameters::parameters
   */
   public function testConstructor() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaRequestParameters $parameters */
+    $parameters = $this->createMock(PapayaRequestParameters::class);
     $sessionParameters = new PapayaSessionParameters(
-      $group = new stdClass,
-      $parameters = $this->createMock(PapayaRequestParameters::class)
+      $group = new stdClass, $parameters
     );
     $this->assertSame(
       $parameters, $sessionParameters->parameters()
@@ -27,9 +42,10 @@ class PapayaSessionParametersTest extends PapayaTestCase {
   */
   public function testValuesGetAfterSet() {
     $sessionValues = $this->getSessionValuesFixture();
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaRequestParameters $parameters */
+    $parameters = $this->createMock(PapayaRequestParameters::class);
     $sessionParameters = new PapayaSessionParameters(
-      new stdClass,
-      $this->createMock(PapayaRequestParameters::class)
+      $group = new stdClass, $parameters
     );
     $this->assertSame(
       $sessionValues, $sessionParameters->values($sessionValues)
@@ -47,9 +63,10 @@ class PapayaSessionParametersTest extends PapayaTestCase {
       ->method('__get')
       ->with('values')
       ->will($this->returnValue($sessionValues));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaRequestParameters $parameters */
+    $parameters = $this->createMock(PapayaRequestParameters::class);
     $sessionParameters = new PapayaSessionParameters(
-      new stdClass,
-      $this->createMock(PapayaRequestParameters::class)
+      $group = new stdClass, $parameters
     );
     $sessionParameters->papaya(
       $this->mockPapaya()->application(
@@ -167,10 +184,14 @@ class PapayaSessionParametersTest extends PapayaTestCase {
   }
 
   /****************
-  * Fixtures
-  ****************/
+   * Fixtures
+   ***************/
 
-  private function getSessionValuesFixture($data = array()) {
+  /**
+   * @param array $data
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaSessionValues
+   */
+  private function getSessionValuesFixture(array $data = array()) {
     $this->_sessionData = $data;
     $sessionValues = $this
       ->getMockBuilder(PapayaSessionValues::class)

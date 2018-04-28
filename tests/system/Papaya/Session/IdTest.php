@@ -1,9 +1,21 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaSessionIdTest extends PapayaTestCase {
-
-  private $_requestParameters = array();
 
   /**
   * @covers PapayaSessionId::__construct
@@ -44,9 +56,11 @@ class PapayaSessionIdTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionId::existsIn
-  * @dataProvider provideValidParametersForExistsIn
-  */
+   * @covers PapayaSessionId::existsIn
+   * @dataProvider provideValidParametersForExistsIn
+   * @param int $source
+   * @param $parameters
+   */
   public function testExistsInExpectingTrue($source, $parameters) {
     $request = $this->getParameterStubFixture($parameters);
     $sid = new PapayaSessionId('sample');
@@ -57,10 +71,12 @@ class PapayaSessionIdTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionId::existsIn
-  * @dataProvider provideInvalidParametersForExistsIn
-  */
-  public function testExistsInExpectingFalse($source, $parameters) {
+   * @covers PapayaSessionId::existsIn
+   * @dataProvider provideInvalidParametersForExistsIn
+   * @param int $source
+   * @param array $parameters
+   */
+  public function testExistsInExpectingFalse($source, array $parameters) {
     $request = $this->getParameterStubFixture($parameters);
     $sid = new PapayaSessionId('sample');
     $sid->papaya(
@@ -82,30 +98,33 @@ class PapayaSessionIdTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionId::validate
-  * @dataProvider provideValidSessionIds
-  */
+   * @covers PapayaSessionId::validate
+   * @dataProvider provideValidSessionIds
+   * @param string $sessionId
+   */
   public function testValidateExpectingSessionId($sessionId) {
     $sid = new PapayaSessionId('sample');
     $this->assertEquals($sessionId, $sid->validate($sessionId));
   }
 
   /**
-  * @covers PapayaSessionId::validate
-  * @dataProvider provideInvalidSessionIds
-  */
+   * @covers PapayaSessionId::validate
+   * @dataProvider provideInvalidSessionIds
+   * @param string $sessionId
+   */
   public function testValidateExpectingNull($sessionId) {
     $sid = new PapayaSessionId('sample');
     $this->assertNull($sid->validate($sessionId));
   }
 
   /**
-  * @covers PapayaSessionId::getId
-  * @covers PapayaSessionId::_readCookie
-  * @covers PapayaSessionId::_isCookieUnique
-  * @backupGlobals enabled
-  * @dataProvider provideCookieStrings
-  */
+   * @covers PapayaSessionId::getId
+   * @covers PapayaSessionId::_readCookie
+   * @covers PapayaSessionId::_isCookieUnique
+   * @backupGlobals enabled
+   * @dataProvider provideCookieStrings
+   * @param string $cookieString
+   */
   public function testGetIdFromCookie($cookieString) {
     $request = $this->getParameterStubFixture(
       array(
@@ -123,11 +142,12 @@ class PapayaSessionIdTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionId::_readCookie
-  * @covers PapayaSessionId::_isCookieUnique
-  * @backupGlobals enabled
-  * @dataProvider provideAmbiguousCookieStrings
-  */
+   * @covers PapayaSessionId::_readCookie
+   * @covers PapayaSessionId::_isCookieUnique
+   * @backupGlobals enabled
+   * @dataProvider provideAmbiguousCookieStrings
+   * @param string $cookieString
+   */
   public function testGetIdWithAmbiguousCookie($cookieString) {
     $request = $this->getParameterStubFixture(
       array(
@@ -148,9 +168,8 @@ class PapayaSessionIdTest extends PapayaTestCase {
    * @covers PapayaSessionId::_readCookie
    * @covers PapayaSessionId::_isCookieUnique
    * @backupGlobals enabled
-   * @dataProvider provideAmbiguousCookieStrings
    */
-  public function testGetIdWithTwoCookiesWithTheSameValue($cookieString) {
+  public function testGetIdWithTwoCookiesWithTheSameValue() {
     $request = $this->getParameterStubFixture(
       array(
         PapayaRequest::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
@@ -249,7 +268,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
   * @covers PapayaSessionId::getId
   */
   public function testGetIdFromCachedValue() {
-    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -280,26 +299,31 @@ class PapayaSessionIdTest extends PapayaTestCase {
   }
 
   /***********************
-  * Fixtures
-  ***********************/
+   * Fixtures
+   **********************/
 
-  public function getParameterStubFixture($parameters) {
-    $this->requestParameters = $parameters;
-    $request = $this->getMock(PapayaRequest::class, array('getParameter'));
+  /**
+   * @param array $parameters
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaRequest
+   */
+  public function getParameterStubFixture(array $parameters) {
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->any())
       ->method('getParameter')
       ->withAnyParameters()
-      ->will($this->returnCallback(array($this, 'getParameterCallback')));
+      ->willReturnCallback(
+        function (
+          /** @noinspection PhpUnusedParameterInspection */
+          $name, $default, $filter, $source
+        ) use ($parameters) {
+          if (isset($parameters[$source][$name])) {
+            return $parameters[$source][$name];
+          }
+          return $default;
+        }
+      );
     return $request;
-  }
-
-  public function getParameterCallback($name, $default, $filter, $source) {
-    if (isset($this->requestParameters[$source][$name])) {
-      return $this->requestParameters[$source][$name];
-    } else {
-      return $default;
-    }
   }
 
   /***********************

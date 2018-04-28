@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaSessionShareTest extends PapayaTestCase {
@@ -8,9 +22,11 @@ class PapayaSessionShareTest extends PapayaTestCase {
   * @covers PapayaSessionShare::setSessionValues
   */
   public function testGetSessionValuesAfterSet() {
-    $values = $this->getMock(
-      PapayaSessionValues::class, array(), array($this->createMock(PapayaSession::class))
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaSessionValues $values */
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMock();
     $share = new PapayaSessionShare_TestProxy();
     $share->setSessionValues($values);
     $this->assertSame($values, $share->getSessionValues());
@@ -21,7 +37,10 @@ class PapayaSessionShareTest extends PapayaTestCase {
   */
   public function testGetSessionValuesFromApplicationRegistry() {
     $session = $this->createMock(PapayaSession::class);
-    $values = $this->getMock(PapayaSessionValues::class, array(), array($session));
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($session))
+      ->getMock();
     $session
       ->expects($this->once())
       ->method('values')
@@ -38,9 +57,11 @@ class PapayaSessionShareTest extends PapayaTestCase {
   */
   public function testMagicMethodIssetExpectingTrue() {
     $share = new PapayaSessionShare_TestProxy();
-    $values = $this->getMock(
-      PapayaSessionValues::class, array(), array($this->createMock(PapayaSession::class))
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaSessionValues $values */
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetExists')
@@ -56,9 +77,11 @@ class PapayaSessionShareTest extends PapayaTestCase {
    */
   public function testMagicMethodIssetExpectingFalse() {
     $share = new PapayaSessionShare_TestProxy();
-    $values = $this->getMock(
-      PapayaSessionValues::class, array(), array($this->createMock(PapayaSession::class))
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaSessionValues $values */
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetExists')
@@ -74,9 +97,11 @@ class PapayaSessionShareTest extends PapayaTestCase {
    */
   public function testMagicMethodGet() {
     $share = new PapayaSessionShare_TestProxy();
-    $values = $this->getMock(
-      PapayaSessionValues::class, array(), array($this->createMock(PapayaSession::class))
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaSessionValues $values */
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetGet')
@@ -92,9 +117,11 @@ class PapayaSessionShareTest extends PapayaTestCase {
    */
   public function testMagicMethodSet() {
     $share = new PapayaSessionShare_TestProxy();
-    $values = $this->getMock(
-      PapayaSessionValues::class, array(), array($this->createMock(PapayaSession::class))
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaSessionValues $values */
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetSet')
@@ -109,9 +136,11 @@ class PapayaSessionShareTest extends PapayaTestCase {
    */
   public function testMagicMethodUnset() {
     $share = new PapayaSessionShare_TestProxy();
-    $values = $this->getMock(
-      PapayaSessionValues::class, array(), array($this->createMock(PapayaSession::class))
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaSessionValues $values */
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetUnset')
@@ -125,9 +154,11 @@ class PapayaSessionShareTest extends PapayaTestCase {
   */
   public function testMagicMethodCallTriggersSet() {
     $share = new PapayaSessionShare_TestProxy();
-    $values = $this->getMock(
-      PapayaSessionValues::class, array(), array($this->createMock(PapayaSession::class))
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaSessionValues $values */
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetSet')
@@ -141,9 +172,11 @@ class PapayaSessionShareTest extends PapayaTestCase {
   */
   public function testMagicMethodCallTriggersGet() {
     $share = new PapayaSessionShare_TestProxy();
-    $values = $this->getMock(
-      PapayaSessionValues::class, array(), array($this->createMock(PapayaSession::class))
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaSessionValues $values */
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetGet')
@@ -165,9 +198,10 @@ class PapayaSessionShareTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionShare::preparePropertyName
-  * @dataProvider providePropertyNames
-  */
+   * @covers PapayaSessionShare::preparePropertyName
+   * @dataProvider providePropertyNames
+   * @param string $propertyName
+   */
   public function testPreparePropertyName($propertyName) {
     $share = new PapayaSessionShare_TestProxy();
     $this->assertEquals('session_property', $share->preparePropertyName($propertyName));
@@ -203,16 +237,19 @@ class PapayaSessionShareTest extends PapayaTestCase {
   }
 }
 
+
 /**
  * Class PapayaSessionShare_TestProxy
  *
  * @property mixed $sessionProperty
  * @method mixed getSessionProperty()
- * @method void setSessionProperty()
+ * @method void setSessionProperty($value)
  */
 class PapayaSessionShare_TestProxy extends PapayaSessionShare {
 
-  public $_normalizeNames = TRUE;
+  public
+    /** @noinspection PropertyInitializationFlawsInspection */
+    $_normalizeNames = TRUE;
 
   protected $_definitions = array(
     'session_property' => TRUE

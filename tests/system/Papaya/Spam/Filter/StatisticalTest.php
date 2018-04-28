@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
@@ -8,6 +22,7 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   * @covers PapayaSpamFilterStatistical::getReference
   */
   public function testGetReferenceAfterSet() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaSpamFilterStatisticalReference $reference */
     $reference = $this->createMock(PapayaSpamFilterStatisticalReference::class);
     $filter = new PapayaSpamFilterStatistical();
     $filter->setReference($reference);
@@ -130,8 +145,7 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
     $this->assertGreaterThan(
       0.5,
       $filter->classify('', array('papaya' => 1, 'money' => 2, 'gamble' => 1), 1),
-      '',
-      0.00001
+      ''
     );
   }
 
@@ -146,8 +160,7 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
     $this->assertLessThan(
       0.5,
       $filter->classify('', array('papaya' => 1, 'cms' => 2, 'gamble' => 1), 1),
-      '',
-      0.00001
+      ''
     );
   }
 
@@ -170,14 +183,20 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::getDetails
-  * @covers PapayaSpamFilterStatistical::getProbabilities
-  * @covers PapayaSpamFilterStatistical::aggregateProbabilities
-  * @covers PapayaSpamFilterStatistical::compareProbabilityRelevance
-  * @dataProvider provideTokenSamples
-  */
-  public function testProbabilityRelevanceSortAndFilter($expected, $report, $tokens,
-                                                        $relevanceLimit, $tokenLimit) {
+   * @covers PapayaSpamFilterStatistical::getDetails
+   * @covers PapayaSpamFilterStatistical::getProbabilities
+   * @covers PapayaSpamFilterStatistical::aggregateProbabilities
+   * @covers PapayaSpamFilterStatistical::compareProbabilityRelevance
+   * @dataProvider provideTokenSamples
+   * @param float $expected
+   * @param array $report
+   * @param array $tokens
+   * @param float $relevanceLimit
+   * @param int $tokenLimit
+   */
+  public function testProbabilityRelevanceSortAndFilter(
+    $expected, $report, $tokens, $relevanceLimit, $tokenLimit
+  ) {
     $filter = new PapayaSpamFilterStatistical();
     $filter->setReference($this->getSpamReferenceMock());
     $filter->setRelevanceLimit($relevanceLimit);
@@ -286,11 +305,11 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   * Fixtures
   *********************/
 
+  /**
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaSpamFilterStatisticalReference
+   */
   private function getSpamReferenceMock() {
-    $reference = $this->getMock(
-      PapayaSpamFilterStatisticalReference::class,
-      array('load', 'item', 'getHamCount', 'getSpamCount')
-    );
+    $reference = $this->createMock(PapayaSpamFilterStatisticalReference::class);
     $reference
       ->expects($this->any())
       ->method('load')

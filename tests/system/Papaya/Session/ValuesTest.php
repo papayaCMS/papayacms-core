@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaSessionValuesTest extends PapayaTestCase {
@@ -122,10 +136,12 @@ class PapayaSessionValuesTest extends PapayaTestCase {
   }
 
   /**
-  * @backupGlobals
-  * @covers PapayaSessionValues::_compileKey
-  * @dataProvider provideIdentfierData
-  */
+   * @backupGlobals
+   * @covers PapayaSessionValues::_compileKey
+   * @dataProvider provideIdentifierData
+   * @param $expected
+   * @param $identifierData
+   */
   public function testIdentifierHandlingBySettingValues($expected, $identifierData) {
     $_SESSION = array();
     $session = $this->getSessionFixture(TRUE);
@@ -161,20 +177,26 @@ class PapayaSessionValuesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionValues::getKey
-  * @dataProvider provideIdentfierData
-  */
+   * @covers PapayaSessionValues::getKey
+   * @dataProvider provideIdentifierData
+   * @param mixed $expected
+   * @param mixed $identifierData
+   */
   public function testGetKey($expected, $identifierData) {
-    $values = new PapayaSessionValues($this->createMock(PapayaSession::class));
+    $values = new PapayaSessionValues($this->getSessionFixture(TRUE));
     $this->assertSame($expected, $values->getKey($identifierData));
   }
 
   /************************
-  * Fixtures
-  *************************/
+   * Fixtures
+   ************************/
 
+  /**
+   * @param bool $isActive
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaSession
+   */
   public function getSessionFixture($isActive = FALSE) {
-    $session = $this->getMock(PapayaSession::class, array('isActive'));
+    $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->any())
       ->method('isActive')
@@ -186,7 +208,7 @@ class PapayaSessionValuesTest extends PapayaTestCase {
   * Data Provider
   *************************/
 
-  public static function provideIdentfierData() {
+  public static function provideIdentifierData() {
     return array(
       'string' => array('sample', 'sample'),
       'number' => array('123', 123),
