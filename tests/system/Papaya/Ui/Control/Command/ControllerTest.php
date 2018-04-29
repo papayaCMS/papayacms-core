@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaUiControlCommandControllerTest extends PapayaTestCase {
@@ -21,7 +35,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandController::getCurrent
   */
   public function testAppendToWithoutCommand() {
-    $owner = $this->getMock(PapayaUiControlInteractive::class, array('parameters', 'appendTo'));
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('parameters')
@@ -36,7 +50,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandController::getCurrent
   */
   public function testAppendToWithCommandSpecifiedByParameter() {
-    $owner = $this->getMock(PapayaUiControlInteractive::class, array('parameters', 'appendTo'));
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('parameters')
@@ -67,7 +81,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandController::getCurrent
   */
   public function testAppendToWithDefaultCommand() {
-    $owner = $this->getMock(PapayaUiControlInteractive::class, array('parameters', 'appendTo'));
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('parameters')
@@ -98,7 +112,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandController::getCurrent
   */
   public function testAppendToWithDefaultCommandPermissionValidationFailed() {
-    $owner = $this->getMock(PapayaUiControlInteractive::class, array('parameters', 'appendTo'));
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('parameters')
@@ -127,7 +141,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
   * @covers PapayaUiControlCommandController::getCurrent
   */
   public function testAppendToWithDefaultCommandConditionValidationFailed() {
-    $owner = $this->getMock(PapayaUiControlInteractive::class, array('parameters', 'appendTo'));
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('parameters')
@@ -160,7 +174,7 @@ class PapayaUiControlCommandControllerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('validate')
       ->will($this->returnValue(FALSE));
-    $owner = $this->getMock(PapayaUiControlInteractive::class, array('parameters', 'appendTo'));
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
     $owner
       ->expects($this->never())
       ->method('parameters');

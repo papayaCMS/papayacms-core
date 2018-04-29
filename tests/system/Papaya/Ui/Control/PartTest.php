@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiControlPartTest extends PapayaTestCase {
@@ -32,7 +46,7 @@ class PapayaUiControlPartTest extends PapayaTestCase {
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Can not read unknown property "PapayaUiControlPart_TestProxy::$propertyUnknown".');
     /** @noinspection PhpUndefinedFieldInspection */
-    $dummy = $control->propertyUnknown;
+    $control->propertyUnknown;
   }
 
   /**
@@ -42,7 +56,7 @@ class PapayaUiControlPartTest extends PapayaTestCase {
     $control = new PapayaUiControlPart_TestProxy();
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid declaration: Can not read property "PapayaUiControlPart_TestProxy::$propertyFour".');
-    $dummy = $control->propertyFour;
+    $control->propertyFour;
   }
 
   /**

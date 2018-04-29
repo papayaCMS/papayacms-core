@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiControlCollectionTest extends PapayaTestCase {
@@ -85,7 +99,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     $collection = new PapayaUiControlCollection();
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('LogicException: Collection "PapayaUiControlCollection" has no owner object.');
-    $owner = $collection->owner();
+    $collection->owner();
   }
 
   /**
@@ -332,9 +346,8 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
   * @covers PapayaUiControlCollection::set
   */
   public function testSetWithInvalidItemClassExpectingException() {
-    $itemOne = $this->getMock(
-      PapayaUiControlCollection_TestItem::class, array('appendTo', 'index', 'setApplication')
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiControlCollection_TestItem $itemOne */
+    $itemOne = $this->createMock(PapayaUiControlCollection_TestItem::class);
     $itemTwo = $this->getMockItemFixture();
     $collection = new PapayaUiControlCollection_TestProxy();
     $collection->_itemClass = PapayaUiControlCollection_TestItem::class;
@@ -574,12 +587,11 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     );
   }
 
+  /**
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaUiControlCollectionItem
+   */
   public function getMockItemFixture() {
-    $item = $this->getMock(
-      PapayaUiControlCollectionItem::class,
-      array('appendTo', 'collection', 'index', 'papaya')
-    );
-    return $item;
+    return $this->createMock(PapayaUiControlCollectionItem::class);
   }
 }
 

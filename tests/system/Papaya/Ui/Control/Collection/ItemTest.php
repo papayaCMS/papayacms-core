@@ -1,9 +1,21 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaUiControlCollectionItemTest extends PapayaTestCase {
-
-  private $_item = NULL;
 
   /**
   * @covers PapayaUiControlCollectionItem::hasCollection
@@ -43,7 +55,7 @@ class PapayaUiControlCollectionItemTest extends PapayaTestCase {
     $item = new PapayaUiControlCollectionItem_TestProxy();
     $this->expectException(BadMethodCallException::class);
     $this->expectExceptionMessage('BadMethodCallException: Item ist not part of a collection.');
-    $collection = $item->collection();
+    $item->collection();
   }
 
   /**
@@ -77,19 +89,19 @@ class PapayaUiControlCollectionItemTest extends PapayaTestCase {
   * @covers PapayaUiControlCollectionItem::index
   */
   public function testIndex() {
+    $item = new PapayaUiControlCollectionItem_TestProxy();
     $collection = $this->createMock(PapayaUiControlCollection::class);
     $collection
       ->expects($this->once())
       ->method('get')
       ->with(23)
-      ->will($this->returnCallback(array($this, 'callbackGetItemFromCollection')));
-    $this->_item = $item = new PapayaUiControlCollectionItem_TestProxy();
+      ->willReturnCallback(
+        function () use ($item) {
+          return $item;
+        }
+      );
     $item->collection($collection);
     $this->assertEquals(23, $item->index(23));
-  }
-
-  public function callbackGetItemFromCollection() {
-    return $this->_item;
   }
 }
 

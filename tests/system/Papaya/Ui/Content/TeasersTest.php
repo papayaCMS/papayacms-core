@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiContentTeasersTest extends PapayaTestCase {
@@ -207,32 +221,34 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
     $teasers = new PapayaUiContentTeasers($pages, 200, 100);
     $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
+    $date = PapayaUtilDate::timestampToString(strtotime('2017-01-16T12:21Z'));
     $this->assertXmlStringEqualsXmlString(
-      '<teasers>
+        /** @lang XML */
+      "<teasers>
         <teaser
-          created="'.PapayaUtilDate::timestampToString(strtotime('2017-01-16T12:21Z')).'"
-          published="'.PapayaUtilDate::timestampToString(strtotime('2017-01-16T12:21Z')).'"
-          page-id="42"
-          plugin-guid="12345678901234567890123456789042"
-          plugin="PapayaUiContentTeasers_PagePluginMockClass"
-          href="http://www.test.tld/index.42.html">
+          created='$date'
+          published='$date'
+          page-id='42'
+          plugin-guid='12345678901234567890123456789042'
+          plugin='PapayaUiContentTeasers_PagePluginMockClass'
+          href='http://www.test.tld/index.42.html'>
           <title>sample title</title>
           <image>
-            <img src="sample.png"/>
+            <img src='sample.png'/>
           </image>
           <text>sample teaser</text>
         </teaser>
         <teaser-thumbnails>
-          <thumbnail page-id="42">
+          <thumbnail page-id='42'>
             <papaya:media
-              xmlns:papaya="http://www.papaya-cms.com/ns/papayacms"
-              src="sample.png"
-              resize="mincrop"
-              width="200"
-              height="100"/>
+              xmlns:papaya='http://www.papaya-cms.com/ns/papayacms'
+              src='sample.png'
+              resize='mincrop'
+              width='200'
+              height='100'/>
           </thumbnail>
         </teaser-thumbnails>
-      </teasers>',
+      </teasers>",
       $teasers->getXml()
     );
   }
@@ -247,6 +263,10 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
    * Fixtures
    ************************/
 
+  /**
+   * @param array $pageRecords
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPages
+   */
   private function getPagesFixture(array $pageRecords = array()) {
     $pages = $this->createMock(PapayaContentPages::class);
     $pages

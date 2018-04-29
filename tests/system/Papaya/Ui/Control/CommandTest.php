@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 PapayaTestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_AUTHOPTIONS',
@@ -108,7 +122,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::validatePermission
   */
   public function testValidatePermissionWithPermissionExpectingFalse() {
-    $user = $this->getMock(base_auth::class, array('hasPerm'));
+    $user = $this->createMock(base_auth::class);
     $user
       ->expects($this->once())
       ->method('hasPerm')
@@ -130,7 +144,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::validatePermission
   */
   public function testValidatePermissionWithPermissionExpectingTrue() {
-    $user = $this->getMock(base_auth::class, array('hasPerm'));
+    $user = $this->createMock(base_auth::class);
     $user
       ->expects($this->once())
       ->method('hasPerm')
@@ -152,7 +166,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::validatePermission
   */
   public function testValidatePermissionWithModulePermissionExpectingFalse() {
-    $user = $this->getMock(base_auth::class, array('hasPerm'));
+    $user = $this->createMock(base_auth::class);
     $user
       ->expects($this->once())
       ->method('hasPerm')
@@ -174,7 +188,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers PapayaUiControlCommand::validatePermission
   */
   public function testValidatePermissionWithModulePermissionExpectingTrue() {
-    $user = $this->getMock(base_auth::class, array('hasPerm'));
+    $user = $this->createMock(base_auth::class);
     $user
       ->expects($this->once())
       ->method('hasPerm')
@@ -197,7 +211,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   */
   public function testOwnerGetAfterSet() {
     $application = $this->mockPapaya()->application();
-    $owner = $this->getMock(PapayaUiControlInteractive::class, array('papaya', 'appendTo'));
+    $owner = $this->createMock(PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('papaya')
@@ -215,7 +229,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
     $command = new PapayaUiControlCommand_TestProxy();
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('LogicException: Instance of "PapayaUiControlCommand_TestProxy" has no owner assigned.');
-    $owner = $command->owner();
+    $command->owner();
   }
 
   /**
