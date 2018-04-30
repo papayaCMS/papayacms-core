@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiListviewItemTest extends PapayaTestCase {
@@ -63,7 +77,10 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testGetListview() {
     $listview = $this->createMock(PapayaUiListview::class);
-    $items = $this->getMock(PapayaUiListviewItems::class, array(), array($listview));
+    $items = $this
+      ->getMockBuilder(PapayaUiListviewItems::class)
+      ->setConstructorArgs(array($listview))
+      ->getMock();
     $items
       ->expects($this->once())
       ->method('owner')
@@ -95,7 +112,10 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testSubitemsGetAfterSet() {
     $item = new PapayaUiListviewItem('', '');
-    $subitems = $this->getMock(PapayaUiListviewSubitems::class, array(), array($item));
+    $subitems = $this
+      ->getMockBuilder(PapayaUiListviewSubitems::class)
+      ->setConstructorArgs(array($item))
+      ->getMock();
     $subitems
       ->expects($this->once())
       ->method('owner')
@@ -123,7 +143,10 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testNodeGetAfterSet() {
     $item = new PapayaUiListviewItem('', '');
-    $node = $this->getMock(PapayaUiListviewItemNode::class, array(), array($item));
+    $node = $this
+      ->getMockBuilder(PapayaUiListviewItemNode::class)
+      ->setConstructorArgs(array($item))
+      ->getMock();
     $this->assertSame(
       $node, $item->node($node)
     );
@@ -155,7 +178,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   /**
   * @covers PapayaUiListviewItem::reference
   */
-  public function testReferenceGetImpliciteCreate() {
+  public function testReferenceGetImplicitCreate() {
     $item = new PapayaUiListviewItem('', '', array('foo' => 'bar'));
     $item->papaya($this->mockPapaya()->application());
     $reference = $item->reference();
@@ -169,7 +192,10 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   public function testReferenceGetFromCollection() {
     $reference = $this->createMock(PapayaUiReference::class);
     $listview = $this->createMock(PapayaUiListview::class);
-    $collection = $this->getMock(PapayaUiListviewItems::class, array(), array($listview));
+    $collection = $this
+      ->getMockBuilder(PapayaUiListviewItems::class)
+      ->setConstructorArgs(array($listview))
+      ->getMock();
     $collection
       ->expects($this->once())
       ->method('reference')
@@ -189,12 +215,18 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testAppendTo() {
     $item = new PapayaUiListviewItem('image', 'caption');
-    $node = $this->getMock(PapayaUiListviewItemNode::class, array(), array($item));
+    $node = $this
+      ->getMockBuilder(PapayaUiListviewItemNode::class)
+      ->setConstructorArgs(array($item))
+      ->getMock();
     $node
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
-    $subitems = $this->getMock(PapayaUiListviewSubitems::class, array(), array($item));
+    $subitems = $this
+      ->getMockBuilder(PapayaUiListviewSubitems::class)
+      ->setConstructorArgs(array($item))
+      ->getMock();
     $subitems
       ->expects($this->once())
       ->method('appendTo')
@@ -204,7 +236,8 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
-    $this->assertEquals(
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<listitem title="caption" image="test.gif"/>',
       $item->getXml()
     );
@@ -215,7 +248,10 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   */
   public function testAppendToWithEmptyImage() {
     $item = new PapayaUiListviewItem('image', 'caption');
-    $subitems = $this->getMock(PapayaUiListviewSubitems::class, array(), array($item));
+    $subitems = $this
+      ->getMockBuilder(PapayaUiListviewSubitems::class)
+      ->setConstructorArgs(array($item))
+      ->getMock();
     $subitems
       ->expects($this->once())
       ->method('appendTo')
@@ -224,7 +260,8 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => '')))
     );
-    $this->assertEquals(
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<listitem title="caption"/>',
       $item->getXml()
     );
@@ -248,7 +285,10 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getRelative')
       ->will($this->returnValue('#success'));
-    $collection = $this->getMock(PapayaUiListviewItems::class, array(), array($listview));
+    $collection = $this
+      ->getMockBuilder(PapayaUiListviewItems::class)
+      ->setConstructorArgs(array($listview))
+      ->getMock();
     $collection
       ->expects($this->once())
       ->method('reference')
@@ -263,7 +303,8 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
-    $this->assertEquals(
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<listitem title="caption" image="test.gif" href="#success"/>',
       $item->getXml()
     );
@@ -278,7 +319,8 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
-    $this->assertEquals(
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<listitem title="caption" image="test.gif" indent="3"/>',
       $item->getXml()
     );
@@ -294,7 +336,8 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
-    $this->assertEquals(
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<listitem title="caption" image="test.gif" span="3"/>',
       $item->getXml()
     );
@@ -309,7 +352,8 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
-    $this->assertEquals(
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<listitem title="caption" image="test.gif" selected="selected"/>',
       $item->getXml()
     );
@@ -324,7 +368,8 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
-    $this->assertEquals(
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<listitem title="caption" image="test.gif" emphased="emphased"/>',
       $item->getXml()
     );
@@ -362,7 +407,8 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
     );
     $item->collection($collection);
     $item->columnSpan = -1;
-    $this->assertEquals(
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<listitem title="caption" image="test.gif" span="42"/>',
       $item->getXml()
     );
@@ -377,7 +423,8 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
     );
-    $this->assertEquals(
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<listitem title="caption" image="test.gif" subtitle="sample text"/>',
       $item->getXml()
     );

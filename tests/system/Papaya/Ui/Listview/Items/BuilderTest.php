@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
@@ -8,6 +22,7 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
   * @covers PapayaUiListviewItemsBuilder::getDataSource
   */
   public function testConstructor() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|Iterator $iterator */
     $iterator = $this->createMock(Iterator::class);
     $builder = new PapayaUiListviewItemsBuilder($iterator);
     $this->assertSame($iterator, $builder->getDataSource());
@@ -17,6 +32,7 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
   * @covers PapayaUiListviewItemsBuilder::fill
   */
   public function testFillWithDefaultCallbacks() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
     $items = $this
       ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
@@ -38,10 +54,6 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
   * @covers PapayaUiListviewItemsBuilder::fill
   */
   public function testFillWithDefinedCallbacks() {
-    $item = $this
-      ->getMockBuilder(PapayaUiListviewItem::class)
-      ->disableOriginalConstructor()
-      ->getMock();
     $callbacks = $this->createMock(PapayaUiListviewItemsBuilderCallbacks::class);
     $callbacks
       ->expects($this->once())
@@ -51,6 +63,7 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
       ->expects($this->exactly(3))
       ->method('__call')
       ->will($this->returnValue(TRUE));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
     $items = $this
       ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
@@ -87,6 +100,7 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
   }
 
   public function testCreateItem() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
     $items = $this
       ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
@@ -96,6 +110,6 @@ class PapayaUiListviewItemsBuilderTest extends PapayaTestCase {
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
     $builder = new PapayaUiListviewItemsBuilder(array());
-    $builder->createItem(NULL, $items, 'Sample', 0);
+    $builder->createItem(NULL, $items, 'Sample');
   }
 }

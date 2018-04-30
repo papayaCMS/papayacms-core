@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaUiListviewItemNodeTest extends PapayaTestCase {
@@ -7,6 +21,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
    * @covers PapayaUiListviewItemNode
    */
   public function testConstructor() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItem $item */
     $item = $this
       ->getMockBuilder(PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
@@ -19,6 +34,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
    * @covers PapayaUiListviewItemNode
    */
   public function testConstructorWithAllArguments() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItem $item */
     $item = $this
       ->getMockBuilder(PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
@@ -31,6 +47,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
    * @covers PapayaUiListviewItemNode::appendTo
    */
   public function testAppendToWithStatusHidden() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItem $item */
     $item = $this
       ->getMockBuilder(PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
@@ -43,6 +60,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
    * @covers PapayaUiListviewItemNode::appendTo
    */
   public function testAppendToWithStatusEmpty() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItem $item */
     $item = $this
       ->getMockBuilder(PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
@@ -58,6 +76,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
    * @covers PapayaUiListviewItemNode::appendTo
    */
   public function testAppendToWithStatusClosed() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItem $item */
     $item = $this
       ->getMockBuilder(PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
@@ -79,6 +98,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
    * @covers PapayaUiListviewItemNode::appendTo
    */
   public function testAppendToWithStatusOpen() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItem $item */
     $item = $this
       ->getMockBuilder(PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
@@ -100,6 +120,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
    * @covers PapayaUiListviewItemNode::reference
    */
   public function testReferenceGetAfterSet() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItem $item */
     $item = $this
       ->getMockBuilder(PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
@@ -113,6 +134,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
    * @covers PapayaUiListviewItemNode::reference
    */
   public function testReferenceGetClonedFromItem() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItem $item */
     $item = $this
       ->getMockBuilder(PapayaUiListviewItem::class)
       ->disableOriginalConstructor()

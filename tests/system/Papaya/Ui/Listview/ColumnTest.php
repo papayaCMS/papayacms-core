@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiListviewColumnTest extends PapayaTestCase {
@@ -42,13 +56,14 @@ class PapayaUiListviewColumnTest extends PapayaTestCase {
   * @covers PapayaUiListviewColumn::appendTo
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendChild($dom->createElement('sample'));
+    $document = new PapayaXmlDocument();
+    $document->appendChild($document->createElement('sample'));
     $column = new PapayaUiListviewColumn('test title');
-    $column->appendTo($dom->documentElement);
-    $this->assertEquals(
+    $column->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<sample><col align="left">test title</col></sample>',
-      $dom->saveXml($dom->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 

@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiLinkAttributesTest extends PapayaTestCase {
@@ -71,12 +85,16 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiLinkAttributes::getPopupOptionsArray
-  * @dataProvider providePopupLinkOptions
-  */
-  public function testGetPopupOptionsArray($expected, $top = NULL, $left = NULL, $options = NULL) {
-    $dom = new PapayaXmlDocument();
-    $node = $dom->appendElement('sample');
+   * @covers PapayaUiLinkAttributes::getPopupOptionsArray
+   * @dataProvider providePopupLinkOptions
+   * @param array $expected
+   * @param string|integer $top
+   * @param string|integer $left
+   * @param integer $options
+   */
+  public function testGetPopupOptionsArray(array $expected, $top = NULL, $left = NULL, $options = NULL) {
+    $document = new PapayaXmlDocument();
+    $document->appendElement('sample');
     $attributes = new PapayaUiLinkAttributes();
     $attributes->setPopup('sampleTarget', '80%', '300', $top, $left, $options);
     $this->assertEquals(
@@ -85,12 +103,15 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiLinkAttributes::appendTo
-  * @dataProvider provideSimpleLinkData
-  */
+   * @covers PapayaUiLinkAttributes::appendTo
+   * @dataProvider provideSimpleLinkData
+   * @param string $expected
+   * @param string $class
+   * @param string $target
+   */
   public function testAppendTo($expected, $class, $target) {
-    $dom = new PapayaXmlDocument();
-    $node = $dom->appendElement('sample');
+    $document = new PapayaXmlDocument();
+    $node = $document->appendElement('sample');
     $attributes = new PapayaUiLinkAttributes();
     $attributes->class = $class;
     $attributes->target = $target;
@@ -101,12 +122,16 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiLinkAttributes::appendTo
-  * @dataProvider providePopupLinkData
-  */
+   * @covers PapayaUiLinkAttributes::appendTo
+   * @dataProvider providePopupLinkData
+   * @param string $expected
+   * @param string|integer $top
+   * @param string|integer $left
+   * @param integer $options
+   */
   public function testAppendToForPopup($expected, $top = NULL, $left = NULL, $options = NULL) {
-    $dom = new PapayaXmlDocument();
-    $node = $dom->appendElement('sample');
+    $document = new PapayaXmlDocument();
+    $node = $document->appendElement('sample');
     $attributes = new PapayaUiLinkAttributes();
     $attributes->setPopup('sampleTarget', '80%', '300', $top, $left, $options);
     $node->append($attributes);
@@ -122,19 +147,19 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
   public static function provideSimpleLinkData() {
     return array(
       array(
-        '<sample/>', '', ''
+        /** @lang XML */'<sample/>', '', ''
       ),
       array(
-        '<sample/>', '', '_self'
+        /** @lang XML */'<sample/>', '', '_self'
       ),
       array(
-        '<sample class="sampleClass"/>', 'sampleClass', ''
+        /** @lang XML */'<sample class="sampleClass"/>', 'sampleClass', ''
       ),
       array(
-        '<sample class="sampleClass" target="sampleTarget"/>', 'sampleClass', 'sampleTarget'
+        /** @lang XML */'<sample class="sampleClass" target="sampleTarget"/>', 'sampleClass', 'sampleTarget'
       ),
       array(
-        '<sample target="_top"/>', '', '_top'
+        /** @lang XML */'<sample target="_top"/>', '', '_top'
       ),
     );
   }
@@ -156,14 +181,12 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
           '&quot;scrollBars&quot;:&quot;yes&quot;}"/>',
         NULL,
         NULL,
-        (
-          PapayaUiLinkAttributes::OPTION_RESIZEABLE |
-          PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS |
-          PapayaUiLinkAttributes::OPTION_TOOLBAR |
-          PapayaUiLinkAttributes::OPTION_MENUBAR |
-          PapayaUiLinkAttributes::OPTION_LOCATIONBAR |
-          PapayaUiLinkAttributes::OPTION_STATUSBAR
-        )
+        PapayaUiLinkAttributes::OPTION_RESIZEABLE |
+        PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS |
+        PapayaUiLinkAttributes::OPTION_TOOLBAR |
+        PapayaUiLinkAttributes::OPTION_MENUBAR |
+        PapayaUiLinkAttributes::OPTION_LOCATIONBAR |
+        PapayaUiLinkAttributes::OPTION_STATUSBAR
       ),
       'scrollbars auto' => array(
         '<sample target="sampleTarget"'.
@@ -173,9 +196,7 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
           '&quot;scrollBars&quot;:&quot;auto&quot;}"/>',
         NULL,
         NULL,
-        (
-          PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
-        )
+        PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
       ),
       'position' => array(
         '<sample target="sampleTarget"'.
@@ -217,14 +238,12 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
         ),
         NULL,
         NULL,
-        (
-          PapayaUiLinkAttributes::OPTION_RESIZEABLE |
-          PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS |
-          PapayaUiLinkAttributes::OPTION_TOOLBAR |
-          PapayaUiLinkAttributes::OPTION_MENUBAR |
-          PapayaUiLinkAttributes::OPTION_LOCATIONBAR |
-          PapayaUiLinkAttributes::OPTION_STATUSBAR
-        )
+        PapayaUiLinkAttributes::OPTION_RESIZEABLE |
+        PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS |
+        PapayaUiLinkAttributes::OPTION_TOOLBAR |
+        PapayaUiLinkAttributes::OPTION_MENUBAR |
+        PapayaUiLinkAttributes::OPTION_LOCATIONBAR |
+        PapayaUiLinkAttributes::OPTION_STATUSBAR
       ),
       'scrollbars auto' => array(
         array(
@@ -239,9 +258,7 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
         ),
         NULL,
         NULL,
-        (
-          PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
-        )
+        PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
       ),
       'position' => array(
         array(

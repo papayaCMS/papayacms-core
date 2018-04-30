@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
@@ -67,17 +81,18 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
   * @covers PapayaUiListviewSubitemImage::appendTo
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('test');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('test');
     $subitem = new PapayaUiListviewSubitemImage('image');
     $subitem->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
     $subitem->align = PapayaUiOptionAlign::CENTER;
-    $subitem->appendTo($dom->documentElement);
-    $this->assertEquals(
+    $subitem->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<test><subitem align="center"><glyph src="sample.png"/></subitem></test>',
-      $dom->saveXml($dom->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -85,17 +100,18 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
   * @covers PapayaUiListviewSubitemImage::appendTo
   */
   public function testAppendToWithHint() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('test');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('test');
     $subitem = new PapayaUiListviewSubitemImage('image', 'quickinfo');
     $subitem->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
     $subitem->align = PapayaUiOptionAlign::CENTER;
-    $subitem->appendTo($dom->documentElement);
-    $this->assertEquals(
+    $subitem->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<test><subitem align="center"><glyph src="sample.png" hint="quickinfo"/></subitem></test>',
-      $dom->saveXml($dom->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -104,8 +120,8 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
   * @covers PapayaUiListviewSubitemImage::getUrl
   */
   public function testAppendToWithReference() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('test');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('test');
     $reference = $this->createMock(PapayaUiReference::class);
     $reference
       ->expects($this->once())
@@ -121,10 +137,11 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
     $subitem->align = PapayaUiOptionAlign::CENTER;
-    $subitem->appendTo($dom->documentElement);
-    $this->assertEquals(
+    $subitem->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<test><subitem align="center"><glyph src="sample.png" href="sample.html"/></subitem></test>',
-      $dom->saveXml($dom->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -133,8 +150,8 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
   * @covers PapayaUiListviewSubitemImage::getUrl
   */
   public function testAppendToWithReferenceFromListview() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('test');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('test');
     $reference = $this->createMock(PapayaUiReference::class);
     $reference
       ->expects($this->once())
@@ -168,10 +185,11 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
     $subitem->align = PapayaUiOptionAlign::CENTER;
-    $subitem->appendTo($dom->documentElement);
-    $this->assertEquals(
+    $subitem->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<test><subitem align="center"><glyph src="sample.png" href="sample.html"/></subitem></test>',
-      $dom->saveXml($dom->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 }

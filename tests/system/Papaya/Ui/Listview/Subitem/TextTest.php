@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaUiListviewSubitemTextTest extends PapayaTestCase {
@@ -27,14 +41,15 @@ class PapayaUiListviewSubitemTextTest extends PapayaTestCase {
   * @covers PapayaUiListviewSubitemText::appendTo
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('test');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('test');
     $subitem = new PapayaUiListviewSubitemText('Sample text');
     $subitem->align = PapayaUiOptionAlign::RIGHT;
-    $subitem->appendTo($dom->documentElement);
-    $this->assertEquals(
+    $subitem->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<test><subitem align="right">Sample text</subitem></test>',
-      $dom->saveXml($dom->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -45,16 +60,16 @@ class PapayaUiListviewSubitemTextTest extends PapayaTestCase {
   public function testAppendToWithActionParameters() {
     $reference = $this->mockPapaya()->reference('http://www.example.html');
     $reference->expects($this->once())->method('setParameters')->with(array('foo' => 'bar'));
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('test');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('test');
     $subitem = new PapayaUiListviewSubitemText('Sample text');
     $subitem->reference($reference);
     $subitem->setActionParameters(array('foo' => 'bar'));
-    $subitem->appendTo($dom->documentElement);
-    $this->assertEquals(
-      '<test><subitem align="left"><a href="http://www.example.html">'
-      .'Sample text</a></subitem></test>',
-      $dom->saveXml($dom->documentElement)
+    $subitem->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<test><subitem align="left"><a href="http://www.example.html">Sample text</a></subitem></test>',
+      $document->saveXML($document->documentElement)
     );
   }
 

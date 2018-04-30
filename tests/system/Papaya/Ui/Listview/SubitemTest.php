@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiListviewSubitemTest extends PapayaTestCase {
@@ -19,15 +33,19 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
   * @covers PapayaUiListviewSubitem::getAlign
   */
   public function testGetAlignFetchFromColumn() {
-    $column = $this->getMock(PapayaUiListviewColumn::class, array(), array(''));
+    $column = $this
+      ->getMockBuilder(PapayaUiListviewColumn::class)
+      ->setConstructorArgs(array(''))
+      ->getMock();
     $column
       ->expects($this->once())
       ->method('getAlign')
       ->will($this->returnValue(PapayaUiOptionAlign::CENTER));
     $listview = $this->createMock(PapayaUiListview::class);
-    $columns = $this->getMock(
-      PapayaUiListviewColumns::class, array('has', 'get'), array($listview)
-    );
+    $columns = $this
+      ->getMockBuilder(PapayaUiListviewColumns::class)
+      ->setConstructorArgs(array($listview))
+      ->getMock();
     $columns
       ->expects($this->once())
       ->method('has')
@@ -42,11 +60,17 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
       ->expects($this->atLeastOnce())
       ->method('columns')
       ->will($this->returnValue($columns));
-    $subitems = $this->getMock(
-      PapayaUiListviewSubitems::class,
-      array(),
-      array($this->getMock(PapayaUiListviewItem::class, array(), array('', '')))
-    );
+    $subitems = $this
+      ->getMockBuilder(PapayaUiListviewSubitems::class)
+      ->setConstructorArgs(
+        array(
+          $this
+            ->getMockBuilder(PapayaUiListviewItem::class)
+            ->setConstructorArgs(array('', ''))
+            ->getMock()
+        )
+      )
+      ->getMock();
     $subitems
       ->expects($this->atLeastOnce())
       ->method('getListview')
@@ -63,9 +87,10 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
   */
   public function testGetAlignUseDefaultValue() {
     $listview = $this->createMock(PapayaUiListview::class);
-    $columns = $this->getMock(
-      PapayaUiListviewColumns::class, array('has', 'get'), array($listview)
-    );
+    $columns = $this
+      ->getMockBuilder(PapayaUiListviewColumns::class)
+      ->setConstructorArgs(array($listview))
+      ->getMock();
     $columns
       ->expects($this->once())
       ->method('has')
@@ -75,11 +100,17 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
       ->expects($this->atLeastOnce())
       ->method('columns')
       ->will($this->returnValue($columns));
-    $subitems = $this->getMock(
-      PapayaUiListviewSubitems::class,
-      array(),
-      array($this->getMock(PapayaUiListviewItem::class, array(), array('', '')))
-    );
+    $subitems = $this
+      ->getMockBuilder(PapayaUiListviewSubitems::class)
+      ->setConstructorArgs(
+        array(
+          $this
+            ->getMockBuilder(PapayaUiListviewItem::class)
+            ->setConstructorArgs(array('', ''))
+            ->getMock()
+        )
+      )
+      ->getMock();
     $subitems
       ->expects($this->atLeastOnce())
       ->method('getListview')
