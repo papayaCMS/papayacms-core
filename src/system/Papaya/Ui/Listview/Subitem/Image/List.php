@@ -1,21 +1,17 @@
 <?php
 /**
-* A listview subitem displaying multiple icons from a given list.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: List.php 39725 2014-04-07 17:19:34Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A listview subitem displaying multiple icons from a given list.
@@ -77,7 +73,7 @@ class PapayaUiListviewSubitemImageList extends PapayaUiListviewSubitemImageSelec
    * Create subitme and store icon list and selection index.
    *
    * @param PapayaUiIconList $icons
-   * @param string $selection
+   * @param mixed $selection
    * @param int $selectionMode
    * @param array $actionParameters
    */
@@ -133,7 +129,7 @@ class PapayaUiListviewSubitemImageList extends PapayaUiListviewSubitemImageSelec
       break;
     case self::VALIDATE_VALUES :
     default :
-      $result = in_array($index, (array)$this->_selection);
+      $result = in_array($index, (array)$this->_selection, FALSE);
       break;
     }
     return $result;
