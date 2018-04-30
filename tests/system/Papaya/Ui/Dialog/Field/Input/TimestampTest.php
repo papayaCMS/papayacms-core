@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInputTimestampTest extends PapayaTestCase {
@@ -7,11 +21,10 @@ class PapayaUiDialogFieldInputTimestampTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldInputTimestamp::getCurrentValue
   */
   public function testGetCurrentValueFromDialogParameters() {
-    $dialog = $this->getMock(
-      PapayaUiDialog::class,
-      array('appendTo', 'isSubmitted', 'execute', 'parameters'),
-      array(new stdClass())
-    );
+    $dialog = $this
+      ->getMockBuilder(PapayaUiDialog::class)
+      ->setConstructorArgs(array(new stdClass()))
+      ->getMock();
     $dialog
       ->expects($this->exactly(2))
       ->method('parameters')
@@ -39,9 +52,11 @@ class PapayaUiDialogFieldInputTimestampTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputTimestamp
-  * @dataProvider filterExpectingTrueProvider
-  */
+   * @covers PapayaUiDialogFieldInputTimestamp
+   * @dataProvider filterExpectingTrueProvider
+   * @param mixed $value
+   * @param bool $mandatory
+   */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
     $field = new PapayaUiDialogFieldInputTimestamp(
       'Date', 'date', NULL, FALSE, PapayaFilterDate::DATE_OPTIONAL_TIME
@@ -52,9 +67,11 @@ class PapayaUiDialogFieldInputTimestampTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputTimestamp
-  * @dataProvider filterExpectingFalseProvider
-  */
+   * @covers PapayaUiDialogFieldInputTimestamp
+   * @dataProvider filterExpectingFalseProvider
+   * @param mixed $value
+   * @param bool $mandatory
+   */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
     $field = new PapayaUiDialogFieldInputTimestamp(
       'Date', 'date', NULL, FALSE, PapayaFilterDate::DATE_OPTIONAL_TIME
@@ -77,10 +94,11 @@ class PapayaUiDialogFieldInputTimestampTest extends PapayaTestCase {
       PapayaFilterDate::DATE_OPTIONAL_TIME,
       300.0
     );
-    $this->assertEquals(
-      '<field caption="Date" class="DialogFieldInputTimestamp" error="no">'.
-        '<input type="datetime" name="date" maxlength="19">2011-01-01 18:00:00</input>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Date" class="DialogFieldInputTimestamp" error="no">
+        <input type="datetime" name="date" maxlength="19">2011-01-01 18:00:00</input>
+      </field>',
       $field->getXml()
     );
   }
@@ -98,10 +116,11 @@ class PapayaUiDialogFieldInputTimestampTest extends PapayaTestCase {
       PapayaFilterDate::DATE_NO_TIME,
       300.0
     );
-    $this->assertEquals(
-      '<field caption="Date" class="DialogFieldInputTimestamp" error="no">'.
-        '<input type="date" name="date" maxlength="19">2011-01-01</input>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Date" class="DialogFieldInputTimestamp" error="no">
+        <input type="date" name="date" maxlength="19">2011-01-01</input>
+      </field>',
       $field->getXml()
     );
   }
@@ -119,10 +138,11 @@ class PapayaUiDialogFieldInputTimestampTest extends PapayaTestCase {
       PapayaFilterDate::DATE_NO_TIME,
       300.0
     );
-    $this->assertEquals(
-      '<field caption="Date" class="DialogFieldInputTimestamp" error="no">'.
-        '<input type="date" name="date" maxlength="19"></input>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Date" class="DialogFieldInputTimestamp" error="no">
+        <input type="date" name="date" maxlength="19"/>
+      </field>',
       $field->getXml()
     );
   }
@@ -152,6 +172,10 @@ class PapayaUiDialogFieldInputTimestampTest extends PapayaTestCase {
   * Fixtures
   *************************/
 
+  /**
+   * @param object|null $owner
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaUiDialogFields
+   */
   public function getCollectionMock($owner = NULL) {
     $collection = $this->createMock(PapayaUiDialogFields::class);
     if ($owner) {

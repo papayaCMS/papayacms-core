@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldSelectGroupedTest extends PapayaTestCase {
@@ -42,9 +56,9 @@ class PapayaUiDialogFieldSelectGroupedTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldSelectGrouped::_appendOptionGroups
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument();
-    $node = $dom->createElement('sample');
-    $dom->appendChild($node);
+    $document = new PapayaXmlDocument();
+    $node = $document->createElement('sample');
+    $document->appendChild($node);
     $select = new PapayaUiDialogFieldSelectGrouped(
       'Caption', 'name', array('Group Caption' => array(21 => 'half', 42 => 'full'))
     );
@@ -53,16 +67,17 @@ class PapayaUiDialogFieldSelectGroupedTest extends PapayaTestCase {
     $select->papaya($application);
     $select->collection($this->createMock(PapayaUiDialogFields::class));
     $select->appendTo($node);
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelectGrouped" error="yes" mandatory="yes">'.
-        '<select name="name" type="dropdown">'.
-          '<group caption="Group Caption">'.
-            '<option value="21">half</option>'.
-            '<option value="42">full</option>'.
-          '</group>'.
-        '</select>'.
-      '</field>',
-      $dom->saveXml($node->firstChild)
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelectGrouped" error="yes" mandatory="yes">
+        <select name="name" type="dropdown">
+          <group caption="Group Caption">
+            <option value="21">half</option>
+            <option value="42">full</option>
+          </group>
+        </select>
+      </field>',
+      $document->saveXML($node->firstChild)
     );
   }
 
@@ -71,9 +86,9 @@ class PapayaUiDialogFieldSelectGroupedTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldSelectGrouped::_appendOptionGroups
   */
   public function testAppendToWithComplexLabel() {
-    $dom = new PapayaXmlDocument();
-    $node = $dom->createElement('sample');
-    $dom->appendChild($node);
+    $document = new PapayaXmlDocument();
+    $node = $document->createElement('sample');
+    $document->appendChild($node);
     $select = new PapayaUiDialogFieldSelectGrouped(
       'Caption',
       'name',
@@ -89,16 +104,17 @@ class PapayaUiDialogFieldSelectGroupedTest extends PapayaTestCase {
     $select->papaya($application);
     $select->collection($this->createMock(PapayaUiDialogFields::class));
     $select->appendTo($node);
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelectGrouped" error="yes" mandatory="yes">'.
-        '<select name="name" type="dropdown">'.
-          '<group caption="Group Caption">'.
-            '<option value="21">half</option>'.
-            '<option value="42">full</option>'.
-          '</group>'.
-        '</select>'.
-      '</field>',
-      $dom->saveXml($node->firstChild)
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelectGrouped" error="yes" mandatory="yes">
+        <select name="name" type="dropdown">
+          <group caption="Group Caption">
+            <option value="21">half</option>
+            <option value="42">full</option>
+          </group>
+        </select>
+      </field>',
+      $document->saveXML($node->firstChild)
     );
   }
 }

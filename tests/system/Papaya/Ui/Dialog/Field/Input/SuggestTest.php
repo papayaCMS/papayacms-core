@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
@@ -27,8 +41,10 @@ class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldInputSuggest::__construct
   */
   public function testConstructorWithAllParameters() {
-    $filter = $this->getMock(PapayaFilter::class, array('validate', 'filter'));
-    $input = new PapayaUiDialogFieldInputSuggest('Caption', 'name', 'www.example.com', '50670', $filter);
+    $filter = $this->createMock(PapayaFilter::class);
+    $input = new PapayaUiDialogFieldInputSuggest(
+      'Caption', 'name', 'www.example.com', '50670', $filter
+    );
     $this->assertAttributeEquals(
       '50670', '_defaultValue', $input
     );
@@ -62,22 +78,23 @@ class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldInputSuggest::appendTo
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument();
-    $node = $dom->createElement('sample');
-    $dom->appendChild($node);
+    $document = new PapayaXmlDocument();
+    $node = $document->createElement('sample');
+    $document->appendChild($node);
     $input = new PapayaUiDialogFieldInputSuggest('Caption', 'name', 'www.example.com');
-    $request = $this->getMockRequestObject();
-    $application = $this->getMockApplicationObject(array('request' => $request));
+    $request = $this->mockPapaya()->request();
+    $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
     $input->collection($this->createMock(PapayaUiDialogFields::class));
     $input->appendTo($node);
-    $this->assertEquals(
-      '<sample>'.
-        '<field caption="Caption" class="DialogFieldInputSuggest" error="no">'.
-          '<input type="suggest" name="name" maxlength="1024" data-suggest="{&quot;url&quot;:&quot;www.example.com&quot;,&quot;limit&quot;:10}"/>'.
-        '</field>'.
-      '</sample>',
-      $dom->saveXml($node)
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <field caption="Caption" class="DialogFieldInputSuggest" error="no">
+          <input type="suggest" name="name" maxlength="1024" data-suggest="{&quot;url&quot;:&quot;www.example.com&quot;,&quot;limit&quot;:10}"/>
+        </field>
+      </sample>',
+      $document->saveXML($node)
     );
   }
 
@@ -85,23 +102,24 @@ class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldInputSuggest::appendTo
   */
   public function testAppendToWithDefaultValue() {
-    $dom = new PapayaXmlDocument();
-    $node = $dom->createElement('sample');
-    $dom->appendChild($node);
+    $document = new PapayaXmlDocument();
+    $node = $document->createElement('sample');
+    $document->appendChild($node);
     $input = new PapayaUiDialogFieldInputSuggest('Caption', 'name', 'www.example.com');
-    $request = $this->getMockRequestObject();
-    $application = $this->getMockApplicationObject(array('request' => $request));
+    $request = $this->mockPapaya()->request();
+    $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
     $input->collection($this->createMock(PapayaUiDialogFields::class));
     $input->setDefaultValue(50670);
     $input->appendTo($node);
-    $this->assertEquals(
-      '<sample>'.
-        '<field caption="Caption" class="DialogFieldInputSuggest" error="no">'.
-          '<input type="suggest" name="name" maxlength="1024" data-suggest="{&quot;url&quot;:&quot;www.example.com&quot;,&quot;limit&quot;:10}">50670</input>'.
-        '</field>'.
-      '</sample>',
-      $dom->saveXml($node)
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <field caption="Caption" class="DialogFieldInputSuggest" error="no">
+          <input type="suggest" name="name" maxlength="1024" data-suggest="{&quot;url&quot;:&quot;www.example.com&quot;,&quot;limit&quot;:10}">50670</input>
+        </field>
+      </sample>',
+      $document->saveXML($node)
     );
   }
 }

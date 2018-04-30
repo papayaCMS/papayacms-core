@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldXhtmlTest extends PapayaTestCase {
@@ -18,8 +32,8 @@ class PapayaUiDialogFieldXhtmlTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldXhtml::content
   */
   public function testContentGetAfterSet() {
-    $dom = new PapayaXmlDocument();
-    $content = $dom->appendElement('html');
+    $document = new PapayaXmlDocument();
+    $content = $document->appendElement('html');
     $xhtml = new PapayaUiDialogFieldXhtml();
     $this->assertSame($content, $xhtml->content($content));
   }
@@ -29,7 +43,7 @@ class PapayaUiDialogFieldXhtmlTest extends PapayaTestCase {
   */
   public function testContentGetImplicitCreate() {
     $xhtml = new PapayaUiDialogFieldXhtml();
-    $this->assertTrue($xhtml->content('<strong>Test</strong>') instanceof PapayaXmlElement);
+    $this->assertInstanceOf(PapayaXmlElement::class, $xhtml->content('<strong>Test</strong>'));
   }
 
   /**
@@ -46,10 +60,11 @@ class PapayaUiDialogFieldXhtmlTest extends PapayaTestCase {
   */
   public function testAppendTo() {
     $xhtml = new PapayaUiDialogFieldXhtml('<strong>Test</strong>');
-    $this->assertEquals(
-      '<field class="DialogFieldXhtml" error="no">'.
-        '<xhtml><strong>Test</strong></xhtml>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field class="DialogFieldXhtml" error="no">
+        <xhtml><strong>Test</strong></xhtml>
+      </field>',
       $xhtml->getXml()
     );
   }

@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInputReadonlyTest extends PapayaTestCase {
@@ -32,20 +46,21 @@ class PapayaUiDialogFieldInputReadonlyTest extends PapayaTestCase {
    * @covers PapayaUiDialogFieldInputReadonly::appendTo
    */
   public function testStandardAppendTo() {
-    $dom = new PapayaXmlDocument();
-    $node = $dom->createElement('sample');
-    $dom->appendChild($node);
+    $document = new PapayaXmlDocument();
+    $node = $document->createElement('sample');
+    $document->appendChild($node);
 
     $input = new PapayaUiDialogFieldInputReadonly('Caption', 'name');
     $input->appendTo($node);
 
     $this->assertXmlStringEqualsXmlString(
-      $dom->saveXml($node),
+      /** @lang XML */
       '<sample>
         <field caption="Caption" class="DialogFieldInputReadonly" error="no">
-          <input type="text" name="name" readonly="yes"></input>
+          <input type="text" name="name" readonly="yes"/>
         </field>
-      </sample>'
+      </sample>',
+      $document->saveXML($node)
     );
   }
 
@@ -53,20 +68,21 @@ class PapayaUiDialogFieldInputReadonlyTest extends PapayaTestCase {
    * @covers PapayaUiDialogFieldInputReadonly::appendTo
    */
   public function testWithDefaultAppendTo() {
-    $dom = new PapayaXmlDocument();
-    $node = $dom->createElement('sample');
-    $dom->appendChild($node);
+    $document = new PapayaXmlDocument();
+    $node = $document->createElement('sample');
+    $document->appendChild($node);
 
     $input = new PapayaUiDialogFieldInputReadonly('Caption', 'name', 'default');
     $input->appendTo($node);
 
     $this->assertXmlStringEqualsXmlString(
-      $dom->saveXml($node),
+      /** @lang XML */
       '<sample>
         <field caption="Caption" class="DialogFieldInputReadonly" error="no">
           <input type="text" name="name" readonly="yes">default</input>
         </field>
-      </sample>'
+      </sample>',
+      $document->saveXML($node)
     );
   }
 

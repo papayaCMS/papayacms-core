@@ -1,21 +1,17 @@
 <?php
 /**
-* Field factory option for profiles.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Options.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Field factory option for profiles.
@@ -43,17 +39,19 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    *
    * @var array
    */
-  private $_definition = array(
-    'name' => '',
-    'caption' => '',
-    'hint' => '',
-    'default' => NULL,
-    'mandatory' => FALSE,
-    'disabled' => FALSE,
-    'validation' => NULL,
-    'parameters' => NULL,
-    'context' => NULL
-  );
+  private
+    /** @noinspection PropertyCanBeStaticInspection */
+    $_definition = array(
+      'name' => '',
+      'caption' => '',
+      'hint' => '',
+      'default' => NULL,
+      'mandatory' => FALSE,
+      'disabled' => FALSE,
+      'validation' => NULL,
+      'parameters' => NULL,
+      'context' => NULL
+    );
 
   /**
    * Buffer for the current option values, if the value here is NULL or not set, use the
@@ -66,19 +64,29 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
   /**
    * @var PapayaFilterFactory
    */
-  private $_filterFactory = NULL;
+  private $_filterFactory;
 
+
+  /** @noinspection ArrayTypeOfParameterByDefaultValueInspection */
   /**
-   * Create object and assign values fromt he provided Traversable or array.
+   * Create object and assign values from the provided Traversable or array.
+   *
    * @param array|Traversable $values
+   * @throws \UnexpectedValueException
+   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
-  public function __construct($values = array()) {
+  public function __construct(
+    $values = array()
+  ) {
     $this->assign($values);
   }
 
   /**
    * Assign values from a traversable as option values, unknown option names will be ignored
+   *
    * @param array|Traversable $values
+   * @throws \UnexpectedValueException
+   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function assign($values) {
     PapayaUtilConstraints::assertArrayOrTraversable($values);
@@ -89,8 +97,10 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
 
   /**
    * Magic Method, return true if the property exists and isset.
+   *
    * @param string $name
    * @return bool
+   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function __isset($name) {
     return $this->exists($name, TRUE) && (NULL !== $this->get($name));
@@ -98,8 +108,10 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
 
   /**
    * Magic Method, return the option value
+   *
    * @param string $name
    * @return NULL
+   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function __get($name) {
     return $this->get($name);
@@ -110,6 +122,7 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    *
    * @param string $name
    * @param mixed $value
+   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function __set($name, $value) {
     $this->set($name, $value);
@@ -120,6 +133,7 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    *
    * @param string $name
    * @internal param mixed $value
+   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function __unset($name) {
     if ($this->exists($name)) {
@@ -131,6 +145,9 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    * ArrayAccess interface, check if the option name is valid
    *
    * @see ArrayAccess::offsetExists()
+   * @param mixed $offset
+   * @return bool
+   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function offsetExists($offset) {
     return $this->exists($offset, TRUE);
@@ -142,6 +159,7 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    * @see ArrayAccess::offsetGet()
    * @param mixed $offset
    * @return mixed
+   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function offsetGet($offset) {
     return $this->__get($offset);
@@ -151,6 +169,9 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    * ArrayAccess interface, set the option value
    *
    * @see ArrayAccess::offsetSet()
+   * @param mixed $offset
+   * @param mixed $value
+   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function offsetSet($offset, $value) {
     $this->__set($offset, $value);
@@ -160,6 +181,8 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    * ArrayAccess interface, reset the option value to its default value from the definition
    *
    * @see ArrayAccess::offsetGet()
+   * @param mixed $offset
+   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function offsetUnset($offset) {
     $this->__unset($offset);
@@ -176,7 +199,8 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
   private function exists($name, $silent = FALSE) {
     if (array_key_exists($name, $this->_definition)) {
       return TRUE;
-    } elseif ($silent) {
+    }
+    if ($silent) {
       return FALSE;
     }
     throw new PapayaUiDialogFieldFactoryExceptionInvalidOption($name);
@@ -192,7 +216,7 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
   private function get($name) {
     $this->exists($name, FALSE);
     $result = isset($this->_values[$name]) ? $this->_values[$name] : $this->_definition[$name];
-    if ($name == 'validation') {
+    if ('validation' === $name) {
       return $this->getValidation($result);
     }
     return $result;
@@ -232,11 +256,12 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
   private function getValidation($validation) {
     if ($validation instanceof PapayaFilter) {
       return $validation;
-    } elseif (empty($validation)) {
+    }
+    if (empty($validation)) {
       return $this->mandatory ? new PapayaFilterNotEmpty() : NULL;
     }
     $factory = $this->filterFactory();
-    if (is_array($validation)) {
+    if (is_array($validation) || $validation instanceof Closure) {
       $result = $factory->getFilter('generator', $this->mandatory, $validation);
     } elseif (class_exists($validation)) {
       $result = $factory->getFilter('generator', $this->mandatory, array($validation));
@@ -255,9 +280,9 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    * @return PapayaFilterFactory
    */
   public function filterFactory(PapayaFilterFactory $factory = NULL) {
-    if (isset($factory)) {
+    if (NULL !== $factory) {
       $this->_filterFactory = $factory;
-    } elseif (NULL == $this->_filterFactory) {
+    } elseif (NULL === $this->_filterFactory) {
       $this->_filterFactory = new PapayaFilterFactory();
     }
     return $this->_filterFactory;

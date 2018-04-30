@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInputNumberTest extends PapayaTestCase {
@@ -16,9 +30,11 @@ class PapayaUiDialogFieldInputNumberTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputNumber::__construct
-  * @dataProvider constructFailureProvider
-  */
+   * @covers PapayaUiDialogFieldInputNumber::__construct
+   * @dataProvider constructFailureProvider
+   * @param mixed $minimumLength
+   * @param mixed $maximumLength
+   */
   public function testConstructFailure($minimumLength, $maximumLength) {
     $this->expectException(UnexpectedValueException::class);
     new PapayaUiDialogFieldInputNumber(
@@ -27,9 +43,11 @@ class PapayaUiDialogFieldInputNumberTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputNumber
-  * @dataProvider filterExpectingTrueProvider
-  */
+   * @covers PapayaUiDialogFieldInputNumber
+   * @dataProvider filterExpectingTrueProvider
+   * @param mixed $value
+   * @param bool $mandatory
+   */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
     $input = new PapayaUiDialogFieldInputNumber('Number', 'number', NULL, FALSE, 2, 4);
     $input->mandatory = $mandatory;
@@ -38,9 +56,11 @@ class PapayaUiDialogFieldInputNumberTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputNumber
-  * @dataProvider filterExpectingFalseProvider
-  */
+   * @covers PapayaUiDialogFieldInputNumber
+   * @dataProvider filterExpectingFalseProvider
+   * @param mixed $value
+   * @param bool $mandatory
+   */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
     $input = new PapayaUiDialogFieldInputNumber('Number', 'number', NULL, FALSE, 2, 4);
     $input->mandatory = $mandatory;
@@ -53,10 +73,11 @@ class PapayaUiDialogFieldInputNumberTest extends PapayaTestCase {
   */
   public function testGetXml() {
     $input = new PapayaUiDialogFieldInputNumber('Number', 'number', '123', FALSE, 2, 4);
-    $this->assertEquals(
-        '<field caption="Number" class="DialogFieldInputNumber" error="no">'.
-          '<input type="number" name="number" maxlength="4">123</input>'.
-        '</field>',
+    $this->assertXmlStringEqualsXmlString(
+        /** @lang XML */
+        '<field caption="Number" class="DialogFieldInputNumber" error="no">
+          <input type="number" name="number" maxlength="4">123</input>
+        </field>',
       $input->getXml()
     );
   }

@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
@@ -111,14 +125,15 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
     );
     $profile->options($options);
     $this->assertXmlStringEqualsXmlString(
-      '<field caption="File" class="DialogFieldSelect" error="yes" mandatory="yes">'.
-        '<select name="fileselect" type="dropdown">'.
-          '<group caption="group">'.
-            '<option value="group_sample1.txt">group_sample1.txt</option>'.
-            '<option value="group_sample2.txt">group_sample2.txt</option>'.
-          '</group>'.
-        '</select>'.
-      '</field>',
+      /** @lang XML */
+      '<field caption="File" class="DialogFieldSelect" error="yes" mandatory="yes">
+        <select name="fileselect" type="dropdown">
+          <group caption="group">
+            <option value="group_sample1.txt">group_sample1.txt</option>
+            <option value="group_sample2.txt">group_sample2.txt</option>
+          </group>
+        </select>
+      </field>',
       $profile->getField()->getXml()
     );
   }
@@ -147,15 +162,16 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
     );
     $profile->options($options);
     $this->assertXmlStringEqualsXmlString(
-      '<field caption="File" class="DialogFieldSelect" error="no">'.
-        '<select name="fileselect" type="dropdown">'.
-          '<option selected="selected">none</option>'.
-          '<group caption="group">'.
-            '<option value="group_sample1.txt">group_sample1.txt</option>'.
-            '<option value="group_sample2.txt">group_sample2.txt</option>'.
-          '</group>'.
-        '</select>'.
-      '</field>',
+      /** @lang XML */
+      '<field caption="File" class="DialogFieldSelect" error="no">
+        <select name="fileselect" type="dropdown">
+          <option selected="selected">none</option>
+          <group caption="group">
+            <option value="group_sample1.txt">group_sample1.txt</option>
+            <option value="group_sample2.txt">group_sample2.txt</option>
+          </group>
+        </select>
+      </field>',
       $profile->getField()->getXml()
     );
   }
@@ -185,8 +201,8 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
     $directory
       ->expects($this->once())
       ->method('isReadable')
-      ->will($this->returnValue(isset($files)));
-    if (isset($files)) {
+      ->will($this->returnValue(NULL !== $files));
+    if (NULL !== $files) {
       $directory
         ->expects($this->once())
         ->method('getEntries')

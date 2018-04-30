@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInputRangeTest extends PapayaTestCase {
@@ -32,9 +46,14 @@ class PapayaUiDialogFieldInputRangeTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputRange::__construct
-  * @dataProvider provideArgumentsForConstructor
-  */
+   * @covers PapayaUiDialogFieldInputRange::__construct
+   * @dataProvider provideArgumentsForConstructor
+   * @param int $default
+   * @param int $min
+   * @param int $max
+   * @param int $step
+   * @param bool $mandatory
+   */
   public function testConstructorWithCustomArguments($default, $min, $max, $step, $mandatory) {
     $field = new PapayaUiDialogFieldInputRange('Range', 'range', $default, $min, $max, $step, $mandatory);
     $this->assertEquals(
@@ -62,9 +81,11 @@ class PapayaUiDialogFieldInputRangeTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputRange
-  * @dataProvider provideValidRangeInputs
-  */
+   * @covers PapayaUiDialogFieldInputRange
+   * @dataProvider provideValidRangeInputs
+   * @param mixed $value
+   * @param bool $mandatory
+   */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
     $field = new PapayaUiDialogFieldInputRange('Range', 'range');
     $field->mandatory = $mandatory;
@@ -75,9 +96,11 @@ class PapayaUiDialogFieldInputRangeTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputRange
-  * @dataProvider provideInvalidRangeInputs
-  */
+   * @covers PapayaUiDialogFieldInputRange
+   * @dataProvider provideInvalidRangeInputs
+   * @param mixed $value
+   * @param bool $mandatory
+   */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
     $field = new PapayaUiDialogFieldInputRange('Range', 'range');
     $field->mandatory = $mandatory;
@@ -91,17 +114,18 @@ class PapayaUiDialogFieldInputRangeTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldInputRange::appendTo
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument();
+    $document = new PapayaXmlDocument();
     $field = new PapayaUiDialogFieldInputRange('Range', 'range');
     $field->papaya($this->mockPapaya()->application());
-    $field->appendTo($dom->appendElement('test'));
-    $this->assertEquals(
-      '<test>'.
-        '<field caption="Range" class="DialogFieldInputRange" error="no">'.
-          '<input type="range" name="range" min="0" max="100" step="1">50</input>'.
-        '</field>'.
-      '</test>',
-      $dom->saveXml($dom->documentElement)
+    $field->appendTo($document->appendElement('test'));
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<test>
+        <field caption="Range" class="DialogFieldInputRange" error="no">
+          <input type="range" name="range" min="0" max="100" step="1">50</input>
+        </field>
+      </test>',
+      $document->saveXML($document->documentElement)
     );
   }
 

@@ -1,11 +1,25 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInputColorTest extends PapayaTestCase {
   /**
   * @covers PapayaUiDialogFieldInputColor::__construct
   */
-  public function testConstrutor() {
+  public function testConstructor() {
     $field = new PapayaUiDialogFieldInputColor('Color', 'color', '#000000', TRUE);
     $this->assertEquals(
       'Color',
@@ -25,9 +39,11 @@ class PapayaUiDialogFieldInputColorTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputColor
-  * @dataProvider provideValidColorInputs
-  */
+   * @covers PapayaUiDialogFieldInputColor
+   * @dataProvider provideValidColorInputs
+   * @param mixed $value
+   * @param bool $mandatory
+   */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
     $field = new PapayaUiDialogFieldInputColor('Color', 'color');
     $field->mandatory = $mandatory;
@@ -38,9 +54,11 @@ class PapayaUiDialogFieldInputColorTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputColor
-  * @dataProvider provideInvalidColorInputs
-  */
+   * @covers PapayaUiDialogFieldInputColor
+   * @dataProvider provideInvalidColorInputs
+   * @param mixed $value
+   * @param bool $mandatory
+   */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
     $field = new PapayaUiDialogFieldInputColor('Color', 'color');
     $field->mandatory = $mandatory;
@@ -56,10 +74,11 @@ class PapayaUiDialogFieldInputColorTest extends PapayaTestCase {
   public function testAppendTo() {
     $field = new PapayaUiDialogFieldInputColor('Color', 'color');
     $field->papaya($this->mockPapaya()->application());
-    $this->assertEquals(
-      '<field caption="Color" class="DialogFieldInputColor" error="no">'.
-        '<input type="color" name="color" maxlength="7"/>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Color" class="DialogFieldInputColor" error="no">
+        <input type="color" name="color" maxlength="7"/>
+      </field>',
       $field->getXml()
     );
   }

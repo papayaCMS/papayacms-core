@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
@@ -82,7 +96,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
     );
     $builder = new PapayaUiDialogFieldBuilderArray(new stdClass, $editFields);
     $builder->fieldFactory($fieldFactory);
-    $fields = $builder->getFields();
+    $builder->getFields();
   }
 
   /**
@@ -168,8 +182,10 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
     $builder = new PapayaUiDialogFieldBuilderArray(new stdClass, $editFields);
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
-    $this->assertInternalType(
-      'string', $fields[0]->getCaption()
+    /** @var PapayaUiDialogFieldGroup $field */
+    $field = $fields[0];
+    $this->assertEquals(
+      'Group caption', $field->getCaption()
     );
   }
 

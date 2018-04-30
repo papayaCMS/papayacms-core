@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
@@ -60,13 +74,14 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->papaya($this->mockPapaya()->application());
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelectBitmask" error="no" mandatory="yes">'.
-        '<select name="name" type="checkboxes">'.
-          '<option value="1">One</option>'.
-          '<option value="2">Two</option>'.
-        '</select>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelectBitmask" error="no" mandatory="yes">
+        <select name="name" type="checkboxes">
+          <option value="1">One</option>
+          <option value="2">Two</option>
+        </select>
+      </field>',
       $select->getXml()
     );
   }
@@ -80,13 +95,14 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
     );
     $select->setDefaultValue(3);
     $select->papaya($this->mockPapaya()->application());
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelectBitmask" error="no" mandatory="yes">'.
-        '<select name="name" type="checkboxes">'.
-          '<option value="1" selected="selected">One</option>'.
-          '<option value="2" selected="selected">Two</option>'.
-        '</select>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelectBitmask" error="no" mandatory="yes">
+        <select name="name" type="checkboxes">
+          <option value="1" selected="selected">One</option>
+          <option value="2" selected="selected">Two</option>
+        </select>
+      </field>',
       $select->getXml()
     );
   }
@@ -95,11 +111,10 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldSelectBitmask::getCurrentValue
   */
   public function testGetCurrentValueFromDialogParameters() {
-    $dialog = $this->getMock(
-      PapayaUiDialog::class,
-      array('appendTo', 'isSubmitted', 'execute', 'parameters'),
-      array(new stdClass())
-    );
+    $dialog = $this
+      ->getMockBuilder(PapayaUiDialog::class)
+      ->setConstructorArgs(array(new stdClass()))
+      ->getMock();
     $dialog
       ->expects($this->exactly(2))
       ->method('parameters')
@@ -115,11 +130,10 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldSelectBitmask::getCurrentValue
   */
   public function testGetCurrentValueWhileDialogWasSendButNoOptionSelected() {
-    $dialog = $this->getMock(
-      PapayaUiDialog::class,
-      array('appendTo', 'isSubmitted', 'execute', 'parameters'),
-      array(new stdClass())
-    );
+    $dialog = $this
+      ->getMockBuilder(PapayaUiDialog::class)
+      ->setConstructorArgs(array(new stdClass()))
+      ->getMock();
     $dialog
       ->expects($this->once())
       ->method('parameters')
@@ -139,14 +153,17 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldSelectBitmask::getCurrentValue
   */
   public function testGetCurrentValueWhileDialogWasNotSend() {
-    $dialog = $this->getMock(
-      PapayaUiDialog::class,
-      array('appendTo', 'isSubmitted', 'execute', 'parameters'),
-      array(new stdClass())
-    );
+    $dialog = $this
+      ->getMockBuilder(PapayaUiDialog::class)
+      ->setConstructorArgs(array(new stdClass()))
+      ->getMock();
     $dialog
       ->expects($this->any())
       ->method('parameters')
+      ->will($this->returnValue(new PapayaRequestParameters(array())));
+    $dialog
+      ->expects($this->any())
+      ->method('data')
       ->will($this->returnValue(new PapayaRequestParameters(array())));
     $dialog
       ->expects($this->once())
@@ -174,6 +191,10 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
   * Mocks
   *************************/
 
+  /**
+   * @param object|NULL $owner
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaUiDialogFields
+   */
   public function getCollectionMock($owner = NULL) {
     $collection = $this->createMock(PapayaUiDialogFields::class);
     if ($owner) {

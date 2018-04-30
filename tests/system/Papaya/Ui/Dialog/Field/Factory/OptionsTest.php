@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
@@ -129,6 +143,9 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    * @covers PapayaUiDialogFieldFactoryOptions::get
    * @covers PapayaUiDialogFieldFactoryOptions::set
    * @dataProvider provideOptionData
+   * @param mixed $expected
+   * @param string $name
+   * @param mixed $value
    */
   public function testGetSetOptions($expected, $name, $value) {
     $options = new PapayaUiDialogFieldFactoryOptions();
@@ -178,16 +195,17 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    * @covers PapayaUiDialogFieldFactoryOptions::getValidation
    */
   public function testGetValidationWithArray() {
+    $getFilterCallback = function() {};
     $factory = $this->createMock(PapayaFilterFactory::class);
     $factory
       ->expects($this->once())
       ->method('getFilter')
-      ->with('generator', FALSE, array(PapayaFilterSample::class, 'ArgumentOne'))
+      ->with('generator', FALSE, $getFilterCallback)
       ->will($this->returnValue($this->createMock(PapayaFilter::class)));
 
     $options = new PapayaUiDialogFieldFactoryOptions();
     $options->filterFactory($factory);
-    $options->validation = array(PapayaFilterSample::class, 'ArgumentOne');
+    $options->validation = $getFilterCallback;
     $this->assertInstanceOf(PapayaFilter::class, $options->validation);
   }
 

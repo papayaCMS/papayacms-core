@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
@@ -76,13 +90,14 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
     $select->collection($this->createMock(PapayaUiDialogFields::class));
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">'.
-        '<select name="name" type="dropdown">'.
-          '<option value="21">half</option>'.
-          '<option value="42">full</option>'.
-        '</select>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
+        <select name="name" type="dropdown">
+          <option value="21">half</option>
+          <option value="42">full</option>
+        </select>
+      </field>',
       $select->getXml()
     );
   }
@@ -101,13 +116,14 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
     $select->collection($this->createMock(PapayaUiDialogFields::class));
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">'.
-        '<select name="name" type="dropdown">'.
-          '<option selected="selected">empty</option>'.
-          '<option value="some">filled</option>'.
-        '</select>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
+        <select name="name" type="dropdown">
+          <option selected="selected">empty</option>
+          <option value="some">filled</option>
+        </select>
+      </field>',
       $select->getXml()
     );
   }
@@ -131,13 +147,14 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
     $select->collection($this->createMock(PapayaUiDialogFields::class));
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">'.
-        '<select name="name" type="dropdown">'.
-          '<option value="half">half</option>'.
-          '<option value="full">full</option>'.
-        '</select>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
+        <select name="name" type="dropdown">
+          <option value="half">half</option>
+          <option value="full">full</option>
+        </select>
+      </field>',
       $select->getXml()
     );
   }
@@ -156,13 +173,14 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
     $select->collection($this->createMock(PapayaUiDialogFields::class));
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">'.
-        '<select name="name" type="dropdown">'.
-          '<option value="21">half</option>'.
-          '<option value="42">full</option>'.
-        '</select>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
+        <select name="name" type="dropdown">
+          <option value="21">half</option>
+          <option value="42">full</option>
+        </select>
+      </field>',
       $select->getXml()
     );
   }
@@ -189,16 +207,17 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
     $select->collection($this->createMock(PapayaUiDialogFields::class));
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">'.
-        '<select name="name" type="dropdown">'.
-          '<group caption="foo">'.
-            '<option value="foo">foo</option>'.
-            '<option value="foobar">foobar</option>'.
-          '</group>'.
-          '<option value="bar">bar</option>'.
-        '</select>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
+        <select name="name" type="dropdown">
+          <group caption="foo">
+            <option value="foo">foo</option>
+            <option value="foobar">foobar</option>
+          </group>
+          <option value="bar">bar</option>
+        </select>
+      </field>',
       $select->getXml()
     );
   }
@@ -211,18 +230,22 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldSelect::_isOptionSelected
   */
   public function testAppendToWithDefaultValue() {
-    $dialog = $this->getMock(
-      PapayaUiDialog::class,
-      array('isSubmitted', 'execute', 'appendTo', 'parameters'),
-      array(new stdClass())
-    );
+    $dialog = $this
+      ->getMockBuilder(PapayaUiDialog::class)
+      ->setConstructorArgs(array(new stdClass()))
+      ->getMock();
     $dialog
       ->expects($this->any())
       ->method('parameters')
       ->will($this->returnValue(new PapayaRequestParameters(array('truth' => 42))));
-    $dom = new PapayaXmlDocument();
-    $node = $dom->createElement('sample');
-    $dom->appendChild($node);
+    $dialog
+      ->expects($this->any())
+      ->method('getParameterName')
+      ->with('truth')
+      ->willReturnArgument(0);
+    $document = new PapayaXmlDocument();
+    $node = $document->createElement('sample');
+    $document->appendChild($node);
     $select = new PapayaUiDialogFieldSelect(
       'Caption', 'truth', array(21 => 'half', 42 => 'full')
     );
@@ -231,14 +254,15 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $select->papaya($application);
     $select->collection($this->getCollectionMock($dialog));
     $select->appendTo($node);
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelect" error="no" mandatory="yes">'.
-        '<select name="truth" type="dropdown">'.
-          '<option value="21">half</option>'.
-          '<option value="42" selected="selected">full</option>'.
-        '</select>'.
-      '</field>',
-      $dom->saveXml($node->firstChild)
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelect" error="no" mandatory="yes">
+        <select name="truth" type="dropdown">
+          <option value="21">half</option>
+          <option value="42" selected="selected">full</option>
+        </select>
+      </field>',
+      $document->saveXML($node->firstChild)
     );
   }
 
@@ -253,18 +277,22 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
       'Caption', 'name', array(21 => array('title' => 'half'), 42 =>  array('title' => 'full'))
     );
     $select->callbacks()->getOptionCaption = array($this, 'callbackGetOptionCaption');
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">'.
-        '<select name="name" type="dropdown">'.
-          '<option value="21">mapped: half</option>'.
-          '<option value="42">mapped: full</option>'.
-        '</select>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
+        <select name="name" type="dropdown">
+          <option value="21">mapped: half</option>
+          <option value="42">mapped: full</option>
+        </select>
+      </field>',
       $select->getXml()
     );
   }
 
-  public function callbackGetOptionCaption($context, $data, $index) {
+  public function callbackGetOptionCaption(
+    /** @noinspection PhpUnusedParameterInspection */
+    $context, $data
+  ) {
     return 'mapped: '.$data['title'];
   }
 
@@ -279,18 +307,22 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
       'Caption', 'name', array(21 => 'half', 42 => 'full')
     );
     $select->callbacks()->getOptionData = array($this, 'callbackGetOptionDataAttributes');
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">'.
-        '<select name="name" type="dropdown">'.
-          '<option value="21" data-title="half" data-index="21" data-json="[21,42]">half</option>'.
-          '<option value="42" data-title="full" data-index="42" data-json="[21,42]">full</option>'.
-        '</select>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
+        <select name="name" type="dropdown">
+          <option value="21" data-title="half" data-index="21" data-json="[21,42]">half</option>
+          <option value="42" data-title="full" data-index="42" data-json="[21,42]">full</option>
+        </select>
+      </field>',
       $select->getXml()
     );
   }
 
-  public function callbackGetOptionDataAttributes($context, $data, $index) {
+  public function callbackGetOptionDataAttributes(
+    /** @noinspection PhpUnusedParameterInspection */
+    $context, $data, $index
+  ) {
     return array('title' => $data, 'index' => $index, 'json' => array(21, 42));
   }
 
@@ -312,21 +344,25 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
       PapayaUiDialogFieldSelect::VALUE_USE_CAPTION
     );
     $select->callbacks()->getOptionGroupCaption = array($this, 'callbackGetOptionGroupCaption');
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">'.
-        '<select name="name" type="dropdown">'.
-          '<group caption="Group: foo">'.
-            '<option value="foo">foo</option>'.
-            '<option value="foobar">foobar</option>'.
-          '</group>'.
-          '<option value="bar">bar</option>'.
-        '</select>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
+        <select name="name" type="dropdown">
+          <group caption="Group: foo">
+            <option value="foo">foo</option>
+            <option value="foobar">foobar</option>
+          </group>
+          <option value="bar">bar</option>
+        </select>
+      </field>',
       $select->getXml()
     );
   }
 
-  public function callbackGetOptionGroupCaption($context, $data, $index) {
+  public function callbackGetOptionGroupCaption(
+    /** @noinspection PhpUnusedParameterInspection */
+    $context, $data
+  ) {
     return 'Group: '.$data;
   }
 
@@ -349,7 +385,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
   /**
   * @covers PapayaUiDialogFieldSelect::callbacks
   */
-  public function testCallbacksGetImpliciteCreate() {
+  public function testCallbacksGetImplicitCreate() {
     $select = new PapayaUiDialogFieldSelect(
       'Caption', 'truth', array(21 => 'half', 42 => 'full')
     );
@@ -363,6 +399,10 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
   * Mocks
   *************************/
 
+  /**
+   * @param object|NULL $owner
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaUiDialogFields
+   */
   public function getCollectionMock($owner = NULL) {
     $collection = $this->createMock(PapayaUiDialogFields::class);
     if ($owner) {

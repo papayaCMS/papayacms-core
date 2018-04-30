@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
@@ -20,9 +34,11 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldHoneypot::setFilter
   */
   public function testSetFilterExpectingException() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaFilter $filter */
+    $filter = $this->createMock(PapayaFilter::class);
     $input = new PapayaUiDialogFieldHoneypot('Caption', 'name');
     $this->expectException(LogicException::class);
-    $input->setFilter($this->createMock(PapayaFilter::class));
+    $input->setFilter($filter);
   }
 
   /**
@@ -74,10 +90,11 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
     $input->papaya($this->mockPapaya()->application());
     $input->collection($collection);
 
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldHoneypot" error="no" mandatory="yes">'.
-        '<input type="text" name="group[name]"></input>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldHoneypot" error="no" mandatory="yes">
+        <input type="text" name="group[name]"/>
+      </field>',
       $input->getXml()
     );
   }
@@ -122,10 +139,11 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
     $input->papaya($this->mockPapaya()->application());
     $input->collection($collection);
 
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldHoneypot" error="yes" mandatory="yes">'.
-        '<input type="text" name="name"></input>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldHoneypot" error="yes" mandatory="yes">
+        <input type="text" name="name"/>
+      </field>',
       $input->getXml()
     );
   }
@@ -136,10 +154,11 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
   */
   public function testAppendToWithoutCollection() {
     $input = new PapayaUiDialogFieldHoneypot('Caption', 'name');
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldHoneypot" error="no" mandatory="yes">'.
-        '<input type="text" name="name"></input>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldHoneypot" error="no" mandatory="yes">
+        <input type="text" name="name"/>
+      </field>',
       $input->getXml()
     );
   }

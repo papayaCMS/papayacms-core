@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInformationTest extends PapayaTestCase {
@@ -20,8 +34,8 @@ class PapayaUiDialogFieldInformationTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldInformation::appendTo
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('sample');
     $message = new PapayaUiDialogFieldInformation('Information', 'image');
     $message->papaya(
       $this->mockPapaya()->application(
@@ -30,14 +44,15 @@ class PapayaUiDialogFieldInformationTest extends PapayaTestCase {
         )
       )
     );
-    $message->appendTo($dom->documentElement);
-    $this->assertEquals(
-      '<sample>'.
-        '<field class="DialogFieldInformation" error="no">'.
-          '<message image="image.png">Information</message>'.
-        '</field>'.
-      '</sample>',
-      $dom->documentElement->saveXml()
+    $message->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <field class="DialogFieldInformation" error="no">
+          <message image="image.png">Information</message>
+        </field>
+      </sample>',
+      $document->documentElement->saveXml()
     );
   }
 
@@ -45,8 +60,8 @@ class PapayaUiDialogFieldInformationTest extends PapayaTestCase {
   * @covers PapayaUiDialogFieldInformation::appendTo
   */
   public function testAppendToWithoutImage() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('sample');
     $message = new PapayaUiDialogFieldInformation('Information');
     $message->papaya(
       $this->mockPapaya()->application(
@@ -55,14 +70,15 @@ class PapayaUiDialogFieldInformationTest extends PapayaTestCase {
         )
       )
     );
-    $message->appendTo($dom->documentElement);
-    $this->assertEquals(
-      '<sample>'.
-        '<field class="DialogFieldInformation" error="no">'.
-          '<message>Information</message>'.
-        '</field>'.
-      '</sample>',
-      $dom->documentElement->saveXml()
+    $message->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <field class="DialogFieldInformation" error="no">
+          <message>Information</message>
+        </field>
+      </sample>',
+      $document->documentElement->saveXml()
     );
   }
 

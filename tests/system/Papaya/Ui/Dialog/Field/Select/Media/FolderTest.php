@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
@@ -51,14 +65,15 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
     $select->mediaFolders($this->getMediaFoldersFixture());
     $select->papaya($this->mockPapaya()->application());
     $select->setDefaultValue(42);
-    $this->assertEquals(
-      '<field caption="Caption" class="DialogFieldSelectMediaFolder" error="no">'.
-        '<select name="name" type="dropdown">'.
-          '<option value="21">Folder 21</option>'.
-          '<option value="42" selected="selected">-&gt;Folder 42</option>'.
-          '<option value="84">  -&gt;Folder 84</option>'.
-        '</select>'.
-      '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<field caption="Caption" class="DialogFieldSelectMediaFolder" error="no">
+        <select name="name" type="dropdown">
+          <option value="21">Folder 21</option>
+          <option value="42" selected="selected">-&gt;Folder 42</option>
+          <option value="84">  -&gt;Folder 84</option>
+        </select>
+      </field>',
       $select->getXml()
     );
   }

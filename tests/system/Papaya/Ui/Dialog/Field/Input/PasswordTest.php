@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInputPasswordTest extends PapayaTestCase {
@@ -35,11 +49,10 @@ class PapayaUiDialogFieldInputPasswordTest extends PapayaTestCase {
    * @covers PapayaUiDialogFieldInputPassword::getCurrentValue
    */
   public function testGetCurrentValueIgnoreData() {
-    $dialog = $this->getMock(
-      PapayaUiDialog::class,
-      array('appendTo', 'isSubmitted', 'execute', 'parameters', 'data'),
-      array(new stdClass())
-    );
+    $dialog = $this
+      ->getMockBuilder(PapayaUiDialog::class)
+      ->setConstructorArgs(array(new stdClass()))
+      ->getMock();
     $dialog
       ->expects($this->exactly(1))
       ->method('parameters')
@@ -56,11 +69,10 @@ class PapayaUiDialogFieldInputPasswordTest extends PapayaTestCase {
    * @covers PapayaUiDialogFieldInputPassword::getCurrentValue
    */
   public function testGetCurrentValueReadParameter() {
-    $dialog = $this->getMock(
-      PapayaUiDialog::class,
-      array('appendTo', 'isSubmitted', 'execute', 'parameters'),
-      array(new stdClass())
-    );
+    $dialog = $this
+      ->getMockBuilder(PapayaUiDialog::class)
+      ->setConstructorArgs(array(new stdClass()))
+      ->getMock();
     $dialog
       ->expects($this->exactly(2))
       ->method('parameters')

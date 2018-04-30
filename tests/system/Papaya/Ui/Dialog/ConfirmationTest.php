@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiDialogConfirmationTest extends PapayaTestCase {
@@ -62,7 +76,7 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   * @covers PapayaUiDialogConfirmation::isSubmitted
   */
   public function testIsSubmittedExpectingTrue() {
-    $request = $this->getMock(PapayaRequest::class, array('getMethod'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -79,7 +93,7 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   * @covers PapayaUiDialogConfirmation::isSubmitted
   */
   public function testIsSubmittedExpectingFalse() {
-    $request = $this->getMock(PapayaRequest::class, array('getMethod'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -94,12 +108,12 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   */
   public function testExecuteExpectingTrue() {
     $owner = new stdClass();
-    $request = $this->getMock(PapayaRequest::class, array('getMethod'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
       ->will($this->returnValue('post'));
-    $tokens = $this->getMock(PapayaUiTokens::class, array('create', 'validate'));
+    $tokens = $this->createMock(PapayaUiTokens::class);
     $tokens
       ->expects($this->once())
       ->method('validate')
@@ -124,7 +138,7 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   */
   public function testExecuteExpectingFalse() {
     $owner = new stdClass();
-    $request = $this->getMock(PapayaRequest::class, array('getMethod'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -139,7 +153,7 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   */
   public function testExecuteCachesResultExpectingFalse() {
     $owner = new stdClass();
-    $request = $this->getMock(PapayaRequest::class, array('getMethod'));
+    $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -155,7 +169,7 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   */
   public function testAppendTo() {
     $owner = new stdClass();
-    $tokens = $this->getMock(PapayaUiTokens::class, array('create', 'validate'));
+    $tokens = $this->createMock(PapayaUiTokens::class);
     $tokens
       ->expects($this->once())
       ->method('create')
@@ -168,14 +182,15 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
     );
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->tokens($tokens);
-    $this->assertEquals(
-      '<confirmation-dialog action="http://www.test.tld/test.html" method="post">'.
-      '<input type="hidden" name="group[sample]" value="foo"/>'.
-      '<input type="hidden" name="group[confirmation]" value="a9994ecdd4cc99b5ac3b59272afa0d47"/>'.
-      '<input type="hidden" name="group[token]" value="TOKEN_STRING"/>'.
-      '<message>Confirm action?</message>'.
-      '<dialog-button type="submit" caption="Yes"/>'.
-      '</confirmation-dialog>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<confirmation-dialog action="http://www.test.tld/test.html" method="post">
+      <input type="hidden" name="group[sample]" value="foo"/>
+      <input type="hidden" name="group[confirmation]" value="a9994ecdd4cc99b5ac3b59272afa0d47"/>
+      <input type="hidden" name="group[token]" value="TOKEN_STRING"/>
+      <message>Confirm action?</message>
+      <dialog-button type="submit" caption="Yes"/>
+      </confirmation-dialog>',
       $dialog->getXml()
     );
   }
