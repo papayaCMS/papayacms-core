@@ -1,33 +1,31 @@
 <?php
 /**
-* A hierarchy item represent one element in {@see PapayaUiHierarchyItems}.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Item.php 39730 2014-04-07 21:05:30Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
-* A hierarchy item represent one element in {@see PapayaUiHierarchyItems}.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string $image
-* @property string|PapayaUiString $caption
-* @property string|PapayaUiString $hint
-* @property PapayaUiReference $reference
-*/
+ * A hierarchy item represent one element in {@see PapayaUiHierarchyItems}.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ * @subpackage Ui
+ *
+ * @property string $image
+ * @property string|PapayaUiString $caption
+ * @property string|PapayaUiString $hint
+ * @property int $displayMode
+ * @property PapayaUiReference $reference
+ */
 class PapayaUiHierarchyItem extends PapayaUiControlCollectionItem {
 
   const DISPLAY_BOTH = 1;
@@ -40,7 +38,7 @@ class PapayaUiHierarchyItem extends PapayaUiControlCollectionItem {
   *
   * @var array(integer => string)
   */
-  protected $_displayModes = array(
+  protected static $_displayModes = array(
     self::DISPLAY_BOTH => 'both',
     self::DISPLAY_IMAGE_ONLY => 'image',
     self::DISPLAY_TEXT_ONLY => 'text',
@@ -72,7 +70,7 @@ class PapayaUiHierarchyItem extends PapayaUiControlCollectionItem {
   *
   * @var NULL|PapayaUiReference
   */
-  protected $_reference = NULL;
+  protected $_reference;
 
   /**
   * display mode - (both, image only, text only)
@@ -116,10 +114,10 @@ class PapayaUiHierarchyItem extends PapayaUiControlCollectionItem {
         'caption' => (string)$this->_caption,
         'hint' => (string)$this->_hint,
         'image' => $this->papaya()->images[(string)$this->_image],
-        'mode' => $this->_displayModes[$this->_displayMode]
+        'mode' => self::$_displayModes[$this->_displayMode]
       )
     );
-    if (isset($this->_reference)) {
+    if (NULL !== $this->_reference) {
       $itemNode->setAttribute('href', $this->reference()->getRelative());
     }
     return $itemNode;
@@ -132,9 +130,9 @@ class PapayaUiHierarchyItem extends PapayaUiControlCollectionItem {
   * @return PapayaUiReference
   */
   public function reference(PapayaUiReference $reference = NULL) {
-    if (isset($reference)) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    } elseif (is_null($this->_reference)) {
+    } elseif (NULL === $this->_reference) {
       $this->_reference = new PapayaUiReference();
       $this->_reference->papaya($this->papaya());
     }
@@ -144,13 +142,11 @@ class PapayaUiHierarchyItem extends PapayaUiControlCollectionItem {
   /**
    * Read a cleaned display mode value
    *
-   * @param $mode
+   * @param int $mode
    * @throws OutOfBoundsException
-   * @internal param \PapayaUiReference $reference
-   * @return PapayaUiReference
    */
   public function setDisplayMode($mode) {
-    if (array_key_exists($mode, $this->_displayModes)) {
+    if (array_key_exists($mode, self::$_displayModes)) {
       $this->_displayMode = (int)$mode;
     } else {
       throw new OutOfBoundsException(
