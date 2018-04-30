@@ -1,31 +1,28 @@
 <?php
 /**
-* A simple listview subitem displaying date time.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Date.php 39125 2014-02-06 16:17:14Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
-* A simple listview subitem displaying date time.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property integer $align
-* @property string|PapayaUiString $text
-*/
+ * A simple listview subitem displaying date time.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property int $align
+ * @property string|PapayaUiString $text
+ * @property int $timestamp
+ */
 class PapayaUiListviewSubitemDate extends PapayaUiListviewSubitem {
 
   const SHOW_DATE = PapayaUiStringDate::SHOW_DATE;
@@ -33,12 +30,12 @@ class PapayaUiListviewSubitemDate extends PapayaUiListviewSubitem {
   const SHOW_SECONDS = PapayaUiStringDate::SHOW_SECONDS;
 
   /**
-  * @var integer
+  * @var int
   */
   protected $_timestamp = '';
 
   /**
-  * @var integer
+  * @var int
   */
   protected $_options = '';
 
@@ -56,9 +53,9 @@ class PapayaUiListviewSubitemDate extends PapayaUiListviewSubitem {
   /**
    * Create subitem object, set text content and alignment.
    *
-   * @param integer $timestamp
+   * @param int $timestamp
    * @param int $options
-   * @internal param int $align
+   * @throws \UnexpectedValueException
    */
   public function __construct($timestamp, $options = self::SHOW_TIME) {
     PapayaUtilConstraints::assertInteger($timestamp);
