@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaUtilConstraintsTest extends PapayaTestCase {
@@ -13,9 +27,10 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertArray
-  * @dataProvider provideInvalidValuesForAssertArray
-  */
+   * @covers PapayaUtilConstraints::assertArray
+   * @dataProvider provideInvalidValuesForAssertArray
+   * @param mixed $value
+   */
   public function testAssertArrayFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
     PapayaUtilConstraints::assertArray($value);
@@ -40,9 +55,10 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertArrayOrTraversable
-  * @dataProvider provideInvalidValuesForAssertArrayOrTraversable
-  */
+   * @covers PapayaUtilConstraints::assertArrayOrTraversable
+   * @dataProvider provideInvalidValuesForAssertArrayOrTraversable
+   * @param mixed $value
+   */
   public function testAssertArrayOrTraversableFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
     PapayaUtilConstraints::assertArrayOrTraversable($value);
@@ -67,18 +83,20 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertBoolean
-  * @dataProvider provideInvalidValuesForAssertBoolean
-  */
+   * @covers PapayaUtilConstraints::assertBoolean
+   * @dataProvider provideInvalidValuesForAssertBoolean
+   * @param mixed $value
+   */
   public function testAssertBooleanFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
     PapayaUtilConstraints::assertBoolean($value);
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertCallable
-  * @dataProvider provideValidValuesForAssertCallable
-  */
+   * @covers PapayaUtilConstraints::assertCallable
+   * @dataProvider provideValidValuesForAssertCallable
+   * @param callable $value
+   */
   public function testAssertCallable($value) {
     $this->assertTrue(
       PapayaUtilConstraints::assertCallable($value)
@@ -95,9 +113,10 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertCallable
-  * @dataProvider provideInvalidValuesForAssertCallable
-  */
+   * @covers PapayaUtilConstraints::assertCallable
+   * @dataProvider provideInvalidValuesForAssertCallable
+   * @param mixed $value
+   */
   public function testAssertCallableFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
     PapayaUtilConstraints::assertCallable($value);
@@ -140,9 +159,10 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertFloat
-  * @dataProvider provideInvalidValuesForAssertFloat
-  */
+   * @covers PapayaUtilConstraints::assertFloat
+   * @dataProvider provideInvalidValuesForAssertFloat
+   * @param mixed $value
+   */
   public function testAssertFloatFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
     PapayaUtilConstraints::assertFloat($value);
@@ -201,18 +221,20 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertInteger
-  * @dataProvider provideInvalidValuesForAssertInteger
-  */
+   * @covers PapayaUtilConstraints::assertInteger
+   * @dataProvider provideInvalidValuesForAssertInteger
+   * @param mixed $value
+   */
   public function testAssertIntegerFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
     PapayaUtilConstraints::assertInteger($value);
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertNotEmpty
-  * @dataProvider provideValidValuesForAssertNotEmpty
-  */
+   * @covers PapayaUtilConstraints::assertNotEmpty
+   * @dataProvider provideValidValuesForAssertNotEmpty
+   * @param mixed $value
+   */
   public function testAssertNotEmptyWithValidValues($value) {
     $this->assertTrue(
       PapayaUtilConstraints::assertNotEmpty($value)
@@ -220,18 +242,20 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertNotEmpty
-  * @dataProvider provideInvalidValuesForAssertNotEmpty
-  */
+   * @covers PapayaUtilConstraints::assertNotEmpty
+   * @dataProvider provideInvalidValuesForAssertNotEmpty
+   * @param mixed $value
+   */
   public function testAssertNotEmptyWithInValidValuesExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
     PapayaUtilConstraints::assertNotEmpty($value);
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertNotEmpty
-  * @dataProvider provideInvalidValuesForAssertNotEmpty
-  */
+   * @covers PapayaUtilConstraints::assertNotEmpty
+   * @dataProvider provideInvalidValuesForAssertNotEmpty
+   * @param mixed $value
+   */
   public function testAssertNotEmptyWithInValidValuesExpectingExceptionIndividualMessage($value) {
     $this->expectException(UnexpectedValueException::class);
     PapayaUtilConstraints::assertNotEmpty($value, 'SAMPLE MESSAGE');
@@ -256,9 +280,10 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertNumber
-  * @dataProvider provideInvalidValuesForAssertNumber
-  */
+   * @covers PapayaUtilConstraints::assertNumber
+   * @dataProvider provideInvalidValuesForAssertNumber
+   * @param mixed $value
+   */
   public function testAssertNumberFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
     PapayaUtilConstraints::assertNumber($value);
@@ -274,9 +299,10 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertObject
-  * @dataProvider provideInvalidValuesForAssertObject
-  */
+   * @covers PapayaUtilConstraints::assertObject
+   * @dataProvider provideInvalidValuesForAssertObject
+   * @param mixed $value
+   */
   public function testAssertObjectFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
     PapayaUtilConstraints::assertObject($value);
@@ -301,9 +327,10 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertObjectOrNull
-  * @dataProvider provideInvalidValuesForAssertObjectOrNull
-  */
+   * @covers PapayaUtilConstraints::assertObjectOrNull
+   * @dataProvider provideInvalidValuesForAssertObjectOrNull
+   * @param mixed $value
+   */
   public function testAssertObjectOrNullFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
     PapayaUtilConstraints::assertObjectOrNull($value);
@@ -314,7 +341,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   */
   public function testAssertResource() {
     $this->assertTrue(
-      PapayaUtilConstraints::assertResource($fh = fopen('php://memory', 'rw'))
+      PapayaUtilConstraints::assertResource($fh = fopen('php://memory', 'rwb'))
     );
     fclose($fh);
   }
@@ -337,9 +364,10 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertString
-  * @dataProvider provideInvalidValuesForAssertString
-  */
+   * @covers PapayaUtilConstraints::assertString
+   * @dataProvider provideInvalidValuesForAssertString
+   * @param mixed $value
+   */
   public function testAssertStringFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
     PapayaUtilConstraints::assertString($value);

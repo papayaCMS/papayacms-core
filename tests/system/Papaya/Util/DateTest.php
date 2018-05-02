@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaUtilDateTest extends PapayaTestCase {
@@ -23,9 +37,12 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilDate::stringToISO
-  * @dataProvider stringToIsoDataProvider
-  */
+   * @covers PapayaUtilDate::stringToISO
+   * @dataProvider stringToIsoDataProvider
+   * @param string $dateString
+   * @param bool $includeTime
+   * @param string $expected
+   */
   public function testStringToISO($dateString, $includeTime, $expected) {
     $this->assertEquals(
       $expected,
@@ -34,18 +51,24 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilDate::stringToArray
-  * @covers PapayaUtilDate::_getValueFromArray
-  * @dataProvider stringToArrayDataProvider
-  */
+   * @covers PapayaUtilDate::stringToArray
+   * @covers PapayaUtilDate::_getValueFromArray
+   * @dataProvider stringToArrayDataProvider
+   * @param string $dateString
+   * @param array|FALSE $expected
+   */
   public function testStringToArray($dateString, $expected) {
     $this->assertSame($expected, PapayaUtilDate::stringToArray($dateString));
   }
 
   /**
-  * covers PapayaUtilDate::timestampToString
-  * @dataProvider timestampToStringDataProvider
-  */
+   * covers PapayaUtilDate::timestampToString
+   *
+   * @dataProvider timestampToStringDataProvider
+   * @param int $timestamp
+   * @param string $timezone
+   * @param string $expected
+   */
   public function testTimestampToString($timestamp, $timezone, $expected) {
     date_default_timezone_set($timezone);
     $this->assertEquals($expected, PapayaUtilDate::timestampToString($timestamp));
@@ -102,10 +125,13 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilDate::periodToString
-  * @covers PapayaUtilDate::_roundPeriodElement
-  * @dataProvider periodToArrayDataProvider
-  */
+   * @covers PapayaUtilDate::periodToString
+   * @covers PapayaUtilDate::_roundPeriodElement
+   * @dataProvider periodToArrayDataProvider
+   * @param string $expected
+   * @param string $period
+   * @param int $precision
+   */
   public function testPeriodToString($expected, $period, $precision) {
     $this->assertEquals(
       $expected,
@@ -133,9 +159,11 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilDate::iso8601ToTimestamp
-  * @dataProvider iso8601ToTimestampDataProvider
-  */
+   * @covers       PapayaUtilDate::iso8601ToTimestamp
+   * @dataProvider iso8601ToTimestampDataProvider
+   * @param $expected
+   * @param $datetime
+   */
   public function testIso8601ToTimestamp($expected, $datetime) {
     $this->assertEquals($expected, PapayaUtilDate::iso8601ToTimestamp($datetime));
   }
@@ -361,7 +389,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   * @param integer $hours
   * @param integer $minutes
   * @param float $seconds
-  * @return array
+  * @return float
   */
   public static function getTimePeriodFixture($years, $weeks, $days, $hours, $minutes, $seconds) {
     return (((($years * 52 + $weeks) * 7 + $days) * 24 + $hours) * 60 + $minutes) * 60 + $seconds;

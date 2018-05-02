@@ -1,56 +1,79 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUtilStringBase32Test extends PapayaTestCase {
 
   /**
-  * @covers PapayaUtilStringBase32::encode
-  * @dataProvider provideValidSamples
-  */
-  public function testEncode($unencoded, $encoded) {
+   * @covers PapayaUtilStringBase32::encode
+   * @dataProvider provideValidSamples
+   * @param string $plain
+   * @param string $encoded
+   */
+  public function testEncode($plain, $encoded) {
     $this->assertEquals(
       $encoded,
-      PapayaUtilStringBase32::encode($unencoded)
+      PapayaUtilStringBase32::encode($plain)
     );
   }
 
   /**
-  * @covers PapayaUtilStringBase32::encode
-  * @dataProvider provideValidSamplesWithPadding
-  */
-  public function testEncodeWithPadding($unencoded, $encoded) {
+   * @covers PapayaUtilStringBase32::encode
+   * @dataProvider provideValidSamplesWithPadding
+   * @param string $plain
+   * @param string $encoded
+   */
+  public function testEncodeWithPadding($plain, $encoded) {
     $this->assertEquals(
       $encoded,
-      PapayaUtilStringBase32::encode($unencoded, TRUE)
+      PapayaUtilStringBase32::encode($plain, TRUE)
     );
   }
 
   /**
-  * @covers PapayaUtilStringBase32::decode
-  * @dataProvider provideValidSamples
-  */
-  public function testDecode($unencoded, $encoded) {
+   * @covers PapayaUtilStringBase32::decode
+   * @dataProvider provideValidSamples
+   * @param string $plain
+   * @param string $encoded
+   */
+  public function testDecode($plain, $encoded) {
     $this->assertEquals(
-      $unencoded,
+      $plain,
       PapayaUtilStringBase32::decode($encoded)
     );
   }
 
   /**
-  * @covers PapayaUtilStringBase32::decode
-  * @dataProvider provideValidSamplesWithPadding
-  */
-  public function testDecodeWithPadding($unencoded, $encoded) {
+   * @covers PapayaUtilStringBase32::decode
+   * @dataProvider provideValidSamplesWithPadding
+   * @param string $plain
+   * @param string $encoded
+   */
+  public function testDecodeWithPadding($plain, $encoded) {
     $this->assertEquals(
-      $unencoded,
+      $plain,
       PapayaUtilStringBase32::decode($encoded)
     );
   }
 
   /**
-  * @covers PapayaUtilStringBase32::decode
-  * @dataProvider provideInvalidDecodeSamples
-  */
+   * @covers PapayaUtilStringBase32::decode
+   * @dataProvider provideInvalidDecodeSamples
+   * @param string $encoded
+   */
   public function testDecodeExpectingException($encoded) {
     $this->expectException(OutOfBoundsException::class);
     PapayaUtilStringBase32::decode($encoded);

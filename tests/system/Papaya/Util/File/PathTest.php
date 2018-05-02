@@ -1,12 +1,29 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUtilFilePathTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUtilFilePath::cleanup
-  * @dataProvider provideCleanupData
-  */
+   * @covers PapayaUtilFilePath::cleanup
+   * @dataProvider provideCleanupData
+   * @param string $expected
+   * @param string $string
+   * @param bool $trailingSlash
+   */
   public function testCleanup($expected, $string, $trailingSlash = TRUE) {
     $this->assertEquals(
       $expected,
@@ -15,9 +32,11 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilFilePath::ensureIsAbsolute
-  * @dataProvider provideEnsureIsAbsoluteData
-  */
+   * @covers PapayaUtilFilePath::ensureIsAbsolute
+   * @dataProvider provideEnsureIsAbsoluteData
+   * @param string $expected
+   * @param string $string
+   */
   public function testEnsureIsAbsolute($expected, $string) {
     $this->assertEquals(
       $expected,
@@ -26,9 +45,11 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilFilePath::ensureTrailingSlash
-  * @dataProvider provideEnsureTrailingSlashData
-  */
+   * @covers PapayaUtilFilePath::ensureTrailingSlash
+   * @dataProvider provideEnsureTrailingSlashData
+   * @param string $expected
+   * @param string $string
+   */
   public function testEnsureTrailingSlash($expected, $string) {
     $this->assertEquals(
       $expected,
@@ -37,9 +58,11 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilFilePath::ensureNoTrailingSlash
-  * @dataProvider provideEnsureNoTrailingSlashData
-  */
+   * @covers PapayaUtilFilePath::ensureNoTrailingSlash
+   * @dataProvider provideEnsureNoTrailingSlashData
+   * @param string $expected
+   * @param string $string
+   */
   public function testEnsureNoTrailingSlash($expected, $string) {
     $this->assertEquals(
       $expected,

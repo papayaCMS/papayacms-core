@@ -1,22 +1,42 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaUtilArrayTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUtilArray::merge
-  * @dataProvider mergeDataProvider
-  */
+   * @covers PapayaUtilArray::merge
+   * @dataProvider mergeDataProvider
+   * @param array|NULL $arrayOne
+   * @param array|NULL $arrayTwo
+   * @param array|NULL $expected
+   */
   public function testMerge($arrayOne, $arrayTwo, $expected) {
     $actual = PapayaUtilArray::merge($arrayOne, $arrayTwo);
     $this->assertSame($expected, $actual);
   }
 
   /**
-  * @covers PapayaUtilArray::ensure
-  * @dataProvider toArrayDataProvider
-  */
-  public function testEnsure($expected, $input, $useKeys = TRUE) {
+   * @covers PapayaUtilArray::ensure
+   * @dataProvider toArrayDataProvider
+   * @param array $expected
+   * @param mixed $input
+   * @param bool $useKeys
+   */
+  public function testEnsure(array $expected, $input, $useKeys = TRUE) {
     $this->assertSame($expected, PapayaUtilArray::ensure($input, $useKeys));
   }
 
@@ -192,9 +212,11 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::normalize
-  * @dataProvider provideDataForNormalize
-  */
+   * @covers PapayaUtilArray::normalize
+   * @dataProvider provideDataForNormalize
+   * @param mixed $expected
+   * @param mixed $input
+   */
   public function testNormalize($expected, $input) {
     PapayaUtilArray::normalize($input);
     $this->assertSame(
@@ -207,14 +229,10 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testNormalizeWithCallback() {
     $input = 23;
-    PapayaUtilArray::normalize($input, array($this, 'callbackNormlize'));
+    PapayaUtilArray::normalize($input, function($value) { return 'success'.$value; });
     $this->assertSame(
       'success23', $input
     );
-  }
-
-  public function callbackNormlize($value) {
-    return 'success'.$value;
   }
 
   /****************************
