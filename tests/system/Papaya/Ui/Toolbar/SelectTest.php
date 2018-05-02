@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiToolbarSelectTest extends PapayaTestCase {
@@ -22,14 +36,10 @@ class PapayaUiToolbarSelectTest extends PapayaTestCase {
   * @covers PapayaUiToolbarSelect::options
   */
   public function testOptionsExpectingException() {
-    try {
-      $select = new PapayaUiToolbarSelect('foo', 'failed');
-    } catch (InvalidArgumentException $e) {
-      $this->assertEquals(
-        'Argument $options must be an array or implement Traversable.',
-        $e->getMessage()
-      );
-    }
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage('Argument $options must be an array or implement Traversable.');
+    /** @noinspection PhpParamsInspection */
+    new PapayaUiToolbarSelect('foo', 'failed');
   }
 
   /**
@@ -87,18 +97,19 @@ class PapayaUiToolbarSelectTest extends PapayaTestCase {
   * @covers PapayaUiToolbarSelect::appendTo
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument;
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument;
+    $document->appendElement('sample');
     $select = new PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
     $select->papaya($this->mockPapaya()->application());
-    $select->appendTo($dom->documentElement);
-    $this->assertEquals(
-      '<sample>'.
-        '<combo name="foo" action="http://www.test.tld/test.html">'.
-        '<option value="foo">bar</option>'.
-        '</combo>'.
-        '</sample>',
-      $dom->saveXml($dom->documentElement)
+    $select->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <combo name="foo" action="http://www.test.tld/test.html">
+        <option value="foo">bar</option>
+        </combo>
+        </sample>',
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -106,22 +117,23 @@ class PapayaUiToolbarSelectTest extends PapayaTestCase {
   * @covers PapayaUiToolbarSelect::appendTo
   */
   public function testAppendToWithAllProperties() {
-    $dom = new PapayaXmlDocument;
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument;
+    $document->appendElement('sample');
     $select = new PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
     $select->papaya($this->mockPapaya()->application());
     $select->defaultCaption = 'Please Select';
     $select->defaultValue = 42;
     $select->caption = 'Sample Caption';
-    $select->appendTo($dom->documentElement);
-    $this->assertEquals(
-      '<sample>'.
-        '<combo name="foo" action="http://www.test.tld/test.html" title="Sample Caption">'.
-        '<option value="42">Please Select</option>'.
-        '<option value="foo">bar</option>'.
-        '</combo>'.
-        '</sample>',
-      $dom->saveXml($dom->documentElement)
+    $select->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <combo name="foo" action="http://www.test.tld/test.html" title="Sample Caption">
+        <option value="42">Please Select</option>
+        <option value="foo">bar</option>
+        </combo>
+        </sample>',
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -143,20 +155,21 @@ class PapayaUiToolbarSelectTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getParametersList')
       ->will($this->returnValue(array('additional' => '42')));
-    $dom = new PapayaXmlDocument;
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument;
+    $document->appendElement('sample');
     $select = new PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
     $select->papaya($this->mockPapaya()->application());
     $select->reference = $reference;
-    $select->appendTo($dom->documentElement);
-    $this->assertEquals(
-      '<sample>'.
-        '<combo name="foo" action="sample.php">'.
-        '<parameter name="additional" value="42"/>'.
-        '<option value="foo">bar</option>'.
-        '</combo>'.
-        '</sample>',
-      $dom->saveXml($dom->documentElement)
+    $select->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <combo name="foo" action="sample.php">
+        <parameter name="additional" value="42"/>
+        <option value="foo">bar</option>
+        </combo>
+        </sample>',
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -164,19 +177,20 @@ class PapayaUiToolbarSelectTest extends PapayaTestCase {
   * @covers PapayaUiToolbarSelect::appendTo
   */
   public function testAppendToWithCurrentValue() {
-    $dom = new PapayaXmlDocument;
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument;
+    $document->appendElement('sample');
     $select = new PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
     $select->papaya($this->mockPapaya()->application());
     $select->currentValue = 'foo';
-    $select->appendTo($dom->documentElement);
-    $this->assertEquals(
-      '<sample>'.
-        '<combo name="foo" action="http://www.test.tld/test.html">'.
-        '<option value="foo" selected="selected">bar</option>'.
-        '</combo>'.
-        '</sample>',
-      $dom->saveXml($dom->documentElement)
+    $select->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <combo name="foo" action="http://www.test.tld/test.html">
+        <option value="foo" selected="selected">bar</option>
+        </combo>
+        </sample>',
+      $document->saveXML($document->documentElement)
     );
   }
 }

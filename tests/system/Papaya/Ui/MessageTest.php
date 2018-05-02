@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaUiMessageTest extends PapayaTestCase {
@@ -25,12 +39,16 @@ class PapayaUiMessageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiMessage::appendMessageElement
-  * @covers PapayaUiMessage::getTagName
-  * @dataProvider provideTestMessages
-  */
-  public function testAppendTo($expectedXml, $severity, $event, $occured = FALSE) {
-    $message = new PapayaUiMessage_TestProxy($severity, $event, $occured);
+   * @covers PapayaUiMessage::appendMessageElement
+   * @covers PapayaUiMessage::getTagName
+   * @dataProvider provideTestMessages
+   * @param string $expectedXml
+   * @param int $severity
+   * @param string $event
+   * @param bool $occurred
+   */
+  public function testAppendTo($expectedXml, $severity, $event, $occurred = FALSE) {
+    $message = new PapayaUiMessage_TestProxy($severity, $event, $occurred);
     $this->assertEquals(
       $expectedXml,
       $message->getXml()
@@ -72,7 +90,7 @@ class PapayaUiMessageTest extends PapayaTestCase {
   /**
   * @covers PapayaUiMessage::setOccured
   */
-  public function testOccuredGetAfterSet() {
+  public function testOccurredGetAfterSet() {
     $message = new PapayaUiMessage_TestProxy(PapayaUiMessage::SEVERITY_ERROR, 'sample');
     $message->occured = TRUE;
     $this->assertTrue(
@@ -86,14 +104,14 @@ class PapayaUiMessageTest extends PapayaTestCase {
 
   public static function provideTestMessages() {
     return array(
-      'sample error, not occured' => array(
-        '<error event="sample" occured="no"/>',
+      'sample error, not occurred' => array(
+        /** @lang XML */ '<error event="sample" occured="no"/>',
         PapayaUiMessage::SEVERITY_ERROR,
         'sample',
         FALSE
       ),
-      'test information, occured' => array(
-        '<information event="test" occured="yes"/>',
+      'test information, occurred' => array(
+        /** @lang XML */ '<information event="test" occured="yes"/>',
         PapayaUiMessage::SEVERITY_INFORMATION,
         'test',
         TRUE

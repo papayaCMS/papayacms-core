@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiToolbarPagingTest extends PapayaTestCase {
@@ -34,7 +48,7 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
     $paging = new PapayaUiToolbarPaging('foo/page', 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
-    $dummy = $paging->currentPage;
+    $paging->currentPage;
     $paging->itemsCount = 100;
     $this->assertAttributeEquals(
       100, '_itemsCount', $paging
@@ -61,7 +75,7 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
     $paging = new PapayaUiToolbarPaging('foo/page', 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
-    $dummy = $paging->currentPage;
+    $paging->currentPage;
     $paging->itemsPerPage = 15;
     $this->assertAttributeEquals(
       15, '_itemsPerPage', $paging
@@ -88,7 +102,7 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
     $paging = new PapayaUiToolbarPaging('foo/page', 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
-    $dummy = $paging->currentPage;
+    $paging->currentPage;
     $paging->buttonLimit = 15;
     $this->assertAttributeEquals(
       15, '_buttonLimit', $paging
@@ -188,9 +202,11 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::getCurrentOffset
-  * @dataProvider providePageToOffsetPairs
-  */
+   * @covers PapayaUiToolbarPaging::getCurrentOffset
+   * @dataProvider providePageToOffsetPairs
+   * @param int $page
+   * @param int $offset
+   */
   public function testGetCurrentOffset($page, $offset) {
     $paging = new PapayaUiToolbarPaging('page', 30);
     $paging->currentPage = $page;
@@ -198,9 +214,11 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::setCurrentOffset
-  * @dataProvider provideOffsetToPagePairs
-  */
+   * @covers PapayaUiToolbarPaging::setCurrentOffset
+   * @dataProvider provideOffsetToPagePairs
+   * @param int $offset
+   * @param int $page
+   */
   public function testSetCurrentOffset($offset, $page) {
     $paging = new PapayaUiToolbarPaging('page', 30);
     $paging->currentOffset = $offset;
@@ -208,9 +226,12 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::getLastPage
-  * @dataProvider provideLastPageCalculationData
-  */
+   * @covers PapayaUiToolbarPaging::getLastPage
+   * @dataProvider provideLastPageCalculationData
+   * @param int $itemsPerPage
+   * @param int $itemsCount
+   * @param int $expectedMaximum
+   */
   public function testLastPageCalculation($itemsPerPage, $itemsCount, $expectedMaximum) {
     $paging = new PapayaUiToolbarPaging('page', $itemsCount);
     $paging->itemsPerPage = $itemsPerPage;
@@ -226,8 +247,8 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   * @covers PapayaUiToolbarPaging::calculate
   */
   public function testAppendToWithAdditionalParameters() {
-    $dom = new PapayaXmlDocument;
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument;
+    $document->appendElement('sample');
     $paging = new PapayaUiToolbarPaging('foo/page', 30);
     $paging->papaya(
       $this->mockPapaya()->application(
@@ -238,19 +259,20 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
     );
     $paging->currentPage = 0;
     $paging->reference()->setParameters(array('foo' => array('size' => 10)));
-    $paging->appendTo($dom->documentElement);
-    $this->assertEquals(
-      '<sample>'.
-        '<button title="1" href="http://www.test.tld/test.html?foo[page]=1&amp;foo[size]=10"'.
-        ' down="down"/>'.
-        '<button title="2" href="http://www.test.tld/test.html?foo[page]=2&amp;foo[size]=10"/>'.
-        '<button title="3" href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=10"/>'.
-        '<button glyph="next.png" hint="Next page"'.
-        ' href="http://www.test.tld/test.html?foo[page]=2&amp;foo[size]=10"/>'.
-        '<button glyph="last.png" hint="Last page"'.
-        ' href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=10"/>'.
-        '</sample>',
-      $dom->saveXml($dom->documentElement)
+    $paging->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <button title="1" href="http://www.test.tld/test.html?foo[page]=1&amp;foo[size]=10"
+         down="down"/>
+        <button title="2" href="http://www.test.tld/test.html?foo[page]=2&amp;foo[size]=10"/>
+        <button title="3" href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=10"/>
+        <button glyph="next.png" hint="Next page"
+         href="http://www.test.tld/test.html?foo[page]=2&amp;foo[size]=10"/>
+        <button glyph="last.png" hint="Last page"
+         href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=10"/>
+        </sample>',
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -261,8 +283,8 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   * @covers PapayaUiToolbarPaging::calculate
   */
   public function testAppendToWithCurrentPageEqualsTwo() {
-    $dom = new PapayaXmlDocument;
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument;
+    $document->appendElement('sample');
     $paging = new PapayaUiToolbarPaging('foo/page', 30);
     $paging->papaya(
       $this->mockPapaya()->application(
@@ -272,19 +294,20 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
       )
     );
     $paging->currentPage = 2;
-    $paging->appendTo($dom->documentElement);
-    $this->assertEquals(
-      '<sample>'.
-        '<button glyph="previous.png" hint="Previous page"'.
-        ' href="http://www.test.tld/test.html?foo[page]=1"/>'.
-        '<button title="1" href="http://www.test.tld/test.html?foo[page]=1"/>'.
-        '<button title="2" href="http://www.test.tld/test.html?foo[page]=2"'.
-        ' down="down"/>'.
-        '<button title="3" href="http://www.test.tld/test.html?foo[page]=3"/>'.
-        '<button glyph="next.png" hint="Next page"'.
-        ' href="http://www.test.tld/test.html?foo[page]=3"/>'.
-        '</sample>',
-      $dom->saveXml($dom->documentElement)
+    $paging->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <button glyph="previous.png" hint="Previous page"
+         href="http://www.test.tld/test.html?foo[page]=1"/>
+        <button title="1" href="http://www.test.tld/test.html?foo[page]=1"/>
+        <button title="2" href="http://www.test.tld/test.html?foo[page]=2"
+         down="down"/>
+        <button title="3" href="http://www.test.tld/test.html?foo[page]=3"/>
+        <button glyph="next.png" hint="Next page"
+         href="http://www.test.tld/test.html?foo[page]=3"/>
+        </sample>',
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -295,8 +318,8 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   * @covers PapayaUiToolbarPaging::calculate
   */
   public function testAppendToWithLimitedButton() {
-    $dom = new PapayaXmlDocument;
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument;
+    $document->appendElement('sample');
     $paging = new PapayaUiToolbarPaging('foo/page', 300);
     $paging->papaya(
       $this->mockPapaya()->application(
@@ -307,18 +330,19 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
     );
     $paging->currentOffset = 400;
     $paging->buttonLimit = 3;
-    $paging->appendTo($dom->documentElement);
-    $this->assertEquals(
-      '<sample>'.
-        '<button glyph="first.png" hint="First page"'.
-        ' href="http://www.test.tld/test.html?foo[page]=1"/>'.
-        '<button glyph="previous.png" hint="Previous page"'.
-        ' href="http://www.test.tld/test.html?foo[page]=29"/>'.
-        '<button title="28" href="http://www.test.tld/test.html?foo[page]=28"/>'.
-        '<button title="29" href="http://www.test.tld/test.html?foo[page]=29"/>'.
-        '<button title="30" href="http://www.test.tld/test.html?foo[page]=30" down="down"/>'.
-        '</sample>',
-      $dom->saveXml($dom->documentElement)
+    $paging->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <button glyph="first.png" hint="First page"
+         href="http://www.test.tld/test.html?foo[page]=1"/>
+        <button glyph="previous.png" hint="Previous page"
+         href="http://www.test.tld/test.html?foo[page]=29"/>
+        <button title="28" href="http://www.test.tld/test.html?foo[page]=28"/>
+        <button title="29" href="http://www.test.tld/test.html?foo[page]=29"/>
+        <button title="30" href="http://www.test.tld/test.html?foo[page]=30" down="down"/>
+        </sample>',
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -329,8 +353,8 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   * @covers PapayaUiToolbarPaging::calculate
   */
   public function testAppendToWithCurrentOffsetEquals10() {
-    $dom = new PapayaXmlDocument;
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument;
+    $document->appendElement('sample');
     $paging = new PapayaUiToolbarPaging('foo/offset', 30, PapayaUiToolbarPaging::MODE_OFFSET);
     $paging->papaya(
       $this->mockPapaya()->application(
@@ -340,19 +364,20 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
       )
     );
     $paging->currentOffset = 10;
-    $paging->appendTo($dom->documentElement);
-    $this->assertEquals(
-      '<sample>'.
-        '<button glyph="previous.png" hint="Previous page"'.
-        ' href="http://www.test.tld/test.html?foo[offset]=0"/>'.
-        '<button title="1" href="http://www.test.tld/test.html?foo[offset]=0"/>'.
-        '<button title="2" href="http://www.test.tld/test.html?foo[offset]=10"'.
-        ' down="down"/>'.
-        '<button title="3" href="http://www.test.tld/test.html?foo[offset]=20"/>'.
-        '<button glyph="next.png" hint="Next page"'.
-        ' href="http://www.test.tld/test.html?foo[offset]=20"/>'.
-        '</sample>',
-      $dom->saveXml($dom->documentElement)
+    $paging->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <button glyph="previous.png" hint="Previous page"
+         href="http://www.test.tld/test.html?foo[offset]=0"/>
+        <button title="1" href="http://www.test.tld/test.html?foo[offset]=0"/>
+        <button title="2" href="http://www.test.tld/test.html?foo[offset]=10"
+         down="down"/>
+        <button title="3" href="http://www.test.tld/test.html?foo[offset]=20"/>
+        <button glyph="next.png" hint="Next page"
+         href="http://www.test.tld/test.html?foo[offset]=20"/>
+        </sample>',
+      $document->saveXML($document->documentElement)
     );
   }
 

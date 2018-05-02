@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiToolbarButtonTest extends PapayaTestCase {
@@ -28,21 +42,22 @@ class PapayaUiToolbarButtonTest extends PapayaTestCase {
   * @covers PapayaUiToolbarButton::appendTo
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument;
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument;
+    $document->appendElement('sample');
     $button = new PapayaUiToolbarButton();
     $button->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
     $button->caption = 'Test';
     $button->image = 'image';
-    $button->appendTo($dom->documentElement);
-    $this->assertEquals(
-      '<sample>'.
-        '<button href="http://www.test.tld/test.html" target="_self"'.
-          ' glyph="sample.png" title="Test"/>'.
-        '</sample>',
-      $dom->saveXml($dom->documentElement)
+    $button->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <button href="http://www.test.tld/test.html" target="_self"
+           glyph="sample.png" title="Test"/>
+        </sample>',
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -50,8 +65,8 @@ class PapayaUiToolbarButtonTest extends PapayaTestCase {
   * @covers PapayaUiToolbarButton::appendTo
   */
   public function testAppendToWithAllProperties() {
-    $dom = new PapayaXmlDocument;
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument;
+    $document->appendElement('sample');
     $button = new PapayaUiToolbarButton();
     $button->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
@@ -62,13 +77,14 @@ class PapayaUiToolbarButtonTest extends PapayaTestCase {
     $button->selected = TRUE;
     $button->accessKey = 'T';
     $button->target = '_top';
-    $button->appendTo($dom->documentElement);
-    $this->assertEquals(
-      '<sample>'.
-        '<button href="http://www.test.tld/test.html" target="_top" glyph="sample.png"'.
-          ' title="Test Caption" accesskey="T" hint="Test Hint" down="down"/>'.
-        '</sample>',
-      $dom->saveXml($dom->documentElement)
+    $button->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <button href="http://www.test.tld/test.html" target="_top" glyph="sample.png"
+           title="Test Caption" accesskey="T" hint="Test Hint" down="down"/>
+        </sample>',
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -76,16 +92,16 @@ class PapayaUiToolbarButtonTest extends PapayaTestCase {
   * @covers PapayaUiToolbarButton::appendTo
   */
   public function testAppendToWithoutProperties() {
-    $dom = new PapayaXmlDocument;
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument;
+    $document->appendElement('sample');
     $button = new PapayaUiToolbarButton();
     $button->papaya(
       $this->mockPapaya()->application(array('Images' => array('' => '')))
     );
-    $button->appendTo($dom->documentElement);
+    $button->appendTo($document->documentElement);
     $this->assertEquals(
       '<sample/>',
-      $dom->saveXml($dom->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 }

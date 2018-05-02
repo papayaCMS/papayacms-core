@@ -30,11 +30,11 @@ class PapayaUiContentTeaserImagesTest extends PapayaTestCase {
           '</image>'.
         '</subtopic>'.
       '</subtopics>';
-    $dom = new PapayaXmlDocument();
-    $dom->loadXml($xml);
-    $images = new PapayaUiContentTeaserImages($dom->documentElement, 21, 42, 'min');
+    $document = new PapayaXmlDocument();
+    $document->loadXml($xml);
+    $images = new PapayaUiContentTeaserImages($document->documentElement, 21, 42, 'min');
     $this->assertAttributeSame(
-      $dom->documentElement, '_teasers', $images
+      $document->documentElement, '_teasers', $images
     );
     $this->assertAttributeEquals(
       21, '_width', $images
@@ -60,10 +60,10 @@ class PapayaUiContentTeaserImagesTest extends PapayaTestCase {
           '</image>'.
         '</teaser>'.
       '</teasers>';
-    $dom = new PapayaXmlDocument();
-    $dom->loadXml($xml);
+    $document = new PapayaXmlDocument();
+    $document->loadXml($xml);
 
-    $images = new PapayaUiContentTeaserImages($dom->documentElement, 100, 100);
+    $images = new PapayaUiContentTeaserImages($document->documentElement, 100, 100);
     $this->assertEquals(
       '<teaser-thumbnails>'.
         '<thumbnail page-id="42">'.
@@ -88,10 +88,10 @@ class PapayaUiContentTeaserImagesTest extends PapayaTestCase {
           '</image>'.
         '</subtopic>'.
       '</subtopics>';
-    $dom = new PapayaXmlDocument();
-    $dom->loadXml($xml);
+    $document = new PapayaXmlDocument();
+    $document->loadXml($xml);
 
-    $images = new PapayaUiContentTeaserImages($dom->documentElement, 100, 100);
+    $images = new PapayaUiContentTeaserImages($document->documentElement, 100, 100);
     $this->assertEquals(
       '<subtopicthumbs>'.
         '<thumb topic="42">'.
@@ -111,10 +111,10 @@ class PapayaUiContentTeaserImagesTest extends PapayaTestCase {
       '<teasers>'.
         '<teaser page-id="42"/>'.
       '</teasers>';
-    $dom = new PapayaXmlDocument();
-    $dom->loadXml($xml);
+    $document = new PapayaXmlDocument();
+    $document->loadXml($xml);
 
-    $images = new PapayaUiContentTeaserImages($dom->documentElement, 100, 100);
+    $images = new PapayaUiContentTeaserImages($document->documentElement, 100, 100);
     $this->assertEquals(
       '', $images->getXml()
     );

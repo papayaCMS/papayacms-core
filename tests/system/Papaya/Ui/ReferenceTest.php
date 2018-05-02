@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaUiReferenceTest extends PapayaTestCase {
@@ -56,6 +70,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   */
   public function testLoadRequest() {
     $url = $this->createMock(PapayaUrl::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaRequest $request */
     $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
@@ -81,7 +96,6 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   */
   public function testPrepare() {
     $url = $this->createMock(PapayaUrl::class);
-    $url->testIdentifier = rand();
     $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
@@ -307,9 +321,11 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReference::setParameterGroupSeparator
-  * @dataProvider setParameterLevelSeparatorDataProvider
-  */
+   * @covers PapayaUiReference::setParameterGroupSeparator
+   * @dataProvider setParameterLevelSeparatorDataProvider
+   * @param string $separator
+   * @param string $expected
+   */
   public function testSetParameterGroupSeparator($separator, $expected) {
     $reference = new PapayaUiReference();
     $this->assertSame(
@@ -484,10 +500,14 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReference::getQueryString
-  * @dataProvider getQueryStringDataProvider
-  */
-  public function testGetQueryString($separator, $parameterGroup, $parameters, $expected) {
+   * @covers PapayaUiReference::getQueryString
+   * @dataProvider getQueryStringDataProvider
+   * @param string $separator
+   * @param string|NULL $parameterGroup
+   * @param array $parameters
+   * @param string $expected
+   */
+  public function testGetQueryString($separator, $parameterGroup, array $parameters, $expected) {
     $reference = new PapayaUiReference();
     $reference
       ->setParameterGroupSeparator($separator)
@@ -534,9 +554,11 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReference::setBasePath
-  * @dataProvider setBasePathDataProvider
-  */
+   * @covers PapayaUiReference::setBasePath
+   * @dataProvider setBasePathDataProvider
+   * @param string $path
+   * @param string $expected
+   */
   public function testSetBasePath($path, $expected) {
     $reference = new PapayaUiReference();
     $this->assertSame(
@@ -550,9 +572,11 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReference::setRelative
-  * @dataProvider setRelativeUrlDataProvider
-  */
+   * @covers PapayaUiReference::setRelative
+   * @dataProvider setRelativeUrlDataProvider
+   * @param string $expected
+   * @param string $relativeUrl
+   */
   public function testSetRelative($expected, $relativeUrl) {
     $reference = new PapayaUiReference();
     $reference->url(new PapayaUrl('http://www.sample.tld/path/file.html?foo=bar'));

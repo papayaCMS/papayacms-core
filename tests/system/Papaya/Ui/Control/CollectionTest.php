@@ -21,8 +21,8 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
   * @covers PapayaUiControlCollection::appendTo
   */
   public function testAppendToCallsItems() {
-    $dom = new PapayaXmlDocument();
-    $parentNode = $dom->appendElement('sample');
+    $document = new PapayaXmlDocument();
+    $parentNode = $document->appendElement('sample');
     $itemOne = $this->getMockItemFixture();
     $itemOne
       ->expects($this->once())
@@ -45,8 +45,8 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
   * @covers PapayaUiControlCollection::appendTo
   */
   public function testAppendToWithTagName() {
-    $dom = new PapayaXmlDocument();
-    $parentNode = $dom->appendElement('sample');
+    $document = new PapayaXmlDocument();
+    $parentNode = $document->appendElement('sample');
     $item = $this->getMockItemFixture();
     $item
       ->expects($this->once())
@@ -63,8 +63,8 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
   * @covers PapayaUiControlCollection::appendTo
   */
   public function testAppendToWithoutItems() {
-    $dom = new PapayaXmlDocument();
-    $parentNode = $dom->appendElement('sample');
+    $document = new PapayaXmlDocument();
+    $parentNode = $document->appendElement('sample');
     $collection = new PapayaUiControlCollection();
     $this->assertNull($collection->appendTo($parentNode));
   }

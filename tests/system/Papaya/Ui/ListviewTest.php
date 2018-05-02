@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaUiListviewTest extends PapayaTestCase {
@@ -7,16 +21,22 @@ class PapayaUiListviewTest extends PapayaTestCase {
   * @covers PapayaUiListview::appendTo
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('sample');
     $listview = new PapayaUiListview();
-    $items = $this->getMock(PapayaUiListviewItems::class, array(), array($listview));
+    $items = $this
+      ->getMockBuilder(PapayaUiListviewItems::class)
+      ->setConstructorArgs(array($listview))
+      ->getMock();
     $items
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
     $listview->items($items);
-    $columns = $this->getMock(PapayaUiListviewColumns::class, array(), array($listview));
+    $columns = $this
+      ->getMockBuilder(PapayaUiListviewColumns::class)
+      ->setConstructorArgs(array($listview))
+      ->getMock();
     $columns
       ->expects($this->once())
       ->method('appendTo')
@@ -28,10 +48,11 @@ class PapayaUiListviewTest extends PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
     $listview->toolbars($toolbars);
-    $listview->appendTo($dom->documentElement);
-    $this->assertEquals(
+    $listview->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<sample><listview/></sample>',
-      $dom->saveXml($dom->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -39,14 +60,15 @@ class PapayaUiListviewTest extends PapayaTestCase {
   * @covers PapayaUiListview::appendTo
   */
   public function testAppendToWithCaption() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('sample');
     $listview = new PapayaUiListview();
     $listview->caption = 'test caption';
-    $listview->appendTo($dom->documentElement);
-    $this->assertEquals(
+    $listview->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<sample><listview title="test caption"/></sample>',
-      $dom->saveXml($dom->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -54,14 +76,15 @@ class PapayaUiListviewTest extends PapayaTestCase {
   * @covers PapayaUiListview::appendTo
   */
   public function testAppendToWithMode() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('sample');
     $listview = new PapayaUiListview();
     $listview->mode = PapayaUiListview::MODE_THUMBNAILS;
-    $listview->appendTo($dom->documentElement);
-    $this->assertEquals(
+    $listview->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<sample><listview mode="thumbnails"/></sample>',
-      $dom->saveXml($dom->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -70,7 +93,10 @@ class PapayaUiListviewTest extends PapayaTestCase {
   */
   public function testItemsGetAfterSet() {
     $listview = new PapayaUiListview();
-    $items = $this->getMock(PapayaUiListviewItems::class, array(), array($listview));
+    $items = $this
+      ->getMockBuilder(PapayaUiListviewItems::class)
+      ->setConstructorArgs(array($listview))
+      ->getMock();
     $this->assertSame($items, $listview->items($items));
   }
 
@@ -108,7 +134,10 @@ class PapayaUiListviewTest extends PapayaTestCase {
   */
   public function testColumnsGetAfterSet() {
     $listview = new PapayaUiListview();
-    $columns = $this->getMock(PapayaUiListviewColumns::class, array(), array($listview));
+    $columns = $this
+      ->getMockBuilder(PapayaUiListviewColumns::class)
+      ->setConstructorArgs(array($listview))
+      ->getMock();
     $this->assertSame($columns, $listview->columns($columns));
   }
 

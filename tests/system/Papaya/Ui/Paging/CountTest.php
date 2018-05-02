@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiPagingCountTest extends PapayaTestCase {
@@ -29,19 +43,20 @@ class PapayaUiPagingCountTest extends PapayaTestCase {
     $paging = new PapayaUiPagingCount('foo/page', 0, 30);
     $paging->papaya($this->mockPapaya()->application());
     $paging->reference()->setParameters(array('foo' => array('size' => 10)));
-    $this->assertEquals(
-      '<paging count="3">'.
-        '<page href="http://www.test.tld/test.html?foo[page]=1&amp;foo[size]=10"'.
-        ' number="1" selected="selected"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=2&amp;foo[size]=10"'.
-        ' number="2"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=10"'.
-        ' number="3"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=2&amp;foo[size]=10"'.
-        ' number="2" type="next"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=10"'.
-        ' number="3" type="last"/>'.
-      '</paging>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<paging count="3">
+        <page href="http://www.test.tld/test.html?foo[page]=1&amp;foo[size]=10"
+         number="1" selected="selected"/>
+        <page href="http://www.test.tld/test.html?foo[page]=2&amp;foo[size]=10"
+         number="2"/>
+        <page href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=10"
+         number="3"/>
+        <page href="http://www.test.tld/test.html?foo[page]=2&amp;foo[size]=10"
+         number="2" type="next"/>
+        <page href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=10"
+         number="3" type="last"/>
+      </paging>',
       $paging->getXml()
     );
   }
@@ -55,14 +70,15 @@ class PapayaUiPagingCountTest extends PapayaTestCase {
   public function testAppendToWithCurrentPageEqualsTwo() {
     $paging = new PapayaUiPagingCount('foo/page', 2, 30);
     $paging->papaya($this->mockPapaya()->application());
-    $this->assertEquals(
-      '<paging count="3">'.
-        '<page href="http://www.test.tld/test.html?foo[page]=1" number="1" type="previous"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=1" number="1"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=2" number="2" selected="selected"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=3" number="3"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=3" number="3" type="next"/>'.
-      '</paging>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<paging count="3">
+        <page href="http://www.test.tld/test.html?foo[page]=1" number="1" type="previous"/>
+        <page href="http://www.test.tld/test.html?foo[page]=1" number="1"/>
+        <page href="http://www.test.tld/test.html?foo[page]=2" number="2" selected="selected"/>
+        <page href="http://www.test.tld/test.html?foo[page]=3" number="3"/>
+        <page href="http://www.test.tld/test.html?foo[page]=3" number="3" type="next"/>
+      </paging>',
       $paging->getXml()
     );
   }
@@ -76,14 +92,15 @@ class PapayaUiPagingCountTest extends PapayaTestCase {
   public function testAppendToWithCurrentPageGreaterLastPage() {
     $paging = new PapayaUiPagingCount('foo/page', 99, 30);
     $paging->papaya($this->mockPapaya()->application());
-    $this->assertEquals(
-      '<paging count="3">'.
-        '<page href="http://www.test.tld/test.html?foo[page]=1" number="1" type="first"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=2" number="2" type="previous"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=1" number="1"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=2" number="2"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=3" number="3" selected="selected"/>'.
-      '</paging>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<paging count="3">
+        <page href="http://www.test.tld/test.html?foo[page]=1" number="1" type="first"/>
+        <page href="http://www.test.tld/test.html?foo[page]=2" number="2" type="previous"/>
+        <page href="http://www.test.tld/test.html?foo[page]=1" number="1"/>
+        <page href="http://www.test.tld/test.html?foo[page]=2" number="2"/>
+        <page href="http://www.test.tld/test.html?foo[page]=3" number="3" selected="selected"/>
+      </paging>',
       $paging->getXml()
     );
   }
@@ -99,14 +116,15 @@ class PapayaUiPagingCountTest extends PapayaTestCase {
     $paging->papaya($this->mockPapaya()->application());
     $paging->pageLimit = 3;
     $this->assertXmlStringEqualsXmlString(
-      '<paging count="30">'.
-        '<page href="http://www.test.tld/test.html?foo[page]=1" number="1" type="previous"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=1" number="1"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=2" number="2" selected="selected"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=3" number="3"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=3" number="3" type="next"/>'.
-        '<page href="http://www.test.tld/test.html?foo[page]=30" number="30" type="last"/>'.
-      '</paging>',
+      /** @lang XML */
+      '<paging count="30">
+        <page href="http://www.test.tld/test.html?foo[page]=1" number="1" type="previous"/>
+        <page href="http://www.test.tld/test.html?foo[page]=1" number="1"/>
+        <page href="http://www.test.tld/test.html?foo[page]=2" number="2" selected="selected"/>
+        <page href="http://www.test.tld/test.html?foo[page]=3" number="3"/>
+        <page href="http://www.test.tld/test.html?foo[page]=3" number="3" type="next"/>
+        <page href="http://www.test.tld/test.html?foo[page]=30" number="30" type="last"/>
+      </paging>',
       $paging->getXml()
     );
   }
@@ -126,13 +144,14 @@ class PapayaUiPagingCountTest extends PapayaTestCase {
     );
     $paging->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
-      '<PagingLinks count="3">'.
-        '<Page href="http://www.test.tld/test.html?foo[page]=1" number="1" type="previous"/>'.
-        '<Page href="http://www.test.tld/test.html?foo[page]=1" number="1"/>'.
-        '<Page href="http://www.test.tld/test.html?foo[page]=2" number="2" selected="selected"/>'.
-        '<Page href="http://www.test.tld/test.html?foo[page]=3" number="3"/>'.
-        '<Page href="http://www.test.tld/test.html?foo[page]=3" number="3" type="next"/>'.
-      '</PagingLinks>',
+      /** @lang XML */
+      '<PagingLinks count="3">
+        <Page href="http://www.test.tld/test.html?foo[page]=1" number="1" type="previous"/>
+        <Page href="http://www.test.tld/test.html?foo[page]=1" number="1"/>
+        <Page href="http://www.test.tld/test.html?foo[page]=2" number="2" selected="selected"/>
+        <Page href="http://www.test.tld/test.html?foo[page]=3" number="3"/>
+        <Page href="http://www.test.tld/test.html?foo[page]=3" number="3" type="next"/>
+      </PagingLinks>',
       $paging->getXml()
     );
   }
@@ -173,7 +192,7 @@ class PapayaUiPagingCountTest extends PapayaTestCase {
     $paging = new PapayaUiPagingCount('page', 0, 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
-    $dummy = $paging->currentPage;
+    $paging->currentPage;
     $paging->itemsCount = 100;
     $this->assertAttributeEquals(
       100, '_itemsCount', $paging
@@ -200,7 +219,7 @@ class PapayaUiPagingCountTest extends PapayaTestCase {
     $paging = new PapayaUiPagingCount('page', 0, 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
-    $dummy = $paging->currentPage;
+    $paging->currentPage;
     $paging->itemsPerPage = 15;
     $this->assertAttributeEquals(
       15, '_itemsPerPage', $paging
@@ -227,7 +246,7 @@ class PapayaUiPagingCountTest extends PapayaTestCase {
     $paging = new PapayaUiPagingCount('page', 0, 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
-    $dummy = $paging->currentPage;
+    $paging->currentPage;
     $paging->pageLimit = 15;
     $this->assertAttributeEquals(
       15, '_pageLimit', $paging
@@ -254,7 +273,7 @@ class PapayaUiPagingCountTest extends PapayaTestCase {
     $paging = new PapayaUiPagingCount('page', 0, 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
-    $dummy = $paging->currentPage;
+    $paging->currentPage;
     $paging->currentPage = 15;
     $this->assertAttributeEquals(
       15, '_currentPage', $paging

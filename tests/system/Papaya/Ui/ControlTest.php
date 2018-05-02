@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaUiControlTest extends PapayaTestCase {
@@ -8,9 +22,9 @@ class PapayaUiControlTest extends PapayaTestCase {
   */
   public function testGetXml() {
     $control = new PapayaUiControl_TestProxy();
-    $dom = new PapayaXmlDocument;
+    $document = new PapayaXmlDocument;
     $control->nodeStub = array(
-      $dom->appendElement('sample')
+      $document->appendElement('sample')
     );
     $this->assertEquals(
       '<sample/>', $control->getXml()
@@ -22,9 +36,9 @@ class PapayaUiControlTest extends PapayaTestCase {
   */
   public function testGetXmlWithTextNode() {
     $control = new PapayaUiControl_TestProxy();
-    $dom = new PapayaXmlDocument;
+    $document = new PapayaXmlDocument;
     $control->nodeStub = array(
-      $dom->createTextNode('sample')
+      $document->createTextNode('sample')
     );
     $this->assertEquals(
       'sample', $control->getXml()
@@ -36,11 +50,11 @@ class PapayaUiControlTest extends PapayaTestCase {
   */
   public function testGetXmlWithSeveralNodes() {
     $control = new PapayaUiControl_TestProxy();
-    $dom = new PapayaXmlDocument;
+    $document = new PapayaXmlDocument;
     $control->nodeStub = array(
-      $dom->createTextNode('sample'),
-      $dom->createElement('sample'),
-      $dom->createComment('comment')
+      $document->createTextNode('sample'),
+      $document->createElement('sample'),
+      $document->createComment('comment')
     );
     $this->assertEquals(
       'sample<sample/><!--comment-->', $control->getXml()

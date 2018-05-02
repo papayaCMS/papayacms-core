@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiReferencePageTest extends PapayaTestCase {
@@ -17,6 +31,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   * @covers PapayaUiReferencePage::load
   */
   public function testLoad() {
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaRequest $request */
     $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
@@ -453,7 +468,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   */
   public function testSetFragment() {
     $reference = new PapayaUiReferencePage();
-    $reference->url($this->getUrlObjectMockFixture());
+    $reference->url(new PapayaUrl('http://www.sample.tld/index.html'));
     $this->assertSame(
       $reference,
       $reference->setFragment('sample')
@@ -565,7 +580,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   **********************************/
 
   private function getUrlObjectMockFixture() {
-    $url = $this->getMock(PapayaUrl::class, array('getHostUrl'));
+    $url = $this->createMock(PapayaUrl::class);
     $url
       ->expects($this->once())
       ->method('getHostUrl')

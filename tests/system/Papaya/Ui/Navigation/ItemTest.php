@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiNavigationItemTest extends PapayaTestCase {
@@ -20,8 +34,8 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
   * @covers PapayaUiNavigationItem::appendTo
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument();
-    $parent = $dom->appendElement('test');
+    $document = new PapayaXmlDocument();
+    $parent = $document->appendElement('test');
     $reference = $this->createMock(PapayaUiReference::class);
     $reference
       ->expects($this->once())
@@ -32,7 +46,8 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
     $this->assertInstanceOf(
       PapayaXmlElement::class, $item->appendTo($parent)
     );
-    $this->assertEquals(
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<test><link href="test.html"/></test>',
       $parent->saveXml()
     );
@@ -41,9 +56,9 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
   /**
   * @covers PapayaUiNavigationItem::appendTo
   */
-  function testAppendToWithSelectedItem() {
-    $dom = new PapayaXmlDocument();
-    $parent = $dom->appendElement('test');
+  public function testAppendToWithSelectedItem() {
+    $document = new PapayaXmlDocument();
+    $parent = $document->appendElement('test');
     $reference = $this->createMock(PapayaUiReference::class);
     $reference
       ->expects($this->once())
@@ -55,7 +70,8 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
     $this->assertInstanceOf(
       PapayaXmlElement::class, $item->appendTo($parent)
     );
-    $this->assertEquals(
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<test><link href="test.html" selected="selected"/></test>',
       $parent->saveXml()
     );

@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaUiTokensTest extends PapayaTestCase {
@@ -52,11 +66,10 @@ class PapayaUiTokensTest extends PapayaTestCase {
   */
   public function testCreateIntegration() {
     $tokens = new PapayaUiTokens();
-    $values = $this->getMock(
-      PapayaSessionValues::class,
-      array('get', 'set'),
-      array($this->createMock(PapayaSession::class))
-    );
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMock();
     $values
       ->expects($this->once())
       ->method('get')
@@ -73,7 +86,7 @@ class PapayaUiTokensTest extends PapayaTestCase {
         $this->isInstanceOf(PapayaUiTokens::class),
         $this->contains(array(NULL, 'd41d8cd98f00b204e9800998ecf8427e'))
       );
-    $session = $this->getMock(PapayaSession::class, array('__get', 'isActive'));
+    $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->any())
       ->method('isActive')
@@ -94,7 +107,7 @@ class PapayaUiTokensTest extends PapayaTestCase {
   */
   public function testCreateWithoutSessionExpectingNull() {
     $tokens = new PapayaUiTokens();
-    $session = $this->getMock(PapayaSession::class, array('getValue', 'setValue', 'isActive'));
+    $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->any())
       ->method('isActive')
@@ -156,7 +169,7 @@ class PapayaUiTokensTest extends PapayaTestCase {
   */
   public function testValidateWithoutSessionExpectingTrue() {
     $tokens = new PapayaUiTokens();
-    $session = $this->getMock(PapayaSession::class, array('getValue', 'setValue', 'isActive'));
+    $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->any())
       ->method('isActive')
@@ -290,9 +303,11 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-  * @covers  PapayaUiTokens::getVerification
-  * @dataProvider provideVerificationHashesAndData
-  */
+   * @covers PapayaUiTokens::getVerification
+   * @dataProvider provideVerificationHashesAndData
+   * @param string $expected
+   * @param mixed $for
+   */
   public function testVerification($expected, $for) {
     $tokens = new PapayaUiTokens_TestProxy();
     $this->assertEquals(
@@ -319,22 +334,31 @@ class PapayaUiTokensTest extends PapayaTestCase {
   * Fixtures
   ***************************/
 
+  /**
+   * @param object|NULL $owner
+   * @param mixed $get
+   * @param mixed $set
+   * @return PHPUnit_Framework_MockObject_MockObject|PapayaSession
+   */
   public function getSessionObjectFixture($owner, $get = NULL, $set = NULL) {
-    $session = $this->getMock(PapayaSession::class, array('__get', 'isActive'));
-    $values = $this->getMock(PapayaSessionValues::class, array('get', 'set'), array($session));
+    $session = $this->createMock(PapayaSession::class);
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($session))
+      ->getMock();
     $session
       ->expects($this->any())
       ->method('isActive')
       ->will($this->returnValue(TRUE));
-    if (!is_null($get) || !is_null($set)) {
-      if (!is_null($get)) {
+    if (NULL !== $get || NULL !== $set) {
+      if (NULL !== $get) {
         $values
           ->expects($this->once())
           ->method('get')
           ->with($this->equalTo($owner))
           ->will($this->returnValue($get));
       }
-      if (!is_null($set)) {
+      if (NULL !== $set) {
         $values
           ->expects($this->once())
           ->method('set')
@@ -355,7 +379,7 @@ class PapayaUiTokensTest extends PapayaTestCase {
 
 class PapayaUiTokens_TestProxy extends PapayaUiTokens {
 
-  public $_tokens = NULL;
+  public $_tokens;
 
   public $tokenNumber = 1;
 

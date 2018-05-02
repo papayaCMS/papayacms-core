@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaUiIconTest extends PapayaTestCase {
@@ -46,15 +60,16 @@ class PapayaUiIconTest extends PapayaTestCase {
   * @covers PapayaUiIcon::appendTo
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument();
+    $document = new PapayaXmlDocument();
     $icon = new PapayaUiIcon('sample');
     $icon->papaya(
       $this->mockPapaya()->application(array('Images' => array('sample' => 'sample.png')))
     );
-    $icon->appendTo($dom->appendElement('sample'));
-    $this->assertEquals(
+    $icon->appendTo($document->appendElement('sample'));
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<sample><glyph src="sample.png"/></sample>',
-      $dom->saveXml($dom->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -62,16 +77,17 @@ class PapayaUiIconTest extends PapayaTestCase {
   * @covers PapayaUiIcon::appendTo
   */
   public function testAppendToWithHiddenIcon() {
-    $dom = new PapayaXmlDocument();
+    $document = new PapayaXmlDocument();
     $icon = new PapayaUiIcon('sample');
     $icon->papaya(
       $this->mockPapaya()->application(array('Images' => array('sample' => 'sample.png')))
     );
     $icon->visible = FALSE;
-    $icon->appendTo($dom->appendElement('sample'));
-    $this->assertEquals(
+    $icon->appendTo($document->appendElement('sample'));
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<sample><glyph src="-"/></sample>',
-      $dom->saveXml($dom->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -79,18 +95,19 @@ class PapayaUiIconTest extends PapayaTestCase {
   * @covers PapayaUiIcon::appendTo
   */
   public function testAppendToWithLink() {
-    $dom = new PapayaXmlDocument();
+    $document = new PapayaXmlDocument();
     $icon = new PapayaUiIcon('sample', 'caption', 'hint', array('foo' => 'bar'));
     $icon->papaya(
       $this->mockPapaya()->application(array('Images' => array('sample' => 'sample.png')))
     );
-    $icon->appendTo($dom->appendElement('sample'));
-    $this->assertEquals(
-      '<sample>'.
-        '<glyph src="sample.png" caption="caption" hint="hint"'.
-        ' href="http://www.test.tld/test.html?foo=bar"/>'.
-      '</sample>',
-      $dom->saveXml($dom->documentElement)
+    $icon->appendTo($document->appendElement('sample'));
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<sample>
+        <glyph src="sample.png" caption="caption" hint="hint"
+         href="http://www.test.tld/test.html?foo=bar"/>
+      </sample>',
+      $document->saveXML($document->documentElement)
     );
   }
 

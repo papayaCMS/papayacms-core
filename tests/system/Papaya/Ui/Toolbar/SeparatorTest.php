@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiToolbarSeparatorTest extends PapayaTestCase {
@@ -7,8 +21,8 @@ class PapayaUiToolbarSeparatorTest extends PapayaTestCase {
   * @covers PapayaUiToolbarSeparator::appendTo
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('sample');
     $collection = $this->createMock(PapayaUiControlCollection::class);
     $collection
       ->expects($this->once())
@@ -21,19 +35,22 @@ class PapayaUiToolbarSeparatorTest extends PapayaTestCase {
       ->will($this->returnValue($this->createMock(PapayaUiToolbarButton::class)));
     $separator = new PapayaUiToolbarSeparator_TestProxy();
     $separator->collection($collection);
-    $separator->appendTo($dom->documentElement);
-    $this->assertEquals('<sample><separator/></sample>', $dom->saveXml($dom->documentElement));
+    $separator->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString(
+      '<sample><separator/></sample>',
+      $document->saveXML($document->documentElement)
+    );
   }
 
   /**
   * @covers PapayaUiToolbarSeparator::appendTo
   */
   public function testAppendToSeparatorNotDisplayed() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('sample');
     $separator = new PapayaUiToolbarSeparator();
-    $separator->appendTo($dom->documentElement);
-    $this->assertEquals('<sample/>', $dom->saveXml($dom->documentElement));
+    $separator->appendTo($document->documentElement);
+    $this->assertXmlStringEqualsXmlString('<sample/>', $document->saveXML($document->documentElement));
   }
 
   /**
@@ -80,7 +97,7 @@ class PapayaUiToolbarSeparatorTest extends PapayaTestCase {
   /**
   * @covers PapayaUiToolbarSeparator::isDisplayed
   */
-  public function testIsDisplayedPrevisousElementIsSeparatorExpectingFalse() {
+  public function testIsDisplayedPreviousElementIsSeparatorExpectingFalse() {
     $collection = $this->createMock(PapayaUiControlCollection::class);
     $collection
       ->expects($this->once())
