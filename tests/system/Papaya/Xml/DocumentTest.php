@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaXmlDocumentTest extends PapayaTestCase {
@@ -18,7 +32,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   */
   public function testGetXpath() {
     $document = new PapayaXmlDocument();
-    $document->loadXml('<element attribute="value">text</element>');
+    $document->loadXml(/** @lang XML */'<element attribute="value">text</element>');
     $this->assertInstanceOf('DOMXpath', $document->xpath());
   }
 
@@ -28,7 +42,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   public function testGetXpathRefreshesOnLoad() {
     $document = new PapayaXmlDocument();
     $xpathOne = $document->xpath();
-    $document->loadXml('<element attribute="value">text</element>');
+    $document->loadXml(/** @lang XML */'<element attribute="value">text</element>');
     $xpathTwo = $document->xpath();
     $this->assertNotSame($xpathOne, $xpathTwo);
   }
@@ -88,10 +102,10 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   */
   public function testAppendXml() {
     $document = new PapayaXmlDocument();
-    $document->appendXml('<element attribute="value">text</element>');
-    $this->assertEquals(
-      '<element attribute="value">text</element>',
-      $document->saveXml($document->documentElement)
+    $document->appendXml(/** @lang XML */'<element attribute="value">text</element>');
+    $this->assertXmlStringEqualsXmlString(
+    /** @lang XML */'<element attribute="value">text</element>',
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -101,10 +115,10 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   public function testAppendXmlWithTarget() {
     $document = new PapayaXmlDocument();
     $target = $document->appendElement('test');
-    $document->appendXml('<element attribute="value">text</element>', $target);
+    $document->appendXml(/** @lang XML */'<element attribute="value">text</element>', $target);
     $this->assertEquals(
-      '<test><element attribute="value">text</element></test>',
-      $document->saveXml($document->documentElement)
+    /** @lang XML */'<test><element attribute="value">text</element></test>',
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -118,7 +132,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
     );
     $this->assertEquals(
       '<one/>',
-      $document->saveXml($document->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -130,7 +144,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
     $document->appendXml('');
     $this->assertEquals(
       '<?xml version="1.0" encoding="UTF-8"?>'."\n",
-      $document->saveXml()
+      $document->saveXML()
     );
   }
 
@@ -142,7 +156,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
     $document->appendXml('<element>'.utf8_decode('äöü').'</element>');
     $this->assertEquals(
       '<element>äöü</element>',
-      $document->saveXml($document->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -155,7 +169,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
     $document->appendElement('sample', array('attribute' => 42), 'content');
     $this->assertEquals(
       '<sample attribute="42">content</sample>',
-      $document->saveXml($document->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -171,7 +185,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
     $document->appendElement('a:sample', array('attribute' => 42), 'content');
     $this->assertEquals(
       '<a:sample xmlns:a="urn:a" attribute="42">content</a:sample>',
-      $document->saveXml($document->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 
@@ -187,7 +201,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
     $document->appendElement('sample', array('a:attribute' => 42), 'content');
     $this->assertEquals(
       '<sample xmlns:a="urn:a" a:attribute="42">content</sample>',
-      $document->saveXml($document->documentElement)
+      $document->saveXML($document->documentElement)
     );
   }
 

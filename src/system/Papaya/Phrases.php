@@ -1,46 +1,45 @@
 <?php
 /**
-* Phrase bases translations. If a phrase is not yet translated the phrase is returned and used.
-*
-* @copyright 2014 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Phrases
-* @version $Id: Phrases.php 39780 2014-05-05 15:38:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
-* Phrase bases translations. If a phrase is not yet translated the phrase is returned and used.
-*
-* @package Papaya-Library
-* @subpackage Phrases
-*/
+ * Phrase bases translations. If a phrase is not yet translated the phrase is returned and used.
+ *
+ * @package Papaya-Library
+ * @subpackage Phrases
+ *
+ * @property PapayaPhrasesGroups groups
+ *
+ */
 class PapayaPhrases extends PapayaObject {
 
   /**
    * @var PapayaPhrasesGroups
    */
-  private $_groups = NULL;
+  private $_groups;
 
   /**
    * @var PapayaPhrasesStorage
    */
-  private $_storage = NULL;
+  private $_storage;
 
   /**
    * @var PapayaContentLanguage
    */
-  private $_language = NULL;
+  private $_language;
 
-  private $_defaultGroup = NULL;
+  private $_defaultGroup;
 
   public function __construct(PapayaPhrasesStorage $storage, PapayaContentLanguage $language) {
     $this->_storage = $storage;
@@ -68,8 +67,9 @@ class PapayaPhrases extends PapayaObject {
     $this->_language = $language;
   }
 
-  /*
+  /**
    * @param string $name
+   * @return mixed
    */
   public function __get($name) {
     switch($name) {
@@ -77,6 +77,18 @@ class PapayaPhrases extends PapayaObject {
       return $this->groups();
     }
     return $this->$name;
+  }
+
+  /**
+   * @param string $name
+   * @return bool
+   */
+  public function __isset($name) {
+    switch($name) {
+      case 'groups' :
+        return TRUE;
+    }
+    return FALSE;
   }
 
   /**
@@ -102,7 +114,7 @@ class PapayaPhrases extends PapayaObject {
    * @return PapayaPhrasesGroups
    */
   public function groups(PapayaPhrasesGroups $groups = NULL) {
-    if (isset($groups)) {
+    if (NULL !== $groups) {
       $this->_groups = $groups;
     } elseif (NULL === $this->_groups) {
       $this->_groups = new PapayaPhrasesGroups($this);
@@ -117,13 +129,15 @@ class PapayaPhrases extends PapayaObject {
    * @return string
    */
   public function defaultGroup($name = NULL) {
-    if (!empty($name)) {
+    if (NULL !== $name) {
       $this->_defaultGroup = $name;
     }
-    if (empty($this->_defaultGroup)) {
+    if (NULL === $this->_defaultGroup) {
       $fileNamePattern = '#^(([^\?]*)/)?([^?]+)(\.\d+)(\.(php|html))(\?.*)?#i';
       $pathNamePattern = '#^(([^\?]*)/)?([^?]+)(\?.*)?#';
-      $requestUri = $this->papaya()->request->getUrl()->getPath();
+      /** @var PapayaUrl $url */
+      $url = $this->papaya()->request->getUrl();
+      $requestUri = $url->getPath();
       $result = '';
       if (preg_match($fileNamePattern, $requestUri, $regs)) {
         $result = basename($regs[3].$regs[5]);
@@ -142,7 +156,7 @@ class PapayaPhrases extends PapayaObject {
    * @return string
    */
   private function getGroupName($groupName = NULL) {
-    if (empty($groupName)) {
+    if (NULL === $groupName) {
       $groupName = $this->defaultGroup();
     }
     return $groupName;
@@ -197,10 +211,9 @@ class PapayaPhrases extends PapayaObject {
    * @param string $groupName
    * @return string
    */
-  public function getTextFmt($phrase, $values = array(), $groupName = NULL) {
+  public function getTextFmt($phrase, array $values = array(), $groupName = NULL) {
     $result = new PapayaUiString(
-      $this->_storage->get($phrase, $this->getGroupName($groupName), $this->_language->id),
-      is_array($values) ? $values : array($values)
+      $this->_storage->get($phrase, $this->getGroupName($groupName), $this->_language->id), $values
     );
     return (string)$result;
   }

@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../bootstrap.php';
 
 class PapayaProfilerTest extends PapayaTestCase {
@@ -7,10 +21,11 @@ class PapayaProfilerTest extends PapayaTestCase {
   * @covers PapayaProfiler::__construct
   */
   public function testConstructor() {
-    $profiler = new PapayaProfiler(
-      $collector = $this->createMock(PapayaProfilerCollector::class),
-      $storage = $this->createMock(PapayaProfilerStorage::class)
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerCollector $collector */
+    $collector = $this->createMock(PapayaProfilerCollector::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerStorage $storage */
+    $storage = $this->createMock(PapayaProfilerStorage::class);
+    $profiler = new PapayaProfiler($collector, $storage);
     $this->assertAttributeSame(
       $collector, '_collector', $profiler
     );
@@ -24,10 +39,11 @@ class PapayaProfilerTest extends PapayaTestCase {
   * @covers PapayaProfiler::allowRun
   */
   public function testDivisorWithZeroExpectingAllowRunFalse() {
-    $profiler = new PapayaProfiler(
-      $collector = $this->createMock(PapayaProfilerCollector::class),
-      $storage = $this->createMock(PapayaProfilerStorage::class)
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerCollector $collector */
+    $collector = $this->createMock(PapayaProfilerCollector::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerStorage $storage */
+    $storage = $this->createMock(PapayaProfilerStorage::class);
+    $profiler = new PapayaProfiler($collector, $storage);
     $profiler->setDivisor(0);
     $this->assertFalse($profiler->allowRun());
   }
@@ -37,10 +53,11 @@ class PapayaProfilerTest extends PapayaTestCase {
   * @covers PapayaProfiler::allowRun
   */
   public function testDivisorWithOneExpectingAllowRunTrue() {
-    $profiler = new PapayaProfiler(
-      $collector = $this->createMock(PapayaProfilerCollector::class),
-      $storage = $this->createMock(PapayaProfilerStorage::class)
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerCollector $collector */
+    $collector = $this->createMock(PapayaProfilerCollector::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerStorage $storage */
+    $storage = $this->createMock(PapayaProfilerStorage::class);
+    $profiler = new PapayaProfiler($collector, $storage);
     $profiler->setDivisor(1);
     $this->assertTrue($profiler->allowRun());
   }
@@ -50,10 +67,11 @@ class PapayaProfilerTest extends PapayaTestCase {
   * @covers PapayaProfiler::allowRun
   */
   public function testDivisorWith50() {
-    $profiler = new PapayaProfiler(
-      $collector = $this->createMock(PapayaProfilerCollector::class),
-      $storage = $this->createMock(PapayaProfilerStorage::class)
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerCollector $collector */
+    $collector = $this->createMock(PapayaProfilerCollector::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerStorage $storage */
+    $storage = $this->createMock(PapayaProfilerStorage::class);
+    $profiler = new PapayaProfiler($collector, $storage);
     $profiler->setDivisor(50);
     $this->assertAttributeEquals(
       50, '_divisor', $profiler
@@ -71,10 +89,11 @@ class PapayaProfilerTest extends PapayaTestCase {
   * @covers PapayaProfiler::setDivisor
   */
   public function testDivisorWithToLargeValueExpectingMaximum() {
-    $profiler = new PapayaProfiler(
-      $collector = $this->createMock(PapayaProfilerCollector::class),
-      $storage = $this->createMock(PapayaProfilerStorage::class)
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerCollector $collector */
+    $collector = $this->createMock(PapayaProfilerCollector::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerStorage $storage */
+    $storage = $this->createMock(PapayaProfilerStorage::class);
+    $profiler = new PapayaProfiler($collector, $storage);
     $profiler->setDivisor(50000000);
     $this->assertAttributeEquals(
       999999, '_divisor', $profiler
@@ -88,10 +107,11 @@ class PapayaProfilerTest extends PapayaTestCase {
   * @covers PapayaProfiler::start
   */
   public function testStartWithAllowedRun() {
-    $profiler = new PapayaProfiler(
-      $collector = $this->createMock(PapayaProfilerCollector::class),
-      $storage = $this->createMock(PapayaProfilerStorage::class)
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerCollector $collector */
+    $collector = $this->createMock(PapayaProfilerCollector::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerStorage $storage */
+    $storage = $this->createMock(PapayaProfilerStorage::class);
+    $profiler = new PapayaProfiler($collector, $storage);
     $collector
       ->expects($this->once())
       ->method('enable');
@@ -103,10 +123,11 @@ class PapayaProfilerTest extends PapayaTestCase {
   * @covers PapayaProfiler::start
   */
   public function testStartWithoutAllowedRun() {
-    $profiler = new PapayaProfiler(
-      $collector = $this->createMock(PapayaProfilerCollector::class),
-      $storage = $this->createMock(PapayaProfilerStorage::class)
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerCollector $collector */
+    $collector = $this->createMock(PapayaProfilerCollector::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerStorage $storage */
+    $storage = $this->createMock(PapayaProfilerStorage::class);
+    $profiler = new PapayaProfiler($collector, $storage);
     $collector
       ->expects($this->never())
       ->method('enable');
@@ -118,10 +139,11 @@ class PapayaProfilerTest extends PapayaTestCase {
   * @covers PapayaProfiler::store
   */
   public function testStoreWithAllowedRun() {
-    $profiler = new PapayaProfiler(
-      $collector = $this->createMock(PapayaProfilerCollector::class),
-      $storage = $this->createMock(PapayaProfilerStorage::class)
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerCollector $collector */
+    $collector = $this->createMock(PapayaProfilerCollector::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerStorage $storage */
+    $storage = $this->createMock(PapayaProfilerStorage::class);
+    $profiler = new PapayaProfiler($collector, $storage);
     $collector
       ->expects($this->once())
       ->method('disable')
@@ -138,10 +160,11 @@ class PapayaProfilerTest extends PapayaTestCase {
   * @covers PapayaProfiler::store
   */
   public function testStoreWithoutAllowedRun() {
-    $profiler = new PapayaProfiler(
-      $collector = $this->createMock(PapayaProfilerCollector::class),
-      $storage = $this->createMock(PapayaProfilerStorage::class)
-    );
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerCollector $collector */
+    $collector = $this->createMock(PapayaProfilerCollector::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaProfilerStorage $storage */
+    $storage = $this->createMock(PapayaProfilerStorage::class);
+    $profiler = new PapayaProfiler($collector, $storage);
     $collector
       ->expects($this->never())
       ->method('disable');

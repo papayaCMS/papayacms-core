@@ -1,4 +1,17 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 require_once __DIR__.'/../../../vendor/papaya/test-framework/src/PapayaTestCase.php';
 
@@ -20,9 +33,11 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAutoloader
-  * @dataProvider getClassFileDataProvider
-  */
+   * @covers PapayaAutoloader
+   * @dataProvider getClassFileDataProvider
+   * @param string $expected
+   * @param string $className
+   */
   public function testGetClassFile($expected, $className) {
     $this->assertStringEndsWith(
       $expected,
@@ -44,7 +59,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   */
   public function testRegisterPath() {
     PapayaAutoloader::clear();
-    PapayaAutoloader::registerPath(PapayaModuleSample::class, '/foo/bar');
+    PapayaAutoloader::registerPath('PapayaModuleSample', '/foo/bar');
     $this->assertAttributeEquals(
       array('/Papaya/Module/Sample/' => '/foo/bar/'), '_paths', PapayaAutoloader::class
     );
@@ -80,9 +95,13 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAutoloader
-  * @dataProvider getModuleClassFileDataProvider
-  */
+   * @covers PapayaAutoloader
+   * @dataProvider getModuleClassFileDataProvider
+   * @param string $expected
+   * @param string $moduleClass
+   * @param string $modulePrefix
+   * @param string $modulePath
+   */
   public function testGetClassFileAfterPathRegistration(
     $expected, $moduleClass, $modulePrefix, $modulePath
   ) {

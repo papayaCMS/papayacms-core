@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../bootstrap.php';
 
 class PapayaResponseTest extends PapayaTestCase {
@@ -138,7 +152,7 @@ class PapayaResponseTest extends PapayaTestCase {
   * @covers PapayaResponse::setContentType
   */
   public function testSetContentType() {
-    $headers = $this->getMock(PapayaResponseHeaders::class, array('set'));
+    $headers = $this->createMock(PapayaResponseHeaders::class);
     $headers
       ->expects($this->once())
       ->method('set')
@@ -152,7 +166,7 @@ class PapayaResponseTest extends PapayaTestCase {
   * @covers PapayaResponse::setContentType
   */
   public function testSetContentTypeAndEncoding() {
-    $headers = $this->getMock(PapayaResponseHeaders::class, array('set'));
+    $headers = $this->createMock(PapayaResponseHeaders::class);
     $headers
       ->expects($this->once())
       ->method('set')
@@ -163,10 +177,15 @@ class PapayaResponseTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaResponse::setCache
-  * @dataProvider provideCacheHeaders
-  */
-  public function testSetCache($expected, $cacheMode, $cachePeriod, $cacheStartTime, $now) {
+   * @covers PapayaResponse::setCache
+   * @dataProvider provideCacheHeaders
+   * @param array $expected
+   * @param int $cacheMode
+   * @param int $cachePeriod
+   * @param int $cacheStartTime
+   * @param int $now
+   */
+  public function testSetCache(array $expected, $cacheMode, $cachePeriod, $cacheStartTime, $now) {
     $response = new PapayaResponse();
     $response->setCache($cacheMode, $cachePeriod, $cacheStartTime, $now);
     $this->assertAttributeEquals(
@@ -326,7 +345,7 @@ class PapayaResponseTest extends PapayaTestCase {
   * @covers PapayaResponse::send
   */
   public function testSendWithCustomHeaders() {
-    $headers = $this->getMock(PapayaResponseHeaders::class, array('getIterator'));
+    $headers = $this->createMock(PapayaResponseHeaders::class);
     $headers
       ->expects($this->once())
       ->method('getIterator')

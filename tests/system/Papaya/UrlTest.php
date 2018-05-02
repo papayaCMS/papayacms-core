@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../bootstrap.php';
 
 class PapayaUrlTest extends PapayaTestCase {
@@ -26,11 +40,14 @@ class PapayaUrlTest extends PapayaTestCase {
       $this->readAttribute($urlObject, '_elements')
     );
   }
+
   /**
-  * @covers PapayaUrl::setUrl
-  * @dataProvider setUrlDataProvider
-  */
-  public function testSetUrl($url, $expected) {
+   * @covers PapayaUrl::setUrl
+   * @dataProvider setUrlDataProvider
+   * @param string $url
+   * @param array $expected
+   */
+  public function testSetUrl($url, array $expected) {
     $urlObject = new PapayaUrl();
     $urlObject->setUrl($url);
     $this->assertAttributeEquals(
@@ -69,9 +86,10 @@ class PapayaUrlTest extends PapayaTestCase {
 
 
   /**
-  * @covers PapayaUrl::getUrl
-  * @dataProvider getUrlDataProvider
-  */
+   * @covers PapayaUrl::getUrl
+   * @dataProvider getUrlDataProvider
+   * @param string $url
+   */
   public function testGetUrl($url) {
     $urlObject = new PapayaUrl();
     $urlObject->setUrl($url);
@@ -95,9 +113,11 @@ class PapayaUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUrl::getHostUrl
-  * @dataProvider getHostUrlDataProvider
-  */
+   * @covers PapayaUrl::getHostUrl
+   * @dataProvider getHostUrlDataProvider
+   * @param string $url
+   * @param string $hostUrl
+   */
   public function testGetHostUrl($url, $hostUrl) {
     $urlObject = new PapayaUrl();
     $urlObject->setUrl($url);
@@ -138,9 +158,13 @@ class PapayaUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUrl::setHost
-  * @dataProvider setHostDataProvider
-  */
+   * @covers PapayaUrl::setHost
+   * @dataProvider setHostDataProvider
+   * @param string $url
+   * @param string $host
+   * @param array $elements
+   * @param string $expected
+   */
   public function testSetHost($url, $host, $elements, $expected) {
     $urlObject = new PapayaUrl();
     $urlObject->setUrl($url);
@@ -154,10 +178,11 @@ class PapayaUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUrl::setHost
-  * @expectedException InvalidArgumentException
-  * @dataProvider setHostDataProviderExceptions
-  */
+   * @covers PapayaUrl::setHost
+   * @expectedException InvalidArgumentException
+   * @dataProvider setHostDataProviderExceptions
+   * @param string $host
+   */
   public function testSetHostExpectingException($host) {
     $urlObject = new PapayaUrl();
     $urlObject->setUrl('http://www.domain.tld');
@@ -258,9 +283,11 @@ class PapayaUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUrl::__call
-  * @dataProvider provideValidDataForMagicMethodCall
-  */
+   * @covers PapayaUrl::__call
+   * @dataProvider provideValidDataForMagicMethodCall
+   * @param mixed $expected
+   * @param string $method
+   */
   public function testMagicMethodCall($expected, $method) {
     $urlObject = new PapayaUrl('http://username:password@hostname:8080/path?arg=value#anchor');
     $this->assertEquals(
@@ -279,9 +306,11 @@ class PapayaUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUrl::__get
-  * @dataProvider provideValidDataForMagicMethodGet
-  */
+   * @covers PapayaUrl::__get
+   * @dataProvider provideValidDataForMagicMethodGet
+   * @param mixed $expected
+   * @param string $property
+   */
   public function testMagicMethodGet($expected, $property) {
     $urlObject = new PapayaUrl('http://username:password@hostname:8080/path?arg=value#anchor');
     $this->assertEquals(
@@ -300,9 +329,11 @@ class PapayaUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUrl
-  * @dataProvider provideValidDataForMagicMethodSet
-  */
+   * @covers PapayaUrl
+   * @dataProvider provideValidDataForMagicMethodSet
+   * @param mixed $expected
+   * @param string $property
+   */
   public function testMagicMethodSet($expected, $property) {
     $urlObject = new PapayaUrl('http://username:password@hostname:8080/path?arg=value#anchor');
     $urlObject->$property = $expected;
@@ -312,9 +343,11 @@ class PapayaUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUrl
-  * @dataProvider provideInvalidDataForMagicMethodSet
-  */
+   * @covers PapayaUrl
+   * @dataProvider provideInvalidDataForMagicMethodSet
+   * @param string $property
+   * @param mixed $value
+   */
   public function testMagicMethodSetWithInvalidValueExpectionException($property, $value) {
     $urlObject = new PapayaUrl('http://test.tld');
     $this->expectException(InvalidArgumentException::class);
@@ -500,7 +533,7 @@ class PapayaUrl_TestProxy_ForToString extends PapayaUrl {
   /**
    * @var Exception
    */
-  public $exception = NULL;
+  public $exception;
 
   public function getUrl() {
     throw $this->exception;

@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../bootstrap.php';
 
 class PapayaConfigurationTest extends PapayaTestCase {
@@ -22,7 +36,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   */
   public function testConstructorDefinesInvalidOptionExpectingException() {
     $this->expectException(UnexpectedValueException::class);
-    $config = new PapayaConfiguration(
+    new PapayaConfiguration(
       array('sample' => new stdClass)
     );
   }
@@ -86,6 +100,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   */
   public function testGetOptionWithCasting() {
     $config = new PapayaConfiguration_TestProxy();
+    /** @noinspection PhpDeprecationInspection */
     $this->assertSame(
       42, $config->getOption('SAMPLE_INT', 23)
     );
@@ -143,6 +158,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   public function testAssignWithInvalidArgumentExpectingException() {
     $config = new PapayaConfiguration_TestProxy();
     $this->expectException(UnexpectedValueException::class);
+    /** @noinspection PhpParamsInspection */
     $config->assign('STRING');
   }
 
@@ -164,7 +180,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
     $config = new PapayaConfiguration_TestProxy();
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('No storage assigned to configuration.');
-    $storage = $config->storage();
+    $config->storage();
   }
 
   /**
@@ -320,6 +336,9 @@ class PapayaConfigurationTest extends PapayaTestCase {
   }
 }
 
+/**
+ * @property int sampleInt
+ */
 class PapayaConfiguration_TestProxy extends PapayaConfiguration {
 
   public function __construct() {
