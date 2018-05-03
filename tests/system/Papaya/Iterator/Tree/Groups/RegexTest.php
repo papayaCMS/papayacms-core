@@ -23,7 +23,7 @@ class PapayaIteratorTreeGroupsRegexTest extends PapayaTestCase {
   public function testIteration() {
     $iterator = new PapayaIteratorTreeGroupsRegex(
       array('Administration', 'Application', 'Cache', 'Configuration', 'Iterator'),
-      '(^(?P<char>.))',
+        /** @lang Text */'(^(?P<char>.))',
       'char'
     );
     $this->assertEquals(
@@ -50,7 +50,7 @@ class PapayaIteratorTreeGroupsRegexTest extends PapayaTestCase {
   public function testIterationKeepIndex() {
     $iterator = new PapayaIteratorTreeGroupsRegex(
       array('admin' => 'Administration', 'app' => 'Application'),
-      '(^(?P<char>.))',
+      /** @lang Text */'(^(?P<char>.))',
       'char'
     );
     $this->assertEquals(
@@ -133,7 +133,7 @@ class PapayaIteratorTreeGroupsRegexTest extends PapayaTestCase {
   public function testIterationMatchingKeys() {
     $iterator = new PapayaIteratorTreeGroupsRegex(
       array('admin' => 'Administration', 'app' => 'Application'),
-      '(^(?P<char>.))',
+      /** @lang Text */'(^(?P<char>.))',
       'char',
       PapayaIteratorTreeGroupsRegex::GROUP_KEYS
     );

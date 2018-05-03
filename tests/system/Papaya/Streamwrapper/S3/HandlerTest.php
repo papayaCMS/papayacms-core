@@ -331,7 +331,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getResponseStatus')
       ->will($this->returnValue(200));
-    $xmlResponse = '<?xml version="1.0" encoding="UTF-8"?>
+    $xmlResponse = /** @lang XML */'<?xml version="1.0" encoding="UTF-8"?>
       <ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
         <Name>bucketname</Name>
         <Prefix>objectkey/</Prefix>
@@ -411,7 +411,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getResponseStatus')
       ->will($this->returnValue(200));
-    $xmlResponse = '<?xml version="1.0" encoding="UTF-8"?>
+    $xmlResponse = /** @lang XML */'<?xml version="1.0" encoding="UTF-8"?>
       <ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
       </ListBucketResult>
     ';

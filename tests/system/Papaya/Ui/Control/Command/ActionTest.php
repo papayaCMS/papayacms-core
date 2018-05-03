@@ -36,7 +36,7 @@ class PapayaUiControlCommandActionTest extends PapayaTestCase {
     $command->callbacks()->getDefinition = array($this, 'callbackGetDefinition');
     $command->callbacks()->onValidationSuccessful = array($this, 'callbackValidationSuccessful');
     $this->assertAppendedXmlEqualsXmlFragment(
-      '<success>success</success>', $command
+      /** @lang XML */'<success>success</success>', $command
     );
   }
 
@@ -49,7 +49,7 @@ class PapayaUiControlCommandActionTest extends PapayaTestCase {
     $command->callbacks()->getDefinition = array($this, 'callbackGetDefinition');
     $command->callbacks()->onValidationFailed = array($this, 'callbackValidationFailed');
     $this->assertAppendedXmlEqualsXmlFragment(
-      '<failed/>', $command
+      /** @lang XML */'<failed/>', $command
     );
   }
 

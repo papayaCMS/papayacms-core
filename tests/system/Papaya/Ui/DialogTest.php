@@ -315,6 +315,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
     $dialog->buttons($buttons);
     $dialog->options($options);
     $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">
         <input type="hidden" name="confirmation" value="true"/>
         <input type="hidden" name="token" value="TOKEN_STRING"/>
@@ -340,7 +341,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->options($options);
     $this->assertEquals(
-      '<dialog-box action="http://www.test.tld/test.html" method="post"/>',
+    /** @lang XML */'<dialog-box action="http://www.test.tld/test.html" method="post"/>',
       $dialog->getXml()
     );
   }

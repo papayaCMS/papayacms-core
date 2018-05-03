@@ -123,7 +123,7 @@ class PapayaMessageContextGroupTest extends PapayaTestCase {
   public function testAsString() {
     $group = $this->getContextGroupFixture();
     $this->assertEquals(
-      'Universe'."\n\n".'Hello <World>'."\n\n".'Hello World',
+      /** @lang Text */"Universe\n\nHello <World>\n\nHello World",
       $group->asString()
     );
   }
@@ -133,10 +133,11 @@ class PapayaMessageContextGroupTest extends PapayaTestCase {
   */
   public function testAsXhtml() {
     $group = $this->getContextGroupFixture();
-    $this->assertEquals(
-      '<div class="group"><h3>Universe</h3></div>'.
-      '<div class="group">Hello &lt;World&gt;</div>'.
-      '<div class="group">Hello <b>World</b></div>',
+    $this->assertXmlFragmentEqualsXmlFragment(
+      // language=XML prefix=<fragment> suffix=</fragment>
+      '<div class="group"><h3>Universe</h3></div>
+      <div class="group">Hello &lt;World&gt;</div>
+      <div class="group">Hello <b>World</b></div>',
       $group->asXhtml()
     );
   }
@@ -154,13 +155,16 @@ class PapayaMessageContextGroupTest extends PapayaTestCase {
     $elementString
       ->expects($this->any())
       ->method('asString')
-      ->will($this->returnValue('Hello <World>'));
+      ->willReturn(/** @lang Text */'Hello <World>');
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextInterface $elementXhtml */
     $elementXhtml = $this->createMock(PapayaMessageContextInterfaceXhtml::class);
     $elementXhtml
       ->expects($this->any())
       ->method('asXhtml')
-      ->will($this->returnValue('Hello <b>World</b>'));
+      ->willReturn(
+      // language=XML prefix=<fragment> suffix=</fragment>
+      'Hello <b>World</b>'
+      );
     $group
       ->append($elementLabeled)
       ->append($elementString)

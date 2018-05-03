@@ -157,7 +157,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
     $engine = new PapayaTemplateEngine_TestProxy();
     $engine->values($document);
     $this->assertXmlStringEqualsXmlString(
-      '<?xml version="1.0" encoding="UTF-8"?><test/>',
+    /** @lang XML */'<?xml version="1.0" encoding="UTF-8"?><test/>',
       $engine->values()->saveXML($engine->getContext())
     );
   }
@@ -173,7 +173,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
     $engine = new PapayaTemplateEngine_TestProxy();
     $engine->values($node);
     $this->assertEquals(
-      '<sample/>', $engine->values()->saveXML($engine->getContext())
+    /** @lang XML */'<sample/>', $engine->values()->saveXML($engine->getContext())
     );
   }
 
@@ -186,7 +186,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
     $engine = new PapayaTemplateEngine_TestProxy();
     $engine->values($node);
     $this->assertEquals(
-      '<test/>', $engine->values()->saveXML($engine->getContext())
+    /** @lang XML */'<test/>', $engine->values()->saveXML($engine->getContext())
     );
   }
 

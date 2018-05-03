@@ -45,7 +45,7 @@ class PapayaTemplateTest extends PapayaTestCase {
     $document
       ->expects($this->once())
       ->method('loadXml')
-      ->with('<page/>');
+      ->with(/** @lang XML */'<page/>');
     $values = $this->createMock(PapayaTemplateValues::class);
     $values
       ->expects($this->once())
@@ -54,7 +54,7 @@ class PapayaTemplateTest extends PapayaTestCase {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
     $template->values($values);
-    $template->setXml('<page/>');
+    $template->setXml(/** @lang XML */'<page/>');
   }
 
   /**
@@ -65,7 +65,7 @@ class PapayaTemplateTest extends PapayaTestCase {
     $document
       ->expects($this->once())
       ->method('saveXml')
-      ->will($this->returnValue('<page/>'));
+      ->will($this->returnValue(/** @lang XML */'<page/>'));
     $values = $this->createMock(PapayaTemplateValues::class);
     $values
       ->expects($this->once())
@@ -74,7 +74,7 @@ class PapayaTemplateTest extends PapayaTestCase {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
     $template->values($values);
-    $this->assertEquals('<page/>', $template->getXml());
+    $this->assertEquals(/** @lang XML */'<page/>', $template->getXml());
   }
 
   /**
@@ -138,7 +138,7 @@ class PapayaTemplateTest extends PapayaTestCase {
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
     $template->add($dom->createElement('foo'));
     $this->assertXmlStringEqualsXmlString(
-      '<page><centercol><foo/></centercol></page>',
+      /** @lang XML */'<page><centercol><foo/></centercol></page>',
       $template->getXml()
     );
   }
@@ -155,7 +155,7 @@ class PapayaTemplateTest extends PapayaTestCase {
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
     $template->add($appendable);
     $this->assertXmlStringEqualsXmlString(
-      '<page><centercol></centercol></page>',
+      /** @lang XML */'<page><centercol/></page>',
       $template->getXml()
     );
   }
@@ -166,9 +166,9 @@ class PapayaTemplateTest extends PapayaTestCase {
   public function testAddWithXmlString() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
-    $template->add('<foo/>');
+    $template->add(/** @lang XML */'<foo/>');
     $this->assertXmlStringEqualsXmlString(
-      '<page><centercol><foo/></centercol></page>',
+      /** @lang XML */'<page><centercol><foo/></centercol></page>',
       $template->getXml()
     );
   }
@@ -181,7 +181,7 @@ class PapayaTemplateTest extends PapayaTestCase {
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
     $template->add('foo');
     $this->assertXmlStringEqualsXmlString(
-      '<page><centercol>foo</centercol></page>',
+      /** @lang XML */'<page><centercol>foo</centercol></page>',
       $template->getXml()
     );
   }
@@ -192,9 +192,12 @@ class PapayaTemplateTest extends PapayaTestCase {
   public function testAddWithStringContainingInvalidCharacters() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
-    $template->add('foo &auml; & <bar/>');
+    $template->add(
+      /** @lang Text */
+      'foo &auml; & <bar/>'
+    );
     $this->assertXmlStringEqualsXmlString(
-      '<page><centercol>foo ä &amp; <bar/></centercol></page>',
+    /** @lang XML */'<page><centercol>foo ä &amp; <bar/></centercol></page>',
       $template->getXml()
     );
   }
@@ -208,7 +211,7 @@ class PapayaTemplateTest extends PapayaTestCase {
   public function testAddWithDynamicMethods($expected, $method) {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
-    $template->$method('<foo/>');
+    $template->$method(/** @lang XML */'<foo/>');
     $this->assertXmlStringEqualsXmlString(
       $expected,
       $template->getXml()
@@ -234,7 +237,7 @@ class PapayaTemplateTest extends PapayaTestCase {
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
     $this->expectException(LogicException::class);
     /** @noinspection PhpUndefinedMethodInspection */
-    $template->addInvalidTarget('<foo/>');
+    $template->addInvalidTarget(/** @lang XML */'<foo/>');
   }
 
   /**
@@ -245,7 +248,7 @@ class PapayaTemplateTest extends PapayaTestCase {
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
     $this->expectException(LogicException::class);
     /** @noinspection PhpUndefinedMethodInspection */
-    $template->invalidMethod('<foo/>');
+    $template->invalidMethod(/** @lang XML */'<foo/>');
   }
 
 
@@ -255,9 +258,9 @@ class PapayaTemplateTest extends PapayaTestCase {
   public function testAddData() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
-    $template->addData('<foo/>');
+    $template->addData(/** @lang XML */'<foo/>');
     $this->assertXmlStringEqualsXmlString(
-      '<page><centercol><foo/></centercol></page>',
+      /** @lang XML */'<page><centercol><foo/></centercol></page>',
       $template->getXml()
     );
   }
@@ -283,7 +286,7 @@ class PapayaTemplateTest extends PapayaTestCase {
     $document
       ->expects($this->once())
       ->method('saveXml')
-      ->will($this->returnValue('<page/>'));
+      ->will($this->returnValue(/** @lang XML */'<page/>'));
     $values = $this->createMock(PapayaTemplateValues::class);
     $values
       ->expects($this->once())
@@ -293,7 +296,7 @@ class PapayaTemplateTest extends PapayaTestCase {
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
     $template->values($values);
     /** @noinspection PhpDeprecationInspection */
-    $this->assertEquals('<page/>', $template->xml());
+    $this->assertEquals(/** @lang XML */'<page/>', $template->xml());
   }
 
   /**********************
@@ -303,36 +306,36 @@ class PapayaTemplateTest extends PapayaTestCase {
   public static function providesDataForAddWithTarget() {
     return array(
       'navigation' => array(
-        '<page><leftcol><foo/></leftcol></page>',
+        /** @lang XML */'<page><leftcol><foo/></leftcol></page>',
         'addNavigation'
       ),
       'content' => array(
-        '<page><centercol><foo/></centercol></page>',
+        /** @lang XML */'<page><centercol><foo/></centercol></page>',
         'addContent'
       ),
       'information' => array(
-        '<page><rightcol><foo/></rightcol></page>',
+        /** @lang XML */'<page><rightcol><foo/></rightcol></page>',
         'addInformation'
       ),
       'menu' => array(
-        '<page><menus><foo/></menus></page>',
+        /** @lang XML */'<page><menus><foo/></menus></page>',
         'addMenu'
       ),
       'script' => array(
-        '<page><scripts><foo/></scripts></page>',
+        /** @lang XML */'<page><scripts><foo/></scripts></page>',
         'addScript'
       ),
       // old methods, bc
       'left' => array(
-        '<page><leftcol><foo/></leftcol></page>',
+        /** @lang XML */'<page><leftcol><foo/></leftcol></page>',
         'addLeft'
       ),
       'center' => array(
-        '<page><centercol><foo/></centercol></page>',
+        /** @lang XML */'<page><centercol><foo/></centercol></page>',
         'addCenter'
       ),
       'right' => array(
-        '<page><rightcol><foo/></rightcol></page>',
+        /** @lang XML */'<page><rightcol><foo/></rightcol></page>',
         'addRight'
       ),
     );

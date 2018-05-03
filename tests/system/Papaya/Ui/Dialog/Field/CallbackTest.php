@@ -80,7 +80,7 @@ class PapayaUiDialogFieldCallbackTest extends PapayaTestCase {
   }
 
   public function callbackGetFieldString() {
-    return '<select/>';
+    return /** @lang XML */ '<select/>';
   }
 
   public function callbackGetFieldDomElement() {

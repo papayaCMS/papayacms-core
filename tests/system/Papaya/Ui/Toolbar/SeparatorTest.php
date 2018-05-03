@@ -37,7 +37,7 @@ class PapayaUiToolbarSeparatorTest extends PapayaTestCase {
     $separator->collection($collection);
     $separator->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
-      '<sample><separator/></sample>',
+      /** @lang XML */'<sample><separator/></sample>',
       $document->saveXML($document->documentElement)
     );
   }
@@ -50,7 +50,7 @@ class PapayaUiToolbarSeparatorTest extends PapayaTestCase {
     $document->appendElement('sample');
     $separator = new PapayaUiToolbarSeparator();
     $separator->appendTo($document->documentElement);
-    $this->assertXmlStringEqualsXmlString('<sample/>', $document->saveXML($document->documentElement));
+    $this->assertXmlStringEqualsXmlString(/** @lang XML */'<sample/>', $document->saveXML($document->documentElement));
   }
 
   /**

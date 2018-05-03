@@ -23,7 +23,7 @@ class PapayaUiSheetTest extends PapayaTestCase {
   public function testAppendTo() {
     $sheet = new PapayaUiSheet();
     $this->assertXmlStringEqualsXmlString(
-      '<sheet><text/></sheet>',
+      /** @lang XML */'<sheet><text/></sheet>',
       $sheet->getXml()
     );
   }

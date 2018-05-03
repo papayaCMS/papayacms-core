@@ -23,7 +23,7 @@ class PapayaUiDialogFieldXhtmlTest extends PapayaTestCase {
   public function testConstructor() {
     $xhtml = new PapayaUiDialogFieldXhtml('<strong>Test</strong>');
     $this->assertEquals(
-      '<xhtml><strong>Test</strong></xhtml>',
+      /** @lang XML */'<xhtml><strong>Test</strong></xhtml>',
       $xhtml->content()->saveXml()
     );
   }

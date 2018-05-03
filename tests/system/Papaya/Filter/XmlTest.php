@@ -44,7 +44,7 @@ class PapayaFilterXmlTest extends PapayaTestCase {
    */
   public function testValidateWithDocument() {
     $filter = new PapayaFilterXml(FALSE);
-    $this->assertTrue($filter->validate('<html/>'));
+    $this->assertTrue($filter->validate(/** @lang XML */'<html/>'));
   }
 
   /**

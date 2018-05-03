@@ -100,7 +100,7 @@ class PapayaUiToolbarButtonTest extends PapayaTestCase {
     );
     $button->appendTo($document->documentElement);
     $this->assertEquals(
-      '<sample/>',
+    /** @lang XML */'<sample/>',
       $document->saveXML($document->documentElement)
     );
   }

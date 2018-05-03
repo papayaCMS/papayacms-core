@@ -38,7 +38,7 @@ class PapayaUiHierarchyItemsTest extends PapayaTestCase {
     $items[] = $this->getItemFixture(TRUE);
     $items[] = $this->getItemFixture(TRUE);
 
-    $this->assertSame('<items/>', $items->getXml());
+    $this->assertSame(/** @lang XML */'<items/>', $items->getXml());
   }
 
   /**

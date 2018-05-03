@@ -27,6 +27,7 @@ class PapayaUiDialogOptionsTest extends PapayaTestCase {
     $options = new PapayaUiDialogOptions();
     $options->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<options>
         <option name="USE_CONFIRMATION" value="yes"/>
         <option name="USE_TOKEN" value="yes"/>

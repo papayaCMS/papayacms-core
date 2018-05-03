@@ -82,13 +82,13 @@ class PapayaTemplateXsltTest extends PapayaTestCase {
    */
   public function testParseExpectingXml() {
     $engine = $this->getEngineFixture(
-      '<?xml version="1.0"?><test xmlns="urn:default" xmlns:empty="" xmlns:foo="urn:bar"/>'
+      /** @lang XML */'<?xml version="1.0"?><test xmlns="urn:default" xmlns:empty="" xmlns:foo="urn:bar"/>'
     );
     $template = new PapayaTemplateXslt('test.xsl');
     $template->papaya($this->mockPapaya()->application());
     $template->engine($engine);
     $this->assertEquals(
-      '<?xml version="1.0"?><test xmlns="urn:default" xmlns:foo="urn:bar"/>',
+      /** @lang XML */'<?xml version="1.0"?><test xmlns="urn:default" xmlns:foo="urn:bar"/>',
       $template->parse()
     );
   }
@@ -98,13 +98,13 @@ class PapayaTemplateXsltTest extends PapayaTestCase {
    */
   public function testParseExpectingXmlRemoveXmlPi() {
     $engine = $this->getEngineFixture(
-      '<?xml version="1.0"?><test xmlns:empty="" xmlns:foo="urn:bar"/>'
+      /** @lang XML */'<?xml version="1.0"?><test xmlns:empty="" xmlns:foo="urn:bar"/>'
     );
     $template = new PapayaTemplateXslt('test.xsl');
     $template->papaya($this->mockPapaya()->application());
     $template->engine($engine);
     $this->assertEquals(
-      '<test xmlns:empty="" xmlns:foo="urn:bar"/>',
+      /** @lang XML */'<test xmlns:empty="" xmlns:foo="urn:bar"/>',
       $template->parse(PapayaTemplateXslt::STRIP_XML_PI)
     );
   }
@@ -114,13 +114,13 @@ class PapayaTemplateXsltTest extends PapayaTestCase {
    */
   public function testParseExpectingXmlRemoveXmlNamespaces() {
     $engine = $this->getEngineFixture(
-      '<?xml version="1.0"?><test xmlns:empty="" xmlns:foo="urn:bar"/>'
+      /** @lang XML */'<?xml version="1.0"?><test xmlns:empty="" xmlns:foo="urn:bar"/>'
     );
     $template = new PapayaTemplateXslt('test.xsl');
     $template->papaya($this->mockPapaya()->application());
     $template->engine($engine);
     $this->assertEquals(
-      '<?xml version="1.0"?><test xmlns:foo="urn:bar"/>',
+      /** @lang XML */'<?xml version="1.0"?><test xmlns:foo="urn:bar"/>',
       $template->parse(PapayaTemplateXslt::STRIP_XML_EMPTY_NAMESPACE)
     );
   }

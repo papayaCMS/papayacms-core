@@ -25,7 +25,7 @@ class PapayaXmlElementTest extends PapayaTestCase {
     $element = $document->appendElement('sample');
     $element->append(new PapayaXmlAppendable_TestImplementation());
     $this->assertEquals(
-      '<sample><success/></sample>',
+    /** @lang XML */'<sample><success/></sample>',
       $document->saveXML($element)
     );
   }
@@ -39,7 +39,7 @@ class PapayaXmlElementTest extends PapayaTestCase {
     $document->appendChild($element);
     $element->appendElement('test', array('attribute' => 42), 'content');
     $this->assertEquals(
-      '<sample><test attribute="42">content</test></sample>',
+      /** @lang XML */'<sample><test attribute="42">content</test></sample>',
       $document->saveXML($element)
     );
   }
@@ -53,7 +53,7 @@ class PapayaXmlElementTest extends PapayaTestCase {
     $document->appendChild($element);
     $element->appendText('content');
     $this->assertEquals(
-      '<sample>content</sample>',
+      /** @lang XML */'<sample>content</sample>',
       $document->saveXML($element)
     );
   }
@@ -67,7 +67,7 @@ class PapayaXmlElementTest extends PapayaTestCase {
     $element = $document->createElement('sample');
     $element->appendTo($target);
     $this->assertEquals(
-      '<sample/>',
+    /** @lang XML */'<sample/>',
       $target->saveXML($target->documentElement)
     );
   }
@@ -82,7 +82,7 @@ class PapayaXmlElementTest extends PapayaTestCase {
     $element = $document->createElement('test');
     $element->appendTo($target);
     $this->assertEquals(
-      '<sample><test/></sample>',
+    /** @lang XML */'<sample><test/></sample>',
       $document->saveXML($target)
     );
   }
@@ -104,9 +104,12 @@ class PapayaXmlElementTest extends PapayaTestCase {
     $document = new PapayaXmlDocument();
     $target = $document->createElement('sample');
     $document->appendChild($target);
-    $target->appendXml('<element/>text<element attribute="value"/>');
+    $target->appendXml(
+      // language=XML prefix=<fragment> suffix=</fragment>
+      '<element/>text<element attribute="value"/>'
+    );
     $this->assertEquals(
-      '<sample><element/>text<element attribute="value"/></sample>',
+    /** @lang XML */'<sample><element/>text<element attribute="value"/></sample>',
       $document->saveXML($target)
     );
   }
@@ -120,7 +123,7 @@ class PapayaXmlElementTest extends PapayaTestCase {
     $target = $document->createElement('test');
     $document->documentElement->appendChild($target);
     $this->assertEquals(
-      '<test/>',
+      /** @lang XML */'<test/>',
       $target->saveXml()
     );
   }
@@ -134,6 +137,7 @@ class PapayaXmlElementTest extends PapayaTestCase {
     $target->appendElement('element', array('attribute' => 42));
     $target->appendText('text');
     $this->assertEquals(
+      // language=XML prefix=<fragment> suffix=</fragment>
       '<element attribute="42"/>text',
       $target->saveFragment()
     );
@@ -163,7 +167,7 @@ class PapayaXmlElementTest extends PapayaTestCase {
     $target = $document->appendElement('test');
     $target->setAttribute('attribute', '');
     $this->assertEquals(
-      '<test/>',
+      /** @lang XML */'<test/>',
       $target->saveXml()
     );
   }
@@ -178,7 +182,7 @@ class PapayaXmlElementTest extends PapayaTestCase {
     /** @noinspection UnknownInspectionInspection */
     /** @noinspection XmlUnusedNamespaceDeclaration */
     $this->assertEquals(
-      '<test xmlns:a="urn:a"/>',
+      /** @lang XML */'<test xmlns:a="urn:a"/>',
       $target->saveXml()
     );
   }
@@ -191,18 +195,18 @@ class PapayaXmlElementTest extends PapayaTestCase {
     $target = $document->appendElement('test');
     $target->setAttribute('xml:id', 'idOne');
     $this->assertEquals(
-      '<test xml:id="idOne"/>',
+    /** @lang XML */'<test xml:id="idOne"/>',
       $target->saveXml()
     );
   }
 
   public static function provideAttributeValues() {
     return array(
-      array('<test attribute="42"/>', 42),
-      array('<test attribute="value"/>', 'value'),
-      array('<test attribute=" "/>', ' '),
-      array('<test attribute="0"/>', 0),
-      array('<test attribute=""/>', FALSE)
+      array(/** @lang XML */'<test attribute="42"/>', 42),
+      array(/** @lang XML */'<test attribute="value"/>', 'value'),
+      array(/** @lang XML */'<test attribute=" "/>', ' '),
+      array(/** @lang XML */'<test attribute="0"/>', 0),
+      array(/** @lang XML */'<test attribute=""/>', FALSE)
     );
   }
 

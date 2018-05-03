@@ -70,7 +70,7 @@ class PapayaUtilStringHtmlTest extends PapayaTestCase {
 
   public static function stripTagsDataProvider() {
     return array(
-      array('', '<sample>'),
+      array('', /** @lang Text */'<sample>'),
       array('<sample', '<sample'),
       array('<5>', '<5>'),
       array('FOO', /** @lang Text */'<p>FOO</p>')
@@ -79,14 +79,14 @@ class PapayaUtilStringHtmlTest extends PapayaTestCase {
 
   public static function decodeNamedEntitiesDataProvider() {
     return array(
-      array('<sample>', '<sample>'),
+      array(/** @lang Text */'<sample>', /** @lang Text */'<sample>'),
       array('ä', '&auml;'),
       array('&gt;', '&gt;'),
       array('&lt;', '&lt;'),
       array('&quot;', '&quot;'),
       array(
-        '<sample attr="">&#39;ä&#160;ö&#160;ü&#39;</sample>',
-        '<sample attr="">&#39;&auml;&#160;&ouml;&#160;&uuml;&#39;</sample>'
+        /** @lang XML */'<sample attr="">&#39;ä&#160;ö&#160;ü&#39;</sample>',
+        /** @lang Text */'<sample attr="">&#39;&auml;&#160;&ouml;&#160;&uuml;&#39;</sample>'
       )
     );
   }

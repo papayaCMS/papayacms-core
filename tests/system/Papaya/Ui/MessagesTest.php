@@ -35,7 +35,7 @@ class PapayaUiMessagesTest extends PapayaTestCase {
     $messages = new PapayaUiMessages;
     $messages[] = $message;
     $this->assertEquals(
-      '<messages/>',
+    /** @lang XML */'<messages/>',
       $messages->getXml()
     );
   }

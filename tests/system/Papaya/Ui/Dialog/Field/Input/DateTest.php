@@ -91,10 +91,11 @@ class PapayaUiDialogFieldInputDateTest extends PapayaTestCase {
   public function testGetXml() {
     $input = new PapayaUiDialogFieldInputDate('Date', 'date');
     $input->papaya($this->mockPapaya()->application());
-    $this->assertEquals(
-        '<field caption="Date" class="DialogFieldInputDate" error="no">'.
-          '<input type="date" name="date" maxlength="19"/>'.
-        '</field>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<field caption="Date" class="DialogFieldInputDate" error="no">
+          <input type="date" name="date" maxlength="19"/>
+        </field>',
       $input->getXml()
     );
   }

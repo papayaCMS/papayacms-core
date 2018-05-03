@@ -84,7 +84,7 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
       $value->node()->tagName
     );
     $this->assertEquals(
-      '<sample><child/></sample>',
+      /** @lang XML */'<sample><child/></sample>',
       $values->document()->saveXML($values->document()->documentElement)
     );
   }
@@ -100,7 +100,7 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
       $value->node()->tagName
     );
     $this->assertEquals(
-      '<sample><child/></sample>',
+      /** @lang XML */'<sample><child/></sample>',
       $values->document()->saveXML($values->document()->documentElement)
     );
   }
@@ -116,7 +116,7 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
       $value->node()->tagName
     );
     $this->assertEquals(
-      '<sample><child/></sample>',
+      /** @lang XML */'<sample><child/></sample>',
       $values->document()->saveXML($values->document()->documentElement)
     );
   }
@@ -193,8 +193,8 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
       'child',
       $value->node()->tagName
     );
-    $this->assertEquals(
-      '<sample><child added="yes">content</child></sample>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */'<sample><child added="yes">content</child></sample>',
       $values->document()->saveXML($values->document()->documentElement)
     );
   }
@@ -204,13 +204,13 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
   */
   public function testAppendXml() {
     $values = new PapayaTemplateValues();
-    $value = $values->appendXml('sample', '<child added="yes">content</child>');
+    $value = $values->appendXml('sample', /** @lang XML */'<child added="yes">content</child>');
     $this->assertEquals(
       'sample',
       $value->node()->tagName
     );
-    $this->assertEquals(
-      '<sample><child added="yes">content</child></sample>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */'<sample><child added="yes">content</child></sample>',
       $values->document()->saveXML($values->document()->documentElement)
     );
   }

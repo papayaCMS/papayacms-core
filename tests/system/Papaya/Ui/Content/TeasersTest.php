@@ -69,7 +69,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
     $teasers->papaya($this->mockPapaya()->application());
 
     $this->assertXmlStringEqualsXmlString(
-      '<teasers/>',
+      /** @lang XML */'<teasers/>',
       $teasers->getXml()
     );
   }
@@ -109,7 +109,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
     $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
     $this->assertXmlStringEqualsXmlString(
-      '<teasers/>',
+      /** @lang XML */'<teasers/>',
       $teasers->getXml()
     );
   }
@@ -150,7 +150,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
     $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
     $this->assertXmlStringEqualsXmlString(
-      '<teasers/>',
+      /** @lang XML */'<teasers/>',
       $teasers->getXml()
     );
   }
@@ -186,7 +186,7 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
     $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
     $this->assertXmlStringEqualsXmlString(
-      '<teasers/>',
+      /** @lang XML */'<teasers/>',
       $teasers->getXml()
     );
   }

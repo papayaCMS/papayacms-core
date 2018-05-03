@@ -144,7 +144,7 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
     $builder = new PapayaUiNavigationBuilder(array('1' => 'Item One'));
     $builder->papaya($this->mockPapaya()->application());
     $this->assertEquals(
-      '<links><link href="http://www.test.tld/index.html">Item One</link></links>',
+      /** @lang XML */'<links><link href="http://www.test.tld/index.html">Item One</link></links>',
       $builder->getXml()
     );
   }

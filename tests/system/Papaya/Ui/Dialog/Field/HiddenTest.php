@@ -56,8 +56,8 @@ class PapayaUiDialogFieldHiddenTest extends PapayaTestCase {
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
-      '<sample>'.
-        '<field class="DialogFieldHidden">
+      '<sample>
+        <field class="DialogFieldHidden">
         <input type="hidden" name="name">default</input>
         </field>
         </sample>',

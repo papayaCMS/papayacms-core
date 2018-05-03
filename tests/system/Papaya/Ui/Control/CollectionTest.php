@@ -38,7 +38,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
       ->add($itemOne)
       ->add($itemTwo);
     $this->assertSame($parentNode, $collection->appendTo($parentNode));
-    $this->assertEquals('<sample/>', $parentNode->saveXml());
+    $this->assertEquals(/** @lang XML */'<sample/>', $parentNode->saveXml());
   }
 
   /**
@@ -56,7 +56,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     $collection->_tagName = 'items';
     $collection->add($item);
     $this->assertNotSame($parentNode, $resultNode = $collection->appendTo($parentNode));
-    $this->assertEquals('<items/>', $resultNode->saveXml());
+    $this->assertEquals(/** @lang XML */'<items/>', $resultNode->saveXml());
   }
 
   /**

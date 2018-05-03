@@ -140,15 +140,15 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   }
 
   public function testBrowse() {
-    $xmlResponse = '<?xml version="1.0" encoding="UTF-8"?>'."\r\n".
-      '<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">'.
-        '<Name>sample_bucket</Name>'.
-        '<Prefix></Prefix>'.
-        '<IsTruncated>false</IsTruncated>'.
-        '<Contents>'.
-          '<Key>sample_group/sample_file</Key>'.
-        '</Contents>'.
-      '</ListBucketResult>';
+    $xmlResponse = /** @lang XML */'<?xml version="1.0" encoding="UTF-8"?>
+      <ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+        <Name>sample_bucket</Name>
+        <Prefix/>
+        <IsTruncated>false</IsTruncated>
+        <Contents>
+          <Key>sample_group/sample_file</Key>
+        </Contents>
+      </ListBucketResult>';
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMediaStorageServiceS3Handler $handler */
     $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
@@ -172,15 +172,15 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   }
 
   public function testBrowseWithStartString() {
-    $xmlResponse = '<?xml version="1.0" encoding="UTF-8"?>'."\r\n".
-      '<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">'.
-        '<Name>sample_bucket</Name>'.
-        '<Prefix>sample</Prefix>'.
-        '<IsTruncated>false</IsTruncated>'.
-        '<Contents>'.
-          '<Key>sample_group/sample_file</Key>'.
-        '</Contents>'.
-      '</ListBucketResult>';
+    $xmlResponse = /** @lang XML */'<?xml version="1.0" encoding="UTF-8"?>
+      <ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+        <Name>sample_bucket</Name>
+        <Prefix>sample</Prefix>
+        <IsTruncated>false</IsTruncated>
+        <Contents>
+          <Key>sample_group/sample_file</Key>
+        </Contents>
+      </ListBucketResult>';
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMediaStorageServiceS3Handler $handler */
     $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
@@ -761,11 +761,11 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   }
 
   public function testIsPublicWithPrivateFile() {
-    $responseXML = '<?xml version="1.0" encoding="UTF-8"?>'.
-      '<AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/">'.
-      '  <AccessControlList>'.
-      '  </AccessControlList>'.
-      '</AccessControlPolicy>';
+    $responseXML = /** @lang XML */'<?xml version="1.0" encoding="UTF-8"?>
+      <AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+        <AccessControlList>
+        </AccessControlList>
+      </AccessControlPolicy>';
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->exactly(2))
@@ -1047,11 +1047,11 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   }
 
   public function testGetUrlForPrivateFile() {
-    $responseXML = '<?xml version="1.0" encoding="UTF-8"?>'.
-      '<AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/">'.
-      '  <AccessControlList>'.
-      '  </AccessControlList>'.
-      '</AccessControlPolicy>';
+    $responseXML = /** @lang XML */'<?xml version="1.0" encoding="UTF-8"?>
+      <AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+        <AccessControlList>
+        </AccessControlList>
+      </AccessControlPolicy>';
     $client = $this->createMock(PapayaHttpClient::class);
     $client
       ->expects($this->exactly(2))

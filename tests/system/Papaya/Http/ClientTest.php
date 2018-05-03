@@ -659,7 +659,7 @@ class PapayaHttpClientTest extends PapayaTestCase {
            ->with($this->equalTo($genericHeaders));
     $socket->expects($this->at(2))
            ->method('write')
-           ->with($this->equalTo("\r\n<xml>testcontent</xml>\r\n"));
+           ->with($this->equalTo(/** @lang Text */"\r\n<xml>testcontent</xml>\r\n"));
     $socket->expects($this->at(3))
            ->method('isActive')
            ->will($this->returnValue(FALSE));
@@ -667,7 +667,7 @@ class PapayaHttpClientTest extends PapayaTestCase {
     $client->setSocket($socket);
     $client->setMethod('POST');
     $client->setHeader('Content-Type', 'text/xml');
-    $client->addRequestData('content', '<xml>testcontent</xml>');
+    $client->addRequestData('content', /** @lang XML */'<xml>testcontent</xml>');
     $this->assertTrue($client->send());
   }
 

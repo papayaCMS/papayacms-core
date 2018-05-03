@@ -25,6 +25,7 @@ class PapayaParserTagImageTest extends PapayaTestCase {
     $container = $document->appendElement('container');
     $image->appendTo($container);
     $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
       '<container>
          <papaya:media 
            xmlns:papaya="http://www.papaya-cms.com/namespace/papaya" 

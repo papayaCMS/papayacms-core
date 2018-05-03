@@ -67,7 +67,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
       ->getMock();
     $node = new PapayaUiListviewItemNode($item, PapayaUiListviewItemNode::NODE_EMPTY);
     $this->assertEquals(
-      '<node status="empty"/>',
+      /** @lang XML */'<node status="empty"/>',
       $node->getXml()
     );
   }
@@ -89,7 +89,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
     $node = new PapayaUiListviewItemNode($item, PapayaUiListviewItemNode::NODE_CLOSED);
     $node->reference($reference);
     $this->assertEquals(
-      '<node status="closed" href="sample.html"/>',
+    /** @lang XML */'<node status="closed" href="sample.html"/>',
       $node->getXml()
     );
   }
@@ -111,7 +111,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
     $node = new PapayaUiListviewItemNode($item, PapayaUiListviewItemNode::NODE_OPEN);
     $node->reference($reference);
     $this->assertEquals(
-      '<node status="open" href="sample.html"/>',
+      /** @lang XML */'<node status="open" href="sample.html"/>',
       $node->getXml()
     );
   }

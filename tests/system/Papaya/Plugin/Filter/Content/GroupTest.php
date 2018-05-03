@@ -154,7 +154,7 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
     $filterGroup = new PapayaPluginFilterContentGroup($page = $this->getPageFixture());
     $filterGroup->add($filterOne);
     $filterGroup->appendTo($node);
-    $this->assertEquals('<test>success</test>', $node->saveXml());
+    $this->assertEquals(/** @lang XML */'<test>success</test>', $node->saveXml());
   }
 
   public function getPageFixture() {

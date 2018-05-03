@@ -54,7 +54,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   public function testRegisterNamespacesOnXpathLazyRegistration() {
     $document = new PapayaXmlDocument();
     $document->registerNamespaces(array('a' => 'urn:a'));
-    $document->loadXml('<element xmlns="urn:a" attribute="success">text</element>');
+    $document->loadXml(/** @lang XML */'<element xmlns="urn:a" attribute="success">text</element>');
     $this->assertEquals('success', $document->xpath()->evaluate('string(/a:element/@attribute)'));
   }
 
@@ -64,7 +64,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   */
   public function testRegisterNamespacesOnXpathDirectRegistration() {
     $document = new PapayaXmlDocument();
-    $document->loadXml('<element xmlns="urn:a" attribute="success">text</element>');
+    $document->loadXml(/** @lang XML */'<element xmlns="urn:a" attribute="success">text</element>');
     $document->xpath();
     $document->registerNamespaces(array('a' => 'urn:a'));
     $this->assertEquals('success', $document->xpath()->evaluate('string(/a:element/@attribute)'));
@@ -128,10 +128,11 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   public function testAppendXmlToDocumentIgnoredAdditionalElements() {
     $document = new PapayaXmlDocument();
     $document->appendXml(
+      // language=XML prefix=<fragment> suffix=</fragment>
       '<one/><two/>'
     );
     $this->assertEquals(
-      '<one/>',
+      /** @lang XML */'<one/>',
       $document->saveXML($document->documentElement)
     );
   }
@@ -153,9 +154,10 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   */
   public function testAppendXmlWithInvalidChars() {
     $document = new PapayaXmlDocument();
-    $document->appendXml('<element>'.utf8_decode('äöü').'</element>');
+    $ansiiUmlauts = utf8_decode('äöü');
+    $document->appendXml(/** @lang XML */"<element>$ansiiUmlauts</element>");
     $this->assertEquals(
-      '<element>äöü</element>',
+      /** @lang XML */'<element>äöü</element>',
       $document->saveXML($document->documentElement)
     );
   }
@@ -168,7 +170,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
     $document = new PapayaXmlDocument();
     $document->appendElement('sample', array('attribute' => 42), 'content');
     $this->assertEquals(
-      '<sample attribute="42">content</sample>',
+      /** @lang XML */'<sample attribute="42">content</sample>',
       $document->saveXML($document->documentElement)
     );
   }
@@ -184,7 +186,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
     $document->registerNamespaces(array('a' => 'urn:a'));
     $document->appendElement('a:sample', array('attribute' => 42), 'content');
     $this->assertEquals(
-      '<a:sample xmlns:a="urn:a" attribute="42">content</a:sample>',
+      /** @lang XML */'<a:sample xmlns:a="urn:a" attribute="42">content</a:sample>',
       $document->saveXML($document->documentElement)
     );
   }
@@ -200,7 +202,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
     $document->registerNamespaces(array('a' => 'urn:a'));
     $document->appendElement('sample', array('a:attribute' => 42), 'content');
     $this->assertEquals(
-      '<sample xmlns:a="urn:a" a:attribute="42">content</sample>',
+      /** @lang XML */'<sample xmlns:a="urn:a" a:attribute="42">content</sample>',
       $document->saveXML($document->documentElement)
     );
   }
@@ -212,7 +214,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
     $document = new PapayaXmlDocument();
     $node = $document->createElement('sample');
     $this->assertEquals(
-      '<sample/>',
+      /** @lang XML */'<sample/>',
       $node->saveXml()
     );
   }
@@ -224,7 +226,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
     $document = new PapayaXmlDocument();
     $node = $document->createElement('sample', 'content');
     $this->assertEquals(
-      '<sample>content</sample>',
+    /** @lang XML */'<sample>content</sample>',
       $node->saveXml()
     );
   }
@@ -283,8 +285,8 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   * @covers PapayaXmlDocument::createFromXml
   */
   public function testCreateFromXml() {
-    $document = PapayaXmlDocument::createFromXml('<foo/>');
-    $this->assertEquals('<foo/>', $document->documentElement->saveXml());
+    $document = PapayaXmlDocument::createFromXml(/** @lang XML */'<foo/>');
+    $this->assertEquals(/** @lang XML */'<foo/>', $document->documentElement->saveXml());
   }
 
   /**

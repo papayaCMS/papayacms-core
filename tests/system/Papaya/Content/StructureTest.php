@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaContentStructureTest extends PapayaTestCase {
@@ -30,7 +44,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
 
     $definition = new PapayaContentStructure();
     $definition->pages($pages);
-    $definition->load('<structure/>');
+    $definition->load(/** @lang XML */'<structure/>');
   }
 
   /**
@@ -86,13 +100,13 @@ class PapayaContentStructureTest extends PapayaTestCase {
     );
 
     $this->assertXmlStringEqualsXmlString(
-      '<values>'.
-        '<page_one>'.
-          '<group_one>'.
-            '<value_one type="text">42</value_one>'.
-          '</group_one>'.
-        '</page_one>'.
-      '</values>',
+      /** @lang XML */'<values>
+        <page_one>
+          <group_one>
+            <value_one type="text">42</value_one>
+          </group_one>
+        </page_one>
+      </values>',
       $definition->getXmlDocument($data)->documentElement->saveXml()
     );
   }
@@ -113,19 +127,20 @@ class PapayaContentStructureTest extends PapayaTestCase {
     $data = array(
       'page_one' => array(
         'group_one' => array(
-          'value_one' => '<b>Xhtml</b>'
+          'value_one' => /** @lang XML */'<b>Xhtml</b>'
         )
       )
     );
 
     $this->assertXmlStringEqualsXmlString(
-      '<values>'.
-        '<page_one>'.
-          '<group_one>'.
-            '<value_one type="xhtml"><b>Xhtml</b></value_one>'.
-          '</group_one>'.
-        '</page_one>'.
-      '</values>',
+      /** @lang XML */
+      '<values>
+        <page_one>
+          <group_one>
+            <value_one type="xhtml"><b>Xhtml</b></value_one>
+          </group_one>
+        </page_one>
+      </values>',
       $definition->getXmlDocument($data)->documentElement->saveXml()
     );
   }
@@ -152,13 +167,14 @@ class PapayaContentStructureTest extends PapayaTestCase {
     );
 
     $this->assertXmlStringEqualsXmlString(
-      '<values>'.
-        '<page_one>'.
-          '<group_one>'.
-            '<value_one type="text">21</value_one>'.
-          '</group_one>'.
-        '</page_one>'.
-      '</values>',
+      /** @lang XML */
+      '<values>
+        <page_one>
+          <group_one>
+            <value_one type="text">21</value_one>
+          </group_one>
+        </page_one>
+      </values>',
       $definition->getXmlDocument($data)->documentElement->saveXml()
     );
   }
@@ -177,13 +193,14 @@ class PapayaContentStructureTest extends PapayaTestCase {
 
     $dom = new PapayaXmlDocument();
     $dom->loadXml(
-      '<values>'.
-        '<page_one>'.
-          '<group_one>'.
-            '<value_one type="text">42</value_one>'.
-          '</group_one>'.
-        '</page_one>'.
-      '</values>'
+      /** @lang XML */
+      '<values>
+        <page_one>
+          <group_one>
+            <value_one type="text">42</value_one>
+          </group_one>
+        </page_one>
+      </values>'
     );
 
     $this->assertEquals(
@@ -213,20 +230,21 @@ class PapayaContentStructureTest extends PapayaTestCase {
 
     $dom = new PapayaXmlDocument();
     $dom->loadXml(
-      '<values>'.
-        '<page_one>'.
-          '<group_one>'.
-            '<value_one type="xhtml"><b>Xhtml</b></value_one>'.
-          '</group_one>'.
-        '</page_one>'.
-      '</values>'
+      /** @lang XML */
+      '<values>
+        <page_one>
+          <group_one>
+            <value_one type="xhtml"><b>Xhtml</b></value_one>
+          </group_one>
+        </page_one>
+      </values>'
     );
 
     $this->assertEquals(
       array(
         'page_one' => array(
           'group_one' => array(
-            'value_one' => '<b>Xhtml</b>'
+            'value_one' => /** @lang XML */'<b>Xhtml</b>'
           )
         )
       ),

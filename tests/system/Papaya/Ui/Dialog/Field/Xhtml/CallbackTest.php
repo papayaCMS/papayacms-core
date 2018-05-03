@@ -35,7 +35,7 @@ class PapayaUiDialogFieldXhtmlCallbackTest extends PapayaTestCase {
   }
 
   public function callbackGetFieldString() {
-    return '<select/>';
+    return /** @lang XML */ '<select/>';
   }
 
 }

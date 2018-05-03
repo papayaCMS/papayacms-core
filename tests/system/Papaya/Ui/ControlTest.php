@@ -27,7 +27,7 @@ class PapayaUiControlTest extends PapayaTestCase {
       $document->appendElement('sample')
     );
     $this->assertEquals(
-      '<sample/>', $control->getXml()
+    /** @lang XML */'<sample/>', $control->getXml()
     );
   }
 
@@ -57,6 +57,7 @@ class PapayaUiControlTest extends PapayaTestCase {
       $document->createComment('comment')
     );
     $this->assertEquals(
+      // language=XML prefix=<fragment> suffix=</fragment>
       'sample<sample/><!--comment-->', $control->getXml()
     );
   }

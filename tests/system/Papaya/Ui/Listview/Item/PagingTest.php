@@ -63,13 +63,14 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
       )
     );
     $item->pageList = array(21, 42);
-    $this->assertEquals(
-      '<listitem image="table.png" href="http://www.test.tld/test.html?page=23">'.
-        '<caption>'.
-          '<a href="http://www.test.tld/test.html?page=21">21</a>'.
-          '<a href="http://www.test.tld/test.html?page=42">42</a>'.
-        '</caption>'.
-      '</listitem>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<listitem image="table.png" href="http://www.test.tld/test.html?page=23">
+        <caption>
+          <a href="http://www.test.tld/test.html?page=21">21</a>
+          <a href="http://www.test.tld/test.html?page=42">42</a>
+        </caption>
+      </listitem>',
       $item->getXml()
     );
   }
@@ -90,13 +91,13 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
     );
     $item->separator = ' | ';
     $item->pageList = array(21, 42);
-    $this->assertEquals(
-      '<listitem image="table.png" href="http://www.test.tld/test.html?page=23">'.
-        '<caption>'.
-          '<a href="http://www.test.tld/test.html?page=21">21</a> | '.
-          '<a href="http://www.test.tld/test.html?page=42">42</a>'.
-        '</caption>'.
-      '</listitem>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<listitem image="table.png" href="http://www.test.tld/test.html?page=23">
+        <caption><a 
+        href="http://www.test.tld/test.html?page=21">21</a> | <a 
+        href="http://www.test.tld/test.html?page=42">42</a></caption>
+      </listitem>',
       $item->getXml()
     );
   }
@@ -115,13 +116,14 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
     );
     $item->columnSpan = 4;
     $item->pageList = array(21, 42);
-    $this->assertEquals(
-      '<listitem image="table.png" href="http://www.test.tld/test.html?page=23" span="4">'.
-        '<caption>'.
-          '<a href="http://www.test.tld/test.html?page=21">21</a>'.
-          '<a href="http://www.test.tld/test.html?page=42">42</a>'.
-        '</caption>'.
-      '</listitem>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<listitem image="table.png" href="http://www.test.tld/test.html?page=23" span="4">
+        <caption>
+          <a href="http://www.test.tld/test.html?page=21">21</a>
+          <a href="http://www.test.tld/test.html?page=42">42</a>
+        </caption>
+      </listitem>',
       $item->getXml()
     );
   }
@@ -140,14 +142,15 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
     );
     $item->selected = TRUE;
     $item->pageList = array(21, 42);
-    $this->assertEquals(
-      '<listitem image="table.png" href="http://www.test.tld/test.html?page=23"'.
-        ' selected="selected">'.
-        '<caption>'.
-          '<a href="http://www.test.tld/test.html?page=21">21</a>'.
-          '<a href="http://www.test.tld/test.html?page=42">42</a>'.
-        '</caption>'.
-      '</listitem>',
+    $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+      '<listitem image="table.png" href="http://www.test.tld/test.html?page=23"
+         selected="selected">
+        <caption>
+          <a href="http://www.test.tld/test.html?page=21">21</a>
+          <a href="http://www.test.tld/test.html?page=42">42</a>
+        </caption>
+      </listitem>',
       $item->getXml()
     );
   }

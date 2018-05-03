@@ -54,7 +54,7 @@ class PapayaUiControlCommandToolbarTest extends PapayaTestCase {
     $command = new PapayaUiControlCommandToolbar_TestProxy($elements);
     $command->testElement = $this->createMock(PapayaUiToolbarElement::class);
     $command->appendTo($document->documentElement);
-    $this->assertEquals('<test/>', $document->documentElement->saveXml());
+    $this->assertEquals(/** @lang XML */'<test/>', $document->documentElement->saveXml());
   }
 
 }

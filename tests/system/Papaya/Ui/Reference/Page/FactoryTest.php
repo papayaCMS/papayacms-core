@@ -748,7 +748,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
       ->appendElement('sample')
       ->append($factory->getLinkAttributes('de', 42));
     $this->assertEquals(
-      '<sample class="sampleClass" target="sampleTarget"/>',
+    /** @lang XML */'<sample class="sampleClass" target="sampleTarget"/>',
       $node->saveXml()
     );
   }

@@ -72,7 +72,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
       )
     );
     $document = new DOMDocument('1.0', 'UTF-8');
-    $document->loadHTML('<foo/>');
+    $document->loadHTML(/** @lang XML */'<foo/>');
     $errors->emit();
   }
 
@@ -94,7 +94,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
       )
     );
     $document = new DOMDocument('1.0', 'UTF-8');
-    $document->loadHTML('<foo/>');
+    $document->loadHTML(/** @lang XML */'<foo/>');
     /** @noinspection PhpDeprecationInspection */
     $errors->omit();
   }
@@ -116,7 +116,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
       )
     );
     $document = new DOMDocument('1.0', 'UTF-8');
-    $document->loadHTML('<foo/>');
+    $document->loadHTML(/** @lang XML */'<foo/>');
     $errors->emit(TRUE);
   }
 
@@ -126,7 +126,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   public function testEmitWithFatalError() {
     $errors = new PapayaXmlErrors();
     $document = new DOMDocument('1.0', 'UTF-8');
-    $document->loadXML('<foo>');
+    $document->loadXML(/** @lang Text */'<foo>');
     $this->expectException(PapayaXmlException::class);
     $errors->emit();
   }
@@ -238,10 +238,14 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
         )
       )
     );
-    $dom = new DOMDocument('1.0', 'UTF-8');
+    $document = new DOMDocument('1.0', 'UTF-8');
     $this->assertTrue(
       $errors->encapsulate(
-        array($dom, 'loadHtml'), array('<foo/>'), FALSE
+        function($html) use ($document) {
+          return $document->loadHTML($html);
+        },
+        array(/** @lang XML */'<foo/>'),
+        FALSE
       )
     );
   }

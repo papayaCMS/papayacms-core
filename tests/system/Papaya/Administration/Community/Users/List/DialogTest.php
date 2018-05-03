@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
@@ -166,7 +180,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
       new stdClass, $dialog->listview()->items, array('id' => 42, 'caption' => 'test')
     );
     $this->assertXmlStringEqualsXmlString(
-      '<listitem title="test" href="http://www.test.tld/test.html?page=1&amp;user_id=42"/>',
+    /** @lang XML */'<listitem title="test" href="http://www.test.tld/test.html?page=1&amp;user_id=42"/>',
       $dialog->listview()->items[0]->getXml()
     );
   }
@@ -223,7 +237,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
       new stdClass, $dialog->listview()->items, array('id' => 42, 'caption' => 'test')
     );
     $this->assertXmlStringEqualsXmlString(
-      '<listitem title="test" href="http://www.test.tld/test.html?offset_page=1&amp;surfer_id=42"/>',
+    /** @lang XML */'<listitem title="test" href="http://www.test.tld/test.html?offset_page=1&amp;surfer_id=42"/>',
       $dialog->listview()->items[0]->getXml()
     );
   }
