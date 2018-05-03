@@ -170,11 +170,17 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('parameterGroup')
       ->will($this->returnValue('group'));
-    $collection = $this->getMock(
-      PapayaUiListviewSubitems::class,
-      array(),
-      array($this->getMock(PapayaUiListviewItem::class, array(), array('', '')))
-    );
+    $collection = $this
+      ->getMockBuilder(PapayaUiListviewSubitems::class)
+      ->setConstructorArgs(
+        array(
+          $this
+            ->getMockBuilder(PapayaUiListviewItem::class)
+            ->setConstructorArgs(array('', ''))
+            ->getMock()
+        )
+      )
+      ->getMock();
     $collection
       ->expects($this->exactly(2))
       ->method('getListview')

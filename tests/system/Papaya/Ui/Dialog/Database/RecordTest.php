@@ -347,6 +347,11 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
   * Fixtures
   ***************/
 
+  /**
+   * @param array $parameters
+   * @param bool $submitted
+   * @return PapayaUiDialogDatabaseRecord
+   */
   public function getDialogFixture(array $parameters = array(), $submitted = TRUE) {
     $dialog = new PapayaUiDialogDatabaseRecord(
       'tablename',

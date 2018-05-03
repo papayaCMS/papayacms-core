@@ -597,7 +597,8 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
 
 class PapayaUiControlCollection_TestProxy extends PapayaUiControlCollection {
 
-  public $_tagName = '';
+  public /** @noinspection PropertyInitializationFlawsInspection */
+    $_tagName = '';
 
   public $_itemClass = PapayaUiControl::class;
 

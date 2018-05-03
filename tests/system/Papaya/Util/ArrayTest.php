@@ -348,7 +348,8 @@ class PapayaUtilArrayTest extends PapayaTestCase {
 
 class PapayaUtilArray_TestProxyArrayIterator implements IteratorAggregate {
 
-  private $_array = array();
+  private /** @noinspection PropertyInitializationFlawsInspection */
+    $_array = array();
 
   public function __construct($array) {
     $this->_array = $array;
@@ -361,7 +362,8 @@ class PapayaUtilArray_TestProxyArrayIterator implements IteratorAggregate {
 
 class PapayaUtilArray_TestProxyTraversable implements Iterator {
 
-  private $_array = array();
+  private /** @noinspection PropertyInitializationFlawsInspection */
+    $_array = array();
 
   public function __construct($array) {
     $this->_array = $array;
@@ -385,6 +387,6 @@ class PapayaUtilArray_TestProxyTraversable implements Iterator {
 
   public function valid() {
     $key = key($this->_array);
-    return ($key !== NULL && $key !== FALSE);
+    return (NULL !== $key && FALSE !== $key);
   }
 }

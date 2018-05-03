@@ -298,9 +298,12 @@ class PapayaUiPagingCountTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPagingCount::getLastPage
-  * @dataProvider provideLastPageCalculationData
-  */
+   * @covers PapayaUiPagingCount::getLastPage
+   * @dataProvider provideLastPageCalculationData
+   * @param int $itemsPerPage
+   * @param int $itemsCount
+   * @param int $expectedMaximum
+   */
   public function testLastPageCalculation($itemsPerPage, $itemsCount, $expectedMaximum) {
     $paging = new PapayaUiPagingCount('page', 0, $itemsCount);
     $paging->itemsPerPage = $itemsPerPage;

@@ -55,6 +55,7 @@ class PapayaUiDialogFieldFactoryProfileInputPageTest extends PapayaTestCase {
    * @covers PapayaUiDialogFieldFactoryProfileInputPage
    * @dataProvider provideValidPageInputs
    * @param string $value
+   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function testValidateDifferentInputs($value) {
     $options = new PapayaUiDialogFieldFactoryOptions(

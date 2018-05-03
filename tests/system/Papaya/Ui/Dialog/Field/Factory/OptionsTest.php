@@ -146,6 +146,7 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    * @param mixed $expected
    * @param string $name
    * @param mixed $value
+   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function testGetSetOptions($expected, $name, $value) {
     $options = new PapayaUiDialogFieldFactoryOptions();
