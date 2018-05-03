@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../bootstrap.php';
 
 class base_dialogTest extends PapayaTestCase {
@@ -28,14 +42,17 @@ class base_dialogTest extends PapayaTestCase {
     $dialog = new base_dialog(NULL, NULL, $fields);
     $dialog->useToken = FALSE;
 
-    $messages = $this->getMock('PapayaMessageManager', array('dispatch'));
+    $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf('PapayaMessageDisplay'));
+      ->with($this->isInstanceOf(PapayaMessageDisplay::class));
 
-    $session = $this->getMock('PapayaSession');
-    $values = $this->getMock('PapayaSessionValues', array(), array($session));
+    $session = $this->createMock(PapayaSession::class);
+    $values = $this
+      ->getMockBuilder(PapayaSessionValues::class)
+      ->setConstructorArgs(array($session))
+      ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetGet')
