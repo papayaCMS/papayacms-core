@@ -1,22 +1,17 @@
 <?php
 /**
-* <author> and <contributor> describe a person, corporation, or similar entity.
-* It has one required element, name, and two optional elements: uri, email.
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage XML-Feed
-* @version $Id: papaya_atom_category.php 39626 2014-03-19 12:43:41Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * <author> and <contributor> describe a person, corporation, or similar entity.
@@ -31,19 +26,15 @@ class papaya_atom_category extends papaya_atom_element {
   * identifies the category
   * @var string
   */
-  var $term = '';
+  public $term = '';
 
   /**
   * identifies the categorization scheme via a URI.
   * @var string
   */
-  var $scheme = NULL;
+  public $scheme;
 
-  /**
-  * provides a human-readable label for display
-  * @var string
-  */
-  var $email = NULL;
+  public $label;
 
   /**
   * constructor - initialize properties

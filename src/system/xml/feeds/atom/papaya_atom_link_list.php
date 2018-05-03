@@ -1,23 +1,17 @@
 <?php
 /**
-* atom link list class
-*
-* list for link tags in the feed
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage XML-Feed
-* @version $Id: papaya_atom_link_list.php 39733 2014-04-08 18:10:55Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * atom link list class
@@ -41,7 +35,7 @@ class papaya_atom_link_list extends papaya_atom_element_list {
   * @return papaya_atom_link $result new entry
   */
   function add(
-    $href, $rel = NULL, $type = NULL, $hreflang = NULL, $title = NULL, $length = NULL
+    $href = '', $rel = NULL, $type = NULL, $hreflang = NULL, $title = NULL, $length = NULL
   ) {
     $result = new papaya_atom_link(
       $this->_feed, $href, $rel, $type, $hreflang, $title, $length
