@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentStructureValuesTest extends PapayaTestCase {
@@ -25,10 +39,10 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
       ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $dom = new PapayaXmlDocument();
-    $dom->load(__DIR__.'/../TestData/structure.xml');
+    $document = new PapayaXmlDocument();
+    $document->load(__DIR__.'/../TestData/structure.xml');
     $values = new PapayaContentStructureValues($group);
-    $values->load($dom->xpath()->evaluate('//page[1]/group[1]')->item(0));
+    $values->load($document->xpath()->evaluate('//page[1]/group[1]')->item(0));
     $this->assertCount(1, $values);
     $this->assertEquals('Font color', $values[0]->title);
     $this->assertEquals('COLOR', $values[0]->name);
@@ -47,10 +61,10 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
       ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $dom = new PapayaXmlDocument();
-    $dom->load(__DIR__.'/../TestData/structure.xml');
+    $document = new PapayaXmlDocument();
+    $document->load(__DIR__.'/../TestData/structure.xml');
     $values = new PapayaContentStructureValues($group);
-    $values->load($dom->xpath()->evaluate('//page[1]/group[2]')->item(0));
+    $values->load($document->xpath()->evaluate('//page[1]/group[2]')->item(0));
     $this->assertCount(1, $values);
     $this->assertEquals(
       array(
@@ -72,10 +86,10 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
       ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $dom = new PapayaXmlDocument();
-    $dom->load(__DIR__.'/../TestData/structure.xml');
+    $document = new PapayaXmlDocument();
+    $document->load(__DIR__.'/../TestData/structure.xml');
     $values = new PapayaContentStructureValues($group);
-    $values->load($dom->xpath()->evaluate('//page[1]/group[3]')->item(0));
+    $values->load($document->xpath()->evaluate('//page[1]/group[3]')->item(0));
     $this->assertCount(2, $values);
     $this->assertEquals('200', $values[0]->fieldParameters);
   }
@@ -89,10 +103,10 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
       ->getMockBuilder(PapayaContentStructureGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $dom = new PapayaXmlDocument();
-    $dom->load(__DIR__.'/../TestData/structure.xml');
+    $document = new PapayaXmlDocument();
+    $document->load(__DIR__.'/../TestData/structure.xml');
     $values = new PapayaContentStructureValues($group);
-    $values->load($dom->xpath()->evaluate('//page[1]/group[3]')->item(0));
+    $values->load($document->xpath()->evaluate('//page[1]/group[3]')->item(0));
     $this->assertCount(2, $values);
     $this->assertEquals(
       array(

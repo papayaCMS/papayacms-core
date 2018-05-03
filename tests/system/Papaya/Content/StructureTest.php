@@ -65,8 +65,8 @@ class PapayaContentStructureTest extends PapayaTestCase {
    * @covers PapayaContentStructure::load
    */
   public function testLoadWithXmlElement() {
-    $dom = new PapayaXmlDocument();
-    $node = $dom->appendElement('structure');
+    $document = new PapayaXmlDocument();
+    $node = $document->appendElement('structure');
 
     $pages = $this->createMock(PapayaContentStructurePages::class);
     $pages
@@ -191,8 +191,8 @@ class PapayaContentStructureTest extends PapayaTestCase {
     $group->values()->add($value = new PapayaContentStructureValue($group));
     $value->name = 'value_one';
 
-    $dom = new PapayaXmlDocument();
-    $dom->loadXml(
+    $document = new PapayaXmlDocument();
+    $document->loadXml(
       /** @lang XML */
       '<values>
         <page_one>
@@ -211,7 +211,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
           )
         )
       ),
-      $definition->getArray($dom->documentElement)
+      $definition->getArray($document->documentElement)
     );
   }
 
@@ -228,8 +228,8 @@ class PapayaContentStructureTest extends PapayaTestCase {
     $value->name = 'value_one';
     $value->type = 'xhtml';
 
-    $dom = new PapayaXmlDocument();
-    $dom->loadXml(
+    $document = new PapayaXmlDocument();
+    $document->loadXml(
       /** @lang XML */
       '<values>
         <page_one>
@@ -248,7 +248,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
           )
         )
       ),
-      $definition->getArray($dom->documentElement)
+      $definition->getArray($document->documentElement)
     );
   }
 

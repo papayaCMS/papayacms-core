@@ -21,9 +21,9 @@ class PapayaParserTagTest extends PapayaTestCase {
    */
   public function testGetXml() {
     $control = new PapayaParserTag_TestProxy();
-    $dom = new PapayaXmlDocument;
+    $document = new PapayaXmlDocument;
     $control->nodeStub = array(
-      $dom->appendElement('sample')
+      $document->appendElement('sample')
     );
     $this->assertEquals(
       /** @lang XML */'<sample/>', $control->getXml()
@@ -35,9 +35,9 @@ class PapayaParserTagTest extends PapayaTestCase {
    */
   public function testGetXmlWithTextNode() {
     $control = new PapayaParserTag_TestProxy();
-    $dom = new PapayaXmlDocument;
+    $document = new PapayaXmlDocument;
     $control->nodeStub = array(
-      $dom->createTextNode('sample')
+      $document->createTextNode('sample')
     );
     $this->assertEquals(
       'sample', $control->getXml()
@@ -49,11 +49,11 @@ class PapayaParserTagTest extends PapayaTestCase {
    */
   public function testGetXmlWithSeveralNodes() {
     $control = new PapayaParserTag_TestProxy();
-    $dom = new PapayaXmlDocument;
+    $document = new PapayaXmlDocument;
     $control->nodeStub = array(
-      $dom->createTextNode('sample'),
-      $dom->createElement('sample'),
-      $dom->createComment('comment')
+      $document->createTextNode('sample'),
+      $document->createElement('sample'),
+      $document->createComment('comment')
     );
     $this->assertEquals(
       // language=XML prefix=<fragment> suffix=</fragment>

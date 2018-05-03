@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaAdministrationPagesAnchestorsTest extends PapayaTestCase {
@@ -7,19 +21,19 @@ class PapayaAdministrationPagesAnchestorsTest extends PapayaTestCase {
   * @covers PapayaAdministrationPagesAnchestors::appendTo
   */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendElement('sample');
+    $document = new PapayaXmlDocument();
+    $document->appendElement('sample');
 
     $menu = $this->createMock(PapayaUiHierarchyMenu::class);
     $menu
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class))
-      ->will($this->returnValue($dom->documentElement->appendElement('menu')));
+      ->will($this->returnValue($document->documentElement->appendElement('menu')));
     $ancestors = new PapayaAdministrationPagesAnchestors();
     $ancestors->menu($menu);
 
-    $this->assertInstanceOf(PapayaXmlElement::class, $ancestors->appendTo($dom->documentElement));
+    $this->assertInstanceOf(PapayaXmlElement::class, $ancestors->appendTo($document->documentElement));
   }
 
   /**

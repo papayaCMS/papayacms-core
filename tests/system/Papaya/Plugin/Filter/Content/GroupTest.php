@@ -122,8 +122,8 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
    * @covers PapayaPluginFilterContentGroup
    */
   public function testAppendTo() {
-    $dom = new PapayaXmlDocument();
-    $node = $dom->appendElement('test');
+    $document = new PapayaXmlDocument();
+    $node = $document->appendElement('test');
     $filterOne = $this->createMock(PapayaPluginFilterContent::class);
     $filterOne
       ->expects($this->once())
@@ -139,8 +139,8 @@ class PapayaPluginFilterContentGroupTest extends PapayaTestCase {
    * @covers PapayaPluginFilterContentGroup
    */
   public function testAppendToBC() {
-    $dom = new PapayaXmlDocument();
-    $node = $dom->appendElement('test');
+    $document = new PapayaXmlDocument();
+    $node = $document->appendElement('test');
     $filterOne = $this
       ->getMockBuilder(stdClass::class)
       ->setMethods(array('initialize', 'prepareFilterData', 'loadFilterData', 'applyFilterData', 'getFilterData'))

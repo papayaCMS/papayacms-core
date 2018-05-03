@@ -31,10 +31,10 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
   * @covers PapayaTemplateValues::__construct
   */
   public function testConstructorWithDocument() {
-    $dom = new PapayaXmlDocument();
-    $values = new PapayaTemplateValues($dom);
+    $document = new PapayaXmlDocument();
+    $values = new PapayaTemplateValues($document);
     $this->assertAttributeSame(
-      $dom, '_document', $values
+      $document, '_document', $values
     );
   }
 
@@ -42,10 +42,10 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
   * @covers PapayaTemplateValues::document
   */
   public function testDocument() {
-    $dom = new PapayaXmlDocument();
-    $values = new PapayaTemplateValues($dom);
+    $document = new PapayaXmlDocument();
+    $values = new PapayaTemplateValues($document);
     $this->assertSame(
-      $dom, $values->document()
+      $document, $values->document()
     );
   }
 
@@ -53,13 +53,13 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
   * @covers PapayaTemplateValues::document
   */
   public function testDocumentWithArgument() {
-    $dom = new PapayaXmlDocument();
+    $document = new PapayaXmlDocument();
     $values = new PapayaTemplateValues();
     $this->assertSame(
-      $dom, $values->document($dom)
+      $document, $values->document($document)
     );
     $this->assertAttributeSame(
-      $dom, '_document', $values
+      $document, '_document', $values
     );
   }
 
@@ -166,9 +166,9 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
   * @covers PapayaTemplateValues::getValue
   */
   public function testGetValueWithDomelement() {
-    $dom = new PapayaXmlDocument();
-    $dom->appendChild($node = $dom->createElement('sample'));
-    $values = new PapayaTemplateValues($dom);
+    $document = new PapayaXmlDocument();
+    $document->appendChild($node = $document->createElement('sample'));
+    $values = new PapayaTemplateValues($document);
     $this->assertSame(
       'sample', $values->getValue($node)->node()->tagName
     );

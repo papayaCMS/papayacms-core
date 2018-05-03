@@ -118,9 +118,9 @@ class PapayaIteratorTraversableTest extends PapayaTestCase {
   * @covers PapayaIteratorTraversable::getIteratorForTraversable
   */
   public function testGetIteratorForTraversable() {
-    $dom = new PapayaXmlDocument();
-    $traversable = $dom->appendElement('sample')->childNodes;
-    if (!$dom->appendElement('sample')->childNodes instanceof Traversable) {
+    $document = new PapayaXmlDocument();
+    $traversable = $document->appendElement('sample')->childNodes;
+    if (!$document->appendElement('sample')->childNodes instanceof Traversable) {
       $this->markTestSkipped('Old PHP - DOMNodelist does not implement Traversable (Bug)');
     }
     $iterator = new PapayaIteratorTraversable($traversable);

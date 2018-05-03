@@ -133,10 +133,10 @@ class PapayaTemplateTest extends PapayaTestCase {
    * @covers PapayaTemplate
    */
   public function testAddWithDomNode() {
-    $dom = new PapayaXmlDocument();
+    $document = new PapayaXmlDocument();
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
     $template = $this->getMockForAbstractClass(PapayaTemplate::class);
-    $template->add($dom->createElement('foo'));
+    $template->add($document->createElement('foo'));
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<page><centercol><foo/></centercol></page>',
       $template->getXml()
