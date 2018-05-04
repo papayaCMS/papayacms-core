@@ -40,7 +40,11 @@ class Autoloader {
    * Pattern that matches the parts (namespaces) of a class
    * @var string
    */
-  private static $classPattern = '((?:[A-Z][a-z\d_]+)|(?:[A-Z]+(?![a-z\d_])))S';
+  private static $classPattern = '(
+      (?:\\\\[^\\\\]+)|
+      (?:[A-Z][a-z\d_]+)|
+      (?:[A-Z]+(?![a-z\d_]))
+    )Sx';
 
   /**
    *
@@ -57,7 +61,10 @@ class Autoloader {
           class_alias($alternativeClass, $name);
           return TRUE;
         }
-        return self::load($alternativeClass, $file, $name);
+        if (self::load($alternativeClass, $file, $name)) {
+          return TRUE;
+        }
+        $alias = $alternativeClass;
       }
       $file = NULL === $file ? self::getClassFile($name) : $file;
       if (NULL !== $file && file_exists($file) && is_file($file) && is_readable($file)) {
@@ -126,16 +133,20 @@ class Autoloader {
       $parts = $matches[0];
       $result = '';
       foreach ($parts as $part) {
+        switch ($part) {
+        case 'Float':
+        case 'Int':
+        case 'Integer':
+          $part .= 'Number';
+          break;
+        case 'Object':
+          $part = 'Base'.$part;
+          break;
+        case 'String':
+          $part = 'Text';
+          break;
+        }
         $result .= '\\'.$part;
-      }
-      $lastPart = end($parts);
-      switch ($lastPart) {
-      case 'Float':
-      case 'Int':
-      case 'Integer':
-      case 'Object':
-      case 'String':
-        return NULL;
       }
       return substr($result, 1);
     }
@@ -159,7 +170,11 @@ class Autoloader {
     }
     $result = '';
     foreach ($parts as $part) {
-      $result .= '/'.ucfirst(strtolower($part));
+      if ('\\' === $part[0]) {
+        $result .= '/'.substr($part, 1);
+      } else {
+        $result .= '/'.ucfirst(strtolower($part));
+      }
     }
     return $result;
   }
