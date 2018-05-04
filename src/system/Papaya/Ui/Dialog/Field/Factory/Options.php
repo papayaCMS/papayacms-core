@@ -71,9 +71,9 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
   /**
    * Create object and assign values from the provided Traversable or array.
    *
-   * @param array|Traversable $values
+   * @param array|\Traversable $values
    * @throws \UnexpectedValueException
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function __construct(
     $values = array()
@@ -84,12 +84,12 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
   /**
    * Assign values from a traversable as option values, unknown option names will be ignored
    *
-   * @param array|Traversable $values
+   * @param array|\Traversable $values
    * @throws \UnexpectedValueException
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function assign($values) {
-    PapayaUtilConstraints::assertArrayOrTraversable($values);
+    \PapayaUtilConstraints::assertArrayOrTraversable($values);
     foreach ($values as $name => $value) {
       $this->set($name, $value, TRUE);
     }
@@ -100,7 +100,7 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    *
    * @param string $name
    * @return bool
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function __isset($name) {
     return $this->exists($name, TRUE) && (NULL !== $this->get($name));
@@ -111,7 +111,7 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    *
    * @param string $name
    * @return NULL
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function __get($name) {
     return $this->get($name);
@@ -122,7 +122,7 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    *
    * @param string $name
    * @param mixed $value
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function __set($name, $value) {
     $this->set($name, $value);
@@ -133,7 +133,7 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    *
    * @param string $name
    * @internal param mixed $value
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function __unset($name) {
     if ($this->exists($name)) {
@@ -144,10 +144,10 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
   /**
    * ArrayAccess interface, check if the option name is valid
    *
-   * @see ArrayAccess::offsetExists()
+   * @see \ArrayAccess::offsetExists()
    * @param mixed $offset
    * @return bool
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function offsetExists($offset) {
     return $this->exists($offset, TRUE);
@@ -156,10 +156,10 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
   /**
    * ArrayAccess interface, get the option value
    *
-   * @see ArrayAccess::offsetGet()
+   * @see \ArrayAccess::offsetGet()
    * @param mixed $offset
    * @return mixed
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function offsetGet($offset) {
     return $this->__get($offset);
@@ -168,10 +168,10 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
   /**
    * ArrayAccess interface, set the option value
    *
-   * @see ArrayAccess::offsetSet()
+   * @see \ArrayAccess::offsetSet()
    * @param mixed $offset
    * @param mixed $value
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function offsetSet($offset, $value) {
     $this->__set($offset, $value);
@@ -180,9 +180,9 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
   /**
    * ArrayAccess interface, reset the option value to its default value from the definition
    *
-   * @see ArrayAccess::offsetGet()
+   * @see \ArrayAccess::offsetGet()
    * @param mixed $offset
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function offsetUnset($offset) {
     $this->__unset($offset);
@@ -193,7 +193,7 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    *
    * @param string $name
    * @param boolean $silent
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    * @return boolean
    */
   private function exists($name, $silent = FALSE) {
@@ -209,7 +209,7 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
   /**
    * Fetch a value from the buffer or return the default value
    *
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    * @param string $name
    * @return mixed
    */
@@ -225,7 +225,7 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
   /**
    * Set the option value, if silent is set to false invalid option names will trigger an exception.
    *
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    * @param string $name
    * @param mixed $value
    * @param boolean $silent
@@ -276,10 +276,10 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
   /**
    * Getter/Setter for the validation filter factory
    *
-   * @param PapayaFilterFactory $factory
-   * @return PapayaFilterFactory
+   * @param \PapayaFilterFactory $factory
+   * @return \PapayaFilterFactory
    */
-  public function filterFactory(PapayaFilterFactory $factory = NULL) {
+  public function filterFactory(\PapayaFilterFactory $factory = NULL) {
     if (NULL !== $factory) {
       $this->_filterFactory = $factory;
     } elseif (NULL === $this->_filterFactory) {

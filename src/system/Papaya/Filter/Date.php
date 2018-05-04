@@ -65,14 +65,14 @@ class PapayaFilterDate implements PapayaFilter {
    *
    * @param integer $includeTime optional, default self::DATE_NO_TIME
    * @param float $step optional, default 1.0
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function __construct($includeTime = self::DATE_NO_TIME, $step = 1.0) {
     if (!in_array($includeTime, self::$timeConstants)) {
       throw new \UnexpectedValueException(
-        'Argument must be PapayaFilterDate::DATE_NO_TIME, '.
-        'PapayaFilterDate::DATE_OPTIONAL_TIME, or '.
-        'PapayaFilterDate::DATE_MANDATORY_TIME.'
+        'Argument must be \PapayaFilterDate::DATE_NO_TIME, '.
+        '\PapayaFilterDate::DATE_OPTIONAL_TIME, or '.
+        '\PapayaFilterDate::DATE_MANDATORY_TIME.'
       );
     }
     if ($step <= 0) {
@@ -86,8 +86,8 @@ class PapayaFilterDate implements PapayaFilter {
    * Validate a date
    *
    * @param string $value
-   * @throws PapayaFilterExceptionType
-   * @throws PapayaFilterExceptionRangeMaximum
+   * @throws \PapayaFilterExceptionType
+   * @throws \PapayaFilterExceptionRangeMaximum
    * @return boolean
    */
   public function validate($value) {
@@ -141,7 +141,7 @@ class PapayaFilterDate implements PapayaFilter {
   public function filter($value) {
     try {
       $this->validate(trim($value));
-    } catch(PapayaFilterException $e) {
+    } catch(\PapayaFilterException $e) {
       return NULL;
     }
     return trim($value);

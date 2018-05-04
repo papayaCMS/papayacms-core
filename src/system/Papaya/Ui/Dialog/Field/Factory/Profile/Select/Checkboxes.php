@@ -26,8 +26,8 @@ class PapayaUiDialogFieldFactoryProfileSelectCheckboxes
   /**
    * Create a select field displayed as checkboxes
    *
-   * @param array|Traversable $elements
-   * @return PapayaUiDialogFieldSelect
+   * @param array|\Traversable $elements
+   * @return \PapayaUiDialogFieldSelect
    */
   protected function createField($elements) {
     return new \PapayaUiDialogFieldSelectCheckboxes(

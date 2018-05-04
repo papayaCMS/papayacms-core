@@ -19,7 +19,7 @@ abstract class PapayaTemplateSimpleAstNode implements PapayaTemplateSimpleAst {
    * Read private properties stored in constructor
    *
    * @param string $name
-   * @throws LogicException
+   * @throws \LogicException
    * @return mixed
    */
   public function __get($name) {
@@ -37,7 +37,7 @@ abstract class PapayaTemplateSimpleAstNode implements PapayaTemplateSimpleAst {
    *
    * @param string $name
    * @param mixed $value
-   * @throws LogicException
+   * @throws \LogicException
    */
   public function __set($name, $value) {
     throw new \LogicException('All properties are defined in the constrcutor, they are read only.');
@@ -46,9 +46,9 @@ abstract class PapayaTemplateSimpleAstNode implements PapayaTemplateSimpleAst {
   /**
    * Tell the visitor to visit this node.
    *
-   * @param PapayaTemplateSimpleVisitor $visitor
+   * @param \PapayaTemplateSimpleVisitor $visitor
    */
-  public function accept(PapayaTemplateSimpleVisitor $visitor) {
+  public function accept(\PapayaTemplateSimpleVisitor $visitor) {
     $visitor->visit($this);
   }
 }

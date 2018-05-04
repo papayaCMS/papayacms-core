@@ -110,10 +110,10 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
   /**
   * Getter/Setter for the dependency database object
   *
-  * @param PapayaContentPageDependency $dependency
-  * @return PapayaContentPageDependency
+  * @param \PapayaContentPageDependency $dependency
+  * @return \PapayaContentPageDependency
   */
-  public function dependency(PapayaContentPageDependency $dependency = NULL) {
+  public function dependency(\PapayaContentPageDependency $dependency = NULL) {
     if (isset($dependency)) {
       $this->_dependency = $dependency;
     } elseif (is_null($this->_dependency)) {
@@ -125,10 +125,10 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
   /**
   * Getter/Setter for the dependencies list database object
   *
-  * @param PapayaContentPageDependencies $dependencies
-  * @return PapayaContentPageDependencies
+  * @param \PapayaContentPageDependencies $dependencies
+  * @return \PapayaContentPageDependencies
   */
-  public function dependencies(PapayaContentPageDependencies $dependencies = NULL) {
+  public function dependencies(\PapayaContentPageDependencies $dependencies = NULL) {
     if (isset($dependencies)) {
       $this->_dependencies = $dependencies;
     } elseif (is_null($this->_dependencies)) {
@@ -140,10 +140,10 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
   /**
   * Getter/Setter for the reference database object
   *
-  * @param PapayaContentPageReference $reference
-  * @return PapayaContentPageReference
+  * @param \PapayaContentPageReference $reference
+  * @return \PapayaContentPageReference
   */
-  public function reference(PapayaContentPageReference $reference = NULL) {
+  public function reference(\PapayaContentPageReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {
@@ -155,10 +155,10 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
   /**
   * Getter/Setter for the references list database object
   *
-  * @param PapayaContentPageReferences $references
-  * @return PapayaContentPageReferences
+  * @param \PapayaContentPageReferences $references
+  * @return \PapayaContentPageReferences
   */
-  public function references(PapayaContentPageReferences $references = NULL) {
+  public function references(\PapayaContentPageReferences $references = NULL) {
     if (isset($references)) {
       $this->_references = $references;
     } elseif (is_null($this->_references)) {
@@ -170,9 +170,9 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
   /**
   * Execute commands and append output to xml.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $this->prepare();
     if ($this->getPageId() > 0) {
       $this->appendButtons();
@@ -219,10 +219,10 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
   /**
    * Getter/Setter for commands, define commands on implicit create.
    *
-   * @param PapayaUiControlCommandController $commands
+   * @param \PapayaUiControlCommandController $commands
    * @return \PapayaUiControlCommandController
    */
-  public function commands(PapayaUiControlCommandController $commands = NULL) {
+  public function commands(\PapayaUiControlCommandController $commands = NULL) {
     if (isset($commands)) {
       $this->_commands = $commands;
     } elseif (is_null($this->_commands)) {
@@ -240,10 +240,10 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
   /**
   * Getter/Setter for the menu (action/command buttons)
   *
-  * @param PapayaUiToolbar $menu
-  * @return PapayaUiToolbar
+  * @param \PapayaUiToolbar $menu
+  * @return \PapayaUiToolbar
   */
-  public function menu(PapayaUiToolbar $menu = NULL) {
+  public function menu(\PapayaUiToolbar $menu = NULL) {
     if (isset($menu)) {
       $this->_menu = $menu;
     } elseif (is_null($this->_menu)) {
@@ -301,10 +301,10 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
   /**
   * Getter/Setter for the dependencies listview.
   *
-  * @param PapayaAdministrationPagesDependencyListview $listview
-  * @return PapayaAdministrationPagesDependencyListview
+  * @param \PapayaAdministrationPagesDependencyListview $listview
+  * @return \PapayaAdministrationPagesDependencyListview
   */
-  public function listview(PapayaAdministrationPagesDependencyListview $listview = NULL) {
+  public function listview(\PapayaAdministrationPagesDependencyListview $listview = NULL) {
     if (isset($listview)) {
       $this->_listview = $listview;
     } elseif (is_null($this->_listview)) {
@@ -322,8 +322,8 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
   /**
   * Getter/Setter for the synchronizations list
   *
-  * @param PapayaAdministrationPagesDependencySynchronizations $synchronizations
-  * @return PapayaAdministrationPagesDependencySynchronizations
+  * @param \PapayaAdministrationPagesDependencySynchronizations $synchronizations
+  * @return \PapayaAdministrationPagesDependencySynchronizations
   */
   public function synchronizations(
     PapayaAdministrationPagesDependencySynchronizations $synchronizations = NULL

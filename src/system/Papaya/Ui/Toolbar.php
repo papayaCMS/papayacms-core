@@ -42,10 +42,10 @@ class PapayaUiToolbar extends PapayaUiControl {
   /**
    * Getter/setter for elements collection
    *
-   * @param PapayaUiToolbarElements $elements
+   * @param \PapayaUiToolbarElements $elements
    * @return \PapayaUiToolbarElements
    */
-  public function elements(PapayaUiToolbarElements $elements = NULL) {
+  public function elements(\PapayaUiToolbarElements $elements = NULL) {
     if (isset($elements)) {
       $this->_elements = $elements;
       $this->_elements->owner($this);
@@ -61,10 +61,10 @@ class PapayaUiToolbar extends PapayaUiControl {
   *
   * @see papaya-lib/system/Papaya/Ui/Control/PapayaUiControlCollection#appendTo($parent)
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement|NULL
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement|NULL
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     if (count($this->elements()) > 0) {
       $toolbar = $parent->appendElement('toolbar');
       $this->elements()->appendTo($toolbar);

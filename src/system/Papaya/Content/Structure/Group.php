@@ -38,7 +38,7 @@ class PapayaContentStructureGroup extends PapayaContentStructureNode {
    *
    * @param \PapayaContentStructurePage $page
    */
-  public function __construct(PapayaContentStructurePage $page) {
+  public function __construct(\PapayaContentStructurePage $page) {
     parent::__construct(
       array(
         'name' => 'page',
@@ -51,10 +51,10 @@ class PapayaContentStructureGroup extends PapayaContentStructureNode {
   /**
    * Getter/Setter for the values list
    *
-   * @param PapayaContentStructureValues $values
-   * @return PapayaContentStructureValues
+   * @param \PapayaContentStructureValues $values
+   * @return \PapayaContentStructureValues
    */
-  public function values(PapayaContentStructureValues $values = NULL) {
+  public function values(\PapayaContentStructureValues $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
     } elseif (NULL === $this->_values) {

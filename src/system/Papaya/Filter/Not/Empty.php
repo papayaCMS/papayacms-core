@@ -35,7 +35,7 @@ class PapayaFilterNotEmpty implements PapayaFilter {
   * @param boolean $ignoreSpaces
   */
   public function __construct($ignoreSpaces = TRUE) {
-    PapayaUtilConstraints::assertBoolean($ignoreSpaces);
+    \PapayaUtilConstraints::assertBoolean($ignoreSpaces);
     $this->_ignoreSpaces = $ignoreSpaces;
   }
 
@@ -43,7 +43,7 @@ class PapayaFilterNotEmpty implements PapayaFilter {
    * Check for empty string. If $value is not empty and whitespace are ignored,
    * check the trimmed version, too.
    *
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    * @param mixed $value
    * @return bool
    */
@@ -65,7 +65,7 @@ class PapayaFilterNotEmpty implements PapayaFilter {
   /**
   * If spaces are ignored trim the value. If the value is empty return NULL.
   *
-  * @throws PapayaFilterException
+  * @throws \PapayaFilterException
   * @param mixed $value
   * @return string|NULL
   */

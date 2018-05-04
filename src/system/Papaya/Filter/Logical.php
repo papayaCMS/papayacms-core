@@ -46,7 +46,7 @@ abstract class PapayaFilterLogical implements PapayaFilter {
    * Check subfilters and save them in a protected property
    *
    * @param array(PapayaFilter) $filters
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return void
    */
   protected function _setFilters($filters) {

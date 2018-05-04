@@ -22,9 +22,9 @@
 class PapayaFilterFactoryProfileIsTextWithNumbers extends PapayaFilterFactoryProfile {
 
   /**
-   * @see PapayaFilterFactoryProfile::getFilter()
+   * @see \PapayaFilterFactoryProfile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterText(PapayaFilterText::ALLOW_SPACES | PapayaFilterText::ALLOW_DIGITS);
+    return new \PapayaFilterText(\PapayaFilterText::ALLOW_SPACES | \PapayaFilterText::ALLOW_DIGITS);
   }
 }

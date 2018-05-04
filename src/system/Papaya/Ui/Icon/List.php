@@ -42,7 +42,7 @@ class PapayaUiIconList implements ArrayAccess, Countable, IteratorAggregate {
   * ArrayAccess Interface: return an icon from the internal list
   *
   * @param string $offset
-  * @return PapayaUiIcon
+  * @return \PapayaUiIcon
   */
   public function offsetGet($offset) {
     return $this->_icons[$offset];
@@ -53,8 +53,8 @@ class PapayaUiIconList implements ArrayAccess, Countable, IteratorAggregate {
    * offset if it is there.
    *
    * @param string $offset
-   * @param PapayaUiIcon $icon
-   * @throws InvalidArgumentException
+   * @param \PapayaUiIcon $icon
+   * @throws \InvalidArgumentException
    */
   public function offsetSet($offset, $icon) {
     if (is_null($offset)) {
@@ -75,7 +75,7 @@ class PapayaUiIconList implements ArrayAccess, Countable, IteratorAggregate {
   * ArrayAccess Interface: remove an icon from the internal list
   *
   * @param string $offset
-  * @return PapayaUiIcon
+  * @return \PapayaUiIcon
   */
   public function offsetUnset($offset) {
     unset($this->_icons[$offset]);
@@ -93,7 +93,7 @@ class PapayaUiIconList implements ArrayAccess, Countable, IteratorAggregate {
   /**
   * IteratorAggregate Interface: get an iterator for the icons
   *
-  * @return ArrayIterator
+  * @return \ArrayIterator
   */
   public function getIterator() {
     return new \ArrayIterator($this->_icons);

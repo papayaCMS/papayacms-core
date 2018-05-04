@@ -50,9 +50,9 @@ class PapayaThemeWrapperUrl {
   /**
   * Initialize using an url object.
   *
-  * @param PapayaUrl $url
+  * @param \PapayaUrl $url
   */
-  public function __construct(PapayaUrl $url = NULL) {
+  public function __construct(\PapayaUrl $url = NULL) {
     if (isset($url)) {
       $this->_requestUrl = $url;
     } else {
@@ -81,10 +81,10 @@ class PapayaThemeWrapperUrl {
    * If the $_parameters property is not set it will be initialized using the query string of the
    * $_requestUrl property.
    *
-   * @param PapayaRequestParameters $parameters
+   * @param \PapayaRequestParameters $parameters
    * @return \PapayaRequestParameters
    */
-  public function parameters(PapayaRequestParameters $parameters = NULL) {
+  public function parameters(\PapayaRequestParameters $parameters = NULL) {
     if (isset($parameters)) {
       $this->_parameters = $parameters;
     }

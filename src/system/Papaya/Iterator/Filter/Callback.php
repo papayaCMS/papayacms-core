@@ -30,10 +30,10 @@ class PapayaIteratorFilterCallback extends FilterIterator {
   * Traversable, wrap it using IteratorIterator.
   *
   *
-  * @param Traversable $iterator
+  * @param \Traversable $iterator
   * @param callable $callback
   */
-  public function __construct(Traversable $iterator, $callback) {
+  public function __construct(\Traversable $iterator, $callback) {
     parent::__construct(
       $iterator instanceof \Iterator ? $iterator : new \IteratorIterator($iterator)
     );
@@ -46,7 +46,7 @@ class PapayaIteratorFilterCallback extends FilterIterator {
   * @param callable $callback
   */
   public function setCallback($callback) {
-    PapayaUtilConstraints::assertCallable($callback);
+    \PapayaUtilConstraints::assertCallable($callback);
     $this->_callback = $callback;
   }
 

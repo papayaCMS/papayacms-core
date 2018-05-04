@@ -1,23 +1,17 @@
 <?php
 /**
-* Provide data encapsulation for a single content box translation details.
-*
-* Allows to load/save the page translation.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Translation.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Provide data encapsulation for the content box translation details.
@@ -58,7 +52,7 @@ class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
     'module_title' => 'module_title'
   );
 
-  protected $_tableNameBoxTranslations = PapayaContentTables::BOX_TRANSLATIONS;
+  protected $_tableNameBoxTranslations = \PapayaContentTables::BOX_TRANSLATIONS;
 
   /**
    * Load box translation details
@@ -79,8 +73,8 @@ class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
                AND t.lng_id = %d";
     $parameters = array(
       $this->databaseGetTableName($this->_tableNameBoxTranslations),
-      $this->databaseGetTableName(PapayaContentTables::VIEWS),
-      $this->databaseGetTableName(PapayaContentTables::MODULES),
+      $this->databaseGetTableName(\PapayaContentTables::VIEWS),
+      $this->databaseGetTableName(\PapayaContentTables::MODULES),
       (int)$filter[0],
       (int)$filter[1]
     );
@@ -100,7 +94,7 @@ class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
   */
   protected function convertBoxRecordToValues($record) {
     $values = $this->convertRecordToValues($record);
-    $values['content'] = PapayaUtilStringXml::unserializeArray($record['box_data']);
+    $values['content'] = \PapayaUtilStringXml::unserializeArray($record['box_data']);
     return $values;
   }
 
@@ -145,7 +139,7 @@ class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
       'lng_id' => (int)$this->languageId,
       'box_title' => (string)$this->title,
       'box_data' => is_array($this->content)
-         ? PapayaUtilStringXml::serializeArray($this->content) : '',
+         ? \PapayaUtilStringXml::serializeArray($this->content) : '',
       'box_trans_created' => time(),
       'box_trans_modified' => time(),
       'view_id' => (int)(string)$this->viewId
@@ -170,7 +164,7 @@ class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
     $data = array(
       'box_title' => (string)$this->title,
       'box_data' => is_array($this->content)
-         ? PapayaUtilStringXml::serializeArray($this->content) : '',
+         ? \PapayaUtilStringXml::serializeArray($this->content) : '',
       'box_trans_modified' => time(),
       'view_id' => (int)(string)$this->viewId
     );

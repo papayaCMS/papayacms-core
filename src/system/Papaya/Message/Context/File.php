@@ -1,21 +1,17 @@
 <?php
 /**
-* Message string context containing a file
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Messages
-* @version $Id: File.php 36250 2011-09-28 12:41:07Z zerebecki $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Message string context containing a file
@@ -96,13 +92,13 @@ class PapayaMessageContextFile
             $result .= sprintf(
               '<li style="list-style-position: outside;">'.
               '<strong>%s<em>%s</em></strong></li>',
-              PapayaUtilStringXml::escape($offsetContent),
-              PapayaUtilStringXml::escape($highlightContent)
+              \PapayaUtilStringXml::escape($offsetContent),
+              \PapayaUtilStringXml::escape($highlightContent)
             );
           } else {
             $result .= sprintf(
               '<li style="list-style-position: outside;">%s</li>',
-              PapayaUtilStringXml::escape($line)
+              \PapayaUtilStringXml::escape($line)
             );
           }
         }

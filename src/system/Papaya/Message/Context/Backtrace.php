@@ -61,7 +61,7 @@ class PapayaMessageContextBacktrace
   /**
    * Check an set backtrace offset
    * @param integer $offset
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function setOffset($offset) {
     if (!is_int($offset) || $offset < 0) {
@@ -117,7 +117,7 @@ class PapayaMessageContextBacktrace
       if ($key > 0) {
         $result .= "<br />\n";
       }
-      $result .= PapayaUtilStringXml::escape($element);
+      $result .= \PapayaUtilStringXml::escape($element);
     }
     return $result;
   }

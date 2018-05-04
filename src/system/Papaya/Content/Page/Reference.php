@@ -41,12 +41,12 @@ class PapayaContentPageReference extends PapayaDatabaseRecord {
   *
   * @var string
   */
-  protected $_tableName = PapayaContentTables::PAGE_REFERENCES;
+  protected $_tableName = \PapayaContentTables::PAGE_REFERENCES;
 
   /**
   * Create a multi field key object containg both page id properties
   *
-  * @return PapayaDatabaseInterfaceKey
+  * @return \PapayaDatabaseInterfaceKey
   */
   protected function _createKey() {
     return new \PapayaDatabaseRecordKeyFields(
@@ -59,7 +59,7 @@ class PapayaContentPageReference extends PapayaDatabaseRecord {
   /**
   * Add a callback to the mapping to be used after mapping
   *
-  * @return PapayaDatabaseInterfaceMapping
+  * @return \PapayaDatabaseInterfaceMapping
   */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
@@ -79,7 +79,7 @@ class PapayaContentPageReference extends PapayaDatabaseRecord {
   * @return array
   */
   public function callbackSortPageIds($context, $mode, $values, $record) {
-    if ($mode == PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
+    if ($mode == \PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
       $result = $record;
       if ((int)$record['topic_source_id'] > (int)$record['topic_target_id']) {
         $result['topic_target_id'] = $record['topic_source_id'];

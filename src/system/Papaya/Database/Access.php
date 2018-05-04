@@ -152,7 +152,7 @@ class PapayaDatabaseAccess extends PapayaObject {
   * @param object $owner calling object
   * @param string|NULL $readUri
   * @param string|NULL $writeUri
-  * @return PapayaDatabaseAccess
+  * @return \PapayaDatabaseAccess
   */
   public function __construct($owner, $readUri = NULL, $writeUri = NULL) {
     $this->_owner = $owner;
@@ -215,10 +215,10 @@ class PapayaDatabaseAccess extends PapayaObject {
   /**
   * Get table name mapper object
   *
-  * @param PapayaContentTables $tables
-  * @return PapayaContentTables
+  * @param \PapayaContentTables $tables
+  * @return \PapayaContentTables
   */
-  public function tables(PapayaContentTables $tables = NULL) {
+  public function tables(\PapayaContentTables $tables = NULL) {
     if (isset($tables)) {
       $this->_tables = $tables;
     } elseif (is_null($this->_tables)) {
@@ -291,7 +291,7 @@ class PapayaDatabaseAccess extends PapayaObject {
    *
    * @param string $functionName
    * @param array $arguments
-   * @throws BadMethodCallException
+   * @throws \BadMethodCallException
    * @return mixed
    */
   public function __call($functionName, $arguments) {
@@ -321,7 +321,7 @@ class PapayaDatabaseAccess extends PapayaObject {
             $this->setDataModified();
           }
           return $result;
-        } catch (PapayaDatabaseException $exception) {
+        } catch (\PapayaDatabaseException $exception) {
           $this->_handleDatabaseException($exception);
           return FALSE;
         }
@@ -350,9 +350,9 @@ class PapayaDatabaseAccess extends PapayaObject {
    * error handling (dispatching log messages) and call the given callback. To remove the
    * callback and restore the default error handling set it to FALSE.
    *
-   * @param callback|Closure|FALSE $callback
-   * @throws InvalidArgumentException
-   * @return callback|Closure|NULL void
+   * @param callback|\Closure|FALSE $callback
+   * @throws \InvalidArgumentException
+   * @return callback|\Closure|NULL void
    */
   public function errorHandler($callback = NULL) {
     if (isset($callback)) {
@@ -370,20 +370,20 @@ class PapayaDatabaseAccess extends PapayaObject {
   /**
   * Call the given eror handler callback or if none is defined dipatch a log message.
   *
-  * @param PapayaDatabaseException $exception
+  * @param \PapayaDatabaseException $exception
   */
-  private function _handleDatabaseException(PapayaDatabaseException $exception) {
+  private function _handleDatabaseException(\PapayaDatabaseException $exception) {
     $errorHandler = $this->errorHandler();
     if (isset($errorHandler)) {
       call_user_func($errorHandler, $exception);
     } else {
       $mapSeverity = array(
-        PapayaDatabaseException::SEVERITY_INFO => PapayaMessage::SEVERITY_INFO,
-        PapayaDatabaseException::SEVERITY_WARNING => PapayaMessage::SEVERITY_WARNING,
-        PapayaDatabaseException::SEVERITY_ERROR => PapayaMessage::SEVERITY_ERROR,
+        \PapayaDatabaseException::SEVERITY_INFO => \PapayaMessage::SEVERITY_INFO,
+        \PapayaDatabaseException::SEVERITY_WARNING => \PapayaMessage::SEVERITY_WARNING,
+        \PapayaDatabaseException::SEVERITY_ERROR => \PapayaMessage::SEVERITY_ERROR,
       );
       $logMsg = new \PapayaMessageLog(
-        PapayaMessageLogable::GROUP_DATABASE,
+        \PapayaMessageLogable::GROUP_DATABASE,
         $mapSeverity[$exception->getSeverity()],
         'Database #'.$exception->getCode().': '.$exception->getMessage()
       );

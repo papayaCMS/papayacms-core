@@ -22,7 +22,7 @@
 class PapayaFilterFactoryProfileIsUrlHost extends PapayaFilterFactoryProfile {
 
   /**
-   * @see PapayaFilterFactoryProfile::getFilter()
+   * @see \PapayaFilterFactoryProfile::getFilter()
    */
   public function getFilter() {
     return new \PapayaFilterUrlHost();

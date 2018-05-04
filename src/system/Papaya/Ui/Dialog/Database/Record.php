@@ -40,7 +40,7 @@ class PapayaUiDialogDatabaseRecord extends PapayaUiDialog {
   * Dialog form method
   * @var NULL|integer
   */
-  protected $_method = PapayaUiDialog::METHOD_MIXED;
+  protected $_method = \PapayaUiDialog::METHOD_MIXED;
 
   /**
   * Internal database access object variable
@@ -97,7 +97,7 @@ class PapayaUiDialogDatabaseRecord extends PapayaUiDialog {
   /**
    * Initalize dialog object and define database table mapping.
    *
-   * You still need to use {@see PapayaUiDialog::fields} to define the dialog interface.
+   * You still need to use {@see \PapayaUiDialog::fields} to define the dialog interface.
    *
    * @param string $table
    * @param string $identifierColumn
@@ -142,7 +142,7 @@ class PapayaUiDialogDatabaseRecord extends PapayaUiDialog {
             return $this->_update($identifier);
           }
         }
-      } catch (PapayaFilterException $e) {
+      } catch (\PapayaFilterException $e) {
       }
     } elseif (!empty($identifier) &&
               ($data = $this->_load($identifier))) {
@@ -197,7 +197,7 @@ class PapayaUiDialogDatabaseRecord extends PapayaUiDialog {
   * The permission callback will be called to check if the current user is allowed to
   * change the record.
   *
-  * @param Closure|Callback $callback
+  * @param \Closure|\Callback $callback
   */
   public function setPermissionCallback($callback) {
     $this->_callbackPermissions = $callback;
@@ -220,16 +220,16 @@ class PapayaUiDialogDatabaseRecord extends PapayaUiDialog {
   /**
   * Set the database access object.
   *
-  * @param PapayaDatabaseAccess $databaseAccess
+  * @param \PapayaDatabaseAccess $databaseAccess
   */
-  public function setDatabaseAccess(PapayaDatabaseAccess $databaseAccess) {
+  public function setDatabaseAccess(\PapayaDatabaseAccess $databaseAccess) {
     $this->_databaseAccessObject = $databaseAccess;
   }
 
   /**
   * Get the database access object, create a default object if nessesary.
   *
-  * @return PapayaDatabaseAccess
+  * @return \PapayaDatabaseAccess
   */
   public function getDatabaseAccess() {
     if (is_null($this->_databaseAccessObject)) {
@@ -276,8 +276,8 @@ class PapayaUiDialogDatabaseRecord extends PapayaUiDialog {
   /**
   * Compile dialog data into record data foir the sql queries.
   *
-  * @see PapayaUiDialogDatabaseRecord::_insert
-  * @see PapayaUiDialogDatabaseRecord::_update
+  * @see \PapayaUiDialogDatabaseRecord::_insert
+  * @see \PapayaUiDialogDatabaseRecord::_update
   */
   private function _compileRecord() {
     $data = array();

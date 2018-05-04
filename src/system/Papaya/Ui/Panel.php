@@ -38,10 +38,10 @@ abstract class PapayaUiPanel extends PapayaUiControl {
   /**
   * Append panel to output xml
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement $panel
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement $panel
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $panel = $parent->appendElement('panel');
     if (!empty($this->_caption)) {
       $panel->setAttribute('title', (string)$this->_caption);
@@ -53,7 +53,7 @@ abstract class PapayaUiPanel extends PapayaUiControl {
   /**
   * Set a caption for the panel
   *
-  * @param PapayaUiString|string $caption
+  * @param \PapayaUiString|string $caption
   */
   public function setCaption($caption) {
     $this->_caption = $caption;
@@ -62,10 +62,10 @@ abstract class PapayaUiPanel extends PapayaUiControl {
   /**
    * Toolbars for the four corners of the panel
    *
-   * @param PapayaUiToolbars $toolbars
+   * @param \PapayaUiToolbars $toolbars
    * @return \PapayaUiToolbars
    */
-  public function toolbars(PapayaUiToolbars $toolbars = NULL) {
+  public function toolbars(\PapayaUiToolbars $toolbars = NULL) {
     if (isset($toolbars)) {
       $this->_toolbars = $toolbars;
     }

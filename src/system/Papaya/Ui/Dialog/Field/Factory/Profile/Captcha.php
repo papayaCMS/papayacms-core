@@ -25,7 +25,7 @@ class PapayaUiDialogFieldFactoryProfileCaptcha extends PapayaUiDialogFieldFactor
    * Create a color input field
    *
    * @see PapayaUiDialogFieldInputColor
-   * @see PapayaUiDialogFieldFactoryProfile::getField()
+   * @see \PapayaUiDialogFieldFactoryProfile::getField()
    */
   public function getField() {
     $field = new \PapayaUiDialogFieldInputCaptcha(

@@ -1,20 +1,16 @@
 <?php
 /**
- * A simple single line readonly input field with a caption.
+ * papaya CMS
  *
- * @copyright 2012 by papaya Software GmbH - All rights reserved.
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package Papaya-Library
- * @subpackage Ui
- * @version $Id: Readonly.php 37484 2012-08-27 22:21:02Z weinert $
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
 /**
@@ -28,7 +24,7 @@ class PapayaUiDialogFieldInputReadonly extends PapayaUiDialogFieldInput {
   /**
    * Initialize object, set caption and field name
    *
-   * @param string|PapayaUiString $caption
+   * @param string|\PapayaUiString $caption
    * @param string $name
    * @param mixed $default
    */
@@ -39,9 +35,9 @@ class PapayaUiDialogFieldInputReadonly extends PapayaUiDialogFieldInput {
   /**
    * Append field and input ouptut to DOM
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',

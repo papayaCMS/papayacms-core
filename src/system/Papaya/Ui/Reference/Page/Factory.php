@@ -85,10 +85,10 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   /**
    * Configure a given page reference
    *
-   * @param PapayaUiReferencePage $reference
+   * @param \PapayaUiReferencePage $reference
    * @return \PapayaUiReferencePage
    */
-  public function configure(PapayaUiReferencePage $reference) {
+  public function configure(\PapayaUiReferencePage $reference) {
     $languageIdentifier = $this->validateLanguageIdentifier($reference->getPageLanguage());
     $pageId = $reference->getPageId();
     $reference->setPreview($this->isPreview());
@@ -100,9 +100,9 @@ class PapayaUiReferencePageFactory extends PapayaObject {
           return $reference;
         } elseif (is_array($domain = $this->getDomainData($languageIdentifier, $pageId))) {
           $reference->url()->setHost($domain['host']);
-          if ($domain['scheme'] != PapayaUtilServerProtocol::BOTH) {
+          if ($domain['scheme'] != \PapayaUtilServerProtocol::BOTH) {
             $reference->url()->setScheme(
-              PapayaUtilServerProtocol::get($domain['scheme'])
+              \PapayaUtilServerProtocol::get($domain['scheme'])
             );
           } elseif (!$reference->url()->getScheme()) {
             $reference->url()->setScheme('http');
@@ -110,9 +110,9 @@ class PapayaUiReferencePageFactory extends PapayaObject {
         } elseif (!$domain) {
           $reference->valid(FALSE);
         }
-        if ($data['scheme'] != PapayaUtilServerProtocol::BOTH) {
+        if ($data['scheme'] != \PapayaUtilServerProtocol::BOTH) {
           $reference->url()->setScheme(
-            PapayaUtilServerProtocol::get($data['scheme'])
+            \PapayaUtilServerProtocol::get($data['scheme'])
           );
         }
       } else {
@@ -131,7 +131,7 @@ class PapayaUiReferencePageFactory extends PapayaObject {
    */
   private function prepareTitle($title, $languageIdentifier) {
     return strtolower(
-      PapayaUtilFile::normalizeName(
+      \PapayaUtilFile::normalizeName(
         $title,
         $this->papaya()->options->get('PAPAYA_URL_NAMELENGTH', 50),
         $languageIdentifier
@@ -238,7 +238,7 @@ class PapayaUiReferencePageFactory extends PapayaObject {
         $domains = $this->domains()->getDomainsByPath($path);
         $current = $this->domains()->getCurrent();
         $language = $this->languages()->getLanguage(
-          $languageIdentifier, PapayaContentLanguages::FILTER_IS_CONTENT
+          $languageIdentifier, \PapayaContentLanguages::FILTER_IS_CONTENT
         );
         $languageId = $language ? $language->id : 0;
         if ($current &&
@@ -297,7 +297,7 @@ class PapayaUiReferencePageFactory extends PapayaObject {
    *
    * @param string $languageIdentifier
    * @param integer $pageId
-   * @return NULL|PapayaUiLinkAttributes
+   * @return NULL|\PapayaUiLinkAttributes
    */
   public function getLinkAttributes($languageIdentifier, $pageId) {
     if ($pageData = $this->getPageData($languageIdentifier, $pageId)) {
@@ -307,47 +307,47 @@ class PapayaUiReferencePageFactory extends PapayaObject {
         $attributes = new \PapayaUiLinkAttributes();
         $attributes->class = $linkType['class'];
         if ($linkType['is_popup']) {
-          $width = PapayaUtilArray::get($linkType['popup_options'], 'popup_width', '80%');
-          $height = PapayaUtilArray::get($linkType['popup_options'], 'popup_height', '80%');
-          $top = PapayaUtilArray::get($linkType['popup_options'], 'popup_top', NULL);
-          $left = PapayaUtilArray::get($linkType['popup_options'], 'popup_left', NULL);
+          $width = \PapayaUtilArray::get($linkType['popup_options'], 'popup_width', '80%');
+          $height = \PapayaUtilArray::get($linkType['popup_options'], 'popup_height', '80%');
+          $top = \PapayaUtilArray::get($linkType['popup_options'], 'popup_top', NULL);
+          $left = \PapayaUtilArray::get($linkType['popup_options'], 'popup_left', NULL);
           $options = 0;
           $options = $this->setLinkPopupOption(
             $options,
-            PapayaUiLinkAttributes::OPTION_RESIZEABLE,
+            \PapayaUiLinkAttributes::OPTION_RESIZEABLE,
             $linkType['popup_options'],
             'popup_resizable'
           );
           $options = $this->setLinkPopupOption(
             $options,
-            PapayaUiLinkAttributes::OPTION_TOOLBAR,
+            \PapayaUiLinkAttributes::OPTION_TOOLBAR,
             $linkType['popup_options'],
             'popup_toolbar'
           );
           $options = $this->setLinkPopupOption(
             $options,
-            PapayaUiLinkAttributes::OPTION_MENUBAR,
+            \PapayaUiLinkAttributes::OPTION_MENUBAR,
             $linkType['popup_options'],
             'popup_menubar'
           );
           $options = $this->setLinkPopupOption(
             $options,
-            PapayaUiLinkAttributes::OPTION_LOCATIONBAR,
+            \PapayaUiLinkAttributes::OPTION_LOCATIONBAR,
             $linkType['popup_options'],
             'popup_location'
           );
           $options = $this->setLinkPopupOption(
             $options,
-            PapayaUiLinkAttributes::OPTION_STATUSBAR,
+            \PapayaUiLinkAttributes::OPTION_STATUSBAR,
             $linkType['popup_options'],
             'popup_status'
           );
           $scrollbarOptions = array(
-            0 => PapayaUiLinkAttributes::OPTION_SCROLLBARS_NEVER,
-            1 => PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS,
-            2 => PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
+            0 => \PapayaUiLinkAttributes::OPTION_SCROLLBARS_NEVER,
+            1 => \PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS,
+            2 => \PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
           );
-          $scrollbarOptionIndex = PapayaUtilArray::get(
+          $scrollbarOptionIndex = \PapayaUtilArray::get(
             $linkType['popup_options'], 'popup_scrollbars', 2
           );
           if (!empty($scrollbarOptions[$scrollbarOptionIndex])) {
@@ -374,7 +374,7 @@ class PapayaUiReferencePageFactory extends PapayaObject {
    * @return int
    */
   private function setLinkPopupOption($bitmask, $bit, $options, $name, $default = FALSE) {
-    if (PapayaUtilArray::get($options, $name, $default)) {
+    if (\PapayaUtilArray::get($options, $name, $default)) {
       $bitmask |= $bit;
     }
     return $bitmask;
@@ -383,10 +383,10 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   /**
    * The pages subobject is used to load the acutal page data
    *
-   * @param PapayaContentPages $pages
-   * @return PapayaContentPages
+   * @param \PapayaContentPages $pages
+   * @return \PapayaContentPages
    */
-  public function pages(PapayaContentPages $pages = NULL) {
+  public function pages(\PapayaContentPages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;
     } elseif (is_null($this->_pages)) {
@@ -400,10 +400,10 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   /**
    * Access to the link types
    *
-   * @param PapayaContentLinkTypes $linkTypes
-   * @return PapayaContentLinkTypes
+   * @param \PapayaContentLinkTypes $linkTypes
+   * @return \PapayaContentLinkTypes
    */
-  public function linkTypes(PapayaContentLinkTypes $linkTypes = NULL) {
+  public function linkTypes(\PapayaContentLinkTypes $linkTypes = NULL) {
     if (isset($linkTypes)) {
       $this->_linkTypes = $linkTypes;
     } elseif (is_null($this->_linkTypes)) {
@@ -417,10 +417,10 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   /**
    * The domains subobject is used to load get domain data for the page id
    *
-   * @param PapayaDomains $domains
-   * @return PapayaDomains
+   * @param \PapayaDomains $domains
+   * @return \PapayaDomains
    */
-  public function domains(PapayaDomains $domains = NULL) {
+  public function domains(\PapayaDomains $domains = NULL) {
     if (isset($domains)) {
       $this->_domains = $domains;
     } elseif (is_null($this->_domains)) {
@@ -433,10 +433,10 @@ class PapayaUiReferencePageFactory extends PapayaObject {
   /**
    * Getter/Setter for a content languages record list.
    *
-   * @param PapayaContentLanguages $languages
-   * @return PapayaContentLanguages
+   * @param \PapayaContentLanguages $languages
+   * @return \PapayaContentLanguages
    */
-  public function languages(PapayaContentLanguages $languages = NULL) {
+  public function languages(\PapayaContentLanguages $languages = NULL) {
     if (isset($languages)) {
       $this->_languages = $languages;
     } elseif (is_null($this->_languages)) {
@@ -465,13 +465,13 @@ class PapayaUiReferencePageFactory extends PapayaObject {
       }
       $language = $languages->getLanguageByIdentifier(
         $this->papaya()->request->getParameter(
-          'language', '', NULL, PapayaRequest::SOURCE_PATH
+          'language', '', NULL, \PapayaRequest::SOURCE_PATH
         )
       );
       if (!($language && $language->isContent)) {
         $language = $languages->getLanguage(
           $this->papaya()->options->get('PAPAYA_CONTENT_LANGUAGE', 1),
-          PapayaContentLanguages::FILTER_IS_CONTENT
+          \PapayaContentLanguages::FILTER_IS_CONTENT
         );
       }
       $this->_currentLanguage = $language;
@@ -486,7 +486,7 @@ class PapayaUiReferencePageFactory extends PapayaObject {
    * @param array $pageIds
    */
   public function preload($language, array $pageIds) {
-    $language = $this->languages()->getLanguage($language, PapayaContentLanguages::FILTER_IS_CONTENT);
+    $language = $this->languages()->getLanguage($language, \PapayaContentLanguages::FILTER_IS_CONTENT);
     if ($language) {
       if (isset($this->_pageData[$language->identifier])) {
         $pageIds = array_values(
@@ -526,10 +526,10 @@ class PapayaUiReferencePageFactory extends PapayaObject {
 
   /**
    * Set start page reference
-   * @param PapayaUiReferencePage $page
+   * @param \PapayaUiReferencePage $page
    * @return boolean
    */
-  public function isStartPage(PapayaUiReferencePage $page) {
+  public function isStartPage(\PapayaUiReferencePage $page) {
     return $this->domains()->isStartPage($page);
   }
 }

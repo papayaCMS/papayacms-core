@@ -1,22 +1,17 @@
 <?php
 /**
-* Extract teaser image information from the given subtopic elements and creates a list
-* of scaled teaser image tags.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui-Content
-* @version $Id: Images.php 39429 2014-02-27 20:14:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Extract teaser image information from the given subtopic elements and creates a list
@@ -69,12 +64,12 @@ class PapayaUiContentTeaserImages extends PapayaUiControl {
   /**
   * Create object and store given parameters
   *
-  * @param PapayaXmlElement $teasers
+  * @param \PapayaXmlElement $teasers
   * @param integer $width
   * @param integer $height
   * @param string $resizeMode
   */
-  public function __construct(PapayaXmlElement $teasers, $width, $height, $resizeMode = 'max') {
+  public function __construct(\PapayaXmlElement $teasers, $width, $height, $resizeMode = 'max') {
     $this->_teasers = $teasers;
     $this->_width = $width;
     $this->_height = $height;
@@ -84,10 +79,10 @@ class PapayaUiContentTeaserImages extends PapayaUiControl {
   /**
   * Append teaser thumbnail tags to given parent element.
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement|NULL
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement|NULL
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     /** @var PapayaXmlDocument $targetDocument */
     $targetDocument = $parent->ownerDocument;
     $targetDocument->registerNamespaces(

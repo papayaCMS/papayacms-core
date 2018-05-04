@@ -38,7 +38,7 @@ abstract class PapayaUiControlPart extends PapayaObject implements PapayaXmlAppe
   * Validate dynamic property against the declared properties array. Call getter method or read
   * protected property.
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param string $name
   * @return mixed
   */
@@ -73,7 +73,7 @@ abstract class PapayaUiControlPart extends PapayaObject implements PapayaXmlAppe
   * Validate dynamic property against the declared properties array. Call setter method or write
   * protected property.
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param string $name
   * @param mixed $value
   */

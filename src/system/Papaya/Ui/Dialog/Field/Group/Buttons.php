@@ -43,7 +43,7 @@ class PapayaUiDialogFieldGroupButtons extends PapayaUiDialogField {
   /**
   * Initialize object, set caption
   *
-  * @param string|PapayaUiString $caption
+  * @param string|\PapayaUiString $caption
   */
   public function __construct($caption) {
     $this->setCaption($caption);
@@ -52,10 +52,10 @@ class PapayaUiDialogFieldGroupButtons extends PapayaUiDialogField {
   /**
    * Group buttons getter/setter
    *
-   * @param PapayaUiDialogButtons $buttons
+   * @param \PapayaUiDialogButtons $buttons
    * @return \PapayaUiDialogButtons
    */
-  public function buttons(PapayaUiDialogButtons $buttons = NULL) {
+  public function buttons(\PapayaUiDialogButtons $buttons = NULL) {
     if (isset($buttons)) {
       $this->_buttons = $buttons;
       if ($this->hasCollection() && $this->collection()->hasOwner()) {
@@ -73,10 +73,10 @@ class PapayaUiDialogFieldGroupButtons extends PapayaUiDialogField {
   /**
   * Return the owner collection of the item.
   *
-  * @param PapayaUiControlCollection $collection
-  * @return PapayaUiControlCollection
+  * @param \PapayaUiControlCollection $collection
+  * @return \PapayaUiControlCollection
   */
-  public function collection(PapayaUiControlCollection $collection = NULL) {
+  public function collection(\PapayaUiControlCollection $collection = NULL) {
     $result = parent::collection($collection);
     if ($collection != NULL && $collection->hasOwner()) {
       $this->buttons()->owner($collection->owner());
@@ -110,9 +110,9 @@ class PapayaUiDialogFieldGroupButtons extends PapayaUiDialogField {
   /**
   * Append group and buttons in this group to the DOM.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     if (isset($this->_buttons) && count($this->_buttons) > 0) {
       $group = $parent->appendElement(
         'field-group',

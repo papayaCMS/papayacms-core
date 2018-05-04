@@ -1,26 +1,17 @@
 <?php
 /**
-* This object loads page data by different conditions.
-*
-* Allows to load pages and provides basic function for the working copy and publication.
-*
-* This is an abstract superclass, please use {@see PapayaContentPageWork} to modify the
-* working copy of a page or {@see PapayaContentPagePublication} to use the published page.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Pages.php 38815 2013-09-19 09:45:44Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This object loads page data by different conditions.
@@ -57,8 +48,8 @@ class PapayaContentPages extends PapayaDatabaseRecordsLazy {
   );
 
   protected $_orderByProperties = array(
-    'title' => PapayaDatabaseInterfaceOrder::ASCENDING,
-    'created' => PapayaDatabaseInterfaceOrder::ASCENDING
+    'title' => \PapayaDatabaseInterfaceOrder::ASCENDING,
+    'created' => \PapayaDatabaseInterfaceOrder::ASCENDING
   );
 
   /**
@@ -66,42 +57,42 @@ class PapayaContentPages extends PapayaDatabaseRecordsLazy {
   *
   * @var string
   */
-  protected $_tablePages = PapayaContentTables::PAGES;
+  protected $_tablePages = \PapayaContentTables::PAGES;
 
   /**
   * Table containing language specific page informations
   *
   * @var string
   */
-  protected $_tablePageTranslations = PapayaContentTables::PAGE_TRANSLATIONS;
+  protected $_tablePageTranslations = \PapayaContentTables::PAGE_TRANSLATIONS;
 
   /**
   * Table containing page publications
   *
   * @var string
   */
-  protected $_tablePagePublications = PapayaContentTables::PAGE_PUBLICATIONS;
+  protected $_tablePagePublications = \PapayaContentTables::PAGE_PUBLICATIONS;
 
   /**
   * Table containing user informations
   *
   * @var string
   */
-  protected $_tableAuthenticationUsers = PapayaContentTables::AUTHENTICATION_USERS;
+  protected $_tableAuthenticationUsers = \PapayaContentTables::AUTHENTICATION_USERS;
 
   /**
   * Table containing page views
   *
   * @var string
   */
-  protected $_tableViews = PapayaContentTables::VIEWS;
+  protected $_tableViews = \PapayaContentTables::VIEWS;
 
   /**
   * Table containing page view configurations for the output modes
   *
   * @var string
   */
-  protected $_tableViewConfigurations = PapayaContentTables::VIEW_CONFIGURATIONS;
+  protected $_tableViewConfigurations = \PapayaContentTables::VIEW_CONFIGURATIONS;
 
   /**
   * This defines if pages are only loaded, if they have a translation in the given language.
@@ -188,7 +179,7 @@ class PapayaContentPages extends PapayaDatabaseRecordsLazy {
   /**
   * Overload the mapping object instanzation, to attach an callback for the mapping process.
   *
-  * @return PapayaDatabaseInterfaceMapping
+  * @return \PapayaDatabaseInterfaceMapping
   */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
@@ -208,10 +199,10 @@ class PapayaContentPages extends PapayaDatabaseRecordsLazy {
    */
   public function mapValue($context, $mode, $property, $field, $value) {
     if ($property == 'path') {
-      if ($mode == PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY) {
-        return PapayaUtilArray::decodeIdList($value);
+      if ($mode == \PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY) {
+        return \PapayaUtilArray::decodeIdList($value);
       } else {
-        return ';'.PapayaUtilArray::encodeIdList($value).';';
+        return ';'.\PapayaUtilArray::encodeIdList($value).';';
       }
     }
     return $value;

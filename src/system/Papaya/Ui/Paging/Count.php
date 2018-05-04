@@ -156,7 +156,7 @@ class PapayaUiPagingCount extends PapayaUiControl {
   /**
   * Create object and store needed data.
   *
-  * @param string|array|PapayaRequestParametersName $parameterName
+  * @param string|array|\PapayaRequestParametersName $parameterName
   * @param integer $currentPage
   * @param integer $itemsCount
   */
@@ -170,7 +170,7 @@ class PapayaUiPagingCount extends PapayaUiControl {
    * Allow to specify element and attribute names for the generated xml
    *
    * @param array $names
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function setXmlNames(array $names) {
     foreach ($names as $element => $name) {
@@ -192,9 +192,9 @@ class PapayaUiPagingCount extends PapayaUiControl {
   /**
   * Append a list of paging links to the parent.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $this->calculate();
     if ($this->_itemsCount > $this->_itemsPerPage) {
       $list = $this->appendListElement($parent, $this->_itemsCount);
@@ -220,10 +220,10 @@ class PapayaUiPagingCount extends PapayaUiControl {
   /**
    * Append the list element to the xml
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    * @return \PapayaXmlElement
    */
-  protected function appendListElement(PapayaXmlElement $parent) {
+  protected function appendListElement(\PapayaXmlElement $parent) {
     return $parent->appendElement(
       $this->_xmlNames['list'], array($this->_xmlNames['attr-count'] => $this->getLastPage())
     );
@@ -232,12 +232,12 @@ class PapayaUiPagingCount extends PapayaUiControl {
   /**
    * Append one paging link xml element to the list
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    * @param integer $page
    * @param string|NULL $type
    * @return \PapayaXmlElement
    */
-  protected function appendPageElement(PapayaXmlElement $parent, $page, $type = NULL) {
+  protected function appendPageElement(\PapayaXmlElement $parent, $page, $type = NULL) {
     $reference = clone $this->reference();
     $reference->getParameters()->set(
       (string)$this->_parameterName,
@@ -261,10 +261,10 @@ class PapayaUiPagingCount extends PapayaUiControl {
   /**
   * Getter/Setter for the reference object (the link url)
   *
-  * @param PapayaUiReference $reference
-  * @return PapayaUiReference
+  * @param \PapayaUiReference $reference
+  * @return \PapayaUiReference
   */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     }
@@ -279,10 +279,10 @@ class PapayaUiPagingCount extends PapayaUiControl {
    * The absolute count of items in the list. The minimum value is zero.
    *
    * @param integer $itemsCount
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function setItemsCount($itemsCount) {
-    PapayaUtilConstraints::assertInteger($itemsCount);
+    \PapayaUtilConstraints::assertInteger($itemsCount);
     if ($itemsCount < 0) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item count can not be negative.'
@@ -297,10 +297,10 @@ class PapayaUiPagingCount extends PapayaUiControl {
    * minimum value is 1.
    *
    * @param integer $itemsPerPage
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function setItemsPerPage($itemsPerPage) {
-    PapayaUtilConstraints::assertInteger($itemsPerPage);
+    \PapayaUtilConstraints::assertInteger($itemsPerPage);
     if ($itemsPerPage < 1) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item page limit can not be less than 1.'
@@ -315,10 +315,10 @@ class PapayaUiPagingCount extends PapayaUiControl {
    * Minimum value is 3. I suggest only odd values for this option.
    *
    * @param integer $pageLimit
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function setPageLimit($pageLimit) {
-    PapayaUtilConstraints::assertInteger($pageLimit);
+    \PapayaUtilConstraints::assertInteger($pageLimit);
     if ($pageLimit < 3) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Page limit can not be less than 3.'

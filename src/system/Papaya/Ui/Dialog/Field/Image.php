@@ -74,9 +74,9 @@ class PapayaUiDialogFieldImage extends PapayaUiDialogField {
   /**
    * Append image field to dialog xml dom
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $field = $this->_appendFieldTo($parent);
 
     $thumbnail = $this->thumbnail()->getThumbnail(
@@ -114,10 +114,10 @@ class PapayaUiDialogFieldImage extends PapayaUiDialogField {
   }
 
   /**
-   * @param PapayaUiReferenceThumbnail $object
-   * @return PapayaUiReferenceThumbnail
+   * @param \PapayaUiReferenceThumbnail $object
+   * @return \PapayaUiReferenceThumbnail
    */
-  public function referenceThumbnail(PapayaUiReferenceThumbnail $object = NULL) {
+  public function referenceThumbnail(\PapayaUiReferenceThumbnail $object = NULL) {
     if (isset($object)) {
       $this->_referenceThumbnail = $object;
     } else if (is_null($this->_referenceThumbnail)) {

@@ -54,7 +54,7 @@ class PapayaUrl {
   * Constructor
   *
   * @param string $url
-  * @return PapayaUrl
+  * @return \PapayaUrl
   */
   public function __construct($url = '') {
     if (!empty($url)) {
@@ -69,8 +69,8 @@ class PapayaUrl {
   public function __toString() {
     try {
       return $this->getUrl();
-    } catch (BadMethodCallException $e) {
-    } catch (InvalidArgumentException $e) {
+    } catch (\BadMethodCallException $e) {
+    } catch (\InvalidArgumentException $e) {
     }
     return '';
   }
@@ -142,7 +142,7 @@ class PapayaUrl {
    *
    * @param string $method
    * @param array $arguments
-   * @throws BadMethodCallException
+   * @throws \BadMethodCallException
    * @return mixed
    */
   public function __call($method, $arguments) {
@@ -163,7 +163,7 @@ class PapayaUrl {
    * Map the parts of the url to object properties
    *
    * @param string $name
-   * @throws BadMethodCallException
+   * @throws \BadMethodCallException
    * @return mixed
    */
   public function __get($name) {
@@ -182,7 +182,7 @@ class PapayaUrl {
    *
    * @param string $name
    * @param $value
-   * @throws BadMethodCallException
+   * @throws \BadMethodCallException
    */
   public function __set($name, $value) {
     if (in_array($name, $this->_parts)) {
@@ -202,7 +202,7 @@ class PapayaUrl {
   /**
   * set scheme if it is valid, throw an exception if not.
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param string $scheme
   */
   public function setScheme($scheme) {
@@ -218,7 +218,7 @@ class PapayaUrl {
   /**
   * set host if it is valid, throw an exception if not.
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param string $host
   */
   public function setHost($host) {
@@ -237,7 +237,7 @@ class PapayaUrl {
    *
    *
    * @param $port
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function setPort($port) {
     if (preg_match('(^[0-9]+$)D', $port)) {
@@ -252,7 +252,7 @@ class PapayaUrl {
   /**
   * set path if it is valid, throw an exception if not.
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param string $path
   */
   public function setPath($path) {
@@ -270,7 +270,7 @@ class PapayaUrl {
    *
    *
    * @param $query
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @internal param string $path
    * @internal param string $query
    */
@@ -289,7 +289,7 @@ class PapayaUrl {
    *
    *
    * @param string $fragment
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @internal param string $query
    */
   public function setFragment($fragment) {

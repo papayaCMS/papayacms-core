@@ -1,21 +1,17 @@
 <?php
 /**
-* Message context containing the timing infotmations
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Messages
-* @version $Id: Runtime.php 34131 2010-04-29 10:51:15Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Message context containing the timing infotmations
@@ -73,7 +69,7 @@ class PapayaMessageContextRuntime
   * Create object and set time property using start and stop time, setting no start value in
   * the constructor triggers the global mode.
   *
-  * @see PapayaMessageContextRuntime::setTimeValues
+  * @see \PapayaMessageContextRuntime::setTimeValues
   *
   * @param NULL|float|string $start
   * @param NULL|float|string $stop
@@ -107,11 +103,11 @@ class PapayaMessageContextRuntime
     switch ($this->_mode) {
     case self::MODE_GLOBAL :
       $timeFromStart = $this->_currentTime - self::$_startTime;
-      $result .= 'Time: '.PapayaUtilDate::periodToString($timeFromStart);
-      $result .= ' (+'.PapayaUtilDate::periodToString($this->_neededTime).')';
+      $result .= 'Time: '.\PapayaUtilDate::periodToString($timeFromStart);
+      $result .= ' (+'.\PapayaUtilDate::periodToString($this->_neededTime).')';
       break;
     case self::MODE_SINGLE :
-      $result = 'Time needed: '.PapayaUtilDate::periodToString($this->_neededTime);
+      $result = 'Time needed: '.\PapayaUtilDate::periodToString($this->_neededTime);
       break;
     }
     return $result;

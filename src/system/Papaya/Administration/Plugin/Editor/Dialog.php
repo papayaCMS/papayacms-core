@@ -26,10 +26,10 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
   /**
    * Execute and append the dialog to to the administration interface DOM.
    *
-   * @see PapayaXmlAppendable::appendTo()
-   * @param PapayaXmlElement $parent
+   * @see \PapayaXmlAppendable::appendTo()
+   * @param \PapayaXmlElement $parent
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $context = $this->context();
     if (!$context->isEmpty()) {
       $this->dialog()->hiddenValues()->merge($context);
@@ -39,7 +39,7 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
     } elseif ($this->dialog()->isSubmitted()) {
       $this->papaya()->messages->dispatch(
         new \PapayaMessageDisplayTranslated(
-          PapayaMessage::SEVERITY_ERROR,
+          \PapayaMessage::SEVERITY_ERROR,
           'Invalid input. Please check the field(s) "%s".',
           array(implode(', ', $this->dialog()->errors()->getSourceCaptions()))
         )
@@ -51,10 +51,10 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
   /**
    * Getter/Setter for the dialog subobject.
    *
-   * @param PapayaUiDialog $dialog
-   * @return PapayaUiDialog
+   * @param \PapayaUiDialog $dialog
+   * @return \PapayaUiDialog
    */
-  public function dialog(PapayaUiDialog $dialog = NULL) {
+  public function dialog(\PapayaUiDialog $dialog = NULL) {
     if (isset($dialog)) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
@@ -66,7 +66,7 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
   /**
    * Create a dialog instance and initialize it.
    *
-   * @return PapayaUiDialog
+   * @return \PapayaUiDialog
    */
   protected function createDialog() {
     $dialog = new \PapayaUiDialog();

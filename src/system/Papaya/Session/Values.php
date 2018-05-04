@@ -1,22 +1,17 @@
 <?php
 /**
-* Provide an array like access to session values. Allow to use complex identifiers. Handle
-* sessions that are not startet yet.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Session
-* @version $Id: Values.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Provide an array like access to session values. Allow to use complex identifiers. Handle
@@ -38,9 +33,9 @@ class PapayaSessionValues implements ArrayAccess {
   /**
   * Initialize object and link session object
   *
-  * @param PapayaSession $session
+  * @param \PapayaSession $session
   */
-  public function __construct(PapayaSession $session) {
+  public function __construct(\PapayaSession $session) {
     $this->_session = $session;
   }
 
@@ -76,7 +71,7 @@ class PapayaSessionValues implements ArrayAccess {
   }
 
   /**
-   * Alias for {@see PapayaSessionValues::offsetGet()}.
+   * Alias for {@see \PapayaSessionValues::offsetGet()}.
    *
    * @param mixed $identifier
    * @return mixed
@@ -102,7 +97,7 @@ class PapayaSessionValues implements ArrayAccess {
   }
 
   /**
-  * Alias for {@see PapayaSessionValues::offsetSet()}.
+  * Alias for {@see \PapayaSessionValues::offsetSet()}.
   *
   * @param mixed $identifier
   * @param mixed $value

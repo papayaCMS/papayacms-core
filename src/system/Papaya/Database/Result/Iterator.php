@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Database Result Iterator, allows to iterate on an object implementing PapayaDatabaseResult
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Iterator.php 39725 2014-04-07 17:19:34Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Database Result Iterator, allows to iterate on an object implementing PapayaDatabaseResult
@@ -29,18 +25,18 @@ class PapayaDatabaseResultIterator implements Iterator {
 
   private $_databaseResult = NULL;
   private $_mapping = NULL;
-  private $_fetchMode = PapayaDatabaseResult::FETCH_ASSOC;
+  private $_fetchMode = \PapayaDatabaseResult::FETCH_ASSOC;
   private $_current = NULL;
   private $_offset = -1;
 
   /**
   * Create object, store result object and fetch mode
   *
-  * @param PapayaDatabaseResult $databaseResult
+  * @param \PapayaDatabaseResult $databaseResult
   * @param integer $mode
   */
   public function __construct(
-    PapayaDatabaseResult $databaseResult = NULL, $mode = PapayaDatabaseResult::FETCH_ASSOC
+    PapayaDatabaseResult $databaseResult = NULL, $mode = \PapayaDatabaseResult::FETCH_ASSOC
   ) {
     $this->_databaseResult = $databaseResult;
     $this->_fetchMode = $mode;
@@ -52,10 +48,10 @@ class PapayaDatabaseResultIterator implements Iterator {
   *
   * If no mapping is provided, the mapping object will be removed.
   *
-  * @param PapayaDatabaseInterfaceMapping $mapping
-  * @return PapayaDatabaseInterfaceMapping
+  * @param \PapayaDatabaseInterfaceMapping $mapping
+  * @return \PapayaDatabaseInterfaceMapping
   */
-  public function setMapping(PapayaDatabaseInterfaceMapping $mapping = NULL) {
+  public function setMapping(\PapayaDatabaseInterfaceMapping $mapping = NULL) {
     $this->_mapping = $mapping;
   }
 
@@ -64,7 +60,7 @@ class PapayaDatabaseResultIterator implements Iterator {
    * a database record and back.
    *
    * @internal param \PapayaDatabaseInterfaceMapping $mapping
-   * @return PapayaDatabaseInterfaceMapping
+   * @return \PapayaDatabaseInterfaceMapping
    */
   public function getMapping() {
     return $this->_mapping;

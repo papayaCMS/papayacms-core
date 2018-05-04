@@ -35,11 +35,11 @@ class PapayaMessageDispatcherWildfire
   /**
    * Send log message to browser using the Wildfire protocol if possible
    *
-   * @param PapayaMessage $message
+   * @param \PapayaMessage $message
    * @return boolean
    * @throws \InvalidArgumentException
    */
-  public function dispatch(PapayaMessage $message) {
+  public function dispatch(\PapayaMessage $message) {
     if ($message instanceof \PapayaMessageLogable &&
         $this->allow()) {
       // @codeCoverageIgnoreStart
@@ -52,7 +52,7 @@ class PapayaMessageDispatcherWildfire
   /**
    * Check if it is allowed to use the dispatcher
    *
-   * @param Callback $usableCallback function to test technical conditions, if it is not set
+   * @param \Callback $usableCallback function to test technical conditions, if it is not set
    *   self::usable is used.
    * @return bool|mixed
    */
@@ -88,16 +88,16 @@ class PapayaMessageDispatcherWildfire
   /**
   * Set Wildfire protocol handler object
   *
-  * @param PapayaMessageDispatcherWildfireHandler $handler
+  * @param \PapayaMessageDispatcherWildfireHandler $handler
   */
-  public function setHandler(PapayaMessageDispatcherWildfireHandler $handler) {
+  public function setHandler(\PapayaMessageDispatcherWildfireHandler $handler) {
     $this->_handler = $handler;
   }
 
   /**
    * Get Wildfire protocol handler object, create one if none ist set
    *
-   * @return PapayaMessageDispatcherWildfireHandler
+   * @return \PapayaMessageDispatcherWildfireHandler
    * @throws \InvalidArgumentException
    */
   public function getHandler() {
@@ -110,10 +110,10 @@ class PapayaMessageDispatcherWildfire
   /**
    * Send log message using the Wildfire protocol
    *
-   * @param PapayaMessageLogable $message
+   * @param \PapayaMessageLogable $message
    * @throws \InvalidArgumentException
    */
-  public function send(PapayaMessageLogable $message) {
+  public function send(\PapayaMessageLogable $message) {
     $wildfire = $this->getHandler();
     if (count($message->context()) > 0) {
       $wildfire->startGroup($this->getWildfireGroupLabelFromType($message->getType()));
@@ -137,7 +137,7 @@ class PapayaMessageDispatcherWildfire
   /**
    * Send a message context using the Wildfire protocol
    *
-   * @param PapayaMessageContextInterface $context
+   * @param \PapayaMessageContextInterface $context
    * @throws \InvalidArgumentException
    */
   public function sendContext($context) {
@@ -173,13 +173,13 @@ class PapayaMessageDispatcherWildfire
   */
   public function getWildfireMessageType($type) {
     switch ($type) {
-    case PapayaMessage::SEVERITY_ERROR :
+    case \PapayaMessage::SEVERITY_ERROR :
       return 'ERROR';
-    case PapayaMessage::SEVERITY_WARNING :
+    case \PapayaMessage::SEVERITY_WARNING :
       return 'WARN';
-    case PapayaMessage::SEVERITY_INFO :
+    case \PapayaMessage::SEVERITY_INFO :
       return 'INFO';
-    case PapayaMessage::SEVERITY_DEBUG :
+    case \PapayaMessage::SEVERITY_DEBUG :
     default :
       return 'LOG';
     }
@@ -193,13 +193,13 @@ class PapayaMessageDispatcherWildfire
   */
   public function getWildfireGroupLabelFromType($type) {
     switch ($type) {
-    case PapayaMessage::SEVERITY_ERROR :
+    case \PapayaMessage::SEVERITY_ERROR :
       return 'Error';
-    case PapayaMessage::SEVERITY_WARNING :
+    case \PapayaMessage::SEVERITY_WARNING :
       return 'Warning';
-    case PapayaMessage::SEVERITY_INFO :
+    case \PapayaMessage::SEVERITY_INFO :
       return 'Information';
-    case PapayaMessage::SEVERITY_DEBUG :
+    case \PapayaMessage::SEVERITY_DEBUG :
     default :
       return 'Debug';
     }
@@ -210,10 +210,10 @@ class PapayaMessageDispatcherWildfire
    *
    * Variables dumps need to have a special format to display as much informations as possible.
    *
-   * @param PapayaMessageContextVariable $context
+   * @param \PapayaMessageContextVariable $context
    * @throws \InvalidArgumentException
    */
-  private function _sendContextVariable(PapayaMessageContextVariable $context) {
+  private function _sendContextVariable(\PapayaMessageContextVariable $context) {
     $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(
       $context->getDepth(), $context->getStringLength()
     );
@@ -230,7 +230,7 @@ class PapayaMessageDispatcherWildfire
    * @param \PapayaMessageContextBacktrace $context
    * @throws \InvalidArgumentException
    */
-  private function _sendContextTrace(PapayaMessageContextBacktrace $context) {
+  private function _sendContextTrace(\PapayaMessageContextBacktrace $context) {
     $trace = $context->getBacktrace();
     $count = count($trace);
     if ($count > 0) {
@@ -296,10 +296,10 @@ class PapayaMessageDispatcherWildfire
    *
    * FirePHP has a special formatted output for tables.
    *
-   * @param PapayaMessageContextInterfaceTable $context
+   * @param \PapayaMessageContextInterfaceTable $context
    * @throws \InvalidArgumentException
    */
-  private function _sendContextTable(PapayaMessageContextInterfaceTable $context) {
+  private function _sendContextTable(\PapayaMessageContextInterfaceTable $context) {
     $table = array();
     $columns = $context->getColumns();
     if (NULL !== $columns) {

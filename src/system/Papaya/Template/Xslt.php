@@ -42,7 +42,7 @@ class PapayaTemplateXslt extends PapayaTemplate {
    * @param $fileName
    */
   public function setXsl($fileName) {
-    PapayaUtilConstraints::assertNotEmpty($fileName);
+    \PapayaUtilConstraints::assertNotEmpty($fileName);
     $this->_xslFile = $fileName;
   }
 
@@ -57,10 +57,10 @@ class PapayaTemplateXslt extends PapayaTemplate {
   /**
    * Getter/Setter for the xslt template engine
    *
-   * @param PapayaTemplateEngineXsl $engine
-   * @return PapayaTemplateEngineXsl
+   * @param \PapayaTemplateEngineXsl $engine
+   * @return \PapayaTemplateEngineXsl
    */
-  public function engine(PapayaTemplateEngineXsl $engine = NULL) {
+  public function engine(\PapayaTemplateEngineXsl $engine = NULL) {
     if (isset($engine)) {
       $this->_engine = $engine;
     } elseif (NULL === $this->_engine) {
@@ -94,7 +94,7 @@ class PapayaTemplateXslt extends PapayaTemplate {
    * Start processing of the provided engine. This is a calback used
    * by parse() and should not be called directly.
    *
-   * @param PapayaTemplateEngine $engine
+   * @param \PapayaTemplateEngine $engine
    * @return mixed
    */
   public function process($engine) {

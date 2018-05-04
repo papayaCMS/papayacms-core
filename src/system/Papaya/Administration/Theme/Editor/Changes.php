@@ -35,19 +35,19 @@ class PapayaAdministrationThemeEditorChanges extends PapayaAdministrationPagePar
   /**
   * Append changes commands to parent xml element
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $parent->append($this->commands());
   }
 
   /**
   * Commands, actual actions
   *
-  * @param PapayaUiControlCommandController|PapayaUiControlCommand $commands
-  * @return PapayaUiControlCommandController|PapayaUiControlCommand
+  * @param \PapayaUiControlCommandController|\PapayaUiControlCommand $commands
+  * @return \PapayaUiControlCommandController|\PapayaUiControlCommand
   */
-  public function commands(PapayaUiControlCommand $commands = NULL) {
+  public function commands(\PapayaUiControlCommand $commands = NULL) {
     if (isset($commands)) {
       $this->_commands = $commands;
     } elseif (is_null($this->_commands)) {
@@ -74,10 +74,10 @@ class PapayaAdministrationThemeEditorChanges extends PapayaAdministrationPagePar
   /**
    * The theme set the the database record wrapper object.
    *
-   * @param PapayaContentThemeSet $themeSet
-   * @return PapayaContentThemeSet
+   * @param \PapayaContentThemeSet $themeSet
+   * @return \PapayaContentThemeSet
    */
-  public function themeSet(PapayaContentThemeSet $themeSet = NULL) {
+  public function themeSet(\PapayaContentThemeSet $themeSet = NULL) {
     if (isset($themeSet)) {
       $this->_themeSet = $themeSet;
     } elseif (NULL === $this->_themeSet) {
@@ -90,10 +90,10 @@ class PapayaAdministrationThemeEditorChanges extends PapayaAdministrationPagePar
    * The theme handler is an helper object to get general information about the
    * themes of the current installation
    *
-   * @param PapayaThemeHandler $themeHandler
-   * @return PapayaThemeHandler
+   * @param \PapayaThemeHandler $themeHandler
+   * @return \PapayaThemeHandler
    */
-  public function themeHandler(PapayaThemeHandler $themeHandler = NULL) {
+  public function themeHandler(\PapayaThemeHandler $themeHandler = NULL) {
     if (isset($themeHandler)) {
       $this->_themeHandler = $themeHandler;
     } elseif (NULL === $this->_themeHandler) {

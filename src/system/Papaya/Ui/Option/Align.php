@@ -70,7 +70,7 @@ class PapayaUiOptionAlign {
   * Validate an alignment value. This will throw an exception if the argument is invalid.
   * An individual message for the exception can be provided, too.
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param integer $align
   * @param string $message
   * @return TRUE

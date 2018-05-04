@@ -128,7 +128,7 @@ class PapayaRequest
   /**
   * Create object and set options if given.
   *
-  * @param PapayaConfiguration $options
+  * @param \PapayaConfiguration $options
   */
   public function __construct($options = NULL) {
     if (isset($options)) {
@@ -140,11 +140,11 @@ class PapayaRequest
    * Allow to read request data as properties
    *
    * @param string $name
-   * @throws LogicException
+   * @throws \LogicException
    * @return mixed
    */
   public function __get($name) {
-    $name = PapayaUtilStringIdentifier::toCamelCase($name);
+    $name = \PapayaUtilStringIdentifier::toCamelCase($name);
     switch ($name) {
     case 'url' :
       return $this->getUrl();
@@ -159,7 +159,7 @@ class PapayaRequest
         'page_id',
         $this->papaya()->options->get('PAPAYA_PAGEID_DEFAULT', 0),
         NULL,
-        PapayaRequest::SOURCE_PATH
+        \PapayaRequest::SOURCE_PATH
       );
     case 'languageId' :
       return (int)$this->language->id;
@@ -171,7 +171,7 @@ class PapayaRequest
       return $this->mode()->id;
     case 'isPreview' :
       return $this->getParameter(
-        'preview', FALSE, NULL, PapayaRequest::SOURCE_PATH
+        'preview', FALSE, NULL, \PapayaRequest::SOURCE_PATH
       );
     case 'isAdministration' :
       return defined('PAPAYA_ADMIN_PAGE') && constant('PAPAYA_ADMIN_PAGE');
@@ -192,10 +192,10 @@ class PapayaRequest
    *
    * @param string $name
    * @param mixed $value
-   * @throws LogicException
+   * @throws \LogicException
    */
   public function __set($name, $value) {
-    $name = PapayaUtilStringIdentifier::toCamelCase($name);
+    $name = \PapayaUtilStringIdentifier::toCamelCase($name);
     switch ($name) {
     case 'language' :
       $this->language($value);
@@ -213,7 +213,7 @@ class PapayaRequest
 
   /**
   * Initialize object configuration
-  * @param PapayaConfiguration $options
+  * @param \PapayaConfiguration $options
   */
   public function setConfiguration($options) {
     $this->_separator = $options->get('PAPAYA_URL_LEVEL_SEPARATOR', '[]');
@@ -222,7 +222,7 @@ class PapayaRequest
 
   /**
   * get the attached url object
-  * @return PapayaUrl|NULL
+  * @return \PapayaUrl|NULL
   */
   public function getUrl() {
     if (is_null($this->_url)) {
@@ -234,16 +234,16 @@ class PapayaRequest
   /**
    * Getter/Setter for the request language
    *
-   * @param PapayaContentLanguage $language
-   * @return PapayaContentLanguage
+   * @param \PapayaContentLanguage $language
+   * @return \PapayaContentLanguage
    */
-  public function language(PapayaContentLanguage $language = NULL) {
+  public function language(\PapayaContentLanguage $language = NULL) {
     if (isset($language)) {
       $this->_language = $language;
     } elseif (NULL == $this->_language) {
       $this->_language = new \PapayaContentLanguage($language);
       $this->_language->papaya($this->papaya());
-      if ($identifier = $this->getParameter('language', '', NULL, PapayaRequest::SOURCE_PATH)) {
+      if ($identifier = $this->getParameter('language', '', NULL, \PapayaRequest::SOURCE_PATH)) {
         $this->_language->activateLazyLoad(
           array('identifier' => $identifier)
         );
@@ -259,17 +259,17 @@ class PapayaRequest
   /**
    * Getter/Setter for view mode object
    *
-   * @param PapayaContentViewMode $mode
+   * @param \PapayaContentViewMode $mode
    * @return \PapayaContentViewMode
    */
-  public function mode(PapayaContentViewMode $mode = NULL) {
+  public function mode(\PapayaContentViewMode $mode = NULL) {
     if (isset($mode)) {
       $this->_mode = $mode;
     } elseif (NULL == $this->_mode) {
       $this->_mode = new \PapayaContentViewMode();
       $this->_mode->papaya($this->papaya());
       $extension = $this->getParameter(
-        'output_mode', 'html', NULL, PapayaRequest::SOURCE_PATH
+        'output_mode', 'html', NULL, \PapayaRequest::SOURCE_PATH
       );
       switch ($extension) {
       case 'xml' :
@@ -305,7 +305,7 @@ class PapayaRequest
    * Set parameter group separator if valid
    *
    * @param string $separator
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return string
    */
   public function setParameterGroupSeparator($separator) {
@@ -327,7 +327,7 @@ class PapayaRequest
   * @return string
   */
   public function getBasePath() {
-    if ($session = $this->getParameter('session', '', NULL, PapayaRequest::SOURCE_PATH)) {
+    if ($session = $this->getParameter('session', '', NULL, \PapayaRequest::SOURCE_PATH)) {
       return '/'.$session.$this->_installationPath;
     } else {
       return $this->_installationPath;
@@ -369,17 +369,17 @@ class PapayaRequest
 
   /**
   * Load and parse request
-  * @param PapayaUrl $url
+  * @param \PapayaUrl $url
   * @return boolean
   */
-  public function load(PapayaUrl $url) {
+  public function load(\PapayaUrl $url) {
     $this->_url = $url;
     $this->_initParsers();
     $this->_pathData = array();
     foreach ($this->_parsers as $parser) {
       /** @var PapayaRequestParser $parser */
       if ($requestData = $parser->parse($url)) {
-        $this->_pathData = PapayaUtilArray::merge(
+        $this->_pathData = \PapayaUtilArray::merge(
           $this->_pathData,
           $requestData
         );
@@ -402,7 +402,7 @@ class PapayaRequest
   /**
   * Initialize and cache parameter for the specified source
   *
-  * @param Integer $source
+  * @param \Integer $source
    * @return \PapayaRequestParameters
    */
   private function _loadParametersForSource($source) {
@@ -412,12 +412,12 @@ class PapayaRequest
     }
     $parameters = new \PapayaRequestParameters();
     switch ($source) {
-    case PapayaRequest::SOURCE_PATH :
+    case \PapayaRequest::SOURCE_PATH :
       $parameters->merge(
         $parameters->prepareParameter($this->_pathData)
       );
       break;
-    case PapayaRequest::SOURCE_QUERY :
+    case \PapayaRequest::SOURCE_QUERY :
       if (isset($this->_url)) {
         $query = new \PapayaRequestParametersQuery($this->_separator);
         $parameters->merge(
@@ -425,7 +425,7 @@ class PapayaRequest
         );
       }
       break;
-    case PapayaRequest::SOURCE_BODY :
+    case \PapayaRequest::SOURCE_BODY :
       $parameters->merge(
         $parameters->prepareParameter(
           $_POST,
@@ -433,7 +433,7 @@ class PapayaRequest
         )
       );
       break;
-    case PapayaRequest::SOURCE_COOKIE :
+    case \PapayaRequest::SOURCE_COOKIE :
       $parameters->merge(
         $parameters->prepareParameter(
           $_COOKIE,
@@ -452,27 +452,27 @@ class PapayaRequest
   * Merges parameter data from different sources and uses an object cache
   *
   * @param $sources
-  * @return PapayaRequestParameters
+  * @return \PapayaRequestParameters
   */
-  public function loadParameters($sources = PapayaRequest::SOURCE_ALL) {
+  public function loadParameters($sources = \PapayaRequest::SOURCE_ALL) {
     if (!isset($this->_parameterCache[$sources])) {
       $parameters = new \PapayaRequestParameters();
-      if ($sources == PapayaRequest::SOURCE_COOKIE) {
-        return $this->_loadParametersForSource(PapayaRequest::SOURCE_COOKIE);
+      if ($sources == \PapayaRequest::SOURCE_COOKIE) {
+        return $this->_loadParametersForSource(\PapayaRequest::SOURCE_COOKIE);
       }
-      if ($sources & PapayaRequest::SOURCE_PATH) {
+      if ($sources & \PapayaRequest::SOURCE_PATH) {
         $parameters->merge(
-          $this->_loadParametersForSource(PapayaRequest::SOURCE_PATH)
+          $this->_loadParametersForSource(\PapayaRequest::SOURCE_PATH)
         );
       }
-      if ($sources & PapayaRequest::SOURCE_QUERY) {
+      if ($sources & \PapayaRequest::SOURCE_QUERY) {
         $parameters->merge(
-          $this->_loadParametersForSource(PapayaRequest::SOURCE_QUERY)
+          $this->_loadParametersForSource(\PapayaRequest::SOURCE_QUERY)
         );
       }
-      if ($sources & PapayaRequest::SOURCE_BODY) {
+      if ($sources & \PapayaRequest::SOURCE_BODY) {
         $parameters->merge(
-          $this->_loadParametersForSource(PapayaRequest::SOURCE_BODY)
+          $this->_loadParametersForSource(\PapayaRequest::SOURCE_BODY)
         );
       }
       if (!isset($this->_parameterCache[$sources])) {
@@ -486,9 +486,9 @@ class PapayaRequest
   /**
   * Get a parameters object containing all parameters from the given sources
   * @param integer $sources
-  * @return PapayaRequestParameters
+  * @return \PapayaRequestParameters
   */
-  public function getParameters($sources = PapayaRequest::SOURCE_ALL) {
+  public function getParameters($sources = \PapayaRequest::SOURCE_ALL) {
     return $this->loadParameters($sources);
   }
 
@@ -496,12 +496,12 @@ class PapayaRequest
   * Get a request parameter value
   * @param string $name
   * @param mixed $defaultValue
-  * @param PapayaFilter $filter
+  * @param \PapayaFilter $filter
   * @param integer $sources
   * @return mixed
   */
   public function getParameter(
-    $name, $defaultValue = NULL, $filter = NULL, $sources = PapayaRequest::SOURCE_ALL
+    $name, $defaultValue = NULL, $filter = NULL, $sources = \PapayaRequest::SOURCE_ALL
   ) {
     $parameters = $this->loadParameters($sources);
     return $parameters->get($name, $defaultValue, $filter);
@@ -511,9 +511,9 @@ class PapayaRequest
   * Get a group
   * @param string $name
   * @param integer $sources
-  * @return PapayaRequestParameters
+  * @return \PapayaRequestParameters
    */
-  public function getParameterGroup($name, $sources = PapayaRequest::SOURCE_ALL) {
+  public function getParameterGroup($name, $sources = \PapayaRequest::SOURCE_ALL) {
     $parameters = $this->loadParameters($sources);
     return $parameters->getGroup($name);
   }
@@ -521,16 +521,16 @@ class PapayaRequest
   /**
    * Set parameters object for a source. This resets all merged parameter caches
    * @param integer $source
-   * @param PapayaRequestParameters $parameters
-   * @throws InvalidArgumentException
+   * @param \PapayaRequestParameters $parameters
+   * @throws \InvalidArgumentException
    * @return void
    */
   public function setParameters($source, $parameters) {
     $validSources = array(
-      PapayaRequest::SOURCE_PATH,
-      PapayaRequest::SOURCE_QUERY,
-      PapayaRequest::SOURCE_BODY,
-      PapayaRequest::SOURCE_COOKIE
+      \PapayaRequest::SOURCE_PATH,
+      \PapayaRequest::SOURCE_QUERY,
+      \PapayaRequest::SOURCE_BODY,
+      \PapayaRequest::SOURCE_COOKIE
     );
     if (in_array($source, $validSources) &&
         $parameters instanceof \PapayaRequestParameters) {
@@ -624,10 +624,10 @@ class PapayaRequest
    * Returns the content of the request (as available in php://input) as an object that
    * takes it castable to a string.
    *
-   * @param PapayaRequestContent $content
-   * @return PapayaRequestContent
+   * @param \PapayaRequestContent $content
+   * @return \PapayaRequestContent
    */
-  public function content(PapayaRequestContent $content = NULL) {
+  public function content(\PapayaRequestContent $content = NULL) {
     if (isset($content)) {
       $this->_content = $content;
     } elseif (NULL === $this->_content) {

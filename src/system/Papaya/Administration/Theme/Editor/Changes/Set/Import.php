@@ -31,7 +31,7 @@ class PapayaAdministrationThemeEditorChangesSetImport
    */
   private $_themeHandler = NULL;
 
-  public function __construct(PapayaContentThemeSet $themeSet, PapayaThemeHandler $themeHandler) {
+  public function __construct(\PapayaContentThemeSet $themeSet, \PapayaThemeHandler $themeHandler) {
     $this->_themeSet = $themeSet;
     $this->_themeHandler = $themeHandler;
   }
@@ -39,8 +39,8 @@ class PapayaAdministrationThemeEditorChangesSetImport
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
-   * @see PapayaUiControlCommandDialog::createDialog()
-   * @return PapayaUiDialog
+   * @see \PapayaUiControlCommandDialog::createDialog()
+   * @return \PapayaUiDialog
    */
   public function createDialog() {
     $setId = $this->parameters()->get('set_id', 0);
@@ -80,10 +80,10 @@ class PapayaAdministrationThemeEditorChangesSetImport
   }
 
   /**
-   * @param PapayaUiDialogFieldFileTemporary $uploadField
+   * @param \PapayaUiDialogFieldFileTemporary $uploadField
    * @return bool
    */
-  public function onValidationSuccess(PapayaUiDialogFieldFileTemporary $uploadField) {
+  public function onValidationSuccess(\PapayaUiDialogFieldFileTemporary $uploadField) {
     $theme = $this->parameters()->get('theme', '');
     if (!empty($theme)) {
       $file = $uploadField->file();
@@ -118,7 +118,7 @@ class PapayaAdministrationThemeEditorChangesSetImport
           if ($this->_themeSet->save()) {
             $this->papaya()->messages->dispatch(
               new \PapayaMessageDisplayTranslated(
-                PapayaMessage::SEVERITY_INFO,
+                \PapayaMessage::SEVERITY_INFO,
                 'Values imported.'
               )
             );
@@ -126,7 +126,7 @@ class PapayaAdministrationThemeEditorChangesSetImport
           }
         }
         //@codeCoverageIgnoreStart
-      } catch (PapayaXmlException $e) {
+      } catch (\PapayaXmlException $e) {
         $errors->emit();
       }
       //@codeCoverageIgnoreEnd

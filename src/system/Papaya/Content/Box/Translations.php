@@ -54,9 +54,9 @@ class PapayaContentBoxTranslations extends PapayaDatabaseObjectList {
               LEFT OUTER JOIN %s v ON (v.view_id = tt.view_id)
              WHERE tt.box_id = %d";
     $parameters = array(
-      $this->databaseGetTableName(PapayaContentTables::BOX_TRANSLATIONS),
-      $this->databaseGetTableName(PapayaContentTables::BOX_PUBLICATION_TRANSLATIONS),
-      $this->databaseGetTableName(PapayaContentTables::VIEWS),
+      $this->databaseGetTableName(\PapayaContentTables::BOX_TRANSLATIONS),
+      $this->databaseGetTableName(\PapayaContentTables::BOX_PUBLICATION_TRANSLATIONS),
+      $this->databaseGetTableName(\PapayaContentTables::VIEWS),
       (int)$boxId
     );
     return $this->_loadRecords($sql, $parameters, 'lng_id');
@@ -68,7 +68,7 @@ class PapayaContentBoxTranslations extends PapayaDatabaseObjectList {
    * @param int $boxId
    * @param integer $languageId
    * @internal param int $pageId
-   * @return PapayaContentBoxTranslation
+   * @return \PapayaContentBoxTranslation
    */
   public function getTranslation($boxId, $languageId) {
     $result = new \PapayaContentBoxTranslation();

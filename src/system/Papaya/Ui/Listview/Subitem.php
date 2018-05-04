@@ -61,7 +61,7 @@ abstract class PapayaUiListviewSubitem extends PapayaUiControlCollectionItem {
         /** @noinspection PhpUndefinedMethodInspection */
         return $collection->getListview()->columns()->get($columnIndex + 1)->getAlign();
       } else {
-        return PapayaUiOptionAlign::LEFT;
+        return \PapayaUiOptionAlign::LEFT;
       }
     } else {
       return $this->_align;

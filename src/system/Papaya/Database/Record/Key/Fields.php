@@ -1,21 +1,17 @@
 <?php
 /**
-* An multiple field key that represents a link table index
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Fields.php 39197 2014-02-11 13:36:56Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * An multiple field key that represents a link table index
@@ -50,12 +46,12 @@ class PapayaDatabaseRecordKeyFields implements PapayaDatabaseInterfaceKey {
   /**
    * Create object and set the identifier property, the default
    *
-   * @param PapayaDatabaseRecord $record
+   * @param \PapayaDatabaseRecord $record
    * @param $tableName
    * @param array $properties
    * @internal param int|NULL $
    */
-  public function __construct(PapayaDatabaseRecord $record, $tableName, array $properties) {
+  public function __construct(\PapayaDatabaseRecord $record, $tableName, array $properties) {
     $this->_record = $record;
     $this->_tableName = $tableName;
     foreach ($properties as $property) {

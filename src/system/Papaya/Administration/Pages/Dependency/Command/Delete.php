@@ -55,7 +55,7 @@ class PapayaAdministrationPagesDependencyCommandDelete
   public function dispatchDeleteMessage() {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_INFO, 'Dependency deleted.'
+        \PapayaMessage::SEVERITY_INFO, 'Dependency deleted.'
       )
     );
   }

@@ -1,21 +1,17 @@
 <?php
 /**
-* Map values of an array into another array.
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Util
-* @version $Id: Mapper.php 39521 2014-03-05 17:08:00Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Map values of an array into another array.
@@ -36,20 +32,20 @@ class PapayaUtilArrayMapper {
    *
    * If the $keyIndex is NULL, the key from the original array is used
    *
-   * @param array|Traversable $array
+   * @param array|\Traversable $array
    * @param string|int|array $elementIndex
    * @param string|int|array $keyIndex
    * @return array
    */
   public static function byIndex($array, $elementIndex = NULL, $keyIndex = NULL) {
-    PapayaUtilConstraints::assertArrayOrTraversable($array);
+    \PapayaUtilConstraints::assertArrayOrTraversable($array);
     $result = array();
     foreach ($array as $key => $value) {
       if (isset($keyIndex)) {
-        $key = PapayaUtilArray::get($value, $keyIndex, NULL);
+        $key = \PapayaUtilArray::get($value, $keyIndex, NULL);
       }
       if (isset($elementIndex)) {
-        $value = PapayaUtilArray::get($value, $elementIndex, NULL);
+        $value = \PapayaUtilArray::get($value, $elementIndex, NULL);
       }
       if (isset($value)) {
         if (isset($key)) {

@@ -41,10 +41,10 @@ class PapayaContentStructurePage extends PapayaContentStructureNode {
   /**
    * Groups defined for this page
    *
-   * @param PapayaContentStructureGroups $groups
-   * @return PapayaContentStructureGroups
+   * @param \PapayaContentStructureGroups $groups
+   * @return \PapayaContentStructureGroups
    */
-  public function groups(PapayaContentStructureGroups $groups = NULL) {
+  public function groups(\PapayaContentStructureGroups $groups = NULL) {
     if (isset($groups)) {
       $this->_groups = $groups;
     } elseif (NULL === $this->_groups) {

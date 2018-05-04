@@ -1,21 +1,17 @@
 <?php
 /**
-* A field that output a message inside the dialog
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Information.php 35922 2011-07-15 09:55:43Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A field that output a message inside the dialog
@@ -42,7 +38,7 @@ class PapayaUiDialogFieldInformation extends PapayaUiDialogField {
   /**
   * Create object and assign needed values
   *
-  * @param string|PapayaUiString $text
+  * @param string|\PapayaUiString $text
   * @param string $image
   */
   public function __construct($text, $image = NULL) {
@@ -53,9 +49,9 @@ class PapayaUiDialogFieldInformation extends PapayaUiDialogField {
   /**
   * Append message field to dialog xml dom
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $field = $this->_appendFieldTo($parent);
     $message = $field->appendElement(
       'message', array(), (string)$this->_text

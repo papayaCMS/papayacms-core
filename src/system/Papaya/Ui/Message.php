@@ -71,10 +71,10 @@ abstract class PapayaUiMessage
   /**
   * Append message to parent xml element and return it.
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement the appended message xml element
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement the appended message xml element
   */
-  protected function appendMessageElement(PapayaXmlElement $parent) {
+  protected function appendMessageElement(\PapayaXmlElement $parent) {
     return $parent->appendElement(
       $this->getTagName($this->_severity),
       array(
@@ -87,11 +87,11 @@ abstract class PapayaUiMessage
   /**
   * Validate and set the message severity.
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param integer $severity
   */
   public function setSeverity($severity) {
-    PapayaUtilConstraints::assertInteger($severity);
+    \PapayaUtilConstraints::assertInteger($severity);
     if (!array_key_exists($severity, $this->_tagNames)) {
       throw new \InvalidArgumentException('Invalid severity for message.');
     }
@@ -105,7 +105,7 @@ abstract class PapayaUiMessage
   */
   public function setEvent($event) {
     $event = (string)$event;
-    PapayaUtilConstraints::assertNotEmpty($event);
+    \PapayaUtilConstraints::assertNotEmpty($event);
     $this->_event = $event;
   }
 

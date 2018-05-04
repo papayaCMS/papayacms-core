@@ -24,7 +24,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
   /**
   * Get a subgroup of parameters
   * @param string $groupName
-  * @return PapayaRequestParameters
+  * @return \PapayaRequestParameters
   */
   public function getGroup($groupName) {
     $result = new self();
@@ -41,13 +41,13 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    * Get the value, filter it, convert it to the type of the default value and
    * return the default value if no value is found.
    *
-   * @see PapayaObjectParameters::get()
+   * @see \PapayaObjectParameters::get()
    * @param array|int|string $offset
    * @param null $defaultValue
-   * @param PapayaFilter $filter
+   * @param \PapayaFilter $filter
    * @return mixed
    */
-  public function get($offset, $defaultValue = NULL, PapayaFilter $filter = NULL) {
+  public function get($offset, $defaultValue = NULL, \PapayaFilter $filter = NULL) {
     return parent::get($this->_parseParameterName($offset), $defaultValue, $filter);
   }
 
@@ -55,7 +55,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    * Set a value. If $offsets is an array or Traversalbe each element in the array/Traversalbe
    * is set.
    *
-   * @param int|string|array|Traversable $offsets
+   * @param int|string|array|\Traversable $offsets
    * @param mixed $value
    * @return $this
    */
@@ -128,7 +128,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
       if ($stripSlashes) {
         $parameter = stripslashes($parameter);
       }
-      return PapayaUtilStringUtf8::ensure($parameter);
+      return \PapayaUtilStringUtf8::ensure($parameter);
     }
   }
 
@@ -187,7 +187,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
         $fullName = $prefix.$groupSeparator.$name;
       }
       if (is_array($value)) {
-        $result = PapayaUtilArray::merge(
+        $result = \PapayaUtilArray::merge(
           $result, $this->flattenArray($value, $groupSeparator, $fullName, $maxRecursions - 1)
         );
       } else {

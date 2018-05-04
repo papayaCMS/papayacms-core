@@ -36,7 +36,7 @@ class PapayaFilterColor implements PapayaFilter {
   /**
   * Check the value if it's a valid color, if not throw an exception.
   *
-  * @throws PapayaFilterExceptionType
+  * @throws \PapayaFilterExceptionType
   * @param string $value
   * @return TRUE
   */
@@ -57,7 +57,7 @@ class PapayaFilterColor implements PapayaFilter {
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       return NULL;
     }
   }

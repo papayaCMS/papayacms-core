@@ -34,11 +34,11 @@ trait PapayaPluginConfigurableAggregation {
    * The configuration is an {@see ArrayObject} containing options that can affect the
    * execution of other methods (like appendTo()).
    *
-   * @see PapayaPluginConfigurable::configuration()
-   * @param PapayaObjectParameters $configuration
-   * @return PapayaObjectParameters
+   * @see \PapayaPluginConfigurable::configuration()
+   * @param \PapayaObjectParameters $configuration
+   * @return \PapayaObjectParameters
    */
-  public function configuration(PapayaObjectParameters $configuration = NULL) {
+  public function configuration(\PapayaObjectParameters $configuration = NULL) {
     if ($configuration !== NULL) {
       $this->_configuration = $configuration;
     } elseif (NULL === $this->_configuration) {

@@ -144,15 +144,15 @@ class PapayaStreamwrapperS3 {
 
   /**
    * Set Amazon S3 handler object
-   * @param PapayaStreamwrapperS3Handler $handler
+   * @param \PapayaStreamwrapperS3Handler $handler
    */
-  public function setHandler(PapayaStreamwrapperS3Handler $handler) {
+  public function setHandler(\PapayaStreamwrapperS3Handler $handler) {
     $this->_handler = $handler;
   }
 
   /**
   * Get the Amazon S3 handler object
-  * @return PapayaStreamwrapperS3Handler
+  * @return \PapayaStreamwrapperS3Handler
   */
   public function getHandler() {
     if (!($this->_handler instanceof \PapayaStreamwrapperS3Handler)) {

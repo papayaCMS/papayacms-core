@@ -25,7 +25,7 @@ class PapayaUiSheetSubtitles extends PapayaUiControlCollection {
 
   public function __construct($subtitles = NULL) {
     if (isset($subtitles)) {
-      PapayaUtilConstraints::assertArrayOrTraversable($subtitles);
+      \PapayaUtilConstraints::assertArrayOrTraversable($subtitles);
       foreach ($subtitles as $subtitle) {
         if (is_string($subtitle) || method_exists($subtitle, '__toString')) {
           $this->addString($subtitle);

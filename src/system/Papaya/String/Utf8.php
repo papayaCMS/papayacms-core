@@ -149,7 +149,7 @@ class PapayaStringUtf8 implements Iterator, ArrayAccess {
    *
    * @param $start
    * @param null $length
-   * @return PapayaStringUtf8
+   * @return \PapayaStringUtf8
    */
   public function substr($start, $length = NULL) {
     return new self($this->_getSubStr($start, $length));
@@ -162,7 +162,7 @@ class PapayaStringUtf8 implements Iterator, ArrayAccess {
    * @return int
    */
   public function setMode($mode) {
-    $this->_allowModes = PapayaUtilArray::ensure($mode);
+    $this->_allowModes = \PapayaUtilArray::ensure($mode);
     $this->_mode = NULL;
     $this->_length = NULL;
     return $this->getMode();
@@ -173,7 +173,7 @@ class PapayaStringUtf8 implements Iterator, ArrayAccess {
    * mode.
    *
    * @return int
-   * @throws LogicException
+   * @throws \LogicException
    */
   public function getMode() {
     if (NULL === $this->_mode) {

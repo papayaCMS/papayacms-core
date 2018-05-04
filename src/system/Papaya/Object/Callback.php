@@ -112,7 +112,7 @@ class PapayaObjectCallback {
     $this->getPropertyName($name);
     switch ($name) {
     case 'context' :
-      PapayaUtilConstraints::assertObject($value);
+      \PapayaUtilConstraints::assertObject($value);
       $this->_context = $value;
       break;
     case 'defaultReturn' :
@@ -143,7 +143,7 @@ class PapayaObjectCallback {
   /**
   * Validate the property name and return the private object variable name.
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param string $name
   * @return string
   */

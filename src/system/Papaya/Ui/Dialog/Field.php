@@ -99,8 +99,8 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
    * The caption value itself can be an string or a PapayaUiString object. The getter will
    * cast it to a string.
    *
-   * @param string|PapayaUiString $caption
-   * @throws UnexpectedValueException
+   * @param string|\PapayaUiString $caption
+   * @throws \UnexpectedValueException
    */
   public function setCaption($caption) {
     if (is_string($caption) || $caption instanceof \PapayaUiString) {
@@ -131,8 +131,8 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
    * The hint value can be an string or a PapayaUiString object. The getter will
    * cast it to a string.
    *
-   * @param string|PapayaUiString $hint
-   * @throws UnexpectedValueException
+   * @param string|\PapayaUiString $hint
+   * @throws \UnexpectedValueException
    */
   public function setHint($hint) {
     if (is_string($hint) || $hint instanceof \PapayaUiString) {
@@ -162,8 +162,8 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
   * @param string $id
   */
   public function setId($id) {
-    PapayaUtilConstraints::assertString($id);
-    PapayaUtilConstraints::assertNotEmpty($id);
+    \PapayaUtilConstraints::assertString($id);
+    \PapayaUtilConstraints::assertNotEmpty($id);
     $this->_id = $id;
   }
 
@@ -188,8 +188,8 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
   * @param string $name
   */
   public function setName($name) {
-    PapayaUtilConstraints::assertString($name);
-    PapayaUtilConstraints::assertNotEmpty($name);
+    \PapayaUtilConstraints::assertString($name);
+    \PapayaUtilConstraints::assertNotEmpty($name);
     $this->_name = $name;
   }
 
@@ -270,9 +270,9 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
    *
    * Filter objects are used to check and filter user inputs
    *
-   * @param PapayaFilter $filter
+   * @param \PapayaFilter $filter
    */
-  public function setFilter(PapayaFilter $filter) {
+  public function setFilter(\PapayaFilter $filter) {
     $this->_filter = $filter;
   }
 
@@ -282,7 +282,7 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
   *
   * Filter objects are used to check and filter user inputs
   *
-  * @return NULL|PapayaFilter
+  * @return NULL|\PapayaFilter
   */
   public function getFilter() {
     if ($this->_mandatory && isset($this->_filter)) {
@@ -297,10 +297,10 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
   /**
    * Getter/Setter for the description subobject.
    *
-   * @param PapayaUiDialogElementDescription $description
-   * @return PapayaUiDialogElementDescription
+   * @param \PapayaUiDialogElementDescription $description
+   * @return \PapayaUiDialogElementDescription
    */
-  public function description(PapayaUiDialogElementDescription $description = NULL) {
+  public function description(\PapayaUiDialogElementDescription $description = NULL) {
     if (isset($description)) {
       $this->_description = $description;
     } elseif (is_null($this->_description)) {
@@ -325,14 +325,14 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
   /**
    * Validate current value against the filter object if it is here.
    *
-   * @param PapayaFilter|NULL $filter
+   * @param \PapayaFilter|NULL $filter
    * @return boolean
    */
   protected function _validateFilter($filter) {
     if (isset($filter) && $filter instanceof \PapayaFilter) {
       try {
         return $filter->validate($this->getCurrentValue());
-      } catch (PapayaFilterException $e) {
+      } catch (\PapayaFilterException $e) {
         $this->handleValidationFailure($e);
         return FALSE;
       }
@@ -345,9 +345,9 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
   *
   * This will set the exception property and call a handle function on the dialog object.
   *
-  * @param Exception $e
+  * @param \Exception $e
   */
-  public function handleValidationFailure(Exception $e) {
+  public function handleValidationFailure(\Exception $e) {
     $this->_validationResult = FALSE;
     $this->_exception = $e;
     if ($this->hasCollection() &&
@@ -422,10 +422,10 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
   /**
    * Append field outer elements to DOM
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    * @return \PapayaXmlElement
    */
-  protected function _appendFieldTo(PapayaXmlElement $parent) {
+  protected function _appendFieldTo(\PapayaXmlElement $parent) {
     if ($this->hasCollection() &&
         $this->collection()->hasOwner() &&
         !$this->collection()->owner()->isSubmitted()) {

@@ -39,7 +39,7 @@ abstract class PapayaUiControlCommand extends PapayaUiControlInteractive {
   /**
   * The owner of the command. This is where the command gets it parameters from.
   *
-  * @param PapayaUiControlInteractive
+  * @param \PapayaUiControlInteractive
   */
   private $_owner = NULL;
 
@@ -60,10 +60,10 @@ abstract class PapayaUiControlCommand extends PapayaUiControlInteractive {
   /**
   * Condition can be used to validate if an command can be executed.
   *
-  * @param PapayaUiControlCommandCondition $condition
-  * @return PapayaUiControlCommandCondition
+  * @param \PapayaUiControlCommandCondition $condition
+  * @return \PapayaUiControlCommandCondition
   */
-  public function condition(PapayaUiControlCommandCondition $condition = NULL) {
+  public function condition(\PapayaUiControlCommandCondition $condition = NULL) {
     if (isset($condition)) {
       $this->_condition = $condition;
       $this->_condition->command($this);
@@ -76,7 +76,7 @@ abstract class PapayaUiControlCommand extends PapayaUiControlInteractive {
   /**
   * The default condition is just the boolean value TRUE encapsulated in an object.
   *
-  * @return PapayaUiControlCommandCondition
+  * @return \PapayaUiControlCommandCondition
   */
   public function createCondition() {
     return new \PapayaUiControlCommandConditionValue(TRUE);
@@ -85,7 +85,7 @@ abstract class PapayaUiControlCommand extends PapayaUiControlInteractive {
   /**
   * Validate the assigned permission.
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @return boolean
   */
   public function validatePermission() {
@@ -124,11 +124,11 @@ abstract class PapayaUiControlCommand extends PapayaUiControlInteractive {
   *
   * If the owner is emtpy and exception is thrown.
   *
-  * @throws LogicException
-  * @param PapayaRequestParametersInterface|NULL $owner
-  * @return PapayaRequestParametersInterface
+  * @throws \LogicException
+  * @param \PapayaRequestParametersInterface|NULL $owner
+  * @return \PapayaRequestParametersInterface
   */
-  public function owner(PapayaRequestParametersInterface $owner = NULL) {
+  public function owner(\PapayaRequestParametersInterface $owner = NULL) {
     if (isset($owner)) {
       $this->_owner = $owner;
       $this->papaya($owner->papaya());
@@ -189,10 +189,10 @@ abstract class PapayaUiControlCommand extends PapayaUiControlInteractive {
   * This method gives you access to request parameters.
   * If an owner is available, its parameters function will be used.
   *
-  * @param PapayaRequestParameters $parameters
-  * @return PapayaRequestParameters
+  * @param \PapayaRequestParameters $parameters
+  * @return \PapayaRequestParameters
   */
-  public function parameters(PapayaRequestParameters $parameters = NULL) {
+  public function parameters(\PapayaRequestParameters $parameters = NULL) {
     if ($this->hasOwner()) {
       $parameters = $this->owner()->parameters($parameters);
     }

@@ -26,10 +26,10 @@ class PapayaUiDialogElementDescriptionLink extends PapayaUiDialogElementDescript
   /**
   * Append description element with href attribute to parent xml element.
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     return $parent->appendElement(
       'link',
       array(
@@ -41,10 +41,10 @@ class PapayaUiDialogElementDescriptionLink extends PapayaUiDialogElementDescript
   /**
    * Getter/Setter for the reference subobject.
    *
-   * @param PapayaUiReference $reference
+   * @param \PapayaUiReference $reference
    * @return null|\PapayaUiReference
    */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {

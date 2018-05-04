@@ -77,10 +77,10 @@ class PapayaUiDialogFieldInputCheckbox extends PapayaUiDialogFieldInput {
   /**
   * Append the field to the xml output
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $field = $this->_appendFieldTo($parent);
     $currentValue = $this->getCurrentValue();
     $input = $field->appendElement(
@@ -102,7 +102,7 @@ class PapayaUiDialogFieldInputCheckbox extends PapayaUiDialogFieldInput {
    *
    * @param mixed $active
    * @param mixed $inactive
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function setValues($active, $inactive) {
     if (empty($active)) {
@@ -144,7 +144,7 @@ class PapayaUiDialogFieldInputCheckbox extends PapayaUiDialogFieldInput {
    * The filter is only active if the field is mandatory. Otherwise it will just set the
    * "inactive" value if it is not valid
    *
-   * @see PapayaUiDialogField::getFilter()
+   * @see \PapayaUiDialogField::getFilter()
    */
   public function getFilter() {
     if ($this->getMandatory()) {

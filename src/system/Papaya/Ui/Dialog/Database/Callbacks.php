@@ -21,8 +21,8 @@
 *
 * @property PapayaObjectCallback $onBeforeSave
 * @property PapayaObjectCallback $onBeforeDelete
-* @method boolean onBeforeSave(PapayaDatabaseInterfaceRecord $record)
-* @method boolean onBeforeDelete(PapayaDatabaseInterfaceRecord $record)
+* @method boolean onBeforeSave(\PapayaDatabaseInterfaceRecord $record)
+* @method boolean onBeforeDelete(\PapayaDatabaseInterfaceRecord $record)
 */
 class PapayaUiDialogDatabaseCallbacks extends PapayaObjectCallbacks {
 

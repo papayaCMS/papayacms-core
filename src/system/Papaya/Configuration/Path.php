@@ -77,12 +77,12 @@ class PapayaConfigurationPath extends PapayaObject {
       $result = $this->themeHandler()->getLocalThemePath().$this->_path;
       break;
     case self::PATH_INSTALLATION :
-      $result = PapayaUtilFilePath::getDocumentRoot().
+      $result = \PapayaUtilFilePath::getDocumentRoot().
         $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
         $this->_path;
       break;
     case self::PATH_ADMINISTRATION :
-      $result = PapayaUtilFilePath::getDocumentRoot().
+      $result = \PapayaUtilFilePath::getDocumentRoot().
         $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
         $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/').
         $this->_path;
@@ -95,16 +95,16 @@ class PapayaConfigurationPath extends PapayaObject {
       $result = $this->_basePath.'/'.$this->_path;
       break;
     }
-    return PapayaUtilFilePath::cleanup($result);
+    return \PapayaUtilFilePath::cleanup($result);
   }
 
   /**
    *Getter/Setter for a theme handler subobject.
    *
-   * @param PapayaThemeHandler $handler
-   * @return PapayaThemeHandler
+   * @param \PapayaThemeHandler $handler
+   * @return \PapayaThemeHandler
    */
-  public function themeHandler(PapayaThemeHandler $handler = NULL) {
+  public function themeHandler(\PapayaThemeHandler $handler = NULL) {
     if (isset($handler)) {
       $this->_themeHandler = $handler;
     } elseif (NULL == $this->_themeHandler) {

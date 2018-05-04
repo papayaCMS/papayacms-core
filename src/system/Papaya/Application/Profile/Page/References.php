@@ -23,8 +23,8 @@ class PapayaApplicationProfilePageReferences implements PapayaApplicationProfile
 
   /**
   * Create the profile object and return it
-  * @param PapayaApplication $application
-  * @return PapayaDatabaseManager
+  * @param \PapayaApplication $application
+  * @return \PapayaDatabaseManager
   */
   public function createObject($application) {
     $references = new \PapayaUiReferencePageFactory();

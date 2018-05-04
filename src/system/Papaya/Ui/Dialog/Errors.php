@@ -32,10 +32,10 @@ class PapayaUiDialogErrors implements IteratorAggregate, Countable {
   /**
   * add a new error to the list.
   *
-  * @param Exception $exception
+  * @param \Exception $exception
   * @param object $source
   */
-  public function add(Exception $exception, $source = NULL) {
+  public function add(\Exception $exception, $source = NULL) {
     $this->_errors[] = array(
       'exception' => $exception,
       'source' => $source,
@@ -61,7 +61,7 @@ class PapayaUiDialogErrors implements IteratorAggregate, Countable {
   /**
   * IteratorAggregate interface, return ArrayIterator for internal array.
   *
-  * @return ArrayIterator
+  * @return \ArrayIterator
   */
   public function getIterator() {
     return new \ArrayIterator($this->_errors);

@@ -62,7 +62,7 @@ class PapayaUiDialogFieldInputTime extends PapayaUiDialogFieldInput {
    * @param mixed $default optional, default NULL
    * @param boolean $mandatory optional, default FALSE
    * @param float $step optional, default 60.0
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function __construct(
     $caption, $name, $default = NULL, $mandatory = FALSE, $step = 60.0

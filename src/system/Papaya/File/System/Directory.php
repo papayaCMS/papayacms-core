@@ -33,8 +33,8 @@ class PapayaFileSystemDirectory {
    * @param string $path
    */
   public function __construct($path) {
-    PapayaUtilConstraints::assertNotEmpty($path);
-    $this->_path = PapayaUtilFilePath::cleanup($path, FALSE);
+    \PapayaUtilConstraints::assertNotEmpty($path);
+    $this->_path = \PapayaUtilFilePath::cleanup($path, FALSE);
   }
 
   /**
@@ -76,15 +76,15 @@ class PapayaFileSystemDirectory {
    *
    * @param string $filter
    * @param integer $type
-   * @return Traversable
+   * @return \Traversable
    */
   public function getEntries($filter = '(^[^.])', $type = self::FETCH_FILES_AND_DIRECTORIES) {
     $result = new \FilesystemIterator(
       $this->_path,
-      FilesystemIterator::SKIP_DOTS |
-      FilesystemIterator::UNIX_PATHS |
-      FilesystemIterator::KEY_AS_FILENAME |
-      FilesystemIterator::CURRENT_AS_FILEINFO
+      \FilesystemIterator::SKIP_DOTS |
+      \FilesystemIterator::UNIX_PATHS |
+      \FilesystemIterator::KEY_AS_FILENAME |
+      \FilesystemIterator::CURRENT_AS_FILEINFO
     );
     switch ($type) {
     case self::FETCH_FILES :
@@ -100,7 +100,7 @@ class PapayaFileSystemDirectory {
     }
     if (!empty($filter)) {
       return new \PapayaIteratorFilterRegex(
-        $result, $filter, 0, PapayaIteratorFilterRegex::FILTER_KEYS
+        $result, $filter, 0, \PapayaIteratorFilterRegex::FILTER_KEYS
       );
     } else {
       return $result;

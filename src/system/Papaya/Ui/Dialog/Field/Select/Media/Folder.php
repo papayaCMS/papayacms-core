@@ -31,9 +31,9 @@ class PapayaUiDialogFieldSelectMediaFolder extends PapayaUiDialogField {
   /**
   * Append select field to DOM
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $field = $this->_appendFieldTo($parent);
     $select = $field->appendElement(
       'select',
@@ -43,14 +43,14 @@ class PapayaUiDialogFieldSelectMediaFolder extends PapayaUiDialogField {
       )
     );
     $iterator = new \RecursiveIteratorIterator(
-      $this->mediaFolders(), RecursiveIteratorIterator::SELF_FIRST
+      $this->mediaFolders(), \RecursiveIteratorIterator::SELF_FIRST
     );
     foreach ($iterator as $folderId => $folder) {
       $caption = '';
       if ($iterator->getDepth() > 0) {
         $caption .= str_repeat('  ', $iterator->getDepth() - 1).'->';
       }
-      $caption .= PapayaUtilArray::get($folder, 'title', '');
+      $caption .= \PapayaUtilArray::get($folder, 'title', '');
       $option = $select->appendElement(
         'option', array('value' => $folderId), $caption
       );
@@ -65,10 +65,10 @@ class PapayaUiDialogFieldSelectMediaFolder extends PapayaUiDialogField {
    * Getter/Setter for the media folders data object, it implements IteratorAggregate and
    * returning a RecursiveIterator
    *
-   * @param PapayaContentMediaFolders $folders
-   * @return PapayaContentMediaFolders
+   * @param \PapayaContentMediaFolders $folders
+   * @return \PapayaContentMediaFolders
    */
-  public function mediaFolders(PapayaContentMediaFolders $folders = NULL) {
+  public function mediaFolders(\PapayaContentMediaFolders $folders = NULL) {
     if (isset($folders)) {
       $this->_folders = $folders;
       $this->setFilter(new \PapayaFilterListKeys($this->_folders));

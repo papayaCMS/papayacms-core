@@ -1,21 +1,17 @@
 <?php
 /**
-* Use the all values provided in the constructor as cache condition data
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-* @version $Id: Group.php 39429 2014-02-27 20:14:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Use the all values provided in the constructor as cache condition data
@@ -34,9 +30,9 @@ class PapayaCacheIdentifierDefinitionGroup
   /**
    * Just store all arguments into an private member variable
    *
-   * @param PapayaCacheIdentifierDefinition,... $definition
+   * @param \PapayaCacheIdentifierDefinition,... $definition
    */
-  public function __construct(PapayaCacheIdentifierDefinition $definition = NULL) {
+  public function __construct(\PapayaCacheIdentifierDefinition $definition = NULL) {
     foreach (func_get_args() as $definition) {
       $this->add($definition);
     }
@@ -45,9 +41,9 @@ class PapayaCacheIdentifierDefinitionGroup
   /**
    * Add a definition to the internal list
    *
-   * @param PapayaCacheIdentifierDefinition $definition
+   * @param \PapayaCacheIdentifierDefinition $definition
    */
-  public function add(PapayaCacheIdentifierDefinition $definition) {
+  public function add(\PapayaCacheIdentifierDefinition $definition) {
     $this->_definitions[] = $definition;
   }
 
@@ -57,7 +53,7 @@ class PapayaCacheIdentifierDefinitionGroup
    *
    * If no arguments whre stored, return TRUE.
    *
-   * @see PapayaCacheIdentifierDefinition::getStatus()
+   * @see \PapayaCacheIdentifierDefinition::getStatus()
    * @return boolean|array
    */
   public function getStatus() {
@@ -78,7 +74,7 @@ class PapayaCacheIdentifierDefinitionGroup
   /**
    * Compile a bitmask with all the source from the definitions.
    *
-   * @see PapayaCacheIdentifierDefinition::getSources()
+   * @see \PapayaCacheIdentifierDefinition::getSources()
    * @return integer
    */
   public function getSources() {

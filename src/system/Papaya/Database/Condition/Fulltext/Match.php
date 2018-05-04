@@ -1,15 +1,28 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 class PapayaDatabaseConditionFulltextMatch extends PapayaDatabaseConditionFulltext {
 
   /**
    * Get filters for MySQL MATCH command
    *
-   * @param PapayaParserSearchString $tokens
+   * @param \PapayaParserSearchString $tokens
    * @param array $fields
    * @return string
    */
-  protected function getFulltextCondition(PapayaParserSearchString $tokens, array $fields) {
+  protected function getFulltextCondition(\PapayaParserSearchString $tokens, array $fields) {
     $result = '';
     $fieldGroups = array();
     foreach ($fields as $field) {
@@ -34,11 +47,11 @@ class PapayaDatabaseConditionFulltextMatch extends PapayaDatabaseConditionFullte
   /**
    * Get filter line for MySQL MATCH command
    *
-   * @param PapayaParserSearchString $tokens
+   * @param \PapayaParserSearchString $tokens
    * @param string $fieldString
    * @return string
    */
-  private function getMatchFilterLine(PapayaParserSearchString $tokens, $fieldString) {
+  private function getMatchFilterLine(\PapayaParserSearchString $tokens, $fieldString) {
     $result = "";
     $connector = '';
     $indent = 0;

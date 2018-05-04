@@ -43,7 +43,7 @@ class PapayaContentBoxVersions extends PapayaDatabaseObjectList {
   *
   * @var string
   */
-  protected $_versionsTableName = PapayaContentTables::BOX_VERSIONS;
+  protected $_versionsTableName = \PapayaContentTables::BOX_VERSIONS;
 
   /**
   * Load version list informations
@@ -70,7 +70,7 @@ class PapayaContentBoxVersions extends PapayaDatabaseObjectList {
   * Create a new version record object and load the specified version data
   *
   * @param integer $versionId
-  * @return PapayaContentBoxVersion|NULL
+  * @return \PapayaContentBoxVersion|NULL
   */
   public function getVersion($versionId) {
     $result = new \PapayaContentBoxVersion();

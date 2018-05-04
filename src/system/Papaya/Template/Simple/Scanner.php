@@ -40,9 +40,9 @@ class PapayaTemplateSimpleScanner {
   /**
   * Constructor, set status object
   *
-  * @param PapayaTemplateSimpleScannerStatus $status
+  * @param \PapayaTemplateSimpleScannerStatus $status
   */
-  public function __construct(PapayaTemplateSimpleScannerStatus $status) {
+  public function __construct(\PapayaTemplateSimpleScannerStatus $status) {
     $this->_status = $status;
   }
 
@@ -52,7 +52,7 @@ class PapayaTemplateSimpleScanner {
    * @param array $target token target
    * @param string $string content string
    * @param integer $offset start offset
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return integer new offset
    */
   public function scan(&$target, $string, $offset = 0) {
@@ -90,7 +90,7 @@ class PapayaTemplateSimpleScanner {
   /**
   * Get next token
   *
-  * @return PapayaTemplateSimpleScannerToken|NULL
+  * @return \PapayaTemplateSimpleScannerToken|NULL
   */
   private function _next() {
     if (($token = $this->_status->getToken($this->_buffer, $this->_offset)) &&
@@ -107,8 +107,8 @@ class PapayaTemplateSimpleScanner {
   * If the status returns a new status object, a new scanner is created to handle it.
   *
   * @param array $target
-  * @param PapayaTemplateSimpleScannerStatus $status
-  * @return PapayaTemplateSimpleScanner
+  * @param \PapayaTemplateSimpleScannerStatus $status
+  * @return \PapayaTemplateSimpleScanner
   */
   private function _delegate(&$target, $status) {
     $scanner = new self($status);

@@ -66,7 +66,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   /**
    * Set the storage configuration values.
    *
-   * @param PapayaConfiguration $configuration
+   * @param \PapayaConfiguration $configuration
    * @return void
    */
   public function setConfiguration($configuration) {
@@ -93,11 +93,11 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
     );
   }
 
-  public function cache(PapayaCacheService $service = NULL) {
+  public function cache(\PapayaCacheService $service = NULL) {
     if (NULL !== $service) {
       $this->_cacheService = $service;
     } elseif (NULL === $this->_cacheService) {
-      $this->_cacheService = PapayaCache::get(PapayaCache::DATA, $this->papaya()->options);
+      $this->_cacheService = \PapayaCache::get(\PapayaCache::DATA, $this->papaya()->options);
     }
     return $this->_cacheService;
   }
@@ -137,20 +137,20 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   /**
   * Set the used handler object.
   *
-  * @param PapayaMediaStorageServiceS3Handler $handler
+  * @param \PapayaMediaStorageServiceS3Handler $handler
   * @return void
   */
-  public function setHandler(PapayaMediaStorageServiceS3Handler $handler) {
+  public function setHandler(\PapayaMediaStorageServiceS3Handler $handler) {
     $this->_handler = $handler;
   }
 
   /**
   * Get response xml and create xpath object
   *
-  * @param PapayaHttpClient $client
-  * @return DOMXPath
+  * @param \PapayaHttpClient $client
+  * @return \DOMXPath
   */
-  private function _doXmlRequest(PapayaHttpClient $client) {
+  private function _doXmlRequest(\PapayaHttpClient $client) {
     $client->send();
     $dom = new \DOMDocument('1.0', 'UTF-8');
     if (200 === $client->getResponseStatus()) {

@@ -1,21 +1,17 @@
 <?php
 /**
-* A named submit button sets a value in the dialog data if it was "clicked".
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Named.php 39725 2014-04-07 17:19:34Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A named submit button sets a value in the dialog data if it was "clicked".
@@ -40,18 +36,18 @@ class PapayaUiDialogButtonSubmitNamed extends PapayaUiDialogButtonSubmit {
   /**
    * Initialize object, set caption and alignment
    *
-   * @param string|PapayaUiString $caption
+   * @param string|\PapayaUiString $caption
    * @param string $name
    * @param int|float|boolean|string $value
    * @param int $align
    */
   public function __construct(
-    $caption, $name, $value = '1', $align = PapayaUiDialogButton::ALIGN_RIGHT
+    $caption, $name, $value = '1', $align = \PapayaUiDialogButton::ALIGN_RIGHT
   ) {
     parent::__construct($caption, $align);
-    PapayaUtilConstraints::assertString($name);
-    PapayaUtilConstraints::assertNotEmpty($name);
-    PapayaUtilConstraints::assertNotEmpty($value);
+    \PapayaUtilConstraints::assertString($name);
+    \PapayaUtilConstraints::assertNotEmpty($name);
+    \PapayaUtilConstraints::assertNotEmpty($value);
     $this->_name = $name;
     $this->_value = $value;
   }
@@ -59,14 +55,14 @@ class PapayaUiDialogButtonSubmitNamed extends PapayaUiDialogButtonSubmit {
   /**
   * Append button ouptut to DOM
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $parent->appendElement(
       'button',
       array(
         'type' => 'submit',
-        'align' => ($this->_align == PapayaUiDialogButton::ALIGN_LEFT) ? 'left' : 'right',
+        'align' => ($this->_align == \PapayaUiDialogButton::ALIGN_LEFT) ? 'left' : 'right',
         'name' => $this->_getParameterName(array($this->_name, $this->_value))
       ),
       (string)$this->_caption

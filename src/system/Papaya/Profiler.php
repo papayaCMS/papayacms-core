@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya profile, collects and stores profilng data for requests.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-* @version $Id: Profiler.php 39406 2014-02-27 15:07:55Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya profile, collects and stores profilng data for requests. A divisor is used to
@@ -38,10 +34,10 @@ class PapayaProfiler {
   /**
   * Create Profiler and set collector and storage objects.
   *
-  * @param PapayaProfilerCollector $collector
-  * @param PapayaProfilerStorage $storage
+  * @param \PapayaProfilerCollector $collector
+  * @param \PapayaProfilerStorage $storage
   */
-  public function __construct(PapayaProfilerCollector $collector, PapayaProfilerStorage $storage) {
+  public function __construct(\PapayaProfilerCollector $collector, \PapayaProfilerStorage $storage) {
     $this->_collector = $collector;
     $this->_storage = $storage;
   }

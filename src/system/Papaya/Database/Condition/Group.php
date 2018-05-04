@@ -49,13 +49,13 @@ class PapayaDatabaseConditionGroup
   );
 
   /**
-   * @param PapayaDatabaseConditionGroup|PapayaDatabaseAccess|PapayaDatabaseInterfaceAccess $parent
-   * @param PapayaDatabaseInterfaceMapping $mapping
+   * @param \PapayaDatabaseConditionGroup|\PapayaDatabaseAccess|\PapayaDatabaseInterfaceAccess $parent
+   * @param \PapayaDatabaseInterfaceMapping $mapping
    * @param string $operator
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function __construct(
-    $parent, PapayaDatabaseInterfaceMapping $mapping = NULL, $operator = 'AND'
+    $parent, \PapayaDatabaseInterfaceMapping $mapping = NULL, $operator = 'AND'
   ) {
     if ($parent instanceof \PapayaDatabaseConditionGroup) {
       parent::__construct($parent, NULL, NULL, $operator);

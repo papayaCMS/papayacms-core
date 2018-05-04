@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Utiltities - Papaya functions
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Util
-* @version $Id: Papaya.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Utiltities - Papaya functions
@@ -47,7 +43,7 @@ class PapayaUtilStringPapaya {
     if (preg_match(self::PAPAYA_TAG_PATTERN, $str, $regs)) {
       return $regs[0];
     } elseif (preg_match(self::PAPAYA_INPUT_PATTERN, $str, $regs)) {
-      $result = '<papaya:media src="'.PapayaUtilStringXml::escape($regs[1]).'"';
+      $result = '<papaya:media src="'.\PapayaUtilStringXml::escape($regs[1]).'"';
       if ($width > 0) {
         $result .= ' width="'.(int)$width.'"';
       } elseif (isset($regs[4])) {
@@ -59,15 +55,15 @@ class PapayaUtilStringPapaya {
         $result .= ' height="'.(int)$regs[6].'"';
       }
       if (isset($resize)) {
-        $result .= ' resize="'.PapayaUtilStringXml::escape($resize).'"';
+        $result .= ' resize="'.\PapayaUtilStringXml::escape($resize).'"';
       } elseif (isset($regs[8])) {
-        $result .= ' resize="'.PapayaUtilStringXml::escape($regs[8]).'"';
+        $result .= ' resize="'.\PapayaUtilStringXml::escape($regs[8]).'"';
       }
       if (isset($alt) && trim($alt) != '') {
-        $result .= ' alt="'.PapayaUtilStringXml::escape($alt).'"';
+        $result .= ' alt="'.\PapayaUtilStringXml::escape($alt).'"';
       }
       if (!empty($subTitle)) {
-        $result .= ' subtitle="'.PapayaUtilStringXml::escape($subTitle).'"';
+        $result .= ' subtitle="'.\PapayaUtilStringXml::escape($subTitle).'"';
       }
       return $result.'/>';
     }

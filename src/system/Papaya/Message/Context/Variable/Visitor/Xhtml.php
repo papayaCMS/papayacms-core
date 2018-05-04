@@ -241,7 +241,7 @@ class PapayaMessageContextVariableVisitorXhtml
   /**
   * Create a list node and add it to the current node
   *
-  * @return DOMElement
+  * @return \DOMElement
   */
   protected function _createListNode() {
     $listNode = $this->_document->createElement('li');
@@ -252,11 +252,11 @@ class PapayaMessageContextVariableVisitorXhtml
   /**
   * Add a node describing the type of the variable
   *
-  * @param DOMElement $targetNode append childnode to this parent
+  * @param \DOMElement $targetNode append childnode to this parent
   * @param string $typeString
-  * @return DOMElement new element
+  * @return \DOMElement new element
   */
-  protected function _addTypeNode(DOMElement $targetNode, $typeString) {
+  protected function _addTypeNode(\DOMElement $targetNode, $typeString) {
     $typeNode = $this->_document->createElement('strong');
     $typeNode->appendChild($this->_document->createTextNode($typeString));
     $targetNode->appendChild($typeNode);
@@ -266,12 +266,12 @@ class PapayaMessageContextVariableVisitorXhtml
   /**
   * Add a node containing the value of the variable
   *
-  * @param DOMElement $targetNode append childnode to this parent
+  * @param \DOMElement $targetNode append childnode to this parent
   * @param string $valueClass type of value (number, string, boolean)
   * @param string $value string representation of the value
-  * @return DOMElement new element
+  * @return \DOMElement new element
   */
-  protected function _addValueNode(DOMElement $targetNode, $valueClass, $value) {
+  protected function _addValueNode(\DOMElement $targetNode, $valueClass, $value) {
     $valueNode = $this->_document->createElement('em');
     $valueNode->setAttribute('class', $valueClass);
     $valueNode->appendChild($this->_document->createTextNode($value));
@@ -282,20 +282,20 @@ class PapayaMessageContextVariableVisitorXhtml
   /**
   * Add some text to the target node contents
   *
-  * @param DOMElement $targetNode append childnode to this parent
+  * @param \DOMElement $targetNode append childnode to this parent
   * @param string $text
   */
-  protected function _addText(DOMElement $targetNode, $text) {
+  protected function _addText(\DOMElement $targetNode, $text) {
     $targetNode->appendChild($this->_document->createTextNode($text));
   }
 
   /**
   * Increase indent, add a new list to document, set parent node for list items
   *
-  * @param DOMElement $targetNode parent/position of the new list
+  * @param \DOMElement $targetNode parent/position of the new list
   * @return boolean return FALSE if identation limit is reached
   */
-  protected function _increaseIndent(DOMElement $targetNode) {
+  protected function _increaseIndent(\DOMElement $targetNode) {
     if (count($this->_indentStack) < ($this->_depth - 1)) {
       $this->_indentStack[] = $this->_document->createElement('ul');
       $this->_currentNode = end($this->_indentStack);

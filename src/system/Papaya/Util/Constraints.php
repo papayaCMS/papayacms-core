@@ -29,7 +29,7 @@ class PapayaUtilConstraints {
   * @param string $expected expected types string
   * @param mixed $value actual value
   * @param string $message Individual error message (can be empty)
-  * @return UnexpectedValueException
+  * @return \UnexpectedValueException
   */
   protected static function createException($expected, $value, $message) {
     if (empty($message)) {
@@ -48,7 +48,7 @@ class PapayaUtilConstraints {
   /**
   * Assert value is an array
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
   * @return TRUE
@@ -64,7 +64,7 @@ class PapayaUtilConstraints {
   * Assert value is an array or an Traverable instance. If either one is true, foreach can be
   * used on the variable.
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
   * @return TRUE
@@ -81,7 +81,7 @@ class PapayaUtilConstraints {
   /**
   * Assert value is a boolean
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
   * @return TRUE
@@ -96,7 +96,7 @@ class PapayaUtilConstraints {
   /**
   * Assert value is a boolean
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
   * @return TRUE
@@ -111,7 +111,7 @@ class PapayaUtilConstraints {
   /**
   * Assert value is contained in the given list
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param array $array
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
@@ -131,7 +131,7 @@ class PapayaUtilConstraints {
   /**
   * Assert value is a float
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
   * @return TRUE
@@ -146,7 +146,7 @@ class PapayaUtilConstraints {
   /**
   * Assert value is an integer
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
   * @return TRUE
@@ -161,7 +161,7 @@ class PapayaUtilConstraints {
   /**
   * Assert value is not empty
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
   * @return TRUE
@@ -180,7 +180,7 @@ class PapayaUtilConstraints {
   /**
   * Assert value is a number (integer or float)
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
   * @return TRUE
@@ -195,7 +195,7 @@ class PapayaUtilConstraints {
   /**
   * Assert value is an object
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
   * @return TRUE
@@ -212,7 +212,7 @@ class PapayaUtilConstraints {
   *
   * This is not a class check! Use type hints and the instanceof operator.
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
   * @return TRUE
@@ -227,7 +227,7 @@ class PapayaUtilConstraints {
   /**
   * Assert value is an instance of $className
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param array|string $expectedClass
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
@@ -252,7 +252,7 @@ class PapayaUtilConstraints {
   /**
   * Assert value is an instance of $className if it is not NULL
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param array|string $expectedClass
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
@@ -268,7 +268,7 @@ class PapayaUtilConstraints {
   /**
   * Assert value is a resource
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
   * @return TRUE
@@ -283,7 +283,7 @@ class PapayaUtilConstraints {
   /**
   * Assert value is a string
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param mixed $value
   * @param string $message Individual error message (can be empty)
   * @return TRUE

@@ -27,13 +27,13 @@ class PapayaIteratorCaching extends CachingIterator {
   /**
   * Create object and store innter iterator.
   *
-  * @param Traversable $iterator
-  * @param NULL|Callable Callback
+  * @param \Traversable $iterator
+  * @param NULL|\Callable Callback
   */
-  public function __construct(Traversable $iterator, $callback = NULL) {
+  public function __construct(\Traversable $iterator, $callback = NULL) {
     parent::__construct(
       $iterator instanceof \Iterator ? $iterator : new \PapayaIteratorTraversable($iterator),
-      CachingIterator::FULL_CACHE
+      \CachingIterator::FULL_CACHE
     );
     $this->setCallback($callback);
   }
@@ -41,8 +41,8 @@ class PapayaIteratorCaching extends CachingIterator {
   /**
    * Validate and store callback function
    *
-   * @param Callable|NULL $callback
-   * @throws InvalidArgumentException
+   * @param \Callable|NULL $callback
+   * @throws \InvalidArgumentException
    */
   public function setCallback($callback) {
     if (is_null($callback) || is_callable($callback)) {
@@ -57,7 +57,7 @@ class PapayaIteratorCaching extends CachingIterator {
   /**
   * Get the current callback function
   *
-  * @return NULL|Callable
+  * @return NULL|\Callable
   */
   public function getCallback() {
     return $this->_callback;

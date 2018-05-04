@@ -27,7 +27,7 @@ class PapayaTemplateSimpleVisitorOutput extends PapayaTemplateSimpleVisitor {
     return $this->_buffer;
   }
 
-  public function callbacks(PapayaTemplateSimpleVisitorOutputCallbacks $callbacks = NULL) {
+  public function callbacks(\PapayaTemplateSimpleVisitorOutputCallbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (NULL == $this->_callbacks) {
@@ -36,11 +36,11 @@ class PapayaTemplateSimpleVisitorOutput extends PapayaTemplateSimpleVisitor {
     return $this->_callbacks;
   }
 
-  public function visitNodeOutput(PapayaTemplateSimpleAstNodeOutput $node) {
+  public function visitNodeOutput(\PapayaTemplateSimpleAstNodeOutput $node) {
     $this->_buffer .= $node->text;
   }
 
-  public function visitNodeValue(PapayaTemplateSimpleAstNodeValue $node) {
+  public function visitNodeValue(\PapayaTemplateSimpleAstNodeValue $node) {
     if ($value = $this->callbacks()->onGetValue($node->name)) {
       $this->_buffer .= (string)$value;
     } else {

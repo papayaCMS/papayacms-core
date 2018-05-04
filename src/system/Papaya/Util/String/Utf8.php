@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Utilities for UTF-8 strings
-*
-* @copyright 2009-2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Util
-* @version $Id: Utf8.php 38756 2013-09-12 16:02:46Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Utilities for UTF-8 strings
@@ -104,7 +100,7 @@ class PapayaUtilStringUtf8 {
   }
 
   /**
-  * Callback function for PapayaUtilStringUtf8::ensure*
+  * Callback function for \PapayaUtilStringUtf8::ensure*
   *
   * Can get a valid utf-8 sequence in $charMatch[1] or an invalid bytecode in $charMatch[2]
   * If $charMatch[2] is filled papaya assumes that it is a ISO-8859-1 char,
@@ -238,7 +234,7 @@ class PapayaUtilStringUtf8 {
     switch (self::getExtension()) {
     case self::EXT_INTL :
       if (class_exists('Transliterator', FALSE)) {
-        return \Transliterator::create('Any-Upper')->transliterate($string);
+        return \T\ransliterator::create('Any-Upper')->transliterate($string);
       } elseif (extension_loaded('mbstring')) {
         return mb_strtoupper($string, 'utf-8');
       }

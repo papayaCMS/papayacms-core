@@ -37,8 +37,8 @@ class PapayaFilterStringNormalize implements PapayaFilter {
   /**
    * @param mixed $value
    * @return bool
-   * @throws PapayaFilterExceptionEmpty
-   * @throws PapayaFilterExceptionType
+   * @throws \PapayaFilterExceptionEmpty
+   * @throws \PapayaFilterExceptionType
    */
   public function validate($value) {
     if (empty($value)) {
@@ -57,11 +57,11 @@ class PapayaFilterStringNormalize implements PapayaFilter {
     if (!(isset($value) && is_scalar($value))) {
       return NULL;
     }
-    $asterisk = PapayaUtilBitwise::inBitmask(self::OPTION_ALLOW_ASTERISK, $this->_options) ? '*' : '';
+    $asterisk = \PapayaUtilBitwise::inBitmask(self::OPTION_ALLOW_ASTERISK, $this->_options) ? '*' : '';
     $pattern = '([^\pL\pN'.($asterisk).']+)u';
     $value = trim(preg_replace($pattern, ' ', $value));
-    if (PapayaUtilBitwise::inBitmask(self::OPTION_LOWERCASE, $this->_options)) {
-      $value = PapayaUtilStringUtf8::toLowerCase($value);
+    if (\PapayaUtilBitwise::inBitmask(self::OPTION_LOWERCASE, $this->_options)) {
+      $value = \PapayaUtilStringUtf8::toLowerCase($value);
     }
     return $value !== '' ? $value : NULL;
   }

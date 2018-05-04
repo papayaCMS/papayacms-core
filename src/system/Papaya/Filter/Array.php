@@ -32,16 +32,16 @@ class PapayaFilterArray implements PapayaFilter {
   /**
   * Construct object and filter for the elements
   *
-  * @param PapayaFilter|NULL $elementFilter
+  * @param \PapayaFilter|NULL $elementFilter
   */
-  public function __construct(PapayaFilter $elementFilter = NULL) {
+  public function __construct(\PapayaFilter $elementFilter = NULL) {
     $this->_elementFilter = $elementFilter;
   }
 
   /**
   * Check if the value is an array and if an element filter is set, check each element against it.
   *
-  * @throws PapayaFilterException
+  * @throws \PapayaFilterException
   * @param string $value
   * @return TRUE
   */

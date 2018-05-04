@@ -46,10 +46,10 @@ class PapayaCacheServiceFile extends PapayaCacheService {
 
   /**
   * Set configuration option
-  * @param PapayaCacheConfiguration $configuration
+  * @param \PapayaCacheConfiguration $configuration
   * @return void
   */
-  public function setConfiguration(PapayaCacheConfiguration $configuration) {
+  public function setConfiguration(\PapayaCacheConfiguration $configuration) {
     $this->_cacheDirectory = $configuration['FILESYSTEM_PATH'];
     $this->_notifierScript =
       empty($configuration['FILESYSTEM_NOTIFIER_SCRIPT'])
@@ -65,7 +65,7 @@ class PapayaCacheServiceFile extends PapayaCacheService {
    * Check cache is usable
    *
    * @param boolean $silent
-   * @throws LogicException
+   * @throws \LogicException
    * @return boolean
    */
   public function verify($silent = TRUE) {
@@ -107,7 +107,7 @@ class PapayaCacheServiceFile extends PapayaCacheService {
       if ($fh = fopen($identifiers['file'], 'w')) {
         fwrite($fh, $data);
         fclose($fh);
-        $this->notify(PapayaFileSystemChangeNotifier::ACTION_MODIFIED, $identifiers['file']);
+        $this->notify(\PapayaFileSystemChangeNotifier::ACTION_MODIFIED, $identifiers['file']);
         return $identifiers['identifier'];
       }
       // @codeCoverageIgnoreStart
@@ -131,7 +131,7 @@ class PapayaCacheServiceFile extends PapayaCacheService {
       }
       @mkdir($directory, 0777);
       if (file_exists($directory)) {
-        $this->notify(PapayaFileSystemChangeNotifier::ACTION_ADD, NULL, $directory);
+        $this->notify(\PapayaFileSystemChangeNotifier::ACTION_ADD, NULL, $directory);
         return TRUE;
         // @codeCoverageIgnoreStart
       }
@@ -220,7 +220,7 @@ class PapayaCacheServiceFile extends PapayaCacheService {
   */
   public function delete($group = NULL, $element = NULL, $parameters = NULL) {
     if ($this->verify()) {
-      $cache = PapayaUtilFilePath::cleanup($this->_cacheDirectory);
+      $cache = \PapayaUtilFilePath::cleanup($this->_cacheDirectory);
       if (!empty($group)) {
         $cache .= $this->_escapeIdentifierString($group).'/';
       }
@@ -234,14 +234,14 @@ class PapayaCacheServiceFile extends PapayaCacheService {
       }
       if (file_exists($cache) && is_file($cache)) {
         unlink($cache);
-        $this->notify(PapayaFileSystemChangeNotifier::ACTION_DELETED, $cache);
+        $this->notify(\PapayaFileSystemChangeNotifier::ACTION_DELETED, $cache);
         return 1;
       } elseif (file_exists($cache) && is_dir($cache) && $this->_allowUnlink) {
-        $count = PapayaUtilFilePath::clear($cache);
-        $this->notify(PapayaFileSystemChangeNotifier::ACTION_CLEARED, NULL, $cache);
+        $count = \PapayaUtilFilePath::clear($cache);
+        $this->notify(\PapayaFileSystemChangeNotifier::ACTION_CLEARED, NULL, $cache);
         return $count;
       } else {
-        $this->notify(PapayaFileSystemChangeNotifier::ACTION_INVALIDATED, NULL, $cache);
+        $this->notify(\PapayaFileSystemChangeNotifier::ACTION_INVALIDATED, NULL, $cache);
       }
       return TRUE;
     }
@@ -254,12 +254,12 @@ class PapayaCacheServiceFile extends PapayaCacheService {
    * @param string $group
    * @param string $element
    * @param string|array $parameters
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return array
    */
   protected function _getCacheIdentification($group, $element, $parameters) {
     $identification = parent::_getCacheIdentification($group, $element, $parameters);
-    $groupDirectory = PapayaUtilFilePath::cleanup($this->_cacheDirectory).$identification['group'];
+    $groupDirectory = \PapayaUtilFilePath::cleanup($this->_cacheDirectory).$identification['group'];
     $cacheId =
       $identification['group'].'/'.$identification['element'].'/'.$identification['parameters'];
     if (strlen($cacheId) > 255) {
@@ -290,10 +290,10 @@ class PapayaCacheServiceFile extends PapayaCacheService {
   * Getter/Setter for a notifer object - this will notify an external script or url
   * about the file change.
   *
-  * @param PapayaFileSystemChangeNotifier $notifier
-  * @return PapayaFileSystemChangeNotifier|FALSE
+  * @param \PapayaFileSystemChangeNotifier $notifier
+  * @return \PapayaFileSystemChangeNotifier|FALSE
   */
-  public function notifier(PapayaFileSystemChangeNotifier $notifier = NULL) {
+  public function notifier(\PapayaFileSystemChangeNotifier $notifier = NULL) {
     if (NULL !== $notifier) {
       $this->_notifier = $notifier;
     } elseif (NULL === $this->_notifier) {

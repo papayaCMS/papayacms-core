@@ -26,12 +26,12 @@ class PapayaMessageException
   /**
    * Create object and set values from exception object
    *
-   * @param Exception $exception
-   * @param PapayaMessageContextBacktrace $trace
+   * @param \Exception $exception
+   * @param \PapayaMessageContextBacktrace $trace
    */
   public function __construct(
     Exception $exception,
-    PapayaMessageContextBacktrace $trace = NULL
+    \PapayaMessageContextBacktrace $trace = NULL
   ) {
     parent::__construct();
     $this->setSeverity(E_USER_ERROR);

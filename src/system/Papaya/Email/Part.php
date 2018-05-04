@@ -41,19 +41,19 @@ class PapayaEmailPart {
   /**
   * Create object and set content subobject
   *
-  * @param PapayaEmailContent $content
+  * @param \PapayaEmailContent $content
   */
-  public function __construct(PapayaEmailContent $content) {
+  public function __construct(\PapayaEmailContent $content) {
     $this->content($content);
   }
 
   /**
   * Getter/Setter vor header subobject
   *
-  * @param PapayaEmailHeaders $headers
-  * @return PapayaEmailHeaders
+  * @param \PapayaEmailHeaders $headers
+  * @return \PapayaEmailHeaders
   */
-  public function headers(PapayaEmailHeaders $headers = NULL) {
+  public function headers(\PapayaEmailHeaders $headers = NULL) {
     if (isset($headers)) {
       $this->_headers = $headers;
     }
@@ -66,10 +66,10 @@ class PapayaEmailPart {
   /**
   * Getter/Setter for content subobject
   *
-  * @param PapayaEmailContent $content
-  * @return PapayaEmailContent
+  * @param \PapayaEmailContent $content
+  * @return \PapayaEmailContent
   */
-  public function content(PapayaEmailContent $content = NULL) {
+  public function content(\PapayaEmailContent $content = NULL) {
     if (isset($content)) {
       $this->_content = $content;
     }
@@ -80,7 +80,7 @@ class PapayaEmailPart {
    * Allow headers() and content() to be used as properties.
    *
    * @param string $name
-   * @throws LogicException
+   * @throws \LogicException
    * @return \PapayaEmailContent|\PapayaEmailHeaders
    */
   public function __get($name) {
@@ -104,7 +104,7 @@ class PapayaEmailPart {
    *
    * @param string $name
    * @param mixed $value
-   * @throws LogicException
+   * @throws \LogicException
    */
   public function __set($name, $value) {
     switch ($name) {

@@ -22,17 +22,17 @@
 class PapayaCacheIdentifierSources implements IteratorAggregate {
 
   private $_names = array(
-     PapayaCacheIdentifierDefinition::SOURCE_URL => 'Url',
-     PapayaCacheIdentifierDefinition::SOURCE_REQUEST => 'Request',
-     PapayaCacheIdentifierDefinition::SOURCE_SESSION => 'Session',
-     PapayaCacheIdentifierDefinition::SOURCE_DATABASE => 'Database',
-     PapayaCacheIdentifierDefinition::SOURCE_VARIABLES => 'Variables'
+     \PapayaCacheIdentifierDefinition::SOURCE_URL => 'Url',
+     \PapayaCacheIdentifierDefinition::SOURCE_REQUEST => 'Request',
+     \PapayaCacheIdentifierDefinition::SOURCE_SESSION => 'Session',
+     \PapayaCacheIdentifierDefinition::SOURCE_DATABASE => 'Database',
+     \PapayaCacheIdentifierDefinition::SOURCE_VARIABLES => 'Variables'
   );
 
   private $_sources = 0;
 
   public function __construct($sources) {
-    PapayaUtilConstraints::assertInteger($sources);
+    \PapayaUtilConstraints::assertInteger($sources);
     $this->_sources = $sources;
   }
 
@@ -41,7 +41,7 @@ class PapayaCacheIdentifierSources implements IteratorAggregate {
   }
 
   /**
-   * @return ArrayIterator
+   * @return \ArrayIterator
    */
   public function getIterator() {
     return new \ArrayIterator($this->toArray());
@@ -50,7 +50,7 @@ class PapayaCacheIdentifierSources implements IteratorAggregate {
   private function toArray() {
     $result = array();
     foreach ($this->_names as $source => $name) {
-      if (PapayaUtilBitwise::inBitmask($source, $this->_sources)) {
+      if (\PapayaUtilBitwise::inBitmask($source, $this->_sources)) {
         $result[] = $name;
       }
     }

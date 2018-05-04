@@ -59,8 +59,8 @@ class PapayaFilterIpV4 implements PapayaFilter {
   /**
   * The constructor sets up the configuration
   *
-  * @throws InvalidArgumentException
-  * @throws OutOfRangeException
+  * @throws \InvalidArgumentException
+  * @throws \OutOfRangeException
   * @param integer $configuration
   */
   public function __construct($configuration = self::DEFAULT_CONFIGURATION) {
@@ -83,9 +83,9 @@ class PapayaFilterIpV4 implements PapayaFilter {
   * 4. check the actual value against the configuration
   *
   * @todo Replace InvalidARgumentException with FilterException child classes
-  * @throws PapayaFilterExceptionPartInvalid
-  * @throws PapayaFilterExceptionCountMismatch
-  * @throws InvalidArgumentException
+  * @throws \PapayaFilterExceptionPartInvalid
+  * @throws \PapayaFilterExceptionCountMismatch
+  * @throws \InvalidArgumentException
   * @param string $value
   * @return boolean TRUE
   */
@@ -98,7 +98,7 @@ class PapayaFilterIpV4 implements PapayaFilter {
     foreach ($parts as $position => $part) {
       try {
         $filterInteger->validate($part);
-      } catch (PapayaFilterException $e) {
+      } catch (\PapayaFilterException $e) {
         throw new \PapayaFilterExceptionPartInvalid($position + 1, 'ip octet', $e->getMessage());
       }
     }
@@ -132,9 +132,9 @@ class PapayaFilterIpV4 implements PapayaFilter {
     $result = trim($value);
     try {
       $this->validate($result);
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       $result = NULL;
-    } catch (InvalidArgumentException $e) {
+    } catch (\InvalidArgumentException $e) {
       $result = NULL;
     }
     return $result;

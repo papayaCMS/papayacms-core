@@ -22,10 +22,10 @@
 class PapayaTemplateSimpleScannerStatusCss extends PapayaTemplateSimpleScannerStatus {
 
   private $_patterns = array(
-    '(/\\*\\$[^*\\r\\n]+\*/)S' => PapayaTemplateSimpleScannerToken::VALUE_NAME,
-    '(\\s+)S' => PapayaTemplateSimpleScannerToken::WHITESPACE,
-    '(/\\*)S' => PapayaTemplateSimpleScannerToken::COMMENT_START,
-    '(([^/\\s]+|/[^*\\s]+|(/$))+)S' => PapayaTemplateSimpleScannerToken::TEXT,
+    '(/\\*\\$[^*\\r\\n]+\*/)S' => \PapayaTemplateSimpleScannerToken::VALUE_NAME,
+    '(\\s+)S' => \PapayaTemplateSimpleScannerToken::WHITESPACE,
+    '(/\\*)S' => \PapayaTemplateSimpleScannerToken::COMMENT_START,
+    '(([^/\\s]+|/[^*\\s]+|(/$))+)S' => \PapayaTemplateSimpleScannerToken::TEXT,
   );
 
   /**
@@ -34,7 +34,7 @@ class PapayaTemplateSimpleScannerStatusCss extends PapayaTemplateSimpleScannerSt
    *
    * @param string $buffer
    * @param integer $offset
-   * @return NULL|PapayaTemplateSimpleScannerToken
+   * @return NULL|\PapayaTemplateSimpleScannerToken
    */
   public function getToken($buffer, $offset) {
     return $this->matchPatterns($buffer, $offset, $this->_patterns);
@@ -44,14 +44,14 @@ class PapayaTemplateSimpleScannerStatusCss extends PapayaTemplateSimpleScannerSt
    * If a token name is found, switch to value status, expecting a css value that can
    * be replaced (or not) by the defined value.
    *
-   * @param PapayaTemplateSimpleScannerToken
-   * @return PapayaTemplateSimpleScannerStatus|NULL
+   * @param \PapayaTemplateSimpleScannerToken
+   * @return \PapayaTemplateSimpleScannerStatus|NULL
    */
   public function getNewStatus($token) {
     switch ($token->type) {
-    case PapayaTemplateSimpleScannerToken::VALUE_NAME :
+    case \PapayaTemplateSimpleScannerToken::VALUE_NAME :
       return new \PapayaTemplateSimpleScannerStatusCssValue();
-    case PapayaTemplateSimpleScannerToken::COMMENT_START :
+    case \PapayaTemplateSimpleScannerToken::COMMENT_START :
       return new \PapayaTemplateSimpleScannerStatusCssComment();
     }
     return NULL;

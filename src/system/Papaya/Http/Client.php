@@ -145,7 +145,7 @@ class PapayaHttpClient {
    * set the url to request
    *
    * @param string $url
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function setUrl($url) {
     if (!empty($url)) {
@@ -205,7 +205,7 @@ class PapayaHttpClient {
   * @access public
   * @return void
   */
-  public function setSocket(PapayaHttpClientSocket $socket) {
+  public function setSocket(\PapayaHttpClientSocket $socket) {
     $this->_socket = $socket;
   }
 
@@ -359,7 +359,7 @@ class PapayaHttpClient {
   /**
   * Open the connection and return the socket object
   *
-  * @return PapayaHttpClientSocket
+  * @return \PapayaHttpClientSocket
   */
   public function open() {
     $socket = $this->getSocket();
@@ -650,10 +650,10 @@ class PapayaHttpClient {
   /**
    * add files to request
    *
-   * @param PapayaHttpClientFile $file
+   * @param \PapayaHttpClientFile $file
    * @return boolean
    */
-  public function addRequestFile(PapayaHttpClientFile $file) {
+  public function addRequestFile(\PapayaHttpClientFile $file) {
     $this->_requestFiles[$file->getName()] = $file;
     return TRUE;
   }
@@ -719,7 +719,7 @@ class PapayaHttpClient {
   /**
    * act on certain response headers
    *
-   * @param PapayaHttpHeaders $responseHeaders
+   * @param \PapayaHttpHeaders $responseHeaders
    */
   private function _actOnResponseHeaders($responseHeaders) {
     if (isset($responseHeaders['Connection']) &&

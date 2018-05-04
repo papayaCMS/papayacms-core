@@ -35,16 +35,16 @@ class PapayaStreamwrapperS3Handler {
 
   /**
   * Set HTTP client object
-  * @param PapayaHttpClient $client
+  * @param \PapayaHttpClient $client
   * @return void
   */
-  public function setHTTPClient(PapayaHttpClient $client) {
+  public function setHTTPClient(\PapayaHttpClient $client) {
     $this->_client = $client;
   }
 
   /**
   * Get the HTTP client object, reset it if it already exists
-  * @return PapayaHttpClient
+  * @return \PapayaHttpClient
   */
   public function getHTTPClient() {
     if (!($this->_client instanceof \PapayaHttpClient)) {
@@ -62,7 +62,7 @@ class PapayaStreamwrapperS3Handler {
   * @param array $headers
   * @param integer $options
   * @param array $arguments for the http request
-  * @return NULL|PapayaHttpClient
+  * @return NULL|\PapayaHttpClient
   */
   private function _sendRequest($method, $url, $headers, $options, $arguments = array()) {
     $client = $this->getHTTPClient();
@@ -393,7 +393,7 @@ class PapayaStreamwrapperS3Handler {
   /**
   * Evaluate xml result using a xpath expression
   *
-  * @param DOMDocument $dom
+  * @param \DOMDocument $dom
   * @param string $xml
   * @param string $xpath
   * @return mixed

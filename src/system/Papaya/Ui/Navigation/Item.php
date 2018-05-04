@@ -44,10 +44,10 @@ abstract class PapayaUiNavigationItem extends PapayaUiControlCollectionItem {
   /**
   * Append a item to the xml and return it for further modifications in child classes.
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $link = $parent->appendElement(
       'link',
       array(
@@ -69,7 +69,7 @@ abstract class PapayaUiNavigationItem extends PapayaUiControlCollectionItem {
   */
   public function selected($selected = NULL) {
     if (isset($selected)) {
-      PapayaUtilConstraints::assertBoolean($selected);
+      \PapayaUtilConstraints::assertBoolean($selected);
       $this->_selected = $selected;
     }
     return $this->_selected;
@@ -78,10 +78,10 @@ abstract class PapayaUiNavigationItem extends PapayaUiControlCollectionItem {
   /**
   * Getter/Setter for a reference subobject to create detail page links
   *
-  * @param PapayaUiReference $reference
-  * @return PapayaUiReference
+  * @param \PapayaUiReference $reference
+  * @return \PapayaUiReference
   */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {

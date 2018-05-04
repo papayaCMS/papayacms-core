@@ -20,7 +20,7 @@
  * instance.
  *
  * To use the filters call prepare()/applyTo()/appendTo() in the
- * your PapayaPluginAppendable::appendTo() method.
+ * your \PapayaPluginAppendable::appendTo() method.
  *
  * @package Papaya-Library
  * @subpackage Plugins
@@ -39,11 +39,11 @@ trait PapayaPluginFilterAggregation {
 
 
   /**
-   * @param PapayaPluginFilterContent|NULL $filters
+   * @param \PapayaPluginFilterContent|NULL $filters
    *
-   * @return PapayaPluginFilterContent
+   * @return \PapayaPluginFilterContent
    */
-  public function filters(PapayaPluginFilterContent $filters = NULL) {
+  public function filters(\PapayaPluginFilterContent $filters = NULL) {
     if ($filters !== NULL) {
       $this->_contentFilters = $filters;
     } elseif (NULL === $this->_contentFilters) {
@@ -57,7 +57,7 @@ trait PapayaPluginFilterAggregation {
    * This implementation expects that it was stored in the private
    * field $_page.
    *
-   * @return base_topic|PapayaUiContentPage
+   * @return base_topic|\PapayaUiContentPage
    */
   public function getPage() {
     return $this->_page;

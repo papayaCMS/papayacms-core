@@ -106,7 +106,7 @@ class PapayaContentPage extends PapayaDatabaseRecordLazy {
   *
   * @var string
   */
-  protected $_tableName = PapayaContentTables::PAGES;
+  protected $_tableName = \PapayaContentTables::PAGES;
 
   /**
   * Page translations list object
@@ -140,7 +140,7 @@ class PapayaContentPage extends PapayaDatabaseRecordLazy {
   /**
    * Attach callbacks for serialized field values
    *
-   * @see PapayaDatabaseRecord::_createMapping()
+   * @see \PapayaDatabaseRecord::_createMapping()
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
@@ -166,7 +166,7 @@ class PapayaContentPage extends PapayaDatabaseRecordLazy {
     switch ($property) {
     case 'parent_path' :
     case 'visitor_permissions' :
-      return PapayaUtilArray::decodeIdList($value);
+      return \PapayaUtilArray::decodeIdList($value);
     }
     return $value;
   }
@@ -184,9 +184,9 @@ class PapayaContentPage extends PapayaDatabaseRecordLazy {
   public function callbackMapValueFromPropertyToField($context, $property, $field, $value) {
     switch ($property) {
     case 'parent_path' :
-      return PapayaUtilArray::encodeAndQuoteIdList(empty($value) ? array() : $value);
+      return \PapayaUtilArray::encodeAndQuoteIdList(empty($value) ? array() : $value);
     case 'visitor_permissions' :
-      return PapayaUtilArray::encodeIdList(empty($value) ? array() : $value);
+      return \PapayaUtilArray::encodeIdList(empty($value) ? array() : $value);
     }
     return $value;
   }
@@ -196,10 +196,10 @@ class PapayaContentPage extends PapayaDatabaseRecordLazy {
   *
   * Allows to get/set the list object. Can create a list object if needed.
   *
-  * @param PapayaContentPageTranslations $translations
-  * @return PapayaContentPageTranslations
+  * @param \PapayaContentPageTranslations $translations
+  * @return \PapayaContentPageTranslations
   */
-  public function translations(PapayaContentPageTranslations $translations = NULL) {
+  public function translations(\PapayaContentPageTranslations $translations = NULL) {
     if (isset($translations)) {
       $this->_translations = $translations;
     }

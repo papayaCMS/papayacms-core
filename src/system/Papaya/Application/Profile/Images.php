@@ -26,8 +26,8 @@ class PapayaApplicationProfileImages implements PapayaApplicationProfile {
 
   /**
   * Create the profile object and return it
-  * @param PapayaApplication $application
-  * @return PapayaUiImages
+  * @param \PapayaApplication $application
+  * @return \PapayaUiImages
   */
   public function createObject($application) {
     $images = new \PapayaUiImages(

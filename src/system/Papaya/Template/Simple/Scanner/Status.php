@@ -25,14 +25,14 @@ abstract class PapayaTemplateSimpleScannerStatus {
   *
   * @param string $buffer
   * @param integer $offset
-  * @return PapayaTemplateSimpleScannerToken
+  * @return \PapayaTemplateSimpleScannerToken
   */
   abstract public function getToken($buffer, $offset);
 
   /**
   * Check if token ends status
   *
-  * @param PapayaTemplateSimpleScannerToken $token
+  * @param \PapayaTemplateSimpleScannerToken $token
   * @return boolean
   */
   public function isEndToken(
@@ -45,8 +45,8 @@ abstract class PapayaTemplateSimpleScannerStatus {
   /**
   * Get new (sub)status if needed.
   *
-  * @param PapayaTemplateSimpleScannerToken $token
-  * @return PapayaTemplateSimpleScannerStatus|NULL
+  * @param \PapayaTemplateSimpleScannerToken $token
+  * @return \PapayaTemplateSimpleScannerStatus|NULL
   */
   public function getNewStatus(
     /** @noinspection PhpUnusedParameterInspection */
@@ -84,7 +84,7 @@ abstract class PapayaTemplateSimpleScannerStatus {
    * @param integer $offset
    * @param array $patterns
    * @internal param array $pattern
-   * @return PapayaTemplateSimpleScannerToken|NULL
+   * @return \PapayaTemplateSimpleScannerToken|NULL
    */
   protected function matchPatterns($buffer, $offset, $patterns) {
     foreach ($patterns as $pattern => $tokenType) {

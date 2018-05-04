@@ -25,7 +25,7 @@ class PapayaUiDialogFieldSelectLanguage extends PapayaUiDialogFieldSelect {
   const OPTION_USE_IDENTIFIER = 2;
 
   public function __construct(
-    $caption, $name, PapayaContentLanguages $languages = NULL, $options = 0
+    $caption, $name, \PapayaContentLanguages $languages = NULL, $options = 0
   ) {
     // @codeCoverageIgnoreStart
     if (NULL === $languages) {
@@ -33,7 +33,7 @@ class PapayaUiDialogFieldSelectLanguage extends PapayaUiDialogFieldSelect {
     }
     // @codeCoverageIgnoreEnd
     $items = array();
-    if (PapayaUtilBitwise::inBitmask(self::OPTION_USE_IDENTIFIER, $options)) {
+    if (\PapayaUtilBitwise::inBitmask(self::OPTION_USE_IDENTIFIER, $options)) {
       foreach ($languages as $language) {
         $items[$language['identifier']] = $language;
       }
@@ -42,9 +42,9 @@ class PapayaUiDialogFieldSelectLanguage extends PapayaUiDialogFieldSelect {
       $items = $languages;
       $any = 0;
     }
-    if (PapayaUtilBitwise::inBitmask(self::OPTION_ALLOW_ANY, $options)) {
+    if (\PapayaUtilBitwise::inBitmask(self::OPTION_ALLOW_ANY, $options)) {
       $values = new \PapayaIteratorMultiple(
-        PapayaIteratorMultiple::MIT_KEYS_ASSOC,
+        \PapayaIteratorMultiple::MIT_KEYS_ASSOC,
         array($any => new \PapayaUiStringTranslated('Any')),
         $items
       );
@@ -54,7 +54,7 @@ class PapayaUiDialogFieldSelectLanguage extends PapayaUiDialogFieldSelect {
     parent::__construct($caption, $name, $values);
   }
 
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $this->callbacks()->getOptionCaption = array($this, 'callbackGetLanguageCaption');
     return parent::appendTo($parent);
   }

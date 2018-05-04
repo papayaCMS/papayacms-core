@@ -38,10 +38,10 @@ class PapayaAdministrationPagesAnchestors extends PapayaUiControl {
   /**
    * Append anchestor menu xml to parent element, this will do nothing until ids are set.
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    * @return NULL|\PapayaXmlElement
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     return $this->menu()->appendTo($parent);
   }
 
@@ -71,10 +71,10 @@ class PapayaAdministrationPagesAnchestors extends PapayaUiControl {
   /**
   * Content object, to load page informations
   *
-  * @param PapayaContentPages $pages
-  * @return PapayaContentPages
+  * @param \PapayaContentPages $pages
+  * @return \PapayaContentPages
   */
-  public function pages(PapayaContentPages $pages = NULL) {
+  public function pages(\PapayaContentPages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;
     } elseif (is_null($this->_pages)) {
@@ -87,10 +87,10 @@ class PapayaAdministrationPagesAnchestors extends PapayaUiControl {
   /**
   * Menu object used to generate xml with page items
   *
-  * @param PapayaUiHierarchyMenu $menu
-  * @return PapayaUiHierarchyMenu
+  * @param \PapayaUiHierarchyMenu $menu
+  * @return \PapayaUiHierarchyMenu
   */
-  public function menu(PapayaUiHierarchyMenu $menu = NULL) {
+  public function menu(\PapayaUiHierarchyMenu $menu = NULL) {
     if (isset($menu)) {
       $this->_menu = $menu;
     } elseif (is_null($this->_menu)) {

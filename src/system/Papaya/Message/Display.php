@@ -26,7 +26,7 @@ class PapayaMessageDisplay
   * Message type
   * @var integer
   */
-  protected $_type = PapayaMessage::SEVERITY_INFO;
+  protected $_type = \PapayaMessage::SEVERITY_INFO;
 
   /**
   * Message text
@@ -39,16 +39,16 @@ class PapayaMessageDisplay
   * @var array
   */
   protected $_allowedTypes = array(
-    PapayaMessage::SEVERITY_INFO,
-    PapayaMessage::SEVERITY_WARNING,
-    PapayaMessage::SEVERITY_ERROR
+    \PapayaMessage::SEVERITY_INFO,
+    \PapayaMessage::SEVERITY_WARNING,
+    \PapayaMessage::SEVERITY_ERROR
   );
 
   /**
   * PapayaMessageDisplay constrcutor
   *
   * @param integer $type
-  * @param string|PapayaUiString $message
+  * @param string|\PapayaUiString $message
   */
   public function __construct($type, $message) {
     $this->_isValidType($type);

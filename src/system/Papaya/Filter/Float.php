@@ -59,7 +59,7 @@ class PapayaFilterFloat implements PapayaFilter {
   /**
   * Check the float input and throw an exception if it does not match the condition.
   *
-  * @throws PapayaFilterException
+  * @throws \PapayaFilterException
   * @param string $value
   * @return TRUE
   */
@@ -88,7 +88,7 @@ class PapayaFilterFloat implements PapayaFilter {
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
     }
     return NULL;
   }

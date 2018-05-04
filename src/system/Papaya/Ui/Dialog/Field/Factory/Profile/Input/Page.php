@@ -22,8 +22,8 @@
 class PapayaUiDialogFieldFactoryProfileInputPage extends PapayaUiDialogFieldFactoryProfile {
 
   /**
-   * @see PapayaUiDialogFieldFactoryProfile::getField()
-   * @return PapayaUiDialogFieldInput
+   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @return \PapayaUiDialogFieldInput
    */
   public function getField() {
     $field = new \PapayaUiDialogFieldInputPage(
@@ -37,7 +37,7 @@ class PapayaUiDialogFieldFactoryProfileInputPage extends PapayaUiDialogFieldFact
       $field->setHint($hint);
     }
     $field->setFilter(
-      new \PapayaFilterText(PapayaFilterText::ALLOW_DIGITS)
+      new \PapayaFilterText(\PapayaFilterText::ALLOW_DIGITS)
     );
     return $field;
   }

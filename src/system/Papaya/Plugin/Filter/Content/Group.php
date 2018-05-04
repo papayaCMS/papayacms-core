@@ -26,13 +26,13 @@ class PapayaPluginFilterContentGroup
   private $_page = NULL;
 
   public function __construct($page) {
-    PapayaUtilConstraints::assertObject($page);
+    \PapayaUtilConstraints::assertObject($page);
     $this->_page = $page;
     $this->_options = new \PapayaObjectParameters([]);
   }
 
   /**
-   * @return PapayaUiContentPage
+   * @return \PapayaUiContentPage
    */
   public function getPage() {
     return $this->_page;
@@ -46,7 +46,7 @@ class PapayaPluginFilterContentGroup
     return new \ArrayIterator($this->_filters);
   }
 
-  public function prepare($content, PapayaObjectParameters $options = NULL) {
+  public function prepare($content, \PapayaObjectParameters $options = NULL) {
     $this->_options = isset($options) ? $options : new \PapayaObjectParameters([]);
     foreach ($this as $filter) {
       if ($filter instanceof \PapayaPluginFilterContent) {
@@ -72,19 +72,19 @@ class PapayaPluginFilterContentGroup
       if ($filter instanceof \PapayaPluginFilterContent) {
         $result = $filter->applyTo($result);
       } elseif (method_exists($filter, 'applyFilterData')) {
-        $result = PapayaUtilStringXml::repairEntities($filter->applyFilterData($result));
+        $result = \PapayaUtilStringXml::repairEntities($filter->applyFilterData($result));
       }
     }
     return $result;
   }
 
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     foreach ($this as $filter) {
       if ($filter instanceof \PapayaPluginFilterContent) {
         $parent->append($filter);
       } elseif (method_exists($filter, 'getFilterData')) {
         $parent->appendXml(
-          $filter->getFilterData(PapayaUtilArray::ensure(iterator_to_array($this->_options)))
+          $filter->getFilterData(\PapayaUtilArray::ensure(iterator_to_array($this->_options)))
         );
       }
     }

@@ -58,7 +58,7 @@ class PapayaContentPageWork extends PapayaContentPage {
   * $childPage->save();
   * </code>
   *
-  * @return PapayaContentPageWork
+  * @return \PapayaContentPageWork
   */
   public function createChild() {
     $child = new self();
@@ -71,7 +71,7 @@ class PapayaContentPageWork extends PapayaContentPage {
         'owner' => $this->owner,
         'group' => $this->group,
         'permissions' => $this->permissions,
-        'inherit_visitor_permissions' => PapayaContentOptions::INHERIT_PERMISSIONS_PARENT,
+        'inherit_visitor_permissions' => \PapayaContentOptions::INHERIT_PERMISSIONS_PARENT,
         'visitor_permissions' => array(),
         'position' => 999999,
         'inherit_boxes' => TRUE,
@@ -95,7 +95,7 @@ class PapayaContentPageWork extends PapayaContentPage {
   /**
   * Get a publication encapsulation object
   *
-  * @return PapayaContentPagePublication
+  * @return \PapayaContentPagePublication
   */
   protected function _createPublicationObject() {
     $publication = new \PapayaContentPagePublication();
@@ -127,7 +127,7 @@ class PapayaContentPageWork extends PapayaContentPage {
   /**
   * Publish the translations of the given languages.
   *
-  * @param PapayaContentPagePublication $publication
+  * @param \PapayaContentPagePublication $publication
   * @param array $languageIds
   * @return boolean
   */
@@ -137,7 +137,7 @@ class PapayaContentPageWork extends PapayaContentPage {
     $databaseAccess = $this->getDatabaseAccess();
     if (!empty($languageIds)) {
       $deleted = $databaseAccess->deleteRecord(
-        $databaseAccess->getTableName(PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS),
+        $databaseAccess->getTableName(\PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS),
         array(
           'topic_id' => $this->id,
           'lng_id' => $languageIds
@@ -159,10 +159,10 @@ class PapayaContentPageWork extends PapayaContentPage {
                   FROM %s t
                  WHERE t.topic_id = %d AND $filter";
         $parameters = array(
-          $databaseAccess->getTableName(PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS),
+          $databaseAccess->getTableName(\PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS),
           $now,
           $now,
-          $databaseAccess->getTableName(PapayaContentTables::PAGE_TRANSLATIONS),
+          $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
           $this->id
         );
         if (FALSE !== $databaseAccess->queryFmtWrite($sql, $parameters)) {

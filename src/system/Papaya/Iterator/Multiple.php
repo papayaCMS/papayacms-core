@@ -45,7 +45,7 @@ class PapayaIteratorMultiple implements OuterIterator {
   * All parameters are optional, and you can give as many iterators you like directly.
   *
   * @param integer $flags
-  * @param Traversable,... $iterator
+  * @param \Traversable,... $iterator
   */
   public function __construct($flags = NULL) {
     $iterators = func_get_args();
@@ -72,7 +72,7 @@ class PapayaIteratorMultiple implements OuterIterator {
    * @return integer
    */
   public function setFlags($flags) {
-    PapayaUtilConstraints::assertInteger($flags);
+    \PapayaUtilConstraints::assertInteger($flags);
     $this->_flags = $flags;
   }
 
@@ -88,7 +88,7 @@ class PapayaIteratorMultiple implements OuterIterator {
   /**
   * Attach one or more iterators. All parameters of this method will be attaches as iterators
   *
-  * @param Traversable,... $iterator
+  * @param \Traversable,... $iterator
   */
   public function attachIterators() {
     foreach (func_get_args() as $iterator) {
@@ -99,7 +99,7 @@ class PapayaIteratorMultiple implements OuterIterator {
   /**
   * Attach one iterator
   *
-  * @param array|Traversable $iterator
+  * @param array|\Traversable $iterator
   */
   public function attachIterator($iterator) {
     $this->_iterators[$this->getIteratorIdentifier($iterator)] = ($iterator instanceof \Iterator)
@@ -109,7 +109,7 @@ class PapayaIteratorMultiple implements OuterIterator {
   /**
   * Validate if an interator is attached.
   *
-  * @param Traversable|array $iterator
+  * @param \Traversable|array $iterator
   * @return boolean
   */
   public function containsIterator($iterator) {
@@ -119,7 +119,7 @@ class PapayaIteratorMultiple implements OuterIterator {
   /**
   * Detach an iterator
   *
-  * @param Traversable|array $iterator
+  * @param \Traversable|array $iterator
   */
   public function detachIterator($iterator) {
     $identifier = $this->getIteratorIdentifier($iterator);
@@ -217,11 +217,11 @@ class PapayaIteratorMultiple implements OuterIterator {
    *
    * If it is an object, the spl object hash will be used.
    *
-   * @param Traversable|array $iterator
+   * @param \Traversable|array $iterator
    * @return string
    */
   private function getIteratorIdentifier($iterator) {
-    PapayaUtilConstraints::assertArrayOrTraversable($iterator);
+    \PapayaUtilConstraints::assertArrayOrTraversable($iterator);
     return is_array($iterator) ? md5(serialize($iterator)) : spl_object_hash($iterator);
   }
 }

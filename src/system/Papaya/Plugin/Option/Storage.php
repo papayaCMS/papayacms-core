@@ -32,7 +32,7 @@ class PapayaPluginOptionStorage extends PapayaObject
   * @param string $guid
   */
   public function __construct($guid) {
-    $this->_guid = PapayaUtilStringGuid::toLower($guid);
+    $this->_guid = \PapayaUtilStringGuid::toLower($guid);
   }
 
   /**
@@ -60,10 +60,10 @@ class PapayaPluginOptionStorage extends PapayaObject
   /**
   * Getter/Setter: Options database encapsultation subobject
   *
-  * @param PapayaContentModuleOptions $options
-  * @return PapayaContentModuleOptions
+  * @param \PapayaContentModuleOptions $options
+  * @return \PapayaContentModuleOptions
   */
-  public function options(PapayaContentModuleOptions $options = NULL) {
+  public function options(\PapayaContentModuleOptions $options = NULL) {
     if (isset($options)) {
       $this->_options = $options;
     } elseif (is_null($this->_options)) {

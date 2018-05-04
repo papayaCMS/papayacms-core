@@ -56,8 +56,8 @@ class PapayaIteratorTreeDetails
   private $_identifier = NULL;
 
   /**
-   * @param array|Traversable $main
-   * @param array|Traversable $details
+   * @param array|\Traversable $main
+   * @param array|\Traversable $details
    * @param string|array|NULL $identifier
    */
   public function __construct($main, $details, $identifier = NULL) {
@@ -69,13 +69,13 @@ class PapayaIteratorTreeDetails
    * Store details and identifer definition, reset the internal tree so it gets compiled on next
    * read access
    *
-   * @param array|Traversable $details
+   * @param array|\Traversable $details
    * @param string|array|NULL $identifier
    */
   public function setDetails($details, $identifier = NULL) {
-    PapayaUtilConstraints::assertArrayOrTraversable($details);
+    \PapayaUtilConstraints::assertArrayOrTraversable($details);
     $this->_list = $details;
-    $this->_identifier = isset($identifier) ? PapayaUtilArray::ensure($identifier) : NULL;
+    $this->_identifier = isset($identifier) ? \PapayaUtilArray::ensure($identifier) : NULL;
     $this->_tree = NULL;
   }
 
@@ -106,8 +106,8 @@ class PapayaIteratorTreeDetails
   protected function getIdentifier($element, $key) {
     if (isset($this->_identifier)) {
       $result = array();
-      foreach (PapayaUtilArray::ensure($this->_identifier) as $property) {
-        $result[] = PapayaUtilArray::get($element, $property, '');
+      foreach (\PapayaUtilArray::ensure($this->_identifier) as $property) {
+        $result[] = \PapayaUtilArray::get($element, $property, '');
       }
       return implode('|', $result);
     } else {
@@ -116,7 +116,7 @@ class PapayaIteratorTreeDetails
   }
 
   /**
-   * @see RecursiveIterator::hasChildren()
+   * @see \RecursiveIterator::hasChildren()
    */
   public function hasChildren() {
     $details = $this->getDetails();
@@ -124,7 +124,7 @@ class PapayaIteratorTreeDetails
   }
 
   /**
-   * @see RecursiveIterator::getChildren()
+   * @see \RecursiveIterator::getChildren()
    */
   public function getChildren() {
     $details = $this->getDetails();

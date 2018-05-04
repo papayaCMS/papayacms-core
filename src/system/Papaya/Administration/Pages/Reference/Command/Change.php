@@ -24,7 +24,7 @@ class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCom
   /**
   * Create the add/edit dialog and assign callbacks.
   *
-  * @return PapayaUiDialogDatabaseSave
+  * @return \PapayaUiDialogDatabaseSave
   */
   public function createDialog() {
     /** @var PapayaAdministrationPagesDependencyChanger $changer */
@@ -87,10 +87,10 @@ class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCom
    * a reference like this does not already exists.
    *
    * @param object $context
-   * @param PapayaContentPageReference $record
+   * @param \PapayaContentPageReference $record
    * @return bool
    */
-  public function validateTarget($context, PapayaContentPageReference $record) {
+  public function validateTarget($context, \PapayaContentPageReference $record) {
     list($sourceId, $targetId) = $this->sortAsc($record->sourceId, $record->targetId);
     $currentKey = $record->key()->getProperties();
     if (
@@ -126,7 +126,7 @@ class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCom
   public function dispatchSavedMessage() {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_INFO, 'Reference saved.'
+        \PapayaMessage::SEVERITY_INFO, 'Reference saved.'
       )
     );
   }
@@ -134,10 +134,10 @@ class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCom
   /**
   * Callback to dispatch a message to the user that here was an input error.
   */
-  public function dispatchErrorMessage($context, PapayaUiDialog $dialog) {
+  public function dispatchErrorMessage($context, \PapayaUiDialog $dialog) {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_ERROR,
+        \PapayaMessage::SEVERITY_ERROR,
         'Invalid input. Please check the fields "%s".',
         array(implode(', ', $dialog->errors()->getSourceCaptions()))
       )

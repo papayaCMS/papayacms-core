@@ -67,10 +67,10 @@ class PapayaSessionRedirect extends PapayaResponse {
   /**
   * Getter/Setter for the redirect target url object
   *
-  * @param PapayaUrl $url
-  * @return PapayaUrl
+  * @param \PapayaUrl $url
+  * @return \PapayaUrl
   */
-  public function url(PapayaUrl $url = NULL) {
+  public function url(\PapayaUrl $url = NULL) {
     if (isset($url)) {
       $this->_url = $url;
     }
@@ -85,10 +85,10 @@ class PapayaSessionRedirect extends PapayaResponse {
   */
   public function prepare() {
     $this->_setQueryParameter(
-      $this->_sessionName, $this->_sessionId, $this->_transport & PapayaSessionId::SOURCE_QUERY
+      $this->_sessionName, $this->_sessionId, $this->_transport & \PapayaSessionId::SOURCE_QUERY
     );
     $this->_setPathParameter(
-      $this->_sessionName, $this->_sessionId, $this->_transport & PapayaSessionId::SOURCE_PATH
+      $this->_sessionName, $this->_sessionId, $this->_transport & \PapayaSessionId::SOURCE_PATH
     );
     $this->setStatus(302);
     $this->setCache('none');
@@ -118,7 +118,7 @@ class PapayaSessionRedirect extends PapayaResponse {
     $query = new \PapayaRequestParametersQuery($application->request->getParameterGroupSeparator());
     $query->setString($this->url()->getQuery());
     $query->values()->merge(
-      $application->request->getParameters(PapayaRequest::SOURCE_QUERY)
+      $application->request->getParameters(\PapayaRequest::SOURCE_QUERY)
     );
     if ($include) {
       $query->values()->set($sessionName, $sessionId);

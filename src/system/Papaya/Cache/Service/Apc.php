@@ -43,10 +43,10 @@ class PapayaCacheServiceApc extends PapayaCacheService {
   * The APC does not need any configuration, So just overwrite the abstract function with an empty
   * one.
   *
-  * @param PapayaCacheConfiguration $configuration
+  * @param \PapayaCacheConfiguration $configuration
   * @return boolean
   */
-  public function setConfiguration(PapayaCacheConfiguration $configuration) {
+  public function setConfiguration(\PapayaCacheConfiguration $configuration) {
     return TRUE;
   }
 
@@ -54,7 +54,7 @@ class PapayaCacheServiceApc extends PapayaCacheService {
    * check if APC is here
    *
    * @param boolean $silent
-   * @throws LogicException
+   * @throws \LogicException
    * @return boolean
    */
   public function verify($silent = TRUE) {
@@ -67,7 +67,7 @@ class PapayaCacheServiceApc extends PapayaCacheService {
 
   /**
   * Get APC mapper object instance
-  * @return PapayaCacheServiceApcObject
+  * @return \PapayaCacheServiceApcObject
   */
   public function getApcObject() {
     if (!isset($this->_apcObject)) {
@@ -79,9 +79,9 @@ class PapayaCacheServiceApc extends PapayaCacheService {
   /**
   * Set APC mapper object instance
   *
-  * @param PapayaCacheServiceApcObject $apcObject
+  * @param \PapayaCacheServiceApcObject $apcObject
   */
-  public function setApcObject(PapayaCacheServiceApcObject $apcObject) {
+  public function setApcObject(\PapayaCacheServiceApcObject $apcObject) {
     $this->_apcObject = $apcObject;
   }
 

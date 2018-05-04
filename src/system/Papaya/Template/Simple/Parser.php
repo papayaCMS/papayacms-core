@@ -51,7 +51,7 @@ abstract class PapayaTemplateSimpleParser {
   * operate on the tokenstream. They will throw PapayaTemplateSimpleParserExceptions
   * automatically in case they do not succeed.
   *
-  * @return PapayaTemplateSimpleAst
+  * @return \PapayaTemplateSimpleAst
   */
   abstract public function parse();
 
@@ -70,13 +70,13 @@ abstract class PapayaTemplateSimpleParser {
    * value, which is handled the same way an array with only one entry would
    * be.
    *
-   * The special Token PapayaTemplateSimpleScannerToken::ANY may be used to indicate
+   * The special Token \PapayaTemplateSimpleScannerToken::ANY may be used to indicate
    * everything is valid and may be matched. However if it is used no other
    * token may be specified, which does not make any sense, anyway.
    *
    * @param array|int|string $expectedTokens
-   * @throws PapayaTemplateSimpleException
-   * @return PapayaTemplateSimpleScannerToken
+   * @throws \PapayaTemplateSimpleException
+   * @return \PapayaTemplateSimpleScannerToken
    */
   protected function read($expectedTokens) {
     // Allow scalar token values for better readability
@@ -109,7 +109,7 @@ abstract class PapayaTemplateSimpleParser {
    * value, which is handled the same way an array with only one entry would
    * be.
    *
-   * The special Token PapayaTemplateSimpleScannerToken::ANY may be used to indicate
+   * The special Token \PapayaTemplateSimpleScannerToken::ANY may be used to indicate
    * everything is valid and may be matched. However if it is used no other
    * token may be specified, which does not make any sense, anyway.
    *
@@ -120,8 +120,8 @@ abstract class PapayaTemplateSimpleParser {
    * @param array|int|string $expectedTokens
    * @param int $position
    * @param bool $allowEndOfTokens
-   * @throws PapayaTemplateSimpleException
-   * @return PapayaTemplateSimpleScannerToken|NULL
+   * @throws \PapayaTemplateSimpleException
+   * @return \PapayaTemplateSimpleScannerToken|NULL
    */
   protected function lookahead($expectedTokens, $position = 0, $allowEndOfTokens = FALSE) {
     // Allow scalar token values for better readability
@@ -132,7 +132,7 @@ abstract class PapayaTemplateSimpleParser {
     // If the the requested characters is not available on the tokenstream
     // and this state is allowed return a special ANY token
     if ($allowEndOfTokens === TRUE && (!isset($this->_tokens[$position]))) {
-      return new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::ANY, 0, '');
+      return new \PapayaTemplateSimpleScannerToken(\PapayaTemplateSimpleScannerToken::ANY, 0, '');
     }
 
     foreach ($expectedTokens as $token) {
@@ -168,7 +168,7 @@ abstract class PapayaTemplateSimpleParser {
    * value, which is handled the same way an array with only one entry would
    * be.
    *
-   * The special Token PapayaTemplateSimpleScannerToken::ANY is not valid here.
+   * The special Token \PapayaTemplateSimpleScannerToken::ANY is not valid here.
    *
    * The method return TRUE if tokens were removed, otherwise FALSE.
    *
@@ -219,8 +219,8 @@ abstract class PapayaTemplateSimpleParser {
    * subparser.
    *
    * @param string $subparserClass
-   * @throws LogicException
-   * @return PapayaTemplateSimpleAst
+   * @throws \LogicException
+   * @return \PapayaTemplateSimpleAst
    */
   protected function delegate($subparserClass) {
     $subparser = new $subparserClass($this->_tokens);
@@ -245,7 +245,7 @@ abstract class PapayaTemplateSimpleParser {
       return FALSE;
     }
 
-    if ($type === PapayaTemplateSimpleScannerToken::ANY) {
+    if ($type === \PapayaTemplateSimpleScannerToken::ANY) {
       // A token has been found. We do not care which one it was
       return TRUE;
     }
@@ -258,7 +258,7 @@ abstract class PapayaTemplateSimpleParser {
    *
    * @param array $expectedTokens
    * @param int $position
-   * @return PapayaTemplateSimpleException
+   * @return \PapayaTemplateSimpleException
    */
   protected function createMismatchException($expectedTokens, $position = 0) {
     // If the tokenstream ended unexpectedly throw an appropriate exception

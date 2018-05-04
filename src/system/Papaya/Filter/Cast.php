@@ -48,7 +48,7 @@ class PapayaFilterCast implements PapayaFilter {
    * Construct object, check an store target type
    *
    * @param string $type
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function __construct($type) {
     if (isset($this->_typeMapping[$type])) {

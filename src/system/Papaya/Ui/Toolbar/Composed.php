@@ -53,7 +53,7 @@ class PapayaUiToolbarComposed extends PapayaUiControl {
    * Define the set by a list of names.
    *
    * @param array $sets
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function setNames(array $sets) {
     $this->_sets = array();
@@ -61,7 +61,7 @@ class PapayaUiToolbarComposed extends PapayaUiControl {
       throw new \InvalidArgumentException('No sets defined');
     }
     foreach ($sets as $index => $name) {
-      $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+      $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
       if (empty($name)) {
         throw new \InvalidArgumentException(
           sprintf('Invalid set name "%s" in index "%s".', $name, $index)
@@ -75,9 +75,9 @@ class PapayaUiToolbarComposed extends PapayaUiControl {
   * Append the existing toolbar to the parent xml element and set the position attribute.
   * Sets without elements will not be added.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $toolbar = $this->toolbar();
     $toolbar->elements->clear();
     foreach ($this->_sets as $set) {
@@ -91,10 +91,10 @@ class PapayaUiToolbarComposed extends PapayaUiControl {
   /**
   * The toolbar to sets get appended to.
   *
-  * @param PapayaUiToolbar $toolbar
-  * @return PapayaUiToolbar
+  * @param \PapayaUiToolbar $toolbar
+  * @return \PapayaUiToolbar
   */
-  public function toolbar(PapayaUiToolbar $toolbar = NULL) {
+  public function toolbar(\PapayaUiToolbar $toolbar = NULL) {
     if (isset($toolbar)) {
       $this->_toolbar = $toolbar;
     } elseif (is_null($this->_toolbar)) {
@@ -111,7 +111,7 @@ class PapayaUiToolbarComposed extends PapayaUiControl {
   * @return boolean
   */
   public function __isset($name) {
-    $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     return array_key_exists($name, $this->_sets);
   }
 
@@ -119,12 +119,12 @@ class PapayaUiToolbarComposed extends PapayaUiControl {
   * Return the toolbar set with the given name. If the position name is invalid an excpetion is
   * thrown.
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param string $name
-  * @return PapayaUiToolbarSet
+  * @return \PapayaUiToolbarSet
   */
   public function __get($name) {
-    $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     if (array_key_exists($name, $this->_sets)) {
       if (!isset($this->_sets[$name])) {
         $this->_sets[$name] = $set = new \PapayaUiToolbarSet();
@@ -141,13 +141,13 @@ class PapayaUiToolbarComposed extends PapayaUiControl {
   * Set the toolbar set defined by the name.
   * If the position name is invalid an excpetion is thrown.
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param string $name
-  * @param PapayaUiToolbarSet $value
+  * @param \PapayaUiToolbarSet $value
   */
   public function __set($name, $value) {
-    PapayaUtilConstraints::assertInstanceOf('PapayaUiToolbarSet', $value);
-    $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    \PapayaUtilConstraints::assertInstanceOf('PapayaUiToolbarSet', $value);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     if (array_key_exists($name, $this->_sets)) {
       $this->_sets[$name] = $value;
     } else {

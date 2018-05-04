@@ -1,21 +1,17 @@
 <?php
 /**
-* A command condition testing a request parameter.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Parameter.php 36273 2011-10-04 13:51:35Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A command condition testing a request parameter.
@@ -42,10 +38,10 @@ class PapayaUiControlCommandConditionParameter extends PapayaUiControlCommandCon
   /**
   * Create object, store parameter and filter.
   *
-  * @param string|array|PapayaRequestParametersName $parameterName
-  * @param PapayaFilter $filter
+  * @param string|array|\PapayaRequestParametersName $parameterName
+  * @param \PapayaFilter $filter
   */
-  public function __construct($parameterName, PapayaFilter $filter) {
+  public function __construct($parameterName, \PapayaFilter $filter) {
     $this->_parameterName = $parameterName;
     $this->_filter = $filter;
   }

@@ -38,15 +38,15 @@ class PapayaObjectItem
   */
   public function __construct(array $properties) {
     foreach ($properties as $name) {
-      $this->_values[PapayaUtilStringIdentifier::toUnderscoreLower($name)] = NULL;
+      $this->_values[\PapayaUtilStringIdentifier::toUnderscoreLower($name)] = NULL;
     }
   }
 
   /**
    * Assign the data from another object (like an array)
    *
-   * @param array|Traversable $data
-   * @throws InvalidArgumentException
+   * @param array|\Traversable $data
+   * @throws \InvalidArgumentException
    */
   public function assign($data) {
     if (!(is_array($data) || $data instanceof \Traversable)) {
@@ -57,7 +57,7 @@ class PapayaObjectItem
       );
     }
     foreach ($data as $name => $value) {
-      $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+      $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
       if (array_key_exists($name, $this->_values)) {
         $this->_values[$name] = $value;
       }
@@ -85,7 +85,7 @@ class PapayaObjectItem
   /**
   * Get an iterator for the defined values.
   *
-  * @return ArrayIterator
+  * @return \ArrayIterator
   */
   public function getIterator() {
     return new \ArrayIterator($this->toArray());
@@ -104,7 +104,7 @@ class PapayaObjectItem
   /**
   * Return the defined value
   *
-  * @throws OutOfBoundsException
+  * @throws \OutOfBoundsException
   * @param string $name
   * @return mixed
   */
@@ -115,7 +115,7 @@ class PapayaObjectItem
   /**
   * Change a defined value
   *
-  * @throws OutOfBoundsException
+  * @throws \OutOfBoundsException
   * @param string $name
   * @param mixed $value
   */
@@ -126,7 +126,7 @@ class PapayaObjectItem
   /**
   * Set the deifned value to NULL.
   *
-  * @throws OutOfBoundsException
+  * @throws \OutOfBoundsException
   * @param string $name
   */
   public function __unset($name) {
@@ -140,14 +140,14 @@ class PapayaObjectItem
   * @return boolean
   */
   public function offsetExists($name) {
-    $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     return array_key_exists($name, $this->_values);
   }
 
   /**
   * ArrayAccess: Return the defined vbalue
   *
-  * @throws OutOfBoundsException
+  * @throws \OutOfBoundsException
   * @param string $name
   * @return mixed
   */
@@ -158,7 +158,7 @@ class PapayaObjectItem
   /**
   * ArrayAccess: Change the defined value.
   *
-  * @throws OutOfBoundsException
+  * @throws \OutOfBoundsException
   * @param string $name
   * @param mixed $value
   */
@@ -182,11 +182,11 @@ class PapayaObjectItem
    * if the property/index is not defined.
    *
    * @param string $name
-   * @throws OutOfBoundsException
+   * @throws \OutOfBoundsException
    * @return string
    */
   private function _prepareName($name) {
-    $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     if (!array_key_exists($name, $this->_values)) {
       throw new \OutOfBoundsException(
         sprintf(

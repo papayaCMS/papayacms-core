@@ -28,7 +28,7 @@ class PapayaHttpClientFileResource extends PapayaHttpClientFile {
    * @param string $fileName
    * @param resource $resource
    * @param string $mimeType optional, default value ''
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function __construct($name, $fileName, $resource, $mimeType = '') {
     if (!empty($name) &&
@@ -65,12 +65,12 @@ class PapayaHttpClientFileResource extends PapayaHttpClientFile {
   /**
    * send file data
    *
-   * @param PapayaHttpClientSocket $socket
+   * @param \PapayaHttpClientSocket $socket
    * @param boolean $chunked optional, default value FALSE
    * @param integer $bufferSize optional, default value 0
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
-  public function send(PapayaHttpClientSocket $socket, $chunked = FALSE, $bufferSize = 0) {
+  public function send(\PapayaHttpClientSocket $socket, $chunked = FALSE, $bufferSize = 0) {
     if (is_resource($this->_resource)) {
       if ($socket->isActive()) {
         if ($bufferSize <= 0) {

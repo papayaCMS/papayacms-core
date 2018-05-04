@@ -49,9 +49,9 @@ class PapayaContentViewModeTypes implements ArrayAccess, IteratorAggregate {
 
   /**
    * An iterator for all types and their captions
-   * @see IteratorAggregate::getIterator()
+   * @see \IteratorAggregate::getIterator()
    *
-   * @return Iterator
+   * @return \Iterator
    */
   public function getIterator() {
     return new \ArrayIterator(self::$_typeCaptions);
@@ -60,7 +60,7 @@ class PapayaContentViewModeTypes implements ArrayAccess, IteratorAggregate {
   /**
    * Validate if an type exists
    *
-   * @see ArrayAccess::offsetExists()
+   * @see \ArrayAccess::offsetExists()
    * @param mixed $mode
    * @return boolean
    */
@@ -71,7 +71,7 @@ class PapayaContentViewModeTypes implements ArrayAccess, IteratorAggregate {
   /**
    * Get the caption for a type
    *
-   * @see ArrayAccess::offsetGet()
+   * @see \ArrayAccess::offsetGet()
    * @param mixed $mode
    * @return string
    */
@@ -84,8 +84,8 @@ class PapayaContentViewModeTypes implements ArrayAccess, IteratorAggregate {
   /**
    * Throw an exeption if someone tries to modify the list
    *
-   * @throws LogicException
-   * @see ArrayAccess::offsetSet()
+   * @throws \LogicException
+   * @see \ArrayAccess::offsetSet()
    */
   public function offsetSet($mode, $caption) {
     throw new \LogicException('View types list can not be modified.');
@@ -94,8 +94,8 @@ class PapayaContentViewModeTypes implements ArrayAccess, IteratorAggregate {
   /**
    * Throw an exeption if someone tries to modify the list
    *
-   * @throws LogicException
-   * @see ArrayAccess::offsetSet()
+   * @throws \LogicException
+   * @see \ArrayAccess::offsetSet()
    */
   public function offsetUnset($mode) {
     throw new \LogicException('View types list can not be modified.');

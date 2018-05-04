@@ -55,7 +55,7 @@ abstract class PapayaDatabaseRecords
   public function load($filter = array(), $limit = NULL, $offset = NULL) {
     $fields = implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields FROM %s";
-    $sql .= PapayaUtilString::escapeForPrintf(
+    $sql .= \PapayaUtilString::escapeForPrintf(
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $parameters = array(
@@ -88,11 +88,11 @@ abstract class PapayaDatabaseRecords
   }
 
   /**
-   * @param Traversable|[] $data
+   * @param \Traversable|[] $data
    * @return bool
    */
   public function insert($data) {
-    PapayaUtilConstraints::assertArrayOrTraversable($data);
+    \PapayaUtilConstraints::assertArrayOrTraversable($data);
     $databaseAccess = $this->getDatabaseAccess();
     $records = array();
     foreach ($data as $values) {
@@ -157,7 +157,7 @@ abstract class PapayaDatabaseRecords
   /**
   * Get an iterator for the loaded records.
   *
-  * @return ArrayIterator
+  * @return \ArrayIterator
   */
   public function getIterator() {
     return empty($this->_records) ? new \EmptyIterator() : new \ArrayIterator($this->_records);
@@ -191,7 +191,7 @@ abstract class PapayaDatabaseRecords
   * @param mixed $value
   */
   public function offsetSet($offset, $value) {
-    PapayaUtilConstraints::assertArray($value);
+    \PapayaUtilConstraints::assertArray($value);
     $identifier = $this->getIdentifier($offset);
     $record = array();
     foreach ($this->mapping()->getProperties() as $property) {
@@ -229,7 +229,7 @@ abstract class PapayaDatabaseRecords
    *
    * @param mixed $values
    * @param mixed $filter
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return mixed
    */
   protected function getIdentifier($values, $filter = NULL) {

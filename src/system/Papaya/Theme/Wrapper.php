@@ -60,9 +60,9 @@ class PapayaThemeWrapper extends PapayaObject {
   *
   * If no object if provided, a default object with access to the current request url is created.
   *
-  * @param PapayaThemeWrapperUrl $wrapperUrl
+  * @param \PapayaThemeWrapperUrl $wrapperUrl
   */
-  public function __construct(PapayaThemeWrapperUrl $wrapperUrl = NULL) {
+  public function __construct(\PapayaThemeWrapperUrl $wrapperUrl = NULL) {
     if (isset($wrapperUrl)) {
       $this->_wrapperUrl = $wrapperUrl;
     } else {
@@ -73,10 +73,10 @@ class PapayaThemeWrapper extends PapayaObject {
   /**
    * Get/Set the theme wrapper group object.
    *
-   * @param PapayaThemeWrapperGroup $group
-   * @return PapayaThemeWrapperGroup
+   * @param \PapayaThemeWrapperGroup $group
+   * @return \PapayaThemeWrapperGroup
    */
-  public function group(PapayaThemeWrapperGroup $group = NULL) {
+  public function group(\PapayaThemeWrapperGroup $group = NULL) {
     if (isset($group)) {
       $this->_group = $group;
     }
@@ -155,10 +155,10 @@ class PapayaThemeWrapper extends PapayaObject {
   /**
   * Getter/setter for theme handler object including implicit create
   *
-  * @param PapayaThemeHandler $handler
-  * @return PapayaThemeHandler
+  * @param \PapayaThemeHandler $handler
+  * @return \PapayaThemeHandler
   */
-  public function handler(PapayaThemeHandler $handler = NULL) {
+  public function handler(\PapayaThemeHandler $handler = NULL) {
     if (isset($handler)) {
       $this->_handler = $handler;
     }
@@ -172,10 +172,10 @@ class PapayaThemeWrapper extends PapayaObject {
   /**
   * Getter/setter for theme set database object including a implicit create
   *
-  * @param PapayaContentThemeSet $themeSet
-  * @return PapayaContentThemeSet
+  * @param \PapayaContentThemeSet $themeSet
+  * @return \PapayaContentThemeSet
   */
-  public function themeSet(PapayaContentThemeSet $themeSet = NULL) {
+  public function themeSet(\PapayaContentThemeSet $themeSet = NULL) {
     if (isset($themeSet)) {
       $this->_themeSet = $themeSet;
     }
@@ -189,16 +189,16 @@ class PapayaThemeWrapper extends PapayaObject {
   /**
   * Getter/setter for cache service object
   *
-  * @param PapayaCacheService $service
-  * @return PapayaCacheService
+  * @param \PapayaCacheService $service
+  * @return \PapayaCacheService
   */
-  public function cache(PapayaCacheService $service = NULL) {
+  public function cache(\PapayaCacheService $service = NULL) {
     if (isset($service)) {
       $this->_cacheService = $service;
     }
     if (is_null($this->_cacheService)) {
       /** @noinspection PhpParamsInspection */
-      $this->_cacheService = PapayaCache::getService(
+      $this->_cacheService = \PapayaCache::getService(
         $this->papaya()->options
       );
     }
@@ -248,10 +248,10 @@ class PapayaThemeWrapper extends PapayaObject {
   /**
    * Getter/Setter for the active template engine.
    *
-   * @param PapayaTemplateEngine $engine
-   * @return PapayaTemplateEngine|NULL
+   * @param \PapayaTemplateEngine $engine
+   * @return \PapayaTemplateEngine|NULL
    */
-  public function templateEngine(PapayaTemplateEngine $engine = NULL) {
+  public function templateEngine(\PapayaTemplateEngine $engine = NULL) {
     if (isset($engine)) {
       $this->_templateEngine = $engine;
     }

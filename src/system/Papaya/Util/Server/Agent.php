@@ -1,21 +1,17 @@
 <?php
 /**
-* Static utility Class to identify robots by useragent strings
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Util
-* @version $Id: Agent.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Static utility Class to identify robots by useragent strings
@@ -77,7 +73,7 @@ class PapayaUtilServerAgent {
     'SquidClamAV_Redirector', 'Star Downloader', 'Steeler', 'Steganos', 'SumeetBot',
     'SuperBot', 'SurferX', 'SurveyBot', 'SygolBot', 'SynooBot', 'Szook', 'T-Online',
     'TCF', 'Tagyu', 'Tcl http client', 'TeamSoft', 'Teleport', 'Teradex Mapper',
-    'Tkensaku', 'Touche', 'Twiceler', 'URI::Fetch', 'URL Validator', 'URLBase',
+    'Tkensaku', 'Touche', 'Twiceler', '\URI::Fetch', 'URL Validator', 'URLBase',
     'Ultraseek', 'UniversalFeedParser', 'Vagabondo', 'Validome XML-Validator',
     'Vayala', 'Verity-URL-Gateway', 'Viking', 'W3C_Validator', 'WWW-Mechanize',
     'WWWC', 'WWWOFFLE', 'Wapsilon', 'Watchfire WebXM', 'Web Downloader',

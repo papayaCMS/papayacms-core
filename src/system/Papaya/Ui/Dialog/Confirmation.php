@@ -47,7 +47,7 @@ class PapayaUiDialogConfirmation extends PapayaUiDialog {
   * Initialize object, set owner, field data and parameters group
   *
   * @param object $owner
-  * @param PapayaRequestParameters|array $hiddenFields
+  * @param \PapayaRequestParameters|array $hiddenFields
   * @param string $parameterGroup
    */
   public function __construct($owner, $hiddenFields, $parameterGroup = NULL) {
@@ -91,10 +91,10 @@ class PapayaUiDialogConfirmation extends PapayaUiDialog {
   /**
    * Append dialog elements to dom
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    * @return NULL|\PapayaXmlElement|void
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $dialog = $parent->appendElement(
       'confirmation-dialog',
       array('action' => $this->action(), 'method' => 'post')
@@ -120,7 +120,7 @@ class PapayaUiDialogConfirmation extends PapayaUiDialog {
   /**
   * Set dialog message text
   *
-  * @param string|PapayaUiString $text
+  * @param string|\PapayaUiString $text
   */
   public function setMessageText($text) {
     $this->_message = $text;
@@ -129,7 +129,7 @@ class PapayaUiDialogConfirmation extends PapayaUiDialog {
   /**
   * Set dialog button caption
   *
-  * @param string|PapayaUiString $caption
+  * @param string|\PapayaUiString $caption
   */
   public function setButtonCaption($caption) {
     $this->_button = $caption;

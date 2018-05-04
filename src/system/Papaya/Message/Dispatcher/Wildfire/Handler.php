@@ -90,8 +90,8 @@ class PapayaMessageDispatcherWildfireHandler {
 
   /**
    * Create Handler and set callback function
-   * @param Callback $callback
-   * @throws InvalidArgumentException
+   * @param \Callback $callback
+   * @throws \InvalidArgumentException
    */
   public function __construct($callback) {
     if (is_callable($callback)) {

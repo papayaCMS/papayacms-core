@@ -38,7 +38,7 @@ class PapayaDatabaseRecordMappingCache implements PapayaDatabaseInterfaceMapping
    */
   private $_results = array();
 
-  public function __construct(PapayaDatabaseInterfaceMapping $mapping) {
+  public function __construct(\PapayaDatabaseInterfaceMapping $mapping) {
     $this->_mapping = $mapping;
     if ($mapping instanceof \PapayaDatabaseRecordMapping) {
       foreach ($mapping->callbacks() as $event => $callback) {

@@ -25,8 +25,8 @@ class PapayaUiDialogFieldFactoryProfileSelectTranslated
   /**
    * Wrap elements in a string so they get translated
    *
-   * @param array|Traversable $elements
-   * @return PapayaUiDialogFieldSelect
+   * @param array|\Traversable $elements
+   * @return \PapayaUiDialogFieldSelect
    */
   protected function createField($elements) {
     return new \PapayaUiDialogFieldSelect(

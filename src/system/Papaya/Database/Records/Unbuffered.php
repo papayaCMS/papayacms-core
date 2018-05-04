@@ -95,7 +95,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {
     $fields = implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields FROM %s";
-    $sql .= PapayaUtilString::escapeForPrintf(
+    $sql .= \PapayaUtilString::escapeForPrintf(
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $parameters = array(
@@ -126,7 +126,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
 
   /**
    * Create a filter condition object attached to this database accesss and mapping
-   * @return PapayaDatabaseConditionRoot
+   * @return \PapayaDatabaseConditionRoot
    */
   public function createFilter() {
     return new \PapayaDatabaseConditionRoot($this, $this->mapping());
@@ -173,10 +173,10 @@ abstract class PapayaDatabaseRecordsUnbuffered
   * Getter/Setter for the mapping subobject. This is used to convert the property values into
   * a database record and back.
   *
-  * @param PapayaDatabaseInterfaceMapping $mapping
-  * @return PapayaDatabaseInterfaceMapping
+  * @param \PapayaDatabaseInterfaceMapping $mapping
+  * @return \PapayaDatabaseInterfaceMapping
   */
-  public function mapping(PapayaDatabaseInterfaceMapping $mapping = NULL) {
+  public function mapping(\PapayaDatabaseInterfaceMapping $mapping = NULL) {
     if (isset($mapping)) {
       $this->_mapping = $mapping;
     } elseif (is_null($this->_mapping)) {
@@ -188,7 +188,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
   /**
   * Create a standard mapping object for the property $_fields.
   *
-  * @return PapayaDatabaseRecordMapping
+  * @return \PapayaDatabaseRecordMapping
   */
   protected function _createMapping() {
     return new \PapayaDatabaseRecordMapping($this->_fields);
@@ -199,10 +199,10 @@ abstract class PapayaDatabaseRecordsUnbuffered
   * select statement. It is possible that the method return FALSE, indicating that
   * here should be no order by clause.
   *
-  * @param PapayaDatabaseInterfaceOrder $orderBy
-  * @return PapayaDatabaseInterfaceOrder|FALSE
+  * @param \PapayaDatabaseInterfaceOrder $orderBy
+  * @return \PapayaDatabaseInterfaceOrder|FALSE
   */
-  public function orderBy(PapayaDatabaseInterfaceOrder $orderBy = NULL) {
+  public function orderBy(\PapayaDatabaseInterfaceOrder $orderBy = NULL) {
     if (isset($orderBy)) {
       $this->_orderBy = $orderBy;
     } elseif (is_null($this->_orderBy)) {
@@ -215,7 +215,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
   * Create a standard order object using the property $_orderByFields. If the property is empty
   * the method will return FALSE.
   *
-  * @return PapayaDatabaseInterfaceOrder|FALSE
+  * @return \PapayaDatabaseInterfaceOrder|FALSE
   */
   protected function _createOrderBy() {
     if (empty($this->_orderByProperties) && empty($this->_orderByFields)) {
@@ -273,7 +273,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
   /**
   * IteratorAggregate interface, return and iterator for the database result
   *
-  * @return Iterator
+  * @return \Iterator
   */
   public function getIterator() {
     return $this->getResultIterator();
@@ -282,7 +282,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
   /**
   * Iterator for the curent database result, includes mapping callback
   *
-  * @return Iterator
+  * @return \Iterator
   */
   protected function getResultIterator() {
     if (!($this->databaseResult() instanceof \PapayaDatabaseResult)) {
@@ -301,10 +301,10 @@ abstract class PapayaDatabaseRecordsUnbuffered
   /**
   * Getter/Setter for the current database result object
   *
-  * @param PapayaDatabaseResult $databaseResult
-  * @return NULL|PapayaDatabaseResult
+  * @param \PapayaDatabaseResult $databaseResult
+  * @return NULL|\PapayaDatabaseResult
   */
-  public function databaseResult(PapayaDatabaseResult $databaseResult = NULL) {
+  public function databaseResult(\PapayaDatabaseResult $databaseResult = NULL) {
     if (isset($databaseResult)) {
       $this->_databaseResult = $databaseResult;
     }
@@ -314,16 +314,16 @@ abstract class PapayaDatabaseRecordsUnbuffered
   /**
    * Set database access object
    *
-   * @param PapayaDatabaseAccess $databaseAccessObject
+   * @param \PapayaDatabaseAccess $databaseAccessObject
    */
-  public function setDatabaseAccess(PapayaDatabaseAccess $databaseAccessObject) {
+  public function setDatabaseAccess(\PapayaDatabaseAccess $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
   }
 
   /**
   * Get database access object
   *
-  * @return PapayaDatabaseAccess
+  * @return \PapayaDatabaseAccess
   */
   public function getDatabaseAccess() {
     if (!isset($this->_databaseAccessObject)) {
@@ -336,8 +336,8 @@ abstract class PapayaDatabaseRecordsUnbuffered
    * Protected method to create an item class, you can overload this method or just set
    * the $_itemClass property.
    *
-   * @return PapayaDatabaseRecord
-   * @throws LogicException
+   * @return \PapayaDatabaseRecord
+   * @throws \LogicException
    */
   protected function _createItem() {
     if (isset($this->_itemClass)) {
@@ -353,7 +353,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
    * the $item object.
    *
    * @param null $filter
-   * @return PapayaDatabaseRecord
+   * @return \PapayaDatabaseRecord
    */
   public function getItem($filter = NULL) {
     $item = $this->_createItem();

@@ -23,8 +23,8 @@ class PapayaApplicationProfileResponse implements PapayaApplicationProfile {
 
   /**
   * Create the profile object and return it
-  * @param PapayaApplication $application
-  * @return PapayaResponse
+  * @param \PapayaApplication $application
+  * @return \PapayaResponse
   */
   public function createObject($application) {
     $response = new \PapayaResponse();

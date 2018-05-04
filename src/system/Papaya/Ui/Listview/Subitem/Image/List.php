@@ -72,7 +72,7 @@ class PapayaUiListviewSubitemImageList extends PapayaUiListviewSubitemImageSelec
   /**
    * Create subitme and store icon list and selection index.
    *
-   * @param PapayaUiIconList $icons
+   * @param \PapayaUiIconList $icons
    * @param mixed $selection
    * @param int $selectionMode
    * @param array $actionParameters
@@ -91,14 +91,14 @@ class PapayaUiListviewSubitemImageList extends PapayaUiListviewSubitemImageSelec
   * Append the subitem to the listitem xml element. If the selected icon is not found
   * the subitem will be empty.
   *
-  * @param PapayaXmlElement
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $subitem = $parent->appendElement(
       'subitem',
       array(
-        'align' => PapayaUiOptionAlign::getString($this->getAlign())
+        'align' => \PapayaUiOptionAlign::getString($this->getAlign())
       )
     );
     $list = $subitem->appendElement('glyphs');

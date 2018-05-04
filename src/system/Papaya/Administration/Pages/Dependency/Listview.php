@@ -65,12 +65,12 @@ class PapayaAdministrationPagesDependencyListview extends PapayaUiListview {
   public function __construct(
     $originPageId,
     $currentPageId,
-    PapayaContentPageDependencies $dependencies,
-    PapayaContentPageReferences $references,
-    PapayaAdministrationPagesDependencySynchronizations $synchronizations
+    \PapayaContentPageDependencies $dependencies,
+    \PapayaContentPageReferences $references,
+    \PapayaAdministrationPagesDependencySynchronizations $synchronizations
   ) {
-    PapayaUtilConstraints::assertInteger($originPageId);
-    PapayaUtilConstraints::assertInteger($currentPageId);
+    \PapayaUtilConstraints::assertInteger($originPageId);
+    \PapayaUtilConstraints::assertInteger($currentPageId);
     $this->_originPageId = $originPageId;
     $this->_currentPageId = $currentPageId;
     $this->_dependencies = $dependencies;
@@ -93,15 +93,15 @@ class PapayaAdministrationPagesDependencyListview extends PapayaUiListview {
     );
     $this->columns[] = new \PapayaUiListviewColumn(
       new \PapayaUiStringTranslated('GoTo'),
-      PapayaUiOptionAlign::CENTER
+      \PapayaUiOptionAlign::CENTER
     );
     $this->columns[] = new \PapayaUiListviewColumn(
       new \PapayaUiStringTranslated('Synchronization'),
-      PapayaUiOptionAlign::CENTER
+      \PapayaUiOptionAlign::CENTER
     );
     $this->columns[] = new \PapayaUiListviewColumn(
       new \PapayaUiStringTranslated('Modified'),
-      PapayaUiOptionAlign::CENTER
+      \PapayaUiOptionAlign::CENTER
     );
     if (count($this->_dependencies) > 0) {
       $this->items[] = $listitem = new \PapayaUiListviewItem(
@@ -123,14 +123,14 @@ class PapayaAdministrationPagesDependencyListview extends PapayaUiListview {
         );
         $listitem->indentation = 1;
         if (!empty($dependency['note'])) {
-          $listitem->text = PapayaUtilString::truncate($dependency['note'], 60, TRUE);
+          $listitem->text = \PapayaUtilString::truncate($dependency['note'], 60, TRUE);
         }
         $listitem->selected = $dependency['id'] == $this->_currentPageId;
         $listitem->subitems[] = new \PapayaUiListviewSubitemText('');
         $listitem->subitems[] = new \PapayaUiListviewSubitemImageList(
           $this->_synchronizations->getIcons(),
           $dependency['synchronization'],
-          PapayaUiListviewSubitemImageList::VALIDATE_BITMASK
+          \PapayaUiListviewSubitemImageList::VALIDATE_BITMASK
         );
         $listitem->subitems[] = new \PapayaUiListviewSubitemDate(
           (int)$dependency['modified']
@@ -155,7 +155,7 @@ class PapayaAdministrationPagesDependencyListview extends PapayaUiListview {
         );
         $listitem->indentation = 1;
         if (!empty($reference['note'])) {
-          $listitem->text = PapayaUtilString::truncate($reference['note'], 60, TRUE);
+          $listitem->text = \PapayaUtilString::truncate($reference['note'], 60, TRUE);
         }
         $listitem->selected = in_array(
           $this->parameters()->get('target_id'),
@@ -183,10 +183,10 @@ class PapayaAdministrationPagesDependencyListview extends PapayaUiListview {
   /**
   * Append listview to parent element if it has records.
   *
-  * @param PapayaXmlElement $parent
-  * @return NULL|PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return NULL|\PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     if (count($this->_dependencies) > 0 || count($this->_references) > 0) {
       $this->prepare();
       return parent::appendTo($parent);
@@ -197,10 +197,10 @@ class PapayaAdministrationPagesDependencyListview extends PapayaUiListview {
   /**
   * Access to the pages list, to load page informations
   *
-  * @param PapayaContentPages $pages
-  * @return PapayaContentPages
+  * @param \PapayaContentPages $pages
+  * @return \PapayaContentPages
   */
-  public function pages(PapayaContentPages $pages = NULL) {
+  public function pages(\PapayaContentPages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;
     } elseif (is_null($this->_pages)) {

@@ -44,7 +44,7 @@ class PapayaContentPageVersions extends PapayaDatabaseObjectList {
   *
   * @var string
   */
-  protected $_versionsTableName = PapayaContentTables::PAGE_VERSIONS;
+  protected $_versionsTableName = \PapayaContentTables::PAGE_VERSIONS;
 
   /**
   * Load version list informations
@@ -71,7 +71,7 @@ class PapayaContentPageVersions extends PapayaDatabaseObjectList {
   * Create a new version record object and load the specified version data
   *
   * @param integer $versionId
-  * @return PapayaContentPageVersion|NULL
+  * @return \PapayaContentPageVersion|NULL
   */
   public function getVersion($versionId) {
     $result = new \PapayaContentPageVersion();

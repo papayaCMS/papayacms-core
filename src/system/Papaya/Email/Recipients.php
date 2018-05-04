@@ -32,8 +32,8 @@ class PapayaEmailRecipients extends PapayaObjectList {
   /**
   * Overload prepareITem method to convert a string into an object if needed.
   *
-  * @param string|PapayaEmailAddress $value
-  * @return PapayaEmailAddress
+  * @param string|\PapayaEmailAddress $value
+  * @return \PapayaEmailAddress
   */
   protected function prepareItem($value) {
     if (is_string($value)) {

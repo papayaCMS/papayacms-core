@@ -129,7 +129,7 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
    *
    *
    * @param string $image
-   * @param string|PapayaUiString $caption
+   * @param string|\PapayaUiString $caption
    * @param array $actionParameters
    * @param bool $selected
    */
@@ -154,10 +154,10 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
    * Set the indentation level of the listview item.
    *
    * @param integer $indentation
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   protected function setIndentation($indentation) {
-    PapayaUtilConstraints::assertInteger($indentation);
+    \PapayaUtilConstraints::assertInteger($indentation);
     if ($indentation >= 0) {
       $this->_indentation = $indentation;
     } else {
@@ -179,21 +179,21 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
   /**
   * Return the collection for the item, overload for code completion and type check
   *
-  * @param PapayaUiListviewItems|PapayaUiControlCollection $items
-  * @return PapayaUiListviewItems|PapayaUiControlCollection
+  * @param \PapayaUiListviewItems|\PapayaUiControlCollection $items
+  * @return \PapayaUiListviewItems|\PapayaUiControlCollection
   */
-  public function collection(PapayaUiControlCollection $items = NULL) {
-    PapayaUtilConstraints::assertInstanceOfOrNull('PapayaUiListviewItems', $items);
+  public function collection(\PapayaUiControlCollection $items = NULL) {
+    \PapayaUtilConstraints::assertInstanceOfOrNull('PapayaUiListviewItems', $items);
     return parent::collection($items);
   }
 
   /**
    * Getter/Setter for the node subobject
    *
-   * @param PapayaUiListviewItemNode $node
-   * @return PapayaUiListviewItemNode
+   * @param \PapayaUiListviewItemNode $node
+   * @return \PapayaUiListviewItemNode
    */
-  public function node(PapayaUiListviewItemNode $node = NULL) {
+  public function node(\PapayaUiListviewItemNode $node = NULL) {
     if (isset($node)) {
       $this->_node = $node;
     } elseif (NULL === $this->_node) {
@@ -205,10 +205,10 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
   /**
   * Getter/Setter for the item subitems. Subitems represent addiitonal data.
   *
-  * @param PapayaUiListviewSubitems $subitems
-  * @return PapayaUiListviewSubitems
+  * @param \PapayaUiListviewSubitems $subitems
+  * @return \PapayaUiListviewSubitems
   */
-  public function subitems(PapayaUiListviewSubitems $subitems = NULL) {
+  public function subitems(\PapayaUiListviewSubitems $subitems = NULL) {
     if (isset($subitems)) {
       $this->_subitems = $subitems;
       $this->_subitems->owner($this);
@@ -223,10 +223,10 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
   * Getter/Setter for the reference subobject, if not explit set. The reference from the collection
   * is cloned or a new one is created (if no collection is available).
   *
-  * @param PapayaUiReference $reference
-  * @return PapayaUiReference
+  * @param \PapayaUiReference $reference
+  * @return \PapayaUiReference
   */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {
@@ -249,10 +249,10 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
   /**
    * Append list item xml to parent xml element.
    *
-   * @param PapayaXmlElement $parent
-   * @return PapayaXmlElement
+   * @param \PapayaXmlElement $parent
+   * @return \PapayaXmlElement
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $itemNode = $parent->appendElement(
       'listitem',
       array(

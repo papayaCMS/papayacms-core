@@ -61,12 +61,12 @@ class PapayaConfiguration
    * Validate and define the options.
    *
    * @param array $options
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   protected function defineOptions(array $options) {
     foreach ($options as $name => $default) {
       if (!is_scalar($default) && !is_null($default)) {
-        $name = PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+        $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
         throw new \UnexpectedValueException(
           sprintf('Default value for option "%s" is not a scalar.', $name)
         );
@@ -98,11 +98,11 @@ class PapayaConfiguration
   *
   * @param string $name
   * @param string $default
-  * @param PapayaFilter $filter
+  * @param \PapayaFilter $filter
   * @return mixed
   */
-  public function get($name, $default = NULL, PapayaFilter $filter = NULL) {
-    $name = PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+  public function get($name, $default = NULL, \PapayaFilter $filter = NULL) {
+    $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
     if (array_key_exists($name, $this->_options)) {
       return $this->filter($this->_options[$name], $default, $filter);
     } else {
@@ -115,10 +115,10 @@ class PapayaConfiguration
   *
   * @param mixed $value
   * @param mixed $default
-  * @param PapayaFilter $filter
+  * @param \PapayaFilter $filter
   * @return mixed
   */
-  protected function filter($value, $default = NULL, PapayaFilter $filter = NULL) {
+  protected function filter($value, $default = NULL, \PapayaFilter $filter = NULL) {
     if (isset($filter)) {
       $value = $filter->filter($value);
     }
@@ -136,7 +136,7 @@ class PapayaConfiguration
   * Get option is only here for compatiblity with the old base_options class. It
   * uses the get() method.
   *
-  * @deprecated {@see PapayaConfiguration::get()}
+  * @deprecated {@see \PapayaConfiguration::get()}
   * @param string $name
   * @param mixed $default
    * @return mixed
@@ -152,7 +152,7 @@ class PapayaConfiguration
   * @param mixed $value
   */
   public function set($name, $value) {
-    $name = PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
     if ($this->has($name) &&
         array_key_exists($name, $this->_options) &&
         ($this->_options[$name] !== $value)) {
@@ -169,18 +169,18 @@ class PapayaConfiguration
    * @return bool
    */
   public function has($name) {
-    $name = PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
     return array_key_exists($name, $this->_options);
   }
 
   /**
    * Assign the values of an array or traverseable object to the current configuration object.
    *
-   * @param array|Traversable $source
-   * @throws InvalidArgumentException
+   * @param array|\Traversable $source
+   * @throws \InvalidArgumentException
    */
   public function assign($source) {
-    PapayaUtilConstraints::assertArrayOrTraversable($source);
+    \PapayaUtilConstraints::assertArrayOrTraversable($source);
     foreach ($source as $name => $value) {
       $this->set($name, $value);
     }
@@ -189,7 +189,7 @@ class PapayaConfiguration
   /**
   * Load options using a storage object. This will throw an exception if no storage is assigned.
   */
-  public function load(PapayaConfigurationStorage $storage = NULL) {
+  public function load(\PapayaConfigurationStorage $storage = NULL) {
     if (isset($storage)) {
       $this->storage($storage);
     }
@@ -205,11 +205,11 @@ class PapayaConfiguration
   /**
   * Getter/Setter for the storage object
   *
-  * @throws LogicException
-  * @param PapayaConfigurationStorage $storage
-  * @return PapayaConfigurationStorage
+  * @throws \LogicException
+  * @param \PapayaConfigurationStorage $storage
+  * @return \PapayaConfigurationStorage
   */
-  public function storage(PapayaConfigurationStorage $storage = NULL) {
+  public function storage(\PapayaConfigurationStorage $storage = NULL) {
     if (isset($storage)) {
       $this->_storage = $storage;
     } elseif (is_null($this->_storage)) {
@@ -290,7 +290,7 @@ class PapayaConfiguration
    *
    *
    * @param string $name
-   * @throws LogicException
+   * @throws \LogicException
    */
   public function offsetUnset($name) {
     throw new \LogicException(
@@ -302,7 +302,7 @@ class PapayaConfiguration
   * IteratorAggregate Interface: return an iterator for the options.
   * This is used for storage handling.
   *
-  * @return Iterator
+  * @return \Iterator
   */
   public function getIterator() {
     return new \PapayaConfigurationIterator(array_keys($this->_options), $this);

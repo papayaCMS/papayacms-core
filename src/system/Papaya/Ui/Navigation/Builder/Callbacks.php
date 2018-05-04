@@ -23,10 +23,10 @@
 * @property PapayaObjectCallback $onAfterAppend
 * @property PapayaObjectCallback $onCreateItem
 * @property PapayaObjectCallback $onAfterAppendItem
-* @method void onBeforeAppend(PapayaUiNavigationItems $items)
-* @method void onAfterAppend(PapayaUiNavigationItems $items)
+* @method void onBeforeAppend(\PapayaUiNavigationItems $items)
+* @method void onAfterAppend(\PapayaUiNavigationItems $items)
 * @method NULL|PapayaUiNavigationItem onCreateItem($element, $index)
-* @method void onAfterAppendItem(PapayaUiNavigationItem $item, $element, $index)
+* @method void onAfterAppendItem(\PapayaUiNavigationItem $item, $element, $index)
 */
 class PapayaUiNavigationBuilderCallbacks extends PapayaObjectCallbacks {
 

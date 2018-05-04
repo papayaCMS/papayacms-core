@@ -62,10 +62,10 @@ class PapayaMediaDatabaseItem {
   /**
    * Constructor - define id and storage service
    *
-   * @param PapayaMediaStorageService $storage
-   * @return PapayaMediaDatabaseItem
+   * @param \PapayaMediaStorageService $storage
+   * @return \PapayaMediaDatabaseItem
    */
-  public function __construct(PapayaMediaStorageService $storage) {
+  public function __construct(\PapayaMediaStorageService $storage) {
     $this->_storage = $storage;
   }
 
@@ -73,7 +73,7 @@ class PapayaMediaDatabaseItem {
    * Magic function, read dynamic properties
    *
    * @param string $name
-   * @throws BadMethodCallException
+   * @throws \BadMethodCallException
    * @return mixed
    */
   public function __get($name) {
@@ -101,7 +101,7 @@ class PapayaMediaDatabaseItem {
    *
    * @param string $name
    * @param mixed $value
-   * @throws BadMethodCallException
+   * @throws \BadMethodCallException
    * @return mixed
    */
   public function __set($name, $value) {
@@ -131,7 +131,7 @@ class PapayaMediaDatabaseItem {
 
   /**
   * Get database access object (implicit create)
-  * @return PapayaMediaDatabaseItemRecord
+  * @return \PapayaMediaDatabaseItemRecord
   */
   public function getDatabaseAccessObject() {
     if (!($this->_databaseAccessObject instanceof \PapayaMediaDatabaseItemRecord)) {
@@ -142,10 +142,10 @@ class PapayaMediaDatabaseItem {
 
   /**
   * Set database access object
-  * @param PapayaMediaDatabaseItemRecord $databaseAccessObject
+  * @param \PapayaMediaDatabaseItemRecord $databaseAccessObject
   * @return void
   */
-  public function setDatabaseAccessObject(PapayaMediaDatabaseItemRecord $databaseAccessObject) {
+  public function setDatabaseAccessObject(\PapayaMediaDatabaseItemRecord $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
   }
 
@@ -154,7 +154,7 @@ class PapayaMediaDatabaseItem {
    *
    * @param string $mediaId
    * @param integer $versionId
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return boolean
    */
   public function load($mediaId, $versionId = NULL) {
@@ -192,7 +192,7 @@ class PapayaMediaDatabaseItem {
    * Set media id
    *
    * @param string $value
-   * @throws BadMethodCallException
+   * @throws \BadMethodCallException
    */
   protected function _setMediaId($value) {
     if (preg_match('(^[a-fA-F\d]{32}$)', $value)) {
@@ -212,7 +212,7 @@ class PapayaMediaDatabaseItem {
    * Set media id
    *
    * @param string $value
-   * @throws BadMethodCallException
+   * @throws \BadMethodCallException
    */
   protected function _setVersionId($value) {
     if ($value > 0) {
@@ -243,7 +243,7 @@ class PapayaMediaDatabaseItem {
    *
    * @param string $attribute
    * @param string $value
-   * @throws BadMethodCallException
+   * @throws \BadMethodCallException
    */
   protected function _setAttributeTrimString($attribute, $value) {
     if (!empty($value) && trim($value != '')) {

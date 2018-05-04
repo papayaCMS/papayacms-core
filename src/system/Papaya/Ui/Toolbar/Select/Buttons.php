@@ -31,10 +31,10 @@ class PapayaUiToolbarSelectButtons extends PapayaUiToolbarSelect {
   /**
    * Append button xml elemens to parent element.
    *
-   * @param PapayaXmlElement $parent
-   * @return PapayaXmlElement
+   * @param \PapayaXmlElement $parent
+   * @return \PapayaXmlElement
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $currentValue = $this->getCurrentValue();
     $parameterName = new \PapayaRequestParametersName($this->_parameterName);
     foreach ($this->_options as $value => $data) {
@@ -42,8 +42,8 @@ class PapayaUiToolbarSelectButtons extends PapayaUiToolbarSelect {
         if (array_key_exists('enabled', $data) && !$data['enabled']) {
           continue;
         }
-        $caption = PapayaUtilArray::get($data, array('caption', 0), '');
-        $image = PapayaUtilArray::get($data, array('image', 1), '');
+        $caption = \PapayaUtilArray::get($data, array('caption', 0), '');
+        $image = \PapayaUtilArray::get($data, array('image', 1), '');
       } else {
         $caption = $data;
         $image = '';

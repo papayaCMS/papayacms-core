@@ -49,7 +49,7 @@ class PapayaFilterArguments implements PapayaFilter {
   /**
   * Check the input value and throw an exception if it does not match the condition.
   *
-  * @throws PapayaFilterException
+  * @throws \PapayaFilterException
   * @param string $value
   * @return TRUE
   */
@@ -86,7 +86,7 @@ class PapayaFilterArguments implements PapayaFilter {
         $result[] = $filter->filter(isset($value[$index]) ? $value[$index] : '');
       }
       return implode($this->_separator, $result);
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       return NULL;
     }
   }

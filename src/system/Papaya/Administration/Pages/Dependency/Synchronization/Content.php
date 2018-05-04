@@ -40,7 +40,7 @@ class PapayaAdministrationPagesDependencySynchronizationContent
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
     $this->translations()->load($originId);
     if (empty($languages)) {
-      $languages = array_keys(PapayaUtilArray::ensure($this->translations()));
+      $languages = array_keys(\PapayaUtilArray::ensure($this->translations()));
     }
     $existing = $this->getExistingTargetTranslations($targetIds, $languages);
     $missing = $this->getMissingTargetTranslations($targetIds, $languages, $existing);
@@ -50,10 +50,10 @@ class PapayaAdministrationPagesDependencySynchronizationContent
   /**
   * Getter/Setter for the translation records list.
   *
-  * @param PapayaContentPageTranslations $translations
-  * @return PapayaContentPageTranslations
+  * @param \PapayaContentPageTranslations $translations
+  * @return \PapayaContentPageTranslations
   */
-  public function translations(PapayaContentPageTranslations $translations = NULL) {
+  public function translations(\PapayaContentPageTranslations $translations = NULL) {
     if (isset($translations)) {
       $this->_translations = $translations;
     } elseif (is_null($this->_translations)) {
@@ -81,11 +81,11 @@ class PapayaAdministrationPagesDependencySynchronizationContent
               FROM %s
              WHERE $filter";
     $parameters = array(
-      $databaseAccess->getTableName(PapayaContentTables::PAGE_TRANSLATIONS)
+      $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS)
     );
     $result = array();
     if ($databaseResult = $databaseAccess->queryFmt($sql, $parameters)) {
-      while ($row = $databaseResult->fetchRow(PapayaDatabaseResult::FETCH_ASSOC)) {
+      while ($row = $databaseResult->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
         $result[$row['lng_id']][] = $row['topic_id'];
       }
     }
@@ -155,16 +155,16 @@ class PapayaAdministrationPagesDependencySynchronizationContent
   /**
    * Update content data of existing translations
    *
-   * @param PapayaContentPageTranslation $origin
+   * @param \PapayaContentPageTranslation $origin
    * @param array $targetIds
    * @return boolean
    */
-  protected function updateTranslations(PapayaContentPageTranslation $origin, array $targetIds) {
+  protected function updateTranslations(\PapayaContentPageTranslation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
-      $databaseAccess->getTableName(PapayaContentTables::PAGE_TRANSLATIONS),
+      $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
       array(
-        'topic_content' => PapayaUtilStringXml::serializeArray($origin->content),
+        'topic_content' => \PapayaUtilStringXml::serializeArray($origin->content),
         'topic_trans_modified' => $origin->modified
       ),
       array(
@@ -177,11 +177,11 @@ class PapayaAdministrationPagesDependencySynchronizationContent
   /**
    * Insert missing translations
    *
-   * @param PapayaContentPageTranslation $origin
+   * @param \PapayaContentPageTranslation $origin
    * @param $targetIds
    * @return boolean
    */
-  protected function insertTranslations(PapayaContentPageTranslation $origin, $targetIds) {
+  protected function insertTranslations(\PapayaContentPageTranslation $origin, $targetIds) {
     foreach ($targetIds as $targetId) {
       $target = clone $origin;
       $target->key()->clear();
@@ -203,7 +203,7 @@ class PapayaAdministrationPagesDependencySynchronizationContent
   protected function deleteTranslations($languageId, $targetId) {
     $databaseAccess = $this->translations()->getDatabaseAccess();
     return FALSE !== $databaseAccess->deleteRecord(
-      $databaseAccess->getTableName(PapayaContentTables::PAGE_TRANSLATIONS),
+      $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
       array(
         'lng_id' => $languageId,
         'topic_id' => $targetId

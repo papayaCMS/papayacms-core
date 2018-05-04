@@ -45,11 +45,11 @@ class PapayaUiStringTranslatedList
   /**
    * Create object and store traversable as iterator
    *
-   * @param array|Traversable $traversable
-   * @param PapayaPhrases $phrases
+   * @param array|\Traversable $traversable
+   * @param \PapayaPhrases $phrases
    * @param NULL $groupName
    */
-  public function __construct($traversable, PapayaPhrases $phrases = NULL, $groupName = NULL) {
+  public function __construct($traversable, \PapayaPhrases $phrases = NULL, $groupName = NULL) {
     parent::__construct(new \PapayaIteratorTraversable($traversable));
     $this->_phrases = $phrases;
     $this->_phrasesGroupName = $groupName;
@@ -58,7 +58,7 @@ class PapayaUiStringTranslatedList
   /**
    * Wrap the current element into an translated string and return it.
    *
-   * @see IteratorIterator::current()
+   * @see \IteratorIterator::current()
    * @return string
    */
   public function current() {
@@ -75,14 +75,14 @@ class PapayaUiStringTranslatedList
   /**
    * An combined getter/setter for the Papaya Application object
    *
-   * @param PapayaApplication $application
-   * @return PapayaApplicationCms
+   * @param \PapayaApplication $application
+   * @return \PapayaApplicationCms
    */
-  public function papaya(PapayaApplication $application = NULL) {
+  public function papaya(\PapayaApplication $application = NULL) {
     if (isset($application)) {
       $this->_applicationObject = $application;
     } elseif (NULL === $this->_applicationObject) {
-      $this->_applicationObject = PapayaApplication::getInstance();
+      $this->_applicationObject = \PapayaApplication::getInstance();
     }
     return $this->_applicationObject;
   }

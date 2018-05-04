@@ -27,10 +27,10 @@ class PapayaMessageSandbox extends PapayaObject {
   /**
   * Create object and set values from exception object
   *
-  * @param Callable $callback
+  * @param \Callable $callback
   */
   public function __construct($callback) {
-    PapayaUtilConstraints::assertCallable($callback);
+    \PapayaUtilConstraints::assertCallable($callback);
     $this->_callback = $callback;
   }
 
@@ -46,9 +46,9 @@ class PapayaMessageSandbox extends PapayaObject {
     try {
       $arguments = func_num_args() > 0 ? func_get_args() : array();
       $result = call_user_func_array($this->_callback, $arguments);
-    } catch (ErrorException $e) {
+    } catch (\ErrorException $e) {
       $this->papaya()->messages->dispatch(new \PapayaMessagePhpException($e));
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $this->papaya()->messages->dispatch(new \PapayaMessageException($e));
     }
     return $result;

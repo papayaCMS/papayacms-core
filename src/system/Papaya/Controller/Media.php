@@ -25,10 +25,10 @@ class PapayaControllerMedia extends PapayaObject implements PapayaController {
 
     /**
   * Execute controller
-   * @param PapayaApplication $application
-   * @param PapayaRequest &$request
-   * @param PapayaResponse &$response
-   * @return boolean|PapayaController
+   * @param \PapayaApplication $application
+   * @param \PapayaRequest &$request
+   * @param \PapayaResponse &$response
+   * @return boolean|\PapayaController
    */
   function execute(
     PapayaApplication $application,
@@ -37,10 +37,10 @@ class PapayaControllerMedia extends PapayaObject implements PapayaController {
   ) {
     $this->papaya($application);
     $request = $application->getObject('Request');
-    $isPreview = $request->getParameter('preview', '', NULL, PapayaRequest::SOURCE_PATH);
-    $mediaId = $request->getParameter('media_id', '', NULL, PapayaRequest::SOURCE_PATH);
+    $isPreview = $request->getParameter('preview', '', NULL, \PapayaRequest::SOURCE_PATH);
+    $mediaId = $request->getParameter('media_id', '', NULL, \PapayaRequest::SOURCE_PATH);
     $mediaVersion = $request->getParameter(
-      'media_version', 0, NULL, PapayaRequest::SOURCE_PATH
+      'media_version', 0, NULL, \PapayaRequest::SOURCE_PATH
     );
     if (!empty($mediaId)) {
       $file = $this->getMediaDatabase()->getFile($mediaId, $mediaVersion);
@@ -51,12 +51,12 @@ class PapayaControllerMedia extends PapayaObject implements PapayaController {
           return $this->_outputPublicFile($file);
         }
       } else {
-        return PapayaControllerFactory::createError(
+        return \PapayaControllerFactory::createError(
           404, 'MEDIA_NO_RECORD', 'File record not found'
         );
       }
     } else {
-      return PapayaControllerFactory::createError(
+      return \PapayaControllerFactory::createError(
         404, 'MEDIA_EMPTY_ID', 'Empty media id'
       );
     }
@@ -108,7 +108,7 @@ class PapayaControllerMedia extends PapayaObject implements PapayaController {
     // @codeCoverageIgnoreStart
     $session = $this->papaya()->getObject('Session');
     $session->close();
-    papaya_file_delivery::outputFile($file['fileName'], $file);
+    \papaya_file_delivery::outputFile($file['fileName'], $file);
   }
   // @codeCoverageIgnoreEnd
 

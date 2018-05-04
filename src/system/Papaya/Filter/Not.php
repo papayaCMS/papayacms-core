@@ -30,9 +30,9 @@ class PapayaFilterNot implements PapayaFilter {
   /**
   * Construct object and store subfilter
   *
-  * @param PapayaFilter $filter
+  * @param \PapayaFilter $filter
   */
-  public function __construct(PapayaFilter $filter) {
+  public function __construct(\PapayaFilter $filter) {
     $this->_filter = $filter;
   }
 
@@ -40,14 +40,14 @@ class PapayaFilterNot implements PapayaFilter {
   * Validate the input value using the defined wrapped filter object. If it matches
   * throw an exception. In result the wrapped filter is used as a negative criterion.
   *
-  * @throws PapayaFilterExceptionInvalid
+  * @throws \PapayaFilterExceptionInvalid
   * @param string $value
   * @return TRUE
   */
   public function validate($value) {
     try {
       $this->_filter->validate($value);
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       return TRUE;
     }
     throw new \PapayaFilterExceptionInvalid($value);

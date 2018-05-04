@@ -34,10 +34,10 @@ class PapayaUiMessages extends PapayaObjectList implements PapayaXmlAppendable {
   /**
   * If the list containts items, append them and return the list xml element.
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement|NULL
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement|NULL
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     if (!$this->isEmpty()) {
       $list = $parent->appendElement('messages');
       foreach ($this as $item) {

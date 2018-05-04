@@ -38,10 +38,10 @@ class PapayaControllerGroup extends PapayaObjectList implements PapayaController
    * to this object, if the result is FALSE the controller could not (completly) handle the
    * request, so use the next one.
    *
-   * @param PapayaApplication $application
-   * @param PapayaRequest &$request
-   * @param PapayaResponse &$response
-   * @return bool|PapayaController
+   * @param \PapayaApplication $application
+   * @param \PapayaRequest &$request
+   * @param \PapayaResponse &$response
+   * @return bool|\PapayaController
    */
   public function execute(
     PapayaApplication $application,
@@ -58,8 +58,8 @@ class PapayaControllerGroup extends PapayaObjectList implements PapayaController
         } elseif (--$limit < 1) {
           break;
         } else {
-          $application->setObject('request', $request, PapayaApplication::DUPLICATE_OVERWRITE);
-          $application->setObject('response', $response, PapayaApplication::DUPLICATE_OVERWRITE);
+          $application->setObject('request', $request, \PapayaApplication::DUPLICATE_OVERWRITE);
+          $application->setObject('response', $response, \PapayaApplication::DUPLICATE_OVERWRITE);
         }
       } while ($controller instanceof \PapayaController);
     }

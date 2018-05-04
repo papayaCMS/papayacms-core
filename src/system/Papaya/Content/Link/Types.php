@@ -36,14 +36,14 @@ class PapayaContentLinkTypes extends PapayaDatabaseRecordsLazy {
   protected $_identifierProperties = array('id');
 
   protected $_orderByFields = array(
-    'name' => PapayaDatabaseInterfaceOrder::ASCENDING
+    'name' => \PapayaDatabaseInterfaceOrder::ASCENDING
   );
 
   /**
   * Here are some default link types that does not need to be stored in the database,
   * they are added to the result before using it.
   *
-  * @return Iterator
+  * @return \Iterator
   */
   protected function getResultIterator() {
     return new \PapayaIteratorMultiple(
@@ -74,9 +74,9 @@ class PapayaContentLinkTypes extends PapayaDatabaseRecordsLazy {
   }
 
   /**
-  * @see PapayaDatabaseRecordsUnbuffered::_createMapping()
+  * @see \PapayaDatabaseRecordsUnbuffered::_createMapping()
   *
-  * @return PapayaDatabaseRecordMapping
+  * @return \PapayaDatabaseRecordMapping
   */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
@@ -100,7 +100,7 @@ class PapayaContentLinkTypes extends PapayaDatabaseRecordsLazy {
   */
   public function mapFieldToProperty($context, $property, $field, $value) {
     if ($property == 'popup_options') {
-      return PapayaUtilStringXml::unserializeArray((string)$value);
+      return \PapayaUtilStringXml::unserializeArray((string)$value);
     }
     return $value;
   }
@@ -116,7 +116,7 @@ class PapayaContentLinkTypes extends PapayaDatabaseRecordsLazy {
   */
   public function mapPropertyToField($context, $property, $field, $value) {
     if ($property == 'popup_options') {
-      return PapayaUtilStringXml::serializeArray((array)$value);
+      return \PapayaUtilStringXml::serializeArray((array)$value);
     }
     return $value;
   }

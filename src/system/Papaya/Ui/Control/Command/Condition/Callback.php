@@ -32,7 +32,7 @@ class PapayaUiControlCommandConditionCallback extends PapayaUiControlCommandCond
    * Create object and store callback.
    *
    * @param callable $callback
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function __construct($callback) {
     if (!is_callable($callback)) {

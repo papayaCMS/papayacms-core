@@ -45,10 +45,10 @@ class PapayaControllerImage implements PapayaController {
 
   /**
   * Execute controller
-   * @param PapayaApplication|PapayaApplicationCms $application
-   * @param PapayaRequest &$request
-   * @param PapayaResponse &$response
-   * @return boolean|PapayaController
+   * @param \PapayaApplication|\PapayaApplicationCms $application
+   * @param \PapayaRequest &$request
+   * @param \PapayaResponse &$response
+   * @return boolean|\PapayaController
    */
   function execute(
     PapayaApplication $application,
@@ -57,28 +57,28 @@ class PapayaControllerImage implements PapayaController {
   ) {
     $imgGenerator = $this->getImageGenerator();
     $imgGenerator->publicMode = $request->getParameter(
-      'preview', TRUE, NULL, PapayaRequest::SOURCE_PATH
+      'preview', TRUE, NULL, \PapayaRequest::SOURCE_PATH
     );
     if ($imgGenerator->publicMode || $application->administrationUser->isLoggedIn()) {
       $ident = $request->getParameter(
-        'image_identifier', '', NULL, PapayaRequest::SOURCE_PATH
+        'image_identifier', '', NULL, \PapayaRequest::SOURCE_PATH
       );
       if (!empty($ident) &&
           $imgGenerator->loadByIdent($ident)) {
         if ($imgGenerator->generateImage()) {
           return TRUE;
         } else {
-          return PapayaControllerFactory::createError(
+          return \PapayaControllerFactory::createError(
             500, 'DYNAMIC_IMAGE_CREATE', $imgGenerator->lastError
           );
         }
       } else {
-        return PapayaControllerFactory::createError(
+        return \PapayaControllerFactory::createError(
           404, 'DYNAMIC_IMAGE_NOT_FOUND', 'Image identifier not found'
         );
       }
     } else {
-      return PapayaControllerFactory::createError(
+      return \PapayaControllerFactory::createError(
         403, 'DYNAMIC_IMAGE_ACCESS', 'Permission denied'
       );
     }

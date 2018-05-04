@@ -56,14 +56,14 @@ class PapayaAdministrationPagesDependencySynchronizationBoxes
    *
    * @param array $targetIds
    * @param int $status
-   * @return PapayaContentPageWork
+   * @return \PapayaContentPageWork
    */
   private function setInheritanceStatus(array $targetIds, $status) {
     $databaseAccess = $this->page()->getDatabaseAccess();
     $filter = $databaseAccess->getSqlCondition('topic_id', $targetIds);
     $sql = "UPDATE %s SET box_useparent = '%d' WHERE $filter";
     $parameters = array(
-      $databaseAccess->getTableName(PapayaContentTables::PAGES),
+      $databaseAccess->getTableName(\PapayaContentTables::PAGES),
       $status
     );
     return FALSE !== $databaseAccess->queryFmtWrite($sql, $parameters);
@@ -72,10 +72,10 @@ class PapayaAdministrationPagesDependencySynchronizationBoxes
   /**
   * Getter/Setter for the  page boxes list database object
   *
-  * @param PapayaContentPageBoxes $boxes
-  * @return PapayaContentPageBoxes
+  * @param \PapayaContentPageBoxes $boxes
+  * @return \PapayaContentPageBoxes
   */
-  public function boxes(PapayaContentPageBoxes $boxes = NULL) {
+  public function boxes(\PapayaContentPageBoxes $boxes = NULL) {
     if (isset($boxes)) {
       $this->_boxes = $boxes;
     } elseif (is_null($this->_boxes)) {
@@ -87,10 +87,10 @@ class PapayaAdministrationPagesDependencySynchronizationBoxes
   /**
   * Getter/Setter for the page working copy
   *
-  * @param PapayaContentPageWork $page
-  * @return PapayaContentPageWork
+  * @param \PapayaContentPageWork $page
+  * @return \PapayaContentPageWork
   */
-  public function page(PapayaContentPageWork $page = NULL) {
+  public function page(\PapayaContentPageWork $page = NULL) {
     if (isset($page)) {
       $this->_page = $page;
     } elseif (is_null($this->_page)) {

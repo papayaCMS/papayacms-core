@@ -28,7 +28,7 @@ class PapayaMessagePhp
   * Message type
   * @var integer
   */
-  protected $_type = PapayaMessage::SEVERITY_ERROR;
+  protected $_type = \PapayaMessage::SEVERITY_ERROR;
 
   /**
   * Message text
@@ -47,13 +47,13 @@ class PapayaMessagePhp
   * @var array
   */
   private $_errors = array(
-    E_ERROR => PapayaMessage::SEVERITY_ERROR,
-    E_USER_ERROR => PapayaMessage::SEVERITY_ERROR,
-    E_RECOVERABLE_ERROR => PapayaMessage::SEVERITY_ERROR,
-    E_WARNING => PapayaMessage::SEVERITY_WARNING,
-    E_USER_WARNING => PapayaMessage::SEVERITY_WARNING,
-    E_NOTICE => PapayaMessage::SEVERITY_INFO,
-    E_USER_NOTICE => PapayaMessage::SEVERITY_INFO
+    E_ERROR => \PapayaMessage::SEVERITY_ERROR,
+    E_USER_ERROR => \PapayaMessage::SEVERITY_ERROR,
+    E_RECOVERABLE_ERROR => \PapayaMessage::SEVERITY_ERROR,
+    E_WARNING => \PapayaMessage::SEVERITY_WARNING,
+    E_USER_WARNING => \PapayaMessage::SEVERITY_WARNING,
+    E_NOTICE => \PapayaMessage::SEVERITY_INFO,
+    E_USER_NOTICE => \PapayaMessage::SEVERITY_INFO
   );
 
   /**
@@ -80,7 +80,7 @@ class PapayaMessagePhp
   * @return integer
   */
   public function getGroup() {
-    return PapayaMessageLogable::GROUP_PHP;
+    return \PapayaMessageLogable::GROUP_PHP;
   }
 
   /**
@@ -104,7 +104,7 @@ class PapayaMessagePhp
   /**
   * Return a context object containing additional data about where and why the message happened.
   *
-  * @return PapayaMessageContextGroup
+  * @return \PapayaMessageContextGroup
   */
   public function context() {
     return $this->_context;
@@ -113,10 +113,10 @@ class PapayaMessagePhp
   /**
    * Set a context group object to the message.
    *
-   * @param PapayaMessageContextGroup $context
+   * @param \PapayaMessageContextGroup $context
    * @internal param $PapayaMessageContext
    */
-  public function setContext(PapayaMessageContextGroup $context) {
+  public function setContext(\PapayaMessageContextGroup $context) {
     $this->_context = $context;
   }
 }

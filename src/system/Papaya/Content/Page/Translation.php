@@ -56,15 +56,15 @@ class PapayaContentPageTranslation extends PapayaDatabaseRecordLazy {
     'module_guid' => 'v.module_guid'
   );
 
-  protected $_tableName = PapayaContentTables::PAGE_TRANSLATIONS;
+  protected $_tableName = \PapayaContentTables::PAGE_TRANSLATIONS;
   protected $_tableAlias = 'tt';
 
-  protected $_tableNameViews = PapayaContentTables::VIEWS;
+  protected $_tableNameViews = \PapayaContentTables::VIEWS;
 
   public function load($filter) {
     $fields = implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields FROM %s AS tt, %s AS v WHERE v.view_id = tt.view_id ";
-    $sql .= PapayaUtilString::escapeForPrintf($this->_compileCondition($filter, "AND"));
+    $sql .= \PapayaUtilString::escapeForPrintf($this->_compileCondition($filter, "AND"));
     $parameters = array(
       $this->getDatabaseAccess()->getTableName($this->_tableName),
       $this->getDatabaseAccess()->getTableName($this->_tableNameViews)
@@ -75,7 +75,7 @@ class PapayaContentPageTranslation extends PapayaDatabaseRecordLazy {
   /**
    * Attach callbacks for serialized field values
    *
-   * @see PapayaDatabaseRecord::_createMapping()
+   * @see \PapayaDatabaseRecord::_createMapping()
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
@@ -100,7 +100,7 @@ class PapayaContentPageTranslation extends PapayaDatabaseRecordLazy {
   public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
     switch ($property) {
     case 'content' :
-      return PapayaUtilStringXml::unserializeArray($value);
+      return \PapayaUtilStringXml::unserializeArray($value);
     }
     return $value;
   }
@@ -117,7 +117,7 @@ class PapayaContentPageTranslation extends PapayaDatabaseRecordLazy {
   public function callbackMapValueFromPropertyToField($context, $property, $field, $value) {
     switch ($property) {
     case 'content' :
-      return PapayaUtilStringXml::serializeArray(empty($value) ? array() : $value);
+      return \PapayaUtilStringXml::serializeArray(empty($value) ? array() : $value);
     }
     return $value;
   }

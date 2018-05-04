@@ -42,7 +42,7 @@ class PapayaFilterCallback implements PapayaFilter {
    *
    * You can provide additional arguments, but the value will always be the first.
    *
-   * @param Callback $callback
+   * @param \Callback $callback
    * @param array $arguments
    */
   public function __construct($callback, array $arguments = array()) {
@@ -54,7 +54,7 @@ class PapayaFilterCallback implements PapayaFilter {
   * Validate the input value using the function and
   * throw an exception if the validation has failed.
   *
-  * @throws PapayaFilterException
+  * @throws \PapayaFilterException
   * @param string $value
   * @return TRUE
   */
@@ -78,15 +78,15 @@ class PapayaFilterCallback implements PapayaFilter {
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       return NULL;
     }
   }
 
   /**
    * Check if the callback function is callable
-   * @param Callback $callback
-   * @throws PapayaFilterExceptionCallbackInvalid
+   * @param \Callback $callback
+   * @throws \PapayaFilterExceptionCallbackInvalid
    */
   public function _isCallback($callback) {
     if (!is_callable($callback)) {

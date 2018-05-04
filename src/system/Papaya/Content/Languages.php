@@ -56,7 +56,7 @@ class PapayaContentLanguages extends PapayaDatabaseRecords {
   *
   * @var string
   */
-  protected $_tableName = PapayaContentTables::LANGUAGES;
+  protected $_tableName = \PapayaContentTables::LANGUAGES;
 
   /**
    * @var string
@@ -122,7 +122,7 @@ class PapayaContentLanguages extends PapayaDatabaseRecords {
    * object is called.
    *
    * @param string|int $language
-   * @return PapayaContentLanguage
+   * @return \PapayaContentLanguage
    */
   public function getLanguage($language, $usageFilter = self::FILTER_NONE) {
     if (is_int($language) || preg_match('(^\\d+$)D', $language)) {
@@ -166,7 +166,7 @@ class PapayaContentLanguages extends PapayaDatabaseRecords {
   * Create a new language record object and assign the data from the list if available.
   *
   * @param string $code
-  * @return PapayaContentLanguage
+  * @return \PapayaContentLanguage
   */
   public function getLanguageByCode($code) {
     $result = new \PapayaContentLanguage();
@@ -182,7 +182,7 @@ class PapayaContentLanguages extends PapayaDatabaseRecords {
   * Create a new language record object and assign the data from the list if available.
   *
   * @param string $identifier
-  * @return PapayaContentLanguage
+  * @return \PapayaContentLanguage
   */
   public function getLanguageByIdentifier($identifier) {
     $result = new \PapayaContentLanguage();
@@ -208,7 +208,7 @@ class PapayaContentLanguages extends PapayaDatabaseRecords {
   }
 
   /**
-   * @return PapayaContentLanguage
+   * @return \PapayaContentLanguage
    */
   public function getDefault() {
     if (count($this->_records) > 0 && ($id = array_keys($this->_records)[0])) {

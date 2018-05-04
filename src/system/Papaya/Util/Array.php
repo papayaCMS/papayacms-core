@@ -24,8 +24,8 @@ class PapayaUtilArray {
   /**
   * recursive merge for two arrays with out changing the keys
   *
-  * @param array|Traversable $arrayOne
-  * @param array|Traversable $arrayTwo
+  * @param array|\Traversable $arrayOne
+  * @param array|\Traversable $arrayTwo
   * @param integer $recursion
   * @return array
   */
@@ -37,7 +37,7 @@ class PapayaUtilArray {
           if (isset($result[$key]) &&
               (is_array($result[$key]) || $result[$key] instanceof \Traversable) &&
               $recursion > 1) {
-            $result[$key] = PapayaUtilArray::merge(
+            $result[$key] = \PapayaUtilArray::merge(
               self::ensure($result[$key]), $value, $recursion - 1
             );
           } else {
@@ -79,7 +79,7 @@ class PapayaUtilArray {
   * to string
   *
   * @param mixed $value
-  * @param Callable $callback
+  * @param \Callable $callback
   */
   public static function normalize(&$value, $callback = NULL) {
     if (is_array($value)) {

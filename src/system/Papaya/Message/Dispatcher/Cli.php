@@ -25,16 +25,16 @@ class PapayaMessageDispatcherCli
   * @var array
   */
   private $_messageOptions = array(
-    PapayaMessage::SEVERITY_ERROR => array(
+    \PapayaMessage::SEVERITY_ERROR => array(
       'label' => 'Error'
     ),
-    PapayaMessage::SEVERITY_WARNING => array(
+    \PapayaMessage::SEVERITY_WARNING => array(
       'label' => 'Warning'
     ),
-    PapayaMessage::SEVERITY_INFO => array(
+    \PapayaMessage::SEVERITY_INFO => array(
       'label' => 'Information'
     ),
-    PapayaMessage::SEVERITY_DEBUG => array(
+    \PapayaMessage::SEVERITY_DEBUG => array(
       'label' => 'Debug'
     )
   );
@@ -58,15 +58,15 @@ class PapayaMessageDispatcherCli
   /**
   * Output log message to stdout
   *
-  * @param PapayaMessage $message
+  * @param \PapayaMessage $message
   * @return boolean
   */
-  public function dispatch(PapayaMessage $message) {
+  public function dispatch(\PapayaMessage $message) {
     if ($message instanceof \PapayaMessageLogable &&
         $this->allow()) {
       $options = $this->getOptionsFromType($message->getType());
       $isError = in_array(
-        $message->getType(), array(PapayaMessage::SEVERITY_ERROR, PapayaMessage::SEVERITY_WARNING)
+        $message->getType(), array(\PapayaMessage::SEVERITY_ERROR, \PapayaMessage::SEVERITY_WARNING)
       );
       fwrite(
         $this->stream($isError ? self::TARGET_STDERR : self::TARGET_STDOUT),
@@ -115,7 +115,7 @@ class PapayaMessageDispatcherCli
     if (isset($this->_messageOptions[$type])) {
       return $this->_messageOptions[$type];
     } else {
-      return $this->_messageOptions[PapayaMessage::SEVERITY_ERROR];
+      return $this->_messageOptions[\PapayaMessage::SEVERITY_ERROR];
     }
   }
 
@@ -124,7 +124,7 @@ class PapayaMessageDispatcherCli
    *
    * @param string $target
    * @param resource $stream
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return resource
    */
   public function stream($target, $stream = NULL) {
@@ -134,7 +134,7 @@ class PapayaMessageDispatcherCli
       );
     }
     if (isset($stream)) {
-      PapayaUtilConstraints::assertResource($stream);
+      \PapayaUtilConstraints::assertResource($stream);
       $this->_streams[$target] = $stream;
     } elseif (NULL === $this->_streams[$target]) {
       $name = 'php://'.$target;

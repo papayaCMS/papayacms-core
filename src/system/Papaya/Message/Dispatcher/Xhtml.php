@@ -30,16 +30,16 @@ class PapayaMessageDispatcherXhtml
   * @var array
   */
   private $_messageOptions = array(
-    PapayaMessage::SEVERITY_ERROR => array(
+    \PapayaMessage::SEVERITY_ERROR => array(
       '#CC0000', '#FFFFFF', 'Error'
     ),
-    PapayaMessage::SEVERITY_WARNING => array(
+    \PapayaMessage::SEVERITY_WARNING => array(
       '#FFCC33', '#000000', 'Warning'
     ),
-    PapayaMessage::SEVERITY_INFO => array(
+    \PapayaMessage::SEVERITY_INFO => array(
       '#F0F0F0', '#000060', 'Information'
     ),
-    PapayaMessage::SEVERITY_DEBUG => array(
+    \PapayaMessage::SEVERITY_DEBUG => array(
       '#F0F0F0', '#000', 'Debug'
     )
   );
@@ -47,10 +47,10 @@ class PapayaMessageDispatcherXhtml
   /**
   * Output log message to browser using xhtml output
   *
-  * @param PapayaMessage $message
+  * @param \PapayaMessage $message
   * @return boolean
   */
-  public function dispatch(PapayaMessage $message) {
+  public function dispatch(\PapayaMessage $message) {
     if ($message instanceof \PapayaMessageLogable &&
         $this->allow()) {
       $this->outputClosers();
@@ -58,10 +58,10 @@ class PapayaMessageDispatcherXhtml
       $headerOptions = $this->getHeaderOptionsFromType($message->getType());
       printf(
         '<h3 style="background-color: %s; color: %s; padding: 0.3em; margin: 0;">%s: %s</h3>',
-        PapayaUtilStringXml::escapeAttribute($headerOptions[0]),
-        PapayaUtilStringXml::escapeAttribute($headerOptions[1]),
-        PapayaUtilStringXml::escape($headerOptions[2]),
-        PapayaUtilStringXml::escape($message->getMessage())
+        \PapayaUtilStringXml::escapeAttribute($headerOptions[0]),
+        \PapayaUtilStringXml::escapeAttribute($headerOptions[1]),
+        \PapayaUtilStringXml::escape($headerOptions[2]),
+        \PapayaUtilStringXml::escape($message->getMessage())
       );
       print($message->context()->asXhtml());
       print('</div>');
@@ -101,7 +101,7 @@ class PapayaMessageDispatcherXhtml
     if (isset($this->_messageOptions[$type])) {
       return $this->_messageOptions[$type];
     } else {
-      return $this->_messageOptions[PapayaMessage::SEVERITY_ERROR];
+      return $this->_messageOptions[\PapayaMessage::SEVERITY_ERROR];
     }
   }
 }

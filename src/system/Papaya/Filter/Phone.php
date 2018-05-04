@@ -36,7 +36,7 @@ class PapayaFilterPhone implements PapayaFilter {
    * Check the value if it's a valid phone number, if not throw an exception.
    *
    * @param string $value
-   * @throws PapayaFilterExceptionType
+   * @throws \PapayaFilterExceptionType
    * @return TRUE
    */
   public function validate($value) {
@@ -56,7 +56,7 @@ class PapayaFilterPhone implements PapayaFilter {
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       return NULL;
     }
   }

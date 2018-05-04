@@ -34,7 +34,7 @@ class PapayaUiDialogFieldFactory {
    * Get the profile object for the given name.
    *
    * @param string $name
-   * @return PapayaUiDialogFieldFactoryProfile
+   * @return \PapayaUiDialogFieldFactoryProfile
    */
   public function getProfile($name) {
     $class = $this->getProfileClass($name);
@@ -46,11 +46,11 @@ class PapayaUiDialogFieldFactory {
    * Get a field for the given profile type and options. Profile can either be a valid profile
    * object or a profile name.
    *
-   * @param string|PapayaUiDialogFieldFactoryProfile $profile
-   * @param PapayaUiDialogFieldFactoryOptions $options
+   * @param string|\PapayaUiDialogFieldFactoryProfile $profile
+   * @param \PapayaUiDialogFieldFactoryOptions $options
    * @return \PapayaUiDialogField
    */
-  public function getField($profile, PapayaUiDialogFieldFactoryOptions $options = NULL) {
+  public function getField($profile, \PapayaUiDialogFieldFactoryOptions $options = NULL) {
     if (!($profile instanceof \PapayaUiDialogFieldFactoryProfile)) {
       $profile = $this->getProfile($profile);
     }
@@ -66,11 +66,11 @@ class PapayaUiDialogFieldFactory {
    * converted to camel case with the first letter uppercase.
    *
    * @param string $name
-   * @throws PapayaUiDialogFieldFactoryExceptionInvalidProfile
+   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidProfile
    * @return string
    */
   private function getProfileClass($name) {
-    $name = PapayaUtilStringIdentifier::toCamelCase($name, TRUE);
+    $name = \PapayaUtilStringIdentifier::toCamelCase($name, TRUE);
     if (isset($this->_profiles[$name])) {
       return $this->_profiles[$name];
     } elseif (empty($name)) {
@@ -89,12 +89,12 @@ class PapayaUiDialogFieldFactory {
    * The are not validated at this point. For a validation the need to be loaded and they may no be
    * needed.
    *
-   * @param array|Traversable $profiles
+   * @param array|\Traversable $profiles
    */
   public function registerProfiles($profiles) {
-    PapayaUtilConstraints::assertArrayOrTraversable($profiles);
+    \PapayaUtilConstraints::assertArrayOrTraversable($profiles);
     foreach ($profiles as $name => $profile) {
-      $this->_profiles[PapayaUtilStringIdentifier::toCamelCase($name, TRUE)] = $profile;
+      $this->_profiles[\PapayaUtilStringIdentifier::toCamelCase($name, TRUE)] = $profile;
     }
   }
 }

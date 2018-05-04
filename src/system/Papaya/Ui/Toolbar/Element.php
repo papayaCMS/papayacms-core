@@ -31,10 +31,10 @@ abstract class PapayaUiToolbarElement extends PapayaUiControlCollectionItem {
   /**
   * Getter/Setter for the reference object (the link url)
   *
-  * @param PapayaUiReference $reference
-  * @return PapayaUiReference
+  * @param \PapayaUiReference $reference
+  * @return \PapayaUiReference
   */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     }

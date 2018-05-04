@@ -38,10 +38,10 @@ class PapayaMessageContextGroup
   /**
   * Append a new context element to group
   *
-  * @param PapayaMessageContextInterface $context
-  * @return PapayaMessageContextGroup $this
+  * @param \PapayaMessageContextInterface $context
+  * @return \PapayaMessageContextGroup $this
   */
-  public function append(PapayaMessageContextInterface $context) {
+  public function append(\PapayaMessageContextInterface $context) {
     $this->_elements[] = $context;
     return $this;
   }
@@ -60,7 +60,7 @@ class PapayaMessageContextGroup
       if ($element instanceof \PapayaMessageContextInterfaceString) {
         $result .= "\n\n".$element->asString();
       } elseif ($element instanceof \PapayaMessageContextInterfaceXhtml) {
-        $result .= "\n\n".PapayaUtilStringHtml::stripTags($element->asXhtml());
+        $result .= "\n\n".\PapayaUtilStringHtml::stripTags($element->asXhtml());
       }
     }
     return substr($result, 2);
@@ -74,13 +74,13 @@ class PapayaMessageContextGroup
     foreach ($this as $element) {
       $result .= '<div class="group">';
       if ($element instanceof \PapayaMessageContextInterfaceLabeled) {
-        $result .= '<h3>'.PapayaUtilStringXml::escape($element->getLabel()).'</h3>';
+        $result .= '<h3>'.\PapayaUtilStringXml::escape($element->getLabel()).'</h3>';
       }
       if ($element instanceof \PapayaMessageContextInterfaceXhtml) {
         $result .= $element->asXhtml();
       } elseif ($element instanceof \PapayaMessageContextInterfaceString) {
         $result .= str_replace(
-          "\n", "\n<br />", PapayaUtilStringXml::escape($element->asString())
+          "\n", "\n<br />", \PapayaUtilStringXml::escape($element->asString())
         );
       }
       $result .= '</div>';
@@ -99,7 +99,7 @@ class PapayaMessageContextGroup
 
   /**
   * Iterator: Get current element value
-  * @return FALSE|PapayaMessageContextInterface
+  * @return FALSE|\PapayaMessageContextInterface
   */
   public function current() {
     return current($this->_elements);
@@ -117,7 +117,7 @@ class PapayaMessageContextGroup
   /**
   * Iterator: Move position to next element
   *
-  * @return FALSE|PapayaMessageContextInterface
+  * @return FALSE|\PapayaMessageContextInterface
   */
   public function next() {
     return next($this->_elements);

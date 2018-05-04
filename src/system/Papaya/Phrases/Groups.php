@@ -31,13 +31,13 @@ class PapayaPhrasesGroups implements ArrayAccess {
    */
   private $_phrases = NULL;
 
-  public function __construct(PapayaPhrases $phrases) {
+  public function __construct(\PapayaPhrases $phrases) {
     $this->_phrases = $phrases;
   }
 
   /**
    * @param string $name
-   * @return PapayaPhrasesGroup
+   * @return \PapayaPhrasesGroup
    */
   public function get($name) {
     return $this->offsetGet($name);
@@ -53,7 +53,7 @@ class PapayaPhrasesGroups implements ArrayAccess {
 
   /**
    * @param string $name
-   * @return PapayaPhrasesGroup
+   * @return \PapayaPhrasesGroup
    */
   public function offsetGet($name) {
     if (!isset($this->_groups[$name])) {
@@ -64,10 +64,10 @@ class PapayaPhrasesGroups implements ArrayAccess {
 
   /**
    * @param string $name
-   * @param PapayaPhrasesGroup $group
+   * @param \PapayaPhrasesGroup $group
    */
   public function offsetSet($name, $group) {
-    PapayaUtilConstraints::assertInstanceOf('PapayaPhrasesGroup', $group);
+    \PapayaUtilConstraints::assertInstanceOf('PapayaPhrasesGroup', $group);
     $this->_groups[$name] = $group;
   }
 

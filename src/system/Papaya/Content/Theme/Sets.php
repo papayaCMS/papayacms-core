@@ -1,21 +1,17 @@
 <?php
 /**
-* This object loads the available theme sets into a list
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Sets.php 37593 2012-10-24 12:09:40Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This object loads the available theme sets into a list.
@@ -42,7 +38,7 @@ class PapayaContentThemeSets extends PapayaDatabaseRecordsLazy {
   protected $_identifierProperties = array('id');
 
   protected $_orderByFields = array(
-    'themeset_title' => PapayaDatabaseInterfaceOrder::ASCENDING
+    'themeset_title' => \PapayaDatabaseInterfaceOrder::ASCENDING
   );
 
   /**
@@ -50,6 +46,6 @@ class PapayaContentThemeSets extends PapayaDatabaseRecordsLazy {
   *
   * @var string
   */
-  protected $_tableName = PapayaContentTables::THEME_SETS;
+  protected $_tableName = \PapayaContentTables::THEME_SETS;
 
 }

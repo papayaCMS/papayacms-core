@@ -27,7 +27,7 @@ class PapayaPluginOptionGroups extends PapayaObject implements ArrayAccess {
   * Check if it is already created.
   */
   public function offsetExists($guid) {
-    $guid = PapayaUtilStringGuid::toLower($guid);
+    $guid = \PapayaUtilStringGuid::toLower($guid);
     return isset($this->_groups[$guid]);
   }
 
@@ -35,10 +35,10 @@ class PapayaPluginOptionGroups extends PapayaObject implements ArrayAccess {
   * Get options object for a plugin, create it if needed
   *
   * @param string $guid
-  * @return PapayaConfiguration
+  * @return \PapayaConfiguration
   */
   public function offsetGet($guid) {
-    $guid = PapayaUtilStringGuid::toLower($guid);
+    $guid = \PapayaUtilStringGuid::toLower($guid);
     $this->createLazy($guid);
     return $this->_groups[$guid];
   }
@@ -47,12 +47,12 @@ class PapayaPluginOptionGroups extends PapayaObject implements ArrayAccess {
   * Set options object for a plugin.
   *
   * @param string $guid
-  * @param PapayaConfiguration $group
-  * @return PapayaConfiguration
+  * @param \PapayaConfiguration $group
+  * @return \PapayaConfiguration
   */
   public function offsetSet($guid, $group) {
-    $guid = PapayaUtilStringGuid::toLower($guid);
-    PapayaUtilConstraints::assertInstanceOf('PapayaConfiguration', $group);
+    $guid = \PapayaUtilStringGuid::toLower($guid);
+    \PapayaUtilConstraints::assertInstanceOf('PapayaConfiguration', $group);
     $this->_groups[$guid] = $group;
   }
 
@@ -62,7 +62,7 @@ class PapayaPluginOptionGroups extends PapayaObject implements ArrayAccess {
   * @param string $guid
   */
   public function offsetUnset($guid) {
-    $guid = PapayaUtilStringGuid::toLower($guid);
+    $guid = \PapayaUtilStringGuid::toLower($guid);
     if ($this->offsetExists($guid)) {
       unset($this->_groups[$guid]);
     }
@@ -74,7 +74,7 @@ class PapayaPluginOptionGroups extends PapayaObject implements ArrayAccess {
   * @param string $guid
   */
   private function createLazy($guid) {
-    $guid = PapayaUtilStringGuid::toLower($guid);
+    $guid = \PapayaUtilStringGuid::toLower($guid);
     if (!isset($this->_groups[$guid])) {
       $this->_groups[$guid] = $options = new \PapayaPluginOptions($guid);
       $options->papaya($this->papaya());

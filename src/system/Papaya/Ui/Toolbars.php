@@ -50,9 +50,9 @@ class PapayaUiToolbars extends PapayaUiControl {
   * Append the existing toolbar to the parent xml eleemnt and set the position attribute.
   * Toolbars without elements will not be added.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     /** @var PapayaUiToolbar $toolbar */
     foreach ($this->_toolbars as $position => $toolbar) {
       if (isset($toolbar)) {
@@ -70,9 +70,9 @@ class PapayaUiToolbars extends PapayaUiControl {
   * Return the toolbar for the given position. If the position name is invalid an excpetion is
   * thrown.
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param string $name
-  * @return PapayaUiToolbar
+  * @return \PapayaUiToolbar
   */
   public function __get($name) {
     if (array_key_exists($name, $this->_positions)) {
@@ -91,12 +91,12 @@ class PapayaUiToolbars extends PapayaUiControl {
   * Set the toolbar defined by the position name.  If the position name is invalid an excpetion is
   * thrown.
   *
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   * @param string $name
-  * @param PapayaUiToolbar $value
+  * @param \PapayaUiToolbar $value
   */
   public function __set($name, $value) {
-    PapayaUtilConstraints::assertInstanceOf('PapayaUiToolbar', $value);
+    \PapayaUtilConstraints::assertInstanceOf('PapayaUiToolbar', $value);
     if (array_key_exists($name, $this->_positions)) {
       $this->_toolbars[$name] = $value;
     } else {

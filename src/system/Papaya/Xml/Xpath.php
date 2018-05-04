@@ -29,7 +29,7 @@ class PapayaXmlXpath extends DOMXpath {
   /**
    * Create object and diable the automatic namespace registration if possible.
    */
-  public function __construct(DOMDocument $dom) {
+  public function __construct(\DOMDocument $dom) {
     parent::__construct($dom);
     $this->registerNodeNamespaces(version_compare(PHP_VERSION, '<', '5.3.3'));
   }
@@ -66,13 +66,13 @@ class PapayaXmlXpath extends DOMXpath {
   /**
    * Evaluate an xpath expression an return the result
    *
-   * @see DOMXPath::evaluate()
+   * @see \DOMXPath::evaluate()
    * @param string $expression
-   * @param DOMNode $contextNode
+   * @param \DOMNode|NULL $contextNode
    * @param null|boolean $registerNodeNS
-   * @return DOMNodelist|String|Float|Integer|Boolean|FALSE
+   * @return \DOMNodelist|string|float|int|bool|FALSE
    */
-  public function evaluate($expression, DOMNode $contextNode = NULL, $registerNodeNS = NULL) {
+  public function evaluate($expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL) {
     if ($registerNodeNS || (NULL === $registerNodeNS && $this->_registerNodeNamespaces)) {
       $result = isset($contextNode)
         ? parent::evaluate($expression, $contextNode)
@@ -91,14 +91,14 @@ class PapayaXmlXpath extends DOMXpath {
    * Query should not be used, but evaluate. Block it.
    *
    * @deprecated
-   * @see DOMXPath::query()
+   * @see \DOMXPath::query()
    * @param string $expression
-   * @param DOMNode $contextnode
+   * @param \DOMNode|NULL $contextnode
    * @param null|boolean $registerNodeNS
-   * @throws LogicException
-   * @return DOMNodelist
+   * @throws \LogicException
+   * @return \DOMNodelist
    */
-  public function query($expression, DOMNode $contextnode = NULL, $registerNodeNS = NULL) {
+  public function query($expression, \DOMNode $contextnode = NULL, $registerNodeNS = NULL) {
     throw new \LogicException('"query()" should not be used, use "evaluate()".');
   }
 

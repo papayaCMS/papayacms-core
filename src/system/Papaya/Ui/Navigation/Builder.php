@@ -47,9 +47,9 @@ class PapayaUiNavigationBuilder extends PapayaUiControl {
   /**
    * Create object, store source elements and default item class
    *
-   * @param array|Traversable $elements
+   * @param array|\Traversable $elements
    * @param string $itemClass
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function __construct($elements, $itemClass = 'PapayaUiNavigationItemText') {
     $this->elements($elements);
@@ -67,9 +67,9 @@ class PapayaUiNavigationBuilder extends PapayaUiControl {
   /**
   * Create items for each source element and append them to the parent xml element.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $this->items()->clear();
     $this->callbacks()->onBeforeAppend($this->items());
     foreach ($this->elements() as $index => $element) {
@@ -91,12 +91,12 @@ class PapayaUiNavigationBuilder extends PapayaUiControl {
   /**
   * Getter/Setter for the source elements
   *
-  * @param array|Traversable $elements
-  * @return array|Traversable
+  * @param array|\Traversable $elements
+  * @return array|\Traversable
   */
   public function elements($elements = NULL) {
     if (isset($elements)) {
-      PapayaUtilConstraints::assertArrayOrTraversable($elements);
+      \PapayaUtilConstraints::assertArrayOrTraversable($elements);
       $this->_elements = $elements;
     }
     return $this->_elements;
@@ -105,10 +105,10 @@ class PapayaUiNavigationBuilder extends PapayaUiControl {
   /**
   * Getter/Setter for the navigation items
   *
-  * @param PapayaUiNavigationItems $items
-  * @return PapayaUiNavigationItems
+  * @param \PapayaUiNavigationItems $items
+  * @return \PapayaUiNavigationItems
   */
-  public function items(PapayaUiNavigationItems $items = NULL) {
+  public function items(\PapayaUiNavigationItems $items = NULL) {
     if (isset($items)) {
       $this->_items = $items;
     } elseif (is_null($this->_items)) {
@@ -121,10 +121,10 @@ class PapayaUiNavigationBuilder extends PapayaUiControl {
   /**
   * Getter/Setter for the callbacks
   *
-  * @param PapayaUiNavigationBuilderCallbacks $callbacks
-  * @return PapayaUiNavigationBuilderCallbacks
+  * @param \PapayaUiNavigationBuilderCallbacks $callbacks
+  * @return \PapayaUiNavigationBuilderCallbacks
   */
-  public function callbacks(PapayaUiNavigationBuilderCallbacks $callbacks = NULL) {
+  public function callbacks(\PapayaUiNavigationBuilderCallbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {

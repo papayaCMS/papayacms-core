@@ -55,7 +55,7 @@ class PapayaUiDialogFieldSelectGrouped extends PapayaUiDialogFieldSelect {
   * @param array $values
   */
   public function setValues($values) {
-    PapayaUtilConstraints::assertArray($values);
+    \PapayaUtilConstraints::assertArray($values);
     $this->_values = $values;
     $allowedValues = array();
     foreach ($values as $group) {
@@ -68,10 +68,10 @@ class PapayaUiDialogFieldSelectGrouped extends PapayaUiDialogFieldSelect {
   /**
    * Append field output to DOM
    *
-   * @param PapayaXMLElement $parent
+   * @param \PapayaXMLElement $parent
    * @return \PapayaXmlElement
    */
-  public function appendTo(PapayaXMLElement $parent) {
+  public function appendTo(\PapayaXMLElement $parent) {
     $this->_appendOptionGroups(
       $this->_appendSelect(
         $this->_appendFieldTo($parent)
@@ -84,10 +84,10 @@ class PapayaUiDialogFieldSelectGrouped extends PapayaUiDialogFieldSelect {
   /**
   * Append option groups to DOM.
   *
-  * @param PapayaXMLElement $parent
+  * @param \PapayaXMLElement $parent
   * @param array $groups
   */
-  protected function _appendOptionGroups(PapayaXMLElement $parent, array $groups) {
+  protected function _appendOptionGroups(\PapayaXMLElement $parent, array $groups) {
     foreach ($groups as $key => $group) {
       $options = isset($group['options']) ? $group['options'] : $group;
       $label = isset($group['caption']) ? $group['caption'] : $key;

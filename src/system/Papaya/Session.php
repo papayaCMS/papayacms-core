@@ -74,8 +74,8 @@ class PapayaSession extends PapayaObject {
   * @param string $name
   */
   public function setName($name) {
-    PapayaUtilConstraints::assertString($name);
-    PapayaUtilConstraints::assertNotEmpty($name);
+    \PapayaUtilConstraints::assertString($name);
+    \PapayaUtilConstraints::assertNotEmpty($name);
     $this->_sessionName = $name;
   }
 
@@ -92,10 +92,10 @@ class PapayaSession extends PapayaObject {
   * Allows to get/set the values subobject. The subobject provides an array access interface to
   * the session values.
   *
-  * @param PapayaSessionValues $values
-  * @return PapayaSessionValues
+  * @param \PapayaSessionValues $values
+  * @return \PapayaSessionValues
   */
-  public function values(PapayaSessionValues $values = NULL) {
+  public function values(\PapayaSessionValues $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
     }
@@ -108,10 +108,10 @@ class PapayaSession extends PapayaObject {
   /**
   * Getter/Setter for session options object
   *
-  * @param PapayaSessionOptions $options
-  * @return PapayaSessionOptions
+  * @param \PapayaSessionOptions $options
+  * @return \PapayaSessionOptions
   */
-  public function options(PapayaSessionOptions $options = NULL) {
+  public function options(\PapayaSessionOptions $options = NULL) {
     if (isset($options)) {
       $this->_options = $options;
     }
@@ -125,9 +125,9 @@ class PapayaSession extends PapayaObject {
    * Getter/Setter for session identifier object
    *
    * @param \PapayaSessionId $id
-   * @return PapayaSessionId
+   * @return \PapayaSessionId
    */
-  public function id(PapayaSessionId $id = NULL) {
+  public function id(\PapayaSessionId $id = NULL) {
     if (isset($id)) {
       $this->_id = $id;
     }
@@ -140,10 +140,10 @@ class PapayaSession extends PapayaObject {
   /**
    * Getter/Setter for session options object
    *
-   * @param PapayaSessionWrapper $wrapper
-   * @return PapayaSessionWrapper
+   * @param \PapayaSessionWrapper $wrapper
+   * @return \PapayaSessionWrapper
    */
-  public function wrapper(PapayaSessionWrapper $wrapper = NULL) {
+  public function wrapper(\PapayaSessionWrapper $wrapper = NULL) {
     if (isset($wrapper)) {
       $this->_wrapper = $wrapper;
     }
@@ -160,7 +160,7 @@ class PapayaSession extends PapayaObject {
    * $this->papaya()->session->values['name'];
    *
    * @param string $name
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return mixed
    */
   public function __get($name) {
@@ -186,7 +186,7 @@ class PapayaSession extends PapayaObject {
   /**
   * Prohibit write access to all undeclared properties
   *
-  * @throws LogicException
+  * @throws \LogicException
   * @param string $name
   * @param mixed $value
   */
@@ -224,7 +224,7 @@ class PapayaSession extends PapayaObject {
   * @return boolean
   */
   public function isAllowed() {
-    return $this->isProtocolAllowed() && !PapayaUtilServerAgent::isRobot();
+    return $this->isProtocolAllowed() && !\PapayaUtilServerAgent::isRobot();
   }
 
   /**
@@ -234,7 +234,7 @@ class PapayaSession extends PapayaObject {
   */
   public function isProtocolAllowed() {
     if ($this->isSecureOnly()) {
-      if (PapayaUtilServerProtocol::isSecure()) {
+      if (\PapayaUtilServerProtocol::isSecure()) {
         return TRUE;
       } else {
         return FALSE;
@@ -271,7 +271,7 @@ class PapayaSession extends PapayaObject {
    * If the method returns a redirect response, the caller should send it.
    *
    * @param bool|string $redirect
-   * @return NULL|PapayaSessionRedirect redirect response or null
+   * @return NULL|\PapayaSessionRedirect redirect response or null
    */
   public function activate($redirect = FALSE) {
     if (!$this->_active) {
@@ -279,7 +279,7 @@ class PapayaSession extends PapayaObject {
         $wrapper = $this->wrapper();
         $wrapper->setName($this->_sessionName);
         $this->configure();
-        if ($this->id()->existsIn(PapayaSessionId::SOURCE_ANY)) {
+        if ($this->id()->existsIn(\PapayaSessionId::SOURCE_ANY)) {
           $wrapper->setId((string)$this->id());
         }
         $this->_active = $wrapper->start();
@@ -314,26 +314,26 @@ class PapayaSession extends PapayaObject {
   /**
    * Trigger redirects for session id storage/removal in browser if needed.
    *
-   * @return null|PapayaSessionRedirect
+   * @return null|\PapayaSessionRedirect
    */
   public function redirectIfNeeded() {
     if ($this->_active &&
-        !$this->id()->existsIn(PapayaSessionId::SOURCE_COOKIE)) {
+        !$this->id()->existsIn(\PapayaSessionId::SOURCE_COOKIE)) {
       switch ($this->options()->fallback) {
-      case PapayaSessionOptions::FALLBACK_REWRITE :
+      case \PapayaSessionOptions::FALLBACK_REWRITE :
         // put sid in path if it is not here and remove it from query string if it is there
-        if (!$this->id()->existsIn(PapayaSessionId::SOURCE_PATH) ||
-            $this->id()->existsIn(PapayaSessionId::SOURCE_QUERY)) {
+        if (!$this->id()->existsIn(\PapayaSessionId::SOURCE_PATH) ||
+            $this->id()->existsIn(\PapayaSessionId::SOURCE_QUERY)) {
           return $this->_createRedirect(
-            PapayaSessionId::SOURCE_PATH, 'session rewrite active'
+            \PapayaSessionId::SOURCE_PATH, 'session rewrite active'
           );
         }
         break;
-      case PapayaSessionOptions::FALLBACK_PARAMETER :
+      case \PapayaSessionOptions::FALLBACK_PARAMETER :
         // remove sid from path if it is there
-        if ($this->id()->existsIn(PapayaSessionId::SOURCE_PATH)) {
+        if ($this->id()->existsIn(\PapayaSessionId::SOURCE_PATH)) {
           return $this->_createRedirect(
-            PapayaSessionId::SOURCE_QUERY, 'session rewrite inactive'
+            \PapayaSessionId::SOURCE_QUERY, 'session rewrite inactive'
           );
         }
         break;
@@ -341,7 +341,7 @@ class PapayaSession extends PapayaObject {
       return NULL;
     } elseif (
       $this->id()->existsIn(
-        PapayaSessionId::SOURCE_PATH | PapayaSessionId::SOURCE_QUERY
+        \PapayaSessionId::SOURCE_PATH | \PapayaSessionId::SOURCE_QUERY
       )
     ) {
       return $this->_createRedirect();
@@ -388,13 +388,13 @@ class PapayaSession extends PapayaObject {
   public function regenerateId($targetUrl = NULL) {
     if ($this->_active) {
       $this->wrapper()->regenerateId();
-      if (isset($targetUrl) || $this->id()->existsIn(PapayaSessionId::SOURCE_PATH)) {
+      if (isset($targetUrl) || $this->id()->existsIn(\PapayaSessionId::SOURCE_PATH)) {
         $transports = array(
-          PapayaSessionId::SOURCE_COOKIE,
-          PapayaSessionId::SOURCE_PATH,
-          PapayaSessionId::SOURCE_QUERY
+          \PapayaSessionId::SOURCE_COOKIE,
+          \PapayaSessionId::SOURCE_PATH,
+          \PapayaSessionId::SOURCE_QUERY
         );
-        $transport = PapayaSessionId::SOURCE_COOKIE;
+        $transport = \PapayaSessionId::SOURCE_COOKIE;
         foreach ($transports as $transport) {
           if ($this->id()->existsIn($transport)) {
             break;

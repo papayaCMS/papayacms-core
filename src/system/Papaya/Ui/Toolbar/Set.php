@@ -45,10 +45,10 @@ class PapayaUiToolbarSet
   /**
    * Getter/setter for elements collection
    *
-   * @param PapayaUiToolbarElements $elements
+   * @param \PapayaUiToolbarElements $elements
    * @return \PapayaUiToolbarElements
    */
-  public function elements(PapayaUiToolbarElements $elements = NULL) {
+  public function elements(\PapayaUiToolbarElements $elements = NULL) {
     if (isset($elements)) {
       $this->_elements = $elements;
       $this->_elements->owner($this);
@@ -63,10 +63,10 @@ class PapayaUiToolbarSet
   /**
   * Append group and elements to the output xml.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   * @return NULL
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $this->elements()->appendTo($parent);
     return NULL;
   }

@@ -95,8 +95,8 @@ class PapayaContentPagePublication extends PapayaContentPage {
     'published_to' => 'published_to'
   );
 
-  protected $_tableName = PapayaContentTables::PAGE_PUBLICATIONS;
-  protected $_translationsTableName = PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS;
+  protected $_tableName = \PapayaContentTables::PAGE_PUBLICATIONS;
+  protected $_translationsTableName = \PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS;
 
   public function _createKey() {
     return new \PapayaDatabaseRecordKeyFields(

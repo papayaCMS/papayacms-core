@@ -55,11 +55,11 @@ class PapayaUiListviewSubitemImageSelect extends PapayaUiListviewSubitem {
   /**
    * Create subitme and store icon list and selection index.
    *
-   * @param PapayaUiIconList $icons
+   * @param \PapayaUiIconList $icons
    * @param mixed $selection
    * @param array $actionParameters
    */
-  public function __construct(PapayaUiIconList $icons, $selection, array $actionParameters = NULL) {
+  public function __construct(\PapayaUiIconList $icons, $selection, array $actionParameters = NULL) {
     $this->setIcons($icons);
     $this->_selection = $selection;
     $this->_actionParameters = $actionParameters;
@@ -69,14 +69,14 @@ class PapayaUiListviewSubitemImageSelect extends PapayaUiListviewSubitem {
   * Append the subitem to the listitem xml element. If the selected icon is not found
   * the subitem will be empty.
   *
-  * @param PapayaXmlElement
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $subitem = $parent->appendElement(
       'subitem',
       array(
-        'align' => PapayaUiOptionAlign::getString($this->getAlign())
+        'align' => \PapayaUiOptionAlign::getString($this->getAlign())
       )
     );
     $iconIndex = (string)$this->_selection;
@@ -91,9 +91,9 @@ class PapayaUiListviewSubitemImageSelect extends PapayaUiListviewSubitem {
   /**
   * Set icons list, the typehint ensures that a valid icon list is set.
   *
-  * @param PapayaUiIconList $icons
+  * @param \PapayaUiIconList $icons
   */
-  public function setIcons(PapayaUiIconList $icons) {
+  public function setIcons(\PapayaUiIconList $icons) {
     $this->_icons = $icons;
   }
 }

@@ -32,7 +32,7 @@ class PapayaUiHierarchyItems extends PapayaUiControlCollection {
 
   /**
   * If a tag name is provided, an additional element will be added in
-  * {@see PapayaUiControlCollection::appendTo()) that will wrapp the items.
+  * {@see \PapayaUiControlCollection::appendTo()) that will wrapp the items.
   * @var string
   */
   protected $_tagName = 'items';
@@ -67,10 +67,10 @@ class PapayaUiHierarchyItems extends PapayaUiControlCollection {
   * Append item output to parent element. If a tag name was provided, the items will be wrapped
   * in an additional element.
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement|NULL
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement|NULL
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $count = count($this->_items);
     if ($this->_limit > 0 && $count > $this->_limit) {
       $parent = $parent->appendElement($this->_tagName);
@@ -96,10 +96,10 @@ class PapayaUiHierarchyItems extends PapayaUiControlCollection {
   /**
    * Getter/Setter for a spacer item that replaces the items not appended because of the limit.
    *
-   * @param PapayaUiHierarchyItem $spacer
-   * @return PapayaUiHierarchyItem
+   * @param \PapayaUiHierarchyItem $spacer
+   * @return \PapayaUiHierarchyItem
    */
-  public function spacer(PapayaUiHierarchyItem $spacer = NULL) {
+  public function spacer(\PapayaUiHierarchyItem $spacer = NULL) {
     if (isset($spacer)) {
       $this->_spacer = $spacer;
     } elseif (is_null($this->_spacer)) {

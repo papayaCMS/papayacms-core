@@ -34,10 +34,10 @@ class PapayaXmlErrors extends PapayaObject {
   * @var array
   */
   private $_errorMapping = array(
-    LIBXML_ERR_NONE => PapayaMessage::SEVERITY_INFO,
-    LIBXML_ERR_WARNING => PapayaMessage::SEVERITY_WARNING,
-    LIBXML_ERR_ERROR => PapayaMessage::SEVERITY_ERROR,
-    LIBXML_ERR_FATAL => PapayaMessage::SEVERITY_ERROR
+    LIBXML_ERR_NONE => \PapayaMessage::SEVERITY_INFO,
+    LIBXML_ERR_WARNING => \PapayaMessage::SEVERITY_WARNING,
+    LIBXML_ERR_ERROR => \PapayaMessage::SEVERITY_ERROR,
+    LIBXML_ERR_FATAL => \PapayaMessage::SEVERITY_ERROR
   );
 
   /**
@@ -77,7 +77,7 @@ class PapayaXmlErrors extends PapayaObject {
         $this->emit();
       }
       $this->deactivate();
-    } catch (PapayaXmlException $e) {
+    } catch (\PapayaXmlException $e) {
       if ($emitErrors) {
         $context = new \PapayaMessageContextGroup();
         if ($e->getContextFile()) {
@@ -90,8 +90,8 @@ class PapayaXmlErrors extends PapayaObject {
         $context->append(new \PapayaMessageContextVariable($arguments));
         $context->append(new \PapayaMessageContextBacktrace(1));
         $this->papaya()->messages->log(
-          PapayaMessageLogable::GROUP_SYSTEM,
-          PapayaMessage::SEVERITY_ERROR,
+          \PapayaMessageLogable::GROUP_SYSTEM,
+          \PapayaMessage::SEVERITY_ERROR,
           $e->getMessage(),
           $context
         );
@@ -105,7 +105,7 @@ class PapayaXmlErrors extends PapayaObject {
    * Dispatches messages for the libxml errors in the internal buffer.
    *
    * @param boolean $fatalOnly
-   * @throws PapayaXmlException
+   * @throws \PapayaXmlException
    */
   public function emit($fatalOnly = FALSE) {
     $errors = libxml_get_errors();
@@ -141,7 +141,7 @@ class PapayaXmlErrors extends PapayaObject {
   public function getMessageFromError(libXMLError $error) {
     $messageType = $this->_errorMapping[$error->level];
     $message = new \PapayaMessageLog(
-      PapayaMessageLogable::GROUP_SYSTEM,
+      \PapayaMessageLogable::GROUP_SYSTEM,
       $messageType,
       sprintf(
         '%d: %s in line %d at char %d',

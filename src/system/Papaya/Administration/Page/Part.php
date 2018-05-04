@@ -36,12 +36,12 @@ abstract class PapayaAdministrationPagePart extends PapayaUiControlInteractive {
    */
   private $_page = NULL;
 
-  public function __construct(PapayaAdministrationPage $page = NULL) {
+  public function __construct(\PapayaAdministrationPage $page = NULL) {
     $this->_page = $page;
   }
 
   /**
-   * @return PapayaAdministrationPage
+   * @return \PapayaAdministrationPage
    */
   public function getPage() {
     return $this->_page;
@@ -51,20 +51,20 @@ abstract class PapayaAdministrationPagePart extends PapayaUiControlInteractive {
    * Execute command controller and append output. Page parts are append in the order of
    * (Content -> Navigation -> Information). They share their parameters.
    *
-   * @param PapayaXMlElement $parent
+   * @param \PapayaXMlElement $parent
    */
-  public function appendTo(PapayaXMlElement $parent) {
+  public function appendTo(\PapayaXMlElement $parent) {
     $parent->append($this->commands());
   }
 
   /**
    * Getter/Setter for the commands subobject,
-   * {@see PapayaAdministrationPagePart::_createCommands89} is called for lazy init
+   * {@see \PapayaAdministrationPagePart::_createCommands89} is called for lazy init
    *
-   * @param PapayaUiControlCommand $commands
-   * @return PapayaUiControlCommand
+   * @param \PapayaUiControlCommand $commands
+   * @return \PapayaUiControlCommand
    */
-  public function commands(PapayaUiControlCommand $commands = NULL) {
+  public function commands(\PapayaUiControlCommand $commands = NULL) {
     if (isset($commands)) {
       $this->_commands = $commands;
     } elseif (NULL === $this->_commands) {
@@ -78,7 +78,7 @@ abstract class PapayaAdministrationPagePart extends PapayaUiControlInteractive {
    *
    * @param string $name
    * @param string $default
-   * @return PapayaUiControlCommandController
+   * @return \PapayaUiControlCommandController
    */
   protected function _createCommands($name = 'cmd', $default = 'show') {
     $commands = new \PapayaUiControlCommandController($name, $default);
@@ -91,10 +91,10 @@ abstract class PapayaAdministrationPagePart extends PapayaUiControlInteractive {
    * after all page parts are appened. The order of the sets is different from the page parts
    * (Navigation -> Content -> Information).
    *
-   * @param PapayaUiToolbarSet $toolbar
-   * @return PapayaUiToolbarSet
+   * @param \PapayaUiToolbarSet $toolbar
+   * @return \PapayaUiToolbarSet
    */
-  public function toolbar(PapayaUiToolbarSet $toolbar = NULL) {
+  public function toolbar(\PapayaUiToolbarSet $toolbar = NULL) {
     if (isset($toolbar)) {
       $this->_toolbar = $toolbar;
       if (!$toolbar->elements || count($toolbar->elements) < 1) {
@@ -111,8 +111,8 @@ abstract class PapayaAdministrationPagePart extends PapayaUiControlInteractive {
   /**
    * Initialize the toolbar with buttons and other elements
    *
-   * @param PapayaUiToolbarSet $toolbar
+   * @param \PapayaUiToolbarSet $toolbar
    */
-  protected function _initializeToolbar(PapayaUiToolbarSet $toolbar) {
+  protected function _initializeToolbar(\PapayaUiToolbarSet $toolbar) {
   }
 }

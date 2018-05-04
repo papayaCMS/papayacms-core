@@ -1,20 +1,16 @@
 <?php
 /**
- * A simple listview subitem displaying text.
+ * papaya CMS
  *
- * @copyright 2011 by papaya Software GmbH - All rights reserved.
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package Papaya-Library
- * @subpackage Ui
- * @version $Id: Text.php 39429 2014-02-27 20:14:26Z weinert $
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
 /**
@@ -64,7 +60,7 @@ class PapayaUiListviewSubitemText extends PapayaUiListviewSubitem {
   /**
    * Create subitem object, set text content and alignment.
    *
-   * @param string|PapayaUiString $text
+   * @param string|\PapayaUiString $text
    * @param array $actionParameters
    */
   public function __construct($text, array $actionParameters = NULL) {
@@ -76,10 +72,10 @@ class PapayaUiListviewSubitemText extends PapayaUiListviewSubitem {
    * Getter/Setter for the reference subobject, this will be initalized from the listview
    * if not set.
    *
-   * @param PapayaUiReference $reference
-   * @return PapayaUiReference
+   * @param \PapayaUiReference $reference
+   * @return \PapayaUiReference
    */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     }
@@ -94,13 +90,13 @@ class PapayaUiListviewSubitemText extends PapayaUiListviewSubitem {
   /**
    * Append subitem xml data to parent node.
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $subitem = $parent->appendElement(
       'subitem',
       array(
-        'align' => PapayaUiOptionAlign::getString($this->getAlign())
+        'align' => \PapayaUiOptionAlign::getString($this->getAlign())
       )
     );
     if (!empty($this->_actionParameters)) {

@@ -44,15 +44,15 @@ class PapayaIteratorCallback implements OuterIterator {
   /**
   * Create object and store arguments.
   *
-  * @param Traversable|array $iterator
-  * @param Callable $callback
+  * @param \Traversable|array $iterator
+  * @param \Callable $callback
   * @param integer $target
   */
   public function __construct(
     $iterator, $callback = NULL, $target = self::MODIFY_VALUES
   ) {
-    PapayaUtilConstraints::assertArrayOrTraversable($iterator);
-    PapayaUtilConstraints::assertCallable($callback);
+    \PapayaUtilConstraints::assertArrayOrTraversable($iterator);
+    \PapayaUtilConstraints::assertCallable($callback);
     $this->_iterator = ($iterator instanceof \Iterator)
       ? $iterator : new \PapayaIteratorTraversable($iterator);
     $this->_callback = $callback;
@@ -66,7 +66,7 @@ class PapayaIteratorCallback implements OuterIterator {
   /**
   * OuterIterator interface: return the stored inner iterator
   *
-  * @return Iterator
+  * @return \Iterator
   */
   public function getInnerIterator() {
     return $this->_iterator;
@@ -92,7 +92,7 @@ class PapayaIteratorCallback implements OuterIterator {
   * @return mixed
   */
   public function current() {
-    if (PapayaUtilBitwise::inBitmask(self::MODIFY_VALUES, $this->_target)) {
+    if (\PapayaUtilBitwise::inBitmask(self::MODIFY_VALUES, $this->_target)) {
       return call_user_func(
         $this->_callback,
         $this->getInnerIterator()->current(),
@@ -110,7 +110,7 @@ class PapayaIteratorCallback implements OuterIterator {
   * @return mixed
   */
   public function key() {
-    if (PapayaUtilBitwise::inBitmask(self::MODIFY_KEYS, $this->_target)) {
+    if (\PapayaUtilBitwise::inBitmask(self::MODIFY_KEYS, $this->_target)) {
       return call_user_func(
         $this->_callback,
         $this->getInnerIterator()->current(),

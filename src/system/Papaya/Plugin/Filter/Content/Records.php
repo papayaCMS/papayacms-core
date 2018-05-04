@@ -18,7 +18,7 @@ class PapayaPluginFilterContentRecords extends PapayaPluginFilterContentGroup {
   private $_viewConfigurations = NULL;
   private $_loaded = FALSE;
 
-  public function records(PapayaContentViewConfigurations $configurations = NULL) {
+  public function records(\PapayaContentViewConfigurations $configurations = NULL) {
     if (isset($configurations)) {
       $this->_viewConfigurations = $configurations;
     } elseif (NULL == $this->_viewConfigurations) {

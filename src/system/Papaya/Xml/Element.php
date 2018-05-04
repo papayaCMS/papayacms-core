@@ -28,10 +28,10 @@ class PapayaXmlElement
   /**
   * Append a object (with interface PapayaXmlAppendable) to the element
   *
-  * @param PapayaXmlAppendable $object
-  * @return PapayaXmlElement|NULL
+  * @param \PapayaXmlAppendable $object
+  * @return \PapayaXmlElement|NULL
   */
-  public function append(PapayaXmlAppendable $object) {
+  public function append(\PapayaXmlAppendable $object) {
     return $object->appendTo($this);
   }
 
@@ -41,7 +41,7 @@ class PapayaXmlElement
   * @param string $name
   * @param array $attributes
   * @param string $content
-  * @return PapayaXmlElement new element
+  * @return \PapayaXmlElement new element
   */
   public function appendElement($name, array $attributes = array(), $content = NULL) {
     return $this->appendChild(
@@ -54,7 +54,7 @@ class PapayaXmlElement
   * Append a new text node into element
   *
   * @param string $content
-  * @return PapayaXmlElement $this
+  * @return \PapayaXmlElement $this
   */
   public function appendText($content) {
     $node = $this->ownerDocument->createTextNode($content);
@@ -66,7 +66,7 @@ class PapayaXmlElement
   * Append a xml fragment into element
   *
   * @param string $content
-  * @return PapayaXmlElement $this
+  * @return \PapayaXmlElement $this
   */
   public function appendXml($content) {
     /** @noinspection PhpUndefinedMethodInspection */
@@ -79,9 +79,9 @@ class PapayaXmlElement
    * Automatically imports the element into the target document if needed.
    *
    * @param \DOMDocument|\DOMelement|\DOMNode $target
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
-  public function appendTo(DOMNode $target) {
+  public function appendTo(\DOMNode $target) {
     if ($target instanceof \DOMElement) {
       $document = $target->ownerDocument;
     } elseif ($target instanceof \DOMDocument) {
@@ -124,7 +124,7 @@ class PapayaXmlElement
   /**
    * Allow to remove an attribute by setting an empty value
    *
-   * @see DOMElement::setAttribute()
+   * @see \DOMElement::setAttribute()
    */
   public function setAttribute($name, $value) {
     if (isset($value) && $value !== '') {

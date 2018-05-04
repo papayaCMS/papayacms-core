@@ -1,24 +1,17 @@
 <?php
 /**
-* The PluginFactory is a superclass for specialized plugin factories. It allows to define
-* an array of name => guid pairs and access the plugin by the "local" name.
-*
-* This allows to avoid conflicts, while still using names for plugin access and not guids.
-*
-* @copyright 2010-2018 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-* @version $Id: Factory.php 39730 2014-04-07 21:05:30Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * The PluginFactory is a superclass for specialized plguin factories. It allows to define
@@ -65,15 +58,15 @@ abstract class PapayaPluginFactory extends PapayaObject {
   * @param object $owner
   */
   public function __construct($owner = NULL) {
-    PapayaUtilConstraints::assertObjectOrNull($owner);
+    \PapayaUtilConstraints::assertObjectOrNull($owner);
     $this->_owner = $owner;
   }
 
   /**
-  * @param PapayaPluginLoader $pluginLoader
-  * @return PapayaPluginLoader
+  * @param \PapayaPluginLoader $pluginLoader
+  * @return \PapayaPluginLoader
   */
-  public function loader(PapayaPluginLoader $pluginLoader = NULL) {
+  public function loader(\PapayaPluginLoader $pluginLoader = NULL) {
     if ($pluginLoader !== NULL) {
       $this->_pluginLoader = $pluginLoader;
     } elseif (null === $this->_pluginLoader) {
@@ -95,7 +88,7 @@ abstract class PapayaPluginFactory extends PapayaObject {
   /**
   * Fetch a plugin from plugin loader using the guid definition in self::$_plugins.
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param string $pluginName
   * @param boolean $singleInstance
   * @return NULL|object
@@ -120,7 +113,7 @@ abstract class PapayaPluginFactory extends PapayaObject {
   * Allow to fetch plugins by using dynamic properties. This will always create a new
   * plugin instance.
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param string $pluginName
   * @return NULL|object
   */
@@ -155,10 +148,10 @@ abstract class PapayaPluginFactory extends PapayaObject {
   * Getter/setter the module options object of the given plugin.
   *
   * @param string $pluginName
-  * @param PapayaConfiguration $options
-  * @return NULL|PapayaConfiguration
+  * @param \PapayaConfiguration $options
+  * @return NULL|\PapayaConfiguration
   */
-  public function options($pluginName, PapayaConfiguration $options = NULL) {
+  public function options($pluginName, \PapayaConfiguration $options = NULL) {
     if ($this->has($pluginName)) {
       if ($options !== NULL) {
         $this->_options[$pluginName] = $options;
@@ -178,7 +171,7 @@ abstract class PapayaPluginFactory extends PapayaObject {
   * @param string $pluginName
   * @param string $optionName
   * @param mixed $default
-  * @param PapayaFilter $filter
+  * @param \PapayaFilter $filter
   * @return mixed
   */
   public function getOption($pluginName, $optionName, $default = NULL, $filter = NULL) {

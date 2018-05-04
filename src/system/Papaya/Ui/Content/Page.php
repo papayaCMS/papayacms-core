@@ -40,7 +40,7 @@ class PapayaUiContentPage extends PapayaObject {
 
   /**
    * @param int $pageId
-   * @param int|string|PapayaContentLanguage $language
+   * @param int|string|\PapayaContentLanguage $language
    * @param bool $isPublic
    */
   public function __construct($pageId, $language, $isPublic = TRUE) {
@@ -50,19 +50,19 @@ class PapayaUiContentPage extends PapayaObject {
   }
 
   /**
-   * @param array|Traversable $data
+   * @param array|\Traversable $data
    */
   public function assign($data) {
-    PapayaUtilConstraints::assertArrayOrTraversable($data);
+    \PapayaUtilConstraints::assertArrayOrTraversable($data);
     $this->page()->assign($data);
     $this->translation()->assign($data);
   }
 
   /**
-   * @param PapayaContentPage $page
-   * @return PapayaContentPage|PapayaContentPagePublication
+   * @param \PapayaContentPage $page
+   * @return \PapayaContentPage|\PapayaContentPagePublication
    */
-  public function page(PapayaContentPage $page = NULL) {
+  public function page(\PapayaContentPage $page = NULL) {
     if (isset($page)) {
       $this->_page = $page;
     } elseif (NULL == $this->_page) {
@@ -77,10 +77,10 @@ class PapayaUiContentPage extends PapayaObject {
   }
 
   /**
-   * @param PapayaContentPageTranslation $translation
-   * @return PapayaContentPagePublicationTranslation|PapayaContentPageTranslation
+   * @param \PapayaContentPageTranslation $translation
+   * @return \PapayaContentPagePublicationTranslation|\PapayaContentPageTranslation
    */
-  public function translation(PapayaContentPageTranslation $translation = NULL) {
+  public function translation(\PapayaContentPageTranslation $translation = NULL) {
     if (isset($translation)) {
       $this->_translation = $translation;
     } elseif (NULL == $this->_translation) {
@@ -114,7 +114,7 @@ class PapayaUiContentPage extends PapayaObject {
   }
 
   /**
-   * @return null|PapayaContentLanguage
+   * @return null|\PapayaContentLanguage
    */
   public function getPageLanguage() {
     if ($this->_language instanceof \PapayaContentLanguage) {

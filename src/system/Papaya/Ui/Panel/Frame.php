@@ -64,7 +64,7 @@ class PapayaUiPanelFrame extends PapayaUiPanel {
   /**
   * Initialize object and store parameters.
   *
-  * @param string|PapayaUiString $caption
+  * @param string|\PapayaUiString $caption
   * @param string $name
   * @param string $height
   */
@@ -79,7 +79,7 @@ class PapayaUiPanelFrame extends PapayaUiPanel {
   *
   * @see papaya-lib/system/Papaya/Ui/PapayaUiPanel#appendTo($parent)
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $panel = parent::appendTo($parent);
     $panel->appendElement(
       'iframe',
@@ -95,10 +95,10 @@ class PapayaUiPanelFrame extends PapayaUiPanel {
   /**
   * Getter/Setter for the reference object.
   *
-  * @param PapayaUiReference $reference
-  * @return PapayaUiReference
+  * @param \PapayaUiReference $reference
+  * @return \PapayaUiReference
   */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {

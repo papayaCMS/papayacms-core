@@ -30,9 +30,9 @@ abstract class PapayaCacheService {
   /**
    * constructor
    *
-   * @param PapayaCacheConfiguration|NULL $configuration
+   * @param \PapayaCacheConfiguration|NULL $configuration
    */
-  public function __construct(PapayaCacheConfiguration $configuration = NULL) {
+  public function __construct(\PapayaCacheConfiguration $configuration = NULL) {
     if (NULL !== $configuration) {
       $this->setConfiguration($configuration);
     }
@@ -41,10 +41,10 @@ abstract class PapayaCacheService {
   /**
   * Set configuration
   *
-  * @param PapayaCacheConfiguration $configuration
+  * @param \PapayaCacheConfiguration $configuration
   * @return void
   */
-  abstract public function setConfiguration(PapayaCacheConfiguration $configuration);
+  abstract public function setConfiguration(\PapayaCacheConfiguration $configuration);
 
   /**
   * Verify that the cache has a valid configuration
@@ -116,7 +116,7 @@ abstract class PapayaCacheService {
    * @param string $group
    * @param string $element
    * @param string|array$parameters
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return array
    */
   protected function _getCacheIdentification($group, $element, $parameters) {
@@ -145,7 +145,7 @@ abstract class PapayaCacheService {
    * @param $element
    * @param $parameters
    * @param int $maximumLength
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return string
    */
   public function getCacheIdentifier($group, $element, $parameters, $maximumLength = 255) {

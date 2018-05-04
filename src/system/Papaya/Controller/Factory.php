@@ -30,7 +30,7 @@ class PapayaControllerFactory {
   * @param string $errorIdentifier
   * @param string $errorMessage
   * @param string $templateFile
-  * @return PapayaControllerError
+  * @return \PapayaControllerError
   */
   public static function createError($status, $errorIdentifier, $errorMessage, $templateFile = '') {
     if (empty($templateFile)) {

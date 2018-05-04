@@ -117,15 +117,15 @@ class PapayaProfilerStorageXhgui
 
   /**
    * Set database access object
-   * @param PapayaDatabaseAccess $databaseAccessObject
+   * @param \PapayaDatabaseAccess $databaseAccessObject
    */
-  public function setDatabaseAccess(PapayaDatabaseAccess $databaseAccessObject) {
+  public function setDatabaseAccess(\PapayaDatabaseAccess $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
   }
 
   /**
   * Get database access object
-  * @return PapayaDatabaseAccess
+  * @return \PapayaDatabaseAccess
   */
   public function getDatabaseAccess() {
     if (!isset($this->_databaseAccessObject)) {

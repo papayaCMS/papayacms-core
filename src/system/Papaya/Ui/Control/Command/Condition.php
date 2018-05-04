@@ -25,7 +25,7 @@ abstract class PapayaUiControlCommandCondition extends PapayaObject {
   /**
   * The command of the condition.
   *
-  * @param PapayaUiControlCommand
+  * @param \PapayaUiControlCommand
   */
   private $_command = NULL;
 
@@ -42,11 +42,11 @@ abstract class PapayaUiControlCommandCondition extends PapayaObject {
    * If the owner is emtpy and exception is thrown.
    *
    *
-   * @param PapayaUiControlCommand $command
-   * @throws LogicException
-   * @return PapayaUiControlCommand
+   * @param \PapayaUiControlCommand $command
+   * @throws \LogicException
+   * @return \PapayaUiControlCommand
    */
-  public function command(PapayaUiControlCommand $command = NULL) {
+  public function command(\PapayaUiControlCommand $command = NULL) {
     if (isset($command)) {
       $this->_command = $command;
       $this->papaya($command->papaya());

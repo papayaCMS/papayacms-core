@@ -117,7 +117,7 @@ class PapayaUiDialogFieldBuilderArray {
   public function __construct($owner, array $editFields, $translatePhrases = FALSE) {
     $this->_owner = $owner;
     $this->_editFields = $editFields;
-    PapayaUtilConstraints::assertBoolean($translatePhrases);
+    \PapayaUtilConstraints::assertBoolean($translatePhrases);
     $this->_translatePhrases = $translatePhrases;
   }
 
@@ -150,7 +150,7 @@ class PapayaUiDialogFieldBuilderArray {
   * Add a field group object, group definitions hav only a caption
   *
   * @param string $caption
-  * @return PapayaUiDialogFieldGroup
+  * @return \PapayaUiDialogFieldGroup
   */
   private function _addGroup($caption) {
     $group = new \PapayaUiDialogFieldGroup(
@@ -166,10 +166,10 @@ class PapayaUiDialogFieldBuilderArray {
   *
   * @param string $name
   * @param array $data
-  * @return PapayaUiDialogField|NULL
+  * @return \PapayaUiDialogField|NULL
    */
   private function _addField($name, array $data) {
-    $type = (string)PapayaUtilArray::get($data, array('type', 3), 'input');
+    $type = (string)\PapayaUtilArray::get($data, array('type', 3), 'input');
     if (substr($type, 0, 9) === 'disabled_') {
       $type = substr($type, 9);
       $disabled = TRUE;
@@ -177,22 +177,22 @@ class PapayaUiDialogFieldBuilderArray {
       $disabled = FALSE;
     }
 
-    $type = PapayaUtilArray::get($this->_fieldMapping, $type, $type);
-    $filter = PapayaUtilArray::get($data, array('validation', 1), 'isNotEmpty');
+    $type = \PapayaUtilArray::get($this->_fieldMapping, $type, $type);
+    $filter = \PapayaUtilArray::get($data, array('validation', 1), 'isNotEmpty');
     if (is_string($filter) && !empty($filter)) {
-      $filter = PapayaUtilArray::get($this->_filterMapping, $filter, $filter);
+      $filter = \PapayaUtilArray::get($this->_filterMapping, $filter, $filter);
     }
     $options = new \PapayaUiDialogFieldFactoryOptions(
       array(
         'name' => $name,
-        'caption' => PapayaUtilArray::get($data, array('caption', 0), ''),
+        'caption' => \PapayaUtilArray::get($data, array('caption', 0), ''),
         'validation' => $filter,
-        'mandatory' => (bool)PapayaUtilArray::get($data, array('mandatory', 2), FALSE),
-        'parameters' => PapayaUtilArray::get($data, array('parameters', 4), NULL),
-        'url' => PapayaUtilArray::get($data, array('url', 0), ''),
-        'hint' => PapayaUtilArray::get($data, array('hint', 5), ''),
-        'default' => PapayaUtilArray::get($data, array('default', 6), NULL),
-        'disabled' => PapayaUtilArray::get($data, 'disabled', $disabled),
+        'mandatory' => (bool)\PapayaUtilArray::get($data, array('mandatory', 2), FALSE),
+        'parameters' => \PapayaUtilArray::get($data, array('parameters', 4), NULL),
+        'url' => \PapayaUtilArray::get($data, array('url', 0), ''),
+        'hint' => \PapayaUtilArray::get($data, array('hint', 5), ''),
+        'default' => \PapayaUtilArray::get($data, array('default', 6), NULL),
+        'disabled' => \PapayaUtilArray::get($data, 'disabled', $disabled),
         'context' => $this->_owner
       )
     );
@@ -203,7 +203,7 @@ class PapayaUiDialogFieldBuilderArray {
   * If a phrase could need a translation, this method is used to wrap it into an object.
   *
   * @param string $string
-  * @return string|PapayaUiStringTranslated
+  * @return string|\PapayaUiStringTranslated
   */
   private function _createPhrase($string) {
     return $this->_translatePhrases ? new \PapayaUiStringTranslated($string) : $string;
@@ -212,10 +212,10 @@ class PapayaUiDialogFieldBuilderArray {
   /**
    * Getter/Setter for the field factory
    *
-   * @param PapayaUiDialogFieldFactory $factory
-   * @return PapayaUiDialogFieldFactory
+   * @param \PapayaUiDialogFieldFactory $factory
+   * @return \PapayaUiDialogFieldFactory
    */
-  public function fieldFactory(PapayaUiDialogFieldFactory $factory = NULL) {
+  public function fieldFactory(\PapayaUiDialogFieldFactory $factory = NULL) {
     if (isset($factory)) {
       $this->_fieldFactory = $factory;
     } elseif (NULL === $this->_fieldFactory) {

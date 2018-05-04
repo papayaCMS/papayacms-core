@@ -30,7 +30,7 @@ class PapayaThemeHandler extends PapayaObject {
   public function getUrl($themeName = NULL) {
     $options = $this->papaya()->options;
     $baseUrl = '';
-    if (PapayaUtilServerProtocol::isSecure()) {
+    if (\PapayaUtilServerProtocol::isSecure()) {
       $baseUrl = $options->get('PAPAYA_CDN_THEMES_SECURE', '');
     }
     if (empty($baseUrl)) {
@@ -42,7 +42,7 @@ class PapayaThemeHandler extends PapayaObject {
         ->request
         ->getUrl()
         ->getHostUrl();
-      $baseUrl .= PapayaUtilFilePath::cleanup(
+      $baseUrl .= \PapayaUtilFilePath::cleanup(
         $options->get('PAPAYA_PATH_WEB').$options->get('PAPAYA_PATH_THEMES')
       );
     }
@@ -59,14 +59,14 @@ class PapayaThemeHandler extends PapayaObject {
   * @return string
   */
   public function getLocalPath() {
-    $root = PapayaUtilFilePath::getDocumentRoot(
+    $root = \PapayaUtilFilePath::getDocumentRoot(
       $this->papaya()->options
     );
     $path = $this
       ->papaya()
       ->options
       ->get('PAPAYA_PATH_THEMES');
-    return PapayaUtilFilePath::cleanup($root.'/'.$path);
+    return \PapayaUtilFilePath::cleanup($root.'/'.$path);
   }
 
   /**
@@ -79,7 +79,7 @@ class PapayaThemeHandler extends PapayaObject {
     if (empty($themeName)) {
       $themeName = $this->getTheme();
     }
-    return PapayaUtilFilePath::cleanup(
+    return \PapayaUtilFilePath::cleanup(
       $this->getLocalPath().$themeName
     );
   }
@@ -88,7 +88,7 @@ class PapayaThemeHandler extends PapayaObject {
    * Load the dynamic value defintion from the theme.xml and return it
    *
    * @param string $theme
-   * @return PapayaThemeDefinition
+   * @return \PapayaThemeDefinition
    */
   public function getDefinition($theme) {
     $definition = new \PapayaThemeDefinition();
@@ -108,7 +108,7 @@ class PapayaThemeHandler extends PapayaObject {
     $isPreview = $this
       ->papaya()
       ->request
-      ->getParameter('preview', FALSE, NULL, PapayaRequest::SOURCE_PATH);
+      ->getParameter('preview', FALSE, NULL, \PapayaRequest::SOURCE_PATH);
     if ($isPreview) {
       $theme = $this
         ->papaya()
@@ -135,7 +135,7 @@ class PapayaThemeHandler extends PapayaObject {
     $isPreview = $this
       ->papaya()
       ->request
-      ->getParameter('preview', FALSE, NULL, PapayaRequest::SOURCE_PATH);
+      ->getParameter('preview', FALSE, NULL, \PapayaRequest::SOURCE_PATH);
     if ($isPreview) {
       $themeSet = $this
         ->papaya()

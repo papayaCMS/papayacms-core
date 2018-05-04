@@ -33,18 +33,18 @@ class PapayaAdministrationThemeEditorChangesSetExport
   private $_themeHandler = NULL;
 
   /**
-   * @param PapayaContentThemeSet $themeSet
-   * @param PapayaThemeHandler $themeHandler
+   * @param \PapayaContentThemeSet $themeSet
+   * @param \PapayaThemeHandler $themeHandler
    */
-  public function __construct(PapayaContentThemeSet $themeSet, PapayaThemeHandler $themeHandler) {
+  public function __construct(\PapayaContentThemeSet $themeSet, \PapayaThemeHandler $themeHandler) {
     $this->_themeSet = $themeSet;
     $this->_themeHandler = $themeHandler;
   }
 
   /**
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $this->_themeSet->load($this->parameters()->get('set_id', 0));
     $themeName = $this->_themeSet['theme'];
     $response = $this->papaya()->response;

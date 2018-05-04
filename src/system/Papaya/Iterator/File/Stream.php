@@ -57,7 +57,7 @@ class PapayaIteratorFileStream implements Iterator {
    * once - in the constructor.
    *
    * @param resource $stream
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   private function setStream($stream) {
     if (!is_resource($stream)) {

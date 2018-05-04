@@ -43,12 +43,12 @@ class PapayaContentThemeSet extends PapayaDatabaseRecord {
    *
    * @var string
    */
-  protected $_tableName = PapayaContentTables::THEME_SETS;
+  protected $_tableName = \PapayaContentTables::THEME_SETS;
 
   /**
-  * @see PapayaDatabaseRecordsUnbuffered::_createMapping()
+  * @see \PapayaDatabaseRecordsUnbuffered::_createMapping()
   *
-  * @return PapayaDatabaseRecordMapping
+  * @return \PapayaDatabaseRecordMapping
   */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
@@ -76,7 +76,7 @@ class PapayaContentThemeSet extends PapayaDatabaseRecord {
     $context, $property, $field, $value
   ) {
     if ('values' === $property) {
-      return PapayaUtilStringXml::unserializeArray((string)$value);
+      return \PapayaUtilStringXml::unserializeArray((string)$value);
     }
     return $value;
   }
@@ -95,7 +95,7 @@ class PapayaContentThemeSet extends PapayaDatabaseRecord {
     $context, $property, $field, $value
   ) {
     if ('values' === $property) {
-      return PapayaUtilStringXml::serializeArray((array)$value);
+      return \PapayaUtilStringXml::serializeArray((array)$value);
     }
     return $value;
   }
@@ -103,20 +103,20 @@ class PapayaContentThemeSet extends PapayaDatabaseRecord {
   /**
    * Return the values as a xml document
    *
-   * @param PapayaContentStructure $definition
-   * @return PapayaXmlDocument
+   * @param \PapayaContentStructure $definition
+   * @return \PapayaXmlDocument
    */
-  public function getValuesXml(PapayaContentStructure $definition) {
+  public function getValuesXml(\PapayaContentStructure $definition) {
     return $definition->getXmlDocument(isset($this->values) ? $this->values : array());
   }
 
   /**
    * Loads the values from a xml document
    *
-   * @param PapayaContentStructure $definition
+   * @param \PapayaContentStructure $definition
    * @param \PapayaXmlElement $values
    */
-  public function setValuesXml(PapayaContentStructure $definition, PapayaXmlElement $values) {
+  public function setValuesXml(\PapayaContentStructure $definition, \PapayaXmlElement $values) {
     $this['values'] = $definition->getArray($values);
   }
 }

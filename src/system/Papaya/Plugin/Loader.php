@@ -52,7 +52,7 @@ class PapayaPluginLoader extends PapayaObject {
   /**
   * define plugins and options as readable properties
   *
-  * @throws LogicException
+  * @throws \LogicException
   * @param string $name
   * @return mixed
   */
@@ -73,7 +73,7 @@ class PapayaPluginLoader extends PapayaObject {
    *
    * @param string $name
    * @param $value
-   * @throws LogicException
+   * @throws \LogicException
    * @return mixed
    */
   public function __set($name, $value) {
@@ -93,7 +93,7 @@ class PapayaPluginLoader extends PapayaObject {
   /**
   * Getter/Setter für plugin data list
   */
-  public function plugins(PapayaPluginList $plugins = NULL) {
+  public function plugins(\PapayaPluginList $plugins = NULL) {
     if (isset($plugins)) {
       $this->_plugins = $plugins;
     }
@@ -109,7 +109,7 @@ class PapayaPluginLoader extends PapayaObject {
   /**
   * Getter/Setter für plugin option groups (grouped by module guid)
   */
-  public function options(PapayaPluginOptionGroups $groups = NULL) {
+  public function options(\PapayaPluginOptionGroups $groups = NULL) {
     if (isset($groups)) {
       $this->_optionGroups = $groups;
     }
@@ -155,7 +155,7 @@ class PapayaPluginLoader extends PapayaObject {
   * @param array $data
   * @param boolean $singleInstance Plugin object should be created once,
   *   additional call will return the first instance.
-  * @return Object|NULL
+  * @return \Object|NULL
   */
   public function get($guid, $parent = NULL, $data = NULL, $singleInstance = FALSE) {
     $plugins = $this->plugins();
@@ -170,17 +170,17 @@ class PapayaPluginLoader extends PapayaObject {
   }
 
   /**
-   * Alias for {@see PapayaPluginLoader::get()}. For backwards compatibility only.
+   * Alias for {@see \PapayaPluginLoader::get()}. For backwards compatibility only.
    *
    * @deprecated
    * @param string $guid
-   * @param Object|NULL $parent
+   * @param \Object|NULL $parent
    * @param array $data
    * @param string $class
    * @param string $file
    * @param bool $singleton Plugin object should be created once,
    *   additional calls will return the first instance.
-   * @return Object|NULL
+   * @return \Object|NULL
    */
   public function getPluginInstance(
     $guid,
@@ -204,7 +204,7 @@ class PapayaPluginLoader extends PapayaObject {
     $plugins = $this->plugins();
     if ($pluginData = $plugins[$guid]) {
       $this->prepareAutoloader($pluginData);
-      if ($result = PapayaAutoloader::getClassFile($pluginData['class'])) {
+      if ($result = \PapayaAutoloader::getClassFile($pluginData['class'])) {
         return $result;
       }
       return $this->getPluginPath($pluginData['path']).$pluginData['file'];
@@ -219,18 +219,18 @@ class PapayaPluginLoader extends PapayaObject {
    * @param array $pluginData
    */
   private function prepareAutoloader(array $pluginData) {
-    if (!(empty($pluginData['prefix']) || PapayaAutoloader::hasPrefix($pluginData['prefix']))) {
+    if (!(empty($pluginData['prefix']) || \PapayaAutoloader::hasPrefix($pluginData['prefix']))) {
       $path = $this->getPluginPath($pluginData['path']);
-      PapayaAutoloader::registerPath($pluginData['prefix'], $path);
+      \PapayaAutoloader::registerPath($pluginData['prefix'], $path);
     }
     if (!empty($pluginData['classes'])) {
       $path = substr($this->getPluginPath($pluginData['path']), 0, -1);
       /** @noinspection PhpIncludeInspection */
       if (
-        !PapayaAutoloader::hasClassMap($path) &&
+        !\PapayaAutoloader::hasClassMap($path) &&
         ($classMap = include($path.'/'.$pluginData['classes']))
       ) {
-        PapayaAutoloader::registerClassMap($path, $classMap);
+        \PapayaAutoloader::registerClassMap($path, $classMap);
       }
     }
   }
@@ -252,8 +252,8 @@ class PapayaPluginLoader extends PapayaObject {
             include_once($fileName)
           )) {
         $logMessage = new \PapayaMessageLog(
-          PapayaMessageLogable::GROUP_MODULES,
-          PapayaMessage::SEVERITY_ERROR,
+          \PapayaMessageLogable::GROUP_MODULES,
+          \PapayaMessage::SEVERITY_ERROR,
           sprintf('Can not include module file "%s"', $fileName)
         );
         $logMessage->context()->append(new \PapayaMessageContextBacktrace());
@@ -262,8 +262,8 @@ class PapayaPluginLoader extends PapayaObject {
       }
       if (!class_exists($pluginData['class'], FALSE)) {
         $logMessage = new \PapayaMessageLog(
-          PapayaMessageLogable::GROUP_MODULES,
-          PapayaMessage::SEVERITY_ERROR,
+          \PapayaMessageLogable::GROUP_MODULES,
+          \PapayaMessage::SEVERITY_ERROR,
           sprintf('Can not find module class "%s"', $pluginData['class'])
         );
         $logMessage->context()->append(new \PapayaMessageContextBacktrace());
@@ -290,18 +290,18 @@ class PapayaPluginLoader extends PapayaObject {
       'vendor:' => '../vendor/',
       'src:' => '../src/'
     );
-    $documentRoot = $this->papaya()->options->get('PAPAYA_DOCUMENT_ROOT', PapayaUtilFilePath::getDocumentRoot());
+    $documentRoot = $this->papaya()->options->get('PAPAYA_DOCUMENT_ROOT', \PapayaUtilFilePath::getDocumentRoot());
     foreach ($map as $prefix => $mapPath) {
       if (0 === strpos($path, $prefix)) {
         $basePath = $documentRoot.$mapPath;
         $relativePath = substr($path, strlen($prefix));
-        return PapayaUtilFilePath::cleanup(
+        return \PapayaUtilFilePath::cleanup(
           $basePath.$relativePath, TRUE
         );
       }
     }
     if ($includePath = $this->papaya()->options->get('PAPAYA_INCLUDE_PATH', '')) {
-      return PapayaUtilFilePath::cleanup(
+      return \PapayaUtilFilePath::cleanup(
         $includePath.'/modules/', TRUE
       ).$path;
     }
@@ -313,9 +313,9 @@ class PapayaPluginLoader extends PapayaObject {
   * in an internal list. A second call will return the stored object.
   *
   * @param array $pluginData
-  * @param Object|NULL $parent
+  * @param \Object|NULL $parent
   * @param boolean $singleInstance
-  * @return Object|NULL
+  * @return \Object|NULL
   */
   private function createObject(array $pluginData, $parent, $singleInstance = FALSE) {
     if ($singleInstance &&
@@ -341,7 +341,7 @@ class PapayaPluginLoader extends PapayaObject {
    * @param string|array $data
    */
   public function configure($plugin, $data) {
-    PapayaUtilConstraints::assertObject($plugin);
+    \PapayaUtilConstraints::assertObject($plugin);
     if ($plugin instanceof \PapayaPluginEditable) {
       if (is_array($data) || $data instanceof \Traversable) {
         $plugin->content()->assign($data);
@@ -351,8 +351,8 @@ class PapayaPluginLoader extends PapayaObject {
     } elseif (!empty($data) && method_exists($plugin, 'setData')) {
       if (is_array($data) || $data instanceof \Traversable) {
         $plugin->setData(
-          PapayaUtilStringXml::serializeArray(
-            PapayaUtilArray::ensure($data)
+          \PapayaUtilStringXml::serializeArray(
+            \PapayaUtilArray::ensure($data)
           )
         );
       } else {

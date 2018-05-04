@@ -54,7 +54,7 @@ class PapayaDomains extends PapayaObject {
     $result = array();
     foreach ($pageRootIds as $pageRootId) {
       if (isset($this->_domainsByRootId[$pageRootId])) {
-        $result = PapayaUtilArray::merge($result, $this->_domainsByRootId[$pageRootId]);
+        $result = \PapayaUtilArray::merge($result, $this->_domainsByRootId[$pageRootId]);
       }
     }
     return $result;
@@ -76,7 +76,7 @@ class PapayaDomains extends PapayaObject {
         foreach ($this->_domainsByName[$name] as $domain) {
           if ($domain['scheme'] == $scheme) {
             return $domain;
-          } elseif ($domain['scheme'] == PapayaUtilServerProtocol::BOTH && !$result) {
+          } elseif ($domain['scheme'] == \PapayaUtilServerProtocol::BOTH && !$result) {
             $result = $domain;
           }
         }
@@ -96,9 +96,9 @@ class PapayaDomains extends PapayaObject {
       return $this->_current;
     }
     $this->_current = $this->getDomainByHost(
-      PapayaUtilServerName::get(),
-      PapayaUtilServerProtocol::isSecure()
-        ? PapayaUtilServerProtocol::HTTPS : PapayaUtilServerProtocol::HTTP
+      \PapayaUtilServerName::get(),
+      \PapayaUtilServerProtocol::isSecure()
+        ? \PapayaUtilServerProtocol::HTTPS : \PapayaUtilServerProtocol::HTTP
     );
     return $this->_current;
   }
@@ -148,10 +148,10 @@ class PapayaDomains extends PapayaObject {
     if ($reset || !$this->_loaded) {
       $this->domains()->load();
       foreach ($this->domains() as $domainId => $domain) {
-        if ($domain['mode'] == PapayaContentDomain::MODE_VIRTUAL_DOMAIN) {
+        if ($domain['mode'] == \PapayaContentDomain::MODE_VIRTUAL_DOMAIN) {
           $this->_domainsByRootId[(int)$domain['data']][$domainId] = $domain;
-        } elseif ($domain['mode'] == PapayaContentDomain::MODE_DEFAULT ||
-                  $domain['mode'] == PapayaContentDomain::MODE_REDIRECT_LANGUAGE) {
+        } elseif ($domain['mode'] == \PapayaContentDomain::MODE_DEFAULT ||
+                  $domain['mode'] == \PapayaContentDomain::MODE_REDIRECT_LANGUAGE) {
           $this->_domainsByRootId[0][$domainId] = $domain;
         }
         $this->_domainsByName[$domain['host']][$domainId] = $domain;
@@ -163,10 +163,10 @@ class PapayaDomains extends PapayaObject {
   /**
   * Getter/Setter for the domain database object.
   *
-  * @param PapayaContentDomains $domains
-  * @return PapayaContentDomains
+  * @param \PapayaContentDomains $domains
+  * @return \PapayaContentDomains
   */
-  public function domains(PapayaContentDomains $domains = NULL) {
+  public function domains(\PapayaContentDomains $domains = NULL) {
     if (isset($domains)) {
       $this->_domains = $domains;
     } elseif (is_null($this->_domains)) {
@@ -176,11 +176,11 @@ class PapayaDomains extends PapayaObject {
     return $this->_domains;
   }
 
-  public function isStartPage(PapayaUiReferencePage $page) {
+  public function isStartPage(\PapayaUiReferencePage $page) {
     $targetDomain = $this->getDomainByHost(
       $page->url()->getHost(),
       $page->url()->getScheme() == 'https'
-        ? PapayaUtilServerProtocol::HTTPS : PapayaUtilServerProtocol::HTTP
+        ? \PapayaUtilServerProtocol::HTTPS : \PapayaUtilServerProtocol::HTTP
     );
     $pageId = isset($targetDomain['options']['PAPAYA_PAGEID_DEFAULT']) ?
       $targetDomain['options']['PAPAYA_PAGEID_DEFAULT'] : $this->papaya()->options['PAPAYA_PAGEID_DEFAULT'];

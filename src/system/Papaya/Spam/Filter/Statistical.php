@@ -62,7 +62,7 @@ class PapayaSpamFilterStatistical implements PapayaSpamFilter {
   /**
   * Getter for reference data object including implicit create.
   *
-  * @return PapayaSpamFilterStatisticalReference
+  * @return \PapayaSpamFilterStatisticalReference
   */
   public function getReference() {
     if (is_null($this->_reference)) {
@@ -74,9 +74,9 @@ class PapayaSpamFilterStatistical implements PapayaSpamFilter {
   /**
   * Setter for reference data object.
   *
-  * @param PapayaSpamFilterStatisticalReference $reference
+  * @param \PapayaSpamFilterStatisticalReference $reference
   */
-  public function setReference(PapayaSpamFilterStatisticalReference $reference) {
+  public function setReference(\PapayaSpamFilterStatisticalReference $reference) {
     $this->_reference = $reference;
   }
 
@@ -85,7 +85,7 @@ class PapayaSpamFilterStatistical implements PapayaSpamFilter {
    * relative to 0.5, so a maximum of 0.4 is allowed. A minimum of 0 is possible.
    *
    * @param integer|float $derivation
-   * @throws RangeException
+   * @throws \RangeException
    */
   public function setRelevanceLimit($derivation) {
     $derivation = (float)$derivation;
@@ -99,10 +99,10 @@ class PapayaSpamFilterStatistical implements PapayaSpamFilter {
    * Set the maximum count of tokens that are used to calculate the probability.
    *
    * @param integer $count
-   * @throws RangeException
+   * @throws \RangeException
    */
   public function setTokenLimit($count) {
-    PapayaUtilConstraints::assertInteger($count);
+    \PapayaUtilConstraints::assertInteger($count);
     if ($count <= 0) {
       throw new \RangeException('RangeException: $count must be greater than 0');
     }

@@ -40,7 +40,7 @@ class PapayaUiDialogFieldInputDate extends PapayaUiDialogFieldInput {
   * Include time?
   * @var int
   */
-  protected $_includeTime = PapayaFilterDate::DATE_NO_TIME;
+  protected $_includeTime = \PapayaFilterDate::DATE_NO_TIME;
 
   /**
   * Step for time filter
@@ -67,29 +67,33 @@ class PapayaUiDialogFieldInputDate extends PapayaUiDialogFieldInput {
    * Creates dialog field for date input with caption, name, default value and
    * mandatory status
    *
-   * @param string|PapayaUiString $caption
+   * @param string|\PapayaUiString $caption
    * @param string $name
    * @param integer $default
    * @param boolean $mandatory
    * @param int $includeTime
    * @param float $step
-   * @throws InvalidArgumentException
+   * @throws \UnexpectedValueException
+   * @throws \InvalidArgumentException
    */
   public function __construct(
     $caption,
     $name,
     $default = NULL,
     $mandatory = FALSE,
-    $includeTime = PapayaFilterDate::DATE_NO_TIME,
+    $includeTime = \PapayaFilterDate::DATE_NO_TIME,
     $step = 60.0
   ) {
-    if ($includeTime != PapayaFilterDate::DATE_NO_TIME &&
-        $includeTime != PapayaFilterDate::DATE_OPTIONAL_TIME &&
-        $includeTime != PapayaFilterDate::DATE_MANDATORY_TIME) {
+    if (
+      $includeTime !== \PapayaFilterDate::DATE_NO_TIME &&
+      $includeTime !== \PapayaFilterDate::DATE_OPTIONAL_TIME &&
+      $includeTime !== \PapayaFilterDate::DATE_MANDATORY_TIME
+    ) {
       throw new \InvalidArgumentException(
-        'Argument must be PapayaFilterDate::DATE_NO_TIME, '.
-        'PapayaFilterDate::DATE_OPTIONAL_TIME, or '.
-        'PapayaFilterDate::DATE_MANDATORY_TIME.'
+        sprintf(
+        'Argument must be %1$s::DATE_NO_TIME, %1$s::DATE_OPTIONAL_TIME, or %1$s::DATE_MANDATORY_TIME.',
+          \PapayaFilterDate::class
+        )
       );
     }
     if ($step < 0) {
@@ -99,7 +103,7 @@ class PapayaUiDialogFieldInputDate extends PapayaUiDialogFieldInput {
     $this->_step = $step;
     parent::__construct($caption, $name, 19, $default);
     $this->setType(
-      $includeTime == PapayaFilterDate::DATE_NO_TIME ? 'date' : 'datetime'
+      $includeTime === \PapayaFilterDate::DATE_NO_TIME ? 'date' : 'datetime'
     );
     $this->setMandatory($mandatory);
     $this->setFilter(

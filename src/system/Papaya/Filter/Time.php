@@ -30,10 +30,10 @@ class PapayaFilterTime implements PapayaFilter {
    * Constructor
    *
    * @param float $step in seconds (optional, default 1.0)
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function __construct($step = 1.0) {
-    PapayaUtilConstraints::assertNumber($step, 'Step must be a number.');
+    \PapayaUtilConstraints::assertNumber($step, 'Step must be a number.');
     if ($step <= 0) {
       throw new \UnexpectedValueException('Step must be greater than 0.');
     }
@@ -44,8 +44,8 @@ class PapayaFilterTime implements PapayaFilter {
   * Validate a time
   *
   * @param string $value
-  * @throws PapayaFilterExceptionType
-  * @throws PapayaFilterExceptionRangeMaximum
+  * @throws \PapayaFilterExceptionType
+  * @throws \PapayaFilterExceptionRangeMaximum
   * @return boolean
   */
   public function validate($value) {
@@ -104,7 +104,7 @@ class PapayaFilterTime implements PapayaFilter {
   public function filter($value) {
     try {
       $this->validate(trim($value));
-    } catch(PapayaFilterException $e) {
+    } catch(\PapayaFilterException $e) {
       return NULL;
     }
     return trim($value);

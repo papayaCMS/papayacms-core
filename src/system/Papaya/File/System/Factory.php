@@ -25,7 +25,7 @@ class PapayaFileSystemFactory {
    * Return an object wrapping a file in the file system
    *
    * @param string $filename
-   * @return PapayaFileSystemFile
+   * @return \PapayaFileSystemFile
    */
   public function getFile($filename) {
     return new \PapayaFileSystemFile($filename);
@@ -35,7 +35,7 @@ class PapayaFileSystemFactory {
    * Return an object wrapping a directory in the file system
    *
    * @param string $directory
-   * @return PapayaFileSystemDirectory
+   * @return \PapayaFileSystemDirectory
    */
   public function getDirectory($directory) {
     return new \PapayaFileSystemDirectory($directory);

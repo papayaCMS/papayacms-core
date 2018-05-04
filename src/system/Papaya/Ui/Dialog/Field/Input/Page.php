@@ -50,7 +50,7 @@ class PapayaUiDialogFieldInputPage extends PapayaUiDialogFieldInput {
   /**
   * Create field, set caption, name, defaultvalue and mandatory status
   *
-  * @param string|PapayaUiString $caption
+  * @param string|\PapayaUiString $caption
   * @param string $name
   * @param integer|NULL $default
   * @param boolean $mandatory

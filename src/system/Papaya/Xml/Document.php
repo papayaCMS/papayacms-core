@@ -61,7 +61,7 @@ class PapayaXmlDocument
    *
    * @param string $version
    * @param string $encoding
-   * @return PapayaXmlDocument
+   * @return \PapayaXmlDocument
    */
   public function __construct($version = '1.0', $encoding = 'UTF-8') {
     parent::__construct($version, $encoding);
@@ -73,7 +73,7 @@ class PapayaXmlDocument
    * Get an Xpath object for the current document instance, refresh it if the internal document
    * id changes (document loading), register namespaces on the xpath object.
    *
-   * @return DOMXpath
+   * @return \DOMXpath
    */
   public function xpath() {
     if (is_null($this->_xpath) || $this->_xpath->document != $this) {
@@ -104,7 +104,7 @@ class PapayaXmlDocument
    * @param string $prefix
    * @param string $namespace
    * @param bool $registerOnXpath
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function registerNamespace($prefix, $namespace, $registerOnXpath = TRUE) {
     if (
@@ -125,7 +125,7 @@ class PapayaXmlDocument
    * character will be used.
    *
    * @param string $prefix
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return string
    */
   public function getNamespace($prefix) {
@@ -147,7 +147,7 @@ class PapayaXmlDocument
   * @param string $name
   * @param array $attributes
   * @param string $content
-  * @return PapayaXmlElement new element
+  * @return \PapayaXmlElement new element
   */
   public function appendElement($name, array $attributes = array(), $content = NULL) {
     return $this->appendChild($this->createElement($name, $content, $attributes));
@@ -162,17 +162,17 @@ class PapayaXmlDocument
   * If a target is provided, it will append the xml to the target node.
   *
   * @param string $content
-  * @param PapayaXmlElement $target
-  * @return PapayaXmlElement|PapayaXmlDocument $target
+  * @param \PapayaXmlElement $target
+  * @return \PapayaXmlElement|\PapayaXmlDocument $target
   */
-  public function appendXml($content, PapayaXmlElement $target = NULL) {
+  public function appendXml($content, \PapayaXmlElement $target = NULL) {
     if (is_null($target)) {
       $target = $this;
     }
     $fragment = $this->createDocumentFragment();
     $content = sprintf(
       '<papaya:content xmlns:papaya="http://www.papaya-cms.com/ns/papayacms">%s</papaya:content>',
-      PapayaUtilStringUtf8::ensure($content)
+      \PapayaUtilStringUtf8::ensure($content)
     );
     $fragment->appendXml($content);
     if ($fragment->firstChild) {
@@ -196,11 +196,11 @@ class PapayaXmlDocument
    * Fix the excaping bug for the $value argument, by creating the text node.
    * Allow to provide attributes.
    *
-   * @see DOMDocument::createElement()
+   * @see \DOMDocument::createElement()
    * @param string $name
    * @param string|NULL $value
    * @param array|NULL $attributes
-   * @return PapayaXmlElement
+   * @return \PapayaXmlElement
    */
   public function createElement($name, $value = NULL, array $attributes = NULL) {
     if (FALSE !== strpos($name, ':')) {
@@ -225,10 +225,10 @@ class PapayaXmlDocument
    *
    * Allow to provide the attribute value directly.
    *
-   * @see DOMDocument::createElement()
+   * @see \DOMDocument::createElement()
    * @param string $name
    * @param string|NULL $value
-   * @return DOMAttribute
+   * @return \DOMAttribute
    */
   public function createAttribute($name, $value = NULL) {
     if (FALSE !== strpos($name, ':')) {
@@ -245,12 +245,12 @@ class PapayaXmlDocument
   /**
   * Create an new element node for a given document
   *
-  * @param PapayaXmlDocument $document
+  * @param \PapayaXmlDocument $document
   * @param string $name
   * @param array $attributes
   * @param string $content
   * @deprecated
-  * @return PapayaXmlElement new node
+  * @return \PapayaXmlElement new node
   */
   public static function createElementNode(
     PapayaXmlDocument $document, $name, array $attributes = array(), $content = NULL
@@ -274,7 +274,7 @@ class PapayaXmlDocument
   /**
    * Load an xml string, but allow to disable the entitiy loader.
    *
-   * @see DOMDocument::load()
+   * @see \DOMDocument::load()
    */
   public function loadXml($source, $options = 0) {
     $status = ($this->_canDisableEntityLoader)

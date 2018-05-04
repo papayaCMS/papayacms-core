@@ -1,22 +1,17 @@
 <?php
 /**
-* A command that executes a dialog. After dialog creation, and after successfull/failed execution
-* callbacks are executed. This class adds read and write the data to an plugin content object
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Content.php 39132 2014-02-06 18:26:01Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A command that executes a dialog. After dialog creation, and after successfull/failed execution
@@ -32,16 +27,16 @@ class PapayaUiControlCommandDialogPluginContent extends PapayaUiControlCommandDi
   /**
    * This dialog command uses database record objects
    *
-   * @param PapayaPluginEditableContent $content
+   * @param \PapayaPluginEditableContent $content
    */
-  public function __construct(PapayaPluginEditableContent $content) {
+  public function __construct(\PapayaPluginEditableContent $content) {
     $this->_content = $content;
   }
 
   /**
    * Getter/Setter for the database record
    *
-   * @return NULL|PapayaPluginEditableContent
+   * @return NULL|\PapayaPluginEditableContent
    */
   public function getContent() {
     return $this->_content;
@@ -50,10 +45,10 @@ class PapayaUiControlCommandDialogPluginContent extends PapayaUiControlCommandDi
   /**
   * Execute command and append result to output xml
   *
-  * @param PapayaXmlElement
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $showDialog = TRUE;
     $dialog = $this->dialog();
     if ($dialog->execute()) {
@@ -71,8 +66,8 @@ class PapayaUiControlCommandDialogPluginContent extends PapayaUiControlCommandDi
 
   /**
    * Create the dialog object and assign the content data to it.
-   * @see PapayaUiControlCommandDialog::createDialog()
-   * @return PapayaUiDialog
+   * @see \PapayaUiControlCommandDialog::createDialog()
+   * @return \PapayaUiDialog
    */
   protected function createDialog() {
     $dialog = parent::createDialog();

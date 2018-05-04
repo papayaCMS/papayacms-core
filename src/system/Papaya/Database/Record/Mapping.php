@@ -62,7 +62,7 @@ class PapayaDatabaseRecordMapping implements PapayaDatabaseInterfaceMapping {
    * Define mapping
    *
    * @param array(string=>string|NULL) $definition
-   * @throws LogicException
+   * @throws \LogicException
    */
   private function setDefinition($definition) {
     $this->_properties = array();
@@ -306,10 +306,10 @@ class PapayaDatabaseRecordMapping implements PapayaDatabaseInterfaceMapping {
   /**
   * Getter/Setter for the possible callbacks, to modify the behaviour of the mapping
   *
-  * @param PapayaDatabaseRecordMappingCallbacks $callbacks
-  * @return PapayaDatabaseRecordMappingCallbacks
+  * @param \PapayaDatabaseRecordMappingCallbacks $callbacks
+  * @return \PapayaDatabaseRecordMappingCallbacks
   */
-  public function callbacks(PapayaDatabaseRecordMappingCallbacks $callbacks = NULL) {
+  public function callbacks(\PapayaDatabaseRecordMappingCallbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {

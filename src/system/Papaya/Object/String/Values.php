@@ -85,42 +85,42 @@ class PapayaObjectStringValues implements ArrayAccess, Countable, IteratorAggreg
   }
 
   /**
-   * @see ArrayAccess::offsetExists()
+   * @see \ArrayAccess::offsetExists()
    */
   public function offsetExists($offset) {
     return $this->_values->offsetExists($offset);
   }
 
   /**
-   * @see ArrayAccess::offsetGet()
+   * @see \ArrayAccess::offsetGet()
    */
   public function offsetGet($offset) {
     return $this->_values->offsetGet($offset);
   }
 
   /**
-   * @see ArrayAccess::offsetSet()
+   * @see \ArrayAccess::offsetSet()
    */
   public function offsetSet($offset, $value) {
     $this->_values->offsetSet($offset, $value);
   }
 
   /**
-   * @see ArrayAccess::offsetUnset()
+   * @see \ArrayAccess::offsetUnset()
    */
   public function offsetUnset($offset) {
     $this->_values->offsetUnset($offset);
   }
 
   /**
-   * @see Countable::count()
+   * @see \Countable::count()
    */
   public function count() {
     return count($this->_values);
   }
 
   /**
-   * @see IteratorAggregate::getIterator()
+   * @see \IteratorAggregate::getIterator()
    */
   public function getIterator() {
     return $this->_values->getIterator();

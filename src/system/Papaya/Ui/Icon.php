@@ -106,10 +106,10 @@ class PapayaUiIcon extends PapayaUiControl {
   /**
   * append icon to output using a <glyph> element.
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     if ($this->_visible) {
       $glyph = $parent->appendElement(
         'glyph',
@@ -151,7 +151,7 @@ class PapayaUiIcon extends PapayaUiControl {
   * If action parameters were provided, return the reference for a link containing these
   * parameters in the query string
   *
-  * @return PapayaUiReference|NULL
+  * @return \PapayaUiReference|NULL
   */
   public function getUrl() {
     if (empty($this->_actionParameters)) {
@@ -166,10 +166,10 @@ class PapayaUiIcon extends PapayaUiControl {
   /**
    * Getter/Setter for a reference subobject used to create hyperlinks.
    *
-   * @param PapayaUiReference $reference
+   * @param \PapayaUiReference $reference
    * @return \PapayaUiReference
    */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     }

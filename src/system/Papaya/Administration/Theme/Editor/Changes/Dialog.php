@@ -42,8 +42,8 @@ class PapayaAdministrationThemeEditorChangesDialog
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
-   * @see PapayaUiControlCommandDialog::createDialog()
-   * @return PapayaUiDialog
+   * @see \PapayaUiControlCommandDialog::createDialog()
+   * @return \PapayaUiDialog
    */
   public function createDialog() {
     $setId = $this->parameters()->get('set_id', 0);
@@ -82,9 +82,9 @@ class PapayaAdministrationThemeEditorChangesDialog
               $value->fieldType, $options
             );
             $field->setHint($value->hint);
-          } catch (PapayaUiDialogFieldFactoryException $e) {
+          } catch (\PapayaUiDialogFieldFactoryException $e) {
             $fieldset->fields[] = new \PapayaUiDialogFieldMessage(
-              PapayaMessage::SEVERITY_ERROR, $e->getMessage()
+              \PapayaMessage::SEVERITY_ERROR, $e->getMessage()
             );
           }
         }
@@ -92,7 +92,7 @@ class PapayaAdministrationThemeEditorChangesDialog
       }
       if (count($dialog->fields) == 0) {
         $dialog->fields[] = new \PapayaUiDialogFieldMessage(
-          PapayaMessage::SEVERITY_ERROR,
+          \PapayaMessage::SEVERITY_ERROR,
           new \PapayaUiStringTranslated('Invalid value definition!')
         );
       } else {
@@ -104,7 +104,7 @@ class PapayaAdministrationThemeEditorChangesDialog
       $dialog->caption = new \PapayaUiStringTranslated('Error');
       if (count($dialog->fields) == 0) {
         $dialog->fields[] = new \PapayaUiDialogFieldMessage(
-          PapayaMessage::SEVERITY_ERROR,
+          \PapayaMessage::SEVERITY_ERROR,
           new \PapayaUiStringTranslated('Theme page not found!')
         );
       }
@@ -118,7 +118,7 @@ class PapayaAdministrationThemeEditorChangesDialog
   public function callbackSaveValues() {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_INFO,
+        \PapayaMessage::SEVERITY_INFO,
         'Values saved.'
       )
     );
@@ -131,12 +131,12 @@ class PapayaAdministrationThemeEditorChangesDialog
    * Save data from dialog
    *
    * @param object $context
-   * @param PapayaUiDialog $dialog
+   * @param \PapayaUiDialog $dialog
    */
   public function callbackShowError($context, $dialog) {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_ERROR,
+        \PapayaMessage::SEVERITY_ERROR,
         'Invalid input. Please check the field(s) "%s".',
         array(implode(', ', $dialog->errors()->getSourceCaptions()))
       )
@@ -146,10 +146,10 @@ class PapayaAdministrationThemeEditorChangesDialog
   /**
    * Theme definition page to access the group and value definition of the selected page
    *
-   * @param PapayaContentStructurePage $themePage
-   * @return PapayaContentStructurePage
+   * @param \PapayaContentStructurePage $themePage
+   * @return \PapayaContentStructurePage
    */
-  public function themePage(PapayaContentStructurePage $themePage = NULL) {
+  public function themePage(\PapayaContentStructurePage $themePage = NULL) {
     if (isset($themePage)) {
       $this->_themePage = $themePage;
     } elseif (NULL === $this->_themePage) {
@@ -165,10 +165,10 @@ class PapayaAdministrationThemeEditorChangesDialog
    * The theme handler is an helper object to get general information about the
    * themes of the current installation
    *
-   * @param PapayaThemeHandler $themeHandler
-   * @return PapayaThemeHandler
+   * @param \PapayaThemeHandler $themeHandler
+   * @return \PapayaThemeHandler
    */
-  public function themeHandler(PapayaThemeHandler $themeHandler = NULL) {
+  public function themeHandler(\PapayaThemeHandler $themeHandler = NULL) {
     if (isset($themeHandler)) {
       $this->_themeHandler = $themeHandler;
     } elseif (NULL === $this->_themeHandler) {
@@ -182,10 +182,10 @@ class PapayaAdministrationThemeEditorChangesDialog
    * The dialog field factory creates field for the given field types using profile classes/objects
    * defined by the field type name.
    *
-   * @param PapayaUiDialogFieldFactory $factory
-   * @return PapayaUiDialogFieldFactory
+   * @param \PapayaUiDialogFieldFactory $factory
+   * @return \PapayaUiDialogFieldFactory
    */
-  public function fieldFactory(PapayaUiDialogFieldFactory $factory = NULL) {
+  public function fieldFactory(\PapayaUiDialogFieldFactory $factory = NULL) {
     if (isset($factory)) {
       $this->_fieldFactory = $factory;
     } elseif (NULL === $this->_fieldFactory) {
@@ -197,15 +197,15 @@ class PapayaAdministrationThemeEditorChangesDialog
   /**
    * Access to the theme cache service - to reset the cache after changes.
    *
-   * @param PapayaCacheService $service
-   * @return PapayaCacheService
+   * @param \PapayaCacheService $service
+   * @return \PapayaCacheService
    */
-  public function cache(PapayaCacheService $service = NULL) {
+  public function cache(\PapayaCacheService $service = NULL) {
     if (isset($service)) {
       $this->_cacheService = $service;
     } elseif (NULL == $this->_cacheService) {
       /** @noinspection PhpParamsInspection */
-      $this->_cacheService = PapayaCache::getService($this->papaya()->options);
+      $this->_cacheService = \PapayaCache::getService($this->papaya()->options);
     }
     return $this->_cacheService;
   }

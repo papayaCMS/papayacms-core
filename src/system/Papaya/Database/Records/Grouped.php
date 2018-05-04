@@ -43,7 +43,7 @@ abstract class PapayaDatabaseRecordsGrouped extends PapayaDatabaseRecordsLazy {
    * @param integer|NULL $limit
    * @param integer|NULL $offset
    * @param array $idProperties
-   * @throws LogicException
+   * @throws \LogicException
    * @return bool
    */
   protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = array()) {

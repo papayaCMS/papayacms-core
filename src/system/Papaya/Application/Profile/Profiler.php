@@ -25,8 +25,8 @@ class PapayaApplicationProfileProfiler implements PapayaApplicationProfile {
 
   /**
   * Create the profile object and return it
-  * @param PapayaApplication|PapayaApplicationCms $application
-  * @return PapayaProfiler
+  * @param \PapayaApplication|\PapayaApplicationCms $application
+  * @return \PapayaProfiler
   */
   public function createObject($application) {
     $builder = $this->builder();
@@ -43,10 +43,10 @@ class PapayaApplicationProfileProfiler implements PapayaApplicationProfile {
   /**
    * Getter/Setter for profiler builder
    *
-   * @param PapayaProfilerBuilder $builder
-   * @return PapayaProfilerBuilder
+   * @param \PapayaProfilerBuilder $builder
+   * @return \PapayaProfilerBuilder
    */
-  public function builder(PapayaProfilerBuilder $builder = NULL) {
+  public function builder(\PapayaProfilerBuilder $builder = NULL) {
     if (NULL !== $builder) {
       $this->_builder = $builder;
     } elseif (NULL === $this->_builder) {

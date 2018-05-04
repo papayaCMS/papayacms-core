@@ -85,12 +85,12 @@ class PapayaContentPageDependency extends PapayaDatabaseRecord {
     'note' => 'topic_note'
   );
 
-  protected $_tableName = PapayaContentTables::PAGE_DEPENDENCIES;
+  protected $_tableName = \PapayaContentTables::PAGE_DEPENDENCIES;
 
   /**
   * Create a multi field key object containg both page id properties
   *
-  * @return PapayaDatabaseInterfaceKey
+  * @return \PapayaDatabaseInterfaceKey
   */
   protected function _createKey() {
     return new \PapayaDatabaseRecordKeyFields(
@@ -104,8 +104,8 @@ class PapayaContentPageDependency extends PapayaDatabaseRecord {
    * Velidate the deinfed dependency an save it into database.
    *
    * @throw UnexpectedValueException
-   * @throws UnexpectedValueException
-   * @return bool|PapayaDatabaseInterfaceKey
+   * @throws \UnexpectedValueException
+   * @return bool|\PapayaDatabaseInterfaceKey
    */
   public function save() {
     if ($this->id < 1) {

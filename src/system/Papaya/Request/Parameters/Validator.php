@@ -52,7 +52,7 @@ class PapayaRequestParametersValidator
    * PapayaRequestParametersValidator constructor.
    *
    * @param array $definitions
-   * @param array|PapayaRequestParameters $parameters
+   * @param array|\PapayaRequestParameters $parameters
    * @throws \UnexpectedValueException
    */
   public function __construct(array $definitions, $parameters) {
@@ -60,7 +60,7 @@ class PapayaRequestParametersValidator
     if (is_array($parameters)) {
       $parameters = new \PapayaRequestParameters($parameters);
     }
-    PapayaUtilConstraints::assertInstanceOf('PapayaRequestParameters', $parameters);
+    \PapayaUtilConstraints::assertInstanceOf('PapayaRequestParameters', $parameters);
     $this->_parameters = $parameters;
   }
 
@@ -72,19 +72,19 @@ class PapayaRequestParametersValidator
    */
   private function setDefinitions(array $definitions) {
     foreach ($definitions as $definition) {
-      $name = PapayaUtilArray::get($definition, array('name', 0), NULL);
-      PapayaUtilConstraints::assertNotEmpty(
+      $name = \PapayaUtilArray::get($definition, array('name', 0), NULL);
+      \PapayaUtilConstraints::assertNotEmpty(
         $name, 'Empty parameter name not allowed.'
       );
-      $default = PapayaUtilArray::get($definition, array('default', 1), NULL);
+      $default = \PapayaUtilArray::get($definition, array('default', 1), NULL);
       if ($default instanceof \PapayaFilter) {
         $filter = $default;
         $default = NULL;
       } else {
-        $filter = PapayaUtilArray::get($definition, array('filter', 2), NULL);
+        $filter = \PapayaUtilArray::get($definition, array('filter', 2), NULL);
       }
       if (NULL !== $filter) {
-        PapayaUtilConstraints::assertInstanceOf('PapayaFilter', $filter);
+        \PapayaUtilConstraints::assertInstanceOf('PapayaFilter', $filter);
       }
       $this->_definitions[$name] = array(
         'default' => $default, 'filter' => $filter
@@ -113,7 +113,7 @@ class PapayaRequestParametersValidator
           if (NULL !== $filter) {
             $filter->validate($value);
           }
-        } catch (PapayaFilterException $e) {
+        } catch (\PapayaFilterException $e) {
           $this->_errors[$name] = $e;
           $this->_validationResult = FALSE;
         }
@@ -157,7 +157,7 @@ class PapayaRequestParametersValidator
   /**
    * @param mixed $name
    * @param mixed $value
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function offsetSet($name, $value) {
     $this->validate();
@@ -197,7 +197,7 @@ class PapayaRequestParametersValidator
    * Reset a value to the provided default
    *
    * @param string $name
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function offsetUnset($name) {
     $this->validate();
@@ -215,7 +215,7 @@ class PapayaRequestParametersValidator
   /**
    * Allow to access the values using iteration
    *
-   * @return Iterator
+   * @return \Iterator
    */
   public function getIterator() {
     $this->validate();

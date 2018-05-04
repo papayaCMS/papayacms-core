@@ -43,7 +43,7 @@ class PapayaUiSheet extends PapayaUiControl {
     $this->_content = $this->_document->appendElement('text');
   }
 
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $sheet = $parent->appendElement('sheet');
     $title = (string)$this->_title;
     if (!(empty($title) && count($this->subtitles()) == 0)) {
@@ -71,15 +71,15 @@ class PapayaUiSheet extends PapayaUiControl {
   }
 
   /**
-   * @param PapayaUiSheetSubtitles $subtitles
-   * @return PapayaUiSheetSubtitles
+   * @param \PapayaUiSheetSubtitles $subtitles
+   * @return \PapayaUiSheetSubtitles
    */
-  public function subtitles(PapayaUiSheetSubtitles $subtitles = NULL) {
+  public function subtitles(\PapayaUiSheetSubtitles $subtitles = NULL) {
     if (isset($subtitles)) {
       if (is_array($subtitles)) {
         $this->_subtitles = new \PapayaUiSheetSubtitles($subtitles);
       } else {
-        PapayaUtilConstraints::assertInstanceOf('PapayaUiSheetSubtitles', $subtitles);
+        \PapayaUtilConstraints::assertInstanceOf('PapayaUiSheetSubtitles', $subtitles);
         $this->_subtitles = $subtitles;
       }
     } elseif (NULL === $this->_subtitles) {
@@ -89,8 +89,8 @@ class PapayaUiSheet extends PapayaUiControl {
   }
 
   /**
-   * @param PapayaXmlAppendable $content
-   * @return PapayaXmlElement|PapayaXmlAppendable $content
+   * @param \PapayaXmlAppendable $content
+   * @return \PapayaXmlElement|\PapayaXmlAppendable $content
    */
   public function content($content = NULL) {
     if (isset($content)) {
@@ -101,7 +101,7 @@ class PapayaUiSheet extends PapayaUiControl {
         );
         $this->_content = $this->_document->documentElement;
       } else {
-        PapayaUtilConstraints::assertInstanceOf('PapayaXmlAppendable', $content);
+        \PapayaUtilConstraints::assertInstanceOf('PapayaXmlAppendable', $content);
         $this->_content = $content;
       }
     }

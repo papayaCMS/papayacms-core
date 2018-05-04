@@ -1,21 +1,17 @@
 <?php
 /**
-* Provides a node marker for a listview item
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Node.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Provides a node marker for a listview item
@@ -78,10 +74,10 @@ class PapayaUiListviewItemNode extends PapayaUiControl {
   /**
    * Store the owner item and set an status
    *
-   * @param PapayaUiListviewItem $item
+   * @param \PapayaUiListviewItem $item
    * @param integer $status
    */
-  public function __construct(PapayaUiListviewItem $item, $status = self::NODE_HIDDEN) {
+  public function __construct(\PapayaUiListviewItem $item, $status = self::NODE_HIDDEN) {
     $this->_item = $item;
     $this->setStatus($status);
   }
@@ -89,11 +85,11 @@ class PapayaUiListviewItemNode extends PapayaUiControl {
   /**
    * Append the listview item node marker to the parent xml element
    *
-   * @param PapayaXmlElement $parent
-   * @param PapayaXmlElement|NULL
+   * @param \PapayaXmlElement $parent
+   * @param \PapayaXmlElement|NULL
    * @return null|\PapayaXmlElement
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     if ($this->status != self::NODE_HIDDEN) {
       $node = $parent->appendElement(
         'node',
@@ -125,10 +121,10 @@ class PapayaUiListviewItemNode extends PapayaUiControl {
    * Getter/Setter for the node reference, if no reference is provided it is cloned
    * from the item.
    *
-   * @param PapayaUiReference $reference
-   * @return PapayaUiReference
+   * @param \PapayaUiReference $reference
+   * @return \PapayaUiReference
    */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {

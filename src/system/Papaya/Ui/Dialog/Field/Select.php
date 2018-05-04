@@ -55,9 +55,9 @@ class PapayaUiDialogFieldSelect extends PapayaUiDialogField {
    * Initialize object ans set caption, name and value list.
    *
    *
-   * @param string|PapayaUiString $caption
+   * @param string|\PapayaUiString $caption
    * @param string $name
-   * @param array|Traversable $values
+   * @param array|\Traversable $values
    * @param bool $mandatory
    * @param int $mode
    */
@@ -77,7 +77,7 @@ class PapayaUiDialogFieldSelect extends PapayaUiDialogField {
    * @param integer $mode
    */
   public function setValueMode($mode) {
-    PapayaUtilConstraints::assertInteger($mode);
+    \PapayaUtilConstraints::assertInteger($mode);
     $this->_valueMode = $mode;
     $this->setFilter($this->_createFilter());
   }
@@ -95,10 +95,10 @@ class PapayaUiDialogFieldSelect extends PapayaUiDialogField {
   *
   * array('value' => 'label', ...)
   *
-  * @param array|Traversable $values
+  * @param array|\Traversable $values
   */
   public function setValues($values) {
-    PapayaUtilConstraints::assertArrayOrTraversable($values);
+    \PapayaUtilConstraints::assertArrayOrTraversable($values);
     $this->_values = $values;
     $this->setFilter($this->_createFilter());
   }
@@ -128,10 +128,10 @@ class PapayaUiDialogFieldSelect extends PapayaUiDialogField {
   /**
    * Append select field to DOM
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    * @return \PapayaXmlElement
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $this->_appendOptions(
       $this->_appendSelect(
         $this->_appendFieldTo($parent)
@@ -144,10 +144,10 @@ class PapayaUiDialogFieldSelect extends PapayaUiDialogField {
   /**
   * Append the select element itself to the DOM (the field element is the parent)
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement
   */
-  protected function _appendSelect(PapayaXmlElement $parent) {
+  protected function _appendSelect(\PapayaXmlElement $parent) {
     return $parent->appendElement(
       'select',
       array(
@@ -160,12 +160,12 @@ class PapayaUiDialogFieldSelect extends PapayaUiDialogField {
   /**
    * Append select field option elements to DOM
    *
-   * @param PapayaXmlElement $parent
-   * @param RecursiveIterator|Traversable|array $options
-   * @return PapayaXmlElement
+   * @param \PapayaXmlElement $parent
+   * @param \RecursiveIterator|\Traversable|array $options
+   * @return \PapayaXmlElement
    */
-  protected function _appendOptions(PapayaXmlElement $parent, $options) {
-    PapayaUtilConstraints::assertArrayOrTraversable($options);
+  protected function _appendOptions(\PapayaXmlElement $parent, $options) {
+    \PapayaUtilConstraints::assertArrayOrTraversable($options);
     $isRecursiveIterator = ($options instanceof \RecursiveIterator);
     foreach ($options as $index => $option) {
       if ($isRecursiveIterator && $options->hasChildren()) {
@@ -180,12 +180,12 @@ class PapayaUiDialogFieldSelect extends PapayaUiDialogField {
   /**
    * Append an option group element to the DOM
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    * @param mixed $option
    * @param mixed $index
-   * @return PapayaXmlElement
+   * @return \PapayaXmlElement
    */
-  protected function _appendOptionGroup(PapayaXmlElement $parent, $option, $index) {
+  protected function _appendOptionGroup(\PapayaXmlElement $parent, $option, $index) {
     $caption = $this->callbacks()->getOptionGroupCaption($option, $index);
     $caption = empty($caption) ? (string)$option : $caption;
     return $parent->appendElement(
@@ -198,12 +198,12 @@ class PapayaUiDialogFieldSelect extends PapayaUiDialogField {
   * Append one option element to DOM. This calls callbacks to get the option caption
   * and data attributes.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   * @param mixed $option
   * @param mixed $index
-  * @return PapayaXmlElement
+  * @return \PapayaXmlElement
   */
-  protected function _appendOption(PapayaXmlElement $parent, $option, $index) {
+  protected function _appendOption(\PapayaXmlElement $parent, $option, $index) {
     $caption = $this->callbacks()->getOptionCaption($option, $index);
     $caption = empty($caption) ? (string)$option : $caption;
     $value = ($this->getValueMode() == self::VALUE_USE_KEY) ? $index : $caption;
@@ -243,10 +243,10 @@ class PapayaUiDialogFieldSelect extends PapayaUiDialogField {
   * Getter/Setter for the callbacks, if you set your own callback object, make sure it has the
   * needed definitions.
   *
-  * @param PapayaUiDialogFieldSelectCallbacks $callbacks
-  * @return PapayaUiDialogFieldSelectCallbacks
+  * @param \PapayaUiDialogFieldSelectCallbacks $callbacks
+  * @return \PapayaUiDialogFieldSelectCallbacks
   */
-  public function callbacks(PapayaUiDialogFieldSelectCallbacks $callbacks = NULL) {
+  public function callbacks(\PapayaUiDialogFieldSelectCallbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {

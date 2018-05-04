@@ -83,9 +83,9 @@ abstract class PapayaTemplateEngine {
   /**
    * Combined getter/setter for paramters
    *
-   * @param PapayaObjectOptionsList|array $parameters
-   * @throws InvalidArgumentException
-   * @return PapayaObjectOptionsList
+   * @param \PapayaObjectOptionsList|array $parameters
+   * @throws \InvalidArgumentException
+   * @return \PapayaObjectOptionsList
    */
   public function parameters($parameters = NULL) {
     if (isset($parameters)) {
@@ -107,11 +107,11 @@ abstract class PapayaTemplateEngine {
   /**
    * Combined getter/setter for loaders
    *
-   * @param PapayaObjectList $loaders
-   * @throws InvalidArgumentException
-   * @return PapayaObjectList
+   * @param \PapayaObjectList $loaders
+   * @throws \InvalidArgumentException
+   * @return \PapayaObjectList
    */
-  public function loaders(PapayaObjectList $loaders = NULL) {
+  public function loaders(\PapayaObjectList $loaders = NULL) {
     if (isset($loaders)) {
       if ($loaders->getItemClass() == 'PapayaTemplateEngineValuesLoadable') {
         $this->_loaders = $loaders;
@@ -134,8 +134,8 @@ abstract class PapayaTemplateEngine {
    * values are converted using the loaders
    *
    * @param mixed $values
-   * @throws UnexpectedValueException
-   * @return PapayaXmlDocument
+   * @throws \UnexpectedValueException
+   * @return \PapayaXmlDocument
    */
   public function values($values = NULL) {
     if (isset($values)) {

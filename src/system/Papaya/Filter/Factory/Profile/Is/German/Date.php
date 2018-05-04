@@ -22,7 +22,7 @@
 class PapayaFilterFactoryProfileIsGermanDate extends PapayaFilterFactoryProfile {
 
   /**
-   * @see PapayaFilterFactoryProfile::getFilter()
+   * @see \PapayaFilterFactoryProfile::getFilter()
    */
   public function getFilter() {
     return new \PapayaFilterPcre('(^\d{1,2}\.\d{1,2}\.\d{2,4}$)Du');

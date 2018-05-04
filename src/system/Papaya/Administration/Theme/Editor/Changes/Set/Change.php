@@ -25,8 +25,8 @@ class PapayaAdministrationThemeEditorChangesSetChange
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
-   * @see PapayaUiControlCommandDialog::createDialog()
-   * @return PapayaUiDialog
+   * @see \PapayaUiControlCommandDialog::createDialog()
+   * @return \PapayaUiDialog
    */
   public function createDialog() {
     $setId = $this->parameters()->get('set_id', 0);
@@ -70,7 +70,7 @@ class PapayaAdministrationThemeEditorChangesSetChange
   public function callbackSaveValues() {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_INFO,
+        \PapayaMessage::SEVERITY_INFO,
         'Theme set saved.'
       )
     );
@@ -80,12 +80,12 @@ class PapayaAdministrationThemeEditorChangesSetChange
    * Save data from dialog
    *
    * @param object $context
-   * @param PapayaUiDialog $dialog
+   * @param \PapayaUiDialog $dialog
    */
   public function callbackShowError($context, $dialog) {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_ERROR,
+        \PapayaMessage::SEVERITY_ERROR,
         'Invalid input. Please check the field(s) "%s".',
         array(implode(', ', $dialog->errors()->getSourceCaptions()))
       )

@@ -31,11 +31,11 @@ abstract class PapayaDatabaseConditionFulltext {
   }
 
   /**
-   * @param PapayaParserSearchString $tokens
-   * @param array|Traversable $fields
+   * @param \PapayaParserSearchString $tokens
+   * @param array|\Traversable $fields
    * @return mixed
    */
-  abstract protected function getFullTextCondition(PapayaParserSearchString $tokens, array $fields);
+  abstract protected function getFullTextCondition(\PapayaParserSearchString $tokens, array $fields);
 
   public function getDatabaseAccess() {
     return $this->getParent()->getDatabaseAccess();
@@ -53,7 +53,7 @@ abstract class PapayaDatabaseConditionFulltext {
     try {
       $tokens = new \PapayaParserSearchString($this->_searchFor);
       return $this->getFullTextCondition($tokens, array_map([$this, 'mapFieldName'], $this->_fields));
-    } catch (LogicException $e) {
+    } catch (\LogicException $e) {
       if (!$silent) {
         throw $e;
       }

@@ -45,9 +45,9 @@ class PapayaSessionParameters extends PapayaObject {
   * an object. If it is an object, the classname is used.
   *
   * @param object|string $group
-  * @param PapayaRequestParameters $parameters
+  * @param \PapayaRequestParameters $parameters
   */
-  public function __construct($group, PapayaRequestParameters $parameters) {
+  public function __construct($group, \PapayaRequestParameters $parameters) {
     $this->_group = $group;
     $this->parameters($parameters);
   }
@@ -65,7 +65,7 @@ class PapayaSessionParameters extends PapayaObject {
   *
   * @param string|array $name
   * @param mixed $default
-  * @param PapayaFilter|NULL $filter
+  * @param \PapayaFilter|NULL $filter
   * @param array|string $dependencies
   * @return mixed
   */
@@ -76,7 +76,7 @@ class PapayaSessionParameters extends PapayaObject {
       $value = $this->parameters()->get($name, $default, $filter);
       $this->values()->set($sessionName, $value);
       if ($sessionValue != $value && !empty($dependencies)) {
-        foreach (PapayaUtilArray::ensure($dependencies) as $dependency) {
+        foreach (\PapayaUtilArray::ensure($dependencies) as $dependency) {
           $this->remove($dependency);
         }
       }
@@ -113,10 +113,10 @@ class PapayaSessionParameters extends PapayaObject {
   /**
   * Getter/Setter for the associated request parameters
   *
-  * @param PapayaRequestParameters $parameters
-  * @return PapayaRequestParameters
+  * @param \PapayaRequestParameters $parameters
+  * @return \PapayaRequestParameters
   */
-  public function parameters(PapayaRequestParameters $parameters = NULL) {
+  public function parameters(\PapayaRequestParameters $parameters = NULL) {
     if (isset($parameters)) {
       $this->_parameters = $parameters;
     }
@@ -126,10 +126,10 @@ class PapayaSessionParameters extends PapayaObject {
   /**
   * Getter/Setter for the associated session values
   *
-  * @param PapayaSessionValues $values
-  * @return PapayaSessionValues
+  * @param \PapayaSessionValues $values
+  * @return \PapayaSessionValues
   */
-  public function values(PapayaSessionValues $values = NULL) {
+  public function values(\PapayaSessionValues $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
     } elseif (is_null($this->_values)) {

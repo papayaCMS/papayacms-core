@@ -31,28 +31,28 @@ class PapayaAdministrationPluginEditorGroup extends PapayaPluginEditor {
   /**
    * PapayaAdministrationPluginEditorGroup constructor.
    *
-   * @param PapayaPluginEditableContent $content
+   * @param \PapayaPluginEditableContent $content
    * @param string $indexParameterName
    */
-  public function __construct(PapayaPluginEditableContent $content, $indexParameterName = 'editor_index') {
+  public function __construct(\PapayaPluginEditableContent $content, $indexParameterName = 'editor_index') {
     parent::__construct($content);
     $this->_indexParameterName = $indexParameterName;
   }
 
   /**
-   * @param PapayaPluginEditor $editor
+   * @param \PapayaPluginEditor $editor
    * @param $buttonCaption
    * @param string $buttonImage
    */
-  public function add(PapayaPluginEditor $editor, $buttonCaption, $buttonImage = '') {
+  public function add(\PapayaPluginEditor $editor, $buttonCaption, $buttonImage = '') {
     $this->_editors[] = [$editor, $buttonCaption, $buttonImage];
   }
 
   /**
-   * @param PapayaUiToolbar|NULL $toolbar
-   * @return PapayaUiToolbar
+   * @param \PapayaUiToolbar|NULL $toolbar
+   * @return \PapayaUiToolbar
    */
-  public function toolbar(PapayaUiToolbar $toolbar = NULL) {
+  public function toolbar(\PapayaUiToolbar $toolbar = NULL) {
     if (NULL !== $toolbar) {
       $this->_toolbar = $toolbar;
     } elseif (NULL === $this->_toolbar) {
@@ -75,7 +75,7 @@ class PapayaAdministrationPluginEditorGroup extends PapayaPluginEditor {
   }
 
   /**
-   * @return PapayaPluginEditor
+   * @return \PapayaPluginEditor
    */
   private function getCurrentEditor() {
     $editorIndex = $this->parameters()->get($this->_indexParameterName, 0);
@@ -92,10 +92,10 @@ class PapayaAdministrationPluginEditorGroup extends PapayaPluginEditor {
   /**
    * Execute and append the dialog to to the administration interface DOM.
    *
-   * @see PapayaXmlAppendable::appendTo()
-   * @param PapayaXmlElement $parent
+   * @see \PapayaXmlAppendable::appendTo()
+   * @param \PapayaXmlElement $parent
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $parent->append($this->toolbar());
     $parent->append($this->getCurrentEditor());
   }

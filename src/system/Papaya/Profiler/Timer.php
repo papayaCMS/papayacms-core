@@ -50,7 +50,7 @@ class PapayaProfilerTimer extends PapayaObject implements IteratorAggregate {
   /**
    * Compile an return the list of taken timings.
    *
-   * @return Traversable
+   * @return \Traversable
    */
   public function getIterator() {
     $result = array();
@@ -65,7 +65,7 @@ class PapayaProfilerTimer extends PapayaObject implements IteratorAggregate {
       }
       $result[] = array(
         'time' => $take['time'] - $offset,
-        'time_string' => PapayaUtilDate::periodToString($take['time'] - $offset),
+        'time_string' => \PapayaUtilDate::periodToString($take['time'] - $offset),
         'start' => $offset,
         'end' => $offset = $take['time'],
         'text' => $text
@@ -80,8 +80,8 @@ class PapayaProfilerTimer extends PapayaObject implements IteratorAggregate {
   public function emit() {
     foreach ($this as $take) {
       $this->papaya()->messages->log(
-        PapayaMessageLogable::GROUP_DEBUG,
-        PapayaMessage::SEVERITY_DEBUG,
+        \PapayaMessageLogable::GROUP_DEBUG,
+        \PapayaMessage::SEVERITY_DEBUG,
         $take['text'],
         new \PapayaMessageContextRuntime($take['start'], $take['end'])
       );

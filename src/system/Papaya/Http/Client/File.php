@@ -60,12 +60,12 @@ abstract class PapayaHttpClientFile {
   /**
   * abstract send function
   *
-  * @param PapayaHttpClientSocket $socket
+  * @param \PapayaHttpClientSocket $socket
   * @param boolean $chunked optional, default value FALSE
   * @param integer $bufferSize optional, default value 0
   * @return void
   */
-  abstract public function send(PapayaHttpClientSocket $socket, $chunked = FALSE, $bufferSize = 0);
+  abstract public function send(\PapayaHttpClientSocket $socket, $chunked = FALSE, $bufferSize = 0);
 
   /**
   * get file size property value
@@ -79,7 +79,7 @@ abstract class PapayaHttpClientFile {
   /**
    * get file name property
    *
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return string
    */
   public function getName() {

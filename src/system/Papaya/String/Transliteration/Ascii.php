@@ -53,7 +53,7 @@ class PapayaStringTransliterationAscii {
   * @return string
   */
   public function mapCharacterMatch($match) {
-    $codepoint = PapayaUtilStringUtf8::getCodepoint($match[0]);
+    $codepoint = \PapayaUtilStringUtf8::getCodepoint($match[0]);
     return $this->mapping()->get($codepoint, $this->_language);
   }
 
@@ -61,10 +61,10 @@ class PapayaStringTransliterationAscii {
   * Mapping tables subobject, this is saved statically to improve performance and
   * memory consumption.
   *
-  * @param PapayaStringTransliterationAsciiMapping $mapping
-  * @return PapayaStringTransliterationAsciiMapping
+  * @param \PapayaStringTransliterationAsciiMapping $mapping
+  * @return \PapayaStringTransliterationAsciiMapping
   */
-  public function mapping(PapayaStringTransliterationAsciiMapping $mapping = NULL) {
+  public function mapping(\PapayaStringTransliterationAsciiMapping $mapping = NULL) {
     if (isset($mapping)) {
       self::$_mapping = $mapping;
     } elseif (is_null(self::$_mapping)) {

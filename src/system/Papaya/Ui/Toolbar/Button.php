@@ -91,10 +91,10 @@ class PapayaUiToolbarButton extends PapayaUiToolbarElement {
    * Setter for access key character.
    *
    * @param string $key
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function setAccessKey($key) {
-    PapayaUtilConstraints::assertString($key);
+    \PapayaUtilConstraints::assertString($key);
     if (strlen($key) == 1) {
       $this->_accessKey = $key;
     } else {
@@ -107,9 +107,9 @@ class PapayaUiToolbarButton extends PapayaUiToolbarElement {
   /**
   * Append button xml to menu. The button needs at least a caption or image to be shown.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $image = $this->papaya()->images[(string)$this->_image];
     $caption = (string)$this->_caption;
     if (!(empty($image) && empty($caption))) {

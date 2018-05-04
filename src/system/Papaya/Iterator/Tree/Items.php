@@ -43,11 +43,11 @@ class PapayaIteratorTreeItems implements OuterIterator, RecursiveIterator {
   /**
    * Create object and store the traversable (or array)
    *
-   * @param Traversable|array $traversable
+   * @param \Traversable|array $traversable
    * @param integer $mode
    */
   public function __construct($traversable, $mode = self::ATTACH_TO_KEYS) {
-    PapayaUtilConstraints::assertArrayOrTraversable($traversable);
+    \PapayaUtilConstraints::assertArrayOrTraversable($traversable);
     $this->_traversable = $traversable;
     $this->_mode = $mode;
   }
@@ -71,10 +71,10 @@ class PapayaIteratorTreeItems implements OuterIterator, RecursiveIterator {
    * Attach an Traversalbe as children to an element.
    *
    * @param int|float|string|boolean $target
-   * @param Traversable|array $traversable
+   * @param \Traversable|array $traversable
    */
   public function attachItemIterator($target, $traversable) {
-    PapayaUtilConstraints::assertArrayOrTraversable($traversable);
+    \PapayaUtilConstraints::assertArrayOrTraversable($traversable);
     $this->_itemIterators[(string)$target] = $traversable;
   }
 
@@ -93,7 +93,7 @@ class PapayaIteratorTreeItems implements OuterIterator, RecursiveIterator {
   /**
    * Return if here is an Traversable attached for the current target
    *
-   * @see RecursiveIterator::hasChildren()
+   * @see \RecursiveIterator::hasChildren()
    * @return boolean
    */
   public function hasChildren() {
@@ -105,7 +105,7 @@ class PapayaIteratorTreeItems implements OuterIterator, RecursiveIterator {
    * The attached Traversable is an RecursiveIterator it will be returned. If it is not
    * The method creates a new Instance of this class for the Traversable.   *
    *
-   * @see RecursiveIterator::hasChildren()
+   * @see \RecursiveIterator::hasChildren()
    * @return boolean
    */
   public function getChildren() {

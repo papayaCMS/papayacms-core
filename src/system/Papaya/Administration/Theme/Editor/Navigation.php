@@ -29,9 +29,9 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
   /**
   * Append navigation to parent xml element
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $parent->append($this->listview());
     if ('' != ($themeName = $this->parameters()->get('theme', ''))) {
       $setId = $this->parameters()->get('set_id', 0);
@@ -92,10 +92,10 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
    * It displays the list of Themes, the Sets of the selected theme and the pages of the
    * selected set.
    *
-   * @param PapayaUiListview $listview
-   * @return PapayaUiListview
+   * @param \PapayaUiListview $listview
+   * @return \PapayaUiListview
    */
-  public function listview(PapayaUiListview $listview = NULL) {
+  public function listview(\PapayaUiListview $listview = NULL) {
     if (isset($listview)) {
       $this->_listview = $listview;
     } elseif (NULL === $this->_listview) {
@@ -104,7 +104,7 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
       $this->_listview->builder(
         $builder = new \PapayaUiListviewItemsBuilder(
           new \RecursiveIteratorIterator(
-            $this->createThemeList(), RecursiveIteratorIterator::SELF_FIRST
+            $this->createThemeList(), \RecursiveIteratorIterator::SELF_FIRST
           )
         )
       );
@@ -122,13 +122,13 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
    *
    * If a set is selected, the value pages from the theme.xml are attached to the set
    *
-   * @return RecursiveIterator
+   * @return \RecursiveIterator
    */
   private function createThemeList() {
     $themes = new \PapayaThemeList();
     $themes->papaya($this->papaya());
     $themeIterator = new \PapayaIteratorTreeItems(
-      $themes, PapayaIteratorTreeItems::ATTACH_TO_VALUES
+      $themes, \PapayaIteratorTreeItems::ATTACH_TO_VALUES
     );
     $selectedTheme = $this->parameters()->get('theme', '');
     if (!empty($selectedTheme)) {
@@ -153,11 +153,11 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
   /**
    * Callback to create the items, depending on the depth here are the theme and set elements
    *
-   * @param PapayaUiListviewItemsBuilder $builder
-   * @param PapayaUiListviewItems $items
+   * @param \PapayaUiListviewItemsBuilder $builder
+   * @param \PapayaUiListviewItems $items
    * @param mixed $element
    * @param mixed $index
-   * @return null|PapayaUiListviewItem
+   * @return null|\PapayaUiListviewItem
    */
   public function callbackCreateItem($builder, $items, $element, $index) {
     /** @noinspection PhpUndefinedMethodInspection */
@@ -179,7 +179,7 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
    * Create the listitem for a theme
    *
    * @param string $element
-   * @return PapayaUiListviewItem
+   * @return \PapayaUiListviewItem
    */
   private function createThemeItem($element) {
     $item = new \PapayaUiListviewItem('items-theme', (string)$element);
@@ -202,7 +202,7 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
    * Create the listitem for a set
    *
    * @param array $element
-   * @return PapayaUiListviewItem
+   * @return \PapayaUiListviewItem
    */
   private function createSetItem($element) {
     $item = new \PapayaUiListviewItem('items-folder', (string)$element['title']);
@@ -225,10 +225,10 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
   /**
    * Create the listitem for a theme values page
    *
-   * @param PapayaContentStructurePage $element
-   * @return PapayaUiListviewItem
+   * @param \PapayaContentStructurePage $element
+   * @return \PapayaUiListviewItem
    */
-  private function createPageItem(PapayaContentStructurePage $element) {
+  private function createPageItem(\PapayaContentStructurePage $element) {
     $item = new \PapayaUiListviewItem('items-folder', (string)$element->title);
     $item->papaya($this->papaya());
     $item->indentation = 2;

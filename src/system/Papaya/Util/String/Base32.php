@@ -129,7 +129,7 @@ class PapayaUtilStringBase32 {
    * decode a base32 encoded binary string
    *
    * @param string $encodedString
-   * @throws OutOfBoundsException
+   * @throws \OutOfBoundsException
    * @return string
    */
   public static function decode($encodedString) {

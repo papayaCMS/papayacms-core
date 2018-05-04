@@ -69,7 +69,7 @@ class PapayaMessageContextTable
    * This will delete all existing rows
    *
    * @param array $columns
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function setColumns(array $columns) {
     if (count($columns) > 0) {
@@ -205,7 +205,7 @@ class PapayaMessageContextTable
       if (isset($this->_captions)) {
         $result .= '<thead><tr>';
         foreach ($this->_captions as $caption) {
-          $result .= '<th>'.PapayaUtilStringXml::escape($caption).'</th>';
+          $result .= '<th>'.\PapayaUtilStringXml::escape($caption).'</th>';
         }
         $result .= '</tr></thead>';
       }
@@ -214,7 +214,7 @@ class PapayaMessageContextTable
         foreach (array_keys($this->_rows) as $rowIndex) {
           $result .= '<tr>';
           foreach ($this->getRow($rowIndex) as $content) {
-            $result .= '<td>'.PapayaUtilStringXml::escape($content).'</td>';
+            $result .= '<td>'.\PapayaUtilStringXml::escape($content).'</td>';
           }
           $result .= '</tr>';
         }

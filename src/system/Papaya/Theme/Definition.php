@@ -86,11 +86,11 @@ class PapayaThemeDefinition extends PapayaContentStructure {
   /**
    * Get a theme property
    * @param string $name
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return array
    */
   public function __get($name) {
-    $identifier = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $identifier = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     if (isset($this->_properties[$identifier])) {
       return $this->_properties[$identifier];
     } elseif ($identifier == 'thumbnails') {

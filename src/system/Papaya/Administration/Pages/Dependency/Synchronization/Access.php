@@ -41,10 +41,10 @@ class PapayaAdministrationPagesDependencySynchronizationAccess
   /**
   * Getter/Setter for the content page object
   *
-  * @param PapayaContentPageWork $page
-  * @return PapayaContentPageWork
+  * @param \PapayaContentPageWork $page
+  * @return \PapayaContentPageWork
   */
-  public function page(PapayaContentPageWork $page = NULL) {
+  public function page(\PapayaContentPageWork $page = NULL) {
     if (isset($page)) {
       $this->_page = $page;
     } elseif (is_null($this->_page)) {
@@ -56,14 +56,14 @@ class PapayaAdministrationPagesDependencySynchronizationAccess
   /**
   * Update target page permissions
   *
-  * @param PapayaContentPageWork $origin
+  * @param \PapayaContentPageWork $origin
   * @param array $targetIds
   * @return boolean
   */
-  protected function updatePages(PapayaContentPageWork $origin, array $targetIds) {
+  protected function updatePages(\PapayaContentPageWork $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
-      $databaseAccess->getTableName(PapayaContentTables::PAGES),
+      $databaseAccess->getTableName(\PapayaContentTables::PAGES),
       array(
         'topic_modified' => $databaseAccess->getTimestamp(),
         'surfer_useparent' => $origin->inheritVisitorPermissions,

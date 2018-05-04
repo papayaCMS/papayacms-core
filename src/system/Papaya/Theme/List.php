@@ -26,7 +26,7 @@ class PapayaThemeList extends PapayaObject implements IteratorAggregate {
   /**
    * Return an iterator for the theme list.
    *
-   * @see IteratorAggregate::getIterator()
+   * @see \IteratorAggregate::getIterator()
    */
   public function getIterator() {
     return new \PapayaIteratorCallback(
@@ -49,7 +49,7 @@ class PapayaThemeList extends PapayaObject implements IteratorAggregate {
    * Load the dynamic value defintion from the theme.xml and return it
    *
    * @param string $theme
-   * @return PapayaContentStructure
+   * @return \PapayaContentStructure
    */
   public function getDefinition($theme) {
     return $this->handler()->getDefinition($theme);
@@ -59,10 +59,10 @@ class PapayaThemeList extends PapayaObject implements IteratorAggregate {
    * The handler is an helper object to get general information about the
    * themes of the current installation
    *
-   * @param PapayaThemeHandler $handler
-   * @return PapayaThemeHandler
+   * @param \PapayaThemeHandler $handler
+   * @return \PapayaThemeHandler
    */
-  public function handler(PapayaThemeHandler $handler = NULL) {
+  public function handler(\PapayaThemeHandler $handler = NULL) {
     if (isset($handler)) {
       $this->_handler = $handler;
     } elseif (NULL === $this->_handler) {

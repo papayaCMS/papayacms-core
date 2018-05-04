@@ -49,7 +49,7 @@ class PapayaFilterLength implements PapayaFilter {
    * @param integer|NULL $minimum
    * @param integer|NULL $maximum
    * @param bool $isUtf8
-   * @throws RangeException
+   * @throws \RangeException
    */
   public function __construct($minimum = 0, $maximum = NULL, $isUtf8 = FALSE) {
     $this->_minimum = (int)$minimum;
@@ -65,14 +65,14 @@ class PapayaFilterLength implements PapayaFilter {
   /**
   * Check the input and throw an exception if it does not match the condition.
   *
-  * @throws PapayaFilterException
+  * @throws \PapayaFilterException
   * @param string $value
   * @return TRUE
   */
   public function validate($value) {
     if ($this->_isUtf8) {
       $string = new \PapayaStringUtf8(
-        PapayaUtilStringUtf8::ensure($value)
+        \PapayaUtilStringUtf8::ensure($value)
       );
       $length = $string->length();
     } else {
@@ -94,11 +94,11 @@ class PapayaFilterLength implements PapayaFilter {
   * @return string|NULL
   */
   public function filter($value) {
-    $value = PapayaUtilStringUtf8::ensure($value);
+    $value = \PapayaUtilStringUtf8::ensure($value);
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       return NULL;
     }
   }

@@ -79,11 +79,11 @@ class PapayaRequestLog extends PapayaObject {
   */
   public function logTime($message) {
     $now = microtime(TRUE);
-    $message .= ' after '.PapayaUtilDate::periodToString(
+    $message .= ' after '.\PapayaUtilDate::periodToString(
       $now - $this->_startTime
     );
     if ($this->_previousTime > 0) {
-      $message .= ' (+'.PapayaUtilDate::periodToString(
+      $message .= ' (+'.\PapayaUtilDate::periodToString(
         $now - $this->_previousTime
       ).')';
     }
@@ -101,8 +101,8 @@ class PapayaRequestLog extends PapayaObject {
       $this->logTime('Stopped');
     }
     $log = new \PapayaMessageLog(
-      PapayaMessageLogable::GROUP_DEBUG,
-      PapayaMessage::SEVERITY_DEBUG,
+      \PapayaMessageLogable::GROUP_DEBUG,
+      \PapayaMessage::SEVERITY_DEBUG,
       'Request Log'
     );
     foreach ($this->_events as $event) {

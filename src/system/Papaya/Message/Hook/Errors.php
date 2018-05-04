@@ -83,11 +83,11 @@ class PapayaMessageHookErrors
   /**
   * Create hook and set message manager object
   *
-  * @param PapayaMessageManager $messageManager
-  * @param PapayaMessageHookExceptions $exceptionHook
+  * @param \PapayaMessageManager $messageManager
+  * @param \PapayaMessageHookExceptions $exceptionHook
   */
   public function __construct(
-    PapayaMessageManager $messageManager, PapayaMessageHookExceptions $exceptionHook = NULL
+    PapayaMessageManager $messageManager, \PapayaMessageHookExceptions $exceptionHook = NULL
   ) {
     $this->_messageManager = $messageManager;
     $this->_exceptionHook = $exceptionHook;
@@ -145,16 +145,16 @@ class PapayaMessageHookErrors
             new \ErrorException($text, 0, $severity, $file, $line)
           );
         }
-      } catch (ErrorException $e) {
+      } catch (\ErrorException $e) {
         return $this->handleException($e);
-      } catch (Exception $e) {
+      } catch (\Exception $e) {
         return FALSE;
       }
     }
     return TRUE;
   }
 
-  private function handleException(Exception $exception) {
+  private function handleException(\Exception $exception) {
     if (isset($this->_exceptionHook)) {
       $this->_exceptionHook->handle($exception);
       return TRUE;

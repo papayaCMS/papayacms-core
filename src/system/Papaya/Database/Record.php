@@ -103,7 +103,7 @@ abstract class PapayaDatabaseRecord
   * @return boolean
   */
   public function load($filter) {
-    $condition = PapayaUtilString::escapeForPrintf($this->_compileCondition($filter));
+    $condition = \PapayaUtilString::escapeForPrintf($this->_compileCondition($filter));
     $fields = implode(
       ', ',
       $this->mapping()->getFields()
@@ -136,7 +136,7 @@ abstract class PapayaDatabaseRecord
 
   /**
    * Create a filter condition object attached to this database accesss and mapping
-   * @return PapayaDatabaseConditionRoot
+   * @return \PapayaDatabaseConditionRoot
    */
   public function createFilter() {
     return new \PapayaDatabaseConditionRoot($this, $this->mapping());
@@ -154,7 +154,7 @@ abstract class PapayaDatabaseRecord
   /**
   * Save record to database
   *
-  * @return bool|PapayaDatabaseInterfaceKey
+  * @return bool|\PapayaDatabaseInterfaceKey
   */
   public function save() {
     if ($this->key()->exists()) {
@@ -196,7 +196,7 @@ abstract class PapayaDatabaseRecord
   */
   protected function _loadRecord($sql, array $parameters = NULL) {
     if ($queryResult = $this->getDatabaseAccess()->queryFmt($sql, $parameters)) {
-      if ($row = $queryResult->fetchRow(PapayaDatabaseResult::FETCH_ASSOC)) {
+      if ($row = $queryResult->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
         $this->assign($this->mapping()->mapFieldsToProperties($row));
         $this->key()->assign($this->toArray());
         return $this->_isLoaded = TRUE;
@@ -231,7 +231,7 @@ abstract class PapayaDatabaseRecord
   /**
   * Insert the record into the database table
   *
-  * @return PapayaDatabaseInterfaceKey|FALSE
+  * @return \PapayaDatabaseInterfaceKey|FALSE
   */
   protected function _insertRecord() {
     if (!$this->callbacks()->onBeforeInsert($this)) {
@@ -239,10 +239,10 @@ abstract class PapayaDatabaseRecord
     }
     $record = $this->mapping()->mapPropertiesToFields($this->toArray(), $this->_tableAlias);
     $filter = $this->mapping()->mapPropertiesToFields(
-      $this->key()->getFilter(PapayaDatabaseInterfaceKey::ACTION_CREATE), $this->_tableAlias
+      $this->key()->getFilter(\PapayaDatabaseInterfaceKey::ACTION_CREATE), $this->_tableAlias
     );
     $qualities = $this->key()->getQualities();
-    if ($qualities & PapayaDatabaseInterfaceKey::DATABASE_PROVIDED) {
+    if ($qualities & \PapayaDatabaseInterfaceKey::DATABASE_PROVIDED) {
       reset($filter);
       $idField = key($filter);
       if (array_key_exists($idField, $record)) {
@@ -252,7 +252,7 @@ abstract class PapayaDatabaseRecord
       $idField = NULL;
       foreach ($filter as $key => $value) {
         if (!isset($record[$key]) ||
-            $qualities & PapayaDatabaseInterfaceKey::CLIENT_GENERATED) {
+            $qualities & \PapayaDatabaseInterfaceKey::CLIENT_GENERATED) {
           $record[$key] = $value;
         }
       }
@@ -281,11 +281,11 @@ abstract class PapayaDatabaseRecord
    * Getter/Setter for the mapping subobject. This is used to convert the property values into
    * a database record and back.
    *
-   * @param PapayaDatabaseInterfaceMapping $mapping
+   * @param \PapayaDatabaseInterfaceMapping $mapping
    * @internal param \PapayaDatabaseInterfaceMapping $key
-   * @return PapayaDatabaseInterfaceMapping
+   * @return \PapayaDatabaseInterfaceMapping
    */
-  public function mapping(PapayaDatabaseInterfaceMapping $mapping = NULL) {
+  public function mapping(\PapayaDatabaseInterfaceMapping $mapping = NULL) {
     if (isset($mapping)) {
       $this->_mapping = $mapping;
     } elseif (is_null($this->_mapping)) {
@@ -297,7 +297,7 @@ abstract class PapayaDatabaseRecord
   /**
   * Create a standard mapping object for the property $fields.
   *
-  * @return PapayaDatabaseRecordMapping
+  * @return \PapayaDatabaseRecordMapping
   */
   protected function _createMapping() {
     return new \PapayaDatabaseRecordMapping($this->_fields);
@@ -307,10 +307,10 @@ abstract class PapayaDatabaseRecord
   * Getter/Setter for the key subobject. This conatins informations about the identification
   * of the record.
   *
-  * @param PapayaDatabaseInterfaceKey $key
-  * @return PapayaDatabaseInterfaceKey
+  * @param \PapayaDatabaseInterfaceKey $key
+  * @return \PapayaDatabaseInterfaceKey
   */
-  public function key(PapayaDatabaseInterfaceKey $key = NULL) {
+  public function key(\PapayaDatabaseInterfaceKey $key = NULL) {
     if (isset($key)) {
       $this->_key = $key;
     } elseif (is_null($this->_key)) {
@@ -322,7 +322,7 @@ abstract class PapayaDatabaseRecord
   /**
   * Create a standard autoincrement key object for the property "id".
   *
-  * @return PapayaDatabaseRecordKeyAutoincrement
+  * @return \PapayaDatabaseRecordKeyAutoincrement
   */
   protected function _createKey() {
     return new \PapayaDatabaseRecordKeyAutoincrement('id');
@@ -330,15 +330,15 @@ abstract class PapayaDatabaseRecord
 
   /**
    * Set database access object
-   * @param PapayaDatabaseAccess $databaseAccessObject
+   * @param \PapayaDatabaseAccess $databaseAccessObject
    */
-  public function setDatabaseAccess(PapayaDatabaseAccess $databaseAccessObject) {
+  public function setDatabaseAccess(\PapayaDatabaseAccess $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
   }
 
   /**
   * Get database access object
-  * @return PapayaDatabaseAccess
+  * @return \PapayaDatabaseAccess
   */
   public function getDatabaseAccess() {
     if (!isset($this->_databaseAccessObject)) {
@@ -351,10 +351,10 @@ abstract class PapayaDatabaseRecord
   /**
   * Getter/Setter for the possible callbacks, to modify the behaviour of the object
   *
-  * @param PapayaDatabaseRecordCallbacks $callbacks
-  * @return PapayaDatabaseRecordCallbacks
+  * @param \PapayaDatabaseRecordCallbacks $callbacks
+  * @return \PapayaDatabaseRecordCallbacks
   */
-  public function callbacks(PapayaDatabaseRecordCallbacks $callbacks = NULL) {
+  public function callbacks(\PapayaDatabaseRecordCallbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
@@ -365,7 +365,7 @@ abstract class PapayaDatabaseRecord
 
   /**
    * Create callbacks subobject, override to assign callbacks
-   * @return PapayaDatabaseRecordCallbacks
+   * @return \PapayaDatabaseRecordCallbacks
    */
   protected function _createCallbacks() {
     return new \PapayaDatabaseRecordCallbacks();

@@ -32,15 +32,15 @@ class PapayaAdministrationThemeBrowser
    */
   private $_dialog;
 
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $parent->append($this->dialog());
   }
 
   /**
-   * @param PapayaUiDialog $dialog
-   * @return PapayaUiDialog
+   * @param \PapayaUiDialog $dialog
+   * @return \PapayaUiDialog
    */
-  public function dialog(PapayaUiDialog $dialog = NULL) {
+  public function dialog(\PapayaUiDialog $dialog = NULL) {
     if (isset($dialog)) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
@@ -66,10 +66,10 @@ class PapayaAdministrationThemeBrowser
       $dialog->fields[] = new \PapayaUiDialogFieldListview(
         $listview = new \PapayaUiListview()
       );
-      $listview->mode = PapayaUiListview::MODE_TILES;
+      $listview->mode = \PapayaUiListview::MODE_TILES;
       $listview->builder($builder = new \PapayaUiListviewItemsBuilder($this->themes()));
       $builder->callbacks()->onCreateItem = function(
-        $context, PapayaUiListviewItems $items, PapayaThemeDefinition $theme
+        $context, \PapayaUiListviewItems $items, \PapayaThemeDefinition $theme
       ) use ($dialog) {
         $items[] = $item = new \PapayaUiListviewItemRadio(
           $theme->thumbnails['medium'], $theme->title, $dialog, $this->_optionName, $theme->name
@@ -82,10 +82,10 @@ class PapayaAdministrationThemeBrowser
   }
 
   /**
-   * @param Traversable|NULL $themes
-   * @return Traversable
+   * @param \Traversable|NULL $themes
+   * @return \Traversable
    */
-  public function themes(Traversable $themes = NULL) {
+  public function themes(\Traversable $themes = NULL) {
     if (isset($themes)) {
       $this->_themes = $themes;
     } elseif (NULL === $this->_themes) {
@@ -93,9 +93,9 @@ class PapayaAdministrationThemeBrowser
         new \PapayaIteratorFilterCallback(
           new \PapayaIteratorCallback(
             new \DirectoryIterator(
-              PapayaUtilFilePath::cleanup($this->themeHandler()->getLocalPath())
+              \PapayaUtilFilePath::cleanup($this->themeHandler()->getLocalPath())
             ),
-            function(DirectoryIterator $fileInfo) {
+            function(\DirectoryIterator $fileInfo) {
               if ($fileInfo->isDir() && !$fileInfo->isDot()) {
                 if (file_exists($fileInfo->getRealPath().'/theme.xml')) {
                   return $this->themeHandler()->getDefinition($fileInfo->getBasename());
@@ -114,10 +114,10 @@ class PapayaAdministrationThemeBrowser
   }
 
   /**
-   * @param PapayaThemeHandler|NULL $themeHandler
-   * @return PapayaThemeHandler
+   * @param \PapayaThemeHandler|NULL $themeHandler
+   * @return \PapayaThemeHandler
    */
-  public function themeHandler(PapayaThemeHandler $themeHandler = NULL) {
+  public function themeHandler(\PapayaThemeHandler $themeHandler = NULL) {
     if (isset($themeHandler)) {
       $this->_themeHandler = $themeHandler;
     } elseif (NULL === $this->_themeHandler) {
@@ -128,7 +128,7 @@ class PapayaAdministrationThemeBrowser
   }
 
   /**
-   * @return PapayaThemeDefinition
+   * @return \PapayaThemeDefinition
    */
   public function getCurrent() {
     return $this->themeHandler()->getDefinition($this->dialog()->data->get($this->_optionName));

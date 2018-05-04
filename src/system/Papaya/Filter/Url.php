@@ -48,7 +48,7 @@ class PapayaFilterUrl implements PapayaFilter {
   /**
   * Check the value if it's a valid url, if not throw an exception.
   *
-  * @throws PapayaFilterExceptionType
+  * @throws \PapayaFilterExceptionType
   * @param string $value
   * @return TRUE
   */
@@ -69,7 +69,7 @@ class PapayaFilterUrl implements PapayaFilter {
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       return NULL;
     }
   }

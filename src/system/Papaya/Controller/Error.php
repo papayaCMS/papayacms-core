@@ -118,10 +118,10 @@ class PapayaControllerError extends PapayaObject implements PapayaController {
 
   /**
   * Execute controller
-   * @param PapayaApplication $application
-   * @param PapayaRequest &$request
-   * @param PapayaResponse &$response
-   * @return boolean|PapayaController
+   * @param \PapayaApplication $application
+   * @param \PapayaRequest &$request
+   * @param \PapayaResponse &$response
+   * @return boolean|\PapayaController
    */
   function execute(
     PapayaApplication $application,
@@ -142,11 +142,11 @@ class PapayaControllerError extends PapayaObject implements PapayaController {
   */
   protected function _getOutput() {
     $replace = array(
-      '{%status%}' => PapayaUtilStringXml::escape($this->_status),
-      '{%artwork%}' => PapayaUtilStringAsciiArtwork::get($this->_status),
-      '{%identifier%}' => PapayaUtilStringXml::escape($this->_errorIdentifier),
-      '{%message%}' => PapayaUtilStringXml::escape($this->_errorMessage),
-      '{%host%}' => PapayaUtilStringXml::escape(PapayaUtilServerName::get()),
+      '{%status%}' => \PapayaUtilStringXml::escape($this->_status),
+      '{%artwork%}' => \PapayaUtilStringAsciiArtwork::get($this->_status),
+      '{%identifier%}' => \PapayaUtilStringXml::escape($this->_errorIdentifier),
+      '{%message%}' => \PapayaUtilStringXml::escape($this->_errorMessage),
+      '{%host%}' => \PapayaUtilStringXml::escape(\PapayaUtilServerName::get()),
     );
     return str_replace(
       array_keys($replace),

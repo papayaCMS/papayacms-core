@@ -1,21 +1,17 @@
 <?php
 /**
-* A simple submit button with a caption and without a name.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Submit.php 35573 2011-03-29 10:48:18Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A simple submit button with a caption and without a name.
@@ -27,7 +23,7 @@
 *     new PapayaUiDialogButtonSubmit(
 *       new PapayaUiStringTranslated('Save')
 *     ),
-*     PapayaUiDialogButton::ALIGN_LEFT
+*     \PapayaUiDialogButton::ALIGN_LEFT
 *   );
 *
 * @package Papaya-Library
@@ -44,10 +40,10 @@ class PapayaUiDialogButtonSubmit extends PapayaUiDialogButton {
   /**
   * Initialize object, set caption and alignment
   *
-  * @param string|PapayaUiString $caption
+  * @param string|\PapayaUiString $caption
   * @param integer $align
   */
-  public function __construct($caption, $align = PapayaUiDialogButton::ALIGN_RIGHT) {
+  public function __construct($caption, $align = \PapayaUiDialogButton::ALIGN_RIGHT) {
     parent::__construct($align);
     $this->_caption = $caption;
   }
@@ -55,14 +51,14 @@ class PapayaUiDialogButtonSubmit extends PapayaUiDialogButton {
   /**
   * Append button output to DOM
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $parent->appendElement(
       'button',
       array(
         'type' => 'submit',
-        'align' => ($this->_align == PapayaUiDialogButton::ALIGN_LEFT) ? 'left' : 'right'
+        'align' => ($this->_align == \PapayaUiDialogButton::ALIGN_LEFT) ? 'left' : 'right'
       ),
       (string)$this->_caption
     );

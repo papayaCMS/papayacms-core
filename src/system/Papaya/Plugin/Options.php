@@ -39,7 +39,7 @@ class PapayaPluginOptions extends PapayaConfiguration {
   */
   public function __construct($guid) {
     parent::__construct(array());
-    $this->_guid = PapayaUtilStringGuid::toLower($guid);
+    $this->_guid = \PapayaUtilStringGuid::toLower($guid);
   }
 
   /**
@@ -50,7 +50,7 @@ class PapayaPluginOptions extends PapayaConfiguration {
   */
   public function set($name, $value) {
     $this->lazyLoad();
-    $name = PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
     if ($this->_status == self::STATUS_LOADING) {
       $this->_options[$name] = $value;
     } else {
@@ -63,10 +63,10 @@ class PapayaPluginOptions extends PapayaConfiguration {
   *
   * @param string $name
   * @param mixed $default
-  * @param PapayaFilter $filter
+  * @param \PapayaFilter $filter
   * @return mixed
   */
-  public function get($name, $default = NULL, PapayaFilter $filter = NULL) {
+  public function get($name, $default = NULL, \PapayaFilter $filter = NULL) {
     $this->lazyLoad();
     return parent::get($name, $default, $filter);
   }
@@ -85,7 +85,7 @@ class PapayaPluginOptions extends PapayaConfiguration {
   /**
   * IteratorAggregate Interface: return an iterator for the options.
   *
-  * @return Iterator
+  * @return \Iterator
   */
   public function getIterator() {
     $this->lazyLoad();
@@ -104,10 +104,10 @@ class PapayaPluginOptions extends PapayaConfiguration {
   /**
    * Load options and change loading status
    *
-   * @param PapayaConfigurationStorage $storage
+   * @param \PapayaConfigurationStorage $storage
    * @return bool|void
    */
-  public function load(PapayaConfigurationStorage $storage = NULL) {
+  public function load(\PapayaConfigurationStorage $storage = NULL) {
     $this->_status = self::STATUS_LOADING;
     parent::load($storage);
     $this->_status = self::STATUS_LOADED;
@@ -125,10 +125,10 @@ class PapayaPluginOptions extends PapayaConfiguration {
   /**
    * Getter/Setter for the configuration storage
    *
-   * @param PapayaConfigurationStorage $storage
+   * @param \PapayaConfigurationStorage $storage
    * @return \PapayaConfigurationStorage
    */
-  public function storage(PapayaConfigurationStorage $storage = NULL) {
+  public function storage(\PapayaConfigurationStorage $storage = NULL) {
     if (isset($storage)) {
       $this->_storage = $storage;
     } elseif (is_null($this->_storage)) {

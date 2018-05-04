@@ -43,7 +43,7 @@ class PapayaFilterStringExplode implements PapayaFilter {
   private $_options;
 
   public function __construct(
-    $separator = NULL, PapayaFilter $elementFilter = NULL, $options = self::TRIM_TOKENS
+    $separator = NULL, \PapayaFilter $elementFilter = NULL, $options = self::TRIM_TOKENS
   ) {
     if (is_string($separator)) {
       $this->_separator = $separator;
@@ -55,7 +55,7 @@ class PapayaFilterStringExplode implements PapayaFilter {
   /**
    * @param mixed $value
    * @return bool
-   * @throws PapayaFilterExceptionEmpty
+   * @throws \PapayaFilterExceptionEmpty
    */
   public function validate($value) {
     if (empty($value)) {
@@ -64,7 +64,7 @@ class PapayaFilterStringExplode implements PapayaFilter {
     $tokens = explode($this->_separator, (string)$value);
     if ($this->_filter instanceof \PapayaFilter) {
       foreach ($tokens as $token) {
-        if (PapayaUtilBitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
+        if (\PapayaUtilBitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
           $token = trim($token);
         }
         $this->_filter->validate($token);
@@ -81,7 +81,7 @@ class PapayaFilterStringExplode implements PapayaFilter {
     $tokens = explode($this->_separator, (string)$value);
     $result = [];
     foreach ($tokens as $token) {
-      if (PapayaUtilBitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
+      if (\PapayaUtilBitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
         $token = trim($token);
       }
       if ($this->_filter instanceof \PapayaFilter) {

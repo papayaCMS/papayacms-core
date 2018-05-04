@@ -105,10 +105,10 @@ class PapayaResponse extends PapayaObject {
   /**
   * Get response helper
   *
-  * @param PapayaResponseHelper $helper
-  * @return PapayaResponseHelper
+  * @param \PapayaResponseHelper $helper
+  * @return \PapayaResponseHelper
   */
-  public function helper(PapayaResponseHelper $helper = NULL) {
+  public function helper(\PapayaResponseHelper $helper = NULL) {
     if (isset($helper)) {
       $this->_helper = $helper;
     }
@@ -121,10 +121,10 @@ class PapayaResponse extends PapayaObject {
   /**
   * Get response http headers list
   *
-  * @param PapayaResponseHeaders $headers
-  * @return PapayaResponseHeaders
+  * @param \PapayaResponseHeaders $headers
+  * @return \PapayaResponseHeaders
   */
-  public function headers(PapayaResponseHeaders $headers = NULL) {
+  public function headers(\PapayaResponseHeaders $headers = NULL) {
     if (isset($headers)) {
       $this->_headers = $headers;
     }
@@ -137,10 +137,10 @@ class PapayaResponse extends PapayaObject {
   /**
    * Get/Set response content object
    *
-   * @param PapayaResponseContent $content
+   * @param \PapayaResponseContent $content
    * @return \PapayaResponseContent
    */
-  public function content(PapayaResponseContent $content = NULL) {
+  public function content(\PapayaResponseContent $content = NULL) {
     if (isset($content)) {
       $this->_content = $content;
     }
@@ -153,7 +153,7 @@ class PapayaResponse extends PapayaObject {
   /**
    * Set response status
    * @param integer $status
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function setStatus($status) {
     if (isset($this->_statusCodes[$status])) {

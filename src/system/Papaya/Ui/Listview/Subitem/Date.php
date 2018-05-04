@@ -25,9 +25,9 @@
  */
 class PapayaUiListviewSubitemDate extends PapayaUiListviewSubitem {
 
-  const SHOW_DATE = PapayaUiStringDate::SHOW_DATE;
-  const SHOW_TIME = PapayaUiStringDate::SHOW_TIME;
-  const SHOW_SECONDS = PapayaUiStringDate::SHOW_SECONDS;
+  const SHOW_DATE = \PapayaUiStringDate::SHOW_DATE;
+  const SHOW_TIME = \PapayaUiStringDate::SHOW_TIME;
+  const SHOW_SECONDS = \PapayaUiStringDate::SHOW_SECONDS;
 
   /**
   * @var int
@@ -58,8 +58,8 @@ class PapayaUiListviewSubitemDate extends PapayaUiListviewSubitem {
    * @throws \UnexpectedValueException
    */
   public function __construct($timestamp, $options = self::SHOW_TIME) {
-    PapayaUtilConstraints::assertInteger($timestamp);
-    PapayaUtilConstraints::assertInteger($options);
+    \PapayaUtilConstraints::assertInteger($timestamp);
+    \PapayaUtilConstraints::assertInteger($options);
     $this->_timestamp = $timestamp;
     $this->_options = $options;
   }
@@ -67,13 +67,13 @@ class PapayaUiListviewSubitemDate extends PapayaUiListviewSubitem {
   /**
   * Append subitem xml data to parent node.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $parent->appendElement(
       'subitem',
       array(
-        'align' => PapayaUiOptionAlign::getString($this->getAlign())
+        'align' => \PapayaUiOptionAlign::getString($this->getAlign())
       ),
       (string)(
         $this->_timestamp > 0 ? new \PapayaUiStringDate($this->_timestamp, $this->_options) : ''

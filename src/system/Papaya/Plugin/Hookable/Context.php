@@ -35,11 +35,11 @@ class PapayaPluginHookableContext {
    * Create the context with data
    *
    * @param object $parent
-   * @param PapayaPluginEditableContent|array|Traversable|NULL $data
+   * @param \PapayaPluginEditableContent|array|\Traversable|NULL $data
    */
   public function __construct($parent = NULL, $data = NULL) {
     if (isset($parent)) {
-      PapayaUtilConstraints::assertObject($parent);
+      \PapayaUtilConstraints::assertObject($parent);
       $this->_parent = $parent;
     }
     if (isset($data)) {
@@ -71,8 +71,8 @@ class PapayaPluginHookableContext {
    * set a new context data, if an array or Traversalbe ist provided a new editable content
    * will be created an the data assigned.
    *
-   * @param PapayaPluginEditableContent|array|Traversable|NULL $data
-   * @return PapayaPluginEditableContent
+   * @param \PapayaPluginEditableContent|array|\Traversable|NULL $data
+   * @return \PapayaPluginEditableContent
    */
   public function data($data = NULL) {
     if (isset($data)) {

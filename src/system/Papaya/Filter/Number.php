@@ -40,7 +40,7 @@ class PapayaFilterNumber implements PapayaFilter {
   *
   * @param integer $minimumLength optional, default NULL
   * @param integer $maximumLength optional, default NULL
-  * @throws UnexpectedValueException
+  * @throws \UnexpectedValueException
   */
   public function __construct($minimumLength = NULL, $maximumLength = NULL) {
     if ($minimumLength !== NULL) {
@@ -65,9 +65,9 @@ class PapayaFilterNumber implements PapayaFilter {
   /**
   * Check a value and throw an exception if it does not match the constraints
   * @param string $value
-  * @throws PapayaFilterExceptionType
-  * @throws PapayaFilterExceptionRangeMinimum
-  * @throws PapayaFilterExceptionRangeMaximum
+  * @throws \PapayaFilterExceptionType
+  * @throws \PapayaFilterExceptionRangeMinimum
+  * @throws \PapayaFilterExceptionRangeMaximum
   * @return boolean
   */
   public function validate($value) {
@@ -92,7 +92,7 @@ class PapayaFilterNumber implements PapayaFilter {
   public function filter($value) {
     try {
       $this->validate(trim($value));
-    } catch(PapayaFilterException $e) {
+    } catch(\PapayaFilterException $e) {
       return NULL;
     }
     return trim($value);

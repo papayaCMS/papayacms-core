@@ -51,21 +51,21 @@ class PapayaUiControlCommandController
   /**
    * Initialize parameter controller, set parameter name and default command identifier
    *
-   * @param array|PapayaRequestParametersName|string $parameterName
+   * @param array|\PapayaRequestParametersName|string $parameterName
    * @param string $defaultCommand
    */
   public function __construct($parameterName, $defaultCommand = '') {
     $this->_parameterName = new \PapayaRequestParametersName($parameterName);
-    $this->_defaultCommand = PapayaUtilStringIdentifier::toUnderscoreLower($defaultCommand);
+    $this->_defaultCommand = \PapayaUtilStringIdentifier::toUnderscoreLower($defaultCommand);
   }
 
   /**
   * Execute command and append output after validating the user permission
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement|NULL
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement|NULL
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     if ($this->validateCondition() &&
         $this->validatePermission()) {
       if ($command = $this->getCurrent()) {
@@ -81,10 +81,10 @@ class PapayaUiControlCommandController
   /**
   * Get the current command, checking the parameter values and default command name.
   *
-  * @return NULL|PapayaUiControlCommand
+  * @return NULL|\PapayaUiControlCommand
   */
   public function getCurrent() {
-    $name = PapayaUtilStringIdentifier::toUnderscoreLower(
+    $name = \PapayaUtilStringIdentifier::toUnderscoreLower(
       $this->owner()->parameters()->get((string)$this->_parameterName, '')
     );
     if (isset($this->_commands[$name])) {
@@ -103,17 +103,17 @@ class PapayaUiControlCommandController
   * @return bool
   */
   public function offsetExists($name) {
-    return isset($this->_commands[PapayaUtilStringIdentifier::toUnderscoreLower($name)]);
+    return isset($this->_commands[\PapayaUtilStringIdentifier::toUnderscoreLower($name)]);
   }
 
   /**
   * ArrayAccess interface: get command by name
   *
   * @param string $name
-  * @return PapayaUiControlCommand
+  * @return \PapayaUiControlCommand
   */
   public function offsetGet($name) {
-    return $this->_commands[PapayaUtilStringIdentifier::toUnderscoreLower($name)];
+    return $this->_commands[\PapayaUtilStringIdentifier::toUnderscoreLower($name)];
   }
 
   /**
@@ -121,10 +121,10 @@ class PapayaUiControlCommandController
   * added command if the controller has an owner.
   *
   * @param string $name
-  * @param PapayaUiControlCommand $command
+  * @param \PapayaUiControlCommand $command
   */
   public function offsetSet($name, $command) {
-    $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     if ($this->hasOwner()) {
       $command->owner($this->owner());
     }
@@ -137,7 +137,7 @@ class PapayaUiControlCommandController
   * @param string $name
   */
   public function offsetUnset($name) {
-    unset($this->_commands[PapayaUtilStringIdentifier::toUnderscoreLower($name)]);
+    unset($this->_commands[\PapayaUtilStringIdentifier::toUnderscoreLower($name)]);
   }
 
   /**
@@ -152,7 +152,7 @@ class PapayaUiControlCommandController
   /**
   * IteratorAggregate interface: return iterator for commands
   *
-  * @return ArrayIterator
+  * @return \ArrayIterator
   */
   public function getIterator() {
     return new \ArrayIterator($this->_commands);
@@ -161,11 +161,11 @@ class PapayaUiControlCommandController
   /**
    * Overload owner method to set owner on all commands, too.
    *
-   * @param PapayaRequestParametersInterface $owner
+   * @param \PapayaRequestParametersInterface $owner
    * @internal param $ NULL|PapayaRequestParametersInterface
-   * @return PapayaRequestParametersInterface
+   * @return \PapayaRequestParametersInterface
    */
-  public function owner(PapayaRequestParametersInterface $owner = NULL) {
+  public function owner(\PapayaRequestParametersInterface $owner = NULL) {
     if (isset($owner)) {
       /** @var PapayaUiControlCommand $command */
       foreach ($this->_commands as $command) {
@@ -199,7 +199,7 @@ class PapayaUiControlCommandController
   * Magic method, threat the command names as properties to write them.
   *
   * @param string $name
-  * @param PapayaUiControlCommand $command
+  * @param \PapayaUiControlCommand $command
   */
   public function __set($name, $command) {
     $this->offsetSet($name, $command);

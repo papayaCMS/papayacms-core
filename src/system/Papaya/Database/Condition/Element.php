@@ -71,7 +71,7 @@ class PapayaDatabaseConditionElement {
           $this->_operator
         );
       }
-    } catch (LogicException $e) {
+    } catch (\LogicException $e) {
       if (!$silent) {
         throw $e;
       }

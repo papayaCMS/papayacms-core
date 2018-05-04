@@ -26,10 +26,10 @@ class PapayaUiDialogFieldParameterName {
 
   /**
    * PapayaUiDialogFieldParameterName constructor.
-   * @param PapayaUiDialog|NULL $dialog
+   * @param \PapayaUiDialog|NULL $dialog
    * @param $fieldName
    */
-  public function __construct(PapayaUiDialog $dialog = NULL, $fieldName) {
+  public function __construct(\PapayaUiDialog $dialog = NULL, $fieldName) {
     $this->_dialog = $dialog;
     $this->_fieldName = $fieldName;
   }

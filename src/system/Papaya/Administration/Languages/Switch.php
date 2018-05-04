@@ -48,10 +48,10 @@ class PapayaAdministrationLanguagesSwitch extends PapayaUiControlInteractive {
   /**
   * Getter/Setter for a content languages record list.
   *
-  * @param PapayaContentLanguages $languages
-  * @return PapayaContentLanguages
+  * @param \PapayaContentLanguages $languages
+  * @return \PapayaContentLanguages
   */
-  public function languages(PapayaContentLanguages $languages = NULL) {
+  public function languages(\PapayaContentLanguages $languages = NULL) {
     if (isset($languages)) {
       $this->_languages = $languages;
     }
@@ -65,7 +65,7 @@ class PapayaAdministrationLanguagesSwitch extends PapayaUiControlInteractive {
    * Map some properties from the current language for easier access.
    *
    * @param string $name
-   * @throws LogicException
+   * @throws \LogicException
    * @return mixed|string
    */
   public function __get($name) {
@@ -90,7 +90,7 @@ class PapayaAdministrationLanguagesSwitch extends PapayaUiControlInteractive {
   * Get the currently selected content language. If no language is found, a default language
   * object is initialized.
   *
-  * @return PapayaContentLanguage
+  * @return \PapayaContentLanguage
   */
   public function getCurrent() {
     $this->prepare();
@@ -100,10 +100,10 @@ class PapayaAdministrationLanguagesSwitch extends PapayaUiControlInteractive {
   /**
    * Appends a <links> element with references for the different content languages.
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    * @return \PapayaXmlElement
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $current = $this->getCurrent();
     $links = $parent->appendElement(
       'links',
@@ -135,14 +135,14 @@ class PapayaAdministrationLanguagesSwitch extends PapayaUiControlInteractive {
   *
   * If none of these are found a default language object containing data for English ist created.
   *
-  * @return PapayaContentLanguage
+  * @return \PapayaContentLanguage
   */
   private function prepare() {
     $application = $this->papaya();
     $languages = NULL;
     if (is_null($this->_current)) {
       $languages = $this->languages();
-      $languages->loadByUsage(PapayaContentLanguages::FILTER_IS_CONTENT);
+      $languages->loadByUsage(\PapayaContentLanguages::FILTER_IS_CONTENT);
       if ($id = $this->parameters()->get('lngsel[language_select]')) {
         $this->_current = $languages->getLanguage($id);
       } elseif ($id = $application->session->values()->get(array($this, 'CONTENT_LANGUAGE'))) {
@@ -171,7 +171,7 @@ class PapayaAdministrationLanguagesSwitch extends PapayaUiControlInteractive {
   /**
   * Create and return a language object with default (English) data.
   *
-  * @return PapayaContentLanguage
+  * @return \PapayaContentLanguage
   */
   private function getDefault() {
     $result = new \PapayaContentLanguage();

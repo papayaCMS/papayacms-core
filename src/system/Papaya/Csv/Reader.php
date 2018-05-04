@@ -45,8 +45,8 @@ class PapayaCsvReader {
   * @param string $fileName
   */
   public function __construct($fileName) {
-    PapayaUtilConstraints::assertString($fileName);
-    PapayaUtilConstraints::assertNotEmpty($fileName);
+    \PapayaUtilConstraints::assertString($fileName);
+    \PapayaUtilConstraints::assertNotEmpty($fileName);
     $this->_fileName = $fileName;
   }
 
@@ -56,7 +56,7 @@ class PapayaCsvReader {
   * @param integer $size
   */
   public function setMaximumFileSize($size) {
-    PapayaUtilConstraints::assertInteger($size);
+    \PapayaUtilConstraints::assertInteger($size);
     $this->_maxFileSize = $size;
   }
 
@@ -66,7 +66,7 @@ class PapayaCsvReader {
   * @param integer $size
   */
   public function setMaximumLineSize($size) {
-    PapayaUtilConstraints::assertInteger($size);
+    \PapayaUtilConstraints::assertInteger($size);
     $this->_maxLineSize = $size;
   }
 
@@ -145,7 +145,7 @@ class PapayaCsvReader {
   /**
   * Open the file and return the resource handle
   *
-  * @return Resource
+  * @return \Resource
   */
   protected function _getFileResource() {
     return fopen($this->_fileName, 'r');
@@ -154,7 +154,7 @@ class PapayaCsvReader {
   /**
    * Use the second line of a given file resource to determine the csv style.
    *
-   * @param Resource $fh
+   * @param \Resource $fh
    * @return array
    */
   protected function _getStyle($fh) {
@@ -205,7 +205,7 @@ class PapayaCsvReader {
   /**
   * Read a line from csv, parse it into an array and reutrn array and new offset
   *
-  * @param Resource $fh
+  * @param \Resource $fh
   * @param string $delimiter
   * @param string $enclosure
   * @return array(array,integer)

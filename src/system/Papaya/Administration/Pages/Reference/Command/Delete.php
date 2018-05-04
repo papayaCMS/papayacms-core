@@ -59,7 +59,7 @@ class PapayaAdministrationPagesReferenceCommandDelete
   public function dispatchDeleteMessage() {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_INFO, 'Reference deleted.'
+        \PapayaMessage::SEVERITY_INFO, 'Reference deleted.'
       )
     );
   }

@@ -28,7 +28,7 @@ class PapayaMessageDebug
   /**
   * Message group
   */
-  protected $_group = PapayaMessageLogable::GROUP_DEBUG;
+  protected $_group = \PapayaMessageLogable::GROUP_DEBUG;
   /**
   * Message text
   * @var string
@@ -47,7 +47,7 @@ class PapayaMessageDebug
   * @param integer $group
   * @param string $message
   */
-  public function __construct($group = PapayaMessageLogable::GROUP_DEBUG, $message = '') {
+  public function __construct($group = \PapayaMessageLogable::GROUP_DEBUG, $message = '') {
     $this->_group = $group;
     $this->_message = $message;
     $this->_context = new \PapayaMessageContextGroup();
@@ -73,7 +73,7 @@ class PapayaMessageDebug
   * @return integer
   */
   public function getType() {
-    return PapayaMessage::SEVERITY_DEBUG;
+    return \PapayaMessage::SEVERITY_DEBUG;
   }
 
   /**
@@ -88,7 +88,7 @@ class PapayaMessageDebug
   /**
   * Return the context object containing additional data about where and why the message happened.
   *
-  * @return PapayaMessageContextGroup
+  * @return \PapayaMessageContextGroup
   */
   public function context() {
     return $this->_context;

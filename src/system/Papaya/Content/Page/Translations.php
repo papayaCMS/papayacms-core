@@ -38,7 +38,7 @@ class PapayaContentPageTranslations extends PapayaDatabaseObjectList {
     'view_title' => 'view',
   );
 
-  protected $_translationsTableName = PapayaContentTables::PAGE_TRANSLATIONS;
+  protected $_translationsTableName = \PapayaContentTables::PAGE_TRANSLATIONS;
 
   /**
   * Change the main page table name
@@ -46,8 +46,8 @@ class PapayaContentPageTranslations extends PapayaDatabaseObjectList {
   * @param string $tableName
   */
   public function setTranslationsTableName($tableName) {
-    PapayaUtilConstraints::assertString($tableName);
-    PapayaUtilConstraints::assertNotEmpty($tableName);
+    \PapayaUtilConstraints::assertString($tableName);
+    \PapayaUtilConstraints::assertNotEmpty($tableName);
     $this->_translationsTableName = $tableName;
   }
 
@@ -68,8 +68,8 @@ class PapayaContentPageTranslations extends PapayaDatabaseObjectList {
              WHERE tt.topic_id = %d";
     $parameters = array(
       $this->databaseGetTableName($this->_translationsTableName),
-      $this->databaseGetTableName(PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS),
-      $this->databaseGetTableName(PapayaContentTables::VIEWS),
+      $this->databaseGetTableName(\PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS),
+      $this->databaseGetTableName(\PapayaContentTables::VIEWS),
       (int)$pageId
     );
     return $this->_loadRecords($sql, $parameters, 'lng_id');
@@ -80,7 +80,7 @@ class PapayaContentPageTranslations extends PapayaDatabaseObjectList {
   *
   * @param integer $pageId
   * @param integer $languageId
-  * @return PapayaContentPageTranslation
+  * @return \PapayaContentPageTranslation
   */
   public function getTranslation($pageId, $languageId) {
     $result = new \PapayaContentPageTranslation();

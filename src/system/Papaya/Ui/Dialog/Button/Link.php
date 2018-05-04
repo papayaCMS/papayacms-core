@@ -23,7 +23,7 @@
 *     new PapayaUiDialogButtonSubmit(
 *       new PapayaUiStringTranslated('Save')
 *     ),
-*     PapayaUiDialogButton::ALIGN_LEFT
+*     \PapayaUiDialogButton::ALIGN_LEFT
 *   );
 *
 * @package Papaya-Library
@@ -45,10 +45,10 @@ class PapayaUiDialogButtonLink extends PapayaUiDialogButton {
   /**
   * Initialize object, set caption and alignment
   *
-  * @param string|PapayaUiString $caption
+  * @param string|\PapayaUiString $caption
   * @param integer $align
   */
-  public function __construct($caption, $align = PapayaUiDialogButton::ALIGN_RIGHT) {
+  public function __construct($caption, $align = \PapayaUiDialogButton::ALIGN_RIGHT) {
     parent::__construct($align);
     $this->_caption = $caption;
   }
@@ -56,14 +56,14 @@ class PapayaUiDialogButtonLink extends PapayaUiDialogButton {
   /**
   * Append button output to DOM
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $parent->appendElement(
       'button',
       array(
         'type' => 'link',
-        'align' => ($this->_align == PapayaUiDialogButton::ALIGN_LEFT) ? 'left' : 'right',
+        'align' => ($this->_align == \PapayaUiDialogButton::ALIGN_LEFT) ? 'left' : 'right',
         'href' => $this->reference()
       ),
       (string)$this->_caption
@@ -71,10 +71,10 @@ class PapayaUiDialogButtonLink extends PapayaUiDialogButton {
   }
 
   /**
-   * @param PapayaUiReference|NULL $reference
-   * @return PapayaUiReference
+   * @param \PapayaUiReference|NULL $reference
+   * @return \PapayaUiReference
    */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {

@@ -39,9 +39,9 @@ abstract class PapayaUiDialogDatabase extends PapayaUiDialog {
   /**
   * Create dialog and attach a record to it.
   *
-  * @param PapayaDatabaseInterfaceRecord $record
+  * @param \PapayaDatabaseInterfaceRecord $record
   */
-  public function __construct(PapayaDatabaseInterfaceRecord $record) {
+  public function __construct(\PapayaDatabaseInterfaceRecord $record) {
     $this->record($record);
   }
 
@@ -51,10 +51,10 @@ abstract class PapayaUiDialogDatabase extends PapayaUiDialog {
   *
   * The values of the record are merged into the data property.
   *
-  * @param PapayaDatabaseInterfaceRecord $record
-  * @return PapayaDatabaseInterfaceRecord
+  * @param \PapayaDatabaseInterfaceRecord $record
+  * @return \PapayaDatabaseInterfaceRecord
   */
-  public function record(PapayaDatabaseInterfaceRecord $record = NULL) {
+  public function record(\PapayaDatabaseInterfaceRecord $record = NULL) {
     if (isset($record)) {
       $this->_record = $record;
       $this->data()->merge((array)$record->toArray());
@@ -66,10 +66,10 @@ abstract class PapayaUiDialogDatabase extends PapayaUiDialog {
   * Getter/Setter for the callbacks, if you set your own callback object, make sure it has the
   * needed definitions.
   *
-  * @param PapayaUiDialogDatabaseCallbacks $callbacks
-  * @return PapayaUiDialogDatabaseCallbacks
+  * @param \PapayaUiDialogDatabaseCallbacks $callbacks
+  * @return \PapayaUiDialogDatabaseCallbacks
   */
-  public function callbacks(PapayaUiDialogDatabaseCallbacks $callbacks = NULL) {
+  public function callbacks(\PapayaUiDialogDatabaseCallbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     }

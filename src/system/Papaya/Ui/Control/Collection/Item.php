@@ -46,11 +46,11 @@ abstract class PapayaUiControlCollectionItem extends PapayaUiControl {
   /**
    * Return the owner collection of the item.
    *
-   * @throws BadMethodCallException
-   * @param PapayaUiControlCollection $collection
-   * @return PapayaUiControlCollection
+   * @throws \BadMethodCallException
+   * @param \PapayaUiControlCollection $collection
+   * @return \PapayaUiControlCollection
    */
-  public function collection(PapayaUiControlCollection $collection = NULL) {
+  public function collection(\PapayaUiControlCollection $collection = NULL) {
     if (isset($collection)) {
       $this->_collection = $collection;
       $this->papaya($collection->papaya());
@@ -67,13 +67,13 @@ abstract class PapayaUiControlCollectionItem extends PapayaUiControl {
    * Getter/Setter for the index of the item in the collection.
    *
    * @param integer|NULL $index
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return integer
    */
   public function index($index = NULL) {
     if (isset($index) &&
         $index != $this->_index) {
-      PapayaUtilConstraints::assertInteger($index);
+      \PapayaUtilConstraints::assertInteger($index);
       if ($this->collection()->get($index) === $this) {
         $this->_index = $index;
       } else {

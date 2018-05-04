@@ -44,9 +44,9 @@ class PapayaFilterLocaleGermanyZip implements PapayaFilter {
    *
    * @throw PapayaException
    * @param string $value
-   * @throws PapayaFilterExceptionLengthMinimum
-   * @throws PapayaFilterExceptionLengthMaximum
-   * @throws PapayaFilterExceptionCharacterInvalid
+   * @throws \PapayaFilterExceptionLengthMinimum
+   * @throws \PapayaFilterExceptionLengthMaximum
+   * @throws \PapayaFilterExceptionCharacterInvalid
    * @return TRUE
    */
   public function validate($value) {
@@ -91,7 +91,7 @@ class PapayaFilterLocaleGermanyZip implements PapayaFilter {
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       return NULL;
     }
   }

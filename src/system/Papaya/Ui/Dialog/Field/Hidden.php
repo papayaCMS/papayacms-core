@@ -1,21 +1,17 @@
 <?php
 /**
-* A hidden dialog field, this will be part of the dialog but not visible.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Hidden.php 39409 2014-02-27 16:36:19Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A hidden dialog field, this will be part of the dialog but not visible. The main
@@ -32,9 +28,9 @@ class PapayaUiDialogFieldHidden extends PapayaUiDialogField {
   *
   * @param string $name
   * @param integer $default
-  * @param PapayaFilter|NULL $filter
+  * @param \PapayaFilter|NULL $filter
   */
-  public function __construct($name, $default, PapayaFilter $filter = NULL) {
+  public function __construct($name, $default, \PapayaFilter $filter = NULL) {
     $this->setName($name);
     $this->setDefaultValue($default);
     if (isset($filter)) {
@@ -45,9 +41,9 @@ class PapayaUiDialogFieldHidden extends PapayaUiDialogField {
   /**
   * Append field and input ouptut to DOM
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $field = $parent->appendElement(
       'field',
       array(

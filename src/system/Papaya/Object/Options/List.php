@@ -49,7 +49,7 @@ class PapayaObjectOptionsList
   /**
   * Convert to uppercase letters and check name
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param string $name
   * @return string
   */
@@ -112,7 +112,7 @@ class PapayaObjectOptionsList
   /**
   * ArrayAccess interface, set option value
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param string $name
   * @param mixed $value
   * @return string
@@ -218,7 +218,7 @@ class PapayaObjectOptionsList
    * Assign a list of options
    */
   public function assign($values) {
-    PapayaUtilConstraints::assertArrayOrTraversable($values);
+    \PapayaUtilConstraints::assertArrayOrTraversable($values);
     foreach ($values as $name => $value) {
       $this->offsetSet($name, $value);
     }

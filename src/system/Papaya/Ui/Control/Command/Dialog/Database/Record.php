@@ -32,10 +32,10 @@ class PapayaUiControlCommandDialogDatabaseRecord extends PapayaUiControlCommandD
   /**
    * This dialog command uses database record objects
    *
-   * @param PapayaDatabaseInterfaceRecord $record
+   * @param \PapayaDatabaseInterfaceRecord $record
    * @param string $action
    */
-  public function __construct(PapayaDatabaseInterfaceRecord $record, $action = self::ACTION_SAVE) {
+  public function __construct(\PapayaDatabaseInterfaceRecord $record, $action = self::ACTION_SAVE) {
     $this->record($record);
     $this->_action = $action;
   }
@@ -43,10 +43,10 @@ class PapayaUiControlCommandDialogDatabaseRecord extends PapayaUiControlCommandD
   /**
    * Getter/Setter for the database record
    *
-   * @param PapayaDatabaseInterfaceRecord $record
-   * @return PapayaDatabaseInterfaceRecord
+   * @param \PapayaDatabaseInterfaceRecord $record
+   * @return \PapayaDatabaseInterfaceRecord
    */
-  public function record(PapayaDatabaseInterfaceRecord $record = NULL) {
+  public function record(\PapayaDatabaseInterfaceRecord $record = NULL) {
     if (isset($record)) {
       $this->_record = $record;
     }
@@ -56,7 +56,7 @@ class PapayaUiControlCommandDialogDatabaseRecord extends PapayaUiControlCommandD
   /**
    * Create a database record aware dialog.
    *
-   * @return PapayaUiDialogDatabaseDelete|PapayaUiDialogDatabaseSave
+   * @return \PapayaUiDialogDatabaseDelete|\PapayaUiDialogDatabaseSave
    */
   protected function createDialog() {
     switch ($this->_action) {

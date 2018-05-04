@@ -161,7 +161,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
    * @throws \UnexpectedValueException
    */
   public function __construct($owner = NULL) {
-    PapayaUtilConstraints::assertObjectOrNull($owner);
+    \PapayaUtilConstraints::assertObjectOrNull($owner);
     $this->_owner = $owner;
   }
 
@@ -235,13 +235,13 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
   /**
    * Append the dialog output to a DOM
    *
-   * @param PapayaXmlElement $parent
-   * @return PapayaXmlElement|NULL
+   * @param \PapayaXmlElement $parent
+   * @return \PapayaXmlElement|NULL
    * @throws \UnexpectedValueException
    * @throws \LogicException
    * @throws \InvalidArgumentException
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $dialog = $parent->appendElement(
       'dialog-box',
       array(
@@ -288,7 +288,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
    * @throws \UnexpectedValueException
    */
   public function setEncoding($encoding) {
-    PapayaUtilConstraints::assertContains(
+    \PapayaUtilConstraints::assertContains(
       array(
         'application/x-www-form-urlencoded',
         'multipart/form-data',
@@ -325,10 +325,10 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
   * This function gives you access to parameters object holding the hidden values of the
   * dialog. Hidden values do not use the parameter group name.
   *
-  * @param PapayaRequestParameters $values
-  * @return PapayaRequestParameters
+  * @param \PapayaRequestParameters $values
+  * @return \PapayaRequestParameters
   */
-  public function hiddenValues(PapayaRequestParameters $values = NULL) {
+  public function hiddenValues(\PapayaRequestParameters $values = NULL) {
     if (NULL !== $values) {
       $this->_hiddenValues = $values;
     }
@@ -344,10 +344,10 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
   * This function gives you access to parameters object holding the hidden fields of the
   * dialog. Hidden fields use the parameter group name.
   *
-  * @param PapayaRequestParameters|NULL $values
-  * @return PapayaRequestParameters
+  * @param \PapayaRequestParameters|NULL $values
+  * @return \PapayaRequestParameters
   */
-  public function hiddenFields(PapayaRequestParameters $values = NULL) {
+  public function hiddenFields(\PapayaRequestParameters $values = NULL) {
     if (NULL !== $values) {
       $this->_hiddenFields = $values;
     }
@@ -360,10 +360,10 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
   /**
   * Getter/Setter for csrf token manager including implizit create
   *
-  * @param PapayaUiTokens $tokens
-  * @return PapayaUiTokens
+  * @param \PapayaUiTokens $tokens
+  * @return \PapayaUiTokens
   */
-  public function tokens(PapayaUiTokens $tokens = NULL) {
+  public function tokens(\PapayaUiTokens $tokens = NULL) {
     if (NULL !== $tokens) {
       $this->_tokens = $tokens;
     } elseif (NULL === $this->_tokens) {
@@ -395,14 +395,14 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
   /**
    * Append a group hidden elements to the output (recursive function)
    *
-   * @param PapayaXmlElement $parent
-   * @param PapayaRequestParameters $values
+   * @param \PapayaXmlElement $parent
+   * @param \PapayaRequestParameters $values
    * @param string|NULL $path
-   * @return PapayaXmlElement
+   * @return \PapayaXmlElement
    * @throws \InvalidArgumentException
    */
   protected function appendHidden(
-    PapayaXmlElement $parent, PapayaRequestParameters $values, $path = NULL
+    PapayaXmlElement $parent, \PapayaRequestParameters $values, $path = NULL
   ) {
     foreach ($values as $name => $value) {
       $nameObject = $this->getParameterName($name);
@@ -426,7 +426,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
    * string. If the dialog uses the method "GET" the request parameter level sepearator will be used.
    *
    * @param string|array $name
-   * @return PapayaRequestParametersName
+   * @return \PapayaRequestParametersName
    * @throws \InvalidArgumentException
    */
   public function getParameterName($name) {
@@ -442,10 +442,10 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
   *
   * Error handler
   *
-  * @param PapayaUiDialogErrors|NULL $errors
-  * @return PapayaUiDialogErrors
+  * @param \PapayaUiDialogErrors|NULL $errors
+  * @return \PapayaUiDialogErrors
   */
-  public function errors(PapayaUiDialogErrors $errors = NULL) {
+  public function errors(\PapayaUiDialogErrors $errors = NULL) {
     if (NULL !== $errors) {
       $this->_errors = $errors;
     }
@@ -458,10 +458,10 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
   /**
   * Collect errors from fields
   *
-  * @param Exception $exception
-  * @param PapayaUiDialogField $field
+  * @param \Exception $exception
+  * @param \PapayaUiDialogField $field
   */
-  public function handleValidationFailure(Exception $exception, PapayaUiDialogField $field) {
+  public function handleValidationFailure(\Exception $exception, \PapayaUiDialogField $field) {
     $this->_executionResult = FALSE;
     $this->errors()->add($exception, $field);
   }
@@ -469,10 +469,10 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
   /**
    * Getter/Setter for dialog options object
    *
-   * @param PapayaUiDialogOptions $options
-   * @return PapayaUiDialogOptions
+   * @param \PapayaUiDialogOptions $options
+   * @return \PapayaUiDialogOptions
    */
-  public function options(PapayaUiDialogOptions $options = NULL) {
+  public function options(\PapayaUiDialogOptions $options = NULL) {
     if (NULL !== $options) {
       $this->_options = $options;
     }
@@ -488,8 +488,8 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
   * For now this is only a string/PapayaUiString but i can imagine that it will become
   * a more complex subobject later allowing an icon and buttons.
   *
-  * @param string|PapayaUiString $caption
-  * @return string|PapayaUiString
+  * @param string|\PapayaUiString $caption
+  * @return string|\PapayaUiString
   */
   public function caption($caption = NULL) {
     if (NULL !== $caption) {
@@ -501,8 +501,8 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
   /**
   * Deprecated alias for {@see self::caption()}.
   *
-  * @param string|PapayaUiString $caption
-  * @return string|PapayaUiString
+  * @param string|\PapayaUiString $caption
+  * @return string|\PapayaUiString
   */
   public function title($caption) {
     return $this->caption($caption);
@@ -511,7 +511,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
   /**
    * Dialog fields getter/setter
    *
-   * @param PapayaUiDialogFields|array|Traversable|NULL $fields
+   * @param \PapayaUiDialogFields|array|\Traversable|NULL $fields
    * @return \PapayaUiDialogFields
    * @throws \UnexpectedValueException
    * @throws \LogicException
@@ -522,7 +522,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
         $this->_fields = $fields;
         $fields->owner($this);
       } else {
-        PapayaUtilConstraints::assertArrayOrTraversable($fields);
+        \PapayaUtilConstraints::assertArrayOrTraversable($fields);
         /** @noinspection ForeachSourceInspection */
         foreach ($fields as $field) {
           $this->fields()->add($field);
@@ -539,11 +539,11 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
   /**
    * Dialog buttons getter/setter
    *
-   * @param PapayaUiDialogButtons $buttons
-   * @return PapayaUiDialogButtons
+   * @param \PapayaUiDialogButtons $buttons
+   * @return \PapayaUiDialogButtons
    * @throws \LogicException
    */
-  public function buttons(PapayaUiDialogButtons $buttons = NULL) {
+  public function buttons(\PapayaUiDialogButtons $buttons = NULL) {
     if (NULL !== $buttons) {
       $this->_buttons = $buttons;
       $buttons->owner($this);
@@ -563,10 +563,10 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
    *
    * The execution call the method collect() on each field and button to fill up this object.
    *
-   * @param PapayaRequestParameters $data
-   * @return PapayaRequestParameters
+   * @param \PapayaRequestParameters $data
+   * @return \PapayaRequestParameters
    */
-  public function data(PapayaRequestParameters $data = NULL) {
+  public function data(\PapayaRequestParameters $data = NULL) {
     if (NULL !== $data) {
       $this->_data = $data;
     }
@@ -580,10 +580,10 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
   /**
   * Getter/Setter for the description subobject.
   *
-  * @param PapayaUiDialogElementDescription
-  * @return PapayaUiDialogElementDescription
+  * @param \PapayaUiDialogElementDescription
+  * @return \PapayaUiDialogElementDescription
   */
-  public function description(PapayaUiDialogElementDescription $description = NULL) {
+  public function description(\PapayaUiDialogElementDescription $description = NULL) {
     if (NULL !== $description) {
       $this->_description = $description;
     } elseif (NULL === $this->_description) {

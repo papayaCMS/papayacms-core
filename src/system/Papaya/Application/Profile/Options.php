@@ -23,7 +23,7 @@ class PapayaApplicationProfileOptions implements PapayaApplicationProfile {
 
   /**
   * Create the profile object and return it
-  * @param PapayaApplication $application
+  * @param \PapayaApplication $application
   * @return stdClass
   */
   public function createObject($application) {

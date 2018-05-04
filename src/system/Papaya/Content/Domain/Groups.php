@@ -34,13 +34,13 @@ class PapayaContentDomainGroups extends PapayaDatabaseRecordsLazy {
   /**
   * @var string
   */
-  protected $_tableName = PapayaContentTables::DOMAIN_GROUPS;
+  protected $_tableName = \PapayaContentTables::DOMAIN_GROUPS;
 
   protected $_identifierProperties = array('id');
 
   /**
    * @param int|array|NULL $filter
-   * @return PapayaContentDomainGroup
+   * @return \PapayaContentDomainGroup
    */
   public function getItem($filter = NULL) {
     $result = new \PapayaContentDomainGroup();

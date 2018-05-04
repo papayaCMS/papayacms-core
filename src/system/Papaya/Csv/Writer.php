@@ -61,7 +61,7 @@ class PapayaCsvWriter {
    * Read object properties
    *
    * @param string $name
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return int|null|resource|string
    */
   public function __get($name) {
@@ -90,7 +90,7 @@ class PapayaCsvWriter {
    *
    * @param string $name
    * @param $value
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function __set($name, $value) {
     switch ($name) {
@@ -98,15 +98,15 @@ class PapayaCsvWriter {
       $this->_stream = $value;
       break;
     case 'linebreak' :
-      PapayaUtilConstraints::assertString($value);
+      \PapayaUtilConstraints::assertString($value);
       $this->_linebreak = $value;
       break;
     case 'encodedLinebreak' :
-      PapayaUtilConstraints::assertString($value);
+      \PapayaUtilConstraints::assertString($value);
       $this->_encodedLinebreak = $value;
       break;
     case 'separator' :
-      PapayaUtilConstraints::assertString($value);
+      \PapayaUtilConstraints::assertString($value);
       $this->_separator = $value;
       $this->_separatorLength = strlen($this->_separator);
       break;
@@ -115,7 +115,7 @@ class PapayaCsvWriter {
         sprintf('Can not write read only property "%s".', $name)
       );
     case 'quote' :
-      PapayaUtilConstraints::assertString($value);
+      \PapayaUtilConstraints::assertString($value);
       $this->_quote = $value;
       break;
     default :
@@ -129,7 +129,7 @@ class PapayaCsvWriter {
   * Write the csv header (the column names) this is basically the same as as writeRow but
   * calls a different callback to map the given column names.
   *
-  * @param array|Traversable $row
+  * @param array|\Traversable $row
   */
   public function writeHeader($row) {
     if (isset($this->callbacks()->onMapHeader)) {
@@ -141,7 +141,7 @@ class PapayaCsvWriter {
   /**
   * Write a csv data row. A callback is executed to map the values if needed.
   *
-  * @param array|Traversable $row
+  * @param array|\Traversable $row
   */
   public function writeRow($row) {
     if (isset($this->callbacks()->onMapRow)) {
@@ -153,10 +153,10 @@ class PapayaCsvWriter {
   /**
    * Write multiple csv data rows, for each element of the given parameter writeRow() is called.
    *
-   * @param array|Traversable $list
+   * @param array|\Traversable $list
    */
   public function writeList($list) {
-    PapayaUtilConstraints::assertArrayOrTraversable($list);
+    \PapayaUtilConstraints::assertArrayOrTraversable($list);
     foreach ($list as $row) {
       $this->writeRow($row);
     }
@@ -227,10 +227,10 @@ class PapayaCsvWriter {
   /**
   * Getter/Setter for the callbacks subobject handlign the mapping callbacks
   *
-  * @param PapayaCsvWriterCallbacks $callbacks
-  * @return PapayaCsvWriterCallbacks
+  * @param \PapayaCsvWriterCallbacks $callbacks
+  * @return \PapayaCsvWriterCallbacks
   */
-  public function callbacks(PapayaCsvWriterCallbacks $callbacks = NULL) {
+  public function callbacks(\PapayaCsvWriterCallbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {

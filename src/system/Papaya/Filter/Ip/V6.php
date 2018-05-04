@@ -29,9 +29,9 @@ class PapayaFilterIpV6 implements PapayaFilter {
    *    and there must not be more than one empty part.
    *
    * @param string $value
-   * @throws PapayaFilterExceptionCountMismatch
-   * @throws PapayaFilterExceptionEmpty
-   * @throws PapayaFilterExceptionPartInvalid
+   * @throws \PapayaFilterExceptionCountMismatch
+   * @throws \PapayaFilterExceptionEmpty
+   * @throws \PapayaFilterExceptionPartInvalid
    * @return boolean TRUE
    */
   public function validate($value) {
@@ -75,7 +75,7 @@ class PapayaFilterIpV6 implements PapayaFilter {
     $result = trim($value);
     try {
       $this->validate($result);
-    } catch(PapayaFilterException $e) {
+    } catch(\PapayaFilterException $e) {
       $result = NULL;
     }
     return $result;

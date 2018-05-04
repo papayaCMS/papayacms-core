@@ -32,7 +32,7 @@ class PapayaTemplateValue {
   /**
   * Construct object from DOMNode
   *
-  * @param PapayaXmlDocument|PapayaXmlElement $node
+  * @param \PapayaXmlDocument|\PapayaXmlElement $node
   */
   public function __construct($node) {
     $this->node($node);
@@ -41,7 +41,7 @@ class PapayaTemplateValue {
   /**
   * Get the document from the $node property
   *
-  * @return DOMDocument
+  * @return \DOMDocument
   */
   private function _getDocument() {
     if ($this->_node instanceof \PapayaXmlDocument) {
@@ -54,8 +54,8 @@ class PapayaTemplateValue {
   /**
    * Get/Set node property
    *
-   * @param PapayaXmlDocument|PapayaXmlElement $node
-   * @throws InvalidArgumentException
+   * @param \PapayaXmlDocument|\PapayaXmlElement $node
+   * @throws \InvalidArgumentException
    * @return \PapayaXmlElement|null
    */
   public function node($node = NULL) {
@@ -78,10 +78,10 @@ class PapayaTemplateValue {
   /**
   * Append the node represented by this value to a parent node.
   *
-  * @param PapayaXmlElement $parentNode
-  * @return PapayaTemplateValue
+  * @param \PapayaXmlElement $parentNode
+  * @return \PapayaTemplateValue
   */
-  public function appendTo(PapayaXmlElement $parentNode) {
+  public function appendTo(\PapayaXmlElement $parentNode) {
     $parentNode->appendChild($this->_node);
     return $this;
   }
@@ -96,11 +96,11 @@ class PapayaTemplateValue {
    * The element is append to the $_node property and a new instance of this object containing
    * the element is returned.
    *
-   * @param string|DOMElement $element
+   * @param string|\DOMElement $element
    * @param array $attributes
    * @param string $textContent
-   * @throws InvalidArgumentException
-   * @return PapayaTemplateValue|NULL
+   * @throws \InvalidArgumentException
+   * @return \PapayaTemplateValue|NULL
    */
   public function append($element, array $attributes = array(), $textContent = '') {
     if (is_string($element)) {
@@ -145,7 +145,7 @@ class PapayaTemplateValue {
   * An instance of this class containing the appended element is returned.
   *
   * @param string $xml
-  * @return PapayaTemplateValue
+  * @return \PapayaTemplateValue
   */
   public function appendXml($xml) {
     $errors = new \PapayaXmlErrors();
@@ -165,8 +165,8 @@ class PapayaTemplateValue {
    * If it is an string is will be threated as an xml fragment but you can provide a single DOMNode
    * or a list of DOMNodes as well.
    *
-   * @param DOMNode|array|string $xml
-   * @throws InvalidArgumentException
+   * @param \DOMNode|array|string $xml
+   * @throws \InvalidArgumentException
    * @return string
    */
   public function xml($xml = NULL) {

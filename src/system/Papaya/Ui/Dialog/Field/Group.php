@@ -43,7 +43,7 @@ class PapayaUiDialogFieldGroup extends PapayaUiDialogField {
   /**
   * Initialize object, set caption, field name and maximum length
   *
-  * @param string|PapayaUiString $caption
+  * @param string|\PapayaUiString $caption
   */
   public function __construct($caption) {
     $this->setCaption($caption);
@@ -52,10 +52,10 @@ class PapayaUiDialogFieldGroup extends PapayaUiDialogField {
   /**
    * Group fields getter/setter
    *
-   * @param PapayaUiDialogFields $fields
+   * @param \PapayaUiDialogFields $fields
    * @return \PapayaUiDialogFields
    */
-  public function fields(PapayaUiDialogFields $fields = NULL) {
+  public function fields(\PapayaUiDialogFields $fields = NULL) {
     if (isset($fields)) {
       $this->_fields = $fields;
       if ($this->hasCollection() && $this->collection()->hasOwner()) {
@@ -104,9 +104,9 @@ class PapayaUiDialogFieldGroup extends PapayaUiDialogField {
   /**
   * Append group and fields in this group to the DOM.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     if (isset($this->_fields) && count($this->_fields) > 0) {
       $group = $parent->appendElement(
         'field-group',
@@ -125,10 +125,10 @@ class PapayaUiDialogFieldGroup extends PapayaUiDialogField {
   /**
   * Return the owner collection of the item.
   *
-  * @param PapayaUiControlCollection $collection
-  * @return PapayaUiControlCollection
+  * @param \PapayaUiControlCollection $collection
+  * @return \PapayaUiControlCollection
   */
-  public function collection(PapayaUiControlCollection $collection = NULL) {
+  public function collection(\PapayaUiControlCollection $collection = NULL) {
     $result = parent::collection($collection);
     if ($collection != NULL && $collection->hasOwner()) {
       $this->fields()->owner($collection->owner());

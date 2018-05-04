@@ -18,8 +18,8 @@ class PapayaDatabaseConditionRoot extends PapayaDatabaseConditionGroup {
   /**
    * @param string $method
    * @param array $arguments
-   * @return PapayaDatabaseConditionElement
-   * @throws LogicException
+   * @return \PapayaDatabaseConditionElement
+   * @throws \LogicException
    */
   public function __call($method, $arguments) {
     if (count($this) > 0) {

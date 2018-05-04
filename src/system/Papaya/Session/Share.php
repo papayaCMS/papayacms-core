@@ -58,7 +58,7 @@ abstract class PapayaSessionShare extends PapayaObject {
   /**
   * Getter for session values object
   *
-  * @return PapayaSessionValues $values
+  * @return \PapayaSessionValues $values
   */
   public function getSessionValues() {
     if (isset($this->_sessionValues)) {
@@ -70,9 +70,9 @@ abstract class PapayaSessionShare extends PapayaObject {
   /**
   * Setter for session values object, allows dependency injection if needed.
   *
-  * @param PapayaSessionValues $values
+  * @param \PapayaSessionValues $values
   */
-  public function setSessionValues(PapayaSessionValues $values) {
+  public function setSessionValues(\PapayaSessionValues $values) {
     $this->_sessionValues = $values;
   }
 
@@ -133,7 +133,7 @@ abstract class PapayaSessionShare extends PapayaObject {
    *
    * @param string $functionName
    * @param array $arguments
-   * @throws LogicException
+   * @throws \LogicException
    * @return mixed
    */
   public function __call($functionName, $arguments) {
@@ -159,7 +159,7 @@ abstract class PapayaSessionShare extends PapayaObject {
   /**
   * Validate and prepare the property name
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param string $name
   * @return string
   */

@@ -55,7 +55,7 @@ class PapayaDatabaseSourceName {
   /**
   * Construct a dsn object and set it's properties from a dsn string
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param string $name
   */
   public function __construct($name) {
@@ -92,7 +92,7 @@ class PapayaDatabaseSourceName {
    *
    *
    * @param string $name
-   * @throws PapayaDatabaseExceptionConnect
+   * @throws \PapayaDatabaseExceptionConnect
    */
   public function setName($name) {
     if (empty($name)) {
@@ -199,7 +199,7 @@ class PapayaDatabaseSourceName {
   *
   * Provides read access to the values in the _properties array and the parameters property.
   *
-  * @throws ErrorException
+  * @throws \ErrorException
   * @param string $name
   * @return mixed
   */
@@ -222,7 +222,7 @@ class PapayaDatabaseSourceName {
    * Proptect properties agains changes from the outside
    * @param string $name
    * @param mixed $value
-   * @throws BadMethodCallException
+   * @throws \BadMethodCallException
    */
   public function __set($name, $value) {
     throw new \BadMethodCallException(

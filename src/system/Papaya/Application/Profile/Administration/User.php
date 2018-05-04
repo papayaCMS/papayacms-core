@@ -23,7 +23,7 @@ class PapayaApplicationProfileAdministrationUser implements PapayaApplicationPro
 
   /**
   * Create the profile object and return it
-  * @param PapayaApplication|PapayaApplicationCms $application
+  * @param \PapayaApplication|\PapayaApplicationCms $application
   * @return stdClass
   */
   public function createObject($application) {

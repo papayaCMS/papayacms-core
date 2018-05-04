@@ -61,7 +61,7 @@ class PapayaContentBoxVersion extends PapayaDatabaseObjectRecord {
   *
   * @var string
   */
-  protected $_tableName = PapayaContentTables::BOX_VERSIONS;
+  protected $_tableName = \PapayaContentTables::BOX_VERSIONS;
 
   /**
   * version translations list subobject
@@ -74,8 +74,8 @@ class PapayaContentBoxVersion extends PapayaDatabaseObjectRecord {
    * Saving an existing version is not allowed. The creation of a new version will be directly from
    * the stored data using sql commands.
    *
-   * @throws LogicException
-   * @throws UnexpectedValueException
+   * @throws \LogicException
+   * @throws \UnexpectedValueException
    * @return boolean
    */
   public function save() {
@@ -110,7 +110,7 @@ class PapayaContentBoxVersion extends PapayaDatabaseObjectRecord {
       isset($this->created) ? $this->created : time(),
       $this->owner,
       $this->message,
-      $this->databaseGetTableName(PapayaContentTables::BOXES),
+      $this->databaseGetTableName(\PapayaContentTables::BOXES),
       $this->boxId
     );
     if ($this->databaseQueryFmtWrite($sql, $parameters)) {
@@ -130,9 +130,9 @@ class PapayaContentBoxVersion extends PapayaDatabaseObjectRecord {
                 FROM %s bt
                WHERE bt.box_id = %d";
       $parameters = array(
-        $this->databaseGetTableName(PapayaContentTables::BOX_VERSION_TRANSLATIONS),
+        $this->databaseGetTableName(\PapayaContentTables::BOX_VERSION_TRANSLATIONS),
         $newId,
-        $this->databaseGetTableName(PapayaContentTables::BOX_TRANSLATIONS),
+        $this->databaseGetTableName(\PapayaContentTables::BOX_TRANSLATIONS),
         $this->boxId
       );
       $this->databaseQueryFmtWrite($sql, $parameters);
@@ -144,10 +144,10 @@ class PapayaContentBoxVersion extends PapayaDatabaseObjectRecord {
   /**
    * Access to the version translations
    *
-   * @param PapayaContentBoxVersionTranslations $translations
-   * @return PapayaContentBoxTranslations
+   * @param \PapayaContentBoxVersionTranslations $translations
+   * @return \PapayaContentBoxTranslations
    */
-  public function translations(PapayaContentBoxVersionTranslations $translations = NULL) {
+  public function translations(\PapayaContentBoxVersionTranslations $translations = NULL) {
     if (isset($translations)) {
       $this->_translations = $translations;
     }

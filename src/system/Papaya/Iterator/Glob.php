@@ -90,7 +90,7 @@ class PapayaIteratorGlob implements IteratorAggregate, Countable {
   /**
   * Return an iterator on the file list.
   *
-  * @return Iterator
+  * @return \Iterator
   */
   public function getIterator() {
     return new \ArrayIterator($this->getFilesLazy());

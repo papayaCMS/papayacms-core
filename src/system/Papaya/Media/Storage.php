@@ -28,11 +28,11 @@ class PapayaMediaStorage {
    * get the service
    *
    * @param string $service
-   * @param PapayaConfiguration $configuration
+   * @param \PapayaConfiguration $configuration
    * @param boolean $static optional, default value TRUE
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @access public
-   * @return PapayaMediaStorageService
+   * @return \PapayaMediaStorageService
    */
   public static function getService($service = '', $configuration = NULL, $static = TRUE) {
     if (empty($service)) {

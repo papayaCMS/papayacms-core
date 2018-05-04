@@ -35,17 +35,17 @@ class PapayaFilterList implements PapayaFilter {
   /**
   * Construct object and set the list of elements
   *
-  * @param array|Traversable $elements
+  * @param array|\Traversable $elements
   */
   public function __construct($elements) {
-    PapayaUtilConstraints::assertArrayOrTraversable($elements);
+    \PapayaUtilConstraints::assertArrayOrTraversable($elements);
     $this->_list = $elements;
   }
 
   /**
   * Check the integer input and throw an exception if it does not match the condition.
   *
-  * @throws PapayaFilterException
+  * @throws \PapayaFilterException
   * @param string $value
   * @return TRUE
   */

@@ -26,8 +26,8 @@ class PapayaPhrasesGroup {
   private $_phrases = NULL;
   private $_name = '';
 
-  public function __construct(PapayaPhrases $phrases, $name) {
-    PapayaUtilConstraints::assertNotEmpty($name);
+  public function __construct(\PapayaPhrases $phrases, $name) {
+    \PapayaUtilConstraints::assertNotEmpty($name);
     $this->_phrases = $phrases;
     $this->_name = $name;
   }
@@ -37,7 +37,7 @@ class PapayaPhrasesGroup {
    *
    * @param string $phrase
    * @param array $arguments
-   * @return PapayaUiStringTranslated
+   * @return \PapayaUiStringTranslated
    */
   public function get($phrase, array $arguments = array()) {
     $result = new \PapayaUiStringTranslated(
@@ -49,8 +49,8 @@ class PapayaPhrasesGroup {
   /**
    * A string list object
    *
-   * @param array|Traversable $phrases
-   * @return PapayaUiStringTranslatedList
+   * @param array|\Traversable $phrases
+   * @return \PapayaUiStringTranslatedList
    */
   public function getList($phrases) {
     $result = new \PapayaUiStringTranslatedList(

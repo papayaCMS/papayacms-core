@@ -48,7 +48,7 @@ abstract class PapayaDatabaseObjectList
   /**
   * IteratorAggregate interface: Get a ArrayIterator for the records
   *
-  * @return ArrayIterator
+  * @return \ArrayIterator
   */
   public function getIterator() {
     return new \ArrayIterator($this->_records);
@@ -64,7 +64,7 @@ abstract class PapayaDatabaseObjectList
   }
 
   /**
-  * Get count without limits, returns {@see PapayaDatabaseObjectList::count()} if
+  * Get count without limits, returns {@see \PapayaDatabaseObjectList::count()} if
   * this value is larger.
   *
   * @return integer
@@ -103,12 +103,12 @@ abstract class PapayaDatabaseObjectList
   /**
   * Assign an array to this object as the replacement for all records.
   *
-  * @param array|Traversable $data
+  * @param array|\Traversable $data
   * @return array
   */
   public function assign($data) {
     $this->_records = array();
-    foreach (PapayaUtilArray::ensure($data) as $id => $row) {
+    foreach (\PapayaUtilArray::ensure($data) as $id => $row) {
       $record = array();
       foreach ($row as $field => $value) {
         if (in_array($field, $this->_fieldMapping)) {
@@ -149,12 +149,12 @@ abstract class PapayaDatabaseObjectList
   /**
   * Converts the record from database into a values array using the mapping array.
   *
-  * @param PapayaDatabaseResult $databaseResult
+  * @param \PapayaDatabaseResult $databaseResult
   * @param string $idField
   */
   protected function _fetchRecords($databaseResult, $idField = '') {
     $this->_records = array();
-    while ($row = $databaseResult->fetchRow(PapayaDatabaseResult::FETCH_ASSOC)) {
+    while ($row = $databaseResult->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
       $record = array();
       foreach ($row as $field => $value) {
         if (!empty($this->_fieldMapping[$field])) {

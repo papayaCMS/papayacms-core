@@ -55,7 +55,7 @@ abstract class PapayaDatabaseSequence extends PapayaDatabaseObject {
    *
    * @param string $table
    * @param string $field
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function __construct($table, $field) {
     if (empty($table)) {
@@ -110,7 +110,7 @@ abstract class PapayaDatabaseSequence extends PapayaDatabaseObject {
    * Check identifiers agains table, return only identifiers not already used.
    *
    * @param array $identifiers
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return array|FALSE $identifiers
    */
   protected function checkIdentifiers(array $identifiers) {

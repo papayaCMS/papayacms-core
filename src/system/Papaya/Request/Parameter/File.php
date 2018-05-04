@@ -40,7 +40,7 @@ class PapayaRequestParameterFile implements ArrayAccess, IteratorAggregate {
 
   /**
    * Create file object, provide name and group
-   * @param string|PapayaRequestParametersName $name
+   * @param string|\PapayaRequestParametersName $name
    * @param string $group
    */
   public function __construct($name, $group = NULL) {
@@ -55,7 +55,7 @@ class PapayaRequestParameterFile implements ArrayAccess, IteratorAggregate {
   }
 
   /**
-   * @return PapayaRequestParametersName
+   * @return \PapayaRequestParametersName
    */
   public function getName() {
     return $this->_name;
@@ -83,8 +83,8 @@ class PapayaRequestParameterFile implements ArrayAccess, IteratorAggregate {
   /**
    * Get the file parameter data as an Iterator
    *
-   * @see IteratorAggregate::getIterator()
-   * @return Iterator
+   * @see \IteratorAggregate::getIterator()
+   * @return \Iterator
    */
   public function getIterator() {
     $this->lazyFetch();
@@ -92,7 +92,7 @@ class PapayaRequestParameterFile implements ArrayAccess, IteratorAggregate {
   }
 
   /**
-   * @see ArrayAccess::offsetExists()
+   * @see \ArrayAccess::offsetExists()
    */
   public function offsetExists($offset) {
     if ($offset == 'temporary') {
@@ -103,7 +103,7 @@ class PapayaRequestParameterFile implements ArrayAccess, IteratorAggregate {
   }
 
   /**
-   * @see ArrayAccess::offsetGet()
+   * @see \ArrayAccess::offsetGet()
    */
   public function offsetGet($offset) {
     $this->lazyFetch();
@@ -112,7 +112,7 @@ class PapayaRequestParameterFile implements ArrayAccess, IteratorAggregate {
 
   /**
    * Block changes trough array syntax
-   * @see ArrayAccess::offsetSet()
+   * @see \ArrayAccess::offsetSet()
    */
   public function offsetSet($offset, $value) {
     $this->lazyFetch();
@@ -121,7 +121,7 @@ class PapayaRequestParameterFile implements ArrayAccess, IteratorAggregate {
 
   /**
    * Block changes trough array syntax
-   * @see ArrayAccess::offsetSet()
+   * @see \ArrayAccess::offsetSet()
    */
   public function offsetUnset($offset) {
     $this->lazyFetch();
@@ -153,16 +153,16 @@ class PapayaRequestParameterFile implements ArrayAccess, IteratorAggregate {
   private function fetchValue($key, $default = NULL) {
     $name = clone $this->getName();
     $name->insertBefore(1, $key);
-    return PapayaUtilArray::getRecursive($_FILES, iterator_to_array($name, FALSE), $default);
+    return \PapayaUtilArray::getRecursive($_FILES, iterator_to_array($name, FALSE), $default);
   }
 
   /**
    * Getter/Setter for the file system factory
    *
-   * @param PapayaFileSystemFactory $fileSystem
-   * @return PapayaFileSystemFactory
+   * @param \PapayaFileSystemFactory $fileSystem
+   * @return \PapayaFileSystemFactory
    */
-  public function fileSystem(PapayaFileSystemFactory $fileSystem = NULL) {
+  public function fileSystem(\PapayaFileSystemFactory $fileSystem = NULL) {
     if (isset($fileSystem)) {
       $this->_fileSystem = $fileSystem;
     } elseif (NULL === $this->_fileSystem) {

@@ -31,10 +31,10 @@ class PapayaIteratorTraversable implements OuterIterator {
   /**
   * Store the traversable to a member variable.
   *
-  * @param Traversable|array $traversable
+  * @param \Traversable|array $traversable
   */
   public function __construct($traversable) {
-    PapayaUtilConstraints::assertArrayOrTraversable($traversable);
+    \PapayaUtilConstraints::assertArrayOrTraversable($traversable);
     $this->_traversable = $traversable;
   }
 
@@ -44,7 +44,7 @@ class PapayaIteratorTraversable implements OuterIterator {
   * to reuse an already fetched/created iterator.
   *
   * @param boolean $useCached
-  * @return Iterator
+  * @return \Iterator
   */
   public function getIteratorForTraversable($useCached = FALSE) {
     if (!$useCached || is_null($this->_iterator)) {

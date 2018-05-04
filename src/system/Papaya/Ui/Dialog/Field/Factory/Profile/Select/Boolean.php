@@ -25,8 +25,8 @@ class PapayaUiDialogFieldFactoryProfileSelectBoolean
   /**
    * Create a select field with two elements displayed as radio boxes
    *
-   * @param array|Traversable $elements
-   * @return PapayaUiDialogFieldSelect
+   * @param array|\Traversable $elements
+   * @return \PapayaUiDialogFieldSelect
    */
   protected function createField($elements) {
     return new \PapayaUiDialogFieldSelectRadio(

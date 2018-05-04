@@ -35,7 +35,7 @@ class PapayaUiListviewSubitemCheckbox extends PapayaUiListviewSubitem {
    */
   private $_value;
 
-  public function __construct(PapayaUiDialog $dialog, $parameterName, $value) {
+  public function __construct(\PapayaUiDialog $dialog, $parameterName, $value) {
     $this->_dialog = $dialog;
     $this->_parameterName = new \PapayaRequestParametersName($parameterName);
     $this->_value = $value;
@@ -44,9 +44,9 @@ class PapayaUiListviewSubitemCheckbox extends PapayaUiListviewSubitem {
   /**
    * Append subitem xml data to parent node. In this case just an <subitem/> element
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $item = $parent->appendElement('subitem');
     $parameterName = clone $this->_parameterName;
     if ($group = $this->_dialog->parameterGroup()) {

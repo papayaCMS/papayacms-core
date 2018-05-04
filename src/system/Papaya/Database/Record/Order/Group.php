@@ -38,9 +38,9 @@ class PapayaDatabaseRecordOrderGroup
   /**
    * Attach an additional list to the group
    *
-   * @param PapayaDatabaseInterfaceOrder $list
+   * @param \PapayaDatabaseInterfaceOrder $list
    */
-  public function add(PapayaDatabaseInterfaceOrder $list) {
+  public function add(\PapayaDatabaseInterfaceOrder $list) {
     $this->remove($list);
     /** @noinspection PhpParamsInspection */
     $this->_lists->attachIterator($list);
@@ -49,17 +49,17 @@ class PapayaDatabaseRecordOrderGroup
   /**
    * Remove a list to the group
    *
-   * @param PapayaDatabaseInterfaceOrder $list
+   * @param \PapayaDatabaseInterfaceOrder $list
    */
-  public function remove(PapayaDatabaseInterfaceOrder $list) {
+  public function remove(\PapayaDatabaseInterfaceOrder $list) {
     /** @noinspection PhpParamsInspection */
     $this->_lists->detachIterator($list);
   }
 
   /**
    * Return the internal multiple iterator to alllow to iterate over all items in all atached lists
-   * @see IteratorAggregate::getIterator()
-   * @return Iterator
+   * @see \IteratorAggregate::getIterator()
+   * @return \Iterator
    */
   public function getIterator() {
     return $this->_lists;
@@ -68,7 +68,7 @@ class PapayaDatabaseRecordOrderGroup
   /**
    * Casting the list to string generates the needed sql
    *
-   * @see PapayaDatabaseInterfaceOrder::__toString()
+   * @see \PapayaDatabaseInterfaceOrder::__toString()
    * @return string
    */
   public function __toString() {

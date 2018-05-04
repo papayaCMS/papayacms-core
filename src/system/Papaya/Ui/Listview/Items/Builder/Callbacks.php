@@ -22,9 +22,9 @@
 * @property PapayaObjectCallback $onBeforeFill
 * @property PapayaObjectCallback $onAfterFill
 * @property PapayaObjectCallback $onCreateItem
-* @method boolean onBeforeFill(PapayaUiListviewItems $items) if the callback returns FALSE, the items will be cleared.
-* @method boolean onAfterFill(PapayaUiListviewItems $items)
-* @method boolean onCreateItem(PapayaUiListviewItems $items, mixed $element, int $index)
+* @method boolean onBeforeFill(\PapayaUiListviewItems $items) if the callback returns FALSE, the items will be cleared.
+* @method boolean onAfterFill(\PapayaUiListviewItems $items)
+* @method boolean onCreateItem(\PapayaUiListviewItems $items, mixed $element, int $index)
 */
 class PapayaUiListviewItemsBuilderCallbacks extends PapayaObjectCallbacks {
 

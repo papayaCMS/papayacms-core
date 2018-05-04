@@ -52,7 +52,7 @@ class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAgg
    * Getter/Setter for parameter group separator
    *
    * @param string $groupSeparator
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @internal param array|string $name
    * @return string
    */
@@ -74,9 +74,9 @@ class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAgg
   /**
   * Set name parts.
   *
-  * @see PapayaRequestParametersName::parse
-  * @throws InvalidArgumentException
-  * @param string|integer|array|PapayaRequestParametersName $name
+  * @see \PapayaRequestParametersName::parse
+  * @throws \InvalidArgumentException
+  * @param string|integer|array|\PapayaRequestParametersName $name
   * @param string $groupSeparator
   */
   public function set($name, $groupSeparator = NULL) {
@@ -93,9 +93,9 @@ class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAgg
   /**
   * Append name parts.
   *
-  * @see PapayaRequestParametersName::parse
-  * @throws InvalidArgumentException
-  * @param string|integer|array|PapayaRequestParametersName $name
+  * @see \PapayaRequestParametersName::parse
+  * @throws \InvalidArgumentException
+  * @param string|integer|array|\PapayaRequestParametersName $name
   * @param string $groupSeparator
   */
   public function append($name, $groupSeparator = NULL) {
@@ -106,9 +106,9 @@ class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAgg
   /**
   * Prepend name parts.
   *
-  * @see PapayaRequestParametersName::parse
-  * @throws InvalidArgumentException
-  * @param string|integer|array|PapayaRequestParametersName $name
+  * @see \PapayaRequestParametersName::parse
+  * @throws \InvalidArgumentException
+  * @param string|integer|array|\PapayaRequestParametersName $name
   * @param string $groupSeparator
   */
   public function prepend($name, $groupSeparator = NULL) {
@@ -119,10 +119,10 @@ class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAgg
   /**
   * Insert name parts before the specified index, append if the index does not exists.
   *
-  * @see PapayaRequestParametersName::parse
-  * @throws InvalidArgumentException
+  * @see \PapayaRequestParametersName::parse
+  * @throws \InvalidArgumentException
   * @param integer $index
-  * @param string|integer|array|PapayaRequestParametersName $name
+  * @param string|integer|array|\PapayaRequestParametersName $name
   * @param string $groupSeparator
   */
   public function insertBefore($index, $name, $groupSeparator = NULL) {
@@ -134,10 +134,10 @@ class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAgg
    * Parse name parts from a string or array or a PapayaRequestParametersName.
    * An integer is used like a string.
    *
-   * @see PapayaRequestParametersName::parseString()
-   * @see PapayaRequestParametersName::parseArray()
-   * @throws InvalidArgumentException
-   * @param string|integer|array|PapayaRequestParametersName $name
+   * @see \PapayaRequestParametersName::parseString()
+   * @see \PapayaRequestParametersName::parseArray()
+   * @throws \InvalidArgumentException
+   * @param string|integer|array|\PapayaRequestParametersName $name
    * @param string $groupSeparator
    * @return array|string
    */
@@ -160,7 +160,7 @@ class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAgg
   /**
   * Set name parts using an array.
   *
-  * @see PapayaRequestParametersName::parseArray()
+  * @see \PapayaRequestParametersName::parseArray()
   * @param array $name
   */
   public function setArray(array $name) {
@@ -184,7 +184,7 @@ class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAgg
   /**
   * Set the name parts using a string.
   *
-  * @see PapayaRequestParametersName::parseString()
+  * @see \PapayaRequestParametersName::parseString()
   * @param string $name
   * @param string $groupSeparator
   */
@@ -356,7 +356,7 @@ class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAgg
   /**
   * IteratorAggregate: return an iterator for the name parts
   *
-  * @return ArrayIterator
+  * @return \ArrayIterator
   */
   public function getIterator() {
     return new \ArrayIterator($this->getArray());

@@ -43,10 +43,10 @@ class PapayaObjectParameters
    *
    * @param mixed $offset
    * @param mixed $defaultValue
-   * @param PapayaFilter $filter
+   * @param \PapayaFilter $filter
    * @return mixed
    */
-  public function get($offset, $defaultValue = NULL, PapayaFilter $filter = NULL) {
+  public function get($offset, $defaultValue = NULL, \PapayaFilter $filter = NULL) {
     $value = self::offsetGet($offset);
     if (isset($value) && isset($filter) && $filter instanceof \PapayaFilter) {
       $value = $filter->filter($value);
@@ -78,21 +78,21 @@ class PapayaObjectParameters
   /**
    * Merge the given array or Traversable into the internal array.
    *
-   * @param array|Traversable $value
+   * @param array|\Traversable $value
    */
   public function merge($value) {
-    PapayaUtilConstraints::assertArrayOrTraversable($value);
-    parent::exchangeArray(PapayaUtilArray::merge($this, $value));
+    \PapayaUtilConstraints::assertArrayOrTraversable($value);
+    parent::exchangeArray(\PapayaUtilArray::merge($this, $value));
   }
 
   /**
    * Set each value from an array or traversable
    *
-   * @param array|Traversable $values
+   * @param array|\Traversable $values
    * @internal param array|\Traversable $value
    */
   public function assign($values) {
-    PapayaUtilConstraints::assertArrayOrTraversable($values);
+    \PapayaUtilConstraints::assertArrayOrTraversable($values);
     foreach ($values as $key => $value) {
       $this[$key] = $value;
     }
@@ -101,7 +101,7 @@ class PapayaObjectParameters
   /**
    * ArrayAccess interface, check if the offset exists
    *
-   * @see ArrayObject::offsetExists()
+   * @see \ArrayObject::offsetExists()
    * @param mixed $offset
    * @return boolean
    */
@@ -132,7 +132,7 @@ class PapayaObjectParameters
    * ArrayAccess interface, return the value spocified by the key, return NULL if the value
    * does not exist.
    *
-   * @see ArrayObject::offsetGet()
+   * @see \ArrayObject::offsetGet()
    * @param mixed $offset
    * @return mixed
    */
@@ -159,7 +159,7 @@ class PapayaObjectParameters
   /**
    * ArrayAccess interface, change a value
    *
-   * @see ArrayObject::offsetSet()
+   * @see \ArrayObject::offsetSet()
    * @param mixed $offset
    * @param mixed $value
    */
@@ -203,7 +203,7 @@ class PapayaObjectParameters
   /**
    * ArrayAccess interface, delete a value from the internal array
    *
-   * @see ArrayObject::offsetUnset()
+   * @see \ArrayObject::offsetUnset()
    * @param mixed $offset
    */
   public function offsetUnset($offset) {
@@ -245,7 +245,7 @@ class PapayaObjectParameters
   public function getChecksum() {
     $data = (array)$this;
     ksort($data);
-    PapayaUtilArray::normalize($data);
+    \PapayaUtilArray::normalize($data);
     return md5(serialize($data));
   }
 }

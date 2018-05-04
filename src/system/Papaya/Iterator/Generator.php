@@ -43,7 +43,7 @@ class PapayaIteratorGenerator implements IteratorAggregate {
    * @param array $arguments
    */
   public function __construct($callback, array $arguments = array()) {
-    PapayaUtilConstraints::assertCallable($callback);
+    \PapayaUtilConstraints::assertCallable($callback);
     $this->_callback = $callback;
     $this->_arguments = $arguments;
   }
@@ -52,7 +52,7 @@ class PapayaIteratorGenerator implements IteratorAggregate {
    * IteratorAggregate interface: Trigger callback if not already done and store the
    * created iterator. Return the Iterator.
    *
-   * @return Iterator
+   * @return \Iterator
    */
   public function getIterator() {
     if (NULL == $this->_iterator) {
@@ -71,7 +71,7 @@ class PapayaIteratorGenerator implements IteratorAggregate {
    *
    * In all other cases an EmptyIterator is returned.
    *
-   * @return Iterator
+   * @return \Iterator
    */
   private function createIterator() {
     $traversable = call_user_func_array($this->_callback, $this->_arguments);

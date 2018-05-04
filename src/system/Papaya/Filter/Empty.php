@@ -42,8 +42,8 @@ class PapayaFilterEmpty implements PapayaFilter {
    * @param bool $ignoreSpaces
    */
   public function __construct($ignoreZero = TRUE, $ignoreSpaces = TRUE) {
-    PapayaUtilConstraints::assertBoolean($ignoreZero);
-    PapayaUtilConstraints::assertBoolean($ignoreSpaces);
+    \PapayaUtilConstraints::assertBoolean($ignoreZero);
+    \PapayaUtilConstraints::assertBoolean($ignoreSpaces);
     $this->_ignoreZero = $ignoreZero;
     $this->_ignoreSpaces = $ignoreSpaces;
   }
@@ -51,7 +51,7 @@ class PapayaFilterEmpty implements PapayaFilter {
   /**
   * Check the value throw exception if value is not empty
   *
-  * @throws PapayaFilterExceptionNotEmpty
+  * @throws \PapayaFilterExceptionNotEmpty
   * @param string $value
   * @return TRUE
   */

@@ -84,7 +84,7 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
   *
   * @var string
   */
-  protected $_tableName = PapayaContentTables::PAGE_VERSIONS;
+  protected $_tableName = \PapayaContentTables::PAGE_VERSIONS;
 
   /**
   * version translations list subobject
@@ -97,8 +97,8 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
    * Saving an existing version is not allowed. The creation of a new version will be directly from
    * the stored data using sql commands.
    *
-   * @throws LogicException
-   * @throws UnexpectedValueException
+   * @throws \LogicException
+   * @throws \UnexpectedValueException
    * @return boolean
    */
   public function save() {
@@ -137,7 +137,7 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
       $this->owner,
       $this->message,
       isset($this->level) ? $this->level : -1,
-      $this->databaseGetTableName(PapayaContentTables::PAGES),
+      $this->databaseGetTableName(\PapayaContentTables::PAGES),
       $this->pageId
     );
     if ($this->databaseQueryFmtWrite($sql, $parameters)) {
@@ -156,9 +156,9 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
           FROM %s tt
          WHERE tt.topic_id = %d";
       $parameters = array(
-        $this->databaseGetTableName(PapayaContentTables::PAGE_VERSION_TRANSLATIONS),
+        $this->databaseGetTableName(\PapayaContentTables::PAGE_VERSION_TRANSLATIONS),
         $newId,
-        $this->databaseGetTableName(PapayaContentTables::PAGE_TRANSLATIONS),
+        $this->databaseGetTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
         $this->pageId
       );
       $this->databaseQueryFmtWrite($sql, $parameters);
@@ -170,10 +170,10 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
   /**
    * Access to the version translations
    *
-   * @param PapayaContentPageVersionTranslations $translations
-   * @return PapayaContentPageVersionTranslations
+   * @param \PapayaContentPageVersionTranslations $translations
+   * @return \PapayaContentPageVersionTranslations
    */
-  public function translations(PapayaContentPageVersionTranslations $translations = NULL) {
+  public function translations(\PapayaContentPageVersionTranslations $translations = NULL) {
     if (NULL !== $translations) {
       $this->_translations = $translations;
     }

@@ -22,7 +22,7 @@
 class PapayaFilterFactoryProfileIsGuid extends PapayaFilterFactoryProfile {
 
   /**
-   * @see PapayaFilterFactoryProfile::getFilter()
+   * @see \PapayaFilterFactoryProfile::getFilter()
    */
   public function getFilter() {
     return new \PapayaFilterPcre('(^[a-fA-F\d]{32}$)Du');

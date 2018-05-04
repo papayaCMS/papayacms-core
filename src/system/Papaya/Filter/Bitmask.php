@@ -42,7 +42,7 @@ class PapayaFilterBitmask implements PapayaFilter {
   * Validate the input value using the function and
   * throw an exception if the validation has failed.
   *
-  * @throws PapayaFilterException
+  * @throws \PapayaFilterException
   * @param string $value
   * @return TRUE
   */
@@ -73,7 +73,7 @@ class PapayaFilterBitmask implements PapayaFilter {
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       return NULL;
     }
   }

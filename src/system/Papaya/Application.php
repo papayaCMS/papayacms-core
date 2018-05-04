@@ -61,7 +61,7 @@ class PapayaApplication implements ArrayAccess {
   * Create a new instance of this class or return existing one (singleton)
   *
   * @param boolean $reset
-  * @return PapayaApplication Instance of Application Object
+  * @return \PapayaApplication Instance of Application Object
   */
   public static function getInstance($reset = FALSE) {
     if ($reset || is_null(self::$instance)) {
@@ -72,7 +72,7 @@ class PapayaApplication implements ArrayAccess {
 
   /**
   * Register a collection of profiles
-  * @param PapayaApplicationProfiles $profiles
+  * @param \PapayaApplicationProfiles $profiles
   * @param integer $duplicationMode
   * @return void
   */
@@ -87,9 +87,9 @@ class PapayaApplication implements ArrayAccess {
   /**
    * Register an object profile
    * @param string $identifier
-   * @param PapayaApplicationProfile|callable $profile
+   * @param \PapayaApplicationProfile|callable $profile
    * @param integer $duplicationMode
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function registerProfile(
     $identifier, $profile, $duplicationMode = self::DUPLICATE_ERROR
@@ -129,7 +129,7 @@ class PapayaApplication implements ArrayAccess {
    * used to create a new object, if provided.
    *
    * @param string $identifier
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return object
    */
   public function getObject($identifier) {
@@ -157,10 +157,10 @@ class PapayaApplication implements ArrayAccess {
    * @param string $identifier
    * @param object $object
    * @param int $duplicationMode
-   * @throws LogicException
+   * @throws \LogicException
    */
   public function setObject($identifier, $object, $duplicationMode = self::DUPLICATE_ERROR) {
-    PapayaUtilConstraints::assertObject($object);
+    \PapayaUtilConstraints::assertObject($object);
     $index = strtolower($identifier);
     if (isset($this->_objects[$index])) {
       switch ($duplicationMode) {
@@ -202,7 +202,7 @@ class PapayaApplication implements ArrayAccess {
    * Check if an object or an profile for an object exists
    *
    * @param string $identifier
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return boolean
    */
   public function removeObject($identifier) {

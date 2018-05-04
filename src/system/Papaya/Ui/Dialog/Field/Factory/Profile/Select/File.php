@@ -27,11 +27,11 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
    */
   private $_fileSystem = NULL;
 
-  protected $_fileSystemItems = PapayaFileSystemDirectory::FETCH_FILES;
+  protected $_fileSystemItems = \PapayaFileSystemDirectory::FETCH_FILES;
 
   /**
-   * @see PapayaUiDialogFieldFactoryProfile::getField()
-   * @return PapayaUiDialogFieldSelect
+   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @return \PapayaUiDialogFieldSelect
    */
   public function getField() {
     $parameters = $this->options()->parameters;
@@ -44,7 +44,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
       );
       if (!$this->options()->mandatory) {
         $elements = new \PapayaIteratorMultiple(
-          PapayaIteratorMultiple::MIT_KEYS_ASSOC,
+          \PapayaIteratorMultiple::MIT_KEYS_ASSOC,
           new \ArrayIterator(array('' => 'none')),
           $elements
         );
@@ -56,7 +56,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
           $elements,
           '(^(?P<group>.+)_([^_]+\\.[^.]+)$)',
           'group',
-          PapayaIteratorTreeGroupsRegex::GROUP_KEYS
+          \PapayaIteratorTreeGroupsRegex::GROUP_KEYS
         ),
         $this->options()->mandatory
       );
@@ -65,7 +65,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
       $field->setHint($this->options()->hint ? $this->options()->hint : '');
     } else {
       $field = new \PapayaUiDialogFieldMessage(
-        PapayaMessage::SEVERITY_ERROR,
+        \PapayaMessage::SEVERITY_ERROR,
         new \PapayaUiStringTranslated(
           'Can not open directory "%s"', array($path)
         )
@@ -89,7 +89,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
    * Get the path for the file list, ig it is an callback, fetch it from the context otherwise use
    * a PapayaConfigurationPath object.
    *
-   * @return string|PapayaConfigurationPath
+   * @return string|\PapayaConfigurationPath
    */
   private function getPath() {
     $parameters = $this->options()->parameters;
@@ -112,10 +112,10 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
   /**
    * Getter/Setter for the file system factory
    *
-   * @param PapayaFileSystemFactory $fileSystem
-   * @return PapayaFileSystemFactory
+   * @param \PapayaFileSystemFactory $fileSystem
+   * @return \PapayaFileSystemFactory
    */
-  public function fileSystem(PapayaFileSystemFactory $fileSystem = NULL) {
+  public function fileSystem(\PapayaFileSystemFactory $fileSystem = NULL) {
     if (isset($fileSystem)) {
       $this->_fileSystem = $fileSystem;
     } elseif (NULL === $this->_fileSystem) {

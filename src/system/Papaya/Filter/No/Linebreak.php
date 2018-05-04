@@ -39,7 +39,7 @@ class PapayaFilterNoLinebreak implements PapayaFilter {
   /**
   * Check the value for linebreaks, if the value contains linebreaks throw an exception
   *
-  * @throws PapayaFilterExceptionCharacterInvalid
+  * @throws \PapayaFilterExceptionCharacterInvalid
   * @param string $value
   * @return TRUE
   */

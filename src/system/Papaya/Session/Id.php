@@ -1,22 +1,17 @@
 <?php
 /**
-* Papaya Session Id Handling, Read the session from different source, check if they exists in
-* different sources.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Session
-* @version $Id: Id.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Session Id Handling, Read the session from different source, check if they exists in
@@ -47,8 +42,8 @@ class PapayaSessionId extends PapayaObject {
   * @param string $name
   */
   public function __construct($name = 'sid') {
-    PapayaUtilConstraints::assertString($name);
-    PapayaUtilConstraints::assertNotEmpty($name);
+    \PapayaUtilConstraints::assertString($name);
+    \PapayaUtilConstraints::assertNotEmpty($name);
     $this->_name = $name;
   }
 
@@ -132,7 +127,7 @@ class PapayaSessionId extends PapayaObject {
   */
   private function _readCookie() {
     $id = $this->papaya()->request->getParameter(
-      $this->_name, '', NULL, PapayaRequest::SOURCE_COOKIE
+      $this->_name, '', NULL, \PapayaRequest::SOURCE_COOKIE
     );
     if ($id && $this->_isCookieUnique()) {
       return $this->validate($id);
@@ -147,7 +142,7 @@ class PapayaSessionId extends PapayaObject {
   */
   private function _readPath() {
     $parameter = $this->papaya()->request->getParameter(
-      'session', '', NULL, PapayaRequest::SOURCE_PATH
+      'session', '', NULL, \PapayaRequest::SOURCE_PATH
     );
     if (0 === strpos($parameter, $this->_name)) {
       $id = substr($parameter, strlen($this->_name));
@@ -166,7 +161,7 @@ class PapayaSessionId extends PapayaObject {
   */
   private function _readQuery() {
     $id = $this->papaya()->request->getParameter(
-      $this->_name, '', NULL, PapayaRequest::SOURCE_QUERY
+      $this->_name, '', NULL, \PapayaRequest::SOURCE_QUERY
     );
     return $this->validate($id);
   }
@@ -178,7 +173,7 @@ class PapayaSessionId extends PapayaObject {
   */
   private function _readBody() {
     $id = $this->papaya()->request->getParameter(
-      $this->_name, '', NULL, PapayaRequest::SOURCE_BODY
+      $this->_name, '', NULL, \PapayaRequest::SOURCE_BODY
     );
     return $this->validate($id);
   }

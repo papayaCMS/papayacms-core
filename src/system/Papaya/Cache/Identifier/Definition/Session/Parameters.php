@@ -64,7 +64,7 @@ class PapayaCacheIdentifierDefinitionSessionParameters
   /**
    * Any kind of data from the session
    *
-   * @see PapayaCacheIdentifierDefinition::getSources()
+   * @see \PapayaCacheIdentifierDefinition::getSources()
    * @return integer
    */
   public function getSources() {

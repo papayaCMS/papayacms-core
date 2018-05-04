@@ -50,7 +50,7 @@ class PapayaContentBoxWork extends PapayaContentBox {
   /**
   * Get a publication encapsulation object
   *
-  * @return PapayaContentBoxPublication
+  * @return \PapayaContentBoxPublication
   */
   protected function _createPublicationObject() {
     $publication = new \PapayaContentBoxPublication();
@@ -82,7 +82,7 @@ class PapayaContentBoxWork extends PapayaContentBox {
   /**
   * Publish the translations of the given languages.
   *
-  * @param PapayaContentBoxPublication $publication
+  * @param \PapayaContentBoxPublication $publication
   * @param array $languageIds
   * @return boolean
   */
@@ -91,7 +91,7 @@ class PapayaContentBoxWork extends PapayaContentBox {
   ) {
     if (!empty($languageIds)) {
       $deleted = $this->databaseDeleteRecord(
-        $this->databaseGetTableName(PapayaContentTables::BOX_PUBLICATION_TRANSLATIONS),
+        $this->databaseGetTableName(\PapayaContentTables::BOX_PUBLICATION_TRANSLATIONS),
         array(
           'box_id' => $this->id,
           'lng_id' => $languageIds
@@ -108,9 +108,9 @@ class PapayaContentBoxWork extends PapayaContentBox {
                   FROM %s t
                  WHERE t.box_id = %d AND $filter";
         $parameters = array(
-          $this->databaseGetTableName(PapayaContentTables::BOX_PUBLICATION_TRANSLATIONS),
+          $this->databaseGetTableName(\PapayaContentTables::BOX_PUBLICATION_TRANSLATIONS),
           $now,
-          $this->databaseGetTableName(PapayaContentTables::BOX_TRANSLATIONS),
+          $this->databaseGetTableName(\PapayaContentTables::BOX_TRANSLATIONS),
           $this->id
         );
         if (FALSE !== $this->databaseQueryFmt($sql, $parameters)) {

@@ -46,13 +46,13 @@ class PapayaFilterText implements PapayaFilter {
    */
   private function getPattern() {
     $result = '([^\\pL\\pP';
-    if (PapayaUtilBitwise::inBitmask(self::ALLOW_SPACES, $this->_options)) {
+    if (\PapayaUtilBitwise::inBitmask(self::ALLOW_SPACES, $this->_options)) {
       $result .= '\\p{Zs} ';
     }
-    if (PapayaUtilBitwise::inBitmask(self::ALLOW_LINES, $this->_options)) {
+    if (\PapayaUtilBitwise::inBitmask(self::ALLOW_LINES, $this->_options)) {
       $result .= '\\p{Zl}\\r\\n';
     }
-    if (PapayaUtilBitwise::inBitmask(self::ALLOW_DIGITS, $this->_options)) {
+    if (\PapayaUtilBitwise::inBitmask(self::ALLOW_DIGITS, $this->_options)) {
       $result .= '\\pN';
     }
     $result .= ']+)u';
@@ -64,8 +64,8 @@ class PapayaFilterText implements PapayaFilter {
    * character.
    *
    * @param mixed $value
-   * @throws PapayaFilterExceptionEmpty
-   * @throws PapayaFilterExceptionCharacterInvalid
+   * @throws \PapayaFilterExceptionEmpty
+   * @throws \PapayaFilterExceptionCharacterInvalid
    * @return TRUE
    */
   public function validate($value) {

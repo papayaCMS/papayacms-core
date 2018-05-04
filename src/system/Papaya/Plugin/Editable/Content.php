@@ -23,7 +23,7 @@
 class PapayaPluginEditableContent extends PapayaObjectParameters {
 
   /**
-   * Checksum buffer filled in {@see PapayaPluginEditableContent::setXml()}
+   * Checksum buffer filled in {@see \PapayaPluginEditableContent::setXml()}
    * @var string|NULL
    */
   private $_checksum = NULL;
@@ -47,7 +47,7 @@ class PapayaPluginEditableContent extends PapayaObjectParameters {
    */
   public function setXml($xml) {
     $this->clear();
-    $this->merge(PapayaUtilStringXml::unserializeArray($xml));
+    $this->merge(\PapayaUtilStringXml::unserializeArray($xml));
     $this->_checksum = $this->getChecksum();
   }
 
@@ -57,12 +57,12 @@ class PapayaPluginEditableContent extends PapayaObjectParameters {
    * @return string
    */
   public function getXml() {
-    return PapayaUtilStringXml::serializeArray((array)$this);
+    return \PapayaUtilStringXml::serializeArray((array)$this);
   }
 
   /**
    * Check if the contained data was modified. The data is considered modified if it was not
-   * set using {@see PapayaPluginEditableContent::setXml()} or the generated checksum is
+   * set using {@see \PapayaPluginEditableContent::setXml()} or the generated checksum is
    * different.
    *
    * @return boolean
@@ -77,11 +77,11 @@ class PapayaPluginEditableContent extends PapayaObjectParameters {
   /**
    * Getter/Seter for the editor subobject
    *
-   * @param PapayaPluginEditor $editor
-   * @throws LogicException
-   * @return PapayaPluginEditor
+   * @param \PapayaPluginEditor $editor
+   * @throws \LogicException
+   * @return \PapayaPluginEditor
    */
-  public function editor(PapayaPluginEditor $editor = NULL) {
+  public function editor(\PapayaPluginEditor $editor = NULL) {
     if (isset($editor)) {
       $this->_editor = $editor;
     } elseif (NULL === $this->_editor) {
@@ -102,10 +102,10 @@ class PapayaPluginEditableContent extends PapayaObjectParameters {
   /**
    * Getter/Setter for the callbacks subobject
    *
-   * @param PapayaPluginEditableContentCallbacks $callbacks
-   * @return PapayaPluginEditableContentCallbacks
+   * @param \PapayaPluginEditableContentCallbacks $callbacks
+   * @return \PapayaPluginEditableContentCallbacks
    */
-  public function callbacks(PapayaPluginEditableContentCallbacks $callbacks = NULL) {
+  public function callbacks(\PapayaPluginEditableContentCallbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (NULL === $this->_callbacks) {

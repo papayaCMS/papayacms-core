@@ -43,7 +43,7 @@ class PapayaFilterStringLength implements PapayaFilter {
    *
    * @param integer|NULL $minimum
    * @param integer|NULL $maximum
-   * @throws RangeException
+   * @throws \RangeException
    */
   public function __construct($minimum = NULL, $maximum = NULL) {
     $this->_minimum = $minimum;
@@ -62,7 +62,7 @@ class PapayaFilterStringLength implements PapayaFilter {
   /**
    * Check the string length and throw an exception if it does not not match limits
    *
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    * @param string $value
    * @return TRUE
    */
@@ -70,7 +70,7 @@ class PapayaFilterStringLength implements PapayaFilter {
     if (is_array($value)) {
       throw new \PapayaFilterExceptionType('string');
     }
-    $length = PapayaUtilStringUtf8::length((string)$value);
+    $length = \PapayaUtilStringUtf8::length((string)$value);
     if (isset($this->_minimum) && $length < $this->_minimum) {
       throw new \PapayaFilterExceptionRangeMinimum($this->_minimum, $length);
     }
@@ -89,12 +89,12 @@ class PapayaFilterStringLength implements PapayaFilter {
    */
   public function filter($value) {
     $value = is_array($value) ? '' : (string)$value;
-    $length = PapayaUtilStringUtf8::length($value);
+    $length = \PapayaUtilStringUtf8::length($value);
     if (isset($this->_minimum) && $length < $this->_minimum) {
       return NULL;
     }
     if (isset($this->_maximum) && $length > $this->_maximum) {
-      return PapayaUtilStringUtf8::copy($value, 0, $this->_maximum);
+      return \PapayaUtilStringUtf8::copy($value, 0, $this->_maximum);
     }
     return $value;
   }

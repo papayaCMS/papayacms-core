@@ -50,7 +50,7 @@ abstract class PapayaDatabaseRecordsTree extends PapayaDatabaseRecordsLazy {
    * @param integer|NULL $limit
    * @param integer|NULL $offset
    * @param array $idProperties
-   * @throws LogicException
+   * @throws \LogicException
    * @return bool
    */
   protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = array()) {
@@ -81,7 +81,7 @@ abstract class PapayaDatabaseRecordsTree extends PapayaDatabaseRecordsLazy {
   * Return a tree iterator for the loaded records starting with the children of the virtual
   * element zero.
   *
-  * @return PapayaIteratorTreeChildren
+  * @return \PapayaIteratorTreeChildren
   */
   public function getIterator() {
     return new \PapayaIteratorTreeChildren($this->_records, $this->_children);

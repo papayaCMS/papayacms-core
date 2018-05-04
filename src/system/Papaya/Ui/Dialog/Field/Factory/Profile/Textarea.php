@@ -25,8 +25,8 @@
 class PapayaUiDialogFieldFactoryProfileTextarea extends PapayaUiDialogFieldFactoryProfile {
 
   /**
-   * @see PapayaUiDialogFieldFactoryProfile::getField()
-   * @return PapayaUiDialogFieldInput
+   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @return \PapayaUiDialogFieldInput
    */
   public function getField() {
     $field = new \PapayaUiDialogFieldTextarea(

@@ -102,7 +102,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
     'PAPAYA_CONTENT_LANGUAGE' => 1,
     'PAPAYA_CONTENT_LANGUAGE_COOKIE' => FALSE,
 
-    'PAPAYA_DEFAULT_PROTOCOL' => PapayaUtilServerProtocol::BOTH,
+    'PAPAYA_DEFAULT_PROTOCOL' => \PapayaUtilServerProtocol::BOTH,
     'PAPAYA_DEFAULT_HOST' => '',
     'PAPAYA_DEFAULT_HOST_ACTION' => 0,
     'PAPAYA_REDIRECT_PROTECTION' => FALSE,
@@ -275,7 +275,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
 
     // session handling
     'PAPAYA_SESSION_START' => TRUE,
-    'PAPAYA_SESSION_ACTIVATION' => PapayaSession::ACTIVATION_DYNAMIC,
+    'PAPAYA_SESSION_ACTIVATION' => \PapayaSession::ACTIVATION_DYNAMIC,
     'PAPAYA_SESSION_DOMAIN' => '',
     'PAPAYA_SESSION_PATH' => '',
     'PAPAYA_SESSION_SECURE' => FALSE,
@@ -347,11 +347,11 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
       $basePath = 's3://'.
         $this->get('PAPAYA_MEDIA_STORAGE_S3_KEYID').':@'.
         $this->get('PAPAYA_MEDIA_STORAGE_S3_BUCKET').'/';
-      PapayaStreamwrapperS3::setSecret(
+      \PapayaStreamwrapperS3::setSecret(
         $this->get('PAPAYA_MEDIA_STORAGE_S3_KEYID'),
         $this->get('PAPAYA_MEDIA_STORAGE_S3_KEY')
       );
-      PapayaStreamwrapperS3::register('s3');
+      \PapayaStreamwrapperS3::register('s3');
       $this->set('PAPAYA_MEDIA_STORAGE_SUBDIRECTORY', 'media/');
       break;
     default :
@@ -363,7 +363,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
       } else {
         $this->set(
           'PAPAYA_MEDIA_PUBLIC_DIRECTORY',
-          PapayaUtilFilePath::cleanup(
+          \PapayaUtilFilePath::cleanup(
             $_SERVER['DOCUMENT_ROOT'].$this->get('PAPAYA_PATH_PUBLICFILES')
           )
         );
@@ -380,11 +380,11 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
 
     if ($this->get('PAPAYA_PATH_TEMPLATES', '') == '') {
       $templatePaths = array(
-        PapayaUtilFilePath::getDocumentRoot().'/../templates/',
+        \PapayaUtilFilePath::getDocumentRoot().'/../templates/',
         $this->get('PAPAYA_PATH_DATA').'templates/'
       );
       foreach ($templatePaths as $templatePath) {
-        $templatePath = PapayaUtilFilePath::cleanup($templatePath);
+        $templatePath = \PapayaUtilFilePath::cleanup($templatePath);
         $this->set('PAPAYA_PATH_TEMPLATES', $templatePath);
         if (file_exists($templatePath) && is_dir($templatePath)) {
           break;
@@ -393,7 +393,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
     }
     $this->set(
       'PAPAYA_PATHWEB_ADMIN',
-      PapayaUtilFilePath::cleanup(
+      \PapayaUtilFilePath::cleanup(
         $this->get('PAPAYA_PATH_WEB').$this->get('PAPAYA_PATH_ADMIN')
       )
     );
@@ -401,7 +401,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
 
   /**
   * Define the database table name constants, these constants should be replaced by
-  * calls to {@see PapayaDatabaseAcccess::getTableName()} using the class constants in
+  * calls to {@see \PapayaDatabaseAcccess::getTableName()} using the class constants in
   * {@see PapayaContentTables}.
   *
   * But for now the use of these constants is scattered all over the source in the
@@ -411,7 +411,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
   */
   public function defineDatabaseTables() {
     $prefix = $this->get('PAPAYA_DB_TABLEPREFIX', 'papaya');
-    foreach (PapayaContentTables::getTables() as $tableConstant => $tableName) {
+    foreach (\PapayaContentTables::getTables() as $tableConstant => $tableName) {
       if (!defined($tableConstant)) {
         define($tableConstant, $prefix.'_'.$tableName);
       }

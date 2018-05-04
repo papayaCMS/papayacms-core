@@ -1,21 +1,17 @@
 <?php
 /**
-* A list of listview columns, used for the $columns property of a {@see PapayaUiListview}
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Columns.php 39723 2014-04-07 13:51:24Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A list of listview columns, used for the $columns property of a {@see PapayaUiListview}
@@ -35,7 +31,7 @@ class PapayaUiListviewColumns
 
   /**
   * If a tag name is provided, an additional element will be added in
-  * {@see PapayaUiControlCollection::appendTo()) that will wrapp the items.
+  * {@see \PapayaUiControlCollection::appendTo()) that will wrapp the items.
   * @var string
   */
   protected $_tagName = 'cols';
@@ -43,20 +39,20 @@ class PapayaUiListviewColumns
   /**
   * Create object an set owner listview object.
   *
-  * @param PapayaUiListview $listview
+  * @param \PapayaUiListview $listview
   */
-  public function __construct(PapayaUiListview $listview) {
+  public function __construct(\PapayaUiListview $listview) {
     $this->owner($listview);
   }
 
   /**
    * Return the listview of this list
    *
-   * @param PapayaUiListview $listview
-   * @return PapayaUiListview
+   * @param \PapayaUiListview $listview
+   * @return \PapayaUiListview
    */
   public function owner($listview = NULL) {
-    PapayaUtilConstraints::assertInstanceOfOrNull('PapayaUiListview', $listview);
+    \PapayaUtilConstraints::assertInstanceOfOrNull('PapayaUiListview', $listview);
     return parent::owner($listview);
   }
 }

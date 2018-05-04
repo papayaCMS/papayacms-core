@@ -28,7 +28,7 @@ class PapayaUiDialogFieldFactoryProfileCheckbox extends PapayaUiDialogFieldFacto
    * Create a checkbox input field
    *
    * @see PapayaUiDialogFieldInputCheckbox
-   * @see PapayaUiDialogFieldFactoryProfile::getField()
+   * @see \PapayaUiDialogFieldFactoryProfile::getField()
    */
   public function getField() {
     $field = new \PapayaUiDialogFieldInputCheckbox(

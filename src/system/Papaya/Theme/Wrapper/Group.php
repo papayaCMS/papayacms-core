@@ -63,8 +63,8 @@ class PapayaThemeWrapperGroup {
     $xpath = new \DOMXpath($document);
     $query = sprintf(
       '//wrapper-groups/%s-group[@name = "%s"]/file',
-      PapayaUtilStringXml::escapeAttribute($mode),
-      PapayaUtilStringXml::escapeAttribute($name)
+      \PapayaUtilStringXml::escapeAttribute($mode),
+      \PapayaUtilStringXml::escapeAttribute($name)
     );
     foreach ($xpath->evaluate($query) as $file) {
       $fileName = $xpath->evaluate('string(@href)', $file);
@@ -87,8 +87,8 @@ class PapayaThemeWrapperGroup {
     $xpath = new \DOMXpath($document);
     $query = sprintf(
       'boolean(//wrapper-groups/%s-group[@name = "%s"]/@recursive = "yes")',
-      PapayaUtilStringXml::escapeAttribute($mode),
-      PapayaUtilStringXml::escapeAttribute($name)
+      \PapayaUtilStringXml::escapeAttribute($mode),
+      \PapayaUtilStringXml::escapeAttribute($name)
     );
     return $xpath->evaluate($query);
   }
@@ -96,7 +96,7 @@ class PapayaThemeWrapperGroup {
   /**
   * Get the document, create the document and loads the theme file if nessesary.
   *
-  * @return DOMDocument|NULL
+  * @return \DOMDocument|NULL
   */
   public function getDocument() {
     if (is_null($this->_document)) {
@@ -111,9 +111,9 @@ class PapayaThemeWrapperGroup {
   /**
   * Set the document object (Dependency Injection)
   *
-  * @param DOMDocument $document
+  * @param \DOMDocument $document
   */
-  public function setDocument(DOMDocument $document) {
+  public function setDocument(\DOMDocument $document) {
     $this->_document = $document;
   }
 }

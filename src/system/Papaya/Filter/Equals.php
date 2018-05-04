@@ -42,7 +42,7 @@ class PapayaFilterEquals implements PapayaFilter {
    * Check the value throw exception if value is not empty
    *
    * @param string $value
-   * @throws PapayaFilterExceptionNotEqual
+   * @throws \PapayaFilterExceptionNotEqual
    * @return TRUE
    */
   public function validate($value) {

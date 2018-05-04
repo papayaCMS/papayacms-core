@@ -101,7 +101,7 @@ class PapayaPhrasesStorageDatabase
     );
   }
 
-  public function phrases(PapayaContentPhrases $phrases = NULL) {
+  public function phrases(\PapayaContentPhrases $phrases = NULL) {
     if (isset($phrases)) {
       $this->_phrases = $phrases;
     } elseif (NULL === $this->_phrases) {
@@ -112,10 +112,10 @@ class PapayaPhrasesStorageDatabase
   }
 
   /**
-   * @param PapayaContentPhraseMessages $messages
-   * @return PapayaContentPhraseMessages
+   * @param \PapayaContentPhraseMessages $messages
+   * @return \PapayaContentPhraseMessages
    */
-  public function messages(PapayaContentPhraseMessages $messages = NULL) {
+  public function messages(\PapayaContentPhraseMessages $messages = NULL) {
     if (isset($messages)) {
       $this->_messages = $messages;
     } elseif (NULL === $this->_messages) {

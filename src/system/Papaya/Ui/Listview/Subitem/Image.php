@@ -1,21 +1,17 @@
 <?php
 /**
-* A simple listview subitem displaying an image.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Image.php 39420 2014-02-27 17:40:37Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A simple listview subitem displaying an image.
@@ -67,7 +63,7 @@ class PapayaUiListviewSubitemImage extends PapayaUiListviewSubitemText {
   /**
    * Create subitem object, set text content and alignment.
    *
-   * @param PapayaUiString|string $image
+   * @param \PapayaUiString|string $image
    * @param string $hint
    * @param array $actionParameters
    */
@@ -80,13 +76,13 @@ class PapayaUiListviewSubitemImage extends PapayaUiListviewSubitemText {
   /**
   * Append subitem xml data to parent node.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $subitem = $parent->appendElement(
       'subitem',
       array(
-        'align' => PapayaUiOptionAlign::getString($this->getAlign())
+        'align' => \PapayaUiOptionAlign::getString($this->getAlign())
       )
     );
     if (!empty($this->_image)) {

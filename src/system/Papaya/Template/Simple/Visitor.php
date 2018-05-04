@@ -29,9 +29,9 @@ abstract class PapayaTemplateSimpleVisitor {
   /**
   * Visit an ast object
   *
-  * @param PapayaTemplateSimpleAst $ast
+  * @param \PapayaTemplateSimpleAst $ast
   */
-  public function visit(PapayaTemplateSimpleAst $ast) {
+  public function visit(\PapayaTemplateSimpleAst $ast) {
     if ($method = $this->getMethodName($ast, 'visit')) {
       call_user_func(array($this, $method), $ast);
     }
@@ -40,9 +40,9 @@ abstract class PapayaTemplateSimpleVisitor {
   /**
   * Visit an ast object
   *
-  * @param PapayaTemplateSimpleAst $ast
+  * @param \PapayaTemplateSimpleAst $ast
   */
-  public function enter(PapayaTemplateSimpleAst $ast) {
+  public function enter(\PapayaTemplateSimpleAst $ast) {
     if ($method = $this->getMethodName($ast, 'enter')) {
       call_user_func(array($this, $method), $ast);
     }
@@ -51,9 +51,9 @@ abstract class PapayaTemplateSimpleVisitor {
   /**
   * Visit an ast object
   *
-  * @param PapayaTemplateSimpleAst $ast
+  * @param \PapayaTemplateSimpleAst $ast
   */
-  public function leave(PapayaTemplateSimpleAst $ast) {
+  public function leave(\PapayaTemplateSimpleAst $ast) {
     if ($method = $this->getMethodName($ast, 'leave')) {
       call_user_func(array($this, $method), $ast);
     }
@@ -63,12 +63,12 @@ abstract class PapayaTemplateSimpleVisitor {
    * Map the ast node class to a method name. Validate if the method exists. Return the
    * method name if the method exists or FALSE if not.
    *
-   * @param PapayaTemplateSimpleAst $ast
+   * @param \PapayaTemplateSimpleAst $ast
    * @param string $prefix
    *
    * @return string|FALSE
    */
-  private function getMethodName(PapayaTemplateSimpleAst $ast, $prefix = 'visit') {
+  private function getMethodName(\PapayaTemplateSimpleAst $ast, $prefix = 'visit') {
     $class = get_class($ast);
     if (0 === ($p = strpos($class, 'PapayaTemplateSimpleAst'))) {
       $method = $prefix.substr($class, strlen('PapayaTemplateSimpleAst'));

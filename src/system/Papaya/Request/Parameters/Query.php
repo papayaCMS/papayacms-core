@@ -45,7 +45,7 @@ class PapayaRequestParametersQuery {
   /**
   * Set the group separator
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param string $groupSeparator
   */
   public function setSeparator($groupSeparator) {
@@ -63,10 +63,10 @@ class PapayaRequestParametersQuery {
   /**
   * Get/set the values object
   *
-  * @param PapayaRequestParameters $values
-  * @return PapayaRequestParameters
+  * @param \PapayaRequestParameters $values
+  * @return \PapayaRequestParameters
   */
-  public function values(PapayaRequestParameters $values = NULL) {
+  public function values(\PapayaRequestParameters $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
     }
@@ -81,7 +81,7 @@ class PapayaRequestParametersQuery {
   *
   * @param string $queryString
   * @param boolean $stripSlashes
-  * @return PapayaRequestParametersQuery
+  * @return \PapayaRequestParametersQuery
   */
   public function setString($queryString, $stripSlashes = FALSE) {
     if (isset($queryString)) {
@@ -133,7 +133,7 @@ class PapayaRequestParametersQuery {
     if ($stripSlashes) {
       $parameter = stripslashes($parameter);
     }
-    return PapayaUtilStringUtf8::ensure($parameter);
+    return \PapayaUtilStringUtf8::ensure($parameter);
   }
 
   /**

@@ -56,7 +56,7 @@ class PapayaFilterBooleanString
    * Validate the given value and return TRUE, throw and exception if it is empty.
    *
    * @param mixed $value
-   * @throws PapayaFilterExceptionEmpty
+   * @throws \PapayaFilterExceptionEmpty
    * @return TRUE
    */
   public function validate($value) {

@@ -34,7 +34,7 @@ class PapayaContentPhrase extends PapayaDatabaseRecord {
     'language_id' => 'pt.lng_id'
   );
 
-  protected $_tableName = PapayaContentTables::PHRASES;
+  protected $_tableName = \PapayaContentTables::PHRASES;
   protected $_tableAlias = 'p';
 
   public function load($filter = NULL) {
@@ -49,12 +49,12 @@ class PapayaContentPhrase extends PapayaDatabaseRecord {
     $sql = "SELECT $fields
               FROM %s AS p
               LEFT JOIN %s AS pt ON (pt.phrase_id = p.phrase_id AND pt.lng_id = '%d')";
-    $sql .= PapayaUtilString::escapeForPrintf(
+    $sql .= \PapayaUtilString::escapeForPrintf(
       $this->_compileCondition($filter)
     );
     $parameters = array(
       $databaseAccess->getTableName($this->_tableName),
-      $databaseAccess->getTableName(PapayaContentTables::PHRASE_TRANSLATIONS),
+      $databaseAccess->getTableName(\PapayaContentTables::PHRASE_TRANSLATIONS),
       $languageId
     );
     return $this->_loadRecord($sql, $parameters);
@@ -74,7 +74,7 @@ class PapayaContentPhrase extends PapayaDatabaseRecord {
       $groupId = $group->save();
     }
     $databaseAccess = $this->getDatabaseAccess();
-    $linkTable = $databaseAccess->getTableName(PapayaContentTables::PHRASE_GROUP_LINKS);
+    $linkTable = $databaseAccess->getTableName(\PapayaContentTables::PHRASE_GROUP_LINKS);
     $sql = "SELECT COUNT(*) FROM %s WHERE phrase_id = '%d' AND module_id = '%d'";
     $parameters = array($linkTable, $this->id, $groupId);
     if (

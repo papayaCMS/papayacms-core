@@ -26,7 +26,7 @@ class PapayaProfilerBuilder extends PapayaObject {
   /**
   * Create the profiler collector object. Currently heres is only the xhprof wrapper.
   *
-  * @return PapayaProfilerCollector
+  * @return \PapayaProfilerCollector
   */
   public function createCollector() {
     return new \PapayaProfilerCollectorXhprof();
@@ -40,7 +40,7 @@ class PapayaProfilerBuilder extends PapayaObject {
   * "xhgui" stores the data into a database, optimized for XHGui
   * (https://github.com/preinheimer/xhprof).
   *
-  * @return PapayaProfilerStorage
+  * @return \PapayaProfilerStorage
   */
   public function createStorage() {
     switch ($this->papaya()->options->get('PAPAYA_PROFILER_STORAGE', 'file')) {

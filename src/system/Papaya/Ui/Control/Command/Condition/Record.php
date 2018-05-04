@@ -1,20 +1,16 @@
 <?php
 /**
- * A command condition based on a database records existence.
+ * papaya CMS
  *
- * @copyright 2010 by papaya Software GmbH - All rights reserved.
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package Papaya-Library
- * @subpackage Ui
- * @version $Id: Callback.php 39403 2014-02-27 14:25:16Z weinert $
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
 /**
@@ -35,10 +31,10 @@ class PapayaUiControlCommandConditionRecord extends PapayaUiControlCommandCondit
   /**
    * Create object and store callback.
    *
-   * @param PapayaDatabaseRecord $record
-   * @throws InvalidArgumentException
+   * @param \PapayaDatabaseRecord $record
+   * @throws \InvalidArgumentException
    */
-  public function __construct(PapayaDatabaseRecord $record) {
+  public function __construct(\PapayaDatabaseRecord $record) {
     $this->_record = $record;
   }
 

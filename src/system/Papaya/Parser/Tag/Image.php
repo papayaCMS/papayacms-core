@@ -1,4 +1,17 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 class PapayaParserTagImage extends PapayaParserTag {
   /**
@@ -67,9 +80,9 @@ class PapayaParserTagImage extends PapayaParserTag {
   /**
    * Append the generated papaya:media element to a parent node
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $this->parseImageData();
     $attributes = [];
     if (!empty($this->_source)) {
@@ -110,7 +123,7 @@ class PapayaParserTagImage extends PapayaParserTag {
           $regs
         )
       ) {
-      $this->_source = papaya_strings::escapeHTMLChars($regs[1]);
+      $this->_source = \papaya_strings::escapeHTMLChars($regs[1]);
       if ($this->_width == 0 && isset($regs[4])) {
         $this->_width = (int)$regs[4];
       }
@@ -118,7 +131,7 @@ class PapayaParserTagImage extends PapayaParserTag {
         $this->_height = (int)$regs[6];
       }
       if (empty($this->_resize) && isset($regs[8])) {
-        $this->_resize = papaya_strings::escapeHTMLChars($regs[8]);
+        $this->_resize = \papaya_strings::escapeHTMLChars($regs[8]);
       }
     }
   }

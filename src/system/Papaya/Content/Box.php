@@ -54,7 +54,7 @@ abstract class PapayaContentBox extends PapayaDatabaseObjectRecord {
     'unpublished_translations' => 'box_unpublished_languages'
   );
 
-  protected $_tableName = PapayaContentTables::BOXES;
+  protected $_tableName = \PapayaContentTables::BOXES;
 
   /**
   * Box translations list object
@@ -75,10 +75,10 @@ abstract class PapayaContentBox extends PapayaDatabaseObjectRecord {
   *
   * Allows to get/set the list object. Can create a list object if needed.
   *
-  * @param PapayaContentBoxTranslations $translations
-  * @return PapayaContentBoxTranslations
+  * @param \PapayaContentBoxTranslations $translations
+  * @return \PapayaContentBoxTranslations
   */
-  public function translations(PapayaContentBoxTranslations $translations = NULL) {
+  public function translations(\PapayaContentBoxTranslations $translations = NULL) {
     if (isset($translations)) {
       $this->_translations = $translations;
     }

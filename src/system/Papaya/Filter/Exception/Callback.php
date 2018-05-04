@@ -1,21 +1,17 @@
 <?php
 /**
-* A callback exception is thrown if an callback is not callable or returns FALSE
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Callback.php 35116 2010-11-10 12:23:36Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A callback exception is thrown if an callback is not callable or returns FALSE
@@ -37,7 +33,7 @@ abstract class PapayaFilterExceptionCallback extends PapayaFilterException {
   * Construct object an save callback variable
   *
   * @param string $message
-  * @param Callback $callback
+  * @param \Callback $callback
   */
   public function __construct($message, $callback) {
     parent::__construct($message);
@@ -47,7 +43,7 @@ abstract class PapayaFilterExceptionCallback extends PapayaFilterException {
   /**
   * Return callback from private property
   *
-  * @return Callback
+  * @return \Callback
   */
   public function getCallback() {
     return $this->_callback;
@@ -56,7 +52,7 @@ abstract class PapayaFilterExceptionCallback extends PapayaFilterException {
   /**
   * Convert a callback into a human readable string
   *
-  * @param Callback $callback
+  * @param \Callback $callback
   * @return string
   */
   protected function callbackToString($callback) {

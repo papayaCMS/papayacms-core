@@ -167,7 +167,7 @@ abstract class PapayaMessageContextVariableVisitor {
    * pushes an object hash to the recursion stack and adds it to the object list
    *
    * @param string $hash
-   * @throws LogicException
+   * @throws \LogicException
    */
   protected function _popObjectStack($hash) {
     $last = end($this->_objectStack);

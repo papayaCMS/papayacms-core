@@ -36,7 +36,7 @@ class PapayaIteratorRepeatCallback implements Iterator {
   /**
   * Create object store callback, start value and key.
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param callable $callback
   * @param mixed $startValue
   * @param mixed $startKey

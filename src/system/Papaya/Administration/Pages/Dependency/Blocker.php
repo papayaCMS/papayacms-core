@@ -84,10 +84,10 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
   /**
    * Append the blocker message/goto dialog to the parent xml.
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    * @return \PapayaUiDialog
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $pageId = $this->dependency()->originId;
     $pages = $this->pages();
     $pages->load(
@@ -168,8 +168,8 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
         $this->dependencies()->load($this->_pageId, $language)) {
       $viewIds = array();
       foreach ($this->dependencies() as $dependency) {
-        if (($dependency['synchronization'] & PapayaContentPageDependency::SYNC_VIEW) xor
-            ($dependency['synchronization'] & PapayaContentPageDependency::SYNC_CONTENT)) {
+        if (($dependency['synchronization'] & \PapayaContentPageDependency::SYNC_VIEW) xor
+            ($dependency['synchronization'] & \PapayaContentPageDependency::SYNC_CONTENT)) {
           $viewIds[$dependency['id']] = $dependency['view_id'];
         }
       }
@@ -187,10 +187,10 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
   /**
   * Get/Set an object for the current dependency.
   *
-  * @param PapayaContentPageDependency $dependency
-  * @return PapayaContentPageDependency
+  * @param \PapayaContentPageDependency $dependency
+  * @return \PapayaContentPageDependency
   */
-  public function dependency(PapayaContentPageDependency $dependency = NULL) {
+  public function dependency(\PapayaContentPageDependency $dependency = NULL) {
     if (isset($dependency)) {
       $this->_dependency = $dependency;
     } elseif (is_null($this->_dependency)) {
@@ -203,10 +203,10 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
   /**
   * Getter/Setter for the dependencies list database object
   *
-  * @param PapayaContentPageDependencies $dependencies
-  * @return PapayaContentPageDependencies
+  * @param \PapayaContentPageDependencies $dependencies
+  * @return \PapayaContentPageDependencies
   */
-  public function dependencies(PapayaContentPageDependencies $dependencies = NULL) {
+  public function dependencies(\PapayaContentPageDependencies $dependencies = NULL) {
     if (isset($dependencies)) {
       $this->_dependencies = $dependencies;
     } elseif (is_null($this->_dependencies)) {
@@ -218,10 +218,10 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
   /**
   * Getter/Setter for the views list database object
   *
-  * @param PapayaContentViews $views
-  * @return PapayaContentViews
+  * @param \PapayaContentViews $views
+  * @return \PapayaContentViews
   */
-  public function views(PapayaContentViews $views = NULL) {
+  public function views(\PapayaContentViews $views = NULL) {
     if (isset($views)) {
       $this->_views = $views;
     } elseif (is_null($this->_views)) {
@@ -233,10 +233,10 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
   /**
   * Access to the pages list, to load page informations
   *
-  * @param PapayaContentPages $pages
-  * @return PapayaContentPages
+  * @param \PapayaContentPages $pages
+  * @return \PapayaContentPages
   */
-  public function pages(PapayaContentPages $pages = NULL) {
+  public function pages(\PapayaContentPages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;
     } elseif (is_null($this->_pages)) {
@@ -249,10 +249,10 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
   /**
   * Provides countings of depended pages and references
   *
-  * @param PapayaAdministrationPagesDependencyCounter $counter
-  * @return PapayaAdministrationPagesDependencyCounter
+  * @param \PapayaAdministrationPagesDependencyCounter $counter
+  * @return \PapayaAdministrationPagesDependencyCounter
   */
-  public function counter(PapayaAdministrationPagesDependencyCounter $counter = NULL) {
+  public function counter(\PapayaAdministrationPagesDependencyCounter $counter = NULL) {
     if (isset($counter)) {
       $this->_counter = $counter;
     } elseif (is_null($this->_counter)) {

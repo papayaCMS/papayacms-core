@@ -112,13 +112,13 @@ class PapayaUiLinkAttributes extends PapayaUiControlPart {
    * more then one scrollbars option is set.
    *
    * @param integer $options
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function setPopupOptions($options) {
     $counter = 0;
-    $counter += PapayaUtilBitwise::inBitmask(self::OPTION_SCROLLBARS_AUTO, $options) ? 1 : 0;
-    $counter += PapayaUtilBitwise::inBitmask(self::OPTION_SCROLLBARS_ALWAYS, $options) ? 1 : 0;
-    $counter += PapayaUtilBitwise::inBitmask(self::OPTION_SCROLLBARS_NEVER, $options) ? 1 : 0;
+    $counter += \PapayaUtilBitwise::inBitmask(self::OPTION_SCROLLBARS_AUTO, $options) ? 1 : 0;
+    $counter += \PapayaUtilBitwise::inBitmask(self::OPTION_SCROLLBARS_ALWAYS, $options) ? 1 : 0;
+    $counter += \PapayaUtilBitwise::inBitmask(self::OPTION_SCROLLBARS_NEVER, $options) ? 1 : 0;
     if ($counter > 1) {
       throw new \InvalidArgumentException(
         'Invalid options definition: only one scrollbars option can be set.'
@@ -145,14 +145,14 @@ class PapayaUiLinkAttributes extends PapayaUiControlPart {
       $data['left'] = $this->_popupLeft;
     }
     $popupOptions = $this->popupOptions;
-    $data['resizeable'] = PapayaUtilBitwise::inBitmask(self::OPTION_RESIZEABLE, $popupOptions);
-    $data['toolBar'] = PapayaUtilBitwise::inBitmask(self::OPTION_TOOLBAR, $popupOptions);
-    $data['menuBar'] = PapayaUtilBitwise::inBitmask(self::OPTION_MENUBAR, $popupOptions);
-    $data['locationBar'] = PapayaUtilBitwise::inBitmask(self::OPTION_LOCATIONBAR, $popupOptions);
-    $data['statusBar'] = PapayaUtilBitwise::inBitmask(self::OPTION_STATUSBAR, $popupOptions);
-    if (PapayaUtilBitwise::inBitmask(self::OPTION_SCROLLBARS_ALWAYS, $popupOptions)) {
+    $data['resizeable'] = \PapayaUtilBitwise::inBitmask(self::OPTION_RESIZEABLE, $popupOptions);
+    $data['toolBar'] = \PapayaUtilBitwise::inBitmask(self::OPTION_TOOLBAR, $popupOptions);
+    $data['menuBar'] = \PapayaUtilBitwise::inBitmask(self::OPTION_MENUBAR, $popupOptions);
+    $data['locationBar'] = \PapayaUtilBitwise::inBitmask(self::OPTION_LOCATIONBAR, $popupOptions);
+    $data['statusBar'] = \PapayaUtilBitwise::inBitmask(self::OPTION_STATUSBAR, $popupOptions);
+    if (\PapayaUtilBitwise::inBitmask(self::OPTION_SCROLLBARS_ALWAYS, $popupOptions)) {
       $data['scrollBars'] = 'yes';
-    } elseif (PapayaUtilBitwise::inBitmask(self::OPTION_SCROLLBARS_NEVER, $popupOptions)) {
+    } elseif (\PapayaUtilBitwise::inBitmask(self::OPTION_SCROLLBARS_NEVER, $popupOptions)) {
       $data['scrollBars'] = 'no';
     } else {
       $data['scrollBars'] = 'auto';
@@ -163,10 +163,10 @@ class PapayaUiLinkAttributes extends PapayaUiControlPart {
   /**
   * The object append the link attributes to a given element.
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $class = $this->class;
     if (!empty($class)) {
       $parent->setAttribute($this->_attributeNames['class'], $class);

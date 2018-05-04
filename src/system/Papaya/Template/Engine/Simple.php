@@ -46,7 +46,7 @@ class PapayaTemplateEngineSimple extends PapayaTemplateEngine {
     $errors->activate();
     try {
       $this->ast()->accept($this->visitor());
-    } catch (PapayaXmlException $e) {
+    } catch (\PapayaXmlException $e) {
     }
     $errors->deactivate();
   }
@@ -81,7 +81,7 @@ class PapayaTemplateEngineSimple extends PapayaTemplateEngine {
    * Set a template file, loads the content of the file and stores the file name
    *
    * @param string $fileName
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function setTemplateFile($fileName) {
     if (file_exists($fileName) &&
@@ -111,10 +111,10 @@ class PapayaTemplateEngineSimple extends PapayaTemplateEngine {
   /**
    * Getter/Setter for the ast. The default ast is created using scanner and parser objects.
    *
-   * @param PapayaTemplateSimpleAst $ast
+   * @param \PapayaTemplateSimpleAst $ast
    * @return \PapayaTemplateSimpleAst
    */
-  public function ast(PapayaTemplateSimpleAst $ast = NULL) {
+  public function ast(\PapayaTemplateSimpleAst $ast = NULL) {
     if (isset($ast)) {
       $this->_ast = $ast;
     } elseif (NULL === $this->_ast) {
@@ -132,10 +132,10 @@ class PapayaTemplateEngineSimple extends PapayaTemplateEngine {
   /**
    * Getter/Setter for the ast visitor used to execute the template.
    *
-   * @param PapayaTemplateSimpleVisitor $visitor
-   * @return PapayaTemplateSimpleVisitor
+   * @param \PapayaTemplateSimpleVisitor $visitor
+   * @return \PapayaTemplateSimpleVisitor
    */
-  public function visitor(PapayaTemplateSimpleVisitor $visitor = NULL) {
+  public function visitor(\PapayaTemplateSimpleVisitor $visitor = NULL) {
     if (isset($visitor)) {
       $this->_visitor = $visitor;
     } elseif (NULL === $this->_visitor) {

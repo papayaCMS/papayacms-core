@@ -59,7 +59,7 @@ class PapayaObjectCallbacks implements IteratorAggregate {
   * If of of the given names is an existing method in the current object ($this) an exception
   * is thrown.
   *
-  * @throws LogicException
+  * @throws \LogicException
   * @param array $definitions
   */
   protected function defineCallbacks(array $definitions) {
@@ -95,7 +95,7 @@ class PapayaObjectCallbacks implements IteratorAggregate {
   * Returns the PapayaObjectCallback instance for the given name.
   *
   * @param string $name
-  * @return PapayaObjectCallback
+  * @return \PapayaObjectCallback
   */
   public function __get($name) {
     $this->validateName($name);
@@ -107,8 +107,8 @@ class PapayaObjectCallbacks implements IteratorAggregate {
    * If it is a PHP callback it will be assigned to the PapayaObjectCallback instance.
    *
    * @param string $name
-   * @param NULL|PapayaObjectCallback|Callback $callback
-   * @throws InvalidArgumentException
+   * @param NULL|\PapayaObjectCallback|\Callback $callback
+   * @throws \InvalidArgumentException
    */
   public function __set($name, $callback) {
     $this->validateName($name);
@@ -135,7 +135,7 @@ class PapayaObjectCallbacks implements IteratorAggregate {
   }
 
   /**
-   * Execute the callback using {@see PapayaObjectCallback::execute()}.
+   * Execute the callback using {@see \PapayaObjectCallback::execute()}.
    *
    * @param string $name
    * @param $arguments
@@ -150,7 +150,7 @@ class PapayaObjectCallbacks implements IteratorAggregate {
    * Validate the callback name agains the defined callback names
    *
    * @param string $name
-   * @throws LogicException
+   * @throws \LogicException
    */
   private function validateName($name) {
     if (!isset($this->_callbacks[$name])) {
@@ -163,7 +163,7 @@ class PapayaObjectCallbacks implements IteratorAggregate {
   }
 
   /**
-   * @return Traversable
+   * @return \Traversable
    */
   public function getIterator() {
     return new \ArrayIterator($this->_callbacks);

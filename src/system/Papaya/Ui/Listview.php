@@ -106,10 +106,10 @@ class PapayaUiListview extends PapayaUiControlInteractive {
   /**
   * Append listview output to parent element.
   *
-  * @param PapayaXmlElement $parent
-  * @return NULL|PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return NULL|\PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $listview = $parent->appendElement('listview');
     if (!empty($this->_caption)) {
       $listview->setAttribute('title', (string)$this->_caption);
@@ -126,10 +126,10 @@ class PapayaUiListview extends PapayaUiControlInteractive {
   /**
   * The list of listview items
   *
-  * @param PapayaUiListviewItems $items
+  * @param \PapayaUiListviewItems $items
    * @return null|\PapayaUiListviewItems
    */
-  public function items(PapayaUiListviewItems $items = NULL) {
+  public function items(\PapayaUiListviewItems $items = NULL) {
     if (isset($items)) {
       $this->_items = $items;
     } elseif (is_null($this->_items)) {
@@ -147,10 +147,10 @@ class PapayaUiListview extends PapayaUiControlInteractive {
   * The builder subobject allows you to change the creation process of the items and
   * add some items from a data source for example.
   *
-  * @param PapayaUiListviewItemsBuilder $builder
-  * @return NULL|PapayaUiListviewItemsBuilder
+  * @param \PapayaUiListviewItemsBuilder $builder
+  * @return NULL|\PapayaUiListviewItemsBuilder
   */
-  public function builder(PapayaUiListviewItemsBuilder $builder = NULL) {
+  public function builder(\PapayaUiListviewItemsBuilder $builder = NULL) {
     if (isset($builder)) {
       $this->_builder = $builder;
       $this->_useBuilder = TRUE;
@@ -161,10 +161,10 @@ class PapayaUiListview extends PapayaUiControlInteractive {
   /**
   * The list of listview columns
   *
-  * @param PapayaUiListviewColumns $columns
+  * @param \PapayaUiListviewColumns $columns
    * @return \PapayaUiListviewColumns
    */
-  public function columns(PapayaUiListviewColumns $columns = NULL) {
+  public function columns(\PapayaUiListviewColumns $columns = NULL) {
     if (isset($columns)) {
       $this->_columns = $columns;
     }
@@ -178,10 +178,10 @@ class PapayaUiListview extends PapayaUiControlInteractive {
   /**
   * The list of listview toolbars
   *
-  * @param PapayaUiToolbars $toolbars
+  * @param \PapayaUiToolbars $toolbars
    * @return \PapayaUiToolbars
    */
-  public function toolbars(PapayaUiToolbars $toolbars = NULL) {
+  public function toolbars(\PapayaUiToolbars $toolbars = NULL) {
     if (isset($toolbars)) {
       $this->_toolbars = $toolbars;
     }
@@ -198,10 +198,10 @@ class PapayaUiListview extends PapayaUiControlInteractive {
   * It is possible to assign individual reference objects to the subobjects, but if you do not they
   * will use this one.
   *
-  * @param PapayaUiReference $reference
-  * @return PapayaUiReference
+  * @param \PapayaUiReference $reference
+  * @return \PapayaUiReference
   */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     }

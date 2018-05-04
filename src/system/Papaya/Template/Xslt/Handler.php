@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Xslt template handler class
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Template
-* @version $Id: Handler.php 39468 2014-02-28 19:51:17Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Xslt template handler class
@@ -35,7 +31,7 @@ class PapayaTemplateXsltHandler extends PapayaObject {
       ->papaya()
       ->options
       ->get('PAPAYA_PATH_TEMPLATES');
-    return PapayaUtilFilePath::cleanup($path.'/'.$this->getTemplate());
+    return \PapayaUtilFilePath::cleanup($path.'/'.$this->getTemplate());
   }
 
   /**
@@ -48,7 +44,7 @@ class PapayaTemplateXsltHandler extends PapayaObject {
     $isPreview = $this
       ->papaya()
       ->request
-      ->getParameter('preview', FALSE, NULL, PapayaRequest::SOURCE_PATH);
+      ->getParameter('preview', FALSE, NULL, \PapayaRequest::SOURCE_PATH);
     if ($isPreview) {
       $template = $this
         ->papaya()

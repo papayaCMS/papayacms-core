@@ -92,7 +92,7 @@ class PapayaEmailAddress {
    *
    * @param string $name
    * @param string $value
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function __set($name, $value) {
     switch ($name) {
@@ -113,7 +113,7 @@ class PapayaEmailAddress {
    * Dynamic property getter
    *
    * @param string $name
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return string
    */
   public function __get($name) {

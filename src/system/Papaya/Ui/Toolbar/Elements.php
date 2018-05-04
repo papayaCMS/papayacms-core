@@ -48,21 +48,21 @@ class PapayaUiToolbarElements extends PapayaUiControlCollection {
   /**
   * Create object and set owner.
   *
-  * @param PapayaUiControl $owner
+  * @param \PapayaUiControl $owner
   */
-  public function __construct(PapayaUiControl $owner = NULL) {
+  public function __construct(\PapayaUiControl $owner = NULL) {
     $this->owner($owner);
   }
 
   /**
   * Additionally to the standard validation, we block the groups in groups to avoid recursion.
   *
-  * @throws InvalidArgumentException
-  * @param PapayaUiControlCollectionItem|PapayaUiToolbarElement $item
+  * @throws \InvalidArgumentException
+  * @param \PapayaUiControlCollectionItem|\PapayaUiToolbarElement $item
   * @return bool
   */
-  protected function validateItemClass(PapayaUiControlCollectionItem $item) {
-    PapayaUtilConstraints::assertInstanceOf('PapayaUiToolbarElement', $item);
+  protected function validateItemClass(\PapayaUiControlCollectionItem $item) {
+    \PapayaUtilConstraints::assertInstanceOf('PapayaUiToolbarElement', $item);
     parent::validateItemClass($item);
     if (!$this->_allowGroups &&
         $item instanceof \PapayaUiToolbarGroup) {

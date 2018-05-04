@@ -26,7 +26,7 @@ class PapayaContentStructureValues extends PapayaObjectList {
 
   private $_group = NULL;
 
-  public function __construct(PapayaContentStructureGroup $group) {
+  public function __construct(\PapayaContentStructureGroup $group) {
     parent::__construct('PapayaContentStructureValue');
     $this->_group = $group;
   }
@@ -34,9 +34,9 @@ class PapayaContentStructureValues extends PapayaObjectList {
   /**
    * Load value data from xml
    *
-   * @param PapayaXmlElement $groupNode
+   * @param \PapayaXmlElement $groupNode
    */
-  public function load(PapayaXmlElement $groupNode) {
+  public function load(\PapayaXmlElement $groupNode) {
     /** @var PapayaXmlDocument $document */
     $document = $groupNode->ownerDocument;
     /** @var PapayaXmlElement $node */

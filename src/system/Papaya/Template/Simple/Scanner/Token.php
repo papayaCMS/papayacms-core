@@ -49,12 +49,12 @@ class PapayaTemplateSimpleScannerToken {
    * @param integer $type
    * @param integer $offset
    * @param string $content
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function __construct($type, $offset, $content) {
-    PapayaUtilConstraints::assertInteger($type);
-    PapayaUtilConstraints::assertInteger($offset);
-    PapayaUtilConstraints::assertString($content);
+    \PapayaUtilConstraints::assertInteger($type);
+    \PapayaUtilConstraints::assertInteger($offset);
+    \PapayaUtilConstraints::assertString($content);
     $tokenTypes = self::getTokenTypes();
     if (!isset($tokenTypes[$type])) {
       throw new \InvalidArgumentException(
@@ -109,7 +109,7 @@ class PapayaTemplateSimpleScannerToken {
    * Read private properties stored in constructor
    *
    * @param string $name
-   * @throws LogicException
+   * @throws \LogicException
    * @return int|string
    */
   public function __get($name) {
@@ -133,7 +133,7 @@ class PapayaTemplateSimpleScannerToken {
    *
    * @param string $name
    * @param mixed $value
-   * @throws LogicException
+   * @throws \LogicException
    */
   public function __set($name, $value) {
     throw new \LogicException('All properties are defined in the constrcutor, they are read only.');

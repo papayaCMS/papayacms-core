@@ -1,22 +1,17 @@
 <?php
 /**
-* A single line input with auto suggest
-*
-* Creates a dialog field with auto suggest.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A single line input with auto suggest
@@ -72,10 +67,10 @@ class PapayaUiDialogFieldInputSuggest extends PapayaUiDialogFieldInput {
    * @param string $name
    * @param string $suggestionUrl
    * @param mixed $default optional, default NULL
-   * @param PapayaFilter|NULL $filter
+   * @param \PapayaFilter|NULL $filter
    */
   public function __construct(
-    $caption, $name, $suggestionUrl, $default = NULL, PapayaFilter $filter = NULL
+    $caption, $name, $suggestionUrl, $default = NULL, \PapayaFilter $filter = NULL
   ) {
     parent::__construct($caption, $name, 1024, $default, $filter);
     $this->setSuggestionUrl($suggestionUrl);
@@ -86,7 +81,7 @@ class PapayaUiDialogFieldInputSuggest extends PapayaUiDialogFieldInput {
    */
 
   public function setSuggestionUrl($url) {
-    PapayaUtilConstraints::assertNotEmpty($url);
+    \PapayaUtilConstraints::assertNotEmpty($url);
     $this->_suggestionData['url'] = $url;
   }
 
@@ -101,10 +96,10 @@ class PapayaUiDialogFieldInputSuggest extends PapayaUiDialogFieldInput {
   /**
    * Append field and input ouptut to DOM
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    * @return \PapayaXmlElement
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',

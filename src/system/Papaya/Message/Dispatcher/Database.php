@@ -41,10 +41,10 @@ class PapayaMessageDispatcherDatabase
   /**
   * Log messages to database
   *
-  * @param PapayaMessage $message
+  * @param \PapayaMessage $message
   * @return boolean
   */
-  public function dispatch(PapayaMessage $message) {
+  public function dispatch(\PapayaMessage $message) {
     if ($message instanceof \PapayaMessageLogable) {
       if ($this->allow($message)) {
         return $this->save($message);
@@ -59,11 +59,11 @@ class PapayaMessageDispatcherDatabase
    * @param \PapayaMessage|\PapayaMessageLogable $message
    * @return bool
    */
-  public function allow(PapayaMessageLogable $message) {
+  public function allow(\PapayaMessageLogable $message) {
     $options = $this->papaya()->options;
     if ($options->get('PAPAYA_PROTOCOL_DATABASE', FALSE)) {
       switch ($message->getType()) {
-      case PapayaMessage::SEVERITY_DEBUG:
+      case \PapayaMessage::SEVERITY_DEBUG:
         return $options->get('PAPAYA_PROTOCOL_DATABASE_DEBUG', FALSE);
       }
       return TRUE;
@@ -78,7 +78,7 @@ class PapayaMessageDispatcherDatabase
    * @param \PapayaMessage|\PapayaMessageLogable $message
    * @return bool
    */
-  protected function save(PapayaMessageLogable $message) {
+  protected function save(\PapayaMessageLogable $message) {
     $url = new \PapayaUrlCurrent();
     $options = $this->papaya()->options;
     $details = '<p>'.$message->getMessage().'</p>';

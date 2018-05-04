@@ -33,7 +33,7 @@ class PapayaUiDialogFieldXhtml extends PapayaUiDialogField {
   /**
   * Create object and assign needed values.
   *
-  * @param string|PapayaUiString|PapayaXmlElement $content
+  * @param string|\PapayaUiString|\PapayaXmlElement $content
   */
   public function __construct($content = NULL) {
     if (isset($content)) {
@@ -44,9 +44,9 @@ class PapayaUiDialogFieldXhtml extends PapayaUiDialogField {
   /**
    * Getter/Setter for xhtml content.
    *
-   * @param string|PapayaUiString|PapayaXmlElement $content
-   * @throws InvalidArgumentException
-   * @return PapayaXmlElement
+   * @param string|\PapayaUiString|\PapayaXmlElement $content
+   * @throws \InvalidArgumentException
+   * @return \PapayaXmlElement
    */
   public function content($content = NULL) {
     if (isset($content)) {
@@ -67,9 +67,9 @@ class PapayaUiDialogFieldXhtml extends PapayaUiDialogField {
   /**
   * Append xhtml field to dialog xml dom.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $field = $this->_appendFieldTo($parent);
     if ($this->content()->hasChildNodes()) {
       $field->appendChild(

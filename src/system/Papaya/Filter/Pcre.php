@@ -48,7 +48,7 @@ class PapayaFilterPcre implements PapayaFilter {
   /**
   * Check the input value and throw an exception if it does not match the condition.
   *
-  * @throws PapayaFilterException
+  * @throws \PapayaFilterException
   * @param string $value
   * @return TRUE
   */

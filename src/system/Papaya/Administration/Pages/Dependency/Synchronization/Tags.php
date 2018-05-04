@@ -56,10 +56,10 @@ class PapayaAdministrationPagesDependencySynchronizationTags
   /**
    * Getter/Setter for the tags subobject
    *
-   * @param PapayaContentPageTags $tags
+   * @param \PapayaContentPageTags $tags
    * @return \PapayaContentPageTags
    */
-  public function tags(PapayaContentPageTags $tags = NULL) {
+  public function tags(\PapayaContentPageTags $tags = NULL) {
     if (isset($tags)) {
       $this->_tags = $tags;
     } elseif (is_null($this->_tags)) {

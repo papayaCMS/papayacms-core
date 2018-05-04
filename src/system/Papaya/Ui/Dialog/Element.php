@@ -66,7 +66,7 @@ abstract class PapayaUiDialogElement extends PapayaUiControlCollectionItem {
   /**
    * Return the dialog the elements collection is attached to.
    *
-   * @return null|PapayaUiDialog
+   * @return null|\PapayaUiDialog
    */
   public function getDialog() {
     if ($this->hasDialog()) {

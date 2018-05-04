@@ -27,17 +27,17 @@ class PapayaUiListviewItemsBuilder {
   /**
   * Create object and store the data source
   *
-  * @param Traversable|Array $dataSource
+  * @param \Traversable|\Array $dataSource
   */
   public function __construct($dataSource) {
-    PapayaUtilConstraints::assertArrayOrTraversable($dataSource);
+    \PapayaUtilConstraints::assertArrayOrTraversable($dataSource);
     $this->_dataSource = $dataSource;
   }
 
   /**
   * Getter for the datasource member variable
   *
-  * @return Traversable|array
+  * @return \Traversable|array
   */
   public function getDataSource() {
     return $this->_dataSource;
@@ -46,9 +46,9 @@ class PapayaUiListviewItemsBuilder {
   /**
   * Build the items
   *
-  * @param PapayaUiListviewItems $items
+  * @param \PapayaUiListviewItems $items
   */
-  public function fill(PapayaUiListviewItems $items) {
+  public function fill(\PapayaUiListviewItems $items) {
     if (!$this->callbacks()->onBeforeFill($items)) {
       $items->clear();
     }
@@ -65,10 +65,10 @@ class PapayaUiListviewItemsBuilder {
    * Getter/Setter for the callbacks list.
    *
    *
-   * @param PapayaUiListviewItemsBuilderCallbacks $callbacks
+   * @param \PapayaUiListviewItemsBuilderCallbacks $callbacks
    * @return null|\PapayaUiListviewItemsBuilderCallbacks
    */
-  public function callbacks(PapayaUiListviewItemsBuilderCallbacks $callbacks = NULL) {
+  public function callbacks(\PapayaUiListviewItemsBuilderCallbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
@@ -82,10 +82,10 @@ class PapayaUiListviewItemsBuilder {
   * will be used if no callback for onCreateItem is defined.
   *
   * @param object $context
-  * @param PapayaUiListviewItems $items
+  * @param \PapayaUiListviewItems $items
   * @param mixed $element
   */
-  public function createItem($context, PapayaUiListviewItems $items, $element) {
+  public function createItem($context, \PapayaUiListviewItems $items, $element) {
     $items[] = new \PapayaUiListviewItem('', (string)$element);
   }
 }

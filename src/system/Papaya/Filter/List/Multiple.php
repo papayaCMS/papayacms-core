@@ -38,14 +38,14 @@ class PapayaFilterListMultiple implements PapayaFilter {
   * @param array $elements
   */
   public function __construct(array $elements) {
-    PapayaUtilConstraints::assertNotEmpty($elements);
+    \PapayaUtilConstraints::assertNotEmpty($elements);
     $this->_list = $elements;
   }
 
   /**
   * Check the integer input and throw an exception if it does not match the condition.
   *
-  * @throws PapayaFilterException
+  * @throws \PapayaFilterException
   * @param array $value
   * @return TRUE
   */

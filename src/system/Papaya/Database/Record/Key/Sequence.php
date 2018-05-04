@@ -1,22 +1,17 @@
 <?php
 /**
-* An single field key, provided by a sequence object, the sequence is created on the
-* client side and the sequence object validates the existance in the database.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Sequence.php 39197 2014-02-11 13:36:56Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * An single field key, provided by a sequence object, the sequence is created on the
@@ -52,10 +47,10 @@ class PapayaDatabaseRecordKeySequence implements PapayaDatabaseInterfaceKey {
   /**
   * Create objecd and store sequence and property.
   *
-  * @param PapayaDatabaseSequence $sequence
+  * @param \PapayaDatabaseSequence $sequence
   * @param string $property
   */
-  public function __construct(PapayaDatabaseSequence $sequence, $property = 'id') {
+  public function __construct(\PapayaDatabaseSequence $sequence, $property = 'id') {
     $this->_sequence = $sequence;
     $this->_property = $property;
   }
@@ -67,7 +62,7 @@ class PapayaDatabaseRecordKeySequence implements PapayaDatabaseInterfaceKey {
    * @return int
    */
   public function getQualities() {
-    return PapayaDatabaseInterfaceKey::CLIENT_GENERATED;
+    return \PapayaDatabaseInterfaceKey::CLIENT_GENERATED;
   }
 
   /**

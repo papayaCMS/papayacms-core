@@ -43,9 +43,9 @@ class PapayaUiControlCommandList
   /**
   * Execute commands and append result to output xml
   *
-  * @param PapayaXmlElement
+  * @param \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     /** @var PapayaUiControlCommand $command */
     foreach ($this->_commands as $command) {
       if ($command->validateCondition() &&
@@ -58,11 +58,11 @@ class PapayaUiControlCommandList
   /**
    * Overload owner method to set owner on all commands, too.
    *
-   * @param PapayaRequestParametersInterface|PapayaUiControlInteractive $owner
-   * @return PapayaRequestParametersInterface
+   * @param \PapayaRequestParametersInterface|\PapayaUiControlInteractive $owner
+   * @return \PapayaRequestParametersInterface
    */
-  public function owner(PapayaRequestParametersInterface $owner = NULL) {
-    PapayaUtilConstraints::assertInstanceOf('PapayaUiControlInteractive', $owner);
+  public function owner(\PapayaRequestParametersInterface $owner = NULL) {
+    \PapayaUtilConstraints::assertInstanceOf('PapayaUiControlInteractive', $owner);
     if (isset($owner)) {
       /** @var PapayaUiControlCommand $command */
       foreach ($this->_commands as $command) {
@@ -86,7 +86,7 @@ class PapayaUiControlCommandList
   * ArrayAccess interface: get command at given offset.
   *
   * @param integer $offset
-  * @return PapayaUiControlCommand
+  * @return \PapayaUiControlCommand
   */
   public function offsetGet($offset) {
     return $this->_commands[$offset];
@@ -96,8 +96,8 @@ class PapayaUiControlCommandList
    * ArrayAccess interface: add/replace command
    *
    * @param integer $offset
-   * @param PapayaUiControlCommand $command
-   * @throws UnexpectedValueException
+   * @param \PapayaUiControlCommand $command
+   * @throws \UnexpectedValueException
    */
   public function offsetSet($offset, $command) {
     if ($command instanceof \PapayaUiControlCommand) {
@@ -135,7 +135,7 @@ class PapayaUiControlCommandList
   /**
   * IteratorAggregate interface: create iterator for commands
   *
-  * @return ArrayIterator
+  * @return \ArrayIterator
   */
   public function getIterator() {
     return new \ArrayIterator($this->_commands);

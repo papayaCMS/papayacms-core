@@ -25,8 +25,8 @@
 class PapayaUiDialogFieldFactoryProfileSelect extends PapayaUiDialogFieldFactoryProfile {
 
   /**
-   * @see PapayaUiDialogFieldFactoryProfile::getField()
-   * @return PapayaUiDialogFieldSelect
+   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @return \PapayaUiDialogFieldSelect
    */
   public function getField() {
     if (is_array($this->options()->parameters) ||
@@ -46,8 +46,8 @@ class PapayaUiDialogFieldFactoryProfileSelect extends PapayaUiDialogFieldFactory
   /**
    * Create field, own function so that child class can redefine the creation
    *
-   * @param array|Traversable $elements
-   * @return PapayaUiDialogFieldSelect
+   * @param array|\Traversable $elements
+   * @return \PapayaUiDialogFieldSelect
    */
   protected function createField($elements) {
     return new \PapayaUiDialogFieldSelect(

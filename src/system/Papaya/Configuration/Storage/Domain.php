@@ -27,7 +27,7 @@ class PapayaConfigurationStorageDomain extends PapayaObject
   *
   * @var int
   */
-  private $_scheme = PapayaUtilServerProtocol::BOTH;
+  private $_scheme = \PapayaUtilServerProtocol::BOTH;
 
   /**
   * member variable for the host name, set in constructor used in load()
@@ -52,7 +52,7 @@ class PapayaConfigurationStorageDomain extends PapayaObject
     if (preg_match('((?P<scheme>http(?:s)?)://(?P<host>.*))', $hostUrl, $match)) {
       $this->_host = $match['host'];
       $this->_scheme = ($match['scheme'] == 'https')
-        ? PapayaUtilServerProtocol::HTTPS :  PapayaUtilServerProtocol::HTTP;
+        ? \PapayaUtilServerProtocol::HTTPS :  \PapayaUtilServerProtocol::HTTP;
     } else {
       $this->_host = $hostUrl;
     }
@@ -61,10 +61,10 @@ class PapayaConfigurationStorageDomain extends PapayaObject
   /**
   * Getter/Setter for domain record object
   *
-  * @param PapayaContentDomain $domain
-  * @return PapayaContentDomain
+  * @param \PapayaContentDomain $domain
+  * @return \PapayaContentDomain
   */
-  public function domain(PapayaContentDomain $domain = NULL) {
+  public function domain(\PapayaContentDomain $domain = NULL) {
     if (isset($domain)) {
       $this->_domain = $domain;
     } elseif (is_null($this->_domain)) {
@@ -90,11 +90,11 @@ class PapayaConfigurationStorageDomain extends PapayaObject
   /**
   * Get iterator for options array(name => value)
   *
-  * @return Iterator
+  * @return \Iterator
   */
   public function getIterator() {
     $options = array();
-    if ($this->domain()->mode == PapayaContentDomain::MODE_VIRTUAL_DOMAIN &&
+    if ($this->domain()->mode == \PapayaContentDomain::MODE_VIRTUAL_DOMAIN &&
         is_array($this->domain()->options)) {
       $options = $this->domain()->options;
     }

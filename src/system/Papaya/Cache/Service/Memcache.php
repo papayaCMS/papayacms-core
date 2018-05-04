@@ -81,7 +81,7 @@ class PapayaCacheServiceMemcache extends PapayaCacheService {
 
   /**
   * set the memcache object
-  * @param Memcache|Memcached $memcache
+  * @param \Memcache|\Memcached $memcache
   */
   public function setMemcacheObject($memcache) {
     $this->_memcache = $memcache;
@@ -113,10 +113,10 @@ class PapayaCacheServiceMemcache extends PapayaCacheService {
   /**
   * read cache path option from configuration or ini file
   *
-  * @param PapayaCacheConfiguration $configuration
+  * @param \PapayaCacheConfiguration $configuration
   * @return bool
   */
-  public function setConfiguration(PapayaCacheConfiguration $configuration) {
+  public function setConfiguration(\PapayaCacheConfiguration $configuration) {
     $this->_cachePath = $configuration['MEMCACHE_SERVERS'];
     if (empty($this->_cachePath) && is_callable('ini_get')) {
       $this->_cachePath = (ini_get('session.save_handler') == 'memcache')
@@ -129,7 +129,7 @@ class PapayaCacheServiceMemcache extends PapayaCacheService {
    * Check cache is usable
    *
    * @param boolean $silent
-   * @throws BadMethodCallException
+   * @throws \BadMethodCallException
    * @return boolean
    */
   public function verify($silent = TRUE) {
@@ -175,7 +175,7 @@ class PapayaCacheServiceMemcache extends PapayaCacheService {
   /**
   * Initialize connection to a single memcache server
   *
-  * @param Memcache|Memcached $memcache
+  * @param \Memcache|\Memcached $memcache
   * @param array $server
   * @return boolean
   */

@@ -32,7 +32,7 @@ class PapayaDatabaseManager extends PapayaObject {
 
   /**
   * get current configuration object
-  * @return PapayaConfiguration
+  * @return \PapayaConfiguration
   */
   public function getConfiguration() {
     return $this->_configuration;
@@ -40,7 +40,7 @@ class PapayaDatabaseManager extends PapayaObject {
 
   /**
   * Return current conifuration object
-  * @param PapayaConfiguration $configuration
+  * @param \PapayaConfiguration $configuration
   */
   public function setConfiguration($configuration) {
     $this->_configuration = $configuration;
@@ -52,7 +52,7 @@ class PapayaDatabaseManager extends PapayaObject {
   * @param object $owner
   * @param string|NULL $readUri URI for read connection, use options if empty
   * @param string|NULL $writeUri URI for write connection, use $readUri if empty
-  * @return PapayaDatabaseAccess
+  * @return \PapayaDatabaseAccess
   */
   public function createDatabaseAccess($owner, $readUri = NULL, $writeUri = NULL) {
     $result = new \PapayaDatabaseAccess($owner, $readUri, $writeUri);

@@ -41,29 +41,29 @@ class PapayaPhrases extends PapayaObject {
 
   private $_defaultGroup;
 
-  public function __construct(PapayaPhrasesStorage $storage, PapayaContentLanguage $language) {
+  public function __construct(\PapayaPhrasesStorage $storage, \PapayaContentLanguage $language) {
     $this->_storage = $storage;
     $this->_language = $language;
   }
 
   /**
-   * @return PapayaPhrasesStorage
+   * @return \PapayaPhrasesStorage
    */
   public function getStorage() {
     return $this->_storage;
   }
 
   /**
-   * @return PapayaContentLanguage
+   * @return \PapayaContentLanguage
    */
   public function getLanguage() {
     return $this->_language;
   }
 
   /**
-   * @param PapayaContentLanguage $language
+   * @param \PapayaContentLanguage $language
    */
-  public function setLanguage(PapayaContentLanguage $language) {
+  public function setLanguage(\PapayaContentLanguage $language) {
     $this->_language = $language;
   }
 
@@ -110,10 +110,10 @@ class PapayaPhrases extends PapayaObject {
    * $group = $phrases->groups()->get('GROUP_NAME');
    * $phrase = $group->get('PHRASE');
    *
-   * @param PapayaPhrasesGroups $groups
-   * @return PapayaPhrasesGroups
+   * @param \PapayaPhrasesGroups $groups
+   * @return \PapayaPhrasesGroups
    */
-  public function groups(PapayaPhrasesGroups $groups = NULL) {
+  public function groups(\PapayaPhrasesGroups $groups = NULL) {
     if (NULL !== $groups) {
       $this->_groups = $groups;
     } elseif (NULL === $this->_groups) {
@@ -172,7 +172,7 @@ class PapayaPhrases extends PapayaObject {
    * @param string $phrase
    * @param array $arguments
    * @param string|NULL $groupName
-   * @return PapayaUiStringTranslated
+   * @return \PapayaUiStringTranslated
    */
   public function get($phrase, array $arguments = array(), $groupName = NULL) {
     return $this->groups()->get($this->getGroupName($groupName))->get($phrase, $arguments);
@@ -181,9 +181,9 @@ class PapayaPhrases extends PapayaObject {
   /**
    * Get a PapayaUiStringTranslatedList instance for a list of phrases.
    *
-   * @param array|Traversable $phrases
+   * @param array|\Traversable $phrases
    * @param array $groupName
-   * @return PapayaUiStringTranslatedList
+   * @return \PapayaUiStringTranslatedList
    */
   public function getList($phrases, $groupName = NULL) {
     return $this->groups()->get($this->getGroupName($groupName))->getList($phrases);

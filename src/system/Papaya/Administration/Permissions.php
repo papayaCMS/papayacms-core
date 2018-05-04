@@ -96,7 +96,7 @@ class PapayaAdministrationPermissions
   *
   * @var string
   */
-  protected $_tableName = PapayaContentTables::AUTHENTICATION_PERMISSIONS;
+  protected $_tableName = \PapayaContentTables::AUTHENTICATION_PERMISSIONS;
 
   protected $_identifierProperties = array('id');
 
@@ -161,7 +161,7 @@ class PapayaAdministrationPermissions
   /**
    * Validate if the given permission is in the given group.
    *
-   * @see PapayaAdministrationPermissions::exists()
+   * @see \PapayaAdministrationPermissions::exists()
    * @param integer $permissionId
    * @param integer $groupId
    * @return boolean
@@ -186,10 +186,10 @@ class PapayaAdministrationPermissions
 
   /**
    *
-   * @param PapayaAdministrationPermissionGroups $groups
+   * @param \PapayaAdministrationPermissionGroups $groups
    * @return \PapayaAdministrationPermissionGroups
    */
-  public function groups(PapayaAdministrationPermissionGroups $groups = NULL) {
+  public function groups(\PapayaAdministrationPermissionGroups $groups = NULL) {
     if (isset($groups)) {
       $this->_groups = $groups;
     } elseif (NULL === $this->_groups) {

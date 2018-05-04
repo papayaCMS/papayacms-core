@@ -44,7 +44,7 @@ class PapayaAdministrationPagesDependencyCommandChange extends PapayaUiControlCo
   /**
   * Create the add/edit dialog and assign callbacks.
   *
-  * @return PapayaUiDialogDatabaseSave
+  * @return \PapayaUiDialogDatabaseSave
   */
   public function createDialog() {
     /** @var PapayaAdministrationPagesDependencyChanger $changer */
@@ -104,8 +104,8 @@ class PapayaAdministrationPagesDependencyCommandChange extends PapayaUiControlCo
   /**
    * Validate the origin id. Callback for the dialog execution
    *
-   * @param Object $context
-   * @param PapayaContentPageDependency $record
+   * @param \Object $context
+   * @param \PapayaContentPageDependency $record
    * @return bool
    */
   public function validateOriginAndSynchronizations($context, $record) {
@@ -120,8 +120,8 @@ class PapayaAdministrationPagesDependencyCommandChange extends PapayaUiControlCo
       );
       return FALSE;
     }
-    if (($record->synchronization & PapayaContentPageDependency::SYNC_VIEW) xor
-        ($record->synchronization & PapayaContentPageDependency::SYNC_CONTENT)) {
+    if (($record->synchronization & \PapayaContentPageDependency::SYNC_VIEW) xor
+        ($record->synchronization & \PapayaContentPageDependency::SYNC_CONTENT)) {
       if (!$this->compareViewModules($record)) {
         $context->synchronizationField->handleValidationFailure(
           new \PapayaFilterExceptionCallbackFailed(array($this, 'compareViewModules'))
@@ -135,10 +135,10 @@ class PapayaAdministrationPagesDependencyCommandChange extends PapayaUiControlCo
   /**
    * Validate that all views in matching translations (language) use the same module
    *
-   * @param PapayaContentPageDependency $record
+   * @param \PapayaContentPageDependency $record
    * @return bool
    */
-  private function compareViewModules(PapayaContentPageDependency $record) {
+  private function compareViewModules(\PapayaContentPageDependency $record) {
     $databaseAccess = $record->getDatabaseAccess();
     $sql = "SELECT tt.lng_id, COUNT(DISTINCT v.module_guid) module_counter
               FROM %s AS tt, %s AS v
@@ -146,17 +146,17 @@ class PapayaAdministrationPagesDependencyCommandChange extends PapayaUiControlCo
                AND v.view_id = tt.view_id
              GROUP BY tt.lng_id";
     $parameters = array(
-      $databaseAccess->getTableName(PapayaContentTables::PAGE_TRANSLATIONS),
-      $databaseAccess->getTableName(PapayaContentTables::VIEWS),
+      $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
+      $databaseAccess->getTableName(\PapayaContentTables::VIEWS),
       $record->id,
       $record->originId
     );
     if ($databaseResult = $databaseAccess->queryFmt($sql, $parameters)) {
-      while ($row = $databaseResult->fetchRow(PapayaDatabaseResult::FETCH_ASSOC)) {
+      while ($row = $databaseResult->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
         if ($row['module_counter'] > 1) {
           $this->papaya()->messages->dispatch(
             new \PapayaMessageDisplay(
-              PapayaMessage::SEVERITY_WARNING,
+              \PapayaMessage::SEVERITY_WARNING,
               new \PapayaUiStringTranslated(
                 'Views with different modules found. Please change befor activating'.
                 ' synchronization or synchronize view and content.'
@@ -177,7 +177,7 @@ class PapayaAdministrationPagesDependencyCommandChange extends PapayaUiControlCo
     $context->synchronizations->synchronizeDependency($context->dependency);
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_INFO, 'Dependency saved.'
+        \PapayaMessage::SEVERITY_INFO, 'Dependency saved.'
       )
     );
   }
@@ -185,10 +185,10 @@ class PapayaAdministrationPagesDependencyCommandChange extends PapayaUiControlCo
   /**
   * Callback to dispatch a message to the user that here was an input error.
   */
-  public function dispatchErrorMessage($context, PapayaUiDialog $dialog) {
+  public function dispatchErrorMessage($context, \PapayaUiDialog $dialog) {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_ERROR,
+        \PapayaMessage::SEVERITY_ERROR,
         'Invalid input. Please check the fields "%s".',
         array(implode(', ', $dialog->errors()->getSourceCaptions()))
       )

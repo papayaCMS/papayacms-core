@@ -32,10 +32,10 @@ class PapayaConfigurationStorageDatabase extends PapayaObject
   /**
   * Getter/Setter for database records object
   *
-  * @param PapayaContentConfiguration $records
-  * @return PapayaContentConfiguration
+  * @param \PapayaContentConfiguration $records
+  * @return \PapayaContentConfiguration
   */
-  public function records(PapayaContentConfiguration $records = NULL) {
+  public function records(\PapayaContentConfiguration $records = NULL) {
     if (isset($records)) {
       $this->_records = $records;
     } elseif (is_null($this->_records)) {
@@ -47,9 +47,9 @@ class PapayaConfigurationStorageDatabase extends PapayaObject
   /**
   * Dipatch the error message as http header and be silent otherwise.
   *
-  * @param PapayaDatabaseException $exception
+  * @param \PapayaDatabaseException $exception
   */
-  public function handleError(PapayaDatabaseException $exception) {
+  public function handleError(\PapayaDatabaseException $exception) {
     if ($this->papaya()->options->get('PAPAYA_DBG_DEVMODE', FALSE) &&
         isset($this->papaya()->response)) {
       $message = str_replace(array('\r', '\n'), ' ', $exception->getMessage());
@@ -72,7 +72,7 @@ class PapayaConfigurationStorageDatabase extends PapayaObject
   /**
   * Get iterator for options array(name => value)
   *
-  * @return Iterator
+  * @return \Iterator
   */
   public function getIterator() {
     $options = array();

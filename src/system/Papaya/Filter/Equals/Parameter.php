@@ -38,10 +38,10 @@ class PapayaFilterEqualsParameter implements PapayaFilter {
   /**
   * Construct object, check and store options
   *
-  * @param PapayaRequestParameters $parameters
+  * @param \PapayaRequestParameters $parameters
   * @param string $parameterName
   */
-  public function __construct(PapayaRequestParameters $parameters, $parameterName) {
+  public function __construct(\PapayaRequestParameters $parameters, $parameterName) {
     $this->_parameters = $parameters;
     $this->_parameterName = new \PapayaRequestParametersName($parameterName);
   }
@@ -49,9 +49,9 @@ class PapayaFilterEqualsParameter implements PapayaFilter {
   /**
   * Check the value throw exception if value is not equal to given parameter value
   * 
-  * @see PapayaFilter::validate()
+  * @see \PapayaFilter::validate()
   * 
-  * @throws PapayaFilterExceptionInvalid
+  * @throws \PapayaFilterExceptionInvalid
   * @param string $value
   * @return TRUE
   */
@@ -72,7 +72,7 @@ class PapayaFilterEqualsParameter implements PapayaFilter {
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       return NULL;
     }
   }

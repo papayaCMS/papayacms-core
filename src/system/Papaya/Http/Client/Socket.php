@@ -77,11 +77,11 @@ class PapayaHttpClientSocket {
   /**
   * set the connection pool object
   *
-  * @param PapayaHttpClientSocketPool $pool
+  * @param \PapayaHttpClientSocketPool $pool
   * @access public
   * @return void
   */
-  public function setPool(PapayaHttpClientSocketPool $pool) {
+  public function setPool(\PapayaHttpClientSocketPool $pool) {
     $this->_pool = $pool;
   }
 

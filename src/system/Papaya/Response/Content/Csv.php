@@ -47,10 +47,10 @@ class PapayaResponseContentCsv implements PapayaResponseContent {
   private $_callbacks;
 
   /**
-   * @param Traversable $traversable
+   * @param \Traversable $traversable
    * @param array $columns
    */
-  public function __construct(Traversable $traversable, array $columns = NULL) {
+  public function __construct(\Traversable $traversable, array $columns = NULL) {
     $this->_traversable = $traversable;
     $this->_columns = $columns;
   }
@@ -59,10 +59,10 @@ class PapayaResponseContentCsv implements PapayaResponseContent {
    * Getter/Setter for the callbacks, if you set your own callback object, make sure it has the
    * needed definitions.
    *
-   * @param PapayaResponseContentCsvCallbacks $callbacks
-   * @return PapayaResponseContentCsvCallbacks
+   * @param \PapayaResponseContentCsvCallbacks $callbacks
+   * @return \PapayaResponseContentCsvCallbacks
    */
-  public function callbacks(PapayaResponseContentCsvCallbacks $callbacks = NULL) {
+  public function callbacks(\PapayaResponseContentCsvCallbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     }

@@ -53,61 +53,61 @@ class PapayaAdministrationPermissionGroups implements IteratorAggregate {
    * @var array
    */
   private $_groupedPermissions = array(
-    PapayaAdministrationPermissionGroups::MISC => array(
-      PapayaAdministrationPermissions::MESSAGES => 'Messages',
-      PapayaAdministrationPermissions::IMAGE_GENERATOR => 'Dynamic Images',
-      PapayaAdministrationPermissions::SYSTEM_THEMESET_MANAGE => 'Manage Theme Sets',
-      PapayaAdministrationPermissions::SYSTEM_CACHE_CLEAR => 'Clear ouput cache'
+    \PapayaAdministrationPermissionGroups::MISC => array(
+      \PapayaAdministrationPermissions::MESSAGES => 'Messages',
+      \PapayaAdministrationPermissions::IMAGE_GENERATOR => 'Dynamic Images',
+      \PapayaAdministrationPermissions::SYSTEM_THEMESET_MANAGE => 'Manage Theme Sets',
+      \PapayaAdministrationPermissions::SYSTEM_CACHE_CLEAR => 'Clear ouput cache'
     ),
-    PapayaAdministrationPermissionGroups::SYSTEM => array(
-      PapayaAdministrationPermissions::SYSTEM_SETTINGS => 'System configuration',
-      PapayaAdministrationPermissions::SYSTEM_TRANSLATE => 'Translate',
-      PapayaAdministrationPermissions::SYSTEM_LINKTYPES_MANAGE => 'Manage Linktypes',
-      PapayaAdministrationPermissions::SYSTEM_MIMETYPES_MANAGE => 'Manage mimetypes',
-      PapayaAdministrationPermissions::SYSTEM_MIMETYPES_EDIT => 'Edit mimetypes',
-      PapayaAdministrationPermissions::SYSTEM_CRONJOBS => 'Cronjobs',
-      PapayaAdministrationPermissions::SYSTEM_PROTOCOL => 'Event protocol',
+    \PapayaAdministrationPermissionGroups::SYSTEM => array(
+      \PapayaAdministrationPermissions::SYSTEM_SETTINGS => 'System configuration',
+      \PapayaAdministrationPermissions::SYSTEM_TRANSLATE => 'Translate',
+      \PapayaAdministrationPermissions::SYSTEM_LINKTYPES_MANAGE => 'Manage Linktypes',
+      \PapayaAdministrationPermissions::SYSTEM_MIMETYPES_MANAGE => 'Manage mimetypes',
+      \PapayaAdministrationPermissions::SYSTEM_MIMETYPES_EDIT => 'Edit mimetypes',
+      \PapayaAdministrationPermissions::SYSTEM_CRONJOBS => 'Cronjobs',
+      \PapayaAdministrationPermissions::SYSTEM_PROTOCOL => 'Event protocol',
 
-      PapayaAdministrationPermissions::USER_MANAGE => 'User management',
-      PapayaAdministrationPermissions::USER_GROUP_MANAGE => 'User group management',
+      \PapayaAdministrationPermissions::USER_MANAGE => 'User management',
+      \PapayaAdministrationPermissions::USER_GROUP_MANAGE => 'User group management',
 
-      PapayaAdministrationPermissions::MODULE_MANAGE => 'Module management',
-      PapayaAdministrationPermissions::VIEW_MANAGE => 'Configure views'
+      \PapayaAdministrationPermissions::MODULE_MANAGE => 'Module management',
+      \PapayaAdministrationPermissions::VIEW_MANAGE => 'Configure views'
     ),
-    PapayaAdministrationPermissionGroups::PAGES => array(
-      PapayaAdministrationPermissions::PAGE_MANAGE => 'Manage pages',
-      PapayaAdministrationPermissions::PAGE_CREATE => 'Create pages',
-      PapayaAdministrationPermissions::PAGE_MOVE => 'Move pages',
-      PapayaAdministrationPermissions::PAGE_COPY => 'Copy pages',
-      PapayaAdministrationPermissions::PAGE_DELETE => 'Delete pages',
-      PapayaAdministrationPermissions::PAGE_PUBLISH => 'Publish',
-      PapayaAdministrationPermissions::PAGE_VERSION_MANAGE => 'Version management',
-      PapayaAdministrationPermissions::PAGE_METADATA_EDIT => 'Define metatags',
-      PapayaAdministrationPermissions::PAGE_DEPENDENCY_MANAGE => 'Manage Page Depedencies',
-      PapayaAdministrationPermissions::PAGE_PERMISSION_MANAGE => 'Change edit permissions',
-      PapayaAdministrationPermissions::PAGE_TRASH_MANAGE => 'View trash',
-      PapayaAdministrationPermissions::PAGE_REPAIR_INDEX => 'Check and correct path index',
-      PapayaAdministrationPermissions::PAGE_CACHE_CONFIGURE => 'Configure Caching',
+    \PapayaAdministrationPermissionGroups::PAGES => array(
+      \PapayaAdministrationPermissions::PAGE_MANAGE => 'Manage pages',
+      \PapayaAdministrationPermissions::PAGE_CREATE => 'Create pages',
+      \PapayaAdministrationPermissions::PAGE_MOVE => 'Move pages',
+      \PapayaAdministrationPermissions::PAGE_COPY => 'Copy pages',
+      \PapayaAdministrationPermissions::PAGE_DELETE => 'Delete pages',
+      \PapayaAdministrationPermissions::PAGE_PUBLISH => 'Publish',
+      \PapayaAdministrationPermissions::PAGE_VERSION_MANAGE => 'Version management',
+      \PapayaAdministrationPermissions::PAGE_METADATA_EDIT => 'Define metatags',
+      \PapayaAdministrationPermissions::PAGE_DEPENDENCY_MANAGE => 'Manage Page Depedencies',
+      \PapayaAdministrationPermissions::PAGE_PERMISSION_MANAGE => 'Change edit permissions',
+      \PapayaAdministrationPermissions::PAGE_TRASH_MANAGE => 'View trash',
+      \PapayaAdministrationPermissions::PAGE_REPAIR_INDEX => 'Check and correct path index',
+      \PapayaAdministrationPermissions::PAGE_CACHE_CONFIGURE => 'Configure Caching',
 
-      PapayaAdministrationPermissions::ALIAS_MANAGE => 'Define aliases',
+      \PapayaAdministrationPermissions::ALIAS_MANAGE => 'Define aliases',
 
-      PapayaAdministrationPermissions::TAG_MANAGE => 'Manage Tags',
-      PapayaAdministrationPermissions::TAG_CATEGORY_MANAGE => 'Edit Tag Categories',
-      PapayaAdministrationPermissions::TAG_EDIT => 'Edit Tags',
-      PapayaAdministrationPermissions::TAG_LINK => 'Link Tags'
+      \PapayaAdministrationPermissions::TAG_MANAGE => 'Manage Tags',
+      \PapayaAdministrationPermissions::TAG_CATEGORY_MANAGE => 'Edit Tag Categories',
+      \PapayaAdministrationPermissions::TAG_EDIT => 'Edit Tags',
+      \PapayaAdministrationPermissions::TAG_LINK => 'Link Tags'
     ),
-    PapayaAdministrationPermissionGroups::BOXES => array(
-      PapayaAdministrationPermissions::BOX_MANAGE => 'Edit boxes',
-      PapayaAdministrationPermissions::BOX_LINK => 'Link boxes'
+    \PapayaAdministrationPermissionGroups::BOXES => array(
+      \PapayaAdministrationPermissions::BOX_MANAGE => 'Edit boxes',
+      \PapayaAdministrationPermissions::BOX_LINK => 'Link boxes'
     ),
-    PapayaAdministrationPermissionGroups::FILES => array(
-      PapayaAdministrationPermissions::FILE_BROWSE => 'File browser',
-      PapayaAdministrationPermissions::FILE_MANAGE => 'File management',
-      PapayaAdministrationPermissions::FILE_FOLDER_MANAGE => 'Edit folders',
-      PapayaAdministrationPermissions::FILE_UPLOAD => 'Upload files',
-      PapayaAdministrationPermissions::FILE_EDIT => 'Edit files',
-      PapayaAdministrationPermissions::FILE_DELETE => 'Delete files',
-      PapayaAdministrationPermissions::FILE_IMPORT => 'Import files'
+    \PapayaAdministrationPermissionGroups::FILES => array(
+      \PapayaAdministrationPermissions::FILE_BROWSE => 'File browser',
+      \PapayaAdministrationPermissions::FILE_MANAGE => 'File management',
+      \PapayaAdministrationPermissions::FILE_FOLDER_MANAGE => 'Edit folders',
+      \PapayaAdministrationPermissions::FILE_UPLOAD => 'Upload files',
+      \PapayaAdministrationPermissions::FILE_EDIT => 'Edit files',
+      \PapayaAdministrationPermissions::FILE_DELETE => 'Delete files',
+      \PapayaAdministrationPermissions::FILE_IMPORT => 'Import files'
     )
   );
 
@@ -127,7 +127,7 @@ class PapayaAdministrationPermissionGroups implements IteratorAggregate {
    *
    * First level are the group ids and titles. Second level are the permission ids and titles.
    *
-   * @see IteratorAggregate::getIterator()
+   * @see \IteratorAggregate::getIterator()
    */
   public function getIterator() {
     return new \PapayaIteratorTreeDetails(

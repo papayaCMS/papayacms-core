@@ -41,7 +41,7 @@ class PapayaUiDialogFieldFileTemporary extends PapayaUiDialogField {
   /**
    * Initialize object, set caption, field name and maximum length
    *
-   * @param string|PapayaUiString $caption
+   * @param string|\PapayaUiString $caption
    * @param string $name
    */
   public function __construct($caption, $name) {
@@ -52,9 +52,9 @@ class PapayaUiDialogFieldFileTemporary extends PapayaUiDialogField {
   /**
   * Append field and input ouptut to DOM
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',
@@ -85,7 +85,7 @@ class PapayaUiDialogFieldFileTemporary extends PapayaUiDialogField {
 
   /**
    * Here is no data that can be put into the dialgo data directly.
-   * Use {@see PapayaUiDialogFieldFileTemporary::file()}
+   * Use {@see \PapayaUiDialogFieldFileTemporary::file()}
    *
    * return TRUE
    */
@@ -97,10 +97,10 @@ class PapayaUiDialogFieldFileTemporary extends PapayaUiDialogField {
    * Getter/Setter for the file values subobject. It encapsulates the data from the $_FILES
    * superglobal array
    *
-   * @param PapayaRequestParameterFile $file
-   * @return PapayaRequestParameterFile
+   * @param \PapayaRequestParameterFile $file
+   * @return \PapayaRequestParameterFile
    */
-  public function file(PapayaRequestParameterFile $file = NULL) {
+  public function file(\PapayaRequestParameterFile $file = NULL) {
     if (isset($file)) {
       $this->_file = $file;
     } elseif (NULL == $this->_file) {

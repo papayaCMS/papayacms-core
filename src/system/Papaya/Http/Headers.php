@@ -58,7 +58,7 @@ class PapayaHttpHeaders
   /**
   * IteratorAggregate Interface: allow to iterate the headers
   *
-  * @return ArrayIterator
+  * @return \ArrayIterator
   */
   public function getIterator() {
     return new \ArrayIterator($this->toArray());

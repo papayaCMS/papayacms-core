@@ -23,8 +23,8 @@ class PapayaApplicationProfileDatabase implements PapayaApplicationProfile {
 
   /**
   * Create the profile object and return it
-  * @param PapayaApplication|PapayaApplicationCms $application
-  * @return PapayaDatabaseManager
+  * @param \PapayaApplication|\PapayaApplicationCms $application
+  * @return \PapayaDatabaseManager
   */
   public function createObject($application) {
     $database = new \PapayaDatabaseManager();

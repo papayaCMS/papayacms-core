@@ -32,7 +32,7 @@ class PapayaUiDialogFieldInputTimestamp extends PapayaUiDialogFieldInputDate {
   /**
    * Create object and initalize integer filter
    *
-   * @param string|PapayaUiString $caption
+   * @param string|\PapayaUiString $caption
    * @param string $name
    * @param integer $default
    * @param boolean $mandatory
@@ -44,7 +44,7 @@ class PapayaUiDialogFieldInputTimestamp extends PapayaUiDialogFieldInputDate {
     $name,
     $default = NULL,
     $mandatory = FALSE,
-    $includeTime = PapayaFilterDate::DATE_NO_TIME,
+    $includeTime = \PapayaFilterDate::DATE_NO_TIME,
     $step = 60.0
   ) {
     parent::__construct($caption, $name, $default, $mandatory, (int)$includeTime, $step);
@@ -76,10 +76,10 @@ class PapayaUiDialogFieldInputTimestamp extends PapayaUiDialogFieldInputDate {
   /**
    * Append field and input ouptut to DOM
    *
-   * @param PapayaXmlElement $parent
+   * @param \PapayaXmlElement $parent
    * @return \PapayaXmlElement
    */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',
@@ -89,7 +89,7 @@ class PapayaUiDialogFieldInputTimestamp extends PapayaUiDialogFieldInputDate {
         'maxlength' => $this->_maximumLength
       ),
       $this->formatDateTime(
-        $this->getCurrentValue(), $this->_includeTime != PapayaFilterDate::DATE_NO_TIME
+        $this->getCurrentValue(), $this->_includeTime != \PapayaFilterDate::DATE_NO_TIME
       )
     );
     return $field;

@@ -25,13 +25,13 @@ abstract class PapayaContentStructureNode extends PapayaObject {
     try {
       $value = $this->$name;
       return isset($value);
-    } catch (UnexpectedValueException $e) {
+    } catch (\UnexpectedValueException $e) {
       return FALSE;
     }
   }
 
   public function __get($name) {
-    $getter = 'get'.PapayaUtilStringIdentifier::toCamelCase($name, TRUE);
+    $getter = 'get'.\PapayaUtilStringIdentifier::toCamelCase($name, TRUE);
     if (method_exists($this, $getter)) {
       return call_user_func(array($this, $getter));
     } elseif (array_key_exists($name, $this->_properties)) {
@@ -47,7 +47,7 @@ abstract class PapayaContentStructureNode extends PapayaObject {
   }
 
   public function __set($name, $value) {
-    $setter = 'set'.PapayaUtilStringIdentifier::toCamelCase($name, TRUE);
+    $setter = 'set'.\PapayaUtilStringIdentifier::toCamelCase($name, TRUE);
     if (method_exists($this, $setter)) {
       call_user_func(array($this, $setter), $value);
     } else {
@@ -70,7 +70,7 @@ abstract class PapayaContentStructureNode extends PapayaObject {
   }
 
   public function setName($name) {
-    PapayaUtilStringXml::isQName($name);
+    \PapayaUtilStringXml::isQName($name);
     $this->_properties['name'] = $name;
   }
 

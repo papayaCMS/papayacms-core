@@ -55,7 +55,7 @@ class PapayaObjectList
    * Set/Change the item class restriction, this will remove all items in teh internal list.
    *
    * @param string $itemClass
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function setItemClass($itemClass) {
     if (class_exists($itemClass) ||
@@ -88,7 +88,7 @@ class PapayaObjectList
   * to add several items using a fluent interface.
   *
   * @param object $value
-  * @return PapayaObjectList
+  * @return \PapayaObjectList
   */
   public function add($value) {
     $this->offsetSet(NULL, $value);
@@ -107,7 +107,7 @@ class PapayaObjectList
   /**
   * Remove a single item from the list.
   *
-  * @see PapayaObjectList::offsetGet
+  * @see \PapayaObjectList::offsetGet
   *
   * @param integer $index
   */
@@ -200,7 +200,7 @@ class PapayaObjectList
    *
    * @param integer $index
    * @param mixed $value
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function offsetSet($index, $value) {
     $value = $this->prepareItem($value);

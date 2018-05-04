@@ -36,14 +36,14 @@ class PapayaUiDialogFieldCallback extends PapayaUiDialogField {
   /**
   * Initialize object, set caption, field name and maximum length
   *
-  * @param string|PapayaUiString $caption
+  * @param string|\PapayaUiString $caption
   * @param string $name
   * @param callback $callback
   * @param mixed $default
-  * @param PapayaFilter|NULL $filter
+  * @param \PapayaFilter|NULL $filter
   */
   public function __construct(
-    $caption, $name, $callback, $default = NULL, PapayaFilter $filter = NULL
+    $caption, $name, $callback, $default = NULL, \PapayaFilter $filter = NULL
   ) {
     $this->setCaption($caption);
     $this->setName($name);
@@ -57,10 +57,10 @@ class PapayaUiDialogFieldCallback extends PapayaUiDialogField {
   /**
   * Append field and input ouptut to DOM
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $field = $this->_appendFieldTo($parent);
     if (is_callable($this->_callback)) {
       $target = $this->_isXhtml ? $field->appendElement('xhtml') : $field;

@@ -63,7 +63,7 @@ class PapayaUiDialogFieldInputNumber extends PapayaUiDialogFieldInput {
    * @param boolean $mandatory optional, default FALSE
    * @param integer $minimumLength optional, default NULL
    * @param integer $maximumLength optional, default NULL
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function __construct(
     $caption,

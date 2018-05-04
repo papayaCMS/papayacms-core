@@ -41,7 +41,7 @@ class PapayaMediaStorageServiceS3Handler {
 
   /**
   * Constructor - set configuration if provided
-  * @param PapayaConfiguration $configuration
+  * @param \PapayaConfiguration $configuration
   */
   public function __construct($configuration = NULL) {
     if (isset($configuration) && is_object($configuration)) {
@@ -55,14 +55,14 @@ class PapayaMediaStorageServiceS3Handler {
   * @param object PapayaHttpClient $client
   * @return void
   */
-  public function setHTTPClient(PapayaHttpClient $client) {
+  public function setHTTPClient(\PapayaHttpClient $client) {
     $this->_client = $client;
   }
 
   /**
   * Set the storage configuration values.
   *
-  * @param PapayaConfiguration $configuration
+  * @param \PapayaConfiguration $configuration
   */
   public function setConfiguration($configuration) {
     $this->_storageAccessKeyId = $configuration->get(
@@ -94,7 +94,7 @@ class PapayaMediaStorageServiceS3Handler {
   * @param string $method
   * @param array $parameters
   * @param array $headers
-  * @return PapayaHttpClient
+  * @return \PapayaHttpClient
   */
   public function setUpRequest(
     $url, $method = 'GET', $parameters = array(), $headers = array()

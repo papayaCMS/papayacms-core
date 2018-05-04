@@ -55,7 +55,7 @@ class PapayaFilterNumericWithUnit implements PapayaFilter {
    * @param string $algebraicSign (optional)
    */
   public function __construct($units, $minimum = NULL, $maximum = NULL, $algebraicSign = NULL) {
-    PapayaUtilConstraints::assertNotEmpty($units);
+    \PapayaUtilConstraints::assertNotEmpty($units);
     if (!is_array($units)) {
       $units = array($units);
     }
@@ -74,7 +74,7 @@ class PapayaFilterNumericWithUnit implements PapayaFilter {
   /**
   * Validates the given string and throws exceptions
   *
-  * @throws PapayaFilterException
+  * @throws \PapayaFilterException
   * @param string $value
   * @return TRUE
   */
@@ -149,7 +149,7 @@ class PapayaFilterNumericWithUnit implements PapayaFilter {
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       return NULL;
     }
   }

@@ -63,7 +63,7 @@ class PapayaMessageContextVariable
    * Check and set the depth. It must be greater then zero.
    *
    * @param integer $depth
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function setDepth($depth) {
     if (!is_int($depth) || $depth < 1) {
@@ -85,7 +85,7 @@ class PapayaMessageContextVariable
    * Check and set the depth. It must be greater then zero.
    *
    * @param integer $length
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function setStringLength($length) {
     if (!is_int($length) || $length < 0) {
@@ -128,12 +128,12 @@ class PapayaMessageContextVariable
   /**
   * Visitor method
   *
-  * @see PapayaMessageContextVariable::asString()
-  * @see PapayaMessageContextVariable::asXhtml()
+  * @see \PapayaMessageContextVariable::asString()
+  * @see \PapayaMessageContextVariable::asXhtml()
   *
-  * @param PapayaMessageContextVariableVisitor $visitor
+  * @param \PapayaMessageContextVariableVisitor $visitor
   */
-  public function acceptVisitor(PapayaMessageContextVariableVisitor $visitor) {
+  public function acceptVisitor(\PapayaMessageContextVariableVisitor $visitor) {
     $visitor->visitVariable($this->_variable);
   }
 }

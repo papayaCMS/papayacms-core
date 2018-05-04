@@ -77,7 +77,7 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
   /**
   * Set the xsl file for the transformation, throw an exception it it is not readable
   *
-  * @throws InvalidArgumentException
+  * @throws \InvalidArgumentException
   * @param string $fileName
   */
   public function setTemplateFile($fileName) {
@@ -121,18 +121,18 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
   /**
   * Set the xslt processor object
   *
-  * @throws InvalidArgumentException
-  * @param XsltCache|XsltProcessor $processor
+  * @throws \InvalidArgumentException
+  * @param \XsltCache|\XsltProcessor $processor
   */
   public function setProcessor($processor) {
-    PapayaUtilConstraints::assertInstanceOf(array('XsltProcessor', 'XsltCache'), $processor);
+    \PapayaUtilConstraints::assertInstanceOf(array('XsltProcessor', 'XsltCache'), $processor);
     $this->_processor = $processor;
   }
 
   /**
    * Get the xslt processor object
    *
-   * @return XsltCache|XsltProcessor
+   * @return \XsltCache|\XsltProcessor
    */
   public function getProcessor() {
     if (is_null($this->_processor)) {
@@ -149,9 +149,9 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
   /**
   * Set libxml errors handler
   *
-  * @param PapayaXmlErrors $errorHandler
+  * @param \PapayaXmlErrors $errorHandler
   */
-  public function setErrorHandler(PapayaXmlErrors $errorHandler) {
+  public function setErrorHandler(\PapayaXmlErrors $errorHandler) {
     $this->_errorHandler = $errorHandler;
   }
 
@@ -171,7 +171,7 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
   /**
   * Load xsl file into processor
   *
-  * @throws PapayaXmlException
+  * @throws \PapayaXmlException
   * @return TRUE
   */
   public function prepare() {
@@ -219,7 +219,7 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
       $this->_result = $result;
       $errors->deactivate();
       return TRUE;
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $errors->emit();
       $errors->deactivate();
       return FALSE;

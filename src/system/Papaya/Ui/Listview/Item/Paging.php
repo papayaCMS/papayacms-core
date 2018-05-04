@@ -104,10 +104,10 @@ abstract class PapayaUiListviewItemPaging extends PapayaUiListviewItem {
   * Append the listitem to the listview. The list item will only be added, if it contains page
   * links.
   *
-  * @param PapayaXmlElement $parent
-  * @return NULL|PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return NULL|\PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $pages = $this->getPages();
     if (count($pages) > 0) {
       $page = $this->getImagePage();
@@ -140,9 +140,9 @@ abstract class PapayaUiListviewItemPaging extends PapayaUiListviewItem {
   * The item needs an complex caption containing mutiple links, instead of the usual title
   * attribute and caption element is added.
   *
-  * @param PapayaXmlElement $item
+  * @param \PapayaXmlElement $item
   */
-  public function appendCaption(PapayaXmlElement $item) {
+  public function appendCaption(\PapayaXmlElement $item) {
     $caption = $item->appendElement(
       'caption'
     );
@@ -159,10 +159,10 @@ abstract class PapayaUiListviewItemPaging extends PapayaUiListviewItem {
   /**
   * Append a single page link to the caption xml element.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   * @param integer $page
   */
-  public function appendPageLink(PapayaXmlElement $parent, $page) {
+  public function appendPageLink(\PapayaXmlElement $parent, $page) {
     $reference = clone $this->reference();
     $reference->getParameters()->set(
       (string)$this->_parameterName,
@@ -177,10 +177,10 @@ abstract class PapayaUiListviewItemPaging extends PapayaUiListviewItem {
    * The absolute count of items in the list. The minimum value is zero.
    *
    * @param integer $itemsCount
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function setItemsCount($itemsCount) {
-    PapayaUtilConstraints::assertInteger($itemsCount);
+    \PapayaUtilConstraints::assertInteger($itemsCount);
     if ($itemsCount < 0) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item count can not be negative.'
@@ -194,10 +194,10 @@ abstract class PapayaUiListviewItemPaging extends PapayaUiListviewItem {
    * minimum value is 1.
    *
    * @param integer $itemsPerPage
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function setItemsPerPage($itemsPerPage) {
-    PapayaUtilConstraints::assertInteger($itemsPerPage);
+    \PapayaUtilConstraints::assertInteger($itemsPerPage);
     if ($itemsPerPage < 1) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item page limit can not be less than 1.'
@@ -210,11 +210,11 @@ abstract class PapayaUiListviewItemPaging extends PapayaUiListviewItem {
    * The maximum count of page links.
    *
    * @param $pageLimit
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @internal param int $buttonLimit
    */
   public function setPageLimit($pageLimit) {
-    PapayaUtilConstraints::assertInteger($pageLimit);
+    \PapayaUtilConstraints::assertInteger($pageLimit);
     if ($pageLimit < 1) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Page limit can not be less than 1.'

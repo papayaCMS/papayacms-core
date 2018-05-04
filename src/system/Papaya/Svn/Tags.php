@@ -24,10 +24,10 @@ class PapayaSvnTags implements IteratorAggregate, Countable {
   /**
   * Get/set the SVN client
   *
-  * @param PapayaSvnClient $client
-  * @return PapayaSvnClient
+  * @param \PapayaSvnClient $client
+  * @return \PapayaSvnClient
   */
-  public function svnClient(PapayaSvnClient $client = NULL) {
+  public function svnClient(\PapayaSvnClient $client = NULL) {
     if (isset($client)) {
       $this->_svnClient = $client;
     }
@@ -63,9 +63,9 @@ class PapayaSvnTags implements IteratorAggregate, Countable {
   * @param integer $newerThanRevision
   */
   public function __construct($tagDirectoryUrl, $newerThanRevision = 0) {
-    PapayaUtilConstraints::assertString($tagDirectoryUrl);
+    \PapayaUtilConstraints::assertString($tagDirectoryUrl);
     $this->_tagDirectoryUrl = $tagDirectoryUrl;
-    PapayaUtilConstraints::assertInteger($newerThanRevision);
+    \PapayaUtilConstraints::assertInteger($newerThanRevision);
     $this->_newerThanRevision = $newerThanRevision;
     $this->_highestRevisionSeen = $newerThanRevision;
   }
@@ -88,7 +88,7 @@ class PapayaSvnTags implements IteratorAggregate, Countable {
     }
     $this->_newTags = array();
     $this->_tagDirectoryUrl =
-      PapayaUtilFilePath::ensureTrailingSlash($this->_tagDirectoryUrl);
+      \PapayaUtilFilePath::ensureTrailingSlash($this->_tagDirectoryUrl);
     $tagList = $this->svnClient()->ls($this->_tagDirectoryUrl);
     foreach ($tagList as $tag) {
       $revision = (int)$tag['created_rev'];
@@ -107,7 +107,7 @@ class PapayaSvnTags implements IteratorAggregate, Countable {
 
   /**
   * Return an iterator over the tags.
-  * @return ArrayIterator
+  * @return \ArrayIterator
   */
   public function getIterator() {
     $this->find();

@@ -50,14 +50,14 @@ class PapayaDatabaseRecordOrderByFields
 
   /**
    * Cast object into a SQL string
-   * @see PapayaDatabaseInterfaceOrder::__toString()
+   * @see \PapayaDatabaseInterfaceOrder::__toString()
    */
   public function __toString() {
     return (string)$this->_list;
   }
 
   /**
-   * @return Iterator
+   * @return \Iterator
    */
   public function getIterator() {
     return new \PapayaIteratorTraversable($this->_list);

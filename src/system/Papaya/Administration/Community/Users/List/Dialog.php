@@ -64,8 +64,8 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
   */
   public function prepare() {
     $this->caption = new \PapayaUiStringTranslated('Users');
-    $this->options->dialogWidth = PapayaUiDialogOptions::SIZE_SMALL;
-    $this->options->captionStyle = PapayaUiDialogOptions::CAPTION_NONE;
+    $this->options->dialogWidth = \PapayaUiDialogOptions::SIZE_SMALL;
+    $this->options->captionStyle = \PapayaUiDialogOptions::CAPTION_NONE;
     $this->options->useToken = FALSE;
     $this->options->useConfirmation = FALSE;
     $this->parameterMethod(self::METHOD_MIXED_GET);
@@ -76,13 +76,13 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
     $this->fields[] = $buttons = new \PapayaUiDialogFieldButtons('');
     $buttons->buttons[] = new \PapayaUiDialogButtonSubmit(
       new \PapayaUiStringTranslated('Filter'),
-      PapayaUiDialogButton::ALIGN_RIGHT
+      \PapayaUiDialogButton::ALIGN_RIGHT
     );
     $buttons->buttons[] = new \PapayaUiDialogButtonSubmitNamed(
       new \PapayaUiStringTranslated('Reset'),
       $this->_parameterNames['reset'],
       TRUE,
-      PapayaUiDialogButton::ALIGN_LEFT
+      \PapayaUiDialogButton::ALIGN_LEFT
     );
     $this->fields[] = $field = new \PapayaUiDialogFieldListview($listview = $this->listview());
     $listview->toolbars()->bottomRight->elements[] = $this->paging();
@@ -122,10 +122,10 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
   /**
   * Getter/Setter for the community user records object
   *
-  * @param PapayaContentCommunityUsers $users
-  * @return PapayaContentCommunityUsers
+  * @param \PapayaContentCommunityUsers $users
+  * @return \PapayaContentCommunityUsers
   */
-  public function users(PapayaContentCommunityUsers $users = NULL) {
+  public function users(\PapayaContentCommunityUsers $users = NULL) {
     if (isset($users)) {
       $this->_users = $users;
     } elseif (is_null($this->_users)) {
@@ -138,10 +138,10 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
   /**
   * Getter/Setter for the listview subobject, it displays a chunk of the users list
   *
-  * @param PapayaUiListview $listview
-  * @return PapayaUiListview
+  * @param \PapayaUiListview $listview
+  * @return \PapayaUiListview
   */
-  public function listview(PapayaUiListview $listview = NULL) {
+  public function listview(\PapayaUiListview $listview = NULL) {
     if (isset($listview)) {
       $this->_listview = $listview;
     } elseif (is_null($this->_listview)) {
@@ -162,7 +162,7 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
   * Create a listview item for a community user record.
   *
   * @param object $context
-  * @param PapayaUiListviewItems $items
+  * @param \PapayaUiListviewItems $items
   * @param array $user
   */
   public function createUserItem($context, $items, $user) {
@@ -181,10 +181,10 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
   /**
   * Getter/Setter for the paging subobject, allows to navigate between the user list chunks
   *
-  * @param PapayaUiToolbarPaging $paging
-  * @return PapayaUiToolbarPaging
+  * @param \PapayaUiToolbarPaging $paging
+  * @return \PapayaUiToolbarPaging
   */
-  public function paging(PapayaUiToolbarPaging $paging = NULL) {
+  public function paging(\PapayaUiToolbarPaging $paging = NULL) {
     if (isset($paging)) {
       $this->_paging = $paging;
     } elseif (is_null($this->_paging)) {
@@ -202,10 +202,10 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
   /**
   * The basic reference object used by the subobjects to create urls.
   *
-  * @param PapayaUiReference $reference
-  * @return PapayaUiReference
+  * @param \PapayaUiReference $reference
+  * @return \PapayaUiReference
   */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {
@@ -221,7 +221,7 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
    *
    * @param string $identifier
    * @param string $name
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function setParameterNameMapping($identifier, $name) {
     if (!isset($this->_parameterNames[$identifier])) {
@@ -229,7 +229,7 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
         sprintf('Unknown parameter identifier "%s".', $identifier)
       );
     }
-    PapayaUtilConstraints::assertNotEmpty($name);
+    \PapayaUtilConstraints::assertNotEmpty($name);
     $this->_parameterNames[$identifier] = $name;
   }
 }

@@ -33,7 +33,7 @@ class PapayaCacheIdentifierDefinitionParameters
    * @param int $method
    */
   public function __construct($names, $group = NULL, $method = self::METHOD_GET) {
-    PapayaUtilConstraints::assertNotEmpty($names);
+    \PapayaUtilConstraints::assertNotEmpty($names);
     if (is_array($names) || $names instanceof \Traversable) {
       $this->_names = $names;
     } else {
@@ -68,7 +68,7 @@ class PapayaCacheIdentifierDefinitionParameters
    * The source depends on the method. If the method is GET, only valeus from the query string
    * are used - the source is URL otherwise values from the request body are used, too.
    *
-   * @see PapayaCacheIdentifierDefinition::getSources()
+   * @see \PapayaCacheIdentifierDefinition::getSources()
    * @return integer
    */
   public function getSources() {

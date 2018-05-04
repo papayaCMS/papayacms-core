@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Interface String Translated, a string object that will be translated before usage
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Translated.php 39740 2014-04-16 15:56:04Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Interface String Translated, a string object that will be translated before usage
@@ -42,7 +38,7 @@ class PapayaUiStringTranslated extends PapayaUiString {
   private $_phrasesGroupName = NULL;
 
   public function __construct(
-    $pattern, array $values = array(), PapayaPhrases $phrases = NULL, $groupName = NULL
+    $pattern, array $values = array(), \PapayaPhrases $phrases = NULL, $groupName = NULL
   ) {
     parent::__construct($pattern, $values);
     $this->_phrases = $phrases;
@@ -69,7 +65,7 @@ class PapayaUiStringTranslated extends PapayaUiString {
   * return string
   */
   protected function translate($string) {
-    PapayaUtilConstraints::assertString($string);
+    \PapayaUtilConstraints::assertString($string);
     $application = $this->papaya();
     if (isset($this->_phrases)) {
       return $this->_phrases->getText($string, $this->_phrasesGroupName);

@@ -38,8 +38,8 @@ class PapayaFilterXml implements PapayaFilter {
    *
    *
    * @param string $value
-   * @throws PapayaFilterExceptionXml
-   * @throws PapayaFilterExceptionEmpty
+   * @throws \PapayaFilterExceptionXml
+   * @throws \PapayaFilterExceptionEmpty
    * @return TRUE
    */
   public function validate($value) {
@@ -58,7 +58,7 @@ class PapayaFilterXml implements PapayaFilter {
         $dom->loadXML($value);
       }
       $errors->emit(TRUE);
-    } catch (PapayaXmlException $e) {
+    } catch (\PapayaXmlException $e) {
       throw new \PapayaFilterExceptionXml($e);
     }
     return TRUE;
@@ -74,7 +74,7 @@ class PapayaFilterXml implements PapayaFilter {
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       return NULL;
     }
   }

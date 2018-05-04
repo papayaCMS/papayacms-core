@@ -31,7 +31,7 @@ class PapayaHttpClientFileName extends PapayaHttpClientFile {
    * @param string $name
    * @param string $fileName
    * @param string $mimeType optional, default value ''
-   * @throws LogicException
+   * @throws \LogicException
    * @access public
    */
   public function __construct($name, $fileName, $mimeType = '') {
@@ -65,14 +65,14 @@ class PapayaHttpClientFileName extends PapayaHttpClientFile {
   /**
    * send file data
    *
-   * @param PapayaHttpClientSocket $socket
+   * @param \PapayaHttpClientSocket $socket
    * @param boolean $chunked optional, default value FALSE
    * @param integer $bufferSize optional, default value 0
-   * @throws LogicException
+   * @throws \LogicException
    * @access public
    * @return void
    */
-  public function send(PapayaHttpClientSocket $socket, $chunked = FALSE, $bufferSize = 0) {
+  public function send(\PapayaHttpClientSocket $socket, $chunked = FALSE, $bufferSize = 0) {
     if ($fh = @fopen($this->_fileName, 'r')) {
       if ($socket->isActive()) {
         if ($bufferSize <= 0) {

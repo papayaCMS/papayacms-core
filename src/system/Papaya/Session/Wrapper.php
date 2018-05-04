@@ -28,7 +28,7 @@ class PapayaSessionWrapper {
    * {@see session_set_save_handler}.
    *
    * @param string $handler
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return bool
    */
   public function registerHandler($handler) {

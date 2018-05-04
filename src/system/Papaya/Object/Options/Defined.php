@@ -68,7 +68,7 @@ abstract class PapayaObjectOptionsDefined
    * Write an option value
    *
    * @param $name
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    * @return mixed
    */
   protected function _read($name) {
@@ -87,7 +87,7 @@ abstract class PapayaObjectOptionsDefined
    *
    * @param $name
    * @param $value
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   protected function _write($name, $value) {
     if (isset($this->_definitions[$name])) {

@@ -28,19 +28,19 @@ class PapayaUiListviewItemRadio extends PapayaUiListviewItem {
 
   /**
    * @param string $image
-   * @param PapayaUiString|string $caption
-   * @param PapayaUiDialog $dialog
+   * @param \PapayaUiString|string $caption
+   * @param \PapayaUiDialog $dialog
    * @param bool $fieldName
    * @param $value
    */
-  public function __construct($image, $caption, PapayaUiDialog $dialog, $fieldName, $value) {
+  public function __construct($image, $caption, \PapayaUiDialog $dialog, $fieldName, $value) {
     parent::__construct($image, $caption);
     $this->_dialog = $dialog;
     $this->_fieldName = $fieldName;
     $this->_value = $value;
   }
 
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $node = parent::appendTo($parent);
     $input = $node->appendElement(
       'input',

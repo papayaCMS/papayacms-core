@@ -1,22 +1,17 @@
 <?php
 /**
-* Papaya Database Record Lazy, superclass for easy database record encapsulation that
-* can store loading parameters until needed.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Lazy.php 38917 2013-11-11 14:31:11Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Database Record Lazy, superclass for easy database record encapsulation that
@@ -82,8 +77,8 @@ abstract class PapayaDatabaseRecordLazy
   /**
    * Deactivate lazy loading if data is assigned
    *
-   * @see PapayaObjectItem::assign()
-   * @param array|Traversable $data
+   * @see \PapayaObjectItem::assign()
+   * @param array|\Traversable $data
    */
   public function assign($data) {
     $this->_loadingParameters = NULL;
@@ -91,10 +86,10 @@ abstract class PapayaDatabaseRecordLazy
   }
 
   /**
-   * @param PapayaDatabaseInterfaceKey|NULL $key
-   * @return PapayaDatabaseInterfaceKey
+   * @param \PapayaDatabaseInterfaceKey|NULL $key
+   * @return \PapayaDatabaseInterfaceKey
    */
-  public function key(PapayaDatabaseInterfaceKey $key = NULL) {
+  public function key(\PapayaDatabaseInterfaceKey $key = NULL) {
     $key = parent::key($key);
     $this->lazyLoad();
     return $key;
@@ -124,7 +119,7 @@ abstract class PapayaDatabaseRecordLazy
   /**
   * Return the defined value
   *
-  * @throws OutOfBoundsException
+  * @throws \OutOfBoundsException
   * @param string $name
   * @return mixed
   */
@@ -136,7 +131,7 @@ abstract class PapayaDatabaseRecordLazy
   /**
   * Change a defined value
   *
-  * @throws OutOfBoundsException
+  * @throws \OutOfBoundsException
   * @param string $name
   * @param mixed $value
   */
@@ -148,7 +143,7 @@ abstract class PapayaDatabaseRecordLazy
   /**
   * Set the deifned value to NULL.
   *
-  * @throws OutOfBoundsException
+  * @throws \OutOfBoundsException
   * @param string $name
   */
   public function __unset($name) {

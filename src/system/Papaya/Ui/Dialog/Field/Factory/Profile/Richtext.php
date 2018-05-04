@@ -22,8 +22,8 @@
 class PapayaUiDialogFieldFactoryProfileRichtext extends PapayaUiDialogFieldFactoryProfile {
 
   /**
-   * @see PapayaUiDialogFieldFactoryProfile::getField()
-   * @return PapayaUiDialogFieldTextareaRichtext
+   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @return \PapayaUiDialogFieldTextareaRichtext
    */
   public function getField() {
     $field = new \PapayaUiDialogFieldTextareaRichtext(

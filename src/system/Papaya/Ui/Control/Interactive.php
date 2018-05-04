@@ -1,21 +1,17 @@
 <?php
 /**
-* Abstract superclass implementing basic features for handling request parameters in ui
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Interactive.php 36886 2012-03-26 11:24:41Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Abstract superclass implementing basic features for handling request parameters in ui.
@@ -53,7 +49,7 @@ abstract class PapayaUiControlInteractive
   */
   public function parameterMethod($method = NULL) {
     if (!is_null($method)) {
-      PapayaUtilConstraints::assertInteger($method);
+      \PapayaUtilConstraints::assertInteger($method);
       $this->_parameterMethod = $method;
     }
     return $this->_parameterMethod;
@@ -69,8 +65,8 @@ abstract class PapayaUiControlInteractive
   */
   public function parameterGroup($groupName = NULL) {
     if (!is_null($groupName)) {
-      PapayaUtilConstraints::assertString($groupName);
-      PapayaUtilConstraints::assertNotEmpty($groupName);
+      \PapayaUtilConstraints::assertString($groupName);
+      \PapayaUtilConstraints::assertNotEmpty($groupName);
       $this->_parameterGroup = $groupName;
     }
     return $this->_parameterGroup;
@@ -81,18 +77,18 @@ abstract class PapayaUiControlInteractive
   *
   * This method gives you access to request parameters.
   *
-  * @param PapayaRequestParameters $parameters
-  * @return PapayaRequestParameters
+  * @param \PapayaRequestParameters $parameters
+  * @return \PapayaRequestParameters
   */
-  public function parameters(PapayaRequestParameters $parameters = NULL) {
+  public function parameters(\PapayaRequestParameters $parameters = NULL) {
     if (isset($parameters)) {
       $this->_parameters = $parameters;
     } elseif (is_null($this->_parameters)) {
       $sourceMapping = array(
-        self::METHOD_GET => PapayaRequest::SOURCE_QUERY,
-        self::METHOD_POST => PapayaRequest::SOURCE_BODY,
-        self::METHOD_MIXED_POST => PapayaRequest::SOURCE_QUERY | PapayaRequest::SOURCE_BODY,
-        self::METHOD_MIXED_GET => PapayaRequest::SOURCE_QUERY | PapayaRequest::SOURCE_BODY
+        self::METHOD_GET => \PapayaRequest::SOURCE_QUERY,
+        self::METHOD_POST => \PapayaRequest::SOURCE_BODY,
+        self::METHOD_MIXED_POST => \PapayaRequest::SOURCE_QUERY | \PapayaRequest::SOURCE_BODY,
+        self::METHOD_MIXED_GET => \PapayaRequest::SOURCE_QUERY | \PapayaRequest::SOURCE_BODY
       );
       if (isset($this->_parameterGroup)) {
         $this->_parameters = $this->papaya()->request->getParameterGroup(

@@ -104,10 +104,10 @@ class PapayaUiHierarchyItem extends PapayaUiControlCollectionItem {
   /**
   * Append item xml to parent xml element.
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $itemNode = $parent->appendElement(
       'item',
       array(
@@ -126,10 +126,10 @@ class PapayaUiHierarchyItem extends PapayaUiControlCollectionItem {
   /**
   * Getter/Setter for the reference subobject
   *
-  * @param PapayaUiReference $reference
-  * @return PapayaUiReference
+  * @param \PapayaUiReference $reference
+  * @return \PapayaUiReference
   */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
@@ -143,7 +143,7 @@ class PapayaUiHierarchyItem extends PapayaUiControlCollectionItem {
    * Read a cleaned display mode value
    *
    * @param int $mode
-   * @throws OutOfBoundsException
+   * @throws \OutOfBoundsException
    */
   public function setDisplayMode($mode) {
     if (array_key_exists($mode, self::$_displayModes)) {

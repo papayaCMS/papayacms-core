@@ -92,7 +92,7 @@ class PapayaUiToolbarSelect extends PapayaUiToolbarElement {
   * Initialize object, store parameter name and options
   *
   * @param string|array $parameterName
-  * @param array|Traversable $options
+  * @param array|\Traversable $options
   */
   public function __construct($parameterName, $options) {
     $this->_parameterName = $parameterName;
@@ -102,9 +102,9 @@ class PapayaUiToolbarSelect extends PapayaUiToolbarElement {
   /**
    * Store options list. The options must be an array or implement the Traversable interface.
    *
-   * @param array|Traversable $options
-   * @throws InvalidArgumentException
-   * @return array|Traversable
+   * @param array|\Traversable $options
+   * @throws \InvalidArgumentException
+   * @return array|\Traversable
    */
   public function options($options = NULL) {
     if (isset($options)) {
@@ -164,10 +164,10 @@ class PapayaUiToolbarSelect extends PapayaUiToolbarElement {
   /**
   * Append select xml elements to xml document
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $select = $parent->appendElement(
       'combo',
       array(

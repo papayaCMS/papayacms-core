@@ -54,7 +54,7 @@ abstract class PapayaAdministrationPage extends PapayaObject {
   /**
    * Create page object and store layout object for later use
    *
-   * @param PapayaTemplate $layout
+   * @param \PapayaTemplate $layout
    * @param null|string $moduleId
    */
   public function __construct($layout, $moduleId = NULL) {
@@ -73,7 +73,7 @@ abstract class PapayaAdministrationPage extends PapayaObject {
    * This method needs to be overloaded to create the content part of the page
    * If an valid part is returned, it will be used first.
    *
-   * @return PapayaAdministrationPagePart|FALSE
+   * @return \PapayaAdministrationPagePart|FALSE
    */
   protected function createContent() {
     return FALSE;
@@ -83,7 +83,7 @@ abstract class PapayaAdministrationPage extends PapayaObject {
    * This method needs to be overloaded to create the navigation part of the page.
    * If an valid part is returned, it will be used after the content part.
    *
-   * @return PapayaAdministrationPagePart|FALSE
+   * @return \PapayaAdministrationPagePart|FALSE
    */
   protected function createNavigation() {
     return FALSE;
@@ -93,7 +93,7 @@ abstract class PapayaAdministrationPage extends PapayaObject {
    * This method needs to be overloaded to create the content part of the page.
    * If an valid part is returned, it will be used last.
    *
-   * @return PapayaAdministrationPagePart|FALSE
+   * @return \PapayaAdministrationPagePart|FALSE
    */
   protected function createInformation() {
     return FALSE;
@@ -110,8 +110,8 @@ abstract class PapayaAdministrationPage extends PapayaObject {
       $value = $this->papaya()->session->getValue($parametersName);
       $parts->parameters()->merge(is_array($value) ? $value : array());
       $this->papaya()->request->setParameters(
-        PapayaRequest::SOURCE_QUERY,
-        $this->papaya()->request->getParameters(PapayaRequest::SOURCE_QUERY)->set(
+        \PapayaRequest::SOURCE_QUERY,
+        $this->papaya()->request->getParameters(\PapayaRequest::SOURCE_QUERY)->set(
           $this->_parameterGroup, is_array($value) ? $value : array()
         )
       );
@@ -133,10 +133,10 @@ abstract class PapayaAdministrationPage extends PapayaObject {
   /**
    * Getter/Setter for the parts list
    *
-   * @param PapayaAdministrationPageParts $parts
-   * @return PapayaAdministrationPageParts
+   * @param \PapayaAdministrationPageParts $parts
+   * @return \PapayaAdministrationPageParts
    */
-  public function parts(PapayaAdministrationPageParts $parts = NULL) {
+  public function parts(\PapayaAdministrationPageParts $parts = NULL) {
     if ($parts) {
       $this->_parts = $parts;
     } elseif (NULL === $this->_parts) {
@@ -156,15 +156,15 @@ abstract class PapayaAdministrationPage extends PapayaObject {
    * FALSE the part is ignored.
    *
    * @param string $name
-   * @return FALSE|PapayaAdministrationPagePart
+   * @return FALSE|\PapayaAdministrationPagePart
    */
   public function createPart($name) {
     switch ($name) {
-    case PapayaAdministrationPageParts::PART_CONTENT :
+    case \PapayaAdministrationPageParts::PART_CONTENT :
       return $this->createContent();
-    case PapayaAdministrationPageParts::PART_NAVIGATION :
+    case \PapayaAdministrationPageParts::PART_NAVIGATION :
       return $this->createNavigation();
-    case PapayaAdministrationPageParts::PART_INFORMATION :
+    case \PapayaAdministrationPageParts::PART_INFORMATION :
       return $this->createInformation();
     }
     return FALSE;
@@ -174,10 +174,10 @@ abstract class PapayaAdministrationPage extends PapayaObject {
    * Getter/Setter for the action toolbar. The parts append buttons to sets the sets are
    * appended to the toolbar.
    *
-   * @param PapayaUiToolbar $toolbar
-   * @return PapayaUiToolbar
+   * @param \PapayaUiToolbar $toolbar
+   * @return \PapayaUiToolbar
    */
-  public function toolbar(PapayaUiToolbar $toolbar = NULL) {
+  public function toolbar(\PapayaUiToolbar $toolbar = NULL) {
     if ($toolbar) {
       $this->_toolbar = $toolbar;
     } elseif (NULL === $this->_toolbar) {

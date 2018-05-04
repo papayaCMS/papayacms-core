@@ -22,7 +22,7 @@
 class PapayaFilterFactoryProfileIsCssSize extends PapayaFilterFactoryProfile {
 
   /**
-   * @see PapayaFilterFactoryProfile::getFilter()
+   * @see \PapayaFilterFactoryProfile::getFilter()
    */
   public function getFilter() {
     return new \PapayaFilterNumericWithUnit(array('em', 'px', 'pt', '%'));

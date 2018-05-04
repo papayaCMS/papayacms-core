@@ -43,7 +43,7 @@ class PapayaFilterInteger implements PapayaFilter {
    *
    * @param integer|NULL $minimum
    * @param integer|NULL $maximum
-   * @throws RangeException
+   * @throws \RangeException
    */
   public function __construct($minimum = NULL, $maximum = NULL) {
     $this->_minimum = $minimum;
@@ -61,7 +61,7 @@ class PapayaFilterInteger implements PapayaFilter {
   /**
   * Check the integer input and throw an exception if it does not match the condition.
   *
-  * @throws PapayaFilterException
+  * @throws \PapayaFilterException
   * @param string $value
   * @return TRUE
   */
@@ -92,7 +92,7 @@ class PapayaFilterInteger implements PapayaFilter {
     try {
       $this->validate($value);
       return $value;
-    } catch (PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       return NULL;
     }
   }

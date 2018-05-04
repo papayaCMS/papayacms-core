@@ -29,7 +29,7 @@ class PapayaContentStructure implements IteratorAggregate {
   /**
    * Load theme data from an xml file
    *
-   * @param string|DOMElement $data
+   * @param string|\DOMElement $data
    */
   public function load($data) {
     if (is_string($data)) {
@@ -55,10 +55,10 @@ class PapayaContentStructure implements IteratorAggregate {
   /**
    * Getter/Setter for the dynamic value definition pages
    *
-   * @param PapayaContentStructurePages $pages
-   * @return PapayaContentStructurePages
+   * @param \PapayaContentStructurePages $pages
+   * @return \PapayaContentStructurePages
    */
-  public function pages(PapayaContentStructurePages $pages = NULL) {
+  public function pages(\PapayaContentStructurePages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;
     } elseif (NULL === $this->_pages) {
@@ -70,7 +70,7 @@ class PapayaContentStructure implements IteratorAggregate {
   /**
    * Allow to directly loop on the pages.
    *
-   * @return PapayaContentStructurePages
+   * @return \PapayaContentStructurePages
    */
   public function getIterator() {
     return $this->pages();
@@ -80,7 +80,7 @@ class PapayaContentStructure implements IteratorAggregate {
    * Fetch a page by its identifier
    *
    * @param string $identifier
-   * @return PapayaContentStructurePage|NULL
+   * @return \PapayaContentStructurePage|NULL
    */
   public function getPage($identifier) {
     /** @var PapayaContentStructurePage $page */
@@ -97,7 +97,7 @@ class PapayaContentStructure implements IteratorAggregate {
    * a valid QName, the element will be ignored.
    *
    * @param array $currentValues
-   * @return PapayaXmlDocument
+   * @return \PapayaXmlDocument
    */
   public function getXmlDocument(array $currentValues) {
     $document = new \PapayaXmlDocument();
@@ -136,11 +136,11 @@ class PapayaContentStructure implements IteratorAggregate {
   /**
    * Read the data from an xml document into an recursive array.
    *
-   * @param PapayaXmlElement $dataNode
+   * @param \PapayaXmlElement $dataNode
    * @return array
    * @internal param \PapayaXmlElement $data
    */
-  public function getArray(PapayaXmlElement $dataNode) {
+  public function getArray(\PapayaXmlElement $dataNode) {
     $result = array();
     /** @var PapayaXmlDocument $document */
     $document = $dataNode->ownerDocument;

@@ -108,10 +108,10 @@ class PapayaFileSystemChangeNotifier {
   /**
    * Get/Set the notifier action object, this will be set from setTarget usually.
    *
-   * @param PapayaFileSystemAction $action
+   * @param \PapayaFileSystemAction $action
    * @return \PapayaFileSystemAction
    */
-  public function action(PapayaFileSystemAction $action = NULL) {
+  public function action(\PapayaFileSystemAction $action = NULL) {
     if (isset($action)) {
       $this->_action = $action;
     }

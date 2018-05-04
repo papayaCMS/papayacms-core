@@ -80,7 +80,7 @@ class PapayaUtilStringXml {
     $result = str_replace('&', '&amp;', $result);
     $result = preg_replace('/\#\|\|([a-z\d\#]+)\|\|\#/i', '&\\1;', $result);
     $result = str_replace('&amp;amp;', '&amp;', $result);
-    return PapayaUtilStringUtf8::ensure($result);
+    return \PapayaUtilStringUtf8::ensure($result);
   }
 
 
@@ -105,7 +105,7 @@ class PapayaUtilStringXml {
   /**
    * Serialize a php array into child nodes - called recursive for array elements
    *
-   * @param DOMElement $parent
+   * @param \DOMElement $parent
    * @param string $tagName
    * @param array $array
    */
@@ -114,13 +114,13 @@ class PapayaUtilStringXml {
       if (trim($name) != '') {
         if (isset($value) && is_array($value)) {
           $childNode = $parent->ownerDocument->createElement($tagName.'-list');
-          $childNode->setAttribute('name', PapayaUtilStringUtf8::ensure($name));
+          $childNode->setAttribute('name', \PapayaUtilStringUtf8::ensure($name));
           self::_serializeSubArray($childNode, $tagName, $value);
         } else {
           $childNode = $parent->ownerDocument->createElement($tagName.'-element');
-          $childNode->setAttribute('name', PapayaUtilStringUtf8::ensure($name));
+          $childNode->setAttribute('name', \PapayaUtilStringUtf8::ensure($name));
           $dataNode = $parent->ownerDocument->createTextNode(
-            PapayaUtilStringUtf8::ensure($value)
+            \PapayaUtilStringUtf8::ensure($value)
           );
           $childNode->appendChild($dataNode);
         }
@@ -141,7 +141,7 @@ class PapayaUtilStringXml {
       return $result;
     }
     if (FALSE === strpos($xml, ' version="2">')) {
-      $xml = PapayaUtilStringUtf8::ensure(
+      $xml = \PapayaUtilStringUtf8::ensure(
         preg_replace_callback(
           '(&\\#(
             (?:1(?:2[6-9]|[3-9][0-9]))
@@ -189,12 +189,12 @@ class PapayaUtilStringXml {
    * Unserialze array data from a node, this function is called recursive.
    *
    * @param string $tagName
-   * @param DOMElement $parentNode
+   * @param \DOMElement $parentNode
    * @param array $array
    * @param null $valueCallback
    */
   private static function _unserializeArrayFromNode(
-    $tagName, DOMElement $parentNode, &$array, $valueCallback = NULL
+    $tagName, \DOMElement $parentNode, &$array, $valueCallback = NULL
   ) {
     if ($parentNode->hasChildNodes()) {
       foreach ($parentNode->childNodes as $childNode) {
@@ -222,11 +222,11 @@ class PapayaUtilStringXml {
   *
   * Empty elements like img or br get deleted.
   *
-  * @param DOMElement $sourceNode
+  * @param \DOMElement $sourceNode
   * @param integer $length
-  * @return DOMElement
+  * @return \DOMElement
   */
-  public static function truncate(DOMElement $sourceNode, $length) {
+  public static function truncate(\DOMElement $sourceNode, $length) {
     $dom = new \DOMDocument('1.0', 'UTF-8');
     $targetNode = self::_copyElement($sourceNode, $dom);
     $dom->appendChild($targetNode);
@@ -238,13 +238,13 @@ class PapayaUtilStringXml {
    * Append child nodes of a parent element until the text content whould be larger than the
    * specified length. The last text node content ist truncated at the whitespace.
    *
-   * @param DOMElement $sourceNode
-   * @param DOMElement $targetNode
+   * @param \DOMElement $sourceNode
+   * @param \DOMElement $targetNode
    * @param integer $length
    * @return int
    */
   private static function _truncateChildNodes(
-    DOMElement $sourceNode, DOMElement $targetNode, $length
+    DOMElement $sourceNode, \DOMElement $targetNode, $length
   ) {
     foreach ($sourceNode->childNodes as $childNode) {
       if ($length <= 0) {
@@ -265,7 +265,7 @@ class PapayaUtilStringXml {
           );
           $length -= $nodeLength;
         } else {
-          $nodeText = PapayaUtilString::truncate($nodeText, $length, FALSE);
+          $nodeText = \PapayaUtilString::truncate($nodeText, $length, FALSE);
           if ($nodeText != '') {
             $targetNode->appendChild(
               $targetNode->ownerDocument->createTextNode($nodeText)
@@ -285,11 +285,11 @@ class PapayaUtilStringXml {
   /**
   * Copy given element wiht its parameters but without its child nodes into the target.
   *
-  * @param DOMElement $sourceNode
-  * @param DOMNode $targetParent
-  * @return DOMElement Imported node
+  * @param \DOMElement $sourceNode
+  * @param \DOMNode $targetParent
+  * @return \DOMElement Imported node
   */
-  private static function _copyElement(DOMElement $sourceNode, DOMNode $targetParent) {
+  private static function _copyElement(\DOMElement $sourceNode, \DOMNode $targetParent) {
     if ($targetParent instanceof \DOMDocument) {
       $targetNode = $targetParent->importNode($sourceNode, FALSE);
     } else {
@@ -307,7 +307,7 @@ class PapayaUtilStringXml {
    * Validate if the given string is a qualified element name (tag name)
    *
    * @param string $name
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return TRUE
    */
   public static function isQName($name) {
@@ -329,7 +329,7 @@ class PapayaUtilStringXml {
    * @param integer $offset Offset of NCName part in QName
    * @param integer $length Length of NCName part in QName
    * @return bool
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public static function isNcName($name, $offset = 0, $length = 0) {
     $nameStartChar =

@@ -37,9 +37,9 @@ class PapayaDatabaseRecordOrderByProperties
    * Create object, store mapping object and set order by properties
    *
    * @param array $properties
-   * @param PapayaDatabaseInterfaceMapping $mapping
+   * @param \PapayaDatabaseInterfaceMapping $mapping
    */
-  public function __construct(array $properties, PapayaDatabaseInterfaceMapping $mapping) {
+  public function __construct(array $properties, \PapayaDatabaseInterfaceMapping $mapping) {
     $this->_list = new \PapayaDatabaseRecordOrderList();
     $this->_mapping = $mapping;
     $this->setProperties($properties);
@@ -60,7 +60,7 @@ class PapayaDatabaseRecordOrderByProperties
   }
 
   /**
-   * @see PapayaDatabaseInterfaceOrder::__toString()
+   * @see \PapayaDatabaseInterfaceOrder::__toString()
    * @return string
    */
   public function __toString() {
@@ -68,7 +68,7 @@ class PapayaDatabaseRecordOrderByProperties
   }
 
   /**
-   * @return Iterator
+   * @return \Iterator
    */
   public function getIterator() {
     return new \PapayaIteratorTraversable($this->_list);

@@ -24,7 +24,7 @@ class PapayaUiDialogFieldTextareaLines extends PapayaUiDialogFieldTextarea {
   protected $_type = 'lines';
 
   public function __construct(
-    $caption, $name, $lines = 10, $default = NULL, PapayaFilter $filter = NULL
+    $caption, $name, $lines = 10, $default = NULL, \PapayaFilter $filter = NULL
   ) {
     parent::__construct(
       $caption,
@@ -38,9 +38,9 @@ class PapayaUiDialogFieldTextareaLines extends PapayaUiDialogFieldTextarea {
   /**
   * Append field and textarea output to DOM
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'textarea',

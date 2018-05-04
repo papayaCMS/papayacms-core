@@ -190,7 +190,7 @@ abstract class PapayaDatabaseObjectRecord
   /**
   * Return Iterator for record values
   *
-  * @return ArrayIterator
+  * @return \ArrayIterator
   */
   public function getIterator() {
     return new \ArrayIterator($this->toArray());
@@ -205,19 +205,19 @@ abstract class PapayaDatabaseObjectRecord
   * @return boolean
   */
   public function offsetExists($offset) {
-    $offset = PapayaUtilStringIdentifier::toUnderscoreLower($offset);
+    $offset = \PapayaUtilStringIdentifier::toUnderscoreLower($offset);
     return array_key_exists($offset, $this->_fields);
   }
 
   /**
   * Return field value using array syntax - or NULL
   *
-  * @throws OutOfBoundsException
+  * @throws \OutOfBoundsException
   * @param string $offset
   * @return string|NULL
   */
   public function offsetGet($offset) {
-    $offset = PapayaUtilStringIdentifier::toUnderscoreLower($offset);
+    $offset = \PapayaUtilStringIdentifier::toUnderscoreLower($offset);
     if (isset($this->_values[$offset])) {
       return $this->_values[$offset];
     } elseif ($this->offsetExists($offset)) {
@@ -233,10 +233,10 @@ abstract class PapayaDatabaseObjectRecord
    *
    * @param string $offset
    * @param mixed $value
-   * @throws OutOfBoundsException
+   * @throws \OutOfBoundsException
    */
   public function offsetSet($offset, $value) {
-    $offset = PapayaUtilStringIdentifier::toUnderscoreLower($offset);
+    $offset = \PapayaUtilStringIdentifier::toUnderscoreLower($offset);
     if ($this->offsetExists($offset)) {
       $this->_values[$offset] = $value;
     } else {
@@ -252,7 +252,7 @@ abstract class PapayaDatabaseObjectRecord
   * @return void
   */
   public function offsetUnset($offset) {
-    $offset = PapayaUtilStringIdentifier::toUnderscoreLower($offset);
+    $offset = \PapayaUtilStringIdentifier::toUnderscoreLower($offset);
     if (isset($this->_values[$offset])) {
       unset($this->_values[$offset]);
     }
@@ -267,19 +267,19 @@ abstract class PapayaDatabaseObjectRecord
    * @return boolean
    */
   public function __isset($name) {
-    $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     return isset($this->_values[$name]);
   }
 
   /**
   * Get field value using property syntax
   *
-  * @throws OutOfBoundsException
+  * @throws \OutOfBoundsException
   * @param string $name
   * @return string|NULL
   */
   public function __get($name) {
-    $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     return $this->offsetGet($name);
   }
 
@@ -291,7 +291,7 @@ abstract class PapayaDatabaseObjectRecord
   * @return void
   */
   public function __set($name, $value) {
-    $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     $this->offsetSet($name, $value);
   }
 
@@ -301,7 +301,7 @@ abstract class PapayaDatabaseObjectRecord
   * @return void
   */
   public function __unset($name) {
-    $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     $this->offsetUnset($name);
   }
 
@@ -312,7 +312,7 @@ abstract class PapayaDatabaseObjectRecord
   * @param string $table
   * @param string $identifier identifier field (not database column)
   * @param mixed $value identifer value
-  * @param Callback|Closure $convertRecordCallback
+  * @param \Callback|\Closure $convertRecordCallback
   * @return boolean
   */
   protected function _loadRecordFromTable(
@@ -335,13 +335,13 @@ abstract class PapayaDatabaseObjectRecord
   *
   * @param string $sql
   * @param array $parameters
-  * @param Callback|Closure $convertRecordCallback A callback to convert the record to values
+  * @param \Callback|\Closure $convertRecordCallback A callback to convert the record to values
   *   The default value is array($this, 'convertRecordToValues').
   * @return bool
   */
   protected function _loadRecord($sql, array $parameters, $convertRecordCallback = NULL) {
     if ($res = $this->databaseQueryFmt($sql, $parameters)) {
-      if ($row = $res->fetchRow(PapayaDatabaseResult::FETCH_ASSOC)) {
+      if ($row = $res->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
         $this->_values = $this->_applyCallback(
           $convertRecordCallback, array($this, 'convertRecordToValues'), $row
         );
@@ -356,8 +356,8 @@ abstract class PapayaDatabaseObjectRecord
   *
   * @param string $table
   * @param string $identifier
-  * @param Callback|Closure $convertValuesCallback
-  * @return boolean|Integer
+  * @param \Callback|\Closure $convertValuesCallback
+  * @return boolean|\Integer
   */
   protected function _insertRecord($table, $identifier = NULL, $convertValuesCallback = NULL) {
     $record = $this->_applyCallback(
@@ -385,7 +385,7 @@ abstract class PapayaDatabaseObjectRecord
    *
    * @param string $table
    * @param array $filter
-   * @param Callback|Closure $convertValuesCallback
+   * @param \Callback|\Closure $convertValuesCallback
    * @return bool
    */
   protected function _updateRecord($table, array $filter, $convertValuesCallback = NULL) {
@@ -403,9 +403,9 @@ abstract class PapayaDatabaseObjectRecord
   * If the first argument is NULL the second is used. The method is to apply a individual callback
   * if availiable and use a fallback callback if nessessary.
   *
-  * @throws UnexpectedValueException
-  * @param Callback|Closure $actual
-  * @param Callback|Closure $default
+  * @throws \UnexpectedValueException
+  * @param \Callback|\Closure $actual
+  * @param \Callback|\Closure $default
   * @param array $data
   * @return array
   */

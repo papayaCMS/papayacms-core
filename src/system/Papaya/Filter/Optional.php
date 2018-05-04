@@ -27,15 +27,15 @@ class PapayaFilterOptional implements PapayaFilter {
   /**
    * Store inner filter object
    *
-   * @param PapayaFilter $filter
+   * @param \PapayaFilter $filter
    */
-  public function __construct(PapayaFilter $filter) {
+  public function __construct(\PapayaFilter $filter) {
     $this->_innerFilter = $filter;
   }
 
   /**
    * Return the inner filter, the condition if the value is not empty
-   * @return null|PapayaFilter
+   * @return null|\PapayaFilter
    */
   public function getInnerFilter() {
     return $this->_innerFilter;
@@ -43,7 +43,7 @@ class PapayaFilterOptional implements PapayaFilter {
 
   /**
    * Return the combined filter allowing empty values
-   * @return null|PapayaFilterLogicalOr
+   * @return null|\PapayaFilterLogicalOr
    */
   public function getFilter() {
     if (isset($this->_filter)) {

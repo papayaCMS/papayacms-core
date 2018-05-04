@@ -76,7 +76,7 @@ class PapayaProfilerStorageFile implements PapayaProfilerStorage {
    * Cleanup directory option and validate it.
    *
    * @param string $directory
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return string
    */
   private function prepareDirectory($directory) {
@@ -85,7 +85,7 @@ class PapayaProfilerStorageFile implements PapayaProfilerStorage {
         'No profiling directory defined.'
       );
     }
-    $directory = PapayaUtilFilePath::cleanup($directory);
+    $directory = \PapayaUtilFilePath::cleanup($directory);
     if (file_exists($directory) && is_dir($directory) && is_readable($directory)) {
       return $directory;
     }
@@ -98,7 +98,7 @@ class PapayaProfilerStorageFile implements PapayaProfilerStorage {
    * Validate profiling file extension.
    *
    * @param string $suffix
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return string
    */
   private function prepareSuffix($suffix) {

@@ -1,21 +1,17 @@
 <?php
 /**
-* Load/save a domain record
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Domain.php 39479 2014-03-03 10:47:14Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
  * Load/save a domain record
@@ -75,7 +71,7 @@ class PapayaContentDomain extends PapayaDatabaseRecord {
   *
   * @var string
   */
-  protected $_tableName = PapayaContentTables::DOMAINS;
+  protected $_tableName = \PapayaContentTables::DOMAINS;
 
   /**
   * Create the mapping objects and set callbacks to handle the
@@ -84,7 +80,7 @@ class PapayaContentDomain extends PapayaDatabaseRecord {
   * "domain_options" is an array serialized to xml and "domain_hostlength" is an denormalized index
   * used to order the domain lists in some cases.
   *
-  * @return PapayaDatabaseRecordMapping
+  * @return \PapayaDatabaseRecordMapping
   */
   public function _createMapping() {
     $mapping = parent::_createMapping();
@@ -105,10 +101,10 @@ class PapayaContentDomain extends PapayaDatabaseRecord {
    */
   public function callbackFieldSerialization($context, $mode, $property, $field, $value) {
     if ($property == 'options') {
-      if ($mode == PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
-        return PapayaUtilStringXml::serializeArray($value);
+      if ($mode == \PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
+        return \PapayaUtilStringXml::serializeArray($value);
       } else {
-        return PapayaUtilStringXml::unserializeArray($value);
+        return \PapayaUtilStringXml::unserializeArray($value);
       }
     }
     return $value;
@@ -124,7 +120,7 @@ class PapayaContentDomain extends PapayaDatabaseRecord {
   * @return array
   */
   public function callbackUpdateHostLength($context, $mode, $values, $record) {
-    if ($mode == PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
+    if ($mode == \PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
       $result = $record;
       $result['domain_hostlength'] = strlen($record['domain_hostname']);
     } else {

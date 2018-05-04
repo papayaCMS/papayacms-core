@@ -39,10 +39,10 @@ class PapayaUiReferenceThumbnail extends PapayaUiReference {
   /**
   * Static create function to allow fluent calls.
   *
-  * @param PapayaUrl $url
-  * @return PapayaUiReference
+  * @param \PapayaUrl $url
+  * @return \PapayaUiReference
   */
-  public static function create(PapayaUrl $url = NULL) {
+  public static function create(\PapayaUrl $url = NULL) {
     return new self($url);
   }
 
@@ -84,13 +84,13 @@ class PapayaUiReferenceThumbnail extends PapayaUiReference {
 
   /**
    * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#load($request)
-   * @param PapayaRequest $request
-   * @return PapayaUiReference|$this
+   * @param \PapayaRequest $request
+   * @return \PapayaUiReference|$this
    */
-  public function load(PapayaRequest $request) {
+  public function load(\PapayaRequest $request) {
     parent::load($request);
     $this->setPreview(
-      $request->getParameter('preview', FALSE, NULL, PapayaRequest::SOURCE_PATH)
+      $request->getParameter('preview', FALSE, NULL, \PapayaRequest::SOURCE_PATH)
     );
     return $this;
   }
@@ -99,7 +99,7 @@ class PapayaUiReferenceThumbnail extends PapayaUiReference {
   * Set media id
   *
   * @param string $mediaId
-  * @return PapayaUiReferenceThumbnail
+  * @return \PapayaUiReferenceThumbnail
   */
   public function setMediaId($mediaId) {
     $this->prepare();
@@ -113,7 +113,7 @@ class PapayaUiReferenceThumbnail extends PapayaUiReference {
   * Set media version
   *
   * @param integer $version
-  * @return PapayaUiReferenceThumbnail
+  * @return \PapayaUiReferenceThumbnail
   */
   public function setMediaVersion($version) {
     $this->prepare();
@@ -127,7 +127,7 @@ class PapayaUiReferenceThumbnail extends PapayaUiReference {
   * Set file title (normalized string)
   *
   * @param string $title
-  * @return PapayaUiReferenceThumbnail
+  * @return \PapayaUiReferenceThumbnail
   */
   public function setTitle($title) {
     $this->prepare();
@@ -141,7 +141,7 @@ class PapayaUiReferenceThumbnail extends PapayaUiReference {
   * Set thumbnail resize mode
   *
   * @param string $mode
-  * @return PapayaUiReferenceThumbnail
+  * @return \PapayaUiReferenceThumbnail
   */
   public function setThumbnailMode($mode) {
     $this->prepare();
@@ -155,7 +155,7 @@ class PapayaUiReferenceThumbnail extends PapayaUiReference {
   * Set thumbnail size
   *
   * @param string $size
-  * @return PapayaUiReferenceThumbnail
+  * @return \PapayaUiReferenceThumbnail
   */
   public function setThumbnailSize($size) {
     $this->prepare();
@@ -169,7 +169,7 @@ class PapayaUiReferenceThumbnail extends PapayaUiReference {
    * Set thumbnail params
    *
    * @param array $params
-   * @return PapayaUiReferenceThumbnail
+   * @return \PapayaUiReferenceThumbnail
    */
   public function setThumbnailParameters($params) {
     $this->prepare();
@@ -187,7 +187,7 @@ class PapayaUiReferenceThumbnail extends PapayaUiReference {
   * Set extension (normalized string)
   *
   * @param string $extension
-  * @return PapayaUiReferenceThumbnail
+  * @return \PapayaUiReferenceThumbnail
   */
   public function setExtension($extension) {
     $this->prepare();
@@ -201,7 +201,7 @@ class PapayaUiReferenceThumbnail extends PapayaUiReference {
   * Set media data from "uri" [id]v[version].[extension]
   *
   * @param string $mediaUri
-  * @return PapayaUiReferenceThumbnail
+  * @return \PapayaUiReferenceThumbnail
   */
   public function setMediaUri($mediaUri) {
     $this->prepare();
@@ -238,7 +238,7 @@ class PapayaUiReferenceThumbnail extends PapayaUiReference {
   * Set preview mode
   *
   * @param boolean $isPreview
-  * @return PapayaUiReferencePage
+  * @return \PapayaUiReferencePage
   */
   public function setPreview($isPreview) {
     $this->prepare();

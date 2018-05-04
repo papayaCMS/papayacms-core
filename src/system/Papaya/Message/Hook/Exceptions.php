@@ -31,9 +31,9 @@ class PapayaMessageHookExceptions
   /**
   * Create hook and set message manager object
   *
-  * @param PapayaMessageManager $messageManager
+  * @param \PapayaMessageManager $messageManager
   */
-  public function __construct(PapayaMessageManager $messageManager) {
+  public function __construct(\PapayaMessageManager $messageManager) {
     $this->_messageManager = $messageManager;
   }
 
@@ -56,7 +56,7 @@ class PapayaMessageHookExceptions
   /**
   * Actual exception handler, just generate an message for it.
   *
-  * @param Exception|Throwable $exception
+  * @param \Exception|\Throwable $exception
   */
   public function handle($exception) {
     if ($exception instanceof \ErrorException) {

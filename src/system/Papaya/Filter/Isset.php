@@ -27,7 +27,7 @@ class PapayaFilterIsset implements PapayaFilter {
    * Check the value throw exception if value is not set
    *
    * @param string $value
-   * @throws PapayaFilterExceptionUndefined
+   * @throws \PapayaFilterExceptionUndefined
    * @return TRUE
    */
   public function validate($value) {

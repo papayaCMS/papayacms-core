@@ -38,7 +38,7 @@ class PapayaContentBoxVersionTranslations extends PapayaDatabaseObjectList {
     'view_title' => 'view'
   );
 
-  protected $_translationsTableName = PapayaContentTables::BOX_VERSION_TRANSLATIONS;
+  protected $_translationsTableName = \PapayaContentTables::BOX_VERSION_TRANSLATIONS;
 
   /**
   * Load translation list informations
@@ -55,7 +55,7 @@ class PapayaContentBoxVersionTranslations extends PapayaDatabaseObjectList {
              WHERE tt.box_id = %d";
     $parameters = array(
       $this->databaseGetTableName($this->_translationsTableName),
-      $this->databaseGetTableName(PapayaContentTables::VIEWS),
+      $this->databaseGetTableName(\PapayaContentTables::VIEWS),
       (int)$boxId
     );
     return $this->_loadRecords($sql, $parameters, 'lng_id');
@@ -66,7 +66,7 @@ class PapayaContentBoxVersionTranslations extends PapayaDatabaseObjectList {
   *
   * @param integer $boxId
   * @param integer $languageId
-  * @return PapayaContentBoxTranslation
+  * @return \PapayaContentBoxTranslation
   */
   public function getTranslation($boxId, $languageId) {
     $result = new \PapayaContentBoxVersionTranslation();

@@ -25,25 +25,25 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
   /**
    * Creates dialog field for date range, two inputs for a start and an end value
    *
-   * @param string|PapayaUiString $caption
+   * @param string|\PapayaUiString $caption
    * @param string $name
    * @param boolean $mandatory
    * @param int $includeTime
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
   public function __construct(
     $caption,
     $name,
     $mandatory = FALSE,
-    $includeTime = PapayaFilterDate::DATE_NO_TIME
+    $includeTime = \PapayaFilterDate::DATE_NO_TIME
   ) {
     if (
-      $includeTime != PapayaFilterDate::DATE_NO_TIME &&
-      $includeTime != PapayaFilterDate::DATE_OPTIONAL_TIME &&
-      $includeTime != PapayaFilterDate::DATE_MANDATORY_TIME
+      $includeTime != \PapayaFilterDate::DATE_NO_TIME &&
+      $includeTime != \PapayaFilterDate::DATE_OPTIONAL_TIME &&
+      $includeTime != \PapayaFilterDate::DATE_MANDATORY_TIME
     ) {
       throw new \InvalidArgumentException(
-        'Argument must be PapayaFilterDate::DATE_* constant.'
+        'Argument must be \PapayaFilterDate::DATE_* constant.'
       );
     }
     $this->_includeTime = (int)$includeTime;
@@ -70,20 +70,20 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
     $this->setMandatory($mandatory);
   }
 
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->setAttribute(
-      'data-include-time', ($this->_includeTime == PapayaFilterDate::DATE_NO_TIME) ? 'false' : 'true'
+      'data-include-time', ($this->_includeTime == \PapayaFilterDate::DATE_NO_TIME) ? 'false' : 'true'
     );
     $fieldName = $this->getName();
     $values = $this->getCurrentValue();
     $start = '';
     $end = '';
     if (!empty($values['start'])) {
-      $start = PapayaUtilDate::stringToTimestamp($values['start']);
+      $start = \PapayaUtilDate::stringToTimestamp($values['start']);
     }
     if (!empty($values['end'])) {
-      $end = PapayaUtilDate::stringToTimestamp($values['end']);
+      $end = \PapayaUtilDate::stringToTimestamp($values['end']);
     }
     $group = $field->appendElement('group');
     $labels = $group->appendElement('labels');
@@ -97,27 +97,27 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
     $group->appendElement(
       'input',
       [
-        'type' => ($this->_includeTime == PapayaFilterDate::DATE_NO_TIME) ? 'date' : 'datetime',
+        'type' => ($this->_includeTime == \PapayaFilterDate::DATE_NO_TIME) ? 'date' : 'datetime',
         'name' => $this->_getParameterName($fieldName.'/start')
       ],
       $this->formatDateTime(
-        $start, $this->_includeTime != PapayaFilterDate::DATE_NO_TIME
+        $start, $this->_includeTime != \PapayaFilterDate::DATE_NO_TIME
       )
     );
     $group->appendElement(
       'input',
       [
-        'type' => ($this->_includeTime == PapayaFilterDate::DATE_NO_TIME) ? 'date' : 'datetime',
+        'type' => ($this->_includeTime == \PapayaFilterDate::DATE_NO_TIME) ? 'date' : 'datetime',
         'name' => $this->_getParameterName($fieldName.'/end'),
         'value' => $end
       ],
       $this->formatDateTime(
-        $end, $this->_includeTime != PapayaFilterDate::DATE_NO_TIME
+        $end, $this->_includeTime != \PapayaFilterDate::DATE_NO_TIME
       )
     );
   }
 
-  public function labels(Traversable $labels = NULL) {
+  public function labels(\Traversable $labels = NULL) {
     if (isset($labels)) {
       $this->_labels = $labels;
     } elseif (NULL === $this->_labels) {
@@ -157,7 +157,7 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
   /**
    * If not mandatory allow the whole value as empty or each sub value.
    *
-   * @return NULL|PapayaFilter
+   * @return NULL|\PapayaFilter
    */
   public function getFilter() {
     $filter = parent::getFilter();

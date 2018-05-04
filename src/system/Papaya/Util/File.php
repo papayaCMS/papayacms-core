@@ -30,7 +30,7 @@ class PapayaUtilFile {
    * @return string
    */
   public static function formatBytes($bytes, $decimals = 2, $decimalSeparator = '.') {
-    return PapayaUtilBytes::toString($bytes, $decimals, $decimalSeparator);
+    return \PapayaUtilBytes::toString($bytes, $decimals, $decimalSeparator);
   }
 
   /**

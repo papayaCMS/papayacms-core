@@ -81,7 +81,7 @@ class PapayaUiPagingSteps extends PapayaUiControl {
    *
    * @param string $parameterName
    * @param string|integer $currentStepSize
-   * @param Traversable|array $stepSizes
+   * @param \Traversable|array $stepSizes
    */
   public function __construct($parameterName, $currentStepSize, $stepSizes) {
     $this->_parameterName = $parameterName;
@@ -92,10 +92,10 @@ class PapayaUiPagingSteps extends PapayaUiControl {
   /**
   * Append stepSize elements top parent xml element
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $list = $parent->appendElement($this->_xmlNames['list']);
     foreach ($this->getStepSizes() as $key => $stepSize) {
       $parameterValue = $this->_mode == self::USE_KEYS ? $key : (string)$stepSize;
@@ -121,7 +121,7 @@ class PapayaUiPagingSteps extends PapayaUiControl {
    * Allow to specify element and attribute names for the generated xml
    *
    * @param array $names
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function setXmlNames(array $names) {
     foreach ($names as $element => $name) {
@@ -143,17 +143,17 @@ class PapayaUiPagingSteps extends PapayaUiControl {
   /**
   * Store the stepSizes list
   *
-  * @param Traversable|array $stepSizes
+  * @param \Traversable|array $stepSizes
   */
   public function setStepSizes($stepSizes) {
-    PapayaUtilConstraints::assertArrayOrTraversable($stepSizes);
+    \PapayaUtilConstraints::assertArrayOrTraversable($stepSizes);
     $this->_stepSizes = $stepSizes;
   }
 
   /**
   * Return the stepSizes list
   *
-  * @return Traversable|array
+  * @return \Traversable|array
   */
   public function getStepSizes() {
     return $this->_stepSizes;
@@ -162,10 +162,10 @@ class PapayaUiPagingSteps extends PapayaUiControl {
   /**
    * Getter/Setter for the reference subobject.
    *
-   * @param PapayaUiReference $reference
+   * @param \PapayaUiReference $reference
    * @return null|\PapayaUiReference
    */
-  public function reference(PapayaUiReference $reference = NULL) {
+  public function reference(\PapayaUiReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {

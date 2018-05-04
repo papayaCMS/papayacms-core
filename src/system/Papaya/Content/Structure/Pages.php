@@ -31,9 +31,9 @@ class PapayaContentStructurePages extends PapayaObjectList {
   /**
    * Load page data from xml
    *
-   * @param PapayaXmlElement $structure
+   * @param \PapayaXmlElement $structure
    */
-  public function load(PapayaXmlElement $structure) {
+  public function load(\PapayaXmlElement $structure) {
     /** @var PapayaXmlDocument $document */
     $document = $structure->ownerDocument;
     /** @var PapayaXmlElement $node */

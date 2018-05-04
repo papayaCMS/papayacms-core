@@ -32,7 +32,7 @@ abstract class PapayaUiDialogFieldFactoryProfile {
   /**
    * Create the field and return it. Throw an exception if somthing goes wrong
    *
-   * @return PapayaUiDialogField
+   * @return \PapayaUiDialogField
    * @throw PapayaUiDialogFieldFactoryException
    */
   abstract public function getField();
@@ -40,10 +40,10 @@ abstract class PapayaUiDialogFieldFactoryProfile {
   /**
    * Getter/Setter for the options subobject
    *
-   * @param PapayaUiDialogFieldFactoryOptions $options
-   * @return PapayaUiDialogFieldFactoryOptions
+   * @param \PapayaUiDialogFieldFactoryOptions $options
+   * @return \PapayaUiDialogFieldFactoryOptions
    */
-  public function options(PapayaUiDialogFieldFactoryOptions $options = NULL) {
+  public function options(\PapayaUiDialogFieldFactoryOptions $options = NULL) {
     if (isset($options)) {
       $this->_options = $options;
     } elseif (NULL == $this->_options) {

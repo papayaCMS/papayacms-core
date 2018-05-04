@@ -23,8 +23,8 @@ class PapayaApplicationProfileMessages implements PapayaApplicationProfile {
 
   /**
   * Create the profile object and return it
-  * @param PapayaApplication $application
-  * @return PapayaMessageManager
+  * @param \PapayaApplication $application
+  * @return \PapayaMessageManager
   */
   public function createObject($application) {
     $messages = new \PapayaMessageManager();

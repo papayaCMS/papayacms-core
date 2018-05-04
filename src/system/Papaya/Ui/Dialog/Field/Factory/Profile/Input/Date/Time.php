@@ -22,8 +22,8 @@
 class PapayaUiDialogFieldFactoryProfileInputDateTime extends PapayaUiDialogFieldFactoryProfile {
 
   /**
-   * @see PapayaUiDialogFieldFactoryProfile::getField()
-   * @return PapayaUiDialogFieldInput
+   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @return \PapayaUiDialogFieldInput
    */
   public function getField() {
     $field = new \PapayaUiDialogFieldInputDate(
@@ -31,7 +31,7 @@ class PapayaUiDialogFieldFactoryProfileInputDateTime extends PapayaUiDialogField
       $this->options()->name,
       $this->options()->default,
       $this->options()->mandatory,
-      PapayaFilterDate::DATE_OPTIONAL_TIME
+      \PapayaFilterDate::DATE_OPTIONAL_TIME
     );
     if ($hint = $this->options()->hint) {
       $field->setHint($hint);

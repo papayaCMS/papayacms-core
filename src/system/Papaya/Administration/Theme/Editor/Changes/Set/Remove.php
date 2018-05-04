@@ -25,8 +25,8 @@ class PapayaAdministrationThemeEditorChangesSetRemove
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
-   * @see PapayaUiControlCommandDialog::createDialog()
-   * @return PapayaUiDialog
+   * @see \PapayaUiControlCommandDialog::createDialog()
+   * @return \PapayaUiDialog
    */
   public function createDialog() {
     $setId = $this->parameters()->get('set_id', 0);
@@ -56,7 +56,7 @@ class PapayaAdministrationThemeEditorChangesSetRemove
       $this->callbacks()->onExecuteSuccessful = array($this, 'callbackDeleted');
     } else {
       $dialog->fields[] = new \PapayaUiDialogFieldMessage(
-        PapayaMessage::SEVERITY_INFO, 'Theme set not found.'
+        \PapayaMessage::SEVERITY_INFO, 'Theme set not found.'
       );
     }
     return $dialog;
@@ -68,7 +68,7 @@ class PapayaAdministrationThemeEditorChangesSetRemove
   public function callbackDeleted() {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        PapayaMessage::SEVERITY_INFO,
+        \PapayaMessage::SEVERITY_INFO,
         'Theme set deleted.'
       )
     );

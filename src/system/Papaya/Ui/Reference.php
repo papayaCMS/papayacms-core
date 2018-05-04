@@ -54,9 +54,9 @@ class PapayaUiReference extends PapayaObject {
   /**
   * create object and load url if provided.
   *
-  * @param PapayaUrl $url
+  * @param \PapayaUrl $url
   */
-  public function __construct(PapayaUrl $url = NULL) {
+  public function __construct(\PapayaUrl $url = NULL) {
     if (isset($url)) {
       $this->url($url);
     }
@@ -79,10 +79,10 @@ class PapayaUiReference extends PapayaObject {
   /**
   * Static create function to allow fluent calls.
   *
-  * @param PapayaUrl $url
-  * @return PapayaUiReference
+  * @param \PapayaUrl $url
+  * @return \PapayaUiReference
   */
-  public static function create(PapayaUrl $url = NULL) {
+  public static function create(\PapayaUrl $url = NULL) {
     return new self($url);
   }
 
@@ -109,7 +109,7 @@ class PapayaUiReference extends PapayaObject {
   /**
    * Get the reference string relative to the current request url
    *
-   * @param PapayaUrl|NULL $currentUrl
+   * @param \PapayaUrl|NULL $currentUrl
    * @param bool $includeQueryString
    * @return string
    */
@@ -168,10 +168,10 @@ class PapayaUiReference extends PapayaObject {
 
   /**
    * Set/Get attached url object or use the request to load one.
-   * @param PapayaUrl $url
-   * @return PapayaUrl
+   * @param \PapayaUrl $url
+   * @return \PapayaUrl
    */
-  public function url(PapayaUrl $url = NULL) {
+  public function url(\PapayaUrl $url = NULL) {
     if (isset($url)) {
       $this->_url = $url;
     }
@@ -182,10 +182,10 @@ class PapayaUiReference extends PapayaObject {
   /**
   * load request data to reference
   *
-  * @param PapayaRequest $request
-  * @return PapayaUiReference
+  * @param \PapayaRequest $request
+  * @return \PapayaUiReference
   */
-  public function load(PapayaRequest $request) {
+  public function load(\PapayaRequest $request) {
     $url = $request->getUrl();
     $this->_url = clone (($url instanceof \PapayaUrl) ? $url : new \PapayaUrl);
     if (is_null($this->_parameterGroupSeparator)) {
@@ -198,8 +198,8 @@ class PapayaUiReference extends PapayaObject {
   /**
    * Specifiy a custom parameter group separator
    * @param string $separator Allowed values: '[]', ',', ':', '/', '*', '!'
-   * @throws InvalidArgumentException
-   * @return PapayaUiReference
+   * @throws \InvalidArgumentException
+   * @return \PapayaUiReference
    */
   public function setParameterGroupSeparator($separator) {
     if ($separator == '') {
@@ -228,9 +228,9 @@ class PapayaUiReference extends PapayaObject {
 
   /**
   * Set several parameters at once
-  * @param array|PapayaRequestParameters $parameters
+  * @param array|\PapayaRequestParameters $parameters
   * @param string|NULL $parameterGroup
-  * @return PapayaUiReference
+  * @return \PapayaUiReference
   */
   public function setParameters($parameters, $parameterGroup = NULL) {
     if (!isset($this->_parametersObject)) {
@@ -256,7 +256,7 @@ class PapayaUiReference extends PapayaObject {
   /**
   * Provides access to the parameters object of the reference
   *
-  * @return PapayaRequestParameters $parameters
+  * @return \PapayaRequestParameters $parameters
   */
   public function getParameters() {
     if (!isset($this->_parametersObject)) {
@@ -291,7 +291,7 @@ class PapayaUiReference extends PapayaObject {
   * Set fragment
   *
   * @param string $fragment
-  * @return PapayaUiReferencePage
+  * @return \PapayaUiReferencePage
   */
   public function setFragment($fragment) {
     if (substr($fragment, 0, 1) == '#') {
@@ -327,7 +327,7 @@ class PapayaUiReference extends PapayaObject {
   *
   * @param string $path
   * @access public
-  * @return PapayaUiReference
+  * @return \PapayaUiReference
   */
   public function setBasePath($path) {
     if (substr($path, 0, 1) != '/') {

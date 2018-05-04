@@ -35,17 +35,17 @@ class PapayaMessageManager extends PapayaObject {
 
   /**
   * Add a dispatcher to the list
-  * @param PapayaMessageDispatcher $dispatcher
+  * @param \PapayaMessageDispatcher $dispatcher
   */
-  public function addDispatcher(PapayaMessageDispatcher $dispatcher) {
+  public function addDispatcher(\PapayaMessageDispatcher $dispatcher) {
     $this->_dispatchers[] = $dispatcher;
   }
 
   /**
   * Dispatch a message to all available dispatchers
-  * @param PapayaMessage $message
+  * @param \PapayaMessage $message
   */
-  public function dispatch(PapayaMessage $message) {
+  public function dispatch(\PapayaMessage $message) {
     /** @var PapayaMessageDispatcher $dispatcher */
     foreach ($this->_dispatchers as $dispatcher) {
       $dispatcher->dispatch($message);
@@ -90,7 +90,7 @@ class PapayaMessageManager extends PapayaObject {
   */
   public function debug() {
     $message = new \PapayaMessageLog(
-      PapayaMessageLogable::GROUP_DEBUG, PapayaMessage::SEVERITY_DEBUG, ''
+      \PapayaMessageLogable::GROUP_DEBUG, \PapayaMessage::SEVERITY_DEBUG, ''
     );
     if (func_num_args() > 0) {
       $message->context()->append(new \PapayaMessageContextVariable(func_get_args(), 5, 9999));
@@ -107,11 +107,11 @@ class PapayaMessageManager extends PapayaObject {
    * Encapsulate an callback into an sandbox, capturing all exceptions and dispatching them
    * as logable error messages.
    *
-   * @param Callable $callback
-   * @return PapayaMessageSandbox|callable
+   * @param \Callable $callback
+   * @return \PapayaMessageSandbox|callable
    */
   public function encapsulate($callback) {
-    PapayaUtilConstraints::assertCallable($callback);
+    \PapayaUtilConstraints::assertCallable($callback);
     $sandbox = new \PapayaMessageSandbox($callback);
     $sandbox->papaya($this->papaya());
     return array($sandbox, '__invoke');
@@ -138,10 +138,10 @@ class PapayaMessageManager extends PapayaObject {
   * This functions initializes the start time for runtime debug and activates the hooks for
   * php messages and exceptions.
   *
-  * @param PapayaConfiguration $options
+  * @param \PapayaConfiguration $options
   */
   public function setUp($options) {
-    PapayaMessageContextRuntime::setStartTime(microtime(TRUE));
+    \PapayaMessageContextRuntime::setStartTime(microtime(TRUE));
     error_reporting($options->get('PAPAYA_LOG_PHP_ERRORLEVEL', E_ALL & ~E_STRICT));
     /** @var PapayaMessageHook $hook */
     foreach ($this->hooks() as $hook) {

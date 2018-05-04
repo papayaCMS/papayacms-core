@@ -1,24 +1,17 @@
 <?php
 /**
-* Provide data encapsulation for the content page tag/label list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentPageTranslation}.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Tags.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Provide data encapsulation for the content page tag/label list.
@@ -69,8 +62,8 @@ class PapayaContentPageTags extends PapayaDatabaseObjectList {
                AND tl.link_id = '%d'
              ORDER BY tl.link_priority, tt.tag_title";
     $parameters = array(
-      $this->databaseGetTableName(PapayaContentTables::TAG_LINKS),
-      $this->databaseGetTableName(PapayaContentTables::TAG_TRANSLATIONS),
+      $this->databaseGetTableName(\PapayaContentTables::TAG_LINKS),
+      $this->databaseGetTableName(\PapayaContentTables::TAG_TRANSLATIONS),
       $languageId,
       $this->_linkType,
       $pageId
@@ -86,7 +79,7 @@ class PapayaContentPageTags extends PapayaDatabaseObjectList {
   */
   public function clear($pageId) {
     return FALSE !== $this->databaseDeleteRecord(
-      $this->databaseGetTableName(PapayaContentTables::TAG_LINKS),
+      $this->databaseGetTableName(\PapayaContentTables::TAG_LINKS),
       array(
         'link_type' => $this->_linkType,
         'link_id' => $pageId
@@ -111,7 +104,7 @@ class PapayaContentPageTags extends PapayaDatabaseObjectList {
       );
     }
     return FALSE !== $this->databaseInsertRecords(
-      $this->databaseGetTableName(PapayaContentTables::TAG_LINKS),
+      $this->databaseGetTableName(\PapayaContentTables::TAG_LINKS),
       $data
     );
   }

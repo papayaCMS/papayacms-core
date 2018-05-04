@@ -80,10 +80,10 @@ abstract class PapayaTemplate extends PapayaObject {
   /**
    * Combined getter/setter for the template values object
    *
-   * @param PapayaTemplateValues $values
-   * @return PapayaTemplateValues;
+   * @param \PapayaTemplateValues $values
+   * @return \PapayaTemplateValues;
    */
-  public function values(PapayaTemplateValues $values = NULL) {
+  public function values(\PapayaTemplateValues $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
     } elseif (is_null($this->_values)) {
@@ -116,8 +116,8 @@ abstract class PapayaTemplate extends PapayaObject {
   }
 
   /**
-   * @param array|Traversable $parameters
-   * @return PapayaTemplateParameters
+   * @param array|\Traversable $parameters
+   * @return \PapayaTemplateParameters
    */
   public function parameters($parameters = NULL) {
     if (isset($parameters)) {
@@ -135,10 +135,10 @@ abstract class PapayaTemplate extends PapayaObject {
   /**
    * Combined getter/setter for the libxml errors
    *
-   * @param PapayaXmlErrors $errors
-   * @return PapayaXmlErrors
+   * @param \PapayaXmlErrors $errors
+   * @return \PapayaXmlErrors
    */
-  public function errors(PapayaXmlErrors $errors = NULL) {
+  public function errors(\PapayaXmlErrors $errors = NULL) {
     if (isset($errors)) {
       $this->_errors = $errors;
     } elseif (is_null($this->_errors)) {
@@ -161,15 +161,15 @@ abstract class PapayaTemplate extends PapayaObject {
         '(<([\w:-]+)\s\s*>)s'
       );
       $with = array('<$1>', '');
-      if (PapayaUtilBitwise::inBitmask(self::STRIP_XML_PI, $options)) {
+      if (\PapayaUtilBitwise::inBitmask(self::STRIP_XML_PI, $options)) {
         $replace[] = '(<\?xml[^>]+\?>)';
         $with [] = '';
       }
-      if (PapayaUtilBitwise::inBitmask(self::STRIP_XML_EMPTY_NAMESPACE, $options)) {
+      if (\PapayaUtilBitwise::inBitmask(self::STRIP_XML_EMPTY_NAMESPACE, $options)) {
         $replace[] = '(\s*xmlns(:[a-zA-Z]+)?="\s*")';
         $with [] = '';
       }
-      if (PapayaUtilBitwise::inBitmask(self::STRIP_XML_DEFAULT_NAMESPACE, $options)) {
+      if (\PapayaUtilBitwise::inBitmask(self::STRIP_XML_DEFAULT_NAMESPACE, $options)) {
         $replace[] = '(\s*xmlns="[^"]*")';
         $with [] = '';
       }
@@ -185,7 +185,7 @@ abstract class PapayaTemplate extends PapayaObject {
    * can be a simple element name or a sequence of element names separated by '/'.
    * If an element in the path does not exists, it will be created.
    *
-   * @param string|PapayaXmlAppendable|\DOMNode $xml data
+   * @param string|\PapayaXmlAppendable|\DOMNode $xml data
    * @param string $path optional, default value 'centercol' the element path relative to '/page'
    * @param boolean $encodeInvalidEntities encode invalid entities like &
    * @return mixed
@@ -225,8 +225,8 @@ abstract class PapayaTemplate extends PapayaObject {
    * @return string
    */
   private function encodeInvalidEntities($xml) {
-    $result = PapayaUtilStringUtf8::ensure($xml);
-    $result = PapayaUtilStringHtml::decodeNamedEntities($result);
+    $result = \PapayaUtilStringUtf8::ensure($xml);
+    $result = \PapayaUtilStringHtml::decodeNamedEntities($result);
     $result = str_replace('&', '&amp;', $result);
     $result = preg_replace(
       '(&amp;(gt|lt|quot|apos|amp|#\d{1,6}|#x[a-fA-F\d]{1,4});)',
@@ -242,7 +242,7 @@ abstract class PapayaTemplate extends PapayaObject {
    * @param string $method
    * @param array $arguments
    * @return mixed
-   * @throws LogicException
+   * @throws \LogicException
    */
   public function __call($method, $arguments) {
     if (0 === strpos($method, 'add')) {
@@ -289,7 +289,7 @@ abstract class PapayaTemplate extends PapayaObject {
    */
   public function getOutput($options = self::STRIP_XML_EMPTY_NAMESPACE) {
     $debugXml = $this->papaya()->request->getParameter(
-      'XML', FALSE, NULL, PapayaRequest::SOURCE_QUERY
+      'XML', FALSE, NULL, \PapayaRequest::SOURCE_QUERY
     );
     if ($debugXml && $this->papaya()->administrationUser->isLoggedIn()) {
       /**
@@ -312,7 +312,7 @@ abstract class PapayaTemplate extends PapayaObject {
   /**
    * Alias for add()
    *
-   * @param string|DOMElement $xml data
+   * @param string|\DOMElement $xml data
    * @param string $path optional, default value 'centercol' the element path relative to '/page'
    * @param boolean $encode encode special characters ? optional, default value TRUE
    * @return mixed
@@ -324,7 +324,7 @@ abstract class PapayaTemplate extends PapayaObject {
   /**
    * Alias for addNavigation()
    *
-   * @param string|DOMElement $xml data
+   * @param string|\DOMElement $xml data
    * @param boolean $encode encode special characters ? optional, default value TRUE
    * @return mixed
    */
@@ -335,7 +335,7 @@ abstract class PapayaTemplate extends PapayaObject {
   /**
    * Alias for addContent()
    *
-   * @param string|DOMElement $xml data
+   * @param string|\DOMElement $xml data
    * @param boolean $encode encode special characters ? optional, default value TRUE
    * @return mixed
    */
@@ -346,7 +346,7 @@ abstract class PapayaTemplate extends PapayaObject {
   /**
    * Alias for addInformation()
    *
-   * @param string|DOMElement $xml data
+   * @param string|\DOMElement $xml data
    * @param boolean $encode encode special characters ? optional, default value TRUE
    * @return mixed
    */

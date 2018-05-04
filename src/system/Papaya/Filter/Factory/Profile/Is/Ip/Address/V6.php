@@ -22,7 +22,7 @@
 class PapayaFilterFactoryProfileIsIpAddressV6 extends PapayaFilterFactoryProfile {
 
   /**
-   * @see PapayaFilterFactoryProfile::getFilter()
+   * @see \PapayaFilterFactoryProfile::getFilter()
    */
   public function getFilter() {
     return new \PapayaFilterIpV6();

@@ -57,7 +57,7 @@ class PapayaUiDialogFieldSelectBitmask extends PapayaUiDialogFieldSelect {
   /**
    * Always onvert the default value to integer
    *
-   * @see PapayaUiDialogField::getDefaultValue()
+   * @see \PapayaUiDialogField::getDefaultValue()
    */
   public function getDefaultValue() {
     return (int)parent::getDefaultValue();

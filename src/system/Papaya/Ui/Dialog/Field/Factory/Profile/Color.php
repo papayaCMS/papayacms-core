@@ -28,7 +28,7 @@ class PapayaUiDialogFieldFactoryProfileColor extends PapayaUiDialogFieldFactoryP
    * Create a color input field
    *
    * @see PapayaUiDialogFieldInputColor
-   * @see PapayaUiDialogFieldFactoryProfile::getField()
+   * @see \PapayaUiDialogFieldFactoryProfile::getField()
    */
   public function getField() {
     $field = new \PapayaUiDialogFieldInputColor(

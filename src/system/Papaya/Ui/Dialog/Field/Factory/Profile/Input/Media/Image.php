@@ -22,8 +22,8 @@
 class PapayaUiDialogFieldFactoryProfileInputMediaImage extends PapayaUiDialogFieldFactoryProfile {
 
   /**
-   * @see PapayaUiDialogFieldFactoryProfile::getField()
-   * @return PapayaUiDialogFieldInputMediaImage
+   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @return \PapayaUiDialogFieldInputMediaImage
    */
   public function getField() {
     $field = new \PapayaUiDialogFieldInputMediaImage(

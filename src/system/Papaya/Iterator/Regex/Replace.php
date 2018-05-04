@@ -1,21 +1,17 @@
 <?php
 /**
-* This iterator allows convert the values on request using a preg_replace().
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-* @version $Id: Replace.php 38786 2013-09-18 08:22:34Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This iterator allows convert the values on request using a preg_replace().
@@ -41,12 +37,12 @@ class PapayaIteratorRegexReplace extends PapayaIteratorCallback {
   /**
    * Create object and store properties
    *
-   * @param Traversable $iterator
+   * @param \Traversable $iterator
    * @param string $pattern
    * @param string $replacement
    * @param integer $limit
    */
-  public function __construct(Traversable $iterator, $pattern, $replacement, $limit = -1) {
+  public function __construct(\Traversable $iterator, $pattern, $replacement, $limit = -1) {
     $this->_pattern = $pattern;
     $this->_replacement = $replacement;
     $this->_limit = $limit;

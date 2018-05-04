@@ -34,7 +34,7 @@ class PapayaFilterArrayAssociative implements PapayaFilter {
    * Construct object and initialize minimum and maximum limits for the integer value
    *
    * @param array $filtersByName
-   * @throws RangeException
+   * @throws \RangeException
    */
   public function __construct(array $filtersByName) {
     $this->_filters = [];
@@ -55,7 +55,7 @@ class PapayaFilterArrayAssociative implements PapayaFilter {
   /**
    * Check the array elements against each filter.
    *
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    * @param mixed $value
    * @return TRUE
    */

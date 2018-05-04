@@ -58,10 +58,10 @@ class PapayaUiControlCommandDialog extends PapayaUiControlCommand {
   /**
   * Execute command and append result to output xml
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     $showDialog = TRUE;
     $dialog = $this->dialog();
     if ($dialog) {
@@ -88,10 +88,10 @@ class PapayaUiControlCommandDialog extends PapayaUiControlCommand {
   /**
    * A context for the dialog - to be set as hidden values or used in links
    *
-   * @param PapayaRequestParameters $context
-   * @return PapayaRequestParameters
+   * @param \PapayaRequestParameters $context
+   * @return \PapayaRequestParameters
    */
-  public function context(PapayaRequestParameters $context = NULL) {
+  public function context(\PapayaRequestParameters $context = NULL) {
     if (isset($context)) {
       $this->_context = $context;
     }
@@ -101,10 +101,10 @@ class PapayaUiControlCommandDialog extends PapayaUiControlCommand {
   /**
   * Getter/Setter for the dialog. If implizit create is used the createDialog method is called.
   *
-  * @param PapayaUiDialog $dialog
-  * @return PapayaUiDialog
+  * @param \PapayaUiDialog $dialog
+  * @return \PapayaUiDialog
   */
-  public function dialog(PapayaUiDialog $dialog = NULL) {
+  public function dialog(\PapayaUiDialog $dialog = NULL) {
     if (isset($dialog)) {
       $this->_dialog = $dialog;
     } elseif (is_null($this->_dialog)) {
@@ -120,10 +120,10 @@ class PapayaUiControlCommandDialog extends PapayaUiControlCommand {
   /**
   * Getter/Setter for the callbacks object
   *
-  * @param PapayaUiControlCommandDialogCallbacks $callbacks
-  * @return PapayaUiControlCommandDialogCallbacks
+  * @param \PapayaUiControlCommandDialogCallbacks $callbacks
+  * @return \PapayaUiControlCommandDialogCallbacks
   */
-  public function callbacks(PapayaUiControlCommandDialogCallbacks $callbacks = NULL) {
+  public function callbacks(\PapayaUiControlCommandDialogCallbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
@@ -136,7 +136,7 @@ class PapayaUiControlCommandDialog extends PapayaUiControlCommand {
   * Create and return a dialog object, can be overloaded by child classes to create specific
   * dialogs.
   *
-  * @return PapayaUiDialog
+  * @return \PapayaUiDialog
   */
   protected function createDialog() {
     $dialog = new \PapayaUiDialog();

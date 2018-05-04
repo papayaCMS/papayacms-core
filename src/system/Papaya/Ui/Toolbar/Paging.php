@@ -142,10 +142,10 @@ class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
    * The absolute count of items in the list. The minimum value is zero.
    *
    * @param integer $itemsCount
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function setItemsCount($itemsCount) {
-    PapayaUtilConstraints::assertInteger($itemsCount);
+    \PapayaUtilConstraints::assertInteger($itemsCount);
     if ($itemsCount < 0) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item count can not be negative.'
@@ -160,10 +160,10 @@ class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
    * minimum value is 1.
    *
    * @param integer $itemsPerPage
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function setItemsPerPage($itemsPerPage) {
-    PapayaUtilConstraints::assertInteger($itemsPerPage);
+    \PapayaUtilConstraints::assertInteger($itemsPerPage);
     if ($itemsPerPage < 1) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item page limit can not be less than 1.'
@@ -178,10 +178,10 @@ class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
    * Minimum value is 3. I suggest only odd values for this option.
    *
    * @param integer $buttonLimit
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    */
   public function setButtonLimit($buttonLimit) {
-    PapayaUtilConstraints::assertInteger($buttonLimit);
+    \PapayaUtilConstraints::assertInteger($buttonLimit);
     if ($buttonLimit < 3) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Button limit can not be less than 3.'
@@ -267,9 +267,9 @@ class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
   /**
   * Append button xml to parent node. If the item count is zero no button are added.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     if ($this->_itemsCount > $this->_itemsPerPage) {
       $current = $this->getCurrentPage();
       if ($current > 2) {
@@ -334,12 +334,12 @@ class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
   * Append an arrow button to the parent. Arrow buttons navigate to the first/last or previous/next
   * page. The are only shown if needed.
   *
-  * @param PapayaXmlElement $parent
+  * @param \PapayaXmlElement $parent
   * @param integer $page
   * @param string $image
-  * @param string|PapayaUiString $hint
+  * @param string|\PapayaUiString $hint
   */
-  private function appendArrowButton(PapayaXmlElement $parent, $page, $image, $hint) {
+  private function appendArrowButton(\PapayaXmlElement $parent, $page, $image, $hint) {
     $reference = clone $this->reference();
     $reference->getParameters()->set(
       (string)$this->_parameterName,

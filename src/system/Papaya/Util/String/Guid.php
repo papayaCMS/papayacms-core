@@ -27,7 +27,7 @@ class PapayaUtilStringGuid {
    *
    * @param string $guid
    * @param boolean $silent
-   * @throws UnexpectedValueException
+   * @throws \UnexpectedValueException
    * @return boolean
    */
   public static function validate($guid, $silent = FALSE) {

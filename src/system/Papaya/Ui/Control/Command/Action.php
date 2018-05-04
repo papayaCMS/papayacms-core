@@ -38,10 +38,10 @@ class PapayaUiControlCommandAction extends PapayaUiControlCommand {
   /**
   * Execute command and append result to output xml
   *
-  * @param PapayaXmlElement $parent
-  * @return PapayaXmlElement
+  * @param \PapayaXmlElement $parent
+  * @return \PapayaXmlElement
   */
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     if ($this->data()->validate()) {
       $this->callbacks()->onValidationSuccessful($this, $parent);
     } else {
@@ -53,10 +53,10 @@ class PapayaUiControlCommandAction extends PapayaUiControlCommand {
   /**
    * Getter/Setter to the validated parameters data subobject.
    *
-   * @param PapayaRequestParametersValidator $data
-   * @return null|PapayaRequestParametersValidator|PapayaUiDialog
+   * @param \PapayaRequestParametersValidator $data
+   * @return null|\PapayaRequestParametersValidator|\PapayaUiDialog
    */
-  public function data(PapayaRequestParametersValidator $data = NULL) {
+  public function data(\PapayaRequestParametersValidator $data = NULL) {
     if (isset($data)) {
       $this->_data = $data;
     } elseif (NULL === $this->_data) {
@@ -69,7 +69,7 @@ class PapayaUiControlCommandAction extends PapayaUiControlCommand {
    * Create parameters validator using the "getDefintion()" callback
    *
    * @param array|NULL $definitions
-   * @return PapayaRequestParametersValidator
+   * @return \PapayaRequestParametersValidator
    */
   protected function _createData(array $definitions = NULL) {
     return new \PapayaRequestParametersValidator(
@@ -81,10 +81,10 @@ class PapayaUiControlCommandAction extends PapayaUiControlCommand {
   /**
   * Getter/Setter for the callbacks object
   *
-  * @param PapayaUiControlCommandActionCallbacks $callbacks
-  * @return PapayaUiControlCommandActionCallbacks
+  * @param \PapayaUiControlCommandActionCallbacks $callbacks
+  * @return \PapayaUiControlCommandActionCallbacks
   */
-  public function callbacks(PapayaUiControlCommandActionCallbacks $callbacks = NULL) {
+  public function callbacks(\PapayaUiControlCommandActionCallbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
