@@ -1,27 +1,26 @@
 <?php
 /**
-* Papaya autoloader
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @version $Id: Autoloader.php 39434 2014-02-28 09:37:30Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+namespace Papaya;
 
 /**
 * Papaya autoloader
 *
 * @package Papaya-Library
 */
-class PapayaAutoloader {
+class Autoloader {
 
   /**
   * prefix => path mapping array for modules/plugins.
@@ -31,11 +30,17 @@ class PapayaAutoloader {
   private static $_paths = array();
 
   /**
-   * path => array('lowecaseclass' => '/path/class.php', ...)
+   * path => array('lowercaseclass' => '/path/class.php', ...)
    *
    * @var array
    */
   private static $_classmaps = array();
+
+  /**
+   * Pattern that matches the parts (namespaces) of a class
+   * @var string
+   */
+  private static $classPattern = '((?:[A-Z][a-z\d_]+)|(?:[A-Z]+(?![a-z\d_])))S';
 
   /**
    *
@@ -45,13 +50,17 @@ class PapayaAutoloader {
    */
   public static function load($name, $file = NULL) {
     if (!class_exists($name, FALSE)) {
-      $file = (is_null($file)) ? self::getClassFile($name) : $file;
-      if (isset($file) &&
-          file_exists($file) &&
-          is_file($file) &&
-          is_readable($file)) {
-        /** @noinspection PhpIncludeInspection */
-        include($file);
+      $alternativeClass = self::convertToNamespaceClass($name);
+      if ($alternativeClass !== $name) {
+        if (class_exists($alternativeClass)) {
+          class_alias($alternativeClass, $name);
+        }
+      } else {
+        $file = NULL === $file ? self::getClassFile($name) : $file;
+        if (NULL !== $file && file_exists($file) && is_file($file) && is_readable($file)) {
+          /** @noinspection PhpIncludeInspection */
+          include $file;
+        }
       }
     }
   }
@@ -64,7 +73,7 @@ class PapayaAutoloader {
   */
   public static function getClassFile($className) {
     static $systemDirectory = NULL;
-    $systemDirectory = isset($systemDirectory)
+    $systemDirectory = NULL !== $systemDirectory
       ? $systemDirectory : str_replace('\\', '/', dirname(__DIR__));
     self::lazyLoadClassmap($systemDirectory);
     $key = strtolower($className);
@@ -82,9 +91,29 @@ class PapayaAutoloader {
         }
       }
       return NULL;
-    } else {
-      return $systemDirectory.$fileName.'.php';
     }
+    return $systemDirectory.$fileName.'.php';
+  }
+
+  /**
+   * @param $className
+   * @return string
+   */
+  private static function convertToNamespaceClass($className) {
+    if (
+      0 === strpos($className, 'Papaya') &&
+      FALSE === strpos($className, '\\') &&
+      preg_match_all(self::$classPattern, $className, $matches)
+    ) {
+      /** @var array $parts */
+      $parts = $matches[0];
+      $result = '';
+      foreach ($parts as $part) {
+        $result .= '\\'.$part;
+      }
+      return substr($result, 1);
+    }
+    return $className;
   }
 
   /**
@@ -92,12 +121,12 @@ class PapayaAutoloader {
   *
   * The file will include only the part of the path defined by the class.
   *
-  * @param array $className
+  * @param string $className
   * @return string
   */
   private static function prepareFileName($className) {
-    $classPattern = '((?:[A-Z][a-z\d]+)|(?:[A-Z]+(?![a-z\d])))S';
-    if (preg_match_all($classPattern, $className, $matches)) {
+    if (preg_match_all(self::$classPattern, $className, $matches)) {
+      /** @var array $parts */
       $parts = $matches[0];
     } else {
       return '/'.$className;
@@ -118,7 +147,7 @@ class PapayaAutoloader {
   */
   public static function registerPath($modulePrefix, $modulePath) {
     self::$_paths[self::prepareFileName($modulePrefix).'/'] =
-      PapayaUtilFilePath::cleanup($modulePath);
+      \PapayaUtilFilePath::cleanup($modulePath);
     uksort(self::$_paths, array('self', 'compareByCharacterLength'));
   }
 
@@ -170,9 +199,8 @@ class PapayaAutoloader {
   public static function compareByCharacterLength($prefixOne, $prefixTwo) {
     if (strlen($prefixOne) > strlen($prefixTwo)) {
       return -1;
-    } else {
-      return strcmp($prefixOne, $prefixTwo);
     }
+    return strcmp($prefixOne, $prefixTwo);
   }
 
   /**
@@ -191,7 +219,9 @@ class PapayaAutoloader {
   private static function lazyLoadClassmap($directory) {
     if (empty(self::$_classmaps) || !isset(self::$_classmaps[$directory])) {
       /** @noinspection PhpIncludeInspection */
-      self::registerClassMap($directory, include($directory.'/_classmap.php'));
+      self::registerClassMap($directory, include $directory.'/_classmap.php');
     }
   }
 }
+
+class_alias(Autoloader::class, 'PapayaAutoloader');

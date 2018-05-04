@@ -28,8 +28,16 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   * @covers PapayaAutoloader
   */
   public function testLoad() {
-    PapayaAutoloader::load('AutoloaderTestClass', __DIR__.'/TestData/class.php');
-    $this->assertTrue(class_exists('AutoloaderTestClass', FALSE));
+    PapayaAutoloader::load('Papaya\\Test\\Autoloader\\Test_class', __DIR__.'/TestData/class.php');
+    $this->assertTrue(class_exists('Papaya\\Test\\Autoloader\\Test_class', FALSE));
+  }
+
+  /**
+   * @covers PapayaAutoloader
+   */
+  public function testLoadAddsAliasForNamespaceClass() {
+    PapayaAutoloader::load('PapayaTestAutoloaderTest_class', __DIR__.'/TestData/class.php');
+    $this->assertTrue(class_exists('PapayaTestAutoloaderTest_class', FALSE));
   }
 
   /**
@@ -151,7 +159,8 @@ class PapayaAutoloaderTest extends PapayaTestCase {
       array('/system/Papaya/Sample.php', 'PapayaSample'),
       array('/system/Papaya/Sample/Abbr.php', 'PapayaSampleABBR'),
       array('/system/Papaya/Sample/Abbr/Class.php', 'PapayaSampleABBRClass'),
-      array('/system/base_options.php', 'base_options')
+      array('/system/base_options.php', 'base_options'),
+      array('/system/Papaya/Sample.php', '\\Papaya\\Sample')
     );
   }
 

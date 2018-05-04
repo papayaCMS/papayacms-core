@@ -13,4 +13,6 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class AutoLoaderTestClass {}
+namespace Papaya\Test\Autoloader {
+  class Test_class {}
+}
