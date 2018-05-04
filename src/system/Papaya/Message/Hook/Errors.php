@@ -132,7 +132,7 @@ class PapayaMessageHookErrors
             If the Autoloader is not working and the class does not exist yes,
             we disable the internal handling and let php take over.
             */
-            if (!class_exists('PapayaMessagePhpError')) {
+            if (!class_exists(\PapayaMessagePhpError::class)) {
               return FALSE;
             }
             // @codeCoverageIgnoreEnd

@@ -67,7 +67,7 @@ class PapayaPhrasesGroups implements ArrayAccess {
    * @param \PapayaPhrasesGroup $group
    */
   public function offsetSet($name, $group) {
-    \PapayaUtilConstraints::assertInstanceOf('PapayaPhrasesGroup', $group);
+    \PapayaUtilConstraints::assertInstanceOf(\PapayaPhrasesGroup::class, $group);
     $this->_groups[$name] = $group;
   }
 

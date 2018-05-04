@@ -183,7 +183,7 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
   * @return \PapayaUiListviewItems|\PapayaUiControlCollection
   */
   public function collection(\PapayaUiControlCollection $items = NULL) {
-    \PapayaUtilConstraints::assertInstanceOfOrNull('PapayaUiListviewItems', $items);
+    \PapayaUtilConstraints::assertInstanceOfOrNull(\PapayaUiListviewItems::class, $items);
     return parent::collection($items);
   }
 

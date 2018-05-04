@@ -113,18 +113,20 @@ abstract class PapayaTemplateEngine {
    */
   public function loaders(\PapayaObjectList $loaders = NULL) {
     if (isset($loaders)) {
-      if ($loaders->getItemClass() == 'PapayaTemplateEngineValuesLoadable') {
+      if ($loaders->getItemClass() === \PapayaTemplateEngineValuesLoadable::class) {
         $this->_loaders = $loaders;
       } else {
         throw new \InvalidArgumentException(
           sprintf(
-            'PapayaObjectList with PapayaTemplateEngineValuesLoadable expected: "%s" given.',
+            '%1$s with %2$s expected: "%3$s" given.',
+            \PapayaObjectList::class,
+            \PapayaTemplateEngineValuesLoadable::class,
             $loaders->getItemClass()
           )
         );
       }
     } elseif (!isset($this->_loaders)) {
-      $this->_loaders = new \PapayaObjectList('PapayaTemplateEngineValuesLoadable');
+      $this->_loaders = new \PapayaObjectList(\PapayaTemplateEngineValuesLoadable::class);
     }
     return $this->_loaders;
   }

@@ -66,7 +66,9 @@ class PapayaTemplateValue {
       } else {
         throw new \InvalidArgumentException(
           sprintf(
-            'PapayaXmlDocument or PapayaXmlElement expected, got %s',
+            '%1$s or %2$s expected, got %3$s',
+            \PapayaXmlDocument::class,
+            \PapayaXmlElement::class,
             is_object($node) ? get_class($node) : gettype($node)
           )
         );

@@ -28,7 +28,7 @@ class PapayaUiHierarchyItems extends PapayaUiControlCollection {
   * Superclass for validation, only items of this class may be added.
   * @var string
   */
-  protected $_itemClass = 'PapayaUiHierarchyItem';
+  protected $_itemClass = \PapayaUiHierarchyItem::class;
 
   /**
   * If a tag name is provided, an additional element will be added in

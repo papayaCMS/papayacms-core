@@ -27,7 +27,7 @@ class PapayaUiListviewColumns
   *
   * @var string
   */
-  protected $_itemClass = 'PapayaUiListviewColumn';
+  protected $_itemClass = \PapayaUiListviewColumn::class;
 
   /**
   * If a tag name is provided, an additional element will be added in
@@ -52,7 +52,7 @@ class PapayaUiListviewColumns
    * @return \PapayaUiListview
    */
   public function owner($listview = NULL) {
-    \PapayaUtilConstraints::assertInstanceOfOrNull('PapayaUiListview', $listview);
+    \PapayaUtilConstraints::assertInstanceOfOrNull(\PapayaUiListview::class, $listview);
     return parent::owner($listview);
   }
 }

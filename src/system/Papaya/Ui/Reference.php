@@ -161,7 +161,7 @@ class PapayaUiReference extends PapayaObject {
   protected function cleanupPath($path, $forPublic = FALSE) {
     $sessionParameterName = isset($this->papaya()->session) ? $this->papaya()->session->name : 'sid';
     if ($forPublic && $sessionParameterName !== '') {
-      return preg_replace('(/'.preg_quote($sessionParameterName).'[^/?#]+)', '', $path);
+      return preg_replace('(/'.preg_quote($sessionParameterName, '(').'[^/?#]+)', '', $path);
     }
     return $path;
   }
@@ -233,13 +233,14 @@ class PapayaUiReference extends PapayaObject {
   * @return \PapayaUiReference
   */
   public function setParameters($parameters, $parameterGroup = NULL) {
-    if (!isset($this->_parametersObject)) {
+    if (NULL === $this->_parametersObject) {
       $this->_parametersObject = new \PapayaRequestParameters();
     }
-    if (is_array($parameters) ||
-        is_a($parameters, 'PapayaRequestParameters')) {
-      if (!empty($parameterGroup) &&
-          trim($parameterGroup) != '') {
+    if (
+      is_array($parameters) ||
+      $parameters instanceof \PapayaRequestParameters
+    ) {
+      if (NULL !== $parameterGroup && '' !== trim($parameterGroup)) {
         $this->_parametersObject->merge(
           array(
             $parameterGroup => $parameters instanceof \PapayaRequestParameters

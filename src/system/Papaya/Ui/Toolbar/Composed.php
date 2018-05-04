@@ -146,7 +146,7 @@ class PapayaUiToolbarComposed extends PapayaUiControl {
   * @param \PapayaUiToolbarSet $value
   */
   public function __set($name, $value) {
-    \PapayaUtilConstraints::assertInstanceOf('PapayaUiToolbarSet', $value);
+    \PapayaUtilConstraints::assertInstanceOf(\PapayaUiToolbarSet::class, $value);
     $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     if (array_key_exists($name, $this->_sets)) {
       $this->_sets[$name] = $value;

@@ -51,13 +51,14 @@ class PapayaUiNavigationBuilder extends PapayaUiControl {
    * @param string $itemClass
    * @throws \InvalidArgumentException
    */
-  public function __construct($elements, $itemClass = 'PapayaUiNavigationItemText') {
+  public function __construct($elements, $itemClass = \PapayaUiNavigationItemText::class) {
     $this->elements($elements);
-    if (!is_subclass_of($itemClass, 'PapayaUiNavigationItem')) {
+    if (!is_subclass_of($itemClass, \PapayaUiNavigationItem::class)) {
       throw new \InvalidArgumentException(
         sprintf(
-          'Class "%s" is not an subclass of "PapayaUiNavigationItem".',
-          $itemClass
+          'Class "%s" is not an subclass of "%s".',
+          $itemClass,
+          \PapayaUiNavigationItem::class
         )
       );
     }

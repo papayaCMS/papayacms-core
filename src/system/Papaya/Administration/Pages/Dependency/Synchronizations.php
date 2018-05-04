@@ -32,43 +32,43 @@ class PapayaAdministrationPagesDependencySynchronizations {
       'caption' => 'Properties',
       'hint' => 'Page properties',
       'image' => 'categories-properties',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationProperties'
+      'class' => \PapayaAdministrationPagesDependencySynchronizationProperties::class
     ),
     \PapayaContentPageDependency::SYNC_VIEW => array(
       'caption' => 'View',
       'hint' => 'Page view',
       'image' => 'items-view',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationView'
+      'class' => \PapayaAdministrationPagesDependencySynchronizationView::class
     ),
     \PapayaContentPageDependency::SYNC_CONTENT => array(
       'caption' => 'Content',
       'hint' => 'Page content',
       'image' => 'categories-content',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationContent'
+      'class' => \PapayaAdministrationPagesDependencySynchronizationContent::class
     ),
     \PapayaContentPageDependency::SYNC_BOXES => array(
       'caption' => 'Boxes',
       'hint' => 'Box links',
       'image' => 'items-box',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationBoxes'
+      'class' => \PapayaAdministrationPagesDependencySynchronizationBoxes::class
     ),
     \PapayaContentPageDependency::SYNC_TAGS => array(
       'caption' => 'Tags',
       'hint' => 'Page tags/labels',
       'image' => 'items-tag',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationTags'
+      'class' => \PapayaAdministrationPagesDependencySynchronizationTags::class
     ),
     \PapayaContentPageDependency::SYNC_ACCESS => array(
       'caption' => 'Access',
       'hint' => 'Access permissions for visitors',
       'image' => 'categories-access',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationAccess'
+      'class' => \PapayaAdministrationPagesDependencySynchronizationAccess::class
     ),
     \PapayaContentPageDependency::SYNC_PUBLICATION => array(
       'caption' => 'Publication',
       'hint' => 'Publication action',
       'image' => 'items-publication',
-      'class' => 'PapayaAdministrationPagesDependencySynchronizationPublication'
+      'class' => \PapayaAdministrationPagesDependencySynchronizationPublication::class
     )
   );
 

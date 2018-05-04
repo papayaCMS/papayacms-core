@@ -25,14 +25,14 @@
 class PapayaUiMessages extends PapayaObjectList implements PapayaXmlAppendable {
 
   /**
-  * create lsit object and store child superclass limit
+  * create list object and store child superclass limit
   */
   public function __construct() {
-    parent::__construct('PapayaUiMessage');
+    parent::__construct(\PapayaUiMessage::class);
   }
 
   /**
-  * If the list containts items, append them and return the list xml element.
+  * If the list contains items, append them and return the list xml element.
   *
   * @param \PapayaXmlElement $parent
   * @return \PapayaXmlElement|NULL

@@ -27,7 +27,7 @@ class PapayaUiToolbarElements extends PapayaUiControlCollection {
   *
   * @var string
   */
-  protected $_itemClass = 'PapayaUiToolbarElement';
+  protected $_itemClass = \PapayaUiToolbarElement::class;
 
   /**
   * Allow group elements
@@ -62,7 +62,7 @@ class PapayaUiToolbarElements extends PapayaUiControlCollection {
   * @return bool
   */
   protected function validateItemClass(\PapayaUiControlCollectionItem $item) {
-    \PapayaUtilConstraints::assertInstanceOf('PapayaUiToolbarElement', $item);
+    \PapayaUtilConstraints::assertInstanceOf(\PapayaUiToolbarElement::class, $item);
     parent::validateItemClass($item);
     if (!$this->_allowGroups &&
         $item instanceof \PapayaUiToolbarGroup) {

@@ -37,6 +37,7 @@ abstract class PapayaFilterLogical implements PapayaFilter {
    *
    * @internal param \PapayaFilter $filterOne
    * @internal param \PapayaFilter $filterTwo
+   * @throws \InvalidArgumentException
    */
   public function __construct() {
     $this->_setFilters(func_get_args());
@@ -60,7 +61,8 @@ abstract class PapayaFilterLogical implements PapayaFilter {
         } else {
           throw new \InvalidArgumentException(
             sprintf(
-              'Only PapayaFilter classes expected: "%s" found.',
+              'Only %1$s classes expected: "%2$s" found.',
+              PapayaFilter::class,
               is_object($filter) ? get_class($filter) : gettype($filter)
             )
           );
@@ -68,7 +70,11 @@ abstract class PapayaFilterLogical implements PapayaFilter {
       }
     } else {
       throw new \InvalidArgumentException(
-        'PapayaFilter needs at least two other PapayaFilter classes.'
+        sprintf(
+          '%1$s needs at least two other %2$s classes.',
+          static::class,
+          \PapayaFilter::class
+        )
       );
     }
   }

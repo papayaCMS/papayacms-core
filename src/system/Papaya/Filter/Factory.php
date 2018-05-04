@@ -73,10 +73,11 @@ class PapayaFilterFactory implements IteratorAggregate {
    *
    * @codeCoverageIgnore
    * @return array
+   * @throws ReflectionException
    */
   private static function _getProfiles() {
     if (NULL === self::$_profiles) {
-      $reflection = new \ReflectionClass('PapayaFilter');
+      $reflection = new \ReflectionClass(\PapayaFilter::class);
       foreach ($reflection->getConstants() as $constant => $profile) {
         if (0 === strpos($constant, 'IS_')) {
           self::$_profiles[strtolower($profile)] = $profile;

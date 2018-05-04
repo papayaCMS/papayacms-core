@@ -26,7 +26,7 @@ class PapayaControllerGroup extends PapayaObjectList implements PapayaController
    * elements of that list.
    */
   public function __construct() {
-    parent::__construct('PapayaController');
+    parent::__construct(PapayaController::class);
     foreach (func_get_args() as $controller) {
       parent::add($controller);
     }
@@ -35,7 +35,7 @@ class PapayaControllerGroup extends PapayaObjectList implements PapayaController
   /**
    * Execute the attached controllers one after another. If a controller returns
    * TRUE, the request was handled. If the result is an PapayaController, it is delegated
-   * to this object, if the result is FALSE the controller could not (completly) handle the
+   * to this object, if the result is FALSE the controller could not (completely) handle the
    * request, so use the next one.
    *
    * @param \PapayaApplication $application

@@ -39,13 +39,13 @@ class PapayaDatabaseConditionGroup
   private $_mapping = NULL;
 
   private $_classes = array(
-    'isequal' => array('PapayaDatabaseConditionElement', '='),
-    'isnotequal' => array('PapayaDatabaseConditionElement', '!='),
-    'isnull' => array('PapayaDatabaseConditionElement', 'ISNULL'),
-    'isgreaterthan' => array('PapayaDatabaseConditionElement', '>'),
-    'isgreaterthanorequal' => array('PapayaDatabaseConditionElement', '>='),
-    'islessthan' => array('PapayaDatabaseConditionElement', '<'),
-    'islessthanorequal' => array('PapayaDatabaseConditionElement', '<=')
+    'isequal' => array(\PapayaDatabaseConditionElement::class, '='),
+    'isnotequal' => array(\PapayaDatabaseConditionElement::class, '!='),
+    'isnull' => array(\PapayaDatabaseConditionElement::class, 'ISNULL'),
+    'isgreaterthan' => array(\PapayaDatabaseConditionElement::class, '>'),
+    'isgreaterthanorequal' => array(\PapayaDatabaseConditionElement::class, '>='),
+    'islessthan' => array(\PapayaDatabaseConditionElement::class, '<'),
+    'islessthanorequal' => array(\PapayaDatabaseConditionElement::class, '<=')
   );
 
   /**

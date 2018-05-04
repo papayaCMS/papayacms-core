@@ -27,7 +27,7 @@ class PapayaUiNavigationItems extends PapayaUiControlCollection {
   * Only PapayaUiDialogElement objects are allows in this list
   * @var string
   */
-  protected $_itemClass = 'PapayaUiNavigationItem';
+  protected $_itemClass = \PapayaUiNavigationItem::class;
 
   protected $_tagName = 'links';
 

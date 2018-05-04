@@ -28,7 +28,7 @@ class PapayaUiListviewSubitems
   *
   * @var string
   */
-  protected $_itemClass = 'PapayaUiListviewSubItem';
+  protected $_itemClass = \PapayaUiListviewSubitem::class;
 
   /**
   * Provide no tag name, so no additional element will be added in
@@ -54,7 +54,7 @@ class PapayaUiListviewSubitems
    * @return \PapayaUiListviewItem
    */
   public function owner($item = NULL) {
-    \PapayaUtilConstraints::assertInstanceOfOrNull('PapayaUiListviewItem', $item);
+    \PapayaUtilConstraints::assertInstanceOfOrNull(\PapayaUiListviewItem::class, $item);
     return parent::owner($item);
   }
 

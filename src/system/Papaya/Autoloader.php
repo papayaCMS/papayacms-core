@@ -45,24 +45,41 @@ class Autoloader {
   /**
    *
    * @param string $name
-   * @param string|null $file
-   * @return void
+   * @param string|NULL $file
+   * @param string|NULL $alias
+   * @return bool
    */
-  public static function load($name, $file = NULL) {
-    if (!class_exists($name, FALSE)) {
+  public static function load($name, $file = NULL, $alias = NULL) {
+    if (!self::exists($name, FALSE)) {
       $alternativeClass = self::convertToNamespaceClass($name);
-      if ($alternativeClass !== $name) {
-        if (class_exists($alternativeClass)) {
+      if (NULL !== $alternativeClass && $alternativeClass !== $name) {
+        if (self::exists($alternativeClass, FALSE)) {
           class_alias($alternativeClass, $name);
+          return TRUE;
         }
-      } else {
-        $file = NULL === $file ? self::getClassFile($name) : $file;
-        if (NULL !== $file && file_exists($file) && is_file($file) && is_readable($file)) {
-          /** @noinspection PhpIncludeInspection */
-          include $file;
+        return self::load($alternativeClass, $file, $name);
+      }
+      $file = NULL === $file ? self::getClassFile($name) : $file;
+      if (NULL !== $file && file_exists($file) && is_file($file) && is_readable($file)) {
+        /** @noinspection PhpIncludeInspection */
+        include $file;
+        if (NULL !== $alias) {
+          if (self::exists($alias)) {
+            class_alias($alias, $name);
+          } else {
+            class_alias($name, $alias);
+          }
         }
       }
     }
+    return self::exists($name, FALSE);
+  }
+
+  private static function exists($name, $allowAutoload = TRUE) {
+    return
+      class_exists($name, $allowAutoload) ||
+      interface_exists($name, $allowAutoload) ||
+      trait_exists($name, $allowAutoload);
   }
 
   /**
@@ -97,7 +114,7 @@ class Autoloader {
 
   /**
    * @param $className
-   * @return string
+   * @return string|NULL
    */
   private static function convertToNamespaceClass($className) {
     if (
@@ -110,6 +127,15 @@ class Autoloader {
       $result = '';
       foreach ($parts as $part) {
         $result .= '\\'.$part;
+      }
+      $lastPart = end($parts);
+      switch ($lastPart) {
+      case 'Float':
+      case 'Int':
+      case 'Integer':
+      case 'Object':
+      case 'String':
+        return NULL;
       }
       return substr($result, 1);
     }

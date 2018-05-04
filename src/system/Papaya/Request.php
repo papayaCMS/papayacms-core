@@ -225,7 +225,7 @@ class PapayaRequest
   * @return \PapayaUrl|NULL
   */
   public function getUrl() {
-    if (is_null($this->_url)) {
+    if (NULL === $this->_url) {
       $this->load(new \PapayaUrlCurrent());
     }
     return $this->_url;
@@ -238,12 +238,12 @@ class PapayaRequest
    * @return \PapayaContentLanguage
    */
   public function language(\PapayaContentLanguage $language = NULL) {
-    if (isset($language)) {
+    if (NULL !== $language) {
       $this->_language = $language;
-    } elseif (NULL == $this->_language) {
-      $this->_language = new \PapayaContentLanguage($language);
+    } elseif (NULL === $this->_language) {
+      $this->_language = new \PapayaContentLanguage();
       $this->_language->papaya($this->papaya());
-      if ($identifier = $this->getParameter('language', '', NULL, \PapayaRequest::SOURCE_PATH)) {
+      if ($identifier = $this->getParameter('language', '', NULL, self::SOURCE_PATH)) {
         $this->_language->activateLazyLoad(
           array('identifier' => $identifier)
         );
@@ -271,8 +271,7 @@ class PapayaRequest
       $extension = $this->getParameter(
         'output_mode', 'html', NULL, \PapayaRequest::SOURCE_PATH
       );
-      switch ($extension) {
-      case 'xml' :
+      if ('xml' === $extension) {
         $this->_mode->assign(
           array(
             'id' => -1,
@@ -282,12 +281,10 @@ class PapayaRequest
             'content_type' => 'application/xml'
           )
         );
-        break;
-      default :
+      } else {
         $this->_mode->activateLazyLoad(
           array('extension' => $extension)
         );
-        break;
       }
     }
     return $this->_mode;
@@ -327,11 +324,10 @@ class PapayaRequest
   * @return string
   */
   public function getBasePath() {
-    if ($session = $this->getParameter('session', '', NULL, \PapayaRequest::SOURCE_PATH)) {
+    if ($session = $this->getParameter('session', '', NULL, self::SOURCE_PATH)) {
       return '/'.$session.$this->_installationPath;
-    } else {
-      return $this->_installationPath;
     }
+    return $this->_installationPath;
   }
 
   /**
@@ -454,25 +450,25 @@ class PapayaRequest
   * @param $sources
   * @return \PapayaRequestParameters
   */
-  public function loadParameters($sources = \PapayaRequest::SOURCE_ALL) {
+  public function loadParameters($sources = self::SOURCE_ALL) {
     if (!isset($this->_parameterCache[$sources])) {
       $parameters = new \PapayaRequestParameters();
-      if ($sources == \PapayaRequest::SOURCE_COOKIE) {
-        return $this->_loadParametersForSource(\PapayaRequest::SOURCE_COOKIE);
+      if ($sources === self::SOURCE_COOKIE) {
+        return $this->_loadParametersForSource(self::SOURCE_COOKIE);
       }
-      if ($sources & \PapayaRequest::SOURCE_PATH) {
+      if (self::SOURCE_PATH & $sources) {
         $parameters->merge(
-          $this->_loadParametersForSource(\PapayaRequest::SOURCE_PATH)
+          $this->_loadParametersForSource(self::SOURCE_PATH)
         );
       }
-      if ($sources & \PapayaRequest::SOURCE_QUERY) {
+      if ($sources & self::SOURCE_QUERY) {
         $parameters->merge(
-          $this->_loadParametersForSource(\PapayaRequest::SOURCE_QUERY)
+          $this->_loadParametersForSource(self::SOURCE_QUERY)
         );
       }
-      if ($sources & \PapayaRequest::SOURCE_BODY) {
+      if ($sources & self::SOURCE_BODY) {
         $parameters->merge(
-          $this->_loadParametersForSource(\PapayaRequest::SOURCE_BODY)
+          $this->_loadParametersForSource(self::SOURCE_BODY)
         );
       }
       if (!isset($this->_parameterCache[$sources])) {
@@ -527,21 +523,27 @@ class PapayaRequest
    */
   public function setParameters($source, $parameters) {
     $validSources = array(
-      \PapayaRequest::SOURCE_PATH,
-      \PapayaRequest::SOURCE_QUERY,
-      \PapayaRequest::SOURCE_BODY,
-      \PapayaRequest::SOURCE_COOKIE
+      self::SOURCE_PATH,
+      self::SOURCE_QUERY,
+      self::SOURCE_BODY,
+      self::SOURCE_COOKIE
     );
-    if (in_array($source, $validSources) &&
-        $parameters instanceof \PapayaRequestParameters) {
+    if (
+      $parameters instanceof \PapayaRequestParameters &&
+      in_array($source, $validSources, TRUE)
+    ) {
       $this->_parameterCache[$source] = $parameters;
       foreach ($this->_parameterCache as $cachedSource => $cachedParameters) {
-        if (!in_array($cachedSource, $validSources)) {
+        if (!in_array($cachedSource, $validSources, TRUE)) {
           unset($this->_parameterCache[$cachedSource]);
         }
       }
     } else {
-      throw new \InvalidArgumentException();
+      throw new \InvalidArgumentException(
+        sprintf(
+          'Only %1$s::SOURCE_* constants allowed.', __CLASS__
+        )
+      );
     }
   }
 
@@ -566,16 +568,18 @@ class PapayaRequest
   * @return boolean
   */
   public function allowCompression() {
-    if (is_null($this->_allowCompression)) {
+    if (NULL === $this->_allowCompression) {
       $this->_allowCompression = FALSE;
-      if (!function_exists('gzencode') ||
-          (isset($_SERVER['SERVER_PROTOCOL']) && $_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.0') ||
-          ini_get('zlib.output_compression')) {
+      if (
+        (isset($_SERVER['SERVER_PROTOCOL']) && 'HTTP/1.0' === $_SERVER['SERVER_PROTOCOL']) ||
+        !function_exists('gzencode') ||
+        ini_get('zlib.output_compression')
+      ) {
         return $this->_allowCompression;
       }
       if (isset($_SERVER['HTTP_ACCEPT_ENCODING'])) {
         $encodings = preg_split('(\s*,\s*)', strtolower(trim($_SERVER['HTTP_ACCEPT_ENCODING'])));
-        if (in_array('gzip', $encodings) || in_array('x-gzip', $encodings)) {
+        if (in_array('gzip', $encodings, TRUE) || in_array('x-gzip', $encodings, TRUE)) {
           $this->_allowCompression = TRUE;
         }
       }
@@ -607,14 +611,16 @@ class PapayaRequest
    * @return bool
    */
   public function validateBrowserCache($cacheId, $lastModified) {
-    if (isset($_SERVER['HTTP_IF_NONE_MATCH']) && isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
-      if ($cacheId == $_SERVER['HTTP_IF_NONE_MATCH'] ||
-          '"'.$cacheId.'"' == $_SERVER['HTTP_IF_NONE_MATCH']) {
-        $modifiedSince = strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']);
-        if ($lastModified > 0 &&
-            $lastModified <= $modifiedSince) {
-          return TRUE;
-        }
+    if (
+      isset($_SERVER['HTTP_IF_NONE_MATCH'], $_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
+      (
+        $cacheId === $_SERVER['HTTP_IF_NONE_MATCH'] ||
+        '"'.$cacheId.'"' === $_SERVER['HTTP_IF_NONE_MATCH']
+      )
+    ) {
+      $modifiedSince = strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']);
+      if ($lastModified > 0 && $lastModified <= $modifiedSince) {
+        return TRUE;
       }
     }
     return FALSE;

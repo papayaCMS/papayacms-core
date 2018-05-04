@@ -26,7 +26,7 @@ class PapayaEmailRecipients extends PapayaObjectList {
   * Initialize object and set class restriction
   */
   public function __construct() {
-    parent::__construct('PapayaEmailAddress');
+    parent::__construct(\PapayaEmailAddress::class);
   }
 
   /**

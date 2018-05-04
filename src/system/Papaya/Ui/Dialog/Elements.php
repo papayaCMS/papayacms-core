@@ -25,7 +25,7 @@ abstract class PapayaUiDialogElements extends PapayaUiControlCollection {
   * Only PapayaUiDialogElement objects are allows in this list
   * @var string
   */
-  protected $_itemClass = 'PapayaUiDialogElement';
+  protected $_itemClass = \PapayaUiDialogElement::class;
 
   /**
   * Initialize object an set owner dialog if available.

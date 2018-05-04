@@ -18,7 +18,7 @@ class PapayaTemplateSimpleAstNodes
   implements PapayaTemplateSimpleAst {
 
   public function __construct(array $nodes = array()) {
-    parent::__construct('PapayaTemplateSimpleAstNode');
+    parent::__construct(\PapayaTemplateSimpleAstNode::class);
     foreach ($nodes as $node) {
       $this[] = $node;
     }

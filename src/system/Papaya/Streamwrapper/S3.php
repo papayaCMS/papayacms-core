@@ -139,7 +139,7 @@ class PapayaStreamwrapperS3 {
         stream_wrapper_unregister($protocol);
       }
     }
-    return stream_wrapper_register($protocol, 'PapayaStreamwrapperS3', STREAM_IS_URL);
+    return stream_wrapper_register($protocol, __CLASS__, STREAM_IS_URL);
   }
 
   /**

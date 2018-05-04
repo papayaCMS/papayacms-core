@@ -34,7 +34,7 @@ class PapayaContentPhrases extends PapayaDatabaseRecords {
     'language_id' => 'pt.lng_id'
   );
 
-  protected $_itemClass = 'PapayaContentPhrase';
+  protected $_itemClass = \PapayaContentPhrase::class;
 
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {
     $fields = implode(', ', $this->mapping()->getFields());

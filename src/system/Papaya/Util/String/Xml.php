@@ -133,7 +133,7 @@ class PapayaUtilStringXml {
    * Unserialize a php array from xml
    *
    * @param string $xml
-   * @return string
+   * @return array
    */
   public static function unserializeArray($xml) {
     $result = array();
@@ -155,7 +155,7 @@ class PapayaUtilStringXml {
     }
     $dom = new \DOMDocument('1.0', 'UTF-8');
     $errorUsage = libxml_use_internal_errors(TRUE);
-    if ($dom->loadXml($xml)) {
+    if ($dom->loadXML($xml)) {
       $version = $dom->documentElement->getAttribute('version');
       if (version_compare($version, '2', '>=')) {
         self::_unserializeArrayFromNode(
@@ -166,7 +166,7 @@ class PapayaUtilStringXml {
           $dom->documentElement->nodeName,
           $dom->documentElement,
           $result,
-          array('PapayaUtilStringXml', 'unescape')
+          function($value) { return \PapayaUtilStringXml::unescape($value); }
         );
       }
     }

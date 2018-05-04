@@ -60,7 +60,7 @@ class PapayaRequestParametersValidator
     if (is_array($parameters)) {
       $parameters = new \PapayaRequestParameters($parameters);
     }
-    \PapayaUtilConstraints::assertInstanceOf('PapayaRequestParameters', $parameters);
+    \PapayaUtilConstraints::assertInstanceOf(\PapayaRequestParameters::class, $parameters);
     $this->_parameters = $parameters;
   }
 
@@ -84,7 +84,7 @@ class PapayaRequestParametersValidator
         $filter = \PapayaUtilArray::get($definition, array('filter', 2), NULL);
       }
       if (NULL !== $filter) {
-        \PapayaUtilConstraints::assertInstanceOf('PapayaFilter', $filter);
+        \PapayaUtilConstraints::assertInstanceOf(\PapayaFilter::class, $filter);
       }
       $this->_definitions[$name] = array(
         'default' => $default, 'filter' => $filter

@@ -28,7 +28,7 @@ class PapayaDatabaseRecordList
    * Create list an set internal object type limitation
    */
   public function __construct() {
-    parent::__construct('PapayaDatabaseInterfaceRecord');
+    parent::__construct(\PapayaDatabaseInterfaceRecord::class);
   }
 
   /**

@@ -71,15 +71,15 @@ class PapayaUiSheet extends PapayaUiControl {
   }
 
   /**
-   * @param \PapayaUiSheetSubtitles $subtitles
+   * @param \PapayaUiSheetSubtitles|array $subtitles
    * @return \PapayaUiSheetSubtitles
    */
-  public function subtitles(\PapayaUiSheetSubtitles $subtitles = NULL) {
+  public function subtitles($subtitles = NULL) {
     if (isset($subtitles)) {
       if (is_array($subtitles)) {
         $this->_subtitles = new \PapayaUiSheetSubtitles($subtitles);
       } else {
-        \PapayaUtilConstraints::assertInstanceOf('PapayaUiSheetSubtitles', $subtitles);
+        \PapayaUtilConstraints::assertInstanceOf(\PapayaUiSheetSubtitles::class, $subtitles);
         $this->_subtitles = $subtitles;
       }
     } elseif (NULL === $this->_subtitles) {
@@ -101,7 +101,7 @@ class PapayaUiSheet extends PapayaUiControl {
         );
         $this->_content = $this->_document->documentElement;
       } else {
-        \PapayaUtilConstraints::assertInstanceOf('PapayaXmlAppendable', $content);
+        \PapayaUtilConstraints::assertInstanceOf(\PapayaXmlAppendable::class, $content);
         $this->_content = $content;
       }
     }

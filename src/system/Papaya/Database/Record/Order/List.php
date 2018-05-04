@@ -28,7 +28,7 @@ class PapayaDatabaseRecordOrderList
    * Setup item class limit and add all function arguments as items
    */
   public function __construct() {
-    parent::__construct('PapayaDatabaseInterfaceOrder');
+    parent::__construct(\PapayaDatabaseInterfaceOrder::class);
     if (func_num_args() > 0) {
       foreach (func_get_args() as $item) {
         $this->add($item);

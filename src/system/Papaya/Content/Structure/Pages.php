@@ -25,7 +25,7 @@
 class PapayaContentStructurePages extends PapayaObjectList {
 
   public function __construct() {
-    parent::__construct('PapayaContentStructurePage');
+    parent::__construct(\PapayaContentStructurePage::class);
   }
 
   /**

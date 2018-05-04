@@ -24,22 +24,24 @@ class PapayaFilterFactoryProfileGenerator extends PapayaFilterFactoryProfile {
 
   /**
    * @see \PapayaFilterFactoryProfile::getFilter()
+   * @throws ReflectionException
+   * @throws PapayaFilterFactoryExceptionInvalidFilter
+   * @throws PapayaFilterFactoryExceptionInvalidOptions
    */
   public function getFilter() {
     $arguments = $this->options();
     if (is_array($arguments)) {
       $name = array_shift($arguments);
       $filterReflection = new \ReflectionClass($name);
-      if ($filterReflection->isSubClassOf('PapayaFilter')) {
+      if ($filterReflection->isSubclassOf(\PapayaFilter::class)) {
         return call_user_func_array(
           array($filterReflection, 'newInstance'),
           $arguments
         );
       }
       throw new \PapayaFilterFactoryExceptionInvalidFilter($name);
-    } else {
-      throw new \PapayaFilterFactoryExceptionInvalidOptions(__CLASS__);
     }
+    throw new \PapayaFilterFactoryExceptionInvalidOptions(__CLASS__);
   }
 }
 

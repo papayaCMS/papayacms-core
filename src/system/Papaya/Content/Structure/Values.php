@@ -27,7 +27,7 @@ class PapayaContentStructureValues extends PapayaObjectList {
   private $_group = NULL;
 
   public function __construct(\PapayaContentStructureGroup $group) {
-    parent::__construct('PapayaContentStructureValue');
+    parent::__construct(\PapayaContentStructureValue::class);
     $this->_group = $group;
   }
 

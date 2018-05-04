@@ -70,8 +70,8 @@ abstract class PapayaTemplateSimpleVisitor {
    */
   private function getMethodName(\PapayaTemplateSimpleAst $ast, $prefix = 'visit') {
     $class = get_class($ast);
-    if (0 === ($p = strpos($class, 'PapayaTemplateSimpleAst'))) {
-      $method = $prefix.substr($class, strlen('PapayaTemplateSimpleAst'));
+    if (0 === strpos($class, \PapayaTemplateSimpleAst::class)) {
+      $method = $prefix.substr($class, strlen(\PapayaTemplateSimpleAst::class));
     } else {
       $method = $prefix.$class;
     }

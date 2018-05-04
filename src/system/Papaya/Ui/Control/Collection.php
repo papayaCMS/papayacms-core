@@ -39,7 +39,7 @@ class PapayaUiControlCollection
   * Superclass for items, only items of this class may be added.
   * @var string
   */
-  protected $_itemClass = 'PapayaUiControlCollectionItem';
+  protected $_itemClass = \PapayaUiControlCollectionItem::class;
 
   /**
   * Superclass or interface for the owner, only objects of this class/interface may be set as owner.

@@ -21,11 +21,17 @@
 */
 class PapayaUiSheetSubtitles extends PapayaUiControlCollection {
 
-  protected $_itemClass = 'PapayaUiSheetSubtitle';
+  protected $_itemClass = \PapayaUiSheetSubtitle::class;
 
+  /**
+   * PapayaUiSheetSubtitles constructor.
+   *
+   * @param array|\Traversable|NULL $subtitles
+   */
   public function __construct($subtitles = NULL) {
-    if (isset($subtitles)) {
+    if (NULL !== $subtitles) {
       \PapayaUtilConstraints::assertArrayOrTraversable($subtitles);
+      /** @var array|\Traversable $subtitles */
       foreach ($subtitles as $subtitle) {
         if (is_string($subtitle) || method_exists($subtitle, '__toString')) {
           $this->addString($subtitle);

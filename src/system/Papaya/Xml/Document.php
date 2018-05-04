@@ -65,7 +65,7 @@ class PapayaXmlDocument
    */
   public function __construct($version = '1.0', $encoding = 'UTF-8') {
     parent::__construct($version, $encoding);
-    $this->registerNodeClass('DOMElement', 'PapayaXmlElement');
+    $this->registerNodeClass(\DOMElement::class, \PapayaXmlElement::class);
     $this->_canDisableEntityLoader = function_exists('libxml_disable_entity_loader');
   }
 
