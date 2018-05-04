@@ -1,21 +1,17 @@
 <?php
 /**
-* Provide data encapsulation for a single content page version and access to its translations.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Version.php 39481 2014-03-03 10:55:46Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Provide data encapsulation for a single content page version and access to its translations.
@@ -107,10 +103,10 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
    */
   public function save() {
     if (isset($this->id)) {
-      throw new LogicException('LogicException: Page versions can not be changed.');
+      throw new \LogicException('LogicException: Page versions can not be changed.');
     }
     if (empty($this->pageId) || empty($this->owner) || empty($this->message)) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'UnexpectedValueException: page id, owner or message are missing.'
       );
     }
@@ -182,7 +178,7 @@ class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
       $this->_translations = $translations;
     }
     if (NULL === $this->_translations) {
-      $this->_translations = new PapayaContentPageVersionTranslations();
+      $this->_translations = new \PapayaContentPageVersionTranslations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
     }
     return $this->_translations;

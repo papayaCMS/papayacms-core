@@ -1,22 +1,17 @@
 <?php
 /**
-* A collection list of interface controls with the same superclass. Allows access with array syntax
-* and iterations.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Collection.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A collection list of interface controls with the same superclass. Allows access with array syntax
@@ -96,7 +91,7 @@ class PapayaUiControlCollection
         PapayaUtilConstraints::assertInstanceOf($this->_ownerClass, $owner);
       }
       $this->_owner = $owner;
-      if ($owner instanceof PapayaObjectInterface) {
+      if ($owner instanceof \PapayaObjectInterface) {
         $this->papaya($owner->papaya());
       }
       foreach ($this->_items as $item) {
@@ -104,7 +99,7 @@ class PapayaUiControlCollection
       }
     }
     if (is_null($this->_owner)) {
-      throw new LogicException(
+      throw new \LogicException(
         sprintf(
           'LogicException: Collection "%s" has no owner object.',
           get_class($this)
@@ -136,7 +131,7 @@ class PapayaUiControlCollection
     if (array_key_exists($offset, $this->_items)) {
       return $this->_items[$offset];
     }
-    throw new OutOfBoundsException(
+    throw new \OutOfBoundsException(
       sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
     );
   }
@@ -185,7 +180,7 @@ class PapayaUiControlCollection
       $item->index($offset);
       return $this;
     } else {
-      throw new OutOfBoundsException(
+      throw new \OutOfBoundsException(
         sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
       );
     }
@@ -209,7 +204,7 @@ class PapayaUiControlCollection
       $this->updateItemIndex($offset);
       return $this;
     } else {
-      throw new OutOfBoundsException(
+      throw new \OutOfBoundsException(
         sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
       );
     }
@@ -231,7 +226,7 @@ class PapayaUiControlCollection
       $this->_items = array_values($this->_items);
       $this->updateItemIndex($offset);
     } else {
-      throw new OutOfBoundsException(
+      throw new \OutOfBoundsException(
         sprintf('OutOfBoundsException: Invalid offset "%d".', $offset)
       );
     }
@@ -264,7 +259,7 @@ class PapayaUiControlCollection
   * @return ArrayIterator
   */
   public function getIterator() {
-    return new ArrayIterator($this->toArray());
+    return new \ArrayIterator($this->toArray());
   }
 
   /**
@@ -346,7 +341,7 @@ class PapayaUiControlCollection
     if (is_a($item, $this->_itemClass)) {
       return TRUE;
     }
-    throw new InvalidArgumentException(
+    throw new \InvalidArgumentException(
       sprintf(
         'InvalidArgumentException: Invalid item class "%s" expected "%s".',
         get_class($item),

@@ -1,21 +1,17 @@
 <?php
 /**
-* Constant and structure definitions for administration interface permissions.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Permissions.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Constant and structure definitions for administration interface permissions.
@@ -122,7 +118,7 @@ class PapayaAdministrationPermissions
   public function __construct() {
     // @codeCoverageIgnoreStart
     if (NULL == self::$_permissions) {
-      $reflection = new ReflectionClass(__CLASS__);
+      $reflection = new \ReflectionClass(__CLASS__);
       self::$_permissions = array_flip($reflection->getConstants());
     }
     // @codeCoverageIgnoreEnd
@@ -197,7 +193,7 @@ class PapayaAdministrationPermissions
     if (isset($groups)) {
       $this->_groups = $groups;
     } elseif (NULL === $this->_groups) {
-      $this->_groups = new PapayaAdministrationPermissionGroups();
+      $this->_groups = new \PapayaAdministrationPermissionGroups();
     }
     return $this->_groups;
   }

@@ -1,21 +1,17 @@
 <?php
 /**
-* Surfer list navigation.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Dialog.php 39432 2014-02-28 09:30:40Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Surfer list navigation. A adminsitration interface control, that allows to navigate to a
@@ -67,28 +63,28 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
   * Set options and create dialog fields
   */
   public function prepare() {
-    $this->caption = new PapayaUiStringTranslated('Users');
+    $this->caption = new \PapayaUiStringTranslated('Users');
     $this->options->dialogWidth = PapayaUiDialogOptions::SIZE_SMALL;
     $this->options->captionStyle = PapayaUiDialogOptions::CAPTION_NONE;
     $this->options->useToken = FALSE;
     $this->options->useConfirmation = FALSE;
     $this->parameterMethod(self::METHOD_MIXED_GET);
-    $this->fields[] = $field = new PapayaUiDialogFieldInput(
-      new PapayaUiStringTranslated('Search'),
+    $this->fields[] = $field = new \PapayaUiDialogFieldInput(
+      new \PapayaUiStringTranslated('Search'),
       $this->_parameterNames['filter']
     );
-    $this->fields[] = $buttons = new PapayaUiDialogFieldButtons('');
-    $buttons->buttons[] = new PapayaUiDialogButtonSubmit(
-      new PapayaUiStringTranslated('Filter'),
+    $this->fields[] = $buttons = new \PapayaUiDialogFieldButtons('');
+    $buttons->buttons[] = new \PapayaUiDialogButtonSubmit(
+      new \PapayaUiStringTranslated('Filter'),
       PapayaUiDialogButton::ALIGN_RIGHT
     );
-    $buttons->buttons[] = new PapayaUiDialogButtonSubmitNamed(
-      new PapayaUiStringTranslated('Reset'),
+    $buttons->buttons[] = new \PapayaUiDialogButtonSubmitNamed(
+      new \PapayaUiStringTranslated('Reset'),
       $this->_parameterNames['reset'],
       TRUE,
       PapayaUiDialogButton::ALIGN_LEFT
     );
-    $this->fields[] = $field = new PapayaUiDialogFieldListview($listview = $this->listview());
+    $this->fields[] = $field = new \PapayaUiDialogFieldListview($listview = $this->listview());
     $listview->toolbars()->bottomRight->elements[] = $this->paging();
   }
 
@@ -133,7 +129,7 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
     if (isset($users)) {
       $this->_users = $users;
     } elseif (is_null($this->_users)) {
-      $this->_users = new PapayaContentCommunityUsers();
+      $this->_users = new \PapayaContentCommunityUsers();
       $this->_users->papaya($this->papaya());
     }
     return $this->_users;
@@ -149,13 +145,13 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
     if (isset($listview)) {
       $this->_listview = $listview;
     } elseif (is_null($this->_listview)) {
-      $this->_listview = new PapayaUiListview();
+      $this->_listview = new \PapayaUiListview();
       $this->_listview->papaya($this->papaya());
       $this->_listview->parameterGroup($this->parameterGroup());
       $this->_listview->parameters($this->parameters());
       $this->_listview->reference(clone $this->reference());
       $this->_listview->builder(
-        $builder = new PapayaUiListviewItemsBuilder($this->users())
+        $builder = new \PapayaUiListviewItemsBuilder($this->users())
       );
       $builder->callbacks()->onCreateItem = array($this, 'createUserItem');
     }
@@ -170,7 +166,7 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
   * @param array $user
   */
   public function createUserItem($context, $items, $user) {
-    $items[] = $item = new PapayaUiListviewItem(
+    $items[] = $item = new \PapayaUiListviewItem(
       'items-user',
       empty($user['caption']) ? $user['email'] : $user['caption'],
       array(
@@ -192,7 +188,7 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
     if (isset($paging)) {
       $this->_paging = $paging;
     } elseif (is_null($this->_paging)) {
-      $this->_paging = new PapayaUiToolbarPaging(
+      $this->_paging = new \PapayaUiToolbarPaging(
         array($this->parameterGroup(), $this->_parameterNames['page']), 1
       );
       $this->_paging->papaya($this->papaya());
@@ -213,7 +209,7 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {
-      $this->_reference = new PapayaUiReference();
+      $this->_reference = new \PapayaUiReference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;
@@ -229,7 +225,7 @@ class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
    */
   public function setParameterNameMapping($identifier, $name) {
     if (!isset($this->_parameterNames[$identifier])) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf('Unknown parameter identifier "%s".', $identifier)
       );
     }

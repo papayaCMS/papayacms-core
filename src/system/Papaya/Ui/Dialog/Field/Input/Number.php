@@ -1,23 +1,17 @@
 <?php
 /**
-* A single line input for unsigned numbers with optional minimum/maximum length
-*
-* Creates a dialog field for unsigned numbers (that may start with 0).
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Number.php 39725 2014-04-07 17:19:34Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A single line input for unsigned numbers with optional minimum/maximum length
@@ -81,14 +75,14 @@ class PapayaUiDialogFieldInputNumber extends PapayaUiDialogFieldInput {
   ) {
     if ($minimumLength !== NULL) {
       if (!is_numeric($minimumLength) || $minimumLength <= 0) {
-        throw new UnexpectedValueException('Minimum length must be greater than 0.');
+        throw new \UnexpectedValueException('Minimum length must be greater than 0.');
       }
     }
     if (!is_numeric($maximumLength) || $maximumLength <= 0) {
-      throw new UnexpectedValueException('Maximum length must be greater than 0.');
+      throw new \UnexpectedValueException('Maximum length must be greater than 0.');
     }
     if ($minimumLength !== NULL && $minimumLength > $maximumLength) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'Maximum length must be greater than or equal to minimum length.'
       );
     }
@@ -96,7 +90,7 @@ class PapayaUiDialogFieldInputNumber extends PapayaUiDialogFieldInput {
     $this->_minimumLength = $minimumLength;
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new PapayaFilterNumber($this->_minimumLength, $this->_maximumLength)
+      new \PapayaFilterNumber($this->_minimumLength, $this->_maximumLength)
     );
   }
 }

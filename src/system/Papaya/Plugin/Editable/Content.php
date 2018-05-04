@@ -1,21 +1,17 @@
 <?php
 /**
-* This encapsulates an recursive array of editable content
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-* @version $Id: Content.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * An interface to define that an object has information (in an subobject)
@@ -91,13 +87,13 @@ class PapayaPluginEditableContent extends PapayaObjectParameters {
     } elseif (NULL === $this->_editor) {
       if (isset($this->callbacks()->onCreateEditor)) {
         $this->_editor = $this->callbacks()->onCreateEditor($this);
-        if (!($this->_editor instanceof PapayaPluginEditor)) {
-          throw new LogicException(
+        if (!($this->_editor instanceof \PapayaPluginEditor)) {
+          throw new \LogicException(
             'Callback did not return a valid PapayaPluginEditor instance.'
           );
         }
       } else {
-        $this->_editor = new PapayaAdministrationPluginEditorDialog($this);
+        $this->_editor = new \PapayaAdministrationPluginEditorDialog($this);
       }
     }
     return $this->_editor;
@@ -113,7 +109,7 @@ class PapayaPluginEditableContent extends PapayaObjectParameters {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (NULL === $this->_callbacks) {
-      $this->_callbacks = new PapayaPluginEditableContentCallbacks();
+      $this->_callbacks = new \PapayaPluginEditableContentCallbacks();
     }
     return $this->_callbacks;
   }

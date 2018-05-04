@@ -1,21 +1,17 @@
 <?php
 /**
-* Dialog command that allows to edit the dynamic values on on page, the groups are field groups
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Dialog.php 39430 2014-02-28 09:21:51Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Dialog command that allows to edit the dynamic values on on page, the groups are field groups
@@ -54,9 +50,9 @@ class PapayaAdministrationThemeEditorChangesDialog
     if ($setId > 0) {
       $this->record()->load($setId);
     }
-    $dialog = new PapayaUiDialogDatabaseSave($this->record());
+    $dialog = new \PapayaUiDialogDatabaseSave($this->record());
     if ($page = $this->themePage()) {
-      $dialog->caption = new PapayaUiStringTranslated('Dynamic Values: %s', array($page->title));
+      $dialog->caption = new \PapayaUiStringTranslated('Dynamic Values: %s', array($page->title));
       $dialog->options->topButtons = TRUE;
       $dialog->parameterGroup($this->parameterGroup());
       $dialog->parameters($this->parameters());
@@ -70,11 +66,11 @@ class PapayaAdministrationThemeEditorChangesDialog
       );
       /** @var PapayaContentStructureGroup $group */
       foreach ($page->groups() as $group) {
-        $fieldset = new PapayaUiDialogFieldGroup($group->title);
+        $fieldset = new \PapayaUiDialogFieldGroup($group->title);
         /** @var PapayaContentStructureValue $value */
         foreach ($group->values() as $value) {
           try {
-            $options = new PapayaUiDialogFieldFactoryOptions(
+            $options = new \PapayaUiDialogFieldFactoryOptions(
               array(
                 'name' => 'values/'.$value->getIdentifier(),
                 'caption' => $value->title,
@@ -87,7 +83,7 @@ class PapayaAdministrationThemeEditorChangesDialog
             );
             $field->setHint($value->hint);
           } catch (PapayaUiDialogFieldFactoryException $e) {
-            $fieldset->fields[] = new PapayaUiDialogFieldMessage(
+            $fieldset->fields[] = new \PapayaUiDialogFieldMessage(
               PapayaMessage::SEVERITY_ERROR, $e->getMessage()
             );
           }
@@ -95,21 +91,21 @@ class PapayaAdministrationThemeEditorChangesDialog
         $dialog->fields[] = $fieldset;
       }
       if (count($dialog->fields) == 0) {
-        $dialog->fields[] = new PapayaUiDialogFieldMessage(
+        $dialog->fields[] = new \PapayaUiDialogFieldMessage(
           PapayaMessage::SEVERITY_ERROR,
-          new PapayaUiStringTranslated('Invalid value definition!')
+          new \PapayaUiStringTranslated('Invalid value definition!')
         );
       } else {
-        $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Save'));
+        $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));
         $this->callbacks()->onExecuteSuccessful = array($this, 'callbackSaveValues');
         $this->callbacks()->onExecuteFailed = array($this, 'callbackShowError');
       }
     } else {
-      $dialog->caption = new PapayaUiStringTranslated('Error');
+      $dialog->caption = new \PapayaUiStringTranslated('Error');
       if (count($dialog->fields) == 0) {
-        $dialog->fields[] = new PapayaUiDialogFieldMessage(
+        $dialog->fields[] = new \PapayaUiDialogFieldMessage(
           PapayaMessage::SEVERITY_ERROR,
-          new PapayaUiStringTranslated('Theme page not found!')
+          new \PapayaUiStringTranslated('Theme page not found!')
         );
       }
     }
@@ -121,7 +117,7 @@ class PapayaAdministrationThemeEditorChangesDialog
    */
   public function callbackSaveValues() {
     $this->papaya()->messages->dispatch(
-      new PapayaMessageDisplayTranslated(
+      new \PapayaMessageDisplayTranslated(
         PapayaMessage::SEVERITY_INFO,
         'Values saved.'
       )
@@ -139,7 +135,7 @@ class PapayaAdministrationThemeEditorChangesDialog
    */
   public function callbackShowError($context, $dialog) {
     $this->papaya()->messages->dispatch(
-      new PapayaMessageDisplayTranslated(
+      new \PapayaMessageDisplayTranslated(
         PapayaMessage::SEVERITY_ERROR,
         'Invalid input. Please check the field(s) "%s".',
         array(implode(', ', $dialog->errors()->getSourceCaptions()))
@@ -176,7 +172,7 @@ class PapayaAdministrationThemeEditorChangesDialog
     if (isset($themeHandler)) {
       $this->_themeHandler = $themeHandler;
     } elseif (NULL === $this->_themeHandler) {
-      $this->_themeHandler = new PapayaThemeHandler();
+      $this->_themeHandler = new \PapayaThemeHandler();
       $this->_themeHandler->papaya($this->papaya());
     }
     return $this->_themeHandler;
@@ -193,7 +189,7 @@ class PapayaAdministrationThemeEditorChangesDialog
     if (isset($factory)) {
       $this->_fieldFactory = $factory;
     } elseif (NULL === $this->_fieldFactory) {
-      $this->_fieldFactory = new PapayaUiDialogFieldFactory();
+      $this->_fieldFactory = new \PapayaUiDialogFieldFactory();
     }
     return $this->_fieldFactory;
   }

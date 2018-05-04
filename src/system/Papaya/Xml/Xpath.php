@@ -1,21 +1,17 @@
 <?php
 /**
-* Replacement for the DOMXpath without the (broken) automatic namespace registration if possible.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Xml
-* @version $Id: Xpath.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Replacement for the DOMXpath without the (broken) automatic namespace registration if possible.
@@ -45,7 +41,7 @@ class PapayaXmlXpath extends DOMXpath {
    */
   public function registerNamespace($prefix, $namespaceUri) {
     $result = parent::registerNamespace($prefix, $namespaceUri);
-    if ($result && $this->document instanceof PapayaXmlDocument) {
+    if ($result && $this->document instanceof \PapayaXmlDocument) {
       /** @noinspection PhpUndefinedMethodInspection */
       $this->document->registerNamespaces(
         array($prefix => $namespaceUri),
@@ -103,7 +99,7 @@ class PapayaXmlXpath extends DOMXpath {
    * @return DOMNodelist
    */
   public function query($expression, DOMNode $contextnode = NULL, $registerNodeNS = NULL) {
-    throw new LogicException('"query()" should not be used, use "evaluate()".');
+    throw new \LogicException('"query()" should not be used, use "evaluate()".');
   }
 
 }

@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Request Handling
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Request
-* @version $Id: Request.php 39745 2014-04-23 14:48:04Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Request Handling
@@ -184,7 +180,7 @@ class PapayaRequest
     case 'contentLength' :
       return $this->content()->length();
     }
-    throw new LogicException(
+    throw new \LogicException(
       sprintf(
         'Property %s::$%s can not be changed', get_class($this), $name
       )
@@ -208,7 +204,7 @@ class PapayaRequest
       $this->mode($value);
       return;
     }
-    throw new LogicException(
+    throw new \LogicException(
       sprintf(
         'Property %s::$%s can not be changed', get_class($this), $name
       )
@@ -230,7 +226,7 @@ class PapayaRequest
   */
   public function getUrl() {
     if (is_null($this->_url)) {
-      $this->load(new PapayaUrlCurrent());
+      $this->load(new \PapayaUrlCurrent());
     }
     return $this->_url;
   }
@@ -245,7 +241,7 @@ class PapayaRequest
     if (isset($language)) {
       $this->_language = $language;
     } elseif (NULL == $this->_language) {
-      $this->_language = new PapayaContentLanguage($language);
+      $this->_language = new \PapayaContentLanguage($language);
       $this->_language->papaya($this->papaya());
       if ($identifier = $this->getParameter('language', '', NULL, PapayaRequest::SOURCE_PATH)) {
         $this->_language->activateLazyLoad(
@@ -270,7 +266,7 @@ class PapayaRequest
     if (isset($mode)) {
       $this->_mode = $mode;
     } elseif (NULL == $this->_mode) {
-      $this->_mode = new PapayaContentViewMode();
+      $this->_mode = new \PapayaContentViewMode();
       $this->_mode->papaya($this->papaya());
       $extension = $this->getParameter(
         'output_mode', 'html', NULL, PapayaRequest::SOURCE_PATH
@@ -318,7 +314,7 @@ class PapayaRequest
     } elseif (in_array($separator, array('[]', ',', ':', '/', '*', '!'))) {
       $this->_separator = $separator;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'Invalid parameter level separator: '.$separator
       );
     }
@@ -345,15 +341,15 @@ class PapayaRequest
   private function _initParsers() {
     if (empty($this->_parsers)) {
       $this->_parsers = array(
-        new PapayaRequestParserSession(),
-        new PapayaRequestParserFile(),
-        new PapayaRequestParserSystem(),
-        new PapayaRequestParserPage(),
-        new PapayaRequestParserThumbnail(),
-        new PapayaRequestParserMedia(),
-        new PapayaRequestParserImage(),
-        new PapayaRequestParserWrapper(),
-        new PapayaRequestParserStart()
+        new \PapayaRequestParserSession(),
+        new \PapayaRequestParserFile(),
+        new \PapayaRequestParserSystem(),
+        new \PapayaRequestParserPage(),
+        new \PapayaRequestParserThumbnail(),
+        new \PapayaRequestParserMedia(),
+        new \PapayaRequestParserImage(),
+        new \PapayaRequestParserWrapper(),
+        new \PapayaRequestParserStart()
       );
       /** @var PapayaRequestParser $parser */
       foreach ($this->_parsers as $parser) {
@@ -411,10 +407,10 @@ class PapayaRequest
    */
   private function _loadParametersForSource($source) {
     if (isset($this->_parameterCache[$source]) &&
-        $this->_parameterCache[$source] instanceof PapayaRequestParameters) {
+        $this->_parameterCache[$source] instanceof \PapayaRequestParameters) {
       return $this->_parameterCache[$source];
     }
-    $parameters = new PapayaRequestParameters();
+    $parameters = new \PapayaRequestParameters();
     switch ($source) {
     case PapayaRequest::SOURCE_PATH :
       $parameters->merge(
@@ -423,7 +419,7 @@ class PapayaRequest
       break;
     case PapayaRequest::SOURCE_QUERY :
       if (isset($this->_url)) {
-        $query = new PapayaRequestParametersQuery($this->_separator);
+        $query = new \PapayaRequestParametersQuery($this->_separator);
         $parameters->merge(
           $query->setString($this->_url->getQuery())->values()
         );
@@ -460,7 +456,7 @@ class PapayaRequest
   */
   public function loadParameters($sources = PapayaRequest::SOURCE_ALL) {
     if (!isset($this->_parameterCache[$sources])) {
-      $parameters = new PapayaRequestParameters();
+      $parameters = new \PapayaRequestParameters();
       if ($sources == PapayaRequest::SOURCE_COOKIE) {
         return $this->_loadParametersForSource(PapayaRequest::SOURCE_COOKIE);
       }
@@ -537,7 +533,7 @@ class PapayaRequest
       PapayaRequest::SOURCE_COOKIE
     );
     if (in_array($source, $validSources) &&
-        $parameters instanceof PapayaRequestParameters) {
+        $parameters instanceof \PapayaRequestParameters) {
       $this->_parameterCache[$source] = $parameters;
       foreach ($this->_parameterCache as $cachedSource => $cachedParameters) {
         if (!in_array($cachedSource, $validSources)) {
@@ -545,7 +541,7 @@ class PapayaRequest
         }
       }
     } else {
-      throw new InvalidArgumentException();
+      throw new \InvalidArgumentException();
     }
   }
 
@@ -635,7 +631,7 @@ class PapayaRequest
     if (isset($content)) {
       $this->_content = $content;
     } elseif (NULL === $this->_content) {
-      $this->_content = new PapayaRequestContent();
+      $this->_content = new \PapayaRequestContent();
     }
     return $this->_content;
   }

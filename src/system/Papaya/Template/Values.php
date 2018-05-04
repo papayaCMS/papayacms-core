@@ -1,22 +1,17 @@
 <?php
 /**
-* Templates values are a handling object for a dom document of template values,
-* later convertet to an output using a template engine
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Template
-* @version $Id: Values.php 39429 2014-02-27 20:14:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Templates values are a handling object for a dom document of template values,
@@ -40,7 +35,7 @@ class PapayaTemplateValues {
    * @return \PapayaTemplateValues
    */
   public function __construct(PapayaXmlDocument $document = NULL) {
-    $this->document(isset($document) ? $document : new PapayaXmlDocument());
+    $this->document(isset($document) ? $document : new \PapayaXmlDocument());
   }
 
   /**
@@ -93,7 +88,7 @@ class PapayaTemplateValues {
     $node = FALSE;
     foreach ($paths as $name) {
       if (!preg_match('(^[a-z][a-z\d_-]*$)iD', $name)) {
-        throw new InvalidArgumentException('Invalid argument path: "'.$path.'"');
+        throw new \InvalidArgumentException('Invalid argument path: "'.$path.'"');
       }
       $nodeList = $this->getXpath()->evaluate(
         $name.'[1]', is_null($context) ? $this->_document : $context
@@ -114,8 +109,8 @@ class PapayaTemplateValues {
       }
       $context = $node;
     }
-    return ($node instanceof PapayaXmlElement)
-      ? new PapayaTemplateValue($node) : FALSE;
+    return ($node instanceof \PapayaXmlElement)
+      ? new \PapayaTemplateValue($node) : FALSE;
   }
 
   /**
@@ -137,11 +132,11 @@ class PapayaTemplateValues {
     if (is_string($selector)) {
       return $this->getValueByPath($selector);
     } elseif (is_null($selector)) {
-      return new PapayaTemplateValue($this->_document);
-    } elseif ($selector instanceof PapayaXmlElement) {
-      return new PapayaTemplateValue($selector);
+      return new \PapayaTemplateValue($this->_document);
+    } elseif ($selector instanceof \PapayaXmlElement) {
+      return new \PapayaTemplateValue($selector);
     }
-    throw new InvalidArgumentException('Can not find specified template value');
+    throw new \InvalidArgumentException('Can not find specified template value');
   }
 
   /**

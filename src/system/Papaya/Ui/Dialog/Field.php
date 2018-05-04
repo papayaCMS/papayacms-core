@@ -1,21 +1,17 @@
 <?php
 /**
-* Superclass for dialog fields
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Field.php 39126 2014-02-06 16:34:04Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Superclass for dialog fields
@@ -107,10 +103,10 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
    * @throws UnexpectedValueException
    */
   public function setCaption($caption) {
-    if (is_string($caption) || $caption instanceof PapayaUiString) {
+    if (is_string($caption) || $caption instanceof \PapayaUiString) {
       $this->_caption = $caption;
     } else {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         sprintf(
           'Unexpected value type: Expected "string" or "PapayaUiString" but "%s" given.',
           is_object($caption) ? get_class($caption) : gettype($caption)
@@ -139,10 +135,10 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
    * @throws UnexpectedValueException
    */
   public function setHint($hint) {
-    if (is_string($hint) || $hint instanceof PapayaUiString) {
+    if (is_string($hint) || $hint instanceof \PapayaUiString) {
       $this->_hint = $hint;
     } else {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         sprintf(
           'Unexpected value type: Expected "string" or "PapayaUiString" but "%s" given.',
           is_object($hint) ? get_class($hint) : gettype($hint)
@@ -292,7 +288,7 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
     if ($this->_mandatory && isset($this->_filter)) {
       return $this->_filter;
     } elseif (isset($this->_filter)) {
-      return new PapayaFilterLogicalOr($this->_filter, new PapayaFilterEmpty());
+      return new \PapayaFilterLogicalOr($this->_filter, new \PapayaFilterEmpty());
     } else {
       return NULL;
     }
@@ -308,7 +304,7 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
     if (isset($description)) {
       $this->_description = $description;
     } elseif (is_null($this->_description)) {
-      $this->_description = new PapayaUiDialogElementDescription();
+      $this->_description = new \PapayaUiDialogElementDescription();
       $this->_description->papaya($this->papaya());
     }
     return $this->_description;
@@ -333,7 +329,7 @@ abstract class PapayaUiDialogField extends PapayaUiDialogElement {
    * @return boolean
    */
   protected function _validateFilter($filter) {
-    if (isset($filter) && $filter instanceof PapayaFilter) {
+    if (isset($filter) && $filter instanceof \PapayaFilter) {
       try {
         return $filter->validate($this->getCurrentValue());
       } catch (PapayaFilterException $e) {

@@ -1,24 +1,17 @@
 <?php
 /**
-* Provide data encapsulation for the content page dependencies list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentPageTranslation}.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Dependencies.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Provide data encapsulation for the content page dependencies list.
@@ -92,7 +85,7 @@ class PapayaContentPageDependencies extends PapayaDatabaseObjectList {
    * @return \PapayaContentPageDependency
    */
   public function getDependency($pageId) {
-    $result = new PapayaContentPageDependency();
+    $result = new \PapayaContentPageDependency();
     if (isset($this->_records[$pageId])) {
       $result->assign($this->_records[$pageId]);
     }
@@ -126,7 +119,7 @@ class PapayaContentPageDependencies extends PapayaDatabaseObjectList {
    */
   public function changeOrigin($originId, $newOriginId) {
     $result = FALSE;
-    $dependency = new PapayaContentPageDependency();
+    $dependency = new \PapayaContentPageDependency();
     $dependency->setDatabaseAccess($this->getDatabaseAccess());
     $dependency->load($newOriginId);
     if ($this->delete($newOriginId)) {

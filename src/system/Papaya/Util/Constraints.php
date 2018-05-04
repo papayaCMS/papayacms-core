@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Utilities implementing contraints
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Util
-* @version $Id: Constraints.php 39723 2014-04-07 13:51:24Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Utilities implementing contraints
@@ -37,7 +33,7 @@ class PapayaUtilConstraints {
   */
   protected static function createException($expected, $value, $message) {
     if (empty($message)) {
-      return new UnexpectedValueException(
+      return new \UnexpectedValueException(
         sprintf(
           'Unexpected value type: Expected "%s" but "%s" given.',
           $expected,
@@ -45,7 +41,7 @@ class PapayaUtilConstraints {
         )
       );
     } else {
-      return new UnexpectedValueException($message);
+      return new \UnexpectedValueException($message);
     }
   }
 
@@ -76,7 +72,7 @@ class PapayaUtilConstraints {
   public static function assertArrayOrTraversable($value, $message = '') {
     if (is_array($value)) {
       return TRUE;
-    } elseif ($value instanceof Traversable) {
+    } elseif ($value instanceof \Traversable) {
       return TRUE;
     }
     throw self::createException('array, Traversable', $value, $message);
@@ -126,9 +122,9 @@ class PapayaUtilConstraints {
       return TRUE;
     }
     if (empty($message)) {
-      throw new UnexpectedValueException('Array does not contains the given value.');
+      throw new \UnexpectedValueException('Array does not contains the given value.');
     } else {
-      throw new UnexpectedValueException($message);
+      throw new \UnexpectedValueException($message);
     }
   }
 
@@ -238,7 +234,7 @@ class PapayaUtilConstraints {
   * @return TRUE
   */
   public static function assertInstanceOf($expectedClass, $value, $message = '') {
-    if (is_array($expectedClass) || $expectedClass instanceof Traversable) {
+    if (is_array($expectedClass) || $expectedClass instanceof \Traversable) {
       $validated = array();
       foreach ($expectedClass as $class) {
         if ($value instanceof $class) {

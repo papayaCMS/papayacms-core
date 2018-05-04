@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Interface Reference (Hyperlink Reference)
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Reference.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Interface Reference (Hyperlink Reference)
@@ -122,12 +118,12 @@ class PapayaUiReference extends PapayaObject {
       return '';
     }
     $this->url()->setUrl($this->get());
-    $transformer = new PapayaUrlTransformerRelative();
+    $transformer = new \PapayaUrlTransformerRelative();
     if (!$includeQueryString) {
       $this->url()->setQuery('');
     }
     $relative = $transformer->transform(
-      isset($currentUrl) ? $currentUrl : new PapayaUrlCurrent(),
+      isset($currentUrl) ? $currentUrl : new \PapayaUrlCurrent(),
       $this->url()
     );
     return is_null($relative) ? $this->get() : $relative;
@@ -139,7 +135,7 @@ class PapayaUiReference extends PapayaObject {
   * @param string $relativeUrl
   */
   public function setRelative($relativeUrl) {
-    $transformer = new PapayaUrlTransformerAbsolute();
+    $transformer = new \PapayaUrlTransformerAbsolute();
     $absoluteUrl = $transformer->transform($this->url(), $relativeUrl);
     $this->url()->setUrl($absoluteUrl);
     $this->getParameters()->setQueryString($this->url()->getQuery());
@@ -191,7 +187,7 @@ class PapayaUiReference extends PapayaObject {
   */
   public function load(PapayaRequest $request) {
     $url = $request->getUrl();
-    $this->_url = clone (($url instanceof PapayaUrl) ? $url : new PapayaUrl);
+    $this->_url = clone (($url instanceof \PapayaUrl) ? $url : new \PapayaUrl);
     if (is_null($this->_parameterGroupSeparator)) {
       $this->setParameterGroupSeparator($request->getParameterGroupSeparator());
     }
@@ -211,7 +207,7 @@ class PapayaUiReference extends PapayaObject {
     } elseif (in_array($separator, array('[]', ',', ':', '/', '*', '!'))) {
       $this->_parameterGroupSeparator = $separator;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'Invalid parameter level separator: '.$separator
       );
     }
@@ -238,7 +234,7 @@ class PapayaUiReference extends PapayaObject {
   */
   public function setParameters($parameters, $parameterGroup = NULL) {
     if (!isset($this->_parametersObject)) {
-      $this->_parametersObject = new PapayaRequestParameters();
+      $this->_parametersObject = new \PapayaRequestParameters();
     }
     if (is_array($parameters) ||
         is_a($parameters, 'PapayaRequestParameters')) {
@@ -246,7 +242,7 @@ class PapayaUiReference extends PapayaObject {
           trim($parameterGroup) != '') {
         $this->_parametersObject->merge(
           array(
-            $parameterGroup => $parameters instanceof PapayaRequestParameters
+            $parameterGroup => $parameters instanceof \PapayaRequestParameters
               ? $parameters->toArray() : $parameters
           )
         );
@@ -264,7 +260,7 @@ class PapayaUiReference extends PapayaObject {
   */
   public function getParameters() {
     if (!isset($this->_parametersObject)) {
-      $this->_parametersObject = new PapayaRequestParameters();
+      $this->_parametersObject = new \PapayaRequestParameters();
     }
     return $this->_parametersObject;
   }

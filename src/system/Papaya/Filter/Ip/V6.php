@@ -1,21 +1,17 @@
 <?php
 /**
-* This class validates and filters IP addresses in version 6 form.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: V6.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This class validates and filters IP addresses in version 6 form.
@@ -40,7 +36,7 @@ class PapayaFilterIpV6 implements PapayaFilter {
    */
   public function validate($value) {
     if (empty($value)) {
-      throw new PapayaFilterExceptionEmpty();
+      throw new \PapayaFilterExceptionEmpty();
     }
     $parts = explode(':', $value);
     $countEmpty = 0;
@@ -50,21 +46,21 @@ class PapayaFilterIpV6 implements PapayaFilter {
         $countEmpty++;
         $emptyPositions[] = $position;
       } elseif (!preg_match('(^[\da-f]{1,4}$)i', $part)) {
-        throw new PapayaFilterExceptionPartInvalid($position + 1, 'IPv6 part');
+        throw new \PapayaFilterExceptionPartInvalid($position + 1, 'IPv6 part');
       }
     }
     if ($countEmpty > 2) {
-      throw new PapayaFilterExceptionCountMismatch(1, $countEmpty, 'empty IPv6 parts');
+      throw new \PapayaFilterExceptionCountMismatch(1, $countEmpty, 'empty IPv6 parts');
     } elseif ($countEmpty == 2) {
       $e1 = $emptyPositions[0];
       $e2 = $emptyPositions[1];
       if (!(($e1 == 0 && $e2 == 1) || ($e1 == count($parts) - 2 && $e2 == count($parts) - 1))) {
-        throw new PapayaFilterExceptionPartInvalid($e2 + 1, 'IPv6 parts');
+        throw new \PapayaFilterExceptionPartInvalid($e2 + 1, 'IPv6 parts');
       }
     } elseif ($countEmpty == 1 && count($parts) > 7) {
-      throw new PapayaFilterExceptionCountMismatch(7, count($parts), 'IPv6 parts');
+      throw new \PapayaFilterExceptionCountMismatch(7, count($parts), 'IPv6 parts');
     } elseif ($countEmpty == 0 && count($parts) != 8) {
-      throw new PapayaFilterExceptionCountMismatch(8, count($parts), 'IPv6 parts');
+      throw new \PapayaFilterExceptionCountMismatch(8, count($parts), 'IPv6 parts');
     }
     return TRUE;
   }

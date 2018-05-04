@@ -133,7 +133,7 @@ class PapayaUiHierarchyItem extends PapayaUiControlCollectionItem {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new PapayaUiReference();
+      $this->_reference = new \PapayaUiReference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;
@@ -149,7 +149,7 @@ class PapayaUiHierarchyItem extends PapayaUiControlCollectionItem {
     if (array_key_exists($mode, self::$_displayModes)) {
       $this->_displayMode = (int)$mode;
     } else {
-      throw new OutOfBoundsException(
+      throw new \OutOfBoundsException(
         sprintf('Invalid display mode for "%s".', __CLASS__)
       );
     }

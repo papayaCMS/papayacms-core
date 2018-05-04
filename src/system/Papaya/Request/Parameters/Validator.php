@@ -58,7 +58,7 @@ class PapayaRequestParametersValidator
   public function __construct(array $definitions, $parameters) {
     $this->setDefinitions($definitions);
     if (is_array($parameters)) {
-      $parameters = new PapayaRequestParameters($parameters);
+      $parameters = new \PapayaRequestParameters($parameters);
     }
     PapayaUtilConstraints::assertInstanceOf('PapayaRequestParameters', $parameters);
     $this->_parameters = $parameters;
@@ -77,7 +77,7 @@ class PapayaRequestParametersValidator
         $name, 'Empty parameter name not allowed.'
       );
       $default = PapayaUtilArray::get($definition, array('default', 1), NULL);
-      if ($default instanceof PapayaFilter) {
+      if ($default instanceof \PapayaFilter) {
         $filter = $default;
         $default = NULL;
       } else {
@@ -185,7 +185,7 @@ class PapayaRequestParametersValidator
       }
       $this->_values[$name] = $value;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf(
           'Can not set undefined parameter name %s[%s]', get_class($this), $name
         )
@@ -204,7 +204,7 @@ class PapayaRequestParametersValidator
     if (isset($this->_definitions[$name])) {
       $this->_values[$name] = $this->_definitions[$name]['default'];
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf(
           'Can not reset undefined parameter name %s[%s]', get_class($this), $name
         )
@@ -219,7 +219,7 @@ class PapayaRequestParametersValidator
    */
   public function getIterator() {
     $this->validate();
-    return new ArrayIterator($this->_values);
+    return new \ArrayIterator($this->_values);
   }
 
   /**

@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya HTTP Client File Resource - handle file upload resource using a resource id
-*
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage HTTP-Client
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya HTTP Client File Resource - handle file upload resource using a resource id
@@ -45,7 +41,7 @@ class PapayaHttpClientFileResource extends PapayaHttpClientFile {
         $this->_mimeType = $mimeType;
       }
     } else {
-      throw new InvalidArgumentException('Invalid arguments for element: '.$name);
+      throw new \InvalidArgumentException('Invalid arguments for element: '.$name);
     }
   }
 
@@ -107,7 +103,7 @@ class PapayaHttpClientFileResource extends PapayaHttpClientFile {
         }
       }
     } else {
-      throw new UnexpectedValueException('Invalid resource in element: '.$this->_name);
+      throw new \UnexpectedValueException('Invalid resource in element: '.$this->_name);
     }
   }
 }

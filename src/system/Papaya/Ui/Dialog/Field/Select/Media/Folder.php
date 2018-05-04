@@ -1,21 +1,17 @@
 <?php
 /**
-* A selection field for the media folders
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Folder.php 37484 2012-08-27 22:21:02Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A selection field displayed as radio boxes, only a single value can be selected.
@@ -46,7 +42,7 @@ class PapayaUiDialogFieldSelectMediaFolder extends PapayaUiDialogField {
         'type' => 'dropdown',
       )
     );
-    $iterator = new RecursiveIteratorIterator(
+    $iterator = new \RecursiveIteratorIterator(
       $this->mediaFolders(), RecursiveIteratorIterator::SELF_FIRST
     );
     foreach ($iterator as $folderId => $folder) {
@@ -75,11 +71,11 @@ class PapayaUiDialogFieldSelectMediaFolder extends PapayaUiDialogField {
   public function mediaFolders(PapayaContentMediaFolders $folders = NULL) {
     if (isset($folders)) {
       $this->_folders = $folders;
-      $this->setFilter(new PapayaFilterListKeys($this->_folders));
+      $this->setFilter(new \PapayaFilterListKeys($this->_folders));
     } elseif (NULL == $this->_folders) {
-      $this->_folders = new PapayaContentMediaFolders();
+      $this->_folders = new \PapayaContentMediaFolders();
       $this->_folders->activateLazyLoad();
-      $this->setFilter(new PapayaFilterListKeys($this->_folders));
+      $this->setFilter(new \PapayaFilterListKeys($this->_folders));
     }
     return $this->_folders;
   }

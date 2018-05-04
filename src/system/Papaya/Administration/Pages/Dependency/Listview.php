@@ -1,21 +1,17 @@
 <?php
 /**
-* Listview to show all dependencies for the specified origin page.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Listview.php 39725 2014-04-07 17:19:34Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Listview to show all dependencies for the specified origin page.
@@ -89,38 +85,38 @@ class PapayaAdministrationPagesDependencyListview extends PapayaUiListview {
     $pages = $this->pages();
     $pageTitle = isset($pages[$this->_originPageId])
       ? $pages[$this->_originPageId]['title'] : '[...]';
-    $this->caption = new PapayaUiStringTranslated(
+    $this->caption = new \PapayaUiStringTranslated(
       'Dependent pages of page "%s #%d"', array($pageTitle, $this->_originPageId)
     );
-    $this->columns[] = new PapayaUiListviewColumn(
-      new PapayaUiStringTranslated('Page')
+    $this->columns[] = new \PapayaUiListviewColumn(
+      new \PapayaUiStringTranslated('Page')
     );
-    $this->columns[] = new PapayaUiListviewColumn(
-      new PapayaUiStringTranslated('GoTo'),
+    $this->columns[] = new \PapayaUiListviewColumn(
+      new \PapayaUiStringTranslated('GoTo'),
       PapayaUiOptionAlign::CENTER
     );
-    $this->columns[] = new PapayaUiListviewColumn(
-      new PapayaUiStringTranslated('Synchronization'),
+    $this->columns[] = new \PapayaUiListviewColumn(
+      new \PapayaUiStringTranslated('Synchronization'),
       PapayaUiOptionAlign::CENTER
     );
-    $this->columns[] = new PapayaUiListviewColumn(
-      new PapayaUiStringTranslated('Modified'),
+    $this->columns[] = new \PapayaUiListviewColumn(
+      new \PapayaUiStringTranslated('Modified'),
       PapayaUiOptionAlign::CENTER
     );
     if (count($this->_dependencies) > 0) {
-      $this->items[] = $listitem = new PapayaUiListviewItem(
+      $this->items[] = $listitem = new \PapayaUiListviewItem(
         'items-folder',
-        new PapayaUiStringTranslated('Dependencies')
+        new \PapayaUiStringTranslated('Dependencies')
       );
-      $listitem->subitems[] = new PapayaUiListviewSubitemImage(
+      $listitem->subitems[] = new \PapayaUiListviewSubitemImage(
         'actions-go-superior',
-        new PapayaUiStringTranslated('Go to origin page'),
+        new \PapayaUiStringTranslated('Go to origin page'),
         array('page_id' => $this->_originPageId)
       );
-      $listitem->subitems[] = new PapayaUiListviewSubitemText('');
-      $listitem->subitems[] = new PapayaUiListviewSubitemText('');
+      $listitem->subitems[] = new \PapayaUiListviewSubitemText('');
+      $listitem->subitems[] = new \PapayaUiListviewSubitemText('');
       foreach ($this->_dependencies as $dependency) {
-        $this->items[] = $listitem = new PapayaUiListviewItem(
+        $this->items[] = $listitem = new \PapayaUiListviewItem(
           'items-page',
           $dependency['title'].' #'.$dependency['id'],
           array('page_id' => $dependency['id'])
@@ -130,25 +126,25 @@ class PapayaAdministrationPagesDependencyListview extends PapayaUiListview {
           $listitem->text = PapayaUtilString::truncate($dependency['note'], 60, TRUE);
         }
         $listitem->selected = $dependency['id'] == $this->_currentPageId;
-        $listitem->subitems[] = new PapayaUiListviewSubitemText('');
-        $listitem->subitems[] = new PapayaUiListviewSubitemImageList(
+        $listitem->subitems[] = new \PapayaUiListviewSubitemText('');
+        $listitem->subitems[] = new \PapayaUiListviewSubitemImageList(
           $this->_synchronizations->getIcons(),
           $dependency['synchronization'],
           PapayaUiListviewSubitemImageList::VALIDATE_BITMASK
         );
-        $listitem->subitems[] = new PapayaUiListviewSubitemDate(
+        $listitem->subitems[] = new \PapayaUiListviewSubitemDate(
           (int)$dependency['modified']
         );
       }
     }
     if (count($this->_references) > 0) {
-      $this->items[] = $listitem = new PapayaUiListviewItem(
+      $this->items[] = $listitem = new \PapayaUiListviewItem(
         'items-folder',
-        new PapayaUiStringTranslated('References')
+        new \PapayaUiStringTranslated('References')
       );
       $listitem->columnSpan = -1;
       foreach ($this->_references as $reference) {
-        $this->items[] = $listitem = new PapayaUiListviewItem(
+        $this->items[] = $listitem = new \PapayaUiListviewItem(
           'items-link',
           $reference['title'].' #'.$reference['target_id'],
           array(
@@ -165,9 +161,9 @@ class PapayaAdministrationPagesDependencyListview extends PapayaUiListview {
           $this->parameters()->get('target_id'),
           array($reference['source_id'], $reference['target_id'])
         );
-        $listitem->subitems[] = new PapayaUiListviewSubitemImage(
+        $listitem->subitems[] = new \PapayaUiListviewSubitemImage(
           'items-page',
-          new PapayaUiStringTranslated(
+          new \PapayaUiStringTranslated(
             'Go to page %s #%d', array($reference['title'], $reference['target_id'])
           ),
           array(
@@ -176,8 +172,8 @@ class PapayaAdministrationPagesDependencyListview extends PapayaUiListview {
             'cmd' => 'reference_change'
           )
         );
-        $listitem->subitems[] = new PapayaUiListviewSubitemText('');
-        $listitem->subitems[] = new PapayaUiListviewSubitemDate(
+        $listitem->subitems[] = new \PapayaUiListviewSubitemText('');
+        $listitem->subitems[] = new \PapayaUiListviewSubitemDate(
           (int)$reference['modified']
         );
       }
@@ -208,7 +204,7 @@ class PapayaAdministrationPagesDependencyListview extends PapayaUiListview {
     if (isset($pages)) {
       $this->_pages = $pages;
     } elseif (is_null($this->_pages)) {
-      $this->_pages = new PapayaContentPages();
+      $this->_pages = new \PapayaContentPages();
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;

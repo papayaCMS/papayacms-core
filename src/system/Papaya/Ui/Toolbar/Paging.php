@@ -1,21 +1,17 @@
 <?php
 /**
-* Provides several buttons to navigate mutiple pages of a list.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Paging.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Provides several buttons to navigate mutiple pages of a list.
@@ -137,7 +133,7 @@ class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
   * @param integer $mode
   */
   public function __construct($parameterName, $itemsCount, $mode = self::MODE_PAGE) {
-    $this->_parameterName = new PapayaRequestParametersName($parameterName);
+    $this->_parameterName = new \PapayaRequestParametersName($parameterName);
     $this->setItemsCount($itemsCount);
     $this->_mode = $mode;
   }
@@ -151,7 +147,7 @@ class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
   public function setItemsCount($itemsCount) {
     PapayaUtilConstraints::assertInteger($itemsCount);
     if ($itemsCount < 0) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'UnexpectedValueException: Item count can not be negative.'
       );
     }
@@ -169,7 +165,7 @@ class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
   public function setItemsPerPage($itemsPerPage) {
     PapayaUtilConstraints::assertInteger($itemsPerPage);
     if ($itemsPerPage < 1) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'UnexpectedValueException: Item page limit can not be less than 1.'
       );
     }
@@ -187,7 +183,7 @@ class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
   public function setButtonLimit($buttonLimit) {
     PapayaUtilConstraints::assertInteger($buttonLimit);
     if ($buttonLimit < 3) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'UnexpectedValueException: Button limit can not be less than 3.'
       );
     }
@@ -221,14 +217,14 @@ class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
       case self::MODE_OFFSET :
         $this->setCurrentOffset(
           $this->papaya()->request->getParameter(
-            (string)$this->_parameterName, 0, new PapayaFilterInteger(0)
+            (string)$this->_parameterName, 0, new \PapayaFilterInteger(0)
           )
         );
         break;
       default :
         $this->setCurrentPage(
           $this->papaya()->request->getParameter(
-            (string)$this->_parameterName, 1, new PapayaFilterInteger(1)
+            (string)$this->_parameterName, 1, new \PapayaFilterInteger(1)
           )
         );
         break;
@@ -278,7 +274,7 @@ class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
       $current = $this->getCurrentPage();
       if ($current > 2) {
         $this->appendArrowButton(
-          $parent, 1, 'actions-go-first', new PapayaUiStringTranslated('First page')
+          $parent, 1, 'actions-go-first', new \PapayaUiStringTranslated('First page')
         );
       }
       if ($current > 1) {
@@ -286,7 +282,7 @@ class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
           $parent,
           $current - 1,
           'actions-go-previous',
-          new PapayaUiStringTranslated('Previous page')
+          new \PapayaUiStringTranslated('Previous page')
         );
       }
       for ($page = $this->_minimumPage; $page <= $this->_maximumPage; ++$page) {
@@ -308,12 +304,12 @@ class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
       }
       if ($current < $this->_lastPage) {
         $this->appendArrowButton(
-          $parent, $current + 1, 'actions-go-next', new PapayaUiStringTranslated('Next page')
+          $parent, $current + 1, 'actions-go-next', new \PapayaUiStringTranslated('Next page')
         );
       }
       if ($current < $this->_lastPage - 1) {
         $this->appendArrowButton(
-          $parent, $this->_lastPage, 'actions-go-last', new PapayaUiStringTranslated('Last page')
+          $parent, $this->_lastPage, 'actions-go-last', new \PapayaUiStringTranslated('Last page')
         );
       }
     }

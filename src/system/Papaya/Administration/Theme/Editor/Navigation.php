@@ -1,21 +1,17 @@
 <?php
 /**
-* Navigation part of the theme sets editor (dynamic values for a theme)
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Navigation.php 39429 2014-02-27 20:14:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Navigation part of the theme sets editor (dynamic values for a theme)
@@ -39,8 +35,8 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
     $parent->append($this->listview());
     if ('' != ($themeName = $this->parameters()->get('theme', ''))) {
       $setId = $this->parameters()->get('set_id', 0);
-      $this->toolbar()->elements[] = $button = new PapayaUiToolbarButton();
-      $button->caption = new PapayaUiStringTranslated('Add set');
+      $this->toolbar()->elements[] = $button = new \PapayaUiToolbarButton();
+      $button->caption = new \PapayaUiStringTranslated('Add set');
       $button->image = 'actions-generic-add';
       $button->reference()->setParameters(
         array(
@@ -51,8 +47,8 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
         $this->parameterGroup()
       );
       if (0 < $setId) {
-        $this->toolbar()->elements[] = $button = new PapayaUiToolbarButton();
-        $button->caption = new PapayaUiStringTranslated('Delete set');
+        $this->toolbar()->elements[] = $button = new \PapayaUiToolbarButton();
+        $button->caption = new \PapayaUiStringTranslated('Delete set');
         $button->image = 'actions-generic-delete';
         $button->reference()->setParameters(
           array(
@@ -63,8 +59,8 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
           $this->parameterGroup()
         );
       }
-      $this->toolbar()->elements[] = $button = new PapayaUiToolbarButton();
-      $button->caption = new PapayaUiStringTranslated('Import');
+      $this->toolbar()->elements[] = $button = new \PapayaUiToolbarButton();
+      $button->caption = new \PapayaUiStringTranslated('Import');
       $button->image = 'actions-upload';
       $button->reference()->setParameters(
         array(
@@ -75,8 +71,8 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
         $this->parameterGroup()
       );
       if (0 < $setId) {
-        $this->toolbar()->elements[] = $button = new PapayaUiToolbarButton();
-        $button->caption = new PapayaUiStringTranslated('Export');
+        $this->toolbar()->elements[] = $button = new \PapayaUiToolbarButton();
+        $button->caption = new \PapayaUiStringTranslated('Export');
         $button->image = 'actions-download';
         $button->reference()->setParameters(
           array(
@@ -103,11 +99,11 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
     if (isset($listview)) {
       $this->_listview = $listview;
     } elseif (NULL === $this->_listview) {
-      $this->_listview = new PapayaUiListview();
-      $this->_listview->caption = new PapayaUiStringTranslated('Themes');
+      $this->_listview = new \PapayaUiListview();
+      $this->_listview->caption = new \PapayaUiStringTranslated('Themes');
       $this->_listview->builder(
-        $builder = new PapayaUiListviewItemsBuilder(
-          new RecursiveIteratorIterator(
+        $builder = new \PapayaUiListviewItemsBuilder(
+          new \RecursiveIteratorIterator(
             $this->createThemeList(), RecursiveIteratorIterator::SELF_FIRST
           )
         )
@@ -129,21 +125,21 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
    * @return RecursiveIterator
    */
   private function createThemeList() {
-    $themes = new PapayaThemeList();
+    $themes = new \PapayaThemeList();
     $themes->papaya($this->papaya());
-    $themeIterator = new PapayaIteratorTreeItems(
+    $themeIterator = new \PapayaIteratorTreeItems(
       $themes, PapayaIteratorTreeItems::ATTACH_TO_VALUES
     );
     $selectedTheme = $this->parameters()->get('theme', '');
     if (!empty($selectedTheme)) {
-      $sets = new PapayaContentThemeSets();
+      $sets = new \PapayaContentThemeSets();
       $sets->activateLazyLoad(array('theme' => $selectedTheme));
-      $setIterator = new PapayaIteratorTreeItems($sets);
+      $setIterator = new \PapayaIteratorTreeItems($sets);
       $selectedSet = $this->parameters()->get('set_id', 0);
       if ($selectedSet > 0) {
         $setIterator->attachItemIterator(
           $selectedSet,
-          new PapayaIteratorGenerator(
+          new \PapayaIteratorGenerator(
             array($themes, 'getDefinition'),
             array($selectedTheme)
           )
@@ -186,7 +182,7 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
    * @return PapayaUiListviewItem
    */
   private function createThemeItem($element) {
-    $item = new PapayaUiListviewItem('items-theme', (string)$element);
+    $item = new \PapayaUiListviewItem('items-theme', (string)$element);
     $item->papaya($this->papaya());
     $item->reference->setParameters(
       array(
@@ -209,7 +205,7 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
    * @return PapayaUiListviewItem
    */
   private function createSetItem($element) {
-    $item = new PapayaUiListviewItem('items-folder', (string)$element['title']);
+    $item = new \PapayaUiListviewItem('items-folder', (string)$element['title']);
     $item->papaya($this->papaya());
     $item->indentation = 1;
     $item->reference->setParameters(
@@ -233,7 +229,7 @@ class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPage
    * @return PapayaUiListviewItem
    */
   private function createPageItem(PapayaContentStructurePage $element) {
-    $item = new PapayaUiListviewItem('items-folder', (string)$element->title);
+    $item = new \PapayaUiListviewItem('items-folder', (string)$element->title);
     $item->papaya($this->papaya());
     $item->indentation = 2;
     $item->reference->setParameters(

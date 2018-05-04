@@ -1,24 +1,17 @@
 <?php
 /**
-* The statistical spam filter uses a reference table of tokens to calculate the spam probability of
-* a given token list.
-*
-* The class is an adaption of the open source spam filter b8 (http://nasauber.de/opensource/b8/)
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Spam
-* @version $Id: Statistical.php 39730 2014-04-07 21:05:30Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * The statistical spam filter uses a reference table of tokens to calculate the spam probability of
@@ -73,7 +66,7 @@ class PapayaSpamFilterStatistical implements PapayaSpamFilter {
   */
   public function getReference() {
     if (is_null($this->_reference)) {
-      $this->_reference = new PapayaSpamFilterStatisticalReference();
+      $this->_reference = new \PapayaSpamFilterStatisticalReference();
     }
     return $this->_reference;
   }
@@ -97,7 +90,7 @@ class PapayaSpamFilterStatistical implements PapayaSpamFilter {
   public function setRelevanceLimit($derivation) {
     $derivation = (float)$derivation;
     if ($derivation < 0.0 || $derivation > 0.4) {
-      throw new RangeException('RangeException: $derivation must be between 0 and 0.4');
+      throw new \RangeException('RangeException: $derivation must be between 0 and 0.4');
     }
     $this->_relevantDerivation = $derivation;
   }
@@ -111,7 +104,7 @@ class PapayaSpamFilterStatistical implements PapayaSpamFilter {
   public function setTokenLimit($count) {
     PapayaUtilConstraints::assertInteger($count);
     if ($count <= 0) {
-      throw new RangeException('RangeException: $count must be greater than 0');
+      throw new \RangeException('RangeException: $count must be greater than 0');
     }
     $this->_maximumRelevant = $count;
   }

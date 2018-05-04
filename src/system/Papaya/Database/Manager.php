@@ -1,21 +1,17 @@
 <?php
 /**
-* Database connector manager
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Manager.php 39430 2014-02-28 09:21:51Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Database connector manager
@@ -59,7 +55,7 @@ class PapayaDatabaseManager extends PapayaObject {
   * @return PapayaDatabaseAccess
   */
   public function createDatabaseAccess($owner, $readUri = NULL, $writeUri = NULL) {
-    $result = new PapayaDatabaseAccess($owner, $readUri, $writeUri);
+    $result = new \PapayaDatabaseAccess($owner, $readUri, $writeUri);
     $result->papaya($this->papaya());
     return $result;
   }
@@ -74,7 +70,7 @@ class PapayaDatabaseManager extends PapayaObject {
     list($readUri, $writeUri) = $this->_getConnectorUris($readUri, $writeUri);
     $identifier = $readUri."\n".$writeUri;
     if (!isset($this->_connectors[$identifier])) {
-      $connector = new db_simple();
+      $connector = new \db_simple();
       $connector->papaya($this->papaya());
       $connector->databaseURIs = array(
         'read' => $readUri,

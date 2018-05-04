@@ -203,7 +203,7 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
     if ($silent) {
       return FALSE;
     }
-    throw new PapayaUiDialogFieldFactoryExceptionInvalidOption($name);
+    throw new \PapayaUiDialogFieldFactoryExceptionInvalidOption($name);
   }
 
   /**
@@ -254,14 +254,14 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
    * @return null|\PapayaFilter|\PapayaFilterNotEmpty
    */
   private function getValidation($validation) {
-    if ($validation instanceof PapayaFilter) {
+    if ($validation instanceof \PapayaFilter) {
       return $validation;
     }
     if (empty($validation)) {
-      return $this->mandatory ? new PapayaFilterNotEmpty() : NULL;
+      return $this->mandatory ? new \PapayaFilterNotEmpty() : NULL;
     }
     $factory = $this->filterFactory();
-    if (is_array($validation) || $validation instanceof Closure) {
+    if (is_array($validation) || $validation instanceof \Closure) {
       $result = $factory->getFilter('generator', $this->mandatory, $validation);
     } elseif (class_exists($validation)) {
       $result = $factory->getFilter('generator', $this->mandatory, array($validation));
@@ -283,7 +283,7 @@ class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
     if (NULL !== $factory) {
       $this->_filterFactory = $factory;
     } elseif (NULL === $this->_filterFactory) {
-      $this->_filterFactory = new PapayaFilterFactory();
+      $this->_filterFactory = new \PapayaFilterFactory();
     }
     return $this->_filterFactory;
   }

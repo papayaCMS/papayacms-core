@@ -1,21 +1,17 @@
 <?php
 /**
-* Csv writer allows you write data as csv into a stream or output.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Csv
-* @version $Id: Writer.php 40033 2015-11-19 09:10:59Z kersken $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Cav writer allows you write data as csv into a stream or output.
@@ -83,7 +79,7 @@ class PapayaCsvWriter {
     case 'quote' :
       return $this->_quote;
     default :
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         sprintf('Can not read undefined property "%s".', $name)
       );
     }
@@ -115,7 +111,7 @@ class PapayaCsvWriter {
       $this->_separatorLength = strlen($this->_separator);
       break;
     case 'separatorLength' :
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         sprintf('Can not write read only property "%s".', $name)
       );
     case 'quote' :
@@ -123,7 +119,7 @@ class PapayaCsvWriter {
       $this->_quote = $value;
       break;
     default :
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         sprintf('Can not write undefined property "%s".', $name)
       );
     }
@@ -176,7 +172,7 @@ class PapayaCsvWriter {
   * @param $row
   */
   private function write($row) {
-    if (is_array($row) || $row instanceof Traversable) {
+    if (is_array($row) || $row instanceof \Traversable) {
       $result = '';
       foreach ($row as $value) {
         $result .= $this->_separator.$this->quoteValue($value);
@@ -238,7 +234,7 @@ class PapayaCsvWriter {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new PapayaCsvWriterCallbacks();
+      $this->_callbacks = new \PapayaCsvWriterCallbacks();
     }
     return $this->_callbacks;
   }

@@ -1,23 +1,17 @@
 <?php
 /**
-* A checkbox for an active/inactive value
-*
-* Creates a dialog field for time input.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Checkbox.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A checkbox for an active/inactive value
@@ -76,7 +70,7 @@ class PapayaUiDialogFieldInputCheckbox extends PapayaUiDialogFieldInput {
     parent::__construct($caption, $name, 9, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new PapayaFilterEquals($this->_values['active'])
+      new \PapayaFilterEquals($this->_values['active'])
     );
   }
 
@@ -112,12 +106,12 @@ class PapayaUiDialogFieldInputCheckbox extends PapayaUiDialogFieldInput {
    */
   public function setValues($active, $inactive) {
     if (empty($active)) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'The active value can not be empty.'
       );
     }
     if ($active == $inactive) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'The active value and the inactive value must be different.'
       );
     }
@@ -126,7 +120,7 @@ class PapayaUiDialogFieldInputCheckbox extends PapayaUiDialogFieldInput {
       'inactive' => $inactive
     );
     $this->setFilter(
-      new PapayaFilterEquals($this->_values['active'])
+      new \PapayaFilterEquals($this->_values['active'])
     );
   }
 

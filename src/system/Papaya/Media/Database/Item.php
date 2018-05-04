@@ -1,21 +1,17 @@
 <?php
 /**
-* Representing a media database item
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Media-Database
-* @version $Id: Item.php 39420 2014-02-27 17:40:37Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
  * Representing a media database item
@@ -90,7 +86,7 @@ class PapayaMediaDatabaseItem {
     if (isset($this->_attributes[$name])) {
       return $this->_attributes[$name];
     } else {
-      throw new BadMethodCallException(
+      throw new \BadMethodCallException(
         sprintf(
           'Invalid attribute "%s:$%s."',
           __CLASS__,
@@ -123,7 +119,7 @@ class PapayaMediaDatabaseItem {
       $this->_setAttributeTrimString($name, $value);
       break;
     default :
-      throw new BadMethodCallException(
+      throw new \BadMethodCallException(
         sprintf(
           'Invalid attribute "%s:$%s."',
           __CLASS__,
@@ -138,8 +134,8 @@ class PapayaMediaDatabaseItem {
   * @return PapayaMediaDatabaseItemRecord
   */
   public function getDatabaseAccessObject() {
-    if (!($this->_databaseAccessObject instanceof PapayaMediaDatabaseItemRecord)) {
-      $this->_databaseAccessObject = new PapayaMediaDatabaseItemRecord();
+    if (!($this->_databaseAccessObject instanceof \PapayaMediaDatabaseItemRecord)) {
+      $this->_databaseAccessObject = new \PapayaMediaDatabaseItemRecord();
     }
     return $this->_databaseAccessObject;
   }
@@ -171,7 +167,7 @@ class PapayaMediaDatabaseItem {
       $this->_setName($databaseAccess['file_name']);
       $this->mimeType = $databaseAccess['mimetype'];
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf(
           'Media item id "%s" version "%d" does not exist.',
           $mediaId,
@@ -202,7 +198,7 @@ class PapayaMediaDatabaseItem {
     if (preg_match('(^[a-fA-F\d]{32}$)', $value)) {
       $this->_mediaId = $value;
     } else {
-      throw new BadMethodCallException(
+      throw new \BadMethodCallException(
         sprintf(
           'Invalid attribute value for %s:$mediaId: "%s"',
           __CLASS__,
@@ -222,7 +218,7 @@ class PapayaMediaDatabaseItem {
     if ($value > 0) {
       $this->_versionId = (int)$value;
     } else {
-      throw new BadMethodCallException(
+      throw new \BadMethodCallException(
         sprintf(
           'Invalid attribute value for %s:$versionId: "%s"',
           __CLASS__,
@@ -253,7 +249,7 @@ class PapayaMediaDatabaseItem {
     if (!empty($value) && trim($value != '')) {
       $this->_attributes[$attribute] = (string)$value;
     } else {
-      throw new BadMethodCallException(
+      throw new \BadMethodCallException(
         sprintf(
           'Invalid attribute value for %s:$%s: "%s"',
           __CLASS__,

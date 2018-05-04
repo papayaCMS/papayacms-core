@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Database Records Grouped - reads records from the database and stores them grouped.
-*
-* @copyright 2013 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Grouped.php 38854 2013-09-30 10:05:46Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Database Records Grouped - reads records from the database and stores them grouped.
@@ -59,12 +55,12 @@ abstract class PapayaDatabaseRecordsGrouped extends PapayaDatabaseRecordsLazy {
         if (empty($groupIdentifier) &&
             $groupIdentifier !== '0' &&
             $groupIdentifier !== 0) {
-          throw new LogicException(
+          throw new \LogicException(
             'Properties needed to group records.'
           );
         }
         if (!isset($this->_records[$groupIdentifier])) {
-          $this->_records[$groupIdentifier] = new ArrayObject();
+          $this->_records[$groupIdentifier] = new \ArrayObject();
         }
         if (isset($identifier)) {
           $this->_records[$groupIdentifier][$identifier] = $values;

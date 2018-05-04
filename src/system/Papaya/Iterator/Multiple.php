@@ -1,22 +1,17 @@
 <?php
 /**
-* This iterator allows to iterator over several given inner iterators. In other words
-* it combines the elements of multiple iterators.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-* @version $Id: Multiple.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This iterator allows to iterator over several given inner iterators. In other words
@@ -54,7 +49,7 @@ class PapayaIteratorMultiple implements OuterIterator {
   */
   public function __construct($flags = NULL) {
     $iterators = func_get_args();
-    if (isset($flags) && !($flags instanceof Traversable || is_array($flags))) {
+    if (isset($flags) && !($flags instanceof \Traversable || is_array($flags))) {
       array_shift($iterators);
       $this->setFlags($flags);
     }
@@ -107,8 +102,8 @@ class PapayaIteratorMultiple implements OuterIterator {
   * @param array|Traversable $iterator
   */
   public function attachIterator($iterator) {
-    $this->_iterators[$this->getIteratorIdentifier($iterator)] = ($iterator instanceof Iterator)
-      ? $iterator : new PapayaIteratorTraversable($iterator);
+    $this->_iterators[$this->getIteratorIdentifier($iterator)] = ($iterator instanceof \Iterator)
+      ? $iterator : new \PapayaIteratorTraversable($iterator);
   }
 
   /**
@@ -146,7 +141,7 @@ class PapayaIteratorMultiple implements OuterIterator {
   public function rewind() {
     $this->_position = -1;
     $iterator = reset($this->_iterators);
-    if (($iterator instanceof Iterator)) {
+    if (($iterator instanceof \Iterator)) {
       $iterator->rewind();
       if ($iterator->valid()) {
         $this->_position = 0;
@@ -161,7 +156,7 @@ class PapayaIteratorMultiple implements OuterIterator {
   */
   public function valid() {
     $iterator = $this->getInnerIterator();
-    if ($iterator instanceof Iterator) {
+    if ($iterator instanceof \Iterator) {
       return $iterator->valid();
     } else {
       return FALSE;
@@ -177,7 +172,7 @@ class PapayaIteratorMultiple implements OuterIterator {
   public function key() {
     if (($this->getFlags() & self::MIT_KEYS_ASSOC) === self::MIT_KEYS_ASSOC) {
       $iterator = $this->getInnerIterator();
-      return ($iterator instanceof Iterator) ? $iterator->key() : NULL;
+      return ($iterator instanceof \Iterator) ? $iterator->key() : NULL;
     } else {
       return $this->_position;
     }
@@ -190,7 +185,7 @@ class PapayaIteratorMultiple implements OuterIterator {
   */
   public function current() {
     $iterator = $this->getInnerIterator();
-    return ($iterator instanceof Iterator) ? $iterator->current() : NULL;
+    return ($iterator instanceof \Iterator) ? $iterator->current() : NULL;
   }
 
   /**
@@ -200,16 +195,16 @@ class PapayaIteratorMultiple implements OuterIterator {
   */
   public function next() {
     $iterator = $this->getInnerIterator();
-    if ($iterator instanceof Iterator) {
+    if ($iterator instanceof \Iterator) {
       $iterator->next();
     }
-    while ($iterator instanceof Iterator) {
+    while ($iterator instanceof \Iterator) {
       if ($iterator->valid()) {
         $this->_position++;
         return;
       }
       $iterator = next($this->_iterators);
-      if ($iterator instanceof Iterator) {
+      if ($iterator instanceof \Iterator) {
         $iterator->rewind();
       }
     }

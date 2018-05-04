@@ -1,21 +1,17 @@
 <?php
 /**
-* The scanner uses scanner status objects to create a token stream from the input string
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Template
-* @version $Id: Scanner.php 39407 2014-02-27 15:09:25Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * The scanner uses scanner status objects to create a token stream from the input string
@@ -78,7 +74,7 @@ class PapayaTemplateSimpleScanner {
       /**
       * @todo a some substring logic for large strings
       */
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         sprintf(
           'Invalid char "%s" for status "%s" at offset #%d in "%s"',
           substr($this->_buffer, $this->_offset, 1),

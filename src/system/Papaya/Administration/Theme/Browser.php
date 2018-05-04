@@ -1,4 +1,17 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 class PapayaAdministrationThemeBrowser
   extends PapayaUiControl
@@ -31,8 +44,8 @@ class PapayaAdministrationThemeBrowser
     if (isset($dialog)) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
-      $this->_dialog = $dialog = new PapayaUiDialog();
-      $dialog->caption = new PapayaUiStringTranslated('Themes (%s)', [$this->_optionName]);
+      $this->_dialog = $dialog = new \PapayaUiDialog();
+      $dialog->caption = new \PapayaUiStringTranslated('Themes (%s)', [$this->_optionName]);
       $dialog->papaya($this->papaya());
       $dialog->parameterGroup('opt');
       $dialog->data()->merge(
@@ -47,23 +60,23 @@ class PapayaAdministrationThemeBrowser
           'save' => 1
         ]
       );
-      $dialog->fields[] = new PapayaUiDialogFieldCollector(
+      $dialog->fields[] = new \PapayaUiDialogFieldCollector(
         $this->_optionName, $this->papaya()->options->get($this->_optionName, '')
       );
-      $dialog->fields[] = new PapayaUiDialogFieldListview(
-        $listview = new PapayaUiListview()
+      $dialog->fields[] = new \PapayaUiDialogFieldListview(
+        $listview = new \PapayaUiListview()
       );
       $listview->mode = PapayaUiListview::MODE_TILES;
-      $listview->builder($builder = new PapayaUiListviewItemsBuilder($this->themes()));
+      $listview->builder($builder = new \PapayaUiListviewItemsBuilder($this->themes()));
       $builder->callbacks()->onCreateItem = function(
         $context, PapayaUiListviewItems $items, PapayaThemeDefinition $theme
       ) use ($dialog) {
-        $items[] = $item = new PapayaUiListviewItemRadio(
+        $items[] = $item = new \PapayaUiListviewItemRadio(
           $theme->thumbnails['medium'], $theme->title, $dialog, $this->_optionName, $theme->name
         );
         $item->text = $theme->templatePath;
       };
-      $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Save'));
+      $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));
     }
     return $this->_dialog;
   }
@@ -76,10 +89,10 @@ class PapayaAdministrationThemeBrowser
     if (isset($themes)) {
       $this->_themes = $themes;
     } elseif (NULL === $this->_themes) {
-      $this->_themes = new PapayaIteratorCaching(
-        new PapayaIteratorFilterCallback(
-          new PapayaIteratorCallback(
-            new DirectoryIterator(
+      $this->_themes = new \PapayaIteratorCaching(
+        new \PapayaIteratorFilterCallback(
+          new \PapayaIteratorCallback(
+            new \DirectoryIterator(
               PapayaUtilFilePath::cleanup($this->themeHandler()->getLocalPath())
             ),
             function(DirectoryIterator $fileInfo) {
@@ -92,7 +105,7 @@ class PapayaAdministrationThemeBrowser
             }
           ),
           function($theme) {
-            return $theme instanceof PapayaThemeDefinition;
+            return $theme instanceof \PapayaThemeDefinition;
           }
         )
       );
@@ -108,7 +121,7 @@ class PapayaAdministrationThemeBrowser
     if (isset($themeHandler)) {
       $this->_themeHandler = $themeHandler;
     } elseif (NULL === $this->_themeHandler) {
-      $this->_themeHandler = new PapayaThemeHandler();
+      $this->_themeHandler = new \PapayaThemeHandler();
       $this->_themeHandler->papaya($this->papaya());
     }
     return $this->_themeHandler;

@@ -1,21 +1,17 @@
 <?php
 /**
-* Abstract superclass for ui commands, like executing a dialog.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Command.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Abstract superclass for ui commands, like executing a dialog.
@@ -54,7 +50,7 @@ abstract class PapayaUiControlCommand extends PapayaUiControlInteractive {
   */
   public function validateCondition() {
     $condition = $this->condition();
-    if ($condition instanceof PapayaUiControlCommandCondition) {
+    if ($condition instanceof \PapayaUiControlCommandCondition) {
       return $condition->validate();
     } else {
       return (bool)$condition;
@@ -83,7 +79,7 @@ abstract class PapayaUiControlCommand extends PapayaUiControlInteractive {
   * @return PapayaUiControlCommandCondition
   */
   public function createCondition() {
-    return new PapayaUiControlCommandConditionValue(TRUE);
+    return new \PapayaUiControlCommandConditionValue(TRUE);
   }
 
   /**
@@ -101,7 +97,7 @@ abstract class PapayaUiControlCommand extends PapayaUiControlInteractive {
         $user = $this->papaya()->administrationUser;
         return $user->hasPerm($permission);
       } else {
-        throw new UnexpectedValueException(
+        throw new \UnexpectedValueException(
           'UnexpectedValueException: Invalid permission value.'
         );
       }
@@ -137,7 +133,7 @@ abstract class PapayaUiControlCommand extends PapayaUiControlInteractive {
       $this->_owner = $owner;
       $this->papaya($owner->papaya());
     } elseif (is_null($this->_owner)) {
-      throw new LogicException(
+      throw new \LogicException(
         sprintf(
           'LogicException: Instance of "%s" has no owner assigned.',
           get_class($this)

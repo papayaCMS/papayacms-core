@@ -1,4 +1,17 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 abstract class PapayaDatabaseRecordsUnbuffered
   extends PapayaObject
@@ -104,7 +117,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
     $this->_databaseResult = NULL;
     $databaseAccess = $this->getDatabaseAccess();
     $databaseResult = $databaseAccess->queryFmt($sql, $parameters, $limit, $offset);
-    if ($databaseResult instanceof PapayaDatabaseResult) {
+    if ($databaseResult instanceof \PapayaDatabaseResult) {
       $this->_databaseResult = $databaseResult;
       return TRUE;
     }
@@ -116,7 +129,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
    * @return PapayaDatabaseConditionRoot
    */
   public function createFilter() {
-    return new PapayaDatabaseConditionRoot($this, $this->mapping());
+    return new \PapayaDatabaseConditionRoot($this, $this->mapping());
   }
 
   /**
@@ -128,14 +141,14 @@ abstract class PapayaDatabaseRecordsUnbuffered
   */
   protected function _compileCondition($filter, $prefix = " WHERE ") {
     if (isset($filter)) {
-      if ($filter instanceof PapayaDatabaseConditionElement) {
+      if ($filter instanceof \PapayaDatabaseConditionElement) {
         $condition = $filter->getSql();
         return empty($condition) ? '' : $prefix.$condition;
       } else {
         if (!is_array($filter)) {
           $filter = array('id' => $filter);
         }
-        $generator = new PapayaDatabaseConditionGenerator($this, $this->mapping());
+        $generator = new \PapayaDatabaseConditionGenerator($this, $this->mapping());
         $condition = $generator->fromArray($filter)->getSql(TRUE);
         return empty($condition) ? '' : $prefix.$condition;
       }
@@ -178,7 +191,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
   * @return PapayaDatabaseRecordMapping
   */
   protected function _createMapping() {
-    return new PapayaDatabaseRecordMapping($this->_fields);
+    return new \PapayaDatabaseRecordMapping($this->_fields);
   }
 
   /**
@@ -208,15 +221,15 @@ abstract class PapayaDatabaseRecordsUnbuffered
     if (empty($this->_orderByProperties) && empty($this->_orderByFields)) {
       return FALSE;
     }
-    $result = new PapayaDatabaseRecordOrderGroup();
+    $result = new \PapayaDatabaseRecordOrderGroup();
     if (!empty($this->_orderByProperties)) {
       $result->add(
-        new PapayaDatabaseRecordOrderByProperties($this->_orderByProperties, $this->mapping())
+        new \PapayaDatabaseRecordOrderByProperties($this->_orderByProperties, $this->mapping())
       );
     }
     if (!empty($this->_orderByFields)) {
       $result->add(
-        new PapayaDatabaseRecordOrderByFields($this->_orderByFields)
+        new \PapayaDatabaseRecordOrderByFields($this->_orderByFields)
       );
     }
     return $result;
@@ -272,15 +285,15 @@ abstract class PapayaDatabaseRecordsUnbuffered
   * @return Iterator
   */
   protected function getResultIterator() {
-    if (!($this->databaseResult() instanceof PapayaDatabaseResult)) {
-      return new EmptyIterator();
+    if (!($this->databaseResult() instanceof \PapayaDatabaseResult)) {
+      return new \EmptyIterator();
     }
-    $iterator = new PapayaDatabaseResultIterator($this->databaseResult());
+    $iterator = new \PapayaDatabaseResultIterator($this->databaseResult());
     $mapping = $this->mapping();
     $iterator->setMapping(
-      $mapping instanceof PapayaDatabaseRecordMappingCache
+      $mapping instanceof \PapayaDatabaseRecordMappingCache
         ? $mapping
-        : new PapayaDatabaseRecordMappingCache($mapping)
+        : new \PapayaDatabaseRecordMappingCache($mapping)
     );
     return $iterator;
   }

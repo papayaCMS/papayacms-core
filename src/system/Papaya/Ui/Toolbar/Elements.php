@@ -1,21 +1,17 @@
 <?php
 /**
-* A list of menu elements, used for the $elements property of a {@see PapayaUiMenu}
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Elements.php 38702 2013-09-11 14:25:09Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
  * A list of menu elements, used for the $elements property of a {@see PapayaUiMenu}
@@ -69,8 +65,8 @@ class PapayaUiToolbarElements extends PapayaUiControlCollection {
     PapayaUtilConstraints::assertInstanceOf('PapayaUiToolbarElement', $item);
     parent::validateItemClass($item);
     if (!$this->_allowGroups &&
-        $item instanceof PapayaUiToolbarGroup) {
-      throw new InvalidArgumentException(
+        $item instanceof \PapayaUiToolbarGroup) {
+      throw new \InvalidArgumentException(
         sprintf(
           'InvalidArgumentException: Invalid item class "%s".',
           get_class($item)

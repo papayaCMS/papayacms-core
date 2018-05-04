@@ -1,21 +1,17 @@
 <?php
 /**
-* Message string context containing a group of other context objects
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Messages
-* @version $Id: Group.php 38830 2013-09-19 13:54:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Message string context containing a group of other context objects
@@ -58,12 +54,12 @@ class PapayaMessageContextGroup
   public function asString() {
     $result = '';
     foreach ($this as $element) {
-      if ($element instanceof PapayaMessageContextInterfaceLabeled) {
+      if ($element instanceof \PapayaMessageContextInterfaceLabeled) {
         $result .= "\n\n".$element->getLabel();
       }
-      if ($element instanceof PapayaMessageContextInterfaceString) {
+      if ($element instanceof \PapayaMessageContextInterfaceString) {
         $result .= "\n\n".$element->asString();
-      } elseif ($element instanceof PapayaMessageContextInterfaceXhtml) {
+      } elseif ($element instanceof \PapayaMessageContextInterfaceXhtml) {
         $result .= "\n\n".PapayaUtilStringHtml::stripTags($element->asXhtml());
       }
     }
@@ -77,12 +73,12 @@ class PapayaMessageContextGroup
     $result = '';
     foreach ($this as $element) {
       $result .= '<div class="group">';
-      if ($element instanceof PapayaMessageContextInterfaceLabeled) {
+      if ($element instanceof \PapayaMessageContextInterfaceLabeled) {
         $result .= '<h3>'.PapayaUtilStringXml::escape($element->getLabel()).'</h3>';
       }
-      if ($element instanceof PapayaMessageContextInterfaceXhtml) {
+      if ($element instanceof \PapayaMessageContextInterfaceXhtml) {
         $result .= $element->asXhtml();
-      } elseif ($element instanceof PapayaMessageContextInterfaceString) {
+      } elseif ($element instanceof \PapayaMessageContextInterfaceString) {
         $result .= str_replace(
           "\n", "\n<br />", PapayaUtilStringXml::escape($element->asString())
         );

@@ -1,21 +1,17 @@
 <?php
 /**
-* An image captcha input field
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Captcha.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * An image captcha input field
@@ -58,7 +54,7 @@ class PapayaUiDialogFieldInputCaptcha extends PapayaUiDialogFieldInput {
     $this->setMandatory(TRUE);
     PapayaUtilConstraints::assertNotEmpty($captchaImage);
     $this->_captchaImage = $captchaImage;
-    $this->setFilter(new PapayaFilterEquals(TRUE));
+    $this->setFilter(new \PapayaFilterEquals(TRUE));
   }
 
   /**
@@ -86,7 +82,7 @@ class PapayaUiDialogFieldInputCaptcha extends PapayaUiDialogFieldInput {
        'name' => $this->_getParameterName($this->getName().'['.$identifier.']', TRUE),
       )
     );
-    $reference = new PapayaUiReference(clone $this->papaya()->request->getUrl());
+    $reference = new \PapayaUiReference(clone $this->papaya()->request->getUrl());
     $reference->setRelative($this->_captchaImage.'.image.jpg');
     $reference->setParameters(array('img' => array('identifier' => $identifier)));
     $field->appendElement('image', array('src' => $reference->getRelative()));

@@ -56,7 +56,7 @@ class PapayaThemeWrapperUrl {
     if (isset($url)) {
       $this->_requestUrl = $url;
     } else {
-      $this->_requestUrl = new PapayaUrlCurrent();
+      $this->_requestUrl = new \PapayaUrlCurrent();
     }
   }
 
@@ -89,7 +89,7 @@ class PapayaThemeWrapperUrl {
       $this->_parameters = $parameters;
     }
     if (is_null($parameters)) {
-      $query = new PapayaRequestParametersQuery();
+      $query = new \PapayaRequestParametersQuery();
       $query->setString($this->_requestUrl->getQuery());
       $this->_parameters = $query->values();
     }

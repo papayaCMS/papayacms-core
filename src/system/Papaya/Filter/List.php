@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya filter class that validates if given value is in the list
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: List.php 38143 2013-02-19 14:58:24Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya filter class that validates if given value is in the list
@@ -55,7 +51,7 @@ class PapayaFilterList implements PapayaFilter {
   */
   public function validate($value) {
     if ((string)$value === '') {
-      throw new PapayaFilterExceptionEmpty();
+      throw new \PapayaFilterExceptionEmpty();
     }
     if (is_array($this->_list) && in_array($value, $this->_list)) {
       return TRUE;
@@ -65,7 +61,7 @@ class PapayaFilterList implements PapayaFilter {
         return TRUE;
       }
     }
-    throw new PapayaFilterExceptionNotEnclosed($value);
+    throw new \PapayaFilterExceptionNotEnclosed($value);
   }
 
   /**

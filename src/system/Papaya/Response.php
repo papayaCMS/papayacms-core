@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Response - Response handling object
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Response
-* @version $Id: Response.php 39789 2014-05-06 11:32:29Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * @package Papaya-Library
@@ -117,7 +113,7 @@ class PapayaResponse extends PapayaObject {
       $this->_helper = $helper;
     }
     if (is_null($this->_helper)) {
-      $this->_helper = new PapayaResponseHelper();
+      $this->_helper = new \PapayaResponseHelper();
     }
     return $this->_helper;
   }
@@ -133,7 +129,7 @@ class PapayaResponse extends PapayaObject {
       $this->_headers = $headers;
     }
     if (is_null($this->_headers)) {
-      $this->_headers = new PapayaResponseHeaders();
+      $this->_headers = new \PapayaResponseHeaders();
     }
     return $this->_headers;
   }
@@ -149,7 +145,7 @@ class PapayaResponse extends PapayaObject {
       $this->_content = $content;
     }
     if (is_null($this->_content)) {
-      $this->_content = new PapayaResponseContentString('');
+      $this->_content = new \PapayaResponseContentString('');
     }
     return $this->_content;
   }
@@ -163,7 +159,7 @@ class PapayaResponse extends PapayaObject {
     if (isset($this->_statusCodes[$status])) {
       $this->_status = $status;
     } else {
-      throw new UnexpectedValueException('Unknown response status code: '.$status);
+      throw new \UnexpectedValueException('Unknown response status code: '.$status);
     }
   }
 

@@ -1,21 +1,17 @@
 <?php
 /**
-* Encapsulation for translated phrase (get text like system)
+ * papaya CMS
  *
-* @copyright 2014 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Phrase.php 39768 2014-04-28 16:08:54Z weinert $
-*/
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Encapsulation for translated phrase (get text like system)
@@ -99,7 +95,7 @@ class PapayaContentPhrase extends PapayaDatabaseRecord {
 
   public function getGroup($title = NULL) {
     $identifier = strtolower(trim($title));
-    $group = new PapayaContentPhraseGroup();
+    $group = new \PapayaContentPhraseGroup();
     $group->papaya($this->papaya());
     $group->setDatabaseAccess($this->getDatabaseAccess());
     $group->activateLazyLoad(array('identifier' => $identifier));

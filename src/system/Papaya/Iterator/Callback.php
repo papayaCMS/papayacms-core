@@ -1,21 +1,17 @@
 <?php
 /**
-* This iterator allows convert the values on request. The callback function will be called with
-* the current value and key.
-*
-* @copyright 2012-2018 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This iterator allows convert the values on request. The callback function will be called with
@@ -57,8 +53,8 @@ class PapayaIteratorCallback implements OuterIterator {
   ) {
     PapayaUtilConstraints::assertArrayOrTraversable($iterator);
     PapayaUtilConstraints::assertCallable($callback);
-    $this->_iterator = ($iterator instanceof Iterator)
-      ? $iterator : new PapayaIteratorTraversable($iterator);
+    $this->_iterator = ($iterator instanceof \Iterator)
+      ? $iterator : new \PapayaIteratorTraversable($iterator);
     $this->_callback = $callback;
     $this->_target = in_array(
       $target,

@@ -1,21 +1,17 @@
 <?php
 /**
-* Manage the parts of a page. Each part is an interactive ui control.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Parts.php 38802 2013-09-18 14:11:43Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
  * Manage the parts of a page. Each part is an interactive ui control. On iteration the parameters
@@ -104,7 +100,7 @@ class PapayaAdministrationPageParts
    */
   public function set($name, PapayaAdministrationPagePart $part = NULL) {
     if (!array_key_exists($name, $this->_parts)) {
-      throw new UnexpectedValueException(sprintf('Can not set unknown part "%s".', $name));
+      throw new \UnexpectedValueException(sprintf('Can not set unknown part "%s".', $name));
     }
     $this->_parts[$name] = $part;
   }
@@ -119,7 +115,7 @@ class PapayaAdministrationPageParts
    */
   public function create($name) {
     if (!array_key_exists($name, $this->_parts)) {
-      throw new UnexpectedValueException(sprintf('Can no create unknown part "%s".', $name));
+      throw new \UnexpectedValueException(sprintf('Can no create unknown part "%s".', $name));
     }
     if ($part = $this->_page->createPart($name)) {
       $part->papaya($this->papaya());
@@ -139,7 +135,7 @@ class PapayaAdministrationPageParts
   */
   public function getTarget($name) {
     if (!array_key_exists($name, $this->_parts)) {
-      throw new UnexpectedValueException(sprintf('Unknown part "%s".', $name));
+      throw new \UnexpectedValueException(sprintf('Unknown part "%s".', $name));
     }
     if (!array_key_exists($name, $this->_targets)) {
       return 'centercol';
@@ -157,7 +153,7 @@ class PapayaAdministrationPageParts
     if (isset($toolbar)) {
       $this->_toolbar = $toolbar;
     } elseif (is_null($this->_toolbar)) {
-      $this->_toolbar = new PapayaUiToolbarComposed(
+      $this->_toolbar = new \PapayaUiToolbarComposed(
         array_merge($this->_buttonOrder, array_keys($this->_parts))
       );
       $this->_toolbar->papaya($this->papaya());

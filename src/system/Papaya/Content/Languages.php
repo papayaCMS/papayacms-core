@@ -1,24 +1,17 @@
 <?php
 /**
-* Provide data encapsulation for the languages list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentPageTranslation}.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Languages.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Provide data encapsulation for the languages list.
@@ -139,7 +132,7 @@ class PapayaContentLanguages extends PapayaDatabaseRecords {
     }
     $result = NULL;
     if ($id > 0) {
-      $result = new PapayaContentLanguage();
+      $result = new \PapayaContentLanguage();
       $result->papaya($this->papaya());
       $result->setDatabaseAccess($this->getDatabaseAccess());
       if (isset($this[$id])) {
@@ -176,7 +169,7 @@ class PapayaContentLanguages extends PapayaDatabaseRecords {
   * @return PapayaContentLanguage
   */
   public function getLanguageByCode($code) {
-    $result = new PapayaContentLanguage();
+    $result = new \PapayaContentLanguage();
     if (isset($this->_mapCodes[$code]) &&
         isset($this[$this->_mapCodes[$code]])) {
       $result->assign($this[$this->_mapCodes[$code]]);
@@ -192,7 +185,7 @@ class PapayaContentLanguages extends PapayaDatabaseRecords {
   * @return PapayaContentLanguage
   */
   public function getLanguageByIdentifier($identifier) {
-    $result = new PapayaContentLanguage();
+    $result = new \PapayaContentLanguage();
     if (isset($this->_mapIdentifiers[$identifier]) &&
         isset($this[$this->_mapIdentifiers[$identifier]])) {
       $result->assign($this[$this->_mapIdentifiers[$identifier]]);

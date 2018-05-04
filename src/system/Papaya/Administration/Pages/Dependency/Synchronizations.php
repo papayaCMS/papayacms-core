@@ -1,22 +1,17 @@
 <?php
 /**
-* Encapsulate the synchronization definitions and provide access in different formats for other
-* object.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Synchronizations.php 39730 2014-04-07 21:05:30Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Encapsulate the synchronization definitions and provide access in different formats for other
@@ -105,12 +100,12 @@ class PapayaAdministrationPagesDependencySynchronizations {
   */
   public function getIcons() {
     if (is_null($this->_icons)) {
-      $this->_icons = new PapayaUiIconList;
+      $this->_icons = new \PapayaUiIconList;
       foreach ($this->_definitions as $synchronization => $data) {
-        $this->_icons[$synchronization] = new PapayaUiIcon(
+        $this->_icons[$synchronization] = new \PapayaUiIcon(
           $data['image'],
-          new PapayaUiStringTranslated($data['caption']),
-          new PapayaUiStringTranslated($data['hint'])
+          new \PapayaUiStringTranslated($data['caption']),
+          new \PapayaUiStringTranslated($data['hint'])
         );
       }
     }
@@ -126,7 +121,7 @@ class PapayaAdministrationPagesDependencySynchronizations {
     if (is_null($this->_list)) {
       $this->_list = array();
       foreach ($this->_definitions as $synchronization => $data) {
-         $this->_list[$synchronization] = new PapayaUiStringTranslated($data['caption']);
+         $this->_list[$synchronization] = new \PapayaUiStringTranslated($data['caption']);
       }
     }
     return $this->_list;
@@ -142,7 +137,7 @@ class PapayaAdministrationPagesDependencySynchronizations {
     if (isset($dependencies)) {
       $this->_dependencies = $dependencies;
     } elseif (is_null($this->_dependencies)) {
-      $this->_dependencies = new PapayaContentPageDependencies();
+      $this->_dependencies = new \PapayaContentPageDependencies();
     }
     return $this->_dependencies;
   }

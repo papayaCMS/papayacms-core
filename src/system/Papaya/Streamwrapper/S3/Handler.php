@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Streamwrapper Amazon S3 Handler
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Streamwrapper
-* @version $Id: Handler.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Streamwrapper Amazon S3 Handler
@@ -51,8 +47,8 @@ class PapayaStreamwrapperS3Handler {
   * @return PapayaHttpClient
   */
   public function getHTTPClient() {
-    if (!($this->_client instanceof PapayaHttpClient)) {
-      $this->_client = new PapayaHttpClient();
+    if (!($this->_client instanceof \PapayaHttpClient)) {
+      $this->_client = new \PapayaHttpClient();
     }
     $this->_client->reset();
     return $this->_client;
@@ -119,7 +115,7 @@ class PapayaStreamwrapperS3Handler {
       'Content-Type' => 'text/plain',
       'Connection' => 'keep-alive'
     );
-    $signature = new PapayaStreamwrapperS3Signature($location, 'HEAD', $headers);
+    $signature = new \PapayaStreamwrapperS3Signature($location, 'HEAD', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
       'HEAD',
@@ -157,7 +153,7 @@ class PapayaStreamwrapperS3Handler {
       'Connection' => 'keep-alive',
       'Range' => 'bytes='.$position.'-'.($position + $count - 1)
     );
-    $signature = new PapayaStreamwrapperS3Signature($location, 'GET', $headers);
+    $signature = new \PapayaStreamwrapperS3Signature($location, 'GET', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
       'GET',
@@ -211,7 +207,7 @@ class PapayaStreamwrapperS3Handler {
       'Connection' => 'close',
     );
     $method = 'PUT';
-    $signature = new PapayaStreamwrapperS3Signature(
+    $signature = new \PapayaStreamwrapperS3Signature(
       $location,
       $method,
       $headers
@@ -259,7 +255,7 @@ class PapayaStreamwrapperS3Handler {
     $client = $this->_client;
     fseek($this->_temporaryFile, 0);
     $client->addRequestFile(
-      new PapayaHttpClientFileResource("file", "file", $this->_temporaryFile)
+      new \PapayaHttpClientFileResource("file", "file", $this->_temporaryFile)
     );
     $client->send();
     $status = $client->getResponseStatus();
@@ -297,7 +293,7 @@ class PapayaStreamwrapperS3Handler {
       'Content-Type' => 'text/plain',
       'Connection' => 'keep-alive',
     );
-    $signature = new PapayaStreamwrapperS3Signature($location, 'DELETE', $headers);
+    $signature = new \PapayaStreamwrapperS3Signature($location, 'DELETE', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
       'DELETE',
@@ -346,7 +342,7 @@ class PapayaStreamwrapperS3Handler {
       'delimiter' => '/'
     );
     $location['object'] = '';
-    $signature = new PapayaStreamwrapperS3Signature($location, 'GET', $headers);
+    $signature = new \PapayaStreamwrapperS3Signature($location, 'GET', $headers);
     $headers['Authorization'] = 'AWS '.$location['id'].':'.$signature;
     $client = $this->_sendRequest(
       'GET',
@@ -358,12 +354,12 @@ class PapayaStreamwrapperS3Handler {
     if ($client) {
       $response = $client->getResponseData();
       $moreContent = $this->evaluateResult(
-        new DOMDocument('1.0', 'UTF-8'),
+        new \DOMDocument('1.0', 'UTF-8'),
         $response,
         '//s3:IsTruncated/text() = "true"'
       );
       $items = $this->evaluateResult(
-        new DOMDocument('1.0', 'UTF-8'),
+        new \DOMDocument('1.0', 'UTF-8'),
         $response,
         '//s3:Contents/s3:Key | //s3:CommonPrefixes/s3:Prefix'
       );
@@ -404,7 +400,7 @@ class PapayaStreamwrapperS3Handler {
   */
   public function evaluateResult($dom, $xml, $xpath) {
     $dom->loadXML($xml);
-    $query = new DOMXPath($dom);
+    $query = new \DOMXPath($dom);
     $query->registerNamespace('s3', 'http://s3.amazonaws.com/doc/2006-03-01/');
     return $query->evaluate($xpath);
   }

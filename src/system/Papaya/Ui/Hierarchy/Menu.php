@@ -1,21 +1,17 @@
 <?php
 /**
-* A hierarchy menu is used to show a line of links representing the current hierarchy of data.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Menu.php 36591 2011-12-30 11:25:33Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A hierarchy menu is used to show a line of links representing the current hierarchy of data.
@@ -69,7 +65,7 @@ class PapayaUiHierarchyMenu extends PapayaUiControl {
     if (isset($items)) {
       $this->_items = $items;
     } elseif (is_null($this->_items)) {
-      $this->_items = new PapayaUiHierarchyItems();
+      $this->_items = new \PapayaUiHierarchyItems();
       $this->_items->owner($this);
     }
     return $this->_items;

@@ -1,23 +1,17 @@
 <?php
 /**
-* A single line input for ISO date with optional time, the internal value is an unix timestamp.
-*
-* Creates a dialog field for date (and optional time) input.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Timestamp.php 39435 2014-02-28 09:51:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A single line input for date and optional time, the internal value is an unix timestamp.
@@ -54,7 +48,7 @@ class PapayaUiDialogFieldInputTimestamp extends PapayaUiDialogFieldInputDate {
     $step = 60.0
   ) {
     parent::__construct($caption, $name, $default, $mandatory, (int)$includeTime, $step);
-    $this->setFilter(new PapayaFilterInteger(1));
+    $this->setFilter(new \PapayaFilterInteger(1));
   }
 
   /**

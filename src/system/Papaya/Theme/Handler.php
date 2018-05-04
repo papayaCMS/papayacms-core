@@ -91,7 +91,7 @@ class PapayaThemeHandler extends PapayaObject {
    * @return PapayaThemeDefinition
    */
   public function getDefinition($theme) {
-    $definition = new PapayaThemeDefinition();
+    $definition = new \PapayaThemeDefinition();
     $definition->load(
       $this->getLocalThemePath($theme).'/theme.xml'
     );

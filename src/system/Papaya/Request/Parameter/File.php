@@ -1,21 +1,17 @@
 <?php
 /**
-* Encapsulate an uploaded file.
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Request
-* @version $Id: File.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Encapsulate an uploaded file.
@@ -48,10 +44,10 @@ class PapayaRequestParameterFile implements ArrayAccess, IteratorAggregate {
    * @param string $group
    */
   public function __construct($name, $group = NULL) {
-    if ($name instanceof PapayaRequestParametersName) {
+    if ($name instanceof \PapayaRequestParametersName) {
       $this->_name = $name;
     } else {
-      $this->_name = new PapayaRequestParametersName($name);
+      $this->_name = new \PapayaRequestParametersName($name);
     }
     if (!empty($group)) {
       $this->_name->prepend($group);
@@ -92,7 +88,7 @@ class PapayaRequestParameterFile implements ArrayAccess, IteratorAggregate {
    */
   public function getIterator() {
     $this->lazyFetch();
-    return new ArrayIterator($this->_values);
+    return new \ArrayIterator($this->_values);
   }
 
   /**
@@ -120,7 +116,7 @@ class PapayaRequestParameterFile implements ArrayAccess, IteratorAggregate {
    */
   public function offsetSet($offset, $value) {
     $this->lazyFetch();
-    throw new LogicException('Values are loaded from $_FILES.');
+    throw new \LogicException('Values are loaded from $_FILES.');
   }
 
   /**
@@ -129,7 +125,7 @@ class PapayaRequestParameterFile implements ArrayAccess, IteratorAggregate {
    */
   public function offsetUnset($offset) {
     $this->lazyFetch();
-    throw new LogicException('Values are loaded from $_FILES.');
+    throw new \LogicException('Values are loaded from $_FILES.');
   }
 
   /**
@@ -170,7 +166,7 @@ class PapayaRequestParameterFile implements ArrayAccess, IteratorAggregate {
     if (isset($fileSystem)) {
       $this->_fileSystem = $fileSystem;
     } elseif (NULL === $this->_fileSystem) {
-      $this->_fileSystem = new PapayaFileSystemFactory();
+      $this->_fileSystem = new \PapayaFileSystemFactory();
     }
     return $this->_fileSystem;
   }

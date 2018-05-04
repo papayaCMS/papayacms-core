@@ -1,22 +1,17 @@
 <?php
 /**
-* Abstract Superclas for template engines, implements paramter handling and a loader concept for
-* Variables
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Template
-* @version $Id: Engine.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Abstract Superclas for template engines, implements paramter handling and a loader concept for
@@ -94,17 +89,17 @@ abstract class PapayaTemplateEngine {
    */
   public function parameters($parameters = NULL) {
     if (isset($parameters)) {
-      if ($parameters instanceof PapayaObjectOptionsList) {
+      if ($parameters instanceof \PapayaObjectOptionsList) {
         $this->_parameters = $parameters;
       } elseif (is_array($parameters)) {
-        $this->_parameters = new PapayaObjectOptionsList($parameters);
+        $this->_parameters = new \PapayaObjectOptionsList($parameters);
       } else {
-        throw new InvalidArgumentException(
+        throw new \InvalidArgumentException(
           'Argument must be an array or a PapayaObjectOptionsList object.'
         );
       }
     } elseif (!isset($this->_parameters)) {
-      $this->_parameters = new PapayaObjectOptionsList();
+      $this->_parameters = new \PapayaObjectOptionsList();
     }
     return $this->_parameters;
   }
@@ -121,7 +116,7 @@ abstract class PapayaTemplateEngine {
       if ($loaders->getItemClass() == 'PapayaTemplateEngineValuesLoadable') {
         $this->_loaders = $loaders;
       } else {
-        throw new InvalidArgumentException(
+        throw new \InvalidArgumentException(
           sprintf(
             'PapayaObjectList with PapayaTemplateEngineValuesLoadable expected: "%s" given.',
             $loaders->getItemClass()
@@ -129,7 +124,7 @@ abstract class PapayaTemplateEngine {
         );
       }
     } elseif (!isset($this->_loaders)) {
-      $this->_loaders = new PapayaObjectList('PapayaTemplateEngineValuesLoadable');
+      $this->_loaders = new \PapayaObjectList('PapayaTemplateEngineValuesLoadable');
     }
     return $this->_loaders;
   }
@@ -145,7 +140,7 @@ abstract class PapayaTemplateEngine {
   public function values($values = NULL) {
     if (isset($values)) {
       $this->_context = NULL;
-      if (!($values instanceof DOMElement || $values instanceof DOMDocument)) {
+      if (!($values instanceof \DOMElement || $values instanceof \DOMDocument)) {
         $loadedValues = NULL;
         /** @var PapayaTemplateEngineValuesLoadable $loader */
         foreach ($this->loaders() as $loader) {
@@ -157,24 +152,24 @@ abstract class PapayaTemplateEngine {
       } else {
         $loadedValues = $values;
       }
-      if ($loadedValues instanceof PapayaXmlDocument) {
+      if ($loadedValues instanceof \PapayaXmlDocument) {
         $this->_values = $loadedValues;
-      } elseif ($loadedValues instanceof PapayaXmlElement) {
+      } elseif ($loadedValues instanceof \PapayaXmlElement) {
         $this->_values = $loadedValues->ownerDocument;
         $this->_context = $loadedValues;
-      } elseif ($loadedValues instanceof DOMDocument && isset($loadedValues->documentElement)) {
-        $this->_values = new PapayaXmlDocument();
+      } elseif ($loadedValues instanceof \DOMDocument && isset($loadedValues->documentElement)) {
+        $this->_values = new \PapayaXmlDocument();
         $this->_values->appendChild(
           $this->_values->importNode($loadedValues->documentElement, TRUE)
         );
-      } elseif ($loadedValues instanceof DOMElement) {
-        $this->_values = new PapayaXmlDocument();
+      } elseif ($loadedValues instanceof \DOMElement) {
+        $this->_values = new \PapayaXmlDocument();
         $this->_values->appendChild(
           $this->_values->importNode($loadedValues, TRUE)
         );
         $this->_context = $this->_values->documentElement;
       } else {
-        throw new UnexpectedValueException(
+        throw new \UnexpectedValueException(
           sprintf(
             '"%s" could not be converted into a PapayaXmlDocument.',
             is_object($values) ? get_class($values) : gettype($values)
@@ -183,7 +178,7 @@ abstract class PapayaTemplateEngine {
       }
     }
     if (NULL === $this->_values) {
-      $this->_values = new PapayaXmlDocument();
+      $this->_values = new \PapayaXmlDocument();
       $this->_context = NULL;
     }
     return $this->_values;

@@ -1,21 +1,17 @@
 <?php
 /**
-* Combine, cache and output theme files (javascript/css)
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Theme
-* @version $Id: Wrapper.php 39468 2014-02-28 19:51:17Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Combine, cache and output theme files (javascript/css)
@@ -70,7 +66,7 @@ class PapayaThemeWrapper extends PapayaObject {
     if (isset($wrapperUrl)) {
       $this->_wrapperUrl = $wrapperUrl;
     } else {
-      $this->_wrapperUrl = new PapayaThemeWrapperUrl();
+      $this->_wrapperUrl = new \PapayaThemeWrapperUrl();
     }
   }
 
@@ -85,7 +81,7 @@ class PapayaThemeWrapper extends PapayaObject {
       $this->_group = $group;
     }
     if (is_null($this->_group)) {
-      $this->_group = new PapayaThemeWrapperGroup(
+      $this->_group = new \PapayaThemeWrapperGroup(
         $this->handler()->getLocalThemePath().'theme.xml'
       );
     }
@@ -120,7 +116,7 @@ class PapayaThemeWrapper extends PapayaObject {
     } else {
       $cacheTime = 0;
     }
-    $response = new PapayaResponse();
+    $response = new \PapayaResponse();
     $data = NULL;
     $lastModified = 0;
     if ($cacheTime > 0) {
@@ -146,7 +142,7 @@ class PapayaThemeWrapper extends PapayaObject {
       }
       $response->setCache('public', $cacheTime);
     }
-    $response->content(new PapayaResponseContentString($data));
+    $response->content(new \PapayaResponseContentString($data));
     if ($compress) {
       $response->headers()->set('X-Papaya-Compress', 'yes');
       $response->headers()->set('Content-Encoding', 'gzip');
@@ -167,7 +163,7 @@ class PapayaThemeWrapper extends PapayaObject {
       $this->_handler = $handler;
     }
     if (is_null($this->_handler)) {
-      $this->_handler = new PapayaThemeHandler();
+      $this->_handler = new \PapayaThemeHandler();
       $this->_handler->papaya($this->papaya());
     }
     return $this->_handler;
@@ -184,7 +180,7 @@ class PapayaThemeWrapper extends PapayaObject {
       $this->_themeSet = $themeSet;
     }
     if (is_null($this->_themeSet)) {
-      $this->_themeSet = new PapayaContentThemeSet();
+      $this->_themeSet = new \PapayaContentThemeSet();
       $this->_themeSet->papaya($this->papaya());
     }
     return $this->_themeSet;
@@ -287,7 +283,7 @@ class PapayaThemeWrapper extends PapayaObject {
       default :
         $extension = 'css';
         $allowDirectories = $this->_wrapperUrl->allowDirectories();
-        $this->templateEngine(new PapayaTemplateEngineSimple());
+        $this->templateEngine(new \PapayaTemplateEngineSimple());
       }
       if ($group = $this->_wrapperUrl->getGroup()) {
         $files = $this->group()->getFiles($group, $extension);

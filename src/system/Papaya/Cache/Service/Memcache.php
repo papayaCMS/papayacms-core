@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Cache Service for memcache based cache
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Cache
-* @version $Id: Memcache.php 39418 2014-02-27 17:14:05Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Cache Service for memcache based cache
@@ -139,7 +135,7 @@ class PapayaCacheServiceMemcache extends PapayaCacheService {
   public function verify($silent = TRUE) {
     $valid = $this->setUp();
     if (!($silent || $valid)) {
-      throw new BadMethodCallException('Memcache not available or invalid server.');
+      throw new \BadMethodCallException('Memcache not available or invalid server.');
     }
     return $valid;
   }
@@ -185,7 +181,7 @@ class PapayaCacheServiceMemcache extends PapayaCacheService {
   */
   private function _connect($memcache, $server) {
     $result = FALSE;
-    if ($memcache instanceof Memcache) {
+    if ($memcache instanceof \Memcache) {
       $result = $memcache->addServer(
         $server['host'],
         $server['port'],
@@ -194,7 +190,7 @@ class PapayaCacheServiceMemcache extends PapayaCacheService {
         $server['timeout'],
         $server['retry_interval']
       );
-    } elseif ($memcache instanceof Memcached) {
+    } elseif ($memcache instanceof \Memcached) {
       $result = $memcache->addServer(
         $server['host'],
         $server['port'],

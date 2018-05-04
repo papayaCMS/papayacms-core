@@ -65,18 +65,18 @@ class PapayaFilterLocaleGermanyZip implements PapayaFilter {
       $matches
     );
     if ($found && TRUE === $this->_allowCountryPrefix && empty($matches['prefix'])) {
-      throw new PapayaFilterExceptionCharacterInvalid($value, 0);
+      throw new \PapayaFilterExceptionCharacterInvalid($value, 0);
     }
     if (!$found || empty($matches['zipcode']) || strlen($matches['zipcode']) < 5) {
-      throw new PapayaFilterExceptionLengthMinimum(5, strlen($matches['zipcode']));
+      throw new \PapayaFilterExceptionLengthMinimum(5, strlen($matches['zipcode']));
     }
     if (strlen($matches['zipcode']) > 5) {
-      throw new PapayaFilterExceptionLengthMaximum(5, strlen($matches['zipcode']));
+      throw new \PapayaFilterExceptionLengthMaximum(5, strlen($matches['zipcode']));
     }
     $wrongMatches = array();
     $wrongFound = preg_match('([^\\d])', $matches['zipcode'], $wrongMatches, PREG_OFFSET_CAPTURE);
     if ($wrongFound) {
-      throw new PapayaFilterExceptionCharacterInvalid($matches['zipcode'], $wrongMatches[0][1]);
+      throw new \PapayaFilterExceptionCharacterInvalid($matches['zipcode'], $wrongMatches[0][1]);
     }
     return TRUE;
   }

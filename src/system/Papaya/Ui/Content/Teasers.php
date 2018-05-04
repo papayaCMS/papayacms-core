@@ -1,21 +1,17 @@
 <?php
 /**
-* Build teaser list xml from a list of pages.
-*
-* @copyright 2013 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui-Content
-* @version $Id: Teasers.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Build teaser list xml from a list of pages.
@@ -89,7 +85,7 @@ class PapayaUiContentTeasers extends PapayaUiControl {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (NULL == $this->_reference) {
-      $this->_reference = new PapayaUiReferencePage();
+      $this->_reference = new \PapayaUiReferencePage();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;
@@ -117,7 +113,7 @@ class PapayaUiContentTeasers extends PapayaUiControl {
    */
   private function appendTeaser(PapayaXmlElement $parent, $record) {
     if (!empty($record['module_guid'])) {
-      $page = new PapayaUiContentPage(
+      $page = new \PapayaUiContentPage(
         $record['id'], $record['language_id'], $this->pages()->isPublic()
       );
       $page->page()->assign($record);
@@ -140,9 +136,9 @@ class PapayaUiContentTeasers extends PapayaUiControl {
             'created' => PapayaUtilDate::timestampToString($record['created'])
           )
         );
-        if ($plugin instanceof PapayaPluginQuoteable) {
+        if ($plugin instanceof \PapayaPluginQuoteable) {
           $plugin->appendQuoteTo($teaser);
-        } elseif ($plugin instanceof base_content &&
+        } elseif ($plugin instanceof \base_content &&
                   method_exists($plugin, 'getParsedTeaser')) {
           $teaser->appendXml((string)$plugin->getParsedTeaser());
         }
@@ -162,7 +158,7 @@ class PapayaUiContentTeasers extends PapayaUiControl {
    */
   private function appendThumbnails(PapayaXmlElement $parent) {
     if ($this->_width > 0 || $this->_height > 0) {
-      $thumbnails = new PapayaUiContentTeaserImages(
+      $thumbnails = new \PapayaUiContentTeaserImages(
         $parent, $this->_width, $this->_height, $this->_resizeMode
       );
       $thumbnails->papaya($this->papaya());

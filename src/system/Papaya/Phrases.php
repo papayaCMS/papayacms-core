@@ -117,7 +117,7 @@ class PapayaPhrases extends PapayaObject {
     if (NULL !== $groups) {
       $this->_groups = $groups;
     } elseif (NULL === $this->_groups) {
-      $this->_groups = new PapayaPhrasesGroups($this);
+      $this->_groups = new \PapayaPhrasesGroups($this);
     }
     return $this->_groups;
   }
@@ -212,7 +212,7 @@ class PapayaPhrases extends PapayaObject {
    * @return string
    */
   public function getTextFmt($phrase, array $values = array(), $groupName = NULL) {
-    $result = new PapayaUiString(
+    $result = new \PapayaUiString(
       $this->_storage->get($phrase, $this->getGroupName($groupName), $this->_language->id), $values
     );
     return (string)$result;

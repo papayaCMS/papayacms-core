@@ -1,21 +1,17 @@
 <?php
 /**
-* Field factory profiles for a select field for a file list
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: File.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Field factory profiles for a select field for a file list.
@@ -47,16 +43,16 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
         $this->_fileSystemItems
       );
       if (!$this->options()->mandatory) {
-        $elements = new PapayaIteratorMultiple(
+        $elements = new \PapayaIteratorMultiple(
           PapayaIteratorMultiple::MIT_KEYS_ASSOC,
-          new ArrayIterator(array('' => 'none')),
+          new \ArrayIterator(array('' => 'none')),
           $elements
         );
       }
-      $field = new PapayaUiDialogFieldSelect(
+      $field = new \PapayaUiDialogFieldSelect(
         $this->options()->caption,
         $this->options()->name,
-        new PapayaIteratorTreeGroupsRegex(
+        new \PapayaIteratorTreeGroupsRegex(
           $elements,
           '(^(?P<group>.+)_([^_]+\\.[^.]+)$)',
           'group',
@@ -68,9 +64,9 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
       $field->setDefaultValue($this->options()->default);
       $field->setHint($this->options()->hint ? $this->options()->hint : '');
     } else {
-      $field = new PapayaUiDialogFieldMessage(
+      $field = new \PapayaUiDialogFieldMessage(
         PapayaMessage::SEVERITY_ERROR,
-        new PapayaUiStringTranslated(
+        new \PapayaUiStringTranslated(
           'Can not open directory "%s"', array($path)
         )
       );
@@ -86,7 +82,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
    * @return string
    */
   public function callbackGetFilename($context, $element) {
-    return ($element instanceof splFileInfo) ? $element->getFilename() : (string)$element;
+    return ($element instanceof \splFileInfo) ? $element->getFilename() : (string)$element;
   }
 
   /**
@@ -102,11 +98,11 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
       $callback = array($this->options()->context, substr($basePath, 9));
       $path = call_user_func($callback);
     } else {
-      $path = new PapayaConfigurationPath(
+      $path = new \PapayaConfigurationPath(
         $basePath,
         empty($parameters[2]) ? '' : (string)$parameters[2]
       );
-      if ($this->options()->context instanceof PapayaObjectInterface) {
+      if ($this->options()->context instanceof \PapayaObjectInterface) {
         $path->papaya($this->options()->context->papaya());
       }
     }
@@ -123,7 +119,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
     if (isset($fileSystem)) {
       $this->_fileSystem = $fileSystem;
     } elseif (NULL === $this->_fileSystem) {
-      $this->_fileSystem = new PapayaFileSystemFactory();
+      $this->_fileSystem = new \PapayaFileSystemFactory();
     }
     return $this->_fileSystem;
   }

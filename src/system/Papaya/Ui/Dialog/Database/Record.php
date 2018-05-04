@@ -1,22 +1,17 @@
 <?php
 /**
-* A dialog that can add/edit a record to a database table
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @deprecated
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Record.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A dialog that can add/edit a record to a database table
@@ -169,7 +164,7 @@ class PapayaUiDialogDatabaseRecord extends PapayaUiDialog {
    */
   private function _getIdentifierValue($column) {
     if (isset($this->_columns[$column]) &&
-        $this->_columns[$column] instanceof PapayaFilter) {
+        $this->_columns[$column] instanceof \PapayaFilter) {
       return $this->parameters()->get(
         $column, NULL, $this->_columns[$column]
       );
@@ -238,7 +233,7 @@ class PapayaUiDialogDatabaseRecord extends PapayaUiDialog {
   */
   public function getDatabaseAccess() {
     if (is_null($this->_databaseAccessObject)) {
-      $this->_databaseAccessObject = new PapayaDatabaseAccess($this);
+      $this->_databaseAccessObject = new \PapayaDatabaseAccess($this);
       $this->_databaseAccessObject->papaya($this->papaya());
     }
     return $this->_databaseAccessObject;
@@ -289,7 +284,7 @@ class PapayaUiDialogDatabaseRecord extends PapayaUiDialog {
     foreach ($this->_columns as $field => $filter) {
       if ($field != $this->_identifierColumn) {
         $value = $this->data()->get($field);
-        if ($filter instanceof PapayaFilter) {
+        if ($filter instanceof \PapayaFilter) {
           if ($filter->validate($value)) {
             $data[$field] = $filter->filter($value);
           }

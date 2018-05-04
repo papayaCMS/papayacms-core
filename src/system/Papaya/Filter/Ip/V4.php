@@ -1,21 +1,17 @@
 <?php
 /**
-* This class validates and filters IP addresses in version 4 form.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: V4.php 39725 2014-04-07 17:19:34Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This class validates and filters IP addresses in version 4 form.
@@ -69,11 +65,11 @@ class PapayaFilterIpV4 implements PapayaFilter {
   */
   public function __construct($configuration = self::DEFAULT_CONFIGURATION) {
     if (!is_numeric($configuration)) {
-      throw new InvalidArgumentException('Configuration value must be a number.');
+      throw new \InvalidArgumentException('Configuration value must be a number.');
     }
     if ($configuration < 0 ||
         $configuration > self::DEFAULT_CONFIGURATION) {
-      throw new OutOfRangeException('Configuration value out of range.');
+      throw new \OutOfRangeException('Configuration value out of range.');
     }
     $this->_configuration = $configuration;
   }
@@ -96,31 +92,31 @@ class PapayaFilterIpV4 implements PapayaFilter {
   public function validate($value) {
     $parts = explode('.', $value);
     if (count($parts) != 4) {
-      throw new PapayaFilterExceptionCountMismatch(4, count($parts), 'ip octets');
+      throw new \PapayaFilterExceptionCountMismatch(4, count($parts), 'ip octets');
     }
-    $filterInteger = new PapayaFilterInteger(0, 255);
+    $filterInteger = new \PapayaFilterInteger(0, 255);
     foreach ($parts as $position => $part) {
       try {
         $filterInteger->validate($part);
       } catch (PapayaFilterException $e) {
-        throw new PapayaFilterExceptionPartInvalid($position + 1, 'ip octet', $e->getMessage());
+        throw new \PapayaFilterExceptionPartInvalid($position + 1, 'ip octet', $e->getMessage());
       }
     }
     if (!(self::ALLOW_ALL_ZEROS & $this->_configuration) && $value == '0.0.0.0') {
-      throw new InvalidArgumentException('All-zero IP address not allowed by configuration.');
+      throw new \InvalidArgumentException('All-zero IP address not allowed by configuration.');
     }
     if (!(self::ALLOW_GLOBAL_BROADCAST & $this->_configuration) && $value == '255.255.255.255') {
-      throw new InvalidArgumentException('Global broadcast address not allowed by configuration.');
+      throw new \InvalidArgumentException('Global broadcast address not allowed by configuration.');
     }
     if (!(self::ALLOW_LOOPBACK & $this->_configuration) && $parts[0] == '127') {
-      throw new InvalidArgumentException('Loopback address not allowed by configuration.');
+      throw new \InvalidArgumentException('Loopback address not allowed by configuration.');
     }
     if (!(self::ALLOW_LINK_LOCAL & $this->_configuration)) {
       if ($parts[0] == '10' ||
           ($parts[0] == '192' && $parts[1] == '168') ||
           ($parts[0] == '172' && $parts[1] >= 16 && $parts[2] <= 31)
          ) {
-        throw new InvalidArgumentException('Link-local address not allowed by configuration.');
+        throw new \InvalidArgumentException('Link-local address not allowed by configuration.');
       }
     }
     return TRUE;

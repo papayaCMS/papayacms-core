@@ -1,21 +1,17 @@
 <?php
 /**
-* A single Email adress, inclusing properties for the parts and string casting.
-*
-* @copyright 2002-2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Email
-* @version $Id: Address.php 39474 2014-03-03 10:35:38Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
  * A single Email adress, inclusing properties for the parts and string casting.
@@ -108,7 +104,7 @@ class PapayaEmailAddress {
       $this->setAddress($value);
       return;
     }
-    throw new InvalidArgumentException(
+    throw new \InvalidArgumentException(
       sprintf('InvalidArgumentException: Unknown property "%s".', $name)
     );
   }
@@ -129,7 +125,7 @@ class PapayaEmailAddress {
     case 'address' :
       return $this->__toString();
     }
-    throw new InvalidArgumentException(
+    throw new \InvalidArgumentException(
       sprintf('InvalidArgumentException: Unknown property "%s".', $name)
     );
   }

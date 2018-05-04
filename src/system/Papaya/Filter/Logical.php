@@ -1,21 +1,17 @@
 <?php
 /**
-* Abstract filter class implementing logical links between other Filters
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Logical.php 39526 2014-03-06 10:34:46Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Abstract filter class implementing logical links between other Filters
@@ -57,12 +53,12 @@ abstract class PapayaFilterLogical implements PapayaFilter {
     if (is_array($filters) &&
         count($filters) > 1) {
       foreach ($filters as $filter) {
-        if ($filter instanceof PapayaFilter) {
+        if ($filter instanceof \PapayaFilter) {
           $this->_filters[] = $filter;
         } elseif (is_scalar($filter)) {
-          $this->_filters[] = new PapayaFilterEquals($filter);
+          $this->_filters[] = new \PapayaFilterEquals($filter);
         } else {
-          throw new InvalidArgumentException(
+          throw new \InvalidArgumentException(
             sprintf(
               'Only PapayaFilter classes expected: "%s" found.',
               is_object($filter) ? get_class($filter) : gettype($filter)
@@ -71,7 +67,7 @@ abstract class PapayaFilterLogical implements PapayaFilter {
         }
       }
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'PapayaFilter needs at least two other PapayaFilter classes.'
       );
     }

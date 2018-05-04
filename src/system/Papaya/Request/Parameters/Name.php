@@ -1,22 +1,17 @@
 <?php
 /**
-* Papaya Request Parameter Name Handling, coverts a parameter name between array and string
-* represenation.
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Request
-* @version $Id: Name.php 38946 2013-11-19 14:43:54Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Request Parameter Name Handling, coverts a parameter name between array and string
@@ -66,7 +61,7 @@ class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAgg
       if (in_array($groupSeparator, array('', '[]', ',', ':', '/', '*', '!'))) {
         $this->_separator = (string)$groupSeparator;
       } else {
-        throw new InvalidArgumentException(
+        throw new \InvalidArgumentException(
           sprintf(
             'Invalid parameter group separator: "%s".', $groupSeparator
           )
@@ -87,7 +82,7 @@ class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAgg
   public function set($name, $groupSeparator = NULL) {
     if (
         is_null($groupSeparator) &&
-        $name instanceof PapayaRequestParametersName
+        $name instanceof \PapayaRequestParametersName
        ) {
       $groupSeparator = $name->separator();
     }
@@ -151,10 +146,10 @@ class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAgg
       $parsed = $this->parseArray($name);
     } elseif (is_string($name) || is_int($name)) {
       $parsed = $this->parseString($name, $groupSeparator);
-    } elseif ($name instanceof PapayaRequestParametersName) {
+    } elseif ($name instanceof \PapayaRequestParametersName) {
       $parsed = $name->getArray();
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'InvalidAgmumentException: $name must be an array or string'.
           ' or a PapayaRequestParametersName.'
       );
@@ -364,6 +359,6 @@ class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAgg
   * @return ArrayIterator
   */
   public function getIterator() {
-    return new ArrayIterator($this->getArray());
+    return new \ArrayIterator($this->getArray());
   }
 }

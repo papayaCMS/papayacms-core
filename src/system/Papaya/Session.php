@@ -1,22 +1,17 @@
 <?php
 /**
-* Papaya Session Handling, initialize, start, close and destroy session, give access to the the
-* session values.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Session
-* @version $Id: Session.php 39727 2014-04-07 18:02:48Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Session Handling, initialize, start, close and destroy session, give access to the the
@@ -105,7 +100,7 @@ class PapayaSession extends PapayaObject {
       $this->_values = $values;
     }
     if (is_null($this->_values)) {
-      $this->_values = new PapayaSessionValues($this);
+      $this->_values = new \PapayaSessionValues($this);
     }
     return $this->_values;
   }
@@ -121,7 +116,7 @@ class PapayaSession extends PapayaObject {
       $this->_options = $options;
     }
     if (is_null($this->_options)) {
-      $this->_options = new PapayaSessionOptions();
+      $this->_options = new \PapayaSessionOptions();
     }
     return $this->_options;
   }
@@ -137,7 +132,7 @@ class PapayaSession extends PapayaObject {
       $this->_id = $id;
     }
     if (is_null($this->_id)) {
-      $this->_id = new PapayaSessionId($this->_sessionName);
+      $this->_id = new \PapayaSessionId($this->_sessionName);
     }
     return $this->_id;
   }
@@ -153,7 +148,7 @@ class PapayaSession extends PapayaObject {
       $this->_wrapper = $wrapper;
     }
     if (is_null($this->_wrapper)) {
-      $this->_wrapper = new PapayaSessionWrapper();
+      $this->_wrapper = new \PapayaSessionWrapper();
     }
     return $this->_wrapper;
   }
@@ -181,7 +176,7 @@ class PapayaSession extends PapayaObject {
     case 'options' :
       return $this->options();
     }
-    throw new UnexpectedValueException(
+    throw new \UnexpectedValueException(
       sprintf(
         'Invalid property "%s" in class "%s"', $name, get_class($this)
       )
@@ -196,7 +191,7 @@ class PapayaSession extends PapayaObject {
   * @param mixed $value
   */
   public function __set($name, $value) {
-    throw new LogicException(
+    throw new \LogicException(
       sprintf(
         'All dynamic properties are read only in class "%s"', get_class($this)
       )
@@ -304,10 +299,10 @@ class PapayaSession extends PapayaObject {
       array(
         'lifetime' => $defaults['lifetime'],
         'path' => $options->get(
-          'PAPAYA_SESSION_PATH', '/', new PapayaFilterNotEmpty()
+          'PAPAYA_SESSION_PATH', '/', new \PapayaFilterNotEmpty()
         ),
         'domain' => $options->get(
-          'PAPAYA_SESSION_DOMAIN', $defaults['domain'], new PapayaFilterNotEmpty()
+          'PAPAYA_SESSION_DOMAIN', $defaults['domain'], new \PapayaFilterNotEmpty()
         ),
         'secure' => $this->isSecureOnly(),
         'httponly' => $options->get('PAPAYA_SESSION_HTTP_ONLY', $defaults['httponly']),
@@ -424,7 +419,7 @@ class PapayaSession extends PapayaObject {
    */
   private function _createRedirect($transport = 0, $reason = 'session redirect') {
     // remove sid from path and/or query string
-    $redirect = new PapayaSessionRedirect(
+    $redirect = new \PapayaSessionRedirect(
       $this->_sessionName, $this->wrapper()->getId(), $transport, $reason
     );
     $redirect->papaya($this->papaya());

@@ -266,7 +266,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
     $this->options()->appendTo($dialog);
     $this->appendHidden($dialog, $this->hiddenValues());
     $this->appendHidden($dialog, $this->hiddenFields(), $this->parameterGroup());
-    $values = new PapayaRequestParameters();
+    $values = new \PapayaRequestParameters();
     if ($this->options()->useConfirmation) {
       $values->set(
         'confirmation',
@@ -333,7 +333,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
       $this->_hiddenValues = $values;
     }
     if (NULL === $this->_hiddenValues) {
-      $this->_hiddenValues = new PapayaRequestParameters();
+      $this->_hiddenValues = new \PapayaRequestParameters();
     }
     return $this->_hiddenValues;
   }
@@ -352,7 +352,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
       $this->_hiddenFields = $values;
     }
     if (NULL === $this->_hiddenFields) {
-      $this->_hiddenFields = new PapayaRequestParameters();
+      $this->_hiddenFields = new \PapayaRequestParameters();
     }
     return $this->_hiddenFields;
   }
@@ -367,7 +367,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
     if (NULL !== $tokens) {
       $this->_tokens = $tokens;
     } elseif (NULL === $this->_tokens) {
-      $this->_tokens = new PapayaUiTokens();
+      $this->_tokens = new \PapayaUiTokens();
       $this->_tokens->papaya($this->papaya());
     }
     return $this->_tokens;
@@ -430,7 +430,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
    * @throws \InvalidArgumentException
    */
   public function getParameterName($name) {
-    $parts = new PapayaRequestParametersName($name);
+    $parts = new \PapayaRequestParametersName($name);
     if ($this->parameterMethod() === self::METHOD_GET) {
       $parts->separator($this->papaya()->request->getParameterGroupSeparator());
     }
@@ -450,7 +450,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
       $this->_errors = $errors;
     }
     if (NULL === $this->_errors) {
-      $this->_errors = new PapayaUiDialogErrors();
+      $this->_errors = new \PapayaUiDialogErrors();
     }
     return $this->_errors;
   }
@@ -477,7 +477,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
       $this->_options = $options;
     }
     if (NULL === $this->_options) {
-      $this->_options = new PapayaUiDialogOptions();
+      $this->_options = new \PapayaUiDialogOptions();
     }
     return $this->_options;
   }
@@ -518,7 +518,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
    */
   public function fields($fields = NULL) {
     if (NULL !== $fields) {
-      if ($fields instanceof PapayaUiDialogFields) {
+      if ($fields instanceof \PapayaUiDialogFields) {
         $this->_fields = $fields;
         $fields->owner($this);
       } else {
@@ -530,7 +530,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
       }
     }
     if (NULL === $this->_fields) {
-      $this->_fields = new PapayaUiDialogFields($this);
+      $this->_fields = new \PapayaUiDialogFields($this);
       $this->_fields->papaya($this->papaya());
     }
     return $this->_fields;
@@ -549,7 +549,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
       $buttons->owner($this);
     }
     if (NULL === $this->_buttons) {
-      $this->_buttons = new PapayaUiDialogButtons($this);
+      $this->_buttons = new \PapayaUiDialogButtons($this);
       $this->_buttons->papaya($this->papaya());
     }
     return $this->_buttons;
@@ -571,7 +571,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
       $this->_data = $data;
     }
     if (NULL === $this->_data) {
-      $this->_data = new PapayaRequestParameters();
+      $this->_data = new \PapayaRequestParameters();
       $this->_data->merge($this->hiddenFields());
     }
     return $this->_data;
@@ -587,7 +587,7 @@ class PapayaUiDialog extends PapayaUiControlInteractive {
     if (NULL !== $description) {
       $this->_description = $description;
     } elseif (NULL === $this->_description) {
-      $this->_description = new PapayaUiDialogElementDescription();
+      $this->_description = new \PapayaUiDialogElementDescription();
       $this->_description->papaya($this->papaya());
     }
     return $this->_description;

@@ -1,21 +1,17 @@
 <?php
 /**
-* Abstract superclass for an administration page.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Page.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Abstract superclass for an administration page.
@@ -121,7 +117,7 @@ abstract class PapayaAdministrationPage extends PapayaObject {
       );
     }
     foreach ($parts as $name => $part) {
-      if ($part instanceof PapayaAdministrationPagePart) {
+      if ($part instanceof \PapayaAdministrationPagePart) {
         if ($xml = $part->getXml()) {
           $this->_layout->add($xml, $this->parts()->getTarget($name));
         }
@@ -144,7 +140,7 @@ abstract class PapayaAdministrationPage extends PapayaObject {
     if ($parts) {
       $this->_parts = $parts;
     } elseif (NULL === $this->_parts) {
-      $this->_parts = new PapayaAdministrationPageParts($this);
+      $this->_parts = new \PapayaAdministrationPageParts($this);
       $this->_parts->papaya($this->papaya());
       if (!empty($this->_parameterGroup)) {
         $this->_parts->parameterGroup($this->_parameterGroup);
@@ -185,7 +181,7 @@ abstract class PapayaAdministrationPage extends PapayaObject {
     if ($toolbar) {
       $this->_toolbar = $toolbar;
     } elseif (NULL === $this->_toolbar) {
-      $this->_toolbar = new PapayaUiMenu();
+      $this->_toolbar = new \PapayaUiMenu();
       $this->_toolbar->papaya($this->papaya());
       $this->_toolbar->identifier = 'edit';
     }

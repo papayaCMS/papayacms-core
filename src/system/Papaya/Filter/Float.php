@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya filter class for a flaot numeric
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Float.php 39408 2014-02-27 16:00:49Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya filter class for a float numeric
@@ -69,13 +65,13 @@ class PapayaFilterFloat implements PapayaFilter {
   */
   public function validate($value) {
     if (!is_numeric($value)) {
-      throw new PapayaFilterExceptionNotFloat($value);
+      throw new \PapayaFilterExceptionNotFloat($value);
     }
     if (!is_null($this->_min) && $value < $this->_min) {
-      throw new PapayaFilterExceptionRangeMinimum($this->_min, $value);
+      throw new \PapayaFilterExceptionRangeMinimum($this->_min, $value);
     }
     if (!is_null($this->_max) && $value > $this->_max) {
-      throw new PapayaFilterExceptionRangeMaximum($this->_max, $value);
+      throw new \PapayaFilterExceptionRangeMaximum($this->_max, $value);
     }
     return TRUE;
   }

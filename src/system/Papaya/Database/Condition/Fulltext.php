@@ -1,4 +1,17 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 abstract class PapayaDatabaseConditionFulltext {
 
@@ -38,7 +51,7 @@ abstract class PapayaDatabaseConditionFulltext {
 
   public function getSql($silent = FALSE) {
     try {
-      $tokens = new PapayaParserSearchString($this->_searchFor);
+      $tokens = new \PapayaParserSearchString($this->_searchFor);
       return $this->getFullTextCondition($tokens, array_map([$this, 'mapFieldName'], $this->_fields));
     } catch (LogicException $e) {
       if (!$silent) {
@@ -55,7 +68,7 @@ abstract class PapayaDatabaseConditionFulltext {
 
   private function mapFieldName($name) {
     if (empty($name)) {
-      throw new LogicException(
+      throw new \LogicException(
         'Can not generate condition, provided name was empty.'
       );
     }
@@ -65,7 +78,7 @@ abstract class PapayaDatabaseConditionFulltext {
       $field = $name;
     }
     if (empty($field)) {
-      throw new LogicException(
+      throw new \LogicException(
         sprintf(
           'Can not generate condition, given name "%s" could not be mapped to a field.',
           $name

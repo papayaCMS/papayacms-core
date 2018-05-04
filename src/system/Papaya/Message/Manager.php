@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Message Manager, central message manager, handles the dispatchers
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Messages
-* @version $Id: Manager.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Message Manager, central message manager, handles the dispatchers
@@ -63,7 +59,7 @@ class PapayaMessageManager extends PapayaObject {
    * @param $text
    */
   public function display($severity, $text) {
-    $this->dispatch(new PapayaMessageDisplay($severity, $text));
+    $this->dispatch(new \PapayaMessageDisplay($severity, $text));
   }
 
   /**
@@ -76,13 +72,13 @@ class PapayaMessageManager extends PapayaObject {
    * @param mixed $context
    */
   public function log($severity, $group, $text, $context = NULL) {
-    $message = new PapayaMessageLog($severity, $group, $text);
-    if ($context instanceof PapayaMessageContextGroup) {
+    $message = new \PapayaMessageLog($severity, $group, $text);
+    if ($context instanceof \PapayaMessageContextGroup) {
       $message->setContext($context);
-    } elseif ($context instanceof PapayaMessageContextInterface) {
+    } elseif ($context instanceof \PapayaMessageContextInterface) {
       $message->context()->append($context);
     } elseif (isset($context)) {
-      $message->context()->append(new PapayaMessageContextVariable($context));
+      $message->context()->append(new \PapayaMessageContextVariable($context));
     }
     $this->dispatch($message);
   }
@@ -93,17 +89,17 @@ class PapayaMessageManager extends PapayaObject {
   * If arguments are provided, they are added to a variable context as an array.
   */
   public function debug() {
-    $message = new PapayaMessageLog(
+    $message = new \PapayaMessageLog(
       PapayaMessageLogable::GROUP_DEBUG, PapayaMessage::SEVERITY_DEBUG, ''
     );
     if (func_num_args() > 0) {
-      $message->context()->append(new PapayaMessageContextVariable(func_get_args(), 5, 9999));
+      $message->context()->append(new \PapayaMessageContextVariable(func_get_args(), 5, 9999));
     }
     $message
       ->context()
-      ->append(new PapayaMessageContextMemory())
-      ->append(new PapayaMessageContextRuntime())
-      ->append(new PapayaMessageContextBacktrace(1));
+      ->append(new \PapayaMessageContextMemory())
+      ->append(new \PapayaMessageContextRuntime())
+      ->append(new \PapayaMessageContextBacktrace(1));
     $this->dispatch($message);
   }
 
@@ -116,7 +112,7 @@ class PapayaMessageManager extends PapayaObject {
    */
   public function encapsulate($callback) {
     PapayaUtilConstraints::assertCallable($callback);
-    $sandbox = new PapayaMessageSandbox($callback);
+    $sandbox = new \PapayaMessageSandbox($callback);
     $sandbox->papaya($this->papaya());
     return array($sandbox, '__invoke');
   }
@@ -129,8 +125,8 @@ class PapayaMessageManager extends PapayaObject {
       $this->_hooks = $hooks;
     } elseif (is_null($this->_hooks)) {
       $this->_hooks = array(
-        $exceptionsHook = new PapayaMessageHookExceptions($this),
-        new PapayaMessageHookErrors($this, $exceptionsHook),
+        $exceptionsHook = new \PapayaMessageHookExceptions($this),
+        new \PapayaMessageHookErrors($this, $exceptionsHook),
       );
     }
     return $this->_hooks;

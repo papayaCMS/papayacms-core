@@ -76,7 +76,7 @@ class PapayaUiListviewSubitemDate extends PapayaUiListviewSubitem {
         'align' => PapayaUiOptionAlign::getString($this->getAlign())
       ),
       (string)(
-        $this->_timestamp > 0 ? new PapayaUiStringDate($this->_timestamp, $this->_options) : ''
+        $this->_timestamp > 0 ? new \PapayaUiStringDate($this->_timestamp, $this->_options) : ''
       )
     );
   }

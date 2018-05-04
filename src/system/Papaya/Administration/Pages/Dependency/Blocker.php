@@ -1,21 +1,17 @@
 <?php
 /**
-* Check if the current page is a dependency and block edit page if it is set to sync.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Blocker.php 39406 2014-02-27 15:07:55Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Check if the current page is a dependency and block edit page if it is set to sync.
@@ -103,9 +99,9 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
     $pageTitle = isset($pages[$pageId])
       ? $pages[$pageId]['title'] : '[...]';
 
-    $dialog = new PapayaUiDialog();
+    $dialog = new \PapayaUiDialog();
     $dialog->papaya($this->papaya());
-    $dialog->caption = new PapayaUiStringTranslated('Page dependency');
+    $dialog->caption = new \PapayaUiStringTranslated('Page dependency');
     $dialog->parameterGroup($this->parameterGroup());
     $dialog->options->useToken = FALSE;
     $dialog->hiddenFields->merge(
@@ -113,15 +109,15 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
         'page_id' => $pageId
       )
     );
-    $dialog->fields[] = new PapayaUiDialogFieldInformation(
-      new PapayaUiStringTranslated(
+    $dialog->fields[] = new \PapayaUiDialogFieldInformation(
+      new \PapayaUiStringTranslated(
         'This part of the page is synchronized with page "%s #%d".',
         array($pageTitle, $pageId)
       ),
       'status-system-locked'
     );
-    $dialog->buttons[] = new PapayaUiDialogButtonSubmit(
-      new PapayaUiStringTranslated('GoTo Origin Page')
+    $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(
+      new \PapayaUiStringTranslated('GoTo Origin Page')
     );
     $dialog->appendTo($parent);
     return $dialog;
@@ -198,7 +194,7 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
     if (isset($dependency)) {
       $this->_dependency = $dependency;
     } elseif (is_null($this->_dependency)) {
-      $this->_dependency = new PapayaContentPageDependency();
+      $this->_dependency = new \PapayaContentPageDependency();
       $this->_dependency->papaya($this->papaya());
     }
     return $this->_dependency;
@@ -214,7 +210,7 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
     if (isset($dependencies)) {
       $this->_dependencies = $dependencies;
     } elseif (is_null($this->_dependencies)) {
-      $this->_dependencies = new PapayaContentPageDependencies();
+      $this->_dependencies = new \PapayaContentPageDependencies();
     }
     return $this->_dependencies;
   }
@@ -229,7 +225,7 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
     if (isset($views)) {
       $this->_views = $views;
     } elseif (is_null($this->_views)) {
-      $this->_views = new PapayaContentViews();
+      $this->_views = new \PapayaContentViews();
     }
     return $this->_views;
   }
@@ -244,7 +240,7 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
     if (isset($pages)) {
       $this->_pages = $pages;
     } elseif (is_null($this->_pages)) {
-      $this->_pages = new PapayaContentPages();
+      $this->_pages = new \PapayaContentPages();
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;
@@ -260,7 +256,7 @@ class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteract
     if (isset($counter)) {
       $this->_counter = $counter;
     } elseif (is_null($this->_counter)) {
-      $this->_counter = new PapayaAdministrationPagesDependencyCounter($this->_pageId);
+      $this->_counter = new \PapayaAdministrationPagesDependencyCounter($this->_pageId);
       $this->_counter->papaya($this->papaya());
     }
     return $this->_counter;

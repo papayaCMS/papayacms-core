@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya filter class that uses a callback function to validate the value
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Callback.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya filter class that uses a callback function to validate the value
@@ -67,7 +63,7 @@ class PapayaFilterCallback implements PapayaFilter {
     $arguments = $this->_arguments;
     array_unshift($arguments, $value);
     if (!call_user_func_array($this->_callback, $arguments)) {
-      throw new PapayaFilterExceptionCallbackFailed($this->_callback);
+      throw new \PapayaFilterExceptionCallbackFailed($this->_callback);
     }
     return TRUE;
   }
@@ -94,7 +90,7 @@ class PapayaFilterCallback implements PapayaFilter {
    */
   public function _isCallback($callback) {
     if (!is_callable($callback)) {
-      throw new PapayaFilterExceptionCallbackInvalid($callback);
+      throw new \PapayaFilterExceptionCallbackInvalid($callback);
     }
   }
 }

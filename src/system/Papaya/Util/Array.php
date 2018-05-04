@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Utilities for Arrays
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Util
-* @version $Id: Array.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Utilities for Arrays
@@ -34,12 +30,12 @@ class PapayaUtilArray {
   * @return array
   */
   public static function merge($arrayOne, $arrayTwo, $recursion = 20) {
-    if (is_array($arrayOne) || $arrayOne instanceof Traversable) {
+    if (is_array($arrayOne) || $arrayOne instanceof \Traversable) {
       $result = self::ensure($arrayOne);
-      if (is_array($arrayTwo) || $arrayTwo instanceof Traversable) {
+      if (is_array($arrayTwo) || $arrayTwo instanceof \Traversable) {
         foreach ($arrayTwo as $key => $value) {
           if (isset($result[$key]) &&
-              (is_array($result[$key]) || $result[$key] instanceof Traversable) &&
+              (is_array($result[$key]) || $result[$key] instanceof \Traversable) &&
               $recursion > 1) {
             $result[$key] = PapayaUtilArray::merge(
               self::ensure($result[$key]), $value, $recursion - 1
@@ -49,7 +45,7 @@ class PapayaUtilArray {
           }
         }
       }
-    } elseif (is_array($arrayTwo) || $arrayTwo instanceof Traversable) {
+    } elseif (is_array($arrayTwo) || $arrayTwo instanceof \Traversable) {
       $result = self::ensure($arrayTwo);
     } else {
       return NULL;
@@ -71,7 +67,7 @@ class PapayaUtilArray {
   public static function ensure($input, $useKeys = TRUE) {
     if (is_array($input)) {
       return ($useKeys) ? $input : array_values($input);
-    } elseif ($input instanceof Traversable) {
+    } elseif ($input instanceof \Traversable) {
       return iterator_to_array($input, $useKeys);
     } else {
       return array($input);
@@ -113,7 +109,7 @@ class PapayaUtilArray {
   * @return mixed
   */
   public static function get(array $array, $index, $default = NULL) {
-    if (is_array($index) || $index instanceof Traversable) {
+    if (is_array($index) || $index instanceof \Traversable) {
       foreach ($index as $key) {
         if (array_key_exists($key, $array)) {
           return $array[$key];

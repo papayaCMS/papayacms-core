@@ -1,21 +1,17 @@
 <?php
 /**
-* Xsl template engine, uses ext/xsl or ext/xslcache
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Template
-* @version $Id: Xsl.php 39485 2014-03-03 11:50:15Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
  * Xsl template engine, uses ext/xsl or ext/xslcache
@@ -90,7 +86,7 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
         is_readable($fileName)) {
       $this->_templateFile = $fileName;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf(
           'File "%s" not found or not readable.', $fileName
         )
@@ -115,8 +111,8 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
         $this->_useCache = FALSE;
       }
     }
-    if (($this->_useCache && $this->_processor instanceof XsltProcessor) ||
-        (!$this->_useCache && $this->_processor instanceof XsltCache)) {
+    if (($this->_useCache && $this->_processor instanceof \XsltProcessor) ||
+        (!$this->_useCache && $this->_processor instanceof \XsltCache)) {
       $this->_processor = NULL;
     }
     return $this->_useCache;
@@ -142,9 +138,9 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
     if (is_null($this->_processor)) {
       if ($this->_useCache &&
           class_exists('XsltCache', FALSE)) {
-        $this->_processor = new XsltCache();
+        $this->_processor = new \XsltCache();
       } else {
-        $this->_processor = new XsltProcessor();
+        $this->_processor = new \XsltProcessor();
       }
     }
     return $this->_processor;
@@ -167,7 +163,7 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
    */
   public function getErrorHandler() {
     if (is_null($this->_errorHandler)) {
-      $this->_errorHandler = new PapayaXmlErrors();
+      $this->_errorHandler = new \PapayaXmlErrors();
     }
     return $this->_errorHandler;
   }
@@ -185,15 +181,15 @@ class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
       $this->useCache(FALSE);
     }
     $processor = $this->getProcessor();
-    if ($processor instanceof XsltCache) {
+    if ($processor instanceof \XsltCache) {
       $processor->importStylesheet($this->_templateFile, $this->_useCache);
     } elseif ($this->_templateFile) {
-      $xslDom = new DOMDocument('1.0', 'UTF-8');
+      $xslDom = new \DOMDocument('1.0', 'UTF-8');
       $xslDom->load($this->_templateFile);
       $processor->importStylesheet($xslDom);
       unset($xslDom);
     } else {
-      $xslDom = new DOMDocument('1.0', 'UTF-8');
+      $xslDom = new \DOMDocument('1.0', 'UTF-8');
       $xslDom->loadXml($this->_template);
       $processor->importStylesheet($xslDom);
       unset($xslDom);

@@ -1,21 +1,17 @@
 <?php
 /**
-* Object represenatin a system path (depending on the configuration)
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Configuration
-* @version $Id: Path.php 37507 2012-09-05 14:28:47Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Object represenatin a system path (depending on the configuration)
@@ -112,7 +108,7 @@ class PapayaConfigurationPath extends PapayaObject {
     if (isset($handler)) {
       $this->_themeHandler = $handler;
     } elseif (NULL == $this->_themeHandler) {
-      $this->_themeHandler = new PapayaThemeHandler();
+      $this->_themeHandler = new \PapayaThemeHandler();
       $this->_themeHandler->papaya($this->papaya());
     }
     return $this->_themeHandler;

@@ -1,21 +1,17 @@
 <?php
 /**
-* Papayas php implemented simple template engine.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Template
-* @version $Id: Simple.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papayas php implemented simple template engine.
@@ -46,7 +42,7 @@ class PapayaTemplateEngineSimple extends PapayaTemplateEngine {
   * Execute/run template engine
   */
   public function run() {
-    $errors = new PapayaXmlErrors();
+    $errors = new \PapayaXmlErrors();
     $errors->activate();
     try {
       $this->ast()->accept($this->visitor());
@@ -95,7 +91,7 @@ class PapayaTemplateEngineSimple extends PapayaTemplateEngine {
       $this->_templateFile = $fileName;
       $this->_ast = NULL;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf('File "%s" not found or not readable.', $fileName)
       );
     }
@@ -123,11 +119,11 @@ class PapayaTemplateEngineSimple extends PapayaTemplateEngine {
       $this->_ast = $ast;
     } elseif (NULL === $this->_ast) {
       $tokens = array();
-      $scanner = new PapayaTemplateSimpleScanner(
-        new PapayaTemplateSimpleScannerStatusCss()
+      $scanner = new \PapayaTemplateSimpleScanner(
+        new \PapayaTemplateSimpleScannerStatusCss()
       );
       $scanner->scan($tokens, $this->_template);
-      $parser = new PapayaTemplateSimpleParserOutput($tokens);
+      $parser = new \PapayaTemplateSimpleParserOutput($tokens);
       return $parser->parse();
     }
     return $this->_ast;
@@ -143,7 +139,7 @@ class PapayaTemplateEngineSimple extends PapayaTemplateEngine {
     if (isset($visitor)) {
       $this->_visitor = $visitor;
     } elseif (NULL === $this->_visitor) {
-      $this->_visitor = new PapayaTemplateSimpleVisitorOutput();
+      $this->_visitor = new \PapayaTemplateSimpleVisitorOutput();
       $this->_visitor->callbacks()->onGetValue = array($this, 'callbackGetValue');
     }
     return $this->_visitor;

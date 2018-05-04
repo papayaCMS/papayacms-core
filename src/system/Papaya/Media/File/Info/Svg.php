@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 class PapayaMediaFileInfoSvg extends PapayaMediaFileInfo {
 
   public $forceDOM = FALSE;
@@ -28,7 +42,7 @@ class PapayaMediaFileInfoSvg extends PapayaMediaFileInfo {
       'height' => 0
     );
     if (!$this->forceDOM && class_exists('XMLReader')) {
-      $reader = new XMLReader();
+      $reader = new \XMLReader();
       if (@$reader->open($this->getFile())) {
         $found = @$reader->read();
         while ($found && !($reader->localName === 'svg' && $reader->namespaceURI === self::XMLNS_SVG)) {
@@ -41,7 +55,7 @@ class PapayaMediaFileInfoSvg extends PapayaMediaFileInfo {
         }
       }
     } else {
-      $document = new PapayaXmlDocument();
+      $document = new \PapayaXmlDocument();
       if (@$document->load($this->getFile())) {
         $node = $document->documentElement;
         if ($node && $node->localName === 'svg' && $node->namespaceURI === self::XMLNS_SVG) {

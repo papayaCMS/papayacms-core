@@ -1,21 +1,17 @@
 <?php
 /**
-* An IteratorAggregate implementation that uses a callback to create the iterator if needed.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-* @version $Id: Generator.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * An IteratorAggregate implementation that uses a callback to create the iterator if needed.
@@ -80,15 +76,15 @@ class PapayaIteratorGenerator implements IteratorAggregate {
   private function createIterator() {
     $traversable = call_user_func_array($this->_callback, $this->_arguments);
     if (is_array($traversable)) {
-      return new ArrayIterator($traversable);
-    } elseif ($traversable instanceof Iterator) {
+      return new \ArrayIterator($traversable);
+    } elseif ($traversable instanceof \Iterator) {
       return $traversable;
-    } elseif ($traversable instanceof IteratorAggregate) {
+    } elseif ($traversable instanceof \IteratorAggregate) {
       return $traversable->getIterator();
     } else {
-      return ($traversable instanceof Traversable)
-        ? new PapayaIteratorTraversable($traversable)
-        : new EmptyIterator();
+      return ($traversable instanceof \Traversable)
+        ? new \PapayaIteratorTraversable($traversable)
+        : new \EmptyIterator();
     }
   }
 }

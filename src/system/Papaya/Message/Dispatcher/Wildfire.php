@@ -40,7 +40,7 @@ class PapayaMessageDispatcherWildfire
    * @throws \InvalidArgumentException
    */
   public function dispatch(PapayaMessage $message) {
-    if ($message instanceof PapayaMessageLogable &&
+    if ($message instanceof \PapayaMessageLogable &&
         $this->allow()) {
       // @codeCoverageIgnoreStart
       $this->send($message);
@@ -102,7 +102,7 @@ class PapayaMessageDispatcherWildfire
    */
   public function getHandler() {
     if (NULL === $this->_handler) {
-      $this->_handler = new PapayaMessageDispatcherWildfireHandler('header');
+      $this->_handler = new \PapayaMessageDispatcherWildfireHandler('header');
     }
     return $this->_handler;
   }
@@ -141,25 +141,25 @@ class PapayaMessageDispatcherWildfire
    * @throws \InvalidArgumentException
    */
   public function sendContext($context) {
-    if ($context instanceof PapayaMessageContextVariable) {
+    if ($context instanceof \PapayaMessageContextVariable) {
       $this->_sendContextVariable($context);
-    } elseif ($context instanceof PapayaMessageContextBacktrace) {
+    } elseif ($context instanceof \PapayaMessageContextBacktrace) {
       $this->_sendContextTrace($context);
-    } elseif ($context instanceof PapayaMessageContextInterfaceTable) {
+    } elseif ($context instanceof \PapayaMessageContextInterfaceTable) {
       $this->_sendContextTable($context);
     } else {
       $wildfire = $this->getHandler();
-      if ($context instanceof PapayaMessageContextInterfaceLabeled) {
+      if ($context instanceof \PapayaMessageContextInterfaceLabeled) {
         $wildfire->startGroup($context->getLabel());
       }
-      if ($context instanceof PapayaMessageContextInterfaceList) {
+      if ($context instanceof \PapayaMessageContextInterfaceList) {
         foreach ($context->asArray() as $index => $item) {
           $wildfire->sendMessage('('.($index + 1).') '.$item, 'LOG');
         }
-      } elseif ($context instanceof PapayaMessageContextInterfaceString) {
+      } elseif ($context instanceof \PapayaMessageContextInterfaceString) {
         $wildfire->sendMessage($context->asString(), 'LOG');
       }
-      if ($context instanceof PapayaMessageContextInterfaceLabeled) {
+      if ($context instanceof \PapayaMessageContextInterfaceLabeled) {
         $wildfire->endGroup();
       }
     }
@@ -214,7 +214,7 @@ class PapayaMessageDispatcherWildfire
    * @throws \InvalidArgumentException
    */
   private function _sendContextVariable(PapayaMessageContextVariable $context) {
-    $visitor = new PapayaMessageDispatcherWildfireVariableVisitor(
+    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(
       $context->getDepth(), $context->getStringLength()
     );
     $context->acceptVisitor($visitor);
@@ -281,8 +281,8 @@ class PapayaMessageDispatcherWildfire
       'line' => $this->_getArrayElement($element, 'line'),
     );
     if (!empty($element['args'])) {
-      $arguments = new PapayaMessageContextVariable($element['args']);
-      $visitor = new PapayaMessageDispatcherWildfireVariableVisitor(
+      $arguments = new \PapayaMessageContextVariable($element['args']);
+      $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(
         $arguments->getDepth(), $arguments->getStringLength()
       );
       $arguments->acceptVisitor($visitor);

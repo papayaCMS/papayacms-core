@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya filter class for a password
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Password.php 38143 2013-02-19 14:58:24Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya filter class for a password
@@ -61,14 +57,14 @@ class PapayaFilterPassword implements PapayaFilter {
   public function validate($value) {
     $length = strlen($value);
     if ($length < $this->_minimumLength) {
-      throw new PapayaFilterExceptionLengthMinimum($this->_minimumLength, $length);
+      throw new \PapayaFilterExceptionLengthMinimum($this->_minimumLength, $length);
     }
     if ($length > $this->_maximumLength) {
-      throw new PapayaFilterExceptionLengthMaximum($this->_maximumLength, $length);
+      throw new \PapayaFilterExceptionLengthMaximum($this->_maximumLength, $length);
     }
     preg_match_all('(\PL)u', $value, $matches);
     if (!(isset($matches[0]) && count($matches[0]) > 1)) {
-      throw new PapayaFilterExceptionPasswordWeak();
+      throw new \PapayaFilterExceptionPasswordWeak();
     }
     return TRUE;
   }

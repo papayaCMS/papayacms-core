@@ -43,7 +43,7 @@ class PapayaIteratorRepeatCallback implements Iterator {
   */
   public function __construct($callback, $startValue = NULL, $startKey = -1) {
     if (!is_callable($callback)) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'Invalid callback provided.'
       );
     }

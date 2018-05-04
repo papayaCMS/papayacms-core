@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Cache Service for APC based cache
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Cache
-* @version $Id: Apc.php 39406 2014-02-27 15:07:55Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Cache Service for APC based cache
@@ -64,7 +60,7 @@ class PapayaCacheServiceApc extends PapayaCacheService {
   public function verify($silent = TRUE) {
     $valid = $this->getApcObject()->available();
     if (!($silent || $valid)) {
-      throw new LogicException('APC is not available');
+      throw new \LogicException('APC is not available');
     }
     return $valid;
   }
@@ -75,7 +71,7 @@ class PapayaCacheServiceApc extends PapayaCacheService {
   */
   public function getApcObject() {
     if (!isset($this->_apcObject)) {
-      $this->_apcObject = new PapayaCacheServiceApcObject();
+      $this->_apcObject = new \PapayaCacheServiceApcObject();
     }
     return $this->_apcObject;
   }

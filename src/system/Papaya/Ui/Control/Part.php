@@ -1,21 +1,17 @@
 <?php
 /**
-* Abstract superclass implementing basic features for user interface control parts
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Part.php 36955 2012-04-11 13:17:52Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Abstract superclass implementing basic features for user interface control parts.
@@ -55,7 +51,7 @@ abstract class PapayaUiControlPart extends PapayaObject implements PapayaXmlAppe
       } elseif (isset($this->$read) || property_exists(get_class($this), $read)) {
         return $this->$read;
       } else {
-        throw new UnexpectedValueException(
+        throw new \UnexpectedValueException(
           sprintf(
             'Invalid declaration: Can not read property "%s::$%s".',
             get_class($this),
@@ -64,7 +60,7 @@ abstract class PapayaUiControlPart extends PapayaObject implements PapayaXmlAppe
         );
       }
     }
-    throw new UnexpectedValueException(
+    throw new \UnexpectedValueException(
       sprintf(
         'Can not read unknown property "%s::$%s".',
         get_class($this),
@@ -92,7 +88,7 @@ abstract class PapayaUiControlPart extends PapayaObject implements PapayaXmlAppe
         $this->$write = $value;
         return;
       } else {
-        throw new UnexpectedValueException(
+        throw new \UnexpectedValueException(
           sprintf(
             'Invalid declaration: Can not write property "%s::$%s".',
             get_class($this),
@@ -102,7 +98,7 @@ abstract class PapayaUiControlPart extends PapayaObject implements PapayaXmlAppe
       }
     } elseif (isset($this->_declaredProperties[$name]) &&
               isset($this->_declaredProperties[$name][0])) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         sprintf(
           'Invalid declaration: Can not write readonly property "%s::$%s".',
           get_class($this),
@@ -110,7 +106,7 @@ abstract class PapayaUiControlPart extends PapayaObject implements PapayaXmlAppe
         )
       );
     }
-    throw new UnexpectedValueException(
+    throw new \UnexpectedValueException(
       sprintf(
         'Can not write unknown property "%s::$%s".',
         get_class($this),

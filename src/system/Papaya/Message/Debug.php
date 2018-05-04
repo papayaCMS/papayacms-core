@@ -1,21 +1,17 @@
 <?php
 /**
-* PapayaMessageDebug, standard debug message
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Messages
-* @version $Id: Debug.php 39430 2014-02-28 09:21:51Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * PapayaMessageDebug, standard debug message
@@ -54,12 +50,12 @@ class PapayaMessageDebug
   public function __construct($group = PapayaMessageLogable::GROUP_DEBUG, $message = '') {
     $this->_group = $group;
     $this->_message = $message;
-    $this->_context = new PapayaMessageContextGroup();
+    $this->_context = new \PapayaMessageContextGroup();
     $this
       ->_context
-      ->append(new PapayaMessageContextMemory())
-      ->append(new PapayaMessageContextRuntime())
-      ->append(new PapayaMessageContextBacktrace(1));
+      ->append(new \PapayaMessageContextMemory())
+      ->append(new \PapayaMessageContextRuntime())
+      ->append(new \PapayaMessageContextBacktrace(1));
   }
 
   /**

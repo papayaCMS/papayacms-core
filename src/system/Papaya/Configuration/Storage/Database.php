@@ -1,21 +1,17 @@
 <?php
 /**
-* Load options from database table
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Configuration
-* @version $Id: Database.php 37893 2012-12-19 16:12:43Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Load options from database table
@@ -43,7 +39,7 @@ class PapayaConfigurationStorageDatabase extends PapayaObject
     if (isset($records)) {
       $this->_records = $records;
     } elseif (is_null($this->_records)) {
-      $this->_records = new PapayaContentConfiguration();
+      $this->_records = new \PapayaContentConfiguration();
     }
     return $this->_records;
   }
@@ -83,6 +79,6 @@ class PapayaConfigurationStorageDatabase extends PapayaObject
     foreach ($this->records() as $option) {
       $options[$option['name']] = $option['value'];
     }
-    return new ArrayIterator($options);
+    return new \ArrayIterator($options);
   }
 }

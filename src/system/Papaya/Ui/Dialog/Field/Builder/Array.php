@@ -1,21 +1,17 @@
 <?php
 /**
-* Created dialog fields from an $editFields array.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Array.php 38833 2013-09-20 10:01:52Z smekal $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Created dialog fields from an $editFields array. This object is used to allow an easier migration.
@@ -157,7 +153,7 @@ class PapayaUiDialogFieldBuilderArray {
   * @return PapayaUiDialogFieldGroup
   */
   private function _addGroup($caption) {
-    $group = new PapayaUiDialogFieldGroup(
+    $group = new \PapayaUiDialogFieldGroup(
       $this->_createPhrase($caption)
     );
     return $group;
@@ -186,7 +182,7 @@ class PapayaUiDialogFieldBuilderArray {
     if (is_string($filter) && !empty($filter)) {
       $filter = PapayaUtilArray::get($this->_filterMapping, $filter, $filter);
     }
-    $options = new PapayaUiDialogFieldFactoryOptions(
+    $options = new \PapayaUiDialogFieldFactoryOptions(
       array(
         'name' => $name,
         'caption' => PapayaUtilArray::get($data, array('caption', 0), ''),
@@ -210,7 +206,7 @@ class PapayaUiDialogFieldBuilderArray {
   * @return string|PapayaUiStringTranslated
   */
   private function _createPhrase($string) {
-    return $this->_translatePhrases ? new PapayaUiStringTranslated($string) : $string;
+    return $this->_translatePhrases ? new \PapayaUiStringTranslated($string) : $string;
   }
 
   /**
@@ -223,7 +219,7 @@ class PapayaUiDialogFieldBuilderArray {
     if (isset($factory)) {
       $this->_fieldFactory = $factory;
     } elseif (NULL === $this->_fieldFactory) {
-      $this->_fieldFactory = new PapayaUiDialogFieldFactory();
+      $this->_fieldFactory = new \PapayaUiDialogFieldFactory();
     }
     return $this->_fieldFactory;
   }

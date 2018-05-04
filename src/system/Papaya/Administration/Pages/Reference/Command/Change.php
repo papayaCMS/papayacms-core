@@ -1,21 +1,17 @@
 <?php
 /**
-* Add/save a page reference.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Change.php 39430 2014-02-28 09:21:51Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Add/save a page dependency.
@@ -43,9 +39,9 @@ class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCom
       $targetId = $record->sourceId;
     }
 
-    $dialog = new PapayaUiDialogDatabaseSave($record);
+    $dialog = new \PapayaUiDialogDatabaseSave($record);
 
-    $dialog->caption = new PapayaUiStringTranslated('Page reference');
+    $dialog->caption = new \PapayaUiStringTranslated('Page reference');
     $dialog->data->merge(
       array(
         'source_id' => $pageId,
@@ -69,13 +65,13 @@ class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCom
       )
     );
 
-    $dialog->fields[] = $targetIdField = new PapayaUiDialogFieldInputPage(
-      new PapayaUiStringTranslated('Target page'), 'target_id', NULL, TRUE
+    $dialog->fields[] = $targetIdField = new \PapayaUiDialogFieldInputPage(
+      new \PapayaUiStringTranslated('Target page'), 'target_id', NULL, TRUE
     );
-    $dialog->fields[] = new PapayaUiDialogFieldTextarea(
-      new PapayaUiStringTranslated('Note'), 'note', 8, ''
+    $dialog->fields[] = new \PapayaUiDialogFieldTextarea(
+      new \PapayaUiStringTranslated('Note'), 'note', 8, ''
     );
-    $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Save'));
+    $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));
 
     $dialog->callbacks()->onBeforeSave = array($this, 'validateTarget');
     $dialog->callbacks()->onBeforeSave->context->targetIdField = $targetIdField;
@@ -102,7 +98,7 @@ class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCom
         $record->exists($sourceId, $targetId)
        ) {
       $context->targetIdField->handleValidationFailure(
-        new PapayaFilterExceptionCallbackFailed(array($this, 'validateOrigin'))
+        new \PapayaFilterExceptionCallbackFailed(array($this, 'validateOrigin'))
       );
       return FALSE;
     }
@@ -129,7 +125,7 @@ class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCom
   */
   public function dispatchSavedMessage() {
     $this->papaya()->messages->dispatch(
-      new PapayaMessageDisplayTranslated(
+      new \PapayaMessageDisplayTranslated(
         PapayaMessage::SEVERITY_INFO, 'Reference saved.'
       )
     );
@@ -140,7 +136,7 @@ class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCom
   */
   public function dispatchErrorMessage($context, PapayaUiDialog $dialog) {
     $this->papaya()->messages->dispatch(
-      new PapayaMessageDisplayTranslated(
+      new \PapayaMessageDisplayTranslated(
         PapayaMessage::SEVERITY_ERROR,
         'Invalid input. Please check the fields "%s".',
         array(implode(', ', $dialog->errors()->getSourceCaptions()))

@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Message Dispatcher Database, handles messages logged to the database
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Messages
-* @version $Id: Database.php 39468 2014-02-28 19:51:17Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Message Dispatcher Database, handles messages logged to the database
@@ -49,7 +45,7 @@ class PapayaMessageDispatcherDatabase
   * @return boolean
   */
   public function dispatch(PapayaMessage $message) {
-    if ($message instanceof PapayaMessageLogable) {
+    if ($message instanceof \PapayaMessageLogable) {
       if ($this->allow($message)) {
         return $this->save($message);
       }
@@ -83,13 +79,13 @@ class PapayaMessageDispatcherDatabase
    * @return bool
    */
   protected function save(PapayaMessageLogable $message) {
-    $url = new PapayaUrlCurrent();
+    $url = new \PapayaUrlCurrent();
     $options = $this->papaya()->options;
     $details = '<p>'.$message->getMessage().'</p>';
-    if ($message->context() instanceof PapayaMessageContextInterfaceXhtml) {
+    if ($message->context() instanceof \PapayaMessageContextInterfaceXhtml) {
       $details .= $message->context()->asXhtml();
     }
-    $cookies = ($message instanceof PapayaMessagePhpError && !empty($_SERVER['HTTP_COOKIE']))
+    $cookies = ($message instanceof \PapayaMessagePhpError && !empty($_SERVER['HTTP_COOKIE']))
       ? $_SERVER['HTTP_COOKIE'] :  '';
     $values = array(
       'log_time' => time(),

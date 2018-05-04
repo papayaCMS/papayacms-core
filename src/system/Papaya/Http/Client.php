@@ -1,20 +1,17 @@
 <?php
 /**
-* Papaya HTTP Client
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage HTTP-Client
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Simple HTTP client object - makes it a little easier to make HTTP requests
@@ -152,7 +149,7 @@ class PapayaHttpClient {
    */
   public function setUrl($url) {
     if (!empty($url)) {
-      $urlObject = new PapayaUrl();
+      $urlObject = new \PapayaUrl();
       if (isset($this->_url['scheme'])) {
         $urlObject->scheme = $this->_url['scheme'];
       }
@@ -165,12 +162,12 @@ class PapayaHttpClient {
       if (isset($this->_url['path'])) {
         $urlObject->path = $this->_url['path'];
       }
-      $transformer = new PapayaUrlTransformerAbsolute;
+      $transformer = new \PapayaUrlTransformerAbsolute;
       $newUrl = $transformer->transform($urlObject, $url);
       $url = $newUrl;
       $this->_url = parse_url($url);
     } else {
-      throw new InvalidArgumentException('Invalid url');
+      throw new \InvalidArgumentException('Invalid url');
     }
   }
 
@@ -189,14 +186,14 @@ class PapayaHttpClient {
 
   public function getRequestHeaders() {
     if (is_null($this->_requestHeaders)) {
-      $this->_requestHeaders = new PapayaHttpHeaders($this->_defaultRequestHeaders);
+      $this->_requestHeaders = new \PapayaHttpHeaders($this->_defaultRequestHeaders);
     }
     return $this->_requestHeaders;
   }
 
   public function getResponseHeaders($reset = FALSE) {
     if ($reset || is_null($this->_responseHeaders)) {
-      $this->_responseHeaders = new PapayaHttpHeaders();
+      $this->_responseHeaders = new \PapayaHttpHeaders();
     }
     return $this->_responseHeaders;
   }
@@ -220,7 +217,7 @@ class PapayaHttpClient {
   */
   public function getSocket() {
     if (is_null($this->_socket)) {
-      $this->_socket = new PapayaHttpClientSocket();
+      $this->_socket = new \PapayaHttpClientSocket();
     }
     return $this->_socket;
   }
@@ -480,7 +477,7 @@ class PapayaHttpClient {
     }
     $data = substr($data, 1);
     $requestHeaders = $this->getRequestHeaders();
-    $additionalRequestHeaders = new PapayaHttpHeaders();
+    $additionalRequestHeaders = new \PapayaHttpHeaders();
     if (!isset($requestHeaders['Content-Type'])) {
       $additionalRequestHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
     }

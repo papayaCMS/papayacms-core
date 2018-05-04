@@ -1,25 +1,17 @@
 <?php
 /**
-* Papaya filter for numeric with unit validation
-*
-* This filter is used to validate a given string for its unit (e.g. css units like em, px, %)
-* and checking whether a signed or unsigned numeric value is present. This value is also checked
-* for integer or float.
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Unit.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya filter for numeric with unit validation
@@ -105,25 +97,25 @@ class PapayaFilterNumericWithUnit implements PapayaFilter {
         in_array($matches['unit'], $this->_units)) {
       if ($this->_algebraicSign == '-' &&
           substr($matches['number'], 0, 1) != '-') {
-        throw new PapayaFilterExceptionCharacterInvalid($matches['number'], 0);
+        throw new \PapayaFilterExceptionCharacterInvalid($matches['number'], 0);
       }
       if ($this->_algebraicSign == '+' &&
           (float)$matches['number'] < 0) {
-        throw new PapayaFilterExceptionCharacterInvalid($matches['number'], 0);
+        throw new \PapayaFilterExceptionCharacterInvalid($matches['number'], 0);
       }
       if (isset($this->_minimum) &&
           (float)$matches['number'] < $this->_minimum) {
-        throw new PapayaFilterExceptionRangeMinimum($this->_minimum, (float)$matches['number']);
+        throw new \PapayaFilterExceptionRangeMinimum($this->_minimum, (float)$matches['number']);
       }
       if (isset($this->_maximum) &&
           (float)$matches['number'] > $this->_maximum) {
-        throw new PapayaFilterExceptionRangeMaximum($this->_maximum, (float)$matches['number']);
+        throw new \PapayaFilterExceptionRangeMaximum($this->_maximum, (float)$matches['number']);
       }
       return TRUE;
     } elseif ($value == '0') {
       return TRUE;
     } else {
-      throw new PapayaFilterExceptionNotEnclosed($value);
+      throw new \PapayaFilterExceptionNotEnclosed($value);
     }
   }
 

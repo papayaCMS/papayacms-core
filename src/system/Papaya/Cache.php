@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya caching interface with flexible services
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Cache
-* @version $Id: Cache.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya caching interface with flexible services
@@ -59,12 +55,12 @@ class PapayaCache {
           return $object;
         }
       } else {
-        throw new UnexpectedValueException(
+        throw new \UnexpectedValueException(
           sprintf('Unknown cache service "%s".', $class)
         );
       }
     } else {
-      throw new UnexpectedValueException('No cache service defined.');
+      throw new \UnexpectedValueException('No cache service defined.');
     }
   }
 
@@ -76,8 +72,8 @@ class PapayaCache {
    * @return \PapayaCacheConfiguration
    */
   public static function prepareConfiguration($configuration) {
-    if (!($configuration instanceof PapayaCacheConfiguration)) {
-      $result = new PapayaCacheConfiguration();
+    if (!($configuration instanceof \PapayaCacheConfiguration)) {
+      $result = new \PapayaCacheConfiguration();
       $result->assign(
         array(
           'SERVICE' => $configuration->get('PAPAYA_CACHE_SERVICE', 'file'),
@@ -105,7 +101,7 @@ class PapayaCache {
     switch ($for) {
     case self::DATA :
       if ($globalConfiguration->get('PAPAYA_CACHE_DATA', FALSE)) {
-        $configuration = new PapayaCacheConfiguration();
+        $configuration = new \PapayaCacheConfiguration();
         $configuration->assign(
           array(
             'SERVICE' =>
@@ -123,7 +119,7 @@ class PapayaCache {
       break;
     case self::IMAGES :
       if ($globalConfiguration->get('PAPAYA_CACHE_IMAGES', FALSE)) {
-        $configuration = new PapayaCacheConfiguration();
+        $configuration = new \PapayaCacheConfiguration();
         $configuration->assign(
           array(
             'SERVICE' =>

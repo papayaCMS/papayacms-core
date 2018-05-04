@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya filter class that validates if given value is in the list
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Keys.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya filter class that validates if given value is in the list
@@ -55,14 +51,14 @@ class PapayaFilterListKeys implements PapayaFilter {
   */
   public function validate($value) {
     if (!(is_string($value) || is_int($value) || is_float($value))) {
-      throw new PapayaFilterExceptionType('integer, float, string');
+      throw new \PapayaFilterExceptionType('integer, float, string');
     }
     if ((string)$value === '') {
-      throw new PapayaFilterExceptionEmpty();
+      throw new \PapayaFilterExceptionEmpty();
     }
     if (is_array($this->_list) && array_key_exists($value, $this->_list)) {
       return TRUE;
-    } elseif ($this->_list instanceof ArrayAccess && isset($this->_list[(string)$value])) {
+    } elseif ($this->_list instanceof \ArrayAccess && isset($this->_list[(string)$value])) {
       return TRUE;
     } else {
       foreach ($this->_list as $key => $element) {
@@ -71,7 +67,7 @@ class PapayaFilterListKeys implements PapayaFilter {
         }
       }
     }
-    throw new PapayaFilterExceptionNotEnclosed($value);
+    throw new \PapayaFilterExceptionNotEnclosed($value);
   }
 
   /**
@@ -85,7 +81,7 @@ class PapayaFilterListKeys implements PapayaFilter {
       return NULL;
     } elseif (is_array($this->_list) && !array_key_exists($value, $this->_list)) {
       return NULL;
-    } elseif ($this->_list instanceof ArrayAccess && !isset($this->_list[$value])) {
+    } elseif ($this->_list instanceof \ArrayAccess && !isset($this->_list[$value])) {
       return NULL;
     }
     foreach ($this->_list as $key => $element) {

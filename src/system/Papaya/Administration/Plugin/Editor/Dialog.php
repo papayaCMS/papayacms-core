@@ -1,21 +1,17 @@
 <?php
 /**
-* An PluginEditor implementation that build a dialog based on an array of field definitions
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Dialog.php 39430 2014-02-28 09:21:51Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * An PluginEditor implementation that build a dialog based on an array of field definitions
@@ -42,7 +38,7 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
       $this->getContent()->assign($this->dialog()->data());
     } elseif ($this->dialog()->isSubmitted()) {
       $this->papaya()->messages->dispatch(
-        new PapayaMessageDisplayTranslated(
+        new \PapayaMessageDisplayTranslated(
           PapayaMessage::SEVERITY_ERROR,
           'Invalid input. Please check the field(s) "%s".',
           array(implode(', ', $this->dialog()->errors()->getSourceCaptions()))
@@ -73,20 +69,20 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
    * @return PapayaUiDialog
    */
   protected function createDialog() {
-    $dialog = new PapayaUiDialog();
+    $dialog = new \PapayaUiDialog();
     $dialog->papaya($this->papaya());
 
-    $dialog->caption = new PapayaAdministrationLanguagesCaption(
-      new PapayaUiStringTranslated('Edit content')
+    $dialog->caption = new \PapayaAdministrationLanguagesCaption(
+      new \PapayaUiStringTranslated('Edit content')
     );
-    $dialog->image = new PapayaAdministrationLanguagesImage();
+    $dialog->image = new \PapayaAdministrationLanguagesImage();
 
     $dialog->options->topButtons = TRUE;
 
     $dialog->parameterGroup('content');
     $dialog->data()->assign($this->getContent());
 
-    $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Save'));
+    $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));
 
     return $dialog;
   }

@@ -1,21 +1,17 @@
 <?php
 /**
-* A listview item represent one data line of the {@see PapayaUiListview}.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Item.php 39723 2014-04-07 13:51:24Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A listview item represent one data line of the {@see PapayaUiListview}.
@@ -165,7 +161,7 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
     if ($indentation >= 0) {
       $this->_indentation = $indentation;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'InvalidArgumentException: $indentation must be greater or equal zero.'
       );
     }
@@ -201,7 +197,7 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
     if (isset($node)) {
       $this->_node = $node;
     } elseif (NULL === $this->_node) {
-      $this->_node = new PapayaUiListviewItemNode($this);
+      $this->_node = new \PapayaUiListviewItemNode($this);
     }
     return $this->_node;
   }
@@ -218,7 +214,7 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
       $this->_subitems->owner($this);
     }
     if (is_null($this->_subitems)) {
-      $this->_subitems = new PapayaUiListviewSubitems($this);
+      $this->_subitems = new \PapayaUiListviewSubitems($this);
     }
     return $this->_subitems;
   }
@@ -240,7 +236,7 @@ class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
           $this->_actionParameters, $this->getListview()->parameterGroup()
         );
       } else {
-        $this->_reference = new PapayaUiReference();
+        $this->_reference = new \PapayaUiReference();
         $this->_reference->papaya($this->papaya());
         $this->_reference->setParameters(
           $this->_actionParameters

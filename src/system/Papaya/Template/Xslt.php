@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Template, using the Xslt engine.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Template
-* @version $Id: Xslt.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Template, using the Xslt engine to genreate the output.
@@ -69,7 +65,7 @@ class PapayaTemplateXslt extends PapayaTemplate {
       $this->_engine = $engine;
     } elseif (NULL === $this->_engine) {
       $preferred = $this->papaya()->options->get('PAPAYA_XSLT_EXTENSION', 'xslcache');
-      $this->_engine = $engine = new PapayaTemplateEngineXsl();
+      $this->_engine = $engine = new \PapayaTemplateEngineXsl();
       $engine->useCache($preferred != 'xsl');
     }
     return $this->_engine;
@@ -103,7 +99,7 @@ class PapayaTemplateXslt extends PapayaTemplate {
    */
   public function process($engine) {
     if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_TEMPLATE', FALSE)) {
-      $timer = new PapayaProfilerTimer();
+      $timer = new \PapayaProfilerTimer();
       $timer->papaya($this->papaya());
     } else {
       $timer = NULL;

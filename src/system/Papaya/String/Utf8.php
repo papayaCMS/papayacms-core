@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 class PapayaStringUtf8 implements Iterator, ArrayAccess {
 
   const MODE_INTL = 1;
@@ -169,7 +183,7 @@ class PapayaStringUtf8 implements Iterator, ArrayAccess {
           return $this->_mode = $mode;
         }
       }
-      throw new LogicException('Can not find unicode string support.');
+      throw new \LogicException('Can not find unicode string support.');
     }
     return $this->_mode;
   }
@@ -256,13 +270,13 @@ class PapayaStringUtf8 implements Iterator, ArrayAccess {
 
   public function offsetSet($offset, $char) {
     if ($this->_getLength($char) != 1) {
-      throw new LogicException('Invalid character: '.$char);
+      throw new \LogicException('Invalid character: '.$char);
     }
     $this->_string = $this->_getSubStr(0, $offset).$char.$this->_getSubStr($offset + 1);
     $this->_length = NULL;
   }
 
   public function offsetUnset($offset) {
-    throw new LogicException('You can not remove character from the string.');
+    throw new \LogicException('You can not remove character from the string.');
   }
 }

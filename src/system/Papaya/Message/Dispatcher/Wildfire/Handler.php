@@ -97,7 +97,7 @@ class PapayaMessageDispatcherWildfireHandler {
     if (is_callable($callback)) {
       $this->_callback = $callback;
     } else {
-      throw new InvalidArgumentException('Valid callback needed, to send HTTP headers.');
+      throw new \InvalidArgumentException('Valid callback needed, to send HTTP headers.');
     }
   }
 

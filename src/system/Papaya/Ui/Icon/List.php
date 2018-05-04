@@ -1,21 +1,17 @@
 <?php
 /**
-* A list of ui icons, generic handling to provide encapsulation.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: List.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A list of ui icons, generic handling to provide encapsulation.
@@ -62,14 +58,14 @@ class PapayaUiIconList implements ArrayAccess, Countable, IteratorAggregate {
    */
   public function offsetSet($offset, $icon) {
     if (is_null($offset)) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'InvalidArgumentException: Please provide a valid offset for the icon.'
       );
     }
-    if ($icon instanceof PapayaUiIcon) {
+    if ($icon instanceof \PapayaUiIcon) {
       $this->_icons[$offset] = $icon;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'InvalidArgumentException: Please provide an instance of PapayaUiIcon.'
       );
     }
@@ -100,6 +96,6 @@ class PapayaUiIconList implements ArrayAccess, Countable, IteratorAggregate {
   * @return ArrayIterator
   */
   public function getIterator() {
-    return new ArrayIterator($this->_icons);
+    return new \ArrayIterator($this->_icons);
   }
 }

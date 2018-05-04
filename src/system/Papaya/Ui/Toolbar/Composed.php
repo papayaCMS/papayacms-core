@@ -1,22 +1,17 @@
 <?php
 /**
-* A toolbar that consists of multiple sets of elements. The sets are not visisble in
-* the xml output.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Composed.php 39429 2014-02-27 20:14:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A toolbar that consists of multiple sets of elements. The sets are not visisble in
@@ -63,12 +58,12 @@ class PapayaUiToolbarComposed extends PapayaUiControl {
   public function setNames(array $sets) {
     $this->_sets = array();
     if (empty($sets)) {
-      throw new InvalidArgumentException('No sets defined');
+      throw new \InvalidArgumentException('No sets defined');
     }
     foreach ($sets as $index => $name) {
       $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
       if (empty($name)) {
-        throw new InvalidArgumentException(
+        throw new \InvalidArgumentException(
           sprintf('Invalid set name "%s" in index "%s".', $name, $index)
         );
       }
@@ -103,7 +98,7 @@ class PapayaUiToolbarComposed extends PapayaUiControl {
     if (isset($toolbar)) {
       $this->_toolbar = $toolbar;
     } elseif (is_null($this->_toolbar)) {
-      $this->_toolbar = new PapayaUiToolbar();
+      $this->_toolbar = new \PapayaUiToolbar();
       $this->_toolbar->papaya($this->papaya());
     }
     return $this->_toolbar;
@@ -132,12 +127,12 @@ class PapayaUiToolbarComposed extends PapayaUiControl {
     $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
     if (array_key_exists($name, $this->_sets)) {
       if (!isset($this->_sets[$name])) {
-        $this->_sets[$name] = $set = new PapayaUiToolbarSet();
+        $this->_sets[$name] = $set = new \PapayaUiToolbarSet();
         $set->papaya($this->papaya());
       }
       return $this->_sets[$name];
     }
-    throw new UnexpectedValueException(
+    throw new \UnexpectedValueException(
       'Invalid toolbar set requested.'
     );
   }
@@ -156,7 +151,7 @@ class PapayaUiToolbarComposed extends PapayaUiControl {
     if (array_key_exists($name, $this->_sets)) {
       $this->_sets[$name] = $value;
     } else {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'Invalid toolbar set requested.'
       );
     }

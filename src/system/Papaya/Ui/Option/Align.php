@@ -1,21 +1,17 @@
 <?php
 /**
-* Generic definition and handling for alignment attribute values.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Align.php 35572 2011-03-29 10:39:29Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Generic definition and handling for alignment attribute values.
@@ -83,9 +79,9 @@ class PapayaUiOptionAlign {
     if (isset(self::$_alignAttributes[$align])) {
       return TRUE;
     } elseif (isset($message)) {
-      throw new InvalidArgumentException($message);
+      throw new \InvalidArgumentException($message);
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf('InvalidArgumentException: Invalid align value "%d".', $align)
       );
     }

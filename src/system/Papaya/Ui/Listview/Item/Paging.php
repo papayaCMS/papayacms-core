@@ -1,21 +1,17 @@
 <?php
 /**
-* Provides several links to navigate mutiple pages of a list in a listview.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Paging.php 39406 2014-02-27 15:07:55Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Provides several links to navigate mutiple pages of a list in a listview.
@@ -84,7 +80,7 @@ abstract class PapayaUiListviewItemPaging extends PapayaUiListviewItem {
   * @param integer $mode
   */
   public function __construct($parameterName, $currentValue, $itemsCount, $mode = self::MODE_PAGE) {
-    $this->_parameterName = new PapayaRequestParametersName($parameterName);
+    $this->_parameterName = new \PapayaRequestParametersName($parameterName);
     $this->_mode = $mode;
     $this->setItemsCount($itemsCount);
     $this->setCurrentValue($currentValue);
@@ -186,7 +182,7 @@ abstract class PapayaUiListviewItemPaging extends PapayaUiListviewItem {
   public function setItemsCount($itemsCount) {
     PapayaUtilConstraints::assertInteger($itemsCount);
     if ($itemsCount < 0) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'UnexpectedValueException: Item count can not be negative.'
       );
     }
@@ -203,7 +199,7 @@ abstract class PapayaUiListviewItemPaging extends PapayaUiListviewItem {
   public function setItemsPerPage($itemsPerPage) {
     PapayaUtilConstraints::assertInteger($itemsPerPage);
     if ($itemsPerPage < 1) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'UnexpectedValueException: Item page limit can not be less than 1.'
       );
     }
@@ -220,7 +216,7 @@ abstract class PapayaUiListviewItemPaging extends PapayaUiListviewItem {
   public function setPageLimit($pageLimit) {
     PapayaUtilConstraints::assertInteger($pageLimit);
     if ($pageLimit < 1) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'UnexpectedValueException: Page limit can not be less than 1.'
       );
     }

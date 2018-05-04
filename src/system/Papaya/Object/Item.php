@@ -49,8 +49,8 @@ class PapayaObjectItem
    * @throws InvalidArgumentException
    */
   public function assign($data) {
-    if (!(is_array($data) || $data instanceof Traversable)) {
-      throw new InvalidArgumentException(
+    if (!(is_array($data) || $data instanceof \Traversable)) {
+      throw new \InvalidArgumentException(
         sprintf(
           'Argument $data must be an array or instance of Traversable.'
         )
@@ -88,7 +88,7 @@ class PapayaObjectItem
   * @return ArrayIterator
   */
   public function getIterator() {
-    return new ArrayIterator($this->toArray());
+    return new \ArrayIterator($this->toArray());
   }
 
   /**
@@ -188,7 +188,7 @@ class PapayaObjectItem
   private function _prepareName($name) {
     $name = PapayaUtilStringIdentifier::toUnderscoreLower($name);
     if (!array_key_exists($name, $this->_values)) {
-      throw new OutOfBoundsException(
+      throw new \OutOfBoundsException(
         sprintf(
           'Property/Index "%s" is not defined for item class "%s".',
           $name,

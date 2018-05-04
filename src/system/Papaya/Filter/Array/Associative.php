@@ -39,13 +39,13 @@ class PapayaFilterArrayAssociative implements PapayaFilter {
   public function __construct(array $filtersByName) {
     $this->_filters = [];
     if (empty($filtersByName)) {
-      throw new InvalidArgumentException('Empty filter definition.');
+      throw new \InvalidArgumentException('Empty filter definition.');
     }
     foreach ($filtersByName as $name => $filter) {
-     if ($filter instanceof PapayaFilter) {
+     if ($filter instanceof \PapayaFilter) {
        $this->_filters[$name] = $filter;
      } else {
-       throw new InvalidArgumentException(
+       throw new \InvalidArgumentException(
          sprintf('Invalid filter definition for element "%s".', $name)
        );
      }
@@ -61,11 +61,11 @@ class PapayaFilterArrayAssociative implements PapayaFilter {
    */
   public function validate($value) {
     if (!is_array($value)) {
-      throw new PapayaFilterExceptionType('array');
+      throw new \PapayaFilterExceptionType('array');
     }
     foreach ($value as $name => $subValue) {
       if (!isset($this->_filters[$name])) {
-        throw new PapayaFilterExceptionArrayKeyInvalid($name);
+        throw new \PapayaFilterExceptionArrayKeyInvalid($name);
       }
       $this->_filters[$name]->validate($subValue);
     }

@@ -1,21 +1,17 @@
 <?php
 /**
-* An context for an hookable plugin.
-*
-* @copyright 2013 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-* @version $Id: Context.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * An context for an hookable plugin. Meaning that the current object provides context data
@@ -65,7 +61,7 @@ class PapayaPluginHookableContext {
    */
   public function getParent() {
     if (NULL === $this->_parent) {
-      throw new LogicException('No parent object was provided for this context.');
+      throw new \LogicException('No parent object was provided for this context.');
     }
     return $this->_parent;
   }
@@ -80,13 +76,13 @@ class PapayaPluginHookableContext {
    */
   public function data($data = NULL) {
     if (isset($data)) {
-      if ($data instanceof PapayaPluginEditableContent) {
+      if ($data instanceof \PapayaPluginEditableContent) {
         $this->_data = $data;
       } else {
-        $this->_data = new PapayaPluginEditableContent($data);
+        $this->_data = new \PapayaPluginEditableContent($data);
       }
     } elseif (NULL === $this->_data) {
-      $this->_data = new PapayaPluginEditableContent();
+      $this->_data = new \PapayaPluginEditableContent();
     }
     return $this->_data;
   }

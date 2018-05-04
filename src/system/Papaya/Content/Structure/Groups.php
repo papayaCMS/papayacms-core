@@ -1,21 +1,17 @@
 <?php
 /**
-* Content structure values group list
-*
-* @copyright 2013 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Groups.php 39429 2014-02-27 20:14:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Content structure values group list
@@ -45,7 +41,7 @@ class PapayaContentStructureGroups extends PapayaObjectList {
     $document = $pageNode->ownerDocument;
     /** @var PapayaXmlElement $node */
     foreach ($document->xpath()->evaluate('group', $pageNode) as $node) {
-      $this[] = $group = new PapayaContentStructureGroup($this->_page);
+      $this[] = $group = new \PapayaContentStructureGroup($this->_page);
       $group->name = $node->getAttribute('name');
       $group->title = $node->getAttribute('title');
       $group->values()->load($node);

@@ -1,21 +1,17 @@
 <?php
 /**
-* Load a list of themes.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Theme
-* @version $Id: List.php 39409 2014-02-27 16:36:19Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Load a list of themes. The themes are subdirectories in a local directory.
@@ -33,8 +29,8 @@ class PapayaThemeList extends PapayaObject implements IteratorAggregate {
    * @see IteratorAggregate::getIterator()
    */
   public function getIterator() {
-    return new PapayaIteratorCallback(
-      new PapayaIteratorGlob($this->handler()->getLocalPath().'*', GLOB_ONLYDIR),
+    return new \PapayaIteratorCallback(
+      new \PapayaIteratorGlob($this->handler()->getLocalPath().'*', GLOB_ONLYDIR),
       array($this, 'callbackGetName')
     );
   }
@@ -70,7 +66,7 @@ class PapayaThemeList extends PapayaObject implements IteratorAggregate {
     if (isset($handler)) {
       $this->_handler = $handler;
     } elseif (NULL === $this->_handler) {
-      $this->_handler = new PapayaThemeHandler();
+      $this->_handler = new \PapayaThemeHandler();
       $this->_handler->papaya($this->papaya());
     }
     return $this->_handler;

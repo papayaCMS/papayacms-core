@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Message Hook Exception, capture exceptions and handle them
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Messages
-* @version $Id: Exceptions.php 37961 2013-01-14 15:04:54Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Message Hook Exception, capture exceptions and handle them
@@ -63,12 +59,12 @@ class PapayaMessageHookExceptions
   * @param Exception|Throwable $exception
   */
   public function handle($exception) {
-    if ($exception instanceof ErrorException) {
+    if ($exception instanceof \ErrorException) {
       $this->_messageManager->dispatch(
-        new PapayaMessagePhpException($exception)
+        new \PapayaMessagePhpException($exception)
       );
     } else {
-      $error = new ErrorException(
+      $error = new \ErrorException(
         sprintf(
           "Uncaught exception '%s' with message '%s' in %s:%d",
           get_class($exception),
@@ -78,9 +74,9 @@ class PapayaMessageHookExceptions
         )
       );
       $this->_messageManager->dispatch(
-        new PapayaMessagePhpException(
+        new \PapayaMessagePhpException(
           $error,
-          new PapayaMessageContextBacktrace(0, $exception->getTrace())
+          new \PapayaMessageContextBacktrace(0, $exception->getTrace())
         )
       );
     }

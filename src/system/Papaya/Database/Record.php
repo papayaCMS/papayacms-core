@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Database Record, superclass for easy database record encapsulation.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Record.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Database Record, superclass for easy database record encapsulation.
@@ -126,13 +122,13 @@ abstract class PapayaDatabaseRecord
    * @return string
    */
   protected function _compileCondition($filter, $prefix = 'WHERE') {
-    if ($filter instanceof PapayaDatabaseConditionElement) {
+    if ($filter instanceof \PapayaDatabaseConditionElement) {
       $condition = $filter->getSql();
     } else {
       if (!is_array($filter)) {
         $filter = array('id' => $filter);
       }
-      $generator = new PapayaDatabaseConditionGenerator($this, $this->mapping());
+      $generator = new \PapayaDatabaseConditionGenerator($this, $this->mapping());
       $condition = (string)$generator->fromArray($filter);
     }
     return empty($condition) ? '' : $prefix.' '.$condition;
@@ -143,7 +139,7 @@ abstract class PapayaDatabaseRecord
    * @return PapayaDatabaseConditionRoot
    */
   public function createFilter() {
-    return new PapayaDatabaseConditionRoot($this, $this->mapping());
+    return new \PapayaDatabaseConditionRoot($this, $this->mapping());
   }
 
   /**
@@ -304,7 +300,7 @@ abstract class PapayaDatabaseRecord
   * @return PapayaDatabaseRecordMapping
   */
   protected function _createMapping() {
-    return new PapayaDatabaseRecordMapping($this->_fields);
+    return new \PapayaDatabaseRecordMapping($this->_fields);
   }
 
   /**
@@ -329,7 +325,7 @@ abstract class PapayaDatabaseRecord
   * @return PapayaDatabaseRecordKeyAutoincrement
   */
   protected function _createKey() {
-    return new PapayaDatabaseRecordKeyAutoincrement('id');
+    return new \PapayaDatabaseRecordKeyAutoincrement('id');
   }
 
   /**
@@ -346,7 +342,7 @@ abstract class PapayaDatabaseRecord
   */
   public function getDatabaseAccess() {
     if (!isset($this->_databaseAccessObject)) {
-      $this->_databaseAccessObject = new PapayaDatabaseAccess($this);
+      $this->_databaseAccessObject = new \PapayaDatabaseAccess($this);
       $this->_databaseAccessObject->papaya($this->papaya());
     }
     return $this->_databaseAccessObject;
@@ -372,6 +368,6 @@ abstract class PapayaDatabaseRecord
    * @return PapayaDatabaseRecordCallbacks
    */
   protected function _createCallbacks() {
-    return new PapayaDatabaseRecordCallbacks();
+    return new \PapayaDatabaseRecordCallbacks();
   }
 }

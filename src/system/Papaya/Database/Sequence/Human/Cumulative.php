@@ -1,28 +1,16 @@
 <?php
 /**
-* This module provides sequence generation for papaya database abstraction.
-* Generated are sequences to use as primary keys that are also human readable
-* over the phone, so they should be short, not case sensitive and avoid
-* common mistakes. E.g. there are no zero an eight, but B(eh) and O(oh).
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* Redistribution of this script or derivated works is strongly prohibited!
-* The Software is protected by copyright and other intellectual property
-* laws and treaties. papaya owns the title, copyright, and other intellectual
-* property rights in the Software. The Software is licensed, not sold.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Cumulative.php 36646 2012-01-13 15:52:02Z weinert $
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
 /**
@@ -69,7 +57,7 @@ class PapayaDatabaseSequenceHumanCumulative extends PapayaDatabaseSequenceHuman 
       $this->_maximumLength = $maximumLength;
       $this->_cumulativeLength = $this->_maximumLength;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'Minimum length can not be greater then maximum length.'
       );
     }

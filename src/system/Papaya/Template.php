@@ -1,20 +1,16 @@
 <?php
 /**
- * Papaya Template, abstract superclass for Papaya Template objects.
+ * papaya CMS
  *
- * @copyright 2010 by papaya Software GmbH - All rights reserved.
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package Papaya-Library
- * @subpackage Template
- * @version $Id: Template.php 39818 2014-05-13 13:15:13Z weinert $
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
 /**
@@ -91,7 +87,7 @@ abstract class PapayaTemplate extends PapayaObject {
     if (isset($values)) {
       $this->_values = $values;
     } elseif (is_null($this->_values)) {
-      $this->_values = new PapayaTemplateValues();
+      $this->_values = new \PapayaTemplateValues();
     }
     return $this->_values;
   }
@@ -125,13 +121,13 @@ abstract class PapayaTemplate extends PapayaObject {
    */
   public function parameters($parameters = NULL) {
     if (isset($parameters)) {
-      if ($parameters instanceof PapayaTemplateParameters) {
+      if ($parameters instanceof \PapayaTemplateParameters) {
         $this->_parameters = $parameters;
       } else {
-        $this->_parameters = new PapayaTemplateParameters($parameters);
+        $this->_parameters = new \PapayaTemplateParameters($parameters);
       }
     } elseif (NULL === $this->_parameters) {
-      $this->_parameters = new PapayaTemplateParameters();
+      $this->_parameters = new \PapayaTemplateParameters();
     }
     return $this->_parameters;
   }
@@ -146,7 +142,7 @@ abstract class PapayaTemplate extends PapayaObject {
     if (isset($errors)) {
       $this->_errors = $errors;
     } elseif (is_null($this->_errors)) {
-      $this->_errors = new PapayaXmlErrors();
+      $this->_errors = new \PapayaXmlErrors();
       $this->_errors->papaya($this->papaya());
     }
     return $this->_errors;
@@ -200,7 +196,7 @@ abstract class PapayaTemplate extends PapayaObject {
     } else {
       $path = '/page/'.$path;
     }
-    if ($xml instanceof PapayaXmlAppendable || $xml instanceof DOMNode) {
+    if ($xml instanceof \PapayaXmlAppendable || $xml instanceof \DOMNode) {
       return $this->errors()->encapsulate(
         array(
           $this->values()->getValueByPath($path),
@@ -252,7 +248,7 @@ abstract class PapayaTemplate extends PapayaObject {
     if (0 === strpos($method, 'add')) {
       $target = strtolower(substr($method, 3));
       if (!isset($this->_addMethods[$target])) {
-        throw new LogicException(
+        throw new \LogicException(
           sprintf(
             'Invalid add method %s::%s(), can not find target.',
             get_class($this),
@@ -260,7 +256,7 @@ abstract class PapayaTemplate extends PapayaObject {
           )
         );
       } elseif (!isset($arguments[0])) {
-        throw new LogicException(
+        throw new \LogicException(
           sprintf(
             'Invalid $xml argument for add method "%s:%s()".',
             get_class($this),
@@ -276,7 +272,7 @@ abstract class PapayaTemplate extends PapayaObject {
         );
       }
     }
-    throw new LogicException(
+    throw new \LogicException(
       sprintf(
         'Can not call nonexisting method "%s:%s()"',
         get_class($this),
@@ -301,7 +297,7 @@ abstract class PapayaTemplate extends PapayaObject {
        */
       $response = $this->papaya()->response;
       $response->setContentType('text/xml', 'utf-8');
-      $response->content(new PapayaResponseContentString($this->getXml()));
+      $response->content(new \PapayaResponseContentString($this->getXml()));
       $response->send(TRUE);
     } elseif ($result = $this->parse($options)) {
       return $result;

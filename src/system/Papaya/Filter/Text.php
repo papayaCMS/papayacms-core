@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya filter class for validate text optionally including digits
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Text.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya filter class for validate text optionally including digits
@@ -74,14 +70,14 @@ class PapayaFilterText implements PapayaFilter {
    */
   public function validate($value) {
     if (is_array($value)) {
-      throw new PapayaFilterExceptionType('string');
+      throw new \PapayaFilterExceptionType('string');
     }
     if (trim($value) == '') {
-      throw new PapayaFilterExceptionEmpty();
+      throw new \PapayaFilterExceptionEmpty();
     }
     $pattern = $this->getPattern();
     if (preg_match($pattern, $value, $matches, PREG_OFFSET_CAPTURE)) {
-      throw new PapayaFilterExceptionCharacterInvalid($value, $matches[0][1]);
+      throw new \PapayaFilterExceptionCharacterInvalid($value, $matches[0][1]);
     }
     return TRUE;
   }

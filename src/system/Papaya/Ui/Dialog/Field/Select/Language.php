@@ -1,21 +1,17 @@
 <?php
 /**
-* A selection field displaing the available languages
-*
-* @copyright 2013 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Language.php 39129 2014-02-06 17:36:09Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A selection field displaing the available languages
@@ -47,9 +43,9 @@ class PapayaUiDialogFieldSelectLanguage extends PapayaUiDialogFieldSelect {
       $any = 0;
     }
     if (PapayaUtilBitwise::inBitmask(self::OPTION_ALLOW_ANY, $options)) {
-      $values = new PapayaIteratorMultiple(
+      $values = new \PapayaIteratorMultiple(
         PapayaIteratorMultiple::MIT_KEYS_ASSOC,
-        array($any => new PapayaUiStringTranslated('Any')),
+        array($any => new \PapayaUiStringTranslated('Any')),
         $items
       );
     } else {

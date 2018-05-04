@@ -1,4 +1,17 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
 
@@ -29,7 +42,7 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
       $includeTime != PapayaFilterDate::DATE_OPTIONAL_TIME &&
       $includeTime != PapayaFilterDate::DATE_MANDATORY_TIME
     ) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'Argument must be PapayaFilterDate::DATE_* constant.'
       );
     }
@@ -37,19 +50,19 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
     $this->setCaption($caption);
     $this->setName($name);
     $this->setFilter(
-      new PapayaFilterArrayAssociative(
+      new \PapayaFilterArrayAssociative(
         [
-          'start' => new PapayaFilterLogicalOr(
-            new PapayaFilterEmpty(),
-            new PapayaFilterDate($this->_includeTime)
+          'start' => new \PapayaFilterLogicalOr(
+            new \PapayaFilterEmpty(),
+            new \PapayaFilterDate($this->_includeTime)
           ),
-          'end' => new PapayaFilterLogicalOr(
-            new PapayaFilterEmpty(),
-            new PapayaFilterDate($this->_includeTime)
+          'end' => new \PapayaFilterLogicalOr(
+            new \PapayaFilterEmpty(),
+            new \PapayaFilterDate($this->_includeTime)
           ),
-          'mode' => new PapayaFilterLogicalOr(
-            new PapayaFilterEmpty(),
-            new PapayaFilterList(['fromTo', 'in', 'from', 'to'])
+          'mode' => new \PapayaFilterLogicalOr(
+            new \PapayaFilterEmpty(),
+            new \PapayaFilterList(['fromTo', 'in', 'from', 'to'])
           )
         ]
       )
@@ -109,7 +122,7 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
       $this->_labels = $labels;
     } elseif (NULL === $this->_labels) {
       if ($this->papaya()->request->isAdministration) {
-        $this->_labels = new PapayaUiStringTranslatedList(
+        $this->_labels = new \PapayaUiStringTranslatedList(
           [
             'page-in' => 'In (Year, Year-Month)',
             'page-fromto' => 'Date Between',
@@ -118,7 +131,7 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
           ]
         );
       } else {
-        $this->_labels = new EmptyIterator();
+        $this->_labels = new \EmptyIterator();
       }
     }
     return $this->_labels;
@@ -151,12 +164,12 @@ class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
     if ($this->getMandatory() && isset($filter)) {
       return $filter;
     } elseif (isset($filter)) {
-      return new PapayaFilterLogicalOr(
-        new PapayaFilterArrayAssociative(
+      return new \PapayaFilterLogicalOr(
+        new \PapayaFilterArrayAssociative(
           [
-            'start' => new PapayaFilterEmpty(),
-            'end' => new PapayaFilterEmpty(),
-            'mode' => new PapayaFilterEmpty()
+            'start' => new \PapayaFilterEmpty(),
+            'end' => new \PapayaFilterEmpty(),
+            'mode' => new \PapayaFilterEmpty()
           ]
         ),
         $filter

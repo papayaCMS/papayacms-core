@@ -1,19 +1,16 @@
 <?php
 /**
- * Papaya filter class for an string consisting of several parts
+ * papaya CMS
  *
- * @copyright 2017 by papaya Software GmbH - All rights reserved.
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package Papaya-Library
- * @subpackage Filter
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
 /**
@@ -62,10 +59,10 @@ class PapayaFilterStringExplode implements PapayaFilter {
    */
   public function validate($value) {
     if (empty($value)) {
-      throw new PapayaFilterExceptionEmpty();
+      throw new \PapayaFilterExceptionEmpty();
     }
     $tokens = explode($this->_separator, (string)$value);
-    if ($this->_filter instanceof PapayaFilter) {
+    if ($this->_filter instanceof \PapayaFilter) {
       foreach ($tokens as $token) {
         if (PapayaUtilBitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
           $token = trim($token);
@@ -87,7 +84,7 @@ class PapayaFilterStringExplode implements PapayaFilter {
       if (PapayaUtilBitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
         $token = trim($token);
       }
-      if ($this->_filter instanceof PapayaFilter) {
+      if ($this->_filter instanceof \PapayaFilter) {
         $filteredToken =  $this->_filter->filter($token);
       } else {
         $filteredToken = empty($token) ? NULL : $token;

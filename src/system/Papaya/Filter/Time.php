@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya filter class for times.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Time.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This filter class checks a time in human-readable format.
@@ -39,7 +35,7 @@ class PapayaFilterTime implements PapayaFilter {
   public function __construct($step = 1.0) {
     PapayaUtilConstraints::assertNumber($step, 'Step must be a number.');
     if ($step <= 0) {
-      throw new UnexpectedValueException('Step must be greater than 0.');
+      throw new \UnexpectedValueException('Step must be greater than 0.');
     }
     $this->_step = $step;
   }
@@ -73,10 +69,10 @@ class PapayaFilterTime implements PapayaFilter {
       )?
       $)Dx';
     if (!preg_match($patternTimeISO, $value, $match)) {
-      throw new PapayaFilterExceptionType('ISO time.');
+      throw new \PapayaFilterExceptionType('ISO time.');
     }
     if (!empty($match['offsetOperator'])) {
-      throw new PapayaFilterExceptionType('Time must not include a time zone offset.');
+      throw new \PapayaFilterExceptionType('Time must not include a time zone offset.');
     }
     $limits = array(
       'hour' => 23,
@@ -85,7 +81,7 @@ class PapayaFilterTime implements PapayaFilter {
     );
     foreach ($limits as $element => $limit) {
       if (isset($match[$element]) && $match[$element] > $limit) {
-        throw new PapayaFilterExceptionRangeMaximum($limit, $match[$element]);
+        throw new \PapayaFilterExceptionRangeMaximum($limit, $match[$element]);
       }
     }
     $timeStamp = $this->_toTimestamp(
@@ -94,7 +90,7 @@ class PapayaFilterTime implements PapayaFilter {
       isset($match['second']) ? $match['second'] : 0
     );
     if ($timeStamp % $this->_step != 0) {
-      throw new PapayaFilterExceptionType('Time matching the expected step.');
+      throw new \PapayaFilterExceptionType('Time matching the expected step.');
     }
     return TRUE;
   }

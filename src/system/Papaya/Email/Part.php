@@ -1,22 +1,17 @@
 <?php
 /**
-* An email consists of one or more parts, each part has indivdual headers an a content. The
-* content can be a list of other parts.
-*
-* @copyright 2002-2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Email
-* @version $Id: Part.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * An email consists of one or more parts, each part has indivdual headers an a content. The
@@ -63,7 +58,7 @@ class PapayaEmailPart {
       $this->_headers = $headers;
     }
     if (is_null($this->_headers)) {
-      $this->_headers = new PapayaEmailHeaders();
+      $this->_headers = new \PapayaEmailHeaders();
     }
     return $this->_headers;
   }
@@ -95,7 +90,7 @@ class PapayaEmailPart {
     case 'content' :
       return $this->content();
     }
-    throw new LogicException(
+    throw new \LogicException(
       sprintf(
         'LogicException: Unknown property "%s::$%s".',
         get_class($this),
@@ -120,7 +115,7 @@ class PapayaEmailPart {
       $this->content($value);
       return;
     }
-    throw new LogicException(
+    throw new \LogicException(
       sprintf(
         'LogicException: Unknown property "%s::$%s".',
         get_class($this),

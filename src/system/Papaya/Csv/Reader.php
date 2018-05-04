@@ -88,16 +88,16 @@ class PapayaCsvReader {
       if ($allowLocal || is_uploaded_file($this->_fileName)) {
         $fileSize = filesize($this->_fileName);
         if ($fileSize <= 0) {
-          throw new LengthException('File is empty.');
+          throw new \LengthException('File is empty.');
         } elseif ($this->_maxFileSize > 0 && $fileSize > $this->_maxFileSize) {
-          throw new LengthException('File is to large.');
+          throw new \LengthException('File is to large.');
         }
         return TRUE;
       } else {
-        throw new LogicException('Local files are not allowed.');
+        throw new \LogicException('Local files are not allowed.');
       }
     } else {
-      throw new UnexpectedValueException('Can not read file.');
+      throw new \UnexpectedValueException('Can not read file.');
     }
   }
 

@@ -1,22 +1,17 @@
 <?php
 /**
-* This object defines the possible view mode types. A view mode type socified a logical group
-* for a view mode.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Types.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This object defines the possible view mode types. A view mode type socified a logical group
@@ -59,7 +54,7 @@ class PapayaContentViewModeTypes implements ArrayAccess, IteratorAggregate {
    * @return Iterator
    */
   public function getIterator() {
-    return new ArrayIterator(self::$_typeCaptions);
+    return new \ArrayIterator(self::$_typeCaptions);
   }
 
   /**
@@ -93,7 +88,7 @@ class PapayaContentViewModeTypes implements ArrayAccess, IteratorAggregate {
    * @see ArrayAccess::offsetSet()
    */
   public function offsetSet($mode, $caption) {
-    throw new LogicException('View types list can not be modified.');
+    throw new \LogicException('View types list can not be modified.');
   }
 
   /**
@@ -103,6 +98,6 @@ class PapayaContentViewModeTypes implements ArrayAccess, IteratorAggregate {
    * @see ArrayAccess::offsetSet()
    */
   public function offsetUnset($mode) {
-    throw new LogicException('View types list can not be modified.');
+    throw new \LogicException('View types list can not be modified.');
   }
 }

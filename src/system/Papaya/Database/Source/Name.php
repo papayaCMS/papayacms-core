@@ -1,22 +1,17 @@
 <?php
 /**
-* Database source name (DSN) specifies a data structure that contains the information
-* about a specific data source
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Name.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Database source name (DSN) specifies a data structure that contains the information
@@ -101,7 +96,7 @@ class PapayaDatabaseSourceName {
    */
   public function setName($name) {
     if (empty($name)) {
-      throw new PapayaDatabaseExceptionConnect(
+      throw new \PapayaDatabaseExceptionConnect(
         sprintf('Can not initialize database connection from empty dsn.', $name)
       );
     }
@@ -157,13 +152,13 @@ class PapayaDatabaseSourceName {
         'database' => $this->_getMatchValue($matches, 'database')
       );
       if ($queryStringStart > 0) {
-        $query = new PapayaRequestParametersQuery();
+        $query = new \PapayaRequestParametersQuery();
         $this->_parameters = $query->setString(substr($name, $queryStringStart + 1))->values();
       } else {
-        $this->_parameters = new PapayaRequestParameters();
+        $this->_parameters = new \PapayaRequestParameters();
       }
     } else {
-      throw new PapayaDatabaseExceptionConnect(
+      throw new \PapayaDatabaseExceptionConnect(
         sprintf('Can not initialize database connection from invalid dsn.', $name)
       );
     }
@@ -214,7 +209,7 @@ class PapayaDatabaseSourceName {
     } elseif ($name == 'parameters') {
       return $this->_parameters;
     }
-    throw new ErrorException(
+    throw new \ErrorException(
       sprintf('Undefined property: %s::$%s', __CLASS__, $name),
       0,
       0,
@@ -230,7 +225,7 @@ class PapayaDatabaseSourceName {
    * @throws BadMethodCallException
    */
   public function __set($name, $value) {
-    throw new BadMethodCallException(
+    throw new \BadMethodCallException(
       sprintf('Property %s::$%s is not writeable.', __CLASS__, $name)
     );
   }

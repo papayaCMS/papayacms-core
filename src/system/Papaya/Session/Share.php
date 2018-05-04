@@ -1,27 +1,17 @@
 <?php
 /**
-* This is the generic papaya session share object which can be used in projects to share related,
-* session-persistent data conveniently between different modules.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* Redistribution of this script or derivated works is strongly prohibited!
-* The Software is protected by copyright and other intellectual property
-* laws and treaties. papaya owns the title, copyright, and other intellectual
-* property rights in the Software. The Software is licensed, not sold.
-*
-* @package Papaya
-* @subpackage Session
-* @version $Id: Share.php 39408 2014-02-27 16:00:49Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This is the generic papaya session share object which can be used in projects to share related,
@@ -157,7 +147,7 @@ abstract class PapayaSessionShare extends PapayaObject {
       $this->$propertyName = $arguments[0];
       return $this->$propertyName;
     }
-    throw new LogicException(
+    throw new \LogicException(
       sprintf(
         'LogicException: Unknown method "%s::%s".',
         get_class($this),
@@ -186,7 +176,7 @@ abstract class PapayaSessionShare extends PapayaObject {
     if (isset($this->_definitions[$name])) {
       return $name;
     }
-    throw new InvalidArgumentException(
+    throw new \InvalidArgumentException(
       sprintf(
         'InvalidArgumentException: Invalid session share property name "%s".',
         $name

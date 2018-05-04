@@ -1,21 +1,17 @@
 <?php
 /**
-* Scanner token of papaya simple template sytem.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Template
-* @version $Id: Token.php 39730 2014-04-07 21:05:30Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Scanner token of papaya simple template sytem.
@@ -61,7 +57,7 @@ class PapayaTemplateSimpleScannerToken {
     PapayaUtilConstraints::assertString($content);
     $tokenTypes = self::getTokenTypes();
     if (!isset($tokenTypes[$type])) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf(
           'Unknown token type "%d"', $type
         )
@@ -80,7 +76,7 @@ class PapayaTemplateSimpleScannerToken {
   private static function getTokenTypes() {
     // @codeCoverageIgnoreStart
     if (NULL == self::$_tokenNames) {
-      $reflection = new ReflectionClass(__CLASS__);
+      $reflection = new \ReflectionClass(__CLASS__);
       self::$_tokenNames = array_flip($reflection->getConstants());
     }
     // @codeCoverageIgnoreEnd
@@ -127,7 +123,7 @@ class PapayaTemplateSimpleScannerToken {
     case 'length' :
       return strlen($this->_content);
     }
-    throw new LogicException(
+    throw new \LogicException(
       sprintf('Unknown property: %s::$%s', __CLASS__, $name)
     );
   }
@@ -140,6 +136,6 @@ class PapayaTemplateSimpleScannerToken {
    * @throws LogicException
    */
   public function __set($name, $value) {
-    throw new LogicException('All properties are defined in the constrcutor, they are read only.');
+    throw new \LogicException('All properties are defined in the constrcutor, they are read only.');
   }
 }

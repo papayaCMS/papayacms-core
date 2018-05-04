@@ -1,27 +1,17 @@
 <?php
 /**
-* An control part that append link attributes like class, target and a popup configuration to
-* an parent xml element.
-*
-* Allows to load pages and provides basic function for the working copy and publication.
-*
-* This is an abstract superclass, please use {@see PapayaContentPageWork} to modify the
-* working copy of a page or {@see PapayaContentPagePublication} to use the published page.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Attributes.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
  * An control part that append link attributes like class, target and a popup configuration to
@@ -130,7 +120,7 @@ class PapayaUiLinkAttributes extends PapayaUiControlPart {
     $counter += PapayaUtilBitwise::inBitmask(self::OPTION_SCROLLBARS_ALWAYS, $options) ? 1 : 0;
     $counter += PapayaUtilBitwise::inBitmask(self::OPTION_SCROLLBARS_NEVER, $options) ? 1 : 0;
     if ($counter > 1) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'Invalid options definition: only one scrollbars option can be set.'
       );
     }

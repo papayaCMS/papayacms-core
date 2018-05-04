@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Utiltities - XML functions
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Util
-* @version $Id: Xml.php 39725 2014-04-07 17:19:34Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Utiltities - XML functions
@@ -96,7 +92,7 @@ class PapayaUtilStringXml {
   * @return string
   */
   public static function serializeArray($array, $tagName = 'data') {
-    $dom = new DOMDocument('1.0', 'UTF-8');
+    $dom = new \DOMDocument('1.0', 'UTF-8');
     $root = $dom->createElement($tagName);
     $root->setAttribute('version', '2');
     $dom->appendChild($root);
@@ -157,7 +153,7 @@ class PapayaUtilStringXml {
         )
       );
     }
-    $dom = new DOMDocument('1.0', 'UTF-8');
+    $dom = new \DOMDocument('1.0', 'UTF-8');
     $errorUsage = libxml_use_internal_errors(TRUE);
     if ($dom->loadXml($xml)) {
       $version = $dom->documentElement->getAttribute('version');
@@ -202,7 +198,7 @@ class PapayaUtilStringXml {
   ) {
     if ($parentNode->hasChildNodes()) {
       foreach ($parentNode->childNodes as $childNode) {
-        if ($childNode instanceof DOMElement &&
+        if ($childNode instanceof \DOMElement &&
             $childNode->hasAttribute('name') &&
             isset($childNode->nodeName)) {
           $name = $childNode->getAttribute('name');
@@ -231,7 +227,7 @@ class PapayaUtilStringXml {
   * @return DOMElement
   */
   public static function truncate(DOMElement $sourceNode, $length) {
-    $dom = new DOMDocument('1.0', 'UTF-8');
+    $dom = new \DOMDocument('1.0', 'UTF-8');
     $targetNode = self::_copyElement($sourceNode, $dom);
     $dom->appendChild($targetNode);
     self::_truncateChildNodes($sourceNode, $targetNode, $length, '');
@@ -294,7 +290,7 @@ class PapayaUtilStringXml {
   * @return DOMElement Imported node
   */
   private static function _copyElement(DOMElement $sourceNode, DOMNode $targetParent) {
-    if ($targetParent instanceof DOMDocument) {
+    if ($targetParent instanceof \DOMDocument) {
       $targetNode = $targetParent->importNode($sourceNode, FALSE);
     } else {
       $targetNode = $targetParent->ownerDocument->importNode($sourceNode, FALSE);
@@ -316,7 +312,7 @@ class PapayaUtilStringXml {
    */
   public static function isQName($name) {
     if (empty($name)) {
-      throw new UnexpectedValueException('Invalid QName: QName is empty.');
+      throw new \UnexpectedValueException('Invalid QName: QName is empty.');
     } elseif (FALSE !== ($position = strpos($name, ':'))) {
       self::isNCName($name, 0, $position);
       self::isNCName($name, $position + 1);
@@ -353,18 +349,18 @@ class PapayaUtilStringXml {
       $namePart = $name;
     }
     if (empty($namePart)) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'Invalid QName "'.$name.'": Missing QName part.'
       );
     } elseif (preg_match('([^'.$nameChar.'-])u', $namePart, $match, PREG_OFFSET_CAPTURE)) {
       //invalid bytes and whitespaces
       $position = (int)$match[0][1];
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'Invalid QName "'.$name.'": Invalid character at index '.($offset + $position).'.'
       );
     } elseif (preg_match('(^[^'.$nameStartChar.'])u', $namePart)) {
       //first char is a little more limited
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'Invalid QName "'.$name.'": Invalid character at index '.$offset.'.'
       );
     }

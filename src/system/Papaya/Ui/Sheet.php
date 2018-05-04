@@ -1,21 +1,17 @@
 <?php
 /**
-* A sheet is a larger area to display richtext, like an email message or help texts
-*
-* @copyright 2014 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Sheet.php 39820 2014-05-13 15:48:35Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A sheet is a larger area to display richtext, like an email message or help texts
@@ -43,7 +39,7 @@ class PapayaUiSheet extends PapayaUiControl {
   private $_content = NULL;
 
   public function __construct() {
-    $this->_document = new PapayaXmlDocument();
+    $this->_document = new \PapayaXmlDocument();
     $this->_content = $this->_document->appendElement('text');
   }
 
@@ -57,7 +53,7 @@ class PapayaUiSheet extends PapayaUiControl {
       }
       $header->append($this->subtitles());
     }
-    if ($this->_content instanceof PapayaXmlElement) {
+    if ($this->_content instanceof \PapayaXmlElement) {
       $sheet->appendChild(
         $parent->ownerDocument->importNode($this->_content, TRUE)
       );
@@ -81,13 +77,13 @@ class PapayaUiSheet extends PapayaUiControl {
   public function subtitles(PapayaUiSheetSubtitles $subtitles = NULL) {
     if (isset($subtitles)) {
       if (is_array($subtitles)) {
-        $this->_subtitles = new PapayaUiSheetSubtitles($subtitles);
+        $this->_subtitles = new \PapayaUiSheetSubtitles($subtitles);
       } else {
         PapayaUtilConstraints::assertInstanceOf('PapayaUiSheetSubtitles', $subtitles);
         $this->_subtitles = $subtitles;
       }
     } elseif (NULL === $this->_subtitles) {
-      $this->_subtitles = new PapayaUiSheetSubtitles();
+      $this->_subtitles = new \PapayaUiSheetSubtitles();
     }
     return $this->_subtitles;
   }
@@ -98,7 +94,7 @@ class PapayaUiSheet extends PapayaUiControl {
    */
   public function content($content = NULL) {
     if (isset($content)) {
-      if ($content instanceof PapayaXmlElement) {
+      if ($content instanceof \PapayaXmlElement) {
         $this->_document->replaceChild(
           $this->_document->importNode($content, TRUE),
           $this->_document->documentElement

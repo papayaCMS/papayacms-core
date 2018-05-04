@@ -1,21 +1,17 @@
 <?php
 /**
-* Array Access implementation for phrase group objects.
-*
-* @copyright 2014 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Phrases
-* @version $Id: Groups.php 39740 2014-04-16 15:56:04Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Array Access implementation for phrase group objects.
@@ -61,7 +57,7 @@ class PapayaPhrasesGroups implements ArrayAccess {
    */
   public function offsetGet($name) {
     if (!isset($this->_groups[$name])) {
-      $this->_groups[$name] = new PapayaPhrasesGroup($this->_phrases, $name);
+      $this->_groups[$name] = new \PapayaPhrasesGroup($this->_phrases, $name);
     }
     return $this->_groups[$name];
   }

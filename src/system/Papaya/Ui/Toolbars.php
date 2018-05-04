@@ -1,22 +1,17 @@
 <?php
 /**
-* A listview can have up to four toolbars, at the different corners. This class provides
-* access to them.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Toolbars.php 39429 2014-02-27 20:14:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A listview can have up to four toolbars, at the different corners. This class provides
@@ -62,7 +57,7 @@ class PapayaUiToolbars extends PapayaUiControl {
     foreach ($this->_toolbars as $position => $toolbar) {
       if (isset($toolbar)) {
         $node = $toolbar->appendTo($parent);
-        if ($node instanceof PapayaXmlElement) {
+        if ($node instanceof \PapayaXmlElement) {
           $node->setAttribute(
             'position', $this->_positions[$position]
           );
@@ -82,12 +77,12 @@ class PapayaUiToolbars extends PapayaUiControl {
   public function __get($name) {
     if (array_key_exists($name, $this->_positions)) {
       if (!isset($this->_toolbars[$name])) {
-        $this->_toolbars[$name] = $toolbar = new PapayaUiToolbar();
+        $this->_toolbars[$name] = $toolbar = new \PapayaUiToolbar();
         $toolbar->papaya($this->papaya());
       }
       return $this->_toolbars[$name];
     }
-    throw new UnexpectedValueException(
+    throw new \UnexpectedValueException(
       'UnexpectedValueException: Invalid toolbar position requested.'
     );
   }
@@ -105,7 +100,7 @@ class PapayaUiToolbars extends PapayaUiControl {
     if (array_key_exists($name, $this->_positions)) {
       $this->_toolbars[$name] = $value;
     } else {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'UnexpectedValueException: Invalid toolbar position requested.'
       );
     }

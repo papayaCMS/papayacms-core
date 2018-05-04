@@ -149,7 +149,7 @@ class PapayaMessageDispatcherWildfireVariableVisitor
    * @throws \LogicException
    */
   public function visitObject($object) {
-    $reflection = new ReflectionObject($object);
+    $reflection = new \ReflectionObject($object);
     $hash = spl_object_hash($object);
     $isRecursion = $this->_isObjectRecursion($hash);
     $isDuplicate = $this->_isObjectDuplicate($hash);

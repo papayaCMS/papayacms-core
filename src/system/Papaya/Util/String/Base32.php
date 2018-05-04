@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Utilities for encoding/decoding base32
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Util
-* @version $Id: Base32.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Utilities for encoding/decoding base32
@@ -142,7 +138,7 @@ class PapayaUtilStringBase32 {
     $binary = '';
     $count = strlen($encodedString);
     if (in_array($count % 8, array(1, 3, 6))) {
-      throw new OutOfBoundsException(
+      throw new \OutOfBoundsException(
         sprintf(
           'Invalid input string length for %s::%s',
           __CLASS__,
@@ -155,7 +151,7 @@ class PapayaUtilStringBase32 {
       if (isset(self::$_decodingTable[$char])) {
         $binary .= self::$_decodingTable[$char];
       } else {
-        throw new OutOfBoundsException(
+        throw new \OutOfBoundsException(
           sprintf(
             'Invalid char in input string for %s::%s',
             __CLASS__,
@@ -166,7 +162,7 @@ class PapayaUtilStringBase32 {
     }
     $count = strlen($binary);
     if (substr_count(substr($binary, $count - ($count % 8)), 1) > 0) {
-      throw new OutOfBoundsException(
+      throw new \OutOfBoundsException(
         sprintf(
           'Invalid padding chars in input string for %s::%s',
           __CLASS__,

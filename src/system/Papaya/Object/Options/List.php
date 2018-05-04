@@ -1,28 +1,17 @@
 <?php
 /**
-* A options list if a list of name => value pairs. The names consists of letters and
-* underscores (the first char can not be an underscore). Lowercase letters, will be converted
-* to uppercase, so the names are case insensitive.
-*
-* If the option name is camel case (e.g. sampleOptionName) it will be splittet at the uppercase
-* chars and joined again with underscores (e.g. SAMPLE_OPTION_NAME).
-*
-* The values have to be scalars, complex types are not allowed.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Objects
-* @version $Id: List.php 39730 2014-04-07 21:05:30Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A options list if a list of name => value pairs. The names consists of letters and
@@ -75,7 +64,7 @@ class PapayaObjectOptionsList
     if (preg_match('(^[A-Z]+[A-Z_]+$)DS', $name)) {
       return $name;
     }
-    throw new InvalidArgumentException(
+    throw new \InvalidArgumentException(
       sprintf('Invalid option name "%s".', $name)
     );
   }
@@ -137,7 +126,7 @@ class PapayaObjectOptionsList
         unset($this->_options[$name]);
       }
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf(
           'Option value must be a skalar: "%s" given.', gettype($value)
         )
@@ -222,7 +211,7 @@ class PapayaObjectOptionsList
   * IteratorAggrate Interface: return an iterator for the options in this object
   */
   public function getIterator() {
-    return new ArrayIterator($this->toArray());
+    return new \ArrayIterator($this->toArray());
   }
 
   /**

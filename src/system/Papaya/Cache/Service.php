@@ -121,13 +121,13 @@ abstract class PapayaCacheService {
    */
   protected function _getCacheIdentification($group, $element, $parameters) {
     if (empty($group)) {
-      throw new InvalidArgumentException('Invalid cache group specified');
+      throw new \InvalidArgumentException('Invalid cache group specified');
     }
     if (empty($element)) {
-      throw new InvalidArgumentException('Invalid cache element specified');
+      throw new \InvalidArgumentException('Invalid cache element specified');
     }
     if (empty($parameters)) {
-      throw new InvalidArgumentException('Invalid cache parameters specified');
+      throw new \InvalidArgumentException('Invalid cache parameters specified');
     }
     return array(
       'group' => $this->_escapeIdentifierString($group),
@@ -153,7 +153,7 @@ abstract class PapayaCacheService {
     $cacheId =
       $identification['group'].'/'.$identification['element'].'/'.$identification['parameters'];
     if (strlen($cacheId) > $maximumLength) {
-      throw new InvalidArgumentException('Cache id string to large');
+      throw new \InvalidArgumentException('Cache id string to large');
     }
     return $cacheId;
   }

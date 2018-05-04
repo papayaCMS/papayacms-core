@@ -1,22 +1,17 @@
 <?php
 /**
-* The new papaya cms configuration option object. This replaces base_options and provides the
-* same api (mostly). It can be used in the same way, but adds the new features.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Configuration
-* @version $Id: Cms.php 39863 2014-06-27 09:47:01Z kersken $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Define a default project name, using the http host name
@@ -372,7 +367,7 @@ class PapayaConfigurationCms extends PapayaConfigurationGlobal {
             $_SERVER['DOCUMENT_ROOT'].$this->get('PAPAYA_PATH_PUBLICFILES')
           )
         );
-        $url = new PapayaUrlCurrent();
+        $url = new \PapayaUrlCurrent();
         $url->setPath($this->get('PAPAYA_PATH_PUBLICFILES'));
         $this->set(
           'PAPAYA_MEDIA_PUBLIC_URL', $url->getPathUrl()

@@ -1,21 +1,17 @@
 <?php
 /**
-* A menu/toolbar button list to select a single value out of a list.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Buttons.php 38906 2013-11-04 14:59:11Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A menu/toolbar button list to select a single value out of a list.
@@ -40,7 +36,7 @@ class PapayaUiToolbarSelectButtons extends PapayaUiToolbarSelect {
    */
   public function appendTo(PapayaXmlElement $parent) {
     $currentValue = $this->getCurrentValue();
-    $parameterName = new PapayaRequestParametersName($this->_parameterName);
+    $parameterName = new \PapayaRequestParametersName($this->_parameterName);
     foreach ($this->_options as $value => $data) {
       if (is_array($data)) {
         if (array_key_exists('enabled', $data) && !$data['enabled']) {

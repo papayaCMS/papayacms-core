@@ -1,21 +1,17 @@
 <?php
 /**
-* Load and provide access to the theme definition.
-*
-* @copyright 2013 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Theme
-* @version $Id: Structure.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Load and provide access to the theme definition stored in theme.xml inside the theme directory.
@@ -41,7 +37,7 @@ class PapayaContentStructure implements IteratorAggregate {
       if (empty($data)) {
         return;
       }
-      $dom = new PapayaXmlDocument();
+      $dom = new \PapayaXmlDocument();
       if (0 === strpos($data, '<')) {
         $dom->loadXml($data);
       } else {
@@ -51,7 +47,7 @@ class PapayaContentStructure implements IteratorAggregate {
         /** @noinspection PhpParamsInspection */
         $this->pages()->load($dom->documentElement);
       }
-    } elseif ($data instanceof PapayaXmlElement) {
+    } elseif ($data instanceof \PapayaXmlElement) {
       $this->pages()->load($data);
     }
   }
@@ -66,7 +62,7 @@ class PapayaContentStructure implements IteratorAggregate {
     if (isset($pages)) {
       $this->_pages = $pages;
     } elseif (NULL === $this->_pages) {
-      $this->_pages = new PapayaContentStructurePages();
+      $this->_pages = new \PapayaContentStructurePages();
     }
     return $this->_pages;
   }
@@ -104,7 +100,7 @@ class PapayaContentStructure implements IteratorAggregate {
    * @return PapayaXmlDocument
    */
   public function getXmlDocument(array $currentValues) {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $rootNode = $document->appendElement('values');
     /** @var PapayaContentStructurePage $page */
     foreach ($this->pages() as $page) {

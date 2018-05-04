@@ -1,21 +1,17 @@
 <?php
 /**
-* Language switch administration control
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Switch.php 39493 2014-03-03 15:32:14Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
  * Language switch administration control, allows to access the current content language and
@@ -60,7 +56,7 @@ class PapayaAdministrationLanguagesSwitch extends PapayaUiControlInteractive {
       $this->_languages = $languages;
     }
     if (is_null($this->_languages)) {
-      $this->_languages = new PapayaContentLanguages();
+      $this->_languages = new \PapayaContentLanguages();
     }
     return $this->_languages;
   }
@@ -83,7 +79,7 @@ class PapayaAdministrationLanguagesSwitch extends PapayaUiControlInteractive {
       $image = $this->getCurrent()->image;
       return (empty($image)) ? '' : './pics/language/'.$image;
     }
-    throw new LogicException(
+    throw new \LogicException(
       sprintf(
         'Can not find property %s::$%s', get_class($this), $name
       )
@@ -111,10 +107,10 @@ class PapayaAdministrationLanguagesSwitch extends PapayaUiControlInteractive {
     $current = $this->getCurrent();
     $links = $parent->appendElement(
       'links',
-      array('title' => new PapayaUiStringTranslated('Content Language'))
+      array('title' => new \PapayaUiStringTranslated('Content Language'))
     );
     foreach ($this->languages() as $id => $language) {
-      $reference = new PapayaUiReference();
+      $reference = new \PapayaUiReference();
       $reference->papaya($this->papaya());
       $reference->setParameters(array('language_select' => $id), 'lngsel');
       $link = $links->appendElement(
@@ -178,7 +174,7 @@ class PapayaAdministrationLanguagesSwitch extends PapayaUiControlInteractive {
   * @return PapayaContentLanguage
   */
   private function getDefault() {
-    $result = new PapayaContentLanguage();
+    $result = new \PapayaContentLanguage();
     $result->assign(
       array(
         'id' => 1,

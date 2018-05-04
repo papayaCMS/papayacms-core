@@ -1,20 +1,16 @@
 <?php
 /**
- * Papaya filter class for an array size, non arrays are zero size
+ * papaya CMS
  *
- * @copyright 2016 by papaya Software GmbH - All rights reserved.
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package Papaya-Library
- * @subpackage Filter
- * @version $Id: Integer.php 39403 2014-02-27 14:25:16Z weinert $
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
 /**
@@ -50,11 +46,11 @@ class PapayaFilterArraySize implements PapayaFilter {
     if (isset($minimum)) {
       if (isset($maximum) &&
         $maximum < $minimum) {
-        throw new RangeException('The maximum needs to be larger then the minimum.');
+        throw new \RangeException('The maximum needs to be larger then the minimum.');
       }
       $this->_maximum = $maximum;
     } elseif (isset($maximum)) {
-      throw new RangeException('A maximum was given, but minimum was not.');
+      throw new \RangeException('A maximum was given, but minimum was not.');
     }
   }
 
@@ -69,10 +65,10 @@ class PapayaFilterArraySize implements PapayaFilter {
     $size = is_array($value) ? count($value) : 0;
     $value = (int)$value;
     if (isset($this->_minimum) && $value < $this->_minimum) {
-      throw new PapayaFilterExceptionRangeMinimum($this->_minimum, $size);
+      throw new \PapayaFilterExceptionRangeMinimum($this->_minimum, $size);
     }
     if (isset($this->_maximum) && $value > $this->_maximum) {
-      throw new PapayaFilterExceptionRangeMaximum($this->_maximum, $size);
+      throw new \PapayaFilterExceptionRangeMaximum($this->_maximum, $size);
     }
     return TRUE;
   }

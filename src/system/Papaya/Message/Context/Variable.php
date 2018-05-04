@@ -1,21 +1,17 @@
 <?php
 /**
-* Message context containing a variable
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Messages
-* @version $Id: Variable.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Message context containing a variable
@@ -71,7 +67,7 @@ class PapayaMessageContextVariable
    */
   public function setDepth($depth) {
     if (!is_int($depth) || $depth < 1) {
-      throw new InvalidArgumentException('$depth must be an integer greater zero.');
+      throw new \InvalidArgumentException('$depth must be an integer greater zero.');
     }
     $this->_depth = $depth;
   }
@@ -93,7 +89,7 @@ class PapayaMessageContextVariable
    */
   public function setStringLength($length) {
     if (!is_int($length) || $length < 0) {
-      throw new InvalidArgumentException('$length must be an integer greater or equal zero.');
+      throw new \InvalidArgumentException('$length must be an integer greater or equal zero.');
     }
     $this->_stringLength = $length;
   }
@@ -113,7 +109,7 @@ class PapayaMessageContextVariable
   * @return string
   */
   public function asString() {
-    $visitor = new PapayaMessageContextVariableVisitorString($this->_depth, $this->_stringLength);
+    $visitor = new \PapayaMessageContextVariableVisitorString($this->_depth, $this->_stringLength);
     $this->acceptVisitor($visitor);
     return (string)$visitor;
   }
@@ -124,7 +120,7 @@ class PapayaMessageContextVariable
   * @return string
   */
   public function asXhtml() {
-    $visitor = new PapayaMessageContextVariableVisitorXhtml($this->_depth, $this->_stringLength);
+    $visitor = new \PapayaMessageContextVariableVisitorXhtml($this->_depth, $this->_stringLength);
     $this->acceptVisitor($visitor);
     return (string)$visitor;
   }

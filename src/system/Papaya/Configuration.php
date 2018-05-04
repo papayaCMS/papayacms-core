@@ -1,22 +1,17 @@
 <?php
 /**
-* A class for configurations. The actual configuration class needs to extend this class and
-* define option names and default values in the internal $_options array.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Configuration
-* @version $Id: Configuration.php 39408 2014-02-27 16:00:49Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A superclass for configurations. The actual configuration class needs to extend this class and
@@ -72,7 +67,7 @@ class PapayaConfiguration
     foreach ($options as $name => $default) {
       if (!is_scalar($default) && !is_null($default)) {
         $name = PapayaUtilStringIdentifier::toUnderscoreUpper($name);
-        throw new UnexpectedValueException(
+        throw new \UnexpectedValueException(
           sprintf('Default value for option "%s" is not a scalar.', $name)
         );
       } else {
@@ -218,7 +213,7 @@ class PapayaConfiguration
     if (isset($storage)) {
       $this->_storage = $storage;
     } elseif (is_null($this->_storage)) {
-      throw new LogicException('No storage assigned to configuration.');
+      throw new \LogicException('No storage assigned to configuration.');
     }
     return $this->_storage;
   }
@@ -298,7 +293,7 @@ class PapayaConfiguration
    * @throws LogicException
    */
   public function offsetUnset($name) {
-    throw new LogicException(
+    throw new \LogicException(
       'LogicException: You can only read or write options, not remove them.'
     );
   }
@@ -310,6 +305,6 @@ class PapayaConfiguration
   * @return Iterator
   */
   public function getIterator() {
-    return new PapayaConfigurationIterator(array_keys($this->_options), $this);
+    return new \PapayaConfigurationIterator(array_keys($this->_options), $this);
   }
 }

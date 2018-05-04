@@ -1,21 +1,17 @@
 <?php
 /**
-* A filter factory to create filter objects for from data structures using profiles
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Factory.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
  * A filter factory to create filter objects for from data structures using profiles
@@ -69,7 +65,7 @@ class PapayaFilterFactory implements IteratorAggregate {
    * @return Traversable|void
    */
   public function getIterator() {
-    return new ArrayIterator(self::_getProfiles());
+    return new \ArrayIterator(self::_getProfiles());
   }
 
   /**
@@ -80,7 +76,7 @@ class PapayaFilterFactory implements IteratorAggregate {
    */
   private static function _getProfiles() {
     if (NULL === self::$_profiles) {
-      $reflection = new ReflectionClass('PapayaFilter');
+      $reflection = new \ReflectionClass('PapayaFilter');
       foreach ($reflection->getConstants() as $constant => $profile) {
         if (0 === strpos($constant, 'IS_')) {
           self::$_profiles[strtolower($profile)] = $profile;
@@ -138,7 +134,7 @@ class PapayaFilterFactory implements IteratorAggregate {
     if (class_exists($class)) {
       return new $class();
     }
-    throw new PapayaFilterFactoryExceptionInvalidProfile($class);
+    throw new \PapayaFilterFactoryExceptionInvalidProfile($class);
   }
 
   /**
@@ -165,7 +161,7 @@ class PapayaFilterFactory implements IteratorAggregate {
    * @return PapayaFilter|PapayaFilterLogicalOr
    */
   private static function _getFilter($profile, $mandatory = TRUE, $options = NULL) {
-    if (!$profile instanceof PapayaFilterFactoryProfile) {
+    if (!$profile instanceof \PapayaFilterFactoryProfile) {
       $profile = self::_getProfile($profile);
     }
     if (isset($options)) {
@@ -175,9 +171,9 @@ class PapayaFilterFactory implements IteratorAggregate {
     if ($mandatory) {
       return $filter;
     } else {
-      return new PapayaFilterLogicalOr(
+      return new \PapayaFilterLogicalOr(
         $filter,
-        new PapayaFilterEmpty(FALSE, FALSE)
+        new \PapayaFilterEmpty(FALSE, FALSE)
       );
     }
   }
@@ -192,12 +188,12 @@ class PapayaFilterFactory implements IteratorAggregate {
    * @return bool
    */
   public static function validate($value, $filter, $mandatory = TRUE) {
-    if (!($filter instanceof PapayaFilter)) {
+    if (!($filter instanceof \PapayaFilter)) {
       $filter = self::_getFilter($filter, $mandatory);
     } elseif (!$mandatory) {
-      $filter = new PapayaFilterLogicalOr(
+      $filter = new \PapayaFilterLogicalOr(
         $filter,
-        new PapayaFilterEmpty(FALSE, FALSE)
+        new \PapayaFilterEmpty(FALSE, FALSE)
       );
     }
     try {
@@ -217,7 +213,7 @@ class PapayaFilterFactory implements IteratorAggregate {
    * @return mixed
    */
   public static function filter($value, $filter) {
-    if (!($filter instanceof PapayaFilter)) {
+    if (!($filter instanceof \PapayaFilter)) {
       $filter = self::_getFilter($filter);
     }
     return $filter->filter($value);
@@ -232,7 +228,7 @@ class PapayaFilterFactory implements IteratorAggregate {
    * @return bool
    */
   public static function matches($value, $pattern, $mandatory = TRUE) {
-    return self::validate($value, new PapayaFilterPcre($pattern), $mandatory);
+    return self::validate($value, new \PapayaFilterPcre($pattern), $mandatory);
   }
 
   /**
@@ -247,7 +243,7 @@ class PapayaFilterFactory implements IteratorAggregate {
       if (count($arguments) > 0) {
         $value = $arguments[0];
       } else {
-        throw new InvalidArgumentException(
+        throw new \InvalidArgumentException(
           sprintf(
             'Missing argument #0 for %s::%s().',
             __CLASS__,
@@ -261,7 +257,7 @@ class PapayaFilterFactory implements IteratorAggregate {
         (count($arguments) > 1) ? (bool)$arguments[1] : TRUE
       );
     }
-    throw new LogicException(
+    throw new \LogicException(
       sprintf(
         'Unkown function %s::%s().',
         __CLASS__,

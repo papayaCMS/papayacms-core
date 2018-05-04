@@ -1,21 +1,17 @@
 <?php
 /**
-* Encapsulation object for the libxml errors.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Xml
-* @version $Id: Errors.php 39514 2014-03-04 17:03:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Encapsulation object for the libxml errors.
@@ -83,16 +79,16 @@ class PapayaXmlErrors extends PapayaObject {
       $this->deactivate();
     } catch (PapayaXmlException $e) {
       if ($emitErrors) {
-        $context = new PapayaMessageContextGroup();
+        $context = new \PapayaMessageContextGroup();
         if ($e->getContextFile()) {
           $context->append(
-            new PapayaMessageContextFile(
+            new \PapayaMessageContextFile(
               $e->getContextFile(), $e->getContextLine(), $e->getContextColumn()
             )
           );
         }
-        $context->append(new PapayaMessageContextVariable($arguments));
-        $context->append(new PapayaMessageContextBacktrace(1));
+        $context->append(new \PapayaMessageContextVariable($arguments));
+        $context->append(new \PapayaMessageContextBacktrace(1));
         $this->papaya()->messages->log(
           PapayaMessageLogable::GROUP_SYSTEM,
           PapayaMessage::SEVERITY_ERROR,
@@ -115,7 +111,7 @@ class PapayaXmlErrors extends PapayaObject {
     $errors = libxml_get_errors();
     foreach ($errors as $error) {
       if ($error->level == LIBXML_ERR_FATAL) {
-        throw new PapayaXmlException($error);
+        throw new \PapayaXmlException($error);
       } elseif (!$fatalOnly && 0 !== strpos($error->message, 'Namespace prefix papaya')) {
         $this
           ->papaya()
@@ -144,7 +140,7 @@ class PapayaXmlErrors extends PapayaObject {
    */
   public function getMessageFromError(libXMLError $error) {
     $messageType = $this->_errorMapping[$error->level];
-    $message = new PapayaMessageLog(
+    $message = new \PapayaMessageLog(
       PapayaMessageLogable::GROUP_SYSTEM,
       $messageType,
       sprintf(
@@ -159,7 +155,7 @@ class PapayaXmlErrors extends PapayaObject {
       $message
         ->context()
         ->append(
-          new PapayaMessageContextFile(
+          new \PapayaMessageContextFile(
             $error->file, $error->line, $error->column
           )
         );
@@ -167,7 +163,7 @@ class PapayaXmlErrors extends PapayaObject {
     $message
       ->context()
       ->append(
-        new PapayaMessageContextBacktrace(3)
+        new \PapayaMessageContextBacktrace(3)
       );
     return $message;
   }

@@ -1,21 +1,17 @@
 <?php
 /**
-* An navigation builder class, creates a link navigation from an Transversable or array.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Builder.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * An navigation builder class, creates a link navigation from an Transversable or array.
@@ -58,7 +54,7 @@ class PapayaUiNavigationBuilder extends PapayaUiControl {
   public function __construct($elements, $itemClass = 'PapayaUiNavigationItemText') {
     $this->elements($elements);
     if (!is_subclass_of($itemClass, 'PapayaUiNavigationItem')) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf(
           'Class "%s" is not an subclass of "PapayaUiNavigationItem".',
           $itemClass
@@ -83,7 +79,7 @@ class PapayaUiNavigationBuilder extends PapayaUiControl {
         $itemClass = $this->_itemClass;
         $item = new $itemClass($element, $index);
       }
-      if ($item instanceof PapayaUiNavigationItem) {
+      if ($item instanceof \PapayaUiNavigationItem) {
         $this->items()->add($item);
         $this->callbacks()->onAfterAppendItem($item, $element, $index);
       }
@@ -116,7 +112,7 @@ class PapayaUiNavigationBuilder extends PapayaUiControl {
     if (isset($items)) {
       $this->_items = $items;
     } elseif (is_null($this->_items)) {
-      $this->_items = new PapayaUiNavigationItems();
+      $this->_items = new \PapayaUiNavigationItems();
       $this->_items->papaya($this->papaya());
     }
     return $this->_items;
@@ -132,7 +128,7 @@ class PapayaUiNavigationBuilder extends PapayaUiControl {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new PapayaUiNavigationBuilderCallbacks();
+      $this->_callbacks = new \PapayaUiNavigationBuilderCallbacks();
     }
     return $this->_callbacks;
   }

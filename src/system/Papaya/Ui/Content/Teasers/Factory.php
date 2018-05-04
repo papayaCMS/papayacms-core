@@ -1,21 +1,17 @@
 <?php
 /**
-* Create teaser list object including the needed pages database object for it.
-*
-* @copyright 2013 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui-Content
-* @version $Id: Factory.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Create teaser list object including the needed pages database object for it.
@@ -121,7 +117,7 @@ class PapayaUiContentTeasersFactory extends PapayaObject {
       $filter['viewmode_id'] = $this->papaya()->request->modeId;
     }
     $pages->activateLazyLoad($filter, $limit, $offset);
-    return new PapayaUiContentTeasers($pages, $this->_width, $this->_height, $this->_resizeMode);
+    return new \PapayaUiContentTeasers($pages, $this->_width, $this->_height, $this->_resizeMode);
   }
 
   /**
@@ -162,9 +158,9 @@ class PapayaUiContentTeasersFactory extends PapayaObject {
    */
   private function createPages($order) {
     if ($this->papaya()->request->isPreview) {
-      $pages = new PapayaContentPages();
+      $pages = new \PapayaContentPages();
     } else {
-      $pages = new PapayaContentPagesPublications();
+      $pages = new \PapayaContentPagesPublications();
     }
     if ($orderBy = $this->getOrderBy($order, $pages)) {
       $pages->orderBy($orderBy);
@@ -183,10 +179,10 @@ class PapayaUiContentTeasersFactory extends PapayaObject {
    * @return PapayaDatabaseInterfaceOrder
    */
   private function getOrderBy($order, PapayaContentPages $pages) {
-    if ($order instanceof PapayaDatabaseInterfaceOrder) {
+    if ($order instanceof \PapayaDatabaseInterfaceOrder) {
       return $order;
     } elseif (isset($this->_orderByDefinitions[$order])) {
-      return new PapayaDatabaseRecordOrderByProperties(
+      return new \PapayaDatabaseRecordOrderByProperties(
         $this->_orderByDefinitions[$order], $pages->mapping()
       );
     }

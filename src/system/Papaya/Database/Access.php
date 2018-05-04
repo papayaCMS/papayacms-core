@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Database Access
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Access.php 39408 2014-02-27 16:00:49Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Database Access
@@ -226,7 +222,7 @@ class PapayaDatabaseAccess extends PapayaObject {
     if (isset($tables)) {
       $this->_tables = $tables;
     } elseif (is_null($this->_tables)) {
-      $this->_tables = new PapayaContentTables();
+      $this->_tables = new \PapayaContentTables();
     }
     return $this->_tables;
   }
@@ -309,8 +305,8 @@ class PapayaDatabaseAccess extends PapayaObject {
     if (isset($delegateFunction) &&
         isset($this->_delegateFunctions[$delegateFunction])) {
       $connector = $this->getDatabaseConnector();
-      if (!($connector instanceof db_simple)) {
-        throw new BadMethodCallException(
+      if (!($connector instanceof \db_simple)) {
+        throw new \BadMethodCallException(
           sprintf(
             'Invalid function call. Can not fetch database connector.'
           )
@@ -330,7 +326,7 @@ class PapayaDatabaseAccess extends PapayaObject {
           return FALSE;
         }
       } else {
-        throw new BadMethodCallException(
+        throw new \BadMethodCallException(
           sprintf(
             'Invalid function call. Method %s::%s does not exist.',
             is_object($connector) ? get_class($connector) : gettype($connector),
@@ -339,7 +335,7 @@ class PapayaDatabaseAccess extends PapayaObject {
         );
       }
     } else {
-      throw new BadMethodCallException(
+      throw new \BadMethodCallException(
         sprintf(
           'Invalid function call. Method %s::%s does not exist.',
           get_class($this),
@@ -365,7 +361,7 @@ class PapayaDatabaseAccess extends PapayaObject {
       } elseif (is_callable($callback)) {
         $this->_errorHandler = $callback;
       } else {
-        throw new InvalidArgumentException('Given error callback is not callable.');
+        throw new \InvalidArgumentException('Given error callback is not callable.');
       }
     }
     return $this->_errorHandler;
@@ -386,14 +382,14 @@ class PapayaDatabaseAccess extends PapayaObject {
         PapayaDatabaseException::SEVERITY_WARNING => PapayaMessage::SEVERITY_WARNING,
         PapayaDatabaseException::SEVERITY_ERROR => PapayaMessage::SEVERITY_ERROR,
       );
-      $logMsg = new PapayaMessageLog(
+      $logMsg = new \PapayaMessageLog(
         PapayaMessageLogable::GROUP_DATABASE,
         $mapSeverity[$exception->getSeverity()],
         'Database #'.$exception->getCode().': '.$exception->getMessage()
       );
-      $logMsg->context()->append(new PapayaMessageContextBacktrace(3));
-      if ($exception instanceof PapayaDatabaseExceptionQuery) {
-        $logMsg->context()->append(new PapayaMessageContextText($exception->getStatement()));
+      $logMsg->context()->append(new \PapayaMessageContextBacktrace(3));
+      if ($exception instanceof \PapayaDatabaseExceptionQuery) {
+        $logMsg->context()->append(new \PapayaMessageContextText($exception->getStatement()));
       }
       $this->papaya()->messages->dispatch($logMsg);
     }

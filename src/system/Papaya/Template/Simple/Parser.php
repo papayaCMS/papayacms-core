@@ -132,7 +132,7 @@ abstract class PapayaTemplateSimpleParser {
     // If the the requested characters is not available on the tokenstream
     // and this state is allowed return a special ANY token
     if ($allowEndOfTokens === TRUE && (!isset($this->_tokens[$position]))) {
-      return new PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::ANY, 0, '');
+      return new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::ANY, 0, '');
     }
 
     foreach ($expectedTokens as $token) {
@@ -224,10 +224,10 @@ abstract class PapayaTemplateSimpleParser {
    */
   protected function delegate($subparserClass) {
     $subparser = new $subparserClass($this->_tokens);
-    if ($subparser instanceof PapayaTemplateSimpleParser) {
+    if ($subparser instanceof \PapayaTemplateSimpleParser) {
       return $subparser->parse();
     }
-    throw new LogicException('Invalid parser class: '.$subparserClass);
+    throw new \LogicException('Invalid parser class: '.$subparserClass);
   }
 
   /**
@@ -263,11 +263,11 @@ abstract class PapayaTemplateSimpleParser {
   protected function createMismatchException($expectedTokens, $position = 0) {
     // If the tokenstream ended unexpectedly throw an appropriate exception
     if (!isset($this->_tokens[$position])) {
-      return new PapayaTemplateSimpleExceptionUnexpectedEof($expectedTokens);
+      return new \PapayaTemplateSimpleExceptionUnexpectedEof($expectedTokens);
     }
 
     // We found a token but none of the expected ones.
-    return new PapayaTemplateSimpleExceptionUnexpectedToken(
+    return new \PapayaTemplateSimpleExceptionUnexpectedToken(
       $this->_tokens[$position], $expectedTokens
     );
   }

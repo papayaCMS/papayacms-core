@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya filter class for numbers with a specific length, e.g. credit card or account numbers
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Number.php 38143 2013-02-19 14:58:24Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya filter class for numbers with a specific length, e.g. credit card or account numbers
@@ -49,15 +45,15 @@ class PapayaFilterNumber implements PapayaFilter {
   public function __construct($minimumLength = NULL, $maximumLength = NULL) {
     if ($minimumLength !== NULL) {
       if (!is_numeric($minimumLength) || $minimumLength <= 0) {
-        throw new UnexpectedValueException('Minimum length must be greater than 0.');
+        throw new \UnexpectedValueException('Minimum length must be greater than 0.');
       }
     }
     if ($maximumLength !== NULL) {
       if (!is_numeric($maximumLength) || $maximumLength <= 0) {
-        throw new UnexpectedValueException('Maximum length must be greater than 0.');
+        throw new \UnexpectedValueException('Maximum length must be greater than 0.');
       }
       if ($minimumLength !== NULL && $minimumLength > $maximumLength) {
-        throw new UnexpectedValueException(
+        throw new \UnexpectedValueException(
           'Maximum length must be greater than or equal to minimum length.'
         );
       }
@@ -76,13 +72,13 @@ class PapayaFilterNumber implements PapayaFilter {
   */
   public function validate($value) {
     if (!preg_match('(^\d+$)', $value)) {
-      throw new PapayaFilterExceptionType('number');
+      throw new \PapayaFilterExceptionType('number');
     }
     if ($this->_minimumLength !== NULL && strlen($value) < $this->_minimumLength) {
-      throw new PapayaFilterExceptionRangeMinimum($this->_minimumLength, strlen($value));
+      throw new \PapayaFilterExceptionRangeMinimum($this->_minimumLength, strlen($value));
     }
     if ($this->_maximumLength !== NULL && strlen($value) > $this->_maximumLength) {
-      throw new PapayaFilterExceptionRangeMaximum($this->_maximumLength, strlen($value));
+      throw new \PapayaFilterExceptionRangeMaximum($this->_maximumLength, strlen($value));
     }
     return TRUE;
   }

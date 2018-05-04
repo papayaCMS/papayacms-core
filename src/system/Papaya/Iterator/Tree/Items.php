@@ -1,22 +1,17 @@
 <?php
 /**
-* An iterator that converts any traversable or array into an RecursiveIterator you can attach
-* other Traverables or arrays as children to each element.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-* @version $Id: Items.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * An iterator that converts any traversable or array into an RecursiveIterator you can attach
@@ -66,8 +61,8 @@ class PapayaIteratorTreeItems implements OuterIterator, RecursiveIterator {
   */
   public function getInnerIterator() {
     if (NULL === $this->_iterator) {
-      $this->_iterator = ($this->_traversable instanceof Iterator)
-         ? $this->_traversable : new PapayaIteratorTraversable($this->_traversable);
+      $this->_iterator = ($this->_traversable instanceof \Iterator)
+         ? $this->_traversable : new \PapayaIteratorTraversable($this->_traversable);
     }
     return $this->_iterator;
   }
@@ -115,7 +110,7 @@ class PapayaIteratorTreeItems implements OuterIterator, RecursiveIterator {
    */
   public function getChildren() {
     $iterator = $this->_itemIterators[$this->getCurrentTarget()];
-    return ($iterator instanceof RecursiveIterator) ? $iterator : new self($iterator);
+    return ($iterator instanceof \RecursiveIterator) ? $iterator : new self($iterator);
   }
 
   /**

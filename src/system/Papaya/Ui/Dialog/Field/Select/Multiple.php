@@ -1,21 +1,17 @@
 <?php
 
 /**
- * A simple select field
+ * papaya CMS
  *
- * @copyright 2010 by papaya Software GmbH - All rights reserved.
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package Papaya-Library
- * @subpackage Ui
- * @version $Id: Multiple.php 39969 2015-02-27 14:04:50Z faber $
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
 /**
@@ -92,7 +88,7 @@ class PapayaUiDialogFieldSelectMultiple extends PapayaUiDialogField {
     if (is_int($size)) {
       $this->_size = $size;
     } else {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         sprintf(
           'Unexpected value type: Expected "integer" but "%s" given.',
           is_object($size) ? get_class($size) : gettype($size)
@@ -145,13 +141,13 @@ class PapayaUiDialogFieldSelectMultiple extends PapayaUiDialogField {
    */
   protected function _createFilter() {
     $values = $this->getValues();
-    if ($values instanceof RecursiveIterator) {
-      $values = new RecursiveIteratorIterator($values);
+    if ($values instanceof \RecursiveIterator) {
+      $values = new \RecursiveIteratorIterator($values);
     }
     if ($this->getValueMode() == self::VALUE_USE_KEY) {
-      return new PapayaFilterListKeys($values);
+      return new \PapayaFilterListKeys($values);
     } else {
-      return new PapayaFilterList($values);
+      return new \PapayaFilterList($values);
     }
   }
 
@@ -197,7 +193,7 @@ class PapayaUiDialogFieldSelectMultiple extends PapayaUiDialogField {
    */
   protected function _appendOptions(PapayaXmlElement $parent, $options) {
     PapayaUtilConstraints::assertArrayOrTraversable($options);
-    $isRecursiveIterator = ($options instanceof RecursiveIterator);
+    $isRecursiveIterator = ($options instanceof \RecursiveIterator);
     foreach ($options as $index => $option) {
       if ($isRecursiveIterator && $options->hasChildren()) {
         $group = $this->_appendOptionGroup($parent, $option, $index);
@@ -281,7 +277,7 @@ class PapayaUiDialogFieldSelectMultiple extends PapayaUiDialogField {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new PapayaUiDialogFieldSelectCallbacks();
+      $this->_callbacks = new \PapayaUiDialogFieldSelectCallbacks();
     }
     return $this->_callbacks;
   }

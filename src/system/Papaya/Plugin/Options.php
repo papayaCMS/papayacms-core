@@ -1,21 +1,17 @@
 <?php
 /**
-* This is a list of the options for a single plugin module.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-* @version $Id: Options.php 39416 2014-02-27 17:02:47Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This is a list of the options for a single plugin module.
@@ -93,7 +89,7 @@ class PapayaPluginOptions extends PapayaConfiguration {
   */
   public function getIterator() {
     $this->lazyLoad();
-    return new PapayaConfigurationIterator(array_keys($this->_options), $this);
+    return new \PapayaConfigurationIterator(array_keys($this->_options), $this);
   }
 
   /**
@@ -136,7 +132,7 @@ class PapayaPluginOptions extends PapayaConfiguration {
     if (isset($storage)) {
       $this->_storage = $storage;
     } elseif (is_null($this->_storage)) {
-      $this->_storage = new PapayaPluginOptionStorage($this->_guid);
+      $this->_storage = new \PapayaPluginOptionStorage($this->_guid);
       $this->_storage->papaya($this->papaya());
     }
     return parent::storage($this->_storage);

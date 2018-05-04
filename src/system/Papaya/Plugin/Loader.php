@@ -1,21 +1,17 @@
 <?php
 /**
-* The PluginLoader allows to to get module/plugin objects by guid.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-* @version $Id: Loader.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * The PluginLoader allows to to get module/plugin objects by guid.
@@ -67,7 +63,7 @@ class PapayaPluginLoader extends PapayaObject {
     case 'options' :
       return $this->options();
     }
-    throw new LogicException(
+    throw new \LogicException(
       sprintf('Can not read unkown property %s::$%s', get_class($this), $name)
     );
   }
@@ -89,7 +85,7 @@ class PapayaPluginLoader extends PapayaObject {
       $this->options($value);
       return;
     }
-    throw new LogicException(
+    throw new \LogicException(
       sprintf('Can not write unkown property %s::$%s', get_class($this), $name)
     );
   }
@@ -102,7 +98,7 @@ class PapayaPluginLoader extends PapayaObject {
       $this->_plugins = $plugins;
     }
     if (is_null($this->_plugins)) {
-      $this->_plugins = new PapayaPluginList();
+      $this->_plugins = new \PapayaPluginList();
       $this->_plugins->activateLazyLoad(
         array('active' => TRUE)
       );
@@ -118,7 +114,7 @@ class PapayaPluginLoader extends PapayaObject {
       $this->_optionGroups = $groups;
     }
     if (is_null($this->_optionGroups)) {
-      $this->_optionGroups = new PapayaPluginOptionGroups();
+      $this->_optionGroups = new \PapayaPluginOptionGroups();
     }
     return $this->_optionGroups;
   }
@@ -255,22 +251,22 @@ class PapayaPluginLoader extends PapayaObject {
             is_readable($fileName) &&
             include_once($fileName)
           )) {
-        $logMessage = new PapayaMessageLog(
+        $logMessage = new \PapayaMessageLog(
           PapayaMessageLogable::GROUP_MODULES,
           PapayaMessage::SEVERITY_ERROR,
           sprintf('Can not include module file "%s"', $fileName)
         );
-        $logMessage->context()->append(new PapayaMessageContextBacktrace());
+        $logMessage->context()->append(new \PapayaMessageContextBacktrace());
         $this->papaya()->messages->dispatch($logMessage);
         return FALSE;
       }
       if (!class_exists($pluginData['class'], FALSE)) {
-        $logMessage = new PapayaMessageLog(
+        $logMessage = new \PapayaMessageLog(
           PapayaMessageLogable::GROUP_MODULES,
           PapayaMessage::SEVERITY_ERROR,
           sprintf('Can not find module class "%s"', $pluginData['class'])
         );
-        $logMessage->context()->append(new PapayaMessageContextBacktrace());
+        $logMessage->context()->append(new \PapayaMessageContextBacktrace());
         $this->papaya()->messages->dispatch($logMessage);
         return FALSE;
       }
@@ -327,7 +323,7 @@ class PapayaPluginLoader extends PapayaObject {
       return $this->_instances[$pluginData['guid']];
     }
     $result = new $pluginData['class']($parent);
-    if ($result instanceof PapayaObjectInterface) {
+    if ($result instanceof \PapayaObjectInterface) {
       $result->papaya($this->papaya());
     }
     /** @noinspection PhpUndefinedFieldInspection */
@@ -346,14 +342,14 @@ class PapayaPluginLoader extends PapayaObject {
    */
   public function configure($plugin, $data) {
     PapayaUtilConstraints::assertObject($plugin);
-    if ($plugin instanceof PapayaPluginEditable) {
-      if (is_array($data) || $data instanceof Traversable) {
+    if ($plugin instanceof \PapayaPluginEditable) {
+      if (is_array($data) || $data instanceof \Traversable) {
         $plugin->content()->assign($data);
       } elseif (is_string($data)) {
         $plugin->content()->setXml($data);
       }
     } elseif (!empty($data) && method_exists($plugin, 'setData')) {
-      if (is_array($data) || $data instanceof Traversable) {
+      if (is_array($data) || $data instanceof \Traversable) {
         $plugin->setData(
           PapayaUtilStringXml::serializeArray(
             PapayaUtilArray::ensure($data)

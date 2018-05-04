@@ -1,21 +1,17 @@
 <?php
 /**
-* Replacement for the DOMDocument adding some shortcuts for easier use
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Xml
-* @version $Id: Document.php 39735 2014-04-09 12:14:51Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Replacement for the DOMDocument adding some shortcuts for easier use
@@ -81,7 +77,7 @@ class PapayaXmlDocument
    */
   public function xpath() {
     if (is_null($this->_xpath) || $this->_xpath->document != $this) {
-      $this->_xpath = new PapayaXmlXpath($this);
+      $this->_xpath = new \PapayaXmlXpath($this);
       foreach ($this->_namespaces as $prefix => $namespace) {
         $this->_xpath->registerNamespace($prefix, $namespace);
       }
@@ -114,7 +110,7 @@ class PapayaXmlDocument
     if (
       isset($this->_reservedNamespaces[$prefix]) &&
       !$this->_reservedNamespaces[$prefix] == $namespace) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'Xml prefix "%s" is reserved for the namespace "%s".'
       );
     }
@@ -142,7 +138,7 @@ class PapayaXmlDocument
     if (isset($this->_namespaces[$prefix])) {
       return $this->_namespaces[$prefix];
     }
-    throw new UnexpectedValueException('Unknown namespace prefix: '.$prefix);
+    throw new \UnexpectedValueException('Unknown namespace prefix: '.$prefix);
   }
 
   /**
@@ -294,8 +290,8 @@ class PapayaXmlDocument
    * create a DOM from an xml document, capture errors
    */
   public static function createFromXml($xmlString, $silent = FALSE) {
-    $errors = new PapayaXmlErrors();
-    $dom = new PapayaXmlDocument();
+    $errors = new \PapayaXmlErrors();
+    $dom = new \PapayaXmlDocument();
     $success = $errors->encapsulate(
       array($dom, 'loadXml'), array($xmlString), !$silent
     );

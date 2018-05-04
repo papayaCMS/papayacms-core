@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Database Records Tree - reads an parent child tree from database.
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Tree.php 38854 2013-09-30 10:05:46Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Database Records Tree - reads an parent child tree from database.
@@ -71,7 +67,7 @@ abstract class PapayaDatabaseRecordsTree extends PapayaDatabaseRecordsLazy {
           $this->_records[$identifier] = $values;
           $this->_children[$parentIdentifier][] = $identifier;
         } else {
-          throw new LogicException(
+          throw new \LogicException(
             'Identifier properties needed to link children to parents.'
           );
         }
@@ -88,6 +84,6 @@ abstract class PapayaDatabaseRecordsTree extends PapayaDatabaseRecordsLazy {
   * @return PapayaIteratorTreeChildren
   */
   public function getIterator() {
-    return new PapayaIteratorTreeChildren($this->_records, $this->_children);
+    return new \PapayaIteratorTreeChildren($this->_records, $this->_children);
   }
 }

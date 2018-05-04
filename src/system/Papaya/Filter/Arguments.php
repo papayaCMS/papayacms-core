@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya filter class for an list of arguments joined by a defined separator character
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Arguments.php 39429 2014-02-27 20:14:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya filter class for an list of arguments joined by a defined separator character
@@ -59,11 +55,11 @@ class PapayaFilterArguments implements PapayaFilter {
   */
   public function validate($value) {
     if (empty($value)) {
-      throw new PapayaFilterExceptionEmpty();
+      throw new \PapayaFilterExceptionEmpty();
     }
     $value = explode($this->_separator, $value);
     if (count($value) > count($this->_filters)) {
-      throw new PapayaFilterExceptionCountMismatch(count($this->_filters), count($value), 'array');
+      throw new \PapayaFilterExceptionCountMismatch(count($this->_filters), count($value), 'array');
     }
     /** @var PapayaFilter $filter */
     foreach ($this->_filters as $index => $filter) {

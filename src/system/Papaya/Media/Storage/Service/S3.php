@@ -74,7 +74,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
       'PAPAYA_MEDIA_STORAGE_S3_BUCKET', $this->_storageBucket
     );
 
-    $this->_handler = new PapayaMediaStorageServiceS3Handler($configuration);
+    $this->_handler = new \PapayaMediaStorageServiceS3Handler($configuration);
 
     $this->_storageDirectory = $configuration->get(
       'PAPAYA_MEDIA_STORAGE_SUBDIRECTORY', $this->_storageDirectory
@@ -152,12 +152,12 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   */
   private function _doXmlRequest(PapayaHttpClient $client) {
     $client->send();
-    $dom = new DOMDocument('1.0', 'UTF-8');
+    $dom = new \DOMDocument('1.0', 'UTF-8');
     if (200 === $client->getResponseStatus()) {
       $xml = $client->getResponseData();
       $dom->loadXML($xml);
     }
-    $xpath = new DOMXPath($dom);
+    $xpath = new \DOMXPath($dom);
     $xpath->registerNamespace('aws', 'http://s3.amazonaws.com/doc/2006-03-01/');
     return $xpath;
   }
@@ -341,9 +341,9 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
     $isPublic = FALSE
   ) {
     if (is_resource($content)) {
-      $resource = new PapayaHttpClientFileResource('filedata', 'file.dat', $content, $mimeType);
+      $resource = new \PapayaHttpClientFileResource('filedata', 'file.dat', $content, $mimeType);
     } else {
-      $resource = new PapayaHttpClientFileString('filedata', 'file.dat', $content, $mimeType);
+      $resource = new \PapayaHttpClientFileString('filedata', 'file.dat', $content, $mimeType);
     }
     return $this->_storeResource($storageGroup, $storageId, $resource, $mimeType, $isPublic);
   }
@@ -362,7 +362,7 @@ class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
   public function storeLocalFile(
     $storageGroup, $storageId, $filename, $mimeType = 'application/octet-stream', $isPublic = FALSE
   ) {
-    $resource = new PapayaHttpClientFileName('filedata', $filename, $mimeType);
+    $resource = new \PapayaHttpClientFileName('filedata', $filename, $mimeType);
     return $this->_storeResource($storageGroup, $storageId, $resource, $mimeType, $isPublic);
   }
 

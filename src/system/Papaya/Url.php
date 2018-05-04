@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya URL representation
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage URL
-* @version $Id: Url.php 39832 2014-05-20 14:27:00Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya URL representation
@@ -158,7 +154,7 @@ class PapayaUrl {
       }
       return $this->$property;
     }
-    throw new BadMethodCallException(
+    throw new \BadMethodCallException(
       sprintf('Invalid method call "%s" on "%s"', $method, __CLASS__)
     );
   }
@@ -177,7 +173,7 @@ class PapayaUrl {
     if (in_array($name, $this->_parts)) {
       return empty($this->_elements[$name]) ? NULL : $this->_elements[$name];
     } else {
-      throw new BadMethodCallException(sprintf('Invalid property "%s::%s".', __CLASS__, $name));
+      throw new \BadMethodCallException(sprintf('Invalid property "%s::%s".', __CLASS__, $name));
     }
   }
 
@@ -194,12 +190,12 @@ class PapayaUrl {
       if (method_exists($this, $setter)) {
         $this->$setter($value);
       } else {
-        throw new BadMethodCallException(
+        throw new \BadMethodCallException(
           sprintf('Property "%s::%s" is not writeable.', __CLASS__, $name)
         );
       }
     } else {
-      throw new BadMethodCallException(sprintf('Invalid property "%s::%s".', __CLASS__, $name));
+      throw new \BadMethodCallException(sprintf('Invalid property "%s::%s".', __CLASS__, $name));
     }
   }
 
@@ -213,7 +209,7 @@ class PapayaUrl {
     if (preg_match('(^[a-z_()-]+$)D', $scheme)) {
       $this->_elements['scheme'] = $scheme;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
       );
     }
@@ -230,7 +226,7 @@ class PapayaUrl {
     if (preg_match($regex, $host)) {
       $this->_elements['host'] = $host;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf('Invalid argument #0 for %s: "%s"', __METHOD__, $host)
       );
     }
@@ -247,7 +243,7 @@ class PapayaUrl {
     if (preg_match('(^[0-9]+$)D', $port)) {
       $this->_elements['port'] = $port;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
       );
     }
@@ -263,7 +259,7 @@ class PapayaUrl {
     if (preg_match('(^/[^?#\r\n]*$)D', $path)) {
       $this->_elements['path'] = $path;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
       );
     }
@@ -282,7 +278,7 @@ class PapayaUrl {
     if (preg_match('(^[^?#\r\n]*$)D', $query)) {
       $this->_elements['query'] = $query;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
       );
     }
@@ -300,7 +296,7 @@ class PapayaUrl {
     if (preg_match('(^[^?#\r\n]*$)D', $fragment)) {
       $this->_elements['fragment'] = $fragment;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf('Invalid argument #0 for %s::%s.', __CLASS__, __METHOD__)
       );
     }

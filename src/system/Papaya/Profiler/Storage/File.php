@@ -1,21 +1,17 @@
 <?php
 /**
-* Stores the Xhrof profiling data into a file usable by the standard report app.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-* @version $Id: File.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Stores the Xhrof profiling data into a file usable by the standard report app.
@@ -85,7 +81,7 @@ class PapayaProfilerStorageFile implements PapayaProfilerStorage {
    */
   private function prepareDirectory($directory) {
     if (empty($directory)) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'No profiling directory defined.'
       );
     }
@@ -93,7 +89,7 @@ class PapayaProfilerStorageFile implements PapayaProfilerStorage {
     if (file_exists($directory) && is_dir($directory) && is_readable($directory)) {
       return $directory;
     }
-    throw new UnexpectedValueException(
+    throw new \UnexpectedValueException(
       sprintf('Profiling directory "%s" is not writeable.', $directory)
     );
   }
@@ -109,7 +105,7 @@ class PapayaProfilerStorageFile implements PapayaProfilerStorage {
     if (preg_match('(^[a-z\d]+$)D', $suffix)) {
       return $suffix;
     } else {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         sprintf('Invalid profiling file suffix "%s"', $suffix)
       );
     }

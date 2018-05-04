@@ -1,21 +1,17 @@
 <?php
 /**
-* Encapsulate a php callback, to allow a default returnvalue and a context.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Callback.php 39091 2014-01-30 17:02:28Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Encapsulate a php callback, to allow a default returnvalue and a context.
@@ -63,7 +59,7 @@ class PapayaObjectCallback {
    */
   public function __construct($defaultReturn = NULL, $addContext = TRUE) {
     $this->_defaultReturn = $defaultReturn;
-    $this->_context = new stdClass();
+    $this->_context = new \stdClass();
     $this->_addContext = (bool)$addContext;
   }
 
@@ -137,7 +133,7 @@ class PapayaObjectCallback {
   */
   public function __unset($name) {
     if ($name == 'context') {
-      $this->_context = new stdClass;
+      $this->_context = new \stdClass;
       return;
     }
     $property = $this->getPropertyName($name);
@@ -158,7 +154,7 @@ class PapayaObjectCallback {
     case 'context' :
       return '_'.$name;
     }
-    throw new UnexpectedValueException(
+    throw new \UnexpectedValueException(
       sprintf('Unknown property %s::$%s', __CLASS__, $name)
     );
   }

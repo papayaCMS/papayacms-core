@@ -1,23 +1,17 @@
 <?php
 /**
-* A single line input for that needs to be send in the request always an empty string
-*
-* Creates a dialog field for an url input.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Honeypot.php 39722 2014-04-07 13:32:25Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A single line input for that needs to be send in the request always an empty string.
@@ -60,17 +54,17 @@ class PapayaUiDialogFieldHoneypot extends PapayaUiDialogField {
   */
   public function __construct($caption, $name) {
     parent::setMandatory(TRUE);
-    parent::setFilter(new PapayaFilterLogicalAnd(new PapayaFilterIsset(), new PapayaFilterEmpty()));
+    parent::setFilter(new \PapayaFilterLogicalAnd(new \PapayaFilterIsset(), new \PapayaFilterEmpty()));
     $this->setCaption($caption);
     $this->setName($name);
   }
 
   public function setFilter(PapayaFilter $filter) {
-    throw new LogicException('The honeypot field filter can not be changed.');
+    throw new \LogicException('The honeypot field filter can not be changed.');
   }
 
   public function setMandatory($mandatory) {
-    throw new LogicException('The honeypot field is always mandatory.');
+    throw new \LogicException('The honeypot field is always mandatory.');
   }
 
   /**

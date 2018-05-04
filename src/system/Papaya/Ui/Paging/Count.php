@@ -1,21 +1,17 @@
 <?php
 /**
-* Output paging links based on a item count.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Count.php 39409 2014-02-27 16:36:19Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Output paging links based on a item count.
@@ -182,7 +178,7 @@ class PapayaUiPagingCount extends PapayaUiControl {
           preg_match('(^[a-z][a-z_\d-]*$)Di', $name)) {
         $this->_xmlNames[$element] = $name;
       } else {
-        throw new UnexpectedValueException(
+        throw new \UnexpectedValueException(
           sprintf(
             'Invalid/unknown xml name element "%s" with value "%s".',
             $element,
@@ -273,7 +269,7 @@ class PapayaUiPagingCount extends PapayaUiControl {
       $this->_reference = $reference;
     }
     if (is_null($this->_reference)) {
-      $this->_reference = new PapayaUiReference();
+      $this->_reference = new \PapayaUiReference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;
@@ -288,7 +284,7 @@ class PapayaUiPagingCount extends PapayaUiControl {
   public function setItemsCount($itemsCount) {
     PapayaUtilConstraints::assertInteger($itemsCount);
     if ($itemsCount < 0) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'UnexpectedValueException: Item count can not be negative.'
       );
     }
@@ -306,7 +302,7 @@ class PapayaUiPagingCount extends PapayaUiControl {
   public function setItemsPerPage($itemsPerPage) {
     PapayaUtilConstraints::assertInteger($itemsPerPage);
     if ($itemsPerPage < 1) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'UnexpectedValueException: Item page limit can not be less than 1.'
       );
     }
@@ -324,7 +320,7 @@ class PapayaUiPagingCount extends PapayaUiControl {
   public function setPageLimit($pageLimit) {
     PapayaUtilConstraints::assertInteger($pageLimit);
     if ($pageLimit < 3) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'UnexpectedValueException: Page limit can not be less than 3.'
       );
     }

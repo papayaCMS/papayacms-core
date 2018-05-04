@@ -1,21 +1,17 @@
 <?php
 /**
-* A listview gui control.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Listview.php 39406 2014-02-27 15:07:55Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A listview gui control.
@@ -137,7 +133,7 @@ class PapayaUiListview extends PapayaUiControlInteractive {
     if (isset($items)) {
       $this->_items = $items;
     } elseif (is_null($this->_items)) {
-      $this->_items = new PapayaUiListviewItems($this);
+      $this->_items = new \PapayaUiListviewItems($this);
       $this->_items->papaya($this->papaya());
     }
     if ($this->_useBuilder && count($this->_items) == 0) {
@@ -173,7 +169,7 @@ class PapayaUiListview extends PapayaUiControlInteractive {
       $this->_columns = $columns;
     }
     if (is_null($this->_columns)) {
-      $this->_columns = new PapayaUiListviewColumns($this);
+      $this->_columns = new \PapayaUiListviewColumns($this);
       $this->_columns->papaya($this->papaya());
     }
     return $this->_columns;
@@ -190,7 +186,7 @@ class PapayaUiListview extends PapayaUiControlInteractive {
       $this->_toolbars = $toolbars;
     }
     if (is_null($this->_toolbars)) {
-      $this->_toolbars = new PapayaUiToolbars($this);
+      $this->_toolbars = new \PapayaUiToolbars($this);
       $this->_toolbars->papaya($this->papaya());
     }
     return $this->_toolbars;
@@ -210,7 +206,7 @@ class PapayaUiListview extends PapayaUiControlInteractive {
       $this->_reference = $reference;
     }
     if (is_null($this->_reference)) {
-      $this->_reference = new PapayaUiReference();
+      $this->_reference = new \PapayaUiReference();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

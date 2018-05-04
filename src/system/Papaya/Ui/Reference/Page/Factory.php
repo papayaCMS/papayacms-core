@@ -1,25 +1,16 @@
 <?php
 /**
- * A application width object that provides data for references
+ * papaya CMS
  *
- * Allows to load pages and provides basic function for the working copy and publication.
- *
- * This is an abstract superclass, please use {@see PapayaContentPageWork} to modify the
- * working copy of a page or {@see PapayaContentPagePublication} to use the published page.
- *
- * @copyright 2010 by papaya Software GmbH - All rights reserved.
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package Papaya-Library
- * @subpackage Ui
- * @version $Id: Factory.php 39698 2014-03-27 16:57:37Z weinert $
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
 /**
@@ -71,7 +62,7 @@ class PapayaUiReferencePageFactory extends PapayaObject {
    * @return \PapayaUiReferencePage
    */
   public function create() {
-    return new PapayaUiReferencePage();
+    return new \PapayaUiReferencePage();
   }
 
   /**
@@ -313,7 +304,7 @@ class PapayaUiReferencePageFactory extends PapayaObject {
       $linkTypes = $this->linkTypes();
       if (isset($linkTypes[$pageData['linktype_id']])) {
         $linkType = $linkTypes[$pageData['linktype_id']];
-        $attributes = new PapayaUiLinkAttributes();
+        $attributes = new \PapayaUiLinkAttributes();
         $attributes->class = $linkType['class'];
         if ($linkType['is_popup']) {
           $width = PapayaUtilArray::get($linkType['popup_options'], 'popup_width', '80%');
@@ -400,7 +391,7 @@ class PapayaUiReferencePageFactory extends PapayaObject {
       $this->_pages = $pages;
     } elseif (is_null($this->_pages)) {
       $this->_pages = $this->isPreview()
-        ? new PapayaContentPages(TRUE) : new PapayaContentPagesPublications(TRUE);
+        ? new \PapayaContentPages(TRUE) : new \PapayaContentPagesPublications(TRUE);
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;
@@ -416,7 +407,7 @@ class PapayaUiReferencePageFactory extends PapayaObject {
     if (isset($linkTypes)) {
       $this->_linkTypes = $linkTypes;
     } elseif (is_null($this->_linkTypes)) {
-      $this->_linkTypes = new PapayaContentLinkTypes();
+      $this->_linkTypes = new \PapayaContentLinkTypes();
       $this->_linkTypes->papaya($this->papaya());
       $this->_linkTypes->activateLazyLoad();
     }
@@ -433,7 +424,7 @@ class PapayaUiReferencePageFactory extends PapayaObject {
     if (isset($domains)) {
       $this->_domains = $domains;
     } elseif (is_null($this->_domains)) {
-      $this->_domains = new PapayaDomains();
+      $this->_domains = new \PapayaDomains();
       $this->_domains->papaya($this->papaya());
     }
     return $this->_domains;

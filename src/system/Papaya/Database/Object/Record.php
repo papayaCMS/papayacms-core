@@ -159,7 +159,7 @@ abstract class PapayaDatabaseObjectRecord
   */
   public function assign($source) {
     if (is_array($source) ||
-        $source instanceof ArrayAccess) {
+        $source instanceof \ArrayAccess) {
       foreach ($this->_fields as $field => $mapping) {
         if (isset($source[$field])) {
           $this->_values[$field] = $source[$field];
@@ -193,7 +193,7 @@ abstract class PapayaDatabaseObjectRecord
   * @return ArrayIterator
   */
   public function getIterator() {
-    return new ArrayIterator($this->toArray());
+    return new \ArrayIterator($this->toArray());
   }
 
   /**
@@ -223,7 +223,7 @@ abstract class PapayaDatabaseObjectRecord
     } elseif ($this->offsetExists($offset)) {
       return NULL;
     }
-    throw new OutOfBoundsException(
+    throw new \OutOfBoundsException(
       sprintf('Invalid field name "%s" in "%s"', $offset, get_class($this))
     );
   }
@@ -240,7 +240,7 @@ abstract class PapayaDatabaseObjectRecord
     if ($this->offsetExists($offset)) {
       $this->_values[$offset] = $value;
     } else {
-      throw new OutOfBoundsException(
+      throw new \OutOfBoundsException(
         sprintf('Invalid field name "%s" in "%s".', $offset, get_class($this))
       );
     }
@@ -414,7 +414,7 @@ abstract class PapayaDatabaseObjectRecord
     if (isset($callback) && is_callable($callback)) {
       return call_user_func($callback, $data);
     } else {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'Invalid callback provided.'
       );
     }

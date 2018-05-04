@@ -1,26 +1,17 @@
 <?php
 /**
-* Provide basic data encapsulation for the content page.
-*
-* Allows to load pages and provides basic function for the working copy and publication.
-*
-* This is an abstract superclass, please use {@see PapayaContentPageWork} to modify the
-* working copy of a page or {@see PapayaContentPagePublication} to use the published page.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Page.php 39486 2014-03-03 11:50:42Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
  * Provide basic data encapsulation for the content page.
@@ -213,7 +204,7 @@ class PapayaContentPage extends PapayaDatabaseRecordLazy {
       $this->_translations = $translations;
     }
     if (is_null($this->_translations)) {
-      $this->_translations = new PapayaContentPageTranslations();
+      $this->_translations = new \PapayaContentPageTranslations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
       $this->_translations->setTranslationsTableName($this->_translationsTableName);
     }

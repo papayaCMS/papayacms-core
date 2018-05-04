@@ -1,21 +1,17 @@
 <?php
 /**
-* Administration interface for changes on the dependencies of a page.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Changer.php 39725 2014-04-07 17:19:34Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Administration interface for changes on the dependencies of a page.
@@ -121,7 +117,7 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
     if (isset($dependency)) {
       $this->_dependency = $dependency;
     } elseif (is_null($this->_dependency)) {
-      $this->_dependency = new PapayaContentPageDependency();
+      $this->_dependency = new \PapayaContentPageDependency();
     }
     return $this->_dependency;
   }
@@ -136,7 +132,7 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
     if (isset($dependencies)) {
       $this->_dependencies = $dependencies;
     } elseif (is_null($this->_dependencies)) {
-      $this->_dependencies = new PapayaContentPageDependencies();
+      $this->_dependencies = new \PapayaContentPageDependencies();
     }
     return $this->_dependencies;
   }
@@ -151,7 +147,7 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {
-      $this->_reference = new PapayaContentPageReference();
+      $this->_reference = new \PapayaContentPageReference();
     }
     return $this->_reference;
   }
@@ -166,7 +162,7 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
     if (isset($references)) {
       $this->_references = $references;
     } elseif (is_null($this->_references)) {
-      $this->_references = new PapayaContentPageReferences();
+      $this->_references = new \PapayaContentPageReferences();
     }
     return $this->_references;
   }
@@ -204,14 +200,14 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
   * Initialize parameters and store them into properties.
   */
   public function prepare() {
-    $this->_pageId = $this->parameters()->get('page_id', 0, new PapayaFilterInteger(0));
+    $this->_pageId = $this->parameters()->get('page_id', 0, new \PapayaFilterInteger(0));
     if ($this->_pageId > 0) {
       if ($this->dependency()->load($this->_pageId)) {
         $this->_originId = (int)$this->dependency()->originId;
       } elseif ($this->dependency()->isOrigin($this->_pageId)) {
         $this->_originId = (int)$this->_pageId;
       }
-      $this->_targetId = $this->parameters()->get('target_id', 0, new PapayaFilterInteger(0));
+      $this->_targetId = $this->parameters()->get('target_id', 0, new \PapayaFilterInteger(0));
       if ($this->_targetId > 0) {
         $this->reference()->load(
           array('source_id' => $this->_pageId, 'target_id' => $this->_targetId)
@@ -230,12 +226,12 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
     if (isset($commands)) {
       $this->_commands = $commands;
     } elseif (is_null($this->_commands)) {
-      $commands = new PapayaUiControlCommandController('cmd', 'dependency_show');
+      $commands = new \PapayaUiControlCommandController('cmd', 'dependency_show');
       $commands->owner($this);
-      $commands['dependency_show'] = new PapayaAdministrationPagesDependencyCommandChange();
-      $commands['dependency_delete'] = new PapayaAdministrationPagesDependencyCommandDelete();
-      $commands['reference_change'] = new PapayaAdministrationPagesReferenceCommandChange();
-      $commands['reference_delete'] = new PapayaAdministrationPagesReferenceCommandDelete();
+      $commands['dependency_show'] = new \PapayaAdministrationPagesDependencyCommandChange();
+      $commands['dependency_delete'] = new \PapayaAdministrationPagesDependencyCommandDelete();
+      $commands['reference_change'] = new \PapayaAdministrationPagesReferenceCommandChange();
+      $commands['reference_delete'] = new \PapayaAdministrationPagesReferenceCommandDelete();
       $this->_commands = $commands;
     }
     return $this->_commands;
@@ -251,7 +247,7 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
     if (isset($menu)) {
       $this->_menu = $menu;
     } elseif (is_null($this->_menu)) {
-      $this->_menu = new PapayaUiToolbar();
+      $this->_menu = new \PapayaUiToolbar();
     }
     return $this->_menu;
   }
@@ -261,35 +257,35 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
   */
   private function appendButtons() {
     if (in_array($this->parameters()->get('cmd'), array('reference_change', 'reference_delete'))) {
-      $this->menu()->elements[] = $button = new PapayaUiToolbarButton();
+      $this->menu()->elements[] = $button = new \PapayaUiToolbarButton();
       $button->image = 'status-page-modified';
-      $button->caption = new PapayaUiStringTranslated('Edit dependency');
+      $button->caption = new \PapayaUiStringTranslated('Edit dependency');
       $button->reference->setParameters(
         array('cmd' => 'dependency_change', 'page_id' => $this->_pageId),
         $this->parameterGroup()
       );
     }
     if ($this->dependency()->id > 0) {
-      $this->menu()->elements[] = $button = new PapayaUiToolbarButton();
+      $this->menu()->elements[] = $button = new \PapayaUiToolbarButton();
       $button->image = 'actions-page-delete';
-      $button->caption = new PapayaUiStringTranslated('Delete dependency');
+      $button->caption = new \PapayaUiStringTranslated('Delete dependency');
       $button->reference->setParameters(
         array('cmd' => 'dependency_delete', 'page_id' => $this->_pageId),
         $this->parameterGroup()
       );
     }
-    $this->menu()->elements[] = new PapayaUiToolbarSeparator();
-    $this->menu()->elements[] = $button = new PapayaUiToolbarButton();
+    $this->menu()->elements[] = new \PapayaUiToolbarSeparator();
+    $this->menu()->elements[] = $button = new \PapayaUiToolbarButton();
     $button->image = 'actions-link-add';
-    $button->caption = new PapayaUiStringTranslated('Add reference');
+    $button->caption = new \PapayaUiStringTranslated('Add reference');
     $button->reference->setParameters(
       array('cmd' => 'reference_change', 'page_id' => $this->_pageId, 'target_id' => 0),
       $this->parameterGroup()
     );
     if ($this->reference()->sourceId > 0 && $this->reference()->targetId > 0) {
-      $this->menu()->elements[] = $button = new PapayaUiToolbarButton();
+      $this->menu()->elements[] = $button = new \PapayaUiToolbarButton();
       $button->image = 'actions-link-delete';
-      $button->caption = new PapayaUiStringTranslated('Delete reference');
+      $button->caption = new \PapayaUiStringTranslated('Delete reference');
       $button->reference->setParameters(
         array(
           'cmd' => 'reference_delete',
@@ -312,7 +308,7 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
     if (isset($listview)) {
       $this->_listview = $listview;
     } elseif (is_null($this->_listview)) {
-      $this->_listview = new PapayaAdministrationPagesDependencyListview(
+      $this->_listview = new \PapayaAdministrationPagesDependencyListview(
         $this->getOriginId(),
         $this->getPageId(),
         $this->dependencies(),
@@ -336,7 +332,7 @@ class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteract
       $this->_synchronizations = $synchronizations;
     }
     if (is_null($this->_synchronizations)) {
-      $this->_synchronizations = new PapayaAdministrationPagesDependencySynchronizations();
+      $this->_synchronizations = new \PapayaAdministrationPagesDependencySynchronizations();
     }
     return $this->_synchronizations;
   }

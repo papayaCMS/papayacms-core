@@ -1,21 +1,17 @@
 <?php
 /**
-* Create listview items from an Traversable or Iterator
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Builder.php 39420 2014-02-27 17:40:37Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Create listview items from an Traversable or Iterator
@@ -76,7 +72,7 @@ class PapayaUiListviewItemsBuilder {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new PapayaUiListviewItemsBuilderCallbacks();
+      $this->_callbacks = new \PapayaUiListviewItemsBuilderCallbacks();
     }
     return $this->_callbacks;
   }
@@ -90,6 +86,6 @@ class PapayaUiListviewItemsBuilder {
   * @param mixed $element
   */
   public function createItem($context, PapayaUiListviewItems $items, $element) {
-    $items[] = new PapayaUiListviewItem('', (string)$element);
+    $items[] = new \PapayaUiListviewItem('', (string)$element);
   }
 }

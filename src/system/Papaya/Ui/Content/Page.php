@@ -1,4 +1,17 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 class PapayaUiContentPage extends PapayaObject {
 
@@ -54,9 +67,9 @@ class PapayaUiContentPage extends PapayaObject {
       $this->_page = $page;
     } elseif (NULL == $this->_page) {
       if ($this->isPublic()) {
-        $this->_page = new PapayaContentPagePublication();
+        $this->_page = new \PapayaContentPagePublication();
       } else {
-        $this->_page = new PapayaContentPage();
+        $this->_page = new \PapayaContentPage();
       }
       $this->_page->activateLazyLoad($this->_pageId);
     }
@@ -72,9 +85,9 @@ class PapayaUiContentPage extends PapayaObject {
       $this->_translation = $translation;
     } elseif (NULL == $this->_translation) {
       if ($this->isPublic()) {
-        $this->_translation = new PapayaContentPagePublicationTranslation();
+        $this->_translation = new \PapayaContentPagePublicationTranslation();
       } else {
-        $this->_translation = new PapayaContentPageTranslation();
+        $this->_translation = new \PapayaContentPageTranslation();
       }
       if ($language = $this->getPageLanguage()) {
         $this->_translation->activateLazyLoad(
@@ -104,7 +117,7 @@ class PapayaUiContentPage extends PapayaObject {
    * @return null|PapayaContentLanguage
    */
   public function getPageLanguage() {
-    if ($this->_language instanceof PapayaContentLanguage) {
+    if ($this->_language instanceof \PapayaContentLanguage) {
       return $this->_language;
     } elseif (isset($this->_language) && isset($this->papaya()->languages)) {
       return $this->_language = $this->papaya()->languages->getLanguage($this->_language);

@@ -1,21 +1,17 @@
 <?php
 /**
-* Mapper object to convert a database fields into object properties and back
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Mapping.php 39406 2014-02-27 15:07:55Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Mapper object to convert a database fields into object properties and back
@@ -75,7 +71,7 @@ class PapayaDatabaseRecordMapping implements PapayaDatabaseInterfaceMapping {
       $this->_properties[$property] = $field;
       if (!empty($field)) {
         if (isset($this->_fields[$field])) {
-          throw new LogicException(
+          throw new \LogicException(
             sprintf(
               'Duplicate database field "%s" in mapping definition.',
               $field
@@ -317,7 +313,7 @@ class PapayaDatabaseRecordMapping implements PapayaDatabaseInterfaceMapping {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new PapayaDatabaseRecordMappingCallbacks();
+      $this->_callbacks = new \PapayaDatabaseRecordMappingCallbacks();
     }
     return $this->_callbacks;
   }

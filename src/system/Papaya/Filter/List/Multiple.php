@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya filter class that validates if all values in a given are in another predefined list
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Multiple.php 38143 2013-02-19 14:58:24Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya filter class that validates if all values in a given are in another predefined list
@@ -55,11 +51,11 @@ class PapayaFilterListMultiple implements PapayaFilter {
   */
   public function validate($value) {
     if (!is_array($value)) {
-      throw new PapayaFilterExceptionType('array');
+      throw new \PapayaFilterExceptionType('array');
     }
     foreach ($value as $element) {
       if (!in_array($element, $this->_list)) {
-        throw new PapayaFilterExceptionNotEnclosed($element);
+        throw new \PapayaFilterExceptionNotEnclosed($element);
       }
     }
     return TRUE;

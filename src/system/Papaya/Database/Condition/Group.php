@@ -1,4 +1,17 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
  * @method PapayaDatabaseConditionGroup logicalAnd()
@@ -44,14 +57,14 @@ class PapayaDatabaseConditionGroup
   public function __construct(
     $parent, PapayaDatabaseInterfaceMapping $mapping = NULL, $operator = 'AND'
   ) {
-    if ($parent instanceof PapayaDatabaseConditionGroup) {
+    if ($parent instanceof \PapayaDatabaseConditionGroup) {
       parent::__construct($parent, NULL, NULL, $operator);
-    } elseif ($parent instanceof PapayaDatabaseInterfaceAccess) {
+    } elseif ($parent instanceof \PapayaDatabaseInterfaceAccess) {
       $this->_databaseAccess = $parent->getDatabaseAccess();
-    } elseif ($parent instanceof PapayaDatabaseAccess) {
+    } elseif ($parent instanceof \PapayaDatabaseAccess) {
       $this->_databaseAccess = $parent;
     } else {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         sprintf('Invalid parent class %s in %s', get_class($parent), __METHOD__)
       );
     }
@@ -81,33 +94,33 @@ class PapayaDatabaseConditionGroup
     $name = strtolower($methodName);
     switch ($name) {
     case 'logicaland' :
-      $this->_conditions[] = $condition = new PapayaDatabaseConditionGroup($this, NULL, 'AND');
+      $this->_conditions[] = $condition = new \PapayaDatabaseConditionGroup($this, NULL, 'AND');
       return $condition;
     case 'logicalor' :
-      $this->_conditions[] = $condition = new PapayaDatabaseConditionGroup($this, NULL, 'OR');
+      $this->_conditions[] = $condition = new \PapayaDatabaseConditionGroup($this, NULL, 'OR');
       return $condition;
     case 'logicalnot' :
-      $this->_conditions[] = $condition = new PapayaDatabaseConditionGroup($this, NULL, 'NOT');
+      $this->_conditions[] = $condition = new \PapayaDatabaseConditionGroup($this, NULL, 'NOT');
       return $condition;
     case 'contains' :
       list($field, $value) = $arguments;
-      $this->_conditions[] = $condition = new PapayaDatabaseConditionContains($this, $field, $value);
+      $this->_conditions[] = $condition = new \PapayaDatabaseConditionContains($this, $field, $value);
       return $condition;
     case 'like' :
       list($field, $value) = $arguments;
-      $this->_conditions[] = $condition = new PapayaDatabaseConditionLike($this, $field, $value);
+      $this->_conditions[] = $condition = new \PapayaDatabaseConditionLike($this, $field, $value);
       return $condition;
     case 'match' :
       list($fields, $value) = $arguments;
-      $this->_conditions[] = $condition = new PapayaDatabaseConditionFulltextMatch($this, $fields, $value);
+      $this->_conditions[] = $condition = new \PapayaDatabaseConditionFulltextMatch($this, $fields, $value);
       return $condition;
     case 'matchboolean' :
       list($fields, $value) = $arguments;
-      $this->_conditions[] = $condition = new PapayaDatabaseConditionFulltextBoolean($this, $fields, $value);
+      $this->_conditions[] = $condition = new \PapayaDatabaseConditionFulltextBoolean($this, $fields, $value);
       return $condition;
     case 'matchcontains' :
       list($fields, $value) = $arguments;
-      $this->_conditions[] = $condition = new PapayaDatabaseConditionFulltextContains($this, $fields, $value);
+      $this->_conditions[] = $condition = new \PapayaDatabaseConditionFulltextContains($this, $fields, $value);
       return $condition;
     default :
       if (isset($this->_classes[$name])) {
@@ -117,13 +130,13 @@ class PapayaDatabaseConditionGroup
         return $this;
       }
     }
-    throw new BadMethodCallException(
+    throw new \BadMethodCallException(
       sprintf('Invalid condition create method %s::%s().', get_class($this), $methodName)
     );
   }
 
   public function getIterator() {
-    return new ArrayIterator($this->_conditions);
+    return new \ArrayIterator($this->_conditions);
   }
 
   public function count() {

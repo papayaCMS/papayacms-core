@@ -1,21 +1,17 @@
 <?php
 /**
-* Profiler objects builder, create the objects needed to initialize the profiler.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-* @version $Id: Builder.php 39468 2014-02-28 19:51:17Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Profiler objects builder, create the objects needed to initialize the profiler. The
@@ -33,7 +29,7 @@ class PapayaProfilerBuilder extends PapayaObject {
   * @return PapayaProfilerCollector
   */
   public function createCollector() {
-    return new PapayaProfilerCollectorXhprof();
+    return new \PapayaProfilerCollectorXhprof();
   }
 
   /**
@@ -49,7 +45,7 @@ class PapayaProfilerBuilder extends PapayaObject {
   public function createStorage() {
     switch ($this->papaya()->options->get('PAPAYA_PROFILER_STORAGE', 'file')) {
     case 'xhgui' :
-      $storage = new PapayaProfilerStorageXhgui(
+      $storage = new \PapayaProfilerStorageXhgui(
         $this->papaya()->options->get('PAPAYA_PROFILER_STORAGE_DATABASE', ''),
         $this->papaya()->options->get('PAPAYA_PROFILER_STORAGE_DATABASE_TABLE', 'details'),
         $this->papaya()->options->get('PAPAYA_PROFILER_SERVER_ID', '1')
@@ -57,7 +53,7 @@ class PapayaProfilerBuilder extends PapayaObject {
       break;
     case 'file' :
     default :
-      $storage = new PapayaProfilerStorageFile(
+      $storage = new \PapayaProfilerStorageFile(
         $this->papaya()->options->get(
           'PAPAYA_PROFILER_STORAGE_DIRECTORY', ini_get('xhprof.output_dir')
         )

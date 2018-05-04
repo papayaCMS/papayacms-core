@@ -1,24 +1,17 @@
 <?php
 /**
-* Mapper object to convert a database fields into object properties and back. It caches the
-* results of functions call to the orginal mapping class and the callback functions.
-*
-* It will not cache the result of the property/record value mappings.
-*
-* @copyright 2014 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Cache.php 39429 2014-02-27 20:14:26Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Mapper object to convert a database fields into object properties and back. It caches the
@@ -47,7 +40,7 @@ class PapayaDatabaseRecordMappingCache implements PapayaDatabaseInterfaceMapping
 
   public function __construct(PapayaDatabaseInterfaceMapping $mapping) {
     $this->_mapping = $mapping;
-    if ($mapping instanceof PapayaDatabaseRecordMapping) {
+    if ($mapping instanceof \PapayaDatabaseRecordMapping) {
       foreach ($mapping->callbacks() as $event => $callback) {
         if (isset($callback->callback) || isset($callback->defaultReturn)) {
           $this->_callbacks[$event] = $callback;

@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Cache Service for file system cache
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Cache
-* @version $Id: File.php 39418 2014-02-27 17:14:05Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Cache Service for file system cache
@@ -84,7 +80,7 @@ class PapayaCacheServiceFile extends PapayaCacheService {
       $message = 'Cache directory does not exist or has invalid permissions';
     }
     if (!$silent) {
-      throw new LogicException($message);
+      throw new \LogicException($message);
     }
     return FALSE;
   }
@@ -267,7 +263,7 @@ class PapayaCacheServiceFile extends PapayaCacheService {
     $cacheId =
       $identification['group'].'/'.$identification['element'].'/'.$identification['parameters'];
     if (strlen($cacheId) > 255) {
-      throw new InvalidArgumentException('Cache id string to large');
+      throw new \InvalidArgumentException('Cache id string to large');
     }
     return array(
       'group' => $groupDirectory,
@@ -302,7 +298,7 @@ class PapayaCacheServiceFile extends PapayaCacheService {
       $this->_notifier = $notifier;
     } elseif (NULL === $this->_notifier) {
       if ($this->_notifierScript) {
-        $this->_notifier = new PapayaFileSystemChangeNotifier($this->_notifierScript);
+        $this->_notifier = new \PapayaFileSystemChangeNotifier($this->_notifierScript);
       } else {
         $this->_notifier = FALSE;
       }

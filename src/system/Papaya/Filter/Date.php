@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya filter class for date.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Filter
-* @version $Id: Date.php 39404 2014-02-27 14:55:43Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This filter class checks a date with optional time in human-readable format.
@@ -73,14 +69,14 @@ class PapayaFilterDate implements PapayaFilter {
    */
   public function __construct($includeTime = self::DATE_NO_TIME, $step = 1.0) {
     if (!in_array($includeTime, self::$timeConstants)) {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         'Argument must be PapayaFilterDate::DATE_NO_TIME, '.
         'PapayaFilterDate::DATE_OPTIONAL_TIME, or '.
         'PapayaFilterDate::DATE_MANDATORY_TIME.'
       );
     }
     if ($step <= 0) {
-      throw new UnexpectedValueException('Step must be greater than 0.');
+      throw new \UnexpectedValueException('Step must be greater than 0.');
     }
     $this->_includeTime = $includeTime;
     $this->_step = $step;
@@ -99,7 +95,7 @@ class PapayaFilterDate implements PapayaFilter {
       $elements = preg_split('([T ])', $value);
       if (count($elements) > 2 ||
           ($this->_includeTime == self::DATE_MANDATORY_TIME && count($elements) != 2)) {
-        throw new PapayaFilterExceptionType('Wrong number of elements in date/time string.');
+        throw new \PapayaFilterExceptionType('Wrong number of elements in date/time string.');
       }
       $date = $elements[0];
       if (count($elements) > 1) {
@@ -114,7 +110,7 @@ class PapayaFilterDate implements PapayaFilter {
       (?P<day>\d{2})
     $)Dx';
     if (!preg_match($patternDateISO, $date, $matches)) {
-      throw new PapayaFilterExceptionType('Invalid date format.');
+      throw new \PapayaFilterExceptionType('Invalid date format.');
     }
     $daysPerMonth = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
     $year = $matches['year'];
@@ -124,13 +120,13 @@ class PapayaFilterDate implements PapayaFilter {
       $daysPerMonth[1] = 29;
     }
     if ($month > 12) {
-      throw new PapayaFilterExceptionRangeMaximum(12, $month);
+      throw new \PapayaFilterExceptionRangeMaximum(12, $month);
     }
     if ($day > $daysPerMonth[$month - 1]) {
-      throw new PapayaFilterExceptionRangeMaximum($daysPerMonth[$month - 1], $day);
+      throw new \PapayaFilterExceptionRangeMaximum($daysPerMonth[$month - 1], $day);
     }
     if (isset($time)) {
-      $timeFilter = new PapayaFilterTime($this->_step);
+      $timeFilter = new \PapayaFilterTime($this->_step);
       $timeFilter->validate($time);
     }
     return TRUE;

@@ -1,22 +1,17 @@
 <?php
 /**
-* A command that executes a list of other commands. This can be used to combine separate commands
-* into a single one.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: List.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * A command that executes a list of other commands. This can be used to combine separate commands
@@ -105,11 +100,11 @@ class PapayaUiControlCommandList
    * @throws UnexpectedValueException
    */
   public function offsetSet($offset, $command) {
-    if ($command instanceof PapayaUiControlCommand) {
+    if ($command instanceof \PapayaUiControlCommand) {
       $this->_commands[$offset] = $command;
       $this->_commands = array_values($this->_commands);
     } else {
-      throw new UnexpectedValueException(
+      throw new \UnexpectedValueException(
         sprintf(
           'Expected instance of "PapayaUiControlCommand" but "%s" was given.',
           is_object($command) ? get_class($command) : gettype($command)
@@ -143,6 +138,6 @@ class PapayaUiControlCommandList
   * @return ArrayIterator
   */
   public function getIterator() {
-    return new ArrayIterator($this->_commands);
+    return new \ArrayIterator($this->_commands);
   }
 }

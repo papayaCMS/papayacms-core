@@ -1,22 +1,17 @@
 <?php
 /**
-* An abstract superclass for plugin content editors. They need access to the plugin,
-* so it is stored in a buffer variable.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-* @version $Id: Editor.php 39416 2014-02-27 17:02:47Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * An abstract superclass for plugin content editors. They need access to the plugin,
@@ -59,7 +54,7 @@ abstract class PapayaPluginEditor extends PapayaUiControlInteractive {
     if (isset($context)) {
       $this->_context = $context;
     } elseif (NULL === $this->_context) {
-      $this->_context = new PapayaRequestParameters();
+      $this->_context = new \PapayaRequestParameters();
     }
     return $this->_context;
   }

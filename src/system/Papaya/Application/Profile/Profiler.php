@@ -31,7 +31,7 @@ class PapayaApplicationProfileProfiler implements PapayaApplicationProfile {
   public function createObject($application) {
     $builder = $this->builder();
     $builder->papaya($application);
-    $profiler = new PapayaProfiler($builder->createCollector(), $builder->createStorage());
+    $profiler = new \PapayaProfiler($builder->createCollector(), $builder->createStorage());
     if ($application->options->get('PAPAYA_PROFILER_ACTIVE', FALSE)) {
       $profiler->setDivisor($application->options->get('PAPAYA_PROFILER_DIVISOR', 50));
     } else {
@@ -50,7 +50,7 @@ class PapayaApplicationProfileProfiler implements PapayaApplicationProfile {
     if (NULL !== $builder) {
       $this->_builder = $builder;
     } elseif (NULL === $this->_builder) {
-      $this->_builder = new PapayaProfilerBuilder();
+      $this->_builder = new \PapayaProfilerBuilder();
     }
     return $this->_builder;
   }

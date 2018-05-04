@@ -1,21 +1,17 @@
 <?php
 /**
-* A menu/toolbar select box. This creates a seperate form (method get) with a <select>-field.
-*
-* @copyright 2011 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui
-* @version $Id: Select.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
  * A menu/toolbar select box. This creates a seperate form (method get) with a <select>-field.
@@ -113,10 +109,10 @@ class PapayaUiToolbarSelect extends PapayaUiToolbarElement {
   public function options($options = NULL) {
     if (isset($options)) {
       if (is_array($options) ||
-          ($options instanceof Traversable)) {
+          ($options instanceof \Traversable)) {
         $this->_options = $options;
       } else {
-        throw new InvalidArgumentException(
+        throw new \InvalidArgumentException(
           'Argument $options must be an array or implement Traversable.'
         );
       }
@@ -131,7 +127,7 @@ class PapayaUiToolbarSelect extends PapayaUiToolbarElement {
   */
   public function getCurrentValue() {
     if (is_null($this->_currentValue)) {
-      $name = new PapayaRequestParametersName(
+      $name = new \PapayaRequestParametersName(
         $this->_parameterName, $this->reference()->getParameterGroupSeparator()
       );
       $this->_currentValue = $this->validateCurrentValue(
@@ -175,7 +171,7 @@ class PapayaUiToolbarSelect extends PapayaUiToolbarElement {
     $select = $parent->appendElement(
       'combo',
       array(
-        'name' => new PapayaRequestParametersName(
+        'name' => new \PapayaRequestParametersName(
           $this->_parameterName, $this->reference()->getParameterGroupSeparator()
         ),
         'action' => $this->reference()->getRelative(NULL, FALSE)

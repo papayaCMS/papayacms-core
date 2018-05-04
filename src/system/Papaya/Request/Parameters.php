@@ -1,21 +1,17 @@
 <?php
 /**
-* Papaya Request Parameters Handling
-*
-* @copyright 2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Request
-* @version $Id: Parameters.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Request Parameters Handling
@@ -34,7 +30,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
     $result = new self();
     if (isset($this[$groupName])) {
       $value = $this[$groupName];
-      if (is_array($value) || $value instanceof Traversable) {
+      if (is_array($value) || $value instanceof \Traversable) {
         $result->merge($this[$groupName]);
       }
     }
@@ -64,7 +60,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    * @return $this
    */
   public function set($offsets, $value = NULL) {
-    if (is_array($offsets) || $offsets instanceof Traversable) {
+    if (is_array($offsets) || $offsets instanceof \Traversable) {
       foreach ($offsets as $offset => $value) {
         $this[$offset] = $value;
       }
@@ -82,7 +78,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    * @return $this
    */
   public function remove($offsets) {
-    if (!(is_array($offsets) || $offsets instanceof Traversable)) {
+    if (!(is_array($offsets) || $offsets instanceof \Traversable)) {
       $offsets = array($offsets);
     }
     foreach ($offsets as $offset) {
@@ -108,7 +104,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
   * @return array|string
   */
   private function _parseParameterName($name, $groupSeparator = '') {
-    $parts = new PapayaRequestParametersName(str_replace('.', '_', $name), $groupSeparator);
+    $parts = new \PapayaRequestParametersName(str_replace('.', '_', $name), $groupSeparator);
     return $parts->getArray();
   }
 
@@ -143,7 +139,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    * @return string
    */
   public function getQueryString($groupSeparator) {
-    $query = new PapayaRequestParametersQuery($groupSeparator);
+    $query = new \PapayaRequestParametersQuery($groupSeparator);
     $query->values($this);
     return $query->getString();
   }
@@ -153,7 +149,7 @@ class PapayaRequestParameters extends PapayaObjectParameters {
    * @return $this
    */
   public function setQueryString($queryString) {
-    $query = new PapayaRequestParametersQuery();
+    $query = new \PapayaRequestParametersQuery();
     $query->setString($queryString);
     $this->assign($query->values());
     return $this;

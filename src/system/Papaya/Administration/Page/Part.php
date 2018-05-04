@@ -1,21 +1,17 @@
 <?php
 /**
-* Administration page parts are interactive ui controls, with access to a toolbar.
-*
-* @copyright 2012 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Administration
-* @version $Id: Part.php 38950 2013-11-20 13:52:17Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Administration page parts are interactive ui controls, with access to a toolbar.
@@ -85,7 +81,7 @@ abstract class PapayaAdministrationPagePart extends PapayaUiControlInteractive {
    * @return PapayaUiControlCommandController
    */
   protected function _createCommands($name = 'cmd', $default = 'show') {
-    $commands = new PapayaUiControlCommandController($name, $default);
+    $commands = new \PapayaUiControlCommandController($name, $default);
     $commands->owner($this);
     return $commands;
   }
@@ -105,7 +101,7 @@ abstract class PapayaAdministrationPagePart extends PapayaUiControlInteractive {
         $this->_initializeToolbar($this->_toolbar);
       }
     } elseif (is_null($this->_toolbar)) {
-      $this->_toolbar = $toolbar = new PapayaUiToolbarSet();
+      $this->_toolbar = $toolbar = new \PapayaUiToolbarSet();
       $toolbar->papaya($this->papaya());
       $this->_initializeToolbar($toolbar);
     }
