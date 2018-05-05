@@ -13,12 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
+
 /**
 * Papaya Application - object registry with profiles
 * @package Papaya-Library
 * @subpackage Application
 */
-class PapayaApplication implements \ArrayAccess {
+class Application implements \ArrayAccess {
 
   /**
   * Duplicate profiles trigger an error
@@ -77,7 +79,7 @@ class PapayaApplication implements \ArrayAccess {
   * @return void
   */
   public function registerProfiles(
-    PapayaApplicationProfiles $profiles, $duplicationMode = self::DUPLICATE_ERROR
+    \PapayaApplicationProfiles $profiles, $duplicationMode = self::DUPLICATE_ERROR
   ) {
     foreach ($profiles->getProfiles($this) as $identifier => $profile) {
       $this->registerProfile($identifier, $profile, $duplicationMode);
