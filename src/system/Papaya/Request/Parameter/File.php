@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Request
 */
-class PapayaRequestParameterFile implements \ArrayAccess, IteratorAggregate {
+class PapayaRequestParameterFile implements \ArrayAccess, \IteratorAggregate {
 
   private $_values = array(
     'temporary' => NULL,

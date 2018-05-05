@@ -16,6 +16,6 @@
 interface PapayaObjectInterfaceProperties
   extends
     \PapayaObjectInterfacePropertiesReadable,
-    PapayaObjectInterfacePropertiesWriteable {
+    \PapayaObjectInterfacePropertiesWriteable {
 
 }

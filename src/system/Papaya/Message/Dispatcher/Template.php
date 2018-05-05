@@ -36,7 +36,7 @@ class PapayaMessageDispatcherTemplate
   /**
   * Add message to the output, for now uses the old error system.
   *
-  * Only messages that implements \PapayaMessageDisplay are used, all other message are ignored.
+  * Only messages that implements \PapayaMessageDisplay are used, \all other message are ignored.
   *
   * @param \PapayaMessage $message
   * @return boolean

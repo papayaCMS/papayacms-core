@@ -25,8 +25,8 @@
 class PapayaMessageContextBacktrace
   implements
     \PapayaMessageContextInterfaceList,
-    PapayaMessageContextInterfaceString,
-    PapayaMessageContextInterfaceXhtml {
+    \PapayaMessageContextInterfaceString,
+    \PapayaMessageContextInterfaceXhtml {
 
   /**
   * The offset is used to ignore the first elements of a backtrace,

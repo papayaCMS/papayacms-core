@@ -24,8 +24,8 @@
 class PapayaMessageContextFile
   implements
     \PapayaMessageContextInterfaceList,
-    PapayaMessageContextInterfaceString,
-    PapayaMessageContextInterfaceXhtml {
+    \PapayaMessageContextInterfaceString,
+    \PapayaMessageContextInterfaceXhtml {
 
   protected $_fileName = '';
   protected $_line = 0;

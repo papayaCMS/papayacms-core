@@ -22,8 +22,8 @@
 class PapayaMessageContextList
   implements
     \PapayaMessageContextInterfaceList,
-    PapayaMessageContextInterfaceXhtml,
-    PapayaMessageContextInterfaceString {
+    \PapayaMessageContextInterfaceXhtml,
+    \PapayaMessageContextInterfaceString {
 
   /**
   * List label/caption

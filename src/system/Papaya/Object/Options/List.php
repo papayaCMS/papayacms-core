@@ -27,7 +27,7 @@
 * @subpackage Objects
 */
 class PapayaObjectOptionsList
-  implements \ArrayAccess, Countable, IteratorAggregate {
+  implements \ArrayAccess, \Countable, \IteratorAggregate {
 
   /**
   * Options storage

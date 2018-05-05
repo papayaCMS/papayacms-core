@@ -22,7 +22,7 @@
 */
 class PapayaObjectItem
   extends \PapayaObject
-  implements \ArrayAccess, IteratorAggregate {
+  implements \ArrayAccess, \IteratorAggregate {
 
   /**
   * Internal value store

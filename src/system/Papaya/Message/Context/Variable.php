@@ -24,7 +24,7 @@
 class PapayaMessageContextVariable
   implements
     \PapayaMessageContextInterfaceString,
-    PapayaMessageContextInterfaceXhtml {
+    \PapayaMessageContextInterfaceXhtml {
 
   /**
   * The depth defines the recursion depth for the variable output

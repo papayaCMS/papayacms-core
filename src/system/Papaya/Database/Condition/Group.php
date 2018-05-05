@@ -32,7 +32,7 @@
  */
 class PapayaDatabaseConditionGroup
   extends \PapayaDatabaseConditionElement
-  implements \IteratorAggregate, Countable {
+  implements \IteratorAggregate, \Countable {
 
   private $_conditions = array();
   private $_databaseAccess = NULL;

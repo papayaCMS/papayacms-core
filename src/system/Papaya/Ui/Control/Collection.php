@@ -22,7 +22,7 @@
 */
 class PapayaUiControlCollection
   extends \PapayaUiControl
-  implements \IteratorAggregate, Countable, ArrayAccess {
+  implements \IteratorAggregate, \Countable, \ArrayAccess {
 
   /**
   * Most collection have an owner object, the generic handling stores it in this property

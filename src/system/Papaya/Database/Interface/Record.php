@@ -16,9 +16,9 @@
 interface PapayaDatabaseInterfaceRecord
   extends
     \PapayaDatabaseInterfaceAccess,
-    PapayaObjectInterfaceProperties,
-    ArrayAccess,
-    IteratorAggregate {
+    \PapayaObjectInterfaceProperties,
+    \ArrayAccess,
+    \IteratorAggregate {
 
   function assign($data);
 

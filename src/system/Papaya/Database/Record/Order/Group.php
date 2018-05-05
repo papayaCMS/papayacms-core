@@ -21,7 +21,7 @@
 * @version $Id: Group.php 39408 2014-02-27 16:00:49Z weinert $
 */
 class PapayaDatabaseRecordOrderGroup
-  implements \PapayaDatabaseInterfaceOrder, IteratorAggregate {
+  implements \PapayaDatabaseInterfaceOrder, \IteratorAggregate {
 
   private $_lists = NULL;
 

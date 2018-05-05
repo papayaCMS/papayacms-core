@@ -23,7 +23,7 @@
 */
 abstract class PapayaDatabaseObjectList
   extends \PapayaDatabaseObject
-  implements \IteratorAggregate, Countable {
+  implements \IteratorAggregate, \Countable {
 
   /**
   * Absolute record count (for paging)

@@ -25,7 +25,7 @@
 */
 class PapayaConfiguration
   extends \PapayaObject
-  implements \IteratorAggregate, ArrayAccess {
+  implements \IteratorAggregate, \ArrayAccess {
 
   /**
   * Internal options array

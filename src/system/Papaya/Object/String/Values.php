@@ -23,7 +23,7 @@
 * @package Papaya-Library
 * @subpackage Objects
 */
-class PapayaObjectStringValues implements \ArrayAccess, Countable, IteratorAggregate {
+class PapayaObjectStringValues implements \ArrayAccess, \Countable, \IteratorAggregate {
 
   /**
    * @var ArrayObject

@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogErrors implements \IteratorAggregate, Countable {
+class PapayaUiDialogErrors implements \IteratorAggregate, \Countable {
 
   /**
   * Error list

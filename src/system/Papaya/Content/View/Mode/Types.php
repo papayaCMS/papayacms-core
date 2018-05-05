@@ -25,7 +25,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentViewModeTypes implements \ArrayAccess, IteratorAggregate {
+class PapayaContentViewModeTypes implements \ArrayAccess, \IteratorAggregate {
 
   const PAGE = 'page';
   const FEED = 'feed';

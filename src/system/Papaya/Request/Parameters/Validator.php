@@ -21,7 +21,7 @@
 * @subpackage Request
 */
 class PapayaRequestParametersValidator
-  implements \ArrayAccess, IteratorAggregate {
+  implements \ArrayAccess, \IteratorAggregate {
 
   /**
    * @var PapayaRequestParameters
