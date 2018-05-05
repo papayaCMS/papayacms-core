@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Spam
 */
-class PapayaSpamFilterStatistical implements PapayaSpamFilter {
+class PapayaSpamFilterStatistical implements \PapayaSpamFilter {
 
   private $_minimumTokenLength = 3;
   private $_maximumTokenLength = 30;

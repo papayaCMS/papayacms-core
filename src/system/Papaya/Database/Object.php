@@ -52,7 +52,7 @@
 */
 class PapayaDatabaseObject
   extends \PapayaObject
-  implements PapayaDatabaseInterfaceAccess {
+  implements \PapayaDatabaseInterfaceAccess {
 
   /**
   * Database read uri

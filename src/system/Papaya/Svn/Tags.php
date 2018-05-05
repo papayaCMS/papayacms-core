@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaSvnTags implements IteratorAggregate, Countable {
+class PapayaSvnTags implements \IteratorAggregate, Countable {
 
   /**
   * SVN client

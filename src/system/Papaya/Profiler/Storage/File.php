@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Profiler
 */
-class PapayaProfilerStorageFile implements PapayaProfilerStorage {
+class PapayaProfilerStorageFile implements \PapayaProfilerStorage {
 
   private $_suffix = 'xhprof';
   private $_directory = '/tmp/';

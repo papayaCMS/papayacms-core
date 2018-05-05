@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorGenerator implements IteratorAggregate {
+class PapayaIteratorGenerator implements \IteratorAggregate {
 
   /**
    * @var callback

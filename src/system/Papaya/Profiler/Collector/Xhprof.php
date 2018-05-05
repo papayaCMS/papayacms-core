@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Profiler
 */
-class PapayaProfilerCollectorXhprof implements PapayaProfilerCollector {
+class PapayaProfilerCollectorXhprof implements \PapayaProfilerCollector {
 
   /**
   * Store if it is currently enabled (data is collected)

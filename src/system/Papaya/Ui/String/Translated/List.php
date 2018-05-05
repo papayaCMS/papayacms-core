@@ -24,7 +24,7 @@
 */
 class PapayaUiStringTranslatedList
   extends \IteratorIterator
-  implements PapayaObjectInterface {
+  implements \PapayaObjectInterface {
 
   /**
    * @var PapayaPhrases

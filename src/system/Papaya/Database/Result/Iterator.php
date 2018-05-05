@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Database
 */
-class PapayaDatabaseResultIterator implements Iterator {
+class PapayaDatabaseResultIterator implements \Iterator {
 
   private $_databaseResult = NULL;
   private $_mapping = NULL;

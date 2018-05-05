@@ -15,7 +15,7 @@
 
 class PapayaPhrasesStorageDatabase
   extends \PapayaObject
-  implements PapayaPhrasesStorage {
+  implements \PapayaPhrasesStorage {
 
   private $_cache = array();
   private $_loadedGroups = array();

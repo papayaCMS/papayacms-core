@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Application
 */
-class PapayaApplicationProfilesCms implements PapayaApplicationProfiles {
+class PapayaApplicationProfilesCms implements \PapayaApplicationProfiles {
 
   /**
   * Get a collection of application object profiles

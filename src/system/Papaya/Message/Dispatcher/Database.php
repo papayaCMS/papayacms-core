@@ -24,7 +24,7 @@
 */
 class PapayaMessageDispatcherDatabase
   extends \PapayaDatabaseObject
-  implements PapayaMessageDispatcher {
+  implements \PapayaMessageDispatcher {
 
   /**
   * Name of logging table

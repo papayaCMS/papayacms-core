@@ -25,7 +25,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorMultiple implements OuterIterator {
+class PapayaIteratorMultiple implements \OuterIterator {
 
   const MIT_NEED_ANY = 0;
   const MIT_KEYS_NUMERIC = 0;

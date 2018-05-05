@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorGlob implements IteratorAggregate, Countable {
+class PapayaIteratorGlob implements \IteratorAggregate, Countable {
 
   private $_path = '';
   private $_flags = 0;

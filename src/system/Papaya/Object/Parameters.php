@@ -39,7 +39,7 @@ class PapayaObjectParameters
    * If a filter is provided use it to filter the value before returing it.
    *
    * If the default value has a type, cast the value to this type. If the default value is an
-   * object the result will be a string. Make sure the provided object implements __toString().
+   * object the result will be a string. Make sure the provided object implements \__toString().
    *
    * @param mixed $offset
    * @param mixed $defaultValue

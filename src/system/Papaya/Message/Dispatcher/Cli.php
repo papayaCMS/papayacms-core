@@ -15,7 +15,7 @@
 
 class PapayaMessageDispatcherCli
   extends \PapayaObject
-  implements PapayaMessageDispatcher {
+  implements \PapayaMessageDispatcher {
 
   const TARGET_STDOUT = 'stdout';
   const TARGET_STDERR = 'stderr';

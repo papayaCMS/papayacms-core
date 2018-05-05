@@ -21,7 +21,7 @@
 */
 class PapayaCacheIdentifierDefinitionSurfer
   extends \PapayaObject
-  implements PapayaCacheIdentifierDefinition {
+  implements \PapayaCacheIdentifierDefinition {
 
   /**
    * Check the surfer, return the id if it valid, TRUE otherwise

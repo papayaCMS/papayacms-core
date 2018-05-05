@@ -20,7 +20,7 @@
 * @subpackage Administration
 */
 class PapayaAdministrationPagesDependencySynchronizationContent
-  implements PapayaAdministrationPagesDependencySynchronization {
+  implements \PapayaAdministrationPagesDependencySynchronization {
 
   /**
   * Translation records object

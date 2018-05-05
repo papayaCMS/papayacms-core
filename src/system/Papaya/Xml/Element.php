@@ -23,7 +23,7 @@
 */
 class PapayaXmlElement
   extends \DOMElement
-  implements PapayaXmlNodeInterface {
+  implements \PapayaXmlNodeInterface {
 
   /**
   * Append a object (with interface PapayaXmlAppendable) to the element

@@ -38,7 +38,7 @@
 */
 class PapayaIteratorTreeDetails
   extends \IteratorIterator
-  implements RecursiveIterator {
+  implements \RecursiveIterator {
 
   /**
    * @var array|Traversable

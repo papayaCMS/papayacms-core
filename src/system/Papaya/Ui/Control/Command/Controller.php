@@ -24,7 +24,7 @@
 */
 class PapayaUiControlCommandController
   extends \PapayaUiControlCommand
-  implements ArrayAccess, Countable, IteratorAggregate {
+  implements \ArrayAccess, Countable, IteratorAggregate {
 
   /**
   * Array of command objects

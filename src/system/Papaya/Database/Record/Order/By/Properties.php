@@ -21,7 +21,7 @@
 * @version $Id: Properties.php 38282 2013-03-19 12:23:19Z weinert $
 */
 class PapayaDatabaseRecordOrderByProperties
-  implements PapayaDatabaseInterfaceOrder, IteratorAggregate {
+  implements \PapayaDatabaseInterfaceOrder, IteratorAggregate {
 
   /**
    * @var PapayaDatabaseRecordOrderList

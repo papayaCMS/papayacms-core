@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaObjectCallbacks implements IteratorAggregate {
+class PapayaObjectCallbacks implements \IteratorAggregate {
 
   /**
   * List of callbacks

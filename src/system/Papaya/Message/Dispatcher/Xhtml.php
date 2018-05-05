@@ -23,7 +23,7 @@
 */
 class PapayaMessageDispatcherXhtml
   extends \PapayaObject
-  implements PapayaMessageDispatcher {
+  implements \PapayaMessageDispatcher {
 
   /**
   * Options for header formatting (background color, text color, label)

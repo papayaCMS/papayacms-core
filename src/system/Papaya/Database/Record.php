@@ -22,7 +22,7 @@
 */
 abstract class PapayaDatabaseRecord
   extends \PapayaObjectItem
-  implements PapayaDatabaseInterfaceRecord {
+  implements \PapayaDatabaseInterfaceRecord {
 
   /**
   * An array of property to field mappings.

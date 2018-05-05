@@ -20,7 +20,7 @@
 * @subpackage Plugins
 */
 class PapayaCacheIdentifierDefinitionBoolean
-  implements PapayaCacheIdentifierDefinition {
+  implements \PapayaCacheIdentifierDefinition {
 
   private $_callback = NULL;
   private $_cacheable = NULL;

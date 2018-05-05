@@ -21,7 +21,7 @@
 * @version $Id: Fields.php 39730 2014-04-07 21:05:30Z weinert $
 */
 class PapayaDatabaseRecordOrderByFields
-  implements PapayaDatabaseInterfaceOrder, IteratorAggregate {
+  implements \PapayaDatabaseInterfaceOrder, IteratorAggregate {
 
   /**
    * @var PapayaDatabaseRecordOrderList

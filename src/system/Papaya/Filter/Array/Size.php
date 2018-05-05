@@ -21,7 +21,7 @@
  * @package Papaya-Library
  * @subpackage Filter
  */
-class PapayaFilterArraySize implements PapayaFilter {
+class PapayaFilterArraySize implements \PapayaFilter {
 
   /**
    * Minimum limit

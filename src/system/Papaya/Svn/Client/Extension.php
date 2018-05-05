@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaSvnClientExtension implements PapayaSvnClient {
+class PapayaSvnClientExtension implements \PapayaSvnClient {
 
   /**
   * Lists entries in an SVN repository at $url .

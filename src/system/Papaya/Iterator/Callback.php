@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorCallback implements OuterIterator {
+class PapayaIteratorCallback implements \OuterIterator {
 
   const MODIFY_VALUES = 1;
   const MODIFY_KEYS = 2;

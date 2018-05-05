@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Response
 */
-class PapayaResponseHeaders implements IteratorAggregate, ArrayAccess, Countable {
+class PapayaResponseHeaders implements \IteratorAggregate, ArrayAccess, Countable {
 
   /**
   * Internal headers list

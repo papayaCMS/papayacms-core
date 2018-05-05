@@ -21,7 +21,7 @@
 */
 class PapayaCacheIdentifierDefinitionPage
   extends \PapayaObject
-  implements PapayaCacheIdentifierDefinition {
+  implements \PapayaCacheIdentifierDefinition {
 
   /**
    * Return data for the specified page

@@ -23,7 +23,7 @@
 * @subpackage Messages
 */
 class PapayaMessageDebug
-  implements PapayaMessageLogable {
+  implements \PapayaMessageLogable {
 
   /**
   * Message group

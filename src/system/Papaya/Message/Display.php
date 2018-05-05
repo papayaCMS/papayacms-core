@@ -20,7 +20,7 @@
 * @subpackage Messages
 */
 class PapayaMessageDisplay
-  implements PapayaMessageDisplayable {
+  implements \PapayaMessageDisplayable {
 
   /**
   * Message type

@@ -34,7 +34,7 @@
 */
 class PapayaRequest
   extends \PapayaObject
-  implements PapayaObjectInterfaceProperties {
+  implements \PapayaObjectInterfaceProperties {
 
   /**
   * Paramter source type: url path

@@ -24,7 +24,7 @@
 */
 class PapayaMessageContextRuntime
   implements
-    PapayaMessageContextInterfaceString {
+    \PapayaMessageContextInterfaceString {
 
   /**
   * Global mode sets the timeing in relation to script runtime

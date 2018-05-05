@@ -20,7 +20,7 @@
 * @subpackage Database
 * @version $Id: Fields.php 39197 2014-02-11 13:36:56Z weinert $
 */
-class PapayaDatabaseRecordKeyFields implements PapayaDatabaseInterfaceKey {
+class PapayaDatabaseRecordKeyFields implements \PapayaDatabaseInterfaceKey {
 
   /**
   * the key values

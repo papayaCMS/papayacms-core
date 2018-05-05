@@ -21,7 +21,7 @@
 * @version $Id: Field.php 38282 2013-03-19 12:23:19Z weinert $
 */
 class PapayaDatabaseRecordOrderField
-  implements PapayaDatabaseInterfaceOrder {
+  implements \PapayaDatabaseInterfaceOrder {
 
   /**
    * @var string

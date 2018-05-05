@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterPcre implements PapayaFilter {
+class PapayaFilterPcre implements \PapayaFilter {
 
   /**
   * Minimum password length

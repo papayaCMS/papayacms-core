@@ -19,7 +19,7 @@
  * @package Papaya-Library
  * @subpackage Response
  */
-class PapayaResponseContentCsv implements PapayaResponseContent {
+class PapayaResponseContentCsv implements \PapayaResponseContent {
 
   /**
    * string content buffer

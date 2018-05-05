@@ -45,7 +45,7 @@ if (!defined('E_USER_DEPRECATED')) {
 * @subpackage Messages
 */
 class PapayaMessageHookErrors
-  implements PapayaMessageHook {
+  implements \PapayaMessageHook {
 
   /**
   * Message manger object to dispatch the created messages

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Application
 */
-class PapayaApplicationProfilePageReferences implements PapayaApplicationProfile {
+class PapayaApplicationProfilePageReferences implements \PapayaApplicationProfile {
 
   /**
   * Create the profile object and return it

@@ -24,7 +24,7 @@
 */
 class PapayaMessageContextGroup
   implements
-    PapayaMessageContextInterfaceString,
+    \PapayaMessageContextInterfaceString,
     PapayaMessageContextInterfaceXhtml,
     Iterator,
     Countable {

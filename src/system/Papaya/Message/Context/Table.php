@@ -21,7 +21,7 @@
 */
 class PapayaMessageContextTable
   implements
-    PapayaMessageContextInterfaceTable,
+    \PapayaMessageContextInterfaceTable,
     PapayaMessageContextInterfaceString,
     PapayaMessageContextInterfaceXhtml {
 

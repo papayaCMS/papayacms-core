@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterTime implements PapayaFilter {
+class PapayaFilterTime implements \PapayaFilter {
   /**
   * Step in seconds, default 60
   * @var float

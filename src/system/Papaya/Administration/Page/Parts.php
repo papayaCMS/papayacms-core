@@ -26,7 +26,7 @@
  */
 class PapayaAdministrationPageParts
   extends \PapayaObjectInteractive
-  implements Iterator {
+  implements \Iterator {
 
   const PART_CONTENT = 'content';
   const PART_NAVIGATION = 'navigation';

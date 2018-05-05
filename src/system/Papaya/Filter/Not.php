@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterNot implements PapayaFilter {
+class PapayaFilterNot implements \PapayaFilter {
 
   /**
   * Wrappend filter

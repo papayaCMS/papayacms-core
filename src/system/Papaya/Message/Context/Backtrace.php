@@ -24,7 +24,7 @@
 */
 class PapayaMessageContextBacktrace
   implements
-    PapayaMessageContextInterfaceList,
+    \PapayaMessageContextInterfaceList,
     PapayaMessageContextInterfaceString,
     PapayaMessageContextInterfaceXhtml {
 

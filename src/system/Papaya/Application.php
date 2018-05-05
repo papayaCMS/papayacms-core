@@ -18,7 +18,7 @@
 * @package Papaya-Library
 * @subpackage Application
 */
-class PapayaApplication implements ArrayAccess {
+class PapayaApplication implements \ArrayAccess {
 
   /**
   * Duplicate profiles trigger an error

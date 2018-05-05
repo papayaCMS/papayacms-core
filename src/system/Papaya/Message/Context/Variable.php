@@ -23,7 +23,7 @@
 */
 class PapayaMessageContextVariable
   implements
-    PapayaMessageContextInterfaceString,
+    \PapayaMessageContextInterfaceString,
     PapayaMessageContextInterfaceXhtml {
 
   /**

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorTreeGroups implements RecursiveIterator {
+class PapayaIteratorTreeGroups implements \RecursiveIterator {
 
   /**
    * @var Iterator

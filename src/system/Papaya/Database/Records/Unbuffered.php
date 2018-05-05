@@ -15,7 +15,7 @@
 
 abstract class PapayaDatabaseRecordsUnbuffered
   extends \PapayaObject
-  implements PapayaDatabaseInterfaceAccess, IteratorAggregate, Countable {
+  implements \PapayaDatabaseInterfaceAccess, IteratorAggregate, Countable {
   /**
   * Stored database access object
   * @var PapayaDatabaseAccess

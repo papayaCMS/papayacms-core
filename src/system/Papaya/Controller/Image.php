@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Controller
 */
-class PapayaControllerImage implements PapayaController {
+class PapayaControllerImage implements \PapayaController {
 
   private $_imageGenerator = NULL;
 

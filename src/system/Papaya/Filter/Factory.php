@@ -47,7 +47,7 @@
  * @method static bool isUrlHttp($value, $mandatory = TRUE)
  * @method static bool isXml($value, $mandatory = TRUE)
  */
-class PapayaFilterFactory implements IteratorAggregate {
+class PapayaFilterFactory implements \IteratorAggregate {
 
   /**
    * @var array storage for field profiles, defined by constants in PapayaFilter

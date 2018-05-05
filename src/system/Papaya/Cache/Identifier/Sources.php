@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Plugins
 */
-class PapayaCacheIdentifierSources implements IteratorAggregate {
+class PapayaCacheIdentifierSources implements \IteratorAggregate {
 
   private $_names = array(
      \PapayaCacheIdentifierDefinition::SOURCE_URL => 'Url',

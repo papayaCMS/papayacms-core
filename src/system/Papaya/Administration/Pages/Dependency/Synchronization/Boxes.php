@@ -20,7 +20,7 @@
 * @subpackage Administration
 */
 class PapayaAdministrationPagesDependencySynchronizationBoxes
-  implements PapayaAdministrationPagesDependencySynchronization {
+  implements \PapayaAdministrationPagesDependencySynchronization {
 
   /**
   * Page boxes list database object

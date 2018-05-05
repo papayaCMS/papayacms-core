@@ -21,7 +21,7 @@
 * @subpackage Plugins
 */
 class PapayaPluginOptionStorage extends \PapayaObject
-  implements PapayaConfigurationStorage {
+  implements \PapayaConfigurationStorage {
 
   private $_guid;
   private $_options = NULL;

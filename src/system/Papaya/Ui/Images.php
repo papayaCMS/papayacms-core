@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiImages implements ArrayAccess {
+class PapayaUiImages implements \ArrayAccess {
 
   /**
   * Ignore duplicates (keep exisiting)

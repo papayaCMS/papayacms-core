@@ -20,7 +20,7 @@
 * @subpackage Plugins
 */
 class PapayaCacheIdentifierDefinitionUrl
-  implements PapayaCacheIdentifierDefinition {
+  implements \PapayaCacheIdentifierDefinition {
 
   /**
    * Use the current request url as cache definition parameter

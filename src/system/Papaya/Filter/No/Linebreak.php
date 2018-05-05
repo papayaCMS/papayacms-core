@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterNoLinebreak implements PapayaFilter {
+class PapayaFilterNoLinebreak implements \PapayaFilter {
 
   /**
   * Pattern to check for a linebreak

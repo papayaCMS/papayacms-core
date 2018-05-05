@@ -24,7 +24,7 @@
 * @subpackage HTTP-Client
 */
 class PapayaHttpHeaders
-  implements IteratorAggregate, Countable, ArrayAccess {
+  implements \IteratorAggregate, Countable, ArrayAccess {
 
   /**
   * Internal header storage array

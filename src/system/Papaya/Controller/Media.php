@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Controller
 */
-class PapayaControllerMedia extends \PapayaObject implements PapayaController {
+class PapayaControllerMedia extends \PapayaObject implements \PapayaController {
 
   private $_mediaDatabase = NULL;
 

@@ -21,7 +21,7 @@
 * @subpackage Database
 * @version $Id: Sequence.php 39197 2014-02-11 13:36:56Z weinert $
 */
-class PapayaDatabaseRecordKeySequence implements PapayaDatabaseInterfaceKey {
+class PapayaDatabaseRecordKeySequence implements \PapayaDatabaseInterfaceKey {
 
   /**
   * Sequence object to create new identifiers

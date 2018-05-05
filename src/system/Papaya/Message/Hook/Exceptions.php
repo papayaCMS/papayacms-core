@@ -20,7 +20,7 @@
 * @subpackage Messages
 */
 class PapayaMessageHookExceptions
-  implements PapayaMessageHook {
+  implements \PapayaMessageHook {
 
   /**
   * Message manger object to dispatch the created messages

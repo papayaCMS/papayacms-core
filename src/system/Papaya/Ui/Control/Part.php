@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiControlPart extends \PapayaObject implements PapayaXmlAppendable {
+abstract class PapayaUiControlPart extends \PapayaObject implements \PapayaXmlAppendable {
 
   /**
   * Allows to declare dynamic properties with optional getter/setter methods. The read and write

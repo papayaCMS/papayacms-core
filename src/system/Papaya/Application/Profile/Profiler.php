@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Application
 */
-class PapayaApplicationProfileProfiler implements PapayaApplicationProfile {
+class PapayaApplicationProfileProfiler implements \PapayaApplicationProfile {
 
   private $_builder = NULL;
 

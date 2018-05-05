@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorTreeItems implements OuterIterator, RecursiveIterator {
+class PapayaIteratorTreeItems implements \OuterIterator, RecursiveIterator {
 
   const ATTACH_TO_KEYS = 0;
   const ATTACH_TO_VALUES = 1;

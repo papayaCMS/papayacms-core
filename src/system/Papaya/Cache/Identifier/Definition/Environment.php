@@ -20,7 +20,7 @@
 * @subpackage Plugins
 */
 class PapayaCacheIdentifierDefinitionEnvironment
-  implements PapayaCacheIdentifierDefinition {
+  implements \PapayaCacheIdentifierDefinition {
 
   private $_name = 'QUERY_STRING';
 

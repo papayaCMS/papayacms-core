@@ -14,7 +14,7 @@
  */
 
 class PapayaAdministrationPagesDependencySynchronizationAccess
-  implements PapayaAdministrationPagesDependencySynchronization {
+  implements \PapayaAdministrationPagesDependencySynchronization {
 
   /**
   * Page database record object

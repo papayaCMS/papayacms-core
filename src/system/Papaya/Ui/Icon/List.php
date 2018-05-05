@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiIconList implements ArrayAccess, Countable, IteratorAggregate {
+class PapayaUiIconList implements \ArrayAccess, Countable, IteratorAggregate {
 
   /**
   * The internal icon objects array

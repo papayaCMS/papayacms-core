@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorFileStream implements Iterator {
+class PapayaIteratorFileStream implements \Iterator {
 
   const TRIM_NONE = 0;
   const TRIM_RIGHT = 1;

@@ -21,7 +21,7 @@
 */
 class PapayaMessageContextList
   implements
-    PapayaMessageContextInterfaceList,
+    \PapayaMessageContextInterfaceList,
     PapayaMessageContextInterfaceXhtml,
     PapayaMessageContextInterfaceString {
 

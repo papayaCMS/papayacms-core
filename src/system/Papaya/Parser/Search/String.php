@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaParserSearchString implements IteratorAggregate {
+class PapayaParserSearchString implements \IteratorAggregate {
 
   /**
    * @var string

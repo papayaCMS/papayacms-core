@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-abstract class PapayaParserTag implements PapayaXmlAppendable {
+abstract class PapayaParserTag implements \PapayaXmlAppendable {
   /**
    * Compile output xml for the user interface element.
    * @return string

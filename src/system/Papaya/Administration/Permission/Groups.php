@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationPermissionGroups implements IteratorAggregate {
+class PapayaAdministrationPermissionGroups implements \IteratorAggregate {
 
   const UNKNOWN = 0;
   const MISC = 1;

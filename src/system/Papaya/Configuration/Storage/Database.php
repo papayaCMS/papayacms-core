@@ -20,7 +20,7 @@
 * @subpackage Configuration
 */
 class PapayaConfigurationStorageDatabase extends \PapayaObject
-  implements PapayaConfigurationStorage {
+  implements \PapayaConfigurationStorage {
 
    /**
    * Options database records list

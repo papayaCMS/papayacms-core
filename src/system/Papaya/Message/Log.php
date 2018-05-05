@@ -20,7 +20,7 @@
 * @subpackage Messages
 */
 class PapayaMessageLog
-  implements PapayaMessageLogable {
+  implements \PapayaMessageLogable {
 
   /**
   * Message group

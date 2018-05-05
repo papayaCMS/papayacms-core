@@ -20,7 +20,7 @@
 * @subpackage Administration
 */
 class PapayaAdministrationPagesDependencySynchronizationTags
-  implements PapayaAdministrationPagesDependencySynchronization {
+  implements \PapayaAdministrationPagesDependencySynchronization {
 
   /**
   * buffer variable for the page tags content object

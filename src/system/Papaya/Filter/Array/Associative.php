@@ -22,7 +22,7 @@
  * @package Papaya-Library
  * @subpackage Filter
  */
-class PapayaFilterArrayAssociative implements PapayaFilter {
+class PapayaFilterArrayAssociative implements \PapayaFilter {
 
   /**
    * Filters for each array element

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Phrases
 */
-class PapayaPhrasesGroups implements ArrayAccess {
+class PapayaPhrasesGroups implements \ArrayAccess {
 
   /**
    * @var array

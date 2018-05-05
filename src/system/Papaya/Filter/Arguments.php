@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterArguments implements PapayaFilter {
+class PapayaFilterArguments implements \PapayaFilter {
 
   /**
   * The filters for the arguments

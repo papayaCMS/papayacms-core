@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Response
 */
-class PapayaResponseContentString implements PapayaResponseContent {
+class PapayaResponseContentString implements \PapayaResponseContent {
 
   /**
   * string content buffer

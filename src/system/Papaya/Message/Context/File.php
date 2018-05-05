@@ -23,7 +23,7 @@
 */
 class PapayaMessageContextFile
   implements
-    PapayaMessageContextInterfaceList,
+    \PapayaMessageContextInterfaceList,
     PapayaMessageContextInterfaceString,
     PapayaMessageContextInterfaceXhtml {
 

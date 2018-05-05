@@ -21,7 +21,7 @@
 * @subpackage Filter
 */
 class PapayaFilterBooleanString
-  implements PapayaFilter {
+  implements \PapayaFilter {
 
   private $_mapping = array(
     '+' => TRUE,

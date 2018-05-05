@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterLocaleGermanyZip implements PapayaFilter {
+class PapayaFilterLocaleGermanyZip implements \PapayaFilter {
 
   /**
    * Check flag for country prefix

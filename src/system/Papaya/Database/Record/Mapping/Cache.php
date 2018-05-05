@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Database
 */
-class PapayaDatabaseRecordMappingCache implements PapayaDatabaseInterfaceMapping {
+class PapayaDatabaseRecordMappingCache implements \PapayaDatabaseInterfaceMapping {
 
   /**
    * @var PapayaDatabaseInterfaceMapping

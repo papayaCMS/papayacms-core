@@ -21,7 +21,7 @@
 */
 abstract class PapayaDatabaseRecords
   extends \PapayaDatabaseRecordsUnbuffered
-  implements ArrayAccess {
+  implements \ArrayAccess {
 
   /**
   * internal storage for the record da after mapping.

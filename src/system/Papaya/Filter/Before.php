@@ -19,7 +19,7 @@
  * @package Papaya-Library
  * @subpackage Filter
  */
-class PapayaFilterBefore implements PapayaFilter {
+class PapayaFilterBefore implements \PapayaFilter {
 
   /**
    * @var PapayaFilter

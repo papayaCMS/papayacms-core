@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterXml implements PapayaFilter {
+class PapayaFilterXml implements \PapayaFilter {
 
   /**
    * @var bool

@@ -62,7 +62,7 @@ class PapayaUiDialogFieldSelectMediaFolder extends \PapayaUiDialogField {
 
 
   /**
-   * Getter/Setter for the media folders data object, it implements IteratorAggregate and
+   * Getter/Setter for the media folders data object, it implements \IteratorAggregate and
    * returning a RecursiveIterator
    *
    * @param \PapayaContentMediaFolders $folders

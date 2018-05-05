@@ -20,7 +20,7 @@
 * @subpackage Database
 * @version $Id: Autoincrement.php 39197 2014-02-11 13:36:56Z weinert $
 */
-class PapayaDatabaseRecordKeyAutoincrement implements PapayaDatabaseInterfaceKey {
+class PapayaDatabaseRecordKeyAutoincrement implements \PapayaDatabaseInterfaceKey {
 
   /**
   * the property name

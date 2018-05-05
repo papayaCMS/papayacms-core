@@ -23,7 +23,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorTraversable implements OuterIterator {
+class PapayaIteratorTraversable implements \OuterIterator {
 
   private $_traversable = NULL;
   private $_iterator = NULL;

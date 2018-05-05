@@ -32,7 +32,7 @@
 * @property mixed $parameters an individual parameters value
 * @property PapayaObject $context used for callbacks or access to the application registry
 */
-class PapayaUiDialogFieldFactoryOptions implements ArrayAccess {
+class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
 
   /**
    * Definition of options and default values

@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Request
 */
-class PapayaRequestParametersName implements ArrayAccess, Countable, IteratorAggregate {
+class PapayaRequestParametersName implements \ArrayAccess, Countable, IteratorAggregate {
 
   /**
   * Name parts list

@@ -23,7 +23,7 @@
  * @subpackage Filter
  */
 
-class PapayaFilterStringExplode implements PapayaFilter {
+class PapayaFilterStringExplode implements \PapayaFilter {
 
   const TRIM_TOKENS = 1;
 

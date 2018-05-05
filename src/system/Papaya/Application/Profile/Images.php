@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Application
 */
-class PapayaApplicationProfileImages implements PapayaApplicationProfile {
+class PapayaApplicationProfileImages implements \PapayaApplicationProfile {
 
   /**
   * Create the profile object and return it

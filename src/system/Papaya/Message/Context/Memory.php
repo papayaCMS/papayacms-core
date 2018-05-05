@@ -21,7 +21,7 @@
 */
 class PapayaMessageContextMemory
   implements
-    PapayaMessageContextInterfaceString {
+    \PapayaMessageContextInterfaceString {
 
   /**
   * Class variable to remember last memory usage status and calculate differences

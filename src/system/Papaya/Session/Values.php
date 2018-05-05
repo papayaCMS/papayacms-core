@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Session
 */
-class PapayaSessionValues implements ArrayAccess {
+class PapayaSessionValues implements \ArrayAccess {
 
   /**
   * Linked session object

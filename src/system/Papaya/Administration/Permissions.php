@@ -21,7 +21,7 @@
 */
 class PapayaAdministrationPermissions
   extends \PapayaDatabaseRecordsLazy
-  implements IteratorAggregate {
+  implements \IteratorAggregate {
 
   const SYSTEM_SETTINGS = 25;
   const SYSTEM_PROTOCOL = 31;

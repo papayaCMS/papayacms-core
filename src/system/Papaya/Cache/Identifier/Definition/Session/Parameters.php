@@ -21,7 +21,7 @@
 */
 class PapayaCacheIdentifierDefinitionSessionParameters
   extends \PapayaObject
-  implements PapayaCacheIdentifierDefinition {
+  implements \PapayaCacheIdentifierDefinition {
 
   /**
    * @var array

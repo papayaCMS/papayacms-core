@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Theme
 */
-class PapayaContentStructure implements IteratorAggregate {
+class PapayaContentStructure implements \IteratorAggregate {
 
   /**
    * @var PapayaContentStructurePages

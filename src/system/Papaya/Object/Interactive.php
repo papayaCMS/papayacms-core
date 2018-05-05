@@ -21,7 +21,7 @@
 */
 abstract class PapayaObjectInteractive
   extends \PapayaObject
-  implements PapayaRequestParametersInterface {
+  implements \PapayaRequestParametersInterface {
 
   /**
   * Parameter request method

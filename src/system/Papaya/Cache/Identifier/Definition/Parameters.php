@@ -21,7 +21,7 @@
 */
 class PapayaCacheIdentifierDefinitionParameters
   extends \PapayaObjectInteractive
-  implements PapayaCacheIdentifierDefinition {
+  implements \PapayaCacheIdentifierDefinition {
 
   private $_names = array();
 

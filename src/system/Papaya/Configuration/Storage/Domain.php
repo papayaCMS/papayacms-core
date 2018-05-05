@@ -20,7 +20,7 @@
 * @subpackage Configuration
 */
 class PapayaConfigurationStorageDomain extends \PapayaObject
-  implements PapayaConfigurationStorage {
+  implements \PapayaConfigurationStorage {
 
   /**
   * member variable for the url scheme, set in constructor used in load()

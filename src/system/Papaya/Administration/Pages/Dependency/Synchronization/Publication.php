@@ -20,7 +20,7 @@
 * @subpackage Administration
 */
 class PapayaAdministrationPagesDependencySynchronizationPublication
-  implements PapayaAdministrationPagesDependencySynchronization {
+  implements \PapayaAdministrationPagesDependencySynchronization {
 
   private $_publication = NULL;
   private $_page = NULL;

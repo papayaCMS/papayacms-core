@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterOptional implements PapayaFilter {
+class PapayaFilterOptional implements \PapayaFilter {
 
   private $_innerFilter = NULL;
   private $_filter = NULL;

@@ -23,7 +23,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorRepeatCallback implements Iterator {
+class PapayaIteratorRepeatCallback implements \Iterator {
 
   private $_callback;
   private $_startValue;

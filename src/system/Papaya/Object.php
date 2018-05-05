@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Objects
 */
-abstract class PapayaObject implements PapayaObjectInterface {
+abstract class PapayaObject implements \PapayaObjectInterface {
 
   /**
   * Application object

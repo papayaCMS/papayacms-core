@@ -23,7 +23,7 @@
 */
 class PapayaXmlDocument
   extends \DOMDocument
-  implements PapayaXmlNodeInterface {
+  implements \PapayaXmlNodeInterface {
 
   /**
    * @var PapayaXmlXpath

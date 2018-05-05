@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Configuration
 */
-class PapayaConfigurationIterator implements Iterator {
+class PapayaConfigurationIterator implements \Iterator {
 
   /**
   * option names

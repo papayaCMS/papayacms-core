@@ -16,7 +16,7 @@
 /**
 * Papaya Database Sequence, handles manual client side sequence
 *
-* To use this class you have to define a child that implements the abstract createId() method.
+* To use this class you have to define a child that implements \the abstract createId() method.
 *
 * Usage:
 *   $sequence = new PapayaDatabaseSequenceSample(

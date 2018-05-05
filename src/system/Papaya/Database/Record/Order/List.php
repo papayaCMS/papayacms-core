@@ -22,7 +22,7 @@
 */
 class PapayaDatabaseRecordOrderList
   extends \PapayaObjectList
-  implements PapayaDatabaseInterfaceOrder {
+  implements \PapayaDatabaseInterfaceOrder {
 
   /**
    * Setup item class limit and add all function arguments as items

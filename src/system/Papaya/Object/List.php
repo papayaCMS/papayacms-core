@@ -26,7 +26,7 @@
 * @subpackage Objects
 */
 class PapayaObjectList
-  implements Iterator, ArrayAccess, Countable {
+  implements \Iterator, ArrayAccess, Countable {
 
   /**
   * List items

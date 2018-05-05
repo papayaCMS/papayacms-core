@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Controller
 */
-class PapayaControllerError extends \PapayaObject implements PapayaController {
+class PapayaControllerError extends \PapayaObject implements \PapayaController {
 
   /**
   * HTTP resposne status

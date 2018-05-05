@@ -21,7 +21,7 @@
  * @package Papaya-Library
  * @subpackage Controller
  */
-class PapayaControllerCallback implements PapayaController {
+class PapayaControllerCallback implements \PapayaController {
 
   /**
    * @var callable

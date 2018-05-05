@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-abstract class PapayaTemplateSimpleAstNode implements PapayaTemplateSimpleAst {
+abstract class PapayaTemplateSimpleAstNode implements \PapayaTemplateSimpleAst {
 
   /**
    * Read private properties stored in constructor

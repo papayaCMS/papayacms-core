@@ -14,7 +14,7 @@
  */
 
 /**
-* Abstract Superclas for template engines, implements paramter handling and a loader concept for
+* Abstract Superclas for template engines, implements \paramter handling and a loader concept for
 * Variables.
 *
 * The target of this class is to provide an identical interface for all kind of templates.

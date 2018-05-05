@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorTreeChildren implements RecursiveIterator {
+class PapayaIteratorTreeChildren implements \RecursiveIterator {
 
   private $_elements = array();
   private $_tree = array();

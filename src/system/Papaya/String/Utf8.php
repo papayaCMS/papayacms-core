@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaStringUtf8 implements Iterator, ArrayAccess {
+class PapayaStringUtf8 implements \Iterator, ArrayAccess {
 
   const MODE_INTL = 1;
   const MODE_ICONV = 2;

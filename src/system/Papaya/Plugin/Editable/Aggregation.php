@@ -15,7 +15,7 @@
 
 /**
  * This a standard implementation for editable plugin content. It
- * makes implements the PapayaPluginEditable interface and
+ * makes implements \the PapayaPluginEditable interface and
  * expects an implementation of the abstract method "createEditor".
  *
  * The method needs to return a PapayaPluginEditor instance.

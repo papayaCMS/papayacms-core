@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaFilterLines implements PapayaFilter {
+class PapayaFilterLines implements \PapayaFilter {
 
   /**
    * @var PapayaFilter

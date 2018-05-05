@@ -28,7 +28,7 @@
 */
 class PapayaMessageDispatcherWildfire
   extends \PapayaObject
-  implements PapayaMessageDispatcher {
+  implements \PapayaMessageDispatcher {
 
   private $_handler;
 

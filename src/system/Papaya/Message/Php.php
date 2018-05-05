@@ -22,7 +22,7 @@
 * @subpackage Messages
 */
 class PapayaMessagePhp
-  implements PapayaMessageLogable {
+  implements \PapayaMessageLogable {
 
   /**
   * Message type

@@ -15,7 +15,7 @@
 
 class PapayaTemplateSimpleAstNodes
   extends \PapayaObjectList
-  implements PapayaTemplateSimpleAst {
+  implements \PapayaTemplateSimpleAst {
 
   public function __construct(array $nodes = array()) {
     parent::__construct(\PapayaTemplateSimpleAstNode::class);

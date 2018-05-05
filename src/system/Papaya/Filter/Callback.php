@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterCallback implements PapayaFilter {
+class PapayaFilterCallback implements \PapayaFilter {
 
   /**
   * callback function or method

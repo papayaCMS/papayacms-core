@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-abstract class PapayaFilterLogical implements PapayaFilter {
+abstract class PapayaFilterLogical implements \PapayaFilter {
 
   /**
   * Filter list
