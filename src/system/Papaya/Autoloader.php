@@ -46,6 +46,18 @@ class Autoloader {
       (?:[A-Z]+(?![a-z\d_]))
     )Sx';
 
+  private static $_mapClasses = array(
+  );
+
+  private static $_mapParts = array(
+    'Boolean' => 'BooleanValue',
+    'Float' => 'FloatValue',
+    'Integer' => 'IntegerValue',
+    'Object' => 'BaseObject',
+    'String' => 'Text',
+    'Interface' => 'Interfaces'
+  );
+
   /**
    *
    * @param string $name
@@ -124,6 +136,9 @@ class Autoloader {
    * @return string|NULL
    */
   private static function convertToNamespaceClass($className) {
+    if (isset(self::$_mapClasses[$className])) {
+      return self::$_mapClasses[$className];
+    }
     if (
       0 === strpos($className, 'Papaya') &&
       FALSE === strpos($className, '\\') &&
@@ -133,18 +148,8 @@ class Autoloader {
       $parts = $matches[0];
       $result = '';
       foreach ($parts as $part) {
-        switch ($part) {
-        case 'Float':
-        case 'Int':
-        case 'Integer':
-          $part .= 'Number';
-          break;
-        case 'Object':
-          $part = 'Base'.$part;
-          break;
-        case 'String':
-          $part = 'Text';
-          break;
+        if (isset(self::$_mapParts[$part])) {
+          $part = self::$_mapParts[$part];
         }
         $result .= '\\'.$part;
       }
