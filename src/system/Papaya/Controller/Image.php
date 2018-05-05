@@ -45,15 +45,15 @@ class PapayaControllerImage implements \PapayaController {
 
   /**
   * Execute controller
-   * @param \PapayaApplication|\PapayaApplicationCms $application
+   * @param \Papaya\Application|\PapayaApplicationCms $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
    * @return boolean|\PapayaController
    */
-  function execute(
-    PapayaApplication $application,
-    PapayaRequest &$request,
-    PapayaResponse &$response
+  public function execute(
+    \Papaya\Application $application,
+    \PapayaRequest &$request,
+    \PapayaResponse &$response
   ) {
     $imgGenerator = $this->getImageGenerator();
     $imgGenerator->publicMode = $request->getParameter(

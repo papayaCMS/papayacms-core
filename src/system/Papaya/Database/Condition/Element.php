@@ -22,7 +22,7 @@ class PapayaDatabaseConditionElement {
   protected $_operator = '=';
 
   public function __construct(
-    PapayaDatabaseConditionGroup $parent, $field = '', $value = NULL, $operator = NULL
+    \PapayaDatabaseConditionGroup $parent, $field = '', $value = NULL, $operator = NULL
   ) {
     $this->_parent = $parent;
     $this->_field = $field;

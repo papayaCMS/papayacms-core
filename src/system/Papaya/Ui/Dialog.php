@@ -402,7 +402,7 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
    * @throws \InvalidArgumentException
    */
   protected function appendHidden(
-    PapayaXmlElement $parent, \PapayaRequestParameters $values, $path = NULL
+    \PapayaXmlElement $parent, \PapayaRequestParameters $values, $path = NULL
   ) {
     foreach ($values as $name => $value) {
       $nameObject = $this->getParameterName($name);

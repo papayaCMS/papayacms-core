@@ -43,15 +43,15 @@ class PapayaControllerCallback implements \PapayaController {
    * to this object, if the result is FALSE the controller could not (completly) handle the
    * request, so use the next one.
    *
-   * @param \PapayaApplication $application
+   * @param \Papaya\Application $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
    * @return bool|\PapayaController
    */
   public function execute(
-    PapayaApplication $application,
-    PapayaRequest &$request,
-    PapayaResponse &$response
+    \Papaya\Application $application,
+    \PapayaRequest &$request,
+    \PapayaResponse &$response
   ) {
     $callback = $this->_callback;
     return $callback($application, $request, $response);

@@ -326,7 +326,7 @@ class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInterac
   * @return \PapayaAdministrationPagesDependencySynchronizations
   */
   public function synchronizations(
-    PapayaAdministrationPagesDependencySynchronizations $synchronizations = NULL
+    \PapayaAdministrationPagesDependencySynchronizations $synchronizations = NULL
   ) {
     if (isset($synchronizations)) {
       $this->_synchronizations = $synchronizations;

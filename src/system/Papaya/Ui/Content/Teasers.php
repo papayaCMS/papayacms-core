@@ -54,7 +54,7 @@ class PapayaUiContentTeasers extends \PapayaUiControl {
    * @param string $resizeMode
    */
   public function __construct(
-    PapayaContentPages $pages, $width = 0, $height = 0, $resizeMode = 'mincrop'
+    \PapayaContentPages $pages, $width = 0, $height = 0, $resizeMode = 'mincrop'
   ) {
     $this->pages($pages);
     $this->_width = $width;

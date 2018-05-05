@@ -38,13 +38,13 @@ class PapayaControllerGroup extends \PapayaObjectList implements \PapayaControll
    * to this object, if the result is FALSE the controller could not (completely) handle the
    * request, so use the next one.
    *
-   * @param \PapayaApplication $application
+   * @param \Papaya\Application $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
    * @return bool|\PapayaController
    */
   public function execute(
-    PapayaApplication $application,
+    \Papaya\Application $application,
     PapayaRequest &$request,
     PapayaResponse &$response
   ) {

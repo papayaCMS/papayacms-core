@@ -20,14 +20,11 @@ abstract class PapayaDatabaseConditionFulltext {
   protected $_searchFor = '';
 
   public function __construct(
-    PapayaDatabaseConditionGroup $parent, $fields = '', $searchFor
+    \PapayaDatabaseConditionGroup $parent, $fields = '', $searchFor
   ) {
     $this->_parent = $parent;
     $this->_fields = is_array($fields) ? $fields : [$fields];
     $this->_searchFor = $searchFor;
-    if (isset($operator)) {
-      $this->_operator = $operator;
-    }
   }
 
   /**

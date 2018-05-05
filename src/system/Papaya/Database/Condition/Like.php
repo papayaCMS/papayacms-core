@@ -15,12 +15,10 @@
 
 class PapayaDatabaseConditionLike extends \PapayaDatabaseConditionElement {
 
-  private $_parent = NULL;
-  private $_field = '';
   private $_value = '';
 
   public function __construct(
-    PapayaDatabaseConditionGroup $parent, $field = '', $value = NULL
+    \PapayaDatabaseConditionGroup $parent, $field = '', $value = NULL
   ) {
     $this->_value = $value;
     parent::__construct($parent, $field, $value);

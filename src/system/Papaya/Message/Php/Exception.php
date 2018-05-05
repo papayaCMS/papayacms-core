@@ -29,7 +29,7 @@ class PapayaMessagePhpException
    * @param \PapayaMessageContextBacktrace $trace
    */
   public function __construct(
-    ErrorException $exception,
+    \ErrorException $exception,
     \PapayaMessageContextBacktrace $trace = NULL
   ) {
     parent::__construct();

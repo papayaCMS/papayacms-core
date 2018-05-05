@@ -15,12 +15,8 @@
 
 class PapayaDatabaseConditionContains extends \PapayaDatabaseConditionElement {
 
-  private $_parent = NULL;
-  private $_field = '';
-  private $_value = '';
-
   public function __construct(
-    PapayaDatabaseConditionGroup $parent, $field, $value
+    \PapayaDatabaseConditionGroup $parent, $field, $value
   ) {
     $value = (string)$value;
     $hasWildcards = (FALSE !== strpos($value, '*')) || (FALSE !== strpos($value, '?'));

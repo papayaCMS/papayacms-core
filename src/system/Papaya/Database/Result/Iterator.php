@@ -36,7 +36,7 @@ class PapayaDatabaseResultIterator implements \Iterator {
   * @param integer $mode
   */
   public function __construct(
-    PapayaDatabaseResult $databaseResult = NULL, $mode = \PapayaDatabaseResult::FETCH_ASSOC
+    \PapayaDatabaseResult $databaseResult = NULL, $mode = \PapayaDatabaseResult::FETCH_ASSOC
   ) {
     $this->_databaseResult = $databaseResult;
     $this->_fetchMode = $mode;
@@ -49,7 +49,6 @@ class PapayaDatabaseResultIterator implements \Iterator {
   * If no mapping is provided, the mapping object will be removed.
   *
   * @param \PapayaDatabaseInterfaceMapping $mapping
-  * @return \PapayaDatabaseInterfaceMapping
   */
   public function setMapping(\PapayaDatabaseInterfaceMapping $mapping = NULL) {
     $this->_mapping = $mapping;

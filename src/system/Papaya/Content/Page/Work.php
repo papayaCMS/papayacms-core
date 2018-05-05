@@ -132,7 +132,7 @@ class PapayaContentPageWork extends \PapayaContentPage {
   * @return boolean
   */
   private function _publishTranslations(
-    PapayaContentPagePublication $publication, array $languageIds = NULL
+    \PapayaContentPagePublication $publication, array $languageIds = NULL
   ) {
     $databaseAccess = $this->getDatabaseAccess();
     if (!empty($languageIds)) {

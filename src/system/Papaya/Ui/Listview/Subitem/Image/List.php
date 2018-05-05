@@ -78,7 +78,7 @@ class PapayaUiListviewSubitemImageList extends \PapayaUiListviewSubitemImageSele
    * @param array $actionParameters
    */
   public function __construct(
-    PapayaUiIconList $icons,
+    \PapayaUiIconList $icons,
     $selection,
     $selectionMode = self::VALIDATE_VALUES,
     array $actionParameters = NULL

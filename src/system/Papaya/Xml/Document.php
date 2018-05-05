@@ -253,7 +253,7 @@ class PapayaXmlDocument
   * @return \PapayaXmlElement new node
   */
   public static function createElementNode(
-    PapayaXmlDocument $document, $name, array $attributes = array(), $content = NULL
+    \PapayaXmlDocument $document, $name, array $attributes = array(), $content = NULL
   ) {
     return $document->createElement($name, $content, $attributes);
   }

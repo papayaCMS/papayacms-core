@@ -25,13 +25,13 @@ class PapayaControllerMedia extends \PapayaObject implements \PapayaController {
 
     /**
   * Execute controller
-   * @param \PapayaApplication $application
+   * @param \Papaya\Application $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
    * @return boolean|\PapayaController
    */
-  function execute(
-    PapayaApplication $application,
+  public function execute(
+    \Papaya\Application $application,
     PapayaRequest &$request,
     PapayaResponse &$response
   ) {

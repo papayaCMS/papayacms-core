@@ -41,7 +41,7 @@ class PapayaIteratorFilterRegex extends \FilterIterator {
   * @param integer $target
   */
   public function __construct(
-    Iterator $iterator, $pattern, $offset = 0, $target = self::FILTER_VALUES
+    \Iterator $iterator, $pattern, $offset = 0, $target = self::FILTER_VALUES
   ) {
     \PapayaUtilConstraints::assertString($pattern);
     \PapayaUtilConstraints::assertInteger($offset);

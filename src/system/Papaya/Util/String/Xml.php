@@ -244,7 +244,7 @@ class PapayaUtilStringXml {
    * @return int
    */
   private static function _truncateChildNodes(
-    DOMElement $sourceNode, \DOMElement $targetNode, $length
+    \DOMElement $sourceNode, \DOMElement $targetNode, $length
   ) {
     foreach ($sourceNode->childNodes as $childNode) {
       if ($length <= 0) {

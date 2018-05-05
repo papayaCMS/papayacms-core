@@ -87,7 +87,7 @@ class PapayaMessageHookErrors
   * @param \PapayaMessageHookExceptions $exceptionHook
   */
   public function __construct(
-    PapayaMessageManager $messageManager, \PapayaMessageHookExceptions $exceptionHook = NULL
+    \PapayaMessageManager $messageManager, \PapayaMessageHookExceptions $exceptionHook = NULL
   ) {
     $this->_messageManager = $messageManager;
     $this->_exceptionHook = $exceptionHook;

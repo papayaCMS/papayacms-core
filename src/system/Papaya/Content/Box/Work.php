@@ -87,7 +87,7 @@ class PapayaContentBoxWork extends \PapayaContentBox {
   * @return boolean
   */
   private function _publishTranslations(
-    PapayaContentBoxPublication $publication, array $languageIds = NULL
+    \PapayaContentBoxPublication $publication, array $languageIds = NULL
   ) {
     if (!empty($languageIds)) {
       $deleted = $this->databaseDeleteRecord(

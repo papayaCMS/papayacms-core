@@ -29,15 +29,15 @@ interface PapayaController {
    *   FALSE - next
    *   PapayaController - delegate to this controller
    *
-   * @param \PapayaApplication $application
+   * @param \Papaya\Application $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
    * @return boolean|\PapayaController
    */
-  function execute(
-    PapayaApplication $application,
-    PapayaRequest &$request,
-    PapayaResponse &$response
+  public function execute(
+    \Papaya\Application $application,
+    \PapayaRequest &$request,
+    \PapayaResponse &$response
   );
 
 }
