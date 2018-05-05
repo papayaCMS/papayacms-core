@@ -51,7 +51,7 @@
 * @method int|string|NULL databaseLastInsertId() databaseLastInsertId(string $table, string $idField)
 */
 class PapayaDatabaseObject
-  extends PapayaObject
+  extends \PapayaObject
   implements PapayaDatabaseInterfaceAccess {
 
   /**

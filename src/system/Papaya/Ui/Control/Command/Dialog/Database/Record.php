@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiControlCommandDialogDatabaseRecord extends PapayaUiControlCommandDialog {
+class PapayaUiControlCommandDialogDatabaseRecord extends \PapayaUiControlCommandDialog {
 
   const ACTION_SAVE = 'save';
   const ACTION_DELETE = 'delete';

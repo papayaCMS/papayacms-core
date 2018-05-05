@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentLinkTypes extends PapayaDatabaseRecordsLazy {
+class PapayaContentLinkTypes extends \PapayaDatabaseRecordsLazy {
 
   protected $_fields = array(
     'id' => 'linktype_id',

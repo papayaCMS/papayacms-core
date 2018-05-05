@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionPartInvalid extends PapayaFilterException {
+class PapayaFilterExceptionPartInvalid extends \PapayaFilterException {
 
   /**
   * The constructor expects the number of the invalid part, its type and optionally a message

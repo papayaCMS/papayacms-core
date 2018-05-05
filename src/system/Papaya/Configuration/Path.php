@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Configuration
 */
-class PapayaConfigurationPath extends PapayaObject {
+class PapayaConfigurationPath extends \PapayaObject {
 
   const PATH_THEMES = 'theme';
   const PATH_THEME_CURRENT = 'current_theme';

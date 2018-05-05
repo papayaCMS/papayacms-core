@@ -32,7 +32,7 @@
 * @property-read string $moduleGuid
 * @property-read string $moduleTitle
 */
-class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
+class PapayaContentBoxTranslation extends \PapayaDatabaseObjectRecord {
 
   /**
   * Map properties to database fields

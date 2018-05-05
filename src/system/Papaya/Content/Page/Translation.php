@@ -35,7 +35,7 @@
 * @property-read string $moduleGuid
 * @property-read string $moduleTitle
 */
-class PapayaContentPageTranslation extends PapayaDatabaseRecordLazy {
+class PapayaContentPageTranslation extends \PapayaDatabaseRecordLazy {
 
   /**
   * Map properties to database fields

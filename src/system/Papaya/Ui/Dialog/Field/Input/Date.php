@@ -27,7 +27,7 @@
 * @property float $step
 * @property-read int $includeTime
 */
-class PapayaUiDialogFieldInputDate extends PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputDate extends \PapayaUiDialogFieldInput {
 
   /**
   * Field type, used in template

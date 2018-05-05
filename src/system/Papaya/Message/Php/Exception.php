@@ -20,7 +20,7 @@
 * @subpackage Messages
 */
 class PapayaMessagePhpException
-  extends PapayaMessagePhp {
+  extends \PapayaMessagePhp {
 
   /**
    * Create object and set values from erorr exception object

@@ -28,7 +28,7 @@
 * @property float $maximum
 * @property float $step
 */
-class PapayaUiDialogFieldInputRange extends PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputRange extends \PapayaUiDialogFieldInput {
 
   /**
   * Field type, used in template

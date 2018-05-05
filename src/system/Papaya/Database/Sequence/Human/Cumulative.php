@@ -28,7 +28,7 @@
 * @package Papaya-Library
 * @subpackage Database
 */
-class PapayaDatabaseSequenceHumanCumulative extends PapayaDatabaseSequenceHuman {
+class PapayaDatabaseSequenceHumanCumulative extends \PapayaDatabaseSequenceHuman {
 
   /**
   * @var integer minimum length.

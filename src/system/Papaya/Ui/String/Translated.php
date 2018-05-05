@@ -25,7 +25,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiStringTranslated extends PapayaUiString {
+class PapayaUiStringTranslated extends \PapayaUiString {
 
   /**
    * @var PapayaPhrases

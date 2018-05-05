@@ -22,7 +22,7 @@
 * @property int $id
 * @property string $title
 */
-class PapayaContentDomainGroup extends PapayaDatabaseRecordLazy {
+class PapayaContentDomainGroup extends \PapayaDatabaseRecordLazy {
 
   /**
   * Map field names to more convinient property names

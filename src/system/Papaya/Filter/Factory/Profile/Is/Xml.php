@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsXml extends PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsXml extends \PapayaFilterFactoryProfile {
 
   /**
    * @see \PapayaFilterFactoryProfile::getFilter()

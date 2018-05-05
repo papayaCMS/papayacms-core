@@ -22,7 +22,7 @@
 * @property PapayaObjectCallback $onCreateEditor
 * @method PapayaPluginEditor onCreateEditor
 */
-class PapayaPluginEditableContentCallbacks extends PapayaObjectCallbacks {
+class PapayaPluginEditableContentCallbacks extends \PapayaObjectCallbacks {
 
   public function __construct() {
     parent::__construct(

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage URL
 */
-class PapayaUrlCurrent extends PapayaUrl {
+class PapayaUrlCurrent extends \PapayaUrl {
 
   /**
   * If no $url is provided, the object will compile it from server environment

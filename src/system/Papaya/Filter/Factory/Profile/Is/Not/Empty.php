@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsNotEmpty extends PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsNotEmpty extends \PapayaFilterFactoryProfile {
 
   /**
    * @see \PapayaFilterFactoryProfile::getFilter()

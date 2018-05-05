@@ -29,7 +29,7 @@
  * @property-read string $image current language image including path
  * @property-read string $title current language title
  */
-class PapayaAdministrationLanguagesSwitch extends PapayaUiControlInteractive {
+class PapayaAdministrationLanguagesSwitch extends \PapayaUiControlInteractive {
 
   /**
   * Internal property for language list

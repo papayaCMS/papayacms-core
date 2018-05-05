@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiControlCommandAction extends PapayaUiControlCommand {
+class PapayaUiControlCommandAction extends \PapayaUiControlCommand {
 
   /**
   * Dialog object

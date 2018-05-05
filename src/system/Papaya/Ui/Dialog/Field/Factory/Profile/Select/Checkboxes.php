@@ -21,7 +21,7 @@
 * @subpackage Ui
 */
 class PapayaUiDialogFieldFactoryProfileSelectCheckboxes
-  extends PapayaUiDialogFieldFactoryProfileSelect {
+  extends \PapayaUiDialogFieldFactoryProfileSelect {
 
   /**
    * Create a select field displayed as checkboxes

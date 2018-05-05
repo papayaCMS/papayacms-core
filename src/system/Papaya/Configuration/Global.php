@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Configuration
 */
-class PapayaConfigurationGlobal extends PapayaConfiguration {
+class PapayaConfigurationGlobal extends \PapayaConfiguration {
 
   /**
    * Check if an option value exists, the name can be an existing constant or a key of the

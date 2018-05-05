@@ -33,7 +33,7 @@
 * @property integer $columnSpan
 * @property boolean $selected
 */
-abstract class PapayaUiListviewItemPaging extends PapayaUiListviewItem {
+abstract class PapayaUiListviewItemPaging extends \PapayaUiListviewItem {
 
   const MODE_PAGE = 1;
   const MODE_OFFSET = 2;

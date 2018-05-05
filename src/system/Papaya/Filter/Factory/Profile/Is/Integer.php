@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsInteger extends PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsInteger extends \PapayaFilterFactoryProfile {
 
   /**
    * @see \PapayaFilterFactoryProfile::getFilter()

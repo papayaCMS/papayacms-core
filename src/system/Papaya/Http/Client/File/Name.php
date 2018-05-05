@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage HTTP-Client
 */
-class PapayaHttpClientFileName extends PapayaHttpClientFile {
+class PapayaHttpClientFileName extends \PapayaHttpClientFile {
 
   /**
   * initialize to an inter value on first @see getSize()

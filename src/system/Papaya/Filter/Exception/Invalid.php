@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionInvalid extends PapayaFilterException {
+class PapayaFilterExceptionInvalid extends \PapayaFilterException {
 
   /**
   * The actual value

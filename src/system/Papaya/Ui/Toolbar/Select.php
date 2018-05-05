@@ -28,7 +28,7 @@
 * @property mixed defaultValue
  * @property mixed defaultCaption
  */
-class PapayaUiToolbarSelect extends PapayaUiToolbarElement {
+class PapayaUiToolbarSelect extends \PapayaUiToolbarElement {
 
   /**
   * parameter name for the select box

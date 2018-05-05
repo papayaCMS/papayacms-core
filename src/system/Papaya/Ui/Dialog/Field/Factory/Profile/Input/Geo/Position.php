@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldFactoryProfileInputGeoPosition extends PapayaUiDialogFieldFactoryProfile {
+class PapayaUiDialogFieldFactoryProfileInputGeoPosition extends \PapayaUiDialogFieldFactoryProfile {
 
   /**
    * @see \PapayaUiDialogFieldFactoryProfile::getField()

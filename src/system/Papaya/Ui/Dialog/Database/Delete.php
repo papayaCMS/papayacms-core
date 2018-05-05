@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogDatabaseDelete extends PapayaUiDialogDatabase {
+class PapayaUiDialogDatabaseDelete extends \PapayaUiDialogDatabase {
 
   /**
   * If the dialog is successfully executed the records is delete.

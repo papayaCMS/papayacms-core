@@ -28,7 +28,7 @@
  * @method bool addMenu($xml, $encodeInvalidEntities = TRUE)
  * @method bool addScript($xml, $encodeInvalidEntities = TRUE)
  */
-abstract class PapayaTemplate extends PapayaObject {
+abstract class PapayaTemplate extends \PapayaObject {
 
   /**
    * Strip the XML processing instruction <?xml ...?>

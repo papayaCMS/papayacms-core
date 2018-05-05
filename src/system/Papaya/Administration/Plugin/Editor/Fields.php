@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationPluginEditorFields extends PapayaAdministrationPluginEditorDialog {
+class PapayaAdministrationPluginEditorFields extends \PapayaAdministrationPluginEditorDialog {
 
   private $_fields = array();
 

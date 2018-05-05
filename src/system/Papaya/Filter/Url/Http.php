@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterUrlHttp extends PapayaFilterUrl {
+class PapayaFilterUrlHttp extends \PapayaFilterUrl {
 
   /**
    * @see \PapayaFilter::validate()

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiSheetSubtitles extends PapayaUiControlCollection {
+class PapayaUiSheetSubtitles extends \PapayaUiControlCollection {
 
   protected $_itemClass = \PapayaUiSheetSubtitle::class;
 

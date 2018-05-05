@@ -25,7 +25,7 @@
 * @property string|NULL $defaultValue
 * @property boolean $mandatory
 */
-class PapayaUiDialogFieldInputTime extends PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputTime extends \PapayaUiDialogFieldInput {
 
   /**
   * Field type, used in template

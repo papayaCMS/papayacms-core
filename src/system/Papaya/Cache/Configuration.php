@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Cache
 */
-class PapayaCacheConfiguration extends PapayaConfiguration {
+class PapayaCacheConfiguration extends \PapayaConfiguration {
 
   /**
   * Create object and define options

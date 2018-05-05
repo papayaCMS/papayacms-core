@@ -44,7 +44,7 @@
 * @property integer $publishedFrom publication period - start time
 * @property integer $publishedTo publication period - end time
 */
-class PapayaContentPagePublication extends PapayaContentPage {
+class PapayaContentPagePublication extends \PapayaContentPage {
 
   /**
   * Map properties to database fields

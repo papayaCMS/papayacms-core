@@ -25,7 +25,7 @@
 * @property string|NULL $defaultValue
 * @property boolean $mandatory
 */
-class PapayaUiDialogFieldInputSuggest extends PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputSuggest extends \PapayaUiDialogFieldInput {
 
   /**
    * Field type, used in template

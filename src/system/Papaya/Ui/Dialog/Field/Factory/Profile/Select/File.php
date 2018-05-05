@@ -20,7 +20,7 @@
 * @subpackage Ui
 */
 class PapayaUiDialogFieldFactoryProfileSelectFile
-  extends PapayaUiDialogFieldFactoryProfile {
+  extends \PapayaUiDialogFieldFactoryProfile {
 
   /**
    * @var PapayaFileSystemFactory

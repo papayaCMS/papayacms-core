@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldTextareaRichtext extends PapayaUiDialogFieldTextarea {
+class PapayaUiDialogFieldTextareaRichtext extends \PapayaUiDialogFieldTextarea {
 
   const RTE_DEFAULT = 'standard';
   const RTE_SIMPLE = 'simple';

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsIsoDate extends PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsIsoDate extends \PapayaFilterFactoryProfile {
 
   /**
    * @see \PapayaFilterFactoryProfile::getFilter()

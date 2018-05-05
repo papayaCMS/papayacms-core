@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldListview extends PapayaUiDialogField {
+class PapayaUiDialogFieldListview extends \PapayaUiDialogField {
 
   /**
   * listview object buffer

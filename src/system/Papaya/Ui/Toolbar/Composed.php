@@ -24,7 +24,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiToolbarComposed extends PapayaUiControl {
+class PapayaUiToolbarComposed extends \PapayaUiControl {
 
   /**
   * The internal set list

@@ -26,7 +26,7 @@
 * @method boolean onExecuteSuccessful
 * @method boolean onExecuteFailed
 */
-class PapayaUiControlCommandDialogCallbacks extends PapayaObjectCallbacks {
+class PapayaUiControlCommandDialogCallbacks extends \PapayaObjectCallbacks {
 
   /**
   * Initialize object and set callback definition

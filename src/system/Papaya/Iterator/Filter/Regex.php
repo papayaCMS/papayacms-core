@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorFilterRegex extends FilterIterator {
+class PapayaIteratorFilterRegex extends \FilterIterator {
 
   const FILTER_VALUES = 1;
   const FILTER_KEYS = 2;

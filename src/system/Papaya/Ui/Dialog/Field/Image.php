@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaUiDialogFieldImage extends PapayaUiDialogField {
+class PapayaUiDialogFieldImage extends \PapayaUiDialogField {
 
   /**
    * Message image

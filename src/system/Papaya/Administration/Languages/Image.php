@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationLanguagesImage extends PapayaObject {
+class PapayaAdministrationLanguagesImage extends \PapayaObject {
 
   private $_languageId = 0;
   private $_language = NULL;

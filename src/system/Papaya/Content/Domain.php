@@ -27,7 +27,7 @@
  * @property string $data
  * @property array $options
 */
-class PapayaContentDomain extends PapayaDatabaseRecord {
+class PapayaContentDomain extends \PapayaDatabaseRecord {
 
   /**
   * No special handling

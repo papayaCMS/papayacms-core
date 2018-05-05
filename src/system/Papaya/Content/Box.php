@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-abstract class PapayaContentBox extends PapayaDatabaseObjectRecord {
+abstract class PapayaContentBox extends \PapayaDatabaseObjectRecord {
 
   const DELIVERY_MODE_STATIC = 0;
   const DELIVERY_MODE_ESI = 1;

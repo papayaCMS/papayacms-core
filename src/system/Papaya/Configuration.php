@@ -24,7 +24,7 @@
 * @subpackage Configuration
 */
 class PapayaConfiguration
-  extends PapayaObject
+  extends \PapayaObject
   implements IteratorAggregate, ArrayAccess {
 
   /**

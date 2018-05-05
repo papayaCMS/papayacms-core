@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldTextareaLines extends PapayaUiDialogFieldTextarea {
+class PapayaUiDialogFieldTextareaLines extends \PapayaUiDialogFieldTextarea {
 
   protected $_type = 'lines';
 

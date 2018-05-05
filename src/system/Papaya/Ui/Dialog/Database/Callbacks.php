@@ -24,7 +24,7 @@
 * @method boolean onBeforeSave(\PapayaDatabaseInterfaceRecord $record)
 * @method boolean onBeforeDelete(\PapayaDatabaseInterfaceRecord $record)
 */
-class PapayaUiDialogDatabaseCallbacks extends PapayaObjectCallbacks {
+class PapayaUiDialogDatabaseCallbacks extends \PapayaObjectCallbacks {
 
   /**
   * Initialize object and set callback definition

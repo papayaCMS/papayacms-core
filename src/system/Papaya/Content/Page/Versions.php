@@ -23,7 +23,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentPageVersions extends PapayaDatabaseObjectList {
+class PapayaContentPageVersions extends \PapayaDatabaseObjectList {
 
   /**
   * Map field names to value identfiers

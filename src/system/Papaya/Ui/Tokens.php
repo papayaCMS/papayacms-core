@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiTokens extends PapayaObject {
+class PapayaUiTokens extends \PapayaObject {
 
   /**
   * Maximum of token in list until the GC is triggered.

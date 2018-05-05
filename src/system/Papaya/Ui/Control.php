@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiControl extends PapayaUiControlPart {
+abstract class PapayaUiControl extends \PapayaUiControlPart {
 
   /**
   * Compile output xml for the user interface element.

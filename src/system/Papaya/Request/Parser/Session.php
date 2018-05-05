@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Request
 */
-class PapayaRequestParserSession extends PapayaRequestParser {
+class PapayaRequestParserSession extends \PapayaRequestParser {
 
   /**
   * PCRE pattern for thumbnail links

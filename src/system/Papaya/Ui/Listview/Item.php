@@ -31,7 +31,7 @@
 * @property PapayaUiReference $reference
 * @property PapayaUiListviewItemNode $node
 */
-class PapayaUiListviewItem extends PapayaUiControlCollectionItem {
+class PapayaUiListviewItem extends \PapayaUiControlCollectionItem {
 
   /**
   * Subitems collection

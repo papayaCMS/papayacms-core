@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionNotFloat extends PapayaFilterException {
+class PapayaFilterExceptionNotFloat extends \PapayaFilterException {
   public function __construct($value) {
     parent::__construct("Value is not a float: $value", $this->code);
   }

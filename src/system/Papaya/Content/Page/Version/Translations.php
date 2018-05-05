@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentPageVersionTranslations extends PapayaDatabaseObjectList {
+class PapayaContentPageVersionTranslations extends \PapayaDatabaseObjectList {
 
 
   /**

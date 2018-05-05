@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Theme
 */
-class PapayaThemeHandler extends PapayaObject {
+class PapayaThemeHandler extends \PapayaObject {
 
   /**
   * Get url for theme files, is $themeName is empty the current theme is used.

@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationPagesDependencyBlocker extends PapayaUiControlInteractive {
+class PapayaAdministrationPagesDependencyBlocker extends \PapayaUiControlInteractive {
 
   /**
   * current page id

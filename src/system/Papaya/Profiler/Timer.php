@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Profiler
 */
-class PapayaProfilerTimer extends PapayaObject implements IteratorAggregate {
+class PapayaProfilerTimer extends \PapayaObject implements IteratorAggregate {
 
   private $_start = 0;
 

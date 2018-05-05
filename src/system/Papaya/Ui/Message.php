@@ -31,7 +31,7 @@
 * @property string|PapayaUiString $event
 */
 abstract class PapayaUiMessage
-  extends PapayaUiControl {
+  extends \PapayaUiControl {
 
   const SEVERITY_INFORMATION = 0;
   const SEVERITY_WARNING = 1;

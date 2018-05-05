@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldSelectGrouped extends PapayaUiDialogFieldSelect {
+class PapayaUiDialogFieldSelectGrouped extends \PapayaUiDialogFieldSelect {
 
   /**
   * Set option groups and options.

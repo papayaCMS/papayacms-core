@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsGeoPosition extends PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsGeoPosition extends \PapayaFilterFactoryProfile {
 
   /**
    * @see \PapayaFilterFactoryProfile::getFilter()

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-abstract class PapayaAdministrationPagePart extends PapayaUiControlInteractive {
+abstract class PapayaAdministrationPagePart extends \PapayaUiControlInteractive {
 
   /**
    * @var PapayaUiControlCommand

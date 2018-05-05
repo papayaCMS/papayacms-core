@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Messages
 */
-class PapayaMessageDisplayTranslated extends PapayaMessageDisplay {
+class PapayaMessageDisplayTranslated extends \PapayaMessageDisplay {
 
   /**
   * Initialize object, convert message into translation object

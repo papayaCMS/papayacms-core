@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaTemplateSimpleExceptionUnexpectedToken extends PapayaTemplateSimpleExceptionParser {
+class PapayaTemplateSimpleExceptionUnexpectedToken extends \PapayaTemplateSimpleExceptionParser {
 
 
   /**

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiToolbarElement extends PapayaUiControlCollectionItem {
+abstract class PapayaUiToolbarElement extends \PapayaUiControlCollectionItem {
 
   /**
   * reference (link) object

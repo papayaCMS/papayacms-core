@@ -25,7 +25,7 @@
 * @property integer $selectionMode
 * @property array $actionParameters
 */
-class PapayaUiListviewSubitemImageList extends PapayaUiListviewSubitemImageSelect {
+class PapayaUiListviewSubitemImageList extends \PapayaUiListviewSubitemImageSelect {
 
   /**
   * Validate the icon indizes using the values of the selection array

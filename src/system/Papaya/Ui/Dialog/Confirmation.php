@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogConfirmation extends PapayaUiDialog {
+class PapayaUiDialogConfirmation extends \PapayaUiDialog {
 
   /**
   * Dialog form method - should always be post for confirmation dialogs

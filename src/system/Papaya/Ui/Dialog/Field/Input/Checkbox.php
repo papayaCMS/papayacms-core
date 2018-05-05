@@ -25,7 +25,7 @@
 * @property string|NULL $defaultValue
 * @property boolean $mandatory
 */
-class PapayaUiDialogFieldInputCheckbox extends PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
 
   /**
   * Specify the field type for the template

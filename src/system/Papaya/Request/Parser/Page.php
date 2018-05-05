@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Request
 */
-class PapayaRequestParserPage extends PapayaRequestParser {
+class PapayaRequestParserPage extends \PapayaRequestParser {
 
   /**
   * PCRE pattern for page links

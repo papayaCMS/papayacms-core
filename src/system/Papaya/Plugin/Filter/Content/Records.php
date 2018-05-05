@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaPluginFilterContentRecords extends PapayaPluginFilterContentGroup {
+class PapayaPluginFilterContentRecords extends \PapayaPluginFilterContentGroup {
 
   private $_viewConfigurations = NULL;
   private $_loaded = FALSE;

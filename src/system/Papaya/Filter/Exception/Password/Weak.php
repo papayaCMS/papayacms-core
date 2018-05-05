@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionPasswordWeak extends PapayaFilterException {
+class PapayaFilterExceptionPasswordWeak extends \PapayaFilterException {
 
   /**
   * Construct object and set (static) message.

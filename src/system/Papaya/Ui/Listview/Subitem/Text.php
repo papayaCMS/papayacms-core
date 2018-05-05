@@ -24,7 +24,7 @@
  * @property array $actionParameters
  * @property PapayaUiReference $reference
  */
-class PapayaUiListviewSubitemText extends PapayaUiListviewSubitem {
+class PapayaUiListviewSubitemText extends \PapayaUiListviewSubitem {
 
   /**
    * buffer for text variable

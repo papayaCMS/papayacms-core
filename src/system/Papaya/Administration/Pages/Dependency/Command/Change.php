@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationPagesDependencyCommandChange extends PapayaUiControlCommandDialog {
+class PapayaAdministrationPagesDependencyCommandChange extends \PapayaUiControlCommandDialog {
 
   /**
   * create a condition that is used to activate the command execution

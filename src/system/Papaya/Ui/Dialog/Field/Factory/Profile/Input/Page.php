@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldFactoryProfileInputPage extends PapayaUiDialogFieldFactoryProfile {
+class PapayaUiDialogFieldFactoryProfileInputPage extends \PapayaUiDialogFieldFactoryProfile {
 
   /**
    * @see \PapayaUiDialogFieldFactoryProfile::getField()

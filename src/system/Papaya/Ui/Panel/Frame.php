@@ -25,7 +25,7 @@
 * @property PapayaUiReference $reference
 * @property PapayaUiToolbars $toolbars
 */
-class PapayaUiPanelFrame extends PapayaUiPanel {
+class PapayaUiPanelFrame extends \PapayaUiPanel {
 
   /**
   * The url reference object.

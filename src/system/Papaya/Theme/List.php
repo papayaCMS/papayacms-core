@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Theme
 */
-class PapayaThemeList extends PapayaObject implements IteratorAggregate {
+class PapayaThemeList extends \PapayaObject implements IteratorAggregate {
 
   private $_handler = NULL;
 

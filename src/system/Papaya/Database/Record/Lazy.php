@@ -22,7 +22,7 @@
 * @version $Id: Lazy.php 38917 2013-11-11 14:31:11Z weinert $
 */
 abstract class PapayaDatabaseRecordLazy
-  extends PapayaDatabaseRecord {
+  extends \PapayaDatabaseRecord {
 
   private $_loadingParameters = NULL;
 

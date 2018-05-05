@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogElementDescriptionLink extends PapayaUiDialogElementDescriptionItem {
+class PapayaUiDialogElementDescriptionLink extends \PapayaUiDialogElementDescriptionItem {
 
   private $_reference = NULL;
 

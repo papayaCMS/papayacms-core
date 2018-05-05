@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Plugins
 */
-class PapayaPluginList extends PapayaDatabaseRecordsLazy {
+class PapayaPluginList extends \PapayaDatabaseRecordsLazy {
 
   /**
   * @var array()

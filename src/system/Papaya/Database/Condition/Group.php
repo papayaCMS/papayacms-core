@@ -31,7 +31,7 @@
  * @method PapayaDatabaseConditionGroup matchContains(string $field, mixed $value)
  */
 class PapayaDatabaseConditionGroup
-  extends PapayaDatabaseConditionElement
+  extends \PapayaDatabaseConditionElement
   implements IteratorAggregate, Countable {
 
   private $_conditions = array();

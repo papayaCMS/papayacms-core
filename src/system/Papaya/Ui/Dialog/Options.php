@@ -32,7 +32,7 @@
 * @subpackage Ui
 */
 class PapayaUiDialogOptions
-   extends PapayaObjectOptionsDefined {
+   extends \PapayaObjectOptionsDefined {
 
   /**
   * Show no field captions

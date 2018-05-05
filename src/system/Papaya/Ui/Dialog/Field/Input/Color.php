@@ -25,7 +25,7 @@
 * @property string|NULL $defaultValue
 * @property boolean $mandatory
 */
-class PapayaUiDialogFieldInputColor extends PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputColor extends \PapayaUiDialogFieldInput {
 
   /**
   * Field type, used in template

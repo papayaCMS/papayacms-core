@@ -43,7 +43,7 @@
 * @property integer $expiresTime page browser cache time, if mode == own
 * @property integer $unpublishedTranslations internal counter for unpublished translations
 */
-class PapayaContentPageWork extends PapayaContentPage {
+class PapayaContentPageWork extends \PapayaContentPage {
 
   /**
   * Create child page object (but do not save it yet)

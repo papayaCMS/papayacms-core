@@ -20,7 +20,7 @@
 * @subpackage Database
 */
 abstract class PapayaDatabaseRecords
-  extends PapayaDatabaseRecordsUnbuffered
+  extends \PapayaDatabaseRecordsUnbuffered
   implements ArrayAccess {
 
   /**

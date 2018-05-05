@@ -17,7 +17,7 @@
 * @package Papaya-Library
 * @subpackage Response
 */
-class PapayaResponse extends PapayaObject {
+class PapayaResponse extends \PapayaObject {
 
   /**
   * Status codes

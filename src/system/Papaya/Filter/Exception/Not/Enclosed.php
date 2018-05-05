@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionNotEnclosed extends PapayaFilterException {
+class PapayaFilterExceptionNotEnclosed extends \PapayaFilterException {
 
   /**
   * The actual length of the value

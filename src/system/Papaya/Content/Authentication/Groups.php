@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentAuthenticationGroups extends PapayaDatabaseRecordsLazy {
+class PapayaContentAuthenticationGroups extends \PapayaDatabaseRecordsLazy {
 
   protected $_fields = array(
     'id' => 'group_id',

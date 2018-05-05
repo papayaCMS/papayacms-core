@@ -30,7 +30,7 @@
  * @property bool $sessionRedirect
  * @property string $sessionCache
  */
-class PapayaContentViewMode extends PapayaDatabaseRecordLazy {
+class PapayaContentViewMode extends \PapayaDatabaseRecordLazy {
 
   /**
   * Map field names to more convinient property names

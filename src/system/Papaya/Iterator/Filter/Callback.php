@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorFilterCallback extends FilterIterator {
+class PapayaIteratorFilterCallback extends \FilterIterator {
 
   private $_callback = NULL;
 

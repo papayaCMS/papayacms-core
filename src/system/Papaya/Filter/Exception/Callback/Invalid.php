@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionCallbackInvalid extends PapayaFilterExceptionCallback {
+class PapayaFilterExceptionCallbackInvalid extends \PapayaFilterExceptionCallback {
 
   /**
   * Construct object with callback informations

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldInputMediaFile extends PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputMediaFile extends \PapayaUiDialogFieldInput {
 
   /**
   * Field type, used in template

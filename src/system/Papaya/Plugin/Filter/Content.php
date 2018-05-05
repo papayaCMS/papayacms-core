@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Plugins
 */
-interface PapayaPluginFilterContent extends PapayaXmlAppendable {
+interface PapayaPluginFilterContent extends \PapayaXmlAppendable {
 
   /**
    * @param string $content

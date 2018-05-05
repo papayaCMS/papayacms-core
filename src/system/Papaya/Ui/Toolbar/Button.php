@@ -27,7 +27,7 @@
 * @property string $target
 * @property string $image
 */
-class PapayaUiToolbarButton extends PapayaUiToolbarElement {
+class PapayaUiToolbarButton extends \PapayaUiToolbarElement {
 
   /**
   * Image or image index.  The button needs a cpation or/and an image.

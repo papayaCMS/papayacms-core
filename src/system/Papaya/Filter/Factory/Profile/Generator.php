@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileGenerator extends PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileGenerator extends \PapayaFilterFactoryProfile {
 
   /**
    * @see \PapayaFilterFactoryProfile::getFilter()

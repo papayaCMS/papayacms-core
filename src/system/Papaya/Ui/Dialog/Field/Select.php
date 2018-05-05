@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldSelect extends PapayaUiDialogField {
+class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
 
   const VALUE_USE_KEY = 0;
   const VALUE_USE_CAPTION = 1;

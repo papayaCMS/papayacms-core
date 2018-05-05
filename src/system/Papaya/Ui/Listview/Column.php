@@ -22,7 +22,7 @@
 * @property integer $align
 * @property string|PapayaUiString $caption
 */
-class PapayaUiListviewColumn extends PapayaUiControlCollectionItem {
+class PapayaUiListviewColumn extends \PapayaUiControlCollectionItem {
 
   /**
   * Current caption value

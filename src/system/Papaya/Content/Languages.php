@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentLanguages extends PapayaDatabaseRecords {
+class PapayaContentLanguages extends \PapayaDatabaseRecords {
 
   /**
   * All languages - filter disabled

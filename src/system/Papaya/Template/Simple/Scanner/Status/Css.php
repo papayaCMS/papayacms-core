@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Template
 */
-class PapayaTemplateSimpleScannerStatusCss extends PapayaTemplateSimpleScannerStatus {
+class PapayaTemplateSimpleScannerStatusCss extends \PapayaTemplateSimpleScannerStatus {
 
   private $_patterns = array(
     '(/\\*\\$[^*\\r\\n]+\*/)S' => \PapayaTemplateSimpleScannerToken::VALUE_NAME,

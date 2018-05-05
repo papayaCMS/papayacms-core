@@ -31,7 +31,7 @@
 * @package Papaya-Library
 * @subpackage Session
 */
-abstract class PapayaSessionShare extends PapayaObject {
+abstract class PapayaSessionShare extends \PapayaObject {
 
   /**
   * The list of those properties that are stored in the session.

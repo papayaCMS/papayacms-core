@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldFactoryProfileInputDateTime extends PapayaUiDialogFieldFactoryProfile {
+class PapayaUiDialogFieldFactoryProfileInputDateTime extends \PapayaUiDialogFieldFactoryProfile {
 
   /**
    * @see \PapayaUiDialogFieldFactoryProfile::getField()

@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaUiContentPage extends PapayaObject {
+class PapayaUiContentPage extends \PapayaObject {
 
   /**
    * @var PapayaContentPage

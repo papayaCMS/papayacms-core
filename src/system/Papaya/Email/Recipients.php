@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Email
 */
-class PapayaEmailRecipients extends PapayaObjectList {
+class PapayaEmailRecipients extends \PapayaObjectList {
 
   /**
   * Initialize object and set class restriction

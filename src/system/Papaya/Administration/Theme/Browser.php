@@ -14,7 +14,7 @@
  */
 
 class PapayaAdministrationThemeBrowser
-  extends PapayaUiControl
+  extends \PapayaUiControl
   implements PapayaXmlAppendable  {
 
   private $_optionName = 'PAPAYA_LAYOUT_THEME';

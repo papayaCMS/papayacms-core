@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Request
 */
-class PapayaRequestParserStart extends PapayaRequestParser {
+class PapayaRequestParserStart extends \PapayaRequestParser {
 
   /**
   * PCRE pattern

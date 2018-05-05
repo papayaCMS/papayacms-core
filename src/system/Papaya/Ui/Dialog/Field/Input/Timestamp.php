@@ -27,7 +27,7 @@
 * @property float $step
 * @property-read int $includeTime
 */
-class PapayaUiDialogFieldInputTimestamp extends PapayaUiDialogFieldInputDate {
+class PapayaUiDialogFieldInputTimestamp extends \PapayaUiDialogFieldInputDate {
 
   /**
    * Create object and initalize integer filter

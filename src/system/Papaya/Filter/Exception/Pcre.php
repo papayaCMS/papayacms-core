@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionPcre extends PapayaFilterException {
+class PapayaFilterExceptionPcre extends \PapayaFilterException {
 
   /**
   * Pcre pattern used for validation

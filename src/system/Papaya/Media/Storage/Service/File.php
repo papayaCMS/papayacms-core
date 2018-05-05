@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Media-Storage
 */
-class PapayaMediaStorageServiceFile extends PapayaMediaStorageService {
+class PapayaMediaStorageServiceFile extends \PapayaMediaStorageService {
 
   /**
   * base storage directory - will contain subdirectories for each storage group

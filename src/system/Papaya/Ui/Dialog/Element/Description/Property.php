@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogElementDescriptionProperty extends PapayaUiDialogElementDescriptionItem {
+class PapayaUiDialogElementDescriptionProperty extends \PapayaUiDialogElementDescriptionItem {
 
   protected $_name = '';
   protected $_value = '';

@@ -29,7 +29,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiLinkAttributes extends PapayaUiControlPart {
+class PapayaUiLinkAttributes extends \PapayaUiControlPart {
 
   const OPTION_RESIZEABLE = 1;
   const OPTION_SCROLLBARS_AUTO = 2;

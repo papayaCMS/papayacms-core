@@ -25,7 +25,7 @@
 * @property array $actionParameters
 * @property PapayaUiReference $reference
 */
-class PapayaUiListviewSubitemImage extends PapayaUiListviewSubitemText {
+class PapayaUiListviewSubitemImage extends \PapayaUiListviewSubitemText {
 
   /**
   * buffer for image index or filename

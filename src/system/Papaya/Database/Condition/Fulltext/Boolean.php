@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaDatabaseConditionFulltextBoolean extends PapayaDatabaseConditionFulltext {
+class PapayaDatabaseConditionFulltextBoolean extends \PapayaDatabaseConditionFulltext {
 
   /**
    * Get filters for MySQL MATCH command

@@ -24,7 +24,7 @@
 * @property PapayaUiToolbarElements $elements
 */
 class PapayaUiToolbarSet
-  extends PapayaUiToolbarElement {
+  extends \PapayaUiToolbarElement {
 
   /**
   * Group elements collection

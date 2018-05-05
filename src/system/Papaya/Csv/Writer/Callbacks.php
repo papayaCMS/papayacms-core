@@ -24,7 +24,7 @@
 * @method array onMapRow
 * @method array onMapHeader
 */
-class PapayaCsvWriterCallbacks extends PapayaObjectCallbacks {
+class PapayaCsvWriterCallbacks extends \PapayaObjectCallbacks {
 
   public function __construct() {
     parent::__construct(

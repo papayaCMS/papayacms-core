@@ -26,7 +26,7 @@
 * @property PapayaPluginList $plugins
 * @property PapayaPluginOptionGroups $options
 */
-class PapayaPluginLoader extends PapayaObject {
+class PapayaPluginLoader extends \PapayaObject {
 
   /**
   * Database access to plugin data

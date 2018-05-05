@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldFactoryProfileInputCounted extends PapayaUiDialogFieldFactoryProfile {
+class PapayaUiDialogFieldFactoryProfileInputCounted extends \PapayaUiDialogFieldFactoryProfile {
 
   /**
    * @see \PapayaUiDialogFieldFactoryProfile::getField()

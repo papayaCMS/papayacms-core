@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiToolbarElements extends PapayaUiControlCollection {
+class PapayaUiToolbarElements extends \PapayaUiControlCollection {
 
   /**
   * Only {@see PapayaUiToolbarElement} objects are allowed in this list

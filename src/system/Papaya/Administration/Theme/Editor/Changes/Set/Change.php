@@ -20,7 +20,7 @@
 * @subpackage Administration
 */
 class PapayaAdministrationThemeEditorChangesSetChange
-  extends PapayaUiControlCommandDialogDatabaseRecord {
+  extends \PapayaUiControlCommandDialogDatabaseRecord {
 
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page

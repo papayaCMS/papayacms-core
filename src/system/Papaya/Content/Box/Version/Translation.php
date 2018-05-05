@@ -32,7 +32,7 @@
 * @property-read string $moduleGuid
 * @property-read string $moduleTitle
 */
-class PapayaContentBoxVersionTranslation extends PapayaContentBoxTranslation {
+class PapayaContentBoxVersionTranslation extends \PapayaContentBoxTranslation {
 
   protected $_tableNameBoxTranslations = \PapayaContentTables::BOX_VERSION_TRANSLATIONS;
 

@@ -26,7 +26,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiMessageText extends PapayaUiMessage {
+class PapayaUiMessageText extends \PapayaUiMessage {
 
   private $_content = '';
 

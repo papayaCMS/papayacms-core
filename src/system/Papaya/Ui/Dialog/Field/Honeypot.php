@@ -25,7 +25,7 @@
 * @property string $name
 * @property string $hint
 */
-class PapayaUiDialogFieldHoneypot extends PapayaUiDialogField {
+class PapayaUiDialogFieldHoneypot extends \PapayaUiDialogField {
 
   /**
   * Field type, used in template

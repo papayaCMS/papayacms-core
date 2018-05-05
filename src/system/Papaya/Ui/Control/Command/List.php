@@ -21,7 +21,7 @@
 * @subpackage Ui
 */
 class PapayaUiControlCommandList
-  extends PapayaUiControlCommand
+  extends \PapayaUiControlCommand
   implements ArrayAccess, Countable, IteratorAggregate {
 
   /**

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterLogicalOr extends PapayaFilterLogical {
+class PapayaFilterLogicalOr extends \PapayaFilterLogical {
 
   /**
    * Call validate() on subfilters, capture exceptions,

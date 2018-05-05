@@ -19,7 +19,7 @@
  * @package Papaya-Library
  * @subpackage Ui
  */
-class PapayaUiListviewSubitemCheckbox extends PapayaUiListviewSubitem {
+class PapayaUiListviewSubitemCheckbox extends \PapayaUiListviewSubitem {
 
   /**
    * @var PapayaRequestParametersName

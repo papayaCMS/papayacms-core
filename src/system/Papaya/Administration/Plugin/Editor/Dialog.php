@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
+class PapayaAdministrationPluginEditorDialog extends \PapayaPluginEditor {
 
   private $_dialog = NULL;
 

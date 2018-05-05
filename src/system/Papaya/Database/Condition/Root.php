@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaDatabaseConditionRoot extends PapayaDatabaseConditionGroup {
+class PapayaDatabaseConditionRoot extends \PapayaDatabaseConditionGroup {
 
   /**
    * @param string $method

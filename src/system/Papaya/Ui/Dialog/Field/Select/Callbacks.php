@@ -28,7 +28,7 @@
 * @method string getOptionGroupCaption
 * @method array getOptionData
 */
-class PapayaUiDialogFieldSelectCallbacks extends PapayaObjectCallbacks {
+class PapayaUiDialogFieldSelectCallbacks extends \PapayaObjectCallbacks {
 
   public function __construct() {
     parent::__construct(

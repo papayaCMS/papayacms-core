@@ -29,7 +29,7 @@
 * @property integer $publishedFrom publication time limit - start
 * @property integer $publishedTo publication time limit - end
 */
-class PapayaContentBoxPublication extends PapayaContentBox {
+class PapayaContentBoxPublication extends \PapayaContentBox {
 
   /**
   * Map properties to database fields

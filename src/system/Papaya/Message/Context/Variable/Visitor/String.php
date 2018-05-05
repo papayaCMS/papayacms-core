@@ -20,7 +20,7 @@
 * @subpackage Messages
 */
 class PapayaMessageContextVariableVisitorString
-  extends PapayaMessageContextVariableVisitor {
+  extends \PapayaMessageContextVariableVisitor {
 
   /**
   * internal indent counter

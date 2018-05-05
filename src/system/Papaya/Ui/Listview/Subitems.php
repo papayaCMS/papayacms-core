@@ -21,7 +21,7 @@
 * @subpackage Ui
 */
 class PapayaUiListviewSubitems
-  extends PapayaUiControlCollection {
+  extends \PapayaUiControlCollection {
 
   /**
   * Only {@see PapayaUiListviewSubItem} objects are allowed in this list

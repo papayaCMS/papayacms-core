@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Plugins
 */
-abstract class PapayaPluginEditor extends PapayaUiControlInteractive {
+abstract class PapayaPluginEditor extends \PapayaUiControlInteractive {
 
   private $_content = NULL;
   private $_context = NULL;

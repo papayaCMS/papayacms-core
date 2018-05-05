@@ -26,7 +26,7 @@
 * @property string $mode
 * @property PapayaUiReference $reference
 */
-class PapayaUiListview extends PapayaUiControlInteractive {
+class PapayaUiListview extends \PapayaUiControlInteractive {
 
   const MODE_DETAILS = 'details';
   const MODE_TILES = 'tiles';

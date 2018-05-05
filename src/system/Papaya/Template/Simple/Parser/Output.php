@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Template
 */
-class PapayaTemplateSimpleParserOutput extends PapayaTemplateSimpleParser {
+class PapayaTemplateSimpleParserOutput extends \PapayaTemplateSimpleParser {
 
   /**
    * Templates start in ouput mode.

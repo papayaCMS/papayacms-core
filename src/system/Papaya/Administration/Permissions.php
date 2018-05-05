@@ -20,7 +20,7 @@
 * @subpackage Administration
 */
 class PapayaAdministrationPermissions
-  extends PapayaDatabaseRecordsLazy
+  extends \PapayaDatabaseRecordsLazy
   implements IteratorAggregate {
 
   const SYSTEM_SETTINGS = 25;

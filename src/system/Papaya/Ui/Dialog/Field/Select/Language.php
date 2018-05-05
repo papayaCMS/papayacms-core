@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldSelectLanguage extends PapayaUiDialogFieldSelect {
+class PapayaUiDialogFieldSelectLanguage extends \PapayaUiDialogFieldSelect {
 
   const OPTION_ALLOW_ANY = 1;
   const OPTION_USE_IDENTIFIER = 2;

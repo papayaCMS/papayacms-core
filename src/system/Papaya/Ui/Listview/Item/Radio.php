@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaUiListviewItemRadio extends PapayaUiListviewItem {
+class PapayaUiListviewItemRadio extends \PapayaUiListviewItem {
 
   private $_fieldName = '';
 

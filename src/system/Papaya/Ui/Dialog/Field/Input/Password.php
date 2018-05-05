@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldInputPassword extends PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputPassword extends \PapayaUiDialogFieldInput {
 
   /**
   * Field type, used in template

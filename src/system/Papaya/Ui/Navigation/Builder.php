@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiNavigationBuilder extends PapayaUiControl {
+class PapayaUiNavigationBuilder extends \PapayaUiControl {
 
   /**
   * member vaiable for the source

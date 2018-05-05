@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Session
 */
-class PapayaSessionRedirect extends PapayaResponse {
+class PapayaSessionRedirect extends \PapayaResponse {
 
   /**
   * session name - used as parameter name, too.

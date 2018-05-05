@@ -26,7 +26,7 @@
 * @subpackage Objects
 */
 abstract class PapayaObjectOptionsDefined
-  extends PapayaObjectOptionsList {
+  extends \PapayaObjectOptionsList {
 
 
   /**

@@ -22,7 +22,7 @@
 * @subpackage Database
 */
 abstract class PapayaDatabaseObjectRecord
-  extends PapayaDatabaseObject
+  extends \PapayaDatabaseObject
   implements PapayaDatabaseInterfaceRecord {
 
   /**

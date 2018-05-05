@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentModuleOptions extends PapayaDatabaseRecords {
+class PapayaContentModuleOptions extends \PapayaDatabaseRecords {
 
   protected $_fields = array(
     'guid' => 'module_guid',

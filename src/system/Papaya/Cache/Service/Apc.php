@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Cache
 */
-class PapayaCacheServiceApc extends PapayaCacheService {
+class PapayaCacheServiceApc extends \PapayaCacheService {
 
   /**
   * process cache - to avoid double requests

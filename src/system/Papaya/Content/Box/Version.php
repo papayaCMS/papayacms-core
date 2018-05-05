@@ -30,7 +30,7 @@
 * @property string $name administration interface box name
 * @property integer $modified last modification timestamp
 */
-class PapayaContentBoxVersion extends PapayaDatabaseObjectRecord {
+class PapayaContentBoxVersion extends \PapayaDatabaseObjectRecord {
 
   /**
   * Map properties to database fields

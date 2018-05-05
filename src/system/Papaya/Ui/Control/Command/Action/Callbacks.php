@@ -26,7 +26,7 @@
 * @method void onValidationFailed
 * @method array getDefinition
 */
-class PapayaUiControlCommandActionCallbacks extends PapayaObjectCallbacks {
+class PapayaUiControlCommandActionCallbacks extends \PapayaObjectCallbacks {
 
   /**
   * Initialize object and set callback definition

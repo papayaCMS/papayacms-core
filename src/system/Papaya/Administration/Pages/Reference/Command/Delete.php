@@ -20,7 +20,7 @@
 * @subpackage Administration
 */
 class PapayaAdministrationPagesReferenceCommandDelete
-  extends PapayaUiControlCommandDialog {
+  extends \PapayaUiControlCommandDialog {
 
   /**
   * Create confirmation dialog and assign callback for confirmation message.

@@ -22,7 +22,7 @@
 * @property string|PapayaUiString $caption
 * @property PapayaUiDialogButtons $buttons
 */
-class PapayaUiDialogFieldGroupButtons extends PapayaUiDialogField {
+class PapayaUiDialogFieldGroupButtons extends \PapayaUiDialogField {
 
   /**
   * Grouped input buttons

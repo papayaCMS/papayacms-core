@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiReferencePage extends PapayaUiReference {
+class PapayaUiReferencePage extends \PapayaUiReference {
 
   /**
   * Page identification data

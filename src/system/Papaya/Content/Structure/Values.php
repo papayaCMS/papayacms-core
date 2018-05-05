@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentStructureValues extends PapayaObjectList {
+class PapayaContentStructureValues extends \PapayaObjectList {
 
   private $_group = NULL;
 

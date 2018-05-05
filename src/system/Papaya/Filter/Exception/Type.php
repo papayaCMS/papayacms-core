@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionType extends PapayaFilterException {
+class PapayaFilterExceptionType extends \PapayaFilterException {
 
   /**
   * expected type description

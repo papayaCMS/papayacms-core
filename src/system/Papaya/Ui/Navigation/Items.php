@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiNavigationItems extends PapayaUiControlCollection {
+class PapayaUiNavigationItems extends \PapayaUiControlCollection {
 
   private $_reference = NULL;
 

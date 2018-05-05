@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaDatabaseConditionLike extends PapayaDatabaseConditionElement {
+class PapayaDatabaseConditionLike extends \PapayaDatabaseConditionElement {
 
   private $_parent = NULL;
   private $_field = '';

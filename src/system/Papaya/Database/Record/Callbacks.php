@@ -32,7 +32,7 @@
  * @method boolean onAfterInsert(\PapayaDatabaseRecord $record)
  * @method boolean onAfterDelete(\PapayaDatabaseRecord $record)
 */
-class PapayaDatabaseRecordCallbacks extends PapayaObjectCallbacks {
+class PapayaDatabaseRecordCallbacks extends \PapayaObjectCallbacks {
 
   public function __construct() {
     parent::__construct(

@@ -25,7 +25,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldInputGeoPosition extends PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputGeoPosition extends \PapayaUiDialogFieldInput {
 
   /**
   * Field type, used in template

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage HTTP-Client
 */
-class PapayaHttpClientFileResource extends PapayaHttpClientFile {
+class PapayaHttpClientFileResource extends \PapayaHttpClientFile {
 
   protected $_size = NULL;
 

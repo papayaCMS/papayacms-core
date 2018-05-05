@@ -22,7 +22,7 @@
 * @property PapayaObjectCallback $onGetValue
 * @method string onGetValue
 */
-class PapayaTemplateSimpleVisitorOutputCallbacks extends PapayaObjectCallbacks {
+class PapayaTemplateSimpleVisitorOutputCallbacks extends \PapayaObjectCallbacks {
 
   public function __construct() {
     parent::__construct(

@@ -25,7 +25,7 @@
 * @property string $title
 * @property string $name
 */
-class PapayaContentStructureGroup extends PapayaContentStructureNode {
+class PapayaContentStructureGroup extends \PapayaContentStructureNode {
 
   public $title = '';
   public $name = '';

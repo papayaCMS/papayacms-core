@@ -20,7 +20,7 @@
 * @subpackage Messages
 */
 class PapayaMessageContextVariableVisitorXhtml
-  extends PapayaMessageContextVariableVisitor {
+  extends \PapayaMessageContextVariableVisitor {
 
   /**
   * Suffix for truncated string values

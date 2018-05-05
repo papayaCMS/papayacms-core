@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFields extends PapayaUiDialogElements {
+class PapayaUiDialogFields extends \PapayaUiDialogElements {
 
   /**
   * Only PapayaUiDialogField objects are allows in this list

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorRegexReplace extends PapayaIteratorCallback {
+class PapayaIteratorRegexReplace extends \PapayaIteratorCallback {
 
   /**
    * @var string

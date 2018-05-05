@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiPanel extends PapayaUiControl {
+abstract class PapayaUiPanel extends \PapayaUiControl {
 
   /**
   * Panel caption/title

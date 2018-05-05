@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldTextarea extends PapayaUiDialogField {
+class PapayaUiDialogFieldTextarea extends \PapayaUiDialogField {
 
   /**
   * Field lines

@@ -18,7 +18,7 @@
 * @package Papaya-Library
 * @subpackage Request
 */
-abstract class PapayaRequestParser extends PapayaObject {
+abstract class PapayaRequestParser extends \PapayaObject {
 
   /**
   * parse request

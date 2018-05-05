@@ -27,7 +27,7 @@
 * @property integer $itemsPerPage
 * @property integer $pageLimit
 */
-class PapayaUiPagingSteps extends PapayaUiControl {
+class PapayaUiPagingSteps extends \PapayaUiControl {
 
   const USE_KEYS = 0;
   const USE_VALUES = 1;

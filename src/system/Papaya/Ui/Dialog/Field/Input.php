@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldInput extends PapayaUiDialogField {
+class PapayaUiDialogFieldInput extends \PapayaUiDialogField {
 
   /**
   * Field maximum input length

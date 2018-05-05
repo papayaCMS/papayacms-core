@@ -20,7 +20,7 @@
 * @subpackage Objects
 */
 class PapayaObjectParameters
-  extends ArrayObject {
+  extends \ArrayObject {
 
   /**
    * Check if the value exists

@@ -26,7 +26,7 @@
 * @property string|PapayaUiString $defaultOption
 * @property string|integer|boolean $currentValue
 */
-class PapayaUiToolbarSelectButtons extends PapayaUiToolbarSelect {
+class PapayaUiToolbarSelectButtons extends \PapayaUiToolbarSelect {
 
   /**
    * Append button xml elemens to parent element.

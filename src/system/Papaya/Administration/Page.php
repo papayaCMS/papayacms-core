@@ -25,7 +25,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-abstract class PapayaAdministrationPage extends PapayaObject {
+abstract class PapayaAdministrationPage extends \PapayaObject {
 
   /**
    * @var string|NULL

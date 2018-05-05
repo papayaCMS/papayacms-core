@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiControlCommandCallback extends PapayaUiControlCommand {
+class PapayaUiControlCommandCallback extends \PapayaUiControlCommand {
 
   /**
    * @var Callable

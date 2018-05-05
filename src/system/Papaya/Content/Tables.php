@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentTables extends PapayaObject {
+class PapayaContentTables extends \PapayaObject {
 
   const OPTIONS = 'options';
 

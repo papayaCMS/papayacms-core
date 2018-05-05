@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationThemeEditor extends PapayaAdministrationPage {
+class PapayaAdministrationThemeEditor extends \PapayaAdministrationPage {
 
   protected $_parameterGroup = 'theme';
 

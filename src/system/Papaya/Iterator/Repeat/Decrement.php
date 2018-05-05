@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorRepeatDecrement extends PapayaIteratorRepeatCallback {
+class PapayaIteratorRepeatDecrement extends \PapayaIteratorRepeatCallback {
 
   protected $_minimum = 0;
   protected $_step = 0;

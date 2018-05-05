@@ -23,7 +23,7 @@
 * @property string $identifier
 * @property PapayaUiToolbarElements $elements
 */
-class PapayaUiMenu extends PapayaUiToolbar {
+class PapayaUiMenu extends \PapayaUiToolbar {
 
   /**
   * An identifier/name for the menu

@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaTemplateSimpleVisitorOutput extends PapayaTemplateSimpleVisitor {
+class PapayaTemplateSimpleVisitorOutput extends \PapayaTemplateSimpleVisitor {
 
   private $_buffer = '';
 

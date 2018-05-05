@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentPagesPublications extends PapayaContentPages {
+class PapayaContentPagesPublications extends \PapayaContentPages {
   /**
   * Table containing page informations
   *

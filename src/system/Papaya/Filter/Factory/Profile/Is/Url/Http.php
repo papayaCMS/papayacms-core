@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsUrlHttp extends PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsUrlHttp extends \PapayaFilterFactoryProfile {
 
   /**
    * @see \PapayaFilterFactoryProfile::getFilter()

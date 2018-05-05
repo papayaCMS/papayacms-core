@@ -26,7 +26,7 @@
 * @package Papaya-Library
 * @subpackage Database
 */
-abstract class PapayaDatabaseRecordsLazy extends PapayaDatabaseRecords {
+abstract class PapayaDatabaseRecordsLazy extends \PapayaDatabaseRecords {
 
   private $_loadingParameters = NULL;
 

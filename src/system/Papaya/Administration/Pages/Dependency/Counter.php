@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationPagesDependencyCounter extends PapayaDatabaseObject {
+class PapayaAdministrationPagesDependencyCounter extends \PapayaDatabaseObject {
 
   /**
   * store page id

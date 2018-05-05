@@ -20,7 +20,7 @@
 * @subpackage Plugins
 */
 class PapayaCacheIdentifierDefinitionPage
-  extends PapayaObject
+  extends \PapayaObject
   implements PapayaCacheIdentifierDefinition {
 
   /**

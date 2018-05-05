@@ -20,7 +20,7 @@
 * @subpackage Ui
 */
 class PapayaUiDialogFieldFactoryProfileSelectTranslated
-  extends PapayaUiDialogFieldFactoryProfileSelect {
+  extends \PapayaUiDialogFieldFactoryProfileSelect {
 
   /**
    * Wrap elements in a string so they get translated

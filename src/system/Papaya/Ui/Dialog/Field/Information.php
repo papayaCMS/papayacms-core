@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldInformation extends PapayaUiDialogField {
+class PapayaUiDialogFieldInformation extends \PapayaUiDialogField {
 
   /**
   * Information text

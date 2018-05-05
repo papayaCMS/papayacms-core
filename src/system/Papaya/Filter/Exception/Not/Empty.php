@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionNotEmpty extends PapayaFilterException {
+class PapayaFilterExceptionNotEmpty extends \PapayaFilterException {
 
   /**
   * Construct object with value informations

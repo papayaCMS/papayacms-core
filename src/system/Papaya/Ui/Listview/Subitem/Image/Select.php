@@ -24,7 +24,7 @@
 * @property string $selection
 * @property array $actionParameters
 */
-class PapayaUiListviewSubitemImageSelect extends PapayaUiListviewSubitem {
+class PapayaUiListviewSubitemImageSelect extends \PapayaUiListviewSubitem {
 
   /**
   * A list of icons

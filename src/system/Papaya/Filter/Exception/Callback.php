@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-abstract class PapayaFilterExceptionCallback extends PapayaFilterException {
+abstract class PapayaFilterExceptionCallback extends \PapayaFilterException {
 
   /**
   * Private property containing the callback

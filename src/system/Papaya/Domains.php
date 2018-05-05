@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Domains
 */
-class PapayaDomains extends PapayaObject {
+class PapayaDomains extends \PapayaObject {
 
   /**
    * @var array

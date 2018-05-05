@@ -24,7 +24,7 @@
  * @method boolean onMapRow
  * @method boolean onMapField
  */
-class PapayaResponseContentCsvCallbacks extends PapayaObjectCallbacks {
+class PapayaResponseContentCsvCallbacks extends \PapayaObjectCallbacks {
 
   /**
    * Initialize object and set callback definition

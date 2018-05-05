@@ -24,7 +24,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiDialogField extends PapayaUiDialogElement {
+abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
 
   /**
   * Field caption

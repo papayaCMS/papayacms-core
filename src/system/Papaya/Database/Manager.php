@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Database
 */
-class PapayaDatabaseManager extends PapayaObject {
+class PapayaDatabaseManager extends \PapayaObject {
 
   /**
   * @var PapayaConfiguration $_configuration Configuration object

@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiListviewSubitemEmpty extends PapayaUiListviewSubitem {
+class PapayaUiListviewSubitemEmpty extends \PapayaUiListviewSubitem {
 
   /**
   * Append subitem xml data to parent node. In this case just an <subitem/> element

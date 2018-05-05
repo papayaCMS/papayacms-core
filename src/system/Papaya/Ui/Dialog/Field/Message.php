@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldMessage extends PapayaUiDialogFieldInformation {
+class PapayaUiDialogFieldMessage extends \PapayaUiDialogFieldInformation {
 
   /**
   * Message image

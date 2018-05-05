@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Session
 */
-class PapayaSessionParameters extends PapayaObject {
+class PapayaSessionParameters extends \PapayaObject {
 
   /**
   * A group identifer for the session data, if an object is provided, it's classname will be used.

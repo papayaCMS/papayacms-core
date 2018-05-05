@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiMessages extends PapayaObjectList implements PapayaXmlAppendable {
+class PapayaUiMessages extends \PapayaObjectList implements PapayaXmlAppendable {
 
   /**
   * create list object and store child superclass limit

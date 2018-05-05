@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Media-Storage
 */
-abstract class PapayaMediaStorageService extends PapayaObject {
+abstract class PapayaMediaStorageService extends \PapayaObject {
 
   /**
   * Constructor - set configuration if provided

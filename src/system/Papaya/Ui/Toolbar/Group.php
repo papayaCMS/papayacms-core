@@ -23,7 +23,7 @@
 * @property PapayaUiToolbarElements $elements
 */
 class PapayaUiToolbarGroup
-  extends PapayaUiToolbarSet {
+  extends \PapayaUiToolbarSet {
 
   /**
   * A caption for the group

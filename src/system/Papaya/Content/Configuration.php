@@ -20,7 +20,7 @@
 * @subpackage Content
 */
 class PapayaContentConfiguration
-  extends PapayaDatabaseObjectList {
+  extends \PapayaDatabaseObjectList {
 
   /**
   * Map field names to value identfiers

@@ -20,7 +20,7 @@
 * @subpackage Ui
 */
 class PapayaUiDialogFieldFactoryProfileInputMediaImageResized
-  extends PapayaUiDialogFieldFactoryProfile {
+  extends \PapayaUiDialogFieldFactoryProfile {
 
   /**
    * @see \PapayaUiDialogFieldFactoryProfile::getField()

@@ -22,7 +22,7 @@
  * @package Papaya-Library
  * @subpackage Administration
  */
-class PapayaAdministrationPluginEditorGroup extends PapayaPluginEditor {
+class PapayaAdministrationPluginEditorGroup extends \PapayaPluginEditor {
 
   private $_editors = [];
   private $_toolbar;

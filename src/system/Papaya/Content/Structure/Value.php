@@ -30,7 +30,7 @@
 * @property string $fieldType
 * @property mixed $fieldParameters
 */
-class PapayaContentStructureValue extends PapayaContentStructureNode {
+class PapayaContentStructureValue extends \PapayaContentStructureNode {
 
   private $_group = NULL;
 

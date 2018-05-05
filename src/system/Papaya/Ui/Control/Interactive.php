@@ -20,7 +20,7 @@
 * @subpackage Ui
 */
 abstract class PapayaUiControlInteractive
-  extends PapayaUiControl
+  extends \PapayaUiControl
   implements PapayaRequestParametersInterface {
 
   /**

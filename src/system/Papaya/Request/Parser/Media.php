@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Request
 */
-class PapayaRequestParserMedia extends PapayaRequestParser {
+class PapayaRequestParserMedia extends \PapayaRequestParser {
 
   /**
   * PCRE pattern for media and download links

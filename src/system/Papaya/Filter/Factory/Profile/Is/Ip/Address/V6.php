@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsIpAddressV6 extends PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsIpAddressV6 extends \PapayaFilterFactoryProfile {
 
   /**
    * @see \PapayaFilterFactoryProfile::getFilter()

@@ -22,7 +22,7 @@
 * @property integer $id
 * @property integer $sessionMode
 */
-class PapayaContentPageStatus extends PapayaDatabaseRecord {
+class PapayaContentPageStatus extends \PapayaDatabaseRecord {
 
   protected $_fields = array(
     'id' => 'topic_id',

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogButtonSubmitNamed extends PapayaUiDialogButtonSubmit {
+class PapayaUiDialogButtonSubmitNamed extends \PapayaUiDialogButtonSubmit {
 
   /**
   * Button name

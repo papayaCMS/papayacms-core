@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaMediaFileInfoSvg extends PapayaMediaFileInfo {
+class PapayaMediaFileInfoSvg extends \PapayaMediaFileInfo {
 
   public $forceDOM = FALSE;
 

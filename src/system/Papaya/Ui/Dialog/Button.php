@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiDialogButton extends PapayaUiDialogElement {
+abstract class PapayaUiDialogButton extends \PapayaUiDialogElement {
 
   /**
   * Button alignment constant: right (default)

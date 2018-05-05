@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionRangeMinimum extends PapayaFilterExceptionRange {
+class PapayaFilterExceptionRangeMinimum extends \PapayaFilterExceptionRange {
 
   /**
   * Construct object with length informations

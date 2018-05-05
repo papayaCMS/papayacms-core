@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldInputMediaImageResized extends PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputMediaImageResized extends \PapayaUiDialogFieldInput {
 
   /**
   * Field type, used in template

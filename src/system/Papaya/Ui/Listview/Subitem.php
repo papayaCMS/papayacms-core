@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiListviewSubitem extends PapayaUiControlCollectionItem {
+abstract class PapayaUiListviewSubitem extends \PapayaUiControlCollectionItem {
 
   /**
   * Alignment, if it is NULL, the column alignment is used, "left" is the default value.

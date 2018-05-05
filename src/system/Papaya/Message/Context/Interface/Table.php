@@ -22,7 +22,7 @@
 * @subpackage Messages
 */
 interface PapayaMessageContextInterfaceTable
-  extends PapayaMessageContextInterfaceList {
+  extends \PapayaMessageContextInterfaceList {
 
   /**
   * Get table column header if available

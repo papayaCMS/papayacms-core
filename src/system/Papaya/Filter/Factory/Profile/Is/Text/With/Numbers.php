@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsTextWithNumbers extends PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsTextWithNumbers extends \PapayaFilterFactoryProfile {
 
   /**
    * @see \PapayaFilterFactoryProfile::getFilter()

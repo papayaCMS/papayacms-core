@@ -49,7 +49,7 @@
 * @method array queryTableNames() queryTableNames()
 * @method array queryTableStructure() queryTableStructure(string $tableName)
 */
-class PapayaDatabaseAccess extends PapayaObject {
+class PapayaDatabaseAccess extends \PapayaObject {
 
   /**
   * calling object

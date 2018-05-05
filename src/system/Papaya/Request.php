@@ -33,7 +33,7 @@
 * @property-read int $contentLength
 */
 class PapayaRequest
-  extends PapayaObject
+  extends \PapayaObject
   implements PapayaObjectInterfaceProperties {
 
   /**

@@ -19,7 +19,7 @@
  * @package Papaya-Library
  * @subpackage Ui
  */
-class PapayaUiDialogFieldInputReadonly extends PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputReadonly extends \PapayaUiDialogFieldInput {
 
   /**
    * Initialize object, set caption and field name

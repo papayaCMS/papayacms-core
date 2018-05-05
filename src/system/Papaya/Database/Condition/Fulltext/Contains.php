@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaDatabaseConditionFulltextContains extends PapayaDatabaseConditionFulltext {
+class PapayaDatabaseConditionFulltextContains extends \PapayaDatabaseConditionFulltext {
 
   /**
    * Get filters for a LIKE condition

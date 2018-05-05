@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogDatabaseRecord extends PapayaUiDialog {
+class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
 
   /**
   * @var integer

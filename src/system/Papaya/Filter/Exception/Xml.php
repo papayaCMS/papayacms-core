@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionXml extends PapayaFilterException {
+class PapayaFilterExceptionXml extends \PapayaFilterException {
 
   /**
    * @param \PapayaXmlException $e

@@ -20,7 +20,7 @@
 * @subpackage Administration
 */
 class PapayaAdministrationPagesDependencySynchronizationView
-  extends PapayaAdministrationPagesDependencySynchronizationContent {
+  extends \PapayaAdministrationPagesDependencySynchronizationContent {
 
   /**
    * Update content data of existing translations

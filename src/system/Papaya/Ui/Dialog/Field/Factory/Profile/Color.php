@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldFactoryProfileColor extends PapayaUiDialogFieldFactoryProfile {
+class PapayaUiDialogFieldFactoryProfileColor extends \PapayaUiDialogFieldFactoryProfile {
 
   /**
    * Create a color input field

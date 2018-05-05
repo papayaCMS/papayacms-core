@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Media-Storage
 */
-class PapayaMediaStorageServiceS3 extends PapayaMediaStorageService {
+class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
 
   /**
   * Amazon S3 bucket name

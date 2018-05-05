@@ -21,7 +21,7 @@
 * @subpackage Ui
 */
 class PapayaUiControlCollection
-  extends PapayaUiControl
+  extends \PapayaUiControl
   implements IteratorAggregate, Countable, ArrayAccess {
 
   /**

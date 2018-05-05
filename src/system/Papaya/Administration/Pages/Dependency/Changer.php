@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationPagesDependencyChanger extends PapayaUiControlInteractive {
+class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInteractive {
 
   /**
   * Currently selected page

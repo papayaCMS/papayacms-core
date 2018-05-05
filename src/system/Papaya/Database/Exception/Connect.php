@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Database
 */
-class PapayaDatabaseExceptionConnect extends PapayaDatabaseException {
+class PapayaDatabaseExceptionConnect extends \PapayaDatabaseException {
 
   /**
   * Create exception and store values

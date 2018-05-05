@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaMediaFileProperties extends PapayaMediaFileInfo {
+class PapayaMediaFileProperties extends \PapayaMediaFileInfo {
 
   private $_fetchers;
 

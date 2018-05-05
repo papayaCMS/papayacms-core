@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorTreeGroupsRegex extends PapayaIteratorTreeGroups {
+class PapayaIteratorTreeGroupsRegex extends \PapayaIteratorTreeGroups {
 
   const GROUP_VALUES = 1;
   const GROUP_KEYS = 2;

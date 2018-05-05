@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldHidden extends PapayaUiDialogField {
+class PapayaUiDialogFieldHidden extends \PapayaUiDialogField {
 
   /**
   * Initialize object, field name, default value and filter

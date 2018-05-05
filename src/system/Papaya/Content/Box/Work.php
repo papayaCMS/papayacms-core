@@ -31,7 +31,7 @@
 * @property integer $cacheTime box content cache time, if mode == own
 * @property integer $unpublishedTranslations internal counter for unpublished translations
 */
-class PapayaContentBoxWork extends PapayaContentBox {
+class PapayaContentBoxWork extends \PapayaContentBox {
 
   /**
   * Save box to database

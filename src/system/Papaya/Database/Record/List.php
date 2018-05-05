@@ -22,7 +22,7 @@
 * @version $Id: List.php 39429 2014-02-27 20:14:26Z weinert $
 */
 class PapayaDatabaseRecordList
-  extends PapayaObjectList {
+  extends \PapayaObjectList {
 
   /**
    * Create list an set internal object type limitation

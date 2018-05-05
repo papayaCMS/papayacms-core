@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Xml
 */
-class PapayaXmlErrors extends PapayaObject {
+class PapayaXmlErrors extends \PapayaObject {
 
   /**
    * @var bool

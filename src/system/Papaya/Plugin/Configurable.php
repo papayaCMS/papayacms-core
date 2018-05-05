@@ -15,7 +15,7 @@
 
 /**
 * An interface to define that an object is a plugin appendable to an DOM element. This
-* extends PapayaXmlAppendable to provide the additional information that it is an content plugin.
+* extends \PapayaXmlAppendable to provide the additional information that it is an content plugin.
 *
 * @package Papaya-Library
 * @subpackage Plugins

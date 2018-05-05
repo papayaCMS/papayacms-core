@@ -20,7 +20,7 @@
 * @subpackage Ui
 */
 class PapayaUiDialogFieldFactoryProfileSelectDirectory
-  extends PapayaUiDialogFieldFactoryProfileSelectFile {
+  extends \PapayaUiDialogFieldFactoryProfileSelectFile {
 
   protected $_fileSystemItems = \PapayaFileSystemDirectory::FETCH_DIRECTORIES;
 }

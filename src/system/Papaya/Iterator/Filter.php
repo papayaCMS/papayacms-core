@@ -19,7 +19,7 @@
  * @package Papaya-Library
  * @subpackage Iterator
  */
-class PapayaIteratorFilter extends FilterIterator {
+class PapayaIteratorFilter extends \FilterIterator {
 
   const FILTER_VALUES = 1;
   const FILTER_KEYS = 2;

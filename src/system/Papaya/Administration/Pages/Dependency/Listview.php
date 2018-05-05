@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationPagesDependencyListview extends PapayaUiListview {
+class PapayaAdministrationPagesDependencyListview extends \PapayaUiListview {
   /**
   * Origin page id, this will be different from the current page id, if the current page id
   * is a dependency of this page id

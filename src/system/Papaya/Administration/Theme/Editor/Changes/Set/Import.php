@@ -20,7 +20,7 @@
 * @subpackage Administration
 */
 class PapayaAdministrationThemeEditorChangesSetImport
-  extends PapayaUiControlCommandDialog {
+  extends \PapayaUiControlCommandDialog {
 
   /**
    * @var PapayaContentThemeSet

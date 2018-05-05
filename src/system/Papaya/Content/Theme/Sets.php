@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentThemeSets extends PapayaDatabaseRecordsLazy {
+class PapayaContentThemeSets extends \PapayaDatabaseRecordsLazy {
 
   /**
   * Map field names to more convinient property names

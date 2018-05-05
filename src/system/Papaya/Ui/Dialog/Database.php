@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiDialogDatabase extends PapayaUiDialog {
+abstract class PapayaUiDialogDatabase extends \PapayaUiDialog {
 
   /**
   * Attached database callbacks object

@@ -23,7 +23,7 @@
  * @package Papaya-Library
  * @subpackage Template
  */
-class PapayaTemplateEngineXsl extends PapayaTemplateEngine {
+class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
 
   /**
   * Transformation result buffer

@@ -21,7 +21,7 @@
 * @subpackage Messages
 */
 class PapayaMessageException
-  extends PapayaMessagePhp {
+  extends \PapayaMessagePhp {
 
   /**
    * Create object and set values from exception object

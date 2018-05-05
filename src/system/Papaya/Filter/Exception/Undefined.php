@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionUndefined extends PapayaFilterException {
+class PapayaFilterExceptionUndefined extends \PapayaFilterException {
 
   /**
   * Construct object and set (static) message.

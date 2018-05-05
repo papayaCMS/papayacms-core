@@ -37,7 +37,7 @@
 * @property integer $priority content priority (for search engines)
 * @property integer $scheme page scheme (http, https or both)
 */
-class PapayaContentPageVersion extends PapayaDatabaseObjectRecord {
+class PapayaContentPageVersion extends \PapayaDatabaseObjectRecord {
 
   /**
   * Map properties to database fields

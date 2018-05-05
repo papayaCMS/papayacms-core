@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionRangeMaximum extends PapayaFilterExceptionRange {
+class PapayaFilterExceptionRangeMaximum extends \PapayaFilterExceptionRange {
 
   /**
   * Construct object with length informations

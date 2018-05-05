@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldSelectCheckboxes extends PapayaUiDialogFieldSelect {
+class PapayaUiDialogFieldSelectCheckboxes extends \PapayaUiDialogFieldSelect {
 
   /**
   * type of the select control, used in the xslt template

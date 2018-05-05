@@ -21,7 +21,7 @@
 * @version $Id: List.php 38282 2013-03-19 12:23:19Z weinert $
 */
 class PapayaDatabaseRecordOrderList
-  extends PapayaObjectList
+  extends \PapayaObjectList
   implements PapayaDatabaseInterfaceOrder {
 
   /**

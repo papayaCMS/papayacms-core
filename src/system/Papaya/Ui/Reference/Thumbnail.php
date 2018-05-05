@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiReferenceThumbnail extends PapayaUiReference {
+class PapayaUiReferenceThumbnail extends \PapayaUiReference {
 
   /**
   * Page identification data

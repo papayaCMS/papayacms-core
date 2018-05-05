@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Controller
 */
-class PapayaControllerGroup extends PapayaObjectList implements PapayaController {
+class PapayaControllerGroup extends \PapayaObjectList implements PapayaController {
 
   /**
    * Create an object list for PapayaController instances, add all arguments as

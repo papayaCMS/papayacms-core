@@ -49,7 +49,7 @@
  * @property int $expiresTime
  * @property-read int $unpublishedTranslations
  */
-class PapayaContentPage extends PapayaDatabaseRecordLazy {
+class PapayaContentPage extends \PapayaDatabaseRecordLazy {
 
   /**
   * Map properties to database fields

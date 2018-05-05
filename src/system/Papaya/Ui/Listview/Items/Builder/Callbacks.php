@@ -26,7 +26,7 @@
 * @method boolean onAfterFill(\PapayaUiListviewItems $items)
 * @method boolean onCreateItem(\PapayaUiListviewItems $items, mixed $element, int $index)
 */
-class PapayaUiListviewItemsBuilderCallbacks extends PapayaObjectCallbacks {
+class PapayaUiListviewItemsBuilderCallbacks extends \PapayaObjectCallbacks {
 
   /**
   * Initialize object and set callback definition

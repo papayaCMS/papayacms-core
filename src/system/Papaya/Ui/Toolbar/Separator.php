@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiToolbarSeparator extends PapayaUiToolbarElement {
+class PapayaUiToolbarSeparator extends \PapayaUiToolbarElement {
 
   /**
   * Append the separator to the parent xml element

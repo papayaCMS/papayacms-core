@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationThemeEditorNavigation extends PapayaAdministrationPagePart {
+class PapayaAdministrationThemeEditorNavigation extends \PapayaAdministrationPagePart {
 
   /**
    * @var PapayaUiListview

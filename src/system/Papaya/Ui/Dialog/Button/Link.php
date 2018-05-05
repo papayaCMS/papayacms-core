@@ -29,7 +29,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogButtonLink extends PapayaUiDialogButton {
+class PapayaUiDialogButtonLink extends \PapayaUiDialogButton {
 
   /**
   * Button caption

@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldSelectBitmask extends PapayaUiDialogFieldSelect {
+class PapayaUiDialogFieldSelectBitmask extends \PapayaUiDialogFieldSelect {
 
   /**
   * type of the select control, used in the xslt template

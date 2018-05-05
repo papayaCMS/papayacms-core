@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-abstract class PapayaMediaFileInfo extends PapayaObject implements \ArrayAccess, \IteratorAggregate {
+abstract class PapayaMediaFileInfo extends \PapayaObject implements \ArrayAccess, \IteratorAggregate {
 
   private $_file;
   private $_properties;

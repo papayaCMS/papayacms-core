@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Request
 */
-class PapayaRequestParameters extends PapayaObjectParameters {
+class PapayaRequestParameters extends \PapayaObjectParameters {
 
   /**
   * Get a subgroup of parameters

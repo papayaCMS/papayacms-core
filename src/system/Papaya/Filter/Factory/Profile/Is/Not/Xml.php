@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsNotXml extends PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsNotXml extends \PapayaFilterFactoryProfile {
 
   /**
    * @see \PapayaFilterFactoryProfile::getFilter()

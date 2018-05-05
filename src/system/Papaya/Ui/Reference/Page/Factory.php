@@ -19,7 +19,7 @@
  * @package Papaya-Library
  * @subpackage Ui
  */
-class PapayaUiReferencePageFactory extends PapayaObject {
+class PapayaUiReferencePageFactory extends \PapayaObject {
 
   /**
    * @var array

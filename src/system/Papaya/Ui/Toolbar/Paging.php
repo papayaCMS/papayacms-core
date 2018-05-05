@@ -28,7 +28,7 @@
 * @property integer $itemsPerPage
 * @property integer $buttonLimit
 */
-class PapayaUiToolbarPaging extends PapayaUiToolbarElement {
+class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
 
   const MODE_PAGE = 0;
   const MODE_OFFSET = 1;

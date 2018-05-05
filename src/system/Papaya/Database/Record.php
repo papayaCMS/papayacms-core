@@ -21,7 +21,7 @@
 * @version $Id: Record.php 39721 2014-04-07 13:13:23Z weinert $
 */
 abstract class PapayaDatabaseRecord
-  extends PapayaObjectItem
+  extends \PapayaObjectItem
   implements PapayaDatabaseInterfaceRecord {
 
   /**

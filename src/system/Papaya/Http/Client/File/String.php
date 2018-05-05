@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage HTTP-Client
 */
-class PapayaHttpClientFileString extends PapayaHttpClientFile {
+class PapayaHttpClientFileString extends \PapayaHttpClientFile {
 
   /**
   * data size

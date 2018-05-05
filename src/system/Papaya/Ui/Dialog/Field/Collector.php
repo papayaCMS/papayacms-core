@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldCollector extends PapayaUiDialogField {
+class PapayaUiDialogFieldCollector extends \PapayaUiDialogField {
 
   /**
   * Initialize object, field name, default value and filter

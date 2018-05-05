@@ -25,7 +25,7 @@
 * @package Papaya-Library
 * @subpackage Database
 */
-class PapayaDatabaseSequenceHuman extends PapayaDatabaseSequence {
+class PapayaDatabaseSequenceHuman extends \PapayaDatabaseSequence {
 
   /**
   * List of character used in the id

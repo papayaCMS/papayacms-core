@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Configuration
 */
-class PapayaConfigurationStorageDatabase extends PapayaObject
+class PapayaConfigurationStorageDatabase extends \PapayaObject
   implements PapayaConfigurationStorage {
 
    /**

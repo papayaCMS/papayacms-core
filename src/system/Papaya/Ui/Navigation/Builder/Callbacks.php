@@ -28,7 +28,7 @@
 * @method NULL|PapayaUiNavigationItem onCreateItem($element, $index)
 * @method void onAfterAppendItem(\PapayaUiNavigationItem $item, $element, $index)
 */
-class PapayaUiNavigationBuilderCallbacks extends PapayaObjectCallbacks {
+class PapayaUiNavigationBuilderCallbacks extends \PapayaObjectCallbacks {
 
   public function __construct() {
     parent::__construct(

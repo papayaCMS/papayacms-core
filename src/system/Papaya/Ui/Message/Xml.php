@@ -23,7 +23,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiMessageXml extends PapayaUiMessageText {
+class PapayaUiMessageXml extends \PapayaUiMessageText {
 
   /**
    * Use the parent method to append the element and append the xml fragment to the new

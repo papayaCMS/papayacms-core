@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Database
 */
-abstract class PapayaDatabaseRecordsGrouped extends PapayaDatabaseRecordsLazy {
+abstract class PapayaDatabaseRecordsGrouped extends \PapayaDatabaseRecordsLazy {
 
   /**
   * identifing a child - the detail record identifier

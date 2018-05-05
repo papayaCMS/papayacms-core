@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Database
 */
-interface PapayaDatabaseResult extends IteratorAggregate {
+interface PapayaDatabaseResult extends \IteratorAggregate {
 
   /**
   * Fetch numeric and named keys

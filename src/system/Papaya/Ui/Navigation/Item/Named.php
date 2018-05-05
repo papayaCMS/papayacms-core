@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiNavigationItemNamed extends PapayaUiNavigationItem {
+class PapayaUiNavigationItemNamed extends \PapayaUiNavigationItem {
 
   /**
   * Use the parent method to create and append to xml element not. Set an attribute name

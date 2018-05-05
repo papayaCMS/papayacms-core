@@ -14,8 +14,8 @@
  */
 
 /**
-* Surfer list navigation. A adminsitration interface control, that allows to navigate to a
-* surfer id. Can be used if an andminsitration interface needs to attach data to the surfer.
+* Surfer list navigation. A administration interface control, that allows to navigate to a
+* surfer id. Can be used if an administration interface needs to attach data to the surfer.
 *
 * @package Papaya-Library
 * @subpackage Administration
@@ -23,7 +23,7 @@
 * @property integer $usersPerPage
 * @property integer $pagingButtonsLimit
 */
-class PapayaAdministrationCommunityUsersListDialog extends PapayaUiDialog {
+class PapayaAdministrationCommunityUsersListDialog extends \PapayaUiDialog {
 
   private $_listview = NULL;
   private $_paging = NULL;

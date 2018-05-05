@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentPageReferences extends PapayaDatabaseObjectList {
+class PapayaContentPageReferences extends \PapayaDatabaseObjectList {
 
   /**
   * page id used to load the references, will be the source_id in the resulting record arrays

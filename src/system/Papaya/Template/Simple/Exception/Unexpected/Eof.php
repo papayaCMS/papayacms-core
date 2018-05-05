@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaTemplateSimpleExceptionUnexpectedEof extends PapayaTemplateSimpleExceptionParser {
+class PapayaTemplateSimpleExceptionUnexpectedEof extends \PapayaTemplateSimpleExceptionParser {
 
   public function __construct(array $expectedTokens) {
     $this->expectedTokens = $expectedTokens;

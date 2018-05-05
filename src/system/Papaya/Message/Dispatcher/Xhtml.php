@@ -22,7 +22,7 @@
 * @subpackage Messages
 */
 class PapayaMessageDispatcherXhtml
-  extends PapayaObject
+  extends \PapayaObject
   implements PapayaMessageDispatcher {
 
   /**

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldXhtmlLink extends PapayaUiDialogField {
+class PapayaUiDialogFieldXhtmlLink extends \PapayaUiDialogField {
 
   /**
   * Link url

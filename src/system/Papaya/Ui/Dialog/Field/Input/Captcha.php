@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldInputCaptcha extends PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputCaptcha extends \PapayaUiDialogFieldInput {
 
   /**
   * Field type, used in template

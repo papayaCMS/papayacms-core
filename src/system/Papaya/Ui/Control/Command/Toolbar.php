@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiControlCommandToolbar extends PapayaUiControlCommand {
+abstract class PapayaUiControlCommandToolbar extends \PapayaUiControlCommand {
 
   /**
    * @var PapayaUiToolbarElements

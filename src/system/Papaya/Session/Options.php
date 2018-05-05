@@ -23,7 +23,7 @@
 * @subpackage Session
 */
 class PapayaSessionOptions
-   extends PapayaObjectOptionsDefined {
+   extends \PapayaObjectOptionsDefined {
 
   /**
   * Fallback mode: only use cookie, no fallback

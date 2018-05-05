@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Plugins
 */
-class PapayaPluginOptions extends PapayaConfiguration {
+class PapayaPluginOptions extends \PapayaConfiguration {
 
   const STATUS_CREATED = 0;
   const STATUS_LOADING = 1;

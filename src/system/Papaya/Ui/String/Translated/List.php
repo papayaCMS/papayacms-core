@@ -23,7 +23,7 @@
 * @subpackage Ui
 */
 class PapayaUiStringTranslatedList
-  extends IteratorIterator
+  extends \IteratorIterator
   implements PapayaObjectInterface {
 
   /**

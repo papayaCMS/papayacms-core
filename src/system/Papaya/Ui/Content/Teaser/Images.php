@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui-Content
 */
-class PapayaUiContentTeaserImages extends PapayaUiControl {
+class PapayaUiContentTeaserImages extends \PapayaUiControl {
 
   /**
   * thumbnail width

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorRepeatIncrement extends PapayaIteratorRepeatCallback {
+class PapayaIteratorRepeatIncrement extends \PapayaIteratorRepeatCallback {
 
   protected $_maximum = 0;
   protected $_step = 0;

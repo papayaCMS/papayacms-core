@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Template
 */
-class PapayaTemplateSimpleScannerStatusCssComment extends PapayaTemplateSimpleScannerStatus {
+class PapayaTemplateSimpleScannerStatusCssComment extends \PapayaTemplateSimpleScannerStatus {
 
   private $_patterns = array(
     '(\\*/)S' => \PapayaTemplateSimpleScannerToken::COMMENT_END,

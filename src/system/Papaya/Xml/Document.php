@@ -22,7 +22,7 @@
 * @property PapayaXmlElement $documentElement
 */
 class PapayaXmlDocument
-  extends DOMDocument
+  extends \DOMDocument
   implements PapayaXmlNodeInterface {
 
   /**

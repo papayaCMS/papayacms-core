@@ -29,7 +29,7 @@
 * @property integer $isInterface
 * @property integer $isContent
 */
-class PapayaContentLanguage extends PapayaDatabaseRecordLazy {
+class PapayaContentLanguage extends \PapayaDatabaseRecordLazy {
 
   /**
   * Map properties to database fields

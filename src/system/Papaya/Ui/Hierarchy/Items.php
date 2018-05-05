@@ -22,7 +22,7 @@
 * @property integer $limit limit the create links
 * @property PapayaUiHierarchyItem $spacer a spacer replacing the items not shown
 */
-class PapayaUiHierarchyItems extends PapayaUiControlCollection {
+class PapayaUiHierarchyItems extends \PapayaUiControlCollection {
 
   /**
   * Superclass for validation, only items of this class may be added.

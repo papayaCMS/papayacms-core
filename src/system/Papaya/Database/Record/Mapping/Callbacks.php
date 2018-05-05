@@ -45,7 +45,7 @@
  * @method string|NULL onGetFieldForProperty(string $propertyName, bool $withAlias = TRUE)
  * @method string|NULL onGetPropertyForField(string $fieldName)
  */
-class PapayaDatabaseRecordMappingCallbacks extends PapayaObjectCallbacks {
+class PapayaDatabaseRecordMappingCallbacks extends \PapayaObjectCallbacks {
 
   public function __construct() {
     parent::__construct(

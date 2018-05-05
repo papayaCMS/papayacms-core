@@ -20,7 +20,7 @@
 * @subpackage Administration
 */
 class PapayaAdministrationPagesDependencySynchronizationProperties
-  extends PapayaAdministrationPagesDependencySynchronizationContent {
+  extends \PapayaAdministrationPagesDependencySynchronizationContent {
 
   /**
   * Page database record object

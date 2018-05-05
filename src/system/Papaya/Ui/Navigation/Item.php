@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiNavigationItem extends PapayaUiControlCollectionItem {
+abstract class PapayaUiNavigationItem extends \PapayaUiControlCollectionItem {
 
   private $_reference = NULL;
   private $_selected = FALSE;

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Cache
 */
-class PapayaCacheServiceMemcache extends PapayaCacheService {
+class PapayaCacheServiceMemcache extends \PapayaCacheService {
 
   /**
   * cache path configuration (servers and parameters)

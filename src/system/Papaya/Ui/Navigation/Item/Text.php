@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiNavigationItemText extends PapayaUiNavigationItem {
+class PapayaUiNavigationItemText extends \PapayaUiNavigationItem {
 
   /**
   * Use the parent method to create and append to xml element not. Set the text content

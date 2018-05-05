@@ -24,7 +24,7 @@
 * @property string $note - a small text describing the dependency
 * @property integer $synchronization bitmask of the synchronization elements
 */
-class PapayaContentPageDependency extends PapayaDatabaseRecord {
+class PapayaContentPageDependency extends \PapayaDatabaseRecord {
 
   /**
   * Sync page properties: title, meta inforation, ...

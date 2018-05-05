@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Cache
 */
-class PapayaCacheServiceFile extends PapayaCacheService {
+class PapayaCacheServiceFile extends \PapayaCacheService {
 
   /**
   * cache base directory

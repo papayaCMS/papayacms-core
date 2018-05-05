@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationPagesReferenceCommandChange extends PapayaUiControlCommandDialog {
+class PapayaAdministrationPagesReferenceCommandChange extends \PapayaUiControlCommandDialog {
 
   /**
   * Create the add/edit dialog and assign callbacks.

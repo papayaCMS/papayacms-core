@@ -20,7 +20,7 @@
 * @subpackage Administration
 */
 class PapayaAdministrationThemeEditorChangesDialog
-  extends PapayaUiControlCommandDialogDatabaseRecord {
+  extends \PapayaUiControlCommandDialogDatabaseRecord {
 
   /**
    * @var PapayaContentStructurePage

@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiControlCollectionItem extends PapayaUiControl {
+abstract class PapayaUiControlCollectionItem extends \PapayaUiControl {
 
   /**
   * Position of item in the collection

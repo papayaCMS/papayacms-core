@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogDatabaseSave extends PapayaUiDialogDatabase {
+class PapayaUiDialogDatabaseSave extends \PapayaUiDialogDatabase {
 
   /**
   * If the dialog is successfully executed the records is saved.

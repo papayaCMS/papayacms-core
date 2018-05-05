@@ -20,7 +20,7 @@
 * @subpackage Ui
 */
 class PapayaUiDialogFieldFactoryProfileRichtextIndividual
-  extends PapayaUiDialogFieldFactoryProfileRichtext {
+  extends \PapayaUiDialogFieldFactoryProfileRichtext {
 
   /**
    * @see \PapayaUiDialogFieldFactoryProfile::getField()

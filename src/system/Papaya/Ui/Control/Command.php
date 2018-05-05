@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiControlCommand extends PapayaUiControlInteractive {
+abstract class PapayaUiControlCommand extends \PapayaUiControlInteractive {
 
   /**
   * A permission that is validated for the current administration user,

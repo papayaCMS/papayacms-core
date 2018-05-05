@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentCommunityPermissions extends PapayaDatabaseRecords {
+class PapayaContentCommunityPermissions extends \PapayaDatabaseRecords {
 
   protected $_fields = array(
     'id' => 'surferperm_id',

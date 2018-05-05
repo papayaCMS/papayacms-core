@@ -19,7 +19,7 @@
  * @package Papaya-Library
  * @subpackage Filter
  */
-class PapayaFilterExceptionArrayKeyInvalid extends PapayaFilterException {
+class PapayaFilterExceptionArrayKeyInvalid extends \PapayaFilterException {
 
   /**
    * The constructor expects the name of the invalid key

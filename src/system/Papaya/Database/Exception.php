@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Database
 */
-class PapayaDatabaseException extends PapayaException {
+class PapayaDatabaseException extends \PapayaException {
 
   /**
   * Severity information

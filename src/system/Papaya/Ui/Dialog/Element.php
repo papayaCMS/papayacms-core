@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiDialogElement extends PapayaUiControlCollectionItem {
+abstract class PapayaUiDialogElement extends \PapayaUiControlCollectionItem {
 
   /**
   * Collect filtered dialog input data into $this->_dialog->data()

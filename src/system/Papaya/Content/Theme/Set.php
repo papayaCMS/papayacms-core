@@ -24,7 +24,7 @@
  * @property string $theme
  * @property array $values
  */
-class PapayaContentThemeSet extends PapayaDatabaseRecord {
+class PapayaContentThemeSet extends \PapayaDatabaseRecord {
 
   /**
    * Map field names to more convenient property names

@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Plugins
 */
-class PapayaPluginEditableContent extends PapayaObjectParameters {
+class PapayaPluginEditableContent extends \PapayaObjectParameters {
 
   /**
    * Checksum buffer filled in {@see \PapayaPluginEditableContent::setXml()}

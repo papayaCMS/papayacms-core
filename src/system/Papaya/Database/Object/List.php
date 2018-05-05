@@ -22,7 +22,7 @@
 * @subpackage Database
 */
 abstract class PapayaDatabaseObjectList
-  extends PapayaDatabaseObject
+  extends \PapayaDatabaseObject
   implements IteratorAggregate, Countable {
 
   /**

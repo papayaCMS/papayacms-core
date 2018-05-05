@@ -23,7 +23,7 @@
 * @property integer $targetId page id, larger one
 * @property string $note - a small text describing the reference
 */
-class PapayaContentPageReference extends PapayaDatabaseRecord {
+class PapayaContentPageReference extends \PapayaDatabaseRecord {
 
   /**
   * Mapping fields

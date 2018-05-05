@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentDomains extends PapayaDatabaseRecords {
+class PapayaContentDomains extends \PapayaDatabaseRecords {
 
   /**
   * Map field names to more convinient property names

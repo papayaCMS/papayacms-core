@@ -25,7 +25,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiStringDate extends PapayaUiString {
+class PapayaUiStringDate extends \PapayaUiString {
 
   const SHOW_DATE = 0;
   const SHOW_TIME = 1;

@@ -30,7 +30,7 @@ define(
 * @package Papaya-Library
 * @subpackage Configuration
 */
-class PapayaConfigurationCms extends PapayaConfigurationGlobal {
+class PapayaConfigurationCms extends \PapayaConfigurationGlobal {
 
   /**
   * This is a list of all available options and their default values.

@@ -24,7 +24,7 @@
 *
 * @codeCoverageIgnore
 */
-class PapayaUiDialogElementDescription extends PapayaUiControlCollection {
+class PapayaUiDialogElementDescription extends \PapayaUiControlCollection {
 
   protected $_itemClass = \PapayaUiDialogElementDescriptionItem::class;
 

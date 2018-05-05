@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionCharacterInvalid extends PapayaFilterException {
+class PapayaFilterExceptionCharacterInvalid extends \PapayaFilterException {
 
   /**
   * Position of invalid character

@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-abstract class PapayaContentStructureNode extends PapayaObject {
+abstract class PapayaContentStructureNode extends \PapayaObject {
 
   private $_properties = array();
 

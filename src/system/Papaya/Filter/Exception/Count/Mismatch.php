@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterExceptionCountMismatch extends PapayaFilterException {
+class PapayaFilterExceptionCountMismatch extends \PapayaFilterException {
 
   /**
   * The constructor expects the expected element count, the actual number and the element type.

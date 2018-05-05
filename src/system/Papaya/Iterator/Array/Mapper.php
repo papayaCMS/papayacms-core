@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorArrayMapper extends PapayaIteratorCallback {
+class PapayaIteratorArrayMapper extends \PapayaIteratorCallback {
 
   private $_elementName;
 

@@ -23,7 +23,7 @@
 * @package Papaya-Library
 * @subpackage Template
 */
-class PapayaTemplateEngineSimple extends PapayaTemplateEngine {
+class PapayaTemplateEngineSimple extends \PapayaTemplateEngine {
 
   private $_template = '';
   private $_templateFile = FALSE;

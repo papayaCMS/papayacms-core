@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Iterator
 */
-class PapayaIteratorCaching extends CachingIterator {
+class PapayaIteratorCaching extends \CachingIterator {
 
   private $_callback = NULL;
   private $_cached = FALSE;

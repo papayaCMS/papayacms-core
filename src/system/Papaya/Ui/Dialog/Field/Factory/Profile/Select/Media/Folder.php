@@ -20,7 +20,7 @@
 * @subpackage Ui
 */
 class PapayaUiDialogFieldFactoryProfileSelectMediaFolder
-  extends PapayaUiDialogFieldFactoryProfileSelect {
+  extends \PapayaUiDialogFieldFactoryProfileSelect {
 
   /**
    * @param array|\Traversable $elements

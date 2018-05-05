@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Xml
 */
-class PapayaXmlXpath extends DOMXpath {
+class PapayaXmlXpath extends \DOMXpath {
 
   /**
    * @var boolean

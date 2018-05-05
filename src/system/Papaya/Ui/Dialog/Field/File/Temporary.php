@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldFileTemporary extends PapayaUiDialogField {
+class PapayaUiDialogFieldFileTemporary extends \PapayaUiDialogField {
 
   /**
   * An input field is always an single line text input field.

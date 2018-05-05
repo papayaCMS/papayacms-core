@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiControlCommandConditionParameter extends PapayaUiControlCommandCondition {
+class PapayaUiControlCommandConditionParameter extends \PapayaUiControlCommandCondition {
 
   /**
   * The parameter name

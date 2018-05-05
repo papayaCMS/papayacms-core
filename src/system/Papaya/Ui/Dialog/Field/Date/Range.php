@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaUiDialogFieldDateRange extends PapayaUiDialogField {
+class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
 
   private $_includeTime = FALSE;
 

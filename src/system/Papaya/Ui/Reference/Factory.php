@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaUiReferenceFactory extends PapayaObject {
+class PapayaUiReferenceFactory extends \PapayaObject {
 
   private $_patterns = array(
     'page' => '(

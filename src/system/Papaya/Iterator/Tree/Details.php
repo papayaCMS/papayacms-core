@@ -37,7 +37,7 @@
 * @subpackage Iterator
 */
 class PapayaIteratorTreeDetails
-  extends IteratorIterator
+  extends \IteratorIterator
   implements RecursiveIterator {
 
   /**

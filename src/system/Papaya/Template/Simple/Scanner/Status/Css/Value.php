@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Template
 */
-class PapayaTemplateSimpleScannerStatusCssValue extends PapayaTemplateSimpleScannerStatus {
+class PapayaTemplateSimpleScannerStatusCssValue extends \PapayaTemplateSimpleScannerStatus {
 
   private $_patterns = array(
     '(\\s+)S' => \PapayaTemplateSimpleScannerToken::WHITESPACE,

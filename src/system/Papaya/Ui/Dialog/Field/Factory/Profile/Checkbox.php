@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldFactoryProfileCheckbox extends PapayaUiDialogFieldFactoryProfile {
+class PapayaUiDialogFieldFactoryProfileCheckbox extends \PapayaUiDialogFieldFactoryProfile {
 
   /**
    * Create a checkbox input field

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldCallback extends PapayaUiDialogField {
+class PapayaUiDialogFieldCallback extends \PapayaUiDialogField {
 
   /**
   * Field xml generation callback

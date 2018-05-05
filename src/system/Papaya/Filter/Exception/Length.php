@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-abstract class PapayaFilterExceptionLength extends PapayaFilterException {
+abstract class PapayaFilterExceptionLength extends \PapayaFilterException {
 
   /**
   * The expected length of the value

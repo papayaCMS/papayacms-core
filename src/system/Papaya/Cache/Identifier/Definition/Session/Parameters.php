@@ -20,7 +20,7 @@
 * @subpackage Plugins
 */
 class PapayaCacheIdentifierDefinitionSessionParameters
-  extends PapayaObject
+  extends \PapayaObject
   implements PapayaCacheIdentifierDefinition {
 
   /**

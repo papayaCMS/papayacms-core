@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-abstract class PapayaFilterExceptionRange extends PapayaFilterException {
+abstract class PapayaFilterExceptionRange extends \PapayaFilterException {
 
   /**
   * The expected value limit (minimum or maximum)

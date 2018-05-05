@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentPagePublicationStatus extends PapayaContentPageStatus {
+class PapayaContentPagePublicationStatus extends \PapayaContentPageStatus {
 
   /**
   * Get status from page publication

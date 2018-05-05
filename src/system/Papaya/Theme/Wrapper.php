@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Theme
 */
-class PapayaThemeWrapper extends PapayaObject {
+class PapayaThemeWrapper extends \PapayaObject {
 
   /**
   * @var PapayaThemeWrapperUrl

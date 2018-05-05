@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiControlCommandDialogPluginContent extends PapayaUiControlCommandDialog {
+class PapayaUiControlCommandDialogPluginContent extends \PapayaUiControlCommandDialog {
 
   private $_content = NULL;
 

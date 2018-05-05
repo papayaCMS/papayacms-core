@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiControlCommandConditionCallback extends PapayaUiControlCommandCondition {
+class PapayaUiControlCommandConditionCallback extends \PapayaUiControlCommandCondition {
 
   /**
   * member variable to store the callback

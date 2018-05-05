@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaParserTagImage extends PapayaParserTag {
+class PapayaParserTagImage extends \PapayaParserTag {
   /**
    * @var string
    */

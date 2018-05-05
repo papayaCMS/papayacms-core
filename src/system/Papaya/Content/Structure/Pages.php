@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentStructurePages extends PapayaObjectList {
+class PapayaContentStructurePages extends \PapayaObjectList {
 
   public function __construct() {
     parent::__construct(\PapayaContentStructurePage::class);

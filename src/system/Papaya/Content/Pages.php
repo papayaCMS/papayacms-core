@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentPages extends PapayaDatabaseRecordsLazy {
+class PapayaContentPages extends \PapayaDatabaseRecordsLazy {
 
   /**
   * Map field names to more convinient property names

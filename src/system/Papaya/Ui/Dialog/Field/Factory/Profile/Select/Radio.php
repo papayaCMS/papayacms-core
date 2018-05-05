@@ -20,7 +20,7 @@
 * @subpackage Ui
 */
 class PapayaUiDialogFieldFactoryProfileSelectRadio
-  extends PapayaUiDialogFieldFactoryProfileSelect {
+  extends \PapayaUiDialogFieldFactoryProfileSelect {
 
   /**
    * Create a select field displayed as radio boxes

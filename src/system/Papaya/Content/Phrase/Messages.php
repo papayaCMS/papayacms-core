@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Content
 */
-class PapayaContentPhraseMessages extends PapayaDatabaseRecords {
+class PapayaContentPhraseMessages extends \PapayaDatabaseRecords {
 
   /**
   * Map field names to more convinient property names

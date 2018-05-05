@@ -25,7 +25,7 @@
 * @property PapayaUiToolbar $bottomLeft
 * @property PapayaUiToolbar $bottomRight
 */
-class PapayaUiToolbars extends PapayaUiControl {
+class PapayaUiToolbars extends \PapayaUiControl {
 
   /**
   * The internal toolbar list

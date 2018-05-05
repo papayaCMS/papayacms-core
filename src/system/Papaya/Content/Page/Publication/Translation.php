@@ -35,7 +35,7 @@
 * @property-read string $moduleGuid
 * @property-read string $moduleTitle
 */
-class PapayaContentPagePublicationTranslation extends PapayaContentPageTranslation {
+class PapayaContentPagePublicationTranslation extends \PapayaContentPageTranslation {
 
   protected $_tableNamePageTranslations = \PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS;
 }

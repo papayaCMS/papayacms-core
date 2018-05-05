@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui-Content
 */
-class PapayaUiContentTeasers extends PapayaUiControl {
+class PapayaUiContentTeasers extends \PapayaUiControl {
 
   private $_pages = NULL;
   private $_reference = NULL;

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationPagesAnchestors extends PapayaUiControl {
+class PapayaAdministrationPagesAnchestors extends \PapayaUiControl {
 
   /**
   * Member variable for pages subobject

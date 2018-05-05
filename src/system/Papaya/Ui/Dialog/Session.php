@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogSession extends PapayaUiDialog {
+class PapayaUiDialogSession extends \PapayaUiDialog {
 
   private $_sessionIdentifier = NULL;
 

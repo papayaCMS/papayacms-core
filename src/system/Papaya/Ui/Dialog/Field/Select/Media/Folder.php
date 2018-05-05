@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldSelectMediaFolder extends PapayaUiDialogField {
+class PapayaUiDialogFieldSelectMediaFolder extends \PapayaUiDialogField {
 
   private $_folders = NULL;
 

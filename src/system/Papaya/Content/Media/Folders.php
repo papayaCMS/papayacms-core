@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaContentMediaFolders extends PapayaDatabaseRecordsTree {
+class PapayaContentMediaFolders extends \PapayaDatabaseRecordsTree {
 
   protected $_fields = array(
     'id' => 'folder_id',

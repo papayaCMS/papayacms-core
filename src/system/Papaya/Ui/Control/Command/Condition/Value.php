@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiControlCommandConditionValue extends PapayaUiControlCommandCondition {
+class PapayaUiControlCommandConditionValue extends \PapayaUiControlCommandCondition {
 
   /**
   * member variable to store the value

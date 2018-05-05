@@ -18,7 +18,7 @@
 * @package Papaya-Library
 * @subpackage Media-Database
 */
-class PapayaMediaDatabaseItemRecord extends PapayaDatabaseObjectRecord {
+class PapayaMediaDatabaseItemRecord extends \PapayaDatabaseObjectRecord {
 
   /**
   * Fields (accessible using dynamic properties)

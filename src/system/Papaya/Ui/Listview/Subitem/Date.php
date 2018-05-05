@@ -23,7 +23,7 @@
  * @property string|PapayaUiString $text
  * @property int $timestamp
  */
-class PapayaUiListviewSubitemDate extends PapayaUiListviewSubitem {
+class PapayaUiListviewSubitemDate extends \PapayaUiListviewSubitem {
 
   const SHOW_DATE = \PapayaUiStringDate::SHOW_DATE;
   const SHOW_TIME = \PapayaUiStringDate::SHOW_TIME;

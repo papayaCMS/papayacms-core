@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiDialogFieldFactoryProfileCaptcha extends PapayaUiDialogFieldFactoryProfile {
+class PapayaUiDialogFieldFactoryProfileCaptcha extends \PapayaUiDialogFieldFactoryProfile {
 
   /**
    * Create a color input field
