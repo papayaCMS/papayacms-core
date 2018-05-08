@@ -72,16 +72,22 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
     $dialog = new PapayaUiDialog();
     $dialog->papaya($this->papaya());
 
-    $dialog->caption = new PapayaAdministrationLanguagesCaption(
-      new PapayaUiStringTranslated('Edit content')
-    );
-    $dialog->image = new PapayaAdministrationLanguagesImage();
-
-    $dialog->options->topButtons = TRUE;
-
-    $dialog->parameterGroup('content');
+    if ($this->getData() instanceof PapayaPluginEditableContent) {
+      $dialog->caption = new PapayaAdministrationLanguagesCaption(
+        new PapayaUiStringTranslated('Edit content')
+      );
+      $dialog->image = new PapayaAdministrationLanguagesImage();
+      $dialog->parameterGroup('content');
+    } elseif ($this->getData() instanceof PapayaPluginEditableOptions) {
+      $dialog->caption = new PapayaUiStringTranslated('Edit options');
+      $dialog->parameterGroup('options');
+    } else {
+      $dialog->caption = new PapayaUiStringTranslated('Edit properties');
+      $dialog->parameterGroup('properties');
+    }
     $dialog->data()->assign($this->getData());
 
+    $dialog->options->topButtons = TRUE;
     $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Save'));
 
     return $dialog;
