@@ -39,7 +39,7 @@ trait PapayaPluginConfigurableAggregation {
    * @return \PapayaObjectParameters
    */
   public function configuration(\PapayaObjectParameters $configuration = NULL) {
-    if ($configuration !== NULL) {
+    if (NULL !== $configuration) {
       $this->_configuration = $configuration;
     } elseif (NULL === $this->_configuration) {
       $this->_configuration = new \PapayaObjectParameters();
