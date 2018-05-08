@@ -1,21 +1,19 @@
 <?php
 /**
-* Link Box with page
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_boxeslinks.php 39787 2014-05-06 10:45:44Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Cache;
 
 /**
 * Link Box with page
@@ -750,7 +748,7 @@ class base_boxeslinks extends base_db {
   function loadBoxCache($cacheForTime, $ifModfiedSince, $boxData, $box, $lngId, $viewModeId) {
     if ($cacheForTime > 0) {
       if ($cacheId = $this->getBoxCacheId($boxData, $box, $lngId, $viewModeId)) {
-        $cache = PapayaCache::getService($this->papaya()->options);
+        $cache = Cache::getService($this->papaya()->options);
         return $cache->read('boxes', $boxData['box_id'], $cacheId, $cacheForTime, $ifModfiedSince);
       }
     }
@@ -771,7 +769,7 @@ class base_boxeslinks extends base_db {
   */
   function writeBoxCache($boxData, $box, $lngId, $viewModeId, $str, $expires) {
     if ($str != '' && $cacheId = $this->getBoxCacheId($boxData, $box, $lngId, $viewModeId)) {
-      $cache = PapayaCache::getService($this->papaya()->options);
+      $cache = Cache::getService($this->papaya()->options);
       return $cache->write('boxes', $boxData['box_id'], $cacheId, $str, $expires);
     }
     return FALSE;

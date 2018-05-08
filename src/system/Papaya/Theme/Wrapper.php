@@ -198,7 +198,7 @@ class PapayaThemeWrapper extends \PapayaObject {
     }
     if (is_null($this->_cacheService)) {
       /** @noinspection PhpParamsInspection */
-      $this->_cacheService = \PapayaCache::getService(
+      $this->_cacheService = Papaya\Cache::getService(
         $this->papaya()->options
       );
     }

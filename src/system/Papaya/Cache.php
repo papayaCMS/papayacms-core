@@ -13,22 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
 /**
-* Papaya caching interface with flexible services
-* @package Papaya-Library
-* @subpackage Cache
-*/
-class PapayaCache {
+ * Papaya caching interface with flexible services
+ *
+ * @package Papaya-Library
+ * @subpackage Cache
+ */
+class Cache {
 
   const OUTPUT = 'main';
   const DATA = 'data';
   const IMAGES = 'images';
 
   /**
-  * Store create cache service depoending on their configuration
-  *
-  * @var array(string=>PapayaCacheService)
-  */
+   * Store create cache service depoending on their configuration
+   *
+   * @var array(string=>PapayaCacheService)
+   */
   private static $_serviceObjects = array();
 
   /**
@@ -99,51 +101,51 @@ class PapayaCache {
    */
   public static function get($for, $globalConfiguration, $static = TRUE) {
     switch ($for) {
-    case self::DATA :
-      if ($globalConfiguration->get('PAPAYA_CACHE_DATA', FALSE)) {
-        $configuration = new \PapayaCacheConfiguration();
-        $configuration->assign(
-          array(
-            'SERVICE' =>
-              $globalConfiguration->get('PAPAYA_CACHE_DATA_SERVICE', 'file'),
-            'FILESYSTEM_PATH' =>
-              $globalConfiguration->get('PAPAYA_PATH_CACHE'),
-            'FILESYSTEM_NOTIFIER_SCRIPT' =>
-              $configuration->get('PAPAYA_CACHE_NOTIFIER', ''),
-            'MEMCACHE_SERVERS' =>
-              $globalConfiguration->get('PAPAYA_CACHE_DATA_MEMCACHE_SERVERS'),
-          )
-        );
-        return self::getService($configuration, $static);
-      }
+      case self::DATA :
+        if ($globalConfiguration->get('PAPAYA_CACHE_DATA', FALSE)) {
+          $configuration = new \PapayaCacheConfiguration();
+          $configuration->assign(
+            array(
+              'SERVICE' =>
+                $globalConfiguration->get('PAPAYA_CACHE_DATA_SERVICE', 'file'),
+              'FILESYSTEM_PATH' =>
+                $globalConfiguration->get('PAPAYA_PATH_CACHE'),
+              'FILESYSTEM_NOTIFIER_SCRIPT' =>
+                $configuration->get('PAPAYA_CACHE_NOTIFIER', ''),
+              'MEMCACHE_SERVERS' =>
+                $globalConfiguration->get('PAPAYA_CACHE_DATA_MEMCACHE_SERVERS'),
+            )
+          );
+          return self::getService($configuration, $static);
+        }
       break;
-    case self::IMAGES :
-      if ($globalConfiguration->get('PAPAYA_CACHE_IMAGES', FALSE)) {
-        $configuration = new \PapayaCacheConfiguration();
-        $configuration->assign(
-          array(
-            'SERVICE' =>
-              $globalConfiguration->get('PAPAYA_CACHE_IMAGES_SERVICE', 'file'),
-            'FILESYSTEM_PATH' =>
-              $globalConfiguration->get('PAPAYA_PATH_CACHE'),
-            'FILESYSTEM_NOTIFIER_SCRIPT' =>
-              $configuration->get('PAPAYA_CACHE_NOTIFIER', ''),
-            'MEMCACHE_SERVERS' =>
-              $globalConfiguration->get('PAPAYA_CACHE_IMAGES_MEMCACHE_SERVERS'),
-          )
-        );
-        return self::getService($configuration, $static);
-      }
+      case self::IMAGES :
+        if ($globalConfiguration->get('PAPAYA_CACHE_IMAGES', FALSE)) {
+          $configuration = new \PapayaCacheConfiguration();
+          $configuration->assign(
+            array(
+              'SERVICE' =>
+                $globalConfiguration->get('PAPAYA_CACHE_IMAGES_SERVICE', 'file'),
+              'FILESYSTEM_PATH' =>
+                $globalConfiguration->get('PAPAYA_PATH_CACHE'),
+              'FILESYSTEM_NOTIFIER_SCRIPT' =>
+                $configuration->get('PAPAYA_CACHE_NOTIFIER', ''),
+              'MEMCACHE_SERVERS' =>
+                $globalConfiguration->get('PAPAYA_CACHE_IMAGES_MEMCACHE_SERVERS'),
+            )
+          );
+          return self::getService($configuration, $static);
+        }
       break;
-    case self::OUTPUT :
-      return self::getService($globalConfiguration, $static);
+      case self::OUTPUT :
+        return self::getService($globalConfiguration, $static);
     }
     return FALSE;
   }
 
   /**
-  * Unset all stored static cache objects
-  */
+   * Unset all stored static cache objects
+   */
   public static function reset() {
     self::$_serviceObjects = array();
   }

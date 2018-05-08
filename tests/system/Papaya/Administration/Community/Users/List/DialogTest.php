@@ -13,15 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Community\Users\Roster\Dialog;
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::prepare
+  * @covers Dialog::prepare
   */
   public function testPrepare() {
-    $dialog = new PapayaAdministrationCommunityUsersListDialog();
+    $dialog = new Dialog();
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->prepare();
     $this->assertXmlStringEqualsXmlString(
@@ -54,7 +56,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::execute
+  * @covers Dialog::execute
   */
   public function testExecute() {
     $users = $this->createMock(PapayaContentCommunityUsers::class);
@@ -66,7 +68,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
         20,
         0
       );
-    $dialog = new PapayaAdministrationCommunityUsersListDialog_TestProxy();
+    $dialog = new Dialog_TestProxy();
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->parameters(new PapayaRequestParameters(array()));
     $dialog->users($users);
@@ -74,7 +76,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::execute
+  * @covers Dialog::execute
   */
   public function testExecuteWithFilter() {
     $users = $this->createMock(PapayaContentCommunityUsers::class);
@@ -86,7 +88,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
         20,
         20
       );
-    $dialog = new PapayaAdministrationCommunityUsersListDialog_TestProxy();
+    $dialog = new Dialog_TestProxy();
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->parameters(
       new PapayaRequestParameters(
@@ -107,7 +109,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::execute
+  * @covers Dialog::execute
   */
   public function testExecuteWithFilterReset() {
     $users = $this->createMock(PapayaContentCommunityUsers::class);
@@ -119,7 +121,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
         20,
         0
       );
-    $dialog = new PapayaAdministrationCommunityUsersListDialog_TestProxy();
+    $dialog = new Dialog_TestProxy();
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->data(
       new PapayaRequestParameters(
@@ -134,47 +136,47 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::users
+  * @covers Dialog::users
   */
   public function testUsersGetAfterset() {
     $users = $this->createMock(PapayaContentCommunityUsers::class);
-    $dialog = new PapayaAdministrationCommunityUsersListDialog();
+    $dialog = new Dialog();
     $dialog->users($users);
     $this->assertSame($users, $dialog->users());
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::users
+  * @covers Dialog::users
   */
   public function testUsersImplicitCreate() {
-    $dialog = new PapayaAdministrationCommunityUsersListDialog();
+    $dialog = new Dialog();
     $this->assertInstanceOf(PapayaContentCommunityUsers::class, $dialog->users());
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::listview
+  * @covers Dialog::listview
   */
   public function testListviewGetAfterSet() {
     $listview = $this->createMock(PapayaUiListview::class);
-    $dialog = new PapayaAdministrationCommunityUsersListDialog();
+    $dialog = new Dialog();
     $dialog->listview($listview);
     $this->assertSame($listview, $dialog->listview());
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::listview
+  * @covers Dialog::listview
   */
   public function testListviewImplicitCreate() {
-    $dialog = new PapayaAdministrationCommunityUsersListDialog();
+    $dialog = new Dialog();
     $dialog->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(PapayaUiListview::class, $dialog->listview());
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::createUserItem
+  * @covers Dialog::createUserItem
   */
   public function testCreateUserItem() {
-    $dialog = new PapayaAdministrationCommunityUsersListDialog();
+    $dialog = new Dialog();
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->createUserItem(
       new stdClass, $dialog->listview()->items, array('id' => 42, 'caption' => 'test')
@@ -186,49 +188,49 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::paging
+  * @covers Dialog::paging
   */
   public function testPagingGetAfterSet() {
     $paging = $this
       ->getMockBuilder(PapayaUiToolbarPaging::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $dialog = new PapayaAdministrationCommunityUsersListDialog();
+    $dialog = new Dialog();
     $dialog->paging($paging);
     $this->assertSame($paging, $dialog->paging());
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::paging
+  * @covers Dialog::paging
   */
   public function testPagingImplicitCreate() {
-    $dialog = new PapayaAdministrationCommunityUsersListDialog();
+    $dialog = new Dialog();
     $this->assertInstanceOf(PapayaUiToolbarPaging::class, $dialog->paging());
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::reference
+  * @covers Dialog::reference
   */
   public function testReferenceGetAfterSet() {
     $reference = $this->createMock(PapayaUiReference::class);
-    $dialog = new PapayaAdministrationCommunityUsersListDialog();
+    $dialog = new Dialog();
     $dialog->reference($reference);
     $this->assertSame($reference, $dialog->reference());
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::reference
+  * @covers Dialog::reference
   */
   public function testReferenceImplicitCreate() {
-    $dialog = new PapayaAdministrationCommunityUsersListDialog();
+    $dialog = new Dialog();
     $this->assertInstanceOf(PapayaUiReference::class, $dialog->reference());
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::setParameterNameMapping
+  * @covers Dialog::setParameterNameMapping
   */
   public function testSetParamterNameMapping() {
-    $dialog = new PapayaAdministrationCommunityUsersListDialog();
+    $dialog = new Dialog();
     $dialog->setParameterNameMapping('user', 'surfer_id');
     $dialog->setParameterNameMapping('filter', 'search');
     $dialog->setParameterNameMapping('page', 'offset_page');
@@ -243,10 +245,10 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationCommunityUsersListDialog::setParameterNameMapping
+  * @covers Dialog::setParameterNameMapping
   */
   public function testSetParamterNameMappingExpectingException() {
-    $dialog = new PapayaAdministrationCommunityUsersListDialog();
+    $dialog = new Dialog();
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Unknown parameter identifier "unknown-parameter".');
     $dialog->setParameterNameMapping('unknown-parameter', 'some');
@@ -254,8 +256,8 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
 
 }
 
-class PapayaAdministrationCommunityUsersListDialog_TestProxy
-  extends PapayaAdministrationCommunityUsersListDialog {
+class Dialog_TestProxy
+  extends Dialog {
 
   public $_executionResult = TRUE;
 }

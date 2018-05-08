@@ -15,11 +15,6 @@
 
 namespace Papaya;
 
-/**
-* Papaya autoloader
-*
-* @package Papaya-Library
-*/
 class Autoloader {
 
   /**
@@ -47,6 +42,7 @@ class Autoloader {
     )Sx';
 
   private static $_mapClasses = array(
+    'PapayaAdministrationCommunityUsersRosterDialog' => Administration\Community\Users\Roster\Dialog::class
   );
 
   private static $_mapParts = array(

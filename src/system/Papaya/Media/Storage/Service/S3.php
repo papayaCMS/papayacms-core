@@ -97,7 +97,7 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
     if (NULL !== $service) {
       $this->_cacheService = $service;
     } elseif (NULL === $this->_cacheService) {
-      $this->_cacheService = \PapayaCache::get(\PapayaCache::DATA, $this->papaya()->options);
+      $this->_cacheService = Papaya\Cache::get(Papaya\Cache::DATA, $this->papaya()->options);
     }
     return $this->_cacheService;
   }

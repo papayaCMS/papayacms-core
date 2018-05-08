@@ -72,7 +72,7 @@ class PapayaAdministrationPluginEditorDialog extends \PapayaPluginEditor {
     $dialog = new \PapayaUiDialog();
     $dialog->papaya($this->papaya());
 
-    $dialog->caption = new \PapayaAdministrationLanguagesCaption(
+    $dialog->caption = new \Papaya\Administration\Languages\Caption(
       new \PapayaUiStringTranslated('Edit content')
     );
     $dialog->image = new \PapayaAdministrationLanguagesImage();

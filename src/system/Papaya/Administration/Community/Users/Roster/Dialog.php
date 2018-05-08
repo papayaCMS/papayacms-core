@@ -13,23 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Community\Users\Roster;
+
 /**
-* Surfer list navigation. A administration interface control, that allows to navigate to a
-* surfer id. Can be used if an administration interface needs to attach data to the surfer.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*
-* @property integer $usersPerPage
-* @property integer $pagingButtonsLimit
-*/
-class PapayaAdministrationCommunityUsersListDialog extends \PapayaUiDialog {
+ * Surfer list navigation. A administration interface control, that allows to navigate to a
+ * surfer id. Can be used if an administration interface needs to attach data to the surfer.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ *
+ * @property integer $usersPerPage
+ * @property integer $pagingButtonsLimit
+ */
+class Dialog extends \PapayaUiDialog {
 
-  private $_listview = NULL;
-  private $_paging = NULL;
-  private $_reference = NULL;
+  private $_listview;
+  private $_paging;
+  private $_reference;
 
-  private $_users = NULL;
+  private $_users;
 
   private $_parameterNames = array(
     'user' => 'user_id',
@@ -41,10 +43,10 @@ class PapayaAdministrationCommunityUsersListDialog extends \PapayaUiDialog {
   protected $_pagingButtonsLimit = 5;
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('caption', 'caption'),
     'image' => array('_image', '_image'),
@@ -60,8 +62,8 @@ class PapayaAdministrationCommunityUsersListDialog extends \PapayaUiDialog {
   );
 
   /**
-  * Set options and create dialog fields
-  */
+   * Set options and create dialog fields
+   */
   public function prepare() {
     $this->caption = new \PapayaUiStringTranslated('Users');
     $this->options->dialogWidth = \PapayaUiDialogOptions::SIZE_SMALL;
@@ -73,7 +75,7 @@ class PapayaAdministrationCommunityUsersListDialog extends \PapayaUiDialog {
       new \PapayaUiStringTranslated('Search'),
       $this->_parameterNames['filter']
     );
-    $this->fields[] = $buttons = new \PapayaUiDialogFieldButtons('');
+    $this->fields[] = $buttons = new \PapayaUiDialogFieldButtons();
     $buttons->buttons[] = new \PapayaUiDialogButtonSubmit(
       new \PapayaUiStringTranslated('Filter'),
       \PapayaUiDialogButton::ALIGN_RIGHT
@@ -89,10 +91,10 @@ class PapayaAdministrationCommunityUsersListDialog extends \PapayaUiDialog {
   }
 
   /**
-  * Execute the dialog and load the community user records.
-  *
-  * @return boolean
-  */
+   * Execute the dialog and load the community user records.
+   *
+   * @return boolean
+   */
   public function execute() {
     if ($result = parent::execute()) {
       if ($this->data()->get($this->_parameterNames['reset'], FALSE)) {
@@ -120,15 +122,15 @@ class PapayaAdministrationCommunityUsersListDialog extends \PapayaUiDialog {
   }
 
   /**
-  * Getter/Setter for the community user records object
-  *
-  * @param \PapayaContentCommunityUsers $users
-  * @return \PapayaContentCommunityUsers
-  */
+   * Getter/Setter for the community user records object
+   *
+   * @param \PapayaContentCommunityUsers $users
+   * @return \PapayaContentCommunityUsers
+   */
   public function users(\PapayaContentCommunityUsers $users = NULL) {
-    if (isset($users)) {
+    if (NULL !== $users) {
       $this->_users = $users;
-    } elseif (is_null($this->_users)) {
+    } elseif (NULL === $this->_users) {
       $this->_users = new \PapayaContentCommunityUsers();
       $this->_users->papaya($this->papaya());
     }
@@ -136,15 +138,15 @@ class PapayaAdministrationCommunityUsersListDialog extends \PapayaUiDialog {
   }
 
   /**
-  * Getter/Setter for the listview subobject, it displays a chunk of the users list
-  *
-  * @param \PapayaUiListview $listview
-  * @return \PapayaUiListview
-  */
+   * Getter/Setter for the listview subobject, it displays a chunk of the users list
+   *
+   * @param \PapayaUiListview $listview
+   * @return \PapayaUiListview
+   */
   public function listview(\PapayaUiListview $listview = NULL) {
-    if (isset($listview)) {
+    if (NULL !== $listview) {
       $this->_listview = $listview;
-    } elseif (is_null($this->_listview)) {
+    } elseif (NULL === $this->_listview) {
       $this->_listview = new \PapayaUiListview();
       $this->_listview->papaya($this->papaya());
       $this->_listview->parameterGroup($this->parameterGroup());
@@ -159,14 +161,14 @@ class PapayaAdministrationCommunityUsersListDialog extends \PapayaUiDialog {
   }
 
   /**
-  * Create a listview item for a community user record.
-  *
-  * @param object $context
-  * @param \PapayaUiListviewItems $items
-  * @param array $user
-  */
+   * Create a listview item for a community user record.
+   *
+   * @param object $context
+   * @param \PapayaUiListviewItems $items
+   * @param array $user
+   */
   public function createUserItem($context, $items, $user) {
-    $items[] = $item = new \PapayaUiListviewItem(
+    $items[] = new \PapayaUiListviewItem(
       'items-user',
       empty($user['caption']) ? $user['email'] : $user['caption'],
       array(
@@ -174,20 +176,20 @@ class PapayaAdministrationCommunityUsersListDialog extends \PapayaUiDialog {
         $this->_parameterNames['filter'] => $this->data()->get('filter'),
         $this->_parameterNames['page'] => $this->paging()->currentPage
       ),
-      $this->parameters()->get($this->_parameterNames['user']) == $user['id']
+      $this->parameters()->get($this->_parameterNames['user']) === $user['id']
     );
   }
 
   /**
-  * Getter/Setter for the paging subobject, allows to navigate between the user list chunks
-  *
-  * @param \PapayaUiToolbarPaging $paging
-  * @return \PapayaUiToolbarPaging
-  */
+   * Getter/Setter for the paging subobject, allows to navigate between the user list chunks
+   *
+   * @param \PapayaUiToolbarPaging $paging
+   * @return \PapayaUiToolbarPaging
+   */
   public function paging(\PapayaUiToolbarPaging $paging = NULL) {
-    if (isset($paging)) {
+    if (NULL !== $paging) {
       $this->_paging = $paging;
-    } elseif (is_null($this->_paging)) {
+    } elseif (NULL === $this->_paging) {
       $this->_paging = new \PapayaUiToolbarPaging(
         array($this->parameterGroup(), $this->_parameterNames['page']), 1
       );
@@ -200,15 +202,15 @@ class PapayaAdministrationCommunityUsersListDialog extends \PapayaUiDialog {
   }
 
   /**
-  * The basic reference object used by the subobjects to create urls.
-  *
-  * @param \PapayaUiReference $reference
-  * @return \PapayaUiReference
-  */
+   * The basic reference object used by the subobjects to create urls.
+   *
+   * @param \PapayaUiReference $reference
+   * @return \PapayaUiReference
+   */
   public function reference(\PapayaUiReference $reference = NULL) {
-    if (isset($reference)) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    } elseif (is_null($this->_reference)) {
+    } elseif (NULL === $this->_reference) {
       $this->_reference = new \PapayaUiReference();
       $this->_reference->papaya($this->papaya());
     }

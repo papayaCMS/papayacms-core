@@ -1,21 +1,19 @@
 <?php
 /**
-* Show published pages
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Frontend
-* @version $Id: papaya_publictopic.php 39732 2014-04-08 15:34:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Cache;
 
 /**
 * Show published pages
@@ -263,7 +261,7 @@ class papaya_publictopic extends base_topic {
   * @return string
   */
   function getContentCache($cacheId) {
-    $cache = PapayaCache::getService($this->papaya()->options);
+    $cache = Cache::getService($this->papaya()->options);
     return $cache->read(
       'pages',
       $this->topicId,
@@ -283,7 +281,7 @@ class papaya_publictopic extends base_topic {
   function writeContentCache($cacheId, $contentStr) {
     $expires = $this->getContentCacheTime();
     if ($expires > 0) {
-      $cache = PapayaCache::getService($this->papaya()->options);
+      $cache = Cache::getService($this->papaya()->options);
       return $cache->write('pages', $this->topicId, $cacheId, $contentStr, $expires);
     }
     return FALSE;

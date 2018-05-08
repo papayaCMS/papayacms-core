@@ -13,25 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Languages;
 /**
-* Language caption administration control. A string castable object that fetches
-* the current language title from the language switch and puts if before the
-* given string.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationLanguagesCaption extends \PapayaObject {
+ * Language caption administration control. A string castable object that fetches
+ * the current language title from the language switch and puts if before the
+ * given string.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Caption extends \PapayaObject {
 
-  private $_suffix = '';
-  private $_separator = ' - ';
+  private $_suffix;
+  private $_separator;
 
-  private $_string = NULL;
+  private $_string;
 
   /**
    * Create object and store arguments into variables
    *
-   * @param string $string
+   * @param string|\PapayaUiString $string
    * @param string $separator
    */
   public function __construct($string = '', $separator = ' - ') {
@@ -40,18 +41,18 @@ class PapayaAdministrationLanguagesCaption extends \PapayaObject {
   }
 
   /**
-  * Prefix given string with administration lanugage title if available
-  *
-  * return string
-  */
+   * Prefix given string with administration lanugage title if available
+   *
+   * return string
+   */
   public function __toString() {
-    if (is_null($this->_string)) {
+    if (NULL === $this->_string) {
       $language = NULL;
       $suffix = (string)$this->_suffix;
       if (isset($this->papaya()->administrationLanguage)) {
         $language = $this->papaya()->administrationLanguage->getCurrent();
       }
-      if (empty($language)) {
+      if (NULL === $language) {
         $this->_string = $suffix;
       } elseif (empty($suffix)) {
         $this->_string = $language['title'];
@@ -59,7 +60,7 @@ class PapayaAdministrationLanguagesCaption extends \PapayaObject {
         $this->_string = $language['title'].$this->_separator.$suffix;
       }
     }
-    return $this->_string;
+    return (string)$this->_string;
   }
 
 }

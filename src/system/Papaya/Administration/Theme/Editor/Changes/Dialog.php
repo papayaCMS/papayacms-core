@@ -205,7 +205,7 @@ class PapayaAdministrationThemeEditorChangesDialog
       $this->_cacheService = $service;
     } elseif (NULL == $this->_cacheService) {
       /** @noinspection PhpParamsInspection */
-      $this->_cacheService = \PapayaCache::getService($this->papaya()->options);
+      $this->_cacheService = Papaya\Cache::getService($this->papaya()->options);
     }
     return $this->_cacheService;
   }

@@ -67,7 +67,7 @@ class PapayaContentPagePublicationStatus extends \PapayaContentPageStatus {
       $this->_cache = $cache;
     } elseif (is_null($this->_cache)) {
       /** @noinspection PhpParamsInspection */
-      $this->_cache = \PapayaCache::get(\PapayaCache::DATA, $this->papaya()->options);
+      $this->_cache = Papaya\Cache::get(Papaya\Cache::DATA, $this->papaya()->options);
     }
     return $this->_cache;
   }

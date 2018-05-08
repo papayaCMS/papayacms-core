@@ -1,21 +1,19 @@
 <?php
 /**
-* Generate dynamic images
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_imagegenerator.php 39647 2014-03-20 10:35:27Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Cache;
 
 /**
 * Generate dynamic images
@@ -167,7 +165,7 @@ class base_imagegenerator extends base_db {
             $cacheTime = 0;
           }
           if ($this->publicMode && $cacheTime > 0) {
-            $cache = PapayaCache::getService($this->papaya()->options);
+            $cache = Cache::getService($this->papaya()->options);
             $imageData = $cache->read(
               'dynamic_images',
               $this->imageConf['image_ident'],
@@ -199,7 +197,7 @@ class base_imagegenerator extends base_db {
                 echo $imageData;
               }
               if ($this->publicMode && $moduleObj->cacheable && $cacheTime > 0) {
-                $cache = PapayaCache::getService($this->papaya()->options);
+                $cache = Cache::getService($this->papaya()->options);
                 $cache->write(
                   'dynamic_images',
                   $this->imageConf['image_ident'],
