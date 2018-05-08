@@ -1,27 +1,23 @@
 <?php
 /**
-* This is a list of the options for a single plugin module.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-* @version $Id: Options.php 39416 2014-02-27 17:02:47Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This is a list of the options for a single plugin module.
 *
 * The options will be loaded if the first option is read, making it a lazy load. It is
-* possible to load them manuall and disable the lazy load this way.
+* possible to load them manually and disable the lazy load this way.
 *
 * @package Papaya-Library
 * @subpackage Plugins
@@ -33,8 +29,8 @@ class PapayaPluginOptions extends PapayaConfiguration {
   const STATUS_LOADED = 2;
 
   private $_status = self::STATUS_CREATED;
-  private $_storage = NULL;
-  private $_guid = '';
+  private $_storage;
+  private $_guid;
 
   /**
   * Create object and store plugin guid for later loading
@@ -55,7 +51,7 @@ class PapayaPluginOptions extends PapayaConfiguration {
   public function set($name, $value) {
     $this->lazyLoad();
     $name = PapayaUtilStringIdentifier::toUnderscoreUpper($name);
-    if ($this->_status == self::STATUS_LOADING) {
+    if ($this->_status === self::STATUS_LOADING) {
       $this->_options[$name] = $value;
     } else {
       parent::set($name, $value);
@@ -100,7 +96,7 @@ class PapayaPluginOptions extends PapayaConfiguration {
   * Make sure that the option are loaded if needed.
   */
   private function lazyLoad() {
-    if ($this->_status == self::STATUS_CREATED) {
+    if (self::STATUS_CREATED === $this->_status) {
       $this->load();
     }
   }
@@ -133,9 +129,9 @@ class PapayaPluginOptions extends PapayaConfiguration {
    * @return \PapayaConfigurationStorage
    */
   public function storage(PapayaConfigurationStorage $storage = NULL) {
-    if (isset($storage)) {
+    if (NULL !== $storage) {
       $this->_storage = $storage;
-    } elseif (is_null($this->_storage)) {
+    } elseif (NULL === $this->_storage) {
       $this->_storage = new PapayaPluginOptionStorage($this->_guid);
       $this->_storage->papaya($this->papaya());
     }

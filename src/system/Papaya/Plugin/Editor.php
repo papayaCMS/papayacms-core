@@ -1,22 +1,17 @@
 <?php
 /**
-* An abstract superclass for plugin content editors. They need access to the plugin,
-* so it is stored in a buffer variable.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-* @version $Id: Editor.php 39416 2014-02-27 17:02:47Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * An abstract superclass for plugin content editors. They need access to the plugin,
@@ -27,25 +22,32 @@
 */
 abstract class PapayaPluginEditor extends PapayaUiControlInteractive {
 
-  private $_content = NULL;
-  private $_context = NULL;
+  /**
+   * @var PapayaPluginEditableData
+   */
+  private $_data;
+
+  /**
+   * @var PapayaRequestParameters
+   */
+  private $_context;
 
   /**
    * Create object and store the editable content
    *
-   * @param PapayaPluginEditableContent $content
+   * @param PapayaPluginEditableData $data
    */
-  public function __construct(PapayaPluginEditableContent $content) {
-    $this->_content = $content;
+  public function __construct(PapayaPluginEditableData $data) {
+    $this->_data = $data;
   }
 
   /**
    * Return the stored content object.
    *
-   * @return PapayaPluginEditableContent
+   * @return PapayaPluginEditableData
    */
-  public function getContent() {
-    return $this->_content;
+  public function getData() {
+    return $this->_data;
   }
 
   /**
@@ -56,7 +58,7 @@ abstract class PapayaPluginEditor extends PapayaUiControlInteractive {
    * @return PapayaRequestParameters
    */
   public function context(PapayaRequestParameters $context = NULL) {
-    if (isset($context)) {
+    if (NULL !== $context) {
       $this->_context = $context;
     } elseif (NULL === $this->_context) {
       $this->_context = new PapayaRequestParameters();
