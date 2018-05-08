@@ -56,7 +56,7 @@ class PapayaAdministrationPluginEditorFields extends PapayaAdministrationPluginE
    * @return PapayaUiDialogFieldBuilderArray
    */
   public function builder(PapayaUiDialogFieldBuilderArray $builder = NULL) {
-    if (isset($builder)) {
+    if (NULL !== $builder) {
       $this->_builder = $builder;
     } elseif (NULL === $this->_builder) {
       $this->_builder = new PapayaUiDialogFieldBuilderArray($this, $this->_fields);

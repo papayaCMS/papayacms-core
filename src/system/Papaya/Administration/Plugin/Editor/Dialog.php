@@ -55,7 +55,7 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
    * @return PapayaUiDialog
    */
   public function dialog(PapayaUiDialog $dialog = NULL) {
-    if (isset($dialog)) {
+    if (NULL !== $dialog) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
       $this->_dialog = $this->createDialog();
