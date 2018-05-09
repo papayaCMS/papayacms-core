@@ -1,21 +1,17 @@
 <?php
 /**
-* Object to display a alias tree (n-dimensional)
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: papaya_alias_tree.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Object to display an alias tree (n-dimensional)
@@ -484,14 +480,14 @@ class papaya_alias_tree extends base_db {
   function getSubElements($id, $caller) {
     $result = "";
     if (isset($this->links[$id]) && is_array($this->links[$id])) {
-      foreach ($this->links[$id] as $val) {
-        if ($val != $caller) {
+      foreach ($this->links[$id] as $linkId) {
+        if ($linkId !== $caller) {
           $result .= sprintf(
             '<listitem title="%s" indent="2" image="%s" href="%s" span="3">',
-            papaya_strings::escapeHTMLChars($this->aliases[$val]['path']),
+            papaya_strings::escapeHTMLChars($this->aliases[$linkId]['path']),
             papaya_strings::escapeHTMLChars($this->papaya()->images['items-alias']),
             papaya_strings::escapeHTMLChars(
-              $this->getLink(array('cmd' => 'edit', 'alias_id' => $val['id']))
+              $this->getLink(array('cmd' => 'edit', 'alias_id' => $linkId))
             )
           );
           $result .= '</listitem>';
