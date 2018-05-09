@@ -1,26 +1,17 @@
 <?php
 /**
-* Basic class for media db file handling - access only, no modifying
-*
-* Use this class to fetch mediadb file and folder information.
-* No INSERT or UPDATE queries allowed here! If you intend to add a method,
-* please notify the author and please don't change the behaviour of any method
-* without prior cosultation.
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Media-Database
-* @version $Id: base_mediadb.php 39825 2014-05-20 09:02:33Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 if (!defined('IMAGETYPE_SWC')) {
   /**
@@ -191,7 +182,7 @@ class base_mediadb extends base_db {
       }
     }
     if ($fileId != '') {
-      $fileCondition = $this->databaseGetSQLCondition('f.file_id', $fileId);
+      $fileCondition = PapayaUtilString::escapeForPrintf($this->databaseGetSQLCondition('f.file_id', $fileId));
       $sql = "SELECT f.file_id, f.folder_id, f.surfer_id, f.file_name, f.file_date, f.file_created,
                      f.file_size, f.width, f.height, f.metadata, f.file_sort,
                      f.file_source, f.file_source_url, f.file_keywords,
