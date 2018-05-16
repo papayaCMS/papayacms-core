@@ -96,7 +96,7 @@ class PapayaUiContentPage extends PapayaObject {
       }
       if ($language = $this->getPageLanguage()) {
         $this->_translation->activateLazyLoad(
-          array('page_id' => $this->_pageId, 'language_id' => $language['id'])
+          array('id' => $this->_pageId, 'language_id' => $language['id'])
         );
       }
     }
