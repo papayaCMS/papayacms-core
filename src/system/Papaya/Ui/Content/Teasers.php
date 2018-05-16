@@ -1,21 +1,17 @@
 <?php
 /**
-* Build teaser list xml from a list of pages.
-*
-* @copyright 2013 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Ui-Content
-* @version $Id: Teasers.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Build teaser list xml from a list of pages.
@@ -120,38 +116,9 @@ class PapayaUiContentTeasers extends PapayaUiControl {
       $page = new PapayaUiContentPage(
         $record['id'], $record['language_id'], $this->pages()->isPublic()
       );
-      $page->page()->assign($record);
-      $page->translation()->assign($record);
-      $plugin = $this->papaya()->plugins->get($record['module_guid'], $page, $record['content']);
-      if ($plugin) {
-        $reference = clone $this->reference();
-        $reference->setPageId($record['id'], TRUE);
-        $teaser = $parent->appendElement(
-          'teaser',
-          array(
-            'page-id' => $record['id'],
-            'plugin-guid' => $record['module_guid'],
-            'plugin' => get_class($plugin),
-            'href' => $reference->getRelative(),
-            'published' => PapayaUtilDate::timestampToString(
-              (isset($record['published']) && $record['published'] > 0)
-                ? $record['published'] : $record['modified']
-            ),
-            'created' => PapayaUtilDate::timestampToString($record['created'])
-          )
-        );
-        if ($plugin instanceof PapayaPluginQuoteable) {
-          $plugin->appendQuoteTo($teaser);
-        } elseif ($plugin instanceof base_content &&
-                  method_exists($plugin, 'getParsedTeaser')) {
-          $teaser->appendXml((string)$plugin->getParsedTeaser());
-        }
-        /** @var PapayaXmlDocument $document */
-        $document = $teaser->ownerDocument;
-        if ($document->xpath()->evaluate('count(node())', $teaser) == 0) {
-          $teaser->parentNode->removeChild($teaser);
-        }
-      }
+      $page->papaya($this->papaya());
+      $page->assign($record);
+      $page->appendQuoteTo($parent);
     }
   }
 
