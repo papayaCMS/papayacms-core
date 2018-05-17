@@ -513,7 +513,7 @@ class base_topic extends base_db {
       empty($audited) ? '' : PapayaUtilDate::timestampToString($audited),
       papaya_strings::escapeHTMLChars(get_class($this->moduleObj)),
       papaya_strings::escapeHTMLChars($this->topic['TRANSLATION']['module_guid']),
-      empty($this->topic['TRANSLATION']['module_guid'])
+      empty($this->topic['TRANSLATION']['view_name'])
         ? ''
         : sprintf(
           ' view="%s"',
