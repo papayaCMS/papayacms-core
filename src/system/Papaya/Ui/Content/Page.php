@@ -141,17 +141,19 @@ class PapayaUiContentPage extends PapayaObject {
    * Append the page teaser
    *
    * @param \PapayaXmlElement $parent
-   * @param array $parameters
+   * @param array|\PapayaObjectParameters $configuration
    */
-  public function appendQuoteTo(PapayaXmlElement $parent, array $parameters = []) {
+  public function appendQuoteTo(PapayaXmlElement $parent, $configuration = []) {
     $moduleGuid = $this->translation()->moduleGuid;
     if (!empty($moduleGuid)) {
       $plugin = $this->papaya()->plugins->get($moduleGuid, $this, $this->translation()->content);
       if ($plugin) {
         $reference = clone $this->reference();
         $reference->setPageId($this->getPageId(), TRUE);
-        if (isset($parameters['query_string'])) {
-          $reference->setParameters(PapayaRequestParameters::createFromString($parameters['query_string']));
+        if (isset($configuration['query_string'])) {
+          $reference->setParameters(
+            PapayaRequestParameters::createFromString($configuration['query_string'])
+          );
         }
         $teaser = $parent->appendElement(
           'teaser',
@@ -167,12 +169,12 @@ class PapayaUiContentPage extends PapayaObject {
         );
         if ($plugin instanceof PapayaPluginQuoteable) {
           if ($plugin instanceof PapayaPluginConfigurable) {
-            $plugin->configuration()->merge($parameters);
+            $plugin->configuration()->merge($configuration);
           }
           $plugin->appendQuoteTo($teaser);
         } elseif ($plugin instanceof base_content &&
                   method_exists($plugin, 'getParsedTeaser')) {
-          $teaser->appendXml((string)$plugin->getParsedTeaser($parameters));
+          $teaser->appendXml((string)$plugin->getParsedTeaser((array)$configuration));
         }
         /** @var PapayaXmlDocument $document */
         $document = $teaser->ownerDocument;
