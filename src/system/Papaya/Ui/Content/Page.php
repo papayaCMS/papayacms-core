@@ -150,6 +150,9 @@ class PapayaUiContentPage extends PapayaObject {
       if ($plugin) {
         $reference = clone $this->reference();
         $reference->setPageId($this->getPageId(), TRUE);
+        if (isset($parameters['query_string'])) {
+          $reference->setParameters(PapayaRequestParameters::createFromString($parameters['query_string']));
+        }
         $teaser = $parent->appendElement(
           'teaser',
           array(
