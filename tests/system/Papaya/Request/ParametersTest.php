@@ -16,6 +16,13 @@
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaRequestParametersTest extends PapayaTestCase {
+
+  public function testCreateFromString() {
+    $parameters = PapayaRequestParameters::createFromString('foo=42&bar=21');
+    $this->assertEquals(42, $parameters->get('foo'));
+    $this->assertEquals(21, $parameters->get( 'bar'));
+  }
+
   /**
   * @covers PapayaRequestParameters::toArray
   */
