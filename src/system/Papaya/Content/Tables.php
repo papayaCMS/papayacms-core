@@ -1,22 +1,17 @@
 <?php
 /**
-* Defines the tables used by the PapayaContent* classes. Allows to prefix the
-* current table name with the defined table prefix.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Tables.php 39764 2014-04-28 13:18:31Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Defines the tables used by the PapayaContent* classes. Allows to prefix the
@@ -172,6 +167,7 @@ class PapayaContentTables extends PapayaObject {
     'PAPAYA_DB_TBL_MODULEOPTIONS' => self::MODULE_OPTIONS,
     'PAPAYA_DB_TBL_URLS' => 'urls',
     'PAPAYA_DB_TBL_DOMAINS' => self::DOMAINS,
+    'PAPAYA_DB_TBL_DOMAIN_GROUPS' => self::DOMAIN_GROUPS,
 
     'PAPAYA_DB_TBL_PHRASE' => self::PHRASES,
     'PAPAYA_DB_TBL_PHRASE_LOG' => self::PHRASE_LOG,

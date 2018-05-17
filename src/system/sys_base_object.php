@@ -1,42 +1,17 @@
 <?php
 /**
-* Implementation super class
-*
-* Provides basic functionality for all other classes
-*
-* What you will want to use (see the actual methods documentation for details):
-* <pre>
-*   debug                   <- we just love it!
-*   getAbsoluteURL          <- get an absolute URL with the complete protocol and host stuff
-*   getLink                 <- get a link with parameters in the backend
-*   getWebLink              <- get a link with parameters to frontend pages
-*   getWebMediaLink         <- get a link to a media file
-*   getXHTMLString          <- to make a string xhtml compatible
-*   _gt                     <- get a translation for a string (phrases)
-*   _gtf                    <- get a translation and fill in the vars (sprintf-like)
-*   initializeParams        <- loads params from _GET/_POST for this module (paramName)
-*   initializeSessionParam  <- registers a parameter to the session and resets others
-*   get-/setSessionValue    <- if you want to store data in the session or read it
-*                              make pretty sure the sessionParamName is not in use!
-*   logMsg                  <- messages show up in the system protocol for info or error tracking
-*   parseRequestURI         <- in some cases you may need information about the URI, nicely prepared
-* </pre>
-* ...anything else?
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: sys_base_object.php 39728 2014-04-07 19:51:21Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * log type for user messages (login/logout)
@@ -219,7 +194,9 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   function _gtf($phrase, $vals, $module = NULL) {
     if (trim($phrase) != '' && isset($this->papaya()->phrases)) {
       return $this->papaya()->phrases->getTextFmt(
-        $phrase, $vals, $module
+        $phrase,
+        is_array($vals) ? $vals : array($vals),
+        $module
       );
     }
     return vsprintf($phrase, $vals);
