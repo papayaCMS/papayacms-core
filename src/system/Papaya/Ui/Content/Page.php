@@ -156,6 +156,7 @@ class PapayaUiContentPage extends PapayaObject {
             'page-id' => $this->getPageId(),
             'plugin-guid' => $moduleGuid,
             'plugin' => get_class($plugin),
+            'view' => $this->translation()->viewName,
             'href' => $reference->getRelative(),
             'published' => PapayaUtilDate::timestampToString($this->translation()->modified),
             'created' => PapayaUtilDate::timestampToString($this->translation()->created)

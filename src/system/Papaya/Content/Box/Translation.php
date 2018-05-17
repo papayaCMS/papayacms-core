@@ -1,23 +1,17 @@
 <?php
 /**
-* Provide data encapsulation for a single content box translation details.
-*
-* Allows to load/save the page translation.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Content
-* @version $Id: Translation.php 39403 2014-02-27 14:25:16Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Provide data encapsulation for the content box translation details.
@@ -35,6 +29,7 @@
 * @property-read integer $modified
 * @property integer $viewId
 * @property-read string $viewTitle
+* @property-read string $viewName
 * @property-read string $moduleGuid
 * @property-read string $moduleTitle
 */
@@ -54,6 +49,7 @@ class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
     'modified' => 'box_trans_modified',
     'view_id' => 'view_id',
     'view_title' => 'view_title',
+    'view_name' => 'view_name',
     'module_guid' => 'module_guid',
     'module_title' => 'module_title'
   );
@@ -70,7 +66,7 @@ class PapayaContentBoxTranslation extends PapayaDatabaseObjectRecord {
   public function load($filter) {
     $sql = "SELECT t.box_id, t.box_title, t.box_data, t.lng_id,
                    t.box_trans_created, t.box_trans_modified,
-                   t.view_id, v.view_title,
+                   t.view_id, v.view_title, v.view_name,
                    m.module_guid, m.module_title
               FROM %s t
               LEFT OUTER JOIN %s v ON v.view_id = t.view_id

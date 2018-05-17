@@ -1,21 +1,17 @@
 <?php
 /**
-* View list basic class
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: base_viewlist.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * View list basic class
@@ -784,7 +780,7 @@ class base_viewlist extends base_db {
   function loadView($id) {
     unset($this->view);
     if ($id > 0) {
-      $sql = "SELECT v.view_id, v.view_title,
+      $sql = "SELECT v.view_id, v.view_title, v.view_name,
                      v.view_is_cacheable, v.view_is_deprecated,
                      v.view_note, v.view_limits, v.view_checksum,
                      m.module_guid, m.module_class, m.module_type, m.modulegroup_id,
@@ -844,6 +840,7 @@ class base_viewlist extends base_db {
   function saveView() {
     $data = array(
        'view_title' => $this->params['view_title'],
+       'view_name' => $this->params['view_name'],
        'module_guid' => $this->params['module_guid'],
        'view_is_cacheable' => $this->params['view_is_cacheable'],
        'view_is_deprecated' => $this->params['view_is_deprecated'],
@@ -1704,6 +1701,7 @@ class base_viewlist extends base_db {
       }
       $fields = array(
         'view_title' => array('Title', 'isNoHTML', TRUE, 'input', 100, ''),
+        'view_name' => array('Name', 'isNoHTML', FALSE, 'input', 100, 'Name/identifier for templates'),
         'module_guid' => array('Module', 'isGuid', TRUE, 'combo', $viewModules, ''),
         'Information',
         'view_is_cacheable' => array('Cacheable', 'isNum', TRUE, 'yesno', NULL, '', 0),
