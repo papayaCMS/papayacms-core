@@ -42,12 +42,22 @@ abstract class PapayaPluginEditor extends PapayaUiControlInteractive {
   }
 
   /**
-   * Return the stored content object.
+   * Return the stored data object.
    *
    * @return PapayaPluginEditableData
    */
   public function getData() {
     return $this->_data;
+  }
+
+  /**
+   * Return the stored data object - bc for old API
+   *
+   * @deprecated
+   * @return PapayaPluginEditableData
+   */
+  public function getContent() {
+    return $this->getData();
   }
 
   /**
