@@ -21,7 +21,7 @@
 # papaya CMS
 /papaya.php
 /htdocs/papaya/
-/htdocs/revisions.inc.php
+/htdocs/revision.inc.php
 /htdocs/papaya-themes/
 /papaya-data/
 /templates/
