@@ -22,6 +22,7 @@
 class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
 
   private $_dialog;
+  private $_onExecuteCallback;
 
   /**
    * Execute and append the dialog to to the administration interface DOM.
@@ -35,7 +36,12 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
       $this->dialog()->hiddenValues()->merge($context);
     }
     if ($this->dialog()->execute()) {
-      $this->getData()->assign($this->dialog()->data());
+      if (NULL !== $this->_onExecuteCallback) {
+        $callback = $this->_onExecuteCallback;
+        $callback();
+      } else {
+        $this->getData()->assign($this->dialog()->data());
+      }
     } elseif ($this->dialog()->isSubmitted()) {
       $this->papaya()->messages->dispatch(
         new PapayaMessageDisplayTranslated(
@@ -46,6 +52,15 @@ class PapayaAdministrationPluginEditorDialog extends PapayaPluginEditor {
       );
     }
     $parent->append($this->dialog());
+  }
+
+  /**
+   * Replace the default execution logic (assign data)
+   *
+   * @param callable $callback
+   */
+  public function onExecute(callable $callback) {
+    $this->_onExecuteCallback = $callback;
   }
 
   /**
