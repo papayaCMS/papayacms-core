@@ -2679,7 +2679,7 @@ class papaya_boxes extends base_boxes {
     }
     $result .= '</listitem>';
     foreach ($this->papaya()->languages as $lngId => $lng) {
-      if ($lng['lng_glyph'] != '' &&
+      if ($lng['image'] != '' &&
           file_exists($this->getBasePath(TRUE).'pics/language/'.$lng['image'])) {
         $image = sprintf(
           ' image="./pics/language/%s"',
