@@ -443,6 +443,46 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
       ->getMock();
     return $result;
   }
+
+  /**
+   * @param $expectedValue
+   * @param $value
+   * @testWith
+   *  ["bar", "bar"]
+   *  ["single quote '", "single quote '"]
+   *  ["double quote \"", "double quote \""]
+   *  ["both quotes \"’", "both quotes \"'"]
+   */
+  public function testSetParameterInRun($expectedValue, $value) {
+    $processor = $this->getProcessorMock('XsltProcessor');
+    $processor
+      ->expects($this->once())
+      ->method('setParameter')
+      ->with('', 'SAMPLE', $expectedValue)
+      ->will($this->returnValue(TRUE));
+    $processor
+      ->expects($this->any())
+      ->method('transformToXML')
+      ->with($this->isInstanceOf(DOMDocument::class))
+      ->will($this->returnValue('success'));
+    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaXmlErrors $errors */
+    $errors = $this->createMock(PapayaXmlErrors::class);
+    $errors
+      ->expects($this->any())
+      ->method('activate');
+    $errors
+      ->expects($this->any())
+      ->method('emit');
+    $errors
+      ->expects($this->any())
+      ->method('deactivate');
+
+    $engine = new PapayaTemplateEngineXsl();
+    $engine->parameters(array('SAMPLE' => $value));
+    $engine->setProcessor($processor);
+    $engine->setErrorHandler($errors);
+    $this->assertTrue($engine->run());
+  }
 }
 
 if (!class_exists('XsltCache', FALSE)) {
