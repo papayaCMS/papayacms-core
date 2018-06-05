@@ -686,7 +686,7 @@ class papaya_alias_tree extends base_db {
         'url_domain' => array('Domain', 'isHTTPHost', FALSE, 'input',
           200, '', ''),
         'path' => array(
-          'Alias', '(^((?:[a-zA-Z0-9.()[\]/ ,_-]+(?:/\\*?)?)|(?:/?\\*))$)u', TRUE, 'input',
+          'Alias', '(^((?:[^!*\'();:@&=+$,?#[\\]]+(?:/\\*?)?)|(?:/?\\*))$)u', TRUE, 'input',
           40, 'End with * to define a dynamic part', '/path/'
         ),
         'path_pattern' => array(
