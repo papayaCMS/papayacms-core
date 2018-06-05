@@ -366,4 +366,18 @@ class PapayaUtilStringXml {
     }
     return TRUE;
   }
+
+  /**
+   * Removes control characters (invalid in PCDATA in XML) from an string.
+   *
+   * @param $string
+   * @return string
+   */
+  public static function removeControlCharacters($string) {
+    return preg_replace(
+      '([^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+)u',
+      '',
+      $string
+    ) ?: '';
+  }
 }

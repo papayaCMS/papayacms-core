@@ -1,21 +1,17 @@
 <?php
 /**
-* Replacement for the DOMDocument adding some shortcuts for easier use
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Xml
-* @version $Id: Document.php 39735 2014-04-09 12:14:51Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Replacement for the DOMDocument adding some shortcuts for easier use
@@ -170,24 +166,24 @@ class PapayaXmlDocument
   * @return PapayaXmlElement|PapayaXmlDocument $target
   */
   public function appendXml($content, PapayaXmlElement $target = NULL) {
-    if (is_null($target)) {
+    if (NULL === $target) {
       $target = $this;
     }
     $fragment = $this->createDocumentFragment();
     $content = sprintf(
       '<papaya:content xmlns:papaya="http://www.papaya-cms.com/ns/papayacms">%s</papaya:content>',
-      PapayaUtilStringUtf8::ensure($content)
+      PapayaUtilStringXml::removeControlCharacters(PapayaUtilStringUtf8::ensure($content))
     );
-    $fragment->appendXml($content);
+    $fragment->appendXML($content);
     if ($fragment->firstChild) {
-      if ($target->ownerDocument == NULL) {
-        if ($fragment->firstChild->firstChild) {
-          $target->appendChild($fragment->firstChild->firstChild->cloneNode(TRUE));
-        }
-      } else {
+      if ($target->ownerDocument instanceof self) {
         foreach ($fragment->firstChild->childNodes as $node) {
           /** @var DOMNode $node */
           $target->appendChild($node->cloneNode(TRUE));
+        }
+      } else {
+        if ($fragment->firstChild->firstChild) {
+          $target->appendChild($fragment->firstChild->firstChild->cloneNode(TRUE));
         }
       }
     }
@@ -300,5 +296,11 @@ class PapayaXmlDocument
       array($dom, 'loadXml'), array($xmlString), !$silent
     );
     return ($success) ? $dom : NULL;
+  }
+
+  public function createTextNode($content) {
+    return parent::createTextNode(
+      PapayaUtilStringXml::removeControlCharacters($content) ?: ''
+    );
   }
 }
