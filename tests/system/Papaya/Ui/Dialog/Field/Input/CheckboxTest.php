@@ -183,12 +183,12 @@ class PapayaUiDialogFieldInputCheckboxTest extends PapayaTestCase {
    * @coversPapayaUiDialogFieldInputCheckbox::getCurrentValue
    * @dataProvider provideCheckboxValues
    * @param mixed $expected
-   * @param mixed $current
+   * @param mixed $default
    * @param mixed $active
    * @param mixed $inactive
    */
-  public function testGetCurrentValue($expected, $current, $active, $inactive) {
-    $checkbox = new PapayaUiDialogFieldInputCheckbox('caption', 'name', $current);
+  public function testGetCurrentValue($expected, $default, $active, $inactive) {
+    $checkbox = new PapayaUiDialogFieldInputCheckbox('caption', 'name', $default);
     $checkbox->setValues($active, $inactive);
     $this->assertSame(
       $expected, $checkbox->getCurrentValue()
