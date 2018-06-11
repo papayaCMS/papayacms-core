@@ -291,8 +291,8 @@ class PapayaPluginLoader extends PapayaObject {
       return $path;
     }
     $map = array(
-      'vendor:' => '../vendor/',
-      'src:' => '../src/'
+      'vendor:' => PapayaUtilFilePath::getVendorPath(),
+      'src:' => PapayaUtilFilePath::getSourcePath()
     );
     $documentRoot = $this->papaya()->options->get('PAPAYA_DOCUMENT_ROOT', PapayaUtilFilePath::getDocumentRoot());
     foreach ($map as $prefix => $mapPath) {
