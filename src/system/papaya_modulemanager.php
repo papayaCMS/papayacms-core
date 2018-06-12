@@ -154,8 +154,8 @@ class papaya_modulemanager extends base_db {
    */
   public function prependModulePath($path) {
     $map = array(
-      'vendor:' => '../vendor/',
-      'src:' => '../src/'
+      'vendor:' => PapayaUtilFilePath::getVendorPath(),
+      'src:' => PapayaUtilFilePath::getSourcePath()
     );
     foreach ($map as $prefix => $mapPath) {
       if (0 === strpos($path, $prefix)) {
@@ -1266,8 +1266,8 @@ class papaya_modulemanager extends base_db {
     $this->packages = array();
     $this->modules = array();
     $paths = array(
-      PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().'../vendor/'),
-      PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().'../src/')
+      PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().PapayaUtilFilePath::getVendorPath()),
+      PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().PapayaUtilFilePath::getSourcePath())
     );
     foreach ($paths as $path) {
       if (file_exists($path) && is_dir($path) && is_readable($path)) {

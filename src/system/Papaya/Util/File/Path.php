@@ -151,6 +151,30 @@ class PapayaUtilFilePath {
   }
 
   /**
+   * Get the /vendor path
+   * @return string
+   */
+  public static function getVendorPath() {
+    $root = PapayaUtilFilePath::getDocumentRoot();
+    if (is_dir($root.'/../vendor')) {
+      return '../vendor';
+    }
+    return 'vendor';
+  }
+
+  /**
+   * Get the /src path
+   * @return string
+   */
+  public static function getSourcePath() {
+    $root = PapayaUtilFilePath::getDocumentRoot();
+    if (is_dir($root.'/../src')) {
+      return '../src';
+    }
+    return 'src';
+  }
+
+  /**
   * Remove all files and subdirectories in a given directory.
   *
   * @param string $directory
