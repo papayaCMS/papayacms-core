@@ -137,16 +137,12 @@ class PapayaUiDialogFieldInputCheckbox extends PapayaUiDialogFieldInput {
         return $this->getDefaultValue();
       }
       if ($dialog->isSubmitted()) {
-        if (
+        $isActive = (
           $dialog->parameters()->has($name) &&
-          $dialog->parameters()->get($name) === (string)$this->_values['active']
-        ) {
-          $isActive = TRUE;
-        } else {
-          $isActive = FALSE;
-        }
+          $dialog->parameters()->get($name, '') === (string)$this->_values['active']
+        );
       } elseif ($dialog->data()->has($name)) {
-        $isActive = $dialog->data()->get($name) === (string)$this->_values['active'];
+        $isActive = (string)$dialog->data()->get($name) === (string)$this->_values['active'];
       } else {
         $isActive = $this->getDefaultValue() === (string)$this->_values['active'];
       }
