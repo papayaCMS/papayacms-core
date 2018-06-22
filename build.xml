@@ -31,7 +31,7 @@
   <property name="configuration.executable.composer" value="composer"/>
   <property name="configuration.executable.git" value="git"/>
 
-  <target name="setup" depends="prepare,dependencies-install,configuration" description="Install/Configure"/>
+  <target name="setup" depends="create-directories,dependencies-install,configuration" description="Install/Configure"/>
 
   <!--
     Install dependencies-install dependencies
@@ -145,6 +145,10 @@
   <property name="directory.document-root" value="${directory.base}/htdocs"/>
   <property name="directory.build" value="${directory.base}/build"/>
 
+  <condition property="directory.separator" value="\" else="/">
+    <os family="windows"/>
+  </condition>
+
   <fileset id="public" dir="${directory.document-root}">
     <include name="**"/>
     <exclude name="**/.svn/**"/>
@@ -210,10 +214,18 @@
     <delete file="${configuration.file}"/>
   </target>
 
-  <target name="prepare" description="Generate directories" hidden="true">
-    <mkdir dir="${directory.base}/papaya-data/cache" mode="${configuration.mode.writable}"/>
-    <mkdir dir="${directory.base}/papaya-data/media/files" mode="${configuration.mode.writable}"/>
-    <mkdir dir="${directory.base}/papaya-data/media/thumbs" mode="${configuration.mode.writable}"/>
+  <target name="create-directories" depends="properties" description="Generate directories" hidden="true">
+    <property name="directory.data" value="${directory.base}${directory.separator}papaya-data"/>
+    <property name="directory.data.cache" value="${directory.data}${directory.separator}cache"/>
+    <property name="directory.data.media" value="${directory.data}${directory.separator}media"/>
+    <property name="directory.data.media.files" value="${directory.data.media}${directory.separator}files"/>
+    <property name="directory.data.media.thumbnails" value="${directory.data.media}${directory.separator}thumbs"/>
+    <echo message="${directory.data.cache}"/>
+    <mkdir dir="${directory.data.cache}" mode="${configuration.mode.writable}"/>
+    <echo message="${directory.data.media.files}"/>
+    <mkdir dir="${directory.data.media.files}" mode="${configuration.mode.writable}"/>
+    <echo message="${directory.data.media.thumbnails}"/>
+    <mkdir dir="${directory.data.media.thumbnails}" mode="${configuration.mode.writable}"/>
   </target>
 
   <!--
