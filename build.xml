@@ -13,7 +13,7 @@
   ~  FOR A PARTICULAR PURPOSE.
   -->
 
-<project name="papaya_cms" default="build">
+<project name="papaya_cms" default="setup">
 
   <!--
     Configuration options can be overwritten in the (dist.)build.properties files
@@ -31,9 +31,111 @@
   <property name="configuration.executable.composer" value="composer"/>
   <property name="configuration.executable.git" value="git"/>
 
+  <target name="setup" depends="prepare,dependencies-install,configuration" description="Install/Configure"/>
+
   <!--
-    internal build properties
+    Install dependencies-install dependencies
   -->
+  <target name="dependencies-install" depends="properties" description="Install dependencies">
+    <exec executable="${configuration.executable.composer}" passthru="true">
+      <arg value="-n"/>
+      <arg value="install"/>
+    </exec>
+    <phingcall target="revisions-update"/>
+  </target>
+
+  <!--
+    Update dependencies-install dependencies
+  -->
+  <target name="dependencies-update" depends="properties" description="Update dependencies">
+    <exec executable="${configuration.executable.composer}" passthru="true">
+      <arg value="-n"/>
+      <arg value="update"/>
+    </exec>
+    <phingcall target="revisions-update"/>
+  </target>
+
+  <!--
+    Start PHP built-in webserver for the project
+  -->
+  <target name="run" depends="setup" description="Start the PHP built-in webserver">
+    <echo message="Start PHP built-in webserver at http://${configuration.run.host}:${configuration.run.port}"/>
+    <exec executable="php" passthru="true">
+      <arg value="-S"/>
+      <arg value="${configuration.run.host}:${configuration.run.port}"/>
+      <arg value="-t"/>
+      <arg path="${directory.document-root}"/>
+      <arg file="${phing.dir.papaya_cms}/server.php"/>
+    </exec>
+  </target>
+
+  <!--
+    Delete current configuration and create a new one
+  -->
+  <target name="configuration-regenerate" depends="configuration-remove,configuration" description="Delete and recreate configuration"/>
+
+  <!--
+    Generate directory with date
+  -->
+  <target name="export-directory" depends="export" description="Create distribution directory">
+    <mkdir dir="${directory.build}/artifacts"/>
+    <copy todir="${directory.build}/artifacts/${phing.project.name}${revision.project.suffix}">
+      <fileset dir="${directory.build}/export">
+        <include name="**"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!--
+    Generate tar.gz archive
+  -->
+  <target name="export-tgz" depends="export" description="Create tar.gz archive">
+    <mkdir dir="${directory.build}/artifacts"/>
+    <tar destfile="${directory.build}/artifacts/latest.tar.gz" compression="gzip">
+      <fileset dir="${directory.build}/export">
+        <include name="*"/>
+      </fileset>
+    </tar>
+    <copy
+      file="${directory.build}/artifacts/latest.tar.gz"
+      tofile="${directory.build}/artifacts/${phing.project.name}${revision.project.suffix}.tgz">
+    </copy>
+  </target>
+
+  <!--
+    Generate zip archive
+  -->
+  <target name="export-zip" depends="export" description="Create zip archive">
+    <mkdir dir="${directory.build}/artifacts"/>
+    <zip destfile="${directory.build}/artifacts/latest.zip">
+      <fileset dir="${directory.build}/export">
+        <include name="*"/>
+      </fileset>
+    </zip>
+    <copy
+      file="${directory.build}/artifacts/latest.zip"
+      tofile="${directory.build}/artifacts/${phing.project.name}${revision.project.suffix}.zip">
+    </copy>
+  </target>
+
+  <!--
+    Delete build artifacts and directories
+  -->
+  <target name="exports-remove" description="Delete exports">
+    <delete includeemptydirs="true">
+      <fileset dir="${directory.build}">
+        <include name="*.tar.gz"/>
+        <include name="*.zip"/>
+      </fileset>
+    </delete>
+    <delete dir="${directory.build}/export"/>
+    <delete dir="${directory.build}/artifacts"/>
+  </target>
+
+  <!--
+    Internal targets and properties, DO NOT CALL DIRECTLY
+  -->
+
   <property name="phing.dir.papaya_cms" value="${phing.dir}"/>
   <property name="directory.base" value="${project.basedir}"/>
   <property name="directory.document-root" value="${directory.base}/htdocs"/>
@@ -67,47 +169,9 @@
     <property file="build.properties" prefix="configuration" override="true"/>
   </target>
 
-  <target name="build" depends="prepare,dependencies-install,configuration" description="Install/Configure"/>
-
   <!--
-    Install dependencies-install dependencies
-   -->
-  <target name="dependencies-install" depends="properties" description="Install dependencies">
-    <exec executable="${configuration.executable.composer}" passthru="true">
-      <arg value="-n"/>
-      <arg value="install"/>
-    </exec>
-    <phingcall target="revisions-update"/>
-  </target>
-
-  <!--
-    Update dependencies-install dependencies
-   -->
-  <target name="dependencies-update" depends="properties" description="Update dependencies">
-    <exec executable="${configuration.executable.composer}" passthru="true">
-      <arg value="-n"/>
-      <arg value="update"/>
-    </exec>
-    <phingcall target="revisions-update"/>
-  </target>
-
-  <!--
-    Start PHP built-in webserver for the project
+    Create papaya.php configuration file
   -->
-  <target name="run" description="Start the PHP built-in webserver">
-    <echo message="Start PHP built-in webserver at http://${configuration.run.host}:${configuration.run.port}"/>
-    <exec executable="php" passthru="true">
-      <arg value="-S"/>
-      <arg value="${configuration.run.host}:${configuration.run.port}"/>
-      <arg value="-t"/>
-      <arg path="${directory.document-root}"/>
-      <arg file="${phing.dir.papaya_cms}/server.php"/>
-    </exec>
-  </target>
-
-  <!--
-    Configure working copy
-   -->
   <target name="configuration" depends="properties" description="Generate configuration" hidden="yes">
     <property name="hasProjectTemplate" value="false"/>
     <available property="hasProjectTemplate" file="${directory.base}/dist.papaya.php"/>
@@ -141,8 +205,6 @@
     <property name="configuration.file" value="${directory.base}/papaya.php"/>
     <delete file="${configuration.file}"/>
   </target>
-
-  <target name="configuration-regenerate" depends="configuration-remove,configuration" description="Regenerate configuration"/>
 
   <target name="prepare" description="Generate directories" hidden="true">
     <mkdir dir="${directory.base}/papaya-data/cache" mode="${configuration.mode.writable}"/>
@@ -245,62 +307,6 @@
         <echo level="warning">"composer.lock" not found, please install dependencies.</echo>
       </else>
     </if>
-  </target>
-
-
-  <!--
-    Generate directory with date
-  -->
-  <target name="export-directory" depends="export" description="Create distribution directory">
-    <mkdir dir="${directory.build}/artifacts"/>
-    <copy todir="${directory.build}/artifacts/${phing.project.name}${revision.project.suffix}">
-      <fileset dir="${directory.build}/export">
-        <include name="**"/>
-      </fileset>
-    </copy>
-  </target>
-
-  <!--
-    Generate tar.gz archive
-  -->
-  <target name="export-tgz" depends="export" description="Create tar.gz archive">
-    <mkdir dir="${directory.build}/artifacts"/>
-    <tar destfile="${directory.build}/artifacts/latest.tar.gz" compression="gzip">
-      <fileset dir="${directory.build}/export">
-        <include name="*"/>
-      </fileset>
-    </tar>
-    <copy
-      file="${directory.build}/artifacts/latest.tar.gz"
-      tofile="${directory.build}/artifacts/${phing.project.name}${revision.project.suffix}.tgz">
-    </copy>
-  </target>
-
-  <!--
-    Generate zip archive
-  -->
-  <target name="export-zip" depends="export" description="Create zip archive">
-    <mkdir dir="${directory.build}/artifacts"/>
-    <zip destfile="${directory.build}/artifacts/latest.zip">
-      <fileset dir="${directory.build}/export">
-        <include name="*"/>
-      </fileset>
-    </zip>
-    <copy
-      file="${directory.build}/artifacts/latest.zip"
-      tofile="${directory.build}/artifacts/${phing.project.name}${revision.project.suffix}.zip">
-    </copy>
-  </target>
-
-  <target name="exports-remove" description="Delete exports">
-    <delete includeemptydirs="true">
-      <fileset dir="${directory.build}">
-        <include name="*.tar.gz"/>
-        <include name="*.zip"/>
-      </fileset>
-    </delete>
-    <delete dir="${directory.build}/export"/>
-    <delete dir="${directory.build}/artifacts"/>
   </target>
 
   <!--
