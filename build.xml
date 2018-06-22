@@ -13,62 +13,119 @@
   ~  FOR A PARTICULAR PURPOSE.
   -->
 
-<project name="papaya Core" default="build">
+<project name="papaya_cms" default="build">
 
-  <property name="directory.src" value="${project.basedir}" override="true"/>
-  <property name="directory.document-root" value="${directory.src}/htdocs" override="true"/>
+  <!--
+    Configuration options can be overwritten in the (dist.)build.properties files
 
-  <property name="mode.writeable" value="0777" override="true"/>
+    The property in the file will not have the prefix "configuration.".
+  -->
 
-  <property file="dist.build.properties" prefix="configuration" override="true"/>
-  <property file="build.properties" prefix="configuration" override="true"/>
+  <property name="configuration.database.uri" value="sqlite3:./papaya.sqlite"/>
+  <property name="configuration.distribution.database.uri" value="sqlite3:./papaya.sqlite"/>
+  <property name="configuration.run.host" value="localhost"/>
+  <property name="configuration.run.port" value="8080"/>
 
-  <property name="executable.composer" value="${configuration.executable.composer}" override="true"/>
-  <property name="executable.git" value="${configuration.executable.git}" override="true"/>
+  <property name="configuration.mode.writable" value="0777"/>
 
-  <property name="database.uri" value="${configuration.database.uri}" override="true"/>
+  <property name="configuration.executable.composer" value="composer"/>
+  <property name="configuration.executable.git" value="git"/>
 
-  <property name="revision.project" value="" override="true"/>
-  <property name="revision.papaya" value="" override="true"/>
+  <!--
+    internal build properties
+  -->
+  <property name="phing.dir.papaya_cms" value="${phing.dir}"/>
+  <property name="directory.base" value="${project.basedir}"/>
+  <property name="directory.document-root" value="${directory.base}/htdocs"/>
+  <property name="directory.build" value="${directory.base}/build"/>
 
-  <target name="build" depends="prepare,dependencies-install,config" description="Install/Configure"/>
+  <fileset id="public" dir="${directory.document-root}">
+    <include name="**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="conf.inc.php"/>
+    <exclude name="papaya/**"/>
+  </fileset>
+
+  <fileset id="source" dir="${directory.base}">
+    <include name="src/**"/>
+    <include name="templates/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.git/**"/>
+  </fileset>
+
+  <fileset id="dependencies" dir="${directory.base}">
+    <include name="composer.json"/>
+    <include name="composer.lock"/>
+  </fileset>
+
+  <!--
+   Load properties from (dist.)build.properties
+  -->
+  <target name="properties" hidden="true">
+    <property file="dist.build.properties" prefix="configuration" override="true"/>
+    <property file="build.properties" prefix="configuration" override="true"/>
+  </target>
+
+  <target name="build" depends="prepare,dependencies-install,configuration" description="Install/Configure"/>
 
   <!--
     Install dependencies-install dependencies
    -->
-  <target name="dependencies-install" depends="composer-install,fetch-revisions" description="Install dependencies"/>
-  <target name="composer-install" hidden="true">
-    <exec executable="${executable.composer}" passthru="true">
+  <target name="dependencies-install" depends="properties" description="Install dependencies">
+    <exec executable="${configuration.executable.composer}" passthru="true">
       <arg value="-n"/>
       <arg value="install"/>
     </exec>
+    <phingcall target="revisions-update"/>
   </target>
 
   <!--
     Update dependencies-install dependencies
    -->
-  <target name="dependencies-update" depends="composer-update,fetch-revisions" description="Update dependencies"/>
-  <target name="composer-update" hidden="true">
-    <exec executable="${executable.composer}" passthru="true">
+  <target name="dependencies-update" depends="properties" description="Update dependencies">
+    <exec executable="${configuration.executable.composer}" passthru="true">
       <arg value="-n"/>
       <arg value="update"/>
+    </exec>
+    <phingcall target="revisions-update"/>
+  </target>
+
+  <!--
+    Start PHP built-in webserver for the project
+  -->
+  <target name="run" description="Start the PHP built-in webserver">
+    <echo message="Start PHP built-in webserver at http://${configuration.run.host}:${configuration.run.port}"/>
+    <exec executable="php" passthru="true">
+      <arg value="-S"/>
+      <arg value="${configuration.run.host}:${configuration.run.port}"/>
+      <arg value="-t"/>
+      <arg path="${directory.document-root}"/>
+      <arg file="${phing.dir.papaya_cms}/server.php"/>
     </exec>
   </target>
 
   <!--
     Configure working copy
    -->
-  <target name="config" description="Generate configuration">
-    <property name="config.template" value="${directory.src}/dist.papaya.php"/>
-    <property name="config.file" value="${directory.src}/papaya.php"/>
-    <property name="papaya.database.uri" value="${database.uri}"/>
+  <target name="configuration" depends="properties" description="Generate configuration" hidden="yes">
+    <property name="hasProjectTemplate" value="false"/>
+    <available property="hasProjectTemplate" file="${directory.base}/dist.papaya.php"/>
+    <condition
+      property="configuration.template"
+      value="${directory.base}/dist.papaya.php"
+      else="${phing.dir.papaya_cms}/dist.papaya.php">
+      <istrue value="${hasProjectTemplate}"/>
+    </condition>
+    <property name="configuration.file" value="${directory.base}/papaya.php"/>
+    <property name="papaya.database.uri" value="${configuration.database.uri}"/>
     <property name="papaya.development.active" value="(bool)TRUE"/>
     <property name="hasConfiguration" value="false"/>
-    <available file="${config.file}" property="hasConfiguration" value="true"/>
+    <available file="${configuration.file}" property="hasConfiguration" value="true"/>
     <if>
       <isfalse value="${hasConfiguration}"/>
       <then>
-        <copy file="${config.template}" tofile="${config.file}">
+        <copy file="${configuration.template}" tofile="${configuration.file}">
           <filterchain>
             <expandproperties/>
           </filterchain>
@@ -80,23 +137,23 @@
     </if>
   </target>
 
-  <target name="config-remove" description="Remove configuration" hidden="true">
-    <property name="config.file" value="${directory.src}/papaya.php"/>
-    <delete file="${config.file}"/>
+  <target name="configuration-remove" depends="properties" description="Remove configuration" hidden="true">
+    <property name="configuration.file" value="${directory.base}/papaya.php"/>
+    <delete file="${configuration.file}"/>
   </target>
 
-  <target name="config-regenerate" depends="config-remove,config" description="Regenerate configuration"/>
+  <target name="configuration-regenerate" depends="configuration-remove,configuration" description="Regenerate configuration"/>
 
   <target name="prepare" description="Generate directories" hidden="true">
-    <mkdir dir="${directory.src}/papaya-data/cache" mode="${mode.writeable}"/>
-    <mkdir dir="${directory.src}/papaya-data/media/files" mode="${mode.writeable}"/>
-    <mkdir dir="${directory.src}/papaya-data/media/thumbs" mode="${mode.writeable}"/>
+    <mkdir dir="${directory.base}/papaya-data/cache" mode="${configuration.mode.writable}"/>
+    <mkdir dir="${directory.base}/papaya-data/media/files" mode="${configuration.mode.writable}"/>
+    <mkdir dir="${directory.base}/papaya-data/media/thumbs" mode="${configuration.mode.writable}"/>
   </target>
 
   <!--
     Fetch revisions and store them in a PHP file
   -->
-  <target name="fetch-revisions" depends="papaya-revision" hidden="true">
+  <target name="revisions-update" depends="project-revision,papaya-revision" hidden="true">
     <append
       destFile="${directory.document-root}/revision.inc.php"
       append="false"
@@ -107,7 +164,8 @@
   <!--
     Determine the project code revision from Git metadata
    -->
-  <target name="papaya-revision" description="Get papaya revision from git" hidden="true">
+  <target name="project-revision" description="Get project revision from git" hidden="true">
+    <property name="revision.project" value="dev"/>
     <trycatch property="vcs.error">
       <try>
         <property name="isGitRepository" value="false"/>
@@ -115,9 +173,11 @@
         <if>
           <istrue value="${isGitRepository}"/>
           <then>
-            <property name="revision.project" value="dev" override="true"/>
-            <exec executable="${executable.git}" returnProperty="git.return" outputProperty="git.output"
-                  dir="${project.basedir}">
+            <exec
+              executable="${configuration.executable.git}"
+              returnProperty="git.return"
+              outputProperty="git.output"
+              dir="${project.basedir}">
               <arg line="describe --tags"/>
             </exec>
             <if>
@@ -126,13 +186,11 @@
                 <property name="revision.project" value="${git.output}" override="true"/>
               </then>
             </if>
-            <property name="revision.project.suffix" value="-${revision.project}"/>
           </then>
           <else>
-            <property name="revision.project" value="dev" override="true"/>
           </else>
         </if>
-        <echo message="Current revision: ${revision.project}"/>
+        <echo message="Project revision: ${revision.project}"/>
       </try>
       <catch>
         <echo level="warning">There was an error while reading revision information. Current revision is
@@ -143,13 +201,154 @@
         <property name="revision.project" value="unknown" override="true"/>
       </catch>
     </trycatch>
-    <property name="revision.papaya" value="${revision.project}" override="true"/>
+    <property name="revision.project" value="${revision.project}" override="true"/>
+    <property name="revision.project.suffix" value="-${revision.project}"/>
   </target>
 
-  <target name="run" description="Start the PHP built-in webserver">
-    <exec executable="php" passthru="true">
-      <arg line="-S localhost:8080 -t ./htdocs server.php"/>
+  <target name="papaya-revision" depends="project-revision" hidden="true">
+    <property name="revision.papaya" value="unknown"/>
+    <available property="hasComposerLock" file="${directory.base}/xcomposer.lock"/>
+    <if>
+      <istrue value="${hasComposerLock"/>
+      <then>
+        <property name="revision.papaya" value="${revision.project}" override="true"/>
+        <trycatch property="error">
+          <try>
+            <adhoc-task name="composer-version">
+              <![CDATA[
+            class PapayaVersionTask extends Task {
+
+              function main() {
+                $json = json_decode(file_get_contents("composer.lock"));
+                foreach ($json->packages as $package) {
+                  if ($package->name === 'papaya/cms-core') {
+                    $this->project->setProperty(
+                      'revision.papaya', $package->version.' '.substr($package->source->reference, 0, 8)
+                    );
+                  }
+                }
+              }
+            }
+            ]]>
+            </adhoc-task>
+            <composer-version/>
+            <echo message="Papaya revision: ${revision.papaya}"/>
+          </try>
+          <catch>
+            <echo level="warning">There was an error while reading papaya core version information.</echo>
+            <echo level="debug">${error}</echo>
+            <property name="revision.papaya" value="unknown" override="true"/>
+          </catch>
+        </trycatch>
+      </then>
+      <else>
+        <echo level="warning">"composer.lock" not found, please install dependencies.</echo>
+      </else>
+    </if>
+  </target>
+
+
+  <!--
+    Generate directory with date
+  -->
+  <target name="export-directory" depends="export" description="Create distribution directory">
+    <mkdir dir="${directory.build}/artifacts"/>
+    <copy todir="${directory.build}/artifacts/${phing.project.name}${revision.project.suffix}">
+      <fileset dir="${directory.build}/export">
+        <include name="**"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!--
+    Generate tar.gz archive
+  -->
+  <target name="export-tgz" depends="export" description="Create tar.gz archive">
+    <mkdir dir="${directory.build}/artifacts"/>
+    <tar destfile="${directory.build}/artifacts/latest.tar.gz" compression="gzip">
+      <fileset dir="${directory.build}/export">
+        <include name="*"/>
+      </fileset>
+    </tar>
+    <copy
+      file="${directory.build}/artifacts/latest.tar.gz"
+      tofile="${directory.build}/artifacts/${phing.project.name}${revision.project.suffix}.tgz">
+    </copy>
+  </target>
+
+  <!--
+    Generate zip archive
+  -->
+  <target name="export-zip" depends="export" description="Create zip archive">
+    <mkdir dir="${directory.build}/artifacts"/>
+    <zip destfile="${directory.build}/artifacts/latest.zip">
+      <fileset dir="${directory.build}/export">
+        <include name="*"/>
+      </fileset>
+    </zip>
+    <copy
+      file="${directory.build}/artifacts/latest.zip"
+      tofile="${directory.build}/artifacts/${phing.project.name}${revision.project.suffix}.zip">
+    </copy>
+  </target>
+
+  <target name="exports-remove" description="Delete exports">
+    <delete includeemptydirs="true">
+      <fileset dir="${directory.build}">
+        <include name="*.tar.gz"/>
+        <include name="*.zip"/>
+      </fileset>
+    </delete>
+    <delete dir="${directory.build}/export"/>
+    <delete dir="${directory.build}/artifacts"/>
+  </target>
+
+  <!--
+    Generate distribution export directories (Copy files)
+  -->
+  <target name="export" depends="properties,project-revision,papaya-revision" description="Export distribution" hidden="true">
+    <echo message="Prepare export directory"/>
+    <delete dir="${directory.build}/export"/>
+    <mkdir dir="${directory.build}/export"/>
+    <echo message="Copy files"/>
+    <copy todir="${directory.build}/export/htdocs">
+      <fileset refid="public"/>
+    </copy>
+    <copy todir="${directory.build}/export">
+      <fileset refid="source"/>
+      <fileset refid="dependencies"/>
+    </copy>
+    <echo message="Create configuration file"/>
+    <property name="hasProjectTemplate" value="false"/>
+    <available property="hasProjectTemplate" file="${directory.base}/dist.papaya.php"/>
+    <condition
+      property="configuration.template"
+      value="${directory.base}/dist.papaya.php"
+      else="${phing.dir.papaya_cms}/dist.papaya.php">
+      <istrue value="${hasProjectTemplate}"/>
+    </condition>
+    <property name="configuration.file" value="${directory.build}/export/papaya.php"/>
+    <property name="papaya.database.uri" value="${configuration.distribution.database.uri}"/>
+    <property name="papaya.development.active" value="(bool)FALSE"/>
+    <copy file="${configuration.template}" tofile="${configuration.file}">
+      <filterchain>
+        <expandproperties/>
+      </filterchain>
+    </copy>
+    <echo message="Install composer dependencies"/>
+    <exec executable="${configuration.executable.composer}" passthru="true">
+      <arg value="install"/>
+      <arg value="--ignore-platform-reqs"/>
+      <arg value="--no-interaction"/>
+      <arg value="--no-dev"/>
+      <arg value="--working-dir"/>
+      <arg path="${directory.build}/export"/>
     </exec>
+    <append
+      destFile="${directory.build}/export/htdocs/revision.inc.php"
+      append="false"
+      overwrite="true"
+      text="&lt;?php&#10;define('PAPAYA_WEBSITE_REVISION', '${revision.project}');&#10;define('PAPAYA_VERSION_STRING', '${revision.papaya}');&#10;"/>
   </target>
 
 </project>

@@ -30,16 +30,16 @@
         },
         {
             "name": "papaya/composer-plugins",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/papayaCMS/papayacms-composer-plugins.git",
-                "reference": "bc01c504dbdac62a67a912a19f1fec64470081fd"
+                "reference": "2ee29ad0d2b768afd1d75723945a11121fd836cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/papayaCMS/papayacms-composer-plugins/zipball/bc01c504dbdac62a67a912a19f1fec64470081fd",
-                "reference": "bc01c504dbdac62a67a912a19f1fec64470081fd",
+                "url": "https://api.github.com/repos/papayaCMS/papayacms-composer-plugins/zipball/2ee29ad0d2b768afd1d75723945a11121fd836cd",
+                "reference": "2ee29ad0d2b768afd1d75723945a11121fd836cd",
                 "shasum": ""
             },
             "require": {
@@ -58,8 +58,11 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
             "description": "papaya CMS Composer Plugins",
-            "time": "2016-04-11T14:33:58+00:00"
+            "time": "2018-04-18T13:14:33+00:00"
         },
         {
             "name": "papaya/module-default",
