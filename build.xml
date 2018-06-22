@@ -59,13 +59,17 @@
     Start PHP built-in webserver for the project
   -->
   <target name="run" depends="setup" description="Start the PHP built-in webserver">
+    <delete file="${directory.base}/php-server.log"/>
     <echo message="Start PHP built-in webserver at http://${configuration.run.host}:${configuration.run.port}"/>
-    <exec executable="php" passthru="true">
+    <echo message="Administration-UI available at http://${configuration.run.host}:${configuration.run.port}/papaya/"/>
+    <exec executable="php">
       <arg value="-S"/>
       <arg value="${configuration.run.host}:${configuration.run.port}"/>
       <arg value="-t"/>
       <arg path="${directory.document-root}"/>
       <arg file="${phing.dir.papaya_cms}/server.php"/>
+      <arg value=">"/>
+      <arg file="${directory.base}/php-server.log"/>
     </exec>
   </target>
 
@@ -269,9 +273,10 @@
 
   <target name="papaya-revision" depends="project-revision" hidden="true">
     <property name="revision.papaya" value="unknown"/>
-    <available property="hasComposerLock" file="${directory.base}/xcomposer.lock"/>
+    <property name="hasComposerLock" value="false"/>
+    <available property="hasComposerLock" file="${directory.base}/composer.lock"/>
     <if>
-      <istrue value="${hasComposerLock"/>
+      <istrue value="${hasComposerLock}"/>
       <then>
         <property name="revision.papaya" value="${revision.project}" override="true"/>
         <trycatch property="error">
