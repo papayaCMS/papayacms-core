@@ -16,9 +16,30 @@
 <project name="papaya_cms" default="setup">
 
   <!--
-    Configuration options can be overwritten in the (dist.)build.properties files
+    Configuration options
 
-    The property in the file will not have the prefix "configuration.".
+    Here are 3 ways to change a value:
+
+    1) create build.properties
+
+    build.properties is a local file that will never be committed to the Git repository.
+    It allows for user specific build options.  The properties in the file will not have
+    the prefix "configuration.".
+
+    2) create dist.build.properties
+
+    dist.build.properties can be committed to the Git repository. Except for that it
+    is like build.properties. You can use it for project specific build options.
+
+    3) define properties in you build file.
+
+    This build file can be imported into you project specific build file.
+    Define the property before you import it. It allows for additional logic like
+    reading the option from the environment variables.
+
+    WARNING:
+    This file is part of the papaya CMS core library. Do not attempt to change it directly.
+    Merge requests or issues for changes are welcome.
   -->
 
   <property name="configuration.database.uri" value="sqlite3:./papaya.sqlite"/>
@@ -26,12 +47,28 @@
   <property name="configuration.run.host" value="localhost"/>
   <property name="configuration.run.port" value="8080"/>
 
+  <property name="configuration.directory.document-root" value="htdocs"/>
+  <property name="configuration.directory.data" value="papaya-data"/>
   <property name="configuration.mode.writable" value="0777"/>
+
+  <!-- target directory for the deployment build -->
+  <property name="configuration.export.directory" value="${project.basedir}/build/export"/>
+
+  <!-- archive build as artifact (with version number) -->
+  <property name="configuration.export.artifacts" value="true"/>
+  <!-- artifacts directory -->
+  <property name="configuration.export.artifacts.directory" value="${project.basedir}/build/artifacts"/>
+  <!-- artifact file title -->
+  <property name="configuration.export.artifact.name" value="${phing.project.name}"/>
+  <!-- zip, tgz, directory -->
+  <property name="configuration.export.artifacts.format" value="zip"/>
+  <!-- create a 'latest' artifact for zip/tgz -->
+  <property name="configuration.export.artifacts.latest" value="true"/>
 
   <property name="configuration.executable.composer" value="composer"/>
   <property name="configuration.executable.git" value="git"/>
 
-  <target name="setup" depends="create-directories,dependencies-install,configuration" description="Install/Configure"/>
+  <target name="setup" depends="dependencies-install,configuration,create-directories" description="Install/Configure"/>
 
   <!--
     Install dependencies-install dependencies
@@ -66,7 +103,7 @@
       <arg value="-S"/>
       <arg value="${configuration.run.host}:${configuration.run.port}"/>
       <arg value="-t"/>
-      <arg path="${directory.document-root}"/>
+      <arg path="${directory.base}/${configuration.directory.document-root}"/>
       <arg file="${phing.dir.papaya_cms}/server.php"/>
       <arg value=">"/>
       <arg file="${directory.base}/php-server.log"/>
@@ -79,61 +116,54 @@
   <target name="configuration-regenerate" depends="configuration-remove,configuration" description="Delete and recreate configuration"/>
 
   <!--
-    Generate directory with date
+    Build deployment directory and generate artifacts archives
   -->
-  <target name="export-directory" depends="export" description="Create distribution directory">
-    <mkdir dir="${directory.build}/artifacts"/>
-    <copy todir="${directory.build}/artifacts/${phing.project.name}${revision.project.suffix}">
-      <fileset dir="${directory.build}/export">
-        <include name="**"/>
-      </fileset>
-    </copy>
-  </target>
-
-  <!--
-    Generate tar.gz archive
-  -->
-  <target name="export-tgz" depends="export" description="Create tar.gz archive">
-    <mkdir dir="${directory.build}/artifacts"/>
-    <tar destfile="${directory.build}/artifacts/latest.tar.gz" compression="gzip">
-      <fileset dir="${directory.build}/export">
-        <include name="*"/>
-      </fileset>
-    </tar>
-    <copy
-      file="${directory.build}/artifacts/latest.tar.gz"
-      tofile="${directory.build}/artifacts/${phing.project.name}${revision.project.suffix}.tgz">
-    </copy>
-  </target>
-
-  <!--
-    Generate zip archive
-  -->
-  <target name="export-zip" depends="export" description="Create zip archive">
-    <mkdir dir="${directory.build}/artifacts"/>
-    <zip destfile="${directory.build}/artifacts/latest.zip">
-      <fileset dir="${directory.build}/export">
-        <include name="*"/>
-      </fileset>
-    </zip>
-    <copy
-      file="${directory.build}/artifacts/latest.zip"
-      tofile="${directory.build}/artifacts/${phing.project.name}${revision.project.suffix}.zip">
-    </copy>
-  </target>
-
-  <!--
-    Delete build artifacts and directories
-  -->
-  <target name="exports-remove" description="Delete exports">
-    <delete includeemptydirs="true">
-      <fileset dir="${directory.build}">
-        <include name="*.tar.gz"/>
-        <include name="*.zip"/>
-      </fileset>
-    </delete>
-    <delete dir="${directory.build}/export"/>
-    <delete dir="${directory.build}/artifacts"/>
+  <target name="export" depends="build-export" description="Export project for deployment">
+    <property name="artifactsDirectory" value="${configuration.export.artifacts.directory}"/>
+    <property name="artifactName" value="${artifactsDirectory}/${configuration.export.artifact.name}${revision.project.suffix}"/>
+    <if>
+      <istrue value="${configuration.export.artifacts}"/>
+      <then>
+        <mkdir dir="${artifactsDirectory}"/>
+        <switch value="${configuration.export.artifacts.format}">
+          <case value="directory">
+            <copy todir="${artifactName}">
+              <fileset dir="${configuration.export.directory}">
+                <include name="*"/>
+              </fileset>
+            </copy>
+          </case>
+          <case value="zip">
+            <zip destfile="${artifactName}.zip">
+              <fileset dir="${configuration.export.directory}">
+                <include name="*"/>
+              </fileset>
+            </zip>
+            <if>
+              <istrue value="${configuration.export.artifacts.latest"/>
+              <then>
+                <copy file="${artifactName}.zip" tofile="${artifactsDirectory}/latest.zip">
+                </copy>
+              </then>
+            </if>
+          </case>
+          <case value="tgz">
+            <tar destfile="${artifactName}.tgz" compression="gzip">
+              <fileset dir="${configuration.export.directory}">
+                <include name="*"/>
+              </fileset>
+            </tar>
+            <if>
+              <istrue value="${configuration.export.artifacts.latest"/>
+              <then>
+                <copy file="${artifactName}.tgz" tofile="${artifactsDirectory}/latest.tgz">
+                </copy>
+              </then>
+            </if>
+          </case>
+        </switch>
+      </then>
+    </if>
   </target>
 
   <!--
@@ -142,32 +172,10 @@
 
   <property name="phing.dir.papaya_cms" value="${phing.dir}"/>
   <property name="directory.base" value="${project.basedir}"/>
-  <property name="directory.document-root" value="${directory.base}/htdocs"/>
-  <property name="directory.build" value="${directory.base}/build"/>
 
   <condition property="directory.separator" value="\" else="/">
     <os family="windows"/>
   </condition>
-
-  <fileset id="public" dir="${directory.document-root}">
-    <include name="**"/>
-    <exclude name="**/.svn/**"/>
-    <exclude name="**/.git/**"/>
-    <exclude name="conf.inc.php"/>
-    <exclude name="papaya/**"/>
-  </fileset>
-
-  <fileset id="source" dir="${directory.base}">
-    <include name="src/**"/>
-    <include name="templates/**"/>
-    <exclude name="**/.svn/**"/>
-    <exclude name="**/.git/**"/>
-  </fileset>
-
-  <fileset id="dependencies" dir="${directory.base}">
-    <include name="composer.json"/>
-    <include name="composer.lock"/>
-  </fileset>
 
   <!--
    Load properties from (dist.)build.properties
@@ -215,7 +223,7 @@
   </target>
 
   <target name="create-directories" depends="properties" description="Generate directories" hidden="true">
-    <property name="directory.data" value="${directory.base}${directory.separator}papaya-data"/>
+    <property name="directory.data" value="${directory.base}${directory.separator}${configuration.directory.data}"/>
     <property name="directory.data.cache" value="${directory.data}${directory.separator}cache"/>
     <property name="directory.data.media" value="${directory.data}${directory.separator}media"/>
     <property name="directory.data.media.files" value="${directory.data.media}${directory.separator}files"/>
@@ -233,7 +241,7 @@
   -->
   <target name="revisions-update" depends="project-revision,papaya-revision" hidden="true">
     <append
-      destFile="${directory.document-root}/revision.inc.php"
+      destFile="${directory.base}/${configuration.directory.document-root}/revision.inc.php"
       append="false"
       overwrite="true"
       text="&lt;?php&#10;define('PAPAYA_WEBSITE_REVISION', '${revision.project}');&#10;define('PAPAYA_VERSION_STRING', '${revision.papaya}');&#10;"/>
@@ -295,20 +303,20 @@
           <try>
             <adhoc-task name="composer-version">
               <![CDATA[
-            class PapayaVersionTask extends Task {
+                class PapayaVersionTask extends Task {
 
-              function main() {
-                $json = json_decode(file_get_contents("composer.lock"));
-                foreach ($json->packages as $package) {
-                  if ($package->name === 'papaya/cms-core') {
-                    $this->project->setProperty(
-                      'revision.papaya', $package->version.' '.substr($package->source->reference, 0, 8)
-                    );
+                  function main() {
+                    $json = json_decode(file_get_contents("composer.lock"));
+                    foreach ($json->packages as $package) {
+                      if ($package->name === 'papaya/cms-core') {
+                        $this->project->setProperty(
+                          'revision.papaya', $package->version.' '.substr($package->source->reference, 0, 8)
+                        );
+                      }
+                    }
                   }
                 }
-              }
-            }
-            ]]>
+              ]]>
             </adhoc-task>
             <composer-version/>
             <echo message="Papaya revision: ${revision.papaya}"/>
@@ -329,17 +337,32 @@
   <!--
     Generate distribution export directories (Copy files)
   -->
-  <target name="export" depends="properties,project-revision,papaya-revision" description="Export distribution" hidden="true">
+  <target name="build-export" depends="properties,project-revision,papaya-revision" description="Export distribution" hidden="true">
+    <property name="targetDirectory" value="${configuration.export.directory}"/>
     <echo message="Prepare export directory"/>
-    <delete dir="${directory.build}/export"/>
-    <mkdir dir="${directory.build}/export"/>
+    <delete dir="${targetDirectory}"/>
+    <mkdir dir="${targetDirectory}"/>
     <echo message="Copy files"/>
-    <copy todir="${directory.build}/export/htdocs">
-      <fileset refid="public"/>
+    <copy todir="${targetDirectory}/${configuration.directory.document-root}">
+      <fileset id="public" dir="${directory.base}/${configuration.directory.document-root}">
+        <include name="**"/>
+        <exclude name="**/.svn/**"/>
+        <exclude name="**/.git/**"/>
+        <exclude name="conf.inc.php"/>
+        <exclude name="papaya/**"/>
+      </fileset>
     </copy>
-    <copy todir="${directory.build}/export">
-      <fileset refid="source"/>
-      <fileset refid="dependencies"/>
+    <copy todir="${targetDirectory}">
+      <fileset id="source" dir="${directory.base}">
+        <include name="src/**"/>
+        <include name="templates/**"/>
+        <exclude name="**/.svn/**"/>
+        <exclude name="**/.git/**"/>
+      </fileset>
+      <fileset id="dependencies" dir="${directory.base}">
+        <include name="composer.json"/>
+        <include name="composer.lock"/>
+      </fileset>
     </copy>
     <echo message="Create configuration file"/>
     <property name="hasProjectTemplate" value="false"/>
@@ -350,7 +373,7 @@
       else="${phing.dir.papaya_cms}/dist.papaya.php">
       <istrue value="${hasProjectTemplate}"/>
     </condition>
-    <property name="configuration.file" value="${directory.build}/export/papaya.php"/>
+    <property name="configuration.file" value="${targetDirectory}/papaya.php"/>
     <property name="papaya.database.uri" value="${configuration.distribution.database.uri}"/>
     <property name="papaya.development.active" value="(bool)FALSE"/>
     <copy file="${configuration.template}" tofile="${configuration.file}">
@@ -365,10 +388,10 @@
       <arg value="--no-interaction"/>
       <arg value="--no-dev"/>
       <arg value="--working-dir"/>
-      <arg path="${directory.build}/export"/>
+      <arg path="${targetDirectory}"/>
     </exec>
     <append
-      destFile="${directory.build}/export/htdocs/revision.inc.php"
+      destFile="${targetDirectory}/${configuration.directory.document-root}/revision.inc.php"
       append="false"
       overwrite="true"
       text="&lt;?php&#10;define('PAPAYA_WEBSITE_REVISION', '${revision.project}');&#10;define('PAPAYA_VERSION_STRING', '${revision.papaya}');&#10;"/>
