@@ -42,8 +42,17 @@
     Merge requests or issues for changes are welcome.
   -->
 
-  <property name="configuration.database.uri" value="sqlite3:./papaya.sqlite"/>
-  <property name="configuration.distribution.database.uri" value="sqlite3:./papaya.sqlite"/>
+  <property name="env.PAPAYA_DATABASE_URI" value=""/>
+  <property name="env.PAPAYA_ENVIRONMENT_NAME" value=""/>
+  <property environment="env" override="true"/>
+
+  <condition
+    property="configuration.database.uri"
+    value="sqlite3:./papaya.sqlite"
+    else="${env.PAPAYA_DATABASE_URI}">
+    <equals arg1="${env.PAPAYA_DATABASE_URI}" arg2=""/>
+  </condition>
+
   <property name="configuration.run.host" value="localhost"/>
   <property name="configuration.run.port" value="8080"/>
 
@@ -51,8 +60,23 @@
   <property name="configuration.directory.data" value="papaya-data"/>
   <property name="configuration.mode.writable" value="0777"/>
 
+  <!-- database uri used in the export configuration file -->
+  <condition
+    property="configuration.export.database.uri"
+    value="sqlite3:./papaya.sqlite"
+    else="${env.PAPAYA_DATABASE_URI}">
+    <equals arg1="${env.PAPAYA_DATABASE_URI}" arg2=""/>
+  </condition>
+
+  <!-- export target environment name (stage, demo, production, ...) -->
+  <condition
+    property="export.environment.name"
+    value="production"
+    else="${env.PAPAYA_ENVIRONMENT_NAME}">
+    <equals arg1="${env.PAPAYA_ENVIRONMENT_NAME}" arg2=""/>
+  </condition>
   <!-- target directory for the deployment build -->
-  <property name="configuration.export.directory" value="${project.basedir}/build/export"/>
+  <property name="configuration.export.directory" value="${project.basedir}/build/${export.environment.name}"/>
 
   <!-- archive build as artifact (with version number) -->
   <property name="configuration.export.artifacts" value="true"/>
@@ -119,7 +143,7 @@
     Build deployment directory and generate artifacts archives
   -->
   <target name="export" depends="build-export" description="Export project for deployment">
-    <property name="artifactsDirectory" value="${configuration.export.artifacts.directory}"/>
+    <property name="artifactsDirectory" value="${configuration.export.artifacts.directory}/${export.environment.name}"/>
     <property name="artifactName" value="${artifactsDirectory}/${configuration.export.artifact.name}${revision.project.suffix}"/>
     <if>
       <istrue value="${configuration.export.artifacts}"/>
@@ -374,7 +398,7 @@
       <istrue value="${hasProjectTemplate}"/>
     </condition>
     <property name="configuration.file" value="${targetDirectory}/papaya.php"/>
-    <property name="papaya.database.uri" value="${configuration.distribution.database.uri}"/>
+    <property name="papaya.database.uri" value="${configuration.export.database.uri}"/>
     <property name="papaya.development.active" value="(bool)FALSE"/>
     <copy file="${configuration.template}" tofile="${configuration.file}">
       <filterchain>
