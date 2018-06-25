@@ -18,20 +18,27 @@
   <!--
     Configuration options
 
-    Here are 3 ways to change a value:
+    Here are 4 ways to set a property value:
 
-    1) create build.properties
+    1) Environment Variables
+
+    Some properties are initialized from environment variables (if they exists)
+
+    * PAPAYA_DATABASE_URI - database URI for setup and export
+    * PAPAYA_ENVIRONMENT_NAME - target environment for exports
+
+    2) create build.properties
 
     build.properties is a local file that will never be committed to the Git repository.
     It allows for user specific build options.  The properties in the file will not have
     the prefix "configuration.".
 
-    2) create dist.build.properties
+    3) create dist.build.properties
 
     dist.build.properties can be committed to the Git repository. Except for that it
     is like build.properties. You can use it for project specific build options.
 
-    3) define properties in you build file.
+    4) define properties in you build file.
 
     This build file can be imported into you project specific build file.
     Define the property before you import it. It allows for additional logic like
