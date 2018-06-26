@@ -84,7 +84,6 @@
   </condition>
   <!-- target directory for the deployment build -->
   <property name="configuration.export.directory" value="${project.basedir}/build/${export.environment.name}"/>
-
   <!-- archive build as artifact (with version number) -->
   <property name="configuration.export.artifacts" value="true"/>
   <!-- artifacts directory -->
@@ -95,6 +94,8 @@
   <property name="configuration.export.artifacts.format" value="zip"/>
   <!-- create a 'latest' artifact for zip/tgz -->
   <property name="configuration.export.artifacts.latest" value="true"/>
+  <!-- export env document root -->
+  <property name="configuration.export.document-root" value="${configuration.directory.document-root}"/>
 
   <property name="configuration.executable.composer" value="composer"/>
   <property name="configuration.executable.git" value="git"/>
@@ -219,7 +220,7 @@
   <!--
     Create papaya.php configuration file
   -->
-  <target name="configuration" depends="properties" description="Generate configuration" hidden="yes">
+  <target name="configuration" depends="properties" description="Generate configuration" hidden="true">
     <property name="hasProjectTemplate" value="false"/>
     <available property="hasProjectTemplate" file="${directory.base}/dist.papaya.php"/>
     <condition
@@ -426,6 +427,15 @@
       append="false"
       overwrite="true"
       text="&lt;?php&#10;define('PAPAYA_WEBSITE_REVISION', '${revision.project}');&#10;define('PAPAYA_VERSION_STRING', '${revision.papaya}');&#10;"/>
+    <if>
+      <not>
+        <equals arg1="${configuration.directory.document-root}" arg2="${configuration.export.document-root}"/>
+      </not>
+      <then>
+        <move file="${targetDirectory}/${configuration.directory.document-root}" tofile="${targetDirectory}/${configuration.export.document-root}"/>
+        <echo message="Changing document root: ${configuration.directory.document-root} -> ${configuration.export.document-root}"/>
+      </then>
+    </if>
   </target>
 
 </project>
