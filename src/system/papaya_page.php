@@ -249,6 +249,7 @@ class papaya_page extends base_object {
       $application->response->end();
     }
 
+    $baseSessionDomain = $options->get('PAPAYA_SESSION_DOMAIN', '');
     $this->domains = new base_domains();
     $this->domains->handleDomain($application->request->languageId);
     $this->_currentDomainId = $this->domains->getCurrentId();
@@ -267,7 +268,7 @@ class papaya_page extends base_object {
     $redirectErrorCode = $request->getParameter(
       'redirect', 0, NULL, PapayaRequest::SOURCE_QUERY
     );
-    if (in_array($redirectErrorCode, array(403, 404, 500))) {
+    if (in_array($redirectErrorCode, array(403, 404, 500), FALSE)) {
       $message = $request->getParameter(
         'msg', '', NULL, PapayaRequest::SOURCE_QUERY
       );
@@ -282,8 +283,9 @@ class papaya_page extends base_object {
     if ($this->isPreview()) {
       $this->sessionName .= 'admin';
       define('PAPAYA_ADMIN_SESSION', TRUE);
+      define('PAPAYA_SESSION_DOMAIN', $baseSessionDomain);
       if ($options->get('PAPAYA_UI_SECURE', FALSE) &&
-          $application->request->getUrl()->scheme != 'https') {
+          'https' !== $application->request->getUrl()->scheme) {
         $url = $application->request->getUrl();
         $url->scheme = 'https';
         $this->doRedirect(301, $url->getUrl(), 'Secure administration');
