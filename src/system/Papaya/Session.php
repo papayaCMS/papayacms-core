@@ -1,22 +1,17 @@
 <?php
 /**
-* Papaya Session Handling, initialize, start, close and destroy session, give access to the the
-* session values.
-*
-* @copyright 2010 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage Session
-* @version $Id: Session.php 39727 2014-04-07 18:02:48Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Papaya Session Handling, initialize, start, close and destroy session, give access to the the
@@ -252,9 +247,9 @@ class PapayaSession extends PapayaObject {
   /**
   * Check if the request should be secure only (delivered over https)
   *
-  * PAPAYA_SESSION_VALUE sets both (page and administration interface) to secure mode.
+  * PAPAYA_SESSION_SECURE sets both (page and administration interface) to secure mode.
   *
-  * PAPAYA_UI_SECURE sets only the administration interface to secure mode.
+  * PAPAYA_UI_SECURE sets only the administration interface and previews to secure mode.
   *
   * @return boolean
   */
@@ -262,8 +257,14 @@ class PapayaSession extends PapayaObject {
     $options = $this->papaya()->options;
     if ($options->get('PAPAYA_SESSION_SECURE', FALSE)) {
       return TRUE;
-    } elseif ($options->get('PAPAYA_ADMIN_PAGE', FALSE) &&
-              $options->get('PAPAYA_UI_SECURE', FALSE)) {
+    }
+    if (
+      $options->get('PAPAYA_UI_SECURE', FALSE) &&
+      (
+        $options->get('PAPAYA_ADMIN_SESSION', FALSE) ||
+        $options->get('PAPAYA_ADMIN_PAGE', FALSE)
+      )
+    ) {
       return TRUE;
     }
     return FALSE;
