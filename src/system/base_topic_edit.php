@@ -4800,13 +4800,18 @@ class base_topic_edit extends base_topic {
   }
 
   /**
-  * Initialize publish form
-  *
-  * @access public
-  */
+   * Initialize publish form
+   *
+   * @access public
+   */
   function initializeHandoffDialog() {
     if (!(isset($this->dialogHandoff) && is_object($this->dialogHandoff)) &&
-        isset($this->topic['TRANSLATION'])) {
+      isset($this->topic['TRANSLATION'])) {
+      $group = NULL;
+      $authUser = $this->papaya()->administrationUser;
+      if ($authUser->user['handoff_group_id'] != 0) {
+        $group = $authUser->user['handoff_group_id'];
+      }
       $hidden = array(
         'cmd' => 'handoff',
         'topic_id' => $this->topicId,
@@ -4816,7 +4821,7 @@ class base_topic_edit extends base_topic {
 
       $fields = array(
         'user_id_to' => array(
-          'User', 'isSometext', TRUE, 'combo', $this->tasks()->getUserList(26), '', ''
+          'User', 'isSometext', TRUE, 'combo', $this->tasks()->getUserList($group), '', ''
         ),
         'comment' => array('Comment', 'isSometext', FALSE, 'input', 30, '', '')
       );

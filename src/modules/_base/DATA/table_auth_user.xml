@@ -15,6 +15,7 @@
     <field name="init_node" type="integer" size="8" null="no"/>
     <field name="chg_id" type="string" size="32" null="no"/>
     <field name="chg_time" type="integer" size="8" null="no"/>
+    <field name="handoff_group_id" type="integer" size="2" null="no" default="0"/>
   </fields>
   <keys>
     <primary-key>

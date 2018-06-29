@@ -416,7 +416,7 @@ class base_auth extends base_db {
     $this->isValid = FALSE;
     $active = ($login) ? ' AND active = 1' : '';
     $sql = "SELECT user_id, group_id, username, surname, givenname,
-                   user_password, email, start_node, sub_level, active, userperm
+                   user_password, email, start_node, sub_level, active, userperm, handoff_group_id
               FROM %s
              WHERE user_id = '%s' $active";
     if ($res = $this->databaseQueryFmt($sql, array($this->tableAuthUser, $uid))) {
