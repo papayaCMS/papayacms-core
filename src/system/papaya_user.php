@@ -86,6 +86,8 @@ class papaya_user extends base_auth {
       'getGroupListCombo', '', ''),
     'start_node' => array('Base page', 'isNum', TRUE, 'pageid', 5, '', 0),
     'sub_level' => array('Page depth', 'isNum', TRUE, 'input', 5, '', 0),
+    'handoff_group_id' => array('Handoff group', 'isNum', TRUE, 'function',
+       'getGroupListOrAnyCombo', '', '')
   );
 
   /**
@@ -407,7 +409,8 @@ class papaya_user extends base_auth {
       "email" => $this->params['email'],
       "start_node" => (int)$this->params['start_node'],
       "sub_level" => (int)$this->params['sub_level'],
-      "active" => (int)$this->params['active']
+      "active" => (int)$this->params['active'],
+      "handoff_group_id" => (int)$this->params['handoff_group_id']
     );
     // Check email in user AND surfer table
     $emailInUse = FALSE;
@@ -1971,6 +1974,44 @@ class papaya_user extends base_auth {
             papaya_strings::escapeHTMLChars($group['grouptitle'])
           );
         }
+      }
+      $result .= '</select>'.LF;
+    }
+    return $result;
+  }
+
+  /**
+   * Get group list combo including "any group"
+   *
+   * @param string $name
+   * @param array $element
+   * @param mixed $data
+   * @access public
+   * @return string $result
+   */
+  function getGroupListOrAnyCombo($name, $element, $data) {
+    $result = '';
+    if (isset($this->groups) && is_array($this->groups)) {
+      $result .= sprintf(
+        '<select name="%s[%s]" class="dialogSelect dialogScale" fid="%s">'.LF,
+        papaya_strings::escapeHTMLChars($this->paramName),
+        papaya_strings::escapeHTMLChars($name),
+        papaya_strings::escapeHTMLChars($name)
+      );
+      $selected = ($data == 0) ? ' selected="selected"' : '';
+      $result .= sprintf(
+        '<option value="0"%s>[%s]</option>'.LF,
+        $selected,
+        $this->_gt('Any group')
+      );
+      foreach ($this->groups as $groupId => $group) {
+        $selected = ($groupId == $data) ? ' selected="selected"' : '';
+        $result .= sprintf(
+          '<option value="%s"%s>%s</option>'.LF,
+          papaya_strings::escapeHTMLChars($groupId),
+          $selected,
+          papaya_strings::escapeHTMLChars($group['grouptitle'])
+        );
       }
       $result .= '</select>'.LF;
     }

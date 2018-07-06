@@ -34,6 +34,11 @@ class papaya_todo extends base_db {
   */
   var $tableAuthGroups = PAPAYA_DB_TBL_AUTHGROUPS;
   /**
+  * Papaya database table auth link
+  * @var string $tableAuthLink
+  */
+  var $tableAuthLink = PAPAYA_DB_TBL_AUTHLINK;
+  /**
   * Papaya database table todos
   * @var string $tableTodos
   */
@@ -204,15 +209,24 @@ class papaya_todo extends base_db {
   /**
   * Get user list user database table
   *
-  * @param mixed $perms optional, default value NULL
+  * @param integer $groupId optional, default value NULL
   * @access public
   * @return array $users
   */
-  function getUserList($perms = NULL) {
+  function getUserList($groupId = NULL) {
     $sql = "SELECT user_id, givenname, surname
               FROM %s
              ORDER BY givenname, surname ASC";
     $params = array($this->tableAuthUser);
+    if ($groupId !== NULL) {
+      $sql = "SELECT DISTINCT u.user_id, u.givenname, u.surname
+                FROM %s u
+                LEFT JOIN %s l
+                  ON u.user_id = l.user_id
+               WHERE u.group_id = %d
+                  OR l.group_id = %d";
+      $params = array($this->tableAuthUser, $this->tableAuthLink, $groupId, $groupId);
+    }
     $users = array();
     if ($res = $this->databaseQueryFmt($sql, $params)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
