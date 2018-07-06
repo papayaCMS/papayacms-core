@@ -1,21 +1,17 @@
 <?php
 /**
-* Tags Administration
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: papaya_tags.php 39858 2014-06-16 12:40:38Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Tags Administration
@@ -810,7 +806,7 @@ class papaya_tags extends base_tags {
       $categoryCondition = '';
     }
     $sql = "SELECT DISTINCT c.category_id, c.parent_id, c.parent_path,
-                   c.permission_mode,
+                   c.category_name, c.permission_mode,
                    ct.category_title, ct.category_description, ct.lng_id
               FROM %s c
               LEFT OUTER JOIN %s ct
@@ -1235,6 +1231,16 @@ class papaya_tags extends base_tags {
   */
   function initializeCategoryDialog($edit = TRUE) {
     if (!(isset($this->categoryDialog) && is_object($this->categoryDialog))) {
+      $fields['category_title'] = array(
+        'Title', 'isSomeText', TRUE, 'input', 100
+      );
+      $fields['category_description'] = array(
+        'Description', 'isSomeText', TRUE, 'textarea', 5
+      );
+      $fields[] = 'Language independent';
+      $fields['category_name'] = array(
+        'Name', 'isSomeText', TRUE, 'input', 50
+      );
       if ($edit &&
           isset($this->category) &&
           is_array($this->category) &&
@@ -1256,7 +1262,9 @@ class papaya_tags extends base_tags {
           $author = '';
         }
         if ((int)$categoryDetails['creation_time'] != 0) {
-          $date = date('j.n.Y G:i', (int)$categoryDetails['creation_time']);
+          $date = PapayaUtilDate::timestampToString(
+            (int)$categoryDetails['creation_time'], FALSE, FALSE, FALSE
+          );
         } else {
           $date = $this->_gt('Unknown');
         }
@@ -1267,15 +1275,15 @@ class papaya_tags extends base_tags {
         $data = array(
           'category_title' => $this->category['category_title'],
           'category_description' => $this->category['category_description'],
+          'category_name' => $this->category['category_name'],
           'permission_mode' => $this->category['permission_mode']
         );
-        $fields = array(
-          'created_by' => array(
-            $authorType, 'isSomeText', FALSE, 'info', '', '', $author, 'left'
-          ),
-          'created_on' => array(
-            'Created', 'isSomeText', FALSE, 'info', '', '', $date, 'left'
-          )
+        $fields[] = 'Created By';
+        $fields['created_by'] = array(
+          $authorType, 'isSomeText', FALSE, 'info', '', '', $author, 'left'
+        );
+        $fields['created_on'] = array(
+          'Date', 'isSomeText', FALSE, 'info', '', '', $date, 'left'
         );
         $dialogTitle = 'Edit category';
         $buttonTitle = 'Save';
@@ -1289,17 +1297,10 @@ class papaya_tags extends base_tags {
         $dialogTitle = 'Add category';
         $buttonTitle = 'Add';
       }
-      $fields['category_title'] = array(
-        'Title', 'isSomeText', TRUE, 'input', 100
-      );
-      $fields['category_description'] = array(
-        'Description', 'isSomeText', TRUE, 'textarea', 5
-      );
       $fields[] = 'Permissions';
       $fields['permission_mode'] = array(
         'Permission mode', 'isNoHTML', TRUE, 'combo', $this->permissionModes
       );
-
       $this->categoryDialog = new base_dialog(
         $this, $this->paramName, $fields, $data, $hidden
       );
@@ -1877,6 +1878,7 @@ class papaya_tags extends base_tags {
       $this->papaya()->administrationLanguage->id => array(
         'category_title' => $this->params['category_title'],
         'category_description' => $this->params['category_description'],
+        'category_name' => $this->params['category_name']
       ),
     );
     $catId = $this->addCategory(
@@ -1901,9 +1903,13 @@ class papaya_tags extends base_tags {
    */
   function setCategory() {
     $update = FALSE;
-    if (!isset($this->category['permission_mode'])
-        || $this->category['permission_mode'] != $this->params['permission_mode']) {
+    if (
+      !isset($this->category['permission_mode'], $this->category['category_name']) ||
+      (string)$this->category['category_name'] !== (string)$this->params['category_name'] ||
+      (string)$this->category['permission_mode'] !== (string)$this->params['permission_mode']
+    ) {
       $dataPerm = array(
+        'category_name' => $this->params['category_name'],
         'permission_mode' => $this->params['permission_mode'],
       );
       $condition = array(

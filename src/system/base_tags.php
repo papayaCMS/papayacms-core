@@ -1,21 +1,17 @@
 <?php
 /**
-* Tags basic object
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_tags.php 39973 2015-05-28 13:13:36Z kersken $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Tags basic object
@@ -202,7 +198,8 @@ class base_tags extends base_db {
     $categoryCondition = str_replace(
       '%', '%%', $this->databaseGetSQLCondition('c.category_id', $categoryIds)
     );
-    $sql = "SELECT c.category_id, c.parent_id, c.parent_path, c.permission_mode,
+    $sql = "SELECT c.category_id, c.parent_id, c.parent_path, 
+                   c.category_name, c.permission_mode,
                    ct.category_title, ct.category_description, ct.lng_id
               FROM %s c
               LEFT OUTER JOIN %s ct
@@ -233,7 +230,8 @@ class base_tags extends base_db {
     $categoryCondition = str_replace(
       '%', '%%', $this->databaseGetSQLCondition('c.parent_id', $categoryId)
     );
-    $sql = "SELECT c.category_id, c.parent_id, c.parent_path, c.permission_mode,
+    $sql = "SELECT c.category_id, c.parent_id, c.parent_path, 
+                   c.category_name, c.permission_mode,
                    ct.category_title, ct.category_description, ct.lng_id
               FROM %s c
               LEFT OUTER JOIN %s ct
@@ -318,7 +316,8 @@ class base_tags extends base_db {
     } else {
       $lngCondition = '';
     }
-    $sql = "SELECT c.category_id, c.parent_id, c.parent_path, c.permission_mode,
+    $sql = "SELECT c.category_id, c.parent_id, c.parent_path, 
+                   c.category_name, c.permission_mode,
                    ct.category_title, ct. category_description, ct.lng_id
               FROM %s c
               LEFT OUTER JOIN %s ct ON (c.category_id = ct.category_id $lngCondition)
@@ -347,7 +346,7 @@ class base_tags extends base_db {
     $categoryCondition = str_replace(
       '%', '%%', $this->databaseGetSQLCondition('c.category_id', $categoryId)
     );
-    $sql = "SELECT c.category_id, c.parent_id, c.parent_path,
+    $sql = "SELECT c.category_id, c.parent_id, c.parent_path, c.category_name, 
                    c.creator_type, c.creator_id, c.creation_time,
                    s.surfer_givenname, s.surfer_surname, s.surfer_email
               FROM %s c
