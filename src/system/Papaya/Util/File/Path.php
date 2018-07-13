@@ -129,11 +129,15 @@ class PapayaUtilFilePath {
    * @return string
    */
   public static function getDocumentRoot($options = NULL) {
+    if (defined('PAPAYA_DOCUMENT_ROOT')) {
+      return self::cleanup(PAPAYA_DOCUMENT_ROOT);
+    }
     if (!empty($_SERVER['DOCUMENT_ROOT'])) {
       return self::cleanup($_SERVER['DOCUMENT_ROOT']);
-    } elseif (isset($_SERVER['SCRIPT_FILENAME'])) {
+    }
+    if (isset($_SERVER['SCRIPT_FILENAME'])) {
       $path = dirname($_SERVER['SCRIPT_FILENAME']);
-      if (isset($options)) {
+      if (NULL !== $options) {
         if ($options->get('PAPAYA_ADMIN_PAGE', FALSE)) {
           $path = dirname($path);
         }
