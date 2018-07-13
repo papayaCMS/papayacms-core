@@ -336,15 +336,15 @@ class papaya_page extends base_object {
     /* redirect script handling */
     if (!empty($_GET['redirect'])) {
       $targetUrl = base_object::getAbsoluteURL(
-        $_GET['redirect'],
-        empty($_GET['title']) ? '' : $_GET['title']
+        (string)$_GET['redirect'],
+        empty($_GET['title']) ? '' : (string)$_GET['title']
       );
       $this->protectedRedirect(302, $targetUrl);
       exit;
     } elseif (!empty($_POST['redirect'])) {
       $targetUrl = base_object::getAbsoluteURL(
-        $_POST['redirect'],
-        empty($_POST['title']) ? '' : $_POST['title']
+        (string)$_POST['redirect'],
+        empty($_POST['title']) ? '' : (string)$_POST['title']
       );
       $this->protectedRedirect(302, $targetUrl);
       exit;
