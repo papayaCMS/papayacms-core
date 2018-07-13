@@ -1,30 +1,17 @@
 <?php
 /**
-* Tags Administration
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* usage sample for linking items to a tag (base_topic_edit):
-*
-* if ($tags = papaya_taglinks::getInstance($this)) {
-*   $this->layout->add($tags->getTagLinker('topic', $this->topicId));
-* } else {
-*   $this->addMsg(MSG_WARNING,
-*     $this->_gt('You have no permissions to edit tag links.'));
-* }
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: papaya_taglinks.php 39734 2014-04-08 19:01:37Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Tags Administration
@@ -910,7 +897,7 @@ class papaya_taglinks extends base_tags {
           $categoriesWithoutName[] = $row['category_id'];
         }
       }
-      $this->loadCategoryCounts();
+      $this->loadCategoryCounts($this->categories);
       $this->loadAlternativeCategoryNames($categoriesWithoutName);
       return TRUE;
     }
@@ -942,29 +929,6 @@ class papaya_taglinks extends base_tags {
         }
       }
     }
-  }
-
-  /**
-  * load number of subnodes of each category
-  */
-  function loadCategoryCounts() {
-    if (isset($this->categories) && is_array($this->categories) &&
-        (count($this->categories) > 0)) {
-      $categoryCondition = $this->databaseGetSQLCondition(
-        'parent_id', array_keys($this->categories)
-      );
-      $sql = "SELECT COUNT(*) AS count, parent_id
-                FROM %s
-              WHERE $categoryCondition
-              GROUP BY parent_id";
-      if ($res = $this->databaseQueryFmt($sql, $this->tableTagCategory)) {
-        while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-          $this->categories[(int)$row['parent_id']]['CATEG_COUNT'] = $row['count'];
-        }
-        return TRUE;
-      }
-    }
-    return FALSE;
   }
 
   /**

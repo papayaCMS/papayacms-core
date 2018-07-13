@@ -279,14 +279,14 @@ class base_tags extends base_db {
   */
   function loadCategoryCounts(&$categories) {
     if (is_array($categories) && (count($categories) > 0)) {
-      $categoryCondition = str_replace(
-        '%', '%%', $this->databaseGetSQLCondition('parent_id', array_keys($categories))
+      $categoryCondition = PapayaUtilString::escapeForPrintf(
+        $this->databaseGetSqlCondition('parent_id', array_keys($categories))
       );
       $sql = "SELECT COUNT(*) AS count, parent_id
                 FROM %s
                WHERE $categoryCondition
                GROUP BY parent_id";
-      if ($res = $this->databaseQueryFmt($sql, $this->tableTagCategory)) {
+      if ($res = $this->databaseQueryFmt($sql, array($this->tableTagCategory))) {
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
           $categories[(int)$row['parent_id']]['CATEG_COUNT'] = $row['count'];
         }
