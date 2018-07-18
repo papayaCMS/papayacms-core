@@ -663,18 +663,20 @@ class papaya_tagselector extends base_tags {
       if (!isset($this->params['order'])) {
         $this->params['order'] = '';
       }
+      $sortDirection = (isset($this->params['sort']) && 'asc' === (string)$this->params['sort'])
+        ? 'desc' : 'asc';
       switch ($this->params['order']) {
       default:
       case 'tag':
         $tagSortLink = $this->getLink(
           array(
             'order' => 'tag',
-            'sort' => (isset($this->params['sort']) && $this->params['sort'] == 'asc')
+            'sort' => $sortDirection
               ? 'desc' : 'asc',
             'cmd' => $this->params['cmd'],
           )
         );
-        $tagSort = ($this->params['sort'] == 'asc') ? 'desc' : 'asc';
+        $tagSort = $sortDirection;
         $pathSortLink = $this->getLink(
           array(
             'order' => 'path',
@@ -696,11 +698,11 @@ class papaya_tagselector extends base_tags {
         $pathSortLink = $this->getLink(
           array(
             'order' => 'path',
-            'sort' => ($this->params['sort'] == 'asc') ? 'desc' : 'asc',
+            'sort' => $sortDirection,
             'cmd' => $this->params['cmd'],
           )
         );
-        $pathSort = ($this->params['sort'] == 'asc') ? 'desc' : 'asc';
+        $pathSort = $sortDirection;
         break;
       }
 

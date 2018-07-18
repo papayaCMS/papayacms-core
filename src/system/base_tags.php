@@ -1151,11 +1151,11 @@ class base_tags extends base_db {
     switch ($order) {
     default :
     case 'tag':
-      $orderSQL = ' ORDER BY tag_title '.$sort.', parent_path ASC, category_id ASC ';
+      $orderSQL = ' ORDER BY tt.tag_title '.$sort.', c.parent_path ASC, c.category_id ASC ';
       break;
     case 'path':
-      $orderSQL = ' ORDER BY parent_path '.$sort.', category_id '.$sort.
-        ', tag_title ASC ';
+      $orderSQL = ' ORDER BY c.parent_path '.$sort.', c.category_id '.$sort.
+        ', tt.tag_title ASC ';
       break;
     case 'length':
       $orderSQL = ' ORDER BY LENGTH(tt.tag_title) '.$sort.', tt.tag_title ASC ';
