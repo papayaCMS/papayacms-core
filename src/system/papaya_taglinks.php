@@ -304,8 +304,29 @@ class papaya_taglinks extends base_tags {
         }
         break;
       case 'add_tag':
-        if (isset($this->params['tag_name']) && $this->params['tag_name'] != '') {
-          return $this->addTag($this->params['tag_name']);
+        if (isset($this->params['tag_name']) && '' !== (string)$this->params['tag_name']) {
+          $tagId = $this->addTag(
+            $this->params['cat_id'],
+            $this->papaya()->administrationLanguage->id,
+            'admin',
+            $this->papaya()->administrationUser->userId,
+            array(
+              'tag_title' => $this->params['tag_name'],
+              'tag_image' => '',
+              'tag_description' => ''
+            )
+          );
+          if ($tagId) {
+            $this->addMsg(
+              MSG_INFO,
+              sprintf(
+                $this->_gt('New tag "%s" (%d) has been added.'),
+                $this->params['tag_name'],
+                $tagId
+              )
+            );
+            $this->linkTag($this->tagType, $this->linkId, $tagId);
+          }
         }
         break;
       case 'open':
@@ -1002,42 +1023,6 @@ class papaya_taglinks extends base_tags {
     $dialog->baseLink = $this->getLink(array());
 
     return $dialog->getDialogXML();
-  }
-
-  /**
-   * Add a tag record
-   * @param string $tagName
-   *
-   * @return bool|mixed
-   */
-  function addTag($tagName) {
-    $data = array(
-      'category_id' => $this->params['cat_id'],
-      'default_lng_id' => $this->papaya()->administrationLanguage->id,
-      'creator_type' => 'admin',
-      'creator_id' => $this->papaya()->administrationUser->userId,
-      'creation_time' => time(),
-    );
-    if ($tagId = $this->databaseInsertRecord($this->tableTag, 'tag_id', $data)) {
-      $dataTrans[] = array(
-        'tag_id' => $tagId,
-        'tag_title' => $tagName,
-        'lng_id' => $this->papaya()->administrationLanguage->id,
-      );
-      if ($this->databaseInsertRecords($this->tableTagTrans, $dataTrans)) {
-        $this->addMsg(
-          MSG_INFO,
-          sprintf(
-            $this->_gt('New tag "%s" (%d) has been added.'),
-            $this->params['tag_name'],
-            $tagId
-          )
-        );
-        $this->linkTag($this->tagType, $this->linkId, $tagId);
-        return TRUE;
-      }
-    }
-    return FALSE;
   }
 
   /**
