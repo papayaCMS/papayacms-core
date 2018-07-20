@@ -122,6 +122,26 @@ class PapayaRequestParserPageTest extends PapayaTestCase {
           'page_title' => 'category_subcategory_page-title',
           'language' => 'en'
         )
+      ),
+      array(
+        '/title with spaces.6.en.html',
+        array(
+          'mode' => 'page',
+          'output_mode' => 'html',
+          'page_id' => 6,
+          'page_title' => 'title with spaces',
+          'language' => 'en'
+        )
+      ),
+      array(
+        '/title%20with%20spaces.6.en.html',
+        array(
+          'mode' => 'page',
+          'output_mode' => 'html',
+          'page_id' => 6,
+          'page_title' => 'title%20with%20spaces',
+          'language' => 'en'
+        )
       )
     );
   }
