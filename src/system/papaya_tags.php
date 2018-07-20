@@ -1239,7 +1239,7 @@ class papaya_tags extends base_tags {
       );
       $fields[] = 'Language independent';
       $fields['category_name'] = array(
-        'Name', 'isSomeText', TRUE, 'input', 50
+        'Name', 'isSomeText', FALSE, 'input', 50
       );
       if ($edit &&
           isset($this->category) &&
