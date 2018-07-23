@@ -13,19 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profile;
+
 /**
-* Application object profile for default request object
-*
-* @package Papaya-Library
-* @subpackage Application
-*/
-class PapayaApplicationProfileRequest implements \PapayaApplicationProfile {
+ * Application object profile for default request object
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+class Request implements \Papaya\Application\Profile {
 
   /**
-  * Create the profile object and return it
-  * @param \PapayaApplication|\PapayaApplicationCms $application
-  * @return stdClass
-  */
+   * Create the profile object and return it
+   *
+   * @param \Papaya\Application|\Papaya\Application\Cms $application
+   * @return \PapayaRequest
+   */
   public function createObject($application) {
     $request = new \PapayaRequest($application->options);
     $request->papaya($application);

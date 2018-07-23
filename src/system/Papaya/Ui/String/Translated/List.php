@@ -76,7 +76,7 @@ class PapayaUiStringTranslatedList
    * An combined getter/setter for the Papaya Application object
    *
    * @param \PapayaApplication $application
-   * @return \PapayaApplicationCms
+   * @return \Papaya\Application\Cms
    */
   public function papaya(\PapayaApplication $application = NULL) {
     if (isset($application)) {

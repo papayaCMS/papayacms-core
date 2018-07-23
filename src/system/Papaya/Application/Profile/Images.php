@@ -13,22 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profile;
 /**
-* Application object profile for the images
-*
-* Looks fopr an array $GLOBALS['PAPAYA_IMAGES'] and creates an instance of
-* PapayaUiImages with it.
-*
-* @package Papaya-Library
-* @subpackage Application
-*/
-class PapayaApplicationProfileImages implements \PapayaApplicationProfile {
+ * Application object profile for the images
+ *
+ * Looks fopr an array $GLOBALS['PAPAYA_IMAGES'] and creates an instance of
+ * PapayaUiImages with it.
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+class Images implements \Papaya\Application\Profile {
 
   /**
-  * Create the profile object and return it
-  * @param \PapayaApplication $application
-  * @return \PapayaUiImages
-  */
+   * Create the profile object and return it
+   *
+   * @param \Papaya\Application $application
+   * @return \PapayaUiImages
+   */
   public function createObject($application) {
     $images = new \PapayaUiImages(
       empty($GLOBALS['PAPAYA_IMAGES']) ? array() : $GLOBALS['PAPAYA_IMAGES']

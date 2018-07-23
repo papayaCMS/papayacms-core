@@ -13,22 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profile\Administration;
+
 /**
-* Application object profile for default options object
-*
-* @package Papaya-Library
-* @subpackage Application
-*/
-class PapayaApplicationProfileAdministrationUser implements \PapayaApplicationProfile {
+ * Application object profile for default options object
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+class User implements \Papaya\Application\Profile {
 
   /**
-  * Create the profile object and return it
-  * @param \PapayaApplication|\PapayaApplicationCms $application
-  * @return stdClass
-  */
+   * Create the profile object and return it
+   *
+   * @param \Papaya\Application|\Papaya\Application\Cms $application
+   * @return object
+   */
   public function createObject($application) {
     $application->options->defineDatabaseTables();
-    $user = new \base_auth();
-    return $user;
+    return new \base_auth();
   }
 }

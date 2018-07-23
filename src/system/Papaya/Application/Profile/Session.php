@@ -13,21 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profile;
+
 /**
-* Application object profile for default session object
-*
-* @package Papaya-Library
-* @subpackage Application
-*/
-class PapayaApplicationProfileSession implements \PapayaApplicationProfile {
+ * Application object profile for default session object
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+class Session implements \Papaya\Application\Profile {
 
   /**
-  * Create the profile object and return it
-  * @param \PapayaApplication $application
-  * @return stdClass
-  */
+   * Create the profile object and return it
+   *
+   * @param \Papaya\Application $application
+   * @return \PapayaSession
+   */
   public function createObject($application) {
     $session = new \PapayaSession();
+    $session->papaya($application);
     return $session;
   }
 }

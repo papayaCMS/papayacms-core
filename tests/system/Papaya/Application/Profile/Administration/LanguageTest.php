@@ -14,17 +14,18 @@
  */
 
 use Papaya\Administration\Languages\Selector;
+use Papaya\Application\Profile\Administration\Language;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaApplicationProfileAdministrationLanguageTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaApplicationProfileAdministrationLanguage::createObject
+  * @covers Language::createObject
   */
   public function testCreateObject() {
     $application = $this->mockPapaya()->application();
-    $profile = new PapayaApplicationProfileAdministrationLanguage();
+    $profile = new Language();
     $switch = $profile->createObject($application);
     $this->assertInstanceOf(
       Selector::class,

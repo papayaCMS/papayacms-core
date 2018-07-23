@@ -13,17 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application;
 /**
-* Interface definition for Papaya Application Profiles
-* @package Papaya-Library
-* @subpackage Application
-*/
-interface PapayaApplicationProfile {
+ * Interface definition for Papaya Application Profiles
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+interface Profile {
 
   /**
-  * Create the profile object and return it
-  * @param \PapayaApplication $application
-  * @return stdClass
-  */
-  function createObject($application);
+   * Create the profile object and return it
+   *
+   * @param \Papaya\Application $application
+   * @return object
+   */
+  public function createObject($application);
 }

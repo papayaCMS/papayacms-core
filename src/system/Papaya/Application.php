@@ -74,12 +74,13 @@ class Application implements \ArrayAccess {
 
   /**
   * Register a collection of profiles
-  * @param \PapayaApplicationProfiles $profiles
+  *
+  * @param \Papaya\Application\Profiles $profiles
   * @param integer $duplicationMode
   * @return void
   */
   public function registerProfiles(
-    \PapayaApplicationProfiles $profiles, $duplicationMode = self::DUPLICATE_ERROR
+    Application\Profiles $profiles, $duplicationMode = self::DUPLICATE_ERROR
   ) {
     foreach ($profiles->getProfiles($this) as $identifier => $profile) {
       $this->registerProfile($identifier, $profile, $duplicationMode);
@@ -88,15 +89,16 @@ class Application implements \ArrayAccess {
 
   /**
    * Register an object profile
+   *
    * @param string $identifier
-   * @param \PapayaApplicationProfile|callable $profile
+   * @param \Papaya\Application\Profile|callable $profile
    * @param integer $duplicationMode
    * @throws \InvalidArgumentException
    */
   public function registerProfile(
     $identifier, $profile, $duplicationMode = self::DUPLICATE_ERROR
   ) {
-    if (!($profile instanceof \PapayaApplicationProfile || is_callable($profile))) {
+    if (!($profile instanceof Application\Profile || is_callable($profile))) {
       throw new \InvalidArgumentException(
         sprintf(
           'Invalid profile %s is %s.',
@@ -142,7 +144,7 @@ class Application implements \ArrayAccess {
     }
     if (isset($this->_profiles[$index])) {
       $profile = $this->_profiles[$index];
-      if ($profile instanceof \PapayaApplicationProfile) {
+      if ($profile instanceof Application\Profile) {
         return $this->_objects[$index] = $profile->createObject($this);
       } else {
         return $this->_objects[$index] = call_user_func($profile, $this);

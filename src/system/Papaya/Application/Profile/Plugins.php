@@ -13,19 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profile;
+
 /**
-* Application object profile for the plugin loader
-*
-* @package Papaya-Library
-* @subpackage Application
-*/
-class PapayaApplicationProfilePlugins implements \PapayaApplicationProfile {
+ * Application object profile for the plugin loader
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+class Plugins implements \Papaya\Application\Profile {
 
   /**
-  * Create the profile object and return it
-  * @param \PapayaApplication $application
-  * @return stdClass
-  */
+   * Create the profile object and return it
+   *
+   * @param \Papaya\Application $application
+   * @return object
+   */
   public function createObject($application) {
     $plugins = new \PapayaPluginLoader();
     $plugins->papaya($application);

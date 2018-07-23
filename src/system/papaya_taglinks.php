@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Permissions;
+use Papaya\Application\Cms;
 
 /**
 * Tags Administration
@@ -128,7 +129,7 @@ class papaya_taglinks extends base_tags {
    * @return object $tagLinks instance of base_taglinks
    */
   public static function getInstance($parentObj = NULL, $paramName = NULL) {
-    /** @var PapayaApplicationCms $application */
+    /** @var Cms $application */
     $application = PapayaApplication::getInstance();
     $validUser = $application->administrationUser->hasPerm(
       Permissions::TAG_MANAGE

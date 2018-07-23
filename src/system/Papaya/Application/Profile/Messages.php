@@ -13,19 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profile;
 /**
-* Application object profile for the messages (manager) object
-*
-* @package Papaya-Library
-* @subpackage Application
-*/
-class PapayaApplicationProfileMessages implements \PapayaApplicationProfile {
+ * Application object profile for the messages (manager) object
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+class Messages implements \Papaya\Application\Profile {
 
   /**
-  * Create the profile object and return it
-  * @param \PapayaApplication $application
-  * @return \PapayaMessageManager
-  */
+   * Create the profile object and return it
+   *
+   * @param \Papaya\Application $application
+   * @return \PapayaMessageManager
+   */
   public function createObject($application) {
     $messages = new \PapayaMessageManager();
     $messages->addDispatcher(new \PapayaMessageDispatcherTemplate());

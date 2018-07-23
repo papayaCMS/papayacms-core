@@ -13,19 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profile;
+
 /**
-* Application object profile for default options object
-*
-* @package Papaya-Library
-* @subpackage Application
-*/
-class PapayaApplicationProfileOptions implements \PapayaApplicationProfile {
+ * Application object profile for default options object
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+class Options implements \Papaya\Application\Profile {
 
   /**
-  * Create the profile object and return it
-  * @param \PapayaApplication $application
-  * @return stdClass
-  */
+   * Create the profile object and return it
+   *
+   * @param \Papaya\Application $application
+   * @return \PapayaConfigurationCms
+   */
   public function createObject($application) {
     $options = new \PapayaConfigurationCms();
     $options->storage(new \PapayaConfigurationStorageDatabase());

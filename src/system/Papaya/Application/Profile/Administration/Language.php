@@ -13,21 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profile\Administration;
+
+use Papaya\Administration\Languages\Selector;
+
 /**
-* Application object profile for the content language switcher
-*
-* @package Papaya-Library
-* @subpackage Application
-*/
-class PapayaApplicationProfileAdministrationLanguage implements \PapayaApplicationProfile {
+ * Application object profile for the content language switcher
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+class Language implements \Papaya\Application\Profile {
 
   /**
-  * Create the profile object and return it
-  * @param \PapayaApplication $application
-  * @return stdClass
-  */
+   * Create the profile object and return it
+   *
+   * @param \Papaya\Application $application
+   * @return Selector
+   */
   public function createObject($application) {
-    $switch = new \Papaya\Administration\Languages\Selector();
-    return $switch;
+    $selector = new Selector();
+    $selector->papaya($application);
+    return $selector;
   }
 }

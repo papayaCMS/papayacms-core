@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Application\Profiles\Cms;
+
 /**
  * Some of the old bootstraps use the this class/file as the starting point,
  * they need to be changed and use ../core.php. For BC keep validate that
@@ -224,7 +226,7 @@ class papaya_page extends base_object {
     PapayaRequestLog::getInstance();
     $application = $this->papaya();
     $application->registerProfiles(
-      new PapayaApplicationProfilesCms()
+      new Cms()
     );
     $application->profiler->start();
     if (!defined('PAPAYA_ADMIN_PAGE')) {

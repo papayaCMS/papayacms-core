@@ -45,7 +45,7 @@ class PapayaControllerImage implements \PapayaController {
 
   /**
   * Execute controller
-   * @param \Papaya\Application|\PapayaApplicationCms $application
+   * @param \Papaya\Application|\Papaya\Application\Cms $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
    * @return boolean|\PapayaController

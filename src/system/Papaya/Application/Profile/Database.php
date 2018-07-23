@@ -13,19 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profile;
 /**
-* Application object profile for database (manager) object
-*
-* @package Papaya-Library
-* @subpackage Application
-*/
-class PapayaApplicationProfileDatabase implements \PapayaApplicationProfile {
+ * Application object profile for database (manager) object
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+class Database implements \Papaya\Application\Profile {
 
   /**
-  * Create the profile object and return it
-  * @param \PapayaApplication|\PapayaApplicationCms $application
-  * @return \PapayaDatabaseManager
-  */
+   * Create the profile object and return it
+   *
+   * @param \Papaya\Application|\Papaya\Application\Cms $application
+   * @return \PapayaDatabaseManager
+   */
   public function createObject($application) {
     $database = new \PapayaDatabaseManager();
     $database->papaya($application);

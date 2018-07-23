@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Application\Cms;
+
 /**
 * log type for user messages (login/logout)
 */
@@ -1045,7 +1047,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
       $dom = new DOMDocument('1.0', 'UTF-8');
       $fragment = $dom->createDocumentFragment();
       if (!$fragment->appendXml($iStr)) {
-        /** @var PapayaApplicationCms $application */
+        /** @var Cms $application */
         $application = PapayaApplication::getInstance();
         $showErrors = $application->options->get(
           'PAPAYA_DBG_XML_USERINPUT', FALSE

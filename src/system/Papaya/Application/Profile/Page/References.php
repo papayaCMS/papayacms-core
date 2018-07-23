@@ -13,19 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profile\Page;
 /**
-* Application object profile for languages object
-*
-* @package Papaya-Library
-* @subpackage Application
-*/
-class PapayaApplicationProfilePageReferences implements \PapayaApplicationProfile {
+ * Application object profile for languages object
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+class References implements \Papaya\Application\Profile {
 
   /**
-  * Create the profile object and return it
-  * @param \PapayaApplication $application
-  * @return \PapayaDatabaseManager
-  */
+   * Create the profile object and return it
+   *
+   * @param \Papaya\Application $application
+   * @return \PapayaUiReferencePageFactory
+   */
   public function createObject($application) {
     $references = new \PapayaUiReferencePageFactory();
     $references->papaya($application);

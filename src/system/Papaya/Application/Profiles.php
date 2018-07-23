@@ -13,17 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application;
 /**
-* Abstract class for Papaya Application Profile Collections
-* @package Papaya-Library
-* @subpackage Application
-*/
-interface PapayaApplicationProfiles {
+ * Abstract class for Papaya Application Profile Collections
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+interface Profiles {
 
   /**
-  * Get a collection of application object profiles
-  * @param \PapayaApplication $application
-  * @return array
-  */
-  function getProfiles($application);
+   * Get a collection of application object profiles
+   *
+   * @param \Papaya\Application $application
+   * @return array
+   */
+  public function getProfiles($application);
 }

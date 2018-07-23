@@ -13,31 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Languages\Selector;
+namespace Papaya\Application;
 
 /**
- * Class PapayaApplicationCms
+ * Class Papaya\Application\PapayaApplicationCms
  *
  * A pseudoclass extending the PapayaApplication service locator that
  * allows to declare the profiles as properties
  *
- * @property PapayaDatabaseManager $database
- * @property PapayaUiImages images
- * @property PapayaContentLanguages $languages
- * @property PapayaMessageManager $messages
- * @property PapayaConfigurationCms $options
- * @property PapayaPluginLoader $plugins
- * @property PapayaProfiler $profiler
- * @property PapayaRequest $request
- * @property PapayaResponse $response$response
- * @property PapayaSession $session
- * @property base_surfer $surfer
- * @property base_auth $administrationUser
- * @property Selector $administrationLanguage
- * @property PapayaUiReferenceFactory $references
- * @property PapayaUiReferencePageFactory $pageReferences
- * @property PapayaPhrases $phrases
+ * @property \PapayaDatabaseManager $database
+ * @property \PapayaUiImages images
+ * @property \PapayaContentLanguages $languages
+ * @property \PapayaMessageManager $messages
+ * @property \PapayaConfigurationCms $options
+ * @property \PapayaPluginLoader $plugins
+ * @property \PapayaProfiler $profiler
+ * @property \PapayaRequest $request
+ * @property \PapayaResponse $response$response
+ * @property \PapayaSession $session
+ * @property \base_surfer $surfer
+ * @property \base_auth $administrationUser
+ * @property \Papaya\Administration\Languages\Selector $administrationLanguage
+ * @property \PapayaUiReferenceFactory $references
+ * @property \PapayaUiReferencePageFactory $pageReferences
+ * @property \PapayaPhrases $phrases
  */
-abstract class PapayaApplicationCms extends \PapayaApplication {
+abstract class Cms extends \Papaya\Application {
 
 }

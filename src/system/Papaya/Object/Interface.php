@@ -25,7 +25,7 @@ interface PapayaObjectInterface {
   * Getter/Setter for the application registry
   *
   * @param \PapayaApplication $application
-  * @return \PapayaApplicationCms
+  * @return \Papaya\Application\Cms
   */
   function papaya(\PapayaApplication $application = NULL);
 }

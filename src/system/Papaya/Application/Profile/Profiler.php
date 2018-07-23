@@ -13,21 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profile;
 /**
-* Application object profile for profiler
-*
-* @package Papaya-Library
-* @subpackage Application
-*/
-class PapayaApplicationProfileProfiler implements \PapayaApplicationProfile {
+ * Application object profile for profiler
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+class Profiler implements \Papaya\Application\Profile {
 
-  private $_builder = NULL;
+  private $_builder;
 
   /**
-  * Create the profile object and return it
-  * @param \PapayaApplication|\PapayaApplicationCms $application
-  * @return \PapayaProfiler
-  */
+   * Create the profile object and return it
+   *
+   * @param \Papaya\Application|\Papaya\Application\Cms $application
+   * @return \PapayaProfiler
+   */
   public function createObject($application) {
     $builder = $this->builder();
     $builder->papaya($application);

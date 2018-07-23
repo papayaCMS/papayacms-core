@@ -13,38 +13,43 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profiles;
+
+use Papaya\Application\Profile;
+
 /**
-* Papaya Application Profile Collection for papaya CMS
-*
-* @package Papaya-Library
-* @subpackage Application
-*/
-class PapayaApplicationProfilesCms implements \PapayaApplicationProfiles {
+ * Papaya Application Profile Collection for papaya CMS
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+class Cms implements \Papaya\Application\Profiles {
 
   /**
-  * Get a collection of application object profiles
-  * @param $application
-  * @return array
-  */
+   * Get a collection of application object profiles
+   *
+   * @param $application
+   * @return array
+   */
   public function getProfiles($application) {
     $profiles = array();
-    $profiles['Database'] = new \PapayaApplicationProfileDatabase();
-    $profiles['Images'] = new \PapayaApplicationProfileImages();
-    $profiles['Languages'] = new \PapayaApplicationProfileLanguages();
-    $profiles['Messages'] = new \PapayaApplicationProfileMessages();
-    $profiles['Options'] = new \PapayaApplicationProfileOptions();
-    $profiles['Plugins'] = new \PapayaApplicationProfilePlugins();
-    $profiles['Profiler'] = new \PapayaApplicationProfileProfiler();
-    $profiles['Request'] = new \PapayaApplicationProfileRequest();
-    $profiles['Response'] = new \PapayaApplicationProfileResponse();
-    $profiles['Session'] = new \PapayaApplicationProfileSession();
-    $profiles['Surfer'] = new \PapayaApplicationProfileSurfer();
+    $profiles['Database'] = new Profile\Database();
+    $profiles['Images'] = new Profile\Images();
+    $profiles['Languages'] = new Profile\Languages();
+    $profiles['Messages'] = new Profile\Messages();
+    $profiles['Options'] = new Profile\Options();
+    $profiles['Plugins'] = new Profile\Plugins();
+    $profiles['Profiler'] = new Profile\Profiler();
+    $profiles['Request'] = new Profile\Request();
+    $profiles['Response'] = new Profile\Response();
+    $profiles['Session'] = new Profile\Session();
+    $profiles['Surfer'] = new Profile\Surfer();
 
-    $profiles['AdministrationUser'] = new \PapayaApplicationProfileAdministrationUser();
-    $profiles['AdministrationLanguage'] = new \PapayaApplicationProfileAdministrationLanguage();
+    $profiles['AdministrationUser'] = new Profile\Administration\User();
+    $profiles['AdministrationLanguage'] = new Profile\Administration\Language();
 
-    $profiles['References'] = new \PapayaApplicationProfileReferences();
-    $profiles['PageReferences'] = new \PapayaApplicationProfilePageReferences();
+    $profiles['References'] = new Profile\References();
+    $profiles['PageReferences'] = new Profile\Page\References();
     return $profiles;
   }
 }

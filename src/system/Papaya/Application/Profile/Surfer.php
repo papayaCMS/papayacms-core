@@ -13,21 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application\Profile;
+
 /**
-* Application object profile for default request object
-*
-* @package Papaya-Library
-* @subpackage Application
-*/
-class PapayaApplicationProfileSurfer implements \PapayaApplicationProfile {
+ * Application object profile for default request object
+ *
+ * @package Papaya-Library
+ * @subpackage Application
+ */
+class Surfer implements \Papaya\Application\Profile {
 
   /**
-  * Create the profile object and return it
-  * @param \PapayaApplication $application
-  * @return stdClass
-  */
+   * Create the profile object and return it
+   *
+   * @param \Papaya\Application $application
+   * @return object
+   */
   public function createObject($application) {
+    /** @var \base_surfer $surfer */
     $surfer = \base_surfer::getInstance();
+    $surfer->papaya($application);
     return $surfer;
   }
 }
