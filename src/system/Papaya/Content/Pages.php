@@ -133,21 +133,22 @@ class PapayaContentPages extends \PapayaDatabaseRecordsLazy {
       $viewModeId = 0;
       unset($filter['viewmode_id']);
     }
-    $sql = "SELECT t.topic_id, t.prev, t.prev_path,
-                   t.linktype_id, t.topic_protocol,
-                   t.topic_weight,
-                   tt.lng_id, tt.topic_title, tt.topic_content,
-                   t.author_id, au.givenname, au.surname,
-                   t.topic_created, t.topic_modified, tp.topic_modified topic_published,
-                   tt.view_id, v.module_guid, vm.viewmode_id
-              FROM %s AS t
+    $sql = /** @lang TEXT*/
+      "SELECT t.topic_id, t.prev, t.prev_path,
+              t.linktype_id, t.topic_protocol,
+              t.topic_weight,
+              tt.lng_id, tt.topic_title, tt.topic_content,
+              t.author_id, au.givenname, au.surname,
+              t.topic_created, t.topic_modified, tp.topic_modified topic_published,
+              tt.view_id, v.module_guid, vm.viewmode_id
+         FROM %s AS t
          $joinMode JOIN %s AS tt ON (tt.topic_id = t.topic_id AND tt.lng_id = '%d')
-              LEFT JOIN %s AS tp ON (tp.topic_id = t.topic_id)
-              LEFT JOIN %s AS v ON (v.view_id = tt.view_id)
-              LEFT JOIN %s AS vm ON (vm.view_id = tt.view_id AND vm.viewmode_id = '%d')
-              LEFT JOIN %s AS au ON (t.author_id = au.user_id)
-                   ".$this->_compileCondition($filter)."
-                   ".$this->_compileOrderBy();
+         LEFT JOIN %s AS tp ON (tp.topic_id = t.topic_id)
+         LEFT JOIN %s AS v ON (v.view_id = tt.view_id)
+         LEFT JOIN %s AS vm ON (vm.view_id = tt.view_id AND vm.viewmode_id = '%d')
+         LEFT JOIN %s AS au ON (t.author_id = au.user_id)
+              ".PapayaUtilString::escapeForPrintf($this->_compileCondition($filter)).'
+              '.PapayaUtilString::escapeForPrintf($this->_compileOrderBy());
     $parameters = array(
       $databaseAccess->getTableName($this->_tablePages),
       $databaseAccess->getTableName($this->_tablePageTranslations),
@@ -167,17 +168,30 @@ class PapayaContentPages extends \PapayaDatabaseRecordsLazy {
       'published' => 't.topic_modified <= tp.topic_modified',
       'created' => 'tp.topic_modified IS NULL'
     );
-    if (isset($filter['status']) && isset($statusConditions[$filter['status']])) {
-      $result = $prefix.' '.$statusConditions[$filter['status']];
-      unset($filter['status']);
-      return $result.parent::_compileCondition($filter, $prefix, ' AND ');
+    $conditions = '';
+    if (isset($filter['status'], $statusConditions[$filter['status']])) {
+      $conditions .= $prefix.' '.$statusConditions[$filter['status']];
+      $prefix = ' AND ';
+    }
+    if (isset($filter['ancestor_id']) && $filter['ancestor_id'] > 0) {
+      $ancestorFilter = new PapayaDatabaseConditionGroup($this);
+      $ancestorFilter
+        ->isEqual('t.prev', $filter['ancestor_id'])
+        ->logicalOr()
+        ->like('t.prev_path', '*;'.$filter['ancestor_id'].';*');
+      $conditions .= $prefix.' '.$ancestorFilter->getSql(TRUE);
+      $prefix = ' AND ';
+    }
+    unset($filter['status'], $filter['ancestor_id']);
+    if ($conditions) {
+      return $conditions.parent::_compileCondition($filter, $prefix);
     }
     return parent::_compileCondition($filter, $prefix);
   }
 
 
   /**
-  * Overload the mapping object instanzation, to attach an callback for the mapping process.
+  * Overload the mapping object instantiation, to attach an callback for the mapping process.
   *
   * @return \PapayaDatabaseInterfaceMapping
   */

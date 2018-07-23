@@ -14,8 +14,21 @@
  */
 
 /**
- * @deprecated {@see PapayaPluginEditableContentAggregation}
- */
-trait PapayaPluginEditableAggregation {
-  use PapayaPluginEditableContentAggregation;
+* Callbacks for the plugin editable content
+*
+* @package Papaya-Library
+* @subpackage Plugins
+*
+* @property PapayaObjectCallback $onCreateEditor
+* @method PapayaPluginEditor onCreateEditor(PapayaPluginEditableData $data)
+*/
+class PapayaPluginEditableCallbacks extends PapayaObjectCallbacks {
+
+  public function __construct() {
+    parent::__construct(
+      array(
+        'onCreateEditor' => NULL
+      )
+    );
+  }
 }

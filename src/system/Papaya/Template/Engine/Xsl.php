@@ -209,6 +209,9 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
     $errors = $this->getErrorHandler();
     $errors->activate();
     foreach ($this->parameters as $name => $value) {
+      if (FALSE !== strpos($value, '"') && FALSE !== strpos($value, "'")) {
+        $value = str_replace("'", "\xE2\x80\x99", $value);
+      }
       $this->_processor->setParameter('', $name, $value);
     }
     try {

@@ -25,7 +25,7 @@ class PapayaPluginEditorTest extends PapayaTestCase {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
     $content = $this->createMock(PapayaPluginEditableContent::class);
     $editor = new PapayaPluginEditor_TestProxy($content);
-    $this->assertSame($content, $editor->getContent());
+    $this->assertSame($content, $editor->getData());
   }
 
   /**

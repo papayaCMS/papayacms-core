@@ -1,26 +1,17 @@
 <?php
 /**
-* Tags Administration
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* usage sample for selecting tags:
-*   $tagSelector = papaya_tagselector::getInstance($this);
-*   $this->layout->add($tagSelector->getTagSelector($selectedTags));
-*   $selectedTags = $tagSelector->getSelectedTags();
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: papaya_tagselector.php 39697 2014-03-27 16:54:51Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Tags Administration
@@ -275,7 +266,7 @@ class papaya_tagselector extends base_tags {
       }
     }
     $selectedCategories = $this->getCategories(
-      $selectedCatIds, (int)$this->parentObj->getContentLanguageId()
+      $selectedCatIds, (int)$this->papaya()->administrationLanguage->id
     );
     $allParents = array();
     foreach ($selectedCategories as $selectedCategory) {
@@ -291,7 +282,7 @@ class papaya_tagselector extends base_tags {
       }
     }
     $moreCategories = $this->getCategories(
-      $allParents, (int)$this->parentObj->getContentLanguageId()
+      $allParents, (int)$this->papaya()->administrationLanguage->id
     );
     foreach ($moreCategories as $category) {
       $this->categories[$category['category_id']] = $category;
@@ -482,7 +473,7 @@ class papaya_tagselector extends base_tags {
 
     $lngCondition = $this->databaseGetSQLCondition(
       'ct.lng_id',
-      (int)$this->parentObj->getContentLanguageId()
+      (int)$this->papaya()->administrationLanguage->id
     );
     $parentCondition = $this->databaseGetSQLCondition('c.parent_id', $parentIds);
     $availableCategories = $this->getAvailableCategories(
@@ -672,18 +663,20 @@ class papaya_tagselector extends base_tags {
       if (!isset($this->params['order'])) {
         $this->params['order'] = '';
       }
+      $sortDirection = (isset($this->params['sort']) && 'asc' === (string)$this->params['sort'])
+        ? 'desc' : 'asc';
       switch ($this->params['order']) {
       default:
       case 'tag':
         $tagSortLink = $this->getLink(
           array(
             'order' => 'tag',
-            'sort' => (isset($this->params['sort']) && $this->params['sort'] == 'asc')
+            'sort' => $sortDirection
               ? 'desc' : 'asc',
             'cmd' => $this->params['cmd'],
           )
         );
-        $tagSort = ($this->params['sort'] == 'asc') ? 'desc' : 'asc';
+        $tagSort = $sortDirection;
         $pathSortLink = $this->getLink(
           array(
             'order' => 'path',
@@ -705,11 +698,11 @@ class papaya_tagselector extends base_tags {
         $pathSortLink = $this->getLink(
           array(
             'order' => 'path',
-            'sort' => ($this->params['sort'] == 'asc') ? 'desc' : 'asc',
+            'sort' => $sortDirection,
             'cmd' => $this->params['cmd'],
           )
         );
-        $pathSort = ($this->params['sort'] == 'asc') ? 'desc' : 'asc';
+        $pathSort = $sortDirection;
         break;
       }
 
@@ -811,7 +804,7 @@ class papaya_tagselector extends base_tags {
     if (isset($this->selectedTags)) {
       $selectedTagsData = $this->getTags(
         array_keys($this->selectedTags),
-        (int)$this->parentObj->getContentLanguageId()
+        (int)$this->papaya()->administrationLanguage->id
       );
     } else {
       $this->selectedTags = array();

@@ -14,8 +14,27 @@
  */
 
 /**
- * @deprecated {@see PapayaPluginEditableContentAggregation}
+ * Class PapayaPluginEditableOptions
  */
-trait PapayaPluginEditableAggregation {
-  use PapayaPluginEditableContentAggregation;
+class PapayaPluginEditableOptions extends PapayaPluginEditableData {
+
+  /**
+   * Checksum buffer filled in {@see PapayaPluginEditableOptions::modified()}
+   * @var string|NULL
+   */
+  private $_checksum;
+
+  public function __construct(PapayaPluginOptions $options) {
+    parent::__construct(iterator_to_array($options));
+    $this->_checksum = $this->getChecksum();
+  }
+
+  /**
+   * Check if the contained data was modified.
+   *
+   * @return boolean
+   */
+  public function modified() {
+    return $this->_checksum !== $this->getChecksum();
+  }
 }

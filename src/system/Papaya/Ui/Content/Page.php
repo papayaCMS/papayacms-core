@@ -39,6 +39,11 @@ class PapayaUiContentPage extends \PapayaObject {
   private $_isPublic = TRUE;
 
   /**
+   * @var \PapayaUiReferencePage
+   */
+  private $_reference;
+
+  /**
    * @param int $pageId
    * @param int|string|\PapayaContentLanguage $language
    * @param bool $isPublic
@@ -91,7 +96,7 @@ class PapayaUiContentPage extends \PapayaObject {
       }
       if ($language = $this->getPageLanguage()) {
         $this->_translation->activateLazyLoad(
-          array('page_id' => $this->_pageId, 'language_id' => $language['id'])
+          array('id' => $this->_pageId, 'language_id' => $language['id'])
         );
       }
     }
@@ -132,4 +137,67 @@ class PapayaUiContentPage extends \PapayaObject {
     return $this->_isPublic;
   }
 
+  /**
+   * Append the page teaser
+   *
+   * @param \PapayaXmlElement $parent
+   * @param array|\PapayaObjectParameters $configuration
+   */
+  public function appendQuoteTo(PapayaXmlElement $parent, $configuration = []) {
+    $moduleGuid = $this->translation()->moduleGuid;
+    if (!empty($moduleGuid)) {
+      $plugin = $this->papaya()->plugins->get($moduleGuid, $this, $this->translation()->content);
+      if ($plugin) {
+        $reference = clone $this->reference();
+        $reference->setPageId($this->getPageId(), TRUE);
+        if (isset($configuration['query_string'])) {
+          $reference->setParameters(
+            PapayaRequestParameters::createFromString($configuration['query_string'])
+          );
+        }
+        $teaser = $parent->appendElement(
+          'teaser',
+          array(
+            'page-id' => $this->getPageId(),
+            'plugin-guid' => $moduleGuid,
+            'plugin' => get_class($plugin),
+            'view' => $this->translation()->viewName,
+            'href' => $reference->getRelative(),
+            'published' => PapayaUtilDate::timestampToString($this->translation()->modified),
+            'created' => PapayaUtilDate::timestampToString($this->translation()->created)
+          )
+        );
+        if ($plugin instanceof PapayaPluginQuoteable) {
+          if ($plugin instanceof PapayaPluginConfigurable) {
+            $plugin->configuration()->merge($configuration);
+          }
+          $plugin->appendQuoteTo($teaser);
+        } elseif ($plugin instanceof base_content &&
+                  method_exists($plugin, 'getParsedTeaser')) {
+          $teaser->appendXml((string)$plugin->getParsedTeaser((array)$configuration));
+        }
+        /** @var PapayaXmlDocument $document */
+        $document = $teaser->ownerDocument;
+        if (0 === (int)$document->xpath()->evaluate('count(node())', $teaser)) {
+          $teaser->parentNode->removeChild($teaser);
+        }
+      }
+    }
+  }
+
+  /**
+   * Getter/Setter for the template reference subobject used to generate links to the subpages
+   *
+   * @param PapayaUiReferencePage $reference
+   * @return PapayaUiReferencePage
+   */
+  public function reference(PapayaUiReferencePage $reference = NULL) {
+    if (NULL !== $reference) {
+      $this->_reference = $reference;
+    } elseif (NULL === $this->_reference) {
+      $this->_reference = new PapayaUiReferencePage();
+      $this->_reference->papaya($this->papaya());
+    }
+    return $this->_reference;
+  }
 }

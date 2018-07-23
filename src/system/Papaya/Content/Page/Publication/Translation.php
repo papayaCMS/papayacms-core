@@ -32,6 +32,7 @@
 * @property string $metaDescription
 * @property integer $viewId
 * @property-read string $viewTitle
+* @property-read string $viewName
 * @property-read string $moduleGuid
 * @property-read string $moduleTitle
 */

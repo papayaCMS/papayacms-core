@@ -13,8 +13,6 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache;
-
 /**
 * file owner
 */
@@ -498,7 +496,7 @@ class base_topic extends base_db {
     $result = sprintf(
       '<%s no="%s" title="%s" href="%s" author="%s %s" created="%s"'.
       ' createdRFC822="%s" published="%s" audited="%s"'.
-      ' module="%s" guid="%s"%s>'.LF,
+      ' module="%s" guid="%s"%s%s>'.LF,
       papaya_strings::escapeHTMLChars($tagName),
       (int)$this->topicId,
       papaya_strings::escapeHTMLChars($this->topic['TRANSLATION']['topic_title']),
@@ -515,6 +513,12 @@ class base_topic extends base_db {
       empty($audited) ? '' : PapayaUtilDate::timestampToString($audited),
       papaya_strings::escapeHTMLChars(get_class($this->moduleObj)),
       papaya_strings::escapeHTMLChars($this->topic['TRANSLATION']['module_guid']),
+      empty($this->topic['TRANSLATION']['view_name'])
+        ? ''
+        : sprintf(
+          ' view="%s"',
+          papaya_strings::escapeHTMLChars($this->topic['TRANSLATION']['view_name'])
+        ),
       $emptyTag ? '/' : ''
     );
     return $result;
@@ -593,7 +597,7 @@ class base_topic extends base_db {
       $sql = "SELECT t.topic_id, t.topic_title, t.topic_content, t.lng_id,
                      t.topic_trans_created, t.topic_trans_modified,
                      t.meta_title, t.meta_keywords, t.meta_descr,
-                     t.view_id, v.view_title,
+                     t.view_id, v.view_title, v.view_name,
                      m.module_guid , m.module_title, m.module_path,
                      m.module_file, m.module_class,
                      u.user_id, u.username, u.givenname, u.surname, u.group_id
@@ -1028,7 +1032,7 @@ class base_topic extends base_db {
   * @return boolean|integer
   */
   public function deleteCache() {
-    $cache = Cache::getService($this->papaya()->options);
+    $cache = \Papaya\Cache::getService($this->papaya()->options);
     return $cache->delete('pages', $this->topicId);
   }
 

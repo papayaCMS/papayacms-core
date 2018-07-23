@@ -247,9 +247,9 @@ class PapayaSession extends \PapayaObject {
   /**
   * Check if the request should be secure only (delivered over https)
   *
-  * PAPAYA_SESSION_VALUE sets both (page and administration interface) to secure mode.
+  * PAPAYA_SESSION_SECURE sets both (page and administration interface) to secure mode.
   *
-  * PAPAYA_UI_SECURE sets only the administration interface to secure mode.
+  * PAPAYA_UI_SECURE sets only the administration interface and previews to secure mode.
   *
   * @return boolean
   */
@@ -257,8 +257,14 @@ class PapayaSession extends \PapayaObject {
     $options = $this->papaya()->options;
     if ($options->get('PAPAYA_SESSION_SECURE', FALSE)) {
       return TRUE;
-    } elseif ($options->get('PAPAYA_ADMIN_PAGE', FALSE) &&
-              $options->get('PAPAYA_UI_SECURE', FALSE)) {
+    }
+    if (
+      $options->get('PAPAYA_UI_SECURE', FALSE) &&
+      (
+        $options->get('PAPAYA_ADMIN_SESSION', FALSE) ||
+        $options->get('PAPAYA_ADMIN_PAGE', FALSE)
+      )
+    ) {
       return TRUE;
     }
     return FALSE;

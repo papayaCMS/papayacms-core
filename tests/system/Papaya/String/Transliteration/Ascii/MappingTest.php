@@ -144,6 +144,7 @@ class PapayaStringTransliterationAsciiMappingTest extends PapayaTestCase {
     return array(
       array('a', 228, 'generic'), // LATIN SMALL LETTER A WITH DIAERESIS
       array('ae', 228, 'de'), // LATIN SMALL LETTER A WITH DIAERESIS
+      array('ae', 228, 'de-DE'), // LATIN SMALL LETTER A WITH DIAERESIS
       array('a', 97, 'de'), // LATIN SMALL LETTER A
       array('r', 1088, 'de'), // CYRILLIC SMALL LETTER ER
       array('', 0, 'generic'), // NULL

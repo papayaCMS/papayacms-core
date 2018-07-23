@@ -15,7 +15,7 @@
 
 class PapayaDatabaseConditionLike extends \PapayaDatabaseConditionElement {
 
-  private $_value = '';
+  private $_value;
 
   public function __construct(
     \PapayaDatabaseConditionGroup $parent, $field = '', $value = NULL
@@ -25,7 +25,7 @@ class PapayaDatabaseConditionLike extends \PapayaDatabaseConditionElement {
   }
 
   public function getSql($silent = FALSE) {
-    $values = is_array($this->_value) ? $this->_value : array($this->value);
+    $values = is_array($this->_value) ? $this->_value : array($this->_value);
     $likeValues = [];
     $inValues = [];
     foreach ($values as $value) {
@@ -46,7 +46,7 @@ class PapayaDatabaseConditionLike extends \PapayaDatabaseConditionElement {
         if (count($inValues) > 0) {
           $conditions[] = $this->getDatabaseAccess()->getSqlCondition(
             array(
-              $this->mapFieldName($field, $silent) => $inValues
+              $this->mapFieldName($field) => $inValues
             ),
             NULL,
             '='
@@ -55,7 +55,7 @@ class PapayaDatabaseConditionLike extends \PapayaDatabaseConditionElement {
         if (count($likeValues) > 0) {
           $conditions[] = $this->getDatabaseAccess()->getSqlCondition(
             array(
-              $this->mapFieldName($field, $silent) => $likeValues
+              $this->mapFieldName($field) => $likeValues
             ),
             NULL,
             'LIKE'

@@ -13,8 +13,6 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache;
-
 /**
 * Create topic list
 *
@@ -260,17 +258,27 @@ class papaya_overview extends base_db {
   */
   function loadTopicList($lngId, $desc = TRUE, $max = 8) {
     unset($this->topics);
-    $order = ($desc) ? "DESC" : "ASC";
-    $sql = "SELECT tp.topic_modified AS topic_published, tt.topic_title,
-                   t.topic_modified, t.topic_id, t.author_id, t.topic_created,
-                   t.box_useparent, t.meta_useparent,
-                   u.givenname, u.surname, u.user_id
-              FROM %s t
-              LEFT JOIN %s tt ON (t.topic_id = tt.topic_id AND tt.lng_id = %d)
-              LEFT JOIN %s tp ON (t.topic_id = tp.topic_id)
-              LEFT JOIN %s u ON (t.author_id = u.user_id)
-             WHERE (tp.topic_modified >= t.topic_modified)
-             ORDER BY topic_published %s";
+    $ancestorId = $this->papaya()->administrationUser->startNode;
+    $ancestorCondition = '';
+    if ($ancestorId > 0) {
+      $ancestorCondition = PapayaUtilString::escapeForPrintf(
+        sprintf(
+        " AND (t.prev = %1\$d OR t.prev_path LIKE '%%;%1\$d;%%')", $ancestorId
+        )
+      );
+    }
+    $order = $desc ? 'DESC' : 'ASC';
+    $sql = /** @lang TEXT */
+      "SELECT tp.topic_modified AS topic_published, tt.topic_title,
+              t.topic_modified, t.topic_id, t.author_id, t.topic_created,
+              t.box_useparent, t.meta_useparent,
+              u.givenname, u.surname, u.user_id
+         FROM %s t
+         LEFT JOIN %s tt ON (t.topic_id = tt.topic_id AND tt.lng_id = %d)
+         LEFT JOIN %s tp ON (t.topic_id = tp.topic_id)
+         LEFT JOIN %s u ON (t.author_id = u.user_id)
+        WHERE (tp.topic_modified >= t.topic_modified) $ancestorCondition
+        ORDER BY topic_published %s";
     $params = array(
       $this->tableTopics,
       $this->tableTopicsTrans,
@@ -281,7 +289,7 @@ class papaya_overview extends base_db {
     );
     if ($res = $this->databaseQueryFmt($sql, $params, $max)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-        $this->topics[$row["topic_id"]] = $row;
+        $this->topics[$row['topic_id']] = $row;
       }
     }
   }
@@ -296,23 +304,38 @@ class papaya_overview extends base_db {
   */
   function loadNoPublishedTopicList($langId, $desc = TRUE, $max = 8) {
     unset($this->topics);
-    $order = ($desc) ? "DESC" : "ASC";
-    $sql = "SELECT tp.topic_modified AS topic_published, tt.topic_title,
-                   t.topic_modified, t.topic_id, t.author_id, t.topic_created,
-                   t.box_useparent, t.meta_useparent,
-                   u.givenname, u.surname, u.user_id
-              FROM %s t
-              LEFT JOIN %s tt ON (t.topic_id = tt.topic_id AND tt.lng_id = %d)
-              LEFT JOIN %s tp ON (t.topic_id = tp.topic_id)
-              LEFT JOIN %s u ON (t.author_id = u.user_id)
-             WHERE (tp.topic_id IS NULL OR (tp.topic_modified < t.topic_modified))
-             ORDER BY t.topic_modified %s";
+    $ancestorId = $this->papaya()->administrationUser->startNode;
+    $ancestorCondition = '';
+    if ($ancestorId > 0) {
+      $ancestorCondition = PapayaUtilString::escapeForPrintf(
+        sprintf(
+        " AND (t.prev = %1\$d OR t.prev_path LIKE '%%;%1\$d;%%')", $ancestorId
+        )
+      );
+    }
+    $order = $desc ? 'DESC' : 'ASC';
+    $sql = /** @lang TEXT */
+      "SELECT tp.topic_modified AS topic_published, tt.topic_title,
+              t.topic_modified, t.topic_id, t.author_id, t.topic_created,
+              t.box_useparent, t.meta_useparent,
+              u.givenname, u.surname, u.user_id
+         FROM %s t
+         LEFT JOIN %s tt ON (t.topic_id = tt.topic_id AND tt.lng_id = %d)
+         LEFT JOIN %s tp ON (t.topic_id = tp.topic_id)
+         LEFT JOIN %s u ON (t.author_id = u.user_id)
+        WHERE (tp.topic_id IS NULL OR (tp.topic_modified < t.topic_modified)) $ancestorCondition
+        ORDER BY t.topic_modified %s";
     $params = array(
-      $this->tableTopics, $this->tableTopicsTrans,
-      $langId, $this->tableTopicsPublic, $this->tableAuthUser, $order);
+      $this->tableTopics,
+      $this->tableTopicsTrans,
+      $langId,
+      $this->tableTopicsPublic,
+      $this->tableAuthUser,
+      $order
+    );
     if ($res = $this->databaseQueryFmt($sql, $params, $max)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-        $this->topics[$row["topic_id"]] = $row;
+        $this->topics[$row['topic_id']] = $row;
       }
     }
   }
@@ -810,6 +833,7 @@ class papaya_overview extends base_db {
   * @access public
   */
   function searchFor($limit = 20) {
+
     $sql = "SELECT t.topic_id, t.prev, t.prev_path, t.topic_created, t.topic_modified,
                    t.box_useparent, t.meta_useparent,
                    tp.topic_modified AS topic_published,
@@ -970,6 +994,12 @@ class papaya_overview extends base_db {
         }
       }
     }
+    $ancestorId = $this->papaya()->administrationUser->startNode;
+    if ($ancestorId > 0) {
+      $conditions[] = sprintf(
+        "(t.prev = %1\$d OR t.prev_path LIKE '%%;%1\$d;%%')", $ancestorId
+      );
+    }
 
     if (!empty($conditions)) {
       $sql .= ' WHERE '.str_replace('%', '%%', implode(' AND ', $conditions));
@@ -992,7 +1022,8 @@ class papaya_overview extends base_db {
       $this->pages()->load(
         array(
           'id' => array_unique($allAncestors),
-          'language_id' => $this->papaya()->administrationLanguage->getCurrent()->id
+          'language_id' => $this->papaya()->administrationLanguage->getCurrent()->id,
+          'ancestor_id' => $ancestorId
         )
       );
     }

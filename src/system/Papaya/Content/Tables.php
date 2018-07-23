@@ -167,6 +167,7 @@ class PapayaContentTables extends \PapayaObject {
     'PAPAYA_DB_TBL_MODULEOPTIONS' => self::MODULE_OPTIONS,
     'PAPAYA_DB_TBL_URLS' => 'urls',
     'PAPAYA_DB_TBL_DOMAINS' => self::DOMAINS,
+    'PAPAYA_DB_TBL_DOMAIN_GROUPS' => self::DOMAIN_GROUPS,
 
     'PAPAYA_DB_TBL_PHRASE' => self::PHRASES,
     'PAPAYA_DB_TBL_PHRASE_LOG' => self::PHRASE_LOG,

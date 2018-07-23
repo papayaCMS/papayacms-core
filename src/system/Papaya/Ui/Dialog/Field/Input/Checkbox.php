@@ -25,7 +25,7 @@
 * @property string|NULL $defaultValue
 * @property boolean $mandatory
 */
-class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputCheckbox extends PapayaUiDialogFieldInput {
 
   /**
   * Specify the field type for the template
@@ -37,7 +37,7 @@ class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
   /**
   * Field type, used in template
   *
-  * @var string
+  * @var array
   */
   protected $_values = array(
     'active' => TRUE,
@@ -91,7 +91,7 @@ class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
       ),
       (string)$this->_values['active']
     );
-    if ($currentValue == $this->_values['active']) {
+    if ((string)$currentValue === (string)$this->_values['active']) {
       $input->setAttribute('checked', 'checked');
     }
     return $field;
@@ -110,8 +110,8 @@ class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
         'The active value can not be empty.'
       );
     }
-    if ($active == $inactive) {
-      throw new \InvalidArgumentException(
+    if ((string)$active === (string)$inactive) {
+      throw new InvalidArgumentException(
         'The active value and the inactive value must be different.'
       );
     }
@@ -131,13 +131,35 @@ class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
   * @return mixed
   */
   public function getCurrentValue() {
-    $value = parent::getCurrentValue();
-    if (empty($value) || $value === $this->_values['inactive']) {
-      return $this->_values['inactive'];
-    } elseif ($value == $this->_values['active']) {
-      return $this->_values['active'];
+    $name = $this->getName();
+    if (!empty($name) && ($dialog = $this->getDialog())) {
+      if ($this->getDisabled()) {
+        return $this->getDefaultValue();
+      }
+      if ($dialog->isSubmitted()) {
+        $isActive = (
+          $dialog->parameters()->has($name) &&
+          $dialog->parameters()->get($name, '') === (string)$this->_values['active']
+        );
+      } elseif ($dialog->data()->has($name)) {
+        $isActive = (string)$dialog->data()->get($name) === (string)$this->_values['active'];
+      } else {
+        $isActive = $this->getDefaultValue() === (string)$this->_values['active'];
+      }
+      return $this->_values[$isActive ? 'active' : 'inactive'];
     }
-    return $this->_values['inactive'];
+    return $this->getDefaultValue();
+  }
+
+  /**
+  * Get the default value for the field.
+  *
+  * @return string
+  */
+  public function getDefaultValue() {
+    $value = parent::getDefaultValue();
+    $isActive = (string)$value === (string)$this->_values['active'];
+    return $this->_values[$isActive ? 'active' : 'inactive'];
   }
 
   /**
@@ -149,8 +171,7 @@ class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
   public function getFilter() {
     if ($this->getMandatory()) {
       return parent::getFilter();
-    } else {
-      return NULL;
     }
+    return NULL;
   }
 }

@@ -27,14 +27,14 @@ class PapayaRequestParserPage extends \PapayaRequestParser {
   * @var string
   */
   private $_pattern = '(/
-    (?:(?P<page_title>[a-zA-Z\d_-]+)\.) # title
-    (?:(?P<category_id>\d+)\.)? # category id
-    (?:(?P<page_id>\d+)\.) # page id
-    (?:(?P<language>[a-zA-Z]{2,4})\.)? # language identifier
+    (?:(?P<page_title>(?:%[\\dA-Fa-f]{2}|[\\sa-zA-Z\\d_-]+)+)\\.) # title
+    (?:(?P<category_id>\\d+)\\.)? # category id
+    (?:(?P<page_id>\\d+)\\.) # page id
+    (?:(?P<language>[a-zA-Z]{2,4})\\.)? # language identifier
     (?:(?P<mode>(?:[a-oq-z]+|p(?!review))[a-z]*)) # output mode
-    (?:\.
+    (?:\\.
       (?P<preview>preview) # preview
-      (?:\.(?P<preview_time>\d+))? # preview time
+      (?:\\.(?P<preview_time>\\d+))? # preview time
     )?
   $)Dix';
 

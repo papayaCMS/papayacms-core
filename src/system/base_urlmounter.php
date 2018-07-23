@@ -1,21 +1,17 @@
 <?php
 /**
-* Edit URL basic class
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_urlmounter.php 39637 2014-03-19 18:31:17Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Edit URL basic class
@@ -173,11 +169,11 @@ class base_urlmounter extends base_db {
     $sidPattern = '#^/(sid\w*[\da-fA-F]{32}/)?([^\?]+)(.*)$#';
     if (preg_match($sidPattern, $_SERVER['REQUEST_URI'], $regs)) {
       list(, , $path, $addString) = $regs;
-      if ($path != '') {
-        $this->path = $this->checkPathSlashes($path);
+      if ('' !== $path) {
+        $this->path = $this->checkPathSlashes(urldecode($path));
         $data = $this->loadAlias($this->path);
         if (isset($data) && is_array($data)) {
-          if ($data['url_redirectmode'] == 3) {
+          if (3 === $data['url_redirectmode']) {
             $url = $data['target_url'];
           } else {
             $queryParams = array_merge(
@@ -260,7 +256,7 @@ class base_urlmounter extends base_db {
   /**
   * load alias data
   * @param string $path
-  * @return array
+  * @return array|FALSE
   */
   function loadAlias($path) {
     $paths = array('/*');

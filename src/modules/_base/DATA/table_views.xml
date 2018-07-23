@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ papaya CMS
+  ~
+  ~ @copyright 2000-2018 by papayaCMS project - All rights reserved.
+  ~ @link http://www.papaya-cms.com/
+  ~ @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+  ~
+  ~  You can redistribute and/or modify this script under the terms of the GNU General Public
+  ~  License (GPL) version 2, provided that the copyright and license notes, including these
+  ~  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+  ~  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  ~  FOR A PARTICULAR PURPOSE.
+  -->
+
 <table name="views" prefix="yes">
   <fields>
     <field name="view_id" type="integer" size="8" null="no" autoinc="yes"/>
     <field name="view_title" type="string" size="60" null="no"/>
+    <field name="view_name" type="string" size="60" null="no"/>
     <field name="view_limits" type="string" size="255" null="no"/>
     <field name="module_guid" type="string" size="32" null="no"/>
     <field name="view_is_cacheable" type="integer" size="2" null="no"/>

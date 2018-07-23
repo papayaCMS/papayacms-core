@@ -32,6 +32,7 @@
 * @property string $metaDescription
 * @property integer $viewId
 * @property-read string $viewTitle
+* @property-read string $viewName
 * @property-read string $moduleGuid
 * @property-read string $moduleTitle
 */
@@ -53,6 +54,7 @@ class PapayaContentPageTranslation extends \PapayaDatabaseRecordLazy {
     'meta_keywords' => 'tt.meta_keywords',
     'meta_description' => 'tt.meta_descr',
     'view_id' => 'tt.view_id',
+    'view_name' => 'v.view_name',
     'module_guid' => 'v.module_guid'
   );
 

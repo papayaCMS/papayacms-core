@@ -17,7 +17,7 @@
 * This is a list of the options for a single plugin module.
 *
 * The options will be loaded if the first option is read, making it a lazy load. It is
-* possible to load them manuall and disable the lazy load this way.
+* possible to load them manually and disable the lazy load this way.
 *
 * @package Papaya-Library
 * @subpackage Plugins
@@ -29,8 +29,8 @@ class PapayaPluginOptions extends \PapayaConfiguration {
   const STATUS_LOADED = 2;
 
   private $_status = self::STATUS_CREATED;
-  private $_storage = NULL;
-  private $_guid = '';
+  private $_storage;
+  private $_guid;
 
   /**
   * Create object and store plugin guid for later loading
@@ -50,8 +50,8 @@ class PapayaPluginOptions extends \PapayaConfiguration {
   */
   public function set($name, $value) {
     $this->lazyLoad();
-    $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
-    if ($this->_status == self::STATUS_LOADING) {
+    $name = PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+    if ($this->_status === self::STATUS_LOADING) {
       $this->_options[$name] = $value;
     } else {
       parent::set($name, $value);
@@ -96,7 +96,7 @@ class PapayaPluginOptions extends \PapayaConfiguration {
   * Make sure that the option are loaded if needed.
   */
   private function lazyLoad() {
-    if ($this->_status == self::STATUS_CREATED) {
+    if (self::STATUS_CREATED === $this->_status) {
       $this->load();
     }
   }
@@ -128,11 +128,11 @@ class PapayaPluginOptions extends \PapayaConfiguration {
    * @param \PapayaConfigurationStorage $storage
    * @return \PapayaConfigurationStorage
    */
-  public function storage(\PapayaConfigurationStorage $storage = NULL) {
-    if (isset($storage)) {
+  public function storage(PapayaConfigurationStorage $storage = NULL) {
+    if (NULL !== $storage) {
       $this->_storage = $storage;
-    } elseif (is_null($this->_storage)) {
-      $this->_storage = new \PapayaPluginOptionStorage($this->_guid);
+    } elseif (NULL === $this->_storage) {
+      $this->_storage = new PapayaPluginOptionStorage($this->_guid);
       $this->_storage->papaya($this->papaya());
     }
     return parent::storage($this->_storage);

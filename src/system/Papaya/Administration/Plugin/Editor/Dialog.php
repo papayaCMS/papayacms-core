@@ -21,7 +21,8 @@
 */
 class PapayaAdministrationPluginEditorDialog extends \PapayaPluginEditor {
 
-  private $_dialog = NULL;
+  private $_dialog;
+  private $_onExecuteCallback;
 
   /**
    * Execute and append the dialog to to the administration interface DOM.
@@ -35,7 +36,12 @@ class PapayaAdministrationPluginEditorDialog extends \PapayaPluginEditor {
       $this->dialog()->hiddenValues()->merge($context);
     }
     if ($this->dialog()->execute()) {
-      $this->getContent()->assign($this->dialog()->data());
+      if (NULL !== $this->_onExecuteCallback) {
+        $callback = $this->_onExecuteCallback;
+        $callback();
+      } else {
+        $this->getData()->assign($this->dialog()->data());
+      }
     } elseif ($this->dialog()->isSubmitted()) {
       $this->papaya()->messages->dispatch(
         new \PapayaMessageDisplayTranslated(
@@ -49,13 +55,22 @@ class PapayaAdministrationPluginEditorDialog extends \PapayaPluginEditor {
   }
 
   /**
+   * Replace the default execution logic (assign data)
+   *
+   * @param callable $callback
+   */
+  public function onExecute(callable $callback) {
+    $this->_onExecuteCallback = $callback;
+  }
+
+  /**
    * Getter/Setter for the dialog subobject.
    *
    * @param \PapayaUiDialog $dialog
    * @return \PapayaUiDialog
    */
-  public function dialog(\PapayaUiDialog $dialog = NULL) {
-    if (isset($dialog)) {
+  public function dialog(PapayaUiDialog $dialog = NULL) {
+    if (NULL !== $dialog) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
       $this->_dialog = $this->createDialog();
@@ -72,17 +87,23 @@ class PapayaAdministrationPluginEditorDialog extends \PapayaPluginEditor {
     $dialog = new \PapayaUiDialog();
     $dialog->papaya($this->papaya());
 
-    $dialog->caption = new \Papaya\Administration\Languages\Caption(
-      new \PapayaUiStringTranslated('Edit content')
-    );
-    $dialog->image = new \PapayaAdministrationLanguagesImage();
+    if ($this->getData() instanceof PapayaPluginEditableContent) {
+      $dialog->caption = new PapayaAdministrationLanguagesCaption(
+        new PapayaUiStringTranslated('Edit content')
+      );
+      $dialog->image = new PapayaAdministrationLanguagesImage();
+      $dialog->parameterGroup('content');
+    } elseif ($this->getData() instanceof PapayaPluginEditableOptions) {
+      $dialog->caption = new PapayaUiStringTranslated('Edit options');
+      $dialog->parameterGroup('options');
+    } else {
+      $dialog->caption = new PapayaUiStringTranslated('Edit properties');
+      $dialog->parameterGroup('properties');
+    }
+    $dialog->data()->assign($this->getData());
 
     $dialog->options->topButtons = TRUE;
-
-    $dialog->parameterGroup('content');
-    $dialog->data()->assign($this->getContent());
-
-    $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));
+    $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Save'));
 
     return $dialog;
   }

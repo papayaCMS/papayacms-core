@@ -129,11 +129,15 @@ class PapayaUtilFilePath {
    * @return string
    */
   public static function getDocumentRoot($options = NULL) {
+    if (defined('PAPAYA_DOCUMENT_ROOT')) {
+      return self::cleanup(PAPAYA_DOCUMENT_ROOT);
+    }
     if (!empty($_SERVER['DOCUMENT_ROOT'])) {
       return self::cleanup($_SERVER['DOCUMENT_ROOT']);
-    } elseif (isset($_SERVER['SCRIPT_FILENAME'])) {
+    }
+    if (isset($_SERVER['SCRIPT_FILENAME'])) {
       $path = dirname($_SERVER['SCRIPT_FILENAME']);
-      if (isset($options)) {
+      if (NULL !== $options) {
         if ($options->get('PAPAYA_ADMIN_PAGE', FALSE)) {
           $path = dirname($path);
         }
@@ -144,6 +148,30 @@ class PapayaUtilFilePath {
       return self::cleanup($path);
     }
     return '/';
+  }
+
+  /**
+   * Get the /vendor path
+   * @return string
+   */
+  public static function getVendorPath() {
+    $root = self::getDocumentRoot();
+    if (is_dir($root.'/../vendor')) {
+      return '../vendor/';
+    }
+    return 'vendor/';
+  }
+
+  /**
+   * Get the /src path
+   * @return string
+   */
+  public static function getSourcePath() {
+    $root = self::getDocumentRoot();
+    if (is_dir($root.'/../src')) {
+      return '../src/';
+    }
+    return 'src/';
   }
 
   /**

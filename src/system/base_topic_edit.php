@@ -1,21 +1,17 @@
 <?php
 /**
-* page adminsitration class
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_topic_edit.php 39863 2014-06-27 09:47:01Z kersken $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * page adminsitration class
@@ -2286,7 +2282,7 @@ class base_topic_edit extends base_topic {
     $sql = "SELECT t.version_published,
                    t.topic_id, t.topic_title, t.topic_content, t.lng_id,
                    t.meta_title, t.meta_keywords, t.meta_descr,
-                   t.view_id, v.view_title,
+                   t.view_id, v.view_title, v.view_name,
                    m.module_guid, m.module_title, m.module_path,
                    m.module_file, m.module_class,
                    u.user_id, u.username, u.givenname, u.surname, u.group_id
@@ -4804,13 +4800,18 @@ class base_topic_edit extends base_topic {
   }
 
   /**
-  * Initialize publish form
-  *
-  * @access public
-  */
+   * Initialize publish form
+   *
+   * @access public
+   */
   function initializeHandoffDialog() {
     if (!(isset($this->dialogHandoff) && is_object($this->dialogHandoff)) &&
-        isset($this->topic['TRANSLATION'])) {
+      isset($this->topic['TRANSLATION'])) {
+      $group = NULL;
+      $authUser = $this->papaya()->administrationUser;
+      if ($authUser->user['handoff_group_id'] != 0) {
+        $group = $authUser->user['handoff_group_id'];
+      }
       $hidden = array(
         'cmd' => 'handoff',
         'topic_id' => $this->topicId,
@@ -4820,7 +4821,7 @@ class base_topic_edit extends base_topic {
 
       $fields = array(
         'user_id_to' => array(
-          'User', 'isSometext', TRUE, 'combo', $this->tasks()->getUserList(26), '', ''
+          'User', 'isSometext', TRUE, 'combo', $this->tasks()->getUserList($group), '', ''
         ),
         'comment' => array('Comment', 'isSometext', FALSE, 'input', 30, '', '')
       );

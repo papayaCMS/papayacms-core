@@ -31,11 +31,11 @@ class PapayaAdministrationPluginEditorGroup extends \PapayaPluginEditor {
   /**
    * PapayaAdministrationPluginEditorGroup constructor.
    *
-   * @param \PapayaPluginEditableContent $content
+   * @param PapayaPluginEditableData $data
    * @param string $indexParameterName
    */
-  public function __construct(\PapayaPluginEditableContent $content, $indexParameterName = 'editor_index') {
-    parent::__construct($content);
+  public function __construct(PapayaPluginEditableData $data, $indexParameterName = 'editor_index') {
+    parent::__construct($data);
     $this->_indexParameterName = $indexParameterName;
   }
 

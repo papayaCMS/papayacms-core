@@ -13,8 +13,6 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache;
-
 /**
  * Some of the old bootstraps use the this class/file as the starting point,
  * they need to be changed and use ../core.php. For BC keep validate that
@@ -251,6 +249,7 @@ class papaya_page extends base_object {
       $application->response->end();
     }
 
+    $baseSessionDomain = $options->get('PAPAYA_SESSION_DOMAIN', '');
     $this->domains = new base_domains();
     $this->domains->handleDomain($application->request->languageId);
     $this->_currentDomainId = $this->domains->getCurrentId();
@@ -269,7 +268,7 @@ class papaya_page extends base_object {
     $redirectErrorCode = $request->getParameter(
       'redirect', 0, NULL, PapayaRequest::SOURCE_QUERY
     );
-    if (in_array($redirectErrorCode, array(403, 404, 500))) {
+    if (in_array($redirectErrorCode, array(403, 404, 500), FALSE)) {
       $message = $request->getParameter(
         'msg', '', NULL, PapayaRequest::SOURCE_QUERY
       );
@@ -284,8 +283,11 @@ class papaya_page extends base_object {
     if ($this->isPreview()) {
       $this->sessionName .= 'admin';
       define('PAPAYA_ADMIN_SESSION', TRUE);
-      if ($options->get('PAPAYA_UI_SECURE', FALSE) &&
-          $application->request->getUrl()->scheme != 'https') {
+      define('PAPAYA_SESSION_DOMAIN', $baseSessionDomain);
+      if (
+        $options->get('PAPAYA_UI_SECURE', FALSE) &&
+        'https' !== $application->request->getUrl()->scheme
+      ) {
         $url = $application->request->getUrl();
         $url->scheme = 'https';
         $this->doRedirect(301, $url->getUrl(), 'Secure administration');
@@ -336,15 +338,15 @@ class papaya_page extends base_object {
     /* redirect script handling */
     if (!empty($_GET['redirect'])) {
       $targetUrl = base_object::getAbsoluteURL(
-        $_GET['redirect'],
-        empty($_GET['title']) ? '' : $_GET['title']
+        (string)$_GET['redirect'],
+        empty($_GET['title']) ? '' : (string)$_GET['title']
       );
       $this->protectedRedirect(302, $targetUrl);
       exit;
     } elseif (!empty($_POST['redirect'])) {
       $targetUrl = base_object::getAbsoluteURL(
-        $_POST['redirect'],
-        empty($_POST['title']) ? '' : $_POST['title']
+        (string)$_POST['redirect'],
+        empty($_POST['title']) ? '' : (string)$_POST['title']
       );
       $this->protectedRedirect(302, $targetUrl);
       exit;
@@ -681,7 +683,7 @@ class papaya_page extends base_object {
   function startSession() {
     $session = $this->papaya()->session;
     if ($this->isPreview()) {
-      $startSession = PapayaSession::ACTIVATION_ALWAYS;
+      $startSession = PapayaSession::ACTIVATION_DYNAMIC;
     } elseif ($this->allowSession &&
               $this->papaya()->options->get('PAPAYA_SESSION_START', FALSE)) {
       $startSession = $this->allowSession;
@@ -960,7 +962,7 @@ class papaya_page extends base_object {
           }
         }
       }
-      $cache = Cache::getService($this->papaya()->options);
+      $cache = \Papaya\Cache::getService($this->papaya()->options);
       $cacheIdGzip = $cacheId.'.gz';
       if ($this->acceptGzip &&
           defined('PAPAYA_COMPRESS_CACHE_OUTPUT') &&
@@ -1033,7 +1035,7 @@ class papaya_page extends base_object {
   function setCache($cacheId, $topicId, $page) {
     if (defined('PAPAYA_CACHE_OUTPUT') && PAPAYA_CACHE_OUTPUT &&
         defined('PAPAYA_CACHE_TIME_OUTPUT') && PAPAYA_CACHE_TIME_OUTPUT > 0) {
-      $cache = Cache::getService($this->papaya()->options);
+      $cache = \Papaya\Cache::getService($this->papaya()->options);
       if (defined('PAPAYA_COMPRESS_CACHE_OUTPUT') &&
           PAPAYA_COMPRESS_CACHE_OUTPUT) {
         $cache->write(

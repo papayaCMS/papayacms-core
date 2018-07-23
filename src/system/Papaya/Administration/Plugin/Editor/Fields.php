@@ -21,24 +21,24 @@
 */
 class PapayaAdministrationPluginEditorFields extends \PapayaAdministrationPluginEditorDialog {
 
-  private $_fields = array();
+  private $_fields;
 
-  private $_builder = NULL;
+  private $_builder;
 
   /**
    * Create the object store plugin instance and field definition
    *
-   * @param \PapayaPluginEditableContent $content
+   * @param PapayaPluginEditableData $data
    * @param array $fields
    */
-  public function __construct(\PapayaPluginEditableContent $content, array $fields) {
-    parent::__construct($content);
-    \PapayaUtilConstraints::assertArrayOrTraversable($fields);
+  public function __construct(PapayaPluginEditableData $data, array $fields) {
+    parent::__construct($data);
+    PapayaUtilConstraints::assertArrayOrTraversable($fields);
     $this->_fields = $fields;
   }
 
   /**
-   * Create a dialog isntance and initialize it.
+   * Create a dialog instance and initialize it.
    *
    * @return \PapayaUiDialog
    */
@@ -55,8 +55,8 @@ class PapayaAdministrationPluginEditorFields extends \PapayaAdministrationPlugin
    * @param \PapayaUiDialogFieldBuilderArray $builder
    * @return \PapayaUiDialogFieldBuilderArray
    */
-  public function builder(\PapayaUiDialogFieldBuilderArray $builder = NULL) {
-    if (isset($builder)) {
+  public function builder(PapayaUiDialogFieldBuilderArray $builder = NULL) {
+    if (NULL !== $builder) {
       $this->_builder = $builder;
     } elseif (NULL === $this->_builder) {
       $this->_builder = new \PapayaUiDialogFieldBuilderArray($this, $this->_fields);

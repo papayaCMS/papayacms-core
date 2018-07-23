@@ -219,7 +219,7 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   /**
   * Get the default value for the field.
   *
-  * @return string
+  * @return mixed
   */
   public function getDefaultValue() {
     return $this->_defaultValue;

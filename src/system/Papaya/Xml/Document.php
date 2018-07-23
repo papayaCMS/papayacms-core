@@ -165,25 +165,25 @@ class PapayaXmlDocument
   * @param \PapayaXmlElement $target
   * @return \PapayaXmlElement|\PapayaXmlDocument $target
   */
-  public function appendXml($content, \PapayaXmlElement $target = NULL) {
-    if (is_null($target)) {
+  public function appendXml($content, PapayaXmlElement $target = NULL) {
+    if (NULL === $target) {
       $target = $this;
     }
     $fragment = $this->createDocumentFragment();
     $content = sprintf(
       '<papaya:content xmlns:papaya="http://www.papaya-cms.com/ns/papayacms">%s</papaya:content>',
-      \PapayaUtilStringUtf8::ensure($content)
+      PapayaUtilStringXml::removeControlCharacters(PapayaUtilStringUtf8::ensure($content))
     );
-    $fragment->appendXml($content);
+    $fragment->appendXML($content);
     if ($fragment->firstChild) {
-      if ($target->ownerDocument == NULL) {
-        if ($fragment->firstChild->firstChild) {
-          $target->appendChild($fragment->firstChild->firstChild->cloneNode(TRUE));
-        }
-      } else {
+      if ($target->ownerDocument instanceof self) {
         foreach ($fragment->firstChild->childNodes as $node) {
           /** @var DOMNode $node */
           $target->appendChild($node->cloneNode(TRUE));
+        }
+      } else {
+        if ($fragment->firstChild->firstChild) {
+          $target->appendChild($fragment->firstChild->firstChild->cloneNode(TRUE));
         }
       }
     }
@@ -296,5 +296,11 @@ class PapayaXmlDocument
       array($dom, 'loadXml'), array($xmlString), !$silent
     );
     return ($success) ? $dom : NULL;
+  }
+
+  public function createTextNode($content) {
+    return parent::createTextNode(
+      PapayaUtilStringXml::removeControlCharacters($content) ?: ''
+    );
   }
 }

@@ -1,35 +1,33 @@
 <?php
 /**
-* XML handling factory class
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage XML
-* @version $Id: sys_simple_xmltree.php 39602 2014-03-18 14:21:20Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
-* @package Papaya-Library
-* @subpackage XML
-*/
+ * XML handling factory class
+ *
+ * @deprecated
+ */
 class simple_xmltree {
 
   /**
-  * create an XML tree object
-  *
-  * @access public
-  * @return DOMDocument|NULL xml document object
-  */
-  function create() {
+   * create an XML tree object
+   *
+   * @access public
+   * @return DOMDocument|NULL xml document object
+   * @reprecated
+   */
+  public static function create() {
     $path = dirname(__FILE__).'/xml/';
     include_once($path.'papaya_dom_element_node.php');
     include_once($path.'papaya_dom_text_node.php');
@@ -48,7 +46,7 @@ class simple_xmltree {
   * @param string $errorType
   * @return array|NULL
   */
-  function handleLibxmlErrors($errorType = 'xml') {
+  public static function handleLibxmlErrors($errorType = 'xml') {
     $errors = libxml_get_errors();
     if (is_array($errors) && count($errors) > 0) {
       foreach ($errors as $error) {
@@ -76,8 +74,8 @@ class simple_xmltree {
   * @return DOMDocument|NULL xml document object
   */
   public static function createFromXML($xmlData, $owner) {
-    if (trim($xmlData) != '') {
-      $xmlTree = simple_xmltree::create();
+    if (trim($xmlData) !== '') {
+      $xmlTree = self::create();
       if (is_object($xmlTree)) {
         if (@$xmlTree->loadXML($xmlData)) {
           if (is_object($xmlTree->documentElement)) {
@@ -87,12 +85,12 @@ class simple_xmltree {
                   PAPAYA_DBG_XML_USERINPUT === '1' &&
                   is_object($owner)) {
           if (is_a($xmlTree, 'DOMDocument')) {
-            $owner->lastXMLError = simple_xmltree::handleLibxmlErrors();
+            $owner->lastXMLError = self::handleLibxmlErrors();
           } else {
             $owner->lastXMLError = empty($xmlTree->lastError) ? '' : $xmlTree->lastError;
           }
         }
-        simple_xmltree::destroy($xmlTree);
+        self::destroy($xmlTree);
         unset($xmlTree);
       }
     }
@@ -125,7 +123,7 @@ class simple_xmltree {
   * @access public
   * @return string $result transformed
   */
-  function strToXML($str, $encodeXMLChars = FALSE) {
+  public static function strToXML($str, $encodeXMLChars = FALSE) {
     if ($encodeXMLChars) {
       return papaya_strings::utf8ToUnicodeEntities(papaya_strings::escapeHTMLChars($str));
     } else {
@@ -140,7 +138,7 @@ class simple_xmltree {
   * @access public
   * @return string $result transformed
   */
-  function XMLtoStr($str) {
+  public static function XMLtoStr($str) {
     //for compatibility - old style encoding
     $str = preg_replace_callback(
       "(\&\#([0-9]{1,3});)",
@@ -157,7 +155,7 @@ class simple_xmltree {
   * @param array $match
   * @return string
   */
-  function XMLToStrCallback($match) {
+  public static function XMLToStrCallback($match) {
     return chr($match[1]);
   }
 
@@ -165,7 +163,7 @@ class simple_xmltree {
   * Get a list of empty tags
   * @return string
   */
-  function getEmptyTags() {
+  public static function getEmptyTags() {
     return array('area', 'base', 'basefont', 'br', 'col', 'frame', 'hr', 'img', 'input',
     'isindex', 'link', 'meta', 'param');
   }
@@ -202,22 +200,22 @@ class simple_xmltree {
   * @param object $owner
   * @return boolean
   */
-  function isXML($str, $owner) {
+  public static function isXML($str, $owner) {
     $result = FALSE;
     if (!empty($str)) {
-      $xmlTree = simple_xmltree::create();
+      $xmlTree = self::create();
       if (@$xmlTree->loadXML($str)) {
         $result = TRUE;
       } elseif (defined('PAPAYA_DBG_XML_USERINPUT') &&
                 PAPAYA_DBG_XML_USERINPUT === '1' &&
                 is_object($owner)) {
         if (is_a($xmlTree, 'DOMDocument')) {
-          $owner->lastXMLError = @simple_xmltree::handleLibxmlErrors();
+          $owner->lastXMLError = @self::handleLibxmlErrors();
         } else {
           $owner->lastXMLError = empty($xmlTree->lastError) ? '' : $xmlTree->lastError;
         }
       }
-      simple_xmltree::destroy($xmlTree);
+      self::destroy($xmlTree);
       unset($xmlTree);
     }
     return $result;

@@ -172,7 +172,7 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
    */
   public function testCallbacksGetAfterSet() {
     $content = new PapayaPluginEditableContent();
-    $content->callbacks($callbacks = $this->createMock(PapayaPluginEditableContentCallbacks::class));
+    $content->callbacks($callbacks = $this->createMock(PapayaPluginEditableCallbacks::class));
     $this->assertSame($callbacks, $content->callbacks());
   }
 
@@ -181,6 +181,6 @@ class PapayaPluginEditableContentTest extends PapayaTestCase {
    */
   public function testCallbacksGetImplicitCreate() {
     $content = new PapayaPluginEditableContent();
-    $this->assertInstanceOf(PapayaPluginEditableContentCallbacks::class, $content->callbacks());
+    $this->assertInstanceOf(PapayaPluginEditableCallbacks::class, $content->callbacks());
   }
 }

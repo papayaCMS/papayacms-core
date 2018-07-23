@@ -116,38 +116,9 @@ class PapayaUiContentTeasers extends \PapayaUiControl {
       $page = new \PapayaUiContentPage(
         $record['id'], $record['language_id'], $this->pages()->isPublic()
       );
-      $page->page()->assign($record);
-      $page->translation()->assign($record);
-      $plugin = $this->papaya()->plugins->get($record['module_guid'], $page, $record['content']);
-      if ($plugin) {
-        $reference = clone $this->reference();
-        $reference->setPageId($record['id'], TRUE);
-        $teaser = $parent->appendElement(
-          'teaser',
-          array(
-            'page-id' => $record['id'],
-            'plugin-guid' => $record['module_guid'],
-            'plugin' => get_class($plugin),
-            'href' => $reference->getRelative(),
-            'published' => \PapayaUtilDate::timestampToString(
-              (isset($record['published']) && $record['published'] > 0)
-                ? $record['published'] : $record['modified']
-            ),
-            'created' => \PapayaUtilDate::timestampToString($record['created'])
-          )
-        );
-        if ($plugin instanceof \PapayaPluginQuoteable) {
-          $plugin->appendQuoteTo($teaser);
-        } elseif ($plugin instanceof \base_content &&
-                  method_exists($plugin, 'getParsedTeaser')) {
-          $teaser->appendXml((string)$plugin->getParsedTeaser());
-        }
-        /** @var PapayaXmlDocument $document */
-        $document = $teaser->ownerDocument;
-        if ($document->xpath()->evaluate('count(node())', $teaser) == 0) {
-          $teaser->parentNode->removeChild($teaser);
-        }
-      }
+      $page->papaya($this->papaya());
+      $page->assign($record);
+      $page->appendQuoteTo($parent);
     }
   }
 

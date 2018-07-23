@@ -22,25 +22,42 @@
 */
 abstract class PapayaPluginEditor extends \PapayaUiControlInteractive {
 
-  private $_content = NULL;
-  private $_context = NULL;
+  /**
+   * @var PapayaPluginEditableData
+   */
+  private $_data;
+
+  /**
+   * @var PapayaRequestParameters
+   */
+  private $_context;
 
   /**
    * Create object and store the editable content
    *
-   * @param \PapayaPluginEditableContent $content
+   * @param PapayaPluginEditableData $data
    */
-  public function __construct(\PapayaPluginEditableContent $content) {
-    $this->_content = $content;
+  public function __construct(PapayaPluginEditableData $data) {
+    $this->_data = $data;
   }
 
   /**
-   * Return the stored content object.
+   * Return the stored data object.
    *
-   * @return \PapayaPluginEditableContent
+   * @return PapayaPluginEditableData
+   */
+  public function getData() {
+    return $this->_data;
+  }
+
+  /**
+   * Return the stored data object - bc for old API
+   *
+   * @deprecated
+   * @return PapayaPluginEditableData
    */
   public function getContent() {
-    return $this->_content;
+    return $this->getData();
   }
 
   /**
@@ -50,8 +67,8 @@ abstract class PapayaPluginEditor extends \PapayaUiControlInteractive {
    * @param \PapayaRequestParameters $context
    * @return \PapayaRequestParameters
    */
-  public function context(\PapayaRequestParameters $context = NULL) {
-    if (isset($context)) {
+  public function context(PapayaRequestParameters $context = NULL) {
+    if (NULL !== $context) {
       $this->_context = $context;
     } elseif (NULL === $this->_context) {
       $this->_context = new \PapayaRequestParameters();

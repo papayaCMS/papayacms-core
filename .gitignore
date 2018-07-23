@@ -18,9 +18,13 @@
 # Build Artifacts
 /build/
 
+# PHP built-in webserver log
+/php-server.log
+
 # papaya CMS
 /papaya.php
 /htdocs/papaya/
+/htdocs/revision.inc.php
 /htdocs/papaya-themes/
 /papaya-data/
 /templates/

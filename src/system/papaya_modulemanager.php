@@ -1,20 +1,16 @@
 <?php
 /**
- * Administration Papaya modules
+ * papaya CMS
  *
- * @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package Papaya
- * @subpackage Core
- * @version $Id: papaya_modulemanager.php 39818 2014-05-13 13:15:13Z weinert $
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
 if (!defined('IMAGETYPE_SWC')) {
@@ -158,8 +154,8 @@ class papaya_modulemanager extends base_db {
    */
   public function prependModulePath($path) {
     $map = array(
-      'vendor:' => '../vendor/',
-      'src:' => '../src/'
+      'vendor:' => PapayaUtilFilePath::getVendorPath(),
+      'src:' => PapayaUtilFilePath::getSourcePath()
     );
     foreach ($map as $prefix => $mapPath) {
       if (0 === strpos($path, $prefix)) {
@@ -1270,8 +1266,8 @@ class papaya_modulemanager extends base_db {
     $this->packages = array();
     $this->modules = array();
     $paths = array(
-      PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().'../vendor/'),
-      PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().'../src/')
+      PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().PapayaUtilFilePath::getVendorPath()),
+      PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().PapayaUtilFilePath::getSourcePath())
     );
     foreach ($paths as $path) {
       if (file_exists($path) && is_dir($path) && is_readable($path)) {
@@ -2734,7 +2730,7 @@ class papaya_modulemanager extends base_db {
         );
         $msg = $this->_gtf(
           'Create missing tables for package "%s"?',
-          $this->packages[$this->params['pkg_id']]['modulegroup_title']
+          array($this->packages[$this->params['pkg_id']]['modulegroup_title'])
         );
         $dialog = new base_msgdialog(
           $this, $this->paramName, $hidden, $msg, 'question'
@@ -3360,16 +3356,31 @@ class papaya_modulemanager extends base_db {
    * @return void
    */
   function getPluginOptionsDialog() {
-    if (isset($this->module)) {
+    if (NULL !== $this->module) {
       $pluginObject = $this->papaya()->plugins->get(
         $this->module['module_guid'],
         $this
       );
-      if (
-        isset($pluginObject) &&
-        is_object($pluginObject) &&
-        is_subclass_of($pluginObject, 'base_plugin')
-      ) {
+      if ($pluginObject instanceof \PapayaPluginAdaptable) {
+        $pluginNode = $this->layout->values()->getValueByPath('/page/rightcol');
+        if ($editor = $pluginObject->options()->editor()) {
+          $editor->context()->merge(
+            array(
+              $this->paramName => array(
+                'module_id' => $this->module['module_guid']
+              )
+            )
+          );
+          $pluginNode->append($editor);
+          if ($pluginObject->options()->modified()) {
+            $moduleOptions = new papaya_module_options();
+            if ($moduleOptions->saveOptions($this->module['module_guid'], (array)$editor->getData())) {
+              $this->addMsg(MSG_INFO, $this->_gt('Options modified.'));
+            }
+          }
+          return;
+        }
+      } elseif ($pluginObject instanceof base_plugin) {
         $hidden = array(
           'module_id' => $this->module['module_guid']
         );

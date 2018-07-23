@@ -29,6 +29,7 @@ class PapayaContentViews extends \PapayaDatabaseRecordsLazy {
   protected $_fields = array(
     'id' => 'v.view_id',
     'title' => 'v.view_title',
+    'name' => 'v.view_name',
     'module_id' => 'v.module_guid',
     'module_type' => 'm.module_type',
     'checksum' => 'v.view_checksum'

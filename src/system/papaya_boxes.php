@@ -13,8 +13,6 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache;
-
 /**
 * Manage action boxes
 *
@@ -747,7 +745,7 @@ class papaya_boxes extends base_boxes {
     unset($this->box['TRANSLATIONINFOS']);
     $sql = "SELECT bt.box_id, bt.lng_id, bt.box_trans_modified,
                    bt.box_title, bpt.box_trans_modified as box_trans_published,
-                   v.view_title, v.view_is_cacheable
+                   v.view_title, v.view_name, v.view_is_cacheable
               FROM %s bt
               LEFT OUTER JOIN %s bpt ON (bpt.box_id = bt.box_id AND bpt.lng_id = bt.lng_id)
               LEFT OUTER JOIN %s v ON (v.view_id = bt.view_id)
@@ -2681,7 +2679,7 @@ class papaya_boxes extends base_boxes {
     }
     $result .= '</listitem>';
     foreach ($this->papaya()->languages as $lngId => $lng) {
-      if ($lng['lng_glyph'] != '' &&
+      if ($lng['image'] != '' &&
           file_exists($this->getBasePath(TRUE).'pics/language/'.$lng['image'])) {
         $image = sprintf(
           ' image="./pics/language/%s"',

@@ -14,8 +14,20 @@
  */
 
 /**
- * @deprecated {@see PapayaPluginEditableContentAggregation}
+ * An interface to define that an object is a module with global options
+ * (It can be adapted to the current environment).
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
  */
-trait PapayaPluginEditableAggregation {
-  use PapayaPluginEditableContentAggregation;
+interface PapayaPluginAdaptable {
+
+  /**
+   * Getter/Setter for the editable options.
+   *
+   * @param PapayaPluginEditableOptions $content
+   * @return PapayaPluginEditableOptions
+   */
+  public function options(PapayaPluginEditableOptions $content = NULL);
+
 }
