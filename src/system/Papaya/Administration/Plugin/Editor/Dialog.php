@@ -13,15 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Plugin\Editor;
+
 use Papaya\Administration\Languages\Image;
+use PapayaAdministrationLanguagesCaption;
+use PapayaPluginEditableContent;
+use PapayaPluginEditableOptions;
+use PapayaUiDialog;
+use PapayaUiDialogButtonSubmit;
+use PapayaUiStringTranslated;
 
 /**
-* An PluginEditor implementation that build a dialog based on an array of field definitions
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPluginEditorDialog extends \PapayaPluginEditor {
+ * An PluginEditor implementation that build a dialog based on an array of field definitions
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Dialog extends \PapayaPluginEditor {
 
   private $_dialog;
   private $_onExecuteCallback;

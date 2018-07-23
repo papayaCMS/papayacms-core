@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Permissions;
+
 /**
 * Tags Administration
 *
@@ -129,7 +131,7 @@ class papaya_taglinks extends base_tags {
     /** @var PapayaApplicationCms $application */
     $application = PapayaApplication::getInstance();
     $validUser = $application->administrationUser->hasPerm(
-      PapayaAdministrationPermissions::TAG_MANAGE
+      Permissions::TAG_MANAGE
     );
     if ($validUser && isset($parentObj) && is_object($parentObj)) {
       if ($paramName == NULL) {
@@ -360,7 +362,7 @@ class papaya_taglinks extends base_tags {
     $result .= '<layout border="1">'.LF;
     $result .= '<row>'.LF;
     $result .= '<cell cols="3">'.LF;
-    if ($this->papaya()->administrationUser->hasPerm(PapayaAdministrationPermissions::TAG_LINK) &&
+    if ($this->papaya()->administrationUser->hasPerm(Permissions::TAG_LINK) &&
         isset($this->params['cmd']) &&
         $this->params['cmd'] == 'prioritize_tag' &&
         !empty($this->linkId)) {
@@ -369,7 +371,7 @@ class papaya_taglinks extends base_tags {
     $result .= $this->getLinkedTagsListXML();
     $result .= '</cell>'.LF;
     $result .= '</row>'.LF;
-    if ($this->papaya()->administrationUser->hasPerm(PapayaAdministrationPermissions::TAG_LINK)) {
+    if ($this->papaya()->administrationUser->hasPerm(Permissions::TAG_LINK)) {
       $result .= '<row>'.LF;
       $result .= '<cell width="50%">'.LF;
       $result .= $categoryTree;
@@ -584,7 +586,7 @@ class papaya_taglinks extends base_tags {
         $hint = '';
         if (
             $this->papaya()->administrationUser->hasPerm(
-              PapayaAdministrationPermissions::TAG_LINK
+              Permissions::TAG_LINK
             )
            ) {
           $link = $this->getLink(array('cmd' => 'unlink_tag', 'tag_id' => $tagId));
@@ -820,7 +822,7 @@ class papaya_taglinks extends base_tags {
           }
           if (
               $this->papaya()->administrationUser->hasPerm(
-                PapayaAdministrationPermissions::TAG_LINK
+                Permissions::TAG_LINK
               )
              ) {
             $result .= sprintf(
@@ -836,7 +838,7 @@ class papaya_taglinks extends base_tags {
       if (!isset($this->alternativeCategoryNames[$categoryId])) {
         $this->loadAlternativeCategoryNames(array($categoryId));
       }
-      if ($this->papaya()->administrationUser->hasPerm(PapayaAdministrationPermissions::TAG_LINK)) {
+      if ($this->papaya()->administrationUser->hasPerm(Permissions::TAG_LINK)) {
         $result .= sprintf(
           '<a href="%s">%s</a>',
           papaya_strings::escapeHTMLChars($this->getLink(array('cat_id' => $categoryId))),

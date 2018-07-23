@@ -14,24 +14,25 @@
  */
 
 use Papaya\Administration\Languages\Selector;
+use Papaya\Administration\Plugin\Editor\Fields;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaAdministrationPluginEditorFieldsTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaAdministrationPluginEditorFields::__construct
+   * @covers Fields::__construct
    */
   public function testConstructor() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableData $content */
     $content = $this->createMock(PapayaPluginEditableData::class);
-    $editor = new PapayaAdministrationPluginEditorFields($content, array());
+    $editor = new Fields($content, array());
     $this->assertSame($content, $editor->getData());
   }
 
   /**
-   * @covers PapayaAdministrationPluginEditorFields::dialog
-   * @covers PapayaAdministrationPluginEditorFields::createDialog
+   * @covers Fields::dialog
+   * @covers Fields::createDialog
    */
   public function testDialogGetImplicitCreate() {
     $languageSwitch = $this->createMock(Selector::class);
@@ -60,7 +61,7 @@ class PapayaAdministrationPluginEditorFieldsTest extends PapayaTestCase {
       ->method('getFields')
       ->will($this->returnValue(array()));
 
-    $editor = new PapayaAdministrationPluginEditorFields($pluginContent, array());
+    $editor = new Fields($pluginContent, array());
     $editor->papaya(
       $this->mockPapaya()->application(
         array('administrationLanguage' => $languageSwitch)
@@ -73,7 +74,7 @@ class PapayaAdministrationPluginEditorFieldsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationPluginEditorFields::builder
+   * @covers Fields::builder
    */
   public function testBuilderGetAfterSet() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
@@ -82,18 +83,18 @@ class PapayaAdministrationPluginEditorFieldsTest extends PapayaTestCase {
       ->getMockBuilder(PapayaUiDialogFieldBuilderArray::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $editor = new PapayaAdministrationPluginEditorFields($content, array());
+    $editor = new Fields($content, array());
     $editor->builder($builder);
     $this->assertSame($builder, $editor->builder());
   }
 
   /**
-   * @covers PapayaAdministrationPluginEditorFields::builder
+   * @covers Fields::builder
    */
   public function testBuilderGetImplicitCreate() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
     $content = $this->createMock(PapayaPluginEditableContent::class);
-    $editor = new PapayaAdministrationPluginEditorFields($content, array());
+    $editor = new Fields($content, array());
     $this->assertInstanceOf(PapayaUiDialogFieldBuilderArray::class, $editor->builder());
   }
 }

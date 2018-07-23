@@ -1,21 +1,20 @@
 <?php
 /**
-* Administration user authentification
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Authentication
-* @version $Id: base_auth.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Permissions;
+use Papaya\Administration\Permission\Groups;
 
 /**
 * Administration user authentification
@@ -210,7 +209,7 @@ class base_auth extends base_db {
   protected $modulePermLinks = array();
 
   /**
-   * @var PapayaAdministrationPermissions
+   * @var Permissions
    */
   private $_permissions = NULL;
 
@@ -581,7 +580,7 @@ class base_auth extends base_db {
           $sql = "SELECT perm_id FROM %s WHERE perm_active = '1' OR permgroup_id = '%d'";
           $params = array(
             $this->tableAuthPermissions,
-            PapayaAdministrationPermissionGroups::SYSTEM
+            Groups::SYSTEM
           );
           if ($res = $this->databaseQueryFmt($sql, $params)) {
             while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -1577,7 +1576,7 @@ class base_auth extends base_db {
               in_array($permId, $this->userPerms)) {
       return TRUE;
     } elseif ($this->isAdmin() &&
-              $this->permissions()->exists($permId, PapayaAdministrationPermissionGroups::SYSTEM)) {
+              $this->permissions()->exists($permId, Groups::SYSTEM)) {
       return TRUE;
     }
     return FALSE;
@@ -1676,11 +1675,11 @@ class base_auth extends base_db {
     }
   }
 
-  public function permissions(PapayaAdministrationPermissions $permissions = NULL) {
+  public function permissions(Permissions $permissions = NULL) {
     if (isset($permissions)) {
       $this->_permissions = $permissions;
     } elseif (NULL === $this->_permissions) {
-      $this->_permissions = new PapayaAdministrationPermissions();
+      $this->_permissions = new Permissions();
       $this->_permissions->papaya($this->papaya());
       $this->_permissions->activateLazyLoad();
     }

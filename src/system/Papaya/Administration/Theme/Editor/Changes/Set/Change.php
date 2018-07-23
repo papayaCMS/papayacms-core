@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Theme\Editor\Changes\Set;
 /**
-* Dialog command that allows to edit the dynamic values on on page, the groups are field groups
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationThemeEditorChangesSetChange
+ * Dialog command that allows to edit the dynamic values on on page, the groups are field groups
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Change
   extends \PapayaUiControlCommandDialogDatabaseRecord {
 
   /**

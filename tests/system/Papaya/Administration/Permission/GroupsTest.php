@@ -1,54 +1,71 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Permissions;
+use Papaya\Administration\Permission\Groups;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaAdministrationPermissionGroupsTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaAdministrationPermissionGroups::__construct
+   * @covers Groups::__construct
    */
   public function testConstructorPreparesIndex() {
-    $permissions = new PapayaAdministrationPermissionGroups();
+    $permissions = new Groups();
     $this->assertAttributeNotEmpty('_index', $permissions);
   }
 
   /**
-   * @covers PapayaAdministrationPermissionGroups::getIterator
+   * @covers Groups::getIterator
    */
   public function testGetIterator() {
-    $permissions = new PapayaAdministrationPermissionGroups();
+    $permissions = new Groups();
     $array = iterator_to_array($permissions);
-    $this->assertArrayHasKey(PapayaAdministrationPermissionGroups::MISC, $array);
+    $this->assertArrayHasKey(Groups::MISC, $array);
   }
 
   /**
-   * @covers PapayaAdministrationPermissionGroups::getIterator
+   * @covers Groups::getIterator
    */
   public function testGetIteratorReturnsItems() {
-    $permissions = new PapayaAdministrationPermissionGroups();
+    $permissions = new Groups();
     $array = iterator_to_array(new RecursiveIteratorIterator($permissions));
-    $this->assertArrayHasKey(PapayaAdministrationPermissionGroups::MISC, $array);
+    $this->assertArrayHasKey(Groups::MISC, $array);
     $this->assertArrayHasKey(
-      PapayaAdministrationPermissions::MESSAGES,
-      $array[PapayaAdministrationPermissionGroups::MISC]
+      Permissions::MESSAGES,
+      $array[Groups::MISC]
     );
   }
 
   /**
-   * @covers PapayaAdministrationPermissionGroups::getGroupId
+   * @covers Groups::getGroupId
    */
   public function testGetGroupId() {
-    $permissions = new PapayaAdministrationPermissionGroups();
+    $permissions = new Groups();
     $this->assertEquals(
-      PapayaAdministrationPermissionGroups::MISC,
-      $permissions->getGroupId(PapayaAdministrationPermissions::MESSAGES)
+      Groups::MISC,
+      $permissions->getGroupId(Permissions::MESSAGES)
     );
   }
 
   /**
-   * @covers PapayaAdministrationPermissionGroups::getGroupId
+   * @covers Groups::getGroupId
    */
   public function testGetGroupIdExpectingZero() {
-    $permissions = new PapayaAdministrationPermissionGroups();
+    $permissions = new Groups();
     $this->assertEquals(
       0,
       $permissions->getGroupId(-23)

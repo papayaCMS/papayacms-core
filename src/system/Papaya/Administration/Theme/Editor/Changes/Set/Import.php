@@ -13,13 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Theme\Editor\Changes\Set;
+use PapayaContentThemeSet;
+use PapayaThemeHandler;
+use PapayaXmlElement;
+
 /**
-* Import theme set values from an uploaded file
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationThemeEditorChangesSetImport
+ * Import theme set values from an uploaded file
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Import
   extends \PapayaUiControlCommandDialog {
 
   /**

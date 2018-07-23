@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Theme;
 /**
-* Edit theme sets (dynamic values for a theme)
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationThemeEditor extends \Papaya\Administration\Page {
+ * Edit theme sets (dynamic values for a theme)
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Editor extends \Papaya\Administration\Page {
 
   protected $_parameterGroup = 'theme';
 
   protected function createContent() {
-    return new \PapayaAdministrationThemeEditorChanges();
+    return new Editor\Changes();
   }
 
   protected function createNavigation() {
-    return new \PapayaAdministrationThemeEditorNavigation();
+    return new Editor\Navigation();
   }
 }

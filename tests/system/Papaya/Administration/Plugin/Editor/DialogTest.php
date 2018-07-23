@@ -13,12 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Plugin\Editor\Dialog;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaAdministrationPluginEditorDialog::appendTo
+   * @covers Dialog::appendTo
    */
   public function testAppendToWithoutSubmit() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $pluginContent */
@@ -40,13 +42,13 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo');
 
-    $editor = new PapayaAdministrationPluginEditorDialog($pluginContent);
+    $editor = new Dialog($pluginContent);
     $editor->dialog($dialog);
     $editor->getXml();
   }
 
   /**
-   * @covers PapayaAdministrationPluginEditorDialog::appendTo
+   * @covers Dialog::appendTo
    */
   public function testAppendToWhileExecuteWasSuccessful() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $pluginContent */
@@ -64,13 +66,13 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo');
 
-    $editor = new PapayaAdministrationPluginEditorDialog($pluginContent);
+    $editor = new Dialog($pluginContent);
     $editor->dialog($dialog);
     $editor->getXml();
   }
 
   /**
-   * @covers PapayaAdministrationPluginEditorDialog::appendTo
+   * @covers Dialog::appendTo
    */
   public function testAppendToWhileExecuteWasSuccessfulAndTriggeredCallback() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $pluginContent */
@@ -89,7 +91,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
       ->method('appendTo');
 
     $called = FALSE;
-    $editor = new PapayaAdministrationPluginEditorDialog($pluginContent);
+    $editor = new Dialog($pluginContent);
     $editor->onExecute(
       function() use (&$called) {
         $called = TRUE;
@@ -101,7 +103,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationPluginEditorDialog::AppendTo
+   * @covers Dialog::AppendTo
    */
   public function testAppendToWhileExecuteFailed() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $pluginContent */
@@ -139,7 +141,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
       ->method('dispatch')
       ->with($this->isInstanceOf(PapayaMessageDisplay::class));
 
-    $editor = new PapayaAdministrationPluginEditorDialog($pluginContent);
+    $editor = new Dialog($pluginContent);
     $editor->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)
@@ -150,19 +152,19 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationPluginEditorDialog::dialog
+   * @covers Dialog::dialog
    */
   public function testDialogGetAfterSet() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $pluginContent */
     $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
-    $editor = new PapayaAdministrationPluginEditorDialog($pluginContent);
+    $editor = new Dialog($pluginContent);
     $editor->dialog($dialog = $this->createMock(PapayaUiDialog::class));
     $this->assertSame($dialog, $editor->dialog());
   }
 
   /**
-   * @covers PapayaAdministrationPluginEditorDialog::dialog
-   * @covers PapayaAdministrationPluginEditorDialog::createDialog
+   * @covers Dialog::dialog
+   * @covers Dialog::createDialog
    */
   public function testDialogGetImplicitCreate() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $pluginContent */
@@ -172,7 +174,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
       ->method('getIterator')
       ->will($this->returnValue(new EmptyIterator()));
 
-    $editor = new PapayaAdministrationPluginEditorDialog($pluginContent);
+    $editor = new Dialog($pluginContent);
     $editor->papaya($this->mockPapaya()->application());
 
     $this->assertInstanceOf(PapayaUiDialog::class, $dialog = $editor->dialog());

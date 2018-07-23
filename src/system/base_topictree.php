@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Permissions;
 use Papaya\Cache;
 
 /**
@@ -187,12 +188,12 @@ class base_topic_tree extends base_db {
         }
         break;
       case 'regenerate':
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_REPAIR_INDEX)) {
+        if ($administrationUser->hasPerm(Permissions::PAGE_REPAIR_INDEX)) {
           $this->regeneratePath();
         }
         break;
       case 'refreshpages':
-        if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_CACHE_CLEAR)) {
+        if ($administrationUser->hasPerm(Permissions::SYSTEM_CACHE_CLEAR)) {
           $this->refreshPages();
         }
         break;
@@ -265,7 +266,7 @@ class base_topic_tree extends base_db {
     $sql = $baseSql;
     $sql .= " AND ".$this->databaseGetSQLCondition('t.prev', $prevs);
     $administrationUser = $this->papaya()->administrationUser;
-    if (!$administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_TRASH_MANAGE)) {
+    if (!$administrationUser->hasPerm(Permissions::PAGE_TRASH_MANAGE)) {
       $sql .= "AND t.is_deleted = 0 \n";
     }
     $sql .= " ORDER BY t.topic_weight ASC, t.topic_created ASC";
@@ -463,7 +464,7 @@ class base_topic_tree extends base_db {
     unset($this->topics);
     unset($this->topicLinks);
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_TRASH_MANAGE)) {
+    if ($administrationUser->hasPerm(Permissions::PAGE_TRASH_MANAGE)) {
       $filter = '';
     } else {
       $filter = "WHERE t.is_deleted = 0";
@@ -760,7 +761,7 @@ class base_topic_tree extends base_db {
     $menubar = new base_btnbuilder;
     $menubar->images = $this->papaya()->images;
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_REPAIR_INDEX)) {
+    if ($administrationUser->hasPerm(Permissions::PAGE_REPAIR_INDEX)) {
       $menubar->addButton(
         'Check index',
         $this->getLink(array('cmd' => 'regenerate')),
@@ -769,7 +770,7 @@ class base_topic_tree extends base_db {
         FALSE
       );
     }
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::SYSTEM_CACHE_CLEAR)) {
+    if ($administrationUser->hasPerm(Permissions::SYSTEM_CACHE_CLEAR)) {
       $menubar->addButton(
         'Empty cache',
         $this->getLink(array('cmd' => 'refreshpages')),
@@ -820,7 +821,7 @@ class base_topic_tree extends base_db {
       $topic = $this->topics[$topicId];
       //edit entries allowed
       $administrationUser = $this->papaya()->administrationUser;
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_MANAGE)) {
+      if ($administrationUser->hasPerm(Permissions::PAGE_MANAGE)) {
         if ($administrationUser->subLevel == 0) {
           return TRUE;
         }

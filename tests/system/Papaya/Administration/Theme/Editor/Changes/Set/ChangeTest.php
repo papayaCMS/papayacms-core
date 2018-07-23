@@ -1,15 +1,31 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Theme\Editor\Changes\Set\Change;
+
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
 class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetChange::createDialog
+   * @covers Change::createDialog
    */
   public function testCreateDialogWithoutSetId() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
     $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
-    $command = new PapayaAdministrationThemeEditorChangesSetChange($record);
+    $command = new Change($record);
     $command->papaya($this->mockPapaya()->application());
 
     $dialog = $command->dialog();
@@ -41,7 +57,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetChange::createDialog
+   * @covers Change::createDialog
    */
   public function testCreateDialogWithSetIdLoadsRecord() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
@@ -51,7 +67,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
       ->method('load')
       ->with(42)
       ->will($this->returnValue(TRUE));
-    $command = new PapayaAdministrationThemeEditorChangesSetChange($record);
+    $command = new Change($record);
     $command->papaya($this->mockPapaya()->application());
     $command->parameters(new PapayaRequestParameters(array('set_id' => 42)));
 
@@ -84,7 +100,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetChange::createDialog
+   * @covers Change::createDialog
    */
   public function testCreateDialogWithSetIdLoadRecordFailed() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
@@ -94,7 +110,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
       ->method('load')
       ->with(42)
       ->will($this->returnValue(FALSE));
-    $command = new PapayaAdministrationThemeEditorChangesSetChange($record);
+    $command = new Change($record);
     $command->papaya($this->mockPapaya()->application());
     $command->parameters(new PapayaRequestParameters(array('set_id' => 42)));
 
@@ -127,7 +143,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetChange::callbackSaveValues
+   * @covers Change::callbackSaveValues
    */
   public function testCallbackSaveValues() {
     $messages = $this->createMock(PapayaMessageManager::class);
@@ -137,7 +153,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
       ->with($this->isInstanceOf(PapayaMessageDisplay::class));
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
     $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
-    $command = new PapayaAdministrationThemeEditorChangesSetChange($record);
+    $command = new Change($record);
     $command->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)
@@ -147,7 +163,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetChange::callbackShowError
+   * @covers Change::callbackShowError
    */
   public function testCallbackShowError() {
     $errors = $this->createMock(PapayaUiDialogErrors::class);
@@ -169,7 +185,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
       ->with($this->isInstanceOf(PapayaMessageDisplay::class));
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
     $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
-    $command = new PapayaAdministrationThemeEditorChangesSetChange($record);
+    $command = new Change($record);
     $command->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)

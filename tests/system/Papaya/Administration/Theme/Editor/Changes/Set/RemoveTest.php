@@ -1,15 +1,31 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Theme\Editor\Changes\Set\Remove;
+
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
 class PapayaAdministrationThemeEditorChangesSetRemoveTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetRemove::createDialog
+   * @covers Remove::createDialog
    */
   public function testCreateDialogWithoutSetId() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
     $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
-    $command = new PapayaAdministrationThemeEditorChangesSetRemove($record);
+    $command = new Remove($record);
     $command->papaya($this->mockPapaya()->application());
 
     $dialog = $command->dialog();
@@ -37,7 +53,7 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends PapayaTestCase
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetRemove::createDialog
+   * @covers Remove::createDialog
    */
   public function testCreateDialogWithSetIdLoadsRecord() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
@@ -47,7 +63,7 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends PapayaTestCase
       ->method('load')
       ->with(42)
       ->will($this->returnValue(TRUE));
-    $command = new PapayaAdministrationThemeEditorChangesSetRemove($record);
+    $command = new Remove($record);
     $command->papaya($this->mockPapaya()->application());
     $command->parameters(new PapayaRequestParameters(array('set_id' => 42)));
 
@@ -80,7 +96,7 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends PapayaTestCase
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetRemove::callbackDeleted
+   * @covers Remove::callbackDeleted
    */
   public function testCallbackDeleted() {
     $messages = $this->createMock(PapayaMessageManager::class);
@@ -90,7 +106,7 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends PapayaTestCase
       ->with($this->isInstanceOf(PapayaMessageDisplay::class));
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
     $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
-    $command = new PapayaAdministrationThemeEditorChangesSetRemove($record);
+    $command = new Remove($record);
     $command->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)

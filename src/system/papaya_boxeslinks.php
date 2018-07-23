@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Permissions;
+
 /**
 * Link Box with page
 *
@@ -390,7 +392,7 @@ class papaya_boxeslinks extends base_boxeslinks {
                 $this->getBoxStatusImage($box), $box['box_name']
               );
               $item->indentation = 2;
-              if ($administrationUser->hasPerm(PapayaAdministrationPermissions::BOX_MANAGE)) {
+              if ($administrationUser->hasPerm(Permissions::BOX_MANAGE)) {
                 $item->subitems[] = $subitem = new PapayaUiListviewSubitemImage(
                   'actions-edit',
                   new PapayaUiStringTranslated('Edit box'),
@@ -499,7 +501,7 @@ class papaya_boxeslinks extends base_boxeslinks {
                   $this->getBoxStatusImage($box), $box['box_name']
                 );
                 $item->indentation = 2;
-                if ($administrationUser->hasPerm(PapayaAdministrationPermissions::BOX_MANAGE)) {
+                if ($administrationUser->hasPerm(Permissions::BOX_MANAGE)) {
                   $item->subitems[] = $subitem = new PapayaUiListviewSubitemImage(
                     'actions-edit',
                     new PapayaUiStringTranslated('Edit box'),

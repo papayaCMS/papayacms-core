@@ -1,17 +1,33 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Plugin\Editor\Group;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaAdministrationPluginEditorGroup
+   * @covers Group
    */
   public function testAppendToWithOneEditor() {
     $context = new PapayaRequestParameters();
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
     $content = $this->createMock(PapayaPluginEditableContent::class);
 
-    $editorGroup = new PapayaAdministrationPluginEditorGroup($content);
+    $editorGroup = new Group($content);
     $editorGroup->papaya($this->mockPapaya()->application());
 
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditor $editor */
@@ -36,14 +52,14 @@ class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationPluginEditorGroup
+   * @covers Group
    */
   public function testAppendToWithOneEditorAndContextData() {
     $context = new PapayaRequestParameters(array('foo' => 'bar'));
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
     $content = $this->createMock(PapayaPluginEditableContent::class);
 
-    $editorGroup = new PapayaAdministrationPluginEditorGroup($content);
+    $editorGroup = new Group($content);
     $editorGroup->papaya($this->mockPapaya()->application());
     $editorGroup->context($context);
 
@@ -66,14 +82,14 @@ class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationPluginEditorGroup
+   * @covers Group
    */
   public function testAppendToWithTwoEditorsSelectingSecond() {
     $context = new PapayaRequestParameters(array('dialog-index' => 1));
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
     $content = $this->createMock(PapayaPluginEditableContent::class);
 
-    $editorGroup = new PapayaAdministrationPluginEditorGroup($content, 'dialog-index');
+    $editorGroup = new Group($content, 'dialog-index');
     $editorGroup->papaya(
       $this->mockPapaya()->application(
         array('request' => $this->mockPapaya()->request(array('dialog-index' => 1)))
@@ -113,12 +129,12 @@ class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationPluginEditorGroup
+   * @covers Group
    */
   public function testAppendToWithoutEditorExpectingException() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
     $content = $this->createMock(PapayaPluginEditableContent::class);
-    $editorGroup = new PapayaAdministrationPluginEditorGroup($content);
+    $editorGroup = new Group($content);
     $editorGroup->papaya($this->mockPapaya()->application());
 
     $this->expectException(\LogicException::class);

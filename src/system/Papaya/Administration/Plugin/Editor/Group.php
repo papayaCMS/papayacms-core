@@ -13,6 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Plugin\Editor;
+use PapayaPluginEditableData;
+use PapayaPluginEditor;
+
 /**
  * An PluginEditor implementation that combines several other dialogs,
  * allowing to separate the fields.
@@ -22,14 +26,14 @@
  * @package Papaya-Library
  * @subpackage Administration
  */
-class PapayaAdministrationPluginEditorGroup extends \PapayaPluginEditor {
+class Group extends \PapayaPluginEditor {
 
   private $_editors = [];
   private $_toolbar;
   private $_indexParameterName;
 
   /**
-   * PapayaAdministrationPluginEditorGroup constructor.
+   * Papaya\Administration\Plugin\Editor\PapayaAdministrationPluginEditorGroup constructor.
    *
    * @param PapayaPluginEditableData $data
    * @param string $indexParameterName
@@ -62,7 +66,7 @@ class PapayaAdministrationPluginEditorGroup extends \PapayaPluginEditor {
         $this->_indexParameterName,
         new \PapayaIteratorCallback(
           $this->_editors,
-          function($data) {
+          function ($data) {
             return array('caption' => $data[1], 'image' => $data[2]);
           }
         )

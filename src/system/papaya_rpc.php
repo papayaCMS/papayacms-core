@@ -1,21 +1,19 @@
 <?php
 /**
-* Control particular activities (example: for flash)
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: papaya_rpc.php 39732 2014-04-08 15:34:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Permissions;
 
 /**
 * Control particular activities (example: for flash)
@@ -225,8 +223,8 @@ class papaya_rpc extends base_object {
     if (isset($topic->topic) && is_array($topic->topic)) {
       if ($topic->hasPermUser(PERM_WRITE, $administrationUser) &&
           $topic->editable($administrationUser) &&
-          $administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_VERSION_MANAGE) &&
-          $administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_PUBLISH) &&
+          $administrationUser->hasPerm(Permissions::PAGE_VERSION_MANAGE) &&
+          $administrationUser->hasPerm(Permissions::PAGE_PUBLISH) &&
           isset($this->params['commit_message'])) {
         $this->sessionParams['last_publish_message'] = $this->params['commit_message'];
         if ($topic->publishTopic()) {
@@ -335,8 +333,8 @@ class papaya_rpc extends base_object {
     if (isset($topic->topic) && is_array($topic->topic)) {
       if ($topic->hasPermUser(PERM_WRITE, $administrationUser) &&
           $topic->editable($administrationUser) &&
-          $administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_VERSION_MANAGE) &&
-          $administrationUser->hasPerm(PapayaAdministrationPermissions::PAGE_PUBLISH)) {
+          $administrationUser->hasPerm(Permissions::PAGE_VERSION_MANAGE) &&
+          $administrationUser->hasPerm(Permissions::PAGE_PUBLISH)) {
         $topic->loadTranslationsInfo();
         if (isset($this->sessionParams['last_publish_message']) &&
             trim($this->sessionParams['last_publish_message']) != '') {

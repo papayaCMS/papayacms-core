@@ -14,13 +14,14 @@
  */
 
 use Papaya\Administration\Page\Part;
+use Papaya\Administration\Theme\Editor;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaAdministrationThemeEditorTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaAdministrationThemeEditor::createContent
+   * @covers Editor::createContent
    */
   public function testCreateContent() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
@@ -32,7 +33,7 @@ class PapayaAdministrationThemeEditorTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditor::createNavigation
+   * @covers Editor::createNavigation
    */
   public function testCreateNavigation() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
@@ -44,7 +45,7 @@ class PapayaAdministrationThemeEditorTest extends PapayaTestCase {
   }
 }
 
-class PapayaAdministrationThemeEditor_TestProxy extends PapayaAdministrationThemeEditor {
+class PapayaAdministrationThemeEditor_TestProxy extends Editor {
 
   public function createContent() {
     return parent::createContent();

@@ -13,15 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration;
+
+use Papaya\Administration\Permission\Groups;
+
 /**
-* Constant and structure definitions for administration interface permissions.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPermissions
-  extends \PapayaDatabaseRecordsLazy
-  implements \IteratorAggregate {
+ * Constant and structure definitions for administration interface permissions.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Permissions
+  extends \PapayaDatabaseRecordsLazy {
 
   const SYSTEM_SETTINGS = 25;
   const SYSTEM_PROTOCOL = 31;
@@ -82,20 +85,20 @@ class PapayaAdministrationPermissions
 
 
   /**
-  * Map field names to more convinient property names
-  *
-  * @var array(string=>string)
-  */
+   * Map field names to more convinient property names
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'id' => 'perm_id',
     'is_active' => 'perm_active'
   );
 
   /**
-  * Table containing permission status informations (active/inactive)
-  *
-  * @var string
-  */
+   * Table containing permission status informations (active/inactive)
+   *
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::AUTHENTICATION_PERMISSIONS;
 
   protected $_identifierProperties = array('id');
@@ -108,7 +111,7 @@ class PapayaAdministrationPermissions
   private static $_permissions = NULL;
 
   /**
-   * @var PapayaAdministrationPermissionGroups
+   * @var Groups
    */
   private $_groups = NULL;
 
@@ -126,8 +129,8 @@ class PapayaAdministrationPermissions
   }
 
   /**
-  * Reset the object to "unloaded" status
-  */
+   * Reset the object to "unloaded" status
+   */
   public function reset() {
     $this->_records = array();
     foreach (self::$_permissions as $id => $name) {
@@ -186,14 +189,14 @@ class PapayaAdministrationPermissions
 
   /**
    *
-   * @param \PapayaAdministrationPermissionGroups $groups
-   * @return \PapayaAdministrationPermissionGroups
+   * @param \Papaya\Administration\Permission\Groups $groups
+   * @return \Papaya\Administration\Permission\Groups
    */
-  public function groups(\PapayaAdministrationPermissionGroups $groups = NULL) {
+  public function groups(\Papaya\Administration\Permission\Groups $groups = NULL) {
     if (isset($groups)) {
       $this->_groups = $groups;
     } elseif (NULL === $this->_groups) {
-      $this->_groups = new \PapayaAdministrationPermissionGroups();
+      $this->_groups = new \Papaya\Administration\Permission\Groups();
     }
     return $this->_groups;
   }

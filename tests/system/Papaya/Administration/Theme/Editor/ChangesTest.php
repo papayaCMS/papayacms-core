@@ -1,10 +1,26 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Theme\Editor\Changes;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaAdministrationThemeEditorChangesTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaAdministrationThemeEditorChanges::appendTo
+   * @covers Changes::appendTo
    */
   public function testAppendTo() {
     $commands = $this
@@ -15,65 +31,65 @@ class PapayaAdministrationThemeEditorChangesTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
-    $changes = new PapayaAdministrationThemeEditorChanges();
+    $changes = new Changes();
     $changes->commands($commands);
     $this->assertEmpty($changes->getXml());
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChanges::commands
+   * @covers Changes::commands
    */
   public function testCommandsGetAfterSet() {
     $commands = $this
       ->getMockBuilder(PapayaUiControlCommandController::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $changes = new PapayaAdministrationThemeEditorChanges();
+    $changes = new Changes();
     $changes->commands($commands);
     $this->assertSame($commands, $changes->commands());
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChanges::commands
+   * @covers Changes::commands
    */
   public function testCommandGetImplicitCreate() {
-    $changes = new PapayaAdministrationThemeEditorChanges();
+    $changes = new Changes();
     $changes->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(PapayaUiControlCommandController::class, $changes->commands());
   }
 
 
   /**
-   * @covers PapayaAdministrationThemeEditorChanges::themeSet
+   * @covers Changes::themeSet
    */
   public function testThemeSetGetAfterSet() {
-    $command = new PapayaAdministrationThemeEditorChanges();
+    $command = new Changes();
     $command->themeSet($themeSet =  $this->createMock(PapayaContentThemeSet::class));
     $this->assertSame($themeSet, $command->themeSet());
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChanges::themeSet
+   * @covers Changes::themeSet
    */
   public function testThemeSetGetImplicitCreate() {
-    $command = new PapayaAdministrationThemeEditorChanges();
+    $command = new Changes();
     $this->assertInstanceOf(PapayaContentThemeSet::class, $command->themeSet());
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChanges::themeHandler
+   * @covers Changes::themeHandler
    */
   public function testThemeHandlerGetAfterSet() {
-    $command = new PapayaAdministrationThemeEditorChanges();
+    $command = new Changes();
     $command->themeHandler($themeHandler = $this->createMock(PapayaThemeHandler::class));
     $this->assertSame($themeHandler, $command->themeHandler());
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorChanges::themeHandler
+   * @covers Changes::themeHandler
    */
   public function testThemeHandlerGetImplicitCreate() {
-    $command = new PapayaAdministrationThemeEditorChanges();
+    $command = new Changes();
     $this->assertInstanceOf(PapayaThemeHandler::class, $command->themeHandler());
   }
 }

@@ -1,27 +1,43 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Theme\Editor\Navigation;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::appendTo
+   * @covers Navigation::appendTo
    */
   public function testAppendTo() {
     $listview = $this->createMock(PapayaUiListview::class);
     $listview
       ->expects($this->once())
       ->method('appendTo');
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->papaya($this->mockPapaya()->application());
     $navigation->listview($listview);
     $navigation->getXml();
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::appendTo
+   * @covers Navigation::appendTo
    */
   public function testToolbarButtonsWithSelectedTheme() {
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->papaya($this->mockPapaya()->application());
     $navigation->listview($this->createMock(PapayaUiListview::class));
     $navigation->parameters(new PapayaRequestParameters(array('theme' => 'default')));
@@ -41,10 +57,10 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::appendTo
+   * @covers Navigation::appendTo
    */
   public function testToolbarButtonsWithSelectedSet() {
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->papaya($this->mockPapaya()->application());
     $navigation->listview($this->createMock(PapayaUiListview::class));
     $navigation->parameters(
@@ -72,10 +88,10 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::listview
+   * @covers Navigation::listview
    */
   public function testListviewGetAfterSet() {
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->listview($listview = $this->createMock(PapayaUiListview::class));
     $this->assertSame(
       $listview, $navigation->listview()
@@ -83,11 +99,11 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::listview
-   * @covers PapayaAdministrationThemeEditorNavigation::createThemeList
+   * @covers Navigation::listview
+   * @covers Navigation::createThemeList
    */
   public function testListviewImplicitCreate() {
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->parameters(new PapayaRequestParameters());
     $this->assertInstanceOf(
       PapayaUiListview::class, $navigation->listview()
@@ -95,11 +111,11 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::listview
-   * @covers PapayaAdministrationThemeEditorNavigation::createThemeList
+   * @covers Navigation::listview
+   * @covers Navigation::createThemeList
    */
   public function testListviewImplicitCreateWithSelectedTheme() {
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->parameters(new PapayaRequestParameters(array('theme' => 'default')));
     $this->assertInstanceOf(
       PapayaUiListview::class, $navigation->listview()
@@ -107,11 +123,11 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::listview
-   * @covers PapayaAdministrationThemeEditorNavigation::createThemeList
+   * @covers Navigation::listview
+   * @covers Navigation::createThemeList
    */
   public function testListviewImplicitCreateWithSelectedSet() {
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->parameters(
       new PapayaRequestParameters(array('theme' => 'default', 'set_id' => 23))
     );
@@ -121,10 +137,10 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::callbackCreateItem
+   * @covers Navigation::callbackCreateItem
    */
   public function testCallbackCreateItemForInvalidElement() {
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
     $items = $this
       ->getMockBuilder(PapayaUiListviewItems::class)
@@ -136,8 +152,8 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::callbackCreateItem
-   * @covers PapayaAdministrationThemeEditorNavigation::createThemeItem
+   * @covers Navigation::callbackCreateItem
+   * @covers Navigation::createThemeItem
    */
   public function testCallbackCreateItemForTheme() {
     $papaya = $this->mockPapaya()->application(
@@ -152,7 +168,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
     $this->assertXmlStringEqualsXmlString(
@@ -166,8 +182,8 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::callbackCreateItem
-   * @covers PapayaAdministrationThemeEditorNavigation::createThemeItem
+   * @covers Navigation::callbackCreateItem
+   * @covers Navigation::createThemeItem
    */
   public function testCallbackCreateItemForSelectedTheme() {
     $papaya = $this->mockPapaya()->application(
@@ -185,7 +201,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
     $this->assertXmlStringEqualsXmlString(
@@ -200,8 +216,8 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::callbackCreateItem
-   * @covers PapayaAdministrationThemeEditorNavigation::createThemeItem
+   * @covers Navigation::callbackCreateItem
+   * @covers Navigation::createThemeItem
    */
   public function testCallbackCreateItemForSelectedThemeAndSelectedSet() {
     $papaya = $this->mockPapaya()->application(
@@ -219,7 +235,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem($this->getBuilderFixture(), $items, 'sample', 0);
     $this->assertXmlStringEqualsXmlString(
@@ -233,8 +249,8 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::callbackCreateItem
-   * @covers PapayaAdministrationThemeEditorNavigation::createSetItem
+   * @covers Navigation::callbackCreateItem
+   * @covers Navigation::createSetItem
    */
   public function testCallbackCreateItemForSet() {
     $papaya = $this->mockPapaya()->application(
@@ -251,7 +267,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem(
       $this->getBuilderFixture(1),
@@ -271,8 +287,8 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::callbackCreateItem
-   * @covers PapayaAdministrationThemeEditorNavigation::createSetItem
+   * @covers Navigation::callbackCreateItem
+   * @covers Navigation::createSetItem
    */
   public function testCallbackCreateItemForSelectedSet() {
     $papaya = $this->mockPapaya()->application(
@@ -290,7 +306,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem(
       $this->getBuilderFixture(1),
@@ -311,8 +327,8 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::callbackCreateItem
-   * @covers PapayaAdministrationThemeEditorNavigation::createPageItem
+   * @covers Navigation::callbackCreateItem
+   * @covers Navigation::createPageItem
    */
   public function testCallbackPageItemForPage() {
     $papaya = $this->mockPapaya()->application(
@@ -335,7 +351,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $page->title = 'Page title';
     $page->name = 'SAMPLE_PAGE';
 
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem(
       $this->getBuilderFixture(2),
@@ -355,8 +371,8 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationThemeEditorNavigation::callbackCreateItem
-   * @covers PapayaAdministrationThemeEditorNavigation::createPageItem
+   * @covers Navigation::callbackCreateItem
+   * @covers Navigation::createPageItem
    */
   public function testCallbackPageItemForSelectedPage() {
     $papaya = $this->mockPapaya()->application(
@@ -381,7 +397,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $page->title = 'Page title';
     $page->name = 'SAMPLE_PAGE';
 
-    $navigation = new PapayaAdministrationThemeEditorNavigation();
+    $navigation = new Navigation();
     $navigation->papaya($papaya);
     $item = $navigation->callbackCreateItem(
       $this->getBuilderFixture(2),

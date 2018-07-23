@@ -13,9 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaAdministrationThemeBrowser
-  extends \PapayaUiControl
-  implements \PapayaXmlAppendable  {
+namespace Papaya\Administration\Theme;
+use PapayaThemeHandler;
+use PapayaUiDialog;
+use Traversable;
+
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+class Browser
+  extends \PapayaUiControl {
 
   private $_optionName = 'PAPAYA_LAYOUT_THEME';
 
@@ -68,7 +86,7 @@ class PapayaAdministrationThemeBrowser
       );
       $listview->mode = \PapayaUiListview::MODE_TILES;
       $listview->builder($builder = new \PapayaUiListviewItemsBuilder($this->themes()));
-      $builder->callbacks()->onCreateItem = function(
+      $builder->callbacks()->onCreateItem = function (
         $context, \PapayaUiListviewItems $items, \PapayaThemeDefinition $theme
       ) use ($dialog) {
         $items[] = $item = new \PapayaUiListviewItemRadio(
@@ -95,7 +113,7 @@ class PapayaAdministrationThemeBrowser
             new \DirectoryIterator(
               \PapayaUtilFilePath::cleanup($this->themeHandler()->getLocalPath())
             ),
-            function(\DirectoryIterator $fileInfo) {
+            function (\DirectoryIterator $fileInfo) {
               if ($fileInfo->isDir() && !$fileInfo->isDot()) {
                 if (file_exists($fileInfo->getRealPath().'/theme.xml')) {
                   return $this->themeHandler()->getDefinition($fileInfo->getBasename());
@@ -104,7 +122,7 @@ class PapayaAdministrationThemeBrowser
               return FALSE;
             }
           ),
-          function($theme) {
+          function ($theme) {
             return $theme instanceof \PapayaThemeDefinition;
           }
         )

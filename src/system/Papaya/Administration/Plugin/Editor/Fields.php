@@ -13,13 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Plugin\Editor;
+use PapayaPluginEditableData;
+use PapayaUiDialogFieldBuilderArray;
+use PapayaUtilConstraints;
+
 /**
-* An PluginEditor implementation that build a dialog based on an array of field definitions
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPluginEditorFields extends \PapayaAdministrationPluginEditorDialog {
+ * An PluginEditor implementation that build a dialog based on an array of field definitions
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Fields extends Dialog {
 
   private $_fields;
 

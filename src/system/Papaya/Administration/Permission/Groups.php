@@ -13,15 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Permission;
+use Papaya\Administration\Permissions;
+
 /**
-* Constant and structure definitions for administration interface permission groups.
-*
-* @see PapayaAdministrationPermissions
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPermissionGroups implements \IteratorAggregate {
+ * Constant and structure definitions for administration interface permission groups.
+ *
+ * @see Permissions
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Groups implements \IteratorAggregate {
 
   const UNKNOWN = 0;
   const MISC = 1;
@@ -53,61 +56,61 @@ class PapayaAdministrationPermissionGroups implements \IteratorAggregate {
    * @var array
    */
   private $_groupedPermissions = array(
-    \PapayaAdministrationPermissionGroups::MISC => array(
-      \PapayaAdministrationPermissions::MESSAGES => 'Messages',
-      \PapayaAdministrationPermissions::IMAGE_GENERATOR => 'Dynamic Images',
-      \PapayaAdministrationPermissions::SYSTEM_THEMESET_MANAGE => 'Manage Theme Sets',
-      \PapayaAdministrationPermissions::SYSTEM_CACHE_CLEAR => 'Clear ouput cache'
+    self::MISC => array(
+      \Papaya\Administration\Permissions::MESSAGES => 'Messages',
+      \Papaya\Administration\Permissions::IMAGE_GENERATOR => 'Dynamic Images',
+      \Papaya\Administration\Permissions::SYSTEM_THEMESET_MANAGE => 'Manage Theme Sets',
+      \Papaya\Administration\Permissions::SYSTEM_CACHE_CLEAR => 'Clear ouput cache'
     ),
-    \PapayaAdministrationPermissionGroups::SYSTEM => array(
-      \PapayaAdministrationPermissions::SYSTEM_SETTINGS => 'System configuration',
-      \PapayaAdministrationPermissions::SYSTEM_TRANSLATE => 'Translate',
-      \PapayaAdministrationPermissions::SYSTEM_LINKTYPES_MANAGE => 'Manage Linktypes',
-      \PapayaAdministrationPermissions::SYSTEM_MIMETYPES_MANAGE => 'Manage mimetypes',
-      \PapayaAdministrationPermissions::SYSTEM_MIMETYPES_EDIT => 'Edit mimetypes',
-      \PapayaAdministrationPermissions::SYSTEM_CRONJOBS => 'Cronjobs',
-      \PapayaAdministrationPermissions::SYSTEM_PROTOCOL => 'Event protocol',
+    self::SYSTEM => array(
+      \Papaya\Administration\Permissions::SYSTEM_SETTINGS => 'System configuration',
+      \Papaya\Administration\Permissions::SYSTEM_TRANSLATE => 'Translate',
+      \Papaya\Administration\Permissions::SYSTEM_LINKTYPES_MANAGE => 'Manage Linktypes',
+      \Papaya\Administration\Permissions::SYSTEM_MIMETYPES_MANAGE => 'Manage mimetypes',
+      \Papaya\Administration\Permissions::SYSTEM_MIMETYPES_EDIT => 'Edit mimetypes',
+      \Papaya\Administration\Permissions::SYSTEM_CRONJOBS => 'Cronjobs',
+      \Papaya\Administration\Permissions::SYSTEM_PROTOCOL => 'Event protocol',
 
-      \PapayaAdministrationPermissions::USER_MANAGE => 'User management',
-      \PapayaAdministrationPermissions::USER_GROUP_MANAGE => 'User group management',
+      \Papaya\Administration\Permissions::USER_MANAGE => 'User management',
+      \Papaya\Administration\Permissions::USER_GROUP_MANAGE => 'User group management',
 
-      \PapayaAdministrationPermissions::MODULE_MANAGE => 'Module management',
-      \PapayaAdministrationPermissions::VIEW_MANAGE => 'Configure views'
+      \Papaya\Administration\Permissions::MODULE_MANAGE => 'Module management',
+      \Papaya\Administration\Permissions::VIEW_MANAGE => 'Configure views'
     ),
-    \PapayaAdministrationPermissionGroups::PAGES => array(
-      \PapayaAdministrationPermissions::PAGE_MANAGE => 'Manage pages',
-      \PapayaAdministrationPermissions::PAGE_CREATE => 'Create pages',
-      \PapayaAdministrationPermissions::PAGE_MOVE => 'Move pages',
-      \PapayaAdministrationPermissions::PAGE_COPY => 'Copy pages',
-      \PapayaAdministrationPermissions::PAGE_DELETE => 'Delete pages',
-      \PapayaAdministrationPermissions::PAGE_PUBLISH => 'Publish',
-      \PapayaAdministrationPermissions::PAGE_VERSION_MANAGE => 'Version management',
-      \PapayaAdministrationPermissions::PAGE_METADATA_EDIT => 'Define metatags',
-      \PapayaAdministrationPermissions::PAGE_DEPENDENCY_MANAGE => 'Manage Page Depedencies',
-      \PapayaAdministrationPermissions::PAGE_PERMISSION_MANAGE => 'Change edit permissions',
-      \PapayaAdministrationPermissions::PAGE_TRASH_MANAGE => 'View trash',
-      \PapayaAdministrationPermissions::PAGE_REPAIR_INDEX => 'Check and correct path index',
-      \PapayaAdministrationPermissions::PAGE_CACHE_CONFIGURE => 'Configure Caching',
+    self::PAGES => array(
+      \Papaya\Administration\Permissions::PAGE_MANAGE => 'Manage pages',
+      \Papaya\Administration\Permissions::PAGE_CREATE => 'Create pages',
+      \Papaya\Administration\Permissions::PAGE_MOVE => 'Move pages',
+      \Papaya\Administration\Permissions::PAGE_COPY => 'Copy pages',
+      \Papaya\Administration\Permissions::PAGE_DELETE => 'Delete pages',
+      \Papaya\Administration\Permissions::PAGE_PUBLISH => 'Publish',
+      \Papaya\Administration\Permissions::PAGE_VERSION_MANAGE => 'Version management',
+      \Papaya\Administration\Permissions::PAGE_METADATA_EDIT => 'Define metatags',
+      \Papaya\Administration\Permissions::PAGE_DEPENDENCY_MANAGE => 'Manage Page Depedencies',
+      \Papaya\Administration\Permissions::PAGE_PERMISSION_MANAGE => 'Change edit permissions',
+      \Papaya\Administration\Permissions::PAGE_TRASH_MANAGE => 'View trash',
+      \Papaya\Administration\Permissions::PAGE_REPAIR_INDEX => 'Check and correct path index',
+      \Papaya\Administration\Permissions::PAGE_CACHE_CONFIGURE => 'Configure Caching',
 
-      \PapayaAdministrationPermissions::ALIAS_MANAGE => 'Define aliases',
+      \Papaya\Administration\Permissions::ALIAS_MANAGE => 'Define aliases',
 
-      \PapayaAdministrationPermissions::TAG_MANAGE => 'Manage Tags',
-      \PapayaAdministrationPermissions::TAG_CATEGORY_MANAGE => 'Edit Tag Categories',
-      \PapayaAdministrationPermissions::TAG_EDIT => 'Edit Tags',
-      \PapayaAdministrationPermissions::TAG_LINK => 'Link Tags'
+      \Papaya\Administration\Permissions::TAG_MANAGE => 'Manage Tags',
+      \Papaya\Administration\Permissions::TAG_CATEGORY_MANAGE => 'Edit Tag Categories',
+      \Papaya\Administration\Permissions::TAG_EDIT => 'Edit Tags',
+      \Papaya\Administration\Permissions::TAG_LINK => 'Link Tags'
     ),
-    \PapayaAdministrationPermissionGroups::BOXES => array(
-      \PapayaAdministrationPermissions::BOX_MANAGE => 'Edit boxes',
-      \PapayaAdministrationPermissions::BOX_LINK => 'Link boxes'
+    self::BOXES => array(
+      \Papaya\Administration\Permissions::BOX_MANAGE => 'Edit boxes',
+      \Papaya\Administration\Permissions::BOX_LINK => 'Link boxes'
     ),
-    \PapayaAdministrationPermissionGroups::FILES => array(
-      \PapayaAdministrationPermissions::FILE_BROWSE => 'File browser',
-      \PapayaAdministrationPermissions::FILE_MANAGE => 'File management',
-      \PapayaAdministrationPermissions::FILE_FOLDER_MANAGE => 'Edit folders',
-      \PapayaAdministrationPermissions::FILE_UPLOAD => 'Upload files',
-      \PapayaAdministrationPermissions::FILE_EDIT => 'Edit files',
-      \PapayaAdministrationPermissions::FILE_DELETE => 'Delete files',
-      \PapayaAdministrationPermissions::FILE_IMPORT => 'Import files'
+    self::FILES => array(
+      \Papaya\Administration\Permissions::FILE_BROWSE => 'File browser',
+      \Papaya\Administration\Permissions::FILE_MANAGE => 'File management',
+      \Papaya\Administration\Permissions::FILE_FOLDER_MANAGE => 'Edit folders',
+      \Papaya\Administration\Permissions::FILE_UPLOAD => 'Upload files',
+      \Papaya\Administration\Permissions::FILE_EDIT => 'Edit files',
+      \Papaya\Administration\Permissions::FILE_DELETE => 'Delete files',
+      \Papaya\Administration\Permissions::FILE_IMPORT => 'Import files'
     )
   );
 

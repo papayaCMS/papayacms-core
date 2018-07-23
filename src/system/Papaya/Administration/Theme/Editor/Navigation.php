@@ -13,13 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Theme\Editor;
+use PapayaUiListview;
+
 /**
-* Navigation part of the theme sets editor (dynamic values for a theme)
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationThemeEditorNavigation extends \Papaya\Administration\Page\Part {
+ * Navigation part of the theme sets editor (dynamic values for a theme)
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Navigation extends \Papaya\Administration\Page\Part {
 
   /**
    * @var PapayaUiListview
@@ -27,10 +30,10 @@ class PapayaAdministrationThemeEditorNavigation extends \Papaya\Administration\P
   private $_listview = NULL;
 
   /**
-  * Append navigation to parent xml element
-  *
-  * @param \PapayaXmlElement $parent
-  */
+   * Append navigation to parent xml element
+   *
+   * @param \PapayaXmlElement $parent
+   */
   public function appendTo(\PapayaXmlElement $parent) {
     $parent->append($this->listview());
     if ('' != ($themeName = $this->parameters()->get('theme', ''))) {
@@ -162,15 +165,15 @@ class PapayaAdministrationThemeEditorNavigation extends \Papaya\Administration\P
   public function callbackCreateItem($builder, $items, $element, $index) {
     /** @noinspection PhpUndefinedMethodInspection */
     switch ($builder->getDataSource()->getDepth()) {
-    case 0 :
-      $items[] = $item = $this->createThemeItem($element, $index);
-      return $item;
-    case 1 :
-      $items[] = $item = $this->createSetItem($element, $index);
-      return $item;
-    case 2 :
-      $items[] = $item = $this->createPageItem($element, $index);
-      return $item;
+      case 0 :
+        $items[] = $item = $this->createThemeItem($element, $index);
+        return $item;
+      case 1 :
+        $items[] = $item = $this->createSetItem($element, $index);
+        return $item;
+      case 2 :
+        $items[] = $item = $this->createPageItem($element, $index);
+        return $item;
     }
     return NULL;
   }

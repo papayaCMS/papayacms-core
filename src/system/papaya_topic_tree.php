@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Pages\Dependency\Synchronizations;
+use Papaya\Administration\Permissions;
 
 /**
 * object to show sitemap in edit area (n-dimensional)
@@ -163,7 +164,7 @@ class papaya_topic_tree extends base_topic_tree {
                $this->topicEditable($pageId) &&
                ($this->topicEditable($targetId) || $targetId == 0)  &&
                $this->papaya()->administrationUser->hasPerm(
-                 PapayaAdministrationPermissions::PAGE_MOVE
+                 Permissions::PAGE_MOVE
                )
               ) {
             $this->movePage($topic, $targetId, $errorString);
@@ -190,12 +191,12 @@ class papaya_topic_tree extends base_topic_tree {
           if (
                ($this->topicEditable($targetId) || $targetId == 0) &&
                $this->papaya()->administrationUser->hasPerm(
-                 PapayaAdministrationPermissions::PAGE_COPY
+                 Permissions::PAGE_COPY
                )
              ) {
             if (
               !$this->papaya()->administrationUser->hasPerm(
-                PapayaAdministrationPermissions::PAGE_DEPENDENCY_MANAGE
+                Permissions::PAGE_DEPENDENCY_MANAGE
               ) ||
               $this->dialogCopyPageConfirmation()->execute()
             ) {
@@ -530,7 +531,7 @@ class papaya_topic_tree extends base_topic_tree {
     $synchronization = 0;
     if (
          $this->papaya()->administrationUser->hasPerm(
-           PapayaAdministrationPermissions::PAGE_DEPENDENCY_MANAGE
+           Permissions::PAGE_DEPENDENCY_MANAGE
          )
        ) {
       $createMissing = $this->dialogCopyPageConfirmation()->data->get(
@@ -975,7 +976,7 @@ class papaya_topic_tree extends base_topic_tree {
           );
           if ($showPublish &&
               $this->papaya()->administrationUser->hasPerm(
-                PapayaAdministrationPermissions::PAGE_PUBLISH
+                Permissions::PAGE_PUBLISH
               ) &&
               $this->topicEditable($val['topic_id'])) {
             $publishLink = $this->getLink(array('cmd' => 'publish', 'page_id' => (int)$id));

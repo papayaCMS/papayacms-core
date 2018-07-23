@@ -1,22 +1,19 @@
 <?php
 /**
-* User account management class for papaya. This includes the management of user accounts,
-* user groups, and access privileges.
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Authentication
-* @version $Id: papaya_user.php 39731 2014-04-08 10:08:07Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Permissions;
 
 /**
 * User class for papaya
@@ -119,7 +116,7 @@ class papaya_user extends base_auth {
       }
       break;
     case 'group_edit':
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::USER_GROUP_MANAGE)) {
+      if ($administrationUser->hasPerm(Permissions::USER_GROUP_MANAGE)) {
         if ($this->checkDialogInput($this->fieldsGroup)) {
           if ($this->saveGroupData((int)$this->params['gid'])) {
             $this->addMsg(
@@ -136,12 +133,12 @@ class papaya_user extends base_auth {
       }
       break;
     case 'group_add':
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::USER_GROUP_MANAGE)) {
+      if ($administrationUser->hasPerm(Permissions::USER_GROUP_MANAGE)) {
         $this->addGroup();
       }
       break;
     case 'group_del':
-      if ($administrationUser->hasPerm(PapayaAdministrationPermissions::USER_GROUP_MANAGE)) {
+      if ($administrationUser->hasPerm(Permissions::USER_GROUP_MANAGE)) {
         $this->delGroup();
       }
       break;
@@ -2031,7 +2028,7 @@ class papaya_user extends base_auth {
     );
     $menubar->addSeperator();
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(PapayaAdministrationPermissions::USER_GROUP_MANAGE)) {
+    if ($administrationUser->hasPerm(Permissions::USER_GROUP_MANAGE)) {
       $menubar->addButton(
         'Add group',
         $this->getLink(array('cmd' => 'group_add')),

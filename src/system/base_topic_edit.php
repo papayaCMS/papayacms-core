@@ -17,6 +17,7 @@ use Papaya\Administration\Pages\Dependency\Blocker;
 use Papaya\Administration\Pages\Dependency\Changer;
 use Papaya\Administration\Pages\Dependency\Synchronizations;
 use Papaya\Administration\Pages\Ancestors;
+use Papaya\Administration\Permissions;
 
 /**
 * page adminsitration class
@@ -329,7 +330,7 @@ class base_topic_edit extends base_topic {
       break;
     case 'add_topic':
       if ((
-           $authUser->hasPerm(PapayaAdministrationPermissions::PAGE_CREATE) &&
+           $authUser->hasPerm(Permissions::PAGE_CREATE) &&
            $this->hasPermUser(PERM_CREATE, $authUser)
           ) &&
           (
@@ -441,7 +442,7 @@ class base_topic_edit extends base_topic {
     if (!$this->topicId && $this->hasParent($authUser->user['start_node']) ||
          (
             $this->topic['is_deleted'] &&
-            !$authUser->hasPerm(PapayaAdministrationPermissions::PAGE_TRASH_MANAGE)
+            !$authUser->hasPerm(Permissions::PAGE_TRASH_MANAGE)
          )
        ) {
       if ($this->params['page_id'] != $authUser->user['start_node'] &&
@@ -517,7 +518,7 @@ class base_topic_edit extends base_topic {
         $dependencyBlocker = $this->getDependencyBlocker();
         if ($dependencyBlocker->isSynchronized(PapayaContentPageDependency::SYNC_BOXES)) {
           $this->layout->add($dependencyBlocker->getXml());
-        } elseif ($authUser->hasPerm(PapayaAdministrationPermissions::BOX_LINK)) {
+        } elseif ($authUser->hasPerm(Permissions::BOX_LINK)) {
           $boxLinks = new papaya_boxeslinks($this);
           $boxLinks->initialize();
           $dialog = $boxLinks->getModeDialog($this->topic['box_useparent']);
@@ -619,7 +620,7 @@ class base_topic_edit extends base_topic {
         $this->loadTranslationsInfo();
         $this->layout->add($this->getPublicData());
         // backup versions
-        if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_VERSION_MANAGE)) {
+        if ($authUser->hasPerm(Permissions::PAGE_VERSION_MANAGE)) {
           $this->loadVersionsList();
           if (isset($this->params['version_id']) &&
               $this->loadVersion($this->params['version_id'])) {
@@ -638,7 +639,7 @@ class base_topic_edit extends base_topic {
         }
         break;
       case 8: //editor permissions
-        if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_PERMISSION_MANAGE)) {
+        if ($authUser->hasPerm(Permissions::PAGE_PERMISSION_MANAGE)) {
           $editUser = new papaya_user();
           $editUser->initialize('edit_usr');
           $editUser->loadGroups();
@@ -654,7 +655,7 @@ class base_topic_edit extends base_topic {
         $dependencyBlocker = $this->getDependencyBlocker();
         if ($dependencyBlocker->isSynchronized(PapayaContentPageDependency::SYNC_TAGS)) {
           $this->layout->add($dependencyBlocker->getXml());
-        } elseif ($authUser->hasPerm(PapayaAdministrationPermissions::TAG_MANAGE)) {
+        } elseif ($authUser->hasPerm(Permissions::TAG_MANAGE)) {
           $tags = papaya_taglinks::getInstance($this);
           if (isset($tags) && $tags->prepare('topic', $this->topicId)) {
             if ($tags->execute()) {
@@ -674,7 +675,7 @@ class base_topic_edit extends base_topic {
         }
         break;
       case 11 : // dependencies
-        if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_DEPENDENCY_MANAGE)) {
+        if ($authUser->hasPerm(Permissions::PAGE_DEPENDENCY_MANAGE)) {
           $dependencies = new Changer();
           $dependencies->parameterGroup($this->paramName);
           $this->layout->add($dependencies->getXml());
@@ -849,8 +850,8 @@ class base_topic_edit extends base_topic {
       if (isset($this->params['del_topic_confirm']) && isset($this->topic)) {
         $prev = empty($this->topic['prev']) ? 0 : (int)$this->topic['prev'];
         if ($this->topic['is_deleted'] &&
-            $authUser->hasPerm(PapayaAdministrationPermissions::PAGE_TRASH_MANAGE) &&
-              $authUser->hasPerm(PapayaAdministrationPermissions::PAGE_DELETE)) {
+            $authUser->hasPerm(Permissions::PAGE_TRASH_MANAGE) &&
+              $authUser->hasPerm(Permissions::PAGE_DELETE)) {
           if ($this->destroy()) {
             $this->addMsg(
               MSG_INFO,
@@ -869,7 +870,7 @@ class base_topic_edit extends base_topic {
             $this->addMsg(MSG_ERROR, $this->_gt('Cannot delete this page.'));
           }
         } elseif ($this->delete() &&
-                  $authUser->hasPerm(PapayaAdministrationPermissions::PAGE_DELETE)) {
+                  $authUser->hasPerm(Permissions::PAGE_DELETE)) {
           $this->addMsg(
             MSG_INFO,
             $this->_gtf('Page #%d moved to trash.', array($this->topicId)),
@@ -996,7 +997,7 @@ class base_topic_edit extends base_topic {
         'Edit content',
         (isset($this->params['mode']) && $this->params['mode'] == 1)
       );
-      if ($authUser->hasPerm(PapayaAdministrationPermissions::BOX_LINK)) {
+      if ($authUser->hasPerm(Permissions::BOX_LINK)) {
         $toolbar->addButton(
           'Boxes',
           $this->getLink(
@@ -1007,7 +1008,7 @@ class base_topic_edit extends base_topic {
           (isset($this->params['mode']) && $this->params['mode'] == 2)
         );
       }
-      if ($authUser->hasPerm(PapayaAdministrationPermissions::TAG_MANAGE)) {
+      if ($authUser->hasPerm(Permissions::TAG_MANAGE)) {
         $toolbar->addButton(
           'Tags',
           $this->getLink(
@@ -1028,7 +1029,7 @@ class base_topic_edit extends base_topic {
         (isset($this->params['mode']) && $this->params['mode'] == 5)
       );
       $toolbar->addSeperator();
-      if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_DEPENDENCY_MANAGE)) {
+      if ($authUser->hasPerm(Permissions::PAGE_DEPENDENCY_MANAGE)) {
         $toolbar->addButton(
           $this->_gt('Dependencies').$this->getDependencyBlocker()->counter()->getLabel(),
           $this->getLink(
@@ -1062,7 +1063,7 @@ class base_topic_edit extends base_topic {
         'Version management',
         (isset($this->params['mode']) && $this->params['mode'] == 7)
       );
-      if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_PERMISSION_MANAGE)) {
+      if ($authUser->hasPerm(Permissions::PAGE_PERMISSION_MANAGE)) {
         $toolbar->addButton(
           'Permissions',
           $this->getLink(
@@ -1161,7 +1162,7 @@ class base_topic_edit extends base_topic {
       }
       $this->menubar->addSeperator();
 
-      if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_DELETE)) {
+      if ($authUser->hasPerm(Permissions::PAGE_DELETE)) {
         $this->menubar->addButton(
           'Delete page',
           $this->getLink(
@@ -1189,7 +1190,7 @@ class base_topic_edit extends base_topic {
         }
       }
       $this->menubar->addSeperator();
-      if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_PUBLISH)) {
+      if ($authUser->hasPerm(Permissions::PAGE_PUBLISH)) {
         $this->menubar->addButton(
           'Publish page',
           $this->getLink(
@@ -1294,7 +1295,7 @@ class base_topic_edit extends base_topic {
         $dataTrans = array(
           'topic_title' => $this->dialogProperties->data['topic_title']
         );
-        if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_METADATA_EDIT) &&
+        if ($authUser->hasPerm(Permissions::PAGE_METADATA_EDIT) &&
             $this->dialogProperties->data['meta_useparent']) {
           if (isset($this->dialogProperties->params['meta_title'])) {
             $dataTrans['meta_title'] = $this->dialogProperties->data['meta_title'];
@@ -1337,7 +1338,7 @@ class base_topic_edit extends base_topic {
           'topic_expirestime' => $this->dialogProperties->data['topic_expirestime'],
           'topic_sessionmode' => $this->dialogProperties->data['topic_sessionmode']
         );
-        if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_METADATA_EDIT)) {
+        if ($authUser->hasPerm(Permissions::PAGE_METADATA_EDIT)) {
           $data['meta_useparent'] = (int)(!$this->dialogProperties->data['meta_useparent']);
         }
         if ($translationModified || $this->checkDataModified($data, $this->topic)) {
@@ -2515,7 +2516,7 @@ class base_topic_edit extends base_topic {
         $data = $this->topic['TRANSLATION'];
         $fields['topic_title'] = array('Title', new PapayaFilterNotEmpty(), TRUE,
           'input', 400, '', 1);
-        if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_METADATA_EDIT) &&
+        if ($authUser->hasPerm(Permissions::PAGE_METADATA_EDIT) &&
             !$this->topic['meta_useparent']) {
           $fields[] = 'Metatags';
           $fields['meta_title'] = array('Page Title', new PapayaFilterNotEmpty(), FALSE,
@@ -2559,7 +2560,7 @@ class base_topic_edit extends base_topic {
           2 => $this->_gt('https')
         )
       );
-      if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_METADATA_EDIT)) {
+      if ($authUser->hasPerm(Permissions::PAGE_METADATA_EDIT)) {
         $data['meta_useparent'] = !($this->topic['meta_useparent']);
         $fields['meta_useparent'] = array('Define Metatags', 'isNum', TRUE,
           'yesno', '', '', 1);
@@ -2599,7 +2600,7 @@ class base_topic_edit extends base_topic {
       $data['topic_expiresmode'] = $this->topic['topic_expiresmode'];
       $data['topic_expirestime'] = $this->topic['topic_expirestime'];
       $data['topic_sessionmode'] = $this->topic['topic_sessionmode'];
-      if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_CACHE_CONFIGURE)) {
+      if ($authUser->hasPerm(Permissions::PAGE_CACHE_CONFIGURE)) {
         $fields[] = 'Content Cache (Server)';
         $fields['topic_cachemode'] = array(
           'Mode', 'isNum', TRUE, 'combo', $cacheModesContent, '', 1
@@ -3549,7 +3550,7 @@ class base_topic_edit extends base_topic {
     }
     if (
          $this->papaya()->administrationUser->hasPerm(
-           PapayaAdministrationPermissions::PAGE_CACHE_CONFIGURE
+           Permissions::PAGE_CACHE_CONFIGURE
          )
        ) {
       $listview->items[] = $item = new PapayaUiListviewItem(
@@ -4378,7 +4379,7 @@ class base_topic_edit extends base_topic {
         }
         break;
       case 'publish':
-        if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_PUBLISH)) {
+        if ($authUser->hasPerm(Permissions::PAGE_PUBLISH)) {
           if (!isset($_POST['audit'])) {
             $this->initializePublishDialog();
             if (isset($this->params['publish_confirm']) &&
@@ -4441,7 +4442,7 @@ class base_topic_edit extends base_topic {
         }
         break;
       case 'del_public':
-        if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_PUBLISH)) {
+        if ($authUser->hasPerm(Permissions::PAGE_PUBLISH)) {
           if (isset($this->params['del_public_confirm']) && $this->params['del_public_confirm']) {
             if ($this->deletePublicTopic()) {
               $this->addMsg(MSG_INFO, 'Published page deleted.');
@@ -4463,7 +4464,7 @@ class base_topic_edit extends base_topic {
         }
         break;
       case 'del_public_trans':
-        if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_PUBLISH)) {
+        if ($authUser->hasPerm(Permissions::PAGE_PUBLISH)) {
           if (isset($this->params['del_public_trans_confirm']) &&
               $this->params['del_public_trans_confirm']) {
             if ($this->deletePublicTopicTrans()) {
@@ -5047,7 +5048,7 @@ class base_topic_edit extends base_topic {
   * @return boolean
   */
   function editable($user) {
-    if (($user->hasPerm(PapayaAdministrationPermissions::PAGE_MANAGE) || $user->isAdmin()) &&
+    if (($user->hasPerm(Permissions::PAGE_MANAGE) || $user->isAdmin()) &&
         (
          $this->getLevel($user->startNode) <= $user->subLevel ||
          $user->subLevel == 0

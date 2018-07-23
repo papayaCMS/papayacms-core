@@ -13,12 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Theme\Editor\Changes\Set\Export;
+
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
 class PapayaAdministrationThemeEditorChangesSetExportTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaAdministrationThemeEditorChangesSetExport
+   * @covers Export
    */
   public function testAppendTo() {
     $response = $this->createMock(PapayaResponse::class);
@@ -80,7 +82,7 @@ class PapayaAdministrationThemeEditorChangesSetExportTest extends PapayaTestCase
       ->with($this->isInstanceOf(PapayaContentStructure::class))
       ->will($this->returnValue($document));
 
-    $export = new PapayaAdministrationThemeEditorChangesSetExport($themeSet, $themeHandler);
+    $export = new Export($themeSet, $themeHandler);
     $export->papaya(
       $this->mockPapaya()->application(
         array(

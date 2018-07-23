@@ -1,105 +1,122 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Permissions;
+use Papaya\Administration\Permission\Groups;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaAdministrationPermissionsTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaAdministrationPermissions::__construct
-   * @covers PapayaAdministrationPermissions::getIterator
+   * @covers Permissions::__construct
+   * @covers Permissions::getIterator
    */
   public function testGetIterator() {
-    $permissions = new PapayaAdministrationPermissions();
+    $permissions = new Permissions();
     $array = iterator_to_array($permissions);
-    $this->assertArrayHasKey(PapayaAdministrationPermissions::MESSAGES, $array);
+    $this->assertArrayHasKey(Permissions::MESSAGES, $array);
   }
 
   /**
-   * @covers PapayaAdministrationPermissions::exists
+   * @covers Permissions::exists
    */
   public function testExistsExpectingTrue() {
-    $permissions = new PapayaAdministrationPermissions();
-    $this->assertTrue($permissions->exists(PapayaAdministrationPermissions::USER_MANAGE));
+    $permissions = new Permissions();
+    $this->assertTrue($permissions->exists(Permissions::USER_MANAGE));
   }
 
   /**
-   * @covers PapayaAdministrationPermissions::exists
+   * @covers Permissions::exists
    */
   public function testExistsExpectingFalse() {
-    $permissions = new PapayaAdministrationPermissions();
+    $permissions = new Permissions();
     $this->assertFalse($permissions->exists(-23));
   }
 
   /**
-   * @covers PapayaAdministrationPermissions::exists
+   * @covers Permissions::exists
    */
   public function testExistsInGroupExpectingTrue() {
-    $permissions = new PapayaAdministrationPermissions();
+    $permissions = new Permissions();
     $this->assertTrue(
       $permissions->exists(
-        PapayaAdministrationPermissions::USER_MANAGE,
-        PapayaAdministrationPermissionGroups::SYSTEM
+        Permissions::USER_MANAGE,
+        Groups::SYSTEM
       )
     );
   }
 
   /**
-   * @covers PapayaAdministrationPermissions::exists
+   * @covers Permissions::exists
    */
   public function testExistsInGroupExpectingFalse() {
-    $permissions = new PapayaAdministrationPermissions();
+    $permissions = new Permissions();
     $this->assertFalse(
       $permissions->exists(
-        PapayaAdministrationPermissions::USER_MANAGE,
-        PapayaAdministrationPermissionGroups::MISC
+        Permissions::USER_MANAGE,
+        Groups::MISC
       )
     );
   }
 
   /**
-   * @covers PapayaAdministrationPermissions::inGroup
+   * @covers Permissions::inGroup
    */
   public function testInGroupExpectingTrue() {
-    $permissions = new PapayaAdministrationPermissions();
+    $permissions = new Permissions();
     $this->assertTrue(
       $permissions->inGroup(
-        PapayaAdministrationPermissions::USER_MANAGE,
-        PapayaAdministrationPermissionGroups::SYSTEM
+        Permissions::USER_MANAGE,
+        Groups::SYSTEM
       )
     );
   }
 
   /**
-   * @covers PapayaAdministrationPermissions::inGroup
+   * @covers Permissions::inGroup
    */
   public function testInGroupExpectingFalse() {
-    $permissions = new PapayaAdministrationPermissions();
+    $permissions = new Permissions();
     $this->assertFalse(
       $permissions->inGroup(
-        PapayaAdministrationPermissions::USER_MANAGE,
-        PapayaAdministrationPermissionGroups::MISC
+        Permissions::USER_MANAGE,
+        Groups::MISC
       )
     );
   }
 
   /**
-   * @covers PapayaAdministrationPermissions::isActive
+   * @covers Permissions::isActive
    */
   public function testIsActiveExpectingTrue() {
-    $permissions = new PapayaAdministrationPermissions();
-    $this->assertTrue($permissions->isActive(PapayaAdministrationPermissions::USER_MANAGE));
+    $permissions = new Permissions();
+    $this->assertTrue($permissions->isActive(Permissions::USER_MANAGE));
   }
 
   /**
-   * @covers PapayaAdministrationPermissions::isActive
+   * @covers Permissions::isActive
    */
   public function testIsActiveWithInvalidPermissionExpectingFalse() {
-    $permissions = new PapayaAdministrationPermissions();
+    $permissions = new Permissions();
     $this->assertFalse($permissions->isActive(-23));
   }
 
   /**
-   * @covers PapayaAdministrationPermissions::isActive
-   * @covers PapayaAdministrationPermissions::reset
+   * @covers Permissions::isActive
+   * @covers Permissions::reset
    */
   public function testIsActiveAfterLoadingExpectingFalse() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -109,7 +126,7 @@ class PapayaAdministrationPermissionsTest extends PapayaTestCase {
       ->will(
         $this->onConsecutiveCalls(
           array(
-            'perm_id' => PapayaAdministrationPermissions::USER_MANAGE,
+            'perm_id' => Permissions::USER_MANAGE,
             'perm_active' => '0'
           ),
           FALSE
@@ -124,29 +141,29 @@ class PapayaAdministrationPermissionsTest extends PapayaTestCase {
         array('table_'.PapayaContentTables::AUTHENTICATION_PERMISSIONS)
       )
       ->will($this->returnValue($databaseResult));
-    $permissions = new PapayaAdministrationPermissions();
+    $permissions = new Permissions();
     $permissions->setDatabaseAccess($databaseAccess);
     $permissions->load();
     $this->assertFalse(
-      $permissions->isActive(PapayaAdministrationPermissions::USER_MANAGE)
+      $permissions->isActive(Permissions::USER_MANAGE)
     );
   }
 
   /**
-   * @covers PapayaAdministrationPermissions::groups
+   * @covers Permissions::groups
    */
   public function testGroupsGetAfterSet() {
-    $permissions = new PapayaAdministrationPermissions();
-    $permissions->groups($groups = $this->createMock(PapayaAdministrationPermissionGroups::class));
+    $permissions = new Permissions();
+    $permissions->groups($groups = $this->createMock(Groups::class));
     $this->assertSame($groups, $permissions->groups());
   }
 
   /**
-   * @covers PapayaAdministrationPermissions::groups
+   * @covers Permissions::groups
    */
   public function testGroupsGetImplicitCreate() {
-    $permissions = new PapayaAdministrationPermissions();
-    $this->assertInstanceOf(PapayaAdministrationPermissionGroups::class, $permissions->groups());
+    $permissions = new Permissions();
+    $this->assertInstanceOf(Groups::class, $permissions->groups());
   }
 
 }

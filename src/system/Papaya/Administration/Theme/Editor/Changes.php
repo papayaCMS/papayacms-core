@@ -13,13 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Theme\Editor;
+use PapayaContentThemeSet;
+use PapayaThemeHandler;
+
 /**
-* Main part of the theme sets editor (dynamic values for a theme)
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationThemeEditorChanges extends \Papaya\Administration\Page\Part {
+ * Main part of the theme sets editor (dynamic values for a theme)
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Changes extends \Papaya\Administration\Page\Part {
 
   private $_commands = NULL;
   /**
@@ -33,20 +37,20 @@ class PapayaAdministrationThemeEditorChanges extends \Papaya\Administration\Page
   private $_themeHandler = NULL;
 
   /**
-  * Append changes commands to parent xml element
-  *
-  * @param \PapayaXmlElement $parent
-  */
+   * Append changes commands to parent xml element
+   *
+   * @param \PapayaXmlElement $parent
+   */
   public function appendTo(\PapayaXmlElement $parent) {
     $parent->append($this->commands());
   }
 
   /**
-  * Commands, actual actions
-  *
-  * @param \PapayaUiControlCommandController|\PapayaUiControlCommand $commands
-  * @return \PapayaUiControlCommandController|\PapayaUiControlCommand
-  */
+   * Commands, actual actions
+   *
+   * @param \PapayaUiControlCommandController|\PapayaUiControlCommand $commands
+   * @return \PapayaUiControlCommandController|\PapayaUiControlCommand
+   */
   public function commands(\PapayaUiControlCommand $commands = NULL) {
     if (isset($commands)) {
       $this->_commands = $commands;
@@ -54,19 +58,19 @@ class PapayaAdministrationThemeEditorChanges extends \Papaya\Administration\Page
       $this->_commands = new \PapayaUiControlCommandController('cmd');
       $this->_commands->owner($this);
       $this->_commands['set_edit'] =
-        $command = new \PapayaAdministrationThemeEditorChangesSetChange($this->themeSet());
+      $command = new Changes\Set\Change($this->themeSet());
       $this->_commands['set_delete'] =
-        $command = new \PapayaAdministrationThemeEditorChangesSetRemove($this->themeSet());
+      $command = new Changes\Set\Remove($this->themeSet());
       $this->_commands['set_import'] =
-        $command = new \PapayaAdministrationThemeEditorChangesSetImport(
-          $this->themeSet(), $this->themeHandler()
-        );
+      $command = new Changes\Set\Import(
+        $this->themeSet(), $this->themeHandler()
+      );
       $this->_commands['set_export'] =
-        $command = new \PapayaAdministrationThemeEditorChangesSetExport(
-          $this->themeSet(), $this->themeHandler()
-        );
+      $command = new Changes\Set\Export(
+        $this->themeSet(), $this->themeHandler()
+      );
       $this->_commands['values_edit'] =
-        $command = new \PapayaAdministrationThemeEditorChangesDialog($this->themeSet());
+      $command = new Changes\Dialog($this->themeSet());
     }
     return $this->_commands;
   }
