@@ -13,16 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Pages\Dependency\Synchronization\Publication;
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationPublication::synchronize
-  * @covers PapayaAdministrationPagesDependencySynchronizationPublication::getVersionData
+  * @covers Publication::synchronize
+  * @covers Publication::getVersionData
   */
   public function testSynchronize() {
-    $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
+    $action = new Publication();
     $action->publication(
       $publication = $this->getPublicationFixture(
         array(
@@ -50,11 +52,11 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationPublication::synchronize
-  * @covers PapayaAdministrationPagesDependencySynchronizationPublication::getVersionData
+  * @covers Publication::synchronize
+  * @covers Publication::getVersionData
   */
   public function testSynchronizeVersionDataLoadFailedExpectingFalse() {
-    $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
+    $action = new Publication();
     $action->publication(
       $publication = $this->getPublicationFixture(
         array(
@@ -68,63 +70,63 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationPublication::publication
+  * @covers Publication::publication
   */
   public function testPublicationGetAfterSet() {
     $publication = $this->createMock(PapayaContentPagePublication::class);
-    $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
+    $action = new Publication();
     $this->assertSame(
       $publication, $action->publication($publication)
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationPublication::publication
+  * @covers Publication::publication
   */
   public function testPublicationGetImplicitCreate() {
-    $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
+    $action = new Publication();
     $this->assertInstanceOf(
       PapayaContentPagePublication::class, $action->publication()
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationPublication::page
+  * @covers Publication::page
   */
   public function testPageGetAfterSet() {
     $page = $this->createMock(PapayaContentPageWork::class);
-    $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
+    $action = new Publication();
     $this->assertSame(
       $page, $action->page($page)
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationPublication::page
+  * @covers Publication::page
   */
   public function testPageGetImplicitCreate() {
-    $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
+    $action = new Publication();
     $this->assertInstanceOf(
       PapayaContentPageWork::class, $action->page()
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationPublication::version
+  * @covers Publication::version
   */
   public function testVersionGetAfterSet() {
     $version = $this->createMock(PapayaContentPageVersion::class);
-    $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
+    $action = new Publication();
     $this->assertSame(
       $version, $action->version($version)
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationPublication::version
+  * @covers Publication::version
   */
   public function testVersionGetImplicitCreate() {
-    $action = new PapayaAdministrationPagesDependencySynchronizationPublication();
+    $action = new Publication();
     $this->assertInstanceOf(
       PapayaContentPageVersion::class, $action->version()
     );

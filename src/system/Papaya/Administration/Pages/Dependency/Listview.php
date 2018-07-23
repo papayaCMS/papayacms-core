@@ -13,53 +13,59 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Pages\Dependency;
+use Papaya\Administration\Pages\Dependency\Synchronizations;
+use PapayaContentPageReferences;
+use PapayaContentPages;
+use PapayaDatabaseObjectList;
+
 /**
-* Listview to show all dependencies for the specified origin page.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencyListview extends \PapayaUiListview {
+ * Listview to show all dependencies for the specified origin page.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Listview extends \PapayaUiListview {
   /**
-  * Origin page id, this will be different from the current page id, if the current page id
-  * is a dependency of this page id
-  *
-  * @var integer
-  */
+   * Origin page id, this will be different from the current page id, if the current page id
+   * is a dependency of this page id
+   *
+   * @var integer
+   */
   private $_originPageId = 0;
   /**
-  * Current page id, this can be the page of an existing page dependency or of the selected page
-  *
-  * @var integer
-  */
+   * Current page id, this can be the page of an existing page dependency or of the selected page
+   *
+   * @var integer
+   */
   private $_currentPageId = 0;
 
   /**
-  * List of database records
-  *
-  * @var PapayaDatabaseObjectList
-  */
+   * List of database records
+   *
+   * @var PapayaDatabaseObjectList
+   */
   private $_dependencies = 0;
 
   /**
-  * List of database records
-  *
-  * @var PapayaContentPageReferences
-  */
+   * List of database records
+   *
+   * @var PapayaContentPageReferences
+   */
   private $_references = 0;
 
   /**
-  * A list of the synchronization for the select field.
-  *
-  * @var PapayaAdministrationPagesDependencySynchronizations
-  */
+   * A list of the synchronization for the select field.
+   *
+   * @var Synchronizations
+   */
   private $_synchronizations = NULL;
 
   /**
-  * A pages list, to fetch page informations
-  *
-  * @var PapayaContentPages
-  */
+   * A pages list, to fetch page informations
+   *
+   * @var PapayaContentPages
+   */
   private $_pages = NULL;
 
   public function __construct(
@@ -67,7 +73,7 @@ class PapayaAdministrationPagesDependencyListview extends \PapayaUiListview {
     $currentPageId,
     \PapayaContentPageDependencies $dependencies,
     \PapayaContentPageReferences $references,
-    \PapayaAdministrationPagesDependencySynchronizations $synchronizations
+    \Papaya\Administration\Pages\Dependency\Synchronizations $synchronizations
   ) {
     \PapayaUtilConstraints::assertInteger($originPageId);
     \PapayaUtilConstraints::assertInteger($currentPageId);
@@ -79,8 +85,8 @@ class PapayaAdministrationPagesDependencyListview extends \PapayaUiListview {
   }
 
   /**
-  * Prepare listview, set caption, create columns, items and subitems
-  */
+   * Prepare listview, set caption, create columns, items and subitems
+   */
   private function prepare() {
     $pages = $this->pages();
     $pageTitle = isset($pages[$this->_originPageId])
@@ -181,11 +187,11 @@ class PapayaAdministrationPagesDependencyListview extends \PapayaUiListview {
   }
 
   /**
-  * Append listview to parent element if it has records.
-  *
-  * @param \PapayaXmlElement $parent
-  * @return NULL|\PapayaXmlElement
-  */
+   * Append listview to parent element if it has records.
+   *
+   * @param \PapayaXmlElement $parent
+   * @return NULL|\PapayaXmlElement
+   */
   public function appendTo(\PapayaXmlElement $parent) {
     if (count($this->_dependencies) > 0 || count($this->_references) > 0) {
       $this->prepare();
@@ -195,11 +201,11 @@ class PapayaAdministrationPagesDependencyListview extends \PapayaUiListview {
   }
 
   /**
-  * Access to the pages list, to load page informations
-  *
-  * @param \PapayaContentPages $pages
-  * @return \PapayaContentPages
-  */
+   * Access to the pages list, to load page informations
+   *
+   * @param \PapayaContentPages $pages
+   * @return \PapayaContentPages
+   */
   public function pages(\PapayaContentPages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;

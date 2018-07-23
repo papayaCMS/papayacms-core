@@ -13,30 +13,34 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Pages;
+use PapayaContentPages;
+use PapayaUiHierarchyMenu;
+
 /**
-* Display anchestors of the current page.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesAnchestors extends \PapayaUiControl {
+ * Display anchestors of the current page.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Ancestors extends \PapayaUiControl {
 
   /**
-  * Member variable for pages subobject
-  *
-  * @var PapayaContentPages
-  */
+   * Member variable for pages subobject
+   *
+   * @var PapayaContentPages
+   */
   private $_pages = NULL;
 
   /**
-  * Member variable for hierarchy menu subobject
-  *
-  * @var PapayaUiHierarchyMenu
-  */
+   * Member variable for hierarchy menu subobject
+   *
+   * @var PapayaUiHierarchyMenu
+   */
   private $_menu = NULL;
 
   /**
-   * Append anchestor menu xml to parent element, this will do nothing until ids are set.
+   * Append ancestor menu xml to parent element, this will do nothing until ids are set.
    *
    * @param \PapayaXmlElement $parent
    * @return NULL|\PapayaXmlElement
@@ -46,10 +50,10 @@ class PapayaAdministrationPagesAnchestors extends \PapayaUiControl {
   }
 
   /**
-  * Load data for the given page ids and create items in the menu for them.
-  *
-  * @param array $pageIds
-  */
+   * Load data for the given page ids and create items in the menu for them.
+   *
+   * @param array $pageIds
+   */
   public function setIds(array $pageIds) {
     $this->pages()->load(
       array(
@@ -69,11 +73,11 @@ class PapayaAdministrationPagesAnchestors extends \PapayaUiControl {
   }
 
   /**
-  * Content object, to load page informations
-  *
-  * @param \PapayaContentPages $pages
-  * @return \PapayaContentPages
-  */
+   * Content object, to load page informations
+   *
+   * @param \PapayaContentPages $pages
+   * @return \PapayaContentPages
+   */
   public function pages(\PapayaContentPages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;
@@ -85,11 +89,11 @@ class PapayaAdministrationPagesAnchestors extends \PapayaUiControl {
   }
 
   /**
-  * Menu object used to generate xml with page items
-  *
-  * @param \PapayaUiHierarchyMenu $menu
-  * @return \PapayaUiHierarchyMenu
-  */
+   * Menu object used to generate xml with page items
+   *
+   * @param \PapayaUiHierarchyMenu $menu
+   * @return \PapayaUiHierarchyMenu
+   */
   public function menu(\PapayaUiHierarchyMenu $menu = NULL) {
     if (isset($menu)) {
       $this->_menu = $menu;

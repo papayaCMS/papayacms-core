@@ -13,35 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Pages\Dependency\Synchronization;
+use PapayaContentPageBoxes;
+use PapayaContentPageWork;
+
 /**
-* Synchronize box inheritance on the page workling copy and the page links
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencySynchronizationBoxes
-  implements \PapayaAdministrationPagesDependencySynchronization {
+ * Synchronize box inheritance on the page workling copy and the page links
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Boxes
+  implements \Papaya\Administration\Pages\Dependency\Synchronization {
 
   /**
-  * Page boxes list database object
-  *
-  * @var PapayaContentPageBoxes
-  */
+   * Page boxes list database object
+   *
+   * @var PapayaContentPageBoxes
+   */
   private $_boxes = NULL;
 
   /**
-  * Page working copy object
-  *
-  * @var PapayaContentPageWork
-  */
+   * Page working copy object
+   *
+   * @var PapayaContentPageWork
+   */
   private $_page = NULL;
 
   /**
-  * Synchronize a dependency
-  *
-  * @param array $targetIds
-  * @param integer $originId
-  * @param array|NULL $languages
+   * Synchronize a dependency
+   *
+   * @param array $targetIds
+   * @param integer $originId
+   * @param array|NULL $languages
    */
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
     if ($this->page()->load($originId)) {
@@ -56,7 +60,7 @@ class PapayaAdministrationPagesDependencySynchronizationBoxes
    *
    * @param array $targetIds
    * @param int $status
-   * @return \PapayaContentPageWork
+   * @return bool
    */
   private function setInheritanceStatus(array $targetIds, $status) {
     $databaseAccess = $this->page()->getDatabaseAccess();
@@ -70,11 +74,11 @@ class PapayaAdministrationPagesDependencySynchronizationBoxes
   }
 
   /**
-  * Getter/Setter for the  page boxes list database object
-  *
-  * @param \PapayaContentPageBoxes $boxes
-  * @return \PapayaContentPageBoxes
-  */
+   * Getter/Setter for the  page boxes list database object
+   *
+   * @param \PapayaContentPageBoxes $boxes
+   * @return \PapayaContentPageBoxes
+   */
   public function boxes(\PapayaContentPageBoxes $boxes = NULL) {
     if (isset($boxes)) {
       $this->_boxes = $boxes;
@@ -85,11 +89,11 @@ class PapayaAdministrationPagesDependencySynchronizationBoxes
   }
 
   /**
-  * Getter/Setter for the page working copy
-  *
-  * @param \PapayaContentPageWork $page
-  * @return \PapayaContentPageWork
-  */
+   * Getter/Setter for the page working copy
+   *
+   * @param \PapayaContentPageWork $page
+   * @return \PapayaContentPageWork
+   */
   public function page(\PapayaContentPageWork $page = NULL) {
     if (isset($page)) {
       $this->_page = $page;

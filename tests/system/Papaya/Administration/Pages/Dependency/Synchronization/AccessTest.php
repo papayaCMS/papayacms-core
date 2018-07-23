@@ -13,34 +13,36 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Pages\Dependency\Synchronization\Access;
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationPagesDependencySynchronizationAccessTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationAccess::page
+  * @covers Access::page
   */
   public function testTranslationsGetAfterSet() {
     $page = $this->createMock(PapayaContentPageWork::class);
-    $action = new PapayaAdministrationPagesDependencySynchronizationAccess();
+    $action = new Access();
     $this->assertSame(
       $page, $action->page($page)
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationAccess::page
+  * @covers Access::page
   */
   public function testTranslationsGetImplicitCreate() {
-    $action = new PapayaAdministrationPagesDependencySynchronizationAccess();
+    $action = new Access();
     $this->assertInstanceOf(
       PapayaContentPageWork::class, $action->page()
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationAccess::synchronize
-  * @covers PapayaAdministrationPagesDependencySynchronizationAccess::updatePages
+  * @covers Access::synchronize
+  * @covers Access::updatePages
   */
   public function testSynchronize() {
     $databaseAccess = $this->getDatabaseAccessFixture();
@@ -66,13 +68,13 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
         )
       )
       ->will($this->returnValue(TRUE));
-    $action = new PapayaAdministrationPagesDependencySynchronizationAccess();
+    $action = new Access();
     $action->page($page);
     $this->assertTrue($action->synchronize(array(21), 42));
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationAccess::synchronize
+  * @covers Access::synchronize
   */
   public function testSynchronizePageNotLoaded() {
     $page = $this->createMock(PapayaContentPageWork::class);
@@ -80,7 +82,7 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
       ->expects($this->once())
       ->method('load')
       ->will($this->returnValue(FALSE));
-    $action = new PapayaAdministrationPagesDependencySynchronizationAccess();
+    $action = new Access();
     $action->page($page);
     $this->assertFalse($action->synchronize(array(21), 42));
   }

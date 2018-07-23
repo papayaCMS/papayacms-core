@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Pages\Dependency\Synchronization;
 /**
-* Synchronize view of the page working copy
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencySynchronizationView
-  extends \PapayaAdministrationPagesDependencySynchronizationContent {
+ * Synchronize view of the page working copy
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class View
+  extends Content {
 
   /**
    * Update content data of existing translations
@@ -32,15 +33,15 @@ class PapayaAdministrationPagesDependencySynchronizationView
   protected function updateTranslations(\PapayaContentPageTranslation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
-      $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
-      array(
-        'view_id' => $origin->viewId,
-        'topic_trans_modified' => $origin->modified
-      ),
-      array(
-        'lng_id' => $origin->languageId,
-        'topic_id' => $targetIds
-      )
-    );
+        $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
+        array(
+          'view_id' => $origin->viewId,
+          'topic_trans_modified' => $origin->modified
+        ),
+        array(
+          'lng_id' => $origin->languageId,
+          'topic_id' => $targetIds
+        )
+      );
   }
 }

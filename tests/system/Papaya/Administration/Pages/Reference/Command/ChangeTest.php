@@ -1,13 +1,30 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Pages\Dependency\Changer;
+use Papaya\Administration\Pages\Reference\Command\Change;
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::createDialog
+  * @covers Change::createDialog
   */
   public function testCreateDialog() {
-    $owner = $this->createMock(PapayaAdministrationPagesDependencyChanger::class);
+    $owner = $this->createMock(Changer::class);
     $owner
       ->expects($this->once())
       ->method('getPageId')
@@ -19,7 +36,7 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
         $this->returnValue($this->getRecordFixture(array('sourceId' => 21,'targetId' => 42)))
       );
 
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
+    $command = new Change();
     $command->owner($owner);
     $dialog = $command->createDialog();
     $this->assertCount(2, $dialog->fields);
@@ -28,10 +45,10 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
   }
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::createDialog
+  * @covers Change::createDialog
   */
   public function testCreateDialogWithoutSourceId() {
-    $owner = $this->createMock(PapayaAdministrationPagesDependencyChanger::class);
+    $owner = $this->createMock(Changer::class);
     $owner
       ->expects($this->once())
       ->method('getPageId')
@@ -43,17 +60,17 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
         $this->returnValue($this->getRecordFixture(array('sourceId' => 0,'targetId' => 42)))
       );
 
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
+    $command = new Change();
     $command->owner($owner);
     $dialog = $command->createDialog();
     $this->assertCount(2, $dialog->fields);
   }
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::createDialog
+  * @covers Change::createDialog
   */
   public function testCreateDialogWhileSourceIdEqualsPageId() {
-    $owner = $this->createMock(PapayaAdministrationPagesDependencyChanger::class);
+    $owner = $this->createMock(Changer::class);
     $owner
       ->expects($this->once())
       ->method('getPageId')
@@ -65,15 +82,15 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
         $this->returnValue($this->getRecordFixture(array('sourceId' => 21,'targetId' => 42)))
       );
 
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
+    $command = new Change();
     $command->owner($owner);
     $dialog = $command->createDialog();
     $this->assertCount(2, $dialog->fields);
   }
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::validateTarget
-  * @covers PapayaAdministrationPagesReferenceCommandChange::sortAsc
+  * @covers Change::validateTarget
+  * @covers Change::sortAsc
   */
   public function testValidateTargetExpectsTrue() {
     $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
@@ -86,15 +103,15 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
       ->expects($this->once())
       ->method('key')
       ->will($this->returnValue($key));
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
+    $command = new Change();
     $this->assertTrue(
       $command->validateTarget($this->createMock(stdClass::class), $record)
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::validateTarget
-  * @covers PapayaAdministrationPagesReferenceCommandChange::sortAsc
+  * @covers Change::validateTarget
+  * @covers Change::sortAsc
   */
   public function testValidateTargetExpectingFalse() {
     $field = $this->createMock(PapayaUiDialogField::class);
@@ -117,7 +134,7 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
       ->method('exists')
       ->with(21, 23)
       ->will($this->returnValue(TRUE));
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
+    $command = new Change();
     $context = new stdClass();
     $context->targetIdField = $field;
     $this->assertFalse(
@@ -126,7 +143,7 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
   }
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::dispatchSavedMessage
+  * @covers Change::dispatchSavedMessage
   */
   public function testDispatchSavedMessage() {
     $messages = $this->createMock(PapayaMessageManager::class);
@@ -139,13 +156,13 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
         'Messages' => $messages
       )
     );
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
+    $command = new Change();
     $command->papaya($application);
     $command->dispatchSavedMessage();
   }
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandChange::dispatchErrorMessage
+  * @covers Change::dispatchErrorMessage
   */
   public function testDispatchErrorMessage() {
     $errors = $this->createMock(PapayaUiDialogErrors::class);
@@ -169,7 +186,7 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
         'Messages' => $messages
       )
     );
-    $command = new PapayaAdministrationPagesReferenceCommandChange();
+    $command = new Change();
     $command->papaya($application);
     $command->dispatchErrorMessage(new stdClass, $dialog);
   }

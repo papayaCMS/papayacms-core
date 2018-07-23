@@ -1,12 +1,29 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Pages\Dependency\Changer;
+use Papaya\Administration\Pages\Reference\Command\Delete;
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationPagesReferenceCommandDeleteTest extends PapayaTestCase {
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandDelete::createDialog
+  * @covers Delete::createDialog
   */
   public function testCreateDialog() {
-    $owner = $this->createMock(PapayaAdministrationPagesDependencyChanger::class);
+    $owner = $this->createMock(Changer::class);
     $owner
       ->expects($this->atLeastOnce())
       ->method('getPageId')
@@ -16,7 +33,7 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends PapayaTestCase
       ->method('reference')
       ->will($this->returnValue($this->getRecordFixture(array('sourceId' => 21,'targetId' => 42))));
 
-    $command = new PapayaAdministrationPagesReferenceCommandDelete();
+    $command = new Delete();
     $command->owner($owner);
     $dialog = $command->createDialog();
     $this->assertCount(1, $dialog->fields);
@@ -24,7 +41,7 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends PapayaTestCase
   }
 
   /**
-  * @covers PapayaAdministrationPagesReferenceCommandDelete::dispatchDeleteMessage
+  * @covers Delete::dispatchDeleteMessage
   */
   public function testDispatchDeleteMessage() {
     $messages = $this->createMock(PapayaMessageManager::class);
@@ -37,7 +54,7 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends PapayaTestCase
         'Messages' => $messages
       )
     );
-    $command = new PapayaAdministrationPagesReferenceCommandDelete();
+    $command = new Delete();
     $command->papaya($application);
     $command->dispatchDeleteMessage();
   }

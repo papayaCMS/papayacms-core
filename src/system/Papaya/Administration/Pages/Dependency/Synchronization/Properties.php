@@ -13,20 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Pages\Dependency\Synchronization;
+use PapayaContentPageWork;
+
 /**
-* Synchronize properties of the page working copy
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencySynchronizationProperties
-  extends \PapayaAdministrationPagesDependencySynchronizationContent {
+ * Synchronize properties of the page working copy
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Properties
+  extends Content {
 
   /**
-  * Page database record object
-  *
-  * @var PapayaContentPageWork
-  */
+   * Page database record object
+   *
+   * @var PapayaContentPageWork
+   */
   private $_page = NULL;
 
   /**
@@ -46,11 +49,11 @@ class PapayaAdministrationPagesDependencySynchronizationProperties
   }
 
   /**
-  * Getter/Setter for the content page object
-  *
-  * @param \PapayaContentPageWork $page
-  * @return \PapayaContentPageWork
-  */
+   * Getter/Setter for the content page object
+   *
+   * @param \PapayaContentPageWork $page
+   * @return \PapayaContentPageWork
+   */
   public function page(\PapayaContentPageWork $page = NULL) {
     if (isset($page)) {
       $this->_page = $page;
@@ -61,56 +64,56 @@ class PapayaAdministrationPagesDependencySynchronizationProperties
   }
 
   /**
-  * Update target translation properties
-  *
-  * @param \PapayaContentPageTranslation $origin
-  * @param array $targetIds
-  * @return boolean
-  */
+   * Update target translation properties
+   *
+   * @param \PapayaContentPageTranslation $origin
+   * @param array $targetIds
+   * @return boolean
+   */
   protected function updateTranslations(\PapayaContentPageTranslation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
-      $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
-      array(
-        'topic_title' => $origin->title,
-        'meta_title' => $origin->metaTitle,
-        'meta_keywords' => $origin->metaKeywords,
-        'meta_descr' => $origin->metaDescription
-      ),
-      array(
-        'lng_id' => $origin->languageId,
-        'topic_id' => $targetIds
-      )
-    );
+        $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
+        array(
+          'topic_title' => $origin->title,
+          'meta_title' => $origin->metaTitle,
+          'meta_keywords' => $origin->metaKeywords,
+          'meta_descr' => $origin->metaDescription
+        ),
+        array(
+          'lng_id' => $origin->languageId,
+          'topic_id' => $targetIds
+        )
+      );
   }
 
   /**
-  * Update target page properties
-  *
-  * @param \PapayaContentPageWork $origin
-  * @param array $targetIds
-  * @return boolean
-  */
+   * Update target page properties
+   *
+   * @param \PapayaContentPageWork $origin
+   * @param array $targetIds
+   * @return boolean
+   */
   protected function updatePages(\PapayaContentPageWork $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
-      $databaseAccess->getTableName(\PapayaContentTables::PAGES),
-      array(
-        'topic_modified' => $databaseAccess->getTimestamp(),
-        'topic_mainlanguage' => $origin->defaultLanguage,
-        'linktype_id' => $origin->linkType,
-        'topic_changefreq' => $origin->changeFrequency,
-        'topic_priority' => $origin->priority,
-        'topic_protocol' => $origin->scheme,
-        'topic_cachemode' => $origin->cacheMode,
-        'topic_cachetime' => $origin->cacheTime,
-        'topic_expiresmode' => $origin->expiresMode,
-        'topic_expirestime' => $origin->expiresTime
-      ),
-      array(
-        'topic_id' => $targetIds
-      )
-    );
+        $databaseAccess->getTableName(\PapayaContentTables::PAGES),
+        array(
+          'topic_modified' => $databaseAccess->getTimestamp(),
+          'topic_mainlanguage' => $origin->defaultLanguage,
+          'linktype_id' => $origin->linkType,
+          'topic_changefreq' => $origin->changeFrequency,
+          'topic_priority' => $origin->priority,
+          'topic_protocol' => $origin->scheme,
+          'topic_cachemode' => $origin->cacheMode,
+          'topic_cachetime' => $origin->cacheTime,
+          'topic_expiresmode' => $origin->expiresMode,
+          'topic_expirestime' => $origin->expiresTime
+        ),
+        array(
+          'topic_id' => $targetIds
+        )
+      );
   }
 
 }

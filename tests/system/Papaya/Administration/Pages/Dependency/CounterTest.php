@@ -1,18 +1,34 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Pages\Dependency\Counter;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaAdministrationPagesDependencyCounter::__construct
+  * @covers Counter::__construct
   */
   public function testConstructor() {
-    $counter = new PapayaAdministrationPagesDependencyCounter(42);
+    $counter = new Counter(42);
     $this->assertAttributeEquals(42, '_pageId', $counter);
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencyCounter::load
+  * @covers Counter::load
   */
   public function testLoad() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -49,7 +65,7 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
         $this->returnValue($databaseResult)
       );
 
-    $counter = new PapayaAdministrationPagesDependencyCounter(42);
+    $counter = new Counter(42);
     $counter->setDatabaseAccess($databaseAccess);
     $this->assertTrue($counter->load());
     $this->assertEquals(21, $counter->getDependencies());
@@ -57,7 +73,7 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencyCounter::load
+  * @covers Counter::load
   */
   public function testLoadFailedExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -67,14 +83,14 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue(FALSE));
 
-    $counter = new PapayaAdministrationPagesDependencyCounter(42);
+    $counter = new Counter(42);
     $counter->setDatabaseAccess($databaseAccess);
     $this->assertFalse($counter->load());
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencyCounter::getDependencies
-  * @covers PapayaAdministrationPagesDependencyCounter::lazyLoad
+  * @covers Counter::getDependencies
+  * @covers Counter::lazyLoad
   */
   public function testGetDependencies() {
     $counter = new PapayaAdministrationPagesDependencyCounter_TestProxy(42);
@@ -84,8 +100,8 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencyCounter::getReferences
-  * @covers PapayaAdministrationPagesDependencyCounter::lazyLoad
+  * @covers Counter::getReferences
+  * @covers Counter::lazyLoad
   */
   public function testGetReferences() {
     $counter = new PapayaAdministrationPagesDependencyCounter_TestProxy(42);
@@ -95,8 +111,8 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAdministrationPagesDependencyCounter::getLabel
-   * @covers PapayaAdministrationPagesDependencyCounter::lazyLoad
+   * @covers Counter::getLabel
+   * @covers Counter::lazyLoad
    * @dataProvider provideCountingsForGetLabel
    * @param string $expected
    * @param int $dependencies
@@ -139,7 +155,7 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
 }
 
 class PapayaAdministrationPagesDependencyCounter_TestProxy
-  extends PapayaAdministrationPagesDependencyCounter {
+  extends Counter {
 
   public $countingSamples = array(
     'dependencies' => 21,

@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Pages\Dependency;
 /**
-* Interface definition for the page synchronization actions.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-interface PapayaAdministrationPagesDependencySynchronization {
+ * Interface definition for the page synchronization actions.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+interface Synchronization {
 
   /**
-  * Synchronize a dependency
-  *
-  * @param array $targetIds
-  * @param integer $originId
-  * @param array|NULL $languages
-  */
+   * Synchronize a dependency
+   *
+   * @param array $targetIds
+   * @param integer $originId
+   * @param array|NULL $languages
+   */
   function synchronize(array $targetIds, $originId, array $languages = NULL);
 }

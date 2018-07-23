@@ -13,49 +13,51 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Pages\Dependency\Synchronization\Content;
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationPagesDependencySynchronizationContentTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::translations
+  * @covers Content::translations
   */
   public function testTranslationsGetAfterSet() {
     $translations = $this->createMock(PapayaContentPageTranslations::class);
-    $action = new PapayaAdministrationPagesDependencySynchronizationContent();
+    $action = new Content();
     $this->assertSame(
       $translations, $action->translations($translations)
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::translations
+  * @covers Content::translations
   */
   public function testTranslationsGetImplicitCreate() {
-    $action = new PapayaAdministrationPagesDependencySynchronizationContent();
+    $action = new Content();
     $this->assertInstanceOf(
       PapayaContentPageTranslations::class, $action->translations()
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::synchronize
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getExistingTargetTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getMissingTargetTranslations
+  * @covers Content::synchronize
+  * @covers Content::getExistingTargetTranslations
+  * @covers Content::getMissingTargetTranslations
   */
   public function testSynchronizeWithoutAnyTranslations() {
-    $action = new PapayaAdministrationPagesDependencySynchronizationContent();
+    $action = new Content();
     $action->translations($this->getTranslationsFixture($this->getDatabaseAccessFixture()));
     $this->assertTrue($action->synchronize(array(21), 42, array(1)));
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::synchronize
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getExistingTargetTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getMissingTargetTranslations
+  * @covers Content::synchronize
+  * @covers Content::getExistingTargetTranslations
+  * @covers Content::getMissingTargetTranslations
   */
   public function testSynchronizeFetchLanguagesFromTranslations() {
-    $action = new PapayaAdministrationPagesDependencySynchronizationContent();
+    $action = new Content();
     $action->translations(
       $this->getTranslationsFixture(
         $this->getDatabaseAccessFixture(),
@@ -68,11 +70,11 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::synchronize
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getExistingTargetTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getMissingTargetTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::synchronizeTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::updateTranslations
+  * @covers Content::synchronize
+  * @covers Content::getExistingTargetTranslations
+  * @covers Content::getMissingTargetTranslations
+  * @covers Content::synchronizeTranslations
+  * @covers Content::updateTranslations
   */
   public function testSynchronizeUpdateOneTranslation() {
     $translations = $this->getTranslationsFixture(
@@ -110,17 +112,17 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
         )
       )
       ->will($this->returnValue(TRUE));
-    $action = new PapayaAdministrationPagesDependencySynchronizationContent();
+    $action = new Content();
     $action->translations($translations);
     $this->assertTrue($action->synchronize(array(21), 42));
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::synchronize
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getExistingTargetTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getMissingTargetTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::synchronizeTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::updateTranslations
+  * @covers Content::synchronize
+  * @covers Content::getExistingTargetTranslations
+  * @covers Content::getMissingTargetTranslations
+  * @covers Content::synchronizeTranslations
+  * @covers Content::updateTranslations
   */
   public function testSynchronizeUpdateFailed() {
     $translations = $this->getTranslationsFixture(
@@ -158,17 +160,17 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
         )
       )
       ->will($this->returnValue(FALSE));
-    $action = new PapayaAdministrationPagesDependencySynchronizationContent();
+    $action = new Content();
     $action->translations($translations);
     $this->assertFalse($action->synchronize(array(21), 42));
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::synchronize
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getExistingTargetTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getMissingTargetTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::synchronizeTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::deleteTranslations
+  * @covers Content::synchronize
+  * @covers Content::getExistingTargetTranslations
+  * @covers Content::getMissingTargetTranslations
+  * @covers Content::synchronizeTranslations
+  * @covers Content::deleteTranslations
   */
   public function testSynchronizeDeleteOneTranslation() {
     $translations = $this->getTranslationsFixture(
@@ -200,17 +202,17 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
         )
       )
       ->will($this->returnValue(TRUE));
-    $action = new PapayaAdministrationPagesDependencySynchronizationContent();
+    $action = new Content();
     $action->translations($translations);
     $this->assertTrue($action->synchronize(array(21), 42));
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::synchronize
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getExistingTargetTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getMissingTargetTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::synchronizeTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::insertTranslations
+  * @covers Content::synchronize
+  * @covers Content::getExistingTargetTranslations
+  * @covers Content::getMissingTargetTranslations
+  * @covers Content::synchronizeTranslations
+  * @covers Content::insertTranslations
   */
   public function testSynchronizeInsertOneTranslation() {
     $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
@@ -243,17 +245,17 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
       ->expects($this->once())
       ->method('save')
       ->will($this->returnValue(TRUE));
-    $action = new PapayaAdministrationPagesDependencySynchronizationContent();
+    $action = new Content();
     $action->translations($translations);
     $this->assertTrue($action->synchronize(array(21), 42));
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::synchronize
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getExistingTargetTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::getMissingTargetTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::synchronizeTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationContent::insertTranslations
+  * @covers Content::synchronize
+  * @covers Content::getExistingTargetTranslations
+  * @covers Content::getMissingTargetTranslations
+  * @covers Content::synchronizeTranslations
+  * @covers Content::insertTranslations
   */
   public function testSynchronizeInsertOneTranslationInsertFailed() {
     $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
@@ -286,7 +288,7 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
       ->expects($this->once())
       ->method('save')
       ->will($this->returnValue(FALSE));
-    $action = new PapayaAdministrationPagesDependencySynchronizationContent();
+    $action = new Content();
     $action->translations($translations);
     $this->assertFalse($action->synchronize(array(21), 42));
   }

@@ -13,6 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Pages\Dependency\Blocker;
+use Papaya\Administration\Pages\Dependency\Changer;
+use Papaya\Administration\Pages\Dependency\Synchronizations;
+use Papaya\Administration\Pages\Ancestors;
+
 /**
 * page adminsitration class
 *
@@ -96,7 +101,7 @@ class base_topic_edit extends base_topic {
   /**
   * Helper object, that synchronizes page data to dependent pages.
   *
-  * @var PapayaAdministrationPagesDependencySynchronizations
+  * @var Synchronizations
   */
   private $_synchronizations = NULL;
 
@@ -670,7 +675,7 @@ class base_topic_edit extends base_topic {
         break;
       case 11 : // dependencies
         if ($authUser->hasPerm(PapayaAdministrationPermissions::PAGE_DEPENDENCY_MANAGE)) {
-          $dependencies = new PapayaAdministrationPagesDependencyChanger();
+          $dependencies = new Changer();
           $dependencies->parameterGroup($this->paramName);
           $this->layout->add($dependencies->getXml());
           $this->menubar->addSeparator();
@@ -801,10 +806,10 @@ class base_topic_edit extends base_topic {
   * Get the dependency blocker object. It is used to block editing pages if the page depends to
   * another page
   *
-  * @return PapayaAdministrationPagesDependencyBlocker
+  * @return Blocker
   */
   public function getDependencyBlocker() {
-    $blocker = new PapayaAdministrationPagesDependencyBlocker((int)$this->topicId);
+    $blocker = new Blocker((int)$this->topicId);
     $blocker->parameterGroup($this->paramName);
     return $blocker;
   }
@@ -948,7 +953,7 @@ class base_topic_edit extends base_topic {
     $pageIds = PapayaUtilArray::decodeIdList($this->topic['prev_path']);
     $pageIds[] = $this->topic['prev'];
     $pageIds[] = $this->topicId;
-    $hierarchy = new PapayaAdministrationPagesAnchestors();
+    $hierarchy = new Ancestors();
     $hierarchy->setIds($pageIds);
     $this->layout->add($hierarchy->getXml(), 'toolbars');
   }
@@ -5447,16 +5452,16 @@ class base_topic_edit extends base_topic {
   /**
   * Getter/Setter for the synchronizations object
   *
-  * @param PapayaAdministrationPagesDependencySynchronizations $synchronizations
-  * @return PapayaAdministrationPagesDependencySynchronizations
+  * @param Synchronizations $synchronizations
+  * @return Synchronizations
   */
   public function sychronizations(
-    PapayaAdministrationPagesDependencySynchronizations $synchronizations = NULL
+    Synchronizations $synchronizations = NULL
   ) {
     if (isset($synchronizations)) {
       $this->_synchronizations = $synchronizations;
     } elseif (is_null($this->_synchronizations)) {
-      $this->_synchronizations = new PapayaAdministrationPagesDependencySynchronizations();
+      $this->_synchronizations = new Synchronizations();
     }
     return $this->_synchronizations;
   }

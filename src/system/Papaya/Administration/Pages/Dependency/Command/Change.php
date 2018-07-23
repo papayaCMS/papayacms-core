@@ -13,17 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Pages\Dependency\Command;
+use Papaya\Administration\Pages\Dependency\Changer;
+
 /**
-* Add/save a page dependency.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencyCommandChange extends \PapayaUiControlCommandDialog {
+ * Add/save a page dependency.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Change extends \PapayaUiControlCommandDialog {
 
   /**
-  * create a condition that is used to activate the command execution
-  */
+   * create a condition that is used to activate the command execution
+   */
   public function createCondition() {
     return new \PapayaUiControlCommandConditionCallback(
       array($this, 'validatePageId')
@@ -31,10 +34,10 @@ class PapayaAdministrationPagesDependencyCommandChange extends \PapayaUiControlC
   }
 
   /**
-  * Callback method for the condition, if it return FALSE, the command will be ignored.
-  */
+   * Callback method for the condition, if it return FALSE, the command will be ignored.
+   */
   public function validatePageId() {
-    /** @var PapayaAdministrationPagesDependencyChanger $changer */
+    /** @var \Papaya\Administration\Pages\Dependency\Changer $changer */
     $changer = $this->owner();
     $pageId = $changer->getPageId();
     $originId = $changer->getOriginId();
@@ -42,12 +45,12 @@ class PapayaAdministrationPagesDependencyCommandChange extends \PapayaUiControlC
   }
 
   /**
-  * Create the add/edit dialog and assign callbacks.
-  *
-  * @return \PapayaUiDialogDatabaseSave
-  */
+   * Create the add/edit dialog and assign callbacks.
+   *
+   * @return \PapayaUiDialogDatabaseSave
+   */
   public function createDialog() {
-    /** @var PapayaAdministrationPagesDependencyChanger $changer */
+    /** @var \Papaya\Administration\Pages\Dependency\Changer $changer */
     $changer = $this->owner();
     $pageId = $changer->getPageId();
     $record = $changer->dependency();
@@ -121,7 +124,7 @@ class PapayaAdministrationPagesDependencyCommandChange extends \PapayaUiControlC
       return FALSE;
     }
     if (($record->synchronization & \PapayaContentPageDependency::SYNC_VIEW) xor
-        ($record->synchronization & \PapayaContentPageDependency::SYNC_CONTENT)) {
+      ($record->synchronization & \PapayaContentPageDependency::SYNC_CONTENT)) {
       if (!$this->compareViewModules($record)) {
         $context->synchronizationField->handleValidationFailure(
           new \PapayaFilterExceptionCallbackFailed(array($this, 'compareViewModules'))
@@ -171,8 +174,8 @@ class PapayaAdministrationPagesDependencyCommandChange extends \PapayaUiControlC
   }
 
   /**
-  * Callback to dispatch a message to the user that the record was saved and trigger initial sync.
-  */
+   * Callback to dispatch a message to the user that the record was saved and trigger initial sync.
+   */
   public function handleExecutionSuccess($context) {
     $context->synchronizations->synchronizeDependency($context->dependency);
     $this->papaya()->messages->dispatch(
@@ -183,8 +186,8 @@ class PapayaAdministrationPagesDependencyCommandChange extends \PapayaUiControlC
   }
 
   /**
-  * Callback to dispatch a message to the user that here was an input error.
-  */
+   * Callback to dispatch a message to the user that here was an input error.
+   */
   public function dispatchErrorMessage($context, \PapayaUiDialog $dialog) {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(

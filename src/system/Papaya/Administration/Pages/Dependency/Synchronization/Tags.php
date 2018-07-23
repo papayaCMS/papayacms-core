@@ -13,20 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Pages\Dependency\Synchronization;
+use PapayaContentPageTags;
+
 /**
-* Synchronize assigned tags of the page
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencySynchronizationTags
-  implements \PapayaAdministrationPagesDependencySynchronization {
+ * Synchronize assigned tags of the page
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Tags
+  implements \Papaya\Administration\Pages\Dependency\Synchronization {
 
   /**
-  * buffer variable for the page tags content object
-  *
-  * @var PapayaContentPageTags
-  */
+   * buffer variable for the page tags content object
+   *
+   * @var PapayaContentPageTags
+   */
   private $_tags = NULL;
 
   /**

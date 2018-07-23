@@ -13,48 +13,56 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Pages\Dependency;
+use Papaya\Administration\Pages\Dependency\Listview;
+use Papaya\Administration\Pages\Dependency\Synchronizations;
+use PapayaContentPageDependencies;
+use PapayaContentPageDependency;
+use PapayaUiControlCommandController;
+use PapayaUiToolbar;
+
 /**
-* Administration interface for changes on the dependencies of a page.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInteractive {
+ * Administration interface for changes on the dependencies of a page.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Changer extends \PapayaUiControlInteractive {
 
   /**
-  * Currently selected page
-  *
-  * @var integer
-  */
+   * Currently selected page
+   *
+   * @var integer
+   */
   private $_pageId = 0;
 
   /**
-  * Currently selected origin page, this will be the origin page of the current dependency or
-  * the current page id.
-  *
-  * @var integer
-  */
+   * Currently selected origin page, this will be the origin page of the current dependency or
+   * the current page id.
+   *
+   * @var integer
+   */
   private $_originId = 0;
 
   /**
-  * Target page id of the reference to load.
-  *
-  * @var integer
-  */
+   * Target page id of the reference to load.
+   *
+   * @var integer
+   */
   private $_targetId = 0;
 
   /**
-  * Buffer variable for the current dependency
-  *
-  * @var PapayaContentPageDependency
-  */
+   * Buffer variable for the current dependency
+   *
+   * @var PapayaContentPageDependency
+   */
   private $_dependency = NULL;
 
   /**
-  * Buffer variable for the dependencies list of the current origin id
-  *
-  * @var PapayaContentPageDependencies
-  */
+   * Buffer variable for the dependencies list of the current origin id
+   *
+   * @var PapayaContentPageDependencies
+   */
   private $_dependencies = NULL;
 
   private $_reference = NULL;
@@ -62,57 +70,57 @@ class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInterac
   private $_references = NULL;
 
   /**
-  * Command controller for the needed actions
-  *
-  * @var PapayaUiControlCommandController
-  */
+   * Command controller for the needed actions
+   *
+   * @var PapayaUiControlCommandController
+   */
   private $_commands = NULL;
 
   /**
-  * Menu object, for buttons depending on the current status
-  *
-  * @var PapayaUiToolbar
-  */
+   * Menu object, for buttons depending on the current status
+   *
+   * @var PapayaUiToolbar
+   */
   private $_menu = NULL;
 
   /**
-  * Dependencies listview
-  *
-  * @var PapayaAdministrationPagesDependencyListview
-  */
+   * Dependencies listview
+   *
+   * @var Listview
+   */
   private $_listview = NULL;
 
   /**
-  * Dependencies synchronization informations
-  *
-  * @var PapayaAdministrationPagesDependencySynchronizations
-  */
+   * Dependencies synchronization informations
+   *
+   * @var Synchronizations
+   */
   private $_synchronizations = NULL;
 
   /**
-  * Return current page id
-  *
-  * @return integer
-  */
+   * Return current page id
+   *
+   * @return integer
+   */
   public function getPageId() {
     return $this->_pageId;
   }
 
   /**
-  * Return current origin page id
-  *
-  * @return integer
-  */
+   * Return current origin page id
+   *
+   * @return integer
+   */
   public function getOriginId() {
     return $this->_originId;
   }
 
   /**
-  * Getter/Setter for the dependency database object
-  *
-  * @param \PapayaContentPageDependency $dependency
-  * @return \PapayaContentPageDependency
-  */
+   * Getter/Setter for the dependency database object
+   *
+   * @param \PapayaContentPageDependency $dependency
+   * @return \PapayaContentPageDependency
+   */
   public function dependency(\PapayaContentPageDependency $dependency = NULL) {
     if (isset($dependency)) {
       $this->_dependency = $dependency;
@@ -123,11 +131,11 @@ class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInterac
   }
 
   /**
-  * Getter/Setter for the dependencies list database object
-  *
-  * @param \PapayaContentPageDependencies $dependencies
-  * @return \PapayaContentPageDependencies
-  */
+   * Getter/Setter for the dependencies list database object
+   *
+   * @param \PapayaContentPageDependencies $dependencies
+   * @return \PapayaContentPageDependencies
+   */
   public function dependencies(\PapayaContentPageDependencies $dependencies = NULL) {
     if (isset($dependencies)) {
       $this->_dependencies = $dependencies;
@@ -138,11 +146,11 @@ class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInterac
   }
 
   /**
-  * Getter/Setter for the reference database object
-  *
-  * @param \PapayaContentPageReference $reference
-  * @return \PapayaContentPageReference
-  */
+   * Getter/Setter for the reference database object
+   *
+   * @param \PapayaContentPageReference $reference
+   * @return \PapayaContentPageReference
+   */
   public function reference(\PapayaContentPageReference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
@@ -153,11 +161,11 @@ class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInterac
   }
 
   /**
-  * Getter/Setter for the references list database object
-  *
-  * @param \PapayaContentPageReferences $references
-  * @return \PapayaContentPageReferences
-  */
+   * Getter/Setter for the references list database object
+   *
+   * @param \PapayaContentPageReferences $references
+   * @return \PapayaContentPageReferences
+   */
   public function references(\PapayaContentPageReferences $references = NULL) {
     if (isset($references)) {
       $this->_references = $references;
@@ -168,10 +176,10 @@ class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInterac
   }
 
   /**
-  * Execute commands and append output to xml.
-  *
-  * @param \PapayaXmlElement $parent
-  */
+   * Execute commands and append output to xml.
+   *
+   * @param \PapayaXmlElement $parent
+   */
   public function appendTo(\PapayaXmlElement $parent) {
     $this->prepare();
     if ($this->getPageId() > 0) {
@@ -197,8 +205,8 @@ class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInterac
   }
 
   /**
-  * Initialize parameters and store them into properties.
-  */
+   * Initialize parameters and store them into properties.
+   */
   public function prepare() {
     $this->_pageId = $this->parameters()->get('page_id', 0, new \PapayaFilterInteger(0));
     if ($this->_pageId > 0) {
@@ -228,21 +236,21 @@ class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInterac
     } elseif (is_null($this->_commands)) {
       $commands = new \PapayaUiControlCommandController('cmd', 'dependency_show');
       $commands->owner($this);
-      $commands['dependency_show'] = new \PapayaAdministrationPagesDependencyCommandChange();
-      $commands['dependency_delete'] = new \PapayaAdministrationPagesDependencyCommandDelete();
-      $commands['reference_change'] = new \PapayaAdministrationPagesReferenceCommandChange();
-      $commands['reference_delete'] = new \PapayaAdministrationPagesReferenceCommandDelete();
+      $commands['dependency_show'] = new \Papaya\Administration\Pages\Dependency\Command\Change();
+      $commands['dependency_delete'] = new \Papaya\Administration\Pages\Dependency\Command\Delete();
+      $commands['reference_change'] = new \Papaya\Administration\Pages\Reference\Command\Change();
+      $commands['reference_delete'] = new \Papaya\Administration\Pages\Reference\Command\Delete();
       $this->_commands = $commands;
     }
     return $this->_commands;
   }
 
   /**
-  * Getter/Setter for the menu (action/command buttons)
-  *
-  * @param \PapayaUiToolbar $menu
-  * @return \PapayaUiToolbar
-  */
+   * Getter/Setter for the menu (action/command buttons)
+   *
+   * @param \PapayaUiToolbar $menu
+   * @return \PapayaUiToolbar
+   */
   public function menu(\PapayaUiToolbar $menu = NULL) {
     if (isset($menu)) {
       $this->_menu = $menu;
@@ -253,8 +261,8 @@ class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInterac
   }
 
   /**
-  * Append buttons to menu/toolbar depending on the current status.
-  */
+   * Append buttons to menu/toolbar depending on the current status.
+   */
   private function appendButtons() {
     if (in_array($this->parameters()->get('cmd'), array('reference_change', 'reference_delete'))) {
       $this->menu()->elements[] = $button = new \PapayaUiToolbarButton();
@@ -291,7 +299,7 @@ class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInterac
           'cmd' => 'reference_delete',
           'page_id' => $this->_pageId,
           'target_id' => $this->reference()->sourceId == $this->_pageId
-             ? $this->reference()->targetId : $this->reference()->sourceId
+            ? $this->reference()->targetId : $this->reference()->sourceId
         ),
         $this->parameterGroup()
       );
@@ -299,16 +307,16 @@ class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInterac
   }
 
   /**
-  * Getter/Setter for the dependencies listview.
-  *
-  * @param \PapayaAdministrationPagesDependencyListview $listview
-  * @return \PapayaAdministrationPagesDependencyListview
-  */
-  public function listview(\PapayaAdministrationPagesDependencyListview $listview = NULL) {
+   * Getter/Setter for the dependencies listview.
+   *
+   * @param \Papaya\Administration\Pages\Dependency\Listview $listview
+   * @return \Papaya\Administration\Pages\Dependency\Listview
+   */
+  public function listview(\Papaya\Administration\Pages\Dependency\Listview $listview = NULL) {
     if (isset($listview)) {
       $this->_listview = $listview;
     } elseif (is_null($this->_listview)) {
-      $this->_listview = new \PapayaAdministrationPagesDependencyListview(
+      $this->_listview = new \Papaya\Administration\Pages\Dependency\Listview(
         $this->getOriginId(),
         $this->getPageId(),
         $this->dependencies(),
@@ -320,19 +328,19 @@ class PapayaAdministrationPagesDependencyChanger extends \PapayaUiControlInterac
   }
 
   /**
-  * Getter/Setter for the synchronizations list
-  *
-  * @param \PapayaAdministrationPagesDependencySynchronizations $synchronizations
-  * @return \PapayaAdministrationPagesDependencySynchronizations
-  */
+   * Getter/Setter for the synchronizations list
+   *
+   * @param \Papaya\Administration\Pages\Dependency\Synchronizations $synchronizations
+   * @return \Papaya\Administration\Pages\Dependency\Synchronizations
+   */
   public function synchronizations(
-    \PapayaAdministrationPagesDependencySynchronizations $synchronizations = NULL
+    \Papaya\Administration\Pages\Dependency\Synchronizations $synchronizations = NULL
   ) {
     if (isset($synchronizations)) {
       $this->_synchronizations = $synchronizations;
     }
     if (is_null($this->_synchronizations)) {
-      $this->_synchronizations = new \PapayaAdministrationPagesDependencySynchronizations();
+      $this->_synchronizations = new \Papaya\Administration\Pages\Dependency\Synchronizations();
     }
     return $this->_synchronizations;
   }

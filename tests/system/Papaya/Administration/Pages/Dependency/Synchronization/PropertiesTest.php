@@ -13,35 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Pages\Dependency\Synchronization\Properties;
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationProperties::page
+  * @covers Properties::page
   */
   public function testPageGetAfterSet() {
     $page = $this->createMock(PapayaContentPageWork::class);
-    $action = new PapayaAdministrationPagesDependencySynchronizationProperties();
+    $action = new Properties();
     $this->assertSame(
       $page, $action->page($page)
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationProperties::page
+  * @covers Properties::page
   */
   public function testPageGetImplicitCreate() {
-    $action = new PapayaAdministrationPagesDependencySynchronizationProperties();
+    $action = new Properties();
     $this->assertInstanceOf(
       PapayaContentPageWork::class, $action->page()
     );
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationProperties::synchronize
-  * @covers PapayaAdministrationPagesDependencySynchronizationProperties::updateTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationProperties::updatePages
+  * @covers Properties::synchronize
+  * @covers Properties::updateTranslations
+  * @covers Properties::updatePages
   */
   public function testSynchronizeUpdatePageAndOneTranslation() {
     $databaseAccess = $this->getDatabaseAccessFixture(
@@ -117,16 +119,16 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
         )
       )
       ->will($this->returnValue(TRUE));
-    $action = new PapayaAdministrationPagesDependencySynchronizationProperties();
+    $action = new Properties();
     $action->page($page);
     $action->translations($translations);
     $this->assertTrue($action->synchronize(array(21), 42));
   }
 
   /**
-  * @covers PapayaAdministrationPagesDependencySynchronizationProperties::synchronize
-  * @covers PapayaAdministrationPagesDependencySynchronizationProperties::updateTranslations
-  * @covers PapayaAdministrationPagesDependencySynchronizationProperties::updatePages
+  * @covers Properties::synchronize
+  * @covers Properties::updateTranslations
+  * @covers Properties::updatePages
   */
   public function testSynchronizeUpdatePageFailed() {
     $databaseAccess = $this->getDatabaseAccessFixture(
@@ -182,7 +184,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
         )
       )
       ->will($this->returnValue(FALSE));
-    $action = new PapayaAdministrationPagesDependencySynchronizationProperties();
+    $action = new Properties();
     $action->page($page);
     $action->translations($translations);
     $this->assertFalse($action->synchronize(array(21), 42));

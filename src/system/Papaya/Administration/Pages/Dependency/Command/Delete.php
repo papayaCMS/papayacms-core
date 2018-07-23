@@ -13,20 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Pages\Dependency\Command;
+use Papaya\Administration\Pages\Dependency\Changer;
+
 /**
-* Delete a page dependency.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencyCommandDelete
+ * Delete a page dependency.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Delete
   extends \PapayaUiControlCommandDialog {
 
   /**
-  * Create confirmation dialog and assign callback for confirmation message.
-  */
+   * Create confirmation dialog and assign callback for confirmation message.
+   */
   public function createDialog() {
-    /** @var PapayaAdministrationPagesDependencyChanger $changer */
+    /** @var \Papaya\Administration\Pages\Dependency\Changer $changer */
     $changer = $this->owner();
     $dialog = new \PapayaUiDialogDatabaseDelete($changer->dependency());
     $dialog->caption = new \PapayaUiStringTranslated('Delete');
@@ -50,8 +53,8 @@ class PapayaAdministrationPagesDependencyCommandDelete
   }
 
   /**
-  * Callback, dispatch the delete confirmation message to the user
-  */
+   * Callback, dispatch the delete confirmation message to the user
+   */
   public function dispatchDeleteMessage() {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(

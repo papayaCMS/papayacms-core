@@ -13,63 +13,64 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Pages\Dependency;
 /**
-* Loads and returns the current counting of dependencies and references for an page id
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesDependencyCounter extends \PapayaDatabaseObject {
+ * Loads and returns the current counting of dependencies and references for an page id
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Counter extends \PapayaDatabaseObject {
 
   /**
-  * store page id
-  *
-  * @var integer
-  */
+   * store page id
+   *
+   * @var integer
+   */
   private $_pageId = 0;
 
   /**
-  * store loading status - for lazy loading
-  *
-  * @var boolean
-  */
+   * store loading status - for lazy loading
+   *
+   * @var boolean
+   */
   private $_loaded = FALSE;
 
   /**
-  * Store actual amount loaded from database
-  *
-  * @var array('dependencies' => integer,'references' => integer)
-  */
+   * Store actual amount loaded from database
+   *
+   * @var array('dependencies' => integer,'references' => integer)
+   */
   protected $_amounts = array(
     'dependencies' => 0,
     'references' => 0
   );
 
   /**
-  * Create object, validate page id argument and store it
-  *
-  * @param integer $pageId
-  */
+   * Create object, validate page id argument and store it
+   *
+   * @param integer $pageId
+   */
   public function __construct($pageId) {
     \PapayaUtilConstraints::assertInteger($pageId);
     $this->_pageId = $pageId;
   }
 
   /**
-  * Return dependencies count for current page. Triggers lazy loading.
-  *
-  * @return integer
-  */
+   * Return dependencies count for current page. Triggers lazy loading.
+   *
+   * @return integer
+   */
   public function getDependencies() {
     $this->lazyLoad();
     return $this->_amounts['dependencies'];
   }
 
   /**
-  * Return references count for current page. Triggers lazy loading.
-  *
-  * @return integer
-  */
+   * Return references count for current page. Triggers lazy loading.
+   *
+   * @return integer
+   */
   public function getReferences() {
     $this->lazyLoad();
     return $this->_amounts['references'];
@@ -108,8 +109,8 @@ class PapayaAdministrationPagesDependencyCounter extends \PapayaDatabaseObject {
   }
 
   /**
-  * Trigger loading if it was not already done.
-  */
+   * Trigger loading if it was not already done.
+   */
   private function lazyLoad() {
     if (!$this->_loaded) {
       $this->_loaded = $this->load();
@@ -117,15 +118,15 @@ class PapayaAdministrationPagesDependencyCounter extends \PapayaDatabaseObject {
   }
 
   /**
-  * Get a label showing the countings. The label can be empty, contain only the references or
-  * dependencies and references. If it contains the dependencies the references are shown even if
-  * they are zero.
-  *
-  * @param string $separator
-  * @param string $prefix
-  * @param string $suffix
-  * @return string
-  */
+   * Get a label showing the countings. The label can be empty, contain only the references or
+   * dependencies and references. If it contains the dependencies the references are shown even if
+   * they are zero.
+   *
+   * @param string $separator
+   * @param string $prefix
+   * @param string $suffix
+   * @return string
+   */
   public function getLabel($separator = '/', $prefix = ' (', $suffix = ')') {
     $this->lazyLoad();
     $result = '';

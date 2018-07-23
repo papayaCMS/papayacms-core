@@ -1,21 +1,19 @@
 <?php
 /**
-* Object to show sitemap in edit area (n-dimensional)
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: papaya_topic_tree.php 39818 2014-05-13 13:15:13Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Administration\Pages\Dependency\Synchronizations;
 
 /**
 * object to show sitemap in edit area (n-dimensional)
@@ -103,7 +101,7 @@ class papaya_topic_tree extends base_topic_tree {
   /**
   * Helper object, that synchronizes page data to dependent pages.
   *
-  * @var PapayaAdministrationPagesDependencySynchronizations
+  * @var Synchronizations
   */
   private $_synchronizations = NULL;
 
@@ -1062,16 +1060,16 @@ class papaya_topic_tree extends base_topic_tree {
   /**
   * Getter/Setter for the synchronizations object
   *
-  * @param PapayaAdministrationPagesDependencySynchronizations $synchronizations
-  * @return PapayaAdministrationPagesDependencySynchronizations
+  * @param Synchronizations $synchronizations
+  * @return Synchronizations
   */
   public function sychronizations(
-    PapayaAdministrationPagesDependencySynchronizations $synchronizations = NULL
+    Synchronizations $synchronizations = NULL
   ) {
     if (isset($synchronizations)) {
       $this->_synchronizations = $synchronizations;
     } elseif (is_null($this->_synchronizations)) {
-      $this->_synchronizations = new PapayaAdministrationPagesDependencySynchronizations();
+      $this->_synchronizations = new Synchronizations();
     }
     return $this->_synchronizations;
   }

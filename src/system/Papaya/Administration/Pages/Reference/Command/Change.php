@@ -13,21 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Pages\Reference\Command;
+
+use Papaya\Administration\Pages\Dependency\Changer;
+
 /**
-* Add/save a page dependency.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationPagesReferenceCommandChange extends \PapayaUiControlCommandDialog {
+ * Add/save a page dependency.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Change extends \PapayaUiControlCommandDialog {
 
   /**
-  * Create the add/edit dialog and assign callbacks.
-  *
-  * @return \PapayaUiDialogDatabaseSave
-  */
+   * Create the add/edit dialog and assign callbacks.
+   *
+   * @return \PapayaUiDialogDatabaseSave
+   */
   public function createDialog() {
-    /** @var PapayaAdministrationPagesDependencyChanger $changer */
+    /** @var Changer $changer */
     $changer = $this->owner();
     $pageId = $changer->getPageId();
     $record = $changer->reference();
@@ -94,9 +98,9 @@ class PapayaAdministrationPagesReferenceCommandChange extends \PapayaUiControlCo
     list($sourceId, $targetId) = $this->sortAsc($record->sourceId, $record->targetId);
     $currentKey = $record->key()->getProperties();
     if (
-        $currentKey != array('source_id' => $sourceId, 'target_id' => $targetId) &&
-        $record->exists($sourceId, $targetId)
-       ) {
+      $currentKey != array('source_id' => $sourceId, 'target_id' => $targetId) &&
+      $record->exists($sourceId, $targetId)
+    ) {
       $context->targetIdField->handleValidationFailure(
         new \PapayaFilterExceptionCallbackFailed(array($this, 'validateOrigin'))
       );
@@ -121,8 +125,8 @@ class PapayaAdministrationPagesReferenceCommandChange extends \PapayaUiControlCo
   }
 
   /**
-  * Callback to dispatch a message to the user that the record was saved.
-  */
+   * Callback to dispatch a message to the user that the record was saved.
+   */
   public function dispatchSavedMessage() {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
@@ -132,8 +136,8 @@ class PapayaAdministrationPagesReferenceCommandChange extends \PapayaUiControlCo
   }
 
   /**
-  * Callback to dispatch a message to the user that here was an input error.
-  */
+   * Callback to dispatch a message to the user that here was an input error.
+   */
   public function dispatchErrorMessage($context, \PapayaUiDialog $dialog) {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
