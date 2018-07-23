@@ -13,21 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Languages;
 /**
-* Language image source administration control.
-*
-* Returns the image url for the language icon as string. If no language id is provided
-* it returns the icon for the currently selected administration content language
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-class PapayaAdministrationLanguagesImage extends \PapayaObject {
+ * Language image source administration control.
+ *
+ * Returns the image url for the language icon as string. If no language id is provided
+ * it returns the icon for the currently selected administration content language
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+class Image extends \PapayaObject {
 
-  private $_languageId = 0;
-  private $_language = NULL;
-
-  private $_image = NULL;
+  private $_languageId;
+  private $_language;
+  private $_image;
 
   /**
    * Create language image for the current or a specified language
@@ -45,9 +45,9 @@ class PapayaAdministrationLanguagesImage extends \PapayaObject {
    * @return string
    */
   public function __toString() {
-    if (is_null($this->_image)) {
+    if (NULL === $this->_image) {
       $this->_image = '';
-      if (is_null($this->_language)) {
+      if (NULL === $this->_language) {
         $this->_language = FALSE;
         if (isset($this->papaya()->administrationLanguage)) {
           if ($this->_languageId > 0) {
@@ -65,6 +65,6 @@ class PapayaAdministrationLanguagesImage extends \PapayaObject {
         $this->_image = './pics/language/'.$this->_language['image'];
       }
     }
-    return $this->_image;
+    return (string)$this->_image;
   }
 }

@@ -42,16 +42,21 @@ class Autoloader {
     )Sx';
 
   private static $_mapClasses = array(
-    'PapayaAdministrationCommunityUsersRosterDialog' => Administration\Community\Users\Roster\Dialog::class
+    'PapayaAdministrationCommunityUsersListDialog' => Administration\Community\Users\Roster\Dialog::class
   );
 
   private static $_mapParts = array(
+    // Reserved Words
     'Boolean' => 'BooleanValue',
     'Float' => 'FloatValue',
     'Integer' => 'IntegerValue',
     'Object' => 'BaseObject',
     'String' => 'Text',
-    'Interface' => 'Interfaces'
+    'Interface' => 'Interfaces',
+    'Switch' => 'Selector',
+
+    // Typos
+    'Anchestors' => 'Ancestors'
   );
 
   /**

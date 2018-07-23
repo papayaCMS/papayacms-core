@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Languages\Image;
+
 /**
 * An PluginEditor implementation that build a dialog based on an array of field definitions
 *
@@ -91,7 +93,7 @@ class PapayaAdministrationPluginEditorDialog extends \PapayaPluginEditor {
       $dialog->caption = new PapayaAdministrationLanguagesCaption(
         new PapayaUiStringTranslated('Edit content')
       );
-      $dialog->image = new PapayaAdministrationLanguagesImage();
+      $dialog->image = new Image();
       $dialog->parameterGroup('content');
     } elseif ($this->getData() instanceof PapayaPluginEditableOptions) {
       $dialog->caption = new PapayaUiStringTranslated('Edit options');

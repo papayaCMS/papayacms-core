@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Languages\Caption;
+use Papaya\Administration\Languages\Selector;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -64,7 +65,7 @@ class PapayaAdministrationLanguagesCaptionTest extends PapayaTestCase {
    * @param string $separator
    */
   public function testToStringWithAdministrationLanguage($expected, $language, $suffix, $separator) {
-    $switch = $this->createMock(PapayaAdministrationLanguagesSwitch::class);
+    $switch = $this->createMock(Selector::class);
     $switch
       ->expects($this->once())
       ->method('getCurrent')

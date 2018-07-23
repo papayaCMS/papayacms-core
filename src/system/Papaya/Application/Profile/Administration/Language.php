@@ -27,7 +27,7 @@ class PapayaApplicationProfileAdministrationLanguage implements \PapayaApplicati
   * @return stdClass
   */
   public function createObject($application) {
-    $switch = new \PapayaAdministrationLanguagesSwitch();
+    $switch = new \Papaya\Administration\Languages\Selector();
     return $switch;
   }
 }

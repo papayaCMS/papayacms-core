@@ -13,6 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Languages;
+use PapayaContentLanguage;
+use PapayaContentLanguages;
+
 /**
  * Language switch administration control, allows to access the current content language and
  * append links for available content languages.
@@ -29,28 +33,28 @@
  * @property-read string $image current language image including path
  * @property-read string $title current language title
  */
-class PapayaAdministrationLanguagesSwitch extends \PapayaUiControlInteractive {
+class Selector extends \PapayaUiControlInteractive {
 
   /**
-  * Internal property for language list
-  *
-  * @var PapayaContentLanguages
-  */
+   * Internal property for language list
+   *
+   * @var PapayaContentLanguages
+   */
   private $_languages = NULL;
 
   /**
-  * Internal property for current language
-  *
-  * @var PapayaContentLanguage
-  */
+   * Internal property for current language
+   *
+   * @var PapayaContentLanguage
+   */
   private $_current = NULL;
 
   /**
-  * Getter/Setter for a content languages record list.
-  *
-  * @param \PapayaContentLanguages $languages
-  * @return \PapayaContentLanguages
-  */
+   * Getter/Setter for a content languages record list.
+   *
+   * @param \PapayaContentLanguages $languages
+   * @return \PapayaContentLanguages
+   */
   public function languages(\PapayaContentLanguages $languages = NULL) {
     if (isset($languages)) {
       $this->_languages = $languages;
@@ -70,14 +74,14 @@ class PapayaAdministrationLanguagesSwitch extends \PapayaUiControlInteractive {
    */
   public function __get($name) {
     switch ($name) {
-    case 'id' :
-    case 'code' :
-    case 'identifier' :
-    case 'title' :
-      return $this->getCurrent()->$name;
-    case 'image' :
-      $image = $this->getCurrent()->image;
-      return (empty($image)) ? '' : './pics/language/'.$image;
+      case 'id' :
+      case 'code' :
+      case 'identifier' :
+      case 'title' :
+        return $this->getCurrent()->$name;
+      case 'image' :
+        $image = $this->getCurrent()->image;
+        return (empty($image)) ? '' : './pics/language/'.$image;
     }
     throw new \LogicException(
       sprintf(
@@ -87,11 +91,11 @@ class PapayaAdministrationLanguagesSwitch extends \PapayaUiControlInteractive {
   }
 
   /**
-  * Get the currently selected content language. If no language is found, a default language
-  * object is initialized.
-  *
-  * @return \PapayaContentLanguage
-  */
+   * Get the currently selected content language. If no language is found, a default language
+   * object is initialized.
+   *
+   * @return \PapayaContentLanguage
+   */
   public function getCurrent() {
     $this->prepare();
     return $this->_current;
@@ -129,14 +133,14 @@ class PapayaAdministrationLanguagesSwitch extends \PapayaUiControlInteractive {
   }
 
   /**
-  * Load content languages and determine current language. The method looks for
-  * a request parameter, a session value, the user interface language, the default content language
-  * and the default interface language.
-  *
-  * If none of these are found a default language object containing data for English ist created.
-  *
-  * @return \PapayaContentLanguage
-  */
+   * Load content languages and determine current language. The method looks for
+   * a request parameter, a session value, the user interface language, the default content language
+   * and the default interface language.
+   *
+   * If none of these are found a default language object containing data for English ist created.
+   *
+   * @return \PapayaContentLanguage
+   */
   private function prepare() {
     $application = $this->papaya();
     $languages = NULL;
@@ -169,10 +173,10 @@ class PapayaAdministrationLanguagesSwitch extends \PapayaUiControlInteractive {
   }
 
   /**
-  * Create and return a language object with default (English) data.
-  *
-  * @return \PapayaContentLanguage
-  */
+   * Create and return a language object with default (English) data.
+   *
+   * @return \PapayaContentLanguage
+   */
   private function getDefault() {
     $result = new \PapayaContentLanguage();
     $result->assign(

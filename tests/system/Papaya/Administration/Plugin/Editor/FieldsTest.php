@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Languages\Selector;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaAdministrationPluginEditorFieldsTest extends PapayaTestCase {
@@ -32,7 +34,7 @@ class PapayaAdministrationPluginEditorFieldsTest extends PapayaTestCase {
    * @covers PapayaAdministrationPluginEditorFields::createDialog
    */
   public function testDialogGetImplicitCreate() {
-    $languageSwitch = $this->createMock(PapayaAdministrationLanguagesSwitch::class);
+    $languageSwitch = $this->createMock(Selector::class);
     $languageSwitch
       ->expects($this->any())
       ->method('getCurrent')

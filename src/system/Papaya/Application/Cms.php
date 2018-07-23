@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Languages\Selector;
+
 /**
  * Class PapayaApplicationCms
  *
@@ -31,7 +33,7 @@
  * @property PapayaSession $session
  * @property base_surfer $surfer
  * @property base_auth $administrationUser
- * @property PapayaAdministrationLanguagesSwitch $administrationLanguage
+ * @property Selector $administrationLanguage
  * @property PapayaUiReferenceFactory $references
  * @property PapayaUiReferencePageFactory $pageReferences
  * @property PapayaPhrases $phrases

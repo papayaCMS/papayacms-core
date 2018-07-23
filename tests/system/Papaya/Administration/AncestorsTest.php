@@ -13,9 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Languages\Selector;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaAdministrationPagesAnchestorsTest extends PapayaTestCase {
+class PapayaAdministrationPagesAncestorsTest extends PapayaTestCase {
 
   /**
   * @covers PapayaAdministrationPagesAnchestors::appendTo
@@ -141,7 +143,7 @@ class PapayaAdministrationPagesAnchestorsTest extends PapayaTestCase {
   private function getLanguageSwitchFixture() {
     $language = new stdClass();
     $language->id = 1;
-    $switch = $this->createMock(PapayaAdministrationLanguagesSwitch::class);
+    $switch = $this->createMock(Selector::class);
     $switch
       ->expects($this->any())
       ->method('getCurrent')
