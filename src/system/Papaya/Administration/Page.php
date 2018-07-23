@@ -13,19 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration;
+
+use Papaya\Administration\Page\Parts;
+use PapayaTemplate;
+use PapayaUiToolbar;
+
 /**
-* Abstract superclass for an administration page.
-*
-* The administration page has thrre parts (content, navigation, information). The parts are executed
-* one after another with the same parameters. Changes to the parameters of one part are assigned
-* to the next.
-*
-* Here is an composed toolbar sets for each element.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-abstract class PapayaAdministrationPage extends \PapayaObject {
+ * Abstract superclass for an administration page.
+ *
+ * The administration page has thrre parts (content, navigation, information). The parts are executed
+ * one after another with the same parameters. Changes to the parameters of one part are assigned
+ * to the next.
+ *
+ * Here is an composed toolbar sets for each element.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+abstract class Page extends \PapayaObject {
 
   /**
    * @var string|NULL
@@ -37,7 +43,7 @@ abstract class PapayaAdministrationPage extends \PapayaObject {
    */
   private $_layout = NULL;
   /**
-   * @var PapayaAdministrationPageParts
+   * @var Parts
    */
   private $_parts = NULL;
 
@@ -73,7 +79,7 @@ abstract class PapayaAdministrationPage extends \PapayaObject {
    * This method needs to be overloaded to create the content part of the page
    * If an valid part is returned, it will be used first.
    *
-   * @return \PapayaAdministrationPagePart|FALSE
+   * @return \Papaya\Administration\Page\Part|FALSE
    */
   protected function createContent() {
     return FALSE;
@@ -83,7 +89,7 @@ abstract class PapayaAdministrationPage extends \PapayaObject {
    * This method needs to be overloaded to create the navigation part of the page.
    * If an valid part is returned, it will be used after the content part.
    *
-   * @return \PapayaAdministrationPagePart|FALSE
+   * @return \Papaya\Administration\Page\Part|FALSE
    */
   protected function createNavigation() {
     return FALSE;
@@ -93,7 +99,7 @@ abstract class PapayaAdministrationPage extends \PapayaObject {
    * This method needs to be overloaded to create the content part of the page.
    * If an valid part is returned, it will be used last.
    *
-   * @return \PapayaAdministrationPagePart|FALSE
+   * @return \Papaya\Administration\Page\Part|FALSE
    */
   protected function createInformation() {
     return FALSE;
@@ -117,7 +123,7 @@ abstract class PapayaAdministrationPage extends \PapayaObject {
       );
     }
     foreach ($parts as $name => $part) {
-      if ($part instanceof \PapayaAdministrationPagePart) {
+      if ($part instanceof \Papaya\Administration\Page\Part) {
         if ($xml = $part->getXml()) {
           $this->_layout->add($xml, $this->parts()->getTarget($name));
         }
@@ -133,14 +139,14 @@ abstract class PapayaAdministrationPage extends \PapayaObject {
   /**
    * Getter/Setter for the parts list
    *
-   * @param \PapayaAdministrationPageParts $parts
-   * @return \PapayaAdministrationPageParts
+   * @param \Papaya\Administration\Page\Parts $parts
+   * @return \Papaya\Administration\Page\Parts
    */
-  public function parts(\PapayaAdministrationPageParts $parts = NULL) {
+  public function parts(\Papaya\Administration\Page\Parts $parts = NULL) {
     if ($parts) {
       $this->_parts = $parts;
     } elseif (NULL === $this->_parts) {
-      $this->_parts = new \PapayaAdministrationPageParts($this);
+      $this->_parts = new \Papaya\Administration\Page\Parts($this);
       $this->_parts->papaya($this->papaya());
       if (!empty($this->_parameterGroup)) {
         $this->_parts->parameterGroup($this->_parameterGroup);
@@ -156,16 +162,16 @@ abstract class PapayaAdministrationPage extends \PapayaObject {
    * FALSE the part is ignored.
    *
    * @param string $name
-   * @return FALSE|\PapayaAdministrationPagePart
+   * @return FALSE|\Papaya\Administration\Page\Part
    */
   public function createPart($name) {
     switch ($name) {
-    case \PapayaAdministrationPageParts::PART_CONTENT :
-      return $this->createContent();
-    case \PapayaAdministrationPageParts::PART_NAVIGATION :
-      return $this->createNavigation();
-    case \PapayaAdministrationPageParts::PART_INFORMATION :
-      return $this->createInformation();
+      case \Papaya\Administration\Page\Parts::PART_CONTENT :
+        return $this->createContent();
+      case \Papaya\Administration\Page\Parts::PART_NAVIGATION :
+        return $this->createNavigation();
+      case \Papaya\Administration\Page\Parts::PART_INFORMATION :
+        return $this->createInformation();
     }
     return FALSE;
   }

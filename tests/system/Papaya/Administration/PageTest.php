@@ -13,6 +13,10 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration\Page\Parts;
+use Papaya\Administration\Page\Part;
+use Papaya\Administration\PapayaAdministrationPage;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaAdministrationPageTest extends PapayaTestCase {
@@ -67,7 +71,7 @@ class PapayaAdministrationPageTest extends PapayaTestCase {
     $layout
       ->expects($this->once())
       ->method('addMenu');
-    $content = $this->createMock(PapayaAdministrationPagePart::class);
+    $content = $this->createMock(Part::class);
     $content
       ->expects($this->once())
       ->method('getXml')
@@ -93,7 +97,7 @@ class PapayaAdministrationPageTest extends PapayaTestCase {
    */
   public function testPartsGetAfterSet() {
     $parts = $this
-      ->getMockBuilder(PapayaAdministrationPageParts::class)
+      ->getMockBuilder(Parts::class)
       ->disableOriginalConstructor()
       ->getMock();
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $layout */
@@ -125,6 +129,6 @@ class PapayaAdministrationPageTest extends PapayaTestCase {
   }
 }
 
-class PapayaAdministrationPage_TestProxy extends PapayaAdministrationPage {
+class PapayaAdministrationPage_TestProxy extends Papaya\Administration\Page {
 
 }

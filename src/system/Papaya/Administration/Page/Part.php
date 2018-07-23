@@ -13,13 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Page;
+use Papaya\Administration\PapayaAdministrationPage;
+use PapayaUiControlCommand;
+use PapayaUiToolbarSet;
+
 /**
-* Administration page parts are interactive ui controls, with access to a toolbar.
-*
-* @package Papaya-Library
-* @subpackage Administration
-*/
-abstract class PapayaAdministrationPagePart extends \PapayaUiControlInteractive {
+ * Administration page parts are interactive ui controls, with access to a toolbar.
+ *
+ * @package Papaya-Library
+ * @subpackage Administration
+ */
+abstract class Part extends \PapayaUiControlInteractive {
 
   /**
    * @var PapayaUiControlCommand
@@ -32,16 +37,16 @@ abstract class PapayaAdministrationPagePart extends \PapayaUiControlInteractive 
   private $_toolbar = NULL;
 
   /**
-   * @var PapayaAdministrationPage
+   * @var \Papaya\Administration\PapayaAdministrationPage
    */
   private $_page = NULL;
 
-  public function __construct(\PapayaAdministrationPage $page = NULL) {
+  public function __construct(\Papaya\Administration\PapayaAdministrationPage $page = NULL) {
     $this->_page = $page;
   }
 
   /**
-   * @return \PapayaAdministrationPage
+   * @return \Papaya\Administration\PapayaAdministrationPage
    */
   public function getPage() {
     return $this->_page;
@@ -59,7 +64,7 @@ abstract class PapayaAdministrationPagePart extends \PapayaUiControlInteractive 
 
   /**
    * Getter/Setter for the commands subobject,
-   * {@see \PapayaAdministrationPagePart::_createCommands89} is called for lazy init
+   * {@see \Papaya\Administration\Page\PapayaAdministrationPagePart::_createCommands89} is called for lazy init
    *
    * @param \PapayaUiControlCommand $commands
    * @return \PapayaUiControlCommand

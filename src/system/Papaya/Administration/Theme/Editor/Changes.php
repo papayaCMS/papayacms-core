@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Administration
 */
-class PapayaAdministrationThemeEditorChanges extends \PapayaAdministrationPagePart {
+class PapayaAdministrationThemeEditorChanges extends \Papaya\Administration\Page\Part {
 
   private $_commands = NULL;
   /**

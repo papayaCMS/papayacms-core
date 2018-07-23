@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Administration\Page;
+
 /**
  * Manage the parts of a page. Each part is an interactive ui control. On iteration the parameters
  * are assigned to the part and fetched back from it.
  *
- * @property PapayaAdministrationPagePart $content
- * @property PapayaAdministrationPagePart $navigation
- * @property PapayaAdministrationPagePart $information
+ * @property Part $content
+ * @property Part $navigation
+ * @property Part $information
  *
  * @package Papaya-Library
  * @subpackage Administration
  */
-class PapayaAdministrationPageParts
+class Parts
   extends \PapayaObjectInteractive
   implements \Iterator {
 
@@ -53,18 +55,18 @@ class PapayaAdministrationPageParts
   private $_page = NULL;
 
   /**
-  * Create and store the $page object. The page object is used to create the parts
-  * if needed.
-  *
-  * @param \PapayaAdministrationPage $page
-  */
-  public function __construct(\PapayaAdministrationPage $page) {
+   * Create and store the $page object. The page object is used to create the parts
+   * if needed.
+   *
+   * @param \Papaya\Administration\Page $page
+   */
+  public function __construct(\Papaya\Administration\Page $page) {
     $this->_page = $page;
   }
 
   /**
    * @param string $name
-   * @return FALSE|\PapayaAdministrationPagePart
+   * @return FALSE|\Papaya\Administration\Page\Part
    */
   public function __get($name) {
     return $this->get($name);
@@ -72,7 +74,7 @@ class PapayaAdministrationPageParts
 
   /**
    * @param string $name
-   * @param \PapayaAdministrationPagePart $part
+   * @param \Papaya\Administration\Page\Part $part
    */
   public function __set($name, $part) {
     $this->set($name, $part);
@@ -82,7 +84,7 @@ class PapayaAdministrationPageParts
    * Get the specified part, create it if is is defined but does not exist yet.
    *
    * @param string $name
-   * @return FALSE|\PapayaAdministrationPagePart
+   * @return FALSE|\Papaya\Administration\Page\Part
    */
   public function get($name) {
     if (isset($this->_parts[$name])) {
@@ -95,10 +97,10 @@ class PapayaAdministrationPageParts
    * Set a page part object.
    *
    * @param string $name
-   * @param \PapayaAdministrationPagePart $part
+   * @param \Papaya\Administration\Page\Part $part
    * @throws \UnexpectedValueException
    */
-  public function set($name, \PapayaAdministrationPagePart $part = NULL) {
+  public function set($name, \Papaya\Administration\Page\Part $part = NULL) {
     if (!array_key_exists($name, $this->_parts)) {
       throw new \UnexpectedValueException(sprintf('Can not set unknown part "%s".', $name));
     }
@@ -111,7 +113,7 @@ class PapayaAdministrationPageParts
    *
    * @param $name
    * @throws \UnexpectedValueException
-   * @return \PapayaAdministrationPagePart|FALSE
+   * @return \Papaya\Administration\Page\Part|FALSE
    */
   public function create($name) {
     if (!array_key_exists($name, $this->_parts)) {
@@ -127,12 +129,12 @@ class PapayaAdministrationPageParts
   }
 
   /**
-  * Get the target (layout element) the page part xml shoudl be assigned too.
-  *
-  * @throws \UnexpectedValueException
-  * @param string $name
-  * @return string
-  */
+   * Get the target (layout element) the page part xml shoudl be assigned too.
+   *
+   * @throws \UnexpectedValueException
+   * @param string $name
+   * @return string
+   */
   public function getTarget($name) {
     if (!array_key_exists($name, $this->_parts)) {
       throw new \UnexpectedValueException(sprintf('Unknown part "%s".', $name));
@@ -144,9 +146,9 @@ class PapayaAdministrationPageParts
   }
 
   /**
-  * The toolbar is composed, so the navigation and the changes subobjects can add elements
-  *
-  * @param \PapayaUiToolbarComposed $toolbar
+   * The toolbar is composed, so the navigation and the changes subobjects can add elements
+   *
+   * @param \PapayaUiToolbarComposed $toolbar
    * @return null|\PapayaUiToolbarComposed
    */
   public function toolbar(\PapayaUiToolbarComposed $toolbar = NULL) {
@@ -162,21 +164,22 @@ class PapayaAdministrationPageParts
   }
 
   /**
-  * Iterator Interface - Rewind $parts array pointer
-  * @see \Iterator::rewind()
-  */
+   * Iterator Interface - Rewind $parts array pointer
+   *
+   * @see \Iterator::rewind()
+   */
   public function rewind() {
     reset($this->_parts);
   }
 
   /**
-  * Iterator Interface - Move the $parts array pointer to the next element
-  *
-  * Before moving the array pointer read the parameters of the current element and assign them
-  * to the parameters of the list.
-  *
-  * @see \Iterator::next()
-  */
+   * Iterator Interface - Move the $parts array pointer to the next element
+   *
+   * Before moving the array pointer read the parameters of the current element and assign them
+   * to the parameters of the list.
+   *
+   * @see \Iterator::next()
+   */
   public function next() {
     $previous = current($this->_parts);
     if ($previous) {
@@ -188,14 +191,14 @@ class PapayaAdministrationPageParts
   }
 
   /**
-  * Iterator Interface - Get the current part after assigning the parameters of the list object.
-  *
-  * This calls get() to fetch the part, so an implicit call to create is included.
-  *
-  * @see \Iterator::current()
-  * @see \PapayaAdministrationPageParts::get()
-  * @return FALSE|\PapayaAdministrationPagePart
-  */
+   * Iterator Interface - Get the current part after assigning the parameters of the list object.
+   *
+   * This calls get() to fetch the part, so an implicit call to create is included.
+   *
+   * @see \Iterator::current()
+   * @see \PapayaAdministrationPageParts::get()
+   * @return FALSE|\Papaya\Administration\Page\Part
+   */
   public function current() {
     $part = $this->get($this->key());
     if ($part) {
@@ -205,21 +208,21 @@ class PapayaAdministrationPageParts
   }
 
   /**
-  * Iterator Interface - Return the current key value
-  *
-  * @see \Iterator::key()
-  * @return string
-  */
+   * Iterator Interface - Return the current key value
+   *
+   * @see \Iterator::key()
+   * @return string
+   */
   public function key() {
     return key($this->_parts);
   }
 
   /**
-  * Iterator Interface - Check if here is an element to iterate
-  *
-  * @see \Iterator::valid()
-  * @return boolean
-  */
+   * Iterator Interface - Check if here is an element to iterate
+   *
+   * @see \Iterator::valid()
+   * @return boolean
+   */
   public function valid() {
     $key = $this->key();
     return ($key !== NULL && $key !== FALSE);
