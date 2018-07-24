@@ -1,73 +1,91 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Cache\Configuration;
+use Papaya\Cache\Service\Apc\Wrapper;
+use Papaya\Cache\Service\Apc;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaCacheServiceApcTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaCacheServiceApc::setConfiguration
+  * @covers Apc::setConfiguration
   */
   public function testSetConfiguration() {
-    $service = new PapayaCacheServiceApc();
-    $this->assertTrue($service->setConfiguration(new PapayaCacheConfiguration));
+    $service = new Apc();
+    $this->assertTrue($service->setConfiguration(new Configuration));
   }
 
   /**
-  * @covers PapayaCacheServiceApc::setApcObject
+  * @covers Apc::setApcObject
   */
   public function testSetApcObject() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
-    $service = new PapayaCacheServiceApc();
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertSame($apc, $this->readAttribute($service, '_apcObject'));
   }
 
   /**
-  * @covers PapayaCacheServiceApc::getApcObject
+  * @covers Apc::getApcObject
   */
   public function testGetApcObject() {
-    $service = new PapayaCacheServiceApc();
-    $this->assertInstanceOf(PapayaCacheServiceApcObject::class, $service->getApcObject());
+    $service = new Apc();
+    $this->assertInstanceOf(Wrapper::class, $service->getApcObject());
   }
 
   /**
-  * @covers PapayaCacheServiceApc::verify
+  * @covers Apc::verify
   */
   public function testVerifyExpectingTrue() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertTrue($service->verify());
   }
 
   /**
-  * @covers PapayaCacheServiceApc::verify
+  * @covers Apc::verify
   */
   public function testVerifyExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(FALSE));
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertFalse($service->verify());
   }
 
   /**
-  * @covers PapayaCacheServiceApc::verify
+  * @covers Apc::verify
   */
   public function testVerifyExpectingError() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(FALSE));
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('APC is not available');
@@ -75,11 +93,11 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceApc::write
+  * @covers Apc::write
   */
   public function testWrite() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -91,7 +109,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
           $this->equalTo(30)
         )
         ->will($this->returnValue(TRUE));
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertSame(
       'GROUP/ELEMENT/PARAMETERS',
@@ -100,11 +118,11 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceApc::write
+  * @covers Apc::write
   */
   public function testWriteExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -116,7 +134,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
           $this->equalTo(30)
         )
         ->will($this->returnValue(FALSE));
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertFalse(
       $service->write('GROUP', 'ELEMENT', 'PARAMETERS', 'DATA', 30)
@@ -124,12 +142,12 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceApc::read
-  * @covers PapayaCacheServiceApc::_read
+  * @covers Apc::read
+  * @covers Apc::_read
   */
   public function testRead() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -141,7 +159,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
         ->will(
           $this->returnValue(array(time(), 'DATA'))
         );
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertSame(
       'DATA',
@@ -150,12 +168,12 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceApc::read
-  * @covers PapayaCacheServiceApc::_read
+  * @covers Apc::read
+  * @covers Apc::_read
   */
   public function testReadExpired() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -167,7 +185,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
         ->will(
           $this->returnValue(array(time() - 1800, 'DATA'))
         );
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertFalse(
       $service->read('GROUP', 'ELEMENT', 'PARAMETERS', 60)
@@ -175,14 +193,14 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceApc::read
-  * @covers PapayaCacheServiceApc::_read
+  * @covers Apc::read
+  * @covers Apc::_read
   */
   public function testReadDeprecated() {
     $lastHour = time() - 3600;
     $threeMinutesAgo = time() - 180;
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -194,7 +212,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
         ->will(
           $this->returnValue(array($lastHour, 'DATA'))
         );
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertFalse(
       $service->read('GROUP', 'ELEMENT', 'PARAMETERS', 86400, $threeMinutesAgo)
@@ -202,25 +220,25 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceApc::read
+  * @covers Apc::read
   */
   public function testReadExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(FALSE));
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertFalse($service->read('GROUP', 'ELEMENT', 'PARAMETERS', 1800));
   }
 
   /**
-  * @covers PapayaCacheServiceApc::exists
+  * @covers Apc::exists
   */
   public function testExists() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -232,7 +250,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
         ->will(
           $this->returnValue(array(time(), 'DATA'))
         );
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertTrue(
       $service->exists('GROUP', 'ELEMENT', 'PARAMETERS', 86400)
@@ -240,13 +258,13 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceApc::exists
+  * @covers Apc::exists
   */
   public function testExistsDeprecated() {
     $lastHour = time() - 3600;
     $threeMinutesAgo = time() - 180;
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -258,7 +276,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
         ->will(
           $this->returnValue(array($lastHour, 'DATA'))
         );
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertFalse(
       $service->exists('GROUP', 'ELEMENT', 'PARAMETERS', 86400, $threeMinutesAgo)
@@ -266,11 +284,11 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceApc::exists
+  * @covers Apc::exists
   */
   public function testExistsUsingCachedResult() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -283,26 +301,26 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceApc::exists
+  * @covers Apc::exists
   */
   public function testExistsExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(FALSE));
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertFalse($service->exists('GROUP', 'ELEMENT', 'PARAMETERS', 1800));
   }
 
   /**
-  * @covers PapayaCacheServiceApc::created
+  * @covers Apc::created
   */
   public function testCreated() {
     $lastHour = time() - 3600;
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -314,7 +332,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
         ->will(
           $this->returnValue(array($lastHour, 'DATA'))
         );
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertEquals(
       $lastHour,
@@ -323,12 +341,12 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceApc::created
+  * @covers Apc::created
   */
   public function testCreatedWithExpiredExpectingFalse() {
     $lastHour = time() - 3600;
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -340,7 +358,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
         ->will(
           $this->returnValue(array($lastHour, 'DATA'))
         );
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertFalse(
       $service->created('GROUP', 'ELEMENT', 'PARAMETERS', 1800)
@@ -348,12 +366,12 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceApc::created
+  * @covers Apc::created
   */
   public function testCreatedWithCachedResult() {
     $lastHour = time() - 3600;
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->any())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -365,7 +383,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
         ->will(
           $this->returnValue(array($lastHour, 'DATA'))
         );
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $service->exists('GROUP', 'ELEMENT', 'PARAMETERS', 7200);
     $this->assertEquals(
@@ -375,11 +393,11 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaCacheServiceApc::delete
+  * @covers Apc::delete
   */
   public function testDelete() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
@@ -387,26 +405,26 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
         ->method('clearCache')
         ->with('user')
         ->will($this->returnValue(TRUE));
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertTrue($service->delete());
   }
 
   /**
-  * @covers PapayaCacheServiceApc::delete
+  * @covers Apc::delete
   */
   public function testDeleteExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaCacheServiceApcObject $apc */
-    $apc = $this->createMock(PapayaCacheServiceApcObject::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Wrapper $apc */
+    $apc = $this->createMock(Wrapper::class);
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(FALSE));
-    $service = new PapayaCacheServiceApc();
+    $service = new Apc();
     $service->setApcObject($apc);
     $this->assertSame(0, $service->delete());
   }
 }
 
-class PapayaCacheServiceApc_TestProxy extends PapayaCacheServiceApc {
+class PapayaCacheServiceApc_TestProxy extends Apc {
   public $_localCache;
 }

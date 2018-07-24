@@ -13,15 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Cache\Identifier\Definition\Session;
+use PapayaSessionValues;
+
 /**
-* Request parameters are used to create cache condition data.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaCacheIdentifierDefinitionSessionParameters
+ * Request parameters are used to create cache condition data.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Parameters
   extends \PapayaObject
-  implements \PapayaCacheIdentifierDefinition {
+  implements \Papaya\Cache\Identifier\Definition {
 
   /**
    * @var array
@@ -64,7 +67,7 @@ class PapayaCacheIdentifierDefinitionSessionParameters
   /**
    * Any kind of data from the session
    *
-   * @see \PapayaCacheIdentifierDefinition::getSources()
+   * @see \Papaya\Cache\Identifier\Definition::getSources()
    * @return integer
    */
   public function getSources() {

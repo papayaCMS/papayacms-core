@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Theme\Editor\Changes\Dialog;
+use Papaya\Cache\Service;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -252,7 +253,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(PapayaMessageDisplay::class));
-    $cache = $this->createMock(PapayaCacheService::class);
+    $cache = $this->createMock(Service::class);
     $cache
       ->expects($this->once())
       ->method('delete')
@@ -310,7 +311,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
     $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $command = new Dialog($record);
-    $command->cache($cache =  $this->createMock(PapayaCacheService::class));
+    $command->cache($cache =  $this->createMock(Service::class));
     $this->assertSame($cache, $command->cache());
   }
 
@@ -322,7 +323,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
     $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $command = new Dialog($record);
     $command->papaya($this->mockPapaya()->application());
-    $this->assertInstanceOf(PapayaCacheService::class, $command->cache());
+    $this->assertInstanceOf(Service::class, $command->cache());
   }
 
 }

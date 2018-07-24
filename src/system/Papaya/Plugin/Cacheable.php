@@ -23,12 +23,12 @@
 interface PapayaPluginCacheable {
 
   /**
-   * An subobject implementing {@see PapayaCacheIdentifierDefinition} compiling the cache parameter
+   * An subobject implementing {@see Papaya\Cache\Identifier\PapayaCacheIdentifierDefinition} compiling the cache parameter
    * status
    *
-   * @param \PapayaCacheIdentifierDefinition $definition
-   * @return \PapayaCacheIdentifierDefinition
+   * @param \Papaya\Cache\Identifier\Definition $definition
+   * @return \Papaya\Cache\Identifier\Definition
    */
-  function cacheable(\PapayaCacheIdentifierDefinition $definition = NULL);
+  function cacheable(\Papaya\Cache\Identifier\Definition $definition = NULL);
 
 }

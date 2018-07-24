@@ -14,6 +14,11 @@
  */
 
 use Papaya\Cache;
+use Papaya\Cache\Identifier\Definition\Boolean;
+use Papaya\Cache\Identifier\Definition\Callback;
+use Papaya\Cache\Identifier\Definition\Group;
+use Papaya\Cache\Identifier\Definition\Values;
+use Papaya\Cache\Identifier\Definition;
 
 /**
 * Link Box with page
@@ -688,13 +693,13 @@ class base_boxeslinks extends base_db {
       if ($box instanceof PapayaPluginCacheable) {
         $definition = $box->cacheable();
       } elseif (method_exists($box, 'getCacheId')) {
-        $definition = new PapayaCacheIdentifierDefinitionCallback(array($box, 'getCacheId'));
+        $definition = new Callback(array($box, 'getCacheId'));
       } else {
         return FALSE;
       }
-      $definition = new PapayaCacheIdentifierDefinitionGroup(
+      $definition = new Group(
         $definition,
-        new PapayaCacheIdentifierDefinitionValues(
+        new Values(
           PapayaUtilServerProtocol::get(),
           PapayaUtilServerName::get(),
           PapayaUtilServerPort::get(),
@@ -858,10 +863,10 @@ class base_boxeslinks extends base_db {
   /**
    * Just implement the interface, this will be redefinined in the plublic boxes list
    *
-   * @param PapayaCacheIdentifierDefinition $definition
-   * @return PapayaCacheIdentifierDefinition
+   * @param Definition $definition
+   * @return Definition
    */
-  public function cacheable(PapayaCacheIdentifierDefinition $definition = NULL) {
-    return new PapayaCacheIdentifierDefinitionBoolean(FALSE);
+  public function cacheable(Definition $definition = NULL) {
+    return new Boolean(FALSE);
   }
 }

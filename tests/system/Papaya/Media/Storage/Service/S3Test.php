@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Cache\Service;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
@@ -673,7 +675,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   }
 
   public function testIsPublicWithPublicFileReadingCache() {
-    $cache = $this->createMock(PapayaCacheService::class);
+    $cache = $this->createMock(Service::class);
     $cache
       ->expects($this->once())
       ->method('read')
@@ -736,7 +738,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
         $this->logicalOr('HEAD', 'GET')
       )
       ->will($this->returnValue($client));
-    $cache = $this->createMock(PapayaCacheService::class);
+    $cache = $this->createMock(Service::class);
     $cache
       ->expects($this->once())
       ->method('read')
@@ -800,7 +802,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   }
 
   public function testIsPublicWithPrivateFileReadingCache() {
-    $cache = $this->createMock(PapayaCacheService::class);
+    $cache = $this->createMock(Service::class);
     $cache
       ->expects($this->once())
       ->method('read')
@@ -924,7 +926,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
         )
       )
       ->will($this->returnValue($this->getMockHTTPClient(NULL)));
-    $cache = $this->createMock(PapayaCacheService::class);
+    $cache = $this->createMock(Service::class);
     $cache
       ->expects($this->once())
       ->method('write')
@@ -988,7 +990,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
         )
       )
       ->will($this->returnValue($this->getMockHTTPClient(NULL)));
-    $cache = $this->createMock(PapayaCacheService::class);
+    $cache = $this->createMock(Service::class);
     $cache
       ->expects($this->once())
       ->method('write')

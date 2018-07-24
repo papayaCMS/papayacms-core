@@ -1,10 +1,27 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Cache\Identifier\Definition\Session\Parameters;
+use Papaya\Cache\Identifier\Definition;
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaCacheIdentifierDefinitionSessionParameters
+   * @covers Parameters
    */
   public function testGetStatus() {
     $values = $this
@@ -31,7 +48,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
       ->method('values')
       ->will($this->returnValue($values));
 
-    $definition = new PapayaCacheIdentifierDefinitionSessionParameters('foo');
+    $definition = new Parameters('foo');
     $definition->papaya(
       $this->mockPapaya()->application(
         array(
@@ -40,13 +57,13 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
       )
     );
     $this->assertEquals(
-      array(PapayaCacheIdentifierDefinitionSessionParameters::class => array('bar' => 'session_value')),
+      array(Parameters::class => array('bar' => 'session_value')),
       $definition->getStatus()
     );
   }
 
   /**
-   * @covers PapayaCacheIdentifierDefinitionSessionParameters
+   * @covers Parameters
    */
   public function testGetStatusValueReturnsNull() {
     $values = $this
@@ -73,7 +90,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
       ->method('values')
       ->will($this->returnValue($values));
 
-    $definition = new PapayaCacheIdentifierDefinitionSessionParameters('foo');
+    $definition = new Parameters('foo');
     $definition->papaya(
       $this->mockPapaya()->application(
         array(
@@ -87,7 +104,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
   }
 
   /**
-   * @covers PapayaCacheIdentifierDefinitionSessionParameters
+   * @covers Parameters
    */
   public function testGetStatusNoSessionActive() {
     $session = $this->createMock(PapayaSession::class);
@@ -96,7 +113,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
       ->method('isActive')
       ->will($this->returnValue(FALSE));
 
-    $definition = new PapayaCacheIdentifierDefinitionSessionParameters('foo');
+    $definition = new Parameters('foo');
     $definition->papaya(
       $this->mockPapaya()->application(
         array(
@@ -109,7 +126,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
     );
   }
   /**
-   * @covers PapayaCacheIdentifierDefinitionSessionParameters
+   * @covers Parameters
    */
   public function testGetStatusMultipleParameters() {
     $values = $this
@@ -144,7 +161,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
       ->method('values')
       ->will($this->returnValue($values));
 
-    $definition = new PapayaCacheIdentifierDefinitionSessionParameters('foo', 'bar', 'foobar');
+    $definition = new Parameters('foo', 'bar', 'foobar');
     $definition->papaya(
       $this->mockPapaya()->application(
         array(
@@ -154,7 +171,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
     );
     $this->assertEquals(
       array(
-        PapayaCacheIdentifierDefinitionSessionParameters::class => array(
+        Parameters::class => array(
           'foo' => 21,
           'bar' => 42
         )
@@ -164,12 +181,12 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
   }
 
   /**
-   * @covers PapayaCacheIdentifierDefinitionSessionParameters
+   * @covers Parameters
    */
   public function testGetSources() {
-    $definition = new PapayaCacheIdentifierDefinitionSessionParameters('foo');
+    $definition = new Parameters('foo');
     $this->assertEquals(
-      PapayaCacheIdentifierDefinition::SOURCE_SESSION,
+      Definition::SOURCE_SESSION,
       $definition->getSources()
     );
   }

@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Cache\Identifier\Definition;
 /**
-* Use the all values provided in the constructor as cache condition data
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaCacheIdentifierDefinitionValues
-  implements \PapayaCacheIdentifierDefinition {
+ * Use the all values provided in the constructor as cache condition data
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Values
+  implements \Papaya\Cache\Identifier\Definition {
 
-  private $_values = array();
+  private $_values;
 
   /**
    * Just store all arguments into an private member variable
@@ -37,7 +38,7 @@ class PapayaCacheIdentifierDefinitionValues
    *
    * If no arguments whre stored, return TRUE.
    *
-   * @see \PapayaCacheIdentifierDefinition::getStatus()
+   * @see \Papaya\Cache\Identifier\Definition::getStatus()
    * @return TRUE|array
    */
   public function getStatus() {
@@ -47,7 +48,7 @@ class PapayaCacheIdentifierDefinitionValues
   /**
    * Values are from variables provided creating the object.
    *
-   * @see \PapayaCacheIdentifierDefinition::getSources()
+   * @see \Papaya\Cache\Identifier\Definition::getSources()
    * @return integer
    */
   public function getSources() {

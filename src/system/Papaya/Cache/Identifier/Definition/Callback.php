@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Cache\Identifier\Definition;
 /**
-* A boolean value or callback returing a boolean value defines if caching is allowed
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaCacheIdentifierDefinitionCallback
-  implements \PapayaCacheIdentifierDefinition {
+ * A boolean value or callback returing a boolean value defines if caching is allowed
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Callback
+  implements \Papaya\Cache\Identifier\Definition {
 
   private $_callback = NULL;
   private $_data = NULL;
@@ -33,7 +34,7 @@ class PapayaCacheIdentifierDefinitionCallback
   /**
    * Return cache identification data from a callback, return FALSE if it is nor cacheable
    *
-   * @see \PapayaCacheIdentifierDefinition::getStatus()
+   * @see \Papaya\Cache\Identifier\Definition::getStatus()
    * @return array|FALSE
    */
   public function getStatus() {
@@ -48,7 +49,7 @@ class PapayaCacheIdentifierDefinitionCallback
   /**
    * Values are from variables provided creating the object.
    *
-   * @see \PapayaCacheIdentifierDefinition::getSources()
+   * @see \Papaya\Cache\Identifier\Definition::getSources()
    * @return integer
    */
   public function getSources() {

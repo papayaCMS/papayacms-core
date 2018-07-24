@@ -15,7 +15,7 @@
 
 namespace Papaya\Administration\Theme\Editor\Changes;
 use Papaya;
-use PapayaCacheService;
+use Papaya\Cache\Service;
 use PapayaContentStructureGroup;
 use PapayaContentStructurePage;
 use PapayaContentStructureValue;
@@ -44,7 +44,7 @@ class Dialog
    */
   private $_fieldFactory = NULL;
   /**
-   * @var PapayaCacheService
+   * @var \Papaya\Cache\Service
    */
   private $_cacheService = NULL;
 
@@ -206,10 +206,10 @@ class Dialog
   /**
    * Access to the theme cache service - to reset the cache after changes.
    *
-   * @param \PapayaCacheService $service
-   * @return \PapayaCacheService
+   * @param \Papaya\Cache\Service $service
+   * @return \Papaya\Cache\Service
    */
-  public function cache(\PapayaCacheService $service = NULL) {
+  public function cache(Papaya\Cache\Service $service = NULL) {
     if (isset($service)) {
       $this->_cacheService = $service;
     } elseif (NULL == $this->_cacheService) {

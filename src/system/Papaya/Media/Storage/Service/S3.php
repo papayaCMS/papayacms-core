@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Cache\Service;
+
 /**
 * Amazon S3 based storage service for Papaya Media Storage
 *
@@ -52,7 +54,7 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   private $_handler;
 
   /**
-   * @var PapayaCacheService cache for meta information
+   * @var Service cache for meta information
    */
   private $_cacheService;
 
@@ -93,7 +95,7 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
     );
   }
 
-  public function cache(\PapayaCacheService $service = NULL) {
+  public function cache(\Papaya\Cache\Service $service = NULL) {
     if (NULL !== $service) {
       $this->_cacheService = $service;
     } elseif (NULL === $this->_cacheService) {

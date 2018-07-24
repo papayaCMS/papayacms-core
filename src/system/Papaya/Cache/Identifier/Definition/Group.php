@@ -13,26 +13,29 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Cache\Identifier\Definition;
+use Papaya\Cache\Identifier\Definition;
+
 /**
-* Use the all values provided in the constructor as cache condition data
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaCacheIdentifierDefinitionGroup
-  implements \PapayaCacheIdentifierDefinition {
+ * Use the all values provided in the constructor as cache condition data
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Group
+  implements \Papaya\Cache\Identifier\Definition {
 
   /**
-   * @var array(PapayaCacheIdentifierDefinition)
+   * @var array(Papaya\Cache\Identifier\PapayaCacheIdentifierDefinition)
    */
   private $_definitions = array();
 
   /**
    * Just store all arguments into an private member variable
    *
-   * @param \PapayaCacheIdentifierDefinition,... $definition
+   * @param \Papaya\Cache\Identifier\Definition,... $definition
    */
-  public function __construct(\PapayaCacheIdentifierDefinition $definition = NULL) {
+  public function __construct(\Papaya\Cache\Identifier\Definition $definition = NULL) {
     foreach (func_get_args() as $definition) {
       $this->add($definition);
     }
@@ -41,9 +44,9 @@ class PapayaCacheIdentifierDefinitionGroup
   /**
    * Add a definition to the internal list
    *
-   * @param \PapayaCacheIdentifierDefinition $definition
+   * @param \Papaya\Cache\Identifier\Definition $definition
    */
-  public function add(\PapayaCacheIdentifierDefinition $definition) {
+  public function add(\Papaya\Cache\Identifier\Definition $definition) {
     $this->_definitions[] = $definition;
   }
 
@@ -53,12 +56,12 @@ class PapayaCacheIdentifierDefinitionGroup
    *
    * If no arguments whre stored, return TRUE.
    *
-   * @see \PapayaCacheIdentifierDefinition::getStatus()
+   * @see \Papaya\Cache\Identifier\Definition::getStatus()
    * @return boolean|array
    */
   public function getStatus() {
     $result = array();
-    /** @var PapayaCacheIdentifierDefinition $definition */
+    /** @var \Papaya\Cache\Identifier\Definition $definition */
     foreach ($this->_definitions as $definition) {
       $data = $definition->getStatus();
       if (FALSE === $data) {
@@ -74,12 +77,12 @@ class PapayaCacheIdentifierDefinitionGroup
   /**
    * Compile a bitmask with all the source from the definitions.
    *
-   * @see \PapayaCacheIdentifierDefinition::getSources()
+   * @see \Papaya\Cache\Identifier\Definition::getSources()
    * @return integer
    */
   public function getSources() {
     $result = 0;
-    /** @var PapayaCacheIdentifierDefinition $definition */
+    /** @var \Papaya\Cache\Identifier\Definition $definition */
     foreach ($this->_definitions as $definition) {
       $result |= $definition->getSources();
     }

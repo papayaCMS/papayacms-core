@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Cache\Identifier;
 /**
-* An class to get the sources in a more readable way
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaCacheIdentifierSources implements \IteratorAggregate {
+ * An class to get the sources in a more readable way
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Sources implements \IteratorAggregate {
 
   private $_names = array(
-     \PapayaCacheIdentifierDefinition::SOURCE_URL => 'Url',
-     \PapayaCacheIdentifierDefinition::SOURCE_REQUEST => 'Request',
-     \PapayaCacheIdentifierDefinition::SOURCE_SESSION => 'Session',
-     \PapayaCacheIdentifierDefinition::SOURCE_DATABASE => 'Database',
-     \PapayaCacheIdentifierDefinition::SOURCE_VARIABLES => 'Variables'
+    Definition::SOURCE_URL => 'Url',
+    Definition::SOURCE_REQUEST => 'Request',
+    Definition::SOURCE_SESSION => 'Session',
+    Definition::SOURCE_DATABASE => 'Database',
+    Definition::SOURCE_VARIABLES => 'Variables'
   );
 
   private $_sources = 0;

@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Cache\Identifier\Definition;
 /**
-* Request parameters are used to create cache condition data.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaCacheIdentifierDefinitionEnvironment
-  implements \PapayaCacheIdentifierDefinition {
+ * Request parameters are used to create cache condition data.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Environment
+  implements \Papaya\Cache\Identifier\Definition {
 
-  private $_name = 'QUERY_STRING';
+  private $_name;
 
   /**
    * Store the name of the environment variable
@@ -50,7 +51,7 @@ class PapayaCacheIdentifierDefinitionEnvironment
   /**
    * Any kind of data from the request environment
    *
-   * @see \PapayaCacheIdentifierDefinition::getSources()
+   * @see \Papaya\Cache\Identifier\Definition::getSources()
    * @return integer
    */
   public function getSources() {

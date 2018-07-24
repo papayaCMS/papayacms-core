@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Cache\Service;
+
 /**
 * Combine, cache and output theme files (javascript/css)
 *
@@ -46,7 +48,7 @@ class PapayaThemeWrapper extends \PapayaObject {
   private $_group = NULL;
 
   /**
-  * @var PapayaCacheService
+  * @var Service
   */
   private $_cacheService = NULL;
 
@@ -189,10 +191,10 @@ class PapayaThemeWrapper extends \PapayaObject {
   /**
   * Getter/setter for cache service object
   *
-  * @param \PapayaCacheService $service
-  * @return \PapayaCacheService
+  * @param \Papaya\Cache\Service $service
+  * @return \Papaya\Cache\Service
   */
-  public function cache(\PapayaCacheService $service = NULL) {
+  public function cache(\Papaya\Cache\Service $service = NULL) {
     if (isset($service)) {
       $this->_cacheService = $service;
     }

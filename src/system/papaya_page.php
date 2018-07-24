@@ -14,6 +14,12 @@
  */
 
 use Papaya\Application\Profiles\Cms;
+use Papaya\Cache\Identifier\Definition\Boolean;
+use Papaya\Cache\Identifier\Definition\Callback;
+use Papaya\Cache\Identifier\Definition\Group;
+use Papaya\Cache\Identifier\Definition\Surfer;
+use Papaya\Cache\Identifier\Definition\Url;
+use Papaya\Cache\Identifier\Definition\Session\Parameters;
 
 /**
  * Some of the old bootstraps use the this class/file as the starting point,
@@ -888,15 +894,15 @@ class papaya_page extends base_object {
       } elseif (isset($pagePlugin->cacheable) && $pagePlugin->cacheable == FALSE) {
         return FALSE;
       } elseif (method_exists($pagePlugin, 'getCacheId')) {
-        $definition = new PapayaCacheIdentifierDefinitionCallback(array($pagePlugin, 'getCacheId'));
+        $definition = new Callback(array($pagePlugin, 'getCacheId'));
       } else {
-        $definition = new PapayaCacheIdentifierDefinitionBoolean(TRUE);
+        $definition = new Boolean(TRUE);
       }
-      $definition = new PapayaCacheIdentifierDefinitionGroup(
-        new PapayaCacheIdentifierDefinitionBoolean(PapayaUtilRequestMethod::isGet()),
-        new PapayaCacheIdentifierDefinitionUrl(),
-        new PapayaCacheIdentifierDefinitionSurfer(),
-        new PapayaCacheIdentifierDefinitionSessionParameters('PAPAYA_SESSION_PAGE_PARAMS'),
+      $definition = new Group(
+        new Boolean(PapayaUtilRequestMethod::isGet()),
+        new Url(),
+        new Surfer(),
+        new Parameters('PAPAYA_SESSION_PAGE_PARAMS'),
         $definition,
         $debug = $boxesList->cacheable()
       );

@@ -29,7 +29,7 @@ class Cache {
   /**
    * Store create cache service depoending on their configuration
    *
-   * @var array(string=>PapayaCacheService)
+   * @var array(string=>Papaya\Cache\PapayaCacheService)
    */
   private static $_serviceObjects = array();
 
@@ -39,7 +39,7 @@ class Cache {
    * @param \PapayaConfiguration $configuration
    * @param boolean $static remember service object an return at second request
    * @throws \UnexpectedValueException
-   * @return \PapayaCacheService
+   * @return \Papaya\Cache\Service
    */
   public static function getService($configuration, $static = TRUE) {
     $configuration = self::prepareConfiguration($configuration);
@@ -48,7 +48,7 @@ class Cache {
       return self::$_serviceObjects[$configurationId];
     }
     if (!empty($configuration['SERVICE'])) {
-      $class = 'PapayaCacheService'.ucfirst($configuration['SERVICE']);
+      $class = 'Papaya\\Cache\\Service\\'.ucfirst($configuration['SERVICE']);
       if (class_exists($class)) {
         $object = new $class($configuration);
         if ($static) {
@@ -71,11 +71,11 @@ class Cache {
    * using mapping definition.
    *
    * @param \PapayaConfiguration $configuration
-   * @return \PapayaCacheConfiguration
+   * @return \Papaya\Cache\Configuration
    */
   public static function prepareConfiguration($configuration) {
-    if (!($configuration instanceof \PapayaCacheConfiguration)) {
-      $result = new \PapayaCacheConfiguration();
+    if (!($configuration instanceof Cache\Configuration)) {
+      $result = new Cache\Configuration();
       $result->assign(
         array(
           'SERVICE' => $configuration->get('PAPAYA_CACHE_SERVICE', 'file'),
@@ -97,13 +97,13 @@ class Cache {
    * @param string $for
    * @param \PapayaConfiguration $globalConfiguration
    * @param bool $static
-   * @return FALSE|\PapayaCacheService
+   * @return FALSE|\Papaya\Cache\Service
    */
   public static function get($for, $globalConfiguration, $static = TRUE) {
     switch ($for) {
       case self::DATA :
         if ($globalConfiguration->get('PAPAYA_CACHE_DATA', FALSE)) {
-          $configuration = new \PapayaCacheConfiguration();
+          $configuration = new Cache\Configuration();
           $configuration->assign(
             array(
               'SERVICE' =>
@@ -121,7 +121,7 @@ class Cache {
       break;
       case self::IMAGES :
         if ($globalConfiguration->get('PAPAYA_CACHE_IMAGES', FALSE)) {
-          $configuration = new \PapayaCacheConfiguration();
+          $configuration = new Cache\Configuration();
           $configuration->assign(
             array(
               'SERVICE' =>

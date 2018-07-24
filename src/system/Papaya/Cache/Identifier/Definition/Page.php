@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Cache\Identifier\Definition;
 /**
-* Use page and categoriy ids as cache identifer conditions
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaCacheIdentifierDefinitionPage
+ * Use page and category ids as cache identifier conditions
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Page
   extends \PapayaObject
-  implements \PapayaCacheIdentifierDefinition {
+  implements \Papaya\Cache\Identifier\Definition {
 
   /**
    * Return data for the specified page
    *
-   * @see \PapayaCacheIdentifierDefinition::getStatus()
+   * @see \Papaya\Cache\Identifier\Definition::getStatus()
    * @return boolean|array
    */
   public function getStatus() {
@@ -62,7 +63,7 @@ class PapayaCacheIdentifierDefinitionPage
   /**
    * page id and category id are from the url path.
    *
-   * @see \PapayaCacheIdentifierDefinition::getSources()
+   * @see \Papaya\Cache\Identifier\Definition::getSources()
    * @return integer
    */
   public function getSources() {

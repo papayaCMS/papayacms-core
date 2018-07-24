@@ -42,7 +42,8 @@ class Autoloader {
     )Sx';
 
   private static $_mapClasses = array(
-    'PapayaAdministrationCommunityUsersListDialog' => Administration\Community\Users\Roster\Dialog::class
+    'PapayaAdministrationCommunityUsersListDialog' => Administration\Community\Users\Roster\Dialog::class,
+    'PapayaCacheServiceApcObject' => ''
   );
 
   private static $_mapParts = array(

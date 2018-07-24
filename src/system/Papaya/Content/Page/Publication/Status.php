@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Cache\Service;
+
 /**
 * Load status informations of a page publication.
 *
@@ -31,7 +33,7 @@ class PapayaContentPagePublicationStatus extends \PapayaContentPageStatus {
   /**
   * Query data cache.
   *
-  * @var PapayaCacheService
+  * @var Service
   */
   private $_cache = NULL;
 
@@ -59,10 +61,10 @@ class PapayaContentPagePublicationStatus extends \PapayaContentPageStatus {
   /**
   * Getter/Setter for cache object, fetches the system data cache if not set.
   *
-  * @param \PapayaCacheService $cache
-  * @return FALSE|\PapayaCacheService
+  * @param \Papaya\Cache\Service $cache
+  * @return FALSE|\Papaya\Cache\Service
   */
-  public function cache(\PapayaCacheService $cache = NULL) {
+  public function cache(\Papaya\Cache\Service $cache = NULL) {
     if (isset($cache)) {
       $this->_cache = $cache;
     } elseif (is_null($this->_cache)) {

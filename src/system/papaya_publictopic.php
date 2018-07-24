@@ -14,6 +14,14 @@
  */
 
 use Papaya\Cache;
+use Papaya\Cache\Identifier\Definition\Boolean;
+use Papaya\Cache\Identifier\Definition\Callback;
+use Papaya\Cache\Identifier\Definition\Group;
+use Papaya\Cache\Identifier\Definition\Page;
+use Papaya\Cache\Identifier\Definition\Surfer;
+use Papaya\Cache\Identifier\Definition\Url;
+use Papaya\Cache\Identifier\Definition\Values;
+use Papaya\Cache\Identifier\Definition;
 
 /**
 * Show published pages
@@ -194,7 +202,7 @@ class papaya_publictopic extends base_topic {
    * get the cache identifer definition object for a page
    *
    * @param object $pagePlugin
-   * @return PapayaCacheIdentifierDefinition
+   * @return Definition
    */
   function getCacheDefinition($pagePlugin) {
     if (isset($GLOBALS['PAPAYA_PAGE']) &&
@@ -207,24 +215,24 @@ class papaya_publictopic extends base_topic {
     if ($pagePlugin instanceof PapayaPluginCacheable) {
       $definition = $pagePlugin->cacheable();
     } elseif (!property_exists($pagePlugin, 'cacheable') || $pagePlugin->cacheable === FALSE) {
-      return new PapayaCacheIdentifierDefinitionBoolean(FALSE);
+      return new Boolean(FALSE);
     } elseif (method_exists($pagePlugin, 'getCacheId')) {
-      $definition = new PapayaCacheIdentifierDefinitionCallback(array($pagePlugin, 'getCacheId'));
+      $definition = new Callback(array($pagePlugin, 'getCacheId'));
     } else {
-      $definition = new PapayaCacheIdentifierDefinitionGroup(
-        new PapayaCacheIdentifierDefinitionUrl(),
-        new PapayaCacheIdentifierDefinitionValues($pageOptions)
+      $definition = new Group(
+        new Url(),
+        new Values($pageOptions)
       );
     }
     if ($definition) {
-      return new PapayaCacheIdentifierDefinitionGroup(
-        new PapayaCacheIdentifierDefinitionBoolean(PapayaUtilRequestMethod::isGet()),
-        new PapayaCacheIdentifierDefinitionPage(),
-        new PapayaCacheIdentifierDefinitionSurfer(),
+      return new Group(
+        new Boolean(PapayaUtilRequestMethod::isGet()),
+        new Page(),
+        new Surfer(),
         $definition
       );
     } else {
-      return new PapayaCacheIdentifierDefinitionBoolean(FALSE);
+      return new Boolean(FALSE);
     }
   }
 

@@ -1,10 +1,27 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Cache\Identifier\Definition\Url;
+use Papaya\Cache\Identifier\Definition;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaCacheIdentifierDefinitionUrlTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaCacheIdentifierDefinitionUrl
+   * @covers Url
    */
   public function testGetStatus() {
     $environment = $_SERVER;
@@ -13,10 +30,10 @@ class PapayaCacheIdentifierDefinitionUrlTest extends PapayaTestCase {
       'HTTP_HOST' => 'www.sample.tld',
       'SERVER_PORT' => 443
     );
-    $definition = new PapayaCacheIdentifierDefinitionUrl();
+    $definition = new Url();
     $this->assertEquals(
       array(
-        PapayaCacheIdentifierDefinitionUrl::class => 'https://www.sample.tld/'
+        Url::class => 'https://www.sample.tld/'
       ),
       $definition->getStatus()
     );
@@ -24,12 +41,12 @@ class PapayaCacheIdentifierDefinitionUrlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaCacheIdentifierDefinitionUrl
+   * @covers Url
    */
   public function testGetSources() {
-    $definition = new PapayaCacheIdentifierDefinitionUrl();
+    $definition = new Url();
     $this->assertEquals(
-      PapayaCacheIdentifierDefinition::SOURCE_URL,
+      Definition::SOURCE_URL,
       $definition->getSources()
     );
   }

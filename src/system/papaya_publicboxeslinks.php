@@ -1,21 +1,22 @@
 <?php
 /**
-* papaya_public_boxeslinks variable
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: papaya_publicboxeslinks.php 39794 2014-05-06 15:34:47Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Cache\Identifier\Definition\Boolean;
+use Papaya\Cache\Identifier\Definition\Callback;
+use Papaya\Cache\Identifier\Definition\Group;
+use Papaya\Cache\Identifier\Definition;
 
 /**
 * papaya_public_boxeslinks variable
@@ -165,14 +166,14 @@ class papaya_public_boxeslinks extends base_boxeslinks {
   /**
    * Merge the cache definiiton of the loaded boxes and return them
    *
-   * @param PapayaCacheIdentifierDefinition $definition
-   * @return PapayaCacheIdentifierDefinition
+   * @param Definition $definition
+   * @return Definition
    */
-  public function cacheable(PapayaCacheIdentifierDefinition $definition = NULL) {
+  public function cacheable(Definition $definition = NULL) {
     if (isset($definition)) {
       $this->_cacheDefinition = $definition;
     } elseif (NULL === $this->_cacheDefinition) {
-      $this->_cacheDefinition = $definition = new PapayaCacheIdentifierDefinitionGroup();
+      $this->_cacheDefinition = $definition = new Group();
       $modules = array();
       foreach ($this->data as $boxData) {
         $modules[] = $boxData['module_guid'];
@@ -187,10 +188,10 @@ class papaya_public_boxeslinks extends base_boxeslinks {
           $definition->add($plugin->cacheable());
         } elseif (method_exists($plugin, 'getCacheId')) {
           $definition->add(
-            new PapayaCacheIdentifierDefinitionCallback(array($plugin, 'getCacheId'))
+            new Callback(array($plugin, 'getCacheId'))
           );
         } else {
-          $this->_cacheDefinition = new PapayaCacheIdentifierDefinitionBoolean(FALSE);
+          $this->_cacheDefinition = new Boolean(FALSE);
           return $this->_cacheDefinition;
         }
       }

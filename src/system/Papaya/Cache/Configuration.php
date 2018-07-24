@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Cache;
 /**
-* Cache configuration class, defines the options curretly used by the cache services
-*
-* @package Papaya-Library
-* @subpackage Cache
-*/
-class PapayaCacheConfiguration extends \PapayaConfiguration {
+ * Cache configuration class, defines the options curretly used by the cache services
+ *
+ * @package Papaya-Library
+ * @subpackage Cache
+ */
+class Configuration extends \PapayaConfiguration {
 
   /**
-  * Create object and define options
-  */
+   * Create object and define options
+   */
   public function __construct() {
     parent::__construct(
       array(

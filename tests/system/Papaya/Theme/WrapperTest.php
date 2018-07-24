@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Cache\Service;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaThemeWrapperTest extends PapayaTestCase {
@@ -147,7 +149,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::cache
   */
   public function testCacheSetCache() {
-    $service = $this->createMock(PapayaCacheService::class);
+    $service = $this->createMock(Service::class);
     $wrapper = new PapayaThemeWrapper();
     $wrapper->cache($service);
     $this->assertAttributeSame(
@@ -159,7 +161,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::cache
   */
   public function testCacheGetCacheAfterSet() {
-    $service = $this->createMock(PapayaCacheService::class);
+    $service = $this->createMock(Service::class);
     $wrapper = new PapayaThemeWrapper();
     $this->assertSame(
       $service, $wrapper->cache($service)
@@ -173,7 +175,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
     $wrapper = new PapayaThemeWrapper();
     $wrapper->papaya($this->mockPapaya()->application());
     $service = $wrapper->cache();
-    $this->assertInstanceOf(PapayaCacheService::class, $service);
+    $this->assertInstanceOf(Service::class, $service);
   }
 
   /**
@@ -466,7 +468,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::getResponse
   */
   public function testGetResponseWriteCache() {
-    $cache = $this->createMock(PapayaCacheService::class);
+    $cache = $this->createMock(Service::class);
     $cache
       ->expects($this->once())
       ->method('created')
@@ -526,7 +528,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::getResponse
   */
   public function testGetResponseReadCache() {
-    $cache = $this->createMock(PapayaCacheService::class);
+    $cache = $this->createMock(Service::class);
     $cache
       ->expects($this->once())
       ->method('created')
@@ -573,7 +575,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::getResponse
   */
   public function testGetResponseUseBrowserCache() {
-    $cache = $this->createMock(PapayaCacheService::class);
+    $cache = $this->createMock(Service::class);
     $cache
       ->expects($this->once())
       ->method('created')

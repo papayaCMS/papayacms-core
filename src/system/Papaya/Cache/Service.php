@@ -13,101 +13,106 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Cache;
+use PapayaConfiguration;
+
 /**
-* Abstract class for Papaya Cache Services
-*
-* @package Papaya-Library
-* @subpackage Cache
-*/
-abstract class PapayaCacheService {
+ * Abstract class for Papaya Cache Services
+ *
+ * @package Papaya-Library
+ * @subpackage Cache
+ */
+abstract class Service {
 
   /**
-  * Configuration object
-  * @var PapayaConfiguration
-  */
+   * Configuration object
+   *
+   * @var PapayaConfiguration
+   */
   protected $_configuration;
 
   /**
    * constructor
    *
-   * @param \PapayaCacheConfiguration|NULL $configuration
+   * @param \Papaya\Cache\Configuration|NULL $configuration
    */
-  public function __construct(\PapayaCacheConfiguration $configuration = NULL) {
+  public function __construct(\Papaya\Cache\Configuration $configuration = NULL) {
     if (NULL !== $configuration) {
       $this->setConfiguration($configuration);
     }
   }
 
   /**
-  * Set configuration
-  *
-  * @param \PapayaCacheConfiguration $configuration
-  * @return void
-  */
-  abstract public function setConfiguration(\PapayaCacheConfiguration $configuration);
+   * Set configuration
+   *
+   * @param \Papaya\Cache\Configuration $configuration
+   * @return void
+   */
+  abstract public function setConfiguration(\Papaya\Cache\Configuration $configuration);
 
   /**
-  * Verify that the cache has a valid configuration
-  * @param boolean $silent
-  */
+   * Verify that the cache has a valid configuration
+   *
+   * @param boolean $silent
+   */
   abstract public function verify($silent = TRUE);
 
   /**
-  * Write element to cache
-  *
-  * @param string $group
-  * @param string $element
-  * @param string|array $parameters
-  * @param string $data Element data
-  * @param integer $expires Maximum age in seconds
-  * @return boolean
-  */
+   * Write element to cache
+   *
+   * @param string $group
+   * @param string $element
+   * @param string|array $parameters
+   * @param string $data Element data
+   * @param integer $expires Maximum age in seconds
+   * @return boolean
+   */
   abstract public function write($group, $element, $parameters, $data, $expires = NULL);
 
   /**
-  * Read element from cache
-  *
-  * @param string $group
-  * @param string $element
-  * @param string|array $parameters
-  * @param integer $expires Maximum age in seconds
-  * @param integer $ifModifiedSince first possible creation time
-  * @return string|FALSE
-  */
+   * Read element from cache
+   *
+   * @param string $group
+   * @param string $element
+   * @param string|array $parameters
+   * @param integer $expires Maximum age in seconds
+   * @param integer $ifModifiedSince first possible creation time
+   * @return string|FALSE
+   */
   abstract public function read($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
 
   /**
-  * Check if element in cache exists and is still valid
-  *
-  * @param string $group
-  * @param string $element
-  * @param string|array $parameters
-  * @param integer $expires Maximum age in seconds
-  * @param integer $ifModifiedSince first possible creation time
-  * @return boolean
-  */
+   * Check if element in cache exists and is still valid
+   *
+   * @param string $group
+   * @param string $element
+   * @param string|array $parameters
+   * @param integer $expires Maximum age in seconds
+   * @param integer $ifModifiedSince first possible creation time
+   * @return boolean
+   */
   abstract public function exists($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
 
   /**
-  * Check if element in cache exists and return creation time
-  *
-  * @param string $group
-  * @param string $element
-  * @param string|array $parameters
-  * @param integer $expires Maximum age in seconds
-  * @param integer $ifModifiedSince first possible creation time
-  * @return integer|FALSE
-  */
+   * Check if element in cache exists and return creation time
+   *
+   * @param string $group
+   * @param string $element
+   * @param string|array $parameters
+   * @param integer $expires Maximum age in seconds
+   * @param integer $ifModifiedSince first possible creation time
+   * @return integer|FALSE
+   */
   abstract public function created($group, $element, $parameters, $expires, $ifModifiedSince = NULL);
 
   /**
-  * Delete element(s) from cache
-  *
-  * @param string $group
-  * @param string $element
-  * @param string|array $parameters
-  * @return integer
-  */
+   * Delete element(s) from cache
+   *
+   * @param string $group
+   * @param string $element
+   * @param string|array $parameters
+   * @return integer
+   */
   abstract public function delete($group = NULL, $element = NULL, $parameters = NULL);
 
   /**
@@ -115,7 +120,7 @@ abstract class PapayaCacheService {
    *
    * @param string $group
    * @param string $element
-   * @param string|array$parameters
+   * @param string|array $parameters
    * @throws \InvalidArgumentException
    * @return array
    */
@@ -159,11 +164,11 @@ abstract class PapayaCacheService {
   }
 
   /**
-  * escape identifier string using rawurlencode() if needed
-  *
-  * @param string $string
-  * @return string
-  */
+   * escape identifier string using rawurlencode() if needed
+   *
+   * @param string $string
+   * @return string
+   */
   protected function _escapeIdentifierString($string) {
     if (preg_match('(^[A-Za-z\d.-]+$)D', $string)) {
       return $string;
@@ -173,6 +178,7 @@ abstract class PapayaCacheService {
 
   /**
    * serialize parameters to string
+   *
    * @param mixed $parameters
    * @return string
    */

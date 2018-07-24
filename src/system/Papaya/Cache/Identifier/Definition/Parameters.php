@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Cache\Identifier\Definition;
 /**
-* Request parameters are used to create cache condition data.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaCacheIdentifierDefinitionParameters
+ * Request parameters are used to create cache condition data.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Parameters
   extends \PapayaObjectInteractive
-  implements \PapayaCacheIdentifierDefinition {
+  implements \Papaya\Cache\Identifier\Definition {
 
   private $_names = array();
 
@@ -68,7 +69,7 @@ class PapayaCacheIdentifierDefinitionParameters
    * The source depends on the method. If the method is GET, only valeus from the query string
    * are used - the source is URL otherwise values from the request body are used, too.
    *
-   * @see \PapayaCacheIdentifierDefinition::getSources()
+   * @see \Papaya\Cache\Identifier\Definition::getSources()
    * @return integer
    */
   public function getSources() {
