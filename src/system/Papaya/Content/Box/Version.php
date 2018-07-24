@@ -15,8 +15,6 @@
 
 namespace Papaya\Content\Box;
 
-use Papaya\Content\Box\Version\Translations;
-
 /**
  * Provide data encapsulation for a single content box version and access to its translations.
  *
@@ -70,7 +68,7 @@ class Version extends \PapayaDatabaseObjectRecord {
   /**
    * version translations list subobject
    *
-   * @var Translations
+   * @var Version\Translations
    */
   private $_translations = NULL;
 
@@ -148,15 +146,15 @@ class Version extends \PapayaDatabaseObjectRecord {
   /**
    * Access to the version translations
    *
-   * @param \Papaya\Content\Box\Version\Translations $translations
-   * @return \Papaya\Content\Box\Translations
+   * @param Version\Translations $translations
+   * @return Version\Translations
    */
-  public function translations(\Papaya\Content\Box\Version\Translations $translations = NULL) {
+  public function translations(Version\Translations $translations = NULL) {
     if (isset($translations)) {
       $this->_translations = $translations;
     }
     if (is_null($this->_translations)) {
-      $this->_translations = new \Papaya\Content\Box\Version\Translations();
+      $this->_translations = new Version\Translations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
     }
     return $this->_translations;

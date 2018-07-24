@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Media\Folders;
+
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
@@ -40,7 +42,7 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
       'Caption', 'name'
     );
     $select->mediaFolders(
-      $mediaFolders = $this->createMock(PapayaContentMediaFolders::class)
+      $mediaFolders = $this->createMock(Folders::class)
     );
     $this->assertSame($mediaFolders, $select->mediaFolders());
   }
@@ -52,7 +54,7 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
     $select = new PapayaUiDialogFieldSelectMediaFolder(
       'Caption', 'name'
     );
-    $this->assertInstanceOf(PapayaContentMediaFolders::class, $select->mediaFolders());
+    $this->assertInstanceOf(Folders::class, $select->mediaFolders());
   }
 
   /**
@@ -92,7 +94,7 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
       )
     );
 
-    $mediaFolders = $this->createMock(PapayaContentMediaFolders::class);
+    $mediaFolders = $this->createMock(Folders::class);
     $mediaFolders
       ->expects($this->once())#
       ->method('getIterator')

@@ -13,7 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaContentMediaFolders extends \PapayaDatabaseRecordsTree {
+namespace Papaya\Content\Media;
+
+class Folders extends \PapayaDatabaseRecordsTree {
 
   protected $_fields = array(
     'id' => 'folder_id',
@@ -26,14 +28,14 @@ class PapayaContentMediaFolders extends \PapayaDatabaseRecordsTree {
   public function _createMapping() {
     $mapping = parent::_createMapping();
     $mapping->callbacks()->onMapValueFromFieldToProperty =
-     array($this, 'callbackMapValueFromFieldToProperty');
+      array($this, 'callbackMapValueFromFieldToProperty');
     $mapping->callbacks()->onGetFieldForProperty =
-     array($this, 'callbackGetFieldForProperty');
+      array($this, 'callbackGetFieldForProperty');
     return $mapping;
   }
 
   public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
-    if ($property == 'ancestors') {
+    if ('ancestors' === $property) {
       return \PapayaUtilArray::decodeIdList($value);
     }
     return $value;
@@ -41,13 +43,13 @@ class PapayaContentMediaFolders extends \PapayaDatabaseRecordsTree {
 
   public function callbackGetFieldForProperty($context, $property) {
     switch ($property) {
-    case 'language_id' :
-    case 'title' :
-      return 'ft.'.$this->_fields[$property];
-    default :
-      if (isset($this->_fields[$property])) {
-        return 'f.'.$this->_fields[$property];
-      }
+      case 'language_id' :
+      case 'title' :
+        return 'ft.'.$this->_fields[$property];
+      default :
+        if (isset($this->_fields[$property])) {
+          return 'f.'.$this->_fields[$property];
+        }
     }
     return NULL;
   }

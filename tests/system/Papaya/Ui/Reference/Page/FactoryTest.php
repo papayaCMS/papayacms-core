@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Link\Types;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
@@ -880,7 +882,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::linkTypes
   */
   public function testLinkTypesGetAfterSet() {
-    $linkTypes = $this->createMock(PapayaContentLinkTypes::class);
+    $linkTypes = $this->createMock(Types::class);
     $factory = new PapayaUiReferencePageFactory();
     $factory->linkTypes($linkTypes);
     $this->assertSame($linkTypes, $factory->linkTypes());
@@ -891,7 +893,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   */
   public function testLinkTypesGetImplicitCreatePagesPublications() {
     $factory = new PapayaUiReferencePageFactory();
-    $this->assertInstanceOf(PapayaContentLinkTypes::class, $linkTypes = $factory->linkTypes());
+    $this->assertInstanceOf(Types::class, $linkTypes = $factory->linkTypes());
   }
 
   /**
@@ -1245,7 +1247,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   }
 
   public function getLinkTypesFixture($linkData) {
-    $linkTypes = $this->createMock(PapayaContentLinkTypes::class);
+    $linkTypes = $this->createMock(Types::class);
     $linkTypes
       ->expects($this->any())
       ->method('offsetExists')

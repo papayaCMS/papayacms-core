@@ -65,15 +65,15 @@ class PapayaUiDialogFieldSelectMediaFolder extends \PapayaUiDialogField {
    * Getter/Setter for the media folders data object, it implements \IteratorAggregate and
    * returning a RecursiveIterator
    *
-   * @param \PapayaContentMediaFolders $folders
-   * @return \PapayaContentMediaFolders
+   * @param \Papaya\Content\Media\Folders $folders
+   * @return \Papaya\Content\Media\Folders
    */
-  public function mediaFolders(\PapayaContentMediaFolders $folders = NULL) {
+  public function mediaFolders(\Papaya\Content\Media\Folders $folders = NULL) {
     if (isset($folders)) {
       $this->_folders = $folders;
       $this->setFilter(new \PapayaFilterListKeys($this->_folders));
     } elseif (NULL == $this->_folders) {
-      $this->_folders = new \PapayaContentMediaFolders();
+      $this->_folders = new \Papaya\Content\Media\Folders();
       $this->_folders->activateLazyLoad();
       $this->setFilter(new \PapayaFilterListKeys($this->_folders));
     }

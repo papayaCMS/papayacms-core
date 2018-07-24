@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Link\Types;
+
 /**
  * A application width object that provides data for references
  *
@@ -52,7 +54,7 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
   private $_domains = NULL;
 
   /**
-   * @var PapayaContentLinkTypes
+   * @var Types
    */
   private $_linkTypes = NULL;
 
@@ -400,14 +402,14 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
   /**
    * Access to the link types
    *
-   * @param \PapayaContentLinkTypes $linkTypes
-   * @return \PapayaContentLinkTypes
+   * @param \Papaya\Content\Link\Types $linkTypes
+   * @return \Papaya\Content\Link\Types
    */
-  public function linkTypes(\PapayaContentLinkTypes $linkTypes = NULL) {
+  public function linkTypes(\Papaya\Content\Link\Types $linkTypes = NULL) {
     if (isset($linkTypes)) {
       $this->_linkTypes = $linkTypes;
     } elseif (is_null($this->_linkTypes)) {
-      $this->_linkTypes = new \PapayaContentLinkTypes();
+      $this->_linkTypes = new \Papaya\Content\Link\Types();
       $this->_linkTypes->papaya($this->papaya());
       $this->_linkTypes->activateLazyLoad();
     }

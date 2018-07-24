@@ -1,10 +1,26 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Link\Types;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentLinkTypesTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentLinkTypes::getResultIterator
+  * @covers Types::getResultIterator
   */
   public function testLoad() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -31,7 +47,7 @@ class PapayaContentLinkTypesTest extends PapayaTestCase {
       ->method('queryFmt')
       ->withAnyParameters()
       ->will($this->returnValue($databaseResult));
-    $linkTypes = new PapayaContentLinkTypes();
+    $linkTypes = new Types();
     $linkTypes->setDatabaseAccess($databaseAccess);
     $linkTypes->load();
     $this->assertEquals(
@@ -69,10 +85,10 @@ class PapayaContentLinkTypesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentLinkTypes::_createMapping
+  * @covers Types::_createMapping
   */
   public function testCreateMapping() {
-    $linkTypes = new PapayaContentLinkTypes();
+    $linkTypes = new Types();
     /** @var PapayaDatabaseRecordMapping $mapping */
     $this->assertInstanceOf(
       PapayaDatabaseInterfaceMapping::class,
@@ -83,10 +99,10 @@ class PapayaContentLinkTypesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentLinkTypes::mapFieldToProperty
+  * @covers Types::mapFieldToProperty
   */
   public function testMapFieldToPropertyPassthru() {
-    $linkTypes = new PapayaContentLinkTypes();
+    $linkTypes = new Types();
     /** @var PapayaDatabaseRecordMapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
@@ -98,10 +114,10 @@ class PapayaContentLinkTypesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentLinkTypes::mapFieldToProperty
+  * @covers Types::mapFieldToProperty
   */
   public function testMapFieldToPropertyUnserialize() {
-    $linkTypes = new PapayaContentLinkTypes();
+    $linkTypes = new Types();
     /** @var PapayaDatabaseRecordMapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
@@ -118,10 +134,10 @@ class PapayaContentLinkTypesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentLinkTypes::mapPropertyToField
+  * @covers Types::mapPropertyToField
   */
   public function testMapPropertyToFieldPassthru() {
-    $linkTypes = new PapayaContentLinkTypes();
+    $linkTypes = new Types();
     /** @var PapayaDatabaseRecordMapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
@@ -133,10 +149,10 @@ class PapayaContentLinkTypesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentLinkTypes::mapPropertyToField
+  * @covers Types::mapPropertyToField
   */
   public function testMapPropertyToFieldSerialize() {
-    $linkTypes = new PapayaContentLinkTypes();
+    $linkTypes = new Types();
     /** @var PapayaDatabaseRecordMapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
