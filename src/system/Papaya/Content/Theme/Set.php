@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Theme;
 /**
  * Load/save a the theme set main record (contains name and id)
  *
@@ -24,7 +25,7 @@
  * @property string $theme
  * @property array $values
  */
-class PapayaContentThemeSet extends \PapayaDatabaseRecord {
+class Set extends \PapayaDatabaseRecord {
 
   /**
    * Map field names to more convenient property names
@@ -46,10 +47,10 @@ class PapayaContentThemeSet extends \PapayaDatabaseRecord {
   protected $_tableName = \PapayaContentTables::THEME_SETS;
 
   /**
-  * @see \PapayaDatabaseRecordsUnbuffered::_createMapping()
-  *
-  * @return \PapayaDatabaseRecordMapping
-  */
+   * @see \PapayaDatabaseRecordsUnbuffered::_createMapping()
+   *
+   * @return \PapayaDatabaseRecordMapping
+   */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
     $mapping->callbacks()->onMapValueFromFieldToProperty = array(

@@ -174,15 +174,15 @@ class PapayaThemeWrapper extends \PapayaObject {
   /**
   * Getter/setter for theme set database object including a implicit create
   *
-  * @param \PapayaContentThemeSet $themeSet
-  * @return \PapayaContentThemeSet
+  * @param \Papaya\Content\Theme\Set $themeSet
+  * @return \Papaya\Content\Theme\Set
   */
-  public function themeSet(\PapayaContentThemeSet $themeSet = NULL) {
+  public function themeSet(\Papaya\Content\Theme\Set $themeSet = NULL) {
     if (isset($themeSet)) {
       $this->_themeSet = $themeSet;
     }
     if (is_null($this->_themeSet)) {
-      $this->_themeSet = new \PapayaContentThemeSet();
+      $this->_themeSet = new \Papaya\Content\Theme\Set();
       $this->_themeSet->papaya($this->papaya());
     }
     return $this->_themeSet;

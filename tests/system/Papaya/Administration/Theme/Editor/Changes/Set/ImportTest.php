@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Theme\Editor\Changes\Set\Import;
+use Papaya\Content\Theme\Set;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
@@ -25,8 +26,8 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
   public function testCreateDialog() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentThemeSet $themeSet */
-    $themeSet = $this->createMock(PapayaContentThemeSet::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
+    $themeSet = $this->createMock(Set::class);
     $import = new Import($themeSet, $themeHandler);
     $import->papaya(
       $this->mockPapaya()->application(
@@ -72,8 +73,8 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
   public function testCreateDialogWithSelectedSet() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentThemeSet $themeSet */
-    $themeSet = $this->createMock(PapayaContentThemeSet::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
+    $themeSet = $this->createMock(Set::class);
     $import = new Import($themeSet, $themeHandler);
     $import->papaya(
       $this->mockPapaya()->application(
@@ -125,8 +126,8 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
   public function testOnValidationSuccessWithoutTheme() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentThemeSet $themeSet */
-    $themeSet = $this->createMock(PapayaContentThemeSet::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
+    $themeSet = $this->createMock(Set::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiDialogFieldFileTemporary $uploadField */
     $uploadField = $this
       ->getMockBuilder(PapayaUiDialogFieldFileTemporary::class)
@@ -145,8 +146,8 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
   public function testOnValidationSuccessWithInvalidXml() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentThemeSet $themeSet */
-    $themeSet = $this->createMock(PapayaContentThemeSet::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
+    $themeSet = $this->createMock(Set::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiDialogFieldFileTemporary $uploadField */
     $uploadField = $this->getUploadFieldFixture();
     $import = new Import($themeSet, $themeHandler);
@@ -176,8 +177,8 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
       ->method('getDefinition')
       ->with('themename')
       ->will($this->returnValue($this->createMock(PapayaContentStructure::class)));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentThemeSet $themeSet */
-    $themeSet = $this->createMock(PapayaContentThemeSet::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
+    $themeSet = $this->createMock(Set::class);
     $themeSet
       ->expects($this->once())
       ->method('assign')
@@ -215,8 +216,8 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
       ->method('getDefinition')
       ->with('themename')
       ->will($this->returnValue($this->createMock(PapayaContentStructure::class)));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentThemeSet $themeSet */
-    $themeSet = $this->createMock(PapayaContentThemeSet::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
+    $themeSet = $this->createMock(Set::class);
     $themeSet
       ->expects($this->once())
       ->method('assign')
@@ -258,8 +259,8 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
       ->method('getDefinition')
       ->with('themename')
       ->will($this->returnValue($this->createMock(PapayaContentStructure::class)));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentThemeSet $themeSet */
-    $themeSet = $this->createMock(PapayaContentThemeSet::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
+    $themeSet = $this->createMock(Set::class);
     $themeSet
       ->expects($this->once())
       ->method('load')

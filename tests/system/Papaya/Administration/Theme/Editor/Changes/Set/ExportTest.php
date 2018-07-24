@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Theme\Editor\Changes\Set\Export;
+use Papaya\Content\Theme\Set;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
@@ -59,8 +60,8 @@ class PapayaAdministrationThemeEditorChangesSetExportTest extends PapayaTestCase
       ->method('saveXml')
       ->will($this->returnValue(/** @lang XML */'<theme/>'));
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentThemeSet $themeSet */
-    $themeSet = $this->createMock(PapayaContentThemeSet::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
+    $themeSet = $this->createMock(Set::class);
     $themeSet
       ->expects($this->once())
       ->method('load')

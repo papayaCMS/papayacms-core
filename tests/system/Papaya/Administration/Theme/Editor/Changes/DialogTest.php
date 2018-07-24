@@ -18,6 +18,7 @@ use Papaya\Cache\Service;
 use Papaya\Content\Structure\Group;
 use Papaya\Content\Structure\Page;
 use Papaya\Content\Structure\Value;
+use Papaya\Content\Theme\Set;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -150,8 +151,8 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
       ->method('getDefinition')
       ->with('sample')
       ->will($this->returnValue($definition));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentThemeSet $themeSet */
-    $themeSet = $this->createMock(PapayaContentThemeSet::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
+    $themeSet = $this->createMock(Set::class);
     $themeSet
       ->expects($this->once())
       ->method('load')

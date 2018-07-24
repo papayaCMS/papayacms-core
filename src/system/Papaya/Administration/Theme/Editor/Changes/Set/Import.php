@@ -14,9 +14,6 @@
  */
 
 namespace Papaya\Administration\Theme\Editor\Changes\Set;
-use PapayaContentThemeSet;
-use PapayaThemeHandler;
-use PapayaXmlElement;
 
 /**
  * Import theme set values from an uploaded file
@@ -28,15 +25,15 @@ class Import
   extends \PapayaUiControlCommandDialog {
 
   /**
-   * @var PapayaContentThemeSet
+   * @var \Papaya\Content\Theme\Set
    */
-  private $_themeSet = NULL;
+  private $_themeSet;
   /**
-   * @var PapayaThemeHandler
+   * @var \PapayaThemeHandler
    */
-  private $_themeHandler = NULL;
+  private $_themeHandler;
 
-  public function __construct(\PapayaContentThemeSet $themeSet, \PapayaThemeHandler $themeHandler) {
+  public function __construct(\Papaya\Content\Theme\Set $themeSet, \PapayaThemeHandler $themeHandler) {
     $this->_themeSet = $themeSet;
     $this->_themeHandler = $themeHandler;
   }
@@ -87,6 +84,7 @@ class Import
   /**
    * @param \PapayaUiDialogFieldFileTemporary $uploadField
    * @return bool
+   * @throws \PapayaXmlException
    */
   public function onValidationSuccess(\PapayaUiDialogFieldFileTemporary $uploadField) {
     $theme = $this->parameters()->get('theme', '');
@@ -98,7 +96,7 @@ class Import
         $dom = new \PapayaXmlDocument();
         $dom->load($file['temporary']);
         if ($dom->documentElement) {
-          /** @var PapayaXmlElement $documentElement */
+          /** @var \PapayaXmlElement $documentElement */
           $documentElement = $dom->documentElement;
           $setId = $this->parameters()->get('set_id', 0);
           if ($setId > 0 && $this->parameters()->get('values/confirm_replace')) {

@@ -14,8 +14,6 @@
  */
 
 namespace Papaya\Administration\Theme\Editor\Changes\Set;
-use PapayaContentThemeSet;
-use PapayaThemeHandler;
 
 /**
  * Import theme set values from an uploaded file
@@ -27,20 +25,20 @@ class Export
   extends \PapayaUiControlCommand {
 
   /**
-   * @var PapayaContentThemeSet
+   * @var \Papaya\Content\Theme\Set
    */
   private $_themeSet = NULL;
 
   /**
-   * @var PapayaThemeHandler
+   * @var \PapayaThemeHandler
    */
   private $_themeHandler = NULL;
 
   /**
-   * @param \PapayaContentThemeSet $themeSet
+   * @param \Papaya\Content\Theme\Set $themeSet
    * @param \PapayaThemeHandler $themeHandler
    */
-  public function __construct(\PapayaContentThemeSet $themeSet, \PapayaThemeHandler $themeHandler) {
+  public function __construct(\Papaya\Content\Theme\Set $themeSet, \PapayaThemeHandler $themeHandler) {
     $this->_themeSet = $themeSet;
     $this->_themeHandler = $themeHandler;
   }

@@ -14,8 +14,6 @@
  */
 
 namespace Papaya\Administration\Theme\Editor;
-use PapayaContentThemeSet;
-use PapayaThemeHandler;
 
 /**
  * Main part of the theme sets editor (dynamic values for a theme)
@@ -27,12 +25,12 @@ class Changes extends \Papaya\Administration\Page\Part {
 
   private $_commands = NULL;
   /**
-   * @var PapayaContentThemeSet
+   * @var \Papaya\Content\Theme\Set
    */
   private $_themeSet = NULL;
 
   /**
-   * @var PapayaThemeHandler
+   * @var \PapayaThemeHandler
    */
   private $_themeHandler = NULL;
 
@@ -78,14 +76,14 @@ class Changes extends \Papaya\Administration\Page\Part {
   /**
    * The theme set the the database record wrapper object.
    *
-   * @param \PapayaContentThemeSet $themeSet
-   * @return \PapayaContentThemeSet
+   * @param \Papaya\Content\Theme\Set $themeSet
+   * @return \Papaya\Content\Theme\Set
    */
-  public function themeSet(\PapayaContentThemeSet $themeSet = NULL) {
+  public function themeSet(\Papaya\Content\Theme\Set $themeSet = NULL) {
     if (isset($themeSet)) {
       $this->_themeSet = $themeSet;
     } elseif (NULL === $this->_themeSet) {
-      $this->_themeSet = new \PapayaContentThemeSet();
+      $this->_themeSet = new \Papaya\Content\Theme\Set();
     }
     return $this->_themeSet;
   }

@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Theme\Editor\Changes;
+use Papaya\Content\Theme\Set;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -64,7 +65,7 @@ class PapayaAdministrationThemeEditorChangesTest extends PapayaTestCase {
    */
   public function testThemeSetGetAfterSet() {
     $command = new Changes();
-    $command->themeSet($themeSet =  $this->createMock(PapayaContentThemeSet::class));
+    $command->themeSet($themeSet =  $this->createMock(Set::class));
     $this->assertSame($themeSet, $command->themeSet());
   }
 
@@ -73,7 +74,7 @@ class PapayaAdministrationThemeEditorChangesTest extends PapayaTestCase {
    */
   public function testThemeSetGetImplicitCreate() {
     $command = new Changes();
-    $this->assertInstanceOf(PapayaContentThemeSet::class, $command->themeSet());
+    $this->assertInstanceOf(Set::class, $command->themeSet());
   }
 
   /**

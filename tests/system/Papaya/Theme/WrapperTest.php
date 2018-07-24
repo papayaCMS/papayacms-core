@@ -14,6 +14,7 @@
  */
 
 use Papaya\Cache\Service;
+use Papaya\Content\Theme\Set;
 use Papaya\Url;
 
 require_once __DIR__.'/../../../bootstrap.php';
@@ -108,7 +109,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers PapayaThemeWrapper::themeSet
   */
   public function testThemeSetGetAfterSet() {
-    $themeSet = $this->createMock(PapayaContentThemeSet::class);
+    $themeSet = $this->createMock(Set::class);
     $wrapper = new PapayaThemeWrapper();
     $this->assertSame(
       $themeSet, $wrapper->themeSet($themeSet)
@@ -123,7 +124,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
     $wrapper = new PapayaThemeWrapper();
     $wrapper->papaya($application);
     $themeSet = $wrapper->themeSet();
-    $this->assertInstanceOf(PapayaContentThemeSet::class, $themeSet);
+    $this->assertInstanceOf(Set::class, $themeSet);
     $this->assertSame($application, $themeSet->papaya());
   }
 
@@ -239,7 +240,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getResult')
       ->will($this->returnValue('SUCCESS'));
-    $themeSet = $this->createMock(PapayaContentThemeSet::class);
+    $themeSet = $this->createMock(Set::class);
     $themeSet
       ->expects($this->once())
       ->method('load')

@@ -135,7 +135,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
     );
     $selectedTheme = $this->parameters()->get('theme', '');
     if (!empty($selectedTheme)) {
-      $sets = new \PapayaContentThemeSets();
+      $sets = new \Papaya\Content\Theme\Sets();
       $sets->activateLazyLoad(array('theme' => $selectedTheme));
       $setIterator = new \PapayaIteratorTreeItems($sets);
       $selectedSet = $this->parameters()->get('set_id', 0);
