@@ -15,6 +15,7 @@
 
 use Papaya\Administration\Pages\Dependency\Changer;
 use Papaya\Administration\Pages\Reference\Command\Delete;
+use Papaya\Content\Page\Reference;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -68,7 +69,7 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends PapayaTestCase
    * @return PHPUnit_Framework_MockObject_MockObject
    */
   public function getRecordFixture(array $data = array()) {
-    $record = $this->createMock(PapayaContentPageReference::class);
+    $record = $this->createMock(Reference::class);
     $record
       ->expects($this->any())
       ->method('toArray')

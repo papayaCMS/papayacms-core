@@ -13,28 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Service;
+namespace Papaya\Content\Page\Publication;
+
+use Papaya\Cache;
 
 /**
-* Load status informations of a page publication.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPagePublicationStatus extends \PapayaContentPageStatus {
+ * Load status informations of a page publication.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Status extends \Papaya\Content\Page\Status {
 
   /**
-  * Get status from page publication
-  *
-  * @var string
-  */
+   * Get status from page publication
+   *
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::PAGE_PUBLICATIONS;
 
   /**
-  * Query data cache.
-  *
-  * @var Service
-  */
+   * Query data cache.
+   *
+   * @var Cache\Service
+   */
   private $_cache = NULL;
 
   /**
@@ -46,30 +48,29 @@ class PapayaContentPagePublicationStatus extends \PapayaContentPageStatus {
   public function load($id) {
     $expires = $this->papaya()->options->get('PAPAYA_CACHE_DATA_TIME', 0);
     if (($cache = $this->cache()) &&
-        ($content = $cache->read('pages', 'status', $id, $expires))) {
+      ($content = $cache->read('pages', 'status', $id, $expires))) {
       $this->assign(unserialize($content));
       return TRUE;
-    } else {
-      $result = parent::load($id);
-      if ($cache) {
-        $cache->write('pages', 'status', $id, serialize($this->toArray()), $expires);
-      }
+    }
+    $result = parent::load($id);
+    if ($cache) {
+      $cache->write('pages', 'status', $id, serialize($this->toArray()), $expires);
     }
     return $result;
   }
 
   /**
-  * Getter/Setter for cache object, fetches the system data cache if not set.
-  *
-  * @param \Papaya\Cache\Service $cache
-  * @return FALSE|\Papaya\Cache\Service
-  */
-  public function cache(\Papaya\Cache\Service $cache = NULL) {
-    if (isset($cache)) {
+   * Getter/Setter for cache object, fetches the system data cache if not set.
+   *
+   * @param Cache\Service $cache
+   * @return FALSE|Cache\Service
+   */
+  public function cache(Cache\Service $cache = NULL) {
+    if (NULL !== $cache) {
       $this->_cache = $cache;
-    } elseif (is_null($this->_cache)) {
+    } elseif (NULL === $this->_cache) {
       /** @noinspection PhpParamsInspection */
-      $this->_cache = Papaya\Cache::get(Papaya\Cache::DATA, $this->papaya()->options);
+      $this->_cache = Cache::get(Cache::DATA, $this->papaya()->options);
     }
     return $this->_cache;
   }

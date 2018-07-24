@@ -13,36 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the content page translation details.
-*
-* Allows to load/save the page translation.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property integer $id
-* @property integer $languageId
-* @property string $title
-* @property array $content
-* @property-read integer $created
-* @property-read integer $modified
-* @property string $metaTitle
-* @property string $metaKeywords
-* @property string $metaDescription
-* @property integer $viewId
-* @property-read string $viewTitle
-* @property-read string $viewName
-* @property-read string $moduleGuid
-* @property-read string $moduleTitle
-*/
-class PapayaContentPageTranslation extends \PapayaDatabaseRecordLazy {
+ * Provide data encapsulation for the content page translation details.
+ *
+ * Allows to load/save the page translation.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property integer $id
+ * @property integer $languageId
+ * @property string $title
+ * @property array $content
+ * @property-read integer $created
+ * @property-read integer $modified
+ * @property string $metaTitle
+ * @property string $metaKeywords
+ * @property string $metaDescription
+ * @property integer $viewId
+ * @property-read string $viewTitle
+ * @property-read string $viewName
+ * @property-read string $moduleGuid
+ * @property-read string $moduleTitle
+ */
+class Translation extends \PapayaDatabaseRecordLazy {
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'id' => 'tt.topic_id',
     'language_id' => 'tt.lng_id',
@@ -101,8 +102,8 @@ class PapayaContentPageTranslation extends \PapayaDatabaseRecordLazy {
    */
   public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
     switch ($property) {
-    case 'content' :
-      return \PapayaUtilStringXml::unserializeArray($value);
+      case 'content' :
+        return \PapayaUtilStringXml::unserializeArray($value);
     }
     return $value;
   }
@@ -118,8 +119,8 @@ class PapayaContentPageTranslation extends \PapayaDatabaseRecordLazy {
    */
   public function callbackMapValueFromPropertyToField($context, $property, $field, $value) {
     switch ($property) {
-    case 'content' :
-      return \PapayaUtilStringXml::serializeArray(empty($value) ? array() : $value);
+      case 'content' :
+        return \PapayaUtilStringXml::serializeArray(empty($value) ? array() : $value);
     }
     return $value;
   }

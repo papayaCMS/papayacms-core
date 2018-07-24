@@ -13,53 +13,54 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the working copy of content page.
-*
-* Allows to edit the pages. It contains no validation, only the database access
-* encapsulation.
-*
-* @property integer $id page id
-* @property integer $parentId direct page parent/ancestor id,
-* @property array $parentPath all page ancestor ids,
-* @property string $owner administration user that own this page
-* @property integer $group administration user group that own this page
-* @property string $permissions administration permissions,
-* @property integer $inheritVisitorPermissions inherit visitor permisssion from anchestors (mode)
-* @property array $visitorPermissions visitor permission for this node
-* @property integer $created page creation timestamp
-* @property integer $modified last modification timestamp
-* @property integer $position page position relative to its siblings
-* @property boolean $inheritBoxes box inheritance
-* @property integer $defaultLanguage default/fallback language,
-* @property integer $linkType page link type for navigations,
-* @property boolean $inheritMetaInfo inherit meta informations like page title and keywords,
-* @property integer $changeFrequency change frequency (for search engines)
-* @property integer $priority content priority (for search engines)
-* @property integer $scheme page scheme (http, https or both)
-* @property integer $cacheMode page content cache mode (system, none, own)
-* @property integer $cacheTime page content cache time, if mode == own
-* @property integer $expiresMode page browser cache mode (system, none, own)
-* @property integer $expiresTime page browser cache time, if mode == own
-* @property integer $unpublishedTranslations internal counter for unpublished translations
-*/
-class PapayaContentPageWork extends \PapayaContentPage {
+ * Provide data encapsulation for the working copy of content page.
+ *
+ * Allows to edit the pages. It contains no validation, only the database access
+ * encapsulation.
+ *
+ * @property integer $id page id
+ * @property integer $parentId direct page parent/ancestor id,
+ * @property array $parentPath all page ancestor ids,
+ * @property string $owner administration user that own this page
+ * @property integer $group administration user group that own this page
+ * @property string $permissions administration permissions,
+ * @property integer $inheritVisitorPermissions inherit visitor permisssion from anchestors (mode)
+ * @property array $visitorPermissions visitor permission for this node
+ * @property integer $created page creation timestamp
+ * @property integer $modified last modification timestamp
+ * @property integer $position page position relative to its siblings
+ * @property boolean $inheritBoxes box inheritance
+ * @property integer $defaultLanguage default/fallback language,
+ * @property integer $linkType page link type for navigations,
+ * @property boolean $inheritMetaInfo inherit meta informations like page title and keywords,
+ * @property integer $changeFrequency change frequency (for search engines)
+ * @property integer $priority content priority (for search engines)
+ * @property integer $scheme page scheme (http, https or both)
+ * @property integer $cacheMode page content cache mode (system, none, own)
+ * @property integer $cacheTime page content cache time, if mode == own
+ * @property integer $expiresMode page browser cache mode (system, none, own)
+ * @property integer $expiresTime page browser cache time, if mode == own
+ * @property integer $unpublishedTranslations internal counter for unpublished translations
+ */
+class Work extends \PapayaContentPage {
 
   /**
-  * Create child page object (but do not save it yet)
-  *
-  * To create an child page for an existing page you call:
-  *
-  * <code>
-  * $parentPage = new PapayaContentPageWork();
-  * $parentPage->load($parentId);
-  * $childPage = $parentPage->createChild();
-  * ...
-  * $childPage->save();
-  * </code>
-  *
-  * @return \PapayaContentPageWork
-  */
+   * Create child page object (but do not save it yet)
+   *
+   * To create an child page for an existing page you call:
+   *
+   * <code>
+   * $parentPage = new Papaya\Content\Page\PapayaContentPageWork();
+   * $parentPage->load($parentId);
+   * $childPage = $parentPage->createChild();
+   * ...
+   * $childPage->save();
+   * </code>
+   *
+   * @return self
+   */
   public function createChild() {
     $child = new self();
     $child->parentId = $this->id;
@@ -93,24 +94,24 @@ class PapayaContentPageWork extends \PapayaContentPage {
   }
 
   /**
-  * Get a publication encapsulation object
-  *
-  * @return \PapayaContentPagePublication
-  */
+   * Get a publication encapsulation object
+   *
+   * @return Publication
+   */
   protected function _createPublicationObject() {
-    $publication = new \PapayaContentPagePublication();
+    $publication = new Publication();
     $publication->setDatabaseAccess($this->getDatabaseAccess());
     return $publication;
   }
 
   /**
-  * Publish the currently loaded page data and the defined translations.
-  *
-  * @param array $languageIds
-  * @param integer $publishedFrom
-  * @param integer $publishedTo
-  * @return boolean
-  */
+   * Publish the currently loaded page data and the defined translations.
+   *
+   * @param array $languageIds
+   * @param integer $publishedFrom
+   * @param integer $publishedTo
+   * @return boolean
+   */
   public function publish(array $languageIds = NULL, $publishedFrom = 0, $publishedTo = 0) {
     if ($this->id > 0) {
       $publication = $this->_createPublicationObject();
@@ -125,14 +126,14 @@ class PapayaContentPageWork extends \PapayaContentPage {
   }
 
   /**
-  * Publish the translations of the given languages.
-  *
-  * @param \PapayaContentPagePublication $publication
-  * @param array $languageIds
-  * @return boolean
-  */
+   * Publish the translations of the given languages.
+   *
+   * @param Publication $publication
+   * @param array $languageIds
+   * @return boolean
+   */
   private function _publishTranslations(
-    \PapayaContentPagePublication $publication, array $languageIds = NULL
+    Publication $publication, array $languageIds = NULL
   ) {
     $databaseAccess = $this->getDatabaseAccess();
     if (!empty($languageIds)) {
@@ -173,8 +174,8 @@ class PapayaContentPageWork extends \PapayaContentPage {
             'topic_unpublished_languages' => $this->unpublishedTranslations
           );
           return FALSE !== $databaseAccess->updateRecord(
-            $databaseAccess->getTableName($this->_tableName), $data, array('topic_id' => $this->id)
-          );
+              $databaseAccess->getTableName($this->_tableName), $data, array('topic_id' => $this->id)
+            );
         }
       }
       return FALSE;

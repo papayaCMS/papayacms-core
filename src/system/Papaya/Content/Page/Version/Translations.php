@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page\Version;
 /**
-* Provide data encapsulation for the content page version translations list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentPageVersionTranslation}.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPageVersionTranslations extends \PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content page version translations list.
+ *
+ * The list does not contain all detail data, it is for list outputs etc. To get the full data
+ * use {@see Papaya\Content\Page\Version\Translation}.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Translations extends \PapayaDatabaseObjectList {
 
 
   /**
-  * Map field names to value identfiers
-  *
-  * @var array
-  */
+   * Map field names to value identfiers
+   *
+   * @var array
+   */
   protected $_fieldMapping = array(
     'topic_id' => 'id',
     'lng_id' => 'language_id',
@@ -41,11 +42,11 @@ class PapayaContentPageVersionTranslations extends \PapayaDatabaseObjectList {
   protected $_translationsTableName = \PapayaContentTables::PAGE_VERSION_TRANSLATIONS;
 
   /**
-  * Load translation list informations
-  *
-  * @param integer $pageId
-  * @return boolean
-  */
+   * Load translation list informations
+   *
+   * @param integer $pageId
+   * @return boolean
+   */
   public function load($pageId) {
     $sql = "SELECT tt.topic_id, tt.lng_id, tt.topic_trans_modified,
                    tt.topic_title,
@@ -62,14 +63,14 @@ class PapayaContentPageVersionTranslations extends \PapayaDatabaseObjectList {
   }
 
   /**
-  * Get a detail object for a single translation.
-  *
-  * @param integer $pageId
-  * @param integer $languageId
-  * @return \PapayaContentPageTranslation
-  */
+   * Get a detail object for a single translation.
+   *
+   * @param integer $pageId
+   * @param integer $languageId
+   * @return \Papaya\Content\Page\Translation
+   */
   public function getTranslation($pageId, $languageId) {
-    $result = new \PapayaContentPageVersionTranslation();
+    $result = new Translation();
     $result->setDatabaseAccess($this->getDatabaseAccess());
     $result->activateLazyLoad(array('id' => $pageId, 'language_id' => $languageId));
     return $result;

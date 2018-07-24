@@ -15,6 +15,8 @@
 
 use Papaya\Administration\Pages\Dependency\Synchronizations;
 use Papaya\Administration\Pages\Dependency\Synchronization;
+use Papaya\Content\Page\Dependencies;
+use Papaya\Content\Page\Dependency;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -45,7 +47,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
   */
   public function testDependenciesGetAfterSet() {
     $synchronizations = new Synchronizations();
-    $dependencies = $this->createMock(PapayaContentPageDependencies::class);
+    $dependencies = $this->createMock(Dependencies::class);
     $this->assertSame($dependencies, $synchronizations->dependencies($dependencies));
   }
 
@@ -54,7 +56,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
   */
   public function testDependenciesGetImplicitCreate() {
     $synchronizations = new Synchronizations();
-    $this->assertInstanceOf(PapayaContentPageDependencies::class, $synchronizations->dependencies());
+    $this->assertInstanceOf(Dependencies::class, $synchronizations->dependencies());
   }
 
   /**
@@ -62,7 +64,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
   */
   public function testGetAction() {
     $synchronizations = new Synchronizations();
-    $action = $synchronizations->getAction(PapayaContentPageDependency::SYNC_PROPERTIES);
+    $action = $synchronizations->getAction(Dependency::SYNC_PROPERTIES);
     $this->assertInstanceOf(
       Synchronization::class,
       $action
@@ -83,7 +85,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
   * @covers Synchronizations::getTargets
   */
   public function testGetTargets() {
-    $dependencies = $this->createMock(PapayaContentPageDependencies::class);
+    $dependencies = $this->createMock(Dependencies::class);
     $dependencies
       ->expects($this->once())
       ->method('load')
@@ -98,7 +100,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
             array(
               23 => array(
                 'id' => 23,
-                'synchronization' => PapayaContentPageDependency::SYNC_PROPERTIES
+                'synchronization' => Dependency::SYNC_PROPERTIES
               ),
               46 => array(
                 'id' => 46,
@@ -112,7 +114,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
     $synchronizations->dependencies($dependencies);
     $this->assertEquals(
       array(23),
-      $synchronizations->getTargets(42, PapayaContentPageDependency::SYNC_PROPERTIES)
+      $synchronizations->getTargets(42, Dependency::SYNC_PROPERTIES)
     );
   }
 
@@ -120,7 +122,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
   * @covers Synchronizations::getTargets
   */
   public function testGetTargetsExpectingNull() {
-    $dependencies = $this->createMock(PapayaContentPageDependencies::class);
+    $dependencies = $this->createMock(Dependencies::class);
     $dependencies
       ->expects($this->once())
       ->method('load')
@@ -139,7 +141,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
     $synchronizations = new Synchronizations();
     $synchronizations->dependencies($dependencies);
     $this->assertNull(
-      $synchronizations->getTargets(42, PapayaContentPageDependency::SYNC_PROPERTIES)
+      $synchronizations->getTargets(42, Dependency::SYNC_PROPERTIES)
     );
   }
 
@@ -151,7 +153,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
       array(
         'id' => 21,
         'originId' => 42,
-        'synchronization' => PapayaContentPageDependency::SYNC_PROPERTIES
+        'synchronization' => Dependency::SYNC_PROPERTIES
       )
     );
     $action = $this->createMock(Synchronization::class);
@@ -179,7 +181,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
     $synchronizations->actionMock = $action;
     $synchronizations->targetsList = array(21);
     $synchronizations->synchronizeAction(
-      PapayaContentPageDependency::SYNC_PROPERTIES, 42, array(3, 4)
+      Dependency::SYNC_PROPERTIES, 42, array(3, 4)
     );
   }
 
@@ -189,10 +191,10 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageDependency
+   * @return PHPUnit_Framework_MockObject_MockObject|Dependency
    */
   public function getRecordFixture(array $data = array()) {
-    $record = $this->createMock(PapayaContentPageDependency::class);
+    $record = $this->createMock(Dependency::class);
     $record
       ->expects($this->any())
       ->method('getIterator')

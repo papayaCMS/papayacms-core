@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Pages\Dependency\Synchronization\Publication;
+use Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -73,7 +74,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   * @covers Publication::publication
   */
   public function testPublicationGetAfterSet() {
-    $publication = $this->createMock(PapayaContentPagePublication::class);
+    $publication = $this->createMock(Page\Publication::class);
     $action = new Publication();
     $this->assertSame(
       $publication, $action->publication($publication)
@@ -86,7 +87,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   public function testPublicationGetImplicitCreate() {
     $action = new Publication();
     $this->assertInstanceOf(
-      PapayaContentPagePublication::class, $action->publication()
+      Page\Publication::class, $action->publication()
     );
   }
 
@@ -94,7 +95,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   * @covers Publication::page
   */
   public function testPageGetAfterSet() {
-    $page = $this->createMock(PapayaContentPageWork::class);
+    $page = $this->createMock(Page\Work::class);
     $action = new Publication();
     $this->assertSame(
       $page, $action->page($page)
@@ -107,7 +108,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   public function testPageGetImplicitCreate() {
     $action = new Publication();
     $this->assertInstanceOf(
-      PapayaContentPageWork::class, $action->page()
+      Page\Work::class, $action->page()
     );
   }
 
@@ -115,7 +116,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   * @covers Publication::version
   */
   public function testVersionGetAfterSet() {
-    $version = $this->createMock(PapayaContentPageVersion::class);
+    $version = $this->createMock(Page\Version::class);
     $action = new Publication();
     $this->assertSame(
       $version, $action->version($version)
@@ -128,7 +129,7 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   public function testVersionGetImplicitCreate() {
     $action = new Publication();
     $this->assertInstanceOf(
-      PapayaContentPageVersion::class, $action->version()
+      Page\Version::class, $action->version()
     );
   }
 
@@ -139,10 +140,10 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   /**
    * @param array $publicationData
    * @param array $latestVersionData
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPagePublication
+   * @return PHPUnit_Framework_MockObject_MockObject|Page\Publication
    */
   private function getPublicationFixture($publicationData = NULL, $latestVersionData = NULL) {
-    $publication = $this->createMock(PapayaContentPagePublication::class);
+    $publication = $this->createMock(Page\Publication::class);
     $publication
       ->expects($this->once())
       ->method('load')
@@ -182,10 +183,10 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
   }
 
   /**
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageWork
+   * @return PHPUnit_Framework_MockObject_MockObject|Page\Work
    */
   private function getPageFixture() {
-    $page = $this->createMock(PapayaContentPageWork::class);
+    $page = $this->createMock(Page\Work::class);
     $page
       ->expects($this->once())
       ->method('load')
@@ -201,10 +202,10 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
 
   /**
    * @param $versionData
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageVersion
+   * @return PHPUnit_Framework_MockObject_MockObject|Page\Version
    */
   private function getVersionFixture($versionData) {
-    $version = $this->createMock(PapayaContentPageVersion::class);
+    $version = $this->createMock(Page\Version::class);
     $version
       ->expects($this->exactly(2))
       ->method('__set')

@@ -91,10 +91,10 @@ class Change extends \PapayaUiControlCommandDialog {
    * a reference like this does not already exists.
    *
    * @param object $context
-   * @param \PapayaContentPageReference $record
+   * @param \Papaya\Content\Page\Reference $record
    * @return bool
    */
-  public function validateTarget($context, \PapayaContentPageReference $record) {
+  public function validateTarget($context, \Papaya\Content\Page\Reference $record) {
     list($sourceId, $targetId) = $this->sortAsc($record->sourceId, $record->targetId);
     $currentKey = $record->key()->getProperties();
     if (

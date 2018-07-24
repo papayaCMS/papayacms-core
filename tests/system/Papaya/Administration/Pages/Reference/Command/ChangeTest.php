@@ -15,6 +15,7 @@
 
 use Papaya\Administration\Pages\Dependency\Changer;
 use Papaya\Administration\Pages\Reference\Command\Change;
+use Papaya\Content\Page\Reference;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -197,10 +198,10 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageReference
+   * @return PHPUnit_Framework_MockObject_MockObject|Reference
    */
   public function getRecordFixture(array $data = array()) {
-    $record = $this->createMock(PapayaContentPageReference::class);
+    $record = $this->createMock(Reference::class);
     $record
       ->expects($this->any())
       ->method('toArray')

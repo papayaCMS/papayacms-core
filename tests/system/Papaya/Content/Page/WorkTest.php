@@ -1,10 +1,28 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Page\Publication;
+use Papaya\Content\Page\Translations;
+use Papaya\Content\Page\Work;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentPageWorkTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentPageWork::save
+  * @covers Work::save
   */
   public function testSaveCreateNew() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -12,7 +30,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('insertRecord')
       ->will($this->returnCallback(array($this, 'checkInsertData')));
-    $page = new PapayaContentPageWork();
+    $page = new Work();
     $page->papaya($this->mockPapaya()->application());
     $page->setDatabaseAccess($databaseAccess);
     $page->assign(
@@ -84,13 +102,13 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
       ->method('insertRecord')
       ->withAnyParameters()
       ->will($this->returnValue(FALSE));
-    $page = new PapayaContentPageWork();
+    $page = new Work();
     $page->setDatabaseAccess($databaseAccess);
     $this->assertFalse($page->save());
   }
 
   /**
-  * @covers PapayaContentPageWork::save
+  * @covers Work::save
   */
   public function testSaveUpdateExisting() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -98,7 +116,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('updateRecord')
       ->will($this->returnCallback(array($this, 'checkUpdateData')));
-    $page = new PapayaContentPageWork();
+    $page = new Work();
     $page->setDatabaseAccess($databaseAccess);
     $page->assign(
       array(
@@ -162,10 +180,10 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageWork::createChild
+  * @covers Work::createChild
   */
   public function testCreateChild() {
-    $parentPage = new PapayaContentPageWork();
+    $parentPage = new Work();
     $parentPage->assign(
       array(
         'id' => 21,
@@ -228,7 +246,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageWork::_createPublicationObject
+  * @covers Work::_createPublicationObject
   */
   public function testCreatePublicationObject() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -236,7 +254,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
     $page->setDatabaseAccess($databaseAccess);
     $publication = $page->_createPublicationObject();
     $this->assertInstanceOf(
-      PapayaContentPagePublication::class, $publication
+      Publication::class, $publication
     );
     $this->assertSame(
       $databaseAccess, $publication->getDatabaseAccess()
@@ -244,7 +262,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageWork::publish
+  * @covers Work::publish
   */
   public function testPublishWithoutIdExpectingFalse() {
     $page = new PapayaContentPageWork_TestProxy();
@@ -252,11 +270,11 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageWork::publish
+  * @covers Work::publish
   */
   public function testPublishFailed() {
     $page = $this->getContentPageFixture();
-    $publication = $this->createMock(PapayaContentPagePublication::class);
+    $publication = $this->createMock(Publication::class);
     $publication
       ->expects($this->once())
       ->method('assign')
@@ -277,16 +295,16 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageWork::publish
-  * @covers PapayaContentPageWork::_publishTranslations
+  * @covers Work::publish
+  * @covers Work::_publishTranslations
   */
   public function testPublishWithoutLanguagesOrPeriod() {
     $page = $this->getContentPageFixture();
-    $publication = $this->createMock(PapayaContentPagePublication::class);
+    $publication = $this->createMock(Publication::class);
     $publication
       ->expects($this->once())
       ->method('assign')
-      ->with($this->isInstanceOf(PapayaContentPageWork::class));
+      ->with($this->isInstanceOf(Work::class));
     $publication
       ->expects($this->exactly(2))
       ->method('__set')
@@ -303,28 +321,28 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageWork::publish
-  * @covers PapayaContentPageWork::_publishTranslations
+  * @covers Work::publish
+  * @covers Work::_publishTranslations
   */
   public function testPublishWithLanguagesPeriod() {
     $page = $this->getContentPageFixture();
-    $translations = $this->createMock(PapayaContentPageTranslations::class);
+    $translations = $this->createMock(Translations::class);
     $translations
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(3));
     $page->translations($translations);
 
-    $publicTranslations = $this->createMock(PapayaContentPageTranslations::class);
+    $publicTranslations = $this->createMock(Translations::class);
     $publicTranslations
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(2));
-    $publication = $this->createMock(PapayaContentPagePublication::class);
+    $publication = $this->createMock(Publication::class);
     $publication
       ->expects($this->once())
       ->method('assign')
-      ->with($this->isInstanceOf(PapayaContentPageWork::class));
+      ->with($this->isInstanceOf(Work::class));
     $publication
       ->expects($this->exactly(2))
       ->method('__set')
@@ -368,16 +386,16 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageWork::publish
-  * @covers PapayaContentPageWork::_publishTranslations
+  * @covers Work::publish
+  * @covers Work::_publishTranslations
   */
   public function testPublishTranslationDeletionFailedExpetingFalse() {
     $page = $this->getContentPageFixture();
-    $publication = $this->createMock(PapayaContentPagePublication::class);
+    $publication = $this->createMock(Publication::class);
     $publication
       ->expects($this->once())
       ->method('assign')
-      ->with($this->isInstanceOf(PapayaContentPageWork::class));
+      ->with($this->isInstanceOf(Work::class));
     $publication
       ->expects($this->exactly(2))
       ->method('__set')
@@ -403,17 +421,17 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageWork::publish
-  * @covers PapayaContentPageWork::_publishTranslations
+  * @covers Work::publish
+  * @covers Work::_publishTranslations
   */
   public function testPublishTranslationFailedExpetingFalse() {
     $page = $this->getContentPageFixture();
 
-    $publication = $this->createMock(PapayaContentPagePublication::class);
+    $publication = $this->createMock(Publication::class);
     $publication
       ->expects($this->once())
       ->method('assign')
-      ->with($this->isInstanceOf(PapayaContentPageWork::class));
+      ->with($this->isInstanceOf(Work::class));
     $publication
       ->expects($this->exactly(2))
       ->method('__set')
@@ -481,7 +499,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   }
 }
 
-class PapayaContentPageWork_TestProxy extends PapayaContentPageWork {
+class PapayaContentPageWork_TestProxy extends Work {
 
   public $publicationObject;
 

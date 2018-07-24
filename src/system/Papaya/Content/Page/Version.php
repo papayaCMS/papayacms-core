@@ -13,37 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
+
 /**
-* Provide data encapsulation for a single content page version and access to its translations.
-*
-* Allows to load/create the page version.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property integer $id
-* @property integer $created
-* @property string $owner
-* @property string $message
-* @property integer $level
-* @property integer $pageId
-* @property integer $modified
-* @property integer $position page position relative to its siblings
-* @property boolean $inheritBoxes box inheritance
-* @property integer $defaultLanguage default/fallback language,
-* @property integer $linkType page link type for navigation,
-* @property boolean $inheritMetaInfo inherit meta information like page title and keywords,
-* @property integer $changeFrequency change frequency (for search engines)
-* @property integer $priority content priority (for search engines)
-* @property integer $scheme page scheme (http, https or both)
-*/
-class PapayaContentPageVersion extends \PapayaDatabaseObjectRecord {
+ * Provide data encapsulation for a single content page version and access to its translations.
+ *
+ * Allows to load/create the page version.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property integer $id
+ * @property integer $created
+ * @property string $owner
+ * @property string $message
+ * @property integer $level
+ * @property integer $pageId
+ * @property integer $modified
+ * @property integer $position page position relative to its siblings
+ * @property boolean $inheritBoxes box inheritance
+ * @property integer $defaultLanguage default/fallback language,
+ * @property integer $linkType page link type for navigation,
+ * @property boolean $inheritMetaInfo inherit meta information like page title and keywords,
+ * @property integer $changeFrequency change frequency (for search engines)
+ * @property integer $priority content priority (for search engines)
+ * @property integer $scheme page scheme (http, https or both)
+ */
+class Version extends \PapayaDatabaseObjectRecord {
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     // auto increment version id
     'id' => 'version_id',
@@ -80,17 +82,17 @@ class PapayaContentPageVersion extends \PapayaDatabaseObjectRecord {
   );
 
   /**
-  * version table name for default load() implementations
-  *
-  * @var string
-  */
+   * version table name for default load() implementations
+   *
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::PAGE_VERSIONS;
 
   /**
-  * version translations list subobject
-  *
-  * @var PapayaContentPageVersionTranslations
-  */
+   * version translations list subobject
+   *
+   * @var Version\Translations
+   */
   private $_translations;
 
   /**
@@ -114,10 +116,10 @@ class PapayaContentPageVersion extends \PapayaDatabaseObjectRecord {
   }
 
   /**
-  * Create and store a backup of the current page working copy and its translations
-  *
-  * @return integer|FALSE
-  */
+   * Create and store a backup of the current page working copy and its translations
+   *
+   * @return integer|FALSE
+   */
   private function create() {
     $sql = /** @lang Text */
       "INSERT INTO %s (
@@ -170,15 +172,15 @@ class PapayaContentPageVersion extends \PapayaDatabaseObjectRecord {
   /**
    * Access to the version translations
    *
-   * @param \PapayaContentPageVersionTranslations $translations
-   * @return \PapayaContentPageVersionTranslations
+   * @param Version\Translations $translations
+   * @return Version\Translations
    */
-  public function translations(\PapayaContentPageVersionTranslations $translations = NULL) {
+  public function translations(Version\Translations $translations = NULL) {
     if (NULL !== $translations) {
       $this->_translations = $translations;
     }
     if (NULL === $this->_translations) {
-      $this->_translations = new \PapayaContentPageVersionTranslations();
+      $this->_translations = new Version\Translations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
     }
     return $this->_translations;

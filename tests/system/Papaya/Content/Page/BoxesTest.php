@@ -1,10 +1,26 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Page\Boxes;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentPageBoxesTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentPageBoxes::load
+  * @covers Boxes::load
   */
   public function testLoad() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -32,7 +48,7 @@ class PapayaContentPageBoxesTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_boxlinks', 21))
       ->will($this->returnValue($databaseResult));
-    $boxes = new PapayaContentPageBoxes();
+    $boxes = new Boxes();
     $boxes->setDatabaseAccess($databaseAccess);
     $this->assertTrue($boxes->load(21));
     $this->assertAttributeEquals(
@@ -54,7 +70,7 @@ class PapayaContentPageBoxesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageBoxes::delete
+  * @covers Boxes::delete
   */
   public function testDelete() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -63,13 +79,13 @@ class PapayaContentPageBoxesTest extends PapayaTestCase {
       ->method('deleteRecord')
       ->with($this->isType('string'), 'topic_id', array(21))
       ->will($this->returnValue(0));
-    $boxes = new PapayaContentPageBoxes();
+    $boxes = new Boxes();
     $boxes->setDatabaseAccess($databaseAccess);
     $this->assertTrue($boxes->delete(21));
   }
 
   /**
-  * @covers PapayaContentPageBoxes::copyTo
+  * @covers Boxes::copyTo
   */
   public function testCopyTo() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -107,7 +123,7 @@ class PapayaContentPageBoxesTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue(0));
-    $boxes = new PapayaContentPageBoxes();
+    $boxes = new Boxes();
     $boxes->setDatabaseAccess($databaseAccess);
     $boxes->assign(
       array(
@@ -127,15 +143,15 @@ class PapayaContentPageBoxesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageBoxes::copyTo
+  * @covers Boxes::copyTo
   */
   public function testCopyToWithEmptySourceAndTargetExpectingTrue() {
-    $boxes = new PapayaContentPageBoxes();
+    $boxes = new Boxes();
     $this->assertTrue($boxes->copyTo(array()));
   }
 
   /**
-  * @covers PapayaContentPageBoxes::copyTo
+  * @covers Boxes::copyTo
   */
   public function testCopyToWhileDeleteFailedExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -144,7 +160,7 @@ class PapayaContentPageBoxesTest extends PapayaTestCase {
       ->method('deleteRecord')
       ->with($this->isType('string'), 'topic_id', array(42, 23))
       ->will($this->returnValue(FALSE));
-    $boxes = new PapayaContentPageBoxes();
+    $boxes = new Boxes();
     $boxes->setDatabaseAccess($databaseAccess);
     $boxes->assign(
       array(

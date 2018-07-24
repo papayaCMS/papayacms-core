@@ -1,10 +1,27 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Page\Dependencies;
+use Papaya\Content\Page\Dependency;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentPageDependenciesTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentPageDependencies::load
+  * @covers Dependencies::load
   */
   public function testLoad() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -36,7 +53,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
       ->with()
       ->will($this->returnValue($databaseResult));
 
-    $dependencies = new PapayaContentPageDependencies();
+    $dependencies = new Dependencies();
     $dependencies->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
       $dependencies->load(42, 1, 10, 0)
@@ -62,12 +79,12 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageDependencies::getDependency
+  * @covers Dependencies::getDependency
   */
   public function testGetDependency() {
     $dependencies = new PapayaContentPageDependencies_TestProxy();
     $dependency = $dependencies->getDependency(21);
-    $this->assertInstanceOf(PapayaContentPageDependency::class, $dependency);
+    $this->assertInstanceOf(Dependency::class, $dependency);
     $this->assertAttributeEquals(
       array(
         'id' => NULL,
@@ -81,7 +98,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageDependencies::getDependency
+  * @covers Dependencies::getDependency
   */
   public function testGetDependencyWithData() {
     $dependencies = new PapayaContentPageDependencies_TestProxy();
@@ -113,7 +130,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageDependencies::delete
+  * @covers Dependencies::delete
   */
   public function testDelete() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -122,7 +139,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
       ->method('deleteRecord')
       ->with()
       ->will($this->returnValue(TRUE));
-    $dependencies = new PapayaContentPageDependencies();
+    $dependencies = new Dependencies();
     $dependencies->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
       $dependencies->delete(42)
@@ -130,7 +147,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageDependencies::delete
+  * @covers Dependencies::delete
   */
   public function testDeleteChangesRecords() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -162,7 +179,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageDependencies::changeOrigin
+  * @covers Dependencies::changeOrigin
   */
   public function testChangeOrigin() {
     $databaseResultLoad = $this->createMock(PapayaDatabaseResult::class);
@@ -215,13 +232,13 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue(TRUE));
-    $dependencies = new PapayaContentPageDependencies();
+    $dependencies = new Dependencies();
     $dependencies->setDatabaseAccess($databaseAccess);
     $dependencies->changeOrigin(21, 42);
   }
 }
 
-class PapayaContentPageDependencies_TestProxy extends PapayaContentPageDependencies {
+class PapayaContentPageDependencies_TestProxy extends Dependencies {
 
   public $_records;
 }

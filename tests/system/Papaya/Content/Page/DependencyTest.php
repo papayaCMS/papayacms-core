@@ -1,23 +1,39 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Page\Dependency;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentPageDependencyTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentPageDependency::_createKey
+  * @covers Dependency::_createKey
   */
   public function testCreateKey() {
-    $dependency = new PapayaContentPageDependency();
+    $dependency = new Dependency();
     $key = $dependency->key();
     $this->assertInstanceOf(PapayaDatabaseRecordKeyFields::class, $key);
     $this->assertEquals(array('id'), $key->getProperties());
   }
 
   /**
-  * @covers PapayaContentPageDependency::save
+  * @covers Dependency::save
   */
   public function testSaveWithoutPageIdExpectingException() {
-    $dependency = new PapayaContentPageDependency();
+    $dependency = new Dependency();
     try {
       $dependency->save();
     } catch (UnexpectedValueException $e) {
@@ -29,10 +45,10 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageDependency::save
+  * @covers Dependency::save
   */
   public function testSaveWithoutOriginPageIdExpectingException() {
-    $dependency = new PapayaContentPageDependency();
+    $dependency = new Dependency();
     $dependency->id = 1;
     try {
       $dependency->save();
@@ -45,10 +61,10 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageDependency::save
+  * @covers Dependency::save
   */
   public function testSaveIdEqualsOriginExpectingException() {
-    $dependency = new PapayaContentPageDependency();
+    $dependency = new Dependency();
     $dependency->id = 1;
     $dependency->originId = 1;
     try {
@@ -62,10 +78,10 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageDependency::save
+  * @covers Dependency::save
   */
   public function testSaveOriginHasDependencyExpectingException() {
-    $dependency = new PapayaContentPageDependency_TestProxy();
+    $dependency = new Dependency_TestProxy();
     $dependency->isDependency = TRUE;
     $dependency->id = 1;
     $dependency->originId = 2;
@@ -80,7 +96,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageDependency::save
+  * @covers Dependency::save
   */
   public function testSaveInsertsRecordExpectingTrue() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -111,21 +127,21 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue(TRUE));
-    $dependency = new PapayaContentPageDependency_TestProxy();
+    $dependency = new Dependency_TestProxy();
     $dependency->setDatabaseAccess($databaseAccess);
     $dependency->isDependency = FALSE;
     $dependency->id = 21;
     $dependency->originId = 42;
     $dependency->synchronization =
-      PapayaContentPageDependency::SYNC_PROPERTIES |
-      PapayaContentPageDependency::SYNC_CONTENT |
-      PapayaContentPageDependency::SYNC_PUBLICATION;
+      Dependency::SYNC_PROPERTIES |
+      Dependency::SYNC_CONTENT |
+      Dependency::SYNC_PUBLICATION;
     $dependency->note = 'sample note';
     $this->assertEquals(array('id' => 21), $dependency->save()->getFilter());
   }
 
   /**
-  * @covers PapayaContentPageDependency::isDependency
+  * @covers Dependency::isDependency
   */
   public function testIsDependencyExpectingTrue() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -139,13 +155,13 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic_dependencies', 42))
       ->will($this->returnValue($databaseResult));
-    $dependency = new PapayaContentPageDependency();
+    $dependency = new Dependency();
     $dependency->setDatabaseAccess($databaseAccess);
     $this->assertTrue($dependency->isDependency(42));
   }
 
   /**
-  * @covers PapayaContentPageDependency::isDependency
+  * @covers Dependency::isDependency
   */
   public function testIsDependencyExpectingFalse() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -159,13 +175,13 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic_dependencies', 42))
       ->will($this->returnValue($databaseResult));
-    $dependency = new PapayaContentPageDependency();
+    $dependency = new Dependency();
     $dependency->setDatabaseAccess($databaseAccess);
     $this->assertFalse($dependency->isDependency(42));
   }
 
   /**
-  * @covers PapayaContentPageDependency::isDependency
+  * @covers Dependency::isDependency
   */
   public function testIsDependencyWithDatabaseErrorExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -174,13 +190,13 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic_dependencies', 42))
       ->will($this->returnValue(FALSE));
-    $dependency = new PapayaContentPageDependency();
+    $dependency = new Dependency();
     $dependency->setDatabaseAccess($databaseAccess);
     $this->assertFalse($dependency->isDependency(42));
   }
 
   /**
-  * @covers PapayaContentPageDependency::isOrigin
+  * @covers Dependency::isOrigin
   */
   public function testIsOriginExpectingTrue() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -194,13 +210,13 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic_dependencies', 42))
       ->will($this->returnValue($databaseResult));
-    $dependency = new PapayaContentPageDependency();
+    $dependency = new Dependency();
     $dependency->setDatabaseAccess($databaseAccess);
     $this->assertTrue($dependency->isOrigin(42));
   }
 
   /**
-  * @covers PapayaContentPageDependency::isOrigin
+  * @covers Dependency::isOrigin
   */
   public function testIsOriginExpectingFalse() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -214,13 +230,13 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic_dependencies', 42))
       ->will($this->returnValue($databaseResult));
-    $dependency = new PapayaContentPageDependency();
+    $dependency = new Dependency();
     $dependency->setDatabaseAccess($databaseAccess);
     $this->assertFalse($dependency->isOrigin(42));
   }
 
   /**
-  * @covers PapayaContentPageDependency::isOrigin
+  * @covers Dependency::isOrigin
   */
   public function testIsOriginWithDatabaseErrorExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -229,13 +245,13 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic_dependencies', 42))
       ->will($this->returnValue(FALSE));
-    $dependency = new PapayaContentPageDependency();
+    $dependency = new Dependency();
     $dependency->setDatabaseAccess($databaseAccess);
     $this->assertFalse($dependency->isOrigin(42));
   }
 }
 
-class PapayaContentPageDependency_TestProxy extends PapayaContentPageDependency {
+class Dependency_TestProxy extends Dependency {
 
   public $isDependency = FALSE;
 

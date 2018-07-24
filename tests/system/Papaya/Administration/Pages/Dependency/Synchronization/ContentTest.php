@@ -14,6 +14,8 @@
  */
 
 use Papaya\Administration\Pages\Dependency\Synchronization\Content;
+use Papaya\Content\Page\Translation;
+use Papaya\Content\Page\Translations;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -23,7 +25,7 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
   * @covers Content::translations
   */
   public function testTranslationsGetAfterSet() {
-    $translations = $this->createMock(PapayaContentPageTranslations::class);
+    $translations = $this->createMock(Translations::class);
     $action = new Content();
     $this->assertSame(
       $translations, $action->translations($translations)
@@ -36,7 +38,7 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
   public function testTranslationsGetImplicitCreate() {
     $action = new Content();
     $this->assertInstanceOf(
-      PapayaContentPageTranslations::class, $action->translations()
+      Translations::class, $action->translations()
     );
   }
 
@@ -334,15 +336,15 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
   /**
    * @param PapayaDatabaseAccess|PHPUnit_Framework_MockObject_MockObject $databaseAccess
    * @param array $translations
-   * @param PapayaContentPageTranslation|PHPUnit_Framework_MockObject_MockObject $translation
+   * @param Translation|PHPUnit_Framework_MockObject_MockObject $translation
    * @return PHPUnit_Framework_MockObject_MockObject
    */
   private function getTranslationsFixture(
     PapayaDatabaseAccess $databaseAccess,
     array $translations = array(),
-    PapayaContentPageTranslation $translation = NULL
+    Translation $translation = NULL
   ) {
-    $result = $this->createMock(PapayaContentPageTranslations::class);
+    $result = $this->createMock(Translations::class);
     $result
       ->expects($this->once())
       ->method('load')
@@ -382,10 +384,10 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageTranslation
+   * @return PHPUnit_Framework_MockObject_MockObject|Translation
    */
   private function getTranslationFixture(array $data = array()) {
-    $translation = $this->createMock(PapayaContentPageTranslation::class);
+    $translation = $this->createMock(Translation::class);
     $translation
       ->expects($this->any())
       ->method('__get')

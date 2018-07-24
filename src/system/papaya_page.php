@@ -21,6 +21,8 @@ use Papaya\Cache\Identifier\Definition\Surfer;
 use Papaya\Cache\Identifier\Definition\Url;
 use Papaya\Cache\Identifier\Definition\Session\Parameters;
 use Papaya\Configuration\Storage\Domain;
+use Papaya\Content\Page\Status;
+use Papaya\Content\Page\Publication\Status;
 
 /**
  * Some of the old bootstraps use the this class/file as the starting point,
@@ -1106,9 +1108,9 @@ class papaya_page extends base_object {
     } elseif ($this->output->loadViewModeData($this->mode)) {
       $this->readOnlySession = FALSE;
       if ($this->isPreview()) {
-        $pageStatus = new PapayaContentPageStatus();
+        $pageStatus = new Status();
       } else {
-        $pageStatus = new PapayaContentPagePublicationStatus();
+        $pageStatus = new Status();
       }
       $pageStatus->load($this->topicId);
       if ($pageStatus->sessionMode == 0) {

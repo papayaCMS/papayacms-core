@@ -16,8 +16,8 @@
 namespace Papaya\Administration\Pages\Dependency;
 use Papaya\Administration\Pages\Dependency\Listview;
 use Papaya\Administration\Pages\Dependency\Synchronizations;
-use PapayaContentPageDependencies;
-use PapayaContentPageDependency;
+use Papaya\Content\Page\Dependencies;
+use Papaya\Content\Page\Dependency;
 use PapayaUiControlCommandController;
 use PapayaUiToolbar;
 
@@ -54,14 +54,14 @@ class Changer extends \PapayaUiControlInteractive {
   /**
    * Buffer variable for the current dependency
    *
-   * @var PapayaContentPageDependency
+   * @var \Papaya\Content\Page\Dependency
    */
   private $_dependency = NULL;
 
   /**
    * Buffer variable for the dependencies list of the current origin id
    *
-   * @var PapayaContentPageDependencies
+   * @var Dependencies
    */
   private $_dependencies = NULL;
 
@@ -118,14 +118,14 @@ class Changer extends \PapayaUiControlInteractive {
   /**
    * Getter/Setter for the dependency database object
    *
-   * @param \PapayaContentPageDependency $dependency
-   * @return \PapayaContentPageDependency
+   * @param \Papaya\Content\Page\Dependency $dependency
+   * @return \Papaya\Content\Page\Dependency
    */
-  public function dependency(\PapayaContentPageDependency $dependency = NULL) {
+  public function dependency(\Papaya\Content\Page\Dependency $dependency = NULL) {
     if (isset($dependency)) {
       $this->_dependency = $dependency;
     } elseif (is_null($this->_dependency)) {
-      $this->_dependency = new \PapayaContentPageDependency();
+      $this->_dependency = new \Papaya\Content\Page\Dependency();
     }
     return $this->_dependency;
   }
@@ -133,14 +133,14 @@ class Changer extends \PapayaUiControlInteractive {
   /**
    * Getter/Setter for the dependencies list database object
    *
-   * @param \PapayaContentPageDependencies $dependencies
-   * @return \PapayaContentPageDependencies
+   * @param \Papaya\Content\Page\Dependencies $dependencies
+   * @return \Papaya\Content\Page\Dependencies
    */
-  public function dependencies(\PapayaContentPageDependencies $dependencies = NULL) {
+  public function dependencies(\Papaya\Content\Page\Dependencies $dependencies = NULL) {
     if (isset($dependencies)) {
       $this->_dependencies = $dependencies;
     } elseif (is_null($this->_dependencies)) {
-      $this->_dependencies = new \PapayaContentPageDependencies();
+      $this->_dependencies = new \Papaya\Content\Page\Dependencies();
     }
     return $this->_dependencies;
   }
@@ -148,14 +148,14 @@ class Changer extends \PapayaUiControlInteractive {
   /**
    * Getter/Setter for the reference database object
    *
-   * @param \PapayaContentPageReference $reference
-   * @return \PapayaContentPageReference
+   * @param \Papaya\Content\Page\Reference $reference
+   * @return \Papaya\Content\Page\Reference
    */
-  public function reference(\PapayaContentPageReference $reference = NULL) {
+  public function reference(\Papaya\Content\Page\Reference $reference = NULL) {
     if (isset($reference)) {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {
-      $this->_reference = new \PapayaContentPageReference();
+      $this->_reference = new \Papaya\Content\Page\Reference();
     }
     return $this->_reference;
   }
@@ -163,14 +163,14 @@ class Changer extends \PapayaUiControlInteractive {
   /**
    * Getter/Setter for the references list database object
    *
-   * @param \PapayaContentPageReferences $references
-   * @return \PapayaContentPageReferences
+   * @param \Papaya\Content\Page\References $references
+   * @return \Papaya\Content\Page\References
    */
-  public function references(\PapayaContentPageReferences $references = NULL) {
+  public function references(\Papaya\Content\Page\References $references = NULL) {
     if (isset($references)) {
       $this->_references = $references;
     } elseif (is_null($this->_references)) {
-      $this->_references = new \PapayaContentPageReferences();
+      $this->_references = new \Papaya\Content\Page\References();
     }
     return $this->_references;
   }

@@ -16,6 +16,7 @@
 use Papaya\Administration\Pages\Dependency\Command\Change;
 use Papaya\Administration\Pages\Dependency\Changer;
 use Papaya\Administration\Pages\Dependency\Synchronizations;
+use Papaya\Content\Page\Dependency;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -293,14 +294,14 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends PapayaTestCas
   */
   public function testHandleExecutionSuccess() {
     $context = new stdClass();
-    $context->dependency = $this->createMock(PapayaContentPageDependency::class);
+    $context->dependency = $this->createMock(Dependency::class);
     $context->synchronizations =
       $synchronizations =
       $this->createMock(Synchronizations::class);
     $synchronizations
       ->expects($this->once())
       ->method('synchronizeDependency')
-      ->with($this->isInstanceOf(PapayaContentPageDependency::class));
+      ->with($this->isInstanceOf(Dependency::class));
 
     $messages = $this->createMock(PapayaMessageManager::class);
     $messages
@@ -354,11 +355,11 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends PapayaTestCas
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageDependency
+   * @return PHPUnit_Framework_MockObject_MockObject|Dependency
    */
   public function getRecordFixture(array $data = array()) {
     $this->_dependencyRecordData = $data;
-    $record = $this->createMock(PapayaContentPageDependency::class);
+    $record = $this->createMock(Dependency::class);
     $record
       ->expects($this->any())
       ->method('toArray')

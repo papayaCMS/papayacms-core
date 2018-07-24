@@ -14,13 +14,14 @@
  */
 
 use Papaya\Cache\Service;
+use Papaya\Content\Page\Publication\Status;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentPagePublicationStatus::load
+  * @covers Status::load
   */
   public function testLoadReadingFromCache() {
     $cache = $this->createMock(Service::class);
@@ -39,7 +40,7 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
         )
       );
 
-    $status = new PapayaContentPagePublicationStatus();
+    $status = new Status();
     $status->papaya($this->mockPapaya()->application());
     $status->cache($cache);
 
@@ -54,7 +55,7 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPagePublicationStatus::load
+  * @covers Status::load
   */
   public function testLoadWritingCache() {
     $cache = $this->createMock(Service::class);
@@ -79,7 +80,7 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
         0
       );
 
-    $status = new PapayaContentPagePublicationStatus();
+    $status = new Status();
     $status->papaya($this->mockPapaya()->application());
     $status->cache($cache);
     $status->setDatabaseAccess(
@@ -103,20 +104,20 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPagePublicationStatus::cache
+  * @covers Status::cache
   */
   public function testCacheGetAfterSet() {
     $cache = $this->createMock(Service::class);
-    $status = new PapayaContentPagePublicationStatus();
+    $status = new Status();
     $status->cache($cache);
     $this->assertSame($cache, $status->cache());
   }
 
   /**
-  * @covers PapayaContentPagePublicationStatus::cache
+  * @covers Status::cache
   */
   public function testCacheGetImplicitCreate() {
-    $status = new PapayaContentPagePublicationStatus();
+    $status = new Status();
     $status->papaya(
       $this->mockPapaya()->application(
         array(

@@ -14,7 +14,7 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
-use PapayaContentPageWork;
+use Papaya\Content\Page\Work;
 
 /**
  * papaya CMS
@@ -36,7 +36,7 @@ class Access
   /**
    * Page database record object
    *
-   * @var PapayaContentPageWork
+   * @var Work
    */
   private $_page = NULL;
 
@@ -58,14 +58,14 @@ class Access
   /**
    * Getter/Setter for the content page object
    *
-   * @param \PapayaContentPageWork $page
-   * @return \PapayaContentPageWork
+   * @param \Papaya\Content\Page\Work $page
+   * @return \Papaya\Content\Page\Work
    */
-  public function page(\PapayaContentPageWork $page = NULL) {
+  public function page(\Papaya\Content\Page\Work $page = NULL) {
     if (isset($page)) {
       $this->_page = $page;
     } elseif (is_null($this->_page)) {
-      $this->_page = new \PapayaContentPageWork();
+      $this->_page = new \Papaya\Content\Page\Work();
     }
     return $this->_page;
   }
@@ -73,11 +73,11 @@ class Access
   /**
    * Update target page permissions
    *
-   * @param \PapayaContentPageWork $origin
+   * @param \Papaya\Content\Page\Work $origin
    * @param array $targetIds
    * @return boolean
    */
-  protected function updatePages(\PapayaContentPageWork $origin, array $targetIds) {
+  protected function updatePages(\Papaya\Content\Page\Work $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\PapayaContentTables::PAGES),

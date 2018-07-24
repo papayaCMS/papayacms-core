@@ -13,29 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the content page tag/label list.
-*
-* This is a list of the attached tags for an page. The list can not only contain the link data but
-* additional data like the tag title. For the additional data an language id has to be provided.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPageTags extends \PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content page tag/label list.
+ *
+ * This is a list of the attached tags for an page. The list can not only contain the link data but
+ * additional data like the tag title. For the additional data an language id has to be provided.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Tags extends \PapayaDatabaseObjectList {
 
   /**
-  * All tag links are saved into one table, the type specified the link group
-  *
-  * @var string
-  */
+   * All tag links are saved into one table, the type specified the link group
+   *
+   * @var string
+   */
   private $_linkType = 'topic';
 
   /**
-  * Map the fields to array keys
-  *
-  * @var array(string=>string)
-  */
+   * Map the fields to array keys
+   *
+   * @var array(string=>string)
+   */
   protected $_fieldMapping = array(
     'link_id' => 'page_id',
     'link_priority' => 'priority',
@@ -47,12 +48,12 @@ class PapayaContentPageTags extends \PapayaDatabaseObjectList {
   );
 
   /**
-  * Load list of tags for a page, load titles, media ids and descriptions if language is provided
-  *
-  * @param integer $pageId
-  * @param integer $languageId
-  * @return boolean
-  */
+   * Load list of tags for a page, load titles, media ids and descriptions if language is provided
+   *
+   * @param integer $pageId
+   * @param integer $languageId
+   * @return boolean
+   */
   public function load($pageId, $languageId = 0) {
     $sql = "SELECT tl.link_id, tl.link_priority, tl.tag_id,
                    tt.tag_title, tt.tag_image, tt.tag_description, tt.tag_char
@@ -72,19 +73,19 @@ class PapayaContentPageTags extends \PapayaDatabaseObjectList {
   }
 
   /**
-  * Remove all tags for a specified page id.
-  *
-  * @param integer $pageId
-  * @return boolean
-  */
+   * Remove all tags for a specified page id.
+   *
+   * @param integer $pageId
+   * @return boolean
+   */
   public function clear($pageId) {
     return FALSE !== $this->databaseDeleteRecord(
-      $this->databaseGetTableName(\PapayaContentTables::TAG_LINKS),
-      array(
-        'link_type' => $this->_linkType,
-        'link_id' => $pageId
-      )
-    );
+        $this->databaseGetTableName(\PapayaContentTables::TAG_LINKS),
+        array(
+          'link_type' => $this->_linkType,
+          'link_id' => $pageId
+        )
+      );
   }
 
   /**
@@ -104,8 +105,8 @@ class PapayaContentPageTags extends \PapayaDatabaseObjectList {
       );
     }
     return FALSE !== $this->databaseInsertRecords(
-      $this->databaseGetTableName(\PapayaContentTables::TAG_LINKS),
-      $data
-    );
+        $this->databaseGetTableName(\PapayaContentTables::TAG_LINKS),
+        $data
+      );
   }
 }

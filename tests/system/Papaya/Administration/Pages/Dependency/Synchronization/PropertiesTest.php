@@ -14,6 +14,9 @@
  */
 
 use Papaya\Administration\Pages\Dependency\Synchronization\Properties;
+use Papaya\Content\Page\Translation;
+use Papaya\Content\Page\Translations;
+use Papaya\Content\Page\Work;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -23,7 +26,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
   * @covers Properties::page
   */
   public function testPageGetAfterSet() {
-    $page = $this->createMock(PapayaContentPageWork::class);
+    $page = $this->createMock(Work::class);
     $action = new Properties();
     $this->assertSame(
       $page, $action->page($page)
@@ -36,7 +39,7 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
   public function testPageGetImplicitCreate() {
     $action = new Properties();
     $this->assertInstanceOf(
-      PapayaContentPageWork::class, $action->page()
+      Work::class, $action->page()
     );
   }
 
@@ -235,15 +238,15 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
   /**
    * @param PapayaDatabaseAccess|PHPUnit_Framework_MockObject_MockObject $databaseAccess
    * @param array $translations
-   * @param PapayaContentPageTranslation|PHPUnit_Framework_MockObject_MockObject|NULL $translation
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageTranslations
+   * @param Translation|PHPUnit_Framework_MockObject_MockObject|NULL $translation
+   * @return PHPUnit_Framework_MockObject_MockObject|Translations
    */
   private function getTranslationsFixture(
     PapayaDatabaseAccess $databaseAccess,
     array $translations = array(),
-    PapayaContentPageTranslation $translation = NULL
+    Translation $translation = NULL
   ) {
-    $result = $this->createMock(PapayaContentPageTranslations::class);
+    $result = $this->createMock(Translations::class);
     $result
       ->expects($this->once())
       ->method('load')
@@ -283,10 +286,10 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageTranslation
+   * @return PHPUnit_Framework_MockObject_MockObject|Translation
    */
   private function getTranslationFixture(array $data = array()) {
-    $translation = $this->createMock(PapayaContentPageTranslation::class);
+    $translation = $this->createMock(Translation::class);
     $translation
       ->expects($this->any())
       ->method('__get')
@@ -301,10 +304,10 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
   /**
    * @param PapayaDatabaseAccess $databaseAccess
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageWork
+   * @return PHPUnit_Framework_MockObject_MockObject|Work
    */
   private function getPageFixture(PapayaDatabaseAccess $databaseAccess, array $data = array()) {
-    $page = $this->createMock(PapayaContentPageWork::class);
+    $page = $this->createMock(Work::class);
     $page
       ->expects($this->any())
       ->method('load')

@@ -15,6 +15,7 @@
 
 use Papaya\Administration\Pages\Dependency\Command\Delete;
 use Papaya\Administration\Pages\Dependency\Changer;
+use Papaya\Content\Page\Dependency;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -68,11 +69,11 @@ class PapayaAdministrationPagesDependencyCommandDeleteTest extends PapayaTestCas
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageDependency
+   * @return PHPUnit_Framework_MockObject_MockObject|Dependency
    */
   public function getRecordFixture(array $data = array()) {
     $this->_dependencyRecordData = $data;
-    $record = $this->createMock(PapayaContentPageDependency::class);
+    $record = $this->createMock(Dependency::class);
     $record
       ->expects($this->any())
       ->method('toArray')

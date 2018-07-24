@@ -13,67 +13,68 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the dependency of content page.
-*
-* Allows to edit the pages. It contains no validation, only the database access
-* encapsulation.
-*
-* @property integer $id page id - this page will be defined as a dependency
-* @property integer $originId page id - this page will be the origin of the defined dependency
-* @property string $note - a small text describing the dependency
-* @property integer $synchronization bitmask of the synchronization elements
-*/
-class PapayaContentPageDependency extends \PapayaDatabaseRecord {
+ * Provide data encapsulation for the dependency of content page.
+ *
+ * Allows to edit the pages. It contains no validation, only the database access
+ * encapsulation.
+ *
+ * @property integer $id page id - this page will be defined as a dependency
+ * @property integer $originId page id - this page will be the origin of the defined dependency
+ * @property string $note - a small text describing the dependency
+ * @property integer $synchronization bitmask of the synchronization elements
+ */
+class Dependency extends \PapayaDatabaseRecord {
 
   /**
-  * Sync page properties: title, meta inforation, ...
-  *
-  * @var integer
-  */
+   * Sync page properties: title, meta information, ...
+   *
+   * @var integer
+   */
   const SYNC_PROPERTIES = 1;
   /**
-  * Sync page content xml
-  *
-  * @var integer
-  */
+   * Sync page content xml
+   *
+   * @var integer
+   */
   const SYNC_CONTENT = 2;
   /**
-  * Sync page view
-  *
-  * @var integer
-  */
+   * Sync page view
+   *
+   * @var integer
+   */
   const SYNC_VIEW = 64;
   /**
-  * Sync boxes: mode and box links
-  *
-  * @var integer
-  */
+   * Sync boxes: mode and box links
+   *
+   * @var integer
+   */
   const SYNC_BOXES = 4;
   /**
-  * Sync tags
-  *
-  * @var integer
-  */
+   * Sync tags
+   *
+   * @var integer
+   */
   const SYNC_TAGS = 8;
   /**
-  * Sync visitor access properties
-  *
-  * @var integer
-  */
+   * Sync visitor access properties
+   *
+   * @var integer
+   */
   const SYNC_ACCESS = 16;
   /**
-  * Sync publication: duplicate publication action on all dependencies if origin is published.
-  *
-  * @var integer
-  */
+   * Sync publication: duplicate publication action on all dependencies if origin is published.
+   *
+   * @var integer
+   */
   const SYNC_PUBLICATION = 32;
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     // page id / clone id
     'id' => 'topic_id',
@@ -88,10 +89,10 @@ class PapayaContentPageDependency extends \PapayaDatabaseRecord {
   protected $_tableName = \PapayaContentTables::PAGE_DEPENDENCIES;
 
   /**
-  * Create a multi field key object containg both page id properties
-  *
-  * @return \PapayaDatabaseInterfaceKey
-  */
+   * Create a multi field key object containg both page id properties
+   *
+   * @return \PapayaDatabaseInterfaceKey
+   */
   protected function _createKey() {
     return new \PapayaDatabaseRecordKeyFields(
       $this,
@@ -126,11 +127,11 @@ class PapayaContentPageDependency extends \PapayaDatabaseRecord {
   }
 
   /**
-  * Check if the given page id already has a dependency deifnition. This is used to avoid chaining.
-  *
-  * @param integer $pageId
-  * @return boolean
-  */
+   * Check if the given page id already has a dependency deifnition. This is used to avoid chaining.
+   *
+   * @param integer $pageId
+   * @return boolean
+   */
   public function isDependency($pageId) {
     $sql = "SELECT COUNT(*) FROM %s WHERE topic_id = '%d'";
     $parameters = array(
@@ -144,11 +145,11 @@ class PapayaContentPageDependency extends \PapayaDatabaseRecord {
   }
 
   /**
-  * Check if the given page id is the origin of one or more dependencies.
-  *
-  * @param integer $pageId
-  * @return boolean
-  */
+   * Check if the given page id is the origin of one or more dependencies.
+   *
+   * @param integer $pageId
+   * @return boolean
+   */
   public function isOrigin($pageId) {
     $sql = "SELECT COUNT(*) FROM %s WHERE topic_origin_id = '%d'";
     $parameters = array(

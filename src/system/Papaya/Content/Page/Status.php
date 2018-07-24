@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Load status informations about a page.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property integer $id
-* @property integer $sessionMode
-*/
-class PapayaContentPageStatus extends \PapayaDatabaseRecord {
+ * Load status informations about a page.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property integer $id
+ * @property integer $sessionMode
+ */
+class Status extends \PapayaDatabaseRecord {
 
   protected $_fields = array(
     'id' => 'topic_id',

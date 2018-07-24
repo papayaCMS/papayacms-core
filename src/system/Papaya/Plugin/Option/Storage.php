@@ -14,7 +14,7 @@
  */
 
 /**
-* This configuration storage load the module option records using {@see PapayaContentModuleOptions}
+* This configuration storage load the module option records using {@see Papaya\Content\Module\PapayaContentModuleOptions}
 * by the module guid and maps them into an associative array.
 *
 * @package Papaya-Library
@@ -60,14 +60,14 @@ class PapayaPluginOptionStorage extends \PapayaObject
   /**
   * Getter/Setter: Options database encapsultation subobject
   *
-  * @param \PapayaContentModuleOptions $options
-  * @return \PapayaContentModuleOptions
+  * @param \Papaya\Content\Module\Options $options
+  * @return \Papaya\Content\Module\Options
   */
-  public function options(\PapayaContentModuleOptions $options = NULL) {
+  public function options(\Papaya\Content\Module\Options $options = NULL) {
     if (isset($options)) {
       $this->_options = $options;
     } elseif (is_null($this->_options)) {
-      $this->_options = new \PapayaContentModuleOptions();
+      $this->_options = new \Papaya\Content\Module\Options();
     }
     return $this->_options;
   }

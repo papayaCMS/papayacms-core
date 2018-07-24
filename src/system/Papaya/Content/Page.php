@@ -13,13 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Page\Translations;
+
 /**
  * Provide basic data encapsulation for the content page.
  *
  * Allows to load pages and provides basic function for the working copy and publication.
  *
- * This is an abstract superclass, please use {@see PapayaContentPageWork} to modify the
- * working copy of a page or {@see PapayaContentPagePublication} to use the published page.
+ * This is an abstract superclass, please use {@see Papaya\Content\Page\PapayaContentPageWork} to modify the
+ * working copy of a page or {@see Papaya\Content\Page\PapayaContentPagePublication} to use the published page.
  *
  * @package Papaya-Library
  * @subpackage Content
@@ -110,7 +112,8 @@ class PapayaContentPage extends \PapayaDatabaseRecordLazy {
 
   /**
   * Page translations list object
-  * @var PapayaContentPageTranslations
+  *
+  * @var Translations
   */
   protected $_translations = NULL;
 
@@ -196,15 +199,15 @@ class PapayaContentPage extends \PapayaDatabaseRecordLazy {
   *
   * Allows to get/set the list object. Can create a list object if needed.
   *
-  * @param \PapayaContentPageTranslations $translations
-  * @return \PapayaContentPageTranslations
+  * @param \Papaya\Content\Page\Translations $translations
+  * @return \Papaya\Content\Page\Translations
   */
-  public function translations(\PapayaContentPageTranslations $translations = NULL) {
+  public function translations(\Papaya\Content\Page\Translations $translations = NULL) {
     if (isset($translations)) {
       $this->_translations = $translations;
     }
     if (is_null($this->_translations)) {
-      $this->_translations = new \PapayaContentPageTranslations();
+      $this->_translations = new \Papaya\Content\Page\Translations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
       $this->_translations->setTranslationsTableName($this->_translationsTableName);
     }

@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the content page dependencies list.
-*
-* The list contains not only the dependency information but the needed data to output it to
-* the user.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPageDependencies extends \PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content page dependencies list.
+ *
+ * The list contains not only the dependency information but the needed data to output it to
+ * the user.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Dependencies extends \PapayaDatabaseObjectList {
 
   /**
-  * Map field names to value identfiers
-  *
-  * @var array
-  */
+   * Map field names to value identfiers
+   *
+   * @var array
+   */
   protected $_fieldMapping = array(
     'topic_id' => 'id',
     'topic_origin_id' => 'origin_id',
@@ -44,14 +45,14 @@ class PapayaContentPageDependencies extends \PapayaDatabaseObjectList {
   );
 
   /**
-  * Load a list of references for a specified origin page id
-  *
-  * @param integer $originId
-  * @param integer $languageId
-  * @param integer $limit
-  * @param integer $offset
-  * @return boolean
-  */
+   * Load a list of references for a specified origin page id
+   *
+   * @param integer $originId
+   * @param integer $languageId
+   * @param integer $limit
+   * @param integer $offset
+   * @return boolean
+   */
   public function load($originId, $languageId = 0, $limit = NULL, $offset = NULL) {
     $sql = "SELECT td.topic_id, td.topic_origin_id, td.topic_synchronization, td.topic_note,
                    tt.topic_title, tt.view_id,
@@ -82,10 +83,10 @@ class PapayaContentPageDependencies extends \PapayaDatabaseObjectList {
    * record object.
    *
    * @param integer $pageId
-   * @return \PapayaContentPageDependency
+   * @return \Papaya\Content\Page\Dependency
    */
   public function getDependency($pageId) {
-    $result = new \PapayaContentPageDependency();
+    $result = new \Papaya\Content\Page\Dependency();
     if (isset($this->_records[$pageId])) {
       $result->assign($this->_records[$pageId]);
     }
@@ -93,11 +94,11 @@ class PapayaContentPageDependencies extends \PapayaDatabaseObjectList {
   }
 
   /**
-  * Delete a defined dependency by the target/clone page id.
-  *
-  * @param integer $pageId
-  * @return boolean
-  */
+   * Delete a defined dependency by the target/clone page id.
+   *
+   * @param integer $pageId
+   * @return boolean
+   */
   public function delete($pageId) {
     $result = $this->databaseDeleteRecord(
       $this->databaseGetTableName(\PapayaContentTables::PAGE_DEPENDENCIES),
@@ -119,7 +120,7 @@ class PapayaContentPageDependencies extends \PapayaDatabaseObjectList {
    */
   public function changeOrigin($originId, $newOriginId) {
     $result = FALSE;
-    $dependency = new \PapayaContentPageDependency();
+    $dependency = new \Papaya\Content\Page\Dependency();
     $dependency->setDatabaseAccess($this->getDatabaseAccess());
     $dependency->load($newOriginId);
     if ($this->delete($newOriginId)) {

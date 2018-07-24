@@ -1,4 +1,20 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Module\Options;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaPluginOptionStorageTest extends PapayaTestCase {
@@ -17,7 +33,7 @@ class PapayaPluginOptionStorageTest extends PapayaTestCase {
   * @covers PapayaPluginOptionStorage::load
   */
   public function testLoad() {
-    $options = $this->createMock(PapayaContentModuleOptions::class);
+    $options = $this->createMock(Options::class);
     $options
       ->expects($this->once())
       ->method('load')
@@ -32,7 +48,7 @@ class PapayaPluginOptionStorageTest extends PapayaTestCase {
   * @covers PapayaPluginOptionStorage::getIterator
   */
   public function testGetIterator() {
-    $options = $this->createMock(PapayaContentModuleOptions::class);
+    $options = $this->createMock(Options::class);
     $options
       ->expects($this->once())
       ->method('getIterator')
@@ -60,7 +76,7 @@ class PapayaPluginOptionStorageTest extends PapayaTestCase {
   * @covers PapayaPluginOptionStorage::options
   */
   public function testOptionsGetAfterSet() {
-    $options = $this->createMock(PapayaContentModuleOptions::class);
+    $options = $this->createMock(Options::class);
     $storage = new PapayaPluginOptionStorage('ab123456789012345678901234567890');
     $storage->options($options);
     $this->assertSame($options, $storage->options());
@@ -71,6 +87,6 @@ class PapayaPluginOptionStorageTest extends PapayaTestCase {
   */
   public function testOptionsGetImplicitCreate() {
     $storage = new PapayaPluginOptionStorage('ab123456789012345678901234567890');
-    $this->assertInstanceOf(PapayaContentModuleOptions::class, $options = $storage->options());
+    $this->assertInstanceOf(Options::class, $options = $storage->options());
   }
 }

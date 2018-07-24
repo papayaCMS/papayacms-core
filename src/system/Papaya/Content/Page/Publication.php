@@ -13,44 +13,45 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the working copy of content page.
-*
-* Allows to edit the pages. It contains no validation, only the database access
-* encapsulation.
-*
-* @property integer $id page id
-* @property integer $parentId direct page parent/ancestor id,
-* @property array $parentPath all page ancestor ids,
-* @property string $owner administration user that own this page
-* @property integer $group administration user group that own this page
-* @property string $permissions administration permissions,
-* @property integer $inheritVisitorPermissions inherit visitor permisssion from anchestors (mode)
-* @property array $visitorPermissions visitor permission for this node
-* @property integer $created page creation timestamp
-* @property integer $modified last modification timestamp
-* @property integer $position page position relative to its siblings
-* @property boolean $inheritBoxes box inheritance
-* @property integer $defaultLanguage default/fallback language,
-* @property integer $linkType page link type for navigations,
-* @property boolean $inheritMetaInfo inherit meta informations like page title and keywords,
-* @property integer $changeFrequency change frequency (for search engines)
-* @property integer $priority content priority (for search engines)
-* @property integer $scheme page scheme (http, https or both)
-* @property integer $cacheMode page content cache mode (system, none, own)
-* @property integer $cacheTime page content cache time, if mode == own
-* @property integer $expiresMode page browser cache mode (system, none, own)
-* @property integer $expiresTime page browser cache time, if mode == own
-* @property integer $publishedFrom publication period - start time
-* @property integer $publishedTo publication period - end time
-*/
-class PapayaContentPagePublication extends \PapayaContentPage {
+ * Provide data encapsulation for the working copy of content page.
+ *
+ * Allows to edit the pages. It contains no validation, only the database access
+ * encapsulation.
+ *
+ * @property integer $id page id
+ * @property integer $parentId direct page parent/ancestor id,
+ * @property array $parentPath all page ancestor ids,
+ * @property string $owner administration user that own this page
+ * @property integer $group administration user group that own this page
+ * @property string $permissions administration permissions,
+ * @property integer $inheritVisitorPermissions inherit visitor permisssion from anchestors (mode)
+ * @property array $visitorPermissions visitor permission for this node
+ * @property integer $created page creation timestamp
+ * @property integer $modified last modification timestamp
+ * @property integer $position page position relative to its siblings
+ * @property boolean $inheritBoxes box inheritance
+ * @property integer $defaultLanguage default/fallback language,
+ * @property integer $linkType page link type for navigations,
+ * @property boolean $inheritMetaInfo inherit meta informations like page title and keywords,
+ * @property integer $changeFrequency change frequency (for search engines)
+ * @property integer $priority content priority (for search engines)
+ * @property integer $scheme page scheme (http, https or both)
+ * @property integer $cacheMode page content cache mode (system, none, own)
+ * @property integer $cacheTime page content cache time, if mode == own
+ * @property integer $expiresMode page browser cache mode (system, none, own)
+ * @property integer $expiresTime page browser cache time, if mode == own
+ * @property integer $publishedFrom publication period - start time
+ * @property integer $publishedTo publication period - end time
+ */
+class Publication extends \PapayaContentPage {
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     // page id
     'id' => 'topic_id',

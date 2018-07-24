@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Pages\Dependency\Synchronization\Access;
+use Papaya\Content\Page\Work;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -23,7 +24,7 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
   * @covers Access::page
   */
   public function testTranslationsGetAfterSet() {
-    $page = $this->createMock(PapayaContentPageWork::class);
+    $page = $this->createMock(Work::class);
     $action = new Access();
     $this->assertSame(
       $page, $action->page($page)
@@ -36,7 +37,7 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
   public function testTranslationsGetImplicitCreate() {
     $action = new Access();
     $this->assertInstanceOf(
-      PapayaContentPageWork::class, $action->page()
+      Work::class, $action->page()
     );
   }
 
@@ -77,7 +78,7 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
   * @covers Access::synchronize
   */
   public function testSynchronizePageNotLoaded() {
-    $page = $this->createMock(PapayaContentPageWork::class);
+    $page = $this->createMock(Work::class);
     $page
       ->expects($this->once())
       ->method('load')
@@ -104,7 +105,7 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
   }
 
   private function getPageFixture(PapayaDatabaseAccess $databaseAccess, array $data = array()) {
-    $page = $this->createMock(PapayaContentPageWork::class);
+    $page = $this->createMock(Work::class);
     $page
       ->expects($this->once())
       ->method('load')

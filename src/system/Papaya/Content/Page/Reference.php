@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the reference between two pages.
-*
-* The two pages of the reference have the same weight. On mapping the informations the object
-* will put the lower id into source and the higher into target.
-*
-* @property integer $sourceId page id, smaller one
-* @property integer $targetId page id, larger one
-* @property string $note - a small text describing the reference
-*/
-class PapayaContentPageReference extends \PapayaDatabaseRecord {
+ * Provide data encapsulation for the reference between two pages.
+ *
+ * The two pages of the reference have the same weight. On mapping the informations the object
+ * will put the lower id into source and the higher into target.
+ *
+ * @property integer $sourceId page id, smaller one
+ * @property integer $targetId page id, larger one
+ * @property string $note - a small text describing the reference
+ */
+class Reference extends \PapayaDatabaseRecord {
 
   /**
-  * Mapping fields
-  *
-  * @var array
-  */
+   * Mapping fields
+   *
+   * @var array
+   */
   protected $_fields = array(
     'target_id' => 'topic_target_id',
     'source_id' => 'topic_source_id',
@@ -37,17 +38,17 @@ class PapayaContentPageReference extends \PapayaDatabaseRecord {
   );
 
   /**
-  * References table name
-  *
-  * @var string
-  */
+   * References table name
+   *
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::PAGE_REFERENCES;
 
   /**
-  * Create a multi field key object containg both page id properties
-  *
-  * @return \PapayaDatabaseInterfaceKey
-  */
+   * Create a multi field key object containg both page id properties
+   *
+   * @return \PapayaDatabaseInterfaceKey
+   */
   protected function _createKey() {
     return new \PapayaDatabaseRecordKeyFields(
       $this,
@@ -57,10 +58,10 @@ class PapayaContentPageReference extends \PapayaDatabaseRecord {
   }
 
   /**
-  * Add a callback to the mapping to be used after mapping
-  *
-  * @return \PapayaDatabaseInterfaceMapping
-  */
+   * Add a callback to the mapping to be used after mapping
+   *
+   * @return \PapayaDatabaseInterfaceMapping
+   */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
     $mapping->callbacks()->onAfterMapping = array(
@@ -70,14 +71,14 @@ class PapayaContentPageReference extends \PapayaDatabaseRecord {
   }
 
   /**
-  * The callbacks sorts the page ids, to lower value is made the source id.
-  *
-  * @param object $context
-  * @param integer $mode
-  * @param array $values
-  * @param array $record
-  * @return array
-  */
+   * The callbacks sorts the page ids, to lower value is made the source id.
+   *
+   * @param object $context
+   * @param integer $mode
+   * @param array $values
+   * @param array $record
+   * @return array
+   */
   public function callbackSortPageIds($context, $mode, $values, $record) {
     if ($mode == \PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
       $result = $record;
@@ -96,12 +97,12 @@ class PapayaContentPageReference extends \PapayaDatabaseRecord {
   }
 
   /**
-  * Check if a callback exists
-  *
-  * @param integer $sourceId
-  * @param integer $targetId
-  * @return boolean
-  */
+   * Check if a callback exists
+   *
+   * @param integer $sourceId
+   * @param integer $targetId
+   * @return boolean
+   */
   public function exists($sourceId, $targetId) {
     $sql = "SELECT COUNT(*)
               FROM %s

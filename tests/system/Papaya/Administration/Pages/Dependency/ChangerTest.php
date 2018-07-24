@@ -17,6 +17,10 @@ use Papaya\Administration\Languages\Selector;
 use Papaya\Administration\Pages\Dependency\Changer;
 use Papaya\Administration\Pages\Dependency\Listview;
 use Papaya\Administration\Pages\Dependency\Synchronizations;
+use Papaya\Content\Page\Dependencies;
+use Papaya\Content\Page\Dependency;
+use Papaya\Content\Page\Reference;
+use Papaya\Content\Page\References;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -96,12 +100,12 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   */
   public function testAppendToWithOriginPage() {
     $changer = $this->getChangerFixture(21);
-    $dependencies = $this->createMock(PapayaContentPageDependencies::class);
+    $dependencies = $this->createMock(Dependencies::class);
     $dependencies
       ->expects($this->once())
       ->method('load')
       ->with(21);
-    $references = $this->createMock(PapayaContentPageReferences::class);
+    $references = $this->createMock(References::class);
     $references
       ->expects($this->once())
       ->method('load')
@@ -135,12 +139,12 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   */
   public function testAppendToWithDependency() {
     $changer = $this->getChangerFixture(42, array('id' => 42, 'originId' => 21));
-    $dependencies = $this->createMock(PapayaContentPageDependencies::class);
+    $dependencies = $this->createMock(Dependencies::class);
     $dependencies
       ->expects($this->once())
       ->method('load')
       ->with(21);
-    $references = $this->createMock(PapayaContentPageReferences::class);
+    $references = $this->createMock(References::class);
     $references
       ->expects($this->once())
       ->method('load')
@@ -221,8 +225,8 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
       )
     );
 
-    $dependencies = $this->createMock(PapayaContentPageDependencies::class);
-    $references = $this->createMock(PapayaContentPageReferences::class);
+    $dependencies = $this->createMock(Dependencies::class);
+    $references = $this->createMock(References::class);
     $references
       ->expects($this->once())
       ->method('load')
@@ -290,7 +294,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   public function testDependencyGetImplicitCreate() {
     $changer = new Changer();
     $this->assertInstanceOf(
-      PapayaContentPageDependency::class, $changer->dependency()
+      Dependency::class, $changer->dependency()
     );
   }
 
@@ -298,7 +302,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   * @covers Changer::dependencies
   */
   public function testDependenciesGetAfterSet() {
-    $dependencies = $this->createMock(PapayaContentPageDependencies::class);
+    $dependencies = $this->createMock(Dependencies::class);
     $changer = new Changer();
     $this->assertSame(
       $dependencies, $changer->dependencies($dependencies)
@@ -311,7 +315,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   public function testDependenciesGetImplicitCreate() {
     $changer = new Changer();
     $this->assertInstanceOf(
-      PapayaContentPageDependencies::class, $changer->dependencies()
+      Dependencies::class, $changer->dependencies()
     );
   }
 
@@ -319,7 +323,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   * @covers Changer::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(PapayaContentPageReference::class);
+    $reference = $this->createMock(Reference::class);
     $changer = new Changer();
     $this->assertSame(
       $reference, $changer->reference($reference)
@@ -332,7 +336,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   public function testReferenceGetImplicitCreate() {
     $changer = new Changer();
     $this->assertInstanceOf(
-      PapayaContentPageReference::class, $changer->reference()
+      Reference::class, $changer->reference()
     );
   }
 
@@ -340,7 +344,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   * @covers Changer::references
   */
   public function testReferencesGetAfterSet() {
-    $references = $this->createMock(PapayaContentPageReferences::class);
+    $references = $this->createMock(References::class);
     $changer = new Changer();
     $this->assertSame(
       $references, $changer->references($references)
@@ -353,7 +357,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   public function testReferencesGetImplicitCreate() {
     $changer = new Changer();
     $this->assertInstanceOf(
-      PapayaContentPageReferences::class, $changer->references()
+      References::class, $changer->references()
     );
   }
 
@@ -485,10 +489,10 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageDependency
+   * @return PHPUnit_Framework_MockObject_MockObject|Dependency
    */
   private function getDependencyFixture(array $data = array()) {
-    $record = $this->createMock(PapayaContentPageDependency::class);
+    $record = $this->createMock(Dependency::class);
     $record
       ->expects($this->any())
       ->method('getIterator')
@@ -539,7 +543,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   }
 
   private function getReferenceFixture(array $data = array()) {
-    $record = $this->createMock(PapayaContentPageReference::class);
+    $record = $this->createMock(Reference::class);
     $record
       ->expects($this->any())
       ->method('getIterator')

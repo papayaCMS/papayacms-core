@@ -26,11 +26,11 @@ class View
   /**
    * Update content data of existing translations
    *
-   * @param \PapayaContentPageTranslation $origin
+   * @param \Papaya\Content\Page\Translation $origin
    * @param array $targetIds
    * @return boolean
    */
-  protected function updateTranslations(\PapayaContentPageTranslation $origin, array $targetIds) {
+  protected function updateTranslations(\Papaya\Content\Page\Translation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),

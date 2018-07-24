@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Page;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiContentPageTest extends PapayaTestCase {
@@ -50,7 +52,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('assign')
       ->with(array('page_id' => 42));
-    $contentTranslation = $this->createMock(PapayaContentPageTranslation::class);
+    $contentTranslation = $this->createMock(Page\Translation::class);
     $contentTranslation
       ->expects($this->once())
       ->method('assign')
@@ -83,7 +85,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       42, $this->createMock(PapayaContentLanguage::class)
     );
     $pageContent = $page->page();
-    $this->assertInstanceOf(PapayaContentPagePublication::class, $pageContent);
+    $this->assertInstanceOf(Page\Publication::class, $pageContent);
     $this->assertEquals(array(42), $pageContent->getLazyLoadParameters());
   }
 
@@ -96,7 +98,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
     );
     $pageContent = $page->page();
     $this->assertInstanceOf(PapayaContentPage::class, $pageContent);
-    $this->assertNotInstanceOf(PapayaContentPagePublication::class, $pageContent);
+    $this->assertNotInstanceOf(Page\Publication::class, $pageContent);
     $this->assertEquals(array(42), $pageContent->getLazyLoadParameters());
   }
 
@@ -104,7 +106,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
    * @covers PapayaUiContentPage
    */
   public function testTranslationGetAfterSet() {
-    $contentTranslation = $this->createMock(PapayaContentPageTranslation::class);
+    $contentTranslation = $this->createMock(Page\Translation::class);
     $page = new PapayaUiContentPage(
       42, $this->createMock(PapayaContentLanguage::class)
     );
@@ -126,7 +128,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       42, $language
     );
     $contentTranslation = $page->translation();
-    $this->assertInstanceOf(PapayaContentPagePublicationTranslation::class, $contentTranslation);
+    $this->assertInstanceOf(Page\Publication\Translation::class, $contentTranslation);
     $this->assertEquals(
       array(
         array(
@@ -152,8 +154,8 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       42, $language, FALSE
     );
     $contentTranslation = $page->translation();
-    $this->assertInstanceOf(PapayaContentPageTranslation::class, $contentTranslation);
-    $this->assertNotInstanceOf(PapayaContentPagePublicationTranslation::class, $contentTranslation);
+    $this->assertInstanceOf(Page\Translation::class, $contentTranslation);
+    $this->assertNotInstanceOf(Page\Publication\Translation::class, $contentTranslation);
     $this->assertEquals(
       array(
         array(
@@ -169,7 +171,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
    * @covers PapayaUiContentPage
    */
   public function testGetPageViewId() {
-    $contentTranslation = $this->createMock(PapayaContentPageTranslation::class);
+    $contentTranslation = $this->createMock(Page\Translation::class);
     $contentTranslation
       ->expects($this->once())
       ->method('offsetGet')

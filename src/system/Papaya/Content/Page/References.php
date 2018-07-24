@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the content page references list.
-*
-* The list can contain additional data, used to display the list.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPageReferences extends \PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content page references list.
+ *
+ * The list can contain additional data, used to display the list.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class References extends \PapayaDatabaseObjectList {
 
   /**
-  * page id used to load the references, will be the source_id in the resulting record arrays
-  */
+   * page id used to load the references, will be the source_id in the resulting record arrays
+   */
   private $_pageId = 0;
 
   /**
@@ -64,13 +65,13 @@ class PapayaContentPageReferences extends \PapayaDatabaseObjectList {
   }
 
   /**
-  * Converts the record from database into a values. The mapping here is special because
-  * the reference could be saved in either direction, the mapping converts it so that the
-  * id used to load the refrences is always the source id.
-  *
-  * @param \PapayaDatabaseResult $databaseResult
-  * @param string $idField
-  */
+   * Converts the record from database into a values. The mapping here is special because
+   * the reference could be saved in either direction, the mapping converts it so that the
+   * id used to load the refrences is always the source id.
+   *
+   * @param \PapayaDatabaseResult $databaseResult
+   * @param string $idField
+   */
   protected function _fetchRecords($databaseResult, $idField = '') {
     $this->_records = array();
     while ($row = $databaseResult->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {

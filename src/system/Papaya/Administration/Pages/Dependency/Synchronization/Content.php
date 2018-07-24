@@ -14,7 +14,7 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
-use PapayaContentPageTranslations;
+use Papaya\Content\Page\Translations;
 
 /**
  * Synchronize view and content of the page working copy
@@ -28,7 +28,7 @@ class Content
   /**
    * Translation records object
    *
-   * @var PapayaContentPageTranslations
+   * @var \Papaya\Content\Page\Translations
    */
   private $_translations = NULL;
 
@@ -53,14 +53,14 @@ class Content
   /**
    * Getter/Setter for the translation records list.
    *
-   * @param \PapayaContentPageTranslations $translations
-   * @return \PapayaContentPageTranslations
+   * @param \Papaya\Content\Page\Translations $translations
+   * @return \Papaya\Content\Page\Translations
    */
-  public function translations(\PapayaContentPageTranslations $translations = NULL) {
+  public function translations(\Papaya\Content\Page\Translations $translations = NULL) {
     if (isset($translations)) {
       $this->_translations = $translations;
     } elseif (is_null($this->_translations)) {
-      $this->_translations = new \PapayaContentPageTranslations();
+      $this->_translations = new \Papaya\Content\Page\Translations();
     }
     return $this->_translations;
   }
@@ -158,11 +158,11 @@ class Content
   /**
    * Update content data of existing translations
    *
-   * @param \PapayaContentPageTranslation $origin
+   * @param \Papaya\Content\Page\Translation $origin
    * @param array $targetIds
    * @return boolean
    */
-  protected function updateTranslations(\PapayaContentPageTranslation $origin, array $targetIds) {
+  protected function updateTranslations(\Papaya\Content\Page\Translation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
@@ -180,11 +180,11 @@ class Content
   /**
    * Insert missing translations
    *
-   * @param \PapayaContentPageTranslation $origin
+   * @param \Papaya\Content\Page\Translation $origin
    * @param $targetIds
    * @return boolean
    */
-  protected function insertTranslations(\PapayaContentPageTranslation $origin, $targetIds) {
+  protected function insertTranslations(\Papaya\Content\Page\Translation $origin, $targetIds) {
     foreach ($targetIds as $targetId) {
       $target = clone $origin;
       $target->key()->clear();

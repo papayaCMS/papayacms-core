@@ -14,8 +14,6 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency\Synchronization;
-use PapayaContentPageBoxes;
-use PapayaContentPageWork;
 
 /**
  * Synchronize box inheritance on the page workling copy and the page links
@@ -29,14 +27,14 @@ class Boxes
   /**
    * Page boxes list database object
    *
-   * @var PapayaContentPageBoxes
+   * @var Boxes
    */
   private $_boxes = NULL;
 
   /**
    * Page working copy object
    *
-   * @var PapayaContentPageWork
+   * @var \Papaya\Content\Page\Work
    */
   private $_page = NULL;
 
@@ -76,14 +74,14 @@ class Boxes
   /**
    * Getter/Setter for the  page boxes list database object
    *
-   * @param \PapayaContentPageBoxes $boxes
-   * @return \PapayaContentPageBoxes
+   * @param \Papaya\Content\Page\Boxes $boxes
+   * @return \Papaya\Content\Page\Boxes
    */
-  public function boxes(\PapayaContentPageBoxes $boxes = NULL) {
+  public function boxes(\Papaya\Content\Page\Boxes $boxes = NULL) {
     if (isset($boxes)) {
       $this->_boxes = $boxes;
     } elseif (is_null($this->_boxes)) {
-      $this->_boxes = new \PapayaContentPageBoxes();
+      $this->_boxes = new \Papaya\Content\Page\Boxes();
     }
     return $this->_boxes;
   }
@@ -91,14 +89,14 @@ class Boxes
   /**
    * Getter/Setter for the page working copy
    *
-   * @param \PapayaContentPageWork $page
-   * @return \PapayaContentPageWork
+   * @param \Papaya\Content\Page\Work $page
+   * @return \Papaya\Content\Page\Work
    */
-  public function page(\PapayaContentPageWork $page = NULL) {
+  public function page(\Papaya\Content\Page\Work $page = NULL) {
     if (isset($page)) {
       $this->_page = $page;
     } elseif (is_null($this->_page)) {
-      $this->_page = new \PapayaContentPageWork();
+      $this->_page = new \Papaya\Content\Page\Work();
     }
     return $this->_page;
   }

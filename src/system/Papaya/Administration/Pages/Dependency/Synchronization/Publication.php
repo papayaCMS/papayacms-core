@@ -58,14 +58,14 @@ class Publication
    * Getter/Setter for publication page object. This is used to validate the origin
    * and fetch the publication period limits
    *
-   * @param \PapayaContentPagePublication $publication
-   * @return \PapayaContentPagePublication
+   * @param \Papaya\Content\Page\Publication $publication
+   * @return \Papaya\Content\Page\Publication
    */
-  public function publication(\PapayaContentPagePublication $publication = NULL) {
+  public function publication(\Papaya\Content\Page\Publication $publication = NULL) {
     if (isset($publication)) {
       $this->_publication = $publication;
     } elseif (is_null($this->_publication)) {
-      $this->_publication = new \PapayaContentPagePublication();
+      $this->_publication = new \Papaya\Content\Page\Publication();
     }
     return $this->_publication;
   }
@@ -73,14 +73,14 @@ class Publication
   /**
    * Getter/Setter for working copy page object. This is used to publish the target pages.
    *
-   * @param \PapayaContentPageWork $page
-   * @return \PapayaContentPageWork
+   * @param \Papaya\Content\Page\Work $page
+   * @return \Papaya\Content\Page\Work
    */
-  public function page(\PapayaContentPageWork $page = NULL) {
+  public function page(\Papaya\Content\Page\Work $page = NULL) {
     if (isset($page)) {
       $this->_page = $page;
     } elseif (is_null($this->_page)) {
-      $this->_page = new \PapayaContentPageWork();
+      $this->_page = new \Papaya\Content\Page\Work();
     }
     return $this->_page;
   }
@@ -88,14 +88,14 @@ class Publication
   /**
    * Getter/Setter for a page version object. This is used to create version for the target pages.
    *
-   * @param \PapayaContentPageVersion $version
-   * @return \PapayaContentPageVersion
+   * @param \Papaya\Content\Page\Version $version
+   * @return \Papaya\Content\Page\Version
    */
-  public function version(\PapayaContentPageVersion $version = NULL) {
+  public function version(\Papaya\Content\Page\Version $version = NULL) {
     if (isset($version)) {
       $this->_version = $version;
     } elseif (is_null($this->_version)) {
-      $this->_version = new \PapayaContentPageVersion();
+      $this->_version = new \Papaya\Content\Page\Version();
     }
     return $this->_version;
   }

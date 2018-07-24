@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the content page translations list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentPageTranslation}.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPageTranslations extends \PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content page translations list.
+ *
+ * The list does not contain all detail data, it is for list outputs etc. To get the full data
+ * use {@see Papaya\Content\Page\PapayaContentPageTranslation}.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Translations extends \PapayaDatabaseObjectList {
 
   /**
-  * Map field names to value identfiers
-  *
-  * @var array
-  */
+   * Map field names to value identfiers
+   *
+   * @var array
+   */
   protected $_fieldMapping = array(
     'topic_id' => 'id',
     'lng_id' => 'language_id',
@@ -41,10 +42,10 @@ class PapayaContentPageTranslations extends \PapayaDatabaseObjectList {
   protected $_translationsTableName = \PapayaContentTables::PAGE_TRANSLATIONS;
 
   /**
-  * Change the main page table name
-  *
-  * @param string $tableName
-  */
+   * Change the main page table name
+   *
+   * @param string $tableName
+   */
   public function setTranslationsTableName($tableName) {
     \PapayaUtilConstraints::assertString($tableName);
     \PapayaUtilConstraints::assertNotEmpty($tableName);
@@ -52,11 +53,11 @@ class PapayaContentPageTranslations extends \PapayaDatabaseObjectList {
   }
 
   /**
-  * Load translation list informations
-  *
-  * @param integer $pageId
-  * @return boolean
-  */
+   * Load translation list informations
+   *
+   * @param integer $pageId
+   * @return boolean
+   */
   public function load($pageId) {
     $sql = "SELECT tt.topic_id, tt.lng_id, tt.topic_trans_modified,
                    tt.topic_title, ttp.topic_trans_modified as topic_trans_published,
@@ -76,14 +77,14 @@ class PapayaContentPageTranslations extends \PapayaDatabaseObjectList {
   }
 
   /**
-  * Get a detail object for a single translation to edit it.
-  *
-  * @param integer $pageId
-  * @param integer $languageId
-  * @return \PapayaContentPageTranslation
-  */
+   * Get a detail object for a single translation to edit it.
+   *
+   * @param integer $pageId
+   * @param integer $languageId
+   * @return \Papaya\Content\Page\Translation
+   */
   public function getTranslation($pageId, $languageId) {
-    $result = new \PapayaContentPageTranslation();
+    $result = new \Papaya\Content\Page\Translation();
     $result->setDatabaseAccess($this->getDatabaseAccess());
     $result->activateLazyLoad(array('id' => $pageId, 'language_id' => $languageId));
     return $result;

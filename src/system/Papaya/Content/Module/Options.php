@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Module;
 /**
-* This object loads module options different conditions.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentModuleOptions extends \PapayaDatabaseRecords {
+ * This object loads module options different conditions.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Options extends \PapayaDatabaseRecords {
 
   protected $_fields = array(
     'guid' => 'module_guid',
@@ -31,20 +32,20 @@ class PapayaContentModuleOptions extends \PapayaDatabaseRecords {
   protected $_tableName = \PapayaContentTables::MODULE_OPTIONS;
 
   /**
-  * Record is identified by module guid and option name
-  *
-  * @var array
-  */
+   * Record is identified by module guid and option name
+   *
+   * @var array
+   */
   protected $_identifierProperties = array(
     'guid', 'name'
   );
 
 
   /**
-  * Add a callback to the mapping to be used after mapping
-  *
-  * @return \PapayaDatabaseInterfaceMapping
-  */
+   * Add a callback to the mapping to be used after mapping
+   *
+   * @return \PapayaDatabaseInterfaceMapping
+   */
   protected function _createMapping() {
     $mapping = parent::_createMapping();
     $mapping->callbacks()->onAfterMapping = array(
@@ -54,42 +55,42 @@ class PapayaContentModuleOptions extends \PapayaDatabaseRecords {
   }
 
   /**
-  * The callback read the type field, and converts the value field depending on it.
-  *
-  * @param object $context
-  * @param integer $mode
-  * @param array $values
-  * @param array $record
-  * @return array
-  */
+   * The callback read the type field, and converts the value field depending on it.
+   *
+   * @param object $context
+   * @param integer $mode
+   * @param array $values
+   * @param array $record
+   * @return array
+   */
   public function callbackConvertValueByType($context, $mode, $values, $record) {
     $mapValue = (isset($values['type']) && isset($values['value']));
     if ($mode == \PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
       $result = $record;
       if ($mapValue) {
         switch ($values['type']) {
-        case 'array' :
-          $result['moduleoption_value'] = \PapayaUtilStringXml::serializeArray($values['value']);
+          case 'array' :
+            $result['moduleoption_value'] = \PapayaUtilStringXml::serializeArray($values['value']);
           break;
-        default :
-          $result['moduleoption_value'] = (string)$values['value'];
+          default :
+            $result['moduleoption_value'] = (string)$values['value'];
         }
       }
     } else {
       $result = $values;
       if ($mapValue) {
         switch ($values['type']) {
-        case 'array' :
-          if (empty($values['value'])) {
-            $result['value'] = array();
-          } elseif (substr($values['value'], 0, 1) == '<') {
-            $result['value'] = \PapayaUtilStringXml::unserializeArray($values['value']);
-          } else {
-            $result['value'] = @unserialize($values['value']);
-          }
+          case 'array' :
+            if (empty($values['value'])) {
+              $result['value'] = array();
+            } elseif (substr($values['value'], 0, 1) == '<') {
+              $result['value'] = \PapayaUtilStringXml::unserializeArray($values['value']);
+            } else {
+              $result['value'] = @unserialize($values['value']);
+            }
           break;
-        default :
-          $result['value'] = (string)$values['value'];
+          default :
+            $result['value'] = (string)$values['value'];
         }
       }
     }

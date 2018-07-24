@@ -108,7 +108,7 @@ class Change extends \PapayaUiControlCommandDialog {
    * Validate the origin id. Callback for the dialog execution
    *
    * @param \Object $context
-   * @param \PapayaContentPageDependency $record
+   * @param \Papaya\Content\Page\Dependency $record
    * @return bool
    */
   public function validateOriginAndSynchronizations($context, $record) {
@@ -123,8 +123,8 @@ class Change extends \PapayaUiControlCommandDialog {
       );
       return FALSE;
     }
-    if (($record->synchronization & \PapayaContentPageDependency::SYNC_VIEW) xor
-      ($record->synchronization & \PapayaContentPageDependency::SYNC_CONTENT)) {
+    if (($record->synchronization & \Papaya\Content\Page\Dependency::SYNC_VIEW) xor
+      ($record->synchronization & \Papaya\Content\Page\Dependency::SYNC_CONTENT)) {
       if (!$this->compareViewModules($record)) {
         $context->synchronizationField->handleValidationFailure(
           new \PapayaFilterExceptionCallbackFailed(array($this, 'compareViewModules'))
@@ -138,10 +138,10 @@ class Change extends \PapayaUiControlCommandDialog {
   /**
    * Validate that all views in matching translations (language) use the same module
    *
-   * @param \PapayaContentPageDependency $record
+   * @param \Papaya\Content\Page\Dependency $record
    * @return bool
    */
-  private function compareViewModules(\PapayaContentPageDependency $record) {
+  private function compareViewModules(\Papaya\Content\Page\Dependency $record) {
     $databaseAccess = $record->getDatabaseAccess();
     $sql = "SELECT tt.lng_id, COUNT(DISTINCT v.module_guid) module_counter
               FROM %s AS tt, %s AS v

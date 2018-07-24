@@ -15,6 +15,8 @@
 
 use Papaya\Administration\Pages\Dependency\Listview;
 use Papaya\Administration\Pages\Dependency\Synchronizations;
+use Papaya\Content\Page\Dependencies;
+use Papaya\Content\Page\References;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -208,10 +210,10 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageDependencies
+   * @return PHPUnit_Framework_MockObject_MockObject|Dependencies
    */
   public function getDependenciesFixture(array $data = array()) {
-    $dependencies = $this->createMock(PapayaContentPageDependencies::class);
+    $dependencies = $this->createMock(Dependencies::class);
     $dependencies
       ->expects($this->any())
       ->method('count')
@@ -225,10 +227,10 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPageReferences
+   * @return PHPUnit_Framework_MockObject_MockObject|References
    */
   public function getReferencesFixture(array $data = array()) {
-    $references = $this->createMock(PapayaContentPageReferences::class);
+    $references = $this->createMock(References::class);
     $references
       ->expects($this->any())
       ->method('count')

@@ -15,7 +15,7 @@
 
 namespace Papaya\Administration\Pages\Dependency;
 use Papaya\Administration\Pages\Dependency\Synchronizations;
-use PapayaContentPageReferences;
+use Papaya\Content\Page\References;
 use PapayaContentPages;
 use PapayaDatabaseObjectList;
 
@@ -50,7 +50,7 @@ class Listview extends \PapayaUiListview {
   /**
    * List of database records
    *
-   * @var PapayaContentPageReferences
+   * @var \Papaya\Content\Page\References
    */
   private $_references = 0;
 
@@ -71,8 +71,8 @@ class Listview extends \PapayaUiListview {
   public function __construct(
     $originPageId,
     $currentPageId,
-    \PapayaContentPageDependencies $dependencies,
-    \PapayaContentPageReferences $references,
+    \Papaya\Content\Page\Dependencies $dependencies,
+    \Papaya\Content\Page\References $references,
     \Papaya\Administration\Pages\Dependency\Synchronizations $synchronizations
   ) {
     \PapayaUtilConstraints::assertInteger($originPageId);

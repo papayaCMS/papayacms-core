@@ -14,7 +14,7 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency;
-use PapayaContentPageDependencies;
+use Papaya\Content\Page\Dependencies;
 use PapayaUiIconList;
 
 /**
@@ -32,43 +32,43 @@ class Synchronizations {
    * @var array
    */
   private $_definitions = array(
-    \PapayaContentPageDependency::SYNC_PROPERTIES => array(
+    \Papaya\Content\Page\Dependency::SYNC_PROPERTIES => array(
       'caption' => 'Properties',
       'hint' => 'Page properties',
       'image' => 'categories-properties',
       'class' => Synchronization\Properties::class
     ),
-    \PapayaContentPageDependency::SYNC_VIEW => array(
+    \Papaya\Content\Page\Dependency::SYNC_VIEW => array(
       'caption' => 'View',
       'hint' => 'Page view',
       'image' => 'items-view',
       'class' => Synchronization\View::class
     ),
-    \PapayaContentPageDependency::SYNC_CONTENT => array(
+    \Papaya\Content\Page\Dependency::SYNC_CONTENT => array(
       'caption' => 'Content',
       'hint' => 'Page content',
       'image' => 'categories-content',
       'class' => Synchronization\Content::class
     ),
-    \PapayaContentPageDependency::SYNC_BOXES => array(
+    \Papaya\Content\Page\Dependency::SYNC_BOXES => array(
       'caption' => 'Boxes',
       'hint' => 'Box links',
       'image' => 'items-box',
       'class' => Synchronization\Boxes::class
     ),
-    \PapayaContentPageDependency::SYNC_TAGS => array(
+    \Papaya\Content\Page\Dependency::SYNC_TAGS => array(
       'caption' => 'Tags',
       'hint' => 'Page tags/labels',
       'image' => 'items-tag',
       'class' => Synchronization\Tags::class
     ),
-    \PapayaContentPageDependency::SYNC_ACCESS => array(
+    \Papaya\Content\Page\Dependency::SYNC_ACCESS => array(
       'caption' => 'Access',
       'hint' => 'Access permissions for visitors',
       'image' => 'categories-access',
       'class' => Synchronization\Access::class
     ),
-    \PapayaContentPageDependency::SYNC_PUBLICATION => array(
+    \Papaya\Content\Page\Dependency::SYNC_PUBLICATION => array(
       'caption' => 'Publication',
       'hint' => 'Publication action',
       'image' => 'items-publication',
@@ -93,7 +93,7 @@ class Synchronizations {
   /**
    * Dependencies records list.
    *
-   * @var PapayaContentPageDependencies
+   * @var Dependencies
    */
   private $_dependencies = NULL;
 
@@ -134,14 +134,14 @@ class Synchronizations {
   /**
    * Getter/setter for the dependcies database list
    *
-   * @param \PapayaContentPageDependencies|NULL $dependencies
-   * @return \PapayaContentPageDependencies
+   * @param \Papaya\Content\Page\Dependencies|NULL $dependencies
+   * @return \Papaya\Content\Page\Dependencies
    */
-  public function dependencies(\PapayaContentPageDependencies $dependencies = NULL) {
+  public function dependencies(\Papaya\Content\Page\Dependencies $dependencies = NULL) {
     if (isset($dependencies)) {
       $this->_dependencies = $dependencies;
     } elseif (is_null($this->_dependencies)) {
-      $this->_dependencies = new \PapayaContentPageDependencies();
+      $this->_dependencies = new \Papaya\Content\Page\Dependencies();
     }
     return $this->_dependencies;
   }
@@ -182,12 +182,12 @@ class Synchronizations {
   /**
    * Synchronize a dependency - this is called is a dependency is created or changed.
    *
-   * @param \PapayaContentPageDependency $dependency
+   * @param \Papaya\Content\Page\Dependency $dependency
    */
-  public function synchronizeDependency(\PapayaContentPageDependency $dependency) {
+  public function synchronizeDependency(\Papaya\Content\Page\Dependency $dependency) {
     foreach ($this->_definitions as $synchronization => $data) {
       if ($dependency->synchronization & $synchronization &&
-        $synchronization != \PapayaContentPageDependency::SYNC_PUBLICATION &&
+        $synchronization != \Papaya\Content\Page\Dependency::SYNC_PUBLICATION &&
         ($action = $this->getAction($synchronization))) {
         $action->synchronize(array($dependency->id), $dependency->originId);
       }

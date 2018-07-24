@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the content page translations list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentPageTranslation}.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPageBoxes extends \PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content page translations list.
+ *
+ * The list does not contain all detail data, it is for list outputs etc. To get the full data
+ * use {@see Papaya\Content\Page\PapayaContentPageTranslation}.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Boxes extends \PapayaDatabaseObjectList {
 
   /**
-  * Map field names to value identfiers
-  *
-  * @var array
-  */
+   * Map field names to value identfiers
+   *
+   * @var array
+   */
   protected $_fieldMapping = array(
     'topic_id' => 'page_id',
     'box_id' => 'box_id',
@@ -54,25 +55,25 @@ class PapayaContentPageBoxes extends \PapayaDatabaseObjectList {
   }
 
   /**
-  * Delete box links on the given page ids
-  *
-  * @param array|integer $pageIds
-  * @return boolean
-  */
+   * Delete box links on the given page ids
+   *
+   * @param array|integer $pageIds
+   * @return boolean
+   */
   public function delete($pageIds) {
     return FALSE !== $this->databaseDeleteRecord(
-      $this->databaseGetTableName(\PapayaContentTables::PAGE_BOXES),
-      'topic_id',
-      \PapayaUtilArray::ensure($pageIds)
-    );
+        $this->databaseGetTableName(\PapayaContentTables::PAGE_BOXES),
+        'topic_id',
+        \PapayaUtilArray::ensure($pageIds)
+      );
   }
 
   /**
-  * Copy currently loaded box links to the given page ids
-  *
-  * @param array|integer $pageIds
-  * @return boolean
-  */
+   * Copy currently loaded box links to the given page ids
+   *
+   * @param array|integer $pageIds
+   * @return boolean
+   */
   public function copyTo($pageIds) {
     $pageIds = \PapayaUtilArray::ensure($pageIds);
     if (empty($this->_records) || empty($pageIds)) {
@@ -90,9 +91,9 @@ class PapayaContentPageBoxes extends \PapayaDatabaseObjectList {
         }
       }
       return FALSE !== $this->databaseInsertRecords(
-        $this->databaseGetTableName(\PapayaContentTables::PAGE_BOXES),
-        $records
-      );
+          $this->databaseGetTableName(\PapayaContentTables::PAGE_BOXES),
+          $records
+        );
     }
     return FALSE;
   }

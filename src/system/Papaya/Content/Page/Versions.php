@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Page;
 /**
-* Provide data encapsulation for the content page version list. The versions are created if
-* a page is published. They are not changeable.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentPageVersion}.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPageVersions extends \PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content page version list. The versions are created if
+ * a page is published. They are not changeable.
+ *
+ * The list does not contain all detail data, it is for list outputs etc. To get the full data
+ * use {@see Papaya\Content\Page\PapayaContentPageVersion}.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Versions extends \PapayaDatabaseObjectList {
 
   /**
-  * Map field names to value identfiers
-  *
-  * @var array
-  */
+   * Map field names to value identfiers
+   *
+   * @var array
+   */
   protected $_fieldMapping = array(
     'version_id' => 'id',
     'version_time' => 'created',
@@ -40,20 +41,20 @@ class PapayaContentPageVersions extends \PapayaDatabaseObjectList {
   );
 
   /**
-  * Version table name
-  *
-  * @var string
-  */
+   * Version table name
+   *
+   * @var string
+   */
   protected $_versionsTableName = \PapayaContentTables::PAGE_VERSIONS;
 
   /**
-  * Load version list informations
-  *
-  * @param integer $pageId
-  * @param NULL|integer $limit maximum records returned
-  * @param NULL|integer $offset start offset for limited results
-  * @return boolean
-  */
+   * Load version list informations
+   *
+   * @param integer $pageId
+   * @param NULL|integer $limit maximum records returned
+   * @param NULL|integer $offset start offset for limited results
+   * @return boolean
+   */
   public function load($pageId, $limit = NULL, $offset = NULL) {
     $sql = "SELECT version_id, version_time, version_author_id, version_message,
                    topic_change_level, topic_id
@@ -68,13 +69,13 @@ class PapayaContentPageVersions extends \PapayaDatabaseObjectList {
   }
 
   /**
-  * Create a new version record object and load the specified version data
-  *
-  * @param integer $versionId
-  * @return \PapayaContentPageVersion|NULL
-  */
+   * Create a new version record object and load the specified version data
+   *
+   * @param integer $versionId
+   * @return \Papaya\Content\Page\Version|NULL
+   */
   public function getVersion($versionId) {
-    $result = new \PapayaContentPageVersion();
+    $result = new \Papaya\Content\Page\Version();
     $result->setDatabaseAccess($this->getDatabaseAccess());
     $result->load($versionId);
     return $result;

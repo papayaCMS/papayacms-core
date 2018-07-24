@@ -1,11 +1,27 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Page\References;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentPageReferencesTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentPageReferences::load
-  * @covers PapayaContentPageReferences::_fetchRecords
+  * @covers References::load
+  * @covers References::_fetchRecords
   *
   *
    */
@@ -54,7 +70,7 @@ class PapayaContentPageReferencesTest extends PapayaTestCase {
       ->will(
         $this->returnValue($databaseResult)
       );
-    $references = new PapayaContentPageReferences();
+    $references = new References();
     $references->setDatabaseAccess($databaseAccess);
     $this->assertTrue($references->load(42, 1));
     $this->assertEquals(

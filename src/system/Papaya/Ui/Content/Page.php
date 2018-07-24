@@ -13,6 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Page\Translation;
+
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 class PapayaUiContentPage extends \PapayaObject {
 
   /**
@@ -20,7 +36,7 @@ class PapayaUiContentPage extends \PapayaObject {
    */
   private $_page = NULL;
   /**
-   * @var PapayaContentPageTranslation
+   * @var Translation
    */
   private $_translation = NULL;
 
@@ -65,14 +81,14 @@ class PapayaUiContentPage extends \PapayaObject {
 
   /**
    * @param \PapayaContentPage $page
-   * @return \PapayaContentPage|\PapayaContentPagePublication
+   * @return \PapayaContentPage|\Papaya\Content\Page\Publication
    */
   public function page(\PapayaContentPage $page = NULL) {
     if (isset($page)) {
       $this->_page = $page;
     } elseif (NULL == $this->_page) {
       if ($this->isPublic()) {
-        $this->_page = new \PapayaContentPagePublication();
+        $this->_page = new \Papaya\Content\Page\Publication();
       } else {
         $this->_page = new \PapayaContentPage();
       }
@@ -82,17 +98,17 @@ class PapayaUiContentPage extends \PapayaObject {
   }
 
   /**
-   * @param \PapayaContentPageTranslation $translation
-   * @return \PapayaContentPagePublicationTranslation|\PapayaContentPageTranslation
+   * @param \Papaya\Content\Page\Translation $translation
+   * @return \Papaya\Content\Page\Publication\Translation|\Papaya\Content\Page\Translation
    */
-  public function translation(\PapayaContentPageTranslation $translation = NULL) {
+  public function translation(\Papaya\Content\Page\Translation $translation = NULL) {
     if (isset($translation)) {
       $this->_translation = $translation;
     } elseif (NULL == $this->_translation) {
       if ($this->isPublic()) {
-        $this->_translation = new \PapayaContentPagePublicationTranslation();
+        $this->_translation = new \Papaya\Content\Page\Publication\Translation();
       } else {
-        $this->_translation = new \PapayaContentPageTranslation();
+        $this->_translation = new \Papaya\Content\Page\Translation();
       }
       if ($language = $this->getPageLanguage()) {
         $this->_translation->activateLazyLoad(

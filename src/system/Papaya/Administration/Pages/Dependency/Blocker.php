@@ -15,8 +15,8 @@
 
 namespace Papaya\Administration\Pages\Dependency;
 use Papaya\Administration\Pages\Dependency\Counter;
-use PapayaContentPageDependencies;
-use PapayaContentPageDependency;
+use Papaya\Content\Page\Dependencies;
+use Papaya\Content\Page\Dependency;
 use PapayaContentPages;
 use PapayaContentViews;
 
@@ -47,14 +47,14 @@ class Blocker extends \PapayaUiControlInteractive {
   /**
    * Dependecy content object buffer
    *
-   * @var PapayaContentPageDependency
+   * @var Dependency
    */
   private $_dependency = NULL;
 
   /**
    * Buffer variable for the dependencies list of the current origin id
    *
-   * @var PapayaContentPageDependencies
+   * @var Dependencies
    */
   private $_dependencies = NULL;
 
@@ -176,8 +176,8 @@ class Blocker extends \PapayaUiControlInteractive {
       $this->dependencies()->load($this->_pageId, $language)) {
       $viewIds = array();
       foreach ($this->dependencies() as $dependency) {
-        if (($dependency['synchronization'] & \PapayaContentPageDependency::SYNC_VIEW) xor
-          ($dependency['synchronization'] & \PapayaContentPageDependency::SYNC_CONTENT)) {
+        if (($dependency['synchronization'] & \Papaya\Content\Page\Dependency::SYNC_VIEW) xor
+          ($dependency['synchronization'] & \Papaya\Content\Page\Dependency::SYNC_CONTENT)) {
           $viewIds[$dependency['id']] = $dependency['view_id'];
         }
       }
@@ -195,14 +195,14 @@ class Blocker extends \PapayaUiControlInteractive {
   /**
    * Get/Set an object for the current dependency.
    *
-   * @param \PapayaContentPageDependency $dependency
-   * @return \PapayaContentPageDependency
+   * @param \Papaya\Content\Page\Dependency $dependency
+   * @return \Papaya\Content\Page\Dependency
    */
-  public function dependency(\PapayaContentPageDependency $dependency = NULL) {
+  public function dependency(\Papaya\Content\Page\Dependency $dependency = NULL) {
     if (isset($dependency)) {
       $this->_dependency = $dependency;
     } elseif (is_null($this->_dependency)) {
-      $this->_dependency = new \PapayaContentPageDependency();
+      $this->_dependency = new \Papaya\Content\Page\Dependency();
       $this->_dependency->papaya($this->papaya());
     }
     return $this->_dependency;
@@ -211,14 +211,14 @@ class Blocker extends \PapayaUiControlInteractive {
   /**
    * Getter/Setter for the dependencies list database object
    *
-   * @param \PapayaContentPageDependencies $dependencies
-   * @return \PapayaContentPageDependencies
+   * @param \Papaya\Content\Page\Dependencies $dependencies
+   * @return \Papaya\Content\Page\Dependencies
    */
-  public function dependencies(\PapayaContentPageDependencies $dependencies = NULL) {
+  public function dependencies(\Papaya\Content\Page\Dependencies $dependencies = NULL) {
     if (isset($dependencies)) {
       $this->_dependencies = $dependencies;
     } elseif (is_null($this->_dependencies)) {
-      $this->_dependencies = new \PapayaContentPageDependencies();
+      $this->_dependencies = new \Papaya\Content\Page\Dependencies();
     }
     return $this->_dependencies;
   }

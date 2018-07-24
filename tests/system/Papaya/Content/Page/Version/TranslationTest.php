@@ -13,12 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Page\Version\Translation;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaContentPageVersionTranslationTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentPageVersionTranslation::load
+  * @covers Translation::load
   */
   public function testLoad() {
     $record = array(
@@ -47,7 +49,7 @@ class PapayaContentPageVersionTranslationTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic_versions_trans', 'table_views'))
       ->will($this->returnValue($databaseResult));
-    $translation = new PapayaContentPageVersionTranslation();
+    $translation = new Translation();
     $translation->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
       $translation->load(array(42, 1))

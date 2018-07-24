@@ -15,6 +15,7 @@
 
 use Papaya\Administration\Pages\Dependency\Synchronizations;
 use Papaya\Administration\Permissions;
+use Papaya\Content\Page\Dependency;
 
 /**
 * object to show sitemap in edit area (n-dimensional)
@@ -135,7 +136,7 @@ class papaya_topic_tree extends base_topic_tree {
               if ($topic->publishTopic()) {
                 $this->addMsg(MSG_INFO, $this->_gt('Page published.'));
                 $this->sychronizations()->synchronizeAction(
-                  PapayaContentPageDependency::SYNC_PUBLICATION,
+                  Dependency::SYNC_PUBLICATION,
                   $this->topicId,
                   array($languageId)
                 );
@@ -542,16 +543,16 @@ class papaya_topic_tree extends base_topic_tree {
       );
     }
     // load the current dependency if available
-    $old = new PapayaContentPageDependency();
+    $old = new Dependency();
     if ($old->load($oldId)) {
       // if available change clone id and save
-      $new = new PapayaContentPageDependency();
+      $new = new Dependency();
       $new->assign($old->toArray());
       $new->id = $newId;
       return $new->save();
     } elseif ($createMissing) {
       // if not available and create allowed define new dependency and save
-      $new = new PapayaContentPageDependency();
+      $new = new Dependency();
       $new->id = $newId;
       $new->originId = $oldId;
       $new->synchronization = $synchronization;

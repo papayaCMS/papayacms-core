@@ -1,13 +1,30 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Page\Version;
+use Papaya\Content\Page\Version\Translations;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentPageVersionTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentPageVersion::save
+  * @covers Version::save
   */
   public function testSaveBlockingUpdateExpectingException() {
-    $version = new PapayaContentPageVersion();
+    $version = new Version();
     /** @noinspection Annotator */
     $version->id = 42;
     $this->expectException(LogicException::class);
@@ -16,18 +33,18 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageVersion::save
+  * @covers Version::save
   */
   public function testSaveInsertWhileMissingValuesExpectingException() {
-    $version = new PapayaContentPageVersion();
+    $version = new Version();
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: page id, owner or message are missing.');
     $version->save();
   }
 
   /**
-  * @covers PapayaContentPageVersion::save
-  * @covers PapayaContentPageVersion::create
+  * @covers Version::save
+  * @covers Version::create
   */
   public function testSave() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -49,7 +66,7 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
         $this->onConsecutiveCalls(1, 2)
       );
 
-    $version = new PapayaContentPageVersion();
+    $version = new Version();
     $version->assign(
       array(
         'page_id' => 21,
@@ -66,8 +83,8 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageVersion::save
-  * @covers PapayaContentPageVersion::create
+  * @covers Version::save
+  * @covers Version::create
   */
   public function testSaveWithDatabaseErrorInFirstQueryExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -80,7 +97,7 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
       )
       ->will($this->returnValue(FALSE));
 
-    $version = new PapayaContentPageVersion();
+    $version = new Version();
     $version->assign(
       array(
         'page_id' => 21,
@@ -97,21 +114,21 @@ class PapayaContentPageVersionTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageVersion::translations
+  * @covers Version::translations
   */
   public function testTranslationsGetAfterSet() {
-    $translations = $this->createMock(PapayaContentPageVersionTranslations::class);
-    $version = new PapayaContentPageVersion();
+    $translations = $this->createMock(Translations::class);
+    $version = new Version();
     $this->assertSame($translations, $version->translations($translations));
   }
 
   /**
-  * @covers PapayaContentPageVersion::translations
+  * @covers Version::translations
   */
   public function testTranslationsGetWithImplicitCreate() {
-    $version = new PapayaContentPageVersion();
+    $version = new Version();
     $this->assertInstanceOf(
-      PapayaContentPageVersionTranslations::class,
+      Translations::class,
       $version->translations()
     );
   }

@@ -13,12 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Page\Translation;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentPageTranslationTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentPageTranslation
+  * @covers Translation
   */
   public function testLoad() {
     $record = array(
@@ -53,7 +55,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue($databaseResult));
-    $translation = new PapayaContentPageTranslation();
+    $translation = new Translation();
     $translation->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
       $translation->load(array(42, 1))
@@ -79,7 +81,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageTranslation
+  * @covers Translation
   */
   public function testLoadWithId() {
     $record = array(
@@ -114,7 +116,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue($databaseResult));
-    $translation = new PapayaContentPageTranslation();
+    $translation = new Translation();
     $translation->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
       $translation->load(array(42, 1))
@@ -140,7 +142,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageTranslation
+  * @covers Translation
   */
   public function testLoadFailedExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -155,7 +157,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue(FALSE));
-    $translation = new PapayaContentPageTranslation();
+    $translation = new Translation();
     $translation->setDatabaseAccess($databaseAccess);
     $this->assertFalse(
       $translation->load(array(42, 1))
@@ -163,7 +165,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageTranslation
+  * @covers Translation
   */
   public function testLoadNoRecordExpectingFalse() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -184,7 +186,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue($databaseResult));
-    $translation = new PapayaContentPageTranslation();
+    $translation = new Translation();
     $translation->setDatabaseAccess($databaseAccess);
     $this->assertFalse(
       $translation->load(array(42, 1))
@@ -192,7 +194,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageTranslation
+  * @covers Translation
   */
   public function testSaveCreateNew() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -215,7 +217,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('insertRecord')
       ->will($this->returnCallback(array($this, 'checkInsertData')));
-    $translation = new PapayaContentPageTranslation();
+    $translation = new Translation();
     $translation->setDatabaseAccess($databaseAccess);
     $translation->assign(
       array(
@@ -251,7 +253,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageTranslation
+  * @covers Translation
   */
   public function testSaveUpdateExisting() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -274,7 +276,7 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('updateRecord')
       ->will($this->returnCallback(array($this, 'checkUpdateData')));
-    $translation = new PapayaContentPageTranslation();
+    $translation = new Translation();
     $translation->setDatabaseAccess($databaseAccess);
     $translation->assign(
       array(
@@ -308,10 +310,10 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPageTranslation
+  * @covers Translation
   */
   public function testSaveWithoutIndexDataExpectingFalse() {
-    $translation = new PapayaContentPageTranslation();
+    $translation = new Translation();
     $this->assertFalse($translation->save());
   }
 }
