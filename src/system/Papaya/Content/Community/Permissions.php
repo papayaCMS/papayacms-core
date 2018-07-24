@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Community;
 /**
-* Provide data encapsulation for the surfer permission records.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentCommunityPermissions extends \PapayaDatabaseRecords {
+ * Provide data encapsulation for the surfer permission records.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Permissions extends \PapayaDatabaseRecords {
 
   protected $_fields = array(
     'id' => 'surferperm_id',

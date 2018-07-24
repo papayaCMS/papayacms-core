@@ -124,14 +124,14 @@ class Dialog extends \PapayaUiDialog {
   /**
    * Getter/Setter for the community user records object
    *
-   * @param \PapayaContentCommunityUsers $users
-   * @return \PapayaContentCommunityUsers
+   * @param \Papaya\Content\Community\Users $users
+   * @return \Papaya\Content\Community\Users
    */
-  public function users(\PapayaContentCommunityUsers $users = NULL) {
+  public function users(\Papaya\Content\Community\Users $users = NULL) {
     if (NULL !== $users) {
       $this->_users = $users;
     } elseif (NULL === $this->_users) {
-      $this->_users = new \PapayaContentCommunityUsers();
+      $this->_users = new \Papaya\Content\Community\Users();
       $this->_users->papaya($this->papaya());
     }
     return $this->_users;

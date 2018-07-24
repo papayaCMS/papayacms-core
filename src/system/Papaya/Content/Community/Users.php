@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Community;
 /**
-* Provide data encapsulation for the  surfer user records.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentCommunityUsers extends \PapayaDatabaseRecords {
+ * Provide data encapsulation for the  surfer user records.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Users extends \PapayaDatabaseRecords {
 
   protected $_fields = array(
     'id' => 'surfer_id',
@@ -41,12 +42,12 @@ class PapayaContentCommunityUsers extends \PapayaDatabaseRecords {
   protected $_tableName = \PapayaContentTables::COMMUNITY_USER;
 
   /**
-  * If a filter element is provided this is used to search fulltext on all surfers.
-  *
-  * @param array $filter
-  * @param string $prefix
-  * @return string
-  */
+   * If a filter element is provided this is used to search fulltext on all surfers.
+   *
+   * @param array $filter
+   * @param string $prefix
+   * @return string
+   */
   public function _compileCondition($filter, $prefix = " WHERE ") {
     if (!isset($filter['filter'])) {
       return parent::_compileCondition($filter, $prefix);
@@ -61,10 +62,10 @@ class PapayaContentCommunityUsers extends \PapayaDatabaseRecords {
   }
 
   /**
-  * attach the callback to the mapping object, so we can modify the properties
-  *
-  * @return \PapayaDatabaseRecordMapping
-  */
+   * attach the callback to the mapping object, so we can modify the properties
+   *
+   * @return \PapayaDatabaseRecordMapping
+   */
   public function _createMapping() {
     $mapping = parent::_createMapping();
     $mapping->callbacks()->onAfterMappingFieldsToProperties = array(
@@ -74,12 +75,12 @@ class PapayaContentCommunityUsers extends \PapayaDatabaseRecords {
   }
 
   /**
-  * adds a caption tho the record properties containing the name or email.
-  *
-  * @param object $context
-  * @param array $values
-  * @return array
-  */
+   * adds a caption tho the record properties containing the name or email.
+   *
+   * @param object $context
+   * @param array $values
+   * @return array
+   */
   public function callbackAfterMappingFieldsToProperties($context, $values) {
     $caption = '';
     if (!empty($values['surname'])) {

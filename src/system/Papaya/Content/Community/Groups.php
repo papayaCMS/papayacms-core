@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Community;
 /**
-* Provide data encapsulation for the  surfer groups records.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentCommunityGroups extends \PapayaDatabaseRecords {
+ * Provide data encapsulation for the  surfer groups records.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Groups extends \PapayaDatabaseRecords {
 
   protected $_fields = array(
     'id' => 'surfergroup_id',
@@ -36,14 +37,14 @@ class PapayaContentCommunityGroups extends \PapayaDatabaseRecords {
   protected $_tableName = \PapayaContentTables::COMMUNITY_GROUPS;
 
   /**
-  * This method can be used to load the group records by a given permission id
-  * it will load all groups that have the given permission assigned.
-  *
-  * @param integer $permission
-  * @param NULL|integer $limit
-  * @param NULL|integer $offset
-  * @return boolean;
-  */
+   * This method can be used to load the group records by a given permission id
+   * it will load all groups that have the given permission assigned.
+   *
+   * @param integer $permission
+   * @param NULL|integer $limit
+   * @param NULL|integer $offset
+   * @return boolean;
+   */
   public function loadByPermission($permission, $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
     $fields = implode(', ', $this->mapping()->getFields());

@@ -1,10 +1,26 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Community\Users;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentCommunityUsersTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaContentCommunityUsers::_compileCondition
+   * @covers Users::_compileCondition
    * @dataProvider provideFilterArrays
    * @param string $expected
    * @param array $filter
@@ -22,7 +38,7 @@ class PapayaContentCommunityUsersTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnArgument(0));
 
-    $users = new PapayaContentCommunityUsers();
+    $users = new Users();
     $users->setDatabaseAccess($databaseAccess);
     $this->assertEquals(
       $expected,
@@ -31,23 +47,23 @@ class PapayaContentCommunityUsersTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentCommunityUsers::_createMapping
+  * @covers Users::_createMapping
   */
   public function testCreateMapping() {
-    $users = new PapayaContentCommunityUsers();
+    $users = new Users();
     /** @var PapayaDatabaseRecordMapping $mapping */
     $mapping = $users->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onAfterMappingFieldsToProperties));
   }
 
   /**
-   * @covers PapayaContentCommunityUsers::callbackAfterMappingFieldsToProperties
+   * @covers Users::callbackAfterMappingFieldsToProperties
    * @dataProvider provideRecordsForMapping
    * @param $expected
    * @param $values
    */
   public function testCallbackAfterMappingFieldsToProperties(array $expected, array $values) {
-    $users = new PapayaContentCommunityUsers();
+    $users = new Users();
     $this->assertEquals(
       $expected, $users->callbackAfterMappingFieldsToProperties(new stdClass, $values)
     );

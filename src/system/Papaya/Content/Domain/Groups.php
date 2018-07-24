@@ -13,37 +13,38 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Domain;
 /**
-* Data encapsulation for a liust of domain groups
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentDomainGroups extends \PapayaDatabaseRecordsLazy {
+ * Data encapsulation for a liust of domain groups
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Groups extends \PapayaDatabaseRecordsLazy {
 
   /**
-  * Map field names to more convinient property names
-  *
-  * @var array:string
-  */
+   * Map field names to more convinient property names
+   *
+   * @var string[]
+   */
   protected $_fields = array(
     'id' => 'domaingroup_id',
     'title' => 'domaingroup_title'
   );
 
   /**
-  * @var string
-  */
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::DOMAIN_GROUPS;
 
   protected $_identifierProperties = array('id');
 
   /**
    * @param int|array|NULL $filter
-   * @return \PapayaContentDomainGroup
+   * @return Group
    */
   public function getItem($filter = NULL) {
-    $result = new \PapayaContentDomainGroup();
+    $result = new Group();
     if (is_scalar($filter)) {
       $filter = ['id' => $filter];
     }

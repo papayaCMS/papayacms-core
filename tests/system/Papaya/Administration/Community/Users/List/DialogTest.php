@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Community\Users\Roster\Dialog;
+use Papaya\Content\Community\Users;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -59,7 +60,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   * @covers Dialog::execute
   */
   public function testExecute() {
-    $users = $this->createMock(PapayaContentCommunityUsers::class);
+    $users = $this->createMock(Users::class);
     $users
       ->expects($this->once())
       ->method('load')
@@ -79,7 +80,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   * @covers Dialog::execute
   */
   public function testExecuteWithFilter() {
-    $users = $this->createMock(PapayaContentCommunityUsers::class);
+    $users = $this->createMock(Users::class);
     $users
       ->expects($this->once())
       ->method('load')
@@ -112,7 +113,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   * @covers Dialog::execute
   */
   public function testExecuteWithFilterReset() {
-    $users = $this->createMock(PapayaContentCommunityUsers::class);
+    $users = $this->createMock(Users::class);
     $users
       ->expects($this->once())
       ->method('load')
@@ -139,7 +140,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   * @covers Dialog::users
   */
   public function testUsersGetAfterset() {
-    $users = $this->createMock(PapayaContentCommunityUsers::class);
+    $users = $this->createMock(Users::class);
     $dialog = new Dialog();
     $dialog->users($users);
     $this->assertSame($users, $dialog->users());
@@ -150,7 +151,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   */
   public function testUsersImplicitCreate() {
     $dialog = new Dialog();
-    $this->assertInstanceOf(PapayaContentCommunityUsers::class, $dialog->users());
+    $this->assertInstanceOf(Users::class, $dialog->users());
   }
 
   /**

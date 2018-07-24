@@ -13,34 +13,36 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Domain;
 /**
-* Data encapsulation for a liust of domain group record
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property int $id
-* @property string $title
-*/
-class PapayaContentDomainGroup extends \PapayaDatabaseRecordLazy {
+ * Data encapsulation for a liust of domain group record
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property int $id
+ * @property string $title
+ */
+class Group extends \PapayaDatabaseRecordLazy {
 
   /**
-  * Map field names to more convinient property names
-  *
-  * @var array:string
-  */
+   * Map field names to more convinient property names
+   *
+   * @var array:string
+   */
   protected $_fields = array(
     'id' => 'domaingroup_id',
     'title' => 'domaingroup_title'
   );
 
   /**
-  * @var string
-  */
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::DOMAIN_GROUPS;
 
   /**
    * Create callbacks subobject, override to assign callbacks
+   *
    * @return \PapayaDatabaseRecordCallbacks
    */
   protected function _createCallbacks() {
@@ -53,10 +55,10 @@ class PapayaContentDomainGroup extends \PapayaDatabaseRecordLazy {
     if ($this->id > 0) {
       $databaseAccess = $this->getDatabaseAccess();
       return FALSE !== $databaseAccess->updateRecord(
-        $databaseAccess->getTableName(\PapayaContentTables::DOMAINS),
-        array('domaingroup_id' => 0),
-        array('domaingroup_id' => $this->id)
-      );
+          $databaseAccess->getTableName(\PapayaContentTables::DOMAINS),
+          array('domaingroup_id' => 0),
+          array('domaingroup_id' => $this->id)
+        );
     }
     return TRUE;
   }
