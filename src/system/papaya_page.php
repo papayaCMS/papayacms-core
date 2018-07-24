@@ -13,16 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Profiles\Cms;
-use Papaya\Cache\Identifier\Definition\Boolean;
-use Papaya\Cache\Identifier\Definition\Callback;
-use Papaya\Cache\Identifier\Definition\Group;
-use Papaya\Cache\Identifier\Definition\Surfer;
-use Papaya\Cache\Identifier\Definition\Url;
-use Papaya\Cache\Identifier\Definition\Session\Parameters;
-use Papaya\Configuration\Storage\Domain;
-use Papaya\Content\Page\Status;
-use Papaya\Content\Page\Publication\Status;
+use Papaya\Application;
+use Papaya\Cache;
 
 /**
  * Some of the old bootstraps use the this class/file as the starting point,
@@ -79,7 +71,7 @@ class papaya_page extends base_object {
   public $versionDateTime;
 
   /**
-   * @var boolean
+   * @var bool
    */
   public $readOnlySession = FALSE;
 
@@ -123,7 +115,8 @@ class papaya_page extends base_object {
 
   /**
   * Layout
-  * @var PapayaTemplate $layout
+  *
+  * @var \Papaya\Template $layout
   */
   var $layout = NULL;
 
@@ -173,7 +166,8 @@ class papaya_page extends base_object {
 
   /**
   * Accept .gz compressed files
-  * @var boolean $acceptGzip
+  *
+  * @var bool $acceptGzip
   */
   var $acceptGzip = FALSE;
 
@@ -191,7 +185,8 @@ class papaya_page extends base_object {
 
   /**
   * default status for pages is public
-  * @var boolean
+  *
+   * @var bool
   */
   var $public = TRUE;
 
@@ -202,7 +197,8 @@ class papaya_page extends base_object {
   var $allowSession = PapayaSession::ACTIVATION_NEVER;
   /**
   * redirect to handle session id in path
-  * @var boolean
+   *
+   * @var bool
   */
   var $allowSessionRedirects = FALSE;
   /**
@@ -235,7 +231,7 @@ class papaya_page extends base_object {
     PapayaRequestLog::getInstance();
     $application = $this->papaya();
     $application->registerProfiles(
-      new Cms()
+      new Application\Profiles\Cms()
     );
     $application->profiler->start();
     if (!defined('PAPAYA_ADMIN_PAGE')) {
@@ -337,7 +333,7 @@ class papaya_page extends base_object {
         $previewDomain = $application->session->values['PAGE_PREVIEW_DOMAIN'];
         $this->sendHeader('X-Papaya-Preview-Domain: '.$previewDomain);
         if (!empty($previewDomain)) {
-          $domainOptions = new Domain($previewDomain);
+          $domainOptions = new \Papaya\Configuration\Storage\Domain($previewDomain);
           $application->options->load($domainOptions);
           if ($domainId = $domainOptions->domain()->id) {
             $this->_currentDomainId = $domainId;
@@ -422,7 +418,7 @@ class papaya_page extends base_object {
   *
   * @param integer $code
   * @param string $path
-  * @param boolean $defaultHost
+   * @param bool $defaultHost
   * @param string $reason
   */
   function doRedirectToPath($code, $path, $defaultHost = FALSE, $reason = NULL) {
@@ -574,7 +570,7 @@ class papaya_page extends base_object {
               if ($aliasUrl = $urlMounter->getAliasURL($url)) {
                 $this->doRedirect(302, $aliasUrl, 'Alias Plugin Redirect');
               } else {
-                $requestUrl = new PapayaUrl($url);
+                $requestUrl = new \Papaya\Url($url);
                 $request = new PapayaRequest($this->papaya()->options);
                 $request->load($requestUrl);
                 $urlData = array(
@@ -657,7 +653,7 @@ class papaya_page extends base_object {
     $reference->setParameters($parameters);
     //exchange request object
     $request = new PapayaRequest($application->options);
-    $request->load(new PapayaUrl($reference->get()));
+    $request->load(new \Papaya\Url($reference->get()));
     $request->setParameters(PapayaRequest::SOURCE_QUERY, $parameters);
     $application->setObject(
       'Request', $request, PapayaApplication::DUPLICATE_OVERWRITE
@@ -780,7 +776,7 @@ class papaya_page extends base_object {
   *
   * @param integer $topicId
   * @access public
-  * @return boolean
+   * @return bool
   */
   function validateAccess($topicId) {
     if ($this->isPreview()) {
@@ -794,7 +790,7 @@ class papaya_page extends base_object {
   * preview or part of current domain
   *
   * @access public
-  * @return boolean
+   * @return bool
   */
   function validateDomain() {
     if ($this->isPreview()) {
@@ -828,7 +824,7 @@ class papaya_page extends base_object {
   * validate editor access (preview, debug outputs)
   *
   * @access public
-  * @return boolean
+   * @return bool
   */
   function validateEditorAccess() {
     $application = $this->papaya();
@@ -897,15 +893,15 @@ class papaya_page extends base_object {
       } elseif (isset($pagePlugin->cacheable) && $pagePlugin->cacheable == FALSE) {
         return FALSE;
       } elseif (method_exists($pagePlugin, 'getCacheId')) {
-        $definition = new Callback(array($pagePlugin, 'getCacheId'));
+        $definition = new Cache\Identifier\Definition\Callback(array($pagePlugin, 'getCacheId'));
       } else {
-        $definition = new Boolean(TRUE);
+        $definition = new Cache\Identifier\Definition\BooleanValue(TRUE);
       }
-      $definition = new Group(
-        new Boolean(PapayaUtilRequestMethod::isGet()),
-        new Url(),
-        new Surfer(),
-        new Parameters('PAPAYA_SESSION_PAGE_PARAMS'),
+      $definition = new Cache\Identifier\Definition\Group(
+        new Cache\Identifier\Definition\BooleanValue(PapayaUtilRequestMethod::isGet()),
+        new Cache\Identifier\Definition\Url(),
+        new Cache\Identifier\Definition\Surfer(),
+        new Cache\Identifier\Definition\Parameters('PAPAYA_SESSION_PAGE_PARAMS'),
         $definition,
         $debug = $boxesList->cacheable()
       );
@@ -920,7 +916,7 @@ class papaya_page extends base_object {
   * Use generic output cache
   *
   * @access public
-  * @return boolean
+  * @return bool
   */
   function useCache() {
     $method = empty($_SERVER['REQUEST_METHOD']) ? '' : strtoupper($_SERVER['REQUEST_METHOD']);
@@ -944,11 +940,11 @@ class papaya_page extends base_object {
   }
 
   /**
-  * Get cache
-  *
-  * @param integer $cacheId
-  * @access public
-  * @return boolean
+   * Get cache
+   *
+   * @param integer $cacheId
+   * @access public
+   * @return bool
   */
   function getCache($cacheId) {
     if (defined('PAPAYA_CACHE_OUTPUT') && PAPAYA_CACHE_OUTPUT &&
@@ -1041,7 +1037,7 @@ class papaya_page extends base_object {
    * @param integer $topicId
    * @param string $page
    * @access public
-   * @return boolean
+   * @return bool
    */
   function setCache($cacheId, $topicId, $page) {
     if (defined('PAPAYA_CACHE_OUTPUT') && PAPAYA_CACHE_OUTPUT &&
@@ -1108,9 +1104,9 @@ class papaya_page extends base_object {
     } elseif ($this->output->loadViewModeData($this->mode)) {
       $this->readOnlySession = FALSE;
       if ($this->isPreview()) {
-        $pageStatus = new Status();
+        $pageStatus = new \Papaya\Content\Page\Status();
       } else {
-        $pageStatus = new Status();
+        $pageStatus = new \Papaya\Content\Page\Publication\Status();
       }
       $pageStatus->load($this->topicId);
       if ($pageStatus->sessionMode == 0) {
@@ -1890,7 +1886,7 @@ class papaya_page extends base_object {
    * Execute output controller
    *
    * @param $controller
-   * @return boolean Valid content | Error
+   * @return bool Valid content | Error
    */
   function executeController($controller) {
     if (!$controller instanceof PapayaControllerGroup) {
@@ -2419,7 +2415,7 @@ class papaya_page extends base_object {
   * This method logs the request to the statistic.
   *
   * @param integer $lngId optional, default value 0
-  * @param boolean $cachedPage optional, default value FALSE
+   * @param bool $cachedPage optional, default value FALSE
   * @access public
   */
   function logRequest($lngId = 0, $cachedPage = FALSE) {
@@ -2457,7 +2453,7 @@ class papaya_page extends base_object {
    * @param integer $error
    * @param string $errorString
    * @param null $errorCode
-   * @param boolean $verbose optional, default value FALSE
+   * @param bool $verbose optional, default value FALSE
    * @access public
    */
   function getError($error, $errorString, $errorCode = NULL, $verbose = FALSE) {
@@ -2763,7 +2759,7 @@ class papaya_page extends base_object {
    * This method sends out a string as header()
    *
    * @param string $headerStr
-   * @param boolean $replace replace existing header
+   * @param bool $replace replace existing header
    * @return bool
    */
   function sendHeader($headerStr, $replace = TRUE) {
@@ -2800,7 +2796,7 @@ class papaya_page extends base_object {
   *
   * For now the current status is assigned to the old $public member variable for bc, too.
   *
-  * @return boolean
+   * @return bool
   */
   public function isPreview() {
     if (isset($this->_isPreview)) {
@@ -2818,7 +2814,7 @@ class papaya_page extends base_object {
   * Return the current domain id, this can be set after handleDomain() and changed id
   * a preview domain is found in the session.
   *
-  * @return boolean
+   * @return bool
   */
   public function getCurrentDomainId() {
     return $this->_currentDomainId;

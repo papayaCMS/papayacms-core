@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Url;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaUtilConstraintsTest extends PapayaTestCase {
@@ -208,7 +210,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   */
   public function testAssertInstanceOfWithTwoClassesFailureExpectingException() {
     $this->expectException(UnexpectedValueException::class);
-    PapayaUtilConstraints::assertInstanceOf(array(PapayaUrl::class, stdClass::class), $this);
+    PapayaUtilConstraints::assertInstanceOf(array(Url::class, stdClass::class), $this);
   }
 
   /**

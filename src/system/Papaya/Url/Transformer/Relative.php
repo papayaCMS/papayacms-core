@@ -23,8 +23,9 @@ class PapayaUrlTransformerRelative {
 
   /**
   * Transforms a absolute url to a relative url.
-  * @param \PapayaUrl $currentUrl current url
-  * @param \PapayaUrl $targetUrl url to transform
+  *
+  * @param \Papaya\Url $currentUrl current url
+  * @param \Papaya\Url $targetUrl url to transform
   * @return string
   */
   public function transform($currentUrl, $targetUrl) {

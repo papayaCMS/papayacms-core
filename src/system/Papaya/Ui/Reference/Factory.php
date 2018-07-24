@@ -48,7 +48,7 @@ class PapayaUiReferenceFactory extends \PapayaObject {
           $reference = $this->createPageReference($matches);
           break;
         case 'absolute_url' :
-          $reference = new \PapayaUiReference(new \PapayaUrl($string));
+          $reference = new \PapayaUiReference(new Papaya\Url($string));
           break;
         case 'relative_url' :
         default :

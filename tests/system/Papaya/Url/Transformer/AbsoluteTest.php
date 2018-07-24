@@ -13,14 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Url;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUrlTransformerAbsoluteTest extends PapayaTestCase {
 
   /**
-  * get mock for PapayaUrl from url string
+  * get mock for Papaya\PapayaUrl from url string
+  *
   * @param string $url
-  * @return PHPUnit_Framework_MockObject_MockObject|PapayaUrl
+  * @return PHPUnit_Framework_MockObject_MockObject|Url
   */
   public function getPapayaUrlMockFixture($url) {
     $mapping = array(
@@ -34,7 +37,7 @@ class PapayaUrlTransformerAbsoluteTest extends PapayaTestCase {
       'getFragment' => 'fragment',
     );
     $urlObject = $this
-      ->getMockBuilder(PapayaUrl::class)
+      ->getMockBuilder(Url::class)
       ->setMethods(array_merge(array('getHostUrl'), array_keys($mapping)))
       ->getMock();
     if (empty($url)) {

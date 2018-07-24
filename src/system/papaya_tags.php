@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Permissions;
+use Papaya\Administration;
 
 /**
 * Tags Administration
@@ -67,7 +67,7 @@ class papaya_tags extends base_tags {
   var $lngSelect = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout = NULL;
   /**
@@ -433,7 +433,7 @@ class papaya_tags extends base_tags {
     $menubar = new base_btnbuilder;
     $menubar->images = $this->papaya()->images;
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(Permissions::TAG_CATEGORY_MANAGE) &&
+    if ($administrationUser->hasPerm(Administration\Permissions::TAG_CATEGORY_MANAGE) &&
         (isset($this->userPermissions['user_edit_category']) || $this->params['cat_id'] == 0)) {
       if (isset($this->params['cat_id']) && $this->params['cat_id'] > 0) {
         if (isset($this->params['cat_id']) &&
@@ -538,7 +538,7 @@ class papaya_tags extends base_tags {
         && count($this->categories) > 0
         && isset($this->params['cat_id']) && $this->params['cat_id'] > 0
         && isset($this->userPermissions['user_edit_tag'])
-        && $administrationUser->hasPerm(Permissions::TAG_EDIT)) {
+        && $administrationUser->hasPerm(Administration\Permissions::TAG_EDIT)) {
       $menubar->addSeperator();
       $menubar->addButton(
         'Add tag',

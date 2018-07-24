@@ -13,10 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition\Boolean;
-use Papaya\Cache\Identifier\Definition\Callback;
-use Papaya\Cache\Identifier\Definition\Group;
-use Papaya\Cache\Identifier\Definition;
+use Papaya\Cache;
 
 /**
 * papaya_public_boxeslinks variable
@@ -62,7 +59,7 @@ class papaya_public_boxeslinks extends base_boxeslinks {
   * @param integer $lngId language id
   * @param integer $viewModeId view mode id
   * @access public
-  * @return boolean
+  * @return bool
   */
   function loadDataList($lngId, $viewModeId, $now = NULL) {
     $this->_cacheDefinition = NULL;
@@ -76,7 +73,7 @@ class papaya_public_boxeslinks extends base_boxeslinks {
    * @param integer $viewModeId view mode id
    * @param array|integer $boxIds
    * @access public
-   * @return boolean
+   * @return bool
    */
   function loadDataElements($lngId, $viewModeId, $boxIds) {
     $this->data = array();
@@ -164,16 +161,16 @@ class papaya_public_boxeslinks extends base_boxeslinks {
   }
 
   /**
-   * Merge the cache definiiton of the loaded boxes and return them
+   * Merge the cache definition of the loaded boxes and return them
    *
-   * @param Definition $definition
-   * @return Definition
+   * @param Cache\Identifier\Definition $definition
+   * @return Cache\Identifier\Definition
    */
-  public function cacheable(Definition $definition = NULL) {
+  public function cacheable(Cache\Identifier\Definition $definition = NULL) {
     if (isset($definition)) {
       $this->_cacheDefinition = $definition;
     } elseif (NULL === $this->_cacheDefinition) {
-      $this->_cacheDefinition = $definition = new Group();
+      $this->_cacheDefinition = $definition = new Cache\Identifier\Definition\Group();
       $modules = array();
       foreach ($this->data as $boxData) {
         $modules[] = $boxData['module_guid'];
@@ -188,10 +185,10 @@ class papaya_public_boxeslinks extends base_boxeslinks {
           $definition->add($plugin->cacheable());
         } elseif (method_exists($plugin, 'getCacheId')) {
           $definition->add(
-            new Callback(array($plugin, 'getCacheId'))
+            new Cache\Identifier\Definition\Callback(array($plugin, 'getCacheId'))
           );
         } else {
-          $this->_cacheDefinition = new Boolean(FALSE);
+          $this->_cacheDefinition = new Cache\Identifier\Definition\BooleanValue(FALSE);
           return $this->_cacheDefinition;
         }
       }

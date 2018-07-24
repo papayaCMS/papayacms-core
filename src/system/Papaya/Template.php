@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
+
 /**
  * Papaya Template, abstract superclass for Papaya Template objects.
  *
@@ -28,7 +30,7 @@
  * @method bool addMenu($xml, $encodeInvalidEntities = TRUE)
  * @method bool addScript($xml, $encodeInvalidEntities = TRUE)
  */
-abstract class PapayaTemplate extends \PapayaObject {
+abstract class Template extends \PapayaObject {
 
   /**
    * Strip the XML processing instruction <?xml ...?>
@@ -48,17 +50,17 @@ abstract class PapayaTemplate extends \PapayaObject {
   const STRIP_ALL = 7;
 
   /**
-   * @var PapayaTemplateValues
+   * @var \PapayaTemplateValues
    */
   private $_values = NULL;
 
   /**
-   * @var PapayaTemplateParameters
+   * @var \PapayaTemplateParameters
    */
   private $_parameters = NULL;
 
   /**
-   * @var PapayaXmlErrors
+   * @var \PapayaXmlErrors
    */
   private $_errors = NULL;
 
@@ -81,7 +83,7 @@ abstract class PapayaTemplate extends \PapayaObject {
    * Combined getter/setter for the template values object
    *
    * @param \PapayaTemplateValues $values
-   * @return \PapayaTemplateValues;
+   * @return \PapayaTemplateValues
    */
   public function values(\PapayaTemplateValues $values = NULL) {
     if (isset($values)) {
@@ -106,11 +108,11 @@ abstract class PapayaTemplate extends \PapayaObject {
   }
 
   /**
-  * Get XML values as string
-  *
-  * @access public
-  * @return string
-  */
+   * Get XML values as string
+   *
+   * @access public
+   * @return string
+   */
   function getXml() {
     return $this->values()->document()->saveXml();
   }
@@ -293,7 +295,7 @@ abstract class PapayaTemplate extends \PapayaObject {
     );
     if ($debugXml && $this->papaya()->administrationUser->isLoggedIn()) {
       /**
-       * @var PapayaResponse $response
+       * @var \PapayaResponse $response
        */
       $response = $this->papaya()->response;
       $response->setContentType('text/xml', 'utf-8');

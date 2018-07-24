@@ -32,7 +32,7 @@
 class PapayaThemeWrapperUrl {
 
   /**
-  * @var PapayaUrl
+  * @var \Papaya\Url
   */
   private $_requestUrl = NULL;
 
@@ -50,9 +50,9 @@ class PapayaThemeWrapperUrl {
   /**
   * Initialize using an url object.
   *
-  * @param \PapayaUrl $url
+  * @param \Papaya\Url $url
   */
-  public function __construct(\PapayaUrl $url = NULL) {
+  public function __construct(\Papaya\Url $url = NULL) {
     if (isset($url)) {
       $this->_requestUrl = $url;
     } else {

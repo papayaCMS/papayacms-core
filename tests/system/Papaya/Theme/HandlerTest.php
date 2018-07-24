@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Url;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaThemeHandlerTest extends PapayaTestCase {
@@ -21,7 +23,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   * @covers PapayaThemeHandler::getUrl
   */
   public function testGetUrl() {
-    $url = $this->getMockBuilder(PapayaUrl::class)->setMethods(array('getHostUrl'))->getMock();
+    $url = $this->getMockBuilder(Url::class)->setMethods(array('getHostUrl'))->getMock();
     $url
       ->expects($this->once())
       ->method('getHostUrl')
@@ -60,7 +62,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   * @covers PapayaThemeHandler::getUrl
   */
   public function testGetUrlWithThemeNameParameter() {
-    $url = $this->getMockBuilder(PapayaUrl::class)->setMethods(array('getHostUrl'))->getMock();
+    $url = $this->getMockBuilder(Url::class)->setMethods(array('getHostUrl'))->getMock();
     $url
       ->expects($this->once())
       ->method('getHostUrl')

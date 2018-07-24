@@ -14,11 +14,6 @@
  */
 
 use Papaya\Cache;
-use Papaya\Cache\Identifier\Definition\Boolean;
-use Papaya\Cache\Identifier\Definition\Callback;
-use Papaya\Cache\Identifier\Definition\Group;
-use Papaya\Cache\Identifier\Definition\Values;
-use Papaya\Cache\Identifier\Definition;
 
 /**
 * Link Box with page
@@ -145,7 +140,7 @@ class base_boxeslinks extends base_db {
   * Load box group list
   *
   * @access public
-  * @return boolean
+  * @return bool
   */
   function loadBoxGroupList() {
     $this->boxGroupsList = array();
@@ -169,7 +164,7 @@ class base_boxeslinks extends base_db {
    * @param integer $viewModeId view mode id
    * @param null|integer $now
    * @access public
-   * @return boolean
+   * @return bool
    */
   function loadDataList($lngId, $viewModeId, $now = NULL) {
     $this->data = array();
@@ -362,7 +357,7 @@ class base_boxeslinks extends base_db {
    * @param array $boxIds
    * @internal param int $boxId view mode id
    * @access public
-   * @return boolean
+   * @return bool
    */
   function loadDataElements($lngId, $viewModeId, $boxIds) {
     $this->data = array();
@@ -491,8 +486,8 @@ class base_boxeslinks extends base_db {
   * @param integer $lngId Language ID
   * @param integer $boxId ID of actual Box
   * @param integer $viewModeId ID of ViewMode
-  * @param boolean $cache default TRUE
-  * @param boolean $wrapperTags add wrapper tags with meta data
+  * @param bool $cache default TRUE
+  * @param bool $wrapperTags add wrapper tags with meta data
   * @access public
   * @return string '' or XML
   */
@@ -693,13 +688,13 @@ class base_boxeslinks extends base_db {
       if ($box instanceof PapayaPluginCacheable) {
         $definition = $box->cacheable();
       } elseif (method_exists($box, 'getCacheId')) {
-        $definition = new Callback(array($box, 'getCacheId'));
+        $definition = new Cache\Identifier\Definition\Callback(array($box, 'getCacheId'));
       } else {
         return FALSE;
       }
-      $definition = new Group(
+      $definition = new Cache\Identifier\Definition\Group(
         $definition,
-        new Values(
+        new Cache\Identifier\Definition\Values(
           PapayaUtilServerProtocol::get(),
           PapayaUtilServerName::get(),
           PapayaUtilServerPort::get(),
@@ -770,7 +765,7 @@ class base_boxeslinks extends base_db {
   * @param $str
   * @param integer $expires
   * @access public
-  * @return boolean FALSE
+  * @return bool FALSE
   */
   function writeBoxCache($boxData, $box, $lngId, $viewModeId, $str, $expires) {
     if ($str != '' && $cacheId = $this->getBoxCacheId($boxData, $box, $lngId, $viewModeId)) {
@@ -787,7 +782,7 @@ class base_boxeslinks extends base_db {
    * @param integer $lngId Language id
    * @param integer $viewModeId ID of viewmode
    * @param null|array $boxIds
-   * @param boolean $contentOnly (switches return to an array())
+   * @param bool $contentOnly (switches return to an array())
    * @access public
    * @return string | array '' or XML or array(box_id => content)
    */
@@ -863,10 +858,10 @@ class base_boxeslinks extends base_db {
   /**
    * Just implement the interface, this will be redefinined in the plublic boxes list
    *
-   * @param Definition $definition
-   * @return Definition
+   * @param Cache\Identifier\Definition $definition
+   * @return Cache\Identifier\Definition
    */
-  public function cacheable(Definition $definition = NULL) {
-    return new Boolean(FALSE);
+  public function cacheable(Cache\Identifier\Definition $definition = NULL) {
+    return new Cache\Identifier\Definition\BooleanValue(FALSE);
   }
 }

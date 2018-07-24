@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Permissions;
+use Papaya\Administration;
 
 /**
 * Object to display an alias tree (n-dimensional)
@@ -113,7 +113,7 @@ class papaya_alias_tree extends base_db {
   private $modules = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout = NULL;
 
@@ -133,7 +133,7 @@ class papaya_alias_tree extends base_db {
   */
   function execute() {
     $user = $this->papaya()->administrationUser;
-    if ($user->hasPerm(Permissions::ALIAS_MANAGE)) {
+    if ($user->hasPerm(Administration\Permissions::ALIAS_MANAGE)) {
       if (isset($this->params['cmd'])) {
         switch ($this->params['cmd']) {
         case 'alias_delete':

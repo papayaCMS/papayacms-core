@@ -135,7 +135,7 @@ class PapayaPhrases extends \PapayaObject {
     if (NULL === $this->_defaultGroup) {
       $fileNamePattern = '#^(([^\?]*)/)?([^?]+)(\.\d+)(\.(php|html))(\?.*)?#i';
       $pathNamePattern = '#^(([^\?]*)/)?([^?]+)(\?.*)?#';
-      /** @var PapayaUrl $url */
+      /** @var \Papaya\Url $url */
       $url = $this->papaya()->request->getUrl();
       $requestUri = $url->getPath();
       $result = '';

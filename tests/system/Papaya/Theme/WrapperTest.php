@@ -14,6 +14,7 @@
  */
 
 use Papaya\Cache\Service;
+use Papaya\Url;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -407,7 +408,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   public function testGetResponse() {
     $wrapper = new PapayaThemeWrapper(
       new PapayaThemeWrapperUrl(
-        new PapayaUrl('http://www.sample.tld/theme/css?files=wrapperTest')
+        new Url('http://www.sample.tld/theme/css?files=wrapperTest')
       )
     );
     $wrapper->papaya($this->getResponseApplicationFixture(array(), FALSE));
@@ -439,7 +440,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   public function testGetResponseCompressed() {
     $wrapper = new PapayaThemeWrapper(
       new PapayaThemeWrapperUrl(
-        new PapayaUrl('http://www.sample.tld/theme/css?files=wrapperTest')
+        new Url('http://www.sample.tld/theme/css?files=wrapperTest')
       )
     );
     $wrapper->papaya($this->getResponseApplicationFixture(array(), TRUE));
@@ -495,7 +496,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
       );
     $wrapper = new PapayaThemeWrapper(
       new PapayaThemeWrapperUrl(
-        new PapayaUrl('http://www.sample.tld/test/css?files=wrapperTest')
+        new Url('http://www.sample.tld/test/css?files=wrapperTest')
       )
     );
     $wrapper->papaya(
@@ -545,7 +546,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
       ->will($this->returnValue('CACHED CSS'));
     $wrapper = new PapayaThemeWrapper(
       new PapayaThemeWrapperUrl(
-        new PapayaUrl('http://www.sample.tld/test/css?files=wrapperTest')
+        new Url('http://www.sample.tld/test/css?files=wrapperTest')
       )
     );
     $wrapper->papaya(
@@ -585,7 +586,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
       ->will($this->returnValue(time() - 900));
     $wrapper = new PapayaThemeWrapper(
       new PapayaThemeWrapperUrl(
-        new PapayaUrl('http://www.sample.tld/test/css?files=wrapperTest')
+        new Url('http://www.sample.tld/test/css?files=wrapperTest')
       )
     );
     $wrapper->papaya(

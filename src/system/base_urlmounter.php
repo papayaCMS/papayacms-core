@@ -205,7 +205,7 @@ class base_urlmounter extends base_db {
   * @return string|FALSE
   */
   function getAliasURL($targetUrl) {
-    $target = new PapayaUrl($targetUrl);
+    $target = new \Papaya\Url($targetUrl);
     $application = $this->papaya();
     $request = $application->getObject('Request');
     $transformer = new PapayaUrlTransformerRelative();

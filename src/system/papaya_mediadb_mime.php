@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Permissions;
+use Papaya\Administration;
 
 /**
 * Papaya media db administration class - provides the backend
@@ -39,7 +39,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
   public $dialog = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 
@@ -87,7 +87,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
     $this->menubar->images = $this->papaya()->images;
 
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(Permissions::SYSTEM_MIMETYPES_MANAGE)) {
+    if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_MANAGE)) {
       $this->executeMimeTypesHandling();
       $this->initializeMimeTypesLayout();
     } else {
@@ -190,7 +190,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
     if (isset($this->params['cmd'])) {
       switch($this->params['cmd']) {
       case 'add_group':
-        if ($administrationUser->hasPerm(Permissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           $this->initializeMimeGroupEditDialog($this->params['cmd']);
           if (isset($this->params['confirm']) && $this->params['confirm']) {
             if ($this->dialog->checkDialogInput()) {
@@ -201,7 +201,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         break;
       case 'edit_group':
         $this->initializeMimeGroupEditDialog($this->params['cmd']);
-        if ($administrationUser->hasPerm(Permissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           if (isset($this->params['confirm']) && $this->params['confirm']) {
             if ($this->dialog->checkDialogInput()) {
               $this->setMimeGroup();
@@ -215,7 +215,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         }
         break;
       case 'del_group':
-        if ($administrationUser->hasPerm(Permissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           if (isset($this->params['confirm']) && $this->params['confirm']) {
             $this->delMimeGroup();
           } else {
@@ -224,7 +224,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         }
         break;
       case 'add_type':
-        if ($administrationUser->hasPerm(Permissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           $this->initializeMimeTypeEditDialog($this->params['cmd']);
           if (isset($this->params['confirm']) && $this->params['confirm']) {
             if ($this->dialog->checkDialogInput()) {
@@ -236,7 +236,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         break;
       case 'edit_type':
         $this->initializeMimeTypeEditDialog($this->params['cmd']);
-        if ($administrationUser->hasPerm(Permissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           if (isset($this->params['confirm']) && $this->params['confirm']) {
             if ($this->dialog->checkDialogInput()) {
               $this->setMimeType();
@@ -250,7 +250,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         }
         break;
       case 'del_type':
-        if ($administrationUser->hasPerm(Permissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           if (isset($this->params['confirm']) && $this->params['confirm']) {
             $this->delMimeType();
           } else {
@@ -259,7 +259,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         }
         break;
       case 'add_ext':
-        if ($administrationUser->hasPerm(Permissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           $this->initializeMimeTypeExtensionDialog($this->params['cmd']);
           if (isset($this->params['confirm']) && $this->params['confirm']
               && $this->params['extension'] != ''
@@ -274,7 +274,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
         }
         break;
       case 'del_ext':
-        if ($administrationUser->hasPerm(Permissions::SYSTEM_MIMETYPES_EDIT)) {
+        if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
           if (isset($this->params['mimetype_id']) && $this->params['mimetype_id'] > 0 &&
               isset($this->params['extension']) && $this->params['extension'] != '' &&
               isset($this->params['confirm']) && $this->params['confirm']) {
@@ -311,7 +311,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
   function loadMimeTypeMenubar() {
     $this->menubar->addSeperator();
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(Permissions::SYSTEM_MIMETYPES_EDIT)) {
+    if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_MIMETYPES_EDIT)) {
       $this->menubar->addButton(
         'Add Mimegroup',
         $this->getLink(array('cmd' => 'add_group')),
@@ -484,7 +484,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
             $extension
           );
           $allowEdit = $administrationUser->hasPerm(
-            Permissions::SYSTEM_MIMETYPES_EDIT
+            Administration\Permissions::SYSTEM_MIMETYPES_EDIT
           );
           if ($allowEdit) {
             $result .= sprintf(

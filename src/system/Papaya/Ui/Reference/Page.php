@@ -40,10 +40,10 @@ class PapayaUiReferencePage extends \PapayaUiReference {
   /**
   * Static create function to allow fluent calls.
   *
-  * @param \PapayaUrl $url
+  * @param \Papaya\Url $url
   * @return \PapayaUiReferencePage
   */
-  public static function create(\PapayaUrl $url = NULL) {
+  public static function create(Papaya\Url $url = NULL) {
     return new self($url);
   }
 

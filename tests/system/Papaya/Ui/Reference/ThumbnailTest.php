@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Url;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiReferenceThumbnailTest extends PapayaTestCase {
@@ -357,7 +359,7 @@ class PapayaUiReferenceThumbnailTest extends PapayaTestCase {
   **********************************/
 
   private function getUrlObjectMockFixture() {
-    $url = $this->createMock(PapayaUrl::class);
+    $url = $this->createMock(Url::class);
     $url
       ->expects($this->any())
       ->method('getHostUrl')

@@ -24,11 +24,11 @@ class PapayaUrlTransformerAbsolute {
   /**
   * Calculates an absolute url from a url and a (possibly relative) path
   *
-  * @param \PapayaUrl $currentUrl current url
+  * @param \Papaya\Url $currentUrl current url
   * @param string $target url to transform
   * @return string
   */
-  public function transform(\PapayaUrl $currentUrl, $target) {
+  public function transform(Papaya\Url $currentUrl, $target) {
     $result = NULL;
     if (($url = parse_url($target)) && isset($url['host'])) {
       return $target;

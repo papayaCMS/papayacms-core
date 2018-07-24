@@ -14,14 +14,6 @@
  */
 
 use Papaya\Cache;
-use Papaya\Cache\Identifier\Definition\Boolean;
-use Papaya\Cache\Identifier\Definition\Callback;
-use Papaya\Cache\Identifier\Definition\Group;
-use Papaya\Cache\Identifier\Definition\Page;
-use Papaya\Cache\Identifier\Definition\Surfer;
-use Papaya\Cache\Identifier\Definition\Url;
-use Papaya\Cache\Identifier\Definition\Values;
-use Papaya\Cache\Identifier\Definition;
 
 /**
 * Show published pages
@@ -51,7 +43,7 @@ class papaya_publictopic extends base_topic {
   *
   * @param integer $topicId
   * @access public
-  * @return boolean
+  * @return bool
   */
   function checkPublishPeriod($topicId) {
     if (isset($this->topic) && $this->topicId == $topicId &&
@@ -92,7 +84,7 @@ class papaya_publictopic extends base_topic {
   * @param integer $lngIdent
   * @param integer $versionTime optional, default value 0
   * @access public
-  * @return boolean
+  * @return bool
   */
   function loadOutput($topicId, $lngIdent, $versionTime = 0) {
     if (is_integer($lngIdent) && $lngIdent > 0) {
@@ -183,7 +175,7 @@ class papaya_publictopic extends base_topic {
   * (The semantics of that function for boxes and pages are the same.)
   *
   * @param base_content object $moduleObj
-  * @param boolean $pageContent page output or short text
+  * @param bool $pageContent page output or short text
   * @access public
   * @return string
   */
@@ -202,7 +194,7 @@ class papaya_publictopic extends base_topic {
    * get the cache identifer definition object for a page
    *
    * @param object $pagePlugin
-   * @return Definition
+   * @return Cache\Identifier\Definition
    */
   function getCacheDefinition($pagePlugin) {
     if (isset($GLOBALS['PAPAYA_PAGE']) &&
@@ -215,24 +207,24 @@ class papaya_publictopic extends base_topic {
     if ($pagePlugin instanceof PapayaPluginCacheable) {
       $definition = $pagePlugin->cacheable();
     } elseif (!property_exists($pagePlugin, 'cacheable') || $pagePlugin->cacheable === FALSE) {
-      return new Boolean(FALSE);
+      return new Cache\Identifier\Definition\BooleanValue(FALSE);
     } elseif (method_exists($pagePlugin, 'getCacheId')) {
-      $definition = new Callback(array($pagePlugin, 'getCacheId'));
+      $definition = new Cache\Identifier\Definition\Callback(array($pagePlugin, 'getCacheId'));
     } else {
-      $definition = new Group(
-        new Url(),
-        new Values($pageOptions)
+      $definition = new Cache\Identifier\Definition\Group(
+        new Cache\Identifier\Definition\Url(),
+        new Cache\Identifier\Definition\Values($pageOptions)
       );
     }
     if ($definition) {
-      return new Group(
-        new Boolean(PapayaUtilRequestMethod::isGet()),
-        new Page(),
-        new Surfer(),
+      return new Cache\Identifier\Definition\Group(
+        new Cache\Identifier\Definition\BooleanValue(PapayaUtilRequestMethod::isGet()),
+        new Cache\Identifier\Definition\Page(),
+        new Cache\Identifier\Definition\Surfer(),
         $definition
       );
     } else {
-      return new Boolean(FALSE);
+      return new Cache\Identifier\Definition\BooleanValue(FALSE);
     }
   }
 

@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Permissions;
+use Papaya\Administration;
 
 /**
 * Manage action boxes
@@ -42,7 +42,7 @@ class papaya_boxes extends base_boxes {
   var $boxesGroupList = array();
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout = NULL;
 
@@ -381,7 +381,7 @@ class papaya_boxes extends base_boxes {
             break;
           case 2:
             $administrationUser = $this->papaya()->administrationUser;
-            if ($administrationUser->hasPerm(Permissions::PAGE_PUBLISH)) {
+            if ($administrationUser->hasPerm(Administration\Permissions::PAGE_PUBLISH)) {
               $this->loadTranslationsInfo();
               $this->layout->add($this->publishExecute());
 
@@ -482,7 +482,7 @@ class papaya_boxes extends base_boxes {
     $menubar = new base_btnbuilder;
     $menubar->images = $this->papaya()->images;
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(Permissions::BOX_MANAGE)) {
+    if ($administrationUser->hasPerm(Administration\Permissions::BOX_MANAGE)) {
       $menubar->addButton(
         'Add group',
         $this->getLink(array('cmd' => 'group_add', 'gid' => '0', 'bid' => '0')),

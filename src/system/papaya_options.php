@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Theme\Browser;
+use Papaya\Administration;
 
 /**
 * papaya_options variable
@@ -61,7 +61,7 @@ class papaya_options extends base_options {
   var $searchDialog = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout = NULL;
 
@@ -76,7 +76,7 @@ class papaya_options extends base_options {
   private $optionDialog;
 
   /**
-   * @var Browser
+   * @var Administration\Theme\Browser
    */
   private $_themeBrowser;
 
@@ -300,11 +300,11 @@ class papaya_options extends base_options {
     }
   }
 
-  public function themeBrowser(Browser $themeBrowser = NULL) {
+  public function themeBrowser(Administration\Theme\Browser $themeBrowser = NULL) {
     if (isset($themeBrowser)) {
       $this->_themeBrowser = $themeBrowser;
     } elseif (NULL === $this->_themeBrowser) {
-      $this->_themeBrowser = $browser = new Browser();
+      $this->_themeBrowser = $browser = new Administration\Theme\Browser();
       $browser->papaya($this->papaya());
     }
     return $this->_themeBrowser;

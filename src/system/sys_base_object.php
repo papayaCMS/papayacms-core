@@ -13,8 +13,6 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Cms;
-
 /**
 * log type for user messages (login/logout)
 */
@@ -510,7 +508,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
       if (is_object($url)) {
         $request->load($url);
       } else {
-        $request->load(new PapayaUrl($url));
+        $request->load(new Papaya\Url($url));
       }
     }
     $fileTitle = 'index';
@@ -651,7 +649,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
     $absolute = $reference->get();
     $relative = $transformer->transform(
       $request->getUrl(),
-      new PapayaUrl($absolute)
+      new Papaya\Url($absolute)
     );
     return is_null($relative) ? $absolute : $relative;
   }
@@ -838,7 +836,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
     $relative = $transformer
       ->transform(
         $request->getUrl(),
-        new PapayaUrl($absolute)
+        new Papaya\Url($absolute)
       );
     return is_null($relative) ? $absolute : $relative;
   }
@@ -1047,7 +1045,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
       $dom = new DOMDocument('1.0', 'UTF-8');
       $fragment = $dom->createDocumentFragment();
       if (!$fragment->appendXml($iStr)) {
-        /** @var Cms $application */
+        /** @var Papaya\Application\Cms $application */
         $application = PapayaApplication::getInstance();
         $showErrors = $application->options->get(
           'PAPAYA_DBG_XML_USERINPUT', FALSE

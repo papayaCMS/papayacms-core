@@ -35,7 +35,8 @@ class PapayaUiReference extends \PapayaObject {
 
   /**
   * Internal url object
-  * @var PapayaUrl
+  *
+  * @var \Papaya\Url
   */
   private $_url = NULL;
 
@@ -54,9 +55,9 @@ class PapayaUiReference extends \PapayaObject {
   /**
   * create object and load url if provided.
   *
-  * @param \PapayaUrl $url
+  * @param \Papaya\Url $url
   */
-  public function __construct(\PapayaUrl $url = NULL) {
+  public function __construct(Papaya\Url $url = NULL) {
     if (isset($url)) {
       $this->url($url);
     }
@@ -79,10 +80,10 @@ class PapayaUiReference extends \PapayaObject {
   /**
   * Static create function to allow fluent calls.
   *
-  * @param \PapayaUrl $url
+  * @param \Papaya\Url $url
   * @return \PapayaUiReference
   */
-  public static function create(\PapayaUrl $url = NULL) {
+  public static function create(Papaya\Url $url = NULL) {
     return new self($url);
   }
 
@@ -109,7 +110,7 @@ class PapayaUiReference extends \PapayaObject {
   /**
    * Get the reference string relative to the current request url
    *
-   * @param \PapayaUrl|NULL $currentUrl
+   * @param \Papaya\Url|NULL $currentUrl
    * @param bool $includeQueryString
    * @return string
    */
@@ -168,10 +169,11 @@ class PapayaUiReference extends \PapayaObject {
 
   /**
    * Set/Get attached url object or use the request to load one.
-   * @param \PapayaUrl $url
-   * @return \PapayaUrl
+   *
+   * @param \Papaya\Url $url
+   * @return \Papaya\Url
    */
-  public function url(\PapayaUrl $url = NULL) {
+  public function url(Papaya\Url $url = NULL) {
     if (isset($url)) {
       $this->_url = $url;
     }
@@ -187,7 +189,7 @@ class PapayaUiReference extends \PapayaObject {
   */
   public function load(\PapayaRequest $request) {
     $url = $request->getUrl();
-    $this->_url = clone (($url instanceof \PapayaUrl) ? $url : new \PapayaUrl);
+    $this->_url = clone (($url instanceof Papaya\Url) ? $url : new Papaya\Url);
     if (is_null($this->_parameterGroupSeparator)) {
       $this->setParameterGroupSeparator($request->getParameterGroupSeparator());
     }

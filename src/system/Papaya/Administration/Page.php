@@ -15,10 +15,6 @@
 
 namespace Papaya\Administration;
 
-use Papaya\Administration\Page\Parts;
-use PapayaTemplate;
-use PapayaUiToolbar;
-
 /**
  * Abstract superclass for an administration page.
  *
@@ -39,16 +35,16 @@ abstract class Page extends \PapayaObject {
   private $_moduleId;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   private $_layout = NULL;
   /**
-   * @var Parts
+   * @var Page\Parts
    */
   private $_parts = NULL;
 
   /**
-   * @var PapayaUiToolbar
+   * @var \PapayaUiToolbar
    */
   private $_toolbar = NULL;
 
@@ -60,7 +56,7 @@ abstract class Page extends \PapayaObject {
   /**
    * Create page object and store layout object for later use
    *
-   * @param \PapayaTemplate $layout
+   * @param \Papaya\Template $layout
    * @param null|string $moduleId
    */
   public function __construct($layout, $moduleId = NULL) {

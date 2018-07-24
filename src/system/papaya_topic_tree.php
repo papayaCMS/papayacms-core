@@ -13,9 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Pages\Dependency\Synchronizations;
-use Papaya\Administration\Permissions;
-use Papaya\Content\Page\Dependency;
+use Papaya\Administration;
 
 /**
 * object to show sitemap in edit area (n-dimensional)
@@ -79,7 +77,7 @@ class papaya_topic_tree extends base_topic_tree {
   var $copyTopicsTree = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 
@@ -103,7 +101,7 @@ class papaya_topic_tree extends base_topic_tree {
   /**
   * Helper object, that synchronizes page data to dependent pages.
   *
-  * @var Synchronizations
+  * @var Administration\Pages\Dependency\Synchronizations
   */
   private $_synchronizations = NULL;
 
@@ -136,7 +134,7 @@ class papaya_topic_tree extends base_topic_tree {
               if ($topic->publishTopic()) {
                 $this->addMsg(MSG_INFO, $this->_gt('Page published.'));
                 $this->sychronizations()->synchronizeAction(
-                  Dependency::SYNC_PUBLICATION,
+                  Papaya\Content\Page\Dependency::SYNC_PUBLICATION,
                   $this->topicId,
                   array($languageId)
                 );
@@ -165,7 +163,7 @@ class papaya_topic_tree extends base_topic_tree {
                $this->topicEditable($pageId) &&
                ($this->topicEditable($targetId) || $targetId == 0)  &&
                $this->papaya()->administrationUser->hasPerm(
-                 Permissions::PAGE_MOVE
+                 Administration\Permissions::PAGE_MOVE
                )
               ) {
             $this->movePage($topic, $targetId, $errorString);
@@ -192,12 +190,12 @@ class papaya_topic_tree extends base_topic_tree {
           if (
                ($this->topicEditable($targetId) || $targetId == 0) &&
                $this->papaya()->administrationUser->hasPerm(
-                 Permissions::PAGE_COPY
+                 Administration\Permissions::PAGE_COPY
                )
              ) {
             if (
               !$this->papaya()->administrationUser->hasPerm(
-                Permissions::PAGE_DEPENDENCY_MANAGE
+                Administration\Permissions::PAGE_DEPENDENCY_MANAGE
               ) ||
               $this->dialogCopyPageConfirmation()->execute()
             ) {
@@ -532,7 +530,7 @@ class papaya_topic_tree extends base_topic_tree {
     $synchronization = 0;
     if (
          $this->papaya()->administrationUser->hasPerm(
-           Permissions::PAGE_DEPENDENCY_MANAGE
+           Administration\Permissions::PAGE_DEPENDENCY_MANAGE
          )
        ) {
       $createMissing = $this->dialogCopyPageConfirmation()->data->get(
@@ -543,16 +541,16 @@ class papaya_topic_tree extends base_topic_tree {
       );
     }
     // load the current dependency if available
-    $old = new Dependency();
+    $old = new Papaya\Content\Page\Dependency();
     if ($old->load($oldId)) {
       // if available change clone id and save
-      $new = new Dependency();
+      $new = new Papaya\Content\Page\Dependency();
       $new->assign($old->toArray());
       $new->id = $newId;
       return $new->save();
     } elseif ($createMissing) {
       // if not available and create allowed define new dependency and save
-      $new = new Dependency();
+      $new = new Papaya\Content\Page\Dependency();
       $new->id = $newId;
       $new->originId = $oldId;
       $new->synchronization = $synchronization;
@@ -977,7 +975,7 @@ class papaya_topic_tree extends base_topic_tree {
           );
           if ($showPublish &&
               $this->papaya()->administrationUser->hasPerm(
-                Permissions::PAGE_PUBLISH
+                Administration\Permissions::PAGE_PUBLISH
               ) &&
               $this->topicEditable($val['topic_id'])) {
             $publishLink = $this->getLink(array('cmd' => 'publish', 'page_id' => (int)$id));
@@ -1062,16 +1060,16 @@ class papaya_topic_tree extends base_topic_tree {
   /**
   * Getter/Setter for the synchronizations object
   *
-  * @param Synchronizations $synchronizations
-  * @return Synchronizations
+  * @param Administration\Pages\Dependency\Synchronizations $synchronizations
+  * @return Administration\Pages\Dependency\Synchronizations
   */
   public function sychronizations(
-    Synchronizations $synchronizations = NULL
+    Administration\Pages\Dependency\Synchronizations $synchronizations = NULL
   ) {
     if (isset($synchronizations)) {
       $this->_synchronizations = $synchronizations;
     } elseif (is_null($this->_synchronizations)) {
-      $this->_synchronizations = new Synchronizations();
+      $this->_synchronizations = new Administration\Pages\Dependency\Synchronizations();
     }
     return $this->_synchronizations;
   }

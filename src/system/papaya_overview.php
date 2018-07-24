@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Permissions;
+use Papaya\Administration;
 
 /**
 * Create topic list
@@ -81,7 +81,7 @@ class papaya_overview extends base_db {
   var $topics = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout = NULL;
 
@@ -164,7 +164,7 @@ class papaya_overview extends base_db {
       break;
     case 'refreshpages':
       $administrationUser = $this->papaya()->administrationUser;
-      if ($administrationUser->hasPerm(Permissions::SYSTEM_CACHE_CLEAR)) {
+      if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_CACHE_CLEAR)) {
         $this->refreshPages();
       }
       break;
@@ -215,7 +215,7 @@ class papaya_overview extends base_db {
     $this->loadUsers();
     $this->loadTodoList($administrationUser->options['PAPAYA_OVERVIEW_ITEMS_TASKS']);
     $this->layout->addLeft($this->getTodoList('100%'));
-    if ($administrationUser->hasPerm(Permissions::MESSAGES)) {
+    if ($administrationUser->hasPerm(Administration\Permissions::MESSAGES)) {
       $this->loadMessageList(
         TRUE,
         $administrationUser->options['PAPAYA_OVERVIEW_ITEMS_MESSAGES']
@@ -235,7 +235,7 @@ class papaya_overview extends base_db {
     $menubar = new base_btnbuilder;
     $menubar->images = $this->papaya()->images;
     $administrationUser = $this->papaya()->administrationUser;
-    if ($administrationUser->hasPerm(Permissions::SYSTEM_CACHE_CLEAR)) {
+    if ($administrationUser->hasPerm(Administration\Permissions::SYSTEM_CACHE_CLEAR)) {
       $menubar->addButton(
         'Empty cache',
         $this->getLink(array('cmd' => 'refreshpages')),

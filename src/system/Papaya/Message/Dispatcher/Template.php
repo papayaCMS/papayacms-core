@@ -44,7 +44,7 @@ class PapayaMessageDispatcherTemplate
   public function dispatch(\PapayaMessage $message) {
     if ($message instanceof \PapayaMessageDisplayable) {
       if (isset($GLOBALS['PAPAYA_LAYOUT'])) {
-        /** @var PapayaTemplate $layout */
+        /** @var \Papaya\Template $layout */
         $layout = $GLOBALS['PAPAYA_LAYOUT'];
         $layout->values()->append(
           '/page/messages',

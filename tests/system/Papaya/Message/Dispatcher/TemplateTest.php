@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Template;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaMessageDispatcherTemplateTest extends PapayaTestCase {
@@ -44,7 +46,7 @@ class PapayaMessageDispatcherTemplateTest extends PapayaTestCase {
         ),
         $this->equalTo('Sample message')
       );
-    $GLOBALS['PAPAYA_LAYOUT'] = $this->createMock(PapayaTemplate::class);
+    $GLOBALS['PAPAYA_LAYOUT'] = $this->createMock(Template::class);
     $GLOBALS['PAPAYA_LAYOUT']
       ->expects($this->once())
       ->method('values')

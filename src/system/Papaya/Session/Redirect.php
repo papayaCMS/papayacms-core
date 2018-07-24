@@ -45,7 +45,8 @@ class PapayaSessionRedirect extends \PapayaResponse {
 
   /**
   * url handling object
-  * @var PapayaUrl
+  *
+  * @var \Papaya\Url
   */
   private $_url = NULL;
 
@@ -67,10 +68,10 @@ class PapayaSessionRedirect extends \PapayaResponse {
   /**
   * Getter/Setter for the redirect target url object
   *
-  * @param \PapayaUrl $url
-  * @return \PapayaUrl
+  * @param \Papaya\Url $url
+  * @return \Papaya\Url
   */
-  public function url(\PapayaUrl $url = NULL) {
+  public function url(\Papaya\Url $url = NULL) {
     if (isset($url)) {
       $this->_url = $url;
     }

@@ -1,70 +1,19 @@
 <?php
 /**
-* Atom feed class
-*
-* represents an atom feed document, can be used to create or manipulate an Atom feed.
-*
-* Create a new feed
-* <code>
-* $feed = new papaya_atom_feed();
-* //generate an unique feed id - this id should never change
-* $feed->id->generate();
-* //set title of the feed
-* $feed->title->setValue('Atom Feed Sample');
-* //add a entry
-* $entry = $feed->entries->add();
-* //generate an unique entry id - this id should never change,
-* //so use this function only the first time
-* $entry->id->generate();
-* $entry->title->setValue('Atom Feed Entry');
-* //default type is text - change it to html if needed
-* $entry->content->setType('html');
-* //set html content
-* $entry->content->setValue('<b>Sample/b>: of a feed entry content');
-* //output feed mimetype
-* header('Content-type: application/atom-xml');
-* //output feed
-* echo $feed->saveXML();
-* </code>
-*
-* Load a feed
-* <code>
-* $feed = new papaya_atom_feed();
-* //load the feed from a DOMDocument (PHP 5) or expat_dom_document (papaya CMS/PHP 4)
-* $feed->load($xmlTree);
-* //delete entry number 3 (index 2)
-* $feed->entries->delete(2);
-* //output title of all entries
-* for ($i = 0; $i < $feed->entries->count(); $i++) {
-*   $entry = $feed->entries->item($i);
-*   switch ($entry->title->getType()) {
-*   case 'text' :
-*     echo '<h2>'.htmlspecialchars($entry->title->getValue()).'</h2>';
-*     break;
-*   case 'html' :
-*     // we need to add some cleanup function for external html
-*     echo '<h2>'.$entry->title->getValue().'</h2>';
-*     break;
-*   }
-* }
-* </code>
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya-Library
-* @subpackage XML-Feed
-* @version $Id: papaya_atom_feed.php 39721 2014-04-07 13:13:23Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
-$path = dirname(__FILE__).'/';
+$path = __DIR__.'/';
 /**
 * an atom feed element - a single value, it's type, ... - abstract class
 */
@@ -230,7 +179,7 @@ class papaya_atom_feed {
   private $_urlTransformer = NULL;
 
   /**
-   * @var PapayaUrl
+   * @var \Papaya\Url
    */
   private $_baseUrl;
 
@@ -288,7 +237,7 @@ class papaya_atom_feed {
   * load the feed from a DomDocument (or papaya expat document)
   *
   * @param DOMDocument $dom
-  * @param NULL|string|PapayaUrl $baseUrl
+  * @param NULL|string|\Papaya\Url $baseUrl
   * @access public
   * @return boolean
   */
@@ -380,10 +329,10 @@ class papaya_atom_feed {
   /**
   * Set the base url (of the feed) - not used in the xml directly but to make links absolute
   *
-  * @param string|PapayaUrl $url
+  * @param string|\Papaya\Url $url
   */
   public function setBaseUrl($url) {
-    $this->_baseUrl = ($url instanceof PapayaUrl) ? $url : new PapayaUrl($url);
+    $this->_baseUrl = ($url instanceof \Papaya\Url) ? $url : new \Papaya\Url($url);
   }
 
   /**

@@ -22,7 +22,7 @@ abstract class PapayaRequestParser extends \PapayaObject {
 
   /**
   * parse request
-  * @param \PapayaUrl $url
+  * @param \Papaya\Url $url
   * @return FALSE|array
   */
   abstract public function parse($url);

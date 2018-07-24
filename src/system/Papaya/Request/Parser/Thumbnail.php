@@ -41,7 +41,7 @@ class PapayaRequestParserThumbnail extends \PapayaRequestParser {
 
   /**
    * Parse url and return data
-   * @param \PapayaUrl $url
+   * @param \Papaya\Url $url
    * @return FALSE|array
    */
   public function parse($url) {

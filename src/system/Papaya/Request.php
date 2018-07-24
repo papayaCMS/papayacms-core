@@ -21,7 +21,7 @@
 *
 * @property PapayaContentLanguage $language
 * @property PapayaContentViewMode $mode
-* @property-read PapayaUrl $url
+* @property-read \Papaya\Url $url
 * @property-read string $method
 * @property-read boolean $allowCompression
 * @property-read integer $pageId
@@ -89,12 +89,14 @@ class PapayaRequest
   private $_parsers = array();
   /**
   * Request url object
-  * @var PapayaUrl
+  *
+  * @var Papaya\Url
   */
   private $_url = NULL;
   /**
   * Request url object
-  * @var PapayaUrl
+  *
+   * @var \Papaya\Url
   */
   private $_language = NULL;
 
@@ -222,7 +224,8 @@ class PapayaRequest
 
   /**
   * get the attached url object
-  * @return \PapayaUrl|NULL
+  *
+  * @return \Papaya\Url|NULL
   */
   public function getUrl() {
     if (NULL === $this->_url) {
@@ -365,10 +368,11 @@ class PapayaRequest
 
   /**
   * Load and parse request
-  * @param \PapayaUrl $url
+  *
+  * @param \Papaya\Url $url
   * @return boolean
   */
-  public function load(\PapayaUrl $url) {
+  public function load(Papaya\Url $url) {
     $this->_url = $url;
     $this->_initParsers();
     $this->_pathData = array();

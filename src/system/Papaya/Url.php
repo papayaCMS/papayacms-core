@@ -13,37 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
 /**
-* Papaya URL representation
-*
-* @package Papaya-Library
-* @subpackage URL
-*
-* @property string $scheme
-* @property string $user
-* @property string $pass
-* @property string $password
-* @property string $host
-* @property string $port
-* @property string $path
-* @property string $query
-* @property string $fragment
-* @method string getScheme()
-* @method string getUser()
-* @method string getPass()
-* @method string getPassword()
-* @method string getHost()
-* @method string getPort()
-* @method string getPath()
-* @method string getQuery()
-* @method string getFragment()
-*/
-class PapayaUrl {
+ * Papaya URL representation
+ *
+ * @package Papaya-Library
+ * @subpackage URL
+ *
+ * @property string $scheme
+ * @property string $user
+ * @property string $pass
+ * @property string $password
+ * @property string $host
+ * @property string $port
+ * @property string $path
+ * @property string $query
+ * @property string $fragment
+ * @method string getScheme()
+ * @method string getUser()
+ * @method string getPass()
+ * @method string getPassword()
+ * @method string getHost()
+ * @method string getPort()
+ * @method string getPath()
+ * @method string getQuery()
+ * @method string getFragment()
+ */
+class Url {
 
   /**
-  * Parsed url elements
-  * @var array|NULL
-  */
+   * Parsed url elements
+   *
+   * @var array|NULL
+   */
   protected $_elements = NULL;
 
   private $_parts = array(
@@ -51,11 +53,11 @@ class PapayaUrl {
   );
 
   /**
-  * Constructor
-  *
-  * @param string $url
-  * @return \PapayaUrl
-  */
+   * Constructor
+   *
+   * @param string $url
+   * @return \PapayaUrl
+   */
   public function __construct($url = '') {
     if (!empty($url)) {
       $this->setUrl($url);
@@ -64,6 +66,7 @@ class PapayaUrl {
 
   /**
    * Get request url as string
+   *
    * @return string
    */
   public function __toString() {
@@ -76,9 +79,10 @@ class PapayaUrl {
   }
 
   /**
-  * Get request url
-  * @return string
-  */
+   * Get request url
+   *
+   * @return string
+   */
   public function getUrl() {
     $result = $this->getPathUrl();
     if (!is_null($query = $this->getQuery())) {
@@ -91,22 +95,24 @@ class PapayaUrl {
   }
 
   /**
-  * Get request url without query and fragment
-  * @return string
-  */
+   * Get request url without query and fragment
+   *
+   * @return string
+   */
   public function getPathUrl() {
     return $this->getHostUrl().$this->getPath();
   }
 
   /**
-  * Get request url without path, query and fragment
-  * @return string
-  */
+   * Get request url without path, query and fragment
+   *
+   * @return string
+   */
   public function getHostUrl() {
     $scheme = $this->getScheme();
     $host = $this->getHost();
     if (!empty($scheme) &&
-        !empty($host)) {
+      !empty($host)) {
       $result = $scheme.'://';
       $user = $this->getUser();
       $password = $this->getPassword();
@@ -124,10 +130,11 @@ class PapayaUrl {
   }
 
   /**
-  * Set request url attribute
-  * @param string $url
-  * @return void
-  */
+   * Set request url attribute
+   *
+   * @param string $url
+   * @return void
+   */
   public function setUrl($url) {
     if (!empty($url)) {
       $this->_elements = @parse_url($url);
@@ -200,11 +207,11 @@ class PapayaUrl {
   }
 
   /**
-  * set scheme if it is valid, throw an exception if not.
-  *
-  * @throws \InvalidArgumentException
-  * @param string $scheme
-  */
+   * set scheme if it is valid, throw an exception if not.
+   *
+   * @throws \InvalidArgumentException
+   * @param string $scheme
+   */
   public function setScheme($scheme) {
     if (preg_match('(^[a-z_()-]+$)D', $scheme)) {
       $this->_elements['scheme'] = $scheme;
@@ -216,11 +223,11 @@ class PapayaUrl {
   }
 
   /**
-  * set host if it is valid, throw an exception if not.
-  *
-  * @throws \InvalidArgumentException
-  * @param string $host
-  */
+   * set host if it is valid, throw an exception if not.
+   *
+   * @throws \InvalidArgumentException
+   * @param string $host
+   */
   public function setHost($host) {
     $regex = '((^[0-9a-z-_\.]+\.[a-z]+$)|(^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$))Di';
     if (preg_match($regex, $host)) {
@@ -250,11 +257,11 @@ class PapayaUrl {
   }
 
   /**
-  * set path if it is valid, throw an exception if not.
-  *
-  * @throws \InvalidArgumentException
-  * @param string $path
-  */
+   * set path if it is valid, throw an exception if not.
+   *
+   * @throws \InvalidArgumentException
+   * @param string $path
+   */
   public function setPath($path) {
     if (preg_match('(^/[^?#\r\n]*$)D', $path)) {
       $this->_elements['path'] = $path;

@@ -122,7 +122,7 @@ class papaya_modulemanager extends base_db {
   public $tableStruct = NULL;
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 

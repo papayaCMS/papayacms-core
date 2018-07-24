@@ -25,7 +25,7 @@ use Papaya\Administration;
 class base_topic_edit extends base_topic {
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 

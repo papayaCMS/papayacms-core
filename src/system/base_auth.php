@@ -13,8 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Permissions;
-use Papaya\Administration\Permission\Groups;
+use Papaya\Administration;
 
 /**
 * Administration user authentification
@@ -146,7 +145,8 @@ class base_auth extends base_db {
 
   /**
   * layout
-  * @var PapayaTemplate $layout
+  *
+  * @var \Papaya\Template $layout
   */
   var $layout = NULL;
 
@@ -209,7 +209,7 @@ class base_auth extends base_db {
   protected $modulePermLinks = array();
 
   /**
-   * @var Permissions
+   * @var Administration\Permissions
    */
   private $_permissions = NULL;
 
@@ -580,7 +580,7 @@ class base_auth extends base_db {
           $sql = "SELECT perm_id FROM %s WHERE perm_active = '1' OR permgroup_id = '%d'";
           $params = array(
             $this->tableAuthPermissions,
-            Groups::SYSTEM
+            Administration\Permission\Groups::SYSTEM
           );
           if ($res = $this->databaseQueryFmt($sql, $params)) {
             while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -1576,7 +1576,7 @@ class base_auth extends base_db {
               in_array($permId, $this->userPerms)) {
       return TRUE;
     } elseif ($this->isAdmin() &&
-              $this->permissions()->exists($permId, Groups::SYSTEM)) {
+              $this->permissions()->exists($permId, Administration\Permission\Groups::SYSTEM)) {
       return TRUE;
     }
     return FALSE;
@@ -1675,11 +1675,11 @@ class base_auth extends base_db {
     }
   }
 
-  public function permissions(Permissions $permissions = NULL) {
+  public function permissions(Administration\Permissions $permissions = NULL) {
     if (isset($permissions)) {
       $this->_permissions = $permissions;
     } elseif (NULL === $this->_permissions) {
-      $this->_permissions = new Permissions();
+      $this->_permissions = new Administration\Permissions();
       $this->_permissions->papaya($this->papaya());
       $this->_permissions->activateLazyLoad();
     }

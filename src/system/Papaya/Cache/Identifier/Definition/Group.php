@@ -57,7 +57,7 @@ class Group
    * If no arguments whre stored, return TRUE.
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
-   * @return boolean|array
+   * @return BooleanValue|array
    */
   public function getStatus() {
     $result = array();

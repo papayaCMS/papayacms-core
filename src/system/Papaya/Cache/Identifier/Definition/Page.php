@@ -28,7 +28,7 @@ class Page
    * Return data for the specified page
    *
    * @see \Papaya\Cache\Identifier\Definition::getStatus()
-   * @return boolean|array
+   * @return BooleanValue|array
    */
   public function getStatus() {
     $isPreview = $this->papaya()->request->getParameter(

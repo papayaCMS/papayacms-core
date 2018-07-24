@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Administration;
 use Papaya\Administration\Permissions;
 
 /**
@@ -52,7 +53,7 @@ class papaya_navigation extends base_object {
         'Messages',
         'Messages / ToDo',
         'status-mail-open',
-        Permissions::MESSAGES,
+        Administration\Permissions::MESSAGES,
         'msgbox.php',
         '_self',
         FALSE
@@ -63,7 +64,7 @@ class papaya_navigation extends base_object {
         'Sitemap',
         'All pages in a tree',
         'categories-sitemap',
-        Permissions::PAGE_MANAGE,
+        Administration\Permissions::PAGE_MANAGE,
         'tree.php',
         '_self',
         FALSE,
@@ -73,7 +74,7 @@ class papaya_navigation extends base_object {
         'Search',
         'Search pages',
         'actions-search',
-        Permissions::PAGE_MANAGE,
+        Administration\Permissions::PAGE_MANAGE,
         'search.php',
         '_self',
         FALSE
@@ -82,7 +83,7 @@ class papaya_navigation extends base_object {
         'Edit',
         'Edit pages',
         'items-page',
-        Permissions::PAGE_MANAGE,
+        Administration\Permissions::PAGE_MANAGE,
         'topic.php',
         '_self',
         FALSE,
@@ -94,14 +95,14 @@ class papaya_navigation extends base_object {
         'Boxes',
         'Edit boxes',
         'items-box',
-        Permissions::BOX_MANAGE,
+        Administration\Permissions::BOX_MANAGE,
         'boxes.php'
       ),
       array(
         'Files',
         'Media database',
         'items-folder',
-        Permissions::FILE_MANAGE,
+        Administration\Permissions::FILE_MANAGE,
         'mediadb.php',
         '_self',
         FALSE,
@@ -111,14 +112,14 @@ class papaya_navigation extends base_object {
         'Aliases',
         'Aliases for pages',
         'items-alias',
-        Permissions::ALIAS_MANAGE,
+        Administration\Permissions::ALIAS_MANAGE,
         'alias.php'
       ),
       array(
         'Tags',
         'Manage Tags',
         'items-tag',
-        Permissions::TAG_MANAGE,
+        Administration\Permissions::TAG_MANAGE,
         'tags.php'
       ),
     ),
@@ -129,56 +130,56 @@ class papaya_navigation extends base_object {
         'Users',
         'User management',
         'items-user-group',
-        Permissions::USER_MANAGE,
+        Administration\Permissions::USER_MANAGE,
         'auth.php'
       ),
       array(
         'Views',
         'Configure Views',
         'items-view',
-        Permissions::VIEW_MANAGE,
+        Administration\Permissions::VIEW_MANAGE,
         'views.php'
       ),
       array(
         'Modules',
         'Modules management',
         'items-plugin',
-        Permissions::MODULE_MANAGE,
+        Administration\Permissions::MODULE_MANAGE,
         'modules.php'
       ),
       array(
         'Themes',
         'Configure Dynamic Themes',
         'items-theme',
-        Permissions::SYSTEM_THEMESET_MANAGE,
+        Administration\Permissions::SYSTEM_THEMESET_MANAGE,
         'themes.php'
       ),
       array(
         'Images',
         'Configure Dynamic Images',
         'items-graphic',
-        Permissions::IMAGE_GENERATOR,
+        Administration\Permissions::IMAGE_GENERATOR,
         'imggen.php'
       ),
       array(
         'Settings',
         'System configuration',
         'items-option',
-        Permissions::SYSTEM_SETTINGS,
+        Administration\Permissions::SYSTEM_SETTINGS,
         'options.php'
       ),
       array(
         'Protocol',
         'Event protocol',
         'categories-protocol',
-        Permissions::SYSTEM_PROTOCOL,
+        Administration\Permissions::SYSTEM_PROTOCOL,
         'log.php'
       ),
       array(
         'Translations',
         'Interface Translations',
         'items-translation',
-        Permissions::SYSTEM_TRANSLATE,
+        Administration\Permissions::SYSTEM_TRANSLATE,
         'phrases.php'
       )
     ),
@@ -193,7 +194,7 @@ class papaya_navigation extends base_object {
   );
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 

@@ -13,32 +13,34 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Template;
+
 require_once __DIR__.'/../../bootstrap.php';
 
 class PapayaTemplateTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testValuesGetAfterSet() {
     $values = $this->createMock(PapayaTemplateValues::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $template->values($values);
     $this->assertSame($values, $template->values());
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testValuesGetImplicitCreate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $this->assertInstanceOf(PapayaTemplateValues::class, $template->values());
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testSetXml() {
     $document = $this->createMock(PapayaXmlDocument::class);
@@ -51,14 +53,14 @@ class PapayaTemplateTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('document')
       ->will($this->returnValue($document));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $template->values($values);
     $template->setXml(/** @lang XML */'<page/>');
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testGetXml() {
     $document = $this->createMock(PapayaXmlDocument::class);
@@ -71,38 +73,38 @@ class PapayaTemplateTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('document')
       ->will($this->returnValue($document));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $template->values($values);
     $this->assertEquals(/** @lang XML */'<page/>', $template->getXml());
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testParametersGetAfterSet() {
     $parameters = $this->createMock(PapayaTemplateParameters::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $template->parameters($parameters);
     $this->assertSame($parameters, $template->parameters());
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testParametersGetImplicitCreate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $this->assertInstanceOf(PapayaTemplateParameters::class, $template->parameters());
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testParametersGetImplicitWithArray() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $parameters = $template->parameters(array('foo' => 'bar'));
     $this->assertArrayHasKey('FOO', iterator_to_array($parameters));
     $this->assertEquals('bar', $parameters['FOO']);
@@ -110,32 +112,32 @@ class PapayaTemplateTest extends PapayaTestCase {
 
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testErrorsGetAfterSet() {
     $errors = $this->createMock(PapayaXmlErrors::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $template->errors($errors);
     $this->assertSame($errors, $template->errors());
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testErrorsGetImplicitCreate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $this->assertInstanceOf(PapayaXmlErrors::class, $template->errors());
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testAddWithDomNode() {
     $document = new PapayaXmlDocument();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $template->add($document->createElement('foo'));
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<page><centercol><foo/></centercol></page>',
@@ -144,15 +146,15 @@ class PapayaTemplateTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testAddWithXmlAppendable() {
     $appendable = $this->createMock(PapayaXmlAppendable::class);
     $appendable
       ->expects($this->once())
       ->method('appendTo');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $template->add($appendable);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<page><centercol/></page>',
@@ -161,11 +163,11 @@ class PapayaTemplateTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testAddWithXmlString() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $template->add(/** @lang XML */'<foo/>');
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<page><centercol><foo/></centercol></page>',
@@ -174,11 +176,11 @@ class PapayaTemplateTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testAddWithString() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $template->add('foo');
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<page><centercol>foo</centercol></page>',
@@ -187,11 +189,11 @@ class PapayaTemplateTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testAddWithStringContainingInvalidCharacters() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $template->add(
       /** @lang Text */
       'foo &auml; & <bar/>'
@@ -203,14 +205,14 @@ class PapayaTemplateTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers       Template
    * @dataProvider providesDataForAddWithTarget
    * @param string $expected
    * @param string $method
    */
   public function testAddWithDynamicMethods($expected, $method) {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $template->$method(/** @lang XML */'<foo/>');
     $this->assertXmlStringEqualsXmlString(
       $expected,
@@ -219,33 +221,33 @@ class PapayaTemplateTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testAddWithInvalidContentExpectingException() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $this->expectException(LogicException::class);
     /** @noinspection PhpParamsInspection */
     $template->addContent();
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testAddWithInvalidTargetExpectingException() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $this->expectException(LogicException::class);
     /** @noinspection PhpUndefinedMethodInspection */
     $template->addInvalidTarget(/** @lang XML */'<foo/>');
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testCallInvalidDynamicMethodExpectingException() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $this->expectException(LogicException::class);
     /** @noinspection PhpUndefinedMethodInspection */
     $template->invalidMethod(/** @lang XML */'<foo/>');
@@ -253,11 +255,11 @@ class PapayaTemplateTest extends PapayaTestCase {
 
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testAddData() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $template->addData(/** @lang XML */'<foo/>');
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<page><centercol><foo/></centercol></page>',
@@ -266,11 +268,11 @@ class PapayaTemplateTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testSetParam() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     /** @noinspection PhpDeprecationInspection */
     $template->setParam('foo', 'bar');
     $parameters = $template->parameters();
@@ -279,7 +281,7 @@ class PapayaTemplateTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplate
+   * @covers Template
    */
   public function testXml() {
     $document = $this->createMock(PapayaXmlDocument::class);
@@ -292,8 +294,8 @@ class PapayaTemplateTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('document')
       ->will($this->returnValue($document));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplate $template */
-    $template = $this->getMockForAbstractClass(PapayaTemplate::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
+    $template = $this->getMockForAbstractClass(Template::class);
     $template->values($values);
     /** @noinspection PhpDeprecationInspection */
     $this->assertEquals(/** @lang XML */'<page/>', $template->xml());

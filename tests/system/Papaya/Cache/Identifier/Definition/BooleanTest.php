@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition\Boolean;
+use Papaya\Cache\Identifier\Definition\BooleanValue;
 use Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
@@ -21,42 +21,42 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaCacheIdentifierDefinitionBooleanTest extends PapayaTestCase {
 
   /**
-   * @covers Boolean
+   * @covers BooleanValue
    */
   public function testGetStatusForBooleanReturningTrue() {
-    $definition = new Boolean(TRUE);
+    $definition = new BooleanValue(TRUE);
     $this->assertTrue($definition->getStatus());
   }
 
   /**
-   * @covers Boolean
+   * @covers BooleanValue
    */
   public function testGetStatusForBooleanReturningFalse() {
-    $definition = new Boolean(FALSE);
+    $definition = new BooleanValue(FALSE);
     $this->assertFalse($definition->getStatus());
   }
 
   /**
-   * @covers Boolean
+   * @covers BooleanValue
    */
   public function testGetStatusForCallableReturningTrue() {
-    $definition = new Boolean(function() { return TRUE; });
+    $definition = new BooleanValue(function() { return TRUE; });
     $this->assertTrue($definition->getStatus());
   }
 
   /**
-   * @covers Boolean
+   * @covers BooleanValue
    */
   public function testGetStatusForCallableReturningFalse() {
-    $definition = new Boolean(function() { return FALSE; });
+    $definition = new BooleanValue(function() { return FALSE; });
     $this->assertFalse($definition->getStatus());
   }
 
   /**
-   * @covers Boolean
+   * @covers BooleanValue
    */
   public function testGetSources() {
-    $definition = new Boolean(TRUE);
+    $definition = new BooleanValue(TRUE);
     $this->assertEquals(
       Definition::SOURCE_VARIABLES,
       $definition->getSources()

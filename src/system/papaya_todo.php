@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Permissions;
+use Papaya\Administration;
 
 /**
 * Object to display user task list
@@ -61,7 +61,7 @@ class papaya_todo extends base_db {
   var $paramName = 'todo';
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 
@@ -90,7 +90,7 @@ class papaya_todo extends base_db {
   * @access public
   */
   function execute() {
-    if ($this->papaya()->administrationUser->hasPerm(Permissions::MESSAGES)) {
+    if ($this->papaya()->administrationUser->hasPerm(Administration\Permissions::MESSAGES)) {
       if (isset($this->params['cmd'])) {
         switch ($this->params['cmd']) {
         case 'todo_delete':
@@ -178,7 +178,7 @@ class papaya_todo extends base_db {
     $this->layout->parameters()->set('COLUMNWIDTH_LEFT', '100px');
     $this->layout->parameters()->set('COLUMNWIDTH_CENTER', '50%');
     $this->layout->parameters()->set('COLUMNWIDTH_RIGHT', '50%');
-    if ($this->papaya()->administrationUser->hasPerm(Permissions::MESSAGES)) {
+    if ($this->papaya()->administrationUser->hasPerm(Administration\Permissions::MESSAGES)) {
       $this->loadTodoList();
       if ($str = $this->getTodoList()) {
         $this->layout->add($str);

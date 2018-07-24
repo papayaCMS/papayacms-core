@@ -149,7 +149,7 @@ class PapayaHttpClient {
    */
   public function setUrl($url) {
     if (!empty($url)) {
-      $urlObject = new \PapayaUrl();
+      $urlObject = new \Papaya\Url();
       if (isset($this->_url['scheme'])) {
         $urlObject->scheme = $this->_url['scheme'];
       }

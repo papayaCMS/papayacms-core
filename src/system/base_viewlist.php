@@ -13,8 +13,6 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Sources;
-
 /**
 * View list basic class
 *
@@ -148,7 +146,7 @@ class base_viewlist extends base_db {
   public $limits = array();
 
   /**
-   * @var PapayaTemplate
+   * @var \Papaya\Template
    */
   public $layout;
 
@@ -1504,7 +1502,7 @@ class base_viewlist extends base_db {
             new PapayaUiListviewItem('', new PapayaUiStringTranslated('Cacheable interface'));
           $item->indentation = 1;
           $item->columnSpan = 2;
-          $sources = new Sources($plugin->cacheable()->getSources());
+          $sources = new Papaya\Cache\Identifier\Sources($plugin->cacheable()->getSources());
           $listview->items[] = $item = new PapayaUiListviewItem('', (string)$sources);
           $item->indentation = 3;
           $item->columnSpan = 2;
