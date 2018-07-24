@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Authentication;
 /**
-* Provide data encapsulation for the administration user group records.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentAuthenticationGroups extends \PapayaDatabaseRecordsLazy {
+ * Provide data encapsulation for the administration user group records.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Groups extends \PapayaDatabaseRecordsLazy {
 
   protected $_fields = array(
     'id' => 'group_id',

@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Box;
 /**
-* Provide data encapsulation for the content box version list. The versions are created if
-* a box is published. They are not changeable.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentBoxVersion}.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentBoxVersions extends \PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content box version list. The versions are created if
+ * a box is published. They are not changeable.
+ *
+ * The list does not contain all detail data, it is for list outputs etc. To get the full data
+ * use {@see Papaya\Content\Box\PapayaContentBoxVersion}.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Versions extends \PapayaDatabaseObjectList {
 
   /**
-  * Map field names to value identfiers
-  *
-  * @var array
-  */
+   * Map field names to value identifiers
+   *
+   * @var array
+   */
   protected $_fieldMapping = array(
     'version_id' => 'id',
     'version_time' => 'created',
@@ -39,20 +40,20 @@ class PapayaContentBoxVersions extends \PapayaDatabaseObjectList {
   );
 
   /**
-  * Version table name
-  *
-  * @var string
-  */
+   * Version table name
+   *
+   * @var string
+   */
   protected $_versionsTableName = \PapayaContentTables::BOX_VERSIONS;
 
   /**
-  * Load version list informations
-  *
-  * @param integer $boxId
-  * @param NULL|integer $limit maximum records returned
-  * @param NULL|integer $offset start offset for limited results
-  * @return boolean
-  */
+   * Load version list informations
+   *
+   * @param integer $boxId
+   * @param NULL|integer $limit maximum records returned
+   * @param NULL|integer $offset start offset for limited results
+   * @return boolean
+   */
   public function load($boxId, $limit = NULL, $offset = NULL) {
     $sql = "SELECT version_id, version_time, version_author_id, version_message,
                    box_id
@@ -67,13 +68,13 @@ class PapayaContentBoxVersions extends \PapayaDatabaseObjectList {
   }
 
   /**
-  * Create a new version record object and load the specified version data
-  *
-  * @param integer $versionId
-  * @return \PapayaContentBoxVersion|NULL
-  */
+   * Create a new version record object and load the specified version data
+   *
+   * @param integer $versionId
+   * @return \Papaya\Content\Box\Version|NULL
+   */
   public function getVersion($versionId) {
-    $result = new \PapayaContentBoxVersion();
+    $result = new \Papaya\Content\Box\Version();
     $result->setDatabaseAccess($this->getDatabaseAccess());
     $result->load($versionId);
     return $result;

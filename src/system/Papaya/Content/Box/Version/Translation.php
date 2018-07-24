@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Box\Version;
 /**
-* Provide data encapsulation for a single content box version translation details.
-*
-* Allows to load/save the box translation.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property integer $boxId
-* @property integer $languageId
-* @property string $title
-* @property array $content
-* @property-read integer $created
-* @property-read integer $modified
-* @property integer $viewId
-* @property-read string $viewTitle
-* @property-read string $moduleGuid
-* @property-read string $moduleTitle
-*/
-class PapayaContentBoxVersionTranslation extends \PapayaContentBoxTranslation {
+ * Provide data encapsulation for a single content box version translation details.
+ *
+ * Allows to load/save the box translation.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property integer $boxId
+ * @property integer $languageId
+ * @property string $title
+ * @property array $content
+ * @property-read integer $created
+ * @property-read integer $modified
+ * @property integer $viewId
+ * @property-read string $viewTitle
+ * @property-read string $moduleGuid
+ * @property-read string $moduleTitle
+ */
+class Translation extends \Papaya\Content\Box\Translation {
 
   protected $_tableNameBoxTranslations = \PapayaContentTables::BOX_VERSION_TRANSLATIONS;
 

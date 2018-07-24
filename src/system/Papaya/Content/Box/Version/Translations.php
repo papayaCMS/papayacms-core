@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Box\Version;
 /**
-* Provide data encapsulation for the content box version translations list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentBoxVersionTranslation}.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentBoxVersionTranslations extends \PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content box version translations list.
+ *
+ * The list does not contain all detail data, it is for list outputs etc. To get the full data
+ * use {@see Papaya\Content\Box\Version\PapayaContentBoxVersionTranslation}.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Translations extends \PapayaDatabaseObjectList {
 
 
   /**
-  * Map field names to value identfiers
-  *
-  * @var array
-  */
+   * Map field names to value identfiers
+   *
+   * @var array
+   */
   protected $_fieldMapping = array(
     'box_id' => 'id',
     'lng_id' => 'language_id',
@@ -41,11 +42,11 @@ class PapayaContentBoxVersionTranslations extends \PapayaDatabaseObjectList {
   protected $_translationsTableName = \PapayaContentTables::BOX_VERSION_TRANSLATIONS;
 
   /**
-  * Load translation list informations
-  *
-  * @param integer $boxId
-  * @return boolean
-  */
+   * Load translation list informations
+   *
+   * @param integer $boxId
+   * @return boolean
+   */
   public function load($boxId) {
     $sql = "SELECT bt.box_id, bt.lng_id, bt.box_trans_modified,
                    bt.topic_title,
@@ -62,14 +63,14 @@ class PapayaContentBoxVersionTranslations extends \PapayaDatabaseObjectList {
   }
 
   /**
-  * Get a detail object for a single translation.
-  *
-  * @param integer $boxId
-  * @param integer $languageId
-  * @return \PapayaContentBoxTranslation
-  */
+   * Get a detail object for a single translation.
+   *
+   * @param integer $boxId
+   * @param integer $languageId
+   * @return \Papaya\Content\Box\Translation
+   */
   public function getTranslation($boxId, $languageId) {
-    $result = new \PapayaContentBoxVersionTranslation();
+    $result = new \Papaya\Content\Box\Version\Translation();
     $result->setDatabaseAccess($this->getDatabaseAccess());
     $result->load(array($boxId, $languageId));
     return $result;

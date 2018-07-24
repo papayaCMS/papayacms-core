@@ -13,30 +13,34 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Box;
+
+use Papaya\Content\Box\Version\Translations;
+
 /**
-* Provide data encapsulation for a single content box version and access to its translations.
-*
-* Allows to load/create the box version.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property-read integer $versionId
-* @property-read integer $created
-* @property string $owner
-* @property string $message
-* @property integer $boxId box id
-* @property integer $groupId box group id
-* @property string $name administration interface box name
-* @property integer $modified last modification timestamp
-*/
-class PapayaContentBoxVersion extends \PapayaDatabaseObjectRecord {
+ * Provide data encapsulation for a single content box version and access to its translations.
+ *
+ * Allows to load/create the box version.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property-read integer $versionId
+ * @property-read integer $created
+ * @property string $owner
+ * @property string $message
+ * @property integer $boxId box id
+ * @property integer $groupId box group id
+ * @property string $name administration interface box name
+ * @property integer $modified last modification timestamp
+ */
+class Version extends \PapayaDatabaseObjectRecord {
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     // auto increment version id
     'id' => 'version_id',
@@ -57,17 +61,17 @@ class PapayaContentBoxVersion extends \PapayaDatabaseObjectRecord {
   );
 
   /**
-  * version table name for default load() implementations
-  *
-  * @var string
-  */
+   * version table name for default load() implementations
+   *
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::BOX_VERSIONS;
 
   /**
-  * version translations list subobject
-  *
-  * @var PapayaContentBoxVersionTranslations
-  */
+   * version translations list subobject
+   *
+   * @var Translations
+   */
   private $_translations = NULL;
 
   /**
@@ -91,10 +95,10 @@ class PapayaContentBoxVersion extends \PapayaDatabaseObjectRecord {
   }
 
   /**
-  * Create and store a backup of the current box working copy and its translations
-  *
-  * @return integer|FALSE
-  */
+   * Create and store a backup of the current box working copy and its translations
+   *
+   * @return integer|FALSE
+   */
   private function create() {
     $sql = "INSERT INTO %s (
                    version_time, version_author_id, version_message,
@@ -144,15 +148,15 @@ class PapayaContentBoxVersion extends \PapayaDatabaseObjectRecord {
   /**
    * Access to the version translations
    *
-   * @param \PapayaContentBoxVersionTranslations $translations
-   * @return \PapayaContentBoxTranslations
+   * @param \Papaya\Content\Box\Version\Translations $translations
+   * @return \Papaya\Content\Box\Translations
    */
-  public function translations(\PapayaContentBoxVersionTranslations $translations = NULL) {
+  public function translations(\Papaya\Content\Box\Version\Translations $translations = NULL) {
     if (isset($translations)) {
       $this->_translations = $translations;
     }
     if (is_null($this->_translations)) {
-      $this->_translations = new \PapayaContentBoxVersionTranslations();
+      $this->_translations = new \Papaya\Content\Box\Version\Translations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
     }
     return $this->_translations;

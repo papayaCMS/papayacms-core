@@ -13,10 +13,12 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Box\Translations;
+
 /**
 * Provide a superclass data encapsulation for the content box itself. HEre a two children
 * of this class {@see PapayaContent'BoxWork} for the working copy and
-* {@see PapayaContentBoxPublication} for the published version.
+* {@see Papaya\Content\Box\PapayaContentBoxPublication} for the published version.
 *
 * @package Papaya-Library
 * @subpackage Content
@@ -58,7 +60,8 @@ abstract class PapayaContentBox extends \PapayaDatabaseObjectRecord {
 
   /**
   * Box translations list object
-  * @var PapayaContentBoxTranslations
+  *
+  * @var Translations
   */
   protected $_translations = NULL;
 
@@ -75,15 +78,15 @@ abstract class PapayaContentBox extends \PapayaDatabaseObjectRecord {
   *
   * Allows to get/set the list object. Can create a list object if needed.
   *
-  * @param \PapayaContentBoxTranslations $translations
-  * @return \PapayaContentBoxTranslations
+  * @param \Papaya\Content\Box\Translations $translations
+  * @return \Papaya\Content\Box\Translations
   */
-  public function translations(\PapayaContentBoxTranslations $translations = NULL) {
+  public function translations(\Papaya\Content\Box\Translations $translations = NULL) {
     if (isset($translations)) {
       $this->_translations = $translations;
     }
     if (is_null($this->_translations)) {
-      $this->_translations = new \PapayaContentBoxTranslations();
+      $this->_translations = new \Papaya\Content\Box\Translations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
     }
     return $this->_translations;

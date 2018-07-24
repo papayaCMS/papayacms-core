@@ -1,13 +1,30 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Box\Version;
+use Papaya\Content\Box\Version\Translations;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentBoxVersionTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentBoxVersion::save
+  * @covers Version::save
   */
   public function testSaveBlockingUpdateExpectingException() {
-    $version = new PapayaContentBoxVersion();
+    $version = new Version();
     /** @noinspection PhpUndefinedFieldInspection */
     $version->id = 42;
     $this->expectException(LogicException::class);
@@ -16,18 +33,18 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentBoxVersion::save
+  * @covers Version::save
   */
   public function testSaveInsertWhileMissingValuesExcpectingException() {
-    $version = new PapayaContentBoxVersion();
+    $version = new Version();
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: box id, owner or message are missing.');
     $version->save();
   }
 
   /**
-  * @covers PapayaContentBoxVersion::save
-  * @covers PapayaContentBoxVersion::create
+  * @covers Version::save
+  * @covers Version::create
   */
   public function testSave() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -49,7 +66,7 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
         $this->onConsecutiveCalls(42, TRUE)
       );
 
-    $version = new PapayaContentBoxVersion();
+    $version = new Version();
     $version->assign(
       array(
         'box_id' => 21,
@@ -65,8 +82,8 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentBoxVersion::save
-  * @covers PapayaContentBoxVersion::create
+  * @covers Version::save
+  * @covers Version::create
   */
   public function testSaveWithDatabaseErrorInFirstQueryExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -81,7 +98,7 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
       )
       ->will($this->returnValue(FALSE));
 
-    $version = new PapayaContentBoxVersion();
+    $version = new Version();
     $version->assign(
       array(
         'box_id' => 21,
@@ -97,21 +114,21 @@ class PapayaContentBoxVersionTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentBoxVersion::translations
+  * @covers Version::translations
   */
   public function testTranslationsGetAfterSet() {
-    $translations = $this->createMock(PapayaContentBoxVersionTranslations::class);
-    $version = new PapayaContentBoxVersion();
+    $translations = $this->createMock(Translations::class);
+    $version = new Version();
     $this->assertSame($translations, $version->translations($translations));
   }
 
   /**
-  * @covers PapayaContentBoxVersion::translations
+  * @covers Version::translations
   */
   public function testTranslationsGetWithImplicitCreate() {
-    $version = new PapayaContentBoxVersion();
+    $version = new Version();
     $this->assertInstanceOf(
-      PapayaContentBoxVersionTranslations::class,
+      Translations::class,
       $version->translations()
     );
   }

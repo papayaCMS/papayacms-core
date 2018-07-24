@@ -13,29 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Box;
 /**
-* Provide data encapsulation for the content box publication.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property integer $id box id
-* @property integer $groupId box group id
-* @property string $name administration interface box name
-* @property integer $created box creation timestamp
-* @property integer $modified last modification timestamp
-* @property integer $cacheMode box content cache mode (system, none, own)
-* @property integer $cacheTime box content cache time, if mode == own
-* @property integer $publishedFrom publication time limit - start
-* @property integer $publishedTo publication time limit - end
-*/
-class PapayaContentBoxPublication extends \PapayaContentBox {
+ * Provide data encapsulation for the content box publication.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property integer $id box id
+ * @property integer $groupId box group id
+ * @property string $name administration interface box name
+ * @property integer $created box creation timestamp
+ * @property integer $modified last modification timestamp
+ * @property integer $cacheMode box content cache mode (system, none, own)
+ * @property integer $cacheTime box content cache time, if mode == own
+ * @property integer $publishedFrom publication time limit - start
+ * @property integer $publishedTo publication time limit - end
+ */
+class Publication extends \PapayaContentBox {
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     // page id
     'id' => 'box_id',

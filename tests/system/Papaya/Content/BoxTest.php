@@ -1,4 +1,20 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Box\Translations;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaContentBoxTest extends PapayaTestCase {
@@ -7,7 +23,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   * @covers PapayaContentBox::load
   */
   public function testLoad() {
-    $translations = $this->createMock(PapayaContentBoxTranslations::class);
+    $translations = $this->createMock(Translations::class);
     $translations
       ->expects($this->once())
       ->method('load')
@@ -83,7 +99,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   * @covers PapayaContentBox::translations
   */
   public function testTranslationsSet() {
-    $translations = $this->createMock(PapayaContentBoxTranslations::class);
+    $translations = $this->createMock(Translations::class);
     $box = new PapayaContentBox_TestProxy();
     $box->translations($translations);
     $this->assertAttributeSame(
@@ -95,7 +111,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   * @covers PapayaContentBox::translations
   */
   public function testTranslationsGetAfterSet() {
-    $translations = $this->createMock(PapayaContentBoxTranslations::class);
+    $translations = $this->createMock(Translations::class);
     $box = new PapayaContentBox_TestProxy();
     $box->translations($translations);
     $this->assertSame(
@@ -109,7 +125,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   public function testTranslationsGetImplicitCreate() {
     $box = new PapayaContentBox_TestProxy();
     $this->assertInstanceOf(
-      PapayaContentBoxTranslations::class, $box->translations()
+      Translations::class, $box->translations()
     );
   }
 }

@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Box;
 /**
-* Provide data encapsulation for the content box translations list.
-*
-* The list does not contain all detail data, it is for list outputs etc. To get the full data
-* use {@see PapayaContentBoxTranslation}.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentBoxTranslations extends \PapayaDatabaseObjectList {
+ * Provide data encapsulation for the content box translations list.
+ *
+ * The list does not contain all detail data, it is for list outputs etc. To get the full data
+ * use {@see Papaya\Content\Box\PapayaContentBoxTranslation}.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Translations extends \PapayaDatabaseObjectList {
 
   /**
-  * Map field names to value identfiers
-  *
-  * @var array
-  */
+   * Map field names to value identfiers
+   *
+   * @var array
+   */
   protected $_fieldMapping = array(
     'box_id' => 'id',
     'lng_id' => 'language_id',
@@ -68,10 +69,10 @@ class PapayaContentBoxTranslations extends \PapayaDatabaseObjectList {
    * @param int $boxId
    * @param integer $languageId
    * @internal param int $pageId
-   * @return \PapayaContentBoxTranslation
+   * @return Translation
    */
   public function getTranslation($boxId, $languageId) {
-    $result = new \PapayaContentBoxTranslation();
+    $result = new Translation();
     $result->setDatabaseAccess($this->getDatabaseAccess());
     $result->load(array($boxId, $languageId));
     return $result;

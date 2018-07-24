@@ -13,31 +13,32 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Box;
 /**
-* Provide data encapsulation for the content box working copy.
-*
-* Allows to load/save/publish the working copy of a box.
-* It contains no validation, only the database access encapsulation.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property integer $id box id
-* @property integer $groupId box group id
-* @property string $name administration interface box name
-* @property integer $created box creation timestamp
-* @property integer $modified last modification timestamp
-* @property integer $cacheMode box content cache mode (system, none, own)
-* @property integer $cacheTime box content cache time, if mode == own
-* @property integer $unpublishedTranslations internal counter for unpublished translations
-*/
-class PapayaContentBoxWork extends \PapayaContentBox {
+ * Provide data encapsulation for the content box working copy.
+ *
+ * Allows to load/save/publish the working copy of a box.
+ * It contains no validation, only the database access encapsulation.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property integer $id box id
+ * @property integer $groupId box group id
+ * @property string $name administration interface box name
+ * @property integer $created box creation timestamp
+ * @property integer $modified last modification timestamp
+ * @property integer $cacheMode box content cache mode (system, none, own)
+ * @property integer $cacheTime box content cache time, if mode == own
+ * @property integer $unpublishedTranslations internal counter for unpublished translations
+ */
+class Work extends \PapayaContentBox {
 
   /**
-  * Save box to database
-  *
-  * @return integer|boolean
-  */
+   * Save box to database
+   *
+   * @return integer|boolean
+   */
   public function save() {
     if (empty($this['id'])) {
       $this['created'] = $this['modified'] = time();
@@ -48,24 +49,24 @@ class PapayaContentBoxWork extends \PapayaContentBox {
   }
 
   /**
-  * Get a publication encapsulation object
-  *
-  * @return \PapayaContentBoxPublication
-  */
+   * Get a publication encapsulation object
+   *
+   * @return \Papaya\Content\Box\Publication
+   */
   protected function _createPublicationObject() {
-    $publication = new \PapayaContentBoxPublication();
+    $publication = new \Papaya\Content\Box\Publication();
     $publication->setDatabaseAccess($this->getDatabaseAccess());
     return $publication;
   }
 
   /**
-  * Publish the box and it's translations (depending on the $languageIds
-  *
-  * @param array $languageIds
-  * @param integer $publishedFrom
-  * @param integer $publishedTo
-  * @return boolean
-  */
+   * Publish the box and it's translations (depending on the $languageIds
+   *
+   * @param array $languageIds
+   * @param integer $publishedFrom
+   * @param integer $publishedTo
+   * @return boolean
+   */
   public function publish(array $languageIds = NULL, $publishedFrom = 0, $publishedTo = 0) {
     if ($this->id > 0) {
       $publication = $this->_createPublicationObject();
@@ -80,14 +81,14 @@ class PapayaContentBoxWork extends \PapayaContentBox {
   }
 
   /**
-  * Publish the translations of the given languages.
-  *
-  * @param \PapayaContentBoxPublication $publication
-  * @param array $languageIds
-  * @return boolean
-  */
+   * Publish the translations of the given languages.
+   *
+   * @param \Papaya\Content\Box\Publication $publication
+   * @param array $languageIds
+   * @return boolean
+   */
   private function _publishTranslations(
-    \PapayaContentBoxPublication $publication, array $languageIds = NULL
+    \Papaya\Content\Box\Publication $publication, array $languageIds = NULL
   ) {
     if (!empty($languageIds)) {
       $deleted = $this->databaseDeleteRecord(
@@ -121,8 +122,8 @@ class PapayaContentBoxWork extends \PapayaContentBox {
             'box_unpublished_languages' => $this->unpublishedTranslations
           );
           return FALSE !== $this->databaseUpdateRecord(
-            $this->databaseGetTableName($this->_tableName), $data, array('box_id' => $this->id)
-          );
+              $this->databaseGetTableName($this->_tableName), $data, array('box_id' => $this->id)
+            );
         }
       }
       return FALSE;

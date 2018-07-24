@@ -1,10 +1,26 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Box\Version\Translation;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaContentBoxVersionTranslationTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentBoxVersionTranslation::load
+  * @covers Translation::load
   */
   public function testLoad() {
     $record = array(
@@ -31,7 +47,7 @@ class PapayaContentBoxVersionTranslationTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_box_versions_trans', 'table_views', 'table_modules', 42, 1))
       ->will($this->returnValue($databaseResult));
-    $translation = new PapayaContentBoxVersionTranslation();
+    $translation = new Translation();
     $translation->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
       $translation->load(array(42, 1))
