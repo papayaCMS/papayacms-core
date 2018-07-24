@@ -1,10 +1,26 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Configuration\GlobalValues;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaConfigurationGlobalTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaConfigurationGlobal::get
+  * @covers GlobalValues::get
   */
   public function testGetReadingConstant() {
     $config = new PapayaConfigurationGlobal_TestProxy();
@@ -14,7 +30,7 @@ class PapayaConfigurationGlobalTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaConfigurationGlobal::get
+  * @covers GlobalValues::get
   */
   public function testGetCallingParentMethod() {
     $config = new PapayaConfigurationGlobal_TestProxy();
@@ -24,7 +40,7 @@ class PapayaConfigurationGlobalTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaConfigurationGlobal::get
+  * @covers GlobalValues::get
   */
   public function testSetConstantShouldBeIgnored() {
     $config = new PapayaConfigurationGlobal_TestProxy();
@@ -35,7 +51,7 @@ class PapayaConfigurationGlobalTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaConfigurationGlobal::has
+  * @covers GlobalValues::has
   */
   public function testHasWithConstantExpectingTrue() {
     $config = new PapayaConfigurationGlobal_TestProxy();
@@ -43,7 +59,7 @@ class PapayaConfigurationGlobalTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaConfigurationGlobal::has
+  * @covers GlobalValues::has
   */
   public function testHasExpectingTrue() {
     $config = new PapayaConfigurationGlobal_TestProxy();
@@ -51,7 +67,7 @@ class PapayaConfigurationGlobalTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaConfigurationGlobal::defineConstants
+  * @covers GlobalValues::defineConstants
   * @preserveGlobalState disabled
   * @runInSeparateProcess
   */
@@ -63,7 +79,7 @@ class PapayaConfigurationGlobalTest extends PapayaTestCase {
   }
 }
 
-class PapayaConfigurationGlobal_TestProxy extends PapayaConfigurationGlobal {
+class PapayaConfigurationGlobal_TestProxy extends GlobalValues {
 
   public function __construct() {
     parent::__construct(

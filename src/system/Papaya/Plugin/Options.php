@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Configuration\Storage;
+
 /**
 * This is a list of the options for a single plugin module.
 *
@@ -89,7 +91,7 @@ class PapayaPluginOptions extends \PapayaConfiguration {
   */
   public function getIterator() {
     $this->lazyLoad();
-    return new \PapayaConfigurationIterator(array_keys($this->_options), $this);
+    return new \Papaya\Configuration\Iterator(array_keys($this->_options), $this);
   }
 
   /**
@@ -104,10 +106,10 @@ class PapayaPluginOptions extends \PapayaConfiguration {
   /**
    * Load options and change loading status
    *
-   * @param \PapayaConfigurationStorage $storage
+   * @param \Papaya\Configuration\Storage $storage
    * @return bool|void
    */
-  public function load(\PapayaConfigurationStorage $storage = NULL) {
+  public function load(\Papaya\Configuration\Storage $storage = NULL) {
     $this->_status = self::STATUS_LOADING;
     parent::load($storage);
     $this->_status = self::STATUS_LOADED;
@@ -125,10 +127,10 @@ class PapayaPluginOptions extends \PapayaConfiguration {
   /**
    * Getter/Setter for the configuration storage
    *
-   * @param \PapayaConfigurationStorage $storage
-   * @return \PapayaConfigurationStorage
+   * @param \Papaya\Configuration\Storage $storage
+   * @return \Papaya\Configuration\Storage
    */
-  public function storage(PapayaConfigurationStorage $storage = NULL) {
+  public function storage(Storage $storage = NULL) {
     if (NULL !== $storage) {
       $this->_storage = $storage;
     } elseif (NULL === $this->_storage) {

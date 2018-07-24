@@ -13,44 +13,51 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Configuration;
+use PapayaConfiguration;
+
 /**
-* Iterator for the PapayaConfiguration class.
-*
-* @package Papaya-Library
-* @subpackage Configuration
-*/
-class PapayaConfigurationIterator implements \Iterator {
+ * Iterator for the PapayaConfiguration class.
+ *
+ * @package Papaya-Library
+ * @subpackage Configuration
+ */
+class Iterator implements \Iterator {
 
   /**
-  * option names
-  * @var array(string)
-  */
+   * option names
+   *
+   * @var array(string)
+   */
   private $_names = array();
 
   /**
-  * configuration object
-  * @var PapayaConfiguration
-  */
+   * configuration object
+   *
+   * @var PapayaConfiguration
+   */
   private $_configuration = NULL;
 
   /**
-  * Current iterator position
-  * @var integer
-  */
+   * Current iterator position
+   *
+   * @var integer
+   */
   private $_position = 0;
 
   /**
-  * iterator maximum
-  * @var integer
-  */
+   * iterator maximum
+   *
+   * @var integer
+   */
   private $_maximum = 0;
 
   /**
-  * Create object, store names and configuration object
-  *
-  * @param array $names
-  * @param \PapayaConfiguration $configuration
-  */
+   * Create object, store names and configuration object
+   *
+   * @param array $names
+   * @param \PapayaConfiguration $configuration
+   */
   public function __construct(array $names, \PapayaConfiguration $configuration) {
     $this->_names = array_values($names);
     $this->_maximum = count($names) - 1;
@@ -58,15 +65,15 @@ class PapayaConfigurationIterator implements \Iterator {
   }
 
   /**
-  * Reset iterator position
-  */
+   * Reset iterator position
+   */
   public function rewind() {
     $this->_position = 0;
   }
 
   /**
-  * Return option value form current iterator position
-  */
+   * Return option value form current iterator position
+   */
   public function current() {
     if ($this->_position <= $this->_maximum) {
       return $this->_configuration->get($this->_names[$this->_position]);
@@ -75,23 +82,23 @@ class PapayaConfigurationIterator implements \Iterator {
   }
 
   /**
-  * Return option name form current iterator position
-  */
+   * Return option name form current iterator position
+   */
   public function key() {
     return $this->_names[$this->_position];
   }
 
   /**
-  * Move iterator to next position and return option value
-  */
+   * Move iterator to next position and return option value
+   */
   public function next() {
     ++$this->_position;
     return $this->current();
   }
 
   /**
-  * Return if current iterator position is valid
-  */
+   * Return if current iterator position is valid
+   */
   public function valid() {
     return $this->_position <= $this->_maximum;
   }

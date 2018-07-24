@@ -14,6 +14,7 @@
  */
 
 use Papaya\Application\Cms;
+use Papaya\Configuration\Cms;
 
 /**
 * Basic options of papaya-cms
@@ -526,7 +527,7 @@ class base_options extends base_db {
   */
   function defineDatabaseTables() {
     $options = $this->papaya()->options;
-    if ($options instanceof PapayaConfigurationCms) {
+    if ($options instanceof Cms) {
       $options->defineDatabaseTables();
     }
   }
@@ -540,7 +541,7 @@ class base_options extends base_db {
    */
   function loadAndDefine($loadFromDB = TRUE) {
     $options = $this->papaya()->options;
-    if ($options instanceof PapayaConfigurationCms) {
+    if ($options instanceof Cms) {
       $options->loadAndDefine();
     }
   }

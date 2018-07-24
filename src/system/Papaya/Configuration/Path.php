@@ -13,13 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Configuration;
+use PapayaThemeHandler;
+
 /**
-* Object represenatin a system path (depending on the configuration)
-*
-* @package Papaya-Library
-* @subpackage Configuration
-*/
-class PapayaConfigurationPath extends \PapayaObject {
+ * Object representation a system path (depending on the configuration)
+ *
+ * @package Papaya-Library
+ * @subpackage Configuration
+ */
+class Path extends \PapayaObject {
 
   const PATH_THEMES = 'theme';
   const PATH_THEME_CURRENT = 'current_theme';
@@ -70,29 +73,29 @@ class PapayaConfigurationPath extends \PapayaObject {
    */
   public function get() {
     switch ($this->_basePath) {
-    case self::PATH_THEMES :
-      $result = $this->themeHandler()->getLocalPath().$this->_path;
+      case self::PATH_THEMES :
+        $result = $this->themeHandler()->getLocalPath().$this->_path;
       break;
-    case self::PATH_THEME_CURRENT :
-      $result = $this->themeHandler()->getLocalThemePath().$this->_path;
+      case self::PATH_THEME_CURRENT :
+        $result = $this->themeHandler()->getLocalThemePath().$this->_path;
       break;
-    case self::PATH_INSTALLATION :
-      $result = \PapayaUtilFilePath::getDocumentRoot().
-        $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
-        $this->_path;
+      case self::PATH_INSTALLATION :
+        $result = \PapayaUtilFilePath::getDocumentRoot().
+          $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
+          $this->_path;
       break;
-    case self::PATH_ADMINISTRATION :
-      $result = \PapayaUtilFilePath::getDocumentRoot().
-        $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
-        $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/').
-        $this->_path;
+      case self::PATH_ADMINISTRATION :
+        $result = \PapayaUtilFilePath::getDocumentRoot().
+          $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
+          $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/').
+          $this->_path;
       break;
-    case self::PATH_UPLOAD :
-      $result = $this->papaya()->options->get('PAPAYA_PATH_DATA', '/').
-        $this->_path;
+      case self::PATH_UPLOAD :
+        $result = $this->papaya()->options->get('PAPAYA_PATH_DATA', '/').
+          $this->_path;
       break;
-    default :
-      $result = $this->_basePath.'/'.$this->_path;
+      default :
+        $result = $this->_basePath.'/'.$this->_path;
       break;
     }
     return \PapayaUtilFilePath::cleanup($result);

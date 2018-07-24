@@ -1,10 +1,26 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Configuration\Path;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaConfigurationPathTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaConfigurationPath
+   * @covers       Path
    * @backupGlobals enabled
    * @dataProvider providePathSamples
    * @param string $expected
@@ -12,7 +28,7 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
    * @param string $subPath
    */
   public function testPathAsString($expected, $identifier, $subPath) {
-    $path = new PapayaConfigurationPath($identifier, $subPath);
+    $path = new Path($identifier, $subPath);
     $_SERVER['DOCUMENT_ROOT'] = '/document/root';
     $path->papaya(
       $this->mockPapaya()->application(
@@ -33,7 +49,7 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaConfigurationPath
+   * @covers Path
    */
   public function testPathThemeCallsThemeHandler() {
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
@@ -41,7 +57,7 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getLocalPath')
       ->will($this->returnValue('/success/'));
-    $path = new PapayaConfigurationPath(PapayaConfigurationPath::PATH_THEMES, 'sample');
+    $path = new Path(Path::PATH_THEMES, 'sample');
     $path->themeHandler($themeHandler);
     $this->assertEquals(
       '/success/sample/', (string)$path
@@ -49,7 +65,7 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaConfigurationPath
+   * @covers Path
    */
   public function testPathCurrentThemeCallsThemeHandler() {
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
@@ -57,7 +73,7 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getLocalThemePath')
       ->will($this->returnValue('/success/theme/'));
-    $path = new PapayaConfigurationPath(PapayaConfigurationPath::PATH_THEME_CURRENT, 'sample');
+    $path = new Path(Path::PATH_THEME_CURRENT, 'sample');
     $path->themeHandler($themeHandler);
     $this->assertEquals(
       '/success/theme/sample/', (string)$path
@@ -65,37 +81,37 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaConfigurationPath::themeHandler
+   * @covers Path::themeHandler
    */
   public function testThemeHandlerGetAfterSet() {
-    $path = new PapayaConfigurationPath('', '');
+    $path = new Path('', '');
     $path->themeHandler($handler = $this->createMock(PapayaThemeHandler::class));
     $this->assertSame($handler, $path->themeHandler());
   }
 
   /**
-   * @covers PapayaConfigurationPath::themeHandler
+   * @covers Path::themeHandler
    */
   public function testThemeHandlerGetImplicitCreate() {
-    $path = new PapayaConfigurationPath('', '');
+    $path = new Path('', '');
     $this->assertInstanceOf(PapayaThemeHandler::class, $path->themeHandler());
   }
 
   /**
-   * @covers PapayaConfigurationPath::isIdentifier
+   * @covers Path::isIdentifier
    */
   public function testIsIdentiferExpectingTrue() {
     $this->assertTrue(
-      PapayaConfigurationPath::isIdentifier(PapayaConfigurationPath::PATH_INSTALLATION)
+      Path::isIdentifier(Path::PATH_INSTALLATION)
     );
   }
 
   /**
-   * @covers PapayaConfigurationPath::isIdentifier
+   * @covers Path::isIdentifier
    */
   public function testIsIdentiferExpectingFalse() {
     $this->assertFalse(
-      PapayaConfigurationPath::isIdentifier('###')
+      Path::isIdentifier('###')
     );
   }
 
@@ -113,17 +129,17 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
       ),
       array(
         '/document/root/web/subpath/',
-        PapayaConfigurationPath::PATH_INSTALLATION,
+        Path::PATH_INSTALLATION,
         'subpath'
       ),
       array(
         '/document/root/web/admin/subpath/',
-        PapayaConfigurationPath::PATH_ADMINISTRATION,
+        Path::PATH_ADMINISTRATION,
         'subpath'
       ),
       array(
         '/data/subpath/',
-        PapayaConfigurationPath::PATH_UPLOAD,
+        Path::PATH_UPLOAD,
         'subpath'
       )
     );

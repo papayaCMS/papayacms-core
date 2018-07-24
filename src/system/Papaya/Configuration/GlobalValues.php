@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Configuration;
 /**
-* The global configuraiton uses constants for fixed options. Constants are superglobal, so
-* this is a global configuration.
-*
-* @package Papaya-Library
-* @subpackage Configuration
-*/
-class PapayaConfigurationGlobal extends \PapayaConfiguration {
+ * The global configuration uses constants for fixed options. Constants are superglobal, so
+ * this is a global configuration.
+ *
+ * @package Papaya-Library
+ * @subpackage Configuration
+ */
+class GlobalValues extends \PapayaConfiguration {
 
   /**
    * Check if an option value exists, the name can be an existing constant or a key of the
@@ -34,7 +35,7 @@ class PapayaConfigurationGlobal extends \PapayaConfiguration {
     if (defined($name)) {
       return TRUE;
     }
-    return parent::has($name, $this->_options);
+    return parent::has($name);
   }
 
   /**
@@ -54,16 +55,16 @@ class PapayaConfigurationGlobal extends \PapayaConfiguration {
   }
 
   /**
-  * Defines all options in the internal array as global constants. This fill make all
-  * option values unchangeable in the current request.
-  *
-  * This is called at a point in the initialization to avoid security problems by modules that
-  * change an option value.
-  */
+   * Defines all options in the internal array as global constants. This fill make all
+   * option values unchangeable in the current request.
+   *
+   * This is called at a point in the initialization to avoid security problems by modules that
+   * change an option value.
+   */
   public function defineConstants() {
     foreach ($this->_options as $option => $value) {
       if (!defined($option) &&
-          (is_scalar($value) || is_null($value))) {
+        (is_scalar($value) || NULL === $value)) {
         define($option, $value);
       }
     }

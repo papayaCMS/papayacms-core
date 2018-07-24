@@ -87,9 +87,9 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
 
   /**
    * Get the path for the file list, ig it is an callback, fetch it from the context otherwise use
-   * a PapayaConfigurationPath object.
+   * a Papaya\Configuration\PapayaConfigurationPath object.
    *
-   * @return string|\PapayaConfigurationPath
+   * @return string|\Papaya\Configuration\Path
    */
   private function getPath() {
     $parameters = $this->options()->parameters;
@@ -98,7 +98,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
       $callback = array($this->options()->context, substr($basePath, 9));
       $path = call_user_func($callback);
     } else {
-      $path = new \PapayaConfigurationPath(
+      $path = new \Papaya\Configuration\Path(
         $basePath,
         empty($parameters[2]) ? '' : (string)$parameters[2]
       );

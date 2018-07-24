@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Configuration\Storage;
+
 /**
 * A superclass for configurations. The actual configuration class needs to extend this class and
 * define option names and default values in the internal $_options array.
@@ -37,7 +39,7 @@ class PapayaConfiguration
   /**
   * Storage object, used to load/save the options.
   *
-  * @var PapayaConfigurationStorage
+  * @var Storage
   */
   private $_storage = NULL;
 
@@ -189,7 +191,7 @@ class PapayaConfiguration
   /**
   * Load options using a storage object. This will throw an exception if no storage is assigned.
   */
-  public function load(\PapayaConfigurationStorage $storage = NULL) {
+  public function load(\Papaya\Configuration\Storage $storage = NULL) {
     if (isset($storage)) {
       $this->storage($storage);
     }
@@ -206,10 +208,10 @@ class PapayaConfiguration
   * Getter/Setter for the storage object
   *
   * @throws \LogicException
-  * @param \PapayaConfigurationStorage $storage
-  * @return \PapayaConfigurationStorage
+  * @param \Papaya\Configuration\Storage $storage
+  * @return \Papaya\Configuration\Storage
   */
-  public function storage(\PapayaConfigurationStorage $storage = NULL) {
+  public function storage(\Papaya\Configuration\Storage $storage = NULL) {
     if (isset($storage)) {
       $this->_storage = $storage;
     } elseif (is_null($this->_storage)) {
@@ -305,6 +307,6 @@ class PapayaConfiguration
   * @return \Iterator
   */
   public function getIterator() {
-    return new \PapayaConfigurationIterator(array_keys($this->_options), $this);
+    return new \Papaya\Configuration\Iterator(array_keys($this->_options), $this);
   }
 }

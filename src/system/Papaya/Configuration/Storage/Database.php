@@ -13,28 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-/**
-* Load options from database table
-*
-* @package Papaya-Library
-* @subpackage Configuration
-*/
-class PapayaConfigurationStorageDatabase extends \PapayaObject
-  implements \PapayaConfigurationStorage {
+namespace Papaya\Configuration\Storage;
+use PapayaContentConfiguration;
 
-   /**
+/**
+ * Load options from database table
+ *
+ * @package Papaya-Library
+ * @subpackage Configuration
+ */
+class Database extends \PapayaObject
+  implements \Papaya\Configuration\Storage {
+
+  /**
    * Options database records list
    *
    * @var PapayaContentConfiguration
    */
-   private $_records = NULL;
+  private $_records = NULL;
 
   /**
-  * Getter/Setter for database records object
-  *
-  * @param \PapayaContentConfiguration $records
-  * @return \PapayaContentConfiguration
-  */
+   * Getter/Setter for database records object
+   *
+   * @param \PapayaContentConfiguration $records
+   * @return \PapayaContentConfiguration
+   */
   public function records(\PapayaContentConfiguration $records = NULL) {
     if (isset($records)) {
       $this->_records = $records;
@@ -45,13 +48,13 @@ class PapayaConfigurationStorageDatabase extends \PapayaObject
   }
 
   /**
-  * Dipatch the error message as http header and be silent otherwise.
-  *
-  * @param \PapayaDatabaseException $exception
-  */
+   * Dipatch the error message as http header and be silent otherwise.
+   *
+   * @param \PapayaDatabaseException $exception
+   */
   public function handleError(\PapayaDatabaseException $exception) {
     if ($this->papaya()->options->get('PAPAYA_DBG_DEVMODE', FALSE) &&
-        isset($this->papaya()->response)) {
+      isset($this->papaya()->response)) {
       $message = str_replace(array('\r', '\n'), ' ', $exception->getMessage());
       $this->papaya()->response->sendHeader(
         'X-Papaya-Error: '.get_class($exception).': '.$message
@@ -60,20 +63,20 @@ class PapayaConfigurationStorageDatabase extends \PapayaObject
   }
 
   /**
-  * Load records from database
-  *
-  * @return boolean
-  */
+   * Load records from database
+   *
+   * @return boolean
+   */
   public function load() {
     $this->records()->getDatabaseAccess()->errorHandler(array($this, 'handleError'));
     return $this->records()->load();
   }
 
   /**
-  * Get iterator for options array(name => value)
-  *
-  * @return \Iterator
-  */
+   * Get iterator for options array(name => value)
+   *
+   * @return \Iterator
+   */
   public function getIterator() {
     $options = array();
     foreach ($this->records() as $option) {

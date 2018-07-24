@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Configuration;
 /**
-* Interface for the options storage (load)
-*
-* @package Papaya-Library
-* @subpackage Configuration
-*/
-interface PapayaConfigurationStorage extends \IteratorAggregate {
+ * Interface for the options storage (load)
+ *
+ * @package Papaya-Library
+ * @subpackage Configuration
+ */
+interface Storage extends \IteratorAggregate {
 
   /**
-  * Load options from external data source
-  */
-  function load();
+   * Load options from external data source
+   */
+  public function load();
 }

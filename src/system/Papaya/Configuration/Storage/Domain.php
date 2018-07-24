@@ -13,34 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Configuration\Storage;
+use PapayaContentDomain;
+
 /**
-* Loads the domain specific options from the database
-*
-* @package Papaya-Library
-* @subpackage Configuration
-*/
-class PapayaConfigurationStorageDomain extends \PapayaObject
-  implements \PapayaConfigurationStorage {
+ * Loads the domain specific options from the database
+ *
+ * @package Papaya-Library
+ * @subpackage Configuration
+ */
+class Domain extends \PapayaObject
+  implements \Papaya\Configuration\Storage {
 
   /**
-  * member variable for the url scheme, set in constructor used in load()
-  *
-  * @var int
-  */
+   * member variable for the url scheme, set in constructor used in load()
+   *
+   * @var int
+   */
   private $_scheme = \PapayaUtilServerProtocol::BOTH;
 
   /**
-  * member variable for the host name, set in constructor used in load()
-  *
-  * @var string
-  */
+   * member variable for the host name, set in constructor used in load()
+   *
+   * @var string
+   */
   private $_host = '';
 
   /**
-  * The domain subobject, representing a domain record.
-  *
-  * @var PapayaContentDomain
-  */
+   * The domain subobject, representing a domain record.
+   *
+   * @var PapayaContentDomain
+   */
   private $_domain = NULL;
 
   /**
@@ -52,18 +55,18 @@ class PapayaConfigurationStorageDomain extends \PapayaObject
     if (preg_match('((?P<scheme>http(?:s)?)://(?P<host>.*))', $hostUrl, $match)) {
       $this->_host = $match['host'];
       $this->_scheme = ($match['scheme'] == 'https')
-        ? \PapayaUtilServerProtocol::HTTPS :  \PapayaUtilServerProtocol::HTTP;
+        ? \PapayaUtilServerProtocol::HTTPS : \PapayaUtilServerProtocol::HTTP;
     } else {
       $this->_host = $hostUrl;
     }
   }
 
   /**
-  * Getter/Setter for domain record object
-  *
-  * @param \PapayaContentDomain $domain
-  * @return \PapayaContentDomain
-  */
+   * Getter/Setter for domain record object
+   *
+   * @param \PapayaContentDomain $domain
+   * @return \PapayaContentDomain
+   */
   public function domain(\PapayaContentDomain $domain = NULL) {
     if (isset($domain)) {
       $this->_domain = $domain;
@@ -74,10 +77,10 @@ class PapayaConfigurationStorageDomain extends \PapayaObject
   }
 
   /**
-  * Load domain record from database using the defined host name
-  *
-  * @return boolean
-  */
+   * Load domain record from database using the defined host name
+   *
+   * @return boolean
+   */
   public function load() {
     return $this->domain()->load(
       array(
@@ -88,14 +91,14 @@ class PapayaConfigurationStorageDomain extends \PapayaObject
   }
 
   /**
-  * Get iterator for options array(name => value)
-  *
-  * @return \Iterator
-  */
+   * Get iterator for options array(name => value)
+   *
+   * @return \Iterator
+   */
   public function getIterator() {
     $options = array();
     if ($this->domain()->mode == \PapayaContentDomain::MODE_VIRTUAL_DOMAIN &&
-        is_array($this->domain()->options)) {
+      is_array($this->domain()->options)) {
       $options = $this->domain()->options;
     }
     return new \ArrayIterator($options);

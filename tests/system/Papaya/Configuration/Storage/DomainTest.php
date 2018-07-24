@@ -1,17 +1,33 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Configuration\Storage\Domain;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaConfigurationStorageDomain::__construct
+   * @covers Domain::__construct
    * @dataProvider provideHostUrls
    * @param string $expectedScheme
    * @param string $expectedHost
    * @param string $hostUrl
    */
   public function testConstructor($expectedScheme, $expectedHost, $hostUrl) {
-    $storage = new PapayaConfigurationStorageDomain($hostUrl);
+    $storage = new Domain($hostUrl);
     $this->assertAttributeEquals(
       $expectedScheme, '_scheme', $storage
     );
@@ -21,24 +37,24 @@ class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaConfigurationStorageDomain::domain
+  * @covers Domain::domain
   */
   public function testDomainGetAfterSet() {
     $domain = $this->createMock(PapayaContentDomain::class);
-    $storage = new PapayaConfigurationStorageDomain('sample.tld');
+    $storage = new Domain('sample.tld');
     $this->assertSame($domain, $storage->domain($domain));
   }
 
   /**
-  * @covers PapayaConfigurationStorageDomain::domain
+  * @covers Domain::domain
   */
   public function testDomainGetImplicitCreate() {
-    $storage = new PapayaConfigurationStorageDomain('sample.tld');
+    $storage = new Domain('sample.tld');
     $this->assertInstanceOf(PapayaContentDomain::class, $storage->domain());
   }
 
   /**
-  * @covers PapayaConfigurationStorageDomain::load
+  * @covers Domain::load
   */
   public function testLoad() {
     $domain = $this->createMock(PapayaContentDomain::class);
@@ -48,13 +64,13 @@ class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
       ->with(array('host' => 'www.sample.tld', 'scheme' => array(0, 2)))
       ->will($this->returnValue(TRUE));
 
-    $storage = new PapayaConfigurationStorageDomain('https://www.sample.tld');
+    $storage = new Domain('https://www.sample.tld');
     $storage->domain($domain);
     $this->assertTrue($storage->load());
   }
 
   /**
-  * @covers PapayaConfigurationStorageDomain::getIterator
+  * @covers Domain::getIterator
   */
   public function testGetIterator() {
     $domain = $this->createMock(PapayaContentDomain::class);
@@ -63,7 +79,7 @@ class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
       ->method('__get')
       ->will($this->returnCallback(array($this, 'callbackGetOptionValue')));
 
-    $storage = new PapayaConfigurationStorageDomain('www.sample.tld');
+    $storage = new Domain('www.sample.tld');
     $storage->domain($domain);
 
     $iterator = $storage->getIterator();

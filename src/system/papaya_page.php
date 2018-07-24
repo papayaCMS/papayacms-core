@@ -20,6 +20,7 @@ use Papaya\Cache\Identifier\Definition\Group;
 use Papaya\Cache\Identifier\Definition\Surfer;
 use Papaya\Cache\Identifier\Definition\Url;
 use Papaya\Cache\Identifier\Definition\Session\Parameters;
+use Papaya\Configuration\Storage\Domain;
 
 /**
  * Some of the old bootstraps use the this class/file as the starting point,
@@ -334,7 +335,7 @@ class papaya_page extends base_object {
         $previewDomain = $application->session->values['PAGE_PREVIEW_DOMAIN'];
         $this->sendHeader('X-Papaya-Preview-Domain: '.$previewDomain);
         if (!empty($previewDomain)) {
-          $domainOptions = new PapayaConfigurationStorageDomain($previewDomain);
+          $domainOptions = new Domain($previewDomain);
           $application->options->load($domainOptions);
           if ($domainId = $domainOptions->domain()->id) {
             $this->_currentDomainId = $domainId;

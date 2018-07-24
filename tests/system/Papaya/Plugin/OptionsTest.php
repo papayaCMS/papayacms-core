@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Configuration\Storage;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaPluginOptionsTest extends PapayaTestCase {
@@ -106,16 +108,16 @@ class PapayaPluginOptionsTest extends PapayaTestCase {
   */
   public function testStorageImplicitCreate() {
     $options = new PapayaPluginOptions('ab123456789012345678901234567890');
-    $this->assertInstanceOf(PapayaConfigurationStorage::class, $options->storage());
+    $this->assertInstanceOf(Storage::class, $options->storage());
   }
 
   /**
    * @param array $data
    * @param bool $requireLoading
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaConfigurationStorage
+   * @return PHPUnit_Framework_MockObject_MockObject|Storage
    */
   public function getStorageFixture(array $data = array(), $requireLoading = FALSE) {
-    $storage = $this->createMock(PapayaConfigurationStorage::class);
+    $storage = $this->createMock(Storage::class);
     $storage
       ->expects($requireLoading ? $this->once() : $this->any())
       ->method('load')

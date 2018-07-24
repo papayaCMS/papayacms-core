@@ -1,27 +1,43 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Configuration\Storage\Database;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaConfigurationStorageDatabase::records
+  * @covers Database::records
   */
   public function testRecordsGetAfterSet() {
     $records = $this->createMock(PapayaContentConfiguration::class);
-    $storage = new PapayaConfigurationStorageDatabase();
+    $storage = new Database();
     $this->assertSame($records, $storage->records($records));
   }
 
   /**
-  * @covers PapayaConfigurationStorageDatabase::records
+  * @covers Database::records
   */
   public function testRecordsGetImplicitCreate() {
-    $storage = new PapayaConfigurationStorageDatabase();
+    $storage = new Database();
     $this->assertInstanceOf(PapayaContentConfiguration::class, $storage->records());
   }
 
   /**
-  * @covers PapayaConfigurationStorageDatabase::load
+  * @covers Database::load
   */
   public function testLoad() {
     $databaseAccess = $this
@@ -42,13 +58,13 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('load')
       ->will($this->returnValue(TRUE));
-    $storage = new PapayaConfigurationStorageDatabase();
+    $storage = new Database();
     $storage->records($records);
     $this->assertTrue($storage->load());
   }
 
   /**
-  * @covers PapayaConfigurationStorageDatabase::handleError
+  * @covers Database::handleError
   */
   public function testHandleErrorDevmode() {
     $options = $this->mockPapaya()->options(
@@ -62,7 +78,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
       ->method('sendHeader')
       ->with('X-Papaya-Error: PapayaDatabaseExceptionQuery: Sample Error Message');
 
-    $storage = new PapayaConfigurationStorageDatabase();
+    $storage = new Database();
     $storage->papaya(
       $this->mockPapaya()->application(
         array(
@@ -79,7 +95,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaConfigurationStorageDatabase::handleError
+  * @covers Database::handleError
   */
   public function testHandleErrorNoDevmodeSilent() {
     $response = $this->createMock(PapayaResponse::class);
@@ -87,7 +103,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
       ->expects($this->never())
       ->method('sendHeader');
 
-    $storage = new PapayaConfigurationStorageDatabase();
+    $storage = new Database();
     $storage->papaya(
       $this->mockPapaya()->application(
         array(
@@ -103,7 +119,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaConfigurationStorageDatabase::getIterator
+  * @covers Database::getIterator
   */
   public function testGetIterator() {
     $records = $this->createMock(PapayaContentConfiguration::class);
@@ -122,7 +138,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
           )
         )
       );
-    $storage = new PapayaConfigurationStorageDatabase();
+    $storage = new Database();
     $storage->records($records);
     $this->assertEquals(
       array('SAMPLE_NAME' => 'sample value'),

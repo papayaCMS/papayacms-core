@@ -13,6 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Configuration\Iterator;
+use Papaya\Configuration\Storage;
+
 require_once __DIR__.'/../../bootstrap.php';
 
 class PapayaConfigurationTest extends PapayaTestCase {
@@ -166,7 +169,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   * @covers PapayaConfiguration::storage
   */
   public function testStorageGetAfterSet() {
-    $storage = $this->createMock(PapayaConfigurationStorage::class);
+    $storage = $this->createMock(Storage::class);
     $config = new PapayaConfiguration_TestProxy();
     $this->assertSame(
       $storage, $config->storage($storage)
@@ -187,7 +190,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   * @covers PapayaConfiguration::load
   */
   public function testLoad() {
-    $storage = $this->createMock(PapayaConfigurationStorage::class);
+    $storage = $this->createMock(Storage::class);
     $storage
       ->expects($this->once())
       ->method('load')
@@ -208,7 +211,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   * @covers PapayaConfiguration::load
   */
   public function testLoadWithUnknownOptionsAreIgnored() {
-    $storage = $this->createMock(PapayaConfigurationStorage::class);
+    $storage = $this->createMock(Storage::class);
     $storage
       ->expects($this->once())
       ->method('load')
@@ -233,7 +236,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   * @covers PapayaConfiguration::load
   */
   public function testLoadFailure() {
-    $storage = $this->createMock(PapayaConfigurationStorage::class);
+    $storage = $this->createMock(Storage::class);
     $storage
       ->expects($this->once())
       ->method('load')
@@ -251,7 +254,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
   public function testGetIterator() {
     $config = new PapayaConfiguration_TestProxy();
     $iterator = $config->getIterator();
-    $this->assertInstanceOf(PapayaConfigurationIterator::class, $iterator);
+    $this->assertInstanceOf(Iterator::class, $iterator);
     $this->assertAttributeEquals(
       array('SAMPLE_INT', 'PAPAYA_INCLUDE_PATH'),
       '_names',

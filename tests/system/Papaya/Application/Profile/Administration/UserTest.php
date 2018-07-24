@@ -14,6 +14,7 @@
  */
 
 use Papaya\Application\Profile\Administration\User;
+use Papaya\Configuration\Cms;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 PapayaTestCase::defineConstantDefaults(
@@ -33,7 +34,7 @@ class PapayaApplicationProfileAdministrationUserTest extends PapayaTestCase {
   * @covers User::createObject
   */
   public function testCreateObject() {
-    $options = $this->createMock(PapayaConfigurationCms::class);
+    $options = $this->createMock(Cms::class);
     $options
       ->expects($this->once())
       ->method('defineDatabaseTables');
