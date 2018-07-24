@@ -15,6 +15,9 @@
 
 use Papaya\Administration\Theme\Editor\Changes\Dialog;
 use Papaya\Cache\Service;
+use Papaya\Content\Structure\Group;
+use Papaya\Content\Structure\Page;
+use Papaya\Content\Structure\Value;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -24,7 +27,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
    * @covers Dialog::createDialog
    */
   public function testCreateDialogWithEmptyPage() {
-    $page = $this->createMock(PapayaContentStructurePage::class);
+    $page = $this->createMock(Page::class);
     $page
       ->expects($this->once())
       ->method('groups')
@@ -41,10 +44,10 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
    * @covers Dialog::createDialog
    */
   public function testCreateDialogWithOneEmptyGroup() {
-    $page = new PapayaContentStructurePage();
+    $page = new Page();
     $page->name = 'SAMPLE_PAGE';
     $page->title = 'Page title';
-    $page->groups()->add($group = new PapayaContentStructureGroup($page));
+    $page->groups()->add($group = new Group($page));
     $group->name = 'SAMPLE_GROUP';
     $group->title = 'group title';
 
@@ -60,13 +63,13 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
    * @covers Dialog::createDialog
    */
   public function testCreateDialogWithOneValueOfUnknownType() {
-    $page = new PapayaContentStructurePage();
+    $page = new Page();
     $page->name = 'SAMPLE_PAGE';
     $page->title = 'Page title';
-    $page->groups()->add($group = new PapayaContentStructureGroup($page));
+    $page->groups()->add($group = new Group($page));
     $group->name = 'SAMPLE_GROUP';
     $group->title = 'group title';
-    $group->values()->add($value = new PapayaContentStructureValue($group));
+    $group->values()->add($value = new Value($group));
     $value->name = 'SAMPLE_VALUE';
     $value->title = 'value title';
     $value->fieldType = 'UNKNOWN_FIELD_TYPE';
@@ -95,13 +98,13 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
    * @covers Dialog::createDialog
    */
   public function testCreateDialogWithOneValue() {
-    $page = new PapayaContentStructurePage();
+    $page = new Page();
     $page->name = 'SAMPLE_PAGE';
     $page->title = 'Page title';
-    $page->groups()->add($group = new PapayaContentStructureGroup($page));
+    $page->groups()->add($group = new Group($page));
     $group->name = 'SAMPLE_GROUP';
     $group->title = 'group title';
-    $group->values()->add($value = new PapayaContentStructureValue($group));
+    $group->values()->add($value = new Value($group));
     $value->name = 'SAMPLE_VALUE';
     $value->title = 'value title';
     $value->fieldType = 'UNKNOWN_FIELD_TYPE';
@@ -167,7 +170,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
     $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
     $command = new Dialog($record);
-    $command->themePage($themePage =  $this->createMock(PapayaContentStructurePage::class));
+    $command->themePage($themePage =  $this->createMock(Page::class));
     $this->assertSame($themePage, $command->themePage());
   }
 
@@ -187,7 +190,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getPage')
       ->with('SAMPLE_PAGE')
-      ->will($this->returnValue($this->createMock(PapayaContentStructurePage::class)));
+      ->will($this->returnValue($this->createMock(Page::class)));
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
     $themeHandler
       ->expects($this->once())
@@ -199,7 +202,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
     $command = new Dialog($record);
     $command->papaya($papaya);
     $command->themeHandler($themeHandler);
-    $this->assertInstanceOf(PapayaContentStructurePage::class, $command->themePage());
+    $this->assertInstanceOf(Page::class, $command->themePage());
   }
 
   /**

@@ -393,7 +393,7 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
       $this->_pages = $pages;
     } elseif (is_null($this->_pages)) {
       $this->_pages = $this->isPreview()
-        ? new \PapayaContentPages(TRUE) : new \PapayaContentPagesPublications(TRUE);
+        ? new \PapayaContentPages(TRUE) : new \Papaya\Content\Pages\Publications(TRUE);
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;

@@ -13,33 +13,34 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Structure;
 /**
-* Content structure value element
-*
-* Content structure values are organized in groups and pages. A page can contain multiple groups
-* and a group multiple values.
-*
-* @package Papaya-Library
-* @subpackage Theme
-*
-* @property string $title
-* @property string $name
-* @property string $type
-* @property string $default
-* @property string $hint
-* @property string $fieldType
-* @property mixed $fieldParameters
-*/
-class PapayaContentStructureValue extends \PapayaContentStructureNode {
+ * Content structure value element
+ *
+ * Content structure values are organized in groups and pages. A page can contain multiple groups
+ * and a group multiple values.
+ *
+ * @package Papaya-Library
+ * @subpackage Theme
+ *
+ * @property string $title
+ * @property string $name
+ * @property string $type
+ * @property string $default
+ * @property string $hint
+ * @property string $fieldType
+ * @property mixed $fieldParameters
+ */
+class Value extends Node {
 
-  private $_group = NULL;
+  private $_group;
 
   /**
    * Create the object and store the group
    *
-   * @param \PapayaContentStructureGroup $group
+   * @param Group $group
    */
-  public function __construct(\PapayaContentStructureGroup $group) {
+  public function __construct(Group $group) {
     parent::__construct(
       array(
         'name' => 'value',

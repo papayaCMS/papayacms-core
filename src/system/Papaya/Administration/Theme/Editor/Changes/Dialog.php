@@ -14,13 +14,7 @@
  */
 
 namespace Papaya\Administration\Theme\Editor\Changes;
-use Papaya;
-use Papaya\Cache\Service;
-use PapayaContentStructureGroup;
-use PapayaContentStructurePage;
-use PapayaContentStructureValue;
-use PapayaThemeHandler;
-use PapayaUiDialogFieldFactory;
+use Papaya\Content\Structure;
 
 /**
  * Dialog command that allows to edit the dynamic values on on page, the groups are field groups
@@ -32,21 +26,21 @@ class Dialog
   extends \PapayaUiControlCommandDialogDatabaseRecord {
 
   /**
-   * @var PapayaContentStructurePage
+   * @var \Papaya\Content\Structure\Page
    */
-  private $_themePage = NULL;
+  private $_themePage;
   /**
-   * @var PapayaThemeHandler
+   * @var \PapayaThemeHandler
    */
-  private $_themeHandler = NULL;
+  private $_themeHandler;
   /**
-   * @var PapayaUiDialogFieldFactory
+   * @var \PapayaUiDialogFieldFactory
    */
-  private $_fieldFactory = NULL;
+  private $_fieldFactory;
   /**
    * @var \Papaya\Cache\Service
    */
-  private $_cacheService = NULL;
+  private $_cacheService;
 
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
@@ -73,10 +67,10 @@ class Dialog
           'page_identifier' => $this->parameters()->get('page_identifier', '')
         )
       );
-      /** @var PapayaContentStructureGroup $group */
+      /** @var Structure\Group $group */
       foreach ($page->groups() as $group) {
         $fieldset = new \PapayaUiDialogFieldGroup($group->title);
-        /** @var PapayaContentStructureValue $value */
+        /** @var Structure\Value $value */
         foreach ($group->values() as $value) {
           try {
             $options = new \PapayaUiDialogFieldFactoryOptions(
@@ -99,7 +93,7 @@ class Dialog
         }
         $dialog->fields[] = $fieldset;
       }
-      if (count($dialog->fields) == 0) {
+      if (0 === \count($dialog->fields)) {
         $dialog->fields[] = new \PapayaUiDialogFieldMessage(
           \PapayaMessage::SEVERITY_ERROR,
           new \PapayaUiStringTranslated('Invalid value definition!')
@@ -111,7 +105,7 @@ class Dialog
       }
     } else {
       $dialog->caption = new \PapayaUiStringTranslated('Error');
-      if (count($dialog->fields) == 0) {
+      if (0 === \count($dialog->fields)) {
         $dialog->fields[] = new \PapayaUiDialogFieldMessage(
           \PapayaMessage::SEVERITY_ERROR,
           new \PapayaUiStringTranslated('Theme page not found!')
@@ -155,11 +149,11 @@ class Dialog
   /**
    * Theme definition page to access the group and value definition of the selected page
    *
-   * @param \PapayaContentStructurePage $themePage
-   * @return \PapayaContentStructurePage
+   * @param Structure\Page $themePage
+   * @return Structure\Page
    */
-  public function themePage(\PapayaContentStructurePage $themePage = NULL) {
-    if (isset($themePage)) {
+  public function themePage(Structure\Page $themePage = NULL) {
+    if (NULL !== $themePage) {
       $this->_themePage = $themePage;
     } elseif (NULL === $this->_themePage) {
       $this->_themePage = $this
@@ -178,7 +172,7 @@ class Dialog
    * @return \PapayaThemeHandler
    */
   public function themeHandler(\PapayaThemeHandler $themeHandler = NULL) {
-    if (isset($themeHandler)) {
+    if (NULL !== $themeHandler) {
       $this->_themeHandler = $themeHandler;
     } elseif (NULL === $this->_themeHandler) {
       $this->_themeHandler = new \PapayaThemeHandler();
@@ -195,7 +189,7 @@ class Dialog
    * @return \PapayaUiDialogFieldFactory
    */
   public function fieldFactory(\PapayaUiDialogFieldFactory $factory = NULL) {
-    if (isset($factory)) {
+    if (NULL !== $factory) {
       $this->_fieldFactory = $factory;
     } elseif (NULL === $this->_fieldFactory) {
       $this->_fieldFactory = new \PapayaUiDialogFieldFactory();
@@ -209,12 +203,12 @@ class Dialog
    * @param \Papaya\Cache\Service $service
    * @return \Papaya\Cache\Service
    */
-  public function cache(Papaya\Cache\Service $service = NULL) {
-    if (isset($service)) {
+  public function cache(\Papaya\Cache\Service $service = NULL) {
+    if (NULL !== $service) {
       $this->_cacheService = $service;
-    } elseif (NULL == $this->_cacheService) {
+    } elseif (NULL === $this->_cacheService) {
       /** @noinspection PhpParamsInspection */
-      $this->_cacheService = Papaya\Cache::getService($this->papaya()->options);
+      $this->_cacheService = \Papaya\Cache::getService($this->papaya()->options);
     }
     return $this->_cacheService;
   }

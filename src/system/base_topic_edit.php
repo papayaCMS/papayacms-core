@@ -13,16 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Pages\Dependency\Blocker;
-use Papaya\Administration\Pages\Dependency\Changer;
-use Papaya\Administration\Pages\Dependency\Synchronizations;
-use Papaya\Administration\Pages\Ancestors;
-use Papaya\Administration\Permissions;
-use Papaya\Content\Page\Dependency;
-use Papaya\Content\Page\Translation;
+
+use Papaya\Administration;
 
 /**
-* page adminsitration class
+* page administration class
 *
 * @package Papaya
 * @subpackage Core
@@ -104,12 +99,12 @@ class base_topic_edit extends base_topic {
   /**
   * Helper object, that synchronizes page data to dependent pages.
   *
-  * @var Synchronizations
+  * @var Administration\Pages\Dependency\Synchronizations
   */
   private $_synchronizations = NULL;
 
   /**
-   * @var PapayaUiDialog
+   * @var \PapayaUiDialog
    */
   public $dialogPublish = NULL;
 
@@ -316,9 +311,9 @@ class base_topic_edit extends base_topic {
               )
             );
             $this->sychronizations()->synchronizeAction(
-              Dependency::SYNC_PROPERTIES |
-              Dependency::SYNC_VIEW |
-              Dependency::SYNC_CONTENT,
+              \Papaya\Content\Page\Dependency::SYNC_PROPERTIES |
+              \Papaya\Content\Page\Dependency::SYNC_VIEW |
+              \Papaya\Content\Page\Dependency::SYNC_CONTENT,
               $this->topicId,
               array($this->papaya()->administrationLanguage->id)
             );
@@ -332,7 +327,7 @@ class base_topic_edit extends base_topic {
       break;
     case 'add_topic':
       if ((
-           $authUser->hasPerm(Permissions::PAGE_CREATE) &&
+           $authUser->hasPerm(Administration\Permissions::PAGE_CREATE) &&
            $this->hasPermUser(PERM_CREATE, $authUser)
           ) &&
           (
@@ -426,9 +421,9 @@ class base_topic_edit extends base_topic {
             }
           }
           $this->sychronizations()->synchronizeAction(
-            Dependency::SYNC_PROPERTIES |
-            Dependency::SYNC_VIEW |
-            Dependency::SYNC_CONTENT,
+            \Papaya\Content\Page\Dependency::SYNC_PROPERTIES |
+            \Papaya\Content\Page\Dependency::SYNC_VIEW |
+            \Papaya\Content\Page\Dependency::SYNC_CONTENT,
             $this->topicId,
             (array)$this->params['del_trans_language']
           );
@@ -444,7 +439,7 @@ class base_topic_edit extends base_topic {
     if (!$this->topicId && $this->hasParent($authUser->user['start_node']) ||
          (
             $this->topic['is_deleted'] &&
-            !$authUser->hasPerm(Permissions::PAGE_TRASH_MANAGE)
+            !$authUser->hasPerm(Administration\Permissions::PAGE_TRASH_MANAGE)
          )
        ) {
       if ($this->params['page_id'] != $authUser->user['start_node'] &&
@@ -510,7 +505,7 @@ class base_topic_edit extends base_topic {
         break;
       case 1: //edit content
         $dependencyBlocker = $this->getDependencyBlocker();
-        if ($dependencyBlocker->isSynchronized(Dependency::SYNC_CONTENT)) {
+        if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_CONTENT)) {
           $this->layout->add($dependencyBlocker->getXml());
         } elseif ($str = $this->getEditContent()) {
           $this->layout->add($str);
@@ -518,9 +513,9 @@ class base_topic_edit extends base_topic {
         break;
       case 2:  //boxes
         $dependencyBlocker = $this->getDependencyBlocker();
-        if ($dependencyBlocker->isSynchronized(Dependency::SYNC_BOXES)) {
+        if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_BOXES)) {
           $this->layout->add($dependencyBlocker->getXml());
-        } elseif ($authUser->hasPerm(Permissions::BOX_LINK)) {
+        } elseif ($authUser->hasPerm(Administration\Permissions::BOX_LINK)) {
           $boxLinks = new papaya_boxeslinks($this);
           $boxLinks->initialize();
           $dialog = $boxLinks->getModeDialog($this->topic['box_useparent']);
@@ -532,7 +527,7 @@ class base_topic_edit extends base_topic {
             if ($saved) {
               $this->load($this->topicId, $this->papaya()->administrationLanguage->id);
               $this->sychronizations()->synchronizeAction(
-                Dependency::SYNC_BOXES,
+                \Papaya\Content\Page\Dependency::SYNC_BOXES,
                 $this->topicId,
                 array($this->papaya()->administrationLanguage->id)
               );
@@ -544,7 +539,7 @@ class base_topic_edit extends base_topic {
           $boxLinks->loadBoxGroupList();
           if ($boxLinks->execute()) {
             $this->sychronizations()->synchronizeAction(
-              Dependency::SYNC_BOXES,
+              \Papaya\Content\Page\Dependency::SYNC_BOXES,
               $this->topicId,
               array($this->papaya()->administrationLanguage->id)
             );
@@ -566,13 +561,13 @@ class base_topic_edit extends base_topic {
         break;
       case 4: // surfer permissions
         $dependencyBlocker = $this->getDependencyBlocker();
-        if ($dependencyBlocker->isSynchronized(Dependency::SYNC_ACCESS)) {
+        if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_ACCESS)) {
           $this->layout->add($dependencyBlocker->getXml());
         } elseif ($authUser->hasPerm(2, '88236ef1454768e23787103f46d711c2')) {
           $sfl = new base_surferlinks($this->topicId);
           if ($sfl->execute()) {
             $this->sychronizations()->synchronizeAction(
-              Dependency::SYNC_ACCESS,
+              \Papaya\Content\Page\Dependency::SYNC_ACCESS,
               $this->topicId,
               array($this->papaya()->administrationLanguage->id)
             );
@@ -588,11 +583,11 @@ class base_topic_edit extends base_topic {
         break;
       case 6 : //view and module
         $dependencyBlocker = $this->getDependencyBlocker();
-        if ($dependencyBlocker->isSynchronized(Dependency::SYNC_VIEW)) {
+        if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_VIEW)) {
           $this->layout->add($dependencyBlocker->getXml());
           $this->layout->addRight($this->getInformation());
           break;
-        } elseif (isset($this->params['cmd']) && $this->params['cmd'] == 'chg_view') {
+        } elseif (isset($this->params['cmd']) && $this->params['cmd'] === 'chg_view') {
           if ($this->checkEditView()) {
             if ($this->saveView()) {
               $this->loadTranslatedData(
@@ -603,7 +598,7 @@ class base_topic_edit extends base_topic {
                 sprintf($this->_gt('%s modified.'), $this->_gt('View'))
               );
               $this->sychronizations()->synchronizeAction(
-                Dependency::SYNC_VIEW,
+                \Papaya\Content\Page\Dependency::SYNC_VIEW,
                 $this->topicId,
                 array($this->papaya()->administrationLanguage->id)
               );
@@ -622,7 +617,7 @@ class base_topic_edit extends base_topic {
         $this->loadTranslationsInfo();
         $this->layout->add($this->getPublicData());
         // backup versions
-        if ($authUser->hasPerm(Permissions::PAGE_VERSION_MANAGE)) {
+        if ($authUser->hasPerm(Administration\Permissions::PAGE_VERSION_MANAGE)) {
           $this->loadVersionsList();
           if (isset($this->params['version_id']) &&
               $this->loadVersion($this->params['version_id'])) {
@@ -641,7 +636,7 @@ class base_topic_edit extends base_topic {
         }
         break;
       case 8: //editor permissions
-        if ($authUser->hasPerm(Permissions::PAGE_PERMISSION_MANAGE)) {
+        if ($authUser->hasPerm(Administration\Permissions::PAGE_PERMISSION_MANAGE)) {
           $editUser = new papaya_user();
           $editUser->initialize('edit_usr');
           $editUser->loadGroups();
@@ -655,14 +650,14 @@ class base_topic_edit extends base_topic {
         break;
       case 10: // tags
         $dependencyBlocker = $this->getDependencyBlocker();
-        if ($dependencyBlocker->isSynchronized(Dependency::SYNC_TAGS)) {
+        if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_TAGS)) {
           $this->layout->add($dependencyBlocker->getXml());
-        } elseif ($authUser->hasPerm(Permissions::TAG_MANAGE)) {
+        } elseif ($authUser->hasPerm(Administration\Permissions::TAG_MANAGE)) {
           $tags = papaya_taglinks::getInstance($this);
           if (isset($tags) && $tags->prepare('topic', $this->topicId)) {
             if ($tags->execute()) {
               $this->sychronizations()->synchronizeAction(
-                Dependency::SYNC_TAGS,
+                \Papaya\Content\Page\Dependency::SYNC_TAGS,
                 $this->topicId,
                 array($this->papaya()->administrationLanguage->id)
               );
@@ -677,8 +672,8 @@ class base_topic_edit extends base_topic {
         }
         break;
       case 11 : // dependencies
-        if ($authUser->hasPerm(Permissions::PAGE_DEPENDENCY_MANAGE)) {
-          $dependencies = new Changer();
+        if ($authUser->hasPerm(Administration\Permissions::PAGE_DEPENDENCY_MANAGE)) {
+          $dependencies = new Administration\Pages\Dependency\Changer();
           $dependencies->parameterGroup($this->paramName);
           $this->layout->add($dependencies->getXml());
           $this->menubar->addSeparator();
@@ -705,7 +700,7 @@ class base_topic_edit extends base_topic {
         $this->execPageActions();
         $this->setMenuBar(TRUE);
         $dependencyBlocker = $this->getDependencyBlocker();
-        if ($dependencyBlocker->isSynchronized(Dependency::SYNC_PROPERTIES)) {
+        if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_PROPERTIES)) {
           $this->layout->add($dependencyBlocker->getXml());
         } else {
           $this->layout->add($this->getPropertiesDialog());
@@ -718,7 +713,7 @@ class base_topic_edit extends base_topic {
       $this->setMenuBar(TRUE);
       $this->execPageActions();
       $dependencyBlocker = $this->getDependencyBlocker();
-      if ($dependencyBlocker->isSynchronized(Dependency::SYNC_PROPERTIES)) {
+      if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_PROPERTIES)) {
         $this->layout->add($dependencyBlocker->getXml());
       } else {
         $this->layout->add($this->addTranslationDialog());
@@ -809,10 +804,10 @@ class base_topic_edit extends base_topic {
   * Get the dependency blocker object. It is used to block editing pages if the page depends to
   * another page
   *
-  * @return Blocker
+  * @return Administration\Pages\Dependency\Blocker
   */
   public function getDependencyBlocker() {
-    $blocker = new Blocker((int)$this->topicId);
+    $blocker = new Administration\Pages\Dependency\Blocker((int)$this->topicId);
     $blocker->parameterGroup($this->paramName);
     return $blocker;
   }
@@ -830,7 +825,7 @@ class base_topic_edit extends base_topic {
     switch ($this->params['cmd']) {
     case 'save_properties':
       $dependencyBlocker = $this->getDependencyBlocker();
-      if (!$dependencyBlocker->isSynchronized(Dependency::SYNC_PROPERTIES)) {
+      if (!$dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_PROPERTIES)) {
         $this->initializePropertiesDialog();
         if ($this->dialogProperties->checkDialogInput()) {
           if ($this->saveProperties()) {
@@ -838,7 +833,7 @@ class base_topic_edit extends base_topic {
             $this->load($this->topicId, $this->papaya()->administrationLanguage->id);
             $this->addMsg(MSG_INFO, $this->_gt('Changes saved.'));
             $this->sychronizations()->synchronizeAction(
-              Dependency::SYNC_PROPERTIES,
+              \Papaya\Content\Page\Dependency::SYNC_PROPERTIES,
               $this->topicId,
               array($this->papaya()->administrationLanguage->id)
             );
@@ -852,8 +847,8 @@ class base_topic_edit extends base_topic {
       if (isset($this->params['del_topic_confirm']) && isset($this->topic)) {
         $prev = empty($this->topic['prev']) ? 0 : (int)$this->topic['prev'];
         if ($this->topic['is_deleted'] &&
-            $authUser->hasPerm(Permissions::PAGE_TRASH_MANAGE) &&
-              $authUser->hasPerm(Permissions::PAGE_DELETE)) {
+            $authUser->hasPerm(Administration\Permissions::PAGE_TRASH_MANAGE) &&
+              $authUser->hasPerm(Administration\Permissions::PAGE_DELETE)) {
           if ($this->destroy()) {
             $this->addMsg(
               MSG_INFO,
@@ -872,7 +867,7 @@ class base_topic_edit extends base_topic {
             $this->addMsg(MSG_ERROR, $this->_gt('Cannot delete this page.'));
           }
         } elseif ($this->delete() &&
-                  $authUser->hasPerm(Permissions::PAGE_DELETE)) {
+                  $authUser->hasPerm(Administration\Permissions::PAGE_DELETE)) {
           $this->addMsg(
             MSG_INFO,
             $this->_gtf('Page #%d moved to trash.', array($this->topicId)),
@@ -950,13 +945,13 @@ class base_topic_edit extends base_topic {
   }
 
   /**
-  * Load and display the anchestors of the current page
+  * Load and display the ancestors of the current page
   */
   public function getPageHierarchy() {
     $pageIds = PapayaUtilArray::decodeIdList($this->topic['prev_path']);
     $pageIds[] = $this->topic['prev'];
     $pageIds[] = $this->topicId;
-    $hierarchy = new Ancestors();
+    $hierarchy = new Administration\Pages\Ancestors();
     $hierarchy->setIds($pageIds);
     $this->layout->add($hierarchy->getXml(), 'toolbars');
   }
@@ -999,7 +994,7 @@ class base_topic_edit extends base_topic {
         'Edit content',
         (isset($this->params['mode']) && $this->params['mode'] == 1)
       );
-      if ($authUser->hasPerm(Permissions::BOX_LINK)) {
+      if ($authUser->hasPerm(Administration\Permissions::BOX_LINK)) {
         $toolbar->addButton(
           'Boxes',
           $this->getLink(
@@ -1010,7 +1005,7 @@ class base_topic_edit extends base_topic {
           (isset($this->params['mode']) && $this->params['mode'] == 2)
         );
       }
-      if ($authUser->hasPerm(Permissions::TAG_MANAGE)) {
+      if ($authUser->hasPerm(Administration\Permissions::TAG_MANAGE)) {
         $toolbar->addButton(
           'Tags',
           $this->getLink(
@@ -1031,7 +1026,7 @@ class base_topic_edit extends base_topic {
         (isset($this->params['mode']) && $this->params['mode'] == 5)
       );
       $toolbar->addSeperator();
-      if ($authUser->hasPerm(Permissions::PAGE_DEPENDENCY_MANAGE)) {
+      if ($authUser->hasPerm(Administration\Permissions::PAGE_DEPENDENCY_MANAGE)) {
         $toolbar->addButton(
           $this->_gt('Dependencies').$this->getDependencyBlocker()->counter()->getLabel(),
           $this->getLink(
@@ -1065,7 +1060,7 @@ class base_topic_edit extends base_topic {
         'Version management',
         (isset($this->params['mode']) && $this->params['mode'] == 7)
       );
-      if ($authUser->hasPerm(Permissions::PAGE_PERMISSION_MANAGE)) {
+      if ($authUser->hasPerm(Administration\Permissions::PAGE_PERMISSION_MANAGE)) {
         $toolbar->addButton(
           'Permissions',
           $this->getLink(
@@ -1164,7 +1159,7 @@ class base_topic_edit extends base_topic {
       }
       $this->menubar->addSeperator();
 
-      if ($authUser->hasPerm(Permissions::PAGE_DELETE)) {
+      if ($authUser->hasPerm(Administration\Permissions::PAGE_DELETE)) {
         $this->menubar->addButton(
           'Delete page',
           $this->getLink(
@@ -1192,7 +1187,7 @@ class base_topic_edit extends base_topic {
         }
       }
       $this->menubar->addSeperator();
-      if ($authUser->hasPerm(Permissions::PAGE_PUBLISH)) {
+      if ($authUser->hasPerm(Administration\Permissions::PAGE_PUBLISH)) {
         $this->menubar->addButton(
           'Publish page',
           $this->getLink(
@@ -1297,7 +1292,7 @@ class base_topic_edit extends base_topic {
         $dataTrans = array(
           'topic_title' => $this->dialogProperties->data['topic_title']
         );
-        if ($authUser->hasPerm(Permissions::PAGE_METADATA_EDIT) &&
+        if ($authUser->hasPerm(Administration\Permissions::PAGE_METADATA_EDIT) &&
             $this->dialogProperties->data['meta_useparent']) {
           if (isset($this->dialogProperties->params['meta_title'])) {
             $dataTrans['meta_title'] = $this->dialogProperties->data['meta_title'];
@@ -1340,7 +1335,7 @@ class base_topic_edit extends base_topic {
           'topic_expirestime' => $this->dialogProperties->data['topic_expirestime'],
           'topic_sessionmode' => $this->dialogProperties->data['topic_sessionmode']
         );
-        if ($authUser->hasPerm(Permissions::PAGE_METADATA_EDIT)) {
+        if ($authUser->hasPerm(Administration\Permissions::PAGE_METADATA_EDIT)) {
           $data['meta_useparent'] = (int)(!$this->dialogProperties->data['meta_useparent']);
         }
         if ($translationModified || $this->checkDataModified($data, $this->topic)) {
@@ -1425,7 +1420,7 @@ class base_topic_edit extends base_topic {
               )
             );
             $this->sychronizations()->synchronizeAction(
-              Dependency::SYNC_CONTENT,
+              \Papaya\Content\Page\Dependency::SYNC_CONTENT,
               $this->topicId,
               array($this->papaya()->administrationLanguage->id)
             );
@@ -2518,7 +2513,7 @@ class base_topic_edit extends base_topic {
         $data = $this->topic['TRANSLATION'];
         $fields['topic_title'] = array('Title', new PapayaFilterNotEmpty(), TRUE,
           'input', 400, '', 1);
-        if ($authUser->hasPerm(Permissions::PAGE_METADATA_EDIT) &&
+        if ($authUser->hasPerm(Administration\Permissions::PAGE_METADATA_EDIT) &&
             !$this->topic['meta_useparent']) {
           $fields[] = 'Metatags';
           $fields['meta_title'] = array('Page Title', new PapayaFilterNotEmpty(), FALSE,
@@ -2562,7 +2557,7 @@ class base_topic_edit extends base_topic {
           2 => $this->_gt('https')
         )
       );
-      if ($authUser->hasPerm(Permissions::PAGE_METADATA_EDIT)) {
+      if ($authUser->hasPerm(Administration\Permissions::PAGE_METADATA_EDIT)) {
         $data['meta_useparent'] = !($this->topic['meta_useparent']);
         $fields['meta_useparent'] = array('Define Metatags', 'isNum', TRUE,
           'yesno', '', '', 1);
@@ -2602,7 +2597,7 @@ class base_topic_edit extends base_topic {
       $data['topic_expiresmode'] = $this->topic['topic_expiresmode'];
       $data['topic_expirestime'] = $this->topic['topic_expirestime'];
       $data['topic_sessionmode'] = $this->topic['topic_sessionmode'];
-      if ($authUser->hasPerm(Permissions::PAGE_CACHE_CONFIGURE)) {
+      if ($authUser->hasPerm(Administration\Permissions::PAGE_CACHE_CONFIGURE)) {
         $fields[] = 'Content Cache (Server)';
         $fields['topic_cachemode'] = array(
           'Mode', 'isNum', TRUE, 'combo', $cacheModesContent, '', 1
@@ -2949,10 +2944,10 @@ class base_topic_edit extends base_topic {
         } elseif ($dependency->isDependency($this->topicId)) {
           $dependency->load($this->topicId);
           //check if new view is compatible to current view of origin
-          if (($dependency->synchronization & Dependency::SYNC_VIEW) xor
-              ($dependency->synchronization & Dependency::SYNC_CONTENT)) {
+          if (($dependency->synchronization & \Papaya\Content\Page\Dependency::SYNC_VIEW) xor
+              ($dependency->synchronization & \Papaya\Content\Page\Dependency::SYNC_CONTENT)) {
             // load view of origin page - new view module must be equal to module of origin page
-            $originTranslation = new Translation();
+            $originTranslation = new \Papaya\Content\Page\Translation();
             $originTranslation->load(
               array(
                 'id' => $dependency->originId,
@@ -3552,7 +3547,7 @@ class base_topic_edit extends base_topic {
     }
     if (
          $this->papaya()->administrationUser->hasPerm(
-           Permissions::PAGE_CACHE_CONFIGURE
+           Administration\Permissions::PAGE_CACHE_CONFIGURE
          )
        ) {
       $listview->items[] = $item = new PapayaUiListviewItem(
@@ -4381,7 +4376,7 @@ class base_topic_edit extends base_topic {
         }
         break;
       case 'publish':
-        if ($authUser->hasPerm(Permissions::PAGE_PUBLISH)) {
+        if ($authUser->hasPerm(Administration\Permissions::PAGE_PUBLISH)) {
           if (!isset($_POST['audit'])) {
             $this->initializePublishDialog();
             if (isset($this->params['publish_confirm']) &&
@@ -4403,7 +4398,7 @@ class base_topic_edit extends base_topic {
                     )
                   );
                   $this->sychronizations()->synchronizeAction(
-                    Dependency::SYNC_PUBLICATION,
+                    \Papaya\Content\Page\Dependency::SYNC_PUBLICATION,
                     $this->topicId,
                     empty($this->params['public_languages'])
                       ? NULL : $this->params['public_languages']
@@ -4444,7 +4439,7 @@ class base_topic_edit extends base_topic {
         }
         break;
       case 'del_public':
-        if ($authUser->hasPerm(Permissions::PAGE_PUBLISH)) {
+        if ($authUser->hasPerm(Administration\Permissions::PAGE_PUBLISH)) {
           if (isset($this->params['del_public_confirm']) && $this->params['del_public_confirm']) {
             if ($this->deletePublicTopic()) {
               $this->addMsg(MSG_INFO, 'Published page deleted.');
@@ -4466,7 +4461,7 @@ class base_topic_edit extends base_topic {
         }
         break;
       case 'del_public_trans':
-        if ($authUser->hasPerm(Permissions::PAGE_PUBLISH)) {
+        if ($authUser->hasPerm(Administration\Permissions::PAGE_PUBLISH)) {
           if (isset($this->params['del_public_trans_confirm']) &&
               $this->params['del_public_trans_confirm']) {
             if ($this->deletePublicTopicTrans()) {
@@ -4797,7 +4792,7 @@ class base_topic_edit extends base_topic {
   * @return string
   */
   function getShortTitle($topicId, $languageId) {
-    $pages = new PapayaContentPagesPublications();
+    $pages = new \Papaya\Content\Pages\Publications();
     $pages->load(array('id' => array($topicId), 'language_id' => $languageId));
     $pageTitles = PapayaUtilArrayMapper::byIndex($pages, 'title');
     $pageTitle = isset($pageTitles[$topicId]) ? $pageTitles[$topicId] : '';
@@ -5050,7 +5045,7 @@ class base_topic_edit extends base_topic {
   * @return boolean
   */
   function editable($user) {
-    if (($user->hasPerm(Permissions::PAGE_MANAGE) || $user->isAdmin()) &&
+    if (($user->hasPerm(Administration\Permissions::PAGE_MANAGE) || $user->isAdmin()) &&
         (
          $this->getLevel($user->startNode) <= $user->subLevel ||
          $user->subLevel == 0
@@ -5455,16 +5450,16 @@ class base_topic_edit extends base_topic {
   /**
   * Getter/Setter for the synchronizations object
   *
-  * @param Synchronizations $synchronizations
-  * @return Synchronizations
+  * @param Administration\Pages\Dependency\Synchronizations $synchronizations
+  * @return Administration\Pages\Dependency\Synchronizations
   */
   public function sychronizations(
-    Synchronizations $synchronizations = NULL
+    Administration\Pages\Dependency\Synchronizations $synchronizations = NULL
   ) {
-    if (isset($synchronizations)) {
+    if (NULL !== $synchronizations) {
       $this->_synchronizations = $synchronizations;
-    } elseif (is_null($this->_synchronizations)) {
-      $this->_synchronizations = new Synchronizations();
+    } elseif (NULL === $this->_synchronizations) {
+      $this->_synchronizations = new Administration\Pages\Dependency\Synchronizations();
     }
     return $this->_synchronizations;
   }

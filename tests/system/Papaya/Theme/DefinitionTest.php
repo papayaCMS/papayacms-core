@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Structure\Pages;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaThemeDefinitionTest extends PapayaTestCase {
@@ -21,7 +23,7 @@ class PapayaThemeDefinitionTest extends PapayaTestCase {
    * @covers PapayaThemeDefinition::load
    */
   public function testLoad() {
-    $pages = $this->createMock(PapayaContentStructurePages::class);
+    $pages = $this->createMock(Pages::class);
     $pages
       ->expects($this->once())
       ->method('load')

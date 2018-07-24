@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Structure;
+
 /**
 * Load and provide access to the theme definition stored in theme.xml inside the theme directory.
 *
@@ -22,9 +24,9 @@
 class PapayaContentStructure implements \IteratorAggregate {
 
   /**
-   * @var PapayaContentStructurePages
+   * @var Structure\Pages
    */
-  private $_pages = NULL;
+  private $_pages;
 
   /**
    * Load theme data from an xml file
@@ -55,14 +57,14 @@ class PapayaContentStructure implements \IteratorAggregate {
   /**
    * Getter/Setter for the dynamic value definition pages
    *
-   * @param \PapayaContentStructurePages $pages
-   * @return \PapayaContentStructurePages
+   * @param \Papaya\Content\Structure\Pages $pages
+   * @return \Papaya\Content\Structure\Pages
    */
-  public function pages(\PapayaContentStructurePages $pages = NULL) {
-    if (isset($pages)) {
+  public function pages(\Papaya\Content\Structure\Pages $pages = NULL) {
+    if (NULL !== $pages) {
       $this->_pages = $pages;
     } elseif (NULL === $this->_pages) {
-      $this->_pages = new \PapayaContentStructurePages();
+      $this->_pages = new \Papaya\Content\Structure\Pages();
     }
     return $this->_pages;
   }
@@ -70,7 +72,7 @@ class PapayaContentStructure implements \IteratorAggregate {
   /**
    * Allow to directly loop on the pages.
    *
-   * @return \PapayaContentStructurePages
+   * @return \Papaya\Content\Structure\Pages
    */
   public function getIterator() {
     return $this->pages();
@@ -80,12 +82,12 @@ class PapayaContentStructure implements \IteratorAggregate {
    * Fetch a page by its identifier
    *
    * @param string $identifier
-   * @return \PapayaContentStructurePage|NULL
+   * @return \Papaya\Content\Structure\Page|NULL
    */
   public function getPage($identifier) {
-    /** @var PapayaContentStructurePage $page */
+    /** @var Structure\Page $page */
     foreach ($this->pages() as $page) {
-      if ($page->getIdentifier() == $identifier) {
+      if ($page->getIdentifier() === $identifier) {
         return $page;
       }
     }
@@ -102,24 +104,24 @@ class PapayaContentStructure implements \IteratorAggregate {
   public function getXmlDocument(array $currentValues) {
     $document = new \PapayaXmlDocument();
     $rootNode = $document->appendElement('values');
-    /** @var PapayaContentStructurePage $page */
+    /** @var Structure\Page $page */
     foreach ($this->pages() as $page) {
       $pageNode = $rootNode->appendElement($page->name);
-      /** @var PapayaContentStructureGroup $group */
+      /** @var Structure\Group $group */
       foreach ($page->groups() as $group) {
         $groupNode = $pageNode->appendElement($group->name);
-        /** @var PapayaContentStructureValue $value */
+        /** @var Structure\Value $value */
         foreach ($group->values() as $value) {
           $current = '';
           if (isset($currentValues[$page->name][$group->name][$value->name])) {
             $current = trim($currentValues[$page->name][$group->name][$value->name]);
           }
-          if (empty($current) || $current === '0' || $current === 0) {
+          if (empty($current) || '0' === $current || 0 === $current) {
             $current = trim($value->default);
           }
-          if (!empty($current) || $current === '0' || $current === 0) {
+          if (!empty($current) || '0' === $current || 0 === $current) {
             $type = empty($value->type) ? 'text' : $value->type;
-            if ($type == 'xhtml') {
+            if ('xhtml' === $type) {
               $groupNode
                 ->appendElement($value->name, array('type' => 'xhtml'))->appendXml($current);
             } else {
@@ -138,32 +140,31 @@ class PapayaContentStructure implements \IteratorAggregate {
    *
    * @param \PapayaXmlElement $dataNode
    * @return array
-   * @internal param \PapayaXmlElement $data
    */
   public function getArray(\PapayaXmlElement $dataNode) {
     $result = array();
-    /** @var PapayaXmlDocument $document */
+    /** @var \PapayaXmlDocument $document */
     $document = $dataNode->ownerDocument;
-    /** @var PapayaContentStructurePage $page */
+    /** @var Structure\Page $page */
     foreach ($this->pages() as $page) {
       if ($document->xpath()->evaluate('count('.$page->name.')', $dataNode)) {
         $pageNode = $document->xpath()->evaluate($page->name)->item(0);
-        /** @var PapayaContentStructureGroup $group */
+        /** @var Structure\Group $group */
         foreach ($page->groups() as $group) {
           if ($document->xpath()->evaluate('count('.$group->name.')', $pageNode)) {
             $groupNode = $document->xpath()->evaluate($group->name, $pageNode)->item(0);
-            /** @var PapayaContentStructureValue $value */
+            /** @var Structure\Value $value */
             foreach ($group->values() as $value) {
               if ($document->xpath()->evaluate('count('.$value->name.')', $groupNode)) {
-                /** @var PapayaXmlElement $valueNode */
+                /** @var \PapayaXmlElement $valueNode */
                 $valueNode = $document->xpath()->evaluate($value->name, $groupNode)->item(0);
                 $type = empty($value->type) ? 'text' : $value->type;
-                if ($type == 'xhtml') {
+                if ('xhtml' === $type) {
                   $current = trim($valueNode->saveFragment());
                 } else {
                   $current = trim($valueNode->textContent);
                 }
-                if (!empty($current) || $current === '0') {
+                if (!empty($current) || '0' === $current) {
                   $result[$page->name][$group->name][$value->name] = $current;
                 }
               }

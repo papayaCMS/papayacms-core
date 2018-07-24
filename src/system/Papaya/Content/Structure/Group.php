@@ -13,32 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Structure;
 /**
-* Content structure group element
-*
-* Content structure values are organized in groups and pages. A page can contain multiple groups
-* and a group multiple values.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property string $title
-* @property string $name
-*/
-class PapayaContentStructureGroup extends \PapayaContentStructureNode {
+ * Content structure group element
+ *
+ * Content structure values are organized in groups and pages. A page can contain multiple groups
+ * and a group multiple values.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property string $title
+ * @property string $name
+ */
+class Group extends Node {
 
   public $title = '';
   public $name = '';
-  private $_values = NULL;
+  private $_values;
 
-  private $_page = NULL;
+  private $_page;
 
   /**
    * Create object and store page
    *
-   * @param \PapayaContentStructurePage $page
+   * @param Page $page
    */
-  public function __construct(\PapayaContentStructurePage $page) {
+  public function __construct(Page $page) {
     parent::__construct(
       array(
         'name' => 'page',
@@ -51,14 +52,14 @@ class PapayaContentStructureGroup extends \PapayaContentStructureNode {
   /**
    * Getter/Setter for the values list
    *
-   * @param \PapayaContentStructureValues $values
-   * @return \PapayaContentStructureValues
+   * @param Values $values
+   * @return Values
    */
-  public function values(\PapayaContentStructureValues $values = NULL) {
-    if (isset($values)) {
+  public function values(Values $values = NULL) {
+    if (NULL !== $values) {
       $this->_values = $values;
     } elseif (NULL === $this->_values) {
-      $this->_values = new \PapayaContentStructureValues($this);
+      $this->_values = new Values($this);
     }
     return $this->_values;
   }

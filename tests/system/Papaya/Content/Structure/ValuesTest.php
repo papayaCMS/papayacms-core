@@ -13,35 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Structure\Group;
+use Papaya\Content\Structure\Value;
+use Papaya\Content\Structure\Values;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentStructureValuesTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaContentStructureValues::__construct
+   * @covers Values::__construct
    */
   public function testConstructor() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructureGroup $group */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Group $group */
     $group = $this
-      ->getMockBuilder(PapayaContentStructureGroup::class)
+      ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $values = new PapayaContentStructureValues($group);
-    $this->assertEquals(PapayaContentStructureValue::class, $values->getItemClass());
+    $values = new Values($group);
+    $this->assertEquals(Value::class, $values->getItemClass());
   }
 
   /**
-   * @covers PapayaContentStructureValues::load
+   * @covers Values::load
    */
   public function testLoad() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructureGroup $group */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Group $group */
     $group = $this
-      ->getMockBuilder(PapayaContentStructureGroup::class)
+      ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
     $document = new PapayaXmlDocument();
     $document->load(__DIR__.'/../TestData/structure.xml');
-    $values = new PapayaContentStructureValues($group);
+    $values = new Values($group);
     $values->load($document->xpath()->evaluate('//page[1]/group[1]')->item(0));
     $this->assertCount(1, $values);
     $this->assertEquals('Font color', $values[0]->title);
@@ -53,17 +57,17 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentStructureValues::load
+   * @covers Values::load
    */
   public function testLoadValueWithMultipleParameters() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructureGroup $group */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Group $group */
     $group = $this
-      ->getMockBuilder(PapayaContentStructureGroup::class)
+      ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
     $document = new PapayaXmlDocument();
     $document->load(__DIR__.'/../TestData/structure.xml');
-    $values = new PapayaContentStructureValues($group);
+    $values = new Values($group);
     $values->load($document->xpath()->evaluate('//page[1]/group[2]')->item(0));
     $this->assertCount(1, $values);
     $this->assertEquals(
@@ -78,34 +82,34 @@ class PapayaContentStructureValuesTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentStructureValues::load
+   * @covers Values::load
    */
   public function testLoadValueWithSimpleParameterAsAttribute() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructureGroup $group */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Group $group */
     $group = $this
-      ->getMockBuilder(PapayaContentStructureGroup::class)
+      ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
     $document = new PapayaXmlDocument();
     $document->load(__DIR__.'/../TestData/structure.xml');
-    $values = new PapayaContentStructureValues($group);
+    $values = new Values($group);
     $values->load($document->xpath()->evaluate('//page[1]/group[3]')->item(0));
     $this->assertCount(2, $values);
     $this->assertEquals('200', $values[0]->fieldParameters);
   }
 
   /**
-   * @covers PapayaContentStructureValues::load
+   * @covers Values::load
    */
   public function testLoadValueWithParametersList() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructureGroup $group */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Group $group */
     $group = $this
-      ->getMockBuilder(PapayaContentStructureGroup::class)
+      ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
     $document = new PapayaXmlDocument();
     $document->load(__DIR__.'/../TestData/structure.xml');
-    $values = new PapayaContentStructureValues($group);
+    $values = new Values($group);
     $values->load($document->xpath()->evaluate('//page[1]/group[3]')->item(0));
     $this->assertCount(2, $values);
     $this->assertEquals(

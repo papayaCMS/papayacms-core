@@ -13,19 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Structure;
+
 /**
-* Content structure pages, defines the main items list of a constent structure.
-*
-* Content structures are organized in groups and pages. A page can contain multiple groups
-* and a group multiple values.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentStructurePages extends \PapayaObjectList {
+ * Content structure pages, defines the main items list of a constent structure.
+ *
+ * Content structures are organized in groups and pages. A page can contain multiple groups
+ * and a group multiple values.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Pages extends \PapayaObjectList {
 
   public function __construct() {
-    parent::__construct(\PapayaContentStructurePage::class);
+    parent::__construct(Page::class);
   }
 
   /**
@@ -34,11 +36,11 @@ class PapayaContentStructurePages extends \PapayaObjectList {
    * @param \PapayaXmlElement $structure
    */
   public function load(\PapayaXmlElement $structure) {
-    /** @var PapayaXmlDocument $document */
+    /** @var \PapayaXmlDocument $document */
     $document = $structure->ownerDocument;
-    /** @var PapayaXmlElement $node */
+    /** @var \PapayaXmlElement $node */
     foreach ($document->xpath()->evaluate('page', $structure) as $node) {
-      $this[] = $page = new \PapayaContentStructurePage();
+      $this[] = $page = new Page();
       $page->name = $node->getAttribute('name');
       $page->title = $node->getAttribute('title');
       $page->groups()->load($node);

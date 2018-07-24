@@ -1,4 +1,20 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Pages\Publications;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
@@ -16,7 +32,7 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
       array('parent' => 21, 'view_id' => 42, 'language_id' => 1), $orderBy
     );
     $this->assertInstanceOf(PapayaUiContentTeasers::class, $teasers);
-    $this->assertInstanceOf(PapayaContentPagesPublications::class, $teasers->pages());
+    $this->assertInstanceOf(Publications::class, $teasers->pages());
 
   }
 
@@ -47,7 +63,7 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
     $teasers = $factory->byParent(42);
     $this->assertInstanceOf(PapayaUiContentTeasers::class, $teasers);
     $this->assertInstanceOf(PapayaContentPages::class, $teasers->pages());
-    $this->assertNotInstanceOf(PapayaContentPagesPublications::class, $teasers->pages());
+    $this->assertNotInstanceOf(Publications::class, $teasers->pages());
   }
 
   /**
@@ -61,7 +77,7 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
 
     $teasers = $factory->byParent(array(21, 42), $orderBy);
     $this->assertInstanceOf(PapayaUiContentTeasers::class, $teasers);
-    $this->assertInstanceOf(PapayaContentPagesPublications::class, $teasers->pages());
+    $this->assertInstanceOf(Publications::class, $teasers->pages());
   }
 
   /**
@@ -73,7 +89,7 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
 
     $teasers = $factory->byParent(array(21, 42), 'invalid');
     $this->assertInstanceOf(PapayaUiContentTeasers::class, $teasers);
-    $this->assertInstanceOf(PapayaContentPagesPublications::class, $teasers->pages());
+    $this->assertInstanceOf(Publications::class, $teasers->pages());
   }
 
   /**
@@ -85,7 +101,7 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
 
     $teasers = $factory->byPageId(42);
     $this->assertInstanceOf(PapayaUiContentTeasers::class, $teasers);
-    $this->assertInstanceOf(PapayaContentPagesPublications::class, $teasers->pages());
+    $this->assertInstanceOf(Publications::class, $teasers->pages());
   }
 
 }

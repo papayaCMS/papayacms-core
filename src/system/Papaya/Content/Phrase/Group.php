@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Phrase;
 /**
-* Encapsulation for phrase groups, groups allows more efficient loading for phrases
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPhraseGroup extends \PapayaDatabaseRecordLazy {
+ * Encapsulation for phrase groups, groups allows more efficient loading for phrases
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Group extends \PapayaDatabaseRecordLazy {
 
   /**
-  * Map field names to more convinient property names
-  *
-  * @var array(string=>string)
-  */
+   * Map field names to more convinient property names
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'id' => 'module_id',
     'title' => 'module_title',

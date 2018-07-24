@@ -1,10 +1,26 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Structure\Node;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentStructureNodeTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaContentStructureNode
+   * @covers Node
    */
   public function testIssetWithValidPropertyExpectingTrue() {
     $node = new PapayaContentStructureNode_TestProxy();
@@ -12,7 +28,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentStructureNode
+   * @covers Node
    */
   public function testIssetWithInvalidPropertyExpectingFalse() {
     $node = new PapayaContentStructureNode_TestProxy();
@@ -21,7 +37,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
 
 
   /**
-   * @covers PapayaContentStructureNode
+   * @covers       Node
    * @dataProvider providePropertyValues
    * @param mixed $expected
    * @param string $name
@@ -34,7 +50,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentStructureNode
+   * @covers Node
    */
   public function testSetInvalidPropertyExpectingException() {
     $node = new PapayaContentStructureNode_TestProxy();
@@ -44,7 +60,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentStructureNode
+   * @covers Node
    */
   public function testGetInvalidPropertyExpectingException() {
     $node = new PapayaContentStructureNode_TestProxy();
@@ -54,7 +70,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentStructureNode
+   * @covers Node
    */
   public function testSetInvalidPropertyNameExpectingException() {
     $node = new PapayaContentStructureNode_TestProxy();
@@ -73,7 +89,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
   }
 }
 
-class PapayaContentStructureNode_TestProxy extends PapayaContentStructureNode {
+class PapayaContentStructureNode_TestProxy extends Node {
 
   public function __construct() {
     parent::__construct(

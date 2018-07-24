@@ -13,25 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Pages;
 /**
-* This object loads public page data by different conditions.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPagesPublications extends \PapayaContentPages {
+ * This object loads public page data by different conditions.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Publications extends \PapayaContentPages {
   /**
-  * Table containing page informations
-  *
-  * @var string
-  */
+   * Table containing page informations
+   *
+   * @var string
+   */
   protected $_tablePages = \PapayaContentTables::PAGE_PUBLICATIONS;
 
   /**
-  * Table containing language specific page informations
-  *
-  * @var string
-  */
+   * Table containing language specific page informations
+   *
+   * @var string
+   */
   protected $_tablePageTranslations = \PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS;
 
   /**

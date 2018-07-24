@@ -13,21 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Structure;
+
 /**
-* Content structure values list
-*
-* Content structure values are organized in groups and pages. A page can contain multiple groups
-* and a group multiple values.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentStructureValues extends \PapayaObjectList {
+ * Content structure values list
+ *
+ * Content structure values are organized in groups and pages. A page can contain multiple groups
+ * and a group multiple values.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Values extends \PapayaObjectList {
 
-  private $_group = NULL;
+  private $_group;
 
-  public function __construct(\PapayaContentStructureGroup $group) {
-    parent::__construct(\PapayaContentStructureValue::class);
+  public function __construct(Group $group) {
+    parent::__construct(Value::class);
     $this->_group = $group;
   }
 
@@ -37,11 +39,11 @@ class PapayaContentStructureValues extends \PapayaObjectList {
    * @param \PapayaXmlElement $groupNode
    */
   public function load(\PapayaXmlElement $groupNode) {
-    /** @var PapayaXmlDocument $document */
+    /** @var \PapayaXmlDocument $document */
     $document = $groupNode->ownerDocument;
-    /** @var PapayaXmlElement $node */
+    /** @var \PapayaXmlElement $node */
     foreach ($document->xpath()->evaluate('value', $groupNode) as $node) {
-      $this[] = $value = new \PapayaContentStructureValue($this->_group);
+      $this[] = $value = new Value($this->_group);
       $value->name = $node->getAttribute('name');
       $value->title = $node->getAttribute('title');
       $value->default = $node->getAttribute('default');
@@ -60,7 +62,7 @@ class PapayaContentStructureValues extends \PapayaObjectList {
         $parameterNodes = $document->xpath()->evaluate('field-parameter', $node);
         if ($parameterNodes->length > 0) {
           $fieldParameters = array();
-          /** @var PapayaXmlElement $parameterNode */
+          /** @var \PapayaXmlElement $parameterNode */
           foreach ($parameterNodes as $parameterNode) {
             $key = $parameterNode->getAttribute('key');
             $text = $parameterNode->textContent;

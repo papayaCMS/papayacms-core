@@ -13,21 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Structure;
+
 /**
-* Content structure values group list
-*
-* Content structure values are organized in groups and pages. A page can contain multiple groups
-* and a group multiple values.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentStructureGroups extends \PapayaObjectList {
+ * Content structure values group list
+ *
+ * Content structure values are organized in groups and pages. A page can contain multiple groups
+ * and a group multiple values.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Groups extends \PapayaObjectList {
 
-  private $_page = NULL;
+  private $_page;
 
-  public function __construct(\PapayaContentStructurePage $page) {
-    parent::__construct(\PapayaContentStructureGroup::class);
+  public function __construct(Page $page) {
+    parent::__construct(Group::class);
     $this->_page = $page;
   }
 
@@ -37,11 +39,11 @@ class PapayaContentStructureGroups extends \PapayaObjectList {
    * @param \PapayaXmlElement $pageNode
    */
   public function load(\PapayaXmlElement $pageNode) {
-    /** @var PapayaXmlDocument $document */
+    /** @var \PapayaXmlDocument $document */
     $document = $pageNode->ownerDocument;
-    /** @var PapayaXmlElement $node */
+    /** @var \PapayaXmlElement $node */
     foreach ($document->xpath()->evaluate('group', $pageNode) as $node) {
-      $this[] = $group = new \PapayaContentStructureGroup($this->_page);
+      $this[] = $group = new Group($this->_page);
       $group->name = $node->getAttribute('name');
       $group->title = $node->getAttribute('title');
       $group->values()->load($node);

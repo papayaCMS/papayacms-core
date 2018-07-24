@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Link\Types;
+use Papaya\Content\Pages\Publications;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -474,9 +475,9 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   */
   public function testSetPreviewToTrueResetsPagesObject() {
     $factory = new PapayaUiReferencePageFactory();
-    $this->assertInstanceOf(PapayaContentPagesPublications::class, $pages = $factory->pages());
+    $this->assertInstanceOf(Publications::class, $pages = $factory->pages());
     $factory->setPreview(TRUE);
-    $this->assertNotInstanceOf(PapayaContentPagesPublications::class, $pages = $factory->pages());
+    $this->assertNotInstanceOf(Publications::class, $pages = $factory->pages());
   }
 
   /**
@@ -485,9 +486,9 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   public function testSetPreviewToFalseResetsPagesObject() {
     $factory = new PapayaUiReferencePageFactory();
     $factory->setPreview(TRUE);
-    $this->assertNotInstanceOf(PapayaContentPagesPublications::class, $pages = $factory->pages());
+    $this->assertNotInstanceOf(Publications::class, $pages = $factory->pages());
     $factory->setPreview(FALSE);
-    $this->assertInstanceOf(PapayaContentPagesPublications::class, $pages = $factory->pages());
+    $this->assertInstanceOf(Publications::class, $pages = $factory->pages());
   }
 
   /**
@@ -866,7 +867,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   */
   public function testPagesGetImplicitCreatePagesPublications() {
     $factory = new PapayaUiReferencePageFactory();
-    $this->assertInstanceOf(PapayaContentPagesPublications::class, $pages = $factory->pages());
+    $this->assertInstanceOf(Publications::class, $pages = $factory->pages());
   }
 
   /**
@@ -875,7 +876,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   public function testPagesGetImplicitCreatePagesInPreviewMode() {
     $factory = new PapayaUiReferencePageFactory();
     $factory->setPreview(TRUE);
-    $this->assertNotInstanceOf(PapayaContentPagesPublications::class, $pages = $factory->pages());
+    $this->assertNotInstanceOf(Publications::class, $pages = $factory->pages());
   }
 
   /**

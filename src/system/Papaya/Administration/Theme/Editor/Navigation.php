@@ -228,10 +228,10 @@ class Navigation extends \Papaya\Administration\Page\Part {
   /**
    * Create the listitem for a theme values page
    *
-   * @param \PapayaContentStructurePage $element
+   * @param \Papaya\Content\Structure\Page $element
    * @return \PapayaUiListviewItem
    */
-  private function createPageItem(\PapayaContentStructurePage $element) {
+  private function createPageItem(\Papaya\Content\Structure\Page $element) {
     $item = new \PapayaUiListviewItem('items-folder', (string)$element->title);
     $item->papaya($this->papaya());
     $item->indentation = 2;

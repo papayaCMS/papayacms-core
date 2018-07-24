@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Theme\Editor\Navigation;
+use Papaya\Content\Structure\Page;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -347,7 +348,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
 
-    $page = new PapayaContentStructurePage();
+    $page = new Page();
     $page->title = 'Page title';
     $page->name = 'SAMPLE_PAGE';
 
@@ -393,7 +394,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(PapayaUiListviewItem::class));
 
-    $page = new PapayaContentStructurePage();
+    $page = new Page();
     $page->title = 'Page title';
     $page->name = 'SAMPLE_PAGE';
 

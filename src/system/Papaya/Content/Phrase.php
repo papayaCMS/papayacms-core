@@ -95,7 +95,7 @@ class PapayaContentPhrase extends \PapayaDatabaseRecord {
 
   public function getGroup($title = NULL) {
     $identifier = strtolower(trim($title));
-    $group = new \PapayaContentPhraseGroup();
+    $group = new \Papaya\Content\Phrase\Group();
     $group->papaya($this->papaya());
     $group->setDatabaseAccess($this->getDatabaseAccess());
     $group->activateLazyLoad(array('identifier' => $identifier));

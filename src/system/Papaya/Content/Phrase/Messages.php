@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Phrase;
 /**
-* Log messages for phrases system
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPhraseMessages extends \PapayaDatabaseRecords {
+ * Log messages for phrases system
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Messages extends \PapayaDatabaseRecords {
 
   /**
-  * Map field names to more convinient property names
-  *
-  * @var array(string=>string)
-  */
+   * Map field names to more convenient property names
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'id' => 'log_id',
     'phrase' => 'log_phrase',

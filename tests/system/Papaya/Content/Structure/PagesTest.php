@@ -13,25 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Structure\Page;
+use Papaya\Content\Structure\Pages;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentStructurePagesTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaContentStructurePages::__construct
+   * @covers Pages::__construct
    */
   public function testConstructor() {
-    $pages = new PapayaContentStructurePages();
-    $this->assertEquals(PapayaContentStructurePage::class, $pages->getItemClass());
+    $pages = new Pages();
+    $this->assertEquals(Page::class, $pages->getItemClass());
   }
 
   /**
-   * @covers PapayaContentStructurePages::load
+   * @covers Pages::load
    */
   public function testLoad() {
     $document = new PapayaXmlDocument();
     $document->load(__DIR__.'/../TestData/structure.xml');
-    $pages = new PapayaContentStructurePages();
+    $pages = new Pages();
     $pages->load($document->documentElement);
     $this->assertCount(1, $pages);
     $this->assertEquals('Sample Page 1', $pages[0]->title);

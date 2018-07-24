@@ -1,12 +1,28 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Pages\Publications;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaContentPagesPublicationsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentPagesPublications::__construct
-  * @covers PapayaContentPagesPublications::load
-  * @covers PapayaContentPagesPublications::_compileCondition
+  * @covers Publications::__construct
+  * @covers Publications::load
+  * @covers Publications::_compileCondition
   */
   public function testLoadWithTranslationNeeded() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -38,16 +54,16 @@ class PapayaContentPagesPublicationsTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue($databaseResult));
-    $pages = new PapayaContentPagesPublications(TRUE);
+    $pages = new Publications(TRUE);
     $pages->setDatabaseAccess($databaseAccess);
     $this->assertTrue($pages->load(array('time' => 123456789, 'language_id' => 1)));
   }
 
   /**
-  * @covers PapayaContentPagesPublications
+  * @covers Publications
   */
   public function testIsPublicExpectingTrue() {
-    $pages = new PapayaContentPagesPublications();
+    $pages = new Publications();
     $this->assertTrue($pages->isPublic());
   }
 }

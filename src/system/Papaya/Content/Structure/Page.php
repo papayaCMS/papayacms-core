@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\Structure;
 /**
-* Content structure page element
-*
-* Content structure values are organized in groups and pages. A page can contain multiple groups
-* and a group multiple values.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property string $title
-* @property string $name
-*/
-class PapayaContentStructurePage extends \PapayaContentStructureNode {
+ * Content structure page element
+ *
+ * Content structure values are organized in groups and pages. A page can contain multiple groups
+ * and a group multiple values.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property string $title
+ * @property string $name
+ */
+class Page extends Node {
 
-  private $_groups = NULL;
+  private $_groups;
 
   public function __construct() {
     parent::__construct(
@@ -41,14 +42,14 @@ class PapayaContentStructurePage extends \PapayaContentStructureNode {
   /**
    * Groups defined for this page
    *
-   * @param \PapayaContentStructureGroups $groups
-   * @return \PapayaContentStructureGroups
+   * @param Groups $groups
+   * @return Groups
    */
-  public function groups(\PapayaContentStructureGroups $groups = NULL) {
-    if (isset($groups)) {
+  public function groups(Groups $groups = NULL) {
+    if (NULL !== $groups) {
       $this->_groups = $groups;
     } elseif (NULL === $this->_groups) {
-      $this->_groups = new \PapayaContentStructureGroups($this);
+      $this->_groups = new Groups($this);
     }
     return $this->_groups;
   }
