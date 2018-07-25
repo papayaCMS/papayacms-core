@@ -30,7 +30,7 @@ namespace Papaya\Content\Box;
  * @property integer $publishedFrom publication time limit - start
  * @property integer $publishedTo publication time limit - end
  */
-class Publication extends \PapayaContentBox {
+class Publication extends \Papaya\Content\Box {
 
   /**
    * Map properties to database fields

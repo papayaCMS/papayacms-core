@@ -1534,9 +1534,9 @@ class papaya_boxes extends base_boxes {
       $fields['boxgroup_id'] = array('Group', 'isNum', TRUE, 'combo', $boxGroups);
 
       $deliveryModes = array(
-        PapayaContentBox::DELIVERY_MODE_STATIC => $this->_gt('Static (include in page)'),
-        PapayaContentBox::DELIVERY_MODE_ESI => $this->_gt('Allow reverse proxy embed (ESI)'),
-        PapayaContentBox::DELIVERY_MODE_JAVASCRIPT => $this->_gt('Javascript embed (lazy load)'),
+        Papaya\Content\Box::DELIVERY_MODE_STATIC => $this->_gt('Static (include in page)'),
+        Papaya\Content\Box::DELIVERY_MODE_ESI => $this->_gt('Allow reverse proxy embed (ESI)'),
+        Papaya\Content\Box::DELIVERY_MODE_JAVASCRIPT => $this->_gt('Javascript embed (lazy load)'),
       );
       $fields[] = 'Delivery';
       $fields['box_deliverymode'] = array('Mode', 'isNum', TRUE, 'combo', $deliveryModes);

@@ -32,7 +32,7 @@ namespace Papaya\Content\Box;
  * @property integer $cacheTime box content cache time, if mode == own
  * @property integer $unpublishedTranslations internal counter for unpublished translations
  */
-class Work extends \PapayaContentBox {
+class Work extends \Papaya\Content\Box {
 
   /**
    * Save box to database

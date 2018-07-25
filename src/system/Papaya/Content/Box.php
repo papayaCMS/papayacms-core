@@ -13,27 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Box\Translations;
+namespace Papaya\Content;
 
 /**
-* Provide a superclass data encapsulation for the content box itself. HEre a two children
-* of this class {@see PapayaContent'BoxWork} for the working copy and
-* {@see Papaya\Content\Box\PapayaContentBoxPublication} for the published version.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-abstract class PapayaContentBox extends \PapayaDatabaseObjectRecord {
+ * Provide a superclass data encapsulation for the content box itself. Here are two children
+ * of this class {@see Papaya\Content\Box\Work} for the working copy and
+ * {@see Papaya\Content\Box\Publication} for the published version.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+abstract class Box extends \PapayaDatabaseObjectRecord {
 
   const DELIVERY_MODE_STATIC = 0;
   const DELIVERY_MODE_ESI = 1;
   const DELIVERY_MODE_JAVASCRIPT = 2;
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     // box id
     'id' => 'box_id',
@@ -59,10 +59,10 @@ abstract class PapayaContentBox extends \PapayaDatabaseObjectRecord {
   protected $_tableName = \PapayaContentTables::BOXES;
 
   /**
-  * Box translations list object
-  *
-  * @var Translations
-  */
+   * Box translations list object
+   *
+   * @var Box\Translations
+   */
   protected $_translations = NULL;
 
   public function load($id) {
@@ -74,19 +74,19 @@ abstract class PapayaContentBox extends \PapayaDatabaseObjectRecord {
   }
 
   /**
-  * Access to the translation list informations
-  *
-  * Allows to get/set the list object. Can create a list object if needed.
-  *
-  * @param \Papaya\Content\Box\Translations $translations
-  * @return \Papaya\Content\Box\Translations
-  */
-  public function translations(\Papaya\Content\Box\Translations $translations = NULL) {
+   * Access to the translation list information
+   *
+   * Allows to get/set the list object. Can create a list object if needed.
+   *
+   * @param Box\Translations $translations
+   * @return Box\Translations
+   */
+  public function translations(Box\Translations $translations = NULL) {
     if (isset($translations)) {
       $this->_translations = $translations;
     }
     if (is_null($this->_translations)) {
-      $this->_translations = new \Papaya\Content\Box\Translations();
+      $this->_translations = new Box\Translations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
     }
     return $this->_translations;

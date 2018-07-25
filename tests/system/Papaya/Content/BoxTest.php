@@ -14,13 +14,14 @@
  */
 
 use Papaya\Content\Box\Translations;
+use Papaya\Content\Box;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaContentBoxTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentBox::load
+  * @covers Box::load
   */
   public function testLoad() {
     $translations = $this->createMock(Translations::class);
@@ -34,7 +35,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
       'box_name' => 'Box Name',
       'box_created' => 1,
       'box_modified' => 2,
-      'box_deliverymode' => PapayaContentBox::DELIVERY_MODE_STATIC,
+      'box_deliverymode' => Box::DELIVERY_MODE_STATIC,
       'box_cachemode' => PapayaContentOptions::CACHE_SYSTEM,
       'box_cachetime' => 0,
       'box_expiresmode' => PapayaContentOptions::CACHE_SYSTEM,
@@ -66,7 +67,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
         'name' => 'Box Name',
         'created' => 1,
         'modified' => 2,
-        'delivery_mode' => PapayaContentBox::DELIVERY_MODE_STATIC,
+        'delivery_mode' => Box::DELIVERY_MODE_STATIC,
         'cache_mode' => PapayaContentOptions::CACHE_SYSTEM,
         'cache_time' => 0,
         'expires_mode' => PapayaContentOptions::CACHE_SYSTEM,
@@ -79,7 +80,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentBox::load
+  * @covers Box::load
   */
   public function testLoadFailedExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -96,7 +97,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentBox::translations
+  * @covers Box::translations
   */
   public function testTranslationsSet() {
     $translations = $this->createMock(Translations::class);
@@ -108,7 +109,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentBox::translations
+  * @covers Box::translations
   */
   public function testTranslationsGetAfterSet() {
     $translations = $this->createMock(Translations::class);
@@ -120,7 +121,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentBox::translations
+  * @covers Box::translations
   */
   public function testTranslationsGetImplicitCreate() {
     $box = new PapayaContentBox_TestProxy();
@@ -130,6 +131,6 @@ class PapayaContentBoxTest extends PapayaTestCase {
   }
 }
 
-class PapayaContentBox_TestProxy extends PapayaContentBox {
+class PapayaContentBox_TestProxy extends Box {
 
 }
