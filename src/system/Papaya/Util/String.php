@@ -31,7 +31,6 @@ class PapayaUtilString {
    * @param string $length
    * @param boolean $cut Cut words
    * @param string $suffix suffix string for truncated strings
-   * @internal param \length $charLength
    * @return string
    */
   public static function truncate($string, $length, $cut = TRUE, $suffix = '') {

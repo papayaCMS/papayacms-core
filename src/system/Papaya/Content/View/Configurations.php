@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\View;
 /**
-* This object loads view records into a list.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentViewConfigurations extends \PapayaDatabaseRecordsLazy {
+ * This object loads view records into a list.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Configurations extends \PapayaDatabaseRecordsLazy {
 
   /**
-  * Map field names to more convinient property names
-  *
-  * @var array(string=>string)
-  */
+   * Map field names to more convenient property names
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'id' => 'vl.view_id',
     'mode_id' => 'viewmode_id',
@@ -35,12 +36,18 @@ class PapayaContentViewConfigurations extends \PapayaDatabaseRecordsLazy {
   );
 
   /**
-  * Table containing view informations
-  *
-  * @var string
-  */
+   * Table containing view informations
+   *
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::VIEW_CONFIGURATIONS;
 
+  /**
+   * @param array|string|int $filter
+   * @param int|null $limit
+   * @param int|null $offset
+   * @return bool
+   */
   public function load($filter = array(), $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
     $filter = \PapayaUtilString::escapeForPrintf($this->_compileCondition($filter));

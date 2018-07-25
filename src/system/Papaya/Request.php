@@ -20,7 +20,7 @@
 * @subpackage Request
 *
 * @property PapayaContentLanguage $language
-* @property PapayaContentViewMode $mode
+* @property Papaya\Content\View\Mode $mode
 * @property-read \Papaya\Url $url
 * @property-read string $method
 * @property-read boolean $allowCompression
@@ -262,14 +262,14 @@ class PapayaRequest
   /**
    * Getter/Setter for view mode object
    *
-   * @param \PapayaContentViewMode $mode
-   * @return \PapayaContentViewMode
+   * @param \Papaya\Content\View\Mode $mode
+   * @return \Papaya\Content\View\Mode
    */
-  public function mode(\PapayaContentViewMode $mode = NULL) {
+  public function mode(\Papaya\Content\View\Mode $mode = NULL) {
     if (isset($mode)) {
       $this->_mode = $mode;
     } elseif (NULL == $this->_mode) {
-      $this->_mode = new \PapayaContentViewMode();
+      $this->_mode = new \Papaya\Content\View\Mode();
       $this->_mode->papaya($this->papaya());
       $extension = $this->getParameter(
         'output_mode', 'html', NULL, \PapayaRequest::SOURCE_PATH

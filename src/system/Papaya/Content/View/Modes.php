@@ -13,29 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\View;
 /**
-* This object loads the defined output modes for a papaya installation.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentViewModes extends \PapayaDatabaseRecordsLazy {
+ * This object loads the defined output modes for a papaya installation.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Modes extends \PapayaDatabaseRecordsLazy {
 
   /**
-  * Map field names to more convinient property names
-  *
-  * @var array(string=>string)
-  */
+   * Map field names to more convinient property names
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'extension' => 'viewmode_ext',
     'type' => 'viewmode_type'
   );
 
   /**
-  * Table containing domain informations
-  *
-  * @var string
-  */
+   * Table containing domain informations
+   *
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::VIEW_MODES;
 
   protected $_identifierProperties = array('extension');

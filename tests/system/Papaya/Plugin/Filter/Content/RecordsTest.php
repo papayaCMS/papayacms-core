@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\View\Configurations;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
@@ -22,7 +24,7 @@ class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
    */
   public function testRecordsGetAfterSet() {
     $filterGroup = new PapayaPluginFilterContentRecords($this->getPageFixture());
-    $filterGroup->records($records = $this->createMock(PapayaContentViewConfigurations::class));
+    $filterGroup->records($records = $this->createMock(Configurations::class));
     $this->assertSame($records, $filterGroup->records());
   }
 
@@ -31,7 +33,7 @@ class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
    */
   public function testRecordsImplicitCreate() {
     $filterGroup = new PapayaPluginFilterContentRecords($this->getPageFixture());
-    $this->assertInstanceOf(PapayaContentViewConfigurations::class, $filterGroup->records());
+    $this->assertInstanceOf(Configurations::class, $filterGroup->records());
   }
 
   /**
@@ -45,7 +47,7 @@ class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
       ->with('guid', $this->isInstanceOf(PapayaUiContentPage::class), 'options')
       ->will($this->returnValue($this->createMock(PapayaPluginFilterContent::class)));
 
-    $records = $this->createMock(PapayaContentViewConfigurations::class);
+    $records = $this->createMock(Configurations::class);
     $records
       ->expects($this->once())
       ->method('getIterator')

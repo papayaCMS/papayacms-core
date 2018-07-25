@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\View\Mode;
 use Papaya\Url;
 
 require_once __DIR__.'/../../bootstrap.php';
@@ -257,7 +258,7 @@ class PapayaRequestTest extends PapayaTestCase {
   * @covers PapayaRequest::mode
   */
   public function testGetPropertyModeGetAfterSet() {
-    $mode = $this->createMock(PapayaContentViewMode::class);
+    $mode = $this->createMock(Mode::class);
     $request = new PapayaRequest();
     $request->mode = $mode;
     $this->assertSame($mode, $request->mode);
@@ -312,7 +313,7 @@ class PapayaRequestTest extends PapayaTestCase {
   * @covers PapayaRequest::mode
   */
   public function testGetPropertyModeId() {
-    $mode = $this->createMock(PapayaContentViewMode::class);
+    $mode = $this->createMock(Mode::class);
     $mode
       ->expects($this->once())
       ->method('__get')

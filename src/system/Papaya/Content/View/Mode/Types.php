@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content\View\Mode;
 /**
-* This object defines the possible view mode types. A view mode type socified a logical group
-* for a view mode. The current types are:
-*
-* page : A user readable content output of a page like html, pdf, ...
-* feed : A machine readable content output using standard formats like atom, rss, ...
-* hidden : A machine readable content output using a specific xml or json output for a project
-*   specific javascript or content sharing
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentViewModeTypes implements \ArrayAccess, \IteratorAggregate {
+ * This object defines the possible view mode types. A view mode type socified a logical group
+ * for a view mode. The current types are:
+ *
+ * page : A user readable content output of a page like html, pdf, ...
+ * feed : A machine readable content output using standard formats like atom, rss, ...
+ * hidden : A machine readable content output using a specific xml or json output for a project
+ *   specific javascript or content sharing
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Types implements \ArrayAccess, \IteratorAggregate {
 
   const PAGE = 'page';
   const FEED = 'feed';
@@ -49,6 +50,7 @@ class PapayaContentViewModeTypes implements \ArrayAccess, \IteratorAggregate {
 
   /**
    * An iterator for all types and their captions
+   *
    * @see \IteratorAggregate::getIterator()
    *
    * @return \Iterator
