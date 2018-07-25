@@ -13,30 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Controller;
 /**
-* Papaya Controller Factory, a class to create special controllers more simple
-*
-* @package Papaya-Library
-* @subpackage Controller
-*/
-class PapayaControllerFactory {
+ * Papaya Controller Factory, a class to create special controllers more simple
+ *
+ * @package Papaya-Library
+ * @subpackage Controller
+ */
+class Factory {
 
   /**
-  * Get error controller to return.
-  *
-  * If a template file is provided a Papaya\Controller\Error\PapayaControllerErrorFile is created.
-  *
-  * @param integer $status
-  * @param string $errorIdentifier
-  * @param string $errorMessage
-  * @param string $templateFile
-  * @return \Papaya\Controller\Error
-  */
+   * Get error controller to return.
+   *
+   * If a template file is provided a Papaya\Controller\Error\PapayaControllerErrorFile is created.
+   *
+   * @param integer $status
+   * @param string $errorIdentifier
+   * @param string $errorMessage
+   * @param string $templateFile
+   * @return Error
+   */
   public static function createError($status, $errorIdentifier, $errorMessage, $templateFile = '') {
     if (empty($templateFile)) {
-      $controller = new \Papaya\Controller\Error();
+      $controller = new Error();
     } else {
-      $controller = new \Papaya\Controller\Error\File();
+      $controller = new Error\File();
       $controller->setTemplateFile($templateFile);
     }
     $controller->setError($errorMessage, $errorIdentifier);

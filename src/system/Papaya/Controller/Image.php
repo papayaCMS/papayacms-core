@@ -68,17 +68,17 @@ class PapayaControllerImage implements \PapayaController {
         if ($imgGenerator->generateImage()) {
           return TRUE;
         } else {
-          return \PapayaControllerFactory::createError(
+          return \Papaya\Controller\Factory::createError(
             500, 'DYNAMIC_IMAGE_CREATE', $imgGenerator->lastError
           );
         }
       } else {
-        return \PapayaControllerFactory::createError(
+        return \Papaya\Controller\Factory::createError(
           404, 'DYNAMIC_IMAGE_NOT_FOUND', 'Image identifier not found'
         );
       }
     } else {
-      return \PapayaControllerFactory::createError(
+      return \Papaya\Controller\Factory::createError(
         403, 'DYNAMIC_IMAGE_ACCESS', 'Permission denied'
       );
     }

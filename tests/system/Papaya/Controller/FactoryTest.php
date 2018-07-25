@@ -15,16 +15,17 @@
 
 use Papaya\Controller\Error\File;
 use Papaya\Controller\Error;
+use Papaya\Controller\Factory;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaControllerFactoryTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaControllerFactory::createError
+  * @covers Factory::createError
   */
   public function testCreateError() {
-    $error = PapayaControllerFactory::createError(404, 'Test', 'TEST');
+    $error = Factory::createError(404, 'Test', 'TEST');
     $this->assertInstanceOf(Error::class, $error);
     $this->assertAttributeEquals(
       404, '_status', $error
@@ -38,10 +39,10 @@ class PapayaControllerFactoryTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaControllerFactory::createError
+  * @covers Factory::createError
   */
   public function testCreateErrorWithFile() {
-    $error = PapayaControllerFactory::createError(
+    $error = Factory::createError(
       404, 'Test', 'TEST', __DIR__.'/Error/TestData/template.txt'
     );
     $this->assertInstanceOf(File::class, $error);

@@ -51,12 +51,12 @@ class PapayaControllerMedia extends \PapayaObject implements \PapayaController {
           return $this->_outputPublicFile($file);
         }
       } else {
-        return \PapayaControllerFactory::createError(
+        return \Papaya\Controller\Factory::createError(
           404, 'MEDIA_NO_RECORD', 'File record not found'
         );
       }
     } else {
-      return \PapayaControllerFactory::createError(
+      return \Papaya\Controller\Factory::createError(
         404, 'MEDIA_EMPTY_ID', 'Empty media id'
       );
     }
