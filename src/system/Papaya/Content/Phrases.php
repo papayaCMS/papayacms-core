@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content;
 /**
-* Encapsulation for translated phrases (get text like system)
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPhrases extends \PapayaDatabaseRecords {
+ * Encapsulation for translated phrases (get text like system)
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Phrases extends \PapayaDatabaseRecords {
 
   /**
-  * Map field names to more convinient property names
-  *
-  * @var array(string=>string)
-  */
+   * Map field names to more convinient property names
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'id' => 'p.phrase_id',
     'identifier' => 'p.phrase_text_lower',
@@ -34,7 +35,7 @@ class PapayaContentPhrases extends \PapayaDatabaseRecords {
     'language_id' => 'pt.lng_id'
   );
 
-  protected $_itemClass = \PapayaContentPhrase::class;
+  protected $_itemClass = Phrase::class;
 
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {
     $fields = implode(', ', $this->mapping()->getFields());

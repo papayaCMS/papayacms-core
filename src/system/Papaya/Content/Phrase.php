@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content;
 /**
-* Encapsulation for translated phrase (get text like system)
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentPhrase extends \PapayaDatabaseRecord {
+ * Encapsulation for translated phrase (get text like system)
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Phrase extends \PapayaDatabaseRecord {
 
   /**
-  * Map field names to more convinient property names
-  *
-  * @var array(string=>string)
-  */
+   * Map field names to more convinient property names
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'id' => 'p.phrase_id',
     'identifier' => 'p.phrase_text_lower',
@@ -82,13 +83,13 @@ class PapayaContentPhrase extends \PapayaDatabaseRecord {
       0 === $result->fetchField()
     ) {
       return FALSE !== $databaseAccess->insertRecord(
-        $linkTable,
-        NULL,
-        array(
-          'phrase_id' => $this->id,
-          'module_id' => $groupId
-        )
-      );
+          $linkTable,
+          NULL,
+          array(
+            'phrase_id' => $this->id,
+            'module_id' => $groupId
+          )
+        );
     }
     return FALSE;
   }

@@ -38,7 +38,7 @@ class PapayaPhrasesStorageDatabase
   private $_errors = array();
 
   /**
-   * @var \PapayaContentPhrases
+   * @var \Papaya\Content\Phrases
    */
   private $_phrases = NULL;
 
@@ -117,11 +117,11 @@ class PapayaPhrasesStorageDatabase
     );
   }
 
-  public function phrases(\PapayaContentPhrases $phrases = NULL) {
+  public function phrases(\Papaya\Content\Phrases $phrases = NULL) {
     if (isset($phrases)) {
       $this->_phrases = $phrases;
     } elseif (NULL === $this->_phrases) {
-      $this->_phrases = new \PapayaContentPhrases();
+      $this->_phrases = new \Papaya\Content\Phrases();
       $this->_phrases->papaya($this->papaya());
     }
     return $this->_phrases;
