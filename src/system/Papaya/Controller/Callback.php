@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Controller;
 /**
  * Papaya controller callback encapsulate one function to be used as a controller
  *
@@ -21,7 +22,7 @@
  * @package Papaya-Library
  * @subpackage Controller
  */
-class PapayaControllerCallback implements \PapayaController {
+class Callback implements \PapayaController {
 
   /**
    * @var callable

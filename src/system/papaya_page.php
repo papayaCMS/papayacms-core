@@ -17,7 +17,6 @@ use Papaya\Application;
 use Papaya\Cache;
 use Papaya\Content;
 use Papaya\Controller;
-
 /**
  * Some of the old bootstraps use the this class/file as the starting point,
  * they need to be changed and use ../core.php. For BC keep validate that
@@ -1172,35 +1171,35 @@ class papaya_page extends base_object {
       $controllers->add(new PapayaControllerImage());
       break;
     case 'urls':
-      $controllers->add(new PapayaControllerCallback(array($this, 'getUrls')));
+      $controllers->add(new Controller\Callback(array($this, 'getUrls')));
       break;
     case 'status':
-      $controllers->add(new PapayaControllerCallback(array($this, 'getStatus')));
+      $controllers->add(new Controller\Callback(array($this, 'getStatus')));
       break;
     case 'thumb':
     case 'thumbnail':
-      $controllers->add(new PapayaControllerCallback(array($this, 'getMediaThumbFile')));
+      $controllers->add(new Controller\Callback(array($this, 'getMediaThumbFile')));
       break;
     case 'media':
-      $controllers->add(new PapayaControllerCallback(array($this, 'getMediaFile')));
+      $controllers->add(new Controller\Callback(array($this, 'getMediaFile')));
       break;
     case 'popup':
-      $controllers->add(new PapayaControllerCallback(array($this, 'getMediaPopup')));
+      $controllers->add(new Controller\Callback(array($this, 'getMediaPopup')));
       break;
     case 'download':
-      $controllers->add(new PapayaControllerCallback(array($this, 'outputDownload')));
+      $controllers->add(new Controller\Callback(array($this, 'outputDownload')));
       break;
     case 'outputs' :
-      $controllers->add(new PapayaControllerCallback(array($this, 'getOutputs')));
+      $controllers->add(new Controller\Callback(array($this, 'getOutputs')));
       break;
     case 'xml':
-      $controllers->add(new PapayaControllerCallback(array($this, 'getXMLOutput')));
+      $controllers->add(new Controller\Callback(array($this, 'getXMLOutput')));
       break;
     case '.theme-wrapper' :
-      $controllers->add(new PapayaControllerCallback(array($this, 'getThemeFile')));
+      $controllers->add(new Controller\Callback(array($this, 'getThemeFile')));
       break;
     default:
-      $controllers->add(new PapayaControllerCallback(array($this, 'getPageOutput')));
+      $controllers->add(new Controller\Callback(array($this, 'getPageOutput')));
       break;
     }
     return $controllers;
