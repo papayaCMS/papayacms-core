@@ -1,10 +1,26 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Configuration;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaContentConfigurationTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentConfiguration::load
+  * @covers Configuration::load
   */
   public function testLoad() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -26,7 +42,7 @@ class PapayaContentConfigurationTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_options'))
       ->will($this->returnValue($databaseResult));
-    $configuration = new PapayaContentConfiguration();
+    $configuration = new Configuration();
     $configuration->setDatabaseAccess($databaseAccess);
     $this->assertTrue($configuration->load());
     $this->assertAttributeEquals(

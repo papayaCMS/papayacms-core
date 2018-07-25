@@ -14,6 +14,7 @@
  */
 
 use Papaya\Configuration\Storage\Database;
+use Papaya\Content\Configuration;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -23,7 +24,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
   * @covers Database::records
   */
   public function testRecordsGetAfterSet() {
-    $records = $this->createMock(PapayaContentConfiguration::class);
+    $records = $this->createMock(Configuration::class);
     $storage = new Database();
     $this->assertSame($records, $storage->records($records));
   }
@@ -33,7 +34,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
   */
   public function testRecordsGetImplicitCreate() {
     $storage = new Database();
-    $this->assertInstanceOf(PapayaContentConfiguration::class, $storage->records());
+    $this->assertInstanceOf(Configuration::class, $storage->records());
   }
 
   /**
@@ -49,7 +50,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
       ->method('errorHandler')
       ->with($this->isType('array'));
 
-    $records = $this->createMock(PapayaContentConfiguration::class);
+    $records = $this->createMock(Configuration::class);
     $records
       ->expects($this->once())
       ->method('getDatabaseAccess')
@@ -122,7 +123,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
   * @covers Database::getIterator
   */
   public function testGetIterator() {
-    $records = $this->createMock(PapayaContentConfiguration::class);
+    $records = $this->createMock(Configuration::class);
     $records
       ->expects($this->once())
       ->method('getIterator')

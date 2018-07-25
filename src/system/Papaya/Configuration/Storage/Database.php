@@ -14,7 +14,6 @@
  */
 
 namespace Papaya\Configuration\Storage;
-use PapayaContentConfiguration;
 
 /**
  * Load options from database table
@@ -28,33 +27,35 @@ class Database extends \PapayaObject
   /**
    * Options database records list
    *
-   * @var PapayaContentConfiguration
+   * @var \Papaya\Content\Configuration
    */
-  private $_records = NULL;
+  private $_records;
 
   /**
    * Getter/Setter for database records object
    *
-   * @param \PapayaContentConfiguration $records
-   * @return \PapayaContentConfiguration
+   * @param \Papaya\Content\Configuration $records
+   * @return \Papaya\Content\Configuration
    */
-  public function records(\PapayaContentConfiguration $records = NULL) {
-    if (isset($records)) {
+  public function records(\Papaya\Content\Configuration $records = NULL) {
+    if (NULL !== $records) {
       $this->_records = $records;
-    } elseif (is_null($this->_records)) {
-      $this->_records = new \PapayaContentConfiguration();
+    } elseif (NULL === $this->_records) {
+      $this->_records = new \Papaya\Content\Configuration();
     }
     return $this->_records;
   }
 
   /**
-   * Dipatch the error message as http header and be silent otherwise.
+   * Dispatch the error message as http header and be silent otherwise.
    *
    * @param \PapayaDatabaseException $exception
    */
   public function handleError(\PapayaDatabaseException $exception) {
-    if ($this->papaya()->options->get('PAPAYA_DBG_DEVMODE', FALSE) &&
-      isset($this->papaya()->response)) {
+    if (
+      isset($this->papaya()->response) &&
+      $this->papaya()->options->get('PAPAYA_DBG_DEVMODE', FALSE)
+    ) {
       $message = str_replace(array('\r', '\n'), ' ', $exception->getMessage());
       $this->papaya()->response->sendHeader(
         'X-Papaya-Error: '.get_class($exception).': '.$message

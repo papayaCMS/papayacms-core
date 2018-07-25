@@ -13,32 +13,35 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content;
 /**
-* Provide data encapsulation for the configuration options.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentConfiguration
+ * Provide data encapsulation for the configuration options.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Configuration
   extends \PapayaDatabaseObjectList {
 
   /**
-  * Map field names to value identfiers
-  *
-  * @var array
-  */
+   * Map field names to value identifiers
+   *
+   * @var array
+   */
   protected $_fieldMapping = array(
     'opt_name' => 'name',
     'opt_value' => 'value'
   );
 
   /**
-  * Load all options
-  */
+   * Load all options
+   */
   public function load() {
-    $sql = "SELECT opt_name, opt_value
-              FROM %s
-             ORDER BY opt_name";
+    $sql =
+      /** @lang TEXT */
+      'SELECT opt_name, opt_value
+         FROM %s
+        ORDER BY opt_name';
     $parameters = array(
       $this->databaseGetTableName(\PapayaContentTables::OPTIONS)
     );
