@@ -45,7 +45,7 @@ namespace Papaya\Content\Page;
  * @property integer $publishedFrom publication period - start time
  * @property integer $publishedTo publication period - end time
  */
-class Publication extends \PapayaContentPage {
+class Publication extends \Papaya\Content\Page {
 
   /**
    * Map properties to database fields

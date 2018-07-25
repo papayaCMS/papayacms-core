@@ -32,7 +32,7 @@ use Papaya\Content;
 class PapayaUiContentPage extends \PapayaObject {
 
   /**
-   * @var \PapayaContentPage
+   * @var \Papaya\Content\Page
    */
   private $_page = NULL;
   /**
@@ -80,17 +80,17 @@ class PapayaUiContentPage extends \PapayaObject {
   }
 
   /**
-   * @param \PapayaContentPage $page
-   * @return \PapayaContentPage|\Papaya\Content\Page\Publication
+   * @param \Papaya\Content\Page $page
+   * @return \Papaya\Content\Page|\Papaya\Content\Page\Publication
    */
-  public function page(\PapayaContentPage $page = NULL) {
+  public function page(Content\Page $page = NULL) {
     if (isset($page)) {
       $this->_page = $page;
     } elseif (NULL == $this->_page) {
       if ($this->isPublic()) {
         $this->_page = new \Papaya\Content\Page\Publication();
       } else {
-        $this->_page = new \PapayaContentPage();
+        $this->_page = new Content\Page();
       }
       $this->_page->activateLazyLoad($this->_pageId);
     }

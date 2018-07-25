@@ -13,8 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Page\Translations;
-
+namespace Papaya\Content;
 /**
  * Provide basic data encapsulation for the content page.
  *
@@ -51,13 +50,13 @@ use Papaya\Content\Page\Translations;
  * @property int $expiresTime
  * @property-read int $unpublishedTranslations
  */
-class PapayaContentPage extends \PapayaDatabaseRecordLazy {
+class Page extends \PapayaDatabaseRecordLazy {
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     // page id
     'id' => 'topic_id',
@@ -104,25 +103,25 @@ class PapayaContentPage extends \PapayaDatabaseRecordLazy {
   );
 
   /**
-  * Pages table name for sql queries
-  *
-  * @var string
-  */
+   * Pages table name for sql queries
+   *
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::PAGES;
 
   /**
-  * Page translations list object
-  *
-  * @var Translations
-  */
-  protected $_translations = NULL;
+   * Page translations list object
+   *
+   * @var Page\Translations
+   */
+  protected $_translations;
 
   /**
-  * Translations table name, used to define the table for the translations
-  * subobject
-  *
-  * @var string
-  */
+   * Translations table name, used to define the table for the translations
+   * object
+   *
+   * @var string
+   */
   protected $_translationsTableName = 'topic_trans';
 
   /**
@@ -157,7 +156,7 @@ class PapayaContentPage extends \PapayaDatabaseRecordLazy {
   }
 
   /**
-   * Unserialize path and permissions field values
+   * Deserialize path and permissions field values
    *
    * @param object $context
    * @param string $property
@@ -165,11 +164,14 @@ class PapayaContentPage extends \PapayaDatabaseRecordLazy {
    * @param string $value
    * @return mixed
    */
-  public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
+  public function callbackMapValueFromFieldToProperty(
+    /** @noinspection PhpUnusedParameterInspection */
+    $context, $property, $field, $value
+  ) {
     switch ($property) {
-    case 'parent_path' :
-    case 'visitor_permissions' :
-      return \PapayaUtilArray::decodeIdList($value);
+      case 'parent_path' :
+      case 'visitor_permissions' :
+        return \PapayaUtilArray::decodeIdList($value);
     }
     return $value;
   }
@@ -184,30 +186,32 @@ class PapayaContentPage extends \PapayaDatabaseRecordLazy {
    * @param string $value
    * @return mixed
    */
-  public function callbackMapValueFromPropertyToField($context, $property, $field, $value) {
+  public function callbackMapValueFromPropertyToField(
+    /** @noinspection PhpUnusedParameterInspection */
+    $context, $property, $field, $value
+  ) {
     switch ($property) {
-    case 'parent_path' :
-      return \PapayaUtilArray::encodeAndQuoteIdList(empty($value) ? array() : $value);
-    case 'visitor_permissions' :
-      return \PapayaUtilArray::encodeIdList(empty($value) ? array() : $value);
+      case 'parent_path' :
+        return \PapayaUtilArray::encodeAndQuoteIdList(empty($value) ? array() : $value);
+      case 'visitor_permissions' :
+        return \PapayaUtilArray::encodeIdList(empty($value) ? array() : $value);
     }
     return $value;
   }
 
   /**
-  * Access to the translation list informations
-  *
-  * Allows to get/set the list object. Can create a list object if needed.
-  *
-  * @param \Papaya\Content\Page\Translations $translations
-  * @return \Papaya\Content\Page\Translations
-  */
-  public function translations(\Papaya\Content\Page\Translations $translations = NULL) {
-    if (isset($translations)) {
+   * Access to the translation list information
+   *
+   * Allows to get/set the list object. Can create a list object if needed.
+   *
+   * @param Page\Translations $translations
+   * @return Page\Translations
+   */
+  public function translations(Page\Translations $translations = NULL) {
+    if (NULL !== $translations) {
       $this->_translations = $translations;
-    }
-    if (is_null($this->_translations)) {
-      $this->_translations = new \Papaya\Content\Page\Translations();
+    } elseif (NULL === $this->_translations) {
+      $this->_translations = new Page\Translations();
       $this->_translations->setDatabaseAccess($this->getDatabaseAccess());
       $this->_translations->setTranslationsTableName($this->_translationsTableName);
     }

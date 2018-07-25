@@ -16,6 +16,7 @@
 use Papaya\Content\Page\Publication;
 use Papaya\Content\Page\Translations;
 use Papaya\Content\Page\Work;
+use Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -93,7 +94,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPage::save
+  * @covers Page::save
   */
   public function testInsertExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();

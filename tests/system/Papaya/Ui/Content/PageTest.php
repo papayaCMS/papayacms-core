@@ -49,7 +49,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
    * @covers PapayaUiContentPage
    */
   public function testAssign() {
-    $contentPage = $this->createMock(PapayaContentPage::class);
+    $contentPage = $this->createMock(Page::class);
     $contentPage
       ->expects($this->once())
       ->method('assign')
@@ -71,7 +71,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
    * @covers PapayaUiContentPage
    */
   public function testPageGetAfterSet() {
-    $contentPage = $this->createMock(PapayaContentPage::class);
+    $contentPage = $this->createMock(Page::class);
     $page = new PapayaUiContentPage(
       42, $this->createMock(Language::class)
     );
@@ -99,7 +99,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       42, $this->createMock(Language::class), FALSE
     );
     $pageContent = $page->page();
-    $this->assertInstanceOf(PapayaContentPage::class, $pageContent);
+    $this->assertInstanceOf(Page::class, $pageContent);
     $this->assertNotInstanceOf(Page\Publication::class, $pageContent);
     $this->assertEquals(array(42), $pageContent->getLazyLoadParameters());
   }

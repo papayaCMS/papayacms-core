@@ -14,13 +14,14 @@
  */
 
 use Papaya\Content\Page\Translations;
+use Papaya\Content\Page;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaContentPageTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentPage
+  * @covers Page
   */
   public function testLoad() {
     $translations = $this->createMock(Translations::class);
@@ -66,7 +67,7 @@ class PapayaContentPageTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic'))
       ->will($this->returnValue($databaseResult));
-    $page = new PapayaContentPage();
+    $page = new Page();
     $page->setDatabaseAccess($databaseAccess);
     $page->translations($translations);
     $this->assertTrue(
@@ -105,7 +106,7 @@ class PapayaContentPageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPage
+  * @covers Page
   */
   public function testLoadExpectingFalse() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -120,7 +121,7 @@ class PapayaContentPageTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_topic'))
       ->will($this->returnValue($databaseResult));
-    $page = new PapayaContentPage();
+    $page = new Page();
     $page->setDatabaseAccess($databaseAccess);
     $this->assertFalse(
       $page->load(42)
@@ -128,11 +129,11 @@ class PapayaContentPageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPage
+  * @covers Page
   */
   public function testTranslationsSet() {
     $translations = $this->createMock(Translations::class);
-    $page = new PapayaContentPage();
+    $page = new Page();
     $page->translations($translations);
     $this->assertAttributeSame(
       $translations, '_translations', $page
@@ -140,11 +141,11 @@ class PapayaContentPageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPage
+  * @covers Page
   */
   public function testTranslationsGetAfterSet() {
     $translations = $this->createMock(Translations::class);
-    $page = new PapayaContentPage();
+    $page = new Page();
     $page->translations($translations);
     $this->assertSame(
       $translations, $page->translations()
@@ -152,20 +153,20 @@ class PapayaContentPageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPage
+  * @covers Page
   */
   public function testTranslationsGetImplicitCreate() {
-    $page = new PapayaContentPage();
+    $page = new Page();
     $this->assertInstanceOf(
       Translations::class, $page->translations()
     );
   }
 
   /**
-  * @covers PapayaContentPage
+  * @covers Page
    */
   public function testMapPropertiesToFields() {
-    $page = new PapayaContentPage();
+    $page = new Page();
     $this->assertEquals(
       array(
         'topic_id' => 42,
@@ -225,20 +226,20 @@ class PapayaContentPageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPage
+  * @covers Page
   */
   public function testOnBeforeInsert() {
-    $page = new PapayaContentPage();
+    $page = new Page();
     $page->callbacks()->onBeforeInsert($page);
     $this->assertGreaterThan(0, $page->created);
     $this->assertGreaterThan(0, $page->modified);
   }
 
   /**
-  * @covers PapayaContentPage
+  * @covers Page
   */
   public function testOnBeforeUpdate() {
-    $page = new PapayaContentPage();
+    $page = new Page();
     $page->callbacks()->onBeforeUpdate($page);
     $this->assertGreaterThan(0, $page->modified);
   }
