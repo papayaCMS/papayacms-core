@@ -13,7 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaDatabaseConditionFulltextContains extends \PapayaDatabaseConditionFulltext {
+namespace Papaya\Database\Condition\Fulltext;
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+class Contains extends \PapayaDatabaseConditionFulltext {
 
   /**
    * Get filters for a LIKE condition
@@ -23,7 +38,7 @@ class PapayaDatabaseConditionFulltextContains extends \PapayaDatabaseConditionFu
    * @return string
    */
   protected function getFulltextCondition(\PapayaParserSearchString $tokens, array $fields) {
-    $result = "";
+    $result = '';
     $connector = '';
     $indent = 0;
     foreach ($tokens as $token) {
@@ -67,7 +82,7 @@ class PapayaDatabaseConditionFulltextContains extends \PapayaDatabaseConditionFu
         break;
       case ':':
         $connector = "\n ".$token['value'];
-        continue;
+        break;
       }
     }
     if ($indent > 0) {

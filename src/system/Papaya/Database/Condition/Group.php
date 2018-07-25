@@ -112,15 +112,15 @@ class PapayaDatabaseConditionGroup
       return $condition;
     case 'match' :
       list($fields, $value) = $arguments;
-      $this->_conditions[] = $condition = new \PapayaDatabaseConditionFulltextMatch($this, $fields, $value);
+      $this->_conditions[] = $condition = new \Papaya\Database\Condition\Fulltext\Match($this, $fields, $value);
       return $condition;
     case 'matchboolean' :
       list($fields, $value) = $arguments;
-      $this->_conditions[] = $condition = new \PapayaDatabaseConditionFulltextBoolean($this, $fields, $value);
+      $this->_conditions[] = $condition = new \Papaya\Database\Condition\Fulltext\Boolean($this, $fields, $value);
       return $condition;
     case 'matchcontains' :
       list($fields, $value) = $arguments;
-      $this->_conditions[] = $condition = new \PapayaDatabaseConditionFulltextContains($this, $fields, $value);
+      $this->_conditions[] = $condition = new \Papaya\Database\Condition\Fulltext\Contains($this, $fields, $value);
       return $condition;
     default :
       if (isset($this->_classes[$name])) {
