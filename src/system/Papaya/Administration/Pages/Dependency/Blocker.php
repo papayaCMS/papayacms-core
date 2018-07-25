@@ -56,7 +56,7 @@ class Blocker extends \PapayaUiControlInteractive {
   /**
    * Buffer variable for the views list
    *
-   * @var \PapayaContentViews
+   * @var \Papaya\Content\Views
    */
   private $_views = NULL;
 
@@ -221,14 +221,14 @@ class Blocker extends \PapayaUiControlInteractive {
   /**
    * Getter/Setter for the views list database object
    *
-   * @param \PapayaContentViews $views
-   * @return \PapayaContentViews
+   * @param \Papaya\Content\Views $views
+   * @return \Papaya\Content\Views
    */
-  public function views(\PapayaContentViews $views = NULL) {
+  public function views(\Papaya\Content\Views $views = NULL) {
     if (isset($views)) {
       $this->_views = $views;
     } elseif (is_null($this->_views)) {
-      $this->_views = new \PapayaContentViews();
+      $this->_views = new \Papaya\Content\Views();
     }
     return $this->_views;
   }

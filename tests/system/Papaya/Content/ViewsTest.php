@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Views;
 use Papaya\Content\Tables;
 
 require_once __DIR__.'/../../../bootstrap.php';
@@ -20,7 +21,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaContentViewsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentViews::load
+  * @covers Views::load
   */
   public function testLoad() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -47,7 +48,7 @@ class PapayaContentViewsTest extends PapayaTestCase {
         array('table_'.Tables::VIEWS, 'table_'.Tables::MODULES)
       )
       ->will($this->returnValue($databaseResult));
-    $pages = new PapayaContentViews();
+    $pages = new Views();
     $pages->setDatabaseAccess($databaseAccess);
     $this->assertTrue($pages->load());
     $this->assertEquals(

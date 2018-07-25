@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content;
 /**
-* This object loads view records into a list.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentViews extends \PapayaDatabaseRecordsLazy {
+ * This object loads view records into a list.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Views extends \PapayaDatabaseRecordsLazy {
 
   /**
-  * Map field names to more convinient property names
-  *
-  * @var array(string=>string)
-  */
+   * Map field names to more convinient property names
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'id' => 'v.view_id',
     'title' => 'v.view_title',
@@ -36,18 +37,18 @@ class PapayaContentViews extends \PapayaDatabaseRecordsLazy {
   );
 
   /**
-  * Table containing view informations
-  *
-  * @var string
-  */
-  protected $_tableName = \Papaya\Content\Tables::VIEWS;
+   * Table containing view informations
+   *
+   * @var string
+   */
+  protected $_tableName = Tables::VIEWS;
 
   /**
-  * Table containing module informations
-  *
-  * @var string
-  */
-  protected $_tableNameModules = \Papaya\Content\Tables::MODULES;
+   * Table containing module informations
+   *
+   * @var string
+   */
+  protected $_tableNameModules = Tables::MODULES;
 
   protected $_orderByProperties = array(
     'title' => \PapayaDatabaseInterfaceOrder::ASCENDING,
@@ -55,13 +56,13 @@ class PapayaContentViews extends \PapayaDatabaseRecordsLazy {
   );
 
   /**
-  * Load view records
-  *
-  * @param array $filter
-  * @param NULL|integer $limit
-  * @param NULL|integer $offset
-  * @return boolean
-  */
+   * Load view records
+   *
+   * @param array $filter
+   * @param NULL|integer $limit
+   * @param NULL|integer $offset
+   * @return boolean
+   */
   public function load($filter = array(), $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
     $fields = implode(', ', $this->mapping()->getFields());

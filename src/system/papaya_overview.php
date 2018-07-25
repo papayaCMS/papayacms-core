@@ -1051,14 +1051,14 @@ class papaya_overview extends base_db {
   /**
    * Getter/Setter for a view list subobject
    *
-   * @param \PapayaContentViews $views
-   * @return \PapayaContentViews
+   * @param \Papaya\Content\Views $views
+   * @return \Papaya\Content\Views
    */
-  public function views(PapayaContentViews $views = NULL) {
+  public function views(Content\Views $views = NULL) {
     if (isset($views)) {
       $this->_views = $views;
     } elseif (NULL == $this->_views) {
-      $this->_views = new PapayaContentViews();
+      $this->_views = new Content\Views();
       $this->_views->papaya($this->papaya());
     }
     return $this->_views;

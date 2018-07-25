@@ -1772,7 +1772,7 @@ class base_viewlist extends base_db {
    */
   public function loadViewDuplicates() {
     if (isset($this->view) && $this->view['view_id'] > 0) {
-      $views = new PapayaContentViews();
+      $views = new Papaya\Content\Views();
       $views->activateLazyLoad(array('checksum' => $this->view['view_checksum']));
       return $views;
     }
