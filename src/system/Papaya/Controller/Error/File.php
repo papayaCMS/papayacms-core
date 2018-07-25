@@ -13,23 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Controller\Error;
 /**
-* Papaya Controller class for error pages with template file
-* @package Papaya-Library
-* @subpackage Controller
-*/
-class PapayaControllerErrorFile extends \PapayaControllerError {
+ * Papaya Controller class for error pages with template file
+ *
+ * @package Papaya-Library
+ * @subpackage Controller
+ */
+class File extends \PapayaControllerError {
 
   /**
-  * Set template data from file
-  * @param string $fileName
-  * @return boolean
-  */
+   * Set template data from file
+   *
+   * @param string $fileName
+   * @return boolean
+   */
   public function setTemplateFile($fileName) {
     if (!empty($fileName) &&
-        file_exists($fileName) &&
-        is_file($fileName) &&
-        is_readable($fileName)) {
+      file_exists($fileName) &&
+      is_file($fileName) &&
+      is_readable($fileName)) {
       $this->_template = file_get_contents($fileName);
       return TRUE;
     }

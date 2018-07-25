@@ -16,6 +16,7 @@
 use Papaya\Application;
 use Papaya\Cache;
 use Papaya\Content;
+use Papaya\Controller;
 
 /**
  * Some of the old bootstraps use the this class/file as the starting point,
@@ -24,9 +25,9 @@ use Papaya\Content;
  */
 if (!class_exists('PapayaAutoloader', FALSE)) {
   if (!defined('PAPAYA_INCLUDE_PATH')) {
-    define('PAPAYA_INCLUDE_PATH', dirname(dirname(__FILE__)).'/');
+    define('PAPAYA_INCLUDE_PATH', dirname(__DIR__).'/');
   }
-  include_once(PAPAYA_INCLUDE_PATH.'system/Papaya/Autoloader.php');
+  include_once PAPAYA_INCLUDE_PATH.'system/Papaya/Autoloader.php';
   spl_autoload_register('PapayaAutoloader::load');
 }
 
@@ -249,7 +250,7 @@ class papaya_page extends base_object {
     }
     $options = $application->options;
     if (!$options->load()) {
-      $controller = new PapayaControllerErrorFile($this);
+      $controller = new Controller\Error\File($this);
       $controller->setStatus(503);
       $controller->setError('Service Unavailable', 'DATABASE');
       $controller->setTemplateFile($options->get('PAPAYA_ERRORDOCUMENT_503', ''));

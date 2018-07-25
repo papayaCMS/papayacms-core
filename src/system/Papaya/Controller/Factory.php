@@ -24,7 +24,7 @@ class PapayaControllerFactory {
   /**
   * Get error controller to return.
   *
-  * If a template file is provided a PapayaControllerErrorFile is created.
+  * If a template file is provided a Papaya\Controller\Error\PapayaControllerErrorFile is created.
   *
   * @param integer $status
   * @param string $errorIdentifier
@@ -36,7 +36,7 @@ class PapayaControllerFactory {
     if (empty($templateFile)) {
       $controller = new \PapayaControllerError();
     } else {
-      $controller = new \PapayaControllerErrorFile();
+      $controller = new \Papaya\Controller\Error\File();
       $controller->setTemplateFile($templateFile);
     }
     $controller->setError($errorMessage, $errorIdentifier);
