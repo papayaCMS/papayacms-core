@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content;
 /**
-* This object loads the defined domains for a papaya installation.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentDomains extends \PapayaDatabaseRecords {
+ * This object loads the defined domains for a papaya installation.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Domains extends \PapayaDatabaseRecords {
 
   /**
-  * Map field names to more convinient property names
-  *
-  * @var array(string=>string)
-  */
+   * Map field names to more convinient property names
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'id' => 'domain_id',
     'host' => 'domain_hostname',
@@ -38,10 +39,10 @@ class PapayaContentDomains extends \PapayaDatabaseRecords {
   );
 
   /**
-  * Table containing domain information
-  *
-  * @var string
-  */
+   * Table containing domain information
+   *
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::DOMAINS;
 
   protected $_identifierProperties = array('id');
@@ -71,8 +72,8 @@ class PapayaContentDomains extends \PapayaDatabaseRecords {
    */
   public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
     switch ($property) {
-    case 'options' :
-      return \PapayaUtilStringXml::unserializeArray($value);
+      case 'options' :
+        return \PapayaUtilStringXml::unserializeArray($value);
     }
     return $value;
   }

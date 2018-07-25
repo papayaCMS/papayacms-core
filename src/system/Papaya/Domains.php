@@ -163,14 +163,14 @@ class PapayaDomains extends \PapayaObject {
   /**
   * Getter/Setter for the domain database object.
   *
-  * @param \PapayaContentDomains $domains
-  * @return \PapayaContentDomains
+  * @param \Papaya\Content\Domains $domains
+  * @return \Papaya\Content\Domains
   */
-  public function domains(\PapayaContentDomains $domains = NULL) {
+  public function domains(\Papaya\Content\Domains $domains = NULL) {
     if (isset($domains)) {
       $this->_domains = $domains;
     } elseif (is_null($this->_domains)) {
-      $this->_domains = new \PapayaContentDomains();
+      $this->_domains = new \Papaya\Content\Domains();
       $this->_domains->papaya($this->papaya());
     }
     return $this->_domains;

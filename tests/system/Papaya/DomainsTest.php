@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Domain;
+use Papaya\Content\Domains;
 
 require_once __DIR__.'/../../bootstrap.php';
 
@@ -176,7 +177,7 @@ class PapayaDomainsTest extends PapayaTestCase {
   * @covers PapayaDomains::domains
   */
   public function testDomainsGetAfterSet() {
-    $data = $this->createMock(PapayaContentDomains::class);
+    $data = $this->createMock(Domains::class);
     $domains = new PapayaDomains();
     $domains->domains($data);
     $this->assertSame($data, $domains->domains());
@@ -188,7 +189,7 @@ class PapayaDomainsTest extends PapayaTestCase {
   public function testDomainGetImplicitCreate() {
     $domains = new PapayaDomains();
     $domains->papaya($papaya = $this->mockPapaya()->application());
-    $this->assertInstanceOf(PapayaContentDomains::class, $data = $domains->domains());
+    $this->assertInstanceOf(Domains::class, $data = $domains->domains());
     $this->assertSame($papaya, $data->papaya());
   }
 
@@ -254,7 +255,7 @@ class PapayaDomainsTest extends PapayaTestCase {
 
   /**
    * @param null $domains
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentDomains
+   * @return PHPUnit_Framework_MockObject_MockObject|Domains
    */
   private function getDomainDataFixture($domains = NULL) {
     if (empty($domains)) {
@@ -273,7 +274,7 @@ class PapayaDomainsTest extends PapayaTestCase {
         )
       );
     }
-    $data = $this->createMock(PapayaContentDomains::class);
+    $data = $this->createMock(Domains::class);
     $data
       ->expects($this->once())
       ->method('load')

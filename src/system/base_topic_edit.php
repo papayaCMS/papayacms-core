@@ -15,7 +15,6 @@
 
 
 use Papaya\Administration;
-use Papaya\Content\Domain;
 
 /**
 * page administration class
@@ -2415,8 +2414,8 @@ class base_topic_edit extends base_topic {
   * @return array(id => string)
   */
   function getVirtualDomains() {
-    $domains = new PapayaContentDomains();
-    $domains->load(array('mode' => Domain::MODE_VIRTUAL_DOMAIN));
+    $domains = new \Papaya\Content\Domains();
+    $domains->load(array('mode' => \Papaya\Content\Domain::MODE_VIRTUAL_DOMAIN));
     $result = array();
     $schemes = array(
       0 => 'http://',
