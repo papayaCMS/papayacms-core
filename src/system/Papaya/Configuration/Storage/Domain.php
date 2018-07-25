@@ -14,7 +14,6 @@
  */
 
 namespace Papaya\Configuration\Storage;
-use PapayaContentDomain;
 
 /**
  * Loads the domain specific options from the database
@@ -42,9 +41,9 @@ class Domain extends \PapayaObject
   /**
    * The domain subobject, representing a domain record.
    *
-   * @var PapayaContentDomain
+   * @var Domain
    */
-  private $_domain = NULL;
+  private $_domain;
 
   /**
    * Create storage object and store host name
@@ -54,7 +53,7 @@ class Domain extends \PapayaObject
   public function __construct($hostUrl) {
     if (preg_match('((?P<scheme>http(?:s)?)://(?P<host>.*))', $hostUrl, $match)) {
       $this->_host = $match['host'];
-      $this->_scheme = ($match['scheme'] == 'https')
+      $this->_scheme = ('https' === $match['scheme'])
         ? \PapayaUtilServerProtocol::HTTPS : \PapayaUtilServerProtocol::HTTP;
     } else {
       $this->_host = $hostUrl;
@@ -64,14 +63,14 @@ class Domain extends \PapayaObject
   /**
    * Getter/Setter for domain record object
    *
-   * @param \PapayaContentDomain $domain
-   * @return \PapayaContentDomain
+   * @param \Papaya\Content\Domain $domain
+   * @return \Papaya\Content\Domain
    */
-  public function domain(\PapayaContentDomain $domain = NULL) {
-    if (isset($domain)) {
+  public function domain(\Papaya\Content\Domain $domain = NULL) {
+    if (NULL !== $domain) {
       $this->_domain = $domain;
-    } elseif (is_null($this->_domain)) {
-      $this->_domain = new \PapayaContentDomain();
+    } elseif (NULL === $this->_domain) {
+      $this->_domain = new \Papaya\Content\Domain();
     }
     return $this->_domain;
   }
@@ -96,11 +95,12 @@ class Domain extends \PapayaObject
    * @return \Iterator
    */
   public function getIterator() {
-    $options = array();
-    if ($this->domain()->mode == \PapayaContentDomain::MODE_VIRTUAL_DOMAIN &&
-      is_array($this->domain()->options)) {
-      $options = $this->domain()->options;
+    if (
+      \Papaya\Content\Domain::MODE_VIRTUAL_DOMAIN === (int)$this->domain()->mode &&
+      is_array($this->domain()->options)
+    ) {
+      return new \ArrayIterator($this->domain()->options);
     }
-    return new \ArrayIterator($options);
+    return new \EmptyIterator();
   }
 }

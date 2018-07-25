@@ -148,10 +148,10 @@ class PapayaDomains extends \PapayaObject {
     if ($reset || !$this->_loaded) {
       $this->domains()->load();
       foreach ($this->domains() as $domainId => $domain) {
-        if ($domain['mode'] == \PapayaContentDomain::MODE_VIRTUAL_DOMAIN) {
+        if ($domain['mode'] == \Papaya\Content\Domain::MODE_VIRTUAL_DOMAIN) {
           $this->_domainsByRootId[(int)$domain['data']][$domainId] = $domain;
-        } elseif ($domain['mode'] == \PapayaContentDomain::MODE_DEFAULT ||
-                  $domain['mode'] == \PapayaContentDomain::MODE_REDIRECT_LANGUAGE) {
+        } elseif ($domain['mode'] == \Papaya\Content\Domain::MODE_DEFAULT ||
+                  $domain['mode'] == \Papaya\Content\Domain::MODE_REDIRECT_LANGUAGE) {
           $this->_domainsByRootId[0][$domainId] = $domain;
         }
         $this->_domainsByName[$domain['host']][$domainId] = $domain;

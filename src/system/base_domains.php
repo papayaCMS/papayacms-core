@@ -1,42 +1,38 @@
 <?php
 /**
-* domain management basic class
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_domains.php 39696 2014-03-26 14:21:53Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * No special handling
 */
-define('PAPAYA_DOMAIN_MODE_DEFAULT', PapayaContentDomain::MODE_DEFAULT);
+define('PAPAYA_DOMAIN_MODE_DEFAULT', Papaya\Content\Domain::MODE_DEFAULT);
 /**
 * redirect to another domain - keep request uri
 */
-define('PAPAYA_DOMAIN_MODE_DOMAIN', PapayaContentDomain::MODE_REDIRECT_DOMAIN);
+define('PAPAYA_DOMAIN_MODE_DOMAIN', Papaya\Content\Domain::MODE_REDIRECT_DOMAIN);
 /**
 * redirct to a specific page on antoher domain
 */
-define('PAPAYA_DOMAIN_MODE_PAGE', PapayaContentDomain::MODE_REDIRECT_PAGE);
+define('PAPAYA_DOMAIN_MODE_PAGE', Papaya\Content\Domain::MODE_REDIRECT_PAGE);
 /**
 * redirect to a start page in a specific language
 */
-define('PAPAYA_DOMAIN_MODE_LANG', PapayaContentDomain::MODE_REDIRECT_LANGUAGE);
+define('PAPAYA_DOMAIN_MODE_LANG', Papaya\Content\Domain::MODE_REDIRECT_LANGUAGE);
 /**
 * restrict access to a part of the page tree
 */
-define('PAPAYA_DOMAIN_MODE_TREE', PapayaContentDomain::MODE_VIRTUAL_DOMAIN);
+define('PAPAYA_DOMAIN_MODE_TREE', Papaya\Content\Domain::MODE_VIRTUAL_DOMAIN);
 
 /**
 * domain management basic class
@@ -115,7 +111,8 @@ class base_domains extends base_db {
   *
   * @access public
   */
-  function __construct() {
+  public function __construct() {
+    parent::__construct();
     $this->tableDomains = PAPAYA_DB_TABLEPREFIX.'_domains';
   }
 

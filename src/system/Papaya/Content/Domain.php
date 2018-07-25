@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content;
 /**
  * Load/save a domain record
  *
@@ -26,36 +27,36 @@
  * @property int $mode
  * @property string $data
  * @property array $options
-*/
-class PapayaContentDomain extends \PapayaDatabaseRecord {
+ */
+class Domain extends \PapayaDatabaseRecord {
 
   /**
-  * No special handling
-  */
+   * No special handling
+   */
   const MODE_DEFAULT = 0;
   /**
-  * Redirect to another domain - keep request uri
-  */
+   * Redirect to another domain - keep request uri
+   */
   const MODE_REDIRECT_DOMAIN = 1;
   /**
-  * Redirct to a specific page on another domain
-  */
+   * Redirct to a specific page on another domain
+   */
   const MODE_REDIRECT_PAGE = 2;
   /**
-  * Redirect to a start page in a specific language
-  */
+   * Redirect to a start page in a specific language
+   */
   const MODE_REDIRECT_LANGUAGE = 3;
   /**
-  * Restrict access to a part of the page tree and allow to change options
-  * This works like virtual servers.
-  */
+   * Restrict access to a part of the page tree and allow to change options
+   * This works like virtual servers.
+   */
   const MODE_VIRTUAL_DOMAIN = 4;
 
   /**
-  * Mapping fields
-  *
-  * @var array
-  */
+   * Mapping fields
+   *
+   * @var array
+   */
   protected $_fields = array(
     'id' => 'domain_id',
     'host' => 'domain_hostname',
@@ -67,21 +68,21 @@ class PapayaContentDomain extends \PapayaDatabaseRecord {
   );
 
   /**
-  * Table containing domain informations
-  *
-  * @var string
-  */
+   * Table containing domain informations
+   *
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::DOMAINS;
 
   /**
-  * Create the mapping objects and set callbacks to handle the
-  * special fields like "domain_options" and "domain_hostlength"
-  *
-  * "domain_options" is an array serialized to xml and "domain_hostlength" is an denormalized index
-  * used to order the domain lists in some cases.
-  *
-  * @return \PapayaDatabaseRecordMapping
-  */
+   * Create the mapping objects and set callbacks to handle the
+   * special fields like "domain_options" and "domain_hostlength"
+   *
+   * "domain_options" is an array serialized to xml and "domain_hostlength" is an denormalized index
+   * used to order the domain lists in some cases.
+   *
+   * @return \PapayaDatabaseRecordMapping
+   */
   public function _createMapping() {
     $mapping = parent::_createMapping();
     $mapping->callbacks()->onMapValue = array($this, 'callbackFieldSerialization');
@@ -111,14 +112,14 @@ class PapayaContentDomain extends \PapayaDatabaseRecord {
   }
 
   /**
-  * Update the host length field before storing the data
-  *
-  * @param object $context
-  * @param integer $mode
-  * @param array $values
-  * @param array $record
-  * @return array
-  */
+   * Update the host length field before storing the data
+   *
+   * @param object $context
+   * @param integer $mode
+   * @param array $values
+   * @param array $record
+   * @return array
+   */
   public function callbackUpdateHostLength($context, $mode, $values, $record) {
     if ($mode == \PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
       $result = $record;

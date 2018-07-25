@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Domain;
+
 require_once __DIR__.'/../../bootstrap.php';
 
 class PapayaDomainsTest extends PapayaTestCase {
@@ -28,7 +30,7 @@ class PapayaDomainsTest extends PapayaTestCase {
         1 => array(
           'scheme' => PapayaUtilServerProtocol::BOTH,
           'host' => 'www.sample.tld',
-          'mode' => PapayaContentDomain::MODE_VIRTUAL_DOMAIN,
+          'mode' => Domain::MODE_VIRTUAL_DOMAIN,
           'data' => 42
         )
       ),
@@ -48,7 +50,7 @@ class PapayaDomainsTest extends PapayaTestCase {
           1 => array(
             'scheme' => PapayaUtilServerProtocol::BOTH,
             'host' => 'www.test.tld',
-            'mode' => PapayaContentDomain::MODE_DEFAULT,
+            'mode' => Domain::MODE_DEFAULT,
             'data' => ''
           )
         )
@@ -59,7 +61,7 @@ class PapayaDomainsTest extends PapayaTestCase {
         1 => array(
           'scheme' => PapayaUtilServerProtocol::BOTH,
           'host' => 'www.test.tld',
-          'mode' => PapayaContentDomain::MODE_DEFAULT,
+          'mode' => Domain::MODE_DEFAULT,
           'data' => ''
         )
       ),
@@ -77,7 +79,7 @@ class PapayaDomainsTest extends PapayaTestCase {
       array(
         'scheme' => PapayaUtilServerProtocol::HTTP,
         'host' => '*.test.tld',
-        'mode' => PapayaContentDomain::MODE_REDIRECT_DOMAIN,
+        'mode' => Domain::MODE_REDIRECT_DOMAIN,
         'data' => ''
       ),
       $domains->getDomainByHost('www.test.tld', PapayaUtilServerProtocol::HTTP)
@@ -95,19 +97,19 @@ class PapayaDomainsTest extends PapayaTestCase {
           1 => array(
             'scheme' => PapayaUtilServerProtocol::BOTH,
             'host' => 'www.test.tld',
-            'mode' => PapayaContentDomain::MODE_VIRTUAL_DOMAIN,
+            'mode' => Domain::MODE_VIRTUAL_DOMAIN,
             'data' => 'failed'
           ),
           2 => array(
             'scheme' => PapayaUtilServerProtocol::HTTP,
             'host' => 'www.test.tld',
-            'mode' => PapayaContentDomain::MODE_VIRTUAL_DOMAIN,
+            'mode' => Domain::MODE_VIRTUAL_DOMAIN,
             'data' => 'success'
           ),
           3 => array(
             'scheme' => PapayaUtilServerProtocol::HTTP,
             'host' => '*.test.tld',
-            'mode' => PapayaContentDomain::MODE_REDIRECT_DOMAIN,
+            'mode' => Domain::MODE_REDIRECT_DOMAIN,
             'data' => 'failed'
           )
         )
@@ -117,7 +119,7 @@ class PapayaDomainsTest extends PapayaTestCase {
       array(
         'scheme' => PapayaUtilServerProtocol::HTTP,
         'host' => 'www.test.tld',
-        'mode' => PapayaContentDomain::MODE_VIRTUAL_DOMAIN,
+        'mode' => Domain::MODE_VIRTUAL_DOMAIN,
         'data' => 'success'
       ),
       $domains->getDomainByHost('www.test.tld', PapayaUtilServerProtocol::HTTP)
@@ -139,7 +141,7 @@ class PapayaDomainsTest extends PapayaTestCase {
       array(
         'scheme' => PapayaUtilServerProtocol::BOTH,
         'host' => 'www.sample.tld',
-        'mode' => PapayaContentDomain::MODE_VIRTUAL_DOMAIN,
+        'mode' => Domain::MODE_VIRTUAL_DOMAIN,
         'data' => 42
       ),
       $domains->getCurrent()
@@ -260,13 +262,13 @@ class PapayaDomainsTest extends PapayaTestCase {
         1 => array(
           'scheme' => PapayaUtilServerProtocol::BOTH,
           'host' => 'www.sample.tld',
-          'mode' => PapayaContentDomain::MODE_VIRTUAL_DOMAIN,
+          'mode' => Domain::MODE_VIRTUAL_DOMAIN,
           'data' => '42'
         ),
         2 => array(
           'scheme' => PapayaUtilServerProtocol::HTTP,
           'host' => '*.test.tld',
-          'mode' => PapayaContentDomain::MODE_REDIRECT_DOMAIN,
+          'mode' => Domain::MODE_REDIRECT_DOMAIN,
           'data' => ''
         )
       );

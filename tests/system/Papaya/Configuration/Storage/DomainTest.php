@@ -40,7 +40,7 @@ class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
   * @covers Domain::domain
   */
   public function testDomainGetAfterSet() {
-    $domain = $this->createMock(PapayaContentDomain::class);
+    $domain = $this->createMock(\Papaya\Content\Domain::class);
     $storage = new Domain('sample.tld');
     $this->assertSame($domain, $storage->domain($domain));
   }
@@ -50,14 +50,14 @@ class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
   */
   public function testDomainGetImplicitCreate() {
     $storage = new Domain('sample.tld');
-    $this->assertInstanceOf(PapayaContentDomain::class, $storage->domain());
+    $this->assertInstanceOf(\Papaya\Content\Domain::class, $storage->domain());
   }
 
   /**
   * @covers Domain::load
   */
   public function testLoad() {
-    $domain = $this->createMock(PapayaContentDomain::class);
+    $domain = $this->createMock(\Papaya\Content\Domain::class);
     $domain
       ->expects($this->once())
       ->method('load')
@@ -73,7 +73,7 @@ class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
   * @covers Domain::getIterator
   */
   public function testGetIterator() {
-    $domain = $this->createMock(PapayaContentDomain::class);
+    $domain = $this->createMock(\Papaya\Content\Domain::class);
     $domain
       ->expects($this->atLeastOnce())
       ->method('__get')
@@ -91,7 +91,7 @@ class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
 
   public function callbackGetOptionValue($option) {
     $options = array(
-      'mode' => PapayaContentDomain::MODE_VIRTUAL_DOMAIN,
+      'mode' => \Papaya\Content\Domain::MODE_VIRTUAL_DOMAIN,
       'options' => array('OPTION' => 'success')
     );
     return $options[$option];
