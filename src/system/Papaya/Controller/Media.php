@@ -13,29 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Controller;
+
 /**
-* Papaya controller superclass with media database access
-*
-* @package Papaya-Library
-* @subpackage Controller
-*/
-class PapayaControllerMedia extends \PapayaObject implements \PapayaController {
+ * Papaya controller superclass with media database access
+ *
+ * @package Papaya-Library
+ * @subpackage Controller
+ */
+class Media extends \PapayaObject implements \PapayaController {
 
-  private $_mediaDatabase = NULL;
+  /**
+   * @var \base_mediadb
+   */
+  private $_mediaDatabase;
 
-    /**
-  * Execute controller
+  /**
+   * Execute controller
+   *
    * @param \Papaya\Application $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
    * @return boolean|\PapayaController
    */
   public function execute(
+    /** @noinspection ReferencingObjectsInspection */
     \Papaya\Application $application,
-    PapayaRequest &$request,
-    PapayaResponse &$response
+    \PapayaRequest &$request,
+    \PapayaResponse &$response
   ) {
     $this->papaya($application);
+    /** @var \PapayaRequest $request */
     $request = $application->getObject('Request');
     $isPreview = $request->getParameter('preview', '', NULL, \PapayaRequest::SOURCE_PATH);
     $mediaId = $request->getParameter('media_id', '', NULL, \PapayaRequest::SOURCE_PATH);
@@ -47,34 +55,33 @@ class PapayaControllerMedia extends \PapayaObject implements \PapayaController {
       if ($file) {
         if ($isPreview) {
           return $this->_outputPreviewFile($file);
-        } else {
-          return $this->_outputPublicFile($file);
         }
-      } else {
-        return \Papaya\Controller\Factory::createError(
-          404, 'MEDIA_NO_RECORD', 'File record not found'
-        );
+        return $this->_outputPublicFile($file);
       }
-    } else {
-      return \Papaya\Controller\Factory::createError(
-        404, 'MEDIA_EMPTY_ID', 'Empty media id'
+      return Factory::createError(
+        404, 'MEDIA_NO_RECORD', 'File record not found'
       );
     }
+    return Factory::createError(
+      404, 'MEDIA_EMPTY_ID', 'Empty media id'
+    );
   }
 
   /**
-  * Determine if the current surfer has the permission to retrieve the requested file.
-  * @param array $file
-  * @return boolean
-  */
+   * Determine if the current surfer has the permission to retrieve the requested file.
+   *
+   * @param array $file
+   * @return boolean
+   */
   protected function _outputPublicFile($file) {
     $folderPermissions = $this->getMediaDatabase()->getFolderPermissions($file['folder_id']);
     if (!isset($folderPermissions['surfer_view']) &&
-        !isset($folderPermissions['surfer_edit'])) {
+      !isset($folderPermissions['surfer_edit'])) {
       //make public
       $this->_outputFile($file);
       return TRUE;
-    } elseif (isset($folderPermissions['surfer_view'])) {
+    }
+    if (isset($folderPermissions['surfer_view'])) {
       $surfer = $this->papaya()->getObject('Surfer');
       // the surfer has one of the folder permissions
       if ($surfer->hasOnePermOf(array_keys($folderPermissions['surfer_view']))) {
@@ -87,6 +94,7 @@ class PapayaControllerMedia extends \PapayaObject implements \PapayaController {
 
   /**
    * Determine if current admin user is valid to send given file to client
+   *
    * @param array $file
    * @return bool
    */
@@ -95,15 +103,15 @@ class PapayaControllerMedia extends \PapayaObject implements \PapayaController {
     if ($user->isLoggedIn()) {
       $this->_outputFile($file);
       return TRUE;
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 
   /**
-  * Stop current session and send given file to client
-  * @param array $file
-  */
+   * Stop current session and send given file to client
+   *
+   * @param array $file
+   */
   protected function _outputFile($file) {
     // @codeCoverageIgnoreStart
     $session = $this->papaya()->getObject('Session');
@@ -113,20 +121,22 @@ class PapayaControllerMedia extends \PapayaObject implements \PapayaController {
   // @codeCoverageIgnoreEnd
 
   /**
-  * Set media database object
-  * @param base_mediadb $mediaDatabase
-  * @return void
-  */
+   * Set media database object
+   *
+   * @param \base_mediadb $mediaDatabase
+   * @return void
+   */
   public function setMediaDatabase($mediaDatabase) {
     $this->_mediaDatabase = $mediaDatabase;
   }
 
   /**
-  * Get media database object (implicit create)
-  * @return base_mediadb
-  */
+   * Get media database object (implicit create)
+   *
+   * @return \base_mediadb
+   */
   public function getMediaDatabase() {
-    if (is_null($this->_mediaDatabase)) {
+    if (NULL === $this->_mediaDatabase) {
       $this->_mediaDatabase = new \base_mediadb();
     }
     return $this->_mediaDatabase;

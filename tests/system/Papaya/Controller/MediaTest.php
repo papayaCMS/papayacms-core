@@ -14,6 +14,7 @@
  */
 
 use Papaya\Controller\Error;
+use Papaya\Controller\Media;
 
 require_once __DIR__.'/../../../bootstrap.php';
 PapayaTestCase::defineConstantDefaults(
@@ -38,13 +39,13 @@ PapayaTestCase::defineConstantDefaults(
 class PapayaControllerMediaTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaControllerMedia::execute
+  * @covers Media::execute
   */
   public function testExecuteNoMediaFound() {
     $application = $this->mockPapaya()->application();
     $request = $this->mockPapaya()->request();
     $response = $this->mockPapaya()->response();
-    $controller = new PapayaControllerMedia();
+    $controller = new Media();
     $this->assertInstanceOf(
       Error::class,
       $controller->execute($application, $request, $response)
@@ -52,7 +53,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaControllerMedia::execute
+  * @covers Media::execute
   */
   public function testExecuteNonExistentMediaFile() {
     $application = $this->mockPapaya()->application();
@@ -70,7 +71,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
       ->method('getFile')
       ->will($this->returnValue(FALSE));
 
-    $controller = new PapayaControllerMedia();
+    $controller = new Media();
     $controller->setMediaDatabase($generator);
 
     $this->assertInstanceOf(
@@ -81,7 +82,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
 
   /**
    * @dataProvider trueFalseDataProvider
-   * @covers PapayaControllerMedia::execute
+   * @covers Media::execute
    * @param bool $enablePreview
    */
   public function testExecute($enablePreview) {
@@ -109,12 +110,12 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaControllerMedia::setMediaDatabase
+  * @covers Media::setMediaDatabase
   */
   public function testSetMediaDatabase() {
     /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
     $generator = $this->createMock(base_mediadb::class);
-    $controller = new PapayaControllerMedia();
+    $controller = new Media();
     $controller->setMediaDatabase($generator);
     $this->assertAttributeSame(
       $generator, '_mediaDatabase', $controller
@@ -122,12 +123,12 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaControllerMedia::getMediaDatabase
+  * @covers Media::getMediaDatabase
   */
   public function testGetMediaDatabase() {
     /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
     $generator = $this->createMock(base_mediadb::class);
-    $controller = new PapayaControllerMedia();
+    $controller = new Media();
     $controller->setMediaDatabase($generator);
     $this->assertSame(
       $generator,
@@ -136,10 +137,10 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaControllerMedia::getMediaDatabase
+  * @covers Media::getMediaDatabase
   */
   public function testGetMediaDatabaseImplizitCreate() {
-    $controller = new PapayaControllerMedia();
+    $controller = new Media();
     $this->assertInstanceOf(
       'base_mediadb',
       $controller->getMediaDatabase()
@@ -147,7 +148,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaControllerMedia::_outputPublicFile
+  * @covers Media::_outputPublicFile
   */
   public function testOutputPublicFileWithFolderPermissions() {
     $surfer = $this->getMockBuilder(base_surfer::class)->getMock();
@@ -180,7 +181,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaControllerMedia::_outputPublicFile
+  * @covers Media::_outputPublicFile
   */
   public function testOutputPublicFile() {
     $surfer = $this->getMockBuilder(base_surfer::class)->getMock();
@@ -213,7 +214,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaControllerMedia::_outputPublicFile
+  * @covers Media::_outputPublicFile
   */
   public function testOutputPublicFileWithoutFolderPermissions() {
     /** @var PHPUnit_Framework_MockObject_MockObject|base_mediadb $generator */
@@ -231,7 +232,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
 
   /**
    * @dataProvider trueFalseDataProvider
-   * @covers PapayaControllerMedia::_outputPreviewFile
+   * @covers Media::_outputPreviewFile
    * @param bool $userValid
    */
   public function testOutputPreviewFile($userValid) {
@@ -247,7 +248,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaControllerMedia::_outputFile
+  * @covers Media::_outputFile
   */
   public function testOutputFile() {
     $this->markTestSkipped('Request on a static function not mockable.');
@@ -266,7 +267,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
 
 }
 
-class PapayaControllerMediaProxy extends PapayaControllerMedia {
+class PapayaControllerMediaProxy extends Media {
   public function _outputPreviewFile($file) {
     return TRUE;
   }
@@ -275,7 +276,7 @@ class PapayaControllerMediaProxy extends PapayaControllerMedia {
   }
 }
 
-class PapayaControllerMediaOutputFilesTest extends PapayaControllerMedia {
+class PapayaControllerMediaOutputFilesTest extends Media {
   public function _outputPublicFile($file) {
     return parent::_outputPublicFile($file);
   }
@@ -287,7 +288,7 @@ class PapayaControllerMediaOutputFilesTest extends PapayaControllerMedia {
   }
 }
 
-class PapayaControllerOutputFileTest extends PapayaControllerMedia {
+class PapayaControllerOutputFileTest extends Media {
   public function _outputFile($file) {
     /** @noinspection PhpVoidFunctionResultUsedInspection */
     return parent::_outputFile($file);
