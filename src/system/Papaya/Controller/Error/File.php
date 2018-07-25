@@ -20,7 +20,7 @@ namespace Papaya\Controller\Error;
  * @package Papaya-Library
  * @subpackage Controller
  */
-class File extends \PapayaControllerError {
+class File extends \Papaya\Controller\Error {
 
   /**
    * Set template data from file

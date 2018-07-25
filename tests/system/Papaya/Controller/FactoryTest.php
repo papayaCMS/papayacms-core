@@ -14,6 +14,7 @@
  */
 
 use Papaya\Controller\Error\File;
+use Papaya\Controller\Error;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -24,7 +25,7 @@ class PapayaControllerFactoryTest extends PapayaTestCase {
   */
   public function testCreateError() {
     $error = PapayaControllerFactory::createError(404, 'Test', 'TEST');
-    $this->assertInstanceOf(PapayaControllerError::class, $error);
+    $this->assertInstanceOf(Error::class, $error);
     $this->assertAttributeEquals(
       404, '_status', $error
     );

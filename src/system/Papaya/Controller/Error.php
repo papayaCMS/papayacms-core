@@ -13,33 +13,38 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Controller;
 /**
-* Papaya controller class for error pages
-*
-* @package Papaya-Library
-* @subpackage Controller
-*/
-class PapayaControllerError extends \PapayaObject implements \PapayaController {
+ * Papaya controller class for error pages
+ *
+ * @package Papaya-Library
+ * @subpackage Controller
+ */
+class Error extends \PapayaObject implements \PapayaController {
 
   /**
-  * HTTP resposne status
-  * @var integer
-  */
+   * HTTP response status
+   *
+   * @var integer
+   */
   protected $_status = 500;
   /**
-  * Error message
-  * @var string
-  */
+   * Error message
+   *
+   * @var string
+   */
   protected $_errorMessage = 'Service unavailable.';
   /**
-  * Error identifier
-  * @var string
-  */
+   * Error identifier
+   *
+   * @var string
+   */
   protected $_errorIdentifier = '';
   /**
-  * Error template
-  * @var string
-  */
+   * Error template
+   *
+   * @var string
+   */
   protected $_template =
     '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
      <html>
@@ -97,27 +102,30 @@ class PapayaControllerError extends \PapayaObject implements \PapayaController {
      </html>';
 
   /**
-  * Set HTTP response status
-  * @param integer $status
-  * @return void
-  */
+   * Set HTTP response status
+   *
+   * @param integer $status
+   * @return void
+   */
   public function setStatus($status) {
     $this->_status = (int)$status;
   }
 
   /**
-  * Set error message and identifier
-  * @param string $identifier
-  * @param string $message
-  * @return void
-  */
+   * Set error message and identifier
+   *
+   * @param string $identifier
+   * @param string $message
+   * @return void
+   */
   public function setError($identifier, $message) {
     $this->_errorMessage = $message;
     $this->_errorIdentifier = $identifier;
   }
 
   /**
-  * Execute controller
+   * Execute controller
+   *
    * @param \Papaya\Application $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
@@ -137,9 +145,10 @@ class PapayaControllerError extends \PapayaObject implements \PapayaController {
   }
 
   /**
-  * Generate error output
-  * @return string
-  */
+   * Generate error output
+   *
+   * @return string
+   */
   protected function _getOutput() {
     $replace = array(
       '{%status%}' => \PapayaUtilStringXml::escape($this->_status),

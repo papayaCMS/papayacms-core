@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Controller\Error;
+
 require_once __DIR__.'/../../../bootstrap.php';
 PapayaTestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_MEDIADB_FILES',
@@ -44,7 +46,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
     $response = $this->mockPapaya()->response();
     $controller = new PapayaControllerMedia();
     $this->assertInstanceOf(
-      PapayaControllerError::class,
+      Error::class,
       $controller->execute($application, $request, $response)
     );
   }
@@ -72,7 +74,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
     $controller->setMediaDatabase($generator);
 
     $this->assertInstanceOf(
-      PapayaControllerError::class,
+      Error::class,
       $controller->execute($application, $request, $response)
     );
   }

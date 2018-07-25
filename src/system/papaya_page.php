@@ -17,6 +17,7 @@ use Papaya\Application;
 use Papaya\Cache;
 use Papaya\Content;
 use Papaya\Controller;
+
 /**
  * Some of the old bootstraps use the this class/file as the starting point,
  * they need to be changed and use ../core.php. For BC keep validate that
@@ -2584,7 +2585,7 @@ class papaya_page extends base_object {
    */
   function getErrorHTML($status, $errorString, $errorCode) {
     $application = $this->papaya();
-    $controller = new PapayaControllerError($this);
+    $controller = new Controller\Error($this);
     $controller->setStatus($status);
     $controller->setError($errorCode, $errorString);
     $controller->execute($application, $application->request, $application->response);
