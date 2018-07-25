@@ -17,6 +17,7 @@ use Papaya\Content\Link\Types;
 use Papaya\Content\Pages\Publications;
 use Papaya\Content\Language;
 use Papaya\Content\Languages;
+use Papaya\Content\Pages;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -858,7 +859,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::pages
   */
   public function testPagesGetAfterSet() {
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $factory = new PapayaUiReferencePageFactory();
     $factory->pages($pages);
     $this->assertSame($pages, $factory->pages());
@@ -1020,7 +1021,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::getFilter
   */
   public function testPreload() {
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -1063,7 +1064,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::getFilter
   */
   public function testPreloadOptimizesLoading() {
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $pages
       ->expects($this->exactly(2))
       ->method('load')
@@ -1109,7 +1110,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   */
   public function testPreloadWithLanguageIdentifier() {
 
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -1132,7 +1133,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::getFilter
   */
   public function testPreloadWithPublicDataExpectingTimeInFilter() {
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -1204,7 +1205,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
         'linktype_id' => 1
       );
     }
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $pages
       ->expects($this->any())
       ->method('load')

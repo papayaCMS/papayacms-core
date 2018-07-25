@@ -17,6 +17,7 @@ use Papaya\Administration\Pages\Dependency\Listview;
 use Papaya\Administration\Pages\Dependency\Synchronizations;
 use Papaya\Content\Page\Dependencies;
 use Papaya\Content\Page\References;
+use Papaya\Content\Pages;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -177,7 +178,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
   * @covers Listview::pages
   */
   public function testPagesGetAfterSet() {
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $dependencies = $this->getDependenciesFixture();
     $references = $this->getReferencesFixture();
     $synchronizations = $this->getSynchronizationsFixture();
@@ -200,7 +201,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
       21, 42, $dependencies, $references, $synchronizations
     );
     $this->assertInstanceOf(
-      PapayaContentPages::class, $listview->pages()
+      Pages::class, $listview->pages()
     );
   }
 

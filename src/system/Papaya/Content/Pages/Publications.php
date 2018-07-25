@@ -20,7 +20,7 @@ namespace Papaya\Content\Pages;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Publications extends \PapayaContentPages {
+class Publications extends \Papaya\Content\Pages {
   /**
    * Table containing page informations
    *
@@ -39,7 +39,7 @@ class Publications extends \PapayaContentPages {
    * Loading published stuff using a timestamp so that only pages are loaded, that are really
    * accessible.
    *
-   * @see papaya-lib/system/Papaya/Content/PapayaContentPages#getConditions($filter)
+   * @see papaya-lib/system/Papaya/Content/Papaya\Content\PapayaContentPages#getConditions($filter)
    * @param mixed $filter
    * @param string $prefix
    * @return array

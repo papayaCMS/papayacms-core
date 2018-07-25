@@ -48,13 +48,13 @@ class PapayaUiContentTeasers extends \PapayaUiControl {
   /**
    * Create list, store pages and optional thumbnail configuration
    *
-   * @param \PapayaContentPages $pages
+   * @param \Papaya\Content\Pages $pages
    * @param integer $width
    * @param integer $height
    * @param string $resizeMode
    */
   public function __construct(
-    \PapayaContentPages $pages, $width = 0, $height = 0, $resizeMode = 'mincrop'
+    \Papaya\Content\Pages $pages, $width = 0, $height = 0, $resizeMode = 'mincrop'
   ) {
     $this->pages($pages);
     $this->_width = $width;
@@ -65,10 +65,10 @@ class PapayaUiContentTeasers extends \PapayaUiControl {
   /**
    * Getter/Setter for the pages subobject
    *
-   * @param \PapayaContentPages $pages
-   * @return \PapayaContentPages
+   * @param \Papaya\Content\Pages $pages
+   * @return \Papaya\Content\Pages
    */
-  public function pages(\PapayaContentPages $pages = NULL) {
+  public function pages(\Papaya\Content\Pages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;
     }

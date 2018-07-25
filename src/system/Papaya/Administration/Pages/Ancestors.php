@@ -14,8 +14,6 @@
  */
 
 namespace Papaya\Administration\Pages;
-use PapayaContentPages;
-use PapayaUiHierarchyMenu;
 
 /**
  * Display anchestors of the current page.
@@ -28,7 +26,7 @@ class Ancestors extends \PapayaUiControl {
   /**
    * Member variable for pages subobject
    *
-   * @var \PapayaContentPages
+   * @var \Papaya\Content\Pages
    */
   private $_pages = NULL;
 
@@ -75,14 +73,14 @@ class Ancestors extends \PapayaUiControl {
   /**
    * Content object, to load page informations
    *
-   * @param \PapayaContentPages $pages
-   * @return \PapayaContentPages
+   * @param \Papaya\Content\Pages $pages
+   * @return \Papaya\Content\Pages
    */
-  public function pages(\PapayaContentPages $pages = NULL) {
+  public function pages(\Papaya\Content\Pages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;
     } elseif (is_null($this->_pages)) {
-      $this->_pages = new \PapayaContentPages();
+      $this->_pages = new \Papaya\Content\Pages();
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;

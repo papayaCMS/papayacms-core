@@ -1035,14 +1035,14 @@ class papaya_overview extends base_db {
   /**
    * Getter/Setter for a pages list subobject
    *
-   * @param \PapayaContentPages $pages
-   * @return \PapayaContentPages
+   * @param \Papaya\Content\Pages $pages
+   * @return \Papaya\Content\Pages
    */
-  public function pages(PapayaContentPages $pages = NULL) {
+  public function pages(Content\Pages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;
     } elseif (NULL == $this->_pages) {
-      $this->_pages = new PapayaContentPages();
+      $this->_pages = new Content\Pages();
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;

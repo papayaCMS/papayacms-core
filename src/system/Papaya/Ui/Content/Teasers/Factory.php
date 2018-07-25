@@ -154,11 +154,11 @@ class PapayaUiContentTeasersFactory extends \PapayaObject {
    * Create a pages database encapsulation object
    *
    * @param string|\PapayaDatabaseInterfaceOrder $order
-   * @return \PapayaContentPages|\Papaya\Content\Pages\Publications
+   * @return \Papaya\Content\Pages|\Papaya\Content\Pages\Publications
    */
   private function createPages($order) {
     if ($this->papaya()->request->isPreview) {
-      $pages = new \PapayaContentPages();
+      $pages = new \Papaya\Content\Pages();
     } else {
       $pages = new \Papaya\Content\Pages\Publications();
     }
@@ -175,10 +175,10 @@ class PapayaUiContentTeasersFactory extends \PapayaObject {
    * definition can be found return NULL.
    *
    * @param string|\PapayaDatabaseInterfaceOrder $order
-   * @param \PapayaContentPages $pages
+   * @param \Papaya\Content\Pages $pages
    * @return \PapayaDatabaseInterfaceOrder
    */
-  private function getOrderBy($order, \PapayaContentPages $pages) {
+  private function getOrderBy($order, \Papaya\Content\Pages $pages) {
     if ($order instanceof \PapayaDatabaseInterfaceOrder) {
       return $order;
     } elseif (isset($this->_orderByDefinitions[$order])) {

@@ -21,6 +21,7 @@ use Papaya\Content\Page\Dependencies;
 use Papaya\Content\Page\Dependency;
 use Papaya\Content\Page\Reference;
 use Papaya\Content\Page\References;
+use Papaya\Content\Pages;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -110,7 +111,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('load')
       ->with(21);
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -149,7 +150,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('load')
       ->with(42);
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -231,7 +232,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('load')
       ->with(42);
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $pages
       ->expects($this->once())
       ->method('load')

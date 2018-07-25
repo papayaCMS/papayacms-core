@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Pages\Publications;
+use Papaya\Content\Pages;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -62,7 +63,7 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
 
     $teasers = $factory->byParent(42);
     $this->assertInstanceOf(PapayaUiContentTeasers::class, $teasers);
-    $this->assertInstanceOf(PapayaContentPages::class, $teasers->pages());
+    $this->assertInstanceOf(Pages::class, $teasers->pages());
     $this->assertNotInstanceOf(Publications::class, $teasers->pages());
   }
 

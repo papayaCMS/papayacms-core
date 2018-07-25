@@ -18,6 +18,7 @@ use Papaya\Administration\Pages\Dependency\Blocker;
 use Papaya\Administration\Pages\Dependency\Counter;
 use Papaya\Content\Page\Dependencies;
 use Papaya\Content\Page\Dependency;
+use Papaya\Content\Pages;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -107,7 +108,7 @@ class PapayaAdministrationPagesDependencyBlockerTest extends PapayaTestCase {
   * @covers Blocker::appendTo
   */
   public function testAppendTo() {
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -198,7 +199,7 @@ class PapayaAdministrationPagesDependencyBlockerTest extends PapayaTestCase {
   * @covers Blocker::pages
   */
   public function testPagesGetAfterSet() {
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $blocker = new Blocker(42);
     $this->assertSame(
       $pages, $blocker->pages($pages)
@@ -211,7 +212,7 @@ class PapayaAdministrationPagesDependencyBlockerTest extends PapayaTestCase {
   public function testPagesGetImplicitCreate() {
     $blocker = new Blocker(42);
     $this->assertInstanceOf(
-      PapayaContentPages::class, $blocker->pages()
+      Pages::class, $blocker->pages()
     );
   }
 

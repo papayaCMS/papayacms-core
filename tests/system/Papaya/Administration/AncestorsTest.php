@@ -15,6 +15,7 @@
 
 use Papaya\Administration\Languages\Selector;
 use Papaya\Administration\Pages\Ancestors;
+use Papaya\Content\Pages;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -43,7 +44,7 @@ class PapayaAdministrationPagesAncestorsTest extends PapayaTestCase {
   * @covers Ancestors::setIds
   */
   public function testSetIds() {
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $pages
       ->expects($this->once())
       ->method('load')
@@ -92,7 +93,7 @@ class PapayaAdministrationPagesAncestorsTest extends PapayaTestCase {
   */
   public function testPagesGetAfterSet() {
     $ancestors = new Ancestors();
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $this->assertSame(
       $pages, $ancestors->pages($pages)
     );
@@ -105,7 +106,7 @@ class PapayaAdministrationPagesAncestorsTest extends PapayaTestCase {
     $ancestors = new Ancestors();
     $ancestors->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaContentPages::class, $ancestors->pages()
+      Pages::class, $ancestors->pages()
     );
     $this->assertSame(
       $papaya, $ancestors->papaya()

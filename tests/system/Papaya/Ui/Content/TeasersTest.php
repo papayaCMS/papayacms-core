@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Pages;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiContentTeasersTest extends PapayaTestCase {
@@ -265,10 +267,10 @@ class PapayaUiContentTeasersTest extends PapayaTestCase {
 
   /**
    * @param array $pageRecords
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentPages
+   * @return PHPUnit_Framework_MockObject_MockObject|Pages
    */
   private function getPagesFixture(array $pageRecords = array()) {
-    $pages = $this->createMock(PapayaContentPages::class);
+    $pages = $this->createMock(Pages::class);
     $pages
       ->expects($this->any())
       ->method('getIterator')

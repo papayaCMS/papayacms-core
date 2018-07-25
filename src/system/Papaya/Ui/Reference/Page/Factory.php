@@ -39,7 +39,7 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
   private $_preview = FALSE;
 
   /**
-   * @var \PapayaContentPages
+   * @var \Papaya\Content\Pages
    */
   private $_pages = NULL;
 
@@ -385,15 +385,15 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
   /**
    * The pages subobject is used to load the acutal page data
    *
-   * @param \PapayaContentPages $pages
-   * @return \PapayaContentPages
+   * @param \Papaya\Content\Pages $pages
+   * @return \Papaya\Content\Pages
    */
-  public function pages(\PapayaContentPages $pages = NULL) {
+  public function pages(\Papaya\Content\Pages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;
     } elseif (is_null($this->_pages)) {
       $this->_pages = $this->isPreview()
-        ? new \PapayaContentPages(TRUE) : new \Papaya\Content\Pages\Publications(TRUE);
+        ? new \Papaya\Content\Pages(TRUE) : new \Papaya\Content\Pages\Publications(TRUE);
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;

@@ -14,11 +14,6 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency;
-use Papaya\Administration\Pages\Dependency\Counter;
-use Papaya\Content\Page\Dependencies;
-use Papaya\Content\Page\Dependency;
-use PapayaContentPages;
-use PapayaContentViews;
 
 /**
  * Check if the current page is a dependency and block edit page if it is set to sync.
@@ -47,14 +42,14 @@ class Blocker extends \PapayaUiControlInteractive {
   /**
    * Dependecy content object buffer
    *
-   * @var Dependency
+   * @var \Papaya\Content\Page\Dependency
    */
   private $_dependency = NULL;
 
   /**
    * Buffer variable for the dependencies list of the current origin id
    *
-   * @var Dependencies
+   * @var \Papaya\Content\Page\Dependencies
    */
   private $_dependencies = NULL;
 
@@ -68,7 +63,7 @@ class Blocker extends \PapayaUiControlInteractive {
   /**
    * Page information content buffer
    *
-   * @var \PapayaContentPages
+   * @var \Papaya\Content\Pages
    */
   private $_pages = NULL;
 
@@ -241,14 +236,14 @@ class Blocker extends \PapayaUiControlInteractive {
   /**
    * Access to the pages list, to load page informations
    *
-   * @param \PapayaContentPages $pages
-   * @return \PapayaContentPages
+   * @param \Papaya\Content\Pages $pages
+   * @return \Papaya\Content\Pages
    */
-  public function pages(\PapayaContentPages $pages = NULL) {
+  public function pages(\Papaya\Content\Pages $pages = NULL) {
     if (isset($pages)) {
       $this->_pages = $pages;
     } elseif (is_null($this->_pages)) {
-      $this->_pages = new \PapayaContentPages();
+      $this->_pages = new \Papaya\Content\Pages();
       $this->_pages->papaya($this->papaya());
     }
     return $this->_pages;

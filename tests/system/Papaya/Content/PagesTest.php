@@ -1,10 +1,26 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Pages;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaContentPagesTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentPages
+  * @covers Pages
   */
   public function testLoadWithTranslationNeeded() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -42,7 +58,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue($databaseResult));
-    $pages = new PapayaContentPages(TRUE);
+    $pages = new Pages(TRUE);
     $pages->setDatabaseAccess($databaseAccess);
     $this->assertTrue($pages->load(array('language_id' => 1, 'viewmode_id' => 23)));
     $this->assertEquals(
@@ -61,7 +77,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
+  * @covers Pages
   */
   public function testLoadWithEmptyFilter() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -99,7 +115,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue($databaseResult));
-    $pages = new PapayaContentPages(FALSE);
+    $pages = new Pages(FALSE);
     $pages->setDatabaseAccess($databaseAccess);
     $this->assertTrue($pages->load(array()));
     $this->assertEquals(
@@ -118,7 +134,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
+  * @covers Pages
   */
   public function testLoadWithId() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -161,7 +177,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue($databaseResult));
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $pages->setDatabaseAccess($databaseAccess);
     $this->assertTrue($pages->load(array('id' => 42, 'language_id' => 1)));
     $this->assertEquals(
@@ -180,7 +196,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
+  * @covers Pages
   */
   public function testLoadWithStatus() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -223,7 +239,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue($databaseResult));
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $pages->setDatabaseAccess($databaseAccess);
     $this->assertTrue(
       $pages->load(
@@ -246,7 +262,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
+  * @covers Pages
   */
   public function testLoadWithParentId() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -289,7 +305,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue($databaseResult));
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $pages->setDatabaseAccess($databaseAccess);
     $this->assertTrue($pages->load(array('parent' => 42, 'language_id' => 1)));
     $this->assertEquals(
@@ -308,20 +324,20 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
+  * @covers Pages
   */
   public function testMappingImplicitCreateAttachesCallback() {
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
     $mapping = $pages->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValue));
   }
 
   /**
-  * @covers PapayaContentPages
+  * @covers Pages
   */
   public function testMapValueReturnsValueByDefault() {
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $this->assertEquals(
       'success',
       $pages->mapValue(
@@ -335,10 +351,10 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
+  * @covers Pages
   */
   public function testMapValueDecodesPath() {
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $this->assertEquals(
       array(21, 42),
       $pages->mapValue(
@@ -352,10 +368,10 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
+  * @covers Pages
   */
   public function testMapValueEncodesPath() {
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $this->assertEquals(
       ';21;42;',
       $pages->mapValue(
@@ -369,10 +385,10 @@ class PapayaContentPagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentPages
+  * @covers Pages
   */
   public function testIsPublicExpectingFalse() {
-    $pages = new PapayaContentPages();
+    $pages = new Pages();
     $this->assertFalse($pages->isPublic());
   }
 }
