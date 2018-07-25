@@ -16,6 +16,7 @@
 use Papaya\Content\Box\Publication;
 use Papaya\Content\Box\Translations;
 use Papaya\Content\Box\Work;
+use Papaya\Content\Options;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -39,7 +40,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
         'group_id' => 21,
         'created' => 0,
         'modified' => 0,
-        'cache_mode' => PapayaContentOptions::CACHE_SYSTEM,
+        'cache_mode' => Options::CACHE_SYSTEM,
         'cache_time' => 0,
         'unpublished_translations' => 0
       )
@@ -54,7 +55,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $this->assertEquals(21, $data['boxgroup_id']);
     $this->assertGreaterThan(0, $data['box_created']);
     $this->assertGreaterThan(0, $data['box_modified']);
-    $this->assertEquals(PapayaContentOptions::CACHE_SYSTEM, $data['box_cachemode']);
+    $this->assertEquals(Options::CACHE_SYSTEM, $data['box_cachemode']);
     $this->assertEquals(0, $data['box_cachetime']);
     $this->assertEquals(0, $data['box_unpublished_languages']);
     return 42;
@@ -79,7 +80,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
         'group_id' => 21,
         'created' => 1,
         'modified' => 1,
-        'cache_mode' => PapayaContentOptions::CACHE_SYSTEM,
+        'cache_mode' => Options::CACHE_SYSTEM,
         'cache_time' => 0,
         'unpublished_translations' => 0
       )
@@ -93,7 +94,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
     $this->assertEquals(21, $data['boxgroup_id']);
     $this->assertEquals(1, $data['box_created']);
     $this->assertGreaterThan(1, $data['box_modified']);
-    $this->assertEquals(PapayaContentOptions::CACHE_SYSTEM, $data['box_cachemode']);
+    $this->assertEquals(Options::CACHE_SYSTEM, $data['box_cachemode']);
     $this->assertEquals(0, $data['box_cachetime']);
     $this->assertEquals(0, $data['box_unpublished_languages']);
     $this->assertEquals(array('box_id' => 42), $filter);
@@ -330,7 +331,7 @@ class PapayaContentBoxWorkTest extends PapayaTestCase {
         'group_id' => 11,
         'created' => 123,
         'modified' => 456,
-        'cache_mode' => PapayaContentOptions::CACHE_SYSTEM,
+        'cache_mode' => Options::CACHE_SYSTEM,
         'cache_time' => 0,
         'unpublished_translations' => 0
       )

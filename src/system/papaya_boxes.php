@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration;
+use Papaya\Content;
 
 /**
 * Manage action boxes
@@ -873,9 +874,9 @@ class papaya_boxes extends base_boxes {
           'box_modified' => $currentTime,
           'box_created' => $currentTime,
           'box_deliverymode' => 0,
-          'box_cachemode' => PapayaContentOptions::CACHE_SYSTEM,
+          'box_cachemode' => Content\Options::CACHE_SYSTEM,
           'box_cachetime' => 0,
-          'box_expiresmode' => PapayaContentOptions::CACHE_SYSTEM,
+          'box_expiresmode' => Content\Options::CACHE_SYSTEM,
           'box_expirestime' => 0
         );
       }
@@ -1542,21 +1543,21 @@ class papaya_boxes extends base_boxes {
       $fields['box_deliverymode'] = array('Mode', 'isNum', TRUE, 'combo', $deliveryModes);
 
       $cacheModes = array(
-        PapayaContentOptions::CACHE_NONE => $this->_gt('No Cache'),
-        PapayaContentOptions::CACHE_SYSTEM => $this->_gt(
+        Content\Options::CACHE_NONE => $this->_gt('No Cache'),
+        Content\Options::CACHE_SYSTEM => $this->_gt(
           'System cache time: '.(int)$this->papaya()->options['PAPAYA_CACHE_TIME_BOXES']
         ),
-        PapayaContentOptions::CACHE_INDIVIDUAL => $this->_gt('Own cache time'),
+        Content\Options::CACHE_INDIVIDUAL => $this->_gt('Own cache time'),
       );
       $fields[] = 'Content Caching';
       $fields['box_cachemode'] = array('Mode', 'isNum', TRUE, 'combo', $cacheModes);
       $fields['box_cachetime'] = array('Time (seconds)', 'isNum', TRUE, 'input', 10, '', 0);
       $cacheModes = array(
-        PapayaContentOptions::CACHE_NONE => $this->_gt('No Cache'),
-        PapayaContentOptions::CACHE_SYSTEM => $this->_gt(
+        Content\Options::CACHE_NONE => $this->_gt('No Cache'),
+        Content\Options::CACHE_SYSTEM => $this->_gt(
           'System cache time: '.(int)$this->papaya()->options['PAPAYA_CACHE_TIME_BROWSER']
         ),
-        PapayaContentOptions::CACHE_INDIVIDUAL => $this->_gt('Own cache time'),
+        Content\Options::CACHE_INDIVIDUAL => $this->_gt('Own cache time'),
       );
       $fields[] = 'Browser/Proxy Caching';
       $fields['box_expiresmode'] = array('Mode', 'isNum', TRUE, 'combo', $cacheModes);

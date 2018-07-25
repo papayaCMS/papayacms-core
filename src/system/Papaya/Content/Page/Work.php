@@ -72,7 +72,7 @@ class Work extends \Papaya\Content\Page {
         'owner' => $this->owner,
         'group' => $this->group,
         'permissions' => $this->permissions,
-        'inherit_visitor_permissions' => \PapayaContentOptions::INHERIT_PERMISSIONS_PARENT,
+        'inherit_visitor_permissions' => \Papaya\Content\Options::INHERIT_PERMISSIONS_PARENT,
         'visitor_permissions' => array(),
         'position' => 999999,
         'inherit_boxes' => TRUE,

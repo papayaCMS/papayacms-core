@@ -15,6 +15,7 @@
 
 use Papaya\Content\Box\Translations;
 use Papaya\Content\Box;
+use Papaya\Content\Options;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -36,9 +37,9 @@ class PapayaContentBoxTest extends PapayaTestCase {
       'box_created' => 1,
       'box_modified' => 2,
       'box_deliverymode' => Box::DELIVERY_MODE_STATIC,
-      'box_cachemode' => PapayaContentOptions::CACHE_SYSTEM,
+      'box_cachemode' => Options::CACHE_SYSTEM,
       'box_cachetime' => 0,
-      'box_expiresmode' => PapayaContentOptions::CACHE_SYSTEM,
+      'box_expiresmode' => Options::CACHE_SYSTEM,
       'box_expirestime' => 0,
       'box_unpublished_languages' => 0
     );
@@ -68,9 +69,9 @@ class PapayaContentBoxTest extends PapayaTestCase {
         'created' => 1,
         'modified' => 2,
         'delivery_mode' => Box::DELIVERY_MODE_STATIC,
-        'cache_mode' => PapayaContentOptions::CACHE_SYSTEM,
+        'cache_mode' => Options::CACHE_SYSTEM,
         'cache_time' => 0,
-        'expires_mode' => PapayaContentOptions::CACHE_SYSTEM,
+        'expires_mode' => Options::CACHE_SYSTEM,
         'expires_time' => 0,
         'unpublished_translations' => 0
       ),

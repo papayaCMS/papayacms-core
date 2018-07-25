@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Box\Publication;
+use Papaya\Content\Options;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -51,7 +52,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
         'group_id' => 21,
         'created' => 0,
         'modified' => 0,
-        'cache_mode' => PapayaContentOptions::CACHE_SYSTEM,
+        'cache_mode' => Options::CACHE_SYSTEM,
         'cache_time' => 0
       )
     );
@@ -65,7 +66,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
     $this->assertEquals(21, $data['boxgroup_id']);
     $this->assertGreaterThan(0, $data['box_created']);
     $this->assertGreaterThan(0, $data['box_modified']);
-    $this->assertEquals(PapayaContentOptions::CACHE_SYSTEM, $data['box_cachemode']);
+    $this->assertEquals(Options::CACHE_SYSTEM, $data['box_cachemode']);
     $this->assertEquals(0, $data['box_cachetime']);
     return TRUE;
   }
@@ -102,7 +103,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
         'group_id' => 21,
         'created' => 123,
         'modified' => 0,
-        'cache_mode' => PapayaContentOptions::CACHE_SYSTEM,
+        'cache_mode' => Options::CACHE_SYSTEM,
         'cache_time' => 0
       )
     );
@@ -115,7 +116,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
     $this->assertEquals(21, $data['boxgroup_id']);
     $this->assertEquals(123, $data['box_created']);
     $this->assertGreaterThan(1, $data['box_modified']);
-    $this->assertEquals(PapayaContentOptions::CACHE_SYSTEM, $data['box_cachemode']);
+    $this->assertEquals(Options::CACHE_SYSTEM, $data['box_cachemode']);
     $this->assertEquals(0, $data['box_cachetime']);
     $this->assertEquals(array('box_id' => 42), $filter);
     return 42;
