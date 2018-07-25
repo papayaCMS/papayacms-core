@@ -25,7 +25,7 @@
 trait PapayaPluginConfigurableAggregation {
 
   /**
-   * @var PapayaObjectParameters
+   * @var \PapayaObjectParameters
    */
   private $_configuration;
 

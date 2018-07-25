@@ -24,7 +24,7 @@ class PapayaSessionValues implements \ArrayAccess {
 
   /**
   * Linked session object
-  * @var PapayaSession
+  * @var \PapayaSession
   */
   private $_session = NULL;
 

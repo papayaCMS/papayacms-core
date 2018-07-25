@@ -31,7 +31,7 @@ abstract class PapayaUiPanel extends \PapayaUiControl {
   /**
   * Panel caption/title
   *
-  * @var PapayaUiToolbars
+  * @var \PapayaUiToolbars
   */
   protected $_toolbars = NULL;
 

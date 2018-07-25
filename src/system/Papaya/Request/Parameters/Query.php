@@ -29,7 +29,7 @@ class PapayaRequestParametersQuery {
 
   /**
   * Values object
-  * @var PapayaRequestParameters
+  * @var \PapayaRequestParameters
   */
   private $_values = NULL;
 

@@ -23,7 +23,7 @@ class PapayaTemplateSimpleScanner {
 
   /**
   * Scanner status object
-  * @var PapayaTemplateSimpleScannerStatus
+  * @var \PapayaTemplateSimpleScannerStatus
   */
   private $_status = NULL;
   /**

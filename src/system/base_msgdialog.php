@@ -1,34 +1,17 @@
 <?php
 /**
-* Delegation-class for Message-Boxen
-*
-* <code>
-* $hidden = array(
-*   'cmd' => $this->params['cmd'],
-*   'id' => $this->params['id'], // Of course you don't use 'id'. Name it!
-*   'confirm' => 1
-* );
-* $msg = $this->_gtf('Do you really want to delete "%s" (#%d)?', array($name, $id));
-* // $type may be 'question', 'hint', 'info' or 'error'
-* $this->dialog = new base_msgdialog($this, $this->paramName, $hidden, $msg, $type);
-* $this->dialog->buttonTitle = 'Delete'; // don't use _gt(), it will be applied automatically
-* $this->layout->add($this->dialog->getMsgDialog());
-* </code>
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: base_msgdialog.php 39360 2014-02-26 15:04:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Delegation-class for Message-Boxen
@@ -88,7 +71,7 @@ class base_msgdialog extends base_object {
 
   /**
   * CSRF tokens manager
-  * @var PapayaUiTokens
+  * @var \PapayaUiTokens
   */
   protected $_tokens = NULL;
 
@@ -247,8 +230,8 @@ class base_msgdialog extends base_object {
   /**
   * Getter/Setter for csrf token manager including implizit create
   *
-  * @param PapayaUiTokens $tokens
-  * @return PapayaUiTokens
+  * @param \PapayaUiTokens $tokens
+  * @return \PapayaUiTokens
   */
   protected function tokens(PapayaUiTokens $tokens = NULL) {
     if (isset($tokens)) {

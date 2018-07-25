@@ -16,7 +16,7 @@
 class PapayaUiDialogFieldParameterName {
 
   /**
-   * @var PapayaUiDialog|NULL
+   * @var \PapayaUiDialog|NULL
    */
   private $_dialog;
   /**

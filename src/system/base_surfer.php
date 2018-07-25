@@ -765,7 +765,7 @@ class base_surfer extends base_db {
       $targetUrl = $redirectionUrl;
     }
     /**
-     * @var PapayaSession $session
+     * @var \PapayaSession $session
      */
     $session = $this->papaya()->session;
     if ($redirect = $session->regenerateId($targetUrl)) {

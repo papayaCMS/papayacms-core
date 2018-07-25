@@ -18,28 +18,28 @@ abstract class PapayaDatabaseRecordsUnbuffered
   implements \PapayaDatabaseInterfaceAccess, \IteratorAggregate, \Countable {
   /**
   * Stored database access object
-  * @var PapayaDatabaseAccess
+  * @var \PapayaDatabaseAccess
   */
   private $_databaseAccessObject = NULL;
 
   /**
   * The database result of the last loading query.
   *
-  * @var PapayaDatabaseResult
+  * @var \PapayaDatabaseResult
   */
   private $_databaseResult = NULL;
 
   /**
   * Mapping object
   *
-  * @var PapayaDatabaseInterfaceMapping
+  * @var \PapayaDatabaseInterfaceMapping
   */
   private $_mapping = NULL;
 
   /**
   * Order object
   *
-  * @var PapayaDatabaseInterfaceOrder
+  * @var \PapayaDatabaseInterfaceOrder
   */
   private $_orderBy = NULL;
 

@@ -35,7 +35,7 @@ class PapayaUiListview extends \PapayaUiControlInteractive {
   /**
   * Object buffer for listview items.
   *
-  * @var PapayaUiListviewItems
+  * @var \PapayaUiListviewItems
   */
   private $_items = NULL;
 
@@ -43,7 +43,7 @@ class PapayaUiListview extends \PapayaUiControlInteractive {
   * Object buffer for listview items builder (is this is set before the actual items are
   * requested, it is used to create them).
   *
-  * @var PapayaUiListviewItems
+  * @var \PapayaUiListviewItems
   */
   private $_builder = NULL;
 
@@ -58,14 +58,14 @@ class PapayaUiListview extends \PapayaUiControlInteractive {
   /**
   * Object buffer for listview columns.
   *
-  * @var PapayaUiListviewColumns
+  * @var \PapayaUiListviewColumns
   */
   private $_columns = NULL;
 
   /**
   * Helper object to manage the four toolbars for the different positions.
   *
-  * @var PapayaUiToolbars
+  * @var \PapayaUiToolbars
   */
   private $_toolbars = NULL;
 
@@ -85,7 +85,7 @@ class PapayaUiListview extends \PapayaUiControlInteractive {
   /**
   * Listview reference object for links
   *
-  * @var PapayaUiReference
+  * @var \PapayaUiReference
   */
   private $_reference = NULL;
 

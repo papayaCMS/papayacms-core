@@ -35,7 +35,7 @@ class Group extends \PapayaPluginEditor {
   /**
    * Papaya\Administration\Plugin\Editor\PapayaAdministrationPluginEditorGroup constructor.
    *
-   * @param PapayaPluginEditableData $data
+   * @param \PapayaPluginEditableData $data
    * @param string $indexParameterName
    */
   public function __construct(PapayaPluginEditableData $data, $indexParameterName = 'editor_index') {
@@ -85,7 +85,7 @@ class Group extends \PapayaPluginEditor {
     $editorIndex = $this->parameters()->get($this->_indexParameterName, 0);
     $editorIndex = isset($this->_editors[$editorIndex]) ? $editorIndex : 0;
     if (isset($this->_editors[$editorIndex])) {
-      /** @var PapayaPluginEditor $editor */
+      /** @var \PapayaPluginEditor $editor */
       $editor = $this->_editors[$editorIndex][0];
       $editor->context()->set($this->_indexParameterName, $editorIndex);
       return $editor;

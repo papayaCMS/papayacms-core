@@ -24,12 +24,12 @@ class PapayaDatabaseRecordOrderByProperties
   implements \PapayaDatabaseInterfaceOrder, \IteratorAggregate {
 
   /**
-   * @var PapayaDatabaseRecordOrderList
+   * @var \PapayaDatabaseRecordOrderList
    */
   private $_list = NULL;
 
   /**
-   * @var PapayaDatabaseInterfaceMapping
+   * @var \PapayaDatabaseInterfaceMapping
    */
   private $_mapping = NULL;
 

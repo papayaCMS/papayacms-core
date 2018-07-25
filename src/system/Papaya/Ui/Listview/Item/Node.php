@@ -46,12 +46,12 @@ class PapayaUiListviewItemNode extends \PapayaUiControl {
   );
 
   /**
-   * @var PapayaUiListviewItem
+   * @var \PapayaUiListviewItem
    */
   protected $_item = NULL;
 
   /**
-   * @var PapayaUiReference
+   * @var \PapayaUiReference
    */
   protected $_reference = NULL;
 

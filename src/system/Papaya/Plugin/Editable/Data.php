@@ -32,21 +32,21 @@ use Papaya\Administration\Plugin\Editor\Dialog;
 abstract class PapayaPluginEditableData extends PapayaObjectParameters {
 
   /**
-   * @var PapayaPluginEditor
+   * @var \PapayaPluginEditor
    */
   private $_editor;
 
   /**
-   * @var PapayaPluginEditableCallbacks
+   * @var \PapayaPluginEditableCallbacks
    */
   private $_callbacks;
 
   /**
    * Getter/Setter for the editor object
    *
-   * @param PapayaPluginEditor $editor
+   * @param \PapayaPluginEditor $editor
    * @throws LogicException
-   * @return PapayaPluginEditor
+   * @return \PapayaPluginEditor
    */
   public function editor(PapayaPluginEditor $editor = NULL) {
     if (NULL !== $editor) {
@@ -69,8 +69,8 @@ abstract class PapayaPluginEditableData extends PapayaObjectParameters {
   /**
    * Getter/Setter for the callbacks subobject
    *
-   * @param PapayaPluginEditableCallbacks $callbacks
-   * @return PapayaPluginEditableCallbacks
+   * @param \PapayaPluginEditableCallbacks $callbacks
+   * @return \PapayaPluginEditableCallbacks
    */
   public function callbacks(PapayaPluginEditableCallbacks $callbacks = NULL) {
     if (NULL !== $callbacks) {

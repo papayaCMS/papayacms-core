@@ -26,7 +26,7 @@ class PapayaUiDialogFieldGroup extends \PapayaUiDialogField {
 
   /**
   * Grouped input fields
-  * @var PapayaUiDialogFields
+  * @var \PapayaUiDialogFields
   */
   protected $_fields = NULL;
 

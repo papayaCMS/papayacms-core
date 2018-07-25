@@ -145,7 +145,7 @@ class base_topic extends base_db {
 
   /**
   * current content language
-  * @var PapayaContentLanguage $currentLanguage
+  * @var \PapayaContentLanguage $currentLanguage
   */
   var $currentLanguage = NULL;
 

@@ -77,55 +77,55 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
 
   /**
   * Hidden values are output as hidden input field but not part of the parameter group
-  * @var PapayaRequestParameters|NULL
+  * @var \PapayaRequestParameters|NULL
   */
   private $_hiddenValues;
 
   /**
   * Hidden fields are output as hidden input fields, the parameter group value ist used for them
-  * @var PapayaRequestParameters|NULL
+  * @var \PapayaRequestParameters|NULL
   */
   private $_hiddenFields;
 
   /**
   * Token helper object
-  * @var PapayaUiTokens|NULL
+  * @var \PapayaUiTokens|NULL
   */
   private $_tokens;
 
   /**
   * Error list object
-  * @var PapayaUiDialogErrors|NULL
+  * @var \PapayaUiDialogErrors|NULL
   */
   private $_errors;
 
   /**
   * Dialog input fields
-  * @var PapayaUiDialogFields
+  * @var \PapayaUiDialogFields
   */
   private $_fields;
 
   /**
   * Dialog buttons
-  * @var PapayaUiDialogButtons
+  * @var \PapayaUiDialogButtons
   */
   private $_buttons;
 
   /**
   * Dialog data
-  * @var PapayaRequestParameters
+  * @var \PapayaRequestParameters
   */
   private $_data;
 
   /**
   * Dialog options  *
-  * @var PapayaUiDialogOptions
+  * @var \PapayaUiDialogOptions
   */
   private $_options;
 
   /**
   * Dialog description data (additional properties)
-  * @var PapayaUiDialogElementDescription
+  * @var \PapayaUiDialogElementDescription
   */
   private $_description;
 

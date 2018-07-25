@@ -22,12 +22,12 @@
 class PapayaFilterBefore implements \PapayaFilter {
 
   /**
-   * @var PapayaFilter
+   * @var \PapayaFilter
    */
   private $_before;
 
   /**
-   * @var PapayaFilter
+   * @var \PapayaFilter
    */
   private $_after;
 

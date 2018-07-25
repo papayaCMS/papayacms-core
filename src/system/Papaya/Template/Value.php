@@ -25,7 +25,7 @@ class PapayaTemplateValue {
   /**
   * Wrapped DOM element
   *
-  * @var PapayaXmlElement
+  * @var \PapayaXmlElement
   */
   private $_node = NULL;
 

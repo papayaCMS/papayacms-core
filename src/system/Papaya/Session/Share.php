@@ -43,7 +43,7 @@ abstract class PapayaSessionShare extends \PapayaObject {
   /**
   * Internal variable for an session values object used for dependency injection
   *
-  * @var PapayaSessionValues
+  * @var \PapayaSessionValues
   */
   private $_sessionValues = NULL;
 

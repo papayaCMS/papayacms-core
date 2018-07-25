@@ -16,7 +16,7 @@
 class PapayaFilterLines implements \PapayaFilter {
 
   /**
-   * @var PapayaFilter
+   * @var \PapayaFilter
    */
   private $_filter;
 

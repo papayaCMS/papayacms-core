@@ -28,7 +28,7 @@
 trait PapayaPluginFilterAggregation {
 
   /**
-   * @var PapayaPluginFilterContentRecords
+   * @var \PapayaPluginFilterContentRecords
    */
   private $_contentFilters;
 

@@ -25,7 +25,7 @@
 class PapayaDatabaseRecordMappingCache implements \PapayaDatabaseInterfaceMapping {
 
   /**
-   * @var PapayaDatabaseInterfaceMapping
+   * @var \PapayaDatabaseInterfaceMapping
    */
   private $_mapping = NULL;
   /**

@@ -23,7 +23,7 @@ class PapayaFilterNot implements \PapayaFilter {
 
   /**
   * Wrappend filter
-  * @var PapayaFilter
+  * @var \PapayaFilter
   */
   protected $_filter = NULL;
 

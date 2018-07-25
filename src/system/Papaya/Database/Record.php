@@ -49,20 +49,20 @@ abstract class PapayaDatabaseRecord
   /**
   * Subobject for the database key handling
   *
-  * @var PapayaDatabaseInterfaceKey
+  * @var \PapayaDatabaseInterfaceKey
   */
   private $_key = NULL;
 
   /**
   * Subobject for the database field mapping
   *
-  * @var PapayaDatabaseInterfaceKey
+  * @var \PapayaDatabaseInterfaceKey
   */
   private $_mapping = NULL;
 
   /**
   * Stored database access object
-  * @var PapayaDatabaseAccess
+  * @var \PapayaDatabaseAccess
   */
   private $_databaseAccessObject = NULL;
 
@@ -72,7 +72,7 @@ abstract class PapayaDatabaseRecord
   private $_isLoaded = FALSE;
 
   /**
-   * @var PapayaDatabaseRecordCallbacks
+   * @var \PapayaDatabaseRecordCallbacks
    */
   private $_callbacks = NULL;
 

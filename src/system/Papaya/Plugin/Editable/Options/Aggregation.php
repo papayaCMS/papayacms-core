@@ -26,7 +26,7 @@
 trait PapayaPluginEditableOptionsAggregation {
 
   /**
-   * @var PapayaPluginEditableContent
+   * @var \PapayaPluginEditableContent
    */
   private $_options;
 
@@ -34,8 +34,8 @@ trait PapayaPluginEditableOptionsAggregation {
    * The content is an {@see ArrayObject} child class containing the stored data.
    *
    * @see PapayaPluginAdaptable::options()
-   * @param PapayaPluginEditableOptions $options
-   * @return PapayaPluginEditableOptions
+   * @param \PapayaPluginEditableOptions $options
+   * @return \PapayaPluginEditableOptions
    */
   public function options(PapayaPluginEditableOptions $options = NULL) {
     if (NULL !== $options) {
@@ -52,8 +52,8 @@ trait PapayaPluginEditableOptionsAggregation {
   }
 
   /**
-   * @param PapayaPluginEditableOptions $content
-   * @return PapayaPluginEditor
+   * @param \PapayaPluginEditableOptions $content
+   * @return \PapayaPluginEditor
    */
   abstract public function createOptionsEditor(PapayaPluginEditableOptions $content);
 

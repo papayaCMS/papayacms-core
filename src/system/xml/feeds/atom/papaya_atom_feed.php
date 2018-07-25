@@ -174,7 +174,7 @@ class papaya_atom_feed {
   var $entries;
 
   /**
-   * @var PapayaUrlTransformerAbsolute
+   * @var \PapayaUrlTransformerAbsolute
    */
   private $_urlTransformer = NULL;
 
@@ -338,8 +338,8 @@ class papaya_atom_feed {
   /**
   * Getter/Setter for the url transformer
   *
-  * @param PapayaUrlTransformerAbsolute $transformer
-  * @return PapayaUrlTransformerAbsolute
+  * @param \PapayaUrlTransformerAbsolute $transformer
+  * @return \PapayaUrlTransformerAbsolute
   */
   public function urlTransformer(PapayaUrlTransformerAbsolute $transformer = NULL) {
     if (isset($transformer)) {

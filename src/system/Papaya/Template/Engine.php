@@ -37,13 +37,13 @@ abstract class PapayaTemplateEngine {
   /**
   * Parameter handling object
   *
-  * @var PapayaObjectOptionsList
+  * @var \PapayaObjectOptionsList
   */
   private $_parameters = NULL;
 
   /**
   * Loaders list
-  * @var PapayaObjectList
+  * @var \PapayaObjectList
   */
   private $_loaders = NULL;
 
@@ -144,7 +144,7 @@ abstract class PapayaTemplateEngine {
       $this->_context = NULL;
       if (!($values instanceof \DOMElement || $values instanceof \DOMDocument)) {
         $loadedValues = NULL;
-        /** @var PapayaTemplateEngineValuesLoadable $loader */
+        /** @var \PapayaTemplateEngineValuesLoadable $loader */
         foreach ($this->loaders() as $loader) {
           $loadedValues = $loader->load($values);
           if (FALSE !== $loadedValues) {

@@ -41,7 +41,7 @@ class PapayaProfilerStorageXhgui
   private $_serverId = '';
 
   /**
-   * @var PapayaDatabaseAccess
+   * @var \PapayaDatabaseAccess
    */
   private $_databaseAccessObject = NULL;
 

@@ -68,7 +68,7 @@ class PapayaDatabaseObject
 
   /**
   * Stored database access object
-  * @var PapayaDatabaseAccess
+  * @var \PapayaDatabaseAccess
   */
   protected $_databaseAccessObject = NULL;
 

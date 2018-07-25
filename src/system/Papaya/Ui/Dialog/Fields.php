@@ -37,7 +37,7 @@ class PapayaUiDialogFields extends \PapayaUiDialogElements {
   */
   public function validate() {
     $result = TRUE;
-    /** @var PapayaUiDialogField $field */
+    /** @var \PapayaUiDialogField $field */
     foreach ($this->_items as $field) {
       if (!$field->validate()) {
         $result = FALSE;

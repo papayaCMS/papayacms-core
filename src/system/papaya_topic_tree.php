@@ -94,7 +94,7 @@ class papaya_topic_tree extends base_topic_tree {
   /**
   * Dialog to confirm and specifiy the copy page action
   *
-  * @var PapayaUiDialog
+  * @var \PapayaUiDialog
   */
   private $_dialogCopyPageConfirmation = NULL;
 
@@ -226,8 +226,8 @@ class papaya_topic_tree extends base_topic_tree {
   * If the user is allowed to manage dependencies, a confirmation dialog is needed to
   * specify the dependency creation for copied pages.
   *
-  * @param PapayaUiDialog $dialog
-  * @return PapayaUiDialog
+  * @param \PapayaUiDialog $dialog
+  * @return \PapayaUiDialog
   */
   function dialogCopyPageConfirmation(PapayaUiDialog $dialog = NULL) {
     if (isset($dialog)) {

@@ -24,14 +24,14 @@ class PapayaFilterEqualsParameter implements \PapayaFilter {
   /**
   * Given parameters object
   * 
-  * @var PapayaRequestParameters
+  * @var \PapayaRequestParameters
   */
   private $_parameters = TRUE;
   
   /**
   * Given parameters name object
   * 
-  * @var PapayaRequestParametersName
+  * @var \PapayaRequestParametersName
   */
   private $_parameterName = TRUE;
   

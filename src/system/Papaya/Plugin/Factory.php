@@ -41,7 +41,7 @@ abstract class PapayaPluginFactory extends \PapayaObject {
   /**
   * plugin loader object
   *
-  * @var PapayaPluginLoader
+  * @var \PapayaPluginLoader
   */
   private $_pluginLoader = NULL;
 

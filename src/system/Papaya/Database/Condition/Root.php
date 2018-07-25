@@ -38,7 +38,7 @@ class PapayaDatabaseConditionRoot extends \PapayaDatabaseConditionGroup {
    * @return string
    */
   public function getSql($silent = FALSE) {
-    /** @var PapayaDatabaseConditionElement $condition  */
+    /** @var \PapayaDatabaseConditionElement $condition  */
     foreach ($this as $condition) {
       return $condition->getSql($silent);
     }

@@ -94,7 +94,7 @@ class PapayaStreamwrapperS3 {
 
   /**
   * Amazon S3 handler object
-  * @var PapayaStreamwrapperS3Handler
+  * @var \PapayaStreamwrapperS3Handler
   */
   private $_handler = NULL;
 

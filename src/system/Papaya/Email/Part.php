@@ -28,13 +28,13 @@ class PapayaEmailPart {
   /**
   * Internal variable for the headers subobject
   *
-  * @var PapayaEmailHeaders $headers
+  * @var \PapayaEmailHeaders $headers
   */
   protected $_headers = NULL;
   /**
   * Internal variable for the content subobject
   *
-  * @var PapayaEmailContent $headers
+  * @var \PapayaEmailContent $headers
   */
   protected $_content = NULL;
 

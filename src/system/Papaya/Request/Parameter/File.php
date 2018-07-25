@@ -30,7 +30,7 @@ class PapayaRequestParameterFile implements \ArrayAccess, \IteratorAggregate {
   );
 
   /**
-   * @var PapayaRequestParametersName
+   * @var \PapayaRequestParametersName
    */
   private $_name = '';
 

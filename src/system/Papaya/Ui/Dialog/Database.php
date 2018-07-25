@@ -25,14 +25,14 @@ abstract class PapayaUiDialogDatabase extends \PapayaUiDialog {
   /**
   * Attached database callbacks object
   *
-  * @var PapayaDatabaseObjectRecord
+  * @var \PapayaDatabaseObjectRecord
   */
   private $_callbacks = NULL;
 
   /**
   * Attached database record object
   *
-  * @var PapayaDatabaseInterfaceRecord
+  * @var \PapayaDatabaseInterfaceRecord
   */
   private $_record = NULL;
 

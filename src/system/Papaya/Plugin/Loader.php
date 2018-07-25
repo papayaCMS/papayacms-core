@@ -31,14 +31,14 @@ class PapayaPluginLoader extends \PapayaObject {
   /**
   * Database access to plugin data
   *
-  * @var PapayaPluginList
+  * @var \PapayaPluginList
   */
   private $_plugins = NULL;
 
   /**
   * Access to plugin options data, grouped by plugin
   *
-  * @var PapayaPluginOptionGroups
+  * @var \PapayaPluginOptionGroups
   */
   private $_optionGroups = NULL;
 

@@ -20,7 +20,7 @@ class PapayaPluginFilterContentGroup
   private $_filters = array();
 
   /**
-   * @var PapayaObjectParameters
+   * @var \PapayaObjectParameters
    */
   private $_options;
   private $_page = NULL;

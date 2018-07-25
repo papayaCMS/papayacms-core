@@ -24,7 +24,7 @@ class PapayaRequestLog extends \PapayaObject {
 
   /**
   * Same instance to make it usable like a singleton
-  * @var PapayaRequestLog
+  * @var \PapayaRequestLog
   */
   private static $_instance = NULL;
 

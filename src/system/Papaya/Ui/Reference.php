@@ -29,7 +29,7 @@ class PapayaUiReference extends \PapayaObject {
 
   /**
   * parameters list
-  * @var PapayaRequestParameters
+  * @var \PapayaRequestParameters
   */
   private $_parametersObject = NULL;
 

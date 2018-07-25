@@ -48,7 +48,7 @@ class PapayaDatabaseSourceName {
   /**
   * Additional parameters
   *
-  * @var PapayaRequestParameters
+  * @var \PapayaRequestParameters
   */
   private $_parameters = NULL;
 

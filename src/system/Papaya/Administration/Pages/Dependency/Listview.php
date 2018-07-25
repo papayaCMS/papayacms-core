@@ -43,7 +43,7 @@ class Listview extends \PapayaUiListview {
   /**
    * List of database records
    *
-   * @var PapayaDatabaseObjectList
+   * @var \PapayaDatabaseObjectList
    */
   private $_dependencies = 0;
 
@@ -64,7 +64,7 @@ class Listview extends \PapayaUiListview {
   /**
    * A pages list, to fetch page informations
    *
-   * @var PapayaContentPages
+   * @var \PapayaContentPages
    */
   private $_pages = NULL;
 

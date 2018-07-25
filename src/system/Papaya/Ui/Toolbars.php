@@ -53,7 +53,7 @@ class PapayaUiToolbars extends \PapayaUiControl {
   * @param \PapayaXmlElement $parent
   */
   public function appendTo(\PapayaXmlElement $parent) {
-    /** @var PapayaUiToolbar $toolbar */
+    /** @var \PapayaUiToolbar $toolbar */
     foreach ($this->_toolbars as $position => $toolbar) {
       if (isset($toolbar)) {
         $node = $toolbar->appendTo($parent);

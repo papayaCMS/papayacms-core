@@ -41,7 +41,7 @@ class Path extends \PapayaObject {
   private $_path = '';
 
   /**
-   * @var PapayaThemeHandler
+   * @var \PapayaThemeHandler
    */
   private $_themeHandler = NULL;
 

@@ -43,7 +43,7 @@ class PapayaUiListviewSubitemImage extends \PapayaUiListviewSubitemText {
   /**
   * Basic reference/link
   *
-  * @var PapayaUiReference
+  * @var \PapayaUiReference
   */
   protected $_reference = NULL;
 

@@ -36,7 +36,7 @@ class PapayaUiToolbarComposed extends \PapayaUiControl {
   /**
   * Internal member variable vor the toolbar subobject.
   *
-  * @var PapayaUiToolbar
+  * @var \PapayaUiToolbar
   */
   private $_toolbar = NULL;
 

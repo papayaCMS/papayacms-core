@@ -25,7 +25,7 @@
 abstract class PapayaUiDialogFieldFactoryProfile {
 
   /**
-   * @var PapayaUiDialogFieldFactoryOptions
+   * @var \PapayaUiDialogFieldFactoryOptions
    */
   private $_options = NULL;
 

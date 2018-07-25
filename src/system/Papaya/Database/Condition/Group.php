@@ -154,7 +154,7 @@ class PapayaDatabaseConditionGroup
       $concatinator = ' AND ';
     }
     $result = '';
-    /** @var PapayaDatabaseConditionElement $condition  */
+    /** @var \PapayaDatabaseConditionElement $condition  */
     foreach ($this as $condition) {
       if ($sql = $condition->getSql($silent)) {
         $result .= $concatinator.$sql;

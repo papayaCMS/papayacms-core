@@ -24,7 +24,7 @@ class PapayaDatabaseRecordOrderByFields
   implements \PapayaDatabaseInterfaceOrder, \IteratorAggregate {
 
   /**
-   * @var PapayaDatabaseRecordOrderList
+   * @var \PapayaDatabaseRecordOrderList
    */
   private $_list = NULL;
 

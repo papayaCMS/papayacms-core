@@ -42,7 +42,7 @@ class PapayaResponseContentCsv implements \PapayaResponseContent {
   private $_onMapValue;
 
   /**
-   * @var PapayaResponseContentCsvCallbacks
+   * @var \PapayaResponseContentCsvCallbacks
    */
   private $_callbacks;
 

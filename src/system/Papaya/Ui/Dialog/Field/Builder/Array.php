@@ -53,7 +53,7 @@ class PapayaUiDialogFieldBuilderArray {
   private $_translatePhrases = array();
 
   /**
-   * @var PapayaUiDialogFieldFactory
+   * @var \PapayaUiDialogFieldFactory
    */
   private $_fieldFactory = NULL;
 

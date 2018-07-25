@@ -38,7 +38,7 @@ class PapayaPhrasesStorageDatabase
   private $_errors = array();
 
   /**
-   * @var PapayaContentPhrases
+   * @var \PapayaContentPhrases
    */
   private $_phrases = NULL;
 

@@ -24,7 +24,7 @@ class PapayaUiDialogFieldListview extends \PapayaUiDialogField {
   /**
   * listview object buffer
   *
-  * @var PapayaUiListview
+  * @var \PapayaUiListview
   */
   private $_listview = NULL;
 

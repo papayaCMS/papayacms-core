@@ -24,17 +24,17 @@ class PapayaUiSheet extends \PapayaUiControl {
   private $_title = '';
 
   /**
-   * @var PapayaUiSheetSubtitles
+   * @var \PapayaUiSheetSubtitles
    */
   private $_subtitles = NULL;
 
   /**
-   * @var PapayaXmlDocument
+   * @var \PapayaXmlDocument
    */
   private $_document = NULL;
 
   /**
-   * @var PapayaXmlElement|PapayaXmlAppendable
+   * @var \PapayaXmlElement|PapayaXmlAppendable
    */
   private $_content = NULL;
 

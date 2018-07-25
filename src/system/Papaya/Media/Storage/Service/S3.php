@@ -49,7 +49,7 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
 
   /**
   * handler object
-  * @var PapayaMediaStorageServiceS3Handler
+  * @var \PapayaMediaStorageServiceS3Handler
   */
   private $_handler;
 

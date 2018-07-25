@@ -26,7 +26,7 @@
 trait PapayaPluginEditableContentAggregation {
 
   /**
-   * @var PapayaPluginEditableContent
+   * @var \PapayaPluginEditableContent
    */
   private $_content;
 
@@ -34,8 +34,8 @@ trait PapayaPluginEditableContentAggregation {
    * The content is an {@see ArrayObject} child class containing the stored data.
    *
    * @see PapayaPluginEditable::content()
-   * @param PapayaPluginEditableContent $content
-   * @return PapayaPluginEditableContent
+   * @param \PapayaPluginEditableContent $content
+   * @return \PapayaPluginEditableContent
    */
   public function content(PapayaPluginEditableContent $content = NULL) {
     if (NULL !== $content) {
@@ -50,8 +50,8 @@ trait PapayaPluginEditableContentAggregation {
   }
 
   /**
-   * @param PapayaPluginEditableContent $content
-   * @return PapayaPluginEditor
+   * @param \PapayaPluginEditableContent $content
+   * @return \PapayaPluginEditor
    */
   abstract public function createEditor(PapayaPluginEditableContent $content);
 }

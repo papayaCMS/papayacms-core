@@ -1,35 +1,17 @@
 <?php
 /**
-* Implementation of the basic class for database access
-*
-* useful:
-*   databaseDebugNextQuery($n) : shows explain for the next $n queries, call before query of course
-* often used (no need for writing more SQL than you have to):
-*   databaseInsertRecord       : inserts a record in the database
-*     (may return the auto_incremented key if $key is not NULL)
-*   databaseInsertRecords      : inserts multiple records in the database
-*   databaseDeleteRecord       : deletes records from the database
-*   databaseUpdateRecord       : updates an existing record in the database
-*   databaseQueryFmtWrite      : use if default insert/updateRecord isn't enough
-*   databaseQueryFmt           : use for select statements, the parameters will get
-*     escaped automatically rarely used (for good reasons, you should know why, if you use these):
-*   databaseQueryWrite         : inserts/updates; if you use this, make sure the input is sanitized!
-*   databaseQuery              : selects; if you use this, make sure the input is sanitized!
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Database
-* @version $Id: sys_base_db.php 39609 2014-03-18 17:55:52Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Object class for database access
@@ -72,7 +54,7 @@ class base_db extends base_object {
 
   /**
   * Database access object
-  * @var PapayaDatabaseAccess $_databaseAccessObject
+  * @var \PapayaDatabaseAccess $_databaseAccessObject
   */
   var $_databaseAccessObject = NULL;
 
@@ -89,8 +71,8 @@ class base_db extends base_object {
 
   /**
    * Set database access object
-   * @param PapayaDatabaseAccess $databaseAccessObject
-   * @return PapayaDatabaseAccess
+   * @param \PapayaDatabaseAccess $databaseAccessObject
+   * @return \PapayaDatabaseAccess
    */
   public function setDatabaseAccess(PapayaDatabaseAccess $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
@@ -98,7 +80,7 @@ class base_db extends base_object {
 
   /**
   * Get database access object
-  * @return PapayaDatabaseAccess
+  * @return \PapayaDatabaseAccess
   */
   public function getDatabaseAccess() {
     if (!isset($this->_databaseAccessObject)) {

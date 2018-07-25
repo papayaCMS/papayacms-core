@@ -42,7 +42,7 @@ abstract class PapayaUiDialogElements extends \PapayaUiControlCollection {
   * Collect data from elements (buttons/fields)
   */
   public function collect() {
-    /** @var PapayaUiDialogElement $item */
+    /** @var \PapayaUiDialogElement $item */
     foreach ($this->_items as $item) {
       $item->collect();
     }

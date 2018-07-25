@@ -26,7 +26,7 @@ class PapayaUiHierarchyMenu extends \PapayaUiControl {
   /**
   * Items buffer variable
   *
-  * @var PapayaUiHierarchyItems
+  * @var \PapayaUiHierarchyItems
   */
   private $_items = NULL;
 

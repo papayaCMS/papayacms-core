@@ -39,7 +39,7 @@ class PapayaDatabaseRecordList
    */
   public function toArray() {
     $result = array();
-    /** @var PapayaDatabaseInterfaceRecord $record */
+    /** @var \PapayaDatabaseInterfaceRecord $record */
     foreach ($this as $record) {
       $result[] = $record->toArray();
     }
@@ -51,7 +51,7 @@ class PapayaDatabaseRecordList
    * @return bool
    */
   public function save() {
-    /** @var PapayaDatabaseInterfaceRecord $record */
+    /** @var \PapayaDatabaseInterfaceRecord $record */
     foreach ($this as $record) {
       if (FALSE === $record->save()) {
         return FALSE;
@@ -65,7 +65,7 @@ class PapayaDatabaseRecordList
    * @return bool
    */
   public function delete() {
-    /** @var PapayaDatabaseInterfaceRecord $record */
+    /** @var \PapayaDatabaseInterfaceRecord $record */
     foreach ($this as $record) {
       if (FALSE === $record->delete()) {
         return FALSE;

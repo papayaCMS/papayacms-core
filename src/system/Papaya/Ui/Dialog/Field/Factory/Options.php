@@ -62,7 +62,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
   private $_values = array();
 
   /**
-   * @var PapayaFilterFactory
+   * @var \PapayaFilterFactory
    */
   private $_filterFactory;
 

@@ -42,11 +42,11 @@ class Browser
    */
   private $_themes;
   /**
-   * @var PapayaThemeHandler
+   * @var \PapayaThemeHandler
    */
   private $_themeHandler;
   /**
-   * @var PapayaUiDialog
+   * @var \PapayaUiDialog
    */
   private $_dialog;
 

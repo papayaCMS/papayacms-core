@@ -27,7 +27,7 @@ class PapayaTemplateXslt extends Papaya\Template {
   private $_xslFile = '';
 
   /**
-   * @var PapayaTemplateEngineXsl
+   * @var \PapayaTemplateEngineXsl
    */
   private $_engine = NULL;
 

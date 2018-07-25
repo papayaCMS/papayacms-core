@@ -32,7 +32,7 @@ class papaya_installer extends base_db {
   public $layout;
 
   /**
-   * @var PapayaUiDialog
+   * @var \PapayaUiDialog
    */
   private $_optionsDialog = NULL;
 

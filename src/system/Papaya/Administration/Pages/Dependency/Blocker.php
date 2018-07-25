@@ -61,14 +61,14 @@ class Blocker extends \PapayaUiControlInteractive {
   /**
    * Buffer variable for the views list
    *
-   * @var PapayaContentViews
+   * @var \PapayaContentViews
    */
   private $_views = NULL;
 
   /**
    * Page information content buffer
    *
-   * @var PapayaContentPages
+   * @var \PapayaContentPages
    */
   private $_pages = NULL;
 

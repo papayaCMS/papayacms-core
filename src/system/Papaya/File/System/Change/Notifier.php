@@ -54,7 +54,7 @@ class PapayaFileSystemChangeNotifier {
   const ACTION_INVALIDATED = 'I';
 
   /**
-   * @var PapayaFileSystemAction
+   * @var \PapayaFileSystemAction
    */
   private $_action = NULL;
 

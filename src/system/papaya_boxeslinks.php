@@ -381,7 +381,7 @@ class papaya_boxeslinks extends base_boxeslinks {
         $item->subitems[] = new PapayaUiListviewSubitemText('');
         $item->subitems[] = new PapayaUiListviewSubitemText('');
         if ($opened) {
-          /** @var PapayaUiListviewItem|NULL $previousItem */
+          /** @var \PapayaUiListviewItem|NULL $previousItem */
           $previousItem = NULL;
           /** @var array|NULL $previousLink */
           $previousLink = NULL;

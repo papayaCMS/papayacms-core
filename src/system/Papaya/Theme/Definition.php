@@ -71,7 +71,7 @@ class PapayaThemeDefinition extends \PapayaContentStructure {
     $this->_properties['template_path'] = $xpath->evaluate(
       'string(/papaya-theme/templates/@directory)'
     );
-    /** @var PapayaXmlElement $thumbNode */
+    /** @var \PapayaXmlElement $thumbNode */
     foreach ($xpath->evaluate('/papaya-theme/thumbs/thumb') as $thumbNode) {
       $size = $thumbNode->getAttribute('size');
       if (isset($this->_thumbnails[$size])) {

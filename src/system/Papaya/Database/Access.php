@@ -53,13 +53,13 @@ class PapayaDatabaseAccess extends \PapayaObject {
 
   /**
   * calling object
-  * @var PapayaObject
+  * @var \PapayaObject
   */
   private $_owner = NULL;
 
   /**
   * a table names helper object
-  * @var PapayaContentTables
+  * @var \PapayaContentTables
   */
   private $_tables = NULL;
 
@@ -166,7 +166,7 @@ class PapayaDatabaseAccess extends \PapayaObject {
   /**
   * Get database connection (implicit create)
   *
-  * @var PapayaDatabaseManager $databaseManager
+  * @var \PapayaDatabaseManager $databaseManager
   * @return db_simple
   */
   public function getDatabaseConnector() {

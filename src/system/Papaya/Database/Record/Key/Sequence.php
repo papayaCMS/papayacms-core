@@ -26,7 +26,7 @@ class PapayaDatabaseRecordKeySequence implements \PapayaDatabaseInterfaceKey {
   /**
   * Sequence object to create new identifiers
   *
-  * @var PapayaDatabaseSequence
+  * @var \PapayaDatabaseSequence
   */
   private $_sequence = NULL;
 

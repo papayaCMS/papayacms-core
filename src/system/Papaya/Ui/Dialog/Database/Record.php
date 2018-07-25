@@ -45,7 +45,7 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
   /**
   * Internal database access object variable
   *
-  * @var PapayaDatabaseAccess $_databaseAccessObject
+  * @var \PapayaDatabaseAccess $_databaseAccessObject
   */
   private $_databaseAccessObject = NULL;
 

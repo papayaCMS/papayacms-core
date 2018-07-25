@@ -24,14 +24,14 @@ class PapayaUiControlCommandAction extends \PapayaUiControlCommand {
   /**
   * Dialog object
   *
-  * @var PapayaUiDialog
+  * @var \PapayaUiDialog
   */
   private $_data = NULL;
 
   /**
   * Dialog event callbacks
   *
-  * @var PapayaUiControlCommandDialogCallbacks
+  * @var \PapayaUiControlCommandDialogCallbacks
   */
   private $_callbacks = NULL;
 

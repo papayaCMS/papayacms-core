@@ -24,7 +24,7 @@ class PapayaMessageHookExceptions
 
   /**
   * Message manger object to dispatch the created messages
-  * @var PapayaMessageManager
+  * @var \PapayaMessageManager
   */
   private $_messageManager = NULL;
 

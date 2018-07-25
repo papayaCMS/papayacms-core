@@ -36,12 +36,12 @@ class PapayaUiListviewItem extends \PapayaUiControlCollectionItem {
   /**
   * Subitems collection
   *
-  * @var PapayaUiListviewSubitems
+  * @var \PapayaUiListviewSubitems
   */
   protected $_subitems = NULL;
 
   /**
-   * @var PapayaUiListviewItemNode
+   * @var \PapayaUiListviewItemNode
    */
   private $_node = NULL;
 

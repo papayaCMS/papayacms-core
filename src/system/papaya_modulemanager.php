@@ -1397,7 +1397,7 @@ class papaya_modulemanager extends base_db {
       foreach ($xpath->evaluate('/*/author') as $node) {
         $packageData['modulegroup_authors'][] = $node->nodeValue;
       }
-      /** @var PapayaXmlElement $moduleNode */
+      /** @var \PapayaXmlElement $moduleNode */
       foreach ($xpath->evaluate('/*/modules/module') as $moduleNode) {
         $moduleData = array(
           'type' => '',

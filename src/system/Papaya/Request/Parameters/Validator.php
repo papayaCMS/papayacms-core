@@ -24,7 +24,7 @@ class PapayaRequestParametersValidator
   implements \ArrayAccess, \IteratorAggregate {
 
   /**
-   * @var PapayaRequestParameters
+   * @var \PapayaRequestParameters
    */
   private $_parameters;
 
@@ -104,7 +104,7 @@ class PapayaRequestParametersValidator
       $this->_validationResult = TRUE;
       foreach ($this->_definitions as $name => $definition) {
         try {
-          /** @var PapayaFilter $filter */
+          /** @var \PapayaFilter $filter */
           $filter = isset($definition['filter']) ? $definition['filter'] : NULL;
           $value = $this->_parameters->get(
             $name, $definition['default'], $filter

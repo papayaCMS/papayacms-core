@@ -28,7 +28,7 @@
 class PapayaUiStringTranslated extends \PapayaUiString {
 
   /**
-   * @var PapayaPhrases
+   * @var \PapayaPhrases
    */
   private $_phrases = NULL;
 

@@ -84,19 +84,19 @@ class PapayaResponse extends \PapayaObject {
 
   /**
   * Response http headers
-  * @var PapayaResponseHeaders
+  * @var \PapayaResponseHeaders
   */
   private $_headers = NULL;
 
   /**
   * Response content
-  * @var PapayaResponseContent
+  * @var \PapayaResponseContent
   */
   private $_content = NULL;
 
   /**
   * Helper object (wraps php functions)
-  * @var PapayaResponseHelper
+  * @var \PapayaResponseHelper
   */
   private $_helper = NULL;
 

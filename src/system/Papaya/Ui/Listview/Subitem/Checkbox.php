@@ -22,11 +22,11 @@
 class PapayaUiListviewSubitemCheckbox extends \PapayaUiListviewSubitem {
 
   /**
-   * @var PapayaRequestParametersName
+   * @var \PapayaRequestParametersName
    */
   private $_parameterName;
   /**
-   * @var PapayaUiDialog
+   * @var \PapayaUiDialog
    */
   private $_dialog;
 

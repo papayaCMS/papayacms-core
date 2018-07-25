@@ -46,7 +46,7 @@ class PapayaUiControlCommandList
   * @param \PapayaXmlElement
   */
   public function appendTo(\PapayaXmlElement $parent) {
-    /** @var PapayaUiControlCommand $command */
+    /** @var \PapayaUiControlCommand $command */
     foreach ($this->_commands as $command) {
       if ($command->validateCondition() &&
           $command->validatePermission()) {
@@ -64,7 +64,7 @@ class PapayaUiControlCommandList
   public function owner(\PapayaRequestParametersInterface $owner = NULL) {
     \PapayaUtilConstraints::assertInstanceOf(\PapayaUiControlInteractive::class, $owner);
     if (isset($owner)) {
-      /** @var PapayaUiControlCommand $command */
+      /** @var \PapayaUiControlCommand $command */
       foreach ($this->_commands as $command) {
         $command->owner($owner);
       }

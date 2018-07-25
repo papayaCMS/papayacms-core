@@ -31,7 +31,7 @@ class PapayaUiControlCommandConditionParameter extends \PapayaUiControlCommandCo
   /**
   * the filter object
   *
-  * @var PapayaFilter
+  * @var \PapayaFilter
   */
   private $_filter = NULL;
 

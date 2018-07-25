@@ -23,19 +23,19 @@
 abstract class PapayaPluginEditor extends \PapayaUiControlInteractive {
 
   /**
-   * @var PapayaPluginEditableData
+   * @var \PapayaPluginEditableData
    */
   private $_data;
 
   /**
-   * @var PapayaRequestParameters
+   * @var \PapayaRequestParameters
    */
   private $_context;
 
   /**
    * Create object and store the editable content
    *
-   * @param PapayaPluginEditableData $data
+   * @param \PapayaPluginEditableData $data
    */
   public function __construct(PapayaPluginEditableData $data) {
     $this->_data = $data;
@@ -44,7 +44,7 @@ abstract class PapayaPluginEditor extends \PapayaUiControlInteractive {
   /**
    * Return the stored data object.
    *
-   * @return PapayaPluginEditableData
+   * @return \PapayaPluginEditableData
    */
   public function getData() {
     return $this->_data;
@@ -54,7 +54,7 @@ abstract class PapayaPluginEditor extends \PapayaUiControlInteractive {
    * Return the stored data object - bc for old API
    *
    * @deprecated
-   * @return PapayaPluginEditableData
+   * @return \PapayaPluginEditableData
    */
   public function getContent() {
     return $this->getData();

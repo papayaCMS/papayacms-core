@@ -29,7 +29,7 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
   private $_pageData = array();
 
   /**
-   * @var PapayaContentLanguage
+   * @var \PapayaContentLanguage
    */
   private $_currentLanguage = NULL;
 
@@ -39,17 +39,17 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
   private $_preview = FALSE;
 
   /**
-   * @var PapayaContentPages
+   * @var \PapayaContentPages
    */
   private $_pages = NULL;
 
   /**
-   * @var PapayaContentLanguages
+   * @var \PapayaContentLanguages
    */
   private $_languages = NULL;
 
   /**
-   * @var PapayaDomains
+   * @var \PapayaDomains
    */
   private $_domains = NULL;
 

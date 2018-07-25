@@ -38,7 +38,7 @@ class PapayaUiPagingCount extends \PapayaUiControl {
   /**
   * reference (link) object
   *
-  * @var PapayaUiReference
+  * @var \PapayaUiReference
   */
   protected $_reference = NULL;
 

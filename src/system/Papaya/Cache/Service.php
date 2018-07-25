@@ -27,7 +27,7 @@ abstract class Service {
   /**
    * Configuration object
    *
-   * @var PapayaConfiguration
+   * @var \PapayaConfiguration
    */
   protected $_configuration;
 

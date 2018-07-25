@@ -33,7 +33,7 @@ class Fields extends Dialog {
   /**
    * Create the object store plugin instance and field definition
    *
-   * @param PapayaPluginEditableData $data
+   * @param \PapayaPluginEditableData $data
    * @param array $fields
    */
   public function __construct(PapayaPluginEditableData $data, array $fields) {

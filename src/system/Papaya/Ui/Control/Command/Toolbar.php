@@ -23,7 +23,7 @@
 abstract class PapayaUiControlCommandToolbar extends \PapayaUiControlCommand {
 
   /**
-   * @var PapayaUiToolbarElements
+   * @var \PapayaUiToolbarElements
    */
   private $_elements = NULL;
 

@@ -27,7 +27,7 @@ class PapayaUiStringTranslatedList
   implements \PapayaObjectInterface {
 
   /**
-   * @var PapayaPhrases
+   * @var \PapayaPhrases
    */
   private $_phrases = NULL;
 

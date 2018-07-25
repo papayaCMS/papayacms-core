@@ -23,7 +23,7 @@ class PapayaStreamwrapperS3Handler {
 
   /**
   * HTTP client object
-  * @var PapayaHttpClient
+  * @var \PapayaHttpClient
   */
   private $_client = NULL;
 

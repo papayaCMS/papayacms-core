@@ -32,7 +32,7 @@ class PapayaDatabaseRecordKeyFields implements \PapayaDatabaseInterfaceKey {
   /**
   * Attached record for this key
   *
-  * @var PapayaDatabaseRecord
+  * @var \PapayaDatabaseRecord
   */
   private $_record = NULL;
 

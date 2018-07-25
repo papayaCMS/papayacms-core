@@ -28,14 +28,14 @@ class Ancestors extends \PapayaUiControl {
   /**
    * Member variable for pages subobject
    *
-   * @var PapayaContentPages
+   * @var \PapayaContentPages
    */
   private $_pages = NULL;
 
   /**
    * Member variable for hierarchy menu subobject
    *
-   * @var PapayaUiHierarchyMenu
+   * @var \PapayaUiHierarchyMenu
    */
   private $_menu = NULL;
 

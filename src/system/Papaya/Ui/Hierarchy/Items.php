@@ -49,7 +49,7 @@ class PapayaUiHierarchyItems extends \PapayaUiControlCollection {
   /**
   * PapayaUiHierarchyItem
   *
-  * @var PapayaUiHierarchyItem|NULL
+  * @var \PapayaUiHierarchyItem|NULL
   */
   protected $_spacer = NULL;
 
@@ -77,13 +77,13 @@ class PapayaUiHierarchyItems extends \PapayaUiControlCollection {
       $limitStart = floor($this->_limit / 2);
       $limitEnd = $count - ceil($this->_limit / 2);
       for ($i = 0; $i < $limitStart; $i++) {
-        /** @var PapayaUiHierarchyItem $item */
+        /** @var \PapayaUiHierarchyItem $item */
         $item = $this->_items[$i];
         $item->appendTo($parent);
       }
       $this->spacer()->appendTo($parent);
       for ($i = $limitEnd; $i < $count; $i++) {
-        /** @var PapayaUiHierarchyItem $item */
+        /** @var \PapayaUiHierarchyItem $item */
         $item = $this->_items[$i];
         $item->appendTo($parent);
       }

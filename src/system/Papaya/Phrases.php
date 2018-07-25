@@ -25,17 +25,17 @@
 class PapayaPhrases extends \PapayaObject {
 
   /**
-   * @var PapayaPhrasesGroups
+   * @var \PapayaPhrasesGroups
    */
   private $_groups;
 
   /**
-   * @var PapayaPhrasesStorage
+   * @var \PapayaPhrasesStorage
    */
   private $_storage;
 
   /**
-   * @var PapayaContentLanguage
+   * @var \PapayaContentLanguage
    */
   private $_language;
 

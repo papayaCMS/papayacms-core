@@ -17,7 +17,7 @@ class PapayaSvnTags implements \IteratorAggregate, \Countable {
 
   /**
   * SVN client
-  * @var PapayaSvnClient|NULL
+  * @var \PapayaSvnClient|NULL
   */
   private $_svnClient = NULL;
 

@@ -108,7 +108,7 @@ class papaya_taglinks extends base_tags {
   public $linkedTagsMulti;
 
   /**
-   * @var PapayaUiDialog
+   * @var \PapayaUiDialog
    */
   private $_dialogLinkPriority = NULL;
 

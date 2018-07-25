@@ -34,7 +34,7 @@ class PapayaUiDialogFieldFileTemporary extends \PapayaUiDialogField {
   protected $_type = 'file';
 
   /**
-   * @var PapayaRequestParameterFile
+   * @var \PapayaRequestParameterFile
    */
   private $_file = NULL;
 

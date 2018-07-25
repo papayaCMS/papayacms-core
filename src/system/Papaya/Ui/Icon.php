@@ -31,7 +31,7 @@ class PapayaUiIcon extends \PapayaUiControl {
   /**
   * internal reference object buffer
   *
-  * @var PapayaUiReference|NULL
+  * @var \PapayaUiReference|NULL
   */
   protected $_reference = NULL;
 

@@ -32,7 +32,7 @@ use Papaya\Content\Page\Translation;
 class PapayaUiContentPage extends \PapayaObject {
 
   /**
-   * @var PapayaContentPage
+   * @var \PapayaContentPage
    */
   private $_page = NULL;
   /**
@@ -192,7 +192,7 @@ class PapayaUiContentPage extends \PapayaObject {
                   method_exists($plugin, 'getParsedTeaser')) {
           $teaser->appendXml((string)$plugin->getParsedTeaser((array)$configuration));
         }
-        /** @var PapayaXmlDocument $document */
+        /** @var \PapayaXmlDocument $document */
         $document = $teaser->ownerDocument;
         if (0 === (int)$document->xpath()->evaluate('count(node())', $teaser)) {
           $teaser->parentNode->removeChild($teaser);
@@ -204,8 +204,8 @@ class PapayaUiContentPage extends \PapayaObject {
   /**
    * Getter/Setter for the template reference subobject used to generate links to the subpages
    *
-   * @param PapayaUiReferencePage $reference
-   * @return PapayaUiReferencePage
+   * @param \PapayaUiReferencePage $reference
+   * @return \PapayaUiReferencePage
    */
   public function reference(PapayaUiReferencePage $reference = NULL) {
     if (NULL !== $reference) {

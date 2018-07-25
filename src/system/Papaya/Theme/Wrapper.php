@@ -24,26 +24,26 @@ use Papaya\Cache\Service;
 class PapayaThemeWrapper extends \PapayaObject {
 
   /**
-  * @var PapayaThemeWrapperUrl
+  * @var \PapayaThemeWrapperUrl
   */
   private $_wrapperUrl = NULL;
 
   /**
   * Theme handler object, provides current theme and local path
   *
-  * @var PapayaThemeHandler
+  * @var \PapayaThemeHandler
   */
   private $_handler = NULL;
 
   /**  *
-  * @var PapayaThemeHandler
+  * @var \PapayaThemeHandler
   */
   private $_themeSet = NULL;
 
   /**
   * Theme group object, allows to read files from a group specified in theme.xml.
   *
-  * @var PapayaThemeWrapperGroup
+  * @var \PapayaThemeWrapperGroup
   */
   private $_group = NULL;
 
@@ -53,7 +53,7 @@ class PapayaThemeWrapper extends \PapayaObject {
   private $_cacheService = NULL;
 
   /**
-   * @var PapayaTemplateEngine
+   * @var \PapayaTemplateEngine
    */
   private $_templateEngine = NULL;
 

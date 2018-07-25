@@ -18,7 +18,7 @@ class PapayaUiListviewItemRadio extends \PapayaUiListviewItem {
   private $_fieldName = '';
 
   /**
-   * @var PapayaUiDialog
+   * @var \PapayaUiDialog
    */
   private $_dialog;
 

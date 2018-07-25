@@ -124,13 +124,13 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
 
   /**
   * Application object
-  * @var PapayaApplication
+  * @var \PapayaApplication
   */
   var $_applicationObject = NULL;
   public $baseLink;
 
   /**
-   * @var PapayaRequestParameters
+   * @var \PapayaRequestParameters
    */
   private $_parameters = NULL;
 
@@ -1045,7 +1045,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
       $dom = new DOMDocument('1.0', 'UTF-8');
       $fragment = $dom->createDocumentFragment();
       if (!$fragment->appendXml($iStr)) {
-        /** @var Papaya\Application\Cms $application */
+        /** @var \Papaya\Application\Cms $application */
         $application = PapayaApplication::getInstance();
         $showErrors = $application->options->get(
           'PAPAYA_DBG_XML_USERINPUT', FALSE
@@ -1119,8 +1119,8 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   *
   * This method gives you access to request parameters.
   *
-  * @param PapayaRequestParameters $parameters
-  * @return PapayaRequestParameters
+  * @param \PapayaRequestParameters $parameters
+  * @return \PapayaRequestParameters
   */
   public function parameters(PapayaRequestParameters $parameters = NULL) {
     if (isset($parameters)) {

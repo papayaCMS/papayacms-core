@@ -90,7 +90,7 @@ class PapayaRequest
   /**
   * Request url object
   *
-  * @var Papaya\Url
+  * @var \Papaya\Url
   */
   private $_url = NULL;
   /**
@@ -123,7 +123,7 @@ class PapayaRequest
   /**
    * Access to the raw request content
    *
-   * @var PapayaRequestContent
+   * @var \PapayaRequestContent
    */
   private $_content = NULL;
 
@@ -350,7 +350,7 @@ class PapayaRequest
         new \PapayaRequestParserWrapper(),
         new \PapayaRequestParserStart()
       );
-      /** @var PapayaRequestParser $parser */
+      /** @var \PapayaRequestParser $parser */
       foreach ($this->_parsers as $parser) {
         $parser->papaya($this->papaya());
       }
@@ -377,7 +377,7 @@ class PapayaRequest
     $this->_initParsers();
     $this->_pathData = array();
     foreach ($this->_parsers as $parser) {
-      /** @var PapayaRequestParser $parser */
+      /** @var \PapayaRequestParser $parser */
       if ($requestData = $parser->parse($url)) {
         $this->_pathData = \PapayaUtilArray::merge(
           $this->_pathData,

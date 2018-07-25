@@ -22,7 +22,7 @@
 class PapayaDatabaseManager extends \PapayaObject {
 
   /**
-  * @var PapayaConfiguration $_configuration Configuration object
+  * @var \PapayaConfiguration $_configuration Configuration object
   */
   private $_configuration = NULL;
   /**

@@ -30,7 +30,7 @@ class PapayaHttpClientSocket {
 
   /**
   * connection pool object
-  * @var PapayaHttpClientSocketPool
+  * @var \PapayaHttpClientSocketPool
   */
   private $_pool = NULL;
 

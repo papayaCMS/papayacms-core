@@ -24,7 +24,7 @@ class PapayaUiControlCommandConditionRecord extends \PapayaUiControlCommandCondi
   /**
    * member variable to store the record
    *
-   * @var PapayaDatabaseRecord
+   * @var \PapayaDatabaseRecord
    */
   private $_record = NULL;
 

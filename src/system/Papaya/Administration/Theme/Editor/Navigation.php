@@ -25,7 +25,7 @@ use PapayaUiListview;
 class Navigation extends \Papaya\Administration\Page\Part {
 
   /**
-   * @var PapayaUiListview
+   * @var \PapayaUiListview
    */
   private $_listview = NULL;
 

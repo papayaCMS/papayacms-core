@@ -26,7 +26,7 @@ class PapayaUiDialogFieldGroupButtons extends \PapayaUiDialogField {
 
   /**
   * Grouped input buttons
-  * @var PapayaUiDialogButtons
+  * @var \PapayaUiDialogButtons
   */
   protected $_buttons = NULL;
 

@@ -29,14 +29,14 @@ class PapayaSessionParameters extends \PapayaObject {
   private $_group = NULL;
 
   /**
-  * @var PapayaRequestParameters
+  * @var \PapayaRequestParameters
   */
   private $_parameters = NULL;
 
   /**
   * Session values
   *
-  * @var PapayaSessionValues
+  * @var \PapayaSessionValues
   */
   private $_values = NULL;
 

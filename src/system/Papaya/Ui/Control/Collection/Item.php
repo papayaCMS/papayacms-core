@@ -32,7 +32,7 @@ abstract class PapayaUiControlCollectionItem extends \PapayaUiControl {
   /**
   * Owner collection of the item
   *
-  * @var PapayaUicontrolCollection
+  * @var \PapayaUicontrolCollection
   */
   private $_collection = NULL;
 

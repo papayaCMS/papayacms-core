@@ -34,7 +34,7 @@ class Iterator implements \Iterator {
   /**
    * configuration object
    *
-   * @var PapayaConfiguration
+   * @var \PapayaConfiguration
    */
   private $_configuration = NULL;
 

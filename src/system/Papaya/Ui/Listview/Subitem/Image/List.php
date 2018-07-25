@@ -102,7 +102,7 @@ class PapayaUiListviewSubitemImageList extends \PapayaUiListviewSubitemImageSele
       )
     );
     $list = $subitem->appendElement('glyphs');
-    /** @var PapayaUiIcon $icon */
+    /** @var \PapayaUiIcon $icon */
     foreach ($this->_icons as $index => $icon) {
       $icon = clone $icon;
       if (!$this->validateSelection($index)) {

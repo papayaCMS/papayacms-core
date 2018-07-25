@@ -82,7 +82,7 @@ class papaya_tagselector extends base_tags {
   /**
   * get an instance of base_taglinks, NOT A SINGLETON, only for convenience
   *
-  * @param PapayaObjectInterface $parentObj parent object, must hold msgs, authUser, images
+  * @param \PapayaObjectInterface $parentObj parent object, must hold msgs, authUser, images
   * @return object $tagLinks instance of base_taglinks
   */
   public static function getInstance($parentObj = NULL) {

@@ -25,8 +25,8 @@ interface PapayaPluginAdaptable {
   /**
    * Getter/Setter for the editable options.
    *
-   * @param PapayaPluginEditableOptions $content
-   * @return PapayaPluginEditableOptions
+   * @param \PapayaPluginEditableOptions $content
+   * @return \PapayaPluginEditableOptions
    */
   public function options(PapayaPluginEditableOptions $content = NULL);
 

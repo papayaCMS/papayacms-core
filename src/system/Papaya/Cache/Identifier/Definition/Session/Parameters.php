@@ -52,7 +52,7 @@ class Parameters
   public function getStatus() {
     $data = array();
     if ($this->papaya()->session && $this->papaya()->session->isActive()) {
-      /** @var PapayaSessionValues $values */
+      /** @var \PapayaSessionValues $values */
       $values = $this->papaya()->session->values();
       foreach ($this->_identifiers as $identifier) {
         $key = $values->getKey($identifier);

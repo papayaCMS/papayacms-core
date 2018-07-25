@@ -141,7 +141,7 @@ class papaya_parser extends base_db {
 
   /**
   * storage service instance
-  * @var PapayaMediaStorageService
+  * @var \PapayaMediaStorageService
   */
   var $storageService = NULL;
 
@@ -404,7 +404,7 @@ class papaya_parser extends base_db {
 
   /**
   * create storage
-  * @return PapayaMediaStorageService
+  * @return \PapayaMediaStorageService
   */
   function getStorageService() {
     if (!isset($this->storageService)) {

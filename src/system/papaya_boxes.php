@@ -2073,7 +2073,7 @@ class papaya_boxes extends base_boxes {
         }
 
         /**
-         * @var PapayaUiListviewItem $previous
+         * @var \PapayaUiListviewItem $previous
          */
         $previous = NULL;
         $previousId = NULL;

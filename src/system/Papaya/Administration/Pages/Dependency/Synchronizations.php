@@ -79,7 +79,7 @@ class Synchronizations {
   /**
    * Buffer variable for icon list
    *
-   * @var PapayaUiIconList
+   * @var \PapayaUiIconList
    */
   private $_icons = NULL;
 

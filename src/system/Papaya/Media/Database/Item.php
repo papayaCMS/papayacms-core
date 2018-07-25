@@ -28,13 +28,13 @@ class PapayaMediaDatabaseItem {
 
   /**
   * database access object
-  * @var PapayaDatabaseAccess
+  * @var \PapayaDatabaseAccess
   */
   private $_databaseAccessObject = NULL;
 
   /**
   * Media storage service
-  * @var PapayaMediaStorageService
+  * @var \PapayaMediaStorageService
   */
   private $_storage = NULL;
 

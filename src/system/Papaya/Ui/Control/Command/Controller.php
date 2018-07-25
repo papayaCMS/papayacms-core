@@ -36,7 +36,7 @@ class PapayaUiControlCommandController
   /**
   * Parameter name
   *
-  * @var PapayaRequestParametersName
+  * @var \PapayaRequestParametersName
   */
   private $_parameterName = NULL;
 
@@ -167,7 +167,7 @@ class PapayaUiControlCommandController
    */
   public function owner(\PapayaRequestParametersInterface $owner = NULL) {
     if (isset($owner)) {
-      /** @var PapayaUiControlCommand $command */
+      /** @var \PapayaUiControlCommand $command */
       foreach ($this->_commands as $command) {
         $command->owner($owner);
       }

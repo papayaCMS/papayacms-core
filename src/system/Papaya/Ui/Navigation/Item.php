@@ -86,7 +86,7 @@ abstract class PapayaUiNavigationItem extends \PapayaUiControlCollectionItem {
       $this->_reference = $reference;
     } elseif (is_null($this->_reference)) {
       if ($this->hasCollection()) {
-        /** @var PapayaUiNavigationItems $collection */
+        /** @var \PapayaUiNavigationItems $collection */
         $collection = $this->collection();
         $this->_reference = clone $collection->reference();
       } else {

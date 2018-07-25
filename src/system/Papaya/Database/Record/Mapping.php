@@ -45,7 +45,7 @@ class PapayaDatabaseRecordMapping implements \PapayaDatabaseInterfaceMapping {
   /**
   * Callbacks to modify the mapping behaviour
   *
-  * @var PapayaDatabaseRecordMappingCallbacks
+  * @var \PapayaDatabaseRecordMappingCallbacks
   */
   private $_callbacks = NULL;
 

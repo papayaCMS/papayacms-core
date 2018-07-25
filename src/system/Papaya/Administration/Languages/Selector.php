@@ -38,14 +38,14 @@ class Selector extends \PapayaUiControlInteractive {
   /**
    * Internal property for language list
    *
-   * @var PapayaContentLanguages
+   * @var \PapayaContentLanguages
    */
   private $_languages = NULL;
 
   /**
    * Internal property for current language
    *
-   * @var PapayaContentLanguage
+   * @var \PapayaContentLanguage
    */
   private $_current = NULL;
 

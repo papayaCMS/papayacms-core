@@ -27,12 +27,12 @@ use PapayaUiToolbarSet;
 abstract class Part extends \PapayaUiControlInteractive {
 
   /**
-   * @var PapayaUiControlCommand
+   * @var \PapayaUiControlCommand
    */
   private $_commands = NULL;
 
   /**
-   * @var PapayaUiToolbarSet
+   * @var \PapayaUiToolbarSet
    */
   private $_toolbar = NULL;
 

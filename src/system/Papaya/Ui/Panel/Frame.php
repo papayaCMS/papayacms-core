@@ -30,7 +30,7 @@ class PapayaUiPanelFrame extends \PapayaUiPanel {
   /**
   * The url reference object.
   *
-  * @var PapayaUiReference
+  * @var \PapayaUiReference
   */
   protected $_reference = NULL;
 

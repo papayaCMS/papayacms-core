@@ -25,19 +25,19 @@ class PapayaUiControlCommandDialog extends \PapayaUiControlCommand {
   /**
   * Dialog object
   *
-  * @var PapayaUiDialog
+  * @var \PapayaUiDialog
   */
   private $_dialog = NULL;
 
   /**
-   * @var PapayaRequestParameters
+   * @var \PapayaRequestParameters
    */
   private $_context = NULL;
 
   /**
   * Dialog event callbacks
   *
-  * @var PapayaUiControlCommandDialogCallbacks
+  * @var \PapayaUiControlCommandDialogCallbacks
   */
   private $_callbacks = NULL;
 

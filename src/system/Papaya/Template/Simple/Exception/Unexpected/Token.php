@@ -22,7 +22,7 @@ class PapayaTemplateSimpleExceptionUnexpectedToken extends \PapayaTemplateSimple
   * This is the token object which was not expected to be found at the given
   * position.
   *
-  * @var PapayaTemplateSimpleScannerToken
+  * @var \PapayaTemplateSimpleScannerToken
   */
   public $encounteredToken;
 

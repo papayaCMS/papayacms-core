@@ -24,7 +24,7 @@ class PapayaTemplateValues {
 
   /**
   * The Dom Document containg the actual values
-  * @var PapayaXmlDocument
+  * @var \PapayaXmlDocument
   */
   private $_document = NULL;
 

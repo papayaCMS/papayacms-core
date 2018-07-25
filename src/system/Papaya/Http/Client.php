@@ -26,7 +26,7 @@ class PapayaHttpClient {
 
   /**
   * internal socket object
-  * @var PapayaHttpClientSocket
+  * @var \PapayaHttpClientSocket
   */
   private $_socket = NULL;
 
@@ -80,7 +80,7 @@ class PapayaHttpClient {
 
   /**
   * http request headers
-  * @var PapayaHttpHeaders
+  * @var \PapayaHttpHeaders
   */
   private $_requestHeaders = NULL;
   /**
@@ -107,7 +107,7 @@ class PapayaHttpClient {
 
   /**
   * http response headers
-  * @var PapayaHttpHeaders
+  * @var \PapayaHttpHeaders
   */
   protected $_responseHeaders = NULL;
 
@@ -417,7 +417,7 @@ class PapayaHttpClient {
     if (isset($this->_requestFiles) &&
         is_array($this->_requestFiles) &&
         count($this->_requestFiles) > 0) {
-      /** @var PapayaHttpClientFile $file */
+      /** @var \PapayaHttpClientFile $file */
       foreach ($this->_requestFiles as $name => $file) {
         $size = $file->getSize();
         if (!empty($name) && $size > 0) {

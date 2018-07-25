@@ -1034,8 +1034,8 @@ class papaya_overview extends base_db {
   /**
    * Getter/Setter for a pages list subobject
    *
-   * @param PapayaContentPages $pages
-   * @return PapayaContentPages
+   * @param \PapayaContentPages $pages
+   * @return \PapayaContentPages
    */
   public function pages(PapayaContentPages $pages = NULL) {
     if (isset($pages)) {
@@ -1050,8 +1050,8 @@ class papaya_overview extends base_db {
   /**
    * Getter/Setter for a view list subobject
    *
-   * @param PapayaContentViews $views
-   * @return PapayaContentViews
+   * @param \PapayaContentViews $views
+   * @return \PapayaContentViews
    */
   public function views(PapayaContentViews $views = NULL) {
     if (isset($views)) {
@@ -1066,8 +1066,8 @@ class papaya_overview extends base_db {
   /**
    * Getter/Setter for a modules list subobject
    *
-   * @param PapayaContentModules $modules
-   * @return PapayaContentModules
+   * @param \PapayaContentModules $modules
+   * @return \PapayaContentModules
    */
   public function modules(PapayaContentModules $modules = NULL) {
     if (isset($modules)) {

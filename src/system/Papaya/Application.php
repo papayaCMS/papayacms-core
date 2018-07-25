@@ -42,7 +42,7 @@ class Application implements \ArrayAccess {
 
   /**
   * Class variable for singleton instance
-  * @var PapayaApplication
+  * @var \PapayaApplication
   */
   private static $instance = NULL;
 

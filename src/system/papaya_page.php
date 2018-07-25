@@ -76,7 +76,7 @@ class papaya_page extends base_object {
   public $readOnlySession = FALSE;
 
   /**
-   * @var PapayaContentLanguage
+   * @var \PapayaContentLanguage
    */
   public $contentLanguage;
 
@@ -1792,7 +1792,7 @@ class papaya_page extends base_object {
             $this->topic->checkPublishPeriod($this->topicId) &&
             $this->validateAccess($this->topicId)) {
           /**
-           * @var PapayaResponse $response
+           * @var \PapayaResponse $response
            */
           $response = $this->papaya()->response;
           $response->setCache(
@@ -2212,7 +2212,7 @@ class papaya_page extends base_object {
     $this->topic = $this->createPage();
     if ($this->boxId > 0) {
       /**
-       * @var PapayaResponse $response
+       * @var \PapayaResponse $response
        */
       $response = $this->papaya()->response;
       if ($output = $this->getBox()) {

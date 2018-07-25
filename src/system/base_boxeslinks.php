@@ -436,7 +436,7 @@ class base_boxeslinks extends base_db {
 
   private function getBoxReference($box) {
     /**
-     * @var PapayaUiReference $reference
+     * @var \PapayaUiReference $reference
      */
     $reference = $this->papaya()->references->byString('');
     $parameters = $reference->getParameters();

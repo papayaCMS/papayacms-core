@@ -43,7 +43,7 @@ class PapayaThemeWrapperUrl {
   );
 
   /**
-   * @var PapayaRequestParameters
+   * @var \PapayaRequestParameters
    */
   private $_parameters;
 

@@ -29,7 +29,7 @@ class PapayaUiListviewSubitemImageSelect extends \PapayaUiListviewSubitem {
   /**
   * A list of icons
   *
-  * @var PapayaUiIconList
+  * @var \PapayaUiIconList
   */
   protected $_icons = NULL;
 

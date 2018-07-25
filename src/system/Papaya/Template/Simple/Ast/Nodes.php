@@ -30,7 +30,7 @@ class PapayaTemplateSimpleAstNodes
    * @param \PapayaTemplateSimpleVisitor $visitor
    */
   public function accept(\PapayaTemplateSimpleVisitor $visitor) {
-    /** @var PapayaTemplateSimpleAst $node */
+    /** @var \PapayaTemplateSimpleAst $node */
     foreach ($this as $node) {
       $node->accept($visitor);
     }

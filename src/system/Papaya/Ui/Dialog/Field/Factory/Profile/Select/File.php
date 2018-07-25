@@ -23,7 +23,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
   extends \PapayaUiDialogFieldFactoryProfile {
 
   /**
-   * @var PapayaFileSystemFactory
+   * @var \PapayaFileSystemFactory
    */
   private $_fileSystem = NULL;
 

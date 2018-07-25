@@ -39,7 +39,7 @@ class File extends \Papaya\Cache\Service {
   private $_notifierScript = NULL;
 
   /**
-   * @var PapayaFileSystemChangeNotifier
+   * @var \PapayaFileSystemChangeNotifier
    */
   private $_notifier = NULL;
 

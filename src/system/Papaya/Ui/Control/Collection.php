@@ -67,7 +67,7 @@ class PapayaUiControlCollection
       if (!empty($this->_tagName)) {
         $parent = $parent->appendElement($this->_tagName);
       }
-      /** @var PapayaUiControlCollectionItem $item */
+      /** @var \PapayaUiControlCollectionItem $item */
       foreach ($this->_items as $item) {
         $item->appendTo($parent);
       }
@@ -373,7 +373,7 @@ class PapayaUiControlCollection
   protected function updateItemIndex($offset = 0) {
     $count = count($this->_items);
     for ($i = $offset; $i < $count; ++$i) {
-      /** @var PapayaUiControlCollectionItem $item */
+      /** @var \PapayaUiControlCollectionItem $item */
       $item = $this->_items[$i];
       $item->index($i);
     }

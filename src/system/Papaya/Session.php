@@ -34,25 +34,25 @@ class PapayaSession extends \PapayaObject {
 
   /**
   * Internal storage vor values subobject
-  * @var PapayaSessionValues
+  * @var \PapayaSessionValues
   */
   private $_values = NULL;
 
   /**
   * Session options
-  * @var PapayaSessionOptions
+  * @var \PapayaSessionOptions
   */
   private $_options = NULL;
 
   /**
   * Session function wrapper
-  * @var PapayaSessionWrapper
+  * @var \PapayaSessionWrapper
   */
   private $_wrapper = NULL;
 
   /**
   * Session Identifier encapsulation
-  * @var PapayaSessionId
+  * @var \PapayaSessionId
   */
   private $_id = NULL;
 

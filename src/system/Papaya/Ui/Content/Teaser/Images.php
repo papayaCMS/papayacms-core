@@ -46,7 +46,7 @@ class PapayaUiContentTeaserImages extends \PapayaUiControl {
   /**
   * teasers parent element node
   *
-  * @var PapayaXmlElement
+  * @var \PapayaXmlElement
   */
   private $_teasers = NULL;
 
@@ -83,14 +83,14 @@ class PapayaUiContentTeaserImages extends \PapayaUiControl {
   * @return \PapayaXmlElement|NULL
   */
   public function appendTo(\PapayaXmlElement $parent) {
-    /** @var PapayaXmlDocument $targetDocument */
+    /** @var \PapayaXmlDocument $targetDocument */
     $targetDocument = $parent->ownerDocument;
     $targetDocument->registerNamespaces(
       array(
         'papaya' => 'http://www.papaya-cms.com/ns/papayacms'
       )
     );
-    /** @var PapayaXmlDocument $dom */
+    /** @var \PapayaXmlDocument $dom */
     $dom = $this->_teasers->ownerDocument;
     $images = $dom->xpath()->evaluate($this->_pattern['teaser_images'], $this->_teasers);
     $names = array(
@@ -108,7 +108,7 @@ class PapayaUiContentTeaserImages extends \PapayaUiControl {
     }
     if ($images->length > 0) {
       $thumbs = $parent->appendElement($names['list']);
-      /** @var PapayaXmlElement $imageNode */
+      /** @var \PapayaXmlElement $imageNode */
       foreach ($images as $imageNode) {
         $thumbNode = $thumbs
           ->appendElement(

@@ -37,7 +37,7 @@ abstract class PapayaUiControlInteractive
 
   /**
   * Request parameters object
-  * @var PapayaRequestParameters
+  * @var \PapayaRequestParameters
   */
   private $_parameters = NULL;
 

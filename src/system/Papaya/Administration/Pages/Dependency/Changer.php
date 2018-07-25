@@ -72,14 +72,14 @@ class Changer extends \PapayaUiControlInteractive {
   /**
    * Command controller for the needed actions
    *
-   * @var PapayaUiControlCommandController
+   * @var \PapayaUiControlCommandController
    */
   private $_commands = NULL;
 
   /**
    * Menu object, for buttons depending on the current status
    *
-   * @var PapayaUiToolbar
+   * @var \PapayaUiToolbar
    */
   private $_menu = NULL;
 

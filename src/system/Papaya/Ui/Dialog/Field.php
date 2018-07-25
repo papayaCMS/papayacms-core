@@ -76,7 +76,7 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
 
   /**
   * Filter used to check/filter the input
-  * @var PapayaFilter
+  * @var \PapayaFilter
   */
   private $_filter = NULL;
 

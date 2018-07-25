@@ -30,17 +30,17 @@ class PapayaUiNavigationBuilder extends \PapayaUiControl {
   private $_elements = array();
   /**
   * member vaiable for the links
-  * @var PapayaUiNavigationItems
+  * @var \PapayaUiNavigationItems
   */
   private $_items = NULL;
   /**
   * member vaiable for the callbacks
-  * @var PapayaUiNavigationBuilderCallbacks
+  * @var \PapayaUiNavigationBuilderCallbacks
   */
   private $_callbacks = NULL;
   /**
   * member vaiable for the navigation item class while using defalt creation
-  * @var PapayaUiNavigationBuilderCallbacks
+  * @var \PapayaUiNavigationBuilderCallbacks
   */
   private $_itemClass = '';
 

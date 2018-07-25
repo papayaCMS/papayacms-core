@@ -26,7 +26,7 @@ class PapayaXmlDocument
   implements \PapayaXmlNodeInterface {
 
   /**
-   * @var PapayaXmlXpath
+   * @var \PapayaXmlXpath
    */
   private $_xpath = NULL;
 

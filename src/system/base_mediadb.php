@@ -139,7 +139,7 @@ class base_mediadb extends base_db {
    *
    * @param string $mediaId
    * @param integer|null $versionId
-   * @return PapayaMediaDatabaseItem
+   * @return \PapayaMediaDatabaseItem
    */
   public function getItem($mediaId, $versionId = NULL) {
     $item = new PapayaMediaDatabaseItem(

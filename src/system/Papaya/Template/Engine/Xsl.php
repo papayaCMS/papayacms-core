@@ -59,7 +59,7 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
   /**
   * Error handling wrapper for lixml/libxslt errors
   *
-  * @var PapayaXmlErrors
+  * @var \PapayaXmlErrors
   */
   private $_errorHandler = NULL;
 

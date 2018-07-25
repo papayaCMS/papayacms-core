@@ -47,7 +47,7 @@ class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
 
   /**
   * callbacks
-  * @var PapayaObjectCallbacks
+  * @var \PapayaObjectCallbacks
   */
   protected $_callbacks = NULL;
 

@@ -25,7 +25,7 @@ class PapayaFilterArray implements \PapayaFilter {
 
   /**
   * elements filter
-  * @var PapayaFilter|NULL
+  * @var \PapayaFilter|NULL
   */
   private $_elementFilter = NULL;
 

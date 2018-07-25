@@ -46,7 +46,7 @@ class PapayaUiDialogFieldImage extends \PapayaUiDialogField {
   protected $_thumbnail = NULL;
 
   /**
-   * @var PapayaUiReferenceThumbnail
+   * @var \PapayaUiReferenceThumbnail
    */
   protected $_referenceThumbnail = NULL;
 

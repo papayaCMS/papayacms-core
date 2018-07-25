@@ -33,7 +33,7 @@ class PapayaFilterStringExplode implements \PapayaFilter {
   private $_separator = ',';
 
   /**
-   * @var PapayaFilter
+   * @var \PapayaFilter
    */
   private $_filter;
 

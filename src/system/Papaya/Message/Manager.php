@@ -46,7 +46,7 @@ class PapayaMessageManager extends \PapayaObject {
   * @param \PapayaMessage $message
   */
   public function dispatch(\PapayaMessage $message) {
-    /** @var PapayaMessageDispatcher $dispatcher */
+    /** @var \PapayaMessageDispatcher $dispatcher */
     foreach ($this->_dispatchers as $dispatcher) {
       $dispatcher->dispatch($message);
     }
@@ -143,7 +143,7 @@ class PapayaMessageManager extends \PapayaObject {
   public function setUp($options) {
     \PapayaMessageContextRuntime::setStartTime(microtime(TRUE));
     error_reporting($options->get('PAPAYA_LOG_PHP_ERRORLEVEL', E_ALL & ~E_STRICT));
-    /** @var PapayaMessageHook $hook */
+    /** @var \PapayaMessageHook $hook */
     foreach ($this->hooks() as $hook) {
       $hook->activate();
     }

@@ -27,7 +27,7 @@ class PapayaPhrasesGroups implements \ArrayAccess {
   private $_groups = array();
 
   /**
-   * @var PapayaPhrases
+   * @var \PapayaPhrases
    */
   private $_phrases = NULL;
 

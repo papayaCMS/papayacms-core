@@ -24,7 +24,7 @@ abstract class PapayaUiToolbarElement extends \PapayaUiControlCollectionItem {
   /**
   * reference (link) object
   *
-  * @var PapayaUiReference
+  * @var \PapayaUiReference
   */
   protected $_reference = NULL;
 
