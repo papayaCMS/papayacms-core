@@ -28,7 +28,7 @@
  * @property string $templatePath
  * @property array('medium' => string, 'large' => string) $thumbnails
  */
-class PapayaThemeDefinition extends \PapayaContentStructure {
+class PapayaThemeDefinition extends \Papaya\Content\Structure {
 
   /**
    * Theme data

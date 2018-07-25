@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Structure;
 use Papaya\Url;
 
 require_once __DIR__.'/../../../bootstrap.php';
@@ -252,7 +253,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
       )
     );
     $this->assertInstanceOf(
-      PapayaContentStructure::class,
+      Structure::class,
       $handler->getDefinition('TestData')
     );
   }

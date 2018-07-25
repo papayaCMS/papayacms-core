@@ -49,7 +49,7 @@ class PapayaThemeList extends \PapayaObject implements \IteratorAggregate {
    * Load the dynamic value defintion from the theme.xml and return it
    *
    * @param string $theme
-   * @return \PapayaContentStructure
+   * @return \Papaya\Content\Structure
    */
   public function getDefinition($theme) {
     return $this->handler()->getDefinition($theme);

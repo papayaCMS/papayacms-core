@@ -13,15 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Structure;
+namespace Papaya\Content;
 
 /**
-* Load and provide access to the theme definition stored in theme.xml inside the theme directory.
-*
-* @package Papaya-Library
-* @subpackage Theme
-*/
-class PapayaContentStructure implements \IteratorAggregate {
+ * Load and provide access to the theme definition stored in theme.xml inside the theme directory.
+ *
+ * @package Papaya-Library
+ * @subpackage Theme
+ */
+class Structure implements \IteratorAggregate {
 
   /**
    * @var Structure\Pages
@@ -57,14 +57,14 @@ class PapayaContentStructure implements \IteratorAggregate {
   /**
    * Getter/Setter for the dynamic value definition pages
    *
-   * @param \Papaya\Content\Structure\Pages $pages
-   * @return \Papaya\Content\Structure\Pages
+   * @param Structure\Pages $pages
+   * @return Structure\Pages
    */
-  public function pages(\Papaya\Content\Structure\Pages $pages = NULL) {
+  public function pages(Structure\Pages $pages = NULL) {
     if (NULL !== $pages) {
       $this->_pages = $pages;
     } elseif (NULL === $this->_pages) {
-      $this->_pages = new \Papaya\Content\Structure\Pages();
+      $this->_pages = new Structure\Pages();
     }
     return $this->_pages;
   }
@@ -72,7 +72,7 @@ class PapayaContentStructure implements \IteratorAggregate {
   /**
    * Allow to directly loop on the pages.
    *
-   * @return \Papaya\Content\Structure\Pages
+   * @return Structure\Pages
    */
   public function getIterator() {
     return $this->pages();
@@ -82,7 +82,7 @@ class PapayaContentStructure implements \IteratorAggregate {
    * Fetch a page by its identifier
    *
    * @param string $identifier
-   * @return \Papaya\Content\Structure\Page|NULL
+   * @return Structure\Page|NULL
    */
   public function getPage($identifier) {
     /** @var Structure\Page $page */

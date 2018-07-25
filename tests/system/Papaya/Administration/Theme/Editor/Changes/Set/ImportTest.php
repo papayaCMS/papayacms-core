@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Theme\Editor\Changes\Set\Import;
+use Papaya\Content\Structure;
 use Papaya\Content\Theme\Set;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
@@ -176,7 +177,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
       ->expects($this->once())
       ->method('getDefinition')
       ->with('themename')
-      ->will($this->returnValue($this->createMock(PapayaContentStructure::class)));
+      ->will($this->returnValue($this->createMock(Structure::class)));
     /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
     $themeSet = $this->createMock(Set::class);
     $themeSet
@@ -215,7 +216,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
       ->expects($this->once())
       ->method('getDefinition')
       ->with('themename')
-      ->will($this->returnValue($this->createMock(PapayaContentStructure::class)));
+      ->will($this->returnValue($this->createMock(Structure::class)));
     /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
     $themeSet = $this->createMock(Set::class);
     $themeSet
@@ -258,7 +259,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
       ->expects($this->once())
       ->method('getDefinition')
       ->with('themename')
-      ->will($this->returnValue($this->createMock(PapayaContentStructure::class)));
+      ->will($this->returnValue($this->createMock(Structure::class)));
     /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
     $themeSet = $this->createMock(Set::class);
     $themeSet

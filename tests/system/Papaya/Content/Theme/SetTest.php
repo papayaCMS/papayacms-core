@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Structure;
 use Papaya\Content\Theme\Set;
 
 require_once __DIR__.'/../../../../bootstrap.php';
@@ -119,8 +120,8 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   * @covers Set::getValuesXml
   */
   public function testGetValuesXml() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructure $definition */
-    $definition = $this->createMock(PapayaContentStructure::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Structure $definition */
+    $definition = $this->createMock(Structure::class);
     $definition
       ->expects($this->once())
       ->method('getXmlDocument')
@@ -136,8 +137,8 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   public function testSetValuesXml() {
     $document = new PapayaXmlDocument();
     $element = $document->appendElement('set');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentStructure $definition */
-    $definition = $this->createMock(PapayaContentStructure::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Structure $definition */
+    $definition = $this->createMock(Structure::class);
     $definition
       ->expects($this->once())
       ->method('getArray')

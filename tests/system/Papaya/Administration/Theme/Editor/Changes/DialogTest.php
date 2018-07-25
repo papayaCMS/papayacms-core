@@ -15,6 +15,7 @@
 
 use Papaya\Administration\Theme\Editor\Changes\Dialog;
 use Papaya\Cache\Service;
+use Papaya\Content\Structure;
 use Papaya\Content\Structure\Group;
 use Papaya\Content\Structure\Page;
 use Papaya\Content\Structure\Value;
@@ -139,7 +140,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
         )
       )
     );
-    $definition = $this->createMock(PapayaContentStructure::class);
+    $definition = $this->createMock(Structure::class);
     $definition
       ->expects($this->once())
       ->method('getPage')
@@ -186,7 +187,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
         )
       )
     );
-    $definition = $this->createMock(PapayaContentStructure::class);
+    $definition = $this->createMock(Structure::class);
     $definition
       ->expects($this->once())
       ->method('getPage')

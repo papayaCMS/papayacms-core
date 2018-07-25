@@ -104,20 +104,20 @@ class Set extends \PapayaDatabaseRecord {
   /**
    * Return the values as a xml document
    *
-   * @param \PapayaContentStructure $definition
+   * @param \Papaya\Content\Structure $definition
    * @return \PapayaXmlDocument
    */
-  public function getValuesXml(\PapayaContentStructure $definition) {
+  public function getValuesXml(\Papaya\Content\Structure $definition) {
     return $definition->getXmlDocument(isset($this->values) ? $this->values : array());
   }
 
   /**
    * Loads the values from a xml document
    *
-   * @param \PapayaContentStructure $definition
+   * @param \Papaya\Content\Structure $definition
    * @param \PapayaXmlElement $values
    */
-  public function setValuesXml(\PapayaContentStructure $definition, \PapayaXmlElement $values) {
+  public function setValuesXml(\Papaya\Content\Structure $definition, \PapayaXmlElement $values) {
     $this['values'] = $definition->getArray($values);
   }
 }
