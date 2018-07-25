@@ -1166,7 +1166,7 @@ class papaya_page extends base_object {
   }
 
   private function createController($mode) {
-    $controllers = new PapayaControllerGroup();
+    $controllers = new Controller\Group();
     switch ($mode) {
     case 'image':
       $controllers->add(new PapayaControllerImage());
@@ -1891,8 +1891,8 @@ class papaya_page extends base_object {
    * @return bool Valid content | Error
    */
   function executeController($controller) {
-    if (!$controller instanceof PapayaControllerGroup) {
-      $controller = new PapayaControllerGroup($controller);
+    if (!$controller instanceof Controller\Group) {
+      $controller = new Controller\Group($controller);
     }
     $application = $this->papaya();
     $result = $controller->execute(
