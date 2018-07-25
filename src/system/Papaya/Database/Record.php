@@ -122,13 +122,13 @@ abstract class PapayaDatabaseRecord
    * @return string
    */
   protected function _compileCondition($filter, $prefix = 'WHERE') {
-    if ($filter instanceof \PapayaDatabaseConditionElement) {
+    if ($filter instanceof \Papaya\Database\Condition\Element) {
       $condition = $filter->getSql();
     } else {
       if (!is_array($filter)) {
         $filter = array('id' => $filter);
       }
-      $generator = new \PapayaDatabaseConditionGenerator($this, $this->mapping());
+      $generator = new \Papaya\Database\Condition\Generator($this, $this->mapping());
       $condition = (string)$generator->fromArray($filter);
     }
     return empty($condition) ? '' : $prefix.' '.$condition;
@@ -136,10 +136,11 @@ abstract class PapayaDatabaseRecord
 
   /**
    * Create a filter condition object attached to this database accesss and mapping
-   * @return \PapayaDatabaseConditionRoot
+   *
+   * @return \Papaya\Database\Condition\Root
    */
   public function createFilter() {
-    return new \PapayaDatabaseConditionRoot($this, $this->mapping());
+    return new \Papaya\Database\Condition\Root($this, $this->mapping());
   }
 
   /**

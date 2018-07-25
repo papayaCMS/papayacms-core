@@ -13,12 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Condition\Group;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testConstructorWithDatabaseAccess() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -28,7 +30,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testConstructorWithMapping() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -40,7 +42,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testConstructorWithInterfaceDatabaseAccess() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -56,13 +58,13 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testConstructorWithGroup() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseConditionGroup $parent */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Group $parent */
     $parent = $this
-      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
+      ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
     $parent
@@ -75,7 +77,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testConstructorWithInvalidParent() {
     $this->expectException(InvalidArgumentException::class);
@@ -84,12 +86,12 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testEnd() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseConditionGroup $parent */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Group $parent */
     $parent = $this
-      ->getMockBuilder(PapayaDatabaseConditionGroup::class)
+      ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
     $group = new PapayaDatabaseConditionGroup_TestProxy($parent);
@@ -97,7 +99,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testCountWhileEmpty() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -106,7 +108,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testCountTwoElements() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -118,7 +120,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testGetIteratorWhileEmpty() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -127,7 +129,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testGetIteratorWithOneSubGroup() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -138,7 +140,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testGetSqlWithIsEqual() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -154,7 +156,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testGetSqlWithTwoSubgroupsOneOfThemEmpty() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -176,7 +178,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testGetSqlWithNotAndTwoConditions() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -196,7 +198,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGroup
+   * @covers Group
    */
   public function testUnknownConditionCallExpectingException() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -207,6 +209,6 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   }
 }
 
-class PapayaDatabaseConditionGroup_TestProxy extends PapayaDatabaseConditionGroup {
+class PapayaDatabaseConditionGroup_TestProxy extends Group {
 
 }

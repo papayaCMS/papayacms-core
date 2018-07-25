@@ -13,23 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Condition\Generator;
+use Papaya\Database\Condition\Group;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaDatabaseConditionGenerator
+   * @covers Generator
    */
   public function testConstructor() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $generator = new PapayaDatabaseConditionGenerator($databaseAccess);
+    $generator = new Generator($databaseAccess);
     $condition = $generator->fromArray(array());
-    $this->assertInstanceOf(PapayaDatabaseConditionGroup::class, $condition);
+    $this->assertInstanceOf(Group::class, $condition);
     $this->assertSame($databaseAccess, $condition->getDatabaseAccess());
   }
 
   /**
-   * @covers PapayaDatabaseConditionGenerator
+   * @covers Generator
    */
   public function testConstructorWithInterfaceDatabaseAccess() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -39,23 +42,23 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getDatabaseAccess')
       ->will($this->returnValue($databaseAccess));
-    $generator = new PapayaDatabaseConditionGenerator($parent);
+    $generator = new Generator($parent);
     $condition = $generator->fromArray(array());
     $this->assertNull($condition->getParent());
     $this->assertSame($databaseAccess, $condition->getDatabaseAccess());
   }
 
   /**
-   * @covers PapayaDatabaseConditionGenerator
+   * @covers Generator
    */
   public function testConstructorWithInvalidParent() {
     $this->expectException(InvalidArgumentException::class);
     /** @noinspection PhpParamsInspection */
-    new PapayaDatabaseConditionGenerator(new stdClass());
+    new Generator(new stdClass());
   }
 
   /**
-   * @covers PapayaDatabaseConditionGenerator
+   * @covers Generator
    */
   public function testFromArrayWithSimpleEqualsFilter() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -64,7 +67,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
       ->method('getSqlCondition')
       ->with(array('field' => 'value'))
       ->will($this->returnValue("field = 'value'"));
-    $generator = new PapayaDatabaseConditionGenerator($databaseAccess);
+    $generator = new Generator($databaseAccess);
 
     $condition = $generator->fromArray(array('field' => 'value'));
     $this->assertEquals(
@@ -73,7 +76,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGenerator
+   * @covers Generator
    */
   public function testFromArrayWithFieldMapping() {
     $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
@@ -89,7 +92,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
       ->with(array('mapped_field' => 'value'))
       ->will($this->returnValue("mapped_field = 'value'"));
 
-    $generator = new PapayaDatabaseConditionGenerator($databaseAccess, $mapping);
+    $generator = new Generator($databaseAccess, $mapping);
 
     $condition = $generator->fromArray(array('field' => 'value'));
     $this->assertEquals(
@@ -98,7 +101,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGenerator
+   * @covers Generator
    */
   public function testFromArrayWithFieldMappingReturnsNoFieldname() {
     $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
@@ -112,7 +115,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
       ->expects($this->never())
       ->method('getSqlCondition');
 
-    $generator = new PapayaDatabaseConditionGenerator($databaseAccess, $mapping);
+    $generator = new Generator($databaseAccess, $mapping);
 
     $condition = $generator->fromArray(array('field' => 'value'));
     $this->assertEquals(
@@ -121,7 +124,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGenerator
+   * @covers Generator
    */
   public function testFromArrayWithConditionInAnd() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -136,7 +139,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
           )
         )
       );
-    $generator = new PapayaDatabaseConditionGenerator($databaseAccess);
+    $generator = new Generator($databaseAccess);
 
     $condition = $generator->fromArray(
       array(
@@ -152,7 +155,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGenerator
+   * @covers Generator
    */
   public function testFromArrayWithConditionInOr() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -167,7 +170,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
           )
         )
       );
-    $generator = new PapayaDatabaseConditionGenerator($databaseAccess);
+    $generator = new Generator($databaseAccess);
 
     $condition = $generator->fromArray(
       array(
@@ -183,7 +186,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseConditionGenerator
+   * @covers Generator
    */
   public function testFromArrayWithConditionInNot() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -198,7 +201,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
           )
         )
       );
-    $generator = new PapayaDatabaseConditionGenerator($databaseAccess);
+    $generator = new Generator($databaseAccess);
 
     $condition = $generator->fromArray(
       array(
@@ -214,7 +217,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
   }
 
   /**
-   * @covers       PapayaDatabaseConditionGenerator
+   * @covers       Generator
    * @dataProvider provideFilterSamples
    * @param string $expected
    * @param array $filter
@@ -225,7 +228,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('getSqlCondition')
       ->will($this->returnCallback(array($this, 'callbackGetSqlCondition')));
-    $generator = new PapayaDatabaseConditionGenerator($databaseAccess);
+    $generator = new Generator($databaseAccess);
     $this->assertEquals($expected, (string)$generator->fromArray($filter));
   }
 

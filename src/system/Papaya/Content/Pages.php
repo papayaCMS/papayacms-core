@@ -176,7 +176,7 @@ class Pages extends \PapayaDatabaseRecordsLazy {
       $prefix = ' AND ';
     }
     if (isset($filter['ancestor_id']) && $filter['ancestor_id'] > 0) {
-      $ancestorFilter = new \PapayaDatabaseConditionGroup($this);
+      $ancestorFilter = new \Papaya\Database\Condition\Group($this);
       $ancestorFilter
         ->isEqual('t.prev', $filter['ancestor_id'])
         ->logicalOr()

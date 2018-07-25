@@ -13,6 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Condition\Element;
+use Papaya\Database\Condition\Root;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaDatabaseRecordTest extends PapayaTestCase {
@@ -244,7 +247,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
       )
       ->will($this->returnValue($databaseResult));
     $condition = $this
-      ->getMockBuilder(PapayaDatabaseConditionElement::class)
+      ->getMockBuilder(Element::class)
       ->disableOriginalConstructor()
       ->getMock();
     $condition
@@ -269,7 +272,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
     $records->setDatabaseAccess($databaseAccess);
     $records->mapping($mapping);
     $filter = $records->createFilter();
-    $this->assertInstanceOf(PapayaDatabaseConditionRoot::class, $filter);
+    $this->assertInstanceOf(Root::class, $filter);
     $this->assertSame($databaseAccess, $filter->getDatabaseAccess());
     $this->assertSame($mapping, $filter->getMapping());
   }

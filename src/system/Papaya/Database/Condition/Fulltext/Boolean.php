@@ -28,7 +28,7 @@ namespace Papaya\Database\Condition\Fulltext;
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class Boolean extends \PapayaDatabaseConditionFulltext {
+class Boolean extends \Papaya\Database\Condition\Fulltext {
 
   /**
    * Get filters for MySQL MATCH command

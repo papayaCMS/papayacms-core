@@ -28,7 +28,7 @@ namespace Papaya\Database\Condition\Fulltext;
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class Contains extends \PapayaDatabaseConditionFulltext {
+class Contains extends \Papaya\Database\Condition\Fulltext {
 
   /**
    * Get filters for a LIKE condition
