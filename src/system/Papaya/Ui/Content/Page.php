@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Page\Translation;
+use Papaya\Content;
 
 /**
  * papaya CMS
@@ -36,7 +36,7 @@ class PapayaUiContentPage extends \PapayaObject {
    */
   private $_page = NULL;
   /**
-   * @var Translation
+   * @var Content\Page\Translation
    */
   private $_translation = NULL;
 
@@ -46,7 +46,7 @@ class PapayaUiContentPage extends \PapayaObject {
   private $_pageId = 0;
 
   /**
-   * @var int|PapayaContentLanguage|string
+   * @var int|Content\Language|string
    */
   private $_language = '';
   /**
@@ -61,7 +61,7 @@ class PapayaUiContentPage extends \PapayaObject {
 
   /**
    * @param int $pageId
-   * @param int|string|\PapayaContentLanguage $language
+   * @param int|string|Content\Language $language
    * @param bool $isPublic
    */
   public function __construct($pageId, $language, $isPublic = TRUE) {
@@ -135,10 +135,10 @@ class PapayaUiContentPage extends \PapayaObject {
   }
 
   /**
-   * @return null|\PapayaContentLanguage
+   * @return null|Content\Language
    */
   public function getPageLanguage() {
-    if ($this->_language instanceof \PapayaContentLanguage) {
+    if ($this->_language instanceof Content\Language) {
       return $this->_language;
     } elseif (isset($this->_language) && isset($this->papaya()->languages)) {
       return $this->_language = $this->papaya()->languages->getLanguage($this->_language);

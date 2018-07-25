@@ -43,7 +43,7 @@ class PapayaApplicationProfileLanguagesTest extends PapayaTestCase {
     $profile = new Languages();
     $request = $profile->createObject($application);
     $this->assertInstanceOf(
-      PapayaContentLanguages::class,
+      \Papaya\Content\Languages::class,
       $request
     );
   }

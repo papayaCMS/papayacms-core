@@ -23,7 +23,7 @@ namespace Papaya\Application;
  *
  * @property \PapayaDatabaseManager $database
  * @property \PapayaUiImages images
- * @property \PapayaContentLanguages $languages
+ * @property \Papaya\Content\Languages $languages
  * @property \PapayaMessageManager $messages
  * @property \Papaya\Configuration\Cms $options
  * @property \PapayaPluginLoader $plugins

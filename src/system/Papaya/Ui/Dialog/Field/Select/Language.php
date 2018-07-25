@@ -25,7 +25,7 @@ class PapayaUiDialogFieldSelectLanguage extends \PapayaUiDialogFieldSelect {
   const OPTION_USE_IDENTIFIER = 2;
 
   public function __construct(
-    $caption, $name, \PapayaContentLanguages $languages = NULL, $options = 0
+    $caption, $name, \Papaya\Content\Languages $languages = NULL, $options = 0
   ) {
     // @codeCoverageIgnoreStart
     if (NULL === $languages) {

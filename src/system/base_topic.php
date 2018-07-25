@@ -145,7 +145,8 @@ class base_topic extends base_db {
 
   /**
   * current content language
-  * @var \PapayaContentLanguage $currentLanguage
+  *
+  * @var \Papaya\Content\Language $currentLanguage
   */
   var $currentLanguage = NULL;
 
@@ -1138,7 +1139,7 @@ class base_topic extends base_db {
   }
 
   public function getPageLanguage() {
-    if ($this->_language instanceof PapayaContentLanguage) {
+    if ($this->_language instanceof \Papaya\Content\Language) {
       return $this->_language;
     } elseif (0 < ($languageId = $this->getContentLanguageId())) {
       return $this->_language = $this->papaya()->languages->getLanguage($languageId);

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Request
 *
-* @property PapayaContentLanguage $language
+* @property Papaya\Content\Language $language
 * @property Papaya\Content\View\Mode $mode
 * @property-read \Papaya\Url $url
 * @property-read string $method
@@ -237,14 +237,14 @@ class PapayaRequest
   /**
    * Getter/Setter for the request language
    *
-   * @param \PapayaContentLanguage $language
-   * @return \PapayaContentLanguage
+   * @param \Papaya\Content\Language $language
+   * @return \Papaya\Content\Language
    */
-  public function language(\PapayaContentLanguage $language = NULL) {
+  public function language(\Papaya\Content\Language $language = NULL) {
     if (NULL !== $language) {
       $this->_language = $language;
     } elseif (NULL === $this->_language) {
-      $this->_language = new \PapayaContentLanguage();
+      $this->_language = new \Papaya\Content\Language();
       $this->_language->papaya($this->papaya());
       if ($identifier = $this->getParameter('language', '', NULL, self::SOURCE_PATH)) {
         $this->_language->activateLazyLoad(

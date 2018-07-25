@@ -15,6 +15,7 @@
 
 use Papaya\Application;
 use Papaya\Cache;
+use Papaya\Content;
 
 /**
  * Some of the old bootstraps use the this class/file as the starting point,
@@ -76,7 +77,7 @@ class papaya_page extends base_object {
   public $readOnlySession = FALSE;
 
   /**
-   * @var \PapayaContentLanguage
+   * @var \Papaya\Content\Language
    */
   public $contentLanguage;
 
@@ -264,7 +265,7 @@ class papaya_page extends base_object {
     $request = $application->request;
     if ($request->languageId !== $languageId) {
       $request->language(
-        $this->papaya()->languages->getLanguage($languageId, PapayaContentLanguages::FILTER_IS_CONTENT)
+        $this->papaya()->languages->getLanguage($languageId, Content\Languages::FILTER_IS_CONTENT)
       );
     }
     $options->defineDatabaseTables();

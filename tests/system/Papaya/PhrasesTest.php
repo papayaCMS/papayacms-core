@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Language;
+
 require_once __DIR__.'/../../bootstrap.php';
 
 class PapayaPhrasesTest extends PapayaTestCase {
@@ -23,8 +25,8 @@ class PapayaPhrasesTest extends PapayaTestCase {
   public function testConstructor() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPhrasesStorage $storage */
     $storage = $this->createMock(PapayaPhrasesStorage::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentLanguage $language */
-    $language = $this->createMock(PapayaContentLanguage::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Language $language */
+    $language = $this->createMock(Language::class);
     $phrases = new PapayaPhrases($storage, $language);
     $this->assertSame($storage, $phrases->getStorage());
     $this->assertSame($language, $phrases->getLanguage());
@@ -36,8 +38,8 @@ class PapayaPhrasesTest extends PapayaTestCase {
   public function testGetGroupsAfterSet() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPhrasesStorage $storage */
     $storage = $this->createMock(PapayaPhrasesStorage::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentLanguage $language */
-    $language = $this->createMock(PapayaContentLanguage::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Language $language */
+    $language = $this->createMock(Language::class);
     $phrases = new PapayaPhrases($storage, $language);
     $groups = $this
       ->getMockBuilder(PapayaPhrasesGroups::class)
@@ -53,8 +55,8 @@ class PapayaPhrasesTest extends PapayaTestCase {
   public function testGetGroupsImplicitCreate() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPhrasesStorage $storage */
     $storage = $this->createMock(PapayaPhrasesStorage::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentLanguage $language */
-    $language = $this->createMock(PapayaContentLanguage::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Language $language */
+    $language = $this->createMock(Language::class);
     $phrases = new PapayaPhrases($storage, $language);
     $this->assertInstanceOf(PapayaPhrasesGroups::class, $phrases->groups);
   }
@@ -65,8 +67,8 @@ class PapayaPhrasesTest extends PapayaTestCase {
   public function testDefaultGroupGetAfterSet() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPhrasesStorage $storage */
     $storage = $this->createMock(PapayaPhrasesStorage::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentLanguage $language */
-    $language = $this->createMock(PapayaContentLanguage::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Language $language */
+    $language = $this->createMock(Language::class);
     $phrases = new PapayaPhrases($storage, $language);
     $phrases->defaultGroup('TestGroup');
     $this->assertEquals('TestGroup', $phrases->defaultGroup());
@@ -78,8 +80,8 @@ class PapayaPhrasesTest extends PapayaTestCase {
   public function testDefaultGroupImplicitInit() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPhrasesStorage $storage */
     $storage = $this->createMock(PapayaPhrasesStorage::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentLanguage $language */
-    $language = $this->createMock(PapayaContentLanguage::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Language $language */
+    $language = $this->createMock(Language::class);
     $phrases = new PapayaPhrases($storage, $language);
     $phrases->papaya($this->mockPapaya()->application());
     $this->assertEquals('test.html', $phrases->defaultGroup());
@@ -89,8 +91,8 @@ class PapayaPhrasesTest extends PapayaTestCase {
    * @covers PapayaPhrases::get
    */
   public function testGetCreatesStringObject() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentLanguage $language */
-    $language = $this->createMock(PapayaContentLanguage::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Language $language */
+    $language = $this->createMock(Language::class);
     $language
       ->expects($this->once())
       ->method('__get')
@@ -115,8 +117,8 @@ class PapayaPhrasesTest extends PapayaTestCase {
    * @covers PapayaPhrases::getList
    */
   public function testGetListCreatesListObject() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentLanguage $language */
-    $language = $this->createMock(PapayaContentLanguage::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Language $language */
+    $language = $this->createMock(Language::class);
     $language
       ->expects($this->once())
       ->method('__get')
@@ -141,8 +143,8 @@ class PapayaPhrasesTest extends PapayaTestCase {
    * @covers PapayaPhrases::getList
    */
   public function testGetText() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaContentLanguage $language */
-    $language = $this->createMock(PapayaContentLanguage::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Language $language */
+    $language = $this->createMock(Language::class);
     $language
       ->expects($this->once())
       ->method('__get')

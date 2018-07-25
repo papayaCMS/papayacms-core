@@ -26,10 +26,10 @@ class Languages implements \Papaya\Application\Profile {
    * Create the profile object and return it
    *
    * @param \Papaya\Application $application
-   * @return \PapayaContentLanguages
+   * @return \Papaya\Content\Languages
    */
   public function createObject($application) {
-    $languages = new \PapayaContentLanguages();
+    $languages = new \Papaya\Content\Languages();
     $languages->papaya($application);
     $languages->load();
     return $languages;

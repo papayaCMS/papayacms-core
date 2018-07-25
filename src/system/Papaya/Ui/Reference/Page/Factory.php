@@ -29,7 +29,7 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
   private $_pageData = array();
 
   /**
-   * @var \PapayaContentLanguage
+   * @var \Papaya\Content\Language
    */
   private $_currentLanguage = NULL;
 
@@ -44,7 +44,7 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
   private $_pages = NULL;
 
   /**
-   * @var \PapayaContentLanguages
+   * @var \Papaya\Content\Languages
    */
   private $_languages = NULL;
 
@@ -240,7 +240,7 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
         $domains = $this->domains()->getDomainsByPath($path);
         $current = $this->domains()->getCurrent();
         $language = $this->languages()->getLanguage(
-          $languageIdentifier, \PapayaContentLanguages::FILTER_IS_CONTENT
+          $languageIdentifier, \Papaya\Content\Languages::FILTER_IS_CONTENT
         );
         $languageId = $language ? $language->id : 0;
         if ($current &&
@@ -435,10 +435,10 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
   /**
    * Getter/Setter for a content languages record list.
    *
-   * @param \PapayaContentLanguages $languages
-   * @return \PapayaContentLanguages
+   * @param \Papaya\Content\Languages $languages
+   * @return \Papaya\Content\Languages
    */
-  public function languages(\PapayaContentLanguages $languages = NULL) {
+  public function languages(\Papaya\Content\Languages $languages = NULL) {
     if (isset($languages)) {
       $this->_languages = $languages;
     } elseif (is_null($this->_languages)) {
@@ -473,7 +473,7 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
       if (!($language && $language->isContent)) {
         $language = $languages->getLanguage(
           $this->papaya()->options->get('PAPAYA_CONTENT_LANGUAGE', 1),
-          \PapayaContentLanguages::FILTER_IS_CONTENT
+          \Papaya\Content\Languages::FILTER_IS_CONTENT
         );
       }
       $this->_currentLanguage = $language;
@@ -488,7 +488,7 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
    * @param array $pageIds
    */
   public function preload($language, array $pageIds) {
-    $language = $this->languages()->getLanguage($language, \PapayaContentLanguages::FILTER_IS_CONTENT);
+    $language = $this->languages()->getLanguage($language, \Papaya\Content\Languages::FILTER_IS_CONTENT);
     if ($language) {
       if (isset($this->_pageData[$language->identifier])) {
         $pageIds = array_values(

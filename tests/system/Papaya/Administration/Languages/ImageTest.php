@@ -15,6 +15,7 @@
 
 use Papaya\Administration\Languages\Image;
 use Papaya\Administration\Languages\Selector;
+use Papaya\Content\Languages;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -64,7 +65,7 @@ class PapayaAdministrationLanguagesImageTest extends PapayaTestCase {
   * @covers Image
   */
   public function testToStringFetchingDefinedLanguage() {
-    $languages = $this->createMock(PapayaContentLanguages::class);
+    $languages = $this->createMock(Languages::class);
     $languages
       ->expects($this->once())
       ->method('getLanguage')
@@ -87,7 +88,7 @@ class PapayaAdministrationLanguagesImageTest extends PapayaTestCase {
   * @covers Image
   */
   public function testToStringWithNonExistingLanguageExpectingEmptyString() {
-    $languages = $this->createMock(PapayaContentLanguages::class);
+    $languages = $this->createMock(Languages::class);
     $languages
       ->expects($this->once())
       ->method('getLanguage')

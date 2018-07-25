@@ -15,6 +15,8 @@
 
 use Papaya\Content\Link\Types;
 use Papaya\Content\Pages\Publications;
+use Papaya\Content\Language;
+use Papaya\Content\Languages;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -919,7 +921,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::languages
   */
   public function testLanguagesGetAfterSet() {
-    $languages = $this->createMock(PapayaContentLanguages::class);
+    $languages = $this->createMock(Languages::class);
     $factory = new PapayaUiReferencePageFactory();
     $factory->languages($languages);
     $this->assertSame($languages, $factory->languages());
@@ -929,14 +931,14 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   * @covers PapayaUiReferencePageFactory::languages
   */
   public function testLanguagesGetImplicitFromApplicationRegistry() {
-    $languages = $this->createMock(PapayaContentLanguages::class);
+    $languages = $this->createMock(Languages::class);
     $factory = new PapayaUiReferencePageFactory();
     $factory->papaya(
       $this->mockPapaya()->application(
         array('languages' => $languages)
       )
     );
-    $this->assertInstanceOf(PapayaContentLanguages::class, $languages = $factory->languages());
+    $this->assertInstanceOf(Languages::class, $languages = $factory->languages());
   }
 
   /**
@@ -1149,7 +1151,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
   **************************/
 
   public function getLanguagesFixture() {
-    $languageGerman = $this->createMock(PapayaContentLanguage::class);
+    $languageGerman = $this->createMock(Language::class);
     $languageGerman
       ->expects($this->any())
       ->method('__get')
@@ -1163,7 +1165,7 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
         )
       );
 
-    $languages = $this->createMock(PapayaContentLanguages::class);
+    $languages = $this->createMock(Languages::class);
     $languages
       ->expects($this->any())
       ->method('getLanguageByIdentifier')
@@ -1181,10 +1183,10 @@ class PapayaUiReferencePageFactoryTest extends PapayaTestCase {
       ->will(
         $this->returnValueMap(
           array(
-            array(2, PapayaContentLanguages::FILTER_IS_CONTENT, $languageGerman),
-            array('de', PapayaContentLanguages::FILTER_IS_CONTENT, $languageGerman),
-            array(1, PapayaContentLanguages::FILTER_IS_CONTENT, NULL),
-            array(0, PapayaContentLanguages::FILTER_IS_CONTENT, NULL)
+            array(2, Languages::FILTER_IS_CONTENT, $languageGerman),
+            array('de', Languages::FILTER_IS_CONTENT, $languageGerman),
+            array(1, Languages::FILTER_IS_CONTENT, NULL),
+            array(0, Languages::FILTER_IS_CONTENT, NULL)
           )
         )
       );

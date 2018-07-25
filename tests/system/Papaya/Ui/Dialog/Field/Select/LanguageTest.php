@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Languages;
+
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldSelectLanguageTest extends PapayaTestCase {
@@ -104,10 +106,10 @@ class PapayaUiDialogFieldSelectLanguageTest extends PapayaTestCase {
   }
 
   /**
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentLanguages
+   * @return PHPUnit_Framework_MockObject_MockObject|Languages
    */
   private function getLanguagesFixture() {
-    $languages = $this->createMock(PapayaContentLanguages::class);
+    $languages = $this->createMock(Languages::class);
     $languages
       ->expects($this->any())
       ->method('getIterator')

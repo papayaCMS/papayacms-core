@@ -1,10 +1,27 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Content\Language;
+use Papaya\Content\Languages;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaContentLanguagesTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaContentLanguages::load
+  * @covers Languages::load
   */
   public function testLoad() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -41,7 +58,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_'.PapayaContentTables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
-    $languages = new PapayaContentLanguages();
+    $languages = new Languages();
     $languages->setDatabaseAccess($databaseAccess);
     $this->assertTrue($languages->load());
     $this->assertAttributeEquals(
@@ -87,7 +104,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentLanguages::getLanguage
+   * @covers Languages::getLanguage
    * @dataProvider provideLanguageFilterVariants
    * @param mixed $languageFilter
    */
@@ -98,7 +115,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
       $this->mockPapaya()->databaseAccess()
     );
     $language = $languages->getLanguage($languageFilter);
-    $this->assertInstanceOf(PapayaContentLanguage::class, $language);
+    $this->assertInstanceOf(Language::class, $language);
     $this->assertAttributeEquals(
       array(
         'id' => 2,
@@ -123,7 +140,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentLanguages::getLanguage
+  * @covers Languages::getLanguage
   */
   public function testGetLanguageImplicitLoad() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -155,10 +172,10 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_'.PapayaContentTables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
-    $languages = new PapayaContentLanguages();
+    $languages = new Languages();
     $languages->setDatabaseAccess($databaseAccess);
     $language = $languages->getLanguage(2);
-    $this->assertInstanceOf(PapayaContentLanguage::class, $language);
+    $this->assertInstanceOf(Language::class, $language);
     $this->assertAttributeEquals(
       array(
         'id' => 2,
@@ -175,7 +192,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentLanguages::getLanguage
+  * @covers Languages::getLanguage
   */
   public function testGetLanguageImplicitLoadExpectingNull() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -195,19 +212,19 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_'.PapayaContentTables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
-    $languages = new PapayaContentLanguages();
+    $languages = new Languages();
     $languages->setDatabaseAccess($databaseAccess);
     $language = $languages->getLanguage(99);
     $this->assertNull($language);
   }
 
   /**
-  * @covers PapayaContentLanguages::getLanguageByCode
+  * @covers Languages::getLanguageByCode
   */
   public function testGetLanguageByCode() {
     $languages = new PapayaContentLanguages_TestProxy();
     $language = $languages->getLanguageByCode('de-DE');
-    $this->assertInstanceOf(PapayaContentLanguage::class, $language);
+    $this->assertInstanceOf(Language::class, $language);
     $this->assertAttributeEquals(
       array(
         'id' => 2,
@@ -224,7 +241,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentLanguages::getLanguageByCode
+  * @covers Languages::getLanguageByCode
   */
   public function testGetLanguageByCodeExpectingNull() {
     $languages = new PapayaContentLanguages_TestProxy();
@@ -233,12 +250,12 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentLanguages::getLanguageByIdentifier
+  * @covers Languages::getLanguageByIdentifier
   */
   public function testGetLanguageByIdentifier() {
     $languages = new PapayaContentLanguages_TestProxy();
     $language = $languages->getLanguageByIdentifier('de');
-    $this->assertInstanceOf(PapayaContentLanguage::class, $language);
+    $this->assertInstanceOf(Language::class, $language);
     $this->assertAttributeEquals(
       array(
         'id' => 2,
@@ -255,7 +272,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentLanguages::getLanguageByIdentifier
+  * @covers Languages::getLanguageByIdentifier
   */
   public function testGetLanguageByIdentifierExpectingNull() {
     $languages = new PapayaContentLanguages_TestProxy();
@@ -264,7 +281,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentLanguages::getIdentiferById
+  * @covers Languages::getIdentiferById
   */
   public function testGetIdentifierById() {
     $languages = new PapayaContentLanguages_TestProxy();
@@ -278,7 +295,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaContentLanguages::getIdentiferById
+  * @covers Languages::getIdentiferById
   */
   public function testGetIdentifierByIdExpectingNull() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -298,13 +315,13 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_'.PapayaContentTables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
-    $languages = new PapayaContentLanguages();
+    $languages = new Languages();
     $languages->setDatabaseAccess($databaseAccess);
     $this->assertNull($languages->getIdentiferById(99));
   }
 }
 
-class PapayaContentLanguages_TestProxy extends PapayaContentLanguages {
+class PapayaContentLanguages_TestProxy extends Languages {
 
   public $_records = array(
     1 => array(

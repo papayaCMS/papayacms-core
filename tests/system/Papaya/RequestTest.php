@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Language;
 use Papaya\Content\View\Mode;
 use Papaya\Url;
 
@@ -161,7 +162,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaContentLanguage::class,
+      Language::class,
       $request->language
     );
   }
@@ -211,7 +212,7 @@ class PapayaRequestTest extends PapayaTestCase {
   public function testSetPropertyLanguage() {
     $request = new PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
-    $request->language = $language = $this->createMock(PapayaContentLanguage::class);
+    $request->language = $language = $this->createMock(Language::class);
     $this->assertSame(
       $language,
       $request->language
@@ -223,7 +224,7 @@ class PapayaRequestTest extends PapayaTestCase {
   * @covers PapayaRequest::language
   */
   public function testGetPropertyLanguageId() {
-    $language = $this->createMock(PapayaContentLanguage::class);
+    $language = $this->createMock(Language::class);
     $language
       ->expects($this->once())
       ->method('__get')
@@ -240,7 +241,7 @@ class PapayaRequestTest extends PapayaTestCase {
   * @covers PapayaRequest::language
   */
   public function testGetPropertyLanguageCode() {
-    $language = $this->createMock(PapayaContentLanguage::class);
+    $language = $this->createMock(Language::class);
     $language
       ->expects($this->once())
       ->method('__get')

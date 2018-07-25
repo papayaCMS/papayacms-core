@@ -14,6 +14,8 @@
  */
 
 use Papaya\Administration\Languages\Selector;
+use Papaya\Content\Language;
+use Papaya\Content\Languages;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -23,7 +25,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
   * @covers Selector::languages
   */
   public function testLanguagesGetAfterSet() {
-    $languages = $this->createMock(PapayaContentLanguages::class);
+    $languages = $this->createMock(Languages::class);
     $switch = new Selector();
     $this->assertSame(
       $languages, $switch->languages($languages)
@@ -36,7 +38,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
   public function testLanguagesGetImplicitCreate() {
     $switch = new Selector();
     $this->assertInstanceOf(
-      PapayaContentLanguages::class, $switch->languages()
+      Languages::class, $switch->languages()
     );
   }
 
@@ -274,14 +276,14 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
   /*************************
    * Fixtures
    *************************
-
-  /*
+ *
+* /*
    *
    * @param array $languages
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaContentLanguages
+   * @return PHPUnit_Framework_MockObject_MockObject|Languages
    */
   public function getLanguagesFixture($languages = NULL) {
-    $language = $this->createMock(PapayaContentLanguage::class);
+    $language = $this->createMock(Language::class);
     $language
       ->expects($this->any())
       ->method('__get')
@@ -299,16 +301,16 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
         'is_content' => 1,
         'is_interface' => 1
       );
-    $defaultLanguage = new PapayaContentLanguage();
+    $defaultLanguage = new Language();
     if (is_array($defaultLanguageData)) {
       $defaultLanguage->assign($defaultLanguageData);
     }
 
-    $result = $this->createMock(PapayaContentLanguages::class);
+    $result = $this->createMock(Languages::class);
     $result
       ->expects($this->once())
       ->method('loadByUsage')
-      ->with($this->equalTo(PapayaContentLanguages::FILTER_IS_CONTENT))
+      ->with($this->equalTo(Languages::FILTER_IS_CONTENT))
       ->will($this->returnValue(TRUE));
     $result
       ->expects($this->any())

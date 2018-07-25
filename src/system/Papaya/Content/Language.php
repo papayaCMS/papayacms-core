@@ -13,29 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content;
 /**
-* Provide data encapsulation for a language record.
-*
-* Allows to load/save the page translation.
-*
-* @package Papaya-Library
-* @subpackage Content
-*
-* @property integer $id
-* @property string $identifier
-* @property string $code
-* @property string $title
-* @property string $image
-* @property integer $isInterface
-* @property integer $isContent
-*/
-class PapayaContentLanguage extends \PapayaDatabaseRecordLazy {
+ * Provide data encapsulation for a language record.
+ *
+ * Allows to load/save the page translation.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ *
+ * @property integer $id
+ * @property string $identifier
+ * @property string $code
+ * @property string $title
+ * @property string $image
+ * @property integer $isInterface
+ * @property integer $isContent
+ */
+class Language extends \PapayaDatabaseRecordLazy {
 
   /**
-  * Map properties to database fields
-  *
-  * @var array(string=>string)
-  */
+   * Map properties to database fields
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'id' => 'lng_id',
     'identifier' => 'lng_ident',
@@ -50,25 +51,25 @@ class PapayaContentLanguage extends \PapayaDatabaseRecordLazy {
 
   public function offsetGet($name) {
     switch ($name) {
-    case 'lng_id' :
-      return parent::offsetGet('id');
-    case 'lng_ident' :
-      return parent::offsetGet('identifier');
-    case 'lng_short' :
-      return parent::offsetGet('code');
-    case 'lng_title' :
-      return parent::offsetGet('title');
+      case 'lng_id' :
+        return parent::offsetGet('id');
+      case 'lng_ident' :
+        return parent::offsetGet('identifier');
+      case 'lng_short' :
+        return parent::offsetGet('code');
+      case 'lng_title' :
+        return parent::offsetGet('title');
     }
     return parent::offsetGet($name);
   }
 
   public function offsetExists($name) {
     switch ($name) {
-    case 'lng_id' :
-    case 'lng_ident' :
-    case 'lng_short' :
-    case 'lng_title' :
-      return TRUE;
+      case 'lng_id' :
+      case 'lng_ident' :
+      case 'lng_short' :
+      case 'lng_title' :
+        return TRUE;
     }
     return parent::offsetExists($name);
   }

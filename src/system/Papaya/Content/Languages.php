@@ -13,34 +13,35 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content;
 /**
-* Provide data encapsulation for the languages list.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentLanguages extends \PapayaDatabaseRecords {
+ * Provide data encapsulation for the languages list.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Languages extends \PapayaDatabaseRecords {
 
   /**
-  * All languages - filter disabled
-  */
+   * All languages - filter disabled
+   */
   const FILTER_NONE = 0;
 
   /**
-  * Content languages filter
-  */
+   * Content languages filter
+   */
   const FILTER_IS_CONTENT = 1;
 
   /**
-  * Interface languages filter
-  */
+   * Interface languages filter
+   */
   const FILTER_IS_INTERFACE = 2;
 
   /**
-  * Map field names to value identfiers
-  *
-  * @var array
-  */
+   * Map field names to value identfiers
+   *
+   * @var array
+   */
   protected $_fields = array(
     'id' => 'lng_id',
     'identifier' => 'lng_ident',
@@ -52,10 +53,10 @@ class PapayaContentLanguages extends \PapayaDatabaseRecords {
   );
 
   /**
-  * Languages table
-  *
-  * @var string
-  */
+   * Languages table
+   *
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::LANGUAGES;
 
   /**
@@ -64,17 +65,17 @@ class PapayaContentLanguages extends \PapayaDatabaseRecords {
   protected $_identifierProperties = array('id');
 
   /**
-  * A mapping of the unique language codes (de-DE) to the internal id
-  *
-  * @var array(string=>string,...)
-  */
+   * A mapping of the unique language codes (de-DE) to the internal id
+   *
+   * @var array(string=>string,...)
+   */
   protected $_mapCodes = array();
 
   /**
-  * A mapping of the unique language identifiers (de) to the internal id
-  *
-  * @var array(string=>string,...)
-  */
+   * A mapping of the unique language identifiers (de) to the internal id
+   *
+   * @var array(string=>string,...)
+   */
   protected $_mapIdentifiers = array();
 
   /**
@@ -86,11 +87,11 @@ class PapayaContentLanguages extends \PapayaDatabaseRecords {
   public function loadByUsage($usageFilter = self::FILTER_NONE) {
     $filter = [];
     switch ($usageFilter) {
-    case self::FILTER_IS_CONTENT :
-      $filter['is_content'] = TRUE;
+      case self::FILTER_IS_CONTENT :
+        $filter['is_content'] = TRUE;
       break;
-    case self::FILTER_IS_INTERFACE :
-      $filter['is_interface'] = TRUE;
+      case self::FILTER_IS_INTERFACE :
+        $filter['is_interface'] = TRUE;
       break;
     }
     return $this->load($filter);
@@ -122,7 +123,7 @@ class PapayaContentLanguages extends \PapayaDatabaseRecords {
    * object is called.
    *
    * @param string|int $language
-   * @return \PapayaContentLanguage
+   * @return \Papaya\Content\Language
    */
   public function getLanguage($language, $usageFilter = self::FILTER_NONE) {
     if (is_int($language) || preg_match('(^\\d+$)D', $language)) {
@@ -132,7 +133,7 @@ class PapayaContentLanguages extends \PapayaDatabaseRecords {
     }
     $result = NULL;
     if ($id > 0) {
-      $result = new \PapayaContentLanguage();
+      $result = new \Papaya\Content\Language();
       $result->papaya($this->papaya());
       $result->setDatabaseAccess($this->getDatabaseAccess());
       if (isset($this[$id])) {
@@ -147,15 +148,15 @@ class PapayaContentLanguages extends \PapayaDatabaseRecords {
     }
     if ($result) {
       switch ($usageFilter) {
-      case self::FILTER_IS_CONTENT:
-        if (!$result['is_content']) {
-          return NULL;
-        }
+        case self::FILTER_IS_CONTENT:
+          if (!$result['is_content']) {
+            return NULL;
+          }
         break;
-      case self::FILTER_IS_INTERFACE:
-        if (!$result['is_interface']) {
-          return NULL;
-        }
+        case self::FILTER_IS_INTERFACE:
+          if (!$result['is_interface']) {
+            return NULL;
+          }
         break;
       }
     }
@@ -163,15 +164,15 @@ class PapayaContentLanguages extends \PapayaDatabaseRecords {
   }
 
   /**
-  * Create a new language record object and assign the data from the list if available.
-  *
-  * @param string $code
-  * @return \PapayaContentLanguage
-  */
+   * Create a new language record object and assign the data from the list if available.
+   *
+   * @param string $code
+   * @return \Papaya\Content\Language
+   */
   public function getLanguageByCode($code) {
-    $result = new \PapayaContentLanguage();
+    $result = new \Papaya\Content\Language();
     if (isset($this->_mapCodes[$code]) &&
-        isset($this[$this->_mapCodes[$code]])) {
+      isset($this[$this->_mapCodes[$code]])) {
       $result->assign($this[$this->_mapCodes[$code]]);
       return $result;
     }
@@ -179,15 +180,15 @@ class PapayaContentLanguages extends \PapayaDatabaseRecords {
   }
 
   /**
-  * Create a new language record object and assign the data from the list if available.
-  *
-  * @param string $identifier
-  * @return \PapayaContentLanguage
-  */
+   * Create a new language record object and assign the data from the list if available.
+   *
+   * @param string $identifier
+   * @return \Papaya\Content\Language
+   */
   public function getLanguageByIdentifier($identifier) {
-    $result = new \PapayaContentLanguage();
+    $result = new \Papaya\Content\Language();
     if (isset($this->_mapIdentifiers[$identifier]) &&
-        isset($this[$this->_mapIdentifiers[$identifier]])) {
+      isset($this[$this->_mapIdentifiers[$identifier]])) {
       $result->assign($this[$this->_mapIdentifiers[$identifier]]);
       return $result;
     }
@@ -208,7 +209,7 @@ class PapayaContentLanguages extends \PapayaDatabaseRecords {
   }
 
   /**
-   * @return \PapayaContentLanguage
+   * @return \Papaya\Content\Language
    */
   public function getDefault() {
     if (count($this->_records) > 0 && ($id = array_keys($this->_records)[0])) {

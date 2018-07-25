@@ -35,13 +35,13 @@ class PapayaPhrases extends \PapayaObject {
   private $_storage;
 
   /**
-   * @var \PapayaContentLanguage
+   * @var \Papaya\Content\Language
    */
   private $_language;
 
   private $_defaultGroup;
 
-  public function __construct(\PapayaPhrasesStorage $storage, \PapayaContentLanguage $language) {
+  public function __construct(\PapayaPhrasesStorage $storage, \Papaya\Content\Language $language) {
     $this->_storage = $storage;
     $this->_language = $language;
   }
@@ -54,16 +54,16 @@ class PapayaPhrases extends \PapayaObject {
   }
 
   /**
-   * @return \PapayaContentLanguage
+   * @return \Papaya\Content\Language
    */
   public function getLanguage() {
     return $this->_language;
   }
 
   /**
-   * @param \PapayaContentLanguage $language
+   * @param \Papaya\Content\Language $language
    */
-  public function setLanguage(\PapayaContentLanguage $language) {
+  public function setLanguage(\Papaya\Content\Language $language) {
     $this->_language = $language;
   }
 
