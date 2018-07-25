@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Structure;
 use Papaya\Content\Structure\Group;
 use Papaya\Content\Structure\Page;
 use Papaya\Content\Structure\Pages;
@@ -23,7 +24,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaContentStructureTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaContentStructure::load
+   * @covers Structure::load
    */
   public function testLoad() {
     $pages = $this->createMock(Pages::class);
@@ -32,13 +33,13 @@ class PapayaContentStructureTest extends PapayaTestCase {
       ->method('load')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
 
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $definition->pages($pages);
     $definition->load(__DIR__.'/TestData/structure.xml');
   }
 
   /**
-   * @covers PapayaContentStructure::load
+   * @covers Structure::load
    */
   public function testLoadWithString() {
     $pages = $this->createMock(Pages::class);
@@ -47,13 +48,13 @@ class PapayaContentStructureTest extends PapayaTestCase {
       ->method('load')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
 
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $definition->pages($pages);
     $definition->load(/** @lang XML */'<structure/>');
   }
 
   /**
-   * @covers PapayaContentStructure::load
+   * @covers Structure::load
    */
   public function testLoadWithEmptyString() {
     $pages = $this->createMock(Pages::class);
@@ -61,13 +62,13 @@ class PapayaContentStructureTest extends PapayaTestCase {
       ->expects($this->never())
       ->method('load');
 
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $definition->pages($pages);
     $definition->load('');
   }
 
   /**
-   * @covers PapayaContentStructure::load
+   * @covers Structure::load
    */
   public function testLoadWithXmlElement() {
     $document = new PapayaXmlDocument();
@@ -79,16 +80,16 @@ class PapayaContentStructureTest extends PapayaTestCase {
       ->method('load')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
 
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $definition->pages($pages);
     $definition->load($node);
   }
 
   /**
-   * @covers PapayaContentStructure::getXmlDocument
+   * @covers Structure::getXmlDocument
    */
   public function testGetXmlDocumentWithExistingValue() {
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $definition->pages()->add($page = new Page());
     $page->name = 'page_one';
     $page->groups()->add($group = new Group($page));
@@ -117,10 +118,10 @@ class PapayaContentStructureTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentStructure::getXmlDocument
+   * @covers Structure::getXmlDocument
    */
   public function testGetXmlDocumentWithXhtmlValue() {
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $definition->pages()->add($page = new Page());
     $page->name = 'page_one';
     $page->groups()->add($group = new Group($page));
@@ -151,10 +152,10 @@ class PapayaContentStructureTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentStructure::getXmlDocument
+   * @covers Structure::getXmlDocument
    */
   public function testGetXmlDocumentWithEmptyValueUsingDefault() {
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $definition->pages()->add($page = new Page());
     $page->name = 'page_one';
     $page->groups()->add($group = new Group($page));
@@ -185,10 +186,10 @@ class PapayaContentStructureTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentStructure::getArray
+   * @covers Structure::getArray
    */
   public function testGetArrayFromXmlWithExistingValue() {
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $definition->pages()->add($page = new Page());
     $page->name = 'page_one';
     $page->groups()->add($group = new Group($page));
@@ -221,10 +222,10 @@ class PapayaContentStructureTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentStructure::getArray
+   * @covers Structure::getArray
    */
   public function testGetArrayFromXmlWithExistingXhtmlValue() {
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $definition->pages()->add($page = new Page());
     $page->name = 'page_one';
     $page->groups()->add($group = new Group($page));
@@ -258,49 +259,49 @@ class PapayaContentStructureTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaContentStructure::pages
+   * @covers Structure::pages
    */
   public function testPagesGetAfterSet() {
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $definition->pages($pages = new Pages());
     $this->assertSame($pages, $definition->pages());
   }
 
   /**
-   * @covers PapayaContentStructure::pages
+   * @covers Structure::pages
    */
   public function testPagesImplicitCreate() {
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $this->assertInstanceOf(Pages::class, $definition->pages());
   }
 
   /**
-   * @covers PapayaContentStructure::getIterator
+   * @covers Structure::getIterator
    */
   public function testGetIteratorReturnsPages() {
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $this->assertInstanceOf(Pages::class, $definition->getIterator());
   }
 
   /**
-   * @covers PapayaContentStructure::getPage
+   * @covers Structure::getPage
    */
   public function testGetPageExpectingPage() {
     $page = new Page();
     $page->name = 'PAGE';
     $pages = new Pages();
     $pages->add($page);
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $definition->pages($pages);
     $this->assertSame($page, $definition->getPage('PAGE'));
   }
 
   /**
-   * @covers PapayaContentStructure::getPage
+   * @covers Structure::getPage
    */
   public function testGetPageExpectingNull() {
     $pages = new Pages();
-    $definition = new PapayaContentStructure();
+    $definition = new Structure();
     $definition->pages($pages);
     $this->assertNull($definition->getPage('PAGE'));
   }
