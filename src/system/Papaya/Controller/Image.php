@@ -13,29 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-/**
-* Papaya controller class for dynamic images
-*
-* @package Papaya-Library
-* @subpackage Controller
-*/
-class PapayaControllerImage implements \PapayaController {
+namespace Papaya\Controller;
 
-  private $_imageGenerator = NULL;
+/**
+ * Papaya controller class for dynamic images
+ *
+ * @package Papaya-Library
+ * @subpackage Controller
+ */
+class Image implements \PapayaController {
+
+  private $_imageGenerator;
 
   /**
-  * Set image generator object
-  * @param base_imagegenerator $imageGenerator
-  * @return void
-  */
+   * Set image generator object
+   *
+   * @param \base_imagegenerator $imageGenerator
+   * @return void
+   */
   public function setImageGenerator($imageGenerator) {
     $this->_imageGenerator = $imageGenerator;
   }
 
   /**
-  * Get image generator object (implicit create)
-  * @return base_imagegenerator
-  */
+   * Get image generator object (implicit create)
+   *
+   * @return \base_imagegenerator
+   */
   public function getImageGenerator() {
     if (is_null($this->_imageGenerator)) {
       $this->_imageGenerator = new \base_imagegenerator();
@@ -44,7 +48,8 @@ class PapayaControllerImage implements \PapayaController {
   }
 
   /**
-  * Execute controller
+   * Execute controller
+   *
    * @param \Papaya\Application|\Papaya\Application\Cms $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
@@ -64,7 +69,7 @@ class PapayaControllerImage implements \PapayaController {
         'image_identifier', '', NULL, \PapayaRequest::SOURCE_PATH
       );
       if (!empty($ident) &&
-          $imgGenerator->loadByIdent($ident)) {
+        $imgGenerator->loadByIdent($ident)) {
         if ($imgGenerator->generateImage()) {
           return TRUE;
         } else {

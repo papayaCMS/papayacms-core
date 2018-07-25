@@ -1169,7 +1169,7 @@ class papaya_page extends base_object {
     $controllers = new Controller\Group();
     switch ($mode) {
     case 'image':
-      $controllers->add(new PapayaControllerImage());
+      $controllers->add(new Controller\Image());
       break;
     case 'urls':
       $controllers->add(new Controller\Callback(array($this, 'getUrls')));
