@@ -13,37 +13,41 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Csv;
 /**
-* Csv reader class
-*
-* @package Papaya-Library
-* @subpackage Csv
-*/
-class PapayaCsvReader {
+ * Csv reader class
+ *
+ * @package Papaya-Library
+ * @subpackage Csv
+ */
+class Reader {
 
   /**
-  * Maximum file size
-  * @var integer
-  */
+   * Maximum file size
+   *
+   * @var integer
+   */
   private $_maxFileSize = 0;
 
   /**
-  * Maximum line size
-  * @var integer
-  */
+   * Maximum line size
+   *
+   * @var integer
+   */
   private $_maxLineSize = 32000;
 
   /**
-  * Csv file name
-  * @var string
-  */
+   * Csv file name
+   *
+   * @var string
+   */
   private $_fileName = NULL;
 
   /**
-  * Initialize reader object and set file name.
-  *
-  * @param string $fileName
-  */
+   * Initialize reader object and set file name.
+   *
+   * @param string $fileName
+   */
   public function __construct($fileName) {
     \PapayaUtilConstraints::assertString($fileName);
     \PapayaUtilConstraints::assertNotEmpty($fileName);
@@ -51,20 +55,20 @@ class PapayaCsvReader {
   }
 
   /**
-  * Set a byte maximum for the allowed file size.
-  *
-  * @param integer $size
-  */
+   * Set a byte maximum for the allowed file size.
+   *
+   * @param integer $size
+   */
   public function setMaximumFileSize($size) {
     \PapayaUtilConstraints::assertInteger($size);
     $this->_maxFileSize = $size;
   }
 
   /**
-  * Set the maximum count of bytes readed for a line.
-  *
-  * @param integer $size
-  */
+   * Set the maximum count of bytes readed for a line.
+   *
+   * @param integer $size
+   */
   public function setMaximumLineSize($size) {
     \PapayaUtilConstraints::assertInteger($size);
     $this->_maxLineSize = $size;
@@ -83,8 +87,8 @@ class PapayaCsvReader {
    */
   public function isValid($allowLocal = FALSE) {
     if (file_exists($this->_fileName) &&
-        is_file($this->_fileName) &&
-        is_readable($this->_fileName)) {
+      is_file($this->_fileName) &&
+      is_readable($this->_fileName)) {
       if ($allowLocal || is_uploaded_file($this->_fileName)) {
         $fileSize = filesize($this->_fileName);
         if ($fileSize <= 0) {
@@ -143,10 +147,10 @@ class PapayaCsvReader {
   }
 
   /**
-  * Open the file and return the resource handle
-  *
-  * @return \Resource
-  */
+   * Open the file and return the resource handle
+   *
+   * @return \Resource
+   */
   protected function _getFileResource() {
     return fopen($this->_fileName, 'r');
   }
@@ -178,12 +182,12 @@ class PapayaCsvReader {
   }
 
   /**
-  * Get that char of a list of character that occurs in a string first
-  *
-  * @param string $string string to check
-  * @param array $characters array of characters
-  * @return string $char character that occurs first, otherwise an empty string
-  */
+   * Get that char of a list of character that occurs in a string first
+   *
+   * @param string $string string to check
+   * @param array $characters array of characters
+   * @return string $char character that occurs first, otherwise an empty string
+   */
   protected function _getFirstCharacter($string, $characters) {
     foreach ($characters as $char) {
       $position = strpos($string, $char);
@@ -203,13 +207,13 @@ class PapayaCsvReader {
   }
 
   /**
-  * Read a line from csv, parse it into an array and reutrn array and new offset
-  *
-  * @param \Resource $fh
-  * @param string $delimiter
-  * @param string $enclosure
-  * @return array(array,integer)
-  */
+   * Read a line from csv, parse it into an array and reutrn array and new offset
+   *
+   * @param \Resource $fh
+   * @param string $delimiter
+   * @param string $enclosure
+   * @return array(array,integer)
+   */
   protected function _readLine($fh, $delimiter, $enclosure) {
     $delimiter = preg_quote($delimiter);
     $enclosure = preg_quote($enclosure);
@@ -249,7 +253,7 @@ class PapayaCsvReader {
       /* no error checking for an invalid pattern,
          that should already result in a notice */
       while (1 === preg_match($pattern, substr($buffer, $offset), $matches, PREG_OFFSET_CAPTURE) &&
-             $offset < $bufferLength) {
+        $offset < $bufferLength) {
         if (empty($matches[1][0]) && isset($matches[2][0])) {
           $result[] = $matches[2][0];
         } else {

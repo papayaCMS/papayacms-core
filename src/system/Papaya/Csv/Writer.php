@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Csv;
 /**
-* Cav writer allows you write data as csv into a stream or output.
-*
-* @package Papaya-Library
-* @subpackage Csv
-*
-* @property resource|NULL $stream
-* @property string $linebreak
-* @property string $encodedLinebreak
-* @property string $separator
-* @property-read integer $separatorLength
-* @property string $quote
-*/
-class PapayaCsvWriter {
+ * Cav writer allows you write data as csv into a stream or output.
+ *
+ * @package Papaya-Library
+ * @subpackage Csv
+ *
+ * @property resource|NULL $stream
+ * @property string $linebreak
+ * @property string $encodedLinebreak
+ * @property string $separator
+ * @property-read integer $separatorLength
+ * @property string $quote
+ */
+class Writer {
 
   private $_callbacks = NULL;
   private $_stream = NULL;
@@ -38,12 +39,12 @@ class PapayaCsvWriter {
   private $_encodedLinebreak = '\n';
 
   /**
-  * Create object and store output stream, if no stream if provided, the standard output will be
-  * used.
-  *
-  * @param resource|NULL $stream
-  * @param boolean $addByteOrderMark optional, default FALSE
-  */
+   * Create object and store output stream, if no stream if provided, the standard output will be
+   * used.
+   *
+   * @param resource|NULL $stream
+   * @param boolean $addByteOrderMark optional, default FALSE
+   */
   public function __construct($stream = NULL, $addByteOrderMark = FALSE) {
     if (isset($stream)) {
       $this->_stream = $stream;
@@ -66,22 +67,22 @@ class PapayaCsvWriter {
    */
   public function __get($name) {
     switch ($name) {
-    case 'stream' :
-      return $this->_stream;
-    case 'linebreak' :
-      return $this->_linebreak;
-    case 'encodedLinebreak' :
-      return $this->_encodedLinebreak;
-    case 'separator' :
-      return $this->_separator;
-    case 'separatorLength' :
-      return $this->_separatorLength;
-    case 'quote' :
-      return $this->_quote;
-    default :
-      throw new \UnexpectedValueException(
-        sprintf('Can not read undefined property "%s".', $name)
-      );
+      case 'stream' :
+        return $this->_stream;
+      case 'linebreak' :
+        return $this->_linebreak;
+      case 'encodedLinebreak' :
+        return $this->_encodedLinebreak;
+      case 'separator' :
+        return $this->_separator;
+      case 'separatorLength' :
+        return $this->_separatorLength;
+      case 'quote' :
+        return $this->_quote;
+      default :
+        throw new \UnexpectedValueException(
+          sprintf('Can not read undefined property "%s".', $name)
+        );
     }
   }
 
@@ -94,43 +95,43 @@ class PapayaCsvWriter {
    */
   public function __set($name, $value) {
     switch ($name) {
-    case 'stream' :
-      $this->_stream = $value;
+      case 'stream' :
+        $this->_stream = $value;
       break;
-    case 'linebreak' :
-      \PapayaUtilConstraints::assertString($value);
-      $this->_linebreak = $value;
+      case 'linebreak' :
+        \PapayaUtilConstraints::assertString($value);
+        $this->_linebreak = $value;
       break;
-    case 'encodedLinebreak' :
-      \PapayaUtilConstraints::assertString($value);
-      $this->_encodedLinebreak = $value;
+      case 'encodedLinebreak' :
+        \PapayaUtilConstraints::assertString($value);
+        $this->_encodedLinebreak = $value;
       break;
-    case 'separator' :
-      \PapayaUtilConstraints::assertString($value);
-      $this->_separator = $value;
-      $this->_separatorLength = strlen($this->_separator);
+      case 'separator' :
+        \PapayaUtilConstraints::assertString($value);
+        $this->_separator = $value;
+        $this->_separatorLength = strlen($this->_separator);
       break;
-    case 'separatorLength' :
-      throw new \UnexpectedValueException(
-        sprintf('Can not write read only property "%s".', $name)
-      );
-    case 'quote' :
-      \PapayaUtilConstraints::assertString($value);
-      $this->_quote = $value;
+      case 'separatorLength' :
+        throw new \UnexpectedValueException(
+          sprintf('Can not write read only property "%s".', $name)
+        );
+      case 'quote' :
+        \PapayaUtilConstraints::assertString($value);
+        $this->_quote = $value;
       break;
-    default :
-      throw new \UnexpectedValueException(
-        sprintf('Can not write undefined property "%s".', $name)
-      );
+      default :
+        throw new \UnexpectedValueException(
+          sprintf('Can not write undefined property "%s".', $name)
+        );
     }
   }
 
   /**
-  * Write the csv header (the column names) this is basically the same as as writeRow but
-  * calls a different callback to map the given column names.
-  *
-  * @param array|\Traversable $row
-  */
+   * Write the csv header (the column names) this is basically the same as as writeRow but
+   * calls a different callback to map the given column names.
+   *
+   * @param array|\Traversable $row
+   */
   public function writeHeader($row) {
     if (isset($this->callbacks()->onMapHeader)) {
       $row = $this->callbacks()->onMapHeader($row);
@@ -139,10 +140,10 @@ class PapayaCsvWriter {
   }
 
   /**
-  * Write a csv data row. A callback is executed to map the values if needed.
-  *
-  * @param array|\Traversable $row
-  */
+   * Write a csv data row. A callback is executed to map the values if needed.
+   *
+   * @param array|\Traversable $row
+   */
   public function writeRow($row) {
     if (isset($this->callbacks()->onMapRow)) {
       $row = $this->callbacks()->onMapRow($row);
@@ -163,14 +164,14 @@ class PapayaCsvWriter {
   }
 
   /**
-  * Serialize the parameter into an string and write it to the csv output target using
-  * writeString().
-  *
-  * If the output is written to the standard output (and not to a stream) flush() is
-  * called.
-  *
-  * @param $row
-  */
+   * Serialize the parameter into an string and write it to the csv output target using
+   * writeString().
+   *
+   * If the output is written to the standard output (and not to a stream) flush() is
+   * called.
+   *
+   * @param $row
+   */
   private function write($row) {
     if (is_array($row) || $row instanceof \Traversable) {
       $result = '';
@@ -192,7 +193,7 @@ class PapayaCsvWriter {
    */
   private function quoteValue($value) {
     $quotesNeeded =
-       '('.preg_quote($this->_quote).'|'.preg_quote($this->_separator).'|[\r\n])';
+      '('.preg_quote($this->_quote).'|'.preg_quote($this->_separator).'|[\r\n])';
     if (preg_match($quotesNeeded, $value)) {
       $encoded = preg_replace(
         array(
@@ -212,10 +213,10 @@ class PapayaCsvWriter {
   }
 
   /**
-  * Write a string to the attached stream or output it if no stream is attached.
-  *
-  * @param string $string
-  */
+   * Write a string to the attached stream or output it if no stream is attached.
+   *
+   * @param string $string
+   */
   private function writeString($string) {
     if (isset($this->_stream)) {
       fwrite($this->_stream, $string);
@@ -225,16 +226,16 @@ class PapayaCsvWriter {
   }
 
   /**
-  * Getter/Setter for the callbacks subobject handlign the mapping callbacks
-  *
-  * @param \PapayaCsvWriterCallbacks $callbacks
-  * @return \PapayaCsvWriterCallbacks
-  */
-  public function callbacks(\PapayaCsvWriterCallbacks $callbacks = NULL) {
+   * Getter/Setter for the callbacks subobject handlign the mapping callbacks
+   *
+   * @param \Papaya\Csv\Writer\Callbacks $callbacks
+   * @return \Papaya\Csv\Writer\Callbacks
+   */
+  public function callbacks(\Papaya\Csv\Writer\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new \PapayaCsvWriterCallbacks();
+      $this->_callbacks = new \Papaya\Csv\Writer\Callbacks();
     }
     return $this->_callbacks;
   }

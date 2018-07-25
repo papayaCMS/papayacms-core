@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Csv\Writer;
+
 /**
-* Callbacks that are used by the csv writer
-*
-* @package Papaya-Library
-* @subpackage Csv
-*
-* @property PapayaObjectCallback $onMapRow
-* @property PapayaObjectCallback $onMapHeader
-* @method array onMapRow
-* @method array onMapHeader
-*/
-class PapayaCsvWriterCallbacks extends \PapayaObjectCallbacks {
+ * Callbacks that are used by the csv writer
+ *
+ * @package Papaya-Library
+ * @subpackage Csv
+ *
+ * @property \PapayaObjectCallback $onMapRow
+ * @property \PapayaObjectCallback $onMapHeader
+ * @method array onMapRow
+ * @method array onMapHeader
+ */
+class Callbacks extends \PapayaObjectCallbacks {
 
   public function __construct() {
     parent::__construct(
