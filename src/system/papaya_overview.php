@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration;
+use Papaya\Content;
 
 /**
 * Create topic list
@@ -1066,14 +1067,14 @@ class papaya_overview extends base_db {
   /**
    * Getter/Setter for a modules list subobject
    *
-   * @param \PapayaContentModules $modules
-   * @return \PapayaContentModules
+   * @param \Papaya\Content\Modules $modules
+   * @return \Papaya\Content\Modules
    */
-  public function modules(PapayaContentModules $modules = NULL) {
+  public function modules(Content\Modules $modules = NULL) {
     if (isset($modules)) {
       $this->_modules = $modules;
     } elseif (NULL == $this->_modules) {
-      $this->_modules = new PapayaContentModules();
+      $this->_modules = new Content\Modules();
       $this->_modules->papaya($this->papaya());
     }
     return $this->_modules;

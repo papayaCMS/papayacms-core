@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content;
 /**
-* This object loads module/plugin records into a list.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentModules extends \PapayaDatabaseRecordsLazy {
+ * This object loads module/plugin records into a list.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Modules extends \PapayaDatabaseRecordsLazy {
 
   /**
-  * Map field names to more convinient property names
-  *
-  * @var array(string=>string)
-  */
+   * Map field names to more convinient property names
+   *
+   * @var array(string=>string)
+   */
   protected $_fields = array(
     'id' => 'module_guid',
     'type' => 'module_type',
@@ -42,10 +43,10 @@ class PapayaContentModules extends \PapayaDatabaseRecordsLazy {
   );
 
   /**
-  * Table containing module/plugin informations
-  *
-  * @var string
-  */
+   * Table containing module/plugin informations
+   *
+   * @var string
+   */
   protected $_tableName = \PapayaContentTables::MODULES;
 
   protected $_orderByProperties = array(
