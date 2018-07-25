@@ -149,8 +149,8 @@ class Change extends \PapayaUiControlCommandDialog {
                AND v.view_id = tt.view_id
              GROUP BY tt.lng_id";
     $parameters = array(
-      $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
-      $databaseAccess->getTableName(\PapayaContentTables::VIEWS),
+      $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
+      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEWS),
       $record->id,
       $record->originId
     );

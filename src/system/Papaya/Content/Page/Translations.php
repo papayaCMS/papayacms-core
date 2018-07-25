@@ -39,7 +39,7 @@ class Translations extends \PapayaDatabaseObjectList {
     'view_title' => 'view',
   );
 
-  protected $_translationsTableName = \PapayaContentTables::PAGE_TRANSLATIONS;
+  protected $_translationsTableName = \Papaya\Content\Tables::PAGE_TRANSLATIONS;
 
   /**
    * Change the main page table name
@@ -69,8 +69,8 @@ class Translations extends \PapayaDatabaseObjectList {
              WHERE tt.topic_id = %d";
     $parameters = array(
       $this->databaseGetTableName($this->_translationsTableName),
-      $this->databaseGetTableName(\PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS),
-      $this->databaseGetTableName(\PapayaContentTables::VIEWS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
       (int)$pageId
     );
     return $this->_loadRecords($sql, $parameters, 'lng_id');

@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Pages\Dependency\Counter;
+use Papaya\Content\Tables;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -56,8 +57,8 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.PapayaContentTables::PAGE_DEPENDENCIES,
-          'table_'.PapayaContentTables::PAGE_REFERENCES,
+          'table_'.Tables::PAGE_DEPENDENCIES,
+          'table_'.Tables::PAGE_REFERENCES,
           42
         )
       )

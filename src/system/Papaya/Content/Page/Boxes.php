@@ -48,7 +48,7 @@ class Boxes extends \PapayaDatabaseObjectList {
              WHERE topic_id = '%d'
              ORDER BY box_sort, box_id";
     $parameters = array(
-      $this->databaseGetTableName(\PapayaContentTables::PAGE_BOXES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_BOXES),
       $pageId
     );
     return $this->_loadRecords($sql, $parameters);
@@ -62,7 +62,7 @@ class Boxes extends \PapayaDatabaseObjectList {
    */
   public function delete($pageIds) {
     return FALSE !== $this->databaseDeleteRecord(
-        $this->databaseGetTableName(\PapayaContentTables::PAGE_BOXES),
+        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_BOXES),
         'topic_id',
         \PapayaUtilArray::ensure($pageIds)
       );
@@ -91,7 +91,7 @@ class Boxes extends \PapayaDatabaseObjectList {
         }
       }
       return FALSE !== $this->databaseInsertRecords(
-          $this->databaseGetTableName(\PapayaContentTables::PAGE_BOXES),
+          $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_BOXES),
           $records
         );
     }

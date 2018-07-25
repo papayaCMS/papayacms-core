@@ -59,10 +59,10 @@ class Translation extends \PapayaDatabaseRecordLazy {
     'module_guid' => 'v.module_guid'
   );
 
-  protected $_tableName = \PapayaContentTables::PAGE_TRANSLATIONS;
+  protected $_tableName = \Papaya\Content\Tables::PAGE_TRANSLATIONS;
   protected $_tableAlias = 'tt';
 
-  protected $_tableNameViews = \PapayaContentTables::VIEWS;
+  protected $_tableNameViews = \Papaya\Content\Tables::VIEWS;
 
   public function load($filter) {
     $fields = implode(', ', $this->mapping()->getFields());

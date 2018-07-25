@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Page\References;
+use Papaya\Content\Tables;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -60,9 +61,9 @@ class PapayaContentPageReferencesTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.PapayaContentTables::PAGE_REFERENCES,
-          'table_'.PapayaContentTables::PAGES,
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.Tables::PAGE_REFERENCES,
+          'table_'.Tables::PAGES,
+          'table_'.Tables::PAGE_TRANSLATIONS,
           42,
           1
         )

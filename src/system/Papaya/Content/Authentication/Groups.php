@@ -34,5 +34,5 @@ class Groups extends \PapayaDatabaseRecordsLazy {
 
   protected $_identifierProperties = 'id';
 
-  protected $_tableName = \PapayaContentTables::AUTHENTICATION_GROUPS;
+  protected $_tableName = \Papaya\Content\Tables::AUTHENTICATION_GROUPS;
 }

@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Community\Groups;
+use Papaya\Content\Tables;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -44,8 +45,8 @@ class PapayaContentCommunityGroupsTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.PapayaContentTables::COMMUNITY_GROUPS,
-          'table_'.PapayaContentTables::COMMUNITY_GROUP_PERMISSIONS,
+          'table_'.Tables::COMMUNITY_GROUPS,
+          'table_'.Tables::COMMUNITY_GROUP_PERMISSIONS,
           23
         )
       )

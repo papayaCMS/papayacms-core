@@ -47,6 +47,6 @@ class Sets extends \PapayaDatabaseRecordsLazy {
    *
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::THEME_SETS;
+  protected $_tableName = \Papaya\Content\Tables::THEME_SETS;
 
 }

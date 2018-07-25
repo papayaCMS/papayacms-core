@@ -73,7 +73,7 @@ class Properties
   protected function updateTranslations(\Papaya\Content\Page\Translation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
-        $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
+        $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
         array(
           'topic_title' => $origin->title,
           'meta_title' => $origin->metaTitle,
@@ -97,7 +97,7 @@ class Properties
   protected function updatePages(\Papaya\Content\Page\Work $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
-        $databaseAccess->getTableName(\PapayaContentTables::PAGES),
+        $databaseAccess->getTableName(\Papaya\Content\Tables::PAGES),
         array(
           'topic_modified' => $databaseAccess->getTimestamp(),
           'topic_mainlanguage' => $origin->defaultLanguage,

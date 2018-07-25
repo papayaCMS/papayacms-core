@@ -39,7 +39,7 @@ class Users extends \PapayaDatabaseRecords {
     'surfer_email' => \PapayaDatabaseInterfaceOrder::ASCENDING
   );
 
-  protected $_tableName = \PapayaContentTables::COMMUNITY_USER;
+  protected $_tableName = \Papaya\Content\Tables::COMMUNITY_USER;
 
   /**
    * If a filter element is provided this is used to search fulltext on all surfers.

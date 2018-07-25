@@ -95,8 +95,8 @@ class Counter extends \PapayaDatabaseObject {
              WHERE topic_source_id = %3\$d
                 OR topic_target_id = %3\$d";
     $parameters = array(
-      $this->databaseGetTableName(\PapayaContentTables::PAGE_DEPENDENCIES),
-      $this->databaseGetTableName(\PapayaContentTables::PAGE_REFERENCES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_DEPENDENCIES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_REFERENCES),
       $this->_pageId
     );
     if ($databaseResult = $this->databaseQueryFmt($sql, $parameters)) {

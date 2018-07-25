@@ -15,6 +15,7 @@
 
 use Papaya\Content\Language;
 use Papaya\Content\Languages;
+use Papaya\Content\Tables;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -56,7 +57,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.PapayaContentTables::LANGUAGES))
+      ->with($this->isType('string'), array('table_'.Tables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
     $languages = new Languages();
     $languages->setDatabaseAccess($databaseAccess);
@@ -170,7 +171,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.PapayaContentTables::LANGUAGES))
+      ->with($this->isType('string'), array('table_'.Tables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
     $languages = new Languages();
     $languages->setDatabaseAccess($databaseAccess);
@@ -210,7 +211,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.PapayaContentTables::LANGUAGES))
+      ->with($this->isType('string'), array('table_'.Tables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
     $languages = new Languages();
     $languages->setDatabaseAccess($databaseAccess);
@@ -313,7 +314,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.PapayaContentTables::LANGUAGES))
+      ->with($this->isType('string'), array('table_'.Tables::LANGUAGES))
       ->will($this->returnValue($databaseResult));
     $languages = new Languages();
     $languages->setDatabaseAccess($databaseAccess);

@@ -56,7 +56,7 @@ abstract class Box extends \PapayaDatabaseObjectRecord {
     'unpublished_translations' => 'box_unpublished_languages'
   );
 
-  protected $_tableName = \PapayaContentTables::BOXES;
+  protected $_tableName = \Papaya\Content\Tables::BOXES;
 
   /**
    * Box translations list object

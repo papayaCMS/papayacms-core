@@ -43,7 +43,7 @@ class Domains extends \PapayaDatabaseRecords {
    *
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::DOMAINS;
+  protected $_tableName = \Papaya\Content\Tables::DOMAINS;
 
   protected $_identifierProperties = array('id');
 

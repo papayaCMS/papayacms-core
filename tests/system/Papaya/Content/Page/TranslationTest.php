@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Page\Translation;
+use Papaya\Content\Tables;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -50,8 +51,8 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
-          'table_'.PapayaContentTables::VIEWS
+          'table_'.Tables::PAGE_TRANSLATIONS,
+          'table_'.Tables::VIEWS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -111,8 +112,8 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
-          'table_'.PapayaContentTables::VIEWS
+          'table_'.Tables::PAGE_TRANSLATIONS,
+          'table_'.Tables::VIEWS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -152,8 +153,8 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
-          'table_'.PapayaContentTables::VIEWS
+          'table_'.Tables::PAGE_TRANSLATIONS,
+          'table_'.Tables::VIEWS
         )
       )
       ->will($this->returnValue(FALSE));
@@ -181,8 +182,8 @@ class PapayaContentPageTranslationTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
-          'table_'.PapayaContentTables::VIEWS
+          'table_'.Tables::PAGE_TRANSLATIONS,
+          'table_'.Tables::VIEWS
         )
       )
       ->will($this->returnValue($databaseResult));

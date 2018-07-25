@@ -47,7 +47,7 @@ class Language extends \PapayaDatabaseRecordLazy {
     'is_content' => 'is_content_lng'
   );
 
-  protected $_tableName = \PapayaContentTables::LANGUAGES;
+  protected $_tableName = \Papaya\Content\Tables::LANGUAGES;
 
   public function offsetGet($name) {
     switch ($name) {

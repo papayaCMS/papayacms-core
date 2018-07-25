@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Domains;
+use Papaya\Content\Tables;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -44,7 +45,7 @@ class PapayaContentDomainsTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('table_'.PapayaContentTables::DOMAINS)
+        array('table_'.Tables::DOMAINS)
       )
       ->will($this->returnValue($databaseResult));
     $pages = new Domains();
@@ -88,7 +89,7 @@ class PapayaContentDomainsTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('table_'.PapayaContentTables::DOMAINS)
+        array('table_'.Tables::DOMAINS)
       )
       ->will($this->returnValue($databaseResult));
     $pages = new Domains();

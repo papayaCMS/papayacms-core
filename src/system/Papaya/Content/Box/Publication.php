@@ -60,7 +60,7 @@ class Publication extends \Papaya\Content\Box {
     'published_to' => 'box_public_to'
   );
 
-  protected $_tableName = \PapayaContentTables::BOX_PUBLICATIONS;
+  protected $_tableName = \Papaya\Content\Tables::BOX_PUBLICATIONS;
 
   public function save() {
     if ($this->id > 0) {

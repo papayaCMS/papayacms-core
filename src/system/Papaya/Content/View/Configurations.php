@@ -40,7 +40,7 @@ class Configurations extends \PapayaDatabaseRecordsLazy {
    *
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::VIEW_CONFIGURATIONS;
+  protected $_tableName = \Papaya\Content\Tables::VIEW_CONFIGURATIONS;
 
   /**
    * @param array|string|int $filter
@@ -71,12 +71,12 @@ class Configurations extends \PapayaDatabaseRecordsLazy {
                JOIN %s m ON (m.module_guid = vm.module_guid)
                $filter";
     $parameters = array(
-      $databaseAccess->getTableName(\PapayaContentTables::VIEW_CONFIGURATIONS),
-      $databaseAccess->getTableName(\PapayaContentTables::VIEW_MODES),
-      $databaseAccess->getTableName(\PapayaContentTables::MODULES),
-      $databaseAccess->getTableName(\PapayaContentTables::VIEW_DATAFILTER_CONFIGURATIONS),
-      $databaseAccess->getTableName(\PapayaContentTables::VIEW_DATAFILTERS),
-      $databaseAccess->getTableName(\PapayaContentTables::MODULES)
+      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_CONFIGURATIONS),
+      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_MODES),
+      $databaseAccess->getTableName(\Papaya\Content\Tables::MODULES),
+      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_DATAFILTER_CONFIGURATIONS),
+      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEW_DATAFILTERS),
+      $databaseAccess->getTableName(\Papaya\Content\Tables::MODULES)
     );
     return parent::_loadRecords($sql, $parameters, $limit, $offset);
   }

@@ -34,7 +34,7 @@ class Groups extends \PapayaDatabaseRecords {
 
   protected $_identifierProperties = 'id';
 
-  protected $_tableName = \PapayaContentTables::COMMUNITY_GROUPS;
+  protected $_tableName = \Papaya\Content\Tables::COMMUNITY_GROUPS;
 
   /**
    * This method can be used to load the group records by a given permission id
@@ -55,7 +55,7 @@ class Groups extends \PapayaDatabaseRecords {
              ) ".$this->_compileOrderBy();
     $parameters = array(
       $databaseAccess->getTableName($this->_tableName),
-      $databaseAccess->getTableName(\PapayaContentTables::COMMUNITY_GROUP_PERMISSIONS),
+      $databaseAccess->getTableName(\Papaya\Content\Tables::COMMUNITY_GROUP_PERMISSIONS),
       (int)$permission
     );
     return $this->_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);

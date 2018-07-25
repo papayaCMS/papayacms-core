@@ -53,10 +53,10 @@ class Phrases extends \PapayaDatabaseRecords {
         $this->_compileCondition($filter, ' AND ').$this->_compileOrderBy()
       );
       $parameters = array(
-        $databaseAccess->getTableName(\PapayaContentTables::PHRASES),
-        $databaseAccess->getTableName(\PapayaContentTables::PHRASE_GROUPS),
-        $databaseAccess->getTableName(\PapayaContentTables::PHRASE_GROUP_LINKS),
-        $databaseAccess->getTableName(\PapayaContentTables::PHRASE_TRANSLATIONS),
+        $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASES),
+        $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_GROUPS),
+        $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_GROUP_LINKS),
+        $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_TRANSLATIONS),
         \PapayaUtilArray::get($filter, 'language_id', 0),
         $group
       );
@@ -68,8 +68,8 @@ class Phrases extends \PapayaDatabaseRecords {
         $this->_compileCondition($filter).$this->_compileOrderBy()
       );
       $parameters = array(
-        $databaseAccess->getTableName(\PapayaContentTables::PHRASES),
-        $databaseAccess->getTableName(\PapayaContentTables::PHRASE_TRANSLATIONS),
+        $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASES),
+        $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_TRANSLATIONS),
         \PapayaUtilArray::get($filter, 'language_id', 0)
       );
     }

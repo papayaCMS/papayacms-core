@@ -403,7 +403,7 @@ class Cms extends GlobalValues {
   /**
    * Define the database table name constants, these constants should be replaced by
    * calls to {@see \PapayaDatabaseAcccess::getTableName()} using the class constants in
-   * {@see PapayaContentTables}.
+   * {@see Papaya\Content\PapayaContentTables}.
    *
    * But for now the use of these constants is scattered all over the source in the
    * base system and modules, so we need to define them for compatibility.
@@ -412,7 +412,7 @@ class Cms extends GlobalValues {
    */
   public function defineDatabaseTables() {
     $prefix = $this->get('PAPAYA_DB_TABLEPREFIX', 'papaya');
-    foreach (\PapayaContentTables::getTables() as $tableConstant => $tableName) {
+    foreach (\Papaya\Content\Tables::getTables() as $tableConstant => $tableName) {
       if (!defined($tableConstant)) {
         define($tableConstant, $prefix.'_'.$tableName);
       }

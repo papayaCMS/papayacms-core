@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Tables;
 use Papaya\Content\View\Configurations;
 
 require_once __DIR__.'/../../../../bootstrap.php';
@@ -47,12 +48,12 @@ class PapayaContentViewConfigurationsTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
-          'table_'.PapayaContentTables::VIEW_MODES,
-          'table_'.PapayaContentTables::MODULES,
-          'table_'.PapayaContentTables::VIEW_DATAFILTER_CONFIGURATIONS,
-          'table_'.PapayaContentTables::VIEW_DATAFILTERS,
-          'table_'.PapayaContentTables::MODULES
+          'table_'.Tables::VIEW_CONFIGURATIONS,
+          'table_'.Tables::VIEW_MODES,
+          'table_'.Tables::MODULES,
+          'table_'.Tables::VIEW_DATAFILTER_CONFIGURATIONS,
+          'table_'.Tables::VIEW_DATAFILTERS,
+          'table_'.Tables::MODULES
         ),
         10,
         0

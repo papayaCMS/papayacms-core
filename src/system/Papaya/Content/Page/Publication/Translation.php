@@ -39,5 +39,5 @@ namespace Papaya\Content\Page\Publication;
  */
 class Translation extends \Papaya\Content\Page\Translation {
 
-  protected $_tableNamePageTranslations = \PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS;
+  protected $_tableNamePageTranslations = \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS;
 }

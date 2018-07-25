@@ -68,8 +68,8 @@ class Folders extends \PapayaDatabaseRecordsTree {
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $parameters = array(
-      $this->getDatabaseAccess()->getTableName(\PapayaContentTables::MEDIA_FOLDERS),
-      $this->getDatabaseAccess()->getTableName(\PapayaContentTables::MEDIA_FOLDER_TRANSLATIONS),
+      $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::MEDIA_FOLDERS),
+      $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::MEDIA_FOLDER_TRANSLATIONS),
       $languageId
     );
     return $this->_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);

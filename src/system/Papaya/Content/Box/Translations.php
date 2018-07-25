@@ -55,9 +55,9 @@ class Translations extends \PapayaDatabaseObjectList {
               LEFT OUTER JOIN %s v ON (v.view_id = tt.view_id)
              WHERE tt.box_id = %d";
     $parameters = array(
-      $this->databaseGetTableName(\PapayaContentTables::BOX_TRANSLATIONS),
-      $this->databaseGetTableName(\PapayaContentTables::BOX_PUBLICATION_TRANSLATIONS),
-      $this->databaseGetTableName(\PapayaContentTables::VIEWS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::BOX_TRANSLATIONS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
       (int)$boxId
     );
     return $this->_loadRecords($sql, $parameters, 'lng_id');

@@ -30,6 +30,6 @@ class Status extends \PapayaDatabaseRecord {
     'sessionMode' => 'topic_sessionmode'
   );
 
-  protected $_tableName = \PapayaContentTables::PAGES;
+  protected $_tableName = \Papaya\Content\Tables::PAGES;
 
 }

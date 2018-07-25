@@ -35,6 +35,6 @@ namespace Papaya\Content\Box\Version;
  */
 class Translation extends \Papaya\Content\Box\Translation {
 
-  protected $_tableNameBoxTranslations = \PapayaContentTables::BOX_VERSION_TRANSLATIONS;
+  protected $_tableNameBoxTranslations = \Papaya\Content\Tables::BOX_VERSION_TRANSLATIONS;
 
 }

@@ -38,7 +38,7 @@ class Group extends \PapayaDatabaseRecordLazy {
   /**
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::DOMAIN_GROUPS;
+  protected $_tableName = \Papaya\Content\Tables::DOMAIN_GROUPS;
 
   /**
    * Create callbacks subobject, override to assign callbacks
@@ -55,7 +55,7 @@ class Group extends \PapayaDatabaseRecordLazy {
     if ($this->id > 0) {
       $databaseAccess = $this->getDatabaseAccess();
       return FALSE !== $databaseAccess->updateRecord(
-          $databaseAccess->getTableName(\PapayaContentTables::DOMAINS),
+          $databaseAccess->getTableName(\Papaya\Content\Tables::DOMAINS),
           array('domaingroup_id' => 0),
           array('domaingroup_id' => $this->id)
         );

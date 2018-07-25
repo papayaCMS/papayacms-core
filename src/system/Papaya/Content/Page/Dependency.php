@@ -86,7 +86,7 @@ class Dependency extends \PapayaDatabaseRecord {
     'note' => 'topic_note'
   );
 
-  protected $_tableName = \PapayaContentTables::PAGE_DEPENDENCIES;
+  protected $_tableName = \Papaya\Content\Tables::PAGE_DEPENDENCIES;
 
   /**
    * Create a multi field key object containg both page id properties

@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Tables;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaDatabaseAccessTest extends PapayaTestCase {
@@ -225,7 +227,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   * @covers PapayaDatabaseAccess::getTableName
   */
   public function testGetTableName() {
-    $tables = $this->createMock(PapayaContentTables::class);
+    $tables = $this->createMock(Tables::class);
     $tables
       ->expects($this->once())
       ->method('get')
@@ -240,7 +242,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   * @covers PapayaDatabaseAccess::getTableName
   */
   public function testGetTableNameWithoutPrefix() {
-    $tables = $this->createMock(PapayaContentTables::class);
+    $tables = $this->createMock(Tables::class);
     $tables
       ->expects($this->once())
       ->method('get')
@@ -265,7 +267,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   * @covers PapayaDatabaseAccess::tables
   */
   public function testTablesGetAfterSet() {
-    $tables = $this->createMock(PapayaContentTables::class);
+    $tables = $this->createMock(Tables::class);
     $access = new PapayaDatabaseAccess(new stdClass(), 'read', 'write');
     $this->assertSame($tables, $access->tables($tables));
   }
@@ -275,7 +277,7 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
   */
   public function testTablesImplicitCreate() {
     $access = new PapayaDatabaseAccess(new stdClass(), 'read', 'write');
-    $this->assertInstanceOf(PapayaContentTables::class, $access->tables());
+    $this->assertInstanceOf(Tables::class, $access->tables());
   }
 
   /**

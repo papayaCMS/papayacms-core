@@ -99,7 +99,7 @@ class Permissions
    *
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::AUTHENTICATION_PERMISSIONS;
+  protected $_tableName = \Papaya\Content\Tables::AUTHENTICATION_PERMISSIONS;
 
   protected $_identifierProperties = array('id');
 

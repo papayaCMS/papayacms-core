@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Page\Reference;
+use Papaya\Content\Tables;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -69,7 +70,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.PapayaContentTables::PAGE_REFERENCES, 21, 48))
+      ->with($this->isType('string'), array('table_'.Tables::PAGE_REFERENCES, 21, 48))
       ->will($this->returnValue($databaseResult));
     $reference = new Reference();
     $reference->setDatabaseAccess($databaseAccess);
@@ -89,7 +90,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.PapayaContentTables::PAGE_REFERENCES, 21, 48))
+      ->with($this->isType('string'), array('table_'.Tables::PAGE_REFERENCES, 21, 48))
       ->will($this->returnValue($databaseResult));
     $reference = new Reference();
     $reference->setDatabaseAccess($databaseAccess);
@@ -104,7 +105,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.PapayaContentTables::PAGE_REFERENCES, 21, 48))
+      ->with($this->isType('string'), array('table_'.Tables::PAGE_REFERENCES, 21, 48))
       ->will($this->returnValue(FALSE));
     $reference = new Reference();
     $reference->setDatabaseAccess($databaseAccess);

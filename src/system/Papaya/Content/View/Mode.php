@@ -56,5 +56,5 @@ class Mode extends \PapayaDatabaseRecordLazy {
    *
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::VIEW_MODES;
+  protected $_tableName = \Papaya\Content\Tables::VIEW_MODES;
 }

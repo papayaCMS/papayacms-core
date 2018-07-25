@@ -66,11 +66,11 @@ class Dependencies extends \PapayaDatabaseObjectList {
              WHERE td.topic_origin_id = '%d'
              ORDER BY tt.topic_title, t.topic_id";
     $parameters = array(
-      $this->databaseGetTableName(\PapayaContentTables::PAGE_DEPENDENCIES),
-      $this->databaseGetTableName(\PapayaContentTables::PAGES),
-      $this->databaseGetTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_DEPENDENCIES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
       (int)$languageId,
-      $this->databaseGetTableName(\PapayaContentTables::PAGE_PUBLICATIONS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_PUBLICATIONS),
       (int)$originId
     );
     return $this->_loadRecords($sql, $parameters, 'topic_id', $limit, $offset);
@@ -101,7 +101,7 @@ class Dependencies extends \PapayaDatabaseObjectList {
    */
   public function delete($pageId) {
     $result = $this->databaseDeleteRecord(
-      $this->databaseGetTableName(\PapayaContentTables::PAGE_DEPENDENCIES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_DEPENDENCIES),
       'topic_id',
       (int)$pageId
     );
@@ -125,7 +125,7 @@ class Dependencies extends \PapayaDatabaseObjectList {
     $dependency->load($newOriginId);
     if ($this->delete($newOriginId)) {
       $result = $this->databaseUpdateRecord(
-        $this->databaseGetTableName(\PapayaContentTables::PAGE_DEPENDENCIES),
+        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_DEPENDENCIES),
         array('topic_origin_id' => $newOriginId),
         array('topic_origin_id' => $originId)
       );

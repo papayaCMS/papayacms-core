@@ -55,7 +55,7 @@ class Translation extends \PapayaDatabaseObjectRecord {
     'module_title' => 'module_title'
   );
 
-  protected $_tableNameBoxTranslations = \PapayaContentTables::BOX_TRANSLATIONS;
+  protected $_tableNameBoxTranslations = \Papaya\Content\Tables::BOX_TRANSLATIONS;
 
   /**
    * Load box translation details
@@ -76,8 +76,8 @@ class Translation extends \PapayaDatabaseObjectRecord {
                AND t.lng_id = %d";
     $parameters = array(
       $this->databaseGetTableName($this->_tableNameBoxTranslations),
-      $this->databaseGetTableName(\PapayaContentTables::VIEWS),
-      $this->databaseGetTableName(\PapayaContentTables::MODULES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::MODULES),
       (int)$filter[0],
       (int)$filter[1]
     );

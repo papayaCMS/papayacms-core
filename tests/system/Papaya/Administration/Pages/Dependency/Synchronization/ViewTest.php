@@ -16,6 +16,7 @@
 use Papaya\Administration\Pages\Dependency\Synchronization\View;
 use Papaya\Content\Page\Translation;
 use Papaya\Content\Page\Translations;
+use Papaya\Content\Tables;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -86,7 +87,7 @@ class PapayaAdministrationPagesDependencySynchronizationViewTest extends PapayaT
     $databaseAccess
       ->expects($this->once())
       ->method('queryFmt')
-      ->with($this->isType('string'), array('table_'.PapayaContentTables::PAGE_TRANSLATIONS))
+      ->with($this->isType('string'), array('table_'.Tables::PAGE_TRANSLATIONS))
       ->will($this->returnValue($databaseResult));
     $databaseAccess
       ->expects($this->once())

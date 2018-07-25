@@ -43,7 +43,7 @@ class Configuration
          FROM %s
         ORDER BY opt_name';
     $parameters = array(
-      $this->databaseGetTableName(\PapayaContentTables::OPTIONS)
+      $this->databaseGetTableName(\Papaya\Content\Tables::OPTIONS)
     );
     return $this->_loadRecords($sql, $parameters, 'opt_name');
   }

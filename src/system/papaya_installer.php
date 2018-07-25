@@ -58,15 +58,15 @@ class papaya_installer extends base_db {
   * @var array $authTables
   */
   var $authTables = array(
-    PapayaContentTables::AUTHENTICATION_USERS,
-    PapayaContentTables::AUTHENTICATION_USER_GROUP_LINKS,
-    PapayaContentTables::AUTHENTICATION_USER_OPTIONS,
-    PapayaContentTables::AUTHENTICATION_GROUPS,
-    PapayaContentTables::AUTHENTICATION_PERMISSIONS,
-    PapayaContentTables::AUTHENTICATION_MODULE_PERMISSIONS,
-    PapayaContentTables::AUTHENTICATION_MODULE_PERMISSION_LINKS,
-    PapayaContentTables::AUTHENTICATION_LOGIN_TRIES,
-    PapayaContentTables::AUTHENTICATION_LOGIN_IPS
+    Papaya\Content\Tables::AUTHENTICATION_USERS,
+    Papaya\Content\Tables::AUTHENTICATION_USER_GROUP_LINKS,
+    Papaya\Content\Tables::AUTHENTICATION_USER_OPTIONS,
+    Papaya\Content\Tables::AUTHENTICATION_GROUPS,
+    Papaya\Content\Tables::AUTHENTICATION_PERMISSIONS,
+    Papaya\Content\Tables::AUTHENTICATION_MODULE_PERMISSIONS,
+    Papaya\Content\Tables::AUTHENTICATION_MODULE_PERMISSION_LINKS,
+    Papaya\Content\Tables::AUTHENTICATION_LOGIN_TRIES,
+    Papaya\Content\Tables::AUTHENTICATION_LOGIN_IPS
   );
 
   /**
@@ -615,7 +615,7 @@ class papaya_installer extends base_db {
     $result .= '</cols>';
     $result .= '<items>';
     $counter = 0;
-    $tableNames = PapayaContentTables::getTables();
+    $tableNames = Papaya\Content\Tables::getTables();
     foreach ($tableNames as $table) {
       $tableName = $this->databaseGetTableName($table);
       if ($tableName != $this->papaya()->options->get('PAPAYA_DB_TBL_OPTIONS')) {
@@ -687,7 +687,7 @@ class papaya_installer extends base_db {
     $result .= '      imageUnchecked : "'.$images['status-node-empty'].'"'.LF;
     $result .= '    },'.LF;
     $result .= '    ['.LF;
-    foreach (PapayaContentTables::getTables() as $table) {
+    foreach (Papaya\Content\Tables::getTables() as $table) {
       $tableName = $this->databaseGetTableName($table);
       if ($tableName != $this->papaya()->options->get('PAPAYA_DB_TBL_OPTIONS')) {
         if ($this->checkTableExists($tableName)) {
@@ -883,7 +883,7 @@ class papaya_installer extends base_db {
     if ($missed + $old == 0) {
       $sql = "SELECT COUNT(*) FROM %s";
       $params = array(
-        $this->databaseGetTableName(PapayaContentTables::AUTHENTICATION_USERS)
+        $this->databaseGetTableName(Papaya\Content\Tables::AUTHENTICATION_USERS)
       );
       if ($res = $this->databaseQueryFmt($sql, $params)) {
         list($count) = $res->fetchRow();
@@ -900,7 +900,7 @@ class papaya_installer extends base_db {
   * @return boolean
   */
   function checkLoginExists() {
-    $userTable = $this->databaseGetTableName(PapayaContentTables::AUTHENTICATION_USERS);
+    $userTable = $this->databaseGetTableName(Papaya\Content\Tables::AUTHENTICATION_USERS);
     if ($this->checkTableExists($userTable)) {
       $sql = "SELECT COUNT(*) FROM %s";
       if ($res = $this->databaseQueryFmt($sql, $userTable)) {

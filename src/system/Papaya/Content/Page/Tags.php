@@ -63,8 +63,8 @@ class Tags extends \PapayaDatabaseObjectList {
                AND tl.link_id = '%d'
              ORDER BY tl.link_priority, tt.tag_title";
     $parameters = array(
-      $this->databaseGetTableName(\PapayaContentTables::TAG_LINKS),
-      $this->databaseGetTableName(\PapayaContentTables::TAG_TRANSLATIONS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::TAG_LINKS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::TAG_TRANSLATIONS),
       $languageId,
       $this->_linkType,
       $pageId
@@ -80,7 +80,7 @@ class Tags extends \PapayaDatabaseObjectList {
    */
   public function clear($pageId) {
     return FALSE !== $this->databaseDeleteRecord(
-        $this->databaseGetTableName(\PapayaContentTables::TAG_LINKS),
+        $this->databaseGetTableName(\Papaya\Content\Tables::TAG_LINKS),
         array(
           'link_type' => $this->_linkType,
           'link_id' => $pageId
@@ -105,7 +105,7 @@ class Tags extends \PapayaDatabaseObjectList {
       );
     }
     return FALSE !== $this->databaseInsertRecords(
-        $this->databaseGetTableName(\PapayaContentTables::TAG_LINKS),
+        $this->databaseGetTableName(\Papaya\Content\Tables::TAG_LINKS),
         $data
       );
   }

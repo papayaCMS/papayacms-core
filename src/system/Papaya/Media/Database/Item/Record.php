@@ -45,8 +45,8 @@ class PapayaMediaDatabaseItemRecord extends \PapayaDatabaseObjectRecord {
               LEFT OUTER JOIN %s m ON (f.mimetype_id = m.mimetype_id)
              WHERE f.file_id = '%s'";
     $params = array(
-      $this->databaseGetTableName(\PapayaContentTables::MEDIA_FILES),
-      $this->databaseGetTableName(\PapayaContentTables::MEDIA_MIMETYPES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::MEDIA_FILES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::MEDIA_MIMETYPES),
       $mediaId
     );
     if ($res = $this->databaseQueryFmt($sql, $params)) {

@@ -113,7 +113,7 @@ class Publication
              WHERE topic_id = '%d'
              ORDER BY version_time DESC";
     $parameters = array(
-      $databaseAccess->getTableName(\PapayaContentTables::PAGE_VERSIONS),
+      $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_VERSIONS),
       $pageId
     );
     if (($databaseResult = $databaseAccess->queryFmt($sql, $parameters, 1)) &&

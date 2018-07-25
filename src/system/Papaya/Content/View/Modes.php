@@ -37,7 +37,7 @@ class Modes extends \PapayaDatabaseRecordsLazy {
    *
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::VIEW_MODES;
+  protected $_tableName = \Papaya\Content\Tables::VIEW_MODES;
 
   protected $_identifierProperties = array('extension');
 }

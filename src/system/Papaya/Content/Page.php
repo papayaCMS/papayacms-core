@@ -107,7 +107,7 @@ class Page extends \PapayaDatabaseRecordLazy {
    *
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::PAGES;
+  protected $_tableName = \Papaya\Content\Tables::PAGES;
 
   /**
    * Page translations list object

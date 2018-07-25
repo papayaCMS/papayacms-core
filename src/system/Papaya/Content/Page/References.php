@@ -55,9 +55,9 @@ class References extends \PapayaDatabaseObjectList {
                    tr.topic_target_id = '%4\$d'
              ORDER BY tr.topic_source_id, tr.topic_target_id";
     $parameters = array(
-      $this->databaseGetTableName(\PapayaContentTables::PAGE_REFERENCES),
-      $this->databaseGetTableName(\PapayaContentTables::PAGES),
-      $this->databaseGetTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_REFERENCES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
       $pageId,
       $languageId
     );

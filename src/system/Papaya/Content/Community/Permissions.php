@@ -35,6 +35,6 @@ class Permissions extends \PapayaDatabaseRecords {
 
   protected $_identifierProperties = 'id';
 
-  protected $_tableName = \PapayaContentTables::COMMUNITY_PERMISSIONS;
+  protected $_tableName = \Papaya\Content\Tables::COMMUNITY_PERMISSIONS;
 
 }

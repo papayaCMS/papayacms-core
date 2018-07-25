@@ -30,7 +30,7 @@ class Status extends \Papaya\Content\Page\Status {
    *
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::PAGE_PUBLICATIONS;
+  protected $_tableName = \Papaya\Content\Tables::PAGE_PUBLICATIONS;
 
   /**
    * Query data cache.

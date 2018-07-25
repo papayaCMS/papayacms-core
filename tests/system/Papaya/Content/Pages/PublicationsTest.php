@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Pages\Publications;
+use Papaya\Content\Tables;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -43,14 +44,14 @@ class PapayaContentPagesPublicationsTest extends PapayaTestCase {
           $this->stringContains('OR t.published_to <= t.published_from)')
         ),
         array(
-          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
-          'table_'.PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS,
+          'table_'.Tables::PAGE_PUBLICATIONS,
+          'table_'.Tables::PAGE_PUBLICATION_TRANSLATIONS,
           1,
-          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
-          'table_'.PapayaContentTables::VIEWS,
-          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.Tables::PAGE_PUBLICATIONS,
+          'table_'.Tables::VIEWS,
+          'table_'.Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));

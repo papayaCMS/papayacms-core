@@ -35,7 +35,7 @@ class Groups extends \PapayaDatabaseRecordsLazy {
   /**
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::DOMAIN_GROUPS;
+  protected $_tableName = \Papaya\Content\Tables::DOMAIN_GROUPS;
 
   protected $_identifierProperties = array('id');
 

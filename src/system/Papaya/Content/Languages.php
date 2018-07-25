@@ -57,7 +57,7 @@ class Languages extends \PapayaDatabaseRecords {
    *
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::LANGUAGES;
+  protected $_tableName = \Papaya\Content\Tables::LANGUAGES;
 
   /**
    * @var string

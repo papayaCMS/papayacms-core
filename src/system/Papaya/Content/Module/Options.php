@@ -29,7 +29,7 @@ class Options extends \PapayaDatabaseRecords {
     'type' => 'moduleoption_type'
   );
 
-  protected $_tableName = \PapayaContentTables::MODULE_OPTIONS;
+  protected $_tableName = \Papaya\Content\Tables::MODULE_OPTIONS;
 
   /**
    * Record is identified by module guid and option name

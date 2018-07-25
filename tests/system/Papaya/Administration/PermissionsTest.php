@@ -15,6 +15,7 @@
 
 use Papaya\Administration\Permissions;
 use Papaya\Administration\Permission\Groups;
+use Papaya\Content\Tables;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -138,7 +139,7 @@ class PapayaAdministrationPermissionsTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with(
         $this->isType('string'),
-        array('table_'.PapayaContentTables::AUTHENTICATION_PERMISSIONS)
+        array('table_'.Tables::AUTHENTICATION_PERMISSIONS)
       )
       ->will($this->returnValue($databaseResult));
     $permissions = new Permissions();

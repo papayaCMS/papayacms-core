@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Tables;
+
 if (!defined('IMAGETYPE_SWC')) {
   /**
   * Fallback to ensure the existence of constant IMAGETYPE_SWC. It comes usually with PHP
@@ -750,7 +752,7 @@ class base_mediadb extends base_db {
         if ($translatedTextFilter) {
           $condition .= sprintf(
             ' OR file_id IN (SELECT file_id FROM %s WHERE %s)',
-            $this->databaseGetTablename(PapayaContentTables::MEDIA_FILE_TRANSLATIONS),
+            $this->databaseGetTablename(Tables::MEDIA_FILE_TRANSLATIONS),
             $translatedTextFilter
           );
         }

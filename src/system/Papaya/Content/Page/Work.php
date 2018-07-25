@@ -138,7 +138,7 @@ class Work extends \Papaya\Content\Page {
     $databaseAccess = $this->getDatabaseAccess();
     if (!empty($languageIds)) {
       $deleted = $databaseAccess->deleteRecord(
-        $databaseAccess->getTableName(\PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS),
+        $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
         array(
           'topic_id' => $this->id,
           'lng_id' => $languageIds
@@ -160,10 +160,10 @@ class Work extends \Papaya\Content\Page {
                   FROM %s t
                  WHERE t.topic_id = %d AND $filter";
         $parameters = array(
-          $databaseAccess->getTableName(\PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS),
+          $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS),
           $now,
           $now,
-          $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
+          $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
           $this->id
         );
         if (FALSE !== $databaseAccess->queryFmtWrite($sql, $parameters)) {

@@ -65,7 +65,7 @@ class Boxes
     $filter = $databaseAccess->getSqlCondition('topic_id', $targetIds);
     $sql = "UPDATE %s SET box_useparent = '%d' WHERE $filter";
     $parameters = array(
-      $databaseAccess->getTableName(\PapayaContentTables::PAGES),
+      $databaseAccess->getTableName(\Papaya\Content\Tables::PAGES),
       $status
     );
     return FALSE !== $databaseAccess->queryFmtWrite($sql, $parameters);

@@ -40,14 +40,14 @@ class PapayaContentViews extends \PapayaDatabaseRecordsLazy {
   *
   * @var string
   */
-  protected $_tableName = \PapayaContentTables::VIEWS;
+  protected $_tableName = \Papaya\Content\Tables::VIEWS;
 
   /**
   * Table containing module informations
   *
   * @var string
   */
-  protected $_tableNameModules = \PapayaContentTables::MODULES;
+  protected $_tableNameModules = \Papaya\Content\Tables::MODULES;
 
   protected $_orderByProperties = array(
     'title' => \PapayaDatabaseInterfaceOrder::ASCENDING,

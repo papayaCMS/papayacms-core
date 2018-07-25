@@ -80,7 +80,7 @@ class Access
   protected function updatePages(\Papaya\Content\Page\Work $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
-        $databaseAccess->getTableName(\PapayaContentTables::PAGES),
+        $databaseAccess->getTableName(\Papaya\Content\Tables::PAGES),
         array(
           'topic_modified' => $databaseAccess->getTimestamp(),
           'surfer_useparent' => $origin->inheritVisitorPermissions,

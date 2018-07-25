@@ -92,7 +92,7 @@ class Work extends \Papaya\Content\Box {
   ) {
     if (!empty($languageIds)) {
       $deleted = $this->databaseDeleteRecord(
-        $this->databaseGetTableName(\PapayaContentTables::BOX_PUBLICATION_TRANSLATIONS),
+        $this->databaseGetTableName(\Papaya\Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
         array(
           'box_id' => $this->id,
           'lng_id' => $languageIds
@@ -109,9 +109,9 @@ class Work extends \Papaya\Content\Box {
                   FROM %s t
                  WHERE t.box_id = %d AND $filter";
         $parameters = array(
-          $this->databaseGetTableName(\PapayaContentTables::BOX_PUBLICATION_TRANSLATIONS),
+          $this->databaseGetTableName(\Papaya\Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
           $now,
-          $this->databaseGetTableName(\PapayaContentTables::BOX_TRANSLATIONS),
+          $this->databaseGetTableName(\Papaya\Content\Tables::BOX_TRANSLATIONS),
           $this->id
         );
         if (FALSE !== $this->databaseQueryFmt($sql, $parameters)) {

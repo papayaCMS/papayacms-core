@@ -59,7 +59,8 @@ class PapayaDatabaseAccess extends \PapayaObject {
 
   /**
   * a table names helper object
-  * @var \PapayaContentTables
+  *
+  * @var \Papaya\Content\Tables
   */
   private $_tables = NULL;
 
@@ -215,14 +216,14 @@ class PapayaDatabaseAccess extends \PapayaObject {
   /**
   * Get table name mapper object
   *
-  * @param \PapayaContentTables $tables
-  * @return \PapayaContentTables
+  * @param \Papaya\Content\Tables $tables
+  * @return \Papaya\Content\Tables
   */
-  public function tables(\PapayaContentTables $tables = NULL) {
+  public function tables(\Papaya\Content\Tables $tables = NULL) {
     if (isset($tables)) {
       $this->_tables = $tables;
     } elseif (is_null($this->_tables)) {
-      $this->_tables = new \PapayaContentTables();
+      $this->_tables = new \Papaya\Content\Tables();
     }
     return $this->_tables;
   }

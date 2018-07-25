@@ -33,7 +33,7 @@ class Group extends \PapayaDatabaseRecordLazy {
     'identifier' => 'module_title_lower'
   );
 
-  protected $_tableName = \PapayaContentTables::PHRASE_GROUPS;
+  protected $_tableName = \Papaya\Content\Tables::PHRASE_GROUPS;
 
 
 }

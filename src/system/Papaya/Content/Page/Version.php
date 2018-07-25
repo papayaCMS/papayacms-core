@@ -86,7 +86,7 @@ class Version extends \PapayaDatabaseObjectRecord {
    *
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::PAGE_VERSIONS;
+  protected $_tableName = \Papaya\Content\Tables::PAGE_VERSIONS;
 
   /**
    * version translations list subobject
@@ -139,7 +139,7 @@ class Version extends \PapayaDatabaseObjectRecord {
       $this->owner,
       $this->message,
       isset($this->level) ? $this->level : -1,
-      $this->databaseGetTableName(\PapayaContentTables::PAGES),
+      $this->databaseGetTableName(\Papaya\Content\Tables::PAGES),
       $this->pageId
     );
     if ($this->databaseQueryFmtWrite($sql, $parameters)) {
@@ -158,9 +158,9 @@ class Version extends \PapayaDatabaseObjectRecord {
           FROM %s tt
          WHERE tt.topic_id = %d";
       $parameters = array(
-        $this->databaseGetTableName(\PapayaContentTables::PAGE_VERSION_TRANSLATIONS),
+        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_VERSION_TRANSLATIONS),
         $newId,
-        $this->databaseGetTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
+        $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
         $this->pageId
       );
       $this->databaseQueryFmtWrite($sql, $parameters);

@@ -26,14 +26,14 @@ class Publications extends \Papaya\Content\Pages {
    *
    * @var string
    */
-  protected $_tablePages = \PapayaContentTables::PAGE_PUBLICATIONS;
+  protected $_tablePages = \Papaya\Content\Tables::PAGE_PUBLICATIONS;
 
   /**
    * Table containing language specific page informations
    *
    * @var string
    */
-  protected $_tablePageTranslations = \PapayaContentTables::PAGE_PUBLICATION_TRANSLATIONS;
+  protected $_tablePageTranslations = \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS;
 
   /**
    * Loading published stuff using a timestamp so that only pages are loaded, that are really

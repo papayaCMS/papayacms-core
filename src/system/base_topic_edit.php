@@ -3610,10 +3610,10 @@ class base_topic_edit extends base_topic {
                AND bp.box_id = pb.box_id
                AND v.view_id = bpt.view_id";
     $parameters = array(
-      $databaseAccess->getTableName(PapayaContentTables::PAGE_BOXES),
-      $databaseAccess->getTableName(PapayaContentTables::BOX_PUBLICATIONS),
-      $databaseAccess->getTableName(PapayaContentTables::BOX_PUBLICATION_TRANSLATIONS),
-      $databaseAccess->getTableName(PapayaContentTables::VIEWS),
+      $databaseAccess->getTableName(Papaya\Content\Tables::PAGE_BOXES),
+      $databaseAccess->getTableName(Papaya\Content\Tables::BOX_PUBLICATIONS),
+      $databaseAccess->getTableName(Papaya\Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
+      $databaseAccess->getTableName(Papaya\Content\Tables::VIEWS),
       $boxesPageId
     );
     $result = array();

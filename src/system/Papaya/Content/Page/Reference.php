@@ -42,7 +42,7 @@ class Reference extends \PapayaDatabaseRecord {
    *
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::PAGE_REFERENCES;
+  protected $_tableName = \Papaya\Content\Tables::PAGE_REFERENCES;
 
   /**
    * Create a multi field key object containg both page id properties

@@ -59,42 +59,42 @@ class Pages extends \PapayaDatabaseRecordsLazy {
    *
    * @var string
    */
-  protected $_tablePages = \PapayaContentTables::PAGES;
+  protected $_tablePages = \Papaya\Content\Tables::PAGES;
 
   /**
    * Table containing language specific page informations
    *
    * @var string
    */
-  protected $_tablePageTranslations = \PapayaContentTables::PAGE_TRANSLATIONS;
+  protected $_tablePageTranslations = \Papaya\Content\Tables::PAGE_TRANSLATIONS;
 
   /**
    * Table containing page publications
    *
    * @var string
    */
-  protected $_tablePagePublications = \PapayaContentTables::PAGE_PUBLICATIONS;
+  protected $_tablePagePublications = \Papaya\Content\Tables::PAGE_PUBLICATIONS;
 
   /**
    * Table containing user informations
    *
    * @var string
    */
-  protected $_tableAuthenticationUsers = \PapayaContentTables::AUTHENTICATION_USERS;
+  protected $_tableAuthenticationUsers = \Papaya\Content\Tables::AUTHENTICATION_USERS;
 
   /**
    * Table containing page views
    *
    * @var string
    */
-  protected $_tableViews = \PapayaContentTables::VIEWS;
+  protected $_tableViews = \Papaya\Content\Tables::VIEWS;
 
   /**
    * Table containing page view configurations for the output modes
    *
    * @var string
    */
-  protected $_tableViewConfigurations = \PapayaContentTables::VIEW_CONFIGURATIONS;
+  protected $_tableViewConfigurations = \Papaya\Content\Tables::VIEW_CONFIGURATIONS;
 
   /**
    * This defines if pages are only loaded, if they have a translation in the given language.

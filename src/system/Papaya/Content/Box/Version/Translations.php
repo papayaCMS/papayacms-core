@@ -39,7 +39,7 @@ class Translations extends \PapayaDatabaseObjectList {
     'view_title' => 'view'
   );
 
-  protected $_translationsTableName = \PapayaContentTables::BOX_VERSION_TRANSLATIONS;
+  protected $_translationsTableName = \Papaya\Content\Tables::BOX_VERSION_TRANSLATIONS;
 
   /**
    * Load translation list informations
@@ -56,7 +56,7 @@ class Translations extends \PapayaDatabaseObjectList {
              WHERE tt.box_id = %d";
     $parameters = array(
       $this->databaseGetTableName($this->_translationsTableName),
-      $this->databaseGetTableName(\PapayaContentTables::VIEWS),
+      $this->databaseGetTableName(\Papaya\Content\Tables::VIEWS),
       (int)$boxId
     );
     return $this->_loadRecords($sql, $parameters, 'lng_id');

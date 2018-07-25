@@ -72,7 +72,7 @@ class Domain extends \PapayaDatabaseRecord {
    *
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::DOMAINS;
+  protected $_tableName = \Papaya\Content\Tables::DOMAINS;
 
   /**
    * Create the mapping objects and set callbacks to handle the

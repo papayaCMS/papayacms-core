@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Content;
 /**
-* Defines the tables used by the PapayaContent* classes. Allows to prefix the
-* current table name with the defined table prefix.
-*
-* @package Papaya-Library
-* @subpackage Content
-*/
-class PapayaContentTables extends \PapayaObject {
+ * Defines the tables used by the PapayaContent* classes. Allows to prefix the
+ * current table name with the defined table prefix.
+ *
+ * @package Papaya-Library
+ * @subpackage Content
+ */
+class Tables extends \PapayaObject {
 
   const OPTIONS = 'options';
 
@@ -91,13 +92,13 @@ class PapayaContentTables extends \PapayaObject {
   const THEME_SETS = 'theme_sets';
 
   /**
-  * Return tablename with optional prefix.
-  *
-  * @param string $tableName
-  * @param boolean $prefix
-  * @return string
-  */
-  public function get($tableName, $prefix =  TRUE) {
+   * Return tablename with optional prefix.
+   *
+   * @param string $tableName
+   * @param boolean $prefix
+   * @return string
+   */
+  public function get($tableName, $prefix = TRUE) {
     if ($prefix && isset($this->papaya()->options)) {
       $prefixString = $this->papaya()->options->get('PAPAYA_DB_TABLEPREFIX', 'papaya');
       if ($prefixString != '' && 0 !== strpos($tableName, $prefixString.'_')) {
@@ -108,30 +109,31 @@ class PapayaContentTables extends \PapayaObject {
   }
 
   /**
-  * Returns a list of all cms base system tables. For now the key is a constant name for bc
-  * definitions
-  *
-  * @return array
-  */
+   * Returns a list of all cms base system tables. For now the key is a constant name for bc
+   * definitions
+   *
+   * @return array
+   */
   public static function getTables() {
     return self::$tableConstants;
   }
 
   /**
-  * This array is for backwards compatibility. It was provided by base_options originally.
-  * Legacy sources uses constants to access the tables names. This array maps the old global
-  * constants (defined dynamically on startup) to the new class constants.
-  *
-  * If no new constants exists so far. The name is provided as an string.
-  *
-  * @var array(string=>string)
-  */
+   * This array is for backwards compatibility. It was provided by base_options originally.
+   * Legacy sources uses constants to access the tables names. This array maps the old global
+   * constants (defined dynamically on startup) to the new class constants.
+   *
+   * If no new constants exists so far. The name is provided as an string.
+   *
+   * @var array(string=>string)
+   */
 
 
   /**
-  * Papaya database tables
-  * @var array $tables
-  */
+   * Papaya database tables
+   *
+   * @var array $tables
+   */
   public static $tableConstants = array(
     'PAPAYA_DB_TBL_AUTHUSER' => self::AUTHENTICATION_USERS,
     'PAPAYA_DB_TBL_AUTHGROUPS' => self::AUTHENTICATION_GROUPS,

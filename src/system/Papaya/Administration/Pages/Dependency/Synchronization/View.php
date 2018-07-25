@@ -33,7 +33,7 @@ class View
   protected function updateTranslations(\Papaya\Content\Page\Translation $origin, array $targetIds) {
     $databaseAccess = $origin->getDatabaseAccess();
     return FALSE !== $databaseAccess->updateRecord(
-        $databaseAccess->getTableName(\PapayaContentTables::PAGE_TRANSLATIONS),
+        $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
         array(
           'view_id' => $origin->viewId,
           'topic_trans_modified' => $origin->modified

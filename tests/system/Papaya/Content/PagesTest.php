@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Pages;
+use Papaya\Content\Tables;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -47,14 +48,14 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ->with(
         $this->logicalAnd($this->isType('string'), $this->stringContains('INNER JOIN')),
         array(
-          'table_'.PapayaContentTables::PAGES,
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.Tables::PAGES,
+          'table_'.Tables::PAGE_TRANSLATIONS,
           1,
-          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
-          'table_'.PapayaContentTables::VIEWS,
-          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.Tables::PAGE_PUBLICATIONS,
+          'table_'.Tables::VIEWS,
+          'table_'.Tables::VIEW_CONFIGURATIONS,
           23,
-          'table_'.PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -104,14 +105,14 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ->with(
         $this->logicalAnd($this->isType('string'), $this->stringContains('LEFT JOIN')),
         array(
-          'table_'.PapayaContentTables::PAGES,
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.Tables::PAGES,
+          'table_'.Tables::PAGE_TRANSLATIONS,
           0,
-          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
-          'table_'.PapayaContentTables::VIEWS,
-          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.Tables::PAGE_PUBLICATIONS,
+          'table_'.Tables::VIEWS,
+          'table_'.Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -166,14 +167,14 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ->with(
         $this->logicalAnd($this->isType('string'), $this->stringContains('LEFT JOIN')),
         array(
-          'table_'.PapayaContentTables::PAGES,
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.Tables::PAGES,
+          'table_'.Tables::PAGE_TRANSLATIONS,
           1,
-          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
-          'table_'.PapayaContentTables::VIEWS,
-          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.Tables::PAGE_PUBLICATIONS,
+          'table_'.Tables::VIEWS,
+          'table_'.Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -228,14 +229,14 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.PapayaContentTables::PAGES,
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.Tables::PAGES,
+          'table_'.Tables::PAGE_TRANSLATIONS,
           1,
-          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
-          'table_'.PapayaContentTables::VIEWS,
-          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.Tables::PAGE_PUBLICATIONS,
+          'table_'.Tables::VIEWS,
+          'table_'.Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));
@@ -294,14 +295,14 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ->with(
         $this->isType('string'),
         array(
-          'table_'.PapayaContentTables::PAGES,
-          'table_'.PapayaContentTables::PAGE_TRANSLATIONS,
+          'table_'.Tables::PAGES,
+          'table_'.Tables::PAGE_TRANSLATIONS,
           1,
-          'table_'.PapayaContentTables::PAGE_PUBLICATIONS,
-          'table_'.PapayaContentTables::VIEWS,
-          'table_'.PapayaContentTables::VIEW_CONFIGURATIONS,
+          'table_'.Tables::PAGE_PUBLICATIONS,
+          'table_'.Tables::VIEWS,
+          'table_'.Tables::VIEW_CONFIGURATIONS,
           0,
-          'table_'.PapayaContentTables::AUTHENTICATION_USERS
+          'table_'.Tables::AUTHENTICATION_USERS
         )
       )
       ->will($this->returnValue($databaseResult));

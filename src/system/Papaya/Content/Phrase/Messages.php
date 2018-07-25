@@ -36,7 +36,7 @@ class Messages extends \PapayaDatabaseRecords {
     'created' => 'log_datetime'
   );
 
-  protected $_tableName = \PapayaContentTables::PHRASE_LOG;
+  protected $_tableName = \Papaya\Content\Tables::PHRASE_LOG;
 
   public function add(array $data) {
     $values = $this->mapping()->mapPropertiesToFields($data);

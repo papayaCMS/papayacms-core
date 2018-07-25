@@ -35,7 +35,7 @@ class Phrase extends \PapayaDatabaseRecord {
     'language_id' => 'pt.lng_id'
   );
 
-  protected $_tableName = \PapayaContentTables::PHRASES;
+  protected $_tableName = \Papaya\Content\Tables::PHRASES;
   protected $_tableAlias = 'p';
 
   public function load($filter = NULL) {
@@ -55,7 +55,7 @@ class Phrase extends \PapayaDatabaseRecord {
     );
     $parameters = array(
       $databaseAccess->getTableName($this->_tableName),
-      $databaseAccess->getTableName(\PapayaContentTables::PHRASE_TRANSLATIONS),
+      $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_TRANSLATIONS),
       $languageId
     );
     return $this->_loadRecord($sql, $parameters);
@@ -75,7 +75,7 @@ class Phrase extends \PapayaDatabaseRecord {
       $groupId = $group->save();
     }
     $databaseAccess = $this->getDatabaseAccess();
-    $linkTable = $databaseAccess->getTableName(\PapayaContentTables::PHRASE_GROUP_LINKS);
+    $linkTable = $databaseAccess->getTableName(\Papaya\Content\Tables::PHRASE_GROUP_LINKS);
     $sql = "SELECT COUNT(*) FROM %s WHERE phrase_id = '%d' AND module_id = '%d'";
     $parameters = array($linkTable, $this->id, $groupId);
     if (

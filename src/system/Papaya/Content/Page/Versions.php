@@ -45,7 +45,7 @@ class Versions extends \PapayaDatabaseObjectList {
    *
    * @var string
    */
-  protected $_versionsTableName = \PapayaContentTables::PAGE_VERSIONS;
+  protected $_versionsTableName = \Papaya\Content\Tables::PAGE_VERSIONS;
 
   /**
    * Load version list informations

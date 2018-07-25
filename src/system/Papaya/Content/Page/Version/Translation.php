@@ -38,6 +38,6 @@ namespace Papaya\Content\Page\Version;
  */
 class Translation extends \Papaya\Content\Page\Translation {
 
-  protected $_tableName = \PapayaContentTables::PAGE_VERSION_TRANSLATIONS;
+  protected $_tableName = \Papaya\Content\Tables::PAGE_VERSION_TRANSLATIONS;
 
 }

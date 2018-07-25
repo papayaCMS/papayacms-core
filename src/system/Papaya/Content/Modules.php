@@ -47,7 +47,7 @@ class Modules extends \PapayaDatabaseRecordsLazy {
    *
    * @var string
    */
-  protected $_tableName = \PapayaContentTables::MODULES;
+  protected $_tableName = \Papaya\Content\Tables::MODULES;
 
   protected $_orderByProperties = array(
     'title' => \PapayaDatabaseInterfaceOrder::ASCENDING,
