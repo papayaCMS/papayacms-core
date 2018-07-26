@@ -15,17 +15,18 @@
 
 use Papaya\Database\Interfaces\Mapping;
 use Papaya\Database\Interfaces\Order;
+use Papaya\Database\Record\Order\By\Properties;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaDatabaseRecordOrderByPropertiesTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaDatabaseRecordOrderByProperties::__construct
-  * @covers PapayaDatabaseRecordOrderByProperties::__toString
+  * @covers Properties::__construct
+  * @covers Properties::__toString
   */
   public function testWithSimpleField() {
-    $orderBy = new PapayaDatabaseRecordOrderByProperties(
+    $orderBy = new Properties(
       array('property' => -1),
       $this->getMappingFixture(array('property' => 'field'))
     );
@@ -33,11 +34,11 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderByProperties::__construct
-  * @covers PapayaDatabaseRecordOrderByProperties::__toString
+  * @covers Properties::__construct
+  * @covers Properties::__toString
   */
   public function testWithTwoProperties() {
-    $orderBy = new PapayaDatabaseRecordOrderByProperties(
+    $orderBy = new Properties(
       array(
         'one' => Order::DESCENDING,
         'two' => Order::ASCENDING
@@ -50,12 +51,12 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderByProperties::__construct
-  * @covers PapayaDatabaseRecordOrderByProperties::__toString
-  * @covers PapayaDatabaseRecordOrderByProperties::setProperties
+  * @covers Properties::__construct
+  * @covers Properties::__toString
+  * @covers Properties::setProperties
   */
   public function testWithTwoPropertiesOneWithoutMapping() {
-    $orderBy = new PapayaDatabaseRecordOrderByProperties(
+    $orderBy = new Properties(
       array(
         'one' => Order::DESCENDING,
         'two' => Order::ASCENDING
@@ -68,10 +69,10 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderByProperties::setProperties
+  * @covers Properties::setProperties
   */
   public function testSetFieldClearsExistingProperties() {
-    $orderBy = new PapayaDatabaseRecordOrderByProperties(
+    $orderBy = new Properties(
       array(
         'one' => Order::ASCENDING
       ),
@@ -88,10 +89,10 @@ class PapayaDatabaseRecordOrderByPropertiesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderByProperties::getIterator
+  * @covers Properties::getIterator
   */
   public function testIterator() {
-    $orderBy = new PapayaDatabaseRecordOrderByProperties(
+    $orderBy = new Properties(
       array(
         'one' => Order::DESCENDING,
         'two' => Order::ASCENDING

@@ -14,26 +14,27 @@
  */
 
 use Papaya\Database\Interfaces\Order;
+use Papaya\Database\Record\Order\By\Fields;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaDatabaseRecordOrderByFieldsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaDatabaseRecordOrderByFields::__construct
-  * @covers PapayaDatabaseRecordOrderByFields::__toString
+  * @covers Fields::__construct
+  * @covers Fields::__toString
   */
   public function testWithSimpleField() {
-    $orderBy = new PapayaDatabaseRecordOrderByFields(array('field' => -1));
+    $orderBy = new Fields(array('field' => -1));
     $this->assertEquals('field ASC', (string)$orderBy);
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderByFields::__construct
-  * @covers PapayaDatabaseRecordOrderByFields::__toString
+  * @covers Fields::__construct
+  * @covers Fields::__toString
   */
   public function testWithTwoFields() {
-    $orderBy = new PapayaDatabaseRecordOrderByFields(
+    $orderBy = new Fields(
       array(
         'field_one' => Order::DESCENDING,
         'field_two' => Order::ASCENDING
@@ -43,10 +44,10 @@ class PapayaDatabaseRecordOrderByFieldsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderByFields::setFields
+  * @covers Fields::setFields
   */
   public function testSetFieldClearsExistingFields() {
-    $orderBy = new PapayaDatabaseRecordOrderByFields(array('field_one' => -1));
+    $orderBy = new Fields(array('field_one' => -1));
     $orderBy->setFields(
       array(
         'field_two' => Order::DESCENDING
@@ -56,10 +57,10 @@ class PapayaDatabaseRecordOrderByFieldsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordOrderByFields::getIterator
+  * @covers Fields::getIterator
   */
   public function testIterator() {
-    $orderBy = new PapayaDatabaseRecordOrderByFields(
+    $orderBy = new Fields(
       array(
         'field_one' => Order::DESCENDING,
         'field_two' => Order::ASCENDING

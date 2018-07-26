@@ -72,7 +72,7 @@ abstract class PapayaDatabaseRecord
   private $_isLoaded = FALSE;
 
   /**
-   * @var \PapayaDatabaseRecordCallbacks
+   * @var \Papaya\Database\Record\Callbacks
    */
   private $_callbacks = NULL;
 
@@ -351,10 +351,10 @@ abstract class PapayaDatabaseRecord
   /**
   * Getter/Setter for the possible callbacks, to modify the behaviour of the object
   *
-  * @param \PapayaDatabaseRecordCallbacks $callbacks
-  * @return \PapayaDatabaseRecordCallbacks
+  * @param \Papaya\Database\Record\Callbacks $callbacks
+  * @return \Papaya\Database\Record\Callbacks
   */
-  public function callbacks(\PapayaDatabaseRecordCallbacks $callbacks = NULL) {
+  public function callbacks(\Papaya\Database\Record\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
@@ -365,9 +365,10 @@ abstract class PapayaDatabaseRecord
 
   /**
    * Create callbacks subobject, override to assign callbacks
-   * @return \PapayaDatabaseRecordCallbacks
+   *
+   * @return \Papaya\Database\Record\Callbacks
    */
   protected function _createCallbacks() {
-    return new \PapayaDatabaseRecordCallbacks();
+    return new \Papaya\Database\Record\Callbacks();
   }
 }

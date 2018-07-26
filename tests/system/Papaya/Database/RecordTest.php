@@ -18,6 +18,7 @@ use Papaya\Database\Condition\Root;
 use Papaya\Database\Interfaces\Key;
 use Papaya\Database\Interfaces\Mapping;
 use Papaya\Database\Record\Key\Autoincrement;
+use Papaya\Database\Record\Callbacks;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -634,7 +635,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::callbacks
   */
   public function testCallbacksGetAfterSet() {
-    $callbacks = $this->createMock(PapayaDatabaseRecordCallbacks::class);
+    $callbacks = $this->createMock(Callbacks::class);
     $record = new PapayaDatabaseRecord_TestProxy();
     $record->callbacks($callbacks);
     $this->assertSame($callbacks, $record->callbacks());
@@ -646,7 +647,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testCallbacksImplicitCreate() {
     $record = new PapayaDatabaseRecord_TestProxy();
-    $this->assertInstanceOf(PapayaDatabaseRecordCallbacks::class, $record->callbacks());
+    $this->assertInstanceOf(Callbacks::class, $record->callbacks());
   }
 }
 

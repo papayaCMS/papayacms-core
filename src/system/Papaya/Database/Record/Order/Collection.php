@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record\Order;
+
 /**
-* An list storing several elements representing fields for an sql order by
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: List.php 38282 2013-03-19 12:23:19Z weinert $
-*/
-class PapayaDatabaseRecordOrderList
+ * An list storing several elements representing fields for an sql order by
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Collection
   extends \PapayaObjectList
   implements \Papaya\Database\Interfaces\Order {
 
@@ -46,11 +47,10 @@ class PapayaDatabaseRecordOrderList
     if ($this->count() > 0) {
       $result = '';
       foreach ($this as $item) {
-        $result .= ', '.(string)$item;
+        $result .= ', '.$item;
       }
-      return substr($result, 2);
-    } else {
-      return '';
+      return (string)substr($result, 2);
     }
+    return '';
   }
 }

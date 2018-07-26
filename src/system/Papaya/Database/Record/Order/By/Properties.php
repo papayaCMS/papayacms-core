@@ -13,25 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record\Order\By;
 /**
-* Define an order by using property names an a property-field-mapping
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Properties.php 38282 2013-03-19 12:23:19Z weinert $
-*/
-class PapayaDatabaseRecordOrderByProperties
+ * Define an order by using property names an a property-field-mapping
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Properties
   implements \Papaya\Database\Interfaces\Order, \IteratorAggregate {
 
   /**
-   * @var \PapayaDatabaseRecordOrderList
+   * @var \Papaya\Database\Record\Order\Collection
    */
-  private $_list = NULL;
+  private $_list;
 
   /**
    * @var \Papaya\Database\Interfaces\Mapping
    */
-  private $_mapping = NULL;
+  private $_mapping;
 
   /**
    * Create object, store mapping object and set order by properties
@@ -40,7 +40,7 @@ class PapayaDatabaseRecordOrderByProperties
    * @param \Papaya\Database\Interfaces\Mapping $mapping
    */
   public function __construct(array $properties, \Papaya\Database\Interfaces\Mapping $mapping) {
-    $this->_list = new \PapayaDatabaseRecordOrderList();
+    $this->_list = new \Papaya\Database\Record\Order\Collection();
     $this->_mapping = $mapping;
     $this->setProperties($properties);
   }
@@ -54,7 +54,7 @@ class PapayaDatabaseRecordOrderByProperties
     $this->_list->clear();
     foreach ($properties as $property => $direction) {
       if ($field = $this->_mapping->getField($property)) {
-        $this->_list[] = new \PapayaDatabaseRecordOrderField($field, $direction);
+        $this->_list[] = new \Papaya\Database\Record\Order\Field($field, $direction);
       }
     }
   }

@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record\Order\By;
+
 /**
-* Define an order by using field names
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Fields.php 39730 2014-04-07 21:05:30Z weinert $
-*/
-class PapayaDatabaseRecordOrderByFields
+ * Define an order by using field names
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Fields
   implements \Papaya\Database\Interfaces\Order, \IteratorAggregate {
 
   /**
-   * @var \PapayaDatabaseRecordOrderList
+   * @var \Papaya\Database\Record\Order\Collection
    */
-  private $_list = NULL;
+  private $_list;
 
   /**
    * @param array $fields
    */
   public function __construct(array $fields) {
-    $this->_list = new \PapayaDatabaseRecordOrderList();
+    $this->_list = new \Papaya\Database\Record\Order\Collection();
     $this->setFields($fields);
   }
 
@@ -44,7 +45,7 @@ class PapayaDatabaseRecordOrderByFields
   public function setFields(array $fields) {
     $this->_list->clear();
     foreach ($fields as $field => $direction) {
-      $this->_list[] = new \PapayaDatabaseRecordOrderField($field, $direction);
+      $this->_list[] = new \Papaya\Database\Record\Order\Field($field, $direction);
     }
   }
 

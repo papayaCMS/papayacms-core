@@ -182,7 +182,7 @@ class PapayaUiContentTeasersFactory extends \PapayaObject {
     if ($order instanceof \Papaya\Database\Interfaces\Order) {
       return $order;
     } elseif (isset($this->_orderByDefinitions[$order])) {
-      return new \PapayaDatabaseRecordOrderByProperties(
+      return new \Papaya\Database\Record\Order\By\Properties(
         $this->_orderByDefinitions[$order], $pages->mapping()
       );
     }

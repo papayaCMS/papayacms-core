@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record\Order;
+
 /**
-* Group several order by definitions into one.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Group.php 39408 2014-02-27 16:00:49Z weinert $
-*/
-class PapayaDatabaseRecordOrderGroup
+ * Group several order by definitions into one.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Group
   implements \Papaya\Database\Interfaces\Order, \IteratorAggregate {
 
-  private $_lists = NULL;
+  private $_lists;
 
   /**
    * Create iterator to store lists and attach all function arguments to it.
@@ -57,7 +58,8 @@ class PapayaDatabaseRecordOrderGroup
   }
 
   /**
-   * Return the internal multiple iterator to alllow to iterate over all items in all atached lists
+   * Return the internal multiple iterator to allow to iterate over all items in all atached lists
+   *
    * @see \IteratorAggregate::getIterator()
    * @return \Iterator
    */
@@ -74,8 +76,8 @@ class PapayaDatabaseRecordOrderGroup
   public function __toString() {
     $result = '';
     foreach ($this as $item) {
-      $result .= ', '.(string)$item;
+      $result .= ', '.$item;
     }
-    return substr($result, 2);
+    return (string)substr($result, 2);
   }
 }

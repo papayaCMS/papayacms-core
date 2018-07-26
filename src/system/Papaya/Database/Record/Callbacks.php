@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record;
 /**
-* Callbacks that are used by the record object
-*
-* @package Papaya-Library
-* @subpackage Database
-*
- * @property PapayaObjectCallback $onBeforeUpdate
- * @property PapayaObjectCallback $onBeforeInsert
- * @property PapayaObjectCallback $onBeforeDelete
- * @property PapayaObjectCallback $onAfterUpdate
- * @property PapayaObjectCallback $onAfterInsert
- * @property PapayaObjectCallback $onAfterDelete
+ * Callbacks that are used by the record object
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ *
+ * @property \PapayaObjectCallback $onBeforeUpdate
+ * @property \PapayaObjectCallback $onBeforeInsert
+ * @property \PapayaObjectCallback $onBeforeDelete
+ * @property \PapayaObjectCallback $onAfterUpdate
+ * @property \PapayaObjectCallback $onAfterInsert
+ * @property \PapayaObjectCallback $onAfterDelete
  * @method boolean onBeforeUpdate(\PapayaDatabaseRecord $record)
  * @method boolean onBeforeInsert(\PapayaDatabaseRecord $record)
  * @method boolean onBeforeDelete(\PapayaDatabaseRecord $record)
  * @method boolean onAfterUpdate(\PapayaDatabaseRecord $record)
  * @method boolean onAfterInsert(\PapayaDatabaseRecord $record)
  * @method boolean onAfterDelete(\PapayaDatabaseRecord $record)
-*/
-class PapayaDatabaseRecordCallbacks extends \PapayaObjectCallbacks {
+ */
+class Callbacks extends \PapayaObjectCallbacks {
 
   public function __construct() {
     parent::__construct(

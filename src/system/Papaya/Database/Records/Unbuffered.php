@@ -222,15 +222,15 @@ abstract class PapayaDatabaseRecordsUnbuffered
     if (empty($this->_orderByProperties) && empty($this->_orderByFields)) {
       return FALSE;
     }
-    $result = new \PapayaDatabaseRecordOrderGroup();
+    $result = new \Papaya\Database\Record\Order\Group();
     if (!empty($this->_orderByProperties)) {
       $result->add(
-        new \PapayaDatabaseRecordOrderByProperties($this->_orderByProperties, $this->mapping())
+        new \Papaya\Database\Record\Order\By\Properties($this->_orderByProperties, $this->mapping())
       );
     }
     if (!empty($this->_orderByFields)) {
       $result->add(
-        new \PapayaDatabaseRecordOrderByFields($this->_orderByFields)
+        new \Papaya\Database\Record\Order\By\Fields($this->_orderByFields)
       );
     }
     return $result;

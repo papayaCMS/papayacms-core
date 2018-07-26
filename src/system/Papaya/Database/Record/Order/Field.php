@@ -13,24 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record\Order;
+
 /**
-* Encapsulate data for an sql order by element
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Field.php 38282 2013-03-19 12:23:19Z weinert $
-*/
-class PapayaDatabaseRecordOrderField
+ * Encapsulate data for an sql order by element
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Field
   implements \Papaya\Database\Interfaces\Order {
 
   /**
    * @var string
    */
-  private $_field = '';
+  private $_field;
   /**
    * @var integer
    */
-  private $_direction = self::ASCENDING;
+  private $_direction;
 
   /**
    * @var array

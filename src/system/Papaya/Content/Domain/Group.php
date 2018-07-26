@@ -43,7 +43,7 @@ class Group extends \PapayaDatabaseRecordLazy {
   /**
    * Create callbacks subobject, override to assign callbacks
    *
-   * @return \PapayaDatabaseRecordCallbacks
+   * @return \Papaya\Database\Record\Callbacks
    */
   protected function _createCallbacks() {
     $callbacks = parent::_createCallbacks();
