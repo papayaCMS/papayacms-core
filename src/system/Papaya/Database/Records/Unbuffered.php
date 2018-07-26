@@ -305,7 +305,7 @@ abstract class Unbuffered
     if (!($this->databaseResult() instanceof \PapayaDatabaseResult)) {
       return new \EmptyIterator();
     }
-    $iterator = new \PapayaDatabaseResultIterator($this->databaseResult());
+    $iterator = new \Papaya\Database\Result\Iterator($this->databaseResult());
     $mapping = $this->mapping();
     $iterator->setMapping(
       $mapping instanceof \Papaya\Database\Record\Mapping\Cache
