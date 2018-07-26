@@ -13,41 +13,42 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Sequence\Human;
 /**
-* Class generating human readable sequence strings with ascending length. The
-* module produces some ids that will be tried against the database and have
-* increasing length, so if the database is not very populated yet, there is
-* a good chance that ids are short. There are $minimumLength and $maximumLength
-* parameters. There are $count ids generated with increasing length,
-* remaining ids to generate will also have $maximumLength as length.
-*
-* Ids are by design not enumerable, that is: random, unpredictable.
-*
-* Ids are NOT prefix-free codes.
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-class PapayaDatabaseSequenceHumanCumulative extends \PapayaDatabaseSequenceHuman {
+ * Class generating human readable sequence strings with ascending length. The
+ * module produces some ids that will be tried against the database and have
+ * increasing length, so if the database is not very populated yet, there is
+ * a good chance that ids are short. There are $minimumLength and $maximumLength
+ * parameters. There are $count ids generated with increasing length,
+ * remaining ids to generate will also have $maximumLength as length.
+ *
+ * Ids are by design not enumerable, that is: random, unpredictable.
+ *
+ * Ids are NOT prefix-free codes.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Cumulative extends \Papaya\Database\Sequence\Human {
 
   /**
-  * @var integer minimum length.
-  */
+   * @var integer minimum length.
+   */
   private $_minimumLength = 2;
 
   /**
-  * @var integer maximum length.
-  */
+   * @var integer maximum length.
+   */
   private $_maximumLength = 32;
 
   /**
-  * @var float current length for iteration.
-  */
+   * @var float current length for iteration.
+   */
   private $_cumulativeLength = 32;
 
   /**
-  * @var float the step size of each increase.
-  */
+   * @var float the step size of each increase.
+   */
   private $_cumulativeStep = 1;
 
   public function __construct($table, $field, $minimumLength = 2, $maximumLength = 32) {
@@ -64,11 +65,11 @@ class PapayaDatabaseSequenceHumanCumulative extends \PapayaDatabaseSequenceHuman
   }
 
   /**
-  * Create a random Id of a length of at least $this->_minimumLength and at most
-  * $this->_maximumLength.
-  *
-  * @return string
-  */
+   * Create a random Id of a length of at least $this->_minimumLength and at most
+   * $this->_maximumLength.
+   *
+   * @return string
+   */
   public function create() {
     $result = $this->getRandomCharacters(round($this->_cumulativeLength));
     if ($this->_cumulativeLength < $this->_maximumLength) {
@@ -78,12 +79,12 @@ class PapayaDatabaseSequenceHumanCumulative extends \PapayaDatabaseSequenceHuman
   }
 
   /**
-  * Create several ids with increasing length. It start at minimum lenght and increases
-  * the length so that tha last element always is one of maximum length.
-  *
-  * @param integer $count
-  * @return array
-  */
+   * Create several ids with increasing length. It start at minimum lenght and increases
+   * the length so that tha last element always is one of maximum length.
+   *
+   * @param integer $count
+   * @return array
+   */
   protected function createIdentifiers($count) {
     if ($count > 1) {
       $this->_cumulativeLength = $this->_minimumLength;

@@ -13,25 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Sequence;
 /**
-* Generator for a rndomized unique id hashed with md5().
-*
-* Usage:
-*   $sequence = new PapayaDatabaseSequenceMd5(
-*     'tablename', 'fieldname', 5
-*   );
-*   $newId = $sequence->next();
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-class PapayaDatabaseSequenceMd5 extends \PapayaDatabaseSequence {
+ * Generator for a rndomized unique id hashed with md5().
+ *
+ * Usage:
+ *   $sequence = new Papaya\Database\Sequence\PapayaDatabaseSequenceMd5(
+ *     'tablename', 'fieldname', 5
+ *   );
+ *   $newId = $sequence->next();
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Md5 extends \PapayaDatabaseSequence {
 
   /**
-  * Generate a random, unqiue id and use md5 to hash it
-  *
-  * @return string
-  */
+   * Generate a random, unqiue id and use md5 to hash it
+   *
+   * @return string
+   */
   public function create() {
     return md5(
       uniqid(

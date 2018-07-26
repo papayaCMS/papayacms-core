@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Sequence;
 /**
-* Generator that uses a restricted set of symbols which can be conveniently used by humans.
-*
-* Usage:
-*   $sequence = new PapayaDatabaseSequenceBase32(
-*     'tablename', 'fieldname', 10
-*   );
-*   $newId = $sequence->next();
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-class PapayaDatabaseSequenceHuman extends \PapayaDatabaseSequence {
+ * Generator that uses a restricted set of symbols which can be conveniently used by humans.
+ *
+ * Usage:
+ *   $sequence = new PapayaDatabaseSequenceBase32(
+ *     'tablename', 'fieldname', 10
+ *   );
+ *   $newId = $sequence->next();
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Human extends \PapayaDatabaseSequence {
 
   /**
-  * List of character used in the id
-  */
+   * List of character used in the id
+   */
   private $_characterTable = array(
     'a',
     'b',
@@ -66,28 +67,29 @@ class PapayaDatabaseSequenceHuman extends \PapayaDatabaseSequence {
   );
 
   /**
-  * identifier length
-  * @var integer
-  */
+   * identifier length
+   *
+   * @var integer
+   */
   private $_length = 10;
 
   /**
-  * Initialize object and default properties, optionally set count
-  *
-  * @param string $table
-  * @param string $field
-  * @param integer $length
-  */
+   * Initialize object and default properties, optionally set count
+   *
+   * @param string $table
+   * @param string $field
+   * @param integer $length
+   */
   public function __construct($table, $field, $length = 10) {
     parent::__construct($table, $field);
     $this->_length = $length;
   }
 
   /**
-  * create an random identifier string
-  *
-  * @return string
-  */
+   * create an random identifier string
+   *
+   * @return string
+   */
   public function create() {
     return $this->getRandomCharacters($this->_length);
   }
