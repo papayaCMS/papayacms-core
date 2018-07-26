@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterBeforeTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterBefore
+   * @covers \Papaya\Filter\Before
    */
   public function testValidate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $before */
@@ -37,14 +37,14 @@ class PapayaFilterBeforeTest extends \PapayaTestCase {
       ->with('success')
       ->willReturn(TRUE);
 
-    $filter = new \PapayaFilterBefore($before, $after);
+    $filter = new \Papaya\Filter\Before($before, $after);
     $this->assertTrue(
       $filter->validate('foo')
     );
   }
 
   /**
-   * @covers \PapayaFilterBefore
+   * @covers \Papaya\Filter\Before
    */
   public function testFilter() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $before */
@@ -63,7 +63,7 @@ class PapayaFilterBeforeTest extends \PapayaTestCase {
       ->with('success')
       ->willReturn(42);
 
-    $filter = new \PapayaFilterBefore($before, $after);
+    $filter = new \Papaya\Filter\Before($before, $after);
     $this->assertSame(
       42,
       $filter->filter('foo')

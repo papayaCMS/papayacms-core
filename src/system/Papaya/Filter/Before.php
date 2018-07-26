@@ -13,13 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
+
 /**
  * Apply first filter before using the second to validate
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class PapayaFilterBefore implements Papaya\Filter {
+class Before implements \Papaya\Filter {
 
   /**
    * @var \Papaya\Filter
@@ -37,7 +39,7 @@ class PapayaFilterBefore implements Papaya\Filter {
    * @param \Papaya\Filter $filterBefore
    * @param \Papaya\Filter $validationAfter
    */
-  public function __construct(Papaya\Filter $filterBefore, Papaya\Filter $validationAfter) {
+  public function __construct(\Papaya\Filter $filterBefore, \Papaya\Filter $validationAfter) {
     $this->_before = $filterBefore;
     $this->_after = $validationAfter;
   }
@@ -45,6 +47,7 @@ class PapayaFilterBefore implements Papaya\Filter {
   /**
    * @param string $value
    * @return bool
+   * @throws \PapayaFilterException
    */
   public function validate($value) {
     return $this->_after->validate($this->_before->filter($value));
