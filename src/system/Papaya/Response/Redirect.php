@@ -17,7 +17,7 @@
 * @package Papaya-Library
 * @subpackage Response
 */
-class PapayaResponseRedirect extends Papaya\Response {
+class PapayaResponseRedirect extends \Papaya\Response {
 
   private $_location = '';
   private $_reason = '';

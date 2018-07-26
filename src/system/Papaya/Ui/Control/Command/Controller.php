@@ -29,7 +29,7 @@ class PapayaUiControlCommandController
   /**
   * Array of command objects
   *
-  * @var array(string=>PapayaUiControlCommand)
+  * @var array(string=>\PapayaUiControlCommand)
   */
   protected $_commands = array();
 
@@ -162,7 +162,7 @@ class PapayaUiControlCommandController
    * Overload owner method to set owner on all commands, too.
    *
    * @param \PapayaRequestParametersInterface $owner
-   * @internal param $ NULL|PapayaRequestParametersInterface
+   * @internal param $ NULL|\PapayaRequestParametersInterface
    * @return \PapayaRequestParametersInterface
    */
   public function owner(\PapayaRequestParametersInterface $owner = NULL) {

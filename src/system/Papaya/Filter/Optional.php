@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterOptional implements Papaya\Filter {
+class PapayaFilterOptional implements \Papaya\Filter {
 
   private $_innerFilter = NULL;
   private $_filter = NULL;
@@ -29,7 +29,7 @@ class PapayaFilterOptional implements Papaya\Filter {
    *
    * @param \Papaya\Filter $filter
    */
-  public function __construct(Papaya\Filter $filter) {
+  public function __construct(\Papaya\Filter $filter) {
     $this->_innerFilter = $filter;
   }
 

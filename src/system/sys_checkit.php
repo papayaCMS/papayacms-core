@@ -126,7 +126,7 @@ class checkit {
    *
    * @deprecated
    * @see \PapayaFilterFactory::isInteger()
-   * @see PapayaFilterInteger
+   * @see \PapayaFilterInteger
    *
    * @param string $str string
    * @param boolean $mustContainValue string may be empty?
@@ -547,7 +547,7 @@ class checkit {
    * @return integer
    */
   public static function convertISODateTimeToUnix($str) {
-    return (int)PapayaUtilDate::stringToTimestamp($str);
+    return (int)\PapayaUtilDate::stringToTimestamp($str);
   }
 
   /**

@@ -96,7 +96,7 @@ class Synchronizations {
   private $_dependencies = NULL;
 
   /**
-   * Create {@see PapayaUiIconList} from definitions and return it.
+   * Create {@see \PapayaUiIconList} from definitions and return it.
    *
    * @return \PapayaUiIconList
    */

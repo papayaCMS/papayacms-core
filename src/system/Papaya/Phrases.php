@@ -164,7 +164,7 @@ class Phrases extends Application\BaseObject {
   }
 
   /**
-   * Get a PapayaUiStringTranslated instance for a phrase. This object encaspulates
+   * Get a \PapayaUiStringTranslated instance for a phrase. This object encaspulates
    * a string that will be translated. If the $arguments are provided it the translated
    * string can contain placeholders usable with sprintf().
    *
@@ -180,7 +180,7 @@ class Phrases extends Application\BaseObject {
   }
 
   /**
-   * Get a PapayaUiStringTranslatedList instance for a list of phrases.
+   * Get a \PapayaUiStringTranslatedList instance for a list of phrases.
    *
    * @param array|\Traversable $phrases
    * @param array $groupName

@@ -50,13 +50,13 @@
 class PapayaFilterFactory implements \IteratorAggregate {
 
   /**
-   * @var array storage for field profiles, defined by constants in Papaya\PapayaFilter
+   * @var array storage for field profiles, defined by constants in \Papaya\PapayaFilter
    */
   private static $_profiles = NULL;
 
   /**
    * Returns an ArrayIterator for the available profiles. The
-   * profiles need to be defined in the Papaya\PapayaFilter interface.
+   * profiles need to be defined in the \Papaya\PapayaFilter interface.
    *
    * The key contains a lowercase version of the profile name, the value
    * the "real version"
@@ -69,7 +69,7 @@ class PapayaFilterFactory implements \IteratorAggregate {
   }
 
   /**
-   * Fetch all constants from Papaya\PapayaFilter and store them in an internal array.
+   * Fetch all constants from \Papaya\PapayaFilter and store them in an internal array.
    *
    * @codeCoverageIgnore
    * @return array
@@ -77,7 +77,7 @@ class PapayaFilterFactory implements \IteratorAggregate {
    */
   private static function _getProfiles() {
     if (NULL === self::$_profiles) {
-      $reflection = new \ReflectionClass(Papaya\Filter::class);
+      $reflection = new \ReflectionClass(\Papaya\Filter::class);
       foreach ($reflection->getConstants() as $constant => $profile) {
         if (0 === strpos($constant, 'IS_')) {
           self::$_profiles[strtolower($profile)] = $profile;
@@ -142,7 +142,7 @@ class PapayaFilterFactory implements \IteratorAggregate {
   /**
    * Get the filter using the specified profile.
    *
-   * If mandatory is set to false, the actual filter will be prefixed with an PapayaFilterEmpty
+   * If mandatory is set to false, the actual filter will be prefixed with an \PapayaFilterEmpty
    * allowing empty values.
    *
    * @param \PapayaFilterFactory|string $profile
@@ -190,7 +190,7 @@ class PapayaFilterFactory implements \IteratorAggregate {
    * @return bool
    */
   public static function validate($value, $filter, $mandatory = TRUE) {
-    if (!($filter instanceof Papaya\Filter)) {
+    if (!($filter instanceof \Papaya\Filter)) {
       $filter = self::_getFilter($filter, $mandatory);
     } elseif (!$mandatory) {
       $filter = new \PapayaFilterLogicalOr(
@@ -215,7 +215,7 @@ class PapayaFilterFactory implements \IteratorAggregate {
    * @return mixed
    */
   public static function filter($value, $filter) {
-    if (!($filter instanceof Papaya\Filter)) {
+    if (!($filter instanceof \Papaya\Filter)) {
       $filter = self::_getFilter($filter);
     }
     return $filter->filter($value);

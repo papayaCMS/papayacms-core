@@ -26,7 +26,7 @@ class PapayaUiToolbar extends \PapayaUiControl {
   /**
   * menu elements collection
   *
-  * @var NULL|PapayaUiToolbarElements
+  * @var NULL|\PapayaUiToolbarElements
   */
   protected $_elements = NULL;
 
@@ -58,8 +58,6 @@ class PapayaUiToolbar extends \PapayaUiControl {
 
   /**
   * Append toolbar and elements and set identifier if available
-  *
-  * @see papaya-lib/system/Papaya/Ui/Control/PapayaUiControlCollection#appendTo($parent)
   *
   * @param \PapayaXmlElement $parent
   * @return \PapayaXmlElement|NULL

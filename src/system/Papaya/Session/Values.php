@@ -36,7 +36,7 @@ class PapayaSessionValues implements \ArrayAccess {
   *
   * @param \Papaya\Session $session
   */
-  public function __construct(Papaya\Session $session) {
+  public function __construct(\Papaya\Session $session) {
     $this->_session = $session;
   }
 

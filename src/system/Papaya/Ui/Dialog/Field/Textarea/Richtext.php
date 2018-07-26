@@ -42,7 +42,7 @@ class PapayaUiDialogFieldTextareaRichtext extends \PapayaUiDialogFieldTextarea {
     $name,
     $lines = 10,
     $default = NULL,
-    Papaya\Filter $filter = NULL,
+    \Papaya\Filter $filter = NULL,
     $rteMode = self::RTE_DEFAULT
   ) {
     parent::__construct($caption, $name, $lines, $default, $filter);

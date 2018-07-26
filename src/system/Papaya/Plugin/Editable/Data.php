@@ -29,7 +29,7 @@ use Papaya\Administration\Plugin\Editor\Dialog;
  *  FOR A PARTICULAR PURPOSE.
  */
 
-abstract class PapayaPluginEditableData extends PapayaObjectParameters {
+abstract class PapayaPluginEditableData extends \PapayaObjectParameters {
 
   /**
    * @var \PapayaPluginEditor
@@ -48,15 +48,15 @@ abstract class PapayaPluginEditableData extends PapayaObjectParameters {
    * @throws LogicException
    * @return \PapayaPluginEditor
    */
-  public function editor(PapayaPluginEditor $editor = NULL) {
+  public function editor(\PapayaPluginEditor $editor = NULL) {
     if (NULL !== $editor) {
       $this->_editor = $editor;
     } elseif (NULL === $this->_editor) {
       if (isset($this->callbacks()->onCreateEditor)) {
         $this->_editor = $this->callbacks()->onCreateEditor($this);
-        if (!($this->_editor instanceof PapayaPluginEditor)) {
+        if (!($this->_editor instanceof \PapayaPluginEditor)) {
           throw new LogicException(
-            'Callback did not return a valid PapayaPluginEditor instance.'
+            'Callback did not return a valid \PapayaPluginEditor instance.'
           );
         }
       } else {
@@ -72,7 +72,7 @@ abstract class PapayaPluginEditableData extends PapayaObjectParameters {
    * @param \PapayaPluginEditableCallbacks $callbacks
    * @return \PapayaPluginEditableCallbacks
    */
-  public function callbacks(PapayaPluginEditableCallbacks $callbacks = NULL) {
+  public function callbacks(\PapayaPluginEditableCallbacks $callbacks = NULL) {
     if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
     } elseif (NULL === $this->_callbacks) {

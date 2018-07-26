@@ -37,7 +37,7 @@ class PapayaMessageDebug
 
   /**
   * Message context
-  * @var NULL|PapayaMessageContextGroup
+  * @var NULL|\PapayaMessageContextGroup
   */
   protected $_context = NULL;
 
@@ -73,7 +73,7 @@ class PapayaMessageDebug
   * @return integer
   */
   public function getType() {
-    return Papaya\Message::SEVERITY_DEBUG;
+    return \Papaya\Message::SEVERITY_DEBUG;
   }
 
   /**

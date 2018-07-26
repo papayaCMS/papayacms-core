@@ -55,7 +55,7 @@ class PapayaRequestParameters extends \PapayaObjectParameters {
    * @param \Papaya\Filter $filter
    * @return mixed
    */
-  public function get($offset, $defaultValue = NULL, Papaya\Filter $filter = NULL) {
+  public function get($offset, $defaultValue = NULL, \Papaya\Filter $filter = NULL) {
     return parent::get($this->_parseParameterName($offset), $defaultValue, $filter);
   }
 

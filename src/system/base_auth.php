@@ -1283,7 +1283,7 @@ class base_auth extends base_db {
         papaya_strings::escapeHTMLChars($this->getLink(array('cmd' => 'forgot'))),
         papaya_strings::escapeHTMLChars($this->_gt('Forgot password?'))
       );
-      if (!PapayaUtilServerProtocol::isSecure() &&
+      if (!\PapayaUtilServerProtocol::isSecure() &&
           $this->papaya()->options->get('PAPAYA_UI_SECURE_WARNING', TRUE)) {
         $url = new \PapayaUrlCurrent();
         $url->setScheme('https');
@@ -1365,7 +1365,7 @@ class base_auth extends base_db {
             $this->user['email'], $this->user['givenname'].' '.$this->user['surname']
           );
 
-          if (PapayaFilterFactory::isEmail($this->user['email'], TRUE)) {
+          if (\PapayaFilterFactory::isEmail($this->user['email'], TRUE)) {
             $email->send();
           }
         }

@@ -28,7 +28,7 @@ class PapayaUrlTransformerAbsolute {
   * @param string $target url to transform
   * @return string
   */
-  public function transform(Papaya\Url $currentUrl, $target) {
+  public function transform(\Papaya\Url $currentUrl, $target) {
     $result = NULL;
     if (($url = parse_url($target)) && isset($url['host'])) {
       return $target;

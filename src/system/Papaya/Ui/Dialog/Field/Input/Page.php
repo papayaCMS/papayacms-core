@@ -19,9 +19,9 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property string|PapayaUiString $caption
+* @property string|\PapayaUiString $caption
 * @property string $name
-* @property string|PapayaUiString $hint
+* @property string|\PapayaUiString $hint
 * @property integer|NULL $defaultValue
 * @property boolean $mandatory
 */

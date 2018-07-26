@@ -27,7 +27,7 @@ class PapayaPluginHookableContext {
    */
   private $_parent = NULL;
   /**
-   * @var NULL|PapayaPluginEditableContent
+   * @var NULL|\PapayaPluginEditableContent
    */
   private $_data = NULL;
 
@@ -67,7 +67,7 @@ class PapayaPluginHookableContext {
   }
 
   /**
-   * Getter/Setter for the context data. If a PapayaPluginEditableContent ist provided it will be
+   * Getter/Setter for the context data. If a \PapayaPluginEditableContent ist provided it will be
    * set a new context data, if an array or Traversalbe ist provided a new editable content
    * will be created an the data assigned.
    *

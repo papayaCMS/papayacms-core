@@ -52,7 +52,7 @@ class PapayaPluginOptionGroups extends \Papaya\Application\BaseObject implements
   */
   public function offsetSet($guid, $group) {
     $guid = \PapayaUtilStringGuid::toLower($guid);
-    \PapayaUtilConstraints::assertInstanceOf(Papaya\Configuration::class, $group);
+    \PapayaUtilConstraints::assertInstanceOf(\Papaya\Configuration::class, $group);
     $this->_groups[$guid] = $group;
   }
 

@@ -919,8 +919,8 @@ class papaya_overview extends base_db {
                 AND taglinks.link_type = 'topic'
                 AND %s
            )",
-          $this->getDatabaseAccess()->getTableName(Papaya\Content\Tables::TAG_LINKS),
-          $this->getDatabaseAccess()->getTableName(Papaya\Content\Tables::TAG_TRANSLATIONS),
+          $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::TAG_LINKS),
+          $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::TAG_TRANSLATIONS),
           $sqlString->getSQL($this->params['filter_tag'], array('tagdata.tag_title'))
         );
       } else {

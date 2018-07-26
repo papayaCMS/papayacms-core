@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterNotEmpty implements Papaya\Filter {
+class PapayaFilterNotEmpty implements \Papaya\Filter {
 
   /**
   * Values with only whitespaces are considered empty, too.

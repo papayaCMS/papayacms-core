@@ -20,7 +20,7 @@
  * @subpackage Filter
  */
 
-class PapayaFilterStringNormalize implements Papaya\Filter {
+class PapayaFilterStringNormalize implements \Papaya\Filter {
 
   const OPTION_LOWERCASE = 1;
   const OPTION_ALLOW_ASTERISK = 2;

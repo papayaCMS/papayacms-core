@@ -32,14 +32,14 @@ class PapayaUiDialogConfirmation extends \PapayaUiDialog {
   /**
   * Dialog message
   *
-  * @var string|PapayaUiString
+  * @var string|\PapayaUiString
   */
   protected $_message = 'Confirm action?';
 
   /**
   * Dialog button caption
   *
-  * @var string|PapayaUiString
+  * @var string|\PapayaUiString
   */
   protected $_button = 'Yes';
 

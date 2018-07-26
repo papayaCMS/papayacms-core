@@ -16,7 +16,7 @@
 /**
 * Field factory profiles for a generic input.
 *
-* Each profile defines how a field {@see PapayaUiDialogField} is created for a specified
+* Each profile defines how a field {@see \PapayaUiDialogField} is created for a specified
 * type. Here is an options subobject to provide data for the field configuration.
 *
 * @package Papaya-Library

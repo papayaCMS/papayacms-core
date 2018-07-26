@@ -422,11 +422,11 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
    * @param \Papaya\Domains $domains
    * @return \Papaya\Domains
    */
-  public function domains(Papaya\Domains $domains = NULL) {
+  public function domains(\Papaya\Domains $domains = NULL) {
     if (isset($domains)) {
       $this->_domains = $domains;
     } elseif (is_null($this->_domains)) {
-      $this->_domains = new Papaya\Domains();
+      $this->_domains = new \Papaya\Domains();
       $this->_domains->papaya($this->papaya());
     }
     return $this->_domains;
@@ -467,7 +467,7 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
       }
       $language = $languages->getLanguageByIdentifier(
         $this->papaya()->request->getParameter(
-          'language', '', NULL, Papaya\Request::SOURCE_PATH
+          'language', '', NULL, \Papaya\Request::SOURCE_PATH
         )
       );
       if (!($language && $language->isContent)) {

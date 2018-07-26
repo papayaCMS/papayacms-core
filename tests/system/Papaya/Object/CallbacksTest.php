@@ -108,7 +108,7 @@ class PapayaObjectCallbacksTest extends \PapayaTestCase {
   public function testGetWithInvalidValueExpectingException() {
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
     $this->expectException(LogicException::class);
-    $this->expectExceptionMessage('Argument $callback must be an valid Callback or an instance of PapayaObjectCallback.');
+    $this->expectExceptionMessage('Argument $callback must be a callable or an instance of PapayaObjectCallback.');
     $list->sample = new stdClass;
   }
 

@@ -36,7 +36,7 @@ class Fields extends Dialog {
    * @param \PapayaPluginEditableData $data
    * @param array $fields
    */
-  public function __construct(PapayaPluginEditableData $data, array $fields) {
+  public function __construct(\PapayaPluginEditableData $data, array $fields) {
     parent::__construct($data);
     \PapayaUtilConstraints::assertArrayOrTraversable($fields);
     $this->_fields = $fields;
@@ -60,7 +60,7 @@ class Fields extends Dialog {
    * @param \PapayaUiDialogFieldBuilderArray $builder
    * @return \PapayaUiDialogFieldBuilderArray
    */
-  public function builder(PapayaUiDialogFieldBuilderArray $builder = NULL) {
+  public function builder(\PapayaUiDialogFieldBuilderArray $builder = NULL) {
     if (NULL !== $builder) {
       $this->_builder = $builder;
     } elseif (NULL === $this->_builder) {

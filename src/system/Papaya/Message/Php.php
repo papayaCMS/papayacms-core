@@ -28,7 +28,7 @@ class PapayaMessagePhp
   * Message type
   * @var integer
   */
-  protected $_type = Papaya\Message::SEVERITY_ERROR;
+  protected $_type = \Papaya\Message::SEVERITY_ERROR;
 
   /**
   * Message text
@@ -38,7 +38,7 @@ class PapayaMessagePhp
 
   /**
   * Message context
-  * @var NULL|PapayaMessageContextGroup
+  * @var NULL|\PapayaMessageContextGroup
   */
   protected $_context = NULL;
 
@@ -47,13 +47,13 @@ class PapayaMessagePhp
   * @var array
   */
   private $_errors = array(
-    E_ERROR => Papaya\Message::SEVERITY_ERROR,
-    E_USER_ERROR => Papaya\Message::SEVERITY_ERROR,
-    E_RECOVERABLE_ERROR => Papaya\Message::SEVERITY_ERROR,
-    E_WARNING => Papaya\Message::SEVERITY_WARNING,
-    E_USER_WARNING => Papaya\Message::SEVERITY_WARNING,
-    E_NOTICE => Papaya\Message::SEVERITY_INFO,
-    E_USER_NOTICE => Papaya\Message::SEVERITY_INFO
+    E_ERROR => \Papaya\Message::SEVERITY_ERROR,
+    E_USER_ERROR => \Papaya\Message::SEVERITY_ERROR,
+    E_RECOVERABLE_ERROR => \Papaya\Message::SEVERITY_ERROR,
+    E_WARNING => \Papaya\Message::SEVERITY_WARNING,
+    E_USER_WARNING => \Papaya\Message::SEVERITY_WARNING,
+    E_NOTICE => \Papaya\Message::SEVERITY_INFO,
+    E_USER_NOTICE => \Papaya\Message::SEVERITY_INFO
   );
 
   /**
@@ -114,7 +114,7 @@ class PapayaMessagePhp
    * Set a context group object to the message.
    *
    * @param \PapayaMessageContextGroup $context
-   * @internal param $PapayaMessageContext
+   * @internal param $\PapayaMessageContext
    */
   public function setContext(\PapayaMessageContextGroup $context) {
     $this->_context = $context;

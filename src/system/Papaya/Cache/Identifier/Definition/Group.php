@@ -26,7 +26,7 @@ class Group
   implements \Papaya\Cache\Identifier\Definition {
 
   /**
-   * @var array(Papaya\Cache\Identifier\PapayaCacheIdentifierDefinition)
+   * @var array(\Papaya\Cache\Identifier\PapayaCacheIdentifierDefinition)
    */
   private $_definitions = array();
 

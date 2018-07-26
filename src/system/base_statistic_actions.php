@@ -1,21 +1,17 @@
 <?php
 /**
-* Basic statistic object with logging for actions
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Statistic
-* @version $Id: base_statistic_actions.php 39364 2014-02-26 15:24:28Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * @package Papaya
@@ -69,7 +65,7 @@ class base_statistic_actions extends base_db_statistic {
   */
   function logAction($guid, $actionId, $message, $refererPage = '', $refererParams = '') {
     $statObj = base_statistic_actions::getInstance();
-    if (!PapayaUtilServerAgent::isRobot()) {
+    if (!\PapayaUtilServerAgent::isRobot()) {
       $data['statistic_action_id'] = NULL;
       $data['statistic_server_id'] = PAPAYA_WEBSERVER_IDENT;
       $data['module_guid'] = $guid;

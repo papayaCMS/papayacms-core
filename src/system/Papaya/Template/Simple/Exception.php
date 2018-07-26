@@ -13,6 +13,6 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-abstract class PapayaTemplateSimpleException extends Papaya\Exception {
+abstract class PapayaTemplateSimpleException extends \Papaya\Exception {
 
 }

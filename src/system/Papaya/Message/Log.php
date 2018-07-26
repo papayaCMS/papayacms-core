@@ -31,7 +31,7 @@ class PapayaMessageLog
   * Message type
   * @var integer
   */
-  protected $_type = Papaya\Message::SEVERITY_INFO;
+  protected $_type = \Papaya\Message::SEVERITY_INFO;
 
   /**
   * Message text
@@ -41,7 +41,7 @@ class PapayaMessageLog
 
   /**
   * Message context
-  * @var NULL|PapayaMessageContextGroup
+  * @var NULL|\PapayaMessageContextGroup
   */
   protected $_context = NULL;
 

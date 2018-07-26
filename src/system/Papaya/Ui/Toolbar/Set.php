@@ -29,7 +29,7 @@ class PapayaUiToolbarSet
   /**
   * Group elements collection
   *
-  * @var NULL|PapayaUiToolbarElements
+  * @var NULL|\PapayaUiToolbarElements
   */
   protected $_elements = NULL;
 

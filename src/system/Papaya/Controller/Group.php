@@ -24,7 +24,7 @@ namespace Papaya\Controller;
 class Group extends \PapayaObjectList implements \Papaya\Controller {
 
   /**
-   * Create an object list for Papaya\PapayaController instances, add all arguments as
+   * Create an object list for \Papaya\PapayaController instances, add all arguments as
    * elements of that list.
    */
   public function __construct() {
@@ -36,7 +36,7 @@ class Group extends \PapayaObjectList implements \Papaya\Controller {
 
   /**
    * Execute the attached controllers one after another. If a controller returns
-   * TRUE, the request was handled. If the result is an Papaya\PapayaController, it is delegated
+   * TRUE, the request was handled. If the result is an \Papaya\PapayaController, it is delegated
    * to this object, if the result is FALSE the controller could not (completely) handle the
    * request, so use the next one.
    *

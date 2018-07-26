@@ -44,7 +44,7 @@ class PapayaMessageDispatcherDatabase
   * @param \Papaya\Message $message
   * @return boolean
   */
-  public function dispatch(Papaya\Message $message) {
+  public function dispatch(\Papaya\Message $message) {
     if ($message instanceof \PapayaMessageLogable) {
       if ($this->allow($message)) {
         return $this->save($message);
@@ -63,7 +63,7 @@ class PapayaMessageDispatcherDatabase
     $options = $this->papaya()->options;
     if ($options->get('PAPAYA_PROTOCOL_DATABASE', FALSE)) {
       switch ($message->getType()) {
-      case Papaya\Message::SEVERITY_DEBUG:
+      case \Papaya\Message::SEVERITY_DEBUG:
         return $options->get('PAPAYA_PROTOCOL_DATABASE_DEBUG', FALSE);
       }
       return TRUE;

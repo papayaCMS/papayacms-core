@@ -270,7 +270,7 @@ class papaya_parser extends base_db {
           $this->addOns[strtolower($paramValue)] = FALSE;
           break;
         case 'href':
-          if (PapayaFilterFactory::isInteger($paramValue, TRUE)) {
+          if (\PapayaFilterFactory::isInteger($paramValue, TRUE)) {
             $this->topics[(int)$paramValue] = FALSE;
           }
           break;

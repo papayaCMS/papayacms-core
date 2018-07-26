@@ -14,7 +14,7 @@
  */
 
 /**
- * A list of menu elements, used for the $elements property of a {@see PapayaUiMenu}
+ * A list of menu elements, used for the $elements property of a {@see \PapayaUiMenu}
 *
 * @property boolean $allowGroups
 * @package Papaya-Library
@@ -23,7 +23,7 @@
 class PapayaUiToolbarElements extends \PapayaUiControlCollection {
 
   /**
-  * Only {@see PapayaUiToolbarElement} objects are allowed in this list
+  * Only {@see \PapayaUiToolbarElement} objects are allowed in this list
   *
   * @var string
   */

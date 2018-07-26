@@ -37,7 +37,7 @@ class PapayaIteratorFilter extends \FilterIterator {
    * @param integer $target
    */
   public function __construct(
-    \Iterator $iterator, Papaya\Filter $filter, $target = self::FILTER_VALUES
+    \Iterator $iterator, \Papaya\Filter $filter, $target = self::FILTER_VALUES
   ) {
     parent::__construct($iterator);
     $this->_filter = $filter;

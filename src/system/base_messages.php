@@ -268,7 +268,7 @@ class base_messages extends base_db {
             'name' => $userName,
             'group_name' => substr($userEmail, 0, -13)
           );
-        } elseif (PapayaFilterFactory::isEmail($userEmail, TRUE)) {
+        } elseif (\PapayaFilterFactory::isEmail($userEmail, TRUE)) {
           $result[] = array(
             'name' => $userName,
             'email' => $userEmail

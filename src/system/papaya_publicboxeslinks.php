@@ -181,7 +181,7 @@ class papaya_public_boxeslinks extends base_boxeslinks {
           $this->parentObj,
           $boxData['box_data']
         );
-        if ($plugin instanceof PapayaPluginCacheable) {
+        if ($plugin instanceof \PapayaPluginCacheable) {
           $definition->add($plugin->cacheable());
         } elseif (method_exists($plugin, 'getCacheId')) {
           $definition->add(

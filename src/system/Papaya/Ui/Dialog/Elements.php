@@ -22,7 +22,7 @@
 abstract class PapayaUiDialogElements extends \PapayaUiControlCollection {
 
   /**
-  * Only PapayaUiDialogElement objects are allows in this list
+  * Only \PapayaUiDialogElement objects are allows in this list
   * @var string
   */
   protected $_itemClass = \PapayaUiDialogElement::class;

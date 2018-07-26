@@ -170,7 +170,7 @@ class PapayaUiContentTeasersFactory extends \Papaya\Application\BaseObject {
   }
 
   /**
-   * If the $order is already an Papaya\Database\Interfaces\Order return it. Otherwise
+   * If the $order is already an \Papaya\Database\Interfaces\Order return it. Otherwise
    * check if it is here is an definition in $_orderByDefinitions and us this. If no
    * definition can be found return NULL.
    *

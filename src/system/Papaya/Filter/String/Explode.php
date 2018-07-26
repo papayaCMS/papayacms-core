@@ -23,7 +23,7 @@
  * @subpackage Filter
  */
 
-class PapayaFilterStringExplode implements Papaya\Filter {
+class PapayaFilterStringExplode implements \Papaya\Filter {
 
   const TRIM_TOKENS = 1;
 
@@ -43,7 +43,7 @@ class PapayaFilterStringExplode implements Papaya\Filter {
   private $_options;
 
   public function __construct(
-    $separator = NULL, Papaya\Filter $elementFilter = NULL, $options = self::TRIM_TOKENS
+    $separator = NULL, \Papaya\Filter $elementFilter = NULL, $options = self::TRIM_TOKENS
   ) {
     if (is_string($separator)) {
       $this->_separator = $separator;
@@ -62,7 +62,7 @@ class PapayaFilterStringExplode implements Papaya\Filter {
       throw new \PapayaFilterExceptionEmpty();
     }
     $tokens = explode($this->_separator, (string)$value);
-    if ($this->_filter instanceof Papaya\Filter) {
+    if ($this->_filter instanceof \Papaya\Filter) {
       foreach ($tokens as $token) {
         if (\PapayaUtilBitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
           $token = trim($token);
@@ -84,7 +84,7 @@ class PapayaFilterStringExplode implements Papaya\Filter {
       if (\PapayaUtilBitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
         $token = trim($token);
       }
-      if ($this->_filter instanceof Papaya\Filter) {
+      if ($this->_filter instanceof \Papaya\Filter) {
         $filteredToken =  $this->_filter->filter($token);
       } else {
         $filteredToken = empty($token) ? NULL : $token;

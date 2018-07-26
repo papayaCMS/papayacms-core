@@ -28,7 +28,7 @@ interface Controller {
    * Results:
    *   TRUE - break
    *   FALSE - next
-   *   Papaya\Controller - delegate to this controller
+   *   \Papaya\Controller - delegate to this controller
    *
    * @param \Papaya\Application $application
    * @param \Papaya\Request &$request

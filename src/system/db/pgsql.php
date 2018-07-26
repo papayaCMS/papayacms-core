@@ -30,7 +30,7 @@ class dbcon_pgsql extends dbcon_base {
    * Check that the pgsql extension is available
    *
    * @access public
-   * @throws Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\Connect
    * @return boolean
    */
   function extensionFound() {
@@ -46,7 +46,7 @@ class dbcon_pgsql extends dbcon_base {
    * Establish connection to database
    *
    * @access public
-   * @throws Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\Connect
    * @throws Exception
    * @return resource $this->databaseConnection connection ID
    */
@@ -110,7 +110,7 @@ class dbcon_pgsql extends dbcon_base {
   /**
    * Wrap query execution so we can convert the erorr to an exception
    *
-   * @throws Papaya\Database\Exception\Query
+   * @throws \Papaya\Database\Exception\Query
    * @param string $sql
    * @return bool|resource
    */
@@ -879,10 +879,10 @@ class dbcon_pgsql extends dbcon_base {
     $result = NULL;
     try {
       return $this->changeIndex($table, $index, FALSE);
-    } catch (Papaya\Database\Exception\Query $e) {
+    } catch (\Papaya\Database\Exception\Query $e) {
       $logMessage = new \PapayaMessageLog(
         \PapayaMessageLogable::GROUP_DATABASE,
-        Papaya\Message::SEVERITY_ERROR,
+        \Papaya\Message::SEVERITY_ERROR,
         'Database #' . $e->getCode() . ': ' . $e->getMessage()
       );
       $logMessage
@@ -1137,7 +1137,7 @@ class dbresult_pgsql extends dbresult_base {
   * Compile database explain for SELECT query
   *
   * @access public
-  * @return NULL|PapayaMessageContextInterface
+  * @return NULL|\PapayaMessageContextInterface
   */
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;

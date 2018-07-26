@@ -40,7 +40,7 @@ class PapayaUiReferenceMedia extends \PapayaUiReference {
   * @param \Papaya\Url $url
   * @return \PapayaUiReference
   */
-  public static function create(Papaya\Url $url = NULL) {
+  public static function create(\Papaya\Url $url = NULL) {
     return new self($url);
   }
 
@@ -74,10 +74,10 @@ class PapayaUiReferenceMedia extends \PapayaUiReference {
    * @param \Papaya\Request $request
    * @return $this|\PapayaUiReference
    */
-  public function load(Papaya\Request $request) {
+  public function load(\Papaya\Request $request) {
     parent::load($request);
     $this->setPreview(
-      $request->getParameter('preview', FALSE, NULL, Papaya\Request::SOURCE_PATH)
+      $request->getParameter('preview', FALSE, NULL, \Papaya\Request::SOURCE_PATH)
     );
     return $this;
   }

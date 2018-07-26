@@ -996,7 +996,7 @@ class base_sitemap extends base_db {
             $linkProtocol = 0;
           }
           if ($linkProtocol > 0) {
-            $currentProtocol = (PapayaUtilServerProtocol::isSecure()) ? 2 : 1;
+            $currentProtocol = (\PapayaUtilServerProtocol::isSecure()) ? 2 : 1;
             /* if the session fallback is active, we should not create absolute links because
              * that whould make caching impossible. So we keep the link without the protocol
              * and redirect later. */
@@ -1004,7 +1004,7 @@ class base_sitemap extends base_db {
             if ($currentProtocol != $linkProtocol &&
                 !(
                   $session->isActive() &&
-                  $session->id()->existsIn(PapayaSessionId::SOURCE_PATH)
+                  $session->id()->existsIn(\PapayaSessionId::SOURCE_PATH)
                 )
                ) {
               $href = $this->getAbsoluteURL(

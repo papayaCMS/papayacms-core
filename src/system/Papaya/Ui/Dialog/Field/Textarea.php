@@ -37,7 +37,7 @@ class PapayaUiDialogFieldTextarea extends \PapayaUiDialogField {
   * @param \Papaya\Filter|NULL $filter
   */
   public function __construct(
-    $caption, $name, $lines = 10, $default = NULL, Papaya\Filter $filter = NULL
+    $caption, $name, $lines = 10, $default = NULL, \Papaya\Filter $filter = NULL
   ) {
     $this->setCaption($caption);
     $this->setName($name);

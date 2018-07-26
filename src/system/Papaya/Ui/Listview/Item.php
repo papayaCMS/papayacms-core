@@ -14,14 +14,14 @@
  */
 
 /**
-* A listview item represent one data line of the {@see PapayaUiListview}.
+* A listview item represent one data line of the {@see \PapayaUiListview}.
 *
 * @package Papaya-Library
 * @subpackage Ui
 *
 * @property string $image
-* @property string|PapayaUiString $caption
-* @property string|PapayaUiString $text
+* @property string|\PapayaUiString $caption
+* @property string|\PapayaUiString $text
 * @property NULL|array $actionParameters
 * @property integer $indentation
 * @property integer $columnSpan
@@ -83,7 +83,7 @@ class PapayaUiListviewItem extends \PapayaUiControlCollectionItem {
   /**
   * Reference object
   *
-  * @var NULL|PapayaUiReference
+  * @var NULL|\PapayaUiReference
   */
   protected $_reference = NULL;
 

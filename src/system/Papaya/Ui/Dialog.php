@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property string|PapayaUiString $caption
+* @property string|\PapayaUiString $caption
 * @property string $image
 * @property \PapayaUiDialogElementDescription $description
 * @property \PapayaUiDialogFields $fields
@@ -51,7 +51,7 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
 
   /**
   * Dialog caption text  *
-  * @var string|PapayaUiString
+  * @var string|\PapayaUiString
   */
   private $_caption = '';
 
@@ -422,7 +422,7 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
   }
 
   /**
-   * Parses a parameter name into an {@see PapayaRequestParametersName}. The object can be casted to
+   * Parses a parameter name into an {@see \PapayaRequestParametersName}. The object can be casted to
    * string. If the dialog uses the method "GET" the request parameter level sepearator will be used.
    *
    * @param string|array $name
@@ -485,7 +485,7 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
   /**
   * Get/Set dialog title
   *
-  * For now this is only a string/PapayaUiString but i can imagine that it will become
+  * For now this is only a string/\PapayaUiString but i can imagine that it will become
   * a more complex subobject later allowing an icon and buttons.
   *
   * @param string|\PapayaUiString $caption

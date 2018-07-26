@@ -66,7 +66,7 @@ interface Filter {
   /**
    * Checks an input and return true if it is valid.
    *
-   * It will throw an PapayaFilterException if the input is invalid.
+   * It will throw an \PapayaFilterException if the input is invalid.
    *
    * @throws \PapayaFilterException
    * @param mixed $value

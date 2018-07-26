@@ -18,7 +18,7 @@ namespace Papaya\Content\Page\Version;
  * Provide data encapsulation for the content page version translations list.
  *
  * The list does not contain all detail data, it is for list outputs etc. To get the full data
- * use {@see Papaya\Content\Page\Version\Translation}.
+ * use {@see \Papaya\Content\Page\Version\Translation}.
  *
  * @package Papaya-Library
  * @subpackage Content

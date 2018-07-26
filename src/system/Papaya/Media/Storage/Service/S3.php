@@ -99,7 +99,7 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
     if (NULL !== $service) {
       $this->_cacheService = $service;
     } elseif (NULL === $this->_cacheService) {
-      $this->_cacheService = Papaya\Cache::get(Papaya\Cache::DATA, $this->papaya()->options);
+      $this->_cacheService = \Papaya\Cache::get(\Papaya\Cache::DATA, $this->papaya()->options);
     }
     return $this->_cacheService;
   }
@@ -107,7 +107,7 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   /**
   * Set the used HTTP client object.
   *
-  * @param object PapayaHttpClient $client
+  * @param \PapayaHttpClient $client
   * @return void
   */
   public function setHTTPClient($client) {
@@ -301,7 +301,7 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   * @access private
   * @param string $storageGroup
   * @param string $storageId
-  * @param object PapayaHttpClientFile $resource
+  * @param \PapayaHttpClientFile $resource
   * @param string $mimeType
   * @param boolean $isPublic
   * @return boolean

@@ -29,7 +29,7 @@ class PapayaUiToolbarComposed extends \PapayaUiControl {
   /**
   * The internal set list
   *
-  * @var array(string=>NULL|PapayaUiToolbarSet,...)
+  * @var array(string=>NULL|\PapayaUiToolbarSet,...)
   */
   private $_sets = array();
 

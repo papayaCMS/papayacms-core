@@ -32,7 +32,7 @@ abstract class PapayaUiControlCommand extends \PapayaUiControlInteractive {
   /**
   * A condition that is validated, before executing the command
   *
-  * @var NULL|TRUE|PapayaUiControlCommandCondition
+  * @var NULL|TRUE|\PapayaUiControlCommandCondition
   */
   private $_condition = NULL;
 

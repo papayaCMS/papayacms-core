@@ -233,7 +233,7 @@ class base_msgdialog extends base_object {
   * @param \PapayaUiTokens $tokens
   * @return \PapayaUiTokens
   */
-  protected function tokens(PapayaUiTokens $tokens = NULL) {
+  protected function tokens(\PapayaUiTokens $tokens = NULL) {
     if (isset($tokens)) {
       $this->_tokens = $tokens;
     } elseif (is_null($this->_tokens)) {

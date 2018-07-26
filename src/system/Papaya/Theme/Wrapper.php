@@ -118,7 +118,7 @@ class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
     } else {
       $cacheTime = 0;
     }
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $data = NULL;
     $lastModified = 0;
     if ($cacheTime > 0) {
@@ -200,7 +200,7 @@ class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
     }
     if (is_null($this->_cacheService)) {
       /** @noinspection PhpParamsInspection */
-      $this->_cacheService = Papaya\Cache::getService(
+      $this->_cacheService = \Papaya\Cache::getService(
         $this->papaya()->options
       );
     }

@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterEquals implements Papaya\Filter {
+class PapayaFilterEquals implements \Papaya\Filter {
 
   /**
   * The comparsion

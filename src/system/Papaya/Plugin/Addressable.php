@@ -29,5 +29,5 @@ interface PapayaPluginAddressable {
    * @param \Papaya\Request $request
    * @return FALSE|string|TRUE
    */
-  function validateUrl(Papaya\Request $request);
+  function validateUrl(\Papaya\Request $request);
 }

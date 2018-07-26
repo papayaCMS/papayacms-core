@@ -22,7 +22,7 @@
 class PapayaUiDialogButtons extends \PapayaUiDialogElements {
 
   /**
-  * Only PapayaUiDialogButton objects are allows in this list
+  * Only \PapayaUiDialogButton objects are allows in this list
   * @var string
   */
   protected $_itemClass = \PapayaUiDialogButton::class;

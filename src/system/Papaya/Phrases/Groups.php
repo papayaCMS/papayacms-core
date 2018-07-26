@@ -31,7 +31,7 @@ class PapayaPhrasesGroups implements \ArrayAccess {
    */
   private $_phrases = NULL;
 
-  public function __construct(Papaya\Phrases $phrases) {
+  public function __construct(\Papaya\Phrases $phrases) {
     $this->_phrases = $phrases;
   }
 

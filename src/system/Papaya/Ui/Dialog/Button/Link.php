@@ -33,7 +33,7 @@ class PapayaUiDialogButtonLink extends \PapayaUiDialogButton {
 
   /**
   * Button caption
-  * @var string|PapayaUiString
+  * @var string|\PapayaUiString
   */
   protected $_caption = 'Submit';
 

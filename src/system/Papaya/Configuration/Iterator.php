@@ -16,7 +16,7 @@
 namespace Papaya\Configuration;
 
 /**
- * Iterator for the Papaya\PapayaConfiguration class.
+ * Iterator for the \Papaya\PapayaConfiguration class.
  *
  * @package Papaya-Library
  * @subpackage Configuration

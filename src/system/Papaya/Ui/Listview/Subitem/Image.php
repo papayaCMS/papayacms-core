@@ -21,7 +21,7 @@
 *
 * @property integer $align
 * @property string $image
-* @property string|PapayaUiString $hint
+* @property string|\PapayaUiString $hint
 * @property array $actionParameters
 * @property \PapayaUiReference $reference
 */
@@ -36,7 +36,7 @@ class PapayaUiListviewSubitemImage extends \PapayaUiListviewSubitemText {
   /**
   * buffer for text variable
   *
-  * @var string|PapayaUiString
+  * @var string|\PapayaUiString
   */
   protected $_hint = '';
 

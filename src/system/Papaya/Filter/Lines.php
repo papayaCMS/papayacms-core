@@ -13,14 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaFilterLines implements Papaya\Filter {
+class PapayaFilterLines implements \Papaya\Filter {
 
   /**
    * @var \Papaya\Filter
    */
   private $_filter;
 
-  public function __construct(Papaya\Filter $filter) {
+  public function __construct(\Papaya\Filter $filter) {
     $this->_filter = $filter;
   }
 

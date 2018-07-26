@@ -16,7 +16,7 @@
 namespace Papaya\Email;
 /**
  * A list of email recipients. If you add a address using a string it will
- * be converted into a {@see Papaya\Email\PapayaEmailAddress) object.
+ * be converted into a {@see \Papaya\Email\PapayaEmailAddress) object.
  *
  * @package Papaya-Library
  * @subpackage Email

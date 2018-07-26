@@ -20,7 +20,7 @@
  * @subpackage Ui
  *
  * @property int $align
- * @property string|PapayaUiString $text
+ * @property string|\PapayaUiString $text
  * @property int $timestamp
  */
 class PapayaUiListviewSubitemDate extends \PapayaUiListviewSubitem {

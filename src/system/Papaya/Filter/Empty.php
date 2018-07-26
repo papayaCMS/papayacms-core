@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterEmpty implements Papaya\Filter {
+class PapayaFilterEmpty implements \Papaya\Filter {
 
   /**
   * zero will be considered as an empty value

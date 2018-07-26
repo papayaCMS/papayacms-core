@@ -15,10 +15,10 @@
 
 /**
  * This a standard implementation for editable plugin content. It
- * makes implements the PapayaPluginEditable interface and
+ * makes implements the \PapayaPluginEditable interface and
  * expects an implementation of the abstract method "createEditor".
  *
- * The method needs to return a PapayaPluginEditor instance.
+ * The method needs to return a \PapayaPluginEditor instance.
  *
  * @package Papaya-Library
  * @subpackage Plugins
@@ -37,14 +37,14 @@ trait PapayaPluginEditableOptionsAggregation {
    * @param \PapayaPluginEditableOptions $options
    * @return \PapayaPluginEditableOptions
    */
-  public function options(PapayaPluginEditableOptions $options = NULL) {
+  public function options(\PapayaPluginEditableOptions $options = NULL) {
     if (NULL !== $options) {
       $this->_options = $options;
     } elseif (NULL === $this->_options) {
       $this->_options = new \PapayaPluginEditableOptions(
         new \PapayaPluginOptions($this->getPluginGuid())
       );
-      $this->_options->callbacks()->onCreateEditor = function($context, PapayaPluginEditableOptions $content) {
+      $this->_options->callbacks()->onCreateEditor = function($context, \PapayaPluginEditableOptions $content) {
         return $this->createOptionsEditor($content);
       };
     }
@@ -55,7 +55,7 @@ trait PapayaPluginEditableOptionsAggregation {
    * @param \PapayaPluginEditableOptions $content
    * @return \PapayaPluginEditor
    */
-  abstract public function createOptionsEditor(PapayaPluginEditableOptions $content);
+  abstract public function createOptionsEditor(\PapayaPluginEditableOptions $content);
 
   /**
    * The plugin guid will be set as a public property by the plugin manager.

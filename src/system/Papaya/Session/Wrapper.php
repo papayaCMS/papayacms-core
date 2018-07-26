@@ -24,7 +24,7 @@
 class PapayaSessionWrapper {
 
   /**
-   * Register a {@see PapayaSessionHandler} object, or more specific its methods in
+   * Register a {@see \PapayaSessionHandler} object, or more specific its methods in
    * {@see session_set_save_handler}.
    *
    * @param string $handler

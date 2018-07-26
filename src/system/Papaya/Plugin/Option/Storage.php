@@ -14,7 +14,7 @@
  */
 
 /**
-* This configuration storage load the module option records using {@see Papaya\Content\Module\PapayaContentModuleOptions}
+* This configuration storage load the module option records using {@see \Papaya\Content\Module\PapayaContentModuleOptions}
 * by the module guid and maps them into an associative array.
 *
 * @package Papaya-Library

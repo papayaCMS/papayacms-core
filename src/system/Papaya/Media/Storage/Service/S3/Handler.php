@@ -23,7 +23,7 @@ class PapayaMediaStorageServiceS3Handler {
 
   /**
   * http client object
-  * @var object PapayaHttpClient
+  * @var \PapayaHttpClient
   */
   private $_client = NULL;
 
@@ -53,7 +53,7 @@ class PapayaMediaStorageServiceS3Handler {
   /**
   * Set the used HTTP client object.
   *
-  * @param object PapayaHttpClient $client
+  * @param \PapayaHttpClient $client
   * @return void
   */
   public function setHTTPClient(\PapayaHttpClient $client) {

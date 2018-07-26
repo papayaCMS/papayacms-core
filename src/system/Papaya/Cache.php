@@ -27,9 +27,9 @@ class Cache {
   const IMAGES = 'images';
 
   /**
-   * Store create cache service depoending on their configuration
+   * Store create cache service depending on their configuration
    *
-   * @var array(string=>Papaya\Cache\PapayaCacheService)
+   * @var array(string=>\Papaya\Cache\Service)
    */
   private static $_serviceObjects = array();
 

@@ -24,7 +24,7 @@ class PapayaUiDialogFieldInformation extends \PapayaUiDialogField {
   /**
   * Information text
   *
-  * @var string|PapayaUiString
+  * @var string|\PapayaUiString
   */
   protected $_text = '';
 

@@ -30,7 +30,7 @@ class PapayaUiToolbars extends \PapayaUiControl {
   /**
   * The internal toolbar list
   *
-  * @var array(string=>PapayaUiToolbar,...)
+  * @var array(string=>\PapayaUiToolbar,...)
   */
   private $_toolbars = array();
 

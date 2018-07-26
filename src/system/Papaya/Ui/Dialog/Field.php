@@ -28,19 +28,19 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
 
   /**
   * Field caption
-  * @var string|PapayaUiString
+  * @var string|\PapayaUiString
   */
   private $_caption = '';
 
   /**
   * Field Hint
-  * @var string|PapayaUiString
+  * @var string|\PapayaUiString
   */
   private $_hint = '';
 
   /**
   * Field description
-  * @var NULL|PapayaUiDialogElementDescription
+  * @var NULL|\PapayaUiDialogElementDescription
   */
   private $_description = NULL;
 
@@ -89,7 +89,7 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
 
   /**
   * Validation execption
-  * @var NULL|PapayaFilterException
+  * @var NULL|\PapayaFilterException
   */
   protected $_exception = NULL;
 
@@ -97,7 +97,7 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
    * Set caption for this field, this can be a label or a title or something different depending
    * on the field implementation
    *
-   * The caption value itself can be an string or a PapayaUiString object. The getter will
+   * The caption value itself can be an string or a \PapayaUiString object. The getter will
    * cast it to a string.
    *
    * @param string|\PapayaUiString $caption
@@ -129,7 +129,7 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
    * A hint/short description for the field. This is shown to the user to help him input the
    * correct value.
    *
-   * The hint value can be an string or a PapayaUiString object. The getter will
+   * The hint value can be an string or a \PapayaUiString object. The getter will
    * cast it to a string.
    *
    * @param string|\PapayaUiString $hint
@@ -273,13 +273,13 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
    *
    * @param \Papaya\Filter $filter
    */
-  public function setFilter(Papaya\Filter $filter) {
+  public function setFilter(\Papaya\Filter $filter) {
     $this->_filter = $filter;
   }
 
   /**
   * Gets a filter object for the field. If the field is not mandatory the filter will be prefixed
-  * with PapayaFilterEmpty
+  * with \PapayaFilterEmpty
   *
   * Filter objects are used to check and filter user inputs
   *
@@ -330,7 +330,7 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
    * @return boolean
    */
   protected function _validateFilter($filter) {
-    if (isset($filter) && $filter instanceof Papaya\Filter) {
+    if (isset($filter) && $filter instanceof \Papaya\Filter) {
       try {
         return $filter->validate($this->getCurrentValue());
       } catch (\PapayaFilterException $e) {

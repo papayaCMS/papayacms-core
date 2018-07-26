@@ -108,7 +108,7 @@ class PapayaThemeHandler extends \Papaya\Application\BaseObject {
     $isPreview = $this
       ->papaya()
       ->request
-      ->getParameter('preview', FALSE, NULL, Papaya\Request::SOURCE_PATH);
+      ->getParameter('preview', FALSE, NULL, \Papaya\Request::SOURCE_PATH);
     if ($isPreview) {
       $theme = $this
         ->papaya()
@@ -135,7 +135,7 @@ class PapayaThemeHandler extends \Papaya\Application\BaseObject {
     $isPreview = $this
       ->papaya()
       ->request
-      ->getParameter('preview', FALSE, NULL, Papaya\Request::SOURCE_PATH);
+      ->getParameter('preview', FALSE, NULL, \Papaya\Request::SOURCE_PATH);
     if ($isPreview) {
       $themeSet = $this
         ->papaya()

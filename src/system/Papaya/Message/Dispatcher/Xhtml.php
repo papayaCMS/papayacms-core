@@ -30,16 +30,16 @@ class PapayaMessageDispatcherXhtml
   * @var array
   */
   private $_messageOptions = array(
-    Papaya\Message::SEVERITY_ERROR => array(
+    \Papaya\Message::SEVERITY_ERROR => array(
       '#CC0000', '#FFFFFF', 'Error'
     ),
-    Papaya\Message::SEVERITY_WARNING => array(
+    \Papaya\Message::SEVERITY_WARNING => array(
       '#FFCC33', '#000000', 'Warning'
     ),
-    Papaya\Message::SEVERITY_INFO => array(
+    \Papaya\Message::SEVERITY_INFO => array(
       '#F0F0F0', '#000060', 'Information'
     ),
-    Papaya\Message::SEVERITY_DEBUG => array(
+    \Papaya\Message::SEVERITY_DEBUG => array(
       '#F0F0F0', '#000', 'Debug'
     )
   );
@@ -50,7 +50,7 @@ class PapayaMessageDispatcherXhtml
   * @param \Papaya\Message $message
   * @return boolean
   */
-  public function dispatch(Papaya\Message $message) {
+  public function dispatch(\Papaya\Message $message) {
     if ($message instanceof \PapayaMessageLogable &&
         $this->allow()) {
       $this->outputClosers();
@@ -101,7 +101,7 @@ class PapayaMessageDispatcherXhtml
     if (isset($this->_messageOptions[$type])) {
       return $this->_messageOptions[$type];
     } else {
-      return $this->_messageOptions[Papaya\Message::SEVERITY_ERROR];
+      return $this->_messageOptions[\Papaya\Message::SEVERITY_ERROR];
     }
   }
 }

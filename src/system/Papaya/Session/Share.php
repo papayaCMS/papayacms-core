@@ -18,7 +18,7 @@
 * session-persistent data conveniently between different modules.
 *
 * Usage:
-* 1) Create a new class inheriting from PapayaSessionShare
+* 1) Create a new class inheriting from \PapayaSessionShare
 * 2) Overload property $_definitions with a list of properties transparently made
 *    persistent in the session, e.g. $_definitions = array('myProperty' => TRUE);
 * 3) create an instance of your class

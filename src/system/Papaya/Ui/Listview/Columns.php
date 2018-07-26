@@ -14,7 +14,7 @@
  */
 
 /**
-* A list of listview columns, used for the $columns property of a {@see PapayaUiListview}
+* A list of listview columns, used for the $columns property of a {@see \PapayaUiListview}
 *
 * @package Papaya-Library
 * @subpackage Ui
@@ -23,7 +23,7 @@ class PapayaUiListviewColumns
   extends \PapayaUiControlCollection {
 
   /**
-  * Only {@see PapayaUiListviewColumn} objects are allowed in this list
+  * Only {@see \PapayaUiListviewColumn} objects are allowed in this list
   *
   * @var string
   */

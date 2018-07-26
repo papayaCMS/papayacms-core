@@ -19,13 +19,13 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property string|PapayaUiString $caption
+* @property string|\PapayaUiString $caption
 * @property string $name
 * @property string $hint
 * @property string|NULL $defaultValue
 * @property boolean $mandatory
 */
-class PapayaUiDialogFieldInputCheckbox extends PapayaUiDialogFieldInput {
+class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
 
   /**
   * Specify the field type for the template

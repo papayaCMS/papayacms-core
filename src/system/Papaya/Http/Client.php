@@ -101,7 +101,7 @@ class PapayaHttpClient {
 
   /**
   * request files array
-  * @var array(PapayaHttpClientFile)
+  * @var array(\PapayaHttpClientFile)
   */
   private $_requestFiles = array();
 
@@ -213,7 +213,7 @@ class PapayaHttpClient {
   * return socket object
   *
   * @access public
-  * @return object PapayaHTTPsocket
+  * @return object \PapayaHTTPsocket
   */
   public function getSocket() {
     if (is_null($this->_socket)) {

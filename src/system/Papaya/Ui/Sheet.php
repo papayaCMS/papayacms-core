@@ -34,7 +34,7 @@ class PapayaUiSheet extends \PapayaUiControl {
   private $_document = NULL;
 
   /**
-   * @var \PapayaXmlElement|PapayaXmlAppendable
+   * @var \PapayaXmlElement|\PapayaXmlAppendable
    */
   private $_content = NULL;
 

@@ -204,7 +204,7 @@ class papaya_publictopic extends base_topic {
       $pageOptions = array();
     }
     $definition = NULL;
-    if ($pagePlugin instanceof PapayaPluginCacheable) {
+    if ($pagePlugin instanceof \PapayaPluginCacheable) {
       $definition = $pagePlugin->cacheable();
     } elseif (!property_exists($pagePlugin, 'cacheable') || $pagePlugin->cacheable === FALSE) {
       return new Cache\Identifier\Definition\BooleanValue(FALSE);
@@ -218,7 +218,7 @@ class papaya_publictopic extends base_topic {
     }
     if ($definition) {
       return new Cache\Identifier\Definition\Group(
-        new Cache\Identifier\Definition\BooleanValue(PapayaUtilRequestMethod::isGet()),
+        new Cache\Identifier\Definition\BooleanValue(\PapayaUtilRequestMethod::isGet()),
         new Cache\Identifier\Definition\Page(),
         new Cache\Identifier\Definition\Surfer(),
         $definition

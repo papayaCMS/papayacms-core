@@ -31,7 +31,7 @@ class PapayaUiControlCollection
 
   /**
   * Internal items buffer
-  * @var array(PapayaUiControlCollectionItem)
+  * @var array(\PapayaUiControlCollectionItem)
   */
   protected $_items = array();
 

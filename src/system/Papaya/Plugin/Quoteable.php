@@ -15,7 +15,7 @@
 
 /**
 * An interface to define that an plguin with a teaser appendable to an DOM element. It
-* is provides an addiitonal method to PapayaPluginAppendable to append a "quote"/short version
+* is provides an addiitonal method to \PapayaPluginAppendable to append a "quote"/short version
 * of the content to the DOM.
 *
 * @package Papaya-Library

@@ -165,14 +165,14 @@ class PapayaXmlDocument
   * @param \PapayaXmlElement $target
   * @return \PapayaXmlElement|\PapayaXmlDocument $target
   */
-  public function appendXml($content, PapayaXmlElement $target = NULL) {
+  public function appendXml($content, \PapayaXmlElement $target = NULL) {
     if (NULL === $target) {
       $target = $this;
     }
     $fragment = $this->createDocumentFragment();
     $content = sprintf(
       '<papaya:content xmlns:papaya="http://www.papaya-cms.com/ns/papayacms">%s</papaya:content>',
-      \PapayaUtilStringXml::removeControlCharacters(PapayaUtilStringUtf8::ensure($content))
+      \PapayaUtilStringXml::removeControlCharacters(\PapayaUtilStringUtf8::ensure($content))
     );
     $fragment->appendXML($content);
     if ($fragment->firstChild) {

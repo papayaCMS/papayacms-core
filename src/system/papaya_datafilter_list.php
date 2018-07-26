@@ -215,7 +215,7 @@ class papaya_datafilter_list extends base_datafilter_list {
         $parent,
         $this->filterLink['datafilter_data']
       );
-      if ($plugin instanceof PapayaPluginEditable) {
+      if ($plugin instanceof \PapayaPluginEditable) {
         $pluginNode = $this->layout->values()->getValueByPath('/page/centercol');
         if ($plugin->content()->editor()) {
           $plugin->content()->editor()->context()->merge(

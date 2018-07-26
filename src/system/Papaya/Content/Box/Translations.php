@@ -18,7 +18,7 @@ namespace Papaya\Content\Box;
  * Provide data encapsulation for the content box translations list.
  *
  * The list does not contain all detail data, it is for list outputs etc. To get the full data
- * use {@see Papaya\Content\Box\PapayaContentBoxTranslation}.
+ * use {@see \Papaya\Content\Box\PapayaContentBoxTranslation}.
  *
  * @package Papaya-Library
  * @subpackage Content

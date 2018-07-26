@@ -22,7 +22,7 @@
 * @property \PapayaUiListviewColumns $columns
 * @property \PapayaUiListviewItems $items
 * @property \PapayaUiToolbars $toolbars
-* @property string|PapayaUiString $caption
+* @property string|\PapayaUiString $caption
 * @property string $mode
 * @property \PapayaUiReference $reference
 */

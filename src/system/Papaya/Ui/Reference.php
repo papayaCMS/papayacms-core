@@ -57,7 +57,7 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   *
   * @param \Papaya\Url $url
   */
-  public function __construct(Papaya\Url $url = NULL) {
+  public function __construct(\Papaya\Url $url = NULL) {
     if (isset($url)) {
       $this->url($url);
     }
@@ -83,7 +83,7 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   * @param \Papaya\Url $url
   * @return \PapayaUiReference
   */
-  public static function create(Papaya\Url $url = NULL) {
+  public static function create(\Papaya\Url $url = NULL) {
     return new self($url);
   }
 
@@ -173,7 +173,7 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
    * @param \Papaya\Url $url
    * @return \Papaya\Url
    */
-  public function url(Papaya\Url $url = NULL) {
+  public function url(\Papaya\Url $url = NULL) {
     if (isset($url)) {
       $this->_url = $url;
     }
@@ -187,9 +187,9 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   * @param \Papaya\Request $request
   * @return \PapayaUiReference
   */
-  public function load(Papaya\Request $request) {
+  public function load(\Papaya\Request $request) {
     $url = $request->getUrl();
-    $this->_url = clone (($url instanceof Papaya\Url) ? $url : new \Papaya\Url);
+    $this->_url = clone (($url instanceof \Papaya\Url) ? $url : new \Papaya\Url);
     if (is_null($this->_parameterGroupSeparator)) {
       $this->setParameterGroupSeparator($request->getParameterGroupSeparator());
     }

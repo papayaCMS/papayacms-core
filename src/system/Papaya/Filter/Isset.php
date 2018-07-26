@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterIsset implements Papaya\Filter {
+class PapayaFilterIsset implements \Papaya\Filter {
 
   /**
    * Check the value throw exception if value is not set

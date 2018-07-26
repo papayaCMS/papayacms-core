@@ -20,9 +20,9 @@
 * @subpackage Plugins
 *
 * @property \PapayaObjectCallback $onCreateEditor
-* @method PapayaPluginEditor onCreateEditor(PapayaPluginEditableData $data)
+* @method \PapayaPluginEditor onCreateEditor(\PapayaPluginEditableData $data)
 */
-class PapayaPluginEditableCallbacks extends PapayaObjectCallbacks {
+class PapayaPluginEditableCallbacks extends \PapayaObjectCallbacks {
 
   public function __construct() {
     parent::__construct(

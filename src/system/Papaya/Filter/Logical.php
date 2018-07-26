@@ -22,11 +22,11 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-abstract class PapayaFilterLogical implements Papaya\Filter {
+abstract class PapayaFilterLogical implements \Papaya\Filter {
 
   /**
   * Filter list
-  * @var array(Papaya\PapayaFilter)
+  * @var array(\Papaya\PapayaFilter)
   */
   protected $_filters = array();
 
@@ -46,7 +46,7 @@ abstract class PapayaFilterLogical implements Papaya\Filter {
   /**
    * Check subfilters and save them in a protected property
    *
-   * @param array(Papaya\PapayaFilter) $filters
+   * @param array(\Papaya\PapayaFilter) $filters
    * @throws \InvalidArgumentException
    * @return void
    */
@@ -54,7 +54,7 @@ abstract class PapayaFilterLogical implements Papaya\Filter {
     if (is_array($filters) &&
         count($filters) > 1) {
       foreach ($filters as $filter) {
-        if ($filter instanceof Papaya\Filter) {
+        if ($filter instanceof \Papaya\Filter) {
           $this->_filters[] = $filter;
         } elseif (is_scalar($filter)) {
           $this->_filters[] = new \PapayaFilterEquals($filter);
@@ -62,7 +62,7 @@ abstract class PapayaFilterLogical implements Papaya\Filter {
           throw new \InvalidArgumentException(
             sprintf(
               'Only %1$s classes expected: "%2$s" found.',
-              Papaya\Filter::class,
+              \Papaya\Filter::class,
               is_object($filter) ? get_class($filter) : gettype($filter)
             )
           );
@@ -73,7 +73,7 @@ abstract class PapayaFilterLogical implements Papaya\Filter {
         sprintf(
           '%1$s needs at least two other %2$s classes.',
           static::class,
-          Papaya\Filter::class
+          \Papaya\Filter::class
         )
       );
     }

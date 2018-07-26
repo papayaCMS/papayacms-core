@@ -25,7 +25,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFloat implements Papaya\Filter {
+class PapayaFilterFloat implements \Papaya\Filter {
 
   /**
   * Minimum float value

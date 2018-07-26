@@ -16,7 +16,7 @@
 /**
 * Field factory profiles for a checkbox.
 *
-* Each profile defines how a field {@see PapayaUiDialogField} is created for a specified
+* Each profile defines how a field {@see \PapayaUiDialogField} is created for a specified
 * type. Here is an options subobject to provide data for the field configuration.
 *
 * @package Papaya-Library
@@ -27,7 +27,7 @@ class PapayaUiDialogFieldFactoryProfileCheckbox extends \PapayaUiDialogFieldFact
   /**
    * Create a checkbox input field
    *
-   * @see PapayaUiDialogFieldInputCheckbox
+   * @see \PapayaUiDialogFieldInputCheckbox
    * @see \PapayaUiDialogFieldFactoryProfile::getField()
    */
   public function getField() {

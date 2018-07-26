@@ -14,9 +14,9 @@
  */
 
 /**
- * Class PapayaPluginEditableOptions
+ * Class \PapayaPluginEditableOptions
  */
-class PapayaPluginEditableOptions extends PapayaPluginEditableData {
+class PapayaPluginEditableOptions extends \PapayaPluginEditableData {
 
   /**
    * Checksum buffer filled in {@see \PapayaPluginEditableOptions::modified()}
@@ -24,7 +24,7 @@ class PapayaPluginEditableOptions extends PapayaPluginEditableData {
    */
   private $_checksum;
 
-  public function __construct(PapayaPluginOptions $options) {
+  public function __construct(\PapayaPluginOptions $options) {
     parent::__construct(iterator_to_array($options));
     $this->_checksum = $this->getChecksum();
   }

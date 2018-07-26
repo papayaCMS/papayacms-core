@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterNot implements Papaya\Filter {
+class PapayaFilterNot implements \Papaya\Filter {
 
   /**
   * Wrappend filter
@@ -33,7 +33,7 @@ class PapayaFilterNot implements Papaya\Filter {
   *
   * @param \Papaya\Filter $filter
   */
-  public function __construct(Papaya\Filter $filter) {
+  public function __construct(\Papaya\Filter $filter) {
     $this->_filter = $filter;
   }
 

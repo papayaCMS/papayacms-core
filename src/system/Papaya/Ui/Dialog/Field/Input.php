@@ -52,7 +52,7 @@ class PapayaUiDialogFieldInput extends \PapayaUiDialogField {
     $name,
     $length = 1024,
     $default = NULL,
-    Papaya\Filter $filter = NULL
+    \Papaya\Filter $filter = NULL
   ) {
     $this->setCaption($caption);
     $this->setName($name);

@@ -65,7 +65,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
       $field->setHint($this->options()->hint ? $this->options()->hint : '');
     } else {
       $field = new \PapayaUiDialogFieldMessage(
-        Papaya\Message::SEVERITY_ERROR,
+        \Papaya\Message::SEVERITY_ERROR,
         new \PapayaUiStringTranslated(
           'Can not open directory "%s"', array($path)
         )
@@ -87,7 +87,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
 
   /**
    * Get the path for the file list, ig it is an callback, fetch it from the context otherwise use
-   * a Papaya\Configuration\PapayaConfigurationPath object.
+   * a \Papaya\Configuration\PapayaConfigurationPath object.
    *
    * @return string|\Papaya\Configuration\Path
    */

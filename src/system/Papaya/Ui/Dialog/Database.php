@@ -14,7 +14,7 @@
  */
 
 /**
-* A dialog superclass for dialogs that execute database actions on {@see Papaya\Database\BaseObject\PapayaDatabaseObjectRecord}
+* A dialog superclass for dialogs that execute database actions on {@see \Papaya\Database\BaseObject\PapayaDatabaseObjectRecord}
 * instances
 *
 * @package Papaya-Library

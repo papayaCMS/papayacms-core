@@ -804,7 +804,7 @@ class papaya_messages extends base_messages {
         }
       }
       $administrationUser = $this->papaya()->administrationUser;
-      if (PapayaFilterFactory::isEmail($administrationUser->user['email'], TRUE)) {
+      if (\PapayaFilterFactory::isEmail($administrationUser->user['email'], TRUE)) {
         $email->setSender(
           $this->getUserEmailAddress($administrationUser->user),
           $this->getUserEmailName($administrationUser->user)

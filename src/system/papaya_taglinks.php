@@ -1232,7 +1232,7 @@ class papaya_taglinks extends base_tags {
   }
 
   public function getLinkPriorityDialog() {
-    if (!($this->_dialogLinkPriority instanceof PapayaUiDialog)) {
+    if (!($this->_dialogLinkPriority instanceof \PapayaUiDialog)) {
       $tagId = empty($this->params['tag_id']) ? 0 : $this->params['tag_id'];
       $this->_dialogLinkPriority = $dialog = new \PapayaUiDialog();
       $dialog->caption = new \PapayaUiStringTranslated('Edit priority');

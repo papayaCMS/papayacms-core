@@ -14,15 +14,15 @@
  */
 
 /**
- * A hierarchy item represent one element in {@see PapayaUiHierarchyItems}.
+ * A hierarchy item represent one element in {@see \PapayaUiHierarchyItems}.
  *
  * @package Papaya-Library
  * @subpackage Ui
  * @subpackage Ui
  *
  * @property string $image
- * @property string|PapayaUiString $caption
- * @property string|PapayaUiString $hint
+ * @property string|\PapayaUiString $caption
+ * @property string|\PapayaUiString $hint
  * @property int $displayMode
  * @property \PapayaUiReference $reference
  */
@@ -68,7 +68,7 @@ class PapayaUiHierarchyItem extends \PapayaUiControlCollectionItem {
   /**
   * Reference object
   *
-  * @var NULL|PapayaUiReference
+  * @var NULL|\PapayaUiReference
   */
   protected $_reference;
 

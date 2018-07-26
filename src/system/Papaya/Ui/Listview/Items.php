@@ -14,7 +14,7 @@
  */
 
 /**
-* A list of listview items, used for the $items property of a {@see PapayaUiListview}
+* A list of listview items, used for the $items property of a {@see \PapayaUiListview}
 *
 * @package Papaya-Library
 * @subpackage Ui
@@ -23,7 +23,7 @@ class PapayaUiListviewItems
   extends \PapayaUiControlCollection {
 
   /**
-  * Only {@see PapayaUiListviewItem} objects are allowed in this list
+  * Only {@see \PapayaUiListviewItem} objects are allowed in this list
   *
   * @var string
   */
@@ -40,7 +40,7 @@ class PapayaUiListviewItems
   * A basic reference (link object) for the listview items. The reference object is cloned and
   * modified by the item using it's $actionParameters.
   *
-  * @var NULL|PapayaUiReference
+  * @var NULL|\PapayaUiReference
   */
   protected $_reference = NULL;
 

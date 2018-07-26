@@ -16,9 +16,9 @@
 /**
 * A single line input for a geographic position
 *
-* @property string|PapayaUiString $caption
+* @property string|\PapayaUiString $caption
 * @property string $name
-* @property string|PapayaUiString $hint
+* @property string|\PapayaUiString $hint
 * @property string $defaultValue
 * @property boolean $mandatory
 *

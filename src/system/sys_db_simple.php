@@ -152,7 +152,7 @@ class db_simple extends base_object {
       $this->papaya()->messages->dispatch(
         new \PapayaMessageLog(
           \PapayaMessageLogable::GROUP_DEBUG,
-          Papaya\Message::SEVERITY_DEBUG,
+          \Papaya\Message::SEVERITY_DEBUG,
           $message
         )
       );
@@ -170,7 +170,7 @@ class db_simple extends base_object {
    *
    * @param object $object calling object
    * @param bool $readOnly
-   * @throws Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\Connect
    * @return boolean Success
    */
   function createConnection($object, $readOnly = TRUE) {
@@ -324,7 +324,7 @@ class db_simple extends base_object {
       if (preg_match('~^\s*(INSERT|UPDATE|ALTER|CREATE|DROP)~i', $sql)) {
         $logMessage = new \PapayaMessageLog(
           \PapayaMessageLogable::GROUP_DATABASE,
-          Papaya\Message::SEVERITY_WARNING,
+          \Papaya\Message::SEVERITY_WARNING,
           'Detected write query on read connection.'
         );
         $logMessage
@@ -460,7 +460,7 @@ class db_simple extends base_object {
       if ($dispatchLogMessage) {
         $logMessage = new \PapayaMessageLog(
           \PapayaMessageLogable::GROUP_DATABASE,
-          Papaya\Message::SEVERITY_DEBUG,
+          \Papaya\Message::SEVERITY_DEBUG,
           $caption
         );
         $logMessage->context()->append(new \PapayaMessageContextRuntime($timeStart, $timeStop));
@@ -504,7 +504,7 @@ class db_simple extends base_object {
         }
         if ($populateQueryLogDetails) {
           $logData['query_backtrace'] = $backtrace->asString();
-          if (isset($explain) && $explain instanceof PapayaMessageContextInterfaceString) {
+          if (isset($explain) && $explain instanceof \PapayaMessageContextInterfaceString) {
             $logData['query_explain'] = $explain->asString();
           }
         }

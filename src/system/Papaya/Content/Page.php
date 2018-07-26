@@ -19,8 +19,8 @@ namespace Papaya\Content;
  *
  * Allows to load pages and provides basic function for the working copy and publication.
  *
- * This is an abstract superclass, please use {@see Papaya\Content\Page\PapayaContentPageWork} to modify the
- * working copy of a page or {@see Papaya\Content\Page\PapayaContentPagePublication} to use the published page.
+ * This is an abstract superclass, please use {@see \Papaya\Content\Page\PapayaContentPageWork} to modify the
+ * working copy of a page or {@see \Papaya\Content\Page\PapayaContentPagePublication} to use the published page.
  *
  * @package Papaya-Library
  * @subpackage Content

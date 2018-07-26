@@ -79,7 +79,7 @@ class Dialog extends \PapayaPluginEditor {
    * @param \PapayaUiDialog $dialog
    * @return \PapayaUiDialog
    */
-  public function dialog(PapayaUiDialog $dialog = NULL) {
+  public function dialog(\PapayaUiDialog $dialog = NULL) {
     if (NULL !== $dialog) {
       $this->_dialog = $dialog;
     } elseif (NULL === $this->_dialog) {
@@ -97,13 +97,13 @@ class Dialog extends \PapayaPluginEditor {
     $dialog = new \PapayaUiDialog();
     $dialog->papaya($this->papaya());
 
-    if ($this->getData() instanceof PapayaPluginEditableContent) {
+    if ($this->getData() instanceof \PapayaPluginEditableContent) {
       $dialog->caption = new \PapayaAdministrationLanguagesCaption(
         new \PapayaUiStringTranslated('Edit content')
       );
       $dialog->image = new Image();
       $dialog->parameterGroup('content');
-    } elseif ($this->getData() instanceof PapayaPluginEditableOptions) {
+    } elseif ($this->getData() instanceof \PapayaPluginEditableOptions) {
       $dialog->caption = new \PapayaUiStringTranslated('Edit options');
       $dialog->parameterGroup('options');
     } else {

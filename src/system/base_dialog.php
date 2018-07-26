@@ -1491,7 +1491,7 @@ class base_dialog extends base_object {
                   $filter->validate($subValue);
                   $this->data[$fieldName][$subKey] = $filter->filter($subValue);
                   $this->inputErrors[$fieldName] = 0;
-                } catch (PapayaFilterException $e) {
+                } catch (\PapayaFilterException $e) {
                   $result = $this->markFieldInvalid($fieldName, $field[0]);
                   break;
                 }
@@ -1508,7 +1508,7 @@ class base_dialog extends base_object {
               $filter->validate($this->params[$fieldName]);
               $this->data[$fieldName] = $filter->filter($this->params[$fieldName]);
               $this->inputErrors[$fieldName] = 0;
-            } catch (PapayaFilterException $e) {
+            } catch (\PapayaFilterException $e) {
               $result = $this->markFieldInvalid($fieldName, $field[0]);
             }
           }
@@ -1650,7 +1650,7 @@ class base_dialog extends base_object {
   * @param \PapayaUiTokens $tokens
   * @return \PapayaUiTokens
   */
-  protected function tokens(PapayaUiTokens $tokens = NULL) {
+  protected function tokens(\PapayaUiTokens $tokens = NULL) {
     if (isset($tokens)) {
       $this->_tokens = $tokens;
     } elseif (is_null($this->_tokens)) {

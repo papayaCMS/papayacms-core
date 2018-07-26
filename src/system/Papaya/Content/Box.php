@@ -17,8 +17,8 @@ namespace Papaya\Content;
 
 /**
  * Provide a superclass data encapsulation for the content box itself. Here are two children
- * of this class {@see Papaya\Content\Box\Work} for the working copy and
- * {@see Papaya\Content\Box\Publication} for the published version.
+ * of this class {@see \Papaya\Content\Box\Work} for the working copy and
+ * {@see \Papaya\Content\Box\Publication} for the published version.
  *
  * @package Papaya-Library
  * @subpackage Content

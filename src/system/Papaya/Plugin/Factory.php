@@ -151,7 +151,7 @@ abstract class PapayaPluginFactory extends \Papaya\Application\BaseObject {
   * @param \Papaya\Configuration $options
   * @return NULL|\Papaya\Configuration
   */
-  public function options($pluginName, Papaya\Configuration $options = NULL) {
+  public function options($pluginName, \Papaya\Configuration $options = NULL) {
     if ($this->has($pluginName)) {
       if ($options !== NULL) {
         $this->_options[$pluginName] = $options;

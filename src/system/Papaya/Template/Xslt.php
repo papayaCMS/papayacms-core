@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Template
 */
-class PapayaTemplateXslt extends Papaya\Template {
+class PapayaTemplateXslt extends \Papaya\Template {
 
   /**
    * @var string

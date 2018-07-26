@@ -25,7 +25,7 @@ abstract class PapayaTemplateSimpleParser {
   /**
   * List of tokens from scanner
   *
-  * @var array(PapayaTemplateSimpleScannerToken)
+  * @var array(\PapayaTemplateSimpleScannerToken)
   */
   protected $_tokens = array();
 
@@ -48,7 +48,7 @@ abstract class PapayaTemplateSimpleParser {
   * PapayaTemplateSimpleParserException needs to be thrown.
   *
   * The methods protected methods read and lookahead should be used to
-  * operate on the tokenstream. They will throw PapayaTemplateSimpleParserExceptions
+  * operate on the tokenstream. They will throw \PapayaTemplateSimpleParserExceptions
   * automatically in case they do not succeed.
   *
   * @return \PapayaTemplateSimpleAst
@@ -63,7 +63,7 @@ abstract class PapayaTemplateSimpleParser {
    * provided tokens. If a match is found it is removed from the token list
    * and returned.
    *
-   * If no match can be found a PapayaTemplateSimpleParserException will thrown indicating what
+   * If no match can be found a \PapayaTemplateSimpleParserException will thrown indicating what
    * has been expected and what was found.
    *
    * The $expectedTokens parameter may be an array of tokens or a scalar
@@ -102,7 +102,7 @@ abstract class PapayaTemplateSimpleParser {
    * lookahead posistion against all of the provided tokens. If a match is
    * found it simply returned. The tokenstream remains unchanged.
    *
-   * If no match can be found a PapayaTemplateSimpleParserException will thrown indicating what
+   * If no match can be found a \PapayaTemplateSimpleParserException will thrown indicating what
    * has been expected and what was found.
    *
    * The $expectedTokens parameter may be an array of tokens or a scalar

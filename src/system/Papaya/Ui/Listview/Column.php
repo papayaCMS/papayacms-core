@@ -14,20 +14,20 @@
  */
 
 /**
-* A listview column represent one part of the column header in a {@see PapayaUiListview}.
+* A listview column represent one part of the column header in a {@see \PapayaUiListview}.
 *
 * @package Papaya-Library
 * @subpackage Ui
 *
 * @property integer $align
-* @property string|PapayaUiString $caption
+* @property string|\PapayaUiString $caption
 */
 class PapayaUiListviewColumn extends \PapayaUiControlCollectionItem {
 
   /**
   * Current caption value
   *
-  * @var string|PapayaUiString
+  * @var string|\PapayaUiString
   */
   protected $_caption = '';
 

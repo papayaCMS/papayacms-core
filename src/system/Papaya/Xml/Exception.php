@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Xml
 */
-class PapayaXmlException extends Papaya\Exception {
+class PapayaXmlException extends \Papaya\Exception {
 
   /**
   * The libxml error

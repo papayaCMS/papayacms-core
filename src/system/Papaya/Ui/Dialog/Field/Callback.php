@@ -43,7 +43,7 @@ class PapayaUiDialogFieldCallback extends \PapayaUiDialogField {
   * @param \Papaya\Filter|NULL $filter
   */
   public function __construct(
-    $caption, $name, $callback, $default = NULL, Papaya\Filter $filter = NULL
+    $caption, $name, $callback, $default = NULL, \Papaya\Filter $filter = NULL
   ) {
     $this->setCaption($caption);
     $this->setName($name);

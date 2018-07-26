@@ -30,5 +30,5 @@ interface PapayaMessageDispatcher {
   * @param \Papaya\Message $message
   * @return boolean message dispatched
   */
-  function dispatch(Papaya\Message $message);
+  function dispatch(\Papaya\Message $message);
 }

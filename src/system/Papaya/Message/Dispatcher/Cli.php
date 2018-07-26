@@ -25,16 +25,16 @@ class PapayaMessageDispatcherCli
   * @var array
   */
   private $_messageOptions = array(
-    Papaya\Message::SEVERITY_ERROR => array(
+    \Papaya\Message::SEVERITY_ERROR => array(
       'label' => 'Error'
     ),
-    Papaya\Message::SEVERITY_WARNING => array(
+    \Papaya\Message::SEVERITY_WARNING => array(
       'label' => 'Warning'
     ),
-    Papaya\Message::SEVERITY_INFO => array(
+    \Papaya\Message::SEVERITY_INFO => array(
       'label' => 'Information'
     ),
-    Papaya\Message::SEVERITY_DEBUG => array(
+    \Papaya\Message::SEVERITY_DEBUG => array(
       'label' => 'Debug'
     )
   );
@@ -61,12 +61,12 @@ class PapayaMessageDispatcherCli
   * @param \Papaya\Message $message
   * @return boolean
   */
-  public function dispatch(Papaya\Message $message) {
+  public function dispatch(\Papaya\Message $message) {
     if ($message instanceof \PapayaMessageLogable &&
         $this->allow()) {
       $options = $this->getOptionsFromType($message->getType());
       $isError = in_array(
-        $message->getType(), array(Papaya\Message::SEVERITY_ERROR, Papaya\Message::SEVERITY_WARNING)
+        $message->getType(), array(\Papaya\Message::SEVERITY_ERROR, \Papaya\Message::SEVERITY_WARNING)
       );
       fwrite(
         $this->stream($isError ? self::TARGET_STDERR : self::TARGET_STDOUT),
@@ -115,7 +115,7 @@ class PapayaMessageDispatcherCli
     if (isset($this->_messageOptions[$type])) {
       return $this->_messageOptions[$type];
     } else {
-      return $this->_messageOptions[Papaya\Message::SEVERITY_ERROR];
+      return $this->_messageOptions[\Papaya\Message::SEVERITY_ERROR];
     }
   }
 

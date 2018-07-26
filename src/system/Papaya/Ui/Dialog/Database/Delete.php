@@ -14,7 +14,7 @@
  */
 
 /**
-* A dialog that can delete a record from a database table using a {@see Papaya\Database\BaseObject\PapayaDatabaseObjectRecord}
+* A dialog that can delete a record from a database table using a {@see \Papaya\Database\BaseObject\PapayaDatabaseObjectRecord}
 * object.
 *
 * @package Papaya-Library

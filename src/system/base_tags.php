@@ -558,8 +558,8 @@ class base_tags extends base_db {
       $this->tableTagLinks,
       $this->getDatabaseAccess()->getTableName(
         $this->papaya()->request->isPreview
-          ? Papaya\Content\Tables::PAGE_TRANSLATIONS
-          : Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS
+          ? \Papaya\Content\Tables::PAGE_TRANSLATIONS
+          : \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS
       ),
       $lngId
     );
@@ -615,8 +615,8 @@ class base_tags extends base_db {
       $this->tableTagLinks,
       $this->getDatabaseAccess()->getTableName(
         $this->papaya()->request->isPreview
-          ? Papaya\Content\Tables::PAGE_TRANSLATIONS
-          : Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS
+          ? \Papaya\Content\Tables::PAGE_TRANSLATIONS
+          : \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS
       ),
       $lngId
     );
@@ -667,8 +667,8 @@ class base_tags extends base_db {
       $this->tableTagLinks,
       $this->getDatabaseAccess()->getTableName(
         $this->papaya()->request->isPreview
-          ? Papaya\Content\Tables::PAGE_TRANSLATIONS
-          : Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS
+          ? \Papaya\Content\Tables::PAGE_TRANSLATIONS
+          : \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS
       ),
       $lngId
     );
@@ -713,8 +713,8 @@ class base_tags extends base_db {
       $this->tableTagLinks,
       $this->getDatabaseAccess()->getTableName(
         $this->papaya()->request->isPreview
-          ? Papaya\Content\Tables::PAGE_TRANSLATIONS
-          : Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS
+          ? \Papaya\Content\Tables::PAGE_TRANSLATIONS
+          : \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS
       ),
       $lngId
     );

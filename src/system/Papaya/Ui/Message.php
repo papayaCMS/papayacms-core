@@ -28,7 +28,7 @@
 *
 * @property integer $severity
 * @property boolean $occured
-* @property string|PapayaUiString $event
+* @property string|\PapayaUiString $event
 */
 abstract class PapayaUiMessage
   extends \PapayaUiControl {

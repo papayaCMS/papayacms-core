@@ -85,10 +85,10 @@ abstract class PapayaUiControlInteractive
       $this->_parameters = $parameters;
     } elseif (is_null($this->_parameters)) {
       $sourceMapping = array(
-        self::METHOD_GET => Papaya\Request::SOURCE_QUERY,
-        self::METHOD_POST => Papaya\Request::SOURCE_BODY,
-        self::METHOD_MIXED_POST => Papaya\Request::SOURCE_QUERY | Papaya\Request::SOURCE_BODY,
-        self::METHOD_MIXED_GET => Papaya\Request::SOURCE_QUERY | Papaya\Request::SOURCE_BODY
+        self::METHOD_GET => \Papaya\Request::SOURCE_QUERY,
+        self::METHOD_POST => \Papaya\Request::SOURCE_BODY,
+        self::METHOD_MIXED_POST => \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY,
+        self::METHOD_MIXED_GET => \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY
       );
       if (isset($this->_parameterGroup)) {
         $this->_parameters = $this->papaya()->request->getParameterGroup(

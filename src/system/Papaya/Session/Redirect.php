@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Session
 */
-class PapayaSessionRedirect extends Papaya\Response {
+class PapayaSessionRedirect extends \Papaya\Response {
 
   /**
   * session name - used as parameter name, too.
@@ -119,7 +119,7 @@ class PapayaSessionRedirect extends Papaya\Response {
     $query = new \PapayaRequestParametersQuery($application->request->getParameterGroupSeparator());
     $query->setString($this->url()->getQuery());
     $query->values()->merge(
-      $application->request->getParameters(Papaya\Request::SOURCE_QUERY)
+      $application->request->getParameters(\Papaya\Request::SOURCE_QUERY)
     );
     if ($include) {
       $query->values()->set($sessionName, $sessionId);

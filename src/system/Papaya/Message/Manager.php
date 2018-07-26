@@ -23,7 +23,7 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
 
   /**
   * Internal list of message dispatchers
-  * @var array(PapayaMessageDispatcher)
+  * @var array(\PapayaMessageDispatcher)
   */
   private $_dispatchers = array();
 
@@ -46,7 +46,7 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
   *
   * @param \Papaya\Message $message
   */
-  public function dispatch(Papaya\Message $message) {
+  public function dispatch(\Papaya\Message $message) {
     /** @var \PapayaMessageDispatcher $dispatcher */
     foreach ($this->_dispatchers as $dispatcher) {
       $dispatcher->dispatch($message);
@@ -64,8 +64,8 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
   }
 
   /**
-   * Log a message, if $context ist not an PapayaMessageContextInterface it will be encapsulated
-   * into a PapayaMessageContextVariable
+   * Log a message, if $context ist not an \PapayaMessageContextInterface it will be encapsulated
+   * into a \PapayaMessageContextVariable
    *
    * @param integer $severity
    * @param integer $group
@@ -91,7 +91,7 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
   */
   public function debug() {
     $message = new \PapayaMessageLog(
-      \PapayaMessageLogable::GROUP_DEBUG, Papaya\Message::SEVERITY_DEBUG, ''
+      \PapayaMessageLogable::GROUP_DEBUG, \Papaya\Message::SEVERITY_DEBUG, ''
     );
     if (func_num_args() > 0) {
       $message->context()->append(new \PapayaMessageContextVariable(func_get_args(), 5, 9999));

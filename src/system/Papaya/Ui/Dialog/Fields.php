@@ -22,7 +22,7 @@
 class PapayaUiDialogFields extends \PapayaUiDialogElements {
 
   /**
-  * Only PapayaUiDialogField objects are allows in this list
+  * Only \PapayaUiDialogField objects are allows in this list
   * @var string
   */
   protected $_itemClass = \PapayaUiDialogField::class;

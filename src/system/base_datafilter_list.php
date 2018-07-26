@@ -104,7 +104,7 @@ class base_datafilter_list extends base_db {
           $filter->loadFilterData(
             $this->contentObj->data
           );
-        } elseif ($filter instanceof PapayaPluginFilterContent) {
+        } elseif ($filter instanceof \PapayaPluginFilterContent) {
           $content = '';
           if (is_array($this->contentObj->data) || $this->contentObj->data instanceof Traversable) {
             foreach ($this->contentObj->data as $text) {
@@ -134,7 +134,7 @@ class base_datafilter_list extends base_db {
       ) {
         if ($filter instanceof base_datafilter) {
           $string = $filter->applyFilterData($string);
-        } elseif ($filter instanceof PapayaPluginFilterContent) {
+        } elseif ($filter instanceof \PapayaPluginFilterContent) {
           $string = $filter->applyTo($string);
         }
       }
@@ -160,7 +160,7 @@ class base_datafilter_list extends base_db {
         ) {
           if ($filter instanceof base_datafilter) {
             $result .= $filter->getFilterData($parseParams);
-          } elseif ($filter instanceof PapayaPluginFilterContent) {
+          } elseif ($filter instanceof \PapayaPluginFilterContent) {
             $document = new \PapayaXmlDocument();
             $content = $document->appendElement('content');
             $filter->appendTo($content);
@@ -228,11 +228,11 @@ class base_datafilter_list extends base_db {
   * @param object $parent parent object
   * @param mixed $data optional, default value NULL
   * @access public
-  * @return base_datafilter|PapayaPluginFilterContent|NULL filter
+  * @return base_datafilter|\PapayaPluginFilterContent|NULL filter
   */
   function createFilterObject($guid, $parent = NULL, $data = NULL) {
     $filter = $this->papaya()->plugins->get($guid, $parent, $data);
-    if ($filter instanceof base_datafilter || $filter instanceof PapayaPluginFilterContent) {
+    if ($filter instanceof base_datafilter || $filter instanceof \PapayaPluginFilterContent) {
       return $filter;
     }
     return NULL;

@@ -16,7 +16,7 @@
 /**
  * This a standard implementation for content/data filters usage in a plugin.
  *
- * It provides access to a filters() methods that returns a PapayaPluginFilterContent
+ * It provides access to a filters() methods that returns a \PapayaPluginFilterContent
  * instance.
  *
  * To use the filters call prepare()/applyTo()/appendTo() in the
@@ -33,7 +33,7 @@ trait PapayaPluginFilterAggregation {
   private $_contentFilters;
 
   /**
-   * @var base_topic|PapayaUiContentPage
+   * @var base_topic|\PapayaUiContentPage
    */
   private $_page;
 

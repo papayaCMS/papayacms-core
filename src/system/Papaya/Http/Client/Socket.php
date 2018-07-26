@@ -89,7 +89,7 @@ class PapayaHttpClientSocket {
   * return the connection pool object
   *
   * @access public
-  * @return object PapayaHttpClientSocketPool
+  * @return \PapayaHttpClientSocketPool
   */
   public function getPool() {
     if (is_null($this->_pool)) {

@@ -38,7 +38,7 @@ class Group extends \PapayaPluginEditor {
    * @param \PapayaPluginEditableData $data
    * @param string $indexParameterName
    */
-  public function __construct(PapayaPluginEditableData $data, $indexParameterName = 'editor_index') {
+  public function __construct(\PapayaPluginEditableData $data, $indexParameterName = 'editor_index') {
     parent::__construct($data);
     $this->_indexParameterName = $indexParameterName;
   }

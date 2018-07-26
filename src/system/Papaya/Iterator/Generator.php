@@ -67,7 +67,7 @@ class PapayaIteratorGenerator implements \IteratorAggregate {
    * If the callback returns an array, an ArrayIterator is created.
    * If the callback returns an Iterator, that iterator is returned.
    * If the callback returns an IteratorAggregate, the inner iterator is returned.
-   * If the callback returns an Traversable, a PapayaIteratorTraversable is returned.
+   * If the callback returns an Traversable, a \PapayaIteratorTraversable is returned.
    *
    * In all other cases an EmptyIterator is returned.
    *

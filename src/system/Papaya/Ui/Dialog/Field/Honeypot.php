@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property string|PapayaUiString $caption
+* @property string|\PapayaUiString $caption
 * @property string $name
 * @property string $hint
 */
@@ -59,7 +59,7 @@ class PapayaUiDialogFieldHoneypot extends \PapayaUiDialogField {
     $this->setName($name);
   }
 
-  public function setFilter(Papaya\Filter $filter) {
+  public function setFilter(\Papaya\Filter $filter) {
     throw new \LogicException('The honeypot field filter can not be changed.');
   }
 

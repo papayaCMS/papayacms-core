@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterCast implements Papaya\Filter {
+class PapayaFilterCast implements \Papaya\Filter {
 
   /**
   * target type the value should be cast to.

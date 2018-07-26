@@ -134,7 +134,7 @@ class papaya_topic_tree extends base_topic_tree {
               if ($topic->publishTopic()) {
                 $this->addMsg(MSG_INFO, $this->_gt('Page published.'));
                 $this->sychronizations()->synchronizeAction(
-                  Papaya\Content\Page\Dependency::SYNC_PUBLICATION,
+                  \Papaya\Content\Page\Dependency::SYNC_PUBLICATION,
                   $this->topicId,
                   array($languageId)
                 );
@@ -229,7 +229,7 @@ class papaya_topic_tree extends base_topic_tree {
   * @param \PapayaUiDialog $dialog
   * @return \PapayaUiDialog
   */
-  function dialogCopyPageConfirmation(PapayaUiDialog $dialog = NULL) {
+  function dialogCopyPageConfirmation(\PapayaUiDialog $dialog = NULL) {
     if (isset($dialog)) {
       $this->_dialogCopyPageConfirmation = $dialog;
     } elseif (is_null($this->_dialogCopyPageConfirmation)) {

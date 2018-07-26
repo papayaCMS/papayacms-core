@@ -465,7 +465,7 @@ class Request
   }
 
   /**
-   * Load parameters into PapayaRequestParameters object and return it.
+   * Load parameters into \PapayaRequestParameters object and return it.
    *
    * Merges parameter data from different sources and uses an object cache
    *

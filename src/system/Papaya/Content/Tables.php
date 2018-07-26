@@ -15,7 +15,7 @@
 
 namespace Papaya\Content;
 /**
- * Defines the tables used by the PapayaContent* classes. Allows to prefix the
+ * Defines the tables used by the \PapayaContent* classes. Allows to prefix the
  * current table name with the defined table prefix.
  *
  * @package Papaya-Library

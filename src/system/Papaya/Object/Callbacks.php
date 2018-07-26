@@ -25,7 +25,7 @@ class PapayaObjectCallbacks implements \IteratorAggregate {
   /**
   * List of callbacks
   *
-  * @var array(string=>PapayaObjectCallback)
+  * @var array(string=>\PapayaObjectCallback)
   */
   private $_callbacks = array();
 
@@ -53,7 +53,7 @@ class PapayaObjectCallbacks implements \IteratorAggregate {
   }
 
   /**
-  * This check the list of given callback names. For each name a PapayaObjectCallback instance is
+  * This check the list of given callback names. For each name a \PapayaObjectCallback instance is
   * created.
   *
   * If of of the given names is an existing method in the current object ($this) an exception
@@ -92,7 +92,7 @@ class PapayaObjectCallbacks implements \IteratorAggregate {
   }
 
   /**
-  * Returns the PapayaObjectCallback instance for the given name.
+  * Returns the \PapayaObjectCallback instance for the given name.
   *
   * @param string $name
   * @return \PapayaObjectCallback
@@ -103,8 +103,8 @@ class PapayaObjectCallbacks implements \IteratorAggregate {
   }
 
   /**
-   * Change a callback. If the value is an instance of PapayaObjectCallback is will be assigned.
-   * If it is a PHP callback it will be assigned to the PapayaObjectCallback instance.
+   * Change a callback. If the value is an instance of \PapayaObjectCallback is will be assigned.
+   * If it is a PHP callback it will be assigned to the \PapayaObjectCallback instance.
    *
    * @param string $name
    * @param NULL|\PapayaObjectCallback|\Callback $callback
@@ -120,13 +120,16 @@ class PapayaObjectCallbacks implements \IteratorAggregate {
       $this->_callbacks[$name]->callback = $callback;
     } else {
       throw new \InvalidArgumentException(
-        'Argument $callback must be an valid Callback or an instance of PapayaObjectCallback.'
+        sprintf(
+          'Argument $callback must be a callable or an instance of %s.',
+          \PapayaObjectCallback::class
+        )
       );
     }
   }
 
   /**
-  * Unset the PHP callback in the match PapayaObjectCallback
+  * Unset the PHP callback in the match \PapayaObjectCallback
   *
   * @param string $name
   */

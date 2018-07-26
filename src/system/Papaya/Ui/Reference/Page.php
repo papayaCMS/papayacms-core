@@ -43,7 +43,7 @@ class PapayaUiReferencePage extends \PapayaUiReference {
   * @param \Papaya\Url $url
   * @return \PapayaUiReferencePage
   */
-  public static function create(Papaya\Url $url = NULL) {
+  public static function create(\Papaya\Url $url = NULL) {
     return new self($url);
   }
 
@@ -84,25 +84,25 @@ class PapayaUiReferencePage extends \PapayaUiReference {
    * @param \Papaya\Request $request
    * @return $this|\PapayaUiReference
    */
-  public function load(Papaya\Request $request) {
+  public function load(\Papaya\Request $request) {
     parent::load($request);
     $this->setPageTitle(
-      $request->getParameter('page_title', 'index', NULL, Papaya\Request::SOURCE_PATH)
+      $request->getParameter('page_title', 'index', NULL, \Papaya\Request::SOURCE_PATH)
     );
     $this->setPageId(
-      $request->getParameter('page_id', 0, NULL, Papaya\Request::SOURCE_PATH),
+      $request->getParameter('page_id', 0, NULL, \Papaya\Request::SOURCE_PATH),
       FALSE
     );
     $this->setPageLanguage(
-      $request->getParameter('language', '', NULL, Papaya\Request::SOURCE_PATH),
+      $request->getParameter('language', '', NULL, \Papaya\Request::SOURCE_PATH),
       FALSE
     );
     $this->setOutputMode(
-      $request->getParameter('output_mode', 'html', NULL, Papaya\Request::SOURCE_PATH)
+      $request->getParameter('output_mode', 'html', NULL, \Papaya\Request::SOURCE_PATH)
     );
     $this->setPreview(
-      $request->getParameter('preview', FALSE, NULL, Papaya\Request::SOURCE_PATH),
-      $request->getParameter('preview_time', 0, NULL, Papaya\Request::SOURCE_PATH)
+      $request->getParameter('preview', FALSE, NULL, \Papaya\Request::SOURCE_PATH),
+      $request->getParameter('preview_time', 0, NULL, \Papaya\Request::SOURCE_PATH)
     );
     return $this;
   }

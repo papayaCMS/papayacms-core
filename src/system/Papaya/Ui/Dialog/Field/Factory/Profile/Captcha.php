@@ -24,7 +24,7 @@ class PapayaUiDialogFieldFactoryProfileCaptcha extends \PapayaUiDialogFieldFacto
   /**
    * Create a color input field
    *
-   * @see PapayaUiDialogFieldInputColor
+   * @see \PapayaUiDialogFieldInputColor
    * @see \PapayaUiDialogFieldFactoryProfile::getField()
    */
   public function getField() {

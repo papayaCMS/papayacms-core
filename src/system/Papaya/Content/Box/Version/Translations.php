@@ -18,7 +18,7 @@ namespace Papaya\Content\Box\Version;
  * Provide data encapsulation for the content box version translations list.
  *
  * The list does not contain all detail data, it is for list outputs etc. To get the full data
- * use {@see Papaya\Content\Box\Version\PapayaContentBoxVersionTranslation}.
+ * use {@see \Papaya\Content\Box\Version\PapayaContentBoxVersionTranslation}.
  *
  * @package Papaya-Library
  * @subpackage Content

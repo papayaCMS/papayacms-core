@@ -41,7 +41,7 @@ class dbcon_sqlite extends dbcon_base {
   /**
    * Check for sqlite database extension found
    *
-   * @throws Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\Connect
    * @return boolean
    */
   public function extensionFound() {
@@ -56,7 +56,7 @@ class dbcon_sqlite extends dbcon_base {
   /**
    * Establish connection to database
    *
-   * @throws Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\Connect
    * @return resource $this->databaseConnection connection ID
    */
   public function connect() {
@@ -88,7 +88,7 @@ class dbcon_sqlite extends dbcon_base {
   /**
    * Wrap query execution so we can convert the erorr to an exception
    *
-   * @throws Papaya\Database\Exception\Query
+   * @throws \Papaya\Database\Exception\Query
    * @param string $sql
    * @return \SQLiteResult
    */
@@ -1069,7 +1069,7 @@ class dbresult_sqlite extends dbresult_base {
   /**
   * Compile database explain for SELECT query
   *
-  * @return NULL|PapayaMessageContextInterface
+  * @return NULL|\PapayaMessageContextInterface
   */
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;

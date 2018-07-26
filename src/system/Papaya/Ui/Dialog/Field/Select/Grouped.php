@@ -50,7 +50,7 @@ class PapayaUiDialogFieldSelectGrouped extends \PapayaUiDialogFieldSelect {
   *   );
   *
   * In this case the group label can be an object that support string casting
-  * (@see PapayaUiString).
+  * (@see \PapayaUiString).
   *
   * @param array $values
   */

@@ -16,7 +16,7 @@
 namespace Papaya;
 
 /**
- * Papaya Template, abstract superclass for Papaya Template objects.
+ * Papaya Template, abstract superclass for \Papaya Template objects.
  *
  * It contains all the handling for data (in a DOM document) and parameters. It defines
  * a method parse() for the actual processing.

@@ -25,15 +25,15 @@ class PapayaFilterFactoryProfileGenerator extends \PapayaFilterFactoryProfile {
   /**
    * @see \PapayaFilterFactoryProfile::getFilter()
    * @throws ReflectionException
-   * @throws PapayaFilterFactoryExceptionInvalidFilter
-   * @throws PapayaFilterFactoryExceptionInvalidOptions
+   * @throws \PapayaFilterFactoryExceptionInvalidFilter
+   * @throws \PapayaFilterFactoryExceptionInvalidOptions
    */
   public function getFilter() {
     $arguments = $this->options();
     if (is_array($arguments)) {
       $name = array_shift($arguments);
       $filterReflection = new \ReflectionClass($name);
-      if ($filterReflection->isSubclassOf(Papaya\Filter::class)) {
+      if ($filterReflection->isSubclassOf(\Papaya\Filter::class)) {
         return call_user_func_array(
           array($filterReflection, 'newInstance'),
           $arguments

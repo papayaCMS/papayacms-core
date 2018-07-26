@@ -15,10 +15,10 @@
 
 /**
  * This a standard implementation for editable plugin content. It
- * makes implements the PapayaPluginEditable interface and
+ * makes implements the \PapayaPluginEditable interface and
  * expects an implementation of the abstract method "createEditor".
  *
- * The method needs to return a PapayaPluginEditor instance.
+ * The method needs to return a \PapayaPluginEditor instance.
  *
  * @package Papaya-Library
  * @subpackage Plugins
@@ -37,12 +37,12 @@ trait PapayaPluginEditableContentAggregation {
    * @param \PapayaPluginEditableContent $content
    * @return \PapayaPluginEditableContent
    */
-  public function content(PapayaPluginEditableContent $content = NULL) {
+  public function content(\PapayaPluginEditableContent $content = NULL) {
     if (NULL !== $content) {
       $this->_content = $content;
     } elseif (NULL === $this->_content) {
       $this->_content = new \PapayaPluginEditableContent();
-      $this->_content->callbacks()->onCreateEditor = function($callbackContext, PapayaPluginEditableContent $content) {
+      $this->_content->callbacks()->onCreateEditor = function($callbackContext, \PapayaPluginEditableContent $content) {
         return $this->createEditor($content);
       };
     }
@@ -53,5 +53,5 @@ trait PapayaPluginEditableContentAggregation {
    * @param \PapayaPluginEditableContent $content
    * @return \PapayaPluginEditor
    */
-  abstract public function createEditor(PapayaPluginEditableContent $content);
+  abstract public function createEditor(\PapayaPluginEditableContent $content);
 }

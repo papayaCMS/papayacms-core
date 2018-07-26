@@ -14,7 +14,7 @@
  */
 
 /**
-* A dialog that can add/edit a record to a database table using a {@see Papaya\Database\BaseObject\PapayaDatabaseObjectRecord}
+* A dialog that can add/edit a record to a database table using a {@see \Papaya\Database\BaseObject\PapayaDatabaseObjectRecord}
 * object.
 *
 * @package Papaya-Library

@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterBitmask implements Papaya\Filter {
+class PapayaFilterBitmask implements \Papaya\Filter {
 
   /**
   * List of valid bits

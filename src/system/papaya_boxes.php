@@ -1391,7 +1391,7 @@ class papaya_boxes extends base_boxes {
         } else {
           $this->papaya()->messages->dispatch(
             new \PapayaMessageDisplayTranslated(
-              Papaya\Message::SEVERITY_INFO,
+              \Papaya\Message::SEVERITY_INFO,
               ($direction == 'down')
                 ? 'Box is already the last one.'
                 : 'Box is already the first one.'
@@ -1535,9 +1535,9 @@ class papaya_boxes extends base_boxes {
       $fields['boxgroup_id'] = array('Group', 'isNum', TRUE, 'combo', $boxGroups);
 
       $deliveryModes = array(
-        Papaya\Content\Box::DELIVERY_MODE_STATIC => $this->_gt('Static (include in page)'),
-        Papaya\Content\Box::DELIVERY_MODE_ESI => $this->_gt('Allow reverse proxy embed (ESI)'),
-        Papaya\Content\Box::DELIVERY_MODE_JAVASCRIPT => $this->_gt('Javascript embed (lazy load)'),
+        \Papaya\Content\Box::DELIVERY_MODE_STATIC => $this->_gt('Static (include in page)'),
+        \Papaya\Content\Box::DELIVERY_MODE_ESI => $this->_gt('Allow reverse proxy embed (ESI)'),
+        \Papaya\Content\Box::DELIVERY_MODE_JAVASCRIPT => $this->_gt('Javascript embed (lazy load)'),
       );
       $fields[] = 'Delivery';
       $fields['box_deliverymode'] = array('Mode', 'isNum', TRUE, 'combo', $deliveryModes);
@@ -1817,7 +1817,7 @@ class papaya_boxes extends base_boxes {
     if (isset($this->box['TRANSLATION']) && $this->box['TRANSLATION']['module_class'] != '') {
       $moduleData = $this->box['TRANSLATION'];
       $plugin = $this->papaya()->plugins->get($moduleData['module_guid'], $this);
-      if ($plugin instanceof PapayaPluginEditable) {
+      if ($plugin instanceof \PapayaPluginEditable) {
         $plugin->content()->setXml($moduleData['box_data']);
         if ($plugin->content()->editor()) {
           $plugin->content()->editor()->context()->merge(
@@ -2029,9 +2029,9 @@ class papaya_boxes extends base_boxes {
       );
 
       if ($isEmpty) {
-        $item->node()->setStatus(PapayaUiListviewItemNode::NODE_EMPTY);
+        $item->node()->setStatus(\PapayaUiListviewItemNode::NODE_EMPTY);
       } elseif ($isOpen) {
-        $item->node()->setStatus(PapayaUiListviewItemNode::NODE_OPEN);
+        $item->node()->setStatus(\PapayaUiListviewItemNode::NODE_OPEN);
         $item->node()->reference()->setParameters(
           array(
             'cmd' => 'close',
@@ -2041,7 +2041,7 @@ class papaya_boxes extends base_boxes {
           $this->paramName
         );
       } else {
-        $item->node()->setStatus(PapayaUiListviewItemNode::NODE_CLOSED);
+        $item->node()->setStatus(\PapayaUiListviewItemNode::NODE_CLOSED);
         $item->node()->reference()->setParameters(
           array(
             'cmd' => 'open',
@@ -2134,7 +2134,7 @@ class papaya_boxes extends base_boxes {
           $groupName
         );
         $item->columnSpan = 3;
-        $item->node()->setStatus(PapayaUiListviewItemNode::NODE_EMPTY);
+        $item->node()->setStatus(\PapayaUiListviewItemNode::NODE_EMPTY);
         $item->reference()->setParameters(
           array(
             'cmd' => 'group_add',

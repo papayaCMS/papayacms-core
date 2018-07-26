@@ -28,6 +28,6 @@ interface PapayaPluginAdaptable {
    * @param \PapayaPluginEditableOptions $content
    * @return \PapayaPluginEditableOptions
    */
-  public function options(PapayaPluginEditableOptions $content = NULL);
+  public function options(\PapayaPluginEditableOptions $content = NULL);
 
 }

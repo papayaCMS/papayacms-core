@@ -45,8 +45,6 @@ class PapayaUiMenu extends \PapayaUiToolbar {
   /**
   * Append menu and elements and set identifier if available
   *
-  * @see papaya-lib/system/Papaya/Ui/Control/PapayaUiToolbar#appendTo($parent)
-  *
   * @param \PapayaXmlElement $parent
   * @return \PapayaXmlElement|NULL
   */

@@ -159,7 +159,7 @@ class PapayaUiContentPage extends \Papaya\Application\BaseObject {
    * @param \PapayaXmlElement $parent
    * @param array|\PapayaObjectParameters $configuration
    */
-  public function appendQuoteTo(PapayaXmlElement $parent, $configuration = []) {
+  public function appendQuoteTo(\PapayaXmlElement $parent, $configuration = []) {
     $moduleGuid = $this->translation()->moduleGuid;
     if (!empty($moduleGuid)) {
       $plugin = $this->papaya()->plugins->get($moduleGuid, $this, $this->translation()->content);
@@ -183,8 +183,8 @@ class PapayaUiContentPage extends \Papaya\Application\BaseObject {
             'created' => \PapayaUtilDate::timestampToString($this->translation()->created)
           )
         );
-        if ($plugin instanceof PapayaPluginQuoteable) {
-          if ($plugin instanceof PapayaPluginConfigurable) {
+        if ($plugin instanceof \PapayaPluginQuoteable) {
+          if ($plugin instanceof \PapayaPluginConfigurable) {
             $plugin->configuration()->merge($configuration);
           }
           $plugin->appendQuoteTo($teaser);
@@ -207,7 +207,7 @@ class PapayaUiContentPage extends \Papaya\Application\BaseObject {
    * @param \PapayaUiReferencePage $reference
    * @return \PapayaUiReferencePage
    */
-  public function reference(PapayaUiReferencePage $reference = NULL) {
+  public function reference(\PapayaUiReferencePage $reference = NULL) {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {

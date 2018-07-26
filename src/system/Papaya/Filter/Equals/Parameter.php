@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterEqualsParameter implements Papaya\Filter {
+class PapayaFilterEqualsParameter implements \Papaya\Filter {
   
   /**
   * Given parameters object

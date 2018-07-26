@@ -36,7 +36,7 @@ class dbcon_mysql extends dbcon_base {
   /**
   * Check that the mysql extension is available
   *
-  * @throws Papaya\Database\Exception\Connect
+  * @throws \Papaya\Database\Exception\Connect
   * @return bool
   */
   public function extensionFound() {
@@ -51,7 +51,7 @@ class dbcon_mysql extends dbcon_base {
   /**
    * Establish connection to database
    *
-   * @throws Papaya\Database\Exception\Connect
+   * @throws \Papaya\Database\Exception\Connect
    * @return boolean
    */
   public function connect() {
@@ -199,7 +199,7 @@ class dbcon_mysql extends dbcon_base {
    * Wrap query execution so we can convert the erorr to an exception
    *
    * @param string $sql
-   * @throws Papaya\Database\Exception\Query
+   * @throws \Papaya\Database\Exception\Query
    * @return boolean|NULL|resource on success a resource if a result set is
    *   available, otherwise TRUE; on failure NULL
    */
@@ -1127,7 +1127,7 @@ class dbresult_mysql extends dbresult_base {
   * Compile database explain for SELECT query
   *
   * @access public
-  * @return NULL|PapayaMessageContextInterface
+  * @return NULL|\PapayaMessageContextInterface
   */
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;

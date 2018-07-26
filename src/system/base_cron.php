@@ -375,7 +375,7 @@ class base_cronjobs extends base_db {
   function check() {
     $result = TRUE;
     if (empty($this->params['cronjob_title']) ||
-        !PapayaFilterFactory::isNotXml($this->params['cronjob_title'], TRUE)) {
+        !\PapayaFilterFactory::isNotXml($this->params['cronjob_title'], TRUE)) {
       $result = FALSE;
       $this->addMsg(
         MSG_ERROR,
@@ -383,7 +383,7 @@ class base_cronjobs extends base_db {
       );
     }
     if (empty($this->params['cronjob_description']) ||
-        !PapayaFilterFactory::isNotXml($this->params['cronjob_description'], TRUE)) {
+        !\PapayaFilterFactory::isNotXml($this->params['cronjob_description'], TRUE)) {
       $result = FALSE;
       $this->addMsg(
         MSG_ERROR,
@@ -391,7 +391,7 @@ class base_cronjobs extends base_db {
       );
     }
     if (empty($this->params['cron_module_guid']) ||
-        !PapayaFilterFactory::isGuid($this->params['cron_module_guid'], TRUE)) {
+        !\PapayaFilterFactory::isGuid($this->params['cron_module_guid'], TRUE)) {
       $result = FALSE;
       $this->addMsg(
         MSG_ERROR,
@@ -399,7 +399,7 @@ class base_cronjobs extends base_db {
       );
     }
     if (empty($this->params['job_module_guid']) ||
-        !PapayaFilterFactory::isGuid($this->params['job_module_guid'], TRUE)) {
+        !\PapayaFilterFactory::isGuid($this->params['job_module_guid'], TRUE)) {
       $result = FALSE;
       $this->addMsg(
         MSG_ERROR,

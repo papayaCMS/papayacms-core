@@ -14,7 +14,7 @@
  */
 
 /**
- * @deprecated {@see PapayaPluginEditableContentAggregation}
+ * @deprecated {@see \PapayaPluginEditableContentAggregation}
  */
 trait PapayaPluginEditableAggregation {
   use PapayaPluginEditableContentAggregation;

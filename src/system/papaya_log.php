@@ -589,7 +589,7 @@ class papaya_log extends base_db {
         ->appendElement('text')
         ->appendElement('div', array('style' => 'padding: 10px;'))
         ->appendXml(
-          $data = @PapayaUtilStringXml::repairEntities(
+          $data = @\PapayaUtilStringXml::repairEntities(
             $this->rewrapHTML(
               $this->messageList[$selected]['log_msg_long']
             )

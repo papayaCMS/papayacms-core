@@ -1497,7 +1497,7 @@ class base_viewlist extends base_db {
       $item->indentation = 1;
       $item->subitems[] = new \PapayaUiListviewSubitemText($module['module_class']);
       if ($plugin = $this->papaya()->plugins->get($module['module_guid'])) {
-        if ($plugin instanceof PapayaPluginCacheable) {
+        if ($plugin instanceof \PapayaPluginCacheable) {
           $listview->items[] = $item =
             new \PapayaUiListviewItem('', new \PapayaUiStringTranslated('Cacheable interface'));
           $item->indentation = 1;

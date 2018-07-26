@@ -39,7 +39,6 @@ class Publications extends \Papaya\Content\Pages {
    * Loading published stuff using a timestamp so that only pages are loaded, that are really
    * accessible.
    *
-   * @see papaya-lib/system/Papaya/Content/Papaya\Content\PapayaContentPages#getConditions($filter)
    * @param mixed $filter
    * @param string $prefix
    * @return array

@@ -84,7 +84,7 @@ class PapayaUiDialogFieldFactory {
   }
 
   /**
-   * Register profile classes. They must extend from PapayaUiDialogFieldFactoryProfile.
+   * Register profile classes. They must extend from \PapayaUiDialogFieldFactoryProfile.
    *
    * The are not validated at this point. For a validation the need to be loaded and they may no be
    * needed.

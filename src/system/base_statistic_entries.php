@@ -662,7 +662,7 @@ class base_statistic_entries extends base_db_statistic {
       } else {
         $this->papaya()->messages->log(
           \PapayaMessageLogable::GROUP_SYSTEM,
-          Papaya\Message::SEVERITY_ERROR,
+          \Papaya\Message::SEVERITY_ERROR,
           sprintf($this->_gt('Missing method in class "%s".'), get_class($parentObj)),
           sprintf(
             $this->_gt(

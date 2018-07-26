@@ -81,7 +81,7 @@ class PapayaProfilerTimer extends \Papaya\Application\BaseObject implements \Ite
     foreach ($this as $take) {
       $this->papaya()->messages->log(
         \PapayaMessageLogable::GROUP_DEBUG,
-        Papaya\Message::SEVERITY_DEBUG,
+        \Papaya\Message::SEVERITY_DEBUG,
         $take['text'],
         new \PapayaMessageContextRuntime($take['start'], $take['end'])
       );

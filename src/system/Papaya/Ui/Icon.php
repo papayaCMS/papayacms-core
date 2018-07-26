@@ -20,8 +20,8 @@
 * @subpackage Ui
 *
 * @property string $image
-* @property string|PapayaUiString $title
-* @property string|PapayaUiString $hint
+* @property string|\PapayaUiString $title
+* @property string|\PapayaUiString $hint
 * @property bool $visible
 * @property array $actionParameters
 * @property \PapayaUiReference $reference
@@ -45,14 +45,14 @@ class PapayaUiIcon extends \PapayaUiControl {
   /**
   * caption/alternative text for image
   *
-  * @var string|PapayaUiString
+  * @var string|\PapayaUiString
   */
   protected $_caption = '';
 
   /**
   * hint/quickinfo text for image
   *
-  * @var string|PapayaUiString
+  * @var string|\PapayaUiString
   */
   protected $_hint = '';
 

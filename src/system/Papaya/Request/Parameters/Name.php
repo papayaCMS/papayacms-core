@@ -131,7 +131,7 @@ class PapayaRequestParametersName implements \ArrayAccess, \Countable, \Iterator
   }
 
   /**
-   * Parse name parts from a string or array or a PapayaRequestParametersName.
+   * Parse name parts from a string or array or a \PapayaRequestParametersName.
    * An integer is used like a string.
    *
    * @see \PapayaRequestParametersName::parseString()
@@ -151,7 +151,7 @@ class PapayaRequestParametersName implements \ArrayAccess, \Countable, \Iterator
     } else {
       throw new \InvalidArgumentException(
         'InvalidAgmumentException: $name must be an array or string'.
-          ' or a PapayaRequestParametersName.'
+          ' or a \PapayaRequestParametersName.'
       );
     }
     return $parsed;

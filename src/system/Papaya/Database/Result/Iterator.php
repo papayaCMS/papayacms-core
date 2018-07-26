@@ -15,7 +15,7 @@
 
 namespace Papaya\Database\Result;
 /**
- * Papaya Database Result Iterator, allows to iterate on an object implementing Papaya\Database\PapayaDatabaseResult
+ * Papaya Database Result Iterator, allows to iterate on an object implementing \Papaya\Database\PapayaDatabaseResult
  *
  * You can specify it the records will be fetched with numerical index, field names or both.
  *

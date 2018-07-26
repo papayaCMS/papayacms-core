@@ -58,15 +58,15 @@ class papaya_installer extends base_db {
   * @var array $authTables
   */
   var $authTables = array(
-    Papaya\Content\Tables::AUTHENTICATION_USERS,
-    Papaya\Content\Tables::AUTHENTICATION_USER_GROUP_LINKS,
-    Papaya\Content\Tables::AUTHENTICATION_USER_OPTIONS,
-    Papaya\Content\Tables::AUTHENTICATION_GROUPS,
-    Papaya\Content\Tables::AUTHENTICATION_PERMISSIONS,
-    Papaya\Content\Tables::AUTHENTICATION_MODULE_PERMISSIONS,
-    Papaya\Content\Tables::AUTHENTICATION_MODULE_PERMISSION_LINKS,
-    Papaya\Content\Tables::AUTHENTICATION_LOGIN_TRIES,
-    Papaya\Content\Tables::AUTHENTICATION_LOGIN_IPS
+    \Papaya\Content\Tables::AUTHENTICATION_USERS,
+    \Papaya\Content\Tables::AUTHENTICATION_USER_GROUP_LINKS,
+    \Papaya\Content\Tables::AUTHENTICATION_USER_OPTIONS,
+    \Papaya\Content\Tables::AUTHENTICATION_GROUPS,
+    \Papaya\Content\Tables::AUTHENTICATION_PERMISSIONS,
+    \Papaya\Content\Tables::AUTHENTICATION_MODULE_PERMISSIONS,
+    \Papaya\Content\Tables::AUTHENTICATION_MODULE_PERMISSION_LINKS,
+    \Papaya\Content\Tables::AUTHENTICATION_LOGIN_TRIES,
+    \Papaya\Content\Tables::AUTHENTICATION_LOGIN_IPS
   );
 
   /**
@@ -234,7 +234,7 @@ class papaya_installer extends base_db {
       $this->setSessionValue($this->sessionParamName, $this->sessionParams);
     } elseif ($dialog->isSubmitted()) {
       $this->papaya()->messages->display(
-        Papaya\Message::SEVERITY_ERROR,
+        \Papaya\Message::SEVERITY_ERROR,
         'Please check your intput in the following fields: '.implode(
           ', ', $dialog->errors()->getSourceCaptions()
         )
@@ -615,7 +615,7 @@ class papaya_installer extends base_db {
     $result .= '</cols>';
     $result .= '<items>';
     $counter = 0;
-    $tableNames = Papaya\Content\Tables::getTables();
+    $tableNames = \Papaya\Content\Tables::getTables();
     foreach ($tableNames as $table) {
       $tableName = $this->databaseGetTableName($table);
       if ($tableName != $this->papaya()->options->get('PAPAYA_DB_TBL_OPTIONS')) {
@@ -687,7 +687,7 @@ class papaya_installer extends base_db {
     $result .= '      imageUnchecked : "'.$images['status-node-empty'].'"'.LF;
     $result .= '    },'.LF;
     $result .= '    ['.LF;
-    foreach (Papaya\Content\Tables::getTables() as $table) {
+    foreach (\Papaya\Content\Tables::getTables() as $table) {
       $tableName = $this->databaseGetTableName($table);
       if ($tableName != $this->papaya()->options->get('PAPAYA_DB_TBL_OPTIONS')) {
         if ($this->checkTableExists($tableName)) {
@@ -883,7 +883,7 @@ class papaya_installer extends base_db {
     if ($missed + $old == 0) {
       $sql = "SELECT COUNT(*) FROM %s";
       $params = array(
-        $this->databaseGetTableName(Papaya\Content\Tables::AUTHENTICATION_USERS)
+        $this->databaseGetTableName(\Papaya\Content\Tables::AUTHENTICATION_USERS)
       );
       if ($res = $this->databaseQueryFmt($sql, $params)) {
         list($count) = $res->fetchRow();
@@ -900,7 +900,7 @@ class papaya_installer extends base_db {
   * @return boolean
   */
   function checkLoginExists() {
-    $userTable = $this->databaseGetTableName(Papaya\Content\Tables::AUTHENTICATION_USERS);
+    $userTable = $this->databaseGetTableName(\Papaya\Content\Tables::AUTHENTICATION_USERS);
     if ($this->checkTableExists($userTable)) {
       $sql = "SELECT COUNT(*) FROM %s";
       if ($res = $this->databaseQueryFmt($sql, $userTable)) {
@@ -922,7 +922,7 @@ class papaya_installer extends base_db {
       if ($database->connect($this, FALSE)) {
         return TRUE;
       }
-    } catch (Papaya\Database\Exception\Connect $e) {
+    } catch (\Papaya\Database\Exception\Connect $e) {
     } catch (InvalidArgumentException $e) {
     }
     return FALSE;

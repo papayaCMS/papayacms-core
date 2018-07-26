@@ -24,7 +24,7 @@ use Papaya\Configuration\Storage;
 * @package Papaya-Library
 * @subpackage Plugins
 */
-class PapayaPluginOptions extends Papaya\Configuration {
+class PapayaPluginOptions extends \Papaya\Configuration {
 
   const STATUS_CREATED = 0;
   const STATUS_LOADING = 1;
@@ -68,7 +68,7 @@ class PapayaPluginOptions extends Papaya\Configuration {
   * @param \Papaya\Filter $filter
   * @return mixed
   */
-  public function get($name, $default = NULL, Papaya\Filter $filter = NULL) {
+  public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
     $this->lazyLoad();
     return parent::get($name, $default, $filter);
   }

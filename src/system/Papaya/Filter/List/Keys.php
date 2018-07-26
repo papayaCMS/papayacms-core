@@ -24,7 +24,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterListKeys implements Papaya\Filter {
+class PapayaFilterListKeys implements \Papaya\Filter {
 
   /**
   * elements list

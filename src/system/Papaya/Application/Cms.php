@@ -16,9 +16,7 @@
 namespace Papaya\Application;
 
 /**
- * Class Papaya\Application\PapayaApplicationCms
- *
- * A pseudoclass extending the PapayaApplication service locator that
+ * A pseudoclass extending the \PapayaApplication service locator that
  * allows to declare the profiles as properties
  *
  * @property \Papaya\Database\Manager $database

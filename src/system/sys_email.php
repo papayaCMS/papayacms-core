@@ -683,7 +683,7 @@ class email extends base_object {
   function setReturnPath($email, $force = TRUE) {
     if (empty($this->_returnPath) || $force) {
       if (!empty($email)) {
-        if (!PapayaFilterFactory::isEmail($email)) {
+        if (!\PapayaFilterFactory::isEmail($email)) {
           $this->addMsg(MSG_ERROR, "Return path must be a valid email address");
           return;
         }
@@ -1511,7 +1511,7 @@ class email extends base_object {
     } else {
       $safeMode = ini_get('safe_mode');
       $mailContent = $this->getMessage(FALSE);
-      if (PapayaFilterFactory::isEmail($this->_returnPath) &&
+      if (\PapayaFilterFactory::isEmail($this->_returnPath) &&
           !$safeMode) {
         $result = @mail(
           $this->getAddressHeader($this->addressTo),

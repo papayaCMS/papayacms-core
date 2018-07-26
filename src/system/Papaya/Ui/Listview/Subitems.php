@@ -24,7 +24,7 @@ class PapayaUiListviewSubitems
   extends \PapayaUiControlCollection {
 
   /**
-  * Only {@see PapayaUiListviewSubItem} objects are allowed in this list
+  * Only {@see \PapayaUiListviewSubItem} objects are allowed in this list
   *
   * @var string
   */

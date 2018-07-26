@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property string|PapayaUiString $caption
+* @property string|\PapayaUiString $caption
 * @property string $name
 * @property string $hint
 * @property float|NULL $defaultValue

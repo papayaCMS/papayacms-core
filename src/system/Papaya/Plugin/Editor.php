@@ -37,7 +37,7 @@ abstract class PapayaPluginEditor extends \PapayaUiControlInteractive {
    *
    * @param \PapayaPluginEditableData $data
    */
-  public function __construct(PapayaPluginEditableData $data) {
+  public function __construct(\PapayaPluginEditableData $data) {
     $this->_data = $data;
   }
 
@@ -67,7 +67,7 @@ abstract class PapayaPluginEditor extends \PapayaUiControlInteractive {
    * @param \PapayaRequestParameters $context
    * @return \PapayaRequestParameters
    */
-  public function context(PapayaRequestParameters $context = NULL) {
+  public function context(\PapayaRequestParameters $context = NULL) {
     if (NULL !== $context) {
       $this->_context = $context;
     } elseif (NULL === $this->_context) {

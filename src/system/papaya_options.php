@@ -1017,7 +1017,7 @@ class papaya_options extends base_options {
     case 'PAPAYA_UI_SECURE' :
     case 'PAPAYA_SESSION_SECURE' :
       if (0 != (int)$value) {
-        if (!PapayaUtilServerProtocol::isSecure()) {
+        if (!\PapayaUtilServerProtocol::isSecure()) {
           $this->addMsg(MSG_ERROR, $this->_gt('You need HTTPS to use this feature.'));
           return FALSE;
         }
@@ -1039,7 +1039,7 @@ class papaya_options extends base_options {
         }
         $this->papaya()->messages->dispatch(
           new \PapayaMessageDisplay(
-            Papaya\Message::SEVERITY_ERROR,
+            \Papaya\Message::SEVERITY_ERROR,
             sprintf(
               $this->_gt('Statistic module (%s) not found.'),
               $statisticOverviewGuid
@@ -1339,7 +1339,7 @@ class papaya_options extends base_options {
     } else {
       $this->papaya()->messages->dispatch(
         new \PapayaMessageDisplay(
-          Papaya\Message::SEVERITY_ERROR,
+          \Papaya\Message::SEVERITY_ERROR,
           $this->_gt('Please set and save the PAPAYA_PATH_DATA option.')
         )
       );

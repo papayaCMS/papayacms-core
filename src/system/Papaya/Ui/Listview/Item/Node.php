@@ -30,7 +30,7 @@
 *
 * @property integer $status
 * @property \PapayaUiReference $reference
-* @property-read PapayaUiListviewItem $item
+* @property-read \PapayaUiListviewItem $item
 */
 class PapayaUiListviewItemNode extends \PapayaUiControl {
 
