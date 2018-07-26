@@ -38,7 +38,7 @@ abstract class papaya_imageconvert extends base_object {
     );
     if (!isset($options)) {
       /** @noinspection PhpUndefinedFieldInspection */
-      $options = PapayaApplication::getInstance()->options;
+      $options = \PapayaApplication::getInstance()->options;
     }
     if (is_file($fileName) && is_readable($fileName)) {
       $converter = $options->get(

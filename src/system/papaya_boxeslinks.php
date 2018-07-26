@@ -208,7 +208,7 @@ class papaya_boxeslinks extends base_boxeslinks {
   public function getModeDialog($mode) {
     $dialog = new \PapayaUiDialog();
     $dialog->caption = new \PapayaUiStringTranslated('Link Mode');
-    $dialog->options->captionStyle = PapayaUiDialogOptions::CAPTION_NONE;
+    $dialog->options->captionStyle = \PapayaUiDialogOptions::CAPTION_NONE;
     if ($this->papaya()->options->get('PAPAYA_FEATURE_BOXGROUPS_LINKABLE', FALSE)) {
       $modes = array(
         self::INHERIT_ALL => new \PapayaUiStringTranslated('None'),
@@ -368,8 +368,8 @@ class papaya_boxeslinks extends base_boxeslinks {
         );
         $item->indentation = 1;
         $item->node()->status = $opened
-          ? PapayaUiListviewItemNode::NODE_OPEN
-          : PapayaUiListviewItemNode::NODE_CLOSED;
+          ? \PapayaUiListviewItemNode::NODE_OPEN
+          : \PapayaUiListviewItemNode::NODE_CLOSED;
         $item->node()->reference()->setParameters(
           array(
             'cmd' => $opened ? 'close' : 'open', 'gid' => $groupId, 'page_id' => $this->topicId
@@ -482,8 +482,8 @@ class papaya_boxeslinks extends base_boxeslinks {
           );
           $item->indentation = 1;
           $item->node()->status = $opened
-            ? PapayaUiListviewItemNode::NODE_OPEN
-            : PapayaUiListviewItemNode::NODE_CLOSED;
+            ? \PapayaUiListviewItemNode::NODE_OPEN
+            : \PapayaUiListviewItemNode::NODE_CLOSED;
           $item->node()->reference()->setParameters(
             array(
               'cmd' => $opened ? 'close' : 'open', 'gid' => $groupId, 'page_id' => $this->topicId

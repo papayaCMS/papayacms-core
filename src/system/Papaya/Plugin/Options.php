@@ -52,7 +52,7 @@ class PapayaPluginOptions extends \PapayaConfiguration {
   */
   public function set($name, $value) {
     $this->lazyLoad();
-    $name = PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+    $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
     if ($this->_status === self::STATUS_LOADING) {
       $this->_options[$name] = $value;
     } else {

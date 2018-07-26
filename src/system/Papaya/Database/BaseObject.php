@@ -14,7 +14,6 @@
  */
 
 namespace Papaya\Database;
-use PapayaDatabaseResult;
 
 /**
  * Papaya Database Object, superclass for classes with database access
@@ -43,10 +42,10 @@ use PapayaDatabaseResult;
  * @method string databaseGetSqlCondition(array $filter, $value = NULL, $operator = '=')
  * @method int|string|FALSE databaseInsertRecord(string $table, mixed $idField, array $values = NULL)
  * @method int|string|FALSE databaseInsertRecords(string $table, array $values)
- * @method PapayaDatabaseResult|int|FALSE databaseQuery(string $sql, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
- * @method PapayaDatabaseResult|int|FALSE databaseQueryFmt(string $sql, array $values, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
- * @method PapayaDatabaseResult|int|FALSE databaseQueryFmtWrite(string $sql, array $values)
- * @method PapayaDatabaseResult|int|FALSE databaseQueryWrite(string $sql)
+ * @method \Papaya\Database\Result|int|FALSE databaseQuery(string $sql, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
+ * @method \Papaya\Database\Result|int|FALSE databaseQueryFmt(string $sql, array $values, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
+ * @method \Papaya\Database\Result|int|FALSE databaseQueryFmtWrite(string $sql, array $values)
+ * @method \Papaya\Database\Result|int|FALSE databaseQueryWrite(string $sql)
  * @method int|FALSE databaseUpdateRecord(string $table, array $values, mixed $filter, mixed $value = NULL)
  * @method array databaseQueryTableNames()
  * @method array databaseQueryTableStructure(string $tableName)
@@ -75,27 +74,27 @@ class BaseObject
   /**
    * Stored database access object
    *
-   * @var \PapayaDatabaseAccess
+   * @var \Papaya\Database\Access
    */
   protected $_databaseAccessObject;
 
   /**
    * Set database access object
    *
-   * @param \PapayaDatabaseAccess $databaseAccessObject
+   * @param \Papaya\Database\Access $databaseAccessObject
    */
-  public function setDatabaseAccess(\PapayaDatabaseAccess $databaseAccessObject) {
+  public function setDatabaseAccess(\Papaya\Database\Access $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
   }
 
   /**
    * Get database access object
    *
-   * @return \PapayaDatabaseAccess
+   * @return \Papaya\Database\Access
    */
   public function getDatabaseAccess() {
     if (NULL === $this->_databaseAccessObject) {
-      $this->_databaseAccessObject = new \PapayaDatabaseAccess(
+      $this->_databaseAccessObject = new \Papaya\Database\Access(
         $this, $this->databaseURI, $this->databaseURIWrite
       );
       $this->_databaseAccessObject->papaya($this->papaya());

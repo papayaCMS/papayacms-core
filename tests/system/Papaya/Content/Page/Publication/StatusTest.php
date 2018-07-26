@@ -15,6 +15,7 @@
 
 use Papaya\Cache\Service;
 use Papaya\Content\Page\Publication\Status;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -138,14 +139,14 @@ class PapayaContentPagePublicationStatusTest extends PapayaTestCase {
 
   /**
    * @param array $recordData
-   * @return \PapayaDatabaseAccess|PHPUnit_Framework_MockObject_MockObject
+   * @return \Papaya\Database\Access|PHPUnit_Framework_MockObject_MockObject
    */
   public function getDatabaseAccessFixture(array $recordData) {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           $recordData,

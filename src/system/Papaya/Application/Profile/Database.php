@@ -26,10 +26,10 @@ class Database implements \Papaya\Application\Profile {
    * Create the profile object and return it
    *
    * @param \Papaya\Application|\Papaya\Application\Cms $application
-   * @return \PapayaDatabaseManager
+   * @return \Papaya\Database\Manager
    */
   public function createObject($application) {
-    $database = new \PapayaDatabaseManager();
+    $database = new \Papaya\Database\Manager();
     $database->papaya($application);
     $database->setConfiguration($application->options);
     return $database;

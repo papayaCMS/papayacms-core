@@ -1,27 +1,17 @@
 <?php
 /**
-* Basic class for media db file handling - creating, modifying
-*
-* Use this class to add, edit and delete files and folders in the mediadb.
-* If you intend to add a method, please notify the author and please don't
-* change the  behaviour of any method without prior cosultation. All methods in
-* this class have to be independent from $this->params! Implement your method in
-* the admin class if necessary or abstract it and put it here.
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Media-Database
-* @version $Id: base_mediadb_edit.php 39733 2014-04-08 18:10:55Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Basic class for media db file handling - creating, modifying
@@ -836,21 +826,21 @@ class base_mediadb_edit extends base_mediadb {
       default:
         $targetFolder = $this->getFolder($targetFolderId);
         $targetFolder = current($targetFolder);
-        $ancestors = PapayaUtilArray::decodeIdList($targetFolder['parent_path']);
+        $ancestors = \PapayaUtilArray::decodeIdList($targetFolder['parent_path']);
         $ancestors[] = $targetFolderId;
       }
       $data = array(
         'parent_id' => $targetFolderId,
-        'parent_path' => PapayaUtilArray::encodeAndQuoteIdList($ancestors)
+        'parent_path' => \PapayaUtilArray::encodeAndQuoteIdList($ancestors)
       );
       $condition = array('folder_id' => $folderId);
       if (FALSE !== $this->databaseUpdateRecord($this->tableFolders, $data, $condition)) {
-        $oldAncestors = PapayaUtilArray::decodeIdList($folder['parent_path']);
+        $oldAncestors = \PapayaUtilArray::decodeIdList($folder['parent_path']);
         $oldAncestors[] = $folderId;
-        $oldPath = PapayaUtilArray::encodeAndQuoteIdList($oldAncestors);
+        $oldPath = \PapayaUtilArray::encodeAndQuoteIdList($oldAncestors);
         $newAncestors = $ancestors;
         $newAncestors[] = $folderId;
-        $newPath = PapayaUtilArray::encodeAndQuoteIdList($newAncestors);
+        $newPath = \PapayaUtilArray::encodeAndQuoteIdList($newAncestors);
         $sqlReplace = $this->databaseGetSQLSource(
           'CONCAT',
           $newPath,
@@ -1009,7 +999,7 @@ class base_mediadb_edit extends base_mediadb {
   * @return integer
   */
   function iniGetSize($ident) {
-    return PapayaUtilBytes::fromString(ini_get($ident));
+    return \PapayaUtilBytes::fromString(ini_get($ident));
   }
 }
 

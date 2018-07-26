@@ -1572,7 +1572,7 @@ class papaya_mediadb extends base_mediadb_edit {
         $this->params['cat_id'],
         $this->papaya()->administrationLanguage->id
       );
-      $parentPath = PapayaUtilArray::decodeIdList($this->category['parent_path']);
+      $parentPath = \PapayaUtilArray::decodeIdList($this->category['parent_path']);
       array_pop($parentPath);
       $preParentId = (int)array_pop($parentPath);
       $catIds = array(
@@ -2693,7 +2693,7 @@ class papaya_mediadb extends base_mediadb_edit {
       // make sure a deep link to a folder opens all parent folders
       $folderData = $this->getFolder($this->params['folder_id']);
       $folder = current($folderData);
-      $parentIds = PapayaUtilArray::decodeIdList($folder['parent_path']);
+      $parentIds = \PapayaUtilArray::decodeIdList($folder['parent_path']);
       foreach ($parentIds as $parentId) {
         if ($parentId > 0) {
           $this->sessionParams['open_folders'][$parentId] = 1;
@@ -3583,14 +3583,14 @@ class papaya_mediadb extends base_mediadb_edit {
   */
   function addNewFolder() {
     if (isset($this->currentFolder)) {
-      $ancestors = PapayaUtilArray::decodeIdList($this->currentFolder['parent_path']);
+      $ancestors = \PapayaUtilArray::decodeIdList($this->currentFolder['parent_path']);
       $ancestors[] = $this->currentFolder['folder_id'];
     } else {
       $ancestors = array(0);
     }
     $folderId = $this->addFolder(
       $this->params['parent_id'],
-      PapayaUtilArray::encodeAndQuoteIdList($ancestors),
+      \PapayaUtilArray::encodeAndQuoteIdList($ancestors),
       $this->params['permission_mode']
     );
     if ($folderId) {
@@ -5423,7 +5423,7 @@ HEREDOC;
         $ancestors = $folder['ancestors_validated'];
       }
       if ($repair) {
-        $newPath = PapayaUtilArray::encodeAndQuoteIdList($ancestors);
+        $newPath = \PapayaUtilArray::encodeAndQuoteIdList($ancestors);
         if ($newPath != $folder['parent_path']) {
           $data = array(
             'parent_path' => $newPath

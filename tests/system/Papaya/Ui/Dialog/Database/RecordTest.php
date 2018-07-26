@@ -339,7 +339,7 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
     $dialog = new \PapayaUiDialogDatabaseRecord('tablename', 'indexfield', array());
     $databaseAccess = $dialog->getDatabaseAccess();
     $this->assertInstanceOf(
-      \PapayaDatabaseAccess::class, $databaseAccess
+      \Papaya\Database\Access::class, $databaseAccess
     );
   }
 

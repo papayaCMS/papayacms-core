@@ -23,7 +23,7 @@ namespace Papaya\Content\Page;
  * @property integer $id
  * @property integer $sessionMode
  */
-class Status extends \PapayaDatabaseRecord {
+class Status extends \Papaya\Database\Record {
 
   protected $_fields = array(
     'id' => 'topic_id',

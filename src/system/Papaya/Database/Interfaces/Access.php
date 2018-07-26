@@ -18,12 +18,12 @@ namespace Papaya\Database\Interfaces;
 interface Access {
 
   /**
-   * @return \PapayaDatabaseAccess
+   * @return \Papaya\Database\Access
    */
   public function getDatabaseAccess();
 
   /**
-   * @param \PapayaDatabaseAccess $access
+   * @param \Papaya\Database\Access $access
    */
-  public function setDatabaseAccess(\PapayaDatabaseAccess $access);
+  public function setDatabaseAccess(\Papaya\Database\Access $access);
 }

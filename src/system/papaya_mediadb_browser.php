@@ -271,7 +271,7 @@ class papaya_mediadb_browser extends base_mediadb {
         papaya_strings::escapeHTMLChars(
           sprintf(
             "javascript:parent.changeFrames(%s,0,0,1);",
-            PapayaUtilStringJavascript::quote(
+            \PapayaUtilStringJavascript::quote(
               $this->getLinkParams(
                 array(
                   'offset' => 0,
@@ -290,7 +290,7 @@ class papaya_mediadb_browser extends base_mediadb {
       papaya_strings::escapeHTMLChars(
         sprintf(
           "javascript:parent.changeFrames(%s,0,0,1);",
-          PapayaUtilStringJavascript::quote(
+          \PapayaUtilStringJavascript::quote(
             $this->getLinkParams(
               array(
                 'offset' => $this->params['offset'],
@@ -309,7 +309,7 @@ class papaya_mediadb_browser extends base_mediadb {
       papaya_strings::escapeHTMLChars(
         sprintf(
           "javascript:parent.changeFrames(%s,0,0,1);",
-          PapayaUtilStringJavascript::quote(
+          \PapayaUtilStringJavascript::quote(
             $this->getLinkParams(
               array(
                 'offset' => $this->params['offset'],
@@ -328,7 +328,7 @@ class papaya_mediadb_browser extends base_mediadb {
       papaya_strings::escapeHTMLChars(
         sprintf(
           "javascript:parent.changeFrames(%s,0,0,1);",
-          PapayaUtilStringJavascript::quote(
+          \PapayaUtilStringJavascript::quote(
             $this->getLinkParams(
               array(
                 'offset' => $this->params['offset'],
@@ -402,12 +402,12 @@ class papaya_mediadb_browser extends base_mediadb {
       $href .= sprintf(
         'selectFile(%s,'.
         ' {id:%s, name:%s, title:%s, description:%s, size:%d, type:%d, width:%d, height:%d});',
-        PapayaUtilStringJavascript::quote($fileId),
-        PapayaUtilStringJavascript::quote($fileId),
-        PapayaUtilStringJavascript::quote($file['file_name']),
-        PapayaUtilStringJavascript::quote($file['file_title']),
-        PapayaUtilStringJavascript::quote(
-          PapayaUtilStringHtml::stripTags($file['file_description'])
+        \PapayaUtilStringJavascript::quote($fileId),
+        \PapayaUtilStringJavascript::quote($fileId),
+        \PapayaUtilStringJavascript::quote($file['file_name']),
+        \PapayaUtilStringJavascript::quote($file['file_title']),
+        \PapayaUtilStringJavascript::quote(
+          \PapayaUtilStringHtml::stripTags($file['file_description'])
         ),
         $file['file_size'],
         $this->mimeToInteger($file['mimetype']),
@@ -474,12 +474,12 @@ class papaya_mediadb_browser extends base_mediadb {
       $href .= sprintf(
         'selectFile(%s,'.
         ' {id:%s, name:%s, title:%s, description:%s, size:%d, type:%d, width:%d, height:%d});',
-        PapayaUtilStringJavascript::quote($fileId),
-        PapayaUtilStringJavascript::quote($fileId),
-        PapayaUtilStringJavascript::quote($file['file_name']),
-        PapayaUtilStringJavascript::quote($file['file_title']),
-        PapayaUtilStringJavascript::quote(
-          PapayaUtilStringHtml::stripTags($file['file_description'])
+        \PapayaUtilStringJavascript::quote($fileId),
+        \PapayaUtilStringJavascript::quote($fileId),
+        \PapayaUtilStringJavascript::quote($file['file_name']),
+        \PapayaUtilStringJavascript::quote($file['file_title']),
+        \PapayaUtilStringJavascript::quote(
+          \PapayaUtilStringHtml::stripTags($file['file_description'])
         ),
         $file['file_size'],
         $this->mimeToInteger($file['mimetype']),
@@ -670,7 +670,7 @@ class papaya_mediadb_browser extends base_mediadb {
         preg_replace(
           '([\r\n ]+)',
           ' ',
-          PapayaUtilStringHtml::stripTags($file['file_description'])
+          \PapayaUtilStringHtml::stripTags($file['file_description'])
         )
       )
     );
@@ -1139,7 +1139,7 @@ var linkThumbs = "'.$this->getLink(array('mode' => 'thumbs')).'";
   function getJavascriptButtonHref($params = array()) {
     return sprintf(
       "javascript:parent.changeFrames(%s,0,0,1);",
-      PapayaUtilStringJavascript::quote(
+      \PapayaUtilStringJavascript::quote(
         $this->getLinkParams($params)
       )
     );

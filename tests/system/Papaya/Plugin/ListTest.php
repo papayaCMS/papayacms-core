@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Result;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaPluginListTest extends PapayaTestCase {
@@ -21,7 +23,7 @@ class PapayaPluginListTest extends PapayaTestCase {
   * @covers \PapayaPluginList::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->exactly(2))
       ->method('fetchRow')

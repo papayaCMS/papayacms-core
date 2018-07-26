@@ -117,7 +117,7 @@ class Publication
       $pageId
     );
     if (($databaseResult = $databaseAccess->queryFmt($sql, $parameters, 1)) &&
-      ($row = $databaseResult->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC))) {
+      ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC))) {
       return array(
         'owner' => $row['version_author_id'],
         'message' => $row['version_message'],

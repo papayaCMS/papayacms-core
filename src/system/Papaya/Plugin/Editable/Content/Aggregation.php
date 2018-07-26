@@ -33,7 +33,7 @@ trait PapayaPluginEditableContentAggregation {
   /**
    * The content is an {@see ArrayObject} child class containing the stored data.
    *
-   * @see PapayaPluginEditable::content()
+   * @see \PapayaPluginEditable::content()
    * @param \PapayaPluginEditableContent $content
    * @return \PapayaPluginEditableContent
    */

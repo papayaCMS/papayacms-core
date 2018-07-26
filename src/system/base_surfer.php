@@ -434,7 +434,7 @@ class base_surfer extends base_db {
   * @return mixed
   */
   public function __get($name) {
-    $identifer = PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $identifer = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     switch ($identifer) {
     case 'id' :
       return $this->surferId;
@@ -735,10 +735,10 @@ class base_surfer extends base_db {
         $this->logformVar.'[query_string]',
         '',
         NULL,
-        PapayaRequest::SOURCE_BODY
+        \PapayaRequest::SOURCE_BODY
       ),
       NULL,
-      PapayaRequest::SOURCE_BODY
+      \PapayaRequest::SOURCE_BODY
     );
     $defaultHost = strtolower(PAPAYA_DEFAULT_HOST);
     if (!$redirectionUrl) {
@@ -859,9 +859,9 @@ class base_surfer extends base_db {
     }
     if (empty($credentialString)) {
       if ($this->papaya()->request->method == 'post') {
-        $source = PapayaRequest::SOURCE_QUERY | PapayaRequest::SOURCE_BODY;
+        $source = \PapayaRequest::SOURCE_QUERY | \PapayaRequest::SOURCE_BODY;
       } else {
-        $source = PapayaRequest::SOURCE_QUERY;
+        $source = \PapayaRequest::SOURCE_QUERY;
       }
       $credentialString = $this->papaya()->request->getParameter('api_login', '', NULL, $source);
     }
@@ -1570,10 +1570,10 @@ class base_surfer extends base_db {
           isset($this->logformVar['query_string']) ? $this->logformVar['query_string'] : NULL,
           $serverQueryString,
           NULL,
-          PapayaRequest::SOURCE_BODY
+          \PapayaRequest::SOURCE_BODY
         ),
         NULL,
-        PapayaRequest::SOURCE_BODY
+        \PapayaRequest::SOURCE_BODY
       );
       if ($queryString != '') {
         $return .= sprintf(
@@ -1713,10 +1713,10 @@ class base_surfer extends base_db {
           isset($this->logformVar['query_string']) ? $this->logformVar['query_string'] : NULL,
           $serverQueryString,
           NULL,
-          PapayaRequest::SOURCE_BODY
+          \PapayaRequest::SOURCE_BODY
         ),
         NULL,
-        PapayaRequest::SOURCE_BODY
+        \PapayaRequest::SOURCE_BODY
       );
       if ($queryString != '') {
         $return .= sprintf(
@@ -1856,10 +1856,10 @@ class base_surfer extends base_db {
           $this->logformVar['query_string'],
           $serverQueryString,
           NULL,
-          PapayaRequest::SOURCE_BODY
+          \PapayaRequest::SOURCE_BODY
         ),
         NULL,
-        PapayaRequest::SOURCE_BODY
+        \PapayaRequest::SOURCE_BODY
       );
       if ($queryString != '') {
         $return .= sprintf(

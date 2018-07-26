@@ -26,12 +26,12 @@ namespace Papaya\Database\Record;
  * @property \PapayaObjectCallback $onAfterUpdate
  * @property \PapayaObjectCallback $onAfterInsert
  * @property \PapayaObjectCallback $onAfterDelete
- * @method boolean onBeforeUpdate(\PapayaDatabaseRecord $record)
- * @method boolean onBeforeInsert(\PapayaDatabaseRecord $record)
- * @method boolean onBeforeDelete(\PapayaDatabaseRecord $record)
- * @method boolean onAfterUpdate(\PapayaDatabaseRecord $record)
- * @method boolean onAfterInsert(\PapayaDatabaseRecord $record)
- * @method boolean onAfterDelete(\PapayaDatabaseRecord $record)
+ * @method boolean onBeforeUpdate(\Papaya\Database\Record $record)
+ * @method boolean onBeforeInsert(\Papaya\Database\Record $record)
+ * @method boolean onBeforeDelete(\Papaya\Database\Record $record)
+ * @method boolean onAfterUpdate(\Papaya\Database\Record $record)
+ * @method boolean onAfterInsert(\Papaya\Database\Record $record)
+ * @method boolean onAfterDelete(\Papaya\Database\Record $record)
  */
 class Callbacks extends \PapayaObjectCallbacks {
 

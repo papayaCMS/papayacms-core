@@ -41,7 +41,7 @@ class PapayaProfilerStorageXhgui
   private $_serverId = '';
 
   /**
-   * @var \PapayaDatabaseAccess
+   * @var \Papaya\Database\Access
    */
   private $_databaseAccessObject = NULL;
 
@@ -117,19 +117,21 @@ class PapayaProfilerStorageXhgui
 
   /**
    * Set database access object
-   * @param \PapayaDatabaseAccess $databaseAccessObject
+   *
+   * @param \Papaya\Database\Access $databaseAccessObject
    */
-  public function setDatabaseAccess(\PapayaDatabaseAccess $databaseAccessObject) {
+  public function setDatabaseAccess(\Papaya\Database\Access $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
   }
 
   /**
   * Get database access object
-  * @return \PapayaDatabaseAccess
+  *
+  * @return \Papaya\Database\Access
   */
   public function getDatabaseAccess() {
     if (!isset($this->_databaseAccessObject)) {
-      $this->_databaseAccessObject = new \PapayaDatabaseAccess($this, $this->_database);
+      $this->_databaseAccessObject = new \Papaya\Database\Access($this, $this->_database);
       $this->_databaseAccessObject->papaya($this->papaya());
     }
     return $this->_databaseAccessObject;

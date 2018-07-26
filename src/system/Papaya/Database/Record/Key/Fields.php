@@ -33,7 +33,7 @@ class Fields implements \Papaya\Database\Interfaces\Key {
   /**
    * Attached record for this key
    *
-   * @var \PapayaDatabaseRecord
+   * @var \Papaya\Database\Record
    */
   private $_record = NULL;
 
@@ -47,12 +47,12 @@ class Fields implements \Papaya\Database\Interfaces\Key {
   /**
    * Create object and set the identifier property, the default
    *
-   * @param \PapayaDatabaseRecord $record
+   * @param \Papaya\Database\Record $record
    * @param $tableName
    * @param array $properties
    * @internal param int|NULL $
    */
-  public function __construct(\PapayaDatabaseRecord $record, $tableName, array $properties) {
+  public function __construct(\Papaya\Database\Record $record, $tableName, array $properties) {
     $this->_record = $record;
     $this->_tableName = $tableName;
     foreach ($properties as $property) {

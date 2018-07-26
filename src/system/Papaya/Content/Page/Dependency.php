@@ -25,7 +25,7 @@ namespace Papaya\Content\Page;
  * @property string $note - a small text describing the dependency
  * @property integer $synchronization bitmask of the synchronization elements
  */
-class Dependency extends \PapayaDatabaseRecord {
+class Dependency extends \Papaya\Database\Record {
 
   /**
    * Sync page properties: title, meta information, ...

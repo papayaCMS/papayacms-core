@@ -13,41 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database;
 /**
-* Papaya Database Sequence, handles manual client side sequence
-*
-* To use this class you have to define a child that implements \the abstract createId() method.
-*
-* Usage:
-*   $sequence = new \PapayaDatabaseSequenceSample(
-*     'tablename', 'fieldname'
-*   );
-*   $newId = $sequence->next();
-*
-* The class requests new ids from the generator and checks them agains the database table.
-* It does not insert a record.
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-abstract class PapayaDatabaseSequence extends \Papaya\Database\BaseObject {
+ * Papaya Database Sequence, handles manual client side sequence
+ *
+ * To use this class you have to define a child that implements \the abstract createId() method.
+ *
+ * Usage:
+ *   $sequence = new \PapayaDatabaseSequenceSample(
+ *     'tablename', 'fieldname'
+ *   );
+ *   $newId = $sequence->next();
+ *
+ * The class requests new ids from the generator and checks them agains the database table.
+ * It does not insert a record.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+abstract class Sequence extends BaseObject {
 
   /**
-  * Database table name
-  * @var string
-  */
+   * Database table name
+   *
+   * @var string
+   */
   protected $_table = '';
   /**
-  * Identifier table column name
-  * @var string
-  */
+   * Identifier table column name
+   *
+   * @var string
+   */
   protected $_field = '';
 
   /**
-  * Create a single randimized identifier string
-  *
-  * @return string
-  */
+   * Create a single randomized identifier string
+   *
+   * @return string
+   */
   abstract public function create();
 
   /**
@@ -73,10 +76,10 @@ abstract class PapayaDatabaseSequence extends \Papaya\Database\BaseObject {
   }
 
   /**
-  * Return the next sequence identifier
-  *
-  * @return string|FALSE
-  */
+   * Return the next sequence identifier
+   *
+   * @return string|FALSE
+   */
   public function next() {
     $ids = array();
     while (empty($ids)) {
@@ -90,11 +93,11 @@ abstract class PapayaDatabaseSequence extends \Papaya\Database\BaseObject {
   }
 
   /**
-  * Create a several ids at once
-  *
-  * @param integer $count
-  * @return array
-  */
+   * Create a several ids at once
+   *
+   * @param integer $count
+   * @return array
+   */
   protected function createIdentifiers($count) {
     $result = array();
     for ($i = 0; $i < $count; $i++) {

@@ -73,7 +73,7 @@ class PapayaProfilerStorageXhguiTest extends PapayaTestCase {
     $storage = new \PapayaProfilerStorageXhgui('database', 'table', 'foo');
     $storage->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \PapayaDatabaseAccess::class, $storage->getDatabaseAccess()
+      \Papaya\Database\Access::class, $storage->getDatabaseAccess()
     );
     $this->assertSame(
       $storage->papaya(), $storage->getDatabaseAccess()->papaya()

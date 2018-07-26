@@ -69,12 +69,12 @@ class References extends \Papaya\Database\BaseObject\Records {
    * the reference could be saved in either direction, the mapping converts it so that the
    * id used to load the refrences is always the source id.
    *
-   * @param \PapayaDatabaseResult $databaseResult
+   * @param \Papaya\Database\Result $databaseResult
    * @param string $idField
    */
   protected function _fetchRecords($databaseResult, $idField = '') {
     $this->_records = array();
-    while ($row = $databaseResult->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
+    while ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
       if ($row['topic_source_id'] == $this->_pageId) {
         $record = array(
           'source_id' => $row['topic_source_id'],

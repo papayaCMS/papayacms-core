@@ -15,6 +15,7 @@
 
 use Papaya\Content\Views;
 use Papaya\Content\Tables;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -24,7 +25,7 @@ class PapayaContentViewsTest extends PapayaTestCase {
   * @covers Views::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

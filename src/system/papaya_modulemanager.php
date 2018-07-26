@@ -154,14 +154,14 @@ class papaya_modulemanager extends base_db {
    */
   public function prependModulePath($path) {
     $map = array(
-      'vendor:' => PapayaUtilFilePath::getVendorPath(),
-      'src:' => PapayaUtilFilePath::getSourcePath()
+      'vendor:' => \PapayaUtilFilePath::getVendorPath(),
+      'src:' => \PapayaUtilFilePath::getSourcePath()
     );
     foreach ($map as $prefix => $mapPath) {
       if (0 === strpos($path, $prefix)) {
-        $basePath = PapayaUtilFilePath::getDocumentRoot().$mapPath;
+        $basePath = \PapayaUtilFilePath::getDocumentRoot().$mapPath;
         $relativePath = substr($path, strlen($prefix));
-        return PapayaUtilFilePath::cleanup(
+        return \PapayaUtilFilePath::cleanup(
           $basePath.$relativePath, TRUE
         );
       }
@@ -317,7 +317,7 @@ class papaya_modulemanager extends base_db {
           isset($this->params['field_action_confirm']) &&
           $this->params['field_action_confirm'] &&
           isset($this->params['table']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['table'])
+          \PapayaFilterFactory::isTextWithNumbers($this->params['table'])
         ) {
           if (isset($this->packages[$this->params['pkg_id']])) {
             $path = $this->getTableDataPath(
@@ -359,9 +359,9 @@ class papaya_modulemanager extends base_db {
           isset($this->params['field_action_confirm']) &&
           $this->params['field_action_confirm'] &&
           isset($this->params['table']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['table']) &&
+          \PapayaFilterFactory::isTextWithNumbers($this->params['table']) &&
           isset($this->params['field']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['field'])
+          \PapayaFilterFactory::isTextWithNumbers($this->params['field'])
         ) {
           $changed = $this->databaseDropField(
             $this->getTableFullName($this->params['table']),
@@ -379,7 +379,7 @@ class papaya_modulemanager extends base_db {
           isset($this->params['index_action_confirm']) &&
           $this->params['index_action_confirm'] &&
           isset($this->params['table']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['table'])
+          \PapayaFilterFactory::isTextWithNumbers($this->params['table'])
         ) {
           if (isset($this->packages[$this->params['pkg_id']])) {
             $path = $this->getTableDataPath(
@@ -419,9 +419,9 @@ class papaya_modulemanager extends base_db {
           isset($this->params['index_action_confirm']) &&
           $this->params['index_action_confirm'] &&
           isset($this->params['table']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['table']) &&
+          \PapayaFilterFactory::isTextWithNumbers($this->params['table']) &&
           isset($this->params['index']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['index'])
+          \PapayaFilterFactory::isTextWithNumbers($this->params['index'])
         ) {
           $changed = $this->databaseDropIndex(
             $this->getTableFullName($this->params['table']), $this->params['index']
@@ -437,7 +437,7 @@ class papaya_modulemanager extends base_db {
           isset($this->params['table_action_confirm']) &&
           $this->params['table_action_confirm'] &&
           isset($this->params['table']) &&
-          PapayaFilterFactory::isTextWithNumbers($this->params['table'])
+          \PapayaFilterFactory::isTextWithNumbers($this->params['table'])
         ) {
           if (isset($this->packages[$this->params['pkg_id']])) {
             $path = $this->getTableDataPath(
@@ -1266,13 +1266,13 @@ class papaya_modulemanager extends base_db {
     $this->packages = array();
     $this->modules = array();
     $paths = array(
-      PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().PapayaUtilFilePath::getVendorPath()),
-      PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().PapayaUtilFilePath::getSourcePath())
+      \PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().PapayaUtilFilePath::getVendorPath()),
+      \PapayaUtilFilePath::cleanup(PapayaUtilFilePath::getDocumentRoot().PapayaUtilFilePath::getSourcePath())
     );
     foreach ($paths as $path) {
       if (file_exists($path) && is_dir($path) && is_readable($path)) {
         $this->addMsg(
-          PapayaMessage::SEVERITY_INFO,
+          \PapayaMessage::SEVERITY_INFO,
           sprintf(
             $this->_gt('Scanning %s'), $path
           )
@@ -1280,7 +1280,7 @@ class papaya_modulemanager extends base_db {
         $this->scanDirectory($path);
       } else {
         $this->addMsg(
-          PapayaMessage::SEVERITY_INFO,
+          \PapayaMessage::SEVERITY_INFO,
           sprintf(
             $this->_gt('Not readable: %s'), $path
           )
@@ -1755,7 +1755,7 @@ class papaya_modulemanager extends base_db {
         'fields' => array(),
         'keys' => array(),
       );
-      $xmlTree = PapayaXmlDocument::createFromXml(file_get_contents($xmlFileName), TRUE);
+      $xmlTree = \PapayaXmlDocument::createFromXml(file_get_contents($xmlFileName), TRUE);
       if (
         isset($xmlTree) &&
         isset($xmlTree->documentElement) &&
@@ -2223,7 +2223,7 @@ class papaya_modulemanager extends base_db {
           '/',
           $this->papaya()->plugins->getFileName($this->module['module_guid'])
         );
-        $root = PapayaUtilFilePath::getDocumentRoot();
+        $root = \PapayaUtilFilePath::getDocumentRoot();
         if (0 === strpos($fileName, $root)) {
           $fileName = substr($fileName, strlen($root));
         } elseif ($position = strpos($fileName, '/vendor/')) {

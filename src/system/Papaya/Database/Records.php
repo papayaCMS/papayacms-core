@@ -13,35 +13,36 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database;
 /**
-* Papaya Database List, represents a list of records fetched from the database.
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-abstract class PapayaDatabaseRecords
-  extends \Papaya\Database\Records\Unbuffered
+ * Papaya Database List, represents a list of records fetched from the database.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+abstract class Records
+  extends Records\Unbuffered
   implements \ArrayAccess {
 
   /**
-  * internal storage for the record da after mapping.
-  *
-  * @var array
-  */
+   * internal storage for the record da after mapping.
+   *
+   * @var array
+   */
   protected $_records = array();
 
   /**
-  * An array of properties, used to compile the identifer
-  *
-  * @var array(string)
-  */
+   * An array of properties, used to compile the identifer
+   *
+   * @var array(string)
+   */
   protected $_identifierProperties = array();
 
   /**
-  * The parts of an identifer a joined using the given separator string
-  *
-  * @var string
-  */
+   * The parts of an identifer a joined using the given separator string
+   *
+   * @var string
+   */
   protected $_identifierSeparator = '|';
 
   /**
@@ -130,66 +131,66 @@ abstract class PapayaDatabaseRecords
   }
 
   /**
-  * Reset the object to "unloaded" status
-  */
+   * Reset the object to "unloaded" status
+   */
   public function reset() {
     $this->_records = array();
   }
 
   /**
-  * Return the current count of records in the internal buffer
-  *
-  * @return integer
-  */
+   * Return the current count of records in the internal buffer
+   *
+   * @return integer
+   */
   public function count() {
     return count($this->_records);
   }
 
   /**
-  * Return loaded records as array
-  *
-  * @return array
-  */
+   * Return loaded records as array
+   *
+   * @return array
+   */
   public function toArray() {
     return $this->_records;
   }
 
   /**
-  * Get an iterator for the loaded records.
-  *
-  * @return \ArrayIterator
-  */
+   * Get an iterator for the loaded records.
+   *
+   * @return \ArrayIterator
+   */
   public function getIterator() {
     return empty($this->_records) ? new \EmptyIterator() : new \ArrayIterator($this->_records);
   }
 
   /**
-  * return true if an record with the given offset/identifier exists
-  *
-  * @param mixed $offset
-  * @return boolean
-  */
+   * return true if an record with the given offset/identifier exists
+   *
+   * @param mixed $offset
+   * @return boolean
+   */
   public function offsetExists($offset) {
     return isset($this->_records[$this->getIdentifier($offset)]);
   }
 
   /**
-  * return the record data of the result row.
-  *
-  * @param mixed $offset
-  * @return array|null
-  */
+   * return the record data of the result row.
+   *
+   * @param mixed $offset
+   * @return array|null
+   */
   public function offsetGet($offset) {
     $identifier = $this->getIdentifier($offset);
     return isset($this->_records[$identifier]) ? $this->_records[$identifier] : NULL;
   }
 
   /**
-  * This is an encapsulation of the database result, you can not change it.
-  *
-  * @param mixed $offset
-  * @param mixed $value
-  */
+   * This is an encapsulation of the database result, you can not change it.
+   *
+   * @param mixed $offset
+   * @param mixed $value
+   */
   public function offsetSet($offset, $value) {
     \PapayaUtilConstraints::assertArray($value);
     $identifier = $this->getIdentifier($offset);
@@ -209,10 +210,10 @@ abstract class PapayaDatabaseRecords
   }
 
   /**
-  * This is an encapsulation of the database result, you can not change it.
-  *
-  * @param mixed $offset
-  */
+   * This is an encapsulation of the database result, you can not change it.
+   *
+   * @param mixed $offset
+   */
   public function offsetUnset($offset) {
     $identifier = $this->getIdentifier($offset);
     if (isset($this->_records[$identifier])) {

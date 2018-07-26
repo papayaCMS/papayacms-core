@@ -16,6 +16,8 @@
 use Papaya\Database\Condition\Element;
 use Papaya\Database\Condition\Root;
 use Papaya\Database\Interfaces\Key;
+use Papaya\Database\Result;
+use Papaya\Database\Record;
 use Papaya\Database\Record\Key\Autoincrement;
 use Papaya\Database\Record\Callbacks;
 
@@ -24,7 +26,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaDatabaseRecordTest extends PapayaTestCase {
 
   /**
-  * @covers \PapayaDatabaseRecord::__construct
+  * @covers \Papaya\Database\Record::__construct
   */
   public function testConstructor() {
     $record = new \PapayaDatabaseRecord_TestProxy();
@@ -35,7 +37,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::__clone
+  * @covers \Papaya\Database\Record::__clone
   */
   public function testClone() {
     $record = new \PapayaDatabaseRecord_TestProxy();
@@ -47,7 +49,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::__clone
+  * @covers \Papaya\Database\Record::__clone
   */
   public function testCloneWithoutSubobjects() {
     $record = new \PapayaDatabaseRecord_TestProxy();
@@ -56,16 +58,16 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::load
-  * @covers \PapayaDatabaseRecord::_loadRecord
-  * @covers \PapayaDatabaseRecord::_compileCondition
+  * @covers \Papaya\Database\Record::load
+  * @covers \Papaya\Database\Record::_loadRecord
+  * @covers \Papaya\Database\Record::_compileCondition
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array('field_id' => 42, 'field_data' => 'one'),
@@ -96,16 +98,16 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::load
-  * @covers \PapayaDatabaseRecord::_loadRecord
-  * @covers \PapayaDatabaseRecord::_compileCondition
+  * @covers \Papaya\Database\Record::load
+  * @covers \Papaya\Database\Record::_loadRecord
+  * @covers \Papaya\Database\Record::_compileCondition
   */
   public function testLoadWithScalar() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array('field_id' => 42, 'field_data' => 'one'),
@@ -136,16 +138,16 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::load
-  * @covers \PapayaDatabaseRecord::_loadRecord
-  * @covers \PapayaDatabaseRecord::_compileCondition
+  * @covers \Papaya\Database\Record::load
+  * @covers \Papaya\Database\Record::_loadRecord
+  * @covers \Papaya\Database\Record::_compileCondition
   */
   public function testLoadWithoutCondition() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array('field_id' => 42, 'field_data' => 'one'),
@@ -171,16 +173,16 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::load
-  * @covers \PapayaDatabaseRecord::_loadRecord
-  * @covers \PapayaDatabaseRecord::_compileCondition
+  * @covers \Papaya\Database\Record::load
+  * @covers \Papaya\Database\Record::_loadRecord
+  * @covers \Papaya\Database\Record::_compileCondition
   */
   public function testLoadWithoutConditionWithEmptyResult() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will($this->returnValue(FALSE));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -197,9 +199,9 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::load
-  * @covers \PapayaDatabaseRecord::_loadRecord
-  * @covers \PapayaDatabaseRecord::_compileCondition
+  * @covers \Papaya\Database\Record::load
+  * @covers \Papaya\Database\Record::_loadRecord
+  * @covers \Papaya\Database\Record::_compileCondition
   */
   public function testLoadExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -222,15 +224,15 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::load
-  * @covers \PapayaDatabaseRecord::_compileCondition
+  * @covers \Papaya\Database\Record::load
+  * @covers \Papaya\Database\Record::_compileCondition
   */
   public function testLoadWithConditionObject() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array('field_id' => 42, 'field_data' => 'one'),
@@ -264,7 +266,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::createFilter
+  * @covers \Papaya\Database\Record::createFilter
   */
   public function testCreateFilter() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -281,7 +283,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::isLoaded
+  * @covers \Papaya\Database\Record::isLoaded
   */
   public function testIsLoadedExpectingFalse() {
     $record = new \PapayaDatabaseRecord_TestProxy();
@@ -289,14 +291,14 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::isLoaded
+  * @covers \Papaya\Database\Record::isLoaded
   */
   public function testIsLoadedAfterLoadExpectingTrue() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array('field_id' => 42, 'field_data' => 'one'),
@@ -319,8 +321,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::save
-  * @covers \PapayaDatabaseRecord::_insertRecord
+  * @covers \Papaya\Database\Record::save
+  * @covers \Papaya\Database\Record::_insertRecord
   */
   public function testSaveInsertsRecordUsingDefaultAutoincrement() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -338,8 +340,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::save
-  * @covers \PapayaDatabaseRecord::_insertRecord
+  * @covers \Papaya\Database\Record::save
+  * @covers \Papaya\Database\Record::_insertRecord
   */
   public function testSaveInsertsRecordUsingDefaultAutoincrementUseCallback() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -365,8 +367,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::save
-  * @covers \PapayaDatabaseRecord::_insertRecord
+  * @covers \Papaya\Database\Record::save
+  * @covers \Papaya\Database\Record::_insertRecord
   */
   public function testSaveInsertsRecordBlockedByCallback() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -384,8 +386,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::save
-  * @covers \PapayaDatabaseRecord::_insertRecord
+  * @covers \Papaya\Database\Record::save
+  * @covers \Papaya\Database\Record::_insertRecord
   */
   public function testSaveInsertsRecordWithClientSideKey() {
     $key = $this->createMock(Key::class);
@@ -420,8 +422,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::save
-  * @covers \PapayaDatabaseRecord::_insertRecord
+  * @covers \Papaya\Database\Record::save
+  * @covers \Papaya\Database\Record::_insertRecord
   */
   public function testSaveInsertsRecordFailed() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -439,8 +441,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::save
-  * @covers \PapayaDatabaseRecord::_updateRecord
+  * @covers \Papaya\Database\Record::save
+  * @covers \Papaya\Database\Record::_updateRecord
   */
   public function testSaveUpdatesRecordUsingDefaultAutoincrement() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -465,8 +467,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::save
-  * @covers \PapayaDatabaseRecord::_updateRecord
+  * @covers \Papaya\Database\Record::save
+  * @covers \Papaya\Database\Record::_updateRecord
   */
   public function testSaveUpdatesRecordUsingDefaultAutoincrementAndCallback() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -499,8 +501,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::save
-  * @covers \PapayaDatabaseRecord::_updateRecord
+  * @covers \Papaya\Database\Record::save
+  * @covers \Papaya\Database\Record::_updateRecord
   */
   public function testSaveUpdatesRecordBlockedByCallback() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -521,7 +523,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::delete
+  * @covers \Papaya\Database\Record::delete
   */
   public function testDelete() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -544,7 +546,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
     $this->assertTrue($record->delete());
   }
   /**
-  * @covers \PapayaDatabaseRecord::delete
+  * @covers \Papaya\Database\Record::delete
   */
   public function testDeleteWithEmptyFilterExpectingFalse() {
     $key = $this->createMock(Key::class);
@@ -558,7 +560,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::mapping
+  * @covers \Papaya\Database\Record::mapping
   */
   public function testMappingGetAfterSet() {
     $mapping = $this->createMock(Papaya\Database\Interfaces\Mapping::class);
@@ -570,8 +572,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::mapping
-  * @covers \PapayaDatabaseRecord::_createMapping
+  * @covers \Papaya\Database\Record::mapping
+  * @covers \Papaya\Database\Record::_createMapping
   */
   public function testMappingGetImplicitCreate() {
     $record = new \PapayaDatabaseRecord_TestProxy();
@@ -581,7 +583,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::key
+  * @covers \Papaya\Database\Record::key
   */
   public function testKeyGetAfterSet() {
     $key = $this->createMock(Key::class);
@@ -593,8 +595,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::key
-  * @covers \PapayaDatabaseRecord::_createKey
+  * @covers \Papaya\Database\Record::key
+  * @covers \Papaya\Database\Record::_createKey
   */
   public function testKeyGetImplicitCreate() {
     $record = new \PapayaDatabaseRecord_TestProxy();
@@ -604,8 +606,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::setDatabaseAccess
-  * @covers \PapayaDatabaseRecord::getDatabaseAccess
+  * @covers \Papaya\Database\Record::setDatabaseAccess
+  * @covers \Papaya\Database\Record::getDatabaseAccess
   */
   public function testGetDatabaseAccessAfterSet() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -617,13 +619,13 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::getDatabaseAccess
+  * @covers \Papaya\Database\Record::getDatabaseAccess
   */
   public function testGetDatabaseAccessImplicitCreate() {
     $record = new \PapayaDatabaseRecord_TestProxy();
     $record->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \PapayaDatabaseAccess::class, $record->getDatabaseAccess()
+      \Papaya\Database\Access::class, $record->getDatabaseAccess()
     );
     $this->assertSame(
       $record->papaya(), $record->getDatabaseAccess()->papaya()
@@ -631,7 +633,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::callbacks
+  * @covers \Papaya\Database\Record::callbacks
   */
   public function testCallbacksGetAfterSet() {
     $callbacks = $this->createMock(Callbacks::class);
@@ -641,8 +643,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseRecord::callbacks
-  * @covers \PapayaDatabaseRecord::_createCallbacks
+  * @covers \Papaya\Database\Record::callbacks
+  * @covers \Papaya\Database\Record::_createCallbacks
   */
   public function testCallbacksImplicitCreate() {
     $record = new \PapayaDatabaseRecord_TestProxy();
@@ -654,7 +656,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
  * @property $id
  * @property $data
  */
-class PapayaDatabaseRecord_TestProxy extends PapayaDatabaseRecord {
+class PapayaDatabaseRecord_TestProxy extends Record {
 
   protected $_fields = array(
     'id' => 'field_id',

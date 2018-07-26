@@ -16,6 +16,7 @@
 use Papaya\Content\Box\Translations;
 use Papaya\Content\Box;
 use Papaya\Content\Options;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -43,11 +44,11 @@ class PapayaContentBoxTest extends PapayaTestCase {
       'box_expirestime' => 0,
       'box_unpublished_languages' => 0
     );
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess

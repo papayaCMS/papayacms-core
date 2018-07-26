@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Page\Tags;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -23,11 +24,11 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
   * @covers Tags::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array(
@@ -85,11 +86,11 @@ class PapayaContentPageTagsTest extends PapayaTestCase {
   * @covers Tags::load
   */
   public function testLoadWithLanguageId() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array(

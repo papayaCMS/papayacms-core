@@ -16,6 +16,7 @@
 use Papaya\Administration\Permissions;
 use Papaya\Administration\Permission\Groups;
 use Papaya\Content\Tables;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -120,7 +121,7 @@ class PapayaAdministrationPermissionsTest extends PapayaTestCase {
    * @covers Permissions::reset
    */
   public function testIsActiveAfterLoadingExpectingFalse() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')

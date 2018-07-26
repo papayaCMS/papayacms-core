@@ -16,6 +16,7 @@
 use Papaya\Configuration\Storage\Database;
 use Papaya\Content\Configuration;
 use Papaya\Database\Exception\Query;
+use Papaya\Database\Access;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -43,7 +44,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
   */
   public function testLoad() {
     $databaseAccess = $this
-      ->getMockBuilder(PapayaDatabaseAccess::class)
+      ->getMockBuilder(Access::class)
       ->disableOriginalConstructor()
       ->getMock();
     $databaseAccess

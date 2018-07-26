@@ -21,40 +21,41 @@
 * @package Papaya
 * @subpackage Database
 *
-* @method boolean databaseAddField() databaseAddField(string $table, array $fieldData)
-* @method boolean databaseAddIndex() databaseAddIndex(string $table, array $index)
-* @method boolean databaseChangeField() databaseChangeField(string $table, array $fieldData)
-* @method boolean databaseChangeIndex() databaseChangeIndex(string $table, array $index)
-* @method void databaseClose() databaseClose()
-* @method true databaseCompareFieldStructure() databaseCompareFieldStructure(array $xmlField, array $databaseField)
-* @method boolean databaseCompareKeyStructure() databaseCompareKeyStructure()
-* @method boolean databaseCreateTable() databaseCreateTable(string $tableData, string $tablePrefix)
-* @method void databaseDebugNextQuery() databaseDebugNextQuery(integer $count = 1)
-* @method integer databaseDeleteRecord() databaseDeleteRecord(string $table, $filter, mixed $value = NULL)
-* @method boolean databaseDropField() databaseDropField(string $table, string $field)
-* @method boolean databaseDropIndex() databaseDropIndex(string $table, string $name)
-* @method void databaseEnableAbsoluteCount() databaseEnableAbsoluteCount()
-* @method mixed databaseEmptyTable() databaseEmptyTable(string $table)
-* @method string databaseEscapeString() databaseEscapeString(mixed $value)
-* @method string databaseGetProtocol() databaseGetProtocol()
-* @method string databaseGetSqlSource() databaseGetSqlSource(string $function, array $params = NULL)
-* @method string databaseGetSqlCondition() databaseGetSqlCondition(array $filter, $value = NULL)
-* @method integer|NULL databaseInsertRecord() databaseInsertRecord(string $table, $idField, array $values = NULL)
-* @method integer|boolean databaseInsertRecords() databaseInsertRecords(string $table, array $values)
-* @method boolean|integer|PapayaDatabaseResult databaseQuery() databaseQuery(string $sql, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
-* @method boolean|integer|PapayaDatabaseResult databaseQueryFmt() databaseQueryFmt(string $sql, array $values, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
-* @method boolean|integer|PapayaDatabaseResult databaseQueryFmtWrite() databaseQueryFmtWrite(string $sql, array $values)
-* @method boolean|integer|PapayaDatabaseResult databaseQueryWrite() databaseQueryWrite(string $sql)
-* @method integer|boolean databaseUpdateRecord() databaseUpdateRecord(string $table, array $values, $filter, mixed $value = NULL)
-* @method array databaseQueryTableNames() databaseQueryTableNames()
-* @method array databaseQueryTableStructure() databaseQueryTableStructure(string $tableName)
-* @method string databaseGetTableName() databaseGetTableName(string $tablename, $usePrefix = TRUE)
+* @method boolean databaseAddField(string $table, array $fieldData)
+* @method boolean databaseAddIndex(string $table, array $index)
+* @method boolean databaseChangeField(string $table, array $fieldData)
+* @method boolean databaseChangeIndex(string $table, array $index)
+* @method void databaseClose()
+* @method true databaseCompareFieldStructure(array $xmlField, array $databaseField)
+* @method boolean databaseCompareKeyStructure()
+* @method boolean databaseCreateTable(string $tableData, string $tablePrefix)
+* @method void databaseDebugNextQuery(integer $count = 1)
+* @method integer databaseDeleteRecord(string $table, $filter, mixed $value = NULL)
+* @method boolean databaseDropField(string $table, string $field)
+* @method boolean databaseDropIndex(string $table, string $name)
+* @method void databaseEnableAbsoluteCount()
+* @method mixed databaseEmptyTable(string $table)
+* @method string databaseEscapeString(mixed $value)
+* @method string databaseGetProtocol()
+* @method string databaseGetSqlSource(string $function, array $params = NULL)
+* @method string databaseGetSqlCondition(array $filter, $value = NULL)
+* @method integer|NULL databaseInsertRecord(string $table, $idField, array $values = NULL)
+* @method integer|boolean databaseInsertRecords(string $table, array $values)
+* @method boolean|integer|\Papaya\Database\Result databaseQuery(string $sql, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
+* @method boolean|integer|\Papaya\Database\Result databaseQueryFmt(string $sql, array $values, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
+* @method boolean|integer|\Papaya\Database\Result databaseQueryFmtWrite(string $sql, array $values)
+* @method boolean|integer|\Papaya\Database\Result databaseQueryWrite(string $sql)
+* @method integer|boolean databaseUpdateRecord(string $table, array $values, $filter, mixed $value = NULL)
+* @method array databaseQueryTableNames()
+* @method array databaseQueryTableStructure(string $tableName)
+* @method string databaseGetTableName(string $tablename, $usePrefix = TRUE)
 */
 class base_db extends base_object {
 
   /**
   * Database access object
-  * @var \PapayaDatabaseAccess $_databaseAccessObject
+  *
+  * @var \Papaya\Database\Access $_databaseAccessObject
   */
   var $_databaseAccessObject = NULL;
 
@@ -71,20 +72,22 @@ class base_db extends base_object {
 
   /**
    * Set database access object
-   * @param \PapayaDatabaseAccess $databaseAccessObject
-   * @return \PapayaDatabaseAccess
+   *
+   * @param \Papaya\Database\Access $databaseAccessObject
+   * @return \Papaya\Database\Access
    */
-  public function setDatabaseAccess(PapayaDatabaseAccess $databaseAccessObject) {
+  public function setDatabaseAccess(\Papaya\Database\Access $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
   }
 
   /**
   * Get database access object
-  * @return \PapayaDatabaseAccess
+  *
+   * @return \Papaya\Database\Access
   */
   public function getDatabaseAccess() {
     if (!isset($this->_databaseAccessObject)) {
-      $this->_databaseAccessObject = new \PapayaDatabaseAccess(
+      $this->_databaseAccessObject = new \Papaya\Database\Access(
         $this, $this->databaseURI, $this->databaseURIWrite
       );
       $this->_databaseAccessObject->papaya($this->papaya());

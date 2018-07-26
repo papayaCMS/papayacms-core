@@ -516,7 +516,7 @@ class base_options extends base_db {
   */
   public static function getInstance($reset = FALSE) {
     /** @var Cms $application */
-    $application = PapayaApplication::getInstance();
+    $application = \PapayaApplication::getInstance();
     return $application->options;
   }
 

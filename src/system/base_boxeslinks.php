@@ -449,7 +449,7 @@ class base_boxeslinks extends base_db {
     $result = $this->getBoxMetaElement($box);
     $result .= sprintf(
       '<data><![CDATA[<esi:include src="%s" />]]></data>',
-      PapayaUtilStringXml::escapeAttribute($this->getBoxReference($box)->getRelative())
+      \PapayaUtilStringXml::escapeAttribute($this->getBoxReference($box)->getRelative())
     );
     $result .= '</box>';
     return $result;
@@ -459,7 +459,7 @@ class base_boxeslinks extends base_db {
     $result = $this->getBoxMetaElement($box);
     $result .= sprintf(
       '<data><![CDATA[<div data-fragment-replace="%s"> </div>]]></data>',
-      PapayaUtilStringXml::escapeAttribute($this->getBoxReference($box)->get())
+      \PapayaUtilStringXml::escapeAttribute($this->getBoxReference($box)->get())
     );
     $result .= '</box>';
     return $result;
@@ -517,7 +517,7 @@ class base_boxeslinks extends base_db {
         // Create Box-XML from Cachefile
         if ($wrapperTags) {
           $result .= $this->getBoxMetaElement($data);
-          $xmlTree = PapayaXmlDocument::createFromXml('<box>'.$str.'</box>', TRUE);
+          $xmlTree = \PapayaXmlDocument::createFromXml('<box>'.$str.'</box>', TRUE);
           if ($xmlTree && isset($xmlTree->documentElement)) {
             $result .= $str;
           } else {
@@ -600,7 +600,7 @@ class base_boxeslinks extends base_db {
             if (!$wrapperTags) {
               $outputString = $str;
             } else {
-              $xmlTree = PapayaXmlDocument::createFromXml('<box>'.$str.'</box>', TRUE);
+              $xmlTree = \PapayaXmlDocument::createFromXml('<box>'.$str.'</box>', TRUE);
               if ($xmlTree) {
                 $outputString = $output.'<data type="xml">'.$str.'</data>';
               } else {
@@ -695,9 +695,9 @@ class base_boxeslinks extends base_db {
       $definition = new Cache\Identifier\Definition\Group(
         $definition,
         new Cache\Identifier\Definition\Values(
-          PapayaUtilServerProtocol::get(),
-          PapayaUtilServerName::get(),
-          PapayaUtilServerPort::get(),
+          \PapayaUtilServerProtocol::get(),
+          \PapayaUtilServerName::get(),
+          \PapayaUtilServerPort::get(),
           $lngId,
           $viewModeId
         )

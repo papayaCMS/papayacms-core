@@ -15,6 +15,7 @@
 
 use Papaya\Content\Community\Groups;
 use Papaya\Content\Tables;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -24,11 +25,11 @@ class PapayaContentCommunityGroupsTest extends PapayaTestCase {
   * @covers Groups::loadByPermission
   */
   public function testLoadByPermission() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->atLeastOnce())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array(

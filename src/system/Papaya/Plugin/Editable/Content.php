@@ -23,7 +23,7 @@
 class PapayaPluginEditableContent extends PapayaPluginEditableData {
 
   /**
-   * Checksum buffer filled in {@see PapayaPluginEditableContent::modified()}
+   * Checksum buffer filled in {@see \PapayaPluginEditableContent::modified()}
    * @var string|NULL
    */
   private $_checksum;

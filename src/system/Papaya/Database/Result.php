@@ -13,71 +13,72 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database;
 /**
-* Papaya Database Result, this will be a new result interface for database queries
-*
-* For now it provides constants to specifiy the fetch mode.
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-interface PapayaDatabaseResult extends \IteratorAggregate {
+ * Papaya Database Result, this will be a new result interface for database queries
+ *
+ * For now it provides constants to specifiy the fetch mode.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+interface Result extends \IteratorAggregate {
 
   /**
-  * Fetch numeric and named keys
-  *
-  * @var integer
-  */
+   * Fetch numeric and named keys
+   *
+   * @var integer
+   */
   const FETCH_BOTH = 0;
   /**
-  * Fetch numeric keys
-  *
-  * @var integer
-  */
+   * Fetch numeric keys
+   *
+   * @var integer
+   */
   const FETCH_ORDERED = 1;
   /**
-  * Fetch named keys
-  *
-  * @var integer
-  */
+   * Fetch named keys
+   *
+   * @var integer
+   */
   const FETCH_ASSOC = 2;
 
   /**
-  * Fetch row from result
-  *
-  * @param integer $mode
-  * @return array
-  */
+   * Fetch row from result
+   *
+   * @param integer $mode
+   * @return array
+   */
   function fetchRow($mode = self::FETCH_ORDERED);
 
   /**
-  * Fetch field from result
-  *
-  * @param integer|string $column
-  * @return mixed
-  */
+   * Fetch field from result
+   *
+   * @param integer|string $column
+   * @return mixed
+   */
   function fetchField($column = 0);
 
   /**
-  * Seek internal pointer to the given row
-  *
-  * @param integer $index
-  * @return array
-  */
+   * Seek internal pointer to the given row
+   *
+   * @param integer $index
+   * @return array
+   */
   function seek($index);
 
   /**
-  * return count of records in compiled result with limit
-  *
-  * @return integer
-  */
+   * return count of records in compiled result with limit
+   *
+   * @return integer
+   */
   function count();
 
   /**
-  * return count of records in compiled result without limit
-  *
-  * @return integer
-  */
+   * return count of records in compiled result without limit
+   *
+   * @return integer
+   */
   function absCount();
 
   /**

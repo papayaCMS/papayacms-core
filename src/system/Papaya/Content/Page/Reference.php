@@ -24,7 +24,7 @@ namespace Papaya\Content\Page;
  * @property integer $targetId page id, larger one
  * @property string $note - a small text describing the reference
  */
-class Reference extends \PapayaDatabaseRecord {
+class Reference extends \Papaya\Database\Record {
 
   /**
    * Mapping fields

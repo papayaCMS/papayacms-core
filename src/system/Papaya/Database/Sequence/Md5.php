@@ -26,7 +26,7 @@ namespace Papaya\Database\Sequence;
  * @package Papaya-Library
  * @subpackage Database
  */
-class Md5 extends \PapayaDatabaseSequence {
+class Md5 extends \Papaya\Database\Sequence {
 
   /**
    * Generate a random, unqiue id and use md5 to hash it

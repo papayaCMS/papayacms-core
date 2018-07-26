@@ -151,12 +151,12 @@ abstract class Records
   /**
    * Converts the record from database into a values array using the mapping array.
    *
-   * @param \PapayaDatabaseResult $databaseResult
+   * @param \Papaya\Database\Result $databaseResult
    * @param string $idField
    */
   protected function _fetchRecords($databaseResult, $idField = '') {
     $this->_records = array();
-    while ($row = $databaseResult->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
+    while ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
       $record = array();
       foreach ($row as $field => $value) {
         if (!empty($this->_fieldMapping[$field])) {

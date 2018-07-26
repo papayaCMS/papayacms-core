@@ -1039,7 +1039,7 @@ class papaya_options extends base_options {
         }
         $this->papaya()->messages->dispatch(
           new \PapayaMessageDisplay(
-            PapayaMessage::SEVERITY_ERROR,
+            \PapayaMessage::SEVERITY_ERROR,
             sprintf(
               $this->_gt('Statistic module (%s) not found.'),
               $statisticOverviewGuid
@@ -1170,7 +1170,7 @@ class papaya_options extends base_options {
       return;
     }
     // Try to create an XML tree and check whether it's valid
-    $xml = PapayaXmlDocument::createFromXML(file_get_contents($tempFileName), TRUE);
+    $xml = \PapayaXmlDocument::createFromXML(file_get_contents($tempFileName), TRUE);
     if (!($xml && isset($xml->documentElement))) {
       $this->addMsg(MSG_ERROR, $this->_gt('This is not a valid XML file.'));
       return;
@@ -1339,7 +1339,7 @@ class papaya_options extends base_options {
     } else {
       $this->papaya()->messages->dispatch(
         new \PapayaMessageDisplay(
-          PapayaMessage::SEVERITY_ERROR,
+          \PapayaMessage::SEVERITY_ERROR,
           $this->_gt('Please set and save the PAPAYA_PATH_DATA option.')
         )
       );

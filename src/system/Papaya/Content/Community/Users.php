@@ -20,7 +20,7 @@ namespace Papaya\Content\Community;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Users extends \PapayaDatabaseRecords {
+class Users extends \Papaya\Database\Records {
 
   protected $_fields = array(
     'id' => 'surfer_id',

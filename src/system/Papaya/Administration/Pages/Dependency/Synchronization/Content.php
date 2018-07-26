@@ -88,7 +88,7 @@ class Content
     );
     $result = array();
     if ($databaseResult = $databaseAccess->queryFmt($sql, $parameters)) {
-      while ($row = $databaseResult->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
+      while ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
         $result[$row['lng_id']][] = $row['topic_id'];
       }
     }

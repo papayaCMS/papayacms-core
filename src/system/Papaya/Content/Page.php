@@ -142,7 +142,7 @@ class Page extends \Papaya\Database\Record\Lazy {
   /**
    * Attach callbacks for serialized field values
    *
-   * @see \PapayaDatabaseRecord::_createMapping()
+   * @see \Papaya\Database\Record::_createMapping()
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();

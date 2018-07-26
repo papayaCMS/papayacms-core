@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Page\Boxes;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -23,7 +24,7 @@ class PapayaContentPageBoxesTest extends PapayaTestCase {
   * @covers Boxes::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

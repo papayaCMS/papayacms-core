@@ -1490,7 +1490,7 @@ class base_viewlist extends base_db {
         new \PapayaUiListviewItem('', new \PapayaUiStringTranslated('Path'));
       $item->indentation = 1;
       $item->subitems[] = new \PapayaUiListviewSubitemText(
-        PapayaUtilString::truncate($module['module_path'], 30, '...')
+        \PapayaUtilString::truncate($module['module_path'], 30, '...')
       );
       $listview->items[] = $item =
         new \PapayaUiListviewItem('', new \PapayaUiStringTranslated('Class'));
@@ -1835,15 +1835,15 @@ class base_viewlist extends base_db {
       $listview->columns[] = new \PapayaUiListviewColumn('');
       $listview->columns[] = new \PapayaUiListviewColumn(
         new \PapayaUiStringTranslated('Current'),
-        PapayaUiOptionAlign::CENTER
+        \PapayaUiOptionAlign::CENTER
       );
       $listview->columns[] = new \PapayaUiListviewColumn(
         new \PapayaUiStringTranslated('Published'),
-        PapayaUiOptionAlign::CENTER
+        \PapayaUiOptionAlign::CENTER
       );
       $listview->columns[] = new \PapayaUiListviewColumn(
         new \PapayaUiStringTranslated('Versions'),
-        PapayaUiOptionAlign::CENTER
+        \PapayaUiOptionAlign::CENTER
       );
       switch ($this->view['module_type']) {
       case 'box' :
@@ -2248,7 +2248,7 @@ class base_viewlist extends base_db {
     $modes = array();
     if (is_array($this->view['MODES'])) {
       foreach ($this->view['MODES'] as $mode) {
-        $options = PapayaUtilStringXml::unserializeArray($mode['viewlink_data']);
+        $options = \PapayaUtilStringXml::unserializeArray($mode['viewlink_data']);
         ksort($options);
         $modes[$mode['viewmode_id']] = $options;
       }

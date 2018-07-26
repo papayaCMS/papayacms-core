@@ -93,7 +93,7 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
   ********************************/
 
   /**
-   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaDatabaseAccess
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Access
    */
   private function getDatabaseAccessFixture() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -104,7 +104,7 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
     return $databaseAccess;
   }
 
-  private function getPageFixture(PapayaDatabaseAccess $databaseAccess, array $data = array()) {
+  private function getPageFixture(\Papaya\Database\Access $databaseAccess, array $data = array()) {
     $page = $this->createMock(Work::class);
     $page
       ->expects($this->once())

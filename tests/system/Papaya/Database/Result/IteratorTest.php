@@ -14,6 +14,7 @@
  */
 
 use Papaya\Database\Interfaces\Mapping;
+use Papaya\Database\Result;
 use Papaya\Database\Result\Iterator;
 
 require_once __DIR__.'/../../../../bootstrap.php';
@@ -25,7 +26,7 @@ class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
   */
   public function testConstructor() {
     $iterator = new Iterator(
-      $databaseResult = $this->createMock(PapayaDatabaseResult::class)
+      $databaseResult = $this->createMock(Result::class)
     );
     $this->assertAttributeSame(
       $databaseResult, '_databaseResult', $iterator
@@ -37,11 +38,11 @@ class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
   */
   public function testConstructorWithAllParameters() {
     $iterator = new Iterator(
-      $this->createMock(PapayaDatabaseResult::class),
-      \PapayaDatabaseResult::FETCH_ORDERED
+      $this->createMock(Result::class),
+      \Papaya\Database\Result::FETCH_ORDERED
     );
     $this->assertAttributeSame(
-      \PapayaDatabaseResult::FETCH_ORDERED, '_fetchMode', $iterator
+      \Papaya\Database\Result::FETCH_ORDERED, '_fetchMode', $iterator
     );
   }
 
@@ -53,11 +54,11 @@ class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
   * @covers Iterator::valid
   */
   public function testIterate() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array('id' => 21),
@@ -89,11 +90,11 @@ class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
       ->method('mapFieldsToProperties')
       ->with($this->isType('array'))
       ->will($this->returnCallback(array($this, 'callbackMapFieldsToProperties')));
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array('id' => 21),
@@ -122,11 +123,11 @@ class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
   * @covers Iterator::rewind
   */
   public function testRewindAfterIteration() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array('id' => 21),
@@ -155,7 +156,7 @@ class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
   * @covers Iterator::getMapping
   */
   public function testSetMappingGetAfterSet() {
-    $iterator = new Iterator($this->createMock(PapayaDatabaseResult::class));
+    $iterator = new Iterator($this->createMock(Result::class));
     $iterator->setMapping($mapping = $this->createMock(Mapping::class));
     $this->assertSame(
       $mapping, $iterator->getMapping()

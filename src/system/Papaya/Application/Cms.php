@@ -21,7 +21,7 @@ namespace Papaya\Application;
  * A pseudoclass extending the PapayaApplication service locator that
  * allows to declare the profiles as properties
  *
- * @property \PapayaDatabaseManager $database
+ * @property \Papaya\Database\Manager $database
  * @property \PapayaUiImages images
  * @property \Papaya\Content\Languages $languages
  * @property \PapayaMessageManager $messages

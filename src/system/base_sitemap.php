@@ -1,21 +1,17 @@
 <?php
 /**
-* Sitemap basic class
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: base_sitemap.php 39973 2015-05-28 13:13:36Z kersken $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Sitemap basic class
@@ -663,7 +659,7 @@ class base_sitemap extends base_db {
         if (!isset($this->linkTypeObj)) {
           $this->linkTypeObj = new base_linktypes();
         }
-        $this->linkTypes = PapayaUtilArray::merge(
+        $this->linkTypes = \PapayaUtilArray::merge(
           $this->linkTypes,
           $this->linkTypeObj->getCompleteLinkTypes(array_keys($linkTypeIds))
         );
@@ -1080,7 +1076,7 @@ class base_sitemap extends base_db {
         $cfgData = $this->linkTypes[$row['linktype_id']]['popup_config'];
         $target = sprintf(
           ' target="%s"',
-          PapayaUtilStringXml::escapeAttribute(
+          \PapayaUtilStringXml::escapeAttribute(
             $this->linkTypes[$row['linktype_id']]['linktype_name']
           )
         );
@@ -1088,16 +1084,16 @@ class base_sitemap extends base_db {
           ' data-popup="%s"',
           papaya_strings::escapeHTMLChars(
             papaya_parser::getDataPopupAttribute(
-              PapayaUtilArray::get($cfgData, 'width'),
-              PapayaUtilArray::get($cfgData, 'height'),
-              PapayaUtilArray::get($cfgData, 'scrollbars'),
-              PapayaUtilArray::get($cfgData, 'resizable'),
-              PapayaUtilArray::get($cfgData, 'toolbar'),
-              PapayaUtilArray::get($cfgData, 'top'),
-              PapayaUtilArray::get($cfgData, 'left'),
-              PapayaUtilArray::get($cfgData, 'menubar'),
-              PapayaUtilArray::get($cfgData, 'location'),
-              PapayaUtilArray::get($cfgData, 'status')
+              \PapayaUtilArray::get($cfgData, 'width'),
+              \PapayaUtilArray::get($cfgData, 'height'),
+              \PapayaUtilArray::get($cfgData, 'scrollbars'),
+              \PapayaUtilArray::get($cfgData, 'resizable'),
+              \PapayaUtilArray::get($cfgData, 'toolbar'),
+              \PapayaUtilArray::get($cfgData, 'top'),
+              \PapayaUtilArray::get($cfgData, 'left'),
+              \PapayaUtilArray::get($cfgData, 'menubar'),
+              \PapayaUtilArray::get($cfgData, 'location'),
+              \PapayaUtilArray::get($cfgData, 'status')
             )
           )
         );

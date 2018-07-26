@@ -1266,7 +1266,7 @@ class base_auth extends base_db {
         '<login title="%s" action="%s" is-secure="%s">',
         papaya_strings::escapeHTMLChars($this->_gt('Login')),
         papaya_strings::escapeHTMLChars($this->baseLink),
-        PapayaUtilServerProtocol::isSecure() ? 'yes' : 'no'
+        \PapayaUtilServerProtocol::isSecure() ? 'yes' : 'no'
       );
       $result .= sprintf(
         '<input type="hidden" name="%s[login]" value="1" />'.LF,

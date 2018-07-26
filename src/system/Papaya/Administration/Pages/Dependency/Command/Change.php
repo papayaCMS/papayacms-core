@@ -155,7 +155,7 @@ class Change extends \PapayaUiControlCommandDialog {
       $record->originId
     );
     if ($databaseResult = $databaseAccess->queryFmt($sql, $parameters)) {
-      while ($row = $databaseResult->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
+      while ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
         if ($row['module_counter'] > 1) {
           $this->papaya()->messages->dispatch(
             new \PapayaMessageDisplay(

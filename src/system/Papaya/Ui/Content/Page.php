@@ -168,7 +168,7 @@ class PapayaUiContentPage extends \PapayaObject {
         $reference->setPageId($this->getPageId(), TRUE);
         if (isset($configuration['query_string'])) {
           $reference->setParameters(
-            PapayaRequestParameters::createFromString($configuration['query_string'])
+            \PapayaRequestParameters::createFromString($configuration['query_string'])
           );
         }
         $teaser = $parent->appendElement(
@@ -179,8 +179,8 @@ class PapayaUiContentPage extends \PapayaObject {
             'plugin' => get_class($plugin),
             'view' => $this->translation()->viewName,
             'href' => $reference->getRelative(),
-            'published' => PapayaUtilDate::timestampToString($this->translation()->modified),
-            'created' => PapayaUtilDate::timestampToString($this->translation()->created)
+            'published' => \PapayaUtilDate::timestampToString($this->translation()->modified),
+            'created' => \PapayaUtilDate::timestampToString($this->translation()->created)
           )
         );
         if ($plugin instanceof PapayaPluginQuoteable) {

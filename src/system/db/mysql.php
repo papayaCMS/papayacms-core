@@ -221,16 +221,16 @@ class dbcon_mysql extends dbcon_base {
     $errorMessage = mysql_error($this->databaseConnection);
     $severityMapping = array(
       // 1062 - duplicate entry
-      1062 => PapayaDatabaseException::SEVERITY_WARNING,
+      1062 => \Papaya\Database\Exception::SEVERITY_WARNING,
       // 1205 - lock error
-      1205 => PapayaDatabaseException::SEVERITY_INFO,
+      1205 => \Papaya\Database\Exception::SEVERITY_INFO,
       // 1213 - deadlock error
-      1213 => PapayaDatabaseException::SEVERITY_INFO,
+      1213 => \Papaya\Database\Exception::SEVERITY_INFO,
     );
     if (isset($severityMapping[$errorCode])) {
       $severity = $severityMapping[$errorCode];
     } else {
-      $severity = PapayaDatabaseException::SEVERITY_ERROR;
+      $severity = \Papaya\Database\Exception::SEVERITY_ERROR;
     }
     return new \Papaya\Database\Exception\Query(
       $errorMessage, $errorCode, $severity, $sql

@@ -20,7 +20,7 @@ namespace Papaya\Content;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Languages extends \PapayaDatabaseRecords {
+class Languages extends \Papaya\Database\Records {
 
   /**
    * All languages - filter disabled

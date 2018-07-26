@@ -27,7 +27,7 @@ namespace Papaya\Database\Records;
  * @package Papaya-Library
  * @subpackage Database
  */
-abstract class Lazy extends \PapayaDatabaseRecords {
+abstract class Lazy extends \Papaya\Database\Records {
 
   private $_loadingParameters;
 

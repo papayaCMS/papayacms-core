@@ -49,9 +49,9 @@ class Database extends \PapayaObject
   /**
    * Dispatch the error message as http header and be silent otherwise.
    *
-   * @param \PapayaDatabaseException $exception
+   * @param \Papaya\Database\Exception $exception
    */
-  public function handleError(\PapayaDatabaseException $exception) {
+  public function handleError(\Papaya\Database\Exception $exception) {
     if (
       isset($this->papaya()->response) &&
       $this->papaya()->options->get('PAPAYA_DBG_DEVMODE', FALSE)

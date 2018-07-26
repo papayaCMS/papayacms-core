@@ -20,7 +20,7 @@ namespace Papaya\Database\Exception;
  * @package Papaya-Library
  * @subpackage Database
  */
-class Query extends \PapayaDatabaseException {
+class Query extends \Papaya\Database\Exception {
 
   /**
    * Sent sql query

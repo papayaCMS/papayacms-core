@@ -346,7 +346,7 @@ abstract class Record
    */
   protected function _loadRecord($sql, array $parameters, $convertRecordCallback = NULL) {
     if ($res = $this->databaseQueryFmt($sql, $parameters)) {
-      if ($row = $res->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
+      if ($row = $res->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
         $this->_values = $this->_applyCallback(
           $convertRecordCallback, array($this, 'convertRecordToValues'), $row
         );

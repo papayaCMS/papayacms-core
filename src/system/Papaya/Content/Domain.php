@@ -28,7 +28,7 @@ namespace Papaya\Content;
  * @property string $data
  * @property array $options
  */
-class Domain extends \PapayaDatabaseRecord {
+class Domain extends \Papaya\Database\Record {
 
   /**
    * No special handling

@@ -14,6 +14,7 @@
  */
 
 use Papaya\Database\BaseObject\Records;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -157,11 +158,11 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::_loadRecords
   */
   public function testLoadRecords() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with($this->equalTo(PapayaDatabaseResult::FETCH_ASSOC))
+      ->with($this->equalTo(Result::FETCH_ASSOC))
       ->will(
         $this->onConsecutiveCalls(
           array('field1' => 'Hello', 'field2' => 'World'),
@@ -222,12 +223,12 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::_fetchRecords
   */
   public function testFetchRecords() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaDatabaseResult $databaseResult */
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Result $databaseResult */
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with($this->equalTo(PapayaDatabaseResult::FETCH_ASSOC))
+      ->with($this->equalTo(Result::FETCH_ASSOC))
       ->will(
         $this->onConsecutiveCalls(
           array('field1' => 'Hello', 'field2' => 'World'),
@@ -247,12 +248,12 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::_fetchRecords
   */
   public function testFetchRecordsWithIndex() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaDatabaseResult $databaseResult */
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Result $databaseResult */
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with($this->equalTo(PapayaDatabaseResult::FETCH_ASSOC))
+      ->with($this->equalTo(Result::FETCH_ASSOC))
       ->will(
         $this->onConsecutiveCalls(
           array('field1' => 'Hello', 'field2' => 'World'),

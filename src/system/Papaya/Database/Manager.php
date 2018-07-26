@@ -13,59 +13,64 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database;
+
 /**
-* Database connector manager
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-class PapayaDatabaseManager extends \PapayaObject {
+ * Database connector manager
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Manager extends \PapayaObject {
 
   /**
-  * @var \PapayaConfiguration $_configuration Configuration object
-  */
+   * @var \PapayaConfiguration $_configuration Configuration object
+   */
   private $_configuration = NULL;
   /**
-  * @var array $_connectors list of created connectors
-  */
+   * @var array $_connectors list of created connectors
+   */
   private $_connectors = array();
 
   /**
-  * get current configuration object
-  * @return \PapayaConfiguration
-  */
+   * get current configuration object
+   *
+   * @return \PapayaConfiguration
+   */
   public function getConfiguration() {
     return $this->_configuration;
   }
 
   /**
-  * Return current conifuration object
-  * @param \PapayaConfiguration $configuration
-  */
+   * Return current conifuration object
+   *
+   * @param \PapayaConfiguration $configuration
+   */
   public function setConfiguration($configuration) {
     $this->_configuration = $configuration;
   }
 
   /**
-  * Create an database access instance and return it.
-  *
-  * @param object $owner
-  * @param string|NULL $readUri URI for read connection, use options if empty
-  * @param string|NULL $writeUri URI for write connection, use $readUri if empty
-  * @return \PapayaDatabaseAccess
-  */
+   * Create an database access instance and return it.
+   *
+   * @param object $owner
+   * @param string|NULL $readUri URI for read connection, use options if empty
+   * @param string|NULL $writeUri URI for write connection, use $readUri if empty
+   * @return \Papaya\Database\Access
+   */
   public function createDatabaseAccess($owner, $readUri = NULL, $writeUri = NULL) {
-    $result = new \PapayaDatabaseAccess($owner, $readUri, $writeUri);
+    $result = new \Papaya\Database\Access($owner, $readUri, $writeUri);
     $result->papaya($this->papaya());
     return $result;
   }
 
   /**
-  * Get connector for given URIs, create if none exists
-  * @param string|NULL $readUri URI for read connection, use options if empty
-  * @param string|NULL $writeUri URI for write connection, use $readUri if empty
-  * @return db_simple
-  */
+   * Get connector for given URIs, create if none exists
+   *
+   * @param string|NULL $readUri URI for read connection, use options if empty
+   * @param string|NULL $writeUri URI for write connection, use $readUri if empty
+   * @return \db_simple
+   */
   public function getConnector($readUri = NULL, $writeUri = NULL) {
     list($readUri, $writeUri) = $this->_getConnectorUris($readUri, $writeUri);
     $identifier = $readUri."\n".$writeUri;
@@ -82,12 +87,13 @@ class PapayaDatabaseManager extends \PapayaObject {
   }
 
   /**
-  * Get connector for given URIs, existing connector will be overwritten
-  * @param db_simple $connector connector object
-  * @param string|NULL $readUri URI for read connection, use options if empty
-  * @param string|NULL $writeUri URI for write connection, use $readUri if empty
-  * @return db_simple
-  */
+   * Get connector for given URIs, existing connector will be overwritten
+   *
+   * @param \db_simple $connector connector object
+   * @param string|NULL $readUri URI for read connection, use options if empty
+   * @param string|NULL $writeUri URI for write connection, use $readUri if empty
+   * @return \db_simple
+   */
   public function setConnector($connector, $readUri = NULL, $writeUri = NULL) {
     list($readUri, $writeUri) = $this->_getConnectorUris($readUri, $writeUri);
     $identifier = $readUri."\n".$writeUri;
@@ -96,6 +102,7 @@ class PapayaDatabaseManager extends \PapayaObject {
 
   /**
    * Get connector Uris from configuration object
+   *
    * @param string $readUri
    * @param string $writeUri
    * @return array
@@ -116,11 +123,12 @@ class PapayaDatabaseManager extends \PapayaObject {
   }
 
   /**
-  * Close all open connections to database servers
-  * @return void
-  */
+   * Close all open connections to database servers
+   *
+   * @return void
+   */
   public function close() {
-    /** @var db_simple $connector */
+    /** @var \db_simple $connector */
     foreach ($this->_connectors as $connector) {
       $connector->close();
     }

@@ -130,7 +130,7 @@ class papaya_taglinks extends base_tags {
    */
   public static function getInstance($parentObj = NULL, $paramName = NULL) {
     /** @var Cms $application */
-    $application = PapayaApplication::getInstance();
+    $application = \PapayaApplication::getInstance();
     $validUser = $application->administrationUser->hasPerm(
       Permissions::TAG_MANAGE
     );
@@ -1246,7 +1246,7 @@ class papaya_taglinks extends base_tags {
       $dialog->fields[] = $field = new \PapayaUiDialogFieldSelect(
         new \PapayaUiStringTranslated('Priority'),
         'taglink_priority',
-        new \PapayaIteratorRepeatDecrement(100, 0, 10, PapayaIteratorRepeatDecrement::MODE_ASSOC)
+        new \PapayaIteratorRepeatDecrement(100, 0, 10, \PapayaIteratorRepeatDecrement::MODE_ASSOC)
       );
       $field->callbacks()->getOptionCaption = array($this, 'callbackFormatPriority');
       $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));

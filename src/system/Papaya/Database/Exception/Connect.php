@@ -20,7 +20,7 @@ namespace Papaya\Database\Exception;
  * @package Papaya-Library
  * @subpackage Database
  */
-class Connect extends \PapayaDatabaseException {
+class Connect extends \Papaya\Database\Exception {
 
   /**
    * Create exception and store values
@@ -29,6 +29,6 @@ class Connect extends \PapayaDatabaseException {
    * @param integer $code
    */
   public function __construct($message, $code = 0) {
-    parent::__construct($message, $code, \PapayaDatabaseException::SEVERITY_ERROR);
+    parent::__construct($message, $code, \Papaya\Database\Exception::SEVERITY_ERROR);
   }
 }

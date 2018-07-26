@@ -15,6 +15,7 @@
 
 use Papaya\Content\Page\Dependencies;
 use Papaya\Content\Page\Dependency;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -24,7 +25,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   * @covers Dependencies::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -182,13 +183,13 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   * @covers Dependencies::changeOrigin
   */
   public function testChangeOrigin() {
-    $databaseResultLoad = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResultLoad = $this->createMock(Result::class);
     $databaseResultLoad
       ->expects($this->any())
       ->method('fetchRow')
       ->with($this->isType('integer'))
       ->will($this->returnValue(FALSE));
-    $databaseResultCheck = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResultCheck = $this->createMock(Result::class);
     $databaseResultCheck
       ->expects($this->any())
       ->method('fetchField')

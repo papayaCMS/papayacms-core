@@ -28,7 +28,7 @@ class PapayaDatabaseExceptionConnectTest extends PapayaTestCase {
       'Sample', $exception->getMessage()
     );
     $this->assertEquals(
-      \PapayaDatabaseException::SEVERITY_ERROR, $exception->getSeverity()
+      \Papaya\Database\Exception::SEVERITY_ERROR, $exception->getSeverity()
     );
   }
 

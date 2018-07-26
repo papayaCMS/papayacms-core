@@ -20,7 +20,7 @@ namespace Papaya\Content;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Domains extends \PapayaDatabaseRecords {
+class Domains extends \Papaya\Database\Records {
 
   /**
    * Map field names to more convinient property names
@@ -50,7 +50,7 @@ class Domains extends \PapayaDatabaseRecords {
   /**
    * Attach callbacks for serialized field values
    *
-   * @see \PapayaDatabaseRecord::_createMapping()
+   * @see \Papaya\Database\Record::_createMapping()
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();

@@ -25,7 +25,7 @@ namespace Papaya\Content\Theme;
  * @property string $theme
  * @property array $values
  */
-class Set extends \PapayaDatabaseRecord {
+class Set extends \Papaya\Database\Record {
 
   /**
    * Map field names to more convenient property names

@@ -18,6 +18,8 @@ use Papaya\Content\Page\Translation;
 use Papaya\Content\Page\Translations;
 use Papaya\Content\Page\Work;
 use Papaya\Content\Tables;
+use Papaya\Database\Access;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -200,14 +202,14 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
 
   /**
    * @param array $targetRecords
-   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaDatabaseAccess
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Access
    */
   private function getDatabaseAccessFixture(array $targetRecords = array()) {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         call_user_func_array(
           array($this, 'onConsecutiveCalls'), $targetRecords
@@ -237,13 +239,13 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
   }
 
   /**
-   * @param \PapayaDatabaseAccess|PHPUnit_Framework_MockObject_MockObject $databaseAccess
+   * @param \Papaya\Database\Access|PHPUnit_Framework_MockObject_MockObject $databaseAccess
    * @param array $translations
    * @param Translation|PHPUnit_Framework_MockObject_MockObject|NULL $translation
    * @return PHPUnit_Framework_MockObject_MockObject|Translations
    */
   private function getTranslationsFixture(
-    PapayaDatabaseAccess $databaseAccess,
+    Access $databaseAccess,
     array $translations = array(),
     Translation $translation = NULL
   ) {
@@ -303,11 +305,11 @@ class PapayaAdministrationPagesDependencySynchronizationPropertiesTest extends P
   }
 
   /**
-   * @param \PapayaDatabaseAccess $databaseAccess
+   * @param \Papaya\Database\Access $databaseAccess
    * @param array $data
    * @return PHPUnit_Framework_MockObject_MockObject|Work
    */
-  private function getPageFixture(PapayaDatabaseAccess $databaseAccess, array $data = array()) {
+  private function getPageFixture(Access $databaseAccess, array $data = array()) {
     $page = $this->createMock(Work::class);
     $page
       ->expects($this->any())

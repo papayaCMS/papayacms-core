@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Result;
 use Papaya\Database\Records\Tree;
 
 require_once __DIR__.'/../../../../bootstrap.php';
@@ -145,7 +146,7 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
   ************************/
 
   public function getDatabaseFixture() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

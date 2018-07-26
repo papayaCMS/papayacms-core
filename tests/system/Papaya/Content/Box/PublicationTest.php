@@ -15,6 +15,7 @@
 
 use Papaya\Content\Box\Publication;
 use Papaya\Content\Options;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -24,7 +25,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
   * @covers Publication::save
   */
   public function testSaveCreateNew() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -75,7 +76,7 @@ class PapayaContentBoxPublicationTest extends PapayaTestCase {
   * @covers Publication::save
   */
   public function testSaveUpdateExisting() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')

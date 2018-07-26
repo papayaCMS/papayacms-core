@@ -1,39 +1,23 @@
 <?php
 /**
-* This class provides means of tracking events that will be evaluated statistically.
-*
-* Here is an example code. You will have to adapt it to your requirements.
-* <code>
-* $entriesObj = base_statistic_entries_tracking::getInstance();
-* $guid = $this->moduleGuid;
-* $entryType = 'post_viewed';
-* $parameters = array(
-*   'surfer' => $surferObj->surferId,
-*   'post' => $this->postId,
-*   'search' => $this->params['searchstring'],
-* );
-* $entriesObj->logEntry($guid, $entryType, $parameters);
-* </code>
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Statistic
-* @version $Id: base_statistic_entries_tracking.php 39513 2014-03-04 16:44:40Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * This class provides means of tracking events that will be evaluated statistically.
 * @package Papaya
 * @subpackage Statistic
+ * @deprecated
 */
 class base_statistic_entries_tracking extends base_db_statistic {
 
@@ -148,10 +132,10 @@ class base_statistic_entries_tracking extends base_db_statistic {
       $sessionId
     );
     /**
-     * @var boolean|PapayaDatabaseResult $res
+     * @var boolean|\Papaya\Database\Result $res
      */
     if ($res = $statObj->databaseQueryFmt($sql, $params)) {
-      if ($row = $res->fetchRow(PapayaDatabaseResult::FETCH_ASSOC)) {
+      if ($row = $res->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
         return ($row['request_id']);
       }
     }

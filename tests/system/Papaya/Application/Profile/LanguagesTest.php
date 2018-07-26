@@ -14,6 +14,7 @@
  */
 
 use Papaya\Application\Profile\Languages;
+use Papaya\Database\Manager;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -28,7 +29,7 @@ class PapayaApplicationProfileLanguagesTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('queryFmt')
       ->will($this->returnValue(FALSE));
-    $databaseManager = $this->createMock(PapayaDatabaseManager::class);
+    $databaseManager = $this->createMock(Manager::class);
     $databaseManager
       ->expects($this->once())
       ->method('createDatabaseAccess')

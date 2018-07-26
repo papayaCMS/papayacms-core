@@ -263,7 +263,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
           $this->initializeMimeTypeExtensionDialog($this->params['cmd']);
           if (isset($this->params['confirm']) && $this->params['confirm']
               && $this->params['extension'] != ''
-              && PapayaFilterFactory::isText($this->params['extension'])) {
+              && \PapayaFilterFactory::isText($this->params['extension'])) {
             $mimeTypes = $this->mimeObj->getMimeTypeByExtension($this->params['extension']);
             if (count($mimeTypes) > 0 && !isset($this->params['override'])) {
               $this->initializeMimeTypeExtensionConfirmDialog($mimeTypes);
@@ -824,7 +824,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
   * @return string
   */
   function formatByteValue($bytes) {
-    return PapayaUtilBytes::toString($bytes);
+    return \PapayaUtilBytes::toString($bytes);
   }
 
   /**
@@ -833,7 +833,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
   * @return integer
   */
   function decodeBytesInput($input) {
-    return PapayaUtilBytes::fromString($input);
+    return \PapayaUtilBytes::fromString($input);
   }
 
   /**

@@ -1198,11 +1198,11 @@ class papaya_boxes extends base_boxes {
   function publishBox() {
     if (isset($this->box) && is_array($this->box)) {
       if ($this->createVersion()) {
-        $publicFrom = PapayaUtilDate::stringToTimestamp($this->params['box_public_from']);
+        $publicFrom = \PapayaUtilDate::stringToTimestamp($this->params['box_public_from']);
         if ($publicFrom <= time()) {
           $publicFrom = 0;
         }
-        $publicTo = PapayaUtilDate::stringToTimestamp($this->params['box_public_to']);
+        $publicTo = \PapayaUtilDate::stringToTimestamp($this->params['box_public_to']);
         if ($publicTo <= $publicFrom) {
           $publicTo = 0;
         }
@@ -1391,7 +1391,7 @@ class papaya_boxes extends base_boxes {
         } else {
           $this->papaya()->messages->dispatch(
             new \PapayaMessageDisplayTranslated(
-              PapayaMessage::SEVERITY_INFO,
+              \PapayaMessage::SEVERITY_INFO,
               ($direction == 'down')
                 ? 'Box is already the last one.'
                 : 'Box is already the first one.'
@@ -1966,7 +1966,7 @@ class papaya_boxes extends base_boxes {
     $fileName = $templateHandler->getLocalPath().'/info.xml';
     if (file_exists($fileName) && is_readable($fileName)) {
       $this->templateGroups = array();
-      $xmlTree = PapayaXmlDocument::createFromXML(file_get_contents($fileName));
+      $xmlTree = \PapayaXmlDocument::createFromXML(file_get_contents($fileName));
       for ($idx1 = 0; $idx1 < $xmlTree->documentElement->childNodes->length; $idx1++) {
         $node = $xmlTree->documentElement->childNodes->item($idx1);
         if ($node instanceof DOMElement &&
@@ -2211,7 +2211,7 @@ class papaya_boxes extends base_boxes {
         new \PapayaUiStringTranslated('User')
       );
       $listview->columns[] = new \PapayaUiListviewColumn(
-        '', PapayaUiOptionAlign::CENTER
+        '', \PapayaUiOptionAlign::CENTER
       );
       foreach ($this->versions as $id => $version) {
         $listitem = new \PapayaUiListviewItem(
@@ -2223,7 +2223,7 @@ class papaya_boxes extends base_boxes {
           ),
           (isset($this->params['version_id']) && $id == $this->params['version_id'])
         );
-        $listitem->text = PapayaUtilString::truncate(
+        $listitem->text = \PapayaUtilString::truncate(
           $version['version_message'], 100, FALSE, "\xE2\x80\xA6"
         );
         $listitem->subitems[] = new \PapayaUiListviewSubitemText($version['fullname']);
@@ -2560,7 +2560,7 @@ class papaya_boxes extends base_boxes {
       case 'publish' :
         if (isset($this->params['confirm_publish']) && $this->params['confirm_publish']) {
           if (isset($this->params['commit_message']) &&
-              PapayaFilterFactory::isNotEmpty($this->params['commit_message'], TRUE)) {
+              \PapayaFilterFactory::isNotEmpty($this->params['commit_message'], TRUE)) {
             if ($this->publishBox()) {
               if (!empty($this->params['commit_message'])) {
                 $this->sessionParams['last_publish_message'] = $this->params['commit_message'];

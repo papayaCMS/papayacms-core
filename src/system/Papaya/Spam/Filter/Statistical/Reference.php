@@ -60,7 +60,7 @@ class PapayaSpamFilterStatisticalReference extends \Papaya\Database\BaseObject\R
         $languageId
       );
       if ($res = $this->databaseQueryFmt($sql, $parameters)) {
-        while ($row = $res->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
+        while ($row = $res->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
           $word = $row['spamword'];
           if (!isset($this->_records[$word])) {
             $this->_records[$word] = array(
@@ -95,7 +95,7 @@ class PapayaSpamFilterStatisticalReference extends \Papaya\Database\BaseObject\R
       $languageId
     );
     if ($res = $this->databaseQueryFmt($sql, $parameters)) {
-      while ($row = $res->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
+      while ($row = $res->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
         $category = strtolower($row['spamcategory_ident']);
         $this->_totals[$category] = $row['text_count'];
       }

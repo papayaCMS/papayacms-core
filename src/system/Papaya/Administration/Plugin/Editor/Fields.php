@@ -38,7 +38,7 @@ class Fields extends Dialog {
    */
   public function __construct(PapayaPluginEditableData $data, array $fields) {
     parent::__construct($data);
-    PapayaUtilConstraints::assertArrayOrTraversable($fields);
+    \PapayaUtilConstraints::assertArrayOrTraversable($fields);
     $this->_fields = $fields;
   }
 

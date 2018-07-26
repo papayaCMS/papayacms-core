@@ -166,7 +166,7 @@ class papaya_swfobject extends base_object {
       $this->getXHTMLString($this->_gt($this->_noFlashMessage)),
       papaya_strings::escapeHTMLChars($this->_flashObjectId),
       $alignStr,
-      PapayaUtilStringXml::escapeAttribute(
+      \PapayaUtilStringXml::escapeAttribute(
         json_encode(
           array(
             'version' => $this->_flashVersion,

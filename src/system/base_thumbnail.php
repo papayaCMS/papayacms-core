@@ -445,7 +445,7 @@ class base_thumbnail extends base_object {
   * @return integer
   */
   function returnBytes($val) {
-    return PapayaUtilBytes::fromString($val);
+    return \PapayaUtilBytes::fromString($val);
   }
 
   /**
@@ -806,7 +806,7 @@ class base_thumbnail extends base_object {
     if ($this->papaya()->options->get('PAPAYA_LOG_ERROR_THUMBNAIL', TRUE)) {
       $message = new \PapayaMessageLog(
         $level,
-        PapayaMessageLogable::GROUP_CONTENT,
+        \PapayaMessageLogable::GROUP_CONTENT,
         $msg
       );
       $message

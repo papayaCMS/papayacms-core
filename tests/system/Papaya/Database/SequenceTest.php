@@ -13,12 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Sequence;
+use Papaya\Database\Result;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaDatabaseSequenceTest extends PapayaTestCase {
 
   /**
-  * @covers \PapayaDatabaseSequence::__construct
+  * @covers \Papaya\Database\Sequence::__construct
   */
   public function testConstructor() {
     $sequence = new \PapayaDatabaseSequence_TestProxy('table', 'field');
@@ -31,7 +34,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseSequence::__construct
+  * @covers \Papaya\Database\Sequence::__construct
   */
   public function testConstructorWithEmptyTableExpectingException() {
     $this->expectException(InvalidArgumentException::class);
@@ -39,7 +42,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseSequence::__construct
+  * @covers \Papaya\Database\Sequence::__construct
   */
   public function testConstructorWithEmptyFieldExpectingException() {
     $this->expectException(InvalidArgumentException::class);
@@ -47,13 +50,13 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseSequence::next
-  * @covers \PapayaDatabaseSequence::createIdentifiers
-  * @covers \PapayaDatabaseSequence::checkIdentifiers
+  * @covers \Papaya\Database\Sequence::next
+  * @covers \Papaya\Database\Sequence::createIdentifiers
+  * @covers \Papaya\Database\Sequence::checkIdentifiers
   */
   public function testNext() {
     $sequence = new \PapayaDatabaseSequence_TestProxy('table', 'field');
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->exactly(3))
       ->method('fetchRow')
@@ -76,13 +79,13 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseSequence::next
-  * @covers \PapayaDatabaseSequence::createIdentifiers
-  * @covers \PapayaDatabaseSequence::checkIdentifiers
+  * @covers \Papaya\Database\Sequence::next
+  * @covers \Papaya\Database\Sequence::createIdentifiers
+  * @covers \Papaya\Database\Sequence::checkIdentifiers
   */
   public function testNextAllInDatabaseFirstTime() {
     $sequence = new \PapayaDatabaseSequence_TestProxy('table', 'field');
-    $databaseResultOne = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResultOne = $this->createMock(Result::class);
     $databaseResultOne
       ->expects($this->any())
       ->method('fetchRow')
@@ -101,7 +104,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
           FALSE
         )
       );
-    $databaseResultTwo = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResultTwo = $this->createMock(Result::class);
     $databaseResultTwo
       ->expects($this->any())
       ->method('fetchRow')
@@ -141,8 +144,8 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseSequence::next
-  * @covers \PapayaDatabaseSequence::checkIdentifiers
+  * @covers \Papaya\Database\Sequence::next
+  * @covers \Papaya\Database\Sequence::checkIdentifiers
   */
   public function testNextDatabaseQueryFailed() {
     $sequence = new \PapayaDatabaseSequence_TestProxy('table', 'field');
@@ -164,8 +167,8 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDatabaseSequence::next
-  * @covers \PapayaDatabaseSequence::checkIdentifiers
+  * @covers \Papaya\Database\Sequence::next
+  * @covers \Papaya\Database\Sequence::checkIdentifiers
   */
   public function testNextBrokenCreateMethod() {
     $sequence = new \PapayaDatabaseSequence_TestProxyBroken('table', 'field');
@@ -182,7 +185,7 @@ class PapayaDatabaseSequenceTest extends PapayaTestCase {
   }
 }
 
-class PapayaDatabaseSequence_TestProxy extends PapayaDatabaseSequence {
+class PapayaDatabaseSequence_TestProxy extends Sequence {
 
   public $idCounter = 1;
 

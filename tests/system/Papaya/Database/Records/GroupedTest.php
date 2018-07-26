@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Result;
 use Papaya\Database\Records\Grouped;
 
 require_once __DIR__.'/../../../../bootstrap.php';
@@ -138,7 +139,7 @@ class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
   ************************/
 
   public function getDatabaseFixture() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

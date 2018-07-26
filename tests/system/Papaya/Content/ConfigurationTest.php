@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Configuration;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -23,7 +24,7 @@ class PapayaContentConfigurationTest extends PapayaTestCase {
   * @covers Configuration::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

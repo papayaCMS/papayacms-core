@@ -15,6 +15,7 @@
 
 use Papaya\Administration\Pages\Dependency\Counter;
 use Papaya\Content\Tables;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -32,11 +33,11 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
   * @covers Counter::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array(

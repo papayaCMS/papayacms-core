@@ -15,6 +15,7 @@
 
 use Papaya\Content\Tables;
 use Papaya\Content\View\Configurations;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -24,11 +25,11 @@ class PapayaContentViewConfigurationsTest extends PapayaTestCase {
    * @covers Configurations
    */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with($this->equalTo(PapayaDatabaseResult::FETCH_ASSOC))
+      ->with($this->equalTo(Result::FETCH_ASSOC))
       ->will(
         $this->onConsecutiveCalls(
           array(

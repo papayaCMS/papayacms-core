@@ -615,7 +615,7 @@ abstract class dbcon_base extends base_object {
 * @subpackage Database
 * @author Thomas Weinert <info@papaya-cms.com>
 */
-class dbresult_base extends base_object implements PapayaDatabaseResult {
+class dbresult_base extends base_object implements \Papaya\Database\Result {
   /**
   * @var dbcon_base $connection connection object
   * @access private

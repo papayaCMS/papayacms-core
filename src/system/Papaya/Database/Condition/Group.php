@@ -50,7 +50,7 @@ class Group
   );
 
   /**
-   * @param self|\PapayaDatabaseAccess|\Papaya\Database\Interfaces\Access $parent
+   * @param self|\Papaya\Database\Access|\Papaya\Database\Interfaces\Access $parent
    * @param \Papaya\Database\Interfaces\Mapping $mapping
    * @param string $operator
    * @throws \InvalidArgumentException
@@ -62,7 +62,7 @@ class Group
       parent::__construct($parent, NULL, NULL, $operator);
     } elseif ($parent instanceof \Papaya\Database\Interfaces\Access) {
       $this->_databaseAccess = $parent->getDatabaseAccess();
-    } elseif ($parent instanceof \PapayaDatabaseAccess) {
+    } elseif ($parent instanceof \Papaya\Database\Access) {
       $this->_databaseAccess = $parent;
     } else {
       throw new \InvalidArgumentException(

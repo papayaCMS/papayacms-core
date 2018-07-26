@@ -261,7 +261,7 @@ class base_domains extends base_db {
             $targetUrl = strtolower($domainData['domain_data']);
           }
           $checkDomain = 0 !== strpos($targetUrl, $protocol.'://'.$hostName);
-          if ($checkDomain && PapayaFilterFactory::isUrl($targetUrl, TRUE)) {
+          if ($checkDomain && \PapayaFilterFactory::isUrl($targetUrl, TRUE)) {
             $response = new \PapayaResponseRedirect(
               $targetUrl, 301, 'domain page redirect'
             );
@@ -299,7 +299,7 @@ class base_domains extends base_db {
         //load domain options
         if (isset($domainData['domain_options']) && trim($domainData['domain_options']) != '') {
           $this->papaya()->options->assign(
-            PapayaUtilStringXml::unserializeArray($domainData['domain_options'])
+            \PapayaUtilStringXml::unserializeArray($domainData['domain_options'])
           );
         }
         break;
@@ -350,7 +350,7 @@ class base_domains extends base_db {
   * @return string
   */
   function getHTTPProtocol() {
-    return PapayaUtilServerProtocol::get();
+    return \PapayaUtilServerProtocol::get();
   }
 
   /**

@@ -13,59 +13,58 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database;
 /**
-* Papaya database exception main class
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-class PapayaDatabaseException extends \PapayaException {
+ * Papaya database exception main class
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Exception extends \PapayaException {
 
   /**
-  * Severity information
-  *
-  * @var integer
-  */
+   * Severity information
+   *
+   * @var integer
+   */
   const SEVERITY_INFO = 1;
 
   /**
-  * Severity warning
-  *
-  * @var integer
-  */
+   * Severity warning
+   *
+   * @var integer
+   */
   const SEVERITY_WARNING = 2;
 
   /**
-  * Severity error
-  *
-  * @var integer
-  */
+   * Severity error
+   *
+   * @var integer
+   */
   const SEVERITY_ERROR = 3;
 
   /**
-  * Severtiy of this exception
-  *
-  * @var integer
-  */
+   * Severtiy of this exception
+   *
+   * @var integer
+   */
   private $_severity = self::SEVERITY_ERROR;
 
   /**
-  * Create expeiton an store values
-  *
-  * @param string $message
-  * @param integer $code
-  * @param integer|NULL $severity
-  */
+   * @param string $message
+   * @param integer $code
+   * @param integer|NULL $severity
+   */
   public function __construct($message, $code = 0, $severity = NULL) {
     parent::__construct($message, $code);
-    if (isset($severity)) {
+    if (NULL !== $severity) {
       $this->_severity = $severity;
     }
   }
 
   /**
-  * Get exception severity
-  */
+   * Get exception severity
+   */
   public function getSeverity() {
     return $this->_severity;
   }

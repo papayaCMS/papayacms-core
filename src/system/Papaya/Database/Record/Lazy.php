@@ -23,7 +23,7 @@ namespace Papaya\Database\Record;
  * @version $Id: Lazy.php 38917 2013-11-11 14:31:11Z weinert $
  */
 abstract class Lazy
-  extends \PapayaDatabaseRecord {
+  extends \Papaya\Database\Record {
 
   private $_loadingParameters;
 

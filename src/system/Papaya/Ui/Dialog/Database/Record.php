@@ -45,7 +45,7 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
   /**
   * Internal database access object variable
   *
-  * @var \PapayaDatabaseAccess $_databaseAccessObject
+  * @var \Papaya\Database\Access $_databaseAccessObject
   */
   private $_databaseAccessObject = NULL;
 
@@ -220,20 +220,20 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
   /**
   * Set the database access object.
   *
-  * @param \PapayaDatabaseAccess $databaseAccess
+  * @param \Papaya\Database\Access $databaseAccess
   */
-  public function setDatabaseAccess(\PapayaDatabaseAccess $databaseAccess) {
+  public function setDatabaseAccess(\Papaya\Database\Access $databaseAccess) {
     $this->_databaseAccessObject = $databaseAccess;
   }
 
   /**
   * Get the database access object, create a default object if nessesary.
   *
-  * @return \PapayaDatabaseAccess
+  * @return \Papaya\Database\Access
   */
   public function getDatabaseAccess() {
     if (is_null($this->_databaseAccessObject)) {
-      $this->_databaseAccessObject = new \PapayaDatabaseAccess($this);
+      $this->_databaseAccessObject = new \Papaya\Database\Access($this);
       $this->_databaseAccessObject->papaya($this->papaya());
     }
     return $this->_databaseAccessObject;

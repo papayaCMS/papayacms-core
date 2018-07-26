@@ -110,20 +110,20 @@ class dbcon_sqlite extends dbcon_base {
     $errorMessage = sqlite_error_string($errorCode);
     $severityMapping = array(
       // 5 - The database file is locked
-      5 => PapayaDatabaseException::SEVERITY_WARNING,
+      5 => \Papaya\Database\Exception::SEVERITY_WARNING,
       // 6 - A table in the database is locked
-      6 => PapayaDatabaseException::SEVERITY_WARNING,
+      6 => \Papaya\Database\Exception::SEVERITY_WARNING,
       // 20 - Data type mismatch
-      20 => PapayaDatabaseException::SEVERITY_WARNING,
+      20 => \Papaya\Database\Exception::SEVERITY_WARNING,
       // 100 - sqlite_step() has another row ready
-      100 => PapayaDatabaseException::SEVERITY_INFO,
+      100 => \Papaya\Database\Exception::SEVERITY_INFO,
       // 101 - sqlite_step() has finished executing
-      101 => PapayaDatabaseException::SEVERITY_INFO,
+      101 => \Papaya\Database\Exception::SEVERITY_INFO,
     );
     if (isset($severityMapping[$errorCode])) {
       $severity = $severityMapping[$errorCode];
     } else {
-      $severity = PapayaDatabaseException::SEVERITY_ERROR;
+      $severity = \Papaya\Database\Exception::SEVERITY_ERROR;
     }
     return new \Papaya\Database\Exception\Query(
       $errorMessage, $errorCode, $severity, $sql

@@ -151,7 +151,7 @@ class base_topic_tree extends base_db {
           $this->hasParent($administrationUser->user['start_node'])
         )) {
       if ($this->params['page_id'] != $administrationUser->user['start_node']) {
-        $protocol = PapayaUtilServerProtocol::get();
+        $protocol = \PapayaUtilServerProtocol::get();
         // Set the current user's personal allowed start page
         if ($administrationUser->user['start_node'] > 0) {
           $toUrl = $protocol."://".$_SERVER['HTTP_HOST'].$this->getBasePath().

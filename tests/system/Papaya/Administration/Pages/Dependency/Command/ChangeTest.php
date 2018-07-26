@@ -17,6 +17,7 @@ use Papaya\Administration\Pages\Dependency\Command\Change;
 use Papaya\Administration\Pages\Dependency\Changer;
 use Papaya\Administration\Pages\Dependency\Synchronizations;
 use Papaya\Content\Page\Dependency;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -200,11 +201,11 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends PapayaTestCas
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(PapayaMessageDisplay::class));
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array('lng_id' => 1, 'module_counter' => 2),
@@ -255,11 +256,11 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends PapayaTestCas
   * @covers Change::compareViewModules
   */
   public function testValidateOriginAndSynchronizationsWithoutModuleConflictExpectingTrue() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         $this->onConsecutiveCalls(
           array('lng_id' => 1, 'module_counter' => 1),

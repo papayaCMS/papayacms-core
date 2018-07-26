@@ -68,20 +68,20 @@ class checkit {
    * Check if string is NOT empty
    *
    * @deprecated
-   * @see PapayaFilterFactory::isNotEmpty()
+   * @see \PapayaFilterFactory::isNotEmpty()
    *
    * @param string $str string to check
    * @return boolean
    */
   public static function filled($str) {
-    return PapayaFilterFactory::isNotEmpty($str);
+    return \PapayaFilterFactory::isNotEmpty($str);
   }
 
   /**
    * Check string against the pattern (PCRE)
    *
    * @deprecated
-   * @see PapayaFilterFactory::matches()
+   * @see \PapayaFilterFactory::matches()
    *
    * @param string $str string to check
    * @param string $pattern filter
@@ -89,35 +89,35 @@ class checkit {
    * @return boolean
    */
   public static function check($str, $pattern, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::matches($str, $pattern, $mustContainValue);
+    return \PapayaFilterFactory::matches($str, $pattern, $mustContainValue);
   }
 
   /**
    * Check string consists of letter or alfanumeric characters.
    *
    * @deprecated
-   * @see PapayaFilterFactory::isText()
+   * @see \PapayaFilterFactory::isText()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isAlpha($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isText($str, $mustContainValue);
+    return \PapayaFilterFactory::isText($str, $mustContainValue);
   }
 
   /**
    * Check string consists of letter or numbers.
    *
    * @deprecated
-   * @see PapayaFilterFactory::isText()
+   * @see \PapayaFilterFactory::isText()
    *
    * @param string $str string
    * @param boolean $mustContainValue string may be empty?
   * @return boolean
    */
   public static function isAlphaChar($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isText($str, $mustContainValue);
+    return \PapayaFilterFactory::isText($str, $mustContainValue);
   }
 
 
@@ -125,7 +125,7 @@ class checkit {
    * Check string consists of numbers
    *
    * @deprecated
-   * @see PapayaFilterFactory::isInteger()
+   * @see \PapayaFilterFactory::isInteger()
    * @see PapayaFilterInteger
    *
    * @param string $str string
@@ -144,7 +144,7 @@ class checkit {
       );
       return self::validate($str, $filter, $mustContainValue);
     } else {
-      return PapayaFilterFactory::isInteger($str, $mustContainValue);
+      return \PapayaFilterFactory::isInteger($str, $mustContainValue);
     }
   }
 
@@ -152,56 +152,56 @@ class checkit {
    * check string is float number (with .)
    *
    * @deprecated
-   * @see PapayaFilterFactory::isInteger()
+   * @see \PapayaFilterFactory::isInteger()
    *
    * @param string $str
    * @param boolean $mustContainValue optional, default value FALSE
    * @return boolean
    */
   public static function isFloat($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isFloat($str, $mustContainValue);
+    return \PapayaFilterFactory::isFloat($str, $mustContainValue);
   }
 
   /**
    * Check string consists of alphanumeric characters
    *
    * @deprecated
-   * @see PapayaFilterFactory::isTextWithNumbers()
+   * @see \PapayaFilterFactory::isTextWithNumbers()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isAlphaNum($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isTextWithNumbers($str, $mustContainValue);
+    return \PapayaFilterFactory::isTextWithNumbers($str, $mustContainValue);
   }
 
   /**
    * Check string consists of alphanumeric characters with numbers
    *
    * @deprecated
-   * @see PapayaFilterFactory::isTextWithNumbers()
+   * @see \PapayaFilterFactory::isTextWithNumbers()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isAlphaNumChar($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isTextWithNumbers($str, $mustContainValue);
+    return \PapayaFilterFactory::isTextWithNumbers($str, $mustContainValue);
   }
 
   /**
    * Check string consists of measure and numbers
    *
    * @deprecated
-   * @see PapayaFilterFactory::isCssSize()
+   * @see \PapayaFilterFactory::isCssSize()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isNumUnit($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isCssSize($str, $mustContainValue);
+    return \PapayaFilterFactory::isCssSize($str, $mustContainValue);
   }
 
   /**
@@ -212,7 +212,7 @@ class checkit {
   * @return boolean
   */
   public static function internalSafeURL($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::matches(
+    return \PapayaFilterFactory::matches(
       $str, '(^[a-zA-Z0-9\.\(\)\[\]\/ ,_-]+$)u', $mustContainValue
     );
   }
@@ -221,98 +221,98 @@ class checkit {
    * Check string is no HTML
    *
    * @deprecated
-   * @see PapayaFilterFactory::isNotXml()
+   * @see \PapayaFilterFactory::isNotXml()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isNoHTML($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isNotXml($str, $mustContainValue);
+    return \PapayaFilterFactory::isNotXml($str, $mustContainValue);
   }
 
   /**
    * Check string is some text
    *
    * @deprecated
-   * @see PapayaFilterFactory::isNotEmpty()
+   * @see \PapayaFilterFactory::isNotEmpty()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isSomeText($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isNotEmpty($str, $mustContainValue);
+    return \PapayaFilterFactory::isNotEmpty($str, $mustContainValue);
   }
 
   /**
    * Check string is a phone number
    *
    * @deprecated
-   * @see PapayaFilterFactory::isPhone()
+   * @see \PapayaFilterFactory::isPhone()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isPhone($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isPhone($str, $mustContainValue);
+    return \PapayaFilterFactory::isPhone($str, $mustContainValue);
   }
 
   /**
    * Check string is filename
    *
    * @deprecated
-   * @see PapayaFilterFactory::isFileName()
+   * @see \PapayaFilterFactory::isFileName()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isFile($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isFileName($str, $mustContainValue);
+    return \PapayaFilterFactory::isFileName($str, $mustContainValue);
   }
 
   /**
    * Check string is path
    *
    * @deprecated
-   * @see PapayaFilterFactory::isFilePath()
+   * @see \PapayaFilterFactory::isFilePath()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isPath($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isFilePath($str, $mustContainValue);
+    return \PapayaFilterFactory::isFilePath($str, $mustContainValue);
   }
 
   /**
    * Check string is date in german format dd.mm.yyyy.
    *
    * @deprecated
-   * @see PapayaFilterFactory::isGermanDate()
+   * @see \PapayaFilterFactory::isGermanDate()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isGermanDate($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isGermanDate($str, $mustContainValue);
+    return \PapayaFilterFactory::isGermanDate($str, $mustContainValue);
   }
 
   /**
    * Check string is german zip NNNNN or D-NNNNN
    *
    * @deprecated
-   * @see PapayaFilterFactory::isGermanZip()
+   * @see \PapayaFilterFactory::isGermanZip()
    *
    * @param string $str String to check
    * @param bool $mustContainValue String may be empty?
    * @return boolean
    */
   public static function isGermanZip($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isGermanDate($str, $mustContainValue);
+    return \PapayaFilterFactory::isGermanDate($str, $mustContainValue);
   }
 
   /**
@@ -323,91 +323,91 @@ class checkit {
    * virtual directories http://www.blah.de/~user/index.html
    *
    * @deprecated
-   * @see PapayaFilterFactory::isUrl()
+   * @see \PapayaFilterFactory::isUrl()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isHTTPX($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isUrl($str, $mustContainValue);
+    return \PapayaFilterFactory::isUrl($str, $mustContainValue);
   }
 
   /**
    * Check web adress (http://* or www.*)
    *
    * @deprecated
-   * @see PapayaFilterFactory::isHttp()
+   * @see \PapayaFilterFactory::isHttp()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isHTTP($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isUrlHttp($str, $mustContainValue);
+    return \PapayaFilterFactory::isUrlHttp($str, $mustContainValue);
   }
 
   /**
    * Check http host name
    *
    * @deprecated
-   * @see PapayaFilterFactory::isHttp()
+   * @see \PapayaFilterFactory::isHttp()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isHTTPHost($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isUrlHost($str, $mustContainValue);
+    return \PapayaFilterFactory::isUrlHost($str, $mustContainValue);
   }
 
   /**
    * Check IPv4 address
    *
    * @deprecated
-   * @see PapayaFilterFactory::isIpAddressV4()
+   * @see \PapayaFilterFactory::isIpAddressV4()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isIPv4Address($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isIpAddressV4($str, $mustContainValue);
+    return \PapayaFilterFactory::isIpAddressV4($str, $mustContainValue);
   }
 
   /**
    * Check IPv6 address
    *
    * @deprecated
-   * @see PapayaFilterFactory::isIpAddressV6()
+   * @see \PapayaFilterFactory::isIpAddressV6()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isIPv6Address($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isIpAddressV6($str, $mustContainValue);
+    return \PapayaFilterFactory::isIpAddressV6($str, $mustContainValue);
   }
 
   /**
    * Check any IP address
    * @deprecated
-   * @see PapayaFilterFactory::isIpAddress()
+   * @see \PapayaFilterFactory::isIpAddress()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isIPAddress($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isIpAddress($str, $mustContainValue);
+    return \PapayaFilterFactory::isIpAddress($str, $mustContainValue);
   }
 
   /**
    * Check host name or IP address
    *
    * @deprecated
-   * @see PapayaFilterFactory::isUrlHost()
-   * @see PapayaFilterFactory::isIpAddress()
+   * @see \PapayaFilterFactory::isUrlHost()
+   * @see \PapayaFilterFactory::isIpAddress()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
@@ -415,8 +415,8 @@ class checkit {
    */
   public static function isHTTPHostOrIPAddress($str, $mustContainValue = FALSE) {
     return (
-      PapayaFilterFactory::isUrlHost($str, $mustContainValue) ||
-      PapayaFilterFactory::isIpAddress($str, $mustContainValue)
+      \PapayaFilterFactory::isUrlHost($str, $mustContainValue) ||
+      \PapayaFilterFactory::isIpAddress($str, $mustContainValue)
     );
   }
 
@@ -424,21 +424,21 @@ class checkit {
    * Check string is email adress
    *
    * @deprecated
-   * @see PapayaFilterFactory::isEmail()
+   * @see \PapayaFilterFactory::isEmail()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isEmail($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isEmail($str, $mustContainValue);
+    return \PapayaFilterFactory::isEmail($str, $mustContainValue);
   }
 
   /**
    * Check string is 32 byte hexcode
    *
    * @deprecated
-   * @see PapayaFilterFactory::isGuid()
+   * @see \PapayaFilterFactory::isGuid()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
@@ -446,28 +446,28 @@ class checkit {
    * @return boolean
    */
   public static function isGUID($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isGuid($str, $mustContainValue);
+    return \PapayaFilterFactory::isGuid($str, $mustContainValue);
   }
 
   /**
    * Check date is in ISO-format
    *
    * @deprecated
-   * @see PapayaFilterFactory::isIsoDate()
+   * @see \PapayaFilterFactory::isIsoDate()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isISODate($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isIsoDate($str, $mustContainValue);
+    return \PapayaFilterFactory::isIsoDate($str, $mustContainValue);
   }
 
   /**
    * Check geo position
    *
    * @deprecated
-   * @see PapayaFilterFactory::isGeoPosition()
+   * @see \PapayaFilterFactory::isGeoPosition()
    *
    * This Method checks if a string consists of 2 comma separeted double values and if
    * they are between -180 and 180 degrees.
@@ -477,70 +477,70 @@ class checkit {
    * @return boolean True if string is correct
    */
   public static function isGeoPos($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isGeoPosition($str, $mustContainValue);
+    return \PapayaFilterFactory::isGeoPosition($str, $mustContainValue);
   }
 
   /**
    * Check date and time is in ISO-format
    *
    * @deprecated
-   * @see PapayaFilterFactory::isIsoDateTime()
+   * @see \PapayaFilterFactory::isIsoDateTime()
    *
    * @param string $str string
    * @param boolean $mustContainValue string may be empty ?
    * @return mixed FALSE or int
    */
   public static function isISODateTime($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isIsoDateTime($str, $mustContainValue);
+    return \PapayaFilterFactory::isIsoDateTime($str, $mustContainValue);
   }
 
   /**
    * Check string is a time
    *
    * @deprecated
-   * @see PapayaFilterFactory::isTime()
+   * @see \PapayaFilterFactory::isTime()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isTime($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isTime($str, $mustContainValue);
+    return \PapayaFilterFactory::isTime($str, $mustContainValue);
   }
 
   /**
    * Check string is HTML color
    *
    * @deprecated
-   * @see PapayaFilterFactory::isCssColor()
+   * @see \PapayaFilterFactory::isCssColor()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isHTMLColor($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isCssColor($str, $mustContainValue);
+    return \PapayaFilterFactory::isCssColor($str, $mustContainValue);
   }
 
   /**
    * Check string is Password
    *
    * @deprecated
-   * @see PapayaFilterFactory::isPassword()
+   * @see \PapayaFilterFactory::isPassword()
    *
    * @param string $str string to check
    * @param boolean $mustContainValue string may be empty?
    * @return boolean
    */
   public static function isPassword($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isPassword($str, $mustContainValue);
+    return \PapayaFilterFactory::isPassword($str, $mustContainValue);
   }
 
   /**
    * convert ISO date/time to unix timestamp
    *
    * @deprecated
-   * @see PapayaUtilDate::stringToTimestamp()
+   * @see \PapayaUtilDate::stringToTimestamp()
    *
    * @param string $str string to convert
    * @access public
@@ -554,14 +554,14 @@ class checkit {
    * Check string is xhtml
    *
    * @deprecated
-   * @see PapayaFilterFactory::isXml()
+   * @see \PapayaFilterFactory::isXml()
    *
    * @param $str
    * @param boolean $mustContainValue string may be empty?
    * @return bool $result
    */
   public static function isXhtml($str, $mustContainValue = FALSE) {
-    return PapayaFilterFactory::isXml($str, $mustContainValue);
+    return \PapayaFilterFactory::isXml($str, $mustContainValue);
   }
 
   /**

@@ -33,7 +33,7 @@ trait PapayaPluginEditableOptionsAggregation {
   /**
    * The content is an {@see ArrayObject} child class containing the stored data.
    *
-   * @see PapayaPluginAdaptable::options()
+   * @see \PapayaPluginAdaptable::options()
    * @param \PapayaPluginEditableOptions $options
    * @return \PapayaPluginEditableOptions
    */

@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Result;
 use Papaya\Database\Record\Lazy;
 
 require_once __DIR__.'/../../../../bootstrap.php';
@@ -189,7 +190,7 @@ class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
   *************************/
 
   private function getDatabaseAccessFixture() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

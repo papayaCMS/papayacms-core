@@ -18,6 +18,8 @@ use Papaya\Content\Page\Translation;
 use Papaya\Content\Page\Translations;
 use Papaya\Content\Tables;
 use Papaya\Database\Interfaces\Key;
+use Papaya\Database\Access;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -303,14 +305,14 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
 
   /**
    * @param array $targetRecords
-   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaDatabaseAccess
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Access
    */
   private function getDatabaseAccessFixture(array $targetRecords = array()) {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will(
         call_user_func_array(
           array($this, 'onConsecutiveCalls'), $targetRecords
@@ -336,13 +338,13 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
   }
 
   /**
-   * @param \PapayaDatabaseAccess|PHPUnit_Framework_MockObject_MockObject $databaseAccess
+   * @param \Papaya\Database\Access|PHPUnit_Framework_MockObject_MockObject $databaseAccess
    * @param array $translations
    * @param Translation|PHPUnit_Framework_MockObject_MockObject $translation
    * @return PHPUnit_Framework_MockObject_MockObject
    */
   private function getTranslationsFixture(
-    PapayaDatabaseAccess $databaseAccess,
+    Access $databaseAccess,
     array $translations = array(),
     Translation $translation = NULL
   ) {

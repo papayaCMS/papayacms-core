@@ -15,6 +15,7 @@
 
 use Papaya\Content\Pages\Publications;
 use Papaya\Content\Tables;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -26,7 +27,7 @@ class PapayaContentPagesPublicationsTest extends PapayaTestCase {
   * @covers Publications::_compileCondition
   */
   public function testLoadWithTranslationNeeded() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

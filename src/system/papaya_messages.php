@@ -1,21 +1,17 @@
 <?php
 /**
-* message service
-*
-* @copyright 2002-2007 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: papaya_messages.php 39728 2014-04-07 19:51:21Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * message service
@@ -918,7 +914,7 @@ class papaya_messages extends base_messages {
               $result = TRUE;
             }
           } elseif (isset($val['user_id']) && (isset($this->users[$val['user_id']])) &&
-              PapayaFilterFactory::isEmail($this->users[$val['user_id']]['email'], TRUE)) {
+              \PapayaFilterFactory::isEmail($this->users[$val['user_id']]['email'], TRUE)) {
             $val['email'] = $this->users[$val['user_id']]['email'];
             $resultAddresses[$field][] = $val;
             if ($field == 'to') {
@@ -927,7 +923,7 @@ class papaya_messages extends base_messages {
           } elseif (
             isset($val['user_login']) &&
             isset($userNames[$val['user_login']]) &&
-            PapayaFilterFactory::isEmail(
+            \PapayaFilterFactory::isEmail(
               $this->users[$userNames[$val['user_login']]]['email'], TRUE
             )
           ) {

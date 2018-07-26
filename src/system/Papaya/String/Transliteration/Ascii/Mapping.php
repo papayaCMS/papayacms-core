@@ -32,7 +32,7 @@ class PapayaStringTransliterationAsciiMapping {
   * Create object and store mapping file path
   */
   public function __construct() {
-    $this->_mappingFilesPath = PapayaUtilFilePath::cleanup(
+    $this->_mappingFilesPath = \PapayaUtilFilePath::cleanup(
       __DIR__.'/../../../../utf8/external', FALSE
     );
   }
@@ -45,7 +45,7 @@ class PapayaStringTransliterationAsciiMapping {
    * @return null
    */
   public function get($codePoint, $language) {
-    PapayaUtilConstraints::assertNotEmpty($language);
+    \PapayaUtilConstraints::assertNotEmpty($language);
     $bank = $codePoint >> 8;
     $this->lazyLoad($bank, $language);
     $index = $codePoint & 255;

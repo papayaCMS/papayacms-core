@@ -100,7 +100,7 @@ class Counter extends \Papaya\Database\BaseObject {
       $this->_pageId
     );
     if ($databaseResult = $this->databaseQueryFmt($sql, $parameters)) {
-      while ($row = $databaseResult->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
+      while ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
         $this->_amounts[$row['name']] = $row['counter'];
       }
       return $this->_loaded = TRUE;

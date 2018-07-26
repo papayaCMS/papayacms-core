@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Page\Dependency;
+use Papaya\Database\Result;
 use Papaya\Database\Record\Key\Fields;
 
 require_once __DIR__.'/../../../../bootstrap.php';
@@ -145,7 +146,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   * @covers Dependency::isDependency
   */
   public function testIsDependencyExpectingTrue() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -165,7 +166,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   * @covers Dependency::isDependency
   */
   public function testIsDependencyExpectingFalse() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -200,7 +201,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   * @covers Dependency::isOrigin
   */
   public function testIsOriginExpectingTrue() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -220,7 +221,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   * @covers Dependency::isOrigin
   */
   public function testIsOriginExpectingFalse() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')

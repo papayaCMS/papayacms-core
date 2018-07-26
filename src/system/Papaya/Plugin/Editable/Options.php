@@ -19,7 +19,7 @@
 class PapayaPluginEditableOptions extends PapayaPluginEditableData {
 
   /**
-   * Checksum buffer filled in {@see PapayaPluginEditableOptions::modified()}
+   * Checksum buffer filled in {@see \PapayaPluginEditableOptions::modified()}
    * @var string|NULL
    */
   private $_checksum;

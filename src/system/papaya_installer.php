@@ -217,7 +217,7 @@ class papaya_installer extends base_db {
       if (!isset($this->sessionParams['installer_basic_options'])) {
         $this->sessionParams['installer_basic_options'] = array();
       }
-      $this->sessionParams['installer_basic_options'] = PapayaUtilArray::merge(
+      $this->sessionParams['installer_basic_options'] = \PapayaUtilArray::merge(
         $this->sessionParams['installer_basic_options'],
         array(
           'PAPAYA_PATH_DATA' => $dialog->data['PAPAYA_PATH_DATA'],
@@ -234,7 +234,7 @@ class papaya_installer extends base_db {
       $this->setSessionValue($this->sessionParamName, $this->sessionParams);
     } elseif ($dialog->isSubmitted()) {
       $this->papaya()->messages->display(
-        PapayaMessage::SEVERITY_ERROR,
+        \PapayaMessage::SEVERITY_ERROR,
         'Please check your intput in the following fields: '.implode(
           ', ', $dialog->errors()->getSourceCaptions()
         )
@@ -284,7 +284,7 @@ class papaya_installer extends base_db {
       'database_connected' => $this->checkDatabase(),
       'optiontable_defined' => (
         defined('PAPAYA_DB_TBL_OPTIONS') &&
-        PapayaFilterFactory::isText(PAPAYA_DB_TBL_OPTIONS, TRUE)
+        \PapayaFilterFactory::isText(PAPAYA_DB_TBL_OPTIONS, TRUE)
       ),
       'optiontable_exists' => FALSE,
       'optionfile_exists' => FALSE,
@@ -543,7 +543,7 @@ class papaya_installer extends base_db {
         }
       }
     }
-    return PapayaUtilFilePath::cleanup($path);
+    return \PapayaUtilFilePath::cleanup($path);
   }
   /**
   * update path data
@@ -1609,7 +1609,7 @@ class papaya_installer extends base_db {
     }
     $fileName = $this->installationPath.$this->papaya()->options->get('PAPAYA_PATH_ADMIN').
       '/data/'.$this->licenseLng.'/gpl.txt';
-    $fileName = PapayaUtilFilePath::cleanup($fileName, FALSE);
+    $fileName = \PapayaUtilFilePath::cleanup($fileName, FALSE);
     if ($fileName) {
       if ($data = @file_get_contents($fileName)) {
         return papaya_strings::ensureUTF8($data);
@@ -1633,7 +1633,7 @@ class papaya_installer extends base_db {
     foreach ($allowedPaths as $name) {
       $path = $basePath.$name.'/';
       if (file_exists($path) && is_dir($path)) {
-        return PapayaUtilFilePath::cleanup($path);
+        return \PapayaUtilFilePath::cleanup($path);
       }
     }
     return FALSE;

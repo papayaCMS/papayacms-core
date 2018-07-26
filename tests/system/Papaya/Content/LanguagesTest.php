@@ -16,6 +16,7 @@
 use Papaya\Content\Language;
 use Papaya\Content\Languages;
 use Papaya\Content\Tables;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -25,7 +26,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   * @covers Languages::load
   */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -144,7 +145,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   * @covers Languages::getLanguage
   */
   public function testGetLanguageImplicitLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -196,7 +197,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   * @covers Languages::getLanguage
   */
   public function testGetLanguageImplicitLoadExpectingNull() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
@@ -299,7 +300,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   * @covers Languages::getIdentiferById
   */
   public function testGetIdentifierByIdExpectingNull() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')

@@ -27,7 +27,7 @@ class Sequence implements \Papaya\Database\Interfaces\Key {
   /**
    * Sequence object to create new identifiers
    *
-   * @var \PapayaDatabaseSequence
+   * @var \Papaya\Database\Sequence
    */
   private $_sequence = NULL;
 
@@ -48,10 +48,10 @@ class Sequence implements \Papaya\Database\Interfaces\Key {
   /**
    * Create objecd and store sequence and property.
    *
-   * @param \PapayaDatabaseSequence $sequence
+   * @param \Papaya\Database\Sequence $sequence
    * @param string $property
    */
-  public function __construct(\PapayaDatabaseSequence $sequence, $property = 'id') {
+  public function __construct(\Papaya\Database\Sequence $sequence, $property = 'id') {
     $this->_sequence = $sequence;
     $this->_property = $property;
   }

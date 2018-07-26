@@ -14,6 +14,7 @@
  */
 
 use Papaya\Database\BaseObject\Record;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -27,11 +28,11 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       'sample_id' => 42,
       'sample_title' => 'title text'
     );
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -121,7 +122,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::_insertRecord
   */
   public function testSaveInsertsRecordWithDefinedId() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -164,7 +165,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::_saveRecordWithDefinedId
   */
   public function testSaveInsertsRecordWithDefinedIdExistenceQueryFailed() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -277,7 +278,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::_saveRecordWithDefinedId
   */
   public function testSaveUpdatesRecordWithDefinedId() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -535,11 +536,11 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       'sample_id' => 42,
       'sample_title' => 'title text'
     );
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -576,11 +577,11 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       'sample_id' => 42,
       'sample_title' => 'title text'
     );
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will($this->returnValue($record));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
@@ -611,11 +612,11 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::_loadRecord
   */
   public function testLoadRecordWithEmptyResult() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchRow')
-      ->with(PapayaDatabaseResult::FETCH_ASSOC)
+      ->with(Result::FETCH_ASSOC)
       ->will($this->returnValue(NULL));
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess

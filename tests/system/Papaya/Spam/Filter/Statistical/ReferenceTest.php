@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Result;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
@@ -24,11 +26,11 @@ class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
   * @covers \PapayaSpamFilterStatisticalReference::getSpamCount
   */
   public function testLoad() {
-    $totalsDatabaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $totalsDatabaseResult = $this->createMock(Result::class);
     $totalsDatabaseResult
        ->expects($this->any())
        ->method('fetchRow')
-       ->with($this->equalTo(PapayaDatabaseResult::FETCH_ASSOC))
+       ->with($this->equalTo(Result::FETCH_ASSOC))
        ->will(
          $this->onConsecutiveCalls(
            array(
@@ -42,11 +44,11 @@ class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
            NULL
          )
        );
-    $recordsDatabaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $recordsDatabaseResult = $this->createMock(Result::class);
     $recordsDatabaseResult
        ->expects($this->any())
        ->method('fetchRow')
-       ->with($this->equalTo(PapayaDatabaseResult::FETCH_ASSOC))
+       ->with($this->equalTo(Result::FETCH_ASSOC))
        ->will(
          $this->onConsecutiveCalls(
            array(

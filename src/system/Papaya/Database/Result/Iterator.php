@@ -15,7 +15,7 @@
 
 namespace Papaya\Database\Result;
 /**
- * Papaya Database Result Iterator, allows to iterate on an object implementing PapayaDatabaseResult
+ * Papaya Database Result Iterator, allows to iterate on an object implementing Papaya\Database\PapayaDatabaseResult
  *
  * You can specify it the records will be fetched with numerical index, field names or both.
  *
@@ -33,11 +33,11 @@ class Iterator implements \Iterator {
   /**
    * Create object, store result object and fetch mode
    *
-   * @param \PapayaDatabaseResult $databaseResult
+   * @param \Papaya\Database\Result $databaseResult
    * @param integer $mode
    */
   public function __construct(
-    \PapayaDatabaseResult $databaseResult = NULL, $mode = \PapayaDatabaseResult::FETCH_ASSOC
+    \Papaya\Database\Result $databaseResult = NULL, $mode = \Papaya\Database\Result::FETCH_ASSOC
   ) {
     $this->_databaseResult = $databaseResult;
     $this->_fetchMode = $mode;

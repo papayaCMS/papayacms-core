@@ -1,21 +1,17 @@
 <?php
 /**
-* Switch richtext editor in UI
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Administration
-* @version $Id: base_switch_richtext.php 39617 2014-03-19 10:05:37Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Switch richtext editor in UI
@@ -116,7 +112,7 @@ class base_switch_richtext extends base_object {
     $this->setSessionValue($this->sessionParamName, $this->sessionParams);
 
     if ($reloadPage) {
-      $protocol = PapayaUtilServerProtocol::get();
+      $protocol = \PapayaUtilServerProtocol::get();
       $toUrl = $protocol."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
       if (!(defined('PAPAYA_DISABLE_XHEADERS') && PAPAYA_DISABLE_XHEADERS)) {
         header('X-Papaya-Status: switching richtext editor');

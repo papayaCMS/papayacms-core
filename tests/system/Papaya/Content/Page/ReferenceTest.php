@@ -15,6 +15,7 @@
 
 use Papaya\Content\Page\Reference;
 use Papaya\Content\Tables;
+use Papaya\Database\Result;
 use Papaya\Database\Record\Key\Fields;
 use Papaya\Database\Record\Mapping;
 
@@ -63,7 +64,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
   * @covers Reference::exists
   */
   public function testExistsExpectingTrue() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')
@@ -83,7 +84,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
   * @covers Reference::exists
   */
   public function testExistsExpectingFalse() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->once())
       ->method('fetchField')

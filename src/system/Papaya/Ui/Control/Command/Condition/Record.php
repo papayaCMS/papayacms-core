@@ -24,17 +24,17 @@ class PapayaUiControlCommandConditionRecord extends \PapayaUiControlCommandCondi
   /**
    * member variable to store the record
    *
-   * @var \PapayaDatabaseRecord
+   * @var \Papaya\Database\Record
    */
   private $_record = NULL;
 
   /**
    * Create object and store callback.
    *
-   * @param \PapayaDatabaseRecord $record
+   * @param \Papaya\Database\Record $record
    * @throws \InvalidArgumentException
    */
-  public function __construct(\PapayaDatabaseRecord $record) {
+  public function __construct(\Papaya\Database\Record $record) {
     $this->_record = $record;
   }
 

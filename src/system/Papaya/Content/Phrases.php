@@ -20,7 +20,7 @@ namespace Papaya\Content;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Phrases extends \PapayaDatabaseRecords {
+class Phrases extends \Papaya\Database\Records {
 
   /**
    * Map field names to more convinient property names

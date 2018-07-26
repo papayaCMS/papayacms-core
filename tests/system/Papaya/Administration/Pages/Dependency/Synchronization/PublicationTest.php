@@ -15,6 +15,7 @@
 
 use Papaya\Administration\Pages\Dependency\Synchronization\Publication;
 use Papaya\Content\Page;
+use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -160,11 +161,11 @@ class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends 
     if (NULL !== $latestVersionData) {
       $databaseResult = NULL;
       if ($latestVersionData) {
-        $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+        $databaseResult = $this->createMock(Result::class);
         $databaseResult
           ->expects($this->any())
           ->method('fetchRow')
-          ->with(PapayaDatabaseResult::FETCH_ASSOC)
+          ->with(Result::FETCH_ASSOC)
           ->will(
             $this->onConsecutiveCalls($latestVersionData, FALSE)
           );

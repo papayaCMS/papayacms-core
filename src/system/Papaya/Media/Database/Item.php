@@ -28,7 +28,7 @@ class PapayaMediaDatabaseItem {
 
   /**
   * database access object
-  * @var \PapayaDatabaseAccess
+  * @var \Papaya\Database\Access
   */
   private $_databaseAccessObject = NULL;
 

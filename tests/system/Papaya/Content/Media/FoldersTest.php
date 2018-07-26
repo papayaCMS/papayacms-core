@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Media\Folders;
+use Papaya\Database\Result;
 use Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
@@ -96,7 +97,7 @@ class PapayaContentMediaFoldersTest extends PapayaTestCase {
    * @covers Folders::load
    */
   public function testLoad() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -174,7 +175,7 @@ class PapayaContentMediaFoldersTest extends PapayaTestCase {
    * @covers Folders::load
    */
   public function testLoadwithoutLanguageIdExpectingNoTranslations() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')

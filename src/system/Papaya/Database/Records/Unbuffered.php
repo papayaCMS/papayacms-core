@@ -34,14 +34,14 @@ abstract class Unbuffered
   /**
    * Stored database access object
    *
-   * @var \PapayaDatabaseAccess
+   * @var \Papaya\Database\Access
    */
   private $_databaseAccessObject = NULL;
 
   /**
    * The database result of the last loading query.
    *
-   * @var \PapayaDatabaseResult
+   * @var \Papaya\Database\Result
    */
   private $_databaseResult = NULL;
 
@@ -133,7 +133,7 @@ abstract class Unbuffered
     $this->_databaseResult = NULL;
     $databaseAccess = $this->getDatabaseAccess();
     $databaseResult = $databaseAccess->queryFmt($sql, $parameters, $limit, $offset);
-    if ($databaseResult instanceof \PapayaDatabaseResult) {
+    if ($databaseResult instanceof \Papaya\Database\Result) {
       $this->_databaseResult = $databaseResult;
       return TRUE;
     }
@@ -302,7 +302,7 @@ abstract class Unbuffered
    * @return \Iterator
    */
   protected function getResultIterator() {
-    if (!($this->databaseResult() instanceof \PapayaDatabaseResult)) {
+    if (!($this->databaseResult() instanceof \Papaya\Database\Result)) {
       return new \EmptyIterator();
     }
     $iterator = new \Papaya\Database\Result\Iterator($this->databaseResult());
@@ -318,10 +318,10 @@ abstract class Unbuffered
   /**
    * Getter/Setter for the current database result object
    *
-   * @param \PapayaDatabaseResult $databaseResult
-   * @return NULL|\PapayaDatabaseResult
+   * @param \Papaya\Database\Result $databaseResult
+   * @return NULL|\Papaya\Database\Result
    */
-  public function databaseResult(\PapayaDatabaseResult $databaseResult = NULL) {
+  public function databaseResult(\Papaya\Database\Result $databaseResult = NULL) {
     if (isset($databaseResult)) {
       $this->_databaseResult = $databaseResult;
     }
@@ -331,16 +331,16 @@ abstract class Unbuffered
   /**
    * Set database access object
    *
-   * @param \PapayaDatabaseAccess $databaseAccessObject
+   * @param \Papaya\Database\Access $databaseAccessObject
    */
-  public function setDatabaseAccess(\PapayaDatabaseAccess $databaseAccessObject) {
+  public function setDatabaseAccess(\Papaya\Database\Access $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
   }
 
   /**
    * Get database access object
    *
-   * @return \PapayaDatabaseAccess
+   * @return \Papaya\Database\Access
    */
   public function getDatabaseAccess() {
     if (!isset($this->_databaseAccessObject)) {
@@ -353,7 +353,7 @@ abstract class Unbuffered
    * Protected method to create an item class, you can overload this method or just set
    * the $_itemClass property.
    *
-   * @return \PapayaDatabaseRecord
+   * @return \Papaya\Database\Record
    * @throws \LogicException
    */
   protected function _createItem() {
@@ -370,7 +370,7 @@ abstract class Unbuffered
    * the $item object.
    *
    * @param null $filter
-   * @return \PapayaDatabaseRecord
+   * @return \Papaya\Database\Record
    */
   public function getItem($filter = NULL) {
     $item = $this->_createItem();

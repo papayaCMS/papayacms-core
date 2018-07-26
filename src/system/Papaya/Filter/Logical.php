@@ -62,7 +62,7 @@ abstract class PapayaFilterLogical implements \PapayaFilter {
           throw new \InvalidArgumentException(
             sprintf(
               'Only %1$s classes expected: "%2$s" found.',
-              PapayaFilter::class,
+              \PapayaFilter::class,
               is_object($filter) ? get_class($filter) : gettype($filter)
             )
           );

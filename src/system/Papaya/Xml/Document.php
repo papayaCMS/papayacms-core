@@ -172,7 +172,7 @@ class PapayaXmlDocument
     $fragment = $this->createDocumentFragment();
     $content = sprintf(
       '<papaya:content xmlns:papaya="http://www.papaya-cms.com/ns/papayacms">%s</papaya:content>',
-      PapayaUtilStringXml::removeControlCharacters(PapayaUtilStringUtf8::ensure($content))
+      \PapayaUtilStringXml::removeControlCharacters(PapayaUtilStringUtf8::ensure($content))
     );
     $fragment->appendXML($content);
     if ($fragment->firstChild) {
@@ -300,7 +300,7 @@ class PapayaXmlDocument
 
   public function createTextNode($content) {
     return parent::createTextNode(
-      PapayaUtilStringXml::removeControlCharacters($content) ?: ''
+      \PapayaUtilStringXml::removeControlCharacters($content) ?: ''
     );
   }
 }

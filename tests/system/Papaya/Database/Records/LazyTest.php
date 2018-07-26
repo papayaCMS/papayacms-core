@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Result;
 use Papaya\Database\Records\Lazy;
 
 require_once __DIR__.'/../../../../bootstrap.php';
@@ -87,7 +88,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   * @covers Lazy::absCount
   */
   public function testAbsCount() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
@@ -233,7 +234,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   *************************/
 
   private function getDatabaseAccessFixture() {
-    $databaseResult = $this->createMock(PapayaDatabaseResult::class);
+    $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
       ->method('fetchRow')
