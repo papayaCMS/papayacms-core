@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
 /**
-* Papaya base object superclass
-*
-* @package Papaya-Library
-* @subpackage Controller
-*/
-interface PapayaController {
+ * Papaya base object superclass
+ *
+ * @package Papaya-Library
+ * @subpackage Controller
+ */
+interface Controller {
 
   /**
    * Execute controller
@@ -27,12 +28,12 @@ interface PapayaController {
    * Results:
    *   TRUE - break
    *   FALSE - next
-   *   PapayaController - delegate to this controller
+   *   Papaya\Controller - delegate to this controller
    *
    * @param \Papaya\Application $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
-   * @return boolean|\PapayaController
+   * @return boolean|self
    */
   public function execute(
     \Papaya\Application $application,

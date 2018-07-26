@@ -20,7 +20,7 @@ namespace Papaya\Controller;
  * @package Papaya-Library
  * @subpackage Controller
  */
-class Error extends \PapayaObject implements \PapayaController {
+class Error extends \PapayaObject implements \Papaya\Controller {
 
   /**
    * HTTP response status
@@ -129,7 +129,7 @@ class Error extends \PapayaObject implements \PapayaController {
    * @param \Papaya\Application $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
-   * @return boolean|\PapayaController
+   * @return boolean|\Papaya\Controller
    */
   public function execute(
     \Papaya\Application $application,

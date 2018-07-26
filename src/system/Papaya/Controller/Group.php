@@ -21,14 +21,14 @@ namespace Papaya\Controller;
  * @package Papaya-Library
  * @subpackage Controller
  */
-class Group extends \PapayaObjectList implements \PapayaController {
+class Group extends \PapayaObjectList implements \Papaya\Controller {
 
   /**
-   * Create an object list for PapayaController instances, add all arguments as
+   * Create an object list for Papaya\PapayaController instances, add all arguments as
    * elements of that list.
    */
   public function __construct() {
-    parent::__construct(\PapayaController::class);
+    parent::__construct(\Papaya\Controller::class);
     foreach (func_get_args() as $controller) {
       parent::add($controller);
     }
@@ -36,14 +36,14 @@ class Group extends \PapayaObjectList implements \PapayaController {
 
   /**
    * Execute the attached controllers one after another. If a controller returns
-   * TRUE, the request was handled. If the result is an PapayaController, it is delegated
+   * TRUE, the request was handled. If the result is an Papaya\PapayaController, it is delegated
    * to this object, if the result is FALSE the controller could not (completely) handle the
    * request, so use the next one.
    *
    * @param \Papaya\Application $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
-   * @return bool|\PapayaController
+   * @return bool|\Papaya\Controller
    */
   public function execute(
     /** @noinspection ReferencingObjectsInspection */
@@ -54,7 +54,7 @@ class Group extends \PapayaObjectList implements \PapayaController {
     foreach ($this as $controller) {
       $limit = 20;
       do {
-        /** @var bool|\PapayaController $controller */
+        /** @var bool|\Papaya\Controller $controller */
         $controller = $controller->execute($application, $request, $response);
         if (TRUE === $controller) {
           return TRUE;
@@ -64,7 +64,7 @@ class Group extends \PapayaObjectList implements \PapayaController {
         }
         $application->setObject('request', $request, \Papaya\Application::DUPLICATE_OVERWRITE);
         $application->setObject('response', $response, \Papaya\Application::DUPLICATE_OVERWRITE);
-      } while ($controller instanceof \PapayaController);
+      } while ($controller instanceof \Papaya\Controller);
     }
     return FALSE;
   }

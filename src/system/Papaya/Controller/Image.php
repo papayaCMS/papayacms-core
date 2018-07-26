@@ -21,7 +21,7 @@ namespace Papaya\Controller;
  * @package Papaya-Library
  * @subpackage Controller
  */
-class Image implements \PapayaController {
+class Image implements \Papaya\Controller {
 
   private $_imageGenerator;
 
@@ -53,7 +53,7 @@ class Image implements \PapayaController {
    * @param \Papaya\Application|\Papaya\Application\Cms $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
-   * @return boolean|\PapayaController
+   * @return boolean|\Papaya\Controller
    */
   public function execute(
     \Papaya\Application $application,

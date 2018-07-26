@@ -21,7 +21,7 @@ namespace Papaya\Controller;
  * @package Papaya-Library
  * @subpackage Controller
  */
-class Media extends \PapayaObject implements \PapayaController {
+class Media extends \PapayaObject implements \Papaya\Controller {
 
   /**
    * @var \base_mediadb
@@ -34,7 +34,7 @@ class Media extends \PapayaObject implements \PapayaController {
    * @param \Papaya\Application $application
    * @param \PapayaRequest &$request
    * @param \PapayaResponse &$response
-   * @return boolean|\PapayaController
+   * @return boolean|\Papaya\Controller
    */
   public function execute(
     /** @noinspection ReferencingObjectsInspection */
