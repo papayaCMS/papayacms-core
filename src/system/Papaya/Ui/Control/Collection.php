@@ -119,7 +119,7 @@ class PapayaUiControlCollection
   }
 
   /**
-   * Access an item of the interal list defined by $offset. If $offset is negative it will return
+   * Access an item of the internal list defined by $offset. If $offset is negative it will return
    * the item counting from the end of the list.
    *
    * @param integer $offset

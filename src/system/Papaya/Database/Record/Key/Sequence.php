@@ -21,7 +21,7 @@
 * @subpackage Database
 * @version $Id: Sequence.php 39197 2014-02-11 13:36:56Z weinert $
 */
-class PapayaDatabaseRecordKeySequence implements \PapayaDatabaseInterfaceKey {
+class PapayaDatabaseRecordKeySequence implements \Papaya\Database\Interfaces\Key {
 
   /**
   * Sequence object to create new identifiers
@@ -62,7 +62,7 @@ class PapayaDatabaseRecordKeySequence implements \PapayaDatabaseInterfaceKey {
    * @return int
    */
   public function getQualities() {
-    return \PapayaDatabaseInterfaceKey::CLIENT_GENERATED;
+    return \Papaya\Database\Interfaces\Key::CLIENT_GENERATED;
   }
 
   /**

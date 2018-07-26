@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Interfaces\Order;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaDatabaseRecordOrderListTest extends PapayaTestCase {
@@ -29,7 +31,7 @@ class PapayaDatabaseRecordOrderListTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordOrderList::__construct
   */
   public function testConstructorWithArguments() {
-    $child = $this->createMock(PapayaDatabaseInterfaceOrder::class);
+    $child = $this->createMock(Order::class);
     $orderBy = new PapayaDatabaseRecordOrderList($child);
     $this->assertEquals(1, $orderBy->count());
   }
@@ -38,12 +40,12 @@ class PapayaDatabaseRecordOrderListTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordOrderList::__toString
   */
   public function testToStringWithTwoItems() {
-    $one = $this->createMock(PapayaDatabaseInterfaceOrder::class);
+    $one = $this->createMock(Order::class);
     $one
       ->expects($this->once())
       ->method('__toString')
       ->will($this->returnValue('field_one ASC'));
-    $two = $this->createMock(PapayaDatabaseInterfaceOrder::class);
+    $two = $this->createMock(Order::class);
     $two
       ->expects($this->once())
       ->method('__toString')

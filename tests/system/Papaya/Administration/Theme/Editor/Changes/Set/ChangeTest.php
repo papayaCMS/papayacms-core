@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Theme\Editor\Changes\Set\Change;
+use Papaya\Database\Interfaces\Record;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
@@ -23,8 +24,8 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
    * @covers Change::createDialog
    */
   public function testCreateDialogWithoutSetId() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    $record = $this->createMock(Record::class);
     $command = new Change($record);
     $command->papaya($this->mockPapaya()->application());
 
@@ -60,8 +61,8 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
    * @covers Change::createDialog
    */
   public function testCreateDialogWithSetIdLoadsRecord() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    $record = $this->createMock(Record::class);
     $record
       ->expects($this->once())
       ->method('load')
@@ -103,8 +104,8 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
    * @covers Change::createDialog
    */
   public function testCreateDialogWithSetIdLoadRecordFailed() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    $record = $this->createMock(Record::class);
     $record
       ->expects($this->once())
       ->method('load')
@@ -151,8 +152,8 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(PapayaMessageDisplay::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    $record = $this->createMock(Record::class);
     $command = new Change($record);
     $command->papaya(
       $this->mockPapaya()->application(
@@ -183,8 +184,8 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(PapayaMessageDisplay::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord $record */
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
+    $record = $this->createMock(Record::class);
     $command = new Change($record);
     $command->papaya(
       $this->mockPapaya()->application(

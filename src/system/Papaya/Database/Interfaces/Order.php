@@ -13,21 +13,12 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-interface PapayaDatabaseInterfaceRecord
-  extends
-    \PapayaDatabaseInterfaceAccess,
-    \PapayaObjectInterfaceProperties,
-    \ArrayAccess,
-    \IteratorAggregate {
+namespace Papaya\Database\Interfaces;
 
-  function assign($data);
+interface Order {
 
-  function toArray();
+  const ASCENDING = 0;
+  const DESCENDING = 1;
 
-  function load($filter);
-
-  function save();
-
-  function delete();
+  public function __toString();
 }
-

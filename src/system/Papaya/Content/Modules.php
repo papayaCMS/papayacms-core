@@ -50,9 +50,9 @@ class Modules extends \PapayaDatabaseRecordsLazy {
   protected $_tableName = \Papaya\Content\Tables::MODULES;
 
   protected $_orderByProperties = array(
-    'title' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-    'title_original' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-    'id' => \PapayaDatabaseInterfaceOrder::ASCENDING
+    'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
+    'title_original' => \Papaya\Database\Interfaces\Order::ASCENDING,
+    'id' => \Papaya\Database\Interfaces\Order::ASCENDING
   );
 
   protected $_identifierProperties = array('id');

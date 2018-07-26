@@ -15,6 +15,8 @@
 
 use Papaya\Database\Condition\Element;
 use Papaya\Database\Condition\Root;
+use Papaya\Database\Interfaces\Mapping;
+use Papaya\Database\Interfaces\Order;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -114,7 +116,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordsUnbuffered::_compileOrderBy
   */
   public function testLoadWithoutConditionsWithOrderBy() {
-    $orderBy = $this->createMock(PapayaDatabaseInterfaceOrder::class);
+    $orderBy = $this->createMock(Order::class);
     $orderBy
       ->expects($this->once())
       ->method('__toString')
@@ -165,7 +167,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   public function testCreateFilter() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $mapping = $this
-      ->getMockBuilder(PapayaDatabaseInterfaceMapping::class)
+      ->getMockBuilder(Mapping::class)
       ->getMock();
     $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
@@ -298,7 +300,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordsUnbuffered::mapping
   */
   public function testMappingGetAfterSet() {
-    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
+    $mapping = $this->createMock(Mapping::class);
     $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->mapping($mapping);
     $this->assertSame(
@@ -321,7 +323,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordsUnbuffered::orderBy
   */
   public function testOrderByGetAfterSet() {
-    $orderBy = $this->createMock(PapayaDatabaseInterfaceOrder::class);
+    $orderBy = $this->createMock(Order::class);
     $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->orderBy($orderBy);
     $this->assertSame(
@@ -344,7 +346,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   */
   public function testOrderByGetImplicitCreateWithField() {
     $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
-    $records->_orderByFields = array('fieldname' => PapayaDatabaseInterfaceOrder::ASCENDING);
+    $records->_orderByFields = array('fieldname' => Order::ASCENDING);
     $this->assertEquals(
       'fieldname ASC',
       (string)$records->orderBy()
@@ -358,8 +360,8 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   public function testOrderByGetImplicitCreateWithTwoFields() {
     $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->_orderByFields = array(
-      'field_one' => PapayaDatabaseInterfaceOrder::DESCENDING,
-      'field_two' => PapayaDatabaseInterfaceOrder::ASCENDING
+      'field_one' => Order::DESCENDING,
+      'field_two' => Order::ASCENDING
     );
     $this->assertEquals(
       'field_one DESC, field_two ASC',
@@ -372,7 +374,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordsUnbuffered::_createOrderBy
   */
   public function testOrderByGetImplicitCreateWithProperty() {
-    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
+    $mapping = $this->createMock(Mapping::class);
     $mapping
       ->expects($this->once())
       ->method('getField')
@@ -380,7 +382,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
       ->will($this->returnValue('fieldname'));
     $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->mapping($mapping);
-    $records->_orderByProperties = array('name' => PapayaDatabaseInterfaceOrder::ASCENDING);
+    $records->_orderByProperties = array('name' => Order::ASCENDING);
     $this->assertEquals(
       'fieldname ASC',
       (string)$records->orderBy()
@@ -392,7 +394,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordsUnbuffered::_createOrderBy
   */
   public function testOrderByGetImplicitCreateWithTwoProperties() {
-    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
+    $mapping = $this->createMock(Mapping::class);
     $mapping
       ->expects($this->any())
       ->method('getField')
@@ -407,8 +409,8 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
     $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->mapping($mapping);
     $records->_orderByProperties = array(
-      'one' => PapayaDatabaseInterfaceOrder::ASCENDING,
-      'two' => PapayaDatabaseInterfaceOrder::DESCENDING
+      'one' => Order::ASCENDING,
+      'two' => Order::DESCENDING
     );
     $this->assertEquals(
       'field_one ASC, field_two DESC',
@@ -421,7 +423,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordsUnbuffered::_createOrderBy
   */
   public function testOrderByGetImplicitCreateWithPropertiesAndFields() {
-    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
+    $mapping = $this->createMock(Mapping::class);
     $mapping
       ->expects($this->any())
       ->method('getField')
@@ -436,12 +438,12 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
     $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->mapping($mapping);
     $records->_orderByProperties = array(
-      'one' => PapayaDatabaseInterfaceOrder::ASCENDING,
-      'two' => PapayaDatabaseInterfaceOrder::DESCENDING
+      'one' => Order::ASCENDING,
+      'two' => Order::DESCENDING
     );
     $records->_orderByFields = array(
-      'field_three' => PapayaDatabaseInterfaceOrder::ASCENDING,
-      'field_four' => PapayaDatabaseInterfaceOrder::DESCENDING
+      'field_three' => Order::ASCENDING,
+      'field_four' => Order::DESCENDING
     );
     $this->assertEquals(
       'field_one ASC, field_three ASC, field_four DESC',

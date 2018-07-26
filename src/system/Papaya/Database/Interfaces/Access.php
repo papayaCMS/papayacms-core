@@ -13,25 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-interface PapayaDatabaseInterfaceKey {
+namespace Papaya\Database\Interfaces;
 
-  const DATABASE_PROVIDED = 1;
-  const CLIENT_GENERATED = 2;
+interface Access {
 
-  const ACTION_FILTER = 1;
-  const ACTION_CREATE = 2;
+  /**
+   * @return \PapayaDatabaseAccess
+   */
+  public function getDatabaseAccess();
 
-  function clear();
-
-  function assign(array $data);
-
-  function getProperties();
-
-  function getFilter($for = self::ACTION_FILTER);
-
-  function getQualities();
-
-  function exists();
-
-  function __toString();
+  /**
+   * @param \PapayaDatabaseAccess $access
+   */
+  public function setDatabaseAccess(\PapayaDatabaseAccess $access);
 }

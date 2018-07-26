@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Interfaces\Mapping;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
@@ -128,7 +130,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
       )
       ->will($this->returnValue($databaseResult));
 
-    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
+    $mapping = $this->createMock(Mapping::class);
     $mapping
       ->expects($this->once())
       ->method('mapPropertiesToFields')
@@ -166,7 +168,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
       ->with(/** @lang Text */ 'SELECT COUNT(*) FROM %s WHERE {CONDITION}', array('table_sometable'))
       ->will($this->returnValue(FALSE));
 
-    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
+    $mapping = $this->createMock(Mapping::class);
     $mapping
       ->expects($this->once())
       ->method('mapPropertiesToFields')
@@ -192,7 +194,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecordKeyFields::exists
   */
   public function testExistsWithEmptyMappingResult() {
-    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
+    $mapping = $this->createMock(Mapping::class);
     $mapping
       ->expects($this->once())
       ->method('mapPropertiesToFields')

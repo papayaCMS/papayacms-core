@@ -39,7 +39,7 @@ class Sets extends \PapayaDatabaseRecordsLazy {
   protected $_identifierProperties = array('id');
 
   protected $_orderByFields = array(
-    'themeset_title' => \PapayaDatabaseInterfaceOrder::ASCENDING
+    'themeset_title' => \Papaya\Database\Interfaces\Order::ASCENDING
   );
 
   /**

@@ -13,15 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-interface PapayaDatabaseInterfaceAccess {
+namespace Papaya\Database\Interfaces;
 
-  /**
-   * @return \PapayaDatabaseAccess
-   */
-  public function getDatabaseAccess();
+interface Record
+  extends
+  \Papaya\Database\Interfaces\Access,
+  \PapayaObjectInterfaceProperties,
+  \ArrayAccess,
+  \IteratorAggregate {
 
-  /**
-   * @param \PapayaDatabaseAccess $access
-   */
-  public function setDatabaseAccess(\PapayaDatabaseAccess $access);
+  public function assign($data);
+
+  public function toArray();
+
+  public function load($filter);
+
+  public function save();
+
+  public function delete();
 }
+

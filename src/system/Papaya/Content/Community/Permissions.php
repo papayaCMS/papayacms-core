@@ -29,8 +29,8 @@ class Permissions extends \PapayaDatabaseRecords {
   );
 
   protected $_orderByFields = array(
-    'surferperm_title' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-    'surferperm_id' => \PapayaDatabaseInterfaceOrder::ASCENDING
+    'surferperm_title' => \Papaya\Database\Interfaces\Order::ASCENDING,
+    'surferperm_id' => \Papaya\Database\Interfaces\Order::ASCENDING
   );
 
   protected $_identifierProperties = 'id';

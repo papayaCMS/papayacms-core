@@ -28,7 +28,7 @@ class PapayaDatabaseRecordList
    * Create list an set internal object type limitation
    */
   public function __construct() {
-    parent::__construct(\PapayaDatabaseInterfaceRecord::class);
+    parent::__construct(\Papaya\Database\Interfaces\Record::class);
   }
 
   /**
@@ -39,7 +39,7 @@ class PapayaDatabaseRecordList
    */
   public function toArray() {
     $result = array();
-    /** @var \PapayaDatabaseInterfaceRecord $record */
+    /** @var \Papaya\Database\Interfaces\Record $record */
     foreach ($this as $record) {
       $result[] = $record->toArray();
     }
@@ -51,7 +51,7 @@ class PapayaDatabaseRecordList
    * @return bool
    */
   public function save() {
-    /** @var \PapayaDatabaseInterfaceRecord $record */
+    /** @var \Papaya\Database\Interfaces\Record $record */
     foreach ($this as $record) {
       if (FALSE === $record->save()) {
         return FALSE;
@@ -65,7 +65,7 @@ class PapayaDatabaseRecordList
    * @return bool
    */
   public function delete() {
-    /** @var \PapayaDatabaseInterfaceRecord $record */
+    /** @var \Papaya\Database\Interfaces\Record $record */
     foreach ($this as $record) {
       if (FALSE === $record->delete()) {
         return FALSE;

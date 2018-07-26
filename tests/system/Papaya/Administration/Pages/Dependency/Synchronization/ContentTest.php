@@ -17,6 +17,7 @@ use Papaya\Administration\Pages\Dependency\Synchronization\Content;
 use Papaya\Content\Page\Translation;
 use Papaya\Content\Page\Translations;
 use Papaya\Content\Tables;
+use Papaya\Database\Interfaces\Key;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -218,7 +219,7 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
   * @covers Content::insertTranslations
   */
   public function testSynchronizeInsertOneTranslation() {
-    $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
+    $key = $this->createMock(Key::class);
     $key
       ->expects($this->once())
       ->method('clear');
@@ -261,7 +262,7 @@ class PapayaAdministrationPagesDependencySynchronizationContentTest extends Papa
   * @covers Content::insertTranslations
   */
   public function testSynchronizeInsertOneTranslationInsertFailed() {
-    $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
+    $key = $this->createMock(Key::class);
     $key
       ->expects($this->once())
       ->method('clear');

@@ -37,7 +37,7 @@ class Types extends \PapayaDatabaseRecordsLazy {
   protected $_identifierProperties = array('id');
 
   protected $_orderByFields = array(
-    'name' => \PapayaDatabaseInterfaceOrder::ASCENDING
+    'name' => \Papaya\Database\Interfaces\Order::ASCENDING
   );
 
   /**

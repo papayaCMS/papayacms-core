@@ -15,6 +15,8 @@
 
 use Papaya\Database\Condition\Element;
 use Papaya\Database\Condition\Root;
+use Papaya\Database\Interfaces\Key;
+use Papaya\Database\Interfaces\Mapping;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -36,8 +38,8 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   */
   public function testClone() {
     $record = new PapayaDatabaseRecord_TestProxy();
-    $record->key($this->createMock(PapayaDatabaseInterfaceKey::class));
-    $record->mapping($this->createMock(PapayaDatabaseInterfaceMapping::class));
+    $record->key($this->createMock(Key::class));
+    $record->mapping($this->createMock(Mapping::class));
     $clone = clone $record;
     $this->assertNotSame($record->key(), $clone->key());
     $this->assertNotSame($record->mapping(), $clone->mapping());
@@ -266,7 +268,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   public function testCreateFilter() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $mapping = $this
-      ->getMockBuilder(PapayaDatabaseInterfaceMapping::class)
+      ->getMockBuilder(Mapping::class)
       ->getMock();
     $records = new PapayaDatabaseRecord_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
@@ -385,7 +387,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::_insertRecord
   */
   public function testSaveInsertsRecordWithClientSideKey() {
-    $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
+    $key = $this->createMock(Key::class);
     $key
       ->expects($this->any())
       ->method('exists')
@@ -393,7 +395,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
     $key
       ->expects($this->once())
       ->method('getFilter')
-      ->with(PapayaDatabaseInterfaceKey::ACTION_CREATE)
+      ->with(Key::ACTION_CREATE)
       ->will($this->returnValue(array('id' => 'truth')));
     $key
       ->expects($this->any())
@@ -544,7 +546,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::delete
   */
   public function testDeleteWithEmptyFilterExpectingFalse() {
-    $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
+    $key = $this->createMock(Key::class);
     $key
       ->expects($this->any())
       ->method('getFilter')
@@ -558,7 +560,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::mapping
   */
   public function testMappingGetAfterSet() {
-    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
+    $mapping = $this->createMock(Mapping::class);
     $record = new PapayaDatabaseRecord_TestProxy();
     $record->mapping($mapping);
     $this->assertSame(
@@ -581,7 +583,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::key
   */
   public function testKeyGetAfterSet() {
-    $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
+    $key = $this->createMock(Key::class);
     $record = new PapayaDatabaseRecord_TestProxy();
     $record->key($key);
     $this->assertSame(

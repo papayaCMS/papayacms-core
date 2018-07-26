@@ -51,8 +51,8 @@ class Views extends \PapayaDatabaseRecordsLazy {
   protected $_tableNameModules = Tables::MODULES;
 
   protected $_orderByProperties = array(
-    'title' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-    'id' => \PapayaDatabaseInterfaceOrder::ASCENDING
+    'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
+    'id' => \Papaya\Database\Interfaces\Order::ASCENDING
   );
 
   /**

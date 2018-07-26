@@ -15,6 +15,7 @@
 
 use Papaya\Content\Structure;
 use Papaya\Content\Theme\Set;
+use Papaya\Database\Interfaces\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -27,7 +28,7 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
     $themeSet = new Set();
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
     $this->assertInstanceOf(
-      PapayaDatabaseInterfaceMapping::class,
+      Mapping::class,
       $mapping = $themeSet->mapping()
     );
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));

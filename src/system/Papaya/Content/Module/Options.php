@@ -44,7 +44,7 @@ class Options extends \PapayaDatabaseRecords {
   /**
    * Add a callback to the mapping to be used after mapping
    *
-   * @return \PapayaDatabaseInterfaceMapping
+   * @return \Papaya\Database\Interfaces\Mapping
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();

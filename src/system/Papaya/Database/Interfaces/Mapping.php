@@ -13,25 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Interfaces;
 /**
-* Interface for mapper objects to convert a database fields into object properties and back
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Mapping.php 39092 2014-01-30 17:06:00Z weinert $
-*/
+ * Interface for mapper objects to convert a database fields into object properties and back
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ * @version $Id: Mapping.php 39092 2014-01-30 17:06:00Z weinert $
+ */
 
-interface PapayaDatabaseInterfaceMapping {
+interface Mapping {
 
   const PROPERTY_TO_FIELD = 1;
   const FIELD_TO_PROPERTY = 2;
 
   /**
-  * Map the database fields of an record to the object properties
-  *
-  * @param array $record
-  * @return array
-  */
+   * Map the database fields of an record to the object properties
+   *
+   * @param array $record
+   * @return array
+   */
   function mapFieldsToProperties(array $record);
 
   /**
@@ -44,10 +45,10 @@ interface PapayaDatabaseInterfaceMapping {
   function mapPropertiesToFields(array $values, $withAlias = TRUE);
 
   /**
-  * Get a list of the used database fields
-  *
-  * @return array
-  */
+   * Get a list of the used database fields
+   *
+   * @return array
+   */
   function getProperties();
 
   /**

@@ -91,7 +91,7 @@ class Dependency extends \PapayaDatabaseRecord {
   /**
    * Create a multi field key object containg both page id properties
    *
-   * @return \PapayaDatabaseInterfaceKey
+   * @return \Papaya\Database\Interfaces\Key
    */
   protected function _createKey() {
     return new \PapayaDatabaseRecordKeyFields(
@@ -106,7 +106,7 @@ class Dependency extends \PapayaDatabaseRecord {
    *
    * @throw UnexpectedValueException
    * @throws \UnexpectedValueException
-   * @return bool|\PapayaDatabaseInterfaceKey
+   * @return bool|\Papaya\Database\Interfaces\Key
    */
   public function save() {
     if ($this->id < 1) {

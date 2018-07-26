@@ -28,8 +28,8 @@ class Groups extends \PapayaDatabaseRecordsLazy {
   );
 
   protected $_orderByFields = array(
-    'grouptitle' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-    'group_id' => \PapayaDatabaseInterfaceOrder::ASCENDING
+    'grouptitle' => \Papaya\Database\Interfaces\Order::ASCENDING,
+    'group_id' => \Papaya\Database\Interfaces\Order::ASCENDING
   );
 
   protected $_identifierProperties = 'id';

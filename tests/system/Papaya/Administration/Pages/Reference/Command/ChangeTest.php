@@ -16,6 +16,7 @@
 use Papaya\Administration\Pages\Dependency\Changer;
 use Papaya\Administration\Pages\Reference\Command\Change;
 use Papaya\Content\Page\Reference;
+use Papaya\Database\Interfaces\Key;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
@@ -94,7 +95,7 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
   * @covers Change::sortAsc
   */
   public function testValidateTargetExpectsTrue() {
-    $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
+    $key = $this->createMock(Key::class);
     $key
       ->expects($this->once())
       ->method('getProperties')
@@ -120,7 +121,7 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
       ->expects($this->once())
       ->method('handleValidationFailure')
       ->with($this->isInstanceOf(PapayaFilterExceptionCallbackFailed::class));
-    $key = $this->createMock(PapayaDatabaseInterfaceKey::class);
+    $key = $this->createMock(Key::class);
     $key
       ->expects($this->once())
       ->method('getProperties')

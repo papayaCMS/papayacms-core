@@ -20,7 +20,7 @@
 * @subpackage Database
 * @version $Id: Autoincrement.php 39197 2014-02-11 13:36:56Z weinert $
 */
-class PapayaDatabaseRecordKeyAutoincrement implements \PapayaDatabaseInterfaceKey {
+class PapayaDatabaseRecordKeyAutoincrement implements \Papaya\Database\Interfaces\Key {
 
   /**
   * the property name
@@ -51,7 +51,7 @@ class PapayaDatabaseRecordKeyAutoincrement implements \PapayaDatabaseInterfaceKe
   * @return integer
   */
   public function getQualities() {
-    return \PapayaDatabaseInterfaceKey::DATABASE_PROVIDED;
+    return \Papaya\Database\Interfaces\Key::DATABASE_PROVIDED;
   }
 
   /**

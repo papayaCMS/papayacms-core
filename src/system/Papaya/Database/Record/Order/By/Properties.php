@@ -21,7 +21,7 @@
 * @version $Id: Properties.php 38282 2013-03-19 12:23:19Z weinert $
 */
 class PapayaDatabaseRecordOrderByProperties
-  implements \PapayaDatabaseInterfaceOrder, \IteratorAggregate {
+  implements \Papaya\Database\Interfaces\Order, \IteratorAggregate {
 
   /**
    * @var \PapayaDatabaseRecordOrderList
@@ -29,7 +29,7 @@ class PapayaDatabaseRecordOrderByProperties
   private $_list = NULL;
 
   /**
-   * @var \PapayaDatabaseInterfaceMapping
+   * @var \Papaya\Database\Interfaces\Mapping
    */
   private $_mapping = NULL;
 
@@ -37,9 +37,9 @@ class PapayaDatabaseRecordOrderByProperties
    * Create object, store mapping object and set order by properties
    *
    * @param array $properties
-   * @param \PapayaDatabaseInterfaceMapping $mapping
+   * @param \Papaya\Database\Interfaces\Mapping $mapping
    */
-  public function __construct(array $properties, \PapayaDatabaseInterfaceMapping $mapping) {
+  public function __construct(array $properties, \Papaya\Database\Interfaces\Mapping $mapping) {
     $this->_list = new \PapayaDatabaseRecordOrderList();
     $this->_mapping = $mapping;
     $this->setProperties($properties);
@@ -60,7 +60,7 @@ class PapayaDatabaseRecordOrderByProperties
   }
 
   /**
-   * @see \PapayaDatabaseInterfaceOrder::__toString()
+   * @see \Papaya\Database\Interfaces\Order::__toString()
    * @return string
    */
   public function __toString() {

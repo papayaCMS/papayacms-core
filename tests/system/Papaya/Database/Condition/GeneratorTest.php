@@ -15,6 +15,8 @@
 
 use Papaya\Database\Condition\Generator;
 use Papaya\Database\Condition\Group;
+use Papaya\Database\Interfaces\Access;
+use Papaya\Database\Interfaces\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -36,8 +38,8 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    */
   public function testConstructorWithInterfaceDatabaseAccess() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceAccess $parent */
-    $parent = $this->createMock(PapayaDatabaseInterfaceAccess::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Access $parent */
+    $parent = $this->createMock(Access::class);
     $parent
       ->expects($this->once())
       ->method('getDatabaseAccess')
@@ -79,7 +81,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    * @covers Generator
    */
   public function testFromArrayWithFieldMapping() {
-    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
+    $mapping = $this->createMock(Mapping::class);
     $mapping
       ->expects($this->once())
       ->method('getField')
@@ -104,7 +106,7 @@ class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
    * @covers Generator
    */
   public function testFromArrayWithFieldMappingReturnsNoFieldname() {
-    $mapping = $this->createMock(PapayaDatabaseInterfaceMapping::class);
+    $mapping = $this->createMock(Mapping::class);
     $mapping
       ->expects($this->once())
       ->method('getField')

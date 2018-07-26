@@ -50,17 +50,17 @@ class Group
   );
 
   /**
-   * @param self|\PapayaDatabaseAccess|\PapayaDatabaseInterfaceAccess $parent
-   * @param \PapayaDatabaseInterfaceMapping $mapping
+   * @param self|\PapayaDatabaseAccess|\Papaya\Database\Interfaces\Access $parent
+   * @param \Papaya\Database\Interfaces\Mapping $mapping
    * @param string $operator
    * @throws \InvalidArgumentException
    */
   public function __construct(
-    $parent, \PapayaDatabaseInterfaceMapping $mapping = NULL, $operator = 'AND'
+    $parent, \Papaya\Database\Interfaces\Mapping $mapping = NULL, $operator = 'AND'
   ) {
     if ($parent instanceof self) {
       parent::__construct($parent, NULL, NULL, $operator);
-    } elseif ($parent instanceof \PapayaDatabaseInterfaceAccess) {
+    } elseif ($parent instanceof \Papaya\Database\Interfaces\Access) {
       $this->_databaseAccess = $parent->getDatabaseAccess();
     } elseif ($parent instanceof \PapayaDatabaseAccess) {
       $this->_databaseAccess = $parent;

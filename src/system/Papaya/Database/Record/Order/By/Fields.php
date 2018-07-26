@@ -21,7 +21,7 @@
 * @version $Id: Fields.php 39730 2014-04-07 21:05:30Z weinert $
 */
 class PapayaDatabaseRecordOrderByFields
-  implements \PapayaDatabaseInterfaceOrder, \IteratorAggregate {
+  implements \Papaya\Database\Interfaces\Order, \IteratorAggregate {
 
   /**
    * @var \PapayaDatabaseRecordOrderList
@@ -50,7 +50,8 @@ class PapayaDatabaseRecordOrderByFields
 
   /**
    * Cast object into a SQL string
-   * @see \PapayaDatabaseInterfaceOrder::__toString()
+   *
+   * @see \Papaya\Database\Interfaces\Order::__toString()
    */
   public function __toString() {
     return (string)$this->_list;

@@ -28,8 +28,8 @@ class Groups extends \PapayaDatabaseRecords {
   );
 
   protected $_orderByFields = array(
-    'surfergroup_title' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-    'surfergroup_id' => \PapayaDatabaseInterfaceOrder::ASCENDING
+    'surfergroup_title' => \Papaya\Database\Interfaces\Order::ASCENDING,
+    'surfergroup_id' => \Papaya\Database\Interfaces\Order::ASCENDING
   );
 
   protected $_identifierProperties = 'id';

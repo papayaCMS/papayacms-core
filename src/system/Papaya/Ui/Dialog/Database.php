@@ -32,16 +32,16 @@ abstract class PapayaUiDialogDatabase extends \PapayaUiDialog {
   /**
   * Attached database record object
   *
-  * @var \PapayaDatabaseInterfaceRecord
+  * @var \Papaya\Database\Interfaces\Record
   */
   private $_record = NULL;
 
   /**
   * Create dialog and attach a record to it.
   *
-  * @param \PapayaDatabaseInterfaceRecord $record
+  * @param \Papaya\Database\Interfaces\Record $record
   */
-  public function __construct(\PapayaDatabaseInterfaceRecord $record) {
+  public function __construct(\Papaya\Database\Interfaces\Record $record) {
     $this->record($record);
   }
 
@@ -51,10 +51,10 @@ abstract class PapayaUiDialogDatabase extends \PapayaUiDialog {
   *
   * The values of the record are merged into the data property.
   *
-  * @param \PapayaDatabaseInterfaceRecord $record
-  * @return \PapayaDatabaseInterfaceRecord
+  * @param \Papaya\Database\Interfaces\Record $record
+  * @return \Papaya\Database\Interfaces\Record
   */
-  public function record(\PapayaDatabaseInterfaceRecord $record = NULL) {
+  public function record(\Papaya\Database\Interfaces\Record $record = NULL) {
     if (isset($record)) {
       $this->_record = $record;
       $this->data()->merge((array)$record->toArray());

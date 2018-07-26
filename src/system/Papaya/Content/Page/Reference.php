@@ -47,7 +47,7 @@ class Reference extends \PapayaDatabaseRecord {
   /**
    * Create a multi field key object containg both page id properties
    *
-   * @return \PapayaDatabaseInterfaceKey
+   * @return \Papaya\Database\Interfaces\Key
    */
   protected function _createKey() {
     return new \PapayaDatabaseRecordKeyFields(
@@ -60,7 +60,7 @@ class Reference extends \PapayaDatabaseRecord {
   /**
    * Add a callback to the mapping to be used after mapping
    *
-   * @return \PapayaDatabaseInterfaceMapping
+   * @return \Papaya\Database\Interfaces\Mapping
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();

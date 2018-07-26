@@ -53,40 +53,40 @@ class PapayaUiContentTeasersFactory extends \PapayaObject {
 
   private $_orderByDefinitions = array(
     self::ORDER_TITLE_ASCENDING => array(
-      'title' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-      'position' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-      'created' => \PapayaDatabaseInterfaceOrder::ASCENDING
+      'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
+      'position' => \Papaya\Database\Interfaces\Order::ASCENDING,
+      'created' => \Papaya\Database\Interfaces\Order::ASCENDING
     ),
     self::ORDER_TITLE_DESCENDING => array(
-      'title' => \PapayaDatabaseInterfaceOrder::DESCENDING,
-      'position' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-      'created' => \PapayaDatabaseInterfaceOrder::ASCENDING
+      'title' => \Papaya\Database\Interfaces\Order::DESCENDING,
+      'position' => \Papaya\Database\Interfaces\Order::ASCENDING,
+      'created' => \Papaya\Database\Interfaces\Order::ASCENDING
     ),
     self::ORDER_POSITION_ASCENDING => array(
-      'position' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-      'title' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-      'created' => \PapayaDatabaseInterfaceOrder::ASCENDING
+      'position' => \Papaya\Database\Interfaces\Order::ASCENDING,
+      'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
+      'created' => \Papaya\Database\Interfaces\Order::ASCENDING
     ),
     self::ORDER_POSITION_DESCENDING => array(
-      'position' => \PapayaDatabaseInterfaceOrder::DESCENDING,
-      'title' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-      'created' => \PapayaDatabaseInterfaceOrder::ASCENDING
+      'position' => \Papaya\Database\Interfaces\Order::DESCENDING,
+      'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
+      'created' => \Papaya\Database\Interfaces\Order::ASCENDING
     ),
     self::ORDER_CREATED_ASCENDING => array(
-      'created' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-      'title' => \PapayaDatabaseInterfaceOrder::ASCENDING
+      'created' => \Papaya\Database\Interfaces\Order::ASCENDING,
+      'title' => \Papaya\Database\Interfaces\Order::ASCENDING
     ),
     self::ORDER_CREATED_DESCENDING => array(
-      'created' => \PapayaDatabaseInterfaceOrder::DESCENDING,
-      'title' => \PapayaDatabaseInterfaceOrder::ASCENDING
+      'created' => \Papaya\Database\Interfaces\Order::DESCENDING,
+      'title' => \Papaya\Database\Interfaces\Order::ASCENDING
     ),
     self::ORDER_MODIFIED_ASCENDING => array(
-      'modified' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-      'title' => \PapayaDatabaseInterfaceOrder::ASCENDING
+      'modified' => \Papaya\Database\Interfaces\Order::ASCENDING,
+      'title' => \Papaya\Database\Interfaces\Order::ASCENDING
     ),
     self::ORDER_MODIFIED_DESCENDING => array(
-      'modified' => \PapayaDatabaseInterfaceOrder::DESCENDING,
-      'title' => \PapayaDatabaseInterfaceOrder::ASCENDING
+      'modified' => \Papaya\Database\Interfaces\Order::DESCENDING,
+      'title' => \Papaya\Database\Interfaces\Order::ASCENDING
     )
   );
 
@@ -101,7 +101,7 @@ class PapayaUiContentTeasersFactory extends \PapayaObject {
    * Get a teaser list by a defined filter
    *
    * @param array $filter
-   * @param string|\PapayaDatabaseInterfaceOrder $order
+   * @param string|\Papaya\Database\Interfaces\Order $order
    * @param integer $limit
    * @param integer $offset
    * @return \PapayaUiContentTeasers
@@ -124,7 +124,7 @@ class PapayaUiContentTeasersFactory extends \PapayaObject {
    * Get a teaser list by one or more parent page ids.
    *
    * @param array(integer)|integer $pageIds
-   * @param string|\PapayaDatabaseInterfaceOrder $order
+   * @param string|\Papaya\Database\Interfaces\Order $order
    * @param integer $limit
    * @param integer $offset
    * @return \PapayaUiContentTeasers
@@ -139,7 +139,7 @@ class PapayaUiContentTeasersFactory extends \PapayaObject {
    * Get a teaser list by one or more page ids.
    *
    * @param array(integer)|integer $pageIds
-   * @param string|\PapayaDatabaseInterfaceOrder $order
+   * @param string|\Papaya\Database\Interfaces\Order $order
    * @param integer $limit
    * @param integer $offset
    * @return \PapayaUiContentTeasers
@@ -153,7 +153,7 @@ class PapayaUiContentTeasersFactory extends \PapayaObject {
   /**
    * Create a pages database encapsulation object
    *
-   * @param string|\PapayaDatabaseInterfaceOrder $order
+   * @param string|\Papaya\Database\Interfaces\Order $order
    * @return \Papaya\Content\Pages|\Papaya\Content\Pages\Publications
    */
   private function createPages($order) {
@@ -170,16 +170,16 @@ class PapayaUiContentTeasersFactory extends \PapayaObject {
   }
 
   /**
-   * If the $order is already an PapayaDatabaseInterfaceOrder return it. Otherwise
-   * check iof it is here is an definition in $_orderByDefinitions and us this. If no
+   * If the $order is already an Papaya\Database\Interfaces\Order return it. Otherwise
+   * check if it is here is an definition in $_orderByDefinitions and us this. If no
    * definition can be found return NULL.
    *
-   * @param string|\PapayaDatabaseInterfaceOrder $order
+   * @param string|\Papaya\Database\Interfaces\Order $order
    * @param \Papaya\Content\Pages $pages
-   * @return \PapayaDatabaseInterfaceOrder
+   * @return \Papaya\Database\Interfaces\Order
    */
   private function getOrderBy($order, \Papaya\Content\Pages $pages) {
-    if ($order instanceof \PapayaDatabaseInterfaceOrder) {
+    if ($order instanceof \Papaya\Database\Interfaces\Order) {
       return $order;
     } elseif (isset($this->_orderByDefinitions[$order])) {
       return new \PapayaDatabaseRecordOrderByProperties(

@@ -15,6 +15,7 @@
 
 use Papaya\Content\Pages\Publications;
 use Papaya\Content\Pages;
+use Papaya\Database\Interfaces\Order;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
@@ -24,7 +25,7 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
    * @covers PapayaUiContentTeasersFactory
    */
   public function testByFilterWithParentIdAndViewId() {
-    $orderBy = $this->createMock(PapayaDatabaseInterfaceOrder::class);
+    $orderBy = $this->createMock(Order::class);
 
     $factory = new PapayaUiContentTeasersFactory();
     $factory->papaya($this->mockPapaya()->application());
@@ -71,7 +72,7 @@ class PapayaUiContentTeasersFactoryTest extends PapayaTestCase {
    * @covers PapayaUiContentTeasersFactory
    */
   public function testByParentWithTwoPageIdsWithIndividualOrderBy() {
-    $orderBy = $this->createMock(PapayaDatabaseInterfaceOrder::class);
+    $orderBy = $this->createMock(Order::class);
 
     $factory = new PapayaUiContentTeasersFactory();
     $factory->papaya($this->mockPapaya()->application());

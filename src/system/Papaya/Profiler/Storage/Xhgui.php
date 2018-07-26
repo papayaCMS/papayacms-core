@@ -23,7 +23,7 @@
 */
 class PapayaProfilerStorageXhgui
   extends \PapayaObject
-  implements \PapayaProfilerStorage, \PapayaDatabaseInterfaceAccess {
+  implements \PapayaProfilerStorage, \Papaya\Database\Interfaces\Access {
 
   /**
    * @var string

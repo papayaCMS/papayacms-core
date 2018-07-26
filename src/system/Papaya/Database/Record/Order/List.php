@@ -22,13 +22,13 @@
 */
 class PapayaDatabaseRecordOrderList
   extends \PapayaObjectList
-  implements \PapayaDatabaseInterfaceOrder {
+  implements \Papaya\Database\Interfaces\Order {
 
   /**
    * Setup item class limit and add all function arguments as items
    */
   public function __construct() {
-    parent::__construct(\PapayaDatabaseInterfaceOrder::class);
+    parent::__construct(\Papaya\Database\Interfaces\Order::class);
     if (func_num_args() > 0) {
       foreach (func_get_args() as $item) {
         $this->add($item);
@@ -39,7 +39,7 @@ class PapayaDatabaseRecordOrderList
   /**
    * Casting the list to string generates the needed sql
    *
-   * @see \PapayaDatabaseInterfaceOrder::__toString()
+   * @see \Papaya\Database\Interfaces\Order::__toString()
    * @return string
    */
   public function __toString() {

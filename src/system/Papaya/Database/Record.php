@@ -22,7 +22,7 @@
 */
 abstract class PapayaDatabaseRecord
   extends \PapayaObjectItem
-  implements \PapayaDatabaseInterfaceRecord {
+  implements \Papaya\Database\Interfaces\Record {
 
   /**
   * An array of property to field mappings.
@@ -49,14 +49,14 @@ abstract class PapayaDatabaseRecord
   /**
   * Subobject for the database key handling
   *
-  * @var \PapayaDatabaseInterfaceKey
+  * @var \Papaya\Database\Interfaces\Key
   */
   private $_key = NULL;
 
   /**
   * Subobject for the database field mapping
   *
-  * @var \PapayaDatabaseInterfaceKey
+  * @var \Papaya\Database\Interfaces\Key
   */
   private $_mapping = NULL;
 
@@ -155,7 +155,7 @@ abstract class PapayaDatabaseRecord
   /**
   * Save record to database
   *
-  * @return bool|\PapayaDatabaseInterfaceKey
+  * @return bool|\Papaya\Database\Interfaces\Key
   */
   public function save() {
     if ($this->key()->exists()) {
@@ -232,7 +232,7 @@ abstract class PapayaDatabaseRecord
   /**
   * Insert the record into the database table
   *
-  * @return \PapayaDatabaseInterfaceKey|FALSE
+  * @return \Papaya\Database\Interfaces\Key|FALSE
   */
   protected function _insertRecord() {
     if (!$this->callbacks()->onBeforeInsert($this)) {
@@ -240,10 +240,10 @@ abstract class PapayaDatabaseRecord
     }
     $record = $this->mapping()->mapPropertiesToFields($this->toArray(), $this->_tableAlias);
     $filter = $this->mapping()->mapPropertiesToFields(
-      $this->key()->getFilter(\PapayaDatabaseInterfaceKey::ACTION_CREATE), $this->_tableAlias
+      $this->key()->getFilter(\Papaya\Database\Interfaces\Key::ACTION_CREATE), $this->_tableAlias
     );
     $qualities = $this->key()->getQualities();
-    if ($qualities & \PapayaDatabaseInterfaceKey::DATABASE_PROVIDED) {
+    if ($qualities & \Papaya\Database\Interfaces\Key::DATABASE_PROVIDED) {
       reset($filter);
       $idField = key($filter);
       if (array_key_exists($idField, $record)) {
@@ -253,7 +253,7 @@ abstract class PapayaDatabaseRecord
       $idField = NULL;
       foreach ($filter as $key => $value) {
         if (!isset($record[$key]) ||
-            $qualities & \PapayaDatabaseInterfaceKey::CLIENT_GENERATED) {
+            $qualities & \Papaya\Database\Interfaces\Key::CLIENT_GENERATED) {
           $record[$key] = $value;
         }
       }
@@ -282,11 +282,10 @@ abstract class PapayaDatabaseRecord
    * Getter/Setter for the mapping subobject. This is used to convert the property values into
    * a database record and back.
    *
-   * @param \PapayaDatabaseInterfaceMapping $mapping
-   * @internal param \PapayaDatabaseInterfaceMapping $key
-   * @return \PapayaDatabaseInterfaceMapping
+   * @param \Papaya\Database\Interfaces\Mapping $mapping
+   * @return \Papaya\Database\Interfaces\Mapping
    */
-  public function mapping(\PapayaDatabaseInterfaceMapping $mapping = NULL) {
+  public function mapping(\Papaya\Database\Interfaces\Mapping $mapping = NULL) {
     if (isset($mapping)) {
       $this->_mapping = $mapping;
     } elseif (is_null($this->_mapping)) {
@@ -308,10 +307,10 @@ abstract class PapayaDatabaseRecord
   * Getter/Setter for the key subobject. This conatins informations about the identification
   * of the record.
   *
-  * @param \PapayaDatabaseInterfaceKey $key
-  * @return \PapayaDatabaseInterfaceKey
+  * @param \Papaya\Database\Interfaces\Key $key
+  * @return \Papaya\Database\Interfaces\Key
   */
-  public function key(\PapayaDatabaseInterfaceKey $key = NULL) {
+  public function key(\Papaya\Database\Interfaces\Key $key = NULL) {
     if (isset($key)) {
       $this->_key = $key;
     } elseif (is_null($this->_key)) {

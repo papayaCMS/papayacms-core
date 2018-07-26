@@ -22,10 +22,10 @@
 * @package Papaya-Library
 * @subpackage Database
 */
-class PapayaDatabaseRecordMappingCache implements \PapayaDatabaseInterfaceMapping {
+class PapayaDatabaseRecordMappingCache implements \Papaya\Database\Interfaces\Mapping {
 
   /**
-   * @var \PapayaDatabaseInterfaceMapping
+   * @var \Papaya\Database\Interfaces\Mapping
    */
   private $_mapping = NULL;
   /**
@@ -38,7 +38,7 @@ class PapayaDatabaseRecordMappingCache implements \PapayaDatabaseInterfaceMappin
    */
   private $_results = array();
 
-  public function __construct(\PapayaDatabaseInterfaceMapping $mapping) {
+  public function __construct(\Papaya\Database\Interfaces\Mapping $mapping) {
     $this->_mapping = $mapping;
     if ($mapping instanceof \PapayaDatabaseRecordMapping) {
       foreach ($mapping->callbacks() as $event => $callback) {

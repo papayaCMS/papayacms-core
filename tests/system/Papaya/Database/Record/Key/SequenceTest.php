@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Interfaces\Key;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaDatabaseRecordKeySequenceTest extends PapayaTestCase {
@@ -88,7 +90,7 @@ class PapayaDatabaseRecordKeySequenceTest extends PapayaTestCase {
     $key = new PapayaDatabaseRecordKeySequence($sequence);
     $this->assertEquals(
       array('id' => 'CREATED_SEQUENCE_ID'),
-      $key->getFilter(PapayaDatabaseInterfaceKey::ACTION_CREATE)
+      $key->getFilter(Key::ACTION_CREATE)
     );
   }
 
@@ -114,7 +116,7 @@ class PapayaDatabaseRecordKeySequenceTest extends PapayaTestCase {
   */
   public function testGetQualities() {
     $key = new PapayaDatabaseRecordKeySequence($this->getSequenceFixture());
-    $this->assertEquals(PapayaDatabaseInterfaceKey::CLIENT_GENERATED, $key->getQualities());
+    $this->assertEquals(Key::CLIENT_GENERATED, $key->getQualities());
   }
 
   /**

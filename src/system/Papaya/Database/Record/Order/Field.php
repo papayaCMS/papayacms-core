@@ -21,7 +21,7 @@
 * @version $Id: Field.php 38282 2013-03-19 12:23:19Z weinert $
 */
 class PapayaDatabaseRecordOrderField
-  implements \PapayaDatabaseInterfaceOrder {
+  implements \Papaya\Database\Interfaces\Order {
 
   /**
    * @var string
@@ -55,7 +55,7 @@ class PapayaDatabaseRecordOrderField
   /**
    * Cast order by to string, concat field name and direction with a space
    *
-   * @see \PapayaDatabaseInterfaceOrder::__toString()
+   * @see \Papaya\Database\Interfaces\Order::__toString()
    */
   public function __toString() {
     return $this->_field.' '.$this->getDirectionString($this->_direction);

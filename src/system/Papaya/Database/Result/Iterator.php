@@ -48,9 +48,9 @@ class PapayaDatabaseResultIterator implements \Iterator {
   *
   * If no mapping is provided, the mapping object will be removed.
   *
-  * @param \PapayaDatabaseInterfaceMapping $mapping
+  * @param \Papaya\Database\Interfaces\Mapping $mapping
   */
-  public function setMapping(\PapayaDatabaseInterfaceMapping $mapping = NULL) {
+  public function setMapping(\Papaya\Database\Interfaces\Mapping $mapping = NULL) {
     $this->_mapping = $mapping;
   }
 
@@ -58,8 +58,7 @@ class PapayaDatabaseResultIterator implements \Iterator {
    * Getter for the mapping subobject. This is used to convert the property values into
    * a database record and back.
    *
-   * @internal param \PapayaDatabaseInterfaceMapping $mapping
-   * @return \PapayaDatabaseInterfaceMapping
+   * @return \Papaya\Database\Interfaces\Mapping
    */
   public function getMapping() {
     return $this->_mapping;

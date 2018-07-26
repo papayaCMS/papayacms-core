@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Interfaces\Record;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUiDialogDatabaseTest extends PapayaTestCase {
@@ -63,10 +65,10 @@ class PapayaUiDialogDatabaseTest extends PapayaTestCase {
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceRecord
+   * @return PHPUnit_Framework_MockObject_MockObject|Record
    */
   public function getRecordFixture(array $data = array()) {
-    $record = $this->createMock(PapayaDatabaseInterfaceRecord::class);
+    $record = $this->createMock(Record::class);
     $record
       ->expects($this->once())
       ->method('toArray')

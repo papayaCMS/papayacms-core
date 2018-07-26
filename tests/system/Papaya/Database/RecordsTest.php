@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Interfaces\Order;
+
 /** @noinspection PhpIllegalArrayKeyTypeInspection */
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -127,7 +129,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecords::_loadRecords
   */
   public function testLoadWithoutConditionsWithOrderBy() {
-    $orderBy = $this->createMock(PapayaDatabaseInterfaceOrder::class);
+    $orderBy = $this->createMock(Order::class);
     $orderBy
       ->expects($this->once())
       ->method('__toString')

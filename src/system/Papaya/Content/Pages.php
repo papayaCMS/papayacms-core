@@ -50,8 +50,8 @@ class Pages extends \PapayaDatabaseRecordsLazy {
   );
 
   protected $_orderByProperties = array(
-    'title' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-    'created' => \PapayaDatabaseInterfaceOrder::ASCENDING
+    'title' => \Papaya\Database\Interfaces\Order::ASCENDING,
+    'created' => \Papaya\Database\Interfaces\Order::ASCENDING
   );
 
   /**
@@ -195,7 +195,7 @@ class Pages extends \PapayaDatabaseRecordsLazy {
   /**
    * Overload the mapping object instantiation, to attach an callback for the mapping process.
    *
-   * @return \PapayaDatabaseInterfaceMapping
+   * @return \Papaya\Database\Interfaces\Mapping
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();

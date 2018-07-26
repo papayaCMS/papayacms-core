@@ -34,9 +34,9 @@ class Users extends \PapayaDatabaseRecords {
   );
 
   protected $_orderByFields = array(
-    'surfer_surname' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-    'surfer_givenname' => \PapayaDatabaseInterfaceOrder::ASCENDING,
-    'surfer_email' => \PapayaDatabaseInterfaceOrder::ASCENDING
+    'surfer_surname' => \Papaya\Database\Interfaces\Order::ASCENDING,
+    'surfer_givenname' => \Papaya\Database\Interfaces\Order::ASCENDING,
+    'surfer_email' => \Papaya\Database\Interfaces\Order::ASCENDING
   );
 
   protected $_tableName = \Papaya\Content\Tables::COMMUNITY_USER;

@@ -14,6 +14,8 @@
  */
 
 use Papaya\Database\Condition\Group;
+use Papaya\Database\Interfaces\Access;
+use Papaya\Database\Interfaces\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -35,7 +37,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   public function testConstructorWithMapping() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $mapping = $this
-      ->getMockBuilder(PapayaDatabaseInterfaceMapping::class)
+      ->getMockBuilder(Mapping::class)
       ->getMock();
     $group = new PapayaDatabaseConditionGroup_TestProxy($databaseAccess, $mapping);
     $this->assertSame($mapping, $group->getMapping());
@@ -46,8 +48,8 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
    */
   public function testConstructorWithInterfaceDatabaseAccess() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseInterfaceAccess $parent */
-    $parent = $this->createMock(PapayaDatabaseInterfaceAccess::class);
+    /** @var PHPUnit_Framework_MockObject_MockObject|Access $parent */
+    $parent = $this->createMock(Access::class);
     $parent
       ->expects($this->once())
       ->method('getDatabaseAccess')

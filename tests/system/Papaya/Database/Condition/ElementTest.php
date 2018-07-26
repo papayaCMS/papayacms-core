@@ -15,6 +15,7 @@
 
 use Papaya\Database\Condition\Element;
 use Papaya\Database\Condition\Group;
+use Papaya\Database\Interfaces\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -82,7 +83,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testGetMapping() {
     $mapping = $this
-      ->getMockBuilder(PapayaDatabaseInterfaceMapping::class)
+      ->getMockBuilder(Mapping::class)
       ->disableOriginalConstructor()
       ->getMock();
     /** @var PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -140,7 +141,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testMapFieldName() {
     $mapping = $this
-      ->getMockBuilder(PapayaDatabaseInterfaceMapping::class)
+      ->getMockBuilder(Mapping::class)
       ->disableOriginalConstructor()
       ->getMock();
     $mapping
@@ -179,7 +180,7 @@ class PapayaDatabaseConditionElementTest extends PapayaTestCase {
    */
   public function testMapFieldNameWithInvalidMappingExpectingException() {
     $mapping = $this
-      ->getMockBuilder(PapayaDatabaseInterfaceMapping::class)
+      ->getMockBuilder(Mapping::class)
       ->disableOriginalConstructor()
       ->getMock();
     $mapping

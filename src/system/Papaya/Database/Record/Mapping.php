@@ -20,7 +20,7 @@
 * @subpackage Database
 * @version $Id: Mapping.php 39406 2014-02-27 15:07:55Z weinert $
 */
-class PapayaDatabaseRecordMapping implements \PapayaDatabaseInterfaceMapping {
+class PapayaDatabaseRecordMapping implements \Papaya\Database\Interfaces\Mapping {
 
   /**
   * Properties to fields mapping

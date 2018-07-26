@@ -48,12 +48,12 @@ class Generator {
 
   /**
    *
-   * @param \PapayaDatabaseInterfaceAccess|\PapayaDatabaseAccess $parent
-   * @param \PapayaDatabaseInterfaceMapping $mapping
+   * @param \Papaya\Database\Interfaces\Access|\PapayaDatabaseAccess $parent
+   * @param \Papaya\Database\Interfaces\Mapping $mapping
    * @throws \InvalidArgumentException
    */
-  public function __construct($parent, \PapayaDatabaseInterfaceMapping $mapping = NULL) {
-    if ($parent instanceof \PapayaDatabaseInterfaceAccess) {
+  public function __construct($parent, \Papaya\Database\Interfaces\Mapping $mapping = NULL) {
+    if ($parent instanceof \Papaya\Database\Interfaces\Access) {
       $this->_databaseAccess = $parent->getDatabaseAccess();
     } elseif ($parent instanceof \PapayaDatabaseAccess) {
       $this->_databaseAccess = $parent;

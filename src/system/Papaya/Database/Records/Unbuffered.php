@@ -15,7 +15,7 @@
 
 abstract class PapayaDatabaseRecordsUnbuffered
   extends \PapayaObject
-  implements \PapayaDatabaseInterfaceAccess, \IteratorAggregate, \Countable {
+  implements \Papaya\Database\Interfaces\Access, \IteratorAggregate, \Countable {
   /**
   * Stored database access object
   * @var \PapayaDatabaseAccess
@@ -32,14 +32,14 @@ abstract class PapayaDatabaseRecordsUnbuffered
   /**
   * Mapping object
   *
-  * @var \PapayaDatabaseInterfaceMapping
+  * @var \Papaya\Database\Interfaces\Mapping
   */
   private $_mapping = NULL;
 
   /**
   * Order object
   *
-  * @var \PapayaDatabaseInterfaceOrder
+  * @var \Papaya\Database\Interfaces\Order
   */
   private $_orderBy = NULL;
 
@@ -174,10 +174,10 @@ abstract class PapayaDatabaseRecordsUnbuffered
   * Getter/Setter for the mapping subobject. This is used to convert the property values into
   * a database record and back.
   *
-  * @param \PapayaDatabaseInterfaceMapping $mapping
-  * @return \PapayaDatabaseInterfaceMapping
+  * @param \Papaya\Database\Interfaces\Mapping $mapping
+  * @return \Papaya\Database\Interfaces\Mapping
   */
-  public function mapping(\PapayaDatabaseInterfaceMapping $mapping = NULL) {
+  public function mapping(\Papaya\Database\Interfaces\Mapping $mapping = NULL) {
     if (isset($mapping)) {
       $this->_mapping = $mapping;
     } elseif (is_null($this->_mapping)) {
@@ -200,10 +200,10 @@ abstract class PapayaDatabaseRecordsUnbuffered
   * select statement. It is possible that the method return FALSE, indicating that
   * here should be no order by clause.
   *
-  * @param \PapayaDatabaseInterfaceOrder $orderBy
-  * @return \PapayaDatabaseInterfaceOrder|FALSE
+  * @param \Papaya\Database\Interfaces\Order $orderBy
+  * @return \Papaya\Database\Interfaces\Order|FALSE
   */
-  public function orderBy(\PapayaDatabaseInterfaceOrder $orderBy = NULL) {
+  public function orderBy(\Papaya\Database\Interfaces\Order $orderBy = NULL) {
     if (isset($orderBy)) {
       $this->_orderBy = $orderBy;
     } elseif (is_null($this->_orderBy)) {
@@ -216,7 +216,7 @@ abstract class PapayaDatabaseRecordsUnbuffered
   * Create a standard order object using the property $_orderByFields. If the property is empty
   * the method will return FALSE.
   *
-  * @return \PapayaDatabaseInterfaceOrder|FALSE
+  * @return \Papaya\Database\Interfaces\Order|FALSE
   */
   protected function _createOrderBy() {
     if (empty($this->_orderByProperties) && empty($this->_orderByFields)) {

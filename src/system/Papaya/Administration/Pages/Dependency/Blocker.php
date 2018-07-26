@@ -234,7 +234,7 @@ class Blocker extends \PapayaUiControlInteractive {
   }
 
   /**
-   * Access to the pages list, to load page informations
+   * Access to the pages list, to load page information
    *
    * @param \Papaya\Content\Pages $pages
    * @return \Papaya\Content\Pages
