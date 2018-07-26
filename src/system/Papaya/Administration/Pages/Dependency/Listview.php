@@ -28,34 +28,34 @@ class Listview extends \PapayaUiListview {
    *
    * @var integer
    */
-  private $_originPageId = 0;
+  private $_originPageId;
   /**
    * Current page id, this can be the page of an existing page dependency or of the selected page
    *
    * @var integer
    */
-  private $_currentPageId = 0;
+  private $_currentPageId;
 
   /**
    * List of database records
    *
-   * @var \PapayaDatabaseObjectList
+   * @var \Papaya\Database\BaseObject\Records
    */
-  private $_dependencies = 0;
+  private $_dependencies;
 
   /**
    * List of database records
    *
    * @var \Papaya\Content\Page\References
    */
-  private $_references = 0;
+  private $_references;
 
   /**
    * A list of the synchronization for the select field.
    *
    * @var Synchronizations
    */
-  private $_synchronizations = NULL;
+  private $_synchronizations;
 
   /**
    * A pages list, to fetch page informations
@@ -69,7 +69,7 @@ class Listview extends \PapayaUiListview {
     $currentPageId,
     \Papaya\Content\Page\Dependencies $dependencies,
     \Papaya\Content\Page\References $references,
-    \Papaya\Administration\Pages\Dependency\Synchronizations $synchronizations
+    Synchronizations $synchronizations
   ) {
     \PapayaUtilConstraints::assertInteger($originPageId);
     \PapayaUtilConstraints::assertInteger($currentPageId);

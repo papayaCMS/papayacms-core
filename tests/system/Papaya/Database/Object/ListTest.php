@@ -13,12 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\BaseObject\Records;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaDatabaseObjectListTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaDatabaseObjectList::getIterator
+  * @covers Records::getIterator
   */
   public function testGetIterator() {
     $list = new PapayaDatabaseObjectList_TestProxy();
@@ -39,7 +41,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObjectList::count
+  * @covers Records::count
   */
   public function testCount() {
     $list = new PapayaDatabaseObjectList_TestProxy();
@@ -47,7 +49,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObjectList::countAll
+  * @covers Records::countAll
   */
   public function testCountAll() {
     $list = new PapayaDatabaseObjectList_TestProxy();
@@ -55,7 +57,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObjectList::countAll
+  * @covers Records::countAll
   */
   public function testCountAllReturnsAbsoluteCount() {
     $list = new PapayaDatabaseObjectList_TestProxy();
@@ -66,7 +68,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObjectList::item
+  * @covers Records::item
   */
   public function testItemExpectingArray() {
     $list = new PapayaDatabaseObjectList_TestProxy();
@@ -80,7 +82,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObjectList::item
+  * @covers Records::item
   */
   public function testItemExpectingNull() {
     $list = new PapayaDatabaseObjectList_TestProxy();
@@ -88,7 +90,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObjectList::itemAt
+  * @covers Records::itemAt
   */
   public function testItemAtExpectingArray() {
     $list = new PapayaDatabaseObjectList_TestProxy();
@@ -102,7 +104,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObjectList::itemAt
+  * @covers Records::itemAt
   */
   public function testItemAtNegativePositionExpectingArray() {
     $list = new PapayaDatabaseObjectList_TestProxy();
@@ -116,7 +118,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObjectList::assign
+  * @covers Records::assign
   */
   public function testAssign() {
     $list = new PapayaDatabaseObjectList_TestProxy();
@@ -152,7 +154,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObjectList::_loadRecords
+  * @covers Records::_loadRecords
   */
   public function testLoadRecords() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -195,7 +197,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObjectList::_loadRecords
+  * @covers Records::_loadRecords
   */
   public function testLoadRecordsExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -217,7 +219,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObjectList::_fetchRecords
+  * @covers Records::_fetchRecords
   */
   public function testFetchRecords() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseResult $databaseResult */
@@ -242,7 +244,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObjectList::_fetchRecords
+  * @covers Records::_fetchRecords
   */
   public function testFetchRecordsWithIndex() {
     /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseResult $databaseResult */
@@ -270,7 +272,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
 /**
 * Proxy class with some predefined values
 */
-class PapayaDatabaseObjectList_TestProxy extends PapayaDatabaseObjectList {
+class PapayaDatabaseObjectList_TestProxy extends Records {
 
   protected $_records = array(
     array(

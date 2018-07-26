@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Spam
 */
-class PapayaSpamFilterStatisticalReference extends \PapayaDatabaseObjectList {
+class PapayaSpamFilterStatisticalReference extends \Papaya\Database\BaseObject\Records {
 
   /**
   * buffer array for the text count loaded from database

@@ -14,7 +14,7 @@
  */
 
 /**
-* A dialog superclass for dialogs that execute database actions on {@see PapayaDatabaseObjectRecord}
+* A dialog superclass for dialogs that execute database actions on {@see Papaya\Database\BaseObject\PapayaDatabaseObjectRecord}
 * instances
 *
 * @package Papaya-Library
@@ -25,7 +25,7 @@ abstract class PapayaUiDialogDatabase extends \PapayaUiDialog {
   /**
   * Attached database callbacks object
   *
-  * @var \PapayaDatabaseObjectRecord
+  * @var \Papaya\Database\BaseObject\Record
   */
   private $_callbacks = NULL;
 

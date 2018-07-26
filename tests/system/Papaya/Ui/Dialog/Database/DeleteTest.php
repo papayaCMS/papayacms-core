@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\BaseObject\Record;
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaUiDialogDatabaseDeleteTest extends PapayaTestCase {
@@ -29,7 +31,7 @@ class PapayaUiDialogDatabaseDeleteTest extends PapayaTestCase {
     $callbacks
       ->expects($this->once())
       ->method('onBeforeDelete')
-      ->with($this->isInstanceOf(PapayaDatabaseObjectRecord::class))
+      ->with($this->isInstanceOf(Record::class))
       ->will($this->returnValue(TRUE));
     $record = $this->getRecordFixture();
     $record
@@ -53,7 +55,7 @@ class PapayaUiDialogDatabaseDeleteTest extends PapayaTestCase {
     $callbacks
       ->expects($this->once())
       ->method('onBeforeDelete')
-      ->with($this->isInstanceOf(PapayaDatabaseObjectRecord::class))
+      ->with($this->isInstanceOf(Record::class))
       ->will($this->returnValue(FALSE));
     $record = $this->getRecordFixture();
     $record
@@ -106,10 +108,10 @@ class PapayaUiDialogDatabaseDeleteTest extends PapayaTestCase {
 
   /**
    * @param array $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseObjectRecord
+   * @return PHPUnit_Framework_MockObject_MockObject|Record
    */
   public function getRecordFixture(array $data = array()) {
-    $record = $this->createMock(PapayaDatabaseObjectRecord::class);
+    $record = $this->createMock(Record::class);
     $record
       ->expects($this->once())
       ->method('toArray')

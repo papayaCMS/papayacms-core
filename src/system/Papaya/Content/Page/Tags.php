@@ -23,7 +23,7 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Tags extends \PapayaDatabaseObjectList {
+class Tags extends \Papaya\Database\BaseObject\Records {
 
   /**
    * All tag links are saved into one table, the type specified the link group

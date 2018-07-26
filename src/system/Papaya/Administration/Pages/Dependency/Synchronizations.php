@@ -14,8 +14,6 @@
  */
 
 namespace Papaya\Administration\Pages\Dependency;
-use Papaya\Content\Page\Dependencies;
-use PapayaUiIconList;
 
 /**
  * Encapsulate the synchronization definitions and provide access in different formats for other
@@ -93,7 +91,7 @@ class Synchronizations {
   /**
    * Dependencies records list.
    *
-   * @var Dependencies
+   * @var \Papaya\Content\Page\Dependencies
    */
   private $_dependencies = NULL;
 

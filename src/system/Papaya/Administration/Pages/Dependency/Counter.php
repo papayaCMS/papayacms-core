@@ -20,7 +20,7 @@ namespace Papaya\Administration\Pages\Dependency;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Counter extends \PapayaDatabaseObject {
+class Counter extends \Papaya\Database\BaseObject {
 
   /**
    * store page id

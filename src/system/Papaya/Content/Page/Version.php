@@ -39,7 +39,7 @@ namespace Papaya\Content\Page;
  * @property integer $priority content priority (for search engines)
  * @property integer $scheme page scheme (http, https or both)
  */
-class Version extends \PapayaDatabaseObjectRecord {
+class Version extends \Papaya\Database\BaseObject\Record {
 
   /**
    * Map properties to database fields

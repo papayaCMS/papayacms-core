@@ -23,7 +23,7 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Boxes extends \PapayaDatabaseObjectList {
+class Boxes extends \Papaya\Database\BaseObject\Records {
 
   /**
    * Map field names to value identfiers

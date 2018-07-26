@@ -13,85 +13,87 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\BaseObject;
 /**
-* Papaya Database Record List, a list of records from a database.
-*
-* A mapping property defines simple names for the fields.
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-abstract class PapayaDatabaseObjectList
-  extends \PapayaDatabaseObject
+ * Papaya Database Record List, a list of records from a database.
+ *
+ * A mapping property defines simple names for the fields.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+abstract class Records
+  extends \Papaya\Database\BaseObject
   implements \IteratorAggregate, \Countable {
 
   /**
-  * Absolute record count (for paging)
-  * @var integer
-  */
+   * Absolute record count (for paging)
+   *
+   * @var integer
+   */
   protected $_recordCount = 0;
 
   /**
-  * Record storage
-  *
-  * @var array(array())
-  */
+   * Record storage
+   *
+   * @var array(array())
+   */
   protected $_records = array();
 
   /**
-  * Map fields to application names
-  *
-  * @var array($fieldName => $name)
-  */
+   * Map fields to application names
+   *
+   * @var array($fieldName => $name)
+   */
   protected $_fieldMapping = array();
 
   /**
-  * IteratorAggregate interface: Get a ArrayIterator for the records
-  *
-  * @return \ArrayIterator
-  */
+   * IteratorAggregate interface: Get a ArrayIterator for the records
+   *
+   * @return \ArrayIterator
+   */
   public function getIterator() {
     return new \ArrayIterator($this->_records);
   }
 
   /**
-  * Countable interface: Get count of loaded records
-  *
-  * @return integer
-  */
+   * Countable interface: Get count of loaded records
+   *
+   * @return integer
+   */
   public function count() {
     return count($this->_records);
   }
 
   /**
-  * Get count without limits, returns {@see \PapayaDatabaseObjectList::count()} if
-  * this value is larger.
-  *
-  * @return integer
-  */
+   * Get count without limits, returns {@see \Papaya\Database\BaseObject\PapayaDatabaseObjectList::count()} if
+   * this value is larger.
+   *
+   * @return integer
+   */
   public function countAll() {
     $current = $this->count();
     return ($this->_recordCount > $current) ? $this->_recordCount : $current;
   }
 
   /**
-  * Get an element by offset (allow direct access without the iterator)
-  *
-  * Returns NULL if the offset is invalid.
-  *
-  * @param string|integer $offset
-  * @return array|NULL
-  */
+   * Get an element by offset (allow direct access without the iterator)
+   *
+   * Returns NULL if the offset is invalid.
+   *
+   * @param string|integer $offset
+   * @return array|NULL
+   */
   public function item($offset) {
     return (isset($this->_records[$offset])) ? $this->_records[$offset] : NULL;
   }
 
   /**
-  * Get an item by its position in the records array
-  *
-  * @param integer $position
-  * @return array
-  */
+   * Get an item by its position in the records array
+   *
+   * @param integer $position
+   * @return array
+   */
   public function itemAt($position) {
     $list = array_values($this->_records);
     if ($position < 0) {
@@ -101,11 +103,11 @@ abstract class PapayaDatabaseObjectList
   }
 
   /**
-  * Assign an array to this object as the replacement for all records.
-  *
-  * @param array|\Traversable $data
-  * @return array
-  */
+   * Assign an array to this object as the replacement for all records.
+   *
+   * @param array|\Traversable $data
+   * @return array
+   */
   public function assign($data) {
     $this->_records = array();
     foreach (\PapayaUtilArray::ensure($data) as $id => $row) {
@@ -121,17 +123,17 @@ abstract class PapayaDatabaseObjectList
   }
 
   /**
-  * Load records from database using a sql and parameters.
-  *
-  * If an $idProperty is provided, it will be used as the index.
-  *
-  * @param string $sql
-  * @param array $parameters
-  * @param string|NULL $idField
-  * @param integer|NULL $limit
-  * @param integer|NULL $offset
-  * @return boolean TRUE on success otherwise FALSE
-  */
+   * Load records from database using a sql and parameters.
+   *
+   * If an $idProperty is provided, it will be used as the index.
+   *
+   * @param string $sql
+   * @param array $parameters
+   * @param string|NULL $idField
+   * @param integer|NULL $limit
+   * @param integer|NULL $offset
+   * @return boolean TRUE on success otherwise FALSE
+   */
   protected function _loadRecords(
     $sql, $parameters, $idField = NULL, $limit = NULL, $offset = NULL
   ) {
@@ -147,11 +149,11 @@ abstract class PapayaDatabaseObjectList
   }
 
   /**
-  * Converts the record from database into a values array using the mapping array.
-  *
-  * @param \PapayaDatabaseResult $databaseResult
-  * @param string $idField
-  */
+   * Converts the record from database into a values array using the mapping array.
+   *
+   * @param \PapayaDatabaseResult $databaseResult
+   * @param string $idField
+   */
   protected function _fetchRecords($databaseResult, $idField = '') {
     $this->_records = array();
     while ($row = $databaseResult->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {

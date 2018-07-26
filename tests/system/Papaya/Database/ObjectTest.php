@@ -13,15 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\BaseObject;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaDatabaseObjectTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaDatabaseObject::setDatabaseAccess
+  * @covers BaseObject::setDatabaseAccess
   */
   public function testSetDatabaseAccess() {
-    $databaseObject = new PapayaDatabaseObject();
+    $databaseObject = new BaseObject();
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseObject->setDatabaseAccess($databaseAccess);
     $this->assertAttributeSame(
@@ -32,10 +34,10 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObject::getDatabaseAccess
+  * @covers BaseObject::getDatabaseAccess
   */
   public function testGetDatabaseAccess() {
-    $databaseObject = new PapayaDatabaseObject();
+    $databaseObject = new BaseObject();
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseObject->setDatabaseAccess($databaseAccess);
     $this->assertSame(
@@ -45,11 +47,11 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObject::getDatabaseAccess
+  * @covers BaseObject::getDatabaseAccess
   */
   public function testGetDatabaseAccessImplicitCreate() {
     $application = $this->mockPapaya()->application();
-    $databaseObject = new PapayaDatabaseObject();
+    $databaseObject = new BaseObject();
     $databaseObject->papaya($application);
     $databaseAccess = $databaseObject->getDatabaseAccess();
     $this->assertInstanceOf(
@@ -62,10 +64,10 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObject::__call
+  * @covers BaseObject::__call
   */
   public function testDelegation() {
-    $databaseObject = new PapayaDatabaseObject();
+    $databaseObject = new BaseObject();
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $databaseAccess
       ->expects($this->once())
@@ -79,10 +81,10 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseObject::__call
+  * @covers BaseObject::__call
   */
   public function testDelegationWithInvalidFunction() {
-    $databaseObject = new PapayaDatabaseObject();
+    $databaseObject = new BaseObject();
     $this->expectException(BadMethodCallException::class);
     /** @noinspection PhpUndefinedMethodInspection */
     $databaseObject->invalidFunctionName();

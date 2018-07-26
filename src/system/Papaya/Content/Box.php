@@ -23,7 +23,7 @@ namespace Papaya\Content;
  * @package Papaya-Library
  * @subpackage Content
  */
-abstract class Box extends \PapayaDatabaseObjectRecord {
+abstract class Box extends \Papaya\Database\BaseObject\Record {
 
   const DELIVERY_MODE_STATIC = 0;
   const DELIVERY_MODE_ESI = 1;

@@ -24,7 +24,7 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Versions extends \PapayaDatabaseObjectList {
+class Versions extends \Papaya\Database\BaseObject\Records {
 
   /**
    * Map field names to value identfiers

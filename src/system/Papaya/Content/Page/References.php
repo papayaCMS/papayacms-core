@@ -22,7 +22,7 @@ namespace Papaya\Content\Page;
  * @package Papaya-Library
  * @subpackage Content
  */
-class References extends \PapayaDatabaseObjectList {
+class References extends \Papaya\Database\BaseObject\Records {
 
   /**
    * page id used to load the references, will be the source_id in the resulting record arrays

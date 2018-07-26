@@ -34,7 +34,7 @@ namespace Papaya\Content\Box;
  * @property-read string $moduleGuid
  * @property-read string $moduleTitle
  */
-class Translation extends \PapayaDatabaseObjectRecord {
+class Translation extends \Papaya\Database\BaseObject\Record {
 
   /**
    * Map properties to database fields

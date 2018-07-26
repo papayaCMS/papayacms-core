@@ -23,7 +23,7 @@
 * @subpackage Messages
 */
 class PapayaMessageDispatcherDatabase
-  extends \PapayaDatabaseObject
+  extends \Papaya\Database\BaseObject
   implements \PapayaMessageDispatcher {
 
   /**

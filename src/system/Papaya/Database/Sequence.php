@@ -30,7 +30,7 @@
 * @package Papaya-Library
 * @subpackage Database
 */
-abstract class PapayaDatabaseSequence extends \PapayaDatabaseObject {
+abstract class PapayaDatabaseSequence extends \Papaya\Database\BaseObject {
 
   /**
   * Database table name

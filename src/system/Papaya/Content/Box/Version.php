@@ -32,7 +32,7 @@ namespace Papaya\Content\Box;
  * @property string $name administration interface box name
  * @property integer $modified last modification timestamp
  */
-class Version extends \PapayaDatabaseObjectRecord {
+class Version extends \Papaya\Database\BaseObject\Record {
 
   /**
    * Map properties to database fields

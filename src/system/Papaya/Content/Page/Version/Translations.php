@@ -23,7 +23,7 @@ namespace Papaya\Content\Page\Version;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Translations extends \PapayaDatabaseObjectList {
+class Translations extends \Papaya\Database\BaseObject\Records {
 
 
   /**

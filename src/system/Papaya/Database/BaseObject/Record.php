@@ -13,38 +13,41 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\BaseObject;
 /**
-* Papaya Database Access Record, a single row database result
-*
-* A list of fields is used to provide access to the values using array or property syntax.
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-abstract class PapayaDatabaseObjectRecord
-  extends \PapayaDatabaseObject
+ * Papaya Database Access Record, a single row database result
+ *
+ * A list of fields is used to provide access to the values using array or property syntax.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+abstract class Record
+  extends \Papaya\Database\BaseObject
   implements \Papaya\Database\Interfaces\Record {
 
   /**
-  * field name mapping (dynamic properties)
-  * @var array(string $property => string $field)
-  */
+   * field name mapping (dynamic properties)
+   *
+   * @var array(string $property => string $field)
+   */
   protected $_fields = array();
 
   /**
-  * field values
-  * @var array
-  */
+   * field values
+   *
+   * @var array
+   */
   protected $_values = array();
 
   /**
-  * Table name for default load/save methods.
-  *
-  *  This property is only needed for the default implementations, not if you override the
-  *  load/save methods.
-  *
-  * @var string|NULL
-  */
+   * Table name for default load/save methods.
+   *
+   *  This property is only needed for the default implementations, not if you override the
+   *  load/save methods.
+   *
+   * @var string|NULL
+   */
   protected $_tableName = NULL;
 
   /**
@@ -62,19 +65,19 @@ abstract class PapayaDatabaseObjectRecord
   }
 
   /**
-  * Store record into database
-  *
-  * @return boolean|integer
-  */
+   * Store record into database
+   *
+   * @return boolean|integer
+   */
   public function save() {
     return $this->_saveRecordWithAutoId();
   }
 
   /**
-  * Delete the currently loaded record.
-  *
-  * @return boolean
-  */
+   * Delete the currently loaded record.
+   *
+   * @return boolean
+   */
   public function delete() {
     return $this->_deleteRecord(
       $this->databaseGetTableName($this->_tableName), array('id')
@@ -129,17 +132,17 @@ abstract class PapayaDatabaseObjectRecord
   }
 
   /**
-  * Delete the currently loaded record using a given list of properties that identify the table.
-  *
-  * @param string $tableName
-  * @param array $properties
-  * @return boolean
-  */
+   * Delete the currently loaded record using a given list of properties that identify the table.
+   *
+   * @param string $tableName
+   * @param array $properties
+   * @return boolean
+   */
   protected function _deleteRecord($tableName, array $properties) {
     $filter = array();
     foreach ($properties as $property) {
       if (!empty($this->_fields[$property]) &&
-          isset($this->$property)) {
+        isset($this->$property)) {
         $filter[$this->_fields[$property]] = $this->$property;
       }
     }
@@ -150,16 +153,16 @@ abstract class PapayaDatabaseObjectRecord
   }
 
   /**
-  * Assigns all elements of an array (or an object implementing ArrayAccess) with the same names
-  * to the current object.
-  *
-  * Be aware that it uses the normalized names.
-  *
-  * @param object|array $source
-  */
+   * Assigns all elements of an array (or an object implementing ArrayAccess) with the same names
+   * to the current object.
+   *
+   * Be aware that it uses the normalized names.
+   *
+   * @param object|array $source
+   */
   public function assign($source) {
     if (is_array($source) ||
-        $source instanceof \ArrayAccess) {
+      $source instanceof \ArrayAccess) {
       foreach ($this->_fields as $field => $mapping) {
         if (isset($source[$field])) {
           $this->_values[$field] = $source[$field];
@@ -169,12 +172,12 @@ abstract class PapayaDatabaseObjectRecord
   }
 
   /**
-  * Returns the current element data array.
-  *
-  * Be aware that it uses the normalized names.
-  *
-  * @return array $source
-  */
+   * Returns the current element data array.
+   *
+   * Be aware that it uses the normalized names.
+   *
+   * @return array $source
+   */
   public function toArray() {
     $result = array();
     foreach ($this->_fields as $field => $mapping) {
@@ -188,34 +191,34 @@ abstract class PapayaDatabaseObjectRecord
   }
 
   /**
-  * Return Iterator for record values
-  *
-  * @return \ArrayIterator
-  */
+   * Return Iterator for record values
+   *
+   * @return \ArrayIterator
+   */
   public function getIterator() {
     return new \ArrayIterator($this->toArray());
   }
 
   /**
-  * Check if a field exists using array syntax
-  *
-  * This will return TRUE even if the field has no value.
-  *
-  * @param string $offset
-  * @return boolean
-  */
+   * Check if a field exists using array syntax
+   *
+   * This will return TRUE even if the field has no value.
+   *
+   * @param string $offset
+   * @return boolean
+   */
   public function offsetExists($offset) {
     $offset = \PapayaUtilStringIdentifier::toUnderscoreLower($offset);
     return array_key_exists($offset, $this->_fields);
   }
 
   /**
-  * Return field value using array syntax - or NULL
-  *
-  * @throws \OutOfBoundsException
-  * @param string $offset
-  * @return string|NULL
-  */
+   * Return field value using array syntax - or NULL
+   *
+   * @throws \OutOfBoundsException
+   * @param string $offset
+   * @return string|NULL
+   */
   public function offsetGet($offset) {
     $offset = \PapayaUtilStringIdentifier::toUnderscoreLower($offset);
     if (isset($this->_values[$offset])) {
@@ -247,10 +250,11 @@ abstract class PapayaDatabaseObjectRecord
   }
 
   /**
-  * Unset field value using array syntax
-  * @param string $offset
-  * @return void
-  */
+   * Unset field value using array syntax
+   *
+   * @param string $offset
+   * @return void
+   */
   public function offsetUnset($offset) {
     $offset = \PapayaUtilStringIdentifier::toUnderscoreLower($offset);
     if (isset($this->_values[$offset])) {
@@ -272,49 +276,50 @@ abstract class PapayaDatabaseObjectRecord
   }
 
   /**
-  * Get field value using property syntax
-  *
-  * @throws \OutOfBoundsException
-  * @param string $name
-  * @return string|NULL
-  */
+   * Get field value using property syntax
+   *
+   * @throws \OutOfBoundsException
+   * @param string $name
+   * @return string|NULL
+   */
   public function __get($name) {
     $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     return $this->offsetGet($name);
   }
 
   /**
-  * Set field value using property syntax
-  *
-  * @param string $name
-  * @param mixed $value
-  * @return void
-  */
+   * Set field value using property syntax
+   *
+   * @param string $name
+   * @param mixed $value
+   * @return void
+   */
   public function __set($name, $value) {
     $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     $this->offsetSet($name, $value);
   }
 
   /**
-  * Unset field value using array syntax
-  * @param string $name
-  * @return void
-  */
+   * Unset field value using array syntax
+   *
+   * @param string $name
+   * @return void
+   */
   public function __unset($name) {
     $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     $this->offsetUnset($name);
   }
 
   /**
-  * Use the fields definition to load the record from the table. This works only if you provide
-  * database column names for all fields.
-  *
-  * @param string $table
-  * @param string $identifier identifier field (not database column)
-  * @param mixed $value identifer value
-  * @param \Callback|\Closure $convertRecordCallback
-  * @return boolean
-  */
+   * Use the fields definition to load the record from the table. This works only if you provide
+   * database column names for all fields.
+   *
+   * @param string $table
+   * @param string $identifier identifier field (not database column)
+   * @param mixed $value identifer value
+   * @param \Callback|\Closure $convertRecordCallback
+   * @return boolean
+   */
   protected function _loadRecordFromTable(
     $table, $identifier, $value, $convertRecordCallback = NULL
   ) {
@@ -325,20 +330,20 @@ abstract class PapayaDatabaseObjectRecord
       }
     }
     $sql = "SELECT ".implode(', ', $fieldNames).
-             " FROM %s WHERE ".$this->_fields[$identifier]."= '%s'";
+      " FROM %s WHERE ".$this->_fields[$identifier]."= '%s'";
     $parameters = array($table, $value);
     return $this->_loadRecord($sql, $parameters, $convertRecordCallback);
   }
 
   /**
-  * Load a single record from database using an sql and a parameters array
-  *
-  * @param string $sql
-  * @param array $parameters
-  * @param \Callback|\Closure $convertRecordCallback A callback to convert the record to values
-  *   The default value is array($this, 'convertRecordToValues').
-  * @return bool
-  */
+   * Load a single record from database using an sql and a parameters array
+   *
+   * @param string $sql
+   * @param array $parameters
+   * @param \Callback|\Closure $convertRecordCallback A callback to convert the record to values
+   *   The default value is array($this, 'convertRecordToValues').
+   * @return bool
+   */
   protected function _loadRecord($sql, array $parameters, $convertRecordCallback = NULL) {
     if ($res = $this->databaseQueryFmt($sql, $parameters)) {
       if ($row = $res->fetchRow(\PapayaDatabaseResult::FETCH_ASSOC)) {
@@ -352,13 +357,13 @@ abstract class PapayaDatabaseObjectRecord
   }
 
   /**
-  * Insert the record into the database using the fields definition.
-  *
-  * @param string $table
-  * @param string $identifier
-  * @param \Callback|\Closure $convertValuesCallback
-  * @return boolean|\Integer
-  */
+   * Insert the record into the database using the fields definition.
+   *
+   * @param string $table
+   * @param string $identifier
+   * @param \Callback|\Closure $convertValuesCallback
+   * @return boolean|\Integer
+   */
   protected function _insertRecord($table, $identifier = NULL, $convertValuesCallback = NULL) {
     $record = $this->_applyCallback(
       $convertValuesCallback, array($this, 'convertValuesToRecord'), $this->_values
@@ -393,22 +398,22 @@ abstract class PapayaDatabaseObjectRecord
       $convertValuesCallback, array($this, 'convertValuesToRecord'), $this->_values
     );
     return FALSE !== $this->databaseUpdateRecord(
-      $table, $record, $filter
-    );
+        $table, $record, $filter
+      );
   }
 
   /**
-  * Apply one of two callbacks to data.
-  *
-  * If the first argument is NULL the second is used. The method is to apply a individual callback
-  * if availiable and use a fallback callback if nessessary.
-  *
-  * @throws \UnexpectedValueException
-  * @param \Callback|\Closure $actual
-  * @param \Callback|\Closure $default
-  * @param array $data
-  * @return array
-  */
+   * Apply one of two callbacks to data.
+   *
+   * If the first argument is NULL the second is used. The method is to apply a individual callback
+   * if availiable and use a fallback callback if nessessary.
+   *
+   * @throws \UnexpectedValueException
+   * @param \Callback|\Closure $actual
+   * @param \Callback|\Closure $default
+   * @param array $data
+   * @return array
+   */
   protected function _applyCallback($actual, $default, array $data) {
     $callback = is_null($actual) ? $default : $actual;
     if (isset($callback) && is_callable($callback)) {
@@ -421,11 +426,11 @@ abstract class PapayaDatabaseObjectRecord
   }
 
   /**
-  * Converts the record from database into a values array using the mapping array.
-  *
-  * @param array $record
-  * @return array
-  */
+   * Converts the record from database into a values array using the mapping array.
+   *
+   * @param array $record
+   * @return array
+   */
   public function convertRecordToValues(array $record) {
     $result = array();
     $mapping = array_flip($this->_fields);
@@ -438,11 +443,11 @@ abstract class PapayaDatabaseObjectRecord
   }
 
   /**
-  * Converts the values into a database record using the mapping array.
-  *
-  * @param array $values
-  * @return array
-  */
+   * Converts the values into a database record using the mapping array.
+   *
+   * @param array $values
+   * @return array
+   */
   public function convertValuesToRecord(array $values) {
     $result = array();
     foreach ($values as $field => $data) {

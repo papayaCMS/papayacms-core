@@ -21,7 +21,7 @@ namespace Papaya\Content;
  * @subpackage Content
  */
 class Configuration
-  extends \PapayaDatabaseObjectList {
+  extends \Papaya\Database\BaseObject\Records {
 
   /**
    * Map field names to value identifiers
