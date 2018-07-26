@@ -30,7 +30,7 @@ class PapayaUiStringTranslatedListTest extends \PapayaTestCase {
    */
   public function testIterationCallsTranslation() {
     $phrases = $this
-      ->getMockBuilder(\PapayaPhrases::class)
+      ->getMockBuilder(Papaya\Phrases::class)
       ->disableOriginalConstructor()
       ->getMock();
     $phrases

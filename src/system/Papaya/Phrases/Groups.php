@@ -27,11 +27,11 @@ class PapayaPhrasesGroups implements \ArrayAccess {
   private $_groups = array();
 
   /**
-   * @var \PapayaPhrases
+   * @var \Papaya\Phrases
    */
   private $_phrases = NULL;
 
-  public function __construct(\PapayaPhrases $phrases) {
+  public function __construct(Papaya\Phrases $phrases) {
     $this->_phrases = $phrases;
   }
 

@@ -28,7 +28,7 @@
 class PapayaUiStringTranslated extends \PapayaUiString {
 
   /**
-   * @var \PapayaPhrases
+   * @var \Papaya\Phrases
    */
   private $_phrases = NULL;
 
@@ -38,7 +38,7 @@ class PapayaUiStringTranslated extends \PapayaUiString {
   private $_phrasesGroupName = NULL;
 
   public function __construct(
-    $pattern, array $values = array(), \PapayaPhrases $phrases = NULL, $groupName = NULL
+    $pattern, array $values = array(), Papaya\Phrases $phrases = NULL, $groupName = NULL
   ) {
     parent::__construct($pattern, $values);
     $this->_phrases = $phrases;

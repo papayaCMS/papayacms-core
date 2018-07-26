@@ -21,8 +21,8 @@ class PapayaPhrasesGroupTest extends \PapayaTestCase {
    * @covers \PapayaPhrasesGroup
    */
   public function testGet() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPhrases $phrases */
-    $phrases = $this->createMock(\PapayaPhrases::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Phrases $phrases */
+    $phrases = $this->createMock(Papaya\Phrases::class);
     $phrases
       ->expects($this->once())
       ->method('getText')
@@ -38,8 +38,8 @@ class PapayaPhrasesGroupTest extends \PapayaTestCase {
    * @covers \PapayaPhrasesGroup
    */
   public function testGetList() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPhrases $phrases */
-    $phrases = $this->createMock(\PapayaPhrases::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Phrases $phrases */
+    $phrases = $this->createMock(Papaya\Phrases::class);
     $phrases
       ->expects($this->once())
       ->method('getText')

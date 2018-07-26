@@ -27,7 +27,7 @@ class PapayaUiStringTranslatedList
   implements \PapayaObjectInterface {
 
   /**
-   * @var \PapayaPhrases
+   * @var \Papaya\Phrases
    */
   private $_phrases = NULL;
 
@@ -46,10 +46,10 @@ class PapayaUiStringTranslatedList
    * Create object and store traversable as iterator
    *
    * @param array|\Traversable $traversable
-   * @param \PapayaPhrases $phrases
+   * @param \Papaya\Phrases $phrases
    * @param NULL $groupName
    */
-  public function __construct($traversable, \PapayaPhrases $phrases = NULL, $groupName = NULL) {
+  public function __construct($traversable, Papaya\Phrases $phrases = NULL, $groupName = NULL) {
     parent::__construct(new \PapayaIteratorTraversable($traversable));
     $this->_phrases = $phrases;
     $this->_phrasesGroupName = $groupName;

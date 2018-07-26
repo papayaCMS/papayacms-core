@@ -26,7 +26,7 @@ class PapayaPhrasesGroup {
   private $_phrases = NULL;
   private $_name = '';
 
-  public function __construct(\PapayaPhrases $phrases, $name) {
+  public function __construct(Papaya\Phrases $phrases, $name) {
     \PapayaUtilConstraints::assertNotEmpty($name);
     $this->_phrases = $phrases;
     $this->_name = $name;

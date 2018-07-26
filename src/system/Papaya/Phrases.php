@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
 /**
  * Phrase bases translations. If a phrase is not yet translated the phrase is returned and used.
  *
@@ -22,7 +23,7 @@
  * @property \PapayaPhrasesGroups groups
  *
  */
-class PapayaPhrases extends \Papaya\Application\BaseObject {
+class Phrases extends Application\BaseObject {
 
   /**
    * @var \PapayaPhrasesGroups
@@ -35,13 +36,13 @@ class PapayaPhrases extends \Papaya\Application\BaseObject {
   private $_storage;
 
   /**
-   * @var \Papaya\Content\Language
+   * @var Content\Language
    */
   private $_language;
 
   private $_defaultGroup;
 
-  public function __construct(\PapayaPhrasesStorage $storage, \Papaya\Content\Language $language) {
+  public function __construct(\PapayaPhrasesStorage $storage, Content\Language $language) {
     $this->_storage = $storage;
     $this->_language = $language;
   }
@@ -54,16 +55,16 @@ class PapayaPhrases extends \Papaya\Application\BaseObject {
   }
 
   /**
-   * @return \Papaya\Content\Language
+   * @return Content\Language
    */
   public function getLanguage() {
     return $this->_language;
   }
 
   /**
-   * @param \Papaya\Content\Language $language
+   * @param Content\Language $language
    */
-  public function setLanguage(\Papaya\Content\Language $language) {
+  public function setLanguage(Content\Language $language) {
     $this->_language = $language;
   }
 
@@ -72,9 +73,9 @@ class PapayaPhrases extends \Papaya\Application\BaseObject {
    * @return mixed
    */
   public function __get($name) {
-    switch($name) {
-    case 'groups' :
-      return $this->groups();
+    switch ($name) {
+      case 'groups' :
+        return $this->groups();
     }
     return $this->$name;
   }
@@ -84,7 +85,7 @@ class PapayaPhrases extends \Papaya\Application\BaseObject {
    * @return bool
    */
   public function __isset($name) {
-    switch($name) {
+    switch ($name) {
       case 'groups' :
         return TRUE;
     }
@@ -96,9 +97,9 @@ class PapayaPhrases extends \Papaya\Application\BaseObject {
    * @param mixed $value
    */
   public function __set($name, $value) {
-    switch($name) {
-    case 'groups' :
-      $this->groups($value);
+    switch ($name) {
+      case 'groups' :
+        $this->groups($value);
     }
     $this->$name = $value;
   }
