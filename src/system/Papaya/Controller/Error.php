@@ -127,13 +127,13 @@ class Error extends \Papaya\Application\BaseObject implements \Papaya\Controller
    * Execute controller
    *
    * @param \Papaya\Application $application
-   * @param \PapayaRequest &$request
+   * @param \Papaya\Request &$request
    * @param \PapayaResponse &$response
    * @return boolean|\Papaya\Controller
    */
   public function execute(
     \Papaya\Application $application,
-    \PapayaRequest &$request,
+    \Papaya\Request &$request,
     \PapayaResponse &$response
   ) {
     $response->setStatus($this->_status);

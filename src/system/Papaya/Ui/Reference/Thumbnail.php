@@ -84,13 +84,13 @@ class PapayaUiReferenceThumbnail extends \PapayaUiReference {
 
   /**
    * @see papaya-lib/system/Papaya/Interface/PapayaUiReference#load($request)
-   * @param \PapayaRequest $request
+   * @param \Papaya\Request $request
    * @return \PapayaUiReference|$this
    */
-  public function load(\PapayaRequest $request) {
+  public function load(Papaya\Request $request) {
     parent::load($request);
     $this->setPreview(
-      $request->getParameter('preview', FALSE, NULL, \PapayaRequest::SOURCE_PATH)
+      $request->getParameter('preview', FALSE, NULL, Papaya\Request::SOURCE_PATH)
     );
     return $this;
   }

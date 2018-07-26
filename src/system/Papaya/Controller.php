@@ -31,13 +31,13 @@ interface Controller {
    *   Papaya\Controller - delegate to this controller
    *
    * @param \Papaya\Application $application
-   * @param \PapayaRequest &$request
+   * @param \Papaya\Request &$request
    * @param \PapayaResponse &$response
    * @return boolean|self
    */
   public function execute(
     \Papaya\Application $application,
-    \PapayaRequest &$request,
+    \Papaya\Request &$request,
     \PapayaResponse &$response
   );
 

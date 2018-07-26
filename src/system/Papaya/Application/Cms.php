@@ -28,7 +28,7 @@ namespace Papaya\Application;
  * @property \Papaya\Configuration\Cms $options
  * @property \PapayaPluginLoader $plugins
  * @property \Papaya\Profiler $profiler
- * @property \PapayaRequest $request
+ * @property \Papaya\Request $request
  * @property \PapayaResponse $response$response
  * @property \PapayaSession $session
  * @property \base_surfer $surfer

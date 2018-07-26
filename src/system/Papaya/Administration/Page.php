@@ -112,8 +112,8 @@ abstract class Page extends \Papaya\Application\BaseObject {
       $value = $this->papaya()->session->getValue($parametersName);
       $parts->parameters()->merge(is_array($value) ? $value : array());
       $this->papaya()->request->setParameters(
-        \PapayaRequest::SOURCE_QUERY,
-        $this->papaya()->request->getParameters(\PapayaRequest::SOURCE_QUERY)->set(
+        \Papaya\Request::SOURCE_QUERY,
+        $this->papaya()->request->getParameters(\Papaya\Request::SOURCE_QUERY)->set(
           $this->_parameterGroup, is_array($value) ? $value : array()
         )
       );

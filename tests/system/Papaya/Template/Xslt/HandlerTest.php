@@ -21,7 +21,7 @@ class PapayaTemplateXsltHandlerTest extends \PapayaTestCase {
   * @covers \PapayaTemplateXsltHandler::getLocalPath
   */
   public function testGetLocalPath() {
-    $request = $this->createMock(\PapayaRequest::class);
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -50,7 +50,7 @@ class PapayaTemplateXsltHandlerTest extends \PapayaTestCase {
   * @covers \PapayaTemplateXsltHandler::getTemplate
   */
   public function testGetTemplateInPublicMode() {
-    $request = $this->createMock(\PapayaRequest::class);
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -78,7 +78,7 @@ class PapayaTemplateXsltHandlerTest extends \PapayaTestCase {
   * @covers \PapayaTemplateXsltHandler::getTemplate
   */
   public function testGetTemplateInPreviewMode() {
-    $request = $this->createMock(\PapayaRequest::class);
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getParameter')

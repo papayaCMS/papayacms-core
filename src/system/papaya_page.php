@@ -17,6 +17,7 @@ use Papaya\Application;
 use Papaya\Cache;
 use Papaya\Content;
 use Papaya\Controller;
+use Papaya\Request;
 
 /**
  * Some of the old bootstraps use the this class/file as the starting point,
@@ -275,14 +276,14 @@ class papaya_page extends base_object {
 
     /* handle redirected errors */
     $redirectErrorCode = $request->getParameter(
-      'redirect', 0, NULL, \PapayaRequest::SOURCE_QUERY
+      'redirect', 0, NULL, Papaya\Request::SOURCE_QUERY
     );
     if (in_array($redirectErrorCode, array(403, 404, 500), FALSE)) {
       $message = $request->getParameter(
-        'msg', '', NULL, \PapayaRequest::SOURCE_QUERY
+        'msg', '', NULL, Papaya\Request::SOURCE_QUERY
       );
       $code = $request->getParameter(
-        'code', 0, NULL, \PapayaRequest::SOURCE_QUERY
+        'code', 0, NULL, Papaya\Request::SOURCE_QUERY
       );
       $options->defineConstants();
       $this->getError($redirectErrorCode, $message, $code);
@@ -502,7 +503,7 @@ class papaya_page extends base_object {
       $status = empty($_SERVER['REDIRECT_STATUS']) ? 200 : (int)$_SERVER['REDIRECT_STATUS'];
     }
     if ($status != 404) {
-      $pathData = $this->papaya()->request->getParameters(PapayaRequest::SOURCE_PATH);
+      $pathData = $this->papaya()->request->getParameters(Request::SOURCE_PATH);
       $isPageMode = $pathData['mode'] == '' || $pathData['mode'] == 'page';
       $isStartPage = isset($pathData['is_startpage']) && $pathData['is_startpage'];
       if (!$isPageMode || $isStartPage) {
@@ -573,17 +574,17 @@ class papaya_page extends base_object {
                 $this->doRedirect(302, $aliasUrl, 'Alias Plugin Redirect');
               } else {
                 $requestUrl = new \Papaya\Url($url);
-                $request = new \PapayaRequest($this->papaya()->options);
+                $request = new Papaya\Request($this->papaya()->options);
                 $request->load($requestUrl);
                 $urlData = array(
                   'topic_id' => $request->getParameter(
-                    'page_id', NULL, NULL, \PapayaRequest::SOURCE_PATH
+                    'page_id', NULL, NULL, Papaya\Request::SOURCE_PATH
                   ),
                   'lng_ident' => $request->getParameter(
-                    'language', NULL, NULL, \PapayaRequest::SOURCE_PATH
+                    'language', NULL, NULL, Papaya\Request::SOURCE_PATH
                   ),
                   'viewmode_ext' => $request->getParameter(
-                    'output_mode', NULL, NULL, \PapayaRequest::SOURCE_PATH
+                    'output_mode', NULL, NULL, Papaya\Request::SOURCE_PATH
                   ),
                   'url_params' => $requestUrl->getQuery(),
                 );
@@ -628,7 +629,7 @@ class papaya_page extends base_object {
       ->options
       ->get('PAPAYA_URL_LEVEL_SEPARATOR');
     $request = $application->request;
-    $parameters = $request->getParameters(PapayaRequest::SOURCE_QUERY);
+    $parameters = $request->getParameters(Request::SOURCE_QUERY);
     $query = new \PapayaRequestParametersQuery($parameterGroupSeparator);
     //get addtional parameters and merge them
     if (!empty($_SERVER['REDIRECT_QUERY_STRING'])) {
@@ -654,14 +655,14 @@ class papaya_page extends base_object {
     }
     $reference->setParameters($parameters);
     //exchange request object
-    $request = new \PapayaRequest($application->options);
+    $request = new Papaya\Request($application->options);
     $request->load(new \Papaya\Url($reference->get()));
-    $request->setParameters(PapayaRequest::SOURCE_QUERY, $parameters);
+    $request->setParameters(Request::SOURCE_QUERY, $parameters);
     $application->setObject(
       'Request', $request, \PapayaApplication::DUPLICATE_OVERWRITE
     );
     // bc stuff
-    $_GET = $request->getParameters(PapayaRequest::SOURCE_QUERY)->toArray();
+    $_GET = $request->getParameters(Request::SOURCE_QUERY)->toArray();
     $requestData['page_id'] = $alias['topic_id'];
     $requestData['language'] = $alias['lng_ident'];
     $requestData['ext'] = $alias['viewmode_ext'];
@@ -1067,7 +1068,7 @@ class papaya_page extends base_object {
   * @access public
   */
   function initPageMode() {
-    $pathParameters = $this->papaya()->request->getParameters(PapayaRequest::SOURCE_PATH);
+    $pathParameters = $this->papaya()->request->getParameters(Request::SOURCE_PATH);
     $this->versionDateTime = 0;
     if (isset($pathParameters['preview_time']) &&
               $pathParameters['preview_time'] > 0) {
@@ -1398,7 +1399,7 @@ class papaya_page extends base_object {
           $this->contentLanguage['identifier'],
           NULL,
           $this->papaya()->getObject('Request')->getParameters(
-            \PapayaRequest::SOURCE_QUERY
+            Papaya\Request::SOURCE_QUERY
           ),
           NULL,
           $this->topic->topic['TRANSLATION']['topic_title']
@@ -1578,7 +1579,7 @@ class papaya_page extends base_object {
           (
            $url = $this->topic->checkURLFileName(
              $this->papaya()->request->getParameter(
-               'page_title', '', NULL, \PapayaRequest::SOURCE_PATH
+               'page_title', '', NULL, Papaya\Request::SOURCE_PATH
              ),
              $filterParams['viewmode']
            )
@@ -2805,7 +2806,7 @@ class papaya_page extends base_object {
       return $this->_isPreview;
     }
     $this->_isPreview = $this->papaya()->request->getParameter(
-      'preview', FALSE, NULL, \PapayaRequest::SOURCE_ALL
+      'preview', FALSE, NULL, Papaya\Request::SOURCE_ALL
     );
     $this->papaya()->pageReferences->setPreview($this->_isPreview);
     $this->public = !$this->_isPreview;

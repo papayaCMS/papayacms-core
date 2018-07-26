@@ -335,7 +335,7 @@ class base_object extends BaseObject implements PapayaRequestParametersInterface
         $this->paramName,
         array(),
         NULL,
-        \PapayaRequest::SOURCE_QUERY | \PapayaRequest::SOURCE_BODY
+        Papaya\Request::SOURCE_QUERY | Papaya\Request::SOURCE_BODY
       );
     } else {
       $this->params = array();
@@ -372,17 +372,17 @@ class base_object extends BaseObject implements PapayaRequestParametersInterface
       switch ($modes[$i]) {
       case 'C' :
         $parameters = $request->getParameter(
-          $paramName, NULL, NULL, \PapayaRequest::SOURCE_COOKIE
+          $paramName, NULL, NULL, Papaya\Request::SOURCE_COOKIE
         );
         break;
       case 'G' :
         $parameters = $request->getParameter(
-          $paramName, NULL, NULL, \PapayaRequest::SOURCE_QUERY
+          $paramName, NULL, NULL, Papaya\Request::SOURCE_QUERY
         );
         break;
       case 'P' :
         $parameters = $request->getParameter(
-          $paramName, NULL, NULL, \PapayaRequest::SOURCE_BODY
+          $paramName, NULL, NULL, Papaya\Request::SOURCE_BODY
         );
         break;
       }
@@ -506,7 +506,7 @@ class base_object extends BaseObject implements PapayaRequestParametersInterface
     if (empty($url)) {
       $request = $application->getObject('Request');
     } else {
-      $request = new \PapayaRequest($application->options);
+      $request = new Papaya\Request($application->options);
       if (is_object($url)) {
         $request->load($url);
       } else {
@@ -525,43 +525,43 @@ class base_object extends BaseObject implements PapayaRequestParametersInterface
       $ext = $this->papaya()->options->get('PAPAYA_URL_EXTENSION', 'html');
     }
     $mode = $request->getParameter(
-      'mode', 'page', NULL, \PapayaRequest::SOURCE_PATH
+      'mode', 'page', NULL, Papaya\Request::SOURCE_PATH
     );
     $specialModes = array(
       'media', 'download', 'thumb', 'thumbnail', 'image', 'status', 'urls'
     );
     if (!in_array($mode, $specialModes)) {
       $mode = $request->getParameter(
-        'output_mode', $ext, NULL, \PapayaRequest::SOURCE_PATH
+        'output_mode', $ext, NULL, Papaya\Request::SOURCE_PATH
       );
     }
     $result = array(
       'sid' => $request->getParameter(
-        'session', '', NULL, \PapayaRequest::SOURCE_PATH
+        'session', '', NULL, Papaya\Request::SOURCE_PATH
       ),
       'path' => $request->getParameter(
-        'file_path', '/', NULL, \PapayaRequest::SOURCE_PATH
+        'file_path', '/', NULL, Papaya\Request::SOURCE_PATH
       ),
       'filename' => $request->getParameter(
-        'file_title', $fileTitle, NULL, \PapayaRequest::SOURCE_PATH
+        'file_title', $fileTitle, NULL, Papaya\Request::SOURCE_PATH
       ),
       'page_id' => $request->getParameter(
-        'page_id', 0, NULL, \PapayaRequest::SOURCE_PATH
+        'page_id', 0, NULL, Papaya\Request::SOURCE_PATH
       ),
       'categ_id' => $request->getParameter(
-        'category_id', 0, NULL, \PapayaRequest::SOURCE_PATH
+        'category_id', 0, NULL, Papaya\Request::SOURCE_PATH
       ),
       'language' => $request->getParameter(
-        'language', '', NULL, \PapayaRequest::SOURCE_PATH
+        'language', '', NULL, Papaya\Request::SOURCE_PATH
       ),
       'preview' => $request->getParameter(
-        'preview', FALSE, NULL, \PapayaRequest::SOURCE_PATH
+        'preview', FALSE, NULL, Papaya\Request::SOURCE_PATH
       ),
       'datetime' => $request->getParameter(
-        'preview_time', 0, NULL, \PapayaRequest::SOURCE_PATH
+        'preview_time', 0, NULL, Papaya\Request::SOURCE_PATH
       ),
       'media_id' => $request->getParameter(
-        'media_uri', '', NULL, \PapayaRequest::SOURCE_PATH
+        'media_uri', '', NULL, Papaya\Request::SOURCE_PATH
       ),
       'ext' => $mode,
       'output' => $mode
@@ -630,7 +630,7 @@ class base_object extends BaseObject implements PapayaRequestParametersInterface
         'language',
         $lng,
         NULL,
-        \PapayaRequest::SOURCE_ALL
+        Papaya\Request::SOURCE_ALL
       );
     }
     $reference->setPageLanguage($lng);

@@ -119,7 +119,7 @@ class PapayaSessionRedirect extends \PapayaResponse {
     $query = new \PapayaRequestParametersQuery($application->request->getParameterGroupSeparator());
     $query->setString($this->url()->getQuery());
     $query->values()->merge(
-      $application->request->getParameters(\PapayaRequest::SOURCE_QUERY)
+      $application->request->getParameters(Papaya\Request::SOURCE_QUERY)
     );
     if ($include) {
       $query->values()->set($sessionName, $sessionId);

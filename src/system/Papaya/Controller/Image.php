@@ -51,22 +51,22 @@ class Image implements \Papaya\Controller {
    * Execute controller
    *
    * @param \Papaya\Application|\Papaya\Application\Cms $application
-   * @param \PapayaRequest &$request
+   * @param \Papaya\Request &$request
    * @param \PapayaResponse &$response
    * @return boolean|\Papaya\Controller
    */
   public function execute(
     \Papaya\Application $application,
-    \PapayaRequest &$request,
+    \Papaya\Request &$request,
     \PapayaResponse &$response
   ) {
     $imgGenerator = $this->getImageGenerator();
     $imgGenerator->publicMode = $request->getParameter(
-      'preview', TRUE, NULL, \PapayaRequest::SOURCE_PATH
+      'preview', TRUE, NULL, \Papaya\Request::SOURCE_PATH
     );
     if ($imgGenerator->publicMode || $application->administrationUser->isLoggedIn()) {
       $ident = $request->getParameter(
-        'image_identifier', '', NULL, \PapayaRequest::SOURCE_PATH
+        'image_identifier', '', NULL, \Papaya\Request::SOURCE_PATH
       );
       if (!empty($ident) &&
         $imgGenerator->loadByIdent($ident)) {

@@ -33,8 +33,8 @@ class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
   * @covers \PapayaUiReferenceThumbnail::load
   */
   public function testLoad() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaRequest $request */
-    $request = $this->createMock(\PapayaRequest::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Request $request */
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getUrl')
@@ -50,7 +50,7 @@ class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
         $this->isType('string'),
         $this->anything(),
         $this->isNull(),
-        $this->equalTo(\PapayaRequest::SOURCE_PATH)
+        $this->equalTo(Papaya\Request::SOURCE_PATH)
       )
       ->will(
         $this->returnValue(TRUE)

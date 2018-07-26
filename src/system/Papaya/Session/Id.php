@@ -127,7 +127,7 @@ class PapayaSessionId extends \Papaya\Application\BaseObject {
   */
   private function _readCookie() {
     $id = $this->papaya()->request->getParameter(
-      $this->_name, '', NULL, \PapayaRequest::SOURCE_COOKIE
+      $this->_name, '', NULL, Papaya\Request::SOURCE_COOKIE
     );
     if ($id && $this->_isCookieUnique()) {
       return $this->validate($id);
@@ -142,7 +142,7 @@ class PapayaSessionId extends \Papaya\Application\BaseObject {
   */
   private function _readPath() {
     $parameter = $this->papaya()->request->getParameter(
-      'session', '', NULL, \PapayaRequest::SOURCE_PATH
+      'session', '', NULL, Papaya\Request::SOURCE_PATH
     );
     if (0 === strpos($parameter, $this->_name)) {
       $id = substr($parameter, strlen($this->_name));
@@ -161,7 +161,7 @@ class PapayaSessionId extends \Papaya\Application\BaseObject {
   */
   private function _readQuery() {
     $id = $this->papaya()->request->getParameter(
-      $this->_name, '', NULL, \PapayaRequest::SOURCE_QUERY
+      $this->_name, '', NULL, Papaya\Request::SOURCE_QUERY
     );
     return $this->validate($id);
   }
@@ -173,7 +173,7 @@ class PapayaSessionId extends \Papaya\Application\BaseObject {
   */
   private function _readBody() {
     $id = $this->papaya()->request->getParameter(
-      $this->_name, '', NULL, \PapayaRequest::SOURCE_BODY
+      $this->_name, '', NULL, Papaya\Request::SOURCE_BODY
     );
     return $this->validate($id);
   }

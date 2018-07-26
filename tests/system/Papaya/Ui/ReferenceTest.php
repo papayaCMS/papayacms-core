@@ -72,8 +72,8 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   */
   public function testLoadRequest() {
     $url = $this->createMock(Url::class);
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaRequest $request */
-    $request = $this->createMock(\PapayaRequest::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Request $request */
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getUrl')
@@ -98,7 +98,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   */
   public function testPrepare() {
     $url = $this->createMock(Url::class);
-    $request = $this->createMock(\PapayaRequest::class);
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getUrl')

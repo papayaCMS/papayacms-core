@@ -316,7 +316,7 @@ class base_domains extends base_db {
         $languageId, $this->papaya()->request->pageId
       );
       $reference->setParameters(
-        $this->papaya()->request->getParameters(PapayaRequest::SOURCE_QUERY)
+        $this->papaya()->request->getParameters(\Papaya\Request::SOURCE_QUERY)
       );
       if ($reference->valid()) {
         $response = new \PapayaResponseRedirect(

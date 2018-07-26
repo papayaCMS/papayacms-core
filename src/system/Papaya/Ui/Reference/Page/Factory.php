@@ -467,7 +467,7 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
       }
       $language = $languages->getLanguageByIdentifier(
         $this->papaya()->request->getParameter(
-          'language', '', NULL, \PapayaRequest::SOURCE_PATH
+          'language', '', NULL, Papaya\Request::SOURCE_PATH
         )
       );
       if (!($language && $language->isContent)) {

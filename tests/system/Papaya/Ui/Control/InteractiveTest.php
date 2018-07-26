@@ -76,11 +76,11 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
   * @covers \PapayaUiControlInteractive::parameters
   */
   public function testParamtersGetImplicit() {
-    $request = $this->createMock(\PapayaRequest::class);
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getParameters')
-      ->with(\PapayaRequest::SOURCE_QUERY | \PapayaRequest::SOURCE_BODY)
+      ->with(Papaya\Request::SOURCE_QUERY | Papaya\Request::SOURCE_BODY)
       ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => 'bar'))));
     $dialog = new \PapayaUiControlInteractive_TestProxy();
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
@@ -93,11 +93,11 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
   * @covers \PapayaUiControlInteractive::parameters
   */
   public function testParamtersGetImplicitWithGroup() {
-    $request = $this->createMock(\PapayaRequest::class);
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getParameterGroup')
-      ->with('group', \PapayaRequest::SOURCE_QUERY | \PapayaRequest::SOURCE_BODY)
+      ->with('group', Papaya\Request::SOURCE_QUERY | Papaya\Request::SOURCE_BODY)
       ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => 'bar'))));
     $dialog = new \PapayaUiControlInteractive_TestProxy();
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
@@ -111,7 +111,7 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
   * @covers \PapayaUiControlInteractive::isPostRequest
   */
   public function testIsPostRequestExpectingTrue() {
-    $request = $this->createMock(\PapayaRequest::class);
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -125,7 +125,7 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
   * @covers \PapayaUiControlInteractive::isPostRequest
   */
   public function testIsPostRequestExpectingFalse() {
-    $request = $this->createMock(\PapayaRequest::class);
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getMethod')

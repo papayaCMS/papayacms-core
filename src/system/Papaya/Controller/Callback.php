@@ -45,13 +45,13 @@ class Callback implements \Papaya\Controller {
    * request, so use the next one.
    *
    * @param \Papaya\Application $application
-   * @param \PapayaRequest &$request
+   * @param \Papaya\Request &$request
    * @param \PapayaResponse &$response
    * @return bool|\Papaya\Controller
    */
   public function execute(
     \Papaya\Application $application,
-    \PapayaRequest &$request,
+    \Papaya\Request &$request,
     \PapayaResponse &$response
   ) {
     $callback = $this->_callback;

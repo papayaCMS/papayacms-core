@@ -44,7 +44,7 @@ class PapayaTemplateXsltHandler extends \Papaya\Application\BaseObject {
     $isPreview = $this
       ->papaya()
       ->request
-      ->getParameter('preview', FALSE, NULL, \PapayaRequest::SOURCE_PATH);
+      ->getParameter('preview', FALSE, NULL, Papaya\Request::SOURCE_PATH);
     if ($isPreview) {
       $template = $this
         ->papaya()

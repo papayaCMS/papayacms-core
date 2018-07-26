@@ -32,7 +32,7 @@ class Page
    */
   public function getStatus() {
     $isPreview = $this->papaya()->request->getParameter(
-      'preview', FALSE, NULL, \PapayaRequest::SOURCE_PATH
+      'preview', FALSE, NULL, \Papaya\Request::SOURCE_PATH
     );
     if ($isPreview) {
       return FALSE;
@@ -42,19 +42,19 @@ class Page
       'host' => \PapayaUtilServerName::get(),
       'port' => \PapayaUtilServerPort::get(),
       'category_id' => $this->papaya()->request->getParameter(
-        'category_id', 0, NULL, \PapayaRequest::SOURCE_PATH
+        'category_id', 0, NULL, \Papaya\Request::SOURCE_PATH
       ),
       'page_id' => $this->papaya()->request->getParameter(
-        'page_id', 0, NULL, \PapayaRequest::SOURCE_PATH
+        'page_id', 0, NULL, \Papaya\Request::SOURCE_PATH
       ),
       'language' => $this->papaya()->request->getParameter(
-        'language', '', NULL, \PapayaRequest::SOURCE_PATH
+        'language', '', NULL, \Papaya\Request::SOURCE_PATH
       ),
       'output_mode' => $this->papaya()->request->getParameter(
         'output_mode',
         $this->papaya()->options->get('PAPAYA_URL_EXTENSION', 'html'),
         NULL,
-        \PapayaRequest::SOURCE_PATH
+        \Papaya\Request::SOURCE_PATH
       )
     );
     return empty($data) ? TRUE : array(get_class($this) => $data);

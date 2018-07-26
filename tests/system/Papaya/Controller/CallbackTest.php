@@ -13,26 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Controller\Callback;
-
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaControllerCallbackTest extends \PapayaTestCase {
 
   /**
-   * @covers Callback
+   * @covers \Papaya\Controller\Callback
    */
   public function testExecute() {
     $application = $this->mockPapaya()->application();
     $request = $this->mockPapaya()->request();
     $response = $this->mockPapaya()->response();
 
-    $controller = new Callback(
+    $controller = new Papaya\Controller\Callback(
       function(
         /** @noinspection PhpUnusedParameterInspection */
-        PapayaApplication $application,
-        PapayaRequest &$request,
-        PapayaResponse &$response
+        \Papaya\Application $application,
+        \Papaya\Request &$request,
+        \PapayaResponse &$response
       ) {
         return TRUE;
       }

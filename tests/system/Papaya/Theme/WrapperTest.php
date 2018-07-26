@@ -622,7 +622,7 @@ class PapayaThemeWrapperTest extends \PapayaTestCase {
   public function getResponseApplicationFixture(
     array $options = array(), $allowCompression = FALSE, $browserCache = FALSE
   ) {
-    $request = $this->createMock(\PapayaRequest::class);
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('allowCompression')

@@ -184,10 +184,10 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   /**
   * load request data to reference
   *
-  * @param \PapayaRequest $request
+  * @param \Papaya\Request $request
   * @return \PapayaUiReference
   */
-  public function load(\PapayaRequest $request) {
+  public function load(Papaya\Request $request) {
     $url = $request->getUrl();
     $this->_url = clone (($url instanceof Papaya\Url) ? $url : new \Papaya\Url);
     if (is_null($this->_parameterGroupSeparator)) {

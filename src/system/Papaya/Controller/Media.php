@@ -32,23 +32,23 @@ class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller
    * Execute controller
    *
    * @param \Papaya\Application $application
-   * @param \PapayaRequest &$request
+   * @param \Papaya\Request &$request
    * @param \PapayaResponse &$response
    * @return boolean|\Papaya\Controller
    */
   public function execute(
     /** @noinspection ReferencingObjectsInspection */
     \Papaya\Application $application,
-    \PapayaRequest &$request,
+    \Papaya\Request &$request,
     \PapayaResponse &$response
   ) {
     $this->papaya($application);
-    /** @var \PapayaRequest $request */
+    /** @var \Papaya\Request $request */
     $request = $application->getObject('Request');
-    $isPreview = $request->getParameter('preview', '', NULL, \PapayaRequest::SOURCE_PATH);
-    $mediaId = $request->getParameter('media_id', '', NULL, \PapayaRequest::SOURCE_PATH);
+    $isPreview = $request->getParameter('preview', '', NULL, \Papaya\Request::SOURCE_PATH);
+    $mediaId = $request->getParameter('media_id', '', NULL, \Papaya\Request::SOURCE_PATH);
     $mediaVersion = $request->getParameter(
-      'media_version', 0, NULL, \PapayaRequest::SOURCE_PATH
+      'media_version', 0, NULL, \Papaya\Request::SOURCE_PATH
     );
     if (!empty($mediaId)) {
       $file = $this->getMediaDatabase()->getFile($mediaId, $mediaVersion);

@@ -41,14 +41,14 @@ class Group extends \PapayaObjectList implements \Papaya\Controller {
    * request, so use the next one.
    *
    * @param \Papaya\Application $application
-   * @param \PapayaRequest &$request
+   * @param \Papaya\Request &$request
    * @param \PapayaResponse &$response
    * @return bool|\Papaya\Controller
    */
   public function execute(
     /** @noinspection ReferencingObjectsInspection */
     \Papaya\Application $application,
-    \PapayaRequest &$request,
+    \Papaya\Request &$request,
     \PapayaResponse &$response
   ) {
     foreach ($this as $controller) {

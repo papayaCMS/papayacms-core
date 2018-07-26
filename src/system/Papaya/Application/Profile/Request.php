@@ -27,10 +27,10 @@ class Request implements \Papaya\Application\Profile {
    * Create the profile object and return it
    *
    * @param \Papaya\Application|\Papaya\Application\Cms $application
-   * @return \PapayaRequest
+   * @return \Papaya\Request
    */
   public function createObject($application) {
-    $request = new \PapayaRequest($application->options);
+    $request = new \Papaya\Request($application->options);
     $request->papaya($application);
     $request->load(new \PapayaUrlCurrent());
     return $request;

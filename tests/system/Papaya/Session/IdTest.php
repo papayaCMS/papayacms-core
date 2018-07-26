@@ -43,7 +43,7 @@ class PapayaSessionIdTest extends \PapayaTestCase {
   public function testMagicMethodToString() {
     $request = $this->getParameterStubFixture(
       array(
-        \PapayaRequest::SOURCE_COOKIE => array('sample' => '012345678901234567890123456789ab')
+        Papaya\Request::SOURCE_COOKIE => array('sample' => '012345678901234567890123456789ab')
       )
     );
     $sid = new \PapayaSessionId('sample');
@@ -128,7 +128,7 @@ class PapayaSessionIdTest extends \PapayaTestCase {
   public function testGetIdFromCookie($cookieString) {
     $request = $this->getParameterStubFixture(
       array(
-        \PapayaRequest::SOURCE_COOKIE => array('sample' => '012345678901234567890123456789ab')
+        Papaya\Request::SOURCE_COOKIE => array('sample' => '012345678901234567890123456789ab')
       )
     );
     $_SERVER['HTTP_COOKIE'] = $cookieString;
@@ -151,7 +151,7 @@ class PapayaSessionIdTest extends \PapayaTestCase {
   public function testGetIdWithAmbiguousCookie($cookieString) {
     $request = $this->getParameterStubFixture(
       array(
-        \PapayaRequest::SOURCE_COOKIE => array('sample' => '012345678901234567890123456789ab')
+        Papaya\Request::SOURCE_COOKIE => array('sample' => '012345678901234567890123456789ab')
       )
     );
     $_SERVER['HTTP_COOKIE'] = $cookieString;
@@ -172,7 +172,7 @@ class PapayaSessionIdTest extends \PapayaTestCase {
   public function testGetIdWithTwoCookiesWithTheSameValue() {
     $request = $this->getParameterStubFixture(
       array(
-        \PapayaRequest::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
+        Papaya\Request::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
       )
     );
     $_SERVER['HTTP_COOKIE'] = 'sample=25b482735512613d6b61983c400bd3d9; sample=25b482735512613d6b61983c400bd3d9';
@@ -193,7 +193,7 @@ class PapayaSessionIdTest extends \PapayaTestCase {
   public function testGetIdFromPath() {
     $request = $this->getParameterStubFixture(
       array(
-        \PapayaRequest::SOURCE_PATH => array('session' => 'sample012345678901234567890123456789ab')
+        Papaya\Request::SOURCE_PATH => array('session' => 'sample012345678901234567890123456789ab')
       )
     );
     $sid = new \PapayaSessionId('sample');
@@ -213,7 +213,7 @@ class PapayaSessionIdTest extends \PapayaTestCase {
   public function testGetIdFromPathFallbackToDefaultName() {
     $request = $this->getParameterStubFixture(
       array(
-        \PapayaRequest::SOURCE_PATH => array('session' => 'sid012345678901234567890123456789ab')
+        Papaya\Request::SOURCE_PATH => array('session' => 'sid012345678901234567890123456789ab')
       )
     );
     $sid = new \PapayaSessionId('sample');
@@ -233,7 +233,7 @@ class PapayaSessionIdTest extends \PapayaTestCase {
   public function testGetIdFromQueryString() {
     $request = $this->getParameterStubFixture(
       array(
-        \PapayaRequest::SOURCE_QUERY => array('sample' => '012345678901234567890123456789ab')
+        Papaya\Request::SOURCE_QUERY => array('sample' => '012345678901234567890123456789ab')
       )
     );
     $sid = new \PapayaSessionId('sample');
@@ -252,7 +252,7 @@ class PapayaSessionIdTest extends \PapayaTestCase {
   public function testGetIdFromRequestBody() {
     $request = $this->getParameterStubFixture(
       array(
-        \PapayaRequest::SOURCE_BODY => array('sample' => '012345678901234567890123456789ab')
+        Papaya\Request::SOURCE_BODY => array('sample' => '012345678901234567890123456789ab')
       )
     );
     $sid = new \PapayaSessionId('sample');
@@ -268,7 +268,7 @@ class PapayaSessionIdTest extends \PapayaTestCase {
   * @covers \PapayaSessionId::getId
   */
   public function testGetIdFromCachedValue() {
-    $request = $this->createMock(\PapayaRequest::class);
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -304,10 +304,10 @@ class PapayaSessionIdTest extends \PapayaTestCase {
 
   /**
    * @param array $parameters
-   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaRequest
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Request
    */
   public function getParameterStubFixture(array $parameters) {
-    $request = $this->createMock(\PapayaRequest::class);
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->any())
       ->method('getParameter')
@@ -361,37 +361,37 @@ class PapayaSessionIdTest extends \PapayaTestCase {
       'any from cookie' => array(
         \PapayaSessionId::SOURCE_ANY,
         array(
-          \PapayaRequest::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
+          Papaya\Request::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
         )
       ),
       'any from path' => array(
         \PapayaSessionId::SOURCE_ANY,
         array(
-          \PapayaRequest::SOURCE_PATH => array('session' => 'sample25b482735512613d6b61983c400bd3d9')
+          Papaya\Request::SOURCE_PATH => array('session' => 'sample25b482735512613d6b61983c400bd3d9')
         )
       ),
       'cookie' => array(
         \PapayaSessionId::SOURCE_COOKIE,
         array(
-          \PapayaRequest::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
+          Papaya\Request::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
         )
       ),
       'path' => array(
         \PapayaSessionId::SOURCE_PATH,
         array(
-          \PapayaRequest::SOURCE_PATH => array('session' => 'sample25b482735512613d6b61983c400bd3d9')
+          Papaya\Request::SOURCE_PATH => array('session' => 'sample25b482735512613d6b61983c400bd3d9')
         )
       ),
       'query' => array(
         \PapayaSessionId::SOURCE_QUERY,
         array(
-          \PapayaRequest::SOURCE_QUERY => array('sample' => '25b482735512613d6b61983c400bd3d9')
+          Papaya\Request::SOURCE_QUERY => array('sample' => '25b482735512613d6b61983c400bd3d9')
         )
       ),
       'request body' => array(
         \PapayaSessionId::SOURCE_BODY,
         array(
-          \PapayaRequest::SOURCE_BODY => array('sample' => '25b482735512613d6b61983c400bd3d9')
+          Papaya\Request::SOURCE_BODY => array('sample' => '25b482735512613d6b61983c400bd3d9')
         )
       ),
     );

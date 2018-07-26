@@ -291,7 +291,7 @@ abstract class Template extends Application\BaseObject {
    */
   public function getOutput($options = self::STRIP_XML_EMPTY_NAMESPACE) {
     $debugXml = $this->papaya()->request->getParameter(
-      'XML', FALSE, NULL, \PapayaRequest::SOURCE_QUERY
+      'XML', FALSE, NULL, \Papaya\Request::SOURCE_QUERY
     );
     if ($debugXml && $this->papaya()->administrationUser->isLoggedIn()) {
       /**

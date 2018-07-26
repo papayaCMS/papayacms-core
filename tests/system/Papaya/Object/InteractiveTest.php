@@ -74,11 +74,11 @@ class PapayaObjectInteractiveTest extends \PapayaTestCase {
    * @covers \PapayaObjectInteractive::parameters
    */
   public function testParametersGetAllFromApplicationRequest() {
-    $request = $this->createMock(\PapayaRequest::class);
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getParameters')
-      ->with(\PapayaRequest::SOURCE_QUERY | \PapayaRequest::SOURCE_BODY)
+      ->with(Papaya\Request::SOURCE_QUERY | Papaya\Request::SOURCE_BODY)
       ->will($this->returnValue($this->createMock(\PapayaRequestParameters::class)));
     $parts = new \PapayaObjectInteractive_TestProxy();
     $parts->papaya(
@@ -93,11 +93,11 @@ class PapayaObjectInteractiveTest extends \PapayaTestCase {
    * @covers \PapayaObjectInteractive::parameters
    */
   public function testParametersGetGroupFromApplicationRequest() {
-    $request = $this->createMock(\PapayaRequest::class);
+    $request = $this->createMock(Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getParameterGroup')
-      ->with('group', \PapayaRequest::SOURCE_QUERY | \PapayaRequest::SOURCE_BODY)
+      ->with('group', Papaya\Request::SOURCE_QUERY | Papaya\Request::SOURCE_BODY)
       ->will($this->returnValue($this->createMock(\PapayaRequestParameters::class)));
     $parts = new \PapayaObjectInteractive_TestProxy();
     $parts->papaya(
