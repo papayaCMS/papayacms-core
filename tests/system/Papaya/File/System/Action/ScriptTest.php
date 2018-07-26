@@ -18,17 +18,17 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaFileSystemActionScriptTest extends PapayaTestCase {
 
   /**
-   * @covers \PapayaFileSystemActionScript::__construct
+   * @covers \Papaya\File\System\Action\Script::__construct
    */
   public function testConstructor() {
-    $action = new \PapayaFileSystemActionScript('/local/script');
+    $action = new \Papaya\File\System\Action\Script('/local/script');
     $this->assertAttributeEquals(
       '/local/script', '_script', $action
     );
   }
 
   /**
-   * @covers \PapayaFileSystemActionScript::execute
+   * @covers \Papaya\File\System\Action\Script::execute
    */
   public function testExecute() {
     $action = new \PapayaFileSystemActionScript_TestProxy('/local/script');
@@ -43,7 +43,7 @@ class PapayaFileSystemActionScriptTest extends PapayaTestCase {
   }
 }
 
-class PapayaFileSystemActionScript_TestProxy extends PapayaFileSystemActionScript {
+class PapayaFileSystemActionScript_TestProxy extends \Papaya\File\System\Action\Script {
 
   public $commandCall = array();
 

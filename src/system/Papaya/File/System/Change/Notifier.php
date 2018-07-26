@@ -75,9 +75,9 @@ class PapayaFileSystemChangeNotifier {
    */
   public function setTarget($target) {
     if (preg_match('(^https?://)', $target)) {
-      $this->_action = new \PapayaFileSystemActionUrl($target);
+      $this->_action = new \Papaya\File\System\Action\Url($target);
     } elseif (!empty($target)) {
-      $this->_action = new \PapayaFileSystemActionScript($target);
+      $this->_action = new \Papaya\File\System\Action\Script($target);
     } else {
       $this->_action = NULL;
     }

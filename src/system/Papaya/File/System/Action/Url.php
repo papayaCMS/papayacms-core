@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\File\System\Action;
 /**
-* Read an url to trigger an remote script
-*
-* @package Papaya-Library
-* @subpackage FileSystem
-*/
-class PapayaFileSystemActionUrl implements \PapayaFileSystemAction {
+ * Read an url to trigger an remote script
+ *
+ * @package Papaya-Library
+ * @subpackage FileSystem
+ */
+class Url implements \PapayaFileSystemAction {
 
   private $_url;
 

@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\File\System\Action;
 /**
-* Execute a local script
-*
-* @package Papaya-Library
-* @subpackage FileSystem
-*/
-class PapayaFileSystemActionScript implements \PapayaFileSystemAction {
+ * Execute a local script
+ *
+ * @package Papaya-Library
+ * @subpackage FileSystem
+ */
+class Script implements \PapayaFileSystemAction {
 
   private $_script;
 
@@ -29,6 +30,7 @@ class PapayaFileSystemActionScript implements \PapayaFileSystemAction {
 
   /**
    * Execute a local script
+   *
    * @param array $parameters
    */
   public function execute(array $parameters = array()) {
@@ -42,6 +44,7 @@ class PapayaFileSystemActionScript implements \PapayaFileSystemAction {
 
   /**
    * Execute a shell command
+   *
    * @param string $command
    * @param array $arguments
    * @codeCoverageIgnore
