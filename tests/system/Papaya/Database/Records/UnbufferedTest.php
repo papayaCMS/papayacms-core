@@ -513,7 +513,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
    */
   public function testGetItem() {
     $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
-    $records->_itemClass = PapayaDatabaseRecordsUnbuffered_TestItemProxy::class;
+    $records->_itemClass = \PapayaDatabaseRecordsUnbuffered_TestItemProxy::class;
     $this->assertInstanceOf(PapayaDatabaseRecordsUnbuffered_TestItemProxy::class, $records->getItem());
   }
 

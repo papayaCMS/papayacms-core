@@ -38,10 +38,10 @@ class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
   public function testConstructorWithAllParameters() {
     $iterator = new Iterator(
       $this->createMock(PapayaDatabaseResult::class),
-      PapayaDatabaseResult::FETCH_ORDERED
+      \PapayaDatabaseResult::FETCH_ORDERED
     );
     $this->assertAttributeSame(
-      PapayaDatabaseResult::FETCH_ORDERED, '_fetchMode', $iterator
+      \PapayaDatabaseResult::FETCH_ORDERED, '_fetchMode', $iterator
     );
   }
 

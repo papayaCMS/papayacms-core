@@ -26,14 +26,14 @@ class PapayaUtilStringJavascriptTest extends PapayaTestCase {
   public function testQuote($string, $expected) {
     $this->assertEquals(
       $expected,
-      PapayaUtilStringJavascript::quote($string)
+      \PapayaUtilStringJavascript::quote($string)
     );
   }
 
   public function testQuoteWithDoubleQuotes() {
     $this->assertEquals(
       '"foo\\"-" + "-bar"',
-      PapayaUtilStringJavascript::quote('foo"--bar', '"')
+      \PapayaUtilStringJavascript::quote('foo"--bar', '"')
     );
   }
 

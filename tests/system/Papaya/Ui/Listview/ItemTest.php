@@ -88,7 +88,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
     $item = new \PapayaUiListviewItem('', '');
     $item->collection($items);
     $this->assertInstanceOf(
-      PapayaUiListview::class, $item->getListview()
+      \PapayaUiListview::class, $item->getListview()
     );
   }
 
@@ -131,7 +131,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   public function testSubitemsImplicitCreate() {
     $item = new \PapayaUiListviewItem('', '');
     $this->assertInstanceOf(
-      PapayaUiListviewSubitems::class, $item->subitems()
+      \PapayaUiListviewSubitems::class, $item->subitems()
     );
     $this->assertSame(
       $item, $item->subitems()->owner()
@@ -158,7 +158,7 @@ class PapayaUiListviewItemTest extends PapayaTestCase {
   public function testNodeImplicitCreate() {
     $item = new \PapayaUiListviewItem('', '');
     $this->assertInstanceOf(
-      PapayaUiListviewItemNode::class, $item->node()
+      \PapayaUiListviewItemNode::class, $item->node()
     );
     $this->assertSame(
       $item, $item->node()->item

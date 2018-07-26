@@ -22,7 +22,7 @@ class PapayaRequestParametersNameTest extends PapayaTestCase {
   */
   public function testContructorWithoutParameters() {
     $this->assertInstanceOf(
-      PapayaRequestParametersName::class, new \PapayaRequestParametersName()
+      \PapayaRequestParametersName::class, new \PapayaRequestParametersName()
     );
   }
 

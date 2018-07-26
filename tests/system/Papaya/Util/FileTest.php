@@ -25,7 +25,7 @@ class PapayaUtilFileTest extends PapayaTestCase {
    */
   public function testFormatBytes($expected, $bytes) {
     $this->assertEquals(
-      $expected, PapayaUtilFile::formatBytes($bytes)
+      $expected, \PapayaUtilFile::formatBytes($bytes)
     );
   }
 
@@ -34,7 +34,7 @@ class PapayaUtilFileTest extends PapayaTestCase {
   */
   public function testFormatBytesWithGermanDecimalSeparator() {
     $this->assertEquals(
-      '39,1 GB', PapayaUtilFile::formatBytes(42001231205, 1, ',')
+      '39,1 GB', \PapayaUtilFile::formatBytes(42001231205, 1, ',')
     );
   }
 
@@ -46,7 +46,7 @@ class PapayaUtilFileTest extends PapayaTestCase {
    */
   public function testNormalizeName($expected, $string) {
     $this->assertEquals(
-      $expected, PapayaUtilFile::normalizeName($string, 15, 'de')
+      $expected, \PapayaUtilFile::normalizeName($string, 15, 'de')
     );
   }
 
@@ -55,7 +55,7 @@ class PapayaUtilFileTest extends PapayaTestCase {
   */
   public function testNormalizeNameWithUnderscoreSeparator() {
     $this->assertEquals(
-      'Hallo_Welt', PapayaUtilFile::normalizeName('Hallo Welt', 15, 'de', '_')
+      'Hallo_Welt', \PapayaUtilFile::normalizeName('Hallo Welt', 15, 'de', '_')
     );
   }
 

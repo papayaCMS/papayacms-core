@@ -35,7 +35,7 @@ class PapayaTemplateSimpleScannerStatusCssCommentTest extends PapayaTestCase {
    */
   public function testIsEndTokenExpectingTrue() {
     $token = new \PapayaTemplateSimpleScannerToken(
-      PapayaTemplateSimpleScannerToken::COMMENT_END, 0, ''
+      \PapayaTemplateSimpleScannerToken::COMMENT_END, 0, ''
     );
     $status = new \PapayaTemplateSimpleScannerStatusCssComment();
     $this->assertTrue($status->isEndToken($token));

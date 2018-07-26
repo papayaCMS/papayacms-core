@@ -32,7 +32,7 @@ class PapayaUiMessageXmlTest extends PapayaTestCase {
   */
   public function testAppendToWithXmlElements() {
     $message = new \PapayaUiMessageXml(
-      PapayaUiMessage::SEVERITY_ERROR, 'sample', /** @lang XML */'<b>foo</b>', TRUE
+      \PapayaUiMessage::SEVERITY_ERROR, 'sample', /** @lang XML */'<b>foo</b>', TRUE
     );
     $this->assertEquals(
       /** @lang XML */'<error event="sample" occured="yes"><b>foo</b></error>', $message->getXml()

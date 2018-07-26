@@ -49,7 +49,7 @@ class PapayaUiImagesTest extends PapayaTestCase {
   public function testAddIgnoreExisting() {
     $images = new \PapayaUiImages();
     $images->add(array('test' => 'success.png'));
-    $images->add(array('test' => 'fail.png'), PapayaUiImages::DUPLICATES_IGNORE);
+    $images->add(array('test' => 'fail.png'), \PapayaUiImages::DUPLICATES_IGNORE);
     $this->assertAttributeEquals(
       array('test' => 'success.png'),
       '_images',
@@ -63,7 +63,7 @@ class PapayaUiImagesTest extends PapayaTestCase {
   public function testAddOverwriteExisting() {
     $images = new \PapayaUiImages();
     $images->add(array('test' => 'fail.png'));
-    $images->add(array('test' => 'success.png'), PapayaUiImages::DUPLICATES_OVERWRITE);
+    $images->add(array('test' => 'success.png'), \PapayaUiImages::DUPLICATES_OVERWRITE);
     $this->assertAttributeEquals(
       array('test' => 'success.png'),
       '_images',

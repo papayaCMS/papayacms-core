@@ -23,7 +23,7 @@ class PapayaFilterTextTest extends PapayaTestCase {
   public function testConstructorWithOptionsParameter() {
     $filter = new \PapayaFilterText(PapayaFilterText::ALLOW_DIGITS);
     $this->assertAttributeEquals(
-      PapayaFilterText::ALLOW_DIGITS, '_options', $filter
+      \PapayaFilterText::ALLOW_DIGITS, '_options', $filter
     );
   }
 
@@ -37,7 +37,7 @@ class PapayaFilterTextTest extends PapayaTestCase {
    * @throws PapayaFilterExceptionEmpty
    */
   public function testValidateWithValidValuesExpectingTrue(
-    $value, $options = PapayaFilterText::ALLOW_SPACES
+    $value, $options = \PapayaFilterText::ALLOW_SPACES
   ) {
     $filter = new \PapayaFilterText($options);
     $this->assertTrue($filter->validate($value));
@@ -53,7 +53,7 @@ class PapayaFilterTextTest extends PapayaTestCase {
    * @throws PapayaFilterExceptionEmpty
    */
   public function testValidateWithInvalidValuesExpectingException(
-    $value, $options = PapayaFilterText::ALLOW_SPACES
+    $value, $options = \PapayaFilterText::ALLOW_SPACES
   ) {
     $filter = new \PapayaFilterText($options);
     $this->expectException(PapayaFilterExceptionCharacterInvalid::class);
@@ -99,7 +99,7 @@ class PapayaFilterTextTest extends PapayaTestCase {
    * @param int $options
    */
   public function testFilterValues(
-    $expected, $value, $options = PapayaFilterText::ALLOW_SPACES
+    $expected, $value, $options = \PapayaFilterText::ALLOW_SPACES
   ) {
     $filter = new \PapayaFilterText($options);
     $this->assertEquals($expected, $filter->filter($value));
@@ -115,8 +115,8 @@ class PapayaFilterTextTest extends PapayaTestCase {
       array('Hello (first) World!'),
       array('Hello [first] World!'),
       array(',-_'),
-      array('Hello 2. World!', PapayaFilterText::ALLOW_SPACES | PapayaFilterText::ALLOW_DIGITS),
-      array("foo\nbar", PapayaFilterText::ALLOW_LINES)
+      array('Hello 2. World!', \PapayaFilterText::ALLOW_SPACES | \PapayaFilterText::ALLOW_DIGITS),
+      array("foo\nbar", \PapayaFilterText::ALLOW_LINES)
     );
   }
 
@@ -137,10 +137,10 @@ class PapayaFilterTextTest extends PapayaTestCase {
       array('HelloWorld', 'Hello World', 0),
       array(
         'Hello 2. World!', 'Hello 2. World!',
-        PapayaFilterText::ALLOW_SPACES | PapayaFilterText::ALLOW_DIGITS
+        \PapayaFilterText::ALLOW_SPACES | \PapayaFilterText::ALLOW_DIGITS
       ),
       array('Hello . World!', 'Hello 2. World!'),
-      array("foo\nbar", "foo\nbar", PapayaFilterText::ALLOW_LINES),
+      array("foo\nbar", "foo\nbar", \PapayaFilterText::ALLOW_LINES),
       array('foobar', "foo\nbar")
     );
   }

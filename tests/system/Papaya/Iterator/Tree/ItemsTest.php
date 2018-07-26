@@ -38,7 +38,7 @@ class PapayaIteratorTreeItemsTest extends PapayaTestCase {
    */
   public function testIterationOnArrayValues() {
     $iterator = new \PapayaIteratorTreeItems(
-      array('1', '2', '3'), PapayaIteratorTreeItems::ATTACH_TO_VALUES
+      array('1', '2', '3'), \PapayaIteratorTreeItems::ATTACH_TO_VALUES
     );
     $iterator->attachItemIterator(2, array(2 => '2.1'));
 

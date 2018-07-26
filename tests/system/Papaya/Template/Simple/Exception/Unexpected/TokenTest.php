@@ -22,7 +22,7 @@ class PapayaTemplateSimpleExceptionUnexpectedTokenTest extends PapayaTestCase {
   */
   public function testConstructor() {
     $expectedToken = new \PapayaTemplateSimpleScannerToken(
-      PapayaTemplateSimpleScannerToken::TEXT, 42, 'sample'
+      \PapayaTemplateSimpleScannerToken::TEXT, 42, 'sample'
     );
     $e = new \PapayaTemplateSimpleExceptionUnexpectedToken(
       $expectedToken, array(PapayaTemplateSimpleScannerToken::VALUE_NAME)

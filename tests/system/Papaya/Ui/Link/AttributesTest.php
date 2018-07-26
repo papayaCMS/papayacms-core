@@ -62,12 +62,12 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
   public function testSetPopupWithAllparameters() {
     $attributes = new \PapayaUiLinkAttributes();
     $attributes->setPopup(
-      'sample', '80%', '90%', '50', '60', PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
+      'sample', '80%', '90%', '50', '60', \PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
     );
     $this->assertEquals('50', $attributes->popupTop);
     $this->assertEquals('60', $attributes->popupLeft);
     $this->assertEquals(
-      PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO, $attributes->popupOptions
+      \PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO, $attributes->popupOptions
     );
   }
 
@@ -79,8 +79,8 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid options definition: only one scrollbars option can be set.');
     $attributes->popupOptions = (
-      PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS |
-      PapayaUiLinkAttributes::OPTION_SCROLLBARS_NEVER
+      \PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS |
+      \PapayaUiLinkAttributes::OPTION_SCROLLBARS_NEVER
     );
   }
 
@@ -181,12 +181,12 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
           '&quot;scrollBars&quot;:&quot;yes&quot;}"/>',
         NULL,
         NULL,
-        PapayaUiLinkAttributes::OPTION_RESIZEABLE |
-        PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS |
-        PapayaUiLinkAttributes::OPTION_TOOLBAR |
-        PapayaUiLinkAttributes::OPTION_MENUBAR |
-        PapayaUiLinkAttributes::OPTION_LOCATIONBAR |
-        PapayaUiLinkAttributes::OPTION_STATUSBAR
+        \PapayaUiLinkAttributes::OPTION_RESIZEABLE |
+        \PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS |
+        \PapayaUiLinkAttributes::OPTION_TOOLBAR |
+        \PapayaUiLinkAttributes::OPTION_MENUBAR |
+        \PapayaUiLinkAttributes::OPTION_LOCATIONBAR |
+        \PapayaUiLinkAttributes::OPTION_STATUSBAR
       ),
       'scrollbars auto' => array(
         '<sample target="sampleTarget"'.
@@ -196,7 +196,7 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
           '&quot;scrollBars&quot;:&quot;auto&quot;}"/>',
         NULL,
         NULL,
-        PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
+        \PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
       ),
       'position' => array(
         '<sample target="sampleTarget"'.
@@ -238,12 +238,12 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
         ),
         NULL,
         NULL,
-        PapayaUiLinkAttributes::OPTION_RESIZEABLE |
-        PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS |
-        PapayaUiLinkAttributes::OPTION_TOOLBAR |
-        PapayaUiLinkAttributes::OPTION_MENUBAR |
-        PapayaUiLinkAttributes::OPTION_LOCATIONBAR |
-        PapayaUiLinkAttributes::OPTION_STATUSBAR
+        \PapayaUiLinkAttributes::OPTION_RESIZEABLE |
+        \PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS |
+        \PapayaUiLinkAttributes::OPTION_TOOLBAR |
+        \PapayaUiLinkAttributes::OPTION_MENUBAR |
+        \PapayaUiLinkAttributes::OPTION_LOCATIONBAR |
+        \PapayaUiLinkAttributes::OPTION_STATUSBAR
       ),
       'scrollbars auto' => array(
         array(
@@ -258,7 +258,7 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
         ),
         NULL,
         NULL,
-        PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
+        \PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
       ),
       'position' => array(
         array(

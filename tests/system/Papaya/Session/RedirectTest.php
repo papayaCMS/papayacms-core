@@ -33,12 +33,12 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   * @covers \PapayaSessionRedirect::__construct
   */
   public function testConstructorWithAllParameters() {
-    $redirect = new \PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
+    $redirect = new \PapayaSessionRedirect('sid', '42', \PapayaSessionId::SOURCE_PATH, 'test');
     $this->assertAttributeEquals(
       '42', '_sessionId', $redirect
     );
     $this->assertAttributeEquals(
-      PapayaSessionId::SOURCE_PATH, '_transport', $redirect
+      \PapayaSessionId::SOURCE_PATH, '_transport', $redirect
     );
     $this->assertAttributeEquals(
       'test', '_reason', $redirect
@@ -49,7 +49,7 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   * @covers \PapayaSessionRedirect::url
   */
   public function testUrlSet() {
-    $redirect = new \PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
+    $redirect = new \PapayaSessionRedirect('sid', '42', \PapayaSessionId::SOURCE_PATH, 'test');
     $url = $this->createMock(Url::class);
     $redirect->url($url);
     $this->assertAttributeSame(
@@ -61,7 +61,7 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   * @covers \PapayaSessionRedirect::url
   */
   public function testUrlGetAfterSet() {
-    $redirect = new \PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
+    $redirect = new \PapayaSessionRedirect('sid', '42', \PapayaSessionId::SOURCE_PATH, 'test');
     $url = $this->createMock(Url::class);
     $redirect->url($url);
     $this->assertSame(
@@ -73,7 +73,7 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   * @covers \PapayaSessionRedirect::url
   */
   public function testUrlGetCloningRequestUrl() {
-    $redirect = new \PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
+    $redirect = new \PapayaSessionRedirect('sid', '42', \PapayaSessionId::SOURCE_PATH, 'test');
     $redirect->papaya(
       $this->mockPapaya()->application()
     );
@@ -160,7 +160,7 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
       'add query and path' => array(
         'http://www.test.tld/sid42/test.html?sid=42',
         'http://www.test.tld/test.html',
-        PapayaSessionId::SOURCE_PATH | PapayaSessionId::SOURCE_QUERY
+        \PapayaSessionId::SOURCE_PATH | \PapayaSessionId::SOURCE_QUERY
       ),
       'remove query and path' => array(
         'http://www.test.tld/test.html',
@@ -170,17 +170,17 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
       'add query, remove path' => array(
         'http://www.test.tld/test.html?sid=42',
         'http://www.test.tld/sid42/test.html',
-        PapayaSessionId::SOURCE_QUERY
+        \PapayaSessionId::SOURCE_QUERY
       ),
       'add path, remove query' => array(
         'http://www.test.tld/sid42/test.html',
         'http://www.test.tld/test.html?sid=42',
-        PapayaSessionId::SOURCE_PATH
+        \PapayaSessionId::SOURCE_PATH
       ),
       'add path, with session name' => array(
         'http://www.test.tld/sidfoo42/test.html',
         'http://www.test.tld/sid42/test.html',
-        PapayaSessionId::SOURCE_PATH,
+        \PapayaSessionId::SOURCE_PATH,
         'foo'
       )
     );

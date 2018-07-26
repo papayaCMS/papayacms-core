@@ -23,7 +23,7 @@ class PapayaUiDialogButtonTest extends PapayaTestCase {
   public function testConstructor() {
     $button = new \PapayaUiDialogButton_TestProxy();
     $this->assertAttributeEquals(
-      PapayaUiDialogButton::ALIGN_RIGHT,
+      \PapayaUiDialogButton::ALIGN_RIGHT,
       '_align',
       $button
     );
@@ -35,7 +35,7 @@ class PapayaUiDialogButtonTest extends PapayaTestCase {
   public function testConstructorWithAlign() {
     $button = new \PapayaUiDialogButton_TestProxy(PapayaUiDialogButton::ALIGN_LEFT);
     $this->assertAttributeEquals(
-      PapayaUiDialogButton::ALIGN_LEFT,
+      \PapayaUiDialogButton::ALIGN_LEFT,
       '_align',
       $button
     );
@@ -48,7 +48,7 @@ class PapayaUiDialogButtonTest extends PapayaTestCase {
     $button = new \PapayaUiDialogButton_TestProxy();
     $button->setAlign(PapayaUiDialogButton::ALIGN_LEFT);
     $this->assertAttributeEquals(
-      PapayaUiDialogButton::ALIGN_LEFT,
+      \PapayaUiDialogButton::ALIGN_LEFT,
       '_align',
       $button
     );

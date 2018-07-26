@@ -46,7 +46,7 @@ class PapayaResponseTest extends PapayaTestCase {
   public function testHelperGetHelperImplizitCreate() {
     $response = new \PapayaResponse();
     $this->assertInstanceOf(
-      PapayaResponseHelper::class, $response->helper()
+      \PapayaResponseHelper::class, $response->helper()
     );
   }
 
@@ -79,7 +79,7 @@ class PapayaResponseTest extends PapayaTestCase {
   public function testHeadersGetHeadersImplizitCreate() {
     $response = new \PapayaResponse();
     $this->assertInstanceOf(
-      PapayaResponseHeaders::class, $response->headers()
+      \PapayaResponseHeaders::class, $response->headers()
     );
   }
 
@@ -112,7 +112,7 @@ class PapayaResponseTest extends PapayaTestCase {
   public function testContentGetContentImplizitCreate() {
     $response = new \PapayaResponse();
     $this->assertInstanceOf(
-      PapayaResponseContent::class, $response->content()
+      \PapayaResponseContent::class, $response->content()
     );
   }
 

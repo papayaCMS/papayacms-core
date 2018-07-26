@@ -26,7 +26,7 @@ class PapayaApplicationProfileOptionsTest extends PapayaTestCase {
     $profile = new Options();
     $options = $profile->createObject($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaConfiguration::class,
+      \PapayaConfiguration::class,
       $options
     );
   }

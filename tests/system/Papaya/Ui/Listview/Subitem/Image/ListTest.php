@@ -24,10 +24,10 @@ class PapayaUiListviewSubitemImageListTest extends PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
     $icons = $this->createMock(PapayaUiIconList::class);
     $subitem = new \PapayaUiListviewSubitemImageList(
-      $icons, 'foo', PapayaUiListviewSubitemImageList::VALIDATE_BITMASK
+      $icons, 'foo', \PapayaUiListviewSubitemImageList::VALIDATE_BITMASK
     );
     $this->assertEquals(
-      PapayaUiListviewSubitemImageList::VALIDATE_BITMASK, $subitem->selectionMode
+      \PapayaUiListviewSubitemImageList::VALIDATE_BITMASK, $subitem->selectionMode
     );
   }
 
@@ -128,7 +128,7 @@ class PapayaUiListviewSubitemImageListTest extends PapayaTestCase {
     $subitem = new \PapayaUiListviewSubitemImageList(
       $icons,
       array('foo' => TRUE),
-      PapayaUiListviewSubitemImageList::VALIDATE_KEYS
+      \PapayaUiListviewSubitemImageList::VALIDATE_KEYS
     );
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
@@ -184,7 +184,7 @@ class PapayaUiListviewSubitemImageListTest extends PapayaTestCase {
     $subitem = new \PapayaUiListviewSubitemImageList(
       $icons,
       5,
-      PapayaUiListviewSubitemImageList::VALIDATE_BITMASK
+      \PapayaUiListviewSubitemImageList::VALIDATE_BITMASK
     );
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));

@@ -133,7 +133,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    */
   public function testValidateWithProfileNameExpectingTrue() {
     $this->assertTrue(
-      PapayaFilterFactory::validate('foo@bar.tld', PapayaFilter::IS_EMAIL)
+      \PapayaFilterFactory::validate('foo@bar.tld', \PapayaFilter::IS_EMAIL)
     );
   }
 
@@ -142,7 +142,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    */
   public function testValidateWithEmptyValueExpectingFalse() {
     $this->assertFalse(
-      PapayaFilterFactory::validate('', PapayaFilter::IS_EMAIL)
+      \PapayaFilterFactory::validate('', \PapayaFilter::IS_EMAIL)
     );
   }
 
@@ -151,7 +151,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    */
   public function testValidateWithEmptyValueNotMandatoryExpectingTrue() {
     $this->assertTrue(
-      PapayaFilterFactory::validate('', PapayaFilter::IS_EMAIL, FALSE)
+      \PapayaFilterFactory::validate('', \PapayaFilter::IS_EMAIL, FALSE)
     );
   }
 
@@ -160,7 +160,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    */
   public function testMatches() {
     $this->assertTrue(
-      PapayaFilterFactory::matches('foo', '(^[a-z]+$)')
+      \PapayaFilterFactory::matches('foo', '(^[a-z]+$)')
     );
   }
 
@@ -169,7 +169,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    */
   public function testMatchesExpectingFalse() {
     $this->assertFalse(
-      PapayaFilterFactory::matches('', '(^[a-z]+$)')
+      \PapayaFilterFactory::matches('', '(^[a-z]+$)')
     );
   }
 
@@ -178,7 +178,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    */
   public function testMatchesNotMandatory() {
     $this->assertTrue(
-      PapayaFilterFactory::matches('', '(^[a-z]+$)', FALSE)
+      \PapayaFilterFactory::matches('', '(^[a-z]+$)', FALSE)
     );
   }
 
@@ -188,7 +188,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
   public function testFilterCastsValue() {
     $this->assertSame(
       42,
-      PapayaFilterFactory::filter('42', PapayaFilter::IS_INTEGER)
+      \PapayaFilterFactory::filter('42', \PapayaFilter::IS_INTEGER)
     );
   }
 
@@ -197,7 +197,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    */
   public function testValidateUsingCallStaticMagicMethod() {
     $this->assertTrue(
-      PapayaFilterFactory::isEmail('foo@bar.tld')
+      \PapayaFilterFactory::isEmail('foo@bar.tld')
     );
   }
 
@@ -206,7 +206,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    */
   public function testValidateUsingCallStaticMagicMethodExpectingFalse() {
     $this->assertFalse(
-      PapayaFilterFactory::isEmail('')
+      \PapayaFilterFactory::isEmail('')
     );
   }
 
@@ -215,7 +215,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
    */
   public function testValidateUsingCallStaticMagicMethodNotMandatory() {
     $this->assertTrue(
-      PapayaFilterFactory::isEmail('', FALSE)
+      \PapayaFilterFactory::isEmail('', FALSE)
     );
   }
 
@@ -225,7 +225,7 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
   public function testValidateUsingCallStaticMagicMethodWithoutArguments() {
     $this->expectException(InvalidArgumentException::class);
     /** @noinspection PhpParamsInspection */
-    PapayaFilterFactory::isEmail();
+    \PapayaFilterFactory::isEmail();
   }
 
   /**
@@ -234,6 +234,6 @@ class PapayaFilterFactoryTest extends PapayaTestCase {
   public function testCallUnknownFunctionExpectingException() {
     $this->expectException(LogicException::class);
     /** @noinspection PhpUndefinedMethodInspection */
-    PapayaFilterFactory::someUnknownFunction();
+    \PapayaFilterFactory::someUnknownFunction();
   }
 }

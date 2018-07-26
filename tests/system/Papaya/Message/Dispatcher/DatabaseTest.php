@@ -269,12 +269,12 @@ class PapayaMessageDispatcherDatabaseTest extends PapayaTestCase {
 
   public static function allowDataProvider() {
     return array(
-      array(FALSE, PapayaMessage::SEVERITY_INFO, FALSE, FALSE),
-      array(TRUE, PapayaMessage::SEVERITY_INFO, TRUE, FALSE),
-      array(FALSE, PapayaMessage::SEVERITY_DEBUG, TRUE, FALSE),
-      array(TRUE, PapayaMessage::SEVERITY_INFO, TRUE, TRUE),
-      array(TRUE, PapayaMessage::SEVERITY_DEBUG, TRUE, TRUE),
-      array(FALSE, PapayaMessage::SEVERITY_DEBUG, TRUE, FALSE)
+      array(FALSE, \PapayaMessage::SEVERITY_INFO, FALSE, FALSE),
+      array(TRUE, \PapayaMessage::SEVERITY_INFO, TRUE, FALSE),
+      array(FALSE, \PapayaMessage::SEVERITY_DEBUG, TRUE, FALSE),
+      array(TRUE, \PapayaMessage::SEVERITY_INFO, TRUE, TRUE),
+      array(TRUE, \PapayaMessage::SEVERITY_DEBUG, TRUE, TRUE),
+      array(FALSE, \PapayaMessage::SEVERITY_DEBUG, TRUE, FALSE)
     );
   }
 }

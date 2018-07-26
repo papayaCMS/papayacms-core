@@ -34,7 +34,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   public function testPluginsGetWithImplicitCreate() {
     $loader = new \PapayaPluginLoader();
     $this->assertInstanceOf(
-      PapayaPluginList::class, $loader->plugins()
+      \PapayaPluginList::class, $loader->plugins()
     );
   }
 
@@ -55,7 +55,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   public function testOptionsGetWithImplicitCreate() {
     $loader = new \PapayaPluginLoader();
     $this->assertInstanceOf(
-      PapayaPluginOptionGroups::class, $loader->options()
+      \PapayaPluginOptionGroups::class, $loader->options()
     );
   }
 
@@ -339,7 +339,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers \PapayaPluginLoader
   */
   public function testGetWithAutloaderPrefix() {
-    PapayaAutoloader::clear();
+    \PapayaAutoloader::clear();
     $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->any())
@@ -371,16 +371,16 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
         '/Plugin/Loader/Autoload/Prefix/' => str_replace('\\', '/', __DIR__).'/TestData/'
       ),
       '_paths',
-      PapayaAutoloader::class
+      \PapayaAutoloader::class
     );
-    PapayaAutoloader::clear();
+    \PapayaAutoloader::clear();
   }
 
   /**
   * @covers \PapayaPluginLoader
   */
   public function testGetWithAutloaderClassmap() {
-    PapayaAutoloader::clear();
+    \PapayaAutoloader::clear();
     $loader = new \PapayaPluginLoader();
     $loader->plugins(
       $this->getPluginListFixture(
@@ -395,7 +395,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
       )
     );
     $this->assertInstanceOf('PluginLoader_SampleClass', $loader->get('123'));
-    PapayaAutoloader::clear();
+    \PapayaAutoloader::clear();
   }
 
 
@@ -433,7 +433,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers \PapayaPluginLoader
   */
   public function testGetFileName() {
-    PapayaAutoloader::clear();
+    \PapayaAutoloader::clear();
     $loader = new \PapayaPluginLoader();
     $loader->papaya($this->mockPapaya()->application());
     $loader->plugins(
@@ -455,16 +455,16 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
         '/Plugin/Loader/Autoload/Prefix/' => '/base/path/sample/path/'
       ),
       '_paths',
-      PapayaAutoloader::class
+      \PapayaAutoloader::class
     );
-    PapayaAutoloader::clear();
+    \PapayaAutoloader::clear();
   }
 
   /**
   * @covers \PapayaPluginLoader
   */
   public function testGetFileNameFromClassmap() {
-    PapayaAutoloader::clear();
+    \PapayaAutoloader::clear();
     $loader = new \PapayaPluginLoader();
     $loader->papaya($this->mockPapaya()->application());
     $loader->plugins(
@@ -481,14 +481,14 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
     $this->assertEquals(
       $path.'SampleClass.php', $loader->getFileName('123')
     );
-    PapayaAutoloader::clear();
+    \PapayaAutoloader::clear();
   }
 
   /**
   * @covers \PapayaPluginLoader
   */
   public function testGetFileNameWithPathFromOptions() {
-    PapayaAutoloader::clear();
+    \PapayaAutoloader::clear();
     $loader = new \PapayaPluginLoader();
     $loader->papaya(
       $this->mockPapaya()->application(
@@ -511,14 +511,14 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
     $this->assertEquals(
       '/foo/bar/modules/sample/path/sample.php', $loader->getFileName('123')
     );
-    PapayaAutoloader::clear();
+    \PapayaAutoloader::clear();
   }
 
   /**
   * @covers \PapayaPluginLoader
   */
   public function testGetFileNameWithComposerPath() {
-    PapayaAutoloader::clear();
+    \PapayaAutoloader::clear();
     $loader = new \PapayaPluginLoader();
     $loader->papaya($this->mockPapaya()->application());
     $loader->plugins(
@@ -535,7 +535,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
     $this->assertStringEndsWith(
       '/vendor/sample/path/sample.php', $loader->getFileName('123')
     );
-    PapayaAutoloader::clear();
+    \PapayaAutoloader::clear();
   }
 
   /**

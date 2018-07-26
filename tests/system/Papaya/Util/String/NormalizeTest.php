@@ -26,7 +26,7 @@ class PapayaUtilStringNormalizeTest extends PapayaTestCase {
   public function testToHttpHeaderName($string, $expected) {
     $this->assertEquals(
       $expected,
-      PapayaUtilStringNormalize::toHttpHeaderName($string)
+      \PapayaUtilStringNormalize::toHttpHeaderName($string)
     );
   }
 

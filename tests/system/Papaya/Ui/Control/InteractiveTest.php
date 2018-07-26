@@ -24,7 +24,7 @@ class PapayaUiControlInteractiveTest extends PapayaTestCase {
     $dialog = new \PapayaUiControlInteractive_TestProxy();
     $dialog->parameterMethod(PapayaUiControlInteractive::METHOD_GET);
     $this->assertAttributeEquals(
-      PapayaUiControlInteractive::METHOD_GET, '_parameterMethod', $dialog
+      \PapayaUiControlInteractive::METHOD_GET, '_parameterMethod', $dialog
     );
   }
 
@@ -34,7 +34,7 @@ class PapayaUiControlInteractiveTest extends PapayaTestCase {
   public function testParameterMethodGet() {
     $dialog = new \PapayaUiControlInteractive_TestProxy();
     $this->assertEquals(
-      PapayaUiControlInteractive::METHOD_GET,
+      \PapayaUiControlInteractive::METHOD_GET,
       $dialog->parameterMethod(PapayaUiControlInteractive::METHOD_GET)
     );
   }
@@ -80,7 +80,7 @@ class PapayaUiControlInteractiveTest extends PapayaTestCase {
     $request
       ->expects($this->once())
       ->method('getParameters')
-      ->with(PapayaRequest::SOURCE_QUERY | PapayaRequest::SOURCE_BODY)
+      ->with(PapayaRequest::SOURCE_QUERY | \PapayaRequest::SOURCE_BODY)
       ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => 'bar'))));
     $dialog = new \PapayaUiControlInteractive_TestProxy();
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
@@ -97,7 +97,7 @@ class PapayaUiControlInteractiveTest extends PapayaTestCase {
     $request
       ->expects($this->once())
       ->method('getParameterGroup')
-      ->with('group', PapayaRequest::SOURCE_QUERY | PapayaRequest::SOURCE_BODY)
+      ->with('group', \PapayaRequest::SOURCE_QUERY | \PapayaRequest::SOURCE_BODY)
       ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => 'bar'))));
     $dialog = new \PapayaUiControlInteractive_TestProxy();
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));

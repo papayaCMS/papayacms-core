@@ -75,8 +75,8 @@ class PapayaProfilerTimerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('log')
       ->with(
-        PapayaMessageLogable::GROUP_DEBUG,
-        PapayaMessage::SEVERITY_DEBUG,
+        \PapayaMessageLogable::GROUP_DEBUG,
+        \PapayaMessage::SEVERITY_DEBUG,
         $this->isType('string'),
         $this->isInstanceOf(PapayaMessageContextRuntime::class)
       );

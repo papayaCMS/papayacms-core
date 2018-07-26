@@ -36,8 +36,8 @@ class PapayaRequestLogTest extends PapayaTestCase {
   */
   public function testGetInstanceExpectingSameInstance() {
     $this->assertSame(
-      PapayaRequestLog::getInstance(TRUE),
-      PapayaRequestLog::getInstance()
+      \PapayaRequestLog::getInstance(TRUE),
+      \PapayaRequestLog::getInstance()
     );
   }
 
@@ -46,8 +46,8 @@ class PapayaRequestLogTest extends PapayaTestCase {
   */
   public function testGetInstanceExpectingDifferentInstances() {
     $this->assertNotSame(
-      PapayaRequestLog::getInstance(TRUE),
-      PapayaRequestLog::getInstance(TRUE)
+      \PapayaRequestLog::getInstance(TRUE),
+      \PapayaRequestLog::getInstance(TRUE)
     );
   }
 

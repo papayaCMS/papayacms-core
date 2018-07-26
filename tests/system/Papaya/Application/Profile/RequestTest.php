@@ -33,7 +33,7 @@ class PapayaApplicationProfileRequestTest extends PapayaTestCase {
     $profile = new Request();
     $request = $profile->createObject($application);
     $this->assertInstanceOf(
-      PapayaRequest::class,
+      \PapayaRequest::class,
       $request
     );
   }

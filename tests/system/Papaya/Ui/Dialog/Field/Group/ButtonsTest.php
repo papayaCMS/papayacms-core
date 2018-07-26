@@ -33,7 +33,7 @@ class PapayaUiDialogFieldGroupButtonsTest extends PapayaTestCase {
   public function testFieldsGetImplicitCreate() {
     $group = new \PapayaUiDialogFieldGroupButtons('Group Caption');
     $this->assertInstanceOf(
-      PapayaUiDialogButtons::class, $group->buttons()
+      \PapayaUiDialogButtons::class, $group->buttons()
     );
   }
 

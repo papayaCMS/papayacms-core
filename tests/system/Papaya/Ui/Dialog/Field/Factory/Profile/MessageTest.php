@@ -24,7 +24,7 @@ class PapayaUiDialogFieldFactoryProfileMessageTest extends PapayaTestCase {
     $options = new \PapayaUiDialogFieldFactoryOptions(
       array(
         'default' => 'some value',
-        'parameters' => PapayaMessage::SEVERITY_INFO
+        'parameters' => \PapayaMessage::SEVERITY_INFO
       )
     );
     $profile = new \PapayaUiDialogFieldFactoryProfileMessage();

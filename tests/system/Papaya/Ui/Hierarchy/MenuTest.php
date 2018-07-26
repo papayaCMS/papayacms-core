@@ -74,7 +74,7 @@ class PapayaUiHierarchyMenuTest extends PapayaTestCase {
     $menu = new \PapayaUiHierarchyMenu();
     $menu->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaUiHierarchyItems::class, $menu->items()
+      \PapayaUiHierarchyItems::class, $menu->items()
     );
     $this->assertSame(
       $papaya, $menu->papaya()

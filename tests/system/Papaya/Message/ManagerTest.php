@@ -75,14 +75,14 @@ class PapayaMessageManagerTest extends PapayaTestCase {
       ->method('dispatch')
       ->with(
         new \PapayaMessageLog(
-          PapayaMessage::SEVERITY_INFO,
-          PapayaMessageLogable::GROUP_COMMUNITY,
+          \PapayaMessage::SEVERITY_INFO,
+          \PapayaMessageLogable::GROUP_COMMUNITY,
           'TEST'
         )
       );
     $manager = new \PapayaMessageManager();
     $manager->addDispatcher($dispatcher);
-    $manager->log(PapayaMessage::SEVERITY_INFO, PapayaMessageLogable::GROUP_COMMUNITY, 'TEST');
+    $manager->log(PapayaMessage::SEVERITY_INFO, \PapayaMessageLogable::GROUP_COMMUNITY, 'TEST');
   }
 
   /**
@@ -90,7 +90,7 @@ class PapayaMessageManagerTest extends PapayaTestCase {
   */
   public function testLogWithContext() {
     $message = new \PapayaMessageLog(
-      PapayaMessage::SEVERITY_INFO, PapayaMessageLogable::GROUP_COMMUNITY, 'TEST'
+      \PapayaMessage::SEVERITY_INFO, \PapayaMessageLogable::GROUP_COMMUNITY, 'TEST'
     );
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $context */
     $context = $this->createMock(PapayaMessageContextInterface::class);
@@ -104,8 +104,8 @@ class PapayaMessageManagerTest extends PapayaTestCase {
     $manager = new \PapayaMessageManager();
     $manager->addDispatcher($dispatcher);
     $manager->log(
-      PapayaMessage::SEVERITY_INFO,
-      PapayaMessageLogable::GROUP_COMMUNITY,
+      \PapayaMessage::SEVERITY_INFO,
+      \PapayaMessageLogable::GROUP_COMMUNITY,
       'TEST',
       $context
     );
@@ -116,7 +116,7 @@ class PapayaMessageManagerTest extends PapayaTestCase {
   */
   public function testLogWithContextGroup() {
     $message = new \PapayaMessageLog(
-      PapayaMessage::SEVERITY_INFO, PapayaMessageLogable::GROUP_COMMUNITY, 'TEST'
+      \PapayaMessage::SEVERITY_INFO, \PapayaMessageLogable::GROUP_COMMUNITY, 'TEST'
     );
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $context */
     $context = $this->createMock(PapayaMessageContextInterface::class);
@@ -130,8 +130,8 @@ class PapayaMessageManagerTest extends PapayaTestCase {
     $manager = new \PapayaMessageManager();
     $manager->addDispatcher($dispatcher);
     $manager->log(
-      PapayaMessage::SEVERITY_INFO,
-      PapayaMessageLogable::GROUP_COMMUNITY,
+      \PapayaMessage::SEVERITY_INFO,
+      \PapayaMessageLogable::GROUP_COMMUNITY,
       'TEST',
       $context
     );
@@ -142,7 +142,7 @@ class PapayaMessageManagerTest extends PapayaTestCase {
   */
   public function testLogWithData() {
     $message = new \PapayaMessageLog(
-      PapayaMessage::SEVERITY_INFO, PapayaMessageLogable::GROUP_COMMUNITY, 'TEST'
+      \PapayaMessage::SEVERITY_INFO, \PapayaMessageLogable::GROUP_COMMUNITY, 'TEST'
     );
     $message->context()->append(new \PapayaMessageContextVariable('data'));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDispatcher $dispatcher */
@@ -154,8 +154,8 @@ class PapayaMessageManagerTest extends PapayaTestCase {
     $manager = new \PapayaMessageManager();
     $manager->addDispatcher($dispatcher);
     $manager->log(
-      PapayaMessage::SEVERITY_INFO,
-      PapayaMessageLogable::GROUP_COMMUNITY,
+      \PapayaMessage::SEVERITY_INFO,
+      \PapayaMessageLogable::GROUP_COMMUNITY,
       'TEST',
       'data'
     );
@@ -231,7 +231,7 @@ class PapayaMessageManagerTest extends PapayaTestCase {
     $manager->setUp($options);
 
     $this->assertAttributeGreaterThan(
-      0, '_startTime', PapayaMessageContextRuntime::class
+      0, '_startTime', \PapayaMessageContextRuntime::class
     );
     $this->assertEquals(E_ALL & ~E_STRICT, error_reporting());
 

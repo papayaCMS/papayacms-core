@@ -145,10 +145,10 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
     $errors = new \PapayaXmlErrors();
     $message = $errors->getMessageFromError($error);
     $this->assertEquals(
-      PapayaMessageLogable::GROUP_SYSTEM, $message->getGroup()
+      \PapayaMessageLogable::GROUP_SYSTEM, $message->getGroup()
     );
     $this->assertEquals(
-      PapayaMessage::SEVERITY_WARNING, $message->getType()
+      \PapayaMessage::SEVERITY_WARNING, $message->getType()
     );
     $this->assertEquals(
       '42: Test in line 23 at char 21', $message->getMessage()
@@ -169,7 +169,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
     $errors = new \PapayaXmlErrors();
     $context = $errors->getMessageFromError($error)->context();
     $this->assertInstanceOf(
-      PapayaMessageContextFile::class, $context->current()
+      \PapayaMessageContextFile::class, $context->current()
     );
   }
 

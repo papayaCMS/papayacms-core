@@ -120,7 +120,7 @@ class PapayaUiDialogFieldTest extends PapayaTestCase {
     $field = new \PapayaUiDialogField_TestProxy();
     $field->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaUiDialogElementDescription::class, $description = $field->description()
+      \PapayaUiDialogElementDescription::class, $description = $field->description()
     );
     $this->assertSame($papaya, $description->papaya());
   }
@@ -237,7 +237,7 @@ class PapayaUiDialogFieldTest extends PapayaTestCase {
     $field->setFilter($filter);
     $field->setMandatory(FALSE);
     $this->assertInstanceOf(
-      PapayaFilterLogicalOr::class, $field->getFilter()
+      \PapayaFilterLogicalOr::class, $field->getFilter()
     );
   }
 

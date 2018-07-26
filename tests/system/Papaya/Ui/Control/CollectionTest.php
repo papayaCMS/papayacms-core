@@ -275,7 +275,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
   public function testAddWithInvalidItemClassExpectingException() {
     $item = $this->getMockItemFixture();
     $collection = new \PapayaUiControlCollection_TestProxy();
-    $collection->_itemClass = PapayaUiControlInteractive::class;
+    $collection->_itemClass = \PapayaUiControlInteractive::class;
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Invalid item class "Mock_PapayaUiControl');
     $collection->add($item);
@@ -350,7 +350,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     $itemOne = $this->createMock(PapayaUiControlCollection_TestItem::class);
     $itemTwo = $this->getMockItemFixture();
     $collection = new \PapayaUiControlCollection_TestProxy();
-    $collection->_itemClass = PapayaUiControlCollection_TestItem::class;
+    $collection->_itemClass = \PapayaUiControlCollection_TestItem::class;
     $collection->add($itemOne);
     $this->expectException(InvalidArgumentException::class);
     $collection->set(0, $itemTwo);
@@ -600,9 +600,9 @@ class PapayaUiControlCollection_TestProxy extends PapayaUiControlCollection {
   public /** @noinspection PropertyInitializationFlawsInspection */
     $_tagName = '';
 
-  public $_itemClass = PapayaUiControl::class;
+  public $_itemClass = \PapayaUiControl::class;
 
-  public $_ownerClass = PapayaObject::class;
+  public $_ownerClass = \PapayaObject::class;
 }
 
 abstract class PapayaUiControlCollection_TestItem

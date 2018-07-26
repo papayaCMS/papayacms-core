@@ -79,13 +79,13 @@ class PapayaTemplateSimpleParserOutputTest extends PapayaTestCase {
   public function testWithValue() {
     $tokens = array(
       new \PapayaTemplateSimpleScannerToken(
-        PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, '/*$foo*/'
+        \PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, '/*$foo*/'
       ),
       new \PapayaTemplateSimpleScannerToken(
-        PapayaTemplateSimpleScannerToken::WHITESPACE, 6, ' '
+        \PapayaTemplateSimpleScannerToken::WHITESPACE, 6, ' '
       ),
       new \PapayaTemplateSimpleScannerToken(
-        PapayaTemplateSimpleScannerToken::VALUE_DEFAULT, 7, 'bar'
+        \PapayaTemplateSimpleScannerToken::VALUE_DEFAULT, 7, 'bar'
       )
     );
     $parser = new \PapayaTemplateSimpleParserOutput($tokens);

@@ -24,10 +24,10 @@ class PapayaApplicationTest extends PapayaTestCase {
   * @covers \PapayaApplication::getInstance
   */
   public function testGetInstanceOneInstance() {
-    $app1 = PapayaApplication::getInstance();
-    $app2 = PapayaApplication::getInstance();
+    $app1 = \PapayaApplication::getInstance();
+    $app2 = \PapayaApplication::getInstance();
     $this->assertInstanceOf(
-      PapayaApplication::class,
+      \PapayaApplication::class,
       $app1
     );
     $this->assertSame(
@@ -38,10 +38,10 @@ class PapayaApplicationTest extends PapayaTestCase {
   * @covers \PapayaApplication::getInstance
   */
   public function testGetInstanceTwoInstances() {
-    $app1 = PapayaApplication::getInstance();
-    $app2 = PapayaApplication::getInstance(TRUE);
+    $app1 = \PapayaApplication::getInstance();
+    $app2 = \PapayaApplication::getInstance(TRUE);
     $this->assertInstanceOf(
-      PapayaApplication::class,
+      \PapayaApplication::class,
       $app1
     );
     $this->assertNotSame(
@@ -119,7 +119,7 @@ class PapayaApplicationTest extends PapayaTestCase {
     $profileTwo = $this->createMock(Profile::class);
     $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profileOne);
-    $app->registerProfile('SampleClass', $profileTwo, PapayaApplication::DUPLICATE_IGNORE);
+    $app->registerProfile('SampleClass', $profileTwo, \PapayaApplication::DUPLICATE_IGNORE);
     $this->assertSame(
       array('sampleclass' => $profileOne),
       $this->readAttribute($app, '_profiles')
@@ -136,7 +136,7 @@ class PapayaApplicationTest extends PapayaTestCase {
     $profileTwo = $this->createMock(Profile::class);
     $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profileOne);
-    $app->registerProfile('SampleClass', $profileTwo, PapayaApplication::DUPLICATE_OVERWRITE);
+    $app->registerProfile('SampleClass', $profileTwo, \PapayaApplication::DUPLICATE_OVERWRITE);
     $this->assertSame(
       array('sampleclass' => $profileTwo),
       $this->readAttribute($app, '_profiles')
@@ -155,7 +155,7 @@ class PapayaApplicationTest extends PapayaTestCase {
     $app->registerProfile('SampleClass', $profileOne);
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Duplicate application object profile:');
-    $app->registerProfile('SampleClass', $profileTwo, PapayaApplication::DUPLICATE_ERROR);
+    $app->registerProfile('SampleClass', $profileTwo, \PapayaApplication::DUPLICATE_ERROR);
   }
 
   /**
@@ -243,7 +243,7 @@ class PapayaApplicationTest extends PapayaTestCase {
     $objectOne = new stdClass();
     $app = new \PapayaApplication();
     $app->setObject('SampleClass', $objectOne);
-    $app->setObject('SampleClass', new stdClass(), PapayaApplication::DUPLICATE_IGNORE);
+    $app->setObject('SampleClass', new stdClass(), \PapayaApplication::DUPLICATE_IGNORE);
     $this->assertSame(
       $objectOne,
       $app->getObject('SampleClass')
@@ -257,7 +257,7 @@ class PapayaApplicationTest extends PapayaTestCase {
     $objectTwo = new stdClass();
     $app = new \PapayaApplication();
     $app->setObject('SampleClass', new stdClass());
-    $app->setObject('SampleClass', $objectTwo, PapayaApplication::DUPLICATE_OVERWRITE);
+    $app->setObject('SampleClass', $objectTwo, \PapayaApplication::DUPLICATE_OVERWRITE);
     $this->assertSame(
       $objectTwo,
       $app->getObject('SampleClass')

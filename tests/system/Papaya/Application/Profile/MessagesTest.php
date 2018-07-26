@@ -26,20 +26,20 @@ class PapayaApplicationProfileMessagesTest extends PapayaTestCase {
     $profile = new Messages();
     $messages = $profile->createObject($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaMessageManager::class, $messages
+      \PapayaMessageManager::class, $messages
     );
     $dispatchers = $this->readAttribute($messages, '_dispatchers');
     $this->assertInstanceOf(
-      PapayaMessageDispatcherTemplate::class, $dispatchers[0]
+      \PapayaMessageDispatcherTemplate::class, $dispatchers[0]
     );
     $this->assertInstanceOf(
-      PapayaMessageDispatcherDatabase::class, $dispatchers[1]
+      \PapayaMessageDispatcherDatabase::class, $dispatchers[1]
     );
     $this->assertInstanceOf(
-      PapayaMessageDispatcherWildfire::class, $dispatchers[2]
+      \PapayaMessageDispatcherWildfire::class, $dispatchers[2]
     );
     $this->assertInstanceOf(
-      PapayaMessageDispatcherXhtml::class, $dispatchers[3]
+      \PapayaMessageDispatcherXhtml::class, $dispatchers[3]
     );
   }
 }

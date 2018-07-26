@@ -45,10 +45,10 @@ class PapayaDatabaseExceptionQueryTest extends PapayaTestCase {
   */
   public function testConstructorWithSeverity() {
     $exception = new Query(
-      'Sample', 42, PapayaDatabaseException::SEVERITY_INFO
+      'Sample', 42, \PapayaDatabaseException::SEVERITY_INFO
     );
     $this->assertEquals(
-      PapayaDatabaseException::SEVERITY_INFO, $exception->getSeverity()
+      \PapayaDatabaseException::SEVERITY_INFO, $exception->getSeverity()
     );
   }
 
@@ -59,7 +59,7 @@ class PapayaDatabaseExceptionQueryTest extends PapayaTestCase {
   public function testConstructorWithNullAsSeverity() {
     $exception = new Query('Sample', 42, NULL);
     $this->assertEquals(
-      PapayaDatabaseException::SEVERITY_ERROR, $exception->getSeverity()
+      \PapayaDatabaseException::SEVERITY_ERROR, $exception->getSeverity()
     );
   }
 
@@ -69,7 +69,7 @@ class PapayaDatabaseExceptionQueryTest extends PapayaTestCase {
   */
   public function testConstructorWithSql() {
     $exception = new Query(
-      'Sample', 42, PapayaDatabaseException::SEVERITY_INFO, 'Select SQL'
+      'Sample', 42, \PapayaDatabaseException::SEVERITY_INFO, 'Select SQL'
     );
     $this->assertEquals(
       'Select SQL', $exception->getStatement()

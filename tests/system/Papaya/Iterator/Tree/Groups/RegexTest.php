@@ -135,7 +135,7 @@ class PapayaIteratorTreeGroupsRegexTest extends PapayaTestCase {
       array('admin' => 'Administration', 'app' => 'Application'),
       /** @lang Text */'(^(?P<char>.))',
       'char',
-      PapayaIteratorTreeGroupsRegex::GROUP_KEYS
+      \PapayaIteratorTreeGroupsRegex::GROUP_KEYS
     );
     $this->assertEquals(
       array(

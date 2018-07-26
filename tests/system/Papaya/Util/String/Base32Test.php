@@ -26,7 +26,7 @@ class PapayaUtilStringBase32Test extends PapayaTestCase {
   public function testEncode($plain, $encoded) {
     $this->assertEquals(
       $encoded,
-      PapayaUtilStringBase32::encode($plain)
+      \PapayaUtilStringBase32::encode($plain)
     );
   }
 
@@ -39,7 +39,7 @@ class PapayaUtilStringBase32Test extends PapayaTestCase {
   public function testEncodeWithPadding($plain, $encoded) {
     $this->assertEquals(
       $encoded,
-      PapayaUtilStringBase32::encode($plain, TRUE)
+      \PapayaUtilStringBase32::encode($plain, TRUE)
     );
   }
 
@@ -52,7 +52,7 @@ class PapayaUtilStringBase32Test extends PapayaTestCase {
   public function testDecode($plain, $encoded) {
     $this->assertEquals(
       $plain,
-      PapayaUtilStringBase32::decode($encoded)
+      \PapayaUtilStringBase32::decode($encoded)
     );
   }
 
@@ -65,7 +65,7 @@ class PapayaUtilStringBase32Test extends PapayaTestCase {
   public function testDecodeWithPadding($plain, $encoded) {
     $this->assertEquals(
       $plain,
-      PapayaUtilStringBase32::decode($encoded)
+      \PapayaUtilStringBase32::decode($encoded)
     );
   }
 
@@ -76,7 +76,7 @@ class PapayaUtilStringBase32Test extends PapayaTestCase {
    */
   public function testDecodeExpectingException($encoded) {
     $this->expectException(OutOfBoundsException::class);
-    PapayaUtilStringBase32::decode($encoded);
+    \PapayaUtilStringBase32::decode($encoded);
   }
 
   /*********************************

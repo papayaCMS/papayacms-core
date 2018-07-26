@@ -21,7 +21,7 @@ class PapayaUtilRandomTest extends PapayaTestCase {
   * @covers \PapayaUtilRandom::rand
   */
   public function testRand() {
-    $random = PapayaUtilRandom::rand();
+    $random = \PapayaUtilRandom::rand();
     $this->assertGreaterThanOrEqual(0, $random);
   }
 
@@ -29,7 +29,7 @@ class PapayaUtilRandomTest extends PapayaTestCase {
   * @covers \PapayaUtilRandom::rand
   */
   public function testRandWithLimits() {
-    $random = PapayaUtilRandom::rand(1, 1);
+    $random = \PapayaUtilRandom::rand(1, 1);
     $this->assertGreaterThanOrEqual(1, $random);
   }
 
@@ -37,8 +37,8 @@ class PapayaUtilRandomTest extends PapayaTestCase {
   * @covers \PapayaUtilRandom::getId
   */
   public function testGetId() {
-    $idOne = PapayaUtilRandom::getId();
-    $idTwo = PapayaUtilRandom::getId();
+    $idOne = \PapayaUtilRandom::getId();
+    $idTwo = \PapayaUtilRandom::getId();
     $this->assertNotEquals($idOne, $idTwo);
   }
 }

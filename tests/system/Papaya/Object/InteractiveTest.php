@@ -23,7 +23,7 @@ class PapayaObjectInteractiveTest extends PapayaTestCase {
   public function testParameterMethod() {
     $parts = new \PapayaObjectInteractive_TestProxy();
     $this->assertEquals(
-      PapayaRequestParametersInterface::METHOD_MIXED_POST,
+      \PapayaRequestParametersInterface::METHOD_MIXED_POST,
       $parts->parameterMethod()
     );
   }
@@ -34,7 +34,7 @@ class PapayaObjectInteractiveTest extends PapayaTestCase {
   public function testParameterMethodChange() {
     $parts = new \PapayaObjectInteractive_TestProxy();
     $this->assertEquals(
-      PapayaRequestParametersInterface::METHOD_MIXED_GET,
+      \PapayaRequestParametersInterface::METHOD_MIXED_GET,
       $parts->parameterMethod(PapayaRequestParametersInterface::METHOD_MIXED_GET)
     );
   }
@@ -78,7 +78,7 @@ class PapayaObjectInteractiveTest extends PapayaTestCase {
     $request
       ->expects($this->once())
       ->method('getParameters')
-      ->with(PapayaRequest::SOURCE_QUERY | PapayaRequest::SOURCE_BODY)
+      ->with(PapayaRequest::SOURCE_QUERY | \PapayaRequest::SOURCE_BODY)
       ->will($this->returnValue($this->createMock(PapayaRequestParameters::class)));
     $parts = new \PapayaObjectInteractive_TestProxy();
     $parts->papaya(
@@ -97,7 +97,7 @@ class PapayaObjectInteractiveTest extends PapayaTestCase {
     $request
       ->expects($this->once())
       ->method('getParameterGroup')
-      ->with('group', PapayaRequest::SOURCE_QUERY | PapayaRequest::SOURCE_BODY)
+      ->with('group', \PapayaRequest::SOURCE_QUERY | \PapayaRequest::SOURCE_BODY)
       ->will($this->returnValue($this->createMock(PapayaRequestParameters::class)));
     $parts = new \PapayaObjectInteractive_TestProxy();
     $parts->papaya(

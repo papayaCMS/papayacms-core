@@ -24,7 +24,7 @@ class PapayaMessageDisplayTest extends PapayaTestCase {
   public function testConstructor() {
     $message = new \PapayaMessageDisplay(PapayaMessage::SEVERITY_WARNING, 'Sample Message');
     $this->assertAttributeEquals(
-      PapayaMessage::SEVERITY_WARNING,
+      \PapayaMessage::SEVERITY_WARNING,
       '_type',
       $message
     );
@@ -50,7 +50,7 @@ class PapayaMessageDisplayTest extends PapayaTestCase {
   public function testGetType() {
     $message = new \PapayaMessageDisplay(PapayaMessage::SEVERITY_WARNING, 'Sample Message');
     $this->assertEquals(
-      PapayaMessage::SEVERITY_WARNING,
+      \PapayaMessage::SEVERITY_WARNING,
       $message->getType()
     );
   }

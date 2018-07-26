@@ -33,7 +33,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
   public function testGetOnEmptyRequestEnvironmentExpecting80() {
     $_SERVER = array();
     $this->assertEquals(
-      80, PapayaUtilServerPort::get()
+      80, \PapayaUtilServerPort::get()
     );
   }
 
@@ -45,7 +45,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
       'SERVER_PORT' => 80
     );
     $this->assertEquals(
-      80, PapayaUtilServerPort::get()
+      80, \PapayaUtilServerPort::get()
     );
   }
 
@@ -57,7 +57,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
       'SERVER_PORT' => 8080
     );
     $this->assertEquals(
-      8080, PapayaUtilServerPort::get()
+      8080, \PapayaUtilServerPort::get()
     );
   }
 
@@ -70,7 +70,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
       'SERVER_PORT' => 443
     );
     $this->assertEquals(
-      443, PapayaUtilServerPort::get()
+      443, \PapayaUtilServerPort::get()
     );
   }
 
@@ -83,7 +83,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
       'SERVER_PORT' => 886
     );
     $this->assertEquals(
-      886, PapayaUtilServerPort::get()
+      886, \PapayaUtilServerPort::get()
     );
   }
 
@@ -99,7 +99,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
       'SERVER_PORT' => 8000
     );
     $this->assertEquals(
-      443, PapayaUtilServerPort::get()
+      443, \PapayaUtilServerPort::get()
     );
   }
 
@@ -115,7 +115,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
       'SERVER_PORT' => 8000
     );
     $this->assertEquals(
-      443, PapayaUtilServerPort::get()
+      443, \PapayaUtilServerPort::get()
     );
   }
 }

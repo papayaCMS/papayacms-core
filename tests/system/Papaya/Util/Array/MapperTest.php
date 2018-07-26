@@ -26,7 +26,7 @@ class PapayaUtilArrayMapperTest extends PapayaTestCase {
         42 => 'caption one',
         'foo' => 'caption two'
       ),
-      PapayaUtilArrayMapper::byIndex(
+      \PapayaUtilArrayMapper::byIndex(
         array(
           42 => array(
             'key' => 'caption one'
@@ -52,7 +52,7 @@ class PapayaUtilArrayMapperTest extends PapayaTestCase {
         42 => 'caption one',
         'foo' => 'caption two'
       ),
-      PapayaUtilArrayMapper::byIndex(
+      \PapayaUtilArrayMapper::byIndex(
         new ArrayIterator(
           array(
             42 => array(
@@ -80,7 +80,7 @@ class PapayaUtilArrayMapperTest extends PapayaTestCase {
         42 => 'caption one',
         21 => 'caption two'
       ),
-      PapayaUtilArrayMapper::byIndex(
+      \PapayaUtilArrayMapper::byIndex(
         array(
           array(
             'id' => 42,
@@ -112,7 +112,7 @@ class PapayaUtilArrayMapperTest extends PapayaTestCase {
           'title' => 'caption two'
         )
       ),
-      PapayaUtilArrayMapper::byIndex(
+      \PapayaUtilArrayMapper::byIndex(
         array(
           array(
             'id' => 42,
@@ -144,7 +144,7 @@ class PapayaUtilArrayMapperTest extends PapayaTestCase {
           'title' => 'caption two'
         )
       ),
-      PapayaUtilArrayMapper::byIndex(
+      \PapayaUtilArrayMapper::byIndex(
         array(
           array(
             'id' => 42,

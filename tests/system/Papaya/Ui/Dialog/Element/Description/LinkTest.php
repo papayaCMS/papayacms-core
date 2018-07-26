@@ -52,7 +52,7 @@ class PapayaUiDialogElementDescriptionLinkTest extends PapayaTestCase {
   public function testReferenceGetImplicitCreate() {
     $description = new \PapayaUiDialogElementDescriptionLink();
     $this->assertInstanceOf(
-      PapayaUiReference::class, $description->reference()
+      \PapayaUiReference::class, $description->reference()
     );
   }
 }

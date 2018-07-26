@@ -23,7 +23,7 @@ class PapayaMessageDebugTest extends PapayaTestCase {
   public function testConstructor() {
     $message = new \PapayaMessageDebug(PapayaMessageLogable::GROUP_SYSTEM, 'Sample Message');
     $this->assertAttributeEquals(
-      PapayaMessageLogable::GROUP_SYSTEM,
+      \PapayaMessageLogable::GROUP_SYSTEM,
       '_group',
       $message
     );
@@ -33,7 +33,7 @@ class PapayaMessageDebugTest extends PapayaTestCase {
       $message
     );
     $this->assertAttributeInstanceOf(
-      PapayaMessageContextGroup::class,
+      \PapayaMessageContextGroup::class,
       '_context',
       $message
     );
@@ -45,7 +45,7 @@ class PapayaMessageDebugTest extends PapayaTestCase {
   public function testGetGroup() {
     $message = new \PapayaMessageDebug();
     $this->assertEquals(
-      PapayaMessageLogable::GROUP_DEBUG,
+      \PapayaMessageLogable::GROUP_DEBUG,
       $message->getGroup()
     );
   }
@@ -57,7 +57,7 @@ class PapayaMessageDebugTest extends PapayaTestCase {
   public function testGetType() {
     $message = new \PapayaMessageDebug();
     $this->assertEquals(
-      PapayaMessage::SEVERITY_DEBUG,
+      \PapayaMessage::SEVERITY_DEBUG,
       $message->getType()
     );
   }
@@ -73,9 +73,9 @@ class PapayaMessageDebugTest extends PapayaTestCase {
     }
     $this->assertEquals(
       array(
-        PapayaMessageContextMemory::class,
-        PapayaMessageContextRuntime::class,
-        PapayaMessageContextBacktrace::class
+        \PapayaMessageContextMemory::class,
+        \PapayaMessageContextRuntime::class,
+        \PapayaMessageContextBacktrace::class
       ),
       $found
     );
@@ -86,7 +86,7 @@ class PapayaMessageDebugTest extends PapayaTestCase {
   */
   public function testGetMessage() {
     $message = new \PapayaMessageDebug(
-      PapayaMessageLogable::GROUP_DEBUG,
+      \PapayaMessageLogable::GROUP_DEBUG,
       'Sample Message'
     );
     $this->assertEquals(

@@ -41,7 +41,7 @@ class PapayaUiToolbarSetTest extends PapayaTestCase {
   public function testElementsImplicitCreate() {
     $group = new \PapayaUiToolbarSet();
     $this->assertInstanceOf(
-      PapayaUiToolbarElements::class, $group->elements()
+      \PapayaUiToolbarElements::class, $group->elements()
     );
     $this->assertSame(
       $group, $group->elements()->owner()

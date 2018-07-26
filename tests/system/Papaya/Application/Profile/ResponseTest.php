@@ -26,7 +26,7 @@ class PapayaApplicationProfileResponseTest extends PapayaTestCase {
     $profile = new Response();
     $response = $profile->createObject($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaResponse::class, $response
+      \PapayaResponse::class, $response
     );
     $this->assertSame($papaya, $response->papaya());
   }

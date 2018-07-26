@@ -24,7 +24,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   public function testIsSecureExpectingTrue() {
     $_SERVER['HTTPS'] = 'On';
     $this->assertTrue(
-      PapayaUtilServerProtocol::isSecure()
+      \PapayaUtilServerProtocol::isSecure()
     );
   }
 
@@ -35,7 +35,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   public function testIsSecureExpectingFalse() {
     $_SERVER['HTTPS'] = NULL;
     $this->assertFalse(
-      PapayaUtilServerProtocol::isSecure()
+      \PapayaUtilServerProtocol::isSecure()
     );
   }
 
@@ -49,7 +49,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
     $_SERVER['HTTP_X_PAPAYA_HTTPS'] = '123456789012345678901234567890ab';
     define('PAPAYA_HEADER_HTTPS_TOKEN', '123456789012345678901234567890ab');
     $this->assertTrue(
-      PapayaUtilServerProtocol::isSecure()
+      \PapayaUtilServerProtocol::isSecure()
     );
   }
 
@@ -63,7 +63,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
     $_SERVER['X_PAPAYA_HTTPS'] = '123456789012345678901234567890ab';
     define('PAPAYA_HEADER_HTTPS_TOKEN', '123456789012345678901234567890ab');
     $this->assertTrue(
-      PapayaUtilServerProtocol::isSecure()
+      \PapayaUtilServerProtocol::isSecure()
     );
   }
 
@@ -77,7 +77,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
     $_SERVER['HTTP_X_PAPAYA_HTTPS'] = '';
     define('PAPAYA_HEADER_HTTPS_TOKEN', '');
     $this->assertFalse(
-      PapayaUtilServerProtocol::isSecure()
+      \PapayaUtilServerProtocol::isSecure()
     );
   }
 
@@ -91,7 +91,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
     $_SERVER['HTTP_X_PAPAYA_HTTPS'] = '123456789012345678901234567890ab';
     define('PAPAYA_HEADER_HTTPS_TOKEN', 'ef123456789012345678901234567890');
     $this->assertFalse(
-      PapayaUtilServerProtocol::isSecure()
+      \PapayaUtilServerProtocol::isSecure()
     );
   }
 
@@ -103,7 +103,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
     $_SERVER['HTTPS'] = NULL;
     $_SERVER['HTTP_X_PAPAYA_HTTPS'] = '123456789012345678901234567890ab';
     $this->assertFalse(
-      PapayaUtilServerProtocol::isSecure()
+      \PapayaUtilServerProtocol::isSecure()
     );
   }
 
@@ -114,7 +114,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   public function testGetExpectingHttps() {
     $_SERVER['HTTPS'] = 'On';
     $this->assertEquals(
-      'https', PapayaUtilServerProtocol::get()
+      'https', \PapayaUtilServerProtocol::get()
     );
   }
 
@@ -125,7 +125,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   public function testGetExpectingHttp() {
     $_SERVER['HTTPS'] = NULL;
     $this->assertEquals(
-      'http', PapayaUtilServerProtocol::get()
+      'http', \PapayaUtilServerProtocol::get()
     );
   }
 
@@ -134,7 +134,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   */
   public function testGetWithParameterExpectingHttp() {
     $this->assertEquals(
-      'http', PapayaUtilServerProtocol::get(PapayaUtilServerProtocol::HTTP)
+      'http', \PapayaUtilServerProtocol::get(PapayaUtilServerProtocol::HTTP)
     );
   }
 
@@ -143,7 +143,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   */
   public function testGetWithParameterExpectingHttps() {
     $this->assertEquals(
-      'https', PapayaUtilServerProtocol::get(PapayaUtilServerProtocol::HTTPS)
+      'https', \PapayaUtilServerProtocol::get(PapayaUtilServerProtocol::HTTPS)
     );
   }
 
@@ -154,7 +154,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   public function testGetDefaultPortExpectingHttps() {
     $_SERVER['HTTPS'] = 'On';
     $this->assertEquals(
-      443, PapayaUtilServerProtocol::getDefaultPort()
+      443, \PapayaUtilServerProtocol::getDefaultPort()
     );
   }
 
@@ -165,7 +165,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   public function testGetDefaultPortExpectingHttp() {
     $_SERVER['HTTPS'] = NULL;
     $this->assertEquals(
-      80, PapayaUtilServerProtocol::getDefaultPort()
+      80, \PapayaUtilServerProtocol::getDefaultPort()
     );
   }
 
@@ -179,7 +179,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
     $_SERVER['HTTP_X_PAPAYA_HTTPS'] = '123456789012345678901234567890ab';
     define('PAPAYA_HEADER_HTTPS_TOKEN', '123456789012345678901234567890ab');
     $this->assertEquals(
-      80, PapayaUtilServerProtocol::getDefaultPort()
+      80, \PapayaUtilServerProtocol::getDefaultPort()
     );
   }
 }

@@ -54,7 +54,7 @@ class PapayaUiStringTranslatedListTest extends PapayaTestCase {
   public function testPapayaGetUsingSingleton() {
     $list = new \PapayaUiStringTranslatedList(array());
     $this->assertInstanceOf(
-      PapayaApplication::class, $list->papaya()
+      \PapayaApplication::class, $list->papaya()
     );
   }
 

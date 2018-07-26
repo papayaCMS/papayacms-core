@@ -27,7 +27,7 @@ class PapayaUtilStringTest extends PapayaTestCase {
    */
   public function testTruncate($expected, $string, $length, $cut) {
     $this->assertEquals(
-      $expected, PapayaUtilString::truncate($string, $length, $cut)
+      $expected, \PapayaUtilString::truncate($string, $length, $cut)
     );
   }
 
@@ -36,7 +36,7 @@ class PapayaUtilStringTest extends PapayaTestCase {
   */
   public function testTruncateAppendsSuffix() {
     $this->assertEquals(
-      "Hello\xE2\x80\xA6", PapayaUtilString::truncate('Hello World', 6, FALSE, "\xE2\x80\xA6")
+      "Hello\xE2\x80\xA6", \PapayaUtilString::truncate('Hello World', 6, FALSE, "\xE2\x80\xA6")
     );
   }
 
@@ -45,7 +45,7 @@ class PapayaUtilStringTest extends PapayaTestCase {
   */
   public function testTruncateWithShortStringExpectingNoSuffix() {
     $this->assertEquals(
-      'Hello', PapayaUtilString::truncate('Hello', 6, FALSE, "\xE2\x80\xA6")
+      'Hello', \PapayaUtilString::truncate('Hello', 6, FALSE, "\xE2\x80\xA6")
     );
   }
 
@@ -57,7 +57,7 @@ class PapayaUtilStringTest extends PapayaTestCase {
    */
   public function testEscapeForPrintf($expected, $input) {
     $this->assertEquals(
-      $expected, PapayaUtilString::escapeForPrintf($input)
+      $expected, \PapayaUtilString::escapeForPrintf($input)
     );
   }
 

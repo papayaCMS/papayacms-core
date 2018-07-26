@@ -123,7 +123,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
       ->expects($this->at(0))
       ->method('notify')
       ->with(
-        PapayaFileSystemChangeNotifier::ACTION_ADD,
+        \PapayaFileSystemChangeNotifier::ACTION_ADD,
         NULL,
         $path.'/GROUP'
       );
@@ -131,7 +131,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
       ->expects($this->at(1))
       ->method('notify')
       ->with(
-        PapayaFileSystemChangeNotifier::ACTION_ADD,
+        \PapayaFileSystemChangeNotifier::ACTION_ADD,
         NULL,
         $path.'/GROUP/ELEMENT'
       );
@@ -139,7 +139,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
       ->expects($this->at(2))
       ->method('notify')
       ->with(
-        PapayaFileSystemChangeNotifier::ACTION_MODIFIED,
+        \PapayaFileSystemChangeNotifier::ACTION_MODIFIED,
         $path.'/GROUP/ELEMENT/PARAMETERS'
       );
     $service->notifier($notifier);
@@ -295,7 +295,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('notify')
       ->with(
-        PapayaFileSystemChangeNotifier::ACTION_DELETED,
+        \PapayaFileSystemChangeNotifier::ACTION_DELETED,
         $path.'/GROUP/ELEMENT/PARAMETERS'
       );
     $service->notifier($notifier);
@@ -318,7 +318,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('notify')
       ->with(
-        PapayaFileSystemChangeNotifier::ACTION_CLEARED,
+        \PapayaFileSystemChangeNotifier::ACTION_CLEARED,
         NULL,
         $path.'/GROUP/ELEMENT/'
       );
@@ -353,7 +353,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('notify')
       ->with(
-        PapayaFileSystemChangeNotifier::ACTION_INVALIDATED,
+        \PapayaFileSystemChangeNotifier::ACTION_INVALIDATED,
         NULL,
         $path.'/GROUP/ELEMENT/'
       );

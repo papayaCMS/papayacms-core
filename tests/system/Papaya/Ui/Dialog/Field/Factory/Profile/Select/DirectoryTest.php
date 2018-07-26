@@ -59,7 +59,7 @@ class PapayaUiDialogFieldFactoryProfileSelectDirectoryTest extends PapayaTestCas
       $directory
         ->expects($this->once())
         ->method('getEntries')
-        ->with($filter, PapayaFileSystemDirectory::FETCH_DIRECTORIES)
+        ->with($filter, \PapayaFileSystemDirectory::FETCH_DIRECTORIES)
         ->will($this->returnValue(new ArrayIterator($files)));
     }
     $fileSystem = $this->createMock(PapayaFileSystemFactory::class);

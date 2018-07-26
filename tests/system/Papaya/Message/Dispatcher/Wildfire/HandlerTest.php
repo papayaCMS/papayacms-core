@@ -59,13 +59,13 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
     );
     $this->assertAttributeEquals(
       array(
-        PapayaMessageDispatcherWildfireHandler::HEADER_MAIN => 1,
-        PapayaMessageDispatcherWildfireHandler::HEADER_CONSOLE => 0,
-        PapayaMessageDispatcherWildfireHandler::HEADER_DUMP => 0,
-        PapayaMessageDispatcherWildfireHandler::HEADER_DATA => 0
+        \PapayaMessageDispatcherWildfireHandler::HEADER_MAIN => 1,
+        \PapayaMessageDispatcherWildfireHandler::HEADER_CONSOLE => 0,
+        \PapayaMessageDispatcherWildfireHandler::HEADER_DUMP => 0,
+        \PapayaMessageDispatcherWildfireHandler::HEADER_DATA => 0
       ),
       '_counter',
-      PapayaMessageDispatcherWildfireHandler::class
+      \PapayaMessageDispatcherWildfireHandler::class
     );
   }
 
@@ -210,7 +210,7 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
     $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->sendData(
-      PapayaMessageDispatcherWildfireHandler::HEADER_CONSOLE,
+      \PapayaMessageDispatcherWildfireHandler::HEADER_CONSOLE,
       array(
         'Type' => 'INFO'
       ),
@@ -235,14 +235,14 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
     $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->sendData(
-      PapayaMessageDispatcherWildfireHandler::HEADER_CONSOLE,
+      \PapayaMessageDispatcherWildfireHandler::HEADER_CONSOLE,
       array(
         'Type' => 'INFO'
       ),
       'Info'
     );
     $handler->sendData(
-      PapayaMessageDispatcherWildfireHandler::HEADER_CONSOLE,
+      \PapayaMessageDispatcherWildfireHandler::HEADER_CONSOLE,
       array(
         'Type' => 'WARN'
       ),
@@ -267,9 +267,9 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
     $callback = array($this, 'callbackCollectHeaders');
     $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
-    PapayaMessageDispatcherWildfireHandler::$lengthLimit = 30;
+    \PapayaMessageDispatcherWildfireHandler::$lengthLimit = 30;
     $handler->sendData(
-      PapayaMessageDispatcherWildfireHandler::HEADER_CONSOLE,
+      \PapayaMessageDispatcherWildfireHandler::HEADER_CONSOLE,
       array(
         'Type' => 'INFO'
       ),
@@ -295,7 +295,7 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
     $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->sendData(
-      PapayaMessageDispatcherWildfireHandler::HEADER_DUMP,
+      \PapayaMessageDispatcherWildfireHandler::HEADER_DUMP,
       NULL,
       array('Hello' => 'World')
     );

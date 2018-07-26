@@ -69,7 +69,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   public function testHiddenValuesGetImplicitCreate() {
     $dialog = new \PapayaUiDialog(new stdClass());
     $this->assertInstanceOf(
-      PapayaRequestParameters::class, $dialog->hiddenValues()
+      \PapayaRequestParameters::class, $dialog->hiddenValues()
     );
   }
 
@@ -102,7 +102,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   public function testHiddenFieldsGetImplicitCreate() {
     $dialog = new \PapayaUiDialog(new stdClass());
     $this->assertInstanceOf(
-      PapayaRequestParameters::class, $dialog->hiddenFields()
+      \PapayaRequestParameters::class, $dialog->hiddenFields()
     );
   }
 
@@ -167,7 +167,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   public function testTokensGetImplicitCreate() {
     $dialog = new \PapayaUiDialog(new stdClass());
     $this->assertInstanceOf(
-      PapayaUiTokens::class, $dialog->tokens()
+      \PapayaUiTokens::class, $dialog->tokens()
     );
   }
 
@@ -251,7 +251,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   public function testErrorsGetImplicitCreate() {
     $dialog = new \PapayaUiDialog(new stdClass());
     $this->assertInstanceOf(
-      PapayaUiDialogErrors::class, $dialog->errors()
+      \PapayaUiDialogErrors::class, $dialog->errors()
     );
   }
 
@@ -487,7 +487,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   public function testOptionsGetImplicitCreate() {
     $dialog = new \PapayaUiDialog(new stdClass());
     $this->assertInstanceOf(
-      PapayaUiDialogOptions::class, $dialog->options()
+      \PapayaUiDialogOptions::class, $dialog->options()
     );
   }
 
@@ -552,7 +552,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
     $dialog = new \PapayaUiDialog(new stdClass());
     $dialog->papaya($application = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaUiDialogFields::class, $dialog->fields()
+      \PapayaUiDialogFields::class, $dialog->fields()
     );
     $this->assertSame(
       $application, $dialog->fields()->papaya()
@@ -612,7 +612,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
     $dialog = new \PapayaUiDialog(new stdClass());
     $dialog->papaya($application = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaUiDialogButtons::class, $dialog->buttons()
+      \PapayaUiDialogButtons::class, $dialog->buttons()
     );
     $this->assertSame(
       $application, $dialog->buttons()->papaya()
@@ -656,7 +656,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
   public function testDataGetImplicitCreate() {
     $dialog = new \PapayaUiDialog(new stdClass());
     $this->assertInstanceOf(
-      PapayaRequestParameters::class, $dialog->data()
+      \PapayaRequestParameters::class, $dialog->data()
     );
   }
 
@@ -712,7 +712,7 @@ class PapayaUiDialogTest extends PapayaTestCase {
     $dialog = new \PapayaUiDialog(new stdClass());
     $dialog->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaUiDialogElementDescription::class, $description = $dialog->description()
+      \PapayaUiDialogElementDescription::class, $description = $dialog->description()
     );
     $this->assertSame($papaya, $description->papaya());
   }
@@ -969,26 +969,26 @@ class PapayaUiDialogTest extends PapayaTestCase {
 
   public static function provideValidMethodPairs() {
     return array(
-      'get + get' => array('get', PapayaUidialog::METHOD_GET),
-      'post + post' => array('post', PapayaUidialog::METHOD_POST),
-      'get + mixed' => array('get', PapayaUidialog::METHOD_MIXED),
-      'post + mixed' => array('post', PapayaUidialog::METHOD_MIXED)
+      'get + get' => array('get', \PapayaUidialog::METHOD_GET),
+      'post + post' => array('post', \PapayaUidialog::METHOD_POST),
+      'get + mixed' => array('get', \PapayaUidialog::METHOD_MIXED),
+      'post + mixed' => array('post', \PapayaUidialog::METHOD_MIXED)
     );
   }
 
   public static function provideInvalidMethodPairs() {
     return array(
-      'get + post' => array('get', PapayaUidialog::METHOD_POST),
-      'post + get' => array('post', PapayaUidialog::METHOD_GET),
-      'head + mixed' => array('head', PapayaUidialog::METHOD_MIXED)
+      'get + post' => array('get', \PapayaUidialog::METHOD_POST),
+      'post + get' => array('post', \PapayaUidialog::METHOD_GET),
+      'head + mixed' => array('head', \PapayaUidialog::METHOD_MIXED)
     );
   }
 
   public static function provideMethodsAndStringRepresentations() {
     return array(
-      array('post', PapayaUiControlInteractive::METHOD_POST),
-      array('get', PapayaUiControlInteractive::METHOD_GET),
-      array('post', PapayaUiControlInteractive::METHOD_MIXED)
+      array('post', \PapayaUiControlInteractive::METHOD_POST),
+      array('get', \PapayaUiControlInteractive::METHOD_GET),
+      array('post', \PapayaUiControlInteractive::METHOD_MIXED)
     );
   }
 
@@ -1028,12 +1028,12 @@ class PapayaUiDialogTest extends PapayaTestCase {
 
   public static function provideParameterNameSamples() {
     return array(
-      array('foo', 'foo', PapayaUiDialog::METHOD_GET),
-      array('foo', 'foo', PapayaUiDialog::METHOD_POST),
-      array('foo', 'foo', PapayaUiDialog::METHOD_MIXED),
-      array('foo*bar', 'foo/bar', PapayaUiDialog::METHOD_GET),
-      array('foo[bar]', 'foo/bar', PapayaUiDialog::METHOD_POST),
-      array('foo[bar]', 'foo/bar', PapayaUiDialog::METHOD_MIXED)
+      array('foo', 'foo', \PapayaUiDialog::METHOD_GET),
+      array('foo', 'foo', \PapayaUiDialog::METHOD_POST),
+      array('foo', 'foo', \PapayaUiDialog::METHOD_MIXED),
+      array('foo*bar', 'foo/bar', \PapayaUiDialog::METHOD_GET),
+      array('foo[bar]', 'foo/bar', \PapayaUiDialog::METHOD_POST),
+      array('foo[bar]', 'foo/bar', \PapayaUiDialog::METHOD_MIXED)
     );
   }
 }

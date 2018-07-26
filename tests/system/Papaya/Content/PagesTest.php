@@ -35,7 +35,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
             'topic_id' => 42,
             'prev' => 21,
             'prev_path' => ';0;21;',
-            'topic_protocol' => PapayaUtilServerProtocol::HTTP,
+            'topic_protocol' => \PapayaUtilServerProtocol::HTTP,
             'linktype_id' => 1,
             'topic_title' => 'sample'
           ),
@@ -71,7 +71,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
           'path' => array(0, 21),
           'title' => 'sample',
           'link_type_id' => 1,
-          'scheme' => PapayaUtilServerProtocol::HTTP
+          'scheme' => \PapayaUtilServerProtocol::HTTP
         )
       ),
       $pages->toArray()
@@ -92,7 +92,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
             'topic_id' => 42,
             'prev' => 21,
             'prev_path' => ';0;21;',
-            'topic_protocol' => PapayaUtilServerProtocol::HTTP,
+            'topic_protocol' => \PapayaUtilServerProtocol::HTTP,
             'linktype_id' => 1,
             'topic_title' => NULL
           ),
@@ -128,7 +128,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
           'path' => array(0, 21),
           'title' => NULL,
           'link_type_id' => 1,
-          'scheme' => PapayaUtilServerProtocol::HTTP
+          'scheme' => \PapayaUtilServerProtocol::HTTP
         )
       ),
       $pages->toArray()
@@ -149,7 +149,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
             'topic_id' => 42,
             'prev' => 21,
             'prev_path' => ';0;21;',
-            'topic_protocol' => PapayaUtilServerProtocol::HTTP,
+            'topic_protocol' => \PapayaUtilServerProtocol::HTTP,
             'linktype_id' => 1,
             'topic_title' => 'sample'
           ),
@@ -190,7 +190,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
           'path' => array(0, 21),
           'title' => 'sample',
           'link_type_id' => 1,
-          'scheme' => PapayaUtilServerProtocol::HTTP
+          'scheme' => \PapayaUtilServerProtocol::HTTP
         )
       ),
       $pages->toArray()
@@ -211,7 +211,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
             'topic_id' => 42,
             'prev' => 21,
             'prev_path' => ';0;21;',
-            'topic_protocol' => PapayaUtilServerProtocol::HTTP,
+            'topic_protocol' => \PapayaUtilServerProtocol::HTTP,
             'linktype_id' => 1,
             'topic_title' => 'sample'
           ),
@@ -256,7 +256,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
           'path' => array(0, 21),
           'title' => 'sample',
           'link_type_id' => 1,
-          'scheme' => PapayaUtilServerProtocol::HTTP
+          'scheme' => \PapayaUtilServerProtocol::HTTP
         )
       ),
       $pages->toArray()
@@ -277,7 +277,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
             'topic_id' => 42,
             'prev' => 21,
             'prev_path' => ';0;21;',
-            'topic_protocol' => PapayaUtilServerProtocol::HTTP,
+            'topic_protocol' => \PapayaUtilServerProtocol::HTTP,
             'linktype_id' => 1,
             'topic_title' => 'sample'
           ),
@@ -318,7 +318,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
           'path' => array(0, 21),
           'title' => 'sample',
           'link_type_id' => 1,
-          'scheme' => PapayaUtilServerProtocol::HTTP
+          'scheme' => \PapayaUtilServerProtocol::HTTP
         )
       ),
       $pages->toArray()

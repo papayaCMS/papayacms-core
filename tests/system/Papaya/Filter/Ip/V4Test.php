@@ -22,10 +22,10 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
    */
   public function testConstructSuccess() {
     $filter = new \PapayaFilterIpV4(
-      PapayaFilterIpV4::ALLOW_LINK_LOCAL | PapayaFilterIpV4::ALLOW_LOOPBACK
+      \PapayaFilterIpV4::ALLOW_LINK_LOCAL | \PapayaFilterIpV4::ALLOW_LOOPBACK
     );
     $this->assertAttributeEquals(
-      PapayaFilterIpV4::ALLOW_LINK_LOCAL | PapayaFilterIpV4::ALLOW_LOOPBACK,
+      \PapayaFilterIpV4::ALLOW_LINK_LOCAL | \PapayaFilterIpV4::ALLOW_LOOPBACK,
       '_configuration',
       $filter
     );

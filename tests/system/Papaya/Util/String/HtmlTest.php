@@ -26,7 +26,7 @@ class PapayaUtilStringHtmlTest extends PapayaTestCase {
   public function testEscapeStripped($expected, $string) {
     $this->assertEquals(
       $expected,
-      PapayaUtilStringHtml::escapeStripped($string)
+      \PapayaUtilStringHtml::escapeStripped($string)
     );
   }
 
@@ -39,7 +39,7 @@ class PapayaUtilStringHtmlTest extends PapayaTestCase {
   public function testStripTags($expected, $string) {
     $this->assertEquals(
       $expected,
-      PapayaUtilStringHtml::stripTags($string)
+      \PapayaUtilStringHtml::stripTags($string)
     );
   }
 
@@ -52,7 +52,7 @@ class PapayaUtilStringHtmlTest extends PapayaTestCase {
   public function testDecodeNamedEntities($expected, $string) {
     $this->assertEquals(
       $expected,
-      PapayaUtilStringHtml::decodeNamedEntities($string)
+      \PapayaUtilStringHtml::decodeNamedEntities($string)
     );
   }
 

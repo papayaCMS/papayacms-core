@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaRequestParametersTest extends PapayaTestCase {
 
   public function testCreateFromString() {
-    $parameters = PapayaRequestParameters::createFromString('foo=42&bar=21');
+    $parameters = \PapayaRequestParameters::createFromString('foo=42&bar=21');
     $this->assertEquals(42, $parameters->get('foo'));
     $this->assertEquals(21, $parameters->get( 'bar'));
   }
@@ -46,7 +46,7 @@ class PapayaRequestParametersTest extends PapayaTestCase {
       array('group' => array('foo' => 'bar'))
     );
     $this->assertInstanceOf(
-      PapayaRequestParameters::class,
+      \PapayaRequestParameters::class,
       $group = $parameters->getGroup('group')
     );
     $this->assertEquals(
@@ -274,7 +274,7 @@ class PapayaRequestParametersTest extends PapayaTestCase {
   public function testArrayAccessOffsetGetWithArray() {
     $parameters = new \PapayaRequestParameters(array('foo' => array('bar' => 'foobar')));
     $this->assertInstanceOf(
-      PapayaRequestParameters::class, $parameters['foo']
+      \PapayaRequestParameters::class, $parameters['foo']
     );
     $this->assertEquals(
       'foobar', $parameters['foo']['bar']

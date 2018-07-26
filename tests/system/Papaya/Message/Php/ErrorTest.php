@@ -23,7 +23,7 @@ class PapayaMessagePhpErrorTest extends PapayaTestCase {
   public function testConstructor() {
     $message = new \PapayaMessagePhpError(E_USER_WARNING, 'Sample Warning', 'Sample Context');
     $this->assertAttributeEquals(
-      PapayaMessage::SEVERITY_WARNING,
+      \PapayaMessage::SEVERITY_WARNING,
       '_type',
       $message
     );

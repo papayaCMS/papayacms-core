@@ -23,7 +23,7 @@ class PapayaMessagePhpTest extends PapayaTestCase {
   public function testConstructor() {
     $message = new \PapayaMessagePhp();
     $this->assertAttributeInstanceOf(
-      PapayaMessageContextGroup::class,
+      \PapayaMessageContextGroup::class,
       '_context',
       $message
     );
@@ -36,7 +36,7 @@ class PapayaMessagePhpTest extends PapayaTestCase {
     $message = new \PapayaMessagePhp();
     $message->setSeverity(E_USER_NOTICE);
     $this->assertAttributeEquals(
-      PapayaMessage::SEVERITY_INFO,
+      \PapayaMessage::SEVERITY_INFO,
       '_type',
       $message
     );
@@ -48,7 +48,7 @@ class PapayaMessagePhpTest extends PapayaTestCase {
   public function testGetGroup() {
     $message = new \PapayaMessagePhp();
     $this->assertEquals(
-      PapayaMessageLogable::GROUP_PHP,
+      \PapayaMessageLogable::GROUP_PHP,
       $message->getGroup()
     );
   }
@@ -59,7 +59,7 @@ class PapayaMessagePhpTest extends PapayaTestCase {
   public function testGetType() {
     $message = new \PapayaMessagePhp();
     $this->assertEquals(
-      PapayaMessage::SEVERITY_ERROR,
+      \PapayaMessage::SEVERITY_ERROR,
       $message->getType()
     );
   }
@@ -81,7 +81,7 @@ class PapayaMessagePhpTest extends PapayaTestCase {
   public function testContext() {
     $message = new \PapayaMessagePhp();
     $this->assertInstanceOf(
-      PapayaMessageContextGroup::class,
+      \PapayaMessageContextGroup::class,
       $message->context()
     );
   }

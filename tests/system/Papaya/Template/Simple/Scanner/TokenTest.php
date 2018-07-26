@@ -23,7 +23,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
    */
   public function testConstructorAndStringCasting() {
     $token = new \PapayaTemplateSimpleScannerToken(
-      PapayaTemplateSimpleScannerToken::TEXT,
+      \PapayaTemplateSimpleScannerToken::TEXT,
       21,
       'foo'
     );
@@ -48,7 +48,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
   public function testGetTypeStringExpectingText() {
     $this->assertEquals(
       'TEXT',
-      PapayaTemplateSimpleScannerToken::getTypeString(PapayaTemplateSimpleScannerToken::TEXT)
+      \PapayaTemplateSimpleScannerToken::getTypeString(PapayaTemplateSimpleScannerToken::TEXT)
     );
   }
 
@@ -57,7 +57,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
    */
   public function testGetTypeStringwithInvalidTokenTypeExpectingNull() {
     $this->assertNull(
-      PapayaTemplateSimpleScannerToken::getTypeString(-23)
+      \PapayaTemplateSimpleScannerToken::getTypeString(-23)
     );
   }
 
@@ -66,7 +66,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
    */
   public function testPropertyReadType() {
     $token = new \PapayaTemplateSimpleScannerToken(
-      PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, ''
+      \PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, ''
     );
     $this->assertEquals(PapayaTemplateSimpleScannerToken::VALUE_NAME, $token->type);
   }
@@ -76,7 +76,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
    */
   public function testPropertyReadOffset() {
     $token = new \PapayaTemplateSimpleScannerToken(
-      PapayaTemplateSimpleScannerToken::VALUE_NAME, 42, ''
+      \PapayaTemplateSimpleScannerToken::VALUE_NAME, 42, ''
     );
     $this->assertEquals(42, $token->offset);
   }
@@ -86,7 +86,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
    */
   public function testPropertyReadContent() {
     $token = new \PapayaTemplateSimpleScannerToken(
-      PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, 'foo'
+      \PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, 'foo'
     );
     $this->assertEquals('foo', $token->content);
   }
@@ -96,7 +96,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
    */
   public function testPropertyReadLength() {
     $token = new \PapayaTemplateSimpleScannerToken(
-      PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, 'foo'
+      \PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, 'foo'
     );
     $this->assertEquals(3, $token->length);
   }
@@ -106,7 +106,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
    */
   public function testPropertyReadUnkownPropertyExpectingException() {
     $token = new \PapayaTemplateSimpleScannerToken(
-      PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, 'foo'
+      \PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, 'foo'
     );
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('Unknown property: PapayaTemplateSimpleScannerToken::$UNKNOWN');
@@ -119,7 +119,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
    */
   public function testPropertyWriteThrowsException() {
     $token = new \PapayaTemplateSimpleScannerToken(
-      PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, ''
+      \PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, ''
     );
     $this->expectException(LogicException::class);
     /** @noinspection Annotator */

@@ -23,7 +23,7 @@ class PapayaUiMessageTest extends PapayaTestCase {
   public function testConstructor() {
     $message = new \PapayaUiMessage_TestProxy(PapayaUiMessage::SEVERITY_ERROR, 'sample');
     $this->assertEquals(
-      PapayaUiMessage::SEVERITY_ERROR, $message->severity
+      \PapayaUiMessage::SEVERITY_ERROR, $message->severity
     );
     $this->assertEquals(
       'sample', $message->event
@@ -60,9 +60,9 @@ class PapayaUiMessageTest extends PapayaTestCase {
   */
   public function testSeverityGetAfterSet() {
     $message = new \PapayaUiMessage_TestProxy(PapayaUiMessage::SEVERITY_ERROR, 'sample');
-    $message->severity = PapayaUiMessage::SEVERITY_WARNING;
+    $message->severity = \PapayaUiMessage::SEVERITY_WARNING;
     $this->assertEquals(
-      PapayaUiMessage::SEVERITY_WARNING, $message->severity
+      \PapayaUiMessage::SEVERITY_WARNING, $message->severity
     );
   }
 
@@ -106,13 +106,13 @@ class PapayaUiMessageTest extends PapayaTestCase {
     return array(
       'sample error, not occurred' => array(
         /** @lang XML */ '<error event="sample" occured="no"/>',
-        PapayaUiMessage::SEVERITY_ERROR,
+        \PapayaUiMessage::SEVERITY_ERROR,
         'sample',
         FALSE
       ),
       'test information, occurred' => array(
         /** @lang XML */ '<information event="test" occured="yes"/>',
-        PapayaUiMessage::SEVERITY_INFORMATION,
+        \PapayaUiMessage::SEVERITY_INFORMATION,
         'test',
         TRUE
       ),

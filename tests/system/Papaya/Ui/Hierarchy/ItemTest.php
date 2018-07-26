@@ -117,7 +117,7 @@ class PapayaUiHierarchyItemTest extends PapayaTestCase {
     $item = new \PapayaUiHierarchyItem('sample');
     $item->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaUiReference::class, $item->reference()
+      \PapayaUiReference::class, $item->reference()
     );
     $this->assertSame(
       $papaya, $item->papaya()
@@ -129,9 +129,9 @@ class PapayaUiHierarchyItemTest extends PapayaTestCase {
   */
   public function testSetDisplayMode() {
     $item = new \PapayaUiHierarchyItem('sample');
-    $item->displayMode = PapayaUiHierarchyItem::DISPLAY_TEXT_ONLY;
+    $item->displayMode = \PapayaUiHierarchyItem::DISPLAY_TEXT_ONLY;
     $this->assertEquals(
-      PapayaUiHierarchyItem::DISPLAY_TEXT_ONLY, $item->displayMode
+      \PapayaUiHierarchyItem::DISPLAY_TEXT_ONLY, $item->displayMode
     );
   }
 

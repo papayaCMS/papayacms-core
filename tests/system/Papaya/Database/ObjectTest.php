@@ -55,7 +55,7 @@ class PapayaDatabaseObjectTest extends PapayaTestCase {
     $databaseObject->papaya($application);
     $databaseAccess = $databaseObject->getDatabaseAccess();
     $this->assertInstanceOf(
-      PapayaDatabaseAccess::class, $databaseAccess
+      \PapayaDatabaseAccess::class, $databaseAccess
     );
     $this->assertSame(
       $application,

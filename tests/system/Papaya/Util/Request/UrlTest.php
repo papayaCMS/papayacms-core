@@ -33,7 +33,7 @@ class PapayaUtilRequestUrlTest extends PapayaTestCase {
   public function testGetOnEmptyRequestEnvironmentExpectingEmptyString() {
     $_SERVER = array();
     $this->assertEquals(
-      '', PapayaUtilRequestUrl::get()
+      '', \PapayaUtilRequestUrl::get()
     );
   }
 
@@ -47,7 +47,7 @@ class PapayaUtilRequestUrlTest extends PapayaTestCase {
       'REQUEST_URI' => '/'
     );
     $this->assertEquals(
-      'http://www.sample.tld/', PapayaUtilRequestUrl::get()
+      'http://www.sample.tld/', \PapayaUtilRequestUrl::get()
     );
   }
 
@@ -61,7 +61,7 @@ class PapayaUtilRequestUrlTest extends PapayaTestCase {
       'REQUEST_URI' => '/'
     );
     $this->assertEquals(
-      'http://www.sample.tld:8080/', PapayaUtilRequestUrl::get()
+      'http://www.sample.tld:8080/', \PapayaUtilRequestUrl::get()
     );
   }
 
@@ -76,7 +76,7 @@ class PapayaUtilRequestUrlTest extends PapayaTestCase {
       'REQUEST_URI' => '/secure.html'
     );
     $this->assertEquals(
-      'https://www.sample.tld/secure.html', PapayaUtilRequestUrl::get()
+      'https://www.sample.tld/secure.html', \PapayaUtilRequestUrl::get()
     );
   }
 
@@ -95,7 +95,7 @@ class PapayaUtilRequestUrlTest extends PapayaTestCase {
       'REQUEST_URI' => '/secure.html'
     );
     $this->assertEquals(
-      'https://www.sample.tld/secure.html', PapayaUtilRequestUrl::get()
+      'https://www.sample.tld/secure.html', \PapayaUtilRequestUrl::get()
     );
   }
 }

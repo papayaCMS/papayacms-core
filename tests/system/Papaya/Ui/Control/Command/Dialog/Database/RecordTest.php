@@ -63,7 +63,7 @@ class PapayaUiControlCommandDialogDatabaseRecordTest extends PapayaTestCase {
     $record = $this->createMock(Record::class);
     $command = new \PapayaUiControlCommandDialogDatabaseRecord(
       $record,
-      PapayaUiControlCommandDialogDatabaseRecord::ACTION_DELETE
+      \PapayaUiControlCommandDialogDatabaseRecord::ACTION_DELETE
     );
     $command->papaya($this->mockPapaya()->application());
     /** @var \PapayaUiDialogDatabaseDelete $dialog */

@@ -35,7 +35,7 @@ class PapayaUiNavigationItemsTest extends PapayaTestCase {
     $items = new \PapayaUiNavigationItems();
     $items->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaUiReference::class, $reference = $items->reference()
+      \PapayaUiReference::class, $reference = $items->reference()
     );
     $this->assertSame(
       $papaya, $reference->papaya()

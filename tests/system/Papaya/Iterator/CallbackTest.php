@@ -74,7 +74,7 @@ class PapayaIteratorCallbackTest extends PapayaTestCase {
     $iterator = new \PapayaIteratorCallback(
       new ArrayIterator(array(21 => '50%', 42 => '100%')),
       array($this, 'callbackFlip'),
-      PapayaIteratorCallback::MODIFY_KEYS
+      \PapayaIteratorCallback::MODIFY_KEYS
     );
     $this->assertEquals(
       array(
@@ -92,7 +92,7 @@ class PapayaIteratorCallbackTest extends PapayaTestCase {
     $iterator = new \PapayaIteratorCallback(
       new ArrayIterator(array(21 => '50%', 42 => '100%')),
       array($this, 'callbackFlip'),
-      PapayaIteratorCallback::MODIFY_BOTH
+      \PapayaIteratorCallback::MODIFY_BOTH
     );
     $this->assertEquals(
       array(
@@ -104,7 +104,7 @@ class PapayaIteratorCallbackTest extends PapayaTestCase {
   }
 
   public function callbackFlip($element, $key, $target) {
-    return ($target === PapayaIteratorCallback::MODIFY_KEYS) ? $element : $key;
+    return ($target === \PapayaIteratorCallback::MODIFY_KEYS) ? $element : $key;
   }
 
   public function callbackChangeValue($element, $key) {

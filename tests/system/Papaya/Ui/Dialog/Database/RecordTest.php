@@ -49,10 +49,10 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
       NULL, $dialog->hiddenFields()->get('indexfield')
     );
     $this->assertAttributeEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_NONE, '_databaseAction', $dialog
+      \PapayaUiDialogDatabaseRecord::ACTION_NONE, '_databaseAction', $dialog
     );
     $this->assertAttributeEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_INSERT, '_databaseActionNext', $dialog
+      \PapayaUiDialogDatabaseRecord::ACTION_INSERT, '_databaseActionNext', $dialog
     );
   }
 
@@ -110,10 +110,10 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
       42, $dialog->hiddenFields()->get('indexfield')
     );
     $this->assertAttributeEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_NONE, '_databaseAction', $dialog
+      \PapayaUiDialogDatabaseRecord::ACTION_NONE, '_databaseAction', $dialog
     );
     $this->assertAttributeEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_UPDATE, '_databaseActionNext', $dialog
+      \PapayaUiDialogDatabaseRecord::ACTION_UPDATE, '_databaseActionNext', $dialog
     );
   }
 
@@ -142,10 +142,10 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
       'success', $dialog->hiddenFields()->get('indexfield')
     );
     $this->assertAttributeEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_INSERT, '_databaseAction', $dialog
+      \PapayaUiDialogDatabaseRecord::ACTION_INSERT, '_databaseAction', $dialog
     );
     $this->assertAttributeEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_UPDATE, '_databaseActionNext', $dialog
+      \PapayaUiDialogDatabaseRecord::ACTION_UPDATE, '_databaseActionNext', $dialog
     );
   }
 
@@ -171,10 +171,10 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
     $dialog->setDatabaseAccess($databaseAccess);
     $this->assertFalse($dialog->execute());
     $this->assertAttributeEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_NONE, '_databaseAction', $dialog
+      \PapayaUiDialogDatabaseRecord::ACTION_NONE, '_databaseAction', $dialog
     );
     $this->assertAttributeEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_INSERT, '_databaseActionNext', $dialog
+      \PapayaUiDialogDatabaseRecord::ACTION_INSERT, '_databaseActionNext', $dialog
     );
   }
 
@@ -190,10 +190,10 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
     $dialog->setPermissionCallback(array($this, 'callbackPermissionFailed'));
     $this->assertFalse($dialog->execute());
     $this->assertEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_NONE, $dialog->getDatabaseAction()
+      \PapayaUiDialogDatabaseRecord::ACTION_NONE, $dialog->getDatabaseAction()
     );
     $this->assertEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_INSERT, $dialog->getDatabaseActionNext()
+      \PapayaUiDialogDatabaseRecord::ACTION_INSERT, $dialog->getDatabaseActionNext()
     );
   }
 
@@ -222,10 +222,10 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
       42, $dialog->hiddenFields()->get('indexfield')
     );
     $this->assertAttributeEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_UPDATE, '_databaseAction', $dialog
+      \PapayaUiDialogDatabaseRecord::ACTION_UPDATE, '_databaseAction', $dialog
     );
     $this->assertAttributeEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_UPDATE, '_databaseActionNext', $dialog
+      \PapayaUiDialogDatabaseRecord::ACTION_UPDATE, '_databaseActionNext', $dialog
     );
   }
 
@@ -241,10 +241,10 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
     $dialog->setPermissionCallback(array($this, 'callbackPermissionFailed'));
     $this->assertFalse($dialog->execute());
     $this->assertEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_NONE, $dialog->getDatabaseAction()
+      \PapayaUiDialogDatabaseRecord::ACTION_NONE, $dialog->getDatabaseAction()
     );
     $this->assertEquals(
-      PapayaUiDialogDatabaseRecord::ACTION_UPDATE, $dialog->getDatabaseActionNext()
+      \PapayaUiDialogDatabaseRecord::ACTION_UPDATE, $dialog->getDatabaseActionNext()
     );
   }
 
@@ -339,7 +339,7 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
     $dialog = new \PapayaUiDialogDatabaseRecord('tablename', 'indexfield', array());
     $databaseAccess = $dialog->getDatabaseAccess();
     $this->assertInstanceOf(
-      PapayaDatabaseAccess::class, $databaseAccess
+      \PapayaDatabaseAccess::class, $databaseAccess
     );
   }
 

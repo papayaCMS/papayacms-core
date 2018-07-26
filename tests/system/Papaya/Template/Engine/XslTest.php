@@ -230,7 +230,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   public function testGetErrorHandlerWithImplicitCreate() {
     $engine = new \PapayaTemplateEngineXsl();
     $this->assertInstanceOf(
-      PapayaXmlErrors::class,
+      \PapayaXmlErrors::class,
       $engine->getErrorHandler()
     );
   }

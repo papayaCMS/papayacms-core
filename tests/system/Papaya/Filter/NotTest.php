@@ -25,7 +25,7 @@ class PapayaFilterNotTest extends PapayaTestCase {
     $filterMock = $this->createMock(PapayaFilter::class);
     $filter = new \PapayaFilterNot($filterMock);
     $this->assertAttributeInstanceOf(
-      PapayaFilter::class, '_filter', $filter
+      \PapayaFilter::class, '_filter', $filter
     );
   }
 

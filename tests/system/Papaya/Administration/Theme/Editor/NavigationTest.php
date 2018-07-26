@@ -107,7 +107,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $navigation = new Navigation();
     $navigation->parameters(new \PapayaRequestParameters());
     $this->assertInstanceOf(
-      PapayaUiListview::class, $navigation->listview()
+      \PapayaUiListview::class, $navigation->listview()
     );
   }
 
@@ -119,7 +119,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $navigation = new Navigation();
     $navigation->parameters(new \PapayaRequestParameters(array('theme' => 'default')));
     $this->assertInstanceOf(
-      PapayaUiListview::class, $navigation->listview()
+      \PapayaUiListview::class, $navigation->listview()
     );
   }
 
@@ -133,7 +133,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
       new \PapayaRequestParameters(array('theme' => 'default', 'set_id' => 23))
     );
     $this->assertInstanceOf(
-      PapayaUiListview::class, $navigation->listview()
+      \PapayaUiListview::class, $navigation->listview()
     );
   }
 

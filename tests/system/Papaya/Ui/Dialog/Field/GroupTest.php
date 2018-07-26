@@ -34,7 +34,7 @@ class PapayaUiDialogFieldGroupTest extends PapayaTestCase {
     $group = new \PapayaUiDialogFieldGroup('Group Caption');
     $group->collection($this->createMock(PapayaUiDialogFields::class));
     $this->assertInstanceOf(
-      PapayaUiDialogFields::class, $group->fields()
+      \PapayaUiDialogFields::class, $group->fields()
     );
   }
 

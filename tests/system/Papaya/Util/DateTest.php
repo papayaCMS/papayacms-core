@@ -23,7 +23,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   public function testStringToTimestamp() {
     $this->assertEquals(
       '2010-12-18 14:37:42',
-      date('Y-m-d H:i:s', PapayaUtilDate::stringToTimestamp('2010-12-18 14:37:42'))
+      date('Y-m-d H:i:s', \PapayaUtilDate::stringToTimestamp('2010-12-18 14:37:42'))
     );
   }
 
@@ -32,7 +32,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   */
   public function testStringToTimestampExpectingFalse() {
     $this->assertFalse(
-      PapayaUtilDate::stringToTimestamp('')
+      \PapayaUtilDate::stringToTimestamp('')
     );
   }
 
@@ -46,7 +46,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   public function testStringToISO($dateString, $includeTime, $expected) {
     $this->assertEquals(
       $expected,
-      PapayaUtilDate::stringToISO($dateString, $includeTime)
+      \PapayaUtilDate::stringToISO($dateString, $includeTime)
     );
   }
 
@@ -58,11 +58,11 @@ class PapayaUtilDateTest extends PapayaTestCase {
    * @param array|FALSE $expected
    */
   public function testStringToArray($dateString, $expected) {
-    $this->assertSame($expected, PapayaUtilDate::stringToArray($dateString));
+    $this->assertSame($expected, \PapayaUtilDate::stringToArray($dateString));
   }
 
   /**
-   * covers PapayaUtilDate::timestampToString
+   * covers \PapayaUtilDate::timestampToString
    *
    * @dataProvider timestampToStringDataProvider
    * @param int $timestamp
@@ -71,7 +71,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
    */
   public function testTimestampToString($timestamp, $timezone, $expected) {
     date_default_timezone_set($timezone);
-    $this->assertEquals($expected, PapayaUtilDate::timestampToString($timestamp));
+    $this->assertEquals($expected, \PapayaUtilDate::timestampToString($timestamp));
   }
 
   /**
@@ -80,7 +80,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   public function testTimestampToStringWithoutSeconds() {
     date_default_timezone_set('UTC');
     $this->assertEquals(
-      '2010-04-01 11:31', PapayaUtilDate::timestampToString(1270121471, FALSE, TRUE, TRUE)
+      '2010-04-01 11:31', \PapayaUtilDate::timestampToString(1270121471, FALSE, TRUE, TRUE)
     );
   }
 
@@ -90,7 +90,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   public function testTimestampToStringWithoutOffset() {
     date_default_timezone_set('UTC');
     $this->assertEquals(
-      '2010-04-01 11:31:11', PapayaUtilDate::timestampToString(1270121471, TRUE, FALSE, TRUE)
+      '2010-04-01 11:31:11', \PapayaUtilDate::timestampToString(1270121471, TRUE, FALSE, TRUE)
     );
   }
 
@@ -100,7 +100,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   public function testTimestampToStringWithoutWeekday() {
     date_default_timezone_set('UTC');
     $this->assertEquals(
-      '2010-04-01 11:31:11+0000', PapayaUtilDate::timestampToString(1270121471, TRUE, TRUE, FALSE)
+      '2010-04-01 11:31:11+0000', \PapayaUtilDate::timestampToString(1270121471, TRUE, TRUE, FALSE)
     );
   }
 
@@ -118,7 +118,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
        's' => 11,
        'ms' => 220
       ),
-      PapayaUtilDate::periodToArray(
+      \PapayaUtilDate::periodToArray(
         self::getTimePeriodFixture(21, 42, 3, 13, 31, 11.22)
       )
     );
@@ -135,7 +135,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   public function testPeriodToString($expected, $period, $precision) {
     $this->assertEquals(
       $expected,
-      PapayaUtilDate::periodToString($period, $precision)
+      \PapayaUtilDate::periodToString($period, $precision)
     );
   }
 
@@ -146,7 +146,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   public function testPeriodToStringWithUnits() {
     $this->assertEquals(
       '21 Jahr(e) 42 Woche(n) 4 Tag(e)',
-      PapayaUtilDate::periodToString(
+      \PapayaUtilDate::periodToString(
         self::getTimePeriodFixture(21, 42, 3, 13, 31, 11.22),
         3,
         array(
@@ -165,7 +165,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
    * @param $datetime
    */
   public function testIso8601ToTimestamp($expected, $datetime) {
-    $this->assertEquals($expected, PapayaUtilDate::iso8601ToTimestamp($datetime));
+    $this->assertEquals($expected, \PapayaUtilDate::iso8601ToTimestamp($datetime));
   }
 
   /*************************************

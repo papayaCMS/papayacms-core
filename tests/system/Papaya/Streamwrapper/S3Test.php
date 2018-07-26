@@ -53,7 +53,7 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
     $this->createMock(PapayaStreamwrapperS3Handler::class);
     $wrapper = new \PapayaStreamwrapperS3();
     $this->assertInstanceOf(
-      PapayaStreamwrapperS3Handler::class, $wrapper->getHandler()
+      \PapayaStreamwrapperS3Handler::class, $wrapper->getHandler()
     );
   }
 
@@ -108,15 +108,15 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
     $secret = '1234567890123456789012345678901234567890';
     $secrets = array($id => $secret);
     $this->assertTrue(
-      PapayaStreamwrapperS3::setSecret(
+      \PapayaStreamwrapperS3::setSecret(
         $id,
         $secret
       )
     );
     $this->assertAttributeSame(
-      $secrets, '_secrets', PapayaStreamwrapperS3::class
+      $secrets, '_secrets', \PapayaStreamwrapperS3::class
     );
-    PapayaStreamwrapperS3::setSecret($id, NULL);
+    \PapayaStreamwrapperS3::setSecret($id, NULL);
   }
 
   /**
@@ -125,15 +125,15 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
   public function testSetSecretUnset() {
     $id = 'KEYID123456789012345';
     $secret = '1234567890123456789012345678901234567890';
-    PapayaStreamwrapperS3::setSecret($id, $secret);
+    \PapayaStreamwrapperS3::setSecret($id, $secret);
     $this->assertFalse(
-      PapayaStreamwrapperS3::setSecret(
+      \PapayaStreamwrapperS3::setSecret(
         $id,
         NULL
       )
     );
     $this->assertAttributeSame(
-      array(), '_secrets', PapayaStreamwrapperS3::class
+      array(), '_secrets', \PapayaStreamwrapperS3::class
     );
   }
 
@@ -142,13 +142,13 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
   */
   public function testSetSecretWithInvalidSecret() {
     $this->assertFalse(
-      PapayaStreamwrapperS3::setSecret(
+      \PapayaStreamwrapperS3::setSecret(
         'KEYID123456789012345',
         'INVALID'
       )
     );
     $this->assertAttributeSame(
-      array(), '_secrets', PapayaStreamwrapperS3::class
+      array(), '_secrets', \PapayaStreamwrapperS3::class
     );
   }
 
@@ -158,7 +158,7 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
   public function testParsePathWithSetSecret() {
     $id = 'KEYID123456789012345';
     $secret = '1234567890123456789012345678901234567890';
-    PapayaStreamwrapperS3::setSecret($id, $secret);
+    \PapayaStreamwrapperS3::setSecret($id, $secret);
     $wrapper = new \PapayaStreamwrapperS3();
     $path = 'amazon://'.$id.':@bucketname/object';
     $expected = array(
@@ -171,7 +171,7 @@ class PapayaStreamwrapperS3Test extends PapayaTestCase {
       $expected,
       $wrapper->parsePath($path, STREAM_REPORT_ERRORS)
     );
-    PapayaStreamwrapperS3::setSecret($id, NULL);
+    \PapayaStreamwrapperS3::setSecret($id, NULL);
   }
 
   /**

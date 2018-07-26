@@ -65,7 +65,7 @@ class PapayaPluginOptionGroupsTest extends PapayaTestCase {
   public function testOffsetGetImplicitCreate() {
     $groups = new \PapayaPluginOptionGroups();
     $this->assertInstanceOf(
-      PapayaConfiguration::class,
+      \PapayaConfiguration::class,
       $groups['123456789012345678901234567890ab']
     );
   }

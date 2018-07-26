@@ -23,7 +23,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   public function testConstructor() {
     $document = new \PapayaXmlDocument();
     $this->assertInstanceOf(
-      PapayaXmlElement::class, $document->createElement('test')
+      \PapayaXmlElement::class, $document->createElement('test')
     );
   }
 
@@ -285,7 +285,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   * @covers \PapayaXmlDocument::createFromXml
   */
   public function testCreateFromXml() {
-    $document = PapayaXmlDocument::createFromXml(/** @lang XML */'<foo/>');
+    $document = \PapayaXmlDocument::createFromXml(/** @lang XML */'<foo/>');
     $this->assertEquals(/** @lang XML */'<foo/>', $document->documentElement->saveXml());
   }
 
@@ -293,7 +293,7 @@ class PapayaXmlDocumentTest extends PapayaTestCase {
   * @covers \PapayaXmlDocument::createFromXml
   */
   public function testCreateFromWithInvalidXmlButSilentExpectingNull() {
-    $document = PapayaXmlDocument::createFromXml('abc', TRUE);
+    $document = \PapayaXmlDocument::createFromXml('abc', TRUE);
     $this->assertNull($document);
   }
 }

@@ -23,7 +23,7 @@ class PapayaObjectListTest extends PapayaTestCase {
   public function testConstructorWithClass() {
     $list = new \PapayaObjectList(PapayaTestCase::class);
     $this->assertAttributeEquals(
-      PapayaTestCase::class,
+      \PapayaTestCase::class,
       '_itemClass',
       $list
     );
@@ -47,7 +47,7 @@ class PapayaObjectListTest extends PapayaTestCase {
     $list = new \PapayaObjectList();
     $list->setItemClass(PapayaTestCase::class);
     $this->assertAttributeEquals(
-      PapayaTestCase::class,
+      \PapayaTestCase::class,
       '_itemClass',
       $list
     );
@@ -96,7 +96,7 @@ class PapayaObjectListTest extends PapayaTestCase {
   public function testGetItemClass() {
     $list = new \PapayaObjectList(PapayaTestCase::class);
     $this->assertEquals(
-      PapayaTestCase::class,
+      \PapayaTestCase::class,
       $list->getItemClass()
     );
   }

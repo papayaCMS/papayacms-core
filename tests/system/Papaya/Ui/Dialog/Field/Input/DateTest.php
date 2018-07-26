@@ -21,7 +21,7 @@ class PapayaUiDialogFieldInputDateTest extends PapayaTestCase {
   */
   public function testConstructor() {
     $input = new \PapayaUiDialogFieldInputDate(
-      'Date', 'date', '2011-01-01 18:00', TRUE, PapayaFilterDate::DATE_OPTIONAL_TIME, 300.0
+      'Date', 'date', '2011-01-01 18:00', TRUE, \PapayaFilterDate::DATE_OPTIONAL_TIME, 300.0
     );
     $this->assertEquals('Date', $input->caption);
     $this->assertEquals('date', $input->name);
@@ -51,7 +51,7 @@ class PapayaUiDialogFieldInputDateTest extends PapayaTestCase {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Step must be greater than 0.');
     new \PapayaUiDialogFieldInputDate(
-      'Date', 'date', '2011-01-01 18:00', TRUE, PapayaFilterDate::DATE_OPTIONAL_TIME, -300.0
+      'Date', 'date', '2011-01-01 18:00', TRUE, \PapayaFilterDate::DATE_OPTIONAL_TIME, -300.0
     );
   }
 
@@ -63,7 +63,7 @@ class PapayaUiDialogFieldInputDateTest extends PapayaTestCase {
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
     $input = new \PapayaUiDialogFieldInputDate(
-      'Date', 'date', NULL, FALSE, PapayaFilterDate::DATE_OPTIONAL_TIME
+      'Date', 'date', NULL, FALSE, \PapayaFilterDate::DATE_OPTIONAL_TIME
     );
     $input->mandatory = $mandatory;
     $input->defaultValue = $value;
@@ -78,7 +78,7 @@ class PapayaUiDialogFieldInputDateTest extends PapayaTestCase {
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
     $input = new \PapayaUiDialogFieldInputDate(
-      'Date', 'date', NULL, FALSE, PapayaFilterDate::DATE_OPTIONAL_TIME
+      'Date', 'date', NULL, FALSE, \PapayaFilterDate::DATE_OPTIONAL_TIME
     );
     $input->mandatory = $mandatory;
     $input->defaultValue = $value;

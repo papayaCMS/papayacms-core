@@ -26,7 +26,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   public function testEscape($string, $expected) {
     $this->assertEquals(
       $expected,
-      PapayaUtilStringXml::escape($string)
+      \PapayaUtilStringXml::escape($string)
     );
   }
 
@@ -39,7 +39,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   public function testUnescape($expected, $string) {
     $this->assertEquals(
       $expected,
-      PapayaUtilStringXml::unescape($string)
+      \PapayaUtilStringXml::unescape($string)
     );
   }
 
@@ -52,7 +52,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   public function testEscapeAttribute($string, $expected) {
     $this->assertEquals(
       $expected,
-      PapayaUtilStringXml::escapeAttribute($string)
+      \PapayaUtilStringXml::escapeAttribute($string)
     );
   }
 
@@ -66,7 +66,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   public function testRepairEntitiesInitalizesTranslationTable() {
     $this->assertEquals(
       'ä',
-      PapayaUtilStringXml::repairEntities('&auml;')
+      \PapayaUtilStringXml::repairEntities('&auml;')
     );
   }
 
@@ -79,7 +79,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   public function testRepairEntities($expected, $string) {
     $this->assertEquals(
       $expected,
-      PapayaUtilStringXml::repairEntities($string)
+      \PapayaUtilStringXml::repairEntities($string)
     );
   }
 
@@ -91,7 +91,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
    * @param array $array
    */
   public function testSerializeArray($expected, $array) {
-    $this->assertXmlStringEqualsXmlString($expected, PapayaUtilStringXml::serializeArray($array));
+    $this->assertXmlStringEqualsXmlString($expected, \PapayaUtilStringXml::serializeArray($array));
   }
 
   /**
@@ -101,7 +101,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   public function testSerializeArrayWithName() {
     $this->assertEquals(
       /** @lang XML */'<sample version="2"><sample-element name="foo">bar</sample-element></sample>',
-      PapayaUtilStringXml::serializeArray(array('foo' => 'bar'), 'sample')
+      \PapayaUtilStringXml::serializeArray(array('foo' => 'bar'), 'sample')
     );
   }
 
@@ -113,14 +113,14 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
    * @param string $expected
    */
   public function testUnserializeArray($xml, $expected) {
-    $this->assertEquals($expected, PapayaUtilStringXml::unserializeArray($xml));
+    $this->assertEquals($expected, \PapayaUtilStringXml::unserializeArray($xml));
   }
 
   /**
   * @covers \PapayaUtilStringXml::unserializeArray
   */
   public function testDeserializeArrayWithEmptyString() {
-    $this->assertEquals(array(), PapayaUtilStringXml::unserializeArray(''));
+    $this->assertEquals(array(), \PapayaUtilStringXml::unserializeArray(''));
   }
 
   /**
@@ -133,7 +133,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   public function testUnserializeWithOldEntities($expected, $entities) {
     $this->assertEquals(
       array('foo' => $expected),
-      PapayaUtilStringXml::unserializeArray(
+      \PapayaUtilStringXml::unserializeArray(
         /** @lang XML */
         "<sample><sample-element name='foo'>$entities</sample-element></sample>"
       )
@@ -147,7 +147,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   public function testDeserializeWithOldEscapingAndDoubleEscapedData() {
     $this->assertEquals(
       array('foo' => '"<br/>'),
-      PapayaUtilStringXml::unserializeArray(
+      \PapayaUtilStringXml::unserializeArray(
         /** @lang XML */
         '<sample><sample-element name="foo">&amp;quot;&lt;br/&gt;</sample-element></sample>'
       )
@@ -161,7 +161,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   public function testDeserializeListWithOldEscapingAndDoubleEscapedData() {
     $this->assertEquals(
       array('bar' => array('foo' => '"<br/>')),
-      PapayaUtilStringXml::unserializeArray(
+      \PapayaUtilStringXml::unserializeArray(
         /** @lang XML */
         '<sample>
           <sample-list name="bar">
@@ -184,7 +184,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   public function testTruncate($expected, $xml, $length) {
     $document = new DOMDocument('1.0', 'UTF-8');
     $document->loadXML($xml);
-    $node = PapayaUtilStringXml::truncate($document->documentElement, $length);
+    $node = \PapayaUtilStringXml::truncate($document->documentElement, $length);
     $this->assertXmlStringEqualsXmlString(
       $expected, $node->ownerDocument->saveXML($node)
     );
@@ -204,7 +204,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
    */
   public function testIsQNameWithEmptyNameExpectingException() {
     $this->expectException(UnexpectedValueException::class);
-    PapayaUtilStringXml::isQName('');
+    \PapayaUtilStringXml::isQName('');
   }
 
   /**
@@ -224,7 +224,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   public function testIsNcNameWithEmptyTagnameExpectingException() {
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:": Missing QName part.');
-    PapayaUtilStringXml::isNcName('nc:', 3);
+    \PapayaUtilStringXml::isNcName('nc:', 3);
   }
 
   /**
@@ -233,7 +233,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   public function testIsNcNameWithInvalidTagnameCharExpectingException() {
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:ta<g>": Invalid character at index 5.');
-    PapayaUtilStringXml::isNcName('nc:ta<g>', 3);
+    \PapayaUtilStringXml::isNcName('nc:ta<g>', 3);
   }
 
   /**
@@ -242,7 +242,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   public function testIsNcNameWithInvalidTagnameStartingCharExpectingException() {
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:1tag": Invalid character at index 3.');
-    PapayaUtilStringXml::isNcName('nc:1tag', 3);
+    \PapayaUtilStringXml::isNcName('nc:1tag', 3);
   }
 
   /*********************************

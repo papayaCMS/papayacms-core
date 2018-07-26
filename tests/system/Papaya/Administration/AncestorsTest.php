@@ -131,7 +131,7 @@ class PapayaAdministrationPagesAncestorsTest extends PapayaTestCase {
     $ancestors = new Ancestors();
     $ancestors->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaUiHierarchyMenu::class, $ancestors->menu()
+      \PapayaUiHierarchyMenu::class, $ancestors->menu()
     );
     $this->assertSame(
       $papaya, $ancestors->papaya()

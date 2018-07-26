@@ -50,7 +50,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   public function testParametesImplicitCreate() {
     $engine = new \PapayaTemplateEngine_TestProxy();
     $this->assertInstanceOf(
-      PapayaObjectOptionsList::class,
+      \PapayaObjectOptionsList::class,
       $engine->parameters()
     );
   }
@@ -61,7 +61,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   public function testParametesImplizitCreateWithArray() {
     $engine = new \PapayaTemplateEngine_TestProxy();
     $this->assertInstanceOf(
-      PapayaObjectOptionsList::class,
+      \PapayaObjectOptionsList::class,
       $engine->parameters(array())
     );
   }
@@ -139,11 +139,11 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   public function testLoadersGetterWithImplicitCreate() {
     $engine = new \PapayaTemplateEngine_TestProxy();
     $this->assertInstanceOf(
-      PapayaObjectList::class,
+      \PapayaObjectList::class,
       $engine->loaders()
     );
     $this->assertEquals(
-      PapayaTemplateEngineValuesLoadable::class,
+      \PapayaTemplateEngineValuesLoadable::class,
       $engine->loaders()->getItemClass()
     );
   }
@@ -265,11 +265,11 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
     $engine = new \PapayaTemplateEngine_TestProxy();
     $loaders = $engine->loaders;
     $this->assertInstanceOf(
-      PapayaObjectList::class,
+      \PapayaObjectList::class,
       $loaders
     );
     $this->assertEquals(
-      PapayaTemplateEngineValuesLoadable::class,
+      \PapayaTemplateEngineValuesLoadable::class,
       $loaders->getItemClass()
     );
   }
@@ -300,7 +300,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
     $engine = new \PapayaTemplateEngine_TestProxy();
     $parameters = $engine->parameters;
     $this->assertInstanceOf(
-      PapayaObjectOptionsList::class, $parameters
+      \PapayaObjectOptionsList::class, $parameters
     );
   }
 

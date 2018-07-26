@@ -225,7 +225,7 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
 
     $options = new \PapayaUiDialogFieldFactoryOptions();
     $options->filterFactory($factory);
-    $options->validation = PapayaFilterNotEmpty::class;
+    $options->validation = \PapayaFilterNotEmpty::class;
     $this->assertInstanceOf(PapayaFilter::class, $options->validation);
   }
 

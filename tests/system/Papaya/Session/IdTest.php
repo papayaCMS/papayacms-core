@@ -43,7 +43,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
   public function testMagicMethodToString() {
     $request = $this->getParameterStubFixture(
       array(
-        PapayaRequest::SOURCE_COOKIE => array('sample' => '012345678901234567890123456789ab')
+        \PapayaRequest::SOURCE_COOKIE => array('sample' => '012345678901234567890123456789ab')
       )
     );
     $sid = new \PapayaSessionId('sample');
@@ -128,7 +128,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
   public function testGetIdFromCookie($cookieString) {
     $request = $this->getParameterStubFixture(
       array(
-        PapayaRequest::SOURCE_COOKIE => array('sample' => '012345678901234567890123456789ab')
+        \PapayaRequest::SOURCE_COOKIE => array('sample' => '012345678901234567890123456789ab')
       )
     );
     $_SERVER['HTTP_COOKIE'] = $cookieString;
@@ -151,7 +151,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
   public function testGetIdWithAmbiguousCookie($cookieString) {
     $request = $this->getParameterStubFixture(
       array(
-        PapayaRequest::SOURCE_COOKIE => array('sample' => '012345678901234567890123456789ab')
+        \PapayaRequest::SOURCE_COOKIE => array('sample' => '012345678901234567890123456789ab')
       )
     );
     $_SERVER['HTTP_COOKIE'] = $cookieString;
@@ -172,7 +172,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
   public function testGetIdWithTwoCookiesWithTheSameValue() {
     $request = $this->getParameterStubFixture(
       array(
-        PapayaRequest::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
+        \PapayaRequest::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
       )
     );
     $_SERVER['HTTP_COOKIE'] = 'sample=25b482735512613d6b61983c400bd3d9; sample=25b482735512613d6b61983c400bd3d9';
@@ -193,7 +193,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
   public function testGetIdFromPath() {
     $request = $this->getParameterStubFixture(
       array(
-        PapayaRequest::SOURCE_PATH => array('session' => 'sample012345678901234567890123456789ab')
+        \PapayaRequest::SOURCE_PATH => array('session' => 'sample012345678901234567890123456789ab')
       )
     );
     $sid = new \PapayaSessionId('sample');
@@ -213,7 +213,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
   public function testGetIdFromPathFallbackToDefaultName() {
     $request = $this->getParameterStubFixture(
       array(
-        PapayaRequest::SOURCE_PATH => array('session' => 'sid012345678901234567890123456789ab')
+        \PapayaRequest::SOURCE_PATH => array('session' => 'sid012345678901234567890123456789ab')
       )
     );
     $sid = new \PapayaSessionId('sample');
@@ -233,7 +233,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
   public function testGetIdFromQueryString() {
     $request = $this->getParameterStubFixture(
       array(
-        PapayaRequest::SOURCE_QUERY => array('sample' => '012345678901234567890123456789ab')
+        \PapayaRequest::SOURCE_QUERY => array('sample' => '012345678901234567890123456789ab')
       )
     );
     $sid = new \PapayaSessionId('sample');
@@ -252,7 +252,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
   public function testGetIdFromRequestBody() {
     $request = $this->getParameterStubFixture(
       array(
-        PapayaRequest::SOURCE_BODY => array('sample' => '012345678901234567890123456789ab')
+        \PapayaRequest::SOURCE_BODY => array('sample' => '012345678901234567890123456789ab')
       )
     );
     $sid = new \PapayaSessionId('sample');
@@ -359,39 +359,39 @@ class PapayaSessionIdTest extends PapayaTestCase {
   public static function provideValidParametersForExistsIn() {
     return array(
       'any from cookie' => array(
-        PapayaSessionId::SOURCE_ANY,
+        \PapayaSessionId::SOURCE_ANY,
         array(
-          PapayaRequest::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
+          \PapayaRequest::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
         )
       ),
       'any from path' => array(
-        PapayaSessionId::SOURCE_ANY,
+        \PapayaSessionId::SOURCE_ANY,
         array(
-          PapayaRequest::SOURCE_PATH => array('session' => 'sample25b482735512613d6b61983c400bd3d9')
+          \PapayaRequest::SOURCE_PATH => array('session' => 'sample25b482735512613d6b61983c400bd3d9')
         )
       ),
       'cookie' => array(
-        PapayaSessionId::SOURCE_COOKIE,
+        \PapayaSessionId::SOURCE_COOKIE,
         array(
-          PapayaRequest::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
+          \PapayaRequest::SOURCE_COOKIE => array('sample' => '25b482735512613d6b61983c400bd3d9')
         )
       ),
       'path' => array(
-        PapayaSessionId::SOURCE_PATH,
+        \PapayaSessionId::SOURCE_PATH,
         array(
-          PapayaRequest::SOURCE_PATH => array('session' => 'sample25b482735512613d6b61983c400bd3d9')
+          \PapayaRequest::SOURCE_PATH => array('session' => 'sample25b482735512613d6b61983c400bd3d9')
         )
       ),
       'query' => array(
-        PapayaSessionId::SOURCE_QUERY,
+        \PapayaSessionId::SOURCE_QUERY,
         array(
-          PapayaRequest::SOURCE_QUERY => array('sample' => '25b482735512613d6b61983c400bd3d9')
+          \PapayaRequest::SOURCE_QUERY => array('sample' => '25b482735512613d6b61983c400bd3d9')
         )
       ),
       'request body' => array(
-        PapayaSessionId::SOURCE_BODY,
+        \PapayaSessionId::SOURCE_BODY,
         array(
-          PapayaRequest::SOURCE_BODY => array('sample' => '25b482735512613d6b61983c400bd3d9')
+          \PapayaRequest::SOURCE_BODY => array('sample' => '25b482735512613d6b61983c400bd3d9')
         )
       ),
     );
@@ -400,7 +400,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
   public static function provideInvalidParametersForExistsIn() {
     return array(
       'any on empty' => array(
-        PapayaSessionId::SOURCE_ANY,
+        \PapayaSessionId::SOURCE_ANY,
         array()
       )
     );

@@ -379,7 +379,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   public function testMenuGetImplicitCreate() {
     $changer = new Changer();
     $this->assertInstanceOf(
-      PapayaUiToolbar::class, $changer->menu()
+      \PapayaUiToolbar::class, $changer->menu()
     );
   }
 
@@ -403,7 +403,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   public function testCommandsGetImplicitCreate() {
     $changer = new Changer();
     $this->assertInstanceOf(
-      PapayaUiControlCommandController::class, $commands = $changer->commands()
+      \PapayaUiControlCommandController::class, $commands = $changer->commands()
     );
     $this->assertNotNull($commands['dependency_show']);
     $this->assertNotNull($commands['dependency_delete']);

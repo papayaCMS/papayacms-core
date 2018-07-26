@@ -226,7 +226,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
     $service = $this->createMock(PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $this->assertInstanceOf(
-      PapayaMediaDatabaseItemRecord::class,
+      \PapayaMediaDatabaseItemRecord::class,
       $item->getDatabaseAccessObject()
     );
   }

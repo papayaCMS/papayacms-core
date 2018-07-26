@@ -137,7 +137,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new \PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaUrlCurrent::class,
+      \PapayaUrlCurrent::class,
       $request->getUrl()
     );
   }
@@ -149,7 +149,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new \PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaUrlCurrent::class,
+      \PapayaUrlCurrent::class,
       $request->url
     );
   }
@@ -175,7 +175,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new \PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
     $request->setParameters(
-      PapayaRequest::SOURCE_PATH,
+      \PapayaRequest::SOURCE_PATH,
       new \PapayaRequestParameters(array('language' => 'de'))
     );
     $this->assertEquals(
@@ -272,7 +272,7 @@ class PapayaRequestTest extends PapayaTestCase {
   public function testGetPropertyModeInitializeFromParameter() {
     $request = new \PapayaRequest();
     $request->setParameters(
-      PapayaRequest::SOURCE_PATH,
+      \PapayaRequest::SOURCE_PATH,
       new \PapayaRequestParameters(array('output_mode' => 'ext'))
     );
     $this->assertEquals(
@@ -288,7 +288,7 @@ class PapayaRequestTest extends PapayaTestCase {
   public function testGetPropertyModeInitializeFromParameterXmlPreviewMode() {
     $request = new \PapayaRequest();
     $request->setParameters(
-      PapayaRequest::SOURCE_PATH,
+      \PapayaRequest::SOURCE_PATH,
       new \PapayaRequestParameters(array('output_mode' => 'xml'))
     );
     $this->assertNull($request->mode->getLazyLoadParameters());
@@ -353,7 +353,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new \PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
     $request->setParameters(
-      PapayaRequest::SOURCE_PATH, new \PapayaRequestParameters(array('page_id' => 42))
+      \PapayaRequest::SOURCE_PATH, new \PapayaRequestParameters(array('page_id' => 42))
     );
     $this->assertEquals(42, $request->pageId);
   }
@@ -380,7 +380,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new \PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
     $request->setParameters(
-      PapayaRequest::SOURCE_PATH, new \PapayaRequestParameters(array('preview' => TRUE))
+      \PapayaRequest::SOURCE_PATH, new \PapayaRequestParameters(array('preview' => TRUE))
     );
     $this->assertTrue($request->isPreview);
   }
@@ -686,9 +686,9 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new \PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
     $request->load($this->getUrlMockFixture('group[e1]=success'));
-    $parameters = $request->getParameterGroup('group', PapayaRequest::SOURCE_QUERY);
+    $parameters = $request->getParameterGroup('group', \PapayaRequest::SOURCE_QUERY);
     $this->assertInstanceOf(
-      PapayaRequestParameters::class,
+      \PapayaRequestParameters::class,
       $parameters
     );
     $this->assertEquals(
@@ -704,15 +704,15 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new \PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
     $request->load($this->getUrlMockFixture('PARAMETER_QUERY_SAMPLE=fail'));
-    $request->getParameterGroup('PARAMETER_QUERY_SAMPLE', PapayaRequest::SOURCE_ALL);
+    $request->getParameterGroup('PARAMETER_QUERY_SAMPLE', \PapayaRequest::SOURCE_ALL);
     $parameters = new \PapayaRequestParameters();
     $parameters->merge(array('PARAMETER_QUERY_SAMPLE' => 'success'));
     $request->setParameters(PapayaRequest::SOURCE_QUERY, $parameters);
     $this->assertEquals(
       array(
-        PapayaRequest::SOURCE_PATH,
-        PapayaRequest::SOURCE_QUERY,
-        PapayaRequest::SOURCE_BODY
+        \PapayaRequest::SOURCE_PATH,
+        \PapayaRequest::SOURCE_QUERY,
+        \PapayaRequest::SOURCE_BODY
       ),
       array_keys($this->readAttribute($request, '_parameterCache'))
     );

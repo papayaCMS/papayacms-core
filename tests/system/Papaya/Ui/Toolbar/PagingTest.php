@@ -34,9 +34,9 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   * @covers \PapayaUiToolbarPaging::__construct
   */
   public function testConstructorWithMode() {
-    $paging = new \PapayaUiToolbarPaging('foo/page', 30, PapayaUiToolbarPaging::MODE_OFFSET);
+    $paging = new \PapayaUiToolbarPaging('foo/page', 30, \PapayaUiToolbarPaging::MODE_OFFSET);
     $this->assertAttributeEquals(
-      PapayaUiToolbarPaging::MODE_OFFSET, '_mode', $paging
+      \PapayaUiToolbarPaging::MODE_OFFSET, '_mode', $paging
     );
   }
 
@@ -153,7 +153,7 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   * @covers \PapayaUiToolbarPaging::getCurrentPageParameter
   */
   public function testGetCurrentPageFromRequestUsingOffset() {
-    $paging = new \PapayaUiToolbarPaging('offset', 30, PapayaUiToolbarPaging::MODE_OFFSET);
+    $paging = new \PapayaUiToolbarPaging('offset', 30, \PapayaUiToolbarPaging::MODE_OFFSET);
     $paging->papaya(
       $this->mockPapaya()->application(
         array(
@@ -355,7 +355,7 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   public function testAppendToWithCurrentOffsetEquals10() {
     $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $paging = new \PapayaUiToolbarPaging('foo/offset', 30, PapayaUiToolbarPaging::MODE_OFFSET);
+    $paging = new \PapayaUiToolbarPaging('foo/offset', 30, \PapayaUiToolbarPaging::MODE_OFFSET);
     $paging->papaya(
       $this->mockPapaya()->application(
         array(

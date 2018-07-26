@@ -25,7 +25,7 @@ class PapayaUtilBytesTest extends PapayaTestCase {
    */
   public function testToString($expected, $bytes) {
     $this->assertEquals(
-      $expected, PapayaUtilBytes::toString($bytes)
+      $expected, \PapayaUtilBytes::toString($bytes)
     );
   }
 
@@ -34,7 +34,7 @@ class PapayaUtilBytesTest extends PapayaTestCase {
   */
   public function testToStringWithGermanDecimalSeparator() {
     $this->assertEquals(
-      '39,1 GB', PapayaUtilBytes::toString(42001231205, 1, ',')
+      '39,1 GB', \PapayaUtilBytes::toString(42001231205, 1, ',')
     );
   }
 
@@ -46,7 +46,7 @@ class PapayaUtilBytesTest extends PapayaTestCase {
    */
   public function testFromString($expected, $bytes) {
     $this->assertEquals(
-      $expected, PapayaUtilBytes::fromString($bytes)
+      $expected, \PapayaUtilBytes::fromString($bytes)
     );
   }
 

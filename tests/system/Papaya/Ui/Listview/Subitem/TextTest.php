@@ -44,7 +44,7 @@ class PapayaUiListviewSubitemTextTest extends PapayaTestCase {
     $document = new \PapayaXmlDocument();
     $document->appendElement('test');
     $subitem = new \PapayaUiListviewSubitemText('Sample text');
-    $subitem->align = PapayaUiOptionAlign::RIGHT;
+    $subitem->align = \PapayaUiOptionAlign::RIGHT;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

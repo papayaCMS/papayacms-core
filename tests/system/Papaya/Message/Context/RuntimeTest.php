@@ -21,20 +21,20 @@ class PapayaMessageContextRuntimeTest extends PapayaTestCase {
   * @covers \PapayaMessageContextRuntime::__construct
   */
   public function testConstructorWithoutParameters() {
-    PapayaMessageContextRuntime::setStartTime(0);
+    \PapayaMessageContextRuntime::setStartTime(0);
     $context = new \PapayaMessageContextRuntime();
     $this->assertAttributeGreaterThan(
       0,
       '_startTime',
-      PapayaMessageContextRuntime::class
+      \PapayaMessageContextRuntime::class
     );
     $this->assertAttributeGreaterThan(
       0,
       '_previousTime',
-      PapayaMessageContextRuntime::class
+      \PapayaMessageContextRuntime::class
     );
     $this->assertAttributeEquals(
-      PapayaMessageContextRuntime::MODE_GLOBAL,
+      \PapayaMessageContextRuntime::MODE_GLOBAL,
       '_mode',
       $context
     );
@@ -56,7 +56,7 @@ class PapayaMessageContextRuntimeTest extends PapayaTestCase {
       $context
     );
     $this->assertAttributeEquals(
-      PapayaMessageContextRuntime::MODE_SINGLE,
+      \PapayaMessageContextRuntime::MODE_SINGLE,
       '_mode',
       $context
     );
@@ -95,16 +95,16 @@ class PapayaMessageContextRuntimeTest extends PapayaTestCase {
   * @covers \PapayaMessageContextRuntime::setStartTime
   */
   public function testSetStartTime() {
-    PapayaMessageContextRuntime::setStartTime(42);
+    \PapayaMessageContextRuntime::setStartTime(42);
     $this->assertAttributeEquals(
       42,
       '_startTime',
-      PapayaMessageContextRuntime::class
+      \PapayaMessageContextRuntime::class
     );
     $this->assertAttributeEquals(
       42,
       '_previousTime',
-      PapayaMessageContextRuntime::class
+      \PapayaMessageContextRuntime::class
     );
   }
 
@@ -112,11 +112,11 @@ class PapayaMessageContextRuntimeTest extends PapayaTestCase {
   * @covers \PapayaMessageContextRuntime::rememberTime
   */
   public function testRememberTime() {
-    PapayaMessageContextRuntime::rememberTime(42);
+    \PapayaMessageContextRuntime::rememberTime(42);
     $this->assertAttributeEquals(
       42,
       '_previousTime',
-      PapayaMessageContextRuntime::class
+      \PapayaMessageContextRuntime::class
     );
   }
 
@@ -125,7 +125,7 @@ class PapayaMessageContextRuntimeTest extends PapayaTestCase {
   */
   public function testAsStringInGlobalMode() {
     $context = new \PapayaMessageContextRuntime();
-    PapayaMessageContextRuntime::setStartTime(23);
+    \PapayaMessageContextRuntime::setStartTime(23);
     $context->setTimeValues(42, 77);
     $this->assertEquals(
       'Time: 54s 0ms (+35s 0ms)',

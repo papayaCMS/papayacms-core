@@ -22,10 +22,10 @@ class PapayaUiDialogFieldTextareaRichtextTest extends PapayaTestCase {
    */
   public function testConstructorSettingRteMode() {
     $richtext = new \PapayaUiDialogFieldTextareaRichtext(
-      'Caption', 'name', 12, NULL, NULL, PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE
+      'Caption', 'name', 12, NULL, NULL, \PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE
     );
     $this->assertEquals(
-      PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE, $richtext->getRteMode()
+      \PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE, $richtext->getRteMode()
     );
   }
 
@@ -49,7 +49,7 @@ class PapayaUiDialogFieldTextareaRichtextTest extends PapayaTestCase {
    */
   public function testAppendToWithAllParameters() {
     $richtext = new \PapayaUiDialogFieldTextareaRichtext(
-      'Caption', 'name', 12, NULL, NULL, PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE
+      'Caption', 'name', 12, NULL, NULL, \PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE
     );
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -68,7 +68,7 @@ class PapayaUiDialogFieldTextareaRichtextTest extends PapayaTestCase {
     $richtext = new \PapayaUiDialogFieldTextareaRichtext('Caption', 'name');
     $richtext->setRteMode(PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE);
     $this->assertEquals(
-      PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE, $richtext->getRteMode()
+      \PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE, $richtext->getRteMode()
     );
   }
 }

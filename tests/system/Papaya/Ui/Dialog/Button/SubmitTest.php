@@ -34,10 +34,10 @@ class PapayaUiDialogButtonSubmitTest extends PapayaTestCase {
   */
   public function testConstructorWithAlignment() {
     $button = new \PapayaUiDialogButtonSubmit(
-      'Test Caption', PapayaUiDialogButton::ALIGN_LEFT
+      'Test Caption', \PapayaUiDialogButton::ALIGN_LEFT
     );
     $this->assertAttributeEquals(
-      PapayaUiDialogButton::ALIGN_LEFT,
+      \PapayaUiDialogButton::ALIGN_LEFT,
       '_align',
       $button
     );
@@ -73,7 +73,7 @@ class PapayaUiDialogButtonSubmitTest extends PapayaTestCase {
     $document = new \PapayaXmlDocument();
     $document->appendElement('test');
     $button = new \PapayaUiDialogButtonSubmit(
-      $caption, PapayaUiDialogButton::ALIGN_LEFT
+      $caption, \PapayaUiDialogButton::ALIGN_LEFT
     );
     $button->appendTo($document->documentElement);
     $this->assertEquals(

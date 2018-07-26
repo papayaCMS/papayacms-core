@@ -44,7 +44,7 @@ class PapayaUiDialogFieldSelectLanguageTest extends PapayaTestCase {
   */
   public function testAppendToWithAny() {
     $select = new \PapayaUiDialogFieldSelectLanguage(
-      'Caption', 'name', $this->getLanguagesFixture(), PapayaUiDialogFieldSelectLanguage::OPTION_ALLOW_ANY
+      'Caption', 'name', $this->getLanguagesFixture(), \PapayaUiDialogFieldSelectLanguage::OPTION_ALLOW_ANY
     );
     $select->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
@@ -65,7 +65,7 @@ class PapayaUiDialogFieldSelectLanguageTest extends PapayaTestCase {
   */
   public function testAppendToWithIdentifierKeys() {
     $select = new \PapayaUiDialogFieldSelectLanguage(
-      'Caption', 'name', $this->getLanguagesFixture(), PapayaUiDialogFieldSelectLanguage::OPTION_USE_IDENTIFIER
+      'Caption', 'name', $this->getLanguagesFixture(), \PapayaUiDialogFieldSelectLanguage::OPTION_USE_IDENTIFIER
     );
     $select->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
@@ -88,8 +88,8 @@ class PapayaUiDialogFieldSelectLanguageTest extends PapayaTestCase {
       'Caption',
       'name',
       $this->getLanguagesFixture(),
-      PapayaUiDialogFieldSelectLanguage::OPTION_USE_IDENTIFIER |
-      PapayaUiDialogFieldSelectLanguage::OPTION_ALLOW_ANY
+      \PapayaUiDialogFieldSelectLanguage::OPTION_USE_IDENTIFIER |
+      \PapayaUiDialogFieldSelectLanguage::OPTION_ALLOW_ANY
     );
     $select->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(

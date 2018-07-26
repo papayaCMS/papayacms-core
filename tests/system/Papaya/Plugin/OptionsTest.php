@@ -38,7 +38,7 @@ class PapayaPluginOptionsTest extends PapayaTestCase {
     $options = new \PapayaPluginOptions('ab123456789012345678901234567890');
     $options->load($this->getStorageFixture(array('SAMPLE_OPTION' => '42'), TRUE));
     $this->assertEquals(
-      PapayaPluginOptions::STATUS_LOADED, $options->getStatus()
+      \PapayaPluginOptions::STATUS_LOADED, $options->getStatus()
     );
     $this->assertEquals(
       array(

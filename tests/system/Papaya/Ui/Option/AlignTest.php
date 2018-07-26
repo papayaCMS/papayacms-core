@@ -23,7 +23,7 @@ class PapayaUiOptionAlignTest extends PapayaTestCase {
   public function testGetString() {
     $this->assertEquals(
       'center',
-      PapayaUiOptionAlign::getString(PapayaUiOptionAlign::CENTER)
+      \PapayaUiOptionAlign::getString(PapayaUiOptionAlign::CENTER)
     );
   }
 
@@ -33,7 +33,7 @@ class PapayaUiOptionAlignTest extends PapayaTestCase {
   public function testGetStringWithInvalidValueExpectingLeft() {
     $this->assertEquals(
       'left',
-      PapayaUiOptionAlign::getString(-42)
+      \PapayaUiOptionAlign::getString(-42)
     );
   }
 
@@ -42,7 +42,7 @@ class PapayaUiOptionAlignTest extends PapayaTestCase {
   */
   public function testValidate() {
     $this->assertTrue(
-      PapayaUiOptionAlign::validate(PapayaUiOptionAlign::CENTER)
+      \PapayaUiOptionAlign::validate(PapayaUiOptionAlign::CENTER)
     );
   }
 
@@ -52,7 +52,7 @@ class PapayaUiOptionAlignTest extends PapayaTestCase {
   public function testValidateWithInvalidValue() {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Invalid align value "-42".');
-    PapayaUiOptionAlign::validate(-42);
+    \PapayaUiOptionAlign::validate(-42);
   }
 
   /**
@@ -61,6 +61,6 @@ class PapayaUiOptionAlignTest extends PapayaTestCase {
   public function testValidateWithInvalidValueAndIndividualMessage() {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Failed.');
-    PapayaUiOptionAlign::validate(-42, 'Failed.');
+    \PapayaUiOptionAlign::validate(-42, 'Failed.');
   }
 }

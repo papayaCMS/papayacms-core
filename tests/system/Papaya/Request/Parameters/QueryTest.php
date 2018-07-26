@@ -56,7 +56,7 @@ class PapayaRequestParametersQueryTest extends PapayaTestCase {
   public function testValuesReadImplicitCreate() {
     $query = new \PapayaRequestParametersQuery();
     $this->assertInstanceOf(
-      PapayaRequestParameters::class, $query->values()
+      \PapayaRequestParameters::class, $query->values()
     );
   }
 

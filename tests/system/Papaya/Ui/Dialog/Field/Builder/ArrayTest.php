@@ -63,7 +63,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
     $this->assertInstanceOf(
-      PapayaUiDialogField::class, $fields[0]
+      \PapayaUiDialogField::class, $fields[0]
     );
   }
 
@@ -166,7 +166,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
     $builder->fieldFactory($fieldFactory);
     $fields = $builder->getFields();
     $this->assertInstanceOf(
-      PapayaUiDialogFieldGroup::class, $fields[0]
+      \PapayaUiDialogFieldGroup::class, $fields[0]
     );
     $this->assertCount(1, $fields[0]->fields);
   }
@@ -201,7 +201,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
     $this->assertAttributeInstanceOf(
-      PapayaUiStringTranslated::class, '_caption', $fields[0]
+      \PapayaUiStringTranslated::class, '_caption', $fields[0]
     );
   }
 

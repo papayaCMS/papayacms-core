@@ -44,7 +44,7 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
     $item = new \PapayaUiNavigationItem_TestProxy(NULL);
     $item->reference($reference);
     $this->assertInstanceOf(
-      PapayaXmlElement::class, $item->appendTo($parent)
+      \PapayaXmlElement::class, $item->appendTo($parent)
     );
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -68,7 +68,7 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
     $item->selected(TRUE);
     $item->reference($reference);
     $this->assertInstanceOf(
-      PapayaXmlElement::class, $item->appendTo($parent)
+      \PapayaXmlElement::class, $item->appendTo($parent)
     );
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -129,7 +129,7 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
     $item = new \PapayaUiNavigationItem_TestProxy(NULL);
     $item->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaUiReference::class, $reference = $item->reference()
+      \PapayaUiReference::class, $reference = $item->reference()
     );
     $this->assertSame(
       $papaya, $reference->papaya()

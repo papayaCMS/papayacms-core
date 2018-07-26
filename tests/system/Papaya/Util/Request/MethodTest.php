@@ -33,7 +33,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
   public function testGetOnEmptyRequestEnvironmentExpectingGet() {
     $_SERVER = array();
     $this->assertEquals(
-      'get', PapayaUtilRequestMethod::get()
+      'get', \PapayaUtilRequestMethod::get()
     );
   }
 
@@ -45,7 +45,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
       'REQUEST_METHOD' => 'POST'
     );
     $this->assertEquals(
-      'post', PapayaUtilRequestMethod::get()
+      'post', \PapayaUtilRequestMethod::get()
     );
   }
 
@@ -57,7 +57,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
       'REQUEST_METHOD' => 'POST'
     );
     $this->assertEquals(
-      'POST', PapayaUtilRequestMethod::get(PapayaUtilRequestMethod::FORMAT_UPPERCASE)
+      'POST', \PapayaUtilRequestMethod::get(PapayaUtilRequestMethod::FORMAT_UPPERCASE)
     );
   }
 

@@ -35,7 +35,7 @@ class PapayaTemplateSimpleScannerStatusCssValueTest extends PapayaTestCase {
    */
   public function testIsEndTokenExpectingTrue() {
     $token = new \PapayaTemplateSimpleScannerToken(
-      PapayaTemplateSimpleScannerToken::VALUE_DEFAULT, 0, ''
+      \PapayaTemplateSimpleScannerToken::VALUE_DEFAULT, 0, ''
     );
     $status = new \PapayaTemplateSimpleScannerStatusCssValue();
     $this->assertTrue($status->isEndToken($token));

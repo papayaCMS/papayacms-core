@@ -55,7 +55,7 @@ class PapayaObjectTest extends PapayaTestCase {
     /** @noinspection PhpDeprecationInspection */
     $app = $object->getApplication();
     $this->assertInstanceOf(
-      PapayaApplication::class,
+      \PapayaApplication::class,
       $app
     );
     $this->assertAttributeSame(

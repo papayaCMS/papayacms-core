@@ -24,8 +24,8 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   */
   public function testStaticFunctionCreate() {
     $this->assertInstanceOf(
-      PapayaUiReferencePage::class,
-      PapayaUiReferencePage::create()
+      \PapayaUiReferencePage::class,
+      \PapayaUiReferencePage::create()
     );
   }
 

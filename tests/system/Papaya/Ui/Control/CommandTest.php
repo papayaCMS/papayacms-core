@@ -256,7 +256,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   public function testParameterMethodGetAfterSet() {
     $command = new \PapayaUiControlCommand_TestProxy();
     $this->assertEquals(
-      PapayaRequestParametersInterface::METHOD_GET,
+      \PapayaRequestParametersInterface::METHOD_GET,
       $command->parameterMethod(PapayaRequestParametersInterface::METHOD_GET)
     );
   }
@@ -274,7 +274,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
     $command = new \PapayaUiControlCommand_TestProxy();
     $command->owner($owner);
     $this->assertEquals(
-      PapayaRequestParametersInterface::METHOD_POST,
+      \PapayaRequestParametersInterface::METHOD_POST,
       $command->parameterMethod(PapayaRequestParametersInterface::METHOD_POST)
     );
   }

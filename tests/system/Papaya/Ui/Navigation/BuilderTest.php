@@ -45,9 +45,9 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
   * @covers \PapayaUiNavigationBuilder::__construct
   */
   public function testConstructorWithItemClass() {
-    $builder = new \PapayaUiNavigationBuilder(array(), PapayaUiNavigationItemText::class);
+    $builder = new \PapayaUiNavigationBuilder(array(), \PapayaUiNavigationItemText::class);
     $this->assertAttributeEquals(
-      PapayaUiNavigationItemText::class, '_itemClass', $builder
+      \PapayaUiNavigationItemText::class, '_itemClass', $builder
     );
   }
 
@@ -170,7 +170,7 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
     $builder = new \PapayaUiNavigationBuilder(array());
     $items = $builder->items();
     $this->assertInstanceOf(
-      PapayaUiNavigationItems::class, $items
+      \PapayaUiNavigationItems::class, $items
     );
   }
 
@@ -195,7 +195,7 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
     $builder = new \PapayaUiNavigationBuilder(array());
     $callbacks = $builder->callbacks();
     $this->assertInstanceOf(
-      PapayaUiNavigationBuilderCallbacks::class, $callbacks
+      \PapayaUiNavigationBuilderCallbacks::class, $callbacks
     );
   }
 }

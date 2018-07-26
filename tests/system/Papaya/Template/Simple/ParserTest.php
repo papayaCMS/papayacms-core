@@ -23,7 +23,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   public function testConstructor() {
     $tokens = $this->createTokens(
       array(
-        PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'
+        \PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'
       )
     );
     $parser = $this->getParserFixture($tokens);
@@ -241,7 +241,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
     $parser = $this->getParserFixture($tokens);
     $this->assertTrue(
       $parser->ignore(
-        PapayaTemplateSimpleScannerToken::WHITESPACE
+        \PapayaTemplateSimpleScannerToken::WHITESPACE
       )
     );
     $this->assertTrue($parser->endOfTokens(1));
@@ -326,28 +326,28 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   public static function provideDirectMatchingTokens() {
     return array(
       'one token, one token type' => array(
-        PapayaTemplateSimpleScannerToken::TEXT, // expected token type
+        \PapayaTemplateSimpleScannerToken::TEXT, // expected token type
         array(
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo')
         ), // token list data
         array(PapayaTemplateSimpleScannerToken::TEXT), // allowed token types
       ),
       'one token, one token type as string' => array(
-        PapayaTemplateSimpleScannerToken::TEXT,
+        \PapayaTemplateSimpleScannerToken::TEXT,
         array(
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo')
         ),
-        PapayaTemplateSimpleScannerToken::TEXT,
+        \PapayaTemplateSimpleScannerToken::TEXT,
       ),
       'one token, two token types' =>  array(
-        PapayaTemplateSimpleScannerToken::TEXT,
+        \PapayaTemplateSimpleScannerToken::TEXT,
         array(
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo')
         ),
-        array(PapayaTemplateSimpleScannerToken::VALUE_NAME, PapayaTemplateSimpleScannerToken::TEXT),
+        array(PapayaTemplateSimpleScannerToken::VALUE_NAME, \PapayaTemplateSimpleScannerToken::TEXT),
       ),
       'two tokens, one token type' => array(
-        PapayaTemplateSimpleScannerToken::TEXT,
+        \PapayaTemplateSimpleScannerToken::TEXT,
         array(
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'),
           array(PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, '/*$bar*/')
@@ -355,15 +355,15 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
         array(PapayaTemplateSimpleScannerToken::TEXT),
       ),
       'two tokens, two token types' => array(
-        PapayaTemplateSimpleScannerToken::TEXT,
+        \PapayaTemplateSimpleScannerToken::TEXT,
         array(
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'),
           array(PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, '/*$bar*/')
         ),
-        array(PapayaTemplateSimpleScannerToken::TEXT, PapayaTemplateSimpleScannerToken::VALUE_NAME),
+        array(PapayaTemplateSimpleScannerToken::TEXT, \PapayaTemplateSimpleScannerToken::VALUE_NAME),
       ),
       'two tokens, any token type' => array(
-        PapayaTemplateSimpleScannerToken::TEXT,
+        \PapayaTemplateSimpleScannerToken::TEXT,
         array(
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'),
           array(PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, '/*$bar*/')
@@ -371,12 +371,12 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
         array(PapayaTemplateSimpleScannerToken::ANY),
       ),
       'two tokens, any token type as skalar' => array(
-        PapayaTemplateSimpleScannerToken::TEXT,
+        \PapayaTemplateSimpleScannerToken::TEXT,
         array(
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'),
           array(PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, '/*$bar*/')
         ),
-        PapayaTemplateSimpleScannerToken::ANY,
+        \PapayaTemplateSimpleScannerToken::ANY,
       )
     );
   }
@@ -394,8 +394,8 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo')
         ),
         array(
-          PapayaTemplateSimpleScannerToken::VALUE_NAME,
-          PapayaTemplateSimpleScannerToken::VALUE_DEFAULT
+          \PapayaTemplateSimpleScannerToken::VALUE_NAME,
+          \PapayaTemplateSimpleScannerToken::VALUE_DEFAULT
         ),
       ),
       'two tokens, one token type' => array(
@@ -411,8 +411,8 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
           array(PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, '/*$bar*/')
         ),
         array(
-          PapayaTemplateSimpleScannerToken::VALUE_NAME,
-          PapayaTemplateSimpleScannerToken::VALUE_DEFAULT
+          \PapayaTemplateSimpleScannerToken::VALUE_NAME,
+          \PapayaTemplateSimpleScannerToken::VALUE_DEFAULT
         ),
       ),
       'empty tokens, one token type' => array(
@@ -429,7 +429,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   public static function provideLookaheadMatchingTokens() {
     return array(
       array(
-        PapayaTemplateSimpleScannerToken::VALUE_NAME,
+        \PapayaTemplateSimpleScannerToken::VALUE_NAME,
         array(
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'),
           array(PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, '/*$bar*/')
@@ -437,15 +437,15 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
         array(PapayaTemplateSimpleScannerToken::VALUE_NAME)
       ),
       array(
-        PapayaTemplateSimpleScannerToken::VALUE_NAME,
+        \PapayaTemplateSimpleScannerToken::VALUE_NAME,
         array(
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'),
           array(PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, '/*$bar*/')
         ),
-        array(PapayaTemplateSimpleScannerToken::VALUE_NAME, PapayaTemplateSimpleScannerToken::TEXT)
+        array(PapayaTemplateSimpleScannerToken::VALUE_NAME, \PapayaTemplateSimpleScannerToken::TEXT)
       ),
       array(
-        PapayaTemplateSimpleScannerToken::VALUE_NAME,
+        \PapayaTemplateSimpleScannerToken::VALUE_NAME,
         array(
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'),
           array(PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, '/*$bar*/')
@@ -453,12 +453,12 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
         array(PapayaTemplateSimpleScannerToken::ANY)
       ),
       array(
-        PapayaTemplateSimpleScannerToken::VALUE_NAME,
+        \PapayaTemplateSimpleScannerToken::VALUE_NAME,
         array(
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'),
           array(PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, '/*$bar*/')
         ),
-        PapayaTemplateSimpleScannerToken::ANY
+        \PapayaTemplateSimpleScannerToken::ANY
       )
     );
   }
@@ -470,7 +470,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo')
         ),
         array(
-          PapayaTemplateSimpleScannerToken::TEXT
+          \PapayaTemplateSimpleScannerToken::TEXT
         )
       ),
       array(
@@ -478,8 +478,8 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
           array(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo')
         ),
         array(
-          PapayaTemplateSimpleScannerToken::TEXT,
-          PapayaTemplateSimpleScannerToken::VALUE_NAME
+          \PapayaTemplateSimpleScannerToken::TEXT,
+          \PapayaTemplateSimpleScannerToken::VALUE_NAME
         )
       ),
       array(
@@ -495,8 +495,8 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
           array(PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, 'foo')
         ),
         array(
-          PapayaTemplateSimpleScannerToken::TEXT,
-          PapayaTemplateSimpleScannerToken::VALUE_DEFAULT
+          \PapayaTemplateSimpleScannerToken::TEXT,
+          \PapayaTemplateSimpleScannerToken::VALUE_DEFAULT
         )
       )
     );

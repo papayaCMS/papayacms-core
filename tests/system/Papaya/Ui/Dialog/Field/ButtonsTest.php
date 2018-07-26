@@ -23,7 +23,7 @@ class PapayaUiDialogFieldButtonsTest extends PapayaTestCase {
   public function testFieldsGetImplicitCreate() {
     $field = new \PapayaUiDialogFieldButtons();
     $this->assertInstanceOf(
-      PapayaUiDialogButtons::class, $field->buttons()
+      \PapayaUiDialogButtons::class, $field->buttons()
     );
   }
 

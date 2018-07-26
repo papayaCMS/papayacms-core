@@ -32,13 +32,13 @@ class PapayaIteratorFilterRegexTest extends PapayaTestCase {
   */
   public function testConstructorWithAllArguments() {
     $filter = new \PapayaIteratorFilterRegex(
-      new ArrayIterator(array()), '(pattern)', 42, PapayaIteratorFilterRegex::FILTER_BOTH
+      new ArrayIterator(array()), '(pattern)', 42, \PapayaIteratorFilterRegex::FILTER_BOTH
     );
     $this->assertAttributeEquals(
       42, '_offset', $filter
     );
     $this->assertAttributeEquals(
-      PapayaIteratorFilterRegex::FILTER_BOTH, '_target', $filter
+      \PapayaIteratorFilterRegex::FILTER_BOTH, '_target', $filter
     );
   }
 
@@ -72,7 +72,7 @@ class PapayaIteratorFilterRegexTest extends PapayaTestCase {
       'fail offset' => 'pattern',
     );
     $filter = new \PapayaIteratorFilterRegex(
-      new ArrayIterator(array_flip($data)), '(pattern)', 4, PapayaIteratorFilterRegex::FILTER_KEYS
+      new ArrayIterator(array_flip($data)), '(pattern)', 4, \PapayaIteratorFilterRegex::FILTER_KEYS
     );
     $this->assertEquals(
       array('offset pattern' => 'ok'),

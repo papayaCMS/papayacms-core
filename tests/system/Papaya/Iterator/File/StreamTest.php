@@ -70,7 +70,7 @@ class PapayaIteratorFileStreamTest extends PapayaTestCase {
   */
   public function testIterationRemovingLineEnds() {
     $iterator = new \PapayaIteratorFileStream(
-      $this->getStreamFixture(), PapayaIteratorFileStream::TRIM_RIGHT
+      $this->getStreamFixture(), \PapayaIteratorFileStream::TRIM_RIGHT
     );
     $this->assertEquals(
       array('line1', 'line2', 'line3'),

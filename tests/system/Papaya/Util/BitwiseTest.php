@@ -25,7 +25,7 @@ class PapayaUtilBitwiseTest extends PapayaTestCase {
    */
   public function testInBitmaskExpectingTrue($bit, $bitmask) {
     $this->assertTrue(
-      PapayaUtilBitwise::inBitmask($bit, $bitmask)
+      \PapayaUtilBitwise::inBitmask($bit, $bitmask)
     );
   }
 
@@ -37,7 +37,7 @@ class PapayaUtilBitwiseTest extends PapayaTestCase {
    */
   public function testInBitmaskExpectingFalse($bit, $bitmask) {
     $this->assertFalse(
-      PapayaUtilBitwise::inBitmask($bit, $bitmask)
+      \PapayaUtilBitwise::inBitmask($bit, $bitmask)
     );
   }
 

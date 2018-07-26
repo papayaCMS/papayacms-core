@@ -22,7 +22,7 @@ class PapayaUtilStringIdentifierTest extends PapayaTestCase {
   */
   public function testToUnderscoreUpper() {
     $this->assertEquals(
-      'SAMPLE_IDENTIFIER', PapayaUtilStringIdentifier::toUnderscoreUpper('sampleIdentifier')
+      'SAMPLE_IDENTIFIER', \PapayaUtilStringIdentifier::toUnderscoreUpper('sampleIdentifier')
     );
   }
 
@@ -31,7 +31,7 @@ class PapayaUtilStringIdentifierTest extends PapayaTestCase {
   */
   public function testToUnderscoreLower() {
     $this->assertEquals(
-      'sample_identifier', PapayaUtilStringIdentifier::toUnderscoreLower('sampleIdentifier')
+      'sample_identifier', \PapayaUtilStringIdentifier::toUnderscoreLower('sampleIdentifier')
     );
   }
 
@@ -40,7 +40,7 @@ class PapayaUtilStringIdentifierTest extends PapayaTestCase {
   */
   public function testToCamelCase() {
     $this->assertEquals(
-      'sampleIdentifier', PapayaUtilStringIdentifier::toCamelCase('Sample_Identifier')
+      'sampleIdentifier', \PapayaUtilStringIdentifier::toCamelCase('Sample_Identifier')
     );
   }
 
@@ -49,7 +49,7 @@ class PapayaUtilStringIdentifierTest extends PapayaTestCase {
   */
   public function testToCamelCaseWithUpperCaseFirstChar() {
     $this->assertEquals(
-      'SampleIdentifier', PapayaUtilStringIdentifier::toCamelCase('Sample_Identifier', TRUE)
+      'SampleIdentifier', \PapayaUtilStringIdentifier::toCamelCase('Sample_Identifier', TRUE)
     );
   }
 
@@ -58,7 +58,7 @@ class PapayaUtilStringIdentifierTest extends PapayaTestCase {
   */
   public function testToCamelCaseWithNumericPart() {
     $this->assertEquals(
-      'numeric_23', PapayaUtilStringIdentifier::toCamelCase('Numeric_23', FALSE)
+      'numeric_23', \PapayaUtilStringIdentifier::toCamelCase('Numeric_23', FALSE)
     );
   }
 
@@ -70,7 +70,7 @@ class PapayaUtilStringIdentifierTest extends PapayaTestCase {
    */
   public function testToArray($identifier, array $parts) {
     $this->assertEquals(
-      $parts, PapayaUtilStringIdentifier::toArray($identifier)
+      $parts, \PapayaUtilStringIdentifier::toArray($identifier)
     );
   }
 
@@ -79,7 +79,7 @@ class PapayaUtilStringIdentifierTest extends PapayaTestCase {
   */
   public function testToArrayWithUnknownStructure() {
     $this->assertEquals(
-      array('1.2.3'), PapayaUtilStringIdentifier::toArray('1.2.3')
+      array('1.2.3'), \PapayaUtilStringIdentifier::toArray('1.2.3')
     );
   }
 

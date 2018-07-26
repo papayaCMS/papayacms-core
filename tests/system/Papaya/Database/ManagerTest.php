@@ -139,7 +139,7 @@ class PapayaDatabaseManagerTest extends PapayaTestCase {
     $manager = new \PapayaDatabaseManager();
     $manager->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaDatabaseAccess::class, $databaseAccess = $manager->createDatabaseAccess(new stdClass)
+      \PapayaDatabaseAccess::class, $databaseAccess = $manager->createDatabaseAccess(new stdClass)
     );
     $this->assertSame(
       $papaya, $databaseAccess->papaya()

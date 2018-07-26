@@ -77,7 +77,7 @@ class PapayaFileSystemDirectoryTest extends PapayaTestCase {
           'sample-one.txt', 'sample-two.txt'
         ),
         array_keys(
-          iterator_to_array($directory->getEntries('', PapayaFileSystemDirectory::FETCH_FILES))
+          iterator_to_array($directory->getEntries('', \PapayaFileSystemDirectory::FETCH_FILES))
         )
       )
     );
@@ -94,7 +94,7 @@ class PapayaFileSystemDirectoryTest extends PapayaTestCase {
         'sample-one.txt'
       ),
       array_keys(
-        iterator_to_array($directory->getEntries('(one)', PapayaFileSystemDirectory::FETCH_FILES))
+        iterator_to_array($directory->getEntries('(one)', \PapayaFileSystemDirectory::FETCH_FILES))
       )
     );
   }
@@ -107,7 +107,7 @@ class PapayaFileSystemDirectoryTest extends PapayaTestCase {
     $directory = new \PapayaFileSystemDirectory(__DIR__.'/TestData');
     $this->assertArrayHasKey(
       'Directory',
-      iterator_to_array($directory->getEntries('', PapayaFileSystemDirectory::FETCH_DIRECTORIES))
+      iterator_to_array($directory->getEntries('', \PapayaFileSystemDirectory::FETCH_DIRECTORIES))
     );
   }
 

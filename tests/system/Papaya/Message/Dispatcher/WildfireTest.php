@@ -122,7 +122,7 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   public function testGetHandlerExpectingImplicitCreate() {
     $dispatcher = new \PapayaMessageDispatcherWildfire();
     $this->assertInstanceOf(
-      PapayaMessageDispatcherWildfireHandler::class,
+      \PapayaMessageDispatcherWildfireHandler::class,
       $dispatcher->getHandler()
     );
   }
@@ -538,20 +538,20 @@ class PapayaMessageDispatcherWildfireTest extends PapayaTestCase {
   public static function getWildfireMessageTypeDataProvider() {
     return array(
       array('LOG', -1),
-      array('LOG', PapayaMessage::SEVERITY_DEBUG),
-      array('INFO', PapayaMessage::SEVERITY_INFO),
-      array('WARN', PapayaMessage::SEVERITY_WARNING),
-      array('ERROR', PapayaMessage::SEVERITY_ERROR)
+      array('LOG', \PapayaMessage::SEVERITY_DEBUG),
+      array('INFO', \PapayaMessage::SEVERITY_INFO),
+      array('WARN', \PapayaMessage::SEVERITY_WARNING),
+      array('ERROR', \PapayaMessage::SEVERITY_ERROR)
     );
   }
 
   public static function getWildfireGroupLabelFromTypeDataProvider() {
     return array(
       array('Debug', -1),
-      array('Debug', PapayaMessage::SEVERITY_DEBUG),
-      array('Information', PapayaMessage::SEVERITY_INFO),
-      array('Warning', PapayaMessage::SEVERITY_WARNING),
-      array('Error', PapayaMessage::SEVERITY_ERROR)
+      array('Debug', \PapayaMessage::SEVERITY_DEBUG),
+      array('Information', \PapayaMessage::SEVERITY_INFO),
+      array('Warning', \PapayaMessage::SEVERITY_WARNING),
+      array('Error', \PapayaMessage::SEVERITY_ERROR)
     );
   }
 }

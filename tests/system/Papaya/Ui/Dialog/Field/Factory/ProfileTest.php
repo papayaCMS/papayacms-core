@@ -35,7 +35,7 @@ class PapayaUiDialogFieldFactoryProfileTest extends PapayaTestCase {
   public function testOptionsGetImplicitCreate() {
     $profile = new \PapayaUiDialogFieldFactoryProfile_TestProxy();
     $this->assertInstanceOf(
-      PapayaUiDialogFieldFactoryOptions::class,
+      \PapayaUiDialogFieldFactoryOptions::class,
       $profile->options()
     );
   }

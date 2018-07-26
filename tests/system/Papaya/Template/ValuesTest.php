@@ -23,7 +23,7 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
   public function testConstructor() {
     $values = new \PapayaTemplateValues();
     $this->assertAttributeInstanceOf(
-      PapayaXmlDocument::class, '_document', $values
+      \PapayaXmlDocument::class, '_document', $values
     );
   }
 
@@ -158,7 +158,7 @@ class PapayaTemplateValuesTest extends PapayaTestCase {
   public function testGetValueWithNull() {
     $values = new \PapayaTemplateValues();
     $this->assertInstanceOf(
-      PapayaXmlDocument::class, $values->getValue()->node()
+      \PapayaXmlDocument::class, $values->getValue()->node()
     );
   }
 

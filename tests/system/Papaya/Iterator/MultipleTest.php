@@ -42,7 +42,7 @@ class PapayaIteratorMultipleTest extends PapayaTestCase {
   */
   public function testConstructorWithFlagsAndIterators() {
     $iterator = new \PapayaIteratorMultiple(
-      PapayaIteratorMultiple::MIT_KEYS_ASSOC,
+      \PapayaIteratorMultiple::MIT_KEYS_ASSOC,
       new ArrayIterator(),
       new ArrayIterator()
     );
@@ -196,7 +196,7 @@ class PapayaIteratorMultipleTest extends PapayaTestCase {
   */
   public function testIterationWithKeys() {
     $iterator = new \PapayaIteratorMultiple(
-      PapayaIteratorMultiple::MIT_KEYS_ASSOC,
+      \PapayaIteratorMultiple::MIT_KEYS_ASSOC,
       new ArrayIterator(array(21 => 'One')),
       new ArrayIterator(array(42 => 'Two', 84 => 'Three'))
     );
@@ -221,7 +221,7 @@ class PapayaIteratorMultipleTest extends PapayaTestCase {
       ->will($this->returnValue(new ArrayIterator(array(21 => 'One'))));
 
     $iterator = new \PapayaIteratorMultiple(
-      PapayaIteratorMultiple::MIT_KEYS_ASSOC,
+      \PapayaIteratorMultiple::MIT_KEYS_ASSOC,
       $traversable
     );
     $this->assertEquals(

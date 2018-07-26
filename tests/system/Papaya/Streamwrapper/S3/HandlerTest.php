@@ -56,7 +56,7 @@ class PapayaStreamwrapperS3HandlerTest extends PapayaTestCase {
   public function testGetHTTPClientImplicitCreate() {
     $wrapper = new \PapayaStreamwrapperS3Handler();
     $this->assertInstanceOf(
-      PapayaHttpClient::class, $wrapper->getHTTPClient()
+      \PapayaHttpClient::class, $wrapper->getHTTPClient()
     );
   }
 

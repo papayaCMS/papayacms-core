@@ -162,7 +162,7 @@ class PapayaUiPagingStepsTest extends PapayaTestCase {
       $application = $this->mockPapaya()->application()
     );
     $this->assertInstanceOf(
-      PapayaUiReference::class, $steps->reference()
+      \PapayaUiReference::class, $steps->reference()
     );
     $this->assertSame(
       $application, $steps->reference()->papaya()

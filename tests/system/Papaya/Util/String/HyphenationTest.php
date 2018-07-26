@@ -25,7 +25,7 @@ class PapayaUtilStringHyphenationTest extends PapayaTestCase {
    */
   public function testGerman($expected, $word) {
     $this->assertEquals(
-      $expected, PapayaUtilStringHyphenation::german($word)
+      $expected, \PapayaUtilStringHyphenation::german($word)
     );
   }
 

@@ -26,7 +26,7 @@ class PapayaUtilStringAsciiArtworkTest extends PapayaTestCase {
   public function testGet($string, $fileName) {
     $this->assertStringEqualsFile(
       __DIR__.'/TestData/'.$fileName,
-      PapayaUtilStringAsciiArtwork::get($string)
+      \PapayaUtilStringAsciiArtwork::get($string)
     );
   }
 

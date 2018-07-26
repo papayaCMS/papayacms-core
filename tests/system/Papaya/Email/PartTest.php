@@ -63,7 +63,7 @@ class PapayaEmailPartTest extends PapayaTestCase {
     $content = $this->createMock(PapayaEmailContent::class);
     $part = new \PapayaEmailPart($content);
     $this->assertInstanceOf(
-      PapayaEmailHeaders::class, $part->headers()
+      \PapayaEmailHeaders::class, $part->headers()
     );
   }
 
@@ -87,7 +87,7 @@ class PapayaEmailPartTest extends PapayaTestCase {
     $content = $this->createMock(PapayaEmailContent::class);
     $part = new \PapayaEmailPart($content);
     $this->assertInstanceOf(
-      PapayaEmailHeaders::class, $part->headers
+      \PapayaEmailHeaders::class, $part->headers
     );
   }
 

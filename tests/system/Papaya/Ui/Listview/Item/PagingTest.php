@@ -226,7 +226,7 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
   */
   public function testSetCurrentValueUsingOffsetMode() {
     $item = new \PapayaUiListviewItemPaging_TestProxy(
-      'page', 0, 30, PapayaUiListviewItemPaging::MODE_OFFSET
+      'page', 0, 30, \PapayaUiListviewItemPaging::MODE_OFFSET
     );
     $item->setCurrentValue(10);
     $this->assertEquals(2, $item->currentPage);

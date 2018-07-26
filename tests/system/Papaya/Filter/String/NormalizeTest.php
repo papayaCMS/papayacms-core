@@ -64,7 +64,7 @@ class PapayaFilterStringNormalizeTest extends PapayaTestCase {
       ['trim', ' trim '],
       ['123', ' 123 '],
       ['Keep UpperCase', ' Keep   UpperCase '],
-      ['to lowercase', ' To   LowerCase ', PapayaFilterStringNormalize::OPTION_LOWERCASE]
+      ['to lowercase', ' To   LowerCase ', \PapayaFilterStringNormalize::OPTION_LOWERCASE]
     ];
   }
 }

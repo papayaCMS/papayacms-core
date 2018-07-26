@@ -18,8 +18,8 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaTemplateSimpleVisitorTest extends PapayaTestCase {
 
   /**
-   * covers PapayaTemplateSimpleVisitor::visit
-   * covers PapayaTemplateSimpleVisitor::getMethodName
+   * covers \PapayaTemplateSimpleVisitor::visit
+   * covers \PapayaTemplateSimpleVisitor::getMethodName
    */
   public function testVisitCallsMappedFunction() {
     $visitor = new \PapayaTemplateSimpleVisitor_TestProxy();
@@ -29,8 +29,8 @@ class PapayaTemplateSimpleVisitorTest extends PapayaTestCase {
   }
 
   /**
-   * covers PapayaTemplateSimpleVisitor::visit
-   * covers PapayaTemplateSimpleVisitor::getMethodName
+   * covers \PapayaTemplateSimpleVisitor::visit
+   * covers \PapayaTemplateSimpleVisitor::getMethodName
    */
   public function testVisitIgnoresUnknownFunction() {
     $visitor = new \PapayaTemplateSimpleVisitor_TestProxy();
@@ -41,7 +41,7 @@ class PapayaTemplateSimpleVisitorTest extends PapayaTestCase {
   }
 
   /**
-   * covers PapayaTemplateSimpleVisitor::getMethodName
+   * covers \PapayaTemplateSimpleVisitor::getMethodName
    */
   public function testVisitWithFullClassNameMappedToFunction() {
     $visitor = new \PapayaTemplateSimpleVisitor_TestProxy();
@@ -55,8 +55,8 @@ class PapayaTemplateSimpleVisitorTest extends PapayaTestCase {
   }
 
   /**
-   * covers PapayaTemplateSimpleVisitor::enter
-   * covers PapayaTemplateSimpleVisitor::getMethodName
+   * covers \PapayaTemplateSimpleVisitor::enter
+   * covers \PapayaTemplateSimpleVisitor::getMethodName
    */
   public function testEnterCallsMappedFunction() {
     $visitor = new \PapayaTemplateSimpleVisitor_TestProxy();
@@ -66,8 +66,8 @@ class PapayaTemplateSimpleVisitorTest extends PapayaTestCase {
   }
 
   /**
-   * covers PapayaTemplateSimpleVisitor::leave
-   * covers PapayaTemplateSimpleVisitor::getMethodName
+   * covers \PapayaTemplateSimpleVisitor::leave
+   * covers \PapayaTemplateSimpleVisitor::getMethodName
    */
   public function testLeaveCallsMappedFunction() {
     $visitor = new \PapayaTemplateSimpleVisitor_TestProxy();

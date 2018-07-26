@@ -24,7 +24,7 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
   public function testGet() {
     $_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
     $this->assertEquals(
-      'Googlebot/2.1 (+http://www.google.com/bot.html)', PapayaUtilServerAgent::get()
+      'Googlebot/2.1 (+http://www.google.com/bot.html)', \PapayaUtilServerAgent::get()
     );
   }
 
@@ -35,7 +35,7 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
   public function testGetExpectingEmptyString() {
     $_SERVER['HTTP_USER_AGENT'] = '';
     $this->assertEquals(
-      '', PapayaUtilServerAgent::get()
+      '', \PapayaUtilServerAgent::get()
     );
   }
 
@@ -48,7 +48,7 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
    */
   public function testIsRobotExpectingTrue($userAgent) {
     $this->assertTrue(
-      PapayaUtilServerAgent::isRobot($userAgent)
+      \PapayaUtilServerAgent::isRobot($userAgent)
     );
   }
 
@@ -61,7 +61,7 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
    */
   public function testIsRobotExpectingFalse($userAgent) {
     $this->assertFalse(
-      PapayaUtilServerAgent::isRobot($userAgent)
+      \PapayaUtilServerAgent::isRobot($userAgent)
     );
   }
 
@@ -69,9 +69,9 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
   * @covers \PapayaUtilServerAgent::isRobot
   */
   public function testIsRobotExpectingTrueUsingCachedResult() {
-    PapayaUtilServerAgent::isRobot('Googlebot/2.1 (+http://www.google.com/bot.html)');
+    \PapayaUtilServerAgent::isRobot('Googlebot/2.1 (+http://www.google.com/bot.html)');
     $this->assertTrue(
-      PapayaUtilServerAgent::isRobot('Googlebot/2.1 (+http://www.google.com/bot.html)')
+      \PapayaUtilServerAgent::isRobot('Googlebot/2.1 (+http://www.google.com/bot.html)')
     );
   }
 
@@ -82,7 +82,7 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
   public function testIsRobotExpectingTrueReadingServerVariable() {
     $_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
     $this->assertTrue(
-      PapayaUtilServerAgent::isRobot()
+      \PapayaUtilServerAgent::isRobot()
     );
   }
 
@@ -93,7 +93,7 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
   public function testIsRobotExpectingFalseWithEmptyUserAgent() {
     $_SERVER['HTTP_USER_AGENT'] = '';
     $this->assertFalse(
-      PapayaUtilServerAgent::isRobot()
+      \PapayaUtilServerAgent::isRobot()
     );
   }
 

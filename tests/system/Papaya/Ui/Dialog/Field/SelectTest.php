@@ -141,7 +141,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
       'name',
       array(21 => 'half', 42 => 'full'),
       TRUE,
-      PapayaUiDialogFieldSelect::VALUE_USE_CAPTION
+      \PapayaUiDialogFieldSelect::VALUE_USE_CAPTION
     );
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
@@ -201,7 +201,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
         array('foo', 'bar', 'foobar'), '(^foo)'
       ),
       TRUE,
-      PapayaUiDialogFieldSelect::VALUE_USE_CAPTION
+      \PapayaUiDialogFieldSelect::VALUE_USE_CAPTION
     );
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
@@ -341,7 +341,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
         array('foo', 'bar', 'foobar'), '(^foo)'
       ),
       TRUE,
-      PapayaUiDialogFieldSelect::VALUE_USE_CAPTION
+      \PapayaUiDialogFieldSelect::VALUE_USE_CAPTION
     );
     $select->callbacks()->getOptionGroupCaption = array($this, 'callbackGetOptionGroupCaption');
     $this->assertXmlStringEqualsXmlString(
@@ -391,7 +391,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     );
     $callbacks = $select->callbacks();
     $this->assertInstanceOf(
-      PapayaObjectCallbacks::class, $callbacks
+      \PapayaObjectCallbacks::class, $callbacks
     );
   }
 

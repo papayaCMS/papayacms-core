@@ -45,7 +45,7 @@ class PapayaEmailRecipientsTest extends PapayaTestCase {
     $recipients = new \PapayaEmailRecipients();
     $recipients[] = 'John Doe <john.doe@local.tld>';
     $this->assertInstanceOf(
-      PapayaEmailAddress::class, $recipients[0]
+      \PapayaEmailAddress::class, $recipients[0]
     );
     $this->assertEquals(
       'John Doe <john.doe@local.tld>', (string)$recipients[0]

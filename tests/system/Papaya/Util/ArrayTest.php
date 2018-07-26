@@ -25,7 +25,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
    * @param array|NULL $expected
    */
   public function testMerge($arrayOne, $arrayTwo, $expected) {
-    $actual = PapayaUtilArray::merge($arrayOne, $arrayTwo);
+    $actual = \PapayaUtilArray::merge($arrayOne, $arrayTwo);
     $this->assertSame($expected, $actual);
   }
 
@@ -37,7 +37,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
    * @param bool $useKeys
    */
   public function testEnsure(array $expected, $input, $useKeys = TRUE) {
-    $this->assertSame($expected, PapayaUtilArray::ensure($input, $useKeys));
+    $this->assertSame($expected, \PapayaUtilArray::ensure($input, $useKeys));
   }
 
   /**
@@ -45,7 +45,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testGetWithExistingElement() {
     $this->assertEquals(
-      'success', PapayaUtilArray::get(array('test' => 'success'), 'test')
+      'success', \PapayaUtilArray::get(array('test' => 'success'), 'test')
     );
   }
 
@@ -54,7 +54,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testGetWithListArgumentSecondIndexExists() {
     $this->assertEquals(
-      'success', PapayaUtilArray::get(array('test' => 'success'), array('non-existing', 'test'))
+      'success', \PapayaUtilArray::get(array('test' => 'success'), array('non-existing', 'test'))
     );
   }
 
@@ -63,7 +63,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testGetWithNonexistingElementFetchingDefault() {
     $this->assertEquals(
-      'success', PapayaUtilArray::get(array('test' => 'fail'), 'sample', 'success')
+      'success', \PapayaUtilArray::get(array('test' => 'fail'), 'sample', 'success')
     );
   }
 
@@ -72,7 +72,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testGetWithListArgumentFetchingDefault() {
     $this->assertEquals(
-      'success', PapayaUtilArray::get(array('test' => 'fail'), array('sample', 99), 'success')
+      'success', \PapayaUtilArray::get(array('test' => 'fail'), array('sample', 99), 'success')
     );
   }
 
@@ -81,7 +81,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testGetWithEmptyIndexFetchingDefault() {
     $this->assertEquals(
-      'success', PapayaUtilArray::get(array(), NULL, 'success')
+      'success', \PapayaUtilArray::get(array(), NULL, 'success')
     );
   }
 
@@ -91,7 +91,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   public function testGetRecursiveElementFromTopLevel() {
     $this->assertEquals(
       1,
-      PapayaUtilArray::getRecursive(
+      \PapayaUtilArray::getRecursive(
         array('key' => 1), array('key')
       )
     );
@@ -103,7 +103,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   public function testGetRecursiveElementFromFirstSublevel() {
     $this->assertEquals(
       2,
-      PapayaUtilArray::getRecursive(
+      \PapayaUtilArray::getRecursive(
         array('group' => array('key' => 2)), array('group', 'key')
       )
     );
@@ -115,7 +115,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   public function testGetRecursiveElementFromSecondSublevel() {
     $this->assertEquals(
       3,
-      PapayaUtilArray::getRecursive(
+      \PapayaUtilArray::getRecursive(
         array('group' => array('subgroup' => array('key' => 3))),
         array('group', 'subgroup', 'key')
       )
@@ -128,7 +128,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   public function testGetRecursiveElementFromEmptyListExpectingDefault() {
     $this->assertEquals(
       'DEFAULT',
-      PapayaUtilArray::getRecursive(
+      \PapayaUtilArray::getRecursive(
         array(), array('invalid-key'), 'DEFAULT'
       )
     );
@@ -140,7 +140,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   public function testGetRecursiveInvalidElementExpectingDefault() {
     $this->assertEquals(
       'DEFAULT',
-      PapayaUtilArray::getRecursive(
+      \PapayaUtilArray::getRecursive(
         array('group' => array('subgroup' => array('key' => 3))),
         array('group' => 'subgroup', 'invalid-key'),
         'DEFAULT'
@@ -153,7 +153,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testDecodeIdList() {
     $this->assertEquals(
-      array(21, 42), PapayaUtilArray::decodeIdList(';21;42;')
+      array(21, 42), \PapayaUtilArray::decodeIdList(';21;42;')
     );
   }
 
@@ -162,7 +162,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testDecodeIdListWithSign() {
     $this->assertEquals(
-      array(-21, 42), PapayaUtilArray::decodeIdList(';-21;+42;')
+      array(-21, 42), \PapayaUtilArray::decodeIdList(';-21;+42;')
     );
   }
 
@@ -171,7 +171,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testDecodeIdListWithEmptyStringExpectingEmptyArray() {
     $this->assertEquals(
-      array(), PapayaUtilArray::decodeIdList('')
+      array(), \PapayaUtilArray::decodeIdList('')
     );
   }
 
@@ -180,7 +180,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testEncodeIdList() {
     $this->assertEquals(
-      '21;42', PapayaUtilArray::encodeIdList(array(21, 42))
+      '21;42', \PapayaUtilArray::encodeIdList(array(21, 42))
     );
   }
 
@@ -189,7 +189,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testEncodeIdListWithCommaSeparator() {
     $this->assertEquals(
-      '21,42', PapayaUtilArray::encodeIdList(array(21, 42), ',')
+      '21,42', \PapayaUtilArray::encodeIdList(array(21, 42), ',')
     );
   }
 
@@ -198,7 +198,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testEncodeAndQuoteIdList() {
     $this->assertEquals(
-      ';21;42;', PapayaUtilArray::encodeAndQuoteIdList(array(21, 42))
+      ';21;42;', \PapayaUtilArray::encodeAndQuoteIdList(array(21, 42))
     );
   }
 
@@ -207,7 +207,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testEncodeAndQuoteIdListWithNonStandardCharacters() {
     $this->assertEquals(
-      '!21|42!', PapayaUtilArray::encodeAndQuoteIdList(array(21, 42), '!', '|')
+      '!21|42!', \PapayaUtilArray::encodeAndQuoteIdList(array(21, 42), '!', '|')
     );
   }
 
@@ -218,7 +218,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
    * @param mixed $input
    */
   public function testNormalize($expected, $input) {
-    PapayaUtilArray::normalize($input);
+    \PapayaUtilArray::normalize($input);
     $this->assertSame(
       $expected, $input
     );
@@ -229,7 +229,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   */
   public function testNormalizeWithCallback() {
     $input = 23;
-    PapayaUtilArray::normalize($input, function($value) { return 'success'.$value; });
+    \PapayaUtilArray::normalize($input, function($value) { return 'success'.$value; });
     $this->assertSame(
       'success23', $input
     );

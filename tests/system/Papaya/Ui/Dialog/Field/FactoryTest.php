@@ -25,7 +25,7 @@ class PapayaUiDialogFieldFactoryTest extends PapayaTestCase {
     $factory = new \PapayaUiDialogFieldFactory();
     $factory->registerProfiles(
       array(
-        'dummy' => PapayaUiDialogFieldFactoryProfile_TestDummy::class
+        'dummy' => \PapayaUiDialogFieldFactoryProfile_TestDummy::class
       )
     );
     $profile = $factory->getProfile('dummy');
@@ -100,7 +100,7 @@ class PapayaUiDialogFieldFactoryTest extends PapayaTestCase {
     $factory = new \PapayaUiDialogFieldFactory();
     $factory->registerProfiles(
       array(
-        'profileSample' => PapayaUiDialogFieldFactoryProfile_TestDummy::class
+        'profileSample' => \PapayaUiDialogFieldFactoryProfile_TestDummy::class
       )
     );
     $this->assertInstanceOf(PapayaUiDialogField::class, $factory->getField('profileSample'));

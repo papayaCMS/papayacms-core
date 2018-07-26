@@ -35,7 +35,7 @@ class PapayaUiListviewSubitemDateTest extends PapayaTestCase {
     $document = new \PapayaXmlDocument();
     $document->appendElement('test');
     $subitem = new \PapayaUiListviewSubitemDate(strtotime('2011-05-18 12:13:45'));
-    $subitem->align = PapayaUiOptionAlign::CENTER;
+    $subitem->align = \PapayaUiOptionAlign::CENTER;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -52,9 +52,9 @@ class PapayaUiListviewSubitemDateTest extends PapayaTestCase {
     $document->appendElement('test');
     $subitem = new \PapayaUiListviewSubitemDate(
       strtotime('2011-05-18 12:13:45'),
-      PapayaUiListviewSubitemDate::SHOW_DATE
+      \PapayaUiListviewSubitemDate::SHOW_DATE
     );
-    $subitem->align = PapayaUiOptionAlign::CENTER;
+    $subitem->align = \PapayaUiOptionAlign::CENTER;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -71,9 +71,9 @@ class PapayaUiListviewSubitemDateTest extends PapayaTestCase {
     $document->appendElement('test');
     $subitem = new \PapayaUiListviewSubitemDate(
       strtotime('2011-05-18 12:13:45'),
-      PapayaUiListviewSubitemDate::SHOW_TIME | PapayaUiListviewSubitemDate::SHOW_SECONDS
+      \PapayaUiListviewSubitemDate::SHOW_TIME | \PapayaUiListviewSubitemDate::SHOW_SECONDS
     );
-    $subitem->align = PapayaUiOptionAlign::CENTER;
+    $subitem->align = \PapayaUiOptionAlign::CENTER;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

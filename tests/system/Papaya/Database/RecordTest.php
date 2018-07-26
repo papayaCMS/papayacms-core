@@ -623,7 +623,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
     $record = new \PapayaDatabaseRecord_TestProxy();
     $record->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaDatabaseAccess::class, $record->getDatabaseAccess()
+      \PapayaDatabaseAccess::class, $record->getDatabaseAccess()
     );
     $this->assertSame(
       $record->papaya(), $record->getDatabaseAccess()->papaya()

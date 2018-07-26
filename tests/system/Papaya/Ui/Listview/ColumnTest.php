@@ -33,10 +33,10 @@ class PapayaUiListviewColumnTest extends PapayaTestCase {
   */
   public function testConstructorWithAllParameters() {
     $column = new \PapayaUiListviewColumn(
-      'test title', PapayaUiOptionAlign::CENTER
+      'test title', \PapayaUiOptionAlign::CENTER
     );
     $this->assertAttributeEquals(
-      PapayaUiOptionAlign::CENTER, '_align', $column
+      \PapayaUiOptionAlign::CENTER, '_align', $column
     );
   }
 
@@ -48,7 +48,7 @@ class PapayaUiListviewColumnTest extends PapayaTestCase {
     $column = new \PapayaUiListviewColumn('test title');
     $column->setAlign(PapayaUiOptionAlign::RIGHT);
     $this->assertEquals(
-      PapayaUiOptionAlign::RIGHT, $column->getAlign()
+      \PapayaUiOptionAlign::RIGHT, $column->getAlign()
     );
   }
 

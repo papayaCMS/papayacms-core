@@ -36,7 +36,7 @@ class PapayaThemeWrapperUrlTest extends PapayaTestCase {
   public function testConstructorWithoutUrl() {
     $wrapperUrl = new \PapayaThemeWrapperUrl();
     $this->assertAttributeInstanceOf(
-      PapayaUrlCurrent::class, '_requestUrl', $wrapperUrl
+      \PapayaUrlCurrent::class, '_requestUrl', $wrapperUrl
     );
   }
 

@@ -33,8 +33,8 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   */
   public function testStaticFunctionCreate() {
     $this->assertInstanceOf(
-      PapayaUiReference::class,
-      PapayaUiReference::create()
+      \PapayaUiReference::class,
+      \PapayaUiReference::create()
     );
   }
 
@@ -43,7 +43,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   */
   public function testStaticFunctionCreateWithUrl() {
     $url = $this->createMock(Url::class);
-    $reference = PapayaUiReference::create($url);
+    $reference = \PapayaUiReference::create($url);
     $this->assertSame($url, $reference->url());
   }
 
@@ -52,7 +52,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   */
   public function testValidGetAfterSetExpectingFalse() {
     $url = $this->createMock(Url::class);
-    $reference = PapayaUiReference::create($url);
+    $reference = \PapayaUiReference::create($url);
     $reference->valid(FALSE);
     $this->assertFalse($reference->valid());
   }
@@ -62,7 +62,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   */
   public function testValidGetAfterSetExpectingTrue() {
     $url = $this->createMock(Url::class);
-    $reference = PapayaUiReference::create($url);
+    $reference = \PapayaUiReference::create($url);
     $reference->valid(TRUE);
     $this->assertTrue($reference->valid());
   }

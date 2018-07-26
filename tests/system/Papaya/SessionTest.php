@@ -100,7 +100,7 @@ class PapayaSessionTest extends PapayaTestCase {
   public function testValuesGetUsingImplicitCreate() {
     $session = new \PapayaSession();
     $this->assertInstanceOf(
-      PapayaSessionValues::class, $session->values()
+      \PapayaSessionValues::class, $session->values()
     );
   }
 
@@ -169,7 +169,7 @@ class PapayaSessionTest extends PapayaTestCase {
   public function testOptionsGetUsingImplicitCreate() {
     $session = new \PapayaSession();
     $this->assertInstanceOf(
-      PapayaSessionOptions::class, $session->options()
+      \PapayaSessionOptions::class, $session->options()
     );
   }
 
@@ -203,7 +203,7 @@ class PapayaSessionTest extends PapayaTestCase {
   public function testIdGetUsingImplicitCreate() {
     $session = new \PapayaSession();
     $this->assertInstanceOf(
-      PapayaSessionId::class, $session->id()
+      \PapayaSessionId::class, $session->id()
     );
   }
 
@@ -253,7 +253,7 @@ class PapayaSessionTest extends PapayaTestCase {
   public function testWrapperGetUsingImplicitCreate() {
     $session = new \PapayaSession();
     $this->assertInstanceOf(
-      PapayaSessionWrapper::class, $session->wrapper()
+      \PapayaSessionWrapper::class, $session->wrapper()
     );
   }
 
@@ -476,7 +476,7 @@ class PapayaSessionTest extends PapayaTestCase {
     $session->options()->fallback = $fallback;
     $redirect = $session->activate(TRUE);
     $this->assertInstanceOf(
-      PapayaSessionRedirect::class, $redirect
+      \PapayaSessionRedirect::class, $redirect
     );
     $this->assertAttributeSame(
       $transport, '_transport', $redirect
@@ -508,13 +508,13 @@ class PapayaSessionTest extends PapayaTestCase {
     $session->papaya($this->mockPapaya()->application());
     $session->wrapper($wrapper);
     $session->id($this->getSessionIdFixture(array()));
-    $session->options()->fallback = PapayaSessionOptions::FALLBACK_REWRITE;
+    $session->options()->fallback = \PapayaSessionOptions::FALLBACK_REWRITE;
     $redirect = $session->activate(TRUE);
     $this->assertInstanceOf(
-      PapayaSessionRedirect::class, $redirect
+      \PapayaSessionRedirect::class, $redirect
     );
     $this->assertAttributeSame(
-      PapayaSessionId::SOURCE_PATH, '_transport', $redirect
+      \PapayaSessionId::SOURCE_PATH, '_transport', $redirect
     );
   }
 
@@ -600,7 +600,7 @@ class PapayaSessionTest extends PapayaTestCase {
       ->method('regenerateId');
     $redirect = $session->regenerateId();
     $this->assertInstanceOf(
-      PapayaSessionRedirect::class, $redirect
+      \PapayaSessionRedirect::class, $redirect
     );
   }
 
@@ -618,7 +618,7 @@ class PapayaSessionTest extends PapayaTestCase {
       ->method('regenerateId');
     $redirect = $session->regenerateId('http://www.sample.tld/foo?bar=123');
     $this->assertInstanceOf(
-      PapayaSessionRedirect::class, $redirect
+      \PapayaSessionRedirect::class, $redirect
     );
     $this->assertEquals(
       'http://www.sample.tld/foo?bar=123', $redirect->url()->getUrl()
@@ -666,7 +666,7 @@ class PapayaSessionTest extends PapayaTestCase {
   }
 
   public function callbackSessionIdExistsIn($source) {
-    if ($source === PapayaSessionId::SOURCE_ANY && count($this->_idSources) > 0) {
+    if ($source === \PapayaSessionId::SOURCE_ANY && count($this->_idSources) > 0) {
       return TRUE;
     }
     foreach ($this->_idSources as $idSource) {
@@ -689,7 +689,7 @@ class PapayaSessionTest extends PapayaTestCase {
     $session->papaya($this->mockPapaya()->application());
     $session->wrapper($this->getSessionWrapperFixture());
     $session->id($this->getSessionIdFixture(array($source)));
-    $session->options()->fallback = PapayaSessionOptions::FALLBACK_REWRITE;
+    $session->options()->fallback = \PapayaSessionOptions::FALLBACK_REWRITE;
     $session->activate(FALSE);
     return $session;
   }
@@ -730,15 +730,15 @@ class PapayaSessionTest extends PapayaTestCase {
     return array(
       'cookie only' => array(
         array(PapayaSessionId::SOURCE_COOKIE),
-        PapayaSessionOptions::FALLBACK_REWRITE
+        \PapayaSessionOptions::FALLBACK_REWRITE
       ),
       'path only' => array(
         array(PapayaSessionId::SOURCE_PATH),
-        PapayaSessionOptions::FALLBACK_REWRITE
+        \PapayaSessionOptions::FALLBACK_REWRITE
       ),
       'query only' => array(
         array(PapayaSessionId::SOURCE_QUERY),
-        PapayaSessionOptions::FALLBACK_PARAMETER
+        \PapayaSessionOptions::FALLBACK_PARAMETER
       )
     );
   }
@@ -746,19 +746,19 @@ class PapayaSessionTest extends PapayaTestCase {
   public static function provideSessionSourcesTriggeringRedirect() {
     return array(
       'cookie and path' => array(
-        array(PapayaSessionId::SOURCE_COOKIE, PapayaSessionId::SOURCE_PATH),
-        PapayaSessionOptions::FALLBACK_REWRITE,
+        array(PapayaSessionId::SOURCE_COOKIE, \PapayaSessionId::SOURCE_PATH),
+        \PapayaSessionOptions::FALLBACK_REWRITE,
         0,
       ),
       'path and query' => array(
-        array(PapayaSessionId::SOURCE_PATH, PapayaSessionId::SOURCE_QUERY),
-        PapayaSessionOptions::FALLBACK_REWRITE,
-        PapayaSessionId::SOURCE_PATH
+        array(PapayaSessionId::SOURCE_PATH, \PapayaSessionId::SOURCE_QUERY),
+        \PapayaSessionOptions::FALLBACK_REWRITE,
+        \PapayaSessionId::SOURCE_PATH
       ),
       'query and path' => array(
-        array(PapayaSessionId::SOURCE_PATH, PapayaSessionId::SOURCE_QUERY),
-        PapayaSessionOptions::FALLBACK_PARAMETER,
-        PapayaSessionId::SOURCE_QUERY
+        array(PapayaSessionId::SOURCE_PATH, \PapayaSessionId::SOURCE_QUERY),
+        \PapayaSessionOptions::FALLBACK_PARAMETER,
+        \PapayaSessionId::SOURCE_QUERY
       )
     );
   }

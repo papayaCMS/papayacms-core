@@ -26,7 +26,7 @@ class PapayaUtilStringPapayaTest extends PapayaTestCase {
   public function testGetImageTag($expected, array $parameters) {
     $this->assertEquals(
       $expected,
-      PapayaUtilStringPapaya::getImageTag(
+      \PapayaUtilStringPapaya::getImageTag(
         $parameters['str'],
         $parameters['width'],
         $parameters['height'],

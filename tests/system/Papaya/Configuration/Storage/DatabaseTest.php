@@ -91,7 +91,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
     );
 
     $exception = new Query(
-      'Sample Error Message', 0, PapayaMessage::SEVERITY_ERROR, ''
+      'Sample Error Message', 0, \PapayaMessage::SEVERITY_ERROR, ''
     );
     $storage->handleError($exception);
   }
@@ -115,7 +115,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
     );
 
     $exception = new Query(
-      'Sample Error Message', 0, PapayaMessage::SEVERITY_ERROR, ''
+      'Sample Error Message', 0, \PapayaMessage::SEVERITY_ERROR, ''
     );
     $storage->handleError($exception);
   }
@@ -144,7 +144,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
     $storage->records($records);
     $this->assertEquals(
       array('SAMPLE_NAME' => 'sample value'),
-      PapayaUtilArray::ensure($storage)
+      \PapayaUtilArray::ensure($storage)
     );
   }
 

@@ -74,7 +74,7 @@ class PapayaUiPanelFrameTest extends PapayaTestCase {
   public function testReferenceGetImplicitCreate() {
     $frame = new \PapayaUiPanelFrame('Sample Caption', 'sample_frame');
     $this->assertInstanceOf(
-      PapayaUiReference::class, $frame->reference
+      \PapayaUiReference::class, $frame->reference
     );
   }
 }

@@ -32,13 +32,13 @@ class PapayaUiDialogButtonSubmitNamedTest extends PapayaTestCase {
   */
   public function testConstructorWithAllParameters() {
     $button = new \PapayaUiDialogButtonSubmitNamed(
-      'Test', 'name', 'value', PapayaUiDialogButton::ALIGN_LEFT
+      'Test', 'name', 'value', \PapayaUiDialogButton::ALIGN_LEFT
     );
     $this->assertAttributeEquals(
       'value', '_value', $button
     );
     $this->assertAttributeEquals(
-      PapayaUiDialogButton::ALIGN_LEFT, '_align', $button
+      \PapayaUiDialogButton::ALIGN_LEFT, '_align', $button
     );
   }
 

@@ -103,7 +103,7 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   * @covers \PapayaSessionWrapper::start
   */
   public function testStart() {
-    PapayaSessionHandler_TestClass::$calls = array();
+    \PapayaSessionHandler_TestClass::$calls = array();
     $wrapper = new \PapayaSessionWrapper();
     $wrapper->registerHandler(PapayaSessionHandler_TestClass::class);
     $this->assertTrue($wrapper->start());
@@ -112,7 +112,7 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
         'PapayaSessionHandler_TestClass::open' => 1,
         'PapayaSessionHandler_TestClass::read' => 1
       ),
-      PapayaSessionHandler_TestClass::$calls
+      \PapayaSessionHandler_TestClass::$calls
     );
     $wrapper->writeClose();
   }
@@ -121,7 +121,7 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   * @covers \PapayaSessionWrapper::writeClose
   */
   public function testWriteClose() {
-    PapayaSessionHandler_TestClass::$calls = array();
+    \PapayaSessionHandler_TestClass::$calls = array();
     $wrapper = new \PapayaSessionWrapper();
     $wrapper->registerHandler(PapayaSessionHandler_TestClass::class);
     $wrapper->start();
@@ -133,7 +133,7 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
         'PapayaSessionHandler_TestClass::write' => 1,
         'PapayaSessionHandler_TestClass::close' => 1
       ),
-      PapayaSessionHandler_TestClass::$calls
+      \PapayaSessionHandler_TestClass::$calls
     );
   }
 
@@ -141,7 +141,7 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   * @covers \PapayaSessionWrapper::destroy
   */
   public function testDestroy() {
-    PapayaSessionHandler_TestClass::$calls = array();
+    \PapayaSessionHandler_TestClass::$calls = array();
     $wrapper = new \PapayaSessionWrapper();
     $wrapper->registerHandler(PapayaSessionHandler_TestClass::class);
     $wrapper->start();
@@ -153,7 +153,7 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
         'PapayaSessionHandler_TestClass::destroy' => 1,
         'PapayaSessionHandler_TestClass::close' => 1
       ),
-      PapayaSessionHandler_TestClass::$calls
+      \PapayaSessionHandler_TestClass::$calls
     );
   }
 
@@ -164,14 +164,14 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   * @large
   */
   public function testRegenerateId() {
-    PapayaSessionHandler_TestClass::$calls = array();
+    \PapayaSessionHandler_TestClass::$calls = array();
     $wrapper = new \PapayaSessionWrapper();
     $wrapper->registerHandler(PapayaSessionHandler_TestClass::class);
     $wrapper->start();
     $id = session_id();
     $wrapper->regenerateId();
     $this->assertThat(
-      PapayaSessionHandler_TestClass::$calls,
+      \PapayaSessionHandler_TestClass::$calls,
       $this->logicalOr(
         array(
           'PapayaSessionHandler_TestClass::open' => 1,

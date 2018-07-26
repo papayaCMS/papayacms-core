@@ -40,7 +40,7 @@ class PapayaIteratorRepeatDecrementTest extends PapayaTestCase {
   */
   public function testIterationWithAssocMode() {
     $iterator = new \PapayaIteratorRepeatDecrement(
-      100, 0, 10, PapayaIteratorRepeatDecrement::MODE_ASSOC
+      100, 0, 10, \PapayaIteratorRepeatDecrement::MODE_ASSOC
     );
     $this->assertEquals(
       array(

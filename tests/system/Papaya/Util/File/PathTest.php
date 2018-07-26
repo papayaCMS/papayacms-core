@@ -27,7 +27,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   public function testCleanup($expected, $string, $trailingSlash = TRUE) {
     $this->assertEquals(
       $expected,
-      PapayaUtilFilePath::cleanup($string, $trailingSlash)
+      \PapayaUtilFilePath::cleanup($string, $trailingSlash)
     );
   }
 
@@ -40,7 +40,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   public function testEnsureIsAbsolute($expected, $string) {
     $this->assertEquals(
       $expected,
-      PapayaUtilFilePath::ensureIsAbsolute($string)
+      \PapayaUtilFilePath::ensureIsAbsolute($string)
     );
   }
 
@@ -53,7 +53,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   public function testEnsureTrailingSlash($expected, $string) {
     $this->assertEquals(
       $expected,
-      PapayaUtilFilePath::ensureTrailingSlash($string)
+      \PapayaUtilFilePath::ensureTrailingSlash($string)
     );
   }
 
@@ -66,7 +66,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   public function testEnsureNoTrailingSlash($expected, $string) {
     $this->assertEquals(
       $expected,
-      PapayaUtilFilePath::ensureNoTrailingSlash($string)
+      \PapayaUtilFilePath::ensureNoTrailingSlash($string)
     );
   }
 
@@ -78,7 +78,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
     $_SERVER['SCRIPT_FILENAME'] = '/path/to/file';
     $this->assertEquals(
       '/path/to/',
-      PapayaUtilFilePath::getBasePath(TRUE)
+      \PapayaUtilFilePath::getBasePath(TRUE)
     );
   }
 
@@ -91,7 +91,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
     $_SERVER['DOCUMENT_ROOT'] = '/path';
     $this->assertEquals(
       '/to/',
-      PapayaUtilFilePath::getBasePath(FALSE)
+      \PapayaUtilFilePath::getBasePath(FALSE)
     );
   }
 
@@ -104,7 +104,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
     $_SERVER['DOCUMENT_ROOT'] = 'c:\\path\\';
     $this->assertEquals(
       '/to/',
-      PapayaUtilFilePath::getBasePath(FALSE)
+      \PapayaUtilFilePath::getBasePath(FALSE)
     );
   }
 
@@ -116,7 +116,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
     $_SERVER['DOCUMENT_ROOT'] = '/path';
     $this->assertEquals(
       '/path/',
-      PapayaUtilFilePath::getDocumentRoot()
+      \PapayaUtilFilePath::getDocumentRoot()
     );
   }
 
@@ -135,7 +135,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
     );
     $this->assertEquals(
       '/path/to/',
-      PapayaUtilFilePath::getDocumentRoot($options)
+      \PapayaUtilFilePath::getDocumentRoot($options)
     );
   }
 
@@ -148,7 +148,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
     $_SERVER['SCRIPT_FILENAME'] = NULL;
     $this->assertEquals(
       '/',
-      PapayaUtilFilePath::getDocumentRoot()
+      \PapayaUtilFilePath::getDocumentRoot()
     );
   }
 
@@ -162,7 +162,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
       'DATA'
     );
     $this->assertFileExists($this->_temporaryDirectory.'/GROUP/ELEMENT/PARAMETERS');
-    PapayaUtilFilePath::clear($this->_temporaryDirectory);
+    \PapayaUtilFilePath::clear($this->_temporaryDirectory);
     $this->assertFileNotExists($this->_temporaryDirectory.'/GROUP/ELEMENT/PARAMETERS');
     rmdir($this->_temporaryDirectory);
   }

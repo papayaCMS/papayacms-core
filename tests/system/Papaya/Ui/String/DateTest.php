@@ -43,7 +43,7 @@ class PapayaUiStringDateTest extends PapayaTestCase {
   public function testMagicMethodToStringWithTime() {
     $string = new \PapayaUiStringDate(
       strtotime('2011-08-25 16:00:00'),
-      PapayaUiStringDate::SHOW_TIME
+      \PapayaUiStringDate::SHOW_TIME
     );
     $this->assertEquals(
       '2011-08-25 16:00', (string)$string
@@ -56,7 +56,7 @@ class PapayaUiStringDateTest extends PapayaTestCase {
   public function testMagicMethodToStringWithTimeAndSeconds() {
     $string = new \PapayaUiStringDate(
       strtotime('2011-08-25 16:00:00'),
-      PapayaUiStringDate::SHOW_TIME | PapayaUiStringDate::SHOW_SECONDS
+      \PapayaUiStringDate::SHOW_TIME | \PapayaUiStringDate::SHOW_SECONDS
     );
     $this->assertEquals(
       '2011-08-25 16:00:00', (string)$string
@@ -69,7 +69,7 @@ class PapayaUiStringDateTest extends PapayaTestCase {
   public function testMagicMethodToStringWithSecondsExpectingDateOnly() {
     $string = new \PapayaUiStringDate(
       strtotime('2011-08-25 16:00:00'),
-      PapayaUiStringDate::SHOW_SECONDS
+      \PapayaUiStringDate::SHOW_SECONDS
     );
     $this->assertEquals(
       '2011-08-25', (string)$string

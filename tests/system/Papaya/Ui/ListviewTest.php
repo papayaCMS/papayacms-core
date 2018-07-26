@@ -79,7 +79,7 @@ class PapayaUiListviewTest extends PapayaTestCase {
     $document = new \PapayaXmlDocument();
     $document->appendElement('sample');
     $listview = new \PapayaUiListview();
-    $listview->mode = PapayaUiListview::MODE_THUMBNAILS;
+    $listview->mode = \PapayaUiListview::MODE_THUMBNAILS;
     $listview->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -186,7 +186,7 @@ class PapayaUiListviewTest extends PapayaTestCase {
   public function testReferenceGetImplicitCreate() {
     $listview = new \PapayaUiListview();
     $this->assertInstanceOf(
-      PapayaUiReference::class, $listview->reference()
+      \PapayaUiReference::class, $listview->reference()
     );
   }
 
@@ -195,7 +195,7 @@ class PapayaUiListviewTest extends PapayaTestCase {
   */
   public function testGetModeAfterSet() {
     $listview = new \PapayaUiListview();
-    $listview->mode = PapayaUiListview::MODE_THUMBNAILS;
+    $listview->mode = \PapayaUiListview::MODE_THUMBNAILS;
     $this->assertEquals(PapayaUiListview::MODE_THUMBNAILS, $listview->mode);
   }
 

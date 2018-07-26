@@ -43,11 +43,11 @@ class PapayaTemplateSimpleScannerStatusCssTest extends PapayaTestCase {
    */
   public function testGetNewStatusExpectingValueStatus() {
     $token = new \PapayaTemplateSimpleScannerToken(
-      PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, ''
+      \PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, ''
     );
     $status = new \PapayaTemplateSimpleScannerStatusCss();
     $this->assertInstanceOf(
-      PapayaTemplateSimpleScannerStatusCssValue::class,
+      \PapayaTemplateSimpleScannerStatusCssValue::class,
       $status->getNewStatus($token)
     );
   }
@@ -57,11 +57,11 @@ class PapayaTemplateSimpleScannerStatusCssTest extends PapayaTestCase {
    */
   public function testGetNewStatusExpectingCommentStatus() {
     $token = new \PapayaTemplateSimpleScannerToken(
-      PapayaTemplateSimpleScannerToken::COMMENT_START, 0, ''
+      \PapayaTemplateSimpleScannerToken::COMMENT_START, 0, ''
     );
     $status = new \PapayaTemplateSimpleScannerStatusCss();
     $this->assertInstanceOf(
-      PapayaTemplateSimpleScannerStatusCssComment::class,
+      \PapayaTemplateSimpleScannerStatusCssComment::class,
       $status->getNewStatus($token)
     );
   }
@@ -71,7 +71,7 @@ class PapayaTemplateSimpleScannerStatusCssTest extends PapayaTestCase {
    */
   public function testGetNewStatusExpectingNull() {
     $token = new \PapayaTemplateSimpleScannerToken(
-      PapayaTemplateSimpleScannerToken::TEXT, 0, ''
+      \PapayaTemplateSimpleScannerToken::TEXT, 0, ''
     );
     $status = new \PapayaTemplateSimpleScannerStatusCss();
     $this->assertNull(

@@ -24,8 +24,8 @@ class PapayaUiReferenceThumbnailTest extends PapayaTestCase {
   */
   public function testStaticFunctionCreate() {
     $this->assertInstanceOf(
-      PapayaUiReferenceThumbnail::class,
-      PapayaUiReferenceThumbnail::create()
+      \PapayaUiReferenceThumbnail::class,
+      \PapayaUiReferenceThumbnail::create()
     );
   }
 

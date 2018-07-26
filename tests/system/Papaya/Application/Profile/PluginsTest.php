@@ -30,7 +30,7 @@ class PapayaApplicationProfilePluginsTest extends PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaObjectInterface $plugins */
     $plugins = $profile->createObject($application = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      PapayaPluginLoader::class,
+      \PapayaPluginLoader::class,
       $plugins
     );
     $this->assertSame($application, $plugins->papaya());

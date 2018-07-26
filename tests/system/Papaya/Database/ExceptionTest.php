@@ -42,9 +42,9 @@ class PapayaDatabaseExceptionTest extends PapayaTestCase {
   * @covers \PapayaDatabaseException::getSeverity
   */
   public function testConstructorWithSeverity() {
-    $exception = new \PapayaDatabaseException('Sample', 42, PapayaDatabaseException::SEVERITY_INFO);
+    $exception = new \PapayaDatabaseException('Sample', 42, \PapayaDatabaseException::SEVERITY_INFO);
     $this->assertEquals(
-      PapayaDatabaseException::SEVERITY_INFO, $exception->getSeverity()
+      \PapayaDatabaseException::SEVERITY_INFO, $exception->getSeverity()
     );
   }
 
@@ -55,7 +55,7 @@ class PapayaDatabaseExceptionTest extends PapayaTestCase {
   public function testConstructorWithNullAsSeverity() {
     $exception = new \PapayaDatabaseException('Sample', 42, NULL);
     $this->assertEquals(
-      PapayaDatabaseException::SEVERITY_ERROR, $exception->getSeverity()
+      \PapayaDatabaseException::SEVERITY_ERROR, $exception->getSeverity()
     );
   }
 }

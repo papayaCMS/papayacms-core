@@ -44,13 +44,13 @@ class PapayaTemplateSimpleScannerStatusTest extends PapayaTestCase {
       'foobar',
       0,
       array(
-        '(bar)' => PapayaTemplateSimpleScannerToken::TEXT,
-        '(foo)' => PapayaTemplateSimpleScannerToken::VALUE_NAME
+        '(bar)' => \PapayaTemplateSimpleScannerToken::TEXT,
+        '(foo)' => \PapayaTemplateSimpleScannerToken::VALUE_NAME
       )
     );
     $this->assertEquals(
       new \PapayaTemplateSimpleScannerToken(
-        PapayaTemplateSimpleScannerToken::VALUE_NAME,
+        \PapayaTemplateSimpleScannerToken::VALUE_NAME,
         0,
         'foo'
       ),

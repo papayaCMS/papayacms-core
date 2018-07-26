@@ -31,10 +31,10 @@ class PapayaUiDialogFieldFactoryProfileRichtextTest extends PapayaTestCase {
     $profile = new \PapayaUiDialogFieldFactoryProfileRichtext();
     $profile->options($options);
     $this->assertInstanceOf(
-      PapayaUiDialogFieldTextareaRichtext::class, $field = $profile->getField()
+      \PapayaUiDialogFieldTextareaRichtext::class, $field = $profile->getField()
     );
     $this->assertEquals(
-      PapayaUiDialogFieldTextareaRichtext::RTE_DEFAULT,
+      \PapayaUiDialogFieldTextareaRichtext::RTE_DEFAULT,
       $field->getRteMode()
     );
   }
