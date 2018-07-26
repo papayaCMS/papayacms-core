@@ -292,9 +292,9 @@ abstract class PapayaDatabaseRecordsUnbuffered
     $iterator = new \PapayaDatabaseResultIterator($this->databaseResult());
     $mapping = $this->mapping();
     $iterator->setMapping(
-      $mapping instanceof \PapayaDatabaseRecordMappingCache
+      $mapping instanceof \Papaya\Database\Record\Mapping\Cache
         ? $mapping
-        : new \PapayaDatabaseRecordMappingCache($mapping)
+        : new \Papaya\Database\Record\Mapping\Cache($mapping)
     );
     return $iterator;
   }
