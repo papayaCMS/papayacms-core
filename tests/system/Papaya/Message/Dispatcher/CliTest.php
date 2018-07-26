@@ -69,7 +69,7 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
     $dispatcher = new \PapayaMessageDispatcherCli();
     $this->assertContains(
       'Warning',
-      $dispatcher->getOptionsFromType(Papaya\Message::SEVERITY_WARNING)
+      $dispatcher->getOptionsFromType(\Papaya\Message::SEVERITY_WARNING)
     );
   }
 
@@ -89,7 +89,7 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message $message */
-    $message = $this->createMock(Papaya\Message::class);
+    $message = $this->createMock(\Papaya\Message::class);
     $dispatcher = new \PapayaMessageDispatcherCli();
     $this->assertFalse(
       $dispatcher->dispatch($message)
@@ -123,7 +123,7 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
     $message
       ->expects($this->any())
       ->method('getType')
-      ->will($this->returnValue(Papaya\Message::SEVERITY_WARNING));
+      ->will($this->returnValue(\Papaya\Message::SEVERITY_WARNING));
     $message
       ->expects($this->any())
       ->method('getMessage')
@@ -158,7 +158,7 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
     $message
       ->expects($this->any())
       ->method('getType')
-      ->will($this->returnValue(Papaya\Message::SEVERITY_DEBUG));
+      ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
     $message
       ->expects($this->any())
       ->method('getMessage')

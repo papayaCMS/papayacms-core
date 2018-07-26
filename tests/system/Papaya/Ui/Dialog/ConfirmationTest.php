@@ -76,7 +76,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogConfirmation::isSubmitted
   */
   public function testIsSubmittedExpectingTrue() {
-    $request = $this->createMock(Papaya\Request::class);
+    $request = $this->createMock(\Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -93,7 +93,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogConfirmation::isSubmitted
   */
   public function testIsSubmittedExpectingFalse() {
-    $request = $this->createMock(Papaya\Request::class);
+    $request = $this->createMock(\Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -108,7 +108,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   */
   public function testExecuteExpectingTrue() {
     $owner = new stdClass();
-    $request = $this->createMock(Papaya\Request::class);
+    $request = $this->createMock(\Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -138,7 +138,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   */
   public function testExecuteExpectingFalse() {
     $owner = new stdClass();
-    $request = $this->createMock(Papaya\Request::class);
+    $request = $this->createMock(\Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -153,7 +153,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
   */
   public function testExecuteCachesResultExpectingFalse() {
     $owner = new stdClass();
-    $request = $this->createMock(Papaya\Request::class);
+    $request = $this->createMock(\Papaya\Request::class);
     $request
       ->expects($this->once())
       ->method('getMethod')

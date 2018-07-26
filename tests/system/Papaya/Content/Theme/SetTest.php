@@ -27,7 +27,7 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
     $themeSet = new Set();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
     $this->assertInstanceOf(
-      Papaya\Database\Interfaces\Mapping::class,
+      \Papaya\Database\Interfaces\Mapping::class,
       $mapping = $themeSet->mapping()
     );
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));

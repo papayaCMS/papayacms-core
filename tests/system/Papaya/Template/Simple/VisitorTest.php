@@ -90,19 +90,19 @@ class PapayaTemplateSimpleVisitor_TestProxy extends \PapayaTemplateSimpleVisitor
     return '';
   }
 
-  public function visitNodeOutput(PapayaTemplateSimpleAstNodeOutput $node) {
+  public function visitNodeOutput(\PapayaTemplateSimpleAstNodeOutput $node) {
     $this->visited = $node;
   }
 
-  public function visitTestClass_PapayaTemplateSimpleAstNode(PapayaTemplateSimpleAst $node) {
+  public function visitTestClass_PapayaTemplateSimpleAstNode(\PapayaTemplateSimpleAst $node) {
     $this->visited = $node;
   }
 
-  public function enterNodeOutput(PapayaTemplateSimpleAstNodeOutput $node) {
+  public function enterNodeOutput(\PapayaTemplateSimpleAstNodeOutput $node) {
     $this->entered = $node;
   }
 
-  public function leaveNodeOutput(PapayaTemplateSimpleAstNodeOutput $node) {
+  public function leaveNodeOutput(\PapayaTemplateSimpleAstNodeOutput $node) {
     $this->leaved = $node;
   }
 }

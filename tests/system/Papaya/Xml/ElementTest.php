@@ -218,8 +218,8 @@ class PapayaXmlElementTest extends \PapayaTestCase {
   }
 }
 
-class PapayaXmlAppendable_TestImplementation implements PapayaXmlAppendable {
-  public function appendTo(PapayaXmlElement $parent) {
+class PapayaXmlAppendable_TestImplementation implements \PapayaXmlAppendable {
+  public function appendTo(\PapayaXmlElement $parent) {
     $parent->appendElement('success');
   }
 }

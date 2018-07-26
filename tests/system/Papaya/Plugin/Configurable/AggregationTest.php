@@ -30,7 +30,7 @@ class PapayaPluginConfigurableAggregationTest extends \PapayaTestCase {
   }
 }
 
-class PapayaPluginConfigurableAggregation_TestProxy implements PapayaPluginConfigurable {
+class PapayaPluginConfigurableAggregation_TestProxy implements \PapayaPluginConfigurable {
 
   use PapayaPluginConfigurableAggregation;
 }

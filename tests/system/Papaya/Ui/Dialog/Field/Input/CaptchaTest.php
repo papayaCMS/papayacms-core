@@ -109,7 +109,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('owner')
       ->will($this->returnValue($dialog));
-    $session = $this->createMock(Papaya\Session::class);
+    $session = $this->createMock(\Papaya\Session::class);
     $session
       ->expects($this->once())
       ->method('getValue')
@@ -145,7 +145,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('owner')
       ->will($this->returnValue($dialog));
-    $session = $this->createMock(Papaya\Session::class);
+    $session = $this->createMock(\Papaya\Session::class);
     $session
       ->expects($this->once())
       ->method('getValue')
@@ -182,7 +182,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('owner')
       ->will($this->returnValue($dialog));
-    $session = $this->createMock(Papaya\Session::class);
+    $session = $this->createMock(\Papaya\Session::class);
     $session
       ->expects($this->once())
       ->method('getValue')

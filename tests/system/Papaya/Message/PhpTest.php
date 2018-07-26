@@ -36,7 +36,7 @@ class PapayaMessagePhpTest extends \PapayaTestCase {
     $message = new \PapayaMessagePhp();
     $message->setSeverity(E_USER_NOTICE);
     $this->assertAttributeEquals(
-      Papaya\Message::SEVERITY_INFO,
+      \Papaya\Message::SEVERITY_INFO,
       '_type',
       $message
     );
@@ -59,7 +59,7 @@ class PapayaMessagePhpTest extends \PapayaTestCase {
   public function testGetType() {
     $message = new \PapayaMessagePhp();
     $this->assertEquals(
-      Papaya\Message::SEVERITY_ERROR,
+      \Papaya\Message::SEVERITY_ERROR,
       $message->getType()
     );
   }

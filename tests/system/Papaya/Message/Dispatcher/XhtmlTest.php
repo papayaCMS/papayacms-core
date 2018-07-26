@@ -22,7 +22,7 @@ class PapayaMessageDispatcherXhtmlTest extends \PapayaTestCase {
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message $message */
-    $message = $this->createMock(Papaya\Message::class);
+    $message = $this->createMock(\Papaya\Message::class);
     $dispatcher = new \PapayaMessageDispatcherXhtml();
     $this->assertFalse(
       $dispatcher->dispatch($message)
@@ -43,7 +43,7 @@ class PapayaMessageDispatcherXhtmlTest extends \PapayaTestCase {
     $message
       ->expects($this->any())
       ->method('getType')
-      ->will($this->returnValue(Papaya\Message::SEVERITY_WARNING));
+      ->will($this->returnValue(\Papaya\Message::SEVERITY_WARNING));
     $message
       ->expects($this->any())
       ->method('getMessage')
@@ -121,7 +121,7 @@ class PapayaMessageDispatcherXhtmlTest extends \PapayaTestCase {
     $dispatcher = new \PapayaMessageDispatcherXhtml();
     $this->assertContains(
       'Warning',
-      $dispatcher->getHeaderOptionsFromType(Papaya\Message::SEVERITY_WARNING)
+      $dispatcher->getHeaderOptionsFromType(\Papaya\Message::SEVERITY_WARNING)
     );
   }
 

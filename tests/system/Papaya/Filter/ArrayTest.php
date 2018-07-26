@@ -23,7 +23,7 @@ class PapayaFilterArrayTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\ArrayOf::__construct
   */
   public function testConstructorWithElementFilter() {
-    $filter = new \Papaya\Filter\ArrayOf($subFilter = $this->createMock(Papaya\Filter::class));
+    $filter = new \Papaya\Filter\ArrayOf($subFilter = $this->createMock(\Papaya\Filter::class));
     $this->assertAttributeSame(
       $subFilter, '_elementFilter', $filter
     );
@@ -34,7 +34,7 @@ class PapayaFilterArrayTest extends \PapayaTestCase {
    * @dataProvider provideValidValidateData
    * @param mixed $value
    * @param NULL|Filter $elementFilter
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateExpectingTrue($value, $elementFilter = NULL) {
     $filter = new \Papaya\Filter\ArrayOf($elementFilter);
@@ -46,7 +46,7 @@ class PapayaFilterArrayTest extends \PapayaTestCase {
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
    * @param NULL|Filter $elementFilter
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateExpectingException($value, $elementFilter = NULL) {
     $filter = new \Papaya\Filter\ArrayOf($elementFilter);

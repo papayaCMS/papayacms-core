@@ -49,7 +49,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
     $message
       ->expects($this->exactly(2))
       ->method('getType')
-      ->will($this->returnValue(Papaya\Message::SEVERITY_INFO));
+      ->will($this->returnValue(\Papaya\Message::SEVERITY_INFO));
     $message
       ->expects($this->exactly(2))
       ->method('getMessage')
@@ -110,7 +110,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
     $message
       ->expects($this->exactly(2))
       ->method('getType')
-      ->will($this->returnValue(Papaya\Message::SEVERITY_DEBUG));
+      ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
     $message
       ->expects($this->exactly(2))
       ->method('getMessage')
@@ -142,7 +142,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
-    $message = $this->createMock(Papaya\Message::class);
+    $message = $this->createMock(\Papaya\Message::class);
     $dispatcher = new \PapayaMessageDispatcherDatabase();
     $this->assertFalse($dispatcher->dispatch($message));
   }
@@ -156,7 +156,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
     $message
       ->expects($this->once())
       ->method('getType')
-      ->will($this->returnValue(Papaya\Message::SEVERITY_DEBUG));
+      ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
     $dispatcher = new \PapayaMessageDispatcherDatabase();
     $dispatcher->papaya(
       $this->mockPapaya()->application(
@@ -202,7 +202,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
     $message
       ->expects($this->exactly(2))
       ->method('getType')
-      ->will($this->returnValue(Papaya\Message::SEVERITY_INFO));
+      ->will($this->returnValue(\Papaya\Message::SEVERITY_INFO));
     $message
       ->expects($this->exactly(2))
       ->method('getMessage')
@@ -269,12 +269,12 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
 
   public static function allowDataProvider() {
     return array(
-      array(FALSE, Papaya\Message::SEVERITY_INFO, FALSE, FALSE),
-      array(TRUE, Papaya\Message::SEVERITY_INFO, TRUE, FALSE),
-      array(FALSE, Papaya\Message::SEVERITY_DEBUG, TRUE, FALSE),
-      array(TRUE, Papaya\Message::SEVERITY_INFO, TRUE, TRUE),
-      array(TRUE, Papaya\Message::SEVERITY_DEBUG, TRUE, TRUE),
-      array(FALSE, Papaya\Message::SEVERITY_DEBUG, TRUE, FALSE)
+      array(FALSE, \Papaya\Message::SEVERITY_INFO, FALSE, FALSE),
+      array(TRUE, \Papaya\Message::SEVERITY_INFO, TRUE, FALSE),
+      array(FALSE, \Papaya\Message::SEVERITY_DEBUG, TRUE, FALSE),
+      array(TRUE, \Papaya\Message::SEVERITY_INFO, TRUE, TRUE),
+      array(TRUE, \Papaya\Message::SEVERITY_DEBUG, TRUE, TRUE),
+      array(FALSE, \Papaya\Message::SEVERITY_DEBUG, TRUE, FALSE)
     );
   }
 }

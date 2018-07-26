@@ -40,9 +40,9 @@ class PapayaFilterNumberTest extends \PapayaTestCase {
    * @covers \PapayaFilterNumber::validate
    * @dataProvider validateSuccessProvider
    * @param mixed $value
-   * @throws PapayaFilterExceptionRangeMaximum
-   * @throws PapayaFilterExceptionRangeMinimum
-   * @throws PapayaFilterExceptionType
+   * @throws \PapayaFilterExceptionRangeMaximum
+   * @throws \PapayaFilterExceptionRangeMinimum
+   * @throws \PapayaFilterExceptionType
    */
   public function testValidateSuccess($value) {
     $filter = new \PapayaFilterNumber(3, 4);

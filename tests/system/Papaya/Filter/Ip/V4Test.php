@@ -61,8 +61,8 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
    * @dataProvider getValidateDataProvider
    * @param string $ip
    * @param int $config
-   * @throws PapayaFilterExceptionCountMismatch
-   * @throws PapayaFilterExceptionPartInvalid
+   * @throws \PapayaFilterExceptionCountMismatch
+   * @throws \PapayaFilterExceptionPartInvalid
    */
   public function testValidate($ip, $config = 15) {
     $filter = new \PapayaFilterIpV4($config);
@@ -85,8 +85,8 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
   /**
    * @covers \PapayaFilterIpV4::validate
    * @param string $ip
-   * @throws PapayaFilterExceptionCountMismatch
-   * @throws PapayaFilterExceptionPartInvalid
+   * @throws \PapayaFilterExceptionCountMismatch
+   * @throws \PapayaFilterExceptionPartInvalid
    * @dataProvider getValidateExceptionCountMismatchDataProvider
    */
   public function testValidateExceptionCountMismatch($ip) {
@@ -109,8 +109,8 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
    * @covers \PapayaFilterIpV4::validate
    * @dataProvider getValidateExceptionPartInvalidDataProvider
    * @param string $ip
-   * @throws PapayaFilterExceptionCountMismatch
-   * @throws PapayaFilterExceptionPartInvalid
+   * @throws \PapayaFilterExceptionCountMismatch
+   * @throws \PapayaFilterExceptionPartInvalid
    */
   public function testValidateExceptionPartInvalid($ip) {
     $filter = new \PapayaFilterIpV4();
@@ -134,8 +134,8 @@ class PapayaFilterIpV4Test extends \PapayaTestCase {
    * @dataProvider getValidateInvalidArgumentExceptionDataProvider
    * @param string $ip
    * @param int $configuration
-   * @throws PapayaFilterExceptionCountMismatch
-   * @throws PapayaFilterExceptionPartInvalid
+   * @throws \PapayaFilterExceptionCountMismatch
+   * @throws \PapayaFilterExceptionPartInvalid
    */
   public function testValidateInvalidArgumentException($ip, $configuration) {
     $filter = new \PapayaFilterIpV4($configuration);

@@ -173,7 +173,7 @@ class PapayaTemplateXsltTest extends \PapayaTestCase {
    * @covers \PapayaTemplateXslt
    */
   public function testGetOutputExpectingXmlOutput() {
-    $response = $this->createMock(Papaya\Response::class);
+    $response = $this->createMock(\Papaya\Response::class);
     $response
       ->expects($this->once())
       ->method('setContentType')

@@ -42,7 +42,7 @@ class PapayaDatabaseRecordTest extends \PapayaTestCase {
   public function testClone() {
     $record = new \PapayaDatabaseRecord_TestProxy();
     $record->key($this->createMock(Key::class));
-    $record->mapping($this->createMock(Papaya\Database\Interfaces\Mapping::class));
+    $record->mapping($this->createMock(\Papaya\Database\Interfaces\Mapping::class));
     $clone = clone $record;
     $this->assertNotSame($record->key(), $clone->key());
     $this->assertNotSame($record->mapping(), $clone->mapping());
@@ -271,7 +271,7 @@ class PapayaDatabaseRecordTest extends \PapayaTestCase {
   public function testCreateFilter() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $mapping = $this
-      ->getMockBuilder(Papaya\Database\Interfaces\Mapping::class)
+      ->getMockBuilder(\Papaya\Database\Interfaces\Mapping::class)
       ->getMock();
     $records = new \PapayaDatabaseRecord_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
@@ -357,7 +357,7 @@ class PapayaDatabaseRecordTest extends \PapayaTestCase {
     );
     $record->callbacks()->onBeforeInsert = function(
       /** @noinspection PhpUnusedParameterInspection */
-      $context, PapayaDatabaseRecord_TestProxy $record
+      $context, \PapayaDatabaseRecord_TestProxy $record
     ) {
       $record->data = 'before insert';
       return TRUE;
@@ -491,7 +491,7 @@ class PapayaDatabaseRecordTest extends \PapayaTestCase {
     $record->key()->assign($values);
     $record->callbacks()->onBeforeUpdate = function(
       /** @noinspection PhpUnusedParameterInspection */
-      $context, PapayaDatabaseRecord_TestProxy $record
+      $context, \PapayaDatabaseRecord_TestProxy $record
     ) {
       $record->data = 'before update';
       return TRUE;
@@ -563,7 +563,7 @@ class PapayaDatabaseRecordTest extends \PapayaTestCase {
   * @covers \Papaya\Database\Record::mapping
   */
   public function testMappingGetAfterSet() {
-    $mapping = $this->createMock(Papaya\Database\Interfaces\Mapping::class);
+    $mapping = $this->createMock(\Papaya\Database\Interfaces\Mapping::class);
     $record = new \PapayaDatabaseRecord_TestProxy();
     $record->mapping($mapping);
     $this->assertSame(
@@ -578,7 +578,7 @@ class PapayaDatabaseRecordTest extends \PapayaTestCase {
   public function testMappingGetImplicitCreate() {
     $record = new \PapayaDatabaseRecord_TestProxy();
     $this->assertInstanceOf(
-      Papaya\Database\Record\Mapping::class, $record->mapping()
+      \Papaya\Database\Record\Mapping::class, $record->mapping()
     );
   }
 

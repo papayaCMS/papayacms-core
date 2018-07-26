@@ -22,7 +22,7 @@ class PapayaUiDialogFieldCallbackTest extends \PapayaTestCase {
   */
   public function testConstructorWithAllArguments() {
     $xhtml = new \PapayaUiDialogFieldCallback(
-      'Caption', 'name', array($this, 'callbackGetFieldString'), 42, $this->createMock(Papaya\Filter::class)
+      'Caption', 'name', array($this, 'callbackGetFieldString'), 42, $this->createMock(\Papaya\Filter::class)
     );
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

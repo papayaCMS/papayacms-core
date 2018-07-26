@@ -183,7 +183,7 @@ class PapayaAdministrationPagePartsTest extends \PapayaTestCase {
    */
   private function getPageFixture() {
     return $this
-      ->getMockBuilder(Papaya\Administration\Page::class)
+      ->getMockBuilder(\Papaya\Administration\Page::class)
       ->disableOriginalConstructor()
       ->getMock();
   }

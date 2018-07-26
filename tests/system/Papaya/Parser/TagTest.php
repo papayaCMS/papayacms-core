@@ -66,7 +66,7 @@ class PapayaParserTagTest extends \PapayaTestCase {
 class PapayaParserTag_TestProxy extends \PapayaParserTag {
   public $nodeStub = array();
 
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     foreach ($this->nodeStub as $node) {
       $parent->appendChild(
         $parent->ownerDocument->importNode($node)

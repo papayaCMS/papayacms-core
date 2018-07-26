@@ -53,7 +53,7 @@ class PapayaPluginEditorTest extends \PapayaTestCase {
 
 class PapayaPluginEditor_TestProxy extends \PapayaPluginEditor {
 
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
 
   }
 }

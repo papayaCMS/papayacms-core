@@ -70,13 +70,13 @@ class PapayaUiControlCommandActionTest extends \PapayaTestCase {
 
   public function callbackValidationSuccessful(
     /** @noinspection PhpUnusedParameterInspection */
-    $context, PapayaUiControlCommandAction $command, PapayaXmlElement $parent) {
+    $context, \PapayaUiControlCommandAction $command, \PapayaXmlElement $parent) {
     $parent->appendElement('success', array(), $command->data()->get('test'));
   }
 
   public function callbackValidationFailed(
     /** @noinspection PhpUnusedParameterInspection */
-    $context, PapayaUiControlCommandAction $command, PapayaXmlElement $parent
+    $context, \PapayaUiControlCommandAction $command, \PapayaXmlElement $parent
   ) {
     $parent->appendElement('failed');
   }

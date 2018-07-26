@@ -62,7 +62,7 @@ class PapayaHttpClientFile_TestProxy extends \PapayaHttpClientFile {
     /** @noinspection PropertyInitializationFlawsInspection */
     $_mimeType = '';
 
-  public function send(PapayaHttpClientSocket $socket, $chunked = FALSE, $bufferSize = 0) {
+  public function send(\PapayaHttpClientSocket $socket, $chunked = FALSE, $bufferSize = 0) {
     parent::send($socket, $chunked, $bufferSize);
   }
 

@@ -31,7 +31,7 @@ class PapayaFilterBitmaskTest extends \PapayaTestCase {
    * @covers \PapayaFilterBitmask::validate
    * @dataProvider provideValidBitmasks
    * @param mixed $bitmask
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateExpectingTrue($bitmask) {
     $filter = new \PapayaFilterBitmask(array(1, 2, 4, 16));
@@ -44,7 +44,7 @@ class PapayaFilterBitmaskTest extends \PapayaTestCase {
    * @covers \PapayaFilterBitmask::validate
    * @dataProvider provideInvalidBitmasks
    * @param mixed $bitmask
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateExpectingInvalidValueException($bitmask) {
     $filter = new \PapayaFilterBitmask(array(1, 2, 4, 16));

@@ -35,7 +35,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
   */
   public function testSetFilterExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
-    $filter = $this->createMock(Papaya\Filter::class);
+    $filter = $this->createMock(\Papaya\Filter::class);
     $input = new \PapayaUiDialogFieldHoneypot('Caption', 'name');
     $this->expectException(LogicException::class);
     $input->setFilter($filter);

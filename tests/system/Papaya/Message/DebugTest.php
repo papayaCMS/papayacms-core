@@ -57,7 +57,7 @@ class PapayaMessageDebugTest extends \PapayaTestCase {
   public function testGetType() {
     $message = new \PapayaMessageDebug();
     $this->assertEquals(
-      Papaya\Message::SEVERITY_DEBUG,
+      \Papaya\Message::SEVERITY_DEBUG,
       $message->getType()
     );
   }

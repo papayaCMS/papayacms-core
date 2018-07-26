@@ -76,7 +76,7 @@ class PapayaProfilerTimerTest extends \PapayaTestCase {
       ->method('log')
       ->with(
         \PapayaMessageLogable::GROUP_DEBUG,
-        Papaya\Message::SEVERITY_DEBUG,
+        \Papaya\Message::SEVERITY_DEBUG,
         $this->isType('string'),
         $this->isInstanceOf(\PapayaMessageContextRuntime::class)
       );

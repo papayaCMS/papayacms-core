@@ -22,7 +22,7 @@ class PapayaFilterBeforeTest extends \PapayaTestCase {
    */
   public function testValidate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $before */
-    $before = $this->createMock(Papaya\Filter::class);
+    $before = $this->createMock(\Papaya\Filter::class);
     $before
       ->expects($this->once())
       ->method('filter')
@@ -30,7 +30,7 @@ class PapayaFilterBeforeTest extends \PapayaTestCase {
       ->willReturn('success');
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $after */
-    $after = $this->createMock(Papaya\Filter::class);
+    $after = $this->createMock(\Papaya\Filter::class);
     $after
       ->expects($this->once())
       ->method('validate')
@@ -48,7 +48,7 @@ class PapayaFilterBeforeTest extends \PapayaTestCase {
    */
   public function testFilter() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $before */
-    $before = $this->createMock(Papaya\Filter::class);
+    $before = $this->createMock(\Papaya\Filter::class);
     $before
       ->expects($this->once())
       ->method('filter')
@@ -56,7 +56,7 @@ class PapayaFilterBeforeTest extends \PapayaTestCase {
       ->willReturn('success');
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $after */
-    $after = $this->createMock(Papaya\Filter::class);
+    $after = $this->createMock(\Papaya\Filter::class);
     $after
       ->expects($this->once())
       ->method('filter')

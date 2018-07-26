@@ -70,7 +70,7 @@ class PapayaFilterExceptionCallbackTest extends \PapayaTestCase {
   }
 }
 
-class  PapayaFilterExceptionCallback_SampleCallback {
+class PapayaFilterExceptionCallback_SampleCallback {
   public function sample() {
   }
 }

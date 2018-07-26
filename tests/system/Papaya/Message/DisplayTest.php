@@ -22,9 +22,9 @@ class PapayaMessageDisplayTest extends \PapayaTestCase {
   * @covers \PapayaMessageDisplay::_isValidType
   */
   public function testConstructor() {
-    $message = new \PapayaMessageDisplay(Papaya\Message::SEVERITY_WARNING, 'Sample Message');
+    $message = new \PapayaMessageDisplay(\Papaya\Message::SEVERITY_WARNING, 'Sample Message');
     $this->assertAttributeEquals(
-      Papaya\Message::SEVERITY_WARNING,
+      \Papaya\Message::SEVERITY_WARNING,
       '_type',
       $message
     );
@@ -41,16 +41,16 @@ class PapayaMessageDisplayTest extends \PapayaTestCase {
   */
   public function testConstructorWithInvalidTypeExpectingException() {
     $this->expectException(InvalidArgumentException::class);
-    new \PapayaMessageDisplay(Papaya\Message::SEVERITY_DEBUG, 'Sample Message');
+    new \PapayaMessageDisplay(\Papaya\Message::SEVERITY_DEBUG, 'Sample Message');
   }
 
   /**
   * @covers \PapayaMessageDisplay::getType
   */
   public function testGetType() {
-    $message = new \PapayaMessageDisplay(Papaya\Message::SEVERITY_WARNING, 'Sample Message');
+    $message = new \PapayaMessageDisplay(\Papaya\Message::SEVERITY_WARNING, 'Sample Message');
     $this->assertEquals(
-      Papaya\Message::SEVERITY_WARNING,
+      \Papaya\Message::SEVERITY_WARNING,
       $message->getType()
     );
   }
@@ -59,7 +59,7 @@ class PapayaMessageDisplayTest extends \PapayaTestCase {
   * @covers \PapayaMessageDisplay::getMessage
   */
   public function testGetMessage() {
-    $message = new \PapayaMessageDisplay(Papaya\Message::SEVERITY_WARNING, 'Sample Message');
+    $message = new \PapayaMessageDisplay(\Papaya\Message::SEVERITY_WARNING, 'Sample Message');
     $this->assertEquals(
       'Sample Message',
       $message->getMessage()

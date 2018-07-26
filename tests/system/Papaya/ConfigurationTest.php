@@ -25,7 +25,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   * @covers \Papaya\Configuration::defineOptions
   */
   public function testConstructorDefinesOptions() {
-    $config = new Papaya\Configuration(
+    $config = new \Papaya\Configuration(
       array('sample' => NULL)
     );
     $this->assertEquals(
@@ -39,7 +39,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   */
   public function testConstructorDefinesInvalidOptionExpectingException() {
     $this->expectException(UnexpectedValueException::class);
-    new Papaya\Configuration(
+    new \Papaya\Configuration(
       array('sample' => new stdClass)
     );
   }
@@ -48,7 +48,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   * @covers \Papaya\Configuration::getHash
   */
   public function testGetHash() {
-    $config = new Papaya\Configuration(array());
+    $config = new \Papaya\Configuration(array());
     $this->assertEquals(
       md5(serialize(array())), $config->getHash()
     );
@@ -81,7 +81,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   * @covers \Papaya\Configuration::filter
   */
   public function testGetWithUnknownOptionReturningDefault() {
-    $config = new Papaya\Configuration(array());
+    $config = new \Papaya\Configuration(array());
     $this->assertSame(
       23, $config->get('UNKNOWN_OPTION', 23)
     );
@@ -342,7 +342,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
 /**
  * @property int sampleInt
  */
-class PapayaConfiguration_TestProxy extends Papaya\Configuration {
+class PapayaConfiguration_TestProxy extends \Papaya\Configuration {
 
   public function __construct() {
     parent::__construct(

@@ -49,7 +49,7 @@ class PapayaFilterEmptyTest extends \PapayaTestCase {
    * @param mixed $value
    * @param bool $ignoreZero
    * @param bool $ignoreSpaces
-   * @throws PapayaFilterExceptionNotEmpty
+   * @throws \PapayaFilterExceptionNotEmpty
    */
   public function testCheck($value, $ignoreZero, $ignoreSpaces) {
     $filter = new \PapayaFilterEmpty($ignoreZero, $ignoreSpaces);
@@ -62,7 +62,7 @@ class PapayaFilterEmptyTest extends \PapayaTestCase {
    * @param mixed $value
    * @param bool $ignoreZero
    * @param bool $ignoreSpaces
-   * @throws PapayaFilterExceptionNotEmpty
+   * @throws \PapayaFilterExceptionNotEmpty
    */
   public function testCheckExpectingException($value, $ignoreZero, $ignoreSpaces) {
     $filter = new \PapayaFilterEmpty($ignoreZero, $ignoreSpaces);

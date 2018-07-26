@@ -41,7 +41,7 @@ class PapayaFilterListTest extends \PapayaTestCase {
    * @dataProvider provideValidValidateData
    * @param mixed $value
    * @param array|traversable $validValues
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateExpectingTrue($value, $validValues) {
     $filter = new \PapayaFilterList($validValues);
@@ -53,7 +53,7 @@ class PapayaFilterListTest extends \PapayaTestCase {
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
    * @param array|traversable $validValues
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateExpectingException($value, $validValues) {
     $filter = new \PapayaFilterList($validValues);

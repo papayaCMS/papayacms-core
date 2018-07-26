@@ -34,7 +34,7 @@ class PapayaUiDialogFieldTextareaTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldTextarea::__construct
   */
   public function testConstructorWithAllParameters() {
-    $filter = $this->createMock(Papaya\Filter::class);
+    $filter = $this->createMock(\Papaya\Filter::class);
     $textarea = new \PapayaUiDialogFieldTextarea('Caption', 'name', 42, '50670', $filter);
     $this->assertAttributeEquals(
       42, '_lineCount', $textarea

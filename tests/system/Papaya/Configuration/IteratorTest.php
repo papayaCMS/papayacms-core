@@ -22,7 +22,7 @@ class PapayaConfigurationIteratorTest extends \PapayaTestCase {
   public function testIterator() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Configuration $configuration */
     $configuration = $this
-      ->getMockBuilder(Papaya\Configuration::class)
+      ->getMockBuilder(\Papaya\Configuration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $configuration

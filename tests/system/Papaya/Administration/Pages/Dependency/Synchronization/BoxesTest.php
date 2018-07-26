@@ -34,7 +34,7 @@ class PapayaAdministrationPagesDependencySynchronizationBoxesTest extends \Papay
       ->with("UPDATE %s SET box_useparent = '%d' WHERE topic_id = '42'", array('table_topic', 1))
       ->will($this->returnValue(TRUE));
 
-    $page = $this->createMock(Papaya\Content\Page\Work::class);
+    $page = $this->createMock(\Papaya\Content\Page\Work::class);
     $page
       ->expects($this->once())
       ->method('load')
@@ -50,7 +50,7 @@ class PapayaAdministrationPagesDependencySynchronizationBoxesTest extends \Papay
       ->with('inheritBoxes')
       ->will($this->returnValue(1));
 
-    $boxes = $this->createMock(Papaya\Content\Page\Boxes::class);
+    $boxes = $this->createMock(\Papaya\Content\Page\Boxes::class);
     $boxes
       ->expects($this->once())
       ->method('load')
@@ -73,7 +73,7 @@ class PapayaAdministrationPagesDependencySynchronizationBoxesTest extends \Papay
   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Boxes::setInheritanceStatus
   */
   public function testSynchronizeLoadFailed() {
-    $page = $this->createMock(Papaya\Content\Page\Work::class);
+    $page = $this->createMock(\Papaya\Content\Page\Work::class);
     $page
       ->expects($this->once())
       ->method('load')
@@ -88,7 +88,7 @@ class PapayaAdministrationPagesDependencySynchronizationBoxesTest extends \Papay
   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Boxes::boxes
   */
   public function testBoxesGetAfterSet() {
-    $boxes = $this->createMock(Papaya\Content\Page\Boxes::class);
+    $boxes = $this->createMock(\Papaya\Content\Page\Boxes::class);
     $action = new \Papaya\Administration\Pages\Dependency\Synchronization\Boxes();
     $this->assertSame(
       $boxes, $action->boxes($boxes)
@@ -101,7 +101,7 @@ class PapayaAdministrationPagesDependencySynchronizationBoxesTest extends \Papay
   public function testBoxesGetImplicitCreate() {
     $action = new \Papaya\Administration\Pages\Dependency\Synchronization\Boxes();
     $this->assertInstanceOf(
-      Papaya\Content\Page\Boxes::class, $action->boxes()
+      \Papaya\Content\Page\Boxes::class, $action->boxes()
     );
   }
 
@@ -109,7 +109,7 @@ class PapayaAdministrationPagesDependencySynchronizationBoxesTest extends \Papay
   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Boxes::page
   */
   public function testPageGetAfterSet() {
-    $page = $this->createMock(Papaya\Content\Page\Work::class);
+    $page = $this->createMock(\Papaya\Content\Page\Work::class);
     $action = new \Papaya\Administration\Pages\Dependency\Synchronization\Boxes();
     $this->assertSame(
       $page, $action->page($page)
@@ -122,7 +122,7 @@ class PapayaAdministrationPagesDependencySynchronizationBoxesTest extends \Papay
   public function testPageGetImplicitCreate() {
     $action = new \Papaya\Administration\Pages\Dependency\Synchronization\Boxes();
     $this->assertInstanceOf(
-      Papaya\Content\Page\Work::class, $action->page()
+      \Papaya\Content\Page\Work::class, $action->page()
     );
   }
 }

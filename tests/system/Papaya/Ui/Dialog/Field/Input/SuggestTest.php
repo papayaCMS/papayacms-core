@@ -41,7 +41,7 @@ class PapayaUiDialogFieldInputSuggestTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldInputSuggest::__construct
   */
   public function testConstructorWithAllParameters() {
-    $filter = $this->createMock(Papaya\Filter::class);
+    $filter = $this->createMock(\Papaya\Filter::class);
     $input = new \PapayaUiDialogFieldInputSuggest(
       'Caption', 'name', 'www.example.com', '50670', $filter
     );

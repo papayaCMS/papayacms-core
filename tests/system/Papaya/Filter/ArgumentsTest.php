@@ -43,7 +43,7 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
    * @param mixed $value
    * @param array $filters
    * @param string $separator
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateExpectingTrue($value, $filters, $separator) {
     $filter = new \Papaya\Filter\Arguments($filters, $separator);
@@ -56,7 +56,7 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
    * @param mixed $value
    * @param array $filters
    * @param string $separator
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateExpectingException($value, $filters, $separator) {
     $filter = new \Papaya\Filter\Arguments($filters, $separator);

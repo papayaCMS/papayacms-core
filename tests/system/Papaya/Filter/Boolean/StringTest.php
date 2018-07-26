@@ -22,7 +22,7 @@ class PapayaFilterBooleanStringTest extends \PapayaTestCase {
    * @dataProvider provideValidBooleanStrings
    * @param mixed $expected
    * @param mixed $value
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateExpectingTrue(
     /** @noinspection PhpUnusedParameterInspection */
@@ -36,7 +36,7 @@ class PapayaFilterBooleanStringTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\BooleanString
    * @dataProvider provideInvalidBooleanStrings
    * @param mixed $value
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateExpectingException($value) {
     $filter = new \Papaya\Filter\BooleanString();

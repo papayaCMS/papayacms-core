@@ -31,8 +31,8 @@ class PapayaFilterXmlTest extends \PapayaTestCase {
    * @covers \PapayaFilterXml::validate
    * @dataProvider provideValidXmlFragments
    * @param string $fragment
-   * @throws PapayaFilterExceptionEmpty
-   * @throws PapayaFilterExceptionXml
+   * @throws \PapayaFilterExceptionEmpty
+   * @throws \PapayaFilterExceptionXml
    */
   public function testValidate($fragment) {
     $filter = new \PapayaFilterXml();
@@ -51,8 +51,8 @@ class PapayaFilterXmlTest extends \PapayaTestCase {
    * @covers \PapayaFilterXml::validate
    * @dataProvider provideInvalidXmlFragments
    * @param mixed $fragment
-   * @throws PapayaFilterExceptionEmpty
-   * @throws PapayaFilterExceptionXml
+   * @throws \PapayaFilterExceptionEmpty
+   * @throws \PapayaFilterExceptionXml
    */
   public function testValidateExpectingException($fragment) {
     $filter = new \PapayaFilterXml();

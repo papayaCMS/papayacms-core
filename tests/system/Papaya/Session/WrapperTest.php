@@ -192,7 +192,7 @@ class PapayaSessionWrapperTest extends \PapayaTestCase {
   }
 }
 
-class PapayaSessionHandler_TestClass implements PapayaSessionHandler {
+class PapayaSessionHandler_TestClass implements \PapayaSessionHandler {
 
   public static $calls = array();
 

@@ -24,7 +24,7 @@ class PapayaApplicationProfilesCmsTest extends \PapayaTestCase {
   */
   public function testGetProfiles() {
     /** @var \Papaya\Application $application */
-    $application = $this->createMock(Papaya\Application::class);
+    $application = $this->createMock(\Papaya\Application::class);
     $profiles = new \Papaya\Application\Profiles\Cms();
     $list = $profiles->getProfiles($application);
     $this->assertEquals(

@@ -64,7 +64,7 @@ class PapayaFilterLengthTest extends \PapayaTestCase {
    * @param int|0 $minimum
    * @param int|NULL $maximum
    * @param bool $isUtf8
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateWithLimitsExpectingTrue(
     $value, $minimum, $maximum = NULL, $isUtf8 = FALSE
@@ -80,7 +80,7 @@ class PapayaFilterLengthTest extends \PapayaTestCase {
    * @param int|0 $minimum
    * @param int|NULL $maximum
    * @param bool $isUtf8
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateWithLimitsExpectingException(
     $value, $minimum, $maximum = NULL, $isUtf8 = FALSE

@@ -21,7 +21,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   * @covers \Papaya\Response::helper
   */
   public function testHelperSetHelper() {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $helper = $this->createMock(\PapayaResponseHelper::class);
     $response->helper($helper);
     $this->assertAttributeSame(
@@ -33,7 +33,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   * @covers \Papaya\Response::helper
   */
   public function testHelperGetHelperAfterSet() {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $helper = $this->createMock(\PapayaResponseHelper::class);
     $this->assertSame(
       $helper, $response->helper($helper)
@@ -44,7 +44,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   * @covers \Papaya\Response::helper
   */
   public function testHelperGetHelperImplizitCreate() {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $this->assertInstanceOf(
       \PapayaResponseHelper::class, $response->helper()
     );
@@ -54,7 +54,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   * @covers \Papaya\Response::headers
   */
   public function testHeadersSetHeaders() {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $headers = $this->createMock(\PapayaResponseHeaders::class);
     $response->headers($headers);
     $this->assertAttributeSame(
@@ -66,7 +66,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   * @covers \Papaya\Response::headers
   */
   public function testHeadersGetHeadersAfterSet() {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $headers = $this->createMock(\PapayaResponseHeaders::class);
     $this->assertSame(
       $headers, $response->headers($headers)
@@ -77,7 +77,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   * @covers \Papaya\Response::headers
   */
   public function testHeadersGetHeadersImplizitCreate() {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $this->assertInstanceOf(
       \PapayaResponseHeaders::class, $response->headers()
     );
@@ -87,7 +87,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   * @covers \Papaya\Response::content
   */
   public function testContentSetContent() {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $content = $this->createMock(\PapayaResponseContent::class);
     $response->content($content);
     $this->assertAttributeSame(
@@ -99,7 +99,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   * @covers \Papaya\Response::content
   */
   public function testContentGetContentAfterSet() {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $content = $this->createMock(\PapayaResponseContent::class);
     $this->assertSame(
       $content, $response->content($content)
@@ -110,7 +110,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   * @covers \Papaya\Response::content
   */
   public function testContentGetContentImplizitCreate() {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $this->assertInstanceOf(
       \PapayaResponseContent::class, $response->content()
     );
@@ -120,7 +120,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   * @covers \Papaya\Response::setStatus
   */
   public function testSetStatus() {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $response->setStatus(404);
     $this->assertAttributeEquals(
       404, '_status', $response
@@ -131,7 +131,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   * @covers \Papaya\Response::setStatus
   */
   public function testSetStatusInvalidExpectingError() {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Unknown response status code: 999');
     $response->setStatus(999);
@@ -141,7 +141,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   * @covers \Papaya\Response::getStatus
   */
   public function testGetStatusAfterSet() {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $response->setStatus(404);
     $this->assertEquals(
       404, $response->getStatus()
@@ -157,7 +157,7 @@ class PapayaResponseTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('set')
       ->with('Content-Type', 'text/plain; charset=UTF-8');
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $response->headers($headers);
     $response->setContentType('text/plain');
   }
@@ -171,7 +171,7 @@ class PapayaResponseTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('set')
       ->with('Content-Type', 'text/plain; charset=ISO-8859-15');
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $response->headers($headers);
     $response->setContentType('text/plain', 'ISO-8859-15');
   }
@@ -186,7 +186,7 @@ class PapayaResponseTest extends \PapayaTestCase {
    * @param int $now
    */
   public function testSetCache(array $expected, $cacheMode, $cachePeriod, $cacheStartTime, $now) {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $response->setCache($cacheMode, $cachePeriod, $cacheStartTime, $now);
     $this->assertAttributeEquals(
       $expected,
@@ -199,7 +199,7 @@ class PapayaResponseTest extends \PapayaTestCase {
   * @covers \Papaya\Response::setCache
   */
   public function testSetCacheOneHourFromNow() {
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $response->setCache('private', 3600);
     $headers = $response->headers();
     $this->assertEquals(
@@ -223,7 +223,7 @@ class PapayaResponseTest extends \PapayaTestCase {
         $this->equalTo(TRUE),
         $this->equalTo(204)
       );
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $response->helper($helper);
     $response->sendStatus(204);
   }
@@ -241,7 +241,7 @@ class PapayaResponseTest extends \PapayaTestCase {
         $this->equalTo(TRUE),
         $this->equalTo(204)
       );
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $response->helper($helper);
     $response->setStatus(204);
     $response->sendStatus();
@@ -260,7 +260,7 @@ class PapayaResponseTest extends \PapayaTestCase {
         $this->equalTo(TRUE),
         $this->equalTo(200)
       );
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $response->helper($helper);
     $response->sendStatus(999);
   }
@@ -281,7 +281,7 @@ class PapayaResponseTest extends \PapayaTestCase {
       ->with(
         $this->equalTo('X-Unit-Test: true')
       );
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $response->papaya($application);
     $response->helper($helper);
     $response->sendHeader('X-Unit-Test: true');
@@ -306,7 +306,7 @@ class PapayaResponseTest extends \PapayaTestCase {
     $helper
       ->expects($this->never())
       ->method('header');
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $response->papaya($application);
     $response->helper($helper);
     $response->sendHeader('X-Unit-Test: true');
@@ -328,7 +328,7 @@ class PapayaResponseTest extends \PapayaTestCase {
           $this->equalTo('Content-Length: 6')
         )
       );
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $response->papaya($application);
     $response->helper($helper);
     $response->setContentType('text/plain');
@@ -371,7 +371,7 @@ class PapayaResponseTest extends \PapayaTestCase {
           $this->equalTo('X-Complex: 2_2')
         )
       );
-    $response = new Papaya\Response();
+    $response = new \Papaya\Response();
     $response->papaya($this->mockPapaya()->application());
     $response->helper($helper);
     $response->headers($headers);

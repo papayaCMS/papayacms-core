@@ -24,8 +24,8 @@ class PapayaControllerGroupTest extends \PapayaTestCase {
    */
   public function testConstructorWithTwoControllers() {
     $controller = new Group(
-      $one = $this->createMock(Papaya\Controller::class),
-      $two = $this->createMock(Papaya\Controller::class)
+      $one = $this->createMock(\Papaya\Controller::class),
+      $two = $this->createMock(\Papaya\Controller::class)
     );
     $this->assertEquals(
       array($one, $two),
@@ -45,13 +45,13 @@ class PapayaControllerGroupTest extends \PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $response = $this->mockPapaya()->response();
 
-    $one = $this->createMock(Papaya\Controller::class);
+    $one = $this->createMock(\Papaya\Controller::class);
     $one
       ->expects($this->once())
       ->method('execute')
       ->with($application, $request, $response)
       ->will($this->returnValue(FALSE));
-    $two = $this->createMock(Papaya\Controller::class);
+    $two = $this->createMock(\Papaya\Controller::class);
     $two
       ->expects($this->once())
       ->method('execute')
@@ -82,13 +82,13 @@ class PapayaControllerGroupTest extends \PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $response = $this->mockPapaya()->response();
 
-    $one = $this->createMock(Papaya\Controller::class);
+    $one = $this->createMock(\Papaya\Controller::class);
     $one
       ->expects($this->once())
       ->method('execute')
       ->with($application, $request, $response)
       ->will($this->returnValue(TRUE));
-    $two = $this->createMock(Papaya\Controller::class);
+    $two = $this->createMock(\Papaya\Controller::class);
     $two
       ->expects($this->once())
       ->method('execute')
@@ -106,7 +106,7 @@ class PapayaControllerGroupTest extends \PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $response = $this->mockPapaya()->response();
 
-    $one = $this->createMock(Papaya\Controller::class);
+    $one = $this->createMock(\Papaya\Controller::class);
     $one
       ->expects($this->exactly(20))
       ->method('execute')

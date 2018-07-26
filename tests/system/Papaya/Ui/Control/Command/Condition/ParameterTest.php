@@ -19,7 +19,7 @@ class PapayaUiControlCommandConditionParameterTest extends \PapayaTestCase {
 
   public function testValidateExpectingTrue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
-    $filter = $this->createMock(Papaya\Filter::class);
+    $filter = $this->createMock(\Papaya\Filter::class);
     $filter
       ->expects($this->once())
       ->method('filter')
@@ -32,7 +32,7 @@ class PapayaUiControlCommandConditionParameterTest extends \PapayaTestCase {
 
   public function testValidateExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
-    $filter = $this->createMock(Papaya\Filter::class);
+    $filter = $this->createMock(\Papaya\Filter::class);
     $filter
       ->expects($this->once())
       ->method('filter')

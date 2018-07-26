@@ -196,7 +196,7 @@ class PapayaSessionValuesTest extends \PapayaTestCase {
    * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Session
    */
   public function getSessionFixture($isActive = FALSE) {
-    $session = $this->createMock(Papaya\Session::class);
+    $session = $this->createMock(\Papaya\Session::class);
     $session
       ->expects($this->any())
       ->method('isActive')

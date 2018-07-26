@@ -35,7 +35,7 @@ class PapayaPluginCacheableAggregationTest extends \PapayaTestCase {
 
 }
 
-class PapayaPluginCacheableAggregation_TestProxy implements PapayaPluginCacheable {
+class PapayaPluginCacheableAggregation_TestProxy implements \PapayaPluginCacheable {
 
   use PapayaPluginCacheableAggregation;
 

@@ -367,7 +367,7 @@ class PapayaTemplateEngineTest extends \PapayaTestCase {
 }
 
 /**
- * @property \PapayaObjectList|PapayaObjectOptionsList|PapayaXmlDocument dynamic_property
+ * @property \PapayaObjectList|\PapayaObjectOptionsList|\PapayaXmlDocument dynamic_property
  */
 class PapayaTemplateEngine_TestProxy extends \PapayaTemplateEngine {
 

@@ -90,7 +90,7 @@ class PapayaUiToolbarsTest extends \PapayaTestCase {
 }
 
 class PapayaUiToolbarsToolbar_Mock extends \PapayaUiToolbar {
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     return $parent->appendElement('toolbar');
   }
 }

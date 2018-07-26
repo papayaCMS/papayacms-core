@@ -118,11 +118,11 @@ class PapayaRequestLogTest extends \PapayaTestCase {
     $log->emit(FALSE);
   }
 
-  public function checkLogMessageContextWithStop(PapayaMessageLogable $logMessage) {
+  public function checkLogMessageContextWithStop(\PapayaMessageLogable $logMessage) {
     $this->assertCount(3, $logMessage->context());
   }
 
-  public function checkLogMessageContext(PapayaMessageLogable $logMessage) {
+  public function checkLogMessageContext(\PapayaMessageLogable $logMessage) {
     $this->assertCount(2, $logMessage->context());
   }
 }

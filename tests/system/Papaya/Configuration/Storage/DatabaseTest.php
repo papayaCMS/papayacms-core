@@ -75,7 +75,7 @@ class PapayaConfigurationStorageDatabaseTest extends \PapayaTestCase {
         'PAPAYA_DBG_DEVMODE' => TRUE
       )
     );
-    $response = $this->createMock(Papaya\Response::class);
+    $response = $this->createMock(\Papaya\Response::class);
     $response
       ->expects($this->once())
       ->method('sendHeader')
@@ -92,7 +92,7 @@ class PapayaConfigurationStorageDatabaseTest extends \PapayaTestCase {
     );
 
     $exception = new Query(
-      'Sample Error Message', 0, Papaya\Message::SEVERITY_ERROR, ''
+      'Sample Error Message', 0, \Papaya\Message::SEVERITY_ERROR, ''
     );
     $storage->handleError($exception);
   }
@@ -101,7 +101,7 @@ class PapayaConfigurationStorageDatabaseTest extends \PapayaTestCase {
   * @covers Database::handleError
   */
   public function testHandleErrorNoDevmodeSilent() {
-    $response = $this->createMock(Papaya\Response::class);
+    $response = $this->createMock(\Papaya\Response::class);
     $response
       ->expects($this->never())
       ->method('sendHeader');
@@ -116,7 +116,7 @@ class PapayaConfigurationStorageDatabaseTest extends \PapayaTestCase {
     );
 
     $exception = new Query(
-      'Sample Error Message', 0, Papaya\Message::SEVERITY_ERROR, ''
+      'Sample Error Message', 0, \Papaya\Message::SEVERITY_ERROR, ''
     );
     $storage->handleError($exception);
   }

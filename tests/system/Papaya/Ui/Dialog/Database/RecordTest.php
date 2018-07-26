@@ -370,7 +370,7 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
       $dialog->data()->merge($parameters);
       $parameters['confirmation'] = $dialog->hiddenFields()->getChecksum();
     }
-    $request = $this->getMock(Papaya\Request::class, array('getMethod', 'getParameters'));
+    $request = $this->getMock(\Papaya\Request::class, array('getMethod', 'getParameters'));
     $request
       ->expects($this->any())
       ->method('getMethod')

@@ -33,7 +33,7 @@ class PapayaApplicationProfileProfilerTest extends \PapayaTestCase {
     $profile->builder($this->getBuilderFixture());
     $profiler = $profile->createObject($application);
     $this->assertInstanceOf(
-      Papaya\Profiler::class, $profiler
+      \Papaya\Profiler::class, $profiler
     );
     $this->assertFalse(
       $profiler->allowRun()
@@ -55,7 +55,7 @@ class PapayaApplicationProfileProfilerTest extends \PapayaTestCase {
     $profile->builder($this->getBuilderFixture());
     $profiler = $profile->createObject($application);
     $this->assertInstanceOf(
-      Papaya\Profiler::class, $profiler
+      \Papaya\Profiler::class, $profiler
     );
     $this->assertTrue(
       $profiler->allowRun()

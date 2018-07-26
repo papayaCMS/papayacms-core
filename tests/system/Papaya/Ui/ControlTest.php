@@ -67,7 +67,7 @@ class PapayaUiControl_TestProxy extends \PapayaUiControl {
 
   public $nodeStub = array();
 
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
     foreach ($this->nodeStub as $node) {
       $parent->appendChild(
         $parent->ownerDocument->importNode($node)

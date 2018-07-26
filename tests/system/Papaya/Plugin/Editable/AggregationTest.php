@@ -35,11 +35,11 @@ class PapayaPluginEditableAggregationTest extends \PapayaTestCase {
 
 }
 
-class PapayaPluginEditableAggregation_TestProxy implements PapayaPluginEditable {
+class PapayaPluginEditableAggregation_TestProxy implements \PapayaPluginEditable {
 
   use PapayaPluginEditableAggregation;
 
-  public function createEditor(PapayaPluginEditableContent $content) {
+  public function createEditor(\PapayaPluginEditableContent $content) {
     return new Dialog($content);
   }
 }

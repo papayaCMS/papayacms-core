@@ -167,7 +167,7 @@ class PapayaUiDialogElementTest extends \PapayaTestCase {
 
 class PapayaUiDialogElement_TestProxy extends \PapayaUiDialogElement {
 
-  public function appendTo(PapayaXmlElement $parent) {
+  public function appendTo(\PapayaXmlElement $parent) {
   }
 
   public function _getParameterName($key, $withGroup = TRUE) {

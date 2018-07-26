@@ -30,7 +30,7 @@ class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
    * @covers \PapayaUiDialogFieldInputPassword::__construct
    */
   public function testConstructorAttachingFilter() {
-    $filter = $this->createMock(Papaya\Filter::class);
+    $filter = $this->createMock(\Papaya\Filter::class);
     $field = new \PapayaUiDialogFieldInputPassword('Caption', 'fieldname', 42, $filter);
     $field->setMandatory(TRUE);
     $this->assertSame($filter, $field->getFilter());

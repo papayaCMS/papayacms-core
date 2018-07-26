@@ -32,7 +32,7 @@ class PapayaFilterEqualsTest extends \PapayaTestCase {
    * @dataProvider provideEqualValues
    * @param mixed $expected
    * @param mixed $value
-   * @throws PapayaFilterExceptionNotEqual
+   * @throws \PapayaFilterExceptionNotEqual
    */
   public function testValidate($expected, $value) {
     $filter = new \PapayaFilterEquals($expected);
@@ -44,7 +44,7 @@ class PapayaFilterEqualsTest extends \PapayaTestCase {
    * @dataProvider provideNonEqualValues
    * @param mixed $expected
    * @param mixed $value
-   * @throws PapayaFilterExceptionNotEqual
+   * @throws \PapayaFilterExceptionNotEqual
    */
   public function testValidateExpectingException($expected, $value) {
     $filter = new \PapayaFilterEquals($expected);

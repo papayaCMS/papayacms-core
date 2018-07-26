@@ -35,7 +35,7 @@ class PapayaContentPagePublicationStatusTest extends \PapayaTestCase {
           serialize(
             array(
               'id' => 42,
-              'session_mode' => Papaya\Session::ACTIVATION_DYNAMIC
+              'session_mode' => \Papaya\Session::ACTIVATION_DYNAMIC
             )
           )
         )
@@ -49,7 +49,7 @@ class PapayaContentPagePublicationStatusTest extends \PapayaTestCase {
     $this->assertEquals(
       array(
         'id' => 42,
-        'session_mode' => Papaya\Session::ACTIVATION_DYNAMIC
+        'session_mode' => \Papaya\Session::ACTIVATION_DYNAMIC
       ),
       $status->toArray()
     );
@@ -75,7 +75,7 @@ class PapayaContentPagePublicationStatusTest extends \PapayaTestCase {
         serialize(
           array(
             'id' => 42,
-            'session_mode' => Papaya\Session::ACTIVATION_DYNAMIC
+            'session_mode' => \Papaya\Session::ACTIVATION_DYNAMIC
           )
         ),
         0
@@ -88,7 +88,7 @@ class PapayaContentPagePublicationStatusTest extends \PapayaTestCase {
       $this->getDatabaseAccessFixture(
         array(
           'topic_id' => 42,
-          'topic_sessionmode' => Papaya\Session::ACTIVATION_DYNAMIC
+          'topic_sessionmode' => \Papaya\Session::ACTIVATION_DYNAMIC
         )
       )
     );
@@ -97,7 +97,7 @@ class PapayaContentPagePublicationStatusTest extends \PapayaTestCase {
     $this->assertEquals(
       array(
         'id' => 42,
-        'session_mode' => Papaya\Session::ACTIVATION_DYNAMIC
+        'session_mode' => \Papaya\Session::ACTIVATION_DYNAMIC
       ),
       $status->toArray()
     );

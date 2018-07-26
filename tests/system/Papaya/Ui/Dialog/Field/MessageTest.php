@@ -21,7 +21,7 @@ class PapayaUiDialogFieldMessageTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldMessage::__construct
   */
   public function testConstructor() {
-    $message = new \PapayaUiDialogFieldMessage(Papaya\Message::SEVERITY_WARNING, 'Message');
+    $message = new \PapayaUiDialogFieldMessage(\Papaya\Message::SEVERITY_WARNING, 'Message');
     $this->assertAttributeEquals(
       'Message', '_text', $message
     );
@@ -36,7 +36,7 @@ class PapayaUiDialogFieldMessageTest extends \PapayaTestCase {
   public function testAppendTo() {
     $document = new \PapayaXmlDocument();
     $document->appendElement('sample');
-    $message = new \PapayaUiDialogFieldMessage(Papaya\Message::SEVERITY_INFO, 'Message');
+    $message = new \PapayaUiDialogFieldMessage(\Papaya\Message::SEVERITY_INFO, 'Message');
     $message->papaya(
       $this->mockPapaya()->application(
         array(

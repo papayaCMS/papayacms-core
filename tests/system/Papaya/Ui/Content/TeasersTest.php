@@ -255,7 +255,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
     );
   }
 
-  public function callbackAppendTeaser(PapayaXmlElement $parent) {
+  public function callbackAppendTeaser(\PapayaXmlElement $parent) {
     $parent->appendElement('title', array(), 'sample title');
     $parent->appendElement('image')->appendElement('img', array('src' => 'sample.png'));
     $parent->appendElement('text', array(), 'sample teaser');
@@ -280,9 +280,9 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
 }
 
 class PapayaUiContentTeasers_PagePluginMockClass
-  implements PapayaPluginQuoteable {
+  implements \PapayaPluginQuoteable {
 
-  public function appendQuoteTo(PapayaXmlElement $parent) {
+  public function appendQuoteTo(\PapayaXmlElement $parent) {
     $parent->appendElement('title', array(), 'sample title');
     $parent->appendElement('image')->appendElement('img', array('src' => 'sample.png'));
     $parent->appendElement('text', array(), 'sample teaser');

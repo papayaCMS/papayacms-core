@@ -32,7 +32,7 @@ class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
   */
   public function testGetFilterWithMandatoryTrue() {
     $checkbox = new \PapayaUiDialogFieldInputCheckbox('caption', 'name', TRUE, TRUE);
-    $this->assertInstanceOf(Papaya\Filter::class, $checkbox->getFilter());
+    $this->assertInstanceOf(\Papaya\Filter::class, $checkbox->getFilter());
   }
 
   /**

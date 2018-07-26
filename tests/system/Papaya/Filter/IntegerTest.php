@@ -65,7 +65,7 @@ class PapayaFilterIntegerTest extends \PapayaTestCase {
    * @param int $value
    * @param int $minimum
    * @param int $maximum
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateWithLimitsExpectingTrue($value, $minimum, $maximum) {
     $filter = new \PapayaFilterInteger($minimum, $maximum);
@@ -78,7 +78,7 @@ class PapayaFilterIntegerTest extends \PapayaTestCase {
    * @param int $value
    * @param int $minimum
    * @param int $maximum
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateWithLimitsExpectingException($value, $minimum, $maximum) {
     $filter = new \PapayaFilterInteger($minimum, $maximum);

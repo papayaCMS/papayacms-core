@@ -21,7 +21,7 @@ class PapayaFilterPhoneTest extends \PapayaTestCase {
    * @covers \PapayaFilterPhone::validate
    * @dataProvider provideValidPhoneNumbers
    * @param string $phoneNumber
-   * @throws PapayaFilterExceptionType
+   * @throws \PapayaFilterExceptionType
    */
   public function testValidateExpectingTrue($phoneNumber) {
     $filter = new \PapayaFilterPhone();
@@ -32,7 +32,7 @@ class PapayaFilterPhoneTest extends \PapayaTestCase {
    * @covers \PapayaFilterPhone::validate
    * @dataProvider provideInvalidData
    * @param mixed $value
-   * @throws PapayaFilterExceptionType
+   * @throws \PapayaFilterExceptionType
    */
   public function testValidateExpectingException($value) {
     $filter = new \PapayaFilterPhone();

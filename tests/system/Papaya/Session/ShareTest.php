@@ -25,7 +25,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(Papaya\Session::class)))
+      ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $share = new \PapayaSessionShare_TestProxy();
     $share->setSessionValues($values);
@@ -36,7 +36,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   * @covers \PapayaSessionShare::getSessionValues
   */
   public function testGetSessionValuesFromApplicationRegistry() {
-    $session = $this->createMock(Papaya\Session::class);
+    $session = $this->createMock(\Papaya\Session::class);
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
@@ -60,7 +60,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(Papaya\Session::class)))
+      ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
       ->expects($this->once())
@@ -80,7 +80,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(Papaya\Session::class)))
+      ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
       ->expects($this->once())
@@ -100,7 +100,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(Papaya\Session::class)))
+      ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
       ->expects($this->once())
@@ -120,7 +120,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(Papaya\Session::class)))
+      ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
       ->expects($this->once())
@@ -139,7 +139,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(Papaya\Session::class)))
+      ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
       ->expects($this->once())
@@ -157,7 +157,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(Papaya\Session::class)))
+      ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
       ->expects($this->once())
@@ -175,7 +175,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(Papaya\Session::class)))
+      ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
       ->expects($this->once())
@@ -239,8 +239,6 @@ class PapayaSessionShareTest extends \PapayaTestCase {
 
 
 /**
- * Class PapayaSessionShare_TestProxy
- *
  * @property mixed $sessionProperty
  * @method mixed getSessionProperty()
  * @method void setSessionProperty($value)

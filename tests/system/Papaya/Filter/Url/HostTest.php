@@ -21,7 +21,7 @@ class PapayaFilterUrlHostTest extends \PapayaTestCase {
    * @covers \PapayaFilterUrlHost
    * @dataProvider provideHostNameValues
    * @param mixed $value
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidate($value) {
     $filter = new \PapayaFilterUrlHost();
@@ -32,7 +32,7 @@ class PapayaFilterUrlHostTest extends \PapayaTestCase {
    * @covers \PapayaFilterUrlHost
    * @dataProvider provideInvalidValues
    * @param mixed $value
-   * @throws PapayaFilterException
+   * @throws \PapayaFilterException
    */
   public function testValidateExpectingException($value) {
     $filter = new \PapayaFilterUrlHost();

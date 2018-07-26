@@ -25,14 +25,14 @@ class PluginLoader_SampleClass extends \Papaya\Application\BaseObject {
 
 class PluginLoader_SampleClassEditable
   extends \Papaya\Application\BaseObject
-  implements PapayaPluginEditable {
+  implements \PapayaPluginEditable {
 
   /**
    * @var \PapayaPluginEditableContent $content
    */
   public $content;
 
-  public function content(PapayaPluginEditableContent $content = NULL) {
+  public function content(\PapayaPluginEditableContent $content = NULL) {
     if (NULL !== $content) {
       $this->content = $content;
     } elseif (NULL === $this->content) {

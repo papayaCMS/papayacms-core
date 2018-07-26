@@ -25,12 +25,12 @@ class PapayaControllerCallbackTest extends \PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $response = $this->mockPapaya()->response();
 
-    $controller = new Papaya\Controller\Callback(
+    $controller = new \Papaya\Controller\Callback(
       function(
         /** @noinspection PhpUnusedParameterInspection */
         \Papaya\Application $application,
         \Papaya\Request &$request,
-        Papaya\Response &$response
+        \Papaya\Response &$response
       ) {
         return TRUE;
       }

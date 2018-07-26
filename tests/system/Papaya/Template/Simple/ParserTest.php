@@ -39,7 +39,7 @@ class PapayaTemplateSimpleParserTest extends \PapayaTestCase {
    * @param int $expectedResult
    * @param array $tokens
    * @param array|int $allowedTokens
-   * @throws PapayaTemplateSimpleException
+   * @throws \PapayaTemplateSimpleException
    */
   public function testReadMatch($expectedResult, array $tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
@@ -62,7 +62,7 @@ class PapayaTemplateSimpleParserTest extends \PapayaTestCase {
    * @dataProvider provideDirectMismatchingTokens
    * @param array $tokens
    * @param array|int $allowedTokens
-   * @throws PapayaTemplateSimpleException
+   * @throws \PapayaTemplateSimpleException
    */
   public function testReadMismatch(array $tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
@@ -76,7 +76,7 @@ class PapayaTemplateSimpleParserTest extends \PapayaTestCase {
    * @param int $expectedResult
    * @param array $tokens
    * @param array|int $allowedTokens
-   * @throws PapayaTemplateSimpleException
+   * @throws \PapayaTemplateSimpleException
    */
   public function testDirectLookaheadMatch($expectedResult, array $tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
@@ -94,7 +94,7 @@ class PapayaTemplateSimpleParserTest extends \PapayaTestCase {
    * @dataProvider provideDirectMismatchingTokens
    * @param array $tokens
    * @param array|int $allowedTokens
-   * @throws PapayaTemplateSimpleException
+   * @throws \PapayaTemplateSimpleException
    */
   public function testDirectLookaheadMismatch(array $tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
@@ -108,7 +108,7 @@ class PapayaTemplateSimpleParserTest extends \PapayaTestCase {
    * @param int $expectedResult
    * @param array $tokens
    * @param array|int $allowedTokens
-   * @throws PapayaTemplateSimpleException
+   * @throws \PapayaTemplateSimpleException
   */
   public function testLookaheadMatch($expectedResult, array $tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
@@ -126,7 +126,7 @@ class PapayaTemplateSimpleParserTest extends \PapayaTestCase {
    * @dataProvider provideLookaheadMismatchingTokens
    * @param array $tokens
    * @param array|int $allowedTokens
-   * @throws PapayaTemplateSimpleException
+   * @throws \PapayaTemplateSimpleException
    */
   public function testLookaheadMismatch(array $tokens, $allowedTokens) {
     $parser = $this->getParserFixture($tokens);
@@ -308,7 +308,7 @@ class PapayaTemplateSimpleParserTest extends \PapayaTestCase {
       $data = array($data);
     }
     foreach ($data as $token) {
-      if ($token instanceof PapayaTemplateSimpleScannerToken) {
+      if ($token instanceof \PapayaTemplateSimpleScannerToken) {
         $tokens[] = $token;
       } else {
         $tokens[] = new \PapayaTemplateSimpleScannerToken(
