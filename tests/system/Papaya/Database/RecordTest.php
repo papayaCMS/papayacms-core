@@ -17,6 +17,7 @@ use Papaya\Database\Condition\Element;
 use Papaya\Database\Condition\Root;
 use Papaya\Database\Interfaces\Key;
 use Papaya\Database\Interfaces\Mapping;
+use Papaya\Database\Record\Key\Autoincrement;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -598,7 +599,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   public function testKeyGetImplicitCreate() {
     $record = new PapayaDatabaseRecord_TestProxy();
     $this->assertInstanceOf(
-      PapayaDatabaseRecordKeyAutoincrement::class, $record->key()
+      Autoincrement::class, $record->key()
     );
   }
 

@@ -322,10 +322,10 @@ abstract class PapayaDatabaseRecord
   /**
   * Create a standard autoincrement key object for the property "id".
   *
-  * @return \PapayaDatabaseRecordKeyAutoincrement
+  * @return \Papaya\Database\Record\Key\Autoincrement
   */
   protected function _createKey() {
-    return new \PapayaDatabaseRecordKeyAutoincrement('id');
+    return new \Papaya\Database\Record\Key\Autoincrement('id');
   }
 
   /**

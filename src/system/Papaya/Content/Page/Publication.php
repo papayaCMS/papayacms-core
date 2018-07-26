@@ -100,7 +100,7 @@ class Publication extends \Papaya\Content\Page {
   protected $_translationsTableName = \Papaya\Content\Tables::PAGE_PUBLICATION_TRANSLATIONS;
 
   public function _createKey() {
-    return new \PapayaDatabaseRecordKeyFields(
+    return new \Papaya\Database\Record\Key\Fields(
       $this, $this->getDatabaseAccess()->getTableName($this->_tableName), array('id')
     );
   }

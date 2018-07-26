@@ -14,38 +14,39 @@
  */
 
 use Papaya\Database\Interfaces\Key;
+use Papaya\Database\Record\Key\Autoincrement;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaDatabaseRecordKeyAutoincrementTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaDatabaseRecordKeyAutoincrement::__construct
+  * @covers Autoincrement::__construct
   */
   public function testConstructor() {
-    $key = new PapayaDatabaseRecordKeyAutoincrement();
+    $key = new Autoincrement();
     $this->assertEquals(
       array('id'), $key->getProperties()
     );
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyAutoincrement::__construct
-  * @covers PapayaDatabaseRecordKeyAutoincrement::getProperties
+  * @covers Autoincrement::__construct
+  * @covers Autoincrement::getProperties
   */
   public function testConstructorWithPropertyParameter() {
-    $key = new PapayaDatabaseRecordKeyAutoincrement('other');
+    $key = new Autoincrement('other');
     $this->assertEquals(
       array('other'), $key->getProperties()
     );
   }
 
   /**
-  * PapayaDatabaseRecordKeyAutoincrement::assign
-  * PapayaDatabaseRecordKeyAutoincrement::getFilter
+  * Papaya\Database\Record\Key\PapayaDatabaseRecordKeyAutoincrement::assign
+  * Papaya\Database\Record\Key\PapayaDatabaseRecordKeyAutoincrement::getFilter
   */
   public function testAssignAndGetFilter() {
-    $key = new PapayaDatabaseRecordKeyAutoincrement();
+    $key = new Autoincrement();
     $this->assertTrue($key->assign(array('id' => 42)));
     $this->assertEquals(
       array('id' => 42), $key->getFilter()
@@ -53,11 +54,11 @@ class PapayaDatabaseRecordKeyAutoincrementTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyAutoincrement::assign
-  * @covers PapayaDatabaseRecordKeyAutoincrement::getFilter
+  * @covers Autoincrement::assign
+  * @covers Autoincrement::getFilter
   */
   public function testAssignWithInvalidData() {
-    $key = new PapayaDatabaseRecordKeyAutoincrement();
+    $key = new Autoincrement();
     $this->assertFalse($key->assign(array('other' => 42)));
     $this->assertEquals(
       array('id' => NULL), $key->getFilter()
@@ -65,54 +66,54 @@ class PapayaDatabaseRecordKeyAutoincrementTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyAutoincrement::getFilter
+  * @covers Autoincrement::getFilter
   */
   public function testGetFilterWithoutAssign() {
-    $key = new PapayaDatabaseRecordKeyAutoincrement();
+    $key = new Autoincrement();
     $this->assertEquals(
       array('id' => NULL), $key->getFilter()
     );
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyAutoincrement::exists
+  * @covers Autoincrement::exists
   */
   public function testExistsExpectingTrue() {
-    $key = new PapayaDatabaseRecordKeyAutoincrement();
+    $key = new Autoincrement();
     $key->assign(array('id' => 42));
     $this->assertTrue($key->exists());
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyAutoincrement::exists
+  * @covers Autoincrement::exists
   */
   public function testExistsExpectingFalse() {
-    $key = new PapayaDatabaseRecordKeyAutoincrement();
+    $key = new Autoincrement();
     $this->assertFalse($key->exists());
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyAutoincrement::getQualities
+  * @covers Autoincrement::getQualities
   */
   public function testGetQualities() {
-    $key = new PapayaDatabaseRecordKeyAutoincrement();
+    $key = new Autoincrement();
     $this->assertEquals(Key::DATABASE_PROVIDED, $key->getQualities());
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyAutoincrement::__toString
+  * @covers Autoincrement::__toString
   */
   public function testMagicToString() {
-    $key = new PapayaDatabaseRecordKeyAutoincrement();
+    $key = new Autoincrement();
     $key->assign(array('id' => 42));
     $this->assertSame('42', (string)$key);
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyAutoincrement::clear
+  * @covers Autoincrement::clear
   */
   public function testClear() {
-    $key = new PapayaDatabaseRecordKeyAutoincrement();
+    $key = new Autoincrement();
     $key->assign(array('id' => 42));
     $key->clear();
     $this->assertSame('', (string)$key);

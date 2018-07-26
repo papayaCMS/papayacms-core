@@ -126,7 +126,7 @@ class Translation extends \PapayaDatabaseRecordLazy {
   }
 
   public function _createKey() {
-    return new \PapayaDatabaseRecordKeyFields(
+    return new \Papaya\Database\Record\Key\Fields(
       $this,
       $this->_tableName,
       array('id', 'language_id')

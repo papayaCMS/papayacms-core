@@ -14,13 +14,14 @@
  */
 
 use Papaya\Database\Interfaces\Mapping;
+use Papaya\Database\Record\Key\Fields;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaDatabaseRecordKeyFields::__construct
+  * @covers Fields::__construct
   */
   public function testConstructor() {
     $key = $this->getKeyFixture();
@@ -30,8 +31,8 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyFields::assign
-  * @covers PapayaDatabaseRecordKeyFields::getFilter
+  * @covers Fields::assign
+  * @covers Fields::getFilter
   */
   public function testAssignAndGetFilter() {
     $key = $this->getKeyFixture();
@@ -42,8 +43,8 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyFields::assign
-  * @covers PapayaDatabaseRecordKeyFields::getFilter
+  * @covers Fields::assign
+  * @covers Fields::getFilter
   */
   public function testAssignWithInvalidData() {
     $key = $this->getKeyFixture();
@@ -54,7 +55,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyFields::getFilter
+  * @covers Fields::getFilter
   */
   public function testGetFilterWithoutAssign() {
     $key = $this->getKeyFixture();
@@ -64,7 +65,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyFields::getFilter
+  * @covers Fields::getFilter
   */
   public function testGetFilterWithRecord() {
     $record = $this->createMock(PapayaDatabaseRecord::class);
@@ -97,7 +98,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyFields::getProperties
+  * @covers Fields::getProperties
   */
   public function testGetProperties() {
     $key = $this->getKeyFixture();
@@ -107,7 +108,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyFields::exists
+  * @covers Fields::exists
   */
   public function testExistsExpectingTrue() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -153,7 +154,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyFields::exists
+  * @covers Fields::exists
   */
   public function testExistsWithDatabaseErrorExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -191,7 +192,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyFields::exists
+  * @covers Fields::exists
   */
   public function testExistsWithEmptyMappingResult() {
     $mapping = $this->createMock(Mapping::class);
@@ -210,7 +211,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyFields::getQualities
+  * @covers Fields::getQualities
   */
   public function testGetQualities() {
     $key = $this->getKeyFixture();
@@ -218,7 +219,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyFields::__toString
+  * @covers Fields::__toString
   */
   public function testMagicToString() {
     $key = $this->getKeyFixture();
@@ -227,7 +228,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordKeyFields::clear
+  * @covers Fields::clear
   */
   public function testClear() {
     $key = $this->getKeyFixture();
@@ -238,13 +239,13 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
 
   /**
    * @param PapayaDatabaseRecord|NULL|PHPUnit_Framework_MockObject_MockObject $record
-   * @return PapayaDatabaseRecordKeyFields
+   * @return Fields
    */
   public function getKeyFixture(PapayaDatabaseRecord $record = NULL) {
     if (NULL === $record) {
       $record = $this->createMock(PapayaDatabaseRecord::class);
     }
-    return new PapayaDatabaseRecordKeyFields(
+    return new Fields(
       $record, 'sometable', array('fk_one_id', 'fk_two_id')
     );
   }

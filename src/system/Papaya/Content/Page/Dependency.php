@@ -94,7 +94,7 @@ class Dependency extends \PapayaDatabaseRecord {
    * @return \Papaya\Database\Interfaces\Key
    */
   protected function _createKey() {
-    return new \PapayaDatabaseRecordKeyFields(
+    return new \Papaya\Database\Record\Key\Fields(
       $this,
       $this->_tableName,
       array('id')

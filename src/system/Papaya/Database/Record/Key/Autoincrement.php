@@ -13,43 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record\Key;
 /**
-* An single field autoincrement key
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Autoincrement.php 39197 2014-02-11 13:36:56Z weinert $
-*/
-class PapayaDatabaseRecordKeyAutoincrement implements \Papaya\Database\Interfaces\Key {
+ * An single field autoincrement key
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ * @version $Id: Autoincrement.php 39197 2014-02-11 13:36:56Z weinert $
+ */
+class Autoincrement implements \Papaya\Database\Interfaces\Key {
 
   /**
-  * the property name
-  *
-  * @var string
-  */
+   * the property name
+   *
+   * @var string
+   */
   private $_property = 'id';
 
   /**
-  * the current field value
-  *
-  * @var NULL|integer
-  */
+   * the current field value
+   *
+   * @var NULL|integer
+   */
   private $_value = NULL;
 
   /**
-  * Create object and set the identifier property, the default
-  *
-  * @var NULL|integer
-  */
+   * Create object and set the identifier property, the default
+   *
+   * @var NULL|integer
+   */
   public function __construct($property = 'id') {
     $this->_property = $property;
   }
 
   /**
-  * Provide information if the key is autoincrement
-  *
-  * @return integer
-  */
+   * Provide information if the key is autoincrement
+   *
+   * @return integer
+   */
   public function getQualities() {
     return \Papaya\Database\Interfaces\Key::DATABASE_PROVIDED;
   }
@@ -71,13 +72,13 @@ class PapayaDatabaseRecordKeyAutoincrement implements \Papaya\Database\Interface
   }
 
   /**
-  * Validate if the record exists. In this case if the key value is not null it will
-  * be considered as TRUE without asking the database.
-  *
-  * The key is provided by the database so it should always exists if it is set.
-  *
-  * @return boolean
-  */
+   * Validate if the record exists. In this case if the key value is not null it will
+   * be considered as TRUE without asking the database.
+   *
+   * The key is provided by the database so it should always exists if it is set.
+   *
+   * @return boolean
+   */
   public function exists() {
     return isset($this->_value);
   }
@@ -90,30 +91,30 @@ class PapayaDatabaseRecordKeyAutoincrement implements \Papaya\Database\Interface
   }
 
   /**
-  * Convert the key values into an string, that can be used in array keys.
-  *
-  * @return string
-  */
+   * Convert the key values into an string, that can be used in array keys.
+   *
+   * @return string
+   */
   public function __toString() {
     return (string)$this->_value;
   }
 
   /**
-  * Get the property names of the key. This will always be on property for an autoincrement key.
-  *
-  * @return array(string)
-  */
+   * Get the property names of the key. This will always be on property for an autoincrement key.
+   *
+   * @return array(string)
+   */
   public function getProperties() {
     return array($this->_property);
   }
 
   /**
-  * Get the a property=>value array to use it. A mapping is used to convert it into acutal database
-  * fields
-  *
-  * @param integer $for the action the filter ist fetched for
-  * @return array(string)
-  */
+   * Get the a property=>value array to use it. A mapping is used to convert it into acutal database
+   * fields
+   *
+   * @param integer $for the action the filter ist fetched for
+   * @return array(string)
+   */
   public function getFilter($for = self::ACTION_FILTER) {
     return array($this->_property => $this->_value);
   }

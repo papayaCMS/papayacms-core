@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Page\Dependency;
+use Papaya\Database\Record\Key\Fields;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -25,7 +26,7 @@ class PapayaContentPageDependencyTest extends PapayaTestCase {
   public function testCreateKey() {
     $dependency = new Dependency();
     $key = $dependency->key();
-    $this->assertInstanceOf(PapayaDatabaseRecordKeyFields::class, $key);
+    $this->assertInstanceOf(Fields::class, $key);
     $this->assertEquals(array('id'), $key->getProperties());
   }
 

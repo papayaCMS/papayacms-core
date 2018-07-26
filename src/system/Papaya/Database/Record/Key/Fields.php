@@ -13,34 +13,35 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record\Key;
 /**
-* An multiple field key that represents a link table index
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Fields.php 39197 2014-02-11 13:36:56Z weinert $
-*/
-class PapayaDatabaseRecordKeyFields implements \Papaya\Database\Interfaces\Key {
+ * An multiple field key that represents a link table index
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ * @version $Id: Fields.php 39197 2014-02-11 13:36:56Z weinert $
+ */
+class Fields implements \Papaya\Database\Interfaces\Key {
 
   /**
-  * the key values
-  *
-  * @var array
-  */
+   * the key values
+   *
+   * @var array
+   */
   private $_values = array();
 
   /**
-  * Attached record for this key
-  *
-  * @var \PapayaDatabaseRecord
-  */
+   * Attached record for this key
+   *
+   * @var \PapayaDatabaseRecord
+   */
   private $_record = NULL;
 
   /**
-  * Key table name
-  *
-  * @var string
-  */
+   * Key table name
+   *
+   * @var string
+   */
   private $_tableName = '';
 
   /**
@@ -87,10 +88,10 @@ class PapayaDatabaseRecordKeyFields implements \Papaya\Database\Interfaces\Key {
   }
 
   /**
-  * Validate if the record exists. This will require an query to the database.
-  *
-  * @return boolean
-  */
+   * Validate if the record exists. This will require an query to the database.
+   *
+   * @return boolean
+   */
   public function exists() {
     $filter = array();
     $values = $this->getFilter();
@@ -122,30 +123,30 @@ class PapayaDatabaseRecordKeyFields implements \Papaya\Database\Interfaces\Key {
   }
 
   /**
-  * Convert the key values into an string, that can be used in array keys.
-  *
-  * @return string
-  */
+   * Convert the key values into an string, that can be used in array keys.
+   *
+   * @return string
+   */
   public function __toString() {
     return implode('|', $this->_values);
   }
 
   /**
-  * Get the property names of the key.
-  *
-  * @return array(string)
-  */
+   * Get the property names of the key.
+   *
+   * @return array(string)
+   */
   public function getProperties() {
     return array_keys($this->_values);
   }
 
   /**
-  * Get the a property=>value array to use it. A mapping is used to convert it into acutal database
-  * fields
-  *
-  * @param integer $for the action the filter ist fetched for
-  * @return array(string)
-  */
+   * Get the a property=>value array to use it. A mapping is used to convert it into acutal database
+   * fields
+   *
+   * @param integer $for the action the filter ist fetched for
+   * @return array(string)
+   */
   public function getFilter($for = self::ACTION_FILTER) {
     $values = $this->_values;
     foreach ($values as $property => $value) {

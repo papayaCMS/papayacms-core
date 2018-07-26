@@ -15,6 +15,7 @@
 
 use Papaya\Content\Page\Reference;
 use Papaya\Content\Tables;
+use Papaya\Database\Record\Key\Fields;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -26,7 +27,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
   public function testCreateKey() {
     $reference = new Reference();
     $key = $reference->key();
-    $this->assertInstanceOf(PapayaDatabaseRecordKeyFields::class, $key);
+    $this->assertInstanceOf(Fields::class, $key);
     $this->assertEquals(array('source_id', 'target_id'), $key->getProperties());
   }
 
