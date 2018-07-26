@@ -50,7 +50,7 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
     $this->setCaption($caption);
     $this->setName($name);
     $this->setFilter(
-      new \PapayaFilterArrayAssociative(
+      new \Papaya\Filter\AssociativeArray(
         [
           'start' => new \PapayaFilterLogicalOr(
             new \PapayaFilterEmpty(),
@@ -165,7 +165,7 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
       return $filter;
     } elseif (isset($filter)) {
       return new \PapayaFilterLogicalOr(
-        new \PapayaFilterArrayAssociative(
+        new \Papaya\Filter\AssociativeArray(
           [
             'start' => new \PapayaFilterEmpty(),
             'end' => new \PapayaFilterEmpty(),

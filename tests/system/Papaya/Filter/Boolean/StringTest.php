@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterBooleanStringTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterBooleanString
+   * @covers \Papaya\Filter\BooleanString
    * @dataProvider provideValidBooleanStrings
    * @param mixed $expected
    * @param mixed $value
@@ -28,49 +28,49 @@ class PapayaFilterBooleanStringTest extends \PapayaTestCase {
     /** @noinspection PhpUnusedParameterInspection */
     $expected, $value
   ) {
-    $filter = new \PapayaFilterBooleanString();
+    $filter = new \Papaya\Filter\BooleanString();
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \PapayaFilterBooleanString
+   * @covers \Papaya\Filter\BooleanString
    * @dataProvider provideInvalidBooleanStrings
    * @param mixed $value
    * @throws PapayaFilterException
    */
   public function testValidateExpectingException($value) {
-    $filter = new \PapayaFilterBooleanString();
+    $filter = new \Papaya\Filter\BooleanString();
     $this->expectException(\PapayaFilterException::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers \PapayaFilterBooleanString
+   * @covers \Papaya\Filter\BooleanString
    * @dataProvider provideValidBooleanStrings
    * @param mixed $expected
    * @param mixed $value
    */
   public function testFilter($expected, $value) {
-    $filter = new \PapayaFilterBooleanString();
+    $filter = new \Papaya\Filter\BooleanString();
     $this->assertSame($expected, $filter->filter($value));
   }
 
   /**
-   * @covers \PapayaFilterBooleanString
+   * @covers \Papaya\Filter\BooleanString
    * @dataProvider provideInvalidBooleanStrings
    * @param mixed $value
    */
   public function testFilterExpectingNull($value) {
-    $filter = new \PapayaFilterBooleanString();
+    $filter = new \Papaya\Filter\BooleanString();
     $this->assertNull($filter->filter($value));
   }
 
 
   /**
-   * @covers \PapayaFilterBooleanString
+   * @covers \Papaya\Filter\BooleanString
    */
   public function testFilterWithoutCastingEmptyStringExpectingNull() {
-    $filter = new \PapayaFilterBooleanString(FALSE);
+    $filter = new \Papaya\Filter\BooleanString(FALSE);
     $this->assertNull($filter->filter(''));
   }
 

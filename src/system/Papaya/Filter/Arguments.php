@@ -13,24 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class for an list of arguments joined by a defined separator character
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterArguments implements \PapayaFilter {
+ * Papaya filter class for an list of arguments joined by a defined separator character
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Arguments implements \PapayaFilter {
 
   /**
-  * The filters for the arguments
-  * @var integer|string
-  */
+   * The filters for the arguments
+   *
+   * @var integer|string
+   */
   private $_filters = array();
 
   /**
-  * Separator character
-  * @var integer
-  */
+   * Separator character
+   *
+   * @var integer
+   */
   private $_separator = ',';
 
   /**
@@ -47,12 +50,12 @@ class PapayaFilterArguments implements \PapayaFilter {
   }
 
   /**
-  * Check the input value and throw an exception if it does not match the condition.
-  *
-  * @throws \PapayaFilterException
-  * @param string $value
-  * @return TRUE
-  */
+   * Check the input value and throw an exception if it does not match the condition.
+   *
+   * @throws \PapayaFilterException
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     if (empty($value)) {
       throw new \PapayaFilterExceptionEmpty();
@@ -69,13 +72,13 @@ class PapayaFilterArguments implements \PapayaFilter {
   }
 
   /**
-  * The filter function is used to read an input value if it is valid.
-  *
-  * If a submatch identifier is available, it returns the submatch.
-  *
-  * @param string $value
-  * @return string|NULL
-  */
+   * The filter function is used to read an input value if it is valid.
+   *
+   * If a submatch identifier is available, it returns the submatch.
+   *
+   * @param string $value
+   * @return string|NULL
+   */
   public function filter($value) {
     try {
       $this->validate($value);

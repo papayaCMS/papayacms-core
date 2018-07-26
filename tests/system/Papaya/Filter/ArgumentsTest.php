@@ -18,27 +18,27 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterArgumentsTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterArguments::__construct
+  * @covers \Papaya\Filter\Arguments::__construct
   */
   public function testConstructor() {
-    $filter = new \PapayaFilterArguments(array(new \PapayaFilterNotEmpty()));
+    $filter = new \Papaya\Filter\Arguments(array(new \PapayaFilterNotEmpty()));
     $this->assertAttributeEquals(
       array(new \PapayaFilterNotEmpty()), '_filters', $filter
     );
   }
 
   /**
-  * @covers \PapayaFilterArguments::__construct
+  * @covers \Papaya\Filter\Arguments::__construct
   */
   public function testConstructorWithAllParameters() {
-    $filter = new \PapayaFilterArguments(array(new \PapayaFilterNotEmpty()), ';');
+    $filter = new \Papaya\Filter\Arguments(array(new \PapayaFilterNotEmpty()), ';');
     $this->assertAttributeEquals(
       ';', '_separator', $filter
     );
   }
 
   /**
-   * @covers \PapayaFilterArguments::validate
+   * @covers \Papaya\Filter\Arguments::validate
    * @dataProvider provideValidValidationData
    * @param mixed $value
    * @param array $filters
@@ -46,12 +46,12 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
    * @throws PapayaFilterException
    */
   public function testValidateExpectingTrue($value, $filters, $separator) {
-    $filter = new \PapayaFilterArguments($filters, $separator);
+    $filter = new \Papaya\Filter\Arguments($filters, $separator);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \PapayaFilterArguments::validate
+   * @covers \Papaya\Filter\Arguments::validate
    * @dataProvider provideInvalidValidationData
    * @param mixed $value
    * @param array $filters
@@ -59,13 +59,13 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
    * @throws PapayaFilterException
    */
   public function testValidateExpectingException($value, $filters, $separator) {
-    $filter = new \PapayaFilterArguments($filters, $separator);
+    $filter = new \Papaya\Filter\Arguments($filters, $separator);
     $this->expectException(\PapayaFilterException::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers \PapayaFilterArguments::filter
+   * @covers \Papaya\Filter\Arguments::filter
    * @dataProvider provideFilterData
    * @param mixed $expected
    * @param mixed $value
@@ -73,19 +73,19 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
    * @param string $separator
    */
   public function testFilter($expected, $value, $filters, $separator) {
-    $filter = new \PapayaFilterArguments($filters, $separator);
+    $filter = new \Papaya\Filter\Arguments($filters, $separator);
     $this->assertSame($expected, $filter->filter($value));
   }
 
   /**
-   * @covers \PapayaFilterArguments::filter
+   * @covers \Papaya\Filter\Arguments::filter
    * @dataProvider provideInvalidValidationData
    * @param mixed $value
    * @param array $filters
    * @param string $separator
    */
   public function testFilterExpectingNull($value, $filters, $separator) {
-    $filter = new \PapayaFilterArguments($filters, $separator);
+    $filter = new \Papaya\Filter\Arguments($filters, $separator);
     $this->assertNull($filter->filter($value));
   }
 

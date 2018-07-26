@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
  * Papaya filter class for an array size, non arrays are zero size
  *
@@ -21,15 +22,17 @@
  * @package Papaya-Library
  * @subpackage Filter
  */
-class PapayaFilterArraySize implements \PapayaFilter {
+class ArraySize implements \PapayaFilter {
 
   /**
    * Minimum limit
+   *
    * @var integer
    */
   private $_minimum = NULL;
   /**
    * Maximum limit
+   *
    * @var integer
    */
   private $_maximum = NULL;

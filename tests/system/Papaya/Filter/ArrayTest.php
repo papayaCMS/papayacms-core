@@ -18,60 +18,60 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterArrayTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterArray::__construct
+  * @covers \Papaya\Filter\ArrayOf::__construct
   */
   public function testConstructorWithElementFilter() {
-    $filter = new \PapayaFilterArray($subFilter = $this->createMock(\PapayaFilter::class));
+    $filter = new \Papaya\Filter\ArrayOf($subFilter = $this->createMock(\PapayaFilter::class));
     $this->assertAttributeSame(
       $subFilter, '_elementFilter', $filter
     );
   }
 
   /**
-   * @covers \PapayaFilterArray::validate
+   * @covers \Papaya\Filter\ArrayOf::validate
    * @dataProvider provideValidValidateData
    * @param mixed $value
    * @param NULL|PapayaFilter $elementFilter
    * @throws PapayaFilterException
    */
   public function testValidateExpectingTrue($value, $elementFilter = NULL) {
-    $filter = new \PapayaFilterArray($elementFilter);
+    $filter = new \Papaya\Filter\ArrayOf($elementFilter);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \PapayaFilterArray::validate
+   * @covers \Papaya\Filter\ArrayOf::validate
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
    * @param NULL|PapayaFilter $elementFilter
    * @throws PapayaFilterException
    */
   public function testValidateExpectingException($value, $elementFilter = NULL) {
-    $filter = new \PapayaFilterArray($elementFilter);
+    $filter = new \Papaya\Filter\ArrayOf($elementFilter);
     $this->expectException(\PapayaFilterException::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers \PapayaFilterArray::filter
+   * @covers \Papaya\Filter\ArrayOf::filter
    * @dataProvider provideValidFilterData
    * @param array|NULL $expected
    * @param mixed $value
    * @param NULL|PapayaFilter $elementFilter
    */
   public function testFilter($expected, $value, $elementFilter = NULL) {
-    $filter = new \PapayaFilterArray($elementFilter);
+    $filter = new \Papaya\Filter\ArrayOf($elementFilter);
     $this->assertSame($expected, $filter->filter($value));
   }
 
   /**
-   * @covers \PapayaFilterArray::filter
+   * @covers \Papaya\Filter\ArrayOf::filter
    * @dataProvider provideInvalidFilterData
    * @param mixed $value
    * @param NULL|PapayaFilter $elementFilter
    */
   public function testFilterExpectingNull($value, $elementFilter = NULL) {
-    $filter = new \PapayaFilterArray($elementFilter);
+    $filter = new \Papaya\Filter\ArrayOf($elementFilter);
     $this->assertNull($filter->filter($value));
   }
 

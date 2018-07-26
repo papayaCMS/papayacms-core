@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter that interprets an string as boolean value, mapping several string and
-* casting others.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterBooleanString
+ * Papaya filter that interprets an string as boolean value, mapping several string and
+ * casting others.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class BooleanString
   implements \PapayaFilter {
 
   private $_mapping = array(

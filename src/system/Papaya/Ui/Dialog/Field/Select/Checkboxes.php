@@ -45,7 +45,7 @@ class PapayaUiDialogFieldSelectCheckboxes extends \PapayaUiDialogFieldSelect {
   * If the values are set, it is nessessary to create a filter based on the values.
   */
   protected function _createFilter() {
-    return new \PapayaFilterArray(
+    return new \Papaya\Filter\ArrayOf(
       parent::_createFilter()
     );
   }

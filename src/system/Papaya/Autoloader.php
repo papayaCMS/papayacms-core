@@ -45,7 +45,11 @@ class Autoloader {
     'PapayaAdministrationCommunityUsersListDialog' => Administration\Community\Users\Roster\Dialog::class,
     'PapayaConfigurationGlobal' => Configuration\GlobalValues::class,
     'PapayaDatabaseRecordOrderList' => Database\Record\Order\Collection::class,
-    'PapayaDatabaseRecordList' => Database\Record\Collection::class
+    'PapayaDatabaseRecordList' => Database\Record\Collection::class,
+    'PapayaFilterArray' => Filter\ArrayOf::class,
+    'PapayaFilterArrayAssociative' => Filter\AssociativeArray::class,
+    'PapayaFilterArraySize' => Filter\ArraySize::class,
+    'PapayaFilterBooleanString' => Filter\BooleanString::class
   );
 
   private static $_mapParts = array(

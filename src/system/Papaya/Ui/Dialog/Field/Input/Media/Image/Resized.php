@@ -32,7 +32,7 @@ class PapayaUiDialogFieldInputMediaImageResized extends \PapayaUiDialogFieldInpu
     parent::__construct($caption, $name);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \PapayaFilterArguments(
+      new \Papaya\Filter\Arguments(
         array(
           new \PapayaFilterGuid(),
           new \PapayaFilterLogicalOr(

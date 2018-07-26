@@ -13,19 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
  * Papaya filter class for an array with specific elements. It validates the specified elements
  * in the array.
  *
- * The filter function will cast the value to integer.
+ * The filter function will return an array of filtered values.
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class PapayaFilterArrayAssociative implements \PapayaFilter {
+class AssociativeArray implements \PapayaFilter {
 
   /**
    * Filters for each array element
+   *
    * @var integer
    */
   private $_filters = array();
@@ -42,13 +44,13 @@ class PapayaFilterArrayAssociative implements \PapayaFilter {
       throw new \InvalidArgumentException('Empty filter definition.');
     }
     foreach ($filtersByName as $name => $filter) {
-     if ($filter instanceof \PapayaFilter) {
-       $this->_filters[$name] = $filter;
-     } else {
-       throw new \InvalidArgumentException(
-         sprintf('Invalid filter definition for element "%s".', $name)
-       );
-     }
+      if ($filter instanceof \PapayaFilter) {
+        $this->_filters[$name] = $filter;
+      } else {
+        throw new \InvalidArgumentException(
+          sprintf('Invalid filter definition for element "%s".', $name)
+        );
+      }
     }
   }
 

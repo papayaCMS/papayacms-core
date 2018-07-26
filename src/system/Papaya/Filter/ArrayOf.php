@@ -13,38 +13,40 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class that validates an array and optionally each element of the array
-*
-* The filter function will return the element rather then the input.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterArray implements \PapayaFilter {
+ * Papaya filter class that validates an array and optionally each element of the array
+ *
+ * The filter function will return the element rather then the input.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class ArrayOf implements \PapayaFilter {
 
   /**
-  * elements filter
-  * @var \PapayaFilter|NULL
-  */
+   * elements filter
+   *
+   * @var \PapayaFilter|NULL
+   */
   private $_elementFilter = NULL;
 
   /**
-  * Construct object and filter for the elements
-  *
-  * @param \PapayaFilter|NULL $elementFilter
-  */
+   * Construct object and filter for the elements
+   *
+   * @param \PapayaFilter|NULL $elementFilter
+   */
   public function __construct(\PapayaFilter $elementFilter = NULL) {
     $this->_elementFilter = $elementFilter;
   }
 
   /**
-  * Check if the value is an array and if an element filter is set, check each element against it.
-  *
-  * @throws \PapayaFilterException
-  * @param string $value
-  * @return TRUE
-  */
+   * Check if the value is an array and if an element filter is set, check each element against it.
+   *
+   * @throws \PapayaFilterException
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     if (!(is_array($value) && count($value) > 0)) {
       throw new \PapayaFilterExceptionEmpty();
@@ -58,12 +60,12 @@ class PapayaFilterArray implements \PapayaFilter {
   }
 
   /**
-  * Return the value aus an array, if the element filter ist set only return elements after
-  * filtering them.
-  *
-  * @param string $value
-  * @return integer|NULL
-  */
+   * Return the value aus an array, if the element filter ist set only return elements after
+   * filtering them.
+   *
+   * @param string $value
+   * @return integer|NULL
+   */
   public function filter($value) {
     $result = NULL;
     if (is_array($value) && !empty($value)) {
