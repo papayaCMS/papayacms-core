@@ -1573,7 +1573,7 @@ class papaya_installer extends base_db {
         'Repetition',
         'password_repeat',
         -1,
-        new \PapayaFilterEqualsParameter($dialog->parameters(), 'password')
+        new \Papaya\Filter\Equals\Parameter($dialog->parameters(), 'password')
       );
       $field->setMandatory($dialog->parameters()->get('password') != '');
       $dialog->buttons[] = new \PapayaUiDialogButtonSubmit('Save');

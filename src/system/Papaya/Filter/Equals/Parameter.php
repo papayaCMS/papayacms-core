@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * papaya CMS
  *
@@ -13,61 +13,62 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Equals;
 /**
-* Papaya filter class that checks if the value is equal to a given parameter value.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterEqualsParameter implements \Papaya\Filter {
-  
+ * Papaya filter class that checks if the value is equal to a given parameter value.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Parameter implements \Papaya\Filter {
+
   /**
-  * Given parameters object
-  * 
-  * @var \PapayaRequestParameters
-  */
+   * Given parameters object
+   *
+   * @var \PapayaRequestParameters
+   */
   private $_parameters = TRUE;
-  
+
   /**
-  * Given parameters name object
-  * 
-  * @var \PapayaRequestParametersName
-  */
+   * Given parameters name object
+   *
+   * @var \PapayaRequestParametersName
+   */
   private $_parameterName = TRUE;
-  
+
   /**
-  * Construct object, check and store options
-  *
-  * @param \PapayaRequestParameters $parameters
-  * @param string $parameterName
-  */
+   * Construct object, check and store options
+   *
+   * @param \PapayaRequestParameters $parameters
+   * @param string $parameterName
+   */
   public function __construct(\PapayaRequestParameters $parameters, $parameterName) {
     $this->_parameters = $parameters;
     $this->_parameterName = new \PapayaRequestParametersName($parameterName);
   }
-  
+
   /**
-  * Check the value throw exception if value is not equal to given parameter value
-  * 
-  * @see \Papaya\Filter::validate()
-  * 
-  * @throws \PapayaFilterExceptionInvalid
-  * @param string $value
-  * @return TRUE
-  */
+   * Check the value throw exception if value is not equal to given parameter value
+   *
+   * @see \Papaya\Filter::validate()
+   *
+   * @throws \PapayaFilterExceptionInvalid
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     if ($this->_parameters->get((string)$this->_parameterName) != (string)$value) {
       throw new \PapayaFilterExceptionInvalid($value);
     }
     return TRUE;
   }
-  
+
   /**
-  * Checks the value and returns the value if validate succeeded, otherwise NULL
-  *
-  * @param string $value
-  * @return mixed|NULL
-  */
+   * Checks the value and returns the value if validate succeeded, otherwise NULL
+   *
+   * @param string $value
+   * @return mixed|NULL
+   */
   public function filter($value) {
     try {
       $this->validate($value);
