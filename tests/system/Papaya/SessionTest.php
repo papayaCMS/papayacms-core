@@ -20,11 +20,11 @@ class PapayaSessionTest extends \PapayaTestCase {
   private $_idSources = array();
 
   /**
-  * @covers \PapayaSession::setName
-  * @covers \PapayaSession::__Get
+  * @covers \Papaya\Session::setName
+  * @covers \Papaya\Session::__Get
   */
   public function testSetName() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->setName('sessionname');
     $this->assertEquals(
       'sessionname', $session->name
@@ -32,15 +32,15 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::isActive
+  * @covers \Papaya\Session::isActive
   */
   public function testIsActiveExpectingFalse() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $this->assertFalse($session->isActive());
   }
 
   /**
-  * @covers \PapayaSession::isActive
+  * @covers \Papaya\Session::isActive
   * @backupGlobals enabled
   * @runInSeparateProcess
   */
@@ -48,7 +48,7 @@ class PapayaSessionTest extends \PapayaTestCase {
     $_SERVER['HTTP_USER_AGENT'] =
       'Mozilla/5.0 (Windows; U; Windows NT 6.0; de; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2';
     $_SERVER['HTTPS'] = NULL;
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->papaya($this->mockPapaya()->application());
     $session->wrapper($this->getSessionWrapperFixture());
     $session->id($this->getSessionIdFixture(array(\PapayaSessionId::SOURCE_QUERY)));
@@ -57,18 +57,18 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::__get
+  * @covers \Papaya\Session::__get
   */
   public function testPropertyActiveExpectingFalse() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $this->assertFalse($session->active);
   }
 
   /**
-  * @covers \PapayaSession::values
+  * @covers \Papaya\Session::values
   */
   public function testValuesSet() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
@@ -80,10 +80,10 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::values
+  * @covers \Papaya\Session::values
   */
   public function testValuesGetAfterSet() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
@@ -95,20 +95,20 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::values
+  * @covers \Papaya\Session::values
   */
   public function testValuesGetUsingImplicitCreate() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $this->assertInstanceOf(
       \PapayaSessionValues::class, $session->values()
     );
   }
 
   /**
-  * @covers \PapayaSession::setValue
+  * @covers \Papaya\Session::setValue
   */
   public function testSetValue() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
@@ -122,10 +122,10 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::getValue
+  * @covers \Papaya\Session::getValue
   */
   public function testGetValue() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
@@ -140,10 +140,10 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::options
+  * @covers \Papaya\Session::options
   */
   public function testOptionsSet() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $options = $this->createMock(\PapayaSessionOptions::class);
     $session->options($options);
     $this->assertAttributeSame(
@@ -152,10 +152,10 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::options
+  * @covers \Papaya\Session::options
   */
   public function testOptionsGetAfterSet() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $options = $this->createMock(\PapayaSessionOptions::class);
     $session->options($options);
     $this->assertSame(
@@ -164,20 +164,20 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::options
+  * @covers \Papaya\Session::options
   */
   public function testOptionsGetUsingImplicitCreate() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $this->assertInstanceOf(
       \PapayaSessionOptions::class, $session->options()
     );
   }
 
   /**
-  * @covers \PapayaSession::id
+  * @covers \Papaya\Session::id
   */
   public function testIdSet() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $id = $this->createMock(\PapayaSessionId::class);
     $session->id($id);
     $this->assertAttributeSame(
@@ -186,10 +186,10 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::id
+  * @covers \Papaya\Session::id
   */
   public function testIdGetAfterSet() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $id = $this->createMock(\PapayaSessionId::class);
     $session->id($id);
     $this->assertSame(
@@ -198,17 +198,17 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::id
+  * @covers \Papaya\Session::id
   */
   public function testIdGetUsingImplicitCreate() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $this->assertInstanceOf(
       \PapayaSessionId::class, $session->id()
     );
   }
 
   /**
-  * @covers \PapayaSession::__get
+  * @covers \Papaya\Session::__get
   */
   public function testPropertIdReturnsString() {
     $id = $this->createMock(\PapayaSessionId::class);
@@ -216,7 +216,7 @@ class PapayaSessionTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('__toString')
       ->will($this->returnValue('success'));
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->id($id);
     $this->assertEquals(
       'success', $session->id
@@ -224,10 +224,10 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::wrapper
+  * @covers \Papaya\Session::wrapper
   */
   public function testWrapperSet() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $wrapper = $this->createMock(\PapayaSessionWrapper::class);
     $session->wrapper($wrapper);
     $this->assertAttributeSame(
@@ -236,10 +236,10 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::wrapper
+  * @covers \Papaya\Session::wrapper
   */
   public function testWrapperGetAfterSet() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $wrapper = $this->createMock(\PapayaSessionWrapper::class);
     $session->wrapper($wrapper);
     $this->assertSame(
@@ -248,20 +248,20 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::wrapper
+  * @covers \Papaya\Session::wrapper
   */
   public function testWrapperGetUsingImplicitCreate() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $this->assertInstanceOf(
       \PapayaSessionWrapper::class, $session->wrapper()
     );
   }
 
   /**
-  * @covers \PapayaSession::__get
+  * @covers \Papaya\Session::__get
   */
   public function testValuesPropertyGet() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
@@ -273,10 +273,10 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::__get
+  * @covers \Papaya\Session::__get
   */
   public function testOptionsPropertyGet() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $options = $this->createMock(\PapayaSessionOptions::class);
     $session->options($options);
     $this->assertSame(
@@ -285,20 +285,20 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::__get
+  * @covers \Papaya\Session::__get
   */
   public function testPropertyGetExpectingException() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $this->expectException(UnexpectedValueException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $session->INVALID_PROPERTY_NAME;
   }
 
   /**
-  * @covers \PapayaSession::__set
+  * @covers \Papaya\Session::__set
   */
   public function testPropertySetExpectingException() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $this->expectException(LogicException::class);
     /** @noinspection Annotator */
     $session->values = 'foo';
@@ -306,45 +306,45 @@ class PapayaSessionTest extends \PapayaTestCase {
 
   /**
   * @backupGlobals
-  * @covers \PapayaSession::isAllowed
+  * @covers \Papaya\Session::isAllowed
   */
   public function testIsAllowedExpectingTrue() {
     $_SERVER['HTTP_USER_AGENT'] =
       'Mozilla/5.0 (Windows; U; Windows NT 6.0; de; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2';
     $_SERVER['HTTPS'] = NULL;
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->papaya($this->mockPapaya()->application());
     $this->assertTrue($session->isAllowed());
   }
 
   /**
-  * @covers \PapayaSession::isAllowed
+  * @covers \Papaya\Session::isAllowed
   */
   public function testIsAllowedExpectingFalse() {
     $_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
     $_SERVER['HTTPS'] = NULL;
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->papaya($this->mockPapaya()->application());
     $this->assertFalse($session->isAllowed());
   }
 
   /**
-  * @covers \PapayaSession::isProtocolAllowed
+  * @covers \Papaya\Session::isProtocolAllowed
   * @backupGlobals
   */
   public function testIsProtocolAllowedExpectingTrue() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->papaya($this->mockPapaya()->application());
     $_SERVER['HTTPS'] = NULL;
     $this->assertTrue($session->isProtocolAllowed());
   }
 
   /**
-  * @covers \PapayaSession::isProtocolAllowed
+  * @covers \Papaya\Session::isProtocolAllowed
   * @backupGlobals
   */
   public function testIsProtocolAllowedWithSecureSessionExpectingTrue() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->papaya(
       $this->mockPapaya()->application(
         array(
@@ -361,11 +361,11 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::isProtocolAllowed
+  * @covers \Papaya\Session::isProtocolAllowed
   * @backupGlobals
   */
   public function testIsProtocolAllowedWithSecureSessionExpectingFalse() {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->papaya(
       $this->mockPapaya()->application(
         array(
@@ -382,12 +382,12 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaSession::isSecureOnly
+   * @covers \Papaya\Session::isSecureOnly
    * @dataProvider provideValidOptionsForSecureSession
    * @param array $options
    */
   public function testIsSecureOnlyExpectingTrue(array $options) {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->papaya(
       $this->mockPapaya()->application(
         array(
@@ -399,12 +399,12 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaSession::isSecureOnly
+   * @covers \Papaya\Session::isSecureOnly
    * @dataProvider provideInvalidOptionsForSecureSession
    * @param array $options
    */
   public function testIsSecureOnlyExpectingFalse(array $options) {
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->papaya(
       $this->mockPapaya()->application(
         array(
@@ -416,9 +416,9 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaSession::activate
-   * @covers \PapayaSession::configure
-   * @covers \PapayaSession::redirectIfNeeded
+   * @covers \Papaya\Session::activate
+   * @covers \Papaya\Session::configure
+   * @covers \Papaya\Session::redirectIfNeeded
    * @backupGlobals enabled
    * @runInSeparateProcess
    * @dataProvider provideSessionSourcesNoRedirect
@@ -429,7 +429,7 @@ class PapayaSessionTest extends \PapayaTestCase {
     $_SERVER['HTTP_USER_AGENT'] =
       'Mozilla/5.0 (Windows; U; Windows NT 6.0; de; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2';
     $_SERVER['HTTPS'] = NULL;
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->papaya($this->mockPapaya()->application());
     $session->wrapper($this->getSessionWrapperFixture());
     $session->id($this->getSessionIdFixture($sources));
@@ -440,24 +440,24 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::activate
-  * @covers \PapayaSession::configure
-  * @covers \PapayaSession::redirectIfNeeded
+  * @covers \Papaya\Session::activate
+  * @covers \Papaya\Session::configure
+  * @covers \Papaya\Session::redirectIfNeeded
   * @backupGlobals enabled
   */
   public function testActivateWithRobotExpectingNull() {
     $_SERVER['HTTP_USER_AGENT'] = 'Googlebot';
     $_SERVER['HTTPS'] = NULL;
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->papaya($this->mockPapaya()->application());
     $this->assertNull($session->activate(FALSE));
   }
 
   /**
-   * @covers \PapayaSession::activate
-   * @covers \PapayaSession::configure
-   * @covers \PapayaSession::_createRedirect
-   * @covers \PapayaSession::redirectIfNeeded
+   * @covers \Papaya\Session::activate
+   * @covers \Papaya\Session::configure
+   * @covers \Papaya\Session::_createRedirect
+   * @covers \Papaya\Session::redirectIfNeeded
    * @backupGlobals enabled
    * @runInSeparateProcess
    * @dataProvider provideSessionSourcesTriggeringRedirect
@@ -469,7 +469,7 @@ class PapayaSessionTest extends \PapayaTestCase {
     $_SERVER['HTTP_USER_AGENT'] =
       'Mozilla/5.0 (Windows; U; Windows NT 6.0; de; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2';
     $_SERVER['HTTPS'] = NULL;
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->papaya($this->mockPapaya()->application());
     $session->wrapper($this->getSessionWrapperFixture());
     $session->id($this->getSessionIdFixture($sources));
@@ -484,10 +484,10 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaSession::activate
-   * @covers \PapayaSession::configure
-   * @covers \PapayaSession::redirectIfNeeded
-   * @covers \PapayaSession::_createRedirect
+   * @covers \Papaya\Session::activate
+   * @covers \Papaya\Session::configure
+   * @covers \Papaya\Session::redirectIfNeeded
+   * @covers \Papaya\Session::_createRedirect
    * @backupGlobals enabled
    * @runInSeparateProcess
    */
@@ -504,7 +504,7 @@ class PapayaSessionTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('start')
       ->will($this->returnValue(TRUE));
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->papaya($this->mockPapaya()->application());
     $session->wrapper($wrapper);
     $session->id($this->getSessionIdFixture(array()));
@@ -519,7 +519,7 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::close
+  * @covers \Papaya\Session::close
   * @backupGlobals enabled
    * @runInSeparateProcess
    */
@@ -537,7 +537,7 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::reset
+  * @covers \Papaya\Session::reset
   * @backupGlobals enabled
    * @runInSeparateProcess
    */
@@ -551,7 +551,7 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::destroy
+  * @covers \Papaya\Session::destroy
   * @backupGlobals enabled
    * @runInSeparateProcess
    */
@@ -569,7 +569,7 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::regenerateId
+  * @covers \Papaya\Session::regenerateId
   * @backupGlobals enabled
    * @runInSeparateProcess
    */
@@ -587,7 +587,7 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::regenerateId
+  * @covers \Papaya\Session::regenerateId
   * @backupGlobals enabled
    * @runInSeparateProcess
    */
@@ -605,7 +605,7 @@ class PapayaSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSession::regenerateId
+  * @covers \Papaya\Session::regenerateId
   * @backupGlobals enabled
    * @runInSeparateProcess
    */
@@ -679,13 +679,13 @@ class PapayaSessionTest extends \PapayaTestCase {
 
   /**
    * @param int $source
-   * @return \PapayaSession
+   * @return \Papaya\Session
    */
   public function getActiveSessionFixture($source) {
     $_SERVER['HTTP_USER_AGENT'] =
       'Mozilla/5.0 (Windows; U; Windows NT 6.0; de; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2';
     $_SERVER['HTTPS'] = NULL;
-    $session = new \PapayaSession();
+    $session = new Papaya\Session();
     $session->papaya($this->mockPapaya()->application());
     $session->wrapper($this->getSessionWrapperFixture());
     $session->id($this->getSessionIdFixture(array($source)));

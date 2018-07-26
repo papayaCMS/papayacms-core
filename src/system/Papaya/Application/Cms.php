@@ -30,7 +30,7 @@ namespace Papaya\Application;
  * @property \Papaya\Profiler $profiler
  * @property \Papaya\Request $request
  * @property \Papaya\Response $response$response
- * @property \PapayaSession $session
+ * @property \Papaya\Session $session
  * @property \base_surfer $surfer
  * @property \base_auth $administrationUser
  * @property \Papaya\Administration\Languages\Selector $administrationLanguage

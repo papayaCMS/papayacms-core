@@ -27,10 +27,10 @@ class Session implements \Papaya\Application\Profile {
    * Create the profile object and return it
    *
    * @param \Papaya\Application $application
-   * @return \PapayaSession
+   * @return \Papaya\Session
    */
   public function createObject($application) {
-    $session = new \PapayaSession();
+    $session = new \Papaya\Session();
     $session->papaya($application);
     return $session;
   }

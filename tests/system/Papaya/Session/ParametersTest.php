@@ -57,7 +57,7 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
   */
   public function testValuesGetFromApplication() {
     $sessionValues = $this->getSessionValuesFixture();
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $session
       ->expects($this->any())
       ->method('__get')

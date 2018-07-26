@@ -197,7 +197,7 @@ class papaya_page extends base_object {
   * allow session for current output mode
   * @var integer
   */
-  var $allowSession = \PapayaSession::ACTIVATION_NEVER;
+  var $allowSession = Papaya\Session::ACTIVATION_NEVER;
   /**
   * redirect to handle session id in path
    *
@@ -693,12 +693,12 @@ class papaya_page extends base_object {
   function startSession() {
     $session = $this->papaya()->session;
     if ($this->isPreview()) {
-      $startSession = \PapayaSession::ACTIVATION_DYNAMIC;
+      $startSession = Papaya\Session::ACTIVATION_DYNAMIC;
     } elseif ($this->allowSession &&
               $this->papaya()->options->get('PAPAYA_SESSION_START', FALSE)) {
       $startSession = $this->allowSession;
     } else {
-      $startSession = \PapayaSession::ACTIVATION_NEVER;
+      $startSession = Papaya\Session::ACTIVATION_NEVER;
     }
     $session->setName('sid'.$this->sessionName);
     $this->sendHeader('P3P: CP="NOI NID ADMa OUR IND UNI COM NAV"');
@@ -707,8 +707,8 @@ class papaya_page extends base_object {
         $redirect->send();
         exit;
       }
-    } elseif (($startSession == \PapayaSession::ACTIVATION_ALWAYS) ||
-              ($startSession == \PapayaSession::ACTIVATION_DYNAMIC && $session->id()->existsIn())) {
+    } elseif (($startSession == Papaya\Session::ACTIVATION_ALWAYS) ||
+              ($startSession == Papaya\Session::ACTIVATION_DYNAMIC && $session->id()->existsIn())) {
       if ($this->papaya()->options->get('PAPAYA_SESSION_START', FALSE) &&
           !$this->papaya()->options->get('PAPAYA_DB_CONNECT_PERSISTENT', FALSE)) {
         $this->output->databaseClose();
@@ -1101,7 +1101,7 @@ class papaya_page extends base_object {
       (isset($this->mode) && in_array($this->mode, $pageModes))
     ) {
       $this->readOnlySession = ($this->mode != 'image');
-      $this->allowSession = \PapayaSession::ACTIVATION_DYNAMIC;
+      $this->allowSession = Papaya\Session::ACTIVATION_DYNAMIC;
       $this->allowSessionRedirects = FALSE;
       $this->allowSessionCache = 'private';
     } elseif ($this->output->loadViewModeData($this->mode)) {
@@ -1114,12 +1114,12 @@ class papaya_page extends base_object {
       $pageStatus->load($this->topicId);
       if ($pageStatus->sessionMode == 0) {
         $this->allowSession = $this->papaya()->options->get(
-          'PAPAYA_SESSION_ACTIVATION', \PapayaSession::ACTIVATION_ALWAYS
+          'PAPAYA_SESSION_ACTIVATION', Papaya\Session::ACTIVATION_ALWAYS
         );
       } else {
         $this->allowSession = $pageStatus->sessionMode;
       }
-      if ($this->allowSession != \PapayaSession::ACTIVATION_NEVER) {
+      if ($this->allowSession != Papaya\Session::ACTIVATION_NEVER) {
         if ($this->papaya()->options->get('PAPAYA_SESSION_CACHE') == 'nocache') {
           $this->allowSessionCache = 'nocache';
         } else {
@@ -1130,18 +1130,18 @@ class papaya_page extends base_object {
         switch ($this->output->viewMode['viewmode_sessionmode']) {
         case 1 :
           //read only session
-          $this->allowSession = \PapayaSession::ACTIVATION_DYNAMIC;
+          $this->allowSession = Papaya\Session::ACTIVATION_DYNAMIC;
           $this->readOnlySession = TRUE;
           break;
         case 2 :
           //no session
-          $this->allowSession = \PapayaSession::ACTIVATION_NEVER;
+          $this->allowSession = Papaya\Session::ACTIVATION_NEVER;
           $this->readOnlySession = TRUE;
           break;
         }
       }
     } else {
-      $this->allowSession = \PapayaSession::ACTIVATION_DYNAMIC;
+      $this->allowSession = Papaya\Session::ACTIVATION_DYNAMIC;
       $this->readOnlySession = FALSE;
       $this->allowSessionRedirects = TRUE;
     }

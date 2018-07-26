@@ -276,7 +276,7 @@ class Cms extends GlobalValues {
 
     // session handling
     'PAPAYA_SESSION_START' => TRUE,
-    'PAPAYA_SESSION_ACTIVATION' => \PapayaSession::ACTIVATION_DYNAMIC,
+    'PAPAYA_SESSION_ACTIVATION' => \Papaya\Session::ACTIVATION_DYNAMIC,
     'PAPAYA_SESSION_DOMAIN' => '',
     'PAPAYA_SESSION_PATH' => '',
     'PAPAYA_SESSION_SECURE' => FALSE,

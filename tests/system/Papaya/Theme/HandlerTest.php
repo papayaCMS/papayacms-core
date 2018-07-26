@@ -295,7 +295,7 @@ class PapayaThemeHandlerTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getParameter')
       ->will($this->returnValue(TRUE));
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
@@ -367,7 +367,7 @@ class PapayaThemeHandlerTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getParameter')
       ->will($this->returnValue(TRUE));
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
@@ -406,7 +406,7 @@ class PapayaThemeHandlerTest extends \PapayaTestCase {
   * @covers \PapayaThemeHandler::setThemePreview
   */
   public function testSetThemePreview() {
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
@@ -431,7 +431,7 @@ class PapayaThemeHandlerTest extends \PapayaTestCase {
   * @covers \PapayaThemeHandler::removeThemePreview
   */
   public function testRemoveThemePreview() {
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))

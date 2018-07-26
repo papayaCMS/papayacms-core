@@ -26,7 +26,7 @@ class PapayaApplicationProfileSessionTest extends \PapayaTestCase {
     $profile = new Session();
     $session = $profile->createObject($application = NULL);
     $this->assertInstanceOf(
-      \PapayaSession::class, $session
+      Papaya\Session::class, $session
     );
   }
 }

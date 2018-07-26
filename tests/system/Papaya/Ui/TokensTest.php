@@ -68,7 +68,7 @@ class PapayaUiTokensTest extends \PapayaTestCase {
     $tokens = new \PapayaUiTokens();
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(\PapayaSession::class)))
+      ->setConstructorArgs(array($this->createMock(Papaya\Session::class)))
       ->getMock();
     $values
       ->expects($this->once())
@@ -86,7 +86,7 @@ class PapayaUiTokensTest extends \PapayaTestCase {
         $this->isInstanceOf(\PapayaUiTokens::class),
         $this->contains(array(NULL, 'd41d8cd98f00b204e9800998ecf8427e'))
       );
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $session
       ->expects($this->any())
       ->method('isActive')
@@ -107,7 +107,7 @@ class PapayaUiTokensTest extends \PapayaTestCase {
   */
   public function testCreateWithoutSessionExpectingNull() {
     $tokens = new \PapayaUiTokens();
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $session
       ->expects($this->any())
       ->method('isActive')
@@ -169,7 +169,7 @@ class PapayaUiTokensTest extends \PapayaTestCase {
   */
   public function testValidateWithoutSessionExpectingTrue() {
     $tokens = new \PapayaUiTokens();
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $session
       ->expects($this->any())
       ->method('isActive')
@@ -338,10 +338,10 @@ class PapayaUiTokensTest extends \PapayaTestCase {
    * @param object|NULL $owner
    * @param mixed $get
    * @param mixed $set
-   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaSession
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Session
    */
   public function getSessionObjectFixture($owner, $get = NULL, $set = NULL) {
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))

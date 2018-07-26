@@ -41,7 +41,7 @@ class PapayaUiDialogSessionTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogSession::execute
   */
   public function testExecuteSetSessionVariableExpectingTrue() {
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $session
       ->expects($this->once())
       ->method('getValue')
@@ -65,7 +65,7 @@ class PapayaUiDialogSessionTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogSession::execute
   */
   public function testExecuteSetSessionVariableExpectingFalseWithoutData() {
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $session
       ->expects($this->once())
       ->method('getValue')
@@ -89,7 +89,7 @@ class PapayaUiDialogSessionTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogSession::reset
   */
   public function testReset() {
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $session
       ->expects($this->once())
       ->method('setValue')

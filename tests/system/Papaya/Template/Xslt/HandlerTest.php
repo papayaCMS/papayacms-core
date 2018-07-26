@@ -83,7 +83,7 @@ class PapayaTemplateXsltHandlerTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getParameter')
       ->will($this->returnValue(TRUE));
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $values = $this->getMockBuilder(\PapayaSessionValues::class)->disableOriginalConstructor()->getMock();
     $values
       ->expects($this->once())
@@ -119,7 +119,7 @@ class PapayaTemplateXsltHandlerTest extends \PapayaTestCase {
   * @covers \PapayaTemplateXsltHandler::setTemplatePreview
   */
   public function testSetTemplatePreview() {
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $values = $this->getMockBuilder(\PapayaSessionValues::class)->disableOriginalConstructor()->getMock();
     $values
       ->expects($this->once())
@@ -141,7 +141,7 @@ class PapayaTemplateXsltHandlerTest extends \PapayaTestCase {
   * @covers \PapayaTemplateXsltHandler::removeTemplatePreview
   */
   public function testRemoveTemplatePreview() {
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $values = $this->getMockBuilder(\PapayaSessionValues::class)->disableOriginalConstructor()->getMock();
     $values
       ->expects($this->once())

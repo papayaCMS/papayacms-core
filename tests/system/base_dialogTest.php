@@ -48,7 +48,7 @@ class base_dialogTest extends \PapayaTestCase {
       ->method('dispatch')
       ->with($this->isInstanceOf(\PapayaMessageDisplay::class));
 
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $values = $this
       ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))

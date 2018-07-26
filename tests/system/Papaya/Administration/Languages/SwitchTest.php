@@ -399,7 +399,7 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
         ->withAnyParameters()
         ->will($this->returnValue(NULL));
     }
-    $session = $this->createMock(\PapayaSession::class);
+    $session = $this->createMock(Papaya\Session::class);
     $session
       ->expects($this->any())
       ->method('values')

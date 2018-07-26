@@ -24,7 +24,8 @@ class PapayaSessionValues implements \ArrayAccess {
 
   /**
   * Linked session object
-  * @var \PapayaSession
+  *
+  * @var \Papaya\Session
   */
   private $_session = NULL;
 
@@ -33,9 +34,9 @@ class PapayaSessionValues implements \ArrayAccess {
   /**
   * Initialize object and link session object
   *
-  * @param \PapayaSession $session
+  * @param \Papaya\Session $session
   */
-  public function __construct(\PapayaSession $session) {
+  public function __construct(Papaya\Session $session) {
     $this->_session = $session;
   }
 
