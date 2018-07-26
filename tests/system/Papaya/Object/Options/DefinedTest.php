@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaObjectOptionsDefinedTest extends PapayaTestCase {
+class PapayaObjectOptionsDefinedTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaObjectOptionsDefined::toArray
@@ -110,7 +110,7 @@ class PapayaObjectOptionsDefinedTest extends PapayaTestCase {
 /**
  * @property bool validOption
  */
-class PapayaObjectOptionsDefined_TestProxy extends PapayaObjectOptionsDefined {
+class PapayaObjectOptionsDefined_TestProxy extends \PapayaObjectOptionsDefined {
 
   protected $_definitions = array(
     'VALID_OPTION' => array(TRUE, FALSE)

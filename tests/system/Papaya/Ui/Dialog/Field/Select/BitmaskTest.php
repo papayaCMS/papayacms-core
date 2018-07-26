@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
+class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldSelectBitmask::_createFilter
@@ -112,7 +112,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
   */
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this
-      ->getMockBuilder(PapayaUiDialog::class)
+      ->getMockBuilder(\PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -131,7 +131,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
   */
   public function testGetCurrentValueWhileDialogWasSendButNoOptionSelected() {
     $dialog = $this
-      ->getMockBuilder(PapayaUiDialog::class)
+      ->getMockBuilder(\PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -154,7 +154,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
   */
   public function testGetCurrentValueWhileDialogWasNotSend() {
     $dialog = $this
-      ->getMockBuilder(PapayaUiDialog::class)
+      ->getMockBuilder(\PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -196,7 +196,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends PapayaTestCase {
    * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogFields
    */
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(PapayaUiDialogFields::class);
+    $collection = $this->createMock(\PapayaUiDialogFields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

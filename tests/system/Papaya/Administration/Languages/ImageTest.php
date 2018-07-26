@@ -19,7 +19,7 @@ use Papaya\Content\Languages;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationLanguagesImageTest extends PapayaTestCase {
+class PapayaAdministrationLanguagesImageTest extends \PapayaTestCase {
 
   /**
   * @covers Image

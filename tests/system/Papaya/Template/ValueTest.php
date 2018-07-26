@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaTemplateValueTest extends PapayaTestCase {
+class PapayaTemplateValueTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaTemplateValue::__construct
@@ -162,11 +162,11 @@ class PapayaTemplateValueTest extends PapayaTestCase {
   * @covers \PapayaTemplateValue::append
   */
   public function testAppendWithPapayaXmlAppendable() {
-    $appendable = $this->createMock(PapayaXmlAppendable::class);
+    $appendable = $this->createMock(\PapayaXmlAppendable::class);
     $appendable
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
 
     $document = new \PapayaXmlDocument();
     $document->appendChild($node = $document->createElement('node'));

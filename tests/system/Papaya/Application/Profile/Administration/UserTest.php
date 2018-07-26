@@ -17,7 +17,7 @@ use Papaya\Application\Profile\Administration\User;
 use Papaya\Configuration\Cms;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
-PapayaTestCase::defineConstantDefaults(
+\PapayaTestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_AUTHOPTIONS',
   'PAPAYA_DB_TBL_AUTHUSER',
   'PAPAYA_DB_TBL_AUTHGROUPS',
@@ -28,7 +28,7 @@ PapayaTestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_SURFER'
 );
 
-class PapayaApplicationProfileAdministrationUserTest extends PapayaTestCase {
+class PapayaApplicationProfileAdministrationUserTest extends \PapayaTestCase {
 
   /**
   * @covers User::createObject

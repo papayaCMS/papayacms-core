@@ -17,7 +17,7 @@ use Papaya\Application\Profile\Database;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileDatabaseTest extends PapayaTestCase {
+class PapayaApplicationProfileDatabaseTest extends \PapayaTestCase {
 
   /**
   * @covers Database::createObject

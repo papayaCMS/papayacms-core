@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaProfilerTimerTest extends PapayaTestCase {
+class PapayaProfilerTimerTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaProfilerTimer
@@ -70,7 +70,7 @@ class PapayaProfilerTimerTest extends PapayaTestCase {
    * @covers \PapayaProfilerTimer
    */
   public function testEmit() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('log')
@@ -78,7 +78,7 @@ class PapayaProfilerTimerTest extends PapayaTestCase {
         \PapayaMessageLogable::GROUP_DEBUG,
         \PapayaMessage::SEVERITY_DEBUG,
         $this->isType('string'),
-        $this->isInstanceOf(PapayaMessageContextRuntime::class)
+        $this->isInstanceOf(\PapayaMessageContextRuntime::class)
       );
     $timer = new \PapayaProfilerTimer();
     $timer->papaya(

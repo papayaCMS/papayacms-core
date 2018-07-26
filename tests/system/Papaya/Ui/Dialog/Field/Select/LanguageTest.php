@@ -17,7 +17,7 @@ use Papaya\Content\Languages;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectLanguageTest extends PapayaTestCase {
+class PapayaUiDialogFieldSelectLanguageTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldSelectLanguage

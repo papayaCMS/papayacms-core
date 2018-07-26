@@ -18,7 +18,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseObjectListTest extends PapayaTestCase {
+class PapayaDatabaseObjectListTest extends \PapayaTestCase {
 
   /**
   * @covers Records::getIterator

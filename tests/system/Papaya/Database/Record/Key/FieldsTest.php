@@ -20,7 +20,7 @@ use Papaya\Database\Record\Key\Fields;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
+class PapayaDatabaseRecordKeyFieldsTest extends \PapayaTestCase {
 
   /**
   * @covers Fields::__construct

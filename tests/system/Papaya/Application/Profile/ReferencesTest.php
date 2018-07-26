@@ -17,7 +17,7 @@ use Papaya\Application\Profile\References;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileReferenceTest extends PapayaTestCase {
+class PapayaApplicationProfileReferenceTest extends \PapayaTestCase {
 
   /**
   * @covers References::createObject

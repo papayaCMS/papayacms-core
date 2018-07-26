@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../bootstrap.php';
 
-class PapayaObjectTest extends PapayaTestCase {
+class PapayaObjectTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaObject::setApplication
@@ -23,7 +23,7 @@ class PapayaObjectTest extends PapayaTestCase {
   public function testSetApplication() {
     $object = new \PapayaObject_TestProxy();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaApplication $application */
-    $application = $this->createMock(PapayaApplication::class);
+    $application = $this->createMock(\PapayaApplication::class);
     /** @noinspection PhpDeprecationInspection */
     $object->setApplication($application);
     $this->assertAttributeSame(
@@ -37,7 +37,7 @@ class PapayaObjectTest extends PapayaTestCase {
   public function testGetApplication() {
     $object = new \PapayaObject_TestProxy();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaApplication $application */
-    $application = $this->createMock(PapayaApplication::class);
+    $application = $this->createMock(\PapayaApplication::class);
     /** @noinspection PhpDeprecationInspection */
     $object->setApplication($application);
     /** @noinspection PhpDeprecationInspection */
@@ -68,7 +68,7 @@ class PapayaObjectTest extends PapayaTestCase {
   */
   public function testPapayaGetAfterSet() {
     $object = new \PapayaObject_TestProxy();
-    $application = $this->createMock(PapayaApplication::class);
+    $application = $this->createMock(\PapayaApplication::class);
     $this->assertSame($application, $object->papaya($application));
   }
 
@@ -78,10 +78,10 @@ class PapayaObjectTest extends PapayaTestCase {
   public function testPapayaGetUsingSingleton() {
     $object = new \PapayaObject_TestProxy();
     $application = $object->papaya();
-    $this->assertInstanceOf(PapayaApplication::class, $object->papaya());
+    $this->assertInstanceOf(\PapayaApplication::class, $object->papaya());
     $this->assertSame($application, $object->papaya());
   }
 }
 
-class PapayaObject_TestProxy extends PapayaObject{
+class PapayaObject_TestProxy extends \PapayaObject{
 }

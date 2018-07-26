@@ -20,7 +20,7 @@ use Papaya\Database\Interfaces\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseConditionGeneratorTest extends PapayaTestCase {
+class PapayaDatabaseConditionGeneratorTest extends \PapayaTestCase {
 
   /**
    * @covers Generator

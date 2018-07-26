@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiSheetTest extends PapayaTestCase {
+class PapayaUiSheetTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiPanel::appendTo

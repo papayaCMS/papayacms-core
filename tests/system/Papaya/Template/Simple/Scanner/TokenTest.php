@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
+class PapayaTemplateSimpleScannerTokenTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaTemplateSimpleScannerToken::__construct
@@ -48,7 +48,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
   public function testGetTypeStringExpectingText() {
     $this->assertEquals(
       'TEXT',
-      \PapayaTemplateSimpleScannerToken::getTypeString(PapayaTemplateSimpleScannerToken::TEXT)
+      \PapayaTemplateSimpleScannerToken::getTypeString(\PapayaTemplateSimpleScannerToken::TEXT)
     );
   }
 
@@ -68,7 +68,7 @@ class PapayaTemplateSimpleScannerTokenTest extends PapayaTestCase {
     $token = new \PapayaTemplateSimpleScannerToken(
       \PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, ''
     );
-    $this->assertEquals(PapayaTemplateSimpleScannerToken::VALUE_NAME, $token->type);
+    $this->assertEquals(\PapayaTemplateSimpleScannerToken::VALUE_NAME, $token->type);
   }
 
   /**

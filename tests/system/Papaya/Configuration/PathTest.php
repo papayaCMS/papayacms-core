@@ -17,7 +17,7 @@ use Papaya\Configuration\Path;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaConfigurationPathTest extends PapayaTestCase {
+class PapayaConfigurationPathTest extends \PapayaTestCase {
 
   /**
    * @covers       Path
@@ -52,7 +52,7 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
    * @covers Path
    */
   public function testPathThemeCallsThemeHandler() {
-    $themeHandler = $this->createMock(PapayaThemeHandler::class);
+    $themeHandler = $this->createMock(\PapayaThemeHandler::class);
     $themeHandler
       ->expects($this->once())
       ->method('getLocalPath')
@@ -68,7 +68,7 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
    * @covers Path
    */
   public function testPathCurrentThemeCallsThemeHandler() {
-    $themeHandler = $this->createMock(PapayaThemeHandler::class);
+    $themeHandler = $this->createMock(\PapayaThemeHandler::class);
     $themeHandler
       ->expects($this->once())
       ->method('getLocalThemePath')
@@ -85,7 +85,7 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
    */
   public function testThemeHandlerGetAfterSet() {
     $path = new Path('', '');
-    $path->themeHandler($handler = $this->createMock(PapayaThemeHandler::class));
+    $path->themeHandler($handler = $this->createMock(\PapayaThemeHandler::class));
     $this->assertSame($handler, $path->themeHandler());
   }
 
@@ -94,7 +94,7 @@ class PapayaConfigurationPathTest extends PapayaTestCase {
    */
   public function testThemeHandlerGetImplicitCreate() {
     $path = new Path('', '');
-    $this->assertInstanceOf(PapayaThemeHandler::class, $path->themeHandler());
+    $this->assertInstanceOf(\PapayaThemeHandler::class, $path->themeHandler());
   }
 
   /**

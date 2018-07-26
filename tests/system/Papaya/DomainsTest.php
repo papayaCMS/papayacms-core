@@ -18,7 +18,7 @@ use Papaya\Content\Domains;
 
 require_once __DIR__.'/../../bootstrap.php';
 
-class PapayaDomainsTest extends PapayaTestCase {
+class PapayaDomainsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaDomains::getDomainsByPath

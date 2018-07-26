@@ -20,7 +20,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentLanguagesTest extends PapayaTestCase {
+class PapayaContentLanguagesTest extends \PapayaTestCase {
 
   /**
   * @covers Languages::load

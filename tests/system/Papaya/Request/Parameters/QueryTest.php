@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaRequestParametersQueryTest extends PapayaTestCase {
+class PapayaRequestParametersQueryTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaRequestParametersQuery::__construct

@@ -17,7 +17,7 @@ use Papaya\Url;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaRequestParserThumbnailTest extends PapayaTestCase {
+class PapayaRequestParserThumbnailTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaRequestParserThumbnail::parse

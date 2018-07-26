@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilServerProtocolTest extends PapayaTestCase {
+class PapayaUtilServerProtocolTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUtilServerProtocol::isSecure
@@ -134,7 +134,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   */
   public function testGetWithParameterExpectingHttp() {
     $this->assertEquals(
-      'http', \PapayaUtilServerProtocol::get(PapayaUtilServerProtocol::HTTP)
+      'http', \PapayaUtilServerProtocol::get(\PapayaUtilServerProtocol::HTTP)
     );
   }
 
@@ -143,7 +143,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   */
   public function testGetWithParameterExpectingHttps() {
     $this->assertEquals(
-      'https', \PapayaUtilServerProtocol::get(PapayaUtilServerProtocol::HTTPS)
+      'https', \PapayaUtilServerProtocol::get(\PapayaUtilServerProtocol::HTTPS)
     );
   }
 

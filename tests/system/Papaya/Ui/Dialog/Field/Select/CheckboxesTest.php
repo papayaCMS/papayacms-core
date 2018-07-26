@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectCheckboxesTest extends PapayaTestCase {
+class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldSelectCheckboxes::_isOptionSelected
@@ -96,7 +96,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends PapayaTestCase {
   */
   public function testGetCurrentValueFromDialogParameters() {
     $dialog = $this
-      ->getMockBuilder(PapayaUiDialog::class)
+      ->getMockBuilder(\PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -115,7 +115,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends PapayaTestCase {
   */
   public function testGetCurrentValueFromSubmittedDialog() {
     $dialog = $this
-      ->getMockBuilder(PapayaUiDialog::class)
+      ->getMockBuilder(\PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -142,7 +142,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends PapayaTestCase {
    * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogFields
    */
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(PapayaUiDialogFields::class);
+    $collection = $this->createMock(\PapayaUiDialogFields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

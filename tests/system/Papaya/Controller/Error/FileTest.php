@@ -17,7 +17,7 @@ use Papaya\Controller\Error\File;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaControllerErrorFileTest extends PapayaTestCase {
+class PapayaControllerErrorFileTest extends \PapayaTestCase {
 
   public function testSetTemplateFile() {
     $controller = new File();

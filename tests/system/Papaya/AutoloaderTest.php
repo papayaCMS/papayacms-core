@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../vendor/papaya/test-framework/src/PapayaTestCase.
 require_once __DIR__.'/../../../src/system/Papaya/Autoloader.php';
 require_once __DIR__.'/../../../src/system/Papaya/Util/File/Path.php';
 
-class PapayaAutoloaderTest extends PapayaTestCase {
+class PapayaAutoloaderTest extends \PapayaTestCase {
 
   public function tearDown() {
     \PapayaAutoloader::clear();
@@ -125,14 +125,14 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   */
   public function testHasPrefixExpectingTrue() {
     \PapayaAutoloader::registerPath('PapayaModuleSample', '/foo/bar');
-    $this->assertTrue(PapayaAutoloader::hasPrefix('PapayaModuleSample'));
+    $this->assertTrue(\PapayaAutoloader::hasPrefix('PapayaModuleSample'));
   }
 
   /**
   * @covers \PapayaAutoloader
   */
   public function testHasPrefixExpectingFalse() {
-    $this->assertFalse(PapayaAutoloader::hasPrefix('PapayaModuleSample'));
+    $this->assertFalse(\PapayaAutoloader::hasPrefix('PapayaModuleSample'));
   }
 
   /**
@@ -140,14 +140,14 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   */
   public function testHasClassmapExpectingTrue() {
     \PapayaAutoloader::registerClassMap('/foo/bar', array('Foo', '/Foo.php'));
-    $this->assertTrue(PapayaAutoloader::hasClassMap('/foo/bar'));
+    $this->assertTrue(\PapayaAutoloader::hasClassMap('/foo/bar'));
   }
 
   /**
   * @covers \PapayaAutoloader
   */
   public function testHasClassmapExpectingFalse() {
-    $this->assertFalse(PapayaAutoloader::hasClassMap('/foo/bar'));
+    $this->assertFalse(\PapayaAutoloader::hasClassMap('/foo/bar'));
   }
 
   /****************************

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogSessionTest extends PapayaTestCase {
+class PapayaUiDialogSessionTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogSession::__construct
@@ -41,7 +41,7 @@ class PapayaUiDialogSessionTest extends PapayaTestCase {
   * @covers \PapayaUiDialogSession::execute
   */
   public function testExecuteSetSessionVariableExpectingTrue() {
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('getValue')
@@ -65,7 +65,7 @@ class PapayaUiDialogSessionTest extends PapayaTestCase {
   * @covers \PapayaUiDialogSession::execute
   */
   public function testExecuteSetSessionVariableExpectingFalseWithoutData() {
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('getValue')
@@ -89,7 +89,7 @@ class PapayaUiDialogSessionTest extends PapayaTestCase {
   * @covers \PapayaUiDialogSession::reset
   */
   public function testReset() {
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('setValue')
@@ -105,6 +105,6 @@ class PapayaUiDialogSessionTest extends PapayaTestCase {
   }
 }
 
-class PapayaUiDialogSession_TestProxy extends PapayaUiDialogSession {
+class PapayaUiDialogSession_TestProxy extends \PapayaUiDialogSession {
   public $_isSubmittedResult = TRUE;
 }

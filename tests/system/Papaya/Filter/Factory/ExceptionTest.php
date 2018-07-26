@@ -15,19 +15,19 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterFactoryExceptionTest extends PapayaTestCase {
+class PapayaFilterFactoryExceptionTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterFactoryException
    */
   public function testThrowException() {
-    $this->expectException(PapayaFilterFactoryException::class);
+    $this->expectException(\PapayaFilterFactoryException::class);
     throw new \PapayaFilterFactoryException_TestProxy('Test');
   }
 
 }
 
-class PapayaFilterFactoryException_TestProxy extends PapayaFilterFactoryException {
+class PapayaFilterFactoryException_TestProxy extends \PapayaFilterFactoryException {
 
   public function getFilter() {
   }

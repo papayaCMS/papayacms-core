@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterListKeysTest extends PapayaTestCase {
+class PapayaFilterListKeysTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterListKeys::__construct
@@ -58,7 +58,7 @@ class PapayaFilterListKeysTest extends PapayaTestCase {
    */
   public function testValidateExpectingException($value, $validValues) {
     $filter = new \PapayaFilterListKeys($validValues);
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $filter->validate($value);
   }
 

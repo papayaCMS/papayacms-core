@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMediaDatabaseItemTest extends PapayaTestCase {
+class PapayaMediaDatabaseItemTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaMediaDatabaseItem::__construct
   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $this->assertAttributeSame(
       $service, '_storage', $item
@@ -34,7 +34,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodSetWithInvalidName() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $this->expectException(BadMethodCallException::class);
     /** @noinspection PhpUndefinedFieldInspection */
@@ -48,7 +48,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodSetName() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $item->name = 'SAMPLE_NAME';
     $attributes = $this->readAttribute($item, '_attributes');
@@ -64,7 +64,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodSetNameWithInvalidValue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $this->expectException(BadMethodCallException::class);
     $item->name = '';
@@ -76,7 +76,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodSetMediaId() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $item->mediaId = '123456789012345678901234567890ab';
     $this->assertAttributeSame(
@@ -90,7 +90,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodSetMediaIdWithInvalidValue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $this->expectException(BadMethodCallException::class);
     $item->mediaId = 'abc';
@@ -102,7 +102,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodSetVersionId() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $item->versionId = '3';
     $this->assertAttributeSame(
@@ -116,7 +116,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodSetVersionIdWithInvalidValue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $this->expectException(BadMethodCallException::class);
     $item->versionId = 'a';
@@ -127,7 +127,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodSetMimeType() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $item->mimeType = 'image/gif';
     $attributes = $this->readAttribute($item, '_attributes');
@@ -141,7 +141,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodGet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $item->name = 'sample.png';
     $this->assertSame(
@@ -154,7 +154,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodGetWithInvalidName() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $this->expectException(BadMethodCallException::class);
     /** @noinspection PhpUndefinedFieldInspection */
@@ -166,7 +166,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodGetMediaId() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $item->mediaId = '123456789012345678901234567890ab';
     $this->assertSame(
@@ -179,7 +179,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testMagicMethodGetVersionId() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $item->versionId = 23;
     $this->assertSame(
@@ -192,10 +192,10 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testSetDatabaseAccessObject() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaDatabaseItemRecord $record */
-    $record = $this->createMock(PapayaMediaDatabaseItemRecord::class);
+    $record = $this->createMock(\PapayaMediaDatabaseItemRecord::class);
     $item->setDatabaseAccessObject($record);
     $this->assertAttributeSame(
       $record, '_databaseAccessObject', $item
@@ -207,10 +207,10 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testGetDatabaseAccessObject() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaDatabaseItemRecord $record */
-    $record = $this->createMock(PapayaMediaDatabaseItemRecord::class);
+    $record = $this->createMock(\PapayaMediaDatabaseItemRecord::class);
     $item->setDatabaseAccessObject($record);
     $this->assertSame(
       $record,
@@ -223,7 +223,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testGetDatabaseAccessObjectImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $this->assertInstanceOf(
       \PapayaMediaDatabaseItemRecord::class,
@@ -236,7 +236,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testLoad() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     $item->setDatabaseAccessObject(
       $this->getMockRecordLoadFixture(
@@ -269,10 +269,10 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testLoadWithInvalidArgument() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $service */
-    $service = $this->createMock(PapayaMediaStorageService::class);
+    $service = $this->createMock(\PapayaMediaStorageService::class);
     $item = new \PapayaMediaDatabaseItem($service);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaDatabaseItemRecord $record */
-    $record = $this->createMock(PapayaMediaDatabaseItemRecord::class);
+    $record = $this->createMock(\PapayaMediaDatabaseItemRecord::class);
     $record
       ->expects($this->once())
       ->method('load')
@@ -287,7 +287,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
   */
   public function testGetUrl() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageService $storage */
-    $storage = $this->createMock(PapayaMediaStorageService::class);
+    $storage = $this->createMock(\PapayaMediaStorageService::class);
     $storage
       ->expects($this->once())
       ->method('getUrl')
@@ -318,7 +318,7 @@ class PapayaMediaDatabaseItemTest extends PapayaTestCase {
    * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaDatabaseItemRecord
    */
   public function getMockRecordLoadFixture($data) {
-    $record = $this->createMock(PapayaMediaDatabaseItemRecord::class);
+    $record = $this->createMock(\PapayaMediaDatabaseItemRecord::class);
     $record
       ->expects($this->once())
       ->method('load')

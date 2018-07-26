@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterEqualsParameterTest extends PapayaTestCase {
+class PapayaFilterEqualsParameterTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterEqualsParameter::__construct
@@ -42,7 +42,7 @@ class PapayaFilterEqualsParameterTest extends PapayaTestCase {
   public function testValidateInvalidFilterException() {
     $parameters = new \PapayaRequestParameters(array('foo' => 'booo'));
     $filter = new \PapayaFilterEqualsParameter($parameters, 'foo');
-    $this->expectException(PapayaFilterExceptionInvalid::class);
+    $this->expectException(\PapayaFilterExceptionInvalid::class);
     $this->expectExceptionMessage('Invalid value "bar"');
     $filter->validate('bar');
   }

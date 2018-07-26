@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterBitmaskTest extends PapayaTestCase {
+class PapayaFilterBitmaskTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterBitmask::__construct
@@ -48,7 +48,7 @@ class PapayaFilterBitmaskTest extends PapayaTestCase {
    */
   public function testValidateExpectingInvalidValueException($bitmask) {
     $filter = new \PapayaFilterBitmask(array(1, 2, 4, 16));
-    $this->expectException(PapayaFilterExceptionInvalid::class);
+    $this->expectException(\PapayaFilterExceptionInvalid::class);
     $filter->validate($bitmask);
   }
 
@@ -57,7 +57,7 @@ class PapayaFilterBitmaskTest extends PapayaTestCase {
   */
   public function testValidateExpectingInvalidValueTypeException() {
     $filter = new \PapayaFilterBitmask(array(1, 2, 4, 16));
-    $this->expectException(PapayaFilterExceptionType::class);
+    $this->expectException(\PapayaFilterExceptionType::class);
     $filter->validate('fail');
   }
 

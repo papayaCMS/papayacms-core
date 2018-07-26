@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiListviewItemsTest extends PapayaTestCase {
+class PapayaUiListviewItemsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiListviewItems::__construct
@@ -23,7 +23,7 @@ class PapayaUiListviewItemsTest extends PapayaTestCase {
   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListview $listview */
-    $listview = $this->createMock(PapayaUiListview::class);
+    $listview = $this->createMock(\PapayaUiListview::class);
     $items = new \PapayaUiListviewItems($listview);
     $this->assertSame(
       $listview, $items->owner()
@@ -34,9 +34,9 @@ class PapayaUiListviewItemsTest extends PapayaTestCase {
   * @covers \PapayaUiListviewItems::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListview $listview */
-    $listview = $this->createMock(PapayaUiListview::class);
+    $listview = $this->createMock(\PapayaUiListview::class);
     $items = new \PapayaUiListviewItems($listview);
     $this->assertSame(
       $reference, $items->reference($reference)
@@ -48,11 +48,11 @@ class PapayaUiListviewItemsTest extends PapayaTestCase {
   */
   public function testReferenceGetImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListview $listview */
-    $listview = $this->createMock(PapayaUiListview::class);
+    $listview = $this->createMock(\PapayaUiListview::class);
     $listview
       ->expects($this->once())
       ->method('reference')
-      ->will($this->returnValue($this->createMock(PapayaUiReference::class)));
+      ->will($this->returnValue($this->createMock(\PapayaUiReference::class)));
     $items = new \PapayaUiListviewItems($listview);
     $this->assertInstanceOf(
       \PapayaUiReference::class, $items->reference()

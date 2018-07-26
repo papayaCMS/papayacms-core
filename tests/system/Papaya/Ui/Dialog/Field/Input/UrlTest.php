@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputUrlTest extends PapayaTestCase {
+class PapayaUiDialogFieldInputUrlTest extends \PapayaTestCase {
   /**
   * @covers \PapayaUiDialogFieldInputurl::__construct
   */

@@ -17,7 +17,7 @@ use Papaya\Content\Structure\Node;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentStructureNodeTest extends PapayaTestCase {
+class PapayaContentStructureNodeTest extends \PapayaTestCase {
 
   /**
    * @covers Node

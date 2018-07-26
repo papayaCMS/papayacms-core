@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiHierarchyItemsTest extends PapayaTestCase {
+class PapayaUiHierarchyItemsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiHierarchyItems::appendTo
@@ -47,7 +47,7 @@ class PapayaUiHierarchyItemsTest extends PapayaTestCase {
   public function testSpacerGetAfterSet() {
     $items = new \PapayaUiHierarchyItems();
     $spacer = $this
-      ->getMockBuilder(PapayaUiHierarchyItem::class)
+      ->getMockBuilder(\PapayaUiHierarchyItem::class)
       ->setConstructorArgs(array('...'))
       ->getMock();
     $this->assertSame(
@@ -71,7 +71,7 @@ class PapayaUiHierarchyItemsTest extends PapayaTestCase {
 
   public function getItemFixture($expectAppend) {
     $item = $this
-      ->getMockBuilder(PapayaUiHierarchyItem::class)
+      ->getMockBuilder(\PapayaUiHierarchyItem::class)
       ->setConstructorArgs(array('item'))
       ->getMock();
     $item

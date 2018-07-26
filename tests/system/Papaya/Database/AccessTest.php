@@ -20,7 +20,7 @@ use Papaya\Database\Manager;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaDatabaseAccessTest extends PapayaTestCase {
+class PapayaDatabaseAccessTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Database\Access::__construct
@@ -160,11 +160,11 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
       ->method('getConnector')
       ->with($this->equalTo('read'), $this->equalTo('write'))
       ->will($this->returnValue($connector));
-    $messageManager = $this->createMock(PapayaMessageManager::class);
+    $messageManager = $this->createMock(\PapayaMessageManager::class);
     $messageManager
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageLog::class));
+      ->with($this->isInstanceOf(\PapayaMessageLog::class));
     $application = $this->mockPapaya()->application(
       array(
         'Database' => $databaseManager,

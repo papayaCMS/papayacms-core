@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiHierarchyItemTest extends PapayaTestCase {
+class PapayaUiHierarchyItemTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiHierarchyItem::__construct
@@ -74,7 +74,7 @@ class PapayaUiHierarchyItemTest extends PapayaTestCase {
   * @covers \PapayaUiHierarchyItem::appendTo
   */
   public function testAppendToWithReference() {
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('getRelative')
@@ -104,7 +104,7 @@ class PapayaUiHierarchyItemTest extends PapayaTestCase {
   */
   public function testItemsGetAfterSet() {
     $item = new \PapayaUiHierarchyItem('sample');
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $this->assertSame(
       $reference, $item->reference($reference)
     );

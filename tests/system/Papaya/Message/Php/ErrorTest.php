@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessagePhpErrorTest extends PapayaTestCase {
+class PapayaMessagePhpErrorTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaMessagePhpError::__construct

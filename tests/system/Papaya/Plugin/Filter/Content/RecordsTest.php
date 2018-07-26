@@ -17,7 +17,7 @@ use Papaya\Content\View\Configurations;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
+class PapayaPluginFilterContentRecordsTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaPluginFilterContentRecords
@@ -40,12 +40,12 @@ class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
    * @covers \PapayaPluginFilterContentRecords
    */
   public function testIteratorFetchesPlugins() {
-    $plugins = $this->createMock(PapayaPluginLoader::class);
+    $plugins = $this->createMock(\PapayaPluginLoader::class);
     $plugins
       ->expects($this->once())
       ->method('get')
-      ->with('guid', $this->isInstanceOf(PapayaUiContentPage::class), 'options')
-      ->will($this->returnValue($this->createMock(PapayaPluginFilterContent::class)));
+      ->with('guid', $this->isInstanceOf(\PapayaUiContentPage::class), 'options')
+      ->will($this->returnValue($this->createMock(\PapayaPluginFilterContent::class)));
 
     $records = $this->createMock(Configurations::class);
     $records
@@ -73,7 +73,7 @@ class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
 
   public function getPageFixture($viewId = NULL) {
     $page = $this
-      ->getMockBuilder(PapayaUiContentPage::class)
+      ->getMockBuilder(\PapayaUiContentPage::class)
       ->disableOriginalConstructor()
       ->getMock();
     if (NULL !== $viewId) {

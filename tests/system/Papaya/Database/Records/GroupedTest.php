@@ -18,7 +18,7 @@ use Papaya\Database\Records\Grouped;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
+class PapayaDatabaseRecordsGroupedTest extends \PapayaTestCase {
 
   /**
   * @covers Grouped::_loadRecords

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogFieldsTest extends PapayaTestCase {
+class PapayaUiDialogFieldsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFields::validate
@@ -61,6 +61,6 @@ class PapayaUiDialogFieldsTest extends PapayaTestCase {
    * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogField
    */
   private function getMockField() {
-    return $this->createMock(PapayaUiDialogField::class);
+    return $this->createMock(\PapayaUiDialogField::class);
   }
 }

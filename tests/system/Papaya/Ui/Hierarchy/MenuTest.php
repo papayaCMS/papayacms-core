@@ -15,13 +15,13 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiHierarchyMenuTest extends PapayaTestCase {
+class PapayaUiHierarchyMenuTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiHierarchyMenu::appendTo
   */
   public function testAppendTo() {
-    $items = $this->createMock(PapayaUiHierarchyItems::class);
+    $items = $this->createMock(\PapayaUiHierarchyItems::class);
     $items
       ->expects($this->once())
       ->method('count')
@@ -29,7 +29,7 @@ class PapayaUiHierarchyMenuTest extends PapayaTestCase {
     $items
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
 
     $menu = new \PapayaUiHierarchyMenu();
     $menu->items($items);
@@ -43,7 +43,7 @@ class PapayaUiHierarchyMenuTest extends PapayaTestCase {
   * @covers \PapayaUiHierarchyMenu::appendTo
   */
   public function testAppendToWithoutItemsExpectingEmptyString() {
-    $items = $this->createMock(PapayaUiHierarchyItems::class);
+    $items = $this->createMock(\PapayaUiHierarchyItems::class);
     $items
       ->expects($this->once())
       ->method('count')
@@ -61,7 +61,7 @@ class PapayaUiHierarchyMenuTest extends PapayaTestCase {
   */
   public function testItemsGetAfterSet() {
     $menu = new \PapayaUiHierarchyMenu();
-    $items = $this->createMock(PapayaUiHierarchyItems::class);
+    $items = $this->createMock(\PapayaUiHierarchyItems::class);
     $this->assertSame(
       $items, $menu->items($items)
     );

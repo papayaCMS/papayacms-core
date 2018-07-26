@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaHttpClientFileResourceTest extends PapayaTestCase {
+class PapayaHttpClientFileResourceTest extends \PapayaTestCase {
 
   private $_fileResource;
 
@@ -66,7 +66,7 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   */
   public function testSend() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocket $socket */
-    $socket = $this->createMock(PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -84,7 +84,7 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   */
   public function testSendLimited() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocket $socket */
-    $socket = $this->createMock(PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -105,7 +105,7 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   */
   public function testSendChunked() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocket $socket */
-    $socket = $this->createMock(PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('isActive')
            ->will($this->returnValue(TRUE));
@@ -126,7 +126,7 @@ class PapayaHttpClientFileResourceTest extends PapayaTestCase {
   */
   public function testSendInvalidResourceExpectingError() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocket $socket */
-    $socket = $this->createMock(PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\PapayaHttpClientSocket::class);
     $file = new \PapayaHttpClientFileResource(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );

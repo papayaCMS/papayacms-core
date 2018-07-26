@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterPasswordTest extends PapayaTestCase {
+class PapayaFilterPasswordTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterPassword::__construct
@@ -44,7 +44,7 @@ class PapayaFilterPasswordTest extends PapayaTestCase {
   */
   public function testValidateExpectingExceptionLengthMinimum() {
     $filter = new \PapayaFilterPassword(5);
-    $this->expectException(PapayaFilterExceptionLengthMinimum::class);
+    $this->expectException(\PapayaFilterExceptionLengthMinimum::class);
     $filter->validate('Foo');
   }
 
@@ -53,7 +53,7 @@ class PapayaFilterPasswordTest extends PapayaTestCase {
   */
   public function testValidateExpectingExceptionLengthMaximum() {
     $filter = new \PapayaFilterPassword(1, 2);
-    $this->expectException(PapayaFilterExceptionLengthMaximum::class);
+    $this->expectException(\PapayaFilterExceptionLengthMaximum::class);
     $filter->validate('Foo');
   }
 
@@ -63,7 +63,7 @@ class PapayaFilterPasswordTest extends PapayaTestCase {
   */
   public function testValidateExpectingExceptionPasswordWeak() {
     $filter = new \PapayaFilterPassword(1, 10);
-    $this->expectException(PapayaFilterExceptionPasswordWeak::class);
+    $this->expectException(\PapayaFilterExceptionPasswordWeak::class);
     $filter->validate('foo');
   }
 

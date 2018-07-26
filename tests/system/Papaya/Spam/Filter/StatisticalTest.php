@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
+class PapayaSpamFilterStatisticalTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaSpamFilterStatistical::setReference
@@ -23,7 +23,7 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   */
   public function testGetReferenceAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSpamFilterStatisticalReference $reference */
-    $reference = $this->createMock(PapayaSpamFilterStatisticalReference::class);
+    $reference = $this->createMock(\PapayaSpamFilterStatisticalReference::class);
     $filter = new \PapayaSpamFilterStatistical();
     $filter->setReference($reference);
     $this->assertSame($reference, $filter->getReference());
@@ -34,7 +34,7 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   */
   public function testGetReferenceImplicitCreate() {
     $filter = new \PapayaSpamFilterStatistical();
-    $this->assertInstanceOf(PapayaSpamFilterStatisticalReference::class, $filter->getReference());
+    $this->assertInstanceOf(\PapayaSpamFilterStatisticalReference::class, $filter->getReference());
   }
 
   /**
@@ -309,7 +309,7 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
    * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaSpamFilterStatisticalReference
    */
   private function getSpamReferenceMock() {
-    $reference = $this->createMock(PapayaSpamFilterStatisticalReference::class);
+    $reference = $this->createMock(\PapayaSpamFilterStatisticalReference::class);
     $reference
       ->expects($this->any())
       ->method('load')

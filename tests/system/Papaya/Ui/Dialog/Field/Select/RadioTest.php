@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectRadioTest extends PapayaTestCase {
+class PapayaUiDialogFieldSelectRadioTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldSelectRadio

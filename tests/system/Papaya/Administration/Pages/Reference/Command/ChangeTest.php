@@ -20,7 +20,7 @@ use Papaya\Database\Interfaces\Key;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase {
+class PapayaAdministrationPagesReferenceCommandChangeTest extends \PapayaTestCase {
 
   /**
   * @covers Change::createDialog
@@ -116,11 +116,11 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
   * @covers Change::sortAsc
   */
   public function testValidateTargetExpectingFalse() {
-    $field = $this->createMock(PapayaUiDialogField::class);
+    $field = $this->createMock(\PapayaUiDialogField::class);
     $field
       ->expects($this->once())
       ->method('handleValidationFailure')
-      ->with($this->isInstanceOf(PapayaFilterExceptionCallbackFailed::class));
+      ->with($this->isInstanceOf(\PapayaFilterExceptionCallbackFailed::class));
     $key = $this->createMock(Key::class);
     $key
       ->expects($this->once())
@@ -148,11 +148,11 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
   * @covers Change::dispatchSavedMessage
   */
   public function testDispatchSavedMessage() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplayTranslated::class));
+      ->with($this->isInstanceOf(\PapayaMessageDisplayTranslated::class));
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages
@@ -167,22 +167,22 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
   * @covers Change::dispatchErrorMessage
   */
   public function testDispatchErrorMessage() {
-    $errors = $this->createMock(PapayaUiDialogErrors::class);
+    $errors = $this->createMock(\PapayaUiDialogErrors::class);
     $errors
       ->expects($this->once())
       ->method('getSourceCaptions')
       ->will($this->returnValue(array('field')));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialog $dialog */
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    $dialog = $this->createMock(\PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('errors')
       ->will($this->returnValue($errors));
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplayTranslated::class));
+      ->with($this->isInstanceOf(\PapayaMessageDisplayTranslated::class));
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages

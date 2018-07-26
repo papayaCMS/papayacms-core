@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilStringGuidTest extends PapayaTestCase {
+class PapayaUtilStringGuidTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUtilStringGuid::validate

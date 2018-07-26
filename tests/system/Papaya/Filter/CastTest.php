@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterCastTest extends PapayaTestCase {
+class PapayaFilterCastTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterCast::__construct

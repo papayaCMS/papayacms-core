@@ -19,7 +19,7 @@ use Papaya\Database\Record\Order\By\Properties;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordOrderByPropertiesTest extends PapayaTestCase {
+class PapayaDatabaseRecordOrderByPropertiesTest extends \PapayaTestCase {
 
   /**
   * @covers Properties::__construct

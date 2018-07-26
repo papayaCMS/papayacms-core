@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiListviewItemsBuilderCallbacksTest extends PapayaTestCase {
+class PapayaUiListviewItemsBuilderCallbacksTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiListviewItemsBuilderCallbacks::__construct

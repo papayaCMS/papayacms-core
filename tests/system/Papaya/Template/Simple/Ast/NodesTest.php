@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleAstNodesTest extends PapayaTestCase {
+class PapayaTemplateSimpleAstNodesTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaTemplateSimpleAstNodes::__construct
    */
   public function testLimitIsInitializedAndAllowsAdd() {
     $nodes = new \PapayaTemplateSimpleAstNodes();
-    $nodes[] = $node = $this->createMock(PapayaTemplateSimpleAstNode::class);
+    $nodes[] = $node = $this->createMock(\PapayaTemplateSimpleAstNode::class);
     $this->assertSame($node, $nodes[0]);
   }
 
@@ -41,8 +41,8 @@ class PapayaTemplateSimpleAstNodesTest extends PapayaTestCase {
   public function testConstructorWithNodes() {
     $nodes = new \PapayaTemplateSimpleAstNodes(
       array(
-        $this->createMock(PapayaTemplateSimpleAstNode::class),
-        $this->createMock(PapayaTemplateSimpleAstNode::class)
+        $this->createMock(\PapayaTemplateSimpleAstNode::class),
+        $this->createMock(\PapayaTemplateSimpleAstNode::class)
       )
     );
     $this->assertCount(2, $nodes);
@@ -53,13 +53,13 @@ class PapayaTemplateSimpleAstNodesTest extends PapayaTestCase {
    */
   public function testVisitorIsSentToEachChild() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleVisitor $visitor */
-    $visitor = $this->createMock(PapayaTemplateSimpleVisitor::class);
-    $nodeOne = $this->createMock(PapayaTemplateSimpleAstNode::class);
+    $visitor = $this->createMock(\PapayaTemplateSimpleVisitor::class);
+    $nodeOne = $this->createMock(\PapayaTemplateSimpleAstNode::class);
     $nodeOne
       ->expects($this->once())
       ->method('accept')
       ->with($visitor);
-    $nodeTwo = $this->createMock(PapayaTemplateSimpleAstNode::class);
+    $nodeTwo = $this->createMock(\PapayaTemplateSimpleAstNode::class);
     $nodeTwo
       ->expects($this->once())
       ->method('accept')

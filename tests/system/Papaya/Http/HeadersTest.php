@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaHttpHeadersTest extends PapayaTestCase {
+class PapayaHttpHeadersTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaHttpHeaders::__construct

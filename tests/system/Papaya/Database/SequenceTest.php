@@ -18,7 +18,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaDatabaseSequenceTest extends PapayaTestCase {
+class PapayaDatabaseSequenceTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Database\Sequence::__construct
@@ -202,7 +202,7 @@ class PapayaDatabaseSequence_TestProxy extends Sequence {
   }
 }
 
-class PapayaDatabaseSequence_TestProxyBroken extends PapayaDatabaseSequence_TestProxy {
+class PapayaDatabaseSequence_TestProxyBroken extends \PapayaDatabaseSequence_TestProxy {
 
   public function create() {
     return NULL;

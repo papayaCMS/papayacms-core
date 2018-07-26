@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectGroupedTest extends PapayaTestCase {
+class PapayaUiDialogFieldSelectGroupedTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldSelectGrouped::setValues
@@ -65,7 +65,7 @@ class PapayaUiDialogFieldSelectGroupedTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->createMock(PapayaUiDialogFields::class));
+    $select->collection($this->createMock(\PapayaUiDialogFields::class));
     $select->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -102,7 +102,7 @@ class PapayaUiDialogFieldSelectGroupedTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->createMock(PapayaUiDialogFields::class));
+    $select->collection($this->createMock(\PapayaUiDialogFields::class));
     $select->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

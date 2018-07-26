@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaHttpClientSocketPoolTest extends PapayaTestCase {
+class PapayaHttpClientSocketPoolTest extends \PapayaTestCase {
 
   public function testSetGetConnection() {
     $pool = new \PapayaHttpClientSocketPool();

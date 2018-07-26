@@ -18,7 +18,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageTagsTest extends PapayaTestCase {
+class PapayaContentPageTagsTest extends \PapayaTestCase {
 
   /**
   * @covers Tags::load

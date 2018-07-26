@@ -16,7 +16,7 @@
 /** @noinspection PhpDeprecationInspection */
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
+class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogDatabaseRecord::__construct
@@ -271,10 +271,10 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
     $dialog = new \PapayaUiDialogDatabaseRecord('tablename', 'indexfield', array());
     $dialog->setPermissionCallback($callback);
     $this->assertTrue(
-      $dialog->checkRecordPermission(PapayaUiDialogDatabaseRecord::ACTION_INSERT, array())
+      $dialog->checkRecordPermission(\PapayaUiDialogDatabaseRecord::ACTION_INSERT, array())
     );
     $this->assertEquals(
-      array(PapayaUiDialogDatabaseRecord::ACTION_INSERT, 'tablename', array()),
+      array(\PapayaUiDialogDatabaseRecord::ACTION_INSERT, 'tablename', array()),
       $arguments
     );
   }
@@ -291,7 +291,7 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
     $dialog = new \PapayaUiDialogDatabaseRecord('tablename', 'indexfield', array());
     $dialog->setPermissionCallback($callback);
     $this->assertFalse(
-      $dialog->checkRecordPermission(PapayaUiDialogDatabaseRecord::ACTION_INSERT, array())
+      $dialog->checkRecordPermission(\PapayaUiDialogDatabaseRecord::ACTION_INSERT, array())
     );
   }
 
@@ -301,7 +301,7 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
   public function testCheckRecordPermissionWithoutCallbackExpectingTrue() {
     $dialog = new \PapayaUiDialogDatabaseRecord('tablename', 'indexfield', array());
     $this->assertTrue(
-      $dialog->checkRecordPermission(PapayaUiDialogDatabaseRecord::ACTION_INSERT, array())
+      $dialog->checkRecordPermission(\PapayaUiDialogDatabaseRecord::ACTION_INSERT, array())
     );
   }
 
@@ -370,7 +370,7 @@ class PapayaUiDialogDatabaseRecordTest extends PapayaTestCase {
       $dialog->data()->merge($parameters);
       $parameters['confirmation'] = $dialog->hiddenFields()->getChecksum();
     }
-    $request = $this->getMock(PapayaRequest::class, array('getMethod', 'getParameters'));
+    $request = $this->getMock(\PapayaRequest::class, array('getMethod', 'getParameters'));
     $request
       ->expects($this->any())
       ->method('getMethod')

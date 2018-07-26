@@ -15,13 +15,13 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterDateTest extends PapayaTestCase {
+class PapayaFilterDateTest extends \PapayaTestCase {
   /**
   * @covers \PapayaFilterDate::__construct
   */
   public function testConstructSuccess() {
-    $filter = new \PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME, 600.0);
-    $this->assertAttributeEquals(PapayaFilterDate::DATE_OPTIONAL_TIME, '_includeTime', $filter);
+    $filter = new \PapayaFilterDate(\PapayaFilterDate::DATE_OPTIONAL_TIME, 600.0);
+    $this->assertAttributeEquals(\PapayaFilterDate::DATE_OPTIONAL_TIME, '_includeTime', $filter);
     $this->assertAttributeEquals(600.0, '_step', $filter);
   }
 
@@ -38,7 +38,7 @@ class PapayaFilterDateTest extends PapayaTestCase {
   */
   public function testConstructExpectsExceptionStep() {
     $this->expectException(UnexpectedValueException::class);
-    new \PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME, -1);
+    new \PapayaFilterDate(\PapayaFilterDate::DATE_OPTIONAL_TIME, -1);
   }
 
   /**
@@ -64,7 +64,7 @@ class PapayaFilterDateTest extends PapayaTestCase {
    */
   public function testValidateExceptionFormat($includeTime, $value) {
     $filter = new \PapayaFilterDate($includeTime);
-    $this->expectException(PapayaFilterExceptionType::class);
+    $this->expectException(\PapayaFilterExceptionType::class);
     $filter->validate($value);
   }
 
@@ -76,8 +76,8 @@ class PapayaFilterDateTest extends PapayaTestCase {
    * @throws PapayaFilterExceptionType
    */
   public function testValidateExceptionRange($value) {
-    $filter = new \PapayaFilterDate(PapayaFilterDate::DATE_NO_TIME);
-    $this->expectException(PapayaFilterExceptionRangeMaximum::class);
+    $filter = new \PapayaFilterDate(\PapayaFilterDate::DATE_NO_TIME);
+    $this->expectException(\PapayaFilterExceptionRangeMaximum::class);
     $filter->validate($value);
   }
 
@@ -88,7 +88,7 @@ class PapayaFilterDateTest extends PapayaTestCase {
    * @param string $result
    */
   public function testFilterSuccess($value, $result) {
-    $filter = new \PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME);
+    $filter = new \PapayaFilterDate(\PapayaFilterDate::DATE_OPTIONAL_TIME);
     $this->assertEquals($result, $filter->filter($value));
   }
 
@@ -96,30 +96,30 @@ class PapayaFilterDateTest extends PapayaTestCase {
   * @covers \PapayaFilterDate::filter
   */
   public function testFilterFailure() {
-    $filter = new \PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME);
+    $filter = new \PapayaFilterDate(\PapayaFilterDate::DATE_OPTIONAL_TIME);
     $this->assertNull($filter->filter('I am not a date'));
   }
 
   public static function validateSuccessProvider() {
     return array(
-      array(PapayaFilterDate::DATE_NO_TIME, '2010-02-28'),
-      array(PapayaFilterDate::DATE_NO_TIME, '2012-02-29'),
-      array(PapayaFilterDate::DATE_OPTIONAL_TIME, '2011-08-12'),
-      array(PapayaFilterDate::DATE_OPTIONAL_TIME, '2011-08-12 18:11'),
-      array(PapayaFilterDate::DATE_MANDATORY_TIME, '2011-08-12 18:11'),
-      array(PapayaFilterDate::DATE_MANDATORY_TIME, '2013-04-15T04:41:59.44Z')
+      array(\PapayaFilterDate::DATE_NO_TIME, '2010-02-28'),
+      array(\PapayaFilterDate::DATE_NO_TIME, '2012-02-29'),
+      array(\PapayaFilterDate::DATE_OPTIONAL_TIME, '2011-08-12'),
+      array(\PapayaFilterDate::DATE_OPTIONAL_TIME, '2011-08-12 18:11'),
+      array(\PapayaFilterDate::DATE_MANDATORY_TIME, '2011-08-12 18:11'),
+      array(\PapayaFilterDate::DATE_MANDATORY_TIME, '2013-04-15T04:41:59.44Z')
     );
   }
 
   public static function validateExceptionFormatProvider() {
     return array(
-      array(PapayaFilterDate::DATE_NO_TIME, '11-08-12'),
-      array(PapayaFilterDate::DATE_NO_TIME, '2011-08'),
-      array(PapayaFilterDate::DATE_NO_TIME, '2011|08|12'),
-      array(PapayaFilterDate::DATE_NO_TIME, 'I am not a date'),
-      array(PapayaFilterDate::DATE_NO_TIME, '2011-08-12 18:36'),
-      array(PapayaFilterDate::DATE_OPTIONAL_TIME, '2011-08-12 18:36 garbage'),
-      array(PapayaFilterDate::DATE_MANDATORY_TIME, '2011-08-12')
+      array(\PapayaFilterDate::DATE_NO_TIME, '11-08-12'),
+      array(\PapayaFilterDate::DATE_NO_TIME, '2011-08'),
+      array(\PapayaFilterDate::DATE_NO_TIME, '2011|08|12'),
+      array(\PapayaFilterDate::DATE_NO_TIME, 'I am not a date'),
+      array(\PapayaFilterDate::DATE_NO_TIME, '2011-08-12 18:36'),
+      array(\PapayaFilterDate::DATE_OPTIONAL_TIME, '2011-08-12 18:36 garbage'),
+      array(\PapayaFilterDate::DATE_MANDATORY_TIME, '2011-08-12')
     );
   }
 

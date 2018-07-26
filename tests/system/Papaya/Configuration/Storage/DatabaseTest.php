@@ -20,7 +20,7 @@ use Papaya\Database\Access;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
+class PapayaConfigurationStorageDatabaseTest extends \PapayaTestCase {
 
   /**
   * @covers Database::records
@@ -75,7 +75,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
         'PAPAYA_DBG_DEVMODE' => TRUE
       )
     );
-    $response = $this->createMock(PapayaResponse::class);
+    $response = $this->createMock(\PapayaResponse::class);
     $response
       ->expects($this->once())
       ->method('sendHeader')
@@ -101,7 +101,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
   * @covers Database::handleError
   */
   public function testHandleErrorNoDevmodeSilent() {
-    $response = $this->createMock(PapayaResponse::class);
+    $response = $this->createMock(\PapayaResponse::class);
     $response
       ->expects($this->never())
       ->method('sendHeader');

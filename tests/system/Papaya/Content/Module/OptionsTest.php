@@ -18,7 +18,7 @@ use Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentModuleOptionsTest extends PapayaTestCase {
+class PapayaContentModuleOptionsTest extends \PapayaTestCase {
 
   /**
   * @covers Options::_createMapping

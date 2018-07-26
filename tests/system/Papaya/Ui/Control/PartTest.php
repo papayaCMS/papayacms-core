@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiControlPartTest extends PapayaTestCase {
+class PapayaUiControlPartTest extends \PapayaTestCase {
 
 
   /**
@@ -100,7 +100,7 @@ class PapayaUiControlPartTest extends PapayaTestCase {
 * @property-read string $propertyThree
 * @property string $propertyFour
 */
-class PapayaUiControlPart_TestProxy extends PapayaUiControlPart {
+class PapayaUiControlPart_TestProxy extends \PapayaUiControlPart {
 
   protected $_property;
 

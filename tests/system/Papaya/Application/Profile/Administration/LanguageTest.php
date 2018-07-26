@@ -18,7 +18,7 @@ use Papaya\Application\Profile\Administration\Language;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaApplicationProfileAdministrationLanguageTest extends PapayaTestCase {
+class PapayaApplicationProfileAdministrationLanguageTest extends \PapayaTestCase {
 
   /**
   * @covers Language::createObject

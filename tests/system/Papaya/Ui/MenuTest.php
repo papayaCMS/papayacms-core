@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiMenuTest extends PapayaTestCase {
+class PapayaUiMenuTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiMenu::appendTo
@@ -25,7 +25,7 @@ class PapayaUiMenuTest extends PapayaTestCase {
     $document->appendElement('sample');
     $menu = new \PapayaUiMenu();
     $elements = $this
-      ->getMockBuilder(PapayaUiToolbarElements::class)
+      ->getMockBuilder(\PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($menu))
       ->getMock();
     $elements
@@ -35,7 +35,7 @@ class PapayaUiMenuTest extends PapayaTestCase {
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $menu->elements($elements);
     $menu->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
@@ -53,7 +53,7 @@ class PapayaUiMenuTest extends PapayaTestCase {
     $document->appendElement('sample');
     $menu = new \PapayaUiMenu();
     $elements = $this
-      ->getMockBuilder(PapayaUiToolbarElements::class)
+      ->getMockBuilder(\PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($menu))
       ->getMock();
     $elements
@@ -63,7 +63,7 @@ class PapayaUiMenuTest extends PapayaTestCase {
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $menu->elements($elements);
     $menu->identifier = 'sample_id';
     $menu->appendTo($document->documentElement);
@@ -82,7 +82,7 @@ class PapayaUiMenuTest extends PapayaTestCase {
     $document->appendElement('sample');
     $menu = new \PapayaUiMenu();
     $elements = $this
-      ->getMockBuilder(PapayaUiToolbarElements::class)
+      ->getMockBuilder(\PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($menu))
       ->getMock();
     $elements

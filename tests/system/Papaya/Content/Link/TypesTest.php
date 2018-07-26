@@ -18,7 +18,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentLinkTypesTest extends PapayaTestCase {
+class PapayaContentLinkTypesTest extends \PapayaTestCase {
 
   /**
   * @covers Types::getResultIterator

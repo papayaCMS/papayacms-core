@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilStringXmlTest extends PapayaTestCase {
+class PapayaUtilStringXmlTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUtilStringXml::escape
@@ -196,7 +196,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
    * @param string $qualifiedName
    */
   public function testIsQName($qualifiedName) {
-    $this->assertTrue(PapayaUtilStringXml::isQName($qualifiedName));
+    $this->assertTrue(\PapayaUtilStringXml::isQName($qualifiedName));
   }
 
   /**
@@ -215,7 +215,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
    * @param int $length
    */
   public function testIsNcName($tagName, $offset, $length) {
-    $this->assertTrue(PapayaUtilStringXml::isNcName($tagName, $offset, $length));
+    $this->assertTrue(\PapayaUtilStringXml::isNcName($tagName, $offset, $length));
   }
 
   /**

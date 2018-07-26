@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputGeoPositionTest extends PapayaTestCase {
+class PapayaUiDialogFieldInputGeoPositionTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldInputGeoPosition::__construct

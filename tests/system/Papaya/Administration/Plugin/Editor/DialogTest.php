@@ -17,19 +17,19 @@ use Papaya\Administration\Plugin\Editor\Dialog;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
+class PapayaAdministrationPluginEditorDialogTest extends \PapayaTestCase {
 
   /**
    * @covers Dialog::appendTo
    */
   public function testAppendToWithoutSubmit() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $pluginContent */
-    $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
+    $pluginContent = $this->createMock(\PapayaPluginEditableContent::class);
     $pluginContent
       ->expects($this->never())
       ->method('assign');
 
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    $dialog = $this->createMock(\PapayaUiDialog::class);
     $dialog
       ->expects($this->any())
       ->method('execute')
@@ -52,12 +52,12 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
    */
   public function testAppendToWhileExecuteWasSuccessful() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $pluginContent */
-    $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
+    $pluginContent = $this->createMock(\PapayaPluginEditableContent::class);
     $pluginContent
       ->expects($this->once())
       ->method('assign');
 
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    $dialog = $this->createMock(\PapayaUiDialog::class);
     $dialog
       ->expects($this->any())
       ->method('execute')
@@ -76,12 +76,12 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
    */
   public function testAppendToWhileExecuteWasSuccessfulAndTriggeredCallback() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $pluginContent */
-    $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
+    $pluginContent = $this->createMock(\PapayaPluginEditableContent::class);
     $pluginContent
       ->expects($this->never())
       ->method('assign');
 
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    $dialog = $this->createMock(\PapayaUiDialog::class);
     $dialog
       ->expects($this->any())
       ->method('execute')
@@ -107,18 +107,18 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
    */
   public function testAppendToWhileExecuteFailed() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $pluginContent */
-    $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
+    $pluginContent = $this->createMock(\PapayaPluginEditableContent::class);
     $pluginContent
       ->expects($this->never())
       ->method('assign');
 
-    $dialogErrors = $this->createMock(PapayaUiDialogErrors::class);
+    $dialogErrors = $this->createMock(\PapayaUiDialogErrors::class);
     $dialogErrors
       ->expects($this->once())
       ->method('getSourceCaptions')
       ->will($this->returnValue(array()));
 
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    $dialog = $this->createMock(\PapayaUiDialog::class);
     $dialog
       ->expects($this->any())
       ->method('execute')
@@ -135,11 +135,11 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
       ->method('errors')
       ->will($this->returnValue($dialogErrors));
 
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplay::class));
+      ->with($this->isInstanceOf(\PapayaMessageDisplay::class));
 
     $editor = new Dialog($pluginContent);
     $editor->papaya(
@@ -156,9 +156,9 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
    */
   public function testDialogGetAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $pluginContent */
-    $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
+    $pluginContent = $this->createMock(\PapayaPluginEditableContent::class);
     $editor = new Dialog($pluginContent);
-    $editor->dialog($dialog = $this->createMock(PapayaUiDialog::class));
+    $editor->dialog($dialog = $this->createMock(\PapayaUiDialog::class));
     $this->assertSame($dialog, $editor->dialog());
   }
 
@@ -168,7 +168,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
    */
   public function testDialogGetImplicitCreate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $pluginContent */
-    $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
+    $pluginContent = $this->createMock(\PapayaPluginEditableContent::class);
     $pluginContent
       ->expects($this->any())
       ->method('getIterator')
@@ -177,7 +177,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
     $editor = new Dialog($pluginContent);
     $editor->papaya($this->mockPapaya()->application());
 
-    $this->assertInstanceOf(PapayaUiDialog::class, $dialog = $editor->dialog());
+    $this->assertInstanceOf(\PapayaUiDialog::class, $dialog = $editor->dialog());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<dialog-box action="http://www.test.tld/test.html" method="post">

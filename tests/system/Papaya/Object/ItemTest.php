@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaObjectItemTest extends PapayaTestCase {
+class PapayaObjectItemTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaObjectItem::__construct
@@ -250,5 +250,5 @@ class PapayaObjectItemTest extends PapayaTestCase {
 /**
  * @property string sampleOne
  */
-class PapayaObjectItem_TestProxy extends PapayaObjectItem {
+class PapayaObjectItem_TestProxy extends \PapayaObjectItem {
 }

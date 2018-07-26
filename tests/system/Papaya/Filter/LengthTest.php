@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterLengthTest extends PapayaTestCase {
+class PapayaFilterLengthTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterLength::__construct
@@ -86,7 +86,7 @@ class PapayaFilterLengthTest extends PapayaTestCase {
     $value, $minimum, $maximum = NULL, $isUtf8 = FALSE
   ) {
     $filter = new \PapayaFilterLength($minimum, $maximum, $isUtf8);
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $filter->validate($value);
   }
 
@@ -103,7 +103,7 @@ class PapayaFilterLengthTest extends PapayaTestCase {
   */
   public function testValidateWithValueToShortExpectingException() {
     $filter = new \PapayaFilterLength(21, 42);
-    $this->expectException(PapayaFilterExceptionLengthMinimum::class);
+    $this->expectException(\PapayaFilterExceptionLengthMinimum::class);
     $filter->validate('foo');
   }
 
@@ -112,7 +112,7 @@ class PapayaFilterLengthTest extends PapayaTestCase {
   */
   public function testValidateWithValueToLongExpectingException() {
     $filter = new \PapayaFilterLength(0, 1);
-    $this->expectException(PapayaFilterExceptionLengthMaximum::class);
+    $this->expectException(\PapayaFilterExceptionLengthMaximum::class);
     $filter->validate('foo');
   }
 

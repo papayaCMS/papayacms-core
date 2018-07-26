@@ -17,7 +17,7 @@ use Papaya\Url;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiReferenceThumbnailTest extends PapayaTestCase {
+class PapayaUiReferenceThumbnailTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiReferenceThumbnail::create
@@ -34,7 +34,7 @@ class PapayaUiReferenceThumbnailTest extends PapayaTestCase {
   */
   public function testLoad() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaRequest $request */
-    $request = $this->createMock(PapayaRequest::class);
+    $request = $this->createMock(\PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getUrl')
@@ -50,7 +50,7 @@ class PapayaUiReferenceThumbnailTest extends PapayaTestCase {
         $this->isType('string'),
         $this->anything(),
         $this->isNull(),
-        $this->equalTo(PapayaRequest::SOURCE_PATH)
+        $this->equalTo(\PapayaRequest::SOURCE_PATH)
       )
       ->will(
         $this->returnValue(TRUE)

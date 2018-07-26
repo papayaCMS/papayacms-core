@@ -18,7 +18,7 @@ use Papaya\Cache\Service\File;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaCacheServiceFileTest extends PapayaTestCase {
+class PapayaCacheServiceFileTest extends \PapayaTestCase {
 
   public function tearDown() {
     $this->removeTemporaryDirectory();
@@ -116,7 +116,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
 
     $path = str_replace('\\', '/', $this->_temporaryDirectory);
     $notifier = $this
-      ->getMockBuilder(PapayaFileSystemChangeNotifier::class)
+      ->getMockBuilder(\PapayaFileSystemChangeNotifier::class)
       ->disableOriginalConstructor()
       ->getMock();
     $notifier
@@ -288,7 +288,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
 
     $path = str_replace('\\', '/', $this->_temporaryDirectory);
     $notifier = $this
-      ->getMockBuilder(PapayaFileSystemChangeNotifier::class)
+      ->getMockBuilder(\PapayaFileSystemChangeNotifier::class)
       ->disableOriginalConstructor()
       ->getMock();
     $notifier
@@ -311,7 +311,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
 
     $path = str_replace('\\', '/', $this->_temporaryDirectory);
     $notifier = $this
-      ->getMockBuilder(PapayaFileSystemChangeNotifier::class)
+      ->getMockBuilder(\PapayaFileSystemChangeNotifier::class)
       ->disableOriginalConstructor()
       ->getMock();
     $notifier
@@ -346,7 +346,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
 
     $path = str_replace('\\', '/', $this->_temporaryDirectory);
     $notifier = $this
-      ->getMockBuilder(PapayaFileSystemChangeNotifier::class)
+      ->getMockBuilder(\PapayaFileSystemChangeNotifier::class)
       ->disableOriginalConstructor()
       ->getMock();
     $notifier
@@ -413,7 +413,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
   */
   public function testNotifierGetAfterSet() {
     $notifier = $this
-      ->getMockBuilder(PapayaFileSystemChangeNotifier::class)
+      ->getMockBuilder(\PapayaFileSystemChangeNotifier::class)
       ->disableOriginalConstructor()
       ->getMock();
 
@@ -431,7 +431,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
     $configuration['FILESYSTEM_NOTIFIER_SCRIPT'] = '/foo/bar.php';
 
     $service = new File($configuration);
-    $this->assertInstanceOf(PapayaFileSystemChangeNotifier::class, $service->notifier());
+    $this->assertInstanceOf(\PapayaFileSystemChangeNotifier::class, $service->notifier());
   }
 
   /**

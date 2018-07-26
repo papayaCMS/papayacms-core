@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputMediaImageResizedTest extends PapayaTestCase {
+class PapayaUiDialogFieldInputMediaImageResizedTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldInputMediaImageResized::__construct
@@ -36,7 +36,7 @@ class PapayaUiDialogFieldInputMediaImageResizedTest extends PapayaTestCase {
    */
   public function testConstructorInitializesFilterExpectingExceptionForInvalidValues($value) {
     $field = new \PapayaUiDialogFieldInputMediaImageResized('caption', 'name', TRUE);
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $field->getFilter()->validate($value);
   }
 

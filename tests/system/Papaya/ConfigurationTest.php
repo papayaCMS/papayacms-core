@@ -18,7 +18,7 @@ use Papaya\Configuration\Storage;
 
 require_once __DIR__.'/../../bootstrap.php';
 
-class PapayaConfigurationTest extends PapayaTestCase {
+class PapayaConfigurationTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaConfiguration::__construct
@@ -342,7 +342,7 @@ class PapayaConfigurationTest extends PapayaTestCase {
 /**
  * @property int sampleInt
  */
-class PapayaConfiguration_TestProxy extends PapayaConfiguration {
+class PapayaConfiguration_TestProxy extends \PapayaConfiguration {
 
   public function __construct() {
     parent::__construct(

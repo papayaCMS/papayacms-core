@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterXmlTest extends PapayaTestCase {
+class PapayaFilterXmlTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterXml::__construct
@@ -56,7 +56,7 @@ class PapayaFilterXmlTest extends PapayaTestCase {
    */
   public function testValidateExpectingException($fragment) {
     $filter = new \PapayaFilterXml();
-    $this->expectException(PapayaFilterExceptionXml::class);
+    $this->expectException(\PapayaFilterExceptionXml::class);
     $filter->validate($fragment);
   }
 
@@ -65,7 +65,7 @@ class PapayaFilterXmlTest extends PapayaTestCase {
    */
   public function testValidateWithEmptyStringExpectingException() {
     $filter = new \PapayaFilterXml();
-    $this->expectException(PapayaFilterExceptionEmpty::class);
+    $this->expectException(\PapayaFilterExceptionEmpty::class);
     $filter->validate('');
   }
 
@@ -74,7 +74,7 @@ class PapayaFilterXmlTest extends PapayaTestCase {
    */
   public function testValidateWithDocumentExpectingException() {
     $filter = new \PapayaFilterXml(FALSE);
-    $this->expectException(PapayaFilterExceptionXml::class);
+    $this->expectException(\PapayaFilterExceptionXml::class);
     $filter->validate('TEXT');
   }
 

@@ -17,7 +17,7 @@ use Papaya\Email\Address;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaEmailRecipientsTest extends PapayaTestCase {
+class PapayaEmailRecipientsTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Email\Recipients::__construct

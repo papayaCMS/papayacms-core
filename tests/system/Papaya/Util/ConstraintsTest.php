@@ -17,7 +17,7 @@ use Papaya\Url;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUtilConstraintsTest extends PapayaTestCase {
+class PapayaUtilConstraintsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUtilConstraints::assertArray
@@ -184,7 +184,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   */
   public function testAssertInstanceOfWithSuperclass() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertInstanceOf(PapayaTestCase::class, $this)
+      \PapayaUtilConstraints::assertInstanceOf(\PapayaTestCase::class, $this)
     );
   }
 
@@ -442,7 +442,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   public static function provideValidValuesForAssertCallable() {
     return array(
       'function' => array('is_callable'),
-      'class function' => array(array(PapayaUtilConstraints::class, 'assertCallable'))
+      'class function' => array(array(\PapayaUtilConstraints::class, 'assertCallable'))
     );
   }
 
@@ -542,7 +542,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 }
 
-class PapayaUtilConstraints_TestProxy extends PapayaUtilConstraints {
+class PapayaUtilConstraints_TestProxy extends \PapayaUtilConstraints {
 
   public static function createException($expected, $value, $message) {
     return parent::createException($expected, $value, $message);

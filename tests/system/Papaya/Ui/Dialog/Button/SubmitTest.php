@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogButtonSubmitTest extends PapayaTestCase {
+class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogButtonSubmit::__construct
@@ -63,7 +63,7 @@ class PapayaUiDialogButtonSubmitTest extends PapayaTestCase {
   */
   public function testAppendToWithInterfaceStringObject() {
     $caption = $this
-      ->getMockBuilder(PapayaUiString::class)
+      ->getMockBuilder(\PapayaUiString::class)
       ->setConstructorArgs(array('.'))
       ->getMock();
     $caption

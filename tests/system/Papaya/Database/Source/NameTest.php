@@ -17,7 +17,7 @@ use Papaya\Database\Exception\Connect;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseSourceNameTest extends PapayaTestCase {
+class PapayaDatabaseSourceNameTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Database\Source\Name::__construct

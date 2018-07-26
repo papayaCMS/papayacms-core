@@ -17,7 +17,7 @@ use Papaya\Cache\Service\Apc\Wrapper;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaCacheServiceApcObjectTest extends PapayaTestCase {
+class PapayaCacheServiceApcObjectTest extends \PapayaTestCase {
 
   public function skipIfApcIsAvailable() {
     if (extension_loaded('apc')) {

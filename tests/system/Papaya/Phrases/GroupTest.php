@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaPhrasesGroupTest extends PapayaTestCase {
+class PapayaPhrasesGroupTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaPhrasesGroup
    */
   public function testGet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPhrases $phrases */
-    $phrases = $this->createMock(PapayaPhrases::class);
+    $phrases = $this->createMock(\PapayaPhrases::class);
     $phrases
       ->expects($this->once())
       ->method('getText')
@@ -30,7 +30,7 @@ class PapayaPhrasesGroupTest extends PapayaTestCase {
       ->will($this->returnValue('Success'));
     $group = new \PapayaPhrasesGroup($phrases, '#default');
     $phrase = $group->get('Test');
-    $this->assertInstanceOf(PapayaUiStringTranslated::class, $phrase);
+    $this->assertInstanceOf(\PapayaUiStringTranslated::class, $phrase);
     $this->assertEquals('Success', (string)$phrase);
   }
 
@@ -39,7 +39,7 @@ class PapayaPhrasesGroupTest extends PapayaTestCase {
    */
   public function testGetList() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPhrases $phrases */
-    $phrases = $this->createMock(PapayaPhrases::class);
+    $phrases = $this->createMock(\PapayaPhrases::class);
     $phrases
       ->expects($this->once())
       ->method('getText')
@@ -47,7 +47,7 @@ class PapayaPhrasesGroupTest extends PapayaTestCase {
       ->will($this->returnValue('Success'));
     $group = new \PapayaPhrasesGroup($phrases, '#default');
     $phraseList = $group->getList(array('One' => 'Test'));
-    $this->assertInstanceOf(PapayaUiStringTranslatedList::class, $phraseList);
+    $this->assertInstanceOf(\PapayaUiStringTranslatedList::class, $phraseList);
     $list = iterator_to_array($phraseList);
     $this->assertEquals('Success', (string)$list['One']);
   }

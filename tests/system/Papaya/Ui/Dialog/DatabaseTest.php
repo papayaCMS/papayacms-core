@@ -17,7 +17,7 @@ use Papaya\Database\Interfaces\Record;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogDatabaseTest extends PapayaTestCase {
+class PapayaUiDialogDatabaseTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogDatabase::__construct
@@ -39,7 +39,7 @@ class PapayaUiDialogDatabaseTest extends PapayaTestCase {
   */
   public function testCallbacksGetAfterSet() {
     $callbacks = $this
-      ->getMockBuilder(PapayaUiDialogDatabaseCallbacks::class)
+      ->getMockBuilder(\PapayaUiDialogDatabaseCallbacks::class)
       ->disableOriginalConstructor()
       ->getMock();
     $dialog = new \PapayaUiDialogDatabase_TestProxy($this->getRecordFixture());
@@ -79,6 +79,6 @@ class PapayaUiDialogDatabaseTest extends PapayaTestCase {
   }
 }
 
-class PapayaUiDialogDatabase_TestProxy extends PapayaUiDialogDatabase {
+class PapayaUiDialogDatabase_TestProxy extends \PapayaUiDialogDatabase {
 
 }

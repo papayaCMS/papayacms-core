@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputDateTest extends PapayaTestCase {
+class PapayaUiDialogFieldInputDateTest extends \PapayaTestCase {
   /**
   * @covers \PapayaUiDialogFieldInputDate::__construct
   */
@@ -27,7 +27,7 @@ class PapayaUiDialogFieldInputDateTest extends PapayaTestCase {
     $this->assertEquals('date', $input->name);
     $this->assertEquals('2011-01-01 18:00', $input->defaultValue);
     $this->assertTrue($input->mandatory);
-    $this->assertAttributeEquals(PapayaFilterDate::DATE_OPTIONAL_TIME, '_includeTime', $input);
+    $this->assertAttributeEquals(\PapayaFilterDate::DATE_OPTIONAL_TIME, '_includeTime', $input);
     $this->assertAttributeEquals(300.0, '_step', $input);
   }
 

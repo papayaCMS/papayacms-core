@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileInputTest extends PapayaTestCase {
+class PapayaUiDialogFieldFactoryProfileInputTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldFactoryProfileInput::getField
@@ -30,7 +30,7 @@ class PapayaUiDialogFieldFactoryProfileInputTest extends PapayaTestCase {
     );
     $profile = new \PapayaUiDialogFieldFactoryProfileInput();
     $profile->options($options);
-    $this->assertInstanceOf(PapayaUiDialogFieldInput::class, $field = $profile->getField());
+    $this->assertInstanceOf(\PapayaUiDialogFieldInput::class, $field = $profile->getField());
   }
 
   /**

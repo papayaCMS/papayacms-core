@@ -17,7 +17,7 @@ use Papaya\Configuration\GlobalValues;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaConfigurationGlobalTest extends PapayaTestCase {
+class PapayaConfigurationGlobalTest extends \PapayaTestCase {
 
   /**
   * @covers GlobalValues::get

@@ -21,7 +21,7 @@ use Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageReferenceTest extends PapayaTestCase {
+class PapayaContentPageReferenceTest extends \PapayaTestCase {
 
   /**
   * @covers Reference::_createKey

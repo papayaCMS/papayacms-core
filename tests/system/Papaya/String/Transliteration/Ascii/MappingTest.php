@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaStringTransliterationAsciiMappingTest extends PapayaTestCase {
+class PapayaStringTransliterationAsciiMappingTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaStringTransliterationAsciiMapping::__construct

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputPasswordTest extends PapayaTestCase {
+class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldInputPassword::__construct
@@ -23,14 +23,14 @@ class PapayaUiDialogFieldInputPasswordTest extends PapayaTestCase {
   public function testConstructorCreatesDefaultFilter() {
     $field = new \PapayaUiDialogFieldInputPassword('Caption', 'fieldname');
     $field->setMandatory(TRUE);
-    $this->assertInstanceOf(PapayaFilterPassword::class, $field->getFilter());
+    $this->assertInstanceOf(\PapayaFilterPassword::class, $field->getFilter());
   }
 
   /**
    * @covers \PapayaUiDialogFieldInputPassword::__construct
    */
   public function testConstructorAttachingFilter() {
-    $filter = $this->createMock(PapayaFilter::class);
+    $filter = $this->createMock(\PapayaFilter::class);
     $field = new \PapayaUiDialogFieldInputPassword('Caption', 'fieldname', 42, $filter);
     $field->setMandatory(TRUE);
     $this->assertSame($filter, $field->getFilter());
@@ -50,7 +50,7 @@ class PapayaUiDialogFieldInputPasswordTest extends PapayaTestCase {
    */
   public function testGetCurrentValueIgnoreData() {
     $dialog = $this
-      ->getMockBuilder(PapayaUiDialog::class)
+      ->getMockBuilder(\PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -70,7 +70,7 @@ class PapayaUiDialogFieldInputPasswordTest extends PapayaTestCase {
    */
   public function testGetCurrentValueReadParameter() {
     $dialog = $this
-      ->getMockBuilder(PapayaUiDialog::class)
+      ->getMockBuilder(\PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -83,7 +83,7 @@ class PapayaUiDialogFieldInputPasswordTest extends PapayaTestCase {
   }
 
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(PapayaUiDialogFields::class);
+    $collection = $this->createMock(\PapayaUiDialogFields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

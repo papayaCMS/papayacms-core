@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogErrorsTest extends PapayaTestCase {
+class PapayaUiDialogErrorsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogErrors::getIterator
@@ -97,12 +97,12 @@ class PapayaUiDialogErrorsTest extends PapayaTestCase {
   */
   public function testGetSourceCaptions() {
     $errors = new \PapayaUiDialogErrors();
-    $fieldOne = $this->createMock(PapayaUiDialogField::class);
+    $fieldOne = $this->createMock(\PapayaUiDialogField::class);
     $fieldOne
       ->expects($this->once())
       ->method('getCaption')
       ->will($this->returnValue('FieldOne'));
-    $fieldTwo = $this->createMock(PapayaUiDialogField::class);
+    $fieldTwo = $this->createMock(\PapayaUiDialogField::class);
     $fieldTwo
       ->expects($this->once())
       ->method('getCaption')

@@ -17,7 +17,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaPluginListTest extends PapayaTestCase {
+class PapayaPluginListTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaPluginList::load

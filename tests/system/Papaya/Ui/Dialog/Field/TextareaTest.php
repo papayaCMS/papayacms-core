@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldTextareaTest extends PapayaTestCase {
+class PapayaUiDialogFieldTextareaTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldTextarea::__construct
@@ -34,7 +34,7 @@ class PapayaUiDialogFieldTextareaTest extends PapayaTestCase {
   * @covers \PapayaUiDialogFieldTextarea::__construct
   */
   public function testConstructorWithAllParameters() {
-    $filter = $this->createMock(PapayaFilter::class);
+    $filter = $this->createMock(\PapayaFilter::class);
     $textarea = new \PapayaUiDialogFieldTextarea('Caption', 'name', 42, '50670', $filter);
     $this->assertAttributeEquals(
       42, '_lineCount', $textarea
@@ -69,7 +69,7 @@ class PapayaUiDialogFieldTextareaTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $textarea->papaya($application);
-    $textarea->collection($this->createMock(PapayaUiDialogFields::class));
+    $textarea->collection($this->createMock(\PapayaUiDialogFields::class));
     $textarea->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -93,7 +93,7 @@ class PapayaUiDialogFieldTextareaTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $textarea->papaya($application);
-    $textarea->collection($this->createMock(PapayaUiDialogFields::class));
+    $textarea->collection($this->createMock(\PapayaUiDialogFields::class));
     $textarea->setDefaultValue(50670);
     $textarea->appendTo($node);
     $this->assertXmlStringEqualsXmlString(

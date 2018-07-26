@@ -18,7 +18,7 @@ use Papaya\Csv\Writer\Callbacks;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaCsvWriterTest extends PapayaTestCase {
+class PapayaCsvWriterTest extends \PapayaTestCase {
 
   /**
   * @covers Writer::__construct

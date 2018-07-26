@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterGuidTest extends PapayaTestCase {
+class PapayaFilterGuidTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterGuid
@@ -32,7 +32,7 @@ class PapayaFilterGuidTest extends PapayaTestCase {
   */
   public function testValidateExpectingException() {
     $filter = new \PapayaFilterGuid();
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $filter->validate('foo');
   }
 }

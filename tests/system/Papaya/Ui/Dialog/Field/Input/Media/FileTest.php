@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputMediaFileTest extends PapayaTestCase {
+class PapayaUiDialogFieldInputMediaFileTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldInputMediaFile::__construct

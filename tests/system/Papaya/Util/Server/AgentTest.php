@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilServerAgentTest extends PapayaTestCase {
+class PapayaUtilServerAgentTest extends \PapayaTestCase {
 
   /**
   * @backupGlobals enabled

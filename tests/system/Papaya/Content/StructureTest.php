@@ -21,7 +21,7 @@ use Papaya\Content\Structure\Value;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentStructureTest extends PapayaTestCase {
+class PapayaContentStructureTest extends \PapayaTestCase {
 
   /**
    * @covers Structure::load
@@ -31,7 +31,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
     $pages
       ->expects($this->once())
       ->method('load')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
 
     $definition = new Structure();
     $definition->pages($pages);
@@ -46,7 +46,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
     $pages
       ->expects($this->once())
       ->method('load')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
 
     $definition = new Structure();
     $definition->pages($pages);
@@ -78,7 +78,7 @@ class PapayaContentStructureTest extends PapayaTestCase {
     $pages
       ->expects($this->once())
       ->method('load')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
 
     $definition = new Structure();
     $definition->pages($pages);

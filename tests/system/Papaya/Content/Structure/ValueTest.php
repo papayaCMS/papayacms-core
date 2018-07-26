@@ -18,7 +18,7 @@ use Papaya\Content\Structure\Value;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentStructureValueTest extends PapayaTestCase {
+class PapayaContentStructureValueTest extends \PapayaTestCase {
 
   /**
    * @covers Value::__construct

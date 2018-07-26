@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiPanelTest extends PapayaTestCase {
+class PapayaUiPanelTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiPanel::appendTo
@@ -52,7 +52,7 @@ class PapayaUiPanelTest extends PapayaTestCase {
   */
   public function testToolbarsGetAfterSet() {
     $panel = new \PapayaUiPanel_TestProxy();
-    $toolbars = $this->createMock(PapayaUiToolbars::class);
+    $toolbars = $this->createMock(\PapayaUiToolbars::class);
     $this->assertSame($toolbars, $panel->toolbars($toolbars));
   }
 
@@ -62,10 +62,10 @@ class PapayaUiPanelTest extends PapayaTestCase {
   public function testToolbarsGetImplicitCreate() {
     $panel = new \PapayaUiPanel_TestProxy();
     $toolbars = $panel->toolbars();
-    $this->assertInstanceOf(PapayaUiToolbars::class, $toolbars);
+    $this->assertInstanceOf(\PapayaUiToolbars::class, $toolbars);
   }
 }
 
-class PapayaUiPanel_TestProxy extends PapayaUiPanel {
+class PapayaUiPanel_TestProxy extends \PapayaUiPanel {
 
 }

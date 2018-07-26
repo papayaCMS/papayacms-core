@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUrlTransformerCleanupTest extends PapayaTestCase {
+class PapayaUrlTransformerCleanupTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUrlTransformerCleanup::transform

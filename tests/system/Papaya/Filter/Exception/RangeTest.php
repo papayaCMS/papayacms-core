@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterExceptionRangeTest extends PapayaTestCase {
+class PapayaFilterExceptionRangeTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterExceptionRange::__construct
@@ -51,6 +51,6 @@ class PapayaFilterExceptionRangeTest extends PapayaTestCase {
   }
 }
 
-class PapayaFilterExceptionRange_TestProxy extends PapayaFilterExceptionRange {
+class PapayaFilterExceptionRange_TestProxy extends \PapayaFilterExceptionRange {
 
 }

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaObjectCallbackTest extends PapayaTestCase {
+class PapayaObjectCallbackTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaObjectCallback::__construct

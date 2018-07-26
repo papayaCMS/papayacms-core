@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiListviewItemPagingTest extends PapayaTestCase {
+class PapayaUiListviewItemPagingTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiListviewItemPaging::__construct
@@ -309,7 +309,7 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
   }
 }
 
-class PapayaUiListviewItemPaging_TestProxy extends PapayaUiListviewItemPaging {
+class PapayaUiListviewItemPaging_TestProxy extends \PapayaUiListviewItemPaging {
 
   public $pageList = array();
 

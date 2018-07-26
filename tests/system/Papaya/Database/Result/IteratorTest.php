@@ -19,7 +19,7 @@ use Papaya\Database\Result\Iterator;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseResultIteratorTest extends PapayaTestCase {
+class PapayaDatabaseResultIteratorTest extends \PapayaTestCase {
 
   /**
   * @covers Iterator::__construct

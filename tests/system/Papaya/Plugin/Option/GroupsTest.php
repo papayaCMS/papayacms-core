@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaPluginOptionGroupsTest extends PapayaTestCase {
+class PapayaPluginOptionGroupsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaPluginOptionGroups::offsetExists
   */
   public function testOffsetExistsExpectingTrue() {
     $options = $this
-      ->getMockBuilder(PapayaConfiguration::class)
+      ->getMockBuilder(\PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $groups = new \PapayaPluginOptionGroups();
@@ -35,7 +35,7 @@ class PapayaPluginOptionGroupsTest extends PapayaTestCase {
   */
   public function testOffsetExistsExpectingFalse() {
     $options = $this
-      ->getMockBuilder(PapayaConfiguration::class)
+      ->getMockBuilder(\PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $groups = new \PapayaPluginOptionGroups();
@@ -50,7 +50,7 @@ class PapayaPluginOptionGroupsTest extends PapayaTestCase {
   */
   public function testOffsetGetAfterOffsetSet() {
     $options = $this
-      ->getMockBuilder(PapayaConfiguration::class)
+      ->getMockBuilder(\PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $groups = new \PapayaPluginOptionGroups();
@@ -75,7 +75,7 @@ class PapayaPluginOptionGroupsTest extends PapayaTestCase {
   */
   public function testOffsetUnset() {
     $options = $this
-      ->getMockBuilder(PapayaConfiguration::class)
+      ->getMockBuilder(\PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $groups = new \PapayaPluginOptionGroups();

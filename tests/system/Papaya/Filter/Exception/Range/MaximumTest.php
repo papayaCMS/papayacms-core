@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaFilterExceptionRangeMaximumTest extends PapayaTestCase {
+class PapayaFilterExceptionRangeMaximumTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterExceptionRangeMaximum::__construct

@@ -18,14 +18,14 @@ use Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCase {
+class PapayaCacheIdentifierDefinitionSessionParametersTest extends \PapayaTestCase {
 
   /**
    * @covers Parameters
    */
   public function testGetStatus() {
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
+      ->getMockBuilder(\PapayaSessionValues::class)
       ->disableOriginalConstructor()
       ->getMock();
     $values
@@ -38,7 +38,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
       ->method('offsetGet')
       ->with('bar')
       ->will($this->returnValue('session_value'));
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('isActive')
@@ -67,7 +67,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
    */
   public function testGetStatusValueReturnsNull() {
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
+      ->getMockBuilder(\PapayaSessionValues::class)
       ->disableOriginalConstructor()
       ->getMock();
     $values
@@ -80,7 +80,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
       ->method('offsetGet')
       ->with('foo')
       ->will($this->returnValue(NULL));
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('isActive')
@@ -107,7 +107,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
    * @covers Parameters
    */
   public function testGetStatusNoSessionActive() {
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('isActive')
@@ -130,7 +130,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
    */
   public function testGetStatusMultipleParameters() {
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
+      ->getMockBuilder(\PapayaSessionValues::class)
       ->disableOriginalConstructor()
       ->getMock();
     $values
@@ -151,7 +151,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends PapayaTestCas
           )
         )
       );
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $session
       ->expects($this->once())
       ->method('isActive')

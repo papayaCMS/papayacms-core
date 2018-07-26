@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaResponseHeadersTest extends PapayaTestCase {
+class PapayaResponseHeadersTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaResponseHeaders::getIterator

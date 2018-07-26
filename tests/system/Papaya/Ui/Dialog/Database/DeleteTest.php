@@ -17,14 +17,14 @@ use Papaya\Database\BaseObject\Record;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogDatabaseDeleteTest extends PapayaTestCase {
+class PapayaUiDialogDatabaseDeleteTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogDatabaseDelete::execute
   */
   public function testExecuteExpectingTrue() {
     $callbacks = $this
-      ->getMockBuilder(PapayaUiDialogDatabaseCallbacks::class)
+      ->getMockBuilder(\PapayaUiDialogDatabaseCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onBeforeDelete'))
       ->getMock();
@@ -48,7 +48,7 @@ class PapayaUiDialogDatabaseDeleteTest extends PapayaTestCase {
   */
   public function testExecuteBlockedByCallbackExpectingFalse() {
     $callbacks = $this
-      ->getMockBuilder(PapayaUiDialogDatabaseCallbacks::class)
+      ->getMockBuilder(\PapayaUiDialogDatabaseCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onBeforeDelete'))
       ->getMock();
@@ -122,7 +122,7 @@ class PapayaUiDialogDatabaseDeleteTest extends PapayaTestCase {
   }
 }
 
-class PapayaUiDialogDatabaseDelete_TestProxy extends PapayaUiDialogDatabaseDelete {
+class PapayaUiDialogDatabaseDelete_TestProxy extends \PapayaUiDialogDatabaseDelete {
   public $_isSubmittedResult = TRUE;
   public $_executionResult;
 }

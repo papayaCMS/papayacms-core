@@ -15,13 +15,13 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterArrayTest extends PapayaTestCase {
+class PapayaFilterArrayTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterArray::__construct
   */
   public function testConstructorWithElementFilter() {
-    $filter = new \PapayaFilterArray($subFilter = $this->createMock(PapayaFilter::class));
+    $filter = new \PapayaFilterArray($subFilter = $this->createMock(\PapayaFilter::class));
     $this->assertAttributeSame(
       $subFilter, '_elementFilter', $filter
     );
@@ -48,7 +48,7 @@ class PapayaFilterArrayTest extends PapayaTestCase {
    */
   public function testValidateExpectingException($value, $elementFilter = NULL) {
     $filter = new \PapayaFilterArray($elementFilter);
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $filter->validate($value);
   }
 

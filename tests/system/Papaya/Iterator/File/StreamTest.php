@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaIteratorFileStreamTest extends PapayaTestCase {
+class PapayaIteratorFileStreamTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaIteratorFileStream::__construct

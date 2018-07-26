@@ -17,14 +17,14 @@ use Papaya\Content\Structure;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaThemeListTest extends PapayaTestCase {
+class PapayaThemeListTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaThemeList::getIterator
    * @covers \PapayaThemeList::callbackGetName
    */
   public function testGetIterator() {
-    $handler = $this->createMock(PapayaThemeHandler::class);
+    $handler = $this->createMock(\PapayaThemeHandler::class);
     $handler
       ->expects($this->once())
       ->method('getLocalPath')
@@ -43,7 +43,7 @@ class PapayaThemeListTest extends PapayaTestCase {
    * @covers \PapayaThemeList::getDefinition
    */
   public function testGetDefinition() {
-    $handler = $this->createMock(PapayaThemeHandler::class);
+    $handler = $this->createMock(\PapayaThemeHandler::class);
     $handler
       ->expects($this->once())
       ->method('getDefinition')
@@ -62,7 +62,7 @@ class PapayaThemeListTest extends PapayaTestCase {
    */
   public function testHandlerGetAfterSet() {
     $list = new \PapayaThemeList();
-    $list->handler($handler =  $this->createMock(PapayaThemeHandler::class));
+    $list->handler($handler =  $this->createMock(\PapayaThemeHandler::class));
     $this->assertSame($handler, $list->handler());
   }
 
@@ -71,7 +71,7 @@ class PapayaThemeListTest extends PapayaTestCase {
    */
   public function testHandlerGetImplicitCreate() {
     $list = new \PapayaThemeList();
-    $this->assertInstanceOf(PapayaThemeHandler::class, $list->handler());
+    $this->assertInstanceOf(\PapayaThemeHandler::class, $list->handler());
   }
 }
 

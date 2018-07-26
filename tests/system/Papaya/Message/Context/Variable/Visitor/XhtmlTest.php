@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaMessageContextVariableVisitorXhtmlTest extends PapayaTestCase {
+class PapayaMessageContextVariableVisitorXhtmlTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaMessageContextVariableVisitorXhtml::__construct
@@ -352,7 +352,7 @@ class PapayaMessageContextVariableVisitorXhtml_SampleClass{
 }
 
 class PapayaMessageContextVariableVisitorXhtml_SampleChildClass
-  extends PapayaMessageContextVariableVisitorXhtml_SampleClass {
+  extends \PapayaMessageContextVariableVisitorXhtml_SampleClass {
   private static /** @noinspection PhpUnusedPrivateFieldInspection */
     $privateStaticProperty = 5;
   protected static $publicStaticProperty = 6;

@@ -17,7 +17,7 @@ use Papaya\Controller\Error;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaControllerErrorTest extends PapayaTestCase {
+class PapayaControllerErrorTest extends \PapayaTestCase {
 
   /**
   * @covers Error::setStatus
@@ -68,7 +68,7 @@ class PapayaControllerErrorTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('content')
       ->with(
-        $this->isInstanceOf(PapayaResponseContentString::class)
+        $this->isInstanceOf(\PapayaResponseContentString::class)
       );
     $controller = new Error();
     $this->assertTrue(

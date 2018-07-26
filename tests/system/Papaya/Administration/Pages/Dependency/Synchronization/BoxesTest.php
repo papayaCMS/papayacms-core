@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencySynchronizationBoxesTest extends PapayaTestCase {
+class PapayaAdministrationPagesDependencySynchronizationBoxesTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Administration\Pages\Dependency\Synchronization\Boxes::synchronize

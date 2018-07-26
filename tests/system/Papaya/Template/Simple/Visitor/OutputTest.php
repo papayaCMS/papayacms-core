@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleVisitorOutputTest extends PapayaTestCase {
+class PapayaTemplateSimpleVisitorOutputTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaTemplateSimpleVisitorOutput::clear
@@ -56,7 +56,7 @@ class PapayaTemplateSimpleVisitorOutputTest extends PapayaTestCase {
    */
   public function testVisitWithValue() {
     $callbacks = $this
-      ->getMockBuilder(PapayaTemplateSimpleVisitorOutputCallbacks::class)
+      ->getMockBuilder(\PapayaTemplateSimpleVisitorOutputCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onGetValue'))
       ->getMock();
@@ -86,7 +86,7 @@ class PapayaTemplateSimpleVisitorOutputTest extends PapayaTestCase {
    */
   public function testVisitWithValueMappingReturnsNull() {
     $callbacks = $this
-      ->getMockBuilder(PapayaTemplateSimpleVisitorOutputCallbacks::class)
+      ->getMockBuilder(\PapayaTemplateSimpleVisitorOutputCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onGetValue'))
       ->getMock();
@@ -114,7 +114,7 @@ class PapayaTemplateSimpleVisitorOutputTest extends PapayaTestCase {
    * @covers \PapayaTemplateSimpleVisitorOutput::callbacks
    */
   public function testCallbacksGetAfterSet() {
-    $callbacks = $this->createMock(PapayaTemplateSimpleVisitorOutputCallbacks::class);
+    $callbacks = $this->createMock(\PapayaTemplateSimpleVisitorOutputCallbacks::class);
     $visitor = new \PapayaTemplateSimpleVisitorOutput();
     $visitor->callbacks($callbacks);
     $this->assertSame($callbacks, $visitor->callbacks());
@@ -125,6 +125,6 @@ class PapayaTemplateSimpleVisitorOutputTest extends PapayaTestCase {
    */
   public function testCallbacksGetImplicitCreate() {
     $visitor = new \PapayaTemplateSimpleVisitorOutput();
-    $this->assertInstanceOf(PapayaTemplateSimpleVisitorOutputCallbacks::class, $visitor->callbacks());
+    $this->assertInstanceOf(\PapayaTemplateSimpleVisitorOutputCallbacks::class, $visitor->callbacks());
   }
 }

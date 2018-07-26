@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterExceptionCallbackTest extends PapayaTestCase {
+class PapayaFilterExceptionCallbackTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterExceptionCallback::__construct
@@ -64,7 +64,7 @@ class PapayaFilterExceptionCallbackTest extends PapayaTestCase {
       ),
       array(
         'PapayaFilterExceptionCallback_SampleCallback::sample',
-        array(PapayaFilterExceptionCallback_SampleCallback::class, 'sample')
+        array(\PapayaFilterExceptionCallback_SampleCallback::class, 'sample')
       )
     );
   }
@@ -75,7 +75,7 @@ class  PapayaFilterExceptionCallback_SampleCallback {
   }
 }
 
-class PapayaFilterExceptionCallback_TestProxy extends PapayaFilterExceptionCallback {
+class PapayaFilterExceptionCallback_TestProxy extends \PapayaFilterExceptionCallback {
   public function callbackToString($callback) {
     return parent::callbackToString($callback);
   }

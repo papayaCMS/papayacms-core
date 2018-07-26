@@ -18,7 +18,7 @@ use Papaya\Content\Box\Version\Translations;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentBoxVersionTest extends PapayaTestCase {
+class PapayaContentBoxVersionTest extends \PapayaTestCase {
 
   /**
   * @covers Version::save

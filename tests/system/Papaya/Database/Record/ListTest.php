@@ -18,7 +18,7 @@ use Papaya\Database\Record\Collection;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseRecordListTest extends PapayaTestCase {
+class PapayaDatabaseRecordListTest extends \PapayaTestCase {
 
   /**
    * @covers Collection::__construct

@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogElementsTest extends PapayaTestCase {
+class PapayaUiDialogElementsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogElements::__construct
   */
   public function testConstructorWithOwner() {
     $dialog = $this
-      ->getMockBuilder(PapayaUiDialog::class)
+      ->getMockBuilder(\PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $elements = new \PapayaUiDialogElements_TestProxy($dialog);
@@ -38,11 +38,11 @@ class PapayaUiDialogElementsTest extends PapayaTestCase {
     $document = new \PapayaXmlDocument();
     $node = $document->createElement('dummy');
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogElement $element */
-    $element = $this->createMock(PapayaUiDialogElement::class);
+    $element = $this->createMock(\PapayaUiDialogElement::class);
     $element
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $elements = new \PapayaUiDialogElements_TestProxy();
     $elements->add($element);
     $elements->appendTo($node);
@@ -53,7 +53,7 @@ class PapayaUiDialogElementsTest extends PapayaTestCase {
   */
   public function testCollect() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogElement $element */
-    $element = $this->createMock(PapayaUiDialogElement::class);
+    $element = $this->createMock(\PapayaUiDialogElement::class);
     $element
       ->expects($this->once())
       ->method('collect');
@@ -63,5 +63,5 @@ class PapayaUiDialogElementsTest extends PapayaTestCase {
   }
 }
 
-class PapayaUiDialogElements_TestProxy extends PapayaUiDialogElements {
+class PapayaUiDialogElements_TestProxy extends \PapayaUiDialogElements {
 }

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiTokensTest extends PapayaTestCase {
+class PapayaUiTokensTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiTokens::__construct
@@ -67,13 +67,13 @@ class PapayaUiTokensTest extends PapayaTestCase {
   public function testCreateIntegration() {
     $tokens = new \PapayaUiTokens();
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMockBuilder(\PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(\PapayaSession::class)))
       ->getMock();
     $values
       ->expects($this->once())
       ->method('get')
-      ->with($this->isInstanceOf(PapayaUiTokens::class))
+      ->with($this->isInstanceOf(\PapayaUiTokens::class))
       ->will(
         $this->returnValue(
           array('sample_token_two' => array(NULL, 'd41d8cd98f00b204e9800998ecf8427e'))
@@ -83,10 +83,10 @@ class PapayaUiTokensTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('set')
       ->with(
-        $this->isInstanceOf(PapayaUiTokens::class),
+        $this->isInstanceOf(\PapayaUiTokens::class),
         $this->contains(array(NULL, 'd41d8cd98f00b204e9800998ecf8427e'))
       );
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $session
       ->expects($this->any())
       ->method('isActive')
@@ -107,7 +107,7 @@ class PapayaUiTokensTest extends PapayaTestCase {
   */
   public function testCreateWithoutSessionExpectingNull() {
     $tokens = new \PapayaUiTokens();
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $session
       ->expects($this->any())
       ->method('isActive')
@@ -169,7 +169,7 @@ class PapayaUiTokensTest extends PapayaTestCase {
   */
   public function testValidateWithoutSessionExpectingTrue() {
     $tokens = new \PapayaUiTokens();
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $session
       ->expects($this->any())
       ->method('isActive')
@@ -341,9 +341,9 @@ class PapayaUiTokensTest extends PapayaTestCase {
    * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaSession
    */
   public function getSessionObjectFixture($owner, $get = NULL, $set = NULL) {
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
+      ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
       ->getMock();
     $session
@@ -377,7 +377,7 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 }
 
-class PapayaUiTokens_TestProxy extends PapayaUiTokens {
+class PapayaUiTokens_TestProxy extends \PapayaUiTokens {
 
   public $_tokens;
 

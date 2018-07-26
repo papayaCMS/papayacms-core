@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterIpV6Test extends PapayaTestCase {
+class PapayaFilterIpV6Test extends \PapayaTestCase {
   /**
    * @covers \PapayaFilterIpV6::validate
    * @dataProvider getIpV6ValidDataProvider
@@ -39,7 +39,7 @@ class PapayaFilterIpV6Test extends PapayaTestCase {
    */
   public function testValidateExpectingCountMismatch($ip) {
     $ipV6 = new \PapayaFilterIpV6();
-    $this->expectException(PapayaFilterExceptionCountMismatch::class);
+    $this->expectException(\PapayaFilterExceptionCountMismatch::class);
     $ipV6->validate($ip);
   }
 
@@ -49,7 +49,7 @@ class PapayaFilterIpV6Test extends PapayaTestCase {
   */
   public function testValidateExpectingEmptyException() {
     $ipV6 = new \PapayaFilterIpV6();
-    $this->expectException(PapayaFilterExceptionEmpty::class);
+    $this->expectException(\PapayaFilterExceptionEmpty::class);
     $ipV6->validate('');
   }
 
@@ -63,7 +63,7 @@ class PapayaFilterIpV6Test extends PapayaTestCase {
    */
   public function testValidateExpectingPartInvalid($ip) {
     $ipV6 = new \PapayaFilterIpV6();
-    $this->expectException(PapayaFilterExceptionPartInvalid::class);
+    $this->expectException(\PapayaFilterExceptionPartInvalid::class);
     $ipV6->validate($ip);
   }
 

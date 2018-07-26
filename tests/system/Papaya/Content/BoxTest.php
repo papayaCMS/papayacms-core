@@ -20,7 +20,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentBoxTest extends PapayaTestCase {
+class PapayaContentBoxTest extends \PapayaTestCase {
 
   /**
   * @covers Box::load

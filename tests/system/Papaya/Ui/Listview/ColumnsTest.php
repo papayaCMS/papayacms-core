@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiListviewColumnsTest extends PapayaTestCase {
+class PapayaUiListviewColumnsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiListviewColumns::__construct
@@ -23,7 +23,7 @@ class PapayaUiListviewColumnsTest extends PapayaTestCase {
   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListview $listview */
-    $listview = $this->createMock(PapayaUiListview::class);
+    $listview = $this->createMock(\PapayaUiListview::class);
     $columns = new \PapayaUiListviewColumns($listview);
     $this->assertSame(
       $listview, $columns->owner()

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterEmailTest extends PapayaTestCase {
+class PapayaFilterEmailTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterEmail::validate
@@ -30,7 +30,7 @@ class PapayaFilterEmailTest extends PapayaTestCase {
   */
   public function testValidateExpectingException() {
     $filter = new \PapayaFilterEmail();
-    $this->expectException(PapayaFilterExceptionType::class);
+    $this->expectException(\PapayaFilterExceptionType::class);
     $filter->validate('invalid email @dress');
   }
 

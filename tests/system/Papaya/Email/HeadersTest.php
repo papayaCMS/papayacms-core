@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaEmailHeadersTest extends PapayaTestCase {
+class PapayaEmailHeadersTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Email\Headers
   */
   public function testConstruct() {
     $object = new \Papaya\Email\Headers();
-    $this->assertInstanceOf(PapayaHttpHeaders::class, $object);
+    $this->assertInstanceOf(\PapayaHttpHeaders::class, $object);
   }
 
 }

@@ -19,7 +19,7 @@ use Papaya\Content\Languages;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
+class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
 
   /**
   * @covers Selector::languages
@@ -377,7 +377,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
 
   public function getSessionFixture($languageSet = NULL, $languageGet = NULL) {
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
+      ->getMockBuilder(\PapayaSessionValues::class)
       ->disableOriginalConstructor()
       ->getMock();
     if (NULL !== $languageSet) {
@@ -399,7 +399,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
         ->withAnyParameters()
         ->will($this->returnValue(NULL));
     }
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $session
       ->expects($this->any())
       ->method('values')

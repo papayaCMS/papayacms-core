@@ -18,20 +18,20 @@ use Papaya\Content\Theme\Set;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationThemeEditorChangesTest extends PapayaTestCase {
+class PapayaAdministrationThemeEditorChangesTest extends \PapayaTestCase {
 
   /**
    * @covers Changes::appendTo
    */
   public function testAppendTo() {
     $commands = $this
-      ->getMockBuilder(PapayaUiControlCommandController::class)
+      ->getMockBuilder(\PapayaUiControlCommandController::class)
       ->disableOriginalConstructor()
       ->getMock();
     $commands
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $changes = new Changes();
     $changes->commands($commands);
     $this->assertEmpty($changes->getXml());
@@ -42,7 +42,7 @@ class PapayaAdministrationThemeEditorChangesTest extends PapayaTestCase {
    */
   public function testCommandsGetAfterSet() {
     $commands = $this
-      ->getMockBuilder(PapayaUiControlCommandController::class)
+      ->getMockBuilder(\PapayaUiControlCommandController::class)
       ->disableOriginalConstructor()
       ->getMock();
     $changes = new Changes();
@@ -56,7 +56,7 @@ class PapayaAdministrationThemeEditorChangesTest extends PapayaTestCase {
   public function testCommandGetImplicitCreate() {
     $changes = new Changes();
     $changes->papaya($this->mockPapaya()->application());
-    $this->assertInstanceOf(PapayaUiControlCommandController::class, $changes->commands());
+    $this->assertInstanceOf(\PapayaUiControlCommandController::class, $changes->commands());
   }
 
 
@@ -82,7 +82,7 @@ class PapayaAdministrationThemeEditorChangesTest extends PapayaTestCase {
    */
   public function testThemeHandlerGetAfterSet() {
     $command = new Changes();
-    $command->themeHandler($themeHandler = $this->createMock(PapayaThemeHandler::class));
+    $command->themeHandler($themeHandler = $this->createMock(\PapayaThemeHandler::class));
     $this->assertSame($themeHandler, $command->themeHandler());
   }
 
@@ -91,6 +91,6 @@ class PapayaAdministrationThemeEditorChangesTest extends PapayaTestCase {
    */
   public function testThemeHandlerGetImplicitCreate() {
     $command = new Changes();
-    $this->assertInstanceOf(PapayaThemeHandler::class, $command->themeHandler());
+    $this->assertInstanceOf(\PapayaThemeHandler::class, $command->themeHandler());
   }
 }

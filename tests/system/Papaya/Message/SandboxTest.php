@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaMessageSandboxTest extends PapayaTestCase {
+class PapayaMessageSandboxTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaMessageSandbox::__construct
@@ -51,11 +51,11 @@ class PapayaMessageSandboxTest extends PapayaTestCase {
    * @covers \PapayaMessageSandbox::__invoke
    */
   public function testInvokeWithErrorException() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessagePhpException::class));
+      ->with($this->isInstanceOf(\PapayaMessagePhpException::class));
     $sandbox = new \PapayaMessageSandbox(array($this, 'callbackThrowErrorException'));
     $sandbox->papaya($this->mockPapaya()->application(array('messages' => $messages)));
     $this->assertNull($sandbox());
@@ -65,11 +65,11 @@ class PapayaMessageSandboxTest extends PapayaTestCase {
    * @covers \PapayaMessageSandbox::__invoke
    */
   public function testInvokewithLogicException() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageException::class));
+      ->with($this->isInstanceOf(\PapayaMessageException::class));
     $sandbox = new \PapayaMessageSandbox(array($this, 'callbackThrowException'));
     $sandbox->papaya($this->mockPapaya()->application(array('messages' => $messages)));
     $this->assertNull($sandbox());

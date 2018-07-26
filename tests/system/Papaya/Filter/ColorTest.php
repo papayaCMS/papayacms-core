@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterColorTest extends PapayaTestCase {
+class PapayaFilterColorTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterColor::validate
@@ -30,7 +30,7 @@ class PapayaFilterColorTest extends PapayaTestCase {
   */
   public function testValidateExpectingException() {
     $filter = new \PapayaFilterColor();
-    $this->expectException(PapayaFilterExceptionType::class);
+    $this->expectException(\PapayaFilterExceptionType::class);
     $filter->validate('invalid color');
   }
 

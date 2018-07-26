@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaFilterExceptionArrayKeyInvalidTest extends PapayaTestCase {
+class PapayaFilterExceptionArrayKeyInvalidTest extends \PapayaTestCase {
 
   public function testConstructor() {
     $exception = new \PapayaFilterExceptionArrayKeyInvalid('foo');

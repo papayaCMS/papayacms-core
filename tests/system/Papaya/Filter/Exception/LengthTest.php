@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterExceptionLengthTest extends PapayaTestCase {
+class PapayaFilterExceptionLengthTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterExceptionLength::__construct
@@ -51,6 +51,6 @@ class PapayaFilterExceptionLengthTest extends PapayaTestCase {
   }
 }
 
-class PapayaFilterExceptionLength_TestProxy extends PapayaFilterExceptionLength {
+class PapayaFilterExceptionLength_TestProxy extends \PapayaFilterExceptionLength {
 
 }

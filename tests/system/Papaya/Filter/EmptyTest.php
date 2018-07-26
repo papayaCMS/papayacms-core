@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterEmptyTest extends PapayaTestCase {
+class PapayaFilterEmptyTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterEmpty::__construct
@@ -66,7 +66,7 @@ class PapayaFilterEmptyTest extends PapayaTestCase {
    */
   public function testCheckExpectingException($value, $ignoreZero, $ignoreSpaces) {
     $filter = new \PapayaFilterEmpty($ignoreZero, $ignoreSpaces);
-    $this->expectException(PapayaFilterExceptionNotEmpty::class);
+    $this->expectException(\PapayaFilterExceptionNotEmpty::class);
     $filter->validate($value);
   }
 

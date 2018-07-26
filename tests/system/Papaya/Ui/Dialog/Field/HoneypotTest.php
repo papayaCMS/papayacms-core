@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
+class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldHoneypot::__construct
@@ -35,7 +35,7 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
   */
   public function testSetFilterExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filter */
-    $filter = $this->createMock(PapayaFilter::class);
+    $filter = $this->createMock(\PapayaFilter::class);
     $input = new \PapayaUiDialogFieldHoneypot('Caption', 'name');
     $this->expectException(LogicException::class);
     $input->setFilter($filter);
@@ -54,7 +54,7 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
   * @covers \PapayaUiDialogFieldHoneypot
   */
   public function testAppendTo() {
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    $dialog = $this->createMock(\PapayaUiDialog::class);
     $dialog
       ->expects($this->any())
       ->method('isSubmitted')
@@ -74,7 +74,7 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue('group'));
     $collection = $this
-      ->getMockBuilder(PapayaUiDialogFields::class)
+      ->getMockBuilder(\PapayaUiDialogFields::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection
@@ -103,7 +103,7 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
   * @covers \PapayaUiDialogFieldHoneypot
   */
   public function testAppendToExpectingError() {
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    $dialog = $this->createMock(\PapayaUiDialog::class);
     $dialog
       ->expects($this->any())
       ->method('isSubmitted')
@@ -123,7 +123,7 @@ class PapayaUiDialogFieldHoneypotTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue(NULL));
     $collection = $this
-      ->getMockBuilder(PapayaUiDialogFields::class)
+      ->getMockBuilder(\PapayaUiDialogFields::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection

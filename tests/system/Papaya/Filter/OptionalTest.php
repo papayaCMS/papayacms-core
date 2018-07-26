@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterOptionalTest extends PapayaTestCase {
+class PapayaFilterOptionalTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterOptional::__construct
@@ -65,7 +65,7 @@ class PapayaFilterOptionalTest extends PapayaTestCase {
   */
   public function testValidateWithInvalidValueExpectingException() {
     $filter = new \PapayaFilterOptional($innerFilter = new \PapayaFilterInteger(21, 42));
-    $this->expectException(PapayaFilterExceptionRangeMaximum::class);
+    $this->expectException(\PapayaFilterExceptionRangeMaximum::class);
     $this->assertTrue(
       $filter->validate('84')
     );

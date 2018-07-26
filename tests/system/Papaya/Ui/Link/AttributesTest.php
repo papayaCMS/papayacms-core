@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiLinkAttributesTest extends PapayaTestCase {
+class PapayaUiLinkAttributesTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiLinkAttributes::isPopup

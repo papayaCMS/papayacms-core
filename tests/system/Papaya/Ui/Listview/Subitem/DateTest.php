@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiListviewSubitemDateTest extends PapayaTestCase {
+class PapayaUiListviewSubitemDateTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiListviewSubitemDate::__construct

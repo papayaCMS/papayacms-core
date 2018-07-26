@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterNotTest extends PapayaTestCase {
+class PapayaFilterNotTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterNot::__construct
   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filterMock */
-    $filterMock = $this->createMock(PapayaFilter::class);
+    $filterMock = $this->createMock(\PapayaFilter::class);
     $filter = new \PapayaFilterNot($filterMock);
     $this->assertAttributeInstanceOf(
       \PapayaFilter::class, '_filter', $filter
@@ -35,7 +35,7 @@ class PapayaFilterNotTest extends PapayaTestCase {
   */
   public function testValidateExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filterMock */
-    $filterMock = $this->createMock(PapayaFilter::class);
+    $filterMock = $this->createMock(\PapayaFilter::class);
     $filterMock
       ->expects($this->once())
       ->method('validate')
@@ -50,7 +50,7 @@ class PapayaFilterNotTest extends PapayaTestCase {
   */
   public function testValidateExpectingTrue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filterMock */
-    $filterMock = $this->createMock(PapayaFilter::class);
+    $filterMock = $this->createMock(\PapayaFilter::class);
     $filterMock
       ->expects($this->once())
       ->method('validate')
@@ -65,7 +65,7 @@ class PapayaFilterNotTest extends PapayaTestCase {
    */
   public function testFilter() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filterMock */
-    $filterMock = $this->createMock(PapayaFilter::class);
+    $filterMock = $this->createMock(\PapayaFilter::class);
     $filter = new \PapayaFilterNot($filterMock);
     $this->assertEquals('Test', $filter->filter('Test'));
   }
@@ -75,7 +75,7 @@ class PapayaFilterNotTest extends PapayaTestCase {
   *************************************/
 
   public function callbackThrowFilterException() {
-    throw $this->getMockForAbstractClass(PapayaFilterException::class);
+    throw $this->getMockForAbstractClass(\PapayaFilterException::class);
   }
 
 }

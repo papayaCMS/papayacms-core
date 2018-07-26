@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaFileSystemActionScriptTest extends PapayaTestCase {
+class PapayaFileSystemActionScriptTest extends \PapayaTestCase {
 
   /**
    * @covers \Papaya\File\System\Action\Script::__construct

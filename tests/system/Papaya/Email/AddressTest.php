@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaEmailAddressTest extends PapayaTestCase {
+class PapayaEmailAddressTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Email\Address::__construct

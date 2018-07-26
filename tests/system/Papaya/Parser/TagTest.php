@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaParserTagTest extends PapayaTestCase {
+class PapayaParserTagTest extends \PapayaTestCase {
   /**
    * @covers \PapayaParserTag::getXml
    */
@@ -63,7 +63,7 @@ class PapayaParserTagTest extends PapayaTestCase {
   }
 }
 
-class PapayaParserTag_TestProxy extends PapayaParserTag {
+class PapayaParserTag_TestProxy extends \PapayaParserTag {
   public $nodeStub = array();
 
   public function appendTo(PapayaXmlElement $parent) {

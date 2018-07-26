@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaXmlElementTest extends PapayaTestCase {
+class PapayaXmlElementTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaXmlElement::append

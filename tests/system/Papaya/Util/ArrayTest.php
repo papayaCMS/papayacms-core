@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUtilArrayTest extends PapayaTestCase {
+class PapayaUtilArrayTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUtilArray::merge

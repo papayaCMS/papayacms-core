@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaTemplateSimpleScannerTest extends PapayaTestCase {
+class PapayaTemplateSimpleScannerTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaTemplateSimpleScanner::__construct
   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleScannerStatus $status */
-    $status = $this->createMock(PapayaTemplateSimpleScannerStatus::class);
+    $status = $this->createMock(\PapayaTemplateSimpleScannerStatus::class);
     $scanner = new \PapayaTemplateSimpleScanner($status);
     $this->assertAttributeSame(
       $status, '_status', $scanner
@@ -236,7 +236,7 @@ class PapayaTemplateSimpleScannerTest extends PapayaTestCase {
    */
   private function getTokenMockObjectFixture($length) {
     $token = $this
-      ->getMockBuilder(PapayaTemplateSimpleScannerToken::class)
+      ->getMockBuilder(\PapayaTemplateSimpleScannerToken::class)
       ->disableOriginalConstructor()
       ->getMock();
     $token
@@ -252,7 +252,7 @@ class PapayaTemplateSimpleScannerTest extends PapayaTestCase {
    * @return PHPUnit_Framework_MockObject_MockObject
    */
   private function getStatusMockObjectFixture($tokens, $isEndToken = NULL) {
-    $status = $this->createMock(PapayaTemplateSimpleScannerStatus::class);
+    $status = $this->createMock(\PapayaTemplateSimpleScannerStatus::class);
     if (count($tokens) > 0) {
       $status
         ->expects($this->exactly(count($tokens)))
@@ -272,7 +272,7 @@ class PapayaTemplateSimpleScannerTest extends PapayaTestCase {
       $status
         ->expects($this->any())
         ->method('isEndToken')
-        ->with($this->isInstanceOf(PapayaTemplateSimpleScannerToken::class))
+        ->with($this->isInstanceOf(\PapayaTemplateSimpleScannerToken::class))
         ->will($this->returnValue($isEndToken));
     }
     return $status;

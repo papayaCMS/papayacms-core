@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaFilterFactoryProfileIsUrlTest extends PapayaTestCase {
+class PapayaFilterFactoryProfileIsUrlTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterFactoryProfileIsUrl::getFilter
@@ -30,7 +30,7 @@ class PapayaFilterFactoryProfileIsUrlTest extends PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new \PapayaFilterFactoryProfileIsUrl();
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $profile->getFilter()->validate('foo');
   }
 }

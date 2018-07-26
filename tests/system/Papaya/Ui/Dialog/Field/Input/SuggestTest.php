@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
+class PapayaUiDialogFieldInputSuggestTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldInputSuggest::__construct
@@ -41,7 +41,7 @@ class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
   * @covers \PapayaUiDialogFieldInputSuggest::__construct
   */
   public function testConstructorWithAllParameters() {
-    $filter = $this->createMock(PapayaFilter::class);
+    $filter = $this->createMock(\PapayaFilter::class);
     $input = new \PapayaUiDialogFieldInputSuggest(
       'Caption', 'name', 'www.example.com', '50670', $filter
     );
@@ -85,7 +85,7 @@ class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->createMock(PapayaUiDialogFields::class));
+    $input->collection($this->createMock(\PapayaUiDialogFields::class));
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -109,7 +109,7 @@ class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->createMock(PapayaUiDialogFields::class));
+    $input->collection($this->createMock(\PapayaUiDialogFields::class));
     $input->setDefaultValue(50670);
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(

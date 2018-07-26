@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterStringNormalizeTest extends PapayaTestCase {
+class PapayaFilterStringNormalizeTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterStringNormalize
@@ -32,7 +32,7 @@ class PapayaFilterStringNormalizeTest extends PapayaTestCase {
    */
   public function testValidateWithEmptyValueExpectingException() {
     $filter = new \PapayaFilterStringNormalize();
-    $this->expectException(PapayaFilterExceptionEmpty::class);
+    $this->expectException(\PapayaFilterExceptionEmpty::class);
     $filter->validate('');
   }
 
@@ -41,7 +41,7 @@ class PapayaFilterStringNormalizeTest extends PapayaTestCase {
    */
   public function testValidateWithArrayValueExpectingException() {
     $filter = new \PapayaFilterStringNormalize();
-    $this->expectException(PapayaFilterExceptionType::class);
+    $this->expectException(\PapayaFilterExceptionType::class);
     $filter->validate(['foo']);
   }
 

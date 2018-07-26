@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogElementTest extends PapayaTestCase {
+class PapayaUiDialogElementTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogElement::collect
@@ -139,13 +139,13 @@ class PapayaUiDialogElementTest extends PapayaTestCase {
 
   private function getDialogMock() {
     return $this
-      ->getMockBuilder(PapayaUiDialog::class)
+      ->getMockBuilder(\PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
   }
 
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(PapayaUiDialogElements::class);
+    $collection = $this->createMock(\PapayaUiDialogElements::class);
     if ($owner) {
       $collection
         ->expects($this->any())
@@ -165,7 +165,7 @@ class PapayaUiDialogElementTest extends PapayaTestCase {
   }
 }
 
-class PapayaUiDialogElement_TestProxy extends PapayaUiDialogElement {
+class PapayaUiDialogElement_TestProxy extends \PapayaUiDialogElement {
 
   public function appendTo(PapayaXmlElement $parent) {
   }

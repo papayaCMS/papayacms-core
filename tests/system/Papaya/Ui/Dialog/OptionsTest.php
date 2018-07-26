@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogOptionsTest extends PapayaTestCase {
+class PapayaUiDialogOptionsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogOptions::appendTo

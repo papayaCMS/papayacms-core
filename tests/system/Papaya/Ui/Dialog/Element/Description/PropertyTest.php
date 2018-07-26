@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogElementDescriptionPropertyTest extends PapayaTestCase {
+class PapayaUiDialogElementDescriptionPropertyTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogElementDescriptionProperty::__construct

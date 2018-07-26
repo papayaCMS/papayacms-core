@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileSelectMediaFolderTest extends PapayaTestCase {
+class PapayaUiDialogFieldFactoryProfileSelectMediaFolderTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldFactoryProfileSelectMediaFolder::createField
@@ -30,6 +30,6 @@ class PapayaUiDialogFieldFactoryProfileSelectMediaFolderTest extends PapayaTestC
 
     $profile = new \PapayaUiDialogFieldFactoryProfileSelectMediaFolder();
     $profile->options($options);
-    $this->assertInstanceOf(PapayaUiDialogFieldSelectMediaFolder::class, $profile->getField());
+    $this->assertInstanceOf(\PapayaUiDialogFieldSelectMediaFolder::class, $profile->getField());
   }
 }

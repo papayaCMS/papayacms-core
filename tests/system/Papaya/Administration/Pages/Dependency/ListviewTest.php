@@ -21,7 +21,7 @@ use Papaya\Content\Pages;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
+class PapayaAdministrationPagesDependencyListviewTest extends \PapayaTestCase {
 
   /**
   * @covers Listview::__construct
@@ -247,7 +247,7 @@ class PapayaAdministrationPagesDependencyListviewTest extends PapayaTestCase {
    * @return PHPUnit_Framework_MockObject_MockObject|Synchronizations
    */
   public function getSynchronizationsFixture() {
-    $icons = $this->createMock(PapayaUiIconList::class);
+    $icons = $this->createMock(\PapayaUiIconList::class);
     $icons
       ->expects($this->any())
       ->method('getIterator')

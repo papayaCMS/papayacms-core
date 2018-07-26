@@ -17,7 +17,7 @@ use Papaya\Content\Structure\Pages;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaThemeDefinitionTest extends PapayaTestCase {
+class PapayaThemeDefinitionTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaThemeDefinition::load
@@ -27,7 +27,7 @@ class PapayaThemeDefinitionTest extends PapayaTestCase {
     $pages
       ->expects($this->once())
       ->method('load')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
 
     $definition = new \PapayaThemeDefinition();
     $definition->pages($pages);

@@ -18,7 +18,7 @@ use Papaya\Content\Page\Work;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencySynchronizationAccessTest extends PapayaTestCase {
+class PapayaAdministrationPagesDependencySynchronizationAccessTest extends \PapayaTestCase {
 
   /**
   * @covers Access::page

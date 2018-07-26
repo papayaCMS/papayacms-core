@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogButtonsTest extends PapayaTestCase {
+class PapayaUiDialogButtonsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogButtons::add
   */
   public function testAdd() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogButton $button */
-    $button = $this->createMock(PapayaUiDialogButton::class);
+    $button = $this->createMock(\PapayaUiDialogButton::class);
     $buttons = new \PapayaUiDialogButtons();
     $buttons->add($button);
     $this->assertAttributeEquals(

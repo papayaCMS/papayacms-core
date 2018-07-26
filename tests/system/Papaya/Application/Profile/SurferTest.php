@@ -16,7 +16,7 @@
 use Papaya\Application\Profile\Surfer;
 
 require_once __DIR__.'/../../../../bootstrap.php';
-PapayaTestCase::defineConstantDefaults(
+\PapayaTestCase::defineConstantDefaults(
   array(
     'PAPAYA_DB_TBL_SURFER',
     'PAPAYA_DB_TBL_SURFERGROUPS',
@@ -28,7 +28,7 @@ PapayaTestCase::defineConstantDefaults(
   )
 );
 
-class PapayaApplicationProfileSurferTest extends PapayaTestCase {
+class PapayaApplicationProfileSurferTest extends \PapayaTestCase {
 
   /**
   * @covers Surfer::createObject

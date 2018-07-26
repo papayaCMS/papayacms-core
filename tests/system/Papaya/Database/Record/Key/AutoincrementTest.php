@@ -18,7 +18,7 @@ use Papaya\Database\Record\Key\Autoincrement;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordKeyAutoincrementTest extends PapayaTestCase {
+class PapayaDatabaseRecordKeyAutoincrementTest extends \PapayaTestCase {
 
   /**
   * @covers Autoincrement::__construct

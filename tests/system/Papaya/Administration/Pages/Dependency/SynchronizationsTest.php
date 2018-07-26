@@ -20,7 +20,7 @@ use Papaya\Content\Page\Dependency;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTestCase {
+class PapayaAdministrationPagesDependencySynchronizationsTest extends \PapayaTestCase {
 
   /**
   * @covers Synchronizations::getIcons
@@ -28,7 +28,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
   public function testGetIcons() {
     $synchronizations = new Synchronizations();
     $icons = $synchronizations->getIcons();
-    $this->assertInstanceOf(PapayaUiIconList::class, $icons);
+    $this->assertInstanceOf(\PapayaUiIconList::class, $icons);
     $this->assertSame($icons, $synchronizations->getIcons());
   }
 

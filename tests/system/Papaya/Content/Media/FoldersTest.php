@@ -19,7 +19,7 @@ use Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentMediaFoldersTest extends PapayaTestCase {
+class PapayaContentMediaFoldersTest extends \PapayaTestCase {
 
   /**
    * @covers Folders::_createMapping

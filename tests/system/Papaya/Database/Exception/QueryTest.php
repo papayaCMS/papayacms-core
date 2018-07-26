@@ -17,7 +17,7 @@ use Papaya\Database\Exception\Query;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseExceptionQueryTest extends PapayaTestCase {
+class PapayaDatabaseExceptionQueryTest extends \PapayaTestCase {
 
   /**
   * @covers Query::__construct

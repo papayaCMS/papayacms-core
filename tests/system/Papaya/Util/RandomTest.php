@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUtilRandomTest extends PapayaTestCase {
+class PapayaUtilRandomTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUtilRandom::rand

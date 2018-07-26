@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilFilePathTest extends PapayaTestCase {
+class PapayaUtilFilePathTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUtilFilePath::cleanup

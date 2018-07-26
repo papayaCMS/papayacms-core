@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputTest extends PapayaTestCase {
+class PapayaUiDialogFieldInputTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldInput::__construct
@@ -34,7 +34,7 @@ class PapayaUiDialogFieldInputTest extends PapayaTestCase {
   * @covers \PapayaUiDialogFieldInput::__construct
   */
   public function testConstructorWithAllParameters() {
-    $filter = $this->createMock(PapayaFilter::class);
+    $filter = $this->createMock(\PapayaFilter::class);
     $input = new \PapayaUiDialogFieldInput('Caption', 'name', 42, '50670', $filter);
     $this->assertAttributeEquals(
       42, '_maximumLength', $input
@@ -90,7 +90,7 @@ class PapayaUiDialogFieldInputTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->createMock(PapayaUiDialogFields::class));
+    $input->collection($this->createMock(\PapayaUiDialogFields::class));
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -114,7 +114,7 @@ class PapayaUiDialogFieldInputTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->createMock(PapayaUiDialogFields::class));
+    $input->collection($this->createMock(\PapayaUiDialogFields::class));
     $input->setDefaultValue(50670);
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
@@ -139,7 +139,7 @@ class PapayaUiDialogFieldInputTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->createMock(PapayaUiDialogFields::class));
+    $input->collection($this->createMock(\PapayaUiDialogFields::class));
     $input->setType('email');
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(

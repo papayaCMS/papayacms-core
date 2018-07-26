@@ -22,7 +22,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 /**
  * @property array _dependencyRecordData
  */
-class PapayaAdministrationPagesDependencyCommandDeleteTest extends PapayaTestCase {
+class PapayaAdministrationPagesDependencyCommandDeleteTest extends \PapayaTestCase {
   /**
   * @covers Delete::createDialog
   */
@@ -48,11 +48,11 @@ class PapayaAdministrationPagesDependencyCommandDeleteTest extends PapayaTestCas
   * @covers Delete::dispatchDeleteMessage
   */
   public function testDispatchDeleteMessage() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplayTranslated::class));
+      ->with($this->isInstanceOf(\PapayaMessageDisplayTranslated::class));
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages

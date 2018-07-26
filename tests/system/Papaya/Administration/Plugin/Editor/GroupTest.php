@@ -17,7 +17,7 @@ use Papaya\Administration\Plugin\Editor\Group;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
+class PapayaAdministrationPluginEditorGroupTest extends \PapayaTestCase {
 
   /**
    * @covers Group
@@ -25,13 +25,13 @@ class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
   public function testAppendToWithOneEditor() {
     $context = new \PapayaRequestParameters();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
-    $content = $this->createMock(PapayaPluginEditableContent::class);
+    $content = $this->createMock(\PapayaPluginEditableContent::class);
 
     $editorGroup = new Group($content);
     $editorGroup->papaya($this->mockPapaya()->application());
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditor $editor */
-    $editor = $this->createMock(PapayaPluginEditor::class);
+    $editor = $this->createMock(\PapayaPluginEditor::class);
     $editor
       ->expects($this->once())
       ->method('context')
@@ -57,14 +57,14 @@ class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
   public function testAppendToWithOneEditorAndContextData() {
     $context = new \PapayaRequestParameters(array('foo' => 'bar'));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
-    $content = $this->createMock(PapayaPluginEditableContent::class);
+    $content = $this->createMock(\PapayaPluginEditableContent::class);
 
     $editorGroup = new Group($content);
     $editorGroup->papaya($this->mockPapaya()->application());
     $editorGroup->context($context);
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditor $editor */
-    $editor = $this->createMock(PapayaPluginEditor::class);
+    $editor = $this->createMock(\PapayaPluginEditor::class);
     $editor
       ->expects($this->any())
       ->method('context')
@@ -87,7 +87,7 @@ class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
   public function testAppendToWithTwoEditorsSelectingSecond() {
     $context = new \PapayaRequestParameters(array('dialog-index' => 1));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
-    $content = $this->createMock(PapayaPluginEditableContent::class);
+    $content = $this->createMock(\PapayaPluginEditableContent::class);
 
     $editorGroup = new Group($content, 'dialog-index');
     $editorGroup->papaya(
@@ -98,7 +98,7 @@ class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
     $editorGroup->parameters($context);
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditor $editorOne */
-    $editorOne = $this->createMock(PapayaPluginEditor::class);
+    $editorOne = $this->createMock(\PapayaPluginEditor::class);
     $editorOne
       ->expects($this->never())
       ->method('context');
@@ -108,7 +108,7 @@ class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
     $editorGroup->add($editorOne, 'ONE', 'image1');
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditor $editorTwo */
-    $editorTwo = $this->createMock(PapayaPluginEditor::class);
+    $editorTwo = $this->createMock(\PapayaPluginEditor::class);
     $editorTwo
       ->expects($this->once())
       ->method('context')
@@ -133,7 +133,7 @@ class PapayaAdministrationPluginEditorGroupTest extends PapayaTestCase {
    */
   public function testAppendToWithoutEditorExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
-    $content = $this->createMock(PapayaPluginEditableContent::class);
+    $content = $this->createMock(\PapayaPluginEditableContent::class);
     $editorGroup = new Group($content);
     $editorGroup->papaya($this->mockPapaya()->application());
 

@@ -21,7 +21,7 @@ use Papaya\Cache\Service\File;
 
 require_once __DIR__.'/../../bootstrap.php';
 
-class PapayaCacheTest extends PapayaTestCase {
+class PapayaCacheTest extends \PapayaTestCase {
 
   public function tearDown() {
     Cache::reset();

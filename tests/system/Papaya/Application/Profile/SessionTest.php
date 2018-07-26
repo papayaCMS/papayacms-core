@@ -17,7 +17,7 @@ use Papaya\Application\Profile\Session;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileSessionTest extends PapayaTestCase {
+class PapayaApplicationProfileSessionTest extends \PapayaTestCase {
 
   /**
   * @covers Session::createObject

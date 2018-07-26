@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputColorTest extends PapayaTestCase {
+class PapayaUiDialogFieldInputColorTest extends \PapayaTestCase {
   /**
   * @covers \PapayaUiDialogFieldInputColor::__construct
   */

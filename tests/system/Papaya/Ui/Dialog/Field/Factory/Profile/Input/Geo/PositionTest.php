@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileInputGeoPositionTest extends PapayaTestCase {
+class PapayaUiDialogFieldFactoryProfileInputGeoPositionTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldFactoryProfileInputGeoPosition::getField
@@ -30,7 +30,7 @@ class PapayaUiDialogFieldFactoryProfileInputGeoPositionTest extends PapayaTestCa
     );
     $profile = new \PapayaUiDialogFieldFactoryProfileInputGeoPosition();
     $profile->options($options);
-    $this->assertInstanceOf(PapayaUiDialogFieldInputGeoPosition::class, $field = $profile->getField());
+    $this->assertInstanceOf(\PapayaUiDialogFieldInputGeoPosition::class, $field = $profile->getField());
   }
 
   /**

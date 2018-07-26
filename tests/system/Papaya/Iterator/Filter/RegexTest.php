@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaIteratorFilterRegexTest extends PapayaTestCase {
+class PapayaIteratorFilterRegexTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaIteratorFilterRegex::__construct

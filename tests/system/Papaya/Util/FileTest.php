@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUtilFileTest extends PapayaTestCase {
+class PapayaUtilFileTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUtilFile::formatBytes

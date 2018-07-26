@@ -23,7 +23,7 @@ use Papaya\Database\Records\Unbuffered;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
+class PapayaDatabaseRecordsUnbufferedTest extends \PapayaTestCase {
 
   /**
   * @covers Unbuffered::load
@@ -517,7 +517,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   public function testGetItem() {
     $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->_itemClass = \PapayaDatabaseRecordsUnbuffered_TestItemProxy::class;
-    $this->assertInstanceOf(PapayaDatabaseRecordsUnbuffered_TestItemProxy::class, $records->getItem());
+    $this->assertInstanceOf(\PapayaDatabaseRecordsUnbuffered_TestItemProxy::class, $records->getItem());
   }
 
   /**

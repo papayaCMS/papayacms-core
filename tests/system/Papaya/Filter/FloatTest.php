@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterFloatTest extends PapayaTestCase {
+class PapayaFilterFloatTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterFloat::__construct
@@ -52,7 +52,7 @@ class PapayaFilterFloatTest extends PapayaTestCase {
   */
   public function testValidate() {
     $filter = new \PapayaFilterFloat();
-    $this->expectException(PapayaFilterExceptionNotFloat::class);
+    $this->expectException(\PapayaFilterExceptionNotFloat::class);
     $filter->validate('sgs');
   }
 
@@ -61,7 +61,7 @@ class PapayaFilterFloatTest extends PapayaTestCase {
   */
   public function testValidateWithMinimum(){
     $filter = new \PapayaFilterFloat(-20.0);
-    $this->expectException(PapayaFilterExceptionRangeMinimum::class);
+    $this->expectException(\PapayaFilterExceptionRangeMinimum::class);
     $filter->validate('-40');
   }
 
@@ -70,7 +70,7 @@ class PapayaFilterFloatTest extends PapayaTestCase {
   */
   public function testValidateWithMinimumAndMaximum(){
     $filter = new \PapayaFilterFloat(-20.0, 40.5);
-    $this->expectException(PapayaFilterExceptionRangeMaximum::class);
+    $this->expectException(\PapayaFilterExceptionRangeMaximum::class);
     $filter->validate('50');
   }
 

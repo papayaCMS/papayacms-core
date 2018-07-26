@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiPanelFrameTest extends PapayaTestCase {
+class PapayaUiPanelFrameTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiPanelFrame::__construct
@@ -61,7 +61,7 @@ class PapayaUiPanelFrameTest extends PapayaTestCase {
   * @covers \PapayaUiPanelFrame::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $frame = new \PapayaUiPanelFrame('Sample Caption', 'sample_frame');
     $this->assertSame(
       $reference, $frame->reference($reference)

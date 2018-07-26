@@ -19,7 +19,7 @@ use Papaya\Cache\Service\Apc;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaCacheServiceApcTest extends PapayaTestCase {
+class PapayaCacheServiceApcTest extends \PapayaTestCase {
 
   /**
   * @covers Apc::setConfiguration

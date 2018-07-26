@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordKeySequenceTest extends PapayaTestCase {
+class PapayaDatabaseRecordKeySequenceTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Database\Record\Key\Sequence::__construct

@@ -18,7 +18,7 @@ use Papaya\Content\Community\Users;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
+class PapayaAdministrationCommunityUsersListDialogTest extends \PapayaTestCase {
 
   /**
   * @covers Dialog::prepare
@@ -158,7 +158,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   * @covers Dialog::listview
   */
   public function testListviewGetAfterSet() {
-    $listview = $this->createMock(PapayaUiListview::class);
+    $listview = $this->createMock(\PapayaUiListview::class);
     $dialog = new Dialog();
     $dialog->listview($listview);
     $this->assertSame($listview, $dialog->listview());
@@ -170,7 +170,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   public function testListviewImplicitCreate() {
     $dialog = new Dialog();
     $dialog->papaya($this->mockPapaya()->application());
-    $this->assertInstanceOf(PapayaUiListview::class, $dialog->listview());
+    $this->assertInstanceOf(\PapayaUiListview::class, $dialog->listview());
   }
 
   /**
@@ -193,7 +193,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   */
   public function testPagingGetAfterSet() {
     $paging = $this
-      ->getMockBuilder(PapayaUiToolbarPaging::class)
+      ->getMockBuilder(\PapayaUiToolbarPaging::class)
       ->disableOriginalConstructor()
       ->getMock();
     $dialog = new Dialog();
@@ -206,14 +206,14 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   */
   public function testPagingImplicitCreate() {
     $dialog = new Dialog();
-    $this->assertInstanceOf(PapayaUiToolbarPaging::class, $dialog->paging());
+    $this->assertInstanceOf(\PapayaUiToolbarPaging::class, $dialog->paging());
   }
 
   /**
   * @covers Dialog::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $dialog = new Dialog();
     $dialog->reference($reference);
     $this->assertSame($reference, $dialog->reference());
@@ -224,7 +224,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
   */
   public function testReferenceImplicitCreate() {
     $dialog = new Dialog();
-    $this->assertInstanceOf(PapayaUiReference::class, $dialog->reference());
+    $this->assertInstanceOf(\PapayaUiReference::class, $dialog->reference());
   }
 
   /**

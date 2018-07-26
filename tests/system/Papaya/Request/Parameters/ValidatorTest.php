@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \PapayaRequestParametersValidator
  */
-class PapayaRequestParametersValidatorTest extends PapayaTestCase {
+class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
 
   public function testConstructor() {
     $parameters = new \PapayaRequestParameters();

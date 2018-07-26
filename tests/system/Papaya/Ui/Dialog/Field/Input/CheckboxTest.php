@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldInputCheckboxTest extends PapayaTestCase {
+class PapayaUiDialogFieldInputCheckboxTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldInputCheckbox::__construct
@@ -32,7 +32,7 @@ class PapayaUiDialogFieldInputCheckboxTest extends PapayaTestCase {
   */
   public function testGetFilterWithMandatoryTrue() {
     $checkbox = new \PapayaUiDialogFieldInputCheckbox('caption', 'name', TRUE, TRUE);
-    $this->assertInstanceOf(PapayaFilter::class, $checkbox->getFilter());
+    $this->assertInstanceOf(\PapayaFilter::class, $checkbox->getFilter());
   }
 
   /**

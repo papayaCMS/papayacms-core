@@ -17,7 +17,7 @@ use Papaya\Application\Profile\Options;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileOptionsTest extends PapayaTestCase {
+class PapayaApplicationProfileOptionsTest extends \PapayaTestCase {
 
   /**
   * @covers Options::createObject

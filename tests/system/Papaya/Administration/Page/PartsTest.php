@@ -19,7 +19,7 @@ use Papaya\Administration\PapayaAdministrationPage;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationPagePartsTest extends PapayaTestCase {
+class PapayaAdministrationPagePartsTest extends \PapayaTestCase {
 
   /**
    * @covers Parts::__construct
@@ -141,7 +141,7 @@ class PapayaAdministrationPagePartsTest extends PapayaTestCase {
     $parts = new Parts($this->getPageFixture());
     $parts->toolbar(
       $toolbar = $this
-        ->getMockBuilder(PapayaUiToolbarComposed::class)
+        ->getMockBuilder(\PapayaUiToolbarComposed::class)
         ->disableOriginalConstructor()
         ->getMock()
     );
@@ -153,7 +153,7 @@ class PapayaAdministrationPagePartsTest extends PapayaTestCase {
    */
   public function testToolbarGetImplicitCreate() {
     $parts = new Parts($this->getPageFixture());
-    $this->assertInstanceOf(PapayaUiToolbarComposed::class, $parts->toolbar());
+    $this->assertInstanceOf(\PapayaUiToolbarComposed::class, $parts->toolbar());
   }
 
   /**
@@ -193,11 +193,11 @@ class PapayaAdministrationPagePartsTest extends PapayaTestCase {
     $part
       ->expects($this->at(0))
       ->method('parameters')
-      ->with($this->isInstanceOf(PapayaRequestParameters::class));
+      ->with($this->isInstanceOf(\PapayaRequestParameters::class));
     $part
       ->expects($this->at(1))
       ->method('parameters')
-      ->will($this->returnValue($this->createMock(PapayaRequestParameters::class)));
+      ->will($this->returnValue($this->createMock(\PapayaRequestParameters::class)));
     return $part;
   }
 }

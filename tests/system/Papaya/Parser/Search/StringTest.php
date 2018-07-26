@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaParserSearchStringTest extends PapayaTestCase {
+class PapayaParserSearchStringTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaParserSearchStringTest

@@ -18,7 +18,7 @@ use Papaya\Content\Structure\Pages;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentStructurePagesTest extends PapayaTestCase {
+class PapayaContentStructurePagesTest extends \PapayaTestCase {
 
   /**
    * @covers Pages::__construct

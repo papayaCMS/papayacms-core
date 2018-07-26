@@ -20,7 +20,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaAdministrationPermissionsTest extends PapayaTestCase {
+class PapayaAdministrationPermissionsTest extends \PapayaTestCase {
 
   /**
    * @covers Permissions::__construct

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterListMultipleTest extends PapayaTestCase {
+class PapayaFilterListMultipleTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterListMultiple::__construct
@@ -48,7 +48,7 @@ class PapayaFilterListMultipleTest extends PapayaTestCase {
    */
   public function testValidateExpectingException($value, $validValues) {
     $filter = new \PapayaFilterListMultiple($validValues);
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $filter->validate($value);
   }
 

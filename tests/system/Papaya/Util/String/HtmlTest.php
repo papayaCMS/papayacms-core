@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilStringHtmlTest extends PapayaTestCase {
+class PapayaUtilStringHtmlTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUtilStringHtml::escapeStripped

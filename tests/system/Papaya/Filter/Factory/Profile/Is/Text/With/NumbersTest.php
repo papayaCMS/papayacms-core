@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../../bootstrap.php';
 
-class PapayaFilterFactoryProfileIsTextWithNumbersTest extends PapayaTestCase {
+class PapayaFilterFactoryProfileIsTextWithNumbersTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterFactoryProfileIsTextWithNumbers::getFilter
@@ -30,7 +30,7 @@ class PapayaFilterFactoryProfileIsTextWithNumbersTest extends PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new \PapayaFilterFactoryProfileIsTextWithNumbers();
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $profile->getFilter()->validate('');
   }
 }

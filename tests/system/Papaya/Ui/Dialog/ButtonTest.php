@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogButtonTest extends PapayaTestCase {
+class PapayaUiDialogButtonTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogButton::__construct
@@ -33,7 +33,7 @@ class PapayaUiDialogButtonTest extends PapayaTestCase {
   * @covers \PapayaUiDialogButton::__construct
   */
   public function testConstructorWithAlign() {
-    $button = new \PapayaUiDialogButton_TestProxy(PapayaUiDialogButton::ALIGN_LEFT);
+    $button = new \PapayaUiDialogButton_TestProxy(\PapayaUiDialogButton::ALIGN_LEFT);
     $this->assertAttributeEquals(
       \PapayaUiDialogButton::ALIGN_LEFT,
       '_align',
@@ -46,7 +46,7 @@ class PapayaUiDialogButtonTest extends PapayaTestCase {
   */
   public function testSetAlign() {
     $button = new \PapayaUiDialogButton_TestProxy();
-    $button->setAlign(PapayaUiDialogButton::ALIGN_LEFT);
+    $button->setAlign(\PapayaUiDialogButton::ALIGN_LEFT);
     $this->assertAttributeEquals(
       \PapayaUiDialogButton::ALIGN_LEFT,
       '_align',
@@ -55,7 +55,7 @@ class PapayaUiDialogButtonTest extends PapayaTestCase {
   }
 }
 
-class PapayaUiDialogButton_TestProxy extends PapayaUiDialogButton {
+class PapayaUiDialogButton_TestProxy extends \PapayaUiDialogButton {
 
   public function appendTo(PapayaXmlElement $parent) {
   }

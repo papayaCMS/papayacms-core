@@ -15,7 +15,7 @@
 
 include_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaStringUtf8Test extends PapayaTestCase {
+class PapayaStringUtf8Test extends \PapayaTestCase {
 
   /**
    * @covers \PapayaStringUtf8
@@ -133,7 +133,7 @@ class PapayaStringUtf8Test extends PapayaTestCase {
     $string = new \PapayaStringUtf8('ÄÖÜ Hellö ÄÖÜ');
     $string->setMode($mode);
     $substring = $string->substr(4, 5);
-    $this->assertInstanceOf(PapayaStringUtf8::class, $substring);
+    $this->assertInstanceOf(\PapayaStringUtf8::class, $substring);
     $this->assertEquals('Hellö', (string)$substring);
   }
 
@@ -201,13 +201,13 @@ class PapayaStringUtf8Test extends PapayaTestCase {
   public function dataProviderSupportedModes() {
     $modes = array();
     if (extension_loaded('intl')) {
-      $modes['intl'] = array(PapayaStringUtf8::MODE_INTL);
+      $modes['intl'] = array(\PapayaStringUtf8::MODE_INTL);
     }
     if (extension_loaded('iconv')) {
-      $modes['iconv'] = array(PapayaStringUtf8::MODE_ICONV);
+      $modes['iconv'] = array(\PapayaStringUtf8::MODE_ICONV);
     }
     if (extension_loaded('mbstring')) {
-      $modes['mbstring'] = array(PapayaStringUtf8::MODE_MBSTRING);
+      $modes['mbstring'] = array(\PapayaStringUtf8::MODE_MBSTRING);
     }
     return $modes;
   }

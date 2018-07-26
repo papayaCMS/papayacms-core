@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleAstNodeValueTest extends PapayaTestCase {
+class PapayaTemplateSimpleAstNodeValueTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaTemplateSimpleAstNodeValue::__construct

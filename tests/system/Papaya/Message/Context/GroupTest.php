@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessageContextGroupTest extends PapayaTestCase {
+class PapayaMessageContextGroupTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaMessageContextGroup::append
   */
   public function testAppend() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $element */
-    $element = $this->createMock(PapayaMessageContextInterface::class);
+    $element = $this->createMock(\PapayaMessageContextInterface::class);
     $group = new \PapayaMessageContextGroup();
     $this->assertSame(
       $group,
@@ -145,19 +145,19 @@ class PapayaMessageContextGroupTest extends PapayaTestCase {
   public function getContextGroupFixture() {
     $group = new \PapayaMessageContextGroup();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $elementLabeled */
-    $elementLabeled = $this->createMock(PapayaMessageContextInterfaceLabeled::class);
+    $elementLabeled = $this->createMock(\PapayaMessageContextInterfaceLabeled::class);
     $elementLabeled
       ->expects($this->any())
       ->method('getLabel')
       ->will($this->returnValue('Universe'));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $elementString */
-    $elementString = $this->createMock(PapayaMessageContextInterfaceString::class);
+    $elementString = $this->createMock(\PapayaMessageContextInterfaceString::class);
     $elementString
       ->expects($this->any())
       ->method('asString')
       ->willReturn(/** @lang Text */'Hello <World>');
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $elementXhtml */
-    $elementXhtml = $this->createMock(PapayaMessageContextInterfaceXhtml::class);
+    $elementXhtml = $this->createMock(\PapayaMessageContextInterfaceXhtml::class);
     $elementXhtml
       ->expects($this->any())
       ->method('asXhtml')

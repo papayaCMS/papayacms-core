@@ -16,9 +16,9 @@
 use Papaya\Url;
 
 require_once __DIR__.'/../bootstrap.php';
-PapayaTestCase::defineConstantDefaults('PAPAYA_URL_EXTENSION');
+\PapayaTestCase::defineConstantDefaults('PAPAYA_URL_EXTENSION');
 
-class PapayaLibSystemBaseObjectTest extends PapayaTestCase {
+class PapayaLibSystemBaseObjectTest extends \PapayaTestCase {
 
   /**
    * @group Bug2474

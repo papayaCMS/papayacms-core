@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaXmlXpathTest extends PapayaTestCase {
+class PapayaXmlXpathTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaXmlXpath::__construct

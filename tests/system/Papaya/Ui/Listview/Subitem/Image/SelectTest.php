@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiListviewSubitemImageSelectTest extends PapayaTestCase {
+class PapayaUiListviewSubitemImageSelectTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiListviewSubitemImageSelect::__construct
@@ -23,7 +23,7 @@ class PapayaUiListviewSubitemImageSelectTest extends PapayaTestCase {
   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
-    $icons = $this->createMock(PapayaUiIconList::class);
+    $icons = $this->createMock(\PapayaUiIconList::class);
     $subitem = new \PapayaUiListviewSubitemImageSelect($icons, 'foo');
     $this->assertSame($icons, $subitem->icons);
     $this->assertEquals('foo', $subitem->selection);
@@ -34,15 +34,15 @@ class PapayaUiListviewSubitemImageSelectTest extends PapayaTestCase {
   */
   public function testAppendToWithIcon() {
     $icon = $this
-      ->getMockBuilder(PapayaUiIcon::class)
+      ->getMockBuilder(\PapayaUiIcon::class)
       ->disableOriginalConstructor()
       ->getMock();
     $icon
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
-    $icons = $this->createMock(PapayaUiIconList::class);
+    $icons = $this->createMock(\PapayaUiIconList::class);
     $icons
       ->expects($this->once())
       ->method('offsetExists')
@@ -70,7 +70,7 @@ class PapayaUiListviewSubitemImageSelectTest extends PapayaTestCase {
   */
   public function testAppendToWithoutIcon() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
-    $icons = $this->createMock(PapayaUiIconList::class);
+    $icons = $this->createMock(\PapayaUiIconList::class);
     $icons
       ->expects($this->once())
       ->method('offsetExists')

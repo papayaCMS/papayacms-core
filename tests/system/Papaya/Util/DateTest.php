@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUtilDateTest extends PapayaTestCase {
+class PapayaUtilDateTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUtilDate::stringToTimestamp

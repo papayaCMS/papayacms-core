@@ -18,7 +18,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentBoxTranslationTest extends PapayaTestCase {
+class PapayaContentBoxTranslationTest extends \PapayaTestCase {
 
   /**
   * @covers Translation::load

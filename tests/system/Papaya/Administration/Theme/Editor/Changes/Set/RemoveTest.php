@@ -18,7 +18,7 @@ use Papaya\Database\Interfaces\Record;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaAdministrationThemeEditorChangesSetRemoveTest extends PapayaTestCase {
+class PapayaAdministrationThemeEditorChangesSetRemoveTest extends \PapayaTestCase {
 
   /**
    * @covers Remove::createDialog
@@ -100,11 +100,11 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends PapayaTestCase
    * @covers Remove::callbackDeleted
    */
   public function testCallbackDeleted() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplay::class));
+      ->with($this->isInstanceOf(\PapayaMessageDisplay::class));
     /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Remove($record);

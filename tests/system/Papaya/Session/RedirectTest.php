@@ -17,7 +17,7 @@ use Papaya\Url;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaSessionRedirectTest extends PapayaTestCase {
+class PapayaSessionRedirectTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaSessionRedirect::__construct
@@ -122,7 +122,7 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   */
   public function testSend() {
     $application = $this->mockPapaya()->application();
-    $helper = $this->createMock(PapayaResponseHelper::class);
+    $helper = $this->createMock(\PapayaResponseHelper::class);
     $helper
       ->expects($this->exactly(8))
       ->method('header')

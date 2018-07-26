@@ -17,7 +17,7 @@ use Papaya\Database\Interfaces\Record;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiControlCommandDialogDatabaseRecordTest extends PapayaTestCase {
+class PapayaUiControlCommandDialogDatabaseRecordTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiControlCommandDialogDatabaseRecord::__construct
@@ -50,7 +50,7 @@ class PapayaUiControlCommandDialogDatabaseRecordTest extends PapayaTestCase {
     $command->papaya($this->mockPapaya()->application());
     /** @var \PapayaUiDialogDatabaseSave $dialog */
     $dialog = $command->dialog();
-    $this->assertInstanceOf(PapayaUiDialogDatabaseSave::class, $dialog);
+    $this->assertInstanceOf(\PapayaUiDialogDatabaseSave::class, $dialog);
     $this->assertSame($command->papaya(), $dialog->papaya());
     $this->assertSame($record, $dialog->record());
   }
@@ -68,7 +68,7 @@ class PapayaUiControlCommandDialogDatabaseRecordTest extends PapayaTestCase {
     $command->papaya($this->mockPapaya()->application());
     /** @var \PapayaUiDialogDatabaseDelete $dialog */
     $dialog = $command->dialog();
-    $this->assertInstanceOf(PapayaUiDialogDatabaseDelete::class, $dialog);
+    $this->assertInstanceOf(\PapayaUiDialogDatabaseDelete::class, $dialog);
     $this->assertSame($command->papaya(), $dialog->papaya());
     $this->assertSame($record, $dialog->record());
   }

@@ -19,7 +19,7 @@ use Papaya\Content\Structure\Values;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentStructureGroupTest extends PapayaTestCase {
+class PapayaContentStructureGroupTest extends \PapayaTestCase {
 
   /**
    * @covers Group::__construct

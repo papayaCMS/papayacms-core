@@ -19,7 +19,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
+class PapayaAdministrationPagesDependencyCounterTest extends \PapayaTestCase {
 
   /**
   * @covers Counter::__construct

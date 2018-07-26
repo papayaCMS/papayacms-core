@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiNavigationItemTextTest extends PapayaTestCase {
+class PapayaUiNavigationItemTextTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiNavigationItemText::appendTo

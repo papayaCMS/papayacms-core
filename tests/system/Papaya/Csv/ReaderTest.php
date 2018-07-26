@@ -17,7 +17,7 @@ use Papaya\Csv\Reader;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaCsvReaderTest extends PapayaTestCase {
+class PapayaCsvReaderTest extends \PapayaTestCase {
 
   /**
   * @covers Reader::__construct

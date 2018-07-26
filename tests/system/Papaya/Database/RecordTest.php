@@ -23,7 +23,7 @@ use Papaya\Database\Record\Callbacks;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaDatabaseRecordTest extends PapayaTestCase {
+class PapayaDatabaseRecordTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Database\Record::__construct

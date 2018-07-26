@@ -19,7 +19,7 @@ use Papaya\Content\Page\Reference;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesReferenceCommandDeleteTest extends PapayaTestCase {
+class PapayaAdministrationPagesReferenceCommandDeleteTest extends \PapayaTestCase {
   /**
   * @covers Delete::createDialog
   */
@@ -45,11 +45,11 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends PapayaTestCase
   * @covers Delete::dispatchDeleteMessage
   */
   public function testDispatchDeleteMessage() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplayTranslated::class));
+      ->with($this->isInstanceOf(\PapayaMessageDisplayTranslated::class));
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages

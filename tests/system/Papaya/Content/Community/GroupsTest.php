@@ -19,7 +19,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentCommunityGroupsTest extends PapayaTestCase {
+class PapayaContentCommunityGroupsTest extends \PapayaTestCase {
 
   /**
   * @covers Groups::loadByPermission

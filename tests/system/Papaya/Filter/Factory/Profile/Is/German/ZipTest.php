@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaFilterFactoryProfileIsGermanZipTest extends PapayaTestCase {
+class PapayaFilterFactoryProfileIsGermanZipTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterFactoryProfileIsGermanZip::getFilter
@@ -32,7 +32,7 @@ class PapayaFilterFactoryProfileIsGermanZipTest extends PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new \PapayaFilterFactoryProfileIsGermanZip();
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $profile->getFilter()->validate('foo');
   }
 

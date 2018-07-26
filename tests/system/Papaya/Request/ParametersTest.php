@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaRequestParametersTest extends PapayaTestCase {
+class PapayaRequestParametersTest extends \PapayaTestCase {
 
   public function testCreateFromString() {
     $parameters = \PapayaRequestParameters::createFromString('foo=42&bar=21');

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiToolbarSelectButtonsTest extends PapayaTestCase {
+class PapayaUiToolbarSelectButtonsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiToolbarSelectButtons::appendTo

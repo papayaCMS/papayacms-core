@@ -19,7 +19,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPagesPublicationsTest extends PapayaTestCase {
+class PapayaContentPagesPublicationsTest extends \PapayaTestCase {
 
   /**
   * @covers Publications::__construct

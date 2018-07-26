@@ -19,7 +19,7 @@ use Papaya\Controller\Factory;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaControllerFactoryTest extends PapayaTestCase {
+class PapayaControllerFactoryTest extends \PapayaTestCase {
 
   /**
   * @covers Factory::createError

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaHttpClientSocketTest extends PapayaTestCase {
+class PapayaHttpClientSocketTest extends \PapayaTestCase {
 
   public function getMemoryStreamFixture($data = '', $mode = 'w+') {
     $ms = fopen('php://memory', $mode);
@@ -50,7 +50,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $port = 80;
     $socket = new \PapayaHttpClientSocket();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
-    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
+    $pool = $this->createMock(\PapayaHttpClientSocketPool::class);
     $ms = $this->getMemoryStreamFixture('TEST');
     $pool
       ->expects($this->once())
@@ -80,7 +80,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket->setResource($ms);
     $socket->setContentLength(4);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
-    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
+    $pool = $this->createMock(\PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->once())
       ->method('putConnection');
@@ -134,7 +134,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket->setResource($ms);
     $socket->setContentLength(-2);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
-    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
+    $pool = $this->createMock(\PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->once())
       ->method('putConnection');
@@ -228,7 +228,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket->setResource($ms);
     $socket->setContentLength(0);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
-    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
+    $pool = $this->createMock(\PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->once())
       ->method('putConnection');
@@ -243,7 +243,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket->setResource($ms);
     $socket->setContentLength(4);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
-    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
+    $pool = $this->createMock(\PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->once())
       ->method('putConnection');
@@ -259,7 +259,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket->setResource($ms);
     $socket->setContentLength(10 * 1024 * 1024);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
-    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
+    $pool = $this->createMock(\PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->never())
       ->method('putConnection');
@@ -274,7 +274,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket->setResource($ms);
     $socket->setContentLength(-1);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
-    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
+    $pool = $this->createMock(\PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->never())
       ->method('putConnection');
@@ -295,7 +295,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $socket->setResource($ms);
     $socket->setContentLength(0);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
-    $pool = $this->createMock(PapayaHttpClientSocketPool::class);
+    $pool = $this->createMock(\PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->never())
       ->method('putConnection');
@@ -306,13 +306,13 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testGetPool() {
     $socket = new \PapayaHttpClientSocket();
-    $this->assertInstanceOf(PapayaHttpClientSocketPool::class, $socket->getPool());
+    $this->assertInstanceOf(\PapayaHttpClientSocketPool::class, $socket->getPool());
   }
 
   public function testSetPool() {
     $socket = new \PapayaHttpClientSocket();
     $socket->setPool(new \PapayaHttpClientSocketPool);
-    $this->assertAttributeInstanceOf(PapayaHttpClientSocketPool::class, '_pool', $socket);
+    $this->assertAttributeInstanceOf(\PapayaHttpClientSocketPool::class, '_pool', $socket);
   }
 
   public function testSetKeepAliveWithInvalidType() {
@@ -381,7 +381,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
   }
 }
 
-class PapayaHttpClientSocket_TestProxyForTimeout extends PapayaHttpClientSocket {
+class PapayaHttpClientSocket_TestProxyForTimeout extends \PapayaHttpClientSocket {
   public function hasTimedOut() {
     return TRUE;
   }

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
+class PapayaUiDialogFieldBuilderArrayTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldBuilderArray::__construct
@@ -49,12 +49,12 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
         'context' => $owner = new stdClass
       )
     );
-    $fieldFactory = $this->createMock(PapayaUiDialogFieldFactory::class);
+    $fieldFactory = $this->createMock(\PapayaUiDialogFieldFactory::class);
     $fieldFactory
       ->expects($this->once())
       ->method('getField')
       ->with('input', $expectedOptions)
-      ->will($this->returnValue($this->createMock(PapayaUiDialogField::class)));
+      ->will($this->returnValue($this->createMock(\PapayaUiDialogField::class)));
     $editFields = array(
       'field' => array('Field caption', '', TRUE, 'input', 42)
     );
@@ -85,12 +85,12 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
         'context' => $owner = new stdClass
       )
     );
-    $fieldFactory = $this->createMock(PapayaUiDialogFieldFactory::class);
+    $fieldFactory = $this->createMock(\PapayaUiDialogFieldFactory::class);
     $fieldFactory
       ->expects($this->once())
       ->method('getField')
       ->with('input', $expectedOptions)
-      ->will($this->returnValue($this->createMock(PapayaUiDialogField::class)));
+      ->will($this->returnValue($this->createMock(\PapayaUiDialogField::class)));
     $editFields = array(
       'field' => array('Field caption', 'isHtmlColor', TRUE, 'input', 42)
     );
@@ -117,12 +117,12 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
         'context' => $owner = new stdClass
       )
     );
-    $fieldFactory = $this->createMock(PapayaUiDialogFieldFactory::class);
+    $fieldFactory = $this->createMock(\PapayaUiDialogFieldFactory::class);
     $fieldFactory
       ->expects($this->once())
       ->method('getField')
       ->with('input', $expectedOptions)
-      ->will($this->returnValue($this->createMock(PapayaUiDialogField::class)));
+      ->will($this->returnValue($this->createMock(\PapayaUiDialogField::class)));
     $editFields = array(
       'field' => array('Field caption', '', FALSE, 'disabled_input', 42)
     );
@@ -130,7 +130,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
     $builder->fieldFactory($fieldFactory);
     $fields = $builder->getFields();
     $this->assertCount(1, $fields);
-    $this->assertInstanceOf(PapayaUiDialogField::class, $fields[0]);
+    $this->assertInstanceOf(\PapayaUiDialogField::class, $fields[0]);
   }
 
   /**
@@ -152,12 +152,12 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
         'context' => $owner = new stdClass
       )
     );
-    $fieldFactory = $this->createMock(PapayaUiDialogFieldFactory::class);
+    $fieldFactory = $this->createMock(\PapayaUiDialogFieldFactory::class);
     $fieldFactory
       ->expects($this->once())
       ->method('getField')
       ->with('input', $expectedOptions)
-      ->will($this->returnValue($this->createMock(PapayaUiDialogField::class)));
+      ->will($this->returnValue($this->createMock(\PapayaUiDialogField::class)));
     $editFields = array(
       'Group caption',
       'field' => array('Field caption', '', FALSE, 'input', 42)
@@ -210,7 +210,7 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
   */
   public function testFieldFactoryGetAfterSet() {
     $builder = new \PapayaUiDialogFieldBuilderArray(new stdClass, array(), TRUE);
-    $builder->fieldFactory($factory = $this->createMock(PapayaUiDialogFieldFactory::class));
+    $builder->fieldFactory($factory = $this->createMock(\PapayaUiDialogFieldFactory::class));
     $this->assertSame($factory, $builder->fieldFactory());
   }
 
@@ -219,6 +219,6 @@ class PapayaUiDialogFieldBuilderArrayTest extends PapayaTestCase {
   */
   public function testFieldFactoryGetImplicitCreate() {
     $builder = new \PapayaUiDialogFieldBuilderArray(new stdClass, array(), TRUE);
-    $this->assertInstanceOf(PapayaUiDialogFieldFactory::class, $builder->fieldFactory());
+    $this->assertInstanceOf(\PapayaUiDialogFieldFactory::class, $builder->fieldFactory());
   }
 }

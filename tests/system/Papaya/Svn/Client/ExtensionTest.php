@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaSvnClientExtensionTest extends PapayaTestCase {
+class PapayaSvnClientExtensionTest extends \PapayaTestCase {
 
   protected function setUp() {
     if (!extension_loaded('svn')) {

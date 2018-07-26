@@ -18,7 +18,7 @@ use Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentCommunityUsersTest extends PapayaTestCase {
+class PapayaContentCommunityUsersTest extends \PapayaTestCase {
 
   /**
    * @covers Users::_compileCondition

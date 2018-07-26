@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterIpV4Test extends PapayaTestCase {
+class PapayaFilterIpV4Test extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterIpV4::__construct
@@ -91,7 +91,7 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
    */
   public function testValidateExceptionCountMismatch($ip) {
     $filter = new \PapayaFilterIpV4();
-    $this->expectException(PapayaFilterExceptionCountMismatch::class);
+    $this->expectException(\PapayaFilterExceptionCountMismatch::class);
     $filter->validate($ip);
   }
 
@@ -114,7 +114,7 @@ class PapayaFilterIpV4Test extends PapayaTestCase {
    */
   public function testValidateExceptionPartInvalid($ip) {
     $filter = new \PapayaFilterIpV4();
-    $this->expectException(PapayaFilterExceptionPartInvalid::class);
+    $this->expectException(\PapayaFilterExceptionPartInvalid::class);
     $filter->validate($ip);
   }
 

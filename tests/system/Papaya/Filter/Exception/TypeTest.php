@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterExceptionTypeTest extends PapayaTestCase {
+class PapayaFilterExceptionTypeTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterExceptionType::__construct

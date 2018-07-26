@@ -18,7 +18,7 @@ use Papaya\Administration\Languages\Selector;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationLanguagesCaptionTest extends PapayaTestCase {
+class PapayaAdministrationLanguagesCaptionTest extends \PapayaTestCase {
 
   /**
   * @covers Caption

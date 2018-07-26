@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaStringTransliterationAsciiTest extends PapayaTestCase {
+class PapayaStringTransliterationAsciiTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaStringTransliterationAscii::transliterate
@@ -36,7 +36,7 @@ class PapayaStringTransliterationAsciiTest extends PapayaTestCase {
   * @covers \PapayaStringTransliterationAscii::mapping
   */
   public function testMappingGetAfterSet() {
-    $mapping = $this->createMock(PapayaStringTransliterationAsciiMapping::class);
+    $mapping = $this->createMock(\PapayaStringTransliterationAsciiMapping::class);
     $transliteratorOne = new \PapayaStringTransliterationAscii();
     $transliteratorTwo = new \PapayaStringTransliterationAscii();
     $transliteratorOne->mapping($mapping);
@@ -52,7 +52,7 @@ class PapayaStringTransliterationAsciiTest extends PapayaTestCase {
     $mappingOne = $transliterator->mapping();
     $transliterator->resetMapping();
     $mappingTwo = $transliterator->mapping();
-    $this->assertInstanceOf(PapayaStringTransliterationAsciiMapping::class, $mappingTwo);
+    $this->assertInstanceOf(\PapayaStringTransliterationAsciiMapping::class, $mappingTwo);
     $this->assertNotSame($mappingOne, $mappingTwo);
   }
 

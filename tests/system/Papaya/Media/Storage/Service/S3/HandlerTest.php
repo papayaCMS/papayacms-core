@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaMediaStorageServiceS3HandlerTest extends PapayaTestCase {
+class PapayaMediaStorageServiceS3HandlerTest extends \PapayaTestCase {
 
   private function getMockConfigurationObjectFixture() {
     $configuration = $this->mockPapaya()->options(
@@ -31,12 +31,12 @@ class PapayaMediaStorageServiceS3HandlerTest extends PapayaTestCase {
     $configuration = $this->getMockConfigurationObjectFixture();
     $service = new \PapayaMediaStorageServiceS3Handler($configuration);
     $service->initHTTPClient();
-    $this->assertInstanceOf(PapayaHttpClient::class, $this->readAttribute($service, '_client'));
+    $this->assertInstanceOf(\PapayaHttpClient::class, $this->readAttribute($service, '_client'));
   }
 
   public function testSetHTTPClient() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClient $client */
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $configuration = $this->getMockConfigurationObjectFixture();
     $handler = new \PapayaMediaStorageServiceS3Handler($configuration);
     $handler->setHTTPClient($client);
@@ -53,7 +53,7 @@ class PapayaMediaStorageServiceS3HandlerTest extends PapayaTestCase {
    */
   public function testGetSignatureData(array $headers, $url, $expected) {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClient $client */
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $client
       ->expects($this->once())
       ->method('getMethod')
@@ -81,7 +81,7 @@ class PapayaMediaStorageServiceS3HandlerTest extends PapayaTestCase {
 
   public function testGetSignatureDataExpectingErrorBucketStart() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClient $client */
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $client->expects($this->once())
            ->method('getMethod')
            ->will($this->returnValue('GET'));
@@ -99,7 +99,7 @@ class PapayaMediaStorageServiceS3HandlerTest extends PapayaTestCase {
 
   public function testGetSignatureDataExpectingErrorBucketEnd() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClient $client */
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $client->expects($this->once())
            ->method('getMethod')
            ->will($this->returnValue('GET'));
@@ -135,7 +135,7 @@ class PapayaMediaStorageServiceS3HandlerTest extends PapayaTestCase {
     $handler = new \PapayaMediaStorageServiceS3Handler($configuration);
     $url = 'http://sample_bucket.s3.amazonaws.com/sample_group/sample_id';
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClient $client */
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $client
       ->expects($this->once())
       ->method('reset');
@@ -182,7 +182,7 @@ class PapayaMediaStorageServiceS3HandlerTest extends PapayaTestCase {
       'Header2' => 'Header2Value',
     );
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClient $client */
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $client
       ->expects($this->once())
       ->method('setMethod')

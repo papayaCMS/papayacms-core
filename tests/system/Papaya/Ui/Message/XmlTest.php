@@ -15,13 +15,13 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiMessageXmlTest extends PapayaTestCase {
+class PapayaUiMessageXmlTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiMessageText::appendTo
   */
   public function testAppendTo() {
-    $message = new \PapayaUiMessageXml(PapayaUiMessage::SEVERITY_ERROR, 'sample', 'content', TRUE);
+    $message = new \PapayaUiMessageXml(\PapayaUiMessage::SEVERITY_ERROR, 'sample', 'content', TRUE);
     $this->assertEquals(
       /** @lang XML */'<error event="sample" occured="yes">content</error>', $message->getXml()
     );

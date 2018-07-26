@@ -15,13 +15,13 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaFilterFactoryProfileIsPhoneTest extends PapayaTestCase {
+class PapayaFilterFactoryProfileIsPhoneTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterFactoryProfileIsPhone::getFilter
    */
   public function testGetFilterExpectTrue() {
     $profile = new \PapayaFilterFactoryProfileIsPhone();
-    $this->assertInstanceOf(PapayaFilterPhone::class, $profile->getFilter());
+    $this->assertInstanceOf(\PapayaFilterPhone::class, $profile->getFilter());
   }
 }

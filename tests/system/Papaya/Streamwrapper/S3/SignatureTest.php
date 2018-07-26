@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaStreamwrapperS3SignatureTest extends PapayaTestCase {
+class PapayaStreamwrapperS3SignatureTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaStreamwrapperS3Signature::__construct

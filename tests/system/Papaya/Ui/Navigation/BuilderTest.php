@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiNavigationBuilderTest extends PapayaTestCase {
+class PapayaUiNavigationBuilderTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiNavigationBuilder::__construct
@@ -64,18 +64,18 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
   * @covers \PapayaUiNavigationBuilder::appendTo
   */
   public function testAppendTo() {
-    $items = $this->createMock(PapayaUiNavigationItems::class);
+    $items = $this->createMock(\PapayaUiNavigationItems::class);
     $items
       ->expects($this->once())
       ->method('clear');
     $items
       ->expects($this->once())
       ->method('add')
-      ->with($this->isInstanceOf(PapayaUiNavigationItem::class));
+      ->with($this->isInstanceOf(\PapayaUiNavigationItem::class));
     $items
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
 
     $builder = new \PapayaUiNavigationBuilder(array('1' => 'Item One'));
     $builder->papaya($this->mockPapaya()->application());
@@ -88,7 +88,7 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
   */
   public function testAppendToWithCallbacks() {
     $callbacks = $this
-      ->getMockBuilder(PapayaUiNavigationBuilderCallbacks::class)
+      ->getMockBuilder(\PapayaUiNavigationBuilderCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array('onBeforeAppend', 'onAfterAppend', 'onCreateItem', 'onAfterAppendItem', '__isset')
@@ -97,11 +97,11 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
     $callbacks
       ->expects($this->once())
       ->method('onBeforeAppend')
-      ->with($this->isInstanceOf(PapayaUiNavigationItems::class));
+      ->with($this->isInstanceOf(\PapayaUiNavigationItems::class));
     $callbacks
       ->expects($this->once())
       ->method('onAfterAppend')
-      ->with($this->isInstanceOf(PapayaUiNavigationItems::class));
+      ->with($this->isInstanceOf(\PapayaUiNavigationItems::class));
     $callbacks
       ->expects($this->once())
       ->method('__isset')
@@ -115,20 +115,20 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
     $callbacks
       ->expects($this->once())
       ->method('onAfterAppendItem')
-      ->with($this->isInstanceOf(PapayaUiNavigationItem::class), 'Item One', 1);
+      ->with($this->isInstanceOf(\PapayaUiNavigationItem::class), 'Item One', 1);
 
-    $items = $this->createMock(PapayaUiNavigationItems::class);
+    $items = $this->createMock(\PapayaUiNavigationItems::class);
     $items
       ->expects($this->once())
       ->method('clear');
     $items
       ->expects($this->once())
       ->method('add')
-      ->with($this->isInstanceOf(PapayaUiNavigationItem::class));
+      ->with($this->isInstanceOf(\PapayaUiNavigationItem::class));
     $items
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
 
     $builder = new \PapayaUiNavigationBuilder(array('1' => 'Item One'));
     $builder->papaya($this->mockPapaya()->application());
@@ -154,7 +154,7 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
   */
   public function testItemsGetAfterSet() {
     $items = $this
-      ->getMockBuilder(PapayaUiNavigationItems::class)
+      ->getMockBuilder(\PapayaUiNavigationItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $builder = new \PapayaUiNavigationBuilder(array());
@@ -179,7 +179,7 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
   */
   public function testCallbacksGetAfterSet() {
     $callbacks = $this
-      ->getMockBuilder(PapayaUiNavigationBuilderCallbacks::class)
+      ->getMockBuilder(\PapayaUiNavigationBuilderCallbacks::class)
       ->disableOriginalConstructor()
       ->getMock();
     $builder = new \PapayaUiNavigationBuilder(array());

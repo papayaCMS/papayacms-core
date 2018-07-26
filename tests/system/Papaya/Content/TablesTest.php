@@ -17,7 +17,7 @@ use Papaya\Content\Tables;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentTablesTest extends PapayaTestCase {
+class PapayaContentTablesTest extends \PapayaTestCase {
 
   /**
   * @covers Tables::get

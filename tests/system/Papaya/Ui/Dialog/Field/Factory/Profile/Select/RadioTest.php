@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileSelectRadioTest extends PapayaTestCase {
+class PapayaUiDialogFieldFactoryProfileSelectRadioTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldFactoryProfileSelectRadio::createField
@@ -31,6 +31,6 @@ class PapayaUiDialogFieldFactoryProfileSelectRadioTest extends PapayaTestCase {
     );
     $profile = new \PapayaUiDialogFieldFactoryProfileSelectRadio();
     $profile->options($options);
-    $this->assertInstanceOf(PapayaUiDialogFieldSelectRadio::class, $field = $profile->getField());
+    $this->assertInstanceOf(\PapayaUiDialogFieldSelectRadio::class, $field = $profile->getField());
   }
 }

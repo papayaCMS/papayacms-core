@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaThemeWrapperGroupTest extends PapayaTestCase {
+class PapayaThemeWrapperGroupTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaThemeWrapperGroup::__construct

@@ -15,13 +15,13 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaMessageDebugTest extends PapayaTestCase {
+class PapayaMessageDebugTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaMessageDebug::__construct
   */
   public function testConstructor() {
-    $message = new \PapayaMessageDebug(PapayaMessageLogable::GROUP_SYSTEM, 'Sample Message');
+    $message = new \PapayaMessageDebug(\PapayaMessageLogable::GROUP_SYSTEM, 'Sample Message');
     $this->assertAttributeEquals(
       \PapayaMessageLogable::GROUP_SYSTEM,
       '_group',

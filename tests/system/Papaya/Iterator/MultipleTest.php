@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaIteratorMultipleTest extends PapayaTestCase {
+class PapayaIteratorMultipleTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaIteratorMultiple::__construct
@@ -31,8 +31,8 @@ class PapayaIteratorMultipleTest extends PapayaTestCase {
   * @covers \PapayaIteratorMultiple::getFlags
   */
   public function testConstructorWithFlags() {
-    $iterator = new \PapayaIteratorMultiple(PapayaIteratorMultiple::MIT_KEYS_ASSOC);
-    $this->assertEquals(PapayaIteratorMultiple::MIT_KEYS_ASSOC, $iterator->getFlags());
+    $iterator = new \PapayaIteratorMultiple(\PapayaIteratorMultiple::MIT_KEYS_ASSOC);
+    $this->assertEquals(\PapayaIteratorMultiple::MIT_KEYS_ASSOC, $iterator->getFlags());
   }
 
   /**
@@ -46,7 +46,7 @@ class PapayaIteratorMultipleTest extends PapayaTestCase {
       new ArrayIterator(),
       new ArrayIterator()
     );
-    $this->assertEquals(PapayaIteratorMultiple::MIT_KEYS_ASSOC, $iterator->getFlags());
+    $this->assertEquals(\PapayaIteratorMultiple::MIT_KEYS_ASSOC, $iterator->getFlags());
     $this->assertEquals(2, $iterator->countIterators());
   }
 

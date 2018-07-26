@@ -18,7 +18,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageBoxesTest extends PapayaTestCase {
+class PapayaContentPageBoxesTest extends \PapayaTestCase {
 
   /**
   * @covers Boxes::load

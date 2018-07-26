@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaTemplateSimpleVisitorTest extends PapayaTestCase {
+class PapayaTemplateSimpleVisitorTest extends \PapayaTestCase {
 
   /**
    * covers \PapayaTemplateSimpleVisitor::visit
@@ -35,7 +35,7 @@ class PapayaTemplateSimpleVisitorTest extends PapayaTestCase {
   public function testVisitIgnoresUnknownFunction() {
     $visitor = new \PapayaTemplateSimpleVisitor_TestProxy();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleAstNode $node */
-    $node = $this->createMock(PapayaTemplateSimpleAstNode::class);
+    $node = $this->createMock(\PapayaTemplateSimpleAstNode::class);
     $visitor->visit($node);
     $this->assertNull($visitor->visited);
   }
@@ -47,7 +47,7 @@ class PapayaTemplateSimpleVisitorTest extends PapayaTestCase {
     $visitor = new \PapayaTemplateSimpleVisitor_TestProxy();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleAstNode $node */
     $node = $this
-      ->getMockBuilder(PapayaTemplateSimpleAstNode::class)
+      ->getMockBuilder(\PapayaTemplateSimpleAstNode::class)
       ->setMockClassName('TestClass_PapayaTemplateSimpleAstNode')
       ->getMock();
     $visitor->visit($node);
@@ -77,7 +77,7 @@ class PapayaTemplateSimpleVisitorTest extends PapayaTestCase {
   }
 }
 
-class PapayaTemplateSimpleVisitor_TestProxy extends PapayaTemplateSimpleVisitor {
+class PapayaTemplateSimpleVisitor_TestProxy extends \PapayaTemplateSimpleVisitor {
 
   public $visited;
   public $entered;

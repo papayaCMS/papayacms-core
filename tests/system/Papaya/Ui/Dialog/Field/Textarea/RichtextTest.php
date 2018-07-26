@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldTextareaRichtextTest extends PapayaTestCase {
+class PapayaUiDialogFieldTextareaRichtextTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldTextareaRichtext::__construct
@@ -66,7 +66,7 @@ class PapayaUiDialogFieldTextareaRichtextTest extends PapayaTestCase {
    */
   public function testGetRteModeAfterSetRteMode() {
     $richtext = new \PapayaUiDialogFieldTextareaRichtext('Caption', 'name');
-    $richtext->setRteMode(PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE);
+    $richtext->setRteMode(\PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE);
     $this->assertEquals(
       \PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE, $richtext->getRteMode()
     );

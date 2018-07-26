@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldXhtmlTest extends PapayaTestCase {
+class PapayaUiDialogFieldXhtmlTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldXhtml::__construct
@@ -43,7 +43,7 @@ class PapayaUiDialogFieldXhtmlTest extends PapayaTestCase {
   */
   public function testContentGetImplicitCreate() {
     $xhtml = new \PapayaUiDialogFieldXhtml();
-    $this->assertInstanceOf(PapayaXmlElement::class, $xhtml->content('<strong>Test</strong>'));
+    $this->assertInstanceOf(\PapayaXmlElement::class, $xhtml->content('<strong>Test</strong>'));
   }
 
   /**

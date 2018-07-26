@@ -18,7 +18,7 @@ use Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaCacheIdentifierDefinitionGroupTest extends PapayaTestCase {
+class PapayaCacheIdentifierDefinitionGroupTest extends \PapayaTestCase {
 
   /**
    * @covers Group

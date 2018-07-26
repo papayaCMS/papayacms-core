@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiIconListTest extends PapayaTestCase {
+class PapayaUiIconListTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiIconList::offsetExists

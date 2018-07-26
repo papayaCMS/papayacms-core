@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaSessionParametersTest extends PapayaTestCase {
+class PapayaSessionParametersTest extends \PapayaTestCase {
 
   private $_sessionData = array();
 
@@ -25,7 +25,7 @@ class PapayaSessionParametersTest extends PapayaTestCase {
   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaRequestParameters $parameters */
-    $parameters = $this->createMock(PapayaRequestParameters::class);
+    $parameters = $this->createMock(\PapayaRequestParameters::class);
     $sessionParameters = new \PapayaSessionParameters(
       $group = new stdClass, $parameters
     );
@@ -43,7 +43,7 @@ class PapayaSessionParametersTest extends PapayaTestCase {
   public function testValuesGetAfterSet() {
     $sessionValues = $this->getSessionValuesFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaRequestParameters $parameters */
-    $parameters = $this->createMock(PapayaRequestParameters::class);
+    $parameters = $this->createMock(\PapayaRequestParameters::class);
     $sessionParameters = new \PapayaSessionParameters(
       $group = new stdClass, $parameters
     );
@@ -57,14 +57,14 @@ class PapayaSessionParametersTest extends PapayaTestCase {
   */
   public function testValuesGetFromApplication() {
     $sessionValues = $this->getSessionValuesFixture();
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $session
       ->expects($this->any())
       ->method('__get')
       ->with('values')
       ->will($this->returnValue($sessionValues));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaRequestParameters $parameters */
-    $parameters = $this->createMock(PapayaRequestParameters::class);
+    $parameters = $this->createMock(\PapayaRequestParameters::class);
     $sessionParameters = new \PapayaSessionParameters(
       $group = new stdClass, $parameters
     );
@@ -194,7 +194,7 @@ class PapayaSessionParametersTest extends PapayaTestCase {
   private function getSessionValuesFixture(array $data = array()) {
     $this->_sessionData = $data;
     $sessionValues = $this
-      ->getMockBuilder(PapayaSessionValues::class)
+      ->getMockBuilder(\PapayaSessionValues::class)
       ->disableOriginalConstructor()
       ->getMock();
     $sessionValues

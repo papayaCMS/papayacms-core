@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileCaptchaTest extends PapayaTestCase {
+class PapayaUiDialogFieldFactoryProfileCaptchaTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldFactoryProfileCaptcha
@@ -29,6 +29,6 @@ class PapayaUiDialogFieldFactoryProfileCaptchaTest extends PapayaTestCase {
     );
     $profile = new \PapayaUiDialogFieldFactoryProfileCaptcha();
     $profile->options($options);
-    $this->assertInstanceOf(PapayaUiDialogFieldInputCaptcha::class, $field = $profile->getField());
+    $this->assertInstanceOf(\PapayaUiDialogFieldInputCaptcha::class, $field = $profile->getField());
   }
 }

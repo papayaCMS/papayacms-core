@@ -17,7 +17,7 @@ use Papaya\Application\Profile\Response;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileResponseTest extends PapayaTestCase {
+class PapayaApplicationProfileResponseTest extends \PapayaTestCase {
 
   /**
   * @covers Response::createObject

@@ -16,11 +16,11 @@
 use Papaya\Application\Profile\Plugins;
 
 require_once __DIR__.'/../../../../bootstrap.php';
-PapayaTestCase::defineConstantDefaults(
+\PapayaTestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_MODULES'
 );
 
-class PapayaApplicationProfilePluginsTest extends PapayaTestCase {
+class PapayaApplicationProfilePluginsTest extends \PapayaTestCase {
 
   /**
   * @covers Plugins::createObject

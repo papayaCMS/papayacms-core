@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilStringPapayaTest extends PapayaTestCase {
+class PapayaUtilStringPapayaTest extends \PapayaTestCase {
 
   /**
    * @dataProvider getImageTagDataProvider

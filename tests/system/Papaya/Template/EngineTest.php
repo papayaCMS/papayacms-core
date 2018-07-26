@@ -15,13 +15,13 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaTemplateEngineTest extends PapayaTestCase {
+class PapayaTemplateEngineTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaTemplateEngine::parameters
   */
   public function testParametersSetter() {
-    $parameters = $this->createMock(PapayaObjectOptionsList::class);
+    $parameters = $this->createMock(\PapayaObjectOptionsList::class);
     $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->parameters($parameters);
     $this->assertAttributeSame(
@@ -35,7 +35,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   * @covers \PapayaTemplateEngine::parameters
   */
   public function testParametersGetter() {
-    $parameters = $this->createMock(PapayaObjectOptionsList::class);
+    $parameters = $this->createMock(\PapayaObjectOptionsList::class);
     $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->parameters($parameters);
     $this->assertSame(
@@ -80,13 +80,13 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   */
   public function testLoadersSetter() {
     $loaders = $this
-      ->getMockBuilder(PapayaObjectList::class)
-      ->setConstructorArgs(array(PapayaTemplateEngineValuesLoadable::class))
+      ->getMockBuilder(\PapayaObjectList::class)
+      ->setConstructorArgs(array(\PapayaTemplateEngineValuesLoadable::class))
       ->getMock();
     $loaders
       ->expects($this->any())
       ->method('getItemClass')
-      ->will($this->returnValue(PapayaTemplateEngineValuesLoadable::class));
+      ->will($this->returnValue(\PapayaTemplateEngineValuesLoadable::class));
     $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->loaders($loaders);
     $this->assertAttributeSame(
@@ -101,7 +101,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   */
   public function testLoadersSetterWithInvalidObjectList() {
     $loaders = $this
-      ->getMockBuilder(PapayaObjectList::class)
+      ->getMockBuilder(\PapayaObjectList::class)
       ->setConstructorArgs(array(stdClass::class))
       ->getMock();
     $loaders
@@ -119,13 +119,13 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   */
   public function testLoadersGetter() {
     $loaders = $this
-      ->getMockBuilder(PapayaObjectList::class)
-      ->setConstructorArgs(array(PapayaTemplateEngineValuesLoadable::class))
+      ->getMockBuilder(\PapayaObjectList::class)
+      ->setConstructorArgs(array(\PapayaTemplateEngineValuesLoadable::class))
       ->getMock();
     $loaders
       ->expects($this->any())
       ->method('getItemClass')
-      ->will($this->returnValue(PapayaTemplateEngineValuesLoadable::class));
+      ->will($this->returnValue(\PapayaTemplateEngineValuesLoadable::class));
     $engine = new \PapayaTemplateEngine_TestProxy();
     $this->assertSame(
       $loaders,
@@ -196,13 +196,13 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   public function testValuesSetterUsingLoaderMechanism() {
     $document = new \PapayaXmlDocument();
     $document->appendElement('test');
-    $loaderFailure = $this->createMock(PapayaTemplateEngineValuesLoadable::class);
+    $loaderFailure = $this->createMock(\PapayaTemplateEngineValuesLoadable::class);
     $loaderFailure
       ->expects($this->once())
       ->method('load')
       ->with($this->equalTo('DATA'))
       ->will($this->returnValue(FALSE));
-    $loaderSuccess = $this->createMock(PapayaTemplateEngineValuesLoadable::class);
+    $loaderSuccess = $this->createMock(\PapayaTemplateEngineValuesLoadable::class);
     $loaderSuccess
       ->expects($this->once())
       ->method('load')
@@ -279,13 +279,13 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   */
   public function testMagicMethodSetForLoaders() {
     $loaders = $this
-      ->getMockBuilder(PapayaObjectList::class)
-      ->setConstructorArgs(array(PapayaTemplateEngineValuesLoadable::class))
+      ->getMockBuilder(\PapayaObjectList::class)
+      ->setConstructorArgs(array(\PapayaTemplateEngineValuesLoadable::class))
       ->getMock();
     $loaders
       ->expects($this->any())
       ->method('getItemClass')
-      ->will($this->returnValue(PapayaTemplateEngineValuesLoadable::class));
+      ->will($this->returnValue(\PapayaTemplateEngineValuesLoadable::class));
     $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->loaders = $loaders;
     $this->assertAttributeSame(
@@ -308,7 +308,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   * @covers \PapayaTemplateEngine::__set
   */
   public function testMagicMethodSetForParameters() {
-    $parameters = $this->createMock(PapayaObjectOptionsList::class);
+    $parameters = $this->createMock(\PapayaObjectOptionsList::class);
     $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->parameters = $parameters;
     $this->assertAttributeSame(
@@ -369,7 +369,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
 /**
  * @property \PapayaObjectList|PapayaObjectOptionsList|PapayaXmlDocument dynamic_property
  */
-class PapayaTemplateEngine_TestProxy extends PapayaTemplateEngine {
+class PapayaTemplateEngine_TestProxy extends \PapayaTemplateEngine {
 
   public function prepare() {
   }

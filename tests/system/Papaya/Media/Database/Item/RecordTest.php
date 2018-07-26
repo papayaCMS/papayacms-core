@@ -15,9 +15,9 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-PapayaTestCase::defineConstantDefaults('DB_FETCHMODE_ASSOC');
+\PapayaTestCase::defineConstantDefaults('DB_FETCHMODE_ASSOC');
 
-class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
+class PapayaMediaDatabaseItemRecordTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaMediaDatabaseItemRecord::load

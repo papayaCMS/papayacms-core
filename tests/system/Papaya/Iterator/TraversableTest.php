@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaIteratorTraversableTest extends PapayaTestCase {
+class PapayaIteratorTraversableTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaIteratorTraversable::__construct

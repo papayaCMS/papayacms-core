@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaMessageLogTest extends PapayaTestCase {
+class PapayaMessageLogTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaMessageLog::__construct
@@ -84,7 +84,7 @@ class PapayaMessageLogTest extends PapayaTestCase {
       'Sample Message'
     );
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextGroup $context */
-    $context = $this->createMock(PapayaMessageContextGroup::class);
+    $context = $this->createMock(\PapayaMessageContextGroup::class);
     $message->setContext($context);
     $this->assertAttributeSame(
       $context,
@@ -103,7 +103,7 @@ class PapayaMessageLogTest extends PapayaTestCase {
       'Sample Message'
     );
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextGroup $context */
-    $context = $this->createMock(PapayaMessageContextGroup::class);
+    $context = $this->createMock(\PapayaMessageContextGroup::class);
     $message->setContext($context);
     $this->assertSame(
       $context,

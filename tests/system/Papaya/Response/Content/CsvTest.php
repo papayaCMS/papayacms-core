@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaResponseContentCsvTest extends PapayaTestCase {
+class PapayaResponseContentCsvTest extends \PapayaTestCase {
 
 
   /**

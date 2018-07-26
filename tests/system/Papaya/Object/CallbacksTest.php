@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaObjectCallbacksTest extends PapayaTestCase {
+class PapayaObjectCallbacksTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaObjectCallbacks::__construct
@@ -95,7 +95,7 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
   * @covers \PapayaObjectCallbacks::validateName
   */
   public function testGetAfterSetWithPapayaObjectCallbackObject() {
-    $callback = $this->createMock(PapayaObjectCallback::class);
+    $callback = $this->createMock(\PapayaObjectCallback::class);
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
     $list->sample = $callback;
     $this->assertSame($callback, $list->sample);
@@ -174,7 +174,7 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
   * @covers \PapayaObjectCallbacks::getIterator
   */
   public function testGetIteratorAfterSet() {
-    $callback = $this->createMock(PapayaObjectCallback::class);
+    $callback = $this->createMock(\PapayaObjectCallback::class);
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
     $list->sample = $callback;
     $this->assertSame(array('sample' => $callback), iterator_to_array($list));
@@ -185,7 +185,7 @@ class PapayaObjectCallbacksTest extends PapayaTestCase {
  * @property \PapayaObjectCallback $sample
  * @method mixed sample($argument)
  */
-class PapayaObjectCallbacks_TestProxy extends PapayaObjectCallbacks {
+class PapayaObjectCallbacks_TestProxy extends \PapayaObjectCallbacks {
   public function blocker() {
   }
 }

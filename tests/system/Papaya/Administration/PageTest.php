@@ -20,7 +20,7 @@ use Papaya\Template;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaAdministrationPageTest extends PapayaTestCase {
+class PapayaAdministrationPageTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaAdministrationPage::__construct
@@ -115,7 +115,7 @@ class PapayaAdministrationPageTest extends PapayaTestCase {
     /** @var PHPUnit_Framework_MockObject_MockObject|Template $layout */
     $layout = $this->createMock(Template::class);
     $page = new \PapayaAdministrationPage_TestProxy($layout);
-    $page->toolbar($toolbar = $this->createMock(PapayaUiToolbar::class));
+    $page->toolbar($toolbar = $this->createMock(\PapayaUiToolbar::class));
     $this->assertSame($toolbar, $page->toolbar());
   }
 
@@ -126,10 +126,10 @@ class PapayaAdministrationPageTest extends PapayaTestCase {
     /** @var PHPUnit_Framework_MockObject_MockObject|Template $layout */
     $layout = $this->createMock(Template::class);
     $page = new \PapayaAdministrationPage_TestProxy($layout);
-    $this->assertInstanceOf(PapayaUiToolbar::class, $page->toolbar());
+    $this->assertInstanceOf(\PapayaUiToolbar::class, $page->toolbar());
   }
 }
 
-class PapayaAdministrationPage_TestProxy extends Papaya\Administration\Page {
+class PapayaAdministrationPage_TestProxy extends \Papaya\Administration\Page {
 
 }

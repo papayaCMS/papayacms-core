@@ -15,15 +15,15 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterLogicalTest extends PapayaTestCase {
+class PapayaFilterLogicalTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterLogical::__construct
   * @covers \PapayaFilterLogical::_setFilters
   */
   public function testConstructorWithTwoFilters() {
-    $subFilterOne = $this->createMock(PapayaFilter::class);
-    $subFilterTwo = $this->createMock(PapayaFilter::class);
+    $subFilterOne = $this->createMock(\PapayaFilter::class);
+    $subFilterTwo = $this->createMock(\PapayaFilter::class);
     $filter = new \PapayaFilterLogical_TestProxy($subFilterOne, $subFilterTwo);
     $this->assertAttributeEquals(
       array($subFilterOne, $subFilterTwo),
@@ -51,9 +51,9 @@ class PapayaFilterLogicalTest extends PapayaTestCase {
   * @covers \PapayaFilterLogical::_setFilters
   */
   public function testConstructorWithThreeFilters() {
-    $subFilterOne = $this->createMock(PapayaFilter::class);
-    $subFilterTwo = $this->createMock(PapayaFilter::class);
-    $subFilterThree = $this->createMock(PapayaFilter::class);
+    $subFilterOne = $this->createMock(\PapayaFilter::class);
+    $subFilterTwo = $this->createMock(\PapayaFilter::class);
+    $subFilterThree = $this->createMock(\PapayaFilter::class);
     $filter = new \PapayaFilterLogical_TestProxy($subFilterOne, $subFilterTwo, $subFilterThree);
     $this->assertAttributeEquals(
       array($subFilterOne, $subFilterTwo, $subFilterThree),
@@ -69,7 +69,7 @@ class PapayaFilterLogicalTest extends PapayaTestCase {
   public function testConstructorWithOneFilterExpectingException() {
     $this->expectException(InvalidArgumentException::class);
     new \PapayaFilterLogical_TestProxy(
-      $this->createMock(PapayaFilter::class)
+      $this->createMock(\PapayaFilter::class)
     );
   }
 
@@ -85,7 +85,7 @@ class PapayaFilterLogicalTest extends PapayaTestCase {
   }
 }
 
-class PapayaFilterLogical_TestProxy extends PapayaFilterLogical {
+class PapayaFilterLogical_TestProxy extends \PapayaFilterLogical {
 
   public function validate($value) {
   }

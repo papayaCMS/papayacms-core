@@ -18,7 +18,7 @@ use Papaya\Email\Headers;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaEmailPartTest extends PapayaTestCase {
+class PapayaEmailPartTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Email\Part::__construct

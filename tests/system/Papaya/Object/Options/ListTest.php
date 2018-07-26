@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaObjectOptionsListTest extends PapayaTestCase {
+class PapayaObjectOptionsListTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaObjectOptionsList::__construct

@@ -18,7 +18,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
+class PapayaDatabaseObjectRecordTest extends \PapayaTestCase {
 
   /**
   * @covers Record::load

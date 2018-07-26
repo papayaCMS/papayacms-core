@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleParserOutputTest extends PapayaTestCase {
+class PapayaTemplateSimpleParserOutputTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaTemplateSimpleParserOutput::parse
    */
   public function testWithText() {
     $tokens = array(
-      new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo')
+      new \PapayaTemplateSimpleScannerToken(\PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo')
     );
     $parser = new \PapayaTemplateSimpleParserOutput($tokens);
     $this->assertEquals(
@@ -40,7 +40,7 @@ class PapayaTemplateSimpleParserOutputTest extends PapayaTestCase {
    */
   public function testWithWhitespace() {
     $tokens = array(
-      new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::WHITESPACE, 0, "\n")
+      new \PapayaTemplateSimpleScannerToken(\PapayaTemplateSimpleScannerToken::WHITESPACE, 0, "\n")
     );
     $parser = new \PapayaTemplateSimpleParserOutput($tokens);
     $this->assertEquals(
@@ -58,9 +58,9 @@ class PapayaTemplateSimpleParserOutputTest extends PapayaTestCase {
    */
   public function testWithSeveralOutputTokensOptimizesAst() {
     $tokens = array(
-      new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'),
-      new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::WHITESPACE, 3, "\n"),
-      new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::TEXT, 4, 'bar'),
+      new \PapayaTemplateSimpleScannerToken(\PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'),
+      new \PapayaTemplateSimpleScannerToken(\PapayaTemplateSimpleScannerToken::WHITESPACE, 3, "\n"),
+      new \PapayaTemplateSimpleScannerToken(\PapayaTemplateSimpleScannerToken::TEXT, 4, 'bar'),
     );
     $parser = new \PapayaTemplateSimpleParserOutput($tokens);
     $this->assertEquals(

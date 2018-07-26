@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiListviewItemPagingDownTest extends PapayaTestCase {
+class PapayaUiListviewItemPagingDownTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiListviewItemPagingDown::getPages

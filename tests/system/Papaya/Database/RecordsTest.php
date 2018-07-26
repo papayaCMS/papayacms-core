@@ -20,7 +20,7 @@ use Papaya\Database\Records;
 /** @noinspection PhpIllegalArrayKeyTypeInspection */
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaDatabaseRecordsTest extends PapayaTestCase {
+class PapayaDatabaseRecordsTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Database\Records::load

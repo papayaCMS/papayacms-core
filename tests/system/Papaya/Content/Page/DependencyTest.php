@@ -19,7 +19,7 @@ use Papaya\Database\Record\Key\Fields;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageDependencyTest extends PapayaTestCase {
+class PapayaContentPageDependencyTest extends \PapayaTestCase {
 
   /**
   * @covers Dependency::_createKey

@@ -17,7 +17,7 @@ use Papaya\Application\Profile\Messages;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileMessagesTest extends PapayaTestCase {
+class PapayaApplicationProfileMessagesTest extends \PapayaTestCase {
 
   /**
   * @covers Messages::createObject

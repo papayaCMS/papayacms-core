@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterEqualsTest extends PapayaTestCase {
+class PapayaFilterEqualsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterEquals::__construct
@@ -48,7 +48,7 @@ class PapayaFilterEqualsTest extends PapayaTestCase {
    */
   public function testValidateExpectingException($expected, $value) {
     $filter = new \PapayaFilterEquals($expected);
-    $this->expectException(PapayaFilterExceptionNotEqual::class);
+    $this->expectException(\PapayaFilterExceptionNotEqual::class);
     $filter->validate($value);
   }
 

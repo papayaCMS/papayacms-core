@@ -17,14 +17,14 @@ use Papaya\Database\Interfaces\Record;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogDatabaseSaveTest extends PapayaTestCase {
+class PapayaUiDialogDatabaseSaveTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogDatabaseSave::execute
   */
   public function testExecuteExpectingTrue() {
     $callbacks = $this
-      ->getMockBuilder(PapayaUiDialogDatabaseCallbacks::class)
+      ->getMockBuilder(\PapayaUiDialogDatabaseCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onBeforeSave'))
       ->getMock();
@@ -51,7 +51,7 @@ class PapayaUiDialogDatabaseSaveTest extends PapayaTestCase {
   */
   public function testExecuteBlockedByCallbackExpectingFalse() {
     $callbacks = $this
-      ->getMockBuilder(PapayaUiDialogDatabaseCallbacks::class)
+      ->getMockBuilder(\PapayaUiDialogDatabaseCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onBeforeSave'))
       ->getMock();
@@ -99,6 +99,6 @@ class PapayaUiDialogDatabaseSaveTest extends PapayaTestCase {
   }
 }
 
-class PapayaUiDialogDatabaseSave_TestProxy extends PapayaUiDialogDatabaseSave {
+class PapayaUiDialogDatabaseSave_TestProxy extends \PapayaUiDialogDatabaseSave {
   public $_isSubmittedResult = TRUE;
 }

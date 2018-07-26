@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiListviewSubitemsTest extends PapayaTestCase {
+class PapayaUiListviewSubitemsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiListviewSubitems::__construct
@@ -24,7 +24,7 @@ class PapayaUiListviewSubitemsTest extends PapayaTestCase {
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItem $item */
     $item = $this
-      ->getMockBuilder(PapayaUiListviewItem::class)
+      ->getMockBuilder(\PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
     $subitems = new \PapayaUiListviewSubitems($item);
@@ -37,9 +37,9 @@ class PapayaUiListviewSubitemsTest extends PapayaTestCase {
   * @covers \PapayaUiListviewSubitems::getListview
   */
   public function testGetListview() {
-    $listview = $this->createMock(PapayaUiListview::class);
+    $listview = $this->createMock(\PapayaUiListview::class);
     $collection = $this
-      ->getMockBuilder(PapayaUiListviewItems::class)
+      ->getMockBuilder(\PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection
@@ -48,7 +48,7 @@ class PapayaUiListviewSubitemsTest extends PapayaTestCase {
       ->will($this->returnValue($listview));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItem $item */
     $item = $this
-      ->getMockBuilder(PapayaUiListviewItem::class)
+      ->getMockBuilder(\PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
     $item

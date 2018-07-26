@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
+class PapayaUiDialogFieldFactoryOptionsTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldFactoryOptions::__construct
@@ -71,7 +71,7 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    */
   public function testMagicMethodGetWithUnknownOptionExpectingException() {
     $options = new \PapayaUiDialogFieldFactoryOptions();
-    $this->expectException(PapayaUiDialogFieldFactoryExceptionInvalidOption::class);
+    $this->expectException(\PapayaUiDialogFieldFactoryExceptionInvalidOption::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $options->invalidOptionName;
   }
@@ -163,7 +163,7 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    */
   public function testGetValidationWithFilter() {
     $options = new \PapayaUiDialogFieldFactoryOptions();
-    $options->validation = $filter = $this->createMock(PapayaFilter::class);
+    $options->validation = $filter = $this->createMock(\PapayaFilter::class);
     $this->assertSame($filter, $options->validation);
   }
 
@@ -187,7 +187,7 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
     $options = new \PapayaUiDialogFieldFactoryOptions();
     $options->validation = '';
     $options->mandatory = TRUE;
-    $this->assertInstanceOf(PapayaFilterNotEmpty::class, $options->validation);
+    $this->assertInstanceOf(\PapayaFilterNotEmpty::class, $options->validation);
   }
 
   /**
@@ -197,17 +197,17 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    */
   public function testGetValidationWithArray() {
     $getFilterCallback = function() {};
-    $factory = $this->createMock(PapayaFilterFactory::class);
+    $factory = $this->createMock(\PapayaFilterFactory::class);
     $factory
       ->expects($this->once())
       ->method('getFilter')
       ->with('generator', FALSE, $getFilterCallback)
-      ->will($this->returnValue($this->createMock(PapayaFilter::class)));
+      ->will($this->returnValue($this->createMock(\PapayaFilter::class)));
 
     $options = new \PapayaUiDialogFieldFactoryOptions();
     $options->filterFactory($factory);
     $options->validation = $getFilterCallback;
-    $this->assertInstanceOf(PapayaFilter::class, $options->validation);
+    $this->assertInstanceOf(\PapayaFilter::class, $options->validation);
   }
 
   /**
@@ -216,17 +216,17 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    * @covers \PapayaUiDialogFieldFactoryOptions::getValidation
    */
   public function testGetValidationWithClass() {
-    $factory = $this->createMock(PapayaFilterFactory::class);
+    $factory = $this->createMock(\PapayaFilterFactory::class);
     $factory
       ->expects($this->once())
       ->method('getFilter')
-      ->with('generator', FALSE, array(PapayaFilterNotEmpty::class))
-      ->will($this->returnValue($this->createMock(PapayaFilter::class)));
+      ->with('generator', FALSE, array(\PapayaFilterNotEmpty::class))
+      ->will($this->returnValue($this->createMock(\PapayaFilter::class)));
 
     $options = new \PapayaUiDialogFieldFactoryOptions();
     $options->filterFactory($factory);
     $options->validation = \PapayaFilterNotEmpty::class;
-    $this->assertInstanceOf(PapayaFilter::class, $options->validation);
+    $this->assertInstanceOf(\PapayaFilter::class, $options->validation);
   }
 
   /**
@@ -235,17 +235,17 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    * @covers \PapayaUiDialogFieldFactoryOptions::getValidation
    */
   public function testGetValidationWithRegex() {
-    $factory = $this->createMock(PapayaFilterFactory::class);
+    $factory = $this->createMock(\PapayaFilterFactory::class);
     $factory
       ->expects($this->once())
       ->method('getFilter')
       ->with('regex', FALSE, '(sample)')
-      ->will($this->returnValue($this->createMock(PapayaFilter::class)));
+      ->will($this->returnValue($this->createMock(\PapayaFilter::class)));
 
     $options = new \PapayaUiDialogFieldFactoryOptions();
     $options->filterFactory($factory);
     $options->validation = '(sample)';
-    $this->assertInstanceOf(PapayaFilter::class, $options->validation);
+    $this->assertInstanceOf(\PapayaFilter::class, $options->validation);
   }
 
   /**
@@ -254,17 +254,17 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    * @covers \PapayaUiDialogFieldFactoryOptions::getValidation
    */
   public function testGetValidationWithNamedFilterProfile() {
-    $factory = $this->createMock(PapayaFilterFactory::class);
+    $factory = $this->createMock(\PapayaFilterFactory::class);
     $factory
       ->expects($this->once())
       ->method('getFilter')
       ->with('isSomething', FALSE)
-      ->will($this->returnValue($this->createMock(PapayaFilter::class)));
+      ->will($this->returnValue($this->createMock(\PapayaFilter::class)));
 
     $options = new \PapayaUiDialogFieldFactoryOptions();
     $options->filterFactory($factory);
     $options->validation = 'isSomething';
-    $this->assertInstanceOf(PapayaFilter::class, $options->validation);
+    $this->assertInstanceOf(\PapayaFilter::class, $options->validation);
   }
 
   /**
@@ -272,7 +272,7 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    */
   public function testFilterFactoryGetAfterSet() {
     $options = new \PapayaUiDialogFieldFactoryOptions();
-    $options->filterFactory($factory = $this->createMock(PapayaFilterFactory::class));
+    $options->filterFactory($factory = $this->createMock(\PapayaFilterFactory::class));
     $this->assertSame($factory, $options->filterFactory());
   }
 
@@ -281,7 +281,7 @@ class PapayaUiDialogFieldFactoryOptionsTest extends PapayaTestCase {
    */
   public function testFilterFactoryGetImplicitCreate() {
     $options = new \PapayaUiDialogFieldFactoryOptions();
-    $this->assertInstanceOf(PapayaFilterFactory::class, $options->filterFactory());
+    $this->assertInstanceOf(\PapayaFilterFactory::class, $options->filterFactory());
   }
 
   public static function provideOptionData() {

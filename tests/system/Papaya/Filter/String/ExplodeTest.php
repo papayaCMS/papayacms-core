@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterStringExplodeTest extends PapayaTestCase {
+class PapayaFilterStringExplodeTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterStringExplode
@@ -52,7 +52,7 @@ class PapayaFilterStringExplodeTest extends PapayaTestCase {
    */
   public function testValidateWithEmptyValueExpectingException() {
     $filter = new \PapayaFilterStringExplode(',', new \PapayaFilterInteger());
-    $this->expectException(PapayaFilterExceptionEmpty::class);
+    $this->expectException(\PapayaFilterExceptionEmpty::class);
     $filter->validate('');
   }
 

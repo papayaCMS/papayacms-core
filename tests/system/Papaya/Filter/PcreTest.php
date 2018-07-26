@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterPcreTest extends PapayaTestCase {
+class PapayaFilterPcreTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterPcre::__construct
@@ -52,7 +52,7 @@ class PapayaFilterPcreTest extends PapayaTestCase {
   */
   public function testValidateExpectingException() {
     $filter = new \PapayaFilterPcre('(^foo$)');
-    $this->expectException(PapayaFilterExceptionPcre::class);
+    $this->expectException(\PapayaFilterExceptionPcre::class);
     $filter->validate('bar');
   }
 

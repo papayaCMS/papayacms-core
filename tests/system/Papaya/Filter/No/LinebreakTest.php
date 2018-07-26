@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterNoLinebreakTest extends PapayaTestCase {
+class PapayaFilterNoLinebreakTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterNoLinebreak::validate
@@ -30,7 +30,7 @@ class PapayaFilterNoLinebreakTest extends PapayaTestCase {
   */
   public function testValidateExpectingException() {
     $filter = new \PapayaFilterNoLinebreak();
-    $this->expectException(PapayaFilterExceptionCharacterInvalid::class);
+    $this->expectException(\PapayaFilterExceptionCharacterInvalid::class);
     $filter->validate("Two\r\nLines");
   }
 

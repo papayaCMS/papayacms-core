@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiControlCollectionTest extends PapayaTestCase {
+class PapayaUiControlCollectionTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiControlCollection::appendTo
@@ -51,7 +51,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     $item
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $collection = new \PapayaUiControlCollection_TestProxy();
     $collection->_tagName = 'items';
     $collection->add($item);
@@ -86,7 +86,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     $item
       ->expects($this->exactly(2))
       ->method('collection')
-      ->with($this->isInstanceOf(PapayaUiControlCollection::class));
+      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
     $collection = new \PapayaUiControlCollection();
     $collection->add($item);
     $collection->owner($this->createMock(stdClass::class));
@@ -125,7 +125,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
   */
   public function testOwnerSetValidSuperclass() {
     $collection = new \PapayaUiControlCollection_TestProxy();
-    $collection->owner($owner = $this->createMock(PapayaObject::class));
+    $collection->owner($owner = $this->createMock(\PapayaObject::class));
     $this->assertSame($owner, $collection->owner());
   }
 
@@ -225,7 +225,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     $itemOne
       ->expects($this->once())
       ->method('collection')
-      ->with($this->isInstanceOf(PapayaUiControlCollection::class));
+      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
     $itemOne
       ->expects($this->once())
       ->method('index')
@@ -234,7 +234,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     $itemTwo
       ->expects($this->once())
       ->method('collection')
-      ->with($this->isInstanceOf(PapayaUiControlCollection::class));
+      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
     $itemTwo
       ->expects($this->once())
       ->method('index')
@@ -260,7 +260,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     $item
       ->expects($this->once())
       ->method('collection')
-      ->with($this->isInstanceOf(PapayaUiControlCollection::class));
+      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
     $item
       ->expects($this->once())
       ->method('papaya')
@@ -331,7 +331,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     $item
       ->expects($this->exactly(2))
       ->method('collection')
-      ->with($this->isInstanceOf(PapayaUiControlCollection::class));
+      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
     $item
       ->expects($this->exactly(2))
       ->method('papaya')
@@ -347,7 +347,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
   */
   public function testSetWithInvalidItemClassExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiControlCollection_TestItem $itemOne */
-    $itemOne = $this->createMock(PapayaUiControlCollection_TestItem::class);
+    $itemOne = $this->createMock(\PapayaUiControlCollection_TestItem::class);
     $itemTwo = $this->getMockItemFixture();
     $collection = new \PapayaUiControlCollection_TestProxy();
     $collection->_itemClass = \PapayaUiControlCollection_TestItem::class;
@@ -404,7 +404,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     $itemOne
       ->expects($this->once())
       ->method('collection')
-      ->with($this->isInstanceOf(PapayaUiControlCollection::class));
+      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
     $itemOne
       ->expects($this->once())
       ->method('papaya')
@@ -413,7 +413,7 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
     $itemTwo
       ->expects($this->once())
       ->method('collection')
-      ->with($this->isInstanceOf(PapayaUiControlCollection::class));
+      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
     $itemTwo
       ->expects($this->once())
       ->method('papaya')
@@ -591,11 +591,11 @@ class PapayaUiControlCollectionTest extends PapayaTestCase {
    * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaUiControlCollectionItem
    */
   public function getMockItemFixture() {
-    return $this->createMock(PapayaUiControlCollectionItem::class);
+    return $this->createMock(\PapayaUiControlCollectionItem::class);
   }
 }
 
-class PapayaUiControlCollection_TestProxy extends PapayaUiControlCollection {
+class PapayaUiControlCollection_TestProxy extends \PapayaUiControlCollection {
 
   public /** @noinspection PropertyInitializationFlawsInspection */
     $_tagName = '';
@@ -606,6 +606,6 @@ class PapayaUiControlCollection_TestProxy extends PapayaUiControlCollection {
 }
 
 abstract class PapayaUiControlCollection_TestItem
-  extends PapayaUiControlCollectionItem {
+  extends \PapayaUiControlCollectionItem {
 
 }

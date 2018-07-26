@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiToolbarButtonTest extends PapayaTestCase {
+class PapayaUiToolbarButtonTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiToolbarButton::setAccessKey

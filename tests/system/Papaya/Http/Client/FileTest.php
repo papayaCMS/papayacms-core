@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaHttpClientFileTest extends PapayaTestCase {
+class PapayaHttpClientFileTest extends \PapayaTestCase {
 
   public function testGetName() {
       $file = new \PapayaHttpClientFile_TestProxy();
@@ -54,7 +54,7 @@ class PapayaHttpClientFileTest extends PapayaTestCase {
   }
 }
 
-class PapayaHttpClientFile_TestProxy extends PapayaHttpClientFile {
+class PapayaHttpClientFile_TestProxy extends \PapayaHttpClientFile {
 
   public
     /** @noinspection PropertyInitializationFlawsInspection */

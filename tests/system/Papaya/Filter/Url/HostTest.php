@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterUrlHostTest extends PapayaTestCase {
+class PapayaFilterUrlHostTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterUrlHost
@@ -36,7 +36,7 @@ class PapayaFilterUrlHostTest extends PapayaTestCase {
    */
   public function testValidateExpectingException($value) {
     $filter = new \PapayaFilterUrlHost();
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $filter->validate($value);
   }
 

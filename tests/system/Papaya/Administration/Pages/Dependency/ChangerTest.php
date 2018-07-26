@@ -25,7 +25,7 @@ use Papaya\Content\Pages;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
+class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
 
   /**
   * @covers Changer::getPageId
@@ -123,7 +123,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
     $listview
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $listview
       ->expects($this->once())
       ->method('pages')
@@ -162,7 +162,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
     $listview
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $listview
       ->expects($this->once())
       ->method('pages')
@@ -172,21 +172,21 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
     $changer->references($references);
 
     $elements = $this
-      ->getMockBuilder(PapayaUiToolbarElements::class)
+      ->getMockBuilder(\PapayaUiToolbarElements::class)
       ->disableOriginalConstructor()
       ->getMock();
     $elements
       ->expects($this->exactly(3))
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(PapayaUiToolbarElement::class));
+      ->with(NULL, $this->isInstanceOf(\PapayaUiToolbarElement::class));
     $commands = $this
-      ->getMockBuilder(PapayaUiControlCommandController::class)
+      ->getMockBuilder(\PapayaUiControlCommandController::class)
       ->disableOriginalConstructor()
       ->getMock();
     $commands
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
 
     $changer->menu()->elements($elements);
     $changer->commands($commands);
@@ -244,7 +244,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
     $listview
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $listview
       ->expects($this->once())
       ->method('pages')
@@ -254,21 +254,21 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
     $changer->listview($listview);
 
     $elements = $this
-      ->getMockBuilder(PapayaUiToolbarElements::class)
+      ->getMockBuilder(\PapayaUiToolbarElements::class)
       ->disableOriginalConstructor()
       ->getMock();
     $elements
       ->expects($this->exactly(4))
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(PapayaUiToolbarElement::class));
+      ->with(NULL, $this->isInstanceOf(\PapayaUiToolbarElement::class));
     $commands = $this
-      ->getMockBuilder(PapayaUiControlCommandController::class)
+      ->getMockBuilder(\PapayaUiControlCommandController::class)
       ->disableOriginalConstructor()
       ->getMock();
     $commands
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
 
     $changer->menu()->elements($elements);
     $changer->commands($commands);
@@ -366,7 +366,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   * @covers Changer::menu
   */
   public function testMenuGetAfterSet() {
-    $menu = $this->createMock(PapayaUiToolbar::class);
+    $menu = $this->createMock(\PapayaUiToolbar::class);
     $changer = new Changer();
     $this->assertSame(
       $menu, $changer->menu($menu)
@@ -388,7 +388,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   */
   public function testCommandsGetAfterSet() {
     $commands = $this
-      ->getMockBuilder(PapayaUiControlCommandController::class)
+      ->getMockBuilder(\PapayaUiControlCommandController::class)
       ->disableOriginalConstructor()
       ->getMock();
     $changer = new Changer();

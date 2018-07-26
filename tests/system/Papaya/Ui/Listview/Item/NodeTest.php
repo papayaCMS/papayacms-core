@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiListviewItemNodeTest extends PapayaTestCase {
+class PapayaUiListviewItemNodeTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiListviewItemNode
@@ -23,7 +23,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItem $item */
     $item = $this
-      ->getMockBuilder(PapayaUiListviewItem::class)
+      ->getMockBuilder(\PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
     $node = new \PapayaUiListviewItemNode($item);
@@ -36,11 +36,11 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
   public function testConstructorWithAllArguments() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItem $item */
     $item = $this
-      ->getMockBuilder(PapayaUiListviewItem::class)
+      ->getMockBuilder(\PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
     $node = new \PapayaUiListviewItemNode($item, \PapayaUiListviewItemNode::NODE_EMPTY);
-    $this->assertEquals(PapayaUiListviewItemNode::NODE_EMPTY, $node->status);
+    $this->assertEquals(\PapayaUiListviewItemNode::NODE_EMPTY, $node->status);
   }
 
   /**
@@ -49,7 +49,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
   public function testAppendToWithStatusHidden() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItem $item */
     $item = $this
-      ->getMockBuilder(PapayaUiListviewItem::class)
+      ->getMockBuilder(\PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
     $node = new \PapayaUiListviewItemNode($item);
@@ -62,7 +62,7 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
   public function testAppendToWithStatusEmpty() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItem $item */
     $item = $this
-      ->getMockBuilder(PapayaUiListviewItem::class)
+      ->getMockBuilder(\PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
     $node = new \PapayaUiListviewItemNode($item, \PapayaUiListviewItemNode::NODE_EMPTY);
@@ -78,10 +78,10 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
   public function testAppendToWithStatusClosed() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItem $item */
     $item = $this
-      ->getMockBuilder(PapayaUiListviewItem::class)
+      ->getMockBuilder(\PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('__toString')
@@ -100,10 +100,10 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
   public function testAppendToWithStatusOpen() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItem $item */
     $item = $this
-      ->getMockBuilder(PapayaUiListviewItem::class)
+      ->getMockBuilder(\PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('__toString')
@@ -122,11 +122,11 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
   public function testReferenceGetAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItem $item */
     $item = $this
-      ->getMockBuilder(PapayaUiListviewItem::class)
+      ->getMockBuilder(\PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
     $node = new \PapayaUiListviewItemNode($item, \PapayaUiListviewItemNode::NODE_OPEN);
-    $node->reference($reference = $this->createMock(PapayaUiReference::class));
+    $node->reference($reference = $this->createMock(\PapayaUiReference::class));
     $this->assertSame($reference, $node->reference);
   }
 
@@ -136,14 +136,14 @@ class PapayaUiListviewItemNodeTest extends PapayaTestCase {
   public function testReferenceGetClonedFromItem() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItem $item */
     $item = $this
-      ->getMockBuilder(PapayaUiListviewItem::class)
+      ->getMockBuilder(\PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
     $item
       ->expects($this->once())
       ->method('reference')
-      ->will($this->returnValue($this->createMock(PapayaUiReference::class)));
+      ->will($this->returnValue($this->createMock(\PapayaUiReference::class)));
     $node = new \PapayaUiListviewItemNode($item);
-    $this->assertInstanceOf(PapayaUiReference::class, $node->reference);
+    $this->assertInstanceOf(\PapayaUiReference::class, $node->reference);
   }
 }

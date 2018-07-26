@@ -18,7 +18,7 @@ use Papaya\Content\Page;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencySynchronizationTagsTest extends PapayaTestCase {
+class PapayaAdministrationPagesDependencySynchronizationTagsTest extends \PapayaTestCase {
 
   /**
   * @covers Tags::synchronize

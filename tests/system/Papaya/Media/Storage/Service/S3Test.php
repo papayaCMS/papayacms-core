@@ -17,7 +17,7 @@ use Papaya\Cache\Service;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
+class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
 
   private function getMockConfigurationObjectFixture() {
     $configuration = $this->mockPapaya()->options(
@@ -33,7 +33,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   }
 
   private function getMockHTTPClient($response, $status = 200) {
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $client
       ->expects($this->once())
       ->method('send');
@@ -72,7 +72,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
 
   public function testSetHandler() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $configuration = $this->getMockConfigurationObjectFixture();
     $service = new \PapayaMediaStorageServiceS3($configuration);
     $service->setHandler($handler);
@@ -83,7 +83,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
 
   public function testSetHTTPClient() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $client = new \PapayaHttpClient;
     $handler
       ->expects($this->once())
@@ -153,7 +153,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       </ListBucketResult>';
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -185,7 +185,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       </ListBucketResult>';
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -208,7 +208,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testBrowseWithHttpError() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -230,7 +230,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
     $dataResponse = 'SAMPLE_DATA';
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -249,7 +249,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testGetWithHttpError() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -276,7 +276,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       )
     );
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -298,7 +298,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testGetLocalFile() {
     $dataResponse = 'SAMPLE_DATA';
     $configuration = $this->getMockConfigurationObjectFixture();
-    $socket = $this->createMock(PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\PapayaHttpClientSocket::class);
     $socket->expects($this->exactly(2))
            ->method('eof')
            ->will(
@@ -311,7 +311,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
            ->method('read')
            ->will($this->returnValue($dataResponse));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -330,7 +330,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testGetLocalFileExpectingFalse() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -346,7 +346,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testOutput() {
     $dataResponse = 'SAMPLE_DATA';
     $configuration = $this->getMockConfigurationObjectFixture();
-    $socket = $this->createMock(PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('eof')
            ->will($this->returnValue(FALSE));
@@ -357,7 +357,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
            ->method('eof')
            ->will($this->returnValue(TRUE));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -375,7 +375,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testOutputWithHttpError() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -393,7 +393,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testOutputWithRangeFrom() {
     $dataResponse = 'SAMPLE_DATA';
     $configuration = $this->getMockConfigurationObjectFixture();
-    $socket = $this->createMock(PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('eof')
            ->will($this->returnValue(FALSE));
@@ -404,7 +404,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
            ->method('eof')
            ->will($this->returnValue(TRUE));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -422,7 +422,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testOutputWithRangeFromAndTo() {
     $dataResponse = 'SAMPLE_DATA';
     $configuration = $this->getMockConfigurationObjectFixture();
-    $socket = $this->createMock(PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\PapayaHttpClientSocket::class);
     $socket->expects($this->at(0))
            ->method('eof')
            ->will($this->returnValue(FALSE));
@@ -433,7 +433,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
            ->method('eof')
            ->will($this->returnValue(TRUE));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -451,7 +451,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testStoreWithStringAndPrivateStatus() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -475,7 +475,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testStoreWithResourceAndPublicStatus() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -507,7 +507,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testStoreLocalFileWithPrivateStatus() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -537,7 +537,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testStoreLocalFileWithPublicStatus() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -569,7 +569,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testRemove() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -586,7 +586,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testExists() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -603,7 +603,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testExistsForNonexistingFile() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -631,7 +631,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
           </Grant>
         </AccessControlList>
       </AccessControlPolicy>';
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $client
       ->expects($this->exactly(2))
       ->method('send');
@@ -649,7 +649,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       ->method('getResponseData')
       ->will($this->returnValue($responseXML));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->exactly(2))
       ->method('setUpRequest')
@@ -708,7 +708,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
           </Grant>
         </AccessControlList>
       </AccessControlPolicy>';
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $client
       ->expects($this->exactly(2))
       ->method('send');
@@ -726,7 +726,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       ->method('getResponseData')
       ->will($this->returnValue($responseXML));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->exactly(2))
       ->method('setUpRequest')
@@ -768,7 +768,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
         <AccessControlList>
         </AccessControlList>
       </AccessControlPolicy>';
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $client
       ->expects($this->exactly(2))
       ->method('getResponseStatus')
@@ -783,7 +783,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       ->method('getResponseData')
       ->will($this->returnValue($responseXML));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->exactly(2))
       ->method('setUpRequest')
@@ -822,13 +822,13 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   }
 
   public function testIsPublicWithFileNotFound() {
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $client
       ->expects($this->once())
       ->method('getResponseStatus')
       ->will($this->returnValue(404));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -847,7 +847,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   }
 
   public function testIsPublicWithDifferentMimetype() {
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $client
       ->expects($this->once())
       ->method('getResponseStatus')
@@ -858,7 +858,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       ->with($this->equalTo('Content-Type'))
       ->will($this->returnValue('text/plain'));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -879,7 +879,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testSetPublicWithStatusTrue() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -908,7 +908,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testSetPublicWithStatusTrueWritesCache() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -943,7 +943,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testSetPublicWithStatusFalse() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -972,7 +972,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
   public function testSetPublicWithStatusFalseWriteCache() {
     $configuration = $this->getMockConfigurationObjectFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->once())
       ->method('setUpRequest')
@@ -1018,7 +1018,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
           </Grant>
         </AccessControlList>
       </AccessControlPolicy>';
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $client
       ->expects($this->exactly(2))
       ->method('getResponseStatus')
@@ -1033,7 +1033,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       ->method('getResponseData')
       ->will($this->returnValue($responseXML));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->exactly(2))
       ->method('setUpRequest')
@@ -1054,7 +1054,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
         <AccessControlList>
         </AccessControlList>
       </AccessControlPolicy>';
-    $client = $this->createMock(PapayaHttpClient::class);
+    $client = $this->createMock(\PapayaHttpClient::class);
     $client
       ->expects($this->exactly(2))
       ->method('getResponseStatus')
@@ -1069,7 +1069,7 @@ class PapayaMediaStorageServiceS3Test extends PapayaTestCase {
       ->method('getResponseData')
       ->will($this->returnValue($responseXML));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
-    $handler = $this->createMock(PapayaMediaStorageServiceS3Handler::class);
+    $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
     $handler
       ->expects($this->exactly(2))
       ->method('setUpRequest')

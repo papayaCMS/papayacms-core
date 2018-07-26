@@ -18,7 +18,7 @@ use Papaya\Database\Records\Tree;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
+class PapayaDatabaseRecordsTreeTest extends \PapayaTestCase {
 
   /**
   * @covers Tree::_loadRecords

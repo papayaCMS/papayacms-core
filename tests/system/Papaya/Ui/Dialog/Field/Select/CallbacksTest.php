@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectCallbacksTest extends PapayaTestCase {
+class PapayaUiDialogFieldSelectCallbacksTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldSelectCallbacks::__construct

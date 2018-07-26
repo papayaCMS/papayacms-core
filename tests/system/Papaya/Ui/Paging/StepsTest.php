@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiPagingStepsTest extends PapayaTestCase {
+class PapayaUiPagingStepsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiPagingSteps::__construct
@@ -145,7 +145,7 @@ class PapayaUiPagingStepsTest extends PapayaTestCase {
   * @covers \PapayaUiPagingSteps::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $steps = new \PapayaUiPagingSteps('steps', 20, array(10, 20, 30));
     $steps->reference($reference);
     $this->assertSame(

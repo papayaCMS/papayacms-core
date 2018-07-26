@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaIteratorArrayMapperTest extends PapayaTestCase {
+class PapayaIteratorArrayMapperTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaIteratorArrayMapper

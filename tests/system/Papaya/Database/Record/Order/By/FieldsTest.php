@@ -18,7 +18,7 @@ use Papaya\Database\Record\Order\By\Fields;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordOrderByFieldsTest extends PapayaTestCase {
+class PapayaDatabaseRecordOrderByFieldsTest extends \PapayaTestCase {
 
   /**
   * @covers Fields::__construct

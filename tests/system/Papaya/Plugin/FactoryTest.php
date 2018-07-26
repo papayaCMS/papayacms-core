@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaPluginFactoryTest extends PapayaTestCase {
+class PapayaPluginFactoryTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaPluginFactory::__construct
@@ -32,7 +32,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testLoaderGetAfterSet() {
     $factory = new \PapayaPluginFactory_TestProxy();
-    $loader = $this->createMock(PapayaPluginLoader::class);
+    $loader = $this->createMock(\PapayaPluginLoader::class);
     $this->assertSame($loader, $factory->loader($loader));
   }
 
@@ -44,7 +44,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
     $factory->papaya(
       $this->mockPapaya()->application(
         array(
-          'plugins' => $loader = $this->createMock(PapayaPluginLoader::class)
+          'plugins' => $loader = $this->createMock(\PapayaPluginLoader::class)
         )
       )
     );
@@ -72,7 +72,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testGet() {
     $factory = new \PapayaPluginFactory_TestProxy();
-    $loader = $this->createMock(PapayaPluginLoader::class);
+    $loader = $this->createMock(\PapayaPluginLoader::class);
     $loader
       ->expects($this->once())#
       ->method('get')
@@ -87,7 +87,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testGetWithAllParameters() {
     $factory = new \PapayaPluginFactory_TestProxy($owner = new stdClass);
-    $loader = $this->createMock(PapayaPluginLoader::class);
+    $loader = $this->createMock(\PapayaPluginLoader::class);
     $loader
       ->expects($this->once())#
       ->method('get')
@@ -131,7 +131,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testMagicMethodGet() {
     $factory = new \PapayaPluginFactory_TestProxy();
-    $loader = $this->createMock(PapayaPluginLoader::class);
+    $loader = $this->createMock(\PapayaPluginLoader::class);
     $loader
       ->expects($this->once())
       ->method('get')
@@ -165,7 +165,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testOptionsGetAfterSet() {
     $options = $this
-      ->getMockBuilder(PapayaConfiguration::class)
+      ->getMockBuilder(\PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $factory = new \PapayaPluginFactory_TestProxy();
@@ -178,16 +178,16 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testOptionsGetFromLoader() {
     $options = $this
-      ->getMockBuilder(PapayaConfiguration::class)
+      ->getMockBuilder(\PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $groups = $this->createMock(PapayaPluginOptionGroups::class);
+    $groups = $this->createMock(\PapayaPluginOptionGroups::class);
     $groups
       ->expects($this->once())
       ->method('offsetGet')
       ->with('123456789012345678901234567890ab')
       ->will($this->returnValue($options));
-    $loader = $this->createMock(PapayaPluginLoader::class);
+    $loader = $this->createMock(\PapayaPluginLoader::class);
     $loader
       ->expects($this->once())#
       ->method('__get')
@@ -212,7 +212,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   */
   public function testGetOption() {
     $options = $this
-      ->getMockBuilder(PapayaConfiguration::class)
+      ->getMockBuilder(\PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
     $options
@@ -237,7 +237,7 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
 /**
  * @property string samplePlugin
  */
-class PapayaPluginFactory_TestProxy extends PapayaPluginFactory {
+class PapayaPluginFactory_TestProxy extends \PapayaPluginFactory {
 
   protected $_plugins = array(
     'samplePlugin' => '123456789012345678901234567890ab'

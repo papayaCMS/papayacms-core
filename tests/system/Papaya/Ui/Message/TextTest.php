@@ -15,13 +15,13 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiMessageTextTest extends PapayaTestCase {
+class PapayaUiMessageTextTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiMessageText::__construct
   */
   public function testConstructor() {
-    $message = new \PapayaUiMessageText(PapayaUiMessage::SEVERITY_ERROR, 'sample', 'content');
+    $message = new \PapayaUiMessageText(\PapayaUiMessage::SEVERITY_ERROR, 'sample', 'content');
     $this->assertEquals(
       'content', $message->content
     );
@@ -31,7 +31,7 @@ class PapayaUiMessageTextTest extends PapayaTestCase {
   * @covers \PapayaUiMessageText::appendTo
   */
   public function testAppendTo() {
-    $message = new \PapayaUiMessageText(PapayaUiMessage::SEVERITY_ERROR, 'sample', 'content', TRUE);
+    $message = new \PapayaUiMessageText(\PapayaUiMessage::SEVERITY_ERROR, 'sample', 'content', TRUE);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<error event="sample" occured="yes">content</error>', $message->getXml()
     );
@@ -41,7 +41,7 @@ class PapayaUiMessageTextTest extends PapayaTestCase {
   * @covers \PapayaUiMessageText::appendTo
   */
   public function testAppendToWithSpecialChars() {
-    $message = new \PapayaUiMessageText(PapayaUiMessage::SEVERITY_ERROR, 'sample', '<b>foo', TRUE);
+    $message = new \PapayaUiMessageText(\PapayaUiMessage::SEVERITY_ERROR, 'sample', '<b>foo', TRUE);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<error event="sample" occured="yes">&lt;b&gt;foo</error>', $message->getXml()
     );
@@ -52,7 +52,7 @@ class PapayaUiMessageTextTest extends PapayaTestCase {
   * @covers \PapayaUiMessageText::setContent
   */
   public function testGetXmlAfterSetXml() {
-    $message = new \PapayaUiMessageText(PapayaUiMessage::SEVERITY_ERROR, 'sample', '');
+    $message = new \PapayaUiMessageText(\PapayaUiMessage::SEVERITY_ERROR, 'sample', '');
     $message->content = 'content';
     $this->assertEquals(
       'content', $message->content

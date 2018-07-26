@@ -17,7 +17,7 @@ use Papaya\Cache\Configuration;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaCacheServiceMemcacheTest extends PapayaTestCase {
+class PapayaCacheServiceMemcacheTest extends \PapayaTestCase {
 
   /**
   * @covers Memcache::setMemcacheObject

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiStringTranslatedTest extends PapayaTestCase {
+class PapayaUiStringTranslatedTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiStringTranslated::__toString
@@ -23,7 +23,7 @@ class PapayaUiStringTranslatedTest extends PapayaTestCase {
   */
   public function testMagicMethodToString() {
     $phrases = $this
-      ->getMockBuilder(PapayaPhrases::class)
+      ->getMockBuilder(\PapayaPhrases::class)
       ->disableOriginalConstructor()
       ->getMock();
     $phrases

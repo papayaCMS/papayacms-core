@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiToolbarSetTest extends PapayaTestCase {
+class PapayaUiToolbarSetTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiToolbarSet::elements
@@ -23,13 +23,13 @@ class PapayaUiToolbarSetTest extends PapayaTestCase {
   public function testElementsGetAfterSet() {
     $group = new \PapayaUiToolbarSet();
     $elements = $this
-      ->getMockBuilder(PapayaUiToolbarElements::class)
+      ->getMockBuilder(\PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($group))
       ->getMock();
     $elements
       ->expects($this->once())
       ->method('owner')
-      ->with($this->isInstanceOf(PapayaUiToolbarSet::class));
+      ->with($this->isInstanceOf(\PapayaUiToolbarSet::class));
     $this->assertSame(
       $elements, $group->elements($elements)
     );
@@ -54,13 +54,13 @@ class PapayaUiToolbarSetTest extends PapayaTestCase {
   public function testAppendTo() {
     $group = new \PapayaUiToolbarSet();
     $elements = $this
-      ->getMockBuilder(PapayaUiToolbarElements::class)
+      ->getMockBuilder(\PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($group))
       ->getMock();
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXMlElement::class));
+      ->with($this->isInstanceOf(\PapayaXMlElement::class));
     $group->elements($elements);
     $this->assertEquals(
       '',

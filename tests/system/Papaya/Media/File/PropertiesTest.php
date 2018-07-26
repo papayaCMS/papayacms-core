@@ -15,10 +15,10 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMediaFilePropertiesTest extends PapayaTestCase {
+class PapayaMediaFilePropertiesTest extends \PapayaTestCase {
 
   public function testFetchPropertiesFromInfoImplementation() {
-    $infoMock = $this->createMock(PapayaMediaFileInfo::class);
+    $infoMock = $this->createMock(\PapayaMediaFileInfo::class);
     $infoMock
       ->expects($this->once())
       ->method('isSupported')

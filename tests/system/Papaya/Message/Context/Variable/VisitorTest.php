@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
+class PapayaMessageContextVariableVisitorTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaMessageContextVariableVisitor::__construct
@@ -177,7 +177,7 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   }
 }
 
-class PapayaMessageContextVariableVisitorProxy extends PapayaMessageContextVariableVisitor {
+class PapayaMessageContextVariableVisitorProxy extends \PapayaMessageContextVariableVisitor {
 
   private $_visitedVariableType = '';
 

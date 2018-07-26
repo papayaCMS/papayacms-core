@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaFilterExceptionPasswordWeakTest extends PapayaTestCase {
+class PapayaFilterExceptionPasswordWeakTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterExceptionPasswordWeak::__construct

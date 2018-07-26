@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterPhoneTest extends PapayaTestCase {
+class PapayaFilterPhoneTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterPhone::validate
@@ -36,7 +36,7 @@ class PapayaFilterPhoneTest extends PapayaTestCase {
    */
   public function testValidateExpectingException($value) {
     $filter = new \PapayaFilterPhone();
-    $this->expectException(PapayaFilterExceptionType::class);
+    $this->expectException(\PapayaFilterExceptionType::class);
     $filter->validate($value);
   }
 

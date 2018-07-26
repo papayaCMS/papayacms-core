@@ -15,13 +15,13 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiNavigationItemsTest extends PapayaTestCase {
+class PapayaUiNavigationItemsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiNavigationItems::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $items = new \PapayaUiNavigationItems();
     $this->assertSame(
       $reference, $items->reference($reference)

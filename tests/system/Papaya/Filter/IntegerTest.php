@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterIntegerTest extends PapayaTestCase {
+class PapayaFilterIntegerTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterInteger::__construct
@@ -82,7 +82,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
    */
   public function testValidateWithLimitsExpectingException($value, $minimum, $maximum) {
     $filter = new \PapayaFilterInteger($minimum, $maximum);
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $filter->validate($value);
   }
 
@@ -99,7 +99,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   */
   public function testValidateWithStringExpectingException() {
     $filter = new \PapayaFilterInteger();
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $filter->validate('foo');
   }
 
@@ -108,7 +108,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   */
   public function testValidateWithFloatExpectingException() {
     $filter = new \PapayaFilterInteger();
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $filter->validate(42.21);
   }
 
@@ -117,7 +117,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   */
   public function testValidateWithValueToSmallExpectingException() {
     $filter = new \PapayaFilterInteger(21, 42);
-    $this->expectException(PapayaFilterExceptionRangeMinimum::class);
+    $this->expectException(\PapayaFilterExceptionRangeMinimum::class);
     $filter->validate(1);
   }
 
@@ -126,7 +126,7 @@ class PapayaFilterIntegerTest extends PapayaTestCase {
   */
   public function testValidateWithValueToLargeExpectingException() {
     $filter = new \PapayaFilterInteger(0, 1);
-    $this->expectException(PapayaFilterExceptionRangeMaximum::class);
+    $this->expectException(\PapayaFilterExceptionRangeMaximum::class);
     $filter->validate(21);
   }
 

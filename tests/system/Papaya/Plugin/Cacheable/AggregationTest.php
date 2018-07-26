@@ -17,7 +17,7 @@ use Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaPluginCacheableAggregationTest extends PapayaTestCase {
+class PapayaPluginCacheableAggregationTest extends \PapayaTestCase {
 
   public function testContentGetAfterSet() {
     $plugin = new \PapayaPluginCacheableAggregation_TestProxy();

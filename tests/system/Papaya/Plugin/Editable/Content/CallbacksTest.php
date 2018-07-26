@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaPluginEditableContentCallbacksTest extends PapayaTestCase {
+class PapayaPluginEditableContentCallbacksTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaPluginEditableCallbacks::__construct

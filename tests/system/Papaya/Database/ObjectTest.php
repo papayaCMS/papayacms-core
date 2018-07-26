@@ -17,7 +17,7 @@ use Papaya\Database\BaseObject;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaDatabaseObjectTest extends PapayaTestCase {
+class PapayaDatabaseObjectTest extends \PapayaTestCase {
 
   /**
   * @covers BaseObject::setDatabaseAccess

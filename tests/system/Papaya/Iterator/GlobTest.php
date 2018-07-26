@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaIteratorGlobTest extends PapayaTestCase {
+class PapayaIteratorGlobTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaIteratorGlob::__construct

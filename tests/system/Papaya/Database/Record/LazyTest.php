@@ -18,7 +18,7 @@ use Papaya\Database\Record\Lazy;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
+class PapayaDatabaseRecordLazyTest extends \PapayaTestCase {
 
   /**
   * @covers Lazy::activateLazyLoad

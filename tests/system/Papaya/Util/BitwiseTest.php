@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUtilBitwiseTest extends PapayaTestCase {
+class PapayaUtilBitwiseTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUtilBitwise::inBitmask

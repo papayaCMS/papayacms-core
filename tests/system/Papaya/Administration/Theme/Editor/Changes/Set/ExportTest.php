@@ -19,13 +19,13 @@ use Papaya\Content\Theme\Set;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaAdministrationThemeEditorChangesSetExportTest extends PapayaTestCase {
+class PapayaAdministrationThemeEditorChangesSetExportTest extends \PapayaTestCase {
 
   /**
    * @covers Export
    */
   public function testAppendTo() {
-    $response = $this->createMock(PapayaResponse::class);
+    $response = $this->createMock(\PapayaResponse::class);
     $response
       ->expects($this->once())
       ->method('setStatus')
@@ -45,17 +45,17 @@ class PapayaAdministrationThemeEditorChangesSetExportTest extends PapayaTestCase
     $response
       ->expects($this->once())
       ->method('content')
-      ->with($this->isInstanceOf(PapayaResponseContentString::class));
+      ->with($this->isInstanceOf(\PapayaResponseContentString::class));
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaThemeHandler $themeHandler */
-    $themeHandler = $this->createMock(PapayaThemeHandler::class);
+    $themeHandler = $this->createMock(\PapayaThemeHandler::class);
     $themeHandler
       ->expects($this->once())
       ->method('getDefinition')
       ->with('theme')
       ->will($this->returnValue($this->createMock(Structure::class)));
 
-    $document = $this->createMock(PapayaXmlDocument::class);
+    $document = $this->createMock(\PapayaXmlDocument::class);
     $document
       ->expects($this->once())
       ->method('saveXml')

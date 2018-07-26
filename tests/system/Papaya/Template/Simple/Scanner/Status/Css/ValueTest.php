@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleScannerStatusCssValueTest extends PapayaTestCase {
+class PapayaTemplateSimpleScannerStatusCssValueTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaTemplateSimpleScannerStatusCssValue::getToken

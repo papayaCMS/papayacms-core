@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaTemplateEngineXslTest extends PapayaTestCase {
+class PapayaTemplateEngineXslTest extends \PapayaTestCase {
 
   private $_internalErrors;
 
@@ -200,7 +200,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   */
   public function testSetErrorHandler() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaXmlErrors $errors */
-    $errors = $this->createMock(PapayaXmlErrors::class);
+    $errors = $this->createMock(\PapayaXmlErrors::class);
     $engine = new \PapayaTemplateEngineXsl();
     $engine->setErrorHandler($errors);
     $this->assertAttributeSame(
@@ -215,7 +215,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
   */
   public function testGetErrorHandler() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaXmlErrors $errors */
-    $errors = $this->createMock(PapayaXmlErrors::class);
+    $errors = $this->createMock(\PapayaXmlErrors::class);
     $engine = new \PapayaTemplateEngineXsl();
     $engine->setErrorHandler($errors);
     $this->assertSame(
@@ -247,7 +247,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
       ->with($this->equalTo($templateFile), $this->equalTo(TRUE))
       ->will($this->returnValue(TRUE));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaXmlErrors $errors */
-    $errors = $this->createMock(PapayaXmlErrors::class);
+    $errors = $this->createMock(\PapayaXmlErrors::class);
     $errors
       ->expects($this->once())
       ->method('activate');
@@ -275,7 +275,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
       ->with($this->isInstanceOf(DOMDocument::class))
       ->will($this->returnValue(TRUE));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaXmlErrors $errors */
-    $errors = $this->createMock(PapayaXmlErrors::class);
+    $errors = $this->createMock(\PapayaXmlErrors::class);
     $errors
       ->expects($this->once())
       ->method('activate');
@@ -303,7 +303,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
       ->with($this->isInstanceOf(DOMDocument::class))
       ->will($this->returnValue(TRUE));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaXmlErrors $errors */
-    $errors = $this->createMock(PapayaXmlErrors::class);
+    $errors = $this->createMock(\PapayaXmlErrors::class);
     $errors
       ->expects($this->once())
       ->method('activate');
@@ -327,7 +327,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
     $templateFile = __DIR__.'/TestData/empty.txt';
     $processor = $this->getProcessorMock('XsltProcessor');
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaXmlErrors $errors */
-    $errors = $this->createMock(PapayaXmlErrors::class);
+    $errors = $this->createMock(\PapayaXmlErrors::class);
     $errors
       ->expects($this->once())
       ->method('activate');
@@ -340,7 +340,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
     $engine->setErrorHandler($errors);
     $engine->setTemplateFile($templateFile);
 
-    $this->expectException(PapayaXmlException::class);
+    $this->expectException(\PapayaXmlException::class);
     $engine->prepare();
   }
 
@@ -361,7 +361,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
       ->with($this->isInstanceOf(DOMDocument::class))
       ->will($this->returnValue('success'));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaXmlErrors $errors */
-    $errors = $this->createMock(PapayaXmlErrors::class);
+    $errors = $this->createMock(\PapayaXmlErrors::class);
     $errors
       ->expects($this->once())
       ->method('activate');
@@ -395,7 +395,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
       ->with($this->isInstanceOf(DOMDocument::class))
       ->will($this->returnCallback(array($this, 'throwXmlException')));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaXmlErrors $errors */
-    $errors = $this->createMock(PapayaXmlErrors::class);
+    $errors = $this->createMock(\PapayaXmlErrors::class);
     $errors
       ->expects($this->once())
       ->method('activate');
@@ -466,7 +466,7 @@ class PapayaTemplateEngineXslTest extends PapayaTestCase {
       ->with($this->isInstanceOf(DOMDocument::class))
       ->will($this->returnValue('success'));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaXmlErrors $errors */
-    $errors = $this->createMock(PapayaXmlErrors::class);
+    $errors = $this->createMock(\PapayaXmlErrors::class);
     $errors
       ->expects($this->any())
       ->method('activate');

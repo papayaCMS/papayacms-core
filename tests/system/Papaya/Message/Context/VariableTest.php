@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessageContextVariableTest extends PapayaTestCase {
+class PapayaMessageContextVariableTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaMessageContextVariable::__construct
@@ -101,7 +101,7 @@ class PapayaMessageContextVariableTest extends PapayaTestCase {
   public function testAcceptVisitor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextVariableVisitorString $visitor */
     $visitor = $this
-      ->getMockBuilder(PapayaMessageContextVariableVisitorString::class)
+      ->getMockBuilder(\PapayaMessageContextVariableVisitorString::class)
       ->setConstructorArgs(array(21, 42))
       ->getMock();
     $visitor

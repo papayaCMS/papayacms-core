@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterTimeTest extends PapayaTestCase {
+class PapayaFilterTimeTest extends \PapayaTestCase {
   /**
   * @covers \PapayaFilterTime::__construct
   */
@@ -53,7 +53,7 @@ class PapayaFilterTimeTest extends PapayaTestCase {
    */
   public function testValidateExceptionType($timeString) {
     $filter = new \PapayaFilterTime();
-    $this->expectException(PapayaFilterExceptionType::class);
+    $this->expectException(\PapayaFilterExceptionType::class);
     $filter->validate($timeString);
   }
 
@@ -66,7 +66,7 @@ class PapayaFilterTimeTest extends PapayaTestCase {
    */
   public function testValidateExceptionRangeMaximum($timeString) {
     $filter = new \PapayaFilterTime();
-    $this->expectException(PapayaFilterExceptionRangeMaximum::class);
+    $this->expectException(\PapayaFilterExceptionRangeMaximum::class);
     $filter->validate($timeString);
   }
 
@@ -75,7 +75,7 @@ class PapayaFilterTimeTest extends PapayaTestCase {
   */
   public function testValidateExceptionTypeForStepMismatch() {
     $filter = new \PapayaFilterTime(1800);
-    $this->expectException(PapayaFilterExceptionType::class);
+    $this->expectException(\PapayaFilterExceptionType::class);
     /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate('17:45');
   }
@@ -95,7 +95,7 @@ class PapayaFilterTimeTest extends PapayaTestCase {
   * @covers \PapayaFilterTime::_toTimestamp
   */
   public function testToTimestamp() {
-    $filter = $this->getProxy(PapayaFilterTime::class);
+    $filter = $this->getProxy(\PapayaFilterTime::class);
     $this->assertEquals(3661, $filter->_toTimestamp(1, 1, 1));
   }
 

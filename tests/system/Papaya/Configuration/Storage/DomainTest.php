@@ -17,7 +17,7 @@ use Papaya\Configuration\Storage\Domain;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaConfigurationStorageDomainTest extends PapayaTestCase {
+class PapayaConfigurationStorageDomainTest extends \PapayaTestCase {
 
   /**
    * @covers Domain::__construct

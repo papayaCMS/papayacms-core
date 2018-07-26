@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaMediaStorageServiceFileTest extends PapayaTestCase {
+class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
 
   private $_storageDirectory;
   private $_publicDirectory;
@@ -594,7 +594,7 @@ class PapayaMediaStorageServiceFileTest extends PapayaTestCase {
   }
 }
 
-class PapayaMediaStorageServiceFile_TestProxy extends PapayaMediaStorageServiceFile {
+class PapayaMediaStorageServiceFile_TestProxy extends \PapayaMediaStorageServiceFile {
 
   public function _verifyConfiguration() {
     return parent::_verifyConfiguration();

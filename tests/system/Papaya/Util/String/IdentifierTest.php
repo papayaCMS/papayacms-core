@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilStringIdentifierTest extends PapayaTestCase {
+class PapayaUtilStringIdentifierTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUtilStringIdentifier::toUnderscoreUpper

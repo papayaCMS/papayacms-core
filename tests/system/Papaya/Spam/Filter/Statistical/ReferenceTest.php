@@ -17,7 +17,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
+class PapayaSpamFilterStatisticalReferenceTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaSpamFilterStatisticalReference::load

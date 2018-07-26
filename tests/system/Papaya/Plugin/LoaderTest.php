@@ -15,13 +15,13 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaPluginLoaderTest extends PapayaTestCase {
+class PapayaPluginLoaderTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaPluginLoader
   */
   public function testPluginsGetAfterSet() {
-    $plugins = $this->createMock(PapayaPluginList::class);
+    $plugins = $this->createMock(\PapayaPluginList::class);
     $loader = new \PapayaPluginLoader();
     $this->assertSame(
       $plugins, $loader->plugins($plugins)
@@ -42,7 +42,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers \PapayaPluginLoader
   */
   public function testOptionsGetAfterSet() {
-    $options = $this->createMock(PapayaPluginOptionGroups::class);
+    $options = $this->createMock(\PapayaPluginOptionGroups::class);
     $loader = new \PapayaPluginLoader();
     $this->assertSame(
       $options, $loader->options($options)
@@ -63,7 +63,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers \PapayaPluginLoader
   */
   public function testMagicPropertyPlguinsGetAfterSet() {
-    $plugins = $this->createMock(PapayaPluginList::class);
+    $plugins = $this->createMock(\PapayaPluginList::class);
     $loader = new \PapayaPluginLoader();
     $loader->plugins = $plugins;
     $this->assertSame(
@@ -75,7 +75,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers \PapayaPluginLoader
   */
   public function testMagicPropertyOptionsGetAfterSet() {
-    $options = $this->createMock(PapayaPluginOptionGroups::class);
+    $options = $this->createMock(\PapayaPluginOptionGroups::class);
     $loader = new \PapayaPluginLoader();
     $loader->options = $options;
     $this->assertSame(
@@ -127,7 +127,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers \PapayaPluginLoader
   */
   public function testHasExpectingFalse() {
-    $plugins = $this->createMock(PapayaPluginList::class);
+    $plugins = $this->createMock(\PapayaPluginList::class);
     $loader = new \PapayaPluginLoader();
     $loader->plugins($plugins);
     $this->assertFalse($loader->has('123'));
@@ -309,11 +309,11 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers \PapayaPluginLoader
   */
   public function testGetWithInvalidPluginFileExpectingMessage() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageLog::class));
+      ->with($this->isInstanceOf(\PapayaMessageLog::class));
     $loader = new \PapayaPluginLoader();
     $loader->papaya(
       $this->mockPapaya()->application(
@@ -340,7 +340,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   */
   public function testGetWithAutloaderPrefix() {
     \PapayaAutoloader::clear();
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->any())
       ->method('dispatch')
@@ -403,11 +403,11 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
   * @covers \PapayaPluginLoader
   */
   public function testGetWithInvalidPluginClassExpectingMessage() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageLog::class));
+      ->with($this->isInstanceOf(\PapayaMessageLog::class));
     $loader = new \PapayaPluginLoader();
     $loader->papaya(
       $this->mockPapaya()->application(
@@ -560,7 +560,7 @@ class PapayaPluginLoaderTest extends PapayaTestCase {
    * @return PHPUnit_Framework_MockObject_MockObject
    */
   private function getPluginListFixture($record) {
-    $plugins = $this->createMock(PapayaPluginList::class);
+    $plugins = $this->createMock(\PapayaPluginList::class);
     $plugins
       ->expects($this->any())
       ->method('offsetExists')

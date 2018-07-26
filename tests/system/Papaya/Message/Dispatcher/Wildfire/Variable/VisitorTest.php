@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaMessageDispatcherWildfireVariableVisitorTest extends PapayaTestCase {
+class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaMessageDispatcherWildfireVariableVisitor::get
@@ -315,7 +315,7 @@ class PapayaMessageDispatcherWildfireVariableVisitor_SampleClass{
 }
 
 class PapayaMessageDispatcherWildfireVariableVisitor_SampleChildClass
-  extends PapayaMessageDispatcherWildfireVariableVisitor_SampleClass {
+  extends \PapayaMessageDispatcherWildfireVariableVisitor_SampleClass {
   private static /** @noinspection PhpUnusedPrivateFieldInspection */
     $privateStaticProperty = 5;
   protected static $publicStaticProperty = 6;

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaFilterFactoryProfileIsIsoDateTest extends PapayaTestCase {
+class PapayaFilterFactoryProfileIsIsoDateTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterFactoryProfileIsIsoDate::getFilter
@@ -30,7 +30,7 @@ class PapayaFilterFactoryProfileIsIsoDateTest extends PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new \PapayaFilterFactoryProfileIsIsoDate();
-    $this->expectException(PapayaFilterException::class);
+    $this->expectException(\PapayaFilterException::class);
     $profile->getFilter()->validate('foo');
   }
 }

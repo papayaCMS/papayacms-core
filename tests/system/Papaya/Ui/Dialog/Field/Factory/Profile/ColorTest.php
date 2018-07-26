@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileColorTest extends PapayaTestCase {
+class PapayaUiDialogFieldFactoryProfileColorTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldFactoryProfileColor
@@ -30,6 +30,6 @@ class PapayaUiDialogFieldFactoryProfileColorTest extends PapayaTestCase {
     );
     $profile = new \PapayaUiDialogFieldFactoryProfileColor();
     $profile->options($options);
-    $this->assertInstanceOf(PapayaUiDialogFieldInputColor::class, $profile->getField());
+    $this->assertInstanceOf(\PapayaUiDialogFieldInputColor::class, $profile->getField());
   }
 }

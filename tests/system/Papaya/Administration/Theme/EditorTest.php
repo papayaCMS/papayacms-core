@@ -19,7 +19,7 @@ use Papaya\Template;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationThemeEditorTest extends PapayaTestCase {
+class PapayaAdministrationThemeEditorTest extends \PapayaTestCase {
 
   /**
    * @covers Editor::createContent

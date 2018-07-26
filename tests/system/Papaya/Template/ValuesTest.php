@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaTemplateValuesTest extends PapayaTestCase {
+class PapayaTemplateValuesTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaTemplateValues::__construct

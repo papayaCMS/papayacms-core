@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiControlCommandConditionTest extends PapayaTestCase {
+class PapayaUiControlCommandConditionTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiControlCommandCondition::command
   */
   public function testCommandGetAfterSet() {
     $application = $this->mockPapaya()->application();
-    $command = $this->createMock(PapayaUiControlCommand::class);
+    $command = $this->createMock(\PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
       ->method('papaya')
@@ -49,7 +49,7 @@ class PapayaUiControlCommandConditionTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommandCondition::hasCommand
   */
   public function testHascommandExpectingTrue() {
-    $command = $this->createMock(PapayaUiControlCommand::class);
+    $command = $this->createMock(\PapayaUiControlCommand::class);
     $condition = new \PapayaUiControlCommandCondition_TestProxy();
     $condition->command($command);
     $this->assertTrue($condition->hasCommand());
@@ -64,7 +64,7 @@ class PapayaUiControlCommandConditionTest extends PapayaTestCase {
   }
 }
 
-class PapayaUiControlCommandCondition_TestProxy extends PapayaUiControlCommandCondition {
+class PapayaUiControlCommandCondition_TestProxy extends \PapayaUiControlCommandCondition {
 
   public function validate() {
 

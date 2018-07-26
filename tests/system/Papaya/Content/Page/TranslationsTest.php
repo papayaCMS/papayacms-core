@@ -19,7 +19,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageTranslationsTest extends PapayaTestCase {
+class PapayaContentPageTranslationsTest extends \PapayaTestCase {
 
   /**
   * @covers Translations::setTranslationsTableName

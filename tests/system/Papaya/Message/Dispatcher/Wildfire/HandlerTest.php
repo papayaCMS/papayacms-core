@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
+class PapayaMessageDispatcherWildfireHandlerTest extends \PapayaTestCase {
 
   private $_collectedHeaders = array();
 
@@ -49,7 +49,7 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
     $callback = array($this, 'callbackCollectHeaders');
     $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
-    $handler->sendInitialization(PapayaMessageDispatcherWildfireHandler::HEADER_MAIN);
+    $handler->sendInitialization(\PapayaMessageDispatcherWildfireHandler::HEADER_MAIN);
     $this->assertEquals(
       array(
         'X-Wf-Protocol-1: http://meta.wildfirehq.org/Protocol/JsonStream/0.2',

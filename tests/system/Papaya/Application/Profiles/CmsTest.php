@@ -17,7 +17,7 @@ use Papaya\Application\Profile;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfilesCmsTest extends PapayaTestCase {
+class PapayaApplicationProfilesCmsTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Application\Profiles\Cms::getProfiles

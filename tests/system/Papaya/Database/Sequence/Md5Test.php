@@ -17,7 +17,7 @@ use Papaya\Database\Sequence\Md5;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseSequenceMd5Test extends PapayaTestCase {
+class PapayaDatabaseSequenceMd5Test extends \PapayaTestCase {
 
   /**
   * @covers Md5::create

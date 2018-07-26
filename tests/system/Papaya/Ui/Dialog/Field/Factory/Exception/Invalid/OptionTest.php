@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryExceptionInvalidOptionTest extends PapayaTestCase {
+class PapayaUiDialogFieldFactoryExceptionInvalidOptionTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldFactoryExceptionInvalidOption::__construct

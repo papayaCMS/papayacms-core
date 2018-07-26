@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiListviewSubitemTextTest extends PapayaTestCase {
+class PapayaUiListviewSubitemTextTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiListviewSubitemText::__construct
@@ -87,14 +87,14 @@ class PapayaUiListviewSubitemTextTest extends PapayaTestCase {
   * @covers \PapayaUiListviewSubitemText::reference
   */
   public function testReferenceGetFromListview() {
-    $reference = $this->createMock(PapayaUiReference::class);
-    $listview = $this->createMock(PapayaUiListview::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
+    $listview = $this->createMock(\PapayaUiListview::class);
     $listview
       ->expects($this->once())
       ->method('reference')
       ->will($this->returnValue($reference));
     $collection = $this
-      ->getMockBuilder(PapayaUiListviewSubitems::class)
+      ->getMockBuilder(\PapayaUiListviewSubitems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection

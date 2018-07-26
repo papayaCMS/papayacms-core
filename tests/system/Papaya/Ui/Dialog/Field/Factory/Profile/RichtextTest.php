@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileRichtextTest extends PapayaTestCase {
+class PapayaUiDialogFieldFactoryProfileRichtextTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldFactoryProfileRichtext::getField

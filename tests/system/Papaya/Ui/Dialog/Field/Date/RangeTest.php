@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldDateRangeTest extends PapayaTestCase {
+class PapayaUiDialogFieldDateRangeTest extends \PapayaTestCase {
 
   public function testAppendTo() {
     $field = new \PapayaUiDialogFieldDateRange('Caption', 'name');

@@ -23,7 +23,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencySynchronizationContentTest extends PapayaTestCase {
+class PapayaAdministrationPagesDependencySynchronizationContentTest extends \PapayaTestCase {
 
   /**
   * @covers Content::translations

@@ -17,7 +17,7 @@ use Papaya\Controller\Callback;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaControllerCallbackTest extends PapayaTestCase {
+class PapayaControllerCallbackTest extends \PapayaTestCase {
 
   /**
    * @covers Callback

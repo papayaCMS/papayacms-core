@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
+class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldSelect::__construct
@@ -72,8 +72,8 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $select = new \PapayaUiDialogFieldSelect(
       'Caption', 'name', array()
     );
-    $select->setValueMode(PapayaUiDialogFieldSelect::VALUE_USE_CAPTION);
-    $this->assertEquals(PapayaUiDialogFieldSelect::VALUE_USE_CAPTION, $select->getValueMode());
+    $select->setValueMode(\PapayaUiDialogFieldSelect::VALUE_USE_CAPTION);
+    $this->assertEquals(\PapayaUiDialogFieldSelect::VALUE_USE_CAPTION, $select->getValueMode());
   }
 
   /**
@@ -89,7 +89,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->createMock(PapayaUiDialogFields::class));
+    $select->collection($this->createMock(\PapayaUiDialogFields::class));
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
@@ -115,7 +115,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->createMock(PapayaUiDialogFields::class));
+    $select->collection($this->createMock(\PapayaUiDialogFields::class));
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
@@ -146,7 +146,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->createMock(PapayaUiDialogFields::class));
+    $select->collection($this->createMock(\PapayaUiDialogFields::class));
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
@@ -172,7 +172,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->createMock(PapayaUiDialogFields::class));
+    $select->collection($this->createMock(\PapayaUiDialogFields::class));
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
@@ -206,7 +206,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $select->papaya($application);
-    $select->collection($this->createMock(PapayaUiDialogFields::class));
+    $select->collection($this->createMock(\PapayaUiDialogFields::class));
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<field caption="Caption" class="DialogFieldSelect" error="yes" mandatory="yes">
@@ -231,7 +231,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
   */
   public function testAppendToWithDefaultValue() {
     $dialog = $this
-      ->getMockBuilder(PapayaUiDialog::class)
+      ->getMockBuilder(\PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
     $dialog
@@ -371,7 +371,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
   */
   public function testCallbacksGetAfterSet() {
     $callbacks = $this
-      ->getMockBuilder(PapayaUiDialogFieldSelectCallbacks::class)
+      ->getMockBuilder(\PapayaUiDialogFieldSelectCallbacks::class)
       ->disableOriginalConstructor()
       ->getMock();
     $select = new \PapayaUiDialogFieldSelect(
@@ -404,7 +404,7 @@ class PapayaUiDialogFieldSelectTest extends PapayaTestCase {
    * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogFields
    */
   public function getCollectionMock($owner = NULL) {
-    $collection = $this->createMock(PapayaUiDialogFields::class);
+    $collection = $this->createMock(\PapayaUiDialogFields::class);
     if ($owner) {
       $collection
         ->expects($this->any())

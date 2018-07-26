@@ -17,7 +17,7 @@ use Papaya\Database\Sequence\Human\Cumulative;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseSequenceHumanCumulativeTest extends PapayaTestCase {
+class PapayaDatabaseSequenceHumanCumulativeTest extends \PapayaTestCase {
 
   /**
   * @covers Cumulative::__construct

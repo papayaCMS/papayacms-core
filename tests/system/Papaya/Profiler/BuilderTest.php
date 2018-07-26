@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaProfilerBuilderTest extends PapayaTestCase {
+class PapayaProfilerBuilderTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaProfilerBuilder::createCollector
   */
   public function testCreateCollector() {
     $builder = new \PapayaProfilerBuilder();
-    $this->assertInstanceOf(PapayaProfilerCollectorXhprof::class, $builder->createCollector());
+    $this->assertInstanceOf(\PapayaProfilerCollectorXhprof::class, $builder->createCollector());
   }
 
   /**
@@ -41,7 +41,7 @@ class PapayaProfilerBuilderTest extends PapayaTestCase {
     );
     $storage = $builder->createStorage();
     $this->removeTemporaryDirectory();
-    $this->assertInstanceOf(PapayaProfilerStorageFile::class, $storage);
+    $this->assertInstanceOf(\PapayaProfilerStorageFile::class, $storage);
   }
 
   /**
@@ -61,6 +61,6 @@ class PapayaProfilerBuilderTest extends PapayaTestCase {
       )
     );
     $storage = $builder->createStorage();
-    $this->assertInstanceOf(PapayaProfilerStorageXhgui::class, $storage);
+    $this->assertInstanceOf(\PapayaProfilerStorageXhgui::class, $storage);
   }
 }

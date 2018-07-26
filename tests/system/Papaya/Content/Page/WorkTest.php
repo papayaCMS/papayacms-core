@@ -21,7 +21,7 @@ use Papaya\Content\Options;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentPageWorkTest extends PapayaTestCase {
+class PapayaContentPageWorkTest extends \PapayaTestCase {
 
   /**
   * @covers Work::save

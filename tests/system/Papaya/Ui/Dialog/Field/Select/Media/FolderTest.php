@@ -17,7 +17,7 @@ use Papaya\Content\Media\Folders;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
+class PapayaUiDialogFieldSelectMediaFolderTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldSelectMediaFolder::__construct

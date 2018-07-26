@@ -15,13 +15,13 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMediaStorageServiceTest extends PapayaTestCase {
+class PapayaMediaStorageServiceTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaMediaStorageService::__construct
   */
   public function testConstructorWithConfiguration() {
-    $configuration = $this->createMock(PapayaConfiguration::class);
+    $configuration = $this->createMock(\PapayaConfiguration::class);
     $service = new \PapayaMediaStorageService_TestProxy($configuration);
     $this->assertSame($configuration, $service->configurationBuffer);
   }
@@ -35,7 +35,7 @@ class PapayaMediaStorageServiceTest extends PapayaTestCase {
   }
 }
 
-class PapayaMediaStorageService_TestProxy extends PapayaMediaStorageService {
+class PapayaMediaStorageService_TestProxy extends \PapayaMediaStorageService {
 
   public $configurationBuffer;
 

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldHiddenTest extends PapayaTestCase {
+class PapayaUiDialogFieldHiddenTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldHidden::__construct
@@ -34,7 +34,7 @@ class PapayaUiDialogFieldHiddenTest extends PapayaTestCase {
   * @covers \PapayaUiDialogFieldHidden::__construct
   */
   public function testConstructorWithAllParameters() {
-    $filter = $this->createMock(PapayaFilter::class);
+    $filter = $this->createMock(\PapayaFilter::class);
     $input = new \PapayaUiDialogFieldHidden('name', 'value', $filter);
     $this->assertAttributeSame(
       $filter, '_filter', $input
@@ -52,7 +52,7 @@ class PapayaUiDialogFieldHiddenTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->createMock(PapayaUiDialogFields::class));
+    $input->collection($this->createMock(\PapayaUiDialogFields::class));
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -77,7 +77,7 @@ class PapayaUiDialogFieldHiddenTest extends PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
-    $input->collection($this->createMock(PapayaUiDialogFields::class));
+    $input->collection($this->createMock(\PapayaUiDialogFields::class));
     $input->appendTo($node);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

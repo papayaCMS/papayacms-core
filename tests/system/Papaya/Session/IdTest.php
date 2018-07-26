@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaSessionIdTest extends PapayaTestCase {
+class PapayaSessionIdTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaSessionId::__construct
@@ -268,7 +268,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
   * @covers \PapayaSessionId::getId
   */
   public function testGetIdFromCachedValue() {
-    $request = $this->createMock(PapayaRequest::class);
+    $request = $this->createMock(\PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getParameter')
@@ -307,7 +307,7 @@ class PapayaSessionIdTest extends PapayaTestCase {
    * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaRequest
    */
   public function getParameterStubFixture(array $parameters) {
-    $request = $this->createMock(PapayaRequest::class);
+    $request = $this->createMock(\PapayaRequest::class);
     $request
       ->expects($this->any())
       ->method('getParameter')

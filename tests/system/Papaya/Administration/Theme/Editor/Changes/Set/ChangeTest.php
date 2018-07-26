@@ -18,7 +18,7 @@ use Papaya\Database\Interfaces\Record;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase {
+class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCase {
 
   /**
    * @covers Change::createDialog
@@ -147,11 +147,11 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
    * @covers Change::callbackSaveValues
    */
   public function testCallbackSaveValues() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplay::class));
+      ->with($this->isInstanceOf(\PapayaMessageDisplay::class));
     /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Change($record);
@@ -167,23 +167,23 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends PapayaTestCase
    * @covers Change::callbackShowError
    */
   public function testCallbackShowError() {
-    $errors = $this->createMock(PapayaUiDialogErrors::class);
+    $errors = $this->createMock(\PapayaUiDialogErrors::class);
     $errors
       ->expects($this->once())
       ->method('getSourceCaptions')
       ->will($this->returnValue(array()));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialog $dialog */
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    $dialog = $this->createMock(\PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('errors')
       ->will($this->returnValue($errors));
 
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageDisplay::class));
+      ->with($this->isInstanceOf(\PapayaMessageDisplay::class));
     /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Change($record);

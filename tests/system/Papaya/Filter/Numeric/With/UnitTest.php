@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
+class PapayaFilterNumericWithUnitTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterNumericWithUnit::__construct
@@ -111,7 +111,7 @@ class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
   */
   public function testValidateExpectedFilterNotEnclosedException() {
     $filter = new \PapayaFilterNumericWithUnit('px');
-    $this->expectException(PapayaFilterExceptionNotEnclosed::class);
+    $this->expectException(\PapayaFilterExceptionNotEnclosed::class);
     $filter->validate('99abc');
   }
 
@@ -120,7 +120,7 @@ class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
   */
   public function testValidateExpectedCharacterInvalidExceptionNegativeValue() {
     $filter = new \PapayaFilterNumericWithUnit('em', 1, 1000, '-');
-    $this->expectException(PapayaFilterExceptionCharacterInvalid::class);
+    $this->expectException(\PapayaFilterExceptionCharacterInvalid::class);
     $filter->validate('999em');
   }
 
@@ -129,7 +129,7 @@ class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
   */
   public function testValidateExpectedCharacterInvalidExceptionPositveValue() {
     $filter = new \PapayaFilterNumericWithUnit('em', 1, 1000, '+');
-    $this->expectException(PapayaFilterExceptionCharacterInvalid::class);
+    $this->expectException(\PapayaFilterExceptionCharacterInvalid::class);
     $filter->validate('-999em');
   }
 
@@ -138,7 +138,7 @@ class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
   */
   public function testValidateExpectedFilterRangeMinimumException() {
     $filter = new \PapayaFilterNumericWithUnit('px', -10);
-    $this->expectException(PapayaFilterExceptionRangeMinimum::class);
+    $this->expectException(\PapayaFilterExceptionRangeMinimum::class);
     $filter->validate('-999px');
   }
 
@@ -147,7 +147,7 @@ class PapayaFilterNumericWithUnitTest extends PapayaTestCase {
   */
   public function testValidateExpectedFilterRangeMaximumException() {
     $filter = new \PapayaFilterNumericWithUnit('px', -10, 999);
-    $this->expectException(PapayaFilterExceptionRangeMaximum::class);
+    $this->expectException(\PapayaFilterExceptionRangeMaximum::class);
     $filter->validate('1000px');
   }
 

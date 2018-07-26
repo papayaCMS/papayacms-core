@@ -17,7 +17,7 @@ use Papaya\Database\Record\Mapping\Callbacks;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordMappingCallbacksTest extends PapayaTestCase {
+class PapayaDatabaseRecordMappingCallbacksTest extends \PapayaTestCase {
 
   /**
   * @covers Callbacks::__construct

@@ -20,7 +20,7 @@ use Papaya\Content\Options;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentBoxWorkTest extends PapayaTestCase {
+class PapayaContentBoxWorkTest extends \PapayaTestCase {
 
   /**
   * @covers Work::save

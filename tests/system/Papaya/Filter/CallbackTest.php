@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterCallbackTest extends PapayaTestCase {
+class PapayaFilterCallbackTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaFilterCallback::__construct
@@ -58,7 +58,7 @@ class PapayaFilterCallbackTest extends PapayaTestCase {
   */
   public function testValidateWithInvalidCallbackExpectingException() {
     $filter = new \PapayaFilterCallback('INVALID_CALLBACK_NAME');
-    $this->expectException(PapayaFilterExceptionCallbackInvalid::class);
+    $this->expectException(\PapayaFilterExceptionCallbackInvalid::class);
     $filter->validate('bar');
   }
 
@@ -69,7 +69,7 @@ class PapayaFilterCallbackTest extends PapayaTestCase {
     $filter = new \PapayaFilterCallback(
       'PapayaFilterCallbackTest_ValidateCallback', array('(^foo$)')
     );
-    $this->expectException(PapayaFilterExceptionCallbackFailed::class);
+    $this->expectException(\PapayaFilterExceptionCallbackFailed::class);
     $filter->validate('bar');
   }
 

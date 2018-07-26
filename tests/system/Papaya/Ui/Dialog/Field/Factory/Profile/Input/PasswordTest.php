@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileInputPasswordTest extends PapayaTestCase {
+class PapayaUiDialogFieldFactoryProfileInputPasswordTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldFactoryProfileInputPassword::getField
@@ -30,7 +30,7 @@ class PapayaUiDialogFieldFactoryProfileInputPasswordTest extends PapayaTestCase 
     );
     $profile = new \PapayaUiDialogFieldFactoryProfileInputPassword();
     $profile->options($options);
-    $this->assertInstanceOf(PapayaUiDialogFieldInputPassword::class, $field = $profile->getField());
+    $this->assertInstanceOf(\PapayaUiDialogFieldInputPassword::class, $field = $profile->getField());
   }
 
   /**

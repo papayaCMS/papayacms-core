@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiDialogConfirmationTest extends PapayaTestCase {
+class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogConfirmation::__construct
@@ -76,7 +76,7 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   * @covers \PapayaUiDialogConfirmation::isSubmitted
   */
   public function testIsSubmittedExpectingTrue() {
-    $request = $this->createMock(PapayaRequest::class);
+    $request = $this->createMock(\PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -93,7 +93,7 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   * @covers \PapayaUiDialogConfirmation::isSubmitted
   */
   public function testIsSubmittedExpectingFalse() {
-    $request = $this->createMock(PapayaRequest::class);
+    $request = $this->createMock(\PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -108,12 +108,12 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   */
   public function testExecuteExpectingTrue() {
     $owner = new stdClass();
-    $request = $this->createMock(PapayaRequest::class);
+    $request = $this->createMock(\PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
       ->will($this->returnValue('post'));
-    $tokens = $this->createMock(PapayaUiTokens::class);
+    $tokens = $this->createMock(\PapayaUiTokens::class);
     $tokens
       ->expects($this->once())
       ->method('validate')
@@ -138,7 +138,7 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   */
   public function testExecuteExpectingFalse() {
     $owner = new stdClass();
-    $request = $this->createMock(PapayaRequest::class);
+    $request = $this->createMock(\PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -153,7 +153,7 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   */
   public function testExecuteCachesResultExpectingFalse() {
     $owner = new stdClass();
-    $request = $this->createMock(PapayaRequest::class);
+    $request = $this->createMock(\PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getMethod')
@@ -169,7 +169,7 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   */
   public function testAppendTo() {
     $owner = new stdClass();
-    $tokens = $this->createMock(PapayaUiTokens::class);
+    $tokens = $this->createMock(\PapayaUiTokens::class);
     $tokens
       ->expects($this->once())
       ->method('create')

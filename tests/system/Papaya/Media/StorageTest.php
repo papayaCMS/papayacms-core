@@ -15,13 +15,13 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaMediaStorageTest extends PapayaTestCase {
+class PapayaMediaStorageTest extends \PapayaTestCase {
 
   public function testGetServiceDefault() {
     $service = \PapayaMediaStorage::getService();
-    $this->assertInstanceOf(PapayaMediaStorageService::class, $service);
+    $this->assertInstanceOf(\PapayaMediaStorageService::class, $service);
     $serviceTwo = \PapayaMediaStorage::getService();
-    $this->assertInstanceOf(PapayaMediaStorageService::class, $service);
+    $this->assertInstanceOf(\PapayaMediaStorageService::class, $service);
     $this->assertSame($service, $serviceTwo);
   }
 
@@ -33,14 +33,14 @@ class PapayaMediaStorageTest extends PapayaTestCase {
   public function testGetServiceWithConfiguration() {
     $configuration = $this->mockPapaya()->options();
     $service = \PapayaMediaStorage::getService('file', $configuration, FALSE);
-    $this->assertInstanceOf(PapayaMediaStorageService::class, $service);
+    $this->assertInstanceOf(\PapayaMediaStorageService::class, $service);
   }
 
   public function testGetServiceNonStatic() {
     $service = \PapayaMediaStorage::getService('file', NULL, FALSE);
-    $this->assertInstanceOf(PapayaMediaStorageService::class, $service);
+    $this->assertInstanceOf(\PapayaMediaStorageService::class, $service);
     $serviceTwo = \PapayaMediaStorage::getService('file', NULL, FALSE);
-    $this->assertInstanceOf(PapayaMediaStorageService::class, $service);
+    $this->assertInstanceOf(\PapayaMediaStorageService::class, $service);
     $this->assertNotSame($service, $serviceTwo);
   }
 }

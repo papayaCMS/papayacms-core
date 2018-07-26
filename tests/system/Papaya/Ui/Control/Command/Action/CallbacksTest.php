@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaUiControlCommandActionCallbacksTest extends PapayaTestCase {
+class PapayaUiControlCommandActionCallbacksTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiControlCommandActionCallbacks::__construct

@@ -17,7 +17,7 @@ use Papaya\Url;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUrlTransformerAbsoluteTest extends PapayaTestCase {
+class PapayaUrlTransformerAbsoluteTest extends \PapayaTestCase {
 
   /**
   * get mock for Papaya\PapayaUrl from url string

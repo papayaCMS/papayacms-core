@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaXmlErrorsTest extends PapayaTestCase {
+class PapayaXmlErrorsTest extends \PapayaTestCase {
 
   public function setUp() {
     if (!extension_loaded('dom')) {
@@ -58,11 +58,11 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   * @covers \PapayaXmlErrors::emit
   */
   public function testEmit() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageLogable::class));
+      ->with($this->isInstanceOf(\PapayaMessageLogable::class));
     $errors = new \PapayaXmlErrors();
     $errors->papaya(
       $this->mockPapaya()->application(
@@ -80,11 +80,11 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   * @covers \PapayaXmlErrors::omit
   */
   public function testOmit() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessageLogable::class));
+      ->with($this->isInstanceOf(\PapayaMessageLogable::class));
     $errors = new \PapayaXmlErrors();
     $errors->papaya(
       $this->mockPapaya()->application(
@@ -103,7 +103,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   * @covers \PapayaXmlErrors::emit
   */
   public function testEmitIgnoringNonFatal() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->never())
       ->method('dispatch');
@@ -127,7 +127,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
     $errors = new \PapayaXmlErrors();
     $document = new DOMDocument('1.0', 'UTF-8');
     $document->loadXML(/** @lang Text */'<foo>');
-    $this->expectException(PapayaXmlException::class);
+    $this->expectException(\PapayaXmlException::class);
     $errors->emit();
   }
 
@@ -189,7 +189,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   * @covers \PapayaXmlErrors::encapsulate
   */
   public function testEncapsulateWithError() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('log');
@@ -208,7 +208,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   * @covers \PapayaXmlErrors::encapsulate
   */
   public function testEncapsulateWithErrorNotEmitted() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->never())
       ->method('log');
@@ -226,7 +226,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   * @covers \PapayaXmlErrors::encapsulate
   */
   public function testEncapsulateWithNonFatalNotEmitted() {
-    $messages = $this->createMock(PapayaMessageManager::class);
+    $messages = $this->createMock(\PapayaMessageManager::class);
     $messages
       ->expects($this->never())
       ->method('dispatch');

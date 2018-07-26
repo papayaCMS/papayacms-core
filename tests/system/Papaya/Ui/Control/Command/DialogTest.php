@@ -15,13 +15,13 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiControlCommandDialogTest extends PapayaTestCase {
+class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiControlCommandDialog::appendTo
   */
   public function testAppendTo() {
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    $dialog = $this->createMock(\PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('execute')
@@ -29,7 +29,7 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $command = new \PapayaUiControlCommandDialog();
     $command->dialog($dialog);
     $command->getXml();
@@ -39,7 +39,7 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommandDialog::appendTo
   */
   public function testAppendToExecuteSuccessful() {
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    $dialog = $this->createMock(\PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('execute')
@@ -47,9 +47,9 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $callbacks = $this
-      ->getMockBuilder(PapayaUiControlCommandDialogCallbacks::class)
+      ->getMockBuilder(\PapayaUiControlCommandDialogCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onExecuteSuccessful'))
       ->getMock();
@@ -67,7 +67,7 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommandDialog::appendTo
   */
   public function testAppendToExecuteSuccessfulWhileHideAfterSuccessIsTrue() {
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    $dialog = $this->createMock(\PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('execute')
@@ -76,7 +76,7 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
       ->expects($this->never())
       ->method('appendTo');
     $callbacks = $this
-      ->getMockBuilder(PapayaUiControlCommandDialogCallbacks::class)
+      ->getMockBuilder(\PapayaUiControlCommandDialogCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onExecuteSuccessful'))
       ->getMock();
@@ -96,13 +96,13 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommandDialog::reset
   */
   public function testAppendToExecuteSuccessfulWhileResetAfterSuccessIsTrue() {
-    $dialogOne = $this->createMock(PapayaUiDialog::class);
+    $dialogOne = $this->createMock(\PapayaUiDialog::class);
     $dialogOne
       ->expects($this->once())
       ->method('execute')
       ->will($this->returnValue(TRUE));
     $callbacks = $this
-      ->getMockBuilder(PapayaUiControlCommandDialogCallbacks::class)
+      ->getMockBuilder(\PapayaUiControlCommandDialogCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onExecuteSuccessful', 'onCreateDialog'))
       ->getMock();
@@ -113,7 +113,7 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
     $callbacks
       ->expects($this->once())
       ->method('onCreateDialog')
-      ->with($this->isInstanceOf(PapayaUiDialog::class));
+      ->with($this->isInstanceOf(\PapayaUiDialog::class));
     $command = new \PapayaUiControlCommandDialog();
     $command->papaya($this->mockPapaya()->application());
     $command->dialog($dialogOne);
@@ -127,7 +127,7 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommandDialog::appendTo
   */
   public function testAppendToExecuteFailed() {
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    $dialog = $this->createMock(\PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('execute')
@@ -139,9 +139,9 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $callbacks = $this
-      ->getMockBuilder(PapayaUiControlCommandDialogCallbacks::class)
+      ->getMockBuilder(\PapayaUiControlCommandDialogCallbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onExecuteFailed'))
       ->getMock();
@@ -159,7 +159,7 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommandDialog::dialog
   */
   public function testDialogGetAfterSet() {
-    $dialog = $this->createMock(PapayaUiDialog::class);
+    $dialog = $this->createMock(\PapayaUiDialog::class);
     $command = new \PapayaUiControlCommandDialog();
     $this->assertSame($dialog, $command->dialog($dialog));
   }
@@ -170,7 +170,7 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
   */
   public function testDialogGetImplicitCreate() {
     $command = new \PapayaUiControlCommandDialog();
-    $this->assertInstanceOf(PapayaUiDialog::class, $command->dialog());
+    $this->assertInstanceOf(\PapayaUiDialog::class, $command->dialog());
   }
 
   /**
@@ -192,7 +192,7 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommandDialog::callbacks
   */
   public function testCallbacksGetAfterSet() {
-    $callbacks = $this->createMock(PapayaUiControlCommandDialogCallbacks::class);
+    $callbacks = $this->createMock(\PapayaUiControlCommandDialogCallbacks::class);
     $command = new \PapayaUiControlCommandDialog();
     $this->assertSame($callbacks, $command->callbacks($callbacks));
   }
@@ -202,7 +202,7 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
   */
   public function testCallbacksGetImplicitCreate() {
     $command = new \PapayaUiControlCommandDialog();
-    $this->assertInstanceOf(PapayaUiControlCommandDialogCallbacks::class, $command->callbacks());
+    $this->assertInstanceOf(\PapayaUiControlCommandDialogCallbacks::class, $command->callbacks());
   }
 
   /**
@@ -228,7 +228,7 @@ class PapayaUiControlCommandDialogTest extends PapayaTestCase {
   */
   public function testContextGetAfterSet() {
     $command = new \PapayaUiControlCommandDialog();
-    $command->context($context = $this->createMock(PapayaRequestParameters::class));
+    $command->context($context = $this->createMock(\PapayaRequestParameters::class));
     $this->assertSame($context, $command->context());
   }
 

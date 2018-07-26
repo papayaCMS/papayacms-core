@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiContentTeaserImagesTest extends PapayaTestCase {
+class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiContentTeaserImages::__construct

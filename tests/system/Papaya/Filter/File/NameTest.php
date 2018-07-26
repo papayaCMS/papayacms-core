@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterFileNameTest extends PapayaTestCase {
+class PapayaFilterFileNameTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterFileName

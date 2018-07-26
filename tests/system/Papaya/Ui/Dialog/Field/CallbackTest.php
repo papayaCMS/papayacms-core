@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldCallbackTest extends PapayaTestCase {
+class PapayaUiDialogFieldCallbackTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldCallback
   */
   public function testConstructorWithAllArguments() {
     $xhtml = new \PapayaUiDialogFieldCallback(
-      'Caption', 'name', array($this, 'callbackGetFieldString'), 42, $this->createMock(PapayaFilter::class)
+      'Caption', 'name', array($this, 'callbackGetFieldString'), 42, $this->createMock(\PapayaFilter::class)
     );
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -89,11 +89,11 @@ class PapayaUiDialogFieldCallbackTest extends PapayaTestCase {
   }
 
   public function callbackGetFieldPapayaXmlAppendable() {
-    $result = $this->createMock(PapayaXmlAppendable::class);
+    $result = $this->createMock(\PapayaXmlAppendable::class);
     $result
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     return $result;
   }
 }

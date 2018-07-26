@@ -19,13 +19,13 @@ use Papaya\Url;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaThemeWrapperTest extends PapayaTestCase {
+class PapayaThemeWrapperTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaThemeWrapper::__construct
   */
   public function testConstructorWithUrl() {
-    $wrapperUrl = $this->createMock(PapayaThemeWrapperUrl::class);
+    $wrapperUrl = $this->createMock(\PapayaThemeWrapperUrl::class);
     $wrapper = new \PapayaThemeWrapper($wrapperUrl);
     $this->assertAttributeSame(
       $wrapperUrl, '_wrapperUrl', $wrapper
@@ -47,7 +47,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   */
   public function testGroupGetAfterSet() {
     $group = $this
-      ->getMockBuilder(PapayaThemeWrapperGroup::class)
+      ->getMockBuilder(\PapayaThemeWrapperGroup::class)
       ->disableOriginalConstructor()
       ->getMock();
     $wrapper = new \PapayaThemeWrapper();
@@ -58,7 +58,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers \PapayaThemeWrapper::group
   */
   public function testGroupImplicitCreate() {
-    $handler = $this->createMock(PapayaThemeHandler::class);
+    $handler = $this->createMock(\PapayaThemeHandler::class);
     $handler
       ->expects($this->once())
       ->method('getLocalThemePath')
@@ -74,7 +74,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers \PapayaThemeWrapper::handler
   */
   public function testHandlerSetHandler() {
-    $handler = $this->createMock(PapayaThemeHandler::class);
+    $handler = $this->createMock(\PapayaThemeHandler::class);
     $wrapper = new \PapayaThemeWrapper();
     $wrapper->handler($handler);
     $this->assertAttributeSame(
@@ -86,7 +86,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers \PapayaThemeWrapper::handler
   */
   public function testHandlerGetHandlerAfterSet() {
-    $handler = $this->createMock(PapayaThemeHandler::class);
+    $handler = $this->createMock(\PapayaThemeHandler::class);
     $wrapper = new \PapayaThemeWrapper();
     $this->assertSame(
       $handler, $wrapper->handler($handler)
@@ -101,7 +101,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
     $wrapper = new \PapayaThemeWrapper();
     $wrapper->papaya($application);
     $handler = $wrapper->handler();
-    $this->assertInstanceOf(PapayaThemeHandler::class, $handler);
+    $this->assertInstanceOf(\PapayaThemeHandler::class, $handler);
     $this->assertSame($application, $handler->papaya());
   }
 
@@ -132,7 +132,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers \PapayaThemeWrapper::templateEngine
   */
   public function testTemplateEngineGetAfterSet() {
-    $engine = $this->createMock(PapayaTemplateEngine::class);
+    $engine = $this->createMock(\PapayaTemplateEngine::class);
     $wrapper = new \PapayaThemeWrapper();
     $this->assertSame(
       $engine, $wrapper->templateEngine($engine)
@@ -187,7 +187,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
    * @param array $files
    */
   public function testGetCompiledContent($content, array $files) {
-    $handler = $this->createMock(PapayaThemeHandler::class);
+    $handler = $this->createMock(\PapayaThemeHandler::class);
     $handler
       ->expects($this->once())
       ->method('getLocalThemePath')
@@ -207,7 +207,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
     if (!function_exists('gzencode')) {
       $this->markTestSkipped('Compression not available.');
     }
-    $handler = $this->createMock(PapayaThemeHandler::class);
+    $handler = $this->createMock(\PapayaThemeHandler::class);
     $handler
       ->expects($this->once())
       ->method('getLocalThemePath')
@@ -225,7 +225,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers \PapayaThemeWrapper::getCompiledContent
   */
   public function testGetCompiledContentUsingTemplates() {
-    $engine = $this->createMock(PapayaTemplateEngine::class);
+    $engine = $this->createMock(\PapayaTemplateEngine::class);
     $engine
       ->expects($this->once())
       ->method('setTemplateString')
@@ -246,7 +246,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
       ->method('load')
       ->will($this->returnValue(TRUE));
 
-    $handler = $this->createMock(PapayaThemeHandler::class);
+    $handler = $this->createMock(\PapayaThemeHandler::class);
     $handler
       ->expects($this->any())
       ->method('getLocalThemePath')
@@ -255,7 +255,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
     $handler
       ->expects($this->any())
       ->method('getDefinition')
-      ->willReturn($this->createMock(PapayaThemeDefinition::class));
+      ->willReturn($this->createMock(\PapayaThemeDefinition::class));
 
     $wrapper = new \PapayaThemeWrapper();
     $wrapper->handler($handler);
@@ -277,7 +277,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
    */
   public function testGetFiles($validated, $files, $mimetype, $allowDirectories) {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaThemeWrapperUrl $wrapperUrl */
-    $wrapperUrl = $this->createMock(PapayaThemeWrapperUrl::class);
+    $wrapperUrl = $this->createMock(\PapayaThemeWrapperUrl::class);
     $wrapperUrl
       ->expects($this->once())
       ->method('getMimetype')
@@ -304,7 +304,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers \PapayaThemeWrapper::getFiles
   */
   public function testGetFilesUsingGroup() {
-    $wrapperUrl = $this->createMock(PapayaThemeWrapperUrl::class);
+    $wrapperUrl = $this->createMock(\PapayaThemeWrapperUrl::class);
     $wrapperUrl
       ->expects($this->once())
       ->method('getMimetype')
@@ -318,7 +318,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
       ->method('getGroup')
       ->will($this->returnValue('main'));
     $group = $this
-      ->getMockBuilder(PapayaThemeWrapperGroup::class)
+      ->getMockBuilder(\PapayaThemeWrapperGroup::class)
       ->setConstructorArgs(array('theme.xml'))
       ->getMock();
     $group
@@ -342,7 +342,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers \PapayaThemeWrapper::getFiles
   */
   public function testGetFilesUsingGroupRecursionByUrl() {
-    $wrapperUrl = $this->createMock(PapayaThemeWrapperUrl::class);
+    $wrapperUrl = $this->createMock(\PapayaThemeWrapperUrl::class);
     $wrapperUrl
       ->expects($this->once())
       ->method('getMimetype')
@@ -356,7 +356,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
       ->method('getGroup')
       ->will($this->returnValue('main'));
     $group = $this
-      ->getMockBuilder(PapayaThemeWrapperGroup::class)
+      ->getMockBuilder(\PapayaThemeWrapperGroup::class)
       ->setConstructorArgs(array('theme.xml'))
       ->getMock();
     $group
@@ -375,7 +375,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   * @covers \PapayaThemeWrapper::getFiles
   */
   public function testGetFilesWithEmptyMimeType() {
-    $wrapperUrl = $this->createMock(PapayaThemeWrapperUrl::class);
+    $wrapperUrl = $this->createMock(\PapayaThemeWrapperUrl::class);
     $wrapperUrl
       ->expects($this->once())
       ->method('getMimetype')
@@ -622,7 +622,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
   public function getResponseApplicationFixture(
     array $options = array(), $allowCompression = FALSE, $browserCache = FALSE
   ) {
-    $request = $this->createMock(PapayaRequest::class);
+    $request = $this->createMock(\PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('allowCompression')
@@ -644,7 +644,7 @@ class PapayaThemeWrapperTest extends PapayaTestCase {
    * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaThemeHandler
    */
   public function getThemeHandlerFixture() {
-    $handler = $this->createMock(PapayaThemeHandler::class);
+    $handler = $this->createMock(\PapayaThemeHandler::class);
     $handler
       ->expects($this->any())
       ->method('getLocalThemePath')

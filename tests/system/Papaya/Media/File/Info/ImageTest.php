@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaMediaFileInfoImageTest extends PapayaTestCase {
+class PapayaMediaFileInfoImageTest extends \PapayaTestCase {
 
   public function testFetchInfoFromPng() {
     $info = new \PapayaMediaFileInfoImage(__DIR__.'/TestData/20x20.png');

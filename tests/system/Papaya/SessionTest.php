@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../bootstrap.php';
 
-class PapayaSessionTest extends PapayaTestCase {
+class PapayaSessionTest extends \PapayaTestCase {
 
   private $_idSources = array();
 
@@ -51,7 +51,7 @@ class PapayaSessionTest extends PapayaTestCase {
     $session = new \PapayaSession();
     $session->papaya($this->mockPapaya()->application());
     $session->wrapper($this->getSessionWrapperFixture());
-    $session->id($this->getSessionIdFixture(array(PapayaSessionId::SOURCE_QUERY)));
+    $session->id($this->getSessionIdFixture(array(\PapayaSessionId::SOURCE_QUERY)));
     $session->activate(FALSE);
     $this->assertTrue($session->isActive());
   }
@@ -70,7 +70,7 @@ class PapayaSessionTest extends PapayaTestCase {
   public function testValuesSet() {
     $session = new \PapayaSession();
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
+      ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
       ->getMock();
     $session->values($values);
@@ -85,7 +85,7 @@ class PapayaSessionTest extends PapayaTestCase {
   public function testValuesGetAfterSet() {
     $session = new \PapayaSession();
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
+      ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
       ->getMock();
     $session->values($values);
@@ -110,7 +110,7 @@ class PapayaSessionTest extends PapayaTestCase {
   public function testSetValue() {
     $session = new \PapayaSession();
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
+      ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
       ->getMock();
     $values
@@ -127,7 +127,7 @@ class PapayaSessionTest extends PapayaTestCase {
   public function testGetValue() {
     $session = new \PapayaSession();
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
+      ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
       ->getMock();
     $values
@@ -144,7 +144,7 @@ class PapayaSessionTest extends PapayaTestCase {
   */
   public function testOptionsSet() {
     $session = new \PapayaSession();
-    $options = $this->createMock(PapayaSessionOptions::class);
+    $options = $this->createMock(\PapayaSessionOptions::class);
     $session->options($options);
     $this->assertAttributeSame(
       $options, '_options', $session
@@ -156,7 +156,7 @@ class PapayaSessionTest extends PapayaTestCase {
   */
   public function testOptionsGetAfterSet() {
     $session = new \PapayaSession();
-    $options = $this->createMock(PapayaSessionOptions::class);
+    $options = $this->createMock(\PapayaSessionOptions::class);
     $session->options($options);
     $this->assertSame(
       $options, $session->options()
@@ -178,7 +178,7 @@ class PapayaSessionTest extends PapayaTestCase {
   */
   public function testIdSet() {
     $session = new \PapayaSession();
-    $id = $this->createMock(PapayaSessionId::class);
+    $id = $this->createMock(\PapayaSessionId::class);
     $session->id($id);
     $this->assertAttributeSame(
       $id, '_id', $session
@@ -190,7 +190,7 @@ class PapayaSessionTest extends PapayaTestCase {
   */
   public function testIdGetAfterSet() {
     $session = new \PapayaSession();
-    $id = $this->createMock(PapayaSessionId::class);
+    $id = $this->createMock(\PapayaSessionId::class);
     $session->id($id);
     $this->assertSame(
       $id, $session->id()
@@ -211,7 +211,7 @@ class PapayaSessionTest extends PapayaTestCase {
   * @covers \PapayaSession::__get
   */
   public function testPropertIdReturnsString() {
-    $id = $this->createMock(PapayaSessionId::class);
+    $id = $this->createMock(\PapayaSessionId::class);
     $id
       ->expects($this->once())
       ->method('__toString')
@@ -228,7 +228,7 @@ class PapayaSessionTest extends PapayaTestCase {
   */
   public function testWrapperSet() {
     $session = new \PapayaSession();
-    $wrapper = $this->createMock(PapayaSessionWrapper::class);
+    $wrapper = $this->createMock(\PapayaSessionWrapper::class);
     $session->wrapper($wrapper);
     $this->assertAttributeSame(
       $wrapper, '_wrapper', $session
@@ -240,7 +240,7 @@ class PapayaSessionTest extends PapayaTestCase {
   */
   public function testWrapperGetAfterSet() {
     $session = new \PapayaSession();
-    $wrapper = $this->createMock(PapayaSessionWrapper::class);
+    $wrapper = $this->createMock(\PapayaSessionWrapper::class);
     $session->wrapper($wrapper);
     $this->assertSame(
       $wrapper, $session->wrapper()
@@ -263,7 +263,7 @@ class PapayaSessionTest extends PapayaTestCase {
   public function testValuesPropertyGet() {
     $session = new \PapayaSession();
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
+      ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
       ->getMock();
     $session->values($values);
@@ -277,7 +277,7 @@ class PapayaSessionTest extends PapayaTestCase {
   */
   public function testOptionsPropertyGet() {
     $session = new \PapayaSession();
-    $options = $this->createMock(PapayaSessionOptions::class);
+    $options = $this->createMock(\PapayaSessionOptions::class);
     $session->options($options);
     $this->assertSame(
       $options, $session->options
@@ -495,7 +495,7 @@ class PapayaSessionTest extends PapayaTestCase {
     $_SERVER['HTTP_USER_AGENT'] =
       'Mozilla/5.0 (Windows; U; Windows NT 6.0; de; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2';
     $_SERVER['HTTPS'] = NULL;
-    $wrapper = $this->createMock(PapayaSessionWrapper::class);
+    $wrapper = $this->createMock(\PapayaSessionWrapper::class);
     $wrapper
       ->expects($this->once())
       ->method('setName')
@@ -524,7 +524,7 @@ class PapayaSessionTest extends PapayaTestCase {
    * @runInSeparateProcess
    */
   public function testClose() {
-    $session = $this->getActiveSessionFixture(PapayaSessionId::SOURCE_COOKIE);
+    $session = $this->getActiveSessionFixture(\PapayaSessionId::SOURCE_COOKIE);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionWrapper $wrapper */
     $wrapper = $session->wrapper();
     $wrapper
@@ -543,7 +543,7 @@ class PapayaSessionTest extends PapayaTestCase {
    */
   public function testReset() {
     $_SESSION = array('foo' => 'bar');
-    $session = $this->getActiveSessionFixture(PapayaSessionId::SOURCE_COOKIE);
+    $session = $this->getActiveSessionFixture(\PapayaSessionId::SOURCE_COOKIE);
     $session->reset();
     $this->assertEquals(
       array(), $_SESSION
@@ -556,7 +556,7 @@ class PapayaSessionTest extends PapayaTestCase {
    * @runInSeparateProcess
    */
   public function testDestroy() {
-    $session = $this->getActiveSessionFixture(PapayaSessionId::SOURCE_COOKIE);
+    $session = $this->getActiveSessionFixture(\PapayaSessionId::SOURCE_COOKIE);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionWrapper $wrapper */
     $wrapper = $session->wrapper();
     $wrapper
@@ -574,7 +574,7 @@ class PapayaSessionTest extends PapayaTestCase {
    * @runInSeparateProcess
    */
   public function testRegenerateId() {
-    $session = $this->getActiveSessionFixture(PapayaSessionId::SOURCE_COOKIE);
+    $session = $this->getActiveSessionFixture(\PapayaSessionId::SOURCE_COOKIE);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionWrapper $wrapper */
     $wrapper = $session->wrapper();
     $wrapper
@@ -592,7 +592,7 @@ class PapayaSessionTest extends PapayaTestCase {
    * @runInSeparateProcess
    */
   public function testRegenerateIdExpectingPathRedirect() {
-    $session = $this->getActiveSessionFixture(PapayaSessionId::SOURCE_PATH);
+    $session = $this->getActiveSessionFixture(\PapayaSessionId::SOURCE_PATH);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionWrapper $wrapper */
     $wrapper = $session->wrapper();
     $wrapper
@@ -610,7 +610,7 @@ class PapayaSessionTest extends PapayaTestCase {
    * @runInSeparateProcess
    */
   public function testRegenerateIdExpectingPathRedirectToTargetUrl() {
-    $session = $this->getActiveSessionFixture(PapayaSessionId::SOURCE_PATH);
+    $session = $this->getActiveSessionFixture(\PapayaSessionId::SOURCE_PATH);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionWrapper $wrapper */
     $wrapper = $session->wrapper();
     $wrapper
@@ -634,7 +634,7 @@ class PapayaSessionTest extends PapayaTestCase {
    * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionWrapper
    */
   public function getSessionWrapperFixture($canStart = TRUE) {
-    $wrapper = $this->createMock(PapayaSessionWrapper::class);
+    $wrapper = $this->createMock(\PapayaSessionWrapper::class);
     $wrapper
       ->expects($this->once())
       ->method('setName')
@@ -652,7 +652,7 @@ class PapayaSessionTest extends PapayaTestCase {
 
   public function getSessionIdFixture($source) {
     $this->_idSources = $source;
-    $id = $this->createMock(PapayaSessionId::class);
+    $id = $this->createMock(\PapayaSessionId::class);
     $id
       ->expects($this->any())
       ->method('__toString')
@@ -729,15 +729,15 @@ class PapayaSessionTest extends PapayaTestCase {
   public static function provideSessionSourcesNoRedirect() {
     return array(
       'cookie only' => array(
-        array(PapayaSessionId::SOURCE_COOKIE),
+        array(\PapayaSessionId::SOURCE_COOKIE),
         \PapayaSessionOptions::FALLBACK_REWRITE
       ),
       'path only' => array(
-        array(PapayaSessionId::SOURCE_PATH),
+        array(\PapayaSessionId::SOURCE_PATH),
         \PapayaSessionOptions::FALLBACK_REWRITE
       ),
       'query only' => array(
-        array(PapayaSessionId::SOURCE_QUERY),
+        array(\PapayaSessionId::SOURCE_QUERY),
         \PapayaSessionOptions::FALLBACK_PARAMETER
       )
     );
@@ -746,17 +746,17 @@ class PapayaSessionTest extends PapayaTestCase {
   public static function provideSessionSourcesTriggeringRedirect() {
     return array(
       'cookie and path' => array(
-        array(PapayaSessionId::SOURCE_COOKIE, \PapayaSessionId::SOURCE_PATH),
+        array(\PapayaSessionId::SOURCE_COOKIE, \PapayaSessionId::SOURCE_PATH),
         \PapayaSessionOptions::FALLBACK_REWRITE,
         0,
       ),
       'path and query' => array(
-        array(PapayaSessionId::SOURCE_PATH, \PapayaSessionId::SOURCE_QUERY),
+        array(\PapayaSessionId::SOURCE_PATH, \PapayaSessionId::SOURCE_QUERY),
         \PapayaSessionOptions::FALLBACK_REWRITE,
         \PapayaSessionId::SOURCE_PATH
       ),
       'query and path' => array(
-        array(PapayaSessionId::SOURCE_PATH, \PapayaSessionId::SOURCE_QUERY),
+        array(\PapayaSessionId::SOURCE_PATH, \PapayaSessionId::SOURCE_QUERY),
         \PapayaSessionOptions::FALLBACK_PARAMETER,
         \PapayaSessionId::SOURCE_QUERY
       )

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterGeoPositionTest extends PapayaTestCase {
+class PapayaFilterGeoPositionTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterGeoPosition

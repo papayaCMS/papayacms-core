@@ -17,7 +17,7 @@ use Papaya\Cache\Configuration;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaCacheConfigurationTest extends PapayaTestCase {
+class PapayaCacheConfigurationTest extends \PapayaTestCase {
 
   public function testConstructor() {
     $configuration = new Configuration();

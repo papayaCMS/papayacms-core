@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilStringBase32Test extends PapayaTestCase {
+class PapayaUtilStringBase32Test extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUtilStringBase32::encode

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilRequestMethodTest extends PapayaTestCase {
+class PapayaUtilRequestMethodTest extends \PapayaTestCase {
 
   private $_server;
 
@@ -57,7 +57,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
       'REQUEST_METHOD' => 'POST'
     );
     $this->assertEquals(
-      'POST', \PapayaUtilRequestMethod::get(PapayaUtilRequestMethod::FORMAT_UPPERCASE)
+      'POST', \PapayaUtilRequestMethod::get(\PapayaUtilRequestMethod::FORMAT_UPPERCASE)
     );
   }
 
@@ -68,7 +68,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
     $_SERVER = array(
       'REQUEST_METHOD' => 'GET'
     );
-    $this->assertTrue(PapayaUtilRequestMethod::isGet());
+    $this->assertTrue(\PapayaUtilRequestMethod::isGet());
   }
 
   /**
@@ -78,7 +78,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
     $_SERVER = array(
       'REQUEST_METHOD' => 'POST'
     );
-    $this->assertFalse(PapayaUtilRequestMethod::isGet());
+    $this->assertFalse(\PapayaUtilRequestMethod::isGet());
   }
 
   /**
@@ -88,7 +88,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
     $_SERVER = array(
       'REQUEST_METHOD' => 'POST'
     );
-    $this->assertTrue(PapayaUtilRequestMethod::isPost());
+    $this->assertTrue(\PapayaUtilRequestMethod::isPost());
   }
 
   /**
@@ -98,7 +98,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
     $_SERVER = array(
       'REQUEST_METHOD' => 'GET'
     );
-    $this->assertFalse(PapayaUtilRequestMethod::isPost());
+    $this->assertFalse(\PapayaUtilRequestMethod::isPost());
   }
 
   /**
@@ -108,7 +108,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
     $_SERVER = array(
       'REQUEST_METHOD' => 'PUT'
     );
-    $this->assertTrue(PapayaUtilRequestMethod::isPut());
+    $this->assertTrue(\PapayaUtilRequestMethod::isPut());
   }
 
   /**
@@ -118,6 +118,6 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
     $_SERVER = array(
       'REQUEST_METHOD' => 'GET'
     );
-    $this->assertFalse(PapayaUtilRequestMethod::isPut());
+    $this->assertFalse(\PapayaUtilRequestMethod::isPut());
   }
 }

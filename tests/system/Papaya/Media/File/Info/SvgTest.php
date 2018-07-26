@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaMediaFileInfoSvgTest extends PapayaTestCase {
+class PapayaMediaFileInfoSvgTest extends \PapayaTestCase {
 
   public function testReadUsingXMLReader() {
     if (!extension_loaded('xmlreader')) {

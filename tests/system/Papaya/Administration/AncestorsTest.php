@@ -19,7 +19,7 @@ use Papaya\Content\Pages;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaAdministrationPagesAncestorsTest extends PapayaTestCase {
+class PapayaAdministrationPagesAncestorsTest extends \PapayaTestCase {
 
   /**
   * @covers Ancestors::appendTo
@@ -28,16 +28,16 @@ class PapayaAdministrationPagesAncestorsTest extends PapayaTestCase {
     $document = new \PapayaXmlDocument();
     $document->appendElement('sample');
 
-    $menu = $this->createMock(PapayaUiHierarchyMenu::class);
+    $menu = $this->createMock(\PapayaUiHierarchyMenu::class);
     $menu
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class))
+      ->with($this->isInstanceOf(\PapayaXmlElement::class))
       ->will($this->returnValue($document->documentElement->appendElement('menu')));
     $ancestors = new Ancestors();
     $ancestors->menu($menu);
 
-    $this->assertInstanceOf(PapayaXmlElement::class, $ancestors->appendTo($document->documentElement));
+    $this->assertInstanceOf(\PapayaXmlElement::class, $ancestors->appendTo($document->documentElement));
   }
 
   /**
@@ -118,7 +118,7 @@ class PapayaAdministrationPagesAncestorsTest extends PapayaTestCase {
   */
   public function testItemsGetAfterSet() {
     $ancestors = new Ancestors();
-    $menu = $this->createMock(PapayaUiHierarchyMenu::class);
+    $menu = $this->createMock(\PapayaUiHierarchyMenu::class);
     $this->assertSame(
       $menu, $ancestors->menu($menu)
     );

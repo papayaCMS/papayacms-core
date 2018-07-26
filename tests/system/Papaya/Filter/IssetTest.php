@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterIssetTest extends PapayaTestCase {
+class PapayaFilterIssetTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterIsset::validate
@@ -33,7 +33,7 @@ class PapayaFilterIssetTest extends PapayaTestCase {
   */
   public function testCheckExpectingException() {
     $filter = new \PapayaFilterIsset();
-    $this->expectException(PapayaFilterExceptionUndefined::class);
+    $this->expectException(\PapayaFilterExceptionUndefined::class);
     $filter->validate(NULL);
   }
 

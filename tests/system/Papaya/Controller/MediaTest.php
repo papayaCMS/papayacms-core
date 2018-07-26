@@ -17,7 +17,7 @@ use Papaya\Controller\Error;
 use Papaya\Controller\Media;
 
 require_once __DIR__.'/../../../bootstrap.php';
-PapayaTestCase::defineConstantDefaults(
+\PapayaTestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_MEDIADB_FILES',
   'PAPAYA_DB_TBL_MEDIADB_FILES_DERIVATIONS',
   'PAPAYA_DB_TBL_MEDIADB_FILES_TRANS',
@@ -36,7 +36,7 @@ PapayaTestCase::defineConstantDefaults(
   'PAPAYA_MEDIADB_SUBDIRECTORIES'
 );
 
-class PapayaControllerMediaTest extends PapayaTestCase {
+class PapayaControllerMediaTest extends \PapayaTestCase {
 
   /**
   * @covers Media::execute

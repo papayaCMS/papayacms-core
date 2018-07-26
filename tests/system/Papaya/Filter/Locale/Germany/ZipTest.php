@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaFilterLocaleGermanyZipTest extends PapayaTestCase {
+class PapayaFilterLocaleGermanyZipTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterLocaleGermanyZip::__construct
@@ -48,7 +48,7 @@ class PapayaFilterLocaleGermanyZipTest extends PapayaTestCase {
   */
   public function testValidateExpectCharacterInvalidException() {
     $filter = new \PapayaFilterLocaleGermanyZip(TRUE);
-    $this->expectException(PapayaFilterExceptionCharacterInvalid::class);
+    $this->expectException(\PapayaFilterExceptionCharacterInvalid::class);
     $filter->validate('11235');
   }
 
@@ -57,7 +57,7 @@ class PapayaFilterLocaleGermanyZipTest extends PapayaTestCase {
   */
   public function testValidateExpectLengthMinimumException() {
     $filter = new \PapayaFilterLocaleGermanyZip();
-    $this->expectException(PapayaFilterExceptionLengthMinimum::class);
+    $this->expectException(\PapayaFilterExceptionLengthMinimum::class);
     $filter->validate('123');
   }
 
@@ -66,7 +66,7 @@ class PapayaFilterLocaleGermanyZipTest extends PapayaTestCase {
   */
   public function testValidateExpectLengthMaximumException() {
     $filter = new \PapayaFilterLocaleGermanyZip();
-    $this->expectException(PapayaFilterExceptionLengthMaximum::class);
+    $this->expectException(\PapayaFilterExceptionLengthMaximum::class);
     $filter->validate('342423432424');
   }
 
@@ -75,7 +75,7 @@ class PapayaFilterLocaleGermanyZipTest extends PapayaTestCase {
   */
   public function testValidateExpectCharacterInvalidExceptionInPostalcode() {
     $filter = new \PapayaFilterLocaleGermanyZip();
-    $this->expectException(PapayaFilterExceptionCharacterInvalid::class);
+    $this->expectException(\PapayaFilterExceptionCharacterInvalid::class);
     $filter->validate('23a91');
   }
 

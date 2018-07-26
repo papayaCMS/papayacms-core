@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaDatabaseManagerTest extends PapayaTestCase {
+class PapayaDatabaseManagerTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Database\Manager::setConfiguration

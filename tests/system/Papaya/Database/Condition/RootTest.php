@@ -17,7 +17,7 @@ use Papaya\Database\Condition\Root;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseConditionRootTest extends PapayaTestCase {
+class PapayaDatabaseConditionRootTest extends \PapayaTestCase {
 
   /**
    * @covers Root

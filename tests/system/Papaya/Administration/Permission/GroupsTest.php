@@ -18,7 +18,7 @@ use Papaya\Administration\Permission\Groups;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaAdministrationPermissionGroupsTest extends PapayaTestCase {
+class PapayaAdministrationPermissionGroupsTest extends \PapayaTestCase {
 
   /**
    * @covers Groups::__construct

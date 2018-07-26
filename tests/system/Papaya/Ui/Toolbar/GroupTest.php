@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiToolbarGroupTest extends PapayaTestCase {
+class PapayaUiToolbarGroupTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiToolbarGroup::__construct
@@ -35,7 +35,7 @@ class PapayaUiToolbarGroupTest extends PapayaTestCase {
     $document->appendElement('sample');
     $group = new \PapayaUiToolbarGroup('group caption');
     $elements = $this
-      ->getMockBuilder(PapayaUiToolbarElements::class)
+      ->getMockBuilder(\PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($group))
       ->getMock();
     $elements
@@ -45,9 +45,9 @@ class PapayaUiToolbarGroupTest extends PapayaTestCase {
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $group->elements($elements);
-    $this->assertInstanceOf(PapayaXmlElement::class, $group->appendTo($document->documentElement));
+    $this->assertInstanceOf(\PapayaXmlElement::class, $group->appendTo($document->documentElement));
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<group title="group caption"/>',
@@ -63,7 +63,7 @@ class PapayaUiToolbarGroupTest extends PapayaTestCase {
     $document->appendElement('sample');
     $group = new \PapayaUiToolbarGroup('group caption');
     $elements = $this
-      ->getMockBuilder(PapayaUiToolbarElements::class)
+      ->getMockBuilder(\PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($group))
       ->getMock();
     $elements

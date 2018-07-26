@@ -17,13 +17,13 @@ use Papaya\Controller\Error;
 use Papaya\Controller\Image;
 
 require_once __DIR__.'/../../../bootstrap.php';
-PapayaTestCase::defineConstantDefaults(
+\PapayaTestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_IMAGES',
   'PAPAYA_DB_TBL_MODULES',
   'PAPAYA_DB_TBL_MODULEGROUPS'
 );
 
-class PapayaControllerImageTest extends PapayaTestCase {
+class PapayaControllerImageTest extends \PapayaTestCase {
 
   /**
   * @covers Image::setImageGenerator

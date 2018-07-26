@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiOptionAlignTest extends PapayaTestCase {
+class PapayaUiOptionAlignTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiOptionAlign::getString
@@ -23,7 +23,7 @@ class PapayaUiOptionAlignTest extends PapayaTestCase {
   public function testGetString() {
     $this->assertEquals(
       'center',
-      \PapayaUiOptionAlign::getString(PapayaUiOptionAlign::CENTER)
+      \PapayaUiOptionAlign::getString(\PapayaUiOptionAlign::CENTER)
     );
   }
 
@@ -42,7 +42,7 @@ class PapayaUiOptionAlignTest extends PapayaTestCase {
   */
   public function testValidate() {
     $this->assertTrue(
-      \PapayaUiOptionAlign::validate(PapayaUiOptionAlign::CENTER)
+      \PapayaUiOptionAlign::validate(\PapayaUiOptionAlign::CENTER)
     );
   }
 

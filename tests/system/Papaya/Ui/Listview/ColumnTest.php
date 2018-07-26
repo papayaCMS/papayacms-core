@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiListviewColumnTest extends PapayaTestCase {
+class PapayaUiListviewColumnTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiListviewColumn::__construct
@@ -46,7 +46,7 @@ class PapayaUiListviewColumnTest extends PapayaTestCase {
   */
   public function testGetAlignAfterSetAlign() {
     $column = new \PapayaUiListviewColumn('test title');
-    $column->setAlign(PapayaUiOptionAlign::RIGHT);
+    $column->setAlign(\PapayaUiOptionAlign::RIGHT);
     $this->assertEquals(
       \PapayaUiOptionAlign::RIGHT, $column->getAlign()
     );

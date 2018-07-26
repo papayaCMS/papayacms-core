@@ -17,7 +17,7 @@ use Papaya\Content\View\Mode\Types;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaContentViewModeTypesTest extends PapayaTestCase {
+class PapayaContentViewModeTypesTest extends \PapayaTestCase {
 
   /**
    * @covers Types::exists

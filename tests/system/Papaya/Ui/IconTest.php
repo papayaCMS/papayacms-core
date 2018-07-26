@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiIconTest extends PapayaTestCase {
+class PapayaUiIconTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiIcon::__construct
@@ -152,7 +152,7 @@ class PapayaUiIconTest extends PapayaTestCase {
   * @covers \PapayaUiIcon::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $icon = new \PapayaUiIcon('sample');
     $this->assertSame(
       $reference, $icon->reference($reference)

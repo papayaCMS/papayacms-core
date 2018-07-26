@@ -16,7 +16,7 @@
 /** @noinspection PhpIllegalArrayKeyTypeInspection */
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaObjectParametersTest extends PapayaTestCase {
+class PapayaObjectParametersTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaObjectParameters::__construct
@@ -140,7 +140,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   */
   public function testGetWithObjectDefaultValueExpectingParameterValue() {
     $defaultValue = $this
-      ->getMockBuilder(PapayaUiString::class)
+      ->getMockBuilder(\PapayaUiString::class)
       ->disableOriginalConstructor()
       ->getMock();
     $parameters = new \PapayaObjectParameters();
@@ -160,7 +160,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   */
   public function testGetWithObjectDefaultValueExpectingDefaultValue() {
     $defaultValue = $this
-      ->getMockBuilder(PapayaUiString::class)
+      ->getMockBuilder(\PapayaUiString::class)
       ->setMethods(array('__toString'))
       ->setConstructorArgs(array(' '))
       ->getMock();
@@ -184,7 +184,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   * @covers \PapayaObjectParameters::get
   */
   public function testGetWithFilter() {
-    $filter = $this->createMock(PapayaFilter::class);
+    $filter = $this->createMock(\PapayaFilter::class);
     $filter
       ->expects($this->once())
       ->method('filter')
@@ -206,7 +206,7 @@ class PapayaObjectParametersTest extends PapayaTestCase {
   * @covers \PapayaObjectParameters::get
   */
   public function testGetWithFilterExpectingDefaultValue() {
-    $filter = $this->createMock(PapayaFilter::class);
+    $filter = $this->createMock(\PapayaFilter::class);
     $filter
       ->expects($this->once())
       ->method('filter')

@@ -14,7 +14,7 @@
  */
 
 require_once __DIR__.'/../../../../bootstrap.php';
-PapayaTestCase::defineConstantDefaults(
+\PapayaTestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_AUTHOPTIONS',
   'PAPAYA_DB_TBL_AUTHUSER',
   'PAPAYA_DB_TBL_AUTHGROUPS',
@@ -25,7 +25,7 @@ PapayaTestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_SURFER'
 );
 
-class PapayaUiControlCommandTest extends PapayaTestCase {
+class PapayaUiControlCommandTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiControlCommand::condition
@@ -33,7 +33,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   */
   public function testConditionGetExpectingTrue() {
     $command = new \PapayaUiControlCommand_TestProxy();
-    $this->assertInstanceOf(PapayaUiControlCommandConditionValue::class, $command->condition());
+    $this->assertInstanceOf(\PapayaUiControlCommandConditionValue::class, $command->condition());
     $this->assertTrue($command->condition()->validate());
   }
 
@@ -42,7 +42,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   */
   public function testConditionGetAfterSet() {
     $command = new \PapayaUiControlCommand_TestProxy();
-    $command->condition($condition = $this->createMock(PapayaUiControlCommandCondition::class));
+    $command->condition($condition = $this->createMock(\PapayaUiControlCommandCondition::class));
     $this->assertEquals($condition, $command->condition());
   }
 
@@ -58,7 +58,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommand::validateCondition
   */
   public function testValidateConditionWithConditionExpectingTrue() {
-    $condition = $this->createMock(PapayaUiControlCommandCondition::class);
+    $condition = $this->createMock(\PapayaUiControlCommandCondition::class);
     $condition
       ->expects($this->once())
       ->method('validate')
@@ -72,7 +72,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommand::validateCondition
   */
   public function testValidateConditionWithConditionExpectingFalse() {
-    $condition = $this->createMock(PapayaUiControlCommandCondition::class);
+    $condition = $this->createMock(\PapayaUiControlCommandCondition::class);
     $condition
       ->expects($this->once())
       ->method('validate')
@@ -211,7 +211,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   */
   public function testOwnerGetAfterSet() {
     $application = $this->mockPapaya()->application();
-    $owner = $this->createMock(PapayaUiControlInteractive::class);
+    $owner = $this->createMock(\PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('papaya')
@@ -236,7 +236,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommand::hasOwner
   */
   public function testHasOwnerExpectingTrue() {
-    $owner = $this->createMock(PapayaUiControlInteractive::class);
+    $owner = $this->createMock(\PapayaUiControlInteractive::class);
     $command = new \PapayaUiControlCommand_TestProxy();
     $command->owner($owner);
     $this->assertTrue($command->hasOwner());
@@ -257,7 +257,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
     $command = new \PapayaUiControlCommand_TestProxy();
     $this->assertEquals(
       \PapayaRequestParametersInterface::METHOD_GET,
-      $command->parameterMethod(PapayaRequestParametersInterface::METHOD_GET)
+      $command->parameterMethod(\PapayaRequestParametersInterface::METHOD_GET)
     );
   }
 
@@ -265,17 +265,17 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommand::parameterMethod
   */
   public function testParameterMethodGetAfterSetWithOwner() {
-    $owner = $this->createMock(PapayaUiControlInteractive::class);
+    $owner = $this->createMock(\PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('parameterMethod')
-      ->with($this->equalTo(PapayaRequestParametersInterface::METHOD_POST))
+      ->with($this->equalTo(\PapayaRequestParametersInterface::METHOD_POST))
       ->will($this->returnArgument(0));
     $command = new \PapayaUiControlCommand_TestProxy();
     $command->owner($owner);
     $this->assertEquals(
       \PapayaRequestParametersInterface::METHOD_POST,
-      $command->parameterMethod(PapayaRequestParametersInterface::METHOD_POST)
+      $command->parameterMethod(\PapayaRequestParametersInterface::METHOD_POST)
     );
   }
 
@@ -294,7 +294,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommand::parameterGroup
   */
   public function testParameterGroupGetAfterSetWithOwner() {
-    $owner = $this->createMock(PapayaUiControlInteractive::class);
+    $owner = $this->createMock(\PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('parameterGroup')
@@ -312,7 +312,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommand::parameters
   */
   public function testParametersGetAfterSet() {
-    $parameters = $this->createMock(PapayaRequestParameters::class);
+    $parameters = $this->createMock(\PapayaRequestParameters::class);
     $command = new \PapayaUiControlCommand_TestProxy();
     $this->assertSame(
       $parameters,
@@ -324,8 +324,8 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommand::parameters
   */
   public function testParametersGetAfterSetWithOwner() {
-    $parameters = $this->createMock(PapayaRequestParameters::class);
-    $owner = $this->createMock(PapayaUiControlInteractive::class);
+    $parameters = $this->createMock(\PapayaRequestParameters::class);
+    $owner = $this->createMock(\PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())
       ->method('parameters')
@@ -340,7 +340,7 @@ class PapayaUiControlCommandTest extends PapayaTestCase {
   }
 }
 
-class PapayaUiControlCommand_TestProxy extends PapayaUiControlCommand {
+class PapayaUiControlCommand_TestProxy extends \PapayaUiControlCommand {
 
   public function appendTo(PapayaXmlElement $parent) {
     return NULL;

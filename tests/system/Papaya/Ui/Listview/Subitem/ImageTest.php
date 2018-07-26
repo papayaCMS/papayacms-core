@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
+class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiListviewSubitemImage::__construct
@@ -45,7 +45,7 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
   */
   public function testReferenceGetAfterSet() {
     $subitem = new \PapayaUiListviewSubitemImage('sample.png', 'quickinfo', array('foo' => 'bar'));
-    $subitem->reference($reference = $this->createMock(PapayaUiReference::class));
+    $subitem->reference($reference = $this->createMock(\PapayaUiReference::class));
     $this->assertSame(
       $reference, $subitem->reference()
     );
@@ -55,14 +55,14 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
   * @covers \PapayaUiListviewSubitemImage::reference
   */
   public function testReferenceGetFromListview() {
-    $reference = $this->createMock(PapayaUiReference::class);
-    $listview = $this->createMock(PapayaUiListview::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
+    $listview = $this->createMock(\PapayaUiListview::class);
     $listview
       ->expects($this->once())
       ->method('reference')
       ->will($this->returnValue($reference));
     $collection = $this
-      ->getMockBuilder(PapayaUiListviewSubitems::class)
+      ->getMockBuilder(\PapayaUiListviewSubitems::class)
       ->disableOriginalConstructor()
       ->getMock();
     $collection
@@ -122,7 +122,7 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
   public function testAppendToWithReference() {
     $document = new \PapayaXmlDocument();
     $document->appendElement('test');
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('setParameters')
@@ -152,7 +152,7 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
   public function testAppendToWithReferenceFromListview() {
     $document = new \PapayaXmlDocument();
     $document->appendElement('test');
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('setParameters')
@@ -161,7 +161,7 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getRelative')
       ->will($this->returnValue('sample.html'));
-    $listview = $this->createMock(PapayaUiListview::class);
+    $listview = $this->createMock(\PapayaUiListview::class);
     $listview
       ->expects($this->once())
       ->method('reference')
@@ -171,11 +171,11 @@ class PapayaUiListviewSubitemImageTest extends PapayaTestCase {
       ->method('parameterGroup')
       ->will($this->returnValue('group'));
     $collection = $this
-      ->getMockBuilder(PapayaUiListviewSubitems::class)
+      ->getMockBuilder(\PapayaUiListviewSubitems::class)
       ->setConstructorArgs(
         array(
           $this
-            ->getMockBuilder(PapayaUiListviewItem::class)
+            ->getMockBuilder(\PapayaUiListviewItem::class)
             ->setConstructorArgs(array('', ''))
             ->getMock()
         )

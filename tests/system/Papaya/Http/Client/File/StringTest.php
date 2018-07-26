@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaHttpClientFileStringTest extends PapayaTestCase {
+class PapayaHttpClientFileStringTest extends \PapayaTestCase {
 
   private $_fileContents;
 
@@ -48,7 +48,7 @@ class PapayaHttpClientFileStringTest extends PapayaTestCase {
 
   public function testSend() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocket $socket */
-    $socket = $this->createMock(PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\PapayaHttpClientSocket::class);
     $socket
       ->expects($this->at(0))
       ->method('isActive')
@@ -65,7 +65,7 @@ class PapayaHttpClientFileStringTest extends PapayaTestCase {
 
   public function testSendChunked() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocket $socket */
-    $socket = $this->createMock(PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\PapayaHttpClientSocket::class);
     $socket
       ->expects($this->at(0))
       ->method('isActive')

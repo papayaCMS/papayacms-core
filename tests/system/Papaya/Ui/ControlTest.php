@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiControlTest extends PapayaTestCase {
+class PapayaUiControlTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiControl::getXml
@@ -63,7 +63,7 @@ class PapayaUiControlTest extends PapayaTestCase {
   }
 }
 
-class PapayaUiControl_TestProxy extends PapayaUiControl {
+class PapayaUiControl_TestProxy extends \PapayaUiControl {
 
   public $nodeStub = array();
 

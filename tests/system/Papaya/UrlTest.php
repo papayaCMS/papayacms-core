@@ -17,7 +17,7 @@ use Papaya\Url;
 
 require_once __DIR__.'/../../bootstrap.php';
 
-class PapayaUrlTest extends PapayaTestCase {
+class PapayaUrlTest extends \PapayaTestCase {
 
   /**
   * @covers Url::__construct

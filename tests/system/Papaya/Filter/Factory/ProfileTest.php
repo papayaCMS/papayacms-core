@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFilterFactoryProfileTest extends PapayaTestCase {
+class PapayaFilterFactoryProfileTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaFilterFactoryProfile::options
@@ -36,7 +36,7 @@ class PapayaFilterFactoryProfileTest extends PapayaTestCase {
 
 }
 
-class PapayaFilterFactoryProfile_TestProxy extends PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfile_TestProxy extends \PapayaFilterFactoryProfile {
 
   public function getFilter() {
   }

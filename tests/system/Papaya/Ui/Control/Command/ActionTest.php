@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiControlCommandActionTest extends PapayaTestCase {
+class PapayaUiControlCommandActionTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiControlCommandAction
@@ -58,7 +58,7 @@ class PapayaUiControlCommandActionTest extends PapayaTestCase {
   */
   public function testDataGetAfterSet() {
     $validator = $this
-      ->getMockBuilder(PapayaRequestParametersValidator::class)#
+      ->getMockBuilder(\PapayaRequestParametersValidator::class)#
       ->disableOriginalConstructor()
       ->getMock();
     $command = new \PapayaUiControlCommandAction();
@@ -91,7 +91,7 @@ class PapayaUiControlCommandActionTest extends PapayaTestCase {
   * @covers \PapayaUiControlCommandAction::callbacks
   */
   public function testCallbacksGetAfterSet() {
-    $callbacks = $this->createMock(PapayaUiControlCommandActionCallbacks::class);
+    $callbacks = $this->createMock(\PapayaUiControlCommandActionCallbacks::class);
     $command = new \PapayaUiControlCommandAction();
     $this->assertSame($callbacks, $command->callbacks($callbacks));
   }
@@ -101,6 +101,6 @@ class PapayaUiControlCommandActionTest extends PapayaTestCase {
   */
   public function testCallbacksGetImplicitCreate() {
     $command = new \PapayaUiControlCommandAction();
-    $this->assertInstanceOf(PapayaUiControlCommandActionCallbacks::class, $command->callbacks());
+    $this->assertInstanceOf(\PapayaUiControlCommandActionCallbacks::class, $command->callbacks());
   }
 }

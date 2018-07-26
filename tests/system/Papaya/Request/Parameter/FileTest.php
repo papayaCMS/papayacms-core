@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaRequestParameterFileTest extends PapayaTestCase {
+class PapayaRequestParameterFileTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaRequestParameterFile::__construct
@@ -41,7 +41,7 @@ class PapayaRequestParameterFileTest extends PapayaTestCase {
    */
   public function testConstructorWithNameObject() {
     $name = $this
-      ->getMockBuilder(PapayaRequestParametersName::class)
+      ->getMockBuilder(\PapayaRequestParametersName::class)
       ->disableOriginalConstructor()
       ->getMock();
     $file = new \PapayaRequestParameterFile($name);
@@ -230,7 +230,7 @@ class PapayaRequestParameterFileTest extends PapayaTestCase {
 
   public function getFileSystemFixtureWithUploadedFile($isUploadedFile) {
     $file = $this
-      ->getMockBuilder(PapayaFileSystemFile::class)
+      ->getMockBuilder(\PapayaFileSystemFile::class)
       ->disableOriginalConstructor()
       ->getMock();
     $file
@@ -239,7 +239,7 @@ class PapayaRequestParameterFileTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue($isUploadedFile));
 
-    $fileSystem = $this->createMock(PapayaFileSystemFactory::class);
+    $fileSystem = $this->createMock(\PapayaFileSystemFactory::class);
     $fileSystem
       ->expects($this->any())
       ->method('getFile')

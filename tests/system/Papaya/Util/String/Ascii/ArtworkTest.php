@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUtilStringAsciiArtworkTest extends PapayaTestCase {
+class PapayaUtilStringAsciiArtworkTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUtilStringAsciiArtwork::get

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldFactoryProfileSelectTranslatedTest extends PapayaTestCase {
+class PapayaUiDialogFieldFactoryProfileSelectTranslatedTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiDialogFieldFactoryProfileSelectTranslated::createField
@@ -31,8 +31,8 @@ class PapayaUiDialogFieldFactoryProfileSelectTranslatedTest extends PapayaTestCa
     );
     $profile = new \PapayaUiDialogFieldFactoryProfileSelectTranslated();
     $profile->options($options);
-    $this->assertInstanceOf(PapayaUiDialogFieldSelect::class, $field = $profile->getField());
-    $this->assertAttributeInstanceOf(PapayaUiStringTranslatedList::class, '_values', $field);
+    $this->assertInstanceOf(\PapayaUiDialogFieldSelect::class, $field = $profile->getField());
+    $this->assertAttributeInstanceOf(\PapayaUiStringTranslatedList::class, '_values', $field);
   }
 
   /**
@@ -49,7 +49,7 @@ class PapayaUiDialogFieldFactoryProfileSelectTranslatedTest extends PapayaTestCa
     );
     $profile = new \PapayaUiDialogFieldFactoryProfileSelectTranslated();
     $profile->options($options);
-    $this->assertInstanceOf(PapayaUiDialogFieldSelect::class, $field = $profile->getField());
+    $this->assertInstanceOf(\PapayaUiDialogFieldSelect::class, $field = $profile->getField());
   }
 
   /**

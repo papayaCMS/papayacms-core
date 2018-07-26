@@ -19,7 +19,7 @@ use Papaya\Url;
 
 require_once __DIR__.'/../../bootstrap.php';
 
-class PapayaRequestTest extends PapayaTestCase {
+class PapayaRequestTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaRequest::__construct
@@ -96,7 +96,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new \PapayaRequest();
     /** @var PHPUnit_Framework_MockObject_MockObject|Url $url */
     $url = $this->createMock(Url::class);
-    $parser = $this->createMock(PapayaRequestParser::class);
+    $parser = $this->createMock(\PapayaRequestParser::class);
     $parser
       ->expects($this->once())
       ->method('parse')
@@ -425,7 +425,7 @@ class PapayaRequestTest extends PapayaTestCase {
   * @covers \PapayaRequest::setParsers
   */
   public function testSetParsers() {
-    $parser = $this->createMock(PapayaRequestParser::class);
+    $parser = $this->createMock(\PapayaRequestParser::class);
     $request = new \PapayaRequest();
     $request->setParsers(array($parser));
     $this->assertSame(
@@ -456,7 +456,7 @@ class PapayaRequestTest extends PapayaTestCase {
   public function testLoad() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Url $url */
     $url = $this->createMock(Url::class);
-    $parserOne = $this->createMock(PapayaRequestParser::class);
+    $parserOne = $this->createMock(\PapayaRequestParser::class);
     $parserOne
       ->expects($this->once())
       ->method('parse')
@@ -466,13 +466,13 @@ class PapayaRequestTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('isLast')
       ->will($this->returnValue(FALSE));
-    $parserTwo = $this->createMock(PapayaRequestParser::class);
+    $parserTwo = $this->createMock(\PapayaRequestParser::class);
     $parserTwo
       ->expects($this->once())
       ->method('parse')
       ->with($this->equalTo($url))
       ->will($this->returnValue(FALSE));
-    $parserThree = $this->createMock(PapayaRequestParser::class);
+    $parserThree = $this->createMock(\PapayaRequestParser::class);
     $parserThree
       ->expects($this->once())
       ->method('parse')
@@ -554,7 +554,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $this->assertTrue(
       $request->load($url)
     );
-    $parameters = $request->loadParameters(PapayaRequest::SOURCE_PATH);
+    $parameters = $request->loadParameters(\PapayaRequest::SOURCE_PATH);
     $this->assertEquals(
       'success',
       $parameters->get('PARAMETER_PATH_SAMPLE', 'fail')
@@ -574,8 +574,8 @@ class PapayaRequestTest extends PapayaTestCase {
     $this->assertTrue(
       $request->load($url)
     );
-    $request->loadParameters(PapayaRequest::SOURCE_PATH);
-    $parameters = $request->loadParameters(PapayaRequest::SOURCE_PATH);
+    $request->loadParameters(\PapayaRequest::SOURCE_PATH);
+    $parameters = $request->loadParameters(\PapayaRequest::SOURCE_PATH);
     $this->assertEquals(
       'success',
       $parameters->get('PARAMETER_PATH_SAMPLE', 'fail')
@@ -590,7 +590,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new \PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
     $request->load($this->getUrlMockFixture('PARAMETER_QUERY_SAMPLE=success'));
-    $parameters = $request->loadParameters(PapayaRequest::SOURCE_QUERY);
+    $parameters = $request->loadParameters(\PapayaRequest::SOURCE_QUERY);
     $this->assertEquals(
       'success',
       $parameters->get('PARAMETER_QUERY_SAMPLE', 'fail')
@@ -608,7 +608,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $_POST = array(
       'PARAMETER_POST_SAMPLE' => 'success'
     );
-    $parameters = $request->loadParameters(PapayaRequest::SOURCE_BODY);
+    $parameters = $request->loadParameters(\PapayaRequest::SOURCE_BODY);
     $this->assertEquals(
       'success',
       $parameters->get('PARAMETER_POST_SAMPLE', 'fail')
@@ -630,7 +630,7 @@ class PapayaRequestTest extends PapayaTestCase {
       array($this->getRequestParserMockFixture())
     );
     $request->load($this->getUrlMockFixture('PARAMETER_QUERY_SAMPLE=success'));
-    $request->loadParameters(PapayaRequest::SOURCE_PATH);
+    $request->loadParameters(\PapayaRequest::SOURCE_PATH);
 
     $parameters = $request->loadParameters();
     $this->assertEquals(
@@ -654,7 +654,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $_COOKIE = array(
       'PARAMETER_COOKIE_SAMPLE' => 'success'
     );
-    $parameters = $request->loadParameters(PapayaRequest::SOURCE_COOKIE);
+    $parameters = $request->loadParameters(\PapayaRequest::SOURCE_COOKIE);
     $this->assertEquals(
       'success',
       $parameters->get('PARAMETER_COOKIE_SAMPLE', 'fail')
@@ -668,7 +668,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request = new \PapayaRequest();
     $request->papaya($this->mockPapaya()->application());
     $request->load($this->getUrlMockFixture('group[e1]=success'));
-    $parameters = $request->getParameters(PapayaRequest::SOURCE_QUERY);
+    $parameters = $request->getParameters(\PapayaRequest::SOURCE_QUERY);
     $this->assertEquals(
       array(
         'group' => array(
@@ -707,7 +707,7 @@ class PapayaRequestTest extends PapayaTestCase {
     $request->getParameterGroup('PARAMETER_QUERY_SAMPLE', \PapayaRequest::SOURCE_ALL);
     $parameters = new \PapayaRequestParameters();
     $parameters->merge(array('PARAMETER_QUERY_SAMPLE' => 'success'));
-    $request->setParameters(PapayaRequest::SOURCE_QUERY, $parameters);
+    $request->setParameters(\PapayaRequest::SOURCE_QUERY, $parameters);
     $this->assertEquals(
       array(
         \PapayaRequest::SOURCE_PATH,
@@ -718,7 +718,7 @@ class PapayaRequestTest extends PapayaTestCase {
     );
     $this->assertSame(
       array('PARAMETER_QUERY_SAMPLE' => 'success'),
-      $request->getParameters(PapayaRequest::SOURCE_QUERY)->toArray()
+      $request->getParameters(\PapayaRequest::SOURCE_QUERY)->toArray()
     );
   }
 
@@ -728,7 +728,7 @@ class PapayaRequestTest extends PapayaTestCase {
   public function testSetParametersWithInvalidSource() {
     $request = new \PapayaRequest();
     $this->expectException(InvalidArgumentException::class);
-    $request->setParameters(PapayaRequest::SOURCE_ALL, new \PapayaRequestParameters());
+    $request->setParameters(\PapayaRequest::SOURCE_ALL, new \PapayaRequestParameters());
   }
 
   /**
@@ -737,7 +737,7 @@ class PapayaRequestTest extends PapayaTestCase {
   public function testSetParametersWithInvalidParameters() {
     $request = new \PapayaRequest();
     $this->expectException(InvalidArgumentException::class);
-    $request->setParameters(PapayaRequest::SOURCE_QUERY, NULL);
+    $request->setParameters(\PapayaRequest::SOURCE_QUERY, NULL);
   }
 
   /**
@@ -909,7 +909,7 @@ class PapayaRequestTest extends PapayaTestCase {
    * @covers \PapayaRequest::__get
    */
   public function testContentGetSet() {
-    $content = $this->createMock(PapayaRequestContent::class);
+    $content = $this->createMock(\PapayaRequestContent::class);
     $request = new \PapayaRequest();
     $request->content($content);
     $this->assertSame($content, $request->content);
@@ -920,7 +920,7 @@ class PapayaRequestTest extends PapayaTestCase {
    */
   public function testContentImplicitCreate() {
     $request = new \PapayaRequest();
-    $this->assertInstanceOf(PapayaRequestContent::class, $request->content());
+    $this->assertInstanceOf(\PapayaRequestContent::class, $request->content());
   }
 
   /**
@@ -929,7 +929,7 @@ class PapayaRequestTest extends PapayaTestCase {
    */
   public function testGetPropertyContent() {
     $content = $this
-      ->getMockBuilder(PapayaRequestContent::class)
+      ->getMockBuilder(\PapayaRequestContent::class)
       ->setMethods(array('__toString'))
       ->getMock();
     $content
@@ -946,7 +946,7 @@ class PapayaRequestTest extends PapayaTestCase {
    * @covers \PapayaRequest::__get
    */
   public function testGetPropertyContentLength() {
-    $content = $this->createMock(PapayaRequestContent::class);
+    $content = $this->createMock(\PapayaRequestContent::class);
     $content
       ->expects($this->once())
       ->method('length')
@@ -961,7 +961,7 @@ class PapayaRequestTest extends PapayaTestCase {
   ***********************************/
 
   public function getRequestParserMockFixture() {
-    $parser = $this->createMock(PapayaRequestParser::class);
+    $parser = $this->createMock(\PapayaRequestParser::class);
     $parser
       ->expects($this->once())
       ->method('parse')

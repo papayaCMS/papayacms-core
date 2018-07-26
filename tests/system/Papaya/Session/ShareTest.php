@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaSessionShareTest extends PapayaTestCase {
+class PapayaSessionShareTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaSessionShare::getSessionValues
@@ -24,8 +24,8 @@ class PapayaSessionShareTest extends PapayaTestCase {
   public function testGetSessionValuesAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMockBuilder(\PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(\PapayaSession::class)))
       ->getMock();
     $share = new \PapayaSessionShare_TestProxy();
     $share->setSessionValues($values);
@@ -36,9 +36,9 @@ class PapayaSessionShareTest extends PapayaTestCase {
   * @covers \PapayaSessionShare::getSessionValues
   */
   public function testGetSessionValuesFromApplicationRegistry() {
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
+      ->getMockBuilder(\PapayaSessionValues::class)
       ->setConstructorArgs(array($session))
       ->getMock();
     $session
@@ -59,13 +59,13 @@ class PapayaSessionShareTest extends PapayaTestCase {
     $share = new \PapayaSessionShare_TestProxy();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMockBuilder(\PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(\PapayaSession::class)))
       ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetExists')
-      ->with(array(PapayaSessionShare_TestProxy::class, 'session_property'))
+      ->with(array(\PapayaSessionShare_TestProxy::class, 'session_property'))
       ->will($this->returnValue(TRUE));
     $share->setSessionValues($values);
     $this->assertTrue(isset($share->sessionProperty));
@@ -79,13 +79,13 @@ class PapayaSessionShareTest extends PapayaTestCase {
     $share = new \PapayaSessionShare_TestProxy();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMockBuilder(\PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(\PapayaSession::class)))
       ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetExists')
-      ->with(array(PapayaSessionShare_TestProxy::class, 'session_property'))
+      ->with(array(\PapayaSessionShare_TestProxy::class, 'session_property'))
       ->will($this->returnValue(FALSE));
     $share->setSessionValues($values);
     $this->assertFalse(isset($share->sessionProperty));
@@ -99,13 +99,13 @@ class PapayaSessionShareTest extends PapayaTestCase {
     $share = new \PapayaSessionShare_TestProxy();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMockBuilder(\PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(\PapayaSession::class)))
       ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetGet')
-      ->with(array(PapayaSessionShare_TestProxy::class, 'session_property'))
+      ->with(array(\PapayaSessionShare_TestProxy::class, 'session_property'))
       ->will($this->returnValue('success'));
     $share->setSessionValues($values);
     $this->assertEquals('success', $share->sessionProperty);
@@ -119,13 +119,13 @@ class PapayaSessionShareTest extends PapayaTestCase {
     $share = new \PapayaSessionShare_TestProxy();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMockBuilder(\PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(\PapayaSession::class)))
       ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(array(PapayaSessionShare_TestProxy::class, 'session_property'), 'someValue');
+      ->with(array(\PapayaSessionShare_TestProxy::class, 'session_property'), 'someValue');
     $share->setSessionValues($values);
     $share->sessionProperty = 'someValue';
   }
@@ -138,13 +138,13 @@ class PapayaSessionShareTest extends PapayaTestCase {
     $share = new \PapayaSessionShare_TestProxy();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMockBuilder(\PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(\PapayaSession::class)))
       ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetUnset')
-      ->with(array(PapayaSessionShare_TestProxy::class, 'session_property'));
+      ->with(array(\PapayaSessionShare_TestProxy::class, 'session_property'));
     $share->setSessionValues($values);
     unset($share->sessionProperty);
   }
@@ -156,13 +156,13 @@ class PapayaSessionShareTest extends PapayaTestCase {
     $share = new \PapayaSessionShare_TestProxy();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMockBuilder(\PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(\PapayaSession::class)))
       ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(array(PapayaSessionShare_TestProxy::class, 'session_property'), 'someValue');
+      ->with(array(\PapayaSessionShare_TestProxy::class, 'session_property'), 'someValue');
     $share->setSessionValues($values);
     $share->setSessionProperty('someValue');
   }
@@ -174,13 +174,13 @@ class PapayaSessionShareTest extends PapayaTestCase {
     $share = new \PapayaSessionShare_TestProxy();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
     $values = $this
-      ->getMockBuilder(PapayaSessionValues::class)
-      ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
+      ->getMockBuilder(\PapayaSessionValues::class)
+      ->setConstructorArgs(array($this->createMock(\PapayaSession::class)))
       ->getMock();
     $values
       ->expects($this->once())
       ->method('offsetGet')
-      ->with(array(PapayaSessionShare_TestProxy::class, 'session_property'))
+      ->with(array(\PapayaSessionShare_TestProxy::class, 'session_property'))
       ->will($this->returnValue('success'));
     $share->setSessionValues($values);
     $this->assertEquals('success', $share->getSessionProperty());
@@ -245,7 +245,7 @@ class PapayaSessionShareTest extends PapayaTestCase {
  * @method mixed getSessionProperty()
  * @method void setSessionProperty($value)
  */
-class PapayaSessionShare_TestProxy extends PapayaSessionShare {
+class PapayaSessionShare_TestProxy extends \PapayaSessionShare {
 
   public
     /** @noinspection PropertyInitializationFlawsInspection */

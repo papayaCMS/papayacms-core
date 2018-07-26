@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilRequestUrlTest extends PapayaTestCase {
+class PapayaUtilRequestUrlTest extends \PapayaTestCase {
 
   private $_server;
 

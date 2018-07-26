@@ -17,7 +17,7 @@ use Papaya\Url;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiReferenceTest extends PapayaTestCase {
+class PapayaUiReferenceTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiReference::__construct
@@ -73,7 +73,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   public function testLoadRequest() {
     $url = $this->createMock(Url::class);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaRequest $request */
-    $request = $this->createMock(PapayaRequest::class);
+    $request = $this->createMock(\PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getUrl')
@@ -98,7 +98,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   */
   public function testPrepare() {
     $url = $this->createMock(Url::class);
-    $request = $this->createMock(PapayaRequest::class);
+    $request = $this->createMock(\PapayaRequest::class);
     $request
       ->expects($this->once())
       ->method('getUrl')
@@ -356,7 +356,7 @@ class PapayaUiReferenceTest extends PapayaTestCase {
   public function testGetParamtersWithImplizitCreate() {
     $reference = new \PapayaUiReference();
     $parameters = $reference->getParameters();
-    $this->assertInstanceOf(PapayaRequestParameters::class, $parameters);
+    $this->assertInstanceOf(\PapayaRequestParameters::class, $parameters);
   }
 
   /**

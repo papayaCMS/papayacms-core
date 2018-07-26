@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaFileSystemFileTest extends PapayaTestCase {
+class PapayaFileSystemFileTest extends \PapayaTestCase {
 
   public function tearDown() {
     $this->removeTemporaryDirectory();

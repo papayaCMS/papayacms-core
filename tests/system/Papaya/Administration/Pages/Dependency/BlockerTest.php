@@ -23,7 +23,7 @@ use Papaya\Content\Views;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencyBlockerTest extends PapayaTestCase {
+class PapayaAdministrationPagesDependencyBlockerTest extends \PapayaTestCase {
 
   /**
   * @covers Blocker::__construct

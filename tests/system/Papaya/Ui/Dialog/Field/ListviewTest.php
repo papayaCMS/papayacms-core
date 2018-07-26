@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiDialogFieldListviewTest extends PapayaTestCase {
+class PapayaUiDialogFieldListviewTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiDialogFieldListview::__construct
@@ -23,7 +23,7 @@ class PapayaUiDialogFieldListviewTest extends PapayaTestCase {
   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListview $listview */
-    $listview = $this->createMock(PapayaUiListview::class);
+    $listview = $this->createMock(\PapayaUiListview::class);
     $field = new \PapayaUiDialogFieldListview($listview);
     $this->assertSame(
       $listview, $field->listview()
@@ -35,11 +35,11 @@ class PapayaUiDialogFieldListviewTest extends PapayaTestCase {
   */
   public function testAppendTo() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListview $listview */
-    $listview = $this->createMock(PapayaUiListview::class);
+    $listview = $this->createMock(\PapayaUiListview::class);
     $listview
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $field = new \PapayaUiDialogFieldListview($listview);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

@@ -18,7 +18,7 @@ use Papaya\Cache\Service;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaCacheServiceTest extends PapayaTestCase {
+class PapayaCacheServiceTest extends \PapayaTestCase {
 
   /**
   * @covers Service::__construct

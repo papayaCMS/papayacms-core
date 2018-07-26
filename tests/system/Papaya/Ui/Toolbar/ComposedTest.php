@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiToolbarComposedTest extends PapayaTestCase {
+class PapayaUiToolbarComposedTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiToolbarComposed::__construct
@@ -53,13 +53,13 @@ class PapayaUiToolbarComposedTest extends PapayaTestCase {
   * @covers \PapayaUiToolbarComposed::appendTo
   */
   public function testAppendTo() {
-    $set = $this->createMock(PapayaUiToolbarSet::class);
-    $elements = $this->createMock(PapayaUiToolbarElements::class);
+    $set = $this->createMock(\PapayaUiToolbarSet::class);
+    $elements = $this->createMock(\PapayaUiToolbarElements::class);
     $elements
       ->expects($this->once())
       ->method('offsetSet')
-      ->with(NULL, $this->isInstanceOf(PapayaUiToolbarSet::class));
-    $toolbar = $this->createMock(PapayaUiToolbar::class);
+      ->with(NULL, $this->isInstanceOf(\PapayaUiToolbarSet::class));
+    $toolbar = $this->createMock(\PapayaUiToolbar::class);
     $toolbar
       ->expects($this->any())
       ->method('__get')
@@ -68,7 +68,7 @@ class PapayaUiToolbarComposedTest extends PapayaTestCase {
     $toolbar
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $composed = new \PapayaUiToolbarComposed(array('first', 'second'));
     $composed->toolbar($toolbar);
     /** @noinspection PhpUndefinedFieldInspection */
@@ -80,7 +80,7 @@ class PapayaUiToolbarComposedTest extends PapayaTestCase {
   * @covers \PapayaUiToolbarComposed::toolbar
   */
   public function testToolbarGetAfterSet() {
-    $toolbar = $this->createMock(PapayaUiToolbar::class);
+    $toolbar = $this->createMock(\PapayaUiToolbar::class);
     $composed = new \PapayaUiToolbarComposed(array('first', 'second'));
     $composed->toolbar($toolbar);
     $this->assertSame($toolbar, $composed->toolbar());
@@ -91,7 +91,7 @@ class PapayaUiToolbarComposedTest extends PapayaTestCase {
   */
   public function testToolbarGetImplicitCreate() {
     $composed = new \PapayaUiToolbarComposed(array('first', 'second'));
-    $this->assertInstanceOf(PapayaUiToolbar::class, $toolbar = $composed->toolbar());
+    $this->assertInstanceOf(\PapayaUiToolbar::class, $toolbar = $composed->toolbar());
   }
 
   /**
@@ -115,7 +115,7 @@ class PapayaUiToolbarComposedTest extends PapayaTestCase {
   * @covers \PapayaUiToolbarComposed::__get
   */
   public function testGetAfterSet() {
-    $set = $this->createMock(PapayaUiToolbarSet::class);
+    $set = $this->createMock(\PapayaUiToolbarSet::class);
     $composed = new \PapayaUiToolbarComposed(array('someSet'));
     /** @noinspection PhpUndefinedFieldInspection */
     $composed->someSet = $set;
@@ -129,7 +129,7 @@ class PapayaUiToolbarComposedTest extends PapayaTestCase {
   public function testGetImplicitCreate() {
     $composed = new \PapayaUiToolbarComposed(array('someSet'));
     /** @noinspection PhpUndefinedFieldInspection */
-    $this->assertInstanceOf(PapayaUiToolbarSet::class, $set = $composed->someSet);
+    $this->assertInstanceOf(\PapayaUiToolbarSet::class, $set = $composed->someSet);
   }
 
   /**
@@ -151,6 +151,6 @@ class PapayaUiToolbarComposedTest extends PapayaTestCase {
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid toolbar set requested.');
     /** @noinspection PhpUndefinedFieldInspection */
-    $composed->unknownSet = $this->createMock(PapayaUiToolbarSet::class);
+    $composed->unknownSet = $this->createMock(\PapayaUiToolbarSet::class);
   }
 }

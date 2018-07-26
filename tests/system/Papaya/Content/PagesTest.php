@@ -20,7 +20,7 @@ use Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaContentPagesTest extends PapayaTestCase {
+class PapayaContentPagesTest extends \PapayaTestCase {
 
   /**
   * @covers Pages

@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiReferenceFactoryTest extends PapayaTestCase {
+class PapayaUiReferenceFactoryTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiReferenceFactory

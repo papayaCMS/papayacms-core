@@ -17,7 +17,7 @@ use Papaya\Database\Record\Order\Field;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordOrderFieldTest extends PapayaTestCase {
+class PapayaDatabaseRecordOrderFieldTest extends \PapayaTestCase {
 
   /**
   * @covers Field::__construct

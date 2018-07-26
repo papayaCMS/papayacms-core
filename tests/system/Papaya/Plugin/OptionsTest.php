@@ -17,7 +17,7 @@ use Papaya\Configuration\Storage;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaPluginOptionsTest extends PapayaTestCase {
+class PapayaPluginOptionsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaPluginOptions::__construct

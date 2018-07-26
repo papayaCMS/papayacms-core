@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaPluginHookableContextTest extends PapayaTestCase {
+class PapayaPluginHookableContextTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaPluginHookableContext::__construct
@@ -72,7 +72,7 @@ class PapayaPluginHookableContextTest extends PapayaTestCase {
    */
   public function testGetDataImplicitCreate() {
     $context = new \PapayaPluginHookableContext();
-    $this->assertInstanceOf(PapayaPluginEditableContent::class, $context->data());
+    $this->assertInstanceOf(\PapayaPluginEditableContent::class, $context->data());
   }
 
   /**
@@ -96,7 +96,7 @@ class PapayaPluginHookableContextTest extends PapayaTestCase {
    * @covers \PapayaPluginHookableContext::data
    */
   public function testDataReturnsContentObjectFromConstructor() {
-    $data = $this->createMock(PapayaPluginEditableContent::class);
+    $data = $this->createMock(\PapayaPluginEditableContent::class);
     $context = new \PapayaPluginHookableContext(NULL, $data);
     $this->assertSame($data, $context->data());
   }
@@ -105,7 +105,7 @@ class PapayaPluginHookableContextTest extends PapayaTestCase {
    * @covers \PapayaPluginHookableContext::data
    */
   public function testDataAssingingNewContentObject() {
-    $data = $this->createMock(PapayaPluginEditableContent::class);
+    $data = $this->createMock(\PapayaPluginEditableContent::class);
     $context = new \PapayaPluginHookableContext();
     $context->data($data);
     $this->assertSame($data, $context->data());

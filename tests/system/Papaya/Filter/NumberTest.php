@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaFilterNumberTest extends PapayaTestCase {
+class PapayaFilterNumberTest extends \PapayaTestCase {
   /**
   * @covers \PapayaFilterNumber::__construct
   */
@@ -55,7 +55,7 @@ class PapayaFilterNumberTest extends PapayaTestCase {
   */
   public function testValidateFailureFormat() {
     $filter = new \PapayaFilterNumber();
-    $this->expectException(PapayaFilterExceptionType::class);
+    $this->expectException(\PapayaFilterExceptionType::class);
     /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate('I am not a number');
   }
@@ -65,7 +65,7 @@ class PapayaFilterNumberTest extends PapayaTestCase {
   */
   public function testValidateFailureTooShort() {
     $filter = new \PapayaFilterNumber(3);
-    $this->expectException(PapayaFilterExceptionRangeMinimum::class);
+    $this->expectException(\PapayaFilterExceptionRangeMinimum::class);
     /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate('22');
   }
@@ -75,7 +75,7 @@ class PapayaFilterNumberTest extends PapayaTestCase {
   */
   public function testValidateFailureTooLong() {
     $filter = new \PapayaFilterNumber(NULL, 3);
-    $this->expectException(PapayaFilterExceptionRangeMaximum::class);
+    $this->expectException(\PapayaFilterExceptionRangeMaximum::class);
     /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate('2222');
   }

@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaUiStringTranslatedListTest extends PapayaTestCase {
+class PapayaUiStringTranslatedListTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUiStringTranslatedList::__construct
    */
   public function testConstructorWithArray() {
     $list = new \PapayaUiStringTranslatedList(array('foo'));
-    $this->assertInstanceOf(PapayaIteratorTraversable::class, $list->getInnerIterator());
+    $this->assertInstanceOf(\PapayaIteratorTraversable::class, $list->getInnerIterator());
   }
 
   /**
@@ -30,7 +30,7 @@ class PapayaUiStringTranslatedListTest extends PapayaTestCase {
    */
   public function testIterationCallsTranslation() {
     $phrases = $this
-      ->getMockBuilder(PapayaPhrases::class)
+      ->getMockBuilder(\PapayaPhrases::class)
       ->disableOriginalConstructor()
       ->getMock();
     $phrases
@@ -63,7 +63,7 @@ class PapayaUiStringTranslatedListTest extends PapayaTestCase {
   */
   public function testPapayaGetAfterSet() {
     $list = new \PapayaUiStringTranslatedList(array());
-    $application = $this->createMock(PapayaApplication::class);
+    $application = $this->createMock(\PapayaApplication::class);
     $this->assertSame($application, $list->papaya($application));
   }
 }

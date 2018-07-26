@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaIteratorTreeDetailsTest extends PapayaTestCase {
+class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaIteratorTreeDetails

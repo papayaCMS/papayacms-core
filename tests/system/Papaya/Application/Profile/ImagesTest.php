@@ -17,7 +17,7 @@ use Papaya\Application\Profile\Images;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaApplicationProfileImagesTest extends PapayaTestCase {
+class PapayaApplicationProfileImagesTest extends \PapayaTestCase {
 
   /**
   * @covers Images::createObject

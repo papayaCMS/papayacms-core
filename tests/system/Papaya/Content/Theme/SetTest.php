@@ -18,7 +18,7 @@ use Papaya\Content\Theme\Set;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaContentThemeSetTest extends PapayaTestCase {
+class PapayaContentThemeSetTest extends \PapayaTestCase {
 
   /**
   * @covers Set::_createMapping
@@ -128,7 +128,7 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
       ->with(array())
       ->will($this->returnValue(new \PapayaXmlDocument));
     $themeSet = new Set();
-    $this->assertInstanceOf(PapayaXmlDocument::class, $themeSet->getValuesXml($definition));
+    $this->assertInstanceOf(\PapayaXmlDocument::class, $themeSet->getValuesXml($definition));
   }
 
   /**
@@ -142,7 +142,7 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
     $definition
       ->expects($this->once())
       ->method('getArray')
-      ->with($this->isInstanceOf(PapayaXmlElement::class))
+      ->with($this->isInstanceOf(\PapayaXmlElement::class))
       ->will($this->returnValue(array('foo' => 'bar')));
     $themeSet = new Set();
     $themeSet->setValuesXml($definition, $element);

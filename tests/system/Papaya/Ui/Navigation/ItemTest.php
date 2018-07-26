@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiNavigationItemTest extends PapayaTestCase {
+class PapayaUiNavigationItemTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiNavigationItemText::__construct
@@ -36,7 +36,7 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
   public function testAppendTo() {
     $document = new \PapayaXmlDocument();
     $parent = $document->appendElement('test');
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('getRelative')
@@ -59,7 +59,7 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
   public function testAppendToWithSelectedItem() {
     $document = new \PapayaXmlDocument();
     $parent = $document->appendElement('test');
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $reference
       ->expects($this->once())
       ->method('getRelative')
@@ -99,7 +99,7 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
   * @covers \PapayaUiNavigationItem::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $item = new \PapayaUiNavigationItem_TestProxy(NULL);
     $this->assertSame(
       $reference, $item->reference($reference)
@@ -110,15 +110,15 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
   * @covers \PapayaUiNavigationItem::reference
   */
   public function testReferenceGetFromCollection() {
-    $reference = $this->createMock(PapayaUiReference::class);
-    $collection = $this->createMock(PapayaUiNavigationItems::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
+    $collection = $this->createMock(\PapayaUiNavigationItems::class);
     $collection
       ->expects($this->once())
       ->method('reference')
       ->will($this->returnValue($reference));
     $item = new \PapayaUiNavigationItem_TestProxy(NULL);
     $item->collection($collection);
-    $this->assertInstanceOf(PapayaUiReference::class, $item->reference());
+    $this->assertInstanceOf(\PapayaUiReference::class, $item->reference());
     $this->assertNotSame($reference, $item->reference());
   }
 
@@ -138,6 +138,6 @@ class PapayaUiNavigationItemTest extends PapayaTestCase {
 
 }
 
-class PapayaUiNavigationItem_TestProxy extends PapayaUiNavigationItem {
+class PapayaUiNavigationItem_TestProxy extends \PapayaUiNavigationItem {
 
 }

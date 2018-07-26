@@ -19,7 +19,7 @@ use Papaya\Database\Record\Order\Group;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaDatabaseRecordOrderGroupTest extends PapayaTestCase {
+class PapayaDatabaseRecordOrderGroupTest extends \PapayaTestCase {
 
   /**
   * @covers Group

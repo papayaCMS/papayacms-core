@@ -19,7 +19,7 @@ use Papaya\Database\Result;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends PapayaTestCase {
+class PapayaAdministrationPagesDependencySynchronizationPublicationTest extends \PapayaTestCase {
 
   /**
   * @covers Publication::synchronize

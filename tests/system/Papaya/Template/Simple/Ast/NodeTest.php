@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleAstNodeTest extends PapayaTestCase {
+class PapayaTemplateSimpleAstNodeTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaTemplateSimpleAstNode::__get
@@ -52,7 +52,7 @@ class PapayaTemplateSimpleAstNodeTest extends PapayaTestCase {
     $node = new \PapayaTemplateSimpleAstNode_TestProxy();
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleVisitor $visitor */
-    $visitor = $this->createMock(PapayaTemplateSimpleVisitor::class);
+    $visitor = $this->createMock(\PapayaTemplateSimpleVisitor::class);
     $visitor
       ->expects($this->once())
       ->method('visit')
@@ -65,7 +65,7 @@ class PapayaTemplateSimpleAstNodeTest extends PapayaTestCase {
 /**
  * @property mixed foo
  */
-class PapayaTemplateSimpleAstNode_TestProxy extends PapayaTemplateSimpleAstNode {
+class PapayaTemplateSimpleAstNode_TestProxy extends \PapayaTemplateSimpleAstNode {
 
   protected $_foo = 'bar';
 }

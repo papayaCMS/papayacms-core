@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUtilStringHyphenationTest extends PapayaTestCase {
+class PapayaUtilStringHyphenationTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUtilStringHyphenation::german

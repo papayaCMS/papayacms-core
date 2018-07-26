@@ -19,7 +19,7 @@ use Papaya\Database\Interfaces\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseConditionElementTest extends PapayaTestCase {
+class PapayaDatabaseConditionElementTest extends \PapayaTestCase {
 
   /**
    * @covers Element

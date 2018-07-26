@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaSessionValuesTest extends PapayaTestCase {
+class PapayaSessionValuesTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaSessionValues::__construct
@@ -196,7 +196,7 @@ class PapayaSessionValuesTest extends PapayaTestCase {
    * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaSession
    */
   public function getSessionFixture($isActive = FALSE) {
-    $session = $this->createMock(PapayaSession::class);
+    $session = $this->createMock(\PapayaSession::class);
     $session
       ->expects($this->any())
       ->method('isActive')

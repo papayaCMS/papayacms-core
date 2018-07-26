@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaUiPagingCountTest extends PapayaTestCase {
+class PapayaUiPagingCountTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaUiPagingCount::__construct
@@ -316,7 +316,7 @@ class PapayaUiPagingCountTest extends PapayaTestCase {
   * @covers \PapayaUiPagingCount::reference
   */
   public function testReferenceGetAfterSet() {
-    $reference = $this->createMock(PapayaUiReference::class);
+    $reference = $this->createMock(\PapayaUiReference::class);
     $paging = new \PapayaUiPagingCount('page', 0, 30);
     $paging->reference($reference);
     $this->assertSame(

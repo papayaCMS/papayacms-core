@@ -15,14 +15,14 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaMessageHookExceptionsTest extends PapayaTestCase {
+class PapayaMessageHookExceptionsTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaMessageHookExceptions::__construct
   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(PapayaMessageManager::class);
+    $manager = $this->createMock(\PapayaMessageManager::class);
     $hook = new \PapayaMessageHookExceptions($manager);
     $this->assertAttributeSame(
       $manager,
@@ -36,7 +36,7 @@ class PapayaMessageHookExceptionsTest extends PapayaTestCase {
   */
   public function testActivate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(PapayaMessageManager::class);
+    $manager = $this->createMock(\PapayaMessageManager::class);
     $hook = new \PapayaMessageHookExceptions($manager);
     $hook->activate();
     $this->assertSame(
@@ -52,7 +52,7 @@ class PapayaMessageHookExceptionsTest extends PapayaTestCase {
   */
   public function testDeactivate() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(PapayaMessageManager::class);
+    $manager = $this->createMock(\PapayaMessageManager::class);
     $hook = new \PapayaMessageHookExceptions($manager);
     $hook->activate();
     $hook->deactivate();
@@ -68,11 +68,11 @@ class PapayaMessageHookExceptionsTest extends PapayaTestCase {
   */
   public function testHandleWithErrorException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(PapayaMessageManager::class);
+    $manager = $this->createMock(\PapayaMessageManager::class);
     $manager
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessagePhpException::class));
+      ->with($this->isInstanceOf(\PapayaMessagePhpException::class));
     $hook = new \PapayaMessageHookExceptions($manager);
     $hook->handle(new ErrorException('Sample Message', 0, E_USER_ERROR, 'file.php', 42));
   }
@@ -82,11 +82,11 @@ class PapayaMessageHookExceptionsTest extends PapayaTestCase {
   */
   public function testHandleWithException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(PapayaMessageManager::class);
+    $manager = $this->createMock(\PapayaMessageManager::class);
     $manager
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(PapayaMessagePhpException::class));
+      ->with($this->isInstanceOf(\PapayaMessagePhpException::class));
     $hook = new \PapayaMessageHookExceptions($manager);
     $hook->handle(new Exception('Sample Message'));
   }

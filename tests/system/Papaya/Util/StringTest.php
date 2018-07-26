@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUtilStringTest extends PapayaTestCase {
+class PapayaUtilStringTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaUtilString::truncate

@@ -17,7 +17,7 @@ use Papaya\Database\Sequence\Human;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaDatabaseSequenceHumanTest extends PapayaTestCase {
+class PapayaDatabaseSequenceHumanTest extends \PapayaTestCase {
 
   /**
   * @covers Human::__construct

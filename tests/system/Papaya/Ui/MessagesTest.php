@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PapayaUiMessagesTest extends PapayaTestCase {
+class PapayaUiMessagesTest extends \PapayaTestCase {
 
 
   /**
@@ -25,13 +25,13 @@ class PapayaUiMessagesTest extends PapayaTestCase {
   */
   public function testAppendTo() {
     $message = $this
-      ->getMockBuilder(PapayaUiMessage::class)
+      ->getMockBuilder(\PapayaUiMessage::class)
       ->disableOriginalConstructor()
       ->getMock();
     $message
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\PapayaXmlElement::class));
     $messages = new \PapayaUiMessages;
     $messages[] = $message;
     $this->assertEquals(
@@ -46,7 +46,7 @@ class PapayaUiMessagesTest extends PapayaTestCase {
   public function testAppendToWithoutElements() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaXmlElement $parent */
     $parent = $this
-      ->getMockBuilder(PapayaXmlElement::class)
+      ->getMockBuilder(\PapayaXmlElement::class)
       ->setConstructorArgs(array('messages'))
       ->getMock();
     $parent

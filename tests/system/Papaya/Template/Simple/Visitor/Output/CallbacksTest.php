@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PapayaTemplateSimpleVisitorOutputCallbacksTest extends PapayaTestCase {
+class PapayaTemplateSimpleVisitorOutputCallbacksTest extends \PapayaTestCase {
 
   /**
    * @covers \PapayaTemplateSimpleVisitorOutputCallbacks::__construct

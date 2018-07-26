@@ -15,7 +15,7 @@
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaProfilerStorageXhguiTest extends PapayaTestCase {
+class PapayaProfilerStorageXhguiTest extends \PapayaTestCase {
 
   /**
   * @covers \PapayaProfilerStorageXhgui::__construct
