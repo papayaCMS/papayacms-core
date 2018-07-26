@@ -22,7 +22,7 @@
 * @subpackage Profiler
 */
 class PapayaProfilerStorageXhgui
-  extends \PapayaObject
+  extends \Papaya\Application\BaseObject
   implements \PapayaProfilerStorage, \Papaya\Database\Interfaces\Access {
 
   /**

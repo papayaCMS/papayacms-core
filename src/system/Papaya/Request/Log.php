@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Request
 */
-class PapayaRequestLog extends \PapayaObject {
+class PapayaRequestLog extends \Papaya\Application\BaseObject {
 
   /**
   * Same instance to make it usable like a singleton

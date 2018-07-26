@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Messages
 */
-class PapayaMessageManager extends \PapayaObject {
+class PapayaMessageManager extends \Papaya\Application\BaseObject {
 
   /**
   * Internal list of message dispatchers

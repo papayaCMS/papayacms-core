@@ -52,12 +52,12 @@ namespace Papaya\Database;
  * @method array queryTableNames()
  * @method array queryTableStructure(string $tableName)
  */
-class Access extends \PapayaObject {
+class Access extends \Papaya\Application\BaseObject {
 
   /**
    * calling object
    *
-   * @var \PapayaObject
+   * @var \Papaya\Application\BaseObject
    */
   private $_owner = NULL;
 

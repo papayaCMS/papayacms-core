@@ -21,7 +21,7 @@ namespace Papaya\Configuration\Storage;
  * @package Papaya-Library
  * @subpackage Configuration
  */
-class Database extends \PapayaObject
+class Database extends \Papaya\Application\BaseObject
   implements \Papaya\Configuration\Storage {
 
   /**

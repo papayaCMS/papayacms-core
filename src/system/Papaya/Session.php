@@ -26,7 +26,7 @@
 * @property-read PapayaSessionValues $values
 * @property-read PapayaSessionOptions $options
 */
-class PapayaSession extends \PapayaObject {
+class PapayaSession extends \Papaya\Application\BaseObject {
 
   const ACTIVATION_ALWAYS = 1;
   const ACTIVATION_NEVER = 2;

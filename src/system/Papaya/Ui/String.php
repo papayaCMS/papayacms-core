@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiString extends \PapayaObject {
+class PapayaUiString extends \Papaya\Application\BaseObject {
 
   /**
   * String pattern

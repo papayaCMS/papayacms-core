@@ -23,7 +23,7 @@
 * @subpackage Messages
 */
 class PapayaMessageDispatcherTemplate
-  extends \PapayaObject
+  extends \Papaya\Application\BaseObject
   implements \PapayaMessageDispatcher {
 
   private $severityStrings = array(

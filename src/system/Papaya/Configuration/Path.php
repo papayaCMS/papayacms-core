@@ -22,7 +22,7 @@ use PapayaThemeHandler;
  * @package Papaya-Library
  * @subpackage Configuration
  */
-class Path extends \PapayaObject {
+class Path extends \Papaya\Application\BaseObject {
 
   const PATH_THEMES = 'theme';
   const PATH_THEME_CURRENT = 'current_theme';

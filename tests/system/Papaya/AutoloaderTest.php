@@ -156,8 +156,9 @@ class PapayaAutoloaderTest extends \PapayaTestCase {
 
   public static function getClassFileDataProvider() {
     return array(
-      array('/system/Papaya/Object.php', 'PapayaObject'),
-      array('/system/Papaya/BaseObject.php', 'Papaya\\BaseObject'),
+      array('/system/Papaya/Request.php', 'PapayaRequest'),
+      array('/system/Papaya/Request.php', 'Papaya\\Request'),
+      array('/system/Papaya/Application/BaseObject.php', 'Papaya\\Application\\BaseObject'),
       array('/system/Papaya/Sample.php', 'PapayaSample'),
       array('/system/Papaya/Sample/Abbr.php', 'PapayaSampleABBR'),
       array('/system/Papaya/Sample/Abbr/Class.php', 'PapayaSampleABBRClass'),

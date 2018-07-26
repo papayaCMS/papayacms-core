@@ -21,7 +21,7 @@ namespace Papaya\Controller;
  * @package Papaya-Library
  * @subpackage Controller
  */
-class Media extends \PapayaObject implements \Papaya\Controller {
+class Media extends \Papaya\Application\BaseObject implements \Papaya\Controller {
 
   /**
    * @var \base_mediadb

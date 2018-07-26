@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiReference extends \PapayaObject {
+class PapayaUiReference extends \Papaya\Application\BaseObject {
 
   /**
   * Url group separator

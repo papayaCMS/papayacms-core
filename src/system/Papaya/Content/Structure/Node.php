@@ -28,7 +28,7 @@ namespace Papaya\Content\Structure;
  *  FOR A PARTICULAR PURPOSE.
  */
 
-abstract class Node extends \PapayaObject {
+abstract class Node extends \Papaya\Application\BaseObject {
 
   /**
    * @var array

@@ -13,36 +13,38 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application;
 /**
-* Papaya Object - papaya basic object
-*
-* @package Papaya-Library
-* @subpackage Objects
-*/
-abstract class PapayaObject implements \PapayaObjectInterface {
+ * Papaya Object - papaya basic object
+ *
+ * @package Papaya-Library
+ * @subpackage Objects
+ */
+abstract class BaseObject implements \PapayaObjectInterface {
 
   /**
-  * Application object
-  * @var string
-  */
+   * Application object
+   *
+   * @var string
+   */
   protected $_applicationObject = NULL;
 
   /**
-  * Get application object
-  *
-  * @deprecated {@see \PapayaObject::papaya()}
-  * @return \PapayaApplication
-  */
+   * Get application object
+   *
+   * @deprecated {@see \Papaya\PapayaObject::papaya()}
+   * @return \PapayaApplication
+   */
   public function getApplication() {
     return $this->papaya();
   }
 
   /**
-  * Set application object
-  *
-  * @deprecated {@see \PapayaObject::papaya()}
-  * @param \PapayaApplication $application
-  */
+   * Set application object
+   *
+   * @deprecated {@see \Papaya\PapayaObject::papaya()}
+   * @param \PapayaApplication $application
+   */
   public function setApplication($application) {
     $this->papaya($application);
   }

@@ -23,7 +23,7 @@ use PapayaSessionValues;
  * @subpackage Plugins
  */
 class Parameters
-  extends \PapayaObject
+  extends \Papaya\Application\BaseObject
   implements \Papaya\Cache\Identifier\Definition {
 
   /**

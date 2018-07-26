@@ -219,7 +219,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends \PapayaTestCase {
   }
 }
 
-abstract class PapayaUiDialogFieldFactoryProfileSelectFile_TestContext extends \PapayaObject {
+abstract class PapayaUiDialogFieldFactoryProfileSelectFile_TestContext extends \Papaya\Application\BaseObject {
 
   abstract public function getPath();
 }

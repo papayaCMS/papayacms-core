@@ -30,7 +30,7 @@ namespace Papaya;
  * @method bool addMenu($xml, $encodeInvalidEntities = TRUE)
  * @method bool addScript($xml, $encodeInvalidEntities = TRUE)
  */
-abstract class Template extends \PapayaObject {
+abstract class Template extends Application\BaseObject {
 
   /**
    * Strip the XML processing instruction <?xml ...?>

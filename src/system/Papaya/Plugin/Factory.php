@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Plugins
 */
-abstract class PapayaPluginFactory extends \PapayaObject {
+abstract class PapayaPluginFactory extends \Papaya\Application\BaseObject {
 
   /**
   * The plugin name => guid list.

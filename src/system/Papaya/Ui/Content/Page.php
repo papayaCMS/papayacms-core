@@ -29,7 +29,7 @@ use Papaya\Content;
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaUiContentPage extends \PapayaObject {
+class PapayaUiContentPage extends \Papaya\Application\BaseObject {
 
   /**
    * @var \Papaya\Content\Page

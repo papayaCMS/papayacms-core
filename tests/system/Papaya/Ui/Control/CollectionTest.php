@@ -125,7 +125,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   */
   public function testOwnerSetValidSuperclass() {
     $collection = new \PapayaUiControlCollection_TestProxy();
-    $collection->owner($owner = $this->createMock(\PapayaObject::class));
+    $collection->owner($owner = $this->createMock(\Papaya\Application\BaseObject::class));
     $this->assertSame($owner, $collection->owner());
   }
 
@@ -602,7 +602,7 @@ class PapayaUiControlCollection_TestProxy extends \PapayaUiControlCollection {
 
   public $_itemClass = \PapayaUiControl::class;
 
-  public $_ownerClass = \PapayaObject::class;
+  public $_ownerClass = \Papaya\Application\BaseObject::class;
 }
 
 abstract class PapayaUiControlCollection_TestItem

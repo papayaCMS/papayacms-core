@@ -30,7 +30,7 @@ use Papaya\Content\Phrase\Messages;
  */
 
 class PapayaPhrasesStorageDatabase
-  extends \PapayaObject
+  extends \Papaya\Application\BaseObject
   implements \PapayaPhrasesStorage {
 
   private $_cache = array();

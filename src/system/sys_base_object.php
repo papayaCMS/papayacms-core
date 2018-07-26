@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Application\BaseObject;
+
 /**
 * log type for user messages (login/logout)
 */
@@ -74,7 +76,7 @@ define('MSG_ERROR', Papaya\Message::SEVERITY_ERROR);
 * @package Papaya
 * @subpackage Core
 */
-class base_object extends PapayaObject implements PapayaRequestParametersInterface {
+class base_object extends BaseObject implements PapayaRequestParametersInterface {
   /**
   * Error messages, not used any more
   * @deprecated

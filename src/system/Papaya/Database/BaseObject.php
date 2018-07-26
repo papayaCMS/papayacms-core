@@ -54,7 +54,7 @@ namespace Papaya\Database;
  * @method int|string|NULL databaseLastInsertId(string $table, string $idField)
  */
 class BaseObject
-  extends \PapayaObject
+  extends \Papaya\Application\BaseObject
   implements Interfaces\Access {
 
   /**

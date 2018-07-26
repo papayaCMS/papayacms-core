@@ -20,7 +20,7 @@ namespace Papaya;
  * @package Papaya-Library
  * @subpackage Domains
  */
-class Domains extends \PapayaObject {
+class Domains extends Application\BaseObject {
 
   /**
    * @var array

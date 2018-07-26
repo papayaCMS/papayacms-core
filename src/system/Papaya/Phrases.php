@@ -22,7 +22,7 @@
  * @property \PapayaPhrasesGroups groups
  *
  */
-class PapayaPhrases extends \PapayaObject {
+class PapayaPhrases extends \Papaya\Application\BaseObject {
 
   /**
    * @var \PapayaPhrasesGroups

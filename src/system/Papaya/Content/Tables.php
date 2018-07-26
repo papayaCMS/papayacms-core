@@ -21,7 +21,7 @@ namespace Papaya\Content;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Tables extends \PapayaObject {
+class Tables extends \Papaya\Application\BaseObject {
 
   const OPTIONS = 'options';
 

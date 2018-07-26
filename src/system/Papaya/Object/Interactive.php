@@ -20,7 +20,7 @@
 * @subpackage Objects
 */
 abstract class PapayaObjectInteractive
-  extends \PapayaObject
+  extends \Papaya\Application\BaseObject
   implements \PapayaRequestParametersInterface {
 
   /**

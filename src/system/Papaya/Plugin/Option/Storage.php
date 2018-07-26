@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Plugins
 */
-class PapayaPluginOptionStorage extends \PapayaObject
+class PapayaPluginOptionStorage extends \Papaya\Application\BaseObject
   implements \Papaya\Configuration\Storage {
 
   private $_guid;

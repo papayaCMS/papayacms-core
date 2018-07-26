@@ -29,7 +29,7 @@ namespace Papaya\Database\Records;
  */
 
 abstract class Unbuffered
-  extends \PapayaObject
+  extends \Papaya\Application\BaseObject
   implements \Papaya\Database\Interfaces\Access, \IteratorAggregate, \Countable {
   /**
    * Stored database access object

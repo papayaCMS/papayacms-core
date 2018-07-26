@@ -21,7 +21,7 @@
 * @package Papaya-Library
 * @subpackage Profiler
 */
-class PapayaProfilerBuilder extends \PapayaObject {
+class PapayaProfilerBuilder extends \Papaya\Application\BaseObject {
 
   /**
   * Create the profiler collector object. Currently heres is only the xhprof wrapper.

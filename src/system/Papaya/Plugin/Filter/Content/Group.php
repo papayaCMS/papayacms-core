@@ -14,7 +14,7 @@
  */
 
 class PapayaPluginFilterContentGroup
-  extends \PapayaObject
+  extends \Papaya\Application\BaseObject
   implements \PapayaPluginFilterContent, \IteratorAggregate {
 
   private $_filters = array();

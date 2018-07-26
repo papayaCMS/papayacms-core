@@ -21,7 +21,7 @@ use Papaya\Content\Link\Types;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class PapayaUiReferencePageFactory extends \PapayaObject {
+class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
 
   /**
    * @var array

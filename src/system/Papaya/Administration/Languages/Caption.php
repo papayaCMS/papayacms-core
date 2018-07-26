@@ -22,7 +22,7 @@ namespace Papaya\Administration\Languages;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Caption extends \PapayaObject {
+class Caption extends \Papaya\Application\BaseObject {
 
   private $_suffix;
   private $_separator;

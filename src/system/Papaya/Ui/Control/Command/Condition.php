@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiControlCommandCondition extends \PapayaObject {
+abstract class PapayaUiControlCommandCondition extends \Papaya\Application\BaseObject {
 
   /**
   * The command of the condition.

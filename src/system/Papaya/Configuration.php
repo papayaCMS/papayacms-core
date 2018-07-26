@@ -26,7 +26,7 @@ namespace Papaya;
  * @subpackage Configuration
  */
 class Configuration
-  extends \PapayaObject
+  extends Application\BaseObject
   implements \IteratorAggregate, \ArrayAccess {
 
   /**

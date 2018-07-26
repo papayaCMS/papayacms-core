@@ -21,7 +21,7 @@ namespace Papaya\Cache\Identifier\Definition;
  * @subpackage Plugins
  */
 class Surfer
-  extends \PapayaObject
+  extends \Papaya\Application\BaseObject
   implements \Papaya\Cache\Identifier\Definition {
 
   /**

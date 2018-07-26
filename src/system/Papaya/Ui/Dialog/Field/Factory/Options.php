@@ -30,7 +30,7 @@
 * @property boolean $disabled disabled field status
 * @property \Papaya\Filter $validation the validation filter, can be set from string|array as well
 * @property mixed $parameters an individual parameters value
-* @property \PapayaObject $context used for callbacks or access to the application registry
+* @property \Papaya\Application\BaseObject $context used for callbacks or access to the application registry
 */
 class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
 

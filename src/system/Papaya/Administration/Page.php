@@ -27,7 +27,7 @@ namespace Papaya\Administration;
  * @package Papaya-Library
  * @subpackage Administration
  */
-abstract class Page extends \PapayaObject {
+abstract class Page extends \Papaya\Application\BaseObject {
 
   /**
    * @var string|NULL

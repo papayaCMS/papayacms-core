@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Plugins
 */
-class PapayaPluginOptionGroups extends \PapayaObject implements \ArrayAccess {
+class PapayaPluginOptionGroups extends \Papaya\Application\BaseObject implements \ArrayAccess {
 
   private $_groups = array();
 

@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Messages
 */
-class PapayaMessageSandbox extends \PapayaObject {
+class PapayaMessageSandbox extends \Papaya\Application\BaseObject {
 
   private $_callback = NULL;
 

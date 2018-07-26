@@ -14,7 +14,7 @@
  */
 
 class PapayaMessageDispatcherCli
-  extends \PapayaObject
+  extends \Papaya\Application\BaseObject
   implements \PapayaMessageDispatcher {
 
   const TARGET_STDOUT = 'stdout';

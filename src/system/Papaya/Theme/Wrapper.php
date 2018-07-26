@@ -21,7 +21,7 @@ use Papaya\Cache\Service;
 * @package Papaya-Library
 * @subpackage Theme
 */
-class PapayaThemeWrapper extends \PapayaObject {
+class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
 
   /**
   * @var \PapayaThemeWrapperUrl

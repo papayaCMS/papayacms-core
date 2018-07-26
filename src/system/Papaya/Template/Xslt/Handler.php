@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Template
 */
-class PapayaTemplateXsltHandler extends \PapayaObject {
+class PapayaTemplateXsltHandler extends \Papaya\Application\BaseObject {
 
   /**
   * Get absolute local file path to current template directory

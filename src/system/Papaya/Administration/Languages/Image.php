@@ -23,7 +23,7 @@ namespace Papaya\Administration\Languages;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Image extends \PapayaObject {
+class Image extends \Papaya\Application\BaseObject {
 
   private $_languageId;
   private $_language;

@@ -21,7 +21,7 @@ namespace Papaya\Database;
  * @package Papaya-Library
  * @subpackage Database
  */
-class Manager extends \PapayaObject {
+class Manager extends \Papaya\Application\BaseObject {
 
   /**
    * @var \Papaya\Configuration $_configuration Configuration object

@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Session
 */
-class PapayaSessionId extends \PapayaObject {
+class PapayaSessionId extends \Papaya\Application\BaseObject {
 
   const SOURCE_ANY = 0;
   const SOURCE_COOKIE = 1;

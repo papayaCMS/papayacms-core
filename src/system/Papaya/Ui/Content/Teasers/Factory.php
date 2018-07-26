@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui-Content
 */
-class PapayaUiContentTeasersFactory extends \PapayaObject {
+class PapayaUiContentTeasersFactory extends \Papaya\Application\BaseObject {
 
   /**
   * thumbnail width

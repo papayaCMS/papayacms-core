@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PluginLoader_SampleClass extends \PapayaObject {
+class PluginLoader_SampleClass extends \Papaya\Application\BaseObject {
 
   public $data;
 
@@ -24,7 +24,7 @@ class PluginLoader_SampleClass extends \PapayaObject {
 }
 
 class PluginLoader_SampleClassEditable
-  extends \PapayaObject
+  extends \Papaya\Application\BaseObject
   implements PapayaPluginEditable {
 
   /**

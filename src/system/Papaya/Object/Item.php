@@ -21,7 +21,7 @@
 * @subpackage Objects
 */
 class PapayaObjectItem
-  extends \PapayaObject
+  extends \Papaya\Application\BaseObject
   implements \ArrayAccess, \IteratorAggregate {
 
   /**

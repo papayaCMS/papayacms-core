@@ -20,7 +20,7 @@ namespace Papaya\Controller;
  * @package Papaya-Library
  * @subpackage Controller
  */
-class Error extends \PapayaObject implements \Papaya\Controller {
+class Error extends \Papaya\Application\BaseObject implements \Papaya\Controller {
 
   /**
    * HTTP response status

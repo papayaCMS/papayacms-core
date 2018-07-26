@@ -49,7 +49,8 @@ class Autoloader {
     'PapayaFilterArray' => Filter\ArrayOf::class,
     'PapayaFilterArrayAssociative' => Filter\AssociativeArray::class,
     'PapayaFilterArraySize' => Filter\ArraySize::class,
-    'PapayaFilterBooleanString' => Filter\BooleanString::class
+    'PapayaFilterBooleanString' => Filter\BooleanString::class,
+    'PapayaObject' => Application\BaseObject::class
   );
 
   private static $_mapParts = array(

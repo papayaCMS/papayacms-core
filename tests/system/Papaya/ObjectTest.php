@@ -18,7 +18,7 @@ require_once __DIR__.'/../../bootstrap.php';
 class PapayaObjectTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaObject::setApplication
+  * @covers \Papaya\Application\BaseObject::setApplication
   */
   public function testSetApplication() {
     $object = new \PapayaObject_TestProxy();
@@ -32,7 +32,7 @@ class PapayaObjectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObject::getApplication
+  * @covers \Papaya\Application\BaseObject::getApplication
   */
   public function testGetApplication() {
     $object = new \PapayaObject_TestProxy();
@@ -48,7 +48,7 @@ class PapayaObjectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObject::getApplication
+  * @covers \Papaya\Application\BaseObject::getApplication
   */
   public function testGetApplicationSingleton() {
     $object = new \PapayaObject_TestProxy();
@@ -64,7 +64,7 @@ class PapayaObjectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObject::papaya
+  * @covers \Papaya\Application\BaseObject::papaya
   */
   public function testPapayaGetAfterSet() {
     $object = new \PapayaObject_TestProxy();
@@ -73,7 +73,7 @@ class PapayaObjectTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObject::papaya
+  * @covers \Papaya\Application\BaseObject::papaya
   */
   public function testPapayaGetUsingSingleton() {
     $object = new \PapayaObject_TestProxy();
@@ -83,5 +83,5 @@ class PapayaObjectTest extends \PapayaTestCase {
   }
 }
 
-class PapayaObject_TestProxy extends \PapayaObject{
+class PapayaObject_TestProxy extends \Papaya\Application\BaseObject{
 }
