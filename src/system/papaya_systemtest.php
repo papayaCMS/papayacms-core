@@ -419,7 +419,7 @@ class papaya_systemtest {
   */
   function testDatabase() {
     try {
-      $uriData = new PapayaDatabaseSourceName(PAPAYA_DB_URI);
+      $uriData = new \PapayaDatabaseSourceName(PAPAYA_DB_URI);
       if (extension_loaded($uriData->api)) {
         return TESTRESULT_OK;
       }

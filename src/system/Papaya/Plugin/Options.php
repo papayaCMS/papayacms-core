@@ -134,7 +134,7 @@ class PapayaPluginOptions extends \PapayaConfiguration {
     if (NULL !== $storage) {
       $this->_storage = $storage;
     } elseif (NULL === $this->_storage) {
-      $this->_storage = new PapayaPluginOptionStorage($this->_guid);
+      $this->_storage = new \PapayaPluginOptionStorage($this->_guid);
       $this->_storage->papaya($this->papaya());
     }
     return parent::storage($this->_storage);

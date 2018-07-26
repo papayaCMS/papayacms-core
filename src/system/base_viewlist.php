@@ -1244,7 +1244,7 @@ class base_viewlist extends base_db {
         'feed' => $this->_gt('Feed'),
         'hidden' => $this->_gt('Hidden')
       );
-      $templateHandler = new PapayaTemplateXsltHandler();
+      $templateHandler = new \PapayaTemplateXsltHandler();
       $fields = array(
         'viewmode_ext' => array('Extension', '/^[a-z]{1,20}$/',
           TRUE, 'input', 20, ''),
@@ -1469,10 +1469,10 @@ class base_viewlist extends base_db {
   public function getViewModuleInfos() {
     if (isset($this->view) && isset($this->modules[$this->view['module_guid']])) {
       $module = $this->modules[$this->view['module_guid']];
-      $listview = new PapayaUiListview($module);
-      $listview->caption = new PapayaUiStringTranslated('Module');
+      $listview = new \PapayaUiListview($module);
+      $listview->caption = new \PapayaUiStringTranslated('Module');
       $listview->items[] = $item =
-        new PapayaUiListviewItem(
+        new \PapayaUiListviewItem(
           $module['module_type'] == 'page' ? 'items-page' : 'items-box',
           $module['module_title']
         );
@@ -1487,37 +1487,37 @@ class base_viewlist extends base_db {
       );
       $item->columnSpan = 2;
       $listview->items[] = $item =
-        new PapayaUiListviewItem('', new PapayaUiStringTranslated('Path'));
+        new \PapayaUiListviewItem('', new \PapayaUiStringTranslated('Path'));
       $item->indentation = 1;
-      $item->subitems[] = new PapayaUiListviewSubitemText(
+      $item->subitems[] = new \PapayaUiListviewSubitemText(
         PapayaUtilString::truncate($module['module_path'], 30, '...')
       );
       $listview->items[] = $item =
-        new PapayaUiListviewItem('', new PapayaUiStringTranslated('Class'));
+        new \PapayaUiListviewItem('', new \PapayaUiStringTranslated('Class'));
       $item->indentation = 1;
-      $item->subitems[] = new PapayaUiListviewSubitemText($module['module_class']);
+      $item->subitems[] = new \PapayaUiListviewSubitemText($module['module_class']);
       if ($plugin = $this->papaya()->plugins->get($module['module_guid'])) {
         if ($plugin instanceof PapayaPluginCacheable) {
           $listview->items[] = $item =
-            new PapayaUiListviewItem('', new PapayaUiStringTranslated('Cacheable interface'));
+            new \PapayaUiListviewItem('', new \PapayaUiStringTranslated('Cacheable interface'));
           $item->indentation = 1;
           $item->columnSpan = 2;
-          $sources = new Papaya\Cache\Identifier\Sources($plugin->cacheable()->getSources());
-          $listview->items[] = $item = new PapayaUiListviewItem('', (string)$sources);
+          $sources = new \Papaya\Cache\Identifier\Sources($plugin->cacheable()->getSources());
+          $listview->items[] = $item = new \PapayaUiListviewItem('', (string)$sources);
           $item->indentation = 3;
           $item->columnSpan = 2;
         } elseif ($plugin instanceof base_content && method_exists($plugin, 'getCacheId')) {
-          $listview->items[] = $item = new PapayaUiListviewItem('', 'getCacheId()');
+          $listview->items[] = $item = new \PapayaUiListviewItem('', 'getCacheId()');
           $item->indentation = 1;
           $item->columnSpan = 2;
         } elseif ($plugin instanceof base_actionbox) {
           if (method_exists($plugin, 'getCacheId')) {
-            $listview->items[] = $item = new PapayaUiListviewItem('', 'getCacheId()');
+            $listview->items[] = $item = new \PapayaUiListviewItem('', 'getCacheId()');
             $item->indentation = 1;
             $item->columnSpan = 2;
           }
           if (property_exists($plugin, 'cacheable') && $plugin->cacheable) {
-            $listview->items[] = $item = new PapayaUiListviewItem('', '$cacheable');
+            $listview->items[] = $item = new \PapayaUiListviewItem('', '$cacheable');
             $item->indentation = 1;
             $item->columnSpan = 2;
             if (
@@ -1532,7 +1532,7 @@ class base_viewlist extends base_db {
               foreach ($plugin->cacheDependency as $key => $active) {
                 if ($active) {
                   $title = empty($titles[$key]) ? $key : $titles[$key];
-                  $listview->items[] = $item = new PapayaUiListviewItem('', $title);
+                  $listview->items[] = $item = new \PapayaUiListviewItem('', $title);
                   $item->indentation = 2;
                   $item->columnSpan = 2;
                 }
@@ -1772,7 +1772,7 @@ class base_viewlist extends base_db {
    */
   public function loadViewDuplicates() {
     if (isset($this->view) && $this->view['view_id'] > 0) {
-      $views = new Papaya\Content\Views();
+      $views = new \Papaya\Content\Views();
       $views->activateLazyLoad(array('checksum' => $this->view['view_checksum']));
       return $views;
     }
@@ -1784,12 +1784,12 @@ class base_viewlist extends base_db {
    */
   public function getViewDuplicates() {
     if (($duplicates = $this->loadViewDuplicates()) && count($duplicates) > 1) {
-      $listview = new PapayaUiListview();
-      $listview->caption = new PapayaUiStringTranslated('Duplicates');
-      $listview->columns[] = new PapayaUiListviewColumn('');
+      $listview = new \PapayaUiListview();
+      $listview->caption = new \PapayaUiStringTranslated('Duplicates');
+      $listview->columns[] = new \PapayaUiListviewColumn('');
       foreach ($duplicates as $view) {
         if ($view['id'] != $this->view['view_id']) {
-          $listview->items[] = $item = new PapayaUiListviewItem(
+          $listview->items[] = $item = new \PapayaUiListviewItem(
             $this->view['module_type'] == 'box' ? 'items-box' : 'items-page',
             $view['title']
           );
@@ -1830,42 +1830,42 @@ class base_viewlist extends base_db {
   function getViewUseList() {
     if (isset($this->view) && $this->view['view_id'] > 0) {
       $this->loadViewUsage();
-      $listview = new PapayaUiListview();
-      $listview->caption = new PapayaUiStringTranslated('Usage overview');
-      $listview->columns[] = new PapayaUiListviewColumn('');
-      $listview->columns[] = new PapayaUiListviewColumn(
-        new PapayaUiStringTranslated('Current'),
+      $listview = new \PapayaUiListview();
+      $listview->caption = new \PapayaUiStringTranslated('Usage overview');
+      $listview->columns[] = new \PapayaUiListviewColumn('');
+      $listview->columns[] = new \PapayaUiListviewColumn(
+        new \PapayaUiStringTranslated('Current'),
         PapayaUiOptionAlign::CENTER
       );
-      $listview->columns[] = new PapayaUiListviewColumn(
-        new PapayaUiStringTranslated('Published'),
+      $listview->columns[] = new \PapayaUiListviewColumn(
+        new \PapayaUiStringTranslated('Published'),
         PapayaUiOptionAlign::CENTER
       );
-      $listview->columns[] = new PapayaUiListviewColumn(
-        new PapayaUiStringTranslated('Versions'),
+      $listview->columns[] = new \PapayaUiListviewColumn(
+        new \PapayaUiStringTranslated('Versions'),
         PapayaUiOptionAlign::CENTER
       );
       switch ($this->view['module_type']) {
       case 'box' :
-        $listview->items[] = $item = new PapayaUiListviewItem(
-          'items-box', new PapayaUiStringTranslated('Boxes')
+        $listview->items[] = $item = new \PapayaUiListviewItem(
+          'items-box', new \PapayaUiStringTranslated('Boxes')
         );
         $item->columnSpan = 4;
         foreach ($this->papaya()->languages as $lngId => $language) {
           if ($language['is_content']) {
-            $listview->items[] = $item = new PapayaUiListviewItem(
+            $listview->items[] = $item = new \PapayaUiListviewItem(
               './pics/language/'.$language['image'], $language['title'].' ('.$language['code'].')'
             );
             $item->indentation = 1;
-            $item->subitems[] = new PapayaUiListviewSubitemText(
+            $item->subitems[] = new \PapayaUiListviewSubitemText(
               empty($this->usageCounts[PAPAYA_DB_TBL_BOX_TRANS][$lngId])
                 ? 0 : (int)$this->usageCounts[PAPAYA_DB_TBL_BOX_TRANS][$lngId]
             );
-            $item->subitems[] = new PapayaUiListviewSubitemText(
+            $item->subitems[] = new \PapayaUiListviewSubitemText(
               empty($this->usageCounts[PAPAYA_DB_TBL_BOX_PUBLIC_TRANS][$lngId])
                 ? 0 : (int)$this->usageCounts[PAPAYA_DB_TBL_BOX_PUBLIC_TRANS][$lngId]
             );
-            $item->subitems[] = new PapayaUiListviewSubitemText(
+            $item->subitems[] = new \PapayaUiListviewSubitemText(
               empty($this->usageCounts[PAPAYA_DB_TBL_BOX_VERSIONS_TRANS][$lngId])
                 ? 0 : (int)$this->usageCounts[PAPAYA_DB_TBL_BOX_VERSIONS_TRANS][$lngId]
             );
@@ -1874,25 +1874,25 @@ class base_viewlist extends base_db {
         break;
       case 'page':
       default:
-        $listview->items[] = $item = new PapayaUiListviewItem(
-          'items-page', new PapayaUiStringTranslated('Pages')
+        $listview->items[] = $item = new \PapayaUiListviewItem(
+          'items-page', new \PapayaUiStringTranslated('Pages')
         );
         $item->columnSpan = 4;
         foreach ($this->papaya()->languages as $lngId => $language) {
           if ($language['is_content']) {
-            $listview->items[] = $item = new PapayaUiListviewItem(
+            $listview->items[] = $item = new \PapayaUiListviewItem(
               './pics/language/'.$language['image'], $language['title'].' ('.$language['code'].')'
             );
             $item->indentation = 1;
-            $item->subitems[] = new PapayaUiListviewSubitemText(
+            $item->subitems[] = new \PapayaUiListviewSubitemText(
               empty($this->usageCounts[PAPAYA_DB_TBL_TOPICS_TRANS][$lngId])
                 ? 0 : (int)$this->usageCounts[PAPAYA_DB_TBL_TOPICS_TRANS][$lngId]
             );
-            $item->subitems[] = new PapayaUiListviewSubitemText(
+            $item->subitems[] = new \PapayaUiListviewSubitemText(
               empty($this->usageCounts[PAPAYA_DB_TBL_TOPICS_PUBLIC_TRANS][$lngId])
                 ? 0 : (int)$this->usageCounts[PAPAYA_DB_TBL_TOPICS_PUBLIC_TRANS][$lngId]
             );
-            $item->subitems[] = new PapayaUiListviewSubitemText(
+            $item->subitems[] = new \PapayaUiListviewSubitemText(
               empty($this->usageCounts[PAPAYA_DB_TBL_TOPICS_VERSIONS_TRANS][$lngId])
                 ? 0 : (int)$this->usageCounts[PAPAYA_DB_TBL_TOPICS_VERSIONS_TRANS][$lngId]
             );

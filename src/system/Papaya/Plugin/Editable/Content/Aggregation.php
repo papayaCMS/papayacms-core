@@ -41,7 +41,7 @@ trait PapayaPluginEditableContentAggregation {
     if (NULL !== $content) {
       $this->_content = $content;
     } elseif (NULL === $this->_content) {
-      $this->_content = new PapayaPluginEditableContent();
+      $this->_content = new \PapayaPluginEditableContent();
       $this->_content->callbacks()->onCreateEditor = function($callbackContext, PapayaPluginEditableContent $content) {
         return $this->createEditor($content);
       };

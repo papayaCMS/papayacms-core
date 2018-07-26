@@ -76,7 +76,7 @@ abstract class PapayaPluginEditableData extends PapayaObjectParameters {
     if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
     } elseif (NULL === $this->_callbacks) {
-      $this->_callbacks = new PapayaPluginEditableCallbacks();
+      $this->_callbacks = new \PapayaPluginEditableCallbacks();
     }
     return $this->_callbacks;
   }

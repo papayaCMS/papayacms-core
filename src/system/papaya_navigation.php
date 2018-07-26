@@ -242,25 +242,25 @@ class papaya_navigation extends base_object {
   * @return string
   */
   function getMenuBar($fileName = '') {
-    $menu = new PapayaUiMenu();
+    $menu = new \PapayaUiMenu();
     $menu->identifier = 'main';
     $currentUrl = $this->papaya()->request->getUrl()->getPathUrl();
     foreach ($this->menuGroups as $groupId => $groupTitle) {
       if (isset($this->menu[$groupId])) {
-        $group = new PapayaUiToolbarGroup(new PapayaUiStringTranslated($groupTitle));
+        $group = new \PapayaUiToolbarGroup(new \PapayaUiStringTranslated($groupTitle));
         foreach ($this->menu[$groupId] as  $buttonData) {
           if (empty($buttonData[3]) ||
               $this->papaya()->administrationUser->hasPerm($buttonData[3])) {
-            $button = new PapayaUiToolbarButton();
+            $button = new \PapayaUiToolbarButton();
             $button->image = $buttonData[2];
             if (isset($buttonData[8]) && $buttonData[8]) {
               $button->caption = empty($buttonData[0]) ? '' : $buttonData[0];
               $button->hint = empty($buttonData[1]) ? '' : $buttonData[1];
             } else {
-              $button->caption = new PapayaUiStringTranslated(
+              $button->caption = new \PapayaUiStringTranslated(
                 empty($buttonData[0]) ? '' : $buttonData[0]
               );
-              $button->hint = new PapayaUiStringTranslated(
+              $button->hint = new \PapayaUiStringTranslated(
                 empty($buttonData[1]) ? '' : $buttonData[1]
               );
             }

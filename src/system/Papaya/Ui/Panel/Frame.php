@@ -22,8 +22,8 @@
 * @property string|PapayaUiString $caption
 * @property string $name
 * @property string $height
-* @property PapayaUiReference $reference
-* @property PapayaUiToolbars $toolbars
+* @property \PapayaUiReference $reference
+* @property \PapayaUiToolbars $toolbars
 */
 class PapayaUiPanelFrame extends \PapayaUiPanel {
 

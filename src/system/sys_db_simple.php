@@ -150,7 +150,7 @@ class db_simple extends base_object {
         $message = 'Database Query Count: '.(int)$this->queryCounterObject;
       }
       $this->papaya()->messages->dispatch(
-        new PapayaMessageLog(
+        new \PapayaMessageLog(
           PapayaMessageLogable::GROUP_DEBUG,
           PapayaMessage::SEVERITY_DEBUG,
           $message
@@ -189,7 +189,7 @@ class db_simple extends base_object {
     } else {
       $uriString = $this->databaseURIs['read'];
     }
-    $this->databaseConfiguration[$mode] = new PapayaDatabaseSourceName($uriString);
+    $this->databaseConfiguration[$mode] = new \PapayaDatabaseSourceName($uriString);
     if (isset($this->databaseObjects[$mode]) &&
         is_object($this->databaseObjects[$mode])) {
       if ($this->getConnection($mode)->extensionFound()) {
@@ -208,7 +208,7 @@ class db_simple extends base_object {
         $this->getConnection($mode)->extensionFound();
         $this->getConnection($mode)->connect($object);
       } else {
-        throw new Papaya\Database\Exception\Connect(
+        throw new \Papaya\Database\Exception\Connect(
           sprintf(
             'Abstraction "%s" could not be loaded.',
             $this->databaseConfiguration[$mode]->api
@@ -322,15 +322,15 @@ class db_simple extends base_object {
     $this->connect($object, $readOnly);
     if ($readOnly && $options->get('PAPAYA_LOG_DATABASE_CLUSTER_VIOLATIONS', FALSE)) {
       if (preg_match('~^\s*(INSERT|UPDATE|ALTER|CREATE|DROP)~i', $sql)) {
-        $logMessage = new PapayaMessageLog(
+        $logMessage = new \PapayaMessageLog(
           PapayaMessageLogable::GROUP_DATABASE,
           PapayaMessage::SEVERITY_WARNING,
           'Detected write query on read connection.'
         );
         $logMessage
           ->context()
-          ->append(new PapayaMessageContextText($sql))
-          ->append(new PapayaMessageContextBacktrace(1));
+          ->append(new \PapayaMessageContextText($sql))
+          ->append(new \PapayaMessageContextBacktrace(1));
         $this->papaya()->messages->dispatch($logMessage);
       }
     }
@@ -455,20 +455,20 @@ class db_simple extends base_object {
             $explain = $queryResult->getExplain();
           }
         }
-        $backtrace = new PapayaMessageContextBacktrace(9);
+        $backtrace = new \PapayaMessageContextBacktrace(9);
       }
       if ($dispatchLogMessage) {
-        $logMessage = new PapayaMessageLog(
+        $logMessage = new \PapayaMessageLog(
           PapayaMessageLogable::GROUP_DATABASE,
           PapayaMessage::SEVERITY_DEBUG,
           $caption
         );
-        $logMessage->context()->append(new PapayaMessageContextRuntime($timeStart, $timeStop));
+        $logMessage->context()->append(new \PapayaMessageContextRuntime($timeStart, $timeStop));
         if (isset($counter)) {
-          $logMessage->context()->append(new PapayaMessageContextText($counter));
+          $logMessage->context()->append(new \PapayaMessageContextText($counter));
         }
         $logMessage->context()->append(
-          new PapayaMessageContextVariable(array('sql' => $query['sql']), 3, 99999)
+          new \PapayaMessageContextVariable(array('sql' => $query['sql']), 3, 99999)
         );
         if ($dispatchLogMessageDetails) {
           $logMessage->context()->append($backtrace);

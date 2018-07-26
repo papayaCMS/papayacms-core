@@ -27,9 +27,9 @@
 * @property integer $columnSpan
 * @property boolean $selected
 * @property boolean $emphased
-* @property PapayaUiListviewSubitems $subitems
-* @property PapayaUiReference $reference
-* @property PapayaUiListviewItemNode $node
+* @property \PapayaUiListviewSubitems $subitems
+* @property \PapayaUiReference $reference
+* @property \PapayaUiListviewItemNode $node
 */
 class PapayaUiListviewItem extends \PapayaUiControlCollectionItem {
 

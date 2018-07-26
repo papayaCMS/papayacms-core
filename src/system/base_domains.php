@@ -236,7 +236,7 @@ class base_domains extends base_db {
           if ($hostName != $domain) {
             //use current protocol
             $url = $protocol.'://'.$domain.$paramString;
-            $response = new PapayaResponseRedirect(
+            $response = new \PapayaResponseRedirect(
               $url, 301, 'domain redirect'
             );
             $response->send();
@@ -244,7 +244,7 @@ class base_domains extends base_db {
         } elseif ($protocol.'://'.$hostName != $domain) {
           //use target domain protocol
           $url = $domain.$paramString;
-          $response = new PapayaResponseRedirect(
+          $response = new \PapayaResponseRedirect(
             $url, 301, 'domain redirect'
           );
           $response->send();
@@ -262,7 +262,7 @@ class base_domains extends base_db {
           }
           $checkDomain = 0 !== strpos($targetUrl, $protocol.'://'.$hostName);
           if ($checkDomain && PapayaFilterFactory::isUrl($targetUrl, TRUE)) {
-            $response = new PapayaResponseRedirect(
+            $response = new \PapayaResponseRedirect(
               $targetUrl, 301, 'domain page redirect'
             );
             $response->send();
@@ -281,7 +281,7 @@ class base_domains extends base_db {
               $hostName = $this->getHostName();
               $protocol = $this->getHTTPProtocol();
               $url = $protocol.'://'.$hostName.'/index.'.$lng.$ext;
-              $response = new PapayaResponseRedirect(
+              $response = new \PapayaResponseRedirect(
                 $url, 301, 'domain language redirect'
               );
               $response->send();
@@ -319,7 +319,7 @@ class base_domains extends base_db {
         $this->papaya()->request->getParameters(PapayaRequest::SOURCE_QUERY)
       );
       if ($reference->valid()) {
-        $response = new PapayaResponseRedirect(
+        $response = new \PapayaResponseRedirect(
           $reference->get(), 301, 'domain language redirect'
         );
         $response->send();

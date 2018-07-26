@@ -206,33 +206,33 @@ class papaya_boxeslinks extends base_boxeslinks {
   }
 
   public function getModeDialog($mode) {
-    $dialog = new PapayaUiDialog();
-    $dialog->caption = new PapayaUiStringTranslated('Link Mode');
+    $dialog = new \PapayaUiDialog();
+    $dialog->caption = new \PapayaUiStringTranslated('Link Mode');
     $dialog->options->captionStyle = PapayaUiDialogOptions::CAPTION_NONE;
     if ($this->papaya()->options->get('PAPAYA_FEATURE_BOXGROUPS_LINKABLE', FALSE)) {
       $modes = array(
-        self::INHERIT_ALL => new PapayaUiStringTranslated('None'),
-        self::INHERIT_BOXES => new PapayaUiStringTranslated('Groups'),
-        self::INHERIT_GROUPS => new PapayaUiStringTranslated('Boxes'),
-        self::INHERIT_NONE => new PapayaUiStringTranslated('Boxes and groups')
+        self::INHERIT_ALL => new \PapayaUiStringTranslated('None'),
+        self::INHERIT_BOXES => new \PapayaUiStringTranslated('Groups'),
+        self::INHERIT_GROUPS => new \PapayaUiStringTranslated('Boxes'),
+        self::INHERIT_NONE => new \PapayaUiStringTranslated('Boxes and groups')
       );
     } else {
       $modes = array(
-        self::INHERIT_ALL => new PapayaUiStringTranslated('None'),
-        self::INHERIT_NONE => new PapayaUiStringTranslated('Boxes')
+        self::INHERIT_ALL => new \PapayaUiStringTranslated('None'),
+        self::INHERIT_NONE => new \PapayaUiStringTranslated('Boxes')
       );
     }
 
-    $dialog->fields[] = $field = new PapayaUiDialogFieldSelectRadio(
-      new PapayaUiStringTranslated(
+    $dialog->fields[] = $field = new \PapayaUiDialogFieldSelectRadio(
+      new \PapayaUiStringTranslated(
         'Attach to page'
       ),
       'box_useparent',
       $modes
     );
     $field->setDefaultValue($mode);
-    $dialog->buttons[] = new PapayaUiDialogButtonSubmit(
-      new PapayaUiStringTranslated('Save')
+    $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(
+      new \PapayaUiStringTranslated('Save')
     );
     return $dialog;
   }
@@ -262,28 +262,28 @@ class papaya_boxeslinks extends base_boxeslinks {
       $linkBoxes = FALSE;
       break;
     }
-    $listview = new PapayaUiListview();
-    $listview->caption = new PapayaUiStringTranslated('Boxes And Box Groups');
+    $listview = new \PapayaUiListview();
+    $listview->caption = new \PapayaUiStringTranslated('Boxes And Box Groups');
 
     if ($this->papaya()->options->get('PAPAYA_FEATURE_BOXGROUPS_LINKABLE', FALSE)) {
       if ($linkGroups) {
-        $listview->items[] = $item = new PapayaUiListviewItem(
+        $listview->items[] = $item = new \PapayaUiListviewItem(
           'items-page',
-          new PapayaUiStringTranslated('Linked Groups')
+          new \PapayaUiStringTranslated('Linked Groups')
         );
         $item->columnSpan = 5;
         foreach ($this->boxGroupsList as $groupId => $group) {
           if ($group['boxgroup_linkable'] && in_array($groupId, $this->usedGroups)) {
-            $listview->items[] = $item = new PapayaUiListviewItem(
+            $listview->items[] = $item = new \PapayaUiListviewItem(
               'items-folder', $group['boxgroup_title']
             );
             $item->indentation = 1;
-            $item->subitems[] = new PapayaUiListviewSubitemText($group['boxgroup_name']);
-            $item->subitems[] = new PapayaUiListviewSubitemText('');
-            $item->subitems[] = new PapayaUiListviewSubitemText('');
-            $item->subitems[] = $subitem = new PapayaUiListviewSubitemImage(
+            $item->subitems[] = new \PapayaUiListviewSubitemText($group['boxgroup_name']);
+            $item->subitems[] = new \PapayaUiListviewSubitemText('');
+            $item->subitems[] = new \PapayaUiListviewSubitemText('');
+            $item->subitems[] = $subitem = new \PapayaUiListviewSubitemImage(
               'actions-list-remove',
-              new PapayaUiStringTranslated('Remove'),
+              new \PapayaUiStringTranslated('Remove'),
               array(
                 $this->paramName => array(
                   'cmd' => 'group_unlink',
@@ -294,23 +294,23 @@ class papaya_boxeslinks extends base_boxeslinks {
             );
           }
         }
-        $listview->items[] = $item = new PapayaUiListviewItem(
+        $listview->items[] = $item = new \PapayaUiListviewItem(
           'items-page',
-          new PapayaUiStringTranslated('Available Groups')
+          new \PapayaUiStringTranslated('Available Groups')
         );
         $item->columnSpan = 5;
         foreach ($this->boxGroupsList as $groupId => $group) {
           if ($group['boxgroup_linkable'] && !in_array($groupId, $this->usedGroups)) {
-            $listview->items[] = $item = new PapayaUiListviewItem(
+            $listview->items[] = $item = new \PapayaUiListviewItem(
               'items-folder', $group['boxgroup_title']
             );
             $item->indentation = 1;
-            $item->subitems[] = new PapayaUiListviewSubitemText($group['boxgroup_name']);
-            $item->subitems[] = new PapayaUiListviewSubitemText('');
-            $item->subitems[] = new PapayaUiListviewSubitemText('');
-            $item->subitems[] = $subitem = new PapayaUiListviewSubitemImage(
+            $item->subitems[] = new \PapayaUiListviewSubitemText($group['boxgroup_name']);
+            $item->subitems[] = new \PapayaUiListviewSubitemText('');
+            $item->subitems[] = new \PapayaUiListviewSubitemText('');
+            $item->subitems[] = $subitem = new \PapayaUiListviewSubitemImage(
               'actions-list-add',
-              new PapayaUiStringTranslated('Add'),
+              new \PapayaUiStringTranslated('Add'),
               array(
                 $this->paramName => array(
                   'cmd' => 'group_link',
@@ -322,21 +322,21 @@ class papaya_boxeslinks extends base_boxeslinks {
           }
         }
       } else {
-        $listview->items[] = $item = new PapayaUiListviewItem(
+        $listview->items[] = $item = new \PapayaUiListviewItem(
           'items-page',
-          new PapayaUiStringTranslated('Inherited Groups')
+          new \PapayaUiStringTranslated('Inherited Groups')
         );
         $item->columnSpan = 5;
         foreach ($this->boxGroupsList as $groupId => $group) {
           if ($group['boxgroup_linkable'] && in_array($groupId, $this->usedGroups)) {
-            $listview->items[] = $item = new PapayaUiListviewItem(
+            $listview->items[] = $item = new \PapayaUiListviewItem(
               'items-folder', $group['boxgroup_title']
             );
             $item->indentation = 1;
-            $item->subitems[] = new PapayaUiListviewSubitemText($group['boxgroup_name']);
-            $item->subitems[] = new PapayaUiListviewSubitemText('');
-            $item->subitems[] = new PapayaUiListviewSubitemText('');
-            $item->subitems[] = new PapayaUiListviewSubitemText('');
+            $item->subitems[] = new \PapayaUiListviewSubitemText($group['boxgroup_name']);
+            $item->subitems[] = new \PapayaUiListviewSubitemText('');
+            $item->subitems[] = new \PapayaUiListviewSubitemText('');
+            $item->subitems[] = new \PapayaUiListviewSubitemText('');
           }
         }
       }
@@ -353,16 +353,16 @@ class papaya_boxeslinks extends base_boxeslinks {
     foreach ($this->boxesList as $box) {
       $groupedBoxes[$box['boxgroup_id']][$box['box_id']] = $box;
     }
-    $listview->items[] = $item = new PapayaUiListviewItem(
+    $listview->items[] = $item = new \PapayaUiListviewItem(
       'items-page',
-      new PapayaUiStringTranslated($linkBoxes ?'Linked Boxes' : 'Inherited Boxes')
+      new \PapayaUiStringTranslated($linkBoxes ?'Linked Boxes' : 'Inherited Boxes')
     );
     $item->columnSpan = 5;
     foreach ($this->boxGroupsList as $groupId => $group) {
       if (!empty($groupedBoxLinks[$groupId])) {
         $boxLinks = $groupedBoxLinks[$groupId];
         $opened = (isset($this->opened[$groupId]) && $this->opened[$groupId]);
-        $listview->items[] = $item = new PapayaUiListviewItem(
+        $listview->items[] = $item = new \PapayaUiListviewItem(
           $opened ? 'status-folder-open' : 'items-folder',
           $group['boxgroup_title']
         );
@@ -376,10 +376,10 @@ class papaya_boxeslinks extends base_boxeslinks {
           ),
           $this->paramName
         );
-        $item->subitems[] = new PapayaUiListviewSubitemText($group['boxgroup_name']);
-        $item->subitems[] = new PapayaUiListviewSubitemText('');
-        $item->subitems[] = new PapayaUiListviewSubitemText('');
-        $item->subitems[] = new PapayaUiListviewSubitemText('');
+        $item->subitems[] = new \PapayaUiListviewSubitemText($group['boxgroup_name']);
+        $item->subitems[] = new \PapayaUiListviewSubitemText('');
+        $item->subitems[] = new \PapayaUiListviewSubitemText('');
+        $item->subitems[] = new \PapayaUiListviewSubitemText('');
         if ($opened) {
           /** @var \PapayaUiListviewItem|NULL $previousItem */
           $previousItem = NULL;
@@ -388,14 +388,14 @@ class papaya_boxeslinks extends base_boxeslinks {
           foreach ($boxLinks as $boxId => $boxLink) {
             if (isset($groupedBoxes[$groupId][$boxId])) {
               $box = $groupedBoxes[$groupId][$boxId];
-              $listview->items[] = $item = new PapayaUiListviewItem(
+              $listview->items[] = $item = new \PapayaUiListviewItem(
                 $this->getBoxStatusImage($box), $box['box_name']
               );
               $item->indentation = 2;
               if ($administrationUser->hasPerm(Permissions::BOX_MANAGE)) {
-                $item->subitems[] = $subitem = new PapayaUiListviewSubitemImage(
+                $item->subitems[] = $subitem = new \PapayaUiListviewSubitemImage(
                   'actions-edit',
-                  new PapayaUiStringTranslated('Edit box'),
+                  new \PapayaUiStringTranslated('Edit box'),
                   array(
                     'bb' => array(
                       'cmd' => 'chg_show',
@@ -411,9 +411,9 @@ class papaya_boxeslinks extends base_boxeslinks {
               }
               if ($linkBoxes) {
                 if (isset($previousItem)) {
-                  $item->subitems[] = $subitem = new PapayaUiListviewSubitemImage(
+                  $item->subitems[] = $subitem = new \PapayaUiListviewSubitemImage(
                     'actions-go-up',
-                    new PapayaUiStringTranslated('Move up'),
+                    new \PapayaUiStringTranslated('Move up'),
                     array(
                       $this->paramName => array(
                         'cmd' => 'up',
@@ -422,9 +422,9 @@ class papaya_boxeslinks extends base_boxeslinks {
                       )
                     )
                   );
-                  $previousItem->subitems[2] = $subitem = new PapayaUiListviewSubitemImage(
+                  $previousItem->subitems[2] = $subitem = new \PapayaUiListviewSubitemImage(
                     'actions-go-down',
-                    new PapayaUiStringTranslated('Move down'),
+                    new \PapayaUiStringTranslated('Move down'),
                     array(
                       $this->paramName => array(
                         'cmd' => 'down',
@@ -434,15 +434,15 @@ class papaya_boxeslinks extends base_boxeslinks {
                     )
                   );
                 } else {
-                  $item->subitems[] = new PapayaUiListviewSubitemText('');
+                  $item->subitems[] = new \PapayaUiListviewSubitemText('');
                 }
-                $item->subitems[] = new PapayaUiListviewSubitemText('');
+                $item->subitems[] = new \PapayaUiListviewSubitemText('');
                 $previousItem = $item;
                 $previousLink = $boxLink;
 
-                $item->subitems[] = $subitem = new PapayaUiListviewSubitemImage(
+                $item->subitems[] = $subitem = new \PapayaUiListviewSubitemImage(
                   'actions-list-remove',
-                  new PapayaUiStringTranslated('Remove'),
+                  new \PapayaUiStringTranslated('Remove'),
                   array(
                     $this->paramName => array(
                       'cmd' => 'del',
@@ -452,9 +452,9 @@ class papaya_boxeslinks extends base_boxeslinks {
                   )
                 );
               } else {
-                $item->subitems[] = new PapayaUiListviewSubitemText('');
-                $item->subitems[] = new PapayaUiListviewSubitemText('');
-                $item->subitems[] = new PapayaUiListviewSubitemText('');
+                $item->subitems[] = new \PapayaUiListviewSubitemText('');
+                $item->subitems[] = new \PapayaUiListviewSubitemText('');
+                $item->subitems[] = new \PapayaUiListviewSubitemText('');
               }
             }
           }
@@ -462,9 +462,9 @@ class papaya_boxeslinks extends base_boxeslinks {
       }
     }
     if ($linkBoxes) {
-      $listview->items[] = $item = new PapayaUiListviewItem(
+      $listview->items[] = $item = new \PapayaUiListviewItem(
         'items-page',
-        new PapayaUiStringTranslated('Available Boxes')
+        new \PapayaUiStringTranslated('Available Boxes')
       );
       $item->columnSpan = 5;
       foreach ($this->boxGroupsList as $groupId => $group) {
@@ -476,7 +476,7 @@ class papaya_boxeslinks extends base_boxeslinks {
           $linkCount = 0;
         }
         if (!$group['boxgroup_linkable'] && count($boxes) > 0 && count($boxes) > $linkCount) {
-          $listview->items[] = $item = new PapayaUiListviewItem(
+          $listview->items[] = $item = new \PapayaUiListviewItem(
             $opened ? 'status-folder-open' : 'items-folder',
             $group['boxgroup_title']
           );
@@ -490,21 +490,21 @@ class papaya_boxeslinks extends base_boxeslinks {
             ),
             $this->paramName
           );
-          $item->subitems[] = new PapayaUiListviewSubitemText($group['boxgroup_name']);
-          $item->subitems[] = new PapayaUiListviewSubitemText('');
-          $item->subitems[] = new PapayaUiListviewSubitemText('');
-          $item->subitems[] = new PapayaUiListviewSubitemText('');
+          $item->subitems[] = new \PapayaUiListviewSubitemText($group['boxgroup_name']);
+          $item->subitems[] = new \PapayaUiListviewSubitemText('');
+          $item->subitems[] = new \PapayaUiListviewSubitemText('');
+          $item->subitems[] = new \PapayaUiListviewSubitemText('');
           if ($opened) {
             foreach ($boxes as $boxId => $box) {
               if (!isset($groupedBoxLinks[$groupId][$boxId])) {
-                $listview->items[] = $item = new PapayaUiListviewItem(
+                $listview->items[] = $item = new \PapayaUiListviewItem(
                   $this->getBoxStatusImage($box), $box['box_name']
                 );
                 $item->indentation = 2;
                 if ($administrationUser->hasPerm(Permissions::BOX_MANAGE)) {
-                  $item->subitems[] = $subitem = new PapayaUiListviewSubitemImage(
+                  $item->subitems[] = $subitem = new \PapayaUiListviewSubitemImage(
                     'actions-edit',
-                    new PapayaUiStringTranslated('Edit box'),
+                    new \PapayaUiStringTranslated('Edit box'),
                     array(
                       'bb' => array(
                         'cmd' => 'chg_show',
@@ -518,11 +518,11 @@ class papaya_boxeslinks extends base_boxeslinks {
                 } else {
                   $item->columnSpan = 2;
                 }
-                $item->subitems[] = new PapayaUiListviewSubitemText('');
-                $item->subitems[] = new PapayaUiListviewSubitemText('');
-                $item->subitems[] = $subitem = new PapayaUiListviewSubitemImage(
+                $item->subitems[] = new \PapayaUiListviewSubitemText('');
+                $item->subitems[] = new \PapayaUiListviewSubitemText('');
+                $item->subitems[] = $subitem = new \PapayaUiListviewSubitemImage(
                   'actions-list-add',
-                  new PapayaUiStringTranslated('Remove'),
+                  new \PapayaUiStringTranslated('Remove'),
                   array(
                     $this->paramName => array(
                       'cmd' => 'add',

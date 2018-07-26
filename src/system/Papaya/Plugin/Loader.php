@@ -23,8 +23,8 @@
 * @package Papaya-Library
 * @subpackage Plugins
 *
-* @property PapayaPluginList $plugins
-* @property PapayaPluginOptionGroups $options
+* @property \PapayaPluginList $plugins
+* @property \PapayaPluginOptionGroups $options
 */
 class PapayaPluginLoader extends \PapayaObject {
 

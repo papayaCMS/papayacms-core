@@ -21,13 +21,13 @@
 *
 * @property string|PapayaUiString $caption
 * @property string $image
-* @property PapayaUiDialogElementDescription $description
-* @property PapayaUiDialogFields $fields
-* @property PapayaUiDialogButtons $buttons
-* @property PapayaRequestParameters $hiddenFields
-* @property PapayaRequestParameters $hiddenValues
-* @property PapayaRequestParameters $data
-* @property PapayaUiDialogOptions $options
+* @property \PapayaUiDialogElementDescription $description
+* @property \PapayaUiDialogFields $fields
+* @property \PapayaUiDialogButtons $buttons
+* @property \PapayaRequestParameters $hiddenFields
+* @property \PapayaRequestParameters $hiddenValues
+* @property \PapayaRequestParameters $data
+* @property \PapayaUiDialogOptions $options
 */
 class PapayaUiDialog extends \PapayaUiControlInteractive {
 

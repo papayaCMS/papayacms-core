@@ -19,8 +19,8 @@
 * @package Papaya-Library
 * @subpackage Request
 *
-* @property Papaya\Content\Language $language
-* @property Papaya\Content\View\Mode $mode
+* @property \Papaya\Content\Language $language
+* @property \Papaya\Content\View\Mode $mode
 * @property-read \Papaya\Url $url
 * @property-read string $method
 * @property-read boolean $allowCompression

@@ -19,8 +19,8 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property PapayaObjectCallback $onBeforeSave
-* @property PapayaObjectCallback $onBeforeDelete
+* @property \PapayaObjectCallback $onBeforeSave
+* @property \PapayaObjectCallback $onBeforeDelete
 * @method boolean onBeforeSave(\Papaya\Database\Interfaces\Record $record)
 * @method boolean onBeforeDelete(\Papaya\Database\Interfaces\Record $record)
 */

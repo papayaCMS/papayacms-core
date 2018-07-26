@@ -19,9 +19,9 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property PapayaObjectCallback onCreateDialog
-* @property PapayaObjectCallback onExecuteSuccessful
-* @property PapayaObjectCallback onExecuteFailed
+* @property \PapayaObjectCallback onCreateDialog
+* @property \PapayaObjectCallback onExecuteSuccessful
+* @property \PapayaObjectCallback onExecuteFailed
 * @method boolean onCreateDialog
 * @method boolean onExecuteSuccessful
 * @method boolean onExecuteFailed

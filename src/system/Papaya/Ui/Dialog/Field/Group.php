@@ -20,7 +20,7 @@
 * @subpackage Ui
 *
 * @property string|PapayaUiString $caption
-* @property PapayaUiDialogFields $fields
+* @property \PapayaUiDialogFields $fields
 */
 class PapayaUiDialogFieldGroup extends \PapayaUiDialogField {
 

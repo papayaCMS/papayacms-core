@@ -532,7 +532,7 @@ class base_boxeslinks extends base_db {
         $this->parser->setLinkOutputMode(NULL);
         // If no cache data available, load box data from XML stored in $data[box_data]
         if ($obj instanceof PapayaPluginAppendable) {
-          $dom = new PapayaXmlDocument();
+          $dom = new \PapayaXmlDocument();
           $boxNode = $dom->appendElement('box');
           $sandbox = $this->papaya()->messages->encapsulate(array($obj, 'appendTo'));
           call_user_func($sandbox, $boxNode);

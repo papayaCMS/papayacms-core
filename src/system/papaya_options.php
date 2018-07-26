@@ -885,7 +885,7 @@ class papaya_options extends base_options {
    * @return string
    */
   function getThemeSetsCombo($name, $element, $data) {
-    $themeSets = new Papaya\Content\Theme\Sets();
+    $themeSets = new \Papaya\Content\Theme\Sets();
     $themeSets->load(
       array('theme_name' => $this->papaya()->options->get('PAPAYA_LAYOUT_THEME'))
     );
@@ -897,7 +897,7 @@ class papaya_options extends base_options {
     );
     $result .= sprintf(
       '<option value="">%s</option>'.LF,
-      new PapayaUiStringTranslated('None')
+      new \PapayaUiStringTranslated('None')
     );
     $current = $this->papaya()->options->get('PAPAYA_LAYOUT_THEME_SET', '');
     foreach ($themeSets as $themeSet) {
@@ -1038,7 +1038,7 @@ class papaya_options extends base_options {
           return TRUE;
         }
         $this->papaya()->messages->dispatch(
-          new PapayaMessageDisplay(
+          new \PapayaMessageDisplay(
             PapayaMessage::SEVERITY_ERROR,
             sprintf(
               $this->_gt('Statistic module (%s) not found.'),
@@ -1338,7 +1338,7 @@ class papaya_options extends base_options {
       $this->checkDirectoryWriteable(PAPAYA_PATH_CACHE, 'Cache path');
     } else {
       $this->papaya()->messages->dispatch(
-        new PapayaMessageDisplay(
+        new \PapayaMessageDisplay(
           PapayaMessage::SEVERITY_ERROR,
           $this->_gt('Please set and save the PAPAYA_PATH_DATA option.')
         )

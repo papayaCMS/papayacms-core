@@ -354,9 +354,9 @@ class papaya_overview extends base_db {
    */
   function getTopicsList($title, $width = 490, $showDetails = FALSE) {
     if (isset($this->topics) && is_array($this->topics) && count($this->topics) > 0) {
-      $listview = new PapayaUiListview();
-      $listview->caption = new PapayaUiStringTranslated($title);
-      $listview->toolbars()->topLeft->elements[] = $paging = new PapayaUiToolbarPaging(
+      $listview = new \PapayaUiListview();
+      $listview->caption = new \PapayaUiStringTranslated($title);
+      $listview->toolbars()->topLeft->elements[] = $paging = new \PapayaUiToolbarPaging(
         array($this->paramName, 'filter_offset'),
         (int)$this->_topicsAbsCount,
         PapayaUiToolbarPaging::MODE_OFFSET
@@ -373,7 +373,7 @@ class papaya_overview extends base_db {
       foreach ($this->topics as $topic) {
         $title = '';
         if (empty($topic['topic_title'])) {
-          $pageTitle = new PapayaUiStringTranslated('No Title');
+          $pageTitle = new \PapayaUiStringTranslated('No Title');
         } else {
           $pageTitle = $topic['topic_title'];
         }
@@ -399,24 +399,24 @@ class papaya_overview extends base_db {
         if (isset($topic['topic_modified']) && $topic['topic_modified'] > 0) {
           $text .= sprintf(
             ', %s: %s',
-            new PapayaUiStringTranslated('Modified'),
-            new PapayaUiStringDate($topic['topic_modified'])
+            new \PapayaUiStringTranslated('Modified'),
+            new \PapayaUiStringDate($topic['topic_modified'])
           );
         } else {
           $text .= sprintf(
             ', %s: %s',
-            new PapayaUiStringTranslated('Created'),
-            new PapayaUiStringDate($topic['topic_created'])
+            new \PapayaUiStringTranslated('Created'),
+            new \PapayaUiStringDate($topic['topic_created'])
           );
         }
         if (isset($topic['topic_published']) && $topic['topic_published'] > 0) {
           $text .= sprintf(
             ', %s: %s',
-            new PapayaUiStringTranslated('Published'),
-            new PapayaUiStringDate($topic['topic_published'])
+            new \PapayaUiStringTranslated('Published'),
+            new \PapayaUiStringDate($topic['topic_published'])
           );
         }
-        $listview->items[] = $item = new PapayaUiListviewItem($image, $title);
+        $listview->items[] = $item = new \PapayaUiListviewItem($image, $title);
         $item->text = $text;
         $item->emphased = ($topic['user_id'] == $this->papaya()->administrationUser->userId);
         $item->reference()->setRelative('topic.php');
@@ -427,7 +427,7 @@ class papaya_overview extends base_db {
           if (!empty($topic['module_title']) && $topic['module_title'] != $topic['view_title']) {
             $text .= ' ('.$topic['module_title'].')';
           }
-          $item->subitems[] = $subitem = new PapayaUiListviewSubitemText($text);
+          $item->subitems[] = $subitem = new \PapayaUiListviewSubitemText($text);
         }
       }
       return $listview->getXml();
@@ -755,10 +755,10 @@ class papaya_overview extends base_db {
       );
       $data = array();
       if (empty($data['filter_date_from'])) {
-        $data['filter_date_from'] = new PapayaUiStringDate(time() - (86400 * 7));
+        $data['filter_date_from'] = new \PapayaUiStringDate(time() - (86400 * 7));
       }
       if (empty($data['filter_date_to'])) {
-        $data['filter_date_to'] = new PapayaUiStringDate(time() + 86400);
+        $data['filter_date_to'] = new \PapayaUiStringDate(time() + 86400);
       }
       $statusComboValue = array(
         'all' => $this->_gt('All'),
@@ -774,18 +774,18 @@ class papaya_overview extends base_db {
       );
       $this->modules()->load(array('type' => 'page', 'is_active' => TRUE));
       $modules = iterator_to_array(
-        new PapayaIteratorMultiple(
+        new \PapayaIteratorMultiple(
           PapayaIteratorMultiple::MIT_KEYS_ASSOC,
           new ArrayIterator(array('' => 'All')),
-          new PapayaIteratorArrayMapper($this->modules(), 'title')
+          new \PapayaIteratorArrayMapper($this->modules(), 'title')
         )
       );
       $this->views()->load(array('module_type' => 'page'));
       $views = iterator_to_array(
-        new PapayaIteratorMultiple(
+        new \PapayaIteratorMultiple(
           PapayaIteratorMultiple::MIT_KEYS_ASSOC,
           new ArrayIterator(array('' => 'All')),
-          new PapayaIteratorArrayMapper($this->views(), 'title')
+          new \PapayaIteratorArrayMapper($this->views(), 'title')
         )
       );
 
@@ -814,8 +814,8 @@ class papaya_overview extends base_db {
           FALSE,
           'checkgroup',
           array(
-            'meta' => new PapayaUiStringTranslated('Meta Tags'),
-            'boxes' => new PapayaUiStringTranslated('Boxes')
+            'meta' => new \PapayaUiStringTranslated('Meta Tags'),
+            'boxes' => new \PapayaUiStringTranslated('Boxes')
           )
         )
       );
@@ -827,7 +827,7 @@ class papaya_overview extends base_db {
       $this->dialogSearch->buttonTitle = 'Search';
       $this->dialogSearch->inputFieldSize = 'x-small';
       $this->dialogSearch->dialogDoubleButtons = FALSE;
-      $this->dialogSearch->addButton('search_clear', new PapayaUiStringTranslated('Reset'));
+      $this->dialogSearch->addButton('search_clear', new \PapayaUiStringTranslated('Reset'));
     }
   }
 

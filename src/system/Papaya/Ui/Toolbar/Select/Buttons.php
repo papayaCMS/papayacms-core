@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property PapayaUiReference $reference
+* @property \PapayaUiReference $reference
 * @property string $parameterName
 * @property string|PapayaUiString $caption
 * @property Traversable|array $options

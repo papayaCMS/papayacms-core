@@ -17,11 +17,11 @@
 * A simple button with a caption and without a name. That links to the specified reference.
 *
 * Usage:
-*   $dialog->buttons()->add(new PapayaUiDialogButtonSubmit('Save'));
+*   $dialog->buttons()->add(new \PapayaUiDialogButtonSubmit('Save'));
 *
 *   $dialog->buttons()->add(
-*     new PapayaUiDialogButtonSubmit(
-*       new PapayaUiStringTranslated('Save')
+*     new \PapayaUiDialogButtonSubmit(
+*       new \PapayaUiStringTranslated('Save')
 *     ),
 *     \PapayaUiDialogButton::ALIGN_LEFT
 *   );

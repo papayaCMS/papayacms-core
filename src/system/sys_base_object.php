@@ -248,15 +248,15 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   * @access public
   */
   function logMsg($type, $group, $short, $long = '', $addBacktrace = FALSE, $backtraceOffset = 1) {
-    $logMessage = new PapayaMessageLog($group, $type, $short);
+    $logMessage = new \PapayaMessageLog($group, $type, $short);
     if (!empty($long)) {
       $logMessage->context()->append(
-        new PapayaMessageContextText($long)
+        new \PapayaMessageContextText($long)
       );
     }
     if ($addBacktrace) {
       $logMessage->context()->append(
-        new PapayaMessageContextBacktrace($backtraceOffset)
+        new \PapayaMessageContextBacktrace($backtraceOffset)
       );
     }
     $this->papaya()->messages->dispatch(
@@ -278,13 +278,13 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   function logVariable(
     $level, $group, $title, $variable, $addBacktrace = FALSE, $backtraceOffset = 3
   ) {
-    $logMessage = new PapayaMessageLog($group, $level, $title);
+    $logMessage = new \PapayaMessageLog($group, $level, $title);
     $logMessage->context()->append(
-      new PapayaMessageContextVariable($variable)
+      new \PapayaMessageContextVariable($variable)
     );
     if ($addBacktrace) {
       $logMessage->context()->append(
-        new PapayaMessageContextBacktrace($backtraceOffset)
+        new \PapayaMessageContextBacktrace($backtraceOffset)
       );
     }
     $this->papaya()->messages->dispatch(
@@ -303,11 +303,11 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
    */
   public function addMsg($level, $text, $log = FALSE, $group = PAPAYA_LOGTYPE_SYSTEM) {
     $this->papaya()->messages->dispatch(
-      new PapayaMessageDisplay($level, $text)
+      new \PapayaMessageDisplay($level, $text)
     );
     if ($log) {
       $this->papaya()->messages->dispatch(
-        new PapayaMessageLog($group, $level, $text)
+        new \PapayaMessageLog($group, $level, $text)
       );
     }
   }
@@ -504,11 +504,11 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
     if (empty($url)) {
       $request = $application->getObject('Request');
     } else {
-      $request = new PapayaRequest($application->options);
+      $request = new \PapayaRequest($application->options);
       if (is_object($url)) {
         $request->load($url);
       } else {
-        $request->load(new Papaya\Url($url));
+        $request->load(new \Papaya\Url($url));
       }
     }
     $fileTitle = 'index';
@@ -591,7 +591,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   ) {
     $application = $this->papaya();
     $request = $application->request;
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->load($request);
     if (isset($pageId)) {
       $reference->setPageId($pageId);
@@ -645,11 +645,11 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
     $reference->setOutputMode($this->_getWebLinkPageModeExtension($mode));
     $reference->setParameters($params, $paramName);
 
-    $transformer = new PapayaUrlTransformerRelative();
+    $transformer = new \PapayaUrlTransformerRelative();
     $absolute = $reference->get();
     $relative = $transformer->transform(
       $request->getUrl(),
-      new Papaya\Url($absolute)
+      new \Papaya\Url($absolute)
     );
     return is_null($relative) ? $absolute : $relative;
   }
@@ -690,7 +690,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   */
   function encodeQueryString($params, $paramName = NULL, $maxDepth = 5) {
     if (isset($params) && is_array($params)) {
-      $parameters = new PapayaRequestParameters();
+      $parameters = new \PapayaRequestParameters();
       if (empty($paramName)) {
         $parameters->merge($params);
       } else {
@@ -719,7 +719,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
    * @return string
    */
   public function recodeQueryString($queryString, $newQueryParams = array()) {
-    $query = new PapayaRequestParametersQuery(
+    $query = new \PapayaRequestParametersQuery(
       $this->papaya()->options->get('PAPAYA_URL_LEVEL_SEPARATOR')
     );
     $query->setString($queryString);
@@ -763,7 +763,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
     $request = $application->request;
     $thumbsFileType = $this->papaya()->options->get('PAPAYA_THUMBS_FILETYPE', IMAGETYPE_PNG);
     if (in_array($mode, array('thumb', 'thumbs', 'thumbnail'))) {
-      $reference = new PapayaUiReferenceThumbnail();
+      $reference = new \PapayaUiReferenceThumbnail();
       $reference->papaya($this->papaya());
       $storageGroup = 'thumbs';
       $mode = 'thumbnail';
@@ -774,7 +774,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
       );
       $ext = $extensions[$thumbsFileType];
     } else {
-      $reference = new PapayaUiReferenceMedia();
+      $reference = new \PapayaUiReferenceMedia();
       $reference->papaya($this->papaya());
       $reference->setMode($mode);
       $storageGroup = 'files';
@@ -831,12 +831,12 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
         'index'
       )
     );
-    $transformer = new PapayaUrlTransformerRelative();
+    $transformer = new \PapayaUrlTransformerRelative();
     $absolute = $reference->get();
     $relative = $transformer
       ->transform(
         $request->getUrl(),
-        new Papaya\Url($absolute)
+        new \Papaya\Url($absolute)
       );
     return is_null($relative) ? $absolute : $relative;
   }
@@ -923,7 +923,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
     $href = preg_replace(
       '('.preg_quote($pathAdmin).'/../)', '/', $href
     );
-    $transformer = new PapayaUrlTransformerCleanup();
+    $transformer = new \PapayaUrlTransformerCleanup();
     return $transformer->transform($href.$urlAppend);
   }
 
@@ -968,12 +968,12 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
    * @access public
    */
   public function debug() {
-    $debugMessage = new PapayaMessageDebug(
+    $debugMessage = new \PapayaMessageDebug(
       PapayaMessageLogable::GROUP_DEBUG, 'Variables'
     );
     foreach (func_get_args() as $variable) {
       $debugMessage->context()->append(
-        new PapayaMessageContextVariable($variable)
+        new \PapayaMessageContextVariable($variable)
       );
     }
     $this->papaya()->messages->dispatch($debugMessage);
@@ -986,7 +986,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
    */
   function debugMsg($message = '') {
     $this->papaya()->messages->dispatch(
-      new PapayaMessageDebug(PapayaMessageLogable::GROUP_DEBUG, $message)
+      new \PapayaMessageDebug(PapayaMessageLogable::GROUP_DEBUG, $message)
     );
   }
 
@@ -1127,7 +1127,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
       $this->_parameters = $parameters;
       $this->params = $parameters->toArray();
     } elseif ($this->_parameters === NULL) {
-      $this->_parameters = new PapayaRequestParameters($this->params);
+      $this->_parameters = new \PapayaRequestParameters($this->params);
     }
     return $this->_parameters;
   }

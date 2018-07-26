@@ -22,7 +22,7 @@
 class PapayaRequestParameters extends \PapayaObjectParameters {
 
   public static function createFromString($queryString) {
-    $queryParameters = new PapayaRequestParametersQuery();
+    $queryParameters = new \PapayaRequestParametersQuery();
     $queryParameters->setString($queryString);
     $parameters = new self();
     $parameters->assign($queryParameters->values());

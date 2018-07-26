@@ -254,7 +254,7 @@ class base_auth extends base_db {
         return $this->changeForgottenPassword($userId);
       } else {
         $this->papaya()->messages->dispatch(
-          new PapayaMessageDisplay(PapayaMessage::SEVERITY_ERROR, 'Invalid password change token')
+          new \PapayaMessageDisplay(PapayaMessage::SEVERITY_ERROR, 'Invalid password change token')
         );
         return FALSE;
       }
@@ -1285,7 +1285,7 @@ class base_auth extends base_db {
       );
       if (!PapayaUtilServerProtocol::isSecure() &&
           $this->papaya()->options->get('PAPAYA_UI_SECURE_WARNING', TRUE)) {
-        $url = new PapayaUrlCurrent();
+        $url = new \PapayaUrlCurrent();
         $url->setScheme('https');
         $result .= sprintf(
           '<hint><p>%s</p><a href="%s">%s</a></hint>'.LF,

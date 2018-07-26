@@ -44,7 +44,7 @@ abstract class papaya_imageconvert extends base_object {
       $converter = $options->get(
         'PAPAYA_IMAGE_CONVERTER',
         'gd',
-        new PapayaFilterList($converters)
+        new \PapayaFilterList($converters)
       );
       $className = 'imgconv_'.$converter;
       if ($converter != '' && class_exists($className)) {

@@ -1,21 +1,17 @@
 <?php
 /**
-* Provides admin functionality for log messages
-*
-* @copyright 2002-2009 by papaya Software GmbH - All rights reserved.
-* @link http://www.papaya-cms.com/
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
-*
-* You can redistribute and/or modify this script under the terms of the GNU General Public
-* License (GPL) version 2, provided that the copyright and license notes, including these
-* lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.
-*
-* @package Papaya
-* @subpackage Core
-* @version $Id: papaya_log.php 39732 2014-04-08 15:34:45Z weinert $
-*/
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
 
 /**
 * Provides admin functionality for log messages
@@ -367,8 +363,8 @@ class papaya_log extends base_db {
   */
   function getList() {
     if (isset($this->messageList) && is_array($this->messageList)) {
-      $listview = new PapayaUiListview();
-      $listview->caption = new PapayaUiStringTranslated('Event protocol');
+      $listview = new \PapayaUiListview();
+      $listview->caption = new \PapayaUiStringTranslated('Event protocol');
       $listview->parameterGroup($this->paramName);
       $listview->reference()->setParameters(
         array(
@@ -378,7 +374,7 @@ class papaya_log extends base_db {
         $listview->parameterGroup($this->paramName)
       );
 
-      $paging = new PapayaUiToolbarPaging(
+      $paging = new \PapayaUiToolbarPaging(
         array($this->paramName, 'page'), (int)$this->messageAbsCount
       );
       if (isset($this->params['page']) && $this->params['page'] > 0) {
@@ -396,14 +392,14 @@ class papaya_log extends base_db {
       );
       $listview->toolbars->topLeft->elements[] = $paging;
 
-      $listview->columns[] = new PapayaUiListviewColumn(
-        new PapayaUiStringTranslated('Message'), PapayaUiOptionAlign::LEFT
+      $listview->columns[] = new \PapayaUiListviewColumn(
+        new \PapayaUiStringTranslated('Message'), PapayaUiOptionAlign::LEFT
       );
-      $listview->columns[] = new PapayaUiListviewColumn(
-        new PapayaUiStringTranslated('Group'), PapayaUiOptionAlign::CENTER
+      $listview->columns[] = new \PapayaUiListviewColumn(
+        new \PapayaUiStringTranslated('Group'), PapayaUiOptionAlign::CENTER
       );
-      $listview->columns[] = new PapayaUiListviewColumn(
-        new PapayaUiStringTranslated('Date'), PapayaUiOptionAlign::CENTER
+      $listview->columns[] = new \PapayaUiListviewColumn(
+        new \PapayaUiStringTranslated('Date'), PapayaUiOptionAlign::CENTER
       );
 
       foreach ($this->messageList as $msgId => $msg) {
@@ -413,7 +409,7 @@ class papaya_log extends base_db {
           2 => 'status-dialog-error',
           3 => 'items-page',
         );
-        $listitem = new PapayaUiListviewItem(
+        $listitem = new \PapayaUiListviewItem(
           isset($itemImages[$msg['log_msgno']]) ? $itemImages[$msg['log_msgno']] : '',
           $msg['log_msg_short'],
           array(
@@ -426,10 +422,10 @@ class papaya_log extends base_db {
         if (isset($this->messageTypeList[$msg['log_msgtype']])) {
           $logType = $this->messageTypeList[$msg['log_msgtype']];
         } else {
-          $logType = new PapayaUiStringTranslated('Invalid logtype #%d', $msg['log_msgtype']);
+          $logType = new \PapayaUiStringTranslated('Invalid logtype #%d', $msg['log_msgtype']);
         }
-        $listitem->subitems[] = new PapayaUiListviewSubitemText($logType);
-        $listitem->subitems[] = new PapayaUiListviewSubitemDate((int)$msg['log_time']);
+        $listitem->subitems[] = new \PapayaUiListviewSubitemText($logType);
+        $listitem->subitems[] = new \PapayaUiListviewSubitemDate((int)$msg['log_time']);
       }
       return $listview->getXml();
     }
@@ -587,7 +583,7 @@ class papaya_log extends base_db {
       $result .= '</items>';
       $result .= '</listview>';
       $this->layout->add($result);
-      $dom = new PapayaXmlDocument();
+      $dom = new \PapayaXmlDocument();
       $dom
         ->appendElement('sheet', array('width' => '100%', 'align' => 'center'))
         ->appendElement('text')
@@ -795,37 +791,37 @@ class papaya_log extends base_db {
   * @return string XML
   */
   function getButtonsXML() {
-    $menu = new PapayaUiMenu();
+    $menu = new \PapayaUiMenu();
     $menu->identifier = 'edit';
 
-    $button = new PapayaUiToolbarButton();
-    $button->caption = new PapayaUiStringTranslated('Login try');
+    $button = new \PapayaUiToolbarButton();
+    $button->caption = new \PapayaUiStringTranslated('Login try');
     $button->image = 'categories-log-access';
     $button->reference->setRelative('log_auth.php');
     $menu->elements[] = $button;
 
-    $menu->elements[] = new PapayaUiToolbarSeparator();
+    $menu->elements[] = new \PapayaUiToolbarSeparator();
 
-    $select = new PapayaUiToolbarSelect(array($this->paramName, 'level'), $this->levels);
-    $select->caption = new PapayaUiStringTranslated('Priority');
+    $select = new \PapayaUiToolbarSelect(array($this->paramName, 'level'), $this->levels);
+    $select->caption = new \PapayaUiStringTranslated('Priority');
     $select->defaultValue = $this->selLevel;
     $select->reference->setParameters(
       array('cmd' => 'show', 'type' => $this->params['type']), $this->paramName
     );
     $menu->elements[] = $select;
 
-    $this->messageTypeList[0] = new PapayaUiStringTranslated('All');
+    $this->messageTypeList[0] = new \PapayaUiStringTranslated('All');
     asort($this->messageTypeList);
-    $select = new PapayaUiToolbarSelect(array($this->paramName, 'type'), $this->messageTypeList);
-    $select->caption = new PapayaUiStringTranslated('Type');
+    $select = new \PapayaUiToolbarSelect(array($this->paramName, 'type'), $this->messageTypeList);
+    $select->caption = new \PapayaUiStringTranslated('Type');
     $select->defaultValue = $this->selType;
     $select->reference->setParameters(
       array('cmd' => 'show', 'level' => $this->params['level']), $this->paramName
     );
     $menu->elements[] = $select;
 
-    $button = new PapayaUiToolbarButton();
-    $button->caption = new PapayaUiStringTranslated('Refresh');
+    $button = new \PapayaUiToolbarButton();
+    $button->caption = new \PapayaUiStringTranslated('Refresh');
     $button->image = 'actions-refresh';
     $select->reference->setParameters(
       array('cmd' => 'show', 'type' => $this->params['type'], 'level' => $this->params['level']),
@@ -833,45 +829,45 @@ class papaya_log extends base_db {
     );
     $menu->elements[] = $button;
 
-    $menu->elements[] = new PapayaUiToolbarSeparator();
+    $menu->elements[] = new \PapayaUiToolbarSeparator();
 
     if (isset($this->messageList[$this->selected])) {
-      $button = new PapayaUiToolbarButton();
-      $button->caption = new PapayaUiStringTranslated('Bug Report');
-      $button->hint = new PapayaUiStringTranslated('Report this error message.');
+      $button = new \PapayaUiToolbarButton();
+      $button->caption = new \PapayaUiStringTranslated('Bug Report');
+      $button->hint = new \PapayaUiStringTranslated('Report this error message.');
       $button->image = 'items-bug';
       $button->reference->setRelative('help.php');
       $button->reference->setParameters(
         array('ohmode' => 'bugreport', 'log_id' => $this->selected), 'help'
       );
       $menu->elements[] = $button;
-      $menu->elements[] = new PapayaUiToolbarSeparator();
+      $menu->elements[] = new \PapayaUiToolbarSeparator();
 
-      $button = new PapayaUiToolbarButton();
-      $button->caption = new PapayaUiStringTranslated('Delete old');
-      $button->hint = new PapayaUiStringTranslated('Delete all events older like this.');
+      $button = new \PapayaUiToolbarButton();
+      $button->caption = new \PapayaUiStringTranslated('Delete old');
+      $button->hint = new \PapayaUiStringTranslated('Delete all events older like this.');
       $button->image = 'places-trash';
       $button->reference->setParameters(
         array('cmd' => 'del_old', 'id' => $this->selected), $this->paramName
       );
       $menu->elements[] = $button;
-      $menu->elements[] = new PapayaUiToolbarSeparator();
+      $menu->elements[] = new \PapayaUiToolbarSeparator();
     }
 
-    $button = new PapayaUiToolbarButton();
+    $button = new \PapayaUiToolbarButton();
     if (isset($this->params['type']) && $this->params['type'] > 0) {
-      $button->caption = new PapayaUiStringTranslated('Delete');
-      $button->hint = new PapayaUiStringTranslated('Delete all events of selected type.');
+      $button->caption = new \PapayaUiStringTranslated('Delete');
+      $button->hint = new \PapayaUiStringTranslated('Delete all events of selected type.');
     } else {
-      $button->caption = new PapayaUiStringTranslated('Empty');
-      $button->hint = new PapayaUiStringTranslated('Delete all events.');
+      $button->caption = new \PapayaUiStringTranslated('Empty');
+      $button->hint = new \PapayaUiStringTranslated('Delete all events.');
     }
     $button->image = 'places-trash';
     $button->reference->setParameters(
       array('cmd' => 'clear'), $this->paramName
     );
     $menu->elements[] = $button;
-    $menu->elements[] = new PapayaUiToolbarSeparator();
+    $menu->elements[] = new \PapayaUiToolbarSeparator();
 
     return $menu->getXml();
   }

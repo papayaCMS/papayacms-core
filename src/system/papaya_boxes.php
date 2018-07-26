@@ -1390,7 +1390,7 @@ class papaya_boxes extends base_boxes {
           );
         } else {
           $this->papaya()->messages->dispatch(
-            new PapayaMessageDisplayTranslated(
+            new \PapayaMessageDisplayTranslated(
               PapayaMessage::SEVERITY_INFO,
               ($direction == 'down')
                 ? 'Box is already the last one.'
@@ -1523,12 +1523,12 @@ class papaya_boxes extends base_boxes {
       );
 
       $boxGroups = iterator_to_array(
-        new PapayaIteratorArrayMapper($this->boxGroupsList, 'boxgroup_title')
+        new \PapayaIteratorArrayMapper($this->boxGroupsList, 'boxgroup_title')
       );
 
       $fields = array();
       if (isset($this->box['TRANSLATION']) && is_array($this->box['TRANSLATION'])) {
-        $fields['box_title'] = array('Title', new PapayaFilterNotEmpty(), FALSE, 'input', 100);
+        $fields['box_title'] = array('Title', new \PapayaFilterNotEmpty(), FALSE, 'input', 100);
       }
       $fields[] = 'Language independent';
       $fields['box_name'] = array('Name', 'isNoHTML', TRUE, 'input', 100);
@@ -1962,7 +1962,7 @@ class papaya_boxes extends base_boxes {
   */
   function loadTemplateGroupsList() {
     $this->templateGroups = array();
-    $templateHandler = new PapayaTemplateXsltHandler();
+    $templateHandler = new \PapayaTemplateXsltHandler();
     $fileName = $templateHandler->getLocalPath().'/info.xml';
     if (file_exists($fileName) && is_readable($fileName)) {
       $this->templateGroups = array();
@@ -2012,13 +2012,13 @@ class papaya_boxes extends base_boxes {
       return '';
     }
     $usedGroups = array();
-    $listview = new PapayaUiListview();
-    $listview->caption = new PapayaUiStringTranslated('Boxes');
+    $listview = new \PapayaUiListview();
+    $listview->caption = new \PapayaUiStringTranslated('Boxes');
     foreach ($this->boxGroupsList as $groupId => $group) {
       $usedGroups[] = $group["boxgroup_name"];
       $isEmpty = empty($this->boxGroupLinks[$groupId]);
       $isOpen = !$isEmpty && isset($this->opened[$groupId]) && $this->opened[$groupId];
-      $listview->items[] = $item = new PapayaUiListviewItem(
+      $listview->items[] = $item = new \PapayaUiListviewItem(
         ($isOpen && !$isEmpty) ? 'status-folder-open' : 'items-folder',
         $group["boxgroup_title"]
       );
@@ -2054,8 +2054,8 @@ class papaya_boxes extends base_boxes {
 
       if (!isset($this->templateGroups[$group["boxgroup_name"]])) {
         $item->columnSpan = 2;
-        $item->subitems[] = $subitem = new PapayaUiListviewSubitemImage('status-sign-warning');
-        $subitem->hint = new PapayaUiStringTranslated('Group is not defined in template set.');
+        $item->subitems[] = $subitem = new \PapayaUiListviewSubitemImage('status-sign-warning');
+        $subitem->hint = new \PapayaUiStringTranslated('Group is not defined in template set.');
       } else {
         $item->columnSpan = 3;
       }
@@ -2081,7 +2081,7 @@ class papaya_boxes extends base_boxes {
         foreach ($boxes as $box) {
           $boxId = $box['box_id'];
           $image = $this->getBoxStatusIcon($box);
-          $listview->items[] = $item = new PapayaUiListviewItem($image, $box["box_name"]);
+          $listview->items[] = $item = new \PapayaUiListviewItem($image, $box["box_name"]);
           $item->indentation = 2;
           $item->selected = ($boxId == $aBoxId);
           $item->reference()->setParameters(
@@ -2090,7 +2090,7 @@ class papaya_boxes extends base_boxes {
           );
           if ($group['boxgroup_linkable']) {
             if (isset($previous)) {
-              $item->subitems[] = $subitem = new PapayaUiListviewSubitemImage(
+              $item->subitems[] = $subitem = new \PapayaUiListviewSubitemImage(
                 'actions-go-up',
                 '',
                 array(
@@ -2102,7 +2102,7 @@ class papaya_boxes extends base_boxes {
                   )
                 )
               );
-              $previous->subitems[1] = $subitem = new PapayaUiListviewSubitemImage(
+              $previous->subitems[1] = $subitem = new \PapayaUiListviewSubitemImage(
                 'actions-go-down',
                 '',
                 array(
@@ -2115,9 +2115,9 @@ class papaya_boxes extends base_boxes {
                 )
               );
             } else {
-              $item->subitems[] = $subitem = new PapayaUiListviewSubitemText('');
+              $item->subitems[] = $subitem = new \PapayaUiListviewSubitemText('');
             }
-            $item->subitems[] = $subitem = new PapayaUiListviewSubitemText('');
+            $item->subitems[] = $subitem = new \PapayaUiListviewSubitemText('');
             $previous = $item;
             $previousId = $boxId;
           } else {
@@ -2129,7 +2129,7 @@ class papaya_boxes extends base_boxes {
 
     foreach ($this->templateGroups as $groupName => $groupData) {
       if (!in_array($groupName, $usedGroups)) {
-        $listview->items[] = $item = new PapayaUiListviewItem(
+        $listview->items[] = $item = new \PapayaUiListviewItem(
           'actions-folder-add',
           $groupName
         );
@@ -2200,23 +2200,23 @@ class papaya_boxes extends base_boxes {
     $result = '';
     if (isset($this->versions) && is_array($this->versions)) {
 
-      $listview = new PapayaUiListview();
-      $listview->caption = new PapayaUiStringTranslated('Versions');
+      $listview = new \PapayaUiListview();
+      $listview->caption = new \PapayaUiStringTranslated('Versions');
       $listview->parameterGroup($this->paramName);
 
-      $listview->columns[] = new PapayaUiListviewColumn(
-        new PapayaUiStringTranslated('Version time')
+      $listview->columns[] = new \PapayaUiListviewColumn(
+        new \PapayaUiStringTranslated('Version time')
       );
-      $listview->columns[] = new PapayaUiListviewColumn(
-        new PapayaUiStringTranslated('User')
+      $listview->columns[] = new \PapayaUiListviewColumn(
+        new \PapayaUiStringTranslated('User')
       );
-      $listview->columns[] = new PapayaUiListviewColumn(
+      $listview->columns[] = new \PapayaUiListviewColumn(
         '', PapayaUiOptionAlign::CENTER
       );
       foreach ($this->versions as $id => $version) {
-        $listitem = new PapayaUiListviewItem(
+        $listitem = new \PapayaUiListviewItem(
           'items-page',
-          new PapayaUiStringDate($version['version_time']),
+          new \PapayaUiStringDate($version['version_time']),
           array(
             'bid' => $this->params['bid'],
             'version_id' => $id
@@ -2226,10 +2226,10 @@ class papaya_boxes extends base_boxes {
         $listitem->text = PapayaUtilString::truncate(
           $version['version_message'], 100, FALSE, "\xE2\x80\xA6"
         );
-        $listitem->subitems[] = new PapayaUiListviewSubitemText($version['fullname']);
-        $listitem->subitems[] = new PapayaUiListviewSubitemImage(
+        $listitem->subitems[] = new \PapayaUiListviewSubitemText($version['fullname']);
+        $listitem->subitems[] = new \PapayaUiListviewSubitemImage(
           'actions-recycle',
-          new PapayaUiStringTranslated('Recycle'),
+          new \PapayaUiStringTranslated('Recycle'),
           array(
             'cmd' => 'restore_version',
             'bid' => $this->params['bid'],
@@ -2759,37 +2759,37 @@ class papaya_boxes extends base_boxes {
     $result = '';
     if (isset($this->box) && is_array($this->box)) {
       $this->loadTranslationsInfo();
-      $listview = new PapayaUiListview();
-      $listview->caption = new PapayaUiStringTranslated('Information');
+      $listview = new \PapayaUiListview();
+      $listview->caption = new \PapayaUiStringTranslated('Information');
 
-      $listview->items[] = $item = new PapayaUiListviewItem(
-        '', new PapayaUiStringTranslated('General')
+      $listview->items[] = $item = new \PapayaUiListviewItem(
+        '', new \PapayaUiStringTranslated('General')
       );
       $item->columnSpan = 2;
-      $listview->items[] = $item = new PapayaUiListviewItem(
-        '', new PapayaUiStringTranslated('Name')
+      $listview->items[] = $item = new \PapayaUiListviewItem(
+        '', new \PapayaUiStringTranslated('Name')
       );
       $item->indentation = 1;
-      $item->subitems[] = new PapayaUiListviewSubitemText($this->box['box_name']);
-      $listview->items[] = $item = new PapayaUiListviewItem(
-        '', new PapayaUiStringTranslated('Group')
+      $item->subitems[] = new \PapayaUiListviewSubitemText($this->box['box_name']);
+      $listview->items[] = $item = new \PapayaUiListviewItem(
+        '', new \PapayaUiStringTranslated('Group')
       );
       $item->indentation = 1;
-      $item->subitems[] = new PapayaUiListviewSubitemText(
+      $item->subitems[] = new \PapayaUiListviewSubitemText(
         $this->boxGroupsList[$this->box['boxgroup_id']]['boxgroup_title']
       );
-      $listview->items[] = $item = new PapayaUiListviewItem(
-        '', new PapayaUiStringTranslated('Created')
+      $listview->items[] = $item = new \PapayaUiListviewItem(
+        '', new \PapayaUiStringTranslated('Created')
       );
       $item->indentation = 1;
-      $item->subitems[] = new PapayaUiListviewSubitemDate(
+      $item->subitems[] = new \PapayaUiListviewSubitemDate(
         (int)$this->box['box_created']
       );
-      $listview->items[] = $item = new PapayaUiListviewItem(
-        '', new PapayaUiStringTranslated('Modified')
+      $listview->items[] = $item = new \PapayaUiListviewItem(
+        '', new \PapayaUiStringTranslated('Modified')
       );
       $item->indentation = 1;
-      $item->subitems[] = new PapayaUiListviewSubitemDate(
+      $item->subitems[] = new \PapayaUiListviewSubitemDate(
         (int)$this->box['box_modified']
       );
       if (!empty($this->box['box_published'])) {
@@ -2798,118 +2798,118 @@ class papaya_boxes extends base_boxes {
           (empty($this->box['box_public_from']) || $this->box['box_public_from'] <= $now) &&
           (empty($this->box['box_public_to']) || $this->box['box_public_to'] >= $now)
         );
-        $listview->items[] = $item = new PapayaUiListviewItem(
-          '', new PapayaUiStringTranslated('Currently public')
+        $listview->items[] = $item = new \PapayaUiListviewItem(
+          '', new \PapayaUiStringTranslated('Currently public')
         );
         $item->indentation = 1;
-        $item->subitems[] = new PapayaUiListviewSubitemImage(
+        $item->subitems[] = new \PapayaUiListviewSubitemImage(
           $isPublic ? 'status-sign-ok' : 'status-sign-warning',
-          new PapayaUiStringTranslated($isPublic ? 'Yes' : 'No')
+          new \PapayaUiStringTranslated($isPublic ? 'Yes' : 'No')
         );
         if (!empty($this->box['box_public_from'])) {
-          $listview->items[] = $item = new PapayaUiListviewItem(
-            '', new PapayaUiStringTranslated('From')
+          $listview->items[] = $item = new \PapayaUiListviewItem(
+            '', new \PapayaUiStringTranslated('From')
           );
           $item->indentation = 2;
-          $item->subitems[] = new PapayaUiListviewSubitemDate(
+          $item->subitems[] = new \PapayaUiListviewSubitemDate(
             (int)$this->box['box_public_from']
           );
         }
         if (!empty($this->box['box_public_to'])) {
-          $listview->items[] = $item = new PapayaUiListviewItem(
-            '', new PapayaUiStringTranslated('To')
+          $listview->items[] = $item = new \PapayaUiListviewItem(
+            '', new \PapayaUiStringTranslated('To')
           );
           $item->indentation = 2;
-          $item->subitems[] = new PapayaUiListviewSubitemDate(
+          $item->subitems[] = new \PapayaUiListviewSubitemDate(
             (int)$this->box['box_public_to']
           );
         }
       }
       foreach ($this->papaya()->languages as $languageId => $language) {
         if ($language['is_content'] || isset($this->box['TRANSLATIONINFOS'][$languageId])) {
-          $listview->items[] = $item = new PapayaUiListviewItem(
+          $listview->items[] = $item = new \PapayaUiListviewItem(
             './pics/language/'.$language['image'],
             $language['title'].' ('.$language['code'].')'
           );
           $item->columnSpan = 2;
           if (isset($this->box['TRANSLATIONINFOS'][$languageId])) {
             $translation = $this->box['TRANSLATIONINFOS'][$languageId];
-            $listview->items[] = $item = new PapayaUiListviewItem(
-              '', new PapayaUiStringTranslated('Title')
+            $listview->items[] = $item = new \PapayaUiListviewItem(
+              '', new \PapayaUiStringTranslated('Title')
             );
             $item->indentation = 1;
-            $item->subitems[] = new PapayaUiListviewSubitemText(
+            $item->subitems[] = new \PapayaUiListviewSubitemText(
               $translation['box_title']
             );
-            $listview->items[] = $item = new PapayaUiListviewItem(
-              '', new PapayaUiStringTranslated('View')
+            $listview->items[] = $item = new \PapayaUiListviewItem(
+              '', new \PapayaUiStringTranslated('View')
             );
             $item->indentation = 1;
-            $item->subitems[] = new PapayaUiListviewSubitemText(
+            $item->subitems[] = new \PapayaUiListviewSubitemText(
               $translation['view_title']
             );
             if (isset($translation['box_trans_published'])) {
               if ($translation['box_trans_published'] <
                   $translation['box_trans_modified']) {
-                $listview->items[] = $item = new PapayaUiListviewItem(
-                  '', new PapayaUiStringTranslated('Status')
+                $listview->items[] = $item = new \PapayaUiListviewItem(
+                  '', new \PapayaUiStringTranslated('Status')
                 );
                 $item->indentation = 1;
-                $item->subitems[] = new PapayaUiListviewSubitemText(
-                  new PapayaUiStringTranslated('modified')
+                $item->subitems[] = new \PapayaUiListviewSubitemText(
+                  new \PapayaUiStringTranslated('modified')
                 );
               } else {
-                $listview->items[] = $item = new PapayaUiListviewItem(
-                  '', new PapayaUiStringTranslated('Status')
+                $listview->items[] = $item = new \PapayaUiListviewItem(
+                  '', new \PapayaUiStringTranslated('Status')
                 );
                 $item->indentation = 1;
-                $item->subitems[] = new PapayaUiListviewSubitemText(
-                  new PapayaUiStringTranslated('published')
+                $item->subitems[] = new \PapayaUiListviewSubitemText(
+                  new \PapayaUiStringTranslated('published')
                 );
               }
-              $listview->items[] = $item = new PapayaUiListviewItem(
-                '', new PapayaUiStringTranslated('Published')
+              $listview->items[] = $item = new \PapayaUiListviewItem(
+                '', new \PapayaUiStringTranslated('Published')
               );
               $item->indentation = 1;
-              $item->subitems[] = new PapayaUiListviewSubitemDate(
+              $item->subitems[] = new \PapayaUiListviewSubitemDate(
                 (int)$translation['box_trans_published']
               );
             } else {
-              $listview->items[] = $item = new PapayaUiListviewItem(
-                '', new PapayaUiStringTranslated('Status')
+              $listview->items[] = $item = new \PapayaUiListviewItem(
+                '', new \PapayaUiStringTranslated('Status')
               );
               $item->indentation = 1;
-              $item->subitems[] = new PapayaUiListviewSubitemText(
-                new PapayaUiStringTranslated('created')
+              $item->subitems[] = new \PapayaUiListviewSubitemText(
+                new \PapayaUiStringTranslated('created')
               );
             }
-            $listview->items[] = $item = new PapayaUiListviewItem(
-              '', new PapayaUiStringTranslated('Modified')
+            $listview->items[] = $item = new \PapayaUiListviewItem(
+              '', new \PapayaUiStringTranslated('Modified')
             );
             $item->indentation = 1;
-            $item->subitems[] = new PapayaUiListviewSubitemDate(
+            $item->subitems[] = new \PapayaUiListviewSubitemDate(
               (int)$translation['box_trans_modified']
             );
           } else {
-            $listview->items[] = $item = new PapayaUiListviewItem(
-              '', new PapayaUiStringTranslated('Status')
+            $listview->items[] = $item = new \PapayaUiListviewItem(
+              '', new \PapayaUiStringTranslated('Status')
             );
             $item->indentation = 1;
-            $item->subitems[] = new PapayaUiListviewSubitemText(
-              new PapayaUiStringTranslated('no content')
+            $item->subitems[] = new \PapayaUiListviewSubitemText(
+              new \PapayaUiStringTranslated('no content')
             );
           }
         }
       }
-      $listview->items[] = $item = new PapayaUiListviewItem(
-        '', new PapayaUiStringTranslated('Marked As Cacheable')
+      $listview->items[] = $item = new \PapayaUiListviewItem(
+        '', new \PapayaUiStringTranslated('Marked As Cacheable')
       );
       $item->columnSpan = 2;
       if (isset($this->box['TRANSLATIONINFOS']) && is_array($this->box['TRANSLATIONINFOS'])) {
         foreach ($this->box['TRANSLATIONINFOS'] as $languageId => $translation) {
           if (isset($this->papaya()->languages[$languageId])) {
             $language = $this->papaya()->languages[$languageId];
-            $listview->items[] = $item = $aggregation = new PapayaUiListviewItem(
+            $listview->items[] = $item = $aggregation = new \PapayaUiListviewItem(
               './pics/language/'.$language['image'],
               $language['title'].' ('.$language['code'].')'
             );
@@ -2917,18 +2917,18 @@ class papaya_boxes extends base_boxes {
             $cacheable = TRUE;
             if (!$translation['view_is_cacheable']) {
               $cacheable = FALSE;
-              $listview->items[] = $item = new PapayaUiListviewItem(
+              $listview->items[] = $item = new \PapayaUiListviewItem(
                 'categories-content',
-                new PapayaUiStringTranslated('Content')
+                new \PapayaUiStringTranslated('Content')
               );
               $item->indentation = 1;
-              $item->subitems[] = new PapayaUiListviewSubitemText(
+              $item->subitems[] = new \PapayaUiListviewSubitemText(
                 $translation['view_title']
               );
             }
-            $aggregation->subitems[] = new PapayaUiListviewSubitemImage(
+            $aggregation->subitems[] = new \PapayaUiListviewSubitemImage(
               $cacheable ? 'status-sign-ok' : 'status-sign-problem',
-              new PapayaUiStringTranslated($cacheable ? 'Yes' : 'No')
+              new \PapayaUiStringTranslated($cacheable ? 'Yes' : 'No')
             );
           }
         }

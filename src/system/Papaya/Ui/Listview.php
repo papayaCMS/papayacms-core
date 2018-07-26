@@ -19,12 +19,12 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property PapayaUiListviewColumns $columns
-* @property PapayaUiListviewItems $items
-* @property PapayaUiToolbars $toolbars
+* @property \PapayaUiListviewColumns $columns
+* @property \PapayaUiListviewItems $items
+* @property \PapayaUiToolbars $toolbars
 * @property string|PapayaUiString $caption
 * @property string $mode
-* @property PapayaUiReference $reference
+* @property \PapayaUiReference $reference
 */
 class PapayaUiListview extends \PapayaUiControlInteractive {
 

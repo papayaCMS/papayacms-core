@@ -1118,7 +1118,7 @@ class base_dialog extends base_object {
       $dir = $_SERVER['DOCUMENT_ROOT'].PAPAYA_PATH_WEB.'papaya-themes/'.$path;
       break;
     case 'current_theme':
-      $themeHandler = new PapayaThemeHandler();
+      $themeHandler = new \PapayaThemeHandler();
       $dir = $themeHandler->getLocalThemePath().$path;
       break;
     case 'page':
@@ -1551,11 +1551,11 @@ class base_dialog extends base_object {
       return $check;
     } elseif (is_string($check)) {
       if (checkit::has($check)) {
-        return new PapayaFilterCallback(array('checkit', $check), array(TRUE));
+        return new \PapayaFilterCallback(array('checkit', $check), array(TRUE));
       } elseif (class_exists($check)) {
         return $this->createFilterObject($check);
       } else {
-        return new PapayaFilterPcre($check);
+        return new \PapayaFilterPcre($check);
       }
     } elseif (is_array($check) && class_exists($check[0])) {
       $filterClass = $check[0];
@@ -1654,7 +1654,7 @@ class base_dialog extends base_object {
     if (isset($tokens)) {
       $this->_tokens = $tokens;
     } elseif (is_null($this->_tokens)) {
-      $this->_tokens = new PapayaUiTokens();
+      $this->_tokens = new \PapayaUiTokens();
     }
     return $this->_tokens;
   }

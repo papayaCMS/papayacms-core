@@ -23,7 +23,7 @@
 * @property string $image
 * @property string|PapayaUiString $hint
 * @property array $actionParameters
-* @property PapayaUiReference $reference
+* @property \PapayaUiReference $reference
 */
 class PapayaUiListviewSubitemImage extends \PapayaUiListviewSubitemText {
 

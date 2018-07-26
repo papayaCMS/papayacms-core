@@ -138,9 +138,9 @@ class checkit {
     $str, $mustContainValue = FALSE, $digitsMin = NULL, $digitsMax = NULL
   ) {
     if (isset($digitsMin)) {
-      $filter = new PapayaFilterLogicalAnd(
-        new PapayaFilterInteger,
-        new PapayaFilterLength($digitsMin, $digitsMax)
+      $filter = new \PapayaFilterLogicalAnd(
+        new \PapayaFilterInteger,
+        new \PapayaFilterLength($digitsMin, $digitsMax)
       );
       return self::validate($str, $filter, $mustContainValue);
     } else {

@@ -211,7 +211,7 @@ class PapayaUiContentPage extends \PapayaObject {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new PapayaUiReferencePage();
+      $this->_reference = new \PapayaUiReferencePage();
       $this->_reference->papaya($this->papaya());
     }
     return $this->_reference;

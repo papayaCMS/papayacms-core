@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Xml
 *
-* @property PapayaXmlDocument $ownerDocument
+* @property \PapayaXmlDocument $ownerDocument
 */
 class PapayaXmlElement
   extends \DOMElement

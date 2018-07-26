@@ -20,10 +20,10 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property PapayaUiToolbar $topLeft
-* @property PapayaUiToolbar $topRight
-* @property PapayaUiToolbar $bottomLeft
-* @property PapayaUiToolbar $bottomRight
+* @property \PapayaUiToolbar $topLeft
+* @property \PapayaUiToolbar $topRight
+* @property \PapayaUiToolbar $bottomLeft
+* @property \PapayaUiToolbar $bottomRight
 */
 class PapayaUiToolbars extends \PapayaUiControl {
 

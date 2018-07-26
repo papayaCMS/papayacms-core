@@ -233,7 +233,7 @@ class papaya_topic_tree extends base_topic_tree {
     if (isset($dialog)) {
       $this->_dialogCopyPageConfirmation = $dialog;
     } elseif (is_null($this->_dialogCopyPageConfirmation)) {
-      $this->_dialogCopyPageConfirmation = $dialog = new PapayaUiDialog();
+      $this->_dialogCopyPageConfirmation = $dialog = new \PapayaUiDialog();
       $dialog->parameterGroup($this->paramName);
       $dialog->hiddenFields()->merge(
         array(
@@ -242,27 +242,27 @@ class papaya_topic_tree extends base_topic_tree {
           'tgt' => empty($this->params['tgt']) ? 0 : $this->params['tgt'],
         )
       );
-      $dialog->caption = new PapayaUiStringTranslated('Copy pages');
-      $dialog->fields[] = new PapayaUiDialogFieldInformation(
-        new PapayaUiStringTranslated(
+      $dialog->caption = new \PapayaUiStringTranslated('Copy pages');
+      $dialog->fields[] = new \PapayaUiDialogFieldInformation(
+        new \PapayaUiStringTranslated(
           'Copy pages and create dependencies if necessary.'
         ),
         'actions-edit-copy'
       );
-      $dialog->fields[] = new PapayaUiDialogFieldSelectRadio(
-        new PapayaUiStringTranslated('Create dependencies'),
+      $dialog->fields[] = new \PapayaUiDialogFieldSelectRadio(
+        new \PapayaUiStringTranslated('Create dependencies'),
         'confirm_create_dependencies',
         array(
-          1 => new PapayaUiStringTranslated('Yes'),
-          0 => new PapayaUiStringTranslated('No')
+          1 => new \PapayaUiStringTranslated('Yes'),
+          0 => new \PapayaUiStringTranslated('No')
         )
       );
-      $dialog->fields[] = new PapayaUiDialogFieldSelectBitmask(
-        new PapayaUiStringTranslated('Synchronization'),
+      $dialog->fields[] = new \PapayaUiDialogFieldSelectBitmask(
+        new \PapayaUiStringTranslated('Synchronization'),
         'synchronization',
         $this->sychronizations()->getList()
       );
-      $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Copy'));
+      $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Copy'));
     }
     return $this->_dialogCopyPageConfirmation;
   }
@@ -541,16 +541,16 @@ class papaya_topic_tree extends base_topic_tree {
       );
     }
     // load the current dependency if available
-    $old = new Papaya\Content\Page\Dependency();
+    $old = new \Papaya\Content\Page\Dependency();
     if ($old->load($oldId)) {
       // if available change clone id and save
-      $new = new Papaya\Content\Page\Dependency();
+      $new = new \Papaya\Content\Page\Dependency();
       $new->assign($old->toArray());
       $new->id = $newId;
       return $new->save();
     } elseif ($createMissing) {
       // if not available and create allowed define new dependency and save
-      $new = new Papaya\Content\Page\Dependency();
+      $new = new \Papaya\Content\Page\Dependency();
       $new->id = $newId;
       $new->originId = $oldId;
       $new->synchronization = $synchronization;

@@ -19,8 +19,8 @@
  * @package Papaya-Library
  * @subpackage Ui
  *
- * @property PapayaObjectCallback $onMapRow
- * @property PapayaObjectCallback $onMapField
+ * @property \PapayaObjectCallback $onMapRow
+ * @property \PapayaObjectCallback $onMapField
  * @method boolean onMapRow
  * @method boolean onMapField
  */

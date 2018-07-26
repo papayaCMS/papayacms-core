@@ -237,7 +237,7 @@ class base_msgdialog extends base_object {
     if (isset($tokens)) {
       $this->_tokens = $tokens;
     } elseif (is_null($this->_tokens)) {
-      $this->_tokens = new PapayaUiTokens();
+      $this->_tokens = new \PapayaUiTokens();
     }
     return $this->_tokens;
   }

@@ -21,9 +21,9 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property PapayaObjectCallback $getOptionCaption
-* @property PapayaObjectCallback $getOptionGroupCaption
-* @property PapayaObjectCallback $getOptionData
+* @property \PapayaObjectCallback $getOptionCaption
+* @property \PapayaObjectCallback $getOptionGroupCaption
+* @property \PapayaObjectCallback $getOptionData
 * @method string getOptionCaption
 * @method string getOptionGroupCaption
 * @method array getOptionData

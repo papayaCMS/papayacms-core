@@ -20,8 +20,8 @@
 * @package Papaya-Library
 * @subpackage Email
 *
-* @property PapayaEmailHeaders $headers
-* @property PapayaEmailContent $content
+* @property \PapayaEmailHeaders $headers
+* @property \PapayaEmailContent $content
 */
 class PapayaEmailPart {
 

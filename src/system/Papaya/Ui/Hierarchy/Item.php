@@ -24,7 +24,7 @@
  * @property string|PapayaUiString $caption
  * @property string|PapayaUiString $hint
  * @property int $displayMode
- * @property PapayaUiReference $reference
+ * @property \PapayaUiReference $reference
  */
 class PapayaUiHierarchyItem extends \PapayaUiControlCollectionItem {
 

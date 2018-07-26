@@ -443,7 +443,7 @@ class papaya_page extends base_object {
   * @param string $reason
   */
   function doRedirect($code, $targetUrl, $reason = NULL) {
-    $response = new PapayaResponseRedirect(
+    $response = new \PapayaResponseRedirect(
       $targetUrl,
       ($code == 301) ? $code : 302,
       $reason
@@ -573,7 +573,7 @@ class papaya_page extends base_object {
                 $this->doRedirect(302, $aliasUrl, 'Alias Plugin Redirect');
               } else {
                 $requestUrl = new \Papaya\Url($url);
-                $request = new PapayaRequest($this->papaya()->options);
+                $request = new \PapayaRequest($this->papaya()->options);
                 $request->load($requestUrl);
                 $urlData = array(
                   'topic_id' => $request->getParameter(
@@ -629,7 +629,7 @@ class papaya_page extends base_object {
       ->get('PAPAYA_URL_LEVEL_SEPARATOR');
     $request = $application->request;
     $parameters = $request->getParameters(PapayaRequest::SOURCE_QUERY);
-    $query = new PapayaRequestParametersQuery($parameterGroupSeparator);
+    $query = new \PapayaRequestParametersQuery($parameterGroupSeparator);
     //get addtional parameters and merge them
     if (!empty($_SERVER['REDIRECT_QUERY_STRING'])) {
       $parameters->merge(
@@ -641,7 +641,7 @@ class papaya_page extends base_object {
         $query->setString($alias['url_params'])->values()
       );
     }
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     if (isset($alias['topic_id'])) {
       $reference->setPageId($alias['topic_id']);
     }
@@ -654,7 +654,7 @@ class papaya_page extends base_object {
     }
     $reference->setParameters($parameters);
     //exchange request object
-    $request = new PapayaRequest($application->options);
+    $request = new \PapayaRequest($application->options);
     $request->load(new \Papaya\Url($reference->get()));
     $request->setParameters(PapayaRequest::SOURCE_QUERY, $parameters);
     $application->setObject(
@@ -678,7 +678,7 @@ class papaya_page extends base_object {
   * @return array
   */
   function queryStringToArray($queryString) {
-    $query = new PapayaRequestParametersQuery(
+    $query = new \PapayaRequestParametersQuery(
       $this->papaya()->options->get('PAPAYA_URL_LEVEL_SEPARATOR', '')
     );
     return $query->setString($queryString)->values()->toArray();
@@ -1207,11 +1207,11 @@ class papaya_page extends base_object {
   }
 
   public function getThemeFile() {
-    $themeWrapperUrl = new PapayaThemeWrapperUrl();
+    $themeWrapperUrl = new \PapayaThemeWrapperUrl();
     switch ($themeWrapperUrl->getMimetype()) {
     case 'text/javascript' :
     case 'text/css' :
-      $themeWrapper = new PapayaThemeWrapper($themeWrapperUrl);
+      $themeWrapper = new \PapayaThemeWrapper($themeWrapperUrl);
       $response = $themeWrapper->getResponse();
       $response->send(TRUE);
       return TRUE;
@@ -1269,13 +1269,13 @@ class papaya_page extends base_object {
         $allStatus = FALSE;
         continue;
       }
-      $directory = new PapayaFileSystemDirectory($realPath);
+      $directory = new \PapayaFileSystemDirectory($realPath);
       if (!($status[$name] = $directory->isWriteable())) {
         $allStatus = FALSE;
       }
     }
     $this->sendHeader('Content-type: text/xml');
-    $result = new PapayaXmlDocument();
+    $result = new \PapayaXmlDocument();
     $cms = $result->appendElement('cms', array('status' => $allStatus ? 'OK' : 'ERROR'));
     foreach ($status as $option => $value) {
       $cms->appendElement(
@@ -1439,10 +1439,10 @@ class papaya_page extends base_object {
                     $this->canUseGzip()) {
                   $response->sendHeader('Content-Encoding: gzip');
                   $response->sendHeader('X-Papaya-Gzip: yes');
-                  $response->content(new PapayaResponseContentString(gzencode($str)));
+                  $response->content(new \PapayaResponseContentString(gzencode($str)));
                 } else {
                   $this->sendHeader('X-Papaya-Gzip: disabled');
-                  $response->content(new PapayaResponseContentString((string)$str));
+                  $response->content(new \PapayaResponseContentString((string)$str));
                 }
                 if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
                   PapayaRequestLog::getInstance()->logTime('Page delivered');
@@ -1556,10 +1556,10 @@ class papaya_page extends base_object {
    * @return string
    */
   function generatePage($filterParams = NULL, $outputContent = TRUE, $allowRedirect = TRUE) {
-    $this->layout = new PapayaTemplateXslt();
+    $this->layout = new \PapayaTemplateXslt();
 
     $defaultViewMode = $this->papaya()->options->get(
-      'PAPAYA_URL_EXTENSION', 'html', new PapayaFilterNotEmpty()
+      'PAPAYA_URL_EXTENSION', 'html', new \PapayaFilterNotEmpty()
     );
     if (isset($this->output->viewMode) && !empty($this->output->viewMode['viewmode_ext'])) {
       $currentViewMode = $this->output->viewMode['viewmode_ext'];
@@ -1633,7 +1633,7 @@ class papaya_page extends base_object {
         $this->layout->parameters()->set('PAPAYA_WEBSITE_REVISION', PAPAYA_WEBSITE_REVISION);
         $this->layout->parameters()->set('PAGE_WEBSITE_REVISION', PAPAYA_WEBSITE_REVISION);
       }
-      $themeHandler = new PapayaThemeHandler();
+      $themeHandler = new \PapayaThemeHandler();
       $this->layout->parameters()->set('PAGE_THEME', $themeHandler->getTheme());
       $this->layout->parameters()->set('PAGE_THEME_SET', $themeHandler->getThemeSet());
       $this->layout->parameters()->set('PAGE_THEME_PATH', $themeHandler->getUrl());
@@ -1717,25 +1717,25 @@ class papaya_page extends base_object {
    */
   public function getPageDocument() {
     if (NULL === $this->_pageDocument) {
-      $this->_pageDocument = new PapayaXmlDocument();
+      $this->_pageDocument = new \PapayaXmlDocument();
       $xml = PapayaUtilStringXml::repairEntities(
         $this->topic->parseContent(TRUE, $this->_filterOptions)
       );
       if (!empty($xml)) {
-        $errors = new PapayaXmlErrors();
+        $errors = new \PapayaXmlErrors();
         $errors->activate();
         try {
           $this->_pageDocument->loadXml($xml);
           $errors->emit();
           $errors->deactivate();
         } catch (PapayaXmlException $e) {
-          $message = new PapayaMessageLog(
+          $message = new \PapayaMessageLog(
             PapayaMessageLogable::GROUP_SYSTEM,
             PapayaMessage::SEVERITY_ERROR,
             $e->getMessage()
           );
           $message->context()->append(
-            new PapayaMessageContextText($xml)
+            new \PapayaMessageContextText($xml)
           );
           $this->papaya()->messages->dispatch($message);
           $errors->deactivate();
@@ -2122,7 +2122,7 @@ class papaya_page extends base_object {
       if ($str = $this->getPageMetaXML()) {
         $response = $this->papaya()->response;
         $response->sendHeader('Content-type: text/xml; charset: utf-8');
-        $response->content(new PapayaResponseContentString($str));
+        $response->content(new \PapayaResponseContentString($str));
         $response->send(TRUE);
       } else {
         $this->getError(
@@ -2163,7 +2163,7 @@ class papaya_page extends base_object {
         $response = $this->papaya()->response;
         $response->setCache('nocache');
         $response->setContentType('text/xml', 'charset: utf-8');
-        $response->content(new PapayaResponseContentString($str));
+        $response->content(new \PapayaResponseContentString($str));
         $response->send(TRUE);
       } else {
         $this->getError(
@@ -2177,7 +2177,7 @@ class papaya_page extends base_object {
         $response = $this->papaya()->response;
         $response->setCache('nocache');
         $response->setContentType('text/xml', 'charset: utf-8');
-        $response->content(new PapayaResponseContentString($str));
+        $response->content(new \PapayaResponseContentString($str));
         $response->send(TRUE);
       } else {
         $this->getError(
@@ -2218,7 +2218,7 @@ class papaya_page extends base_object {
        */
       $response = $this->papaya()->response;
       if ($output = $this->getBox()) {
-        $response->content(new PapayaResponseContentString((string)$output));
+        $response->content(new \PapayaResponseContentString((string)$output));
       }
       $response->send();
       $response->end();

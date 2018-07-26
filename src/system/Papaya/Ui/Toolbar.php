@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property PapayaUiToolbarElements $elements
+* @property \PapayaUiToolbarElements $elements
 */
 class PapayaUiToolbar extends \PapayaUiControl {
 

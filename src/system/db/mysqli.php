@@ -36,7 +36,7 @@ class dbcon_mysqli extends dbcon_base {
    */
   function extensionFound() {
     if (!extension_loaded('mysqli')) {
-      throw new Papaya\Database\Exception\Connect(
+      throw new \Papaya\Database\Exception\Connect(
         'Extension "mysqli" not available.'
       );
     }
@@ -84,7 +84,7 @@ class dbcon_mysqli extends dbcon_base {
         }
         return TRUE;
       }
-      throw new Papaya\Database\Exception\Connect(mysqli_connect_error(), mysqli_connect_errno());
+      throw new \Papaya\Database\Exception\Connect(mysqli_connect_error(), mysqli_connect_errno());
     }
   }
 
@@ -137,7 +137,7 @@ class dbcon_mysqli extends dbcon_base {
     } else {
       $severity = PapayaDatabaseException::SEVERITY_ERROR;
     }
-    return new Papaya\Database\Exception\Query(
+    return new \Papaya\Database\Exception\Query(
       $errorMessage, $errorCode, $severity, $sql
     );
   }
@@ -1098,7 +1098,7 @@ class dbresult_mysqli extends dbresult_base {
     $explainQuery = 'EXPLAIN '.$this->query;
     if ($res = $this->connection->executeQuery($explainQuery)) {
       if ($res->num_rows > 0) {
-        $explain = new PapayaMessageContextTable('Explain');
+        $explain = new \PapayaMessageContextTable('Explain');
         $explain->setColumns(
           array(
             'id' => 'Id',

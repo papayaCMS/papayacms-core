@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property PapayaUiHierarchyItems $items
+* @property \PapayaUiHierarchyItems $items
 */
 class PapayaUiHierarchyMenu extends \PapayaUiControl {
 

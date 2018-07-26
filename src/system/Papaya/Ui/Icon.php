@@ -24,7 +24,7 @@
 * @property string|PapayaUiString $hint
 * @property bool $visible
 * @property array $actionParameters
-* @property PapayaUiReference $reference
+* @property \PapayaUiReference $reference
 */
 class PapayaUiIcon extends \PapayaUiControl {
 

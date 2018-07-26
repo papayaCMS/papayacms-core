@@ -25,8 +25,8 @@
 * The values are converted into a DOMDocument. The context is used for restriction in the real
 * implementation.
 *
-* @property PapayaObjectOptionsList $parameters
-* @property PapayaObjectList $loaders
+* @property \PapayaObjectOptionsList $parameters
+* @property \PapayaObjectList $loaders
 * @property DOMDocument $values
 *
 * @package Papaya-Library

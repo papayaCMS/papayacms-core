@@ -18,7 +18,7 @@ namespace Papaya\Database\Sequence;
  * Generator for a rndomized unique id hashed with md5().
  *
  * Usage:
- *   $sequence = new Papaya\Database\Sequence\PapayaDatabaseSequenceMd5(
+ *   $sequence = new \Papaya\Database\Sequence\PapayaDatabaseSequenceMd5(
  *     'tablename', 'fieldname', 5
  *   );
  *   $newId = $sequence->next();

@@ -20,7 +20,7 @@
 * @subpackage Ui
 *
 * @property integer $align
-* @property PapayaUiIconList $icons
+* @property \PapayaUiIconList $icons
 * @property string $selection
 * @property integer $selectionMode
 * @property array $actionParameters

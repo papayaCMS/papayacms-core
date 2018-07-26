@@ -19,10 +19,10 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property PapayaObjectCallback $onBeforeAppend
-* @property PapayaObjectCallback $onAfterAppend
-* @property PapayaObjectCallback $onCreateItem
-* @property PapayaObjectCallback $onAfterAppendItem
+* @property \PapayaObjectCallback $onBeforeAppend
+* @property \PapayaObjectCallback $onAfterAppend
+* @property \PapayaObjectCallback $onCreateItem
+* @property \PapayaObjectCallback $onAfterAppendItem
 * @method void onBeforeAppend(\PapayaUiNavigationItems $items)
 * @method void onAfterAppend(\PapayaUiNavigationItems $items)
 * @method NULL|PapayaUiNavigationItem onCreateItem($element, $index)

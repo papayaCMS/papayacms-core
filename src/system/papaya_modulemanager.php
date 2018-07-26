@@ -1372,7 +1372,7 @@ class papaya_modulemanager extends base_db {
    * @return array|FALSE array $packageData or boolean FALSE
    */
   function loadPackageFile($packageFileName) {
-    $dom = new PapayaXmlDocument();
+    $dom = new \PapayaXmlDocument();
     if (file_exists($packageFileName) && $dom->load($packageFileName)) {
       $packageData = array(
         'modulegroup_title' => '',
@@ -2112,8 +2112,8 @@ class papaya_modulemanager extends base_db {
    */
   function getPackageListView() {
     if (isset($this->packages) && is_array($this->packages)) {
-      $listview = new PapayaUiListview();
-      $listview->caption = new PapayaUiStringTranslated('Packages');
+      $listview = new \PapayaUiListview();
+      $listview->caption = new \PapayaUiStringTranslated('Packages');
       $listview->parameterGroup($this->paramName);
       foreach ($this->packages as $package) {
 
@@ -2152,11 +2152,11 @@ class papaya_modulemanager extends base_db {
           break;
         case PAPAYA_MODULE_TABLE_MISSING :
           $statusImage = 'status-sign-warning';
-          $statusText = new PapayaUiStringTranslated('Missing tables.');
+          $statusText = new \PapayaUiStringTranslated('Missing tables.');
           break;
         case PAPAYA_MODULE_TABLE_ERROR :
           $statusImage = 'status-sign-problem';
-          $statusText = new PapayaUiStringTranslated('Invalid table structures.');
+          $statusText = new \PapayaUiStringTranslated('Invalid table structures.');
           break;
         default :
           $statusImage = FALSE;
@@ -2164,7 +2164,7 @@ class papaya_modulemanager extends base_db {
           break;
         }
 
-        $item = new PapayaUiListviewItem(
+        $item = new \PapayaUiListviewItem(
           $itemImage,
           $package['modulegroup_title'].' ('.$moduleStatus.')',
           array(
@@ -2174,7 +2174,7 @@ class papaya_modulemanager extends base_db {
           ),
           $selected
         );
-        $item->subitems[] = new PapayaUiListviewSubitemImage($statusImage, $statusText);
+        $item->subitems[] = new \PapayaUiListviewSubitemImage($statusImage, $statusText);
         $listview->items[] = $item;
       }
       $this->layout->addLeft($listview->getXml());
@@ -3597,7 +3597,7 @@ class papaya_modulemanager extends base_db {
             if (!empty($this->params['offset']) && $this->params['offset'] > 0) {
               $offset = (int)$this->params['offset'];
             }
-            $csvReader = new Papaya\Csv\Reader($file);
+            $csvReader = new \Papaya\Csv\Reader($file);
             try {
               $csvReader->isValid(TRUE);
               $emptyTable = ($offset == 0);

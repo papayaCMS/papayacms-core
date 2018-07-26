@@ -28,9 +28,9 @@
 * @property mixed $default field default value
 * @property boolean $mandatory mandatory field status
 * @property boolean $disabled disabled field status
-* @property PapayaFilter $validation the validation filter, can be set from string|array as well
+* @property \PapayaFilter $validation the validation filter, can be set from string|array as well
 * @property mixed $parameters an individual parameters value
-* @property PapayaObject $context used for callbacks or access to the application registry
+* @property \PapayaObject $context used for callbacks or access to the application registry
 */
 class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
 

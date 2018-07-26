@@ -208,7 +208,7 @@ class base_urlmounter extends base_db {
     $target = new \Papaya\Url($targetUrl);
     $application = $this->papaya();
     $request = $application->getObject('Request');
-    $transformer = new PapayaUrlTransformerRelative();
+    $transformer = new \PapayaUrlTransformerRelative();
     $relative = $transformer->transform(
       $request->getUrl(),
       $target
@@ -264,7 +264,7 @@ class base_urlmounter extends base_db {
     $pathWeb = $this->papaya()->options->get(
       'PAPAYA_PATH_WEB',
       '/',
-      new PapayaFilterNotEmpty()
+      new \PapayaFilterNotEmpty()
     );
     if ($pathWeb != '/' && strpos($path, $pathWeb) === 0) {
       $strippedAliasPath = substr($path, strlen($pathWeb) - 1);

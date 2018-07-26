@@ -189,7 +189,7 @@ class PapayaUiReference extends \PapayaObject {
   */
   public function load(\PapayaRequest $request) {
     $url = $request->getUrl();
-    $this->_url = clone (($url instanceof Papaya\Url) ? $url : new Papaya\Url);
+    $this->_url = clone (($url instanceof Papaya\Url) ? $url : new \Papaya\Url);
     if (is_null($this->_parameterGroupSeparator)) {
       $this->setParameterGroupSeparator($request->getParameterGroupSeparator());
     }

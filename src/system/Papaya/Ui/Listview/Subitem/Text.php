@@ -22,7 +22,7 @@
  * @property integer $align
  * @property string|PapayaUiString $text
  * @property array $actionParameters
- * @property PapayaUiReference $reference
+ * @property \PapayaUiReference $reference
  */
 class PapayaUiListviewSubitemText extends \PapayaUiListviewSubitem {
 

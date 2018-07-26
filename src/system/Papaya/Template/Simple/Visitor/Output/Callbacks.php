@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Database
 *
-* @property PapayaObjectCallback $onGetValue
+* @property \PapayaObjectCallback $onGetValue
 * @method string onGetValue
 */
 class PapayaTemplateSimpleVisitorOutputCallbacks extends \PapayaObjectCallbacks {

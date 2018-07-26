@@ -16,8 +16,8 @@
 /**
  * Xsl template engine, uses ext/xsl or ext/xslcache
  *
- * @property PapayaObjectOptionsList $parameters
- * @property PapayaObjectList $loaders
+ * @property \PapayaObjectOptionsList $parameters
+ * @property \PapayaObjectList $loaders
  * @property DOMDocument $values
  *
  * @package Papaya-Library

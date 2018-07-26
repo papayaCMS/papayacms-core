@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Plugins
 *
-* @property PapayaObjectCallback $onCreateEditor
+* @property \PapayaObjectCallback $onCreateEditor
 * @method PapayaPluginEditor onCreateEditor(PapayaPluginEditableData $data)
 */
 class PapayaPluginEditableCallbacks extends PapayaObjectCallbacks {

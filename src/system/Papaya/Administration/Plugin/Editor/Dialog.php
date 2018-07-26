@@ -98,22 +98,22 @@ class Dialog extends \PapayaPluginEditor {
     $dialog->papaya($this->papaya());
 
     if ($this->getData() instanceof PapayaPluginEditableContent) {
-      $dialog->caption = new PapayaAdministrationLanguagesCaption(
-        new PapayaUiStringTranslated('Edit content')
+      $dialog->caption = new \PapayaAdministrationLanguagesCaption(
+        new \PapayaUiStringTranslated('Edit content')
       );
       $dialog->image = new Image();
       $dialog->parameterGroup('content');
     } elseif ($this->getData() instanceof PapayaPluginEditableOptions) {
-      $dialog->caption = new PapayaUiStringTranslated('Edit options');
+      $dialog->caption = new \PapayaUiStringTranslated('Edit options');
       $dialog->parameterGroup('options');
     } else {
-      $dialog->caption = new PapayaUiStringTranslated('Edit properties');
+      $dialog->caption = new \PapayaUiStringTranslated('Edit properties');
       $dialog->parameterGroup('properties');
     }
     $dialog->data()->assign($this->getData());
 
     $dialog->options->topButtons = TRUE;
-    $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Save'));
+    $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));
 
     return $dialog;
   }

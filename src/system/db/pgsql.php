@@ -35,7 +35,7 @@ class dbcon_pgsql extends dbcon_base {
    */
   function extensionFound() {
     if (!extension_loaded('pgsql')) {
-      throw new Papaya\Database\Exception\Connect(
+      throw new \Papaya\Database\Exception\Connect(
         'Extension "pgsql" not available.'
       );
     }
@@ -78,7 +78,7 @@ class dbcon_pgsql extends dbcon_base {
       }
       if (isset($connection) && is_resource($connection)) {
         if (pg_set_client_encoding($connection, 'UNICODE') !== 0) {
-          throw new Papaya\Database\Exception\Connect(
+          throw new \Papaya\Database\Exception\Connect(
             'Can not set client encoding for database connection.'
           );
         }
@@ -90,7 +90,7 @@ class dbcon_pgsql extends dbcon_base {
   }
 
   public function handleConnectionError($code, $message) {
-    throw new Papaya\Database\Exception\Connect(
+    throw new \Papaya\Database\Exception\Connect(
       strip_tags(str_replace('&quot;', '"', $message)), $code
     );
   }
@@ -129,7 +129,7 @@ class dbcon_pgsql extends dbcon_base {
    */
   private function _createQueryException($sql) {
     $errorMessage = pg_last_error($this->databaseConnection);
-    return new Papaya\Database\Exception\Query(
+    return new \Papaya\Database\Exception\Query(
       empty($errorMessage) ? 'Unknown PostgreSQL error.' : $errorMessage, 0, NULL, $sql
     );
   }
@@ -880,17 +880,17 @@ class dbcon_pgsql extends dbcon_base {
     try {
       return $this->changeIndex($table, $index, FALSE);
     } catch (Papaya\Database\Exception\Query $e) {
-      $logMessage = new PapayaMessageLog(
+      $logMessage = new \PapayaMessageLog(
         PapayaMessageLogable::GROUP_DATABASE,
         PapayaMessage::SEVERITY_ERROR,
         'Database #' . $e->getCode() . ': ' . $e->getMessage()
       );
       $logMessage
         ->context()
-        ->append(new PapayaMessageContextBacktrace(3))
-        ->append(new PapayaMessageContextText($table))
-        ->append(new PapayaMessageContextText($index))
-        ->append(new PapayaMessageContextText($e->getStatement()));
+        ->append(new \PapayaMessageContextBacktrace(3))
+        ->append(new \PapayaMessageContextText($table))
+        ->append(new \PapayaMessageContextText($index))
+        ->append(new \PapayaMessageContextText($e->getStatement()));
       //$this->getApplication()->messages->dispatch($logMessage);
     }
     return FALSE;
@@ -1147,7 +1147,7 @@ class dbresult_pgsql extends dbresult_base {
         $explain[] = $row[0];
       }
       if (!empty($explain)) {
-        return new PapayaMessageContextList('Explain', $explain);
+        return new \PapayaMessageContextList('Explain', $explain);
       }
     }
     return NULL;

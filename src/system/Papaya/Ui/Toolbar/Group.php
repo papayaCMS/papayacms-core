@@ -20,7 +20,7 @@
 * @subpackage Ui
 *
 * @property string|PapayaUiString $caption
-* @property PapayaUiToolbarElements $elements
+* @property \PapayaUiToolbarElements $elements
 */
 class PapayaUiToolbarGroup
   extends \PapayaUiToolbarSet {

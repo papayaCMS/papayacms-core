@@ -46,7 +46,7 @@ class dbcon_sqlite extends dbcon_base {
    */
   public function extensionFound() {
     if (!extension_loaded('sqlite')) {
-      throw new Papaya\Database\Exception\Connect(
+      throw new \Papaya\Database\Exception\Connect(
         'Extension "sqlite" not available.'
       );
     }
@@ -70,7 +70,7 @@ class dbcon_sqlite extends dbcon_base {
         $this->databaseConnection = $connection;
         return TRUE;
       } else {
-        throw new Papaya\Database\Exception\Connect($error);
+        throw new \Papaya\Database\Exception\Connect($error);
       }
     }
   }
@@ -125,7 +125,7 @@ class dbcon_sqlite extends dbcon_base {
     } else {
       $severity = PapayaDatabaseException::SEVERITY_ERROR;
     }
-    return new Papaya\Database\Exception\Query(
+    return new \Papaya\Database\Exception\Query(
       $errorMessage, $errorCode, $severity, $sql
     );
   }
@@ -1075,7 +1075,7 @@ class dbresult_sqlite extends dbresult_base {
     $explainQuery = 'EXPLAIN '.$this->query;
     if ($res = $this->connection->executeQuery($explainQuery)) {
       if (sqlite_num_rows($res) > 0 ) {
-        $explain = new PapayaMessageContextTable('Explain');
+        $explain = new \PapayaMessageContextTable('Explain');
         while ($row = sqlite_fetch_array($res, SQLITE_NUM)) {
           $explain->addRow($row);
         }

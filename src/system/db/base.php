@@ -678,7 +678,7 @@ class dbresult_base extends base_object implements PapayaDatabaseResult {
   * @return \Iterator
   */
   public function getIterator() {
-    return new Papaya\Database\Result\Iterator($this);
+    return new \Papaya\Database\Result\Iterator($this);
   }
 
   /**

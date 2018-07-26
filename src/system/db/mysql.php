@@ -41,7 +41,7 @@ class dbcon_mysql extends dbcon_base {
   */
   public function extensionFound() {
     if (!extension_loaded('mysql')) {
-      throw new Papaya\Database\Exception\Connect(
+      throw new \Papaya\Database\Exception\Connect(
         'Extension "mysql" not available.'
       );
     }
@@ -85,7 +85,7 @@ class dbcon_mysql extends dbcon_base {
           $connection
         );
         if (!$selected) {
-          throw new Papaya\Database\Exception\Connect(
+          throw new \Papaya\Database\Exception\Connect(
             sprintf(
               'Could not select database "%s".',
               $this->databaseConfiguration->database
@@ -103,7 +103,7 @@ class dbcon_mysql extends dbcon_base {
           return TRUE;
         }
       }
-      throw new Papaya\Database\Exception\Connect(mysql_error(), mysql_errno());
+      throw new \Papaya\Database\Exception\Connect(mysql_error(), mysql_errno());
     }
   }
 
@@ -232,7 +232,7 @@ class dbcon_mysql extends dbcon_base {
     } else {
       $severity = PapayaDatabaseException::SEVERITY_ERROR;
     }
-    return new Papaya\Database\Exception\Query(
+    return new \Papaya\Database\Exception\Query(
       $errorMessage, $errorCode, $severity, $sql
     );
   }
@@ -1133,7 +1133,7 @@ class dbresult_mysql extends dbresult_base {
     $explainQuery = 'EXPLAIN '.$this->query;
     if ($res = $this->connection->executeQuery($explainQuery)) {
       if (mysql_num_rows($res) > 0 ) {
-        $explain = new PapayaMessageContextTable('Explain');
+        $explain = new \PapayaMessageContextTable('Explain');
         $explain->setColumns(
           array(
             'id' => 'Id',

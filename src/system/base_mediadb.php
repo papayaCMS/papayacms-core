@@ -144,7 +144,7 @@ class base_mediadb extends base_db {
    * @return \PapayaMediaDatabaseItem
    */
   public function getItem($mediaId, $versionId = NULL) {
-    $item = new PapayaMediaDatabaseItem(
+    $item = new \PapayaMediaDatabaseItem(
       PapayaMediaStorage::getService(
         $this->papaya()->options->get('PAPAYA_MEDIA_STORAGE_SERVICE'),
         $this->papaya()->options
@@ -1283,7 +1283,7 @@ class base_mediadb extends base_db {
   function getFileProperties($fileLocation, $originalFileName, array $meta = array()) {
     $this->initializeMimeObject();
 
-    $properties = iterator_to_array(new PapayaMediaFileProperties($fileLocation, $originalFileName));
+    $properties = iterator_to_array(new \PapayaMediaFileProperties($fileLocation, $originalFileName));
     if (empty($properties['extension'])) {
       $properties['extension'] = $this->getFileExtension($originalFileName);
     }

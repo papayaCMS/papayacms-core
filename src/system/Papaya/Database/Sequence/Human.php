@@ -18,7 +18,7 @@ namespace Papaya\Database\Sequence;
  * Generator that uses a restricted set of symbols which can be conveniently used by humans.
  *
  * Usage:
- *   $sequence = new PapayaDatabaseSequenceBase32(
+ *   $sequence = new \PapayaDatabaseSequenceBase32(
  *     'tablename', 'fieldname', 10
  *   );
  *   $newId = $sequence->next();

@@ -1234,8 +1234,8 @@ class papaya_taglinks extends base_tags {
   public function getLinkPriorityDialog() {
     if (!($this->_dialogLinkPriority instanceof PapayaUiDialog)) {
       $tagId = empty($this->params['tag_id']) ? 0 : $this->params['tag_id'];
-      $this->_dialogLinkPriority = $dialog = new PapayaUiDialog();
-      $dialog->caption = new PapayaUiStringTranslated('Edit priority');
+      $this->_dialogLinkPriority = $dialog = new \PapayaUiDialog();
+      $dialog->caption = new \PapayaUiStringTranslated('Edit priority');
       $dialog->parameterGroup($this->paramName);
       $dialog->hiddenFields()->merge(
         array(
@@ -1243,13 +1243,13 @@ class papaya_taglinks extends base_tags {
           'tag_id' => $tagId
         )
       );
-      $dialog->fields[] = $field = new PapayaUiDialogFieldSelect(
-        new PapayaUiStringTranslated('Priority'),
+      $dialog->fields[] = $field = new \PapayaUiDialogFieldSelect(
+        new \PapayaUiStringTranslated('Priority'),
         'taglink_priority',
-        new PapayaIteratorRepeatDecrement(100, 0, 10, PapayaIteratorRepeatDecrement::MODE_ASSOC)
+        new \PapayaIteratorRepeatDecrement(100, 0, 10, PapayaIteratorRepeatDecrement::MODE_ASSOC)
       );
       $field->callbacks()->getOptionCaption = array($this, 'callbackFormatPriority');
-      $dialog->buttons[] = new PapayaUiDialogButtonSubmit(new PapayaUiStringTranslated('Save'));
+      $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));
       if (isset($this->linkedTags[$tagId])) {
         $dialog->data()->set(
           'taglink_priority', $this->linkedTags[$tagId]['link_priority']

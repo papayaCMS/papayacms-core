@@ -29,7 +29,7 @@
 * @property string $port
 * @property string $socket
 * @property string $database
-* @property PapayaRequestParameters $parameters
+* @property \PapayaRequestParameters $parameters
 */
 class PapayaDatabaseSourceName {
 

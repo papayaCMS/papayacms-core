@@ -19,7 +19,7 @@
  * @package Papaya-Library
  * @subpackage Phrases
  *
- * @property PapayaPhrasesGroups groups
+ * @property \PapayaPhrasesGroups groups
  *
  */
 class PapayaPhrases extends \PapayaObject {

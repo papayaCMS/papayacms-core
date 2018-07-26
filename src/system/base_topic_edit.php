@@ -201,7 +201,7 @@ class base_topic_edit extends base_topic {
           $this->changePosition($currentWeight, $direction);
           if ($this->papaya()->options->get('PAPAYA_LOG_EVENT_PAGE_MOVED', TRUE)) {
             $this->papaya()->messages->dispatch(
-              new PapayaMessageLog(
+              new \PapayaMessageLog(
                 PapayaMessageLogable::GROUP_CONTENT,
                 PapayaMessage::SEVERITY_INFO,
                 sprintf(
@@ -251,7 +251,7 @@ class base_topic_edit extends base_topic {
             $this->changePosition($this->topic['topic_weight'], $moveSteps);
             if ($this->papaya()->options->get('PAPAYA_LOG_EVENT_PAGE_MOVED', TRUE)) {
               $this->papaya()->messages->dispatch(
-                new PapayaMessageLog(
+                new \PapayaMessageLog(
                   PapayaMessageLogable::GROUP_CONTENT,
                   PapayaMessage::SEVERITY_INFO,
                   sprintf(
@@ -285,10 +285,10 @@ class base_topic_edit extends base_topic {
             )
           ) {
             $this->papaya()->messages->dispatch(
-              new PapayaMessageLog(
+              new \PapayaMessageLog(
                 PapayaMessageLogable::GROUP_CONTENT,
                 PapayaMessage::SEVERITY_INFO,
-                new PapayaUiString(
+                new \PapayaUiString(
                   '%s created a new translation "%s" for page "#%d"',
                   array(
                     $this->papaya()->administrationUser->getDisplayName(),
@@ -299,9 +299,9 @@ class base_topic_edit extends base_topic {
               )
             );
             $this->papaya()->messages->dispatch(
-              new PapayaMessageDisplay(
+              new \PapayaMessageDisplay(
                 PapayaMessage::SEVERITY_INFO,
-                new PapayaUiString(
+                new \PapayaUiString(
                   'New translation "%s" for page "#%d" added.',
                   array(
                     $this->papaya()->languages[(int)$this->params['lng_id']]['code'],
@@ -341,10 +341,10 @@ class base_topic_edit extends base_topic {
          ) {
         if ($newId = $this->create()) {
           $this->papaya()->messages->dispatch(
-            new PapayaMessageLog(
+            new \PapayaMessageLog(
               PapayaMessageLogable::GROUP_CONTENT,
               PapayaMessage::SEVERITY_INFO,
-              new PapayaUiString(
+              new \PapayaUiString(
                 '%s created the new page "#%d"',
                 array(
                   $this->papaya()->administrationUser->getDisplayName(),
@@ -790,7 +790,7 @@ class base_topic_edit extends base_topic {
   }
 
   public function getPreviewUrl($mode = NULL, $time = 0) {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->setPreview(TRUE, $time);
     $reference->setOutputMode($mode);
     $reference->setPageLanguage(
@@ -1380,7 +1380,7 @@ class base_topic_edit extends base_topic {
       foreach ($pageViews as $pageId => $view) {
         if ($view['module_id'] != $moduleGuid) {
           $this->papaya()->messages->dispatch(
-            new PapayaMessageDisplayTranslated(
+            new \PapayaMessageDisplayTranslated(
               PapayaMessage::SEVERITY_WARNING,
               'Dependend page #%d uses a view with a differnt module. Can not change content.',
               array(
@@ -2388,7 +2388,7 @@ class base_topic_edit extends base_topic {
    */
   function getContentFrame($fileName, $caption, $views = NULL, $currentView = NULL) {
     $domains = $this->getVirtualDomains();
-    $select = new PapayaUiToolbarSelect('tt/preview_domain', $domains);
+    $select = new \PapayaUiToolbarSelect('tt/preview_domain', $domains);
     $current = 'http://'.PapayaUtilServerName::get();
     if (!in_array($current, $select->options)) {
       $select->defaultCaption = $current;
@@ -2398,10 +2398,10 @@ class base_topic_edit extends base_topic {
     } elseif (isset($this->papaya()->session->values['PAGE_PREVIEW_DOMAIN'])) {
       $select->setCurrentValue($this->papaya()->session->values['PAGE_PREVIEW_DOMAIN']);
     }
-    $buttons = new PapayaUiToolbarSelectButtons('tt/viewmode', $views);
+    $buttons = new \PapayaUiToolbarSelectButtons('tt/viewmode', $views);
     $buttons->setCurrentValue($currentView);
 
-    $frame = new PapayaUiPanelFrame($caption, 'preview', '1400');
+    $frame = new \PapayaUiPanelFrame($caption, 'preview', '1400');
     $frame->toolbars->topLeft->elements[] = $select;
     $frame->toolbars->topRight->elements[] = $buttons;
     $frame->reference()->setRelative($fileName);
@@ -2511,16 +2511,16 @@ class base_topic_edit extends base_topic {
       $fields = array();
       if (isset($this->topic['TRANSLATION'])) {
         $data = $this->topic['TRANSLATION'];
-        $fields['topic_title'] = array('Title', new PapayaFilterNotEmpty(), TRUE,
+        $fields['topic_title'] = array('Title', new \PapayaFilterNotEmpty(), TRUE,
           'input', 400, '', 1);
         if ($authUser->hasPerm(Administration\Permissions::PAGE_METADATA_EDIT) &&
             !$this->topic['meta_useparent']) {
           $fields[] = 'Metatags';
-          $fields['meta_title'] = array('Page Title', new PapayaFilterNotEmpty(), FALSE,
+          $fields['meta_title'] = array('Page Title', new \PapayaFilterNotEmpty(), FALSE,
             'input', 400, '', '');
-          $fields['meta_keywords'] = array('Keywords', new PapayaFilterNotEmpty(),
+          $fields['meta_keywords'] = array('Keywords', new \PapayaFilterNotEmpty(),
             FALSE, 'input', 400, '', '');
-          $fields['meta_descr'] = array('Description', new PapayaFilterNotEmpty(),
+          $fields['meta_descr'] = array('Description', new \PapayaFilterNotEmpty(),
             FALSE, 'textarea', 6, '', '');
         }
       }
@@ -2929,7 +2929,7 @@ class base_topic_edit extends base_topic {
           foreach ($pageViews as $pageId => $view) {
             if ($view['module_id'] != $selectView->currentView['module_guid']) {
               $this->papaya()->messages->dispatch(
-                new PapayaMessageDisplayTranslated(
+                new \PapayaMessageDisplayTranslated(
                   PapayaMessage::SEVERITY_WARNING,
                   'Dependend page #%d uses a view with a different module and is not synced'.
                   ' automatically. Can not change view.',
@@ -2956,7 +2956,7 @@ class base_topic_edit extends base_topic {
             );
             if ($originTranslation->moduleGuid != $selectView->currentView['module_guid']) {
               $this->papaya()->messages->dispatch(
-                new PapayaMessageDisplayTranslated(
+                new \PapayaMessageDisplayTranslated(
                   PapayaMessage::SEVERITY_WARNING,
                   'The selected view is not compatible with the view of the origin page'.
                   ' Can not change view.'
@@ -3390,157 +3390,157 @@ class base_topic_edit extends base_topic {
     $metaData = $this->loadMetaData();
     $this->loadTranslationsInfo();
     $boxesPageId = $this->getBoxesTopicID();
-    $listview = new PapayaUiListview();
-    $listview->caption = new PapayaUiStringTranslated('Information');
-    $listview->items[] = $item = new PapayaUiListviewItem(
-      'categories-properties', new PapayaUiStringTranslated('General')
+    $listview = new \PapayaUiListview();
+    $listview->caption = new \PapayaUiStringTranslated('Information');
+    $listview->items[] = $item = new \PapayaUiListviewItem(
+      'categories-properties', new \PapayaUiStringTranslated('General')
     );
     $item->columnSpan = 2;
-    $listview->items[] = $item = new PapayaUiListviewItem(
-      '', new PapayaUiStringTranslated('Page title')
+    $listview->items[] = $item = new \PapayaUiListviewItem(
+      '', new \PapayaUiStringTranslated('Page title')
     );
     $item->indentation = 1;
-    $item->subitems[] = new PapayaUiListviewSubitemText($metaData['meta_title']);
-    $listview->items[] = $item = new PapayaUiListviewItem(
-      '', new PapayaUiStringTranslated('Author')
+    $item->subitems[] = new \PapayaUiListviewSubitemText($metaData['meta_title']);
+    $listview->items[] = $item = new \PapayaUiListviewItem(
+      '', new \PapayaUiStringTranslated('Author')
     );
     $item->indentation = 1;
-    $item->subitems[] = new PapayaUiListviewSubitemText(
+    $item->subitems[] = new \PapayaUiListviewSubitemText(
       $this->topic['author_givenname'].' '.$this->topic['author_surname']
     );
-    $listview->items[] = $item = new PapayaUiListviewItem(
-      '', new PapayaUiStringTranslated('Boxes')
+    $listview->items[] = $item = new \PapayaUiListviewItem(
+      '', new \PapayaUiStringTranslated('Boxes')
     );
     $item->indentation = 1;
-    $item->subitems[] = new PapayaUiListviewSubitemText(
+    $item->subitems[] = new \PapayaUiListviewSubitemText(
       ($boxesPageId == $this->topicId)
-        ? new PapayaUiStringTranslated('own')
-        : new PapayaUiStringTranslated('Page #%d', array($boxesPageId))
+        ? new \PapayaUiStringTranslated('own')
+        : new \PapayaUiStringTranslated('Page #%d', array($boxesPageId))
     );
-    $listview->items[] = $item = new PapayaUiListviewItem(
-      '', new PapayaUiStringTranslated('Created')
-    );
-    $item->indentation = 1;
-    $item->subitems[] = new PapayaUiListviewSubitemDate((int)$this->topic['topic_created']);
-    $listview->items[] = $item = new PapayaUiListviewItem(
-      '', new PapayaUiStringTranslated('Modified')
+    $listview->items[] = $item = new \PapayaUiListviewItem(
+      '', new \PapayaUiStringTranslated('Created')
     );
     $item->indentation = 1;
-    $item->subitems[] = new PapayaUiListviewSubitemDate((int)$this->topic['topic_modified']);
+    $item->subitems[] = new \PapayaUiListviewSubitemDate((int)$this->topic['topic_created']);
+    $listview->items[] = $item = new \PapayaUiListviewItem(
+      '', new \PapayaUiStringTranslated('Modified')
+    );
+    $item->indentation = 1;
+    $item->subitems[] = new \PapayaUiListviewSubitemDate((int)$this->topic['topic_modified']);
 
     if ($this->topic['topic_published_created'] > 0) {
-      $listview->items[] = $item = new PapayaUiListviewItem(
-        '', new PapayaUiStringTranslated('Prepared')
+      $listview->items[] = $item = new \PapayaUiListviewItem(
+        '', new \PapayaUiStringTranslated('Prepared')
       );
       $item->indentation = 1;
-      $item->subitems[] = new PapayaUiListviewSubitemDate(
+      $item->subitems[] = new \PapayaUiListviewSubitemDate(
         (int)$this->topic['topic_published_created']
       );
     }
 
     if ($this->topic['published_from'] > 0 &&
         $this->topic['published_from'] < $this->topic['published_to']) {
-      $listview->items[] = $item = new PapayaUiListviewItem(
-        '', new PapayaUiStringTranslated('Published from')
+      $listview->items[] = $item = new \PapayaUiListviewItem(
+        '', new \PapayaUiStringTranslated('Published from')
       );
       $item->indentation = 1;
-      $item->subitems[] = new PapayaUiListviewSubitemDate(
+      $item->subitems[] = new \PapayaUiListviewSubitemDate(
         (int)$this->topic['published_from']
       );
     }
 
     if ($this->topic['published_to'] > 0 &&
         $this->topic['published_from'] < $this->topic['published_to']) {
-      $listview->items[] = $item = new PapayaUiListviewItem(
-        '', new PapayaUiStringTranslated('Published to')
+      $listview->items[] = $item = new \PapayaUiListviewItem(
+        '', new \PapayaUiStringTranslated('Published to')
       );
       $item->indentation = 1;
-      $item->subitems[] = new PapayaUiListviewSubitemDate(
+      $item->subitems[] = new \PapayaUiListviewSubitemDate(
         (int)$this->topic['published_to']
       );
     }
     if ($this->topic['published_from'] > 0 &&
         $this->topic['published_from'] == $this->topic['published_to']) {
-      $listview->items[] = $item = new PapayaUiListviewItem(
-        '', new PapayaUiStringTranslated('Published to')
+      $listview->items[] = $item = new \PapayaUiListviewItem(
+        '', new \PapayaUiStringTranslated('Published to')
       );
       $item->indentation = 1;
-      $item->subitems[] = new PapayaUiListviewSubitemText(
-        new PapayaUiStringTranslated('unlimited')
+      $item->subitems[] = new \PapayaUiListviewSubitemText(
+        new \PapayaUiStringTranslated('unlimited')
       );
     }
     foreach ($this->papaya()->languages as $languageId => $language) {
       if ($language['is_content'] || isset($this->topic['TRANSLATIONINFOS'][$languageId])) {
-        $listview->items[] = $item = new PapayaUiListviewItem(
+        $listview->items[] = $item = new \PapayaUiListviewItem(
           './pics/language/'.$language['image'],
           $language['title'].' ('.$language['code'].')'
         );
         $item->columnSpan = 2;
         if (isset($this->topic['TRANSLATIONINFOS'][$languageId])) {
           $translation = $this->topic['TRANSLATIONINFOS'][$languageId];
-          $listview->items[] = $item = new PapayaUiListviewItem(
-            '', new PapayaUiStringTranslated('Title')
+          $listview->items[] = $item = new \PapayaUiListviewItem(
+            '', new \PapayaUiStringTranslated('Title')
           );
           $item->indentation = 1;
-          $item->subitems[] = new PapayaUiListviewSubitemText(
+          $item->subitems[] = new \PapayaUiListviewSubitemText(
             $translation['topic_title']
           );
-          $listview->items[] = $item = new PapayaUiListviewItem(
-            '', new PapayaUiStringTranslated('View')
+          $listview->items[] = $item = new \PapayaUiListviewItem(
+            '', new \PapayaUiStringTranslated('View')
           );
           $item->indentation = 1;
-          $item->subitems[] = new PapayaUiListviewSubitemText(
+          $item->subitems[] = new \PapayaUiListviewSubitemText(
             $translation['view_title']
           );
           if (isset($translation['topic_trans_published'])) {
             if ($translation['topic_trans_published'] <
                 $translation['topic_trans_modified']) {
-              $listview->items[] = $item = new PapayaUiListviewItem(
-                '', new PapayaUiStringTranslated('Status')
+              $listview->items[] = $item = new \PapayaUiListviewItem(
+                '', new \PapayaUiStringTranslated('Status')
               );
               $item->indentation = 1;
-              $item->subitems[] = new PapayaUiListviewSubitemText(
-                new PapayaUiStringTranslated('modified')
+              $item->subitems[] = new \PapayaUiListviewSubitemText(
+                new \PapayaUiStringTranslated('modified')
               );
             } else {
-              $listview->items[] = $item = new PapayaUiListviewItem(
-                '', new PapayaUiStringTranslated('Status')
+              $listview->items[] = $item = new \PapayaUiListviewItem(
+                '', new \PapayaUiStringTranslated('Status')
               );
               $item->indentation = 1;
-              $item->subitems[] = new PapayaUiListviewSubitemText(
-                new PapayaUiStringTranslated('published')
+              $item->subitems[] = new \PapayaUiListviewSubitemText(
+                new \PapayaUiStringTranslated('published')
               );
             }
-            $listview->items[] = $item = new PapayaUiListviewItem(
-              '', new PapayaUiStringTranslated('Published')
+            $listview->items[] = $item = new \PapayaUiListviewItem(
+              '', new \PapayaUiStringTranslated('Published')
             );
             $item->indentation = 1;
-            $item->subitems[] = new PapayaUiListviewSubitemDate(
+            $item->subitems[] = new \PapayaUiListviewSubitemDate(
               (int)$translation['topic_trans_published']
             );
           } else {
-            $listview->items[] = $item = new PapayaUiListviewItem(
-              '', new PapayaUiStringTranslated('Status')
+            $listview->items[] = $item = new \PapayaUiListviewItem(
+              '', new \PapayaUiStringTranslated('Status')
             );
             $item->indentation = 1;
-            $item->subitems[] = new PapayaUiListviewSubitemText(
-              new PapayaUiStringTranslated('created')
+            $item->subitems[] = new \PapayaUiListviewSubitemText(
+              new \PapayaUiStringTranslated('created')
             );
           }
-          $listview->items[] = $item = new PapayaUiListviewItem(
-            '', new PapayaUiStringTranslated('Modified')
+          $listview->items[] = $item = new \PapayaUiListviewItem(
+            '', new \PapayaUiStringTranslated('Modified')
           );
           $item->indentation = 1;
-          $item->subitems[] = new PapayaUiListviewSubitemDate(
+          $item->subitems[] = new \PapayaUiListviewSubitemDate(
             (int)$translation['topic_trans_modified']
           );
         } else {
-          $listview->items[] = $item = new PapayaUiListviewItem(
-            '', new PapayaUiStringTranslated('Status')
+          $listview->items[] = $item = new \PapayaUiListviewItem(
+            '', new \PapayaUiStringTranslated('Status')
           );
           $item->indentation = 1;
-          $item->subitems[] = new PapayaUiListviewSubitemText(
-            new PapayaUiStringTranslated('no content')
+          $item->subitems[] = new \PapayaUiListviewSubitemText(
+            new \PapayaUiStringTranslated('no content')
           );
         }
       }
@@ -3550,8 +3550,8 @@ class base_topic_edit extends base_topic {
            Administration\Permissions::PAGE_CACHE_CONFIGURE
          )
        ) {
-      $listview->items[] = $item = new PapayaUiListviewItem(
-        '', new PapayaUiStringTranslated('Marked As Cacheable')
+      $listview->items[] = $item = new \PapayaUiListviewItem(
+        '', new \PapayaUiStringTranslated('Marked As Cacheable')
       );
       $item->columnSpan = 2;
       if (isset($this->topic['TRANSLATIONINFOS']) && is_array($this->topic['TRANSLATIONINFOS'])) {
@@ -3559,7 +3559,7 @@ class base_topic_edit extends base_topic {
         foreach ($this->topic['TRANSLATIONINFOS'] as $languageId => $translation) {
           if (isset($this->papaya()->languages[$languageId])) {
             $language = $this->papaya()->languages[$languageId];
-            $listview->items[] = $item = $aggregation = new PapayaUiListviewItem(
+            $listview->items[] = $item = $aggregation = new \PapayaUiListviewItem(
               './pics/language/'.$language['image'],
               $language['title'].' ('.$language['code'].')'
             );
@@ -3567,31 +3567,31 @@ class base_topic_edit extends base_topic {
             $cacheable = TRUE;
             if (!$translation['view_is_cacheable']) {
               $cacheable = FALSE;
-              $listview->items[] = $item = new PapayaUiListviewItem(
+              $listview->items[] = $item = new \PapayaUiListviewItem(
                 'categories-content',
-                new PapayaUiStringTranslated('Content')
+                new \PapayaUiStringTranslated('Content')
               );
               $item->indentation = 1;
-              $item->subitems[] = new PapayaUiListviewSubitemText(
+              $item->subitems[] = new \PapayaUiListviewSubitemText(
                 $translation['view_title']
               );
             }
             if (isset($boxCacheStatus[$languageId])) {
               foreach ($boxCacheStatus[$languageId] as $boxStatus) {
                 $cacheable = FALSE;
-                $listview->items[] = $item = new PapayaUiListviewItem(
+                $listview->items[] = $item = new \PapayaUiListviewItem(
                   'status-box-published',
                   $boxStatus['box_name']
                 );
                 $item->indentation = 1;
-                $item->subitems[] = new PapayaUiListviewSubitemText(
+                $item->subitems[] = new \PapayaUiListviewSubitemText(
                   $boxStatus['view_title']
                 );
               }
             }
-            $aggregation->subitems[] = new PapayaUiListviewSubitemImage(
+            $aggregation->subitems[] = new \PapayaUiListviewSubitemImage(
               $cacheable ? 'status-sign-ok' : 'status-sign-problem',
-              new PapayaUiStringTranslated($cacheable ? 'Yes' : 'No')
+              new \PapayaUiStringTranslated($cacheable ? 'Yes' : 'No')
             );
           }
         }
@@ -3672,11 +3672,11 @@ class base_topic_edit extends base_topic {
   */
   function getVersionsList() {
     if (isset($this->versions) && is_array($this->versions)) {
-      $listview = new PapayaUiListview();
-      $listview->caption = new PapayaUiStringTranslated('Versions');
+      $listview = new \PapayaUiListview();
+      $listview->caption = new \PapayaUiStringTranslated('Versions');
       $listview->parameterGroup($this->paramName);
 
-      $paging = new PapayaUiToolbarPaging(
+      $paging = new \PapayaUiToolbarPaging(
         array($this->paramName, 'version_offset'),
         (int)$this->versionsCount,
         PapayaUiToolbarPaging::MODE_OFFSET
@@ -3689,25 +3689,25 @@ class base_topic_edit extends base_topic {
       $paging->reference->setParameters(array('page_id' => $this->topicId), $this->paramName);
       $listview->toolbars->topLeft->elements[] = $paging;
 
-      $listview->columns[] = new PapayaUiListviewColumn(
-        new PapayaUiStringTranslated('Version time')
+      $listview->columns[] = new \PapayaUiListviewColumn(
+        new \PapayaUiStringTranslated('Version time')
       );
-      $listview->columns[] = new PapayaUiListviewColumn(
-        new PapayaUiStringTranslated('User')
+      $listview->columns[] = new \PapayaUiListviewColumn(
+        new \PapayaUiStringTranslated('User')
       );
-      $listview->columns[] = new PapayaUiListviewColumn(
+      $listview->columns[] = new \PapayaUiListviewColumn(
         '', PapayaUiOptionAlign::CENTER
       );
-      $listview->columns[] = new PapayaUiListviewColumn(
+      $listview->columns[] = new \PapayaUiListviewColumn(
         '', PapayaUiOptionAlign::CENTER
       );
-      $listview->columns[] = new PapayaUiListviewColumn(
+      $listview->columns[] = new \PapayaUiListviewColumn(
         '', PapayaUiOptionAlign::CENTER
       );
       foreach ($this->versions as $id => $version) {
-        $listitem = new PapayaUiListviewItem(
+        $listitem = new \PapayaUiListviewItem(
           'items-page',
-          new PapayaUiStringDate($version['version_time']),
+          new \PapayaUiStringDate($version['version_time']),
           array(
             'page_id' => $this->topicId,
             'version_id' => $id,
@@ -3718,10 +3718,10 @@ class base_topic_edit extends base_topic {
         $listitem->text = PapayaUtilString::truncate(
           $version['version_message'], 100, FALSE, "\xE2\x80\xA6"
         );
-        $listitem->subitems[] = new PapayaUiListviewSubitemText($version['fullname']);
-        $listitem->subitems[] = new PapayaUiListviewSubitemImage(
+        $listitem->subitems[] = new \PapayaUiListviewSubitemText($version['fullname']);
+        $listitem->subitems[] = new \PapayaUiListviewSubitemImage(
           'actions-recycle',
-          new PapayaUiStringTranslated('Recycle'),
+          new \PapayaUiStringTranslated('Recycle'),
           array(
             'cmd' => 'restore_version',
             'page_id' => $this->topicId,
@@ -3729,9 +3729,9 @@ class base_topic_edit extends base_topic {
             'version_offset' => $paging->currentOffset
           )
         );
-        $listitem->subitems[] = new PapayaUiListviewSubitemImage(
+        $listitem->subitems[] = new \PapayaUiListviewSubitemImage(
           'categories-preview',
-          new PapayaUiStringTranslated('Preview'),
+          new \PapayaUiStringTranslated('Preview'),
           array(
             'cmd' => 'chg_mode',
             'mode' => 5,
@@ -3740,9 +3740,9 @@ class base_topic_edit extends base_topic {
             'version_offset' => $paging->currentOffset
           )
         );
-        $listitem->subitems[] = new PapayaUiListviewSubitemImage(
+        $listitem->subitems[] = new \PapayaUiListviewSubitemImage(
           'places-trash',
-          new PapayaUiStringTranslated('Delete'),
+          new \PapayaUiStringTranslated('Delete'),
           array(
             'cmd' => 'del_version',
             'version_id' => $version['version_id'],
@@ -4545,8 +4545,8 @@ class base_topic_edit extends base_topic {
   function initializePublishDialog() {
     if (!(isset($this->dialogPublish) && is_object($this->dialogPublish)) &&
         isset($this->topic['TRANSLATION'])) {
-      $this->dialogPublish = $dialog = new PapayaUiDialog();
-      $dialog->caption = new PapayaUiStringTranslated('Publish');
+      $this->dialogPublish = $dialog = new \PapayaUiDialog();
+      $dialog->caption = new \PapayaUiStringTranslated('Publish');
       $dialog->parameterGroup($this->paramName);
       $dialog->hiddenFields()->merge(
         array(
@@ -4583,74 +4583,74 @@ class base_topic_edit extends base_topic {
         )
       );
 
-      $dialog->fields[] = $group = new PapayaUiDialogFieldGroup(
+      $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup(
         ''
       );
       $counter = $this->getDependencyBlocker()->counter();
       if ($counter->getDependencies() > 0 && $counter->getReferences() > 0) {
-        $message = new PapayaUiStringTranslated(
+        $message = new \PapayaUiStringTranslated(
           'Please be aware that this page has dependent and referenced pages.'
         );
       } elseif ($counter->getDependencies() > 0) {
-        $message = new PapayaUiStringTranslated(
+        $message = new \PapayaUiStringTranslated(
           'Please be aware that this page has dependent pages.'
         );
       } elseif ($counter->getReferences() > 0) {
-        $message = new PapayaUiStringTranslated(
+        $message = new \PapayaUiStringTranslated(
           'Please be aware that this page has referenced pages.'
         );
       } else {
         $message = NULL;
       }
       if ($message) {
-        $group->fields[] = new PapayaUiDialogFieldInformation(
+        $group->fields[] = new \PapayaUiDialogFieldInformation(
           $message, 'items-publication'
         );
       }
-      $group->fields[] = $field = new PapayaUiDialogFieldInput(
-        new PapayaUiStringTranslated('message'),
+      $group->fields[] = $field = new \PapayaUiDialogFieldInput(
+        new \PapayaUiStringTranslated('message'),
         'commit_message',
         200,
         '',
-        new PapayaFilterNotEmpty()
+        new \PapayaFilterNotEmpty()
       );
       $field->setMandatory(TRUE);
       if ($this->papaya()->options->get('PAPAYA_PUBLICATION_CHANGE_LEVEL', FALSE)) {
-        $group->fields[] = new PapayaUiDialogFieldSelect(
-          new PapayaUiStringTranslated('Change level'),
+        $group->fields[] = new \PapayaUiDialogFieldSelect(
+          new \PapayaUiStringTranslated('Change level'),
           'change_level',
           base_statictables::getChangeLevels()
         );
       }
-      $group->fields[] = new PapayaUiDialogFieldInputTimestamp(
-        new PapayaUiStringTranslated('Created'),
+      $group->fields[] = new \PapayaUiDialogFieldInputTimestamp(
+        new \PapayaUiStringTranslated('Created'),
         'topic_created',
         NULL,
         TRUE,
         PapayaFilterDate::DATE_MANDATORY_TIME
       );
-      $dialog->fields[] = $group = new PapayaUiDialogFieldGroup(
-        new PapayaUiStringTranslated('Publication period')
+      $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup(
+        new \PapayaUiStringTranslated('Publication period')
       );
-      $group->fields[] = new PapayaUiDialogFieldInputTimestamp(
-        new PapayaUiStringTranslated('Published from'),
+      $group->fields[] = new \PapayaUiDialogFieldInputTimestamp(
+        new \PapayaUiStringTranslated('Published from'),
         'published_from',
         time(),
         TRUE,
         PapayaFilterDate::DATE_MANDATORY_TIME
       );
-      $group->fields[] = new PapayaUiDialogFieldInputTimestamp(
-        new PapayaUiStringTranslated('Published to'),
+      $group->fields[] = new \PapayaUiDialogFieldInputTimestamp(
+        new \PapayaUiStringTranslated('Published to'),
         'published_to',
         0,
         FALSE,
         PapayaFilterDate::DATE_MANDATORY_TIME
       );
-      $dialog->fields[] = $group = new PapayaUiDialogFieldGroup(
-        new PapayaUiStringTranslated('Languages')
+      $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup(
+        new \PapayaUiStringTranslated('Languages')
       );
-      $group->fields[] = new PapayaUiDialogFieldSelectCheckboxes(
-        new PapayaUiStringTranslated('Languages'),
+      $group->fields[] = new \PapayaUiDialogFieldSelectCheckboxes(
+        new \PapayaUiStringTranslated('Languages'),
         'public_languages',
         PapayaUtilArrayMapper::byIndex(
           iterator_to_array($this->papaya()->administrationLanguage->languages()),
@@ -4659,12 +4659,12 @@ class base_topic_edit extends base_topic {
       );
 
       if ($this->papaya()->options->get('PAPAYA_PUBLICATION_AUDITING', FALSE)) {
-        $dialog->buttons[] = new PapayaUiDialogButtonSubmitNamed(
-          new PapayaUiStringTranslated('Audited'), 'audit', 1, PapayaUiDialogButton::ALIGN_LEFT
+        $dialog->buttons[] = new \PapayaUiDialogButtonSubmitNamed(
+          new \PapayaUiStringTranslated('Audited'), 'audit', 1, PapayaUiDialogButton::ALIGN_LEFT
         );
       }
-      $dialog->buttons[] = new PapayaUiDialogButtonSubmit(
-        new PapayaUiStringTranslated('Publish')
+      $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(
+        new \PapayaUiStringTranslated('Publish')
       );
       return TRUE;
     }
@@ -4705,8 +4705,8 @@ class base_topic_edit extends base_topic {
     $languages = $this->dialogPublish->data()->get('public_languages', array());
     $connector = $this->papaya()->plugins->get('3239c62be16c65bc389f45f95cfef6e8');
     if (is_object($connector)) {
-      $this->dialogSocialMedia = new PapayaUiDialog();
-      $this->dialogSocialMedia->caption = new PapayaUiStringTranslated('Social media');
+      $this->dialogSocialMedia = new \PapayaUiDialog();
+      $this->dialogSocialMedia->caption = new \PapayaUiStringTranslated('Social media');
       $this->dialogSocialMedia->parameterGroup($this->paramName);
       $this->dialogSocialMedia->hiddenFields()->merge(
         array(
@@ -4728,8 +4728,8 @@ class base_topic_edit extends base_topic {
           ->getLanguage($languageId)
           ->identifier;
         $this->dialogSocialMedia->fields[] =
-          new PapayaUiDialogFieldInputCheckbox(
-            new PapayaUiStringTranslated(
+          new \PapayaUiDialogFieldInputCheckbox(
+            new \PapayaUiStringTranslated(
               'Send tweet (%s)',
               array($languageName)
             ),
@@ -4737,7 +4737,7 @@ class base_topic_edit extends base_topic {
           );
         $pageTitle = $this->getShortTitle($this->topicId, $languageId);
         if (!empty($pageTitle)) {
-          $message = new PapayaUiStringTranslated(
+          $message = new \PapayaUiStringTranslated(
             'New page "%s" out: %s',
             array(
               $pageTitle,
@@ -4745,7 +4745,7 @@ class base_topic_edit extends base_topic {
             )
           );
         } else {
-          $message = new PapayaUiStringTranslated(
+          $message = new \PapayaUiStringTranslated(
             'New page out: %s',
             array(
               $this->getShortWebLink($this->topicId, $languageIdentifier)
@@ -4753,15 +4753,15 @@ class base_topic_edit extends base_topic {
           );
         }
         $this->dialogSocialMedia->fields[] =
-          new PapayaUiDialogFieldInput(
+          new \PapayaUiDialogFieldInput(
             'Message',
             'message_'.$languageId,
             140,
             $message
           );
       }
-      $this->dialogSocialMedia->buttons[] = new PapayaUiDialogButtonSubmit(
-        new PapayaUiStringTranslated('Send tweets')
+      $this->dialogSocialMedia->buttons[] = new \PapayaUiDialogButtonSubmit(
+        new \PapayaUiStringTranslated('Send tweets')
       );
     }
   }
@@ -5062,8 +5062,8 @@ class base_topic_edit extends base_topic {
   * @access public
   */
   function addTopicIdDialog() {
-    $dialog = new PapayaUiDialog($this);
-    $dialog->caption = new PapayaUiStringTranslated('Go to page');
+    $dialog = new \PapayaUiDialog($this);
+    $dialog->caption = new \PapayaUiStringTranslated('Go to page');
     $dialog->parameterGroup($this->paramName);
     $dialog->options()->useToken = FALSE;
     $dialog->options()->captionStyle = PapayaUiDialogOptions::CAPTION_NONE;
@@ -5071,8 +5071,8 @@ class base_topic_edit extends base_topic {
     $dialog
       ->fields()
       ->add(
-        new PapayaUiDialogFieldInputPage(
-          new PapayaUiStringTranslated('Page Id'),
+        new \PapayaUiDialogFieldInputPage(
+          new \PapayaUiStringTranslated('Page Id'),
           'page_id',
           $this->topicId,
           TRUE
@@ -5081,8 +5081,8 @@ class base_topic_edit extends base_topic {
     $dialog
       ->buttons()
       ->add(
-        new PapayaUiDialogButtonSubmit(
-          new PapayaUiStringTranslated('GoTo')
+        new \PapayaUiDialogButtonSubmit(
+          new \PapayaUiStringTranslated('GoTo')
         )
       );
     $this->layout->addLeft($dialog->getXml());

@@ -345,7 +345,7 @@ class papaya_atom_feed {
     if (isset($transformer)) {
       $this->_urlTransformer = $transformer;
     } elseif (is_null($this->_urlTransformer)) {
-      $this->_urlTransformer = new PapayaUrlTransformerAbsolute();
+      $this->_urlTransformer = new \PapayaUrlTransformerAbsolute();
     }
     return $this->_urlTransformer;
   }

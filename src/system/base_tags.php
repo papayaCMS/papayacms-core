@@ -916,7 +916,7 @@ class base_tags extends base_db {
       }
       if ($res = $this->databaseQueryFmt($sql, $params)) {
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-          $result[$row['tag_id']] = new PapayaObjectStringValues(
+          $result[$row['tag_id']] = new \PapayaObjectStringValues(
             $row, isset($row['tag_title']) ? 'tag_title' : 'tag_id'
           );
         }
@@ -960,7 +960,7 @@ class base_tags extends base_db {
 
       if ($res = $this->databaseQueryFmt($sql, $params)) {
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-          $result[$row['tag_id']] = new PapayaObjectStringValues(
+          $result[$row['tag_id']] = new \PapayaObjectStringValues(
             $row, isset($row['tag_title']) ? 'tag_title' : $row['tag_id']
           );
         }

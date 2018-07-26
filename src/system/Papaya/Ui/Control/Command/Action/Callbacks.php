@@ -19,9 +19,9 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property PapayaObjectCallback $onValidationSuccessful
-* @property PapayaObjectCallback $onValidationFailed
-* @property PapayaObjectCallback $getDefinition
+* @property \PapayaObjectCallback $onValidationSuccessful
+* @property \PapayaObjectCallback $onValidationFailed
+* @property \PapayaObjectCallback $getDefinition
 * @method void onValidationSuccessful
 * @method void onValidationFailed
 * @method array getDefinition

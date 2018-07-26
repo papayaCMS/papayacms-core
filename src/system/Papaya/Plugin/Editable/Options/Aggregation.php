@@ -41,8 +41,8 @@ trait PapayaPluginEditableOptionsAggregation {
     if (NULL !== $options) {
       $this->_options = $options;
     } elseif (NULL === $this->_options) {
-      $this->_options = new PapayaPluginEditableOptions(
-        new PapayaPluginOptions($this->getPluginGuid())
+      $this->_options = new \PapayaPluginEditableOptions(
+        new \PapayaPluginOptions($this->getPluginGuid())
       );
       $this->_options->callbacks()->onCreateEditor = function($context, PapayaPluginEditableOptions $content) {
         return $this->createOptionsEditor($content);

@@ -20,7 +20,7 @@
 * @subpackage Ui
 *
 * @property string|PapayaUiString $caption
-* @property PapayaUiDialogButtons $buttons
+* @property \PapayaUiDialogButtons $buttons
 */
 class PapayaUiDialogFieldButtons extends \PapayaUiDialogField {
 

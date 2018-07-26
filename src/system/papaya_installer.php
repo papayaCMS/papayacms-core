@@ -1513,14 +1513,14 @@ class papaya_installer extends base_db {
   }
 
   public function getOptionsValidator() {
-    return new PapayaRequestParametersValidator(
+    return new \PapayaRequestParametersValidator(
       array(
-        array('PAPAYA_PATH_DATA', new PapayaFilterNotEmpty()),
-        array('givenname', new PapayaFilterNotEmpty()),
-        array('surname', new PapayaFilterNotEmpty()),
-        array('email', new PapayaFilterNotEmpty()),
-        array('login', new PapayaFilterNotEmpty()),
-        array('password_hash', new PapayaFilterNotEmpty()),
+        array('PAPAYA_PATH_DATA', new \PapayaFilterNotEmpty()),
+        array('givenname', new \PapayaFilterNotEmpty()),
+        array('surname', new \PapayaFilterNotEmpty()),
+        array('email', new \PapayaFilterNotEmpty()),
+        array('login', new \PapayaFilterNotEmpty()),
+        array('password_hash', new \PapayaFilterNotEmpty()),
       ),
       isset($this->sessionParams['installer_basic_options'])
         ? $this->sessionParams['installer_basic_options']
@@ -1530,7 +1530,7 @@ class papaya_installer extends base_db {
 
   public function getOptionsDialog() {
     if (!isset($this->_optionsDialog)) {
-      $this->_optionsDialog = $dialog = new PapayaUiDialog();
+      $this->_optionsDialog = $dialog = new \PapayaUiDialog();
       $dialog->caption = 'Basic Configuration';
       $dialog->parameterGroup('installer/options');
       $dialog->hiddenValues->merge(
@@ -1543,40 +1543,40 @@ class papaya_installer extends base_db {
       $validator = $this->getOptionsValidator();
       $validator->validate();
       $dialog->data()->merge($validator);
-      $dialog->fields[] = $field = new PapayaUiDialogFieldInput(
+      $dialog->fields[] = $field = new \PapayaUiDialogFieldInput(
         'Path data',
         'PAPAYA_PATH_DATA',
         -1,
         $this->getDefaultDataPath(),
-        new PapayaFilterFilePath()
+        new \PapayaFilterFilePath()
       );
       $field->setMandatory(TRUE);
-      $dialog->fields[] = $group = new PapayaUiDialogFieldGroup('Administrator');
-      $group->fields[] = $field = new PapayaUiDialogFieldInput(
-        'Givenname', 'givenname', -1, '', new PapayaFilterNotEmpty()
+      $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup('Administrator');
+      $group->fields[] = $field = new \PapayaUiDialogFieldInput(
+        'Givenname', 'givenname', -1, '', new \PapayaFilterNotEmpty()
       );
       $field->setMandatory(TRUE);
-      $group->fields[] = $field = new PapayaUiDialogFieldInput(
-        'Surname', 'surname', -1, '', new PapayaFilterText()
+      $group->fields[] = $field = new \PapayaUiDialogFieldInput(
+        'Surname', 'surname', -1, '', new \PapayaFilterText()
       );
       $field->setMandatory(TRUE);
-      $group->fields[] = $field = new PapayaUiDialogFieldInputEmail(
+      $group->fields[] = $field = new \PapayaUiDialogFieldInputEmail(
         'Email', 'email', '', TRUE
       );
-      $dialog->fields[] = $group = new PapayaUiDialogFieldGroup('Login');
-      $group->fields[] = $field = new PapayaUiDialogFieldInput(
-        'Login Name', 'login', -1, '', new PapayaFilterText()
+      $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup('Login');
+      $group->fields[] = $field = new \PapayaUiDialogFieldInput(
+        'Login Name', 'login', -1, '', new \PapayaFilterText()
       );
       $field->setMandatory(TRUE);
-      $group->fields[] = $field = new PapayaUiDialogFieldInputPassword('Password', 'password');
-      $group->fields[] = $field = new PapayaUiDialogFieldInputPassword(
+      $group->fields[] = $field = new \PapayaUiDialogFieldInputPassword('Password', 'password');
+      $group->fields[] = $field = new \PapayaUiDialogFieldInputPassword(
         'Repetition',
         'password_repeat',
         -1,
-        new PapayaFilterEqualsParameter($dialog->parameters(), 'password')
+        new \PapayaFilterEqualsParameter($dialog->parameters(), 'password')
       );
       $field->setMandatory($dialog->parameters()->get('password') != '');
-      $dialog->buttons[] = new PapayaUiDialogButtonSubmit('Save');
+      $dialog->buttons[] = new \PapayaUiDialogButtonSubmit('Save');
     }
     return $this->_optionsDialog;
   }

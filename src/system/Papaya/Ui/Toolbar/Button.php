@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property PapayaUiReference $reference
+* @property \PapayaUiReference $reference
 * @property string|PapayaUiString $caption
 * @property string|PapayaUiString $hint
 * @property boolean $selected
