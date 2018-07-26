@@ -189,7 +189,7 @@ class db_simple extends base_object {
     } else {
       $uriString = $this->databaseURIs['read'];
     }
-    $this->databaseConfiguration[$mode] = new \PapayaDatabaseSourceName($uriString);
+    $this->databaseConfiguration[$mode] = new \Papaya\Database\Source\Name($uriString);
     if (isset($this->databaseObjects[$mode]) &&
         is_object($this->databaseObjects[$mode])) {
       if ($this->getConnection($mode)->extensionFound()) {

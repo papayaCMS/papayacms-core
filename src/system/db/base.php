@@ -77,10 +77,10 @@ abstract class dbcon_base extends base_object {
   /**
    * Constructor
    *
-   * @param array|\PapayaDatabaseSourceName $conf
+   * @param array|\Papaya\Database\Source\Name $conf
    * @return \dbcon_base
    */
-  public function __construct(PapayaDatabaseSourceName $conf) {
+  public function __construct(\Papaya\Database\Source\Name $conf) {
     $this->databaseConfiguration = $conf;
   }
 
