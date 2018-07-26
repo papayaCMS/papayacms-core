@@ -253,7 +253,7 @@ class PapayaPluginLoader extends \PapayaObject {
           )) {
         $logMessage = new \PapayaMessageLog(
           \PapayaMessageLogable::GROUP_MODULES,
-          \PapayaMessage::SEVERITY_ERROR,
+          Papaya\Message::SEVERITY_ERROR,
           sprintf('Can not include module file "%s"', $fileName)
         );
         $logMessage->context()->append(new \PapayaMessageContextBacktrace());
@@ -263,7 +263,7 @@ class PapayaPluginLoader extends \PapayaObject {
       if (!class_exists($pluginData['class'], FALSE)) {
         $logMessage = new \PapayaMessageLog(
           \PapayaMessageLogable::GROUP_MODULES,
-          \PapayaMessage::SEVERITY_ERROR,
+          Papaya\Message::SEVERITY_ERROR,
           sprintf('Can not find module class "%s"', $pluginData['class'])
         );
         $logMessage->context()->append(new \PapayaMessageContextBacktrace());

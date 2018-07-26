@@ -52,10 +52,10 @@ class PapayaRequestParameters extends \PapayaObjectParameters {
    * @see \PapayaObjectParameters::get()
    * @param array|int|string $offset
    * @param null $defaultValue
-   * @param \PapayaFilter $filter
+   * @param \Papaya\Filter $filter
    * @return mixed
    */
-  public function get($offset, $defaultValue = NULL, \PapayaFilter $filter = NULL) {
+  public function get($offset, $defaultValue = NULL, Papaya\Filter $filter = NULL) {
     return parent::get($this->_parseParameterName($offset), $defaultValue, $filter);
   }
 

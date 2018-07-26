@@ -21,11 +21,11 @@ class PapayaFilterNotTest extends \PapayaTestCase {
   * @covers \PapayaFilterNot::__construct
   */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filterMock */
-    $filterMock = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
+    $filterMock = $this->createMock(Papaya\Filter::class);
     $filter = new \PapayaFilterNot($filterMock);
     $this->assertAttributeInstanceOf(
-      \PapayaFilter::class, '_filter', $filter
+      Papaya\Filter::class, '_filter', $filter
     );
   }
 
@@ -34,8 +34,8 @@ class PapayaFilterNotTest extends \PapayaTestCase {
   * @expectedException PapayaFilterException
   */
   public function testValidateExpectingException() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filterMock */
-    $filterMock = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
+    $filterMock = $this->createMock(Papaya\Filter::class);
     $filterMock
       ->expects($this->once())
       ->method('validate')
@@ -49,8 +49,8 @@ class PapayaFilterNotTest extends \PapayaTestCase {
   * @covers \PapayaFilterNot::validate
   */
   public function testValidateExpectingTrue() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filterMock */
-    $filterMock = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
+    $filterMock = $this->createMock(Papaya\Filter::class);
     $filterMock
       ->expects($this->once())
       ->method('validate')
@@ -64,8 +64,8 @@ class PapayaFilterNotTest extends \PapayaTestCase {
    * @covers \PapayaFilterNot::filter
    */
   public function testFilter() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filterMock */
-    $filterMock = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
+    $filterMock = $this->createMock(Papaya\Filter::class);
     $filter = new \PapayaFilterNot($filterMock);
     $this->assertEquals('Test', $filter->filter('Test'));
   }

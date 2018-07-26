@@ -35,10 +35,10 @@ class PapayaUiDialogFieldInputPassword extends \PapayaUiDialogFieldInput {
    * @param string|\PapayaUiString $caption
    * @param string $name
    * @param integer $length
-   * @param \PapayaFilter|NULL $filter
+   * @param \Papaya\Filter|NULL $filter
    * @internal param mixed $default
    */
-  public function __construct($caption, $name, $length = 1024, \PapayaFilter $filter = NULL) {
+  public function __construct($caption, $name, $length = 1024, Papaya\Filter $filter = NULL) {
     $this->setCaption($caption);
     $this->setName($name);
     $this->setMaximumLength($length);

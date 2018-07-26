@@ -17,7 +17,7 @@
 * Encapsulation object for the libxml errors.
 *
 * This is a wrapper for the libxml error handling function, it converts the warnings and errors
-* into PapayaMessage objects and dispatches them into the MessageManager.
+* into Papaya\PapayaMessage objects and dispatches them into the MessageManager.
 *
 * @package Papaya-Library
 * @subpackage Xml
@@ -34,10 +34,10 @@ class PapayaXmlErrors extends \PapayaObject {
   * @var array
   */
   private $_errorMapping = array(
-    LIBXML_ERR_NONE => \PapayaMessage::SEVERITY_INFO,
-    LIBXML_ERR_WARNING => \PapayaMessage::SEVERITY_WARNING,
-    LIBXML_ERR_ERROR => \PapayaMessage::SEVERITY_ERROR,
-    LIBXML_ERR_FATAL => \PapayaMessage::SEVERITY_ERROR
+    LIBXML_ERR_NONE => Papaya\Message::SEVERITY_INFO,
+    LIBXML_ERR_WARNING => Papaya\Message::SEVERITY_WARNING,
+    LIBXML_ERR_ERROR => Papaya\Message::SEVERITY_ERROR,
+    LIBXML_ERR_FATAL => Papaya\Message::SEVERITY_ERROR
   );
 
   /**
@@ -91,7 +91,7 @@ class PapayaXmlErrors extends \PapayaObject {
         $context->append(new \PapayaMessageContextBacktrace(1));
         $this->papaya()->messages->log(
           \PapayaMessageLogable::GROUP_SYSTEM,
-          \PapayaMessage::SEVERITY_ERROR,
+          Papaya\Message::SEVERITY_ERROR,
           $e->getMessage(),
           $context
         );
@@ -133,7 +133,7 @@ class PapayaXmlErrors extends \PapayaObject {
   }
 
   /**
-   * Converts a libxml error object into a PapayaMessage
+   * Converts a libxml error object into a Papaya\PapayaMessage
    *
    * @param libXMLError $error
    * @return \PapayaMessageLog

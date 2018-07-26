@@ -184,7 +184,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   * @covers \PapayaObjectParameters::get
   */
   public function testGetWithFilter() {
-    $filter = $this->createMock(\PapayaFilter::class);
+    $filter = $this->createMock(Papaya\Filter::class);
     $filter
       ->expects($this->once())
       ->method('filter')
@@ -206,7 +206,7 @@ class PapayaObjectParametersTest extends \PapayaTestCase {
   * @covers \PapayaObjectParameters::get
   */
   public function testGetWithFilterExpectingDefaultValue() {
-    $filter = $this->createMock(\PapayaFilter::class);
+    $filter = $this->createMock(Papaya\Filter::class);
     $filter
       ->expects($this->once())
       ->method('filter')

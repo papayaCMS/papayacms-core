@@ -29,7 +29,7 @@ class PapayaFilterLogicalAnd extends \PapayaFilterLogical {
    * @return bool
    */
   public function validate($value) {
-    /** @var \PapayaFilter $filter */
+    /** @var \Papaya\Filter $filter */
     foreach ($this->_filters as $filter) {
       $filter->validate($value);
     }
@@ -46,7 +46,7 @@ class PapayaFilterLogicalAnd extends \PapayaFilterLogical {
    * @return mixed|null|string
    */
   public function filter($value) {
-    /** @var \PapayaFilter $filter */
+    /** @var \Papaya\Filter $filter */
     foreach ($this->_filters as $filter) {
       $value = $filter->filter($value);
       if (is_null($value)) {

@@ -22,7 +22,7 @@ class PapayaFilterArrayAssociativeTest extends \PapayaTestCase {
    * @throws PapayaFilterException
    */
   public function testValidateExpectingTrue() {
-    $subFilter = $this->getMockBuilder(\PapayaFilter::class)->getMock();
+    $subFilter = $this->getMockBuilder(Papaya\Filter::class)->getMock();
     $subFilter
       ->expects($this->any())
       ->method('validate')
@@ -43,7 +43,7 @@ class PapayaFilterArrayAssociativeTest extends \PapayaTestCase {
   public function testValidateInvalidElementValueExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilterException $e */
     $e = $this->createMock(\PapayaFilterException::class);
-    $subFilter = $this->getMockBuilder(\PapayaFilter::class)->getMock();
+    $subFilter = $this->getMockBuilder(Papaya\Filter::class)->getMock();
     $subFilter
       ->expects($this->any())
       ->method('validate')
@@ -63,7 +63,7 @@ class PapayaFilterArrayAssociativeTest extends \PapayaTestCase {
    * @throws PapayaFilterException
    */
   public function testValidateInvalidKeyExpectingException() {
-    $subFilter = $this->getMockBuilder(\PapayaFilter::class)->getMock();
+    $subFilter = $this->getMockBuilder(Papaya\Filter::class)->getMock();
     $subFilter
       ->expects($this->any())
       ->method('validate')
@@ -81,7 +81,7 @@ class PapayaFilterArrayAssociativeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\AssociativeArray
    */
   public function testFilterExpectingValue() {
-    $subFilter = $this->getMockBuilder(\PapayaFilter::class)->getMock();
+    $subFilter = $this->getMockBuilder(Papaya\Filter::class)->getMock();
     $subFilter
       ->expects($this->any())
       ->method('filter')
@@ -102,7 +102,7 @@ class PapayaFilterArrayAssociativeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\AssociativeArray
    */
   public function testFilterExpectingNull() {
-    $subFilter = $this->getMockBuilder(\PapayaFilter::class)->getMock();
+    $subFilter = $this->getMockBuilder(Papaya\Filter::class)->getMock();
     $subFilter
       ->expects($this->any())
       ->method('filter')
@@ -123,7 +123,7 @@ class PapayaFilterArrayAssociativeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\AssociativeArray
    */
   public function testFilterWithoutArrayExpectingNull() {
-    $subFilter = $this->getMockBuilder(\PapayaFilter::class)->getMock();
+    $subFilter = $this->getMockBuilder(Papaya\Filter::class)->getMock();
     $subFilter
       ->expects($this->any())
       ->method('filter')

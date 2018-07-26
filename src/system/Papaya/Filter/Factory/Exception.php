@@ -19,6 +19,6 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-abstract class PapayaFilterFactoryException extends \PapayaException {
+abstract class PapayaFilterFactoryException extends Papaya\Exception {
 
 }

@@ -201,8 +201,8 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogField::setFilter
   */
   public function testSetFilter() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filter */
-    $filter = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
+    $filter = $this->createMock(Papaya\Filter::class);
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock());
     $field->setFilter($filter);
@@ -215,8 +215,8 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogField::getFilter
   */
   public function testGetFilterWhileMandatoryTrue() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filter */
-    $filter = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
+    $filter = $this->createMock(Papaya\Filter::class);
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock());
     $field->setFilter($filter);
@@ -230,8 +230,8 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogField::getFilter
   */
   public function testGetFilterWhileMandatoryFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filter */
-    $filter = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
+    $filter = $this->createMock(Papaya\Filter::class);
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock());
     $field->setFilter($filter);
@@ -277,8 +277,8 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogField::_validateFilter
   */
   public function testValidateWithFilter() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filter */
-    $filter = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
+    $filter = $this->createMock(Papaya\Filter::class);
     $filter
       ->expects($this->once())
       ->method('validate')
@@ -296,8 +296,8 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogField::_validateFilter
   */
   public function testValidateNotMandatoryWithEmptyValueIsInvalidForFilterButReturnTrue() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filter */
-    $filter = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
+    $filter = $this->createMock(Papaya\Filter::class);
     $filter
       ->expects($this->once())
       ->method('validate')
@@ -324,8 +324,8 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
         $this->isInstanceOf(\PapayaFilterException::class),
         $this->isInstanceOf(\PapayaUiDialogField::class)
       );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filter */
-    $filter = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
+    $filter = $this->createMock(Papaya\Filter::class);
     $filter
       ->expects($this->once())
       ->method('validate')
@@ -472,8 +472,8 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogField::collect
   */
   public function testCollectWithFilter() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filter */
-    $filter = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
+    $filter = $this->createMock(Papaya\Filter::class);
     $filter
       ->expects($this->once())
       ->method('filter')
@@ -507,8 +507,8 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogField::collect
   */
   public function testCollectWithFilterFailedAndDefaultValue() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filter */
-    $filter = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
+    $filter = $this->createMock(Papaya\Filter::class);
     $filter
       ->expects($this->once())
       ->method('filter')

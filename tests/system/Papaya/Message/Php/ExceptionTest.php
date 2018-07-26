@@ -26,7 +26,7 @@ class PapayaMessagePhpExceptionTest extends \PapayaTestCase {
       new ErrorException('Sample Error', 0, E_USER_ERROR, 'sample.php', 42)
     );
     $this->assertAttributeEquals(
-      \PapayaMessage::SEVERITY_ERROR,
+      Papaya\Message::SEVERITY_ERROR,
       '_type',
       $message
     );

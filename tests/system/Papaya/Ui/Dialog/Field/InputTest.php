@@ -34,7 +34,7 @@ class PapayaUiDialogFieldInputTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldInput::__construct
   */
   public function testConstructorWithAllParameters() {
-    $filter = $this->createMock(\PapayaFilter::class);
+    $filter = $this->createMock(Papaya\Filter::class);
     $input = new \PapayaUiDialogFieldInput('Caption', 'name', 42, '50670', $filter);
     $this->assertAttributeEquals(
       42, '_maximumLength', $input

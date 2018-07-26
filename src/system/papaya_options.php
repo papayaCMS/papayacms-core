@@ -1039,7 +1039,7 @@ class papaya_options extends base_options {
         }
         $this->papaya()->messages->dispatch(
           new \PapayaMessageDisplay(
-            \PapayaMessage::SEVERITY_ERROR,
+            Papaya\Message::SEVERITY_ERROR,
             sprintf(
               $this->_gt('Statistic module (%s) not found.'),
               $statisticOverviewGuid
@@ -1339,7 +1339,7 @@ class papaya_options extends base_options {
     } else {
       $this->papaya()->messages->dispatch(
         new \PapayaMessageDisplay(
-          \PapayaMessage::SEVERITY_ERROR,
+          Papaya\Message::SEVERITY_ERROR,
           $this->_gt('Please set and save the PAPAYA_PATH_DATA option.')
         )
       );

@@ -18,8 +18,8 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiControlCommandConditionParameterTest extends \PapayaTestCase {
 
   public function testValidateExpectingTrue() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filter */
-    $filter = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
+    $filter = $this->createMock(Papaya\Filter::class);
     $filter
       ->expects($this->once())
       ->method('filter')
@@ -31,8 +31,8 @@ class PapayaUiControlCommandConditionParameterTest extends \PapayaTestCase {
   }
 
   public function testValidateExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filter */
-    $filter = $this->createMock(\PapayaFilter::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
+    $filter = $this->createMock(Papaya\Filter::class);
     $filter
       ->expects($this->once())
       ->method('filter')

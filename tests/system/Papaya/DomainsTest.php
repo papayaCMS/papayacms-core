@@ -21,10 +21,10 @@ require_once __DIR__.'/../../bootstrap.php';
 class PapayaDomainsTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaDomains::getDomainsByPath
+  * @covers \Papaya\Domains::getDomainsByPath
   */
   public function testGetDomainsByPath() {
-    $domains = new \PapayaDomains();
+    $domains = new Papaya\Domains();
     $domains->domains($this->getDomainDataFixture());
     $this->assertEquals(
       array(
@@ -40,11 +40,11 @@ class PapayaDomainsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDomains::loadLazy
-  * @covers \PapayaDomains::getDomainsByPath
+  * @covers \Papaya\Domains::loadLazy
+  * @covers \Papaya\Domains::getDomainsByPath
   */
   public function testGetDefaultDomainsByPath() {
-    $domains = new \PapayaDomains();
+    $domains = new Papaya\Domains();
     $domains->domains(
       $this->getDomainDataFixture(
         array(
@@ -71,10 +71,10 @@ class PapayaDomainsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDomains::getDomainByHost
+  * @covers \Papaya\Domains::getDomainByHost
   */
   public function testGetDomainByHost() {
-    $domains = new \PapayaDomains();
+    $domains = new Papaya\Domains();
     $domains->domains($this->getDomainDataFixture());
     $this->assertEquals(
       array(
@@ -88,10 +88,10 @@ class PapayaDomainsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDomains::getDomainByHost
+  * @covers \Papaya\Domains::getDomainByHost
   */
   public function testGetDomainByHostUsingSchemePriority() {
-    $domains = new \PapayaDomains();
+    $domains = new Papaya\Domains();
     $domains->domains(
       $this->getDomainDataFixture(
         array(
@@ -128,14 +128,14 @@ class PapayaDomainsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDomains::getCurrent
-  * @covers \PapayaDomains::getDomainByHost
+  * @covers \Papaya\Domains::getCurrent
+  * @covers \Papaya\Domains::getDomainByHost
   * @backupGlobals enabled
   */
   public function testGetCurrent() {
     $_SERVER['HTTP_HOST'] = 'www.sample.tld';
     $_SERVER['HTTPS'] = 'on';
-    $domains = new \PapayaDomains();
+    $domains = new Papaya\Domains();
     $domains->domains($this->getDomainDataFixture());
     $domains->getCurrent();
     $this->assertEquals(
@@ -150,13 +150,13 @@ class PapayaDomainsTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaDomains::getHostVariants
+   * @covers \Papaya\Domains::getHostVariants
    * @dataProvider provideHostVariants
    * @param array $expected
    * @param string $host
    */
   public function testGetHostVariants(array $expected, $host) {
-    $domains = new \PapayaDomains();
+    $domains = new Papaya\Domains();
     $this->assertEquals(
       $expected,
       $domains->getHostVariants($host)
@@ -164,30 +164,30 @@ class PapayaDomainsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaDomains::loadLazy
+  * @covers \Papaya\Domains::loadLazy
   */
   public function testLoadLazy() {
-    $domains = new \PapayaDomains();
+    $domains = new Papaya\Domains();
     $domains->domains($this->getDomainDataFixture());
     $domains->loadLazy();
     $domains->loadLazy();
   }
 
   /**
-  * @covers \PapayaDomains::domains
+  * @covers \Papaya\Domains::domains
   */
   public function testDomainsGetAfterSet() {
     $data = $this->createMock(Domains::class);
-    $domains = new \PapayaDomains();
+    $domains = new Papaya\Domains();
     $domains->domains($data);
     $this->assertSame($data, $domains->domains());
   }
 
   /**
-  * @covers \PapayaDomains::domains
+  * @covers \Papaya\Domains::domains
   */
   public function testDomainGetImplicitCreate() {
-    $domains = new \PapayaDomains();
+    $domains = new Papaya\Domains();
     $domains->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(Domains::class, $data = $domains->domains());
     $this->assertSame($papaya, $data->papaya());

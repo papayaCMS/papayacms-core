@@ -19,6 +19,6 @@
 * @package Papaya-Library
 * @subpackage Messages
 */
-interface PapayaMessageDisplayable extends \PapayaMessage {
+interface PapayaMessageDisplayable extends Papaya\Message {
 
 }

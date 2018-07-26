@@ -389,9 +389,9 @@ class Access extends \PapayaObject {
       call_user_func($errorHandler, $exception);
     } else {
       $mapSeverity = array(
-        \Papaya\Database\Exception::SEVERITY_INFO => \PapayaMessage::SEVERITY_INFO,
-        \Papaya\Database\Exception::SEVERITY_WARNING => \PapayaMessage::SEVERITY_WARNING,
-        \Papaya\Database\Exception::SEVERITY_ERROR => \PapayaMessage::SEVERITY_ERROR,
+        \Papaya\Database\Exception::SEVERITY_INFO => \Papaya\Message::SEVERITY_INFO,
+        \Papaya\Database\Exception::SEVERITY_WARNING => \Papaya\Message::SEVERITY_WARNING,
+        \Papaya\Database\Exception::SEVERITY_ERROR => \Papaya\Message::SEVERITY_ERROR,
       );
       $logMsg = new \PapayaMessageLog(
         \PapayaMessageLogable::GROUP_DATABASE,

@@ -57,7 +57,7 @@ class Remove
       $this->callbacks()->onExecuteSuccessful = array($this, 'callbackDeleted');
     } else {
       $dialog->fields[] = new \PapayaUiDialogFieldMessage(
-        \PapayaMessage::SEVERITY_INFO, 'Theme set not found.'
+        \Papaya\Message::SEVERITY_INFO, 'Theme set not found.'
       );
     }
     return $dialog;
@@ -69,7 +69,7 @@ class Remove
   public function callbackDeleted() {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        \PapayaMessage::SEVERITY_INFO,
+        \Papaya\Message::SEVERITY_INFO,
         'Theme set deleted.'
       )
     );

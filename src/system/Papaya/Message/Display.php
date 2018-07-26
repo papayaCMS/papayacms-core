@@ -26,7 +26,7 @@ class PapayaMessageDisplay
   * Message type
   * @var integer
   */
-  protected $_type = \PapayaMessage::SEVERITY_INFO;
+  protected $_type = Papaya\Message::SEVERITY_INFO;
 
   /**
   * Message text
@@ -39,9 +39,9 @@ class PapayaMessageDisplay
   * @var array
   */
   protected $_allowedTypes = array(
-    \PapayaMessage::SEVERITY_INFO,
-    \PapayaMessage::SEVERITY_WARNING,
-    \PapayaMessage::SEVERITY_ERROR
+    Papaya\Message::SEVERITY_INFO,
+    Papaya\Message::SEVERITY_WARNING,
+    Papaya\Message::SEVERITY_ERROR
   );
 
   /**

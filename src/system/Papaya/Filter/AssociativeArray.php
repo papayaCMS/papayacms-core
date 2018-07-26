@@ -23,7 +23,7 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class AssociativeArray implements \PapayaFilter {
+class AssociativeArray implements \Papaya\Filter {
 
   /**
    * Filters for each array element
@@ -44,7 +44,7 @@ class AssociativeArray implements \PapayaFilter {
       throw new \InvalidArgumentException('Empty filter definition.');
     }
     foreach ($filtersByName as $name => $filter) {
-      if ($filter instanceof \PapayaFilter) {
+      if ($filter instanceof \Papaya\Filter) {
         $this->_filters[$name] = $filter;
       } else {
         throw new \InvalidArgumentException(

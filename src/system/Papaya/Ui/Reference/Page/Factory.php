@@ -49,7 +49,7 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
   private $_languages = NULL;
 
   /**
-   * @var \PapayaDomains
+   * @var \Papaya\Domains
    */
   private $_domains = NULL;
 
@@ -419,14 +419,14 @@ class PapayaUiReferencePageFactory extends \PapayaObject {
   /**
    * The domains subobject is used to load get domain data for the page id
    *
-   * @param \PapayaDomains $domains
-   * @return \PapayaDomains
+   * @param \Papaya\Domains $domains
+   * @return \Papaya\Domains
    */
-  public function domains(\PapayaDomains $domains = NULL) {
+  public function domains(Papaya\Domains $domains = NULL) {
     if (isset($domains)) {
       $this->_domains = $domains;
     } elseif (is_null($this->_domains)) {
-      $this->_domains = new \PapayaDomains();
+      $this->_domains = new Papaya\Domains();
       $this->_domains->papaya($this->papaya());
     }
     return $this->_domains;

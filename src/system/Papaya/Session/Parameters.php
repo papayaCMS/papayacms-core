@@ -65,7 +65,7 @@ class PapayaSessionParameters extends \PapayaObject {
   *
   * @param string|array $name
   * @param mixed $default
-  * @param \PapayaFilter|NULL $filter
+  * @param \Papaya\Filter|NULL $filter
   * @param array|string $dependencies
   * @return mixed
   */

@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Filter;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaFilterArrayTest extends \PapayaTestCase {
@@ -21,7 +23,7 @@ class PapayaFilterArrayTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\ArrayOf::__construct
   */
   public function testConstructorWithElementFilter() {
-    $filter = new \Papaya\Filter\ArrayOf($subFilter = $this->createMock(\PapayaFilter::class));
+    $filter = new \Papaya\Filter\ArrayOf($subFilter = $this->createMock(Papaya\Filter::class));
     $this->assertAttributeSame(
       $subFilter, '_elementFilter', $filter
     );
@@ -31,7 +33,7 @@ class PapayaFilterArrayTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\ArrayOf::validate
    * @dataProvider provideValidValidateData
    * @param mixed $value
-   * @param NULL|PapayaFilter $elementFilter
+   * @param NULL|Filter $elementFilter
    * @throws PapayaFilterException
    */
   public function testValidateExpectingTrue($value, $elementFilter = NULL) {
@@ -43,7 +45,7 @@ class PapayaFilterArrayTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\ArrayOf::validate
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
-   * @param NULL|PapayaFilter $elementFilter
+   * @param NULL|Filter $elementFilter
    * @throws PapayaFilterException
    */
   public function testValidateExpectingException($value, $elementFilter = NULL) {
@@ -57,7 +59,7 @@ class PapayaFilterArrayTest extends \PapayaTestCase {
    * @dataProvider provideValidFilterData
    * @param array|NULL $expected
    * @param mixed $value
-   * @param NULL|PapayaFilter $elementFilter
+   * @param NULL|Filter $elementFilter
    */
   public function testFilter($expected, $value, $elementFilter = NULL) {
     $filter = new \Papaya\Filter\ArrayOf($elementFilter);
@@ -68,7 +70,7 @@ class PapayaFilterArrayTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\ArrayOf::filter
    * @dataProvider provideInvalidFilterData
    * @param mixed $value
-   * @param NULL|PapayaFilter $elementFilter
+   * @param NULL|Filter $elementFilter
    */
   public function testFilterExpectingNull($value, $elementFilter = NULL) {
     $filter = new \Papaya\Filter\ArrayOf($elementFilter);

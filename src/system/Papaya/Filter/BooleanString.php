@@ -22,7 +22,7 @@ namespace Papaya\Filter;
  * @subpackage Filter
  */
 class BooleanString
-  implements \PapayaFilter {
+  implements \Papaya\Filter {
 
   private $_mapping = array(
     '+' => TRUE,

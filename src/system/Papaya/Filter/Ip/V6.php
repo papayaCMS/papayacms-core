@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterIpV6 implements \PapayaFilter {
+class PapayaFilterIpV6 implements Papaya\Filter {
 
   /**
    * This method validates that an input string is a valid IP.

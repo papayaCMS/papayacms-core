@@ -24,7 +24,7 @@ class PapayaUiDialogFieldTextareaLines extends \PapayaUiDialogFieldTextarea {
   protected $_type = 'lines';
 
   public function __construct(
-    $caption, $name, $lines = 10, $default = NULL, \PapayaFilter $filter = NULL
+    $caption, $name, $lines = 10, $default = NULL, Papaya\Filter $filter = NULL
   ) {
     parent::__construct(
       $caption,

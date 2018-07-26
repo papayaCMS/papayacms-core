@@ -76,7 +76,8 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
 
   /**
   * Filter used to check/filter the input
-  * @var \PapayaFilter
+  *
+  * @var \Papaya\Filter
   */
   private $_filter = NULL;
 
@@ -270,9 +271,9 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
    *
    * Filter objects are used to check and filter user inputs
    *
-   * @param \PapayaFilter $filter
+   * @param \Papaya\Filter $filter
    */
-  public function setFilter(\PapayaFilter $filter) {
+  public function setFilter(Papaya\Filter $filter) {
     $this->_filter = $filter;
   }
 
@@ -282,7 +283,7 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   *
   * Filter objects are used to check and filter user inputs
   *
-  * @return NULL|\PapayaFilter
+  * @return NULL|\Papaya\Filter
   */
   public function getFilter() {
     if ($this->_mandatory && isset($this->_filter)) {
@@ -325,11 +326,11 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   /**
    * Validate current value against the filter object if it is here.
    *
-   * @param \PapayaFilter|NULL $filter
+   * @param \Papaya\Filter|NULL $filter
    * @return boolean
    */
   protected function _validateFilter($filter) {
-    if (isset($filter) && $filter instanceof \PapayaFilter) {
+    if (isset($filter) && $filter instanceof Papaya\Filter) {
       try {
         return $filter->validate($this->getCurrentValue());
       } catch (\PapayaFilterException $e) {

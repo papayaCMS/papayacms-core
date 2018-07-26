@@ -1543,11 +1543,11 @@ class base_dialog extends base_object {
   * Return filter object to check and filter an single input value
   *
   * @param string|array $check
-  * @return \PapayaFilter
+  * @return \Papaya\Filter
   */
   function getFilterObject($check) {
     if (is_object($check) &&
-        $check instanceof PapayaFilter) {
+        $check instanceof \Papaya\Filter) {
       return $check;
     } elseif (is_string($check)) {
       if (checkit::has($check)) {
@@ -1573,7 +1573,7 @@ class base_dialog extends base_object {
    */
   function createFilterObject($name, $arguments = array()) {
     $filterReflection = new ReflectionClass($name);
-    if ($filterReflection->isSubClassOf('PapayaFilter')) {
+    if ($filterReflection->isSubclassOf(\Papaya\Filter::class)) {
       return call_user_func_array(
         array($filterReflection, 'newInstance'),
         $arguments

@@ -27,10 +27,10 @@ class PapayaMessageDispatcherTemplate
   implements \PapayaMessageDispatcher {
 
   private $severityStrings = array(
-    \PapayaMessage::SEVERITY_INFO => 'info',
-    \PapayaMessage::SEVERITY_WARNING => 'warning',
-    \PapayaMessage::SEVERITY_ERROR => 'error',
-    \PapayaMessage::SEVERITY_DEBUG => 'debug'
+    Papaya\Message::SEVERITY_INFO => 'info',
+    Papaya\Message::SEVERITY_WARNING => 'warning',
+    Papaya\Message::SEVERITY_ERROR => 'error',
+    Papaya\Message::SEVERITY_DEBUG => 'debug'
   );
 
   /**
@@ -38,10 +38,10 @@ class PapayaMessageDispatcherTemplate
   *
   * Only messages that implements \PapayaMessageDisplay are used, \all other message are ignored.
   *
-  * @param \PapayaMessage $message
+  * @param \Papaya\Message $message
   * @return boolean
   */
-  public function dispatch(\PapayaMessage $message) {
+  public function dispatch(Papaya\Message $message) {
     if ($message instanceof \PapayaMessageDisplayable) {
       if (isset($GLOBALS['PAPAYA_LAYOUT'])) {
         /** @var \Papaya\Template $layout */

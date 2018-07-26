@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
 /**
-* Papaya filter superclass
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-interface PapayaFilter {
+ * Papaya filter superclass
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+interface Filter {
 
   const IS_CSS_COLOR = 'isCssColor';
   const IS_CSS_SIZE = 'isCssSize';
@@ -50,26 +51,26 @@ interface PapayaFilter {
   const IS_XML = 'isXml';
 
   /**
-  * The filter function returns the filtered version of an input value.
-  *
-  * It removes invalid bytes from the input value. A possible implementation whould be a
-  * trimmed version of the input.
-  *
-  * If the input is invalid it should NULL
-  *
-  * @param mixed|NULL $value
-  * @return mixed
-  */
+   * The filter function returns the filtered version of an input value.
+   *
+   * It removes invalid bytes from the input value. A possible implementation whould be a
+   * trimmed version of the input.
+   *
+   * If the input is invalid it should NULL
+   *
+   * @param mixed|NULL $value
+   * @return mixed
+   */
   function filter($value);
 
   /**
-  * Checks an input and return true if it is valid.
-  *
-  * It will throw an PapayaFilterException if the input is invalid.
-  *
-  * @throws \PapayaFilterException
-  * @param mixed $value
-  * @return boolean
-  */
+   * Checks an input and return true if it is valid.
+   *
+   * It will throw an PapayaFilterException if the input is invalid.
+   *
+   * @throws \PapayaFilterException
+   * @param mixed $value
+   * @return boolean
+   */
   function validate($value);
 }

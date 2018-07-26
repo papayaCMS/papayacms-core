@@ -34,7 +34,7 @@ class PapayaUiDialogFieldTextareaRichtext extends \PapayaUiDialogFieldTextarea {
    * @param string $name
    * @param integer $lines
    * @param mixed $default
-   * @param \PapayaFilter|NULL $filter
+   * @param \Papaya\Filter|NULL $filter
    * @param int|string $rteMode
    */
   public function __construct(
@@ -42,7 +42,7 @@ class PapayaUiDialogFieldTextareaRichtext extends \PapayaUiDialogFieldTextarea {
     $name,
     $lines = 10,
     $default = NULL,
-    \PapayaFilter $filter = NULL,
+    Papaya\Filter $filter = NULL,
     $rteMode = self::RTE_DEFAULT
   ) {
     parent::__construct($caption, $name, $lines, $default, $filter);

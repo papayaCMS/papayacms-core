@@ -87,7 +87,7 @@ class Dialog
             $field->setHint($value->hint);
           } catch (\PapayaUiDialogFieldFactoryException $e) {
             $fieldset->fields[] = new \PapayaUiDialogFieldMessage(
-              \PapayaMessage::SEVERITY_ERROR, $e->getMessage()
+              \Papaya\Message::SEVERITY_ERROR, $e->getMessage()
             );
           }
         }
@@ -95,7 +95,7 @@ class Dialog
       }
       if (0 === \count($dialog->fields)) {
         $dialog->fields[] = new \PapayaUiDialogFieldMessage(
-          \PapayaMessage::SEVERITY_ERROR,
+          \Papaya\Message::SEVERITY_ERROR,
           new \PapayaUiStringTranslated('Invalid value definition!')
         );
       } else {
@@ -107,7 +107,7 @@ class Dialog
       $dialog->caption = new \PapayaUiStringTranslated('Error');
       if (0 === \count($dialog->fields)) {
         $dialog->fields[] = new \PapayaUiDialogFieldMessage(
-          \PapayaMessage::SEVERITY_ERROR,
+          \Papaya\Message::SEVERITY_ERROR,
           new \PapayaUiStringTranslated('Theme page not found!')
         );
       }
@@ -121,7 +121,7 @@ class Dialog
   public function callbackSaveValues() {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        \PapayaMessage::SEVERITY_INFO,
+        \Papaya\Message::SEVERITY_INFO,
         'Values saved.'
       )
     );
@@ -139,7 +139,7 @@ class Dialog
   public function callbackShowError($context, $dialog) {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        \PapayaMessage::SEVERITY_ERROR,
+        \Papaya\Message::SEVERITY_ERROR,
         'Invalid input. Please check the field(s) "%s".',
         array(implode(', ', $dialog->errors()->getSourceCaptions()))
       )

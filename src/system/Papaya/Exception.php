@@ -13,12 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
+
 /**
-* Papaya exception superclass
-*
-* @package Papaya-Library
-* @subpackage Base
-*/
-abstract class PapayaException extends \Exception {
+ * Papaya exception superclass
+ *
+ * @package Papaya-Library
+ * @subpackage Base
+ */
+abstract class Exception extends \Exception {
 
 }

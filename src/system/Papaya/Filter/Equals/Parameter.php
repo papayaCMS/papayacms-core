@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterEqualsParameter implements \PapayaFilter {
+class PapayaFilterEqualsParameter implements Papaya\Filter {
   
   /**
   * Given parameters object
@@ -49,7 +49,7 @@ class PapayaFilterEqualsParameter implements \PapayaFilter {
   /**
   * Check the value throw exception if value is not equal to given parameter value
   * 
-  * @see \PapayaFilter::validate()
+  * @see \Papaya\Filter::validate()
   * 
   * @throws \PapayaFilterExceptionInvalid
   * @param string $value

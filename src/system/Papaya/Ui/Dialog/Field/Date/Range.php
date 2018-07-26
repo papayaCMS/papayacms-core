@@ -157,7 +157,7 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
   /**
    * If not mandatory allow the whole value as empty or each sub value.
    *
-   * @return NULL|\PapayaFilter
+   * @return NULL|\Papaya\Filter
    */
   public function getFilter() {
     $filter = parent::getFilter();

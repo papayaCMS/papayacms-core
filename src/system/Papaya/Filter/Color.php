@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterColor implements \PapayaFilter {
+class PapayaFilterColor implements Papaya\Filter {
 
   /**
   * Pattern to check for a linebreak

@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterText implements \PapayaFilter {
+class PapayaFilterText implements Papaya\Filter {
 
   const ALLOW_SPACES = 1;
   const ALLOW_LINES = 2;

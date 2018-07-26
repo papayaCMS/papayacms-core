@@ -35,11 +35,11 @@ class PapayaMessageDispatcherWildfire
   /**
    * Send log message to browser using the Wildfire protocol if possible
    *
-   * @param \PapayaMessage $message
+   * @param \Papaya\Message $message
    * @return boolean
    * @throws \InvalidArgumentException
    */
-  public function dispatch(\PapayaMessage $message) {
+  public function dispatch(Papaya\Message $message) {
     if ($message instanceof \PapayaMessageLogable &&
         $this->allow()) {
       // @codeCoverageIgnoreStart
@@ -173,13 +173,13 @@ class PapayaMessageDispatcherWildfire
   */
   public function getWildfireMessageType($type) {
     switch ($type) {
-    case \PapayaMessage::SEVERITY_ERROR :
+    case Papaya\Message::SEVERITY_ERROR :
       return 'ERROR';
-    case \PapayaMessage::SEVERITY_WARNING :
+    case Papaya\Message::SEVERITY_WARNING :
       return 'WARN';
-    case \PapayaMessage::SEVERITY_INFO :
+    case Papaya\Message::SEVERITY_INFO :
       return 'INFO';
-    case \PapayaMessage::SEVERITY_DEBUG :
+    case Papaya\Message::SEVERITY_DEBUG :
     default :
       return 'LOG';
     }
@@ -193,13 +193,13 @@ class PapayaMessageDispatcherWildfire
   */
   public function getWildfireGroupLabelFromType($type) {
     switch ($type) {
-    case \PapayaMessage::SEVERITY_ERROR :
+    case Papaya\Message::SEVERITY_ERROR :
       return 'Error';
-    case \PapayaMessage::SEVERITY_WARNING :
+    case Papaya\Message::SEVERITY_WARNING :
       return 'Warning';
-    case \PapayaMessage::SEVERITY_INFO :
+    case Papaya\Message::SEVERITY_INFO :
       return 'Information';
-    case \PapayaMessage::SEVERITY_DEBUG :
+    case Papaya\Message::SEVERITY_DEBUG :
     default :
       return 'Debug';
     }

@@ -1731,7 +1731,7 @@ class papaya_page extends base_object {
         } catch (PapayaXmlException $e) {
           $message = new \PapayaMessageLog(
             \PapayaMessageLogable::GROUP_SYSTEM,
-            \PapayaMessage::SEVERITY_ERROR,
+            Papaya\Message::SEVERITY_ERROR,
             $e->getMessage()
           );
           $message->context()->append(

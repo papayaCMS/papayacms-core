@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterNumericWithUnit implements \PapayaFilter {
+class PapayaFilterNumericWithUnit implements Papaya\Filter {
 
   /**
   * Allowed units for validation

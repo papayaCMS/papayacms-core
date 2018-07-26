@@ -29,7 +29,7 @@ abstract class PapayaFilterFactoryProfile {
   /**
    * Create and return the filter object
    *
-   * @return \PapayaFilter
+   * @return \Papaya\Filter
    */
   abstract public function getFilter();
 

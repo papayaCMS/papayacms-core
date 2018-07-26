@@ -171,7 +171,7 @@ abstract class PapayaPluginFactory extends \PapayaObject {
   * @param string $pluginName
   * @param string $optionName
   * @param mixed $default
-  * @param \PapayaFilter $filter
+  * @param \Papaya\Filter $filter
   * @return mixed
   */
   public function getOption($pluginName, $optionName, $default = NULL, $filter = NULL) {

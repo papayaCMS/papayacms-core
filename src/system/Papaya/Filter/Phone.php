@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterPhone implements \PapayaFilter {
+class PapayaFilterPhone implements Papaya\Filter {
 
   /**
   * Pattern to check for a linebreak

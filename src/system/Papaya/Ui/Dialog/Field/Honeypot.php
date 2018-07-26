@@ -59,7 +59,7 @@ class PapayaUiDialogFieldHoneypot extends \PapayaUiDialogField {
     $this->setName($name);
   }
 
-  public function setFilter(\PapayaFilter $filter) {
+  public function setFilter(Papaya\Filter $filter) {
     throw new \LogicException('The honeypot field filter can not be changed.');
   }
 

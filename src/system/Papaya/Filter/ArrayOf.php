@@ -22,21 +22,21 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class ArrayOf implements \PapayaFilter {
+class ArrayOf implements \Papaya\Filter {
 
   /**
    * elements filter
    *
-   * @var \PapayaFilter|NULL
+   * @var \Papaya\Filter|NULL
    */
   private $_elementFilter = NULL;
 
   /**
    * Construct object and filter for the elements
    *
-   * @param \PapayaFilter|NULL $elementFilter
+   * @param \Papaya\Filter|NULL $elementFilter
    */
-  public function __construct(\PapayaFilter $elementFilter = NULL) {
+  public function __construct(\Papaya\Filter $elementFilter = NULL) {
     $this->_elementFilter = $elementFilter;
   }
 

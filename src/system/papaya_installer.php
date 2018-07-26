@@ -234,7 +234,7 @@ class papaya_installer extends base_db {
       $this->setSessionValue($this->sessionParamName, $this->sessionParams);
     } elseif ($dialog->isSubmitted()) {
       $this->papaya()->messages->display(
-        \PapayaMessage::SEVERITY_ERROR,
+        Papaya\Message::SEVERITY_ERROR,
         'Please check your intput in the following fields: '.implode(
           ', ', $dialog->errors()->getSourceCaptions()
         )

@@ -27,8 +27,8 @@ interface PapayaMessageDispatcher {
   /**
   * Dispatch/handle a message
   *
-  * @param \PapayaMessage $message
+  * @param \Papaya\Message $message
   * @return boolean message dispatched
   */
-  function dispatch(\PapayaMessage $message);
+  function dispatch(Papaya\Message $message);
 }

@@ -25,7 +25,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterLength implements \PapayaFilter {
+class PapayaFilterLength implements Papaya\Filter {
 
   /**
   * Minimum limit for integer value

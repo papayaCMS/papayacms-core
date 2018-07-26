@@ -33,7 +33,7 @@ class PapayaFilterFactoryProfileGenerator extends \PapayaFilterFactoryProfile {
     if (is_array($arguments)) {
       $name = array_shift($arguments);
       $filterReflection = new \ReflectionClass($name);
-      if ($filterReflection->isSubclassOf(\PapayaFilter::class)) {
+      if ($filterReflection->isSubclassOf(Papaya\Filter::class)) {
         return call_user_func_array(
           array($filterReflection, 'newInstance'),
           $arguments

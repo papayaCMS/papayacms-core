@@ -1391,7 +1391,7 @@ class papaya_boxes extends base_boxes {
         } else {
           $this->papaya()->messages->dispatch(
             new \PapayaMessageDisplayTranslated(
-              \PapayaMessage::SEVERITY_INFO,
+              Papaya\Message::SEVERITY_INFO,
               ($direction == 'down')
                 ? 'Box is already the last one.'
                 : 'Box is already the first one.'

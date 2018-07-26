@@ -22,7 +22,7 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class ArraySize implements \PapayaFilter {
+class ArraySize implements \Papaya\Filter {
 
   /**
    * Minimum limit

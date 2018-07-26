@@ -155,8 +155,8 @@ class PapayaMessageDispatcherWildfireTest extends \PapayaTestCase {
   * @covers \PapayaMessageDispatcherWildfire::dispatch
   */
   public function testDispatchExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessage $message */
-    $message = $this->createMock(\PapayaMessage::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message $message */
+    $message = $this->createMock(Papaya\Message::class);
     $dispatcher = new \PapayaMessageDispatcherWildfire();
     $this->assertFalse($dispatcher->dispatch($message));
   }
@@ -180,7 +180,7 @@ class PapayaMessageDispatcherWildfireTest extends \PapayaTestCase {
     $message
       ->expects($this->any())
       ->method('getType')
-      ->will($this->returnValue(\PapayaMessage::SEVERITY_DEBUG));
+      ->will($this->returnValue(Papaya\Message::SEVERITY_DEBUG));
     $message
       ->expects($this->any())
       ->method('getMessage')
@@ -220,7 +220,7 @@ class PapayaMessageDispatcherWildfireTest extends \PapayaTestCase {
     $message
       ->expects($this->any())
       ->method('getType')
-      ->will($this->returnValue(\PapayaMessage::SEVERITY_DEBUG));
+      ->will($this->returnValue(Papaya\Message::SEVERITY_DEBUG));
     $message
       ->expects($this->any())
       ->method('getMessage')
@@ -538,20 +538,20 @@ class PapayaMessageDispatcherWildfireTest extends \PapayaTestCase {
   public static function getWildfireMessageTypeDataProvider() {
     return array(
       array('LOG', -1),
-      array('LOG', \PapayaMessage::SEVERITY_DEBUG),
-      array('INFO', \PapayaMessage::SEVERITY_INFO),
-      array('WARN', \PapayaMessage::SEVERITY_WARNING),
-      array('ERROR', \PapayaMessage::SEVERITY_ERROR)
+      array('LOG', Papaya\Message::SEVERITY_DEBUG),
+      array('INFO', Papaya\Message::SEVERITY_INFO),
+      array('WARN', Papaya\Message::SEVERITY_WARNING),
+      array('ERROR', Papaya\Message::SEVERITY_ERROR)
     );
   }
 
   public static function getWildfireGroupLabelFromTypeDataProvider() {
     return array(
       array('Debug', -1),
-      array('Debug', \PapayaMessage::SEVERITY_DEBUG),
-      array('Information', \PapayaMessage::SEVERITY_INFO),
-      array('Warning', \PapayaMessage::SEVERITY_WARNING),
-      array('Error', \PapayaMessage::SEVERITY_ERROR)
+      array('Debug', Papaya\Message::SEVERITY_DEBUG),
+      array('Information', Papaya\Message::SEVERITY_INFO),
+      array('Warning', Papaya\Message::SEVERITY_WARNING),
+      array('Error', Papaya\Message::SEVERITY_ERROR)
     );
   }
 }

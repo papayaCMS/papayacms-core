@@ -63,7 +63,7 @@ class Delete
   public function dispatchDeleteMessage() {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        \PapayaMessage::SEVERITY_INFO, 'Reference deleted.'
+        \Papaya\Message::SEVERITY_INFO, 'Reference deleted.'
       )
     );
   }

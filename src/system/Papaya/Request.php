@@ -497,7 +497,7 @@ class PapayaRequest
   * Get a request parameter value
   * @param string $name
   * @param mixed $defaultValue
-  * @param \PapayaFilter $filter
+  * @param \Papaya\Filter $filter
   * @param integer $sources
   * @return mixed
   */

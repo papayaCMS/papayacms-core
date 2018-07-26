@@ -81,7 +81,7 @@ class PapayaProfilerTimer extends \PapayaObject implements \IteratorAggregate {
     foreach ($this as $take) {
       $this->papaya()->messages->log(
         \PapayaMessageLogable::GROUP_DEBUG,
-        \PapayaMessage::SEVERITY_DEBUG,
+        Papaya\Message::SEVERITY_DEBUG,
         $take['text'],
         new \PapayaMessageContextRuntime($take['start'], $take['end'])
       );

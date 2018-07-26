@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterDate implements \PapayaFilter {
+class PapayaFilterDate implements Papaya\Filter {
   /**
   * Do not include a time
   * @constant int

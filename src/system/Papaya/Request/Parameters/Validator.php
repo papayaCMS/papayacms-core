@@ -77,14 +77,14 @@ class PapayaRequestParametersValidator
         $name, 'Empty parameter name not allowed.'
       );
       $default = \PapayaUtilArray::get($definition, array('default', 1), NULL);
-      if ($default instanceof \PapayaFilter) {
+      if ($default instanceof Papaya\Filter) {
         $filter = $default;
         $default = NULL;
       } else {
         $filter = \PapayaUtilArray::get($definition, array('filter', 2), NULL);
       }
       if (NULL !== $filter) {
-        \PapayaUtilConstraints::assertInstanceOf(\PapayaFilter::class, $filter);
+        \PapayaUtilConstraints::assertInstanceOf(Papaya\Filter::class, $filter);
       }
       $this->_definitions[$name] = array(
         'default' => $default, 'filter' => $filter
@@ -104,7 +104,7 @@ class PapayaRequestParametersValidator
       $this->_validationResult = TRUE;
       foreach ($this->_definitions as $name => $definition) {
         try {
-          /** @var \PapayaFilter $filter */
+          /** @var \Papaya\Filter $filter */
           $filter = isset($definition['filter']) ? $definition['filter'] : NULL;
           $value = $this->_parameters->get(
             $name, $definition['default'], $filter

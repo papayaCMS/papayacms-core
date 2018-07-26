@@ -65,10 +65,10 @@ class PapayaPluginOptions extends Papaya\Configuration {
   *
   * @param string $name
   * @param mixed $default
-  * @param \PapayaFilter $filter
+  * @param \Papaya\Filter $filter
   * @return mixed
   */
-  public function get($name, $default = NULL, \PapayaFilter $filter = NULL) {
+  public function get($name, $default = NULL, Papaya\Filter $filter = NULL) {
     $this->lazyLoad();
     return parent::get($name, $default, $filter);
   }

@@ -22,7 +22,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterNumber implements \PapayaFilter {
+class PapayaFilterNumber implements Papaya\Filter {
   /**
   * Minimum number of digits
   * @var integer

@@ -28,7 +28,7 @@
 * @property mixed $default field default value
 * @property boolean $mandatory mandatory field status
 * @property boolean $disabled disabled field status
-* @property \PapayaFilter $validation the validation filter, can be set from string|array as well
+* @property \Papaya\Filter $validation the validation filter, can be set from string|array as well
 * @property mixed $parameters an individual parameters value
 * @property \PapayaObject $context used for callbacks or access to the application registry
 */
@@ -237,24 +237,24 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
   }
 
   /**
-   * The validation value is converted into an PapayaFilter object
+   * The validation value is converted into an Papaya\PapayaFilter object
    *
    * If it is empty the filter depends only on the mandatory value.
    *
-   * If it is an array, the first element is considered a PapayaFilter class and all others
+   * If it is an array, the first element is considered a Papaya\PapayaFilter class and all others
    * arguments for the constructor.
    *
-   * If it is an existing class, it is considered a PapayaFilter class.
+   * If it is an existing class, it is considered a Papaya\PapayaFilter class.
    *
    * If it does start with an non word character it is considered a PCRE.
    *
    * In all other cases it is considered a filter profile name.
    *
    * @param mixed $validation
-   * @return null|\PapayaFilter|\PapayaFilterNotEmpty
+   * @return null|\Papaya\Filter|\PapayaFilterNotEmpty
    */
   private function getValidation($validation) {
-    if ($validation instanceof \PapayaFilter) {
+    if ($validation instanceof Papaya\Filter) {
       return $validation;
     }
     if (empty($validation)) {

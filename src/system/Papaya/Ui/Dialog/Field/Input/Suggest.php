@@ -67,10 +67,10 @@ class PapayaUiDialogFieldInputSuggest extends \PapayaUiDialogFieldInput {
    * @param string $name
    * @param string $suggestionUrl
    * @param mixed $default optional, default NULL
-   * @param \PapayaFilter|NULL $filter
+   * @param \Papaya\Filter|NULL $filter
    */
   public function __construct(
-    $caption, $name, $suggestionUrl, $default = NULL, \PapayaFilter $filter = NULL
+    $caption, $name, $suggestionUrl, $default = NULL, Papaya\Filter $filter = NULL
   ) {
     parent::__construct($caption, $name, 1024, $default, $filter);
     $this->setSuggestionUrl($suggestionUrl);

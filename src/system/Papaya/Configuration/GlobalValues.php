@@ -43,10 +43,10 @@ class GlobalValues extends \Papaya\Configuration {
    *
    * @param string $name
    * @param mixed $default
-   * @param \PapayaFilter $filter
+   * @param \Papaya\Filter $filter
    * @return NULL|int|boolean|float|string
    */
-  public function get($name, $default = NULL, \PapayaFilter $filter = NULL) {
+  public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
     $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
     if (defined($name)) {
       return $this->filter(constant($name), $default, $filter);

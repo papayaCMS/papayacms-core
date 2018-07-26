@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterIpV4 implements \PapayaFilter {
+class PapayaFilterIpV4 implements Papaya\Filter {
   /**
   * Allow local IP addresses
   * @const ALLOW_LINK_LOCAL

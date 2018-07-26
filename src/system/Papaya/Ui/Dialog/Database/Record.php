@@ -66,7 +66,7 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
   /**
   * Column definition.
   *
-  * The keys are the fields, the elements define the type. You can provide PapayaFilter objects
+  * The keys are the fields, the elements define the type. You can provide Papaya\PapayaFilter objects
   * or types. Types are provided as strings like 'integer' {@link http://www.php.net/settype}.
   *
   * @var array
@@ -164,7 +164,7 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
    */
   private function _getIdentifierValue($column) {
     if (isset($this->_columns[$column]) &&
-        $this->_columns[$column] instanceof \PapayaFilter) {
+        $this->_columns[$column] instanceof Papaya\Filter) {
       return $this->parameters()->get(
         $column, NULL, $this->_columns[$column]
       );
@@ -284,7 +284,7 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
     foreach ($this->_columns as $field => $filter) {
       if ($field != $this->_identifierColumn) {
         $value = $this->data()->get($field);
-        if ($filter instanceof \PapayaFilter) {
+        if ($filter instanceof Papaya\Filter) {
           if ($filter->validate($value)) {
             $data[$field] = $filter->filter($value);
           }

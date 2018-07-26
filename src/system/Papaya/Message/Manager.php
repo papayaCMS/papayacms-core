@@ -43,9 +43,10 @@ class PapayaMessageManager extends \PapayaObject {
 
   /**
   * Dispatch a message to all available dispatchers
-  * @param \PapayaMessage $message
+  *
+  * @param \Papaya\Message $message
   */
-  public function dispatch(\PapayaMessage $message) {
+  public function dispatch(Papaya\Message $message) {
     /** @var \PapayaMessageDispatcher $dispatcher */
     foreach ($this->_dispatchers as $dispatcher) {
       $dispatcher->dispatch($message);
@@ -90,7 +91,7 @@ class PapayaMessageManager extends \PapayaObject {
   */
   public function debug() {
     $message = new \PapayaMessageLog(
-      \PapayaMessageLogable::GROUP_DEBUG, \PapayaMessage::SEVERITY_DEBUG, ''
+      \PapayaMessageLogable::GROUP_DEBUG, Papaya\Message::SEVERITY_DEBUG, ''
     );
     if (func_num_args() > 0) {
       $message->context()->append(new \PapayaMessageContextVariable(func_get_args(), 5, 9999));

@@ -35,7 +35,7 @@ class PapayaFilterLogicalOr extends \PapayaFilterLogical {
    */
   public function validate($value) {
     $firstException = NULL;
-    /** @var \PapayaFilter $filter */
+    /** @var \Papaya\Filter $filter */
     foreach ($this->_filters as $filter) {
       try {
         $filter->validate($value);
@@ -56,7 +56,7 @@ class PapayaFilterLogicalOr extends \PapayaFilterLogical {
    * @return mixed|null
    */
   public function filter($value) {
-    /** @var \PapayaFilter $filter */
+    /** @var \Papaya\Filter $filter */
     foreach ($this->_filters as $filter) {
       $filterValue = $filter->filter($value);
       if (!is_null($filterValue)) {

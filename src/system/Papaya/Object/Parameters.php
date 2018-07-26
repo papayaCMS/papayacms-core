@@ -43,12 +43,12 @@ class PapayaObjectParameters
    *
    * @param mixed $offset
    * @param mixed $defaultValue
-   * @param \PapayaFilter $filter
+   * @param \Papaya\Filter $filter
    * @return mixed
    */
-  public function get($offset, $defaultValue = NULL, \PapayaFilter $filter = NULL) {
+  public function get($offset, $defaultValue = NULL, Papaya\Filter $filter = NULL) {
     $value = self::offsetGet($offset);
-    if (isset($value) && isset($filter) && $filter instanceof \PapayaFilter) {
+    if (isset($value) && isset($filter) && $filter instanceof Papaya\Filter) {
       $value = $filter->filter($value);
     }
     if (is_null($value)) {

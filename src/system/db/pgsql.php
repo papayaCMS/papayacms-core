@@ -882,7 +882,7 @@ class dbcon_pgsql extends dbcon_base {
     } catch (Papaya\Database\Exception\Query $e) {
       $logMessage = new \PapayaMessageLog(
         \PapayaMessageLogable::GROUP_DATABASE,
-        \PapayaMessage::SEVERITY_ERROR,
+        Papaya\Message::SEVERITY_ERROR,
         'Database #' . $e->getCode() . ': ' . $e->getMessage()
       );
       $logMessage

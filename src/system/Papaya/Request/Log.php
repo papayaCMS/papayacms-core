@@ -102,7 +102,7 @@ class PapayaRequestLog extends \PapayaObject {
     }
     $log = new \PapayaMessageLog(
       \PapayaMessageLogable::GROUP_DEBUG,
-      \PapayaMessage::SEVERITY_DEBUG,
+      Papaya\Message::SEVERITY_DEBUG,
       'Request Log'
     );
     foreach ($this->_events as $event) {

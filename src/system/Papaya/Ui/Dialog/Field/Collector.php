@@ -27,9 +27,9 @@ class PapayaUiDialogFieldCollector extends \PapayaUiDialogField {
   *
   * @param string $name
   * @param mixed $default
-  * @param \PapayaFilter|NULL $filter
+  * @param \Papaya\Filter|NULL $filter
   */
-  public function __construct($name, $default, \PapayaFilter $filter = NULL) {
+  public function __construct($name, $default, Papaya\Filter $filter = NULL) {
     $this->setName($name);
     $this->setDefaultValue($default);
     if (isset($filter)) {

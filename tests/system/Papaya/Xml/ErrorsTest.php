@@ -148,7 +148,7 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
       \PapayaMessageLogable::GROUP_SYSTEM, $message->getGroup()
     );
     $this->assertEquals(
-      \PapayaMessage::SEVERITY_WARNING, $message->getType()
+      Papaya\Message::SEVERITY_WARNING, $message->getType()
     );
     $this->assertEquals(
       '42: Test in line 23 at char 21', $message->getMessage()

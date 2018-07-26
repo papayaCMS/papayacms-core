@@ -130,7 +130,7 @@ class Change extends \PapayaUiControlCommandDialog {
   public function dispatchSavedMessage() {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        \PapayaMessage::SEVERITY_INFO, 'Reference saved.'
+        \Papaya\Message::SEVERITY_INFO, 'Reference saved.'
       )
     );
   }
@@ -141,7 +141,7 @@ class Change extends \PapayaUiControlCommandDialog {
   public function dispatchErrorMessage($context, \PapayaUiDialog $dialog) {
     $this->papaya()->messages->dispatch(
       new \PapayaMessageDisplayTranslated(
-        \PapayaMessage::SEVERITY_ERROR,
+        \Papaya\Message::SEVERITY_ERROR,
         'Invalid input. Please check the fields "%s".',
         array(implode(', ', $dialog->errors()->getSourceCaptions()))
       )

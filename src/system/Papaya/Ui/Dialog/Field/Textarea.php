@@ -34,10 +34,10 @@ class PapayaUiDialogFieldTextarea extends \PapayaUiDialogField {
   * @param string $name
   * @param integer $lines
   * @param mixed $default
-  * @param \PapayaFilter|NULL $filter
+  * @param \Papaya\Filter|NULL $filter
   */
   public function __construct(
-    $caption, $name, $lines = 10, $default = NULL, \PapayaFilter $filter = NULL
+    $caption, $name, $lines = 10, $default = NULL, Papaya\Filter $filter = NULL
   ) {
     $this->setCaption($caption);
     $this->setName($name);

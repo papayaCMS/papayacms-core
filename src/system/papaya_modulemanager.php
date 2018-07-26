@@ -1272,7 +1272,7 @@ class papaya_modulemanager extends base_db {
     foreach ($paths as $path) {
       if (file_exists($path) && is_dir($path) && is_readable($path)) {
         $this->addMsg(
-          \PapayaMessage::SEVERITY_INFO,
+          Papaya\Message::SEVERITY_INFO,
           sprintf(
             $this->_gt('Scanning %s'), $path
           )
@@ -1280,7 +1280,7 @@ class papaya_modulemanager extends base_db {
         $this->scanDirectory($path);
       } else {
         $this->addMsg(
-          \PapayaMessage::SEVERITY_INFO,
+          Papaya\Message::SEVERITY_INFO,
           sprintf(
             $this->_gt('Not readable: %s'), $path
           )

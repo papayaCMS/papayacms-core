@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Messages
 */
-interface PapayaMessageLogable extends \PapayaMessage {
+interface PapayaMessageLogable extends Papaya\Message {
 
   /**
   * log group for user messages (login/logout)

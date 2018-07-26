@@ -100,10 +100,10 @@ class Configuration
    *
    * @param string $name
    * @param string $default
-   * @param \PapayaFilter $filter
+   * @param \Papaya\Filter $filter
    * @return mixed
    */
-  public function get($name, $default = NULL, \PapayaFilter $filter = NULL) {
+  public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
     $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
     if (array_key_exists($name, $this->_options)) {
       return $this->filter($this->_options[$name], $default, $filter);
@@ -117,10 +117,10 @@ class Configuration
    *
    * @param mixed $value
    * @param mixed $default
-   * @param \PapayaFilter $filter
+   * @param \Papaya\Filter $filter
    * @return mixed
    */
-  protected function filter($value, $default = NULL, \PapayaFilter $filter = NULL) {
+  protected function filter($value, $default = NULL, \Papaya\Filter $filter = NULL) {
     if (isset($filter)) {
       $value = $filter->filter($value);
     }

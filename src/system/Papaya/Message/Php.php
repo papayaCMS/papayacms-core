@@ -28,7 +28,7 @@ class PapayaMessagePhp
   * Message type
   * @var integer
   */
-  protected $_type = \PapayaMessage::SEVERITY_ERROR;
+  protected $_type = Papaya\Message::SEVERITY_ERROR;
 
   /**
   * Message text
@@ -47,13 +47,13 @@ class PapayaMessagePhp
   * @var array
   */
   private $_errors = array(
-    E_ERROR => \PapayaMessage::SEVERITY_ERROR,
-    E_USER_ERROR => \PapayaMessage::SEVERITY_ERROR,
-    E_RECOVERABLE_ERROR => \PapayaMessage::SEVERITY_ERROR,
-    E_WARNING => \PapayaMessage::SEVERITY_WARNING,
-    E_USER_WARNING => \PapayaMessage::SEVERITY_WARNING,
-    E_NOTICE => \PapayaMessage::SEVERITY_INFO,
-    E_USER_NOTICE => \PapayaMessage::SEVERITY_INFO
+    E_ERROR => Papaya\Message::SEVERITY_ERROR,
+    E_USER_ERROR => Papaya\Message::SEVERITY_ERROR,
+    E_RECOVERABLE_ERROR => Papaya\Message::SEVERITY_ERROR,
+    E_WARNING => Papaya\Message::SEVERITY_WARNING,
+    E_USER_WARNING => Papaya\Message::SEVERITY_WARNING,
+    E_NOTICE => Papaya\Message::SEVERITY_INFO,
+    E_USER_NOTICE => Papaya\Message::SEVERITY_INFO
   );
 
   /**

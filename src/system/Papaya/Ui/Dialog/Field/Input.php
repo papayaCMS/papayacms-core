@@ -45,14 +45,14 @@ class PapayaUiDialogFieldInput extends \PapayaUiDialogField {
   * @param string $name
   * @param integer $length
   * @param mixed $default
-  * @param \PapayaFilter|NULL $filter
+  * @param \Papaya\Filter|NULL $filter
   */
   public function __construct(
     $caption,
     $name,
     $length = 1024,
     $default = NULL,
-    \PapayaFilter $filter = NULL
+    Papaya\Filter $filter = NULL
   ) {
     $this->setCaption($caption);
     $this->setName($name);

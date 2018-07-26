@@ -50,13 +50,13 @@
 class PapayaFilterFactory implements \IteratorAggregate {
 
   /**
-   * @var array storage for field profiles, defined by constants in PapayaFilter
+   * @var array storage for field profiles, defined by constants in Papaya\PapayaFilter
    */
   private static $_profiles = NULL;
 
   /**
    * Returns an ArrayIterator for the available profiles. The
-   * profiles need to be defined in the PapayaFilter interface.
+   * profiles need to be defined in the Papaya\PapayaFilter interface.
    *
    * The key contains a lowercase version of the profile name, the value
    * the "real version"
@@ -69,7 +69,7 @@ class PapayaFilterFactory implements \IteratorAggregate {
   }
 
   /**
-   * Fetch all constants from PapayaFilter and store them in an internal array.
+   * Fetch all constants from Papaya\PapayaFilter and store them in an internal array.
    *
    * @codeCoverageIgnore
    * @return array
@@ -77,7 +77,7 @@ class PapayaFilterFactory implements \IteratorAggregate {
    */
   private static function _getProfiles() {
     if (NULL === self::$_profiles) {
-      $reflection = new \ReflectionClass(\PapayaFilter::class);
+      $reflection = new \ReflectionClass(Papaya\Filter::class);
       foreach ($reflection->getConstants() as $constant => $profile) {
         if (0 === strpos($constant, 'IS_')) {
           self::$_profiles[strtolower($profile)] = $profile;
@@ -115,9 +115,10 @@ class PapayaFilterFactory implements \IteratorAggregate {
 
   /**
    * Get the filter factory profile by name
+   *
    * @param string $name
    * @throws \PapayaFilterFactoryExceptionInvalidProfile
-   * @return \PapayaFilter
+   * @return \Papaya\Filter
    */
   public function getProfile($name) {
     return self::_getProfile($name);
@@ -147,7 +148,7 @@ class PapayaFilterFactory implements \IteratorAggregate {
    * @param \PapayaFilterFactory|string $profile
    * @param boolean $mandatory
    * @param mixed $options
-   * @return \PapayaFilter
+   * @return \Papaya\Filter
    */
   public function getFilter($profile, $mandatory = TRUE, $options = NULL) {
     return self::_getFilter($profile, $mandatory, $options);
@@ -159,7 +160,7 @@ class PapayaFilterFactory implements \IteratorAggregate {
    * @param $profile
    * @param bool $mandatory
    * @param mixed $options
-   * @return \PapayaFilter|\PapayaFilterLogicalOr
+   * @return \Papaya\Filter|\PapayaFilterLogicalOr
    */
   private static function _getFilter($profile, $mandatory = TRUE, $options = NULL) {
     if (!$profile instanceof \PapayaFilterFactoryProfile) {
@@ -184,12 +185,12 @@ class PapayaFilterFactory implements \IteratorAggregate {
    * Capture the exception from the filter and return a boolean.
    *
    * @param mixed $value
-   * @param string|\PapayaFilter|\PapayaFilterFactoryProfile $filter
+   * @param string|\Papaya\Filter|\PapayaFilterFactoryProfile $filter
    * @param bool $mandatory
    * @return bool
    */
   public static function validate($value, $filter, $mandatory = TRUE) {
-    if (!($filter instanceof \PapayaFilter)) {
+    if (!($filter instanceof Papaya\Filter)) {
       $filter = self::_getFilter($filter, $mandatory);
     } elseif (!$mandatory) {
       $filter = new \PapayaFilterLogicalOr(
@@ -210,11 +211,11 @@ class PapayaFilterFactory implements \IteratorAggregate {
    * Capture the exception from the filter and return a boolean.
    *
    * @param mixed $value
-   * @param string|\PapayaFilter|\PapayaFilterFactoryProfile $filter
+   * @param string|\Papaya\Filter|\PapayaFilterFactoryProfile $filter
    * @return mixed
    */
   public static function filter($value, $filter) {
-    if (!($filter instanceof \PapayaFilter)) {
+    if (!($filter instanceof Papaya\Filter)) {
       $filter = self::_getFilter($filter);
     }
     return $filter->filter($value);

@@ -20,7 +20,7 @@ namespace Papaya\Database;
  * @package Papaya-Library
  * @subpackage Database
  */
-class Exception extends \PapayaException {
+class Exception extends \Papaya\Exception {
 
   /**
    * Severity information

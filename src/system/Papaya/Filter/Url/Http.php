@@ -22,14 +22,14 @@
 class PapayaFilterUrlHttp extends \PapayaFilterUrl {
 
   /**
-   * @see \PapayaFilter::validate()
+   * @see \Papaya\Filter::validate()
    */
   public function validate($value) {
     return parent::validate($this->prepare($value));
   }
 
   /**
-   * @see \PapayaFilter::filter()
+   * @see \Papaya\Filter::filter()
    */
   public function filter($value) {
     return parent::filter($this->prepare($value));

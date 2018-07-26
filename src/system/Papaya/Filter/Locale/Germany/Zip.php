@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterLocaleGermanyZip implements \PapayaFilter {
+class PapayaFilterLocaleGermanyZip implements Papaya\Filter {
 
   /**
    * Check flag for country prefix
@@ -42,7 +42,7 @@ class PapayaFilterLocaleGermanyZip implements \PapayaFilter {
    * Validate the input value using the function and
    * throw an exception if the validation has failed.
    *
-   * @throw PapayaException
+   * @throw Papaya\PapayaException
    * @param string $value
    * @throws \PapayaFilterExceptionLengthMinimum
    * @throws \PapayaFilterExceptionLengthMaximum

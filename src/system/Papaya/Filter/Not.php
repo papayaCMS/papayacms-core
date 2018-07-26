@@ -19,20 +19,21 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterNot implements \PapayaFilter {
+class PapayaFilterNot implements Papaya\Filter {
 
   /**
   * Wrappend filter
-  * @var \PapayaFilter
+  *
+  * @var \Papaya\Filter
   */
   protected $_filter = NULL;
 
   /**
   * Construct object and store subfilter
   *
-  * @param \PapayaFilter $filter
+  * @param \Papaya\Filter $filter
   */
-  public function __construct(\PapayaFilter $filter) {
+  public function __construct(Papaya\Filter $filter) {
     $this->_filter = $filter;
   }
 

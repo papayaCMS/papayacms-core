@@ -54,17 +54,17 @@ define('LF', "\n");
 /**
 * message type info
 */
-define('MSG_INFO', \PapayaMessage::SEVERITY_INFO);
+define('MSG_INFO', Papaya\Message::SEVERITY_INFO);
 
 /**
 * message type warning
 */
-define('MSG_WARNING', \PapayaMessage::SEVERITY_WARNING);
+define('MSG_WARNING', Papaya\Message::SEVERITY_WARNING);
 
 /**
 * message type error
 */
-define('MSG_ERROR', \PapayaMessage::SEVERITY_ERROR);
+define('MSG_ERROR', Papaya\Message::SEVERITY_ERROR);
 
 /**
 * Implementation super class
@@ -239,7 +239,7 @@ class base_object extends PapayaObject implements PapayaRequestParametersInterfa
   *
   * The strings $short and $long may not be translated and must be in english.
   *
-  * @param integer $type message priority, {@see PapayaMessage}
+  * @param integer $type message priority, {@see Papaya\PapayaMessage}
   * @param integer $group message group (@see PapayaMessageLogable)
   * @param string $short message short (for lists)
   * @param string $long message detailed

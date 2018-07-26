@@ -27,9 +27,9 @@ class PapayaUiDialogFieldMessage extends \PapayaUiDialogFieldInformation {
   * @var string
   */
   private $_images = array(
-    \PapayaMessage::SEVERITY_INFO => 'status-dialog-information',
-    \PapayaMessage::SEVERITY_WARNING => 'status-dialog-warning',
-    \PapayaMessage::SEVERITY_ERROR => 'status-dialog-error'
+    Papaya\Message::SEVERITY_INFO => 'status-dialog-information',
+    Papaya\Message::SEVERITY_WARNING => 'status-dialog-warning',
+    Papaya\Message::SEVERITY_ERROR => 'status-dialog-error'
   );
 
   /**
@@ -40,7 +40,7 @@ class PapayaUiDialogFieldMessage extends \PapayaUiDialogFieldInformation {
    * @internal param string $image
    */
   public function __construct($severity, $message) {
-    $severity = isset($this->_images[$severity]) ? $severity : \PapayaMessage::SEVERITY_INFO;
+    $severity = isset($this->_images[$severity]) ? $severity : Papaya\Message::SEVERITY_INFO;
     parent::__construct($message, $this->_images[$severity]);
   }
 }

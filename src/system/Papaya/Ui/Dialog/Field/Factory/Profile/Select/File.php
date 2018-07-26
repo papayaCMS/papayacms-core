@@ -65,7 +65,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
       $field->setHint($this->options()->hint ? $this->options()->hint : '');
     } else {
       $field = new \PapayaUiDialogFieldMessage(
-        \PapayaMessage::SEVERITY_ERROR,
+        Papaya\Message::SEVERITY_ERROR,
         new \PapayaUiStringTranslated(
           'Can not open directory "%s"', array($path)
         )

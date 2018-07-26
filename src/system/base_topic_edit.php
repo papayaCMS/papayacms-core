@@ -203,7 +203,7 @@ class base_topic_edit extends base_topic {
             $this->papaya()->messages->dispatch(
               new \PapayaMessageLog(
                 \PapayaMessageLogable::GROUP_CONTENT,
-                \PapayaMessage::SEVERITY_INFO,
+                Papaya\Message::SEVERITY_INFO,
                 sprintf(
                   'Page "%s (%s)" moved position (%d %s).',
                   $this->topic['TRANSLATION']['topic_title'],
@@ -253,7 +253,7 @@ class base_topic_edit extends base_topic {
               $this->papaya()->messages->dispatch(
                 new \PapayaMessageLog(
                   \PapayaMessageLogable::GROUP_CONTENT,
-                  \PapayaMessage::SEVERITY_INFO,
+                  Papaya\Message::SEVERITY_INFO,
                   sprintf(
                     'Page "%s (%s)" moved position (%d %s).',
                     $this->topic['TRANSLATION']['topic_title'],
@@ -287,7 +287,7 @@ class base_topic_edit extends base_topic {
             $this->papaya()->messages->dispatch(
               new \PapayaMessageLog(
                 \PapayaMessageLogable::GROUP_CONTENT,
-                \PapayaMessage::SEVERITY_INFO,
+                Papaya\Message::SEVERITY_INFO,
                 new \PapayaUiString(
                   '%s created a new translation "%s" for page "#%d"',
                   array(
@@ -300,7 +300,7 @@ class base_topic_edit extends base_topic {
             );
             $this->papaya()->messages->dispatch(
               new \PapayaMessageDisplay(
-                \PapayaMessage::SEVERITY_INFO,
+                Papaya\Message::SEVERITY_INFO,
                 new \PapayaUiString(
                   'New translation "%s" for page "#%d" added.',
                   array(
@@ -343,7 +343,7 @@ class base_topic_edit extends base_topic {
           $this->papaya()->messages->dispatch(
             new \PapayaMessageLog(
               \PapayaMessageLogable::GROUP_CONTENT,
-              \PapayaMessage::SEVERITY_INFO,
+              Papaya\Message::SEVERITY_INFO,
               new \PapayaUiString(
                 '%s created the new page "#%d"',
                 array(
@@ -1381,7 +1381,7 @@ class base_topic_edit extends base_topic {
         if ($view['module_id'] != $moduleGuid) {
           $this->papaya()->messages->dispatch(
             new \PapayaMessageDisplayTranslated(
-              \PapayaMessage::SEVERITY_WARNING,
+              Papaya\Message::SEVERITY_WARNING,
               'Dependend page #%d uses a view with a differnt module. Can not change content.',
               array(
                 $pageId
@@ -2930,7 +2930,7 @@ class base_topic_edit extends base_topic {
             if ($view['module_id'] != $selectView->currentView['module_guid']) {
               $this->papaya()->messages->dispatch(
                 new \PapayaMessageDisplayTranslated(
-                  \PapayaMessage::SEVERITY_WARNING,
+                  Papaya\Message::SEVERITY_WARNING,
                   'Dependend page #%d uses a view with a different module and is not synced'.
                   ' automatically. Can not change view.',
                   array(
@@ -2957,7 +2957,7 @@ class base_topic_edit extends base_topic {
             if ($originTranslation->moduleGuid != $selectView->currentView['module_guid']) {
               $this->papaya()->messages->dispatch(
                 new \PapayaMessageDisplayTranslated(
-                  \PapayaMessage::SEVERITY_WARNING,
+                  Papaya\Message::SEVERITY_WARNING,
                   'The selected view is not compatible with the view of the origin page'.
                   ' Can not change view.'
                 )

@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
 /**
-* Access and handle domain information for the current request
-*
-* @package Papaya-Library
-* @subpackage Domains
-*/
-class PapayaDomains extends \PapayaObject {
+ * Access and handle domain information for the current request
+ *
+ * @package Papaya-Library
+ * @subpackage Domains
+ */
+class Domains extends \PapayaObject {
 
   /**
    * @var array
@@ -44,11 +45,11 @@ class PapayaDomains extends \PapayaObject {
   private $_current = NULL;
 
   /**
-  * Return domains with virtual roots for the given path of page ids.
-  *
-  * @param array $pageRootIds
-  * @return array
-  */
+   * Return domains with virtual roots for the given path of page ids.
+   *
+   * @param array $pageRootIds
+   * @return array
+   */
   public function getDomainsByPath(array $pageRootIds) {
     $this->loadLazy();
     $result = array();
@@ -61,12 +62,12 @@ class PapayaDomains extends \PapayaObject {
   }
 
   /**
-  * Return the domain that matches the given host
-  *
-  * @param string $host
-  * @param integer $scheme
-  * @return array|FALSE
-  */
+   * Return the domain that matches the given host
+   *
+   * @param string $host
+   * @param integer $scheme
+   * @return array|FALSE
+   */
   public function getDomainByHost($host, $scheme) {
     $this->loadLazy();
     $result = FALSE;
@@ -86,11 +87,11 @@ class PapayaDomains extends \PapayaObject {
   }
 
   /**
-  * Get the domain for the current request if here is one. The result is cached in
-  * a member variable.
-  *
-  * return array|FALSE
-  */
+   * Get the domain for the current request if here is one. The result is cached in
+   * a member variable.
+   *
+   * return array|FALSE
+   */
   public function getCurrent() {
     if (isset($this->_current)) {
       return $this->_current;
@@ -104,12 +105,12 @@ class PapayaDomains extends \PapayaObject {
   }
 
   /**
-  * Get host variants by replacing the parts of a host name with wildcards. The result
-  * is a list with any variant of a subdomain and tld replaced by *.
-  *
-  * @param string $host
-  * @return array
-  */
+   * Get host variants by replacing the parts of a host name with wildcards. The result
+   * is a list with any variant of a subdomain and tld replaced by *.
+   *
+   * @param string $host
+   * @return array
+   */
   public function getHostVariants($host) {
     $host = strtolower($host);
     $hostParts = explode('.', $host);
@@ -140,10 +141,10 @@ class PapayaDomains extends \PapayaObject {
   }
 
   /**
-  * Lazy load the domain informations and create index array for fast access.
-  *
-  * @param boolean $reset
-  */
+   * Lazy load the domain informations and create index array for fast access.
+   *
+   * @param boolean $reset
+   */
   public function loadLazy($reset = FALSE) {
     if ($reset || !$this->_loaded) {
       $this->domains()->load();
@@ -151,7 +152,7 @@ class PapayaDomains extends \PapayaObject {
         if ($domain['mode'] == \Papaya\Content\Domain::MODE_VIRTUAL_DOMAIN) {
           $this->_domainsByRootId[(int)$domain['data']][$domainId] = $domain;
         } elseif ($domain['mode'] == \Papaya\Content\Domain::MODE_DEFAULT ||
-                  $domain['mode'] == \Papaya\Content\Domain::MODE_REDIRECT_LANGUAGE) {
+          $domain['mode'] == \Papaya\Content\Domain::MODE_REDIRECT_LANGUAGE) {
           $this->_domainsByRootId[0][$domainId] = $domain;
         }
         $this->_domainsByName[$domain['host']][$domainId] = $domain;
@@ -161,11 +162,11 @@ class PapayaDomains extends \PapayaObject {
   }
 
   /**
-  * Getter/Setter for the domain database object.
-  *
-  * @param \Papaya\Content\Domains $domains
-  * @return \Papaya\Content\Domains
-  */
+   * Getter/Setter for the domain database object.
+   *
+   * @param \Papaya\Content\Domains $domains
+   * @return \Papaya\Content\Domains
+   */
   public function domains(\Papaya\Content\Domains $domains = NULL) {
     if (isset($domains)) {
       $this->_domains = $domains;

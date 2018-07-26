@@ -19,24 +19,25 @@
  * @package Papaya-Library
  * @subpackage Filter
  */
-class PapayaFilterBefore implements \PapayaFilter {
+class PapayaFilterBefore implements Papaya\Filter {
 
   /**
-   * @var \PapayaFilter
+   * @var \Papaya\Filter
    */
   private $_before;
 
   /**
-   * @var \PapayaFilter
+   * @var \Papaya\Filter
    */
   private $_after;
 
   /**
    * PapayaFilterLogicalBefore constructor.
-   * @param \PapayaFilter $filterBefore
-   * @param \PapayaFilter $validationAfter
+   *
+   * @param \Papaya\Filter $filterBefore
+   * @param \Papaya\Filter $validationAfter
    */
-  public function __construct(\PapayaFilter $filterBefore, \PapayaFilter $validationAfter) {
+  public function __construct(Papaya\Filter $filterBefore, Papaya\Filter $validationAfter) {
     $this->_before = $filterBefore;
     $this->_after = $validationAfter;
   }

@@ -73,7 +73,7 @@ class PapayaMessageDebug
   * @return integer
   */
   public function getType() {
-    return \PapayaMessage::SEVERITY_DEBUG;
+    return Papaya\Message::SEVERITY_DEBUG;
   }
 
   /**

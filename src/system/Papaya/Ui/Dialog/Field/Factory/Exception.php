@@ -21,6 +21,6 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiDialogFieldFactoryException extends \PapayaException {
+abstract class PapayaUiDialogFieldFactoryException extends Papaya\Exception {
 
 }

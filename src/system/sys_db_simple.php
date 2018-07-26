@@ -152,7 +152,7 @@ class db_simple extends base_object {
       $this->papaya()->messages->dispatch(
         new \PapayaMessageLog(
           \PapayaMessageLogable::GROUP_DEBUG,
-          \PapayaMessage::SEVERITY_DEBUG,
+          Papaya\Message::SEVERITY_DEBUG,
           $message
         )
       );
@@ -324,7 +324,7 @@ class db_simple extends base_object {
       if (preg_match('~^\s*(INSERT|UPDATE|ALTER|CREATE|DROP)~i', $sql)) {
         $logMessage = new \PapayaMessageLog(
           \PapayaMessageLogable::GROUP_DATABASE,
-          \PapayaMessage::SEVERITY_WARNING,
+          Papaya\Message::SEVERITY_WARNING,
           'Detected write query on read connection.'
         );
         $logMessage
@@ -460,7 +460,7 @@ class db_simple extends base_object {
       if ($dispatchLogMessage) {
         $logMessage = new \PapayaMessageLog(
           \PapayaMessageLogable::GROUP_DATABASE,
-          \PapayaMessage::SEVERITY_DEBUG,
+          Papaya\Message::SEVERITY_DEBUG,
           $caption
         );
         $logMessage->context()->append(new \PapayaMessageContextRuntime($timeStart, $timeStop));

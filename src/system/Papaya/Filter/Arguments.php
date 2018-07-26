@@ -20,7 +20,7 @@ namespace Papaya\Filter;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Arguments implements \PapayaFilter {
+class Arguments implements \Papaya\Filter {
 
   /**
    * The filters for the arguments
@@ -64,7 +64,7 @@ class Arguments implements \PapayaFilter {
     if (count($value) > count($this->_filters)) {
       throw new \PapayaFilterExceptionCountMismatch(count($this->_filters), count($value), 'array');
     }
-    /** @var \PapayaFilter $filter */
+    /** @var \Papaya\Filter $filter */
     foreach ($this->_filters as $index => $filter) {
       $filter->validate(isset($value[$index]) ? $value[$index] : '');
     }
@@ -84,7 +84,7 @@ class Arguments implements \PapayaFilter {
       $this->validate($value);
       $value = explode($this->_separator, $value);
       $result = array();
-      /** @var \PapayaFilter $filter */
+      /** @var \Papaya\Filter $filter */
       foreach ($this->_filters as $index => $filter) {
         $result[] = $filter->filter(isset($value[$index]) ? $value[$index] : '');
       }

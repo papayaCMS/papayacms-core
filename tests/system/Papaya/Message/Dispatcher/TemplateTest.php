@@ -29,7 +29,7 @@ class PapayaMessageDispatcherTemplateTest extends \PapayaTestCase {
     $message
       ->expects($this->once())
       ->method('getType')
-      ->will($this->returnValue(\PapayaMessage::SEVERITY_WARNING));
+      ->will($this->returnValue(Papaya\Message::SEVERITY_WARNING));
     $message
       ->expects($this->once())
       ->method('getMessage')
@@ -59,8 +59,8 @@ class PapayaMessageDispatcherTemplateTest extends \PapayaTestCase {
   * @covers \PapayaMessageDispatcherTemplate::dispatch
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessage $message */
-    $message = $this->createMock(\PapayaMessage::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message $message */
+    $message = $this->createMock(Papaya\Message::class);
     $dispatcher = new \PapayaMessageDispatcherTemplate();
     $this->assertFalse($dispatcher->dispatch($message));
   }
