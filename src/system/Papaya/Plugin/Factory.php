@@ -148,10 +148,10 @@ abstract class PapayaPluginFactory extends \PapayaObject {
   * Getter/setter the module options object of the given plugin.
   *
   * @param string $pluginName
-  * @param \PapayaConfiguration $options
-  * @return NULL|\PapayaConfiguration
+  * @param \Papaya\Configuration $options
+  * @return NULL|\Papaya\Configuration
   */
-  public function options($pluginName, \PapayaConfiguration $options = NULL) {
+  public function options($pluginName, Papaya\Configuration $options = NULL) {
     if ($this->has($pluginName)) {
       if ($options !== NULL) {
         $this->_options[$pluginName] = $options;

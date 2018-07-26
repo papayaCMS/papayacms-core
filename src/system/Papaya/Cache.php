@@ -36,7 +36,7 @@ class Cache {
   /**
    * Get papaya caching service object
    *
-   * @param \PapayaConfiguration $configuration
+   * @param \Papaya\Configuration $configuration
    * @param boolean $static remember service object an return at second request
    * @throws \UnexpectedValueException
    * @return \Papaya\Cache\Service
@@ -70,7 +70,7 @@ class Cache {
    * If not already provided, create a cache configuration from the given configuation
    * using mapping definition.
    *
-   * @param \PapayaConfiguration $configuration
+   * @param \Papaya\Configuration $configuration
    * @return \Papaya\Cache\Configuration
    */
   public static function prepareConfiguration($configuration) {
@@ -95,7 +95,7 @@ class Cache {
    * Get the cache for the specified use.
    *
    * @param string $for
-   * @param \PapayaConfiguration $globalConfiguration
+   * @param \Papaya\Configuration $globalConfiguration
    * @param bool $static
    * @return FALSE|\Papaya\Cache\Service
    */

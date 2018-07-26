@@ -24,7 +24,7 @@ use Papaya\Configuration\Storage;
 * @package Papaya-Library
 * @subpackage Plugins
 */
-class PapayaPluginOptions extends \PapayaConfiguration {
+class PapayaPluginOptions extends Papaya\Configuration {
 
   const STATUS_CREATED = 0;
   const STATUS_LOADING = 1;

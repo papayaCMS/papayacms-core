@@ -41,7 +41,8 @@ class PapayaMediaStorageServiceS3Handler {
 
   /**
   * Constructor - set configuration if provided
-  * @param \PapayaConfiguration $configuration
+  *
+  * @param \Papaya\Configuration $configuration
   */
   public function __construct($configuration = NULL) {
     if (isset($configuration) && is_object($configuration)) {
@@ -62,7 +63,7 @@ class PapayaMediaStorageServiceS3Handler {
   /**
   * Set the storage configuration values.
   *
-  * @param \PapayaConfiguration $configuration
+  * @param \Papaya\Configuration $configuration
   */
   public function setConfiguration($configuration) {
     $this->_storageAccessKeyId = $configuration->get(

@@ -14,7 +14,7 @@
  */
 
 namespace Papaya\Cache;
-use PapayaConfiguration;
+use Papaya\Configuration;
 
 /**
  * Abstract class for Papaya Cache Services
@@ -27,7 +27,7 @@ abstract class Service {
   /**
    * Configuration object
    *
-   * @var \PapayaConfiguration
+   * @var \Papaya\Configuration
    */
   protected $_configuration;
 

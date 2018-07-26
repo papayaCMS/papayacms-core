@@ -459,7 +459,7 @@ class PapayaDatabaseAccessTest extends \PapayaTestCase {
   /**
    * @param object $owner
    * @param db_simple|object $connector
-   * @param \PapayaConfiguration|NULL $options
+   * @param \Papaya\Configuration|NULL $options
    * @return \Papaya\Database\Access
    */
   public function getFixtureDatabaseAccess($owner, $connector, $options = NULL) {

@@ -21,11 +21,11 @@ require_once __DIR__.'/../../bootstrap.php';
 class PapayaConfigurationTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaConfiguration::__construct
-  * @covers \PapayaConfiguration::defineOptions
+  * @covers \Papaya\Configuration::__construct
+  * @covers \Papaya\Configuration::defineOptions
   */
   public function testConstructorDefinesOptions() {
-    $config = new \PapayaConfiguration(
+    $config = new Papaya\Configuration(
       array('sample' => NULL)
     );
     $this->assertEquals(
@@ -34,29 +34,29 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::__construct
-  * @covers \PapayaConfiguration::defineOptions
+  * @covers \Papaya\Configuration::__construct
+  * @covers \Papaya\Configuration::defineOptions
   */
   public function testConstructorDefinesInvalidOptionExpectingException() {
     $this->expectException(UnexpectedValueException::class);
-    new \PapayaConfiguration(
+    new Papaya\Configuration(
       array('sample' => new stdClass)
     );
   }
 
   /**
-  * @covers \PapayaConfiguration::getHash
+  * @covers \Papaya\Configuration::getHash
   */
   public function testGetHash() {
-    $config = new \PapayaConfiguration(array());
+    $config = new Papaya\Configuration(array());
     $this->assertEquals(
       md5(serialize(array())), $config->getHash()
     );
   }
 
   /**
-  * @covers \PapayaConfiguration::get
-  * @covers \PapayaConfiguration::filter
+  * @covers \Papaya\Configuration::get
+  * @covers \Papaya\Configuration::filter
   */
   public function testGet() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -66,8 +66,8 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::get
-  * @covers \PapayaConfiguration::filter
+  * @covers \Papaya\Configuration::get
+  * @covers \Papaya\Configuration::filter
   */
   public function testGetWithCasting() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -77,19 +77,19 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::get
-  * @covers \PapayaConfiguration::filter
+  * @covers \Papaya\Configuration::get
+  * @covers \Papaya\Configuration::filter
   */
   public function testGetWithUnknownOptionReturningDefault() {
-    $config = new \PapayaConfiguration(array());
+    $config = new Papaya\Configuration(array());
     $this->assertSame(
       23, $config->get('UNKNOWN_OPTION', 23)
     );
   }
 
   /**
-  * @covers \PapayaConfiguration::get
-  * @covers \PapayaConfiguration::filter
+  * @covers \Papaya\Configuration::get
+  * @covers \Papaya\Configuration::filter
   */
   public function testGetWithFilter() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -98,8 +98,8 @@ class PapayaConfigurationTest extends \PapayaTestCase {
     );
   }
   /**
-  * @covers \PapayaConfiguration::getOption
-  * @covers \PapayaConfiguration::filter
+  * @covers \Papaya\Configuration::getOption
+  * @covers \Papaya\Configuration::filter
   */
   public function testGetOptionWithCasting() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -110,7 +110,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::set
+  * @covers \Papaya\Configuration::set
   */
   public function testSet() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -121,7 +121,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::set
+  * @covers \Papaya\Configuration::set
   */
   public function testSetCanNotChangeTheType() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -129,7 +129,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
     $this->assertSame(23, $config->get('SAMPLE_INT'));
   }
   /**
-  * @covers \PapayaConfiguration::has
+  * @covers \Papaya\Configuration::has
   */
   public function testHasExpectingTrue() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -137,7 +137,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::has
+  * @covers \Papaya\Configuration::has
   */
   public function testHasExpectingFalse() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -145,7 +145,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::assign
+  * @covers \Papaya\Configuration::assign
   */
   public function testAssign() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -156,7 +156,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::assign
+  * @covers \Papaya\Configuration::assign
   */
   public function testAssignWithInvalidArgumentExpectingException() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -166,7 +166,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::storage
+  * @covers \Papaya\Configuration::storage
   */
   public function testStorageGetAfterSet() {
     $storage = $this->createMock(Storage::class);
@@ -177,7 +177,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::storage
+  * @covers \Papaya\Configuration::storage
   */
   public function testStorageGetBeforeSetExpectingException() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -187,7 +187,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::load
+  * @covers \Papaya\Configuration::load
   */
   public function testLoad() {
     $storage = $this->createMock(Storage::class);
@@ -208,7 +208,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::load
+  * @covers \Papaya\Configuration::load
   */
   public function testLoadWithUnknownOptionsAreIgnored() {
     $storage = $this->createMock(Storage::class);
@@ -233,7 +233,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::load
+  * @covers \Papaya\Configuration::load
   */
   public function testLoadFailure() {
     $storage = $this->createMock(Storage::class);
@@ -249,7 +249,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::getIterator
+  * @covers \Papaya\Configuration::getIterator
   */
   public function testGetIterator() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -263,7 +263,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::__isset
+  * @covers \Papaya\Configuration::__isset
   */
   public function testDynamicPropertyIssetExpectingTrue() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -271,7 +271,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::__isset
+  * @covers \Papaya\Configuration::__isset
   */
   public function testDynamicPropertyIssetExpectingFalse() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -279,7 +279,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::__get
+  * @covers \Papaya\Configuration::__get
   */
   public function testDynamicPropertyGet() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -287,7 +287,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::__set
+  * @covers \Papaya\Configuration::__set
   */
   public function testDynamicPropertySet() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -296,7 +296,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::offsetExists
+  * @covers \Papaya\Configuration::offsetExists
   */
   public function testOffsetExistsExpectingTrue() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -304,7 +304,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::offsetExists
+  * @covers \Papaya\Configuration::offsetExists
   */
   public function testOffsetExistsExpectingFalse() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -312,7 +312,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::offsetGet
+  * @covers \Papaya\Configuration::offsetGet
   */
   public function testOffsetGet() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -320,7 +320,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::offsetSet
+  * @covers \Papaya\Configuration::offsetSet
   */
   public function testOffsetSet() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -329,7 +329,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaConfiguration::offsetUnset
+  * @covers \Papaya\Configuration::offsetUnset
   */
   public function testOffsetUnsetExpectingException() {
     $config = new \PapayaConfiguration_TestProxy();
@@ -342,7 +342,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
 /**
  * @property int sampleInt
  */
-class PapayaConfiguration_TestProxy extends \PapayaConfiguration {
+class PapayaConfiguration_TestProxy extends Papaya\Configuration {
 
   public function __construct() {
     parent::__construct(

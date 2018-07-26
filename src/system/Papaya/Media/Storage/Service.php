@@ -23,7 +23,8 @@ abstract class PapayaMediaStorageService extends \PapayaObject {
 
   /**
   * Constructor - set configuration if provided
-  * @param \PapayaConfiguration $configuration
+  *
+  * @param \Papaya\Configuration $configuration
   */
   public function __construct($configuration = NULL) {
     if (isset($configuration) && is_object($configuration)) {
@@ -34,7 +35,7 @@ abstract class PapayaMediaStorageService extends \PapayaObject {
   /**
   * set configuration data from configuration object
   *
-  * @param \PapayaConfiguration $configuration
+  * @param \Papaya\Configuration $configuration
   * @return void
   */
   abstract public function setConfiguration($configuration);

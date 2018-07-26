@@ -24,7 +24,7 @@ namespace Papaya\Database;
 class Manager extends \PapayaObject {
 
   /**
-   * @var \PapayaConfiguration $_configuration Configuration object
+   * @var \Papaya\Configuration $_configuration Configuration object
    */
   private $_configuration = NULL;
   /**
@@ -35,7 +35,7 @@ class Manager extends \PapayaObject {
   /**
    * get current configuration object
    *
-   * @return \PapayaConfiguration
+   * @return \Papaya\Configuration
    */
   public function getConfiguration() {
     return $this->_configuration;
@@ -44,7 +44,7 @@ class Manager extends \PapayaObject {
   /**
    * Return current conifuration object
    *
-   * @param \PapayaConfiguration $configuration
+   * @param \Papaya\Configuration $configuration
    */
   public function setConfiguration($configuration) {
     $this->_configuration = $configuration;

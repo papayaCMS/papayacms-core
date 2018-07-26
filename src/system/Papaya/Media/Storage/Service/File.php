@@ -65,7 +65,7 @@ class PapayaMediaStorageServiceFile extends \PapayaMediaStorageService {
   /**
   * set the base storage directory and other configuration values
   *
-  * @param \PapayaConfiguration $configuration
+  * @param \Papaya\Configuration $configuration
   */
   public function setConfiguration($configuration) {
     $this->_storageDirectory = $configuration->get(

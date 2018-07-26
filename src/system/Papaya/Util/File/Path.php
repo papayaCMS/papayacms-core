@@ -125,7 +125,7 @@ class PapayaUtilFilePath {
 
   /**
    * Get the document root if possible
-   * @param \PapayaConfiguration $options
+   * @param \Papaya\Configuration $options
    * @return string
    */
   public static function getDocumentRoot($options = NULL) {

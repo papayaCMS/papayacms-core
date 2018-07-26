@@ -13,48 +13,48 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Configuration\Storage;
+namespace Papaya;
 
 /**
-* A superclass for configurations. The actual configuration class needs to extend this class and
-* define option names and default values in the internal $_options array.
-*
-* Option names are alayways normalized to uppercase with underscores. It is possible to use
-* camel case property syntax.
-*
-* @package Papaya-Library
-* @subpackage Configuration
-*/
-class PapayaConfiguration
+ * A superclass for configurations. The actual configuration class needs to extend this class and
+ * define option names and default values in the internal $_options array.
+ *
+ * Option names are alayways normalized to uppercase with underscores. It is possible to use
+ * camel case property syntax.
+ *
+ * @package Papaya-Library
+ * @subpackage Configuration
+ */
+class Configuration
   extends \PapayaObject
   implements \IteratorAggregate, \ArrayAccess {
 
   /**
-  * Internal options array
-  *
-  * @var array
-  */
+   * Internal options array
+   *
+   * @var array
+   */
   protected $_options = array();
 
   /**
-  * Storage object, used to load/save the options.
-  *
-  * @var Storage
-  */
+   * Storage object, used to load/save the options.
+   *
+   * @var \Papaya\Configuration\Storage
+   */
   private $_storage = NULL;
 
   /**
-  * An hash identifieing the options status.
-  *
-  * @var string|NULL
-  */
+   * An hash identifying the options status.
+   *
+   * @var string|NULL
+   */
   private $_hash = NULL;
 
   /**
-  * Create object and defined the given options.
-  *
-  * @param array $options
-  */
+   * Create object and defined the given options.
+   *
+   * @param array $options
+   */
   public function __construct(array $options) {
     $this->defineOptions($options);
   }
@@ -79,10 +79,10 @@ class PapayaConfiguration
   }
 
   /**
-  * compile and return and hash from the currently defined option values.
-  *
-  *
-  */
+   * compile and return and hash from the currently defined option values.
+   *
+   *
+   */
   public function getHash() {
     if (is_null($this->_hash)) {
       $this->_hash = md5(serialize($this->_options));
@@ -91,18 +91,18 @@ class PapayaConfiguration
   }
 
   /**
-  * Read option. First it will try to find a constant with the option name. If no constant is found
-  * it will use the value from the options array.
-  *
-  * If a filter ist provided the value will be processed by it.
-  *
-  * If a default value is provided, the system will cast the result to the type of this value.
-  *
-  * @param string $name
-  * @param string $default
-  * @param \PapayaFilter $filter
-  * @return mixed
-  */
+   * Read option. First it will try to find a constant with the option name. If no constant is found
+   * it will use the value from the options array.
+   *
+   * If a filter ist provided the value will be processed by it.
+   *
+   * If a default value is provided, the system will cast the result to the type of this value.
+   *
+   * @param string $name
+   * @param string $default
+   * @param \PapayaFilter $filter
+   * @return mixed
+   */
   public function get($name, $default = NULL, \PapayaFilter $filter = NULL) {
     $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
     if (array_key_exists($name, $this->_options)) {
@@ -113,13 +113,13 @@ class PapayaConfiguration
   }
 
   /**
-  * Filter the option value, to validate and transform it before use.
-  *
-  * @param mixed $value
-  * @param mixed $default
-  * @param \PapayaFilter $filter
-  * @return mixed
-  */
+   * Filter the option value, to validate and transform it before use.
+   *
+   * @param mixed $value
+   * @param mixed $default
+   * @param \PapayaFilter $filter
+   * @return mixed
+   */
   protected function filter($value, $default = NULL, \PapayaFilter $filter = NULL) {
     if (isset($filter)) {
       $value = $filter->filter($value);
@@ -135,12 +135,12 @@ class PapayaConfiguration
   }
 
   /**
-  * Get option is only here for compatiblity with the old base_options class. It
-  * uses the get() method.
-  *
-  * @deprecated {@see \PapayaConfiguration::get()}
-  * @param string $name
-  * @param mixed $default
+   * Get option is only here for compatiblity with the old base_options class. It
+   * uses the get() method.
+   *
+   * @deprecated {@see \Papaya\PapayaConfiguration::get()}
+   * @param string $name
+   * @param mixed $default
    * @return mixed
    */
   public function getOption($name, $default = NULL) {
@@ -148,16 +148,16 @@ class PapayaConfiguration
   }
 
   /**
-  * Set an option value - the name must exists in the $_options array.
-  *
-  * @param string $name
-  * @param mixed $value
-  */
+   * Set an option value - the name must exists in the $_options array.
+   *
+   * @param string $name
+   * @param mixed $value
+   */
   public function set($name, $value) {
     $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
     if ($this->has($name) &&
-        array_key_exists($name, $this->_options) &&
-        ($this->_options[$name] !== $value)) {
+      array_key_exists($name, $this->_options) &&
+      ($this->_options[$name] !== $value)) {
       $this->_options[$name] = $this->filter($value, $this->_options[$name]);
       $this->_hash = NULL;
     }
@@ -189,8 +189,8 @@ class PapayaConfiguration
   }
 
   /**
-  * Load options using a storage object. This will throw an exception if no storage is assigned.
-  */
+   * Load options using a storage object. This will throw an exception if no storage is assigned.
+   */
   public function load(\Papaya\Configuration\Storage $storage = NULL) {
     if (isset($storage)) {
       $this->storage($storage);
@@ -205,12 +205,12 @@ class PapayaConfiguration
   }
 
   /**
-  * Getter/Setter for the storage object
-  *
-  * @throws \LogicException
-  * @param \Papaya\Configuration\Storage $storage
-  * @return \Papaya\Configuration\Storage
-  */
+   * Getter/Setter for the storage object
+   *
+   * @throws \LogicException
+   * @param \Papaya\Configuration\Storage $storage
+   * @return \Papaya\Configuration\Storage
+   */
   public function storage(\Papaya\Configuration\Storage $storage = NULL) {
     if (isset($storage)) {
       $this->_storage = $storage;
@@ -221,67 +221,67 @@ class PapayaConfiguration
   }
 
   /**
-  * Magic method, property syntax for options existance check
-  *
-  * @see self::has()
-  * @param string $name
-  * @return boolean
-  */
+   * Magic method, property syntax for options existance check
+   *
+   * @see self::has()
+   * @param string $name
+   * @return boolean
+   */
   public function __isset($name) {
     return $this->has($name);
   }
 
   /**
-  * Magic method, property syntax for options read
-  *
-  * @see self::get()
-  * @param string $name
-  * @return mixed
-  */
+   * Magic method, property syntax for options read
+   *
+   * @see self::get()
+   * @param string $name
+   * @return mixed
+   */
   public function __get($name) {
     return $this->get($name);
   }
 
   /**
-  * Magic method, property syntax for options write
-  *
-  * @see self::set()
-  * @param string $name
-  * @param mixed $value
-  */
+   * Magic method, property syntax for options write
+   *
+   * @see self::set()
+   * @param string $name
+   * @param mixed $value
+   */
   public function __set($name, $value) {
     $this->set($name, $value);
   }
 
   /**
-  * ArrayAccess interface: check if an option exists
-  *
-  * @see self::has()
-  * @param string $name
-  * @return boolean
-  */
+   * ArrayAccess interface: check if an option exists
+   *
+   * @see self::has()
+   * @param string $name
+   * @return boolean
+   */
   public function offsetExists($name) {
     return $this->has($name);
   }
 
   /**
-  * ArrayAccess interface: read an option
-  *
-  * @see self::get()
-  * @param string $name
-  * @return mixed
-  */
+   * ArrayAccess interface: read an option
+   *
+   * @see self::get()
+   * @param string $name
+   * @return mixed
+   */
   public function offsetGet($name) {
     return $this->get($name);
   }
 
   /**
-  * ArrayAccess interface: write an option
-  *
-  * @see self::set()
-  * @param string $name
-  * @param mixed $value
-  */
+   * ArrayAccess interface: write an option
+   *
+   * @see self::set()
+   * @param string $name
+   * @param mixed $value
+   */
   public function offsetSet($name, $value) {
     $this->set($name, $value);
   }
@@ -301,11 +301,11 @@ class PapayaConfiguration
   }
 
   /**
-  * IteratorAggregate Interface: return an iterator for the options.
-  * This is used for storage handling.
-  *
-  * @return \Iterator
-  */
+   * IteratorAggregate Interface: return an iterator for the options.
+   * This is used for storage handling.
+   *
+   * @return \Iterator
+   */
   public function getIterator() {
     return new \Papaya\Configuration\Iterator(array_keys($this->_options), $this);
   }

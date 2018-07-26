@@ -130,7 +130,7 @@ class PapayaRequest
   /**
   * Create object and set options if given.
   *
-  * @param \PapayaConfiguration $options
+  * @param \Papaya\Configuration $options
   */
   public function __construct($options = NULL) {
     if (isset($options)) {
@@ -215,7 +215,8 @@ class PapayaRequest
 
   /**
   * Initialize object configuration
-  * @param \PapayaConfiguration $options
+  *
+  * @param \Papaya\Configuration $options
   */
   public function setConfiguration($options) {
     $this->_separator = $options->get('PAPAYA_URL_LEVEL_SEPARATOR', '[]');

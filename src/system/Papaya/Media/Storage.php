@@ -28,7 +28,7 @@ class PapayaMediaStorage {
    * get the service
    *
    * @param string $service
-   * @param \PapayaConfiguration $configuration
+   * @param \Papaya\Configuration $configuration
    * @param boolean $static optional, default value TRUE
    * @throws \InvalidArgumentException
    * @access public

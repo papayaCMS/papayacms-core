@@ -138,7 +138,7 @@ class PapayaMessageManager extends \PapayaObject {
   * This functions initializes the start time for runtime debug and activates the hooks for
   * php messages and exceptions.
   *
-  * @param \PapayaConfiguration $options
+  * @param \Papaya\Configuration $options
   */
   public function setUp($options) {
     \PapayaMessageContextRuntime::setStartTime(microtime(TRUE));

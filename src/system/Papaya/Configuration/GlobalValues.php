@@ -21,7 +21,7 @@ namespace Papaya\Configuration;
  * @package Papaya-Library
  * @subpackage Configuration
  */
-class GlobalValues extends \PapayaConfiguration {
+class GlobalValues extends \Papaya\Configuration {
 
   /**
    * Check if an option value exists, the name can be an existing constant or a key of the

@@ -21,7 +21,7 @@ class PapayaMediaStorageServiceTest extends \PapayaTestCase {
   * @covers \PapayaMediaStorageService::__construct
   */
   public function testConstructorWithConfiguration() {
-    $configuration = $this->createMock(\PapayaConfiguration::class);
+    $configuration = $this->createMock(Papaya\Configuration::class);
     $service = new \PapayaMediaStorageService_TestProxy($configuration);
     $this->assertSame($configuration, $service->configurationBuffer);
   }

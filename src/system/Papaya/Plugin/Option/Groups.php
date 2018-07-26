@@ -35,7 +35,7 @@ class PapayaPluginOptionGroups extends \PapayaObject implements \ArrayAccess {
   * Get options object for a plugin, create it if needed
   *
   * @param string $guid
-  * @return \PapayaConfiguration
+  * @return \Papaya\Configuration
   */
   public function offsetGet($guid) {
     $guid = \PapayaUtilStringGuid::toLower($guid);
@@ -47,12 +47,12 @@ class PapayaPluginOptionGroups extends \PapayaObject implements \ArrayAccess {
   * Set options object for a plugin.
   *
   * @param string $guid
-  * @param \PapayaConfiguration $group
-  * @return \PapayaConfiguration
+  * @param \Papaya\Configuration $group
+  * @return \Papaya\Configuration
   */
   public function offsetSet($guid, $group) {
     $guid = \PapayaUtilStringGuid::toLower($guid);
-    \PapayaUtilConstraints::assertInstanceOf(\PapayaConfiguration::class, $group);
+    \PapayaUtilConstraints::assertInstanceOf(Papaya\Configuration::class, $group);
     $this->_groups[$guid] = $group;
   }
 

@@ -68,7 +68,7 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   /**
    * Set the storage configuration values.
    *
-   * @param \PapayaConfiguration $configuration
+   * @param \Papaya\Configuration $configuration
    * @return void
    */
   public function setConfiguration($configuration) {

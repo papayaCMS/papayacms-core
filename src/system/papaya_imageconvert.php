@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Configuration;
+
 /**
 * image converter
 *
@@ -27,11 +29,11 @@ abstract class papaya_imageconvert extends base_object {
    * get a converter object
    *
    * @param string $fileName
-   * @param \PapayaConfiguration $options
+   * @param \Papaya\Configuration $options
    * @access public
    * @return imgconv_common
    */
-  public static function getConverter($fileName, PapayaConfiguration $options = NULL) {
+  public static function getConverter($fileName, Configuration $options = NULL) {
     $result = NULL;
     $converters = array(
       'gd', 'netpbm', 'imagemagick', 'graphicsmagick'

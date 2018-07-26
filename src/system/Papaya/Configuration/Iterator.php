@@ -14,10 +14,9 @@
  */
 
 namespace Papaya\Configuration;
-use PapayaConfiguration;
 
 /**
- * Iterator for the PapayaConfiguration class.
+ * Iterator for the Papaya\PapayaConfiguration class.
  *
  * @package Papaya-Library
  * @subpackage Configuration
@@ -34,7 +33,7 @@ class Iterator implements \Iterator {
   /**
    * configuration object
    *
-   * @var \PapayaConfiguration
+   * @var \Papaya\Configuration
    */
   private $_configuration = NULL;
 
@@ -56,9 +55,9 @@ class Iterator implements \Iterator {
    * Create object, store names and configuration object
    *
    * @param array $names
-   * @param \PapayaConfiguration $configuration
+   * @param \Papaya\Configuration $configuration
    */
-  public function __construct(array $names, \PapayaConfiguration $configuration) {
+  public function __construct(array $names, \Papaya\Configuration $configuration) {
     $this->_names = array_values($names);
     $this->_maximum = count($names) - 1;
     $this->_configuration = $configuration;
