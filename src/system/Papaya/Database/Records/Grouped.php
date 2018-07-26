@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Records;
 /**
-* Papaya Database Records Grouped - reads records from the database and stores them grouped.
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-abstract class PapayaDatabaseRecordsGrouped extends \PapayaDatabaseRecordsLazy {
+ * Papaya Database Records Grouped - reads records from the database and stores them grouped.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+abstract class Grouped extends Lazy {
 
   /**
-  * identifing a child - the detail record identifier
-  *
-  * @var array
-  */
-  protected $_identifierProperties = array();
+   * identify a child - the detail record identifier
+   *
+   * @var array
+   */
+  protected $_identifierProperties;
 
   /**
-  * identifing a group - the group record identifier
-  *
-  * @var array
-  */
+   * identify a group - the group record identifier
+   *
+   * @var array
+   */
   protected $_groupIdentifierProperties = array('group_id');
 
   /**
@@ -52,9 +53,11 @@ abstract class PapayaDatabaseRecordsGrouped extends \PapayaDatabaseRecordsLazy {
       foreach ($this->getResultIterator() as $values) {
         $identifier = $this->getIdentifier($values, $idProperties);
         $groupIdentifier = $this->getIdentifier($values, $this->_groupIdentifierProperties);
-        if (empty($groupIdentifier) &&
-            $groupIdentifier !== '0' &&
-            $groupIdentifier !== 0) {
+        if (
+          '0' !== $groupIdentifier &&
+          0 !== $groupIdentifier &&
+          empty($groupIdentifier)
+        ) {
           throw new \LogicException(
             'Properties needed to group records.'
           );
@@ -62,7 +65,7 @@ abstract class PapayaDatabaseRecordsGrouped extends \PapayaDatabaseRecordsLazy {
         if (!isset($this->_records[$groupIdentifier])) {
           $this->_records[$groupIdentifier] = new \ArrayObject();
         }
-        if (isset($identifier)) {
+        if (NULL !== $identifier) {
           $this->_records[$groupIdentifier][$identifier] = $values;
         } else {
           $this->_records[$groupIdentifier][] = $values;

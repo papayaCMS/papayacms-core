@@ -1,11 +1,27 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
+use Papaya\Database\Records\Lazy;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaDatabaseRecordsLazy::activateLazyLoad
-  * @covers PapayaDatabaseRecordsLazy::getLazyLoadParameters
+  * @covers Lazy::activateLazyLoad
+  * @covers Lazy::getLazyLoadParameters
   */
   public function testActivateLazyLoadDoesNotTriggerLoading() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -22,9 +38,9 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsLazy::activateLazyLoad
-  * @covers PapayaDatabaseRecordsLazy::lazyLoad
-  * @covers PapayaDatabaseRecordsLazy::_loadRecords
+  * @covers Lazy::activateLazyLoad
+  * @covers Lazy::lazyLoad
+  * @covers Lazy::_loadRecords
   */
   public function testActiveLazyLoadParametersAreUsedDuringLazyLoad() {
     $databaseAccess = $this->getDatabaseAccessFixture();
@@ -48,7 +64,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsLazy::lazyLoad
+  * @covers Lazy::lazyLoad
   */
   public function testLoadIsOnlyCalledOnce() {
     $databaseAccess = $this->getDatabaseAccessFixture();
@@ -68,7 +84,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsLazy::absCount
+  * @covers Lazy::absCount
   */
   public function testAbsCount() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -102,7 +118,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsLazy::toArray
+  * @covers Lazy::toArray
   */
   public function testToArray() {
     $records = new PapayaDatabaseRecordsLazy_TestProxy();
@@ -120,7 +136,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsLazy::getIterator
+  * @covers Lazy::getIterator
   */
   public function testGetIterator() {
     $records = new PapayaDatabaseRecordsLazy_TestProxy();
@@ -138,7 +154,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsLazy::count
+  * @covers Lazy::count
   */
   public function testCount() {
     $records = new PapayaDatabaseRecordsLazy_TestProxy();
@@ -150,7 +166,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsLazy::offsetExists
+  * @covers Lazy::offsetExists
   */
   public function testOffsetExists() {
     $records = new PapayaDatabaseRecordsLazy_TestProxy();
@@ -160,7 +176,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsLazy::offsetGet
+  * @covers Lazy::offsetGet
   */
   public function testOffsetGet() {
     $records = new PapayaDatabaseRecordsLazy_TestProxy();
@@ -176,7 +192,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsLazy::offsetSet
+  * @covers Lazy::offsetSet
   */
   public function testOffsetSet() {
     $records = new PapayaDatabaseRecordsLazy_TestProxy();
@@ -202,7 +218,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsLazy::offsetUnset
+  * @covers Lazy::offsetUnset
   */
   public function testOffsetUnset() {
     $records = new PapayaDatabaseRecordsLazy_TestProxy();
@@ -240,7 +256,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   }
 }
 
-class PapayaDatabaseRecordsLazy_TestProxy extends PapayaDatabaseRecordsLazy {
+class PapayaDatabaseRecordsLazy_TestProxy extends Lazy {
 
   protected $_fields = array(
     'id' => 'field_id',

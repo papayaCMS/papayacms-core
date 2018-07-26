@@ -21,7 +21,7 @@ namespace Papaya\Content;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Pages extends \PapayaDatabaseRecordsLazy {
+class Pages extends \Papaya\Database\Records\Lazy {
 
   /**
    * Map field names to more convinient property names

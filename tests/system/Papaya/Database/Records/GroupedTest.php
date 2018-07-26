@@ -13,13 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Records\Grouped;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaDatabaseRecordsGrouped::_loadRecords
-  * @covers PapayaDatabaseRecordsGrouped::getIterator
+  * @covers Grouped::_loadRecords
+  * @covers Grouped::getIterator
   */
   public function testLoadAndIterateRootWithoutIdentifier() {
     $records = new PapayaDatabaseRecordsGrouped_TestProxy();
@@ -56,8 +58,8 @@ class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsGrouped::_loadRecords
-  * @covers PapayaDatabaseRecordsGrouped::getIterator
+  * @covers Grouped::_loadRecords
+  * @covers Grouped::getIterator
   */
   public function testLoadAndIterateRootWithIdentifier() {
     $records = new PapayaDatabaseRecordsGrouped_TestProxy();
@@ -95,8 +97,8 @@ class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsGrouped::_loadRecords
-  * @covers PapayaDatabaseRecordsGrouped::getIterator
+  * @covers Grouped::_loadRecords
+  * @covers Grouped::getIterator
   */
   public function testLoadWithInvalidIdentifierExpectingException() {
     $records = new PapayaDatabaseRecordsGrouped_TestProxy();
@@ -108,8 +110,8 @@ class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsGrouped::load
-  * @covers PapayaDatabaseRecordsGrouped::_loadRecords
+  * @covers Grouped::load
+  * @covers Grouped::_loadRecords
   */
   public function testLoadExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -173,7 +175,7 @@ class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
 }
 
 
-class PapayaDatabaseRecordsGrouped_TestProxy extends PapayaDatabaseRecordsGrouped {
+class PapayaDatabaseRecordsGrouped_TestProxy extends Grouped {
 
   public /** @noinspection PropertyInitializationFlawsInspection */
     $_identifierProperties = array();

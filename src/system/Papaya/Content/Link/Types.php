@@ -20,7 +20,7 @@ namespace Papaya\Content\Link;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Types extends \PapayaDatabaseRecordsLazy {
+class Types extends \Papaya\Database\Records\Lazy {
 
   protected $_fields = array(
     'id' => 'linktype_id',
@@ -75,7 +75,7 @@ class Types extends \PapayaDatabaseRecordsLazy {
   }
 
   /**
-   * @see \PapayaDatabaseRecordsUnbuffered::_createMapping()
+   * @see \Papaya\Database\Records\Unbuffered::_createMapping()
    *
    * @return \Papaya\Database\Record\Mapping
    */

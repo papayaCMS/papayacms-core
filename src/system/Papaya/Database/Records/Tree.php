@@ -13,33 +13,34 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Records;
 /**
-* Papaya Database Records Tree - reads an parent child tree from database.
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-abstract class PapayaDatabaseRecordsTree extends \PapayaDatabaseRecordsLazy {
+ * Papaya Database Records Tree - reads an parent child tree from database.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+abstract class Tree extends Lazy {
 
   /**
-  * identifing a record - the child identifier
-  *
-  * @var array
-  */
+   * identifing a record - the child identifier
+   *
+   * @var array
+   */
   protected $_identifierProperties = array('id');
 
   /**
-  * identifing a parent record - the parent identifier
-  *
-  * @var array
-  */
+   * identifing a parent record - the parent identifier
+   *
+   * @var array
+   */
   protected $_parentIdentifierProperties = array('parent_id');
 
   /**
-  * An buffer for the children of each parent
-  *
-  * @var array
-  */
+   * An buffer for the children of each parent
+   *
+   * @var array
+   */
   protected $_children = array();
 
   /**
@@ -63,7 +64,7 @@ abstract class PapayaDatabaseRecordsTree extends \PapayaDatabaseRecordsLazy {
         if (empty($parentIdentifier)) {
           $parentIdentifier = 0;
         }
-        if (isset($identifier)) {
+        if (NULL !== $identifier) {
           $this->_records[$identifier] = $values;
           $this->_children[$parentIdentifier][] = $identifier;
         } else {
@@ -78,11 +79,11 @@ abstract class PapayaDatabaseRecordsTree extends \PapayaDatabaseRecordsLazy {
   }
 
   /**
-  * Return a tree iterator for the loaded records starting with the children of the virtual
-  * element zero.
-  *
-  * @return \PapayaIteratorTreeChildren
-  */
+   * Return a tree iterator for the loaded records starting with the children of the virtual
+   * element zero.
+   *
+   * @return \PapayaIteratorTreeChildren
+   */
   public function getIterator() {
     return new \PapayaIteratorTreeChildren($this->_records, $this->_children);
   }

@@ -15,7 +15,7 @@
 
 namespace Papaya\Content\Media;
 
-class Folders extends \PapayaDatabaseRecordsTree {
+class Folders extends \Papaya\Database\Records\Tree {
 
   protected $_fields = array(
     'id' => 'folder_id',

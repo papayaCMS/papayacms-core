@@ -24,7 +24,7 @@ use Papaya\Administration\Permission\Groups;
  * @subpackage Administration
  */
 class Permissions
-  extends \PapayaDatabaseRecordsLazy {
+  extends \Papaya\Database\Records\Lazy {
 
   const SYSTEM_SETTINGS = 25;
   const SYSTEM_PROTOCOL = 31;

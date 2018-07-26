@@ -13,13 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Records\Tree;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaDatabaseRecordsTree::_loadRecords
-  * @covers PapayaDatabaseRecordsTree::getIterator
+  * @covers Tree::_loadRecords
+  * @covers Tree::getIterator
   */
   public function testLoadAndIterateRoot() {
     $records = new PapayaDatabaseRecordsTree_TestProxy();
@@ -43,8 +45,8 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsTree::_loadRecords
-  * @covers PapayaDatabaseRecordsTree::getIterator
+  * @covers Tree::_loadRecords
+  * @covers Tree::getIterator
   */
   public function testLoadAndIterateAll() {
     $records = new PapayaDatabaseRecordsTree_TestProxy();
@@ -75,8 +77,8 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsTree::_loadRecords
-  * @covers PapayaDatabaseRecordsTree::getIterator
+  * @covers Tree::_loadRecords
+  * @covers Tree::getIterator
   */
   public function testLoadAndIterateLeafs() {
     $records = new PapayaDatabaseRecordsTree_TestProxy();
@@ -102,8 +104,8 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsTree::_loadRecords
-  * @covers PapayaDatabaseRecordsTree::getIterator
+  * @covers Tree::_loadRecords
+  * @covers Tree::getIterator
   */
   public function testLoadWithInvalidIdentifierExpectingException() {
     $records = new PapayaDatabaseRecordsTree_TestProxy();
@@ -115,8 +117,8 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordsTree::load
-  * @covers PapayaDatabaseRecordsTree::_loadRecords
+  * @covers Tree::load
+  * @covers Tree::_loadRecords
   */
   public function testLoadExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -179,7 +181,7 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
   }
 }
 
-class PapayaDatabaseRecordsTree_TestProxy extends PapayaDatabaseRecordsTree {
+class PapayaDatabaseRecordsTree_TestProxy extends Tree {
 
   public /** @noinspection PropertyInitializationFlawsInspection */
     $_identifierProperties = array('id');

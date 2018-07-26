@@ -20,7 +20,7 @@ namespace Papaya\Content\Authentication;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Groups extends \PapayaDatabaseRecordsLazy {
+class Groups extends \Papaya\Database\Records\Lazy {
 
   protected $_fields = array(
     'id' => 'group_id',

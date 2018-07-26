@@ -47,7 +47,7 @@ class Set extends \PapayaDatabaseRecord {
   protected $_tableName = \Papaya\Content\Tables::THEME_SETS;
 
   /**
-   * @see \PapayaDatabaseRecordsUnbuffered::_createMapping()
+   * @see \Papaya\Database\Records\Unbuffered::_createMapping()
    *
    * @return \Papaya\Database\Record\Mapping
    */

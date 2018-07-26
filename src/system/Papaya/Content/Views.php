@@ -20,10 +20,10 @@ namespace Papaya\Content;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Views extends \PapayaDatabaseRecordsLazy {
+class Views extends \Papaya\Database\Records\Lazy {
 
   /**
-   * Map field names to more convinient property names
+   * Map field names to more convenient property names
    *
    * @var array(string=>string)
    */
