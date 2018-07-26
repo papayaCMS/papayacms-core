@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Record\Mapping\Callbacks;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
@@ -230,7 +232,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   */
   public function testCallbacksGetAfterSet() {
     $mapping = new PapayaDatabaseRecordMapping(array());
-    $mapping->callbacks($callbacks = $this->createMock(PapayaDatabaseRecordMappingCallbacks::class));
+    $mapping->callbacks($callbacks = $this->createMock(Callbacks::class));
     $this->assertSame($callbacks, $mapping->callbacks());
   }
 
@@ -239,7 +241,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   */
   public function testCallbacksGetImplicitCreate() {
     $mapping = new PapayaDatabaseRecordMapping(array());
-    $this->assertInstanceOf(PapayaDatabaseRecordMappingCallbacks::class, $mapping->callbacks());
+    $this->assertInstanceOf(Callbacks::class, $mapping->callbacks());
   }
 
   /**
@@ -254,7 +256,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
       'field_one' => 42
     );
     $callbacks = $this
-      ->getMockBuilder(PapayaDatabaseRecordMappingCallbacks::class)
+      ->getMockBuilder(Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array('__isset')
@@ -306,7 +308,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
       'field_one' => 42
     );
     $callbacks = $this
-      ->getMockBuilder(PapayaDatabaseRecordMappingCallbacks::class)
+      ->getMockBuilder(Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array('__isset', '__get', 'onBeforeMapping', 'onMapValue', 'onAfterMapping')
@@ -371,7 +373,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
       'field_one' => 42
     );
     $callbacks = $this
-      ->getMockBuilder(PapayaDatabaseRecordMappingCallbacks::class)
+      ->getMockBuilder(Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array(
@@ -437,7 +439,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   */
   public function testMapPropertiesToFieldsFieldNameCallback() {
     $callbacks = $this
-      ->getMockBuilder(PapayaDatabaseRecordMappingCallbacks::class)
+      ->getMockBuilder(Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array('__isset', 'onGetFieldForProperty')
@@ -487,7 +489,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
       'field_one' => 42
     );
     $callbacks = $this
-      ->getMockBuilder(PapayaDatabaseRecordMappingCallbacks::class)
+      ->getMockBuilder(Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array('__isset', '__get', 'onBeforeMapping', 'onMapValue', 'onAfterMapping')
@@ -552,7 +554,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
       'field_one' => 42
     );
     $callbacks = $this
-      ->getMockBuilder(PapayaDatabaseRecordMappingCallbacks::class)
+      ->getMockBuilder(Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array(
@@ -618,7 +620,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   */
   public function testMapFieldsToPropertiesWithPropertyNameCallback() {
     $callbacks = $this
-      ->getMockBuilder(PapayaDatabaseRecordMappingCallbacks::class)
+      ->getMockBuilder(Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(
         array('__isset', 'onGetPropertyForField')

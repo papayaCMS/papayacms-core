@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record\Mapping;
+
 /**
  * Callbacks that are used by the record mapping object
  *
@@ -22,17 +24,17 @@
  * @package Papaya-Library
  * @subpackage Database
  *
- * @property PapayaObjectCallback $onBeforeMapping
- * @property PapayaObjectCallback $onBeforeMappingFieldsToProperties
- * @property PapayaObjectCallback $onBeforeMappingPropertiesToFields
- * @property PapayaObjectCallback $onAfterMapping
- * @property PapayaObjectCallback $onAfterMappingFieldsToProperties
- * @property PapayaObjectCallback $onAfterMappingPropertiesToFields
- * @property PapayaObjectCallback $onMapValue
- * @property PapayaObjectCallback $onMapValueFromFieldToProperty
- * @property PapayaObjectCallback $onMapValueFromPropertyToField
- * @property PapayaObjectCallback $onGetFieldForProperty
- * @property PapayaObjectCallback $onGetPropertyForField
+ * @property \PapayaObjectCallback $onBeforeMapping
+ * @property \PapayaObjectCallback $onBeforeMappingFieldsToProperties
+ * @property \PapayaObjectCallback $onBeforeMappingPropertiesToFields
+ * @property \PapayaObjectCallback $onAfterMapping
+ * @property \PapayaObjectCallback $onAfterMappingFieldsToProperties
+ * @property \PapayaObjectCallback $onAfterMappingPropertiesToFields
+ * @property \PapayaObjectCallback $onMapValue
+ * @property \PapayaObjectCallback $onMapValueFromFieldToProperty
+ * @property \PapayaObjectCallback $onMapValueFromPropertyToField
+ * @property \PapayaObjectCallback $onGetFieldForProperty
+ * @property \PapayaObjectCallback $onGetPropertyForField
  * @method array onBeforeMapping(int $direction, array $properties, array $record)
  * @method array onBeforeMappingFieldsToProperties(array $properties, array $record)
  * @method array onBeforeMappingPropertiesToFields(array $properties, array $record)
@@ -45,7 +47,7 @@
  * @method string|NULL onGetFieldForProperty(string $propertyName, bool $withAlias = TRUE)
  * @method string|NULL onGetPropertyForField(string $fieldName)
  */
-class PapayaDatabaseRecordMappingCallbacks extends \PapayaObjectCallbacks {
+class Callbacks extends \PapayaObjectCallbacks {
 
   public function __construct() {
     parent::__construct(

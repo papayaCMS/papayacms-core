@@ -45,7 +45,7 @@ class PapayaDatabaseRecordMapping implements \Papaya\Database\Interfaces\Mapping
   /**
   * Callbacks to modify the mapping behaviour
   *
-  * @var \PapayaDatabaseRecordMappingCallbacks
+  * @var \Papaya\Database\Record\Mapping\Callbacks
   */
   private $_callbacks = NULL;
 
@@ -306,14 +306,14 @@ class PapayaDatabaseRecordMapping implements \Papaya\Database\Interfaces\Mapping
   /**
   * Getter/Setter for the possible callbacks, to modify the behaviour of the mapping
   *
-  * @param \PapayaDatabaseRecordMappingCallbacks $callbacks
-  * @return \PapayaDatabaseRecordMappingCallbacks
+  * @param \Papaya\Database\Record\Mapping\Callbacks $callbacks
+  * @return \Papaya\Database\Record\Mapping\Callbacks
   */
-  public function callbacks(\PapayaDatabaseRecordMappingCallbacks $callbacks = NULL) {
+  public function callbacks(\Papaya\Database\Record\Mapping\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new \PapayaDatabaseRecordMappingCallbacks();
+      $this->_callbacks = new \Papaya\Database\Record\Mapping\Callbacks();
     }
     return $this->_callbacks;
   }

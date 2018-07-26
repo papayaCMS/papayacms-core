@@ -14,23 +14,25 @@
  */
 
 use Papaya\Database\Interfaces\Mapping;
+use Papaya\Database\Record\Mapping\Cache;
+use Papaya\Database\Record\Mapping\Callbacks;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaDatabaseRecordMappingCache::__construct
+   * @covers Cache::__construct
    */
   public function testConstructor() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
     $mapping = $this->createMock(Mapping::class);
-    $cache = new PapayaDatabaseRecordMappingCache($mapping);
+    $cache = new Cache($mapping);
     $this->assertAttributeSame($mapping, '_mapping', $cache);
   }
 
   /**
-   * @covers PapayaDatabaseRecordMappingCache::__construct
+   * @covers Cache::__construct
    */
   public function testConstructorWithCallbacks() {
     $callbacks = $this->getCallbacksMock(
@@ -50,7 +52,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('callbacks')
       ->will($this->returnValue($callbacks));
-    $cache = new PapayaDatabaseRecordMappingCache($mapping);
+    $cache = new Cache($mapping);
     $this->assertAttributeSame(
       array(
         'eventTwo' => $callbackTwo,
@@ -62,7 +64,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseRecordMappingCache::mapFieldsToProperties
+   * @covers Cache::mapFieldsToProperties
    */
   public function testMapFieldsToProperties() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
@@ -72,7 +74,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
       ->method('getProperty')
       ->with('fieldOne')
       ->will($this->returnValue('propertyOne'));
-    $cache = new PapayaDatabaseRecordMappingCache($mapping);
+    $cache = new Cache($mapping);
     $this->assertEquals(
       array('propertyOne' => 42),
       $cache->mapFieldsToProperties(
@@ -82,7 +84,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseRecordMappingCache::mapFieldsToProperties
+   * @covers Cache::mapFieldsToProperties
    */
   public function testMapFieldsToPropertiesWithCallbacks() {
     $callbacks = $this->getCallbacksMock(
@@ -109,7 +111,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
       ->method('getProperty')
       ->with('fieldOne')
       ->will($this->returnValue('propertyOne'));
-    $cache = new PapayaDatabaseRecordMappingCache($mapping);
+    $cache = new Cache($mapping);
     $this->assertEquals(
       array('propertyTwo' => 23),
       $cache->mapFieldsToProperties(
@@ -119,7 +121,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseRecordMappingCache::mapPropertiesToFields
+   * @covers Cache::mapPropertiesToFields
    */
   public function testMapPropertiesToFields() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
@@ -129,7 +131,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
       ->method('getField')
       ->with('propertyOne', TRUE)
       ->will($this->returnValue('fieldOne'));
-    $cache = new PapayaDatabaseRecordMappingCache($mapping);
+    $cache = new Cache($mapping);
     $this->assertEquals(
       array('fieldOne' => 42),
       $cache->mapPropertiesToFields(
@@ -139,7 +141,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseRecordMappingCache::mapPropertiesToFields
+   * @covers Cache::mapPropertiesToFields
    */
   public function testMapPropertiesToFieldsWithCallbacks() {
     $callbacks = $this->getCallbacksMock(
@@ -166,7 +168,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
       ->method('getField')
       ->with('propertyTwo')
       ->will($this->returnValue('fieldTwo'));
-    $cache = new PapayaDatabaseRecordMappingCache($mapping);
+    $cache = new Cache($mapping);
     $this->assertEquals(
       array('fieldOne' => 23),
       $cache->mapPropertiesToFields(
@@ -176,7 +178,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaDatabaseRecordMappingCache::getProperties
+   * @covers Cache::getProperties
    */
   public function testGetProperties() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
@@ -186,13 +188,13 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
       ->method('getProperties')
       ->will($this->returnValue(array('property')));
 
-    $cache = new PapayaDatabaseRecordMappingCache($mapping);
+    $cache = new Cache($mapping);
     $cache->getProperties();
     $this->assertEquals(array('property'), $cache->getProperties());
   }
 
   /**
-   * @covers PapayaDatabaseRecordMappingCache::getFields
+   * @covers Cache::getFields
    */
   public function testGetFields() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
@@ -202,14 +204,14 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
       ->method('getFields')
       ->will($this->returnArgument(0));
 
-    $cache = new PapayaDatabaseRecordMappingCache($mapping);
+    $cache = new Cache($mapping);
     $this->assertEquals('aliasOne', $cache->getFields('aliasOne'));
     $this->assertEquals('aliasTwo', $cache->getFields('aliasTwo'));
     $this->assertEquals('aliasTwo', $cache->getFields('aliasTwo'));
   }
 
   /**
-   * @covers PapayaDatabaseRecordMappingCache::getProperty
+   * @covers Cache::getProperty
    */
   public function testGetProperty() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
@@ -219,14 +221,14 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
       ->method('getProperty')
       ->will($this->returnArgument(0));
 
-    $cache = new PapayaDatabaseRecordMappingCache($mapping);
+    $cache = new Cache($mapping);
     $this->assertEquals('fieldOne', $cache->getProperty('fieldOne'));
     $this->assertEquals('fieldTwo', $cache->getProperty('fieldTwo'));
     $this->assertEquals('fieldTwo', $cache->getProperty('fieldTwo'));
   }
 
   /**
-   * @covers PapayaDatabaseRecordMappingCache::getField
+   * @covers Cache::getField
    */
   public function testGetField() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
@@ -236,7 +238,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
       ->method('getField')
       ->will($this->returnArgument(0));
 
-    $cache = new PapayaDatabaseRecordMappingCache($mapping);
+    $cache = new Cache($mapping);
     $this->assertEquals('fieldOne', $cache->getField('fieldOne'));
     $this->assertEquals('fieldTwo', $cache->getField('fieldTwo'));
     $this->assertEquals('fieldTwo', $cache->getField('fieldTwo', 'alias'));
@@ -244,7 +246,7 @@ class PapayaDatabaseRecordMappingCacheTest extends PapayaTestCase {
   }
 
   private function getCallbacksMock(array $events = array()) {
-    $callbacks = $this->createMock(PapayaDatabaseRecordMappingCallbacks::class);
+    $callbacks = $this->createMock(Callbacks::class);
     $callbacks
       ->expects($this->any())
       ->method('getIterator')

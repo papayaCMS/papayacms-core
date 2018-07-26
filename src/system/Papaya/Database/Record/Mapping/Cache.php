@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record\Mapping;
 /**
-* Mapper object to convert a database fields into object properties and back. It caches the
-* results of functions call to the orginal mapping class and the callback functions.
-*
-* It will not cache the result of the property/record value mappings.
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-class PapayaDatabaseRecordMappingCache implements \Papaya\Database\Interfaces\Mapping {
+ * Mapper object to convert a database fields into object properties and back. It caches the
+ * results of functions call to the orginal mapping class and the callback functions.
+ *
+ * It will not cache the result of the property/record value mappings.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Cache implements \Papaya\Database\Interfaces\Mapping {
 
   /**
    * @var \Papaya\Database\Interfaces\Mapping
@@ -50,11 +51,11 @@ class PapayaDatabaseRecordMappingCache implements \Papaya\Database\Interfaces\Ma
   }
 
   /**
-  * Map the database fields of an record to the object properties
-  *
-  * @param array $record
-  * @return array
-  */
+   * Map the database fields of an record to the object properties
+   *
+   * @param array $record
+   * @return array
+   */
   function mapFieldsToProperties(array $record) {
     $callbacks = $this->_callbacks;
     $values = array();
@@ -157,10 +158,10 @@ class PapayaDatabaseRecordMappingCache implements \Papaya\Database\Interfaces\Ma
   }
 
   /**
-  * Get a list of the used database fields
-  *
-  * @return array
-  */
+   * Get a list of the used database fields
+   *
+   * @return array
+   */
   function getProperties() {
     if (!isset($this->_results['getProperties'])) {
       $this->_results['getProperties'] = $this->_mapping->getProperties();
