@@ -28,12 +28,12 @@ class Profiler implements \Papaya\Application\Profile {
    * Create the profile object and return it
    *
    * @param \Papaya\Application|\Papaya\Application\Cms $application
-   * @return \PapayaProfiler
+   * @return \Papaya\Profiler
    */
   public function createObject($application) {
     $builder = $this->builder();
     $builder->papaya($application);
-    $profiler = new \PapayaProfiler($builder->createCollector(), $builder->createStorage());
+    $profiler = new \Papaya\Profiler($builder->createCollector(), $builder->createStorage());
     if ($application->options->get('PAPAYA_PROFILER_ACTIVE', FALSE)) {
       $profiler->setDivisor($application->options->get('PAPAYA_PROFILER_DIVISOR', 50));
     } else {
