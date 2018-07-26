@@ -18,18 +18,18 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFileSystemFactoryTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFileSystemFactory::getFile
+   * @covers \Papaya\File\System\Factory::getFile
    */
   public function testGetFile() {
-    $factory = new \PapayaFileSystemFactory();
-    $this->assertInstanceOf(\PapayaFileSystemFile::class, $factory->getFile('/path/file.txt'));
+    $factory = new \Papaya\File\System\Factory();
+    $this->assertInstanceOf(\Papaya\File\System\File::class, $factory->getFile('/path/file.txt'));
   }
 
   /**
-   * @covers \PapayaFileSystemFactory::getDirectory
+   * @covers \Papaya\File\System\Factory::getDirectory
    */
   public function testGetDirectory() {
-    $factory = new \PapayaFileSystemFactory();
-    $this->assertInstanceOf(\PapayaFileSystemDirectory::class, $factory->getDirectory('/path'));
+    $factory = new \Papaya\File\System\Factory();
+    $this->assertInstanceOf(\Papaya\File\System\Directory::class, $factory->getDirectory('/path'));
   }
 }

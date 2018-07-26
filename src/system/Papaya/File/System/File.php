@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\File\System;
 /**
-* Wrapping a file entry in the file system to call operation as methods
-*
-* @package Papaya-Library
-* @subpackage FileSystem
-*/
-class PapayaFileSystemFile {
+ * Wrapping a file entry in the file system to call operation as methods
+ *
+ * @package Papaya-Library
+ * @subpackage FileSystem
+ */
+class File {
 
   private $_filename = '';
 
@@ -90,6 +91,7 @@ class PapayaFileSystemFile {
 
   /**
    * Write the content into the file
+   *
    * @param mixed $content
    */
   public function putContents($content) {

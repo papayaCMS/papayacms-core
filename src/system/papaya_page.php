@@ -1269,7 +1269,7 @@ class papaya_page extends base_object {
         $allStatus = FALSE;
         continue;
       }
-      $directory = new \PapayaFileSystemDirectory($realPath);
+      $directory = new \Papaya\File\System\Directory($realPath);
       if (!($status[$name] = $directory->isWriteable())) {
         $allStatus = FALSE;
       }

@@ -230,7 +230,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
 
   public function getFileSystemFixtureWithUploadedFile($isUploadedFile) {
     $file = $this
-      ->getMockBuilder(\PapayaFileSystemFile::class)
+      ->getMockBuilder(\Papaya\File\System\File::class)
       ->disableOriginalConstructor()
       ->getMock();
     $file
@@ -239,7 +239,7 @@ class PapayaRequestParameterFileTest extends \PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue($isUploadedFile));
 
-    $fileSystem = $this->createMock(\PapayaFileSystemFactory::class);
+    $fileSystem = $this->createMock(\Papaya\File\System\Factory::class);
     $fileSystem
       ->expects($this->any())
       ->method('getFile')

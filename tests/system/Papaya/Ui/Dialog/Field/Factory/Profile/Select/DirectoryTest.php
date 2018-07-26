@@ -44,11 +44,11 @@ class PapayaUiDialogFieldFactoryProfileSelectDirectoryTest extends \PapayaTestCa
   /**
    * @param array|NULL $files
    * @param string $filter
-   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaFileSystemFactory
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\File\System\Factory
    */
   private function getFileSystemFixture(array $files = NULL, $filter = '') {
     $directory = $this
-      ->getMockBuilder(\PapayaFileSystemDirectory::class)
+      ->getMockBuilder(\Papaya\File\System\Directory::class)
       ->disableOriginalConstructor()
       ->getMock();
     $directory
@@ -59,10 +59,10 @@ class PapayaUiDialogFieldFactoryProfileSelectDirectoryTest extends \PapayaTestCa
       $directory
         ->expects($this->once())
         ->method('getEntries')
-        ->with($filter, \PapayaFileSystemDirectory::FETCH_DIRECTORIES)
+        ->with($filter, \Papaya\File\System\Directory::FETCH_DIRECTORIES)
         ->will($this->returnValue(new ArrayIterator($files)));
     }
-    $fileSystem = $this->createMock(\PapayaFileSystemFactory::class);
+    $fileSystem = $this->createMock(\Papaya\File\System\Factory::class);
     $fileSystem
       ->expects($this->once())
       ->method('getDirectory')

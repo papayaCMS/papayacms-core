@@ -13,31 +13,32 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\File\System;
 /**
-* A factory object that creates file and directory wrapper objects
-*
-* @package Papaya-Library
-* @subpackage FileSystem
-*/
-class PapayaFileSystemFactory {
+ * A factory object that creates file and directory wrapper objects
+ *
+ * @package Papaya-Library
+ * @subpackage FileSystem
+ */
+class Factory {
 
   /**
    * Return an object wrapping a file in the file system
    *
    * @param string $filename
-   * @return \PapayaFileSystemFile
+   * @return \Papaya\File\System\File
    */
   public function getFile($filename) {
-    return new \PapayaFileSystemFile($filename);
+    return new \Papaya\File\System\File($filename);
   }
 
   /**
    * Return an object wrapping a directory in the file system
    *
    * @param string $directory
-   * @return \PapayaFileSystemDirectory
+   * @return Directory
    */
   public function getDirectory($directory) {
-    return new \PapayaFileSystemDirectory($directory);
+    return new Directory($directory);
   }
 }

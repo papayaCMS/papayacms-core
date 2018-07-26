@@ -181,7 +181,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends \PapayaTestCase {
    */
   public function testFileSystemGetAfterSet() {
     $profile = new \PapayaUiDialogFieldFactoryProfileSelectFile();
-    $profile->fileSystem($fileSystem = $this->createMock(\PapayaFileSystemFactory::class));
+    $profile->fileSystem($fileSystem = $this->createMock(\Papaya\File\System\Factory::class));
     $this->assertSame($fileSystem, $profile->fileSystem());
   }
 
@@ -190,12 +190,12 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends \PapayaTestCase {
    */
   public function testFileSystemGetImplicitCreate() {
     $profile = new \PapayaUiDialogFieldFactoryProfileSelectFile();
-    $this->assertInstanceOf(\PapayaFileSystemFactory::class, $profile->fileSystem());
+    $this->assertInstanceOf(\Papaya\File\System\Factory::class, $profile->fileSystem());
   }
 
   private function getFileSystemFixture(array $files = NULL, $filter = '') {
     $directory = $this
-      ->getMockBuilder(\PapayaFileSystemDirectory::class)
+      ->getMockBuilder(\Papaya\File\System\Directory::class)
       ->disableOriginalConstructor()
       ->getMock();
     $directory
@@ -206,10 +206,10 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends \PapayaTestCase {
       $directory
         ->expects($this->once())
         ->method('getEntries')
-        ->with($filter, \PapayaFileSystemDirectory::FETCH_FILES)
+        ->with($filter, \Papaya\File\System\Directory::FETCH_FILES)
         ->will($this->returnValue(new ArrayIterator($files)));
     }
-    $fileSystem = $this->createMock(\PapayaFileSystemFactory::class);
+    $fileSystem = $this->createMock(\Papaya\File\System\Factory::class);
     $fileSystem
       ->expects($this->once())
       ->method('getDirectory')

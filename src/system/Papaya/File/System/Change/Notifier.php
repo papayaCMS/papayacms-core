@@ -13,19 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\File\System\Change;
 /**
-* An filter iterator to filter an given iterator using a pcre pattern.
-*
-* The elements of the inner iterator are casted to string, so they can be objects implemening
-* the __toString method.
-*
-* @package Papaya-Library
-* @subpackage FileSystem
-*/
-class PapayaFileSystemChangeNotifier {
+ * An filter iterator to filter an given iterator using a pcre pattern.
+ *
+ * The elements of the inner iterator are casted to string, so they can be objects implemening
+ * the __toString method.
+ *
+ * @package Papaya-Library
+ * @subpackage FileSystem
+ */
+class Notifier {
 
   /**
    * File/directory was added
+   *
    * @var string
    */
   const ACTION_ADD = 'A';
@@ -38,23 +40,26 @@ class PapayaFileSystemChangeNotifier {
   const ACTION_MODIFIED = 'M';
   /**
    * File/directory was deleted
+   *
    * @var string
    */
   const ACTION_DELETED = 'D';
   /**
    * Directory was cleared (all files/subdirectories were deleted)
+   *
    * @var string
    */
   const ACTION_CLEARED = 'C';
 
   /**
    * Directory was invalidated (the files/directories are not up to date but they are not deleted)
+   *
    * @var string
    */
   const ACTION_INVALIDATED = 'I';
 
   /**
-   * @var \PapayaFileSystemAction
+   * @var \Papaya\File\System\Action
    */
   private $_action = NULL;
 
@@ -108,10 +113,10 @@ class PapayaFileSystemChangeNotifier {
   /**
    * Get/Set the notifier action object, this will be set from setTarget usually.
    *
-   * @param \PapayaFileSystemAction $action
-   * @return \PapayaFileSystemAction
+   * @param \Papaya\File\System\Action $action
+   * @return \Papaya\File\System\Action
    */
-  public function action(\PapayaFileSystemAction $action = NULL) {
+  public function action(\Papaya\File\System\Action $action = NULL) {
     if (isset($action)) {
       $this->_action = $action;
     }

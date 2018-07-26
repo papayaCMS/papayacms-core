@@ -23,11 +23,11 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
   extends \PapayaUiDialogFieldFactoryProfile {
 
   /**
-   * @var \PapayaFileSystemFactory
+   * @var \Papaya\File\System\Factory
    */
   private $_fileSystem = NULL;
 
-  protected $_fileSystemItems = \PapayaFileSystemDirectory::FETCH_FILES;
+  protected $_fileSystemItems = \Papaya\File\System\Directory::FETCH_FILES;
 
   /**
    * @see \PapayaUiDialogFieldFactoryProfile::getField()
@@ -112,14 +112,14 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
   /**
    * Getter/Setter for the file system factory
    *
-   * @param \PapayaFileSystemFactory $fileSystem
-   * @return \PapayaFileSystemFactory
+   * @param \Papaya\File\System\Factory $fileSystem
+   * @return \Papaya\File\System\Factory
    */
-  public function fileSystem(\PapayaFileSystemFactory $fileSystem = NULL) {
+  public function fileSystem(\Papaya\File\System\Factory $fileSystem = NULL) {
     if (isset($fileSystem)) {
       $this->_fileSystem = $fileSystem;
     } elseif (NULL === $this->_fileSystem) {
-      $this->_fileSystem = new \PapayaFileSystemFactory();
+      $this->_fileSystem = new \Papaya\File\System\Factory();
     }
     return $this->_fileSystem;
   }

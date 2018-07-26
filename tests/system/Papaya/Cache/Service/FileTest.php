@@ -116,14 +116,14 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
 
     $path = str_replace('\\', '/', $this->_temporaryDirectory);
     $notifier = $this
-      ->getMockBuilder(\PapayaFileSystemChangeNotifier::class)
+      ->getMockBuilder(\Papaya\File\System\Change\Notifier::class)
       ->disableOriginalConstructor()
       ->getMock();
     $notifier
       ->expects($this->at(0))
       ->method('notify')
       ->with(
-        \PapayaFileSystemChangeNotifier::ACTION_ADD,
+        \Papaya\File\System\Change\Notifier::ACTION_ADD,
         NULL,
         $path.'/GROUP'
       );
@@ -131,7 +131,7 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
       ->expects($this->at(1))
       ->method('notify')
       ->with(
-        \PapayaFileSystemChangeNotifier::ACTION_ADD,
+        \Papaya\File\System\Change\Notifier::ACTION_ADD,
         NULL,
         $path.'/GROUP/ELEMENT'
       );
@@ -139,7 +139,7 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
       ->expects($this->at(2))
       ->method('notify')
       ->with(
-        \PapayaFileSystemChangeNotifier::ACTION_MODIFIED,
+        \Papaya\File\System\Change\Notifier::ACTION_MODIFIED,
         $path.'/GROUP/ELEMENT/PARAMETERS'
       );
     $service->notifier($notifier);
@@ -288,14 +288,14 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
 
     $path = str_replace('\\', '/', $this->_temporaryDirectory);
     $notifier = $this
-      ->getMockBuilder(\PapayaFileSystemChangeNotifier::class)
+      ->getMockBuilder(\Papaya\File\System\Change\Notifier::class)
       ->disableOriginalConstructor()
       ->getMock();
     $notifier
       ->expects($this->once())
       ->method('notify')
       ->with(
-        \PapayaFileSystemChangeNotifier::ACTION_DELETED,
+        \Papaya\File\System\Change\Notifier::ACTION_DELETED,
         $path.'/GROUP/ELEMENT/PARAMETERS'
       );
     $service->notifier($notifier);
@@ -311,14 +311,14 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
 
     $path = str_replace('\\', '/', $this->_temporaryDirectory);
     $notifier = $this
-      ->getMockBuilder(\PapayaFileSystemChangeNotifier::class)
+      ->getMockBuilder(\Papaya\File\System\Change\Notifier::class)
       ->disableOriginalConstructor()
       ->getMock();
     $notifier
       ->expects($this->once())
       ->method('notify')
       ->with(
-        \PapayaFileSystemChangeNotifier::ACTION_CLEARED,
+        \Papaya\File\System\Change\Notifier::ACTION_CLEARED,
         NULL,
         $path.'/GROUP/ELEMENT/'
       );
@@ -346,14 +346,14 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
 
     $path = str_replace('\\', '/', $this->_temporaryDirectory);
     $notifier = $this
-      ->getMockBuilder(\PapayaFileSystemChangeNotifier::class)
+      ->getMockBuilder(\Papaya\File\System\Change\Notifier::class)
       ->disableOriginalConstructor()
       ->getMock();
     $notifier
       ->expects($this->once())
       ->method('notify')
       ->with(
-        \PapayaFileSystemChangeNotifier::ACTION_INVALIDATED,
+        \Papaya\File\System\Change\Notifier::ACTION_INVALIDATED,
         NULL,
         $path.'/GROUP/ELEMENT/'
       );
@@ -413,7 +413,7 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
   */
   public function testNotifierGetAfterSet() {
     $notifier = $this
-      ->getMockBuilder(\PapayaFileSystemChangeNotifier::class)
+      ->getMockBuilder(\Papaya\File\System\Change\Notifier::class)
       ->disableOriginalConstructor()
       ->getMock();
 
@@ -431,7 +431,7 @@ class PapayaCacheServiceFileTest extends \PapayaTestCase {
     $configuration['FILESYSTEM_NOTIFIER_SCRIPT'] = '/foo/bar.php';
 
     $service = new File($configuration);
-    $this->assertInstanceOf(\PapayaFileSystemChangeNotifier::class, $service->notifier());
+    $this->assertInstanceOf(\Papaya\File\System\Change\Notifier::class, $service->notifier());
   }
 
   /**

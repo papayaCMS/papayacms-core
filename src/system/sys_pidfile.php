@@ -77,7 +77,7 @@ class pidfile {
    */
   function get($echo = TRUE) {
     $this->oldPid = 0;
-    $fileSystem = new \PapayaFileSystemFactory();
+    $fileSystem = new \Papaya\File\System\Factory();
     $directory = $fileSystem->getDirectory($directoryName = dirname($this->pidfile));
     if (!$directory->isWriteable()) {
       throw new LogicException(

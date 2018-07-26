@@ -22,64 +22,64 @@ class PapayaFileSystemFileTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaFileSystemFile::__construct
-   * @covers \PapayaFileSystemFile::__toString
+   * @covers \Papaya\File\System\File::__construct
+   * @covers \Papaya\File\System\File::__toString
    */
   public function testConstructor() {
-    $file = new \PapayaFileSystemFile('/path/file.txt');
+    $file = new \Papaya\File\System\File('/path/file.txt');
     $this->assertEquals(
       '/path/file.txt', (string)$file
     );
   }
 
   /**
-   * @covers \PapayaFileSystemFile::exists
+   * @covers \Papaya\File\System\File::exists
    */
   public function testExistsExpectingTrue() {
-    $file = new \PapayaFileSystemFile(__DIR__.'/TestData/sample.txt');
+    $file = new \Papaya\File\System\File(__DIR__.'/TestData/sample.txt');
     $this->assertTrue($file->exists());
   }
 
   /**
-   * @covers \PapayaFileSystemFile::exists
+   * @covers \Papaya\File\System\File::exists
    */
   public function testExistsExpectingFalse() {
-    $file = new \PapayaFileSystemFile(__DIR__.'/TestData/NON_EXISTING.txt');
+    $file = new \Papaya\File\System\File(__DIR__.'/TestData/NON_EXISTING.txt');
     $this->assertFalse($file->exists());
   }
 
   /**
-   * @covers \PapayaFileSystemFile::isReadable
+   * @covers \Papaya\File\System\File::isReadable
    */
   public function testIsReadableExpectingTrue() {
-    $file = new \PapayaFileSystemFile(__DIR__.'/TestData/sample.txt');
+    $file = new \Papaya\File\System\File(__DIR__.'/TestData/sample.txt');
     $this->assertTrue($file->isReadable());
   }
 
   /**
-   * @covers \PapayaFileSystemFile::isWriteable
+   * @covers \Papaya\File\System\File::isWriteable
    */
   public function testIsWriteableExpectingTrue() {
     $filename = $this->createTemporaryDirectory().'/sample.txt';
     touch($filename);
-    $file = new \PapayaFileSystemFile($filename);
+    $file = new \Papaya\File\System\File($filename);
     $this->assertTrue($file->isWriteable());
   }
 
   /**
-   * @covers \PapayaFileSystemFile::getContents
+   * @covers \Papaya\File\System\File::getContents
    */
   public function testGetContents() {
-    $file = new \PapayaFileSystemFile(__DIR__.'/TestData/sample.txt');
+    $file = new \Papaya\File\System\File(__DIR__.'/TestData/sample.txt');
     $this->assertEquals('success', $file->getContents());
   }
 
   /**
-   * @covers \PapayaFileSystemFile::putContents
+   * @covers \Papaya\File\System\File::putContents
    */
   public function testPutContents() {
     $filename = $this->createTemporaryDirectory().'/sample.txt';
-    $file = new \PapayaFileSystemFile($filename);
+    $file = new \Papaya\File\System\File($filename);
     $file->putContents('success');
     $this->assertEquals('success', file_get_contents($filename));
   }

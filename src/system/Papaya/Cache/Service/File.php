@@ -14,7 +14,6 @@
  */
 
 namespace Papaya\Cache\Service;
-use PapayaFileSystemChangeNotifier;
 
 /**
  * Papaya Cache Service for file system cache
@@ -39,7 +38,7 @@ class File extends \Papaya\Cache\Service {
   private $_notifierScript = NULL;
 
   /**
-   * @var \PapayaFileSystemChangeNotifier
+   * @var \Papaya\File\System\Change\Notifier
    */
   private $_notifier = NULL;
 
@@ -113,7 +112,7 @@ class File extends \Papaya\Cache\Service {
       if ($fh = fopen($identifiers['file'], 'w')) {
         fwrite($fh, $data);
         fclose($fh);
-        $this->notify(\PapayaFileSystemChangeNotifier::ACTION_MODIFIED, $identifiers['file']);
+        $this->notify(\Papaya\File\System\Change\Notifier::ACTION_MODIFIED, $identifiers['file']);
         return $identifiers['identifier'];
       }
       // @codeCoverageIgnoreStart
@@ -138,7 +137,7 @@ class File extends \Papaya\Cache\Service {
       }
       @mkdir($directory, 0777);
       if (file_exists($directory)) {
-        $this->notify(\PapayaFileSystemChangeNotifier::ACTION_ADD, NULL, $directory);
+        $this->notify(\Papaya\File\System\Change\Notifier::ACTION_ADD, NULL, $directory);
         return TRUE;
         // @codeCoverageIgnoreStart
       }
@@ -241,14 +240,14 @@ class File extends \Papaya\Cache\Service {
       }
       if (file_exists($cache) && is_file($cache)) {
         unlink($cache);
-        $this->notify(\PapayaFileSystemChangeNotifier::ACTION_DELETED, $cache);
+        $this->notify(\Papaya\File\System\Change\Notifier::ACTION_DELETED, $cache);
         return 1;
       } elseif (file_exists($cache) && is_dir($cache) && $this->_allowUnlink) {
         $count = \PapayaUtilFilePath::clear($cache);
-        $this->notify(\PapayaFileSystemChangeNotifier::ACTION_CLEARED, NULL, $cache);
+        $this->notify(\Papaya\File\System\Change\Notifier::ACTION_CLEARED, NULL, $cache);
         return $count;
       } else {
-        $this->notify(\PapayaFileSystemChangeNotifier::ACTION_INVALIDATED, NULL, $cache);
+        $this->notify(\Papaya\File\System\Change\Notifier::ACTION_INVALIDATED, NULL, $cache);
       }
       return TRUE;
     }
@@ -297,15 +296,15 @@ class File extends \Papaya\Cache\Service {
    * Getter/Setter for a notifer object - this will notify an external script or url
    * about the file change.
    *
-   * @param \PapayaFileSystemChangeNotifier $notifier
-   * @return \PapayaFileSystemChangeNotifier|FALSE
+   * @param \Papaya\File\System\Change\Notifier $notifier
+   * @return \Papaya\File\System\Change\Notifier|FALSE
    */
-  public function notifier(\PapayaFileSystemChangeNotifier $notifier = NULL) {
+  public function notifier(\Papaya\File\System\Change\Notifier $notifier = NULL) {
     if (NULL !== $notifier) {
       $this->_notifier = $notifier;
     } elseif (NULL === $this->_notifier) {
       if ($this->_notifierScript) {
-        $this->_notifier = new \PapayaFileSystemChangeNotifier($this->_notifierScript);
+        $this->_notifier = new \Papaya\File\System\Change\Notifier($this->_notifierScript);
       } else {
         $this->_notifier = FALSE;
       }

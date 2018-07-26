@@ -13,13 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\File\System;
+
 /**
-* Wrapping a file entry in the file system to call operation as methods
-*
-* @package Papaya-Library
-* @subpackage FileSystem
-*/
-class PapayaFileSystemDirectory {
+ * Wrapping a file entry in the file system to call operation as methods
+ *
+ * @package Papaya-Library
+ * @subpackage FileSystem
+ */
+class Directory {
 
   const FETCH_FILES = 1;
   const FETCH_DIRECTORIES = 2;
@@ -87,15 +89,15 @@ class PapayaFileSystemDirectory {
       \FilesystemIterator::CURRENT_AS_FILEINFO
     );
     switch ($type) {
-    case self::FETCH_FILES :
-      $result = new \PapayaIteratorFilterCallback(
-        $result, array($this, 'callbackFileInfoIsFile')
-      );
+      case self::FETCH_FILES :
+        $result = new \PapayaIteratorFilterCallback(
+          $result, array($this, 'callbackFileInfoIsFile')
+        );
       break;
-    case self::FETCH_DIRECTORIES :
-      $result = new \PapayaIteratorFilterCallback(
-        $result, array($this, 'callbackFileInfoIsDirectory')
-      );
+      case self::FETCH_DIRECTORIES :
+        $result = new \PapayaIteratorFilterCallback(
+          $result, array($this, 'callbackFileInfoIsDirectory')
+        );
       break;
     }
     if (!empty($filter)) {
@@ -107,11 +109,11 @@ class PapayaFileSystemDirectory {
     }
   }
 
-  public function callbackFileInfoIsFile(splFileInfo $fileInfo) {
+  public function callbackFileInfoIsFile(\splFileInfo $fileInfo) {
     return $fileInfo->isFile();
   }
 
-  public function callbackFileInfoIsDirectory(splFileInfo $fileInfo) {
+  public function callbackFileInfoIsDirectory(\splFileInfo $fileInfo) {
     return $fileInfo->isDir();
   }
 }

@@ -20,7 +20,7 @@ namespace Papaya\File\System\Action;
  * @package Papaya-Library
  * @subpackage FileSystem
  */
-class Script implements \PapayaFileSystemAction {
+class Script implements \Papaya\File\System\Action {
 
   private $_script;
 
