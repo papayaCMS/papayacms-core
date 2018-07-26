@@ -29,7 +29,7 @@ namespace Papaya\Application;
  * @property \PapayaPluginLoader $plugins
  * @property \Papaya\Profiler $profiler
  * @property \Papaya\Request $request
- * @property \PapayaResponse $response$response
+ * @property \Papaya\Response $response$response
  * @property \PapayaSession $session
  * @property \base_surfer $surfer
  * @property \base_auth $administrationUser

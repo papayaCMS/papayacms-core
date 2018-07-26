@@ -118,7 +118,7 @@ class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
     } else {
       $cacheTime = 0;
     }
-    $response = new \PapayaResponse();
+    $response = new Papaya\Response();
     $data = NULL;
     $lastModified = 0;
     if ($cacheTime > 0) {

@@ -25,7 +25,7 @@ class PapayaAdministrationThemeEditorChangesSetExportTest extends \PapayaTestCas
    * @covers Export
    */
   public function testAppendTo() {
-    $response = $this->createMock(\PapayaResponse::class);
+    $response = $this->createMock(Papaya\Response::class);
     $response
       ->expects($this->once())
       ->method('setStatus')

@@ -32,13 +32,13 @@ interface Controller {
    *
    * @param \Papaya\Application $application
    * @param \Papaya\Request &$request
-   * @param \PapayaResponse &$response
+   * @param \Papaya\Response &$response
    * @return boolean|self
    */
   public function execute(
     \Papaya\Application $application,
     \Papaya\Request &$request,
-    \PapayaResponse &$response
+    \Papaya\Response &$response
   );
 
 }

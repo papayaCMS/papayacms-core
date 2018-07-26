@@ -295,7 +295,7 @@ abstract class Template extends Application\BaseObject {
     );
     if ($debugXml && $this->papaya()->administrationUser->isLoggedIn()) {
       /**
-       * @var \PapayaResponse $response
+       * @var \Papaya\Response $response
        */
       $response = $this->papaya()->response;
       $response->setContentType('text/xml', 'utf-8');

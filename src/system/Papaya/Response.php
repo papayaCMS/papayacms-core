@@ -13,16 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya;
 /**
-* @package Papaya-Library
-* @subpackage Response
-*/
-class PapayaResponse extends \Papaya\Application\BaseObject {
+ * @package Papaya-Library
+ * @subpackage Response
+ */
+class Response extends \Papaya\Application\BaseObject {
 
   /**
-  * Status codes
-  * @var array
-  */
+   * Status codes
+   *
+   * @var array
+   */
   private $_statusCodes = array(
     100 => 'Continue',
     101 => 'Switching Protocols',
@@ -77,37 +79,41 @@ class PapayaResponse extends \Papaya\Application\BaseObject {
   );
 
   /**
-  * Response status code
-  * @var integer
-  */
+   * Response status code
+   *
+   * @var integer
+   */
   private $_status = 200;
 
   /**
-  * Response http headers
-  * @var \PapayaResponseHeaders
-  */
+   * Response http headers
+   *
+   * @var \PapayaResponseHeaders
+   */
   private $_headers = NULL;
 
   /**
-  * Response content
-  * @var \PapayaResponseContent
-  */
+   * Response content
+   *
+   * @var \PapayaResponseContent
+   */
   private $_content = NULL;
 
   /**
-  * Helper object (wraps php functions)
-  * @var \PapayaResponseHelper
-  */
+   * Helper object (wraps php functions)
+   *
+   * @var \PapayaResponseHelper
+   */
   private $_helper = NULL;
 
   private $_isSent = FALSE;
 
   /**
-  * Get response helper
-  *
-  * @param \PapayaResponseHelper $helper
-  * @return \PapayaResponseHelper
-  */
+   * Get response helper
+   *
+   * @param \PapayaResponseHelper $helper
+   * @return \PapayaResponseHelper
+   */
   public function helper(\PapayaResponseHelper $helper = NULL) {
     if (isset($helper)) {
       $this->_helper = $helper;
@@ -119,11 +125,11 @@ class PapayaResponse extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Get response http headers list
-  *
-  * @param \PapayaResponseHeaders $headers
-  * @return \PapayaResponseHeaders
-  */
+   * Get response http headers list
+   *
+   * @param \PapayaResponseHeaders $headers
+   * @return \PapayaResponseHeaders
+   */
   public function headers(\PapayaResponseHeaders $headers = NULL) {
     if (isset($headers)) {
       $this->_headers = $headers;
@@ -152,6 +158,7 @@ class PapayaResponse extends \Papaya\Application\BaseObject {
 
   /**
    * Set response status
+   *
    * @param integer $status
    * @throws \UnexpectedValueException
    */
@@ -164,16 +171,18 @@ class PapayaResponse extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Get response status
-  * @return integer
-  */
+   * Get response status
+   *
+   * @return integer
+   */
   public function getStatus() {
     return $this->_status;
   }
 
   /**
    * Set Content-Type header
-   * @param string$contentType
+   *
+   * @param string $contentType
    * @param string $encoding
    * @return void
    */
@@ -183,18 +192,18 @@ class PapayaResponse extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Set caching headers
-  *
-  * @param string $cacheMode nocache, private, public
-  * @param integer $cachePeriod
-  * @param integer|NULL $cacheStartTime
-  * @param integer|NULL $currentTime
-  */
+   * Set caching headers
+   *
+   * @param string $cacheMode nocache, private, public
+   * @param integer $cachePeriod
+   * @param integer|NULL $cacheStartTime
+   * @param integer|NULL $currentTime
+   */
   public function setCache(
     $cacheMode, $cachePeriod = 0, $cacheStartTime = NULL, $currentTime = NULL
   ) {
     if (in_array($cacheMode, array('private', 'public')) &&
-        $cachePeriod > 0) {
+      $cachePeriod > 0) {
       if (is_null($currentTime)) {
         $currentTime = time();
       }
@@ -241,6 +250,7 @@ class PapayaResponse extends \Papaya\Application\BaseObject {
 
   /**
    * Send response to browser
+   *
    * @param bool $end
    * @param bool $force force sending (ignore if it was already sent)
    */
@@ -274,6 +284,7 @@ class PapayaResponse extends \Papaya\Application\BaseObject {
 
   /**
    * Send HTTP status header
+   *
    * @param int|string $status
    */
   public function sendStatus($status = 0) {
@@ -289,12 +300,13 @@ class PapayaResponse extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Send HTTP header
-  * @param string $header
-  * @param boolean|NULL $disableXHeaders
-  * @param boolean $force
-  * @return void
-  */
+   * Send HTTP header
+   *
+   * @param string $header
+   * @param boolean|NULL $disableXHeaders
+   * @param boolean $force
+   * @return void
+   */
   public function sendHeader($header, $disableXHeaders = NULL, $force = FALSE) {
     if (is_null($disableXHeaders)) {
       $disableXHeaders = $this->papaya()->options->get(
@@ -303,7 +315,7 @@ class PapayaResponse extends \Papaya\Application\BaseObject {
     }
     if ($force || !$this->helper()->headersSent()) {
       if ($disableXHeaders &&
-          substr($header, 0, 2) == 'X-') {
+        substr($header, 0, 2) == 'X-') {
         return;
       }
       $header = str_replace(array("\r", "\n"), '', $header);
@@ -312,9 +324,10 @@ class PapayaResponse extends \Papaya\Application\BaseObject {
   }
 
   //@codeCoverageIgnoreStart
+
   /**
-  * End/Exit the request
-  */
+   * End/Exit the request
+   */
   public function end() {
     exit();
   }

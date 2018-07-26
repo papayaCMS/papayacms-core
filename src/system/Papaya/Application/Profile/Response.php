@@ -26,10 +26,10 @@ class Response implements \Papaya\Application\Profile {
    * Create the profile object and return it
    *
    * @param \Papaya\Application $application
-   * @return \PapayaResponse
+   * @return \Papaya\Response
    */
   public function createObject($application) {
-    $response = new \PapayaResponse();
+    $response = new \Papaya\Response();
     $response->papaya($application);
     return $response;
   }

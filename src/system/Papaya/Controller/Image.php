@@ -52,13 +52,13 @@ class Image implements \Papaya\Controller {
    *
    * @param \Papaya\Application|\Papaya\Application\Cms $application
    * @param \Papaya\Request &$request
-   * @param \PapayaResponse &$response
+   * @param \Papaya\Response &$response
    * @return boolean|\Papaya\Controller
    */
   public function execute(
     \Papaya\Application $application,
     \Papaya\Request &$request,
-    \PapayaResponse &$response
+    \Papaya\Response &$response
   ) {
     $imgGenerator = $this->getImageGenerator();
     $imgGenerator->publicMode = $request->getParameter(

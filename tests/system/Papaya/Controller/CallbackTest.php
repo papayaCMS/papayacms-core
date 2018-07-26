@@ -30,7 +30,7 @@ class PapayaControllerCallbackTest extends \PapayaTestCase {
         /** @noinspection PhpUnusedParameterInspection */
         \Papaya\Application $application,
         \Papaya\Request &$request,
-        \PapayaResponse &$response
+        Papaya\Response &$response
       ) {
         return TRUE;
       }

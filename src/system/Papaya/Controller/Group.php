@@ -42,14 +42,14 @@ class Group extends \PapayaObjectList implements \Papaya\Controller {
    *
    * @param \Papaya\Application $application
    * @param \Papaya\Request &$request
-   * @param \PapayaResponse &$response
+   * @param \Papaya\Response &$response
    * @return bool|\Papaya\Controller
    */
   public function execute(
     /** @noinspection ReferencingObjectsInspection */
     \Papaya\Application $application,
     \Papaya\Request &$request,
-    \PapayaResponse &$response
+    \Papaya\Response &$response
   ) {
     foreach ($this as $controller) {
       $limit = 20;
