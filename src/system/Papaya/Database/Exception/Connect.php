@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Exception;
 /**
-* Papaya database connection exception, thrown if an error occurs during connect
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-class PapayaDatabaseExceptionConnect extends \PapayaDatabaseException {
+ * Papaya database connection exception, thrown if an error occurs during connect
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Connect extends \PapayaDatabaseException {
 
   /**
-  * Create exception and store values
-  *
-  * @param string $message
-  * @param integer $code
-  */
+   * Create exception and store values
+   *
+   * @param string $message
+   * @param integer $code
+   */
   public function __construct($message, $code = 0) {
     parent::__construct($message, $code, \PapayaDatabaseException::SEVERITY_ERROR);
   }

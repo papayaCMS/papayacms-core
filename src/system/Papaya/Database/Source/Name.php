@@ -92,11 +92,11 @@ class PapayaDatabaseSourceName {
    *
    *
    * @param string $name
-   * @throws \PapayaDatabaseExceptionConnect
+   * @throws \Papaya\Database\Exception\Connect
    */
   public function setName($name) {
     if (empty($name)) {
-      throw new \PapayaDatabaseExceptionConnect(
+      throw new \Papaya\Database\Exception\Connect(
         sprintf('Can not initialize database connection from empty dsn.', $name)
       );
     }
@@ -158,7 +158,7 @@ class PapayaDatabaseSourceName {
         $this->_parameters = new \PapayaRequestParameters();
       }
     } else {
-      throw new \PapayaDatabaseExceptionConnect(
+      throw new \Papaya\Database\Exception\Connect(
         sprintf('Can not initialize database connection from invalid dsn.', $name)
       );
     }

@@ -16,7 +16,7 @@
 /**
 * basic database connection and result class
 */
-require_once(dirname(__FILE__).'/base.php');
+require_once __DIR__.'/base.php';
 
 /**
 * DB-abstraction layer - SQLite
@@ -41,12 +41,12 @@ class dbcon_sqlite extends dbcon_base {
   /**
    * Check for sqlite database extension found
    *
-   * @throws PapayaDatabaseExceptionConnect
+   * @throws Papaya\Database\Exception\Connect
    * @return boolean
    */
   public function extensionFound() {
     if (!extension_loaded('sqlite')) {
-      throw new PapayaDatabaseExceptionConnect(
+      throw new Papaya\Database\Exception\Connect(
         'Extension "sqlite" not available.'
       );
     }
@@ -56,7 +56,7 @@ class dbcon_sqlite extends dbcon_base {
   /**
    * Establish connection to database
    *
-   * @throws PapayaDatabaseExceptionConnect
+   * @throws Papaya\Database\Exception\Connect
    * @return resource $this->databaseConnection connection ID
    */
   public function connect() {
@@ -70,7 +70,7 @@ class dbcon_sqlite extends dbcon_base {
         $this->databaseConnection = $connection;
         return TRUE;
       } else {
-        throw new PapayaDatabaseExceptionConnect($error);
+        throw new Papaya\Database\Exception\Connect($error);
       }
     }
   }
@@ -88,7 +88,7 @@ class dbcon_sqlite extends dbcon_base {
   /**
    * Wrap query execution so we can convert the erorr to an exception
    *
-   * @throws PapayaDatabaseExceptionQuery
+   * @throws Papaya\Database\Exception\Query
    * @param string $sql
    * @return \SQLiteResult
    */
@@ -103,7 +103,7 @@ class dbcon_sqlite extends dbcon_base {
    * If a query failes, trow an database exception
    *
    * @param string $sql
-   * @return \PapayaDatabaseExceptionQuery
+   * @return \Papaya\Database\Exception\Query
    */
   private function _createQueryException($sql) {
     $errorCode = sqlite_last_error($this->databaseConnection);
@@ -125,7 +125,7 @@ class dbcon_sqlite extends dbcon_base {
     } else {
       $severity = PapayaDatabaseException::SEVERITY_ERROR;
     }
-    return new PapayaDatabaseExceptionQuery(
+    return new Papaya\Database\Exception\Query(
       $errorMessage, $errorCode, $severity, $sql
     );
   }

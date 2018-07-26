@@ -13,37 +13,38 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Exception;
 /**
-* Papaya database query exception, thrown on sql errors
-*
-* @package Papaya-Library
-* @subpackage Database
-*/
-class PapayaDatabaseExceptionQuery extends \PapayaDatabaseException {
+ * Papaya database query exception, thrown on sql errors
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ */
+class Query extends \PapayaDatabaseException {
 
   /**
-  * Sent sql query
-  *
-  * @var string
-  */
-  private $_sql = '';
+   * Sent sql query
+   *
+   * @var string
+   */
+  private $_sql;
 
   /**
-  * Initialize exception and store values.
-  *
-  * @param string $message
-  * @param integer $code
-  * @param integer $severity
-  * @param string $sql
-  */
+   * Initialize exception and store values.
+   *
+   * @param string $message
+   * @param integer $code
+   * @param integer $severity
+   * @param string $sql
+   */
   public function __construct($message, $code = 0, $severity = NULL, $sql = '') {
     parent::__construct($message, $code, $severity);
     $this->_sql = $sql;
   }
 
   /**
-  * Return sql query
-  */
+   * Return sql query
+   */
   public function getStatement() {
     return $this->_sql;
   }

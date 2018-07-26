@@ -922,7 +922,7 @@ class papaya_installer extends base_db {
       if ($database->connect($this, FALSE)) {
         return TRUE;
       }
-    } catch (PapayaDatabaseExceptionConnect $e) {
+    } catch (Papaya\Database\Exception\Connect $e) {
     } catch (InvalidArgumentException $e) {
     }
     return FALSE;

@@ -170,7 +170,7 @@ class db_simple extends base_object {
    *
    * @param object $object calling object
    * @param bool $readOnly
-   * @throws PapayaDatabaseExceptionConnect
+   * @throws Papaya\Database\Exception\Connect
    * @return boolean Success
    */
   function createConnection($object, $readOnly = TRUE) {
@@ -208,7 +208,7 @@ class db_simple extends base_object {
         $this->getConnection($mode)->extensionFound();
         $this->getConnection($mode)->connect($object);
       } else {
-        throw new PapayaDatabaseExceptionConnect(
+        throw new Papaya\Database\Exception\Connect(
           sprintf(
             'Abstraction "%s" could not be loaded.',
             $this->databaseConfiguration[$mode]->api

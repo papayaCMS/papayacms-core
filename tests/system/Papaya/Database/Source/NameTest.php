@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Database\Exception\Connect;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaDatabaseSourceNameTest extends PapayaTestCase {
@@ -50,7 +52,7 @@ class PapayaDatabaseSourceNameTest extends PapayaTestCase {
   * @covers PapayaDatabaseSourceName::setName
   */
   public function testConstructorWithEmptyDsnExpectingException() {
-    $this->expectException(PapayaDatabaseExceptionConnect::class);
+    $this->expectException(Connect::class);
     new PapayaDatabaseSourceName('');
   }
 
@@ -59,7 +61,7 @@ class PapayaDatabaseSourceNameTest extends PapayaTestCase {
   * @covers PapayaDatabaseSourceName::setName
   */
   public function testConstructorWithInvalidDsnExpectingException() {
-    $this->expectException(PapayaDatabaseExceptionConnect::class);
+    $this->expectException(Connect::class);
     new PapayaDatabaseSourceName('xxx');
   }
 

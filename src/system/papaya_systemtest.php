@@ -13,9 +13,6 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\Cms;
-
-
 /**
 * Test OK
 */
@@ -426,7 +423,7 @@ class papaya_systemtest {
       if (extension_loaded($uriData->api)) {
         return TESTRESULT_OK;
       }
-    } catch (PapayaDatabaseExceptionConnect $e) {
+    } catch (\Papaya\Database\Exception\Connect $e) {
     }
     return TESTRESULT_FAILED;
   }
@@ -439,14 +436,14 @@ class papaya_systemtest {
    * @return integer
    */
   function testDatabaseConnection($title) {
-    /** @var Cms $application */
-    $application = PapayaApplication::getInstance();
+    /** @var \Papaya\Application\Cms $application */
+    $application = \Papaya\Application::getInstance();
     $database = $application->database->getConnector();
     try {
       if ($database->connect($this, TRUE) && $database->connect($this, FALSE)) {
         return TESTRESULT_OK;
       }
-    } catch (PapayaDatabaseExceptionConnect $e) {
+    } catch (\Papaya\Database\Exception\Connect $e) {
       $this->resultTestMessages[$title] = $e->getMessage();
     }
     return TESTRESULT_FAILED;
@@ -460,8 +457,8 @@ class papaya_systemtest {
   */
   function testDatabasePermissions() {
     try {
-      /** @var Cms $application */
-      $application = PapayaApplication::getInstance();
+      /** @var \Papaya\Application\Cms $application */
+      $application = \Papaya\Application::getInstance();
       $database = $application->database->getConnector();
       if ($database->connect($this, FALSE)) {
         $dbSyntax = $database->getProtocol();

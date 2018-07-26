@@ -15,6 +15,7 @@
 
 use Papaya\Configuration\Storage\Database;
 use Papaya\Content\Configuration;
+use Papaya\Database\Exception\Query;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -77,7 +78,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
     $response
       ->expects($this->once())
       ->method('sendHeader')
-      ->with('X-Papaya-Error: PapayaDatabaseExceptionQuery: Sample Error Message');
+      ->with('X-Papaya-Error: Papaya\Database\Exception\Query: Sample Error Message');
 
     $storage = new Database();
     $storage->papaya(
@@ -89,7 +90,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
       )
     );
 
-    $exception = new PapayaDatabaseExceptionQuery(
+    $exception = new Query(
       'Sample Error Message', 0, PapayaMessage::SEVERITY_ERROR, ''
     );
     $storage->handleError($exception);
@@ -113,7 +114,7 @@ class PapayaConfigurationStorageDatabaseTest extends PapayaTestCase {
       )
     );
 
-    $exception = new PapayaDatabaseExceptionQuery(
+    $exception = new Query(
       'Sample Error Message', 0, PapayaMessage::SEVERITY_ERROR, ''
     );
     $storage->handleError($exception);

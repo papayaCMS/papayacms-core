@@ -389,7 +389,7 @@ class PapayaDatabaseAccess extends \PapayaObject {
         'Database #'.$exception->getCode().': '.$exception->getMessage()
       );
       $logMsg->context()->append(new \PapayaMessageContextBacktrace(3));
-      if ($exception instanceof \PapayaDatabaseExceptionQuery) {
+      if ($exception instanceof \Papaya\Database\Exception\Query) {
         $logMsg->context()->append(new \PapayaMessageContextText($exception->getStatement()));
       }
       $this->papaya()->messages->dispatch($logMsg);

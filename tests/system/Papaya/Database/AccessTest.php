@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Tables;
+use Papaya\Database\Exception\Query;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -481,10 +482,10 @@ class PapayaDatabaseAccessTest extends PapayaTestCase {
    ************************************/
 
   /**
-   * @throws PapayaDatabaseExceptionQuery
+   * @throws Query
    */
   public function callbackThrowDatabaseError() {
-    throw new PapayaDatabaseExceptionQuery(
+    throw new Query(
       'Simulated Error', 23, NULL, 'SELECT simulation'
     );
   }
