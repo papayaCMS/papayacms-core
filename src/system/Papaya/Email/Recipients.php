@@ -13,31 +13,32 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Email;
 /**
-* A list of email recipients. If you add a address using a string it will
-* be converted into a {@see PapayaEmailAddress) object.
-*
-* @package Papaya-Library
-* @subpackage Email
-*/
-class PapayaEmailRecipients extends \PapayaObjectList {
+ * A list of email recipients. If you add a address using a string it will
+ * be converted into a {@see Papaya\Email\PapayaEmailAddress) object.
+ *
+ * @package Papaya-Library
+ * @subpackage Email
+ */
+class Recipients extends \PapayaObjectList {
 
   /**
-  * Initialize object and set class restriction
-  */
+   * Initialize object and set class restriction
+   */
   public function __construct() {
-    parent::__construct(\PapayaEmailAddress::class);
+    parent::__construct(Address::class);
   }
 
   /**
-  * Overload prepareITem method to convert a string into an object if needed.
-  *
-  * @param string|\PapayaEmailAddress $value
-  * @return \PapayaEmailAddress
-  */
+   * Overload prepareItem method to convert a string into an object if needed.
+   *
+   * @param string|Address $value
+   * @return Address
+   */
   protected function prepareItem($value) {
     if (is_string($value)) {
-      $item = new \PapayaEmailAddress();
+      $item = new Address();
       $item->address = $value;
     } else {
       $item = $value;

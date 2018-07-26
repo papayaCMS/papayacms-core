@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaEmailHeadersTest extends PapayaTestCase {
 
   /**
-  * @covers \PapayaEmailHeaders
+  * @covers \Papaya\Email\Headers
   */
   public function testConstruct() {
-    $object = new \PapayaEmailHeaders();
+    $object = new \Papaya\Email\Headers();
     $this->assertInstanceOf(PapayaHttpHeaders::class, $object);
   }
 

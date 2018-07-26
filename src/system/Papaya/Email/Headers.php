@@ -13,12 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Email;
+
 /**
-* List of email headders
-*
-* @package Papaya-Library
-* @subpackage Email
-*/
-class PapayaEmailHeaders extends \PapayaHttpHeaders {
+ * List of email headers
+ *
+ * @package Papaya-Library
+ * @subpackage Email
+ */
+class Headers extends \PapayaHttpHeaders {
 
 }

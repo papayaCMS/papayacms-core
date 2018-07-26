@@ -18,21 +18,21 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaEmailAddressTest extends PapayaTestCase {
 
   /**
-  * @covers \PapayaEmailAddress::__construct
+  * @covers \Papaya\Email\Address::__construct
   */
   public function testConstructorWithAddress() {
-    $address = new \PapayaEmailAddress('John Doe <john.doe@local.tld>');
+    $address = new \Papaya\Email\Address('John Doe <john.doe@local.tld>');
     $this->assertEquals('John Doe <john.doe@local.tld>', (string)$address);
   }
 
   /**
-  * @covers \PapayaEmailAddress::__construct
-  * @covers \PapayaEmailAddress::__set
-  * @covers \PapayaEmailAddress::__get
-  * @covers \PapayaEmailAddress::setAddress
+  * @covers \Papaya\Email\Address::__construct
+  * @covers \Papaya\Email\Address::__set
+  * @covers \Papaya\Email\Address::__get
+  * @covers \Papaya\Email\Address::setAddress
   */
   public function testPropertyAddress() {
-    $address = new \PapayaEmailAddress();
+    $address = new \Papaya\Email\Address();
     $address->address = 'John Doe <john.doe@local.tld>';
     $this->assertEquals('John Doe <john.doe@local.tld>', $address->address);
     $this->assertEquals('John Doe', $address->name);
@@ -40,51 +40,51 @@ class PapayaEmailAddressTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaEmailAddress::__set
-  * @covers \PapayaEmailAddress::__get
-  * @covers \PapayaEmailAddress::setName
+  * @covers \Papaya\Email\Address::__set
+  * @covers \Papaya\Email\Address::__get
+  * @covers \Papaya\Email\Address::setName
   */
   public function testPropertyName() {
-    $address = new \PapayaEmailAddress();
+    $address = new \Papaya\Email\Address();
     $address->name = 'John Doe';
     $this->assertEquals('John Doe', $address->name);
   }
 
   /**
-  * @covers \PapayaEmailAddress::__set
-  * @covers \PapayaEmailAddress::__get
-  * @covers \PapayaEmailAddress::setAddress
+  * @covers \Papaya\Email\Address::__set
+  * @covers \Papaya\Email\Address::__get
+  * @covers \Papaya\Email\Address::setAddress
   */
   public function testPropertyEmail() {
-    $address = new \PapayaEmailAddress();
+    $address = new \Papaya\Email\Address();
     $address->email = 'john.doe@local.tld';
     $this->assertEquals('john.doe@local.tld', $address->email);
   }
 
   /**
-  * @covers \PapayaEmailAddress::__toString
+  * @covers \Papaya\Email\Address::__toString
   */
   public function testMagicMethodToString() {
-    $address = new \PapayaEmailAddress();
+    $address = new \Papaya\Email\Address();
     $address->name = 'John Doe';
     $address->email = 'john.doe@local.tld';
     $this->assertEquals('John Doe <john.doe@local.tld>', (string)$address);
   }
 
   /**
-  * @covers \PapayaEmailAddress::__toString
+  * @covers \Papaya\Email\Address::__toString
   */
   public function testMagicMethodToStringWithEmailOnly() {
-    $address = new \PapayaEmailAddress();
+    $address = new \Papaya\Email\Address();
     $address->email = 'john.doe@local.tld';
     $this->assertEquals('john.doe@local.tld', (string)$address);
   }
 
   /**
-  * @covers \PapayaEmailAddress::__set
+  * @covers \Papaya\Email\Address::__set
   */
   public function testSetUnknownPropertyExpectingException() {
-    $address = new \PapayaEmailAddress();
+    $address = new \Papaya\Email\Address();
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Unknown property "unknown".');
     /** @noinspection PhpUndefinedFieldInspection */
@@ -92,10 +92,10 @@ class PapayaEmailAddressTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaEmailAddress::__get
+  * @covers \Papaya\Email\Address::__get
   */
   public function testGetUnknownPropertyExpectingException() {
-    $address = new \PapayaEmailAddress();
+    $address = new \Papaya\Email\Address();
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Unknown property "unknown".');
     /** @noinspection PhpUndefinedFieldInspection */

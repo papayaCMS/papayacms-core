@@ -13,24 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Email\Address;
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaEmailRecipientsTest extends PapayaTestCase {
 
   /**
-  * @covers \PapayaEmailRecipients::__construct
+  * @covers \Papaya\Email\Recipients::__construct
   */
   public function testConstructor() {
-    $recipients = new \PapayaEmailRecipients();
-    $this->assertEquals(PapayaEmailAddress::class, $recipients->getItemClass());
+    $recipients = new \Papaya\Email\Recipients();
+    $this->assertEquals(Address::class, $recipients->getItemClass());
   }
 
   /**
-  * @covers \PapayaEmailRecipients::prepareItem
+  * @covers \Papaya\Email\Recipients::prepareItem
   */
   public function testAddItemAsObject() {
-    $recipients = new \PapayaEmailRecipients();
-    $address = new \PapayaEmailAddress();
+    $recipients = new \Papaya\Email\Recipients();
+    $address = new \Papaya\Email\Address();
     $address->address = 'John Doe <john.doe@local.tld>';
     $recipients[] = $address;
     $this->assertEquals(
@@ -39,13 +41,13 @@ class PapayaEmailRecipientsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaEmailRecipients::prepareItem
+  * @covers \Papaya\Email\Recipients::prepareItem
   */
   public function testAddItemAsString() {
-    $recipients = new \PapayaEmailRecipients();
+    $recipients = new \Papaya\Email\Recipients();
     $recipients[] = 'John Doe <john.doe@local.tld>';
     $this->assertInstanceOf(
-      \PapayaEmailAddress::class, $recipients[0]
+      \Papaya\Email\Address::class, $recipients[0]
     );
     $this->assertEquals(
       'John Doe <john.doe@local.tld>', (string)$recipients[0]

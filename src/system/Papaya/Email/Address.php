@@ -13,8 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Email;
 /**
- * A single Email adress, inclusing properties for the parts and string casting.
+ * A single Email address, including properties for the parts and string casting.
  *
  * @package Papaya-Library
  * @subpackage Email
@@ -23,51 +24,49 @@
  * @property string $email
  * @property string $name
  */
-class PapayaEmailAddress {
+class Address {
 
   /**
-  * Recipient name
-  *
-  * @var string
-  */
+   * Recipient name
+   *
+   * @var string
+   */
   private $_name = '';
 
   /**
-  * Recipient email
-  *
-  * @var string
-  */
+   * Recipient email
+   *
+   * @var string
+   */
   private $_email = '';
 
   /**
-  * Initialize object wiht address if provided.
-  *
-  * @param string $address
-  */
+   * Initialize object wiht address if provided.
+   *
+   * @param string $address
+   */
   public function __construct($address = NULL) {
-    if (isset($address)) {
+    if (NULL !== $address) {
       $this->setAddress($address);
     }
   }
 
   /**
-  * Cast object to string. Returns "email" or "name <email>".
-  *
-  * @return string
-  */
+   * Cast object to string. Returns "email" or "name <email>".
+   *
+   * @return string
+   */
   public function __toString() {
     if (empty($this->_name)) {
       return $this->_email;
-    } else {
-      return $this->_name.' <'.$this->_email.'>';
     }
+    return $this->_name.' <'.$this->_email.'>';
   }
 
   /**
    * Set address from string (can include a name)
    *
    * @param $address
-   * @return string
    */
   protected function setAddress($address) {
     if (preg_match('~^\s*(.*?)\s*<([^>]+)>~', $address, $matches)) {
@@ -79,12 +78,26 @@ class PapayaEmailAddress {
   }
 
   /**
-  * Set recipient name
-  *
-  * @param string $name
-  */
+   * Set recipient name
+   *
+   * @param string $name
+   */
   protected function setName($name) {
     $this->_name = $name;
+  }
+
+  /**
+   * @param $name
+   * @return bool
+   */
+  public function __isset($name) {
+    switch ($name) {
+      case 'name' :
+      case 'email' :
+      case 'address' :
+        return TRUE;
+    }
+    return FALSE;
   }
 
   /**
@@ -96,13 +109,13 @@ class PapayaEmailAddress {
    */
   public function __set($name, $value) {
     switch ($name) {
-    case 'name' :
-      $this->setName($value);
-      return;
-    case 'email' :
-    case 'address' :
-      $this->setAddress($value);
-      return;
+      case 'name' :
+        $this->setName($value);
+        return;
+      case 'email' :
+      case 'address' :
+        $this->setAddress($value);
+        return;
     }
     throw new \InvalidArgumentException(
       sprintf('InvalidArgumentException: Unknown property "%s".', $name)
@@ -118,12 +131,12 @@ class PapayaEmailAddress {
    */
   public function __get($name) {
     switch ($name) {
-    case 'name' :
-      return $this->_name;
-    case 'email' :
-      return $this->_email;
-    case 'address' :
-      return $this->__toString();
+      case 'name' :
+        return $this->_name;
+      case 'email' :
+        return $this->_email;
+      case 'address' :
+        return $this->__toString();
     }
     throw new \InvalidArgumentException(
       sprintf('InvalidArgumentException: Unknown property "%s".', $name)
