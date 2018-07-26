@@ -13,24 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record;
 /**
-* Papaya Database Record Lazy, superclass for easy database record encapsulation that
-* can store loading parameters until needed.
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Lazy.php 38917 2013-11-11 14:31:11Z weinert $
-*/
-abstract class PapayaDatabaseRecordLazy
+ * Papaya Database Record Lazy, superclass for easy database record encapsulation that
+ * can store loading parameters until needed.
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ * @version $Id: Lazy.php 38917 2013-11-11 14:31:11Z weinert $
+ */
+abstract class Lazy
   extends \PapayaDatabaseRecord {
 
-  private $_loadingParameters = NULL;
+  private $_loadingParameters;
 
   /**
-  * Define lazy load parameters and activate it.
-  *
-  * @param mixed $filter
-  */
+   * Define lazy load parameters and activate it.
+   *
+   * @param mixed $filter
+   */
   public function activateLazyLoad($filter) {
     $this->_loadingParameters = func_get_args();
     $this->clear();
@@ -46,19 +47,23 @@ abstract class PapayaDatabaseRecordLazy
   }
 
   /**
-  * If loading parameters are stored, use them to load the record.
-  */
+   * If loading parameters are stored, use them to load the record.
+   */
   protected function lazyLoad() {
-    if (isset($this->_loadingParameters)) {
+    if (NULL !== $this->_loadingParameters) {
       call_user_func_array(array($this, 'load'), $this->_loadingParameters);
       $this->_loadingParameters = NULL;
     }
   }
 
   /**
-  * If a record are loaded, delete the stored loading parameters. So a direct call to load()
-  * will reset them, too.
-  */
+   * If a record are loaded, delete the stored loading parameters. So a direct call to load()
+   * will reset them, too.
+   *
+   * @param string $sql
+   * @param array|null $parameters
+   * @return bool
+   */
   protected function _loadRecord($sql, array $parameters = NULL) {
     $this->_loadingParameters = NULL;
     return parent::_loadRecord($sql, $parameters);
@@ -96,67 +101,67 @@ abstract class PapayaDatabaseRecordLazy
   }
 
   /**
-  * Get the values as an array
-  *
-  * @return array
-  */
+   * Get the values as an array
+   *
+   * @return array
+   */
   public function toArray() {
     $this->lazyLoad();
     return parent::toArray();
   }
 
   /**
-  * Validate if the defined value is set.
-  *
-  * @param string $name
-  * @return boolean
-  */
+   * Validate if the defined value is set.
+   *
+   * @param string $name
+   * @return boolean
+   */
   public function __isset($name) {
     $this->lazyLoad();
     return parent::__isset($name);
   }
 
   /**
-  * Return the defined value
-  *
-  * @throws \OutOfBoundsException
-  * @param string $name
-  * @return mixed
-  */
+   * Return the defined value
+   *
+   * @throws \OutOfBoundsException
+   * @param string $name
+   * @return mixed
+   */
   public function __get($name) {
     $this->lazyLoad();
     return parent::__get($name);
   }
 
   /**
-  * Change a defined value
-  *
-  * @throws \OutOfBoundsException
-  * @param string $name
-  * @param mixed $value
-  */
+   * Change a defined value
+   *
+   * @throws \OutOfBoundsException
+   * @param string $name
+   * @param mixed $value
+   */
   public function __set($name, $value) {
     $this->lazyLoad();
     parent::__set($name, $value);
   }
 
   /**
-  * Set the deifned value to NULL.
-  *
-  * @throws \OutOfBoundsException
-  * @param string $name
-  */
+   * Set the deifned value to NULL.
+   *
+   * @throws \OutOfBoundsException
+   * @param string $name
+   */
   public function __unset($name) {
     $this->lazyLoad();
     parent::__unset($name);
   }
 
   /**
-  * ArrayAccess: Validate if a index/property exists at all
-  *
-  * @param string $name
-  * @return boolean
-  */
+   * ArrayAccess: Validate if a index/property exists at all
+   *
+   * @param string $name
+   * @return boolean
+   */
   public function offsetExists($name) {
     $this->lazyLoad();
     return parent::offsetExists($name);

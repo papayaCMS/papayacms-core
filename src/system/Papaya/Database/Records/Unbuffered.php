@@ -189,10 +189,10 @@ abstract class PapayaDatabaseRecordsUnbuffered
   /**
   * Create a standard mapping object for the property $_fields.
   *
-  * @return \PapayaDatabaseRecordMapping
+  * @return \Papaya\Database\Record\Mapping
   */
   protected function _createMapping() {
-    return new \PapayaDatabaseRecordMapping($this->_fields);
+    return new \Papaya\Database\Record\Mapping($this->_fields);
   }
 
   /**

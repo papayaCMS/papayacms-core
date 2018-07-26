@@ -50,7 +50,7 @@ namespace Papaya\Content;
  * @property int $expiresTime
  * @property-read int $unpublishedTranslations
  */
-class Page extends \PapayaDatabaseRecordLazy {
+class Page extends \Papaya\Database\Record\Lazy {
 
   /**
    * Map properties to database fields

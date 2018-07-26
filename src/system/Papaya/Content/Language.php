@@ -30,7 +30,7 @@ namespace Papaya\Content;
  * @property integer $isInterface
  * @property integer $isContent
  */
-class Language extends \PapayaDatabaseRecordLazy {
+class Language extends \Papaya\Database\Record\Lazy {
 
   /**
    * Map properties to database fields

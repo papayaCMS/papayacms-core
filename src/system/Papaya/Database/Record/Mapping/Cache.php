@@ -41,7 +41,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
 
   public function __construct(\Papaya\Database\Interfaces\Mapping $mapping) {
     $this->_mapping = $mapping;
-    if ($mapping instanceof \PapayaDatabaseRecordMapping) {
+    if ($mapping instanceof \Papaya\Database\Record\Mapping) {
       foreach ($mapping->callbacks() as $event => $callback) {
         if (isset($callback->callback) || isset($callback->defaultReturn)) {
           $this->_callbacks[$event] = $callback;

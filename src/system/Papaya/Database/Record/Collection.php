@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record;
 /**
-* List object to handle a collection of record objects, allows to save, delete all of them
-* with one method call
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: List.php 39429 2014-02-27 20:14:26Z weinert $
-*/
-class PapayaDatabaseRecordList
+ * List object to handle a collection of record objects, allows to save, delete all of them
+ * with one method call
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ * @version $Id: List.php 39429 2014-02-27 20:14:26Z weinert $
+ */
+class Collection
   extends \PapayaObjectList {
 
   /**
@@ -48,6 +49,7 @@ class PapayaDatabaseRecordList
 
   /**
    * Save all records, break on database error
+   *
    * @return bool
    */
   public function save() {
@@ -62,6 +64,7 @@ class PapayaDatabaseRecordList
 
   /**
    * Delete all records, break on database error
+   *
    * @return bool
    */
   public function delete() {

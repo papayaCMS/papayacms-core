@@ -31,7 +31,7 @@ namespace Papaya\Content\View;
  * @property bool $sessionRedirect
  * @property string $sessionCache
  */
-class Mode extends \PapayaDatabaseRecordLazy {
+class Mode extends \Papaya\Database\Record\Lazy {
 
   /**
    * Map field names to more convinient property names

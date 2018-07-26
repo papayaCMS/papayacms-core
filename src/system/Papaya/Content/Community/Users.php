@@ -64,7 +64,7 @@ class Users extends \PapayaDatabaseRecords {
   /**
    * attach the callback to the mapping object, so we can modify the properties
    *
-   * @return \PapayaDatabaseRecordMapping
+   * @return \Papaya\Database\Record\Mapping
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();

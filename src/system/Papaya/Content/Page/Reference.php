@@ -80,7 +80,7 @@ class Reference extends \PapayaDatabaseRecord {
    * @return array
    */
   public function callbackSortPageIds($context, $mode, $values, $record) {
-    if ($mode == \PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
+    if ($mode == \Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD) {
       $result = $record;
       if ((int)$record['topic_source_id'] > (int)$record['topic_target_id']) {
         $result['topic_target_id'] = $record['topic_source_id'];

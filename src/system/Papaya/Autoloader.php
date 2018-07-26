@@ -44,7 +44,8 @@ class Autoloader {
   private static $_mapClasses = array(
     'PapayaAdministrationCommunityUsersListDialog' => Administration\Community\Users\Roster\Dialog::class,
     'PapayaConfigurationGlobal' => Configuration\GlobalValues::class,
-    'PapayaDatabaseRecordOrderList' => Database\Record\Order\Collection::class
+    'PapayaDatabaseRecordOrderList' => Database\Record\Order\Collection::class,
+    'PapayaDatabaseRecordList' => Database\Record\Collection::class
   );
 
   private static $_mapParts = array(

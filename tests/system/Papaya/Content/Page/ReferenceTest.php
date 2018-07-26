@@ -16,6 +16,7 @@
 use Papaya\Content\Page\Reference;
 use Papaya\Content\Tables;
 use Papaya\Database\Record\Key\Fields;
+use Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -36,9 +37,9 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
   */
   public function testCreateMapping() {
     $reference = new Reference();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
     $mapping = $reference->mapping();
-    $this->assertInstanceOf(PapayaDatabaseRecordMapping::class, $mapping);
+    $this->assertInstanceOf(Mapping::class, $mapping);
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
   }
 
@@ -124,7 +125,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
           'topic_source_id' => 21,
           'topic_target_id' => 42
         ),
-        PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD,
+        Mapping::PROPERTY_TO_FIELD,
         array(),
         array(
           'topic_source_id' => 21,
@@ -136,7 +137,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
           'topic_source_id' => 42,
           'topic_target_id' => 84
         ),
-        PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD,
+        Mapping::PROPERTY_TO_FIELD,
         array(),
         array(
           'topic_source_id' => 84,
@@ -148,7 +149,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
           'source_id' => 21,
           'target_id' => 42
         ),
-        PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY,
+        Mapping::FIELD_TO_PROPERTY,
         array(
           'source_id' => 21,
           'target_id' => 42
@@ -160,7 +161,7 @@ class PapayaContentPageReferenceTest extends PapayaTestCase {
           'source_id' => 42,
           'target_id' => 84
         ),
-        PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY,
+        Mapping::FIELD_TO_PROPERTY,
         array(
           'source_id' => 84,
           'target_id' => 42

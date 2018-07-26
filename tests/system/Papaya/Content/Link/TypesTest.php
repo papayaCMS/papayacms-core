@@ -14,7 +14,6 @@
  */
 
 use Papaya\Content\Link\Types;
-use Papaya\Database\Interfaces\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -90,9 +89,9 @@ class PapayaContentLinkTypesTest extends PapayaTestCase {
   */
   public function testCreateMapping() {
     $linkTypes = new Types();
-    /** @var PapayaDatabaseRecordMapping $mapping */
+    /** @var \Papaya\Database\Record\Mapping $mapping */
     $this->assertInstanceOf(
-      Mapping::class,
+      \Papaya\Database\Interfaces\Mapping::class,
       $mapping = $linkTypes->mapping()
     );
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));
@@ -104,7 +103,7 @@ class PapayaContentLinkTypesTest extends PapayaTestCase {
   */
   public function testMapFieldToPropertyPassthru() {
     $linkTypes = new Types();
-    /** @var PapayaDatabaseRecordMapping $mapping */
+    /** @var \Papaya\Database\Record\Mapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
       'success',
@@ -119,7 +118,7 @@ class PapayaContentLinkTypesTest extends PapayaTestCase {
   */
   public function testMapFieldToPropertyUnserialize() {
     $linkTypes = new Types();
-    /** @var PapayaDatabaseRecordMapping $mapping */
+    /** @var \Papaya\Database\Record\Mapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
       array(
@@ -139,7 +138,7 @@ class PapayaContentLinkTypesTest extends PapayaTestCase {
   */
   public function testMapPropertyToFieldPassthru() {
     $linkTypes = new Types();
-    /** @var PapayaDatabaseRecordMapping $mapping */
+    /** @var \Papaya\Database\Record\Mapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
       'success',
@@ -154,7 +153,7 @@ class PapayaContentLinkTypesTest extends PapayaTestCase {
   */
   public function testMapPropertyToFieldSerialize() {
     $linkTypes = new Types();
-    /** @var PapayaDatabaseRecordMapping $mapping */
+    /** @var \Papaya\Database\Record\Mapping $mapping */
     $mapping = $linkTypes->mapping();
     $this->assertEquals(
       /** @lang XML */

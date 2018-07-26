@@ -13,47 +13,48 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Database\Record;
 /**
-* Mapper object to convert a database fields into object properties and back
-*
-* @package Papaya-Library
-* @subpackage Database
-* @version $Id: Mapping.php 39406 2014-02-27 15:07:55Z weinert $
-*/
-class PapayaDatabaseRecordMapping implements \Papaya\Database\Interfaces\Mapping {
+ * Mapper object to convert a database fields into object properties and back
+ *
+ * @package Papaya-Library
+ * @subpackage Database
+ * @version $Id: Mapping.php 39406 2014-02-27 15:07:55Z weinert $
+ */
+class Mapping implements \Papaya\Database\Interfaces\Mapping {
 
   /**
-  * Properties to fields mapping
-  *
-  * @var array(string=>string|NULL)
-  */
+   * Properties to fields mapping
+   *
+   * @var array(string=>string|NULL)
+   */
   private $_properties = array();
   /**
-  * Field to properties mapping
-  *
-  * @var array(string=>string|NULL)
-  */
+   * Field to properties mapping
+   *
+   * @var array(string=>string|NULL)
+   */
   private $_fields = array();
   /**
-  * Field to properties mapping excluding table aliases, this is only used if the original
-  * field name contains an . - indicating the use of an table alias.
-  *
-  * @var array(string=>string|NULL)
-  */
+   * Field to properties mapping excluding table aliases, this is only used if the original
+   * field name contains an . - indicating the use of an table alias.
+   *
+   * @var array(string=>string|NULL)
+   */
   private $_fieldsWithoutAlias = array();
 
   /**
-  * Callbacks to modify the mapping behaviour
-  *
-  * @var \Papaya\Database\Record\Mapping\Callbacks
-  */
+   * Callbacks to modify the mapping behaviour
+   *
+   * @var \Papaya\Database\Record\Mapping\Callbacks
+   */
   private $_callbacks = NULL;
 
   /**
-  * Create object and define mapping
-  *
-  * @param array(string=>string|NULL) $definition
-  */
+   * Create object and define mapping
+   *
+   * @param array(string=>string|NULL) $definition
+   */
   public function __construct(array $definition) {
     $this->setDefinition($definition);
   }
@@ -157,12 +158,12 @@ class PapayaDatabaseRecordMapping implements \Papaya\Database\Interfaces\Mapping
   }
 
   /**
-  * Map the object properties to database fields
-  *
-  * @param array $values
-  * @param bool $withAlias
-  * @return array
-  */
+   * Map the object properties to database fields
+   *
+   * @param array $values
+   * @param bool $withAlias
+   * @return array
+   */
   public function mapPropertiesToFields(array $values, $withAlias = TRUE) {
     $callbacks = $this->callbacks();
     $record = array();
@@ -217,10 +218,10 @@ class PapayaDatabaseRecordMapping implements \Papaya\Database\Interfaces\Mapping
   }
 
   /**
-  * Get a list of the used properties
-  *
-  * @return array
-  */
+   * Get a list of the used properties
+   *
+   * @return array
+   */
   public function getProperties() {
     return array_keys($this->_properties);
   }
@@ -282,11 +283,11 @@ class PapayaDatabaseRecordMapping implements \Papaya\Database\Interfaces\Mapping
   }
 
   /**
-  * Get the property name for a database fields
-  *
-  * @param string $field
-  * @return string|NULL
-  */
+   * Get the property name for a database fields
+   *
+   * @param string $field
+   * @return string|NULL
+   */
   public function getProperty($field) {
     $callbacks = $this->callbacks();
     $result = NULL;
@@ -304,11 +305,11 @@ class PapayaDatabaseRecordMapping implements \Papaya\Database\Interfaces\Mapping
   }
 
   /**
-  * Getter/Setter for the possible callbacks, to modify the behaviour of the mapping
-  *
-  * @param \Papaya\Database\Record\Mapping\Callbacks $callbacks
-  * @return \Papaya\Database\Record\Mapping\Callbacks
-  */
+   * Getter/Setter for the possible callbacks, to modify the behaviour of the mapping
+   *
+   * @param \Papaya\Database\Record\Mapping\Callbacks $callbacks
+   * @return \Papaya\Database\Record\Mapping\Callbacks
+   */
   public function callbacks(\Papaya\Database\Record\Mapping\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;

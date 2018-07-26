@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Community\Users;
+use Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -51,7 +52,7 @@ class PapayaContentCommunityUsersTest extends PapayaTestCase {
   */
   public function testCreateMapping() {
     $users = new Users();
-    /** @var PapayaDatabaseRecordMapping $mapping */
+    /** @var Mapping $mapping */
     $mapping = $users->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onAfterMappingFieldsToProperties));
   }

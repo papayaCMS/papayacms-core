@@ -81,7 +81,7 @@ class Domain extends \PapayaDatabaseRecord {
    * "domain_options" is an array serialized to xml and "domain_hostlength" is an denormalized index
    * used to order the domain lists in some cases.
    *
-   * @return \PapayaDatabaseRecordMapping
+   * @return \Papaya\Database\Record\Mapping
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
@@ -102,7 +102,7 @@ class Domain extends \PapayaDatabaseRecord {
    */
   public function callbackFieldSerialization($context, $mode, $property, $field, $value) {
     if ($property == 'options') {
-      if ($mode == \PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
+      if ($mode == \Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD) {
         return \PapayaUtilStringXml::serializeArray($value);
       } else {
         return \PapayaUtilStringXml::unserializeArray($value);
@@ -121,7 +121,7 @@ class Domain extends \PapayaDatabaseRecord {
    * @return array
    */
   public function callbackUpdateHostLength($context, $mode, $values, $record) {
-    if ($mode == \PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
+    if ($mode == \Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD) {
       $result = $record;
       $result['domain_hostlength'] = strlen($record['domain_hostname']);
     } else {

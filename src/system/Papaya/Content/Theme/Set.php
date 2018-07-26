@@ -49,7 +49,7 @@ class Set extends \PapayaDatabaseRecord {
   /**
    * @see \PapayaDatabaseRecordsUnbuffered::_createMapping()
    *
-   * @return \PapayaDatabaseRecordMapping
+   * @return \Papaya\Database\Record\Mapping
    */
   protected function _createMapping() {
     $mapping = parent::_createMapping();

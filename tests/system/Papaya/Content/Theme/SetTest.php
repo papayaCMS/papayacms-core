@@ -15,7 +15,6 @@
 
 use Papaya\Content\Structure;
 use Papaya\Content\Theme\Set;
-use Papaya\Database\Interfaces\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -26,9 +25,9 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   */
   public function testCreateMapping() {
     $themeSet = new Set();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Papaya\Database\Record\Mapping $mapping */
     $this->assertInstanceOf(
-      Mapping::class,
+      Papaya\Database\Interfaces\Mapping::class,
       $mapping = $themeSet->mapping()
     );
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));
@@ -40,7 +39,7 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   */
   public function testMapFieldToPropertyPassthru() {
     $themeSet = new Set();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
       'success',
@@ -55,7 +54,7 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   */
   public function testMapFieldToPropertyUnserialize() {
     $themeSet = new Set();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
       array(
@@ -85,7 +84,7 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   */
   public function testMapPropertyToFieldPassthru() {
     $themeSet = new Set();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertEquals(
       'success',
@@ -100,7 +99,7 @@ class PapayaContentThemeSetTest extends PapayaTestCase {
   */
   public function testMapPropertyToFieldSerialize() {
     $themeSet = new Set();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Papaya\Database\Record\Mapping $mapping */
     $mapping = $themeSet->mapping();
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

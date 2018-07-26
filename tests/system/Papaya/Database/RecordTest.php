@@ -16,7 +16,6 @@
 use Papaya\Database\Condition\Element;
 use Papaya\Database\Condition\Root;
 use Papaya\Database\Interfaces\Key;
-use Papaya\Database\Interfaces\Mapping;
 use Papaya\Database\Record\Key\Autoincrement;
 use Papaya\Database\Record\Callbacks;
 
@@ -41,7 +40,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   public function testClone() {
     $record = new PapayaDatabaseRecord_TestProxy();
     $record->key($this->createMock(Key::class));
-    $record->mapping($this->createMock(Mapping::class));
+    $record->mapping($this->createMock(Papaya\Database\Interfaces\Mapping::class));
     $clone = clone $record;
     $this->assertNotSame($record->key(), $clone->key());
     $this->assertNotSame($record->mapping(), $clone->mapping());
@@ -270,7 +269,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   public function testCreateFilter() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $mapping = $this
-      ->getMockBuilder(Mapping::class)
+      ->getMockBuilder(Papaya\Database\Interfaces\Mapping::class)
       ->getMock();
     $records = new PapayaDatabaseRecord_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
@@ -562,7 +561,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   * @covers PapayaDatabaseRecord::mapping
   */
   public function testMappingGetAfterSet() {
-    $mapping = $this->createMock(Mapping::class);
+    $mapping = $this->createMock(Papaya\Database\Interfaces\Mapping::class);
     $record = new PapayaDatabaseRecord_TestProxy();
     $record->mapping($mapping);
     $this->assertSame(
@@ -577,7 +576,7 @@ class PapayaDatabaseRecordTest extends PapayaTestCase {
   public function testMappingGetImplicitCreate() {
     $record = new PapayaDatabaseRecord_TestProxy();
     $this->assertInstanceOf(
-      PapayaDatabaseRecordMapping::class, $record->mapping()
+      Papaya\Database\Record\Mapping::class, $record->mapping()
     );
   }
 

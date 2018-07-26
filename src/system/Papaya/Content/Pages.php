@@ -215,7 +215,7 @@ class Pages extends \PapayaDatabaseRecordsLazy {
    */
   public function mapValue($context, $mode, $property, $field, $value) {
     if ($property == 'path') {
-      if ($mode == \PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY) {
+      if ($mode == \Papaya\Database\Record\Mapping::FIELD_TO_PROPERTY) {
         return \PapayaUtilArray::decodeIdList($value);
       } else {
         return ';'.\PapayaUtilArray::encodeIdList($value).';';

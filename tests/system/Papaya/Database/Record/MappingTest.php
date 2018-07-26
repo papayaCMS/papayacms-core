@@ -14,18 +14,19 @@
  */
 
 use Papaya\Database\Record\Mapping\Callbacks;
+use Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaDatabaseRecordMapping::__construct
-  * @covers PapayaDatabaseRecordMapping::setDefinition
-  * @covers PapayaDatabaseRecordMapping::stripAliasFromField
+  * @covers Mapping::__construct
+  * @covers Mapping::setDefinition
+  * @covers Mapping::stripAliasFromField
   */
   public function testConstructor() {
-    $mapping = new PapayaDatabaseRecordMapping(
+    $mapping = new Mapping(
       array(
         'property_one' => 'field_one',
         'property_two' => '',
@@ -60,13 +61,13 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::__construct
-  * @covers PapayaDatabaseRecordMapping::setDefinition
+  * @covers Mapping::__construct
+  * @covers Mapping::setDefinition
   */
   public function testConstructorWithInvalidDefinition() {
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('Duplicate database field "field" in mapping definition.');
-    new PapayaDatabaseRecordMapping(
+    new Mapping(
       array(
         'property_one' => 'field',
         'property_two' => 'field',
@@ -76,11 +77,11 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::mapFieldsToProperties
-  * @covers PapayaDatabaseRecordMapping::getProperty
+  * @covers Mapping::mapFieldsToProperties
+  * @covers Mapping::getProperty
   */
   public function testMapFieldsToProperties() {
-    $mapping = new PapayaDatabaseRecordMapping(
+    $mapping = new Mapping(
       array(
         'property_one' => 'field_one',
         'property_two' => '',
@@ -103,11 +104,11 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::mapPropertiesToFields
-  * @covers PapayaDatabaseRecordMapping::getField
+  * @covers Mapping::mapPropertiesToFields
+  * @covers Mapping::getField
   */
   public function testMapPropertiesToFields() {
-    $mapping = new PapayaDatabaseRecordMapping(
+    $mapping = new Mapping(
       array(
         'property_one' => 'field_one',
         'property_two' => '',
@@ -131,11 +132,11 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::mapPropertiesToFields
-  * @covers PapayaDatabaseRecordMapping::getField
+  * @covers Mapping::mapPropertiesToFields
+  * @covers Mapping::getField
   */
   public function testMapPropertiesToFieldsWithoutAlias() {
-    $mapping = new PapayaDatabaseRecordMapping(
+    $mapping = new Mapping(
       array(
         'property_one' => 'field_one',
         'property_two' => '',
@@ -160,10 +161,10 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::getProperties
+  * @covers Mapping::getProperties
   */
   public function testGetProperties() {
-    $mapping = new PapayaDatabaseRecordMapping(
+    $mapping = new Mapping(
       array(
         'property_one' => 'field_one',
         'property_two' => ''
@@ -176,10 +177,10 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::getFields
+  * @covers Mapping::getFields
   */
   public function testGetFields() {
-    $mapping = new PapayaDatabaseRecordMapping(
+    $mapping = new Mapping(
       array(
         'property_one' => 'field_one',
         'property_two' => '',
@@ -193,10 +194,10 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::getFields
+  * @covers Mapping::getFields
   */
   public function testGetFieldsWithoutAlias() {
-    $mapping = new PapayaDatabaseRecordMapping(
+    $mapping = new Mapping(
       array(
         'property_one' => 'field_one',
         'property_two' => '',
@@ -210,10 +211,10 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::getFields
+  * @covers Mapping::getFields
   */
   public function testGetFieldsLimitedByAlias() {
-    $mapping = new PapayaDatabaseRecordMapping(
+    $mapping = new Mapping(
       array(
         'property_one' => 'a.field_one',
         'property_two' => 'aa.field_two',
@@ -228,25 +229,25 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::callbacks
+  * @covers Mapping::callbacks
   */
   public function testCallbacksGetAfterSet() {
-    $mapping = new PapayaDatabaseRecordMapping(array());
+    $mapping = new Mapping(array());
     $mapping->callbacks($callbacks = $this->createMock(Callbacks::class));
     $this->assertSame($callbacks, $mapping->callbacks());
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::callbacks
+  * @covers Mapping::callbacks
   */
   public function testCallbacksGetImplicitCreate() {
-    $mapping = new PapayaDatabaseRecordMapping(array());
+    $mapping = new Mapping(array());
     $this->assertInstanceOf(Callbacks::class, $mapping->callbacks());
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::getField
-  * @covers PapayaDatabaseRecordMapping::mapPropertiesToFields
+  * @covers Mapping::getField
+  * @covers Mapping::mapPropertiesToFields
   */
   public function testMapPropertiesToFieldsWithoutCallbacksLimitByAlias() {
     $values = array(
@@ -282,7 +283,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
           )
         )
       );
-    $mapping = new PapayaDatabaseRecordMapping(
+    $mapping = new Mapping(
       array(
         'property_one' => 'a.field_one',
         'property_two' => 'aa.field_two',
@@ -298,7 +299,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::mapPropertiesToFields
+  * @covers Mapping::mapPropertiesToFields
   */
   public function testMapPropertiesToFieldsGenericCallbacks() {
     $values = array(
@@ -347,14 +348,14 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
     $callbacks
       ->expects($this->once())
       ->method('onBeforeMapping')
-      ->with(PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD, $values, array())
+      ->with(Mapping::PROPERTY_TO_FIELD, $values, array())
       ->will($this->returnValue(array()));
     $callbacks
       ->expects($this->once())
       ->method('onAfterMapping')
-      ->with(PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD, $values, $record)
+      ->with(Mapping::PROPERTY_TO_FIELD, $values, $record)
       ->will($this->returnValue($record));
-    $mapping = new PapayaDatabaseRecordMapping(array('property_one' => 'field_one'));
+    $mapping = new Mapping(array('property_one' => 'field_one'));
     $mapping->callbacks($callbacks);
     $this->assertEquals(
       $record,
@@ -363,7 +364,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::mapPropertiesToFields
+  * @covers Mapping::mapPropertiesToFields
   */
   public function testMapPropertiesToFieldsSpecificCallbacks() {
     $values = array(
@@ -425,7 +426,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
       ->method('onAfterMappingPropertiesToFields')
       ->with($values, $record)
       ->will($this->returnValue($record));
-    $mapping = new PapayaDatabaseRecordMapping(array('property_one' => 'field_one'));
+    $mapping = new Mapping(array('property_one' => 'field_one'));
     $mapping->callbacks($callbacks);
     $this->assertEquals(
       $record,
@@ -434,8 +435,8 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::mapPropertiesToFields
-  * @covers PapayaDatabaseRecordMapping::getField
+  * @covers Mapping::mapPropertiesToFields
+  * @covers Mapping::getField
   */
   public function testMapPropertiesToFieldsFieldNameCallback() {
     $callbacks = $this
@@ -470,7 +471,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
       ->method('onGetFieldForProperty')
       ->with('property_one')
       ->will($this->returnValue('FIELD_ONE'));
-    $mapping = new PapayaDatabaseRecordMapping(array('property_one' => 'field_one'));
+    $mapping = new Mapping(array('property_one' => 'field_one'));
     $mapping->callbacks($callbacks);
     $this->assertEquals(
       array('FIELD_ONE' => 42),
@@ -479,7 +480,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::mapFieldsToProperties
+  * @covers Mapping::mapFieldsToProperties
   */
   public function testMapFieldsToPropertiesGenericCallbacks() {
     $values = array(
@@ -528,14 +529,14 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
     $callbacks
       ->expects($this->once())
       ->method('onBeforeMapping')
-      ->with(PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY, array(), $record)
+      ->with(Mapping::FIELD_TO_PROPERTY, array(), $record)
       ->will($this->returnValue(array()));
     $callbacks
       ->expects($this->once())
       ->method('onAfterMapping')
-      ->with(PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY, $values, $record)
+      ->with(Mapping::FIELD_TO_PROPERTY, $values, $record)
       ->will($this->returnValue($values));
-    $mapping = new PapayaDatabaseRecordMapping(array('property_one' => 'field_one'));
+    $mapping = new Mapping(array('property_one' => 'field_one'));
     $mapping->callbacks($callbacks);
     $this->assertEquals(
       $values,
@@ -544,7 +545,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::mapFieldsToProperties
+  * @covers Mapping::mapFieldsToProperties
   */
   public function testMapFieldsToPropertiesSpecificCallbacks() {
     $values = array(
@@ -606,7 +607,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
       ->method('onAfterMappingFieldsToProperties')
       ->with($values, $record)
       ->will($this->returnValue($values));
-    $mapping = new PapayaDatabaseRecordMapping(array('property_one' => 'field_one'));
+    $mapping = new Mapping(array('property_one' => 'field_one'));
     $mapping->callbacks($callbacks);
     $this->assertEquals(
       $values,
@@ -615,8 +616,8 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecordMapping::mapFieldsToProperties
-  * @covers PapayaDatabaseRecordMapping::getProperty
+  * @covers Mapping::mapFieldsToProperties
+  * @covers Mapping::getProperty
   */
   public function testMapFieldsToPropertiesWithPropertyNameCallback() {
     $callbacks = $this
@@ -651,7 +652,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
       ->method('onGetPropertyForField')
       ->with('field_one')
       ->will($this->returnValue('PROPERTY_ONE'));
-    $mapping = new PapayaDatabaseRecordMapping(array('property_one' => 'field_one'));
+    $mapping = new Mapping(array('property_one' => 'field_one'));
     $mapping->callbacks($callbacks);
     $this->assertEquals(
       array('PROPERTY_ONE' => 42),

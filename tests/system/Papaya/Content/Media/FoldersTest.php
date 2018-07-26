@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Media\Folders;
+use Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -24,7 +25,7 @@ class PapayaContentMediaFoldersTest extends PapayaTestCase {
    */
   public function testCreateMapping() {
     $records = new Folders();
-    /** @var PapayaDatabaseRecordMapping $mapping */
+    /** @var Mapping $mapping */
     $mapping = $records->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));
     $this->assertTrue(isset($mapping->callbacks()->onGetFieldForProperty));

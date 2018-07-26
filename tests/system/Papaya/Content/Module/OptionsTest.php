@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Module\Options;
+use Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -24,7 +25,7 @@ class PapayaContentModuleOptionsTest extends PapayaTestCase {
   */
   public function testCreateMapping() {
     $content = new Options();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
     $mapping = $content->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
   }
@@ -42,7 +43,7 @@ class PapayaContentModuleOptionsTest extends PapayaTestCase {
       $expected,
       $content->callbackConvertValueByType(
         new stdClass(),
-        PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD,
+        Mapping::PROPERTY_TO_FIELD,
         $properties,
         $fields
       )
@@ -62,7 +63,7 @@ class PapayaContentModuleOptionsTest extends PapayaTestCase {
       $expected,
       $content->callbackConvertValueByType(
         new stdClass(),
-        PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY,
+        Mapping::FIELD_TO_PROPERTY,
         $properties,
         $fields
       )

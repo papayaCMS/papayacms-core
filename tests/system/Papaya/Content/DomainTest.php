@@ -14,6 +14,7 @@
  */
 
 use Papaya\Content\Domain;
+use Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -24,7 +25,7 @@ class PapayaContentDomainTest extends PapayaTestCase {
   */
   public function testCreateMapping() {
     $record = new Domain();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
     $mapping = $record->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValue));
     $this->assertTrue(isset($mapping->callbacks()->onAfterMapping));
@@ -40,7 +41,7 @@ class PapayaContentDomainTest extends PapayaTestCase {
       '<data version="2"><data-element name="SAMPLE_OPTION">sample data</data-element></data>',
       $record->callbackFieldSerialization(
         new stdClass(),
-        PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD,
+        Mapping::PROPERTY_TO_FIELD,
         'options',
         'domain_options',
         array('SAMPLE_OPTION' => 'sample data')
@@ -57,7 +58,7 @@ class PapayaContentDomainTest extends PapayaTestCase {
       array('SAMPLE_OPTION' => 'sample data'),
       $record->callbackFieldSerialization(
         new stdClass(),
-        PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY,
+        Mapping::FIELD_TO_PROPERTY,
         'options',
         'domain_options',
         /** @lang XML */
@@ -75,7 +76,7 @@ class PapayaContentDomainTest extends PapayaTestCase {
       'domain.tld',
       $record->callbackFieldSerialization(
         new stdClass(),
-        PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY,
+        Mapping::FIELD_TO_PROPERTY,
         'host',
         'domain_hostname',
         'domain.tld'
@@ -102,7 +103,7 @@ class PapayaContentDomainTest extends PapayaTestCase {
       ),
       $record->callbackUpdateHostLength(
         new stdClass(),
-        PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD,
+        Mapping::PROPERTY_TO_FIELD,
         array(
           'id' => 42,
           'host' => 'domain.tld',
@@ -144,7 +145,7 @@ class PapayaContentDomainTest extends PapayaTestCase {
       ),
       $record->callbackUpdateHostLength(
         new stdClass(),
-        PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY,
+        Mapping::FIELD_TO_PROPERTY,
         array(
           'id' => 42,
           'host' => 'domain.tld',

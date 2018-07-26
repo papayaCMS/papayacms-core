@@ -65,7 +65,7 @@ class Options extends \PapayaDatabaseRecords {
    */
   public function callbackConvertValueByType($context, $mode, $values, $record) {
     $mapValue = (isset($values['type']) && isset($values['value']));
-    if ($mode == \PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD) {
+    if ($mode == \Papaya\Database\Record\Mapping::PROPERTY_TO_FIELD) {
       $result = $record;
       if ($mapValue) {
         switch ($values['type']) {

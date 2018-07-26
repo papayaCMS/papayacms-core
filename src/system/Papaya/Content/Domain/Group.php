@@ -23,7 +23,7 @@ namespace Papaya\Content\Domain;
  * @property int $id
  * @property string $title
  */
-class Group extends \PapayaDatabaseRecordLazy {
+class Group extends \Papaya\Database\Record\Lazy {
 
   /**
    * Map field names to more convinient property names

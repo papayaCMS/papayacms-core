@@ -15,6 +15,7 @@
 
 use Papaya\Content\Pages;
 use Papaya\Content\Tables;
+use Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
@@ -329,7 +330,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
   */
   public function testMappingImplicitCreateAttachesCallback() {
     $pages = new Pages();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseRecordMapping $mapping */
+    /** @var PHPUnit_Framework_MockObject_MockObject|Mapping $mapping */
     $mapping = $pages->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValue));
   }
@@ -343,7 +344,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
       'success',
       $pages->mapValue(
         new stdClass,
-        PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY,
+        Mapping::FIELD_TO_PROPERTY,
         'id',
         'topic_id',
         'success'
@@ -360,7 +361,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
       array(21, 42),
       $pages->mapValue(
         new stdClass,
-        PapayaDatabaseRecordMapping::FIELD_TO_PROPERTY,
+        Mapping::FIELD_TO_PROPERTY,
         'path',
         'prev_path',
         ';21;42;'
@@ -377,7 +378,7 @@ class PapayaContentPagesTest extends PapayaTestCase {
       ';21;42;',
       $pages->mapValue(
         new stdClass,
-        PapayaDatabaseRecordMapping::PROPERTY_TO_FIELD,
+        Mapping::PROPERTY_TO_FIELD,
         'path',
         'prev_path',
         array(21, 42)
