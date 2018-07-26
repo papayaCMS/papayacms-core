@@ -110,7 +110,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
    * @param mixed $languageFilter
    */
   public function testGetLanguage($languageFilter) {
-    $languages = new PapayaContentLanguages_TestProxy();
+    $languages = new \PapayaContentLanguages_TestProxy();
     $languages->papaya($this->mockPapaya()->application());
     $languages->setDatabaseAccess(
       $this->mockPapaya()->databaseAccess()
@@ -223,7 +223,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   * @covers Languages::getLanguageByCode
   */
   public function testGetLanguageByCode() {
-    $languages = new PapayaContentLanguages_TestProxy();
+    $languages = new \PapayaContentLanguages_TestProxy();
     $language = $languages->getLanguageByCode('de-DE');
     $this->assertInstanceOf(Language::class, $language);
     $this->assertAttributeEquals(
@@ -245,7 +245,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   * @covers Languages::getLanguageByCode
   */
   public function testGetLanguageByCodeExpectingNull() {
-    $languages = new PapayaContentLanguages_TestProxy();
+    $languages = new \PapayaContentLanguages_TestProxy();
     $language = $languages->getLanguageByCode('en-GB');
     $this->assertNull($language);
   }
@@ -254,7 +254,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   * @covers Languages::getLanguageByIdentifier
   */
   public function testGetLanguageByIdentifier() {
-    $languages = new PapayaContentLanguages_TestProxy();
+    $languages = new \PapayaContentLanguages_TestProxy();
     $language = $languages->getLanguageByIdentifier('de');
     $this->assertInstanceOf(Language::class, $language);
     $this->assertAttributeEquals(
@@ -276,7 +276,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   * @covers Languages::getLanguageByIdentifier
   */
   public function testGetLanguageByIdentifierExpectingNull() {
-    $languages = new PapayaContentLanguages_TestProxy();
+    $languages = new \PapayaContentLanguages_TestProxy();
     $language = $languages->getLanguageByIdentifier('foo');
     $this->assertNull($language);
   }
@@ -285,7 +285,7 @@ class PapayaContentLanguagesTest extends PapayaTestCase {
   * @covers Languages::getIdentiferById
   */
   public function testGetIdentifierById() {
-    $languages = new PapayaContentLanguages_TestProxy();
+    $languages = new \PapayaContentLanguages_TestProxy();
     $languages->papaya($this->mockPapaya()->application());
     $languages->setDatabaseAccess(
       $this->mockPapaya()->databaseAccess()

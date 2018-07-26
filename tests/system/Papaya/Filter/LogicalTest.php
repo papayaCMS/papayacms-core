@@ -18,13 +18,13 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterLogicalTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaFilterLogical::__construct
-  * @covers PapayaFilterLogical::_setFilters
+  * @covers \PapayaFilterLogical::__construct
+  * @covers \PapayaFilterLogical::_setFilters
   */
   public function testConstructorWithTwoFilters() {
     $subFilterOne = $this->createMock(PapayaFilter::class);
     $subFilterTwo = $this->createMock(PapayaFilter::class);
-    $filter = new PapayaFilterLogical_TestProxy($subFilterOne, $subFilterTwo);
+    $filter = new \PapayaFilterLogical_TestProxy($subFilterOne, $subFilterTwo);
     $this->assertAttributeEquals(
       array($subFilterOne, $subFilterTwo),
       '_filters',
@@ -32,13 +32,13 @@ class PapayaFilterLogicalTest extends PapayaTestCase {
     );
   }
   /**
-  * @covers PapayaFilterLogical::__construct
-  * @covers PapayaFilterLogical::_setFilters
+  * @covers \PapayaFilterLogical::__construct
+  * @covers \PapayaFilterLogical::_setFilters
   */
   public function testConstructorWithTwoScalars() {
-    $subFilterOne = new PapayaFilterEquals('one');
-    $subFilterTwo = new PapayaFilterEquals('two');
-    $filter = new PapayaFilterLogical_TestProxy('one', 'two');
+    $subFilterOne = new \PapayaFilterEquals('one');
+    $subFilterTwo = new \PapayaFilterEquals('two');
+    $filter = new \PapayaFilterLogical_TestProxy('one', 'two');
     $this->assertAttributeEquals(
       array($subFilterOne, $subFilterTwo),
       '_filters',
@@ -47,14 +47,14 @@ class PapayaFilterLogicalTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterLogical::__construct
-  * @covers PapayaFilterLogical::_setFilters
+  * @covers \PapayaFilterLogical::__construct
+  * @covers \PapayaFilterLogical::_setFilters
   */
   public function testConstructorWithThreeFilters() {
     $subFilterOne = $this->createMock(PapayaFilter::class);
     $subFilterTwo = $this->createMock(PapayaFilter::class);
     $subFilterThree = $this->createMock(PapayaFilter::class);
-    $filter = new PapayaFilterLogical_TestProxy($subFilterOne, $subFilterTwo, $subFilterThree);
+    $filter = new \PapayaFilterLogical_TestProxy($subFilterOne, $subFilterTwo, $subFilterThree);
     $this->assertAttributeEquals(
       array($subFilterOne, $subFilterTwo, $subFilterThree),
       '_filters',
@@ -63,23 +63,23 @@ class PapayaFilterLogicalTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterLogical::__construct
-  * @covers PapayaFilterLogical::_setFilters
+  * @covers \PapayaFilterLogical::__construct
+  * @covers \PapayaFilterLogical::_setFilters
   */
   public function testConstructorWithOneFilterExpectingException() {
     $this->expectException(InvalidArgumentException::class);
-    new PapayaFilterLogical_TestProxy(
+    new \PapayaFilterLogical_TestProxy(
       $this->createMock(PapayaFilter::class)
     );
   }
 
   /**
-  * @covers PapayaFilterLogical::__construct
-  * @covers PapayaFilterLogical::_setFilters
+  * @covers \PapayaFilterLogical::__construct
+  * @covers \PapayaFilterLogical::_setFilters
   */
   public function testContructorWithInvalidObjectsExpectingException() {
     $this->expectException(InvalidArgumentException::class);
-    new PapayaFilterLogical_TestProxy(
+    new \PapayaFilterLogical_TestProxy(
       new stdClass(), new stdClass()
     );
   }

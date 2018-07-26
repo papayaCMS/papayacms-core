@@ -20,8 +20,8 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaThemeListTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaThemeList::getIterator
-   * @covers PapayaThemeList::callbackGetName
+   * @covers \PapayaThemeList::getIterator
+   * @covers \PapayaThemeList::callbackGetName
    */
   public function testGetIterator() {
     $handler = $this->createMock(PapayaThemeHandler::class);
@@ -29,7 +29,7 @@ class PapayaThemeListTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getLocalPath')
       ->will($this->returnValue(__DIR__.'/TestDataList/'));
-    $list = new PapayaThemeList();
+    $list = new \PapayaThemeList();
     $list->handler($handler);
     $this->assertEquals(
       array(
@@ -40,7 +40,7 @@ class PapayaThemeListTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaThemeList::getDefinition
+   * @covers \PapayaThemeList::getDefinition
    */
   public function testGetDefinition() {
     $handler = $this->createMock(PapayaThemeHandler::class);
@@ -49,7 +49,7 @@ class PapayaThemeListTest extends PapayaTestCase {
       ->method('getDefinition')
       ->with('theme-sample')
       ->will($this->returnValue(new Structure()));
-    $list = new PapayaThemeList();
+    $list = new \PapayaThemeList();
     $list->handler($handler);
     $this->assertInstanceOf(
       Structure::class,
@@ -58,19 +58,19 @@ class PapayaThemeListTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaThemeList::handler
+   * @covers \PapayaThemeList::handler
    */
   public function testHandlerGetAfterSet() {
-    $list = new PapayaThemeList();
+    $list = new \PapayaThemeList();
     $list->handler($handler =  $this->createMock(PapayaThemeHandler::class));
     $this->assertSame($handler, $list->handler());
   }
 
   /**
-   * @covers PapayaThemeList::handler
+   * @covers \PapayaThemeList::handler
    */
   public function testHandlerGetImplicitCreate() {
-    $list = new PapayaThemeList();
+    $list = new \PapayaThemeList();
     $this->assertInstanceOf(PapayaThemeHandler::class, $list->handler());
   }
 }

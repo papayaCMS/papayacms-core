@@ -17,10 +17,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInputDateTest extends PapayaTestCase {
   /**
-  * @covers PapayaUiDialogFieldInputDate::__construct
+  * @covers \PapayaUiDialogFieldInputDate::__construct
   */
   public function testConstructor() {
-    $input = new PapayaUiDialogFieldInputDate(
+    $input = new \PapayaUiDialogFieldInputDate(
       'Date', 'date', '2011-01-01 18:00', TRUE, PapayaFilterDate::DATE_OPTIONAL_TIME, 300.0
     );
     $this->assertEquals('Date', $input->caption);
@@ -32,37 +32,37 @@ class PapayaUiDialogFieldInputDateTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputDate::__construct
+  * @covers \PapayaUiDialogFieldInputDate::__construct
   */
   public function testConstructorWithInvalidIncludeTimeOption() {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage(
       'Argument must be PapayaFilterDate::DATE_NO_TIME, PapayaFilterDate::DATE_OPTIONAL_TIME,'.
       ' or PapayaFilterDate::DATE_MANDATORY_TIME.');
-    new PapayaUiDialogFieldInputDate(
+    new \PapayaUiDialogFieldInputDate(
       'Date', 'date', '2011-01-01 18:00', TRUE, 23, 300.0
     );
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputDate::__construct
+  * @covers \PapayaUiDialogFieldInputDate::__construct
   */
   public function testConstructorWithInvalidStep() {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Step must be greater than 0.');
-    new PapayaUiDialogFieldInputDate(
+    new \PapayaUiDialogFieldInputDate(
       'Date', 'date', '2011-01-01 18:00', TRUE, PapayaFilterDate::DATE_OPTIONAL_TIME, -300.0
     );
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputDate
+   * @covers \PapayaUiDialogFieldInputDate
    * @dataProvider filterExpectingTrueProvider
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $input = new PapayaUiDialogFieldInputDate(
+    $input = new \PapayaUiDialogFieldInputDate(
       'Date', 'date', NULL, FALSE, PapayaFilterDate::DATE_OPTIONAL_TIME
     );
     $input->mandatory = $mandatory;
@@ -71,13 +71,13 @@ class PapayaUiDialogFieldInputDateTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputDate
+   * @covers \PapayaUiDialogFieldInputDate
    * @dataProvider filterExpectingFalseProvider
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $input = new PapayaUiDialogFieldInputDate(
+    $input = new \PapayaUiDialogFieldInputDate(
       'Date', 'date', NULL, FALSE, PapayaFilterDate::DATE_OPTIONAL_TIME
     );
     $input->mandatory = $mandatory;
@@ -86,10 +86,10 @@ class PapayaUiDialogFieldInputDateTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputDate::getXml
+  * @covers \PapayaUiDialogFieldInputDate::getXml
   */
   public function testGetXml() {
-    $input = new PapayaUiDialogFieldInputDate('Date', 'date');
+    $input = new \PapayaUiDialogFieldInputDate('Date', 'date');
     $input->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

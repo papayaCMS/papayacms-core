@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiListviewItemPagingTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiListviewItemPaging::__construct
+  * @covers \PapayaUiListviewItemPaging::__construct
   */
   public function testConstructor() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('foo/page', 2, 100);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('foo/page', 2, 100);
     $this->assertEquals('foo[page]', (string)$item->parameterName);
     $this->assertEquals(2, $item->currentPage);
     $this->assertEquals(10, $item->currentOffset);
@@ -29,12 +29,12 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::appendTo
-  * @covers PapayaUiListviewItemPaging::appendCaption
-  * @covers PapayaUiListviewItemPaging::appendPageLink
+  * @covers \PapayaUiListviewItemPaging::appendTo
+  * @covers \PapayaUiListviewItemPaging::appendCaption
+  * @covers \PapayaUiListviewItemPaging::appendPageLink
   */
   public function testAppendToWithoutPagesExpectingEmptyString() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 1, 100);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 1, 100);
     $item->papaya(
       $this->mockPapaya()->application(
         array(
@@ -49,12 +49,12 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::appendTo
-  * @covers PapayaUiListviewItemPaging::appendCaption
-  * @covers PapayaUiListviewItemPaging::appendPageLink
+  * @covers \PapayaUiListviewItemPaging::appendTo
+  * @covers \PapayaUiListviewItemPaging::appendCaption
+  * @covers \PapayaUiListviewItemPaging::appendPageLink
   */
   public function testAppendToWithTwoPages() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 1, 100);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 1, 100);
     $item->papaya(
       $this->mockPapaya()->application(
         array(
@@ -76,12 +76,12 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::appendTo
-  * @covers PapayaUiListviewItemPaging::appendCaption
-  * @covers PapayaUiListviewItemPaging::appendPageLink
+  * @covers \PapayaUiListviewItemPaging::appendTo
+  * @covers \PapayaUiListviewItemPaging::appendCaption
+  * @covers \PapayaUiListviewItemPaging::appendPageLink
   */
   public function testAppendToWithSeparator() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 1, 100);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 1, 100);
     $item->papaya(
       $this->mockPapaya()->application(
         array(
@@ -103,10 +103,10 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::appendTo
+  * @covers \PapayaUiListviewItemPaging::appendTo
   */
   public function testAppendToWithColumnSpan() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 1, 100);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 1, 100);
     $item->papaya(
       $this->mockPapaya()->application(
         array(
@@ -129,10 +129,10 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::appendTo
+  * @covers \PapayaUiListviewItemPaging::appendTo
   */
   public function testAppendToWhileSelected() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 1, 100);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 1, 100);
     $item->papaya(
       $this->mockPapaya()->application(
         array(
@@ -156,76 +156,76 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::setItemsCount
+  * @covers \PapayaUiListviewItemPaging::setItemsCount
   */
   public function testSetItemsCount() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
     $item->itemsCount = 100;
     $this->assertEquals(100, $item->itemsCount);
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::setItemsCount
+  * @covers \PapayaUiListviewItemPaging::setItemsCount
   */
   public function testSetItemsCountExpectingException() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Item count can not be negative.');
     $item->itemsCount = -42;
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::setItemsPerPage
+  * @covers \PapayaUiListviewItemPaging::setItemsPerPage
   */
   public function testSetItemsPerPage() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
     $item->itemsPerPage = 15;
     $this->assertEquals(15, $item->itemsPerPage);
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::setItemsPerPage
+  * @covers \PapayaUiListviewItemPaging::setItemsPerPage
   */
   public function testSetItemsPerPageExpectingException() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Item page limit can not be less than 1.');
     $item->itemsPerPage = 0;
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::setPageLimit
+  * @covers \PapayaUiListviewItemPaging::setPageLimit
   */
   public function testSetPageLimit() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
     $item->pageLimit = 15;
     $this->assertEquals(15, $item->pageLimit);
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::setPageLimit
+  * @covers \PapayaUiListviewItemPaging::setPageLimit
   */
   public function testSetPageLimitExpectingException() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Page limit can not be less than 1.');
     $item->pageLimit = 0;
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::setCurrentValue
+  * @covers \PapayaUiListviewItemPaging::setCurrentValue
   */
   public function testSetCurrentValueUsingPageMode() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
     $item->setCurrentValue(2);
     $this->assertEquals(2, $item->currentPage);
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::setCurrentValue
+  * @covers \PapayaUiListviewItemPaging::setCurrentValue
   */
   public function testSetCurrentValueUsingOffsetMode() {
-    $item = new PapayaUiListviewItemPaging_TestProxy(
+    $item = new \PapayaUiListviewItemPaging_TestProxy(
       'page', 0, 30, PapayaUiListviewItemPaging::MODE_OFFSET
     );
     $item->setCurrentValue(10);
@@ -233,52 +233,52 @@ class PapayaUiListviewItemPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::setCurrentPage
-  * @covers PapayaUiListviewItemPaging::getCurrentPage
+  * @covers \PapayaUiListviewItemPaging::setCurrentPage
+  * @covers \PapayaUiListviewItemPaging::getCurrentPage
   */
   public function testGetCurrentPageAfterSet() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
     $item->currentPage = 2;
     $this->assertEquals(2, $item->currentPage);
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::getCurrentPage
+  * @covers \PapayaUiListviewItemPaging::getCurrentPage
   */
   public function testGetCurentPageAfterSettingToSmallValue() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
     $item->currentPage = -99;
     $this->assertEquals(1, $item->currentPage);
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::getCurrentPage
+  * @covers \PapayaUiListviewItemPaging::getCurrentPage
   */
   public function testGetCurentPageAfterSettingToLargeValue() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
     $item->currentPage = 99;
     $this->assertEquals(3, $item->currentPage);
   }
 
   /**
-  * @covers PapayaUiListviewItemPaging::setCurrentOffset
-  * @covers PapayaUiListviewItemPaging::getCurrentOffset
+  * @covers \PapayaUiListviewItemPaging::setCurrentOffset
+  * @covers \PapayaUiListviewItemPaging::getCurrentOffset
   */
   public function testGetCurrentOffsetAfterSet() {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 0, 30);
     $item->currentOffset = 10;
     $this->assertEquals(10, $item->currentOffset);
   }
 
   /**
-   * @covers PapayaUiListviewItemPaging::getLastPage
+   * @covers \PapayaUiListviewItemPaging::getLastPage
    * @dataProvider provideLastPageCalculationData
    * @param int $itemsPerPage
    * @param int $itemsCount
    * @param int $expectedMaximum
    */
   public function testLastPageCalculation($itemsPerPage, $itemsCount, $expectedMaximum) {
-    $item = new PapayaUiListviewItemPaging_TestProxy('page', 0, $itemsCount);
+    $item = new \PapayaUiListviewItemPaging_TestProxy('page', 0, $itemsCount);
     $item->itemsPerPage = $itemsPerPage;
     $this->assertEquals(
       $expectedMaximum, $item->lastPage

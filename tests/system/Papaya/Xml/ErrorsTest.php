@@ -30,11 +30,11 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaXmlErrors::activate
+  * @covers \PapayaXmlErrors::activate
   */
   public function testActivate() {
     libxml_use_internal_errors(FALSE);
-    $errors = new PapayaXmlErrors();
+    $errors = new \PapayaXmlErrors();
     $errors->activate();
     $this->assertTrue(
       libxml_use_internal_errors()
@@ -42,11 +42,11 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaXmlErrors::deactivate
+  * @covers \PapayaXmlErrors::deactivate
   */
   public function testDeactivate() {
     libxml_use_internal_errors(FALSE);
-    $errors = new PapayaXmlErrors();
+    $errors = new \PapayaXmlErrors();
     $errors->activate();
     $errors->deactivate();
     $this->assertFalse(
@@ -55,7 +55,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaXmlErrors::emit
+  * @covers \PapayaXmlErrors::emit
   */
   public function testEmit() {
     $messages = $this->createMock(PapayaMessageManager::class);
@@ -63,7 +63,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(PapayaMessageLogable::class));
-    $errors = new PapayaXmlErrors();
+    $errors = new \PapayaXmlErrors();
     $errors->papaya(
       $this->mockPapaya()->application(
         array(
@@ -77,7 +77,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaXmlErrors::omit
+  * @covers \PapayaXmlErrors::omit
   */
   public function testOmit() {
     $messages = $this->createMock(PapayaMessageManager::class);
@@ -85,7 +85,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(PapayaMessageLogable::class));
-    $errors = new PapayaXmlErrors();
+    $errors = new \PapayaXmlErrors();
     $errors->papaya(
       $this->mockPapaya()->application(
         array(
@@ -100,14 +100,14 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaXmlErrors::emit
+  * @covers \PapayaXmlErrors::emit
   */
   public function testEmitIgnoringNonFatal() {
     $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->never())
       ->method('dispatch');
-    $errors = new PapayaXmlErrors();
+    $errors = new \PapayaXmlErrors();
     $errors->papaya(
       $this->mockPapaya()->application(
         array(
@@ -121,10 +121,10 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaXmlErrors::emit
+  * @covers \PapayaXmlErrors::emit
   */
   public function testEmitWithFatalError() {
-    $errors = new PapayaXmlErrors();
+    $errors = new \PapayaXmlErrors();
     $document = new DOMDocument('1.0', 'UTF-8');
     $document->loadXML(/** @lang Text */'<foo>');
     $this->expectException(PapayaXmlException::class);
@@ -132,7 +132,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaXmlErrors::getMessageFromError
+  * @covers \PapayaXmlErrors::getMessageFromError
   */
   public function testGetMessageFromError() {
     $error = new libXMLError();
@@ -142,7 +142,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
     $error->file = '';
     $error->line = 23;
     $error->column = 21;
-    $errors = new PapayaXmlErrors();
+    $errors = new \PapayaXmlErrors();
     $message = $errors->getMessageFromError($error);
     $this->assertEquals(
       PapayaMessageLogable::GROUP_SYSTEM, $message->getGroup()
@@ -156,7 +156,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaXmlErrors::getMessageFromError
+  * @covers \PapayaXmlErrors::getMessageFromError
   */
   public function testGetMessageFromErrorWithFile() {
     $error = new libXMLError();
@@ -166,7 +166,7 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
     $error->file = __FILE__;
     $error->line = 23;
     $error->column = 21;
-    $errors = new PapayaXmlErrors();
+    $errors = new \PapayaXmlErrors();
     $context = $errors->getMessageFromError($error)->context();
     $this->assertInstanceOf(
       PapayaMessageContextFile::class, $context->current()
@@ -174,10 +174,10 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaXmlErrors::encapsulate
+  * @covers \PapayaXmlErrors::encapsulate
   */
   public function testEncapsulateWithoutError() {
-    $errors = new PapayaXmlErrors();
+    $errors = new \PapayaXmlErrors();
     $this->assertTrue($errors->encapsulate(array($this, 'callbackReturnTrue')));
   }
 
@@ -186,14 +186,14 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaXmlErrors::encapsulate
+  * @covers \PapayaXmlErrors::encapsulate
   */
   public function testEncapsulateWithError() {
     $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->once())
       ->method('log');
-    $errors = new PapayaXmlErrors();
+    $errors = new \PapayaXmlErrors();
     $errors->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)
@@ -205,14 +205,14 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaXmlErrors::encapsulate
+  * @covers \PapayaXmlErrors::encapsulate
   */
   public function testEncapsulateWithErrorNotEmitted() {
     $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->never())
       ->method('log');
-    $errors = new PapayaXmlErrors();
+    $errors = new \PapayaXmlErrors();
     $errors->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)
@@ -223,14 +223,14 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
     );
   }
   /**
-  * @covers PapayaXmlErrors::encapsulate
+  * @covers \PapayaXmlErrors::encapsulate
   */
   public function testEncapsulateWithNonFatalNotEmitted() {
     $messages = $this->createMock(PapayaMessageManager::class);
     $messages
       ->expects($this->never())
       ->method('dispatch');
-    $errors = new PapayaXmlErrors();
+    $errors = new \PapayaXmlErrors();
     $errors->papaya(
       $this->mockPapaya()->application(
         array(
@@ -258,6 +258,6 @@ class PapayaXmlErrorsTest extends PapayaTestCase {
     $error->file = __FILE__;
     $error->line = 23;
     $error->column = 21;
-    throw new PapayaXmlException($error);
+    throw new \PapayaXmlException($error);
   }
 }

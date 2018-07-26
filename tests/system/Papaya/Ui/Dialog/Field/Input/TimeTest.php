@@ -17,10 +17,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInputTimeTest extends PapayaTestCase {
   /**
-  * @covers PapayaUiDialogFieldInputTime::__construct
+  * @covers \PapayaUiDialogFieldInputTime::__construct
   */
   public function testConstructor() {
-    $input = new PapayaUiDialogFieldInputTime('Time', 'time', '00:00:00', TRUE, 300.0);
+    $input = new \PapayaUiDialogFieldInputTime('Time', 'time', '00:00:00', TRUE, 300.0);
     $this->assertEquals('Time', $input->caption);
     $this->assertEquals('time', $input->name);
     $this->assertEquals('00:00:00', $input->defaultValue);
@@ -29,45 +29,45 @@ class PapayaUiDialogFieldInputTimeTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputTime::__construct
+  * @covers \PapayaUiDialogFieldInputTime::__construct
   */
   public function testConstructorWithInvalidStep() {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Step must not be less than 0.');
-    new PapayaUiDialogFieldInputTime('Time', 'time', '00:00:00', TRUE, -300.0);
+    new \PapayaUiDialogFieldInputTime('Time', 'time', '00:00:00', TRUE, -300.0);
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputTime
+   * @covers \PapayaUiDialogFieldInputTime
    * @dataProvider filterExpectingTrueProvider
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $input = new PapayaUiDialogFieldInputTime('Time', 'time');
+    $input = new \PapayaUiDialogFieldInputTime('Time', 'time');
     $input->mandatory = $mandatory;
     $input->defaultValue = $value;
     $this->assertTrue($input->validate());
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputTime
+   * @covers \PapayaUiDialogFieldInputTime
    * @dataProvider filterExpectingFalseProvider
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $input = new PapayaUiDialogFieldInputTime('Time', 'time');
+    $input = new \PapayaUiDialogFieldInputTime('Time', 'time');
     $input->mandatory = $mandatory;
     $input->defaultValue = $value;
     $this->assertFalse($input->validate());
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputTime::getXml
+  * @covers \PapayaUiDialogFieldInputTime::getXml
   */
   public function testGetXml() {
-    $input = new PapayaUiDialogFieldInputTime('Time', 'time');
+    $input = new \PapayaUiDialogFieldInputTime('Time', 'time');
     $input->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

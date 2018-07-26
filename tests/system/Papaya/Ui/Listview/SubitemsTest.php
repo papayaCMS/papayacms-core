@@ -18,23 +18,23 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiListviewSubitemsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiListviewSubitems::__construct
-  * @covers PapayaUiListviewSubitems::owner
+  * @covers \PapayaUiListviewSubitems::__construct
+  * @covers \PapayaUiListviewSubitems::owner
   */
   public function testConstructor() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItem $item */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItem $item */
     $item = $this
       ->getMockBuilder(PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $subitems = new PapayaUiListviewSubitems($item);
+    $subitems = new \PapayaUiListviewSubitems($item);
     $this->assertSame(
       $item, $subitems->owner()
     );
   }
 
   /**
-  * @covers PapayaUiListviewSubitems::getListview
+  * @covers \PapayaUiListviewSubitems::getListview
   */
   public function testGetListview() {
     $listview = $this->createMock(PapayaUiListview::class);
@@ -46,7 +46,7 @@ class PapayaUiListviewSubitemsTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('owner')
       ->will($this->returnValue($listview));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItem $item */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItem $item */
     $item = $this
       ->getMockBuilder(PapayaUiListviewItem::class)
       ->disableOriginalConstructor()
@@ -55,7 +55,7 @@ class PapayaUiListviewSubitemsTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('collection')
       ->will($this->returnValue($collection));
-    $subitems = new PapayaUiListviewSubitems($item);
+    $subitems = new \PapayaUiListviewSubitems($item);
     $this->assertSame(
       $listview, $subitems->getListview()
     );

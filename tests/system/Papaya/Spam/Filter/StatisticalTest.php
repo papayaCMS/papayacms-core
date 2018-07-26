@@ -18,30 +18,30 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaSpamFilterStatistical::setReference
-  * @covers PapayaSpamFilterStatistical::getReference
+  * @covers \PapayaSpamFilterStatistical::setReference
+  * @covers \PapayaSpamFilterStatistical::getReference
   */
   public function testGetReferenceAfterSet() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaSpamFilterStatisticalReference $reference */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSpamFilterStatisticalReference $reference */
     $reference = $this->createMock(PapayaSpamFilterStatisticalReference::class);
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $filter->setReference($reference);
     $this->assertSame($reference, $filter->getReference());
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::getReference
+  * @covers \PapayaSpamFilterStatistical::getReference
   */
   public function testGetReferenceImplicitCreate() {
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $this->assertInstanceOf(PapayaSpamFilterStatisticalReference::class, $filter->getReference());
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::setRelevanceLimit
+  * @covers \PapayaSpamFilterStatistical::setRelevanceLimit
   */
   public function testSetRelevanceLimit() {
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $filter->setRelevanceLimit(0.3);
     $this->assertAttributeEquals(
       0.3, '_relevantDerivation', $filter
@@ -49,20 +49,20 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::setRelevanceLimit
+  * @covers \PapayaSpamFilterStatistical::setRelevanceLimit
   */
   public function testSetRelevanceLimitExpectingException() {
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $this->expectException(RangeException::class);
     $this->expectExceptionMessage('RangeException: $derivation must be between 0 and 0.4');
     $filter->setRelevanceLimit(1);
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::setTokenLimit
+  * @covers \PapayaSpamFilterStatistical::setTokenLimit
   */
   public function testSetTokenLimit() {
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $filter->setTokenLimit(99);
     $this->assertAttributeEquals(
       99, '_maximumRelevant', $filter
@@ -70,17 +70,17 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::setTokenLimit
+  * @covers \PapayaSpamFilterStatistical::setTokenLimit
   */
   public function testSetTokenLimitExpectingException() {
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $this->expectException(RangeException::class);
     $this->expectExceptionMessage('RangeException: $count must be greater than 0');
     $filter->setTokenLimit(-23);
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::filterTokens
+  * @covers \PapayaSpamFilterStatistical::filterTokens
   */
   public function testFilterTokens() {
     $tokens = array(
@@ -88,7 +88,7 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
       'normal' => 2,
       'really-long-token-above-the-limit-of-the-character-count' => 3
     );
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $this->assertEquals(
       array('normal' => 2),
       $filter->filterTokens($tokens)
@@ -96,51 +96,51 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::getProbability
-  * @covers PapayaSpamFilterStatistical::calculateProbability
+  * @covers \PapayaSpamFilterStatistical::getProbability
+  * @covers \PapayaSpamFilterStatistical::calculateProbability
   */
   public function testGetProbabilityIsHam() {
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $filter->setReference($this->getSpamReferenceMock());
     $this->assertLessThan(0.5, $filter->getProbability('papaya'));
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::getProbability
-  * @covers PapayaSpamFilterStatistical::calculateProbability
+  * @covers \PapayaSpamFilterStatistical::getProbability
+  * @covers \PapayaSpamFilterStatistical::calculateProbability
   */
   public function testGetProbabilityIsSpam() {
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $filter->setReference($this->getSpamReferenceMock());
     $this->assertGreaterThan(0.5, $filter->getProbability('casino'));
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::getProbability
-  * @covers PapayaSpamFilterStatistical::calculateProbability
+  * @covers \PapayaSpamFilterStatistical::getProbability
+  * @covers \PapayaSpamFilterStatistical::calculateProbability
   */
   public function testGetProbabilityIsBalanced() {
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $filter->setReference($this->getSpamReferenceMock());
     $this->assertEquals(0.5, $filter->getProbability('download'), '', 0.00001);
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::getProbability
+  * @covers \PapayaSpamFilterStatistical::getProbability
   */
   public function testGetProbabilityIsUnknown() {
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $filter->setReference($this->getSpamReferenceMock());
     $this->assertEquals(0.5, $filter->getProbability('unknown'), '', 0.00001);
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::classify
-  * @covers PapayaSpamFilterStatistical::getProbabilities
-  * @covers PapayaSpamFilterStatistical::aggregateProbabilities
+  * @covers \PapayaSpamFilterStatistical::classify
+  * @covers \PapayaSpamFilterStatistical::getProbabilities
+  * @covers \PapayaSpamFilterStatistical::aggregateProbabilities
   */
   public function testClassifyExpectingSpam() {
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $filter->setReference($this->getSpamReferenceMock());
     $this->assertGreaterThan(
       0.5,
@@ -150,12 +150,12 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::classify
-  * @covers PapayaSpamFilterStatistical::getProbabilities
-  * @covers PapayaSpamFilterStatistical::aggregateProbabilities
+  * @covers \PapayaSpamFilterStatistical::classify
+  * @covers \PapayaSpamFilterStatistical::getProbabilities
+  * @covers \PapayaSpamFilterStatistical::aggregateProbabilities
   */
   public function testClassifyExpectingHam() {
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $filter->setReference($this->getSpamReferenceMock());
     $this->assertLessThan(
       0.5,
@@ -165,12 +165,12 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSpamFilterStatistical::classify
-  * @covers PapayaSpamFilterStatistical::getProbabilities
-  * @covers PapayaSpamFilterStatistical::aggregateProbabilities
+  * @covers \PapayaSpamFilterStatistical::classify
+  * @covers \PapayaSpamFilterStatistical::getProbabilities
+  * @covers \PapayaSpamFilterStatistical::aggregateProbabilities
   */
   public function testClassifyExpectingBalanced() {
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $filter->setReference($this->getSpamReferenceMock());
     $this->assertEquals(
       0.5,
@@ -183,10 +183,10 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaSpamFilterStatistical::getDetails
-   * @covers PapayaSpamFilterStatistical::getProbabilities
-   * @covers PapayaSpamFilterStatistical::aggregateProbabilities
-   * @covers PapayaSpamFilterStatistical::compareProbabilityRelevance
+   * @covers \PapayaSpamFilterStatistical::getDetails
+   * @covers \PapayaSpamFilterStatistical::getProbabilities
+   * @covers \PapayaSpamFilterStatistical::aggregateProbabilities
+   * @covers \PapayaSpamFilterStatistical::compareProbabilityRelevance
    * @dataProvider provideTokenSamples
    * @param float $expected
    * @param array $report
@@ -197,7 +197,7 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   public function testProbabilityRelevanceSortAndFilter(
     $expected, $report, $tokens, $relevanceLimit, $tokenLimit
   ) {
-    $filter = new PapayaSpamFilterStatistical();
+    $filter = new \PapayaSpamFilterStatistical();
     $filter->setReference($this->getSpamReferenceMock());
     $filter->setRelevanceLimit($relevanceLimit);
     $filter->setTokenLimit($tokenLimit);
@@ -306,7 +306,7 @@ class PapayaSpamFilterStatisticalTest extends PapayaTestCase {
   *********************/
 
   /**
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaSpamFilterStatisticalReference
+   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaSpamFilterStatisticalReference
    */
   private function getSpamReferenceMock() {
     $reference = $this->createMock(PapayaSpamFilterStatisticalReference::class);

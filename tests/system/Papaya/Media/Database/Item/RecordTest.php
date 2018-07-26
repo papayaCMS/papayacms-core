@@ -20,10 +20,10 @@ PapayaTestCase::defineConstantDefaults('DB_FETCHMODE_ASSOC');
 class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaMediaDatabaseItemRecord::load
+  * @covers \PapayaMediaDatabaseItemRecord::load
   */
   public function testLoad() {
-    $record = new PapayaMediaDatabaseItemRecord();
+    $record = new \PapayaMediaDatabaseItemRecord();
     $databaseResult = $this
       ->getMockBuilder(dbresult_base::class)
       ->disableOriginalConstructor()
@@ -60,10 +60,10 @@ class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMediaDatabaseItemRecord::load
+  * @covers \PapayaMediaDatabaseItemRecord::load
   */
   public function testLoadExpectingFalse() {
-    $record = new PapayaMediaDatabaseItemRecord();
+    $record = new \PapayaMediaDatabaseItemRecord();
     $databaseResult = $this
       ->getMockBuilder(dbresult_base::class)
       ->disableOriginalConstructor()
@@ -87,10 +87,10 @@ class PapayaMediaDatabaseItemRecordTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMediaDatabaseItemRecord::save
+  * @covers \PapayaMediaDatabaseItemRecord::save
   */
   public function testSaveExpectingFalse() {
-    $record = new PapayaMediaDatabaseItemRecord();
+    $record = new \PapayaMediaDatabaseItemRecord();
     $this->assertFalse($record->save());
   }
 }

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaConfigurationIteratorTest extends PapayaTestCase {
 
   public function testIterator() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaConfiguration $configuration */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaConfiguration $configuration */
     $configuration = $this
       ->getMockBuilder(PapayaConfiguration::class)
       ->disableOriginalConstructor()

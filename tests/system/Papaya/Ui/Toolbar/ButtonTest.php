@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiToolbarButtonTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiToolbarButton::setAccessKey
+  * @covers \PapayaUiToolbarButton::setAccessKey
   */
   public function testSetAccessKey() {
-    $button = new PapayaUiToolbarButton();
+    $button = new \PapayaUiToolbarButton();
     $button->accessKey = '1';
     $this->assertEquals(
       '1', $button->accessKey
@@ -29,22 +29,22 @@ class PapayaUiToolbarButtonTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarButton::setAccessKey
+  * @covers \PapayaUiToolbarButton::setAccessKey
   */
   public function testSetAccessKeyWithInvalidKeyExpectingException() {
-    $button = new PapayaUiToolbarButton();
+    $button = new \PapayaUiToolbarButton();
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Access key must be an single character.');
     $button->accessKey = 'foo';
   }
 
   /**
-  * @covers PapayaUiToolbarButton::appendTo
+  * @covers \PapayaUiToolbarButton::appendTo
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument;
+    $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $button = new PapayaUiToolbarButton();
+    $button = new \PapayaUiToolbarButton();
     $button->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
@@ -62,12 +62,12 @@ class PapayaUiToolbarButtonTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarButton::appendTo
+  * @covers \PapayaUiToolbarButton::appendTo
   */
   public function testAppendToWithAllProperties() {
-    $document = new PapayaXmlDocument;
+    $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $button = new PapayaUiToolbarButton();
+    $button = new \PapayaUiToolbarButton();
     $button->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
@@ -89,12 +89,12 @@ class PapayaUiToolbarButtonTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarButton::appendTo
+  * @covers \PapayaUiToolbarButton::appendTo
   */
   public function testAppendToWithoutProperties() {
-    $document = new PapayaXmlDocument;
+    $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $button = new PapayaUiToolbarButton();
+    $button = new \PapayaUiToolbarButton();
     $button->papaya(
       $this->mockPapaya()->application(array('Images' => array('' => '')))
     );

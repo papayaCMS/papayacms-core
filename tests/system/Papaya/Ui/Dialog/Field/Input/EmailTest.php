@@ -17,10 +17,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInputEmailTest extends PapayaTestCase {
   /**
-  * @covers PapayaUiDialogFieldInputEmail::__construct
+  * @covers \PapayaUiDialogFieldInputEmail::__construct
   */
   public function testConstrutor() {
-    $field = new PapayaUiDialogFieldInputEmail('Email', 'email', 'default@example.com', TRUE);
+    $field = new \PapayaUiDialogFieldInputEmail('Email', 'email', 'default@example.com', TRUE);
     $this->assertEquals(
       'Email',
       $field->caption
@@ -39,13 +39,13 @@ class PapayaUiDialogFieldInputEmailTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputEmail
+   * @covers \PapayaUiDialogFieldInputEmail
    * @dataProvider provideValidEmailInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $field = new PapayaUiDialogFieldInputEmail('Email', 'email');
+    $field = new \PapayaUiDialogFieldInputEmail('Email', 'email');
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
     $this->assertTrue(
@@ -54,13 +54,13 @@ class PapayaUiDialogFieldInputEmailTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputEmail
+   * @covers \PapayaUiDialogFieldInputEmail
    * @dataProvider provideInvalidEmailInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $field = new PapayaUiDialogFieldInputEmail('Email', 'email');
+    $field = new \PapayaUiDialogFieldInputEmail('Email', 'email');
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
     $this->assertFalse(
@@ -69,11 +69,11 @@ class PapayaUiDialogFieldInputEmailTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputEmail::appendTo
+  * @covers \PapayaUiDialogFieldInputEmail::appendTo
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument();
-    $field = new PapayaUiDialogFieldInputEmail('Email', 'email');
+    $document = new \PapayaXmlDocument();
+    $field = new \PapayaUiDialogFieldInputEmail('Email', 'email');
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('test'));
     $this->assertXmlStringEqualsXmlString(

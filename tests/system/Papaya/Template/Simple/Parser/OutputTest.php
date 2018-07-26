@@ -18,17 +18,17 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaTemplateSimpleParserOutputTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaTemplateSimpleParserOutput::parse
+   * @covers \PapayaTemplateSimpleParserOutput::parse
    */
   public function testWithText() {
     $tokens = array(
-      new PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo')
+      new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo')
     );
-    $parser = new PapayaTemplateSimpleParserOutput($tokens);
+    $parser = new \PapayaTemplateSimpleParserOutput($tokens);
     $this->assertEquals(
-      new PapayaTemplateSimpleAstNodes(
+      new \PapayaTemplateSimpleAstNodes(
         array(
-          new PapayaTemplateSimpleAstNodeOutput('foo')
+          new \PapayaTemplateSimpleAstNodeOutput('foo')
         )
       ),
       $parser->parse()
@@ -36,17 +36,17 @@ class PapayaTemplateSimpleParserOutputTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplateSimpleParserOutput::parse
+   * @covers \PapayaTemplateSimpleParserOutput::parse
    */
   public function testWithWhitespace() {
     $tokens = array(
-      new PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::WHITESPACE, 0, "\n")
+      new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::WHITESPACE, 0, "\n")
     );
-    $parser = new PapayaTemplateSimpleParserOutput($tokens);
+    $parser = new \PapayaTemplateSimpleParserOutput($tokens);
     $this->assertEquals(
-      new PapayaTemplateSimpleAstNodes(
+      new \PapayaTemplateSimpleAstNodes(
         array(
-          new PapayaTemplateSimpleAstNodeOutput("\n")
+          new \PapayaTemplateSimpleAstNodeOutput("\n")
         )
       ),
       $parser->parse()
@@ -54,19 +54,19 @@ class PapayaTemplateSimpleParserOutputTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplateSimpleParserOutput::parse
+   * @covers \PapayaTemplateSimpleParserOutput::parse
    */
   public function testWithSeveralOutputTokensOptimizesAst() {
     $tokens = array(
-      new PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'),
-      new PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::WHITESPACE, 3, "\n"),
-      new PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::TEXT, 4, 'bar'),
+      new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::TEXT, 0, 'foo'),
+      new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::WHITESPACE, 3, "\n"),
+      new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::TEXT, 4, 'bar'),
     );
-    $parser = new PapayaTemplateSimpleParserOutput($tokens);
+    $parser = new \PapayaTemplateSimpleParserOutput($tokens);
     $this->assertEquals(
-      new PapayaTemplateSimpleAstNodes(
+      new \PapayaTemplateSimpleAstNodes(
         array(
-          new PapayaTemplateSimpleAstNodeOutput("foo\nbar")
+          new \PapayaTemplateSimpleAstNodeOutput("foo\nbar")
         )
       ),
       $parser->parse()
@@ -74,25 +74,25 @@ class PapayaTemplateSimpleParserOutputTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplateSimpleParserOutput::parse
+   * @covers \PapayaTemplateSimpleParserOutput::parse
    */
   public function testWithValue() {
     $tokens = array(
-      new PapayaTemplateSimpleScannerToken(
+      new \PapayaTemplateSimpleScannerToken(
         PapayaTemplateSimpleScannerToken::VALUE_NAME, 0, '/*$foo*/'
       ),
-      new PapayaTemplateSimpleScannerToken(
+      new \PapayaTemplateSimpleScannerToken(
         PapayaTemplateSimpleScannerToken::WHITESPACE, 6, ' '
       ),
-      new PapayaTemplateSimpleScannerToken(
+      new \PapayaTemplateSimpleScannerToken(
         PapayaTemplateSimpleScannerToken::VALUE_DEFAULT, 7, 'bar'
       )
     );
-    $parser = new PapayaTemplateSimpleParserOutput($tokens);
+    $parser = new \PapayaTemplateSimpleParserOutput($tokens);
     $this->assertEquals(
-      new PapayaTemplateSimpleAstNodes(
+      new \PapayaTemplateSimpleAstNodes(
         array(
-          new PapayaTemplateSimpleAstNodeValue('foo', 'bar')
+          new \PapayaTemplateSimpleAstNodeValue('foo', 'bar')
         )
       ),
       $parser->parse()

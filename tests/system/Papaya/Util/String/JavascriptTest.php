@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUtilStringJavascriptTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUtilStringJavascript::quote
+   * @covers \PapayaUtilStringJavascript::quote
    * @dataProvider quoteDataProvider
    * @param string $string
    * @param string $expected

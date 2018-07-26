@@ -25,7 +25,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAutoloader
+  * @covers \PapayaAutoloader
   */
   public function testLoad() {
     PapayaAutoloader::load('Papaya\\Test\\Autoloader\\Test_class', __DIR__.'/TestData/class.php');
@@ -33,7 +33,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAutoloader
+   * @covers \PapayaAutoloader
    */
   public function testLoadAddsAliasForNamespaceClass() {
     PapayaAutoloader::load('PapayaTestAutoloaderTest_class', __DIR__.'/TestData/class.php');
@@ -41,7 +41,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAutoloader
+   * @covers \PapayaAutoloader
    * @dataProvider getClassFileDataProvider
    * @param string $expected
    * @param string $className
@@ -54,7 +54,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAutoloader
+  * @covers \PapayaAutoloader
   */
   public function testGetClassFileForUnknownClass() {
     $this->assertNull(
@@ -63,7 +63,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAutoloader
+  * @covers \PapayaAutoloader
   */
   public function testRegisterPath() {
     PapayaAutoloader::clear();
@@ -74,7 +74,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAutoloader
+  * @covers \PapayaAutoloader
   */
   public function testRegisterPathSortsPaths() {
     PapayaAutoloader::registerPath('PapayaModuleSample', '/foo/bar');
@@ -92,7 +92,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAutoloader
+  * @covers \PapayaAutoloader
   */
   public function testClearPaths() {
     PapayaAutoloader::registerPath('PapayaModuleSample', '/foo/bar');
@@ -103,7 +103,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaAutoloader
+   * @covers \PapayaAutoloader
    * @dataProvider getModuleClassFileDataProvider
    * @param string $expected
    * @param string $moduleClass
@@ -121,7 +121,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAutoloader
+  * @covers \PapayaAutoloader
   */
   public function testHasPrefixExpectingTrue() {
     PapayaAutoloader::registerPath('PapayaModuleSample', '/foo/bar');
@@ -129,14 +129,14 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAutoloader
+  * @covers \PapayaAutoloader
   */
   public function testHasPrefixExpectingFalse() {
     $this->assertFalse(PapayaAutoloader::hasPrefix('PapayaModuleSample'));
   }
 
   /**
-  * @covers PapayaAutoloader
+  * @covers \PapayaAutoloader
   */
   public function testHasClassmapExpectingTrue() {
     PapayaAutoloader::registerClassMap('/foo/bar', array('Foo', '/Foo.php'));
@@ -144,7 +144,7 @@ class PapayaAutoloaderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaAutoloader
+  * @covers \PapayaAutoloader
   */
   public function testHasClassmapExpectingFalse() {
     $this->assertFalse(PapayaAutoloader::hasClassMap('/foo/bar'));

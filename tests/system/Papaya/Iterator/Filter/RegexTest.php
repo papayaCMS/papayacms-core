@@ -18,20 +18,20 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaIteratorFilterRegexTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaIteratorFilterRegex::__construct
+  * @covers \PapayaIteratorFilterRegex::__construct
   */
   public function testConstructor() {
-    $filter = new PapayaIteratorFilterRegex(new ArrayIterator(array()), '(pattern)');
+    $filter = new \PapayaIteratorFilterRegex(new ArrayIterator(array()), '(pattern)');
     $this->assertAttributeEquals(
       '(pattern)', '_pattern', $filter
     );
   }
 
   /**
-  * @covers PapayaIteratorFilterRegex::__construct
+  * @covers \PapayaIteratorFilterRegex::__construct
   */
   public function testConstructorWithAllArguments() {
-    $filter = new PapayaIteratorFilterRegex(
+    $filter = new \PapayaIteratorFilterRegex(
       new ArrayIterator(array()), '(pattern)', 42, PapayaIteratorFilterRegex::FILTER_BOTH
     );
     $this->assertAttributeEquals(
@@ -43,8 +43,8 @@ class PapayaIteratorFilterRegexTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaIteratorFilterRegex::accept
-  * @covers PapayaIteratorFilterRegex::isMatch
+  * @covers \PapayaIteratorFilterRegex::accept
+  * @covers \PapayaIteratorFilterRegex::isMatch
   */
   public function testAccept() {
     $data = array(
@@ -52,7 +52,7 @@ class PapayaIteratorFilterRegexTest extends PapayaTestCase {
       'fail string' => 'wrong',
       'fail offset' => 'pattern',
     );
-    $filter = new PapayaIteratorFilterRegex(
+    $filter = new \PapayaIteratorFilterRegex(
       new ArrayIterator($data), '(pattern)', 4
     );
     $this->assertEquals(
@@ -62,8 +62,8 @@ class PapayaIteratorFilterRegexTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaIteratorFilterRegex::accept
-  * @covers PapayaIteratorFilterRegex::isMatch
+  * @covers \PapayaIteratorFilterRegex::accept
+  * @covers \PapayaIteratorFilterRegex::isMatch
   */
   public function testAcceptUsingKeys() {
     $data = array(
@@ -71,7 +71,7 @@ class PapayaIteratorFilterRegexTest extends PapayaTestCase {
       'fail string' => 'wrong',
       'fail offset' => 'pattern',
     );
-    $filter = new PapayaIteratorFilterRegex(
+    $filter = new \PapayaIteratorFilterRegex(
       new ArrayIterator(array_flip($data)), '(pattern)', 4, PapayaIteratorFilterRegex::FILTER_KEYS
     );
     $this->assertEquals(

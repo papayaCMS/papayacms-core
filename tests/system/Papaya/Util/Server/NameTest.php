@@ -28,7 +28,7 @@ class PapayaUtilServerNameTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerName::get
+  * @covers \PapayaUtilServerName::get
   */
   public function testGetFromHttpHost() {
     $_SERVER['HTTP_HOST'] = 'www.test.tld';
@@ -38,7 +38,7 @@ class PapayaUtilServerNameTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerName::get
+  * @covers \PapayaUtilServerName::get
   */
   public function testGetFromServerName() {
     $_SERVER['SERVER_NAME'] = 'www.test.tld';
@@ -48,7 +48,7 @@ class PapayaUtilServerNameTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerName::get
+  * @covers \PapayaUtilServerName::get
   */
   public function testGetExpectingEmptyString() {
     $this->assertEquals(

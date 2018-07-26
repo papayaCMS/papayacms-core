@@ -18,43 +18,43 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaIteratorFileStreamTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaIteratorFileStream::__construct
-  * @covers PapayaIteratorFileStream::setStream
-  * @covers PapayaIteratorFileStream::getStream
+  * @covers \PapayaIteratorFileStream::__construct
+  * @covers \PapayaIteratorFileStream::setStream
+  * @covers \PapayaIteratorFileStream::getStream
   */
   public function testConstructor() {
-    $iterator = new PapayaIteratorFileStream($this->getStreamFixture());
+    $iterator = new \PapayaIteratorFileStream($this->getStreamFixture());
     $this->assertInternalType('resource', $iterator->getStream());
   }
 
   /**
-  * @covers PapayaIteratorFileStream::__construct
-  * @covers PapayaIteratorFileStream::setStream
+  * @covers \PapayaIteratorFileStream::__construct
+  * @covers \PapayaIteratorFileStream::setStream
   */
   public function testConstructorWithInvaloidStreamExpectingException() {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Provided file stream is invalid');
-    new PapayaIteratorFileStream(NULL);
+    new \PapayaIteratorFileStream(NULL);
   }
 
   /**
-  * @covers PapayaIteratorFileStream::__destruct
+  * @covers \PapayaIteratorFileStream::__destruct
   */
   public function testDestructor() {
-    $iterator = new PapayaIteratorFileStream($this->getStreamFixture());
+    $iterator = new \PapayaIteratorFileStream($this->getStreamFixture());
     $iterator->__destruct();
     $this->assertNull($iterator->getStream());
   }
 
   /**
-  * @covers PapayaIteratorFileStream::rewind
-  * @covers PapayaIteratorFileStream::next
-  * @covers PapayaIteratorFileStream::valid
-  * @covers PapayaIteratorFileStream::key
-  * @covers PapayaIteratorFileStream::current
+  * @covers \PapayaIteratorFileStream::rewind
+  * @covers \PapayaIteratorFileStream::next
+  * @covers \PapayaIteratorFileStream::valid
+  * @covers \PapayaIteratorFileStream::key
+  * @covers \PapayaIteratorFileStream::current
   */
   public function testIteration() {
-    $iterator = new PapayaIteratorFileStream($this->getStreamFixture());
+    $iterator = new \PapayaIteratorFileStream($this->getStreamFixture());
     $this->assertEquals(
       array("line1\n", "line2\n", 'line3'),
       iterator_to_array($iterator)
@@ -62,14 +62,14 @@ class PapayaIteratorFileStreamTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaIteratorFileStream::rewind
-  * @covers PapayaIteratorFileStream::next
-  * @covers PapayaIteratorFileStream::valid
-  * @covers PapayaIteratorFileStream::key
-  * @covers PapayaIteratorFileStream::current
+  * @covers \PapayaIteratorFileStream::rewind
+  * @covers \PapayaIteratorFileStream::next
+  * @covers \PapayaIteratorFileStream::valid
+  * @covers \PapayaIteratorFileStream::key
+  * @covers \PapayaIteratorFileStream::current
   */
   public function testIterationRemovingLineEnds() {
-    $iterator = new PapayaIteratorFileStream(
+    $iterator = new \PapayaIteratorFileStream(
       $this->getStreamFixture(), PapayaIteratorFileStream::TRIM_RIGHT
     );
     $this->assertEquals(

@@ -41,7 +41,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $navigation = new Navigation();
     $navigation->papaya($this->mockPapaya()->application());
     $navigation->listview($this->createMock(PapayaUiListview::class));
-    $navigation->parameters(new PapayaRequestParameters(array('theme' => 'default')));
+    $navigation->parameters(new \PapayaRequestParameters(array('theme' => 'default')));
     $navigation->getXml();
     $this->assertXmlFragmentEqualsXmlFragment(
        /* language=xml prefix=<fragment> suffix=</fragment> */
@@ -65,7 +65,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $navigation->papaya($this->mockPapaya()->application());
     $navigation->listview($this->createMock(PapayaUiListview::class));
     $navigation->parameters(
-      new PapayaRequestParameters(array('theme' => 'default', 'set_id' => 42))
+      new \PapayaRequestParameters(array('theme' => 'default', 'set_id' => 42))
     );
     $navigation->getXml();
     $this->assertXmlFragmentEqualsXmlFragment(
@@ -105,7 +105,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
    */
   public function testListviewImplicitCreate() {
     $navigation = new Navigation();
-    $navigation->parameters(new PapayaRequestParameters());
+    $navigation->parameters(new \PapayaRequestParameters());
     $this->assertInstanceOf(
       PapayaUiListview::class, $navigation->listview()
     );
@@ -117,7 +117,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
    */
   public function testListviewImplicitCreateWithSelectedTheme() {
     $navigation = new Navigation();
-    $navigation->parameters(new PapayaRequestParameters(array('theme' => 'default')));
+    $navigation->parameters(new \PapayaRequestParameters(array('theme' => 'default')));
     $this->assertInstanceOf(
       PapayaUiListview::class, $navigation->listview()
     );
@@ -130,7 +130,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
   public function testListviewImplicitCreateWithSelectedSet() {
     $navigation = new Navigation();
     $navigation->parameters(
-      new PapayaRequestParameters(array('theme' => 'default', 'set_id' => 23))
+      new \PapayaRequestParameters(array('theme' => 'default', 'set_id' => 23))
     );
     $this->assertInstanceOf(
       PapayaUiListview::class, $navigation->listview()
@@ -142,7 +142,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
    */
   public function testCallbackCreateItemForInvalidElement() {
     $navigation = new Navigation();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItems $items */
     $items = $this
       ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
@@ -160,7 +160,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
     $papaya = $this->mockPapaya()->application(
       array('images' => array('items-theme' => 'theme.png'))
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItems $items */
     $items = $this
       ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
@@ -193,7 +193,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
         'images' => array('items-theme' => 'theme.png')
       )
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItems $items */
     $items = $this
       ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
@@ -227,7 +227,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
         'images' => array('items-theme' => 'theme.png')
       )
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItems $items */
     $items = $this
       ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
@@ -259,7 +259,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
         'images' => array('items-folder' => 'folder.png')
       )
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItems $items */
     $items = $this
       ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
@@ -298,7 +298,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
         'images' => array('items-folder' => 'folder.png')
       )
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItems $items */
     $items = $this
       ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
@@ -338,7 +338,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
         'images' => array('items-folder' => 'folder.png')
       )
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItems $items */
     $items = $this
       ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
@@ -384,7 +384,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
         'images' => array('items-folder' => 'folder.png')
       )
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItems $items */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItems $items */
     $items = $this
       ->getMockBuilder(PapayaUiListviewItems::class)
       ->disableOriginalConstructor()
@@ -420,7 +420,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends PapayaTestCase {
 
   /**
    * @param int $depth
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaUiListviewItemsBuilder
+   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListviewItemsBuilder
    */
   private function getBuilderFixture($depth = 0) {
     $iterator = $this

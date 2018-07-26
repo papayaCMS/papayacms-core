@@ -20,17 +20,17 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaPluginOptionStorageTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaPluginOptionStorage::__construct
+  * @covers \PapayaPluginOptionStorage::__construct
   */
   public function testConstructor() {
-    $storage = new PapayaPluginOptionStorage('AB123456789012345678901234567890');
+    $storage = new \PapayaPluginOptionStorage('AB123456789012345678901234567890');
     $this->assertAttributeEquals(
       'ab123456789012345678901234567890', '_guid', $storage
     );
   }
 
   /**
-  * @covers PapayaPluginOptionStorage::load
+  * @covers \PapayaPluginOptionStorage::load
   */
   public function testLoad() {
     $options = $this->createMock(Options::class);
@@ -39,13 +39,13 @@ class PapayaPluginOptionStorageTest extends PapayaTestCase {
       ->method('load')
       ->with(array('guid' => 'ab123456789012345678901234567890'))
       ->will($this->returnValue(TRUE));
-    $storage = new PapayaPluginOptionStorage('ab123456789012345678901234567890');
+    $storage = new \PapayaPluginOptionStorage('ab123456789012345678901234567890');
     $storage->options($options);
     $this->assertTrue($storage->load());
   }
 
   /**
-  * @covers PapayaPluginOptionStorage::getIterator
+  * @covers \PapayaPluginOptionStorage::getIterator
   */
   public function testGetIterator() {
     $options = $this->createMock(Options::class);
@@ -64,7 +64,7 @@ class PapayaPluginOptionStorageTest extends PapayaTestCase {
           )
         )
       );
-    $storage = new PapayaPluginOptionStorage('ab123456789012345678901234567890');
+    $storage = new \PapayaPluginOptionStorage('ab123456789012345678901234567890');
     $storage->options($options);
     $this->assertEquals(
       array('foo' => 'bar'),
@@ -73,20 +73,20 @@ class PapayaPluginOptionStorageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaPluginOptionStorage::options
+  * @covers \PapayaPluginOptionStorage::options
   */
   public function testOptionsGetAfterSet() {
     $options = $this->createMock(Options::class);
-    $storage = new PapayaPluginOptionStorage('ab123456789012345678901234567890');
+    $storage = new \PapayaPluginOptionStorage('ab123456789012345678901234567890');
     $storage->options($options);
     $this->assertSame($options, $storage->options());
   }
 
   /**
-  * @covers PapayaPluginOptionStorage::options
+  * @covers \PapayaPluginOptionStorage::options
   */
   public function testOptionsGetImplicitCreate() {
-    $storage = new PapayaPluginOptionStorage('ab123456789012345678901234567890');
+    $storage = new \PapayaPluginOptionStorage('ab123456789012345678901234567890');
     $this->assertInstanceOf(Options::class, $options = $storage->options());
   }
 }

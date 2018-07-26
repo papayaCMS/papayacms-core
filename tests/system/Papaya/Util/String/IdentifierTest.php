@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUtilStringIdentifierTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUtilStringIdentifier::toUnderscoreUpper
+  * @covers \PapayaUtilStringIdentifier::toUnderscoreUpper
   */
   public function testToUnderscoreUpper() {
     $this->assertEquals(
@@ -27,7 +27,7 @@ class PapayaUtilStringIdentifierTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilStringIdentifier::toUnderscoreLower
+  * @covers \PapayaUtilStringIdentifier::toUnderscoreLower
   */
   public function testToUnderscoreLower() {
     $this->assertEquals(
@@ -36,7 +36,7 @@ class PapayaUtilStringIdentifierTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilStringIdentifier::toCamelCase
+  * @covers \PapayaUtilStringIdentifier::toCamelCase
   */
   public function testToCamelCase() {
     $this->assertEquals(
@@ -45,7 +45,7 @@ class PapayaUtilStringIdentifierTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilStringIdentifier::toCamelCase
+  * @covers \PapayaUtilStringIdentifier::toCamelCase
   */
   public function testToCamelCaseWithUpperCaseFirstChar() {
     $this->assertEquals(
@@ -54,7 +54,7 @@ class PapayaUtilStringIdentifierTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilStringIdentifier::toCamelCase
+  * @covers \PapayaUtilStringIdentifier::toCamelCase
   */
   public function testToCamelCaseWithNumericPart() {
     $this->assertEquals(
@@ -63,7 +63,7 @@ class PapayaUtilStringIdentifierTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringIdentifier::toArray
+   * @covers \PapayaUtilStringIdentifier::toArray
    * @dataProvider provideIdentifiersAndParts
    * @param string $identifier
    * @param array $parts
@@ -75,7 +75,7 @@ class PapayaUtilStringIdentifierTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilStringIdentifier::toArray
+  * @covers \PapayaUtilStringIdentifier::toArray
   */
   public function testToArrayWithUnknownStructure() {
     $this->assertEquals(

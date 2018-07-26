@@ -1,10 +1,24 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaUtilServerProtocolTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUtilServerProtocol::isSecure
+  * @covers \PapayaUtilServerProtocol::isSecure
   * @backupGlobals enabled
   */
   public function testIsSecureExpectingTrue() {
@@ -15,7 +29,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerProtocol::isSecure
+  * @covers \PapayaUtilServerProtocol::isSecure
   * @backupGlobals enabled
   */
   public function testIsSecureExpectingFalse() {
@@ -26,7 +40,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerProtocol::isSecure
+  * @covers \PapayaUtilServerProtocol::isSecure
   * @preserveGlobalState disabled
   * @runInSeparateProcess
   */
@@ -40,7 +54,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerProtocol::isSecure
+  * @covers \PapayaUtilServerProtocol::isSecure
   * @preserveGlobalState disabled
   * @runInSeparateProcess
   */
@@ -54,7 +68,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerProtocol::isSecure
+  * @covers \PapayaUtilServerProtocol::isSecure
   * @preserveGlobalState disabled
   * @runInSeparateProcess
   */
@@ -68,7 +82,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerProtocol::isSecure
+  * @covers \PapayaUtilServerProtocol::isSecure
   * @preserveGlobalState disabled
   * @runInSeparateProcess
   */
@@ -82,7 +96,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerProtocol::isSecure
+  * @covers \PapayaUtilServerProtocol::isSecure
   * @backupGlobals enabled
   */
   public function testIsSecureWithCustomHeaderWithoutConstantExpectingFalse() {
@@ -94,7 +108,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerProtocol::get
+  * @covers \PapayaUtilServerProtocol::get
   * @backupGlobals enabled
   */
   public function testGetExpectingHttps() {
@@ -105,7 +119,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerProtocol::get
+  * @covers \PapayaUtilServerProtocol::get
   * @backupGlobals enabled
   */
   public function testGetExpectingHttp() {
@@ -116,7 +130,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerProtocol::get
+  * @covers \PapayaUtilServerProtocol::get
   */
   public function testGetWithParameterExpectingHttp() {
     $this->assertEquals(
@@ -125,7 +139,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerProtocol::get
+  * @covers \PapayaUtilServerProtocol::get
   */
   public function testGetWithParameterExpectingHttps() {
     $this->assertEquals(
@@ -134,7 +148,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerProtocol::getDefaultPort
+  * @covers \PapayaUtilServerProtocol::getDefaultPort
   * @backupGlobals enabled
   */
   public function testGetDefaultPortExpectingHttps() {
@@ -145,7 +159,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerProtocol::getDefaultPort
+  * @covers \PapayaUtilServerProtocol::getDefaultPort
   * @backupGlobals enabled
   */
   public function testGetDefaultPortExpectingHttp() {
@@ -156,7 +170,7 @@ class PapayaUtilServerProtocolTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerProtocol::isSecure
+  * @covers \PapayaUtilServerProtocol::isSecure
   * @preserveGlobalState disabled
   * @runInSeparateProcess
   */

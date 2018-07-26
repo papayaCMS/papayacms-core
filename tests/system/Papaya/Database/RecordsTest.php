@@ -21,9 +21,9 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaDatabaseRecordsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaDatabaseRecords::load
-  * @covers PapayaDatabaseRecords::_loadRecords
-  * @covers PapayaDatabaseRecords::getIdentifier
+  * @covers \PapayaDatabaseRecords::load
+  * @covers \PapayaDatabaseRecords::_loadRecords
+  * @covers \PapayaDatabaseRecords::getIdentifier
   */
   public function testLoad() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -52,7 +52,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $this->assertTrue($records->load(42));
     $this->assertEquals(
@@ -62,8 +62,8 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::load
-  * @covers PapayaDatabaseRecords::_loadRecords
+  * @covers \PapayaDatabaseRecords::load
+  * @covers \PapayaDatabaseRecords::_loadRecords
   */
   public function testLoadWithEmptyResult() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -80,7 +80,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $this->assertTrue($records->load());
     $this->assertEquals(
@@ -90,8 +90,8 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::load
-  * @covers PapayaDatabaseRecords::_loadRecords
+  * @covers \PapayaDatabaseRecords::load
+  * @covers \PapayaDatabaseRecords::_loadRecords
   */
   public function testLoadWithoutConditions() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -115,7 +115,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $this->assertTrue($records->load());
     $this->assertEquals(
@@ -125,8 +125,8 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::load
-  * @covers PapayaDatabaseRecords::_loadRecords
+  * @covers \PapayaDatabaseRecords::load
+  * @covers \PapayaDatabaseRecords::_loadRecords
   */
   public function testLoadWithoutConditionsWithOrderBy() {
     $orderBy = $this->createMock(Order::class);
@@ -155,15 +155,15 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records->orderBy($orderBy);
     $records->setDatabaseAccess($databaseAccess);
     $this->assertTrue($records->load());
   }
 
   /**
-  * @covers PapayaDatabaseRecords::load
-  * @covers PapayaDatabaseRecords::_loadRecords
+  * @covers \PapayaDatabaseRecords::load
+  * @covers \PapayaDatabaseRecords::_loadRecords
   */
   public function testLoadExpectingFalse() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -180,15 +180,15 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue(FALSE));
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $this->assertFalse($records->load(42));
   }
 
   /**
-  * @covers PapayaDatabaseRecords::load
-  * @covers PapayaDatabaseRecords::_loadRecords
-  * @covers PapayaDatabaseRecords::getIdentifier
+  * @covers \PapayaDatabaseRecords::load
+  * @covers \PapayaDatabaseRecords::_loadRecords
+  * @covers \PapayaDatabaseRecords::getIdentifier
   */
   public function testLoadWithIdentifierField() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -217,7 +217,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records->_identifierProperties = 'id';
     $records->setDatabaseAccess($databaseAccess);
     $this->assertTrue($records->load(42));
@@ -228,9 +228,9 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::load
-  * @covers PapayaDatabaseRecords::_loadRecords
-  * @covers PapayaDatabaseRecords::getIdentifier
+  * @covers \PapayaDatabaseRecords::load
+  * @covers \PapayaDatabaseRecords::_loadRecords
+  * @covers \PapayaDatabaseRecords::getIdentifier
   */
   public function testLoadWithInvalidIdentifierFields() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -259,7 +259,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records->_identifierProperties = array('id', 'invalid');
     $records->setDatabaseAccess($databaseAccess);
 
@@ -269,7 +269,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::reset
+  * @covers \PapayaDatabaseRecords::reset
   */
   public function testResetAfterLoad() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -298,7 +298,7 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $records->load(42);
     $records->reset();
@@ -309,11 +309,11 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::offsetExists
-  * @covers PapayaDatabaseRecords::getIdentifier
+  * @covers \PapayaDatabaseRecords::offsetExists
+  * @covers \PapayaDatabaseRecords::getIdentifier
   */
   public function testOffsetExistsExpectingTrue() {
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records[array(21, 42)] = array('id' => 42, 'data' => 'Hello World');
     $this->assertTrue(
       isset($records[array(21, 42)])
@@ -321,23 +321,23 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::offsetExists
-  * @covers PapayaDatabaseRecords::getIdentifier
+  * @covers \PapayaDatabaseRecords::offsetExists
+  * @covers \PapayaDatabaseRecords::getIdentifier
   */
   public function testOffsetExistsExpectingFalse() {
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $this->assertFalse(
       isset($records[array(21, 42)])
     );
   }
 
   /**
-  * @covers PapayaDatabaseRecords::offsetGet
-  * @covers PapayaDatabaseRecords::offsetSet
-  * @covers PapayaDatabaseRecords::getIdentifier
+  * @covers \PapayaDatabaseRecords::offsetGet
+  * @covers \PapayaDatabaseRecords::offsetSet
+  * @covers \PapayaDatabaseRecords::getIdentifier
   */
   public function testOffsetGetAfterSet() {
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records[42] = array('id' => 42, 'data' => 'Hello World');
     $this->assertEquals(
       array('id' => 42, 'data' => 'Hello World'),
@@ -346,12 +346,12 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::offsetGet
-  * @covers PapayaDatabaseRecords::offsetSet
-  * @covers PapayaDatabaseRecords::getIdentifier
+  * @covers \PapayaDatabaseRecords::offsetGet
+  * @covers \PapayaDatabaseRecords::offsetSet
+  * @covers \PapayaDatabaseRecords::getIdentifier
   */
   public function testOffsetGetAfterSetWithArray() {
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records[array(21, 42)] = array('id' => 42, 'data' => 'Hello World');
     $this->assertEquals(
       array('id' => 42, 'data' => 'Hello World'),
@@ -360,12 +360,12 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::offsetGet
-  * @covers PapayaDatabaseRecords::offsetSet
-  * @covers PapayaDatabaseRecords::getIdentifier
+  * @covers \PapayaDatabaseRecords::offsetGet
+  * @covers \PapayaDatabaseRecords::offsetSet
+  * @covers \PapayaDatabaseRecords::getIdentifier
   */
   public function testOffsetGetAfterSetWithNull() {
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records[] = array('id' => 42, 'data' => '');
     $records[] = array('id' => 21, 'data' => 'Hello World');
     $this->assertEquals(
@@ -375,10 +375,10 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::offsetSet
+  * @covers \PapayaDatabaseRecords::offsetSet
   */
   public function testOffsetSetWithUnknownKeysInArray() {
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records[23] = array('id' => 23, 'unknown_key' => 'failed');
     $this->assertEquals(
       array('id' => 23, 'data' => NULL),
@@ -387,10 +387,10 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::offsetUnset
+  * @covers \PapayaDatabaseRecords::offsetUnset
   */
   public function testOffsetUnset() {
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records[array(21, 42)] = array('id' => 42, 'data' => 'Hello World');
     unset($records[array(21, 42)]);
     $this->assertFalse(
@@ -399,10 +399,10 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::getIterator
+  * @covers \PapayaDatabaseRecords::getIterator
   */
   public function testGetIterator() {
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records[42] = array('id' => 42, 'data' => 'Hello World');
     $iterator = $records->getIterator();
     $this->assertEquals(
@@ -412,10 +412,10 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::getIterator
+  * @covers \PapayaDatabaseRecords::getIterator
   */
   public function testGetIteratorWithoutRecords() {
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $iterator = $records->getIterator();
     $this->assertEquals(
       array(),
@@ -424,10 +424,10 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::toArray
+  * @covers \PapayaDatabaseRecords::toArray
   */
   public function testToArray() {
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records[42] = array('id' => 42, 'data' => 'Hello World');
     $this->assertEquals(
       array(42 => array('id' => 42, 'data' => 'Hello World')),
@@ -436,10 +436,10 @@ class PapayaDatabaseRecordsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseRecords::count
+  * @covers \PapayaDatabaseRecords::count
   */
   public function testCount() {
-    $records = new PapayaDatabaseRecords_TestProxy();
+    $records = new \PapayaDatabaseRecords_TestProxy();
     $records[] = array('id' => 21, 'data' => 'Hello World');
     $records[] = array('id' => 42, 'data' => 'Hello World');
     $this->assertCount(2, $records);

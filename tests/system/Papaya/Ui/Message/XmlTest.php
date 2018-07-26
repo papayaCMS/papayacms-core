@@ -18,20 +18,20 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiMessageXmlTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiMessageText::appendTo
+  * @covers \PapayaUiMessageText::appendTo
   */
   public function testAppendTo() {
-    $message = new PapayaUiMessageXml(PapayaUiMessage::SEVERITY_ERROR, 'sample', 'content', TRUE);
+    $message = new \PapayaUiMessageXml(PapayaUiMessage::SEVERITY_ERROR, 'sample', 'content', TRUE);
     $this->assertEquals(
       /** @lang XML */'<error event="sample" occured="yes">content</error>', $message->getXml()
     );
   }
 
   /**
-  * @covers PapayaUiMessageXml::appendTo
+  * @covers \PapayaUiMessageXml::appendTo
   */
   public function testAppendToWithXmlElements() {
-    $message = new PapayaUiMessageXml(
+    $message = new \PapayaUiMessageXml(
       PapayaUiMessage::SEVERITY_ERROR, 'sample', /** @lang XML */'<b>foo</b>', TRUE
     );
     $this->assertEquals(

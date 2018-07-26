@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaTemplateXsltHandler::getLocalPath
+  * @covers \PapayaTemplateXsltHandler::getLocalPath
   */
   public function testGetLocalPath() {
     $request = $this->createMock(PapayaRequest::class);
@@ -26,7 +26,7 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getParameter')
       ->will($this->returnValue(FALSE));
-    $handler = new PapayaTemplateXsltHandler();
+    $handler = new \PapayaTemplateXsltHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -47,7 +47,7 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateXsltHandler::getTemplate
+  * @covers \PapayaTemplateXsltHandler::getTemplate
   */
   public function testGetTemplateInPublicMode() {
     $request = $this->createMock(PapayaRequest::class);
@@ -55,7 +55,7 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getParameter')
       ->will($this->returnValue(FALSE));
-    $handler = new PapayaTemplateXsltHandler();
+    $handler = new \PapayaTemplateXsltHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -75,7 +75,7 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateXsltHandler::getTemplate
+  * @covers \PapayaTemplateXsltHandler::getTemplate
   */
   public function testGetTemplateInPreviewMode() {
     $request = $this->createMock(PapayaRequest::class);
@@ -95,7 +95,7 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
       ->method('__get')
       ->with($this->equalTo('values'))
       ->will($this->returnValue($values));
-    $handler = new PapayaTemplateXsltHandler();
+    $handler = new \PapayaTemplateXsltHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -116,7 +116,7 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateXsltHandler::setTemplatePreview
+  * @covers \PapayaTemplateXsltHandler::setTemplatePreview
   */
   public function testSetTemplatePreview() {
     $session = $this->createMock(PapayaSession::class);
@@ -130,7 +130,7 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
       ->method('__get')
       ->with($this->equalTo('values'))
       ->will($this->returnValue($values));
-    $handler = new PapayaTemplateXsltHandler();
+    $handler = new \PapayaTemplateXsltHandler();
     $handler->papaya(
       $this->mockPapaya()->application(array('Session' => $session))
     );
@@ -138,7 +138,7 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateXsltHandler::removeTemplatePreview
+  * @covers \PapayaTemplateXsltHandler::removeTemplatePreview
   */
   public function testRemoveTemplatePreview() {
     $session = $this->createMock(PapayaSession::class);
@@ -152,7 +152,7 @@ class PapayaTemplateXsltHandlerTest extends PapayaTestCase {
       ->method('__get')
       ->with($this->equalTo('values'))
       ->will($this->returnValue($values));
-    $handler = new PapayaTemplateXsltHandler();
+    $handler = new \PapayaTemplateXsltHandler();
     $handler->papaya(
       $this->mockPapaya()->application(array('Session' => $session))
     );

@@ -18,27 +18,27 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiControlCommandConditionParameterTest extends PapayaTestCase {
 
   public function testValidateExpectingTrue() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaFilter $filter */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filter */
     $filter = $this->createMock(PapayaFilter::class);
     $filter
       ->expects($this->once())
       ->method('filter')
       ->with('value')
       ->will($this->returnArgument(0));
-    $condition = new PapayaUiControlCommandConditionParameter('name', $filter);
+    $condition = new \PapayaUiControlCommandConditionParameter('name', $filter);
     $condition->command($this->getCommandFixture());
     $this->assertTrue($condition->validate());
   }
 
   public function testValidateExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaFilter $filter */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filter */
     $filter = $this->createMock(PapayaFilter::class);
     $filter
       ->expects($this->once())
       ->method('filter')
       ->with('value')
       ->will($this->returnValue(NULL));
-    $condition = new PapayaUiControlCommandConditionParameter('name', $filter);
+    $condition = new \PapayaUiControlCommandConditionParameter('name', $filter);
     $condition->command($this->getCommandFixture());
     $this->assertFalse($condition->validate());
   }

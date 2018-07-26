@@ -21,7 +21,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaThemeHandlerTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaThemeHandler::getUrl
+  * @covers \PapayaThemeHandler::getUrl
   */
   public function testGetUrl() {
     $url = $this->getMockBuilder(Url::class)->setMethods(array('getHostUrl'))->getMock();
@@ -38,7 +38,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getUrl')
       ->will($this->returnValue($url));
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -60,7 +60,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeHandler::getUrl
+  * @covers \PapayaThemeHandler::getUrl
   */
   public function testGetUrlWithThemeNameParameter() {
     $url = $this->getMockBuilder(Url::class)->setMethods(array('getHostUrl'))->getMock();
@@ -73,7 +73,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getUrl')
       ->will($this->returnValue($url));
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -95,7 +95,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeHandler::getUrl
+  * @covers \PapayaThemeHandler::getUrl
   */
   public function testGetUrlWithCdn() {
     $request = $this->createMock(PapayaRequest::class);
@@ -103,7 +103,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getParameter')
       ->will($this->returnValue(FALSE));
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -124,7 +124,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeHandler::getUrl
+  * @covers \PapayaThemeHandler::getUrl
   * @backupGlobals enabled
   */
   public function testGetUrlWithSecureCdn() {
@@ -134,7 +134,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getParameter')
       ->will($this->returnValue(FALSE));
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -155,12 +155,12 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeHandler::getLocalPath
+  * @covers \PapayaThemeHandler::getLocalPath
   * @backupGlobals enabled
   */
   public function testGetLocalPath() {
     $_SERVER['DOCUMENT_ROOT'] = '/document/root';
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -179,7 +179,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeHandler::getLocalThemePath
+  * @covers \PapayaThemeHandler::getLocalThemePath
   * @backupGlobals enabled
   */
   public function testGetLocalThemePath() {
@@ -189,7 +189,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getParameter')
       ->will($this->returnValue(FALSE));
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -210,12 +210,12 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeHandler::getLocalThemePath
+  * @covers \PapayaThemeHandler::getLocalThemePath
   * @backupGlobals enabled
   */
   public function testGetLocalThemePathWithThemeName() {
     $_SERVER['DOCUMENT_ROOT'] = '/document/root';
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -235,12 +235,12 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeHandler::getDefinition
+  * @covers \PapayaThemeHandler::getDefinition
   * @backupGlobals enabled
   */
   public function testGetDefinition() {
     $_SERVER['DOCUMENT_ROOT'] = __DIR__;
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -259,7 +259,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeHandler::getTheme
+  * @covers \PapayaThemeHandler::getTheme
   */
   public function testGetThemeInPublicMode() {
     $request = $this->createMock(PapayaRequest::class);
@@ -267,7 +267,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getParameter')
       ->will($this->returnValue(FALSE));
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -287,7 +287,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeHandler::getTheme
+  * @covers \PapayaThemeHandler::getTheme
   */
   public function testGetThemeInPreviewMode() {
     $request = $this->createMock(PapayaRequest::class);
@@ -310,7 +310,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
       ->method('__get')
       ->with($this->equalTo('values'))
       ->will($this->returnValue($values));
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -331,7 +331,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeHandler::getThemeSet
+  * @covers \PapayaThemeHandler::getThemeSet
   */
   public function testGetThemeSetInPublicMode() {
     $request = $this->createMock(PapayaRequest::class);
@@ -339,7 +339,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getParameter')
       ->will($this->returnValue(FALSE));
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -359,7 +359,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeHandler::getThemeSet
+  * @covers \PapayaThemeHandler::getThemeSet
   */
   public function testGetThemeSetInPreviewMode() {
     $request = $this->createMock(PapayaRequest::class);
@@ -382,7 +382,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
       ->method('__get')
       ->with($this->equalTo('values'))
       ->will($this->returnValue($values));
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(
         array(
@@ -403,7 +403,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeHandler::setThemePreview
+  * @covers \PapayaThemeHandler::setThemePreview
   */
   public function testSetThemePreview() {
     $session = $this->createMock(PapayaSession::class);
@@ -420,7 +420,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
       ->method('__get')
       ->with($this->equalTo('values'))
       ->will($this->returnValue($values));
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(array('Session' => $session))
     );
@@ -428,7 +428,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaThemeHandler::removeThemePreview
+  * @covers \PapayaThemeHandler::removeThemePreview
   */
   public function testRemoveThemePreview() {
     $session = $this->createMock(PapayaSession::class);
@@ -445,7 +445,7 @@ class PapayaThemeHandlerTest extends PapayaTestCase {
       ->method('__get')
       ->with($this->equalTo('values'))
       ->will($this->returnValue($values));
-    $handler = new PapayaThemeHandler();
+    $handler = new \PapayaThemeHandler();
     $handler->papaya(
       $this->mockPapaya()->application(array('Session' => $session))
     );

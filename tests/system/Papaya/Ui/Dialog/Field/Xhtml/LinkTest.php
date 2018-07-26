@@ -18,19 +18,19 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldXhtmlLinkTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogFieldXhtmlLink::__construct
+  * @covers \PapayaUiDialogFieldXhtmlLink::__construct
   */
   public function testConstructor() {
-    $link = new PapayaUiDialogFieldXhtmlLink('http://www.papaya-cms.com', 'PapayaCMS');
+    $link = new \PapayaUiDialogFieldXhtmlLink('http://www.papaya-cms.com', 'PapayaCMS');
     $this->assertAttributeEquals('http://www.papaya-cms.com', '_url', $link);
     $this->assertAttributeEquals('PapayaCMS', '_urlCaption', $link);
   }
 
   /**
-  * @covers PapayaUiDialogFieldXhtmlLink::appendTo
+  * @covers \PapayaUiDialogFieldXhtmlLink::appendTo
   */
   public function testAppendTo() {
-    $link = new PapayaUiDialogFieldXhtmlLink('http://www.papaya-cms.com', 'PapayaCMS');
+    $link = new \PapayaUiDialogFieldXhtmlLink('http://www.papaya-cms.com', 'PapayaCMS');
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<field class="DialogFieldXhtmlLink" error="no">

@@ -18,46 +18,46 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiDialogElementsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogElements::__construct
+  * @covers \PapayaUiDialogElements::__construct
   */
   public function testConstructorWithOwner() {
     $dialog = $this
       ->getMockBuilder(PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
-    $elements = new PapayaUiDialogElements_TestProxy($dialog);
+    $elements = new \PapayaUiDialogElements_TestProxy($dialog);
     $this->assertSame(
       $dialog, $elements->owner()
     );
   }
 
   /**
-  * @covers PapayaUiDialogElements::appendTo
+  * @covers \PapayaUiDialogElements::appendTo
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $node = $document->createElement('dummy');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiDialogElement $element */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogElement $element */
     $element = $this->createMock(PapayaUiDialogElement::class);
     $element
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
-    $elements = new PapayaUiDialogElements_TestProxy();
+    $elements = new \PapayaUiDialogElements_TestProxy();
     $elements->add($element);
     $elements->appendTo($node);
   }
 
   /**
-  * @covers PapayaUiDialogElements::collect
+  * @covers \PapayaUiDialogElements::collect
   */
   public function testCollect() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiDialogElement $element */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogElement $element */
     $element = $this->createMock(PapayaUiDialogElement::class);
     $element
       ->expects($this->once())
       ->method('collect');
-    $elements = new PapayaUiDialogElements_TestProxy();
+    $elements = new \PapayaUiDialogElements_TestProxy();
     $elements->add($element);
     $elements->collect();
   }

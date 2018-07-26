@@ -23,7 +23,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
    * @covers Dialog::appendTo
    */
   public function testAppendToWithoutSubmit() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $pluginContent */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $pluginContent */
     $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
     $pluginContent
       ->expects($this->never())
@@ -51,7 +51,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
    * @covers Dialog::appendTo
    */
   public function testAppendToWhileExecuteWasSuccessful() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $pluginContent */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $pluginContent */
     $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
     $pluginContent
       ->expects($this->once())
@@ -75,7 +75,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
    * @covers Dialog::appendTo
    */
   public function testAppendToWhileExecuteWasSuccessfulAndTriggeredCallback() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $pluginContent */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $pluginContent */
     $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
     $pluginContent
       ->expects($this->never())
@@ -106,7 +106,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
    * @covers Dialog::AppendTo
    */
   public function testAppendToWhileExecuteFailed() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $pluginContent */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $pluginContent */
     $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
     $pluginContent
       ->expects($this->never())
@@ -155,7 +155,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
    * @covers Dialog::dialog
    */
   public function testDialogGetAfterSet() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $pluginContent */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $pluginContent */
     $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
     $editor = new Dialog($pluginContent);
     $editor->dialog($dialog = $this->createMock(PapayaUiDialog::class));
@@ -167,7 +167,7 @@ class PapayaAdministrationPluginEditorDialogTest extends PapayaTestCase {
    * @covers Dialog::createDialog
    */
   public function testDialogGetImplicitCreate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $pluginContent */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $pluginContent */
     $pluginContent = $this->createMock(PapayaPluginEditableContent::class);
     $pluginContent
       ->expects($this->any())

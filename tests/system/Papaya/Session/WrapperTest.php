@@ -1,4 +1,18 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../bootstrap.php';
 
 /**
@@ -12,53 +26,53 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionWrapper::registerHandler
+  * @covers \PapayaSessionWrapper::registerHandler
   */
   public function testRegisterHandler() {
-    $wrapper = new PapayaSessionWrapper();
+    $wrapper = new \PapayaSessionWrapper();
     $this->assertTrue($wrapper->registerHandler(PapayaSessionHandler_TestClass::class));
   }
 
   /**
-  * @covers PapayaSessionWrapper::registerHandler
+  * @covers \PapayaSessionWrapper::registerHandler
   */
   public function testRegisterHandlerExpectingException() {
-    $wrapper = new PapayaSessionWrapper();
+    $wrapper = new \PapayaSessionWrapper();
     $this->expectException(InvalidArgumentException::class);
     $wrapper->registerHandler('INVALID_NON_EXISTING_CLASS');
   }
 
   /**
-  * @covers PapayaSessionWrapper::getId
+  * @covers \PapayaSessionWrapper::getId
   */
   public function testGetId() {
-    $wrapper = new PapayaSessionWrapper();
+    $wrapper = new \PapayaSessionWrapper();
     $this->assertEquals('', $wrapper->getId());
   }
 
   /**
-  * @covers PapayaSessionWrapper::getId
-  * @covers PapayaSessionWrapper::setId
+  * @covers \PapayaSessionWrapper::getId
+  * @covers \PapayaSessionWrapper::setId
   */
   public function testSetId() {
-    $wrapper = new PapayaSessionWrapper();
+    $wrapper = new \PapayaSessionWrapper();
     $this->assertEquals('', $wrapper->setId('12345678901234567890ab'));
     $this->assertEquals('12345678901234567890ab', $wrapper->getId());
   }
 
   /**
-  * @covers PapayaSessionWrapper::getName
-  * @covers PapayaSessionWrapper::setName
+  * @covers \PapayaSessionWrapper::getName
+  * @covers \PapayaSessionWrapper::setName
   */
   public function testSetAndGetName() {
-    $wrapper = new PapayaSessionWrapper();
+    $wrapper = new \PapayaSessionWrapper();
     $wrapper->setName('sample');
     $this->assertEquals('sample', $wrapper->getName());
   }
 
   /**
-  * @covers PapayaSessionWrapper::getCookieParams
-  * @covers PapayaSessionWrapper::setCookieParams
+  * @covers \PapayaSessionWrapper::getCookieParams
+  * @covers \PapayaSessionWrapper::setCookieParams
   */
   public function testGetAndGetCookieParams() {
     ini_set('session.use_cookies', TRUE);
@@ -69,28 +83,28 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
       'secure' => TRUE,
       'httponly' => TRUE
     );
-    $wrapper = new PapayaSessionWrapper();
+    $wrapper = new \PapayaSessionWrapper();
     $wrapper->setCookieParams($params);
     $this->assertEquals($params, $wrapper->getCookieParams());
   }
 
   /**
-  * @covers PapayaSessionWrapper::getCacheLimiter
-  * @covers PapayaSessionWrapper::setCacheLimiter
+  * @covers \PapayaSessionWrapper::getCacheLimiter
+  * @covers \PapayaSessionWrapper::setCacheLimiter
   */
   public function testSetAndGetCacheLimiter() {
     ini_set('session.use_cookies', FALSE);
-    $wrapper = new PapayaSessionWrapper();
+    $wrapper = new \PapayaSessionWrapper();
     $wrapper->setCacheLimiter('private');
     $this->assertEquals('private', $wrapper->getCacheLimiter());
   }
 
   /**
-  * @covers PapayaSessionWrapper::start
+  * @covers \PapayaSessionWrapper::start
   */
   public function testStart() {
     PapayaSessionHandler_TestClass::$calls = array();
-    $wrapper = new PapayaSessionWrapper();
+    $wrapper = new \PapayaSessionWrapper();
     $wrapper->registerHandler(PapayaSessionHandler_TestClass::class);
     $this->assertTrue($wrapper->start());
     $this->assertEquals(
@@ -104,11 +118,11 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionWrapper::writeClose
+  * @covers \PapayaSessionWrapper::writeClose
   */
   public function testWriteClose() {
     PapayaSessionHandler_TestClass::$calls = array();
-    $wrapper = new PapayaSessionWrapper();
+    $wrapper = new \PapayaSessionWrapper();
     $wrapper->registerHandler(PapayaSessionHandler_TestClass::class);
     $wrapper->start();
     $wrapper->writeClose();
@@ -124,11 +138,11 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionWrapper::destroy
+  * @covers \PapayaSessionWrapper::destroy
   */
   public function testDestroy() {
     PapayaSessionHandler_TestClass::$calls = array();
-    $wrapper = new PapayaSessionWrapper();
+    $wrapper = new \PapayaSessionWrapper();
     $wrapper->registerHandler(PapayaSessionHandler_TestClass::class);
     $wrapper->start();
     $wrapper->destroy();
@@ -144,14 +158,14 @@ class PapayaSessionWrapperTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionWrapper::regenerateId
+  * @covers \PapayaSessionWrapper::regenerateId
   * @preserveGlobalState disabled
   * @runInSeparateProcess
   * @large
   */
   public function testRegenerateId() {
     PapayaSessionHandler_TestClass::$calls = array();
-    $wrapper = new PapayaSessionWrapper();
+    $wrapper = new \PapayaSessionWrapper();
     $wrapper->registerHandler(PapayaSessionHandler_TestClass::class);
     $wrapper->start();
     $id = session_id();

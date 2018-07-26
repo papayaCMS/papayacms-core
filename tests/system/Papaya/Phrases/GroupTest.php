@@ -18,34 +18,34 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaPhrasesGroupTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaPhrasesGroup
+   * @covers \PapayaPhrasesGroup
    */
   public function testGet() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPhrases $phrases */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPhrases $phrases */
     $phrases = $this->createMock(PapayaPhrases::class);
     $phrases
       ->expects($this->once())
       ->method('getText')
       ->with('Test', '#default')
       ->will($this->returnValue('Success'));
-    $group = new PapayaPhrasesGroup($phrases, '#default');
+    $group = new \PapayaPhrasesGroup($phrases, '#default');
     $phrase = $group->get('Test');
     $this->assertInstanceOf(PapayaUiStringTranslated::class, $phrase);
     $this->assertEquals('Success', (string)$phrase);
   }
 
   /**
-   * @covers PapayaPhrasesGroup
+   * @covers \PapayaPhrasesGroup
    */
   public function testGetList() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPhrases $phrases */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPhrases $phrases */
     $phrases = $this->createMock(PapayaPhrases::class);
     $phrases
       ->expects($this->once())
       ->method('getText')
       ->with('Test', '#default')
       ->will($this->returnValue('Success'));
-    $group = new PapayaPhrasesGroup($phrases, '#default');
+    $group = new \PapayaPhrasesGroup($phrases, '#default');
     $phraseList = $group->getList(array('One' => 'Test'));
     $this->assertInstanceOf(PapayaUiStringTranslatedList::class, $phraseList);
     $list = iterator_to_array($phraseList);

@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaTemplateSimpleParserTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaTemplateSimpleParser::__construct
+  * @covers \PapayaTemplateSimpleParser::__construct
   */
   public function testConstructor() {
     $tokens = $this->createTokens(
@@ -33,8 +33,8 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplateSimpleParser::read
-   * @covers PapayaTemplateSimpleParser::matchToken
+   * @covers \PapayaTemplateSimpleParser::read
+   * @covers \PapayaTemplateSimpleParser::matchToken
    * @dataProvider provideDirectMatchingTokens
    * @param int $expectedResult
    * @param array $tokens
@@ -56,9 +56,9 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplateSimpleParser::read
-   * @covers PapayaTemplateSimpleParser::matchToken
-   * @covers PapayaTemplateSimpleParser::createMismatchException
+   * @covers \PapayaTemplateSimpleParser::read
+   * @covers \PapayaTemplateSimpleParser::matchToken
+   * @covers \PapayaTemplateSimpleParser::createMismatchException
    * @dataProvider provideDirectMismatchingTokens
    * @param array $tokens
    * @param array|int $allowedTokens
@@ -71,7 +71,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplateSimpleParser::lookahead
+   * @covers \PapayaTemplateSimpleParser::lookahead
    * @dataProvider provideDirectMatchingTokens
    * @param int $expectedResult
    * @param array $tokens
@@ -90,7 +90,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplateSimpleParser::lookahead
+   * @covers \PapayaTemplateSimpleParser::lookahead
    * @dataProvider provideDirectMismatchingTokens
    * @param array $tokens
    * @param array|int $allowedTokens
@@ -103,7 +103,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplateSimpleParser::lookahead
+   * @covers \PapayaTemplateSimpleParser::lookahead
    * @dataProvider provideLookaheadMatchingTokens
    * @param int $expectedResult
    * @param array $tokens
@@ -122,7 +122,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplateSimpleParser::lookahead
+   * @covers \PapayaTemplateSimpleParser::lookahead
    * @dataProvider provideLookaheadMismatchingTokens
    * @param array $tokens
    * @param array|int $allowedTokens
@@ -135,7 +135,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::endOfTokens
+  * @covers \PapayaTemplateSimpleParser::endOfTokens
   */
   public function testEndOfTokensExpectingTrue() {
     $tokens = array();
@@ -144,7 +144,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::endOfTokens
+  * @covers \PapayaTemplateSimpleParser::endOfTokens
   */
   public function testEndOfTokensExpectingFalse() {
     $tokens = $this->createTokens(
@@ -157,7 +157,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::endOfTokens
+  * @covers \PapayaTemplateSimpleParser::endOfTokens
   */
   public function testEndOfTokensWithPositionExpectingTrue() {
     $tokens = $this->createTokens(
@@ -170,7 +170,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::endOfTokens
+  * @covers \PapayaTemplateSimpleParser::endOfTokens
   */
   public function testEndOfTokensWithPositionExpectingFalse() {
     $tokens = $this->createTokens(
@@ -184,18 +184,18 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::lookahead
+  * @covers \PapayaTemplateSimpleParser::lookahead
   */
   public function testLookAheadAllowingEndOfTokens() {
     $parser = $this->getParserFixture(array());
     $this->assertEquals(
-      new PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::ANY, 0, ''),
+      new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::ANY, 0, ''),
       $parser->lookahead(PapayaTemplateSimpleScannerToken::TEXT, 0, TRUE)
     );
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::lookahead
+  * @covers \PapayaTemplateSimpleParser::lookahead
   */
   public function testLookAheadWithPositionAllowingEndOfTokens() {
     $tokens = $this->createTokens(
@@ -205,13 +205,13 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
     );
     $parser = $this->getParserFixture($tokens);
     $this->assertEquals(
-      new PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::ANY, 0, ''),
+      new \PapayaTemplateSimpleScannerToken(PapayaTemplateSimpleScannerToken::ANY, 0, ''),
       $parser->lookahead(PapayaTemplateSimpleScannerToken::TEXT, 1, TRUE)
     );
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::ignore
+  * @covers \PapayaTemplateSimpleParser::ignore
   */
   public function testIgnoreExpectingTrue() {
     $tokens = $this->createTokens(
@@ -228,7 +228,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::ignore
+  * @covers \PapayaTemplateSimpleParser::ignore
   */
   public function testIgnoreMultipleTokensExpectingTrue() {
     $tokens = $this->createTokens(
@@ -248,7 +248,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::ignore
+  * @covers \PapayaTemplateSimpleParser::ignore
   */
   public function testIgnoreExpectingFalse() {
     $tokens = array(
@@ -262,7 +262,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::delegate
+  * @covers \PapayaTemplateSimpleParser::delegate
   */
   public function testDelegate() {
     $parser = $this->getParserFixture();
@@ -273,7 +273,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateSimpleParser::delegate
+  * @covers \PapayaTemplateSimpleParser::delegate
   */
   public function testDelegateWithInvalidClassExpectingException() {
     $parser = $this->getParserFixture();
@@ -287,19 +287,19 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
 
   /**
    * @param array $tokens
-   * @return PapayaTemplateSimpleParser_TestProxy
+   * @return \PapayaTemplateSimpleParser_TestProxy
    */
   public function getParserFixture(array $tokens = array()) {
     $tokens = $this->createTokens($tokens);
-    return new PapayaTemplateSimpleParser_TestProxy($tokens);
+    return new \PapayaTemplateSimpleParser_TestProxy($tokens);
   }
 
   /**
    * @param array $tokens
-   * @return PapayaTemplateSimpleParser_TestProxy
+   * @return \PapayaTemplateSimpleParser_TestProxy
    */
   public function getParserFixtureWithReference(array &$tokens) {
-    return new PapayaTemplateSimpleParser_TestProxy($tokens);
+    return new \PapayaTemplateSimpleParser_TestProxy($tokens);
   }
 
   public function createTokens($data) {
@@ -311,7 +311,7 @@ class PapayaTemplateSimpleParserTest extends PapayaTestCase {
       if ($token instanceof PapayaTemplateSimpleScannerToken) {
         $tokens[] = $token;
       } else {
-        $tokens[] = new PapayaTemplateSimpleScannerToken(
+        $tokens[] = new \PapayaTemplateSimpleScannerToken(
           $token[0], $token[1], $token[2]
         );
       }

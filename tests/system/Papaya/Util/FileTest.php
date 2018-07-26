@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilFileTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUtilFile::formatBytes
+   * @covers \PapayaUtilFile::formatBytes
    * @dataProvider provideBytesAndStrings
    * @param string $expected
    * @param int $bytes
@@ -30,7 +30,7 @@ class PapayaUtilFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilFile::formatBytes
+  * @covers \PapayaUtilFile::formatBytes
   */
   public function testFormatBytesWithGermanDecimalSeparator() {
     $this->assertEquals(
@@ -39,7 +39,7 @@ class PapayaUtilFileTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilFile::normalizeName
+   * @covers \PapayaUtilFile::normalizeName
    * @dataProvider provideStringsForNames
    * @param string $expected
    * @param string $string
@@ -51,7 +51,7 @@ class PapayaUtilFileTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilFile::normalizeName
+  * @covers \PapayaUtilFile::normalizeName
   */
   public function testNormalizeNameWithUnderscoreSeparator() {
     $this->assertEquals(

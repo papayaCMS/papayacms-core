@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaPluginEditableContentCallbacksTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaPluginEditableCallbacks::__construct
+  * @covers \PapayaPluginEditableCallbacks::__construct
   */
   public function testConstructor() {
-    $callbacks = new PapayaPluginEditableCallbacks();
+    $callbacks = new \PapayaPluginEditableCallbacks();
     $this->assertNull($callbacks->onCreateEditor->defaultReturn);
   }
 }

@@ -18,28 +18,28 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaTemplateSimpleAstNodesTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaTemplateSimpleAstNodes::__construct
+   * @covers \PapayaTemplateSimpleAstNodes::__construct
    */
   public function testLimitIsInitializedAndAllowsAdd() {
-    $nodes = new PapayaTemplateSimpleAstNodes();
+    $nodes = new \PapayaTemplateSimpleAstNodes();
     $nodes[] = $node = $this->createMock(PapayaTemplateSimpleAstNode::class);
     $this->assertSame($node, $nodes[0]);
   }
 
   /**
-   * @covers PapayaTemplateSimpleAstNodes::__construct
+   * @covers \PapayaTemplateSimpleAstNodes::__construct
    */
   public function testLimitIsInitializedAndRestrictsAddExpectingException() {
-    $nodes = new PapayaTemplateSimpleAstNodes();
+    $nodes = new \PapayaTemplateSimpleAstNodes();
     $this->expectException(InvalidArgumentException::class);
     $nodes[] = new stdClass;
   }
 
   /**
-   * @covers PapayaTemplateSimpleAstNodes::__construct
+   * @covers \PapayaTemplateSimpleAstNodes::__construct
    */
   public function testConstructorWithNodes() {
-    $nodes = new PapayaTemplateSimpleAstNodes(
+    $nodes = new \PapayaTemplateSimpleAstNodes(
       array(
         $this->createMock(PapayaTemplateSimpleAstNode::class),
         $this->createMock(PapayaTemplateSimpleAstNode::class)
@@ -49,10 +49,10 @@ class PapayaTemplateSimpleAstNodesTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplateSimpleAstNodes::accept
+   * @covers \PapayaTemplateSimpleAstNodes::accept
    */
   public function testVisitorIsSentToEachChild() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplateSimpleVisitor $visitor */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleVisitor $visitor */
     $visitor = $this->createMock(PapayaTemplateSimpleVisitor::class);
     $nodeOne = $this->createMock(PapayaTemplateSimpleAstNode::class);
     $nodeOne
@@ -64,7 +64,7 @@ class PapayaTemplateSimpleAstNodesTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('accept')
       ->with($visitor);
-    $nodes = new PapayaTemplateSimpleAstNodes(array($nodeOne, $nodeTwo));
+    $nodes = new \PapayaTemplateSimpleAstNodes(array($nodeOne, $nodeTwo));
     $nodes->accept($visitor);
   }
 

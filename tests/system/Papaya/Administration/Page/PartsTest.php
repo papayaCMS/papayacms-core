@@ -179,7 +179,7 @@ class PapayaAdministrationPagePartsTest extends PapayaTestCase {
   }
 
   /**
-   * @return PHPUnit_Framework_MockObject_MockObject|Papaya\Administration\Page
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Administration\Page
    */
   private function getPageFixture() {
     return $this

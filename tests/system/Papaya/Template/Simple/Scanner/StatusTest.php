@@ -18,28 +18,28 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaTemplateSimpleScannerStatusTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaTemplateSimpleScannerStatus::matchPattern
+   * @covers \PapayaTemplateSimpleScannerStatus::matchPattern
    */
   public function testMatchPatternExpectingMatchedToken() {
-    $status = new PapayaTemplateSimpleScannerStatus_TestProxy();
+    $status = new \PapayaTemplateSimpleScannerStatus_TestProxy();
     $result = $status->matchPattern('foobar', 3, '(bar)');
     $this->assertSame('bar', $result);
   }
 
   /**
-   * @covers PapayaTemplateSimpleScannerStatus::matchPattern
+   * @covers \PapayaTemplateSimpleScannerStatus::matchPattern
    */
   public function testMatchPatternExpectingNull() {
-    $status = new PapayaTemplateSimpleScannerStatus_TestProxy();
+    $status = new \PapayaTemplateSimpleScannerStatus_TestProxy();
     $result = $status->matchPattern('foobar', 0, '(bar)');
     $this->assertNull($result);
   }
 
   /**
-   * @covers PapayaTemplateSimpleScannerStatus::matchPatterns
+   * @covers \PapayaTemplateSimpleScannerStatus::matchPatterns
    */
   public function testMatchPatternsExpectingSecondPatternMatches() {
-    $status = new PapayaTemplateSimpleScannerStatus_TestProxy();
+    $status = new \PapayaTemplateSimpleScannerStatus_TestProxy();
     $result = $status->matchPatterns(
       'foobar',
       0,
@@ -49,7 +49,7 @@ class PapayaTemplateSimpleScannerStatusTest extends PapayaTestCase {
       )
     );
     $this->assertEquals(
-      new PapayaTemplateSimpleScannerToken(
+      new \PapayaTemplateSimpleScannerToken(
         PapayaTemplateSimpleScannerToken::VALUE_NAME,
         0,
         'foo'
@@ -59,10 +59,10 @@ class PapayaTemplateSimpleScannerStatusTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplateSimpleScannerStatus::matchPatterns
+   * @covers \PapayaTemplateSimpleScannerStatus::matchPatterns
    */
   public function testMatchPatternsExpectingNull() {
-    $status = new PapayaTemplateSimpleScannerStatus_TestProxy();
+    $status = new \PapayaTemplateSimpleScannerStatus_TestProxy();
     $result = $status->matchPatterns(
       'foobar', 0, array()
     );
@@ -70,28 +70,28 @@ class PapayaTemplateSimpleScannerStatusTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplateSimpleScannerStatus::isEndToken
+   * @covers \PapayaTemplateSimpleScannerStatus::isEndToken
    */
   public function testIsEndTokenExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplateSimpleScannerToken $token */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleScannerToken $token */
     $token = $this
       ->getMockBuilder(PapayaTemplateSimpleScannerToken::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $status = new PapayaTemplateSimpleScannerStatus_TestProxy();
+    $status = new \PapayaTemplateSimpleScannerStatus_TestProxy();
     $this->assertFalse($status->isEndToken($token));
   }
 
   /**
-   * @covers PapayaTemplateSimpleScannerStatus::getNewStatus
+   * @covers \PapayaTemplateSimpleScannerStatus::getNewStatus
    */
   public function testGetNewStatusExpectingNull() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplateSimpleScannerToken $token */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleScannerToken $token */
     $token = $this
       ->getMockBuilder(PapayaTemplateSimpleScannerToken::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $status = new PapayaTemplateSimpleScannerStatus_TestProxy();
+    $status = new \PapayaTemplateSimpleScannerStatus_TestProxy();
     $this->assertNull($status->getNewStatus($token));
   }
 }

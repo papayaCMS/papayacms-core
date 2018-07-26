@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaMessageContextBacktraceTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaMessageContextBacktrace::__construct
-  * @covers PapayaMessageContextBacktrace::setOffset
+  * @covers \PapayaMessageContextBacktrace::__construct
+  * @covers \PapayaMessageContextBacktrace::setOffset
   */
   public function testConstructorWithOffset() {
-    $backtrace = new PapayaMessageContextBacktrace(41);
+    $backtrace = new \PapayaMessageContextBacktrace(41);
     $this->assertAttributeEquals(
       42,
       '_offset',
@@ -31,11 +31,11 @@ class PapayaMessageContextBacktraceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextBacktrace::__construct
-  * @covers PapayaMessageContextBacktrace::setOffset
+  * @covers \PapayaMessageContextBacktrace::__construct
+  * @covers \PapayaMessageContextBacktrace::setOffset
   */
   public function testContructorWithOffsetAndTraceData() {
-    $backtrace = new PapayaMessageContextBacktrace(42, array());
+    $backtrace = new \PapayaMessageContextBacktrace(42, array());
     $this->assertAttributeEquals(
       42,
       '_offset',
@@ -44,11 +44,11 @@ class PapayaMessageContextBacktraceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextBacktrace::__construct
-  * @covers PapayaMessageContextBacktrace::setOffset
+  * @covers \PapayaMessageContextBacktrace::__construct
+  * @covers \PapayaMessageContextBacktrace::setOffset
   */
   public function testContructorWithoutOffset() {
-    $backtrace = new PapayaMessageContextBacktrace();
+    $backtrace = new \PapayaMessageContextBacktrace();
     $this->assertAttributeEquals(
       1,
       '_offset',
@@ -57,19 +57,19 @@ class PapayaMessageContextBacktraceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextBacktrace::setOffset
+  * @covers \PapayaMessageContextBacktrace::setOffset
   */
   public function testSetOffsetWithInvalidOffsetExpectingException() {
-    $backtrace = new PapayaMessageContextBacktrace();
+    $backtrace = new \PapayaMessageContextBacktrace();
     $this->expectException(InvalidArgumentException::class);
     $backtrace->setOffset(-1);
   }
 
   /**
-  * @covers PapayaMessageContextBacktrace::setBacktrace
+  * @covers \PapayaMessageContextBacktrace::setBacktrace
   */
   public function testSetBacktrace() {
-    $backtrace = new PapayaMessageContextBacktrace();
+    $backtrace = new \PapayaMessageContextBacktrace();
     $backtrace->setBacktrace(array(1), 42);
     $this->assertAttributeEquals(
       array(1),
@@ -84,10 +84,10 @@ class PapayaMessageContextBacktraceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextBacktrace::getBacktrace
+  * @covers \PapayaMessageContextBacktrace::getBacktrace
   */
   public function testGetBacktrace() {
-    $backtrace = new PapayaMessageContextBacktrace();
+    $backtrace = new \PapayaMessageContextBacktrace();
     $backtrace->setBacktrace(array(1));
     $this->assertEquals(
       array(1),
@@ -96,10 +96,10 @@ class PapayaMessageContextBacktraceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextBacktrace::getBacktrace
+  * @covers \PapayaMessageContextBacktrace::getBacktrace
   */
   public function testGetBacktraceImplicitCreate() {
-    $backtrace = new PapayaMessageContextBacktrace();
+    $backtrace = new \PapayaMessageContextBacktrace();
     $this->assertInternalType(
       'array',
       $backtrace->getBacktrace()
@@ -107,10 +107,10 @@ class PapayaMessageContextBacktraceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextBacktrace::asArray
+  * @covers \PapayaMessageContextBacktrace::asArray
   */
   public function testAsArray() {
-    $backtrace = new PapayaMessageContextBacktrace();
+    $backtrace = new \PapayaMessageContextBacktrace();
     $backtrace->setBacktrace(
       $this->getBacktraceFixture()
     );
@@ -125,10 +125,10 @@ class PapayaMessageContextBacktraceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextBacktrace::asArray
+  * @covers \PapayaMessageContextBacktrace::asArray
   */
   public function testAsArrayWithOffset() {
-    $backtrace = new PapayaMessageContextBacktrace();
+    $backtrace = new \PapayaMessageContextBacktrace();
     $backtrace->setBacktrace(
       $this->getBacktraceFixture(),
       2
@@ -142,10 +142,10 @@ class PapayaMessageContextBacktraceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextBacktrace::asString
+  * @covers \PapayaMessageContextBacktrace::asString
   */
   public function testAsString() {
-    $backtrace = new PapayaMessageContextBacktrace();
+    $backtrace = new \PapayaMessageContextBacktrace();
     $backtrace->setBacktrace(
       $this->getBacktraceFixture()
     );
@@ -158,10 +158,10 @@ class PapayaMessageContextBacktraceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextBacktrace::asXhtml
+  * @covers \PapayaMessageContextBacktrace::asXhtml
   */
   public function testAsXhtml() {
-    $backtrace = new PapayaMessageContextBacktrace();
+    $backtrace = new \PapayaMessageContextBacktrace();
     $backtrace->setBacktrace(
       $this->getBacktraceFixture()
     );
@@ -174,10 +174,10 @@ class PapayaMessageContextBacktraceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextBacktrace::getLabel
+  * @covers \PapayaMessageContextBacktrace::getLabel
   */
   public function testGetLabel() {
-    $backtrace = new PapayaMessageContextBacktrace();
+    $backtrace = new \PapayaMessageContextBacktrace();
     $this->assertEquals(
       'Backtrace',
       $backtrace->getLabel()

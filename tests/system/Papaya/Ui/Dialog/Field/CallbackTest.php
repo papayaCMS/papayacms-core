@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogFieldCallbackTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogFieldCallback
+  * @covers \PapayaUiDialogFieldCallback
   */
   public function testConstructorWithAllArguments() {
-    $xhtml = new PapayaUiDialogFieldCallback(
+    $xhtml = new \PapayaUiDialogFieldCallback(
       'Caption', 'name', array($this, 'callbackGetFieldString'), 42, $this->createMock(PapayaFilter::class)
     );
     $this->assertXmlStringEqualsXmlString(
@@ -34,10 +34,10 @@ class PapayaUiDialogFieldCallbackTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldCallback
+  * @covers \PapayaUiDialogFieldCallback
   */
   public function testAppendToWithCallbackReturningString() {
-    $xhtml = new PapayaUiDialogFieldCallback(
+    $xhtml = new \PapayaUiDialogFieldCallback(
       'Caption', 'name', array($this, 'callbackGetFieldString')
     );
     $this->assertXmlStringEqualsXmlString(
@@ -50,10 +50,10 @@ class PapayaUiDialogFieldCallbackTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldCallback
+  * @covers \PapayaUiDialogFieldCallback
   */
   public function testAppendToWithCallbackReturningDomElement() {
-    $xhtml = new PapayaUiDialogFieldCallback(
+    $xhtml = new \PapayaUiDialogFieldCallback(
       'Caption', 'name', array($this, 'callbackGetFieldDomElement')
     );
     $this->assertXmlStringEqualsXmlString(
@@ -66,10 +66,10 @@ class PapayaUiDialogFieldCallbackTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldCallback
+  * @covers \PapayaUiDialogFieldCallback
   */
   public function testAppendToWithCallbackReturningPapayaXmlAppendable() {
-    $xhtml = new PapayaUiDialogFieldCallback(
+    $xhtml = new \PapayaUiDialogFieldCallback(
       'Caption', 'name', array($this, 'callbackGetFieldPapayaXmlAppendable')
     );
     $this->assertXmlStringEqualsXmlString(

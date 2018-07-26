@@ -32,7 +32,7 @@ class PapayaContentStructurePagesTest extends PapayaTestCase {
    * @covers Pages::load
    */
   public function testLoad() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $document->load(__DIR__.'/../TestData/structure.xml');
     $pages = new Pages();
     $pages->load($document->documentElement);

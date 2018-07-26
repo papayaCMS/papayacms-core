@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaObjectItemTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaObjectItem::__construct
+  * @covers \PapayaObjectItem::__construct
   */
   public function testConstructorSetsFields() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
     $this->assertAttributeEquals(
       array(
         'sample_one' => NULL,
@@ -33,10 +33,10 @@ class PapayaObjectItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaObjectItem::assign
+  * @covers \PapayaObjectItem::assign
   */
   public function testAssign() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
     $item->assign(
       array(
         'sampleOne' => 21,
@@ -55,10 +55,10 @@ class PapayaObjectItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaObjectItem::clear
+  * @covers \PapayaObjectItem::clear
   */
   public function testClear() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
     $item->assign(
       array(
         'sampleOne' => 21,
@@ -76,10 +76,10 @@ class PapayaObjectItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaObjectItem::assign
+  * @covers \PapayaObjectItem::assign
   */
   public function testAssignExpectingInvalid() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Argument $data must be an array or instance of Traversable.');
     /** @noinspection PhpParamsInspection */
@@ -87,10 +87,10 @@ class PapayaObjectItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaObjectItem::toArray
+  * @covers \PapayaObjectItem::toArray
   */
   public function testToArray() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
     $item->assign(
       array(
         'sample_one' => 21,
@@ -107,10 +107,10 @@ class PapayaObjectItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaObjectItem::getIterator
+  * @covers \PapayaObjectItem::getIterator
   */
   public function testGetIterator() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
     $iterator = $item->getIterator();
     $this->assertEquals(
       array(
@@ -122,103 +122,103 @@ class PapayaObjectItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaObjectItem::__isset
+  * @covers \PapayaObjectItem::__isset
   */
   public function testMagicMethodIssetExpectingTrue() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
     $item->sampleOne = 'success';
     $this->assertTrue(isset($item->sampleOne));
   }
 
   /**
-  * @covers PapayaObjectItem::__isset
+  * @covers \PapayaObjectItem::__isset
   */
   public function testMagicMethodIssetExpectingFalse() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
     $this->assertFalse(isset($item->sampleOne));
   }
 
   /**
-  * @covers PapayaObjectItem::__get
+  * @covers \PapayaObjectItem::__get
   */
   public function testMagicMethodGetWithoutSetExpectingNull() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
     $this->assertNull($item->sampleOne);
   }
 
   /**
-  * @covers PapayaObjectItem::__get
-  * @covers PapayaObjectItem::__set
+  * @covers \PapayaObjectItem::__get
+  * @covers \PapayaObjectItem::__set
   */
   public function testMagicMethodGetAfterSet() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
     $item->sampleOne = 'success';
     $this->assertEquals('success', $item->sampleOne);
   }
 
   /**
-  * @covers PapayaObjectItem::__unset
+  * @covers \PapayaObjectItem::__unset
   */
   public function testMagicMethodUnsetAfterSet() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
     $item->sampleOne = 'failed';
     unset($item->sampleOne);
     $this->assertNull($item->sampleOne);
   }
 
   /**
-  * @covers PapayaObjectItem::offsetExists
+  * @covers \PapayaObjectItem::offsetExists
   */
   public function testOffsetExistsExpectingTrue() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
     $item->sampleOne = 'success';
     $this->assertTrue(isset($item['sample_one']));
   }
 
   /**
-  * @covers PapayaObjectItem::offsetExists
+  * @covers \PapayaObjectItem::offsetExists
   */
   public function testOffsetExistsExpectingFalse() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
     $this->assertFalse(isset($item['unknown_property']));
   }
 
   /**
-  * @covers PapayaObjectItem::offsetGet
+  * @covers \PapayaObjectItem::offsetGet
   */
   public function testOffsetGetWithoutSet() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
     $this->assertNull($item['sample_one']);
   }
 
   /**
-  * @covers PapayaObjectItem::offsetGet
-  * @covers PapayaObjectItem::offsetSet
+  * @covers \PapayaObjectItem::offsetGet
+  * @covers \PapayaObjectItem::offsetSet
   */
   public function testOffsetGetAfterSet() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
     $item['sample_one'] = 'success';
     $this->assertEquals('success', $item['sample_one']);
   }
 
   /**
-  * @covers PapayaObjectItem::offsetUnset
+  * @covers \PapayaObjectItem::offsetUnset
   */
   public function testOffsetUnset() {
-    $item = new PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
+    $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
     $item->sampleOne = 'success';
     unset($item['sample_one']);
     $this->assertNull($item['sample_one']);
   }
 
   /**
-   * @covers PapayaObjectItem::_prepareName
+   * @covers \PapayaObjectItem::_prepareName
    * @dataProvider provideNameVariants
    * @param string $name
    * @param string $normalizedName
    */
   public function testPropertyConvert($name, $normalizedName) {
-    $item = new PapayaObjectItem_TestProxy(array($name));
+    $item = new \PapayaObjectItem_TestProxy(array($name));
     $item[$name] = 'success';
     $this->assertEquals(
       array($normalizedName => 'success'),
@@ -236,10 +236,10 @@ class PapayaObjectItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaObjectItem::_prepareName
+  * @covers \PapayaObjectItem::_prepareName
   */
   public function testPropertyValidationExpectingExceptionForUnknown() {
-    $item = new PapayaObjectItem_TestProxy(array());
+    $item = new \PapayaObjectItem_TestProxy(array());
     $this->expectException(OutOfBoundsException::class);
     $this->expectExceptionMessage('Property/Index "test" is not defined for item class "PapayaObjectItem_TestProxy".');
     /** @noinspection PhpUndefinedFieldInspection */

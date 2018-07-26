@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaRequestParserTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaRequestParser::isLast
+  * @covers \PapayaRequestParser::isLast
   */
   public function testIsLast() {
-    $parser = new PapayaRequestParser_TestProxy();
+    $parser = new \PapayaRequestParser_TestProxy();
     $this->assertTrue($parser->isLast());
   }
 }

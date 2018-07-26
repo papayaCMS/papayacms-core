@@ -211,7 +211,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
   * @covers Selector::prepare
   */
   public function testLanguagesGetCurrentFromUserOptionContent() {
-    $user = new PapayaAdministrationUser_StubForLanguageSwitch();
+    $user = new \PapayaAdministrationUser_StubForLanguageSwitch();
     $user->options = array('PAPAYA_CONTENT_LANGUAGE' => 21);
     $switch = new Selector();
     $switch->languages($this->getLanguagesFixture());
@@ -231,7 +231,7 @@ class PapayaAdministrationLanguagesSwitchTest extends PapayaTestCase {
   * @covers Selector::appendTo
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $switch = new Selector();
     $switch->languages($this->getLanguagesFixture());
     $switch->papaya(

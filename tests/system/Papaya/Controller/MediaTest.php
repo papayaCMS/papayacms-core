@@ -102,7 +102,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
       ->method('getFile')
       ->will($this->returnValue(TRUE));
 
-    $controller = new PapayaControllerMediaProxy();
+    $controller = new \PapayaControllerMediaProxy();
     $controller->setMediaDatabase($generator);
     $this->assertTrue(
       $controller->execute($application, $request, $response)
@@ -173,7 +173,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
         )
       );
 
-    $controller = new PapayaControllerMediaOutputFilesTest;
+    $controller = new \PapayaControllerMediaOutputFilesTest;
     $controller->papaya($application);
     $controller->setMediaDatabase($generator);
 
@@ -206,7 +206,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
         )
       );
 
-    $controller = new PapayaControllerMediaOutputFilesTest;
+    $controller = new \PapayaControllerMediaOutputFilesTest;
     $controller->papaya($application);
     $controller->setMediaDatabase($generator);
 
@@ -224,7 +224,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
       ->method('getFolderPermissions')
       ->will($this->returnValue(array()));
 
-    $controller = new PapayaControllerMediaOutputFilesTest;
+    $controller = new \PapayaControllerMediaOutputFilesTest;
     $controller->setMediaDatabase($generator);
 
     $this->assertTrue($controller->_outputPublicFile(array('folder_id' => 123)));
@@ -236,7 +236,7 @@ class PapayaControllerMediaTest extends PapayaTestCase {
    * @param bool $userValid
    */
   public function testOutputPreviewFile($userValid) {
-    $controller = new PapayaControllerMediaOutputFilesTest;
+    $controller = new \PapayaControllerMediaOutputFilesTest;
     $controller->papaya(
       $this->mockPapaya()->application(
         array(

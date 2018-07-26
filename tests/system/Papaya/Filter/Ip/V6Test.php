@@ -17,7 +17,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaFilterIpV6Test extends PapayaTestCase {
   /**
-   * @covers PapayaFilterIpV6::validate
+   * @covers \PapayaFilterIpV6::validate
    * @dataProvider getIpV6ValidDataProvider
    * @param string $ip
    * @throws PapayaFilterExceptionCountMismatch
@@ -25,12 +25,12 @@ class PapayaFilterIpV6Test extends PapayaTestCase {
    * @throws PapayaFilterExceptionPartInvalid
    */
   public function testValidateValid($ip) {
-    $ipV6 = new PapayaFilterIpV6();
+    $ipV6 = new \PapayaFilterIpV6();
     $this->assertTrue($ipV6->validate($ip));
   }
 
   /**
-   * @covers PapayaFilterIpV6::validate
+   * @covers \PapayaFilterIpV6::validate
    * @dataProvider getIpV6CountMismatchProvider
    * @param string $ip
    * @throws PapayaFilterExceptionCountMismatch
@@ -38,23 +38,23 @@ class PapayaFilterIpV6Test extends PapayaTestCase {
    * @throws PapayaFilterExceptionPartInvalid
    */
   public function testValidateExpectingCountMismatch($ip) {
-    $ipV6 = new PapayaFilterIpV6();
+    $ipV6 = new \PapayaFilterIpV6();
     $this->expectException(PapayaFilterExceptionCountMismatch::class);
     $ipV6->validate($ip);
   }
 
   /**
-  * @covers PapayaFilterIpV6::validate
+  * @covers \PapayaFilterIpV6::validate
   * @dataProvider getIpV6CountMismatchProvider
   */
   public function testValidateExpectingEmptyException() {
-    $ipV6 = new PapayaFilterIpV6();
+    $ipV6 = new \PapayaFilterIpV6();
     $this->expectException(PapayaFilterExceptionEmpty::class);
     $ipV6->validate('');
   }
 
   /**
-   * @covers PapayaFilterIpV6::validate
+   * @covers \PapayaFilterIpV6::validate
    * @dataProvider getIpV6PartInvalidProvider
    * @param string $ip
    * @throws PapayaFilterExceptionCountMismatch
@@ -62,19 +62,19 @@ class PapayaFilterIpV6Test extends PapayaTestCase {
    * @throws PapayaFilterExceptionPartInvalid
    */
   public function testValidateExpectingPartInvalid($ip) {
-    $ipV6 = new PapayaFilterIpV6();
+    $ipV6 = new \PapayaFilterIpV6();
     $this->expectException(PapayaFilterExceptionPartInvalid::class);
     $ipV6->validate($ip);
   }
 
   /**
-   * @covers PapayaFilterIpV6::filter
+   * @covers \PapayaFilterIpV6::filter
    * @dataProvider getFilterProvider
    * @param string $expected
    * @param string $ip
    */
   public function testFilter($expected, $ip) {
-    $ipV6 = new PapayaFilterIpV6();
+    $ipV6 = new \PapayaFilterIpV6();
     $filtered = $ipV6->filter($ip);
     $this->assertEquals($expected, $filtered);
   }

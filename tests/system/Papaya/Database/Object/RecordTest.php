@@ -39,7 +39,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_sample_table', 42))
       ->will($this->returnValue($databaseResult));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -74,7 +74,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue(TRUE));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -104,7 +104,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue(FALSE));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -147,7 +147,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue(TRUE));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -190,7 +190,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue(FALSE));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -216,7 +216,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
         $this->equalTo(array('table_sample_table', 42))
       )
       ->will($this->returnValue(FALSE));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -233,7 +233,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::_saveRecordWithDefinedId
   */
   public function testSaveInsertsRecordWithDefinedIdWithoutValueExpectingFalse() {
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -260,7 +260,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
         array('sample_id' => 23)
       )
       ->will($this->returnValue(1));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -305,7 +305,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue(1));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -322,7 +322,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::assign
   */
   public function testAssign() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $record->assign(
       array(
         'field1' => '1',
@@ -344,7 +344,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::toArray
   */
   public function testToArray() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->assertEquals(
       array(
         'field1' => 'value1',
@@ -358,7 +358,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::getIterator
   */
   public function testGetIterator() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $iterator = $record->getIterator();
     $this->assertInstanceOf('ArrayIterator', $iterator);
     $this->assertEquals(
@@ -374,7 +374,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::offsetExists
   */
   public function testOffsetExistsExpectingFalse() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->assertFalse(
       $record->offsetExists('invalid_field')
     );
@@ -384,7 +384,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::offsetExists
   */
   public function testOffsetExistsExpectingTrue() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->assertTrue(
       $record->offsetExists('field1')
     );
@@ -394,7 +394,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::offsetGet
   */
   public function testOffsetGet() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->assertEquals(
       'value1', $record['field1']
     );
@@ -404,7 +404,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::offsetGet
   */
   public function testOffetGetWithInvalidField() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->expectException(OutOfBoundsException::class);
     $record['invalid_field'];
   }
@@ -413,7 +413,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::offsetGet
   */
   public function testOffsetGetExpectingNull() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->assertNull(
       $record['field2']
     );
@@ -423,7 +423,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::offsetSet
   */
   public function testOffetSet() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $record['field1'] = 'success';
     $this->assertAttributeSame(
       array('field1' => 'success'), '_values', $record
@@ -434,7 +434,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::offsetSet
   */
   public function testOffetSetWithInvalidField() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->expectException(OutOfBoundsException::class);
     $record['invalid_field'] = 'fail';
   }
@@ -443,7 +443,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::offsetUnset
   */
   public function testOffetUnset() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     unset($record['field1']);
     $this->assertAttributeSame(
       array(), '_values', $record
@@ -454,7 +454,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::__isset
   */
   public function testPropertyIsset() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->assertTrue(
       isset($record->field1)
     );
@@ -464,7 +464,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::__get
   */
   public function testPropertyGet() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     /** @noinspection PhpUndefinedFieldInspection */
     $this->assertEquals(
       'value1', $record->field1
@@ -475,7 +475,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::__set
   */
   public function testPropertySet() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $record->field1 = 'success';
     $this->assertAttributeEquals(
       array(
@@ -492,7 +492,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
    * @param string $offset
    */
   public function testPropertySetTestingNormalization($offset) {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $record->_fields = array(
       'field_name_test' => ''
     );
@@ -511,7 +511,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::__set
   */
   public function testPropertySetTestingNormalizationExpectingException() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->expectException(OutOfBoundsException::class);
     $record->{'1_invalid__argument'} = 'success';
   }
@@ -520,7 +520,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::__unset
   */
   public function testPropertyUnset() {
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     unset($record->field1);
     $this->assertFalse(
       isset($record->field1)
@@ -549,7 +549,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
         "SELECT sample_id, sample_title FROM %s WHERE sample_id= '%s'", array('table_sample_table', 42)
       )
       ->will($this->returnValue($databaseResult));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -588,7 +588,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with('SQL', array('table_sample_table', 42))
       ->will($this->returnValue($databaseResult));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -623,7 +623,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with('SQL', array('table_sample_table', 42))
       ->will($this->returnValue($databaseResult));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->setDatabaseAccess($databaseAccess);
     $this->assertFalse(
       $item->_loadRecord('SQL', array('table_sample_table', 42))
@@ -640,7 +640,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with('SQL', array('table_sample_table', 42))
       ->will($this->returnValue(FALSE));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->setDatabaseAccess($databaseAccess);
     $this->assertFalse(
       $item->_loadRecord('SQL', array('table_sample_table', 42))
@@ -657,7 +657,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('insertRecord')
       ->with('table_sample_table', 'sample_id', array('sample_title' => 'title text'))
       ->will($this->returnValue(21));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -681,7 +681,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('insertRecord')
       ->with('table_sample_table', 'sample_id', array('sample_title' => 'title text'))
       ->will($this->returnValue(21));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -713,7 +713,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
         )
       )
       ->will($this->returnValue(TRUE));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -738,7 +738,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('updateRecord')
       ->with('table_sample_table', array('sample_title' => 'title text'), array('sample_id' => 23))
       ->will($this->returnValue(1));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -761,7 +761,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       ->method('deleteRecord')
       ->with('table_sample_table', array('sample_id' => 42))
       ->will($this->returnValue(1));
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->_fields = array(
       'id' => 'sample_id',
       'title' => 'sample_title'
@@ -783,7 +783,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->never())
       ->method('deleteRecord');
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $item->setDatabaseAccess($databaseAccess);
     $item->_fields = array(
       'id' => 'sample_id',
@@ -799,7 +799,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::_applyCallback
   */
   public function testApplyCallback() {
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->assertEquals(
       array('test' => 'success'),
       $item->_applyCallback(array($this, 'callbackForApplyCallback'), NULL, array('test' => ''))
@@ -810,7 +810,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::_applyCallback
   */
   public function testApplyCallbackWithDefaultCallback() {
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->assertEquals(
       array('test' => 'success'),
       $item->_applyCallback(NULL, array($this, 'callbackForApplyCallback'), array('test' => ''))
@@ -826,7 +826,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
   * @covers Record::_applyCallback
   */
   public function testApplyCallbackWithoutCallbackExpectingException() {
-    $item = new PapayaDatabaseObjectRecord_TestProxy();
+    $item = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->expectException(UnexpectedValueException::class);
     $item->_applyCallback(NULL, NULL, array());
   }
@@ -839,7 +839,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       'fieldname1' => 'success',
       'fieldname2' => 'failed',
     );
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->assertEquals(
       array('field1' => 'success'),
       $record->convertRecordToValues($row)
@@ -854,7 +854,7 @@ class PapayaDatabaseObjectRecordTest extends PapayaTestCase {
       'field1' => 'success',
       'field2' => 'failed',
     );
-    $record = new PapayaDatabaseObjectRecord_TestProxy();
+    $record = new \PapayaDatabaseObjectRecord_TestProxy();
     $this->assertEquals(
       array('fieldname1' => 'success'),
       $record->convertValuesToRecord($data)

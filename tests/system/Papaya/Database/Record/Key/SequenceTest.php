@@ -148,7 +148,7 @@ class PapayaDatabaseRecordKeySequenceTest extends PapayaTestCase {
   }
 
   /**
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseSequence
+   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaDatabaseSequence
    */
   private function getSequenceFixture() {
     $sequence = $this

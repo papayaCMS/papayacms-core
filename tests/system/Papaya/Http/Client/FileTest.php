@@ -18,13 +18,13 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaHttpClientFileTest extends PapayaTestCase {
 
   public function testGetName() {
-      $file = new PapayaHttpClientFile_TestProxy();
+      $file = new \PapayaHttpClientFile_TestProxy();
       $file->_name = 'sample.ext';
       $this->assertEquals('sample.ext', $file->getName());
   }
 
   public function testGetNameIfEmpty() {
-    $file = new PapayaHttpClientFile_TestProxy();
+    $file = new \PapayaHttpClientFile_TestProxy();
     $this->expectException(UnexpectedValueException::class);
     $file->getName();
   }
@@ -34,7 +34,7 @@ class PapayaHttpClientFileTest extends PapayaTestCase {
     $expected .= 'Content-Transfer-Encoding: binary'."\r\n";
     $expected .= 'Content-Type: application/octet-stream'."\r\n";
     $expected .= 'Content-Length: 0'."\r\n";
-    $file = new PapayaHttpClientFile_TestProxy();
+    $file = new \PapayaHttpClientFile_TestProxy();
     $this->assertEquals($expected, $file->getHeaders());
   }
 
@@ -43,13 +43,13 @@ class PapayaHttpClientFileTest extends PapayaTestCase {
     $expected .= 'Content-Transfer-Encoding: binary'."\r\n";
     $expected .= 'Content-Type: text/plain'."\r\n";
     $expected .= 'Content-Length: 0'."\r\n";
-    $file = new PapayaHttpClientFile_TestProxy();
+    $file = new \PapayaHttpClientFile_TestProxy();
     $file->_mimeType = 'text/plain';
     $this->assertEquals($expected, $file->getHeaders());
   }
 
   public function testEscapeHeaderValue() {
-    $file = new PapayaHttpClientFile_TestProxy();
+    $file = new \PapayaHttpClientFile_TestProxy();
     $this->assertEquals('foo \'\\"\\\\', $file->_escapeHeaderValue('foo \'"\\'));
   }
 }

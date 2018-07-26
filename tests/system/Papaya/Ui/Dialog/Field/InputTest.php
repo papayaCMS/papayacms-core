@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogFieldInput::__construct
+  * @covers \PapayaUiDialogFieldInput::__construct
   */
   public function testConstructor() {
-    $input = new PapayaUiDialogFieldInput('Caption', 'name');
+    $input = new \PapayaUiDialogFieldInput('Caption', 'name');
     $this->assertAttributeEquals(
       'Caption', '_caption', $input
     );
@@ -31,11 +31,11 @@ class PapayaUiDialogFieldInputTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInput::__construct
+  * @covers \PapayaUiDialogFieldInput::__construct
   */
   public function testConstructorWithAllParameters() {
     $filter = $this->createMock(PapayaFilter::class);
-    $input = new PapayaUiDialogFieldInput('Caption', 'name', 42, '50670', $filter);
+    $input = new \PapayaUiDialogFieldInput('Caption', 'name', 42, '50670', $filter);
     $this->assertAttributeEquals(
       42, '_maximumLength', $input
     );
@@ -48,10 +48,10 @@ class PapayaUiDialogFieldInputTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInput::setMaximumLength
+  * @covers \PapayaUiDialogFieldInput::setMaximumLength
   */
   public function testSetMaximumLength() {
-    $input = new PapayaUiDialogFieldInput('Caption', 'name');
+    $input = new \PapayaUiDialogFieldInput('Caption', 'name');
     $input->setMaximumLength(42);
     $this->assertAttributeEquals(
       42, '_maximumLength', $input
@@ -59,10 +59,10 @@ class PapayaUiDialogFieldInputTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInput::setMaximumLength
+  * @covers \PapayaUiDialogFieldInput::setMaximumLength
   */
   public function testSetMaximumLengthToZeroExpectingMinusOne() {
-    $input = new PapayaUiDialogFieldInput('Caption', 'name');
+    $input = new \PapayaUiDialogFieldInput('Caption', 'name');
     $input->setMaximumLength(0);
     $this->assertAttributeEquals(
       -1, '_maximumLength', $input
@@ -70,23 +70,23 @@ class PapayaUiDialogFieldInputTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInput::setType
-  * @covers PapayaUiDialogFieldInput::getType
+  * @covers \PapayaUiDialogFieldInput::setType
+  * @covers \PapayaUiDialogFieldInput::getType
   */
   public function testGetTypeAfterSetType() {
-    $input = new PapayaUiDialogFieldInput('Caption', 'name');
+    $input = new \PapayaUiDialogFieldInput('Caption', 'name');
     $input->setType('email');
     $this->assertEquals('email', $input->getType());
   }
 
   /**
-  * @covers PapayaUiDialogFieldInput::appendTo
+  * @covers \PapayaUiDialogFieldInput::appendTo
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $input = new PapayaUiDialogFieldInput('Caption', 'name');
+    $input = new \PapayaUiDialogFieldInput('Caption', 'name');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
@@ -104,13 +104,13 @@ class PapayaUiDialogFieldInputTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInput::appendTo
+  * @covers \PapayaUiDialogFieldInput::appendTo
   */
   public function testAppendToWithDefaultValue() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $input = new PapayaUiDialogFieldInput('Caption', 'name');
+    $input = new \PapayaUiDialogFieldInput('Caption', 'name');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
@@ -129,13 +129,13 @@ class PapayaUiDialogFieldInputTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInput::appendTo
+  * @covers \PapayaUiDialogFieldInput::appendTo
   */
   public function testAppendToAffectedBySetType() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $input = new PapayaUiDialogFieldInput('Caption', 'name');
+    $input = new \PapayaUiDialogFieldInput('Caption', 'name');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);

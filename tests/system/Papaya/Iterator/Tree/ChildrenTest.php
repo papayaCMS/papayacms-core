@@ -1,10 +1,24 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaIteratorTreeChildrenTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaIteratorTreeChildren
+  * @covers \PapayaIteratorTreeChildren
   */
   public function testIterateRoot() {
     $iterator = $this->getIteratorFixture();
@@ -17,7 +31,7 @@ class PapayaIteratorTreeChildrenTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaIteratorTreeChildren
+  * @covers \PapayaIteratorTreeChildren
   */
   public function testIterateLeafs() {
     $iterator = new RecursiveIteratorIterator($this->getIteratorFixture());
@@ -30,7 +44,7 @@ class PapayaIteratorTreeChildrenTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaIteratorTreeChildren
+  * @covers \PapayaIteratorTreeChildren
   */
   public function testIterateAll() {
     $iterator = new RecursiveIteratorIterator(
@@ -53,10 +67,10 @@ class PapayaIteratorTreeChildrenTest extends PapayaTestCase {
   *
   * The element id 4 is included int the children ids to simulate a missing element.
   *
-  * @return PapayaIteratorTreeChildren
+  * @return \PapayaIteratorTreeChildren
   */
   public function getIteratorFixture() {
-    return new PapayaIteratorTreeChildren(
+    return new \PapayaIteratorTreeChildren(
       array(
         1 => 'one',
         2 => 'two',

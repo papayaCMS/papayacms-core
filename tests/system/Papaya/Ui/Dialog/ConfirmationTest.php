@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiDialogConfirmationTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogConfirmation::__construct
+  * @covers \PapayaUiDialogConfirmation::__construct
   */
   public function testConstructor() {
     $owner = new stdClass();
-    $dialog = new PapayaUiDialogConfirmation($owner, array('sample' => 'foo'));
+    $dialog = new \PapayaUiDialogConfirmation($owner, array('sample' => 'foo'));
     $this->assertAttributeSame(
       $owner, '_owner', $dialog
     );
@@ -32,11 +32,11 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogConfirmation::__construct
+  * @covers \PapayaUiDialogConfirmation::__construct
   */
   public function testConstructorWithParameterGroup() {
     $owner = new stdClass();
-    $dialog = new PapayaUiDialogConfirmation($owner, array('sample' => 'foo'), 'group');
+    $dialog = new \PapayaUiDialogConfirmation($owner, array('sample' => 'foo'), 'group');
     $this->assertAttributeSame(
       $owner, '_owner', $dialog
     );
@@ -49,11 +49,11 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogConfirmation::setMessageText
+  * @covers \PapayaUiDialogConfirmation::setMessageText
   */
   public function testSetMessageText() {
     $owner = new stdClass();
-    $dialog = new PapayaUiDialogConfirmation($owner, array('sample' => 'foo'), 'group');
+    $dialog = new \PapayaUiDialogConfirmation($owner, array('sample' => 'foo'), 'group');
     $dialog->setMessageText('Message text');
     $this->assertAttributeEquals(
       'Message text', '_message', $dialog
@@ -61,11 +61,11 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogConfirmation::setButtonCaption
+  * @covers \PapayaUiDialogConfirmation::setButtonCaption
   */
   public function testSetButtonCaption() {
     $owner = new stdClass();
-    $dialog = new PapayaUiDialogConfirmation($owner, array('sample' => 'foo'), 'group');
+    $dialog = new \PapayaUiDialogConfirmation($owner, array('sample' => 'foo'), 'group');
     $dialog->setButtonCaption('Button caption');
     $this->assertAttributeEquals(
       'Button caption', '_button', $dialog
@@ -73,7 +73,7 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogConfirmation::isSubmitted
+  * @covers \PapayaUiDialogConfirmation::isSubmitted
   */
   public function testIsSubmittedExpectingTrue() {
     $request = $this->createMock(PapayaRequest::class);
@@ -81,16 +81,16 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getMethod')
       ->will($this->returnValue('post'));
-    $dialog = new PapayaUiDialogConfirmation(new stdClass(), array('sample' => 'foo'));
+    $dialog = new \PapayaUiDialogConfirmation(new stdClass(), array('sample' => 'foo'));
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $dialog->parameters(
-      new PapayaRequestParameters(array('confirmation' => 'a9994ecdd4cc99b5ac3b59272afa0d47'))
+      new \PapayaRequestParameters(array('confirmation' => 'a9994ecdd4cc99b5ac3b59272afa0d47'))
     );
     $this->assertTrue($dialog->isSubmitted());
   }
 
   /**
-  * @covers PapayaUiDialogConfirmation::isSubmitted
+  * @covers \PapayaUiDialogConfirmation::isSubmitted
   */
   public function testIsSubmittedExpectingFalse() {
     $request = $this->createMock(PapayaRequest::class);
@@ -98,13 +98,13 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getMethod')
       ->will($this->returnValue('get'));
-    $dialog = new PapayaUiDialogConfirmation(new stdClass(), array('sample' => 'foo'));
+    $dialog = new \PapayaUiDialogConfirmation(new stdClass(), array('sample' => 'foo'));
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $this->assertFalse($dialog->isSubmitted());
   }
 
   /**
-  * @covers PapayaUiDialogConfirmation::execute
+  * @covers \PapayaUiDialogConfirmation::execute
   */
   public function testExecuteExpectingTrue() {
     $owner = new stdClass();
@@ -119,11 +119,11 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
       ->method('validate')
       ->with($this->equalTo('TOKEN_STRING'), $this->equalTo($owner))
       ->will($this->returnValue(TRUE));
-    $dialog = new PapayaUiDialogConfirmation($owner, array('sample' => 'foo'));
+    $dialog = new \PapayaUiDialogConfirmation($owner, array('sample' => 'foo'));
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $dialog->tokens($tokens);
     $dialog->parameters(
-      new PapayaRequestParameters(
+      new \PapayaRequestParameters(
         array(
           'confirmation' => 'a9994ecdd4cc99b5ac3b59272afa0d47',
           'token' => 'TOKEN_STRING'
@@ -134,7 +134,7 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogConfirmation::execute
+  * @covers \PapayaUiDialogConfirmation::execute
   */
   public function testExecuteExpectingFalse() {
     $owner = new stdClass();
@@ -143,13 +143,13 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getMethod')
       ->will($this->returnValue('get'));
-    $dialog = new PapayaUiDialogConfirmation($owner, array('sample' => 'foo'));
+    $dialog = new \PapayaUiDialogConfirmation($owner, array('sample' => 'foo'));
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $this->assertFalse($dialog->execute());
   }
 
   /**
-  * @covers PapayaUiDialogConfirmation::execute
+  * @covers \PapayaUiDialogConfirmation::execute
   */
   public function testExecuteCachesResultExpectingFalse() {
     $owner = new stdClass();
@@ -158,14 +158,14 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getMethod')
       ->will($this->returnValue('get'));
-    $dialog = new PapayaUiDialogConfirmation($owner, array('sample' => 'foo'));
+    $dialog = new \PapayaUiDialogConfirmation($owner, array('sample' => 'foo'));
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $dialog->execute();
     $this->assertFalse($dialog->execute());
   }
 
   /**
-  * @covers PapayaUiDialogConfirmation::appendTo
+  * @covers \PapayaUiDialogConfirmation::appendTo
   */
   public function testAppendTo() {
     $owner = new stdClass();
@@ -175,7 +175,7 @@ class PapayaUiDialogConfirmationTest extends PapayaTestCase {
       ->method('create')
       ->with($this->equalTo($owner))
       ->will($this->returnValue('TOKEN_STRING'));
-    $dialog = new PapayaUiDialogConfirmation(
+    $dialog = new \PapayaUiDialogConfirmation(
       $owner,
       array('sample' => 'foo'),
       'group'

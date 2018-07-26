@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputGeoPositionTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogFieldInputGeoPosition::__construct
+  * @covers \PapayaUiDialogFieldInputGeoPosition::__construct
   */
   public function testConstructor() {
-    $field = new PapayaUiDialogFieldInputGeoPosition('Position', 'geo_position', '21,42', TRUE);
+    $field = new \PapayaUiDialogFieldInputGeoPosition('Position', 'geo_position', '21,42', TRUE);
     $this->assertEquals(
       'Position', $field->caption
     );
@@ -37,13 +37,13 @@ class PapayaUiDialogFieldInputGeoPositionTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputGeoPosition
+   * @covers \PapayaUiDialogFieldInputGeoPosition
    * @dataProvider provideValidGeoPositionInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $field = new PapayaUiDialogFieldInputGeoPosition(
+    $field = new \PapayaUiDialogFieldInputGeoPosition(
       'Position', 'geo_position', $value, $mandatory
     );
     $this->assertTrue(
@@ -52,13 +52,13 @@ class PapayaUiDialogFieldInputGeoPositionTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputPage
+   * @covers \PapayaUiDialogFieldInputPage
    * @dataProvider provideInvalidGeoPositionInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $field = new PapayaUiDialogFieldInputGeoPosition(
+    $field = new \PapayaUiDialogFieldInputGeoPosition(
       'Position', 'geo_position', $value, $mandatory
     );
     $this->assertFalse(
@@ -67,11 +67,11 @@ class PapayaUiDialogFieldInputGeoPositionTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputPage::appendTo
+  * @covers \PapayaUiDialogFieldInputPage::appendTo
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument();
-    $field = new PapayaUiDialogFieldInputGeoPosition('Position', 'geo_position', '', FALSE);
+    $document = new \PapayaXmlDocument();
+    $field = new \PapayaUiDialogFieldInputGeoPosition('Position', 'geo_position', '', FALSE);
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(

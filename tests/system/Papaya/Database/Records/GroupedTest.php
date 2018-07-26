@@ -24,7 +24,7 @@ class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
   * @covers Grouped::getIterator
   */
   public function testLoadAndIterateRootWithoutIdentifier() {
-    $records = new PapayaDatabaseRecordsGrouped_TestProxy();
+    $records = new \PapayaDatabaseRecordsGrouped_TestProxy();
     $records->setDatabaseAccess($this->getDatabaseFixture());
     $this->assertTrue($records->load());
     $this->assertEquals(
@@ -62,7 +62,7 @@ class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
   * @covers Grouped::getIterator
   */
   public function testLoadAndIterateRootWithIdentifier() {
-    $records = new PapayaDatabaseRecordsGrouped_TestProxy();
+    $records = new \PapayaDatabaseRecordsGrouped_TestProxy();
     $records->_identifierProperties = array('id');
     $records->setDatabaseAccess($this->getDatabaseFixture());
     $this->assertTrue($records->load());
@@ -101,7 +101,7 @@ class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
   * @covers Grouped::getIterator
   */
   public function testLoadWithInvalidIdentifierExpectingException() {
-    $records = new PapayaDatabaseRecordsGrouped_TestProxy();
+    $records = new \PapayaDatabaseRecordsGrouped_TestProxy();
     $records->_groupIdentifierProperties = array();
     $records->setDatabaseAccess($this->getDatabaseFixture());
     $this->expectException(LogicException::class);
@@ -128,7 +128,7 @@ class PapayaDatabaseRecordsGroupedTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue(FALSE));
-    $records = new PapayaDatabaseRecordsGrouped_TestProxy();
+    $records = new \PapayaDatabaseRecordsGrouped_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $this->assertFalse($records->load(42));
   }

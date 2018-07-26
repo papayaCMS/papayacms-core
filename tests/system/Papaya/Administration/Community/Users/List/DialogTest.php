@@ -71,7 +71,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
       );
     $dialog = new Dialog_TestProxy();
     $dialog->papaya($this->mockPapaya()->application());
-    $dialog->parameters(new PapayaRequestParameters(array()));
+    $dialog->parameters(new \PapayaRequestParameters(array()));
     $dialog->users($users);
     $this->assertTrue($dialog->execute());
   }
@@ -92,14 +92,14 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
     $dialog = new Dialog_TestProxy();
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->parameters(
-      new PapayaRequestParameters(
+      new \PapayaRequestParameters(
         array(
           'page' => 2
         )
       )
     );
     $dialog->data(
-      new PapayaRequestParameters(
+      new \PapayaRequestParameters(
         array(
           'filter' => 'foo'
         )
@@ -125,7 +125,7 @@ class PapayaAdministrationCommunityUsersListDialogTest extends PapayaTestCase {
     $dialog = new Dialog_TestProxy();
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->data(
-      new PapayaRequestParameters(
+      new \PapayaRequestParameters(
         array(
           'filter' => 'foo',
           'filter-reset' => '1'

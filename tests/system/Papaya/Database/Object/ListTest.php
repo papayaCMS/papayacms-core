@@ -23,7 +23,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::getIterator
   */
   public function testGetIterator() {
-    $list = new PapayaDatabaseObjectList_TestProxy();
+    $list = new \PapayaDatabaseObjectList_TestProxy();
     $iterator = $list->getIterator();
     $this->assertEquals(
       array(
@@ -44,7 +44,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::count
   */
   public function testCount() {
-    $list = new PapayaDatabaseObjectList_TestProxy();
+    $list = new \PapayaDatabaseObjectList_TestProxy();
     $this->assertCount(2, $list);
   }
 
@@ -52,7 +52,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::countAll
   */
   public function testCountAll() {
-    $list = new PapayaDatabaseObjectList_TestProxy();
+    $list = new \PapayaDatabaseObjectList_TestProxy();
     $this->assertEquals(2, $list->countAll());
   }
 
@@ -60,7 +60,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::countAll
   */
   public function testCountAllReturnsAbsoluteCount() {
-    $list = new PapayaDatabaseObjectList_TestProxy();
+    $list = new \PapayaDatabaseObjectList_TestProxy();
     $list->_recordCount = 42;
     $this->assertEquals(
       42, $list->countAll()
@@ -71,7 +71,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::item
   */
   public function testItemExpectingArray() {
-    $list = new PapayaDatabaseObjectList_TestProxy();
+    $list = new \PapayaDatabaseObjectList_TestProxy();
     $this->assertEquals(
       array(
         'property1' => '1_1',
@@ -85,7 +85,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::item
   */
   public function testItemExpectingNull() {
-    $list = new PapayaDatabaseObjectList_TestProxy();
+    $list = new \PapayaDatabaseObjectList_TestProxy();
     $this->assertNull($list->item(-99));
   }
 
@@ -93,7 +93,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::itemAt
   */
   public function testItemAtExpectingArray() {
-    $list = new PapayaDatabaseObjectList_TestProxy();
+    $list = new \PapayaDatabaseObjectList_TestProxy();
     $this->assertEquals(
       array(
         'property1' => '1_1',
@@ -107,7 +107,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::itemAt
   */
   public function testItemAtNegativePositionExpectingArray() {
-    $list = new PapayaDatabaseObjectList_TestProxy();
+    $list = new \PapayaDatabaseObjectList_TestProxy();
     $this->assertEquals(
       array(
         'property1' => '2_1',
@@ -121,7 +121,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::assign
   */
   public function testAssign() {
-    $list = new PapayaDatabaseObjectList_TestProxy();
+    $list = new \PapayaDatabaseObjectList_TestProxy();
     $list->assign(
       array(
         '21' => array(
@@ -183,7 +183,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
         $this->equalTo(5)
       )
       ->will($this->returnValue($databaseResult));
-    $list = new PapayaDatabaseObjectList_TestProxy();
+    $list = new \PapayaDatabaseObjectList_TestProxy();
     $list->setDatabaseAccess($databaseAccess);
     $this->assertTrue($list->_loadRecords('SQL', array('1', '2'), 'field1', 10, 5));
     $this->assertAttributeEquals(
@@ -211,7 +211,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
         $this->equalTo(NULL)
       )
       ->will($this->returnValue(FALSE));
-    $list = new PapayaDatabaseObjectList_TestProxy();
+    $list = new \PapayaDatabaseObjectList_TestProxy();
     $list->setDatabaseAccess($databaseAccess);
     $this->assertFalse($list->_loadRecords('SQL', array('1', '2')));
     $this->assertAttributeEquals(array(), '_records', $list);
@@ -222,7 +222,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::_fetchRecords
   */
   public function testFetchRecords() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseResult $databaseResult */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaDatabaseResult $databaseResult */
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
@@ -234,7 +234,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
           FALSE
         )
       );
-    $list = new PapayaDatabaseObjectList_TestProxy();
+    $list = new \PapayaDatabaseObjectList_TestProxy();
     $list->_fetchRecords($databaseResult);
     $this->assertAttributeEquals(
       array(array('property1' => 'Hello', 'property2' => 'World')),
@@ -247,7 +247,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
   * @covers Records::_fetchRecords
   */
   public function testFetchRecordsWithIndex() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseResult $databaseResult */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaDatabaseResult $databaseResult */
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
     $databaseResult
       ->expects($this->any())
@@ -259,7 +259,7 @@ class PapayaDatabaseObjectListTest extends PapayaTestCase {
           FALSE
         )
       );
-    $list = new PapayaDatabaseObjectList_TestProxy();
+    $list = new \PapayaDatabaseObjectList_TestProxy();
     $list->_fetchRecords($databaseResult, 'field1');
     $this->assertAttributeEquals(
       array('Hello' => array('property1' => 'Hello', 'property2' => 'World')),

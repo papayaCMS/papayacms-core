@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUtilStringBase32Test extends PapayaTestCase {
 
   /**
-   * @covers PapayaUtilStringBase32::encode
+   * @covers \PapayaUtilStringBase32::encode
    * @dataProvider provideValidSamples
    * @param string $plain
    * @param string $encoded
@@ -31,7 +31,7 @@ class PapayaUtilStringBase32Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringBase32::encode
+   * @covers \PapayaUtilStringBase32::encode
    * @dataProvider provideValidSamplesWithPadding
    * @param string $plain
    * @param string $encoded
@@ -44,7 +44,7 @@ class PapayaUtilStringBase32Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringBase32::decode
+   * @covers \PapayaUtilStringBase32::decode
    * @dataProvider provideValidSamples
    * @param string $plain
    * @param string $encoded
@@ -57,7 +57,7 @@ class PapayaUtilStringBase32Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringBase32::decode
+   * @covers \PapayaUtilStringBase32::decode
    * @dataProvider provideValidSamplesWithPadding
    * @param string $plain
    * @param string $encoded
@@ -70,7 +70,7 @@ class PapayaUtilStringBase32Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringBase32::decode
+   * @covers \PapayaUtilStringBase32::decode
    * @dataProvider provideInvalidDecodeSamples
    * @param string $encoded
    */

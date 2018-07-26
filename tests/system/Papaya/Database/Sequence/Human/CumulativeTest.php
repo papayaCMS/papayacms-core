@@ -61,7 +61,7 @@ class PapayaDatabaseSequenceHumanCumulativeTest extends PapayaTestCase {
   * @covers Cumulative::createIdentifiers
   */
   public function testCreateIdentifiersHaveIncreasingLength() {
-    $sequence = new PapayaDatabaseSequenceHumanCumulative_TestProxy('table', 'field', 4, 6);
+    $sequence = new \PapayaDatabaseSequenceHumanCumulative_TestProxy('table', 'field', 4, 6);
     $results = $sequence->createIdentifiers(6);
     $this->assertStringLength(4, $results[0]);
     $this->assertStringLength(4, $results[1]);
@@ -76,7 +76,7 @@ class PapayaDatabaseSequenceHumanCumulativeTest extends PapayaTestCase {
   * @covers Cumulative::createIdentifiers
   */
   public function testCreateIdentifiersHaveReachMaximumLength() {
-    $sequence = new PapayaDatabaseSequenceHumanCumulative_TestProxy('table', 'field', 4, 32);
+    $sequence = new \PapayaDatabaseSequenceHumanCumulative_TestProxy('table', 'field', 4, 32);
     $results = $sequence->createIdentifiers(2);
     $this->assertStringLength(4, $results[0]);
     $this->assertStringLength(32, $results[1]);
@@ -87,7 +87,7 @@ class PapayaDatabaseSequenceHumanCumulativeTest extends PapayaTestCase {
   * @covers Cumulative::createIdentifiers
   */
   public function testCreateIdentifiersWhileMinimumEqualsMaximum() {
-    $sequence = new PapayaDatabaseSequenceHumanCumulative_TestProxy('table', 'field', 10, 10);
+    $sequence = new \PapayaDatabaseSequenceHumanCumulative_TestProxy('table', 'field', 10, 10);
     $results = $sequence->createIdentifiers(2);
     $this->assertStringLength(10, $results[0]);
     $this->assertStringLength(10, $results[1]);
@@ -98,7 +98,7 @@ class PapayaDatabaseSequenceHumanCumulativeTest extends PapayaTestCase {
   * @covers Cumulative::createIdentifiers
   */
   public function testCreateSingleIdentifierWhileMinimumDiffersMaximum() {
-    $sequence = new PapayaDatabaseSequenceHumanCumulative_TestProxy('table', 'field', 2, 10);
+    $sequence = new \PapayaDatabaseSequenceHumanCumulative_TestProxy('table', 'field', 2, 10);
     $results = $sequence->createIdentifiers(1);
     $this->assertStringLength(10, $results[0]);
   }

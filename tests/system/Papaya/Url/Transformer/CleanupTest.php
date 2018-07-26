@@ -18,14 +18,14 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUrlTransformerCleanupTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUrlTransformerCleanup::transform
-   * @covers PapayaUrlTransformerCleanup::_calculateRealPath
+   * @covers \PapayaUrlTransformerCleanup::transform
+   * @covers \PapayaUrlTransformerCleanup::_calculateRealPath
    * @dataProvider transformDataProvider
    * @param string $expected
    * @param string $targetUrl
    */
   public function testTransform($expected, $targetUrl) {
-    $transformer = new PapayaUrlTransformerCleanup();
+    $transformer = new \PapayaUrlTransformerCleanup();
     $this->assertSame(
       $expected,
       $transformer->transform(

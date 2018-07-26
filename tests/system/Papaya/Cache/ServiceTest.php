@@ -24,7 +24,7 @@ class PapayaCacheServiceTest extends PapayaTestCase {
   * @covers Service::__construct
   */
   public function testConstructor() {
-    $service = new PapayaCacheService_TestProxy($options = new Configuration());
+    $service = new \PapayaCacheService_TestProxy($options = new Configuration());
     $this->assertAttributeSame(
       $options, '_options', $service
     );
@@ -39,7 +39,7 @@ class PapayaCacheServiceTest extends PapayaTestCase {
    * @param string $expected
    */
   public function testGetCacheIdentifier($group, $identifier, $parameters, $expected) {
-    $service = new PapayaCacheService_TestProxy();
+    $service = new \PapayaCacheService_TestProxy();
     $this->assertSame(
       $expected,
       $service->getCacheIdentifier($group, $identifier, $parameters)
@@ -54,7 +54,7 @@ class PapayaCacheServiceTest extends PapayaTestCase {
    * @param mixed $parameters
   */
   public function testGetCacheIdentifierExpectingException($group, $identifier, $parameters) {
-    $service = new PapayaCacheService_TestProxy();
+    $service = new \PapayaCacheService_TestProxy();
     $this->expectException(InvalidArgumentException::class);
     $service->getCacheIdentifier($group, $identifier, $parameters);
   }
@@ -63,7 +63,7 @@ class PapayaCacheServiceTest extends PapayaTestCase {
   * @covers Service::getCacheIdentifier
   */
   public function testGetCacheIdentifierToLargeExpectingException() {
-    $service = new PapayaCacheService_TestProxy();
+    $service = new \PapayaCacheService_TestProxy();
     $this->expectException(InvalidArgumentException::class);
     $service->getCacheIdentifier('group', 'element', str_repeat('x', 300));
   }
@@ -75,7 +75,7 @@ class PapayaCacheServiceTest extends PapayaTestCase {
    * @param string $expected
    */
   public function testEscapeIdentifierString($string, $expected) {
-    $service = new PapayaCacheService_TestProxy();
+    $service = new \PapayaCacheService_TestProxy();
     $this->assertSame(
       $expected,
       $service->_escapeIdentifierString($string)
@@ -89,7 +89,7 @@ class PapayaCacheServiceTest extends PapayaTestCase {
    * @param string $expected
    */
   public function testSerializeParameters($parameters, $expected) {
-    $service = new PapayaCacheService_TestProxy();
+    $service = new \PapayaCacheService_TestProxy();
     $this->assertSame(
       $expected,
       $service->_serializeParameters($parameters)
@@ -105,7 +105,7 @@ class PapayaCacheServiceTest extends PapayaTestCase {
    * @param array $expected
    */
   public function testGetCacheIdentification($group, $identifier, $parameters, array $expected) {
-    $service = new PapayaCacheService_TestProxy();
+    $service = new \PapayaCacheService_TestProxy();
     $this->assertSame(
       $expected,
       $service->_getCacheIdentification($group, $identifier, $parameters)
@@ -120,7 +120,7 @@ class PapayaCacheServiceTest extends PapayaTestCase {
    * @param mixed $parameters
    */
   public function testGetCacheIdentificationExpectingError($group, $identifier, $parameters) {
-    $service = new PapayaCacheService_TestProxy();
+    $service = new \PapayaCacheService_TestProxy();
     $this->expectException(InvalidArgumentException::class);
     $service->_getCacheIdentification($group, $identifier, $parameters);
   }

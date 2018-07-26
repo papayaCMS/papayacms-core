@@ -18,34 +18,34 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaPluginEditorTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaPluginEditor::__construct
-   * @covers PapayaPluginEditor::getContent
+   * @covers \PapayaPluginEditor::__construct
+   * @covers \PapayaPluginEditor::getContent
    */
   public function testConstructorAndGetContent() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
     $content = $this->createMock(PapayaPluginEditableContent::class);
-    $editor = new PapayaPluginEditor_TestProxy($content);
+    $editor = new \PapayaPluginEditor_TestProxy($content);
     $this->assertSame($content, $editor->getData());
   }
 
   /**
-   * @covers PapayaPluginEditor::context
+   * @covers \PapayaPluginEditor::context
    */
   public function testContextGetAfterSet() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
     $content = $this->createMock(PapayaPluginEditableContent::class);
-    $editor = new PapayaPluginEditor_TestProxy($content);
+    $editor = new \PapayaPluginEditor_TestProxy($content);
     $editor->context($context = $this->createMock(PapayaRequestParameters::class));
     $this->assertSame($context, $editor->context());
   }
 
   /**
-   * @covers PapayaPluginEditor::context
+   * @covers \PapayaPluginEditor::context
    */
   public function testContextGetImplicitCreate() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
     $content = $this->createMock(PapayaPluginEditableContent::class);
-    $editor = new PapayaPluginEditor_TestProxy($content);
+    $editor = new \PapayaPluginEditor_TestProxy($content);
     $this->assertInstanceOf(PapayaRequestParameters::class, $editor->context());
   }
 

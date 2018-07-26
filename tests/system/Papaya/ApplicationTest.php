@@ -21,7 +21,7 @@ require_once __DIR__.'/../../bootstrap.php';
 class PapayaApplicationTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaApplication::getInstance
+  * @covers \PapayaApplication::getInstance
   */
   public function testGetInstanceOneInstance() {
     $app1 = PapayaApplication::getInstance();
@@ -35,7 +35,7 @@ class PapayaApplicationTest extends PapayaTestCase {
     );
   }
   /**
-  * @covers PapayaApplication::getInstance
+  * @covers \PapayaApplication::getInstance
   */
   public function testGetInstanceTwoInstances() {
     $app1 = PapayaApplication::getInstance();
@@ -50,7 +50,7 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::registerProfiles
+  * @covers \PapayaApplication::registerProfiles
   */
   public function testRegisterProfiles() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profile */
@@ -61,7 +61,7 @@ class PapayaApplicationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getProfiles')
       ->will($this->returnValue(array('SampleClass' => $profile)));
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfiles($profiles);
     $this->assertSame(
       array('sampleclass' => $profile),
@@ -70,12 +70,12 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::registerProfile
+  * @covers \PapayaApplication::registerProfile
   */
   public function testRegisterProfile() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profile */
     $profile = $this->createMock(Profile::class);
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profile);
     $this->assertSame(
       array('sampleclass' => $profile),
@@ -84,10 +84,10 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::registerProfile
+  * @covers \PapayaApplication::registerProfile
   */
   public function testRegisterProfileUsingCallable() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profile = array($this, 'callbackCreateObject'));
     $this->assertSame(
       array('sampleclass' => $profile),
@@ -100,24 +100,24 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::registerProfile
+  * @covers \PapayaApplication::registerProfile
   */
   public function testRegisterProfileWithInvalidProfileExpectingException() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $this->expectException(InvalidArgumentException::class);
     /** @noinspection PhpParamsInspection */
     $app->registerProfile('SampleClass', new stdClass());
   }
 
   /**
-  * @covers PapayaApplication::registerProfile
+  * @covers \PapayaApplication::registerProfile
   */
   public function testRegisterProfileDuplicateIgnore() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profileOne */
     $profileOne = $this->createMock(Profile::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profileTwo */
     $profileTwo = $this->createMock(Profile::class);
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profileOne);
     $app->registerProfile('SampleClass', $profileTwo, PapayaApplication::DUPLICATE_IGNORE);
     $this->assertSame(
@@ -127,14 +127,14 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::registerProfile
+  * @covers \PapayaApplication::registerProfile
   */
   public function testRegisterProfileDuplicateOverwrite() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profileOne */
     $profileOne = $this->createMock(Profile::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profileTwo */
     $profileTwo = $this->createMock(Profile::class);
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profileOne);
     $app->registerProfile('SampleClass', $profileTwo, PapayaApplication::DUPLICATE_OVERWRITE);
     $this->assertSame(
@@ -144,14 +144,14 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::registerProfile
+  * @covers \PapayaApplication::registerProfile
   */
   public function testRegisterProfileDuplicateError() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profileOne */
     $profileOne = $this->createMock(Profile::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profileTwo */
     $profileTwo = $this->createMock(Profile::class);
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profileOne);
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Duplicate application object profile:');
@@ -159,11 +159,11 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::getObject
+  * @covers \PapayaApplication::getObject
   */
   public function testGetObjectAfterSet() {
     $object = new stdClass();
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->setObject('SAMPLE', $object);
     $this->assertSame(
       $object,
@@ -172,17 +172,17 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::getObject
+  * @covers \PapayaApplication::getObject
   */
   public function testGetObjectWithoutSetExpectingError() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Unknown profile identifier:');
     $app->getObject('SAMPLE');
   }
 
   /**
-  * @covers PapayaApplication::getObject
+  * @covers \PapayaApplication::getObject
   */
   public function testGetObjectWithProfile() {
     $object = new stdClass();
@@ -192,7 +192,7 @@ class PapayaApplicationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('createObject')
       ->will($this->returnValue($object));
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profile);
     $this->assertSame(
       $object,
@@ -201,10 +201,10 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::getObject
+  * @covers \PapayaApplication::getObject
   */
   public function testGetObjectWithCallable() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', array($this, 'callbackCreateObject'));
     $this->assertInstanceOf(
       stdClass::class,
@@ -213,11 +213,11 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::setObject
+  * @covers \PapayaApplication::setObject
   */
   public function testSetObject() {
     $object = new stdClass();
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->setObject(stdClass::class, $object);
     $this->assertSame(
       array('stdclass' => $object),
@@ -226,10 +226,10 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::setObject
+  * @covers \PapayaApplication::setObject
   */
   public function testSetObjectDuplicateError() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->setObject('SampleClass', new stdClass());
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('Application object does already exists:');
@@ -237,11 +237,11 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::setObject
+  * @covers \PapayaApplication::setObject
   */
   public function testSetObjectDuplicateIgnore() {
     $objectOne = new stdClass();
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->setObject('SampleClass', $objectOne);
     $app->setObject('SampleClass', new stdClass(), PapayaApplication::DUPLICATE_IGNORE);
     $this->assertSame(
@@ -251,11 +251,11 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::setObject
+  * @covers \PapayaApplication::setObject
   */
   public function testSetObjectDuplicateOverwrite() {
     $objectTwo = new stdClass();
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->setObject('SampleClass', new stdClass());
     $app->setObject('SampleClass', $objectTwo, PapayaApplication::DUPLICATE_OVERWRITE);
     $this->assertSame(
@@ -265,20 +265,20 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::hasObject
+  * @covers \PapayaApplication::hasObject
   */
   public function testHasObjectExpectingFalse() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $this->assertFalse(
       $app->hasObject('SampleClass')
     );
   }
 
   /**
-  * @covers PapayaApplication::hasObject
+  * @covers \PapayaApplication::hasObject
   */
   public function testHasObjectExpectingTrue() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->setObject('SampleClass', new stdClass());
     $this->assertTrue(
       $app->hasObject('SampleClass')
@@ -286,12 +286,12 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::hasObject
+  * @covers \PapayaApplication::hasObject
   */
   public function testHasObjectWithProfileExpectingTrue() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profile */
     $profile = $this->createMock(Profile::class);
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profile);
     $this->assertTrue(
       $app->hasObject('SampleClass')
@@ -299,12 +299,12 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::hasObject
+  * @covers \PapayaApplication::hasObject
   */
   public function testHasObjectWithProfileExpectingFalse() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profile */
     $profile = $this->createMock(Profile::class);
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profile);
     $this->assertFalse(
       $app->hasObject('SampleClass', FALSE)
@@ -312,12 +312,12 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::removeObject
+  * @covers \PapayaApplication::removeObject
   */
   public function testRemoveObjectKeepsProfile() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profile */
     $profile = $this->createMock(Profile::class);
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profile);
     /** @noinspection PhpUndefinedFieldInspection */
     $app->sampleClass = new stdClass();
@@ -331,10 +331,10 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::removeObject
+  * @covers \PapayaApplication::removeObject
   */
   public function testRemoveObject() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     /** @noinspection PhpUndefinedFieldInspection */
     $app->sampleClass = new stdClass();
     $app->removeObject('SampleClass');
@@ -342,28 +342,28 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::removeObject
+  * @covers \PapayaApplication::removeObject
   */
   public function testRemoveObjectWhileOnlyProfileExists() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profile */
     $profile = $this->createMock(Profile::class);
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profile);
     $app->removeObject('SampleClass');
     $this->assertTrue($app->hasObject('SampleClass'));
   }
 
   /**
-  * @covers PapayaApplication::removeObject
+  * @covers \PapayaApplication::removeObject
   */
   public function testRemoveObjectUnknownExpectingException() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $this->expectException(InvalidArgumentException::class);
     $app->removeObject('SampleClass');
   }
 
   /**
-  * @covers PapayaApplication::__get
+  * @covers \PapayaApplication::__get
   */
   public function testMagicMethodGetWithProfile() {
     $object = new stdClass();
@@ -373,7 +373,7 @@ class PapayaApplicationTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('createObject')
       ->will($this->returnValue($object));
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profile);
     /** @noinspection PhpUndefinedFieldInspection */
     $this->assertSame(
@@ -383,11 +383,11 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::__set
+  * @covers \PapayaApplication::__set
   */
   public function testMagicMethodSet() {
     $object = new stdClass();
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     /** @noinspection PhpUndefinedFieldInspection */
     $app->stdClass = $object;
     $this->assertSame(
@@ -397,22 +397,22 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::__set
+  * @covers \PapayaApplication::__set
   */
   public function testMagicMethodSetWithInvalidValueExpectingException() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $this->expectException(UnexpectedValueException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $app->propertyName = 'INVALID_VALUE';
   }
 
   /**
-  * @covers PapayaApplication::__isset
+  * @covers \PapayaApplication::__isset
   */
   public function testMagicMethodIssetWithProfileExpectingTrue() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profile */
     $profile = $this->createMock(Profile::class);
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profile);
     $this->assertTrue(
       isset($app->SampleClass)
@@ -420,10 +420,10 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::__call
+  * @covers \PapayaApplication::__call
   */
   public function testMagicMethodCall() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     /** @noinspection PhpUndefinedMethodInspection */
     $app->sampleClass($sample = new stdClass());
     /** @noinspection PhpUndefinedMethodInspection */
@@ -431,12 +431,12 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::offsetExists
+  * @covers \PapayaApplication::offsetExists
   */
   public function testOffsetExistsExpectingTrue() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Profile $profile */
     $profile = $this->createMock(Profile::class);
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app->registerProfile('SampleClass', $profile);
     $this->assertTrue(
       isset($app['SampleClass'])
@@ -444,21 +444,21 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::offsetExists
+  * @covers \PapayaApplication::offsetExists
   */
   public function testOffsetExistsExpectingFalse() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $this->assertFalse(
       isset($app['SampleClass'])
     );
   }
 
   /**
-  * @covers PapayaApplication::offsetSet
-  * @covers PapayaApplication::offsetGet
+  * @covers \PapayaApplication::offsetSet
+  * @covers \PapayaApplication::offsetGet
   */
   public function testOffsetGetAfterSet() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app['SampleClass'] = $object = new stdClass();
     $this->assertSame(
       $object, $app['SampleClass']
@@ -466,10 +466,10 @@ class PapayaApplicationTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaApplication::offsetUnset
+  * @covers \PapayaApplication::offsetUnset
   */
   public function testOffsetUnset() {
-    $app = new PapayaApplication();
+    $app = new \PapayaApplication();
     $app['SampleClass'] = new stdClass();
     unset($app['SampleClass']);
     $this->assertFalse(

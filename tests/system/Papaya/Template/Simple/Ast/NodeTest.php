@@ -18,18 +18,18 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaTemplateSimpleAstNodeTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaTemplateSimpleAstNode::__get
+   * @covers \PapayaTemplateSimpleAstNode::__get
    */
   public function testReadProperty() {
-    $node = new PapayaTemplateSimpleAstNode_TestProxy();
+    $node = new \PapayaTemplateSimpleAstNode_TestProxy();
     $this->assertEquals('bar', $node->foo);
   }
 
   /**
-   * @covers PapayaTemplateSimpleAstNode::__get
+   * @covers \PapayaTemplateSimpleAstNode::__get
    */
   public function testPropertyReadUnknownPropertyExpectingException() {
-    $node = new PapayaTemplateSimpleAstNode_TestProxy();
+    $node = new \PapayaTemplateSimpleAstNode_TestProxy();
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('Unknown property: PapayaTemplateSimpleAstNode_TestProxy::$UNKNOWN');
     /** @noinspection PhpUndefinedFieldInspection */
@@ -37,21 +37,21 @@ class PapayaTemplateSimpleAstNodeTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaTemplateSimpleAstNode::__set
+   * @covers \PapayaTemplateSimpleAstNode::__set
    */
   public function testPropertyWriteThrowsException() {
-    $node = new PapayaTemplateSimpleAstNode_TestProxy();
+    $node = new \PapayaTemplateSimpleAstNode_TestProxy();
     $this->expectException(LogicException::class);
     $node->foo = 23;
   }
 
   /**
-   * @covers PapayaTemplateSimpleAstNode::accept
+   * @covers \PapayaTemplateSimpleAstNode::accept
    */
   public function testAccept() {
-    $node = new PapayaTemplateSimpleAstNode_TestProxy();
+    $node = new \PapayaTemplateSimpleAstNode_TestProxy();
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaTemplateSimpleVisitor $visitor */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaTemplateSimpleVisitor $visitor */
     $visitor = $this->createMock(PapayaTemplateSimpleVisitor::class);
     $visitor
       ->expects($this->once())

@@ -94,7 +94,7 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
   * @covers Counter::lazyLoad
   */
   public function testGetDependencies() {
-    $counter = new PapayaAdministrationPagesDependencyCounter_TestProxy(42);
+    $counter = new \PapayaAdministrationPagesDependencyCounter_TestProxy(42);
     $this->assertEquals(
       21, $counter->getDependencies()
     );
@@ -105,7 +105,7 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
   * @covers Counter::lazyLoad
   */
   public function testGetReferences() {
-    $counter = new PapayaAdministrationPagesDependencyCounter_TestProxy(42);
+    $counter = new \PapayaAdministrationPagesDependencyCounter_TestProxy(42);
     $this->assertEquals(
       23, $counter->getReferences()
     );
@@ -120,7 +120,7 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
    * @param int $references
    */
   public function testGetLabel($expected, $dependencies, $references) {
-    $counter = new PapayaAdministrationPagesDependencyCounter_TestProxy(42);
+    $counter = new \PapayaAdministrationPagesDependencyCounter_TestProxy(42);
     $counter->countingSamples = array(
       'dependencies' => $dependencies,
       'references' => $references
@@ -131,7 +131,7 @@ class PapayaAdministrationPagesDependencyCounterTest extends PapayaTestCase {
   }
 
   public function testGetLabelWithAllParameters() {
-    $counter = new PapayaAdministrationPagesDependencyCounter_TestProxy(42);
+    $counter = new \PapayaAdministrationPagesDependencyCounter_TestProxy(42);
     $counter->countingSamples = array(
       'dependencies' => 21,
       'references' => 23

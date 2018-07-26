@@ -55,7 +55,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_box', 42))
       ->will($this->returnValue($databaseResult));
-    $box = new PapayaContentBox_TestProxy();
+    $box = new \PapayaContentBox_TestProxy();
     $box->setDatabaseAccess($databaseAccess);
     $box->translations($translations);
     $this->assertTrue(
@@ -90,7 +90,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_box', 42))
       ->will($this->returnValue(FALSE));
-    $box = new PapayaContentBox_TestProxy();
+    $box = new \PapayaContentBox_TestProxy();
     $box->setDatabaseAccess($databaseAccess);
     $this->assertFalse(
       $box->load(42)
@@ -102,7 +102,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   */
   public function testTranslationsSet() {
     $translations = $this->createMock(Translations::class);
-    $box = new PapayaContentBox_TestProxy();
+    $box = new \PapayaContentBox_TestProxy();
     $box->translations($translations);
     $this->assertAttributeSame(
       $translations, '_translations', $box
@@ -114,7 +114,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   */
   public function testTranslationsGetAfterSet() {
     $translations = $this->createMock(Translations::class);
-    $box = new PapayaContentBox_TestProxy();
+    $box = new \PapayaContentBox_TestProxy();
     $box->translations($translations);
     $this->assertSame(
       $translations, $box->translations()
@@ -125,7 +125,7 @@ class PapayaContentBoxTest extends PapayaTestCase {
   * @covers Box::translations
   */
   public function testTranslationsGetImplicitCreate() {
-    $box = new PapayaContentBox_TestProxy();
+    $box = new \PapayaContentBox_TestProxy();
     $this->assertInstanceOf(
       Translations::class, $box->translations()
     );

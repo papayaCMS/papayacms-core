@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiListviewSubitemTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiListviewSubitem::getAlign
-  * @covers PapayaUiListviewSubitem::setAlign
+  * @covers \PapayaUiListviewSubitem::getAlign
+  * @covers \PapayaUiListviewSubitem::setAlign
   */
   public function testGetAlignAfterSetAlign() {
-    $subitem = new PapayaUiListviewSubitem_TestProxy();
+    $subitem = new \PapayaUiListviewSubitem_TestProxy();
     $subitem->setAlign(PapayaUiOptionAlign::RIGHT);
     $this->assertEquals(
       PapayaUiOptionAlign::RIGHT, $subitem->getAlign()
@@ -30,7 +30,7 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewSubitem::getAlign
+  * @covers \PapayaUiListviewSubitem::getAlign
   */
   public function testGetAlignFetchFromColumn() {
     $column = $this
@@ -75,7 +75,7 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
       ->expects($this->atLeastOnce())
       ->method('getListview')
       ->will($this->returnValue($listview));
-    $subitem = new PapayaUiListviewSubitem_TestProxy();
+    $subitem = new \PapayaUiListviewSubitem_TestProxy();
     $subitem->collection($subitems);
     $this->assertEquals(
       PapayaUiOptionAlign::CENTER, $subitem->getAlign()
@@ -83,7 +83,7 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewSubitem::getAlign
+  * @covers \PapayaUiListviewSubitem::getAlign
   */
   public function testGetAlignUseDefaultValue() {
     $listview = $this->createMock(PapayaUiListview::class);
@@ -115,7 +115,7 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
       ->expects($this->atLeastOnce())
       ->method('getListview')
       ->will($this->returnValue($listview));
-    $subitem = new PapayaUiListviewSubitem_TestProxy();
+    $subitem = new \PapayaUiListviewSubitem_TestProxy();
     $subitem->collection($subitems);
     $this->assertEquals(
       PapayaUiOptionAlign::LEFT, $subitem->getAlign()
@@ -123,10 +123,10 @@ class PapayaUiListviewSubitemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewSubitem::setActionParameters
+  * @covers \PapayaUiListviewSubitem::setActionParameters
   */
   public function testSetActionParameters() {
-    $subitem = new PapayaUiListviewSubitem_TestProxy();
+    $subitem = new \PapayaUiListviewSubitem_TestProxy();
     $subitem->setActionParameters(array('foo'));
     $this->assertAttributeEquals(
       array('foo'), '_actionParameters', $subitem

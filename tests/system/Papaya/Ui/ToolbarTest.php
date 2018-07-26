@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiToolbarTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiToolbar::elements
+  * @covers \PapayaUiToolbar::elements
   */
   public function testElementsGetAfterSet() {
-    $menu = new PapayaUiToolbar();
+    $menu = new \PapayaUiToolbar();
     $elements = $this
       ->getMockBuilder(PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($menu))
@@ -36,10 +36,10 @@ class PapayaUiToolbarTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbar::elements
+  * @covers \PapayaUiToolbar::elements
   */
   public function testElementsImplicitCreate() {
-    $menu = new PapayaUiToolbar();
+    $menu = new \PapayaUiToolbar();
     $this->assertInstanceOf(
       PapayaUiToolbarElements::class, $menu->elements()
     );
@@ -49,12 +49,12 @@ class PapayaUiToolbarTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbar::appendTo
+  * @covers \PapayaUiToolbar::appendTo
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $parent = $document->appendElement('sample');
-    $menu = new PapayaUiToolbar();
+    $menu = new \PapayaUiToolbar();
     $elements = $this
       ->getMockBuilder(PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($menu))
@@ -77,12 +77,12 @@ class PapayaUiToolbarTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbar::appendTo
+  * @covers \PapayaUiToolbar::appendTo
   */
   public function testAppendToWithoutElements() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $parent = $document->appendElement('sample');
-    $menu = new PapayaUiToolbar();
+    $menu = new \PapayaUiToolbar();
     $elements = $this
       ->getMockBuilder(PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($menu))

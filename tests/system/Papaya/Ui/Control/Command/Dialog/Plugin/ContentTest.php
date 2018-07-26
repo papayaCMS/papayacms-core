@@ -18,21 +18,21 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiControlCommandDialogPluginContentTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiControlCommandDialogPluginContent
+  * @covers \PapayaUiControlCommandDialogPluginContent
   */
   public function testConstructor() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
     $content = $this->createMock(PapayaPluginEditableContent::class);
-    $command = new PapayaUiControlCommandDialogPluginContent($content);
+    $command = new \PapayaUiControlCommandDialogPluginContent($content);
     $this->assertSame($content, $command->getContent());
   }
 
   /**
-  * @covers PapayaUiControlCommandDialogPluginContent
+  * @covers \PapayaUiControlCommandDialogPluginContent
   */
   public function testCreateDialog() {
-    $content = new PapayaPluginEditableContent(array('foo' => 'bar'));
-    $command = new PapayaUiControlCommandDialogPluginContent($content);
+    $content = new \PapayaPluginEditableContent(array('foo' => 'bar'));
+    $command = new \PapayaUiControlCommandDialogPluginContent($content);
     $this->assertEquals(
       (array)$content,
       (array)$command->dialog()->data
@@ -40,7 +40,7 @@ class PapayaUiControlCommandDialogPluginContentTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiControlCommandDialogPluginContent
+  * @covers \PapayaUiControlCommandDialogPluginContent
   */
   public function testAppendTo() {
     $dialog = $this->createMock(PapayaUiDialog::class);
@@ -56,15 +56,15 @@ class PapayaUiControlCommandDialogPluginContentTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
     $content = $this->createMock(PapayaPluginEditableContent::class);
-    $command = new PapayaUiControlCommandDialogPluginContent($content);
+    $command = new \PapayaUiControlCommandDialogPluginContent($content);
     $command->dialog($dialog);
     $command->getXml();
   }
 
   /**
-  * @covers PapayaUiControlCommandDialogPluginContent
+  * @covers \PapayaUiControlCommandDialogPluginContent
   */
   public function testAppendToWithSubmittedDialog() {
     $dialog = $this->createMock(PapayaUiDialog::class);
@@ -80,15 +80,15 @@ class PapayaUiControlCommandDialogPluginContentTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
     $content = $this->createMock(PapayaPluginEditableContent::class);
-    $command = new PapayaUiControlCommandDialogPluginContent($content);
+    $command = new \PapayaUiControlCommandDialogPluginContent($content);
     $command->dialog($dialog);
     $command->getXml();
   }
 
   /**
-  * @covers PapayaUiControlCommandDialogPluginContent
+  * @covers \PapayaUiControlCommandDialogPluginContent
   */
   public function testAppendToWithExecutedDialog() {
     $dialog = $this->createMock(PapayaUiDialog::class);
@@ -103,18 +103,18 @@ class PapayaUiControlCommandDialogPluginContentTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
     $content = $this->createMock(PapayaPluginEditableContent::class);
     $content
       ->expects($this->once())
       ->method('assign');
-    $command = new PapayaUiControlCommandDialogPluginContent($content);
+    $command = new \PapayaUiControlCommandDialogPluginContent($content);
     $command->dialog($dialog);
     $command->getXml();
   }
 
   /**
-  * @covers PapayaUiControlCommandDialogPluginContent
+  * @covers \PapayaUiControlCommandDialogPluginContent
   */
   public function testAppendToWithHideExecutedDialog() {
     $dialog = $this->createMock(PapayaUiDialog::class);
@@ -132,8 +132,8 @@ class PapayaUiControlCommandDialogPluginContentTest extends PapayaTestCase {
     $content
       ->expects($this->once())
       ->method('assign');
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaPluginEditableContent $content */
-    $command = new PapayaUiControlCommandDialogPluginContent($content);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
+    $command = new \PapayaUiControlCommandDialogPluginContent($content);
     $command->hideAfterSuccess(TRUE);
     $command->dialog($dialog);
     $command->getXml();

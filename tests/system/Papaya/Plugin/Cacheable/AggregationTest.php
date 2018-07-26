@@ -20,13 +20,13 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaPluginCacheableAggregationTest extends PapayaTestCase {
 
   public function testContentGetAfterSet() {
-    $plugin = new PapayaPluginCacheableAggregation_TestProxy();
+    $plugin = new \PapayaPluginCacheableAggregation_TestProxy();
     $plugin->cacheable($content = $this->createMock(Definition::class));
     $this->assertSame($content, $plugin->cacheable());
   }
 
   public function testContentGetWithImplicitCreate() {
-    $plugin = new PapayaPluginCacheableAggregation_TestProxy();
+    $plugin = new \PapayaPluginCacheableAggregation_TestProxy();
     $plugin->cacheDefinition = $this->createMock(Definition::class);
     $content = $plugin->cacheable();
     $this->assertInstanceOf(Definition::class, $content);
@@ -40,7 +40,7 @@ class PapayaPluginCacheableAggregation_TestProxy implements PapayaPluginCacheabl
   use PapayaPluginCacheableAggregation;
 
   /**
-   * @var PapayaTestCase
+   * @var \PapayaTestCase
    */
   public $cacheDefinition;
 

@@ -162,7 +162,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
       ->method('synchronize')
       ->with(array(21), 42, NULL);
     $synchronizations =
-      new PapayaAdministrationPagesDependencySynchronizations_TestProxy();
+      new \PapayaAdministrationPagesDependencySynchronizations_TestProxy();
     $synchronizations->actionMock = $action;
     $synchronizations->synchronizeDependency($dependency);
   }
@@ -177,7 +177,7 @@ class PapayaAdministrationPagesDependencySynchronizationsTest extends PapayaTest
       ->method('synchronize')
       ->with(array(21), 42, array(3, 4));
     $synchronizations =
-      new PapayaAdministrationPagesDependencySynchronizations_TestProxy();
+      new \PapayaAdministrationPagesDependencySynchronizations_TestProxy();
     $synchronizations->actionMock = $action;
     $synchronizations->targetsList = array(21);
     $synchronizations->synchronizeAction(

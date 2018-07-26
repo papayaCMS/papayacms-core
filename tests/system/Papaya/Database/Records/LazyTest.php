@@ -28,7 +28,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->never())
       ->method('queryFmt');
-    $records = new PapayaDatabaseRecordsLazy_TestProxy();
+    $records = new \PapayaDatabaseRecordsLazy_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $records->activateLazyLoad();
     $this->assertEquals(
@@ -49,7 +49,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
       ->method('getSqlCondition')
       ->with(array('field_id' => 21))
       ->will($this->returnValue('>>CONDITION>>'));
-    $records = new PapayaDatabaseRecordsLazy_TestProxy();
+    $records = new \PapayaDatabaseRecordsLazy_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $records->activateLazyLoad(array('id' => 21));
     $this->assertEquals(
@@ -68,7 +68,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   */
   public function testLoadIsOnlyCalledOnce() {
     $databaseAccess = $this->getDatabaseAccessFixture();
-    $records = new PapayaDatabaseRecordsLazy_TestProxy();
+    $records = new \PapayaDatabaseRecordsLazy_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $records->activateLazyLoad();
     $records->toArray();
@@ -111,7 +111,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
       ->withAnyParameters()
       ->will($this->returnValue($databaseResult));
 
-    $records = new PapayaDatabaseRecordsLazy_TestProxy();
+    $records = new \PapayaDatabaseRecordsLazy_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $records->activateLazyLoad();
     $this->assertEquals(7, $records->absCount());
@@ -121,7 +121,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   * @covers Lazy::toArray
   */
   public function testToArray() {
-    $records = new PapayaDatabaseRecordsLazy_TestProxy();
+    $records = new \PapayaDatabaseRecordsLazy_TestProxy();
     $records->setDatabaseAccess($this->getDatabaseAccessFixture());
     $records->activateLazyLoad();
     $this->assertEquals(
@@ -139,7 +139,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   * @covers Lazy::getIterator
   */
   public function testGetIterator() {
-    $records = new PapayaDatabaseRecordsLazy_TestProxy();
+    $records = new \PapayaDatabaseRecordsLazy_TestProxy();
     $records->setDatabaseAccess($this->getDatabaseAccessFixture());
     $records->activateLazyLoad();
     $this->assertEquals(
@@ -157,7 +157,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   * @covers Lazy::count
   */
   public function testCount() {
-    $records = new PapayaDatabaseRecordsLazy_TestProxy();
+    $records = new \PapayaDatabaseRecordsLazy_TestProxy();
     $records->setDatabaseAccess($this->getDatabaseAccessFixture());
     $records->activateLazyLoad();
     $this->assertCount(
@@ -169,7 +169,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   * @covers Lazy::offsetExists
   */
   public function testOffsetExists() {
-    $records = new PapayaDatabaseRecordsLazy_TestProxy();
+    $records = new \PapayaDatabaseRecordsLazy_TestProxy();
     $records->setDatabaseAccess($this->getDatabaseAccessFixture());
     $records->activateLazyLoad();
     $this->assertTrue(isset($records[21]));
@@ -179,7 +179,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   * @covers Lazy::offsetGet
   */
   public function testOffsetGet() {
-    $records = new PapayaDatabaseRecordsLazy_TestProxy();
+    $records = new \PapayaDatabaseRecordsLazy_TestProxy();
     $records->setDatabaseAccess($this->getDatabaseAccessFixture());
     $records->activateLazyLoad();
     $this->assertEquals(
@@ -195,7 +195,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   * @covers Lazy::offsetSet
   */
   public function testOffsetSet() {
-    $records = new PapayaDatabaseRecordsLazy_TestProxy();
+    $records = new \PapayaDatabaseRecordsLazy_TestProxy();
     $records->setDatabaseAccess($this->getDatabaseAccessFixture());
     $records->activateLazyLoad();
     $records[42] = array(
@@ -221,7 +221,7 @@ class PapayaDatabaseRecordsLazyTest extends PapayaTestCase {
   * @covers Lazy::offsetUnset
   */
   public function testOffsetUnset() {
-    $records = new PapayaDatabaseRecordsLazy_TestProxy();
+    $records = new \PapayaDatabaseRecordsLazy_TestProxy();
     $records->setDatabaseAccess($this->getDatabaseAccessFixture());
     $records->activateLazyLoad();
     unset($records[21]);

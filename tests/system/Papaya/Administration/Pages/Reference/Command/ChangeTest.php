@@ -172,7 +172,7 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends PapayaTestCase
       ->expects($this->once())
       ->method('getSourceCaptions')
       ->will($this->returnValue(array('field')));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiDialog $dialog */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialog $dialog */
     $dialog = $this->createMock(PapayaUiDialog::class);
     $dialog
       ->expects($this->once())

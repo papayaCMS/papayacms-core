@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiListviewSubitemEmptyTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiListviewSubitemEmpty::appendTo
+  * @covers \PapayaUiListviewSubitemEmpty::appendTo
   */
   public function testAppendTo() {
-    $subitem = new PapayaUiListviewSubitemEmpty();
+    $subitem = new \PapayaUiListviewSubitemEmpty();
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<subitem/>',

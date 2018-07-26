@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUtilStringXmlTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUtilStringXml::escape
+   * @covers \PapayaUtilStringXml::escape
    * @dataProvider escapeDataProvider
    * @param string $string
    * @param string $expected
@@ -31,7 +31,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringXml::unescape
+   * @covers \PapayaUtilStringXml::unescape
    * @dataProvider escapeDataProvider
    * @param string $string
    * @param string $expected
@@ -44,7 +44,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringXml::escapeAttribute
+   * @covers \PapayaUtilStringXml::escapeAttribute
    * @dataProvider escapeAttributeDataProvider
    * @param string $string
    * @param string $expected
@@ -57,7 +57,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringXml::repairEntities
+   * @covers \PapayaUtilStringXml::repairEntities
    * @backupGlobals disabled
    * @backupStaticAttributes disabled
    * @preserveGlobalState disabled
@@ -71,7 +71,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringXml::repairEntities
+   * @covers \PapayaUtilStringXml::repairEntities
    * @dataProvider getXhtmlDataToRepair
    * @param string $string
    * @param string $expected
@@ -84,8 +84,8 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringXml::serializeArray
-   * @covers PapayaUtilStringXml::_serializeSubArray
+   * @covers \PapayaUtilStringXml::serializeArray
+   * @covers \PapayaUtilStringXml::_serializeSubArray
    * @dataProvider provideSerializerArrayAndXml
    * @param string $expected
    * @param array $array
@@ -95,8 +95,8 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilStringXml::serializeArray
-  * @covers PapayaUtilStringXml::_serializeSubArray
+  * @covers \PapayaUtilStringXml::serializeArray
+  * @covers \PapayaUtilStringXml::_serializeSubArray
   */
   public function testSerializeArrayWithName() {
     $this->assertEquals(
@@ -106,8 +106,8 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringXml::unserializeArray
-   * @covers PapayaUtilStringXml::_unserializeArrayFromNode
+   * @covers \PapayaUtilStringXml::unserializeArray
+   * @covers \PapayaUtilStringXml::_unserializeArrayFromNode
    * @dataProvider provideSerializerArrayAndXml
    * @param string $xml
    * @param string $expected
@@ -117,15 +117,15 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilStringXml::unserializeArray
+  * @covers \PapayaUtilStringXml::unserializeArray
   */
   public function testDeserializeArrayWithEmptyString() {
     $this->assertEquals(array(), PapayaUtilStringXml::unserializeArray(''));
   }
 
   /**
-   * @covers PapayaUtilStringXml::unserializeArray
-   * @covers PapayaUtilStringXml::decodeOldEntitiesToUtf8
+   * @covers \PapayaUtilStringXml::unserializeArray
+   * @covers \PapayaUtilStringXml::decodeOldEntitiesToUtf8
    * @dataProvider provideOldEncodedEntities
    * @param array $expected
    * @param string $entities
@@ -141,8 +141,8 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilStringXml::unserializeArray
-  * @covers PapayaUtilStringXml::_unserializeArrayFromNode
+  * @covers \PapayaUtilStringXml::unserializeArray
+  * @covers \PapayaUtilStringXml::_unserializeArrayFromNode
   */
   public function testDeserializeWithOldEscapingAndDoubleEscapedData() {
     $this->assertEquals(
@@ -155,8 +155,8 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilStringXml::unserializeArray
-  * @covers PapayaUtilStringXml::_unserializeArrayFromNode
+  * @covers \PapayaUtilStringXml::unserializeArray
+  * @covers \PapayaUtilStringXml::_unserializeArrayFromNode
   */
   public function testDeserializeListWithOldEscapingAndDoubleEscapedData() {
     $this->assertEquals(
@@ -173,9 +173,9 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringXml::truncate
-   * @covers PapayaUtilStringXml::_truncateChildNodes
-   * @covers PapayaUtilStringXml::_copyElement
+   * @covers \PapayaUtilStringXml::truncate
+   * @covers \PapayaUtilStringXml::_truncateChildNodes
+   * @covers \PapayaUtilStringXml::_copyElement
    * @dataProvider provideTruncateXml
    * @param string $expected
    * @param string $xml
@@ -191,7 +191,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringXml::isQName
+   * @covers \PapayaUtilStringXml::isQName
    * @dataProvider provideValidQualifiedNames
    * @param string $qualifiedName
    */
@@ -200,7 +200,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringXml::isQName
+   * @covers \PapayaUtilStringXml::isQName
    */
   public function testIsQNameWithEmptyNameExpectingException() {
     $this->expectException(UnexpectedValueException::class);
@@ -208,7 +208,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringXml::isNcName
+   * @covers \PapayaUtilStringXml::isNcName
    * @dataProvider provideValidNcNames
    * @param string $tagName
    * @param int $offset
@@ -219,7 +219,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringXml::isNcName
+   * @covers \PapayaUtilStringXml::isNcName
    */
   public function testIsNcNameWithEmptyTagnameExpectingException() {
     $this->expectException(UnexpectedValueException::class);
@@ -228,7 +228,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringXml::isNcName
+   * @covers \PapayaUtilStringXml::isNcName
    */
   public function testIsNcNameWithInvalidTagnameCharExpectingException() {
     $this->expectException(UnexpectedValueException::class);
@@ -237,7 +237,7 @@ class PapayaUtilStringXmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringXml::isNcName
+   * @covers \PapayaUtilStringXml::isNcName
    */
   public function testIsNcNameWithInvalidTagnameStartingCharExpectingException() {
     $this->expectException(UnexpectedValueException::class);

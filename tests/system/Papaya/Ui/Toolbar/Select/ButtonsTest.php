@@ -18,12 +18,12 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiToolbarSelectButtonsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiToolbarSelectButtons::appendTo
+  * @covers \PapayaUiToolbarSelectButtons::appendTo
   */
   public function testAppendToWithCurrentValue() {
-    $document = new PapayaXmlDocument;
+    $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $select = new PapayaUiToolbarSelectButtons('foo', array(10 => '10', 20 => '20', 50 => '50'));
+    $select = new \PapayaUiToolbarSelectButtons('foo', array(10 => '10', 20 => '20', 50 => '50'));
     $select->papaya($this->mockPapaya()->application());
     $select->currentValue = 20;
     $select->appendTo($document->documentElement);
@@ -39,12 +39,12 @@ class PapayaUiToolbarSelectButtonsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarSelectButtons::appendTo
+  * @covers \PapayaUiToolbarSelectButtons::appendTo
   */
   public function testAppendToWithAdditionalParameters() {
-    $document = new PapayaXmlDocument;
+    $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $select = new PapayaUiToolbarSelectButtons(
+    $select = new \PapayaUiToolbarSelectButtons(
       'foo/size', array(10 => '10', 20 => '20', 50 => '50')
     );
     $select->papaya($this->mockPapaya()->application());
@@ -62,7 +62,7 @@ class PapayaUiToolbarSelectButtonsTest extends PapayaTestCase {
   }
 
   public function testAppendToWithImages() {
-    $select = new PapayaUiToolbarSelectButtons(
+    $select = new \PapayaUiToolbarSelectButtons(
       'foo/size',
       array(
         'first' => array('caption' => 'First', 'image' => 'first-image'),

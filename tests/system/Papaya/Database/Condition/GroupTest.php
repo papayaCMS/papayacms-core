@@ -26,7 +26,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
    */
   public function testConstructorWithDatabaseAccess() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $group = new PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
+    $group = new \PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
     $this->assertNull($group->getParent());
     $this->assertSame($databaseAccess, $group->getDatabaseAccess());
   }
@@ -39,7 +39,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
     $mapping = $this
       ->getMockBuilder(Mapping::class)
       ->getMock();
-    $group = new PapayaDatabaseConditionGroup_TestProxy($databaseAccess, $mapping);
+    $group = new \PapayaDatabaseConditionGroup_TestProxy($databaseAccess, $mapping);
     $this->assertSame($mapping, $group->getMapping());
   }
 
@@ -54,7 +54,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getDatabaseAccess')
       ->will($this->returnValue($databaseAccess));
-    $group = new PapayaDatabaseConditionGroup_TestProxy($parent);
+    $group = new \PapayaDatabaseConditionGroup_TestProxy($parent);
     $this->assertNull($group->getParent());
     $this->assertSame($databaseAccess, $group->getDatabaseAccess());
   }
@@ -73,7 +73,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getDatabaseAccess')
       ->will($this->returnValue($databaseAccess));
-    $group = new PapayaDatabaseConditionGroup_TestProxy($parent);
+    $group = new \PapayaDatabaseConditionGroup_TestProxy($parent);
     $this->assertSame($parent, $group->getParent());
     $this->assertSame($databaseAccess, $group->getDatabaseAccess());
   }
@@ -84,7 +84,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
   public function testConstructorWithInvalidParent() {
     $this->expectException(InvalidArgumentException::class);
     /** @noinspection PhpParamsInspection */
-    new PapayaDatabaseConditionGroup_TestProxy(new stdClass());
+    new \PapayaDatabaseConditionGroup_TestProxy(new stdClass());
   }
 
   /**
@@ -96,7 +96,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
       ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $group = new PapayaDatabaseConditionGroup_TestProxy($parent);
+    $group = new \PapayaDatabaseConditionGroup_TestProxy($parent);
     $this->assertSame($parent, $group->end());
   }
 
@@ -105,7 +105,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
    */
   public function testCountWhileEmpty() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $group = new PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
+    $group = new \PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
     $this->assertCount(0, $group);
   }
 
@@ -114,7 +114,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
    */
   public function testCountTwoElements() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $group = new PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
+    $group = new \PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
     $group
       ->isEqual('foo', 'bar')
       ->isEqual('bar', 'foo');
@@ -126,7 +126,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
    */
   public function testGetIteratorWhileEmpty() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $group = new PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
+    $group = new \PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
     $this->assertEquals(array(), iterator_to_array($group));
   }
 
@@ -135,7 +135,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
    */
   public function testGetIteratorWithOneSubGroup() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $group = new PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
+    $group = new \PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
     $subGroup = $group->logicalAnd();
     $this->assertCount(1, iterator_to_array($group));
     $this->assertSame($group, $subGroup->end());
@@ -152,7 +152,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
       ->with(array('field' => 'value'))
       ->will($this->returnValue("field = 'value'"));
 
-    $group = new PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
+    $group = new \PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
     $group->isEqual('field', 'value');
     $this->assertEquals("(field = 'value')", $group->getSql());
   }
@@ -168,7 +168,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
       ->with(array('field' => 'value'))
       ->will($this->returnValue("field = 'value'"));
 
-    $group = new PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
+    $group = new \PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
     $group
       ->logicalOr()
         ->end()
@@ -190,7 +190,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
       ->with(array('field' => 'value'))
       ->will($this->returnValue("field = 'value'"));
 
-    $group = new PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
+    $group = new \PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
     $group
       ->logicalNot()
         ->isEqual('field', 'value')
@@ -204,7 +204,7 @@ class PapayaDatabaseConditionGroupTest extends PapayaTestCase {
    */
   public function testUnknownConditionCallExpectingException() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $group = new PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
+    $group = new \PapayaDatabaseConditionGroup_TestProxy($databaseAccess);
     $this->expectException(BadMethodCallException::class);
     /** @noinspection PhpUndefinedMethodInspection */
     $group->isUnknownCondition();

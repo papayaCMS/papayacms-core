@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUiDialogFieldFactoryProfileSelectFile
+   * @covers \PapayaUiDialogFieldFactoryProfileSelectFile
    */
   public function testGetField() {
     $context = $this->createMock(PapayaObjectInterface::class);
@@ -26,7 +26,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('papaya')
       ->will($this->returnValue($this->mockPapaya()->application()));
-    $options = new PapayaUiDialogFieldFactoryOptions(
+    $options = new \PapayaUiDialogFieldFactoryOptions(
       array(
         'name' => 'fileselect',
         'caption' => 'File',
@@ -35,14 +35,14 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
         'context' => $context
       )
     );
-    $profile = new PapayaUiDialogFieldFactoryProfileSelectFile();
+    $profile = new \PapayaUiDialogFieldFactoryProfileSelectFile();
     $profile->fileSystem($this->getFileSystemFixture(array('sample.txt')));
     $profile->options($options);
     $this->assertInstanceOf(PapayaUiDialogFieldSelect::class, $field = $profile->getField());
   }
 
   /**
-   * @covers PapayaUiDialogFieldFactoryProfileSelectFile
+   * @covers \PapayaUiDialogFieldFactoryProfileSelectFile
    */
   public function testGetFieldGetPathFromContext() {
     $context = $this->createMock(PapayaUiDialogFieldFactoryProfileSelectFile_TestContext::class);
@@ -50,7 +50,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getPath')
       ->will($this->returnValue('/sample/'));
-    $options = new PapayaUiDialogFieldFactoryOptions(
+    $options = new \PapayaUiDialogFieldFactoryOptions(
       array(
         'name' => 'fileselect',
         'caption' => 'File',
@@ -59,17 +59,17 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
         'context' => $context
       )
     );
-    $profile = new PapayaUiDialogFieldFactoryProfileSelectFile();
+    $profile = new \PapayaUiDialogFieldFactoryProfileSelectFile();
     $profile->fileSystem($this->getFileSystemFixture(array('sample.txt')));
     $profile->options($options);
     $this->assertInstanceOf(PapayaUiDialogFieldSelect::class, $field = $profile->getField());
   }
 
   /**
-   * @covers PapayaUiDialogFieldFactoryProfileSelectFile
+   * @covers \PapayaUiDialogFieldFactoryProfileSelectFile
    */
   public function testGetFieldWithFilter() {
-    $options = new PapayaUiDialogFieldFactoryOptions(
+    $options = new \PapayaUiDialogFieldFactoryOptions(
       array(
         'name' => 'fileselect',
         'caption' => 'File',
@@ -77,17 +77,17 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
         'parameters' => array('/', '(pattern)', '/sample/')
       )
     );
-    $profile = new PapayaUiDialogFieldFactoryProfileSelectFile();
+    $profile = new \PapayaUiDialogFieldFactoryProfileSelectFile();
     $profile->fileSystem($this->getFileSystemFixture(array('sample.txt'), '(pattern)'));
     $profile->options($options);
     $this->assertInstanceOf(PapayaUiDialogFieldSelect::class, $field = $profile->getField());
   }
 
   /**
-   * @covers PapayaUiDialogFieldFactoryProfileSelectFile
+   * @covers \PapayaUiDialogFieldFactoryProfileSelectFile
    */
   public function testGetFieldWithInvalidDirectoryExpectingMessageField() {
-    $options = new PapayaUiDialogFieldFactoryOptions(
+    $options = new \PapayaUiDialogFieldFactoryOptions(
       array(
         'name' => 'fileselect',
         'caption' => 'File',
@@ -95,17 +95,17 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
         'parameters' => array('/sample/')
       )
     );
-    $profile = new PapayaUiDialogFieldFactoryProfileSelectFile();
+    $profile = new \PapayaUiDialogFieldFactoryProfileSelectFile();
     $profile->fileSystem($this->getFileSystemFixture());
     $profile->options($options);
     $this->assertInstanceOf(PapayaUiDialogFieldMessage::class, $field = $profile->getField());
   }
 
   /**
-   * @covers PapayaUiDialogFieldFactoryProfileSelectFile
+   * @covers \PapayaUiDialogFieldFactoryProfileSelectFile
    */
   public function testGetFieldGroupsValues() {
-    $options = new PapayaUiDialogFieldFactoryOptions(
+    $options = new \PapayaUiDialogFieldFactoryOptions(
       array(
         'name' => 'fileselect',
         'caption' => 'File',
@@ -114,7 +114,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
         'parameters' => array('/sample/')
       )
     );
-    $profile = new PapayaUiDialogFieldFactoryProfileSelectFile();
+    $profile = new \PapayaUiDialogFieldFactoryProfileSelectFile();
     $profile->fileSystem(
       $this->getFileSystemFixture(
         array(
@@ -139,10 +139,10 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldFactoryProfileSelectFile
+   * @covers \PapayaUiDialogFieldFactoryProfileSelectFile
    */
   public function testGetFieldNotMandatoryExpectingEmptyElement() {
-    $options = new PapayaUiDialogFieldFactoryOptions(
+    $options = new \PapayaUiDialogFieldFactoryOptions(
       array(
         'name' => 'fileselect',
         'caption' => 'File',
@@ -151,7 +151,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
         'parameters' => array('/sample/')
       )
     );
-    $profile = new PapayaUiDialogFieldFactoryProfileSelectFile();
+    $profile = new \PapayaUiDialogFieldFactoryProfileSelectFile();
     $profile->fileSystem(
       $this->getFileSystemFixture(
         array(
@@ -177,19 +177,19 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldFactoryProfileSelectFile::fileSystem
+   * @covers \PapayaUiDialogFieldFactoryProfileSelectFile::fileSystem
    */
   public function testFileSystemGetAfterSet() {
-    $profile = new PapayaUiDialogFieldFactoryProfileSelectFile();
+    $profile = new \PapayaUiDialogFieldFactoryProfileSelectFile();
     $profile->fileSystem($fileSystem = $this->createMock(PapayaFileSystemFactory::class));
     $this->assertSame($fileSystem, $profile->fileSystem());
   }
 
   /**
-   * @covers PapayaUiDialogFieldFactoryProfileSelectFile::fileSystem
+   * @covers \PapayaUiDialogFieldFactoryProfileSelectFile::fileSystem
    */
   public function testFileSystemGetImplicitCreate() {
-    $profile = new PapayaUiDialogFieldFactoryProfileSelectFile();
+    $profile = new \PapayaUiDialogFieldFactoryProfileSelectFile();
     $this->assertInstanceOf(PapayaFileSystemFactory::class, $profile->fileSystem());
   }
 

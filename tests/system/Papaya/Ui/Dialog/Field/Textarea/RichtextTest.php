@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldTextareaRichtextTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUiDialogFieldTextareaRichtext::__construct
+   * @covers \PapayaUiDialogFieldTextareaRichtext::__construct
    */
   public function testConstructorSettingRteMode() {
-    $richtext = new PapayaUiDialogFieldTextareaRichtext(
+    $richtext = new \PapayaUiDialogFieldTextareaRichtext(
       'Caption', 'name', 12, NULL, NULL, PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE
     );
     $this->assertEquals(
@@ -30,10 +30,10 @@ class PapayaUiDialogFieldTextareaRichtextTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldTextareaRichtext::appendTo
+   * @covers \PapayaUiDialogFieldTextareaRichtext::appendTo
    */
   public function testAppendTo() {
-    $richtext = new PapayaUiDialogFieldTextareaRichtext('Caption', 'name');
+    $richtext = new \PapayaUiDialogFieldTextareaRichtext('Caption', 'name');
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<field caption="Caption" class="DialogFieldTextareaRichtext" error="no">
@@ -45,10 +45,10 @@ class PapayaUiDialogFieldTextareaRichtextTest extends PapayaTestCase {
 
 
   /**
-   * @covers PapayaUiDialogFieldTextareaRichtext::appendTo
+   * @covers \PapayaUiDialogFieldTextareaRichtext::appendTo
    */
   public function testAppendToWithAllParameters() {
-    $richtext = new PapayaUiDialogFieldTextareaRichtext(
+    $richtext = new \PapayaUiDialogFieldTextareaRichtext(
       'Caption', 'name', 12, NULL, NULL, PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE
     );
     $this->assertXmlStringEqualsXmlString(
@@ -61,11 +61,11 @@ class PapayaUiDialogFieldTextareaRichtextTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldTextareaRichtext::setRteMode
-   * @covers PapayaUiDialogFieldTextareaRichtext::getRteMode
+   * @covers \PapayaUiDialogFieldTextareaRichtext::setRteMode
+   * @covers \PapayaUiDialogFieldTextareaRichtext::getRteMode
    */
   public function testGetRteModeAfterSetRteMode() {
-    $richtext = new PapayaUiDialogFieldTextareaRichtext('Caption', 'name');
+    $richtext = new \PapayaUiDialogFieldTextareaRichtext('Caption', 'name');
     $richtext->setRteMode(PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE);
     $this->assertEquals(
       PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE, $richtext->getRteMode()

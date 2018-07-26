@@ -18,14 +18,14 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiListviewItemPagingUpTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUiListviewItemPagingUp::getPages
+   * @covers \PapayaUiListviewItemPagingUp::getPages
    * @dataProvider provideDataForPageCalculations
    * @param array $expected
    * @param int $currentPage
    * @param int $itemsPerPage
    */
   public function testGetPages($expected, $currentPage, $itemsPerPage) {
-    $item = new PapayaUiListviewItemPagingUp('page', $currentPage, $itemsPerPage);
+    $item = new \PapayaUiListviewItemPagingUp('page', $currentPage, $itemsPerPage);
     $this->assertEquals(
       $expected,
       $item->getPages()
@@ -33,10 +33,10 @@ class PapayaUiListviewItemPagingUpTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewItemPagingUp::getImagePage
+  * @covers \PapayaUiListviewItemPagingUp::getImagePage
   */
   public function testGetImagePage() {
-    $item = new PapayaUiListviewItemPagingUp('page', 2, 40);
+    $item = new \PapayaUiListviewItemPagingUp('page', 2, 40);
     $this->assertEquals(
       3,
       $item->getImagePage()
@@ -44,10 +44,10 @@ class PapayaUiListviewItemPagingUpTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewItemPagingUp::getImagePage
+  * @covers \PapayaUiListviewItemPagingUp::getImagePage
   */
   public function testGetImagePageExpectingDefault() {
-    $item = new PapayaUiListviewItemPagingUp('page', 8, 50);
+    $item = new \PapayaUiListviewItemPagingUp('page', 8, 50);
     $this->assertEquals(
       5,
       $item->getImagePage()

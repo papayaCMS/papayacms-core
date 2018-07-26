@@ -18,42 +18,42 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterStringNormalizeTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaFilterStringNormalize
+   * @covers \PapayaFilterStringNormalize
    */
   public function testValidateExpectingTrue() {
-    $filter = new PapayaFilterStringNormalize();
+    $filter = new \PapayaFilterStringNormalize();
     $this->assertTrue(
       $filter->validate('foo')
     );
   }
 
   /**
-   * @covers PapayaFilterStringNormalize
+   * @covers \PapayaFilterStringNormalize
    */
   public function testValidateWithEmptyValueExpectingException() {
-    $filter = new PapayaFilterStringNormalize();
+    $filter = new \PapayaFilterStringNormalize();
     $this->expectException(PapayaFilterExceptionEmpty::class);
     $filter->validate('');
   }
 
   /**
-   * @covers PapayaFilterStringNormalize
+   * @covers \PapayaFilterStringNormalize
    */
   public function testValidateWithArrayValueExpectingException() {
-    $filter = new PapayaFilterStringNormalize();
+    $filter = new \PapayaFilterStringNormalize();
     $this->expectException(PapayaFilterExceptionType::class);
     $filter->validate(['foo']);
   }
 
   /**
-   * @covers PapayaFilterStringNormalize
+   * @covers \PapayaFilterStringNormalize
    * @dataProvider provideValuesToNormalize
    * @param string|NULL $expected
    * @param mixed $provided
    * @param int $options
    */
   public function testFilter($expected, $provided, $options = 0) {
-    $filter = new PapayaFilterStringNormalize($options);
+    $filter = new \PapayaFilterStringNormalize($options);
     $this->assertSame($expected, $filter->filter($provided));
   }
 

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogFieldInputSuggest::__construct
+  * @covers \PapayaUiDialogFieldInputSuggest::__construct
   */
   public function testConstructor() {
-    $input = new PapayaUiDialogFieldInputSuggest('Caption', 'name', 'www.example.com');
+    $input = new \PapayaUiDialogFieldInputSuggest('Caption', 'name', 'www.example.com');
     $suggestionData = array(
       'url' => 'www.example.com',
       'limit' => 10
@@ -38,11 +38,11 @@ class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputSuggest::__construct
+  * @covers \PapayaUiDialogFieldInputSuggest::__construct
   */
   public function testConstructorWithAllParameters() {
     $filter = $this->createMock(PapayaFilter::class);
-    $input = new PapayaUiDialogFieldInputSuggest(
+    $input = new \PapayaUiDialogFieldInputSuggest(
       'Caption', 'name', 'www.example.com', '50670', $filter
     );
     $this->assertAttributeEquals(
@@ -54,34 +54,34 @@ class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputSuggest::setType
-  * @covers PapayaUiDialogFieldInputSuggest::getType
+  * @covers \PapayaUiDialogFieldInputSuggest::setType
+  * @covers \PapayaUiDialogFieldInputSuggest::getType
   */
   public function testGetTypeAfterSetType() {
-    $input = new PapayaUiDialogFieldInputSuggest('Caption', 'name', 'www.example.com');
+    $input = new \PapayaUiDialogFieldInputSuggest('Caption', 'name', 'www.example.com');
     $input->setType('suggest');
     $this->assertEquals('suggest', $input->getType());
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputSuggest::setSuggestionUrl
-   * @covers PapayaUiDialogFieldInputSuggest::getSuggestionUrl
+   * @covers \PapayaUiDialogFieldInputSuggest::setSuggestionUrl
+   * @covers \PapayaUiDialogFieldInputSuggest::getSuggestionUrl
    */
   public function testGetSuggestionUrlAfterSetSuggestionUrl() {
     $url = 'www.example.com';
-    $input = new PapayaUiDialogFieldInputSuggest('Caption', 'name', $url);
+    $input = new \PapayaUiDialogFieldInputSuggest('Caption', 'name', $url);
     $input->setSuggestionUrl($url);
     $this->assertEquals($url, $input->getSuggestionUrl());
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputSuggest::appendTo
+  * @covers \PapayaUiDialogFieldInputSuggest::appendTo
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $input = new PapayaUiDialogFieldInputSuggest('Caption', 'name', 'www.example.com');
+    $input = new \PapayaUiDialogFieldInputSuggest('Caption', 'name', 'www.example.com');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);
@@ -99,13 +99,13 @@ class PapayaUiDialogFieldInputSuggestTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldInputSuggest::appendTo
+  * @covers \PapayaUiDialogFieldInputSuggest::appendTo
   */
   public function testAppendToWithDefaultValue() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $input = new PapayaUiDialogFieldInputSuggest('Caption', 'name', 'www.example.com');
+    $input = new \PapayaUiDialogFieldInputSuggest('Caption', 'name', 'www.example.com');
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $input->papaya($application);

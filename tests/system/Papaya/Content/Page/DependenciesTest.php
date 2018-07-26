@@ -82,7 +82,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   * @covers Dependencies::getDependency
   */
   public function testGetDependency() {
-    $dependencies = new PapayaContentPageDependencies_TestProxy();
+    $dependencies = new \PapayaContentPageDependencies_TestProxy();
     $dependency = $dependencies->getDependency(21);
     $this->assertInstanceOf(Dependency::class, $dependency);
     $this->assertAttributeEquals(
@@ -101,7 +101,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
   * @covers Dependencies::getDependency
   */
   public function testGetDependencyWithData() {
-    $dependencies = new PapayaContentPageDependencies_TestProxy();
+    $dependencies = new \PapayaContentPageDependencies_TestProxy();
     $dependencies->_records = array(
       21 => array(
         'id' => 21,
@@ -156,7 +156,7 @@ class PapayaContentPageDependenciesTest extends PapayaTestCase {
       ->method('deleteRecord')
       ->with()
       ->will($this->returnValue(TRUE));
-    $dependencies = new PapayaContentPageDependencies_TestProxy();
+    $dependencies = new \PapayaContentPageDependencies_TestProxy();
     $dependencies->_records = array(
       21 => array(
         'id' => 21,

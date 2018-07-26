@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUtilStringHtmlTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUtilStringHtml::escapeStripped
+   * @covers \PapayaUtilStringHtml::escapeStripped
    * @dataProvider escapeStrippedDataProvider
    * @param string $expected
    * @param string $string
@@ -31,7 +31,7 @@ class PapayaUtilStringHtmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringHtml::stripTags
+   * @covers \PapayaUtilStringHtml::stripTags
    * @dataProvider stripTagsDataProvider
    * @param string $expected
    * @param string $string
@@ -44,7 +44,7 @@ class PapayaUtilStringHtmlTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringHtml::decodeNamedEntities
+   * @covers \PapayaUtilStringHtml::decodeNamedEntities
    * @dataProvider decodeNamedEntitiesDataProvider
    * @param string $expected
    * @param string $string

@@ -25,7 +25,7 @@ class db_simpleTest extends PapayaTestCase {
    * @param string $operator
    */
   public function testGetSqlCondition($expected, $condition, $value = NULL, $operator = '=') {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseSourceName $dsn */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaDatabaseSourceName $dsn */
     $dsn = $this
       ->getMockBuilder(PapayaDatabaseSourceName::class)
       ->disableOriginalConstructor()

@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilArrayTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUtilArray::merge
+   * @covers \PapayaUtilArray::merge
    * @dataProvider mergeDataProvider
    * @param array|NULL $arrayOne
    * @param array|NULL $arrayTwo
@@ -30,7 +30,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilArray::ensure
+   * @covers \PapayaUtilArray::ensure
    * @dataProvider toArrayDataProvider
    * @param array $expected
    * @param mixed $input
@@ -41,7 +41,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::get
+  * @covers \PapayaUtilArray::get
   */
   public function testGetWithExistingElement() {
     $this->assertEquals(
@@ -50,7 +50,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::get
+  * @covers \PapayaUtilArray::get
   */
   public function testGetWithListArgumentSecondIndexExists() {
     $this->assertEquals(
@@ -59,7 +59,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::get
+  * @covers \PapayaUtilArray::get
   */
   public function testGetWithNonexistingElementFetchingDefault() {
     $this->assertEquals(
@@ -68,7 +68,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::get
+  * @covers \PapayaUtilArray::get
   */
   public function testGetWithListArgumentFetchingDefault() {
     $this->assertEquals(
@@ -77,7 +77,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::get
+  * @covers \PapayaUtilArray::get
   */
   public function testGetWithEmptyIndexFetchingDefault() {
     $this->assertEquals(
@@ -86,7 +86,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::getRecursive
+  * @covers \PapayaUtilArray::getRecursive
   */
   public function testGetRecursiveElementFromTopLevel() {
     $this->assertEquals(
@@ -98,7 +98,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::getRecursive
+  * @covers \PapayaUtilArray::getRecursive
   */
   public function testGetRecursiveElementFromFirstSublevel() {
     $this->assertEquals(
@@ -110,7 +110,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::getRecursive
+  * @covers \PapayaUtilArray::getRecursive
   */
   public function testGetRecursiveElementFromSecondSublevel() {
     $this->assertEquals(
@@ -123,7 +123,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::getRecursive
+  * @covers \PapayaUtilArray::getRecursive
   */
   public function testGetRecursiveElementFromEmptyListExpectingDefault() {
     $this->assertEquals(
@@ -135,7 +135,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::getRecursive
+  * @covers \PapayaUtilArray::getRecursive
   */
   public function testGetRecursiveInvalidElementExpectingDefault() {
     $this->assertEquals(
@@ -149,7 +149,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::decodeIdList
+  * @covers \PapayaUtilArray::decodeIdList
   */
   public function testDecodeIdList() {
     $this->assertEquals(
@@ -158,7 +158,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::decodeIdList
+  * @covers \PapayaUtilArray::decodeIdList
   */
   public function testDecodeIdListWithSign() {
     $this->assertEquals(
@@ -167,7 +167,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::decodeIdList
+  * @covers \PapayaUtilArray::decodeIdList
   */
   public function testDecodeIdListWithEmptyStringExpectingEmptyArray() {
     $this->assertEquals(
@@ -176,7 +176,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::encodeIdList
+  * @covers \PapayaUtilArray::encodeIdList
   */
   public function testEncodeIdList() {
     $this->assertEquals(
@@ -185,7 +185,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::encodeIdList
+  * @covers \PapayaUtilArray::encodeIdList
   */
   public function testEncodeIdListWithCommaSeparator() {
     $this->assertEquals(
@@ -194,7 +194,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::encodeAndQuoteIdList
+  * @covers \PapayaUtilArray::encodeAndQuoteIdList
   */
   public function testEncodeAndQuoteIdList() {
     $this->assertEquals(
@@ -203,7 +203,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::encodeAndQuoteIdList
+  * @covers \PapayaUtilArray::encodeAndQuoteIdList
   */
   public function testEncodeAndQuoteIdListWithNonStandardCharacters() {
     $this->assertEquals(
@@ -212,7 +212,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilArray::normalize
+   * @covers \PapayaUtilArray::normalize
    * @dataProvider provideDataForNormalize
    * @param mixed $expected
    * @param mixed $input
@@ -225,7 +225,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilArray::normalize
+  * @covers \PapayaUtilArray::normalize
   */
   public function testNormalizeWithCallback() {
     $input = 23;
@@ -248,7 +248,7 @@ class PapayaUtilArrayTest extends PapayaTestCase {
       'array' => array(array('42', 'hello', '1', ''), array(42, 'hello', TRUE, FALSE)),
       'array of array' => array(array(array('foo' => '42')), array(array('foo' => 42))),
       'object' => array(stdClass::class, new stdClass()),
-      'object with __toString' => array('sample', new PapayaUiString('sample'))
+      'object with __toString' => array('sample', new \PapayaUiString('sample'))
     );
   }
 
@@ -323,15 +323,15 @@ class PapayaUtilArrayTest extends PapayaTestCase {
       ),
       'IteratorAggregate' => array(
         array('foo' => 'bar'),
-        new PapayaUtilArray_TestProxyArrayIterator(array('foo' => 'bar')),
+        new \PapayaUtilArray_TestProxyArrayIterator(array('foo' => 'bar')),
       ),
       'Traversable' => array(
         array('foo' => 'bar'),
-        new PapayaUtilArray_TestProxyTraversable(array('foo' => 'bar')),
+        new \PapayaUtilArray_TestProxyTraversable(array('foo' => 'bar')),
       ),
       'Traversable, remove keys' => array(
         array(0 => 'bar'),
-        new PapayaUtilArray_TestProxyTraversable(array('foo' => 'bar')),
+        new \PapayaUtilArray_TestProxyTraversable(array('foo' => 'bar')),
         FALSE
       ),
       'skalar' => array(

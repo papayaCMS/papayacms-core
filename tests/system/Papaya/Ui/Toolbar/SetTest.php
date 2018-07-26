@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiToolbarSetTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiToolbarSet::elements
+  * @covers \PapayaUiToolbarSet::elements
   */
   public function testElementsGetAfterSet() {
-    $group = new PapayaUiToolbarSet();
+    $group = new \PapayaUiToolbarSet();
     $elements = $this
       ->getMockBuilder(PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($group))
@@ -36,10 +36,10 @@ class PapayaUiToolbarSetTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarSet::elements
+  * @covers \PapayaUiToolbarSet::elements
   */
   public function testElementsImplicitCreate() {
-    $group = new PapayaUiToolbarSet();
+    $group = new \PapayaUiToolbarSet();
     $this->assertInstanceOf(
       PapayaUiToolbarElements::class, $group->elements()
     );
@@ -49,10 +49,10 @@ class PapayaUiToolbarSetTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarSet::appendTo
+  * @covers \PapayaUiToolbarSet::appendTo
   */
   public function testAppendTo() {
-    $group = new PapayaUiToolbarSet();
+    $group = new \PapayaUiToolbarSet();
     $elements = $this
       ->getMockBuilder(PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($group))

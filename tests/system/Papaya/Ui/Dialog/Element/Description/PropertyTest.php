@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogElementDescriptionPropertyTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogElementDescriptionProperty::__construct
-  * @covers PapayaUiDialogElementDescriptionProperty::setName
+  * @covers \PapayaUiDialogElementDescriptionProperty::__construct
+  * @covers \PapayaUiDialogElementDescriptionProperty::setName
   */
   public function testConstructor() {
-    $property = new PapayaUiDialogElementDescriptionProperty('foo', 'bar');
+    $property = new \PapayaUiDialogElementDescriptionProperty('foo', 'bar');
     $this->assertEquals(
       'foo', $property->name
     );
@@ -32,10 +32,10 @@ class PapayaUiDialogElementDescriptionPropertyTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogElementDescriptionProperty::appendTo
+  * @covers \PapayaUiDialogElementDescriptionProperty::appendTo
   */
   public function testAppendTo() {
-    $property = new PapayaUiDialogElementDescriptionProperty('foo', 'bar');
+    $property = new \PapayaUiDialogElementDescriptionProperty('foo', 'bar');
     $this->assertEquals(
       /** @lang XML */'<property name="foo" value="bar"/>', $property->getXml()
     );

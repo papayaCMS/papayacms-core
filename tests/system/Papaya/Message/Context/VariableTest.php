@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaMessageContextVariableTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaMessageContextVariable::__construct
+  * @covers \PapayaMessageContextVariable::__construct
   */
   public function testConstructor() {
-    $context = new PapayaMessageContextVariable(42);
+    $context = new \PapayaMessageContextVariable(42);
     $this->assertAttributeSame(
       42,
       '_variable',
@@ -30,11 +30,11 @@ class PapayaMessageContextVariableTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariable::__construct
-  * @covers PapayaMessageContextVariable::setDepth
+  * @covers \PapayaMessageContextVariable::__construct
+  * @covers \PapayaMessageContextVariable::setDepth
   */
   public function testConstructorWithDepth() {
-    $context = new PapayaMessageContextVariable(42, 21);
+    $context = new \PapayaMessageContextVariable(42, 21);
     $this->assertAttributeSame(
       21,
       '_depth',
@@ -43,10 +43,10 @@ class PapayaMessageContextVariableTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariable::getDepth
+  * @covers \PapayaMessageContextVariable::getDepth
   */
   public function testGetDepth() {
-    $context = new PapayaMessageContextVariable(42, 21);
+    $context = new \PapayaMessageContextVariable(42, 21);
     $this->assertSame(
       21,
       $context->getDepth()
@@ -54,20 +54,20 @@ class PapayaMessageContextVariableTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariable::setDepth
+  * @covers \PapayaMessageContextVariable::setDepth
   */
   public function testSetDepthWithInvalidDepthExpectingException() {
-    $context = new PapayaMessageContextVariable(NULL);
+    $context = new \PapayaMessageContextVariable(NULL);
     $this->expectException(InvalidArgumentException::class);
     $context->setDepth(0);
   }
 
   /**
-  * @covers PapayaMessageContextVariable::__construct
-  * @covers PapayaMessageContextVariable::setStringLength
+  * @covers \PapayaMessageContextVariable::__construct
+  * @covers \PapayaMessageContextVariable::setStringLength
   */
   public function testConstructorWithStringLength() {
-    $context = new PapayaMessageContextVariable(42, 21, 23);
+    $context = new \PapayaMessageContextVariable(42, 21, 23);
     $this->assertAttributeSame(
       23,
       '_stringLength',
@@ -76,10 +76,10 @@ class PapayaMessageContextVariableTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariable::getStringLength
+  * @covers \PapayaMessageContextVariable::getStringLength
   */
   public function testGetStringLength() {
-    $context = new PapayaMessageContextVariable(42, 21, 23);
+    $context = new \PapayaMessageContextVariable(42, 21, 23);
     $this->assertSame(
       23,
       $context->getStringLength()
@@ -87,19 +87,19 @@ class PapayaMessageContextVariableTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariable::setStringLength
+  * @covers \PapayaMessageContextVariable::setStringLength
   */
   public function testSetStringLengthWithInvalidLengthExpectingException() {
-    $context = new PapayaMessageContextVariable(NULL);
+    $context = new \PapayaMessageContextVariable(NULL);
     $this->expectException(InvalidArgumentException::class);
     $context->setStringLength(-1);
   }
 
   /**
-  * @covers PapayaMessageContextVariable::acceptVisitor
+  * @covers \PapayaMessageContextVariable::acceptVisitor
   */
   public function testAcceptVisitor() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextVariableVisitorString $visitor */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextVariableVisitorString $visitor */
     $visitor = $this
       ->getMockBuilder(PapayaMessageContextVariableVisitorString::class)
       ->setConstructorArgs(array(21, 42))
@@ -108,15 +108,15 @@ class PapayaMessageContextVariableTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('visitVariable')
       ->with($this->equalTo('variable'));
-    $context = new PapayaMessageContextVariable('variable');
+    $context = new \PapayaMessageContextVariable('variable');
     $context->acceptVisitor($visitor);
   }
 
   /**
-  * @covers PapayaMessageContextVariable::asString
+  * @covers \PapayaMessageContextVariable::asString
   */
   public function testAsString() {
-    $context = new PapayaMessageContextVariable(FALSE);
+    $context = new \PapayaMessageContextVariable(FALSE);
     $this->assertEquals(
       'bool(false)',
       $context->asString()
@@ -124,10 +124,10 @@ class PapayaMessageContextVariableTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariable::asXhtml
+  * @covers \PapayaMessageContextVariable::asXhtml
   */
   public function testAsXhtml() {
-    $context = new PapayaMessageContextVariable(FALSE);
+    $context = new \PapayaMessageContextVariable(FALSE);
     $this->assertEquals(
       '<ul class="variableDump">'.
       '<li><strong>bool</strong>(<em class="boolean">false</em>)</li>'.

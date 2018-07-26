@@ -93,7 +93,7 @@ class PapayaAdministrationPagesDependencySynchronizationAccessTest extends Papay
   ********************************/
 
   /**
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseAccess
+   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaDatabaseAccess
    */
   private function getDatabaseAccessFixture() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();

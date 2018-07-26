@@ -25,7 +25,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
    * @covers Import
    */
   public function testCreateDialog() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
     $themeSet = $this->createMock(Set::class);
@@ -72,7 +72,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
    * @covers Import
    */
   public function testCreateDialogWithSelectedSet() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
     $themeSet = $this->createMock(Set::class);
@@ -125,11 +125,11 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
    * @covers Import
    */
   public function testOnValidationSuccessWithoutTheme() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
     $themeSet = $this->createMock(Set::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiDialogFieldFileTemporary $uploadField */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogFieldFileTemporary $uploadField */
     $uploadField = $this
       ->getMockBuilder(PapayaUiDialogFieldFileTemporary::class)
       ->disableOriginalConstructor()
@@ -145,11 +145,11 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
    * @covers Import
    */
   public function testOnValidationSuccessWithInvalidXml() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|Set $themeSet */
     $themeSet = $this->createMock(Set::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiDialogFieldFileTemporary $uploadField */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogFieldFileTemporary $uploadField */
     $uploadField = $this->getUploadFieldFixture();
     $import = new Import($themeSet, $themeHandler);
     $import->papaya(
@@ -171,7 +171,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(PapayaMessageDisplay::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
     $themeHandler
       ->expects($this->once())
@@ -210,7 +210,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
    * @covers Import
    */
   public function testOnValidationSuccessWithValidXmlNotSaved() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
     $themeHandler
       ->expects($this->once())
@@ -253,7 +253,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(PapayaMessageDisplay::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaThemeHandler $themeHandler */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(PapayaThemeHandler::class);
     $themeHandler
       ->expects($this->once())
@@ -297,7 +297,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends PapayaTestCase
 
   /**
    * @param string $data
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaUiDialogFieldFileTemporary
+   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogFieldFileTemporary
    */
   public function getUploadFieldFixture($data = 'data://text/xml,') {
     $file = $this

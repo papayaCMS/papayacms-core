@@ -18,18 +18,18 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiHierarchyItemTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiHierarchyItem::__construct
+  * @covers \PapayaUiHierarchyItem::__construct
   */
   public function testConstructor() {
-    $item = new PapayaUiHierarchyItem('sample');
+    $item = new \PapayaUiHierarchyItem('sample');
     $this->assertEquals('sample', $item->caption);
   }
 
   /**
-   * @covers PapayaUiHierarchyItem::appendTo
+   * @covers \PapayaUiHierarchyItem::appendTo
    */
   public function testAppendTo() {
-    $item = new PapayaUiHierarchyItem('sample');
+    $item = new \PapayaUiHierarchyItem('sample');
     $item->image = 'items-page';
     $item->papaya(
       $this->mockPapaya()->application(
@@ -48,10 +48,10 @@ class PapayaUiHierarchyItemTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiHierarchyItem::appendTo
+   * @covers \PapayaUiHierarchyItem::appendTo
    */
   public function testAppendToWithHint() {
-    $item = new PapayaUiHierarchyItem('sample');
+    $item = new \PapayaUiHierarchyItem('sample');
     $item->image = 'items-page';
     $item->hint = 'Quick Info';
     $item->papaya(
@@ -71,7 +71,7 @@ class PapayaUiHierarchyItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiHierarchyItem::appendTo
+  * @covers \PapayaUiHierarchyItem::appendTo
   */
   public function testAppendToWithReference() {
     $reference = $this->createMock(PapayaUiReference::class);
@@ -80,7 +80,7 @@ class PapayaUiHierarchyItemTest extends PapayaTestCase {
       ->method('getRelative')
       ->will($this->returnValue('link.html'));
 
-    $item = new PapayaUiHierarchyItem('sample');
+    $item = new \PapayaUiHierarchyItem('sample');
     $item->image = 'items-page';
     $item->reference($reference);
     $item->papaya(
@@ -100,10 +100,10 @@ class PapayaUiHierarchyItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiHierarchyItem::reference
+  * @covers \PapayaUiHierarchyItem::reference
   */
   public function testItemsGetAfterSet() {
-    $item = new PapayaUiHierarchyItem('sample');
+    $item = new \PapayaUiHierarchyItem('sample');
     $reference = $this->createMock(PapayaUiReference::class);
     $this->assertSame(
       $reference, $item->reference($reference)
@@ -111,10 +111,10 @@ class PapayaUiHierarchyItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiHierarchyItem::reference
+  * @covers \PapayaUiHierarchyItem::reference
   */
   public function testItemsGetWithImplicitCreate() {
-    $item = new PapayaUiHierarchyItem('sample');
+    $item = new \PapayaUiHierarchyItem('sample');
     $item->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
       PapayaUiReference::class, $item->reference()
@@ -125,10 +125,10 @@ class PapayaUiHierarchyItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiHierarchyItem::setDisplayMode
+  * @covers \PapayaUiHierarchyItem::setDisplayMode
   */
   public function testSetDisplayMode() {
-    $item = new PapayaUiHierarchyItem('sample');
+    $item = new \PapayaUiHierarchyItem('sample');
     $item->displayMode = PapayaUiHierarchyItem::DISPLAY_TEXT_ONLY;
     $this->assertEquals(
       PapayaUiHierarchyItem::DISPLAY_TEXT_ONLY, $item->displayMode
@@ -136,10 +136,10 @@ class PapayaUiHierarchyItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiHierarchyItem::setDisplayMode
+  * @covers \PapayaUiHierarchyItem::setDisplayMode
   */
   public function testSetDisplayModeExpectingException() {
-    $item = new PapayaUiHierarchyItem('sample');
+    $item = new \PapayaUiHierarchyItem('sample');
     try {
       $item->displayMode = -99;
     } catch (OutOfBoundsException $e) {

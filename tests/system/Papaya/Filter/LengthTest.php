@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterLengthTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaFilterLength::__construct
+  * @covers \PapayaFilterLength::__construct
   */
   public function testConstructor() {
-    $filter = new PapayaFilterLength();
+    $filter = new \PapayaFilterLength();
     $this->assertAttributeSame(
       0, '_minimum', $filter
     );
@@ -34,10 +34,10 @@ class PapayaFilterLengthTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterLength::__construct
+  * @covers \PapayaFilterLength::__construct
   */
   public function testConstructorWithAllArguments() {
-    $filter = new PapayaFilterLength(21, 42, TRUE);
+    $filter = new \PapayaFilterLength(21, 42, TRUE);
     $this->assertAttributeSame(
       21, '_minimum', $filter
     );
@@ -50,15 +50,15 @@ class PapayaFilterLengthTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterLength::__construct
+  * @covers \PapayaFilterLength::__construct
   */
   public function testConstructorWithMaximumToSmallExpectingException() {
     $this->expectException(RangeException::class);
-    new PapayaFilterLength(4, 2);
+    new \PapayaFilterLength(4, 2);
   }
 
   /**
-   * @covers PapayaFilterLength::validate
+   * @covers \PapayaFilterLength::validate
    * @dataProvider provideValidValidateData
    * @param mixed $value
    * @param int|0 $minimum
@@ -69,12 +69,12 @@ class PapayaFilterLengthTest extends PapayaTestCase {
   public function testValidateWithLimitsExpectingTrue(
     $value, $minimum, $maximum = NULL, $isUtf8 = FALSE
   ) {
-    $filter = new PapayaFilterLength($minimum, $maximum, $isUtf8);
+    $filter = new \PapayaFilterLength($minimum, $maximum, $isUtf8);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers PapayaFilterLength::validate
+   * @covers \PapayaFilterLength::validate
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
    * @param int|0 $minimum
@@ -85,50 +85,50 @@ class PapayaFilterLengthTest extends PapayaTestCase {
   public function testValidateWithLimitsExpectingException(
     $value, $minimum, $maximum = NULL, $isUtf8 = FALSE
   ) {
-    $filter = new PapayaFilterLength($minimum, $maximum, $isUtf8);
+    $filter = new \PapayaFilterLength($minimum, $maximum, $isUtf8);
     $this->expectException(PapayaFilterException::class);
     $filter->validate($value);
   }
 
   /**
-  * @covers PapayaFilterLength::validate
+  * @covers \PapayaFilterLength::validate
   */
   public function testValidateWithoutRange() {
-    $filter = new PapayaFilterLength();
+    $filter = new \PapayaFilterLength();
     $this->assertTrue($filter->validate(42));
   }
 
   /**
-  * @covers PapayaFilterLength::validate
+  * @covers \PapayaFilterLength::validate
   */
   public function testValidateWithValueToShortExpectingException() {
-    $filter = new PapayaFilterLength(21, 42);
+    $filter = new \PapayaFilterLength(21, 42);
     $this->expectException(PapayaFilterExceptionLengthMinimum::class);
     $filter->validate('foo');
   }
 
   /**
-  * @covers PapayaFilterLength::validate
+  * @covers \PapayaFilterLength::validate
   */
   public function testValidateWithValueToLongExpectingException() {
-    $filter = new PapayaFilterLength(0, 1);
+    $filter = new \PapayaFilterLength(0, 1);
     $this->expectException(PapayaFilterExceptionLengthMaximum::class);
     $filter->validate('foo');
   }
 
   /**
-  * @covers PapayaFilterLength::filter
+  * @covers \PapayaFilterLength::filter
   */
   public function testFilter() {
-    $filter = new PapayaFilterLength(0, 10);
+    $filter = new \PapayaFilterLength(0, 10);
     $this->assertEquals('foo', $filter->filter('foo'));
   }
 
   /**
-  * @covers PapayaFilterLength::filter
+  * @covers \PapayaFilterLength::filter
   */
   public function testFilterExpectingNull() {
-    $filter = new PapayaFilterLength(0, 1);
+    $filter = new \PapayaFilterLength(0, 1);
     $this->assertNull($filter->filter('foo'));
   }
 

@@ -18,29 +18,29 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogFieldListviewTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogFieldListview::__construct
-  * @covers PapayaUiDialogFieldListview::listview
+  * @covers \PapayaUiDialogFieldListview::__construct
+  * @covers \PapayaUiDialogFieldListview::listview
   */
   public function testConstructor() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListview $listview */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListview $listview */
     $listview = $this->createMock(PapayaUiListview::class);
-    $field = new PapayaUiDialogFieldListview($listview);
+    $field = new \PapayaUiDialogFieldListview($listview);
     $this->assertSame(
       $listview, $field->listview()
     );
   }
 
   /**
-  * @covers PapayaUiDialogFieldListview::appendTo
+  * @covers \PapayaUiDialogFieldListview::appendTo
   */
   public function testAppendTo() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiListview $listview */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiListview $listview */
     $listview = $this->createMock(PapayaUiListview::class);
     $listview
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
-    $field = new PapayaUiDialogFieldListview($listview);
+    $field = new \PapayaUiDialogFieldListview($listview);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<field class="DialogFieldListview" error="no"/>',

@@ -24,7 +24,7 @@ class PapayaHttpClientFileStringTest extends PapayaTestCase {
   }
 
   public function testConstructor() {
-    $file = new PapayaHttpClientFileString(
+    $file = new \PapayaHttpClientFileString(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
     $this->assertAttributeEquals('test', '_name', $file);
@@ -35,11 +35,11 @@ class PapayaHttpClientFileStringTest extends PapayaTestCase {
 
   public function testConstructorExpectingError() {
     $this->expectError(E_WARNING);
-    new PapayaHttpClientFileString('', '', '', '');
+    new \PapayaHttpClientFileString('', '', '', '');
   }
 
   public function testGetSize() {
-    $file = new PapayaHttpClientFileString(
+    $file = new \PapayaHttpClientFileString(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
     $this->assertEquals(6, $file->getSize());
@@ -47,7 +47,7 @@ class PapayaHttpClientFileStringTest extends PapayaTestCase {
   }
 
   public function testSend() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocket $socket */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocket $socket */
     $socket = $this->createMock(PapayaHttpClientSocket::class);
     $socket
       ->expects($this->at(0))
@@ -57,14 +57,14 @@ class PapayaHttpClientFileStringTest extends PapayaTestCase {
       ->expects($this->at(1))
       ->method('write')
       ->with($this->equalTo('sample'));
-    $file = new PapayaHttpClientFileString(
+    $file = new \PapayaHttpClientFileString(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
     $file->send($socket);
   }
 
   public function testSendChunked() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocket $socket */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocket $socket */
     $socket = $this->createMock(PapayaHttpClientSocket::class);
     $socket
       ->expects($this->at(0))
@@ -78,7 +78,7 @@ class PapayaHttpClientFileStringTest extends PapayaTestCase {
       ->expects($this->at(2))
       ->method('writeChunk')
       ->with($this->equalTo("\r\n"));
-    $file = new PapayaHttpClientFileString(
+    $file = new \PapayaHttpClientFileString(
       'test', 'sample.txt', $this->_fileContents, 'text/plain'
     );
     $file->send($socket, TRUE);

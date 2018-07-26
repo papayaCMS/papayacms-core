@@ -78,7 +78,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
     $value->fieldType = 'UNKNOWN_FIELD_TYPE';
     $value->default = 'foo';
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiDialogFieldFactoryException $exception */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogFieldFactoryException $exception */
     $exception = $this->createMock(PapayaUiDialogFieldFactoryException::class);
     $factory = $this->createMock(PapayaUiDialogFieldFactory::class);
     $factory
@@ -287,7 +287,7 @@ class PapayaAdministrationThemeEditorChangesDialogTest extends PapayaTestCase {
       ->method('getSourceCaptions')
       ->will($this->returnValue(array()));
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiDialog $dialog */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialog $dialog */
     $dialog = $this->createMock(PapayaUiDialog::class);
     $dialog
       ->expects($this->once())

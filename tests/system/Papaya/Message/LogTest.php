@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaMessageLogTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaMessageLog::__construct
+  * @covers \PapayaMessageLog::__construct
   */
   public function testConstructor() {
-    $message = new PapayaMessageLog(
+    $message = new \PapayaMessageLog(
       PapayaMessageLogable::GROUP_SYSTEM,
       PapayaMessage::SEVERITY_WARNING,
       'Sample Message'
@@ -44,10 +44,10 @@ class PapayaMessageLogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageLog::getGroup
+  * @covers \PapayaMessageLog::getGroup
   */
   public function testGetGroup() {
-    $message = new PapayaMessageLog(
+    $message = new \PapayaMessageLog(
       PapayaMessageLogable::GROUP_SYSTEM,
       PapayaMessage::SEVERITY_WARNING,
       'Sample Message'
@@ -60,10 +60,10 @@ class PapayaMessageLogTest extends PapayaTestCase {
 
 
   /**
-  * @covers PapayaMessageLog::getType
+  * @covers \PapayaMessageLog::getType
   */
   public function testGetType() {
-    $message = new PapayaMessageLog(
+    $message = new \PapayaMessageLog(
       PapayaMessageLogable::GROUP_SYSTEM,
       PapayaMessage::SEVERITY_WARNING,
       'Sample Message'
@@ -75,15 +75,15 @@ class PapayaMessageLogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageLog::SetContext
+  * @covers \PapayaMessageLog::SetContext
   */
   public function testSetContext() {
-    $message = new PapayaMessageLog(
+    $message = new \PapayaMessageLog(
       PapayaMessageLogable::GROUP_SYSTEM,
       PapayaMessage::SEVERITY_WARNING,
       'Sample Message'
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextGroup $context */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextGroup $context */
     $context = $this->createMock(PapayaMessageContextGroup::class);
     $message->setContext($context);
     $this->assertAttributeSame(
@@ -94,15 +94,15 @@ class PapayaMessageLogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageLog::context
+  * @covers \PapayaMessageLog::context
   */
   public function testContext() {
-    $message = new PapayaMessageLog(
+    $message = new \PapayaMessageLog(
       PapayaMessageLogable::GROUP_SYSTEM,
       PapayaMessage::SEVERITY_WARNING,
       'Sample Message'
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextGroup $context */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextGroup $context */
     $context = $this->createMock(PapayaMessageContextGroup::class);
     $message->setContext($context);
     $this->assertSame(
@@ -112,10 +112,10 @@ class PapayaMessageLogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageLog::getMessage
+  * @covers \PapayaMessageLog::getMessage
   */
   public function testGetMessage() {
-    $message = new PapayaMessageLog(
+    $message = new \PapayaMessageLog(
       PapayaMessageLogable::GROUP_SYSTEM,
       PapayaMessage::SEVERITY_WARNING,
       'Sample Message'
@@ -127,10 +127,10 @@ class PapayaMessageLogTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageLog::Context
+  * @covers \PapayaMessageLog::Context
   */
   public function testContextImplizitCreate() {
-    $message = new PapayaMessageLog(
+    $message = new \PapayaMessageLog(
       PapayaMessageLogable::GROUP_SYSTEM,
       PapayaMessage::SEVERITY_WARNING,
       'Sample Message'

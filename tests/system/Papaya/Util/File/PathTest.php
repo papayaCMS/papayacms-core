@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUtilFilePathTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUtilFilePath::cleanup
+   * @covers \PapayaUtilFilePath::cleanup
    * @dataProvider provideCleanupData
    * @param string $expected
    * @param string $string
@@ -32,7 +32,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilFilePath::ensureIsAbsolute
+   * @covers \PapayaUtilFilePath::ensureIsAbsolute
    * @dataProvider provideEnsureIsAbsoluteData
    * @param string $expected
    * @param string $string
@@ -45,7 +45,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilFilePath::ensureTrailingSlash
+   * @covers \PapayaUtilFilePath::ensureTrailingSlash
    * @dataProvider provideEnsureTrailingSlashData
    * @param string $expected
    * @param string $string
@@ -58,7 +58,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilFilePath::ensureNoTrailingSlash
+   * @covers \PapayaUtilFilePath::ensureNoTrailingSlash
    * @dataProvider provideEnsureNoTrailingSlashData
    * @param string $expected
    * @param string $string
@@ -71,7 +71,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilFilePath::getBasePath
+  * @covers \PapayaUtilFilePath::getBasePath
   * @backupGlobals
   */
   public function testGetBasePathIncludingDocumentRoot() {
@@ -83,7 +83,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilFilePath::getBasePath
+  * @covers \PapayaUtilFilePath::getBasePath
   * @backupGlobals
   */
   public function testGetBasePathExcludingDocumentRoot() {
@@ -96,7 +96,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilFilePath::getBasePath
+  * @covers \PapayaUtilFilePath::getBasePath
   * @backupGlobals
   */
   public function testGetBasePathExcludingDocumentRootWithDeviceLetter() {
@@ -109,7 +109,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilFilePath::getDocumentRoot
+  * @covers \PapayaUtilFilePath::getDocumentRoot
   * @backupGlobals
   */
   public function testGetDocumentRoot() {
@@ -121,7 +121,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilFilePath::getDocumentRoot
+  * @covers \PapayaUtilFilePath::getDocumentRoot
   * @backupGlobals
   */
   public function testGetDocumentRootFromScriptFilename() {
@@ -140,7 +140,7 @@ class PapayaUtilFilePathTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilFilePath::getDocumentRoot
+  * @covers \PapayaUtilFilePath::getDocumentRoot
   * @backupGlobals
   */
   public function testGetDocumentRootDefaultReturn() {

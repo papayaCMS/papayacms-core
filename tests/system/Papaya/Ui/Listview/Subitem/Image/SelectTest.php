@@ -18,19 +18,19 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiListviewSubitemImageSelectTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiListviewSubitemImageSelect::__construct
-  * @covers PapayaUiListviewSubitemImageSelect::setIcons
+  * @covers \PapayaUiListviewSubitemImageSelect::__construct
+  * @covers \PapayaUiListviewSubitemImageSelect::setIcons
   */
   public function testConstructor() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiIconList $icons */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
     $icons = $this->createMock(PapayaUiIconList::class);
-    $subitem = new PapayaUiListviewSubitemImageSelect($icons, 'foo');
+    $subitem = new \PapayaUiListviewSubitemImageSelect($icons, 'foo');
     $this->assertSame($icons, $subitem->icons);
     $this->assertEquals('foo', $subitem->selection);
   }
 
   /**
-  * @covers PapayaUiListviewSubitemImageSelect::appendTo
+  * @covers \PapayaUiListviewSubitemImageSelect::appendTo
   */
   public function testAppendToWithIcon() {
     $icon = $this
@@ -41,7 +41,7 @@ class PapayaUiListviewSubitemImageSelectTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiIconList $icons */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
     $icons = $this->createMock(PapayaUiIconList::class);
     $icons
       ->expects($this->once())
@@ -54,8 +54,8 @@ class PapayaUiListviewSubitemImageSelectTest extends PapayaTestCase {
       ->with('foo')
       ->will($this->returnValue($icon));
 
-    $document = new PapayaXmlDocument();
-    $subitem = new PapayaUiListviewSubitemImageSelect($icons, 'foo');
+    $document = new \PapayaXmlDocument();
+    $subitem = new \PapayaUiListviewSubitemImageSelect($icons, 'foo');
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
     $this->assertEquals(
@@ -66,10 +66,10 @@ class PapayaUiListviewSubitemImageSelectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewSubitemImageSelect::appendTo
+  * @covers \PapayaUiListviewSubitemImageSelect::appendTo
   */
   public function testAppendToWithoutIcon() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiIconList $icons */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiIconList $icons */
     $icons = $this->createMock(PapayaUiIconList::class);
     $icons
       ->expects($this->once())
@@ -77,8 +77,8 @@ class PapayaUiListviewSubitemImageSelectTest extends PapayaTestCase {
       ->with('foo')
       ->will($this->returnValue(FALSE));
 
-    $document = new PapayaXmlDocument();
-    $subitem = new PapayaUiListviewSubitemImageSelect($icons, 'foo');
+    $document = new \PapayaXmlDocument();
+    $subitem = new \PapayaUiListviewSubitemImageSelect($icons, 'foo');
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
     $this->assertEquals(

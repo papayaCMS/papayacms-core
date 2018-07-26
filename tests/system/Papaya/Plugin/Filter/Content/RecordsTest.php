@@ -20,24 +20,24 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaPluginFilterContentRecords
+   * @covers \PapayaPluginFilterContentRecords
    */
   public function testRecordsGetAfterSet() {
-    $filterGroup = new PapayaPluginFilterContentRecords($this->getPageFixture());
+    $filterGroup = new \PapayaPluginFilterContentRecords($this->getPageFixture());
     $filterGroup->records($records = $this->createMock(Configurations::class));
     $this->assertSame($records, $filterGroup->records());
   }
 
   /**
-   * @covers PapayaPluginFilterContentRecords
+   * @covers \PapayaPluginFilterContentRecords
    */
   public function testRecordsImplicitCreate() {
-    $filterGroup = new PapayaPluginFilterContentRecords($this->getPageFixture());
+    $filterGroup = new \PapayaPluginFilterContentRecords($this->getPageFixture());
     $this->assertInstanceOf(Configurations::class, $filterGroup->records());
   }
 
   /**
-   * @covers PapayaPluginFilterContentRecords
+   * @covers \PapayaPluginFilterContentRecords
    */
   public function testIteratorFetchesPlugins() {
     $plugins = $this->createMock(PapayaPluginLoader::class);
@@ -64,7 +64,7 @@ class PapayaPluginFilterContentRecordsTest extends PapayaTestCase {
         )
       );
 
-    $filterGroup = new PapayaPluginFilterContentRecords($this->getPageFixture());
+    $filterGroup = new \PapayaPluginFilterContentRecords($this->getPageFixture());
     $filterGroup->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
     $filterGroup->records($records);
 

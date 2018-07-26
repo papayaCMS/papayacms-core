@@ -18,18 +18,18 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiHierarchyItemsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiHierarchyItems::appendTo
+  * @covers \PapayaUiHierarchyItems::appendTo
   */
   public function testAppendToInheritance() {
-    $items = new PapayaUiHierarchyItems();
+    $items = new \PapayaUiHierarchyItems();
     $this->assertSame('', $items->getXml());
   }
 
   /**
-  * @covers PapayaUiHierarchyItems::appendTo
+  * @covers \PapayaUiHierarchyItems::appendTo
   */
   public function testAppendToWithLimit3() {
-    $items = new PapayaUiHierarchyItems();
+    $items = new \PapayaUiHierarchyItems();
     $items->limit = 3;
     $items->spacer = $this->getItemFixture(TRUE);
     $items[] = $this->getItemFixture(TRUE);
@@ -42,10 +42,10 @@ class PapayaUiHierarchyItemsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiHierarchyItems::spacer
+  * @covers \PapayaUiHierarchyItems::spacer
   */
   public function testSpacerGetAfterSet() {
-    $items = new PapayaUiHierarchyItems();
+    $items = new \PapayaUiHierarchyItems();
     $spacer = $this
       ->getMockBuilder(PapayaUiHierarchyItem::class)
       ->setConstructorArgs(array('...'))
@@ -56,10 +56,10 @@ class PapayaUiHierarchyItemsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiHierarchyItems::spacer
+  * @covers \PapayaUiHierarchyItems::spacer
   */
   public function testSpacerGetWithImplicitCreate() {
-    $items = new PapayaUiHierarchyItems();
+    $items = new \PapayaUiHierarchyItems();
     $items->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
       PapayaUiHierarchyItem::class, $spacer = $items->spacer()

@@ -18,55 +18,55 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterNotTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaFilterNot::__construct
+  * @covers \PapayaFilterNot::__construct
   */
   public function testConstructor() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaFilter $filterMock */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filterMock */
     $filterMock = $this->createMock(PapayaFilter::class);
-    $filter = new PapayaFilterNot($filterMock);
+    $filter = new \PapayaFilterNot($filterMock);
     $this->assertAttributeInstanceOf(
       PapayaFilter::class, '_filter', $filter
     );
   }
 
   /**
-  * @covers PapayaFilterNot::validate
+  * @covers \PapayaFilterNot::validate
   * @expectedException PapayaFilterException
   */
   public function testValidateExpectingException() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaFilter $filterMock */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filterMock */
     $filterMock = $this->createMock(PapayaFilter::class);
     $filterMock
       ->expects($this->once())
       ->method('validate')
       ->with($this->equalTo(123))
       ->will($this->returnValue(TRUE));
-    $filter = new PapayaFilterNot($filterMock);
+    $filter = new \PapayaFilterNot($filterMock);
     $filter->validate(123);
   }
 
   /**
-  * @covers PapayaFilterNot::validate
+  * @covers \PapayaFilterNot::validate
   */
   public function testValidateExpectingTrue() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaFilter $filterMock */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filterMock */
     $filterMock = $this->createMock(PapayaFilter::class);
     $filterMock
       ->expects($this->once())
       ->method('validate')
       ->with($this->equalTo('abc'))
       ->will($this->returnCallback(array($this, 'callbackThrowFilterException')));
-    $filter = new PapayaFilterNot($filterMock);
+    $filter = new \PapayaFilterNot($filterMock);
     $this->assertTrue($filter->validate('abc'));
   }
 
   /**
-   * @covers PapayaFilterNot::filter
+   * @covers \PapayaFilterNot::filter
    */
   public function testFilter() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaFilter $filterMock */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilter $filterMock */
     $filterMock = $this->createMock(PapayaFilter::class);
-    $filter = new PapayaFilterNot($filterMock);
+    $filter = new \PapayaFilterNot($filterMock);
     $this->assertEquals('Test', $filter->filter('Test'));
   }
 

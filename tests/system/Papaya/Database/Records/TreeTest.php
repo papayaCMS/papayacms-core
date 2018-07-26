@@ -24,7 +24,7 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
   * @covers Tree::getIterator
   */
   public function testLoadAndIterateRoot() {
-    $records = new PapayaDatabaseRecordsTree_TestProxy();
+    $records = new \PapayaDatabaseRecordsTree_TestProxy();
     $records->setDatabaseAccess($this->getDatabaseFixture());
     $this->assertTrue($records->load());
     $this->assertEquals(
@@ -49,7 +49,7 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
   * @covers Tree::getIterator
   */
   public function testLoadAndIterateAll() {
-    $records = new PapayaDatabaseRecordsTree_TestProxy();
+    $records = new \PapayaDatabaseRecordsTree_TestProxy();
     $records->setDatabaseAccess($this->getDatabaseFixture());
     $this->assertTrue($records->load());
     $this->assertEquals(
@@ -81,7 +81,7 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
   * @covers Tree::getIterator
   */
   public function testLoadAndIterateLeafs() {
-    $records = new PapayaDatabaseRecordsTree_TestProxy();
+    $records = new \PapayaDatabaseRecordsTree_TestProxy();
     $records->setDatabaseAccess($this->getDatabaseFixture());
     $this->assertTrue($records->load());
     $this->assertEquals(
@@ -108,7 +108,7 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
   * @covers Tree::getIterator
   */
   public function testLoadWithInvalidIdentifierExpectingException() {
-    $records = new PapayaDatabaseRecordsTree_TestProxy();
+    $records = new \PapayaDatabaseRecordsTree_TestProxy();
     $records->_identifierProperties = array();
     $records->setDatabaseAccess($this->getDatabaseFixture());
     $this->expectException(LogicException::class);
@@ -135,7 +135,7 @@ class PapayaDatabaseRecordsTreeTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue(FALSE));
-    $records = new PapayaDatabaseRecordsTree_TestProxy();
+    $records = new \PapayaDatabaseRecordsTree_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $this->assertFalse($records->load(42));
   }

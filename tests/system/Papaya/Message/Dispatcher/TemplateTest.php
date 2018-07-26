@@ -20,11 +20,11 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaMessageDispatcherTemplateTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaMessageDispatcherTemplate::dispatch
+  * @covers \PapayaMessageDispatcherTemplate::dispatch
   * @backupGlobals enabled
   */
   public function testDispatch() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDisplayable $message */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDisplayable $message */
     $message = $this->createMock(PapayaMessageDisplayable::class);
     $message
       ->expects($this->once())
@@ -51,27 +51,27 @@ class PapayaMessageDispatcherTemplateTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('values')
       ->will($this->returnValue($values));
-    $dispatcher = new PapayaMessageDispatcherTemplate();
+    $dispatcher = new \PapayaMessageDispatcherTemplate();
     $this->assertTrue($dispatcher->dispatch($message));
   }
 
   /**
-  * @covers PapayaMessageDispatcherTemplate::dispatch
+  * @covers \PapayaMessageDispatcherTemplate::dispatch
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessage $message */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessage $message */
     $message = $this->createMock(PapayaMessage::class);
-    $dispatcher = new PapayaMessageDispatcherTemplate();
+    $dispatcher = new \PapayaMessageDispatcherTemplate();
     $this->assertFalse($dispatcher->dispatch($message));
   }
 
   /**
-  * @covers PapayaMessageDispatcherTemplate::dispatch
+  * @covers \PapayaMessageDispatcherTemplate::dispatch
   */
   public function testDispatchWithoutGlobalObjectExpectingFalse() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDisplayable $message */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDisplayable $message */
     $message = $this->createMock(PapayaMessageDisplayable::class);
-    $dispatcher = new PapayaMessageDispatcherTemplate();
+    $dispatcher = new \PapayaMessageDispatcherTemplate();
     $this->assertFalse($dispatcher->dispatch($message));
   }
 }

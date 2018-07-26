@@ -18,95 +18,95 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterNotEmptyTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaFilterNotEmpty::__construct
+  * @covers \PapayaFilterNotEmpty::__construct
   */
   public function testConstructor() {
-    $filter = new PapayaFilterNotEmpty();
+    $filter = new \PapayaFilterNotEmpty();
     $this->assertAttributeEquals(
       TRUE, '_ignoreSpaces', $filter
     );
   }
 
   /**
-  * @covers PapayaFilterNotEmpty::__construct
+  * @covers \PapayaFilterNotEmpty::__construct
   */
   public function testConstructorWithArguments() {
-    $filter = new PapayaFilterNotEmpty(FALSE);
+    $filter = new \PapayaFilterNotEmpty(FALSE);
     $this->assertAttributeEquals(
       FALSE, '_ignoreSpaces', $filter
     );
   }
 
   /**
-   * @covers PapayaFilterNotEmpty::validate
+   * @covers \PapayaFilterNotEmpty::validate
    * @dataProvider provideNonEmptyValues
    * @param mixed $value
    * @param bool $ignoreSpaces
    * @throws PapayaFilterException
    */
   public function testValidate($value, $ignoreSpaces) {
-    $filter = new PapayaFilterNotEmpty($ignoreSpaces);
+    $filter = new \PapayaFilterNotEmpty($ignoreSpaces);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers PapayaFilterNotEmpty::validate
+   * @covers \PapayaFilterNotEmpty::validate
    * @dataProvider provideEmptyValues
    * @param mixed $value
    * @param bool $ignoreSpaces
    * @throws PapayaFilterException
    */
   public function testValidateExpectingException($value, $ignoreSpaces) {
-    $filter = new PapayaFilterNotEmpty($ignoreSpaces);
+    $filter = new \PapayaFilterNotEmpty($ignoreSpaces);
     $this->expectException(PapayaFilterExceptionEmpty::class);
     $filter->validate($value);
   }
 
   /**
-  * @covers PapayaFilterNotEmpty::filter
+  * @covers \PapayaFilterNotEmpty::filter
   */
   public function testFilterExpectingNull() {
-    $filter = new PapayaFilterNotEmpty();
+    $filter = new \PapayaFilterNotEmpty();
     $this->assertNull($filter->filter(''));
   }
 
   /**
-  * @covers PapayaFilterNotEmpty::filter
+  * @covers \PapayaFilterNotEmpty::filter
   */
   public function testFilterWithEmptyArrayExpectingNull() {
-    $filter = new PapayaFilterNotEmpty();
+    $filter = new \PapayaFilterNotEmpty();
     $this->assertNull($filter->filter(array()));
   }
 
   /**
-  * @covers PapayaFilterNotEmpty::filter
+  * @covers \PapayaFilterNotEmpty::filter
   */
   public function testFilterExpectingValue() {
-    $filter = new PapayaFilterNotEmpty();
+    $filter = new \PapayaFilterNotEmpty();
     $this->assertEquals('some', $filter->filter('some'));
   }
 
   /**
-  * @covers PapayaFilterNotEmpty::filter
+  * @covers \PapayaFilterNotEmpty::filter
   */
   public function testFilterWithArrayExpectingValue() {
-    $filter = new PapayaFilterNotEmpty();
+    $filter = new \PapayaFilterNotEmpty();
     $this->assertEquals(array('some'), $filter->filter(array('some')));
   }
 
   /**
-  * @covers PapayaFilterNotEmpty::filter
+  * @covers \PapayaFilterNotEmpty::filter
   */
   public function testFilterExpectingTrimmedValue() {
-    $filter = new PapayaFilterNotEmpty();
+    $filter = new \PapayaFilterNotEmpty();
     $this->assertEquals('some', $filter->filter(' some '));
   }
 
   /**
-  * @covers PapayaFilterNotEmpty::filter
+  * @covers \PapayaFilterNotEmpty::filter
   */
   public function testFilterExpectingWhitespaceValue() {
-    $filter = new PapayaFilterNotEmpty(FALSE);
+    $filter = new \PapayaFilterNotEmpty(FALSE);
     $this->assertEquals(' ', $filter->filter(' '));
   }
 

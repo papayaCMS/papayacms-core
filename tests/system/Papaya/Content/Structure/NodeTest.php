@@ -23,7 +23,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
    * @covers Node
    */
   public function testIssetWithValidPropertyExpectingTrue() {
-    $node = new PapayaContentStructureNode_TestProxy();
+    $node = new \PapayaContentStructureNode_TestProxy();
     $this->assertTrue(isset($node->name));
   }
 
@@ -31,7 +31,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
    * @covers Node
    */
   public function testIssetWithInvalidPropertyExpectingFalse() {
-    $node = new PapayaContentStructureNode_TestProxy();
+    $node = new \PapayaContentStructureNode_TestProxy();
     $this->assertFalse(isset($node->INVALID));
   }
 
@@ -44,7 +44,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
    * @param mixed $value
    */
   public function testGetAfterSet($expected, $name, $value) {
-    $node = new PapayaContentStructureNode_TestProxy();
+    $node = new \PapayaContentStructureNode_TestProxy();
     $node->$name = $value;
     $this->assertEquals($expected, $node->$name);
   }
@@ -53,7 +53,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
    * @covers Node
    */
   public function testSetInvalidPropertyExpectingException() {
-    $node = new PapayaContentStructureNode_TestProxy();
+    $node = new \PapayaContentStructureNode_TestProxy();
     $this->expectException(UnexpectedValueException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $node->INVALID = 'foo';
@@ -63,7 +63,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
    * @covers Node
    */
   public function testGetInvalidPropertyExpectingException() {
-    $node = new PapayaContentStructureNode_TestProxy();
+    $node = new \PapayaContentStructureNode_TestProxy();
     $this->expectException(UnexpectedValueException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $node->INVALID;
@@ -73,7 +73,7 @@ class PapayaContentStructureNodeTest extends PapayaTestCase {
    * @covers Node
    */
   public function testSetInvalidPropertyNameExpectingException() {
-    $node = new PapayaContentStructureNode_TestProxy();
+    $node = new \PapayaContentStructureNode_TestProxy();
     $this->expectException(UnexpectedValueException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $node->name = ':';

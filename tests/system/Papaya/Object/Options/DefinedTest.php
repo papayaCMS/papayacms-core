@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaObjectOptionsDefinedTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaObjectOptionsDefined::toArray
+  * @covers \PapayaObjectOptionsDefined::toArray
   */
   public function testToArray() {
-    $options = new PapayaObjectOptionsDefined_TestProxy();
+    $options = new \PapayaObjectOptionsDefined_TestProxy();
     $this->assertEquals(
       array(
        'VALID_OPTION' => TRUE
@@ -30,18 +30,18 @@ class PapayaObjectOptionsDefinedTest extends PapayaTestCase {
     );
   }
   /**
-  * @covers PapayaObjectOptionsDefined::count
+  * @covers \PapayaObjectOptionsDefined::count
   */
   public function testCount() {
-    $options = new PapayaObjectOptionsDefined_TestProxy();
+    $options = new \PapayaObjectOptionsDefined_TestProxy();
     $this->assertCount(1, $options);
   }
 
   /**
-  * @covers PapayaObjectOptionsDefined::_write
+  * @covers \PapayaObjectOptionsDefined::_write
   */
   public function testSetOption() {
-    $options = new PapayaObjectOptionsDefined_TestProxy();
+    $options = new \PapayaObjectOptionsDefined_TestProxy();
     $options->validOption = FALSE;
     $this->assertAttributeEquals(
       array(
@@ -53,55 +53,55 @@ class PapayaObjectOptionsDefinedTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaObjectOptionsDefined::_write
+  * @covers \PapayaObjectOptionsDefined::_write
   */
   public function testSetOptionExpectingException() {
-    $options = new PapayaObjectOptionsDefined_TestProxy();
+    $options = new \PapayaObjectOptionsDefined_TestProxy();
     $this->expectException(InvalidArgumentException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $options->invalidOption = FALSE;
   }
 
   /**
-  * @covers PapayaObjectOptionsDefined::_read
+  * @covers \PapayaObjectOptionsDefined::_read
   */
   public function testGetOptionAfterSet() {
-    $options = new PapayaObjectOptionsDefined_TestProxy();
+    $options = new \PapayaObjectOptionsDefined_TestProxy();
     $options->validOption = FALSE;
     $this->assertFalse($options->validOption);
   }
 
   /**
-  * @covers PapayaObjectOptionsDefined::_read
+  * @covers \PapayaObjectOptionsDefined::_read
   */
   public function testGetOptionReadingDefault() {
-    $options = new PapayaObjectOptionsDefined_TestProxy();
+    $options = new \PapayaObjectOptionsDefined_TestProxy();
     $this->assertTrue($options->validOption);
   }
 
   /**
-  * @covers PapayaObjectOptionsDefined::_read
+  * @covers \PapayaObjectOptionsDefined::_read
   */
   public function testGetOptionExpectingException() {
-    $options = new PapayaObjectOptionsDefined_TestProxy();
+    $options = new \PapayaObjectOptionsDefined_TestProxy();
     $this->expectException(InvalidArgumentException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $options->invalidOption;
   }
 
   /**
-  * @covers PapayaObjectOptionsDefined::_exists
+  * @covers \PapayaObjectOptionsDefined::_exists
   */
   public function testIssetOptionExpectingTrue() {
-    $options = new PapayaObjectOptionsDefined_TestProxy();
+    $options = new \PapayaObjectOptionsDefined_TestProxy();
     $this->assertTrue(isset($options->validOption));
   }
 
   /**
-  * @covers PapayaObjectOptionsDefined::_exists
+  * @covers \PapayaObjectOptionsDefined::_exists
   */
   public function testIssetOptionExpectingFalse() {
-    $options = new PapayaObjectOptionsDefined_TestProxy();
+    $options = new \PapayaObjectOptionsDefined_TestProxy();
     $this->assertFalse(isset($options->invalidOption));
   }
 

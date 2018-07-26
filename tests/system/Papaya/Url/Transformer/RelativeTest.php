@@ -59,15 +59,15 @@ class PapayaUrlTransformerRelativeTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUrlTransformerRelative::transform
-   * @covers PapayaUrlTransformerRelative::_comparePorts
+   * @covers \PapayaUrlTransformerRelative::transform
+   * @covers \PapayaUrlTransformerRelative::_comparePorts
    * @dataProvider transformDataProvider
    * @param string $currentUrl
    * @param string $targetUrl
    * @param string $expected
    */
   public function testTransform($currentUrl, $targetUrl, $expected) {
-    $transformer = new PapayaUrlTransformerRelative();
+    $transformer = new \PapayaUrlTransformerRelative();
     $this->assertSame(
       $expected,
       $transformer->transform(
@@ -78,14 +78,14 @@ class PapayaUrlTransformerRelativeTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUrlTransformerRelative::getRelativePath
+  * @covers \PapayaUrlTransformerRelative::getRelativePath
   * @dataProvider getRelativePathDataProvider
    * @param string $currentPath
    * @param string $targetPath
    * @param string $expected
   */
   public function testGetRelativePath($currentPath, $targetPath, $expected) {
-    $transformer = new PapayaUrlTransformerRelative();
+    $transformer = new \PapayaUrlTransformerRelative();
     $this->assertEquals(
       $expected,
       $transformer->getRelativePath($currentPath, $targetPath)

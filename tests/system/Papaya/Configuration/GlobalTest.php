@@ -23,7 +23,7 @@ class PapayaConfigurationGlobalTest extends PapayaTestCase {
   * @covers GlobalValues::get
   */
   public function testGetReadingConstant() {
-    $config = new PapayaConfigurationGlobal_TestProxy();
+    $config = new \PapayaConfigurationGlobal_TestProxy();
     $this->assertNotEquals(
       'failed', $config->get('PAPAYA_INCLUDE_PATH')
     );
@@ -33,7 +33,7 @@ class PapayaConfigurationGlobalTest extends PapayaTestCase {
   * @covers GlobalValues::get
   */
   public function testGetCallingParentMethod() {
-    $config = new PapayaConfigurationGlobal_TestProxy();
+    $config = new \PapayaConfigurationGlobal_TestProxy();
     $this->assertEquals(
       42, $config->get('SAMPLE_INT')
     );
@@ -43,7 +43,7 @@ class PapayaConfigurationGlobalTest extends PapayaTestCase {
   * @covers GlobalValues::get
   */
   public function testSetConstantShouldBeIgnored() {
-    $config = new PapayaConfigurationGlobal_TestProxy();
+    $config = new \PapayaConfigurationGlobal_TestProxy();
     $config->set('PAPAYA_INCLUDE_PATH', 21);
     $this->assertNotEquals(
       21, $config->get('PAPAYA_INCLUDE_PATH')
@@ -54,7 +54,7 @@ class PapayaConfigurationGlobalTest extends PapayaTestCase {
   * @covers GlobalValues::has
   */
   public function testHasWithConstantExpectingTrue() {
-    $config = new PapayaConfigurationGlobal_TestProxy();
+    $config = new \PapayaConfigurationGlobal_TestProxy();
     $this->assertTrue($config->has('PAPAYA_INCLUDE_PATH'));
   }
 
@@ -62,7 +62,7 @@ class PapayaConfigurationGlobalTest extends PapayaTestCase {
   * @covers GlobalValues::has
   */
   public function testHasExpectingTrue() {
-    $config = new PapayaConfigurationGlobal_TestProxy();
+    $config = new \PapayaConfigurationGlobal_TestProxy();
     $this->assertTrue($config->has('SAMPLE_INT'));
   }
 
@@ -72,7 +72,7 @@ class PapayaConfigurationGlobalTest extends PapayaTestCase {
   * @runInSeparateProcess
   */
   public function testDefineConstants() {
-    $config = new PapayaConfigurationGlobal_TestProxy();
+    $config = new \PapayaConfigurationGlobal_TestProxy();
     $this->assertFalse(defined('SAMPLE_INT'));
     $config->defineConstants();
     $this->assertTrue(defined('SAMPLE_INT'));

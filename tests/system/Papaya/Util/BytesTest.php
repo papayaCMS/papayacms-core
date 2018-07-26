@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilBytesTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUtilBytes::toString
+   * @covers \PapayaUtilBytes::toString
    * @dataProvider provideBytesAndStrings
    * @param string $expected
    * @param int $bytes
@@ -30,7 +30,7 @@ class PapayaUtilBytesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilBytes::toString
+  * @covers \PapayaUtilBytes::toString
   */
   public function testToStringWithGermanDecimalSeparator() {
     $this->assertEquals(
@@ -39,7 +39,7 @@ class PapayaUtilBytesTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilBytes::fromString
+   * @covers \PapayaUtilBytes::fromString
    * @dataProvider provideStringsAndBytes
    * @param int $expected
    * @param string $bytes

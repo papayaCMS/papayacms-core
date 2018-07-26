@@ -18,22 +18,22 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiToolbarGroupTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiToolbarGroup::__construct
+  * @covers \PapayaUiToolbarGroup::__construct
   */
   public function testConstructor() {
-    $group = new PapayaUiToolbarGroup('group caption');
+    $group = new \PapayaUiToolbarGroup('group caption');
     $this->assertEquals(
       'group caption', $group->caption
     );
   }
 
   /**
-  * @covers PapayaUiToolbarGroup::appendTo
+  * @covers \PapayaUiToolbarGroup::appendTo
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $document->appendElement('sample');
-    $group = new PapayaUiToolbarGroup('group caption');
+    $group = new \PapayaUiToolbarGroup('group caption');
     $elements = $this
       ->getMockBuilder(PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($group))
@@ -56,12 +56,12 @@ class PapayaUiToolbarGroupTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarGroup::appendTo
+  * @covers \PapayaUiToolbarGroup::appendTo
   */
   public function testAppendToWithoutElements() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $document->appendElement('sample');
-    $group = new PapayaUiToolbarGroup('group caption');
+    $group = new \PapayaUiToolbarGroup('group caption');
     $elements = $this
       ->getMockBuilder(PapayaUiToolbarElements::class)
       ->setConstructorArgs(array($group))

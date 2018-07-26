@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiReferencePageTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiReferencePage::create
+  * @covers \PapayaUiReferencePage::create
   */
   public function testStaticFunctionCreate() {
     $this->assertInstanceOf(
@@ -30,10 +30,10 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::load
+  * @covers \PapayaUiReferencePage::load
   */
   public function testLoad() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaRequest $request */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaRequest $request */
     $request = $this->createMock(PapayaRequest::class);
     $request
       ->expects($this->once())
@@ -62,7 +62,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
           $this->returnValue(1800)
         )
       );
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->load($request);
     $this->assertEquals(
       array(
@@ -79,10 +79,10 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::get
   */
   public function testGetDefault() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->url($this->getUrlObjectMockFixture());
     $this->assertEquals(
       'http://www.sample.tld/index.html',
@@ -91,10 +91,10 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::get
   */
   public function testGetWithParameters() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->url($this->getUrlObjectMockFixture());
     $reference->setParameters(array('foo' => 'bar', 'bar' => 'foo'));
     $this->assertEquals(
@@ -104,11 +104,11 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::setPageId
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::setPageId
+  * @covers \PapayaUiReferencePage::get
   */
   public function testSetPageId() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->url($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
@@ -133,8 +133,8 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::setPageId
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::setPageId
+  * @covers \PapayaUiReferencePage::get
   */
   public function testSetPageIdCallsConfigure() {
     $pageReferences = $this->createMock(PapayaUiReferencePageFactory::class);
@@ -143,7 +143,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
       ->method('configure')
       ->with($this->isInstanceOf(PapayaUiReferencePage::class));
 
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->papaya(
       $this->mockPapaya()->application(array('pageReferences' => $pageReferences))
     );
@@ -171,19 +171,19 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::getPageId
+  * @covers \PapayaUiReferencePage::getPageId
   */
   public function testGetPageId() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $this->assertSame(0, $reference->getPageId());
   }
 
   /**
-  * @covers PapayaUiReferencePage::setCategoryId
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::setCategoryId
+  * @covers \PapayaUiReferencePage::get
   */
   public function testSetCategoryId() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->url($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
@@ -208,11 +208,11 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::setCategoryId
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::setCategoryId
+  * @covers \PapayaUiReferencePage::get
   */
   public function testSetCategoryIdToZero() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->url($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
@@ -237,11 +237,11 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::setPageTitle
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::setPageTitle
+  * @covers \PapayaUiReferencePage::get
   */
   public function testSetPageTitle() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->url($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
@@ -266,19 +266,19 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::getPageTitle
+  * @covers \PapayaUiReferencePage::getPageTitle
   */
   public function testGetPageTitle() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $this->assertSame('index', $reference->getPageTitle());
   }
 
   /**
-  * @covers PapayaUiReferencePage::setPageLanguage
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::setPageLanguage
+  * @covers \PapayaUiReferencePage::get
   */
   public function testSetPageLanguage() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->url($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
@@ -307,8 +307,8 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::setPageLanguage
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::setPageLanguage
+  * @covers \PapayaUiReferencePage::get
   */
   public function testSetPageLanguageCallsConfigure() {
     $pageReferences = $this->createMock(PapayaUiReferencePageFactory::class);
@@ -317,7 +317,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
       ->method('configure')
       ->with($this->isInstanceOf(PapayaUiReferencePage::class));
 
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->papaya(
       $this->mockPapaya()->application(array('pageReferences' => $pageReferences))
     );
@@ -346,19 +346,19 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::getPageLanguage
+  * @covers \PapayaUiReferencePage::getPageLanguage
   */
   public function testGetPageLanguageAfterSet() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $this->assertEquals('', $reference->getPageLanguage());
   }
 
   /**
-  * @covers PapayaUiReferencePage::setOutputMode
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::setOutputMode
+  * @covers \PapayaUiReferencePage::get
   */
   public function testSetOutputMode() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->url($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
@@ -383,11 +383,11 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::setPreview
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::setPreview
+  * @covers \PapayaUiReferencePage::get
   */
   public function testSetPreview() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->url($this->getUrlObjectMockFixture());
     $this->assertSame(
       $reference,
@@ -412,11 +412,11 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::setPreview
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::setPreview
+  * @covers \PapayaUiReferencePage::get
   */
   public function testRepeatingSetPreviewKeepsPreviewTime() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->url($this->getUrlObjectMockFixture());
     $reference->setPreview(TRUE, 23);
     $reference->setPreview(TRUE);
@@ -439,11 +439,11 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::setPreview
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::setPreview
+  * @covers \PapayaUiReferencePage::get
   */
   public function testRepeatingSetPreviewRemovesPreviewTimeIfDisabled() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->url($this->getUrlObjectMockFixture());
     $reference->setPreview(TRUE, 23);
     $reference->setPreview(FALSE);
@@ -466,10 +466,10 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiReferencePage::get
+  * @covers \PapayaUiReferencePage::get
   */
   public function testSetFragment() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->url(new Url('http://www.sample.tld/index.html'));
     $this->assertSame(
       $reference,
@@ -494,11 +494,11 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiReferencePage::pageReferences
+   * @covers \PapayaUiReferencePage::pageReferences
    */
   public function testPageReferencesGetAfterSet() {
     $factory = $this->createMock(PapayaUiReferencePageFactory::class);
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->pageReferences($factory);
     $this->assertSame(
       $factory, $reference->pageReferences()
@@ -506,7 +506,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiReferencePage::pageReferences
+   * @covers \PapayaUiReferencePage::pageReferences
    */
   public function testPageReferencesFetchFromApplication() {
     $application = $this->mockPapaya()->application(
@@ -514,7 +514,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
         'pageReferences' => $factory = $this->createMock(PapayaUiReferencePageFactory::class)
       )
     );
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->papaya($application);
     $this->assertSame(
       $factory, $reference->pageReferences()
@@ -522,27 +522,27 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiReferencePage::pageReferences
+   * @covers \PapayaUiReferencePage::pageReferences
    */
   public function testPageReferencesExpectingNull() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $this->assertNull(
       $reference->pageReferences()
     );
   }
 
   /**
-   * @covers PapayaUiReferencePage::isStartPage
+   * @covers \PapayaUiReferencePage::isStartPage
    */
   public function testIsStartPageWithoutPageReferencesExpectingFalse() {
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $this->assertFalse(
       $reference->isStartPage()
     );
   }
 
   /**
-   * @covers PapayaUiReferencePage::isStartPage
+   * @covers \PapayaUiReferencePage::isStartPage
    */
   public function testIsStartPageExpectingTrue() {
     $references = $this->createMock(PapayaUiReferencePageFactory::class);
@@ -551,7 +551,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
       ->method('isStartPage')
       ->willReturn(TRUE);
 
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->papaya($this->mockPapaya()->application());
     $reference->pageReferences($references);
     $this->assertTrue(
@@ -560,7 +560,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiReferencePage::isStartPage
+   * @covers \PapayaUiReferencePage::isStartPage
    */
   public function testIsStartPageExpectingFalse() {
     $references = $this->createMock(PapayaUiReferencePageFactory::class);
@@ -569,7 +569,7 @@ class PapayaUiReferencePageTest extends PapayaTestCase {
       ->method('isStartPage')
       ->willReturn(FALSE);
 
-    $reference = new PapayaUiReferencePage();
+    $reference = new \PapayaUiReferencePage();
     $reference->papaya($this->mockPapaya()->application());
     $reference->pageReferences($references);
     $this->assertFalse(

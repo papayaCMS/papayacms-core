@@ -1,13 +1,27 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaMessageContextTextTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaMessageContextText::__construct
+  * @covers \PapayaMessageContextText::__construct
   */
   public function testConstructor() {
-    $context = new PapayaMessageContextText('Hello World');
+    $context = new \PapayaMessageContextText('Hello World');
     $this->assertAttributeSame(
       'Hello World',
       '_text',
@@ -16,10 +30,10 @@ class PapayaMessageContextTextTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextText::asString
+  * @covers \PapayaMessageContextText::asString
   */
   public function testAsString() {
-    $context = new PapayaMessageContextText('Hello World');
+    $context = new \PapayaMessageContextText('Hello World');
     $this->assertEquals(
       'Hello World',
       $context->asString()

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiDialogErrorsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogErrors::getIterator
+  * @covers \PapayaUiDialogErrors::getIterator
   */
   public function testIterator() {
-    $errors = new PapayaUiDialogErrors();
+    $errors = new \PapayaUiDialogErrors();
     $errors->add(new Exception(), new stdClass());
     $errors->add(new Exception(), new stdClass());
     $result = array();
@@ -35,19 +35,19 @@ class PapayaUiDialogErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogErrors::count
+  * @covers \PapayaUiDialogErrors::count
   */
   public function testCountable() {
-    $errors = new PapayaUiDialogErrors();
+    $errors = new \PapayaUiDialogErrors();
     $errors->add(new Exception(), new stdClass());
     $this->assertCount(1, $errors);
   }
 
   /**
-  * @covers PapayaUiDialogErrors::add
+  * @covers \PapayaUiDialogErrors::add
   */
   public function testAddWithoutSource() {
-    $errors = new PapayaUiDialogErrors();
+    $errors = new \PapayaUiDialogErrors();
     $errors->add($e = new Exception());
     $this->assertAttributeEquals(
       array(
@@ -62,10 +62,10 @@ class PapayaUiDialogErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogErrors::add
+  * @covers \PapayaUiDialogErrors::add
   */
   public function testAddWithSource() {
-    $errors = new PapayaUiDialogErrors();
+    $errors = new \PapayaUiDialogErrors();
     $errors->add($e = new Exception(), $source = new stdClass());
     $this->assertAttributeEquals(
       array(
@@ -80,10 +80,10 @@ class PapayaUiDialogErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogErrors::clear
+  * @covers \PapayaUiDialogErrors::clear
   */
   public function testClear() {
-    $errors = new PapayaUiDialogErrors();
+    $errors = new \PapayaUiDialogErrors();
     $errors->clear();
     $this->assertAttributeEquals(
       array(),
@@ -93,10 +93,10 @@ class PapayaUiDialogErrorsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogErrors::getSourceCaptions
+  * @covers \PapayaUiDialogErrors::getSourceCaptions
   */
   public function testGetSourceCaptions() {
-    $errors = new PapayaUiDialogErrors();
+    $errors = new \PapayaUiDialogErrors();
     $fieldOne = $this->createMock(PapayaUiDialogField::class);
     $fieldOne
       ->expects($this->once())

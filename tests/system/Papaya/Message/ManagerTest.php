@@ -18,12 +18,12 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaMessageManagerTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaMessageManager::addDispatcher
+  * @covers \PapayaMessageManager::addDispatcher
   */
   public function testAddDispatcher() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcher $dispatcher */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDispatcher $dispatcher */
     $dispatcher = $this->createMock(PapayaMessageDispatcher::class);
-    $manager = new PapayaMessageManager();
+    $manager = new \PapayaMessageManager();
     $manager->addDispatcher($dispatcher);
     $this->assertAttributeEquals(
       array($dispatcher),
@@ -33,75 +33,75 @@ class PapayaMessageManagerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageManager::dispatch
+  * @covers \PapayaMessageManager::dispatch
   */
   public function testDispatch() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessage $message */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessage $message */
     $message = $this->createMock(PapayaMessage::class);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcher $dispatcher */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDispatcher $dispatcher */
     $dispatcher = $this->createMock(PapayaMessageDispatcher::class);
     $dispatcher
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->equalTo($message));
-    $manager = new PapayaMessageManager();
+    $manager = new \PapayaMessageManager();
     $manager->addDispatcher($dispatcher);
     $manager->dispatch($message);
   }
 
   /**
-  * @covers PapayaMessageManager::display
+  * @covers \PapayaMessageManager::display
   */
   public function testDisplay() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcher $dispatcher */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDispatcher $dispatcher */
     $dispatcher = $this->createMock(PapayaMessageDispatcher::class);
     $dispatcher
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(PapayaMessageDisplay::class));
-    $manager = new PapayaMessageManager();
+    $manager = new \PapayaMessageManager();
     $manager->addDispatcher($dispatcher);
     $manager->display(PapayaMessage::SEVERITY_INFO, 'TEST');
   }
 
   /**
-  * @covers PapayaMessageManager::log
+  * @covers \PapayaMessageManager::log
   */
   public function testLog() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcher $dispatcher */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDispatcher $dispatcher */
     $dispatcher = $this->createMock(PapayaMessageDispatcher::class);
     $dispatcher
       ->expects($this->once())
       ->method('dispatch')
       ->with(
-        new PapayaMessageLog(
+        new \PapayaMessageLog(
           PapayaMessage::SEVERITY_INFO,
           PapayaMessageLogable::GROUP_COMMUNITY,
           'TEST'
         )
       );
-    $manager = new PapayaMessageManager();
+    $manager = new \PapayaMessageManager();
     $manager->addDispatcher($dispatcher);
     $manager->log(PapayaMessage::SEVERITY_INFO, PapayaMessageLogable::GROUP_COMMUNITY, 'TEST');
   }
 
   /**
-  * @covers PapayaMessageManager::log
+  * @covers \PapayaMessageManager::log
   */
   public function testLogWithContext() {
-    $message = new PapayaMessageLog(
+    $message = new \PapayaMessageLog(
       PapayaMessage::SEVERITY_INFO, PapayaMessageLogable::GROUP_COMMUNITY, 'TEST'
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextInterface $context */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $context */
     $context = $this->createMock(PapayaMessageContextInterface::class);
     $message->context()->append($context);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcher $dispatcher */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDispatcher $dispatcher */
     $dispatcher = $this->createMock(PapayaMessageDispatcher::class);
     $dispatcher
       ->expects($this->once())
       ->method('dispatch')
       ->with($message);
-    $manager = new PapayaMessageManager();
+    $manager = new \PapayaMessageManager();
     $manager->addDispatcher($dispatcher);
     $manager->log(
       PapayaMessage::SEVERITY_INFO,
@@ -112,22 +112,22 @@ class PapayaMessageManagerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageManager::log
+  * @covers \PapayaMessageManager::log
   */
   public function testLogWithContextGroup() {
-    $message = new PapayaMessageLog(
+    $message = new \PapayaMessageLog(
       PapayaMessage::SEVERITY_INFO, PapayaMessageLogable::GROUP_COMMUNITY, 'TEST'
     );
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextInterface $context */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $context */
     $context = $this->createMock(PapayaMessageContextInterface::class);
     $message->context()->append($context);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcher $dispatcher */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDispatcher $dispatcher */
     $dispatcher = $this->createMock(PapayaMessageDispatcher::class);
     $dispatcher
       ->expects($this->once())
       ->method('dispatch')
       ->with($message);
-    $manager = new PapayaMessageManager();
+    $manager = new \PapayaMessageManager();
     $manager->addDispatcher($dispatcher);
     $manager->log(
       PapayaMessage::SEVERITY_INFO,
@@ -138,20 +138,20 @@ class PapayaMessageManagerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageManager::log
+  * @covers \PapayaMessageManager::log
   */
   public function testLogWithData() {
-    $message = new PapayaMessageLog(
+    $message = new \PapayaMessageLog(
       PapayaMessage::SEVERITY_INFO, PapayaMessageLogable::GROUP_COMMUNITY, 'TEST'
     );
-    $message->context()->append(new PapayaMessageContextVariable('data'));
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcher $dispatcher */
+    $message->context()->append(new \PapayaMessageContextVariable('data'));
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDispatcher $dispatcher */
     $dispatcher = $this->createMock(PapayaMessageDispatcher::class);
     $dispatcher
       ->expects($this->once())
       ->method('dispatch')
       ->with($message);
-    $manager = new PapayaMessageManager();
+    $manager = new \PapayaMessageManager();
     $manager->addDispatcher($dispatcher);
     $manager->log(
       PapayaMessage::SEVERITY_INFO,
@@ -162,10 +162,10 @@ class PapayaMessageManagerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageManager::encapsulate
+  * @covers \PapayaMessageManager::encapsulate
   */
   public function testEncapsulate() {
-    $manager = new PapayaMessageManager();
+    $manager = new \PapayaMessageManager();
     $manager->papaya($papaya = $this->mockPapaya()->application());
     $sandbox = $manager->encapsulate('substr');
     $this->assertInternalType('callable', $sandbox);
@@ -174,12 +174,12 @@ class PapayaMessageManagerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageManager::hooks
+  * @covers \PapayaMessageManager::hooks
   */
   public function testHooksSettingHooks() {
     $hookOne = $this->createMock(PapayaMessageHook::class);
     $hookTwo = $this->createMock(PapayaMessageHook::class);
-    $manager = new PapayaMessageManager();
+    $manager = new \PapayaMessageManager();
     $manager->hooks(
       array($hookOne, $hookTwo)
     );
@@ -191,11 +191,11 @@ class PapayaMessageManagerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageManager::hooks
+  * @covers \PapayaMessageManager::hooks
   */
   public function testHooksReadHooks() {
     $hookOne = $this->createMock(PapayaMessageHook::class);
-    $manager = new PapayaMessageManager();
+    $manager = new \PapayaMessageManager();
     $manager->hooks(array($hookOne));
     $this->assertSame(
       array($hookOne),
@@ -204,15 +204,15 @@ class PapayaMessageManagerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageManager::hooks
+  * @covers \PapayaMessageManager::hooks
   */
   public function testHooksReadHooksImplizitCreate() {
-    $manager = new PapayaMessageManager();
+    $manager = new \PapayaMessageManager();
     $this->assertCount(2, $manager->hooks());
   }
 
   /**
-  * @covers PapayaMessageManager::setUp
+  * @covers \PapayaMessageManager::setUp
   */
   public function testSetUp() {
     $errorReporting = error_reporting();
@@ -226,7 +226,7 @@ class PapayaMessageManagerTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('activate');
 
-    $manager = new PapayaMessageManager();
+    $manager = new \PapayaMessageManager();
     $manager->hooks(array($hookOne, $hookTwo));
     $manager->setUp($options);
 
@@ -240,16 +240,16 @@ class PapayaMessageManagerTest extends PapayaTestCase {
 
 
   /**
-  * @covers PapayaMessageManager::debug
+  * @covers \PapayaMessageManager::debug
   */
   public function testDebug() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageDispatcher $dispatcher */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDispatcher $dispatcher */
     $dispatcher = $this->createMock(PapayaMessageDispatcher::class);
     $dispatcher
       ->expects($this->once())
       ->method('dispatch')
       ->with($this->isInstanceOf(PapayaMessageLog::class));
-    $manager = new PapayaMessageManager();
+    $manager = new \PapayaMessageManager();
     $manager->addDispatcher($dispatcher);
     $manager->debug('test');
   }

@@ -18,11 +18,11 @@ require_once __DIR__.'/../../bootstrap.php';
 class PapayaObjectTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaObject::setApplication
+  * @covers \PapayaObject::setApplication
   */
   public function testSetApplication() {
-    $object = new PapayaObject_TestProxy();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaApplication $application */
+    $object = new \PapayaObject_TestProxy();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaApplication $application */
     $application = $this->createMock(PapayaApplication::class);
     /** @noinspection PhpDeprecationInspection */
     $object->setApplication($application);
@@ -32,11 +32,11 @@ class PapayaObjectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaObject::getApplication
+  * @covers \PapayaObject::getApplication
   */
   public function testGetApplication() {
-    $object = new PapayaObject_TestProxy();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaApplication $application */
+    $object = new \PapayaObject_TestProxy();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaApplication $application */
     $application = $this->createMock(PapayaApplication::class);
     /** @noinspection PhpDeprecationInspection */
     $object->setApplication($application);
@@ -48,10 +48,10 @@ class PapayaObjectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaObject::getApplication
+  * @covers \PapayaObject::getApplication
   */
   public function testGetApplicationSingleton() {
-    $object = new PapayaObject_TestProxy();
+    $object = new \PapayaObject_TestProxy();
     /** @noinspection PhpDeprecationInspection */
     $app = $object->getApplication();
     $this->assertInstanceOf(
@@ -64,19 +64,19 @@ class PapayaObjectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaObject::papaya
+  * @covers \PapayaObject::papaya
   */
   public function testPapayaGetAfterSet() {
-    $object = new PapayaObject_TestProxy();
+    $object = new \PapayaObject_TestProxy();
     $application = $this->createMock(PapayaApplication::class);
     $this->assertSame($application, $object->papaya($application));
   }
 
   /**
-  * @covers PapayaObject::papaya
+  * @covers \PapayaObject::papaya
   */
   public function testPapayaGetUsingSingleton() {
-    $object = new PapayaObject_TestProxy();
+    $object = new \PapayaObject_TestProxy();
     $application = $object->papaya();
     $this->assertInstanceOf(PapayaApplication::class, $object->papaya());
     $this->assertSame($application, $object->papaya());

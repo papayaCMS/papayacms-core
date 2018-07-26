@@ -20,20 +20,20 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaSessionRedirectTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaSessionRedirect::__construct
+  * @covers \PapayaSessionRedirect::__construct
   */
   public function testConstructor() {
-    $redirect = new PapayaSessionRedirect('foo');
+    $redirect = new \PapayaSessionRedirect('foo');
     $this->assertAttributeEquals(
       'foo', '_sessionName', $redirect
     );
   }
 
   /**
-  * @covers PapayaSessionRedirect::__construct
+  * @covers \PapayaSessionRedirect::__construct
   */
   public function testConstructorWithAllParameters() {
-    $redirect = new PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
+    $redirect = new \PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
     $this->assertAttributeEquals(
       '42', '_sessionId', $redirect
     );
@@ -46,10 +46,10 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionRedirect::url
+  * @covers \PapayaSessionRedirect::url
   */
   public function testUrlSet() {
-    $redirect = new PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
+    $redirect = new \PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
     $url = $this->createMock(Url::class);
     $redirect->url($url);
     $this->assertAttributeSame(
@@ -58,10 +58,10 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionRedirect::url
+  * @covers \PapayaSessionRedirect::url
   */
   public function testUrlGetAfterSet() {
-    $redirect = new PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
+    $redirect = new \PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
     $url = $this->createMock(Url::class);
     $redirect->url($url);
     $this->assertSame(
@@ -70,10 +70,10 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionRedirect::url
+  * @covers \PapayaSessionRedirect::url
   */
   public function testUrlGetCloningRequestUrl() {
-    $redirect = new PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
+    $redirect = new \PapayaSessionRedirect('sid', '42', PapayaSessionId::SOURCE_PATH, 'test');
     $redirect->papaya(
       $this->mockPapaya()->application()
     );
@@ -83,9 +83,9 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaSessionRedirect::prepare
-   * @covers PapayaSessionRedirect::_setQueryParameter
-   * @covers PapayaSessionRedirect::_setPathParameter
+   * @covers \PapayaSessionRedirect::prepare
+   * @covers \PapayaSessionRedirect::_setQueryParameter
+   * @covers \PapayaSessionRedirect::_setPathParameter
    * @dataProvider provideRedirectData
    * @param string $expectedUrl
    * @param string $url
@@ -95,7 +95,7 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   public function testPrepareAddPathAndQueryString(
     $expectedUrl, $url, $transport, $sessionName = ''
   ) {
-    $redirect = new PapayaSessionRedirect(
+    $redirect = new \PapayaSessionRedirect(
       'sid'.$sessionName, '42', $transport, 'test'
     );
     $redirect->papaya(
@@ -118,7 +118,7 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSessionRedirect::send
+  * @covers \PapayaSessionRedirect::send
   */
   public function testSend() {
     $application = $this->mockPapaya()->application();
@@ -138,11 +138,11 @@ class PapayaSessionRedirectTest extends PapayaTestCase {
           $this->equalTo('Content-Type: text/plain; charset=UTF-8')
         )
       );
-    $redirect = new PapayaSessionRedirect('sid', '42', 0, 'test');
+    $redirect = new \PapayaSessionRedirect('sid', '42', 0, 'test');
     $redirect->papaya($application);
     $redirect->helper($helper);
     $redirect->setContentType('text/plain');
-    $redirect->content(new PapayaResponseContentString('SAMPLE'));
+    $redirect->content(new \PapayaResponseContentString('SAMPLE'));
     ob_start();
     $redirect->send();
     $this->assertEquals(

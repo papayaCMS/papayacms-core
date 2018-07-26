@@ -18,22 +18,22 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsServerAddressTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaFilterFactoryProfileIsServerAddress::getFilter
+   * @covers \PapayaFilterFactoryProfileIsServerAddress::getFilter
    * @dataProvider provideServerAddressStrings
    * @param string $string
    */
   public function testGetFilterExpectTrue($string) {
-    $profile = new PapayaFilterFactoryProfileIsServerAddress();
+    $profile = new \PapayaFilterFactoryProfileIsServerAddress();
     $this->assertTrue($profile->getFilter()->validate($string));
   }
 
   /**
-   * @covers PapayaFilterFactoryProfileIsServerAddress::getFilter
+   * @covers \PapayaFilterFactoryProfileIsServerAddress::getFilter
    * @dataProvider provideInvalidStrings
    * @param string $string
    */
   public function testGetFilterExpectException($string) {
-    $profile = new PapayaFilterFactoryProfileIsServerAddress();
+    $profile = new \PapayaFilterFactoryProfileIsServerAddress();
     $this->expectException(PapayaFilterException::class);
     $profile->getFilter()->validate($string);
   }

@@ -18,26 +18,26 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaTemplateSimpleScannerStatusCssValueTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaTemplateSimpleScannerStatusCssValue::getToken
+   * @covers \PapayaTemplateSimpleScannerStatusCssValue::getToken
    * @dataProvider provideValidTokenData
    * @param string $expected
    * @param string $buffer
    * @param int $offset
    */
   public function testGetToken($expected, $buffer, $offset) {
-    $status = new PapayaTemplateSimpleScannerStatusCssValue();
+    $status = new \PapayaTemplateSimpleScannerStatusCssValue();
     $token = $status->getToken($buffer, $offset);
     $this->assertEquals($expected, (string)$token);
   }
 
   /**
-   * @covers PapayaTemplateSimpleScannerStatusCssValue::isEndToken
+   * @covers \PapayaTemplateSimpleScannerStatusCssValue::isEndToken
    */
   public function testIsEndTokenExpectingTrue() {
-    $token = new PapayaTemplateSimpleScannerToken(
+    $token = new \PapayaTemplateSimpleScannerToken(
       PapayaTemplateSimpleScannerToken::VALUE_DEFAULT, 0, ''
     );
-    $status = new PapayaTemplateSimpleScannerStatusCssValue();
+    $status = new \PapayaTemplateSimpleScannerStatusCssValue();
     $this->assertTrue($status->isEndToken($token));
   }
 

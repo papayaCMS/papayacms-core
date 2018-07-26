@@ -18,12 +18,12 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiPanelTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiPanel::appendTo
+  * @covers \PapayaUiPanel::appendTo
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $document->appendElement('sample');
-    $panel = new PapayaUiPanel_TestProxy();
+    $panel = new \PapayaUiPanel_TestProxy();
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<panel/>',
@@ -32,13 +32,13 @@ class PapayaUiPanelTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPanel::appendTo
-  * @covers PapayaUiPanel::setCaption
+  * @covers \PapayaUiPanel::appendTo
+  * @covers \PapayaUiPanel::setCaption
   */
   public function testAppendToWithCaption() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $document->appendElement('sample');
-    $panel = new PapayaUiPanel_TestProxy();
+    $panel = new \PapayaUiPanel_TestProxy();
     $panel->setCaption('sample caption');
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -48,19 +48,19 @@ class PapayaUiPanelTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPanel::toolbars
+  * @covers \PapayaUiPanel::toolbars
   */
   public function testToolbarsGetAfterSet() {
-    $panel = new PapayaUiPanel_TestProxy();
+    $panel = new \PapayaUiPanel_TestProxy();
     $toolbars = $this->createMock(PapayaUiToolbars::class);
     $this->assertSame($toolbars, $panel->toolbars($toolbars));
   }
 
   /**
-  * @covers PapayaUiPanel::toolbars
+  * @covers \PapayaUiPanel::toolbars
   */
   public function testToolbarsGetImplicitCreate() {
-    $panel = new PapayaUiPanel_TestProxy();
+    $panel = new \PapayaUiPanel_TestProxy();
     $toolbars = $panel->toolbars();
     $this->assertInstanceOf(PapayaUiToolbars::class, $toolbars);
   }

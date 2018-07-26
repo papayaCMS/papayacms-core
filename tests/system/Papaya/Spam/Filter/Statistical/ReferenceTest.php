@@ -1,13 +1,27 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../../bootstrap.php';
 
 class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaSpamFilterStatisticalReference::load
-  * @covers PapayaSpamFilterStatisticalReference::loadTotals
-  * @covers PapayaSpamFilterStatisticalReference::getHamCount
-  * @covers PapayaSpamFilterStatisticalReference::getSpamCount
+  * @covers \PapayaSpamFilterStatisticalReference::load
+  * @covers \PapayaSpamFilterStatisticalReference::loadTotals
+  * @covers \PapayaSpamFilterStatisticalReference::getHamCount
+  * @covers \PapayaSpamFilterStatisticalReference::getSpamCount
   */
   public function testLoad() {
     $totalsDatabaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -74,7 +88,7 @@ class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
         )
       );
 
-    $reference = new PapayaSpamFilterStatisticalReference();
+    $reference = new \PapayaSpamFilterStatisticalReference();
     $reference->setDatabaseAccess($databaseAccess);
     $this->assertTrue($reference->load(array('foo', 'bar'), 2));
     $this->assertAttributeEquals(
@@ -98,15 +112,15 @@ class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaSpamFilterStatisticalReference::load
+  * @covers \PapayaSpamFilterStatisticalReference::load
   */
   public function testLoadWithEmptyWordList() {
-    $reference = new PapayaSpamFilterStatisticalReference();
+    $reference = new \PapayaSpamFilterStatisticalReference();
     $this->assertFalse($reference->load(array(), 2));
   }
 
   /**
-  * @covers PapayaSpamFilterStatisticalReference::load
+  * @covers \PapayaSpamFilterStatisticalReference::load
   */
   public function testLoadWithDatabaseError() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -121,7 +135,7 @@ class PapayaSpamFilterStatisticalReferenceTest extends PapayaTestCase {
       ->with($this->isType('string'), $this->isType('array'))
       ->will($this->returnValue(FALSE));
 
-    $reference = new PapayaSpamFilterStatisticalReference();
+    $reference = new \PapayaSpamFilterStatisticalReference();
     $reference->setDatabaseAccess($databaseAccess);
     $this->assertFalse($reference->load(array('foo', 'bar'), 2));
   }

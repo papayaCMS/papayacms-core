@@ -19,7 +19,7 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
 
   /**
   * @backupGlobals enabled
-  * @covers PapayaUtilServerAgent::get
+  * @covers \PapayaUtilServerAgent::get
   */
   public function testGet() {
     $_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
@@ -30,7 +30,7 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
 
   /**
   * @backupGlobals enabled
-  * @covers PapayaUtilServerAgent::get
+  * @covers \PapayaUtilServerAgent::get
   */
   public function testGetExpectingEmptyString() {
     $_SERVER['HTTP_USER_AGENT'] = '';
@@ -40,9 +40,9 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilServerAgent::isRobot
-   * @covers PapayaUtilServerAgent::_checkAgentIsRobot
-   * @covers PapayaUtilServerAgent::_checkAgainstList
+   * @covers \PapayaUtilServerAgent::isRobot
+   * @covers \PapayaUtilServerAgent::_checkAgentIsRobot
+   * @covers \PapayaUtilServerAgent::_checkAgainstList
    * @dataProvider provideRobots
    * @param string $userAgent
    */
@@ -53,9 +53,9 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilServerAgent::isRobot
-   * @covers PapayaUtilServerAgent::_checkAgentIsRobot
-   * @covers PapayaUtilServerAgent::_checkAgainstList
+   * @covers \PapayaUtilServerAgent::isRobot
+   * @covers \PapayaUtilServerAgent::_checkAgentIsRobot
+   * @covers \PapayaUtilServerAgent::_checkAgainstList
    * @dataProvider provideUserAgents
    * @param string $userAgent
    */
@@ -66,7 +66,7 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerAgent::isRobot
+  * @covers \PapayaUtilServerAgent::isRobot
   */
   public function testIsRobotExpectingTrueUsingCachedResult() {
     PapayaUtilServerAgent::isRobot('Googlebot/2.1 (+http://www.google.com/bot.html)');
@@ -77,7 +77,7 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
 
   /**
   * @backupGlobals
-  * @covers PapayaUtilServerAgent::isRobot
+  * @covers \PapayaUtilServerAgent::isRobot
   */
   public function testIsRobotExpectingTrueReadingServerVariable() {
     $_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
@@ -88,7 +88,7 @@ class PapayaUtilServerAgentTest extends PapayaTestCase {
 
   /**
   * @backupGlobals enabled
-  * @covers PapayaUtilServerAgent::isRobot
+  * @covers \PapayaUtilServerAgent::isRobot
   */
   public function testIsRobotExpectingFalseWithEmptyUserAgent() {
     $_SERVER['HTTP_USER_AGENT'] = '';

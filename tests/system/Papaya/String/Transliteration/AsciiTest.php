@@ -18,37 +18,37 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaStringTransliterationAsciiTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaStringTransliterationAscii::transliterate
-   * @covers PapayaStringTransliterationAscii::mapCharacterMatch
+   * @covers \PapayaStringTransliterationAscii::transliterate
+   * @covers \PapayaStringTransliterationAscii::mapCharacterMatch
    * @dataProvider provideTransliterationExamples
    * @param string $expected
    * @param string $string
    * @param string $language
    */
   public function testTransliterate($expected, $string, $language) {
-    $transliterator = new PapayaStringTransliterationAscii();
+    $transliterator = new \PapayaStringTransliterationAscii();
     $this->assertEquals(
       $expected, $transliterator->transliterate($string, $language)
     );
   }
 
   /**
-  * @covers PapayaStringTransliterationAscii::mapping
+  * @covers \PapayaStringTransliterationAscii::mapping
   */
   public function testMappingGetAfterSet() {
     $mapping = $this->createMock(PapayaStringTransliterationAsciiMapping::class);
-    $transliteratorOne = new PapayaStringTransliterationAscii();
-    $transliteratorTwo = new PapayaStringTransliterationAscii();
+    $transliteratorOne = new \PapayaStringTransliterationAscii();
+    $transliteratorTwo = new \PapayaStringTransliterationAscii();
     $transliteratorOne->mapping($mapping);
     $this->assertSame($mapping, $transliteratorTwo->mapping());
   }
 
   /**
-  * @covers PapayaStringTransliterationAscii::mapping
-  * @covers PapayaStringTransliterationAscii::resetMapping
+  * @covers \PapayaStringTransliterationAscii::mapping
+  * @covers \PapayaStringTransliterationAscii::resetMapping
   */
   public function testMappingImplicitCreate() {
-    $transliterator = new PapayaStringTransliterationAscii();
+    $transliterator = new \PapayaStringTransliterationAscii();
     $mappingOne = $transliterator->mapping();
     $transliterator->resetMapping();
     $mappingTwo = $transliterator->mapping();

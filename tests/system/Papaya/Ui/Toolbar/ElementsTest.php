@@ -18,24 +18,24 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiToolbarElementsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiToolbarElements::__construct
-  * @covers PapayaUiToolbarElements::owner
+  * @covers \PapayaUiToolbarElements::__construct
+  * @covers \PapayaUiToolbarElements::owner
   */
   public function testConstructor() {
     $menu = $this->createMock(PapayaUiMenu::class);
-    $elements = new PapayaUiToolbarElements($menu);
+    $elements = new \PapayaUiToolbarElements($menu);
     $this->assertSame(
       $menu, $elements->owner()
     );
   }
 
   /**
-  * @covers PapayaUiToolbarElements::validateItemClass
+  * @covers \PapayaUiToolbarElements::validateItemClass
   */
   public function testAddElementWhileGroupsAllowed() {
-    $elements = new PapayaUiToolbarElements($this->createMock(PapayaUiMenu::class));
+    $elements = new \PapayaUiToolbarElements($this->createMock(PapayaUiMenu::class));
     $elements->allowGroups = TRUE;
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaUiToolbarGroup $group */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiToolbarGroup $group */
     $group = $this
       ->getMockBuilder(PapayaUiToolbarGroup::class)
       ->setConstructorArgs(array('caption'))
@@ -47,12 +47,12 @@ class PapayaUiToolbarElementsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarElements::validateItemClass
+  * @covers \PapayaUiToolbarElements::validateItemClass
   */
   public function testAddElementWhileGroupsNotAllowedExpectingException() {
-    $elements = new PapayaUiToolbarElements($this->createMock(PapayaUiMenu::class));
+    $elements = new \PapayaUiToolbarElements($this->createMock(PapayaUiMenu::class));
     $elements->allowGroups = FALSE;
-    $group = new PapayaUiToolbarGroup('caption');
+    $group = new \PapayaUiToolbarGroup('caption');
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Invalid item class "PapayaUiToolbarGroup".');
     $elements->add($group);

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaMessageContextVariableVisitor::__construct
+  * @covers \PapayaMessageContextVariableVisitor::__construct
   */
   public function testConstructor() {
-    $visitor = new PapayaMessageContextVariableVisitorProxy(21, 42);
+    $visitor = new \PapayaMessageContextVariableVisitorProxy(21, 42);
     $this->assertAttributeEquals(
       21,
       '_depth',
@@ -35,10 +35,10 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariableVisitor::__toString
+  * @covers \PapayaMessageContextVariableVisitor::__toString
   */
   public function testMagicMethodToString() {
-    $visitor = new PapayaMessageContextVariableVisitorProxy(21, 42);
+    $visitor = new \PapayaMessageContextVariableVisitorProxy(21, 42);
     $this->assertEquals(
       'variable dump',
       (string)$visitor
@@ -46,13 +46,13 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaMessageContextVariableVisitor::visitVariable
+   * @covers \PapayaMessageContextVariableVisitor::visitVariable
    * @dataProvider dataProviderForVisitVariable
    * @param string $expected
    * @param mixed $with
    */
   public function testVisitVariable($expected, $with) {
-    $visitor = new PapayaMessageContextVariableVisitorProxy(21, 42);
+    $visitor = new \PapayaMessageContextVariableVisitorProxy(21, 42);
     $visitor->visitVariable($with);
     $this->assertAttributeEquals(
       $expected,
@@ -75,7 +75,7 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariableVisitor::_pushObjectStack
+  * @covers \PapayaMessageContextVariableVisitor::_pushObjectStack
   */
   public function testPushObjectStack() {
     $visitor = $this->getVisitorFixtureForObjectTest();
@@ -92,7 +92,7 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariableVisitor::_popObjectStack
+  * @covers \PapayaMessageContextVariableVisitor::_popObjectStack
   */
   public function testPopObjectStack() {
     $visitor = $this->getVisitorFixtureForObjectTest();
@@ -110,7 +110,7 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariableVisitor::_popObjectStack
+  * @covers \PapayaMessageContextVariableVisitor::_popObjectStack
   */
   public function testPopObjectStackExpectingException() {
     $visitor = $this->getVisitorFixtureForObjectTest();
@@ -119,7 +119,7 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariableVisitor::_isObjectRecursion
+  * @covers \PapayaMessageContextVariableVisitor::_isObjectRecursion
   */
   public function testIsObjectRecursionExpectingTrue() {
     $visitor = $this->getVisitorFixtureForObjectTest();
@@ -129,7 +129,7 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariableVisitor::_isObjectRecursion
+  * @covers \PapayaMessageContextVariableVisitor::_isObjectRecursion
   */
   public function testIsObjectRecursionExpectingFalse() {
     $visitor = $this->getVisitorFixtureForObjectTest();
@@ -139,7 +139,7 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariableVisitor::_isObjectDuplicate
+  * @covers \PapayaMessageContextVariableVisitor::_isObjectDuplicate
   */
   public function testIsObjectDuplicateExpectingTrue() {
     $visitor = $this->getVisitorFixtureForObjectTest();
@@ -149,7 +149,7 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariableVisitor::_isObjectDuplicate
+  * @covers \PapayaMessageContextVariableVisitor::_isObjectDuplicate
   */
   public function testIsObjectDuplicateExpectingFalse() {
     $visitor = $this->getVisitorFixtureForObjectTest();
@@ -159,7 +159,7 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageContextVariableVisitor::_getObjectIndex
+  * @covers \PapayaMessageContextVariableVisitor::_getObjectIndex
   */
   public function testGetObjectIndex() {
     $visitor = $this->getVisitorFixtureForObjectTest();
@@ -170,7 +170,7 @@ class PapayaMessageContextVariableVisitorTest extends PapayaTestCase {
   }
 
   public function getVisitorFixtureForObjectTest() {
-    $visitor = new PapayaMessageContextVariableVisitorProxy(21, 42);
+    $visitor = new \PapayaMessageContextVariableVisitorProxy(21, 42);
     $visitor->_pushObjectStack('hash1');
     $visitor->_pushObjectStack('hash2');
     return $visitor;

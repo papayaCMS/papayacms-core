@@ -28,7 +28,7 @@ class PapayaUtilRequestUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestUrl::get
+  * @covers \PapayaUtilRequestUrl::get
   */
   public function testGetOnEmptyRequestEnvironmentExpectingEmptyString() {
     $_SERVER = array();
@@ -38,7 +38,7 @@ class PapayaUtilRequestUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestUrl::get
+  * @covers \PapayaUtilRequestUrl::get
   */
   public function testGet() {
     $_SERVER = array(
@@ -52,7 +52,7 @@ class PapayaUtilRequestUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestUrl::get
+  * @covers \PapayaUtilRequestUrl::get
   */
   public function testGetWithNonDefaultPort() {
     $_SERVER = array(
@@ -66,7 +66,7 @@ class PapayaUtilRequestUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestUrl::get
+  * @covers \PapayaUtilRequestUrl::get
   */
   public function testGetWithHttps() {
     $_SERVER = array(
@@ -81,7 +81,7 @@ class PapayaUtilRequestUrlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestUrl::get
+  * @covers \PapayaUtilRequestUrl::get
   * @preserveGlobalState disabled
   * @runInSeparateProcess
   */

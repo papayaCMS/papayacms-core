@@ -18,29 +18,29 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaRequestContentTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaRequestContent
+   * @covers \PapayaRequestContent
    */
   public function testReadStream() {
     $stream = fopen('data://text/plain,'.urlencode('TEST'), 'rb');
-    $content = new PapayaRequestContent($stream);
+    $content = new \PapayaRequestContent($stream);
     $this->assertEquals('TEST', (string)$content);
   }
 
   /**
-   * @covers PapayaRequestContent
+   * @covers \PapayaRequestContent
    */
   public function testReadLengthStream() {
-    $content = new PapayaRequestContent(NULL, 42);
+    $content = new \PapayaRequestContent(NULL, 42);
     $this->assertEquals(42, $content->length());
   }
 
   /**
-   * @covers PapayaRequestContent
+   * @covers \PapayaRequestContent
    * @backupGlobals enabled
    */
   public function testReadLengthFromEnvironment() {
     $_SERVER['HTTP_CONTENT_LENGTH'] = 42;
-    $content = new PapayaRequestContent();
+    $content = new \PapayaRequestContent();
     $this->assertEquals(42, $content->length());
   }
 

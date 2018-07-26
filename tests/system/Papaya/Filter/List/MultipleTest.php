@@ -18,49 +18,49 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterListMultipleTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaFilterListMultiple::__construct
+  * @covers \PapayaFilterListMultiple::__construct
   */
   public function testConstructor() {
-    $filter = new PapayaFilterListMultiple(array(21, 42));
+    $filter = new \PapayaFilterListMultiple(array(21, 42));
     $this->assertAttributeSame(
       array(21, 42), '_list', $filter
     );
   }
 
   /**
-   * @covers PapayaFilterListMultiple::validate
+   * @covers \PapayaFilterListMultiple::validate
    * @dataProvider provideValidValidateData
    * @param mixed $value
    * @param array|Traversable $validValues
    * @throws PapayaFilterException
    */
   public function testValidateExpectingTrue($value, $validValues) {
-    $filter = new PapayaFilterListMultiple($validValues);
+    $filter = new \PapayaFilterListMultiple($validValues);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers PapayaFilterListMultiple::validate
+   * @covers \PapayaFilterListMultiple::validate
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
    * @param array|Traversable $validValues
    * @throws PapayaFilterException
    */
   public function testValidateExpectingException($value, $validValues) {
-    $filter = new PapayaFilterListMultiple($validValues);
+    $filter = new \PapayaFilterListMultiple($validValues);
     $this->expectException(PapayaFilterException::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers PapayaFilterListMultiple::filter
+   * @covers \PapayaFilterListMultiple::filter
    * @dataProvider provideValidFilterData
    * @param mixed $expected
    * @param mixed $value
    * @param array|Traversable $validValues
    */
   public function testFilter($expected, $value, $validValues) {
-    $filter = new PapayaFilterListMultiple($validValues);
+    $filter = new \PapayaFilterListMultiple($validValues);
     $this->assertSame($expected, $filter->filter($value));
   }
 

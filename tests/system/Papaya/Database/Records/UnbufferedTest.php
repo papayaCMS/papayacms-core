@@ -44,7 +44,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $this->assertTrue($records->load(42));
   }
@@ -82,7 +82,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
       ->method('getSql')
       ->will($this->returnValue(" field_id = '42'"));
 
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $this->assertTrue($records->load($condition));
   }
@@ -104,7 +104,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $this->assertTrue($records->load());
   }
@@ -131,7 +131,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue($databaseResult));
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->orderBy($orderBy);
     $records->setDatabaseAccess($databaseAccess);
     $this->assertTrue($records->load());
@@ -156,7 +156,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
         array('table_tablename')
       )
       ->will($this->returnValue(FALSE));
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $this->assertFalse($records->load(42));
   }
@@ -169,7 +169,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
     $mapping = $this
       ->getMockBuilder(Papaya\Database\Interfaces\Mapping::class)
       ->getMock();
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $records->mapping($mapping);
     $filter = $records->createFilter();
@@ -187,7 +187,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(3));
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->databaseResult($databaseResult);
     $this->assertEquals(3, $records->count());
   }
@@ -196,7 +196,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   * @covers Unbuffered::count
   */
   public function testCountWihtoutDatabaseResultExpectingZero() {
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $this->assertEquals(0, $records->count());
   }
 
@@ -209,7 +209,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('absCount')
       ->will($this->returnValue(7));
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->databaseResult($databaseResult);
     $this->assertEquals(7, $records->absCount());
   }
@@ -218,7 +218,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   * @covers Unbuffered::absCount
   */
   public function testAbsCountWihtoutDatabaseResultExpectingZero() {
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $this->assertEquals(0, $records->absCount());
   }
 
@@ -246,7 +246,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
           NULL
         )
       );
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->databaseResult($databaseResult);
     $this->assertEquals(
       array(
@@ -279,7 +279,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
           NULL
         )
       );
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->databaseResult($databaseResult);
     $this->assertEquals(
       array(),
@@ -292,7 +292,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   * @covers Unbuffered::getResultIterator
   */
   public function testGetIteratorWithoutResultEmptytingEmpty() {
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $this->assertInstanceOf('EmptyIterator', $records->getIterator());
   }
 
@@ -301,7 +301,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   */
   public function testMappingGetAfterSet() {
     $mapping = $this->createMock(Papaya\Database\Interfaces\Mapping::class);
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->mapping($mapping);
     $this->assertSame(
       $mapping, $records->mapping()
@@ -313,7 +313,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   * @covers Unbuffered::_createMapping
   */
   public function testMappingGetImplicitCreate() {
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $this->assertInstanceOf(
       Papaya\Database\Record\Mapping::class, $records->mapping()
     );
@@ -324,7 +324,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   */
   public function testOrderByGetAfterSet() {
     $orderBy = $this->createMock(Order::class);
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->orderBy($orderBy);
     $this->assertSame(
       $orderBy, $records->orderBy()
@@ -336,7 +336,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   * @covers Unbuffered::_createOrderBy
   */
   public function testOrderByGetImplicitCreateExpectingEmpty() {
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $this->assertFalse($records->orderBy());
   }
 
@@ -345,7 +345,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   * @covers Unbuffered::_createOrderBy
   */
   public function testOrderByGetImplicitCreateWithField() {
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->_orderByFields = array('fieldname' => Order::ASCENDING);
     $this->assertEquals(
       'fieldname ASC',
@@ -358,7 +358,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   * @covers Unbuffered::_createOrderBy
   */
   public function testOrderByGetImplicitCreateWithTwoFields() {
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->_orderByFields = array(
       'field_one' => Order::DESCENDING,
       'field_two' => Order::ASCENDING
@@ -380,7 +380,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
       ->method('getField')
       ->with('name')
       ->will($this->returnValue('fieldname'));
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->mapping($mapping);
     $records->_orderByProperties = array('name' => Order::ASCENDING);
     $this->assertEquals(
@@ -406,7 +406,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
           )
         )
       );
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->mapping($mapping);
     $records->_orderByProperties = array(
       'one' => Order::ASCENDING,
@@ -435,7 +435,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
           )
         )
       );
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->mapping($mapping);
     $records->_orderByProperties = array(
       'one' => Order::ASCENDING,
@@ -456,7 +456,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   */
   public function testDatabaseResultGetAfterSet() {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->databaseResult($databaseResult);
     $this->assertSame(
       $databaseResult, $records->databaseResult()
@@ -469,7 +469,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
   */
   public function testGetDatabaseAccessAfterSet() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->setDatabaseAccess($databaseAccess);
     $this->assertSame(
       $databaseAccess, $records->getDatabaseAccess()
@@ -486,7 +486,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('createDatabaseAccess')
       ->will($this->returnValue($databaseAccess));
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->papaya(
       $this->mockPapaya()->application(
         array('database' => $databaseManager)
@@ -502,7 +502,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
    * @covers Unbuffered::getItem
    */
   public function testGetItemExpectingException() {
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $this->expectException(LogicException::class);
     $records->getItem();
   }
@@ -512,7 +512,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
    * @covers Unbuffered::getItem
    */
   public function testGetItem() {
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy();
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy();
     $records->_itemClass = PapayaDatabaseRecordsUnbuffered_TestItemProxy::class;
     $this->assertInstanceOf(PapayaDatabaseRecordsUnbuffered_TestItemProxy::class, $records->getItem());
   }
@@ -526,7 +526,7 @@ class PapayaDatabaseRecordsUnbufferedTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('load')
       ->with(array('id' => '42'));
-    $records = new PapayaDatabaseRecordsUnbuffered_TestProxy;
+    $records = new \PapayaDatabaseRecordsUnbuffered_TestProxy;
     $records->item = $record;
     $records->getItem(array('id' => '42'));
   }

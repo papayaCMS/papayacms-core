@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilDateTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUtilDate::stringToTimestamp
+  * @covers \PapayaUtilDate::stringToTimestamp
   */
   public function testStringToTimestamp() {
     $this->assertEquals(
@@ -28,7 +28,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilDate::stringToTimestamp
+  * @covers \PapayaUtilDate::stringToTimestamp
   */
   public function testStringToTimestampExpectingFalse() {
     $this->assertFalse(
@@ -37,7 +37,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilDate::stringToISO
+   * @covers \PapayaUtilDate::stringToISO
    * @dataProvider stringToIsoDataProvider
    * @param string $dateString
    * @param bool $includeTime
@@ -51,8 +51,8 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilDate::stringToArray
-   * @covers PapayaUtilDate::_getValueFromArray
+   * @covers \PapayaUtilDate::stringToArray
+   * @covers \PapayaUtilDate::_getValueFromArray
    * @dataProvider stringToArrayDataProvider
    * @param string $dateString
    * @param array|FALSE $expected
@@ -75,7 +75,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilDate::timestampToString
+  * @covers \PapayaUtilDate::timestampToString
   */
   public function testTimestampToStringWithoutSeconds() {
     date_default_timezone_set('UTC');
@@ -85,7 +85,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilDate::timestampToString
+  * @covers \PapayaUtilDate::timestampToString
   */
   public function testTimestampToStringWithoutOffset() {
     date_default_timezone_set('UTC');
@@ -95,7 +95,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilDate::timestampToString
+  * @covers \PapayaUtilDate::timestampToString
   */
   public function testTimestampToStringWithoutWeekday() {
     date_default_timezone_set('UTC');
@@ -105,7 +105,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilDate::periodToArray
+  * @covers \PapayaUtilDate::periodToArray
   */
   public function testPeriodToArray() {
     $this->assertEquals(
@@ -125,8 +125,8 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilDate::periodToString
-   * @covers PapayaUtilDate::_roundPeriodElement
+   * @covers \PapayaUtilDate::periodToString
+   * @covers \PapayaUtilDate::_roundPeriodElement
    * @dataProvider periodToArrayDataProvider
    * @param string $expected
    * @param string $period
@@ -140,8 +140,8 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilDate::periodToString
-  * @covers PapayaUtilDate::_roundPeriodElement
+  * @covers \PapayaUtilDate::periodToString
+  * @covers \PapayaUtilDate::_roundPeriodElement
   */
   public function testPeriodToStringWithUnits() {
     $this->assertEquals(
@@ -159,7 +159,7 @@ class PapayaUtilDateTest extends PapayaTestCase {
   }
 
   /**
-   * @covers       PapayaUtilDate::iso8601ToTimestamp
+   * @covers       \PapayaUtilDate::iso8601ToTimestamp
    * @dataProvider iso8601ToTimestampDataProvider
    * @param $expected
    * @param $datetime

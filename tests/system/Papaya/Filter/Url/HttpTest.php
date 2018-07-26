@@ -18,52 +18,52 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterUrlHttpTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaFilterUrlHttp::validate
-   * @covers PapayaFilterUrlHttp::prepare
+   * @covers \PapayaFilterUrlHttp::validate
+   * @covers \PapayaFilterUrlHttp::prepare
    * @dataProvider provideValidUrls
    * @param mixed $value
    */
   public function testValidate($value) {
-    $filter = new PapayaFilterUrlHttp();
+    $filter = new \PapayaFilterUrlHttp();
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers PapayaFilterUrlHttp::validate
-   * @covers PapayaFilterUrlHttp::prepare
+   * @covers \PapayaFilterUrlHttp::validate
+   * @covers \PapayaFilterUrlHttp::prepare
    * @dataProvider provideInvalidValues
    * @param mixed $value
    */
   public function testValidateExpectingException($value) {
-    $filter = new PapayaFilterUrlHttp();
+    $filter = new \PapayaFilterUrlHttp();
     $this->expectException(PapayaFilterException::class);
     $filter->validate($value);
   }
 
   /**
-  * @covers PapayaFilterUrlHttp::filter
-  * @covers PapayaFilterUrlHttp::prepare
+  * @covers \PapayaFilterUrlHttp::filter
+  * @covers \PapayaFilterUrlHttp::prepare
   */
   public function testFilterExpectingNull() {
-    $filter = new PapayaFilterUrlHttp();
+    $filter = new \PapayaFilterUrlHttp();
     $this->assertNull($filter->filter(''));
   }
 
   /**
-  * @covers PapayaFilterUrlHttp::filter
-  * @covers PapayaFilterUrlHttp::prepare
+  * @covers \PapayaFilterUrlHttp::filter
+  * @covers \PapayaFilterUrlHttp::prepare
   */
   public function testFilterExpectingValue() {
-    $filter = new PapayaFilterUrlHttp();
+    $filter = new \PapayaFilterUrlHttp();
     $this->assertEquals('http://www.sample.tld', $filter->filter('http://www.sample.tld'));
   }
 
   /**
-  * @covers PapayaFilterUrlHttp::filter
-  * @covers PapayaFilterUrlHttp::prepare
+  * @covers \PapayaFilterUrlHttp::filter
+  * @covers \PapayaFilterUrlHttp::prepare
   */
   public function testFilterExpectingExtendedValue() {
-    $filter = new PapayaFilterUrlHttp();
+    $filter = new \PapayaFilterUrlHttp();
     $this->assertEquals('http://localhost', $filter->filter('localhost'));
   }
 

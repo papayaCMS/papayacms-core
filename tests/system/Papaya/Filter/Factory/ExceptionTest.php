@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterFactoryExceptionTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaFilterFactoryException
+   * @covers \PapayaFilterFactoryException
    */
   public function testThrowException() {
     $this->expectException(PapayaFilterFactoryException::class);
-    throw new PapayaFilterFactoryException_TestProxy('Test');
+    throw new \PapayaFilterFactoryException_TestProxy('Test');
   }
 
 }

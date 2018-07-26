@@ -18,24 +18,24 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogFieldButtonsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogFieldButtons::buttons
+  * @covers \PapayaUiDialogFieldButtons::buttons
   */
   public function testFieldsGetImplicitCreate() {
-    $field = new PapayaUiDialogFieldButtons();
+    $field = new \PapayaUiDialogFieldButtons();
     $this->assertInstanceOf(
       PapayaUiDialogButtons::class, $field->buttons()
     );
   }
 
   /**
-  * @covers PapayaUiDialogFieldButtons::buttons
+  * @covers \PapayaUiDialogFieldButtons::buttons
   */
   public function testFieldsGetImplicitCreateWithDialog() {
     $dialog = $this
       ->getMockBuilder(PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
-    $field = new PapayaUiDialogFieldButtons();
+    $field = new \PapayaUiDialogFieldButtons();
     $field->collection($this->getCollectionMock($dialog));
     $this->assertSame(
       $dialog, $field->buttons()->owner()
@@ -43,14 +43,14 @@ class PapayaUiDialogFieldButtonsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldButtons::buttons
+  * @covers \PapayaUiDialogFieldButtons::buttons
   */
   public function testFieldsSet() {
     $dialog = $this
       ->getMockBuilder(PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
-    $field = new PapayaUiDialogFieldButtons();
+    $field = new \PapayaUiDialogFieldButtons();
     $field->collection($this->getCollectionMock($dialog));
     $buttons = $this->createMock(PapayaUiDialogButtons::class);
     $buttons
@@ -64,14 +64,14 @@ class PapayaUiDialogFieldButtonsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldButtons::buttons
+  * @covers \PapayaUiDialogFieldButtons::buttons
   */
   public function testFieldsGetAfterSet() {
     $dialog = $this
       ->getMockBuilder(PapayaUiDialog::class)
       ->setConstructorArgs(array(new stdClass()))
       ->getMock();
-    $field = new PapayaUiDialogFieldButtons();
+    $field = new \PapayaUiDialogFieldButtons();
     $field->collection($this->getCollectionMock($dialog));
     $buttons = $this->createMock(PapayaUiDialogButtons::class);
     $buttons
@@ -84,15 +84,15 @@ class PapayaUiDialogFieldButtonsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldButtons::validate
+  * @covers \PapayaUiDialogFieldButtons::validate
   */
   public function testValidateExpectingTrue() {
-    $field = new PapayaUiDialogFieldButtons();
+    $field = new \PapayaUiDialogFieldButtons();
     $this->assertTrue($field->validate());
   }
 
   /**
-  * @covers PapayaUiDialogFieldButtons::collect
+  * @covers \PapayaUiDialogFieldButtons::collect
   */
   public function testCollect() {
     $dialog = $this
@@ -104,23 +104,23 @@ class PapayaUiDialogFieldButtonsTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('collect')
       ->will($this->returnValue(TRUE));
-    $field = new PapayaUiDialogFieldButtons();
+    $field = new \PapayaUiDialogFieldButtons();
     $field->collection($this->getCollectionMock($dialog));
     $field->buttons($buttons);
     $this->assertTrue($field->collect());
   }
 
   /**
-  * @covers PapayaUiDialogFieldButtons::collect
+  * @covers \PapayaUiDialogFieldButtons::collect
   */
   public function testCollectWithoutDialog() {
-    $field = new PapayaUiDialogFieldButtons();
+    $field = new \PapayaUiDialogFieldButtons();
     $field->collection($this->createMock(PapayaUiDialogButtons::class));
     $this->assertFalse($field->collect());
   }
 
   /**
-  * @covers PapayaUiDialogFieldButtons::appendTo
+  * @covers \PapayaUiDialogFieldButtons::appendTo
   */
   public function testAppendTo() {
     $buttons = $this->createMock(PapayaUiDialogButtons::class);
@@ -132,7 +132,7 @@ class PapayaUiDialogFieldButtonsTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(1));
-    $field = new PapayaUiDialogFieldButtons();
+    $field = new \PapayaUiDialogFieldButtons();
     $field->collection($this->createMock(PapayaUiDialogButtons::class));
     $field->buttons($buttons);
     $this->assertEquals(
@@ -143,7 +143,7 @@ class PapayaUiDialogFieldButtonsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldButtons::appendTo
+  * @covers \PapayaUiDialogFieldButtons::appendTo
   */
   public function testAppendToWithId() {
     $buttons = $this->createMock(PapayaUiDialogButtons::class);
@@ -155,7 +155,7 @@ class PapayaUiDialogFieldButtonsTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('count')
       ->will($this->returnValue(1));
-    $field = new PapayaUiDialogFieldButtons();
+    $field = new \PapayaUiDialogFieldButtons();
     $field->setId('sampleId');
     $field->collection($this->createMock(PapayaUiDialogButtons::class));
     $field->buttons($buttons);
@@ -167,10 +167,10 @@ class PapayaUiDialogFieldButtonsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldButtons::appendTo
+  * @covers \PapayaUiDialogFieldButtons::appendTo
   */
   public function testAppendToWithoutFields() {
-    $field = new PapayaUiDialogFieldButtons();
+    $field = new \PapayaUiDialogFieldButtons();
     $this->assertEquals(
       '',
       $field->getXml()
@@ -183,7 +183,7 @@ class PapayaUiDialogFieldButtonsTest extends PapayaTestCase {
 
   /**
    * @param object|NULL $owner
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaUiDialogFields
+   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogFields
    */
   public function getCollectionMock($owner = NULL) {
     $collection = $this->createMock(PapayaUiDialogFields::class);

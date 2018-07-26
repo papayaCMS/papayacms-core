@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiToolbarSelectTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiToolbarSelect::__construct
-  * @covers PapayaUiToolbarSelect::options
+  * @covers \PapayaUiToolbarSelect::__construct
+  * @covers \PapayaUiToolbarSelect::options
   */
   public function testConstructorSettingOptions() {
-    $select = new PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
+    $select = new \PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
     $this->assertAttributeEquals(
       'foo', '_parameterName', $select
     );
@@ -32,22 +32,22 @@ class PapayaUiToolbarSelectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarSelect::__construct
-  * @covers PapayaUiToolbarSelect::options
+  * @covers \PapayaUiToolbarSelect::__construct
+  * @covers \PapayaUiToolbarSelect::options
   */
   public function testOptionsExpectingException() {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Argument $options must be an array or implement Traversable.');
     /** @noinspection PhpParamsInspection */
-    new PapayaUiToolbarSelect('foo', 'failed');
+    new \PapayaUiToolbarSelect('foo', 'failed');
   }
 
   /**
-  * @covers PapayaUiToolbarSelect::getCurrentValue
-  * @covers PapayaUiToolbarSelect::validateCurrentValue
+  * @covers \PapayaUiToolbarSelect::getCurrentValue
+  * @covers \PapayaUiToolbarSelect::validateCurrentValue
   */
   public function testGetCurrentValue() {
-    $select = new PapayaUiToolbarSelect('foo', array(23 => 'bar'));
+    $select = new \PapayaUiToolbarSelect('foo', array(23 => 'bar'));
     $select->defaultValue = 21;
     $select->papaya(
       $this->mockPapaya()->application(
@@ -62,11 +62,11 @@ class PapayaUiToolbarSelectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarSelect::getCurrentValue
-  * @covers PapayaUiToolbarSelect::validateCurrentValue
+  * @covers \PapayaUiToolbarSelect::getCurrentValue
+  * @covers \PapayaUiToolbarSelect::validateCurrentValue
   */
   public function testGetCurrentValueNotInListUseDefault() {
-    $select = new PapayaUiToolbarSelect('foo', array(42 => 'bar'));
+    $select = new \PapayaUiToolbarSelect('foo', array(42 => 'bar'));
     $select->defaultValue = 21;
     $select->papaya(
       $this->mockPapaya()->application(
@@ -81,12 +81,12 @@ class PapayaUiToolbarSelectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarSelect::setCurrentValue
-  * @covers PapayaUiToolbarSelect::getCurrentValue
-  * @covers PapayaUiToolbarSelect::validateCurrentValue
+  * @covers \PapayaUiToolbarSelect::setCurrentValue
+  * @covers \PapayaUiToolbarSelect::getCurrentValue
+  * @covers \PapayaUiToolbarSelect::validateCurrentValue
   */
   public function testGetCurrentValueAfterSet() {
-    $select = new PapayaUiToolbarSelect('foo', array(42 => 'bar'));
+    $select = new \PapayaUiToolbarSelect('foo', array(42 => 'bar'));
     $select->currentValue = 42;
     $this->assertSame(
       42, $select->currentValue
@@ -94,12 +94,12 @@ class PapayaUiToolbarSelectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarSelect::appendTo
+  * @covers \PapayaUiToolbarSelect::appendTo
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument;
+    $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $select = new PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
+    $select = new \PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
     $select->papaya($this->mockPapaya()->application());
     $select->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
@@ -114,12 +114,12 @@ class PapayaUiToolbarSelectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarSelect::appendTo
+  * @covers \PapayaUiToolbarSelect::appendTo
   */
   public function testAppendToWithAllProperties() {
-    $document = new PapayaXmlDocument;
+    $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $select = new PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
+    $select = new \PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
     $select->papaya($this->mockPapaya()->application());
     $select->defaultCaption = 'Please Select';
     $select->defaultValue = 42;
@@ -138,7 +138,7 @@ class PapayaUiToolbarSelectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarSelect::appendTo
+  * @covers \PapayaUiToolbarSelect::appendTo
   */
   public function testAppendToWithActionParameters() {
     $reference = $this->createMock(PapayaUiReference::class);
@@ -155,9 +155,9 @@ class PapayaUiToolbarSelectTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getParametersList')
       ->will($this->returnValue(array('additional' => '42')));
-    $document = new PapayaXmlDocument;
+    $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $select = new PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
+    $select = new \PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
     $select->papaya($this->mockPapaya()->application());
     $select->reference = $reference;
     $select->appendTo($document->documentElement);
@@ -174,12 +174,12 @@ class PapayaUiToolbarSelectTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarSelect::appendTo
+  * @covers \PapayaUiToolbarSelect::appendTo
   */
   public function testAppendToWithCurrentValue() {
-    $document = new PapayaXmlDocument;
+    $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $select = new PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
+    $select = new \PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
     $select->papaya($this->mockPapaya()->application());
     $select->currentValue = 'foo';
     $select->appendTo($document->documentElement);

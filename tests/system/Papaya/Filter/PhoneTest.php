@@ -18,36 +18,36 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterPhoneTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaFilterPhone::validate
+   * @covers \PapayaFilterPhone::validate
    * @dataProvider provideValidPhoneNumbers
    * @param string $phoneNumber
    * @throws PapayaFilterExceptionType
    */
   public function testValidateExpectingTrue($phoneNumber) {
-    $filter = new PapayaFilterPhone();
+    $filter = new \PapayaFilterPhone();
     $this->assertTrue($filter->validate($phoneNumber));
   }
 
   /**
-   * @covers PapayaFilterPhone::validate
+   * @covers \PapayaFilterPhone::validate
    * @dataProvider provideInvalidData
    * @param mixed $value
    * @throws PapayaFilterExceptionType
    */
   public function testValidateExpectingException($value) {
-    $filter = new PapayaFilterPhone();
+    $filter = new \PapayaFilterPhone();
     $this->expectException(PapayaFilterExceptionType::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers PapayaFilterPhone::filter
+   * @covers \PapayaFilterPhone::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input
    */
   public function testFilter($expected, $input) {
-    $filter = new PapayaFilterPhone();
+    $filter = new \PapayaFilterPhone();
     $this->assertEquals($expected, $filter->filter($input));
   }
 

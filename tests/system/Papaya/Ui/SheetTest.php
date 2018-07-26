@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiSheetTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiPanel::appendTo
+  * @covers \PapayaUiPanel::appendTo
   */
   public function testAppendTo() {
-    $sheet = new PapayaUiSheet();
+    $sheet = new \PapayaUiSheet();
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */'<sheet><text/></sheet>',
       $sheet->getXml()
@@ -29,10 +29,10 @@ class PapayaUiSheetTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPanel::appendTo
+  * @covers \PapayaUiPanel::appendTo
   */
   public function testAppendToWithTitle() {
-    $sheet = new PapayaUiSheet();
+    $sheet = new \PapayaUiSheet();
     $sheet->title('Sample Title');
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -48,11 +48,11 @@ class PapayaUiSheetTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPanel::appendTo
+  * @covers \PapayaUiPanel::appendTo
   */
   public function testAppendToWithSubtitle() {
-    $sheet = new PapayaUiSheet();
-    $sheet->subtitles()->add(new PapayaUiSheetSubtitle('Sample Title'));
+    $sheet = new \PapayaUiSheet();
+    $sheet->subtitles()->add(new \PapayaUiSheetSubtitle('Sample Title'));
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<?xml version="1.0"?>
@@ -67,10 +67,10 @@ class PapayaUiSheetTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPanel::appendTo
+  * @covers \PapayaUiPanel::appendTo
   */
   public function testAppendToWithContent() {
-    $sheet = new PapayaUiSheet();
+    $sheet = new \PapayaUiSheet();
     $sheet
       ->content()
       ->appendElement('div', array('class' => 'simple'), 'Content');

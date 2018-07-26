@@ -18,12 +18,12 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiToolbarPagingTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiToolbarPaging::__construct
+  * @covers \PapayaUiToolbarPaging::__construct
   */
   public function testConstructor() {
-    $paging = new PapayaUiToolbarPaging('foo/page', 30);
+    $paging = new \PapayaUiToolbarPaging('foo/page', 30);
     $this->assertAttributeEquals(
-      new PapayaRequestParametersName('foo/page'), '_parameterName', $paging
+      new \PapayaRequestParametersName('foo/page'), '_parameterName', $paging
     );
     $this->assertAttributeEquals(
       30, '_itemsCount', $paging
@@ -31,21 +31,21 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::__construct
+  * @covers \PapayaUiToolbarPaging::__construct
   */
   public function testConstructorWithMode() {
-    $paging = new PapayaUiToolbarPaging('foo/page', 30, PapayaUiToolbarPaging::MODE_OFFSET);
+    $paging = new \PapayaUiToolbarPaging('foo/page', 30, PapayaUiToolbarPaging::MODE_OFFSET);
     $this->assertAttributeEquals(
       PapayaUiToolbarPaging::MODE_OFFSET, '_mode', $paging
     );
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::setItemsCount
-  * @covers PapayaUiToolbarPaging::reset
+  * @covers \PapayaUiToolbarPaging::setItemsCount
+  * @covers \PapayaUiToolbarPaging::reset
   */
   public function testSetItemsCountResetsCalculations() {
-    $paging = new PapayaUiToolbarPaging('foo/page', 30);
+    $paging = new \PapayaUiToolbarPaging('foo/page', 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
     $paging->currentPage;
@@ -59,20 +59,20 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::setItemsCount
+  * @covers \PapayaUiToolbarPaging::setItemsCount
   */
   public function testSetItemsCountExpectingException() {
-    $paging = new PapayaUiToolbarPaging('foo/page', 30);
+    $paging = new \PapayaUiToolbarPaging('foo/page', 30);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Item count can not be negative.');
     $paging->itemsCount = -42;
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::setItemsPerPage
+  * @covers \PapayaUiToolbarPaging::setItemsPerPage
   */
   public function testSetItemsPerPageResetsCalculations() {
-    $paging = new PapayaUiToolbarPaging('foo/page', 30);
+    $paging = new \PapayaUiToolbarPaging('foo/page', 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
     $paging->currentPage;
@@ -86,20 +86,20 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::setItemsPerPage
+  * @covers \PapayaUiToolbarPaging::setItemsPerPage
   */
   public function testSetItemsPerPageExpectingException() {
-    $paging = new PapayaUiToolbarPaging('foo/page', 30);
+    $paging = new \PapayaUiToolbarPaging('foo/page', 30);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Item page limit can not be less than 1.');
     $paging->itemsPerPage = 0;
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::setButtonLimit
+  * @covers \PapayaUiToolbarPaging::setButtonLimit
   */
   public function testSetButtonLimitResetsCalculations() {
-    $paging = new PapayaUiToolbarPaging('foo/page', 30);
+    $paging = new \PapayaUiToolbarPaging('foo/page', 30);
     $paging->papaya($this->mockPapaya()->application());
     //trigger calculation
     $paging->currentPage;
@@ -113,31 +113,31 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::setButtonLimit
+  * @covers \PapayaUiToolbarPaging::setButtonLimit
   */
   public function testSetButtonLimitExpectingException() {
-    $paging = new PapayaUiToolbarPaging('foo/page', 30);
+    $paging = new \PapayaUiToolbarPaging('foo/page', 30);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Button limit can not be less than 3.');
     $paging->buttonLimit = 2;
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::getCurrentPage
-  * @covers PapayaUiToolbarPaging::setCurrentPage
+  * @covers \PapayaUiToolbarPaging::getCurrentPage
+  * @covers \PapayaUiToolbarPaging::setCurrentPage
   */
   public function testGetCurrentPageAfterSet() {
-    $paging = new PapayaUiToolbarPaging('foo/page', 30);
+    $paging = new \PapayaUiToolbarPaging('foo/page', 30);
     $paging->currentPage = 3;
     $this->assertEquals(3, $paging->currentPage);
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::getCurrentPage
-  * @covers PapayaUiToolbarPaging::getCurrentPageParameter
+  * @covers \PapayaUiToolbarPaging::getCurrentPage
+  * @covers \PapayaUiToolbarPaging::getCurrentPageParameter
   */
   public function testGetCurrentPageFromRequest() {
-    $paging = new PapayaUiToolbarPaging('page', 30);
+    $paging = new \PapayaUiToolbarPaging('page', 30);
     $paging->papaya(
       $this->mockPapaya()->application(
         array(
@@ -149,11 +149,11 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::getCurrentPage
-  * @covers PapayaUiToolbarPaging::getCurrentPageParameter
+  * @covers \PapayaUiToolbarPaging::getCurrentPage
+  * @covers \PapayaUiToolbarPaging::getCurrentPageParameter
   */
   public function testGetCurrentPageFromRequestUsingOffset() {
-    $paging = new PapayaUiToolbarPaging('offset', 30, PapayaUiToolbarPaging::MODE_OFFSET);
+    $paging = new \PapayaUiToolbarPaging('offset', 30, PapayaUiToolbarPaging::MODE_OFFSET);
     $paging->papaya(
       $this->mockPapaya()->application(
         array(
@@ -165,11 +165,11 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::getCurrentPage
-  * @covers PapayaUiToolbarPaging::getCurrentPageParameter
+  * @covers \PapayaUiToolbarPaging::getCurrentPage
+  * @covers \PapayaUiToolbarPaging::getCurrentPageParameter
   */
   public function testGetCurrentPageFromRequestValidatedAndSetToMaximum() {
-    $paging = new PapayaUiToolbarPaging('page', 30);
+    $paging = new \PapayaUiToolbarPaging('page', 30);
     $paging->papaya(
       $this->mockPapaya()->application(
         array(
@@ -181,11 +181,11 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::getCurrentPage
-  * @covers PapayaUiToolbarPaging::getCurrentPageParameter
+  * @covers \PapayaUiToolbarPaging::getCurrentPage
+  * @covers \PapayaUiToolbarPaging::getCurrentPageParameter
   */
   public function testGetCurrentPageExpectingOneAsDefaultValue() {
-    $paging = new PapayaUiToolbarPaging('page', 30);
+    $paging = new \PapayaUiToolbarPaging('page', 30);
     $paging->papaya(
       $this->mockPapaya()->application()
     );
@@ -193,47 +193,47 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::getCurrentPage
+  * @covers \PapayaUiToolbarPaging::getCurrentPage
   */
   public function testGetCurrentPageValidatedAndSetToLastPage() {
-    $paging = new PapayaUiToolbarPaging('page', 30);
+    $paging = new \PapayaUiToolbarPaging('page', 30);
     $paging->currentPage = 99;
     $this->assertEquals(3, $paging->currentPage);
   }
 
   /**
-   * @covers PapayaUiToolbarPaging::getCurrentOffset
+   * @covers \PapayaUiToolbarPaging::getCurrentOffset
    * @dataProvider providePageToOffsetPairs
    * @param int $page
    * @param int $offset
    */
   public function testGetCurrentOffset($page, $offset) {
-    $paging = new PapayaUiToolbarPaging('page', 30);
+    $paging = new \PapayaUiToolbarPaging('page', 30);
     $paging->currentPage = $page;
     $this->assertEquals($offset, $paging->currentOffset);
   }
 
   /**
-   * @covers PapayaUiToolbarPaging::setCurrentOffset
+   * @covers \PapayaUiToolbarPaging::setCurrentOffset
    * @dataProvider provideOffsetToPagePairs
    * @param int $offset
    * @param int $page
    */
   public function testSetCurrentOffset($offset, $page) {
-    $paging = new PapayaUiToolbarPaging('page', 30);
+    $paging = new \PapayaUiToolbarPaging('page', 30);
     $paging->currentOffset = $offset;
     $this->assertEquals($page, $paging->currentPage);
   }
 
   /**
-   * @covers PapayaUiToolbarPaging::getLastPage
+   * @covers \PapayaUiToolbarPaging::getLastPage
    * @dataProvider provideLastPageCalculationData
    * @param int $itemsPerPage
    * @param int $itemsCount
    * @param int $expectedMaximum
    */
   public function testLastPageCalculation($itemsPerPage, $itemsCount, $expectedMaximum) {
-    $paging = new PapayaUiToolbarPaging('page', $itemsCount);
+    $paging = new \PapayaUiToolbarPaging('page', $itemsCount);
     $paging->itemsPerPage = $itemsPerPage;
     $this->assertEquals(
       $expectedMaximum, $paging->lastPage
@@ -241,15 +241,15 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::appendTo
-  * @covers PapayaUiToolbarPaging::appendArrowButton
-  * @covers PapayaUiToolbarPaging::preparePagingParameter
-  * @covers PapayaUiToolbarPaging::calculate
+  * @covers \PapayaUiToolbarPaging::appendTo
+  * @covers \PapayaUiToolbarPaging::appendArrowButton
+  * @covers \PapayaUiToolbarPaging::preparePagingParameter
+  * @covers \PapayaUiToolbarPaging::calculate
   */
   public function testAppendToWithAdditionalParameters() {
-    $document = new PapayaXmlDocument;
+    $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $paging = new PapayaUiToolbarPaging('foo/page', 30);
+    $paging = new \PapayaUiToolbarPaging('foo/page', 30);
     $paging->papaya(
       $this->mockPapaya()->application(
         array(
@@ -277,15 +277,15 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::appendTo
-  * @covers PapayaUiToolbarPaging::appendArrowButton
-  * @covers PapayaUiToolbarPaging::preparePagingParameter
-  * @covers PapayaUiToolbarPaging::calculate
+  * @covers \PapayaUiToolbarPaging::appendTo
+  * @covers \PapayaUiToolbarPaging::appendArrowButton
+  * @covers \PapayaUiToolbarPaging::preparePagingParameter
+  * @covers \PapayaUiToolbarPaging::calculate
   */
   public function testAppendToWithCurrentPageEqualsTwo() {
-    $document = new PapayaXmlDocument;
+    $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $paging = new PapayaUiToolbarPaging('foo/page', 30);
+    $paging = new \PapayaUiToolbarPaging('foo/page', 30);
     $paging->papaya(
       $this->mockPapaya()->application(
         array(
@@ -312,15 +312,15 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::appendTo
-  * @covers PapayaUiToolbarPaging::appendArrowButton
-  * @covers PapayaUiToolbarPaging::preparePagingParameter
-  * @covers PapayaUiToolbarPaging::calculate
+  * @covers \PapayaUiToolbarPaging::appendTo
+  * @covers \PapayaUiToolbarPaging::appendArrowButton
+  * @covers \PapayaUiToolbarPaging::preparePagingParameter
+  * @covers \PapayaUiToolbarPaging::calculate
   */
   public function testAppendToWithLimitedButton() {
-    $document = new PapayaXmlDocument;
+    $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $paging = new PapayaUiToolbarPaging('foo/page', 300);
+    $paging = new \PapayaUiToolbarPaging('foo/page', 300);
     $paging->papaya(
       $this->mockPapaya()->application(
         array(
@@ -347,15 +347,15 @@ class PapayaUiToolbarPagingTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiToolbarPaging::appendTo
-  * @covers PapayaUiToolbarPaging::appendArrowButton
-  * @covers PapayaUiToolbarPaging::preparePagingParameter
-  * @covers PapayaUiToolbarPaging::calculate
+  * @covers \PapayaUiToolbarPaging::appendTo
+  * @covers \PapayaUiToolbarPaging::appendArrowButton
+  * @covers \PapayaUiToolbarPaging::preparePagingParameter
+  * @covers \PapayaUiToolbarPaging::calculate
   */
   public function testAppendToWithCurrentOffsetEquals10() {
-    $document = new PapayaXmlDocument;
+    $document = new \PapayaXmlDocument;
     $document->appendElement('sample');
-    $paging = new PapayaUiToolbarPaging('foo/offset', 30, PapayaUiToolbarPaging::MODE_OFFSET);
+    $paging = new \PapayaUiToolbarPaging('foo/offset', 30, PapayaUiToolbarPaging::MODE_OFFSET);
     $paging->papaya(
       $this->mockPapaya()->application(
         array(

@@ -18,12 +18,12 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUrlCurrentTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUrlCurrent::__construct
+  * @covers \PapayaUrlCurrent::__construct
   * @backupGlobals enabled
   */
   public function testConstructor() {
     $_SERVER['HTTP_HOST'] = 'www.sample.tld';
-    $urlObject = new PapayaUrlCurrent();
+    $urlObject = new \PapayaUrlCurrent();
     $this->assertSame(
       'http://www.sample.tld',
       $urlObject->getUrl()
@@ -31,13 +31,13 @@ class PapayaUrlCurrentTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUrlCurrent::__construct
+  * @covers \PapayaUrlCurrent::__construct
   * @backupGlobals enabled
   */
   public function testConstructorOnHttps() {
     $_SERVER['HTTP_HOST'] = 'www.sample.tld';
     $_SERVER['HTTPS'] = 'on';
-    $urlObject = new PapayaUrlCurrent();
+    $urlObject = new \PapayaUrlCurrent();
     $this->assertSame(
       'https://www.sample.tld',
       $urlObject->getUrl()
@@ -45,12 +45,12 @@ class PapayaUrlCurrentTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUrlCurrent::__construct
+  * @covers \PapayaUrlCurrent::__construct
   * @backupGlobals enabled
   */
   public function testConstructorWithUrl() {
     $_SERVER = array();
-    $urlObject = new PapayaUrlCurrent('http://www.sample.tld');
+    $urlObject = new \PapayaUrlCurrent('http://www.sample.tld');
     $this->assertSame(
       'http://www.sample.tld',
       $urlObject->getUrl()
@@ -58,15 +58,15 @@ class PapayaUrlCurrentTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUrlCurrent::getUrlFromEnvironment
-   * @covers PapayaUrlCurrent::_getServerValue
+   * @covers \PapayaUrlCurrent::getUrlFromEnvironment
+   * @covers \PapayaUrlCurrent::_getServerValue
    * @backupGlobals enabled
    * @dataProvider getUrlDataProvider
    * @param array $environment
    * @param string $expected
    */
   public function testGetUrlFromEnvironment(array $environment, $expected) {
-    $urlObject = new PapayaUrlCurrent();
+    $urlObject = new \PapayaUrlCurrent();
     $_SERVER = $environment;
     $this->assertSame($expected, $urlObject->getUrlFromEnvironment());
   }

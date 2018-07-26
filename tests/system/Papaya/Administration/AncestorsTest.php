@@ -25,7 +25,7 @@ class PapayaAdministrationPagesAncestorsTest extends PapayaTestCase {
   * @covers Ancestors::appendTo
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $document->appendElement('sample');
 
     $menu = $this->createMock(PapayaUiHierarchyMenu::class);

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaThemeDefinitionTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaThemeDefinition::load
+   * @covers \PapayaThemeDefinition::load
    */
   public function testLoad() {
     $pages = $this->createMock(Pages::class);
@@ -29,7 +29,7 @@ class PapayaThemeDefinitionTest extends PapayaTestCase {
       ->method('load')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
 
-    $definition = new PapayaThemeDefinition();
+    $definition = new \PapayaThemeDefinition();
     $definition->pages($pages);
     $definition->load(__DIR__.'/TestData/theme.xml');
     $this->assertAttributeEquals(
@@ -56,10 +56,10 @@ class PapayaThemeDefinitionTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaThemeDefinition::__get
+   * @covers \PapayaThemeDefinition::__get
    */
   public function testMagicMethodGet() {
-    $definition = new PapayaThemeDefinition();
+    $definition = new \PapayaThemeDefinition();
     $definition->load(__DIR__.'/TestData/theme.xml');
     $this->assertEquals(
       'Sample Papaya Theme', $definition->title
@@ -74,10 +74,10 @@ class PapayaThemeDefinitionTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaThemeDefinition::__get
+   * @covers \PapayaThemeDefinition::__get
    */
   public function testMagicMethodGetExpectingException() {
-    $definition = new PapayaThemeDefinition();
+    $definition = new \PapayaThemeDefinition();
     $this->expectException(UnexpectedValueException::class);
     /** @noinspection PhpUndefinedFieldInspection */
     $definition->invalidProperty;

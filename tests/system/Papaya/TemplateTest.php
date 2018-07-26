@@ -135,7 +135,7 @@ class PapayaTemplateTest extends PapayaTestCase {
    * @covers Template
    */
   public function testAddWithDomNode() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
     $template = $this->getMockForAbstractClass(Template::class);
     $template->add($document->createElement('foo'));

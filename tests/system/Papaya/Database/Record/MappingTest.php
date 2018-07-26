@@ -341,7 +341,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
       ->will(
         $this->returnValueMap(
           array(
-            array('onMapValue', new PapayaObjectCallback(42))
+            array('onMapValue', new \PapayaObjectCallback(42))
           )
         )
       );
@@ -392,7 +392,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
       ->will(
         $this->returnValueMap(
           array(
-            array('onMapValueFromPropertyToField', new PapayaObjectCallback(42))
+            array('onMapValueFromPropertyToField', new \PapayaObjectCallback(42))
           )
         )
       );
@@ -502,7 +502,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
       ->will(
         $this->returnValueMap(
           array(
-            array('onMapValue', new PapayaObjectCallback(42))
+            array('onMapValue', new \PapayaObjectCallback(42))
           )
         )
       );
@@ -573,7 +573,7 @@ class PapayaDatabaseRecordMappingTest extends PapayaTestCase {
       ->will(
         $this->returnValueMap(
           array(
-            array('onMapValueFromFieldToProperty', new PapayaObjectCallback(42))
+            array('onMapValueFromFieldToProperty', new \PapayaObjectCallback(42))
           )
         )
       );

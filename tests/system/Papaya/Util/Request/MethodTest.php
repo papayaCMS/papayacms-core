@@ -28,7 +28,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestMethod::get
+  * @covers \PapayaUtilRequestMethod::get
   */
   public function testGetOnEmptyRequestEnvironmentExpectingGet() {
     $_SERVER = array();
@@ -38,7 +38,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestMethod::get
+  * @covers \PapayaUtilRequestMethod::get
   */
   public function testGetForPostRequestInLowercase() {
     $_SERVER = array(
@@ -50,7 +50,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestMethod::get
+  * @covers \PapayaUtilRequestMethod::get
   */
   public function testGetForPostRequestInUppercase() {
     $_SERVER = array(
@@ -62,7 +62,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestMethod::isGet
+  * @covers \PapayaUtilRequestMethod::isGet
   */
   public function testIsGetExpectingTrue() {
     $_SERVER = array(
@@ -72,7 +72,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestMethod::isGet
+  * @covers \PapayaUtilRequestMethod::isGet
   */
   public function testIsGetExpectingFalse() {
     $_SERVER = array(
@@ -82,7 +82,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestMethod::isPost
+  * @covers \PapayaUtilRequestMethod::isPost
   */
   public function testIsPostExpectingTrue() {
     $_SERVER = array(
@@ -92,7 +92,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestMethod::isPost
+  * @covers \PapayaUtilRequestMethod::isPost
   */
   public function testIsPostExpectingFalse() {
     $_SERVER = array(
@@ -102,7 +102,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestMethod::isPut
+  * @covers \PapayaUtilRequestMethod::isPut
   */
   public function testIsPutExpectingTrue() {
     $_SERVER = array(
@@ -112,7 +112,7 @@ class PapayaUtilRequestMethodTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilRequestMethod::isPut
+  * @covers \PapayaUtilRequestMethod::isPut
   */
   public function testIsPutExpectingFalse() {
     $_SERVER = array(

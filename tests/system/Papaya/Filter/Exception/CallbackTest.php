@@ -18,33 +18,33 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterExceptionCallbackTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaFilterExceptionCallback::__construct
+  * @covers \PapayaFilterExceptionCallback::__construct
   */
   public function testConstructor() {
-    $e = new PapayaFilterExceptionCallback_TestProxy('', 'function');
+    $e = new \PapayaFilterExceptionCallback_TestProxy('', 'function');
     $this->assertAttributeEquals(
       'function', '_callback', $e
     );
   }
 
   /**
-  * @covers PapayaFilterExceptionCallback::getCallback
+  * @covers \PapayaFilterExceptionCallback::getCallback
   */
   public function testGetCallback() {
-    $e = new PapayaFilterExceptionCallback_TestProxy('', 'function');
+    $e = new \PapayaFilterExceptionCallback_TestProxy('', 'function');
     $this->assertEquals(
       'function', $e->getCallback()
     );
   }
 
   /**
-   * @covers PapayaFilterExceptionCallback::callbackToString
+   * @covers \PapayaFilterExceptionCallback::callbackToString
    * @dataProvider provideCallbacks
    * @param string $expected
    * @param callable $callback
    */
   public function testCallbackToString($expected, $callback) {
-    $e = new PapayaFilterExceptionCallback_TestProxy('', $callback);
+    $e = new \PapayaFilterExceptionCallback_TestProxy('', $callback);
     $this->assertEquals(
       $expected, $e->callbackToString($callback)
     );
@@ -60,7 +60,7 @@ class PapayaFilterExceptionCallbackTest extends PapayaTestCase {
       array('function() {...}', function() {}),
       array(
         'PapayaFilterExceptionCallback_SampleCallback->sample',
-        array(new PapayaFilterExceptionCallback_SampleCallback(), 'sample')
+        array(new \PapayaFilterExceptionCallback_SampleCallback(), 'sample')
       ),
       array(
         'PapayaFilterExceptionCallback_SampleCallback::sample',

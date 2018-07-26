@@ -20,11 +20,11 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaDatabaseSourceNameTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaDatabaseSourceName::__construct
-  * @covers PapayaDatabaseSourceName::setName
+  * @covers \PapayaDatabaseSourceName::__construct
+  * @covers \PapayaDatabaseSourceName::setName
   */
   public function testConstructorWithValidDsn() {
-    $dsn = new PapayaDatabaseSourceName('mysql://server/sample');
+    $dsn = new \PapayaDatabaseSourceName('mysql://server/sample');
     $this->assertAttributeEquals(
       'mysql://server/sample',
       '_name',
@@ -48,91 +48,91 @@ class PapayaDatabaseSourceNameTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaDatabaseSourceName::__construct
-  * @covers PapayaDatabaseSourceName::setName
+  * @covers \PapayaDatabaseSourceName::__construct
+  * @covers \PapayaDatabaseSourceName::setName
   */
   public function testConstructorWithEmptyDsnExpectingException() {
     $this->expectException(Connect::class);
-    new PapayaDatabaseSourceName('');
+    new \PapayaDatabaseSourceName('');
   }
 
   /**
-  * @covers PapayaDatabaseSourceName::__construct
-  * @covers PapayaDatabaseSourceName::setName
+  * @covers \PapayaDatabaseSourceName::__construct
+  * @covers \PapayaDatabaseSourceName::setName
   */
   public function testConstructorWithInvalidDsnExpectingException() {
     $this->expectException(Connect::class);
-    new PapayaDatabaseSourceName('xxx');
+    new \PapayaDatabaseSourceName('xxx');
   }
 
   /**
-   * @covers PapayaDatabaseSourceName::setName
-   * @covers PapayaDatabaseSourceName::_getMatchValue
+   * @covers \PapayaDatabaseSourceName::setName
+   * @covers \PapayaDatabaseSourceName::_getMatchValue
    * @dataProvider provideValidDatabaseSourceNames
    * @param string $name
    * @param mixed $expected
    */
   public function testSetName($name, $expected) {
-    $dsn = new PapayaDatabaseSourceName($name);
+    $dsn = new \PapayaDatabaseSourceName($name);
     $this->assertAttributeEquals(
       $expected, '_properties', $dsn
     );
   }
 
   /**
-  * @covers PapayaDatabaseSourceName::__isset
+  * @covers \PapayaDatabaseSourceName::__isset
   */
   public function testMagicMethodIssetExpectingTrue() {
-    $dsn = new PapayaDatabaseSourceName('mysql://server/database');
+    $dsn = new \PapayaDatabaseSourceName('mysql://server/database');
     $this->assertTrue(isset($dsn->api));
   }
 
   /**
-  * @covers PapayaDatabaseSourceName::__isset
+  * @covers \PapayaDatabaseSourceName::__isset
   */
   public function testMagicMethodIssetExpectingFalse() {
-    $dsn = new PapayaDatabaseSourceName('mysql://server/database');
+    $dsn = new \PapayaDatabaseSourceName('mysql://server/database');
     $this->assertFalse(isset($dsn->port));
   }
 
   /**
-   * @covers       PapayaDatabaseSourceName::__get
+   * @covers       \PapayaDatabaseSourceName::__get
    * @dataProvider provideValidPropertyNames
    * @param string $property
    * @param mixed $expected
    */
   public function testMagicMethodGet($property, $expected) {
-    $dsn = new PapayaDatabaseSourceName('mysqli(mysql)://user:pass@server:42/database');
+    $dsn = new \PapayaDatabaseSourceName('mysqli(mysql)://user:pass@server:42/database');
     $this->assertEquals(
       $expected, $dsn->$property
     );
   }
 
   /**
-  * @covers PapayaDatabaseSourceName::__get
+  * @covers \PapayaDatabaseSourceName::__get
   */
   public function testMagicMethodGetWithInvalidPropertyExpectingException() {
     $this->expectException(ErrorException::class);
-    $dsn = new PapayaDatabaseSourceName('mysqli(mysql)://user:pass@server:42/database');
+    $dsn = new \PapayaDatabaseSourceName('mysqli(mysql)://user:pass@server:42/database');
     /** @noinspection PhpUndefinedFieldInspection */
     $dsn->INVALID_ARGUMENT_NAME;
   }
 
   /**
-  * @covers PapayaDatabaseSourceName::__set
+  * @covers \PapayaDatabaseSourceName::__set
   */
   public function testMagicMethodSetExpectingException() {
     $this->expectException(BadMethodCallException::class);
-    $dsn = new PapayaDatabaseSourceName('mysqli(mysql)://user:pass@server:42/database');
+    $dsn = new \PapayaDatabaseSourceName('mysqli(mysql)://user:pass@server:42/database');
     $dsn->api = 'FOO';
   }
 
   /**
-  * @covers PapayaDatabaseSourceName::__get
-  * @covers PapayaDatabaseSourceName::setName
+  * @covers \PapayaDatabaseSourceName::__get
+  * @covers \PapayaDatabaseSourceName::setName
   */
   public function testParameters() {
-    $dsn = new PapayaDatabaseSourceName('mysql://server/database?foo=bar');
+    $dsn = new \PapayaDatabaseSourceName('mysql://server/database?foo=bar');
     $this->assertEquals(
        'bar',
        $dsn->parameters->get('foo')

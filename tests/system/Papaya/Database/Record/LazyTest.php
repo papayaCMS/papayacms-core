@@ -28,7 +28,7 @@ class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
     $databaseAccess
       ->expects($this->never())
       ->method('queryFmt');
-    $record = new PapayaDatabaseRecordLazy_TestProxy();
+    $record = new \PapayaDatabaseRecordLazy_TestProxy();
     $record->setDatabaseAccess($databaseAccess);
     $record->activateLazyLoad(array('id' => 42));
     $this->assertEquals(
@@ -49,7 +49,7 @@ class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
       ->method('getSqlCondition')
       ->with(array('field_id' => 42))
       ->will($this->returnValue('>>CONDITION>>'));
-    $record = new PapayaDatabaseRecordLazy_TestProxy();
+    $record = new \PapayaDatabaseRecordLazy_TestProxy();
     $record->setDatabaseAccess($databaseAccess);
     $record->activateLazyLoad(array('id' => 42));
     $this->assertEquals(
@@ -65,7 +65,7 @@ class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
   * @covers Lazy::assign
   */
   public function testAssignDisablesLazyLoad() {
-    $record = new PapayaDatabaseRecordLazy_TestProxy();
+    $record = new \PapayaDatabaseRecordLazy_TestProxy();
     $record->activateLazyLoad(array('id' => 42));
     $record->assign(array('id' => 42));
     $this->assertNull($record->getLazyLoadParameters());
@@ -76,7 +76,7 @@ class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
   */
   public function testLoadIsOnlyCalledOnce() {
     $databaseAccess = $this->getDatabaseAccessFixture();
-    $record = new PapayaDatabaseRecordLazy_TestProxy();
+    $record = new \PapayaDatabaseRecordLazy_TestProxy();
     $record->setDatabaseAccess($databaseAccess);
     $record->activateLazyLoad(array('id' => 42));
     $record->toArray();
@@ -93,7 +93,7 @@ class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
   * @covers Lazy::toArray
   */
   public function testToArray() {
-    $record = new PapayaDatabaseRecordLazy_TestProxy();
+    $record = new \PapayaDatabaseRecordLazy_TestProxy();
     $record->setDatabaseAccess($this->getDatabaseAccessFixture());
     $record->activateLazyLoad(array('id' => 42));
     $this->assertEquals(
@@ -109,7 +109,7 @@ class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
   * @covers Lazy::__isset
   */
   public function testMagicMethodIsset() {
-    $record = new PapayaDatabaseRecordLazy_TestProxy();
+    $record = new \PapayaDatabaseRecordLazy_TestProxy();
     $record->setDatabaseAccess($this->getDatabaseAccessFixture());
     $record->activateLazyLoad(array('id' => 42));
     $this->assertTrue(
@@ -121,7 +121,7 @@ class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
   * @covers Lazy::__get
   */
   public function testMagicMethodGet() {
-    $record = new PapayaDatabaseRecordLazy_TestProxy();
+    $record = new \PapayaDatabaseRecordLazy_TestProxy();
     $record->setDatabaseAccess($this->getDatabaseAccessFixture());
     $record->activateLazyLoad(array('id' => 42));
     $this->assertEquals(
@@ -134,7 +134,7 @@ class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
   * @covers Lazy::__set
   */
   public function testMagicMethodSet() {
-    $record = new PapayaDatabaseRecordLazy_TestProxy();
+    $record = new \PapayaDatabaseRecordLazy_TestProxy();
     $record->setDatabaseAccess($this->getDatabaseAccessFixture());
     $record->activateLazyLoad(array('id' => 42));
     $record->content = 'changed';
@@ -151,7 +151,7 @@ class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
   * @covers Lazy::__unset
   */
   public function testMagicMethodUnset() {
-    $record = new PapayaDatabaseRecordLazy_TestProxy();
+    $record = new \PapayaDatabaseRecordLazy_TestProxy();
     $record->setDatabaseAccess($this->getDatabaseAccessFixture());
     $record->activateLazyLoad(array('id' => 42));
     unset($record->content);
@@ -168,7 +168,7 @@ class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
   * @covers Lazy::offsetExists
   */
   public function testOffsetExists() {
-    $record = new PapayaDatabaseRecordLazy_TestProxy();
+    $record = new \PapayaDatabaseRecordLazy_TestProxy();
     $record->setDatabaseAccess($this->getDatabaseAccessFixture());
     $record->activateLazyLoad(array('id' => 42));
     $this->assertTrue(isset($record['content']));
@@ -178,7 +178,7 @@ class PapayaDatabaseRecordLazyTest extends PapayaTestCase {
   * @covers Lazy::isLoaded
   */
   public function testIsLoaded() {
-    $record = new PapayaDatabaseRecordLazy_TestProxy();
+    $record = new \PapayaDatabaseRecordLazy_TestProxy();
     $record->setDatabaseAccess($this->getDatabaseAccessFixture());
     $record->activateLazyLoad(array('id' => 42));
     $this->assertTrue($record->isLoaded());

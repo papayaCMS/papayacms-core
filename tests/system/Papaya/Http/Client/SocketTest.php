@@ -32,7 +32,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
     $testResource = @fsockopen($host, $port);
     if (is_resource($testResource)) {
       fclose($testResource);
-      $socket = new PapayaHttpClientSocket();
+      $socket = new \PapayaHttpClientSocket();
       $socket->open($host, $port);
       $this->assertInternalType('resource', $this->readAttribute($socket, '_resource'));
       $this->assertAttributeSame($host, '_host', $socket);
@@ -48,8 +48,8 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
   public function testOpenWithPool() {
     $host = 'www.papaya-cms.com';
     $port = 80;
-    $socket = new PapayaHttpClientSocket();
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocketPool $pool */
+    $socket = new \PapayaHttpClientSocket();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
     $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $ms = $this->getMemoryStreamFixture('TEST');
     $pool
@@ -68,7 +68,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
   public function testOpenFailure() {
     $host = 'INVALID_HOSTNAME_FOR_TEST';
     $port = 80;
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $this->assertFalse(
       $socket->open($host, $port)
     );
@@ -76,10 +76,10 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testRead() {
     $ms = $this->getMemoryStreamFixture('TEST');
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(4);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocketPool $pool */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
     $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->once())
@@ -90,14 +90,14 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testReadWithoutContentLength() {
     $ms = $this->getMemoryStreamFixture('TEST');
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $this->assertEquals('TEST', $socket->read(99));
   }
 
   public function testReadLimited() {
     $ms = $this->getMemoryStreamFixture('TEST');
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(4);
     $this->assertEquals('TE', $socket->read(2));
@@ -105,14 +105,14 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testReadLine() {
     $ms = $this->getMemoryStreamFixture("TEST1\r\nTEST2");
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $this->assertEquals("TEST1\r\n", $socket->readLine());
   }
 
   public function testReadChunked() {
     $ms = $this->getMemoryStreamFixture("4\r\nTEST\r\n0\r\n\r\n");
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(-2);
     $this->assertEquals('TEST', $socket->read());
@@ -121,7 +121,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testReadChunkedUppercaseSize() {
     $ms = $this->getMemoryStreamFixture("B\r\ntest_test_1\r\n0\r\n\r\n");
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(-2);
     $this->assertEquals('test_test_1', $socket->read());
@@ -130,10 +130,10 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testReadChunkedEmptyChunk() {
     $ms = $this->getMemoryStreamFixture("0\r\n\r\n");
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(-2);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocketPool $pool */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
     $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->once())
@@ -145,7 +145,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testReadWithInvalidContentLength() {
     $ms = $this->getMemoryStreamFixture("0\r\n\r\n");
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(-99);
     $this->assertFalse($socket->read());
@@ -153,7 +153,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testWrite() {
     $ms = $this->getMemoryStreamFixture();
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->write('TEST');
     fseek($ms, 0);
@@ -162,7 +162,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testWriteLinebreak() {
     $ms = $this->getMemoryStreamFixture();
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->writeLineBreak(5);
     fseek($ms, 0);
@@ -171,7 +171,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testWriteChunk() {
     $ms = $this->getMemoryStreamFixture();
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->writeChunk('TEST');
     fseek($ms, 0);
@@ -180,7 +180,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testWriteChunkEnd() {
     $ms = $this->getMemoryStreamFixture();
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->writeChunkEnd();
     fseek($ms, 0);
@@ -189,7 +189,7 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testEofAtStartExpectingFalse() {
     $ms = $this->getMemoryStreamFixture('TEST');
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $this->assertFalse($socket->eof());
   }
@@ -197,19 +197,19 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
   public function testEofAtEndExpectingTrue() {
     $ms = $this->getMemoryStreamFixture();
     fgets($ms);
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $this->assertTrue($socket->eof());
   }
 
   public function testEofWithoutResourceExpectingTrue() {
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $this->assertTrue($socket->eof());
   }
 
   public function testEofWithContentLengthZeroExpectingTrue() {
     $ms = $this->getMemoryStreamFixture('TEST');
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(0);
     $this->assertTrue($socket->eof());
@@ -217,17 +217,17 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testActivateReadTimeoutOnMemoryStreamExpectingFalse() {
     $ms = $this->getMemoryStreamFixture('TEST');
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $this->assertFalse($socket->activateReadTimeout(40));
   }
 
   public function testClose() {
     $ms = $this->getMemoryStreamFixture();
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(0);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocketPool $pool */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
     $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->once())
@@ -239,10 +239,10 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testCloseWithOutstandingData() {
     $ms = $this->getMemoryStreamFixture('TEST');
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(4);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocketPool $pool */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
     $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->once())
@@ -255,10 +255,10 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testCloseWithTooMuchOutstandingData() {
     $ms = $this->getMemoryStreamFixture('TEST');
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(10 * 1024 * 1024);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocketPool $pool */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
     $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->never())
@@ -270,10 +270,10 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
 
   public function testCloseWithChunked() {
     $ms = $this->getMemoryStreamFixture();
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->setContentLength(-1);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocketPool $pool */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
     $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->never())
@@ -284,17 +284,17 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
   }
 
   public function testCloseInvalid() {
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $this->assertFalse($socket->close());
   }
 
   public function testCloseWithoutKeepAlive() {
     $ms = $this->getMemoryStreamFixture();
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setKeepAlive(FALSE);
     $socket->setResource($ms);
     $socket->setContentLength(0);
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaHttpClientSocketPool $pool */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaHttpClientSocketPool $pool */
     $pool = $this->createMock(PapayaHttpClientSocketPool::class);
     $pool
       ->expects($this->never())
@@ -305,76 +305,76 @@ class PapayaHttpClientSocketTest extends PapayaTestCase {
   }
 
   public function testGetPool() {
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $this->assertInstanceOf(PapayaHttpClientSocketPool::class, $socket->getPool());
   }
 
   public function testSetPool() {
-    $socket = new PapayaHttpClientSocket();
-    $socket->setPool(new PapayaHttpClientSocketPool);
+    $socket = new \PapayaHttpClientSocket();
+    $socket->setPool(new \PapayaHttpClientSocketPool);
     $this->assertAttributeInstanceOf(PapayaHttpClientSocketPool::class, '_pool', $socket);
   }
 
   public function testSetKeepAliveWithInvalidType() {
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $this->assertTrue($socket->setKeepAlive(0));
   }
 
   public function testSetKeepAliveWithFalse() {
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $this->assertFalse($socket->setKeepAlive(FALSE));
   }
 
   public function testSetKeepAliveWithTrue() {
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $this->assertTrue($socket->setKeepAlive(TRUE));
   }
 
   /**
-  * @covers PapayaHttpClientSocket::activateReadTimeout
+  * @covers \PapayaHttpClientSocket::activateReadTimeout
   */
   public function testActivateReadTimeoutOnMemoryStream() {
     $ms = $this->getMemoryStreamFixture();
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $this->assertFalse($socket->activateReadTimeout(42));
   }
 
   /**
-  * @covers PapayaHttpClientSocket::activateReadTimeout
+  * @covers \PapayaHttpClientSocket::activateReadTimeout
   */
   public function testActivateReadTimeoutWithoutResource() {
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $this->assertFalse($socket->activateReadTimeout(42));
   }
 
   /**
-  * @covers PapayaHttpClientSocket::hasTimedOut
+  * @covers \PapayaHttpClientSocket::hasTimedOut
   */
   public function testHasTimedOutExpectingFalse() {
     $ms = $this->getMemoryStreamFixture();
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $this->assertFalse($socket->hasTimedOut());
   }
 
   /**
-  * @covers PapayaHttpClientSocket::closeOnTimeout
+  * @covers \PapayaHttpClientSocket::closeOnTimeout
   */
   public function testCloseOnTimeout() {
     $ms = $this->getMemoryStreamFixture();
-    $socket = new PapayaHttpClientSocket();
+    $socket = new \PapayaHttpClientSocket();
     $socket->setResource($ms);
     $socket->readLine();
     $this->assertTrue($socket->isActive());
   }
 
   /**
-  * @covers PapayaHttpClientSocket::closeOnTimeout
+  * @covers \PapayaHttpClientSocket::closeOnTimeout
   */
   public function testCloseOnTimeoutResourceClosed() {
     $ms = $this->getMemoryStreamFixture();
-    $socket = new PapayaHttpClientSocket_TestProxyForTimeout();
+    $socket = new \PapayaHttpClientSocket_TestProxyForTimeout();
     $socket->setResource($ms);
     $socket->readLine();
     $this->assertFalse($socket->isActive());

@@ -121,7 +121,7 @@ class PapayaCsvReaderTest extends PapayaTestCase {
   * @covers Reader::fetchAssoc
   */
   public function testFetchAssocWithInvalidFileExpectingNull() {
-    $reader = new PapayaCsvReader_TestProxy('sample.csv');
+    $reader = new \PapayaCsvReader_TestProxy('sample.csv');
     $offset = 0;
     $this->assertNull(
       $reader->fetchAssoc($offset)
@@ -136,7 +136,7 @@ class PapayaCsvReaderTest extends PapayaTestCase {
    * @param string $csvData
    */
   public function testGetStyle(array $expected, $csvData) {
-    $reader = new PapayaCsvReader_TestProxy('sample.csv');
+    $reader = new \PapayaCsvReader_TestProxy('sample.csv');
     $this->assertEquals(
       $expected, $reader->_getStyle(fopen('data://text/plain,'.$csvData, 'rb'))
     );
@@ -151,7 +151,7 @@ class PapayaCsvReaderTest extends PapayaTestCase {
    * @param string $enclosure
    */
   public function testReadLine($expected, $csvData, $separator, $enclosure) {
-    $reader = new PapayaCsvReader_TestProxy('sample.csv');
+    $reader = new \PapayaCsvReader_TestProxy('sample.csv');
     $this->assertEquals(
       $expected,
       $reader->_readLine(

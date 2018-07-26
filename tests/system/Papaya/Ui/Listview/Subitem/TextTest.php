@@ -18,32 +18,32 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiListviewSubitemTextTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiListviewSubitemText::__construct
+  * @covers \PapayaUiListviewSubitemText::__construct
   */
   public function testConstructor() {
-    $subitem = new PapayaUiListviewSubitemText('Sample text');
+    $subitem = new \PapayaUiListviewSubitemText('Sample text');
     $this->assertEquals(
       'Sample text', $subitem->text
     );
   }
 
   /**
-  * @covers PapayaUiListviewSubitemText::__construct
+  * @covers \PapayaUiListviewSubitemText::__construct
   */
   public function testConstructorWithOptionalParameters() {
-    $subitem = new PapayaUiListviewSubitemText('Sample text', array('foo' => 'bar'));
+    $subitem = new \PapayaUiListviewSubitemText('Sample text', array('foo' => 'bar'));
     $this->assertEquals(
       array('foo' => 'bar'), $subitem->actionParameters
     );
   }
 
   /**
-  * @covers PapayaUiListviewSubitemText::appendTo
+  * @covers \PapayaUiListviewSubitemText::appendTo
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $document->appendElement('test');
-    $subitem = new PapayaUiListviewSubitemText('Sample text');
+    $subitem = new \PapayaUiListviewSubitemText('Sample text');
     $subitem->align = PapayaUiOptionAlign::RIGHT;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
@@ -54,15 +54,15 @@ class PapayaUiListviewSubitemTextTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiListviewSubitemText::appendTo
-   * @covers PapayaUiListviewSubitemText::getUrl
+   * @covers \PapayaUiListviewSubitemText::appendTo
+   * @covers \PapayaUiListviewSubitemText::getUrl
    */
   public function testAppendToWithActionParameters() {
     $reference = $this->mockPapaya()->reference('http://www.example.html');
     $reference->expects($this->once())->method('setParameters')->with(array('foo' => 'bar'));
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $document->appendElement('test');
-    $subitem = new PapayaUiListviewSubitemText('Sample text');
+    $subitem = new \PapayaUiListviewSubitemText('Sample text');
     $subitem->reference($reference);
     $subitem->setActionParameters(array('foo' => 'bar'));
     $subitem->appendTo($document->documentElement);
@@ -74,17 +74,17 @@ class PapayaUiListviewSubitemTextTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiListviewSubitemText::reference
+  * @covers \PapayaUiListviewSubitemText::reference
   */
   public function testReferenceGetSet() {
     $reference = $this->mockPapaya()->reference();
-    $subitem = new PapayaUiListviewSubitemText('Sample Text');
+    $subitem = new \PapayaUiListviewSubitemText('Sample Text');
     $subitem->reference($reference);
     $this->assertSame($reference, $subitem->reference());
   }
 
   /**
-  * @covers PapayaUiListviewSubitemText::reference
+  * @covers \PapayaUiListviewSubitemText::reference
   */
   public function testReferenceGetFromListview() {
     $reference = $this->createMock(PapayaUiReference::class);
@@ -101,7 +101,7 @@ class PapayaUiListviewSubitemTextTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('getListview')
       ->will($this->returnValue($listview));
-    $subitem = new PapayaUiListviewSubitemText('quickinfo', array('foo' => 'bar'));
+    $subitem = new \PapayaUiListviewSubitemText('quickinfo', array('foo' => 'bar'));
     $subitem->collection($collection);
     $this->assertEquals(
       $reference, $subitem->reference()

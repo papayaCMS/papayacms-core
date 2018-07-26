@@ -18,14 +18,14 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaFilterExceptionCharacterInvalidTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaFilterExceptionCharacterInvalid::__construct
+   * @covers \PapayaFilterExceptionCharacterInvalid::__construct
    * @dataProvider provideExceptionDataAndMessage
    * @param string $expected
    * @param string $value
    * @param int $offset
    */
   public function testConstructor($expected, $value, $offset) {
-    $e = new PapayaFilterExceptionCharacterInvalid($value, $offset);
+    $e = new \PapayaFilterExceptionCharacterInvalid($value, $offset);
     $this->assertAttributeEquals(
       $offset, '_characterPosition', $e
     );
@@ -35,10 +35,10 @@ class PapayaFilterExceptionCharacterInvalidTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaFilterExceptionCharacterInvalid::getCharacterPosition
+  * @covers \PapayaFilterExceptionCharacterInvalid::getCharacterPosition
   */
   public function testGetCharacterPosition() {
-    $e = new PapayaFilterExceptionCharacterInvalid('', 42);
+    $e = new \PapayaFilterExceptionCharacterInvalid('', 42);
     $this->assertEquals(
       42, $e->getCharacterPosition()
     );

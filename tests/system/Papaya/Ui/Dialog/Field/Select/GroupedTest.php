@@ -18,25 +18,25 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldSelectGroupedTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogFieldSelectGrouped::setValues
+  * @covers \PapayaUiDialogFieldSelectGrouped::setValues
   */
   public function testSetValues() {
-    $select = new PapayaUiDialogFieldSelectGrouped(
+    $select = new \PapayaUiDialogFieldSelectGrouped(
       'Caption', 'name', array('Group Caption' => array(21 => 'half', 42 => 'full'))
     );
     $this->assertAttributeEquals(
       array('Group Caption' => array(21 => 'half', 42 => 'full')), '_values', $select
     );
     $this->assertAttributeEquals(
-      new PapayaFilterList(array(21, 42)), '_filter', $select
+      new \PapayaFilterList(array(21, 42)), '_filter', $select
     );
   }
 
   /**
-  * @covers PapayaUiDialogFieldSelectGrouped::setValues
+  * @covers \PapayaUiDialogFieldSelectGrouped::setValues
   */
   public function testSetValuesComplex() {
-    $select = new PapayaUiDialogFieldSelectGrouped(
+    $select = new \PapayaUiDialogFieldSelectGrouped(
       'Caption',
       'name',
       array(
@@ -47,19 +47,19 @@ class PapayaUiDialogFieldSelectGroupedTest extends PapayaTestCase {
       )
     );
     $this->assertAttributeEquals(
-      new PapayaFilterList(array(21, 42)), '_filter', $select
+      new \PapayaFilterList(array(21, 42)), '_filter', $select
     );
   }
 
   /**
-  * @covers PapayaUiDialogFieldSelectGrouped::appendTo
-  * @covers PapayaUiDialogFieldSelectGrouped::_appendOptionGroups
+  * @covers \PapayaUiDialogFieldSelectGrouped::appendTo
+  * @covers \PapayaUiDialogFieldSelectGrouped::_appendOptionGroups
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $select = new PapayaUiDialogFieldSelectGrouped(
+    $select = new \PapayaUiDialogFieldSelectGrouped(
       'Caption', 'name', array('Group Caption' => array(21 => 'half', 42 => 'full'))
     );
     $request = $this->mockPapaya()->request();
@@ -82,19 +82,19 @@ class PapayaUiDialogFieldSelectGroupedTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldSelectGrouped::appendTo
-  * @covers PapayaUiDialogFieldSelectGrouped::_appendOptionGroups
+  * @covers \PapayaUiDialogFieldSelectGrouped::appendTo
+  * @covers \PapayaUiDialogFieldSelectGrouped::_appendOptionGroups
   */
   public function testAppendToWithComplexLabel() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $node = $document->createElement('sample');
     $document->appendChild($node);
-    $select = new PapayaUiDialogFieldSelectGrouped(
+    $select = new \PapayaUiDialogFieldSelectGrouped(
       'Caption',
       'name',
       array(
         array(
-          'caption' => new PapayaUiString('Group Caption'),
+          'caption' => new \PapayaUiString('Group Caption'),
           'options' => array(21 => 'half', 42 => 'full')
         )
       )

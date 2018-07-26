@@ -17,82 +17,82 @@ require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaFilterTimeTest extends PapayaTestCase {
   /**
-  * @covers PapayaFilterTime::__construct
+  * @covers \PapayaFilterTime::__construct
   */
   public function testConstructSuccess() {
-    $filter = new PapayaFilterTime(600.0);
+    $filter = new \PapayaFilterTime(600.0);
     $this->assertAttributeEquals(600.0, '_step', $filter);
   }
 
   /**
-  * @covers PapayaFilterTime::__construct
+  * @covers \PapayaFilterTime::__construct
   */
   public function testConstructFailure() {
     $this->expectException(UnexpectedValueException::class);
-    new PapayaFilterTime(-1);
+    new \PapayaFilterTime(-1);
   }
 
   /**
-   * @covers PapayaFilterTime::validate
+   * @covers \PapayaFilterTime::validate
    * @dataProvider validateSuccessProvider
    * @param mixed $timeString
    * @throws PapayaFilterExceptionRangeMaximum
    * @throws PapayaFilterExceptionType
    */
   public function testValidateSuccess($timeString) {
-    $filter = new PapayaFilterTime(1);
+    $filter = new \PapayaFilterTime(1);
     $this->assertTrue($filter->validate($timeString));
   }
 
   /**
-   * @covers PapayaFilterTime::validate
+   * @covers \PapayaFilterTime::validate
    * @dataProvider validateExceptionTypeProvider
    * @param mixed $timeString
    * @throws PapayaFilterExceptionRangeMaximum
    * @throws PapayaFilterExceptionType
    */
   public function testValidateExceptionType($timeString) {
-    $filter = new PapayaFilterTime();
+    $filter = new \PapayaFilterTime();
     $this->expectException(PapayaFilterExceptionType::class);
     $filter->validate($timeString);
   }
 
   /**
-   * @covers PapayaFilterTime::validate
+   * @covers \PapayaFilterTime::validate
    * @dataProvider validateExceptionRangeMaximumProvider
    * @param mixed $timeString
    * @throws PapayaFilterExceptionRangeMaximum
    * @throws PapayaFilterExceptionType
    */
   public function testValidateExceptionRangeMaximum($timeString) {
-    $filter = new PapayaFilterTime();
+    $filter = new \PapayaFilterTime();
     $this->expectException(PapayaFilterExceptionRangeMaximum::class);
     $filter->validate($timeString);
   }
 
   /**
-  * @covers PapayaFilterTime::validate
+  * @covers \PapayaFilterTime::validate
   */
   public function testValidateExceptionTypeForStepMismatch() {
-    $filter = new PapayaFilterTime(1800);
+    $filter = new \PapayaFilterTime(1800);
     $this->expectException(PapayaFilterExceptionType::class);
     /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate('17:45');
   }
 
   /**
-   * @covers       PapayaFilterTime::filter
+   * @covers       \PapayaFilterTime::filter
    * @dataProvider filterProvider
    * @param mixed $timeString
    * @param string|NULL $expected
    */
   public function testFilter($timeString, $expected) {
-    $filter = new PapayaFilterTime();
+    $filter = new \PapayaFilterTime();
     $this->assertEquals($expected, $filter->filter($timeString));
   }
 
   /**
-  * @covers PapayaFilterTime::_toTimestamp
+  * @covers \PapayaFilterTime::_toTimestamp
   */
   public function testToTimestamp() {
     $filter = $this->getProxy(PapayaFilterTime::class);

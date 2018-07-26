@@ -238,7 +238,7 @@ class PapayaDatabaseRecordKeyFieldsTest extends PapayaTestCase {
   }
 
   /**
-   * @param PapayaDatabaseRecord|NULL|PHPUnit_Framework_MockObject_MockObject $record
+   * @param \PapayaDatabaseRecord|NULL|PHPUnit_Framework_MockObject_MockObject $record
    * @return Fields
    */
   public function getKeyFixture(PapayaDatabaseRecord $record = NULL) {

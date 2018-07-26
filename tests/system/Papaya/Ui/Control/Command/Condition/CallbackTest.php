@@ -18,30 +18,30 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiControlCommandConditionCallbackTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiControlCommandConditionCallback::__construct
+  * @covers \PapayaUiControlCommandConditionCallback::__construct
   */
   public function testConstructorExpectingException() {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: provided $callback is not callable.');
     /** @noinspection PhpParamsInspection */
-    new PapayaUiControlCommandConditionCallback(23);
+    new \PapayaUiControlCommandConditionCallback(23);
   }
 
   /**
-  * @covers PapayaUiControlCommandConditionCallback::__construct
-  * @covers PapayaUiControlCommandConditionCallback::validate
+  * @covers \PapayaUiControlCommandConditionCallback::__construct
+  * @covers \PapayaUiControlCommandConditionCallback::validate
   */
   public function testValidateExpectingTrue() {
-    $condition = new PapayaUiControlCommandConditionCallback(function() { return TRUE; });
+    $condition = new \PapayaUiControlCommandConditionCallback(function() { return TRUE; });
     $this->assertTrue($condition->validate());
   }
 
   /**
-  * @covers PapayaUiControlCommandConditionCallback::__construct
-  * @covers PapayaUiControlCommandConditionCallback::validate
+  * @covers \PapayaUiControlCommandConditionCallback::__construct
+  * @covers \PapayaUiControlCommandConditionCallback::validate
   */
   public function testValidateExpectingFalse() {
-    $condition = new PapayaUiControlCommandConditionCallback(function() { return FALSE; });
+    $condition = new \PapayaUiControlCommandConditionCallback(function() { return FALSE; });
     $this->assertFalse($condition->validate());
   }
 }

@@ -18,8 +18,8 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUtilStringUtf8Test extends PapayaTestCase {
 
   /**
-   * @covers PapayaUtilStringUtf8::ensure
-   * @covers PapayaUtilStringUtf8::ensureCharCallback
+   * @covers \PapayaUtilStringUtf8::ensure
+   * @covers \PapayaUtilStringUtf8::ensureCharCallback
    * @dataProvider ensureDataProvider
    * @param string $string
    * @param string $expected
@@ -32,7 +32,7 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringUtf8::getCodepoint
+   * @covers \PapayaUtilStringUtf8::getCodepoint
    * @dataProvider getCodepointDataProvider
    * @param string $string
    * @param string $expected
@@ -45,7 +45,7 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringUtf8::length
+   * @covers \PapayaUtilStringUtf8::length
    * @dataProvider provideLengthSamples
    * @param string $string
    * @param string $expected
@@ -57,7 +57,7 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringUtf8::position
+   * @covers \PapayaUtilStringUtf8::position
    * @dataProvider providePositionSamples
    * @param string $expected
    * @param string $haystack
@@ -71,7 +71,7 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringUtf8::copy
+   * @covers \PapayaUtilStringUtf8::copy
    * @dataProvider provideCopySamples
    * @param string $expected
    * @param string $haystack
@@ -85,7 +85,7 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringUtf8::length
+   * @covers \PapayaUtilStringUtf8::length
    * @dataProvider provideLengthSamples
    * @param string $string
    * @param string $expected
@@ -97,7 +97,7 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringUtf8::position
+   * @covers \PapayaUtilStringUtf8::position
    * @dataProvider providePositionSamples
    * @param string $expected
    * @param string $haystack
@@ -111,7 +111,7 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringUtf8::copy
+   * @covers \PapayaUtilStringUtf8::copy
    * @dataProvider provideCopySamples
    * @param string $expected
    * @param string $haystack
@@ -125,7 +125,7 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringUtf8::length
+   * @covers \PapayaUtilStringUtf8::length
    * @dataProvider provideLengthSamples
    * @param string $string
    * @param string $expected
@@ -136,7 +136,7 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringUtf8::position
+   * @covers \PapayaUtilStringUtf8::position
    * @dataProvider providePositionSamples
    * @param string $expected
    * @param string $haystack
@@ -149,7 +149,7 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilStringUtf8::copy
+   * @covers \PapayaUtilStringUtf8::copy
    * @dataProvider provideCopySamples
    * @param string $expected
    * @param string $haystack
@@ -164,7 +164,7 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   /**
    * @param string $expected
    * @param string $input
-   * @covers PapayaUtilStringUtf8::toLowerCase
+   * @covers \PapayaUtilStringUtf8::toLowerCase
    * @testWith
    *   ["abc", "ABC"]
    *   ["abcÄdef", "ABCÄDEF"]
@@ -177,7 +177,7 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   /**
    * @param string $expected
    * @param string $input
-   * @covers PapayaUtilStringUtf8::toUpperCase
+   * @covers \PapayaUtilStringUtf8::toUpperCase
    * @testWith
    *   ["ABC", "abc"]
    *   ["ABCäDEF", "abcädef"]
@@ -188,7 +188,7 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   }
 
     /**
-  * @covers PapayaUtilStringUtf8::getExtension
+  * @covers \PapayaUtilStringUtf8::getExtension
   */
   public function testGetExtension() {
     PapayaUtilStringUtf8::setExtension(PapayaUtilStringUtf8::EXT_UNKNOWN);
@@ -199,8 +199,8 @@ class PapayaUtilStringUtf8Test extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilStringUtf8::setExtension
-  * @covers PapayaUtilStringUtf8::getExtension
+  * @covers \PapayaUtilStringUtf8::setExtension
+  * @covers \PapayaUtilStringUtf8::getExtension
   */
   public function testGetExtensionAfterSetExtension() {
     PapayaUtilStringUtf8::setExtension(PapayaUtilStringUtf8::EXT_INTL);

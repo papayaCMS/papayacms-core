@@ -20,12 +20,12 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiDialogDatabaseTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogDatabase::__construct
-  * @covers PapayaUiDialogDatabase::record
+  * @covers \PapayaUiDialogDatabase::__construct
+  * @covers \PapayaUiDialogDatabase::record
   */
   public function testConstructorAndRecord() {
     $record = $this->getRecordFixture(array('foo' => 'bar'));
-    $dialog = new PapayaUiDialogDatabase_TestProxy($record);
+    $dialog = new \PapayaUiDialogDatabase_TestProxy($record);
     $this->assertSame(
       $record, $dialog->record()
     );
@@ -35,24 +35,24 @@ class PapayaUiDialogDatabaseTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogDatabase::callbacks
+  * @covers \PapayaUiDialogDatabase::callbacks
   */
   public function testCallbacksGetAfterSet() {
     $callbacks = $this
       ->getMockBuilder(PapayaUiDialogDatabaseCallbacks::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $dialog = new PapayaUiDialogDatabase_TestProxy($this->getRecordFixture());
+    $dialog = new \PapayaUiDialogDatabase_TestProxy($this->getRecordFixture());
     $this->assertSame(
       $callbacks, $dialog->callbacks($callbacks)
     );
   }
 
   /**
-  * @covers PapayaUiDialogDatabase::callbacks
+  * @covers \PapayaUiDialogDatabase::callbacks
   */
   public function testCallbacksGetImpliciteCreate() {
-    $dialog = new PapayaUiDialogDatabase_TestProxy($this->getRecordFixture());
+    $dialog = new \PapayaUiDialogDatabase_TestProxy($this->getRecordFixture());
     $callbacks = $dialog->callbacks();
     $this->assertInstanceOf(
       PapayaObjectCallbacks::class, $callbacks

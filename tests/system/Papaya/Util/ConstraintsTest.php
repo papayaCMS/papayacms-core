@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilConstraintsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUtilConstraints::assertArray
+  * @covers \PapayaUtilConstraints::assertArray
   */
   public function testAssertArray() {
     $this->assertTrue(
@@ -29,7 +29,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertArray
+   * @covers \PapayaUtilConstraints::assertArray
    * @dataProvider provideInvalidValuesForAssertArray
    * @param mixed $value
    */
@@ -39,7 +39,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertArrayOrTraversable
+  * @covers \PapayaUtilConstraints::assertArrayOrTraversable
   */
   public function testAssertArrayOrTraversableWithArray() {
     $this->assertTrue(
@@ -48,7 +48,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertArrayOrTraversable
+  * @covers \PapayaUtilConstraints::assertArrayOrTraversable
   */
   public function testAssertArrayOrTraversableWithTraversable() {
     $this->assertTrue(
@@ -57,7 +57,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertArrayOrTraversable
+   * @covers \PapayaUtilConstraints::assertArrayOrTraversable
    * @dataProvider provideInvalidValuesForAssertArrayOrTraversable
    * @param mixed $value
    */
@@ -67,7 +67,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertBoolean
+  * @covers \PapayaUtilConstraints::assertBoolean
   */
   public function testAssertBooleanWithTrue() {
     $this->assertTrue(
@@ -76,7 +76,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertBoolean
+  * @covers \PapayaUtilConstraints::assertBoolean
   */
   public function testAssertBooleanWithFalse() {
     $this->assertTrue(
@@ -85,7 +85,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertBoolean
+   * @covers \PapayaUtilConstraints::assertBoolean
    * @dataProvider provideInvalidValuesForAssertBoolean
    * @param mixed $value
    */
@@ -95,7 +95,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertCallable
+   * @covers \PapayaUtilConstraints::assertCallable
    * @dataProvider provideValidValuesForAssertCallable
    * @param callable $value
    */
@@ -106,7 +106,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertCallable
+  * @covers \PapayaUtilConstraints::assertCallable
   */
   public function testAssertCallableWithMethod() {
     $this->assertTrue(
@@ -115,7 +115,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertCallable
+   * @covers \PapayaUtilConstraints::assertCallable
    * @dataProvider provideInvalidValuesForAssertCallable
    * @param mixed $value
    */
@@ -125,7 +125,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertContains
+  * @covers \PapayaUtilConstraints::assertContains
   */
   public function testAssertContainsExpectingTrue() {
     $this->assertTrue(
@@ -134,7 +134,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertContains
+  * @covers \PapayaUtilConstraints::assertContains
   */
   public function testAssertContainsExpectingException() {
     $this->expectException(UnexpectedValueException::class);
@@ -143,7 +143,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertContains
+  * @covers \PapayaUtilConstraints::assertContains
   */
   public function testAssertContainsExpectingExceptionWithIndividualMessage() {
     $this->expectException(UnexpectedValueException::class);
@@ -152,7 +152,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertFloat
+  * @covers \PapayaUtilConstraints::assertFloat
   */
   public function testAssertFloat() {
     $this->assertTrue(
@@ -161,7 +161,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertFloat
+   * @covers \PapayaUtilConstraints::assertFloat
    * @dataProvider provideInvalidValuesForAssertFloat
    * @param mixed $value
    */
@@ -171,7 +171,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertInstanceOf
+  * @covers \PapayaUtilConstraints::assertInstanceOf
   */
   public function testAssertInstanceOf() {
     $this->assertTrue(
@@ -180,7 +180,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertInstanceOf
+  * @covers \PapayaUtilConstraints::assertInstanceOf
   */
   public function testAssertInstanceOfWithSuperclass() {
     $this->assertTrue(
@@ -189,7 +189,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertInstanceOf
+  * @covers \PapayaUtilConstraints::assertInstanceOf
   */
   public function testAssertInstanceOfWithTwoClasses() {
     $this->assertTrue(
@@ -198,7 +198,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertInstanceOf
+  * @covers \PapayaUtilConstraints::assertInstanceOf
   */
   public function testAssertInstanceOfFailureExpectingException() {
     $this->expectException(UnexpectedValueException::class);
@@ -206,7 +206,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertInstanceOf
+  * @covers \PapayaUtilConstraints::assertInstanceOf
   */
   public function testAssertInstanceOfWithTwoClassesFailureExpectingException() {
     $this->expectException(UnexpectedValueException::class);
@@ -214,7 +214,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertInteger
+  * @covers \PapayaUtilConstraints::assertInteger
   */
   public function testAssertInteger() {
     $this->assertTrue(
@@ -223,7 +223,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertInteger
+   * @covers \PapayaUtilConstraints::assertInteger
    * @dataProvider provideInvalidValuesForAssertInteger
    * @param mixed $value
    */
@@ -233,7 +233,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertNotEmpty
+   * @covers \PapayaUtilConstraints::assertNotEmpty
    * @dataProvider provideValidValuesForAssertNotEmpty
    * @param mixed $value
    */
@@ -244,7 +244,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertNotEmpty
+   * @covers \PapayaUtilConstraints::assertNotEmpty
    * @dataProvider provideInvalidValuesForAssertNotEmpty
    * @param mixed $value
    */
@@ -254,7 +254,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertNotEmpty
+   * @covers \PapayaUtilConstraints::assertNotEmpty
    * @dataProvider provideInvalidValuesForAssertNotEmpty
    * @param mixed $value
    */
@@ -264,7 +264,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertNumber
+  * @covers \PapayaUtilConstraints::assertNumber
   */
   public function testAssertNumberWithInteger() {
     $this->assertTrue(
@@ -273,7 +273,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertNumber
+  * @covers \PapayaUtilConstraints::assertNumber
   */
   public function testAssertNumberWithFloat() {
     $this->assertTrue(
@@ -282,7 +282,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertNumber
+   * @covers \PapayaUtilConstraints::assertNumber
    * @dataProvider provideInvalidValuesForAssertNumber
    * @param mixed $value
    */
@@ -292,7 +292,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertObject
+  * @covers \PapayaUtilConstraints::assertObject
   */
   public function testAssertObject() {
     $this->assertTrue(
@@ -301,7 +301,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertObject
+   * @covers \PapayaUtilConstraints::assertObject
    * @dataProvider provideInvalidValuesForAssertObject
    * @param mixed $value
    */
@@ -311,7 +311,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertObjectOrNull
+  * @covers \PapayaUtilConstraints::assertObjectOrNull
   */
   public function testAssertObjectOrNullWithObject() {
     $this->assertTrue(
@@ -320,7 +320,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertObjectOrNull
+  * @covers \PapayaUtilConstraints::assertObjectOrNull
   */
   public function testAssertObjectOrNullWithNull() {
     $this->assertTrue(
@@ -329,7 +329,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertObjectOrNull
+   * @covers \PapayaUtilConstraints::assertObjectOrNull
    * @dataProvider provideInvalidValuesForAssertObjectOrNull
    * @param mixed $value
    */
@@ -339,7 +339,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertResource
+  * @covers \PapayaUtilConstraints::assertResource
   */
   public function testAssertResource() {
     $this->assertTrue(
@@ -349,7 +349,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertResource
+  * @covers \PapayaUtilConstraints::assertResource
   */
   public function testAssertResourceFailureExpectingException() {
     $this->expectException(UnexpectedValueException::class);
@@ -357,7 +357,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::assertString
+  * @covers \PapayaUtilConstraints::assertString
   */
   public function testAssertString() {
     $this->assertTrue(
@@ -366,7 +366,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilConstraints::assertString
+   * @covers \PapayaUtilConstraints::assertString
    * @dataProvider provideInvalidValuesForAssertString
    * @param mixed $value
    */
@@ -376,7 +376,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::createException
+  * @covers \PapayaUtilConstraints::createException
   */
   public function testCreateExceptionWithScalar() {
     $this->expectException(UnexpectedValueException::class);
@@ -385,7 +385,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::createException
+  * @covers \PapayaUtilConstraints::createException
   */
   public function testCreateExceptionWithObject() {
     $this->expectException(UnexpectedValueException::class);
@@ -394,7 +394,7 @@ class PapayaUtilConstraintsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilConstraints::createException
+  * @covers \PapayaUtilConstraints::createException
   */
   public function testCreateExceptionWithIndividualMessage() {
     $this->expectException(UnexpectedValueException::class);

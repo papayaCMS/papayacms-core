@@ -17,11 +17,11 @@ require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaParserTagTest extends PapayaTestCase {
   /**
-   * @covers PapayaParserTag::getXml
+   * @covers \PapayaParserTag::getXml
    */
   public function testGetXml() {
-    $control = new PapayaParserTag_TestProxy();
-    $document = new PapayaXmlDocument;
+    $control = new \PapayaParserTag_TestProxy();
+    $document = new \PapayaXmlDocument;
     $control->nodeStub = array(
       $document->appendElement('sample')
     );
@@ -31,11 +31,11 @@ class PapayaParserTagTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaParserTag::getXml
+   * @covers \PapayaParserTag::getXml
    */
   public function testGetXmlWithTextNode() {
-    $control = new PapayaParserTag_TestProxy();
-    $document = new PapayaXmlDocument;
+    $control = new \PapayaParserTag_TestProxy();
+    $document = new \PapayaXmlDocument;
     $control->nodeStub = array(
       $document->createTextNode('sample')
     );
@@ -45,11 +45,11 @@ class PapayaParserTagTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaParserTag::getXml
+   * @covers \PapayaParserTag::getXml
    */
   public function testGetXmlWithSeveralNodes() {
-    $control = new PapayaParserTag_TestProxy();
-    $document = new PapayaXmlDocument;
+    $control = new \PapayaParserTag_TestProxy();
+    $document = new \PapayaXmlDocument;
     $control->nodeStub = array(
       $document->createTextNode('sample'),
       $document->createElement('sample'),

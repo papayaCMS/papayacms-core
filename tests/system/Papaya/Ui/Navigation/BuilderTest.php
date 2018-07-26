@@ -18,50 +18,50 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiNavigationBuilderTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiNavigationBuilder::__construct
-  * @covers PapayaUiNavigationBuilder::elements
+  * @covers \PapayaUiNavigationBuilder::__construct
+  * @covers \PapayaUiNavigationBuilder::elements
   */
   public function testConstructorWithArray() {
-    $builder = new PapayaUiNavigationBuilder(array('42'));
+    $builder = new \PapayaUiNavigationBuilder(array('42'));
     $this->assertEquals(
       array('42'), $builder->elements()
     );
   }
 
   /**
-  * @covers PapayaUiNavigationBuilder::__construct
-  * @covers PapayaUiNavigationBuilder::elements
+  * @covers \PapayaUiNavigationBuilder::__construct
+  * @covers \PapayaUiNavigationBuilder::elements
   */
   public function testConstructorWithIterator() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Iterator $iterator */
     $iterator = $this->createMock(Iterator::class);
-    $builder = new PapayaUiNavigationBuilder($iterator);
+    $builder = new \PapayaUiNavigationBuilder($iterator);
     $this->assertSame(
       $iterator, $builder->elements()
     );
   }
 
   /**
-  * @covers PapayaUiNavigationBuilder::__construct
+  * @covers \PapayaUiNavigationBuilder::__construct
   */
   public function testConstructorWithItemClass() {
-    $builder = new PapayaUiNavigationBuilder(array(), PapayaUiNavigationItemText::class);
+    $builder = new \PapayaUiNavigationBuilder(array(), PapayaUiNavigationItemText::class);
     $this->assertAttributeEquals(
       PapayaUiNavigationItemText::class, '_itemClass', $builder
     );
   }
 
   /**
-  * @covers PapayaUiNavigationBuilder::__construct
+  * @covers \PapayaUiNavigationBuilder::__construct
   */
   public function testConstructorWithInvalidItemClassExpectingException() {
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Class "stdClass" is not an subclass of "PapayaUiNavigationItem".');
-    new PapayaUiNavigationBuilder(array(), stdClass::class);
+    new \PapayaUiNavigationBuilder(array(), stdClass::class);
   }
 
   /**
-  * @covers PapayaUiNavigationBuilder::appendTo
+  * @covers \PapayaUiNavigationBuilder::appendTo
   */
   public function testAppendTo() {
     $items = $this->createMock(PapayaUiNavigationItems::class);
@@ -77,14 +77,14 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
 
-    $builder = new PapayaUiNavigationBuilder(array('1' => 'Item One'));
+    $builder = new \PapayaUiNavigationBuilder(array('1' => 'Item One'));
     $builder->papaya($this->mockPapaya()->application());
     $builder->items($items);
     $builder->getXml();
   }
 
   /**
-  * @covers PapayaUiNavigationBuilder::appendTo
+  * @covers \PapayaUiNavigationBuilder::appendTo
   */
   public function testAppendToWithCallbacks() {
     $callbacks = $this
@@ -111,7 +111,7 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('onCreateItem')
       ->with('Item One', 1)
-      ->will($this->returnValue(new PapayaUiNavigationItemText('')));
+      ->will($this->returnValue(new \PapayaUiNavigationItemText('')));
     $callbacks
       ->expects($this->once())
       ->method('onAfterAppendItem')
@@ -130,7 +130,7 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
 
-    $builder = new PapayaUiNavigationBuilder(array('1' => 'Item One'));
+    $builder = new \PapayaUiNavigationBuilder(array('1' => 'Item One'));
     $builder->papaya($this->mockPapaya()->application());
     $builder->items($items);
     $builder->callbacks($callbacks);
@@ -138,10 +138,10 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiNavigationBuilder::appendTo
+  * @covers \PapayaUiNavigationBuilder::appendTo
   */
   public function testAppendToFromAnArray() {
-    $builder = new PapayaUiNavigationBuilder(array('1' => 'Item One'));
+    $builder = new \PapayaUiNavigationBuilder(array('1' => 'Item One'));
     $builder->papaya($this->mockPapaya()->application());
     $this->assertEquals(
       /** @lang XML */'<links><link href="http://www.test.tld/index.html">Item One</link></links>',
@@ -150,24 +150,24 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiNavigationBuilder::items
+  * @covers \PapayaUiNavigationBuilder::items
   */
   public function testItemsGetAfterSet() {
     $items = $this
       ->getMockBuilder(PapayaUiNavigationItems::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $builder = new PapayaUiNavigationBuilder(array());
+    $builder = new \PapayaUiNavigationBuilder(array());
     $this->assertSame(
       $items, $builder->items($items)
     );
   }
 
   /**
-  * @covers PapayaUiNavigationBuilder::items
+  * @covers \PapayaUiNavigationBuilder::items
   */
   public function testItemsGetImpliciteCreate() {
-    $builder = new PapayaUiNavigationBuilder(array());
+    $builder = new \PapayaUiNavigationBuilder(array());
     $items = $builder->items();
     $this->assertInstanceOf(
       PapayaUiNavigationItems::class, $items
@@ -175,24 +175,24 @@ class PapayaUiNavigationBuilderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiNavigationBuilder::callbacks
+  * @covers \PapayaUiNavigationBuilder::callbacks
   */
   public function testCallbacksGetAfterSet() {
     $callbacks = $this
       ->getMockBuilder(PapayaUiNavigationBuilderCallbacks::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $builder = new PapayaUiNavigationBuilder(array());
+    $builder = new \PapayaUiNavigationBuilder(array());
     $this->assertSame(
       $callbacks, $builder->callbacks($callbacks)
     );
   }
 
   /**
-  * @covers PapayaUiNavigationBuilder::callbacks
+  * @covers \PapayaUiNavigationBuilder::callbacks
   */
   public function testCallbacksGetImpliciteCreate() {
-    $builder = new PapayaUiNavigationBuilder(array());
+    $builder = new \PapayaUiNavigationBuilder(array());
     $callbacks = $builder->callbacks();
     $this->assertInstanceOf(
       PapayaUiNavigationBuilderCallbacks::class, $callbacks

@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaTemplateEngineTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaTemplateEngine::parameters
+  * @covers \PapayaTemplateEngine::parameters
   */
   public function testParametersSetter() {
     $parameters = $this->createMock(PapayaObjectOptionsList::class);
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->parameters($parameters);
     $this->assertAttributeSame(
       $parameters,
@@ -32,11 +32,11 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::parameters
+  * @covers \PapayaTemplateEngine::parameters
   */
   public function testParametersGetter() {
     $parameters = $this->createMock(PapayaObjectOptionsList::class);
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->parameters($parameters);
     $this->assertSame(
       $parameters,
@@ -45,10 +45,10 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::parameters
+  * @covers \PapayaTemplateEngine::parameters
   */
   public function testParametesImplicitCreate() {
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $this->assertInstanceOf(
       PapayaObjectOptionsList::class,
       $engine->parameters()
@@ -56,10 +56,10 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::parameters
+  * @covers \PapayaTemplateEngine::parameters
   */
   public function testParametesImplizitCreateWithArray() {
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $this->assertInstanceOf(
       PapayaObjectOptionsList::class,
       $engine->parameters(array())
@@ -67,16 +67,16 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::parameters
+  * @covers \PapayaTemplateEngine::parameters
   */
   public function testParametesWithInvalidArgument() {
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $this->expectException(InvalidArgumentException::class);
     $engine->parameters(23);
   }
 
   /**
-  * @covers PapayaTemplateEngine::loaders
+  * @covers \PapayaTemplateEngine::loaders
   */
   public function testLoadersSetter() {
     $loaders = $this
@@ -87,7 +87,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('getItemClass')
       ->will($this->returnValue(PapayaTemplateEngineValuesLoadable::class));
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->loaders($loaders);
     $this->assertAttributeSame(
       $loaders,
@@ -97,7 +97,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::loaders
+  * @covers \PapayaTemplateEngine::loaders
   */
   public function testLoadersSetterWithInvalidObjectList() {
     $loaders = $this
@@ -108,14 +108,14 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('getItemClass')
       ->will($this->returnValue(stdClass::class));
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
 
     $this->expectException(InvalidArgumentException::class);
     $engine->loaders($loaders);
   }
 
   /**
-  * @covers PapayaTemplateEngine::loaders
+  * @covers \PapayaTemplateEngine::loaders
   */
   public function testLoadersGetter() {
     $loaders = $this
@@ -126,7 +126,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('getItemClass')
       ->will($this->returnValue(PapayaTemplateEngineValuesLoadable::class));
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $this->assertSame(
       $loaders,
       $engine->loaders($loaders)
@@ -134,10 +134,10 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::loaders
+  * @covers \PapayaTemplateEngine::loaders
   */
   public function testLoadersGetterWithImplicitCreate() {
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $this->assertInstanceOf(
       PapayaObjectList::class,
       $engine->loaders()
@@ -149,12 +149,12 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::values
+  * @covers \PapayaTemplateEngine::values
   */
   public function testValuesSetterWithDomDocument() {
     $document = new DOMDocument;
     $document->appendChild($document->createElement('test'));
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->values($document);
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */'<?xml version="1.0" encoding="UTF-8"?><test/>',
@@ -163,14 +163,14 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::values
+  * @covers \PapayaTemplateEngine::values
   */
   public function testValuesSetterWithDomElement() {
     $document = new DOMDocument;
     $document->appendChild($document->createElement('test'));
     $node = $document->createElement('sample');
     $document->documentElement->appendChild($node);
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->values($node);
     $this->assertEquals(
     /** @lang XML */'<sample/>', $engine->values()->saveXML($engine->getContext())
@@ -178,12 +178,12 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::values
+  * @covers \PapayaTemplateEngine::values
   */
   public function testValuesSetterWithPapayaXmlElement() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $node = $document->appendElement('test');
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->values($node);
     $this->assertEquals(
     /** @lang XML */'<test/>', $engine->values()->saveXML($engine->getContext())
@@ -191,10 +191,10 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::values
+  * @covers \PapayaTemplateEngine::values
   */
   public function testValuesSetterUsingLoaderMechanism() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $document->appendElement('test');
     $loaderFailure = $this->createMock(PapayaTemplateEngineValuesLoadable::class);
     $loaderFailure
@@ -208,7 +208,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
       ->method('load')
       ->with($this->equalTo('DATA'))
       ->will($this->returnValue($document));
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $engine
       ->loaders()
       ->add($loaderFailure)
@@ -221,48 +221,48 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::values
+  * @covers \PapayaTemplateEngine::values
   */
   public function testValuesSetterWithInvalidValue() {
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $this->expectException(UnexpectedValueException::class);
     $engine->values('load');
   }
 
   /**
-  * @covers PapayaTemplateEngine::values
+  * @covers \PapayaTemplateEngine::values
   */
   public function testValuesGetterWithImplicitCreate() {
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $this->assertInstanceOf(
       'DOMDocument', $engine->values()
     );
   }
 
   /**
-  * @covers PapayaTemplateEngine::getContext
+  * @covers \PapayaTemplateEngine::getContext
   */
   public function testGetContextExpectingNull() {
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $this->assertNull($engine->getContext());
   }
 
   /**
-  * @covers PapayaTemplateEngine::getContext
+  * @covers \PapayaTemplateEngine::getContext
   */
   public function testGetContextExpectingXmlElement() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $node = $document->appendElement('test');
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->values($node);
     $this->assertSame($node, $engine->getContext());
   }
 
   /**
-  * @covers PapayaTemplateEngine::__get
+  * @covers \PapayaTemplateEngine::__get
   */
   public function testMagicMethodGetForLoaders() {
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $loaders = $engine->loaders;
     $this->assertInstanceOf(
       PapayaObjectList::class,
@@ -275,7 +275,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::__set
+  * @covers \PapayaTemplateEngine::__set
   */
   public function testMagicMethodSetForLoaders() {
     $loaders = $this
@@ -286,7 +286,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('getItemClass')
       ->will($this->returnValue(PapayaTemplateEngineValuesLoadable::class));
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->loaders = $loaders;
     $this->assertAttributeSame(
       $loaders, '_loaders', $engine
@@ -294,10 +294,10 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::__get
+  * @covers \PapayaTemplateEngine::__get
   */
   public function testMagicMethodGetForParameters() {
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $parameters = $engine->parameters;
     $this->assertInstanceOf(
       PapayaObjectOptionsList::class, $parameters
@@ -305,11 +305,11 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::__set
+  * @covers \PapayaTemplateEngine::__set
   */
   public function testMagicMethodSetForParameters() {
     $parameters = $this->createMock(PapayaObjectOptionsList::class);
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->parameters = $parameters;
     $this->assertAttributeSame(
       $parameters, '_parameters', $engine
@@ -317,10 +317,10 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::__get
+  * @covers \PapayaTemplateEngine::__get
   */
   public function testMagicMethodGetForValues() {
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $values = $engine->values;
     $this->assertInstanceOf(
       'DOMDocument', $values
@@ -328,13 +328,13 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::__set
+  * @covers \PapayaTemplateEngine::__set
   */
   public function testMagicMethodSetForValues() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $node = $document->appendElement('node');
     $document->appendChild($node);
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->values = $node;
     $this->assertSame(
       $document, $engine->values()
@@ -345,19 +345,19 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaTemplateEngine::__get
+  * @covers \PapayaTemplateEngine::__get
   */
   public function testMagicMethodsGetForUndefinedProperty() {
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $this->expectError(E_NOTICE);
     $engine->dynamic_property;
   }
 
   /**
-  * @covers PapayaTemplateEngine::__set
+  * @covers \PapayaTemplateEngine::__set
   */
   public function testMagicMethodsSetForDynamicProperty() {
-    $engine = new PapayaTemplateEngine_TestProxy();
+    $engine = new \PapayaTemplateEngine_TestProxy();
     $engine->dynamic_property = 'dynamic_value';
     $this->assertSame(
       'dynamic_value',
@@ -367,7 +367,7 @@ class PapayaTemplateEngineTest extends PapayaTestCase {
 }
 
 /**
- * @property PapayaObjectList|PapayaObjectOptionsList|PapayaXmlDocument dynamic_property
+ * @property \PapayaObjectList|PapayaObjectOptionsList|PapayaXmlDocument dynamic_property
  */
 class PapayaTemplateEngine_TestProxy extends PapayaTemplateEngine {
 

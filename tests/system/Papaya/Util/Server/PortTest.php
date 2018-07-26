@@ -28,7 +28,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerPort::get
+  * @covers \PapayaUtilServerPort::get
   */
   public function testGetOnEmptyRequestEnvironmentExpecting80() {
     $_SERVER = array();
@@ -38,7 +38,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerPort::get
+  * @covers \PapayaUtilServerPort::get
   */
   public function testGet() {
     $_SERVER = array(
@@ -50,7 +50,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerPort::get
+  * @covers \PapayaUtilServerPort::get
   */
   public function testGetWithNonDefaultPort() {
     $_SERVER = array(
@@ -62,7 +62,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerPort::get
+  * @covers \PapayaUtilServerPort::get
   */
   public function testGetWithHttps() {
     $_SERVER = array(
@@ -75,7 +75,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerPort::get
+  * @covers \PapayaUtilServerPort::get
   */
   public function testGetWithHttpsNonDefaultPort() {
     $_SERVER = array(
@@ -88,7 +88,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerPort::get
+  * @covers \PapayaUtilServerPort::get
   * @preserveGlobalState disabled
   * @runInSeparateProcess
   */
@@ -104,7 +104,7 @@ class PapayaUtilServerPortTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilServerPort::get
+  * @covers \PapayaUtilServerPort::get
   * @preserveGlobalState disabled
   * @runInSeparateProcess
   */

@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiControlTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiControl::getXml
+  * @covers \PapayaUiControl::getXml
   */
   public function testGetXml() {
-    $control = new PapayaUiControl_TestProxy();
-    $document = new PapayaXmlDocument;
+    $control = new \PapayaUiControl_TestProxy();
+    $document = new \PapayaXmlDocument;
     $control->nodeStub = array(
       $document->appendElement('sample')
     );
@@ -32,11 +32,11 @@ class PapayaUiControlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiControl::getXml
+  * @covers \PapayaUiControl::getXml
   */
   public function testGetXmlWithTextNode() {
-    $control = new PapayaUiControl_TestProxy();
-    $document = new PapayaXmlDocument;
+    $control = new \PapayaUiControl_TestProxy();
+    $document = new \PapayaXmlDocument;
     $control->nodeStub = array(
       $document->createTextNode('sample')
     );
@@ -46,11 +46,11 @@ class PapayaUiControlTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiControl::getXml
+  * @covers \PapayaUiControl::getXml
   */
   public function testGetXmlWithSeveralNodes() {
-    $control = new PapayaUiControl_TestProxy();
-    $document = new PapayaXmlDocument;
+    $control = new \PapayaUiControl_TestProxy();
+    $document = new \PapayaXmlDocument;
     $control->nodeStub = array(
       $document->createTextNode('sample'),
       $document->createElement('sample'),

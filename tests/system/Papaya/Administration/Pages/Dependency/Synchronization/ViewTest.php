@@ -70,7 +70,7 @@ class PapayaAdministrationPagesDependencySynchronizationViewTest extends PapayaT
 
   /**
    * @param array $targetRecords
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaDatabaseResult
+   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaDatabaseResult
    */
   private function getDatabaseAccessFixture(array $targetRecords = array()) {
     $databaseResult = $this->createMock(PapayaDatabaseResult::class);
@@ -103,7 +103,7 @@ class PapayaAdministrationPagesDependencySynchronizationViewTest extends PapayaT
   }
 
   /**
-   * @param PapayaDatabaseAccess|PHPUnit_Framework_MockObject_MockObject $databaseAccess
+   * @param \PapayaDatabaseAccess|PHPUnit_Framework_MockObject_MockObject $databaseAccess
    * @param array $translations
    * @param Translation|PHPUnit_Framework_MockObject_MockObject|NULL $translation
    * @return PHPUnit_Framework_MockObject_MockObject|Translations

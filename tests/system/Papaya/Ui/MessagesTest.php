@@ -19,9 +19,9 @@ class PapayaUiMessagesTest extends PapayaTestCase {
 
 
   /**
-  * @covers PapayaUiMessages::__construct
-  * @covers PapayaUiMessages::appendTo
-  * @covers PapayaUiMessages::getXml
+  * @covers \PapayaUiMessages::__construct
+  * @covers \PapayaUiMessages::appendTo
+  * @covers \PapayaUiMessages::getXml
   */
   public function testAppendTo() {
     $message = $this
@@ -32,7 +32,7 @@ class PapayaUiMessagesTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(PapayaXmlElement::class));
-    $messages = new PapayaUiMessages;
+    $messages = new \PapayaUiMessages;
     $messages[] = $message;
     $this->assertEquals(
     /** @lang XML */'<messages/>',
@@ -41,10 +41,10 @@ class PapayaUiMessagesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiMessages::appendTo
+  * @covers \PapayaUiMessages::appendTo
   */
   public function testAppendToWithoutElements() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaXmlElement $parent */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaXmlElement $parent */
     $parent = $this
       ->getMockBuilder(PapayaXmlElement::class)
       ->setConstructorArgs(array('messages'))
@@ -52,17 +52,17 @@ class PapayaUiMessagesTest extends PapayaTestCase {
     $parent
       ->expects($this->never())
       ->method('appendTo');
-    $messages = new PapayaUiMessages;
+    $messages = new \PapayaUiMessages;
     $this->assertNull(
       $messages->appendTo($parent)
     );
   }
 
   /**
-  * @covers PapayaUiMessages::getXml
+  * @covers \PapayaUiMessages::getXml
   */
   public function testgetXmlWithoutElements() {
-    $messages = new PapayaUiMessages;
+    $messages = new \PapayaUiMessages;
     $this->assertEquals(
       '', $messages->getXml()
     );

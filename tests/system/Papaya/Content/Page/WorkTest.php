@@ -252,7 +252,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   */
   public function testCreatePublicationObject() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $page = new PapayaContentPageWork_TestProxy();
+    $page = new \PapayaContentPageWork_TestProxy();
     $page->setDatabaseAccess($databaseAccess);
     $publication = $page->_createPublicationObject();
     $this->assertInstanceOf(
@@ -267,7 +267,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   * @covers Work::publish
   */
   public function testPublishWithoutIdExpectingFalse() {
-    $page = new PapayaContentPageWork_TestProxy();
+    $page = new \PapayaContentPageWork_TestProxy();
     $this->assertFalse($page->publish());
   }
 
@@ -469,7 +469,7 @@ class PapayaContentPageWorkTest extends PapayaTestCase {
   }
 
   public function getContentPageFixture() {
-    $page = new PapayaContentPageWork_TestProxy();
+    $page = new \PapayaContentPageWork_TestProxy();
     $page->assign(
       array(
         'id' => 21,

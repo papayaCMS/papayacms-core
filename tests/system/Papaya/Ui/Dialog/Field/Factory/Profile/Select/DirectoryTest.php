@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileSelectDirectoryTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUiDialogFieldFactoryProfileSelectDirectory
+   * @covers \PapayaUiDialogFieldFactoryProfileSelectDirectory
    */
   public function testGetField() {
     $context = $this->createMock(PapayaObjectInterface::class);
@@ -26,7 +26,7 @@ class PapayaUiDialogFieldFactoryProfileSelectDirectoryTest extends PapayaTestCas
       ->expects($this->once())
       ->method('papaya')
       ->will($this->returnValue($this->mockPapaya()->application()));
-    $options = new PapayaUiDialogFieldFactoryOptions(
+    $options = new \PapayaUiDialogFieldFactoryOptions(
       array(
         'name' => 'fileselect',
         'caption' => 'File',
@@ -35,7 +35,7 @@ class PapayaUiDialogFieldFactoryProfileSelectDirectoryTest extends PapayaTestCas
         'context' => $context
       )
     );
-    $profile = new PapayaUiDialogFieldFactoryProfileSelectDirectory();
+    $profile = new \PapayaUiDialogFieldFactoryProfileSelectDirectory();
     $profile->fileSystem($this->getFileSystemFixture(array('sample.txt')));
     $profile->options($options);
     $this->assertInstanceOf(PapayaUiDialogFieldSelect::class, $field = $profile->getField());
@@ -44,7 +44,7 @@ class PapayaUiDialogFieldFactoryProfileSelectDirectoryTest extends PapayaTestCas
   /**
    * @param array|NULL $files
    * @param string $filter
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaFileSystemFactory
+   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaFileSystemFactory
    */
   private function getFileSystemFixture(array $files = NULL, $filter = '') {
     $directory = $this

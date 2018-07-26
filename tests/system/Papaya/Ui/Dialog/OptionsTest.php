@@ -18,13 +18,13 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiDialogOptionsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogOptions::appendTo
-  * @covers PapayaUiDialogOptions::_valueToString
+  * @covers \PapayaUiDialogOptions::appendTo
+  * @covers \PapayaUiDialogOptions::_valueToString
   */
   public function testAppendTo() {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $document->appendChild($document->createElement('sample'));
-    $options = new PapayaUiDialogOptions();
+    $options = new \PapayaUiDialogOptions();
     $options->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

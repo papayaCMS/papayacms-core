@@ -18,72 +18,72 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterFloatTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaFilterFloat::__construct
+  * @covers \PapayaFilterFloat::__construct
   */
   public function testConstructWithoutParams(){
-    $testObj = new PapayaFilterFloat();
+    $testObj = new \PapayaFilterFloat();
     $this->assertAttributeEquals(NULL, '_min', $testObj);
     $this->assertAttributeEquals(NULL, '_max', $testObj);
   }
 
   /**
-  * @covers PapayaFilterFloat::__construct
+  * @covers \PapayaFilterFloat::__construct
   */
   public function testConstructWithoutFirstParam(){
     $min = -120;
-    $testObj = new PapayaFilterFloat($min);
+    $testObj = new \PapayaFilterFloat($min);
     $this->assertAttributeEquals($min, '_min', $testObj);
     $this->assertAttributeEquals(NULL, '_max', $testObj);
   }
 
   /**
-  * @covers PapayaFilterFloat::__construct
+  * @covers \PapayaFilterFloat::__construct
   */
   public function testConstructWithoutWithBothParams(){
     $min = -120;
     $max = 120;
-    $testObj = new PapayaFilterFloat($min, $max);
+    $testObj = new \PapayaFilterFloat($min, $max);
     $this->assertAttributeEquals($min, '_min', $testObj);
     $this->assertAttributeEquals($max, '_max', $testObj);
   }
 
   /**
-  * @covers PapayaFilterFloat::validate
+  * @covers \PapayaFilterFloat::validate
   */
   public function testValidate() {
-    $filter = new PapayaFilterFloat();
+    $filter = new \PapayaFilterFloat();
     $this->expectException(PapayaFilterExceptionNotFloat::class);
     $filter->validate('sgs');
   }
 
   /**
-  * @covers PapayaFilterFloat::validate
+  * @covers \PapayaFilterFloat::validate
   */
   public function testValidateWithMinimum(){
-    $filter = new PapayaFilterFloat(-20.0);
+    $filter = new \PapayaFilterFloat(-20.0);
     $this->expectException(PapayaFilterExceptionRangeMinimum::class);
     $filter->validate('-40');
   }
 
   /**
-  * @covers PapayaFilterFloat::validate
+  * @covers \PapayaFilterFloat::validate
   */
   public function testValidateWithMinimumAndMaximum(){
-    $filter = new PapayaFilterFloat(-20.0, 40.5);
+    $filter = new \PapayaFilterFloat(-20.0, 40.5);
     $this->expectException(PapayaFilterExceptionRangeMaximum::class);
     $filter->validate('50');
   }
 
   /**
-  * @covers PapayaFilterFloat::validate
+  * @covers \PapayaFilterFloat::validate
   */
   public function testValidateTrue() {
-    $filter = new PapayaFilterFloat(-20.0, 40.5);
+    $filter = new \PapayaFilterFloat(-20.0, 40.5);
     $this->assertTrue($filter->validate('10.51'));
   }
 
   /**
-   * @covers PapayaFilterFloat::filter
+   * @covers \PapayaFilterFloat::filter
    * @dataProvider provideValidFilterValues
    * @param float $expected
    * @param mixed $value
@@ -91,19 +91,19 @@ class PapayaFilterFloatTest extends PapayaTestCase {
    * @param float $maximum
    */
   public function testFilterExpectingValue($expected, $value, $minimum, $maximum) {
-    $filter = new PapayaFilterFloat($minimum, $maximum);
+    $filter = new \PapayaFilterFloat($minimum, $maximum);
     $this->assertEquals($expected, $filter->filter($value));
   }
 
   /**
-   * @covers PapayaFilterFloat::filter
+   * @covers \PapayaFilterFloat::filter
    * @dataProvider provideInvalidFilterValues
    * @param mixed $value
    * @param float $minimum
    * @param float $maximum
    */
   public function testFilterExpectingNull($value, $minimum, $maximum) {
-    $filter = new PapayaFilterFloat($minimum, $maximum);
+    $filter = new \PapayaFilterFloat($minimum, $maximum);
     $this->assertNull($filter->filter($value));
   }
 

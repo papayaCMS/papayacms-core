@@ -18,37 +18,37 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiLinkAttributesTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiLinkAttributes::isPopup
+  * @covers \PapayaUiLinkAttributes::isPopup
   */
   public function testIsPopupExpectingFalse() {
-    $attributes = new PapayaUiLinkAttributes();
+    $attributes = new \PapayaUiLinkAttributes();
     $this->assertFalse($attributes->isPopup);
   }
 
   /**
-  * @covers PapayaUiLinkAttributes::isPopup
+  * @covers \PapayaUiLinkAttributes::isPopup
   */
   public function testIsPopupExpectingTrue() {
-    $attributes = new PapayaUiLinkAttributes();
+    $attributes = new \PapayaUiLinkAttributes();
     $attributes->setPopup('sample', '80%', '90%');
     $this->assertTrue($attributes->isPopup);
   }
 
   /**
-  * @covers PapayaUiLinkAttributes::removePopup
+  * @covers \PapayaUiLinkAttributes::removePopup
   */
   public function testRemovePopup() {
-    $attributes = new PapayaUiLinkAttributes();
+    $attributes = new \PapayaUiLinkAttributes();
     $attributes->setPopup('sample', '80%', '90%');
     $attributes->removePopup();
     $this->assertFalse($attributes->isPopup);
   }
 
   /**
-  * @covers PapayaUiLinkAttributes::setPopup
+  * @covers \PapayaUiLinkAttributes::setPopup
   */
   public function testSetPopup() {
-    $attributes = new PapayaUiLinkAttributes();
+    $attributes = new \PapayaUiLinkAttributes();
     $attributes->setPopup('sample', '80%', '90%');
     $this->assertEquals('sample', $attributes->target);
     $this->assertEquals('80%', $attributes->popupWidth);
@@ -56,11 +56,11 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiLinkAttributes::setPopup
-  * @covers PapayaUiLinkAttributes::setPopupOptions
+  * @covers \PapayaUiLinkAttributes::setPopup
+  * @covers \PapayaUiLinkAttributes::setPopupOptions
   */
   public function testSetPopupWithAllparameters() {
-    $attributes = new PapayaUiLinkAttributes();
+    $attributes = new \PapayaUiLinkAttributes();
     $attributes->setPopup(
       'sample', '80%', '90%', '50', '60', PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
     );
@@ -72,10 +72,10 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiLinkAttributes::setPopupOptions
+  * @covers \PapayaUiLinkAttributes::setPopupOptions
   */
   public function testSetPopupOptionsInvalidExceptionException() {
-    $attributes = new PapayaUiLinkAttributes();
+    $attributes = new \PapayaUiLinkAttributes();
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid options definition: only one scrollbars option can be set.');
     $attributes->popupOptions = (
@@ -85,7 +85,7 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiLinkAttributes::getPopupOptionsArray
+   * @covers \PapayaUiLinkAttributes::getPopupOptionsArray
    * @dataProvider providePopupLinkOptions
    * @param array $expected
    * @param string|integer $top
@@ -93,9 +93,9 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
    * @param integer $options
    */
   public function testGetPopupOptionsArray(array $expected, $top = NULL, $left = NULL, $options = NULL) {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $document->appendElement('sample');
-    $attributes = new PapayaUiLinkAttributes();
+    $attributes = new \PapayaUiLinkAttributes();
     $attributes->setPopup('sampleTarget', '80%', '300', $top, $left, $options);
     $this->assertEquals(
       $expected, $attributes->getPopupOptionsArray()
@@ -103,16 +103,16 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiLinkAttributes::appendTo
+   * @covers \PapayaUiLinkAttributes::appendTo
    * @dataProvider provideSimpleLinkData
    * @param string $expected
    * @param string $class
    * @param string $target
    */
   public function testAppendTo($expected, $class, $target) {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $node = $document->appendElement('sample');
-    $attributes = new PapayaUiLinkAttributes();
+    $attributes = new \PapayaUiLinkAttributes();
     $attributes->class = $class;
     $attributes->target = $target;
     $node->append($attributes);
@@ -122,7 +122,7 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiLinkAttributes::appendTo
+   * @covers \PapayaUiLinkAttributes::appendTo
    * @dataProvider providePopupLinkData
    * @param string $expected
    * @param string|integer $top
@@ -130,9 +130,9 @@ class PapayaUiLinkAttributesTest extends PapayaTestCase {
    * @param integer $options
    */
   public function testAppendToForPopup($expected, $top = NULL, $left = NULL, $options = NULL) {
-    $document = new PapayaXmlDocument();
+    $document = new \PapayaXmlDocument();
     $node = $document->appendElement('sample');
-    $attributes = new PapayaUiLinkAttributes();
+    $attributes = new \PapayaUiLinkAttributes();
     $attributes->setPopup('sampleTarget', '80%', '300', $top, $left, $options);
     $node->append($attributes);
     $this->assertEquals(

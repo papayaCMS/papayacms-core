@@ -18,30 +18,30 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterUrlTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaFilterUrl::validate
+  * @covers \PapayaFilterUrl::validate
   */
   public function testValidateExpectingTrue() {
-    $filter = new PapayaFilterUrl();
+    $filter = new \PapayaFilterUrl();
     $this->assertTrue($filter->validate('http://www.papaya-cms.com'));
   }
 
   /**
-  * @covers PapayaFilterUrl::validate
+  * @covers \PapayaFilterUrl::validate
   */
   public function testValidateExpectingException() {
-    $filter = new PapayaFilterUrl();
+    $filter = new \PapayaFilterUrl();
     $this->expectException(PapayaFilterExceptionType::class);
     $filter->validate('invalid url');
   }
 
   /**
-   * @covers PapayaFilterUrl::filter
+   * @covers \PapayaFilterUrl::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input
    */
   public function testFilter($expected, $input) {
-    $filter = new PapayaFilterUrl();
+    $filter = new \PapayaFilterUrl();
     $this->assertEquals($expected, $filter->filter($input));
   }
 

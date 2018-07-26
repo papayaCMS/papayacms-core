@@ -28,7 +28,7 @@ class PluginLoader_SampleClassEditable
   implements PapayaPluginEditable {
 
   /**
-   * @var PapayaPluginEditableContent $content
+   * @var \PapayaPluginEditableContent $content
    */
   public $content;
 
@@ -36,7 +36,7 @@ class PluginLoader_SampleClassEditable
     if (NULL !== $content) {
       $this->content = $content;
     } elseif (NULL === $this->content) {
-      $this->content = new PapayaPluginEditableContent();
+      $this->content = new \PapayaPluginEditableContent();
     }
     return $this->content;
   }

@@ -18,31 +18,31 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUiTokensTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiTokens::__construct
+  * @covers \PapayaUiTokens::__construct
   */
   public function testConstructor() {
-    $tokens = new PapayaUiTokens();
+    $tokens = new \PapayaUiTokens();
     $this->assertAttributeEquals(
       200, '_maximum', $tokens
     );
   }
 
   /**
-  * @covers PapayaUiTokens::__construct
+  * @covers \PapayaUiTokens::__construct
   */
   public function testConstructorWithMaximum() {
-    $tokens = new PapayaUiTokens(100);
+    $tokens = new \PapayaUiTokens(100);
     $this->assertAttributeEquals(
       100, '_maximum', $tokens
     );
   }
 
   /**
-  * @covers PapayaUiTokens::create
-  * @covers PapayaUiTokens::storeTokens
+  * @covers \PapayaUiTokens::create
+  * @covers \PapayaUiTokens::storeTokens
   */
   public function testCreate() {
-    $tokens = new PapayaUiTokens_TestProxy();
+    $tokens = new \PapayaUiTokens_TestProxy();
     $tokens->papaya(
       $this->mockPapaya()->application(
         array(
@@ -59,13 +59,13 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiTokens::create
-  * @covers PapayaUiTokens::getTokenHash
-  * @covers PapayaUiTokens::loadTokens
-  * @covers PapayaUiTokens::storeTokens
+  * @covers \PapayaUiTokens::create
+  * @covers \PapayaUiTokens::getTokenHash
+  * @covers \PapayaUiTokens::loadTokens
+  * @covers \PapayaUiTokens::storeTokens
   */
   public function testCreateIntegration() {
-    $tokens = new PapayaUiTokens();
+    $tokens = new \PapayaUiTokens();
     $values = $this
       ->getMockBuilder(PapayaSessionValues::class)
       ->setConstructorArgs(array($this->createMock(PapayaSession::class)))
@@ -103,10 +103,10 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiTokens::create
+  * @covers \PapayaUiTokens::create
   */
   public function testCreateWithoutSessionExpectingNull() {
-    $tokens = new PapayaUiTokens();
+    $tokens = new \PapayaUiTokens();
     $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->any())
@@ -117,10 +117,10 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiTokens::create
+  * @covers \PapayaUiTokens::create
   */
   public function testCreateTriggeringCleanup() {
-    $tokens = new PapayaUiTokens_TestProxy(2);
+    $tokens = new \PapayaUiTokens_TestProxy(2);
     $tokens->papaya(
       $this->mockPapaya()->application(
         array(
@@ -145,10 +145,10 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiTokens::validate
+  * @covers \PapayaUiTokens::validate
   */
   public function testValidate() {
-    $tokens = new PapayaUiTokens_TestProxy();
+    $tokens = new \PapayaUiTokens_TestProxy();
     $tokens->papaya(
       $this->mockPapaya()->application(
         array(
@@ -165,10 +165,10 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiTokens::validate
+  * @covers \PapayaUiTokens::validate
   */
   public function testValidateWithoutSessionExpectingTrue() {
-    $tokens = new PapayaUiTokens();
+    $tokens = new \PapayaUiTokens();
     $session = $this->createMock(PapayaSession::class);
     $session
       ->expects($this->any())
@@ -179,11 +179,11 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiTokens::validate
+  * @covers \PapayaUiTokens::validate
   */
   public function testValidateWithTime() {
     $validTime = time() + 9999;
-    $tokens = new PapayaUiTokens_TestProxy();
+    $tokens = new \PapayaUiTokens_TestProxy();
     $tokens->papaya(
       $this->mockPapaya()->application(
         array(
@@ -200,10 +200,10 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiTokens::validate
+  * @covers \PapayaUiTokens::validate
   */
   public function testValidateWithVerification() {
-    $tokens = new PapayaUiTokens_TestProxy();
+    $tokens = new \PapayaUiTokens_TestProxy();
     $tokens->papaya(
       $this->mockPapaya()->application(
         array(
@@ -220,11 +220,11 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiTokens::validate
+  * @covers \PapayaUiTokens::validate
   */
   public function testValidateWithInvalidTimeExpectingFalse() {
     $invalidTime = time() - 9999;
-    $tokens = new PapayaUiTokens_TestProxy();
+    $tokens = new \PapayaUiTokens_TestProxy();
     $tokens->papaya(
       $this->mockPapaya()->application(
         array('Session' => $this->getSessionObjectFixture($tokens))
@@ -237,10 +237,10 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiTokens::validate
+  * @covers \PapayaUiTokens::validate
   */
   public function testValidateWithInvalidVerificationExpectingFalse() {
-    $tokens = new PapayaUiTokens_TestProxy();
+    $tokens = new \PapayaUiTokens_TestProxy();
     $tokens->papaya(
       $this->mockPapaya()->application(
         array('Session' => $this->getSessionObjectFixture($tokens))
@@ -253,10 +253,10 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiTokens::validate
+  * @covers \PapayaUiTokens::validate
   */
   public function testValidateWithInvalidTokenExpectingFalse() {
-    $tokens = new PapayaUiTokens_TestProxy();
+    $tokens = new \PapayaUiTokens_TestProxy();
     $tokens->papaya(
       $this->mockPapaya()->application(
         array('Session' => $this->getSessionObjectFixture($tokens))
@@ -269,10 +269,10 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiTokens::cleanup
+  * @covers \PapayaUiTokens::cleanup
   */
   public function testCleanupFirstItems() {
-    $tokens = new PapayaUiTokens_TestProxy(2);
+    $tokens = new \PapayaUiTokens_TestProxy(2);
     $tokens->_tokens = array(
       'sample_token_one' => array(NULL, 'd41d8cd98f00b204e9800998ecf8427e'),
       'sample_token_two' => array(NULL, 'd41d8cd98f00b204e9800998ecf8427e')
@@ -286,10 +286,10 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiTokens::cleanup
+  * @covers \PapayaUiTokens::cleanup
   */
   public function testCleanupOldItems() {
-    $tokens = new PapayaUiTokens_TestProxy(2);
+    $tokens = new \PapayaUiTokens_TestProxy(2);
     $tokens->_tokens = array(
       'sample_token_one' => array(NULL, 'd41d8cd98f00b204e9800998ecf8427e'),
       'sample_token_two' => array(time() - 9999, 'd41d8cd98f00b204e9800998ecf8427e')
@@ -303,13 +303,13 @@ class PapayaUiTokensTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiTokens::getVerification
+   * @covers \PapayaUiTokens::getVerification
    * @dataProvider provideVerificationHashesAndData
    * @param string $expected
    * @param mixed $for
    */
   public function testVerification($expected, $for) {
-    $tokens = new PapayaUiTokens_TestProxy();
+    $tokens = new \PapayaUiTokens_TestProxy();
     $this->assertEquals(
       $expected, $tokens->getVerification($for)
     );
@@ -338,7 +338,7 @@ class PapayaUiTokensTest extends PapayaTestCase {
    * @param object|NULL $owner
    * @param mixed $get
    * @param mixed $set
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaSession
+   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaSession
    */
   public function getSessionObjectFixture($owner, $get = NULL, $set = NULL) {
     $session = $this->createMock(PapayaSession::class);

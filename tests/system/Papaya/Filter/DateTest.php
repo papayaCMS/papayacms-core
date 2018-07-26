@@ -17,32 +17,32 @@ require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaFilterDateTest extends PapayaTestCase {
   /**
-  * @covers PapayaFilterDate::__construct
+  * @covers \PapayaFilterDate::__construct
   */
   public function testConstructSuccess() {
-    $filter = new PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME, 600.0);
+    $filter = new \PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME, 600.0);
     $this->assertAttributeEquals(PapayaFilterDate::DATE_OPTIONAL_TIME, '_includeTime', $filter);
     $this->assertAttributeEquals(600.0, '_step', $filter);
   }
 
   /**
-  * @covers PapayaFilterDate::__construct
+  * @covers \PapayaFilterDate::__construct
   */
   public function testConstructExpectsExceptionIncludeTime() {
     $this->expectException(UnexpectedValueException::class);
-    new PapayaFilterDate(1000);
+    new \PapayaFilterDate(1000);
   }
 
   /**
-  * @covers PapayaFilterDate::__construct
+  * @covers \PapayaFilterDate::__construct
   */
   public function testConstructExpectsExceptionStep() {
     $this->expectException(UnexpectedValueException::class);
-    new PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME, -1);
+    new \PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME, -1);
   }
 
   /**
-   * @covers PapayaFilterDate::validate
+   * @covers \PapayaFilterDate::validate
    * @dataProvider validateSuccessProvider
    * @param int $includeTime
    * @param mixed $value
@@ -50,12 +50,12 @@ class PapayaFilterDateTest extends PapayaTestCase {
    * @throws PapayaFilterExceptionType
    */
   public function testValidateSuccess($includeTime, $value) {
-    $filter = new PapayaFilterDate($includeTime);
+    $filter = new \PapayaFilterDate($includeTime);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers PapayaFilterDate::validate
+   * @covers \PapayaFilterDate::validate
    * @dataProvider validateExceptionFormatProvider
    * @param int $includeTime
    * @param mixed $value
@@ -63,40 +63,40 @@ class PapayaFilterDateTest extends PapayaTestCase {
    * @throws PapayaFilterExceptionType
    */
   public function testValidateExceptionFormat($includeTime, $value) {
-    $filter = new PapayaFilterDate($includeTime);
+    $filter = new \PapayaFilterDate($includeTime);
     $this->expectException(PapayaFilterExceptionType::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers PapayaFilterDate::validate
+   * @covers \PapayaFilterDate::validate
    * @dataProvider validateExceptionRangeProvider
    * @param mixed $value
    * @throws PapayaFilterExceptionRangeMaximum
    * @throws PapayaFilterExceptionType
    */
   public function testValidateExceptionRange($value) {
-    $filter = new PapayaFilterDate(PapayaFilterDate::DATE_NO_TIME);
+    $filter = new \PapayaFilterDate(PapayaFilterDate::DATE_NO_TIME);
     $this->expectException(PapayaFilterExceptionRangeMaximum::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers PapayaFilterDate::filter
+   * @covers \PapayaFilterDate::filter
    * @dataProvider filterSuccessProvider
    * @param mixed $value
    * @param string $result
    */
   public function testFilterSuccess($value, $result) {
-    $filter = new PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME);
+    $filter = new \PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME);
     $this->assertEquals($result, $filter->filter($value));
   }
 
   /**
-  * @covers PapayaFilterDate::filter
+  * @covers \PapayaFilterDate::filter
   */
   public function testFilterFailure() {
-    $filter = new PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME);
+    $filter = new \PapayaFilterDate(PapayaFilterDate::DATE_OPTIONAL_TIME);
     $this->assertNull($filter->filter('I am not a date'));
   }
 

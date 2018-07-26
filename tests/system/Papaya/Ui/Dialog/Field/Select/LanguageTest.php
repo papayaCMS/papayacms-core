@@ -20,10 +20,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldSelectLanguageTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogFieldSelectLanguage
+  * @covers \PapayaUiDialogFieldSelectLanguage
   */
   public function testAppendTo() {
-    $select = new PapayaUiDialogFieldSelectLanguage(
+    $select = new \PapayaUiDialogFieldSelectLanguage(
       'Caption', 'name', $this->getLanguagesFixture()
     );
     $select->papaya($this->mockPapaya()->application());
@@ -40,10 +40,10 @@ class PapayaUiDialogFieldSelectLanguageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldSelectLanguage
+  * @covers \PapayaUiDialogFieldSelectLanguage
   */
   public function testAppendToWithAny() {
-    $select = new PapayaUiDialogFieldSelectLanguage(
+    $select = new \PapayaUiDialogFieldSelectLanguage(
       'Caption', 'name', $this->getLanguagesFixture(), PapayaUiDialogFieldSelectLanguage::OPTION_ALLOW_ANY
     );
     $select->papaya($this->mockPapaya()->application());
@@ -61,10 +61,10 @@ class PapayaUiDialogFieldSelectLanguageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldSelectLanguage
+  * @covers \PapayaUiDialogFieldSelectLanguage
   */
   public function testAppendToWithIdentifierKeys() {
-    $select = new PapayaUiDialogFieldSelectLanguage(
+    $select = new \PapayaUiDialogFieldSelectLanguage(
       'Caption', 'name', $this->getLanguagesFixture(), PapayaUiDialogFieldSelectLanguage::OPTION_USE_IDENTIFIER
     );
     $select->papaya($this->mockPapaya()->application());
@@ -81,10 +81,10 @@ class PapayaUiDialogFieldSelectLanguageTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldSelectLanguage
+  * @covers \PapayaUiDialogFieldSelectLanguage
   */
   public function testAppendToWithIdentifierKeysAndAny() {
-    $select = new PapayaUiDialogFieldSelectLanguage(
+    $select = new \PapayaUiDialogFieldSelectLanguage(
       'Caption',
       'name',
       $this->getLanguagesFixture(),

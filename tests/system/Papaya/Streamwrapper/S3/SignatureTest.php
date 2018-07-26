@@ -18,17 +18,17 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaStreamwrapperS3SignatureTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaStreamwrapperS3Signature::__construct
+  * @covers \PapayaStreamwrapperS3Signature::__construct
   */
   public function testConstructor() {
-    $signature = new PapayaStreamwrapperS3Signature(array(), 'GET', array('Date' => '42'));
+    $signature = new \PapayaStreamwrapperS3Signature(array(), 'GET', array('Date' => '42'));
     $this->assertAttributeEquals(array(), '_resource', $signature);
     $this->assertAttributeEquals('GET', '_method', $signature);
     $this->assertAttributeEquals(array('Date' => '42'), '_headers', $signature);
   }
 
   /**
-   * @covers PapayaStreamwrapperS3Signature
+   * @covers \PapayaStreamwrapperS3Signature
    * @dataProvider magicToStringDataProvider
    * @param array $resource
    * @param string $method
@@ -36,7 +36,7 @@ class PapayaStreamwrapperS3SignatureTest extends PapayaTestCase {
    * @param string $expected
    */
   public function testMagicToString(array $resource, $method, array $headers, $expected) {
-    $signature = new PapayaStreamwrapperS3Signature($resource, $method, $headers);
+    $signature = new \PapayaStreamwrapperS3Signature($resource, $method, $headers);
     $this->assertEquals($expected, (string)$signature);
   }
 

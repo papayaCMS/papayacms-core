@@ -18,118 +18,118 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaSessionValuesTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaSessionValues::__construct
+  * @covers \PapayaSessionValues::__construct
   */
   public function testConstructor() {
     $session = $this->getSessionFixture();
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     $this->assertAttributeSame(
       $session, '_session', $values
     );
   }
 
   /**
-  * @covers PapayaSessionValues::offsetExists
+  * @covers \PapayaSessionValues::offsetExists
   */
   public function testOffsetExistsIfSessionActiveExpectingFalse() {
     $session = $this->getSessionFixture(TRUE);
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     $this->assertFalse(isset($values['sample']));
   }
 
   /**
   * @backupGlobals enabled
-  * @covers PapayaSessionValues::offsetExists
+  * @covers \PapayaSessionValues::offsetExists
   */
   public function testOffsetExistsIfSessionActiveExpectingTrue() {
     $_SESSION = array('sample' => 'TRUE');
     $session = $this->getSessionFixture(TRUE);
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     $this->assertTrue(isset($values['sample']));
   }
 
   /**
-  * @covers PapayaSessionValues::offsetGet
+  * @covers \PapayaSessionValues::offsetGet
   */
   public function testOffsetGetIfSessionActiveExpectingNull() {
     $session = $this->getSessionFixture(TRUE);
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     $this->assertNull($values['sample']);
   }
 
   /**
   * @backupGlobals enabled
-  * @covers PapayaSessionValues::offsetGet
+  * @covers \PapayaSessionValues::offsetGet
   */
   public function testOffsetGetIfSessionActiveExpectingValue() {
     $_SESSION = array('sample' => 'success');
     $session = $this->getSessionFixture(TRUE);
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     $this->assertEquals('success', $values['sample']);
   }
 
   /**
   * @backupGlobals
-  * @covers PapayaSessionValues::offsetSet
+  * @covers \PapayaSessionValues::offsetSet
   */
   public function testOffsetSetIfSessionInactive() {
     $_SESSION = array();
     $session = $this->getSessionFixture(FALSE);
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     $values['sample'] = 'failed';
     $this->assertEquals(array(), $_SESSION);
   }
 
   /**
   * @backupGlobals
-  * @covers PapayaSessionValues::offsetSet
+  * @covers \PapayaSessionValues::offsetSet
   */
   public function testOffsetSetIfSessionActive() {
     $_SESSION = array();
     $session = $this->getSessionFixture(TRUE);
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     $values['sample'] = 'success';
     $this->assertEquals(array('sample' => 'success'), $_SESSION);
   }
 
   /**
   * @backupGlobals
-  * @covers PapayaSessionValues::offsetUnset
+  * @covers \PapayaSessionValues::offsetUnset
   */
   public function testOffsetUnsetIfSessionActive() {
     $_SESSION = array('sample' => 'failed');
     $session = $this->getSessionFixture(TRUE);
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     unset($values['sample']);
     $this->assertEquals(array(), $_SESSION);
   }
 
   /**
-  * @covers PapayaSessionValues
+  * @covers \PapayaSessionValues
   */
   public function testGetAfterSetWithInactiveSessionUsingFallback() {
     $session = $this->getSessionFixture(FALSE);
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     $values['sample'] = 'success';
     $this->assertEquals('success', $values['sample']);
   }
 
   /**
-  * @covers PapayaSessionValues
+  * @covers \PapayaSessionValues
   */
   public function testIssetAfterSetWithInactiveSessionUsingFallback() {
     $session = $this->getSessionFixture(FALSE);
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     $values['sample'] = 'success';
     $this->assertTrue(isset($values['sample']));
   }
 
   /**
-  * @covers PapayaSessionValues
+  * @covers \PapayaSessionValues
   */
   public function testGetAfterUnsetWithInactiveSessionUsingFallback() {
     $session = $this->getSessionFixture(FALSE);
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     $values['sample'] = 'fail';
     unset($values['sample']);
     $this->assertNull($values['sample']);
@@ -137,7 +137,7 @@ class PapayaSessionValuesTest extends PapayaTestCase {
 
   /**
    * @backupGlobals
-   * @covers PapayaSessionValues::_compileKey
+   * @covers \PapayaSessionValues::_compileKey
    * @dataProvider provideIdentifierData
    * @param $expected
    * @param $identifierData
@@ -145,7 +145,7 @@ class PapayaSessionValuesTest extends PapayaTestCase {
   public function testIdentifierHandlingBySettingValues($expected, $identifierData) {
     $_SESSION = array();
     $session = $this->getSessionFixture(TRUE);
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     $values[$identifierData] = TRUE;
     $this->assertEquals(
       array($expected => TRUE),
@@ -155,35 +155,35 @@ class PapayaSessionValuesTest extends PapayaTestCase {
 
   /**
   * @backupGlobals
-  * @covers PapayaSessionValues::set
+  * @covers \PapayaSessionValues::set
   */
   public function testSet() {
     $_SESSION = array();
     $session = $this->getSessionFixture(TRUE);
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     $values->set('sample', 'success');
     $this->assertEquals(array('sample' => 'success'), $_SESSION);
   }
 
   /**
   * @backupGlobals
-  * @covers PapayaSessionValues::get
+  * @covers \PapayaSessionValues::get
   */
   public function testGet() {
     $_SESSION = array('sample' => 'success');
     $session = $this->getSessionFixture(TRUE);
-    $values = new PapayaSessionValues($session);
+    $values = new \PapayaSessionValues($session);
     $this->assertEquals('success', $values->get('sample'));
   }
 
   /**
-   * @covers PapayaSessionValues::getKey
+   * @covers \PapayaSessionValues::getKey
    * @dataProvider provideIdentifierData
    * @param mixed $expected
    * @param mixed $identifierData
    */
   public function testGetKey($expected, $identifierData) {
-    $values = new PapayaSessionValues($this->getSessionFixture(TRUE));
+    $values = new \PapayaSessionValues($this->getSessionFixture(TRUE));
     $this->assertSame($expected, $values->getKey($identifierData));
   }
 
@@ -193,7 +193,7 @@ class PapayaSessionValuesTest extends PapayaTestCase {
 
   /**
    * @param bool $isActive
-   * @return PHPUnit_Framework_MockObject_MockObject|PapayaSession
+   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaSession
    */
   public function getSessionFixture($isActive = FALSE) {
     $session = $this->createMock(PapayaSession::class);

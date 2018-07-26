@@ -20,11 +20,11 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   private $_collectedHeaders = array();
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::__construct
+  * @covers \PapayaMessageDispatcherWildfireHandler::__construct
   */
   public function testConstructor() {
     $callback = array($this, 'callbackCollectHeaders');
-    $handler = new PapayaMessageDispatcherWildfireHandler($callback);
+    $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $this->assertAttributeSame(
       $callback,
       '_callback',
@@ -33,21 +33,21 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::__construct
+  * @covers \PapayaMessageDispatcherWildfireHandler::__construct
   */
   public function testConstructorWithInvalidCallbackExpectingException() {
     $this->expectException(InvalidArgumentException::class);
-    new PapayaMessageDispatcherWildfireHandler(NULL);
+    new \PapayaMessageDispatcherWildfireHandler(NULL);
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::sendInitialization
-  * @covers PapayaMessageDispatcherWildfireHandler::resetCounters
-  * @covers PapayaMessageDispatcherWildfireHandler::_send
+  * @covers \PapayaMessageDispatcherWildfireHandler::sendInitialization
+  * @covers \PapayaMessageDispatcherWildfireHandler::resetCounters
+  * @covers \PapayaMessageDispatcherWildfireHandler::_send
   */
   public function testSendInitialization() {
     $callback = array($this, 'callbackCollectHeaders');
-    $handler = new PapayaMessageDispatcherWildfireHandler($callback);
+    $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->sendInitialization(PapayaMessageDispatcherWildfireHandler::HEADER_MAIN);
     $this->assertEquals(
@@ -70,11 +70,11 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::sendMessage
+  * @covers \PapayaMessageDispatcherWildfireHandler::sendMessage
   */
   public function testSendMessage() {
     $callback = array($this, 'callbackCollectHeaders');
-    $handler = new PapayaMessageDispatcherWildfireHandler($callback);
+    $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->sendMessage('Hallo Welt');
     $this->assertEquals(
@@ -89,11 +89,11 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::sendMessage
+  * @covers \PapayaMessageDispatcherWildfireHandler::sendMessage
   */
   public function testSendMessageWithTypeParameter() {
     $callback = array($this, 'callbackCollectHeaders');
-    $handler = new PapayaMessageDispatcherWildfireHandler($callback);
+    $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->sendMessage('Hallo Welt', 'INFO');
     $this->assertEquals(
@@ -108,11 +108,11 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::sendMessage
+  * @covers \PapayaMessageDispatcherWildfireHandler::sendMessage
   */
   public function testSendMessageWithLabelParameter() {
     $callback = array($this, 'callbackCollectHeaders');
-    $handler = new PapayaMessageDispatcherWildfireHandler($callback);
+    $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->sendMessage('Hallo Welt', 'INFO', 'Sample');
     $this->assertEquals(
@@ -127,11 +127,11 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::sendDump
+  * @covers \PapayaMessageDispatcherWildfireHandler::sendDump
   */
   public function testSendDump() {
     $callback = array($this, 'callbackCollectHeaders');
-    $handler = new PapayaMessageDispatcherWildfireHandler($callback);
+    $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->sendDump(array());
     $this->assertEquals(
@@ -146,11 +146,11 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::startGroup
+  * @covers \PapayaMessageDispatcherWildfireHandler::startGroup
   */
   public function testStartGroup() {
     $callback = array($this, 'callbackCollectHeaders');
-    $handler = new PapayaMessageDispatcherWildfireHandler($callback);
+    $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->startGroup();
     $this->assertEquals(
@@ -165,11 +165,11 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::startGroup
+  * @covers \PapayaMessageDispatcherWildfireHandler::startGroup
   */
   public function testStartGroupWithParameters() {
     $callback = array($this, 'callbackCollectHeaders');
-    $handler = new PapayaMessageDispatcherWildfireHandler($callback);
+    $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->startGroup('Sample');
     $this->assertEquals(
@@ -184,11 +184,11 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::endGroup
+  * @covers \PapayaMessageDispatcherWildfireHandler::endGroup
   */
   public function testEndGroup() {
     $callback = array($this, 'callbackCollectHeaders');
-    $handler = new PapayaMessageDispatcherWildfireHandler($callback);
+    $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->endGroup();
     $this->assertEquals(
@@ -203,11 +203,11 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::sendData
+  * @covers \PapayaMessageDispatcherWildfireHandler::sendData
   */
   public function testSendData() {
     $callback = array($this, 'callbackCollectHeaders');
-    $handler = new PapayaMessageDispatcherWildfireHandler($callback);
+    $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->sendData(
       PapayaMessageDispatcherWildfireHandler::HEADER_CONSOLE,
@@ -228,11 +228,11 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::sendData
+  * @covers \PapayaMessageDispatcherWildfireHandler::sendData
   */
   public function testSendDataTwoTimes() {
     $callback = array($this, 'callbackCollectHeaders');
-    $handler = new PapayaMessageDispatcherWildfireHandler($callback);
+    $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->sendData(
       PapayaMessageDispatcherWildfireHandler::HEADER_CONSOLE,
@@ -261,11 +261,11 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::sendData
+  * @covers \PapayaMessageDispatcherWildfireHandler::sendData
   */
   public function testSendDataWithLargeContent() {
     $callback = array($this, 'callbackCollectHeaders');
-    $handler = new PapayaMessageDispatcherWildfireHandler($callback);
+    $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     PapayaMessageDispatcherWildfireHandler::$lengthLimit = 30;
     $handler->sendData(
@@ -288,11 +288,11 @@ class PapayaMessageDispatcherWildfireHandlerTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessageDispatcherWildfireHandler::sendData
+  * @covers \PapayaMessageDispatcherWildfireHandler::sendData
   */
   public function testSendDumpData() {
     $callback = array($this, 'callbackCollectHeaders');
-    $handler = new PapayaMessageDispatcherWildfireHandler($callback);
+    $handler = new \PapayaMessageDispatcherWildfireHandler($callback);
     $handler->resetCounters();
     $handler->sendData(
       PapayaMessageDispatcherWildfireHandler::HEADER_DUMP,

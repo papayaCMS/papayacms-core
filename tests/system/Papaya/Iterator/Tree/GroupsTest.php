@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaIteratorTreeGroupsTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaIteratorTreeGroups
+   * @covers \PapayaIteratorTreeGroups
    */
   public function testIterationWithStringsGroupByFirstChar() {
-    $iterator = new PapayaIteratorTreeGroups(
+    $iterator = new \PapayaIteratorTreeGroups(
       array('Administration', 'Application', 'Cache', 'Configuration', 'Iterator'),
       array($this, 'callbackGetFirstChar')
     );
@@ -44,10 +44,10 @@ class PapayaIteratorTreeGroupsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaIteratorTreeGroups
+   * @covers \PapayaIteratorTreeGroups
    */
   public function testIterationWithStringsGeneratingGroupArrays() {
-    $iterator = new PapayaIteratorTreeGroups(
+    $iterator = new \PapayaIteratorTreeGroups(
       array('Administration', 'Application', 'Cache', 'Configuration', 'Iterator'),
       array($this, 'callbackGetFirstCharAsArray')
     );
@@ -70,22 +70,22 @@ class PapayaIteratorTreeGroupsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaIteratorTreeGroups
+   * @covers \PapayaIteratorTreeGroups
    */
   public function testIterationWithStringsGeneratingGroupObjects() {
-    $iterator = new PapayaIteratorTreeGroups(
+    $iterator = new \PapayaIteratorTreeGroups(
       array('Administration', 'Application', 'Cache', 'Configuration', 'Iterator'),
       array($this, 'callbackGetFirstCharAsObject')
     );
     $this->assertEquals(
       array(
-         0 => new PapayaIteratorTreeGroups_SampleGroup('A'),
+         0 => new \PapayaIteratorTreeGroups_SampleGroup('A'),
          1 => 'Administration',
          2 => 'Application',
-         3 => new PapayaIteratorTreeGroups_SampleGroup('C'),
+         3 => new \PapayaIteratorTreeGroups_SampleGroup('C'),
          4 => 'Cache',
          5 => 'Configuration',
-         6 => new PapayaIteratorTreeGroups_SampleGroup('I'),
+         6 => new \PapayaIteratorTreeGroups_SampleGroup('I'),
          7 => 'Iterator'
       ),
       iterator_to_array(
@@ -96,10 +96,10 @@ class PapayaIteratorTreeGroupsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaIteratorTreeGroups
+   * @covers \PapayaIteratorTreeGroups
    */
   public function testIterationWithStringsWithInvalidGroupAddingItemsToFirstLevel() {
-    $iterator = new PapayaIteratorTreeGroups(
+    $iterator = new \PapayaIteratorTreeGroups(
       array('Administration', 'Application', 'Cache', 'Configuration', 'Iterator'),
       array($this, 'callbackGetNull')
     );
@@ -119,10 +119,10 @@ class PapayaIteratorTreeGroupsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaIteratorTreeGroups
+   * @covers \PapayaIteratorTreeGroups
    */
   public function testIterationKeepsKeys() {
-    $iterator = new PapayaIteratorTreeGroups(
+    $iterator = new \PapayaIteratorTreeGroups(
       array(
         'admin' => 'Administration',
         'app' => 'Application',
@@ -152,7 +152,7 @@ class PapayaIteratorTreeGroupsTest extends PapayaTestCase {
   }
 
   public function callbackGetFirstCharAsObject($element) {
-    return new PapayaIteratorTreeGroups_SampleGroup($element[0]);
+    return new \PapayaIteratorTreeGroups_SampleGroup($element[0]);
   }
 
   public function callbackGetNull() {

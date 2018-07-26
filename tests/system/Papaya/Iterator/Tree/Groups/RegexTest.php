@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaIteratorTreeGroupsRegexTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaIteratorTreeGroupsRegex
+   * @covers \PapayaIteratorTreeGroupsRegex
    */
   public function testIteration() {
-    $iterator = new PapayaIteratorTreeGroupsRegex(
+    $iterator = new \PapayaIteratorTreeGroupsRegex(
       array('Administration', 'Application', 'Cache', 'Configuration', 'Iterator'),
         /** @lang Text */'(^(?P<char>.))',
       'char'
@@ -45,10 +45,10 @@ class PapayaIteratorTreeGroupsRegexTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaIteratorTreeGroupsRegex
+   * @covers \PapayaIteratorTreeGroupsRegex
    */
   public function testIterationKeepIndex() {
-    $iterator = new PapayaIteratorTreeGroupsRegex(
+    $iterator = new \PapayaIteratorTreeGroupsRegex(
       array('admin' => 'Administration', 'app' => 'Application'),
       /** @lang Text */'(^(?P<char>.))',
       'char'
@@ -66,10 +66,10 @@ class PapayaIteratorTreeGroupsRegexTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaIteratorTreeGroupsRegex
+   * @covers \PapayaIteratorTreeGroupsRegex
    */
   public function testIterationWithoutMatchExpectingElementAsGroup() {
-    $iterator = new PapayaIteratorTreeGroupsRegex(
+    $iterator = new \PapayaIteratorTreeGroupsRegex(
       array('Administration', 'Application'),
       '(^-$)'
     );
@@ -86,10 +86,10 @@ class PapayaIteratorTreeGroupsRegexTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaIteratorTreeGroupsRegex
+   * @covers \PapayaIteratorTreeGroupsRegex
    */
   public function testIterationWithoutMatchKeepingEmptyStringIndex() {
-    $iterator = new PapayaIteratorTreeGroupsRegex(
+    $iterator = new \PapayaIteratorTreeGroupsRegex(
       array('' => 'Empty', 'some' => 'Filled'),
       '(^-$)'
     );
@@ -106,10 +106,10 @@ class PapayaIteratorTreeGroupsRegexTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaIteratorTreeGroupsRegex
+   * @covers \PapayaIteratorTreeGroupsRegex
    */
   public function testIterationWithNotAllItemsMatchingToAGroup() {
-    $iterator = new PapayaIteratorTreeGroupsRegex(
+    $iterator = new \PapayaIteratorTreeGroupsRegex(
       array('Administration', '# no group', 'Application'),
       '(^\w)'
     );
@@ -128,10 +128,10 @@ class PapayaIteratorTreeGroupsRegexTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaIteratorTreeGroupsRegex
+   * @covers \PapayaIteratorTreeGroupsRegex
    */
   public function testIterationMatchingKeys() {
-    $iterator = new PapayaIteratorTreeGroupsRegex(
+    $iterator = new \PapayaIteratorTreeGroupsRegex(
       array('admin' => 'Administration', 'app' => 'Application'),
       /** @lang Text */'(^(?P<char>.))',
       'char',

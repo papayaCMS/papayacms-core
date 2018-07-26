@@ -1,10 +1,24 @@
 <?php
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaIteratorTreeDetailsTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaIteratorTreeDetails
+   * @covers \PapayaIteratorTreeDetails
    */
   public function testIterationWithArray() {
     $main = array(
@@ -17,7 +31,7 @@ class PapayaIteratorTreeDetailsTest extends PapayaTestCase {
       2 => array('title' => '1.2', 'category_id' => 1),
       3 => array('title' => '2.1', 'category_id' => 2)
     );
-    $iterator = new PapayaIteratorTreeDetails($main, $details, 'category_id');
+    $iterator = new \PapayaIteratorTreeDetails($main, $details, 'category_id');
     $this->assertEquals(
       array(
         array(
@@ -50,7 +64,7 @@ class PapayaIteratorTreeDetailsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaIteratorTreeDetails
+   * @covers \PapayaIteratorTreeDetails
    */
   public function testIterationWithIterators() {
     $main = new ArrayIterator(
@@ -67,7 +81,7 @@ class PapayaIteratorTreeDetailsTest extends PapayaTestCase {
         3 => array('title' => '2.1', 'category_id' => 2)
       )
     );
-    $iterator = new PapayaIteratorTreeDetails($main, $details, 'category_id');
+    $iterator = new \PapayaIteratorTreeDetails($main, $details, 'category_id');
     $this->assertEquals(
       array(
         array(
@@ -100,7 +114,7 @@ class PapayaIteratorTreeDetailsTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaIteratorTreeDetails
+   * @covers \PapayaIteratorTreeDetails
    */
   public function testIterationGroupedByKey() {
     $main = new ArrayIterator(
@@ -116,7 +130,7 @@ class PapayaIteratorTreeDetailsTest extends PapayaTestCase {
         2 => array('2.1')
       )
     );
-    $iterator = new PapayaIteratorTreeDetails($main, $details);
+    $iterator = new \PapayaIteratorTreeDetails($main, $details);
     $this->assertEquals(
       array(
         0 => 'CategoryOne',

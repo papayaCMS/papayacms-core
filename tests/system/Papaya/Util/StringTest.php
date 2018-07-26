@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilStringTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUtilString::truncate
+   * @covers \PapayaUtilString::truncate
    * @dataProvider provideTruncateSamples
    * @param string $expected
    * @param string $string
@@ -32,7 +32,7 @@ class PapayaUtilStringTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilString::truncate
+  * @covers \PapayaUtilString::truncate
   */
   public function testTruncateAppendsSuffix() {
     $this->assertEquals(
@@ -41,7 +41,7 @@ class PapayaUtilStringTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUtilString::truncate
+  * @covers \PapayaUtilString::truncate
   */
   public function testTruncateWithShortStringExpectingNoSuffix() {
     $this->assertEquals(
@@ -50,7 +50,7 @@ class PapayaUtilStringTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilString::escapeForPrintf
+   * @covers \PapayaUtilString::escapeForPrintf
    * @dataProvider provideEscapingSamples
    * @param $expected
    * @param $input

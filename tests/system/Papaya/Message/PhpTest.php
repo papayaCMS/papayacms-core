@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaMessagePhpTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaMessagePhp::__construct
+  * @covers \PapayaMessagePhp::__construct
   */
   public function testConstructor() {
-    $message = new PapayaMessagePhp();
+    $message = new \PapayaMessagePhp();
     $this->assertAttributeInstanceOf(
       PapayaMessageContextGroup::class,
       '_context',
@@ -30,10 +30,10 @@ class PapayaMessagePhpTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessagePhp::setSeverity
+  * @covers \PapayaMessagePhp::setSeverity
   */
   public function testSetSeverity() {
-    $message = new PapayaMessagePhp();
+    $message = new \PapayaMessagePhp();
     $message->setSeverity(E_USER_NOTICE);
     $this->assertAttributeEquals(
       PapayaMessage::SEVERITY_INFO,
@@ -43,10 +43,10 @@ class PapayaMessagePhpTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessagePhp::getGroup
+  * @covers \PapayaMessagePhp::getGroup
   */
   public function testGetGroup() {
-    $message = new PapayaMessagePhp();
+    $message = new \PapayaMessagePhp();
     $this->assertEquals(
       PapayaMessageLogable::GROUP_PHP,
       $message->getGroup()
@@ -54,10 +54,10 @@ class PapayaMessagePhpTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessagePhp::getType
+  * @covers \PapayaMessagePhp::getType
   */
   public function testGetType() {
-    $message = new PapayaMessagePhp();
+    $message = new \PapayaMessagePhp();
     $this->assertEquals(
       PapayaMessage::SEVERITY_ERROR,
       $message->getType()
@@ -65,10 +65,10 @@ class PapayaMessagePhpTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessagePhp::getMessage
+  * @covers \PapayaMessagePhp::getMessage
   */
   public function testGetMessage() {
-    $message = new PapayaMessagePhp();
+    $message = new \PapayaMessagePhp();
     $this->assertSame(
       '',
       $message->getMessage()
@@ -76,10 +76,10 @@ class PapayaMessagePhpTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessagePhp::context
+  * @covers \PapayaMessagePhp::context
   */
   public function testContext() {
-    $message = new PapayaMessagePhp();
+    $message = new \PapayaMessagePhp();
     $this->assertInstanceOf(
       PapayaMessageContextGroup::class,
       $message->context()
@@ -87,12 +87,12 @@ class PapayaMessagePhpTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaMessagePhp::setContext
+  * @covers \PapayaMessagePhp::setContext
   */
   public function testSetContext() {
-    /** @var PHPUnit_Framework_MockObject_MockObject|PapayaMessageContextGroup $context */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextGroup $context */
     $context = $this->createMock(PapayaMessageContextGroup::class);
-    $message = new PapayaMessagePhp();
+    $message = new \PapayaMessagePhp();
     $message->setContext($context);
     $this->assertAttributeSame(
       $context,

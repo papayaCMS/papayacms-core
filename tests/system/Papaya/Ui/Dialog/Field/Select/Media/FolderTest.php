@@ -20,10 +20,10 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogFieldSelectMediaFolder::__construct
+  * @covers \PapayaUiDialogFieldSelectMediaFolder::__construct
   */
   public function testConstructor() {
-    $select = new PapayaUiDialogFieldSelectMediaFolder(
+    $select = new \PapayaUiDialogFieldSelectMediaFolder(
       'Caption', 'name'
     );
     $this->assertEquals(
@@ -35,10 +35,10 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldSelectMediaFolder::mediaFolders
+  * @covers \PapayaUiDialogFieldSelectMediaFolder::mediaFolders
   */
   public function testMediaFoldersGetAfterSet() {
-    $select = new PapayaUiDialogFieldSelectMediaFolder(
+    $select = new \PapayaUiDialogFieldSelectMediaFolder(
       'Caption', 'name'
     );
     $select->mediaFolders(
@@ -48,20 +48,20 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogFieldSelectMediaFolder::mediaFolders
+  * @covers \PapayaUiDialogFieldSelectMediaFolder::mediaFolders
   */
   public function testMediaFoldersGetImplicitCreate() {
-    $select = new PapayaUiDialogFieldSelectMediaFolder(
+    $select = new \PapayaUiDialogFieldSelectMediaFolder(
       'Caption', 'name'
     );
     $this->assertInstanceOf(Folders::class, $select->mediaFolders());
   }
 
   /**
-  * @covers PapayaUiDialogFieldSelectMediaFolder::appendTo
+  * @covers \PapayaUiDialogFieldSelectMediaFolder::appendTo
   */
   public function testAppendTo() {
-    $select = new PapayaUiDialogFieldSelectMediaFolder(
+    $select = new \PapayaUiDialogFieldSelectMediaFolder(
       'Caption', 'name'
     );
     $select->mediaFolders($this->getMediaFoldersFixture());
@@ -81,7 +81,7 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends PapayaTestCase {
   }
 
   private function getMediaFoldersFixture() {
-    $folders = new PapayaIteratorTreeChildren(
+    $folders = new \PapayaIteratorTreeChildren(
       array(
         '21' => array('id' => 21, 'title' => 'Folder 21'),
         '42' => array('id' => 42, 'title' => 'Folder 42'),

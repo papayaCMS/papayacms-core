@@ -388,7 +388,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
    * @param array $expected
    */
   public function testGetCacheIdentification($group, $identifier, $parameters, $expected) {
-    $service = new PapayaCacheServiceFile_TestProxy();
+    $service = new \PapayaCacheServiceFile_TestProxy();
     $this->assertSame(
       $expected,
       $service->_getCacheIdentification($group, $identifier, $parameters)
@@ -403,7 +403,7 @@ class PapayaCacheServiceFileTest extends PapayaTestCase {
    * @param mixed $parameters
    */
   public function testGetCacheIdentificationExpectingError($group, $identifier, $parameters) {
-    $service = new PapayaCacheServiceFile_TestProxy();
+    $service = new \PapayaCacheServiceFile_TestProxy();
     $this->expectException(InvalidArgumentException::class);
     $service->_getCacheIdentification($group, $identifier, $parameters);
   }

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldSelectRadioTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogFieldSelectRadio
+  * @covers \PapayaUiDialogFieldSelectRadio
   */
   public function testAppendTo() {
-    $select = new PapayaUiDialogFieldSelectRadio(
+    $select = new \PapayaUiDialogFieldSelectRadio(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $select->papaya($this->mockPapaya()->application());

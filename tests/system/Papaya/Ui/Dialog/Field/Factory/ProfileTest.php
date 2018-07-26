@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUiDialogFieldFactoryProfile::options
+   * @covers \PapayaUiDialogFieldFactoryProfile::options
    */
   public function testOptionsGetAfterSet() {
-    $profile = new PapayaUiDialogFieldFactoryProfile_TestProxy();
+    $profile = new \PapayaUiDialogFieldFactoryProfile_TestProxy();
     $profile->options($options = $this->createMock(PapayaUiDialogFieldFactoryOptions::class));
     $this->assertSame(
       $options,
@@ -30,10 +30,10 @@ class PapayaUiDialogFieldFactoryProfileTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldFactoryProfile::options
+   * @covers \PapayaUiDialogFieldFactoryProfile::options
    */
   public function testOptionsGetImplicitCreate() {
-    $profile = new PapayaUiDialogFieldFactoryProfile_TestProxy();
+    $profile = new \PapayaUiDialogFieldFactoryProfile_TestProxy();
     $this->assertInstanceOf(
       PapayaUiDialogFieldFactoryOptions::class,
       $profile->options()

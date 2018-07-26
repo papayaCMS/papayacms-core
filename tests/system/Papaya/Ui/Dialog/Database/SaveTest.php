@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogDatabaseSaveTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogDatabaseSave::execute
+  * @covers \PapayaUiDialogDatabaseSave::execute
   */
   public function testExecuteExpectingTrue() {
     $callbacks = $this
@@ -41,13 +41,13 @@ class PapayaUiDialogDatabaseSaveTest extends PapayaTestCase {
       ->expects($this->any())
       ->method('save')
       ->will($this->returnValue(TRUE));
-    $dialog = new PapayaUiDialogDatabaseSave_TestProxy($record);
+    $dialog = new \PapayaUiDialogDatabaseSave_TestProxy($record);
     $dialog->callbacks($callbacks);
     $this->assertTrue($dialog->execute());
   }
 
   /**
-  * @covers PapayaUiDialogDatabaseSave::execute
+  * @covers \PapayaUiDialogDatabaseSave::execute
   */
   public function testExecuteBlockedByCallbackExpectingFalse() {
     $callbacks = $this
@@ -64,17 +64,17 @@ class PapayaUiDialogDatabaseSaveTest extends PapayaTestCase {
     $record
       ->expects($this->atLeastOnce())
       ->method('assign');
-    $dialog = new PapayaUiDialogDatabaseSave_TestProxy($record);
+    $dialog = new \PapayaUiDialogDatabaseSave_TestProxy($record);
     $dialog->callbacks($callbacks);
     $this->assertFalse($dialog->execute());
   }
 
   /**
-  * @covers PapayaUiDialogDatabaseSave::execute
+  * @covers \PapayaUiDialogDatabaseSave::execute
   */
   public function testExecuteNoSubmitExpectingFalse() {
     $record = $this->getRecordFixture();
-    $dialog = new PapayaUiDialogDatabaseSave_TestProxy($record);
+    $dialog = new \PapayaUiDialogDatabaseSave_TestProxy($record);
     $dialog->_isSubmittedResult = FALSE;
     $this->assertFalse($dialog->execute());
   }

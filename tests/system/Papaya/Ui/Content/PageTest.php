@@ -22,10 +22,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiContentPageTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUiContentPage
+   * @covers \PapayaUiContentPage
    */
   public function testConstructor() {
-    $page = new PapayaUiContentPage(
+    $page = new \PapayaUiContentPage(
       42, $language = $this->createMock(Language::class)
     );
     $this->assertEquals(42, $page->getPageId());
@@ -34,10 +34,10 @@ class PapayaUiContentPageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiContentPage
+   * @covers \PapayaUiContentPage
    */
   public function testConstructorWithAllArguments() {
-    $page = new PapayaUiContentPage(
+    $page = new \PapayaUiContentPage(
       42, $language = $this->createMock(Language::class), FALSE
     );
     $this->assertEquals(42, $page->getPageId());
@@ -46,7 +46,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiContentPage
+   * @covers \PapayaUiContentPage
    */
   public function testAssign() {
     $contentPage = $this->createMock(Page::class);
@@ -59,7 +59,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('assign')
       ->with(array('page_id' => 42));
-    $page = new PapayaUiContentPage(
+    $page = new \PapayaUiContentPage(
       42, $this->createMock(Language::class)
     );
     $page->page($contentPage);
@@ -68,11 +68,11 @@ class PapayaUiContentPageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiContentPage
+   * @covers \PapayaUiContentPage
    */
   public function testPageGetAfterSet() {
     $contentPage = $this->createMock(Page::class);
-    $page = new PapayaUiContentPage(
+    $page = new \PapayaUiContentPage(
       42, $this->createMock(Language::class)
     );
     $page->page($contentPage);
@@ -80,10 +80,10 @@ class PapayaUiContentPageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiContentPage
+   * @covers \PapayaUiContentPage
    */
   public function testPageImpliciteCreatePublicPageContent() {
-    $page = new PapayaUiContentPage(
+    $page = new \PapayaUiContentPage(
       42, $this->createMock(Language::class)
     );
     $pageContent = $page->page();
@@ -92,10 +92,10 @@ class PapayaUiContentPageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiContentPage
+   * @covers \PapayaUiContentPage
    */
   public function testPageImpliciteCreatePreviewPageContent() {
-    $page = new PapayaUiContentPage(
+    $page = new \PapayaUiContentPage(
       42, $this->createMock(Language::class), FALSE
     );
     $pageContent = $page->page();
@@ -105,11 +105,11 @@ class PapayaUiContentPageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiContentPage
+   * @covers \PapayaUiContentPage
    */
   public function testTranslationGetAfterSet() {
     $contentTranslation = $this->createMock(Page\Translation::class);
-    $page = new PapayaUiContentPage(
+    $page = new \PapayaUiContentPage(
       42, $this->createMock(Language::class)
     );
     $page->translation($contentTranslation);
@@ -117,7 +117,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiContentPage
+   * @covers \PapayaUiContentPage
    */
   public function testPageImplicCreatePublicTranslationContent() {
     $language = $this->createMock(Language::class);
@@ -126,7 +126,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       ->method('offsetGet')
       ->with('id')
       ->will($this->returnValue(21));
-    $page = new PapayaUiContentPage(
+    $page = new \PapayaUiContentPage(
       42, $language
     );
     $contentTranslation = $page->translation();
@@ -143,7 +143,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiContentPage
+   * @covers \PapayaUiContentPage
    */
   public function testPageImplicCreatePreviewTranslationContent() {
     $language = $this->createMock(Language::class);
@@ -152,7 +152,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       ->method('offsetGet')
       ->with('id')
       ->will($this->returnValue(21));
-    $page = new PapayaUiContentPage(
+    $page = new \PapayaUiContentPage(
       42, $language, FALSE
     );
     $contentTranslation = $page->translation();
@@ -170,7 +170,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiContentPage
+   * @covers \PapayaUiContentPage
    */
   public function testGetPageViewId() {
     $contentTranslation = $this->createMock(Page\Translation::class);
@@ -179,7 +179,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       ->method('offsetGet')
       ->with('view_id')
       ->will($this->returnValue(23));
-    $page = new PapayaUiContentPage(
+    $page = new \PapayaUiContentPage(
       42, $this->createMock(Language::class)
     );
     $page->translation($contentTranslation);
@@ -187,7 +187,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiContentPage
+   * @covers \PapayaUiContentPage
    */
   public function testGetPageLanguageFromApplication() {
     $languages = $this->createMock(Languages::class);
@@ -196,14 +196,14 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       ->method('getLanguage')
       ->with('de')
       ->will($this->returnValue($this->createMock(Language::class)));
-    $page = new PapayaUiContentPage(42, 'de');
+    $page = new \PapayaUiContentPage(42, 'de');
     $page->papaya($this->mockPapaya()->application(array('languages' => $languages)));
     $this->assertInstanceOf(Language::class, $page->getPageLanguage());
     $this->assertSame($page->getPageLanguage(), $page->getPageLanguage());
   }
 
   /**
-   * @covers PapayaUiContentPage
+   * @covers \PapayaUiContentPage
    */
   public function testGetPageLanguageFromApplicationFailed() {
     $languages = $this->createMock(Languages::class);
@@ -212,7 +212,7 @@ class PapayaUiContentPageTest extends PapayaTestCase {
       ->method('getLanguage')
       ->with('de')
       ->will($this->returnValue(NULL));
-    $page = new PapayaUiContentPage(42, 'de');
+    $page = new \PapayaUiContentPage(42, 'de');
     $page->papaya($this->mockPapaya()->application(array('languages' => $languages)));
     $this->assertNull($page->getPageLanguage());
     $this->assertNull($page->getPageLanguage());

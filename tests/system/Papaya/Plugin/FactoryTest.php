@@ -18,29 +18,29 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaPluginFactoryTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaPluginFactory::__construct
+  * @covers \PapayaPluginFactory::__construct
   */
   public function testConstrcutor() {
-    $factory = new PapayaPluginFactory_TestProxy($owner = new stdClass);
+    $factory = new \PapayaPluginFactory_TestProxy($owner = new stdClass);
     $this->assertAttributeSame(
       $owner, '_owner', $factory
     );
   }
 
   /**
-  * @covers PapayaPluginFactory::loader
+  * @covers \PapayaPluginFactory::loader
   */
   public function testLoaderGetAfterSet() {
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $loader = $this->createMock(PapayaPluginLoader::class);
     $this->assertSame($loader, $factory->loader($loader));
   }
 
   /**
-  * @covers PapayaPluginFactory::loader
+  * @covers \PapayaPluginFactory::loader
   */
   public function testLoaderGetFromApplication() {
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $factory->papaya(
       $this->mockPapaya()->application(
         array(
@@ -52,26 +52,26 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaPluginFactory::has
+  * @covers \PapayaPluginFactory::has
   */
   public function testHasExpectingTrue() {
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $this->assertTrue($factory->has('samplePlugin'));
   }
 
   /**
-  * @covers PapayaPluginFactory::has
+  * @covers \PapayaPluginFactory::has
   */
   public function testHasExpectingFalse() {
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $this->assertFalse($factory->has('undefinedPlugin'));
   }
 
   /**
-  * @covers PapayaPluginFactory::get
+  * @covers \PapayaPluginFactory::get
   */
   public function testGet() {
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $loader = $this->createMock(PapayaPluginLoader::class);
     $loader
       ->expects($this->once())#
@@ -83,10 +83,10 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaPluginFactory::get
+  * @covers \PapayaPluginFactory::get
   */
   public function testGetWithAllParameters() {
-    $factory = new PapayaPluginFactory_TestProxy($owner = new stdClass);
+    $factory = new \PapayaPluginFactory_TestProxy($owner = new stdClass);
     $loader = $this->createMock(PapayaPluginLoader::class);
     $loader
       ->expects($this->once())#
@@ -98,10 +98,10 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaPluginFactory::get
+  * @covers \PapayaPluginFactory::get
   */
   public function testGetWithInvalidNameExpectingException() {
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage(
       'InvalidArgumentException: "PapayaPluginFactory_TestProxy" does not know plugin "invalid plugin".'
@@ -110,27 +110,27 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaPluginFactory::__isset
+   * @covers \PapayaPluginFactory::__isset
    */
   public function testMagicMethodIssetExpectingTrue() {
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $this->assertTrue(isset($factory->samplePlugin));
   }
 
   /**
-   * @covers PapayaPluginFactory::__isset
+   * @covers \PapayaPluginFactory::__isset
    */
   public function testMagicMethodIssetExpectingFalse() {
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $this->assertFalse(isset($factory->undefinedPlugin));
   }
 
 
   /**
-  * @covers PapayaPluginFactory::__get
+  * @covers \PapayaPluginFactory::__get
   */
   public function testMagicMethodGet() {
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $loader = $this->createMock(PapayaPluginLoader::class);
     $loader
       ->expects($this->once())
@@ -142,39 +142,39 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaPluginFactory::__set
+   * @covers \PapayaPluginFactory::__set
    */
   public function testMagicMethodSetExpectingException() {
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $this->expectException(BadMethodCallException::class);
     $factory->samplePlugin = '123';
   }
 
   /**
-   * @covers PapayaPluginFactory::__unset
+   * @covers \PapayaPluginFactory::__unset
    */
   public function testMagicMethodUnsetExpectingException() {
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $this->expectException(BadMethodCallException::class);
     unset($factory->samplePlugin);
   }
 
 
   /**
-  * @covers PapayaPluginFactory::options
+  * @covers \PapayaPluginFactory::options
   */
   public function testOptionsGetAfterSet() {
     $options = $this
       ->getMockBuilder(PapayaConfiguration::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $factory->options('samplePlugin', $options);
     $this->assertSame($options, $factory->options('samplePlugin'));
   }
 
   /**
-  * @covers PapayaPluginFactory::options
+  * @covers \PapayaPluginFactory::options
   */
   public function testOptionsGetFromLoader() {
     $options = $this
@@ -194,21 +194,21 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
       ->with('options')
       ->will($this->returnValue($groups));
 
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $factory->loader($loader);
     $this->assertEquals($options, $factory->options('samplePlugin'));
   }
 
   /**
-  * @covers PapayaPluginFactory::options
+  * @covers \PapayaPluginFactory::options
   */
   public function testOptionsWithInvalidPluginNameExpectingNull() {
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $this->assertNull($factory->options('undefinedPlugin'));
   }
 
   /**
-  * @covers PapayaPluginFactory::getOption
+  * @covers \PapayaPluginFactory::getOption
   */
   public function testGetOption() {
     $options = $this
@@ -220,16 +220,16 @@ class PapayaPluginFactoryTest extends PapayaTestCase {
       ->method('get')
       ->with('SAMPLE_OPTION')
       ->will($this->returnValue(42));
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $factory->options('samplePlugin', $options);
     $this->assertEquals(42, $factory->getOption('samplePlugin', 'SAMPLE_OPTION'));
   }
 
   /**
-  * @covers PapayaPluginFactory::getOption
+  * @covers \PapayaPluginFactory::getOption
   */
   public function testGetOptionWithInvalidPluginNameExpectingDefault() {
-    $factory = new PapayaPluginFactory_TestProxy();
+    $factory = new \PapayaPluginFactory_TestProxy();
     $this->assertEquals(23, $factory->getOption('invalidPlugin', 'SAMPLE_OPTION', 23));
   }
 }

@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilBitwiseTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUtilBitwise::inBitmask
+   * @covers \PapayaUtilBitwise::inBitmask
    * @dataProvider provideInBitmaskPositiveData
    * @param int $bit
    * @param int $bitmask
@@ -30,7 +30,7 @@ class PapayaUtilBitwiseTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilBitwise::inBitmask
+   * @covers \PapayaUtilBitwise::inBitmask
    * @dataProvider provideInBitmaskNegativeData
    * @param int $bit
    * @param int $bitmask
@@ -42,7 +42,7 @@ class PapayaUtilBitwiseTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUtilBitwise::union
+   * @covers \PapayaUtilBitwise::union
    * @dataProvider provideUnionData
    * @param int $expected
    * @param array $bits

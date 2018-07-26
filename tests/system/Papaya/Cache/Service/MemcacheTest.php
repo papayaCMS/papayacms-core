@@ -48,7 +48,7 @@ class PapayaCacheServiceMemcacheTest extends PapayaTestCase {
   * @covers Memcache::_createMemcacheObject
   */
   public function testGetMemcacheObjectExistingClass() {
-    $service = new PapayaCacheServiceMemcache_TestProxy();
+    $service = new \PapayaCacheServiceMemcache_TestProxy();
     $service->_memcacheClasses = array(stdClass::class);
     $this->assertInstanceOf(stdClass::class, $service->getMemcacheObject());
   }
@@ -58,7 +58,7 @@ class PapayaCacheServiceMemcacheTest extends PapayaTestCase {
   * @covers Memcache::_createMemcacheObject
   */
   public function testGetMemcacheObjectExistingAndFallbackClass() {
-    $service = new PapayaCacheServiceMemcache_TestProxy();
+    $service = new \PapayaCacheServiceMemcache_TestProxy();
     $service->_memcacheClasses = array(stdClass::class, Memcache::class);
     $this->assertInstanceOf(stdClass::class, $service->getMemcacheObject());
   }
@@ -68,7 +68,7 @@ class PapayaCacheServiceMemcacheTest extends PapayaTestCase {
   * @covers Memcache::_createMemcacheObject
   */
   public function testGetMemcacheObjectNonexistingClass() {
-    $service = new PapayaCacheServiceMemcache_TestProxy();
+    $service = new \PapayaCacheServiceMemcache_TestProxy();
     $service->_memcacheClasses = array('NOT_EXISTING_CLASSNAME');
     $this->assertFalse($service->getMemcacheObject());
   }
@@ -78,7 +78,7 @@ class PapayaCacheServiceMemcacheTest extends PapayaTestCase {
   * @covers Memcache::_createMemcacheObject
   */
   public function testGetMemcacheObjectNonexistingButFallbackClass() {
-    $service = new PapayaCacheServiceMemcache_TestProxy();
+    $service = new \PapayaCacheServiceMemcache_TestProxy();
     $service->_memcacheClasses = array('NOT_EXISTING_CLASSNAME', stdClass::class);
     $this->assertInstanceOf(stdClass::class, $service->getMemcacheObject());
   }
@@ -462,7 +462,7 @@ class PapayaCacheServiceMemcacheTest extends PapayaTestCase {
   */
   public function testExistsUsingCachedResult() {
     $memcache = $this->getMemcacheMockObjectFixture(TRUE);
-    $service = new PapayaCacheServiceMemcache_TestProxy();
+    $service = new \PapayaCacheServiceMemcache_TestProxy();
     $service->setMemcacheObject($memcache);
     $service->_localCache['GROUP/ELEMENT/PARAMETERS'] = 'DATA';
     $this->assertTrue(
@@ -554,7 +554,7 @@ class PapayaCacheServiceMemcacheTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('flush')
       ->will($this->returnValue(TRUE));
-    $service = new PapayaCacheServiceMemcache_FlushTestProxy();
+    $service = new \PapayaCacheServiceMemcache_FlushTestProxy();
     $service->setConfiguration($configuration);
     $service->memcacheObjects = array(
       $memcache
@@ -578,7 +578,7 @@ class PapayaCacheServiceMemcacheTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('flush')
       ->will($this->returnValue(FALSE));
-    $service = new PapayaCacheServiceMemcache_FlushTestProxy();
+    $service = new \PapayaCacheServiceMemcache_FlushTestProxy();
     $service->setConfiguration($configuration);
     $service->memcacheObjects = array(
       $memcacheOne, $memcacheTwo
@@ -598,7 +598,7 @@ class PapayaCacheServiceMemcacheTest extends PapayaTestCase {
       ->method('flush')
       ->will($this->returnValue(TRUE));
     $memcacheTwo = $this->getMemcacheMockObjectFixture(FALSE);
-    $service = new PapayaCacheServiceMemcache_FlushTestProxy();
+    $service = new \PapayaCacheServiceMemcache_FlushTestProxy();
     $service->setConfiguration($configuration);
     $service->memcacheObjects = array(
       $memcacheOne, $memcacheTwo

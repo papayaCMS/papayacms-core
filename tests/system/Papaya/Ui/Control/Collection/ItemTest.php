@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiControlCollectionItemTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiControlCollectionItem::hasCollection
+  * @covers \PapayaUiControlCollectionItem::hasCollection
   */
   public function testHasCollection() {
     $collection = $this->createMock(PapayaUiControlCollection::class);
-    $item = new PapayaUiControlCollectionItem_TestProxy();
+    $item = new \PapayaUiControlCollectionItem_TestProxy();
     $item->collection($collection);
     $this->assertTrue(
       $item->hasCollection()
@@ -30,7 +30,7 @@ class PapayaUiControlCollectionItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiControlCollectionItem::collection
+  * @covers \PapayaUiControlCollectionItem::collection
   */
   public function testCollectionGetAfterSet() {
     $papaya = $this->mockPapaya()->application();
@@ -39,7 +39,7 @@ class PapayaUiControlCollectionItemTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('papaya')
       ->will($this->returnValue($papaya));
-    $item = new PapayaUiControlCollectionItem_TestProxy();
+    $item = new \PapayaUiControlCollectionItem_TestProxy();
     $this->assertSame(
       $collection, $item->collection($collection)
     );
@@ -49,27 +49,27 @@ class PapayaUiControlCollectionItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiControlCollectionItem::collection
+  * @covers \PapayaUiControlCollectionItem::collection
   */
   public function testCollectionWithoutSetExpectingExpcetion() {
-    $item = new PapayaUiControlCollectionItem_TestProxy();
+    $item = new \PapayaUiControlCollectionItem_TestProxy();
     $this->expectException(BadMethodCallException::class);
     $this->expectExceptionMessage('BadMethodCallException: Item ist not part of a collection.');
     $item->collection();
   }
 
   /**
-  * @covers PapayaUiControlCollectionItem::index
+  * @covers \PapayaUiControlCollectionItem::index
   */
   public function testIndexGetWithoutSet() {
-    $item = new PapayaUiControlCollectionItem_TestProxy();
+    $item = new \PapayaUiControlCollectionItem_TestProxy();
     $this->assertSame(
       0, $item->index()
     );
   }
 
   /**
-  * @covers PapayaUiControlCollectionItem::index
+  * @covers \PapayaUiControlCollectionItem::index
   */
   public function testIndexSetWithInvalidValue() {
     $collection = $this->createMock(PapayaUiControlCollection::class);
@@ -77,8 +77,8 @@ class PapayaUiControlCollectionItemTest extends PapayaTestCase {
       ->expects($this->once())
       ->method('get')
       ->with(42)
-      ->will($this->returnValue(new PapayaUiControlCollectionItem_TestProxy()));
-    $item = new PapayaUiControlCollectionItem_TestProxy();
+      ->will($this->returnValue(new \PapayaUiControlCollectionItem_TestProxy()));
+    $item = new \PapayaUiControlCollectionItem_TestProxy();
     $item->collection($collection);
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('UnexpectedValueException: Index "42" does not match the collection item.');
@@ -86,10 +86,10 @@ class PapayaUiControlCollectionItemTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiControlCollectionItem::index
+  * @covers \PapayaUiControlCollectionItem::index
   */
   public function testIndex() {
-    $item = new PapayaUiControlCollectionItem_TestProxy();
+    $item = new \PapayaUiControlCollectionItem_TestProxy();
     $collection = $this->createMock(PapayaUiControlCollection::class);
     $collection
       ->expects($this->once())

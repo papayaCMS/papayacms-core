@@ -66,7 +66,7 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends PapayaTestCase
       ->will($this->returnValue(TRUE));
     $command = new Remove($record);
     $command->papaya($this->mockPapaya()->application());
-    $command->parameters(new PapayaRequestParameters(array('set_id' => 42)));
+    $command->parameters(new \PapayaRequestParameters(array('set_id' => 42)));
 
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;

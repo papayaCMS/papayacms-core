@@ -18,20 +18,20 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiPagingStepsTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiPagingSteps::__construct
+  * @covers \PapayaUiPagingSteps::__construct
   */
   public function testConstructor() {
-    $steps = new PapayaUiPagingSteps('steps', 20, array(10, 20, 30));
+    $steps = new \PapayaUiPagingSteps('steps', 20, array(10, 20, 30));
     $this->assertEquals('steps', $steps->parameterName);
     $this->assertEquals(20, $steps->currentStepSize);
     $this->assertEquals(array(10, 20, 30), $steps->stepSizes);
   }
 
   /**
-  * @covers PapayaUiPagingSteps::appendTo
+  * @covers \PapayaUiPagingSteps::appendTo
   */
   public function testAppendTo() {
-    $steps = new PapayaUiPagingSteps('steps', 20, array(10, 20, 30));
+    $steps = new \PapayaUiPagingSteps('steps', 20, array(10, 20, 30));
     $steps->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -45,10 +45,10 @@ class PapayaUiPagingStepsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPagingSteps::appendTo
+  * @covers \PapayaUiPagingSteps::appendTo
   */
   public function testAppendToWithTraversable() {
-    $steps = new PapayaUiPagingSteps('steps', 20, new ArrayIterator(array(10)));
+    $steps = new \PapayaUiPagingSteps('steps', 20, new ArrayIterator(array(10)));
     $steps->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -60,10 +60,10 @@ class PapayaUiPagingStepsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPagingSteps::appendTo
+  * @covers \PapayaUiPagingSteps::appendTo
   */
   public function testAppendToWithAdditionalParameters() {
-    $steps = new PapayaUiPagingSteps('foo/steps', 20, array(10, 20, 30));
+    $steps = new \PapayaUiPagingSteps('foo/steps', 20, array(10, 20, 30));
     $steps->papaya($this->mockPapaya()->application());
     $steps->reference()->setParameters(array('foo' => array('role' => 42)));
     $this->assertXmlStringEqualsXmlString(
@@ -79,10 +79,10 @@ class PapayaUiPagingStepsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPagingSteps::setXmlNames
+  * @covers \PapayaUiPagingSteps::setXmlNames
   */
   public function testAppendToWithDifferentXml() {
-    $steps = new PapayaUiPagingSteps('foo/steps', 20, array(10, 20, 30));
+    $steps = new \PapayaUiPagingSteps('foo/steps', 20, array(10, 20, 30));
     $steps->setXmlNames(
       array(
         'list' => 'sizes',
@@ -102,10 +102,10 @@ class PapayaUiPagingStepsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPagingSteps::setXmlNames
+  * @covers \PapayaUiPagingSteps::setXmlNames
   */
   public function testSetXmlWithInvalidElement() {
-    $steps = new PapayaUiPagingSteps('foo/steps', 20, array(10, 20, 30));
+    $steps = new \PapayaUiPagingSteps('foo/steps', 20, array(10, 20, 30));
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid/unknown xml name element "invalid" with value "PagingLinks".');
     $steps->setXmlNames(
@@ -116,10 +116,10 @@ class PapayaUiPagingStepsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPagingSteps::setXmlNames
+  * @covers \PapayaUiPagingSteps::setXmlNames
   */
   public function testSetXmlWithInvalidElementName() {
-    $steps = new PapayaUiPagingSteps('foo/steps', 20, array(10, 20, 30));
+    $steps = new \PapayaUiPagingSteps('foo/steps', 20, array(10, 20, 30));
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid/unknown xml name element "list" with value "23Invalid".');
     $steps->setXmlNames(
@@ -130,11 +130,11 @@ class PapayaUiPagingStepsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPagingSteps::getStepSizes
-  * @covers PapayaUiPagingSteps::setStepSizes
+  * @covers \PapayaUiPagingSteps::getStepSizes
+  * @covers \PapayaUiPagingSteps::setStepSizes
   */
   public function testGetStepsAfterSet() {
-    $steps = new PapayaUiPagingSteps('foo/steps', 20, array());
+    $steps = new \PapayaUiPagingSteps('foo/steps', 20, array());
     $steps->stepSizes = array(100, 200);
     $this->assertEquals(
       array(100, 200), $steps->stepSizes
@@ -142,11 +142,11 @@ class PapayaUiPagingStepsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPagingSteps::reference
+  * @covers \PapayaUiPagingSteps::reference
   */
   public function testReferenceGetAfterSet() {
     $reference = $this->createMock(PapayaUiReference::class);
-    $steps = new PapayaUiPagingSteps('steps', 20, array(10, 20, 30));
+    $steps = new \PapayaUiPagingSteps('steps', 20, array(10, 20, 30));
     $steps->reference($reference);
     $this->assertSame(
       $reference, $steps->reference()
@@ -154,10 +154,10 @@ class PapayaUiPagingStepsTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiPagingSteps::reference
+  * @covers \PapayaUiPagingSteps::reference
   */
   public function testReferenceGetImplicitCreate() {
-    $steps = new PapayaUiPagingSteps('steps', 20, array(10, 20, 30));
+    $steps = new \PapayaUiPagingSteps('steps', 20, array(10, 20, 30));
     $steps->papaya(
       $application = $this->mockPapaya()->application()
     );

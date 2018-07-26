@@ -18,28 +18,28 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
 
   /**
-   * @covers PapayaUiDialogFieldInputCaptcha::__construct
+   * @covers \PapayaUiDialogFieldInputCaptcha::__construct
    */
   public function testConstructor() {
-    $field = new PapayaUiDialogFieldInputCaptcha('Caption', 'name');
+    $field = new \PapayaUiDialogFieldInputCaptcha('Caption', 'name');
     $this->assertEquals('Caption', $field->getCaption());
     $this->assertEquals('name', $field->getName());
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputCaptcha::__construct
-   * @covers PapayaUiDialogFieldInputCaptcha::getCaptchaImage
+   * @covers \PapayaUiDialogFieldInputCaptcha::__construct
+   * @covers \PapayaUiDialogFieldInputCaptcha::getCaptchaImage
    */
   public function testConstructorWithAllParameters() {
-    $field = new PapayaUiDialogFieldInputCaptcha('Caption', 'name', 'captchaname');
+    $field = new \PapayaUiDialogFieldInputCaptcha('Caption', 'name', 'captchaname');
     $this->assertEquals('captchaname', $field->getCaptchaImage());
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputCaptcha::appendTo
+   * @covers \PapayaUiDialogFieldInputCaptcha::appendTo
    */
   public function testAppendTo() {
-    $field = new PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'name', 'somecaptcha');
+    $field = new \PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'name', 'somecaptcha');
     $field->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -53,25 +53,25 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputCaptcha::getCurrentValue
-   * @covers PapayaUiDialogFieldInputCaptcha::validateCaptcha
+   * @covers \PapayaUiDialogFieldInputCaptcha::getCurrentValue
+   * @covers \PapayaUiDialogFieldInputCaptcha::validateCaptcha
    */
   public function testGetCurrentValueForUnattachedFieldExpectingTrue() {
-    $field = new PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'name', 'somecaptcha');
+    $field = new \PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'name', 'somecaptcha');
     $this->assertTrue($field->getCurrentValue());
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputCaptcha::getCurrentValue
-   * @covers PapayaUiDialogFieldInputCaptcha::validateCaptcha
+   * @covers \PapayaUiDialogFieldInputCaptcha::getCurrentValue
+   * @covers \PapayaUiDialogFieldInputCaptcha::validateCaptcha
    */
   public function testGetCurrentValueAttachedFieldNoTokenExpectingFalse() {
-    $field = new PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'name', 'somecaptcha');
+    $field = new \PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'name', 'somecaptcha');
     $dialog = $this->createMock(PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('parameters')
-      ->will($this->returnValue(new PapayaRequestParameters()));
+      ->will($this->returnValue(new \PapayaRequestParameters()));
     $collection = $this->createMock(PapayaUiDialogFields::class);
     $collection
       ->expects($this->once())
@@ -86,18 +86,18 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputCaptcha::getCurrentValue
-   * @covers PapayaUiDialogFieldInputCaptcha::validateCaptcha
+   * @covers \PapayaUiDialogFieldInputCaptcha::getCurrentValue
+   * @covers \PapayaUiDialogFieldInputCaptcha::validateCaptcha
    */
   public function testGetCurrentValueAttachedFieldInvalidTokenExpectingFalse() {
-    $field = new PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
+    $field = new \PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
     $dialog = $this->createMock(PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('parameters')
       ->will(
         $this->returnValue(
-          new PapayaRequestParameters(array('somecaptcha' => array('someident' => 'somevalue')))
+          new \PapayaRequestParameters(array('somecaptcha' => array('someident' => 'somevalue')))
         )
       );
     $collection = $this->createMock(PapayaUiDialogFields::class);
@@ -122,18 +122,18 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputCaptcha::getCurrentValue
-   * @covers PapayaUiDialogFieldInputCaptcha::validateCaptcha
+   * @covers \PapayaUiDialogFieldInputCaptcha::getCurrentValue
+   * @covers \PapayaUiDialogFieldInputCaptcha::validateCaptcha
    */
   public function testGetCurrentValueTwoTimeExpectingOnlyOnFetch() {
-    $field = new PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
+    $field = new \PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
     $dialog = $this->createMock(PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('parameters')
       ->will(
         $this->returnValue(
-          new PapayaRequestParameters(array('somecaptcha' => array('someident' => 'somevalue')))
+          new \PapayaRequestParameters(array('somecaptcha' => array('someident' => 'somevalue')))
         )
       );
     $collection = $this->createMock(PapayaUiDialogFields::class);
@@ -159,18 +159,18 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputCaptcha::getCurrentValue
-   * @covers PapayaUiDialogFieldInputCaptcha::validateCaptcha
+   * @covers \PapayaUiDialogFieldInputCaptcha::getCurrentValue
+   * @covers \PapayaUiDialogFieldInputCaptcha::validateCaptcha
    */
   public function testGetCurrentValueAttachedFieldValidTokenExpectingTrue() {
-    $field = new PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
+    $field = new \PapayaUiDialogFieldInputCaptcha_TestProxy('Caption', 'somecaptcha', 'somecaptcha');
     $dialog = $this->createMock(PapayaUiDialog::class);
     $dialog
       ->expects($this->once())
       ->method('parameters')
       ->will(
         $this->returnValue(
-          new PapayaRequestParameters(array('somecaptcha' => array('someident' => 'somevalue')))
+          new \PapayaRequestParameters(array('somecaptcha' => array('someident' => 'somevalue')))
         )
       );
     $collection = $this->createMock(PapayaUiDialogFields::class);
@@ -199,10 +199,10 @@ class PapayaUiDialogFieldInputCaptchaTest extends PapayaTestCase {
   }
 
   /**
-   * @covers PapayaUiDialogFieldInputCaptcha::createCaptchaIdentifier
+   * @covers \PapayaUiDialogFieldInputCaptcha::createCaptchaIdentifier
    */
   public function testCreateCaptchaIdentifier() {
-    $field = new PapayaUiDialogFieldInputCaptcha('Caption', 'name');
+    $field = new \PapayaUiDialogFieldInputCaptcha('Caption', 'name');
     $this->assertRegExp('(^[a-z\d]{32}$)D', $field->createCaptchaIdentifier());
   }
 }

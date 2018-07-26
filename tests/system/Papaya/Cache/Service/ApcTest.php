@@ -292,7 +292,7 @@ class PapayaCacheServiceApcTest extends PapayaTestCase {
     $apc->expects($this->once())
         ->method('available')
         ->will($this->returnValue(TRUE));
-    $service = new PapayaCacheServiceApc_TestProxy();
+    $service = new \PapayaCacheServiceApc_TestProxy();
     $service->setApcObject($apc);
     $service->_localCache['GROUP/ELEMENT/PARAMETERS'] = 'DATA';
     $this->assertTrue(

@@ -18,32 +18,32 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiDialogElementTest extends PapayaTestCase {
 
   /**
-  * @covers PapayaUiDialogElement::collect
+  * @covers \PapayaUiDialogElement::collect
   */
   public function testCollectWithDialog() {
     $dialog = $this->getDialogMock();
-    $element = new PapayaUiDialogElement_TestProxy();
+    $element = new \PapayaUiDialogElement_TestProxy();
     $element->collection($this->getCollectionMock($dialog));
     $this->assertTrue($element->collect());
   }
 
   /**
-  * @covers PapayaUiDialogElement::collect
+  * @covers \PapayaUiDialogElement::collect
   */
   public function testCollectWithoutDialog() {
-    $element = new PapayaUiDialogElement_TestProxy();
+    $element = new \PapayaUiDialogElement_TestProxy();
     $element->collection($this->getCollectionMock());
     $this->assertFalse($element->collect());
   }
 
   /**
-   * @covers PapayaUiDialogElement::_getParameterName
+   * @covers \PapayaUiDialogElement::_getParameterName
    * @dataProvider provideKeysForGetParameterName
    * @param string $expected
    * @param string|array $keys
    */
   public function testGetParameterName($expected, $keys) {
-    $element = new PapayaUiDialogElement_TestProxy();
+    $element = new \PapayaUiDialogElement_TestProxy();
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $element->papaya($application);
@@ -54,7 +54,7 @@ class PapayaUiDialogElementTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogElement::_getParameterName
+  * @covers \PapayaUiDialogElement::_getParameterName
   */
   public function testGetParameterNameWithDialog() {
     $dialog = $this->getDialogMock();
@@ -65,8 +65,8 @@ class PapayaUiDialogElementTest extends PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('getParameterName')
-      ->will($this->returnValue(new PapayaRequestParametersName('param')));
-    $element = new PapayaUiDialogElement_TestProxy();
+      ->will($this->returnValue(new \PapayaRequestParametersName('param')));
+    $element = new \PapayaUiDialogElement_TestProxy();
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $element->papaya($application);
@@ -77,47 +77,47 @@ class PapayaUiDialogElementTest extends PapayaTestCase {
   }
 
   /**
-  * @covers PapayaUiDialogElement::hasDialog
+  * @covers \PapayaUiDialogElement::hasDialog
   */
   public function testHasDialogExpectingTrue() {
     $dialog = $this->getDialogMock();
-    $element = new PapayaUiDialogElement_TestProxy();
+    $element = new \PapayaUiDialogElement_TestProxy();
     $element->collection($this->getCollectionMock($dialog));
     $this->assertTrue($element->hasDialog());
   }
 
   /**
-  * @covers PapayaUiDialogElement::hasDialog
+  * @covers \PapayaUiDialogElement::hasDialog
   */
   public function testHasDialogWithoutAttachedCollectionExpectingFalse() {
-    $element = new PapayaUiDialogElement_TestProxy();
+    $element = new \PapayaUiDialogElement_TestProxy();
     $this->assertFalse($element->hasDialog());
   }
 
   /**
-  * @covers PapayaUiDialogElement::hasDialog
+  * @covers \PapayaUiDialogElement::hasDialog
   */
   public function testHasDialogWithoutAttachedDialogExpectingFalse() {
-    $element = new PapayaUiDialogElement_TestProxy();
+    $element = new \PapayaUiDialogElement_TestProxy();
     $element->collection($this->getCollectionMock());
     $this->assertFalse($element->hasDialog());
   }
 
   /**
-  * @covers PapayaUiDialogElement::getDialog
+  * @covers \PapayaUiDialogElement::getDialog
   */
   public function testGetDialog() {
     $dialog = $this->getDialogMock();
-    $element = new PapayaUiDialogElement_TestProxy();
+    $element = new \PapayaUiDialogElement_TestProxy();
     $element->collection($this->getCollectionMock($dialog));
     $this->assertSame($dialog, $element->getDialog());
   }
 
   /**
-  * @covers PapayaUiDialogElement::getDialog
+  * @covers \PapayaUiDialogElement::getDialog
   */
   public function testGetDialogExpectingNull() {
-    $element = new PapayaUiDialogElement_TestProxy();
+    $element = new \PapayaUiDialogElement_TestProxy();
     $this->assertNull($element->getDialog());
   }
 

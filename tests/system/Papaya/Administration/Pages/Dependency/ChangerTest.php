@@ -63,7 +63,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   public function testPrepareLoadsReferenceIfTargetIsDefined() {
     $changer = new Changer();
     $changer->parameters(
-      new PapayaRequestParameters(
+      new \PapayaRequestParameters(
         array(
           'page_id' => 42,
           'target_id' => 84
@@ -201,7 +201,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
   public function testAppendToWithReference() {
     $changer = new Changer();
     $changer->parameters(
-      new PapayaRequestParameters(
+      new \PapayaRequestParameters(
         array(
           'cmd' => 'reference_change',
           'page_id' => 42,
@@ -465,7 +465,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends PapayaTestCase {
    */
   private function getChangerFixture($pageId = 0, array $data = array()) {
     $changer = new Changer();
-    $changer->parameters(new PapayaRequestParameters(array('page_id' => $pageId)));
+    $changer->parameters(new \PapayaRequestParameters(array('page_id' => $pageId)));
     $changer->dependency($this->getDependencyFixture($data));
     $changer->papaya(
       $this->mockPapaya()->application(
