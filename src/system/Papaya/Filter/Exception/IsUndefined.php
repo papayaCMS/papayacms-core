@@ -13,19 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception;
 /**
-* A range exception is thrown if a value is not a valid xml fragment.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionXml extends \PapayaFilterException {
+ * This exception is thrown if a value is not defined (or NULL).
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class IsUndefined extends \PapayaFilterException {
 
   /**
-   * @param \PapayaXmlException $e
+   * Construct object and set (static) message.
    */
-  public function __construct(\PapayaXmlException $e) {
-    parent::__construct($e->getMessage());
+  public function __construct() {
+    parent::__construct('Value does not exist.');
   }
-
 }

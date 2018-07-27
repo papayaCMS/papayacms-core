@@ -27,14 +27,14 @@ class PapayaFilterIsset implements \Papaya\Filter {
    * Check the value throw exception if value is not set
    *
    * @param string $value
-   * @throws \PapayaFilterExceptionUndefined
+   * @throws \Papaya\Filter\Exception\IsUndefined
    * @return TRUE
    */
   public function validate($value) {
     if (isset($value)) {
       return TRUE;
     }
-    throw new \PapayaFilterExceptionUndefined();
+    throw new \Papaya\Filter\Exception\IsUndefined();
   }
 
   /**

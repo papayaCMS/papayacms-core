@@ -21,7 +21,7 @@ class PapayaFilterIssetTest extends \PapayaTestCase {
    * @covers \PapayaFilterIsset::validate
    * @dataProvider provideValues
    * @param mixed $value
-   * @throws \PapayaFilterExceptionUndefined
+   * @throws \Papaya\Filter\Exception\IsUndefined
    */
   public function testCheck($value) {
     $filter = new \PapayaFilterIsset();
@@ -33,7 +33,7 @@ class PapayaFilterIssetTest extends \PapayaTestCase {
   */
   public function testCheckExpectingException() {
     $filter = new \PapayaFilterIsset();
-    $this->expectException(\PapayaFilterExceptionUndefined::class);
+    $this->expectException(\Papaya\Filter\Exception\IsUndefined::class);
     $filter->validate(NULL);
   }
 

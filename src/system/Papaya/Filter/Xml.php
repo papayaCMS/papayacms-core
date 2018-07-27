@@ -38,7 +38,7 @@ class PapayaFilterXml implements \Papaya\Filter {
    *
    *
    * @param string $value
-   * @throws \PapayaFilterExceptionXml
+   * @throws \Papaya\Filter\Exception\InvalidXml
    * @throws \Papaya\Filter\Exception\IsEmpty
    * @return TRUE
    */
@@ -59,7 +59,7 @@ class PapayaFilterXml implements \Papaya\Filter {
       }
       $errors->emit(TRUE);
     } catch (\PapayaXmlException $e) {
-      throw new \PapayaFilterExceptionXml($e);
+      throw new \Papaya\Filter\Exception\InvalidXml($e);
     }
     return TRUE;
   }

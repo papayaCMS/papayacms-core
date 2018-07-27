@@ -71,6 +71,8 @@ class Autoloader {
     'PapayaFilterExceptionRangeMaximum' => Filter\Exception\OutOfRange\ToLarge::class,
     'PapayaFilterExceptionRangeMinimum' => Filter\Exception\OutOfRange\ToSmall::class,
     'PapayaFilterExceptionType' => Filter\Exception\UnexpectedType::class,
+    'PapayaFilterExceptionUndefined' => Filter\Exception\IsUndefined::class,
+    'PapayaFilterExceptionXml' => Filter\Exception\InvalidXml::class,
 
     'PapayaObject' => Application\BaseObject::class
   );

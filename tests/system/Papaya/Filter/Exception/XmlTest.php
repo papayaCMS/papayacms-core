@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterExceptionXmlTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterExceptionXml
+   * @covers \Papaya\Filter\Exception\InvalidXml
    */
   public function testConstructor() {
     $error = new libxmlError();
@@ -28,7 +28,7 @@ class PapayaFilterExceptionXmlTest extends \PapayaTestCase {
     $error->column = 21;
     $error->file = '';
 
-    $exception = new \PapayaFilterExceptionXml(new \PapayaXmlException($error));
+    $exception = new \Papaya\Filter\Exception\InvalidXml(new \PapayaXmlException($error));
     $this->assertNotEmpty($exception->getMessage());
   }
 }

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterExceptionUndefinedTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionUndefined::__construct
+  * @covers \Papaya\Filter\Exception\IsUndefined::__construct
   */
   public function testConstructor() {
-    $e = new \PapayaFilterExceptionUndefined();
+    $e = new \Papaya\Filter\Exception\IsUndefined();
     $this->assertEquals(
       'Value does not exist.',
       $e->getMessage()
