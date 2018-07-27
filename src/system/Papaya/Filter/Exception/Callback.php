@@ -22,7 +22,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-abstract class Callback extends \PapayaFilterException {
+abstract class Callback extends \Papaya\Filter\Exception {
 
   /**
    * Private property containing the callback

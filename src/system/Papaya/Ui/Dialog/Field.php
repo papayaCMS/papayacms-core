@@ -89,7 +89,8 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
 
   /**
   * Validation execption
-  * @var NULL|\PapayaFilterException
+  *
+  * @var NULL|\Papaya\Filter\Exception
   */
   protected $_exception = NULL;
 
@@ -333,7 +334,7 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
     if (isset($filter) && $filter instanceof \Papaya\Filter) {
       try {
         return $filter->validate($this->getCurrentValue());
-      } catch (\PapayaFilterException $e) {
+      } catch (\Papaya\Filter\Exception $e) {
         $this->handleValidationFailure($e);
         return FALSE;
       }

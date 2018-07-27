@@ -43,7 +43,7 @@ class ArrayOf implements \Papaya\Filter {
   /**
    * Check if the value is an array and if an element filter is set, check each element against it.
    *
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    * @param string $value
    * @return TRUE
    */

@@ -22,6 +22,6 @@ class PapayaFilterFactoryProfileIsPasswordTest extends \PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new \Papaya\Filter\Factory\Profile\IsPassword();
-    $this->assertInstanceOf(\PapayaFilterPassword::class, $profile->getFilter());
+    $this->assertInstanceOf(\Papaya\Filter\Password::class, $profile->getFilter());
   }
 }

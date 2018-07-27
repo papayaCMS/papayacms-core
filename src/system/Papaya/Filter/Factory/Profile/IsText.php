@@ -26,6 +26,6 @@ class IsText extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterText();
+    return new \Papaya\Filter\Text();
   }
 }

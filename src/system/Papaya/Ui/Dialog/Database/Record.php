@@ -142,7 +142,7 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
             return $this->_update($identifier);
           }
         }
-      } catch (\PapayaFilterException $e) {
+      } catch (\Papaya\Filter\Exception $e) {
       }
     } elseif (!empty($identifier) &&
               ($data = $this->_load($identifier))) {

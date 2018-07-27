@@ -93,7 +93,7 @@ class PapayaFilterNumber implements \Papaya\Filter {
   public function filter($value) {
     try {
       $this->validate(trim($value));
-    } catch(\PapayaFilterException $e) {
+    } catch(\Papaya\Filter\Exception $e) {
       return NULL;
     }
     return trim($value);

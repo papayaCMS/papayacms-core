@@ -61,7 +61,7 @@ class PapayaFilterInteger implements \Papaya\Filter {
   /**
   * Check the integer input and throw an exception if it does not match the condition.
   *
-  * @throws \PapayaFilterException
+  * @throws \Papaya\Filter\Exception
   * @param string $value
   * @return TRUE
   */
@@ -92,7 +92,7 @@ class PapayaFilterInteger implements \Papaya\Filter {
     try {
       $this->validate($value);
       return $value;
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
   }

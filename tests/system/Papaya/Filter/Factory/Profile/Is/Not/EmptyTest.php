@@ -34,7 +34,7 @@ class PapayaFilterFactoryProfileIsNotEmptyTest extends \PapayaTestCase {
    */
   public function testGetFilterExpectException($string) {
     $profile = new \Papaya\Filter\Factory\Profile\IsNotEmpty();
-    $this->expectException(\PapayaFilterException::class);
+    $this->expectException(\Papaya\Filter\Exception::class);
     $profile->getFilter()->validate($string);
   }
 

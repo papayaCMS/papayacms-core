@@ -23,7 +23,7 @@ class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
   public function testConstructorCreatesDefaultFilter() {
     $field = new \PapayaUiDialogFieldInputPassword('Caption', 'fieldname');
     $field->setMandatory(TRUE);
-    $this->assertInstanceOf(\PapayaFilterPassword::class, $field->getFilter());
+    $this->assertInstanceOf(\Papaya\Filter\Password::class, $field->getFilter());
   }
 
   /**

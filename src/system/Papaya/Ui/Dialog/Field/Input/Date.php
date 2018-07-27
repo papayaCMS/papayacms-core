@@ -40,7 +40,7 @@ class PapayaUiDialogFieldInputDate extends \PapayaUiDialogFieldInput {
   * Include time?
   * @var int
   */
-  protected $_includeTime = \PapayaFilterDate::DATE_NO_TIME;
+  protected $_includeTime = \Papaya\Filter\Date::DATE_NO_TIME;
 
   /**
   * Step for time filter
@@ -81,18 +81,18 @@ class PapayaUiDialogFieldInputDate extends \PapayaUiDialogFieldInput {
     $name,
     $default = NULL,
     $mandatory = FALSE,
-    $includeTime = \PapayaFilterDate::DATE_NO_TIME,
+    $includeTime = \Papaya\Filter\Date::DATE_NO_TIME,
     $step = 60.0
   ) {
     if (
-      $includeTime !== \PapayaFilterDate::DATE_NO_TIME &&
-      $includeTime !== \PapayaFilterDate::DATE_OPTIONAL_TIME &&
-      $includeTime !== \PapayaFilterDate::DATE_MANDATORY_TIME
+      $includeTime !== \Papaya\Filter\Date::DATE_NO_TIME &&
+      $includeTime !== \Papaya\Filter\Date::DATE_OPTIONAL_TIME &&
+      $includeTime !== \Papaya\Filter\Date::DATE_MANDATORY_TIME
     ) {
       throw new \InvalidArgumentException(
         sprintf(
         'Argument must be %1$s::DATE_NO_TIME, %1$s::DATE_OPTIONAL_TIME, or %1$s::DATE_MANDATORY_TIME.',
-          \PapayaFilterDate::class
+          \Papaya\Filter\Date::class
         )
       );
     }
@@ -103,11 +103,11 @@ class PapayaUiDialogFieldInputDate extends \PapayaUiDialogFieldInput {
     $this->_step = $step;
     parent::__construct($caption, $name, 19, $default);
     $this->setType(
-      $includeTime === \PapayaFilterDate::DATE_NO_TIME ? 'date' : 'datetime'
+      $includeTime === \Papaya\Filter\Date::DATE_NO_TIME ? 'date' : 'datetime'
     );
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \PapayaFilterDate($this->_includeTime, $this->_step)
+      new \Papaya\Filter\Date($this->_includeTime, $this->_step)
     );
   }
 }

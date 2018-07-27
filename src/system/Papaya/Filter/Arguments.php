@@ -52,7 +52,7 @@ class Arguments implements \Papaya\Filter {
   /**
    * Check the input value and throw an exception if it does not match the condition.
    *
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    * @param string $value
    * @return TRUE
    */
@@ -89,7 +89,7 @@ class Arguments implements \Papaya\Filter {
         $result[] = $filter->filter(isset($value[$index]) ? $value[$index] : '');
       }
       return implode($this->_separator, $result);
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
   }

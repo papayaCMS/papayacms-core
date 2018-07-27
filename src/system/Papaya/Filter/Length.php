@@ -13,29 +13,32 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class for an string length
-*
-* It can be used to validate if a given input is an integer number with
-* or without a sign. Additionally minimum and maximum limits can be set
-* for the number.
-*
-* The filter function will cast the value to integer.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterLength implements \Papaya\Filter {
+ * Papaya filter class for an string length
+ *
+ * It can be used to validate if a given input is an integer number with
+ * or without a sign. Additionally minimum and maximum limits can be set
+ * for the number.
+ *
+ * The filter function will cast the value to integer.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Length implements \Papaya\Filter {
 
   /**
-  * Minimum limit for integer value
-  * @var integer
-  */
+   * Minimum limit for integer value
+   *
+   * @var integer
+   */
   private $_minimum = NULL;
   /**
-  * Maximum limit for integer value
-  * @var integer
-  */
+   * Maximum limit for integer value
+   *
+   * @var integer
+   */
   private $_maximum = NULL;
 
   /**
@@ -63,12 +66,12 @@ class PapayaFilterLength implements \Papaya\Filter {
   }
 
   /**
-  * Check the input and throw an exception if it does not match the condition.
-  *
-  * @throws \PapayaFilterException
-  * @param string $value
-  * @return TRUE
-  */
+   * Check the input and throw an exception if it does not match the condition.
+   *
+   * @throws \Papaya\Filter\Exception
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     if ($this->_isUtf8) {
       $string = new \PapayaStringUtf8(
@@ -88,17 +91,17 @@ class PapayaFilterLength implements \Papaya\Filter {
   }
 
   /**
-  * The filter function is used to read a input value if it is valid.
-  *
-  * @param string $value
-  * @return string|NULL
-  */
+   * The filter function is used to read a input value if it is valid.
+   *
+   * @param string $value
+   * @return string|NULL
+   */
   public function filter($value) {
     $value = \PapayaUtilStringUtf8::ensure($value);
     try {
       $this->validate($value);
       return $value;
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
   }

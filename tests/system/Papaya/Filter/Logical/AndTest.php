@@ -66,7 +66,7 @@ class PapayaFilterLogicalAndTest extends \PapayaTestCase {
       ->with($this->equalTo('foo'))
       ->will($this->returnValue(TRUE));
     $filter = new \Papaya\Filter\LogicalAnd($subFilterOne, 'bar');
-    $this->expectException(\PapayaFilterException::class);
+    $this->expectException(\Papaya\Filter\Exception::class);
     $filter->validate('foo');
   }
 

@@ -13,27 +13,29 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class that chcks if the value is an empty one
-*
-* The private typeMapping property is used to specifiy possible casts.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterEquals implements \Papaya\Filter {
+ * Papaya filter class that chcks if the value is an empty one
+ *
+ * The private typeMapping property is used to specifiy possible casts.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Equals implements \Papaya\Filter {
 
   /**
-  * The comparsion
-  * @var mixed
-  */
+   * The comparsion
+   *
+   * @var mixed
+   */
   private $_value = TRUE;
 
   /**
-  * Construct object, check and store options
-  *
-  * @param mixed $value
-  */
+   * Construct object, check and store options
+   *
+   * @param mixed $value
+   */
   public function __construct($value) {
     $this->_value = $value;
   }
@@ -53,11 +55,11 @@ class PapayaFilterEquals implements \Papaya\Filter {
   }
 
   /**
-  * The filter function always returns NULL
-  *
-  * @param string $value
-  * @return mixed|NULL
-  */
+   * The filter function always returns NULL
+   *
+   * @param string $value
+   * @return mixed|NULL
+   */
   public function filter($value) {
     if ($this->_value == $value) {
       return $this->_value;

@@ -34,7 +34,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
         )
       );
     $field = new \PapayaUiDialogFieldInputTimestamp(
-      'Date', 'date', NULL, FALSE, \PapayaFilterDate::DATE_OPTIONAL_TIME
+      'Date', 'date', NULL, FALSE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME
     );
     $field->collection($this->getCollectionMock($dialog));
     $this->assertEquals(strtotime('2011-01-01 18:00'), $field->getCurrentValue());
@@ -45,7 +45,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
   */
   public function testGetCurrentValueFromDefaultValue() {
     $field = new \PapayaUiDialogFieldInputTimestamp(
-      'Date', 'date', NULL, FALSE, \PapayaFilterDate::DATE_OPTIONAL_TIME
+      'Date', 'date', NULL, FALSE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME
     );
     $field->setDefaultValue(strtotime('2011-01-01 18:00'));
     $this->assertEquals(strtotime('2011-01-01 18:00'), $field->getCurrentValue());
@@ -59,7 +59,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
     $field = new \PapayaUiDialogFieldInputTimestamp(
-      'Date', 'date', NULL, FALSE, \PapayaFilterDate::DATE_OPTIONAL_TIME
+      'Date', 'date', NULL, FALSE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME
     );
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
@@ -74,7 +74,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
     $field = new \PapayaUiDialogFieldInputTimestamp(
-      'Date', 'date', NULL, FALSE, \PapayaFilterDate::DATE_OPTIONAL_TIME
+      'Date', 'date', NULL, FALSE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME
     );
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
@@ -91,7 +91,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
       'date',
       strtotime('2011-01-01 18:00'),
       FALSE,
-      \PapayaFilterDate::DATE_OPTIONAL_TIME,
+      \Papaya\Filter\Date::DATE_OPTIONAL_TIME,
       300.0
     );
     $this->assertXmlStringEqualsXmlString(
@@ -113,7 +113,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
       'date',
       strtotime('2011-01-01 18:00'),
       FALSE,
-      \PapayaFilterDate::DATE_NO_TIME,
+      \Papaya\Filter\Date::DATE_NO_TIME,
       300.0
     );
     $this->assertXmlStringEqualsXmlString(
@@ -135,7 +135,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
       'date',
       0,
       FALSE,
-      \PapayaFilterDate::DATE_NO_TIME,
+      \Papaya\Filter\Date::DATE_NO_TIME,
       300.0
     );
     $this->assertXmlStringEqualsXmlString(

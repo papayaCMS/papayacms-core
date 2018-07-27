@@ -27,6 +27,6 @@ class IsNotXml extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterPcre('(^[^<>&]+$)Du');
+    return new \Papaya\Filter\Pcre('(^[^<>&]+$)Du');
   }
 }

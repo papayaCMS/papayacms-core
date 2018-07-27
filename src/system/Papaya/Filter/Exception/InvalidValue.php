@@ -22,7 +22,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidValue extends \PapayaFilterException {
+class InvalidValue extends \Papaya\Filter\Exception {
 
   /**
    * The actual value

@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* This filter class checks a color.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterColor implements \Papaya\Filter {
+ * This filter class checks a color.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Color implements \Papaya\Filter {
 
   /**
-  * Pattern to check for a linebreak
-  * @var string
-  */
+   * Pattern to check for a linebreak
+   *
+   * @var string
+   */
   private $_patternCheck = '(
       ^\\#
       (?:
@@ -34,12 +36,12 @@ class PapayaFilterColor implements \Papaya\Filter {
     )uxD';
 
   /**
-  * Check the value if it's a valid color, if not throw an exception.
-  *
-  * @throws \Papaya\Filter\Exception\UnexpectedType
-  * @param string $value
-  * @return TRUE
-  */
+   * Check the value if it's a valid color, if not throw an exception.
+   *
+   * @throws \Papaya\Filter\Exception\UnexpectedType
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     if (!preg_match($this->_patternCheck, $value)) {
       throw new \Papaya\Filter\Exception\UnexpectedType('color');
@@ -48,16 +50,16 @@ class PapayaFilterColor implements \Papaya\Filter {
   }
 
   /**
-  * The filter function is used to read an input value if it is valid.
-  *
-  * @param string $value
-  * @return string
-  */
+   * The filter function is used to read an input value if it is valid.
+   *
+   * @param string $value
+   * @return string
+   */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
   }

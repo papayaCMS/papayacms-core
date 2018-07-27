@@ -37,7 +37,7 @@ class PapayaUiDialogFieldFactoryProfileInputPage extends \PapayaUiDialogFieldFac
       $field->setHint($hint);
     }
     $field->setFilter(
-      new \PapayaFilterText(\PapayaFilterText::ALLOW_DIGITS)
+      new \Papaya\Filter\Text(\Papaya\Filter\Text::ALLOW_DIGITS)
     );
     return $field;
   }

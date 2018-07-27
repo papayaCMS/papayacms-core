@@ -4627,7 +4627,7 @@ class base_topic_edit extends base_topic {
         'topic_created',
         NULL,
         TRUE,
-        \PapayaFilterDate::DATE_MANDATORY_TIME
+        \Papaya\Filter\Date::DATE_MANDATORY_TIME
       );
       $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup(
         new \PapayaUiStringTranslated('Publication period')
@@ -4637,14 +4637,14 @@ class base_topic_edit extends base_topic {
         'published_from',
         time(),
         TRUE,
-        \PapayaFilterDate::DATE_MANDATORY_TIME
+        \Papaya\Filter\Date::DATE_MANDATORY_TIME
       );
       $group->fields[] = new \PapayaUiDialogFieldInputTimestamp(
         new \PapayaUiStringTranslated('Published to'),
         'published_to',
         0,
         FALSE,
-        \PapayaFilterDate::DATE_MANDATORY_TIME
+        \Papaya\Filter\Date::DATE_MANDATORY_TIME
       );
       $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup(
         new \PapayaUiStringTranslated('Languages')

@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class for validate text optionally including digits
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterText implements \Papaya\Filter {
+ * Papaya filter class for validate text optionally including digits
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Text implements \Papaya\Filter {
 
   const ALLOW_SPACES = 1;
   const ALLOW_LINES = 2;

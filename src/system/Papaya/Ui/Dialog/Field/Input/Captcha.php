@@ -54,7 +54,7 @@ class PapayaUiDialogFieldInputCaptcha extends \PapayaUiDialogFieldInput {
     $this->setMandatory(TRUE);
     \PapayaUtilConstraints::assertNotEmpty($captchaImage);
     $this->_captchaImage = $captchaImage;
-    $this->setFilter(new \PapayaFilterEquals(TRUE));
+    $this->setFilter(new \Papaya\Filter\Equals(TRUE));
   }
 
   /**

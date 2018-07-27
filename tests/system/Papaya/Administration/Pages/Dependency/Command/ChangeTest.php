@@ -154,7 +154,7 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends \PapayaTestCa
       ->originIdField
       ->expects($this->once())
       ->method('handleValidationFailure')
-      ->with($this->isInstanceOf(\PapayaFilterException::class));
+      ->with($this->isInstanceOf(\Papaya\Filter\Exception::class));
     $record = $this->getRecordFixture(
       array(
         'id' => 21,
@@ -179,7 +179,7 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends \PapayaTestCa
       ->originIdField
       ->expects($this->once())
       ->method('handleValidationFailure')
-      ->with($this->isInstanceOf(\PapayaFilterException::class));
+      ->with($this->isInstanceOf(\Papaya\Filter\Exception::class));
     $record = $this->getRecordFixture(
       array(
         'id' => 42,
@@ -239,7 +239,7 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends \PapayaTestCa
       ->synchronizationField
       ->expects($this->once())
       ->method('handleValidationFailure')
-      ->with($this->isInstanceOf(\PapayaFilterException::class));
+      ->with($this->isInstanceOf(\Papaya\Filter\Exception::class));
     $command = new Change();
     $command->papaya(
       $this->mockPapaya()->application(

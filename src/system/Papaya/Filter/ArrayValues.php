@@ -47,7 +47,7 @@ class ArrayValues implements \Papaya\Filter {
   /**
    * Check the integer input and throw an exception if it does not match the condition.
    *
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    * @param mixed $value
    * @return TRUE
    */

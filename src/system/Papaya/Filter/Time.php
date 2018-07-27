@@ -13,17 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* This filter class checks a time in human-readable format.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterTime implements \Papaya\Filter {
+ * This filter class checks a time in human-readable format.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Time implements \Papaya\Filter {
   /**
-  * Step in seconds, default 60
-  * @var float
-  */
+   * Step in seconds, default 60
+   *
+   * @var float
+   */
   private $_step = 1.0;
 
   /**
@@ -41,13 +43,13 @@ class PapayaFilterTime implements \Papaya\Filter {
   }
 
   /**
-  * Validate a time
-  *
-  * @param string $value
-  * @throws \Papaya\Filter\Exception\UnexpectedType
-  * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
-  * @return boolean
-  */
+   * Validate a time
+   *
+   * @param string $value
+   * @throws \Papaya\Filter\Exception\UnexpectedType
+   * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
+   * @return boolean
+   */
   public function validate($value) {
     $patternTimeISO = '(^
       (?P<hour>[0-9]{1,2})
@@ -96,21 +98,21 @@ class PapayaFilterTime implements \Papaya\Filter {
   }
 
   /**
-  * Filter a time
-  *
-  * @param string $value
-  * @return mixed the filtered time value or NULL
-  */
+   * Filter a time
+   *
+   * @param string $value
+   * @return mixed the filtered time value or NULL
+   */
   public function filter($value) {
     try {
       $this->validate(trim($value));
-    } catch(\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
     return trim($value);
   }
 
-  protected function _toTimestamp($hour, $minute, $second) {
+  private function _toTimestamp($hour, $minute, $second) {
     return 3600 * $hour + 60 * $minute + $second;
   }
 }

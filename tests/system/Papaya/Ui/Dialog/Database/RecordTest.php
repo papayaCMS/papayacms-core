@@ -358,7 +358,7 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
       'indexfield',
       array(
         'datafield_one' => NULL,
-        'datafield_two' => new \PapayaFilterCast('number'),
+        'datafield_two' => new \Papaya\Filter\Cast('number'),
         'indexfield' => new \PapayaFilterInteger(1)
       )
     );

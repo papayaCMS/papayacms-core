@@ -26,6 +26,6 @@ class IsCssColor extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterColor();
+    return new \Papaya\Filter\Color();
   }
 }

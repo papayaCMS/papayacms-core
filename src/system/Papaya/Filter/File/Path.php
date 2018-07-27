@@ -20,7 +20,7 @@ namespace Papaya\Filter\File;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Path extends \PapayaFilterPcre {
+class Path extends \Papaya\Filter\Pcre {
 
   /**
    * set pattern in superclass constructor

@@ -20,7 +20,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidXml extends \PapayaFilterException {
+class InvalidXml extends \Papaya\Filter\Exception {
 
   /**
    * @param \PapayaXmlException $e

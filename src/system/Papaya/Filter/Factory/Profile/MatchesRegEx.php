@@ -26,7 +26,7 @@ class MatchesRegEx extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterPcre((string)$this->options());
+    return new \Papaya\Filter\Pcre((string)$this->options());
   }
 }
 

@@ -26,6 +26,6 @@ class IsTime extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterTime();
+    return new \Papaya\Filter\Time();
   }
 }

@@ -21,7 +21,7 @@ class PapayaUiDialogFieldInputMediaImageResizedTest extends \PapayaTestCase {
    * @covers \PapayaUiDialogFieldInputMediaImageResized::__construct
    * @dataProvider provideValuesForFilterValidation
    * @param string $value
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    */
   public function testConstructorInitializesFilter($value) {
     $field = new \PapayaUiDialogFieldInputMediaImageResized('caption', 'name', TRUE);
@@ -32,11 +32,11 @@ class PapayaUiDialogFieldInputMediaImageResizedTest extends \PapayaTestCase {
    * @covers \PapayaUiDialogFieldInputMediaImageResized::__construct
    * @dataProvider provideInvalidValuesForFilterValidation
    * @param string $value
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    */
   public function testConstructorInitializesFilterExpectingExceptionForInvalidValues($value) {
     $field = new \PapayaUiDialogFieldInputMediaImageResized('caption', 'name', TRUE);
-    $this->expectException(\PapayaFilterException::class);
+    $this->expectException(\Papaya\Filter\Exception::class);
     $field->getFilter()->validate($value);
   }
 

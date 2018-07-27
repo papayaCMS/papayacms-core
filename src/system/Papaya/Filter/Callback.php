@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class that uses a callback function to validate the value
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterCallback implements \Papaya\Filter {
+ * Papaya filter class that uses a callback function to validate the value
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Callback implements \Papaya\Filter {
 
   /**
-  * callback function or method
-  *
-  * @var string
-  */
+   * callback function or method
+   *
+   * @var string
+   */
   private $_callback = '';
 
   /**
-  * Addiitonal arguments for the callback
-  *
-  * @var string
-  */
+   * Addiitonal arguments for the callback
+   *
+   * @var string
+   */
   private $_arguments = array();
 
   /**
@@ -51,13 +52,13 @@ class PapayaFilterCallback implements \Papaya\Filter {
   }
 
   /**
-  * Validate the input value using the function and
-  * throw an exception if the validation has failed.
-  *
-  * @throws \PapayaFilterException
-  * @param string $value
-  * @return TRUE
-  */
+   * Validate the input value using the function and
+   * throw an exception if the validation has failed.
+   *
+   * @throws \Papaya\Filter\Exception
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     $this->_isCallback($this->_callback);
     $arguments = $this->_arguments;
@@ -69,16 +70,16 @@ class PapayaFilterCallback implements \Papaya\Filter {
   }
 
   /**
-  * The filter function is used to read a input value if it is valid.
-  *
-  * @param string $value
-  * @return string|NULL
-  */
+   * The filter function is used to read a input value if it is valid.
+   *
+   * @param string $value
+   * @return string|NULL
+   */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
   }

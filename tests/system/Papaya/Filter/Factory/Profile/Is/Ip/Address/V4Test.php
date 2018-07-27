@@ -30,7 +30,7 @@ class PapayaFilterFactoryProfileIsIpAddressV4Test extends \PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new \Papaya\Filter\Factory\Profile\IsIpAddressV4();
-    $this->expectException(\PapayaFilterException::class);
+    $this->expectException(\Papaya\Filter\Exception::class);
     $profile->getFilter()->validate('foo');
   }
 }

@@ -18,89 +18,89 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterPcreTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterPcre::__construct
+  * @covers \Papaya\Filter\Pcre::__construct
   */
   public function testConstructor() {
-    $filter = new \PapayaFilterPcre('(foo)');
+    $filter = new \Papaya\Filter\Pcre('(foo)');
     $this->assertAttributeEquals(
       '(foo)', '_pattern', $filter
     );
   }
 
   /**
-  * @covers \PapayaFilterPcre::__construct
+  * @covers \Papaya\Filter\Pcre::__construct
   */
   public function testConstructorWithSubMatch() {
-    $filter = new \PapayaFilterPcre('(foo)', 1);
+    $filter = new \Papaya\Filter\Pcre('(foo)', 1);
     $this->assertAttributeEquals(
       1, '_subMatch', $filter
     );
   }
 
   /**
-  * @covers \PapayaFilterPcre::validate
+  * @covers \Papaya\Filter\Pcre::validate
   */
   public function testValidate() {
-    $filter = new \PapayaFilterPcre('(^foo$)');
+    $filter = new \Papaya\Filter\Pcre('(^foo$)');
     $this->assertTrue(
       $filter->validate('foo')
     );
   }
 
   /**
-  * @covers \PapayaFilterPcre::validate
+  * @covers \Papaya\Filter\Pcre::validate
   */
   public function testValidateExpectingException() {
-    $filter = new \PapayaFilterPcre('(^foo$)');
+    $filter = new \Papaya\Filter\Pcre('(^foo$)');
     $this->expectException(\Papaya\Filter\Exception\RegEx\NoMatch::class);
     $filter->validate('bar');
   }
 
   /**
-  * @covers \PapayaFilterPcre::filter
+  * @covers \Papaya\Filter\Pcre::filter
   */
   public function testFilter() {
-    $filter = new \PapayaFilterPcre('(^foo$)');
+    $filter = new \Papaya\Filter\Pcre('(^foo$)');
     $this->assertEquals(
       'foo', $filter->filter('foo')
     );
   }
 
   /**
-  * @covers \PapayaFilterPassword::filter
+  * @covers \Papaya\Filter\Password::filter
   */
   public function testFilterExpectingNull() {
-    $filter = new \PapayaFilterPcre('(^foo$)');
+    $filter = new \Papaya\Filter\Pcre('(^foo$)');
     $this->assertNull(
       $filter->filter('bar')
     );
   }
 
   /**
-  * @covers \PapayaFilterPcre::filter
+  * @covers \Papaya\Filter\Pcre::filter
   */
   public function testFilterExpectingSubMatch() {
-    $filter = new \PapayaFilterPcre('(^f(oo)$)', 1);
+    $filter = new \Papaya\Filter\Pcre('(^f(oo)$)', 1);
     $this->assertEquals(
       'oo', $filter->filter('foo')
     );
   }
 
   /**
-  * @covers \PapayaFilterPcre::filter
+  * @covers \Papaya\Filter\Pcre::filter
   */
   public function testFilterExpectingNamedSubMatch() {
-    $filter = new \PapayaFilterPcre(/** @lang Text */'(^f(?P<part>oo)$)', 'part');
+    $filter = new \Papaya\Filter\Pcre(/** @lang Text */'(^f(?P<part>oo)$)', 'part');
     $this->assertEquals(
       'oo', $filter->filter('foo')
     );
   }
 
   /**
-  * @covers \PapayaFilterPcre::filter
+  * @covers \Papaya\Filter\Pcre::filter
   */
   public function testFilterWithInvalidSubMatchExpectingNull() {
-    $filter = new \PapayaFilterPcre('(^f(oo)$)', 'part');
+    $filter = new \Papaya\Filter\Pcre('(^f(oo)$)', 'part');
     $this->assertNull(
       $filter->filter('foo')
     );

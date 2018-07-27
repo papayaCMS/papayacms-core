@@ -22,6 +22,6 @@ class PapayaFilterFactoryProfileIsCssColorTest extends \PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new \Papaya\Filter\Factory\Profile\IsCssColor();
-    $this->assertInstanceOf(\PapayaFilterColor::class, $profile->getFilter());
+    $this->assertInstanceOf(\Papaya\Filter\Color::class, $profile->getFilter());
   }
 }

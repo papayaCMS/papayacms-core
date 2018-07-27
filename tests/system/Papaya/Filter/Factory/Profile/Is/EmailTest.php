@@ -22,6 +22,6 @@ class PapayaFilterFactoryProfileIsEmailTest extends \PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new \Papaya\Filter\Factory\Profile\IsEmail();
-    $this->assertInstanceOf(\PapayaFilterEmail::class, $profile->getFilter());
+    $this->assertInstanceOf(\Papaya\Filter\Email::class, $profile->getFilter());
   }
 }

@@ -95,7 +95,7 @@ class PapayaIteratorFilter extends \FilterIterator {
     try {
       $this->_filter->validate($value);
       return TRUE;
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
     }
     return FALSE;
   }

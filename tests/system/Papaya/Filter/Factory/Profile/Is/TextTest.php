@@ -30,7 +30,7 @@ class PapayaFilterFactoryProfileIsTextTest extends \PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new \Papaya\Filter\Factory\Profile\IsText();
-    $this->expectException(\PapayaFilterException::class);
+    $this->expectException(\Papaya\Filter\Exception::class);
     $profile->getFilter()->validate('123');
   }
 }

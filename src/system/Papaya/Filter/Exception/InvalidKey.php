@@ -20,7 +20,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidKey extends \PapayaFilterException {
+class InvalidKey extends \Papaya\Filter\Exception {
 
   /**
    * The constructor expects the name of the invalid key

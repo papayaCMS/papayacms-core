@@ -20,7 +20,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsEmpty extends \PapayaFilterException {
+class IsEmpty extends \Papaya\Filter\Exception {
 
   /**
    * Construct object and set (static) message.

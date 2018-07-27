@@ -30,7 +30,7 @@ class PapayaFilterFactoryProfileIsIsoDateTest extends \PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new \Papaya\Filter\Factory\Profile\IsIsoDate();
-    $this->expectException(\PapayaFilterException::class);
+    $this->expectException(\Papaya\Filter\Exception::class);
     $profile->getFilter()->validate('foo');
   }
 }

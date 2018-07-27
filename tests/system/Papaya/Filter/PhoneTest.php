@@ -18,36 +18,36 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterPhoneTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterPhone::validate
+   * @covers \Papaya\Filter\Phone::validate
    * @dataProvider provideValidPhoneNumbers
    * @param string $phoneNumber
    * @throws \Papaya\Filter\Exception\UnexpectedType
    */
   public function testValidateExpectingTrue($phoneNumber) {
-    $filter = new \PapayaFilterPhone();
+    $filter = new \Papaya\Filter\Phone();
     $this->assertTrue($filter->validate($phoneNumber));
   }
 
   /**
-   * @covers \PapayaFilterPhone::validate
+   * @covers \Papaya\Filter\Phone::validate
    * @dataProvider provideInvalidData
    * @param mixed $value
    * @throws \Papaya\Filter\Exception\UnexpectedType
    */
   public function testValidateExpectingException($value) {
-    $filter = new \PapayaFilterPhone();
+    $filter = new \Papaya\Filter\Phone();
     $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers \PapayaFilterPhone::filter
+   * @covers \Papaya\Filter\Phone::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input
    */
   public function testFilter($expected, $input) {
-    $filter = new \PapayaFilterPhone();
+    $filter = new \Papaya\Filter\Phone();
     $this->assertEquals($expected, $filter->filter($input));
   }
 

@@ -18,68 +18,68 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterBitmaskTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterBitmask::__construct
+  * @covers \Papaya\Filter\Bitmask::__construct
   */
   public function testConstructor() {
-    $filter = new \PapayaFilterBitmask(array(1, 2, 4));
+    $filter = new \Papaya\Filter\Bitmask(array(1, 2, 4));
     $this->assertAttributeEquals(
       array(1, 2, 4), '_bits', $filter
     );
   }
 
   /**
-   * @covers \PapayaFilterBitmask::validate
+   * @covers \Papaya\Filter\Bitmask::validate
    * @dataProvider provideValidBitmasks
    * @param mixed $bitmask
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    */
   public function testValidateExpectingTrue($bitmask) {
-    $filter = new \PapayaFilterBitmask(array(1, 2, 4, 16));
+    $filter = new \Papaya\Filter\Bitmask(array(1, 2, 4, 16));
     $this->assertTrue(
       $filter->validate($bitmask)
     );
   }
 
   /**
-   * @covers \PapayaFilterBitmask::validate
+   * @covers \Papaya\Filter\Bitmask::validate
    * @dataProvider provideInvalidBitmasks
    * @param mixed $bitmask
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    */
   public function testValidateExpectingInvalidValueException($bitmask) {
-    $filter = new \PapayaFilterBitmask(array(1, 2, 4, 16));
+    $filter = new \Papaya\Filter\Bitmask(array(1, 2, 4, 16));
     $this->expectException(\Papaya\Filter\Exception\InvalidValue::class);
     $filter->validate($bitmask);
   }
 
   /**
-  * @covers \PapayaFilterBitmask::validate
+  * @covers \Papaya\Filter\Bitmask::validate
   */
   public function testValidateExpectingInvalidValueTypeException() {
-    $filter = new \PapayaFilterBitmask(array(1, 2, 4, 16));
+    $filter = new \Papaya\Filter\Bitmask(array(1, 2, 4, 16));
     $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
     $filter->validate('fail');
   }
 
   /**
-   * @covers \PapayaFilterBitmask::filter
+   * @covers \Papaya\Filter\Bitmask::filter
    * @dataProvider provideValidBitmasks
    * @param mixed $bitmask
    */
   public function testFilterWithValidBitmasks($bitmask) {
-    $filter = new \PapayaFilterBitmask(array(1, 2, 4, 16));
+    $filter = new \Papaya\Filter\Bitmask(array(1, 2, 4, 16));
     $this->assertEquals(
       $bitmask, $filter->filter($bitmask)
     );
   }
 
   /**
-   * @covers \PapayaFilterBitmask::filter
+   * @covers \Papaya\Filter\Bitmask::filter
    * @dataProvider provideInvalidBitmasks
    * @param mixed $bitmask
    */
   public function testFilterWithInvalidBitmasks($bitmask) {
-    $filter = new \PapayaFilterBitmask(array(1, 2, 4, 16));
+    $filter = new \Papaya\Filter\Bitmask(array(1, 2, 4, 16));
     $this->assertNull(
       $filter->filter($bitmask)
     );

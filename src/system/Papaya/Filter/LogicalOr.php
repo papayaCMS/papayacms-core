@@ -31,7 +31,7 @@ class LogicalOr extends Logical {
    * @param string $value
    * @throws \Exception
    * @throws null
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    * @return bool
    */
   public function validate($value) {
@@ -41,7 +41,7 @@ class LogicalOr extends Logical {
       try {
         $filter->validate($value);
         return TRUE;
-      } catch (\PapayaFilterException $e) {
+      } catch (\Papaya\Filter\Exception $e) {
         if (is_null($firstException)) {
           $firstException = $e;
         }

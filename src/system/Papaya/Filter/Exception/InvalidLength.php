@@ -22,7 +22,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-abstract class InvalidLength extends \PapayaFilterException {
+abstract class InvalidLength extends \Papaya\Filter\Exception {
 
   /**
    * The expected length of the value

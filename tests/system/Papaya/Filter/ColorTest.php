@@ -18,30 +18,30 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterColorTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterColor::validate
+  * @covers \Papaya\Filter\Color::validate
   */
   public function testValidateExpectingTrue() {
-    $filter = new \PapayaFilterColor();
+    $filter = new \Papaya\Filter\Color();
     $this->assertTrue($filter->validate('#FFFFFF'));
   }
 
   /**
-  * @covers \PapayaFilterColor::validate
+  * @covers \Papaya\Filter\Color::validate
   */
   public function testValidateExpectingException() {
-    $filter = new \PapayaFilterColor();
+    $filter = new \Papaya\Filter\Color();
     $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
     $filter->validate('invalid color');
   }
 
   /**
-   * @covers \PapayaFilterColor::filter
+   * @covers \Papaya\Filter\Color::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input
    */
   public function testFilter($expected, $input) {
-    $filter = new \PapayaFilterColor();
+    $filter = new \Papaya\Filter\Color();
     $this->assertEquals($expected, $filter->filter($input));
   }
 

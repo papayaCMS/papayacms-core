@@ -105,7 +105,7 @@ class V4 implements \Papaya\Filter {
     foreach ($parts as $position => $part) {
       try {
         $filterInteger->validate($part);
-      } catch (\PapayaFilterException $e) {
+      } catch (\Papaya\Filter\Exception $e) {
         throw new \Papaya\Filter\Exception\InvalidPart($position + 1, 'ip octet', $e->getMessage());
       }
     }
@@ -139,7 +139,7 @@ class V4 implements \Papaya\Filter {
     $result = trim($value);
     try {
       $this->validate($result);
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       $result = NULL;
     } catch (\InvalidArgumentException $e) {
       $result = NULL;

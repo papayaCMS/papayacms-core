@@ -70,7 +70,7 @@ class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
     parent::__construct($caption, $name, 9, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \PapayaFilterEquals($this->_values['active'])
+      new \Papaya\Filter\Equals($this->_values['active'])
     );
   }
 
@@ -120,7 +120,7 @@ class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
       'inactive' => $inactive
     );
     $this->setFilter(
-      new \PapayaFilterEquals($this->_values['active'])
+      new \Papaya\Filter\Equals($this->_values['active'])
     );
   }
 

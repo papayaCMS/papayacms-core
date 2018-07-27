@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Abstract superclass for filter exceptions
-*
-* Child classes of this class are used to throw exceptions for validation errors
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-abstract class PapayaFilterException extends \Papaya\Exception {
+ * Abstract superclass for filter exceptions
+ *
+ * Child classes of this class are used to throw exceptions for validation errors
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+abstract class Exception extends \Papaya\Exception {
 
 }

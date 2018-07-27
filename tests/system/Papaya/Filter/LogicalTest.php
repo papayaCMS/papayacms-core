@@ -36,8 +36,8 @@ class PapayaFilterLogicalTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Logical::_setFilters
   */
   public function testConstructorWithTwoScalars() {
-    $subFilterOne = new \PapayaFilterEquals('one');
-    $subFilterTwo = new \PapayaFilterEquals('two');
+    $subFilterOne = new \Papaya\Filter\Equals('one');
+    $subFilterTwo = new \Papaya\Filter\Equals('two');
     $filter = new \PapayaFilterLogical_TestProxy('one', 'two');
     $this->assertAttributeEquals(
       array($subFilterOne, $subFilterTwo),

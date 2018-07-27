@@ -26,6 +26,6 @@ class IsEmail extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterEmail();
+    return new \Papaya\Filter\Email();
   }
 }

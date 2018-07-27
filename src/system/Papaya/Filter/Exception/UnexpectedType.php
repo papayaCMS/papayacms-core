@@ -20,7 +20,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class UnexpectedType extends \PapayaFilterException {
+class UnexpectedType extends \Papaya\Filter\Exception {
 
   /**
    * expected type description

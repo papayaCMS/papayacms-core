@@ -140,7 +140,7 @@ class checkit {
     if (isset($digitsMin)) {
       $filter = new \Papaya\Filter\LogicalAnd(
         new \PapayaFilterInteger,
-        new \PapayaFilterLength($digitsMin, $digitsMax)
+        new \Papaya\Filter\Length($digitsMin, $digitsMax)
       );
       return self::validate($str, $filter, $mustContainValue);
     } else {

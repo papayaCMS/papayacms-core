@@ -73,10 +73,10 @@ class papaya_user extends base_auth {
     'Login',
     'active' => array('Active', 'isNum', TRUE, 'yesno', '', '', 0, 'center'),
     'username' => array('Login', 'isNoHTML', TRUE, 'input', 30, '', ''),
-    'password' => array('Password', \PapayaFilterPassword::class, FALSE, 'password', 30,
+    'password' => array('Password', \Papaya\Filter\Password::class, FALSE, 'password', 30,
       'The password needs at least 8 chars long and at least 2
        need to be numbers or punctuation chars.', ''),
-    'password2' => array('Repetition', \PapayaFilterPassword::class, FALSE, 'password', 30,
+    'password2' => array('Repetition', \Papaya\Filter\Password::class, FALSE, 'password', 30,
       'Please input your password again.', ''),
     'Permissions',
     'group_id' => array('Group', 'isNum', TRUE, 'function',

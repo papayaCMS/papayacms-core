@@ -57,7 +57,7 @@ class AssociativeArray implements \Papaya\Filter {
   /**
    * Check the array elements against each filter.
    *
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    * @param mixed $value
    * @return TRUE
    */

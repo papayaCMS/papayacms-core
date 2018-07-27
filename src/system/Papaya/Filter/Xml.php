@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class for xml strings.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterXml implements \Papaya\Filter {
+ * Papaya filter class for xml strings.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Xml implements \Papaya\Filter {
 
   /**
    * @var bool
@@ -65,16 +66,16 @@ class PapayaFilterXml implements \Papaya\Filter {
   }
 
   /**
-  * The filter function is used to read an input value if it is valid.
-  *
-  * @param string $value
-  * @return string
-  */
+   * The filter function is used to read an input value if it is valid.
+   *
+   * @param string $value
+   * @return string
+   */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
   }

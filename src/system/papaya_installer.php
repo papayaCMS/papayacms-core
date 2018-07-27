@@ -1557,7 +1557,7 @@ class papaya_installer extends base_db {
       );
       $field->setMandatory(TRUE);
       $group->fields[] = $field = new \PapayaUiDialogFieldInput(
-        'Surname', 'surname', -1, '', new \PapayaFilterText()
+        'Surname', 'surname', -1, '', new \Papaya\Filter\Text()
       );
       $field->setMandatory(TRUE);
       $group->fields[] = $field = new \PapayaUiDialogFieldInputEmail(
@@ -1565,7 +1565,7 @@ class papaya_installer extends base_db {
       );
       $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup('Login');
       $group->fields[] = $field = new \PapayaUiDialogFieldInput(
-        'Login Name', 'login', -1, '', new \PapayaFilterText()
+        'Login Name', 'login', -1, '', new \Papaya\Filter\Text()
       );
       $field->setMandatory(TRUE);
       $group->fields[] = $field = new \PapayaUiDialogFieldInputPassword('Password', 'password');

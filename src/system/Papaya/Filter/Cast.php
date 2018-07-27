@@ -13,26 +13,29 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class that casts the value into the specified type.
-*
-* The private typeMapping property is used to specifiy possible casts.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterCast implements \Papaya\Filter {
+ * Papaya filter class that casts the value into the specified type.
+ *
+ * The private typeMapping property is used to specifiy possible casts.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Cast implements \Papaya\Filter {
 
   /**
-  * target type the value should be cast to.
-  * @var integer
-  */
+   * target type the value should be cast to.
+   *
+   * @var integer
+   */
   private $_type = NULL;
 
   /**
-  * Type mapping
-  * @var integer
-  */
+   * Type mapping
+   *
+   * @var integer
+   */
   private $_typeMapping = array(
     'bool' => 'boolean',
     'boolean' => 'boolean',
@@ -59,21 +62,21 @@ class PapayaFilterCast implements \Papaya\Filter {
   }
 
   /**
-  * This filter does not validate values, it just filters (casts) them.
-  *
-  * @param string $value
-  * @return TRUE
-  */
+   * This filter does not validate values, it just filters (casts) them.
+   *
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     return TRUE;
   }
 
   /**
-  * The filter function casts the value into the target type.
-  *
-  * @param string $value
-  * @return integer|NULL
-  */
+   * The filter function casts the value into the target type.
+   *
+   * @param string $value
+   * @return integer|NULL
+   */
   public function filter($value) {
     settype($value, $this->_type);
     return $value;

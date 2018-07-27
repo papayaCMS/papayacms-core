@@ -20,7 +20,7 @@ namespace Papaya\Filter\Exception\RegEx;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NoMatch extends \PapayaFilterException {
+class NoMatch extends \Papaya\Filter\Exception {
 
   /**
    * Pcre pattern used for validation

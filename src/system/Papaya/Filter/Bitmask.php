@@ -13,39 +13,40 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class that uses validates and array of bits agains a list and converts into
-* a single bitmask value.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterBitmask implements \Papaya\Filter {
+ * Papaya filter class that uses validates and array of bits agains a list and converts into
+ * a single bitmask value.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Bitmask implements \Papaya\Filter {
 
   /**
-  * List of valid bits
-  *
-  * @var array(integer)
-  */
+   * List of valid bits
+   *
+   * @var array(integer)
+   */
   protected $_bits = array();
 
   /**
-  * Initialize object and store bit list
-  *
-  * @param array(integer) $bits
-  */
+   * Initialize object and store bit list
+   *
+   * @param array(integer) $bits
+   */
   public function __construct(array $bits) {
     $this->_bits = $bits;
   }
 
   /**
-  * Validate the input value using the function and
-  * throw an exception if the validation has failed.
-  *
-  * @throws \PapayaFilterException
-  * @param string $value
-  * @return TRUE
-  */
+   * Validate the input value using the function and
+   * throw an exception if the validation has failed.
+   *
+   * @throws \Papaya\Filter\Exception
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     if (empty($value)) {
       return TRUE;
@@ -63,17 +64,17 @@ class PapayaFilterBitmask implements \Papaya\Filter {
   }
 
   /**
-  * The filter function is used to read a input value if it is valid.
-  *
-  * @param string $value
-  * @return string|NULL
-  */
+   * The filter function is used to read a input value if it is valid.
+   *
+   * @param string $value
+   * @return string|NULL
+   */
   public function filter($value) {
     $value = (int)$value;
     try {
       $this->validate($value);
       return $value;
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
   }

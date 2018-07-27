@@ -28,7 +28,7 @@ class LogicalAnd extends Logical {
    *
    * @param string $value
    * @return bool
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    */
   public function validate($value) {
     /** @var \Papaya\Filter $filter */

@@ -22,6 +22,6 @@ class PapayaFilterFactoryProfileIsXmlTest extends \PapayaTestCase {
    */
   public function testGetFilterExpectTrue() {
     $profile = new \Papaya\Filter\Factory\Profile\IsXml();
-    $this->assertInstanceOf(\PapayaFilterXml::class, $profile->getFilter());
+    $this->assertInstanceOf(\Papaya\Filter\Xml::class, $profile->getFilter());
   }
 }

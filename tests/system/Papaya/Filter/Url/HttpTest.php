@@ -36,7 +36,7 @@ class PapayaFilterUrlHttpTest extends \PapayaTestCase {
    */
   public function testValidateExpectingException($value) {
     $filter = new \Papaya\Filter\Url\Http();
-    $this->expectException(\PapayaFilterException::class);
+    $this->expectException(\Papaya\Filter\Exception::class);
     $filter->validate($value);
   }
 

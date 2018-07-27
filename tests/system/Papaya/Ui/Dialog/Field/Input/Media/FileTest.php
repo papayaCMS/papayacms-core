@@ -22,6 +22,6 @@ class PapayaUiDialogFieldInputMediaFileTest extends \PapayaTestCase {
    */
   public function testConstructor() {
     $field = new \PapayaUiDialogFieldInputMediaFile('caption', 'name', TRUE);
-    $this->assertEquals(new \PapayaFilterGuid(), $field->getFilter());
+    $this->assertEquals(new \Papaya\Filter\Guid(), $field->getFilter());
   }
 }

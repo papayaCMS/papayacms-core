@@ -18,59 +18,59 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterEqualsTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterEquals::__construct
+  * @covers \Papaya\Filter\Equals::__construct
   */
   public function testConstructor() {
-    $filter = new \PapayaFilterEquals('success');
+    $filter = new \Papaya\Filter\Equals('success');
     $this->assertAttributeEquals(
       'success', '_value', $filter
     );
   }
 
   /**
-   * @covers \PapayaFilterEquals::validate
+   * @covers \Papaya\Filter\Equals::validate
    * @dataProvider provideEqualValues
    * @param mixed $expected
    * @param mixed $value
    * @throws \Papaya\Filter\Exception\NotEqual
    */
   public function testValidate($expected, $value) {
-    $filter = new \PapayaFilterEquals($expected);
+    $filter = new \Papaya\Filter\Equals($expected);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \PapayaFilterEquals::validate
+   * @covers \Papaya\Filter\Equals::validate
    * @dataProvider provideNonEqualValues
    * @param mixed $expected
    * @param mixed $value
    * @throws \Papaya\Filter\Exception\NotEqual
    */
   public function testValidateExpectingException($expected, $value) {
-    $filter = new \PapayaFilterEquals($expected);
+    $filter = new \Papaya\Filter\Equals($expected);
     $this->expectException(\Papaya\Filter\Exception\NotEqual::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers \PapayaFilterEquals::filter
+   * @covers \Papaya\Filter\Equals::filter
    * @dataProvider provideEqualValues
    * @param mixed $expected
    * @param mixed $value
    */
   public function testFilter($expected, $value) {
-    $filter = new \PapayaFilterEquals($expected);
+    $filter = new \Papaya\Filter\Equals($expected);
     $this->assertSame($expected, $filter->filter($value));
   }
 
   /**
-   * @covers \PapayaFilterEquals::filter
+   * @covers \Papaya\Filter\Equals::filter
    * @dataProvider provideNonEqualValues
    * @param mixed $expected
    * @param mixed $value
    */
   public function testFilterExpectingNull($expected, $value) {
-    $filter = new \PapayaFilterEquals($expected);
+    $filter = new \Papaya\Filter\Equals($expected);
     $this->assertNull($filter->filter($value));
   }
 

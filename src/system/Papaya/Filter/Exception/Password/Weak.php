@@ -20,7 +20,7 @@ namespace Papaya\Filter\Exception\Password;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Weak extends \PapayaFilterException {
+class Weak extends \Papaya\Filter\Exception {
 
   /**
    * Construct object and set (static) message.

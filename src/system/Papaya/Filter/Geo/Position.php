@@ -23,7 +23,7 @@ namespace Papaya\Filter\Geo;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Position extends \PapayaFilterPcre {
+class Position extends \Papaya\Filter\Pcre {
 
   /**
    * set pattern in superclass constructor

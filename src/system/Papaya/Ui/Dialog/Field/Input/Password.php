@@ -45,7 +45,7 @@ class PapayaUiDialogFieldInputPassword extends \PapayaUiDialogFieldInput {
     if (isset($filter)) {
       $this->setFilter($filter);
     } else {
-      $this->setFilter(new \PapayaFilterPassword());
+      $this->setFilter(new \Papaya\Filter\Password());
     }
   }
 

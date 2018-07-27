@@ -1491,7 +1491,7 @@ class base_dialog extends base_object {
                   $filter->validate($subValue);
                   $this->data[$fieldName][$subKey] = $filter->filter($subValue);
                   $this->inputErrors[$fieldName] = 0;
-                } catch (\PapayaFilterException $e) {
+                } catch (\Papaya\Filter\Exception $e) {
                   $result = $this->markFieldInvalid($fieldName, $field[0]);
                   break;
                 }
@@ -1508,7 +1508,7 @@ class base_dialog extends base_object {
               $filter->validate($this->params[$fieldName]);
               $this->data[$fieldName] = $filter->filter($this->params[$fieldName]);
               $this->inputErrors[$fieldName] = 0;
-            } catch (\PapayaFilterException $e) {
+            } catch (\Papaya\Filter\Exception $e) {
               $result = $this->markFieldInvalid($fieldName, $field[0]);
             }
           }
@@ -1551,11 +1551,11 @@ class base_dialog extends base_object {
       return $check;
     } elseif (is_string($check)) {
       if (checkit::has($check)) {
-        return new \PapayaFilterCallback(array('checkit', $check), array(TRUE));
+        return new \Papaya\Filter\Callback(array('checkit', $check), array(TRUE));
       } elseif (class_exists($check)) {
         return $this->createFilterObject($check);
       } else {
-        return new \PapayaFilterPcre($check);
+        return new \Papaya\Filter\Pcre($check);
       }
     } elseif (is_array($check) && class_exists($check[0])) {
       $filterClass = $check[0];

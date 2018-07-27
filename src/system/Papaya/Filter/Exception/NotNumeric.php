@@ -20,7 +20,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NotNumeric extends \PapayaFilterException {
+class NotNumeric extends \Papaya\Filter\Exception {
   public function __construct($value) {
     parent::__construct("Value is not numeric: $value");
   }

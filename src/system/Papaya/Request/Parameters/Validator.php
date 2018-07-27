@@ -113,7 +113,7 @@ class PapayaRequestParametersValidator
           if (NULL !== $filter) {
             $filter->validate($value);
           }
-        } catch (\PapayaFilterException $e) {
+        } catch (\Papaya\Filter\Exception $e) {
           $this->_errors[$name] = $e;
           $this->_validationResult = FALSE;
         }

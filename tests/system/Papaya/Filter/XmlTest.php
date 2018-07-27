@@ -18,83 +18,83 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterXmlTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterXml::__construct
+   * @covers \Papaya\Filter\Xml::__construct
    */
   public function testConstructorWihtAllArguments() {
-    $filter = new \PapayaFilterXml(FALSE);
+    $filter = new \Papaya\Filter\Xml(FALSE);
     $this->assertAttributeEquals(
       FALSE, '_allowFragments', $filter
     );
   }
 
   /**
-   * @covers \PapayaFilterXml::validate
+   * @covers \Papaya\Filter\Xml::validate
    * @dataProvider provideValidXmlFragments
    * @param string $fragment
    * @throws \Papaya\Filter\Exception\IsEmpty
    * @throws \Papaya\Filter\Exception\InvalidXml
    */
   public function testValidate($fragment) {
-    $filter = new \PapayaFilterXml();
+    $filter = new \Papaya\Filter\Xml();
     $this->assertTrue($filter->validate($fragment));
   }
 
   /**
-   * @covers \PapayaFilterXml::validate
+   * @covers \Papaya\Filter\Xml::validate
    */
   public function testValidateWithDocument() {
-    $filter = new \PapayaFilterXml(FALSE);
+    $filter = new \Papaya\Filter\Xml(FALSE);
     $this->assertTrue($filter->validate(/** @lang XML */'<html/>'));
   }
 
   /**
-   * @covers \PapayaFilterXml::validate
+   * @covers \Papaya\Filter\Xml::validate
    * @dataProvider provideInvalidXmlFragments
    * @param mixed $fragment
    * @throws \Papaya\Filter\Exception\IsEmpty
    * @throws \Papaya\Filter\Exception\InvalidXml
    */
   public function testValidateExpectingException($fragment) {
-    $filter = new \PapayaFilterXml();
+    $filter = new \Papaya\Filter\Xml();
     $this->expectException(\Papaya\Filter\Exception\InvalidXml::class);
     $filter->validate($fragment);
   }
 
   /**
-   * @covers \PapayaFilterXml::validate
+   * @covers \Papaya\Filter\Xml::validate
    */
   public function testValidateWithEmptyStringExpectingException() {
-    $filter = new \PapayaFilterXml();
+    $filter = new \Papaya\Filter\Xml();
     $this->expectException(\Papaya\Filter\Exception\IsEmpty::class);
     $filter->validate('');
   }
 
   /**
-   * @covers \PapayaFilterXml::validate
+   * @covers \Papaya\Filter\Xml::validate
    */
   public function testValidateWithDocumentExpectingException() {
-    $filter = new \PapayaFilterXml(FALSE);
+    $filter = new \Papaya\Filter\Xml(FALSE);
     $this->expectException(\Papaya\Filter\Exception\InvalidXml::class);
     $filter->validate('TEXT');
   }
 
   /**
-   * @covers \PapayaFilterXml::filter
+   * @covers \Papaya\Filter\Xml::filter
    * @dataProvider provideValidXmlFragments
    * @param string $fragment
    */
   public function testFilter($fragment) {
-    $filter = new \PapayaFilterXml();
+    $filter = new \Papaya\Filter\Xml();
     $this->assertEquals($fragment, $filter->filter($fragment));
   }
 
   /**
-   * @covers \PapayaFilterXml::filter
+   * @covers \Papaya\Filter\Xml::filter
    * @dataProvider provideInvalidXmlFragments
    * @param mixed $fragment
    */
   public function testFilterExpectingNull($fragment) {
-    $filter = new \PapayaFilterXml();
+    $filter = new \Papaya\Filter\Xml();
     $this->assertNull($filter->filter($fragment));
   }
 

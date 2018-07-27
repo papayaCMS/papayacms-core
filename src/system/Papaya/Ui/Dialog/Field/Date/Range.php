@@ -35,12 +35,12 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
     $caption,
     $name,
     $mandatory = FALSE,
-    $includeTime = \PapayaFilterDate::DATE_NO_TIME
+    $includeTime = \Papaya\Filter\Date::DATE_NO_TIME
   ) {
     if (
-      $includeTime != \PapayaFilterDate::DATE_NO_TIME &&
-      $includeTime != \PapayaFilterDate::DATE_OPTIONAL_TIME &&
-      $includeTime != \PapayaFilterDate::DATE_MANDATORY_TIME
+      $includeTime != \Papaya\Filter\Date::DATE_NO_TIME &&
+      $includeTime != \Papaya\Filter\Date::DATE_OPTIONAL_TIME &&
+      $includeTime != \Papaya\Filter\Date::DATE_MANDATORY_TIME
     ) {
       throw new \InvalidArgumentException(
         'Argument must be \PapayaFilterDate::DATE_* constant.'
@@ -54,11 +54,11 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
         [
           'start' => new \Papaya\Filter\LogicalOr(
             new \PapayaFilterEmpty(),
-            new \PapayaFilterDate($this->_includeTime)
+            new \Papaya\Filter\Date($this->_includeTime)
           ),
           'end' => new \Papaya\Filter\LogicalOr(
             new \PapayaFilterEmpty(),
-            new \PapayaFilterDate($this->_includeTime)
+            new \Papaya\Filter\Date($this->_includeTime)
           ),
           'mode' => new \Papaya\Filter\LogicalOr(
             new \PapayaFilterEmpty(),
@@ -73,7 +73,7 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
   public function appendTo(\PapayaXmlElement $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->setAttribute(
-      'data-include-time', ($this->_includeTime == \PapayaFilterDate::DATE_NO_TIME) ? 'false' : 'true'
+      'data-include-time', ($this->_includeTime == \Papaya\Filter\Date::DATE_NO_TIME) ? 'false' : 'true'
     );
     $fieldName = $this->getName();
     $values = $this->getCurrentValue();
@@ -97,22 +97,22 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
     $group->appendElement(
       'input',
       [
-        'type' => ($this->_includeTime == \PapayaFilterDate::DATE_NO_TIME) ? 'date' : 'datetime',
+        'type' => ($this->_includeTime == \Papaya\Filter\Date::DATE_NO_TIME) ? 'date' : 'datetime',
         'name' => $this->_getParameterName($fieldName.'/start')
       ],
       $this->formatDateTime(
-        $start, $this->_includeTime != \PapayaFilterDate::DATE_NO_TIME
+        $start, $this->_includeTime != \Papaya\Filter\Date::DATE_NO_TIME
       )
     );
     $group->appendElement(
       'input',
       [
-        'type' => ($this->_includeTime == \PapayaFilterDate::DATE_NO_TIME) ? 'date' : 'datetime',
+        'type' => ($this->_includeTime == \Papaya\Filter\Date::DATE_NO_TIME) ? 'date' : 'datetime',
         'name' => $this->_getParameterName($fieldName.'/end'),
         'value' => $end
       ],
       $this->formatDateTime(
-        $end, $this->_includeTime != \PapayaFilterDate::DATE_NO_TIME
+        $end, $this->_includeTime != \Papaya\Filter\Date::DATE_NO_TIME
       )
     );
   }

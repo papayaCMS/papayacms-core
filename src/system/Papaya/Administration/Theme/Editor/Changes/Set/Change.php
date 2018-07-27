@@ -54,7 +54,7 @@ class Change
     );
     $dialog->caption = new \PapayaUiStringTranslated($dialogCaption);
     $dialog->fields[] = $field = new \PapayaUiDialogFieldInput(
-      new \PapayaUiStringTranslated('Title'), 'title', 200, '', new \PapayaFilterText()
+      new \PapayaUiStringTranslated('Title'), 'title', 200, '', new \Papaya\Filter\Text()
     );
     $field->setMandatory(TRUE);
     $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(

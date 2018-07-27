@@ -73,7 +73,7 @@ class Parameter implements \Papaya\Filter {
     try {
       $this->validate($value);
       return $value;
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
   }

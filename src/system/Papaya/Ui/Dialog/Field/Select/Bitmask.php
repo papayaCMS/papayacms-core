@@ -51,7 +51,7 @@ class PapayaUiDialogFieldSelectBitmask extends \PapayaUiDialogFieldSelect {
     } elseif ($values instanceof \Traversable) {
       $values = iterator_to_array($values);
     }
-    return new \PapayaFilterBitmask(array_keys($values));
+    return new \Papaya\Filter\Bitmask(array_keys($values));
   }
 
   /**

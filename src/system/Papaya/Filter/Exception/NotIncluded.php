@@ -20,7 +20,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class NotIncluded extends \PapayaFilterException {
+class NotIncluded extends \Papaya\Filter\Exception {
 
   /**
    * The actual length of the value

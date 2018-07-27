@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterLengthTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterLength::__construct
+  * @covers \Papaya\Filter\Length::__construct
   */
   public function testConstructor() {
-    $filter = new \PapayaFilterLength();
+    $filter = new \Papaya\Filter\Length();
     $this->assertAttributeSame(
       0, '_minimum', $filter
     );
@@ -34,10 +34,10 @@ class PapayaFilterLengthTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterLength::__construct
+  * @covers \Papaya\Filter\Length::__construct
   */
   public function testConstructorWithAllArguments() {
-    $filter = new \PapayaFilterLength(21, 42, TRUE);
+    $filter = new \Papaya\Filter\Length(21, 42, TRUE);
     $this->assertAttributeSame(
       21, '_minimum', $filter
     );
@@ -50,85 +50,85 @@ class PapayaFilterLengthTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterLength::__construct
+  * @covers \Papaya\Filter\Length::__construct
   */
   public function testConstructorWithMaximumToSmallExpectingException() {
     $this->expectException(RangeException::class);
-    new \PapayaFilterLength(4, 2);
+    new \Papaya\Filter\Length(4, 2);
   }
 
   /**
-   * @covers \PapayaFilterLength::validate
+   * @covers \Papaya\Filter\Length::validate
    * @dataProvider provideValidValidateData
    * @param mixed $value
    * @param int|0 $minimum
    * @param int|NULL $maximum
    * @param bool $isUtf8
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    */
   public function testValidateWithLimitsExpectingTrue(
     $value, $minimum, $maximum = NULL, $isUtf8 = FALSE
   ) {
-    $filter = new \PapayaFilterLength($minimum, $maximum, $isUtf8);
+    $filter = new \Papaya\Filter\Length($minimum, $maximum, $isUtf8);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \PapayaFilterLength::validate
+   * @covers \Papaya\Filter\Length::validate
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
    * @param int|0 $minimum
    * @param int|NULL $maximum
    * @param bool $isUtf8
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    */
   public function testValidateWithLimitsExpectingException(
     $value, $minimum, $maximum = NULL, $isUtf8 = FALSE
   ) {
-    $filter = new \PapayaFilterLength($minimum, $maximum, $isUtf8);
-    $this->expectException(\PapayaFilterException::class);
+    $filter = new \Papaya\Filter\Length($minimum, $maximum, $isUtf8);
+    $this->expectException(\Papaya\Filter\Exception::class);
     $filter->validate($value);
   }
 
   /**
-  * @covers \PapayaFilterLength::validate
+  * @covers \Papaya\Filter\Length::validate
   */
   public function testValidateWithoutRange() {
-    $filter = new \PapayaFilterLength();
+    $filter = new \Papaya\Filter\Length();
     $this->assertTrue($filter->validate(42));
   }
 
   /**
-  * @covers \PapayaFilterLength::validate
+  * @covers \Papaya\Filter\Length::validate
   */
   public function testValidateWithValueToShortExpectingException() {
-    $filter = new \PapayaFilterLength(21, 42);
+    $filter = new \Papaya\Filter\Length(21, 42);
     $this->expectException(\Papaya\Filter\Exception\InvalidLength\ToShort::class);
     $filter->validate('foo');
   }
 
   /**
-  * @covers \PapayaFilterLength::validate
+  * @covers \Papaya\Filter\Length::validate
   */
   public function testValidateWithValueToLongExpectingException() {
-    $filter = new \PapayaFilterLength(0, 1);
+    $filter = new \Papaya\Filter\Length(0, 1);
     $this->expectException(\Papaya\Filter\Exception\InvalidLength\ToLong::class);
     $filter->validate('foo');
   }
 
   /**
-  * @covers \PapayaFilterLength::filter
+  * @covers \Papaya\Filter\Length::filter
   */
   public function testFilter() {
-    $filter = new \PapayaFilterLength(0, 10);
+    $filter = new \Papaya\Filter\Length(0, 10);
     $this->assertEquals('foo', $filter->filter('foo'));
   }
 
   /**
-  * @covers \PapayaFilterLength::filter
+  * @covers \Papaya\Filter\Length::filter
   */
   public function testFilterExpectingNull() {
-    $filter = new \PapayaFilterLength(0, 1);
+    $filter = new \Papaya\Filter\Length(0, 1);
     $this->assertNull($filter->filter('foo'));
   }
 

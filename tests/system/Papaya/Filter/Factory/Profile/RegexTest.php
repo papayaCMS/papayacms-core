@@ -24,7 +24,7 @@ class PapayaFilterFactoryProfileRegexTest extends \PapayaTestCase {
     $profile = new \Papaya\Filter\Factory\Profile\MatchesRegEx();
     $profile->options('(^pattern$)D');
     $filter = $profile->getFilter();
-    $this->assertInstanceOf(\PapayaFilterPcre::class, $filter);
+    $this->assertInstanceOf(\Papaya\Filter\Pcre::class, $filter);
     $this->assertTrue($filter->validate('pattern'));
   }
 }

@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* This filter class checks an url.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterUrl implements \Papaya\Filter {
+ * This filter class checks an url.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Url implements \Papaya\Filter {
 
   /**
-  * Pattern to check for a linebreak
-  * @var string
-  */
+   * Pattern to check for a linebreak
+   *
+   * @var string
+   */
   private $_patternCheck =
     '(^
        (https?://) # protocol
@@ -46,12 +48,12 @@ class PapayaFilterUrl implements \Papaya\Filter {
      $)Diux';
 
   /**
-  * Check the value if it's a valid url, if not throw an exception.
-  *
-  * @throws \Papaya\Filter\Exception\UnexpectedType
-  * @param string $value
-  * @return TRUE
-  */
+   * Check the value if it's a valid url, if not throw an exception.
+   *
+   * @throws \Papaya\Filter\Exception\UnexpectedType
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     if (!preg_match($this->_patternCheck, $value)) {
       throw new \Papaya\Filter\Exception\UnexpectedType('url');
@@ -60,16 +62,16 @@ class PapayaFilterUrl implements \Papaya\Filter {
   }
 
   /**
-  * The filter function is used to read a input value if it is valid.
-  *
-  * @param string $value
-  * @return string
-  */
+   * The filter function is used to read a input value if it is valid.
+   *
+   * @param string $value
+   * @return string
+   */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
   }

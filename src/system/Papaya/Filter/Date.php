@@ -13,35 +13,40 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* This filter class checks a date with optional time in human-readable format.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterDate implements \Papaya\Filter {
+ * This filter class checks a date with optional time in human-readable format.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Date implements \Papaya\Filter {
   /**
-  * Do not include a time
-  * @constant int
-  */
+   * Do not include a time
+   *
+   * @constant int
+   */
   const DATE_NO_TIME = 0;
 
   /**
-  * Optionally include a time
-  * @constant int
-  */
+   * Optionally include a time
+   *
+   * @constant int
+   */
   const DATE_OPTIONAL_TIME = 1;
 
   /**
-  * Include a mandatory time
-  * @constant int
-  */
+   * Include a mandatory time
+   *
+   * @constant int
+   */
   const DATE_MANDATORY_TIME = 2;
 
   /**
-  * Static array of all time constants
-  * @staticvar array
-  */
+   * Static array of all time constants
+   *
+   * @staticvar array
+   */
   private static $timeConstants = array(
     self::DATE_NO_TIME,
     self::DATE_OPTIONAL_TIME,
@@ -49,15 +54,17 @@ class PapayaFilterDate implements \Papaya\Filter {
   );
 
   /**
-  * Include a time?
-  * @var boolean
-  */
+   * Include a time?
+   *
+   * @var boolean
+   */
   private $_includeTime = self::DATE_NO_TIME;
 
   /**
-  * Step for the included time in seconds, default 60
-  * @var float
-  */
+   * Step for the included time in seconds, default 60
+   *
+   * @var float
+   */
   private $_step = 1.0;
 
   /**
@@ -94,7 +101,7 @@ class PapayaFilterDate implements \Papaya\Filter {
     if ($this->_includeTime > self::DATE_NO_TIME) {
       $elements = preg_split('([T ])', $value);
       if (count($elements) > 2 ||
-          ($this->_includeTime == self::DATE_MANDATORY_TIME && count($elements) != 2)) {
+        ($this->_includeTime == self::DATE_MANDATORY_TIME && count($elements) != 2)) {
         throw new \Papaya\Filter\Exception\UnexpectedType('Wrong number of elements in date/time string.');
       }
       $date = $elements[0];
@@ -126,22 +133,22 @@ class PapayaFilterDate implements \Papaya\Filter {
       throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($daysPerMonth[$month - 1], $day);
     }
     if (isset($time)) {
-      $timeFilter = new \PapayaFilterTime($this->_step);
+      $timeFilter = new \Papaya\Filter\Time($this->_step);
       $timeFilter->validate($time);
     }
     return TRUE;
   }
 
   /**
-  * Filter a date
-  *
-  * @param string $value
-  * @return mixed the filtered date value or NULL
-  */
+   * Filter a date
+   *
+   * @param string $value
+   * @return mixed the filtered date value or NULL
+   */
   public function filter($value) {
     try {
       $this->validate(trim($value));
-    } catch(\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
     return trim($value);

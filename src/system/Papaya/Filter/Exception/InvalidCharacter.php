@@ -20,7 +20,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidCharacter extends \PapayaFilterException {
+class InvalidCharacter extends \Papaya\Filter\Exception {
 
   /**
    * Position of invalid character

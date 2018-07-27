@@ -31,7 +31,7 @@ class PapayaUiDialogFieldInputMediaFile extends \PapayaUiDialogFieldInput {
   public function __construct($caption, $name, $mandatory = FALSE) {
     parent::__construct($caption, $name);
     $this->setMandatory($mandatory);
-    $this->setFilter(new \PapayaFilterGuid());
+    $this->setFilter(new \Papaya\Filter\Guid());
   }
 
 }

@@ -205,7 +205,7 @@ class Factory implements \IteratorAggregate {
     }
     try {
       $filter->validate($value);
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return FALSE;
     }
     return TRUE;
@@ -237,7 +237,7 @@ class Factory implements \IteratorAggregate {
    * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
   public static function matches($value, $pattern, $mandatory = TRUE) {
-    return self::validate($value, new \PapayaFilterPcre($pattern), $mandatory);
+    return self::validate($value, new \Papaya\Filter\Pcre($pattern), $mandatory);
   }
 
   /**

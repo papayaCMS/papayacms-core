@@ -26,6 +26,6 @@ class IsTextWithNumbers extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterText(\PapayaFilterText::ALLOW_SPACES | \PapayaFilterText::ALLOW_DIGITS);
+    return new \Papaya\Filter\Text(\Papaya\Filter\Text::ALLOW_SPACES | \Papaya\Filter\Text::ALLOW_DIGITS);
   }
 }

@@ -20,7 +20,7 @@ namespace Papaya\Filter\Url;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class Http extends \PapayaFilterUrl {
+class Http extends \Papaya\Filter\Url {
 
   /**
    * @see \Papaya\Filter::validate()

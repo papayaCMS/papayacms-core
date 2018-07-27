@@ -22,6 +22,6 @@ class PapayaFilterFactoryProfileIsPhoneTest extends \PapayaTestCase {
    */
   public function testGetFilterExpectTrue() {
     $profile = new \Papaya\Filter\Factory\Profile\IsPhone();
-    $this->assertInstanceOf(\PapayaFilterPhone::class, $profile->getFilter());
+    $this->assertInstanceOf(\Papaya\Filter\Phone::class, $profile->getFilter());
   }
 }

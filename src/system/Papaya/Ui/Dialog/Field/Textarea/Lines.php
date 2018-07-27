@@ -31,7 +31,7 @@ class PapayaUiDialogFieldTextareaLines extends \PapayaUiDialogFieldTextarea {
       $name,
       $lines,
       $default,
-      new \PapayaFilterLines($filter)
+      new \Papaya\Filter\Lines($filter)
     );
   }
 

@@ -60,7 +60,7 @@ class PapayaUiDialogFieldInputPhone extends \PapayaUiDialogFieldInput {
     parent::__construct($caption, $name, 1024, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \PapayaFilterPhone()
+      new \Papaya\Filter\Phone()
     );
   }
 }

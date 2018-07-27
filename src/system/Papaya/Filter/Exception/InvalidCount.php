@@ -20,7 +20,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class InvalidCount extends \PapayaFilterException {
+class InvalidCount extends \Papaya\Filter\Exception {
 
   /**
    * The constructor expects the expected element count, the actual number and the element type.

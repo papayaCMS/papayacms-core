@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Filter class making an encapsulated filter optional, allowing empty values
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterOptional implements \Papaya\Filter {
+ * Filter class making an encapsulated filter optional, allowing empty values
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Optional implements \Papaya\Filter {
 
   private $_innerFilter = NULL;
   private $_filter = NULL;

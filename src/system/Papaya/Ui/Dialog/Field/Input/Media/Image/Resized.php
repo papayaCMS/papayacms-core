@@ -34,7 +34,7 @@ class PapayaUiDialogFieldInputMediaImageResized extends \PapayaUiDialogFieldInpu
     $this->setFilter(
       new \Papaya\Filter\Arguments(
         array(
-          new \PapayaFilterGuid(),
+          new \Papaya\Filter\Guid(),
           new \Papaya\Filter\LogicalOr(
             new \PapayaFilterEmpty(),
             new \PapayaFilterInteger(1, 10000)

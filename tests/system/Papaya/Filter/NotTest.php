@@ -31,7 +31,7 @@ class PapayaFilterNotTest extends \PapayaTestCase {
 
   /**
   * @covers \Papaya\Filter\Not::validate
-  * @expectedException \PapayaFilterException
+  * @expectedException \Papaya\Filter\Exception
   */
   public function testValidateExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
@@ -75,7 +75,7 @@ class PapayaFilterNotTest extends \PapayaTestCase {
   *************************************/
 
   public function callbackThrowFilterException() {
-    throw $this->getMockForAbstractClass(\PapayaFilterException::class);
+    throw $this->getMockForAbstractClass(\Papaya\Filter\Exception::class);
   }
 
 }

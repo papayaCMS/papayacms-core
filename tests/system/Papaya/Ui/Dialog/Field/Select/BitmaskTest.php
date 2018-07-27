@@ -25,7 +25,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
     $this->assertEquals(
-      new \PapayaFilterBitmask(array(1, 2)), $select->getFilter()
+      new \Papaya\Filter\Bitmask(array(1, 2)), $select->getFilter()
     );
   }
 
@@ -37,7 +37,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
       'Caption', 'name', new ArrayIterator(array(1 => 'One', 2 => 'Two'))
     );
     $this->assertEquals(
-      new \PapayaFilterBitmask(array(1, 2)), $select->getFilter()
+      new \Papaya\Filter\Bitmask(array(1, 2)), $select->getFilter()
     );
   }
 
@@ -51,7 +51,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
       new RecursiveArrayIterator(array('group' => array(1 => 'One', 2 => 'Two')))
     );
     $this->assertEquals(
-      new \PapayaFilterBitmask(array(1, 2)), $select->getFilter()
+      new \Papaya\Filter\Bitmask(array(1, 2)), $select->getFilter()
     );
   }
 

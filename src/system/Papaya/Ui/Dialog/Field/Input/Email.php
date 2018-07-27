@@ -59,7 +59,7 @@ class PapayaUiDialogFieldInputEmail extends \PapayaUiDialogFieldInput {
     parent::__construct($caption, $name, 1024, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \PapayaFilterEmail()
+      new \Papaya\Filter\Email()
     );
   }
 }

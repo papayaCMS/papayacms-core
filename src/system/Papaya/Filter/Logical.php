@@ -59,7 +59,7 @@ abstract class Logical implements \Papaya\Filter {
         if ($filter instanceof \Papaya\Filter) {
           $this->_filters[] = $filter;
         } elseif (is_scalar($filter)) {
-          $this->_filters[] = new \PapayaFilterEquals($filter);
+          $this->_filters[] = new \Papaya\Filter\Equals($filter);
         } else {
           throw new \InvalidArgumentException(
             sprintf(

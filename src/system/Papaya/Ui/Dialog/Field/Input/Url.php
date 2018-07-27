@@ -60,7 +60,7 @@ class PapayaUiDialogFieldInputUrl extends \PapayaUiDialogFieldInput {
     parent::__construct($caption, $name, 1024, $default);
     $this->setmandatory($mandatory);
     $this->setFilter(
-      new \PapayaFilterUrl()
+      new \Papaya\Filter\Url()
     );
   }
 }

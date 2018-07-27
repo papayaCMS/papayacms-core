@@ -74,7 +74,7 @@ class PapayaUiDialogFieldInputTime extends \PapayaUiDialogFieldInput {
     $this->_step = $step;
     $this->setmandatory($mandatory);
     $this->setFilter(
-      new \PapayaFilterTime($this->_step)
+      new \Papaya\Filter\Time($this->_step)
     );
   }
 }

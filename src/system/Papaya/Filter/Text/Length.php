@@ -65,7 +65,7 @@ class Length implements \Papaya\Filter {
   /**
    * Check the string length and throw an exception if it does not not match limits
    *
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    * @param string $value
    * @return TRUE
    */

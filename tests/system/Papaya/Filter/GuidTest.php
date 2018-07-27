@@ -18,21 +18,21 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterGuidTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterGuid
+  * @covers \Papaya\Filter\Guid
   */
   public function testValidateExpectingTrue() {
-    $filter = new \PapayaFilterGuid();
+    $filter = new \Papaya\Filter\Guid();
     $this->assertTrue(
       $filter->validate('123456789012345678901234567890ab')
     );
   }
 
   /**
-  * @covers \PapayaFilterGuid
+  * @covers \Papaya\Filter\Guid
   */
   public function testValidateExpectingException() {
-    $filter = new \PapayaFilterGuid();
-    $this->expectException(\PapayaFilterException::class);
+    $filter = new \Papaya\Filter\Guid();
+    $this->expectException(\Papaya\Filter\Exception::class);
     $filter->validate('foo');
   }
 }

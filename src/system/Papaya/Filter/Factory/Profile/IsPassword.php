@@ -26,6 +26,6 @@ class IsPassword extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterPassword();
+    return new \Papaya\Filter\Password();
   }
 }

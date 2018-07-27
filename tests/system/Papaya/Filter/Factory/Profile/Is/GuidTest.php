@@ -30,7 +30,7 @@ class PapayaFilterFactoryProfileIsGuidTest extends \PapayaTestCase {
    */
   public function testGetFilterExpectException() {
     $profile = new \Papaya\Filter\Factory\Profile\IsGuid();
-    $this->expectException(\PapayaFilterException::class);
+    $this->expectException(\Papaya\Filter\Exception::class);
     $profile->getFilter()->validate('foo');
   }
 }

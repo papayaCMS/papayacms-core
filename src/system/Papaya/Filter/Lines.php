@@ -13,7 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaFilterLines implements \Papaya\Filter {
+namespace Papaya\Filter;
+
+class Lines implements \Papaya\Filter {
 
   /**
    * @var \Papaya\Filter

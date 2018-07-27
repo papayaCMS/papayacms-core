@@ -76,7 +76,7 @@ class V6 implements \Papaya\Filter {
     $result = trim($value);
     try {
       $this->validate($result);
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       $result = NULL;
     }
     return $result;

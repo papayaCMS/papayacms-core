@@ -44,7 +44,7 @@ class PapayaUiDialogFieldInputTimestamp extends \PapayaUiDialogFieldInputDate {
     $name,
     $default = NULL,
     $mandatory = FALSE,
-    $includeTime = \PapayaFilterDate::DATE_NO_TIME,
+    $includeTime = \Papaya\Filter\Date::DATE_NO_TIME,
     $step = 60.0
   ) {
     parent::__construct($caption, $name, $default, $mandatory, (int)$includeTime, $step);
@@ -89,7 +89,7 @@ class PapayaUiDialogFieldInputTimestamp extends \PapayaUiDialogFieldInputDate {
         'maxlength' => $this->_maximumLength
       ),
       $this->formatDateTime(
-        $this->getCurrentValue(), $this->_includeTime != \PapayaFilterDate::DATE_NO_TIME
+        $this->getCurrentValue(), $this->_includeTime != \Papaya\Filter\Date::DATE_NO_TIME
       )
     );
     return $field;

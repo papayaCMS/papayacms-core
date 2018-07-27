@@ -79,7 +79,7 @@ class NumberWithUnit implements \Papaya\Filter {
   /**
    * Validates the given string and throws exceptions
    *
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    * @param string $value
    * @return TRUE
    */
@@ -154,7 +154,7 @@ class NumberWithUnit implements \Papaya\Filter {
     try {
       $this->validate($value);
       return $value;
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
   }

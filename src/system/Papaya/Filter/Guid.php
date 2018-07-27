@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class for using a guid - a 16byte hexadecimal string
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterGuid extends \PapayaFilterPcre {
+ * Papaya filter class for using a guid - a 16byte hexadecimal string
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Guid extends \Papaya\Filter\Pcre {
 
   public function __construct() {
     parent::__construct('(^[a-f-A-F\d]{32}$)D');

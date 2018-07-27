@@ -321,7 +321,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('handleValidationFailure')
       ->with(
-        $this->isInstanceOf(\PapayaFilterException::class),
+        $this->isInstanceOf(\Papaya\Filter\Exception::class),
         $this->isInstanceOf(\PapayaUiDialogField::class)
       );
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
@@ -813,7 +813,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   *************************/
 
   public function throwFilterExceptionCallback() {
-    throw $this->createMock(\PapayaFilterException::class);
+    throw $this->createMock(\Papaya\Filter\Exception::class);
   }
 
   /*************************

@@ -264,13 +264,13 @@ class PapayaUiDialogTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('add')
       ->with(
-        $this->isInstanceOf(\PapayaFilterException::class),
+        $this->isInstanceOf(\Papaya\Filter\Exception::class),
         $this->isInstanceOf(\PapayaUiDialogField::class)
       );
     $dialog = new \PapayaUiDialog(new stdClass());
     $dialog->errors($errors);
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaFilterException $exception */
-    $exception = $this->createMock(\PapayaFilterException::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter\Exception $exception */
+    $exception = $this->createMock(\Papaya\Filter\Exception::class);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogField $field */
     $field = $this->createMock(\PapayaUiDialogField::class);
     $dialog->handleValidationFailure($exception, $field);

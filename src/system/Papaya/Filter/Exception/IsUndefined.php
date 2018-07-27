@@ -20,7 +20,7 @@ namespace Papaya\Filter\Exception;
  * @package Papaya-Library
  * @subpackage Filter
  */
-class IsUndefined extends \PapayaFilterException {
+class IsUndefined extends \Papaya\Filter\Exception {
 
   /**
    * Construct object and set (static) message.

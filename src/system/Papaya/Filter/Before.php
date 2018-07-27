@@ -47,7 +47,7 @@ class Before implements \Papaya\Filter {
   /**
    * @param string $value
    * @return bool
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    */
   public function validate($value) {
     return $this->_after->validate($this->_before->filter($value));

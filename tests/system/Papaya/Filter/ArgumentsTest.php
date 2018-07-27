@@ -43,7 +43,7 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
    * @param mixed $value
    * @param array $filters
    * @param string $separator
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    */
   public function testValidateExpectingTrue($value, $filters, $separator) {
     $filter = new \Papaya\Filter\Arguments($filters, $separator);
@@ -56,11 +56,11 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
    * @param mixed $value
    * @param array $filters
    * @param string $separator
-   * @throws \PapayaFilterException
+   * @throws \Papaya\Filter\Exception
    */
   public function testValidateExpectingException($value, $filters, $separator) {
     $filter = new \Papaya\Filter\Arguments($filters, $separator);
-    $this->expectException(\PapayaFilterException::class);
+    $this->expectException(\Papaya\Filter\Exception::class);
     $filter->validate($value);
   }
 
@@ -98,10 +98,10 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
         '21,42', array(new \PapayaFilterInteger(), new \PapayaFilterInteger()), ','
       ),
       'different filters' => array(
-        'foo,42', array(new \PapayaFilterText(), new \PapayaFilterInteger()), ','
+        'foo,42', array(new \Papaya\Filter\Text(), new \PapayaFilterInteger()), ','
       ),
       'different separator' => array(
-        'foo;42', array(new \PapayaFilterText(), new \PapayaFilterInteger()), ';'
+        'foo;42', array(new \Papaya\Filter\Text(), new \PapayaFilterInteger()), ';'
       ),
       'second element optional' => array(
         '21',
@@ -141,10 +141,10 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
         '21,42', '21,42', array(new \PapayaFilterInteger(), new \PapayaFilterInteger()), ','
       ),
       'different filters' => array(
-        'foo,42', 'foo,42', array(new \PapayaFilterText(), new \PapayaFilterInteger()), ','
+        'foo,42', 'foo,42', array(new \Papaya\Filter\Text(), new \PapayaFilterInteger()), ','
       ),
       'different separator' => array(
-        'foo;42', 'foo;42', array(new \PapayaFilterText(), new \PapayaFilterInteger()), ';'
+        'foo;42', 'foo;42', array(new \Papaya\Filter\Text(), new \PapayaFilterInteger()), ';'
       ),
       'second element optional' => array(
         '21,0',

@@ -18,20 +18,20 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterCallbackTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterCallback::__construct
+  * @covers \Papaya\Filter\Callback::__construct
   */
   public function testConstructor() {
-    $filter = new \PapayaFilterCallback('PapayaFilterCallbackTest_ValidateCallback');
+    $filter = new \Papaya\Filter\Callback('PapayaFilterCallbackTest_ValidateCallback');
     $this->assertAttributeEquals(
       'PapayaFilterCallbackTest_ValidateCallback', '_callback', $filter
     );
   }
 
   /**
-  * @covers \PapayaFilterCallback::__construct
+  * @covers \Papaya\Filter\Callback::__construct
   */
   public function testConstructorWithArgumentsArray() {
-    $filter = new \PapayaFilterCallback(
+    $filter = new \Papaya\Filter\Callback(
       'PapayaFilterCallbackTest_ValidateCallback', array('test')
     );
     $this->assertAttributeEquals(
@@ -40,11 +40,11 @@ class PapayaFilterCallbackTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterCallback::validate
-  * @covers \PapayaFilterCallback::_isCallback
+  * @covers \Papaya\Filter\Callback::validate
+  * @covers \Papaya\Filter\Callback::_isCallback
   */
   public function testValidateExpectingTrue() {
-    $filter = new \PapayaFilterCallback(
+    $filter = new \Papaya\Filter\Callback(
       'PapayaFilterCallbackTest_ValidateCallback', array('(^foo$)')
     );
     $this->assertTrue(
@@ -53,20 +53,20 @@ class PapayaFilterCallbackTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterCallback::validate
-  * @covers \PapayaFilterCallback::_isCallback
+  * @covers \Papaya\Filter\Callback::validate
+  * @covers \Papaya\Filter\Callback::_isCallback
   */
   public function testValidateWithInvalidCallbackExpectingException() {
-    $filter = new \PapayaFilterCallback('INVALID_CALLBACK_NAME');
+    $filter = new \Papaya\Filter\Callback('INVALID_CALLBACK_NAME');
     $this->expectException(\Papaya\Filter\Exception\InvalidCallback::class);
     $filter->validate('bar');
   }
 
   /**
-  * @covers \PapayaFilterCallback::validate
+  * @covers \Papaya\Filter\Callback::validate
   */
   public function testValidateWithInvalidValueExpectingException() {
-    $filter = new \PapayaFilterCallback(
+    $filter = new \Papaya\Filter\Callback(
       'PapayaFilterCallbackTest_ValidateCallback', array('(^foo$)')
     );
     $this->expectException(\Papaya\Filter\Exception\FailedCallback::class);
@@ -74,10 +74,10 @@ class PapayaFilterCallbackTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterCallback::filter
+  * @covers \Papaya\Filter\Callback::filter
   */
   public function testFilterExpectingTrue() {
-    $filter = new \PapayaFilterCallback(
+    $filter = new \Papaya\Filter\Callback(
       'PapayaFilterCallbackTest_ValidateCallback', array('(^foo$)')
     );
     $this->assertEquals(
@@ -86,10 +86,10 @@ class PapayaFilterCallbackTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterCallback::filter
+  * @covers \Papaya\Filter\Callback::filter
   */
   public function testFilterExpectingNull() {
-    $filter = new \PapayaFilterCallback(
+    $filter = new \Papaya\Filter\Callback(
       'PapayaFilterCallbackTest_ValidateCallback', array('(^foo$)')
     );
     $this->assertNull(

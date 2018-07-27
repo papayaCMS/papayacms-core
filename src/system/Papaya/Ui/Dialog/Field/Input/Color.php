@@ -59,6 +59,6 @@ class PapayaUiDialogFieldInputColor extends \PapayaUiDialogFieldInput {
   public function __construct($caption, $name, $default = NULL, $mandatory = FALSE) {
     parent::__construct($caption, $name, 7, $default);
     $this->setMandatory($mandatory);
-    $this->setFilter(new \PapayaFilterColor());
+    $this->setFilter(new \Papaya\Filter\Color());
   }
 }

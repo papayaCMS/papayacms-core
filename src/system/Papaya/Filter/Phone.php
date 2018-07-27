@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* This filter class checks a phone number.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterPhone implements \Papaya\Filter {
+ * This filter class checks a phone number.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Phone implements \Papaya\Filter {
 
   /**
-  * Pattern to check for a linebreak
-  * @var string
-  */
+   * Pattern to check for a linebreak
+   *
+   * @var string
+   */
   private $_patternCheck = '
     (^
       (((\+|00)\d{2}|\(0\d+\))[-\s]?)?
@@ -47,16 +49,16 @@ class PapayaFilterPhone implements \Papaya\Filter {
   }
 
   /**
-  * The filter function is used to read an input value if it is valid.
-  *
-  * @param string $value
-  * @return string
-  */
+   * The filter function is used to read an input value if it is valid.
+   *
+   * @param string $value
+   * @return string
+   */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
-    } catch (\PapayaFilterException $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
   }
