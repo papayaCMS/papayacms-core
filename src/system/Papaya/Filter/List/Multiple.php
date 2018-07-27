@@ -55,7 +55,7 @@ class PapayaFilterListMultiple implements \Papaya\Filter {
     }
     foreach ($value as $element) {
       if (!in_array($element, $this->_list)) {
-        throw new \PapayaFilterExceptionNotEnclosed($element);
+        throw new \Papaya\Filter\Exception\NotIncluded($element);
       }
     }
     return TRUE;

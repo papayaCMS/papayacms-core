@@ -51,7 +51,7 @@ class PapayaFilterEmpty implements \Papaya\Filter {
   /**
   * Check the value throw exception if value is not empty
   *
-  * @throws \PapayaFilterExceptionNotEmpty
+  * @throws \Papaya\Filter\Exception\NotEmpty
   * @param string $value
   * @return TRUE
   */
@@ -68,7 +68,7 @@ class PapayaFilterEmpty implements \Papaya\Filter {
         return TRUE;
       }
     }
-    throw new \PapayaFilterExceptionNotEmpty($value);
+    throw new \Papaya\Filter\Exception\NotEmpty($value);
   }
 
   /**

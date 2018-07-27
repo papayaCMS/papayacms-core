@@ -13,25 +13,34 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception;
 /**
-* This exception is thrown if a value is not equal to a given comparsion value.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionNotEqual extends \PapayaFilterException {
+ * This exception is thrown if a value is not enclosed in a list of values.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class NotIncluded extends \PapayaFilterException {
 
   /**
-  * Construct object with value informations
-  *
-  * @param mixed $expected
-  */
-  public function __construct($expected) {
+   * The actual length of the value
+   *
+   * @var string|int|float|boolean
+   */
+  private $_actualValue = 0;
+
+  /**
+   * Construct object with value information
+   *
+   * @param string|int|float|boolean $actual
+   */
+  public function __construct($actual) {
     parent::__construct(
       sprintf(
-        'Value does not equal comparsion value. Expected "%s".',
-        $expected
+        'Value is to not enclosed in list of valid elements. Got "%s".',
+        $actual
       )
     );
+    $this->_actualValue = $actual;
   }
 }

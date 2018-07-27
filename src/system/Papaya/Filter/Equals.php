@@ -42,12 +42,12 @@ class PapayaFilterEquals implements \Papaya\Filter {
    * Check the value throw exception if value is not empty
    *
    * @param string $value
-   * @throws \PapayaFilterExceptionNotEqual
+   * @throws \Papaya\Filter\Exception\NotEqual
    * @return TRUE
    */
   public function validate($value) {
     if ($this->_value != $value) {
-      throw new \PapayaFilterExceptionNotEqual($this->_value);
+      throw new \Papaya\Filter\Exception\NotEqual($this->_value);
     }
     return TRUE;
   }

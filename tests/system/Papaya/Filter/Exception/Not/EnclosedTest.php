@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaFilterExceptionNotEnclosedTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionNotEnclosed::__construct
+  * @covers \Papaya\Filter\Exception\NotIncluded::__construct
   */
   public function testConstructor() {
-    $e = new \PapayaFilterExceptionNotEnclosed(42);
+    $e = new \Papaya\Filter\Exception\NotIncluded(42);
     $this->assertEquals(
       'Value is to not enclosed in list of valid elements. Got "42".',
       $e->getMessage()

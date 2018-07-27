@@ -13,24 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception;
 /**
-* This exception is thrown if a value is not considered empty.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionNotEmpty extends \PapayaFilterException {
+ * This exception is thrown if a value is not equal to a given comparsion value.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class NotEqual extends \PapayaFilterException {
 
   /**
-  * Construct object with value informations
-  *
-  * @param mixed $actual
-  */
-  public function __construct($actual) {
+   * Construct object with value informations
+   *
+   * @param mixed $expected
+   */
+  public function __construct($expected) {
     parent::__construct(
       sprintf(
-        'Value is to not empty. Got "%s".',
-        is_array($actual) ? 'array' : $actual
+        'Value does not equal comparsion value. Expected "%s".',
+        $expected
       )
     );
   }

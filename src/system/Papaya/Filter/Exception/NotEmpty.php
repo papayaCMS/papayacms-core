@@ -13,32 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception;
 /**
-* This exception is thrown if a value is not enclosed in a list of values.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionNotEnclosed extends \PapayaFilterException {
+ * This exception is thrown if a value is not considered empty.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class NotEmpty extends \PapayaFilterException {
 
   /**
-  * The actual length of the value
-  * @var string|int|float|boolean
-  */
-  private $_actualValue = 0;
-
-  /**
-  * Construct object with value informations
-  *
-  * @param string|int|float|boolean $actual
-  */
+   * Construct object with value informations
+   *
+   * @param mixed $actual
+   */
   public function __construct($actual) {
     parent::__construct(
       sprintf(
-        'Value is to not enclosed in list of valid elements. Got "%s".',
-        $actual
+        'Value is to not empty. Got "%s".',
+        is_array($actual) ? 'array' : $actual
       )
     );
-    $this->_actualValue = $actual;
   }
 }

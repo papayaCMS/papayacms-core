@@ -115,7 +115,7 @@ class PapayaFilterNumericWithUnit implements \Papaya\Filter {
     } elseif ($value == '0') {
       return TRUE;
     } else {
-      throw new \PapayaFilterExceptionNotEnclosed($value);
+      throw new \Papaya\Filter\Exception\NotIncluded($value);
     }
   }
 

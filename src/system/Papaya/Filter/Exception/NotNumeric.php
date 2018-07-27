@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception;
 /**
-* This exception is thrown if a value is not considered as float.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionNotFloat extends \PapayaFilterException {
+ * This exception is thrown if a value is not considered as float.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class NotNumeric extends \PapayaFilterException {
   public function __construct($value) {
-    parent::__construct("Value is not a float: $value", $this->code);
+    parent::__construct("Value is not numeric: $value");
   }
 }

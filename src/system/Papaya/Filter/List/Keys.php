@@ -67,7 +67,7 @@ class PapayaFilterListKeys implements \Papaya\Filter {
         }
       }
     }
-    throw new \PapayaFilterExceptionNotEnclosed($value);
+    throw new \Papaya\Filter\Exception\NotIncluded($value);
   }
 
   /**

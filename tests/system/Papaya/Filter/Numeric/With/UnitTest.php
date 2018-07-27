@@ -111,7 +111,7 @@ class PapayaFilterNumericWithUnitTest extends \PapayaTestCase {
   */
   public function testValidateExpectedFilterNotEnclosedException() {
     $filter = new \PapayaFilterNumericWithUnit('px');
-    $this->expectException(\PapayaFilterExceptionNotEnclosed::class);
+    $this->expectException(\Papaya\Filter\Exception\NotIncluded::class);
     $filter->validate('99abc');
   }
 

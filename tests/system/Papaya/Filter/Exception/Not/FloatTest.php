@@ -18,12 +18,12 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaFilterExceptionNotFloatTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionNotFloat::__construct
+  * @covers \Papaya\Filter\Exception\NotNumeric::__construct
   */
   public function testConstructor() {
-    $e = new \PapayaFilterExceptionNotFloat('abc');
+    $e = new \Papaya\Filter\Exception\NotNumeric('abc');
     $this->assertEquals(
-      'Value is not a float: abc',
+      'Value is not numeric: abc',
       $e->getMessage()
     );
   }

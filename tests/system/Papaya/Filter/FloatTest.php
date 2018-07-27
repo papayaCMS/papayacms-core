@@ -52,7 +52,7 @@ class PapayaFilterFloatTest extends \PapayaTestCase {
   */
   public function testValidate() {
     $filter = new \PapayaFilterFloat();
-    $this->expectException(\PapayaFilterExceptionNotFloat::class);
+    $this->expectException(\Papaya\Filter\Exception\NotNumeric::class);
     $filter->validate('sgs');
   }
 

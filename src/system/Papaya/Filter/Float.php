@@ -65,7 +65,7 @@ class PapayaFilterFloat implements \Papaya\Filter {
   */
   public function validate($value) {
     if (!is_numeric($value)) {
-      throw new \PapayaFilterExceptionNotFloat($value);
+      throw new \Papaya\Filter\Exception\NotNumeric($value);
     }
     if (!is_null($this->_min) && $value < $this->_min) {
       throw new \PapayaFilterExceptionRangeMinimum($this->_min, $value);
