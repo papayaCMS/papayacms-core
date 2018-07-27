@@ -83,7 +83,7 @@ class PapayaFilterIpV4 implements \Papaya\Filter {
   * 4. check the actual value against the configuration
   *
   * @todo Replace InvalidARgumentException with FilterException child classes
-  * @throws \PapayaFilterExceptionPartInvalid
+  * @throws \Papaya\Filter\Exception\InvalidPart
   * @throws \Papaya\Filter\Exception\InvalidCount
   * @throws \InvalidArgumentException
   * @param string $value
@@ -99,7 +99,7 @@ class PapayaFilterIpV4 implements \Papaya\Filter {
       try {
         $filterInteger->validate($part);
       } catch (\PapayaFilterException $e) {
-        throw new \PapayaFilterExceptionPartInvalid($position + 1, 'ip octet', $e->getMessage());
+        throw new \Papaya\Filter\Exception\InvalidPart($position + 1, 'ip octet', $e->getMessage());
       }
     }
     if (!(self::ALLOW_ALL_ZEROS & $this->_configuration) && $value == '0.0.0.0') {

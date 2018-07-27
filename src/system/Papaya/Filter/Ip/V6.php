@@ -31,7 +31,7 @@ class PapayaFilterIpV6 implements \Papaya\Filter {
    * @param string $value
    * @throws \Papaya\Filter\Exception\InvalidCount
    * @throws \Papaya\Filter\Exception\IsEmpty
-   * @throws \PapayaFilterExceptionPartInvalid
+   * @throws \Papaya\Filter\Exception\InvalidPart
    * @return boolean TRUE
    */
   public function validate($value) {
@@ -46,7 +46,7 @@ class PapayaFilterIpV6 implements \Papaya\Filter {
         $countEmpty++;
         $emptyPositions[] = $position;
       } elseif (!preg_match('(^[\da-f]{1,4}$)i', $part)) {
-        throw new \PapayaFilterExceptionPartInvalid($position + 1, 'IPv6 part');
+        throw new \Papaya\Filter\Exception\InvalidPart($position + 1, 'IPv6 part');
       }
     }
     if ($countEmpty > 2) {
@@ -55,7 +55,7 @@ class PapayaFilterIpV6 implements \Papaya\Filter {
       $e1 = $emptyPositions[0];
       $e2 = $emptyPositions[1];
       if (!(($e1 == 0 && $e2 == 1) || ($e1 == count($parts) - 2 && $e2 == count($parts) - 1))) {
-        throw new \PapayaFilterExceptionPartInvalid($e2 + 1, 'IPv6 parts');
+        throw new \Papaya\Filter\Exception\InvalidPart($e2 + 1, 'IPv6 parts');
       }
     } elseif ($countEmpty == 1 && count($parts) > 7) {
       throw new \Papaya\Filter\Exception\InvalidCount(7, count($parts), 'IPv6 parts');

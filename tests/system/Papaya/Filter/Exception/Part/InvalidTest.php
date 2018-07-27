@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaFilterExceptionPartInvalidTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionPartInvalid::__construct
+  * @covers \Papaya\Filter\Exception\InvalidPart::__construct
   */
   public function testConstructor() {
-    $e = new \PapayaFilterExceptionPartInvalid(
+    $e = new \Papaya\Filter\Exception\InvalidPart(
       3,
       'type',
       'Value is too large. Expecting a maximum of "21", got "42".'
@@ -34,10 +34,10 @@ class PapayaFilterExceptionPartInvalidTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterExceptionPartInvalid::__construct
+  * @covers \Papaya\Filter\Exception\InvalidPart::__construct
   */
   public function testConstructorNoMessage() {
-    $e = new \PapayaFilterExceptionPartInvalid(3, 'type');
+    $e = new \Papaya\Filter\Exception\InvalidPart(3, 'type');
     $this->assertEquals(
       'Part number 3 of type "type" is invalid.',
       $e->getMessage()

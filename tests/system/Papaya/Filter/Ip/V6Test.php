@@ -22,7 +22,7 @@ class PapayaFilterIpV6Test extends \PapayaTestCase {
    * @param string $ip
    * @throws \Papaya\Filter\Exception\InvalidCount
    * @throws \Papaya\Filter\Exception\IsEmpty
-   * @throws \PapayaFilterExceptionPartInvalid
+   * @throws \Papaya\Filter\Exception\InvalidPart
    */
   public function testValidateValid($ip) {
     $ipV6 = new \PapayaFilterIpV6();
@@ -35,7 +35,7 @@ class PapayaFilterIpV6Test extends \PapayaTestCase {
    * @param string $ip
    * @throws \Papaya\Filter\Exception\InvalidCount
    * @throws \Papaya\Filter\Exception\IsEmpty
-   * @throws \PapayaFilterExceptionPartInvalid
+   * @throws \Papaya\Filter\Exception\InvalidPart
    */
   public function testValidateExpectingCountMismatch($ip) {
     $ipV6 = new \PapayaFilterIpV6();
@@ -59,11 +59,11 @@ class PapayaFilterIpV6Test extends \PapayaTestCase {
    * @param string $ip
    * @throws \Papaya\Filter\Exception\InvalidCount
    * @throws \Papaya\Filter\Exception\IsEmpty
-   * @throws \PapayaFilterExceptionPartInvalid
+   * @throws \Papaya\Filter\Exception\InvalidPart
    */
   public function testValidateExpectingPartInvalid($ip) {
     $ipV6 = new \PapayaFilterIpV6();
-    $this->expectException(\PapayaFilterExceptionPartInvalid::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidPart::class);
     $ipV6->validate($ip);
   }
 

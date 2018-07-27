@@ -65,6 +65,7 @@ class Autoloader {
     'PapayaFilterExceptionNotEqual' => Filter\Exception\NotEqual::class,
     'PapayaFilterExceptionNotEnclosed' => Filter\Exception\NotIncluded::class,
     'PapayaFilterExceptionNotFloat' => Filter\Exception\NotNumeric::class,
+    'PapayaFilterExceptionPartInvalid' => Filter\Exception\InvalidPart::class,
 
     'PapayaObject' => Application\BaseObject::class
   );
