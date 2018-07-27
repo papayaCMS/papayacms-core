@@ -44,8 +44,8 @@ class PapayaFilterLocaleGermanyZip implements \Papaya\Filter {
    *
    * @throws \Papaya\Filter\Exception
    * @param string $value
-   * @throws \PapayaFilterExceptionLengthMinimum
-   * @throws \PapayaFilterExceptionLengthMaximum
+   * @throws \Papaya\Filter\Exception\InvalidLength\ToShort
+   * @throws \Papaya\Filter\Exception\InvalidLength\ToLong
    * @throws \Papaya\Filter\Exception\InvalidCharacter
    * @return TRUE
    */
@@ -68,10 +68,10 @@ class PapayaFilterLocaleGermanyZip implements \Papaya\Filter {
       throw new \Papaya\Filter\Exception\InvalidCharacter($value, 0);
     }
     if (!$found || empty($matches['zipcode']) || strlen($matches['zipcode']) < 5) {
-      throw new \PapayaFilterExceptionLengthMinimum(5, strlen($matches['zipcode']));
+      throw new \Papaya\Filter\Exception\InvalidLength\ToShort(5, strlen($matches['zipcode']));
     }
     if (strlen($matches['zipcode']) > 5) {
-      throw new \PapayaFilterExceptionLengthMaximum(5, strlen($matches['zipcode']));
+      throw new \Papaya\Filter\Exception\InvalidLength\ToLong(5, strlen($matches['zipcode']));
     }
     $wrongMatches = array();
     $wrongFound = preg_match('([^\\d])', $matches['zipcode'], $wrongMatches, PREG_OFFSET_CAPTURE);

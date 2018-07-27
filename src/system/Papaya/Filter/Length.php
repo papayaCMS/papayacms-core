@@ -79,10 +79,10 @@ class PapayaFilterLength implements \Papaya\Filter {
       $length = strlen($value);
     }
     if (isset($this->_minimum) && $length < $this->_minimum) {
-      throw new \PapayaFilterExceptionLengthMinimum($this->_minimum, $value);
+      throw new \Papaya\Filter\Exception\InvalidLength\ToShort($this->_minimum, $value);
     }
     if (isset($this->_maximum) && $length > $this->_maximum) {
-      throw new \PapayaFilterExceptionLengthMaximum($this->_minimum, $value);
+      throw new \Papaya\Filter\Exception\InvalidLength\ToLong($this->_minimum, $value);
     }
     return TRUE;
   }

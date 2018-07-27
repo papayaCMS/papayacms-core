@@ -18,12 +18,12 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaFilterExceptionLengthMaximumTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionLengthMaximum::__construct
+  * @covers \Papaya\Filter\Exception\InvalidLength\ToLong::__construct
   */
   public function testConstructor() {
-    $e = new \PapayaFilterExceptionLengthMaximum(21, 42);
+    $e = new \Papaya\Filter\Exception\InvalidLength\ToLong(21, 42);
     $this->assertEquals(
-      'Value is too long. Expecting a maximum of 21 bytes, got 42.',
+      'Value is to long. Expecting a maximum of 21 bytes, got 42.',
       $e->getMessage()
     );
   }

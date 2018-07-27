@@ -103,7 +103,7 @@ class PapayaFilterLengthTest extends \PapayaTestCase {
   */
   public function testValidateWithValueToShortExpectingException() {
     $filter = new \PapayaFilterLength(21, 42);
-    $this->expectException(\PapayaFilterExceptionLengthMinimum::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidLength\ToShort::class);
     $filter->validate('foo');
   }
 
@@ -112,7 +112,7 @@ class PapayaFilterLengthTest extends \PapayaTestCase {
   */
   public function testValidateWithValueToLongExpectingException() {
     $filter = new \PapayaFilterLength(0, 1);
-    $this->expectException(\PapayaFilterExceptionLengthMaximum::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidLength\ToLong::class);
     $filter->validate('foo');
   }
 

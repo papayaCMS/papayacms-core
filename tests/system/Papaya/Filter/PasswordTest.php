@@ -44,7 +44,7 @@ class PapayaFilterPasswordTest extends \PapayaTestCase {
   */
   public function testValidateExpectingExceptionLengthMinimum() {
     $filter = new \PapayaFilterPassword(5);
-    $this->expectException(\PapayaFilterExceptionLengthMinimum::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidLength\ToShort::class);
     $filter->validate('Foo');
   }
 
@@ -53,7 +53,7 @@ class PapayaFilterPasswordTest extends \PapayaTestCase {
   */
   public function testValidateExpectingExceptionLengthMaximum() {
     $filter = new \PapayaFilterPassword(1, 2);
-    $this->expectException(\PapayaFilterExceptionLengthMaximum::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidLength\ToLong::class);
     $filter->validate('Foo');
   }
 

@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterExceptionLengthTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionLength::__construct
+  * @covers \Papaya\Filter\Exception\InvalidLength::__construct
   */
   public function testConstructor() {
     $e = new \PapayaFilterExceptionLength_TestProxy('Length Error', 42, 21);
@@ -29,7 +29,7 @@ class PapayaFilterExceptionLengthTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterExceptionLength::getExpectedLength
+  * @covers \Papaya\Filter\Exception\InvalidLength::getExpectedLength
   */
   public function testGetExpectedLength() {
     $e = new \PapayaFilterExceptionLength_TestProxy('Length Error', 42, 21);
@@ -40,7 +40,7 @@ class PapayaFilterExceptionLengthTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterExceptionLength::getActualLength
+  * @covers \Papaya\Filter\Exception\InvalidLength::getActualLength
   */
   public function testgetActualLength() {
     $e = new \PapayaFilterExceptionLength_TestProxy('Length Error', 42, 21);
@@ -51,6 +51,6 @@ class PapayaFilterExceptionLengthTest extends \PapayaTestCase {
   }
 }
 
-class PapayaFilterExceptionLength_TestProxy extends \PapayaFilterExceptionLength {
+class PapayaFilterExceptionLength_TestProxy extends \Papaya\Filter\Exception\InvalidLength {
 
 }

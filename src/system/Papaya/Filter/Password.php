@@ -57,10 +57,10 @@ class PapayaFilterPassword implements \Papaya\Filter {
   public function validate($value) {
     $length = strlen($value);
     if ($length < $this->_minimumLength) {
-      throw new \PapayaFilterExceptionLengthMinimum($this->_minimumLength, $length);
+      throw new \Papaya\Filter\Exception\InvalidLength\ToShort($this->_minimumLength, $length);
     }
     if ($length > $this->_maximumLength) {
-      throw new \PapayaFilterExceptionLengthMaximum($this->_maximumLength, $length);
+      throw new \Papaya\Filter\Exception\InvalidLength\ToLong($this->_maximumLength, $length);
     }
     preg_match_all('(\PL)u', $value, $matches);
     if (!(isset($matches[0]) && count($matches[0]) > 1)) {

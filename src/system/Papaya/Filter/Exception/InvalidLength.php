@@ -13,35 +13,38 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception;
 /**
-* A length exception is thrown if a certain length is expected and another if found
-*
-* In other words if a value is to short or to long
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-abstract class PapayaFilterExceptionLength extends \PapayaFilterException {
+ * A length exception is thrown if a certain length is expected and another if found
+ *
+ * In other words if a value is to short or to long
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+abstract class InvalidLength extends \PapayaFilterException {
 
   /**
-  * The expected length of the value
-  * @var integer
-  */
+   * The expected length of the value
+   *
+   * @var integer
+   */
   private $_expectedLength = 0;
 
   /**
-  * The actual length of the value
-  * @var int
-  */
+   * The actual length of the value
+   *
+   * @var int
+   */
   private $_actualLength = 0;
 
   /**
-  * Construct object, set message and length informations
-  *
-  * @param string $message
-  * @param integer $expected
-  * @param integer $actual
-  */
+   * Construct object, set message and length informations
+   *
+   * @param string $message
+   * @param integer $expected
+   * @param integer $actual
+   */
   public function __construct($message, $expected, $actual) {
     $this->_expectedLength = $expected;
     $this->_actualLength = $actual;
@@ -49,19 +52,19 @@ abstract class PapayaFilterExceptionLength extends \PapayaFilterException {
   }
 
   /**
-  * Read private expected length property
-  *
-  * @return integer
-  */
+   * Read private expected length property
+   *
+   * @return integer
+   */
   public function getExpectedLength() {
     return $this->_expectedLength;
   }
 
   /**
-  * Read private actual length property
-  *
-  * @return integer
-  */
+   * Read private actual length property
+   *
+   * @return integer
+   */
   public function getActualLength() {
     return $this->_actualLength;
   }

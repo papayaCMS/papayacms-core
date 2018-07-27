@@ -57,7 +57,7 @@ class PapayaFilterLocaleGermanyZipTest extends \PapayaTestCase {
   */
   public function testValidateExpectLengthMinimumException() {
     $filter = new \PapayaFilterLocaleGermanyZip();
-    $this->expectException(\PapayaFilterExceptionLengthMinimum::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidLength\ToShort::class);
     $filter->validate('123');
   }
 
@@ -66,7 +66,7 @@ class PapayaFilterLocaleGermanyZipTest extends \PapayaTestCase {
   */
   public function testValidateExpectLengthMaximumException() {
     $filter = new \PapayaFilterLocaleGermanyZip();
-    $this->expectException(\PapayaFilterExceptionLengthMaximum::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidLength\ToLong::class);
     $filter->validate('342423432424');
   }
 

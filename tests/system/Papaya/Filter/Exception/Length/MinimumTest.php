@@ -18,12 +18,12 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaFilterExceptionLengthMinimumTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionLengthMinimum::__construct
+  * @covers \Papaya\Filter\Exception\InvalidLength\ToShort::__construct
   */
   public function testConstructor() {
-    $e = new \PapayaFilterExceptionLengthMinimum(42, 21);
+    $e = new \Papaya\Filter\Exception\InvalidLength\ToShort(42, 21);
     $this->assertEquals(
-      'Value is too short. Expecting a minimum of 42 bytes, got 21.',
+      'Value is to short. Expecting a minimum of 42 bytes, got 21.',
       $e->getMessage()
     );
   }

@@ -58,6 +58,9 @@ class Autoloader {
     'PapayaFilterExceptionCharacterInvalid' => Filter\Exception\InvalidCharacter::class,
     'PapayaFilterExceptionEmpty' => Filter\Exception\IsEmpty::class,
     'PapayaFilterExceptionCountMismatch' => Filter\Exception\InvalidCount::class,
+    'PapayaFilterExceptionLength' => Filter\Exception\InvalidLength::class,
+    'PapayaFilterExceptionLengthMaximum' => Filter\Exception\InvalidLength\ToLong::class,
+    'PapayaFilterExceptionLengthMinimum' => Filter\Exception\InvalidLength\ToShort::class,
 
     'PapayaObject' => Application\BaseObject::class
   );

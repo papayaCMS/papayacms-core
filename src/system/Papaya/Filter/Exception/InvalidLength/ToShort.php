@@ -13,24 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception\InvalidLength;
 /**
-* This exception is thrown if a value is to short.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionLengthMinimum extends \PapayaFilterExceptionLength {
+ * This exception is thrown if a value is to short.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class ToShort extends \Papaya\Filter\Exception\InvalidLength {
 
   /**
-  * Construct object with length informations
-  *
-  * @param integer $expected
-  * @param integer $actual
-  */
+   * Construct object with length information
+   *
+   * @param integer $expected
+   * @param integer $actual
+   */
   public function __construct($expected, $actual) {
     parent::__construct(
       sprintf(
-        'Value is too short. Expecting a minimum of %d bytes, got %d.',
+        'Value is to short. Expecting a minimum of %d bytes, got %d.',
         $expected,
         $actual
       ),
