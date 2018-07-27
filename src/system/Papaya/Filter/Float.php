@@ -68,10 +68,10 @@ class PapayaFilterFloat implements \Papaya\Filter {
       throw new \Papaya\Filter\Exception\NotNumeric($value);
     }
     if (!is_null($this->_min) && $value < $this->_min) {
-      throw new \PapayaFilterExceptionRangeMinimum($this->_min, $value);
+      throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_min, $value);
     }
     if (!is_null($this->_max) && $value > $this->_max) {
-      throw new \PapayaFilterExceptionRangeMaximum($this->_max, $value);
+      throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($this->_max, $value);
     }
     return TRUE;
   }

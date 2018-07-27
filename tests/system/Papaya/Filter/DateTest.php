@@ -46,7 +46,7 @@ class PapayaFilterDateTest extends \PapayaTestCase {
    * @dataProvider validateSuccessProvider
    * @param int $includeTime
    * @param mixed $value
-   * @throws \PapayaFilterExceptionRangeMaximum
+   * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
    * @throws \PapayaFilterExceptionType
    */
   public function testValidateSuccess($includeTime, $value) {
@@ -59,7 +59,7 @@ class PapayaFilterDateTest extends \PapayaTestCase {
    * @dataProvider validateExceptionFormatProvider
    * @param int $includeTime
    * @param mixed $value
-   * @throws \PapayaFilterExceptionRangeMaximum
+   * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
    * @throws \PapayaFilterExceptionType
    */
   public function testValidateExceptionFormat($includeTime, $value) {
@@ -72,12 +72,12 @@ class PapayaFilterDateTest extends \PapayaTestCase {
    * @covers \PapayaFilterDate::validate
    * @dataProvider validateExceptionRangeProvider
    * @param mixed $value
-   * @throws \PapayaFilterExceptionRangeMaximum
+   * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
    * @throws \PapayaFilterExceptionType
    */
   public function testValidateExceptionRange($value) {
     $filter = new \PapayaFilterDate(\PapayaFilterDate::DATE_NO_TIME);
-    $this->expectException(\PapayaFilterExceptionRangeMaximum::class);
+    $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToLarge::class);
     $filter->validate($value);
   }
 

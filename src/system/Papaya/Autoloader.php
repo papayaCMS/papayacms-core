@@ -66,6 +66,10 @@ class Autoloader {
     'PapayaFilterExceptionNotEnclosed' => Filter\Exception\NotIncluded::class,
     'PapayaFilterExceptionNotFloat' => Filter\Exception\NotNumeric::class,
     'PapayaFilterExceptionPartInvalid' => Filter\Exception\InvalidPart::class,
+    'PapayaFilterExceptionPcre' => Filter\Exception\RegEx\NoMatch::class,
+    'PapayaFilterExceptionRange' => Filter\Exception\OutOfRange::class,
+    'PapayaFilterExceptionRangeMaximum' => Filter\Exception\OutOfRange\ToLarge::class,
+    'PapayaFilterExceptionRangeMinimum' => Filter\Exception\OutOfRange\ToSmall::class,
 
     'PapayaObject' => Application\BaseObject::class
   );

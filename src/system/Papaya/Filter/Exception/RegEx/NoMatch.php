@@ -13,29 +13,43 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception\RegEx;
 /**
-* This exception is thrown if a value is to small.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionRangeMinimum extends \PapayaFilterExceptionRange {
+ * This exception is thrown if a value does not match a given pcre pattern.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class NoMatch extends \PapayaFilterException {
 
   /**
-  * Construct object with length informations
-  *
-  * @param integer|float $expected
-  * @param integer|float $actual
-  */
-  public function __construct($expected, $actual) {
+   * Pcre pattern used for validation
+   *
+   * @var string
+   */
+  private $_pattern;
+
+  /**
+   * Construct object and set (static) message.
+   *
+   * @param string $pattern
+   */
+  public function __construct($pattern) {
+    $this->_pattern = $pattern;
     parent::__construct(
       sprintf(
-        'Value is to small. Expecting a minimum of "%s", got "%s".',
-        $expected,
-        $actual
-      ),
-      $expected,
-      $actual
+        'Value does not match pattern "%s"',
+        $pattern
+      )
     );
+  }
+
+  /**
+   * Get pattern for individual error messages
+   *
+   * @return string
+   */
+  public function getPattern() {
+    return $this->_pattern;
   }
 }

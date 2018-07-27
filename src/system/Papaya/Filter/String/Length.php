@@ -72,10 +72,10 @@ class PapayaFilterStringLength implements \Papaya\Filter {
     }
     $length = \PapayaUtilStringUtf8::length((string)$value);
     if (isset($this->_minimum) && $length < $this->_minimum) {
-      throw new \PapayaFilterExceptionRangeMinimum($this->_minimum, $length);
+      throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_minimum, $length);
     }
     if (isset($this->_maximum) && $length > $this->_maximum) {
-      throw new \PapayaFilterExceptionRangeMaximum($this->_maximum, $length);
+      throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($this->_maximum, $length);
     }
     return TRUE;
   }

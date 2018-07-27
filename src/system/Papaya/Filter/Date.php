@@ -87,7 +87,7 @@ class PapayaFilterDate implements \Papaya\Filter {
    *
    * @param string $value
    * @throws \PapayaFilterExceptionType
-   * @throws \PapayaFilterExceptionRangeMaximum
+   * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
    * @return boolean
    */
   public function validate($value) {
@@ -120,10 +120,10 @@ class PapayaFilterDate implements \Papaya\Filter {
       $daysPerMonth[1] = 29;
     }
     if ($month > 12) {
-      throw new \PapayaFilterExceptionRangeMaximum(12, $month);
+      throw new \Papaya\Filter\Exception\OutOfRange\ToLarge(12, $month);
     }
     if ($day > $daysPerMonth[$month - 1]) {
-      throw new \PapayaFilterExceptionRangeMaximum($daysPerMonth[$month - 1], $day);
+      throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($daysPerMonth[$month - 1], $day);
     }
     if (isset($time)) {
       $timeFilter = new \PapayaFilterTime($this->_step);

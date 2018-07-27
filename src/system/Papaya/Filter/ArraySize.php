@@ -68,10 +68,10 @@ class ArraySize implements \Papaya\Filter {
     $size = is_array($value) ? count($value) : 0;
     $value = (int)$value;
     if (isset($this->_minimum) && $value < $this->_minimum) {
-      throw new \PapayaFilterExceptionRangeMinimum($this->_minimum, $size);
+      throw new Exception\OutOfRange\ToSmall($this->_minimum, $size);
     }
     if (isset($this->_maximum) && $value > $this->_maximum) {
-      throw new \PapayaFilterExceptionRangeMaximum($this->_maximum, $size);
+      throw new Exception\OutOfRange\ToLarge($this->_maximum, $size);
     }
     return TRUE;
   }

@@ -61,7 +61,7 @@ class PapayaFilterFloatTest extends \PapayaTestCase {
   */
   public function testValidateWithMinimum(){
     $filter = new \PapayaFilterFloat(-20.0);
-    $this->expectException(\PapayaFilterExceptionRangeMinimum::class);
+    $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToSmall::class);
     $filter->validate('-40');
   }
 
@@ -70,7 +70,7 @@ class PapayaFilterFloatTest extends \PapayaTestCase {
   */
   public function testValidateWithMinimumAndMaximum(){
     $filter = new \PapayaFilterFloat(-20.0, 40.5);
-    $this->expectException(\PapayaFilterExceptionRangeMaximum::class);
+    $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToLarge::class);
     $filter->validate('50');
   }
 

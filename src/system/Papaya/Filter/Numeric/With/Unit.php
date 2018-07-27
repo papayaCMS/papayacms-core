@@ -105,11 +105,11 @@ class PapayaFilterNumericWithUnit implements \Papaya\Filter {
       }
       if (isset($this->_minimum) &&
           (float)$matches['number'] < $this->_minimum) {
-        throw new \PapayaFilterExceptionRangeMinimum($this->_minimum, (float)$matches['number']);
+        throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_minimum, (float)$matches['number']);
       }
       if (isset($this->_maximum) &&
           (float)$matches['number'] > $this->_maximum) {
-        throw new \PapayaFilterExceptionRangeMaximum($this->_maximum, (float)$matches['number']);
+        throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($this->_maximum, (float)$matches['number']);
       }
       return TRUE;
     } elseif ($value == '0') {

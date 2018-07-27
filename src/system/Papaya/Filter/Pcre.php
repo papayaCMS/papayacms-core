@@ -54,7 +54,7 @@ class PapayaFilterPcre implements \Papaya\Filter {
   */
   public function validate($value) {
     if (!preg_match($this->_pattern, $value)) {
-      throw new \PapayaFilterExceptionPcre($this->_pattern);
+      throw new \Papaya\Filter\Exception\RegEx\NoMatch($this->_pattern);
     }
     return TRUE;
   }

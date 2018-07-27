@@ -13,39 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception\OutOfRange;
 /**
-* This exception is thrown if a value does not match a given pcre pattern.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionPcre extends \PapayaFilterException {
+ * This exception is thrown if a value is to small.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class ToLarge extends \Papaya\Filter\Exception\OutOfRange {
 
   /**
-  * Pcre pattern used for validation
-  * @var string
-  */
-  private $_pattern = '';
-
-  /**
-  * Construct object and set (static) message.
-  */
-  public function __construct($pattern) {
-    $this->_pattern = $pattern;
+   * Construct object with length informations
+   *
+   * @param integer|float $expected
+   * @param integer|float $actual
+   */
+  public function __construct($expected, $actual) {
     parent::__construct(
       sprintf(
-        'Value does not match pattern "%s"',
-        $pattern
-      )
+        'Value is to large. Expecting a maximum of "%s", got "%s".',
+        $expected,
+        $actual
+      ),
+      $expected,
+      $actual
     );
-  }
-
-  /**
-  * Get pattern for individual error messages
-  *
-  * @return string
-  */
-  public function getPattern() {
-    return $this->_pattern;
   }
 }

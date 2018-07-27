@@ -13,24 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception\OutOfRange;
 /**
-* This exception is thrown if a value is to small.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionRangeMaximum extends \PapayaFilterExceptionRange {
+ * This exception is thrown if a value is to small.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class ToSmall extends \Papaya\Filter\Exception\OutOfRange {
 
   /**
-  * Construct object with length informations
-  *
-  * @param integer|float $expected
-  * @param integer|float $actual
-  */
+   * Construct object with length informations
+   *
+   * @param integer|float $expected
+   * @param integer|float $actual
+   */
   public function __construct($expected, $actual) {
     parent::__construct(
       sprintf(
-        'Value is to large. Expecting a maximum of "%s", got "%s".',
+        'Value is to small. Expecting a minimum of "%s", got "%s".',
         $expected,
         $actual
       ),

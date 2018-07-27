@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaFilterExceptionRangeMinimumTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionRangeMinimum::__construct
+  * @covers \Papaya\Filter\Exception\OutOfRange\ToSmall::__construct
   */
   public function testConstructor() {
-    $e = new \PapayaFilterExceptionRangeMinimum(42, 21);
+    $e = new \Papaya\Filter\Exception\OutOfRange\ToSmall(42, 21);
     $this->assertEquals(
       'Value is to small. Expecting a minimum of "42", got "21".',
       $e->getMessage()

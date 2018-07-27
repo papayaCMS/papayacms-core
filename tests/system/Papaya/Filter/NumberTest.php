@@ -40,8 +40,8 @@ class PapayaFilterNumberTest extends \PapayaTestCase {
    * @covers \PapayaFilterNumber::validate
    * @dataProvider validateSuccessProvider
    * @param mixed $value
-   * @throws \PapayaFilterExceptionRangeMaximum
-   * @throws \PapayaFilterExceptionRangeMinimum
+   * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
+   * @throws \Papaya\Filter\Exception\OutOfRange\ToSmall
    * @throws \PapayaFilterExceptionType
    */
   public function testValidateSuccess($value) {
@@ -65,7 +65,7 @@ class PapayaFilterNumberTest extends \PapayaTestCase {
   */
   public function testValidateFailureTooShort() {
     $filter = new \PapayaFilterNumber(3);
-    $this->expectException(\PapayaFilterExceptionRangeMinimum::class);
+    $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToSmall::class);
     /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate('22');
   }
@@ -75,7 +75,7 @@ class PapayaFilterNumberTest extends \PapayaTestCase {
   */
   public function testValidateFailureTooLong() {
     $filter = new \PapayaFilterNumber(NULL, 3);
-    $this->expectException(\PapayaFilterExceptionRangeMaximum::class);
+    $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToLarge::class);
     /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate('2222');
   }

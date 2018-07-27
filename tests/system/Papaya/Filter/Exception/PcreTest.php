@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterExceptionPcreTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionPcre::__construct
+  * @covers \Papaya\Filter\Exception\RegEx\NoMatch::__construct
   */
   public function testConstructor() {
-    $e = new \PapayaFilterExceptionPcre('(foo)');
+    $e = new \Papaya\Filter\Exception\RegEx\NoMatch('(foo)');
     $this->assertEquals(
       'Value does not match pattern "(foo)"',
       $e->getMessage()
@@ -29,10 +29,10 @@ class PapayaFilterExceptionPcreTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterExceptionPcre::getPattern
+  * @covers \Papaya\Filter\Exception\RegEx\NoMatch::getPattern
   */
   public function testGetPattern() {
-    $e = new \PapayaFilterExceptionPcre('(foo)');
+    $e = new \Papaya\Filter\Exception\RegEx\NoMatch('(foo)');
     $this->assertEquals(
       '(foo)',
       $e->getPattern()

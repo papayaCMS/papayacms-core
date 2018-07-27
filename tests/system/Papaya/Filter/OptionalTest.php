@@ -65,7 +65,7 @@ class PapayaFilterOptionalTest extends \PapayaTestCase {
   */
   public function testValidateWithInvalidValueExpectingException() {
     $filter = new \PapayaFilterOptional($innerFilter = new \PapayaFilterInteger(21, 42));
-    $this->expectException(\PapayaFilterExceptionRangeMaximum::class);
+    $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToLarge::class);
     $this->assertTrue(
       $filter->validate('84')
     );

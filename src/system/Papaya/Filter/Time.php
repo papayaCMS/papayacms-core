@@ -45,7 +45,7 @@ class PapayaFilterTime implements \Papaya\Filter {
   *
   * @param string $value
   * @throws \PapayaFilterExceptionType
-  * @throws \PapayaFilterExceptionRangeMaximum
+  * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
   * @return boolean
   */
   public function validate($value) {
@@ -81,7 +81,7 @@ class PapayaFilterTime implements \Papaya\Filter {
     );
     foreach ($limits as $element => $limit) {
       if (isset($match[$element]) && $match[$element] > $limit) {
-        throw new \PapayaFilterExceptionRangeMaximum($limit, $match[$element]);
+        throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($limit, $match[$element]);
       }
     }
     $timeStamp = $this->_toTimestamp(

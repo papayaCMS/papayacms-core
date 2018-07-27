@@ -64,10 +64,11 @@ class PapayaFilterNumber implements \Papaya\Filter {
 
   /**
   * Check a value and throw an exception if it does not match the constraints
+  *
   * @param string $value
   * @throws \PapayaFilterExceptionType
-  * @throws \PapayaFilterExceptionRangeMinimum
-  * @throws \PapayaFilterExceptionRangeMaximum
+  * @throws \Papaya\Filter\Exception\OutOfRange\ToSmall
+  * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
   * @return boolean
   */
   public function validate($value) {
@@ -75,10 +76,10 @@ class PapayaFilterNumber implements \Papaya\Filter {
       throw new \PapayaFilterExceptionType('number');
     }
     if ($this->_minimumLength !== NULL && strlen($value) < $this->_minimumLength) {
-      throw new \PapayaFilterExceptionRangeMinimum($this->_minimumLength, strlen($value));
+      throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_minimumLength, strlen($value));
     }
     if ($this->_maximumLength !== NULL && strlen($value) > $this->_maximumLength) {
-      throw new \PapayaFilterExceptionRangeMaximum($this->_maximumLength, strlen($value));
+      throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($this->_maximumLength, strlen($value));
     }
     return TRUE;
   }

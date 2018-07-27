@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterExceptionRangeTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionRange::__construct
+  * @covers \Papaya\Filter\Exception\OutOfRange::__construct
   */
   public function testConstructor() {
     $e = new \PapayaFilterExceptionRange_TestProxy('Range Error', 42, 21);
@@ -29,7 +29,7 @@ class PapayaFilterExceptionRangeTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterExceptionRange::getExpectedLimit
+  * @covers \Papaya\Filter\Exception\OutOfRange::getExpectedLimit
   */
   public function testGetExpectedLimit() {
     $e = new \PapayaFilterExceptionRange_TestProxy('Range Error', 42, 21);
@@ -40,7 +40,7 @@ class PapayaFilterExceptionRangeTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterExceptionRange::getActualValue
+  * @covers \Papaya\Filter\Exception\OutOfRange::getActualValue
   */
   public function testgetActualValue() {
     $e = new \PapayaFilterExceptionRange_TestProxy('Range Error', 42, 21);
@@ -51,6 +51,6 @@ class PapayaFilterExceptionRangeTest extends \PapayaTestCase {
   }
 }
 
-class PapayaFilterExceptionRange_TestProxy extends \PapayaFilterExceptionRange {
+class PapayaFilterExceptionRange_TestProxy extends \Papaya\Filter\Exception\OutOfRange {
 
 }

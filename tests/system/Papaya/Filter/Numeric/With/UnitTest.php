@@ -138,7 +138,7 @@ class PapayaFilterNumericWithUnitTest extends \PapayaTestCase {
   */
   public function testValidateExpectedFilterRangeMinimumException() {
     $filter = new \PapayaFilterNumericWithUnit('px', -10);
-    $this->expectException(\PapayaFilterExceptionRangeMinimum::class);
+    $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToSmall::class);
     $filter->validate('-999px');
   }
 
@@ -147,7 +147,7 @@ class PapayaFilterNumericWithUnitTest extends \PapayaTestCase {
   */
   public function testValidateExpectedFilterRangeMaximumException() {
     $filter = new \PapayaFilterNumericWithUnit('px', -10, 999);
-    $this->expectException(\PapayaFilterExceptionRangeMaximum::class);
+    $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToLarge::class);
     $filter->validate('1000px');
   }
 

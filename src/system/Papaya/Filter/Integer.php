@@ -69,10 +69,10 @@ class PapayaFilterInteger implements \Papaya\Filter {
     if (preg_match('(^[+-]?\d+$)D', $value)) {
       $value = (int)$value;
       if (isset($this->_minimum) && $value < $this->_minimum) {
-        throw new \PapayaFilterExceptionRangeMinimum($this->_minimum, $value);
+        throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_minimum, $value);
       }
       if (isset($this->_maximum) && $value > $this->_maximum) {
-        throw new \PapayaFilterExceptionRangeMaximum($this->_maximum, $value);
+        throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($this->_maximum, $value);
       }
     } else {
       throw new \PapayaFilterExceptionType('integer number');

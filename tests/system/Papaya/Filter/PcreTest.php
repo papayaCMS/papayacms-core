@@ -52,7 +52,7 @@ class PapayaFilterPcreTest extends \PapayaTestCase {
   */
   public function testValidateExpectingException() {
     $filter = new \PapayaFilterPcre('(^foo$)');
-    $this->expectException(\PapayaFilterExceptionPcre::class);
+    $this->expectException(\Papaya\Filter\Exception\RegEx\NoMatch::class);
     $filter->validate('bar');
   }
 

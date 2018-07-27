@@ -13,34 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception;
 /**
-* A range exception is thrown if a value in a certain range is expected.
-*
-* In other words if a value is to small or to large
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-abstract class PapayaFilterExceptionRange extends \PapayaFilterException {
+ * A range exception is thrown if a value in a certain range is expected.
+ *
+ * In other words if a value is to small or to large
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+abstract class OutOfRange extends \PapayaFilterException {
 
   /**
-  * The expected value limit (minimum or maximum)
-  * @var integer|float
-  */
+   * The expected value limit (minimum or maximum)
+   *
+   * @var integer|float
+   */
   private $_expectedLimit = 0;
   /**
-  * The actual length of the value
-  * @var integer|float
-  */
+   * The actual length of the value
+   *
+   * @var integer|float
+   */
   private $_actualValue = 0;
 
   /**
-  * Construct object, set message and range limit informations
-  *
-  * @param string $message
-  * @param integer|float $expected
-  * @param integer|float $actual
-  */
+   * Construct object, set message and range limit information
+   *
+   * @param string $message
+   * @param integer|float $expected
+   * @param integer|float $actual
+   */
   public function __construct($message, $expected, $actual) {
     $this->_expectedLimit = $expected;
     $this->_actualValue = $actual;
@@ -48,19 +51,19 @@ abstract class PapayaFilterExceptionRange extends \PapayaFilterException {
   }
 
   /**
-  * Read private expected value limit property
-  *
-  * @return integer
-  */
+   * Read private expected value limit property
+   *
+   * @return integer
+   */
   public function getExpectedLimit() {
     return $this->_expectedLimit;
   }
 
   /**
-  * Read private actual value property
-  *
-  * @return integer
-  */
+   * Read private actual value property
+   *
+   * @return integer
+   */
   public function getActualValue() {
     return $this->_actualValue;
   }
