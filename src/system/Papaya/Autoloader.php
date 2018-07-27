@@ -73,6 +73,9 @@ class Autoloader {
     'PapayaFilterExceptionType' => Filter\Exception\UnexpectedType::class,
     'PapayaFilterExceptionUndefined' => Filter\Exception\IsUndefined::class,
     'PapayaFilterExceptionXml' => Filter\Exception\InvalidXml::class,
+    'PapayaFilterFactoryExceptionInvalidFilter' => Filter\Factory\Exception\InvalidFilter::class,
+    'PapayaFilterFactoryExceptionInvalidOptions' => Filter\Factory\Exception\InvalidOptions::class,
+    'PapayaFilterFactoryExceptionInvalidProfile' => Filter\Factory\Exception\InvalidProfile::class,
 
     'PapayaObject' => Application\BaseObject::class
   );

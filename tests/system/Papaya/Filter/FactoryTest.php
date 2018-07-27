@@ -63,7 +63,7 @@ class PapayaFilterFactoryTest extends \PapayaTestCase {
    */
   public function testGetProfileExpectingException() {
     $factory = new \PapayaFilterFactory();
-    $this->expectException(\PapayaFilterFactoryExceptionInvalidProfile::class);
+    $this->expectException(\Papaya\Filter\Factory\Exception\InvalidProfile::class);
     $factory->getProfile('SomeInvalidProfileName');
   }
 

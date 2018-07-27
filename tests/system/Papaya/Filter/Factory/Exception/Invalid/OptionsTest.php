@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaFilterFactoryExceptionInvalidOptionsTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFactoryExceptionInvalidOptions
+   * @covers \Papaya\Filter\Factory\Exception\InvalidOptions
    */
   public function testConstructor() {
-    $exception = new \PapayaFilterFactoryExceptionInvalidOptions('ExampleProfile');
+    $exception = new \Papaya\Filter\Factory\Exception\InvalidOptions('ExampleProfile');
     $this->assertEquals(
       'Invalid options in filter profile class: "ExampleProfile".',
       $exception->getMessage()

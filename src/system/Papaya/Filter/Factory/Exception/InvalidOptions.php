@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Factory\Exception;
 /**
-* Exception: invalid filter class in profile
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterFactoryExceptionInvalidFilter extends \PapayaFilterFactoryException {
+ * Exception: options invalid for the profile class
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class InvalidOptions extends \Papaya\Filter\Factory\Exception {
 
   /**
    * @param string $name
    */
   public function __construct($name) {
     parent::__construct(
-      sprintf('Can not use invalid filter class: "%s".', $name)
+      sprintf('Invalid options in filter profile class: "%s".', $name)
     );
   }
 

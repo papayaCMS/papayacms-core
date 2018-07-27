@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaFilterFactoryExceptionInvalidFilterTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFactoryExceptionInvalidFilter
+   * @covers \Papaya\Filter\Factory\Exception\InvalidFilter
    */
   public function testConstructor() {
-    $exception = new \PapayaFilterFactoryExceptionInvalidFilter('ExampleFilter');
+    $exception = new \Papaya\Filter\Factory\Exception\InvalidFilter('ExampleFilter');
     $this->assertEquals(
       'Can not use invalid filter class: "ExampleFilter".',
       $exception->getMessage()

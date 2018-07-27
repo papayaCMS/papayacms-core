@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaFilterFactoryExceptionInvalidProfileTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFactoryExceptionInvalidProfile
+   * @covers \Papaya\Filter\Factory\Exception\InvalidProfile
    */
   public function testConstructor() {
-    $exception = new \PapayaFilterFactoryExceptionInvalidProfile('ExampleProfile');
+    $exception = new \Papaya\Filter\Factory\Exception\InvalidProfile('ExampleProfile');
     $this->assertEquals(
       'Invalid or unknown filter factory profile: "ExampleProfile".',
       $exception->getMessage()

@@ -117,7 +117,7 @@ class PapayaFilterFactory implements \IteratorAggregate {
    * Get the filter factory profile by name
    *
    * @param string $name
-   * @throws \PapayaFilterFactoryExceptionInvalidProfile
+   * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    * @return \Papaya\Filter
    */
   public function getProfile($name) {
@@ -128,15 +128,15 @@ class PapayaFilterFactory implements \IteratorAggregate {
    * Get the filter factory profile by name, internal static call
    *
    * @param string $name
-   * @throws \PapayaFilterFactoryExceptionInvalidProfile
-   * @throws \PapayaFilterFactoryExceptionInvalidProfile
+   * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
+   * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
   private static function _getProfile($name) {
     $class = self::_getProfileClass($name);
     if (class_exists($class)) {
       return new $class();
     }
-    throw new \PapayaFilterFactoryExceptionInvalidProfile($class);
+    throw new \Papaya\Filter\Factory\Exception\InvalidProfile($class);
   }
 
   /**

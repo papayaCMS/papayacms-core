@@ -25,8 +25,8 @@ class PapayaFilterFactoryProfileGenerator extends \PapayaFilterFactoryProfile {
   /**
    * @see \PapayaFilterFactoryProfile::getFilter()
    * @throws ReflectionException
-   * @throws \PapayaFilterFactoryExceptionInvalidFilter
-   * @throws \PapayaFilterFactoryExceptionInvalidOptions
+   * @throws \Papaya\Filter\Factory\Exception\InvalidFilter
+   * @throws \Papaya\Filter\Factory\Exception\InvalidOptions
    */
   public function getFilter() {
     $arguments = $this->options();
@@ -39,9 +39,9 @@ class PapayaFilterFactoryProfileGenerator extends \PapayaFilterFactoryProfile {
           $arguments
         );
       }
-      throw new \PapayaFilterFactoryExceptionInvalidFilter($name);
+      throw new \Papaya\Filter\Factory\Exception\InvalidFilter($name);
     }
-    throw new \PapayaFilterFactoryExceptionInvalidOptions(__CLASS__);
+    throw new \Papaya\Filter\Factory\Exception\InvalidOptions(__CLASS__);
   }
 }
 

@@ -13,12 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Factory;
 /**
-* Abstract superclass for papaya filter factory exceptions
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-abstract class PapayaFilterFactoryException extends \Papaya\Exception {
+ * Abstract superclass for papaya filter factory exceptions
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+abstract class Exception extends \Papaya\Exception {
 
 }
