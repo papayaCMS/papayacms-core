@@ -19,10 +19,10 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsGuid extends \PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsGuid extends \Papaya\Filter\Factory\Profile {
 
   /**
-   * @see \PapayaFilterFactoryProfile::getFilter()
+   * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
     return new \PapayaFilterPcre('(^[a-fA-F\d]{32}$)Du');

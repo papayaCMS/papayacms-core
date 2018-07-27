@@ -163,7 +163,7 @@ class PapayaFilterFactory implements \IteratorAggregate {
    * @return \Papaya\Filter|\PapayaFilterLogicalOr
    */
   private static function _getFilter($profile, $mandatory = TRUE, $options = NULL) {
-    if (!$profile instanceof \PapayaFilterFactoryProfile) {
+    if (!$profile instanceof \Papaya\Filter\Factory\Profile) {
       $profile = self::_getProfile($profile);
     }
     if (isset($options)) {
@@ -185,7 +185,7 @@ class PapayaFilterFactory implements \IteratorAggregate {
    * Capture the exception from the filter and return a boolean.
    *
    * @param mixed $value
-   * @param string|\Papaya\Filter|\PapayaFilterFactoryProfile $filter
+   * @param string|\Papaya\Filter|\Papaya\Filter\Factory\Profile $filter
    * @param bool $mandatory
    * @return bool
    */
@@ -211,7 +211,7 @@ class PapayaFilterFactory implements \IteratorAggregate {
    * Capture the exception from the filter and return a boolean.
    *
    * @param mixed $value
-   * @param string|\Papaya\Filter|\PapayaFilterFactoryProfile $filter
+   * @param string|\Papaya\Filter|\Papaya\Filter\Factory\Profile $filter
    * @return mixed
    */
   public static function filter($value, $filter) {

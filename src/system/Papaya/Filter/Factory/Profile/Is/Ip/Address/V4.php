@@ -19,10 +19,10 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsIpAddressV4 extends \PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsIpAddressV4 extends \Papaya\Filter\Factory\Profile {
 
   /**
-   * @see \PapayaFilterFactoryProfile::getFilter()
+   * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
     return new \PapayaFilterIpV4();

@@ -19,10 +19,10 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsFilePath extends \PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsFilePath extends \Papaya\Filter\Factory\Profile {
 
   /**
-   * @see \PapayaFilterFactoryProfile::getFilter()
+   * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
     return new \PapayaFilterFilePath();

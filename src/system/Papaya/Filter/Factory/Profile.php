@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Factory;
 /**
-* Superclass for papaya filter factory profiles, definition how a filter is created
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-abstract class PapayaFilterFactoryProfile {
+ * Superclass for papaya filter factory profiles, definition how a filter is created
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+abstract class Profile {
 
   /**
    * @var mixed
@@ -40,7 +41,7 @@ abstract class PapayaFilterFactoryProfile {
    * @return mixed|null
    */
   public function options($options = NULL) {
-    if (isset($options)) {
+    if (NULL !== $options) {
       $this->_options = $options;
     }
     return $this->_options;

@@ -20,10 +20,10 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileGenerator extends \PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileGenerator extends \Papaya\Filter\Factory\Profile {
 
   /**
-   * @see \PapayaFilterFactoryProfile::getFilter()
+   * @see \Papaya\Filter\Factory\Profile::getFilter()
    * @throws ReflectionException
    * @throws \Papaya\Filter\Factory\Exception\InvalidFilter
    * @throws \Papaya\Filter\Factory\Exception\InvalidOptions

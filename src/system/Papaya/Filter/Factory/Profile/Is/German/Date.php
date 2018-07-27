@@ -19,10 +19,10 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsGermanDate extends \PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsGermanDate extends \Papaya\Filter\Factory\Profile {
 
   /**
-   * @see \PapayaFilterFactoryProfile::getFilter()
+   * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
     return new \PapayaFilterPcre('(^\d{1,2}\.\d{1,2}\.\d{2,4}$)Du');

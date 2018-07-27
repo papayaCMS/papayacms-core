@@ -19,10 +19,10 @@
 * @package Papaya-Library
 * @subpackage Filter
 */
-class PapayaFilterFactoryProfileIsTextWithNumbers extends \PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfileIsTextWithNumbers extends \Papaya\Filter\Factory\Profile {
 
   /**
-   * @see \PapayaFilterFactoryProfile::getFilter()
+   * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
     return new \PapayaFilterText(\PapayaFilterText::ALLOW_SPACES | \PapayaFilterText::ALLOW_DIGITS);

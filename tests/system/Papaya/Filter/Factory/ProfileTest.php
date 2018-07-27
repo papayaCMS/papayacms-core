@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterFactoryProfileTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFactoryProfile::options
+   * @covers \Papaya\Filter\Factory\Profile::options
    */
   public function testOptionsGetAfterSet() {
     $profile = new \PapayaFilterFactoryProfile_TestProxy();
@@ -27,7 +27,7 @@ class PapayaFilterFactoryProfileTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaFilterFactoryProfile::options
+   * @covers \Papaya\Filter\Factory\Profile::options
    */
   public function testOptionGetWithoutSetExpectingFalse() {
     $profile = new \PapayaFilterFactoryProfile_TestProxy();
@@ -36,7 +36,7 @@ class PapayaFilterFactoryProfileTest extends \PapayaTestCase {
 
 }
 
-class PapayaFilterFactoryProfile_TestProxy extends \PapayaFilterFactoryProfile {
+class PapayaFilterFactoryProfile_TestProxy extends \Papaya\Filter\Factory\Profile {
 
   public function getFilter() {
   }
