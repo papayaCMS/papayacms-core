@@ -13,16 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Locale\Germany;
 /**
-* Papaya filter class for German zip code
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterLocaleGermanyZip implements \Papaya\Filter {
+ * Papaya filter class for German zip code
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Zip implements \Papaya\Filter {
 
   /**
    * Check flag for country prefix
+   *
    * @var boolean|NULL
    */
   private $_allowCountryPrefix;
@@ -82,11 +84,11 @@ class PapayaFilterLocaleGermanyZip implements \Papaya\Filter {
   }
 
   /**
-  * The filter function is used to read a input value if it is valid.
-  *
-  * @param string $value
-  * @return string|NULL
-  */
+   * The filter function is used to read a input value if it is valid.
+   *
+   * @param string $value
+   * @return string|NULL
+   */
   public function filter($value) {
     try {
       $this->validate($value);

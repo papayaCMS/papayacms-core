@@ -26,6 +26,6 @@ class IsGermanZip extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterLocaleGermanyZip();
+    return new \Papaya\Filter\Locale\Germany\Zip();
   }
 }
