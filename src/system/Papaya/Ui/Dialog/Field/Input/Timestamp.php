@@ -48,7 +48,7 @@ class PapayaUiDialogFieldInputTimestamp extends \PapayaUiDialogFieldInputDate {
     $step = 60.0
   ) {
     parent::__construct($caption, $name, $default, $mandatory, (int)$includeTime, $step);
-    $this->setFilter(new \PapayaFilterInteger(1));
+    $this->setFilter(new \Papaya\Filter\IntegerValue(1));
   }
 
   /**

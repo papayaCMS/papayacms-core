@@ -208,14 +208,14 @@ class Changer extends \PapayaUiControlInteractive {
    * Initialize parameters and store them into properties.
    */
   public function prepare() {
-    $this->_pageId = $this->parameters()->get('page_id', 0, new \PapayaFilterInteger(0));
+    $this->_pageId = $this->parameters()->get('page_id', 0, new \Papaya\Filter\IntegerValue(0));
     if ($this->_pageId > 0) {
       if ($this->dependency()->load($this->_pageId)) {
         $this->_originId = (int)$this->dependency()->originId;
       } elseif ($this->dependency()->isOrigin($this->_pageId)) {
         $this->_originId = (int)$this->_pageId;
       }
-      $this->_targetId = $this->parameters()->get('target_id', 0, new \PapayaFilterInteger(0));
+      $this->_targetId = $this->parameters()->get('target_id', 0, new \Papaya\Filter\IntegerValue(0));
       if ($this->_targetId > 0) {
         $this->reference()->load(
           array('source_id' => $this->_pageId, 'target_id' => $this->_targetId)

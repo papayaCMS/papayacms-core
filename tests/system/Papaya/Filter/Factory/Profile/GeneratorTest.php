@@ -22,9 +22,9 @@ class PapayaFilterFactoryProfileGeneratorTest extends \PapayaTestCase {
    */
   public function testGetFilterWithIntegerMinAndMax() {
     $profile = new \Papaya\Filter\Factory\Profile\Generator();
-    $profile->options(array(\PapayaFilterInteger::class, 1, 42));
+    $profile->options(array(\Papaya\Filter\IntegerValue::class, 1, 42));
     $filter = $profile->getFilter();
-    $this->assertInstanceOf(\PapayaFilterInteger::class, $filter);
+    $this->assertInstanceOf(\Papaya\Filter\IntegerValue::class, $filter);
     $this->assertTrue($filter->validate('21'));
   }
 

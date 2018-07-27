@@ -94,7 +94,7 @@ class PapayaConfigurationTest extends \PapayaTestCase {
   public function testGetWithFilter() {
     $config = new \PapayaConfiguration_TestProxy();
     $this->assertSame(
-      23, $config->get('SAMPLE_INT', 23, new \PapayaFilterInteger(0, 1))
+      23, $config->get('SAMPLE_INT', 23, new \Papaya\Filter\IntegerValue(0, 1))
     );
   }
   /**

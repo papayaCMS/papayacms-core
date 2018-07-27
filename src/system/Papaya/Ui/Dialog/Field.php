@@ -280,7 +280,7 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
 
   /**
   * Gets a filter object for the field. If the field is not mandatory the filter will be prefixed
-  * with \PapayaFilterEmpty
+  * with \Papaya\Filter\PapayaFilterEmpty
   *
   * Filter objects are used to check and filter user inputs
   *
@@ -290,7 +290,7 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
     if ($this->_mandatory && isset($this->_filter)) {
       return $this->_filter;
     } elseif (isset($this->_filter)) {
-      return new \Papaya\Filter\LogicalOr($this->_filter, new \PapayaFilterEmpty());
+      return new \Papaya\Filter\LogicalOr($this->_filter, new \Papaya\Filter\EmptyValue());
     } else {
       return NULL;
     }

@@ -121,7 +121,7 @@ class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
     if ($this->getValueMode() == self::VALUE_USE_KEY) {
       return new \Papaya\Filter\ArrayKey($values);
     } else {
-      return new \PapayaFilterList($values);
+      return new \Papaya\Filter\ArrayElement($values);
     }
   }
 

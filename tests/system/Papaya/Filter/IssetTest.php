@@ -18,32 +18,32 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterIssetTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterIsset::validate
+   * @covers \Papaya\Filter\NotNull::validate
    * @dataProvider provideValues
    * @param mixed $value
    * @throws \Papaya\Filter\Exception\IsUndefined
    */
   public function testCheck($value) {
-    $filter = new \PapayaFilterIsset();
+    $filter = new \Papaya\Filter\NotNull();
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-  * @covers \PapayaFilterIsset::validate
+  * @covers \Papaya\Filter\NotNull::validate
   */
   public function testCheckExpectingException() {
-    $filter = new \PapayaFilterIsset();
+    $filter = new \Papaya\Filter\NotNull();
     $this->expectException(\Papaya\Filter\Exception\IsUndefined::class);
     $filter->validate(NULL);
   }
 
   /**
-   * @covers \PapayaFilterIsset::filter
+   * @covers \Papaya\Filter\NotNull::filter
    * @dataProvider provideValues
    * @param mixed $value
    */
   public function testFilter($value) {
-    $filter = new \PapayaFilterIsset();
+    $filter = new \Papaya\Filter\NotNull();
     $this->assertSame($value, $filter->filter($value));
   }
 

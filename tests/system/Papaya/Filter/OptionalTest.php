@@ -22,7 +22,7 @@ class PapayaFilterOptionalTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Optional::getInnerFilter
   */
   public function testConstructor() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \PapayaFilterInteger(21, 42));
+    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
     $this->assertSame(
      $innerFilter, $filter->getInnerFilter()
     );
@@ -32,7 +32,7 @@ class PapayaFilterOptionalTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Optional::getFilter
   */
   public function testGetFilterCachesCreatedFilter() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \PapayaFilterInteger(21, 42));
+    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
     $actualFilter = $filter->getFilter();
     $this->assertSame($actualFilter, $filter->getFilter());
   }
@@ -42,7 +42,7 @@ class PapayaFilterOptionalTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Optional::validate
   */
   public function testValidateWithEmptyValue() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \PapayaFilterInteger(21, 42));
+    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
     $this->assertTrue(
       $filter->validate('')
     );
@@ -53,7 +53,7 @@ class PapayaFilterOptionalTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Optional::validate
   */
   public function testValidateWithValidValue() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \PapayaFilterInteger(21, 42));
+    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
     $this->assertTrue(
       $filter->validate('42')
     );
@@ -64,7 +64,7 @@ class PapayaFilterOptionalTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Optional::validate
   */
   public function testValidateWithInvalidValueExpectingException() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \PapayaFilterInteger(21, 42));
+    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
     $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToLarge::class);
     $this->assertTrue(
       $filter->validate('84')
@@ -76,7 +76,7 @@ class PapayaFilterOptionalTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Optional::filter
   */
   public function testFilterWithEmptyValue() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \PapayaFilterInteger(21, 42));
+    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
     $this->assertNull(
       $filter->filter('')
     );
@@ -87,7 +87,7 @@ class PapayaFilterOptionalTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Optional::validate
   */
   public function testFilterWithValidValue() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \PapayaFilterInteger(21, 42));
+    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
     $this->assertSame(
       42, $filter->filter('42')
     );
@@ -98,7 +98,7 @@ class PapayaFilterOptionalTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Optional::filter
   */
   public function testFilterWithInvalidValueExpectingNull() {
-    $filter = new \Papaya\Filter\Optional($innerFilter = new \PapayaFilterInteger(21, 42));
+    $filter = new \Papaya\Filter\Optional($innerFilter = new \Papaya\Filter\IntegerValue(21, 42));
     $this->assertNull(
       $filter->filter('84')
     );

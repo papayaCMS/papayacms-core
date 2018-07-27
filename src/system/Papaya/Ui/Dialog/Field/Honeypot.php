@@ -54,7 +54,7 @@ class PapayaUiDialogFieldHoneypot extends \PapayaUiDialogField {
   */
   public function __construct($caption, $name) {
     parent::setMandatory(TRUE);
-    parent::setFilter(new \Papaya\Filter\LogicalAnd(new \PapayaFilterIsset(), new \PapayaFilterEmpty()));
+    parent::setFilter(new \Papaya\Filter\LogicalAnd(new \Papaya\Filter\NotNull(), new \Papaya\Filter\EmptyValue()));
     $this->setCaption($caption);
     $this->setName($name);
   }

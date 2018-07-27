@@ -126,7 +126,7 @@ class checkit {
    *
    * @deprecated
    * @see \Papaya\Filter\Factory::isInteger()
-   * @see \PapayaFilterInteger
+   * @see \Papaya\Filter\IntegerValue
    *
    * @param string $str string
    * @param boolean $mustContainValue string may be empty?
@@ -139,7 +139,7 @@ class checkit {
   ) {
     if (isset($digitsMin)) {
       $filter = new \Papaya\Filter\LogicalAnd(
-        new \PapayaFilterInteger,
+        new \Papaya\Filter\IntegerValue,
         new \Papaya\Filter\Length($digitsMin, $digitsMax)
       );
       return self::validate($str, $filter, $mustContainValue);

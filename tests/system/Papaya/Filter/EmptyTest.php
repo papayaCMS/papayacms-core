@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterEmptyTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterEmpty::__construct
+  * @covers \Papaya\Filter\EmptyValue::__construct
   */
   public function testConstructor() {
-    $filter = new \PapayaFilterEmpty();
+    $filter = new \Papaya\Filter\EmptyValue();
     $this->assertAttributeEquals(
       TRUE, '_ignoreZero', $filter
     );
@@ -31,10 +31,10 @@ class PapayaFilterEmptyTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterEmpty::__construct
+  * @covers \Papaya\Filter\EmptyValue::__construct
   */
   public function testConstructorWithArguments() {
-    $filter = new \PapayaFilterEmpty(FALSE, FALSE);
+    $filter = new \Papaya\Filter\EmptyValue(FALSE, FALSE);
     $this->assertAttributeEquals(
       FALSE, '_ignoreZero', $filter
     );
@@ -44,7 +44,7 @@ class PapayaFilterEmptyTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaFilterEmpty::validate
+   * @covers \Papaya\Filter\EmptyValue::validate
    * @dataProvider provideEmptyValues
    * @param mixed $value
    * @param bool $ignoreZero
@@ -52,12 +52,12 @@ class PapayaFilterEmptyTest extends \PapayaTestCase {
    * @throws \Papaya\Filter\Exception\NotEmpty
    */
   public function testCheck($value, $ignoreZero, $ignoreSpaces) {
-    $filter = new \PapayaFilterEmpty($ignoreZero, $ignoreSpaces);
+    $filter = new \Papaya\Filter\EmptyValue($ignoreZero, $ignoreSpaces);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \PapayaFilterEmpty::validate
+   * @covers \Papaya\Filter\EmptyValue::validate
    * @dataProvider provideNonEmptyValues
    * @param mixed $value
    * @param bool $ignoreZero
@@ -65,16 +65,16 @@ class PapayaFilterEmptyTest extends \PapayaTestCase {
    * @throws \Papaya\Filter\Exception\NotEmpty
    */
   public function testCheckExpectingException($value, $ignoreZero, $ignoreSpaces) {
-    $filter = new \PapayaFilterEmpty($ignoreZero, $ignoreSpaces);
+    $filter = new \Papaya\Filter\EmptyValue($ignoreZero, $ignoreSpaces);
     $this->expectException(\Papaya\Filter\Exception\NotEmpty::class);
     $filter->validate($value);
   }
 
   /**
-  * @covers \PapayaFilterEmpty::filter
+  * @covers \Papaya\Filter\EmptyValue::filter
   */
   public function testFilter() {
-    $filter = new \PapayaFilterEmpty();
+    $filter = new \Papaya\Filter\EmptyValue();
     $this->assertNull($filter->filter(''));
   }
 

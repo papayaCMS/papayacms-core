@@ -101,7 +101,7 @@ class V4 implements \Papaya\Filter {
     if (count($parts) != 4) {
       throw new \Papaya\Filter\Exception\InvalidCount(4, count($parts), 'ip octets');
     }
-    $filterInteger = new \PapayaFilterInteger(0, 255);
+    $filterInteger = new \Papaya\Filter\IntegerValue(0, 255);
     foreach ($parts as $position => $part) {
       try {
         $filterInteger->validate($part);

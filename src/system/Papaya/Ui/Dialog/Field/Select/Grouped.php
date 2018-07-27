@@ -62,7 +62,7 @@ class PapayaUiDialogFieldSelectGrouped extends \PapayaUiDialogFieldSelect {
       $groupValues = array_keys(isset($group['options']) ? $group['options'] : $group);
       $allowedValues = array_merge($allowedValues, $groupValues);
     }
-    $this->setFilter(new \PapayaFilterList($allowedValues));
+    $this->setFilter(new \Papaya\Filter\ArrayElement($allowedValues));
   }
 
   /**

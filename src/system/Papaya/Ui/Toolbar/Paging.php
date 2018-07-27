@@ -217,14 +217,14 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
       case self::MODE_OFFSET :
         $this->setCurrentOffset(
           $this->papaya()->request->getParameter(
-            (string)$this->_parameterName, 0, new \PapayaFilterInteger(0)
+            (string)$this->_parameterName, 0, new \Papaya\Filter\IntegerValue(0)
           )
         );
         break;
       default :
         $this->setCurrentPage(
           $this->papaya()->request->getParameter(
-            (string)$this->_parameterName, 1, new \PapayaFilterInteger(1)
+            (string)$this->_parameterName, 1, new \Papaya\Filter\IntegerValue(1)
           )
         );
         break;

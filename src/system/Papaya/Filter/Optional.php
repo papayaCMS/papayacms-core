@@ -54,7 +54,7 @@ class Optional implements \Papaya\Filter {
     }
     return $this->_filter = new \Papaya\Filter\LogicalOr(
       $this->getInnerFilter(),
-      new \PapayaFilterEmpty()
+      new \Papaya\Filter\EmptyValue()
     );
   }
 

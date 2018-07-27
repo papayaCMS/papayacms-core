@@ -359,7 +359,7 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
       array(
         'datafield_one' => NULL,
         'datafield_two' => new \Papaya\Filter\Cast('number'),
-        'indexfield' => new \PapayaFilterInteger(1)
+        'indexfield' => new \Papaya\Filter\IntegerValue(1)
       )
     );
     $dialog->options()->useToken = FALSE;

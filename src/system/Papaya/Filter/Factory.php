@@ -145,7 +145,7 @@ class Factory implements \IteratorAggregate {
   /**
    * Get the filter using the specified profile.
    *
-   * If mandatory is set to false, the actual filter will be prefixed with an \PapayaFilterEmpty
+   * If mandatory is set to false, the actual filter will be prefixed with an \Papaya\Filter\PapayaFilterEmpty
    * allowing empty values.
    *
    * @param Factory\Profile|string $profile
@@ -180,7 +180,7 @@ class Factory implements \IteratorAggregate {
     }
     return new \Papaya\Filter\LogicalOr(
       $filter,
-      new \PapayaFilterEmpty(FALSE, FALSE)
+      new \Papaya\Filter\EmptyValue(FALSE, FALSE)
     );
   }
 
@@ -200,7 +200,7 @@ class Factory implements \IteratorAggregate {
     } elseif (!$mandatory) {
       $filter = new \Papaya\Filter\LogicalOr(
         $filter,
-        new \PapayaFilterEmpty(FALSE, FALSE)
+        new \Papaya\Filter\EmptyValue(FALSE, FALSE)
       );
     }
     try {

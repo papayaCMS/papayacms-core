@@ -22,6 +22,6 @@ class PapayaFilterFactoryProfileIsIntegerTest extends \PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new \Papaya\Filter\Factory\Profile\IsInteger();
-    $this->assertInstanceOf(\PapayaFilterInteger::class, $profile->getFilter());
+    $this->assertInstanceOf(\Papaya\Filter\IntegerValue::class, $profile->getFilter());
   }
 }

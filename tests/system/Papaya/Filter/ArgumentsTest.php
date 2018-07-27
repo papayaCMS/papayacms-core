@@ -92,22 +92,22 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
   public static function provideValidValidationData() {
     return array(
       'one integer' => array(
-        '42', array(new \PapayaFilterInteger()), ','
+        '42', array(new \Papaya\Filter\IntegerValue()), ','
       ),
       'two integers' => array(
-        '21,42', array(new \PapayaFilterInteger(), new \PapayaFilterInteger()), ','
+        '21,42', array(new \Papaya\Filter\IntegerValue(), new \Papaya\Filter\IntegerValue()), ','
       ),
       'different filters' => array(
-        'foo,42', array(new \Papaya\Filter\Text(), new \PapayaFilterInteger()), ','
+        'foo,42', array(new \Papaya\Filter\Text(), new \Papaya\Filter\IntegerValue()), ','
       ),
       'different separator' => array(
-        'foo;42', array(new \Papaya\Filter\Text(), new \PapayaFilterInteger()), ';'
+        'foo;42', array(new \Papaya\Filter\Text(), new \Papaya\Filter\IntegerValue()), ';'
       ),
       'second element optional' => array(
         '21',
         array(
-         new \PapayaFilterInteger(),
-         new \Papaya\Filter\LogicalOr(new \PapayaFilterEmpty(), new \PapayaFilterInteger()),
+         new \Papaya\Filter\IntegerValue(),
+         new \Papaya\Filter\LogicalOr(new \Papaya\Filter\EmptyValue(), new \Papaya\Filter\IntegerValue()),
         ),
         ','
       )
@@ -118,16 +118,16 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
     return array(
       'empty' => array('', array(), ','),
       'missing element' => array(
-        '42', array(new \PapayaFilterInteger(), new \PapayaFilterInteger()), ','
+        '42', array(new \Papaya\Filter\IntegerValue(), new \Papaya\Filter\IntegerValue()), ','
       ),
       'to many elements' => array(
-        '21,42', array(new \PapayaFilterInteger()), ','
+        '21,42', array(new \Papaya\Filter\IntegerValue()), ','
       ),
       'invalid element' => array(
-        '21,foo', array(new \PapayaFilterInteger(), new \PapayaFilterInteger()), ','
+        '21,foo', array(new \Papaya\Filter\IntegerValue(), new \Papaya\Filter\IntegerValue()), ','
       ),
       'invalid separator' => array(
-        '21,foo', array(new \PapayaFilterInteger(), new \PapayaFilterInteger()), '#'
+        '21,foo', array(new \Papaya\Filter\IntegerValue(), new \Papaya\Filter\IntegerValue()), '#'
       )
     );
   }
@@ -135,23 +135,23 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
   public static function provideFilterData() {
     return array(
       'one integer' => array(
-        '42', '42', array(new \PapayaFilterInteger()), ','
+        '42', '42', array(new \Papaya\Filter\IntegerValue()), ','
       ),
       'two integers' => array(
-        '21,42', '21,42', array(new \PapayaFilterInteger(), new \PapayaFilterInteger()), ','
+        '21,42', '21,42', array(new \Papaya\Filter\IntegerValue(), new \Papaya\Filter\IntegerValue()), ','
       ),
       'different filters' => array(
-        'foo,42', 'foo,42', array(new \Papaya\Filter\Text(), new \PapayaFilterInteger()), ','
+        'foo,42', 'foo,42', array(new \Papaya\Filter\Text(), new \Papaya\Filter\IntegerValue()), ','
       ),
       'different separator' => array(
-        'foo;42', 'foo;42', array(new \Papaya\Filter\Text(), new \PapayaFilterInteger()), ';'
+        'foo;42', 'foo;42', array(new \Papaya\Filter\Text(), new \Papaya\Filter\IntegerValue()), ';'
       ),
       'second element optional' => array(
         '21,0',
         '21',
         array(
-         new \PapayaFilterInteger(),
-         new \Papaya\Filter\LogicalOr(new \PapayaFilterEmpty(), new \PapayaFilterInteger()),
+         new \Papaya\Filter\IntegerValue(),
+         new \Papaya\Filter\LogicalOr(new \Papaya\Filter\EmptyValue(), new \Papaya\Filter\IntegerValue()),
         ),
         ','
       )

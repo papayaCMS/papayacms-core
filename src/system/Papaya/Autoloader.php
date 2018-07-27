@@ -83,6 +83,9 @@ class Autoloader {
     'PapayaFilterNoLinebreak' => Filter\NoLinebreak::class,
     'PapayaFilterNotEmpty' => Filter\NotEmpty::class,
     'PapayaFilterNumericWithUnit' => Filter\NumberWithUnit::class,
+    'Papaya\Filter\ArrayElement' => Filter\ArrayElement::class,
+    'Papaya\Filter\EmptyValue' => Filter\EmptyValue::class,
+    'Papaya\Filter\NotNull' => Filter\NotNull::class,
 
     'PapayaObject' => Application\BaseObject::class
   );

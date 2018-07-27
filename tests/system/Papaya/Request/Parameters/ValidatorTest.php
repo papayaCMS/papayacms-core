@@ -104,7 +104,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
       array('example' => 21)
     );
     $definitions = array(
-      array('example', new \PapayaFilterInteger(42))
+      array('example', new \Papaya\Filter\IntegerValue(42))
     );
     $validator = new \PapayaRequestParametersValidator($definitions, $parameters);
     $this->assertEquals(
@@ -124,7 +124,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
     );
     $definitions = array(
       array('name' => 'foo'),
-      array('name' => 'bar', 23, new \PapayaFilterInteger(0, 42))
+      array('name' => 'bar', 23, new \Papaya\Filter\IntegerValue(0, 42))
     );
     $validator = new \PapayaRequestParametersValidator($definitions, $parameters);
     $this->assertTrue($validator->validate());
@@ -144,7 +144,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
       )
     );
     $definitions = array(
-      array('foo', 23, new \PapayaFilterInteger(42))
+      array('foo', 23, new \Papaya\Filter\IntegerValue(42))
     );
     $validator = new \PapayaRequestParametersValidator($definitions, $parameters);
     $this->assertFalse($validator->validate());
@@ -223,7 +223,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
       array('string', ''),
       array('array', array()),
       array('nodefault'),
-      array('withfilter', 0, new \PapayaFilterInteger(0, 21)),
+      array('withfilter', 0, new \Papaya\Filter\IntegerValue(0, 21)),
       array('stringobject', new \PapayaUiString('ok'))
     );
     $validator = new \PapayaRequestParametersValidator($definitions, $parameters);

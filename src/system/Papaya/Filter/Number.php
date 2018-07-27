@@ -13,35 +13,38 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class for numbers with a specific length, e.g. credit card or account numbers
-*
-* Unsigned integer numbers without sign that can also start with one or more zeros.
-* Optionally, a minimum and/or maximum number of digits can be set.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterNumber implements \Papaya\Filter {
+ * Papaya filter class for numbers with a specific length, e.g. credit card or account numbers
+ *
+ * Unsigned integer numbers without sign that can also start with one or more zeros.
+ * Optionally, a minimum and/or maximum number of digits can be set.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Number implements \Papaya\Filter {
   /**
-  * Minimum number of digits
-  * @var integer
-  */
+   * Minimum number of digits
+   *
+   * @var integer
+   */
   private $_minimumLength = NULL;
 
   /**
-  * Maximum number of digits
-  * @var integer
-  */
+   * Maximum number of digits
+   *
+   * @var integer
+   */
   private $_maximumLength = NULL;
 
   /**
-  * Constructor
-  *
-  * @param integer $minimumLength optional, default NULL
-  * @param integer $maximumLength optional, default NULL
-  * @throws \UnexpectedValueException
-  */
+   * Constructor
+   *
+   * @param integer $minimumLength optional, default NULL
+   * @param integer $maximumLength optional, default NULL
+   * @throws \UnexpectedValueException
+   */
   public function __construct($minimumLength = NULL, $maximumLength = NULL) {
     if ($minimumLength !== NULL) {
       if (!is_numeric($minimumLength) || $minimumLength <= 0) {
@@ -63,14 +66,14 @@ class PapayaFilterNumber implements \Papaya\Filter {
   }
 
   /**
-  * Check a value and throw an exception if it does not match the constraints
-  *
-  * @param string $value
-  * @throws \Papaya\Filter\Exception\UnexpectedType
-  * @throws \Papaya\Filter\Exception\OutOfRange\ToSmall
-  * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
-  * @return boolean
-  */
+   * Check a value and throw an exception if it does not match the constraints
+   *
+   * @param string $value
+   * @throws \Papaya\Filter\Exception\UnexpectedType
+   * @throws \Papaya\Filter\Exception\OutOfRange\ToSmall
+   * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
+   * @return boolean
+   */
   public function validate($value) {
     if (!preg_match('(^\d+$)', $value)) {
       throw new \Papaya\Filter\Exception\UnexpectedType('number');
@@ -85,15 +88,15 @@ class PapayaFilterNumber implements \Papaya\Filter {
   }
 
   /**
-  * Filter a value
-  *
-  * @param string $value
-  * @return mixed the filtered value or NULL if not valid
-  */
+   * Filter a value
+   *
+   * @param string $value
+   * @return mixed the filtered value or NULL if not valid
+   */
   public function filter($value) {
     try {
       $this->validate(trim($value));
-    } catch(\Papaya\Filter\Exception $e) {
+    } catch (\Papaya\Filter\Exception $e) {
       return NULL;
     }
     return trim($value);

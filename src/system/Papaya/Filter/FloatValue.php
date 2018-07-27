@@ -13,40 +13,41 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class for a float numeric
-*
-* It can be used to validate if a given input is a float numeric with
-* or without a sign. Additionally minimum and maximum limits can be set
-* for the number.
-*
-* The filter function will cast the value to float.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterFloat implements \Papaya\Filter {
+ * Papaya filter class for a float numeric
+ *
+ * It can be used to validate if a given input is a float numeric with
+ * or without a sign. Additionally minimum and maximum limits can be set
+ * for the number.
+ *
+ * The filter function will cast the value to float.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class FloatValue implements \Papaya\Filter {
 
   /**
-  * Minimum float value
-  *
-  * @var float
-  */
+   * Minimum float value
+   *
+   * @var float
+   */
   protected $_min = NULL;
 
   /**
-  * Maximum float value
-  *
-  * @var float
-  */
+   * Maximum float value
+   *
+   * @var float
+   */
   protected $_max = NULL;
 
   /**
-  * Construct object and initialize minimum and maximum limits for the float value
-  *
-  * @param float $min
-  * @param float $max
-  */
+   * Construct object and initialize minimum and maximum limits for the float value
+   *
+   * @param float $min
+   * @param float $max
+   */
   public function __construct($min = NULL, $max = NULL) {
     if (!is_null($min)) {
       $this->_min = $min;
@@ -57,12 +58,12 @@ class PapayaFilterFloat implements \Papaya\Filter {
   }
 
   /**
-  * Check the float input and throw an exception if it does not match the condition.
-  *
-  * @throws \Papaya\Filter\Exception
-  * @param string $value
-  * @return TRUE
-  */
+   * Check the float input and throw an exception if it does not match the condition.
+   *
+   * @throws \Papaya\Filter\Exception
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     if (!is_numeric($value)) {
       throw new \Papaya\Filter\Exception\NotNumeric($value);
@@ -77,12 +78,12 @@ class PapayaFilterFloat implements \Papaya\Filter {
   }
 
   /**
-  * The filter function is used to read a input value if it is valid. The value is always converted
-  * into a float numeric before the validation. So only given limits are validated.
-  *
-  * @param string $value
-  * @return float|NULL
-  */
+   * The filter function is used to read a input value if it is valid. The value is always converted
+   * into a float numeric before the validation. So only given limits are validated.
+   *
+   * @param string $value
+   * @return float|NULL
+   */
   public function filter($value) {
     $value = (float)$value;
     try {

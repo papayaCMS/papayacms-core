@@ -101,7 +101,7 @@ class PapayaUiDialogFieldInputRange extends \PapayaUiDialogFieldInput {
     parent::__construct($caption, $name, 20, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \PapayaFilterFloat($this->_minimum, $this->_maximum)
+      new \Papaya\Filter\FloatValue($this->_minimum, $this->_maximum)
     );
     $this->_minimum = $minimum;
     $this->_maximum = $maximum;

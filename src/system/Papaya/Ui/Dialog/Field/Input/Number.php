@@ -90,7 +90,7 @@ class PapayaUiDialogFieldInputNumber extends \PapayaUiDialogFieldInput {
     $this->_minimumLength = $minimumLength;
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \PapayaFilterNumber($this->_minimumLength, $this->_maximumLength)
+      new \Papaya\Filter\Number($this->_minimumLength, $this->_maximumLength)
     );
   }
 }

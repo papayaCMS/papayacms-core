@@ -17,27 +17,27 @@ require_once __DIR__.'/../../../bootstrap.php';
 
 class PapayaFilterNumberTest extends \PapayaTestCase {
   /**
-  * @covers \PapayaFilterNumber::__construct
+  * @covers \Papaya\Filter\Number::__construct
   */
   public function testConstructSuccess() {
-    $filter = new \PapayaFilterNumber(15, 16);
+    $filter = new \Papaya\Filter\Number(15, 16);
     $this->assertAttributeEquals(15, '_minimumLength', $filter);
     $this->assertAttributeEquals(16, '_maximumLength', $filter);
   }
 
   /**
-   * @covers \PapayaFilterNumber::__construct
+   * @covers \Papaya\Filter\Number::__construct
    * @dataProvider constructFailureProvider
    * @param int $minimumLength
    * @param int $maximumLength
    */
   public function testConstructFailure($minimumLength, $maximumLength) {
     $this->expectException(UnexpectedValueException::class);
-    new \PapayaFilterNumber($minimumLength, $maximumLength);
+    new \Papaya\Filter\Number($minimumLength, $maximumLength);
   }
 
   /**
-   * @covers \PapayaFilterNumber::validate
+   * @covers \Papaya\Filter\Number::validate
    * @dataProvider validateSuccessProvider
    * @param mixed $value
    * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
@@ -45,57 +45,57 @@ class PapayaFilterNumberTest extends \PapayaTestCase {
    * @throws \Papaya\Filter\Exception\UnexpectedType
    */
   public function testValidateSuccess($value) {
-    $filter = new \PapayaFilterNumber(3, 4);
+    $filter = new \Papaya\Filter\Number(3, 4);
     /** @noinspection PhpUnhandledExceptionInspection */
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-  * @covers \PapayaFilterNumber::validate
+  * @covers \Papaya\Filter\Number::validate
   */
   public function testValidateFailureFormat() {
-    $filter = new \PapayaFilterNumber();
+    $filter = new \Papaya\Filter\Number();
     $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
     /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate('I am not a number');
   }
 
   /**
-  * @covers \PapayaFilterNumber::validate
+  * @covers \Papaya\Filter\Number::validate
   */
   public function testValidateFailureTooShort() {
-    $filter = new \PapayaFilterNumber(3);
+    $filter = new \Papaya\Filter\Number(3);
     $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToSmall::class);
     /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate('22');
   }
 
   /**
-  * @covers \PapayaFilterNumber::validate
+  * @covers \Papaya\Filter\Number::validate
   */
   public function testValidateFailureTooLong() {
-    $filter = new \PapayaFilterNumber(NULL, 3);
+    $filter = new \Papaya\Filter\Number(NULL, 3);
     $this->expectException(\Papaya\Filter\Exception\OutOfRange\ToLarge::class);
     /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate('2222');
   }
 
   /**
-   * @covers \PapayaFilterNumber::filter
+   * @covers \Papaya\Filter\Number::filter
    * @dataProvider filterSuccessProvider
    * @param mixed $value
    * @param mixed $filtered
    */
   public function testFilterSuccess($value, $filtered) {
-    $filter = new \PapayaFilterNumber(3, 4);
+    $filter = new \Papaya\Filter\Number(3, 4);
     $this->assertEquals($filtered, $filter->filter($value));
   }
 
   /**
-  * @covers \PapayaFilterNumber::filter
+  * @covers \Papaya\Filter\Number::filter
   */
   public function testFilterFailure() {
-    $filter = new \PapayaFilterNumber();
+    $filter = new \Papaya\Filter\Number();
     $this->assertNull($filter->filter('I am not a number'));
   }
 

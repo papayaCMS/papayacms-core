@@ -22,6 +22,6 @@ class PapayaFilterFactoryProfileIsFloatTest extends \PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new \Papaya\Filter\Factory\Profile\IsFloat();
-    $this->assertInstanceOf(\PapayaFilterFloat::class, $profile->getFilter());
+    $this->assertInstanceOf(\Papaya\Filter\FloatValue::class, $profile->getFilter());
   }
 }

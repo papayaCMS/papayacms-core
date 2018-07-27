@@ -41,7 +41,7 @@ class PapayaFilterStringExplodeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text\Explode
    */
   public function testValidateWithIntegerFilterExpectingTrue() {
-    $filter = new \Papaya\Filter\Text\Explode(',', new \PapayaFilterInteger());
+    $filter = new \Papaya\Filter\Text\Explode(',', new \Papaya\Filter\IntegerValue());
     $this->assertTrue(
       $filter->validate('42')
     );
@@ -51,7 +51,7 @@ class PapayaFilterStringExplodeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text\Explode
    */
   public function testValidateWithEmptyValueExpectingException() {
-    $filter = new \Papaya\Filter\Text\Explode(',', new \PapayaFilterInteger());
+    $filter = new \Papaya\Filter\Text\Explode(',', new \Papaya\Filter\IntegerValue());
     $this->expectException(\Papaya\Filter\Exception\IsEmpty::class);
     $filter->validate('');
   }
@@ -82,7 +82,7 @@ class PapayaFilterStringExplodeTest extends \PapayaTestCase {
    * @covers \Papaya\Filter\Text\Explode
    */
   public function testFilterWithIntegerElementFilter() {
-    $filter = new \Papaya\Filter\Text\Explode(',', new \PapayaFilterInteger());
+    $filter = new \Papaya\Filter\Text\Explode(',', new \Papaya\Filter\IntegerValue());
     $this->assertSame(
       [42],
       $filter->filter('42')

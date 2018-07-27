@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class that chcks if the value is an empty one
-*
-* The private typeMapping property is used to specifiy possible casts.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterIsset implements \Papaya\Filter {
+ * Papaya filter class that chcks if the value is an empty one
+ *
+ * The private typeMapping property is used to specifiy possible casts.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class NotNull implements \Papaya\Filter {
 
   /**
    * Check the value throw exception if value is not set
@@ -38,11 +39,11 @@ class PapayaFilterIsset implements \Papaya\Filter {
   }
 
   /**
-  * The filter function always returns the value if it is set or NULL
-  *
-  * @param string $value
-  * @return mixed
-  */
+   * The filter function always returns the value if it is set or NULL
+   *
+   * @param string $value
+   * @return mixed
+   */
   public function filter($value) {
     return isset($value) ? $value : NULL;
   }

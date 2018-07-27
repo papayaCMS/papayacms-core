@@ -13,42 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class that validates if given value is in the list
-*
-* It can be used to validate if a given input equals one of a given
-* list of elements.
-*
-* The filter function will return the element rather then the input.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterList implements \Papaya\Filter {
+ * Papaya filter class that validates if given value is in the list
+ *
+ * It can be used to validate if a given input equals one of a given
+ * list of elements.
+ *
+ * The filter function will return the element rather then the input.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class ArrayElement implements \Papaya\Filter {
 
   /**
-  * elements list
-  * @var integer
-  */
+   * elements list
+   *
+   * @var integer
+   */
   private $_list = NULL;
 
   /**
-  * Construct object and set the list of elements
-  *
-  * @param array|\Traversable $elements
-  */
+   * Construct object and set the list of elements
+   *
+   * @param array|\Traversable $elements
+   */
   public function __construct($elements) {
     \PapayaUtilConstraints::assertArrayOrTraversable($elements);
     $this->_list = $elements;
   }
 
   /**
-  * Check the integer input and throw an exception if it does not match the condition.
-  *
-  * @throws \Papaya\Filter\Exception
-  * @param string $value
-  * @return TRUE
-  */
+   * Check the integer input and throw an exception if it does not match the condition.
+   *
+   * @throws \Papaya\Filter\Exception
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     if ((string)$value === '') {
       throw new \Papaya\Filter\Exception\IsEmpty();
@@ -65,11 +67,11 @@ class PapayaFilterList implements \Papaya\Filter {
   }
 
   /**
-  * The filter function is used to read a input value if it is valid.
-  *
-  * @param string $value
-  * @return integer|NULL
-  */
+   * The filter function is used to read a input value if it is valid.
+   *
+   * @param string $value
+   * @return integer|NULL
+   */
   public function filter($value) {
     if (is_array($this->_list)) {
       $index = array_search($value, $this->_list);

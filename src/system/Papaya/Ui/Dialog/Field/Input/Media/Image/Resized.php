@@ -36,16 +36,16 @@ class PapayaUiDialogFieldInputMediaImageResized extends \PapayaUiDialogFieldInpu
         array(
           new \Papaya\Filter\Guid(),
           new \Papaya\Filter\LogicalOr(
-            new \PapayaFilterEmpty(),
-            new \PapayaFilterInteger(1, 10000)
+            new \Papaya\Filter\EmptyValue(),
+            new \Papaya\Filter\IntegerValue(1, 10000)
           ),
           new \Papaya\Filter\LogicalOr(
-            new \PapayaFilterEmpty(),
-            new \PapayaFilterInteger(1, 10000)
+            new \Papaya\Filter\EmptyValue(),
+            new \Papaya\Filter\IntegerValue(1, 10000)
           ),
           new \Papaya\Filter\LogicalOr(
-            new \PapayaFilterEmpty(),
-            new \PapayaFilterList(array('abs', 'max', 'min', 'mincrop'))
+            new \Papaya\Filter\EmptyValue(),
+            new \Papaya\Filter\ArrayElement(array('abs', 'max', 'min', 'mincrop'))
           )
         )
       )

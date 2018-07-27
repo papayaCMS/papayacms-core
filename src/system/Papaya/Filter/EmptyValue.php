@@ -13,26 +13,29 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class that chcks if the value is an empty one
-*
-* The private typeMapping property is used to specifiy possible casts.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterEmpty implements \Papaya\Filter {
+ * Papaya filter class that chcks if the value is an empty one
+ *
+ * The private typeMapping property is used to specifiy possible casts.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class EmptyValue implements \Papaya\Filter {
 
   /**
-  * zero will be considered as an empty value
-  * @var integer
-  */
+   * zero will be considered as an empty value
+   *
+   * @var integer
+   */
   private $_ignoreZero = TRUE;
 
   /**
-  * values containing only whitespaces will be considered as an empty value
-  * @var integer
-  */
+   * values containing only whitespaces will be considered as an empty value
+   *
+   * @var integer
+   */
   private $_ignoreSpaces = TRUE;
 
   /**
@@ -49,12 +52,12 @@ class PapayaFilterEmpty implements \Papaya\Filter {
   }
 
   /**
-  * Check the value throw exception if value is not empty
-  *
-  * @throws \Papaya\Filter\Exception\NotEmpty
-  * @param string $value
-  * @return TRUE
-  */
+   * Check the value throw exception if value is not empty
+   *
+   * @throws \Papaya\Filter\Exception\NotEmpty
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     if (is_array($value)) {
       if (count($value) == 0) {
@@ -63,8 +66,8 @@ class PapayaFilterEmpty implements \Papaya\Filter {
     } else {
       $value = (string)$value;
       if ($value === '' ||
-          ($this->_ignoreZero && $value === '0') ||
-          ($this->_ignoreSpaces && trim($value) === '')) {
+        ($this->_ignoreZero && $value === '0') ||
+        ($this->_ignoreSpaces && trim($value) === '')) {
         return TRUE;
       }
     }
@@ -72,11 +75,11 @@ class PapayaFilterEmpty implements \Papaya\Filter {
   }
 
   /**
-  * The filter function always returns NULL
-  *
-  * @param string $value
-  * @return integer|NULL
-  */
+   * The filter function always returns NULL
+   *
+   * @param string $value
+   * @return integer|NULL
+   */
   public function filter($value) {
     return NULL;
   }

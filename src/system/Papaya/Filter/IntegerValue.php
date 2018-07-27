@@ -13,29 +13,32 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class for an integer number
-*
-* It can be used to validate if a given input is an integer number with
-* or without a sign. Additionally minimum and maximum limits can be set
-* for the number.
-*
-* The filter function will cast the value to integer.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterInteger implements \Papaya\Filter {
+ * Papaya filter class for an integer number
+ *
+ * It can be used to validate if a given input is an integer number with
+ * or without a sign. Additionally minimum and maximum limits can be set
+ * for the number.
+ *
+ * The filter function will cast the value to integer.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class IntegerValue implements \Papaya\Filter {
 
   /**
-  * Minimum limit for integer value
-  * @var integer
-  */
+   * Minimum limit for integer value
+   *
+   * @var integer
+   */
   private $_minimum = NULL;
   /**
-  * Maximum limit for integer value
-  * @var integer
-  */
+   * Maximum limit for integer value
+   *
+   * @var integer
+   */
   private $_maximum = NULL;
 
   /**
@@ -49,7 +52,7 @@ class PapayaFilterInteger implements \Papaya\Filter {
     $this->_minimum = $minimum;
     if (isset($minimum)) {
       if (isset($maximum) &&
-          $maximum < $minimum) {
+        $maximum < $minimum) {
         throw new \RangeException('The maximum needs to be larger then the minimum.');
       }
       $this->_maximum = $maximum;
@@ -59,12 +62,12 @@ class PapayaFilterInteger implements \Papaya\Filter {
   }
 
   /**
-  * Check the integer input and throw an exception if it does not match the condition.
-  *
-  * @throws \Papaya\Filter\Exception
-  * @param string $value
-  * @return TRUE
-  */
+   * Check the integer input and throw an exception if it does not match the condition.
+   *
+   * @throws \Papaya\Filter\Exception
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     if (preg_match('(^[+-]?\d+$)D', $value)) {
       $value = (int)$value;
@@ -81,12 +84,12 @@ class PapayaFilterInteger implements \Papaya\Filter {
   }
 
   /**
-  * The filter function is used to read a input value if it is valid. The value is always converted
-  * into an integer before the validation. So only given limits are validated.
-  *
-  * @param string $value
-  * @return integer|NULL
-  */
+   * The filter function is used to read a input value if it is valid. The value is always converted
+   * into an integer before the validation. So only given limits are validated.
+   *
+   * @param string $value
+   * @return integer|NULL
+   */
   public function filter($value) {
     $value = (int)$value;
     try {

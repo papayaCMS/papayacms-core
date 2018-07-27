@@ -28,7 +28,7 @@ class PapayaUiDialogFieldSelectGroupedTest extends \PapayaTestCase {
       array('Group Caption' => array(21 => 'half', 42 => 'full')), '_values', $select
     );
     $this->assertAttributeEquals(
-      new \PapayaFilterList(array(21, 42)), '_filter', $select
+      new \Papaya\Filter\ArrayElement(array(21, 42)), '_filter', $select
     );
   }
 
@@ -47,7 +47,7 @@ class PapayaUiDialogFieldSelectGroupedTest extends \PapayaTestCase {
       )
     );
     $this->assertAttributeEquals(
-      new \PapayaFilterList(array(21, 42)), '_filter', $select
+      new \Papaya\Filter\ArrayElement(array(21, 42)), '_filter', $select
     );
   }
 

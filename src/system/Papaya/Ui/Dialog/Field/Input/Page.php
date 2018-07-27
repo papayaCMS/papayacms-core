@@ -59,7 +59,7 @@ class PapayaUiDialogFieldInputPage extends \PapayaUiDialogFieldInput {
     parent::__construct($caption, $name, 20, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \PapayaFilterInteger(1)
+      new \Papaya\Filter\IntegerValue(1)
     );
   }
 }

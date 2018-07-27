@@ -53,16 +53,16 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
       new \Papaya\Filter\AssociativeArray(
         [
           'start' => new \Papaya\Filter\LogicalOr(
-            new \PapayaFilterEmpty(),
+            new \Papaya\Filter\EmptyValue(),
             new \Papaya\Filter\Date($this->_includeTime)
           ),
           'end' => new \Papaya\Filter\LogicalOr(
-            new \PapayaFilterEmpty(),
+            new \Papaya\Filter\EmptyValue(),
             new \Papaya\Filter\Date($this->_includeTime)
           ),
           'mode' => new \Papaya\Filter\LogicalOr(
-            new \PapayaFilterEmpty(),
-            new \PapayaFilterList(['fromTo', 'in', 'from', 'to'])
+            new \Papaya\Filter\EmptyValue(),
+            new \Papaya\Filter\ArrayElement(['fromTo', 'in', 'from', 'to'])
           )
         ]
       )
@@ -167,9 +167,9 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
       return new \Papaya\Filter\LogicalOr(
         new \Papaya\Filter\AssociativeArray(
           [
-            'start' => new \PapayaFilterEmpty(),
-            'end' => new \PapayaFilterEmpty(),
-            'mode' => new \PapayaFilterEmpty()
+            'start' => new \Papaya\Filter\EmptyValue(),
+            'end' => new \Papaya\Filter\EmptyValue(),
+            'mode' => new \Papaya\Filter\EmptyValue()
           ]
         ),
         $filter
