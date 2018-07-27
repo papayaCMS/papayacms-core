@@ -35,15 +35,15 @@ class PapayaUiDialogFieldInputMediaImageResized extends \PapayaUiDialogFieldInpu
       new \Papaya\Filter\Arguments(
         array(
           new \PapayaFilterGuid(),
-          new \PapayaFilterLogicalOr(
+          new \Papaya\Filter\LogicalOr(
             new \PapayaFilterEmpty(),
             new \PapayaFilterInteger(1, 10000)
           ),
-          new \PapayaFilterLogicalOr(
+          new \Papaya\Filter\LogicalOr(
             new \PapayaFilterEmpty(),
             new \PapayaFilterInteger(1, 10000)
           ),
-          new \PapayaFilterLogicalOr(
+          new \Papaya\Filter\LogicalOr(
             new \PapayaFilterEmpty(),
             new \PapayaFilterList(array('abs', 'max', 'min', 'mincrop'))
           )

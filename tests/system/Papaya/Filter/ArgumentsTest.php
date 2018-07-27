@@ -107,7 +107,7 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
         '21',
         array(
          new \PapayaFilterInteger(),
-         new \PapayaFilterLogicalOr(new \PapayaFilterEmpty(), new \PapayaFilterInteger()),
+         new \Papaya\Filter\LogicalOr(new \PapayaFilterEmpty(), new \PapayaFilterInteger()),
         ),
         ','
       )
@@ -151,7 +151,7 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
         '21',
         array(
          new \PapayaFilterInteger(),
-         new \PapayaFilterLogicalOr(new \PapayaFilterEmpty(), new \PapayaFilterInteger()),
+         new \Papaya\Filter\LogicalOr(new \PapayaFilterEmpty(), new \PapayaFilterInteger()),
         ),
         ','
       )

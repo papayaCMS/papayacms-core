@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Abstract filter class implementing logical "OR" links between other filters
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterLogicalOr extends \PapayaFilterLogical {
+ * Abstract filter class implementing logical "OR" links between other filters
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class LogicalOr extends Logical {
 
   /**
    * Call validate() on subfilters, capture exceptions,

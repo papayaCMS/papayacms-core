@@ -82,7 +82,7 @@ class PapayaFilterFactoryTest extends \PapayaTestCase {
     $factory = new \Papaya\Filter\Factory();
     $filter = $factory->getFilter($profile);
     $this->assertInstanceOf(\Papaya\Filter::class, $filter);
-    $this->assertNotInstanceOf(\PapayaFilterLogicalOr::class, $filter);
+    $this->assertNotInstanceOf(\Papaya\Filter\LogicalOr::class, $filter);
   }
 
   /**
@@ -99,7 +99,7 @@ class PapayaFilterFactoryTest extends \PapayaTestCase {
       ->will($this->returnValue($this->createMock(\Papaya\Filter::class)));
     $factory = new \Papaya\Filter\Factory();
     $filter = $factory->getFilter($profile, FALSE);
-    $this->assertInstanceOf(\PapayaFilterLogicalOr::class, $filter);
+    $this->assertInstanceOf(\Papaya\Filter\LogicalOr::class, $filter);
   }
 
   /**

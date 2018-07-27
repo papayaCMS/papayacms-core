@@ -138,7 +138,7 @@ class checkit {
     $str, $mustContainValue = FALSE, $digitsMin = NULL, $digitsMax = NULL
   ) {
     if (isset($digitsMin)) {
-      $filter = new \PapayaFilterLogicalAnd(
+      $filter = new \Papaya\Filter\LogicalAnd(
         new \PapayaFilterInteger,
         new \PapayaFilterLength($digitsMin, $digitsMax)
       );

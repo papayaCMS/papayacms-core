@@ -18,8 +18,8 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaFilterLogicalTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterLogical::__construct
-  * @covers \PapayaFilterLogical::_setFilters
+  * @covers \Papaya\Filter\Logical::__construct
+  * @covers \Papaya\Filter\Logical::_setFilters
   */
   public function testConstructorWithTwoFilters() {
     $subFilterOne = $this->createMock(\Papaya\Filter::class);
@@ -32,8 +32,8 @@ class PapayaFilterLogicalTest extends \PapayaTestCase {
     );
   }
   /**
-  * @covers \PapayaFilterLogical::__construct
-  * @covers \PapayaFilterLogical::_setFilters
+  * @covers \Papaya\Filter\Logical::__construct
+  * @covers \Papaya\Filter\Logical::_setFilters
   */
   public function testConstructorWithTwoScalars() {
     $subFilterOne = new \PapayaFilterEquals('one');
@@ -47,8 +47,8 @@ class PapayaFilterLogicalTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterLogical::__construct
-  * @covers \PapayaFilterLogical::_setFilters
+  * @covers \Papaya\Filter\Logical::__construct
+  * @covers \Papaya\Filter\Logical::_setFilters
   */
   public function testConstructorWithThreeFilters() {
     $subFilterOne = $this->createMock(\Papaya\Filter::class);
@@ -63,8 +63,8 @@ class PapayaFilterLogicalTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterLogical::__construct
-  * @covers \PapayaFilterLogical::_setFilters
+  * @covers \Papaya\Filter\Logical::__construct
+  * @covers \Papaya\Filter\Logical::_setFilters
   */
   public function testConstructorWithOneFilterExpectingException() {
     $this->expectException(InvalidArgumentException::class);
@@ -74,8 +74,8 @@ class PapayaFilterLogicalTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterLogical::__construct
-  * @covers \PapayaFilterLogical::_setFilters
+  * @covers \Papaya\Filter\Logical::__construct
+  * @covers \Papaya\Filter\Logical::_setFilters
   */
   public function testContructorWithInvalidObjectsExpectingException() {
     $this->expectException(InvalidArgumentException::class);
@@ -85,7 +85,7 @@ class PapayaFilterLogicalTest extends \PapayaTestCase {
   }
 }
 
-class PapayaFilterLogical_TestProxy extends \PapayaFilterLogical {
+class PapayaFilterLogical_TestProxy extends \Papaya\Filter\Logical {
 
   public function validate($value) {
   }

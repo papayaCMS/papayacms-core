@@ -52,15 +52,15 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
     $this->setFilter(
       new \Papaya\Filter\AssociativeArray(
         [
-          'start' => new \PapayaFilterLogicalOr(
+          'start' => new \Papaya\Filter\LogicalOr(
             new \PapayaFilterEmpty(),
             new \PapayaFilterDate($this->_includeTime)
           ),
-          'end' => new \PapayaFilterLogicalOr(
+          'end' => new \Papaya\Filter\LogicalOr(
             new \PapayaFilterEmpty(),
             new \PapayaFilterDate($this->_includeTime)
           ),
-          'mode' => new \PapayaFilterLogicalOr(
+          'mode' => new \Papaya\Filter\LogicalOr(
             new \PapayaFilterEmpty(),
             new \PapayaFilterList(['fromTo', 'in', 'from', 'to'])
           )
@@ -164,7 +164,7 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
     if ($this->getMandatory() && isset($filter)) {
       return $filter;
     } elseif (isset($filter)) {
-      return new \PapayaFilterLogicalOr(
+      return new \Papaya\Filter\LogicalOr(
         new \Papaya\Filter\AssociativeArray(
           [
             'start' => new \PapayaFilterEmpty(),

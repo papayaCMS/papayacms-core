@@ -289,7 +289,7 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
     if ($this->_mandatory && isset($this->_filter)) {
       return $this->_filter;
     } elseif (isset($this->_filter)) {
-      return new \PapayaFilterLogicalOr($this->_filter, new \PapayaFilterEmpty());
+      return new \Papaya\Filter\LogicalOr($this->_filter, new \PapayaFilterEmpty());
     } else {
       return NULL;
     }

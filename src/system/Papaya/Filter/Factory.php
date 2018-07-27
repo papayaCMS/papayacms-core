@@ -164,7 +164,7 @@ class Factory implements \IteratorAggregate {
    * @param $profile
    * @param bool $mandatory
    * @param mixed $options
-   * @return \Papaya\Filter|\PapayaFilterLogicalOr
+   * @return \Papaya\Filter|\Papaya\Filter\LogicalOr
    * @throws Factory\Exception\InvalidProfile
    */
   private static function _getFilter($profile, $mandatory = TRUE, $options = NULL) {
@@ -178,7 +178,7 @@ class Factory implements \IteratorAggregate {
     if ($mandatory) {
       return $filter;
     }
-    return new \PapayaFilterLogicalOr(
+    return new \Papaya\Filter\LogicalOr(
       $filter,
       new \PapayaFilterEmpty(FALSE, FALSE)
     );
@@ -198,7 +198,7 @@ class Factory implements \IteratorAggregate {
     if (!($filter instanceof \Papaya\Filter)) {
       $filter = self::_getFilter($filter, $mandatory);
     } elseif (!$mandatory) {
-      $filter = new \PapayaFilterLogicalOr(
+      $filter = new \Papaya\Filter\LogicalOr(
         $filter,
         new \PapayaFilterEmpty(FALSE, FALSE)
       );

@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Abstract filter class implementing logical "and" links between other filters
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterLogicalAnd extends \PapayaFilterLogical {
+ * Abstract filter class implementing logical "and" links between other filters
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class LogicalAnd extends Logical {
 
   /**
    * Call validate() on each subfilter, the subfilter will throw an
@@ -27,6 +28,7 @@ class PapayaFilterLogicalAnd extends \PapayaFilterLogical {
    *
    * @param string $value
    * @return bool
+   * @throws \PapayaFilterException
    */
   public function validate($value) {
     /** @var \Papaya\Filter $filter */
@@ -49,7 +51,7 @@ class PapayaFilterLogicalAnd extends \PapayaFilterLogical {
     /** @var \Papaya\Filter $filter */
     foreach ($this->_filters as $filter) {
       $value = $filter->filter($value);
-      if (is_null($value)) {
+      if (NULL === $value) {
         return NULL;
       }
     }

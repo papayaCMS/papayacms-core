@@ -237,7 +237,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $field->setFilter($filter);
     $field->setMandatory(FALSE);
     $this->assertInstanceOf(
-      \PapayaFilterLogicalOr::class, $field->getFilter()
+      \Papaya\Filter\LogicalOr::class, $field->getFilter()
     );
   }
 

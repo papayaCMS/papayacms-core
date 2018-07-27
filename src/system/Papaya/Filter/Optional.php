@@ -44,13 +44,14 @@ class PapayaFilterOptional implements \Papaya\Filter {
 
   /**
    * Return the combined filter allowing empty values
-   * @return null|\PapayaFilterLogicalOr
+   *
+   * @return null|\Papaya\Filter\LogicalOr
    */
   public function getFilter() {
     if (isset($this->_filter)) {
       return $this->_filter;
     }
-    return $this->_filter = new \PapayaFilterLogicalOr(
+    return $this->_filter = new \Papaya\Filter\LogicalOr(
       $this->getInnerFilter(),
       new \PapayaFilterEmpty()
     );

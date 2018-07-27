@@ -13,21 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Abstract filter class implementing logical links between other Filters
-*
-* You can create this class with two or more subfilters classes, these filters are linked
-* depending on the concrete implementation of the child classes.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-abstract class PapayaFilterLogical implements \Papaya\Filter {
+ * Abstract filter class implementing logical links between other Filters
+ *
+ * You can create this class with two or more subfilters classes, these filters are linked
+ * depending on the concrete implementation of the child classes.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+abstract class Logical implements \Papaya\Filter {
 
   /**
-  * Filter list
-  * @var array(\Papaya\PapayaFilter)
-  */
+   * Filter list
+   *
+   * @var array(\Papaya\PapayaFilter)
+   */
   protected $_filters = array();
 
   /**
@@ -52,7 +54,7 @@ abstract class PapayaFilterLogical implements \Papaya\Filter {
    */
   protected function _setFilters($filters) {
     if (is_array($filters) &&
-        count($filters) > 1) {
+      count($filters) > 1) {
       foreach ($filters as $filter) {
         if ($filter instanceof \Papaya\Filter) {
           $this->_filters[] = $filter;
