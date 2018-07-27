@@ -18,20 +18,20 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsGermanZipTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Factory\Profile\Is\German\Zip::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsGermanZip::getFilter
    * @dataProvider provideValidZips
    * @param string $zip
    */
   public function testGetFilterExpectTrue($zip) {
-    $profile = new \Papaya\Filter\Factory\Profile\Is\German\Zip();
+    $profile = new \Papaya\Filter\Factory\Profile\IsGermanZip();
     $this->assertTrue($profile->getFilter()->validate($zip));
   }
 
   /**
-   * @covers \Papaya\Filter\Factory\Profile\Is\German\Zip::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsGermanZip::getFilter
    */
   public function testGetFilterExpectException() {
-    $profile = new \Papaya\Filter\Factory\Profile\Is\German\Zip();
+    $profile = new \Papaya\Filter\Factory\Profile\IsGermanZip();
     $this->expectException(\PapayaFilterException::class);
     $profile->getFilter()->validate('foo');
   }
