@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Factory\Profile\Is\German;
 /**
-* Profile creating a filter for a german date string
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterFactoryProfileIsGermanDate extends \Papaya\Filter\Factory\Profile {
+ * Profile creating a filter for a german date string
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Date extends \Papaya\Filter\Factory\Profile {
 
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()

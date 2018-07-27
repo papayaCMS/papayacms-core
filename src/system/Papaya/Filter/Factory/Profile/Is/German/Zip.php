@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Factory\Profile\Is\German;
 /**
-* Profile creating a filter for a german date postal code/zip
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterFactoryProfileIsGermanZip extends \Papaya\Filter\Factory\Profile {
+ * Profile creating a filter for a german date postal code/zip
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Zip extends \Papaya\Filter\Factory\Profile {
 
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsGeoPositionTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFactoryProfileIsGeoPosition::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\Is\Geo\Position::getFilter
    */
   public function testGetFilter() {
-    $profile = new \PapayaFilterFactoryProfileIsGeoPosition();
+    $profile = new \Papaya\Filter\Factory\Profile\Is\Geo\Position();
     $this->assertInstanceOf(\PapayaFilterGeoPosition::class, $profile->getFilter());
   }
 }

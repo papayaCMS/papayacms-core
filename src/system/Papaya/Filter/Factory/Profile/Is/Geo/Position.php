@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Factory\Profile\Is\Geo;
 /**
-* Profile creating an geo position value filter
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterFactoryProfileIsGeoPosition extends \Papaya\Filter\Factory\Profile {
+ * Profile creating an geo position value filter
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Position extends \Papaya\Filter\Factory\Profile {
 
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
