@@ -18,18 +18,18 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsIsoDateTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFactoryProfileIsIsoDate::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\Is\Iso\Date::getFilter
    */
   public function testGetFilterExpectTrue() {
-    $profile = new \PapayaFilterFactoryProfileIsIsoDate();
+    $profile = new \Papaya\Filter\Factory\Profile\Is\Iso\Date();
     $this->assertTrue($profile->getFilter()->validate('2012-08-15'));
   }
 
   /**
-   * @covers \PapayaFilterFactoryProfileIsIsoDate::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\Is\Iso\Date::getFilter
    */
   public function testGetFilterExpectException() {
-    $profile = new \PapayaFilterFactoryProfileIsIsoDate();
+    $profile = new \Papaya\Filter\Factory\Profile\Is\Iso\Date();
     $this->expectException(\PapayaFilterException::class);
     $profile->getFilter()->validate('foo');
   }

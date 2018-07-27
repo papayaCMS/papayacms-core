@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Factory\Profile\Is\Iso;
 /**
-* Profile creating a filter for a  ISO 8601 date string
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterFactoryProfileIsIsoDate extends \Papaya\Filter\Factory\Profile {
+ * Profile creating a filter for a  ISO 8601 date string
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Date extends \Papaya\Filter\Factory\Profile {
 
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()

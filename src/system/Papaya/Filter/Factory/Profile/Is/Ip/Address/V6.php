@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Factory\Profile\Is\Ip\Address;
 /**
-* Profile creating a filter for a  v4 ip address
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterFactoryProfileIsIpAddressV6 extends \Papaya\Filter\Factory\Profile {
+ * Profile creating a filter for a  v4 ip address
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class V6 extends \Papaya\Filter\Factory\Profile {
 
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
