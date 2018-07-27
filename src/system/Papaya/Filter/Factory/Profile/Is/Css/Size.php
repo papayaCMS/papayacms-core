@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Factory\Profile\Is\Css;
 /**
-* Profile creating a filter for a css size string including a unit
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterFactoryProfileIsCssSize extends \Papaya\Filter\Factory\Profile {
+ * Profile creating a filter for a css size string including a unit
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Size extends \Papaya\Filter\Factory\Profile {
 
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()

@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Factory\Profile\Is;
 /**
-* Profile creating an email filter
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterFactoryProfileIsEmail extends \Papaya\Filter\Factory\Profile {
+ * Profile creating an email filter
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Email extends \Papaya\Filter\Factory\Profile {
 
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()

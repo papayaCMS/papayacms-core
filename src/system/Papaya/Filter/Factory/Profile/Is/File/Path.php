@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Factory\Profile\Is\File;
 /**
-* Profile creating a file path/directory string filter
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterFactoryProfileIsFilePath extends \Papaya\Filter\Factory\Profile {
+ * Profile creating a file path/directory string filter
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Path extends \Papaya\Filter\Factory\Profile {
 
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()

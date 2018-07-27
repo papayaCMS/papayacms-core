@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsEmailTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFactoryProfileIsEmail::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\Is\Email::getFilter
    */
   public function testGetFilter() {
-    $profile = new \PapayaFilterFactoryProfileIsEmail();
+    $profile = new \Papaya\Filter\Factory\Profile\Is\Email();
     $this->assertInstanceOf(\PapayaFilterEmail::class, $profile->getFilter());
   }
 }
