@@ -18,22 +18,22 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsNotEmptyTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFactoryProfileIsNotEmpty::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsNotEmpty::getFilter
    * @dataProvider provideNotEmptyStrings
    * @param string $string
    */
   public function testGetFilterExpectTrue($string) {
-    $profile = new \PapayaFilterFactoryProfileIsNotEmpty();
+    $profile = new \Papaya\Filter\Factory\Profile\IsNotEmpty();
     $this->assertTrue($profile->getFilter()->validate($string));
   }
 
   /**
-   * @covers \PapayaFilterFactoryProfileIsNotEmpty::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsNotEmpty::getFilter
    * @dataProvider provideEmptyStrings
    * @param string $string
    */
   public function testGetFilterExpectException($string) {
-    $profile = new \PapayaFilterFactoryProfileIsNotEmpty();
+    $profile = new \Papaya\Filter\Factory\Profile\IsNotEmpty();
     $this->expectException(\PapayaFilterException::class);
     $profile->getFilter()->validate($string);
   }

@@ -317,7 +317,7 @@ class papaya_modulemanager extends base_db {
           isset($this->params['field_action_confirm']) &&
           $this->params['field_action_confirm'] &&
           isset($this->params['table']) &&
-          \PapayaFilterFactory::isTextWithNumbers($this->params['table'])
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['table'])
         ) {
           if (isset($this->packages[$this->params['pkg_id']])) {
             $path = $this->getTableDataPath(
@@ -359,9 +359,9 @@ class papaya_modulemanager extends base_db {
           isset($this->params['field_action_confirm']) &&
           $this->params['field_action_confirm'] &&
           isset($this->params['table']) &&
-          \PapayaFilterFactory::isTextWithNumbers($this->params['table']) &&
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['table']) &&
           isset($this->params['field']) &&
-          \PapayaFilterFactory::isTextWithNumbers($this->params['field'])
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['field'])
         ) {
           $changed = $this->databaseDropField(
             $this->getTableFullName($this->params['table']),
@@ -379,7 +379,7 @@ class papaya_modulemanager extends base_db {
           isset($this->params['index_action_confirm']) &&
           $this->params['index_action_confirm'] &&
           isset($this->params['table']) &&
-          \PapayaFilterFactory::isTextWithNumbers($this->params['table'])
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['table'])
         ) {
           if (isset($this->packages[$this->params['pkg_id']])) {
             $path = $this->getTableDataPath(
@@ -419,9 +419,9 @@ class papaya_modulemanager extends base_db {
           isset($this->params['index_action_confirm']) &&
           $this->params['index_action_confirm'] &&
           isset($this->params['table']) &&
-          \PapayaFilterFactory::isTextWithNumbers($this->params['table']) &&
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['table']) &&
           isset($this->params['index']) &&
-          \PapayaFilterFactory::isTextWithNumbers($this->params['index'])
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['index'])
         ) {
           $changed = $this->databaseDropIndex(
             $this->getTableFullName($this->params['table']), $this->params['index']
@@ -437,7 +437,7 @@ class papaya_modulemanager extends base_db {
           isset($this->params['table_action_confirm']) &&
           $this->params['table_action_confirm'] &&
           isset($this->params['table']) &&
-          \PapayaFilterFactory::isTextWithNumbers($this->params['table'])
+          \Papaya\Filter\Factory::isTextWithNumbers($this->params['table'])
         ) {
           if (isset($this->packages[$this->params['pkg_id']])) {
             $path = $this->getTableDataPath(

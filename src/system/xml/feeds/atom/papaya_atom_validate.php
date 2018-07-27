@@ -307,13 +307,13 @@ class papaya_atom_validate {
       );
       $result = FALSE;
     }
-    if (!\PapayaFilterFactory::isEmail($person->email, FALSE)) {
+    if (!\Papaya\Filter\Factory::isEmail($person->email, FALSE)) {
       $this->_addError(
         PAPAYA_FEED_ERROR_WARNING, PAPAYA_FEED_ERRORCODE_FORMAT, $elementType, $idx, 'email'
       );
       $result = FALSE;
     }
-    if (!\PapayaFilterFactory::isUrl($person->uri, FALSE)) {
+    if (!\Papaya\Filter\Factory::isUrl($person->uri, FALSE)) {
       $this->_addError(
         PAPAYA_FEED_ERROR_WARNING, PAPAYA_FEED_ERRORCODE_FORMAT, $elementType, $idx, 'uri'
       );

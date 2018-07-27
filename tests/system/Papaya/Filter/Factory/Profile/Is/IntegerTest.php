@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsIntegerTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFactoryProfileIsInteger::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsInteger::getFilter
    */
   public function testGetFilter() {
-    $profile = new \PapayaFilterFactoryProfileIsInteger();
+    $profile = new \Papaya\Filter\Factory\Profile\IsInteger();
     $this->assertInstanceOf(\PapayaFilterInteger::class, $profile->getFilter());
   }
 }

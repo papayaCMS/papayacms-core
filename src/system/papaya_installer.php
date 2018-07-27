@@ -284,7 +284,7 @@ class papaya_installer extends base_db {
       'database_connected' => $this->checkDatabase(),
       'optiontable_defined' => (
         defined('PAPAYA_DB_TBL_OPTIONS') &&
-        \PapayaFilterFactory::isText(PAPAYA_DB_TBL_OPTIONS, TRUE)
+        \Papaya\Filter\Factory::isText(PAPAYA_DB_TBL_OPTIONS, TRUE)
       ),
       'optiontable_exists' => FALSE,
       'optionfile_exists' => FALSE,

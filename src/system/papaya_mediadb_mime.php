@@ -263,7 +263,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
           $this->initializeMimeTypeExtensionDialog($this->params['cmd']);
           if (isset($this->params['confirm']) && $this->params['confirm']
               && $this->params['extension'] != ''
-              && \PapayaFilterFactory::isText($this->params['extension'])) {
+              && \Papaya\Filter\Factory::isText($this->params['extension'])) {
             $mimeTypes = $this->mimeObj->getMimeTypeByExtension($this->params['extension']);
             if (count($mimeTypes) > 0 && !isset($this->params['override'])) {
               $this->initializeMimeTypeExtensionConfirmDialog($mimeTypes);

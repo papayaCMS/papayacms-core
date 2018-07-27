@@ -261,7 +261,7 @@ class base_domains extends base_db {
             $targetUrl = strtolower($domainData['domain_data']);
           }
           $checkDomain = 0 !== strpos($targetUrl, $protocol.'://'.$hostName);
-          if ($checkDomain && \PapayaFilterFactory::isUrl($targetUrl, TRUE)) {
+          if ($checkDomain && \Papaya\Filter\Factory::isUrl($targetUrl, TRUE)) {
             $response = new \PapayaResponseRedirect(
               $targetUrl, 301, 'domain page redirect'
             );

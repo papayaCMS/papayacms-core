@@ -18,18 +18,18 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsTextWithNumbersTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFactoryProfileIsTextWithNumbers::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsTextWithNumbers::getFilter
    */
   public function testGetFilterExpectTrue() {
-    $profile = new \PapayaFilterFactoryProfileIsTextWithNumbers();
+    $profile = new \Papaya\Filter\Factory\Profile\IsTextWithNumbers();
     $this->assertTrue($profile->getFilter()->validate('Hallo 1. Welt!'));
   }
 
   /**
-   * @covers \PapayaFilterFactoryProfileIsTextWithNumbers::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsTextWithNumbers::getFilter
    */
   public function testGetFilterExpectException() {
-    $profile = new \PapayaFilterFactoryProfileIsTextWithNumbers();
+    $profile = new \Papaya\Filter\Factory\Profile\IsTextWithNumbers();
     $this->expectException(\PapayaFilterException::class);
     $profile->getFilter()->validate('');
   }

@@ -268,7 +268,7 @@ class base_messages extends base_db {
             'name' => $userName,
             'group_name' => substr($userEmail, 0, -13)
           );
-        } elseif (\PapayaFilterFactory::isEmail($userEmail, TRUE)) {
+        } elseif (\Papaya\Filter\Factory::isEmail($userEmail, TRUE)) {
           $result[] = array(
             'name' => $userName,
             'email' => $userEmail
@@ -404,7 +404,7 @@ class base_messages extends base_db {
               $result = TRUE;
             }
           } elseif (isset($val['user_id']) && (isset($this->users[$val['user_id']])) &&
-              \PapayaFilterFactory::isEmail($this->users[$val['user_id']]['email'], TRUE)) {
+              \Papaya\Filter\Factory::isEmail($this->users[$val['user_id']]['email'], TRUE)) {
             $val['email'] = $this->users[$val['user_id']]['email'];
             $resultAddresses[$field][] = $val;
             if ($field == 'to') {

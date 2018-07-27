@@ -804,7 +804,7 @@ class papaya_messages extends base_messages {
         }
       }
       $administrationUser = $this->papaya()->administrationUser;
-      if (\PapayaFilterFactory::isEmail($administrationUser->user['email'], TRUE)) {
+      if (\Papaya\Filter\Factory::isEmail($administrationUser->user['email'], TRUE)) {
         $email->setSender(
           $this->getUserEmailAddress($administrationUser->user),
           $this->getUserEmailName($administrationUser->user)
@@ -914,7 +914,7 @@ class papaya_messages extends base_messages {
               $result = TRUE;
             }
           } elseif (isset($val['user_id']) && (isset($this->users[$val['user_id']])) &&
-              \PapayaFilterFactory::isEmail($this->users[$val['user_id']]['email'], TRUE)) {
+              \Papaya\Filter\Factory::isEmail($this->users[$val['user_id']]['email'], TRUE)) {
             $val['email'] = $this->users[$val['user_id']]['email'];
             $resultAddresses[$field][] = $val;
             if ($field == 'to') {
@@ -923,7 +923,7 @@ class papaya_messages extends base_messages {
           } elseif (
             isset($val['user_login']) &&
             isset($userNames[$val['user_login']]) &&
-            \PapayaFilterFactory::isEmail(
+            \Papaya\Filter\Factory::isEmail(
               $this->users[$userNames[$val['user_login']]]['email'], TRUE
             )
           ) {

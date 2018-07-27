@@ -62,7 +62,7 @@ class base_mediadb_rpc extends base_mediadb {
     // check for the upload function
     if (function_exists('uploadprogress_get_info')) {
       //make sure that the id is only in hexadecimal
-      if (\PapayaFilterFactory::isGuid($id, FALSE)) {
+      if (\Papaya\Filter\Factory::isGuid($id, FALSE)) {
         $ulInfo = $this->getUploadProgressInfo($id);
          // get information from the file upload
         if ($ulInfo) {

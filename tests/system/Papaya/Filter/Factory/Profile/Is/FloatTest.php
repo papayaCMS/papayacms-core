@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsFloatTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFactoryProfileIsFloat::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsFloat::getFilter
    */
   public function testGetFilter() {
-    $profile = new \PapayaFilterFactoryProfileIsFloat();
+    $profile = new \Papaya\Filter\Factory\Profile\IsFloat();
     $this->assertInstanceOf(\PapayaFilterFloat::class, $profile->getFilter());
   }
 }

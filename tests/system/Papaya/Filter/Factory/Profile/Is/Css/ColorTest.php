@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsCssColorTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Factory\Profile\Is\Css\Color::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsCssColor::getFilter
    */
   public function testGetFilter() {
-    $profile = new \Papaya\Filter\Factory\Profile\Is\Css\Color();
+    $profile = new \Papaya\Filter\Factory\Profile\IsCssColor();
     $this->assertInstanceOf(\PapayaFilterColor::class, $profile->getFilter());
   }
 }

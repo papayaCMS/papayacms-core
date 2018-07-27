@@ -18,18 +18,18 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsIpAddressV6Test extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Factory\Profile\Is\Ip\Address\V6::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsIpAddressV6::getFilter
    */
   public function testGetFilterWithIpV6AddressExpectTrue() {
-    $profile = new \Papaya\Filter\Factory\Profile\Is\Ip\Address\V6();
+    $profile = new \Papaya\Filter\Factory\Profile\IsIpAddressV6();
     $this->assertTrue($profile->getFilter()->validate('2001:0db8:85a3:0000:0000:8a2e:0370:7334'));
   }
 
   /**
-   * @covers \Papaya\Filter\Factory\Profile\Is\Ip\Address\V6::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsIpAddressV6::getFilter
    */
   public function testGetFilterExpectException() {
-    $profile = new \Papaya\Filter\Factory\Profile\Is\Ip\Address\V6();
+    $profile = new \Papaya\Filter\Factory\Profile\IsIpAddressV6();
     $this->expectException(\PapayaFilterException::class);
     $profile->getFilter()->validate('foo');
   }

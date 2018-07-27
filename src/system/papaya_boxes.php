@@ -2560,7 +2560,7 @@ class papaya_boxes extends base_boxes {
       case 'publish' :
         if (isset($this->params['confirm_publish']) && $this->params['confirm_publish']) {
           if (isset($this->params['commit_message']) &&
-              \PapayaFilterFactory::isNotEmpty($this->params['commit_message'], TRUE)) {
+              \Papaya\Filter\Factory::isNotEmpty($this->params['commit_message'], TRUE)) {
             if ($this->publishBox()) {
               if (!empty($this->params['commit_message'])) {
                 $this->sessionParams['last_publish_message'] = $this->params['commit_message'];

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileRegexTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFactoryProfileRegex::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\MatchesRegEx::getFilter
    */
   public function testGetFilter() {
-    $profile = new \PapayaFilterFactoryProfileRegex();
+    $profile = new \Papaya\Filter\Factory\Profile\MatchesRegEx();
     $profile->options('(^pattern$)D');
     $filter = $profile->getFilter();
     $this->assertInstanceOf(\PapayaFilterPcre::class, $filter);

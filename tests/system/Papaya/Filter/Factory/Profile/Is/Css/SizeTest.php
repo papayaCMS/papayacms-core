@@ -18,20 +18,20 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsCssSizeTest extends \PapayaTestCase {
 
   /**
-   * @covers \Papaya\Filter\Factory\Profile\Is\Css\Size::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsCssSize::getFilter
    * @dataProvider provideCssSizes
    * @param string $size
    */
   public function testGetFilterExpectTrue($size) {
-    $profile = new \Papaya\Filter\Factory\Profile\Is\Css\Size();
+    $profile = new \Papaya\Filter\Factory\Profile\IsCssSize();
     $this->assertTrue($profile->getFilter()->validate($size));
   }
 
   /**
-   * @covers \Papaya\Filter\Factory\Profile\Is\Css\Size::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsCssSize::getFilter
    */
   public function testGetFilterExpectException() {
-    $profile = new \Papaya\Filter\Factory\Profile\Is\Css\Size();
+    $profile = new \Papaya\Filter\Factory\Profile\IsCssSize();
     $this->expectException(\PapayaFilterException::class);
     $profile->getFilter()->validate('foo');
   }

@@ -270,7 +270,7 @@ class papaya_parser extends base_db {
           $this->addOns[strtolower($paramValue)] = FALSE;
           break;
         case 'href':
-          if (\PapayaFilterFactory::isInteger($paramValue, TRUE)) {
+          if (\Papaya\Filter\Factory::isInteger($paramValue, TRUE)) {
             $this->topics[(int)$paramValue] = FALSE;
           }
           break;
@@ -809,7 +809,7 @@ class papaya_parser extends base_db {
           $cfgData['status']
         );
       }
-    } elseif (isset($params['href']) && \PapayaFilterFactory::isInteger($params['href'], TRUE) &&
+    } elseif (isset($params['href']) && \Papaya\Filter\Factory::isInteger($params['href'], TRUE) &&
         isset($this->topics[$params['href']]) &&
               is_array($this->topics[$params['href']])) {
       $hrefData = array(
@@ -818,7 +818,7 @@ class papaya_parser extends base_db {
         'title' => isset($params['title']) ? $params['title'] : ''
       );
     } elseif (isset($params['href']) &&
-              \PapayaFilterFactory::isUrl($params['href'], TRUE) && $this->isSessionInUri()) {
+              \Papaya\Filter\Factory::isUrl($params['href'], TRUE) && $this->isSessionInUri()) {
       $hrefData = array(
         'href' => $this->getWebLink(0, '', 'page', array('exit' => $params['href'])),
         'target' => isset($params['target']) ? $params['target'] : '_self',

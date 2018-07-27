@@ -1365,7 +1365,7 @@ class base_auth extends base_db {
             $this->user['email'], $this->user['givenname'].' '.$this->user['surname']
           );
 
-          if (\PapayaFilterFactory::isEmail($this->user['email'], TRUE)) {
+          if (\Papaya\Filter\Factory::isEmail($this->user['email'], TRUE)) {
             $email->send();
           }
         }

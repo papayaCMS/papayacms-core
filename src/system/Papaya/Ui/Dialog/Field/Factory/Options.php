@@ -62,7 +62,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
   private $_values = array();
 
   /**
-   * @var \PapayaFilterFactory
+   * @var \Papaya\Filter\Factory
    */
   private $_filterFactory;
 
@@ -276,14 +276,14 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
   /**
    * Getter/Setter for the validation filter factory
    *
-   * @param \PapayaFilterFactory $factory
-   * @return \PapayaFilterFactory
+   * @param \Papaya\Filter\Factory $factory
+   * @return \Papaya\Filter\Factory
    */
-  public function filterFactory(\PapayaFilterFactory $factory = NULL) {
+  public function filterFactory(\Papaya\Filter\Factory $factory = NULL) {
     if (NULL !== $factory) {
       $this->_filterFactory = $factory;
     } elseif (NULL === $this->_filterFactory) {
-      $this->_filterFactory = new \PapayaFilterFactory();
+      $this->_filterFactory = new \Papaya\Filter\Factory();
     }
     return $this->_filterFactory;
   }

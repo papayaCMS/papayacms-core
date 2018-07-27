@@ -285,7 +285,7 @@ class base_auth_secure extends base_db {
   */
   function sendNotify($Ip, $countIp, $userName, $countUser) {
     if (defined('PAPAYA_LOGIN_NOTIFYEMAIL') &&
-        \PapayaFilterFactory::isEmail(PAPAYA_LOGIN_NOTIFYEMAIL, TRUE)) {
+        \Papaya\Filter\Factory::isEmail(PAPAYA_LOGIN_NOTIFYEMAIL, TRUE)) {
       $emailObj = new email;
 
       $bodyTemplate =

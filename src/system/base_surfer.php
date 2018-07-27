@@ -410,7 +410,7 @@ class base_surfer extends base_db {
               ? '' : $_POST[$this->logformVar]['redirection'];
           }
           if (isset($login) && trim($login) != '') {
-            if (\PapayaFilterFactory::isEmail($login)) {
+            if (\Papaya\Filter\Factory::isEmail($login)) {
               $this->setSessionValue($this->loginVar, 'id');
               // successful login will terminate script after login()
               $this->login($login, $password, $redirection);
@@ -882,7 +882,7 @@ class base_surfer extends base_db {
           $this->loadLoginBy('email', $credentials[0], TRUE, $credentials[1], FALSE, TRUE);
           break;
         case 2:
-          if (\PapayaFilterFactory::isEmail($credentials[0])) {
+          if (\Papaya\Filter\Factory::isEmail($credentials[0])) {
             $this->loadLoginBy('email', $credentials[0], TRUE, $credentials[1], FALSE, TRUE);
           } else {
             $this->loadLoginBy('handle', $credentials[0], TRUE, $credentials[1], FALSE, TRUE);

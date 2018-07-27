@@ -428,7 +428,7 @@ class base_mediadb_edit extends base_mediadb {
   function getFileFromWeb(
     $fileURL, $folderId, $surferId, $replace = FALSE, $fileId = NULL, $fileName = NULL
   ) {
-    if (\PapayaFilterFactory::isUrl($fileURL)) {
+    if (\Papaya\Filter\Factory::isUrl($fileURL)) {
       $fileName = !empty($fileName) ? $fileName : basename($fileURL);
       $tmpFileName = tempnam(PAPAYA_PATH_CACHE, '.mdb_web');
       if ($fpTemp = fopen($tmpFileName, 'w')) {

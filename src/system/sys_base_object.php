@@ -906,7 +906,7 @@ class base_object extends BaseObject implements \PapayaRequestParametersInterfac
       if (!preg_match('(^\w+://)', $href)) {
         $href = $baseHref.$sidStr.$pathWeb.$href;
       }
-    } elseif (\PapayaFilterFactory::isUrl($url)) {
+    } elseif (\Papaya\Filter\Factory::isUrl($url)) {
       $href = $url;
     } elseif (preg_match("#^/#", $url)) {
       $href = $baseHref.$sidStr.$url;

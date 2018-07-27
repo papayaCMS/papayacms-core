@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaFilterFactoryProfileIsPasswordTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFactoryProfileIsPassword::getFilter
+   * @covers \Papaya\Filter\Factory\Profile\IsPassword::getFilter
    */
   public function testGetFilter() {
-    $profile = new \PapayaFilterFactoryProfileIsPassword();
+    $profile = new \Papaya\Filter\Factory\Profile\IsPassword();
     $this->assertInstanceOf(\PapayaFilterPassword::class, $profile->getFilter());
   }
 }
