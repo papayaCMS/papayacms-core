@@ -145,7 +145,7 @@ class PapayaUiDialogFieldSelectMultiple extends \PapayaUiDialogField {
       $values = new \RecursiveIteratorIterator($values);
     }
     if ($this->getValueMode() == self::VALUE_USE_KEY) {
-      return new \PapayaFilterListKeys($values);
+      return new \Papaya\Filter\ArrayKey($values);
     } else {
       return new \PapayaFilterList($values);
     }

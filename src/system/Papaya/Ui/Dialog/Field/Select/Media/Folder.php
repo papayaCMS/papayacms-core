@@ -71,11 +71,11 @@ class PapayaUiDialogFieldSelectMediaFolder extends \PapayaUiDialogField {
   public function mediaFolders(\Papaya\Content\Media\Folders $folders = NULL) {
     if (isset($folders)) {
       $this->_folders = $folders;
-      $this->setFilter(new \PapayaFilterListKeys($this->_folders));
+      $this->setFilter(new \Papaya\Filter\ArrayKey($this->_folders));
     } elseif (NULL == $this->_folders) {
       $this->_folders = new \Papaya\Content\Media\Folders();
       $this->_folders->activateLazyLoad();
-      $this->setFilter(new \PapayaFilterListKeys($this->_folders));
+      $this->setFilter(new \Papaya\Filter\ArrayKey($this->_folders));
     }
     return $this->_folders;
   }

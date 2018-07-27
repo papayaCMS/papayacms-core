@@ -76,6 +76,8 @@ class Autoloader {
     'PapayaFilterFactoryExceptionInvalidFilter' => Filter\Factory\Exception\InvalidFilter::class,
     'PapayaFilterFactoryExceptionInvalidOptions' => Filter\Factory\Exception\InvalidOptions::class,
     'PapayaFilterFactoryExceptionInvalidProfile' => Filter\Factory\Exception\InvalidProfile::class,
+    'PapayaFilterListKeys' => Filter\ArrayKey::class,
+    'PapayaFilterListMultiple' => Filter\ArrayValues::class,
 
     'PapayaObject' => Application\BaseObject::class
   );

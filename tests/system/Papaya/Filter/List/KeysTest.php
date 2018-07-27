@@ -18,70 +18,70 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterListKeysTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterListKeys::__construct
+   * @covers \Papaya\Filter\ArrayKey::__construct
    */
   public function testConstructor() {
-    $filter = new \PapayaFilterListKeys(array(21 => 'half', 42 => 'truth'));
+    $filter = new \Papaya\Filter\ArrayKey(array(21 => 'half', 42 => 'truth'));
     $this->assertAttributeEquals(
       array(21 => 'half', 42 => 'truth'), '_list', $filter
     );
   }
 
   /**
-   * @covers \PapayaFilterListKeys::__construct
+   * @covers \Papaya\Filter\ArrayKey::__construct
    */
   public function testConstructorWithTraversable() {
-    $filter = new \PapayaFilterListKeys($iterator = new ArrayIterator(array()));
+    $filter = new \Papaya\Filter\ArrayKey($iterator = new ArrayIterator(array()));
     $this->assertAttributeSame(
       $iterator, '_list', $filter
     );
   }
 
   /**
-   * @covers \PapayaFilterListKeys::validate
+   * @covers \Papaya\Filter\ArrayKey::validate
    * @dataProvider provideValidValidateData
    * @param mixed $value
    * @param array|Traversable $validValues
    * @throws \PapayaFilterException
    */
   public function testValidateExpectingTrue($value, $validValues) {
-    $filter = new \PapayaFilterListKeys($validValues);
+    $filter = new \Papaya\Filter\ArrayKey($validValues);
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \PapayaFilterListKeys::validate
+   * @covers \Papaya\Filter\ArrayKey::validate
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
    * @param array|Traversable $validValues
    * @throws \PapayaFilterException
    */
   public function testValidateExpectingException($value, $validValues) {
-    $filter = new \PapayaFilterListKeys($validValues);
+    $filter = new \Papaya\Filter\ArrayKey($validValues);
     $this->expectException(\PapayaFilterException::class);
     $filter->validate($value);
   }
 
   /**
-   * @covers \PapayaFilterListKeys::filter
+   * @covers \Papaya\Filter\ArrayKey::filter
    * @dataProvider provideValidFilterData
    * @param mixed $expected
    * @param mixed $value
    * @param array|Traversable $validValues
    */
   public function testFilter($expected, $value, $validValues) {
-    $filter = new \PapayaFilterListKeys($validValues);
+    $filter = new \Papaya\Filter\ArrayKey($validValues);
     $this->assertEquals($expected, $filter->filter($value));
   }
 
   /**
-   * @covers \PapayaFilterListKeys::filter
+   * @covers \Papaya\Filter\ArrayKey::filter
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
    * @param array|Traversable $validValues
    */
   public function testFilterExpectingNull($value, $validValues) {
-    $filter = new \PapayaFilterListKeys($validValues);
+    $filter = new \Papaya\Filter\ArrayKey($validValues);
     $this->assertNull($filter->filter($value));
   }
 

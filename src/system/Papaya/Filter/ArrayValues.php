@@ -13,48 +13,50 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter class that validates if all values in a given are in another predefined list
-*
-* It validates if all of the given array elements are in a given predefined list.
-* It is used to validate multiple selects like lists or checkboxes
-*
-* The filter function will return the element rather then the input.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterListMultiple implements \Papaya\Filter {
+ * Papaya filter class that validates if all values in a given are in another predefined list
+ *
+ * It validates if all of the given array elements are in a given predefined list.
+ * It is used to validate multiple selects like lists or checkboxes
+ *
+ * The filter function will return the element rather then the input.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class ArrayValues implements \Papaya\Filter {
 
   /**
-  * elements list
-  * @var integer
-  */
-  private $_list = NULL;
+   * elements list
+   *
+   * @var integer
+   */
+  private $_list;
 
   /**
-  * Construct object and set the list of elements
-  *
-  * @param array $elements
-  */
+   * Construct object and set the list of elements
+   *
+   * @param array $elements
+   */
   public function __construct(array $elements) {
     \PapayaUtilConstraints::assertNotEmpty($elements);
     $this->_list = $elements;
   }
 
   /**
-  * Check the integer input and throw an exception if it does not match the condition.
-  *
-  * @throws \PapayaFilterException
-  * @param array $value
-  * @return TRUE
-  */
+   * Check the integer input and throw an exception if it does not match the condition.
+   *
+   * @throws \PapayaFilterException
+   * @param mixed $value
+   * @return TRUE
+   */
   public function validate($value) {
     if (!is_array($value)) {
       throw new \Papaya\Filter\Exception\UnexpectedType('array');
     }
     foreach ($value as $element) {
-      if (!in_array($element, $this->_list)) {
+      if (!in_array($element, $this->_list, FALSE)) {
         throw new \Papaya\Filter\Exception\NotIncluded($element);
       }
     }
@@ -62,16 +64,16 @@ class PapayaFilterListMultiple implements \Papaya\Filter {
   }
 
   /**
-  * The filter function is used to read a input value if it is valid.
-  *
-  * @param array $value
-  * @return array
-  */
+   * The filter function is used to read a input value if it is valid.
+   *
+   * @param array $value
+   * @return array
+   */
   public function filter($value) {
     $result = array();
     foreach ((array)$value as $element) {
-      $index = array_search($element, $this->_list);
-      if ($index === 0 || $index > 0) {
+      $index = array_search($element, $this->_list, FALSE);
+      if (0 === $index || $index > 0) {
         $result[] = $this->_list[$index];
       }
     }

@@ -33,7 +33,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
       array(21 => 'half', 42 => 'full'), '_values', $select
     );
     $this->assertEquals(
-      new \PapayaFilterListKeys(array(21 => 'half', 42 => 'full')), $select->getFilter()
+      new \Papaya\Filter\ArrayKey(array(21 => 'half', 42 => 'full')), $select->getFilter()
     );
   }
 
