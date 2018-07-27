@@ -49,7 +49,7 @@ class ArrayOf implements \Papaya\Filter {
    */
   public function validate($value) {
     if (!(is_array($value) && count($value) > 0)) {
-      throw new \PapayaFilterExceptionEmpty();
+      throw new Exception\IsEmpty();
     }
     if (isset($this->_elementFilter)) {
       foreach ($value as $element) {

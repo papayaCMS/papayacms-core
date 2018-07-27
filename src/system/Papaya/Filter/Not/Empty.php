@@ -50,13 +50,13 @@ class PapayaFilterNotEmpty implements \Papaya\Filter {
   public function validate($value) {
     if (isset($value) && is_array($value)) {
       if (count($value) <= 0) {
-        throw new \PapayaFilterExceptionEmpty();
+        throw new \Papaya\Filter\Exception\IsEmpty();
       }
     } else {
       $value = (string)$value;
       if ($value === '' ||
           ($this->_ignoreSpaces && trim($value) === '')) {
-        throw new \PapayaFilterExceptionEmpty();
+        throw new \Papaya\Filter\Exception\IsEmpty();
       }
     }
     return TRUE;

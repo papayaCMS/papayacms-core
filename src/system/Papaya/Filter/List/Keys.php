@@ -54,7 +54,7 @@ class PapayaFilterListKeys implements \Papaya\Filter {
       throw new \PapayaFilterExceptionType('integer, float, string');
     }
     if ((string)$value === '') {
-      throw new \PapayaFilterExceptionEmpty();
+      throw new \Papaya\Filter\Exception\IsEmpty();
     }
     if (is_array($this->_list) && array_key_exists($value, $this->_list)) {
       return TRUE;

@@ -31,7 +31,7 @@ class PapayaFilterXmlTest extends \PapayaTestCase {
    * @covers \PapayaFilterXml::validate
    * @dataProvider provideValidXmlFragments
    * @param string $fragment
-   * @throws \PapayaFilterExceptionEmpty
+   * @throws \Papaya\Filter\Exception\IsEmpty
    * @throws \PapayaFilterExceptionXml
    */
   public function testValidate($fragment) {
@@ -51,7 +51,7 @@ class PapayaFilterXmlTest extends \PapayaTestCase {
    * @covers \PapayaFilterXml::validate
    * @dataProvider provideInvalidXmlFragments
    * @param mixed $fragment
-   * @throws \PapayaFilterExceptionEmpty
+   * @throws \Papaya\Filter\Exception\IsEmpty
    * @throws \PapayaFilterExceptionXml
    */
   public function testValidateExpectingException($fragment) {
@@ -65,7 +65,7 @@ class PapayaFilterXmlTest extends \PapayaTestCase {
    */
   public function testValidateWithEmptyStringExpectingException() {
     $filter = new \PapayaFilterXml();
-    $this->expectException(\PapayaFilterExceptionEmpty::class);
+    $this->expectException(\Papaya\Filter\Exception\IsEmpty::class);
     $filter->validate('');
   }
 

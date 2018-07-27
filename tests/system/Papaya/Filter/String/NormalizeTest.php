@@ -32,7 +32,7 @@ class PapayaFilterStringNormalizeTest extends \PapayaTestCase {
    */
   public function testValidateWithEmptyValueExpectingException() {
     $filter = new \PapayaFilterStringNormalize();
-    $this->expectException(\PapayaFilterExceptionEmpty::class);
+    $this->expectException(\Papaya\Filter\Exception\IsEmpty::class);
     $filter->validate('');
   }
 

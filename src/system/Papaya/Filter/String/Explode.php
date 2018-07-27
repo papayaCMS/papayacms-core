@@ -55,11 +55,11 @@ class PapayaFilterStringExplode implements \Papaya\Filter {
   /**
    * @param mixed $value
    * @return bool
-   * @throws \PapayaFilterExceptionEmpty
+   * @throws \Papaya\Filter\Exception\IsEmpty
    */
   public function validate($value) {
     if (empty($value)) {
-      throw new \PapayaFilterExceptionEmpty();
+      throw new \Papaya\Filter\Exception\IsEmpty();
     }
     $tokens = explode($this->_separator, (string)$value);
     if ($this->_filter instanceof \Papaya\Filter) {

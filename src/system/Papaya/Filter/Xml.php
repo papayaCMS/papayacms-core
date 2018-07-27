@@ -39,13 +39,13 @@ class PapayaFilterXml implements \Papaya\Filter {
    *
    * @param string $value
    * @throws \PapayaFilterExceptionXml
-   * @throws \PapayaFilterExceptionEmpty
+   * @throws \Papaya\Filter\Exception\IsEmpty
    * @return TRUE
    */
   public function validate($value) {
     $value = trim($value);
     if (empty($value)) {
-      throw new \PapayaFilterExceptionEmpty();
+      throw new \Papaya\Filter\Exception\IsEmpty();
     }
     $errors = new \PapayaXmlErrors();
     $errors->activate();

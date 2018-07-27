@@ -51,7 +51,7 @@ class PapayaFilterList implements \Papaya\Filter {
   */
   public function validate($value) {
     if ((string)$value === '') {
-      throw new \PapayaFilterExceptionEmpty();
+      throw new \Papaya\Filter\Exception\IsEmpty();
     }
     if (is_array($this->_list) && in_array($value, $this->_list)) {
       return TRUE;

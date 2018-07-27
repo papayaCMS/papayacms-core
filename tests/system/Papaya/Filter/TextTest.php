@@ -34,7 +34,7 @@ class PapayaFilterTextTest extends \PapayaTestCase {
    * @param mixed $value
    * @param int $options
    * @throws \Papaya\Filter\Exception\InvalidCharacter
-   * @throws \PapayaFilterExceptionEmpty
+   * @throws \Papaya\Filter\Exception\IsEmpty
    */
   public function testValidateWithValidValuesExpectingTrue(
     $value, $options = \PapayaFilterText::ALLOW_SPACES
@@ -50,7 +50,7 @@ class PapayaFilterTextTest extends \PapayaTestCase {
    * @param mixed $value
    * @param int $options
    * @throws \Papaya\Filter\Exception\InvalidCharacter
-   * @throws \PapayaFilterExceptionEmpty
+   * @throws \Papaya\Filter\Exception\IsEmpty
    */
   public function testValidateWithInvalidValuesExpectingException(
     $value, $options = \PapayaFilterText::ALLOW_SPACES
@@ -66,7 +66,7 @@ class PapayaFilterTextTest extends \PapayaTestCase {
    */
   public function testValidateWithEmptyValueExpectingException() {
     $filter = new \PapayaFilterText();
-    $this->expectException(\PapayaFilterExceptionEmpty::class);
+    $this->expectException(\Papaya\Filter\Exception\IsEmpty::class);
     $filter->validate('');
   }
 
@@ -76,7 +76,7 @@ class PapayaFilterTextTest extends \PapayaTestCase {
    */
   public function testValidateWithNullValueExpectingException() {
     $filter = new \PapayaFilterText();
-    $this->expectException(\PapayaFilterExceptionEmpty::class);
+    $this->expectException(\Papaya\Filter\Exception\IsEmpty::class);
     $filter->validate(NULL);
   }
 

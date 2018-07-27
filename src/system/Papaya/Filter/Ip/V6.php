@@ -30,13 +30,13 @@ class PapayaFilterIpV6 implements \Papaya\Filter {
    *
    * @param string $value
    * @throws \PapayaFilterExceptionCountMismatch
-   * @throws \PapayaFilterExceptionEmpty
+   * @throws \Papaya\Filter\Exception\IsEmpty
    * @throws \PapayaFilterExceptionPartInvalid
    * @return boolean TRUE
    */
   public function validate($value) {
     if (empty($value)) {
-      throw new \PapayaFilterExceptionEmpty();
+      throw new \Papaya\Filter\Exception\IsEmpty();
     }
     $parts = explode(':', $value);
     $countEmpty = 0;

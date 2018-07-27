@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception;
 /**
-* This exception is thrown if a value is empty and should not.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionEmpty extends \PapayaFilterException {
+ * This exception is thrown if a value is empty and should not.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class IsEmpty extends \PapayaFilterException {
 
   /**
-  * Construct object and set (static) message.
-  */
+   * Construct object and set (static) message.
+   */
   public function __construct() {
     parent::__construct('Value is empty.');
   }

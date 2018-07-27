@@ -58,7 +58,7 @@ class PapayaFilterNotEmptyTest extends \PapayaTestCase {
    */
   public function testValidateExpectingException($value, $ignoreSpaces) {
     $filter = new \PapayaFilterNotEmpty($ignoreSpaces);
-    $this->expectException(\PapayaFilterExceptionEmpty::class);
+    $this->expectException(\Papaya\Filter\Exception\IsEmpty::class);
     $filter->validate($value);
   }
 

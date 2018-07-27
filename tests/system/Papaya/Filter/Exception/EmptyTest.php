@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterExceptionEmptyTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionEmpty::__construct
+  * @covers \Papaya\Filter\Exception\IsEmpty::__construct
   */
   public function testConstructor() {
-    $e = new \PapayaFilterExceptionEmpty();
+    $e = new \Papaya\Filter\Exception\IsEmpty();
     $this->assertEquals(
       'Value is empty.',
       $e->getMessage()

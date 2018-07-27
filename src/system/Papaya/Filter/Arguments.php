@@ -58,7 +58,7 @@ class Arguments implements \Papaya\Filter {
    */
   public function validate($value) {
     if (empty($value)) {
-      throw new \PapayaFilterExceptionEmpty();
+      throw new Exception\IsEmpty();
     }
     $value = explode($this->_separator, $value);
     if (count($value) > count($this->_filters)) {

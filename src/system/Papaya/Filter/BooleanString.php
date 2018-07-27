@@ -57,12 +57,12 @@ class BooleanString
    * Validate the given value and return TRUE, throw and exception if it is empty.
    *
    * @param mixed $value
-   * @throws \PapayaFilterExceptionEmpty
+   * @throws \Papaya\Filter\Exception\IsEmpty
    * @return TRUE
    */
   public function validate($value) {
     if (NULL === $this->filter($value)) {
-      throw new \PapayaFilterExceptionEmpty();
+      throw new Exception\IsEmpty();
     }
     return TRUE;
   }
