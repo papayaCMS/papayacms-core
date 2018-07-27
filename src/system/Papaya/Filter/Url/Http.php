@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Url;
 /**
-* Papaya filter class validating a url host name
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterUrlHttp extends \PapayaFilterUrl {
+ * Papaya filter class validating a url host name
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Http extends \PapayaFilterUrl {
 
   /**
    * @see \Papaya\Filter::validate()

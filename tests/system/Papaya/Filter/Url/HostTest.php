@@ -18,41 +18,41 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterUrlHostTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterUrlHost
+   * @covers \Papaya\Filter\Url\Host
    * @dataProvider provideHostNameValues
    * @param mixed $value
    * @throws \PapayaFilterException
    */
   public function testValidate($value) {
-    $filter = new \PapayaFilterUrlHost();
+    $filter = new \Papaya\Filter\Url\Host();
     $this->assertTrue($filter->validate($value));
   }
 
   /**
-   * @covers \PapayaFilterUrlHost
+   * @covers \Papaya\Filter\Url\Host
    * @dataProvider provideInvalidValues
    * @param mixed $value
    * @throws \PapayaFilterException
    */
   public function testValidateExpectingException($value) {
-    $filter = new \PapayaFilterUrlHost();
+    $filter = new \Papaya\Filter\Url\Host();
     $this->expectException(\PapayaFilterException::class);
     $filter->validate($value);
   }
 
   /**
-  * @covers \PapayaFilterUrlHost
+  * @covers \Papaya\Filter\Url\Host
   */
   public function testFilterExpectingNull() {
-    $filter = new \PapayaFilterUrlHost();
+    $filter = new \Papaya\Filter\Url\Host();
     $this->assertNull($filter->filter(''));
   }
 
   /**
-  * @covers \PapayaFilterUrlHost
+  * @covers \Papaya\Filter\Url\Host
   */
   public function testFilterExpectingValue() {
-    $filter = new \PapayaFilterUrlHost();
+    $filter = new \Papaya\Filter\Url\Host();
     $this->assertEquals('localhost', $filter->filter('localhost'));
   }
 

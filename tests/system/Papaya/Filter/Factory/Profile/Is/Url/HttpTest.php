@@ -22,6 +22,6 @@ class PapayaFilterFactoryProfileIsUrlHttpTest extends \PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new \Papaya\Filter\Factory\Profile\IsUrlHttp();
-    $this->assertInstanceOf(\PapayaFilterUrlHttp::class, $profile->getFilter());
+    $this->assertInstanceOf(\Papaya\Filter\Url\Http::class, $profile->getFilter());
   }
 }

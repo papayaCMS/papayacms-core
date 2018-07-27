@@ -26,6 +26,6 @@ class IsUrlHttp extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterUrlHttp();
+    return new \Papaya\Filter\Url\Http();
   }
 }
