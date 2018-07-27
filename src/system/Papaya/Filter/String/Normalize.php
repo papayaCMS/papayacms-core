@@ -38,13 +38,13 @@ class PapayaFilterStringNormalize implements \Papaya\Filter {
    * @param mixed $value
    * @return bool
    * @throws \Papaya\Filter\Exception\IsEmpty
-   * @throws \PapayaFilterExceptionType
+   * @throws \Papaya\Filter\Exception\UnexpectedType
    */
   public function validate($value) {
     if (empty($value)) {
       throw new \Papaya\Filter\Exception\IsEmpty();
     } elseif (!is_scalar($value)) {
-      throw new \PapayaFilterExceptionType('string');
+      throw new \Papaya\Filter\Exception\UnexpectedType('string');
     }
     return TRUE;
   }

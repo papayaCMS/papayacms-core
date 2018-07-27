@@ -86,7 +86,7 @@ class PapayaFilterDate implements \Papaya\Filter {
    * Validate a date
    *
    * @param string $value
-   * @throws \PapayaFilterExceptionType
+   * @throws \Papaya\Filter\Exception\UnexpectedType
    * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
    * @return boolean
    */
@@ -95,7 +95,7 @@ class PapayaFilterDate implements \Papaya\Filter {
       $elements = preg_split('([T ])', $value);
       if (count($elements) > 2 ||
           ($this->_includeTime == self::DATE_MANDATORY_TIME && count($elements) != 2)) {
-        throw new \PapayaFilterExceptionType('Wrong number of elements in date/time string.');
+        throw new \Papaya\Filter\Exception\UnexpectedType('Wrong number of elements in date/time string.');
       }
       $date = $elements[0];
       if (count($elements) > 1) {
@@ -110,7 +110,7 @@ class PapayaFilterDate implements \Papaya\Filter {
       (?P<day>\d{2})
     $)Dx';
     if (!preg_match($patternDateISO, $date, $matches)) {
-      throw new \PapayaFilterExceptionType('Invalid date format.');
+      throw new \Papaya\Filter\Exception\UnexpectedType('Invalid date format.');
     }
     $daysPerMonth = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
     $year = $matches['year'];

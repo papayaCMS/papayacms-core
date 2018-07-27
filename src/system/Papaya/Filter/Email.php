@@ -33,12 +33,12 @@ class PapayaFilterEmail implements \Papaya\Filter {
    * Check the value if it's a valid email address, if not throw an exception.
    *
    * @param string $value
-   * @throws \PapayaFilterExceptionType
+   * @throws \Papaya\Filter\Exception\UnexpectedType
    * @return TRUE
    */
   public function validate($value) {
     if (!preg_match($this->_patternCheck, $value)) {
-      throw new \PapayaFilterExceptionType('email address');
+      throw new \Papaya\Filter\Exception\UnexpectedType('email address');
     }
     return TRUE;
   }

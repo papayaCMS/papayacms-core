@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterExceptionTypeTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionType::__construct
+  * @covers \Papaya\Filter\Exception\UnexpectedType::__construct
   */
   public function testConstructor() {
-    $e = new \PapayaFilterExceptionType('integer number');
+    $e = new \Papaya\Filter\Exception\UnexpectedType('integer number');
     $this->assertEquals(
       'Value is not a "integer number".',
       $e->getMessage()
@@ -29,10 +29,10 @@ class PapayaFilterExceptionTypeTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaFilterExceptionType::getExpectedType
+  * @covers \Papaya\Filter\Exception\UnexpectedType::getExpectedType
   */
   public function testGetExpectedType() {
-    $e = new \PapayaFilterExceptionType('integer number');
+    $e = new \Papaya\Filter\Exception\UnexpectedType('integer number');
     $this->assertEquals(
       'integer number',
       $e->getExpectedType()

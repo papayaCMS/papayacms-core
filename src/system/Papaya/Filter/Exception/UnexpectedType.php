@@ -13,23 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception;
 /**
-* This exception is thrown to report that a the value match not a specified type.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionType extends \PapayaFilterException {
+ * This exception is thrown to report that a the value match not a specified type.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class UnexpectedType extends \PapayaFilterException {
 
   /**
-  * expected type description
-  * @var string
-  */
-  private $_expectedType = '';
+   * expected type description
+   *
+   * @var string
+   */
+  private $_expectedType;
 
   /**
-  * Construct object and set expected type.
-  */
+   * Construct object and set expected type.
+   *
+   * @param string $expectedType
+   */
   public function __construct($expectedType) {
     $this->_expectedType = $expectedType;
     parent::__construct(
@@ -41,10 +45,10 @@ class PapayaFilterExceptionType extends \PapayaFilterException {
   }
 
   /**
-  * Get expected type for individual error messages
-  *
-  * @return string
-  */
+   * Get expected type for individual error messages
+   *
+   * @return string
+   */
   public function getExpectedType() {
     return $this->_expectedType;
   }

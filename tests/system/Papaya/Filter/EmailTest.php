@@ -30,7 +30,7 @@ class PapayaFilterEmailTest extends \PapayaTestCase {
   */
   public function testValidateExpectingException() {
     $filter = new \PapayaFilterEmail();
-    $this->expectException(\PapayaFilterExceptionType::class);
+    $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
     $filter->validate('invalid email @dress');
   }
 

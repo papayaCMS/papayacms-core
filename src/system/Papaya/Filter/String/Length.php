@@ -68,7 +68,7 @@ class PapayaFilterStringLength implements \Papaya\Filter {
    */
   public function validate($value) {
     if (is_array($value)) {
-      throw new \PapayaFilterExceptionType('string');
+      throw new \Papaya\Filter\Exception\UnexpectedType('string');
     }
     $length = \PapayaUtilStringUtf8::length((string)$value);
     if (isset($this->_minimum) && $length < $this->_minimum) {

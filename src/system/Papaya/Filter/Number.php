@@ -66,14 +66,14 @@ class PapayaFilterNumber implements \Papaya\Filter {
   * Check a value and throw an exception if it does not match the constraints
   *
   * @param string $value
-  * @throws \PapayaFilterExceptionType
+  * @throws \Papaya\Filter\Exception\UnexpectedType
   * @throws \Papaya\Filter\Exception\OutOfRange\ToSmall
   * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
   * @return boolean
   */
   public function validate($value) {
     if (!preg_match('(^\d+$)', $value)) {
-      throw new \PapayaFilterExceptionType('number');
+      throw new \Papaya\Filter\Exception\UnexpectedType('number');
     }
     if ($this->_minimumLength !== NULL && strlen($value) < $this->_minimumLength) {
       throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_minimumLength, strlen($value));

@@ -30,7 +30,7 @@ class PapayaFilterUrlTest extends \PapayaTestCase {
   */
   public function testValidateExpectingException() {
     $filter = new \PapayaFilterUrl();
-    $this->expectException(\PapayaFilterExceptionType::class);
+    $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
     $filter->validate('invalid url');
   }
 

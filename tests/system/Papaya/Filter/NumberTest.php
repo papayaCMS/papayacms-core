@@ -42,7 +42,7 @@ class PapayaFilterNumberTest extends \PapayaTestCase {
    * @param mixed $value
    * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
    * @throws \Papaya\Filter\Exception\OutOfRange\ToSmall
-   * @throws \PapayaFilterExceptionType
+   * @throws \Papaya\Filter\Exception\UnexpectedType
    */
   public function testValidateSuccess($value) {
     $filter = new \PapayaFilterNumber(3, 4);
@@ -55,7 +55,7 @@ class PapayaFilterNumberTest extends \PapayaTestCase {
   */
   public function testValidateFailureFormat() {
     $filter = new \PapayaFilterNumber();
-    $this->expectException(\PapayaFilterExceptionType::class);
+    $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
     /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate('I am not a number');
   }

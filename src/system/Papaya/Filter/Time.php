@@ -44,7 +44,7 @@ class PapayaFilterTime implements \Papaya\Filter {
   * Validate a time
   *
   * @param string $value
-  * @throws \PapayaFilterExceptionType
+  * @throws \Papaya\Filter\Exception\UnexpectedType
   * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
   * @return boolean
   */
@@ -69,10 +69,10 @@ class PapayaFilterTime implements \Papaya\Filter {
       )?
       $)Dx';
     if (!preg_match($patternTimeISO, $value, $match)) {
-      throw new \PapayaFilterExceptionType('ISO time.');
+      throw new \Papaya\Filter\Exception\UnexpectedType('ISO time.');
     }
     if (!empty($match['offsetOperator'])) {
-      throw new \PapayaFilterExceptionType('Time must not include a time zone offset.');
+      throw new \Papaya\Filter\Exception\UnexpectedType('Time must not include a time zone offset.');
     }
     $limits = array(
       'hour' => 23,
@@ -90,7 +90,7 @@ class PapayaFilterTime implements \Papaya\Filter {
       isset($match['second']) ? $match['second'] : 0
     );
     if ($timeStamp % $this->_step != 0) {
-      throw new \PapayaFilterExceptionType('Time matching the expected step.');
+      throw new \Papaya\Filter\Exception\UnexpectedType('Time matching the expected step.');
     }
     return TRUE;
   }

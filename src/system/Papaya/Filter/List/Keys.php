@@ -51,7 +51,7 @@ class PapayaFilterListKeys implements \Papaya\Filter {
   */
   public function validate($value) {
     if (!(is_string($value) || is_int($value) || is_float($value))) {
-      throw new \PapayaFilterExceptionType('integer, float, string');
+      throw new \Papaya\Filter\Exception\UnexpectedType('integer, float, string');
     }
     if ((string)$value === '') {
       throw new \Papaya\Filter\Exception\IsEmpty();

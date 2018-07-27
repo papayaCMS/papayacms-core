@@ -63,7 +63,7 @@ class AssociativeArray implements \Papaya\Filter {
    */
   public function validate($value) {
     if (!is_array($value)) {
-      throw new \PapayaFilterExceptionType('array');
+      throw new Exception\UnexpectedType('array');
     }
     foreach ($value as $name => $subValue) {
       if (!isset($this->_filters[$name])) {

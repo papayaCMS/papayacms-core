@@ -59,7 +59,7 @@ class PapayaFilterBitmask implements \Papaya\Filter {
       }
       throw new \Papaya\Filter\Exception\InvalidValue($value);
     }
-    throw new \PapayaFilterExceptionType('integer number');
+    throw new \Papaya\Filter\Exception\UnexpectedType('integer number');
   }
 
   /**

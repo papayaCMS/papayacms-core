@@ -36,13 +36,13 @@ class PapayaFilterColor implements \Papaya\Filter {
   /**
   * Check the value if it's a valid color, if not throw an exception.
   *
-  * @throws \PapayaFilterExceptionType
+  * @throws \Papaya\Filter\Exception\UnexpectedType
   * @param string $value
   * @return TRUE
   */
   public function validate($value) {
     if (!preg_match($this->_patternCheck, $value)) {
-      throw new \PapayaFilterExceptionType('color');
+      throw new \Papaya\Filter\Exception\UnexpectedType('color');
     }
     return TRUE;
   }

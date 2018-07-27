@@ -37,7 +37,7 @@ class PapayaFilterTimeTest extends \PapayaTestCase {
    * @dataProvider validateSuccessProvider
    * @param mixed $timeString
    * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
-   * @throws \PapayaFilterExceptionType
+   * @throws \Papaya\Filter\Exception\UnexpectedType
    */
   public function testValidateSuccess($timeString) {
     $filter = new \PapayaFilterTime(1);
@@ -49,11 +49,11 @@ class PapayaFilterTimeTest extends \PapayaTestCase {
    * @dataProvider validateExceptionTypeProvider
    * @param mixed $timeString
    * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
-   * @throws \PapayaFilterExceptionType
+   * @throws \Papaya\Filter\Exception\UnexpectedType
    */
   public function testValidateExceptionType($timeString) {
     $filter = new \PapayaFilterTime();
-    $this->expectException(\PapayaFilterExceptionType::class);
+    $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
     $filter->validate($timeString);
   }
 
@@ -62,7 +62,7 @@ class PapayaFilterTimeTest extends \PapayaTestCase {
    * @dataProvider validateExceptionRangeMaximumProvider
    * @param mixed $timeString
    * @throws \Papaya\Filter\Exception\OutOfRange\ToLarge
-   * @throws \PapayaFilterExceptionType
+   * @throws \Papaya\Filter\Exception\UnexpectedType
    */
   public function testValidateExceptionRangeMaximum($timeString) {
     $filter = new \PapayaFilterTime();
@@ -75,7 +75,7 @@ class PapayaFilterTimeTest extends \PapayaTestCase {
   */
   public function testValidateExceptionTypeForStepMismatch() {
     $filter = new \PapayaFilterTime(1800);
-    $this->expectException(\PapayaFilterExceptionType::class);
+    $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
     /** @noinspection PhpUnhandledExceptionInspection */
     $filter->validate('17:45');
   }

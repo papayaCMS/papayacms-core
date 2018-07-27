@@ -75,7 +75,7 @@ class PapayaFilterInteger implements \Papaya\Filter {
         throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($this->_maximum, $value);
       }
     } else {
-      throw new \PapayaFilterExceptionType('integer number');
+      throw new \Papaya\Filter\Exception\UnexpectedType('integer number');
     }
     return TRUE;
   }

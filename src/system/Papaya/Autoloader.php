@@ -70,6 +70,7 @@ class Autoloader {
     'PapayaFilterExceptionRange' => Filter\Exception\OutOfRange::class,
     'PapayaFilterExceptionRangeMaximum' => Filter\Exception\OutOfRange\ToLarge::class,
     'PapayaFilterExceptionRangeMinimum' => Filter\Exception\OutOfRange\ToSmall::class,
+    'PapayaFilterExceptionType' => Filter\Exception\UnexpectedType::class,
 
     'PapayaObject' => Application\BaseObject::class
   );

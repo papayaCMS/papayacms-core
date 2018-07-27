@@ -51,7 +51,7 @@ class PapayaFilterListMultiple implements \Papaya\Filter {
   */
   public function validate($value) {
     if (!is_array($value)) {
-      throw new \PapayaFilterExceptionType('array');
+      throw new \Papaya\Filter\Exception\UnexpectedType('array');
     }
     foreach ($value as $element) {
       if (!in_array($element, $this->_list)) {

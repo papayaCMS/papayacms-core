@@ -86,7 +86,7 @@ class PapayaFilterTextTest extends \PapayaTestCase {
    */
   public function testValidateWithArrayValueExpectingException() {
     $filter = new \PapayaFilterText();
-    $this->expectException(\PapayaFilterExceptionType::class);
+    $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
     $filter->validate(array());
   }
 

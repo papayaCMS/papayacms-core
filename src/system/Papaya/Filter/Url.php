@@ -48,13 +48,13 @@ class PapayaFilterUrl implements \Papaya\Filter {
   /**
   * Check the value if it's a valid url, if not throw an exception.
   *
-  * @throws \PapayaFilterExceptionType
+  * @throws \Papaya\Filter\Exception\UnexpectedType
   * @param string $value
   * @return TRUE
   */
   public function validate($value) {
     if (!preg_match($this->_patternCheck, $value)) {
-      throw new \PapayaFilterExceptionType('url');
+      throw new \Papaya\Filter\Exception\UnexpectedType('url');
     }
     return TRUE;
   }

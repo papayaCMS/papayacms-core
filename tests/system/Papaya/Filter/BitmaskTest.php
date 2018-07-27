@@ -57,7 +57,7 @@ class PapayaFilterBitmaskTest extends \PapayaTestCase {
   */
   public function testValidateExpectingInvalidValueTypeException() {
     $filter = new \PapayaFilterBitmask(array(1, 2, 4, 16));
-    $this->expectException(\PapayaFilterExceptionType::class);
+    $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
     $filter->validate('fail');
   }
 

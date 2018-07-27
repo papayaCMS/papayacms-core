@@ -70,7 +70,7 @@ class PapayaFilterText implements \Papaya\Filter {
    */
   public function validate($value) {
     if (is_array($value)) {
-      throw new \PapayaFilterExceptionType('string');
+      throw new \Papaya\Filter\Exception\UnexpectedType('string');
     }
     if (trim($value) == '') {
       throw new \Papaya\Filter\Exception\IsEmpty();
