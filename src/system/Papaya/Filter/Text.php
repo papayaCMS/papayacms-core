@@ -65,7 +65,7 @@ class PapayaFilterText implements \Papaya\Filter {
    *
    * @param mixed $value
    * @throws \PapayaFilterExceptionEmpty
-   * @throws \PapayaFilterExceptionCharacterInvalid
+   * @throws \Papaya\Filter\Exception\InvalidCharacter
    * @return TRUE
    */
   public function validate($value) {
@@ -77,7 +77,7 @@ class PapayaFilterText implements \Papaya\Filter {
     }
     $pattern = $this->getPattern();
     if (preg_match($pattern, $value, $matches, PREG_OFFSET_CAPTURE)) {
-      throw new \PapayaFilterExceptionCharacterInvalid($value, $matches[0][1]);
+      throw new \Papaya\Filter\Exception\InvalidCharacter($value, $matches[0][1]);
     }
     return TRUE;
   }

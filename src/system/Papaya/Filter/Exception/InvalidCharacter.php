@@ -13,27 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception;
 /**
-* This exception is thrown if an invalid character is found in the given input
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionCharacterInvalid extends \PapayaFilterException {
+ * This exception is thrown if an invalid character is found in the given input
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class InvalidCharacter extends \PapayaFilterException {
 
   /**
-  * Position of invalid character
-  *
-  * @var integer
-  */
+   * Position of invalid character
+   *
+   * @var integer
+   */
   private $_characterPosition = 0;
 
   /**
-  * Initialize object, store chracter position and generate error message.
-  *
-  * @param string $value
-  * @param integer $offset
-  */
+   * Initialize object, store character position and generate error message.
+   *
+   * @param string $value
+   * @param integer $offset
+   */
   public function __construct($value, $offset) {
     $this->_characterPosition = $offset;
     if (strlen($value) > 50) {
@@ -63,10 +64,10 @@ class PapayaFilterExceptionCharacterInvalid extends \PapayaFilterException {
   }
 
   /**
-  * Return the character position
-  *
-  * @return integer
-  */
+   * Return the character position
+   *
+   * @return integer
+   */
   public function getCharacterPosition() {
     return $this->_characterPosition;
   }

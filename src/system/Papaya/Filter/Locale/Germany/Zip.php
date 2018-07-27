@@ -46,7 +46,7 @@ class PapayaFilterLocaleGermanyZip implements \Papaya\Filter {
    * @param string $value
    * @throws \PapayaFilterExceptionLengthMinimum
    * @throws \PapayaFilterExceptionLengthMaximum
-   * @throws \PapayaFilterExceptionCharacterInvalid
+   * @throws \Papaya\Filter\Exception\InvalidCharacter
    * @return TRUE
    */
   public function validate($value) {
@@ -65,7 +65,7 @@ class PapayaFilterLocaleGermanyZip implements \Papaya\Filter {
       $matches
     );
     if ($found && TRUE === $this->_allowCountryPrefix && empty($matches['prefix'])) {
-      throw new \PapayaFilterExceptionCharacterInvalid($value, 0);
+      throw new \Papaya\Filter\Exception\InvalidCharacter($value, 0);
     }
     if (!$found || empty($matches['zipcode']) || strlen($matches['zipcode']) < 5) {
       throw new \PapayaFilterExceptionLengthMinimum(5, strlen($matches['zipcode']));
@@ -76,7 +76,7 @@ class PapayaFilterLocaleGermanyZip implements \Papaya\Filter {
     $wrongMatches = array();
     $wrongFound = preg_match('([^\\d])', $matches['zipcode'], $wrongMatches, PREG_OFFSET_CAPTURE);
     if ($wrongFound) {
-      throw new \PapayaFilterExceptionCharacterInvalid($matches['zipcode'], $wrongMatches[0][1]);
+      throw new \Papaya\Filter\Exception\InvalidCharacter($matches['zipcode'], $wrongMatches[0][1]);
     }
     return TRUE;
   }

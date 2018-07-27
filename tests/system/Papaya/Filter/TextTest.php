@@ -33,7 +33,7 @@ class PapayaFilterTextTest extends \PapayaTestCase {
    * @dataProvider provideValidValues
    * @param mixed $value
    * @param int $options
-   * @throws \PapayaFilterExceptionCharacterInvalid
+   * @throws \Papaya\Filter\Exception\InvalidCharacter
    * @throws \PapayaFilterExceptionEmpty
    */
   public function testValidateWithValidValuesExpectingTrue(
@@ -49,14 +49,14 @@ class PapayaFilterTextTest extends \PapayaTestCase {
    * @dataProvider provideInvalidValues
    * @param mixed $value
    * @param int $options
-   * @throws \PapayaFilterExceptionCharacterInvalid
+   * @throws \Papaya\Filter\Exception\InvalidCharacter
    * @throws \PapayaFilterExceptionEmpty
    */
   public function testValidateWithInvalidValuesExpectingException(
     $value, $options = \PapayaFilterText::ALLOW_SPACES
   ) {
     $filter = new \PapayaFilterText($options);
-    $this->expectException(\PapayaFilterExceptionCharacterInvalid::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidCharacter::class);
     $filter->validate($value);
   }
 

@@ -97,11 +97,11 @@ class PapayaFilterNumericWithUnit implements \Papaya\Filter {
         in_array($matches['unit'], $this->_units)) {
       if ($this->_algebraicSign == '-' &&
           substr($matches['number'], 0, 1) != '-') {
-        throw new \PapayaFilterExceptionCharacterInvalid($matches['number'], 0);
+        throw new \Papaya\Filter\Exception\InvalidCharacter($matches['number'], 0);
       }
       if ($this->_algebraicSign == '+' &&
           (float)$matches['number'] < 0) {
-        throw new \PapayaFilterExceptionCharacterInvalid($matches['number'], 0);
+        throw new \Papaya\Filter\Exception\InvalidCharacter($matches['number'], 0);
       }
       if (isset($this->_minimum) &&
           (float)$matches['number'] < $this->_minimum) {

@@ -39,13 +39,13 @@ class PapayaFilterNoLinebreak implements \Papaya\Filter {
   /**
   * Check the value for linebreaks, if the value contains linebreaks throw an exception
   *
-  * @throws \PapayaFilterExceptionCharacterInvalid
+  * @throws \Papaya\Filter\Exception\InvalidCharacter
   * @param string $value
   * @return TRUE
   */
   public function validate($value) {
     if (preg_match($this->_patternCheck, $value, $match, PREG_OFFSET_CAPTURE)) {
-      throw new \PapayaFilterExceptionCharacterInvalid($value, $match[0][1]);
+      throw new \Papaya\Filter\Exception\InvalidCharacter($value, $match[0][1]);
     }
     return TRUE;
   }

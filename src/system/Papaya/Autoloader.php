@@ -55,6 +55,7 @@ class Autoloader {
     'PapayaFilterExceptionInvalid' => Filter\Exception\InvalidValue::class,
     'PapayaFilterExceptionCallbackInvalid' => Filter\Exception\InvalidCallback::class,
     'PapayaFilterExceptionCallbackFailed' => Filter\Exception\FailedCallback::class,
+    'PapayaFilterExceptionCharacterInvalid' => Filter\Exception\InvalidCharacter::class,
 
     'PapayaObject' => Application\BaseObject::class
   );

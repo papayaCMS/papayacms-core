@@ -120,7 +120,7 @@ class PapayaFilterNumericWithUnitTest extends \PapayaTestCase {
   */
   public function testValidateExpectedCharacterInvalidExceptionNegativeValue() {
     $filter = new \PapayaFilterNumericWithUnit('em', 1, 1000, '-');
-    $this->expectException(\PapayaFilterExceptionCharacterInvalid::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidCharacter::class);
     $filter->validate('999em');
   }
 
@@ -129,7 +129,7 @@ class PapayaFilterNumericWithUnitTest extends \PapayaTestCase {
   */
   public function testValidateExpectedCharacterInvalidExceptionPositveValue() {
     $filter = new \PapayaFilterNumericWithUnit('em', 1, 1000, '+');
-    $this->expectException(\PapayaFilterExceptionCharacterInvalid::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidCharacter::class);
     $filter->validate('-999em');
   }
 

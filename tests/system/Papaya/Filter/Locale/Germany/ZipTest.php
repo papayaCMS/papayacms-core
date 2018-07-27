@@ -48,7 +48,7 @@ class PapayaFilterLocaleGermanyZipTest extends \PapayaTestCase {
   */
   public function testValidateExpectCharacterInvalidException() {
     $filter = new \PapayaFilterLocaleGermanyZip(TRUE);
-    $this->expectException(\PapayaFilterExceptionCharacterInvalid::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidCharacter::class);
     $filter->validate('11235');
   }
 
@@ -75,7 +75,7 @@ class PapayaFilterLocaleGermanyZipTest extends \PapayaTestCase {
   */
   public function testValidateExpectCharacterInvalidExceptionInPostalcode() {
     $filter = new \PapayaFilterLocaleGermanyZip();
-    $this->expectException(\PapayaFilterExceptionCharacterInvalid::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidCharacter::class);
     $filter->validate('23a91');
   }
 
