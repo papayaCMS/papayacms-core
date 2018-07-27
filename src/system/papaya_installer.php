@@ -1515,12 +1515,12 @@ class papaya_installer extends base_db {
   public function getOptionsValidator() {
     return new \PapayaRequestParametersValidator(
       array(
-        array('PAPAYA_PATH_DATA', new \PapayaFilterNotEmpty()),
-        array('givenname', new \PapayaFilterNotEmpty()),
-        array('surname', new \PapayaFilterNotEmpty()),
-        array('email', new \PapayaFilterNotEmpty()),
-        array('login', new \PapayaFilterNotEmpty()),
-        array('password_hash', new \PapayaFilterNotEmpty()),
+        array('PAPAYA_PATH_DATA', new \Papaya\Filter\NotEmpty()),
+        array('givenname', new \Papaya\Filter\NotEmpty()),
+        array('surname', new \Papaya\Filter\NotEmpty()),
+        array('email', new \Papaya\Filter\NotEmpty()),
+        array('login', new \Papaya\Filter\NotEmpty()),
+        array('password_hash', new \Papaya\Filter\NotEmpty()),
       ),
       isset($this->sessionParams['installer_basic_options'])
         ? $this->sessionParams['installer_basic_options']
@@ -1553,7 +1553,7 @@ class papaya_installer extends base_db {
       $field->setMandatory(TRUE);
       $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup('Administrator');
       $group->fields[] = $field = new \PapayaUiDialogFieldInput(
-        'Givenname', 'givenname', -1, '', new \PapayaFilterNotEmpty()
+        'Givenname', 'givenname', -1, '', new \Papaya\Filter\NotEmpty()
       );
       $field->setMandatory(TRUE);
       $group->fields[] = $field = new \PapayaUiDialogFieldInput(

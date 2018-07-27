@@ -13,37 +13,42 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Papaya filter for numeric with unit validation
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterNumericWithUnit implements \Papaya\Filter {
+ * Papaya filter for numeric with unit validation
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class NumberWithUnit implements \Papaya\Filter {
 
   /**
-  * Allowed units for validation
-  * @var array
-  */
+   * Allowed units for validation
+   *
+   * @var array
+   */
   private $_units = array();
 
   /**
-  * Minimum float value for numeric part. If the value is NULL no check will occur.
-  * @var float|NULL
-  */
+   * Minimum float value for numeric part. If the value is NULL no check will occur.
+   *
+   * @var float|NULL
+   */
   private $_minimum = NULL;
 
   /**
-  * Maximum float value for numeric part. If the value is NULL no check will occur.
-  * @var float|NULL
-  */
+   * Maximum float value for numeric part. If the value is NULL no check will occur.
+   *
+   * @var float|NULL
+   */
   private $_maximum = NULL;
 
   /**
-  * Explicit string for validating algebraic sign in front of numeric value. If the value is NULL
-  * no check will occur.
-  * @var string|NULL
-  */
+   * Explicit string for validating algebraic sign in front of numeric value. If the value is NULL
+   * no check will occur.
+   *
+   * @var string|NULL
+   */
   private $_algebraicSign = NULL;
 
   /**
@@ -72,12 +77,12 @@ class PapayaFilterNumericWithUnit implements \Papaya\Filter {
   }
 
   /**
-  * Validates the given string and throws exceptions
-  *
-  * @throws \PapayaFilterException
-  * @param string $value
-  * @return TRUE
-  */
+   * Validates the given string and throws exceptions
+   *
+   * @throws \PapayaFilterException
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     $value = (string)$value;
     $matches = array();
@@ -94,21 +99,21 @@ class PapayaFilterNumericWithUnit implements \Papaya\Filter {
       $matches
     );
     if (isset($matches['unit']) &&
-        in_array($matches['unit'], $this->_units)) {
+      in_array($matches['unit'], $this->_units)) {
       if ($this->_algebraicSign == '-' &&
-          substr($matches['number'], 0, 1) != '-') {
+        substr($matches['number'], 0, 1) != '-') {
         throw new \Papaya\Filter\Exception\InvalidCharacter($matches['number'], 0);
       }
       if ($this->_algebraicSign == '+' &&
-          (float)$matches['number'] < 0) {
+        (float)$matches['number'] < 0) {
         throw new \Papaya\Filter\Exception\InvalidCharacter($matches['number'], 0);
       }
       if (isset($this->_minimum) &&
-          (float)$matches['number'] < $this->_minimum) {
+        (float)$matches['number'] < $this->_minimum) {
         throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_minimum, (float)$matches['number']);
       }
       if (isset($this->_maximum) &&
-          (float)$matches['number'] > $this->_maximum) {
+        (float)$matches['number'] > $this->_maximum) {
         throw new \Papaya\Filter\Exception\OutOfRange\ToLarge($this->_maximum, (float)$matches['number']);
       }
       return TRUE;
@@ -120,11 +125,11 @@ class PapayaFilterNumericWithUnit implements \Papaya\Filter {
   }
 
   /**
-  * Removes unwanted characters from value
-  *
-  * @param string $value
-  * @return string|NULL
-  */
+   * Removes unwanted characters from value
+   *
+   * @param string $value
+   * @return string|NULL
+   */
   public function filter($value) {
     $units = $this->getRegexpUnitOptions();
     $matches = array();
@@ -155,10 +160,10 @@ class PapayaFilterNumericWithUnit implements \Papaya\Filter {
   }
 
   /**
-  * Returns a string to be used in regular expressions for units
-  *
-  * @return string
-  */
+   * Returns a string to be used in regular expressions for units
+   *
+   * @return string
+   */
   public function getRegexpUnitOptions() {
     $result = array();
     foreach ($this->_units as $unit) {

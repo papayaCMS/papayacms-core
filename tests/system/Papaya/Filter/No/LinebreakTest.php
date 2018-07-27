@@ -18,30 +18,30 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterNoLinebreakTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterNoLinebreak::validate
+  * @covers \Papaya\Filter\NoLinebreak::validate
   */
   public function testValidateExpectingTrue() {
-    $filter = new \PapayaFilterNoLinebreak();
+    $filter = new \Papaya\Filter\NoLinebreak();
     $this->assertTrue($filter->validate('Some Text Without Linebreak'));
   }
 
   /**
-  * @covers \PapayaFilterNoLinebreak::validate
+  * @covers \Papaya\Filter\NoLinebreak::validate
   */
   public function testValidateExpectingException() {
-    $filter = new \PapayaFilterNoLinebreak();
+    $filter = new \Papaya\Filter\NoLinebreak();
     $this->expectException(\Papaya\Filter\Exception\InvalidCharacter::class);
     $filter->validate("Two\r\nLines");
   }
 
   /**
-   * @covers \PapayaFilterNoLinebreak::filter
+   * @covers \Papaya\Filter\NoLinebreak::filter
    * @dataProvider provideFilterData
    * @param string|NULL $expected
    * @param mixed $input
    */
   public function testFilter($expected, $input) {
-    $filter = new \PapayaFilterNoLinebreak();
+    $filter = new \Papaya\Filter\NoLinebreak();
     $this->assertEquals(
       $expected, $filter->filter($input)
     );

@@ -312,10 +312,10 @@ class Session extends Application\BaseObject {
       array(
         'lifetime' => $defaults['lifetime'],
         'path' => $options->get(
-          'PAPAYA_SESSION_PATH', '/', new \PapayaFilterNotEmpty()
+          'PAPAYA_SESSION_PATH', '/', new Filter\NotEmpty()
         ),
         'domain' => $options->get(
-          'PAPAYA_SESSION_DOMAIN', $defaults['domain'], new \PapayaFilterNotEmpty()
+          'PAPAYA_SESSION_DOMAIN', $defaults['domain'], new Filter\NotEmpty()
         ),
         'secure' => $this->isSecureOnly(),
         'httponly' => $options->get('PAPAYA_SESSION_HTTP_ONLY', $defaults['httponly']),

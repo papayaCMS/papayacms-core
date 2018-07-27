@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Text;
 /**
  * Papaya filter class for an string consisting of several parts
  *
@@ -22,8 +23,7 @@
  * @package Papaya-Library
  * @subpackage Filter
  */
-
-class PapayaFilterStringExplode implements \Papaya\Filter {
+class Explode implements \Papaya\Filter {
 
   const TRIM_TOKENS = 1;
 
@@ -85,7 +85,7 @@ class PapayaFilterStringExplode implements \Papaya\Filter {
         $token = trim($token);
       }
       if ($this->_filter instanceof \Papaya\Filter) {
-        $filteredToken =  $this->_filter->filter($token);
+        $filteredToken = $this->_filter->filter($token);
       } else {
         $filteredToken = empty($token) ? NULL : $token;
       }

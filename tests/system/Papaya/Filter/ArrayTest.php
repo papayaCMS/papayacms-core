@@ -84,7 +84,7 @@ class PapayaFilterArrayTest extends \PapayaTestCase {
   public static function provideValidValidateData() {
     return array(
       array(array('foo')),
-      array(array('foo'), new \PapayaFilterNotEmpty()),
+      array(array('foo'), new Filter\NotEmpty()),
       array(array('21', '42'), new \PapayaFilterInteger())
     );
   }
@@ -94,7 +94,7 @@ class PapayaFilterArrayTest extends \PapayaTestCase {
       'empty string' => array(''),
       'empty array' => array(array()),
       'scalar' => array('23'),
-      'empty element' => array(array(''), new \PapayaFilterNotEmpty()),
+      'empty element' => array(array(''), new Filter\NotEmpty()),
       'no integer element' => array(array('foo'), new \PapayaFilterInteger())
     );
   }
@@ -102,7 +102,7 @@ class PapayaFilterArrayTest extends \PapayaTestCase {
   public static function provideValidFilterData() {
     return array(
       array(array('foo'), array('foo')),
-      array(array('foo'), array('foo'), new \PapayaFilterNotEmpty()),
+      array(array('foo'), array('foo'), new Filter\NotEmpty()),
       array(array(21, 42), array('21', '42'), new \PapayaFilterInteger())
     );
   }
@@ -112,7 +112,7 @@ class PapayaFilterArrayTest extends \PapayaTestCase {
       'empty string' => array(''),
       'empty array' => array(array()),
       'scalar' => array('23'),
-      'empty element' => array(array(''), new \PapayaFilterNotEmpty())
+      'empty element' => array(array(''), new Filter\NotEmpty())
     );
   }
 }

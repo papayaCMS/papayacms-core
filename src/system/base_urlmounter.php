@@ -264,7 +264,7 @@ class base_urlmounter extends base_db {
     $pathWeb = $this->papaya()->options->get(
       'PAPAYA_PATH_WEB',
       '/',
-      new \PapayaFilterNotEmpty()
+      new \Papaya\Filter\NotEmpty()
     );
     if ($pathWeb != '/' && strpos($path, $pathWeb) === 0) {
       $strippedAliasPath = substr($path, strlen($pathWeb) - 1);

@@ -13,27 +13,29 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Validate that a value contains at least one character
-*
-* By default whitespace chars are ignored, too.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterNotEmpty implements \Papaya\Filter {
+ * Validate that a value contains at least one character
+ *
+ * By default whitespace chars are ignored, too.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class NotEmpty implements \Papaya\Filter {
 
   /**
-  * Values with only whitespaces are considered empty, too.
-  * @var boolean
-  */
+   * Values with only whitespaces are considered empty, too.
+   *
+   * @var boolean
+   */
   private $_ignoreSpaces = TRUE;
 
   /**
-  * Initialize object and store ignore option.
-  *
-  * @param boolean $ignoreSpaces
-  */
+   * Initialize object and store ignore option.
+   *
+   * @param boolean $ignoreSpaces
+   */
   public function __construct($ignoreSpaces = TRUE) {
     \PapayaUtilConstraints::assertBoolean($ignoreSpaces);
     $this->_ignoreSpaces = $ignoreSpaces;
@@ -55,7 +57,7 @@ class PapayaFilterNotEmpty implements \Papaya\Filter {
     } else {
       $value = (string)$value;
       if ($value === '' ||
-          ($this->_ignoreSpaces && trim($value) === '')) {
+        ($this->_ignoreSpaces && trim($value) === '')) {
         throw new \Papaya\Filter\Exception\IsEmpty();
       }
     }
@@ -63,12 +65,12 @@ class PapayaFilterNotEmpty implements \Papaya\Filter {
   }
 
   /**
-  * If spaces are ignored trim the value. If the value is empty return NULL.
-  *
-  * @throws \PapayaFilterException
-  * @param mixed $value
-  * @return string|NULL
-  */
+   * If spaces are ignored trim the value. If the value is empty return NULL.
+   *
+   * @throws \PapayaFilterException
+   * @param mixed $value
+   * @return string|NULL
+   */
   public function filter($value) {
     if (isset($value) && is_array($value)) {
       return (count($value) > 0) ? $value : NULL;

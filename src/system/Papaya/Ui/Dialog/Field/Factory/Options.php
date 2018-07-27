@@ -251,14 +251,14 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
    * In all other cases it is considered a filter profile name.
    *
    * @param mixed $validation
-   * @return null|\Papaya\Filter|\PapayaFilterNotEmpty
+   * @return null|\Papaya\Filter|\Papaya\Filter\NotEmpty
    */
   private function getValidation($validation) {
     if ($validation instanceof \Papaya\Filter) {
       return $validation;
     }
     if (empty($validation)) {
-      return $this->mandatory ? new \PapayaFilterNotEmpty() : NULL;
+      return $this->mandatory ? new \Papaya\Filter\NotEmpty() : NULL;
     }
     $factory = $this->filterFactory();
     if (is_array($validation) || $validation instanceof \Closure) {

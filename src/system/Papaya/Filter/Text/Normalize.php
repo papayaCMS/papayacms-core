@@ -13,14 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Text;
 /**
  * Papaya filter class normalizing a string
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-
-class PapayaFilterStringNormalize implements \Papaya\Filter {
+class Normalize implements \Papaya\Filter {
 
   const OPTION_LOWERCASE = 1;
   const OPTION_ALLOW_ASTERISK = 2;

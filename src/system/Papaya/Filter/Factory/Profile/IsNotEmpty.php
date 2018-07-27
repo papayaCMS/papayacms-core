@@ -26,6 +26,6 @@ class IsNotEmpty extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterNotEmpty();
+    return new \Papaya\Filter\NotEmpty();
   }
 }

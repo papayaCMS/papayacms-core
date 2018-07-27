@@ -13,36 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* This filter class checks for linebreaks and filters them out.
-*
-* The linebreak and whitespace character preceding and following the linebreak are replaced with
-* a single space.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterNoLinebreak implements \Papaya\Filter {
+ * This filter class checks for linebreaks and filters them out.
+ *
+ * The linebreak and whitespace character preceding and following the linebreak are replaced with
+ * a single space.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class NoLinebreak implements \Papaya\Filter {
 
   /**
-  * Pattern to check for a linebreak
-  * @var string
-  */
+   * Pattern to check for a linebreak
+   *
+   * @var string
+   */
   private $_patternCheck = '([\r\n])u';
 
   /**
-  * Pattern to replace linebreaks and surrounding whitespace
-  * @var string
-  */
+   * Pattern to replace linebreaks and surrounding whitespace
+   *
+   * @var string
+   */
   private $_patternFilter = '(\s*[\r\n]+\s*)u';
 
   /**
-  * Check the value for linebreaks, if the value contains linebreaks throw an exception
-  *
-  * @throws \Papaya\Filter\Exception\InvalidCharacter
-  * @param string $value
-  * @return TRUE
-  */
+   * Check the value for linebreaks, if the value contains linebreaks throw an exception
+   *
+   * @throws \Papaya\Filter\Exception\InvalidCharacter
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     if (preg_match($this->_patternCheck, $value, $match, PREG_OFFSET_CAPTURE)) {
       throw new \Papaya\Filter\Exception\InvalidCharacter($value, $match[0][1]);
@@ -51,11 +54,11 @@ class PapayaFilterNoLinebreak implements \Papaya\Filter {
   }
 
   /**
-  * Replace linebreaks and surrounding whitespace characters with a single space
-  *
-  * @param string $value
-  * @return string
-  */
+   * Replace linebreaks and surrounding whitespace characters with a single space
+   *
+   * @param string $value
+   * @return string
+   */
   public function filter($value) {
     return preg_replace($this->_patternFilter, ' ', $value);
   }

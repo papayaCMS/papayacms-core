@@ -26,6 +26,6 @@ class IsCssSize extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterNumericWithUnit(array('em', 'px', 'pt', '%'));
+    return new \Papaya\Filter\NumberWithUnit(array('em', 'px', 'pt', '%'));
   }
 }

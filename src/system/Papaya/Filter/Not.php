@@ -13,53 +13,54 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter;
 /**
-* Abstract filter class implementing logical not, wrapping another filter.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterNot implements \Papaya\Filter {
+ * Abstract filter class implementing logical not, wrapping another filter.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Not implements \Papaya\Filter {
 
   /**
-  * Wrappend filter
-  *
-  * @var \Papaya\Filter
-  */
-  protected $_filter = NULL;
+   * Wrappend filter
+   *
+   * @var \Papaya\Filter
+   */
+  protected $_filter;
 
   /**
-  * Construct object and store subfilter
-  *
-  * @param \Papaya\Filter $filter
-  */
+   * Construct object and store subfilter
+   *
+   * @param \Papaya\Filter $filter
+   */
   public function __construct(\Papaya\Filter $filter) {
     $this->_filter = $filter;
   }
 
   /**
-  * Validate the input value using the defined wrapped filter object. If it matches
-  * throw an exception. In result the wrapped filter is used as a negative criterion.
-  *
-  * @throws \Papaya\Filter\Exception\InvalidValue
-  * @param string $value
-  * @return TRUE
-  */
+   * Validate the input value using the defined wrapped filter object. If it matches
+   * throw an exception. In result the wrapped filter is used as a negative criterion.
+   *
+   * @throws Exception\InvalidValue
+   * @param string $value
+   * @return TRUE
+   */
   public function validate($value) {
     try {
       $this->_filter->validate($value);
     } catch (\Exception $e) {
       return TRUE;
     }
-    throw new \Papaya\Filter\Exception\InvalidValue($value);
+    throw new Exception\InvalidValue($value);
   }
 
   /**
-  * The filter function is used to read a input value if it is valid.
-  *
-  * @param string $value
-  * @return string|NULL
-  */
+   * The filter function is used to read a input value if it is valid.
+   *
+   * @param string $value
+   * @return string|NULL
+   */
   public function filter($value) {
     return $value;
   }

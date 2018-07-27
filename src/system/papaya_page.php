@@ -1560,7 +1560,7 @@ class papaya_page extends base_object {
     $this->layout = new \PapayaTemplateXslt();
 
     $defaultViewMode = $this->papaya()->options->get(
-      'PAPAYA_URL_EXTENSION', 'html', new \PapayaFilterNotEmpty()
+      'PAPAYA_URL_EXTENSION', 'html', new \Papaya\Filter\NotEmpty()
     );
     if (isset($this->output->viewMode) && !empty($this->output->viewMode['viewmode_ext'])) {
       $currentViewMode = $this->output->viewMode['viewmode_ext'];

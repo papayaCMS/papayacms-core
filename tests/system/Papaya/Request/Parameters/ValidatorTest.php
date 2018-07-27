@@ -23,7 +23,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   public function testConstructor() {
     $parameters = new \PapayaRequestParameters();
     $definitions = array(
-      array('example', 'default', new \PapayaFilterNotEmpty())
+      array('example', 'default', new \Papaya\Filter\NotEmpty())
     );
     $validator = new \PapayaRequestParametersValidator($definitions, $parameters);
     $this->assertEquals(
@@ -37,7 +37,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   public function testConstructorWithArray() {
     $parameters = array('foo' => 'bar');
     $definitions = array(
-      array('example', 'default', new \PapayaFilterNotEmpty())
+      array('example', 'default', new \Papaya\Filter\NotEmpty())
     );
     $validator = new \PapayaRequestParametersValidator($definitions, $parameters);
     $this->assertEquals(
@@ -54,7 +54,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
       array(
         'name' => 'example',
         'default' => 'default',
-        'filter' => new \PapayaFilterNotEmpty()
+        'filter' => new \Papaya\Filter\NotEmpty()
       )
     );
     $validator = new \PapayaRequestParametersValidator($definitions, $parameters);

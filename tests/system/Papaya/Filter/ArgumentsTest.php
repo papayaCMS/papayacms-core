@@ -21,9 +21,9 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Arguments::__construct
   */
   public function testConstructor() {
-    $filter = new \Papaya\Filter\Arguments(array(new \PapayaFilterNotEmpty()));
+    $filter = new \Papaya\Filter\Arguments(array(new \Papaya\Filter\NotEmpty()));
     $this->assertAttributeEquals(
-      array(new \PapayaFilterNotEmpty()), '_filters', $filter
+      array(new \Papaya\Filter\NotEmpty()), '_filters', $filter
     );
   }
 
@@ -31,7 +31,7 @@ class PapayaFilterArgumentsTest extends \PapayaTestCase {
   * @covers \Papaya\Filter\Arguments::__construct
   */
   public function testConstructorWithAllParameters() {
-    $filter = new \Papaya\Filter\Arguments(array(new \PapayaFilterNotEmpty()), ';');
+    $filter = new \Papaya\Filter\Arguments(array(new \Papaya\Filter\NotEmpty()), ';');
     $this->assertAttributeEquals(
       ';', '_separator', $filter
     );

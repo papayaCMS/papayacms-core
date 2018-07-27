@@ -83,7 +83,7 @@ class PapayaUiControlCommandActionTest extends \PapayaTestCase {
 
   public function callbackGetDefinition() {
     return array(
-      array('test', '', new \PapayaFilterNotEmpty())
+      array('test', '', new \Papaya\Filter\NotEmpty())
     );
   }
 

@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Text;
 /**
  * Papaya filter class for an string length
  *
@@ -25,15 +26,17 @@
  * @package Papaya-Library
  * @subpackage Filter
  */
-class PapayaFilterStringLength implements \Papaya\Filter {
+class Length implements \Papaya\Filter {
 
   /**
    * Minimum limit for integer value
+   *
    * @var integer
    */
   private $_minimum = NULL;
   /**
    * Maximum limit for integer value
+   *
    * @var integer
    */
   private $_maximum = NULL;

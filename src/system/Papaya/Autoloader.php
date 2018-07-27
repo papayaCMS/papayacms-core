@@ -80,6 +80,9 @@ class Autoloader {
     'PapayaFilterListMultiple' => Filter\ArrayValues::class,
     'PapayaFilterLogicalAnd' => Filter\LogicalAnd::class,
     'PapayaFilterLogicalOr' => Filter\LogicalOr::class,
+    'PapayaFilterNoLinebreak' => Filter\NoLinebreak::class,
+    'PapayaFilterNotEmpty' => Filter\NotEmpty::class,
+    'PapayaFilterNumericWithUnit' => Filter\NumberWithUnit::class,
 
     'PapayaObject' => Application\BaseObject::class
   );

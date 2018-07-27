@@ -187,7 +187,7 @@ class PapayaUiDialogFieldFactoryOptionsTest extends \PapayaTestCase {
     $options = new \PapayaUiDialogFieldFactoryOptions();
     $options->validation = '';
     $options->mandatory = TRUE;
-    $this->assertInstanceOf(\PapayaFilterNotEmpty::class, $options->validation);
+    $this->assertInstanceOf(\Papaya\Filter\NotEmpty::class, $options->validation);
   }
 
   /**
@@ -220,12 +220,12 @@ class PapayaUiDialogFieldFactoryOptionsTest extends \PapayaTestCase {
     $factory
       ->expects($this->once())
       ->method('getFilter')
-      ->with('generator', FALSE, array(\PapayaFilterNotEmpty::class))
+      ->with('generator', FALSE, array(\Papaya\Filter\NotEmpty::class))
       ->will($this->returnValue($this->createMock(\Papaya\Filter::class)));
 
     $options = new \PapayaUiDialogFieldFactoryOptions();
     $options->filterFactory($factory);
-    $options->validation = \PapayaFilterNotEmpty::class;
+    $options->validation = \Papaya\Filter\NotEmpty::class;
     $this->assertInstanceOf(\Papaya\Filter::class, $options->validation);
   }
 

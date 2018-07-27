@@ -2511,16 +2511,16 @@ class base_topic_edit extends base_topic {
       $fields = array();
       if (isset($this->topic['TRANSLATION'])) {
         $data = $this->topic['TRANSLATION'];
-        $fields['topic_title'] = array('Title', new \PapayaFilterNotEmpty(), TRUE,
+        $fields['topic_title'] = array('Title', new \Papaya\Filter\NotEmpty(), TRUE,
           'input', 400, '', 1);
         if ($authUser->hasPerm(Administration\Permissions::PAGE_METADATA_EDIT) &&
             !$this->topic['meta_useparent']) {
           $fields[] = 'Metatags';
-          $fields['meta_title'] = array('Page Title', new \PapayaFilterNotEmpty(), FALSE,
+          $fields['meta_title'] = array('Page Title', new \Papaya\Filter\NotEmpty(), FALSE,
             'input', 400, '', '');
-          $fields['meta_keywords'] = array('Keywords', new \PapayaFilterNotEmpty(),
+          $fields['meta_keywords'] = array('Keywords', new \Papaya\Filter\NotEmpty(),
             FALSE, 'input', 400, '', '');
-          $fields['meta_descr'] = array('Description', new \PapayaFilterNotEmpty(),
+          $fields['meta_descr'] = array('Description', new \Papaya\Filter\NotEmpty(),
             FALSE, 'textarea', 6, '', '');
         }
       }
@@ -4612,7 +4612,7 @@ class base_topic_edit extends base_topic {
         'commit_message',
         200,
         '',
-        new \PapayaFilterNotEmpty()
+        new \Papaya\Filter\NotEmpty()
       );
       $field->setMandatory(TRUE);
       if ($this->papaya()->options->get('PAPAYA_PUBLICATION_CHANGE_LEVEL', FALSE)) {
