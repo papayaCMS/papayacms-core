@@ -13,29 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-require_once __DIR__.'/../../../../bootstrap.php';
-
-class PapayaFilterExceptionInvalidTest extends \PapayaTestCase {
-
-  /**
-  * @covers \Papaya\Filter\Exception\InvalidValue::__construct
-  */
-  public function testConstructor() {
-    $e = new \Papaya\Filter\Exception\InvalidValue('foo');
-    $this->assertEquals(
-      'Invalid value "foo".',
-      $e->getMessage()
-    );
-  }
+namespace Papaya\Filter\Exception;
+/**
+ * This exception is thrown if an invalid key in an array is encountered.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class InvalidKey extends \PapayaFilterException {
 
   /**
-  * @covers \Papaya\Filter\Exception\InvalidValue::getActualValue
-  */
-  public function testGetPattern() {
-    $e = new \Papaya\Filter\Exception\InvalidValue('foo');
-    $this->assertEquals(
-      'foo',
-      $e->getActualValue()
+   * The constructor expects the name of the invalid key
+   *
+   * @param string $key
+   */
+  public function __construct($key) {
+    parent::__construct(
+      sprintf(
+        'Invalid key "%s" in array.',
+        $key
+      )
     );
   }
 }

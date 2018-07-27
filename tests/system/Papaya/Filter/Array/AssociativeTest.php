@@ -73,7 +73,7 @@ class PapayaFilterArrayAssociativeTest extends \PapayaTestCase {
         'foo' => $subFilter
       ]
     );
-    $this->expectException(\PapayaFilterExceptionArrayKeyInvalid::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidKey::class);
     $this->assertTrue($filter->validate(['foo' => 21, 'bar' => 42]));
   }
 

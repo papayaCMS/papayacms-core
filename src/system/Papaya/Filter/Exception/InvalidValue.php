@@ -13,25 +13,38 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception;
 /**
- * This exception is thrown if an invalid key in an array is encountered.
+ * A length exception is thrown if a certain length is expected and another if found
+ *
+ * In other words if a value is to short or to long
  *
  * @package Papaya-Library
  * @subpackage Filter
  */
-class PapayaFilterExceptionArrayKeyInvalid extends \PapayaFilterException {
+class InvalidValue extends \PapayaFilterException {
 
   /**
-   * The constructor expects the name of the invalid key
+   * The actual value
    *
-   * @param string $key
+   * @var string
    */
-  public function __construct($key) {
-    parent::__construct(
-      sprintf(
-        'Invalid key "%s" in array.',
-        $key
-      )
-    );
+  private $_actualValue = 0;
+
+  /**
+   * @param integer $actualValue
+   */
+  public function __construct($actualValue) {
+    $this->_actualValue = $actualValue;
+    parent::__construct(sprintf('Invalid value "%s".', $actualValue));
+  }
+
+  /**
+   * Read private actual value property
+   *
+   * @return integer
+   */
+  public function getActualValue() {
+    return $this->_actualValue;
   }
 }

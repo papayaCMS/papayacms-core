@@ -52,13 +52,13 @@ class Parameter implements \Papaya\Filter {
    *
    * @see \Papaya\Filter::validate()
    *
-   * @throws \PapayaFilterExceptionInvalid
+   * @throws \Papaya\Filter\Exception\InvalidValue
    * @param string $value
    * @return TRUE
    */
   public function validate($value) {
     if ($this->_parameters->get((string)$this->_parameterName) != (string)$value) {
-      throw new \PapayaFilterExceptionInvalid($value);
+      throw new \Papaya\Filter\Exception\InvalidValue($value);
     }
     return TRUE;
   }

@@ -57,7 +57,7 @@ class PapayaFilterBitmask implements \Papaya\Filter {
       if ($bits === 0) {
         return TRUE;
       }
-      throw new \PapayaFilterExceptionInvalid($value);
+      throw new \Papaya\Filter\Exception\InvalidValue($value);
     }
     throw new \PapayaFilterExceptionType('integer number');
   }

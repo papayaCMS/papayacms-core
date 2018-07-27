@@ -46,10 +46,14 @@ class Autoloader {
     'PapayaConfigurationGlobal' => Configuration\GlobalValues::class,
     'PapayaDatabaseRecordOrderList' => Database\Record\Order\Collection::class,
     'PapayaDatabaseRecordList' => Database\Record\Collection::class,
+
     'PapayaFilterArray' => Filter\ArrayOf::class,
     'PapayaFilterArrayAssociative' => Filter\AssociativeArray::class,
     'PapayaFilterArraySize' => Filter\ArraySize::class,
     'PapayaFilterBooleanString' => Filter\BooleanString::class,
+    'PapayaFilterExceptionArrayKeyInvalid' => Filter\Exception\InvalidKey::class,
+    'PapayaFilterExceptionInvalid' => Filter\Exception\InvalidValue::class,
+
     'PapayaObject' => Application\BaseObject::class
   );
 

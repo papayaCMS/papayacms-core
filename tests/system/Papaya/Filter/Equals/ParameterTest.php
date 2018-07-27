@@ -42,7 +42,7 @@ class PapayaFilterEqualsParameterTest extends \PapayaTestCase {
   public function testValidateInvalidFilterException() {
     $parameters = new \PapayaRequestParameters(array('foo' => 'booo'));
     $filter = new \Papaya\Filter\Equals\Parameter($parameters, 'foo');
-    $this->expectException(\PapayaFilterExceptionInvalid::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidValue::class);
     $this->expectExceptionMessage('Invalid value "bar"');
     $filter->validate('bar');
   }

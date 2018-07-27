@@ -41,7 +41,7 @@ class PapayaFilterNot implements \Papaya\Filter {
   * Validate the input value using the defined wrapped filter object. If it matches
   * throw an exception. In result the wrapped filter is used as a negative criterion.
   *
-  * @throws \PapayaFilterExceptionInvalid
+  * @throws \Papaya\Filter\Exception\InvalidValue
   * @param string $value
   * @return TRUE
   */
@@ -51,7 +51,7 @@ class PapayaFilterNot implements \Papaya\Filter {
     } catch (\Exception $e) {
       return TRUE;
     }
-    throw new \PapayaFilterExceptionInvalid($value);
+    throw new \Papaya\Filter\Exception\InvalidValue($value);
   }
 
   /**

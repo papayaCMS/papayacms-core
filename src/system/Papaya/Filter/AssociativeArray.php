@@ -67,7 +67,7 @@ class AssociativeArray implements \Papaya\Filter {
     }
     foreach ($value as $name => $subValue) {
       if (!isset($this->_filters[$name])) {
-        throw new \PapayaFilterExceptionArrayKeyInvalid($name);
+        throw new Exception\InvalidKey($name);
       }
       $this->_filters[$name]->validate($subValue);
     }
