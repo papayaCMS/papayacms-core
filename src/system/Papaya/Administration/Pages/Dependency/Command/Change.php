@@ -114,12 +114,12 @@ class Change extends \PapayaUiControlCommandDialog {
   public function validateOriginAndSynchronizations($context, $record) {
     if ($record->originId == $record->id) {
       $context->originIdField->handleValidationFailure(
-        new \PapayaFilterExceptionCallbackFailed(array($this, 'validateOrigin'))
+        new \Papaya\Filter\Exception\FailedCallback(array($this, 'validateOrigin'))
       );
       return FALSE;
     } elseif ($record->isDependency($record->originId)) {
       $context->originIdField->handleValidationFailure(
-        new \PapayaFilterExceptionCallbackFailed(array($this, 'validateOrigin'))
+        new \Papaya\Filter\Exception\FailedCallback(array($this, 'validateOrigin'))
       );
       return FALSE;
     }
@@ -127,7 +127,7 @@ class Change extends \PapayaUiControlCommandDialog {
       ($record->synchronization & \Papaya\Content\Page\Dependency::SYNC_CONTENT)) {
       if (!$this->compareViewModules($record)) {
         $context->synchronizationField->handleValidationFailure(
-          new \PapayaFilterExceptionCallbackFailed(array($this, 'compareViewModules'))
+          new \Papaya\Filter\Exception\FailedCallback(array($this, 'compareViewModules'))
         );
         return FALSE;
       }

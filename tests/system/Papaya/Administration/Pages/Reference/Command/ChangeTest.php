@@ -120,7 +120,7 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends \PapayaTestCas
     $field
       ->expects($this->once())
       ->method('handleValidationFailure')
-      ->with($this->isInstanceOf(\PapayaFilterExceptionCallbackFailed::class));
+      ->with($this->isInstanceOf(\Papaya\Filter\Exception\FailedCallback::class));
     $key = $this->createMock(Key::class);
     $key
       ->expects($this->once())

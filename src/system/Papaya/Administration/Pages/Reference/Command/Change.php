@@ -102,7 +102,7 @@ class Change extends \PapayaUiControlCommandDialog {
       $record->exists($sourceId, $targetId)
     ) {
       $context->targetIdField->handleValidationFailure(
-        new \PapayaFilterExceptionCallbackFailed(array($this, 'validateOrigin'))
+        new \Papaya\Filter\Exception\FailedCallback(array($this, 'validateOrigin'))
       );
       return FALSE;
     }

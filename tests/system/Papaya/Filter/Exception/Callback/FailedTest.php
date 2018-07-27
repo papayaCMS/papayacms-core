@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaFilterExceptionCallbackFailedTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionCallbackFailed::__construct
+  * @covers \Papaya\Filter\Exception\FailedCallback::__construct
   */
   public function testConstructor() {
-    $e = new \PapayaFilterExceptionCallbackFailed('strpos');
+    $e = new \Papaya\Filter\Exception\FailedCallback('strpos');
     $this->assertEquals(
       'Callback has failed: "strpos"',
       $e->getMessage()

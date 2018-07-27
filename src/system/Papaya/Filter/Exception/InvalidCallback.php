@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception;
 /**
-* This exception is thrown if a the callback is invalid.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionCallbackInvalid extends \PapayaFilterExceptionCallback {
+ * This exception is thrown if a the callback is invalid.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class InvalidCallback extends Callback {
 
   /**
-  * Construct object with callback informations
-  *
-  * @param \Callback $callback
-  */
+   * Construct object with callback informations
+   *
+   * @param \Callback $callback
+   */
   public function __construct($callback) {
     parent::__construct(
       sprintf(

@@ -63,7 +63,7 @@ class PapayaFilterCallback implements \Papaya\Filter {
     $arguments = $this->_arguments;
     array_unshift($arguments, $value);
     if (!call_user_func_array($this->_callback, $arguments)) {
-      throw new \PapayaFilterExceptionCallbackFailed($this->_callback);
+      throw new \Papaya\Filter\Exception\FailedCallback($this->_callback);
     }
     return TRUE;
   }
@@ -85,12 +85,13 @@ class PapayaFilterCallback implements \Papaya\Filter {
 
   /**
    * Check if the callback function is callable
+   *
    * @param \Callback $callback
-   * @throws \PapayaFilterExceptionCallbackInvalid
+   * @throws \Papaya\Filter\Exception\InvalidCallback
    */
   public function _isCallback($callback) {
     if (!is_callable($callback)) {
-      throw new \PapayaFilterExceptionCallbackInvalid($callback);
+      throw new \Papaya\Filter\Exception\InvalidCallback($callback);
     }
   }
 }

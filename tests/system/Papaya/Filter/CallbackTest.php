@@ -58,7 +58,7 @@ class PapayaFilterCallbackTest extends \PapayaTestCase {
   */
   public function testValidateWithInvalidCallbackExpectingException() {
     $filter = new \PapayaFilterCallback('INVALID_CALLBACK_NAME');
-    $this->expectException(\PapayaFilterExceptionCallbackInvalid::class);
+    $this->expectException(\Papaya\Filter\Exception\InvalidCallback::class);
     $filter->validate('bar');
   }
 
@@ -69,7 +69,7 @@ class PapayaFilterCallbackTest extends \PapayaTestCase {
     $filter = new \PapayaFilterCallback(
       'PapayaFilterCallbackTest_ValidateCallback', array('(^foo$)')
     );
-    $this->expectException(\PapayaFilterExceptionCallbackFailed::class);
+    $this->expectException(\Papaya\Filter\Exception\FailedCallback::class);
     $filter->validate('bar');
   }
 
