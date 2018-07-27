@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Factory\Profile;
+
 /**
-* Profile creating filter specified by the first element in the options array using the
-* other elements of the options array as arguments.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterFactoryProfileGenerator extends \Papaya\Filter\Factory\Profile {
+ * Profile creating filter specified by the first element in the options array using the
+ * other elements of the options array as arguments.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Generator extends \Papaya\Filter\Factory\Profile {
 
   /**
    * @see \Papaya\Filter\Factory\Profile::getFilter()
-   * @throws ReflectionException
+   * @throws \ReflectionException
    * @throws \Papaya\Filter\Factory\Exception\InvalidFilter
    * @throws \Papaya\Filter\Factory\Exception\InvalidOptions
    */
