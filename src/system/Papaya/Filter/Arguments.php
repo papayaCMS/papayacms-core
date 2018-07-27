@@ -62,7 +62,7 @@ class Arguments implements \Papaya\Filter {
     }
     $value = explode($this->_separator, $value);
     if (count($value) > count($this->_filters)) {
-      throw new \PapayaFilterExceptionCountMismatch(count($this->_filters), count($value), 'array');
+      throw new Exception\InvalidCount(count($this->_filters), count($value), 'array');
     }
     /** @var \Papaya\Filter $filter */
     foreach ($this->_filters as $index => $filter) {

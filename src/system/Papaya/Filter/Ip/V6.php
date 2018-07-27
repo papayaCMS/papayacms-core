@@ -29,7 +29,7 @@ class PapayaFilterIpV6 implements \Papaya\Filter {
    *    and there must not be more than one empty part.
    *
    * @param string $value
-   * @throws \PapayaFilterExceptionCountMismatch
+   * @throws \Papaya\Filter\Exception\InvalidCount
    * @throws \Papaya\Filter\Exception\IsEmpty
    * @throws \PapayaFilterExceptionPartInvalid
    * @return boolean TRUE
@@ -50,7 +50,7 @@ class PapayaFilterIpV6 implements \Papaya\Filter {
       }
     }
     if ($countEmpty > 2) {
-      throw new \PapayaFilterExceptionCountMismatch(1, $countEmpty, 'empty IPv6 parts');
+      throw new \Papaya\Filter\Exception\InvalidCount(1, $countEmpty, 'empty IPv6 parts');
     } elseif ($countEmpty == 2) {
       $e1 = $emptyPositions[0];
       $e2 = $emptyPositions[1];
@@ -58,9 +58,9 @@ class PapayaFilterIpV6 implements \Papaya\Filter {
         throw new \PapayaFilterExceptionPartInvalid($e2 + 1, 'IPv6 parts');
       }
     } elseif ($countEmpty == 1 && count($parts) > 7) {
-      throw new \PapayaFilterExceptionCountMismatch(7, count($parts), 'IPv6 parts');
+      throw new \Papaya\Filter\Exception\InvalidCount(7, count($parts), 'IPv6 parts');
     } elseif ($countEmpty == 0 && count($parts) != 8) {
-      throw new \PapayaFilterExceptionCountMismatch(8, count($parts), 'IPv6 parts');
+      throw new \Papaya\Filter\Exception\InvalidCount(8, count($parts), 'IPv6 parts');
     }
     return TRUE;
   }

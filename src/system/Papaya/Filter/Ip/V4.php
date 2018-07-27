@@ -84,7 +84,7 @@ class PapayaFilterIpV4 implements \Papaya\Filter {
   *
   * @todo Replace InvalidARgumentException with FilterException child classes
   * @throws \PapayaFilterExceptionPartInvalid
-  * @throws \PapayaFilterExceptionCountMismatch
+  * @throws \Papaya\Filter\Exception\InvalidCount
   * @throws \InvalidArgumentException
   * @param string $value
   * @return boolean TRUE
@@ -92,7 +92,7 @@ class PapayaFilterIpV4 implements \Papaya\Filter {
   public function validate($value) {
     $parts = explode('.', $value);
     if (count($parts) != 4) {
-      throw new \PapayaFilterExceptionCountMismatch(4, count($parts), 'ip octets');
+      throw new \Papaya\Filter\Exception\InvalidCount(4, count($parts), 'ip octets');
     }
     $filterInteger = new \PapayaFilterInteger(0, 255);
     foreach ($parts as $position => $part) {
