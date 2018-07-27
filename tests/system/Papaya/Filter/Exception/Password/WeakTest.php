@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaFilterExceptionPasswordWeakTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaFilterExceptionPasswordWeak::__construct
+  * @covers \Papaya\Filter\Exception\Password\Weak::__construct
   */
   public function testConstructor() {
-    $e = new \PapayaFilterExceptionPasswordWeak();
+    $e = new \Papaya\Filter\Exception\Password\Weak();
     $this->assertEquals(
       'Password is to weak.',
       $e->getMessage()

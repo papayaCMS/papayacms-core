@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Exception\Password;
 /**
-* This exception is thrown if a password value is considered to weak.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterExceptionPasswordWeak extends \PapayaFilterException {
+ * This exception is thrown if a password value is considered to weak.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Weak extends \PapayaFilterException {
 
   /**
-  * Construct object and set (static) message.
-  */
+   * Construct object and set (static) message.
+   */
   public function __construct() {
     parent::__construct('Password is to weak.');
   }

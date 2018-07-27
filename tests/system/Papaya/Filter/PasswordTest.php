@@ -63,7 +63,7 @@ class PapayaFilterPasswordTest extends \PapayaTestCase {
   */
   public function testValidateExpectingExceptionPasswordWeak() {
     $filter = new \PapayaFilterPassword(1, 10);
-    $this->expectException(\PapayaFilterExceptionPasswordWeak::class);
+    $this->expectException(\Papaya\Filter\Exception\Password\Weak::class);
     $filter->validate('foo');
   }
 

@@ -64,7 +64,7 @@ class PapayaFilterPassword implements \Papaya\Filter {
     }
     preg_match_all('(\PL)u', $value, $matches);
     if (!(isset($matches[0]) && count($matches[0]) > 1)) {
-      throw new \PapayaFilterExceptionPasswordWeak();
+      throw new \Papaya\Filter\Exception\Password\Weak();
     }
     return TRUE;
   }
