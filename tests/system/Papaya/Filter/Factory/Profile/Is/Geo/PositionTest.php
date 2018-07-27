@@ -22,6 +22,6 @@ class PapayaFilterFactoryProfileIsGeoPositionTest extends \PapayaTestCase {
    */
   public function testGetFilter() {
     $profile = new \Papaya\Filter\Factory\Profile\IsGeoPosition();
-    $this->assertInstanceOf(\PapayaFilterGeoPosition::class, $profile->getFilter());
+    $this->assertInstanceOf(\Papaya\Filter\Geo\Position::class, $profile->getFilter());
   }
 }

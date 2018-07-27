@@ -22,6 +22,6 @@ class PapayaFilterFactoryProfileIsFilePathTest extends \PapayaTestCase {
    */
   public function testGetFilterExpectTrue() {
     $profile = new \Papaya\Filter\Factory\Profile\IsFilePath();
-    $this->assertInstanceOf(\PapayaFilterFilePath::class, $profile->getFilter());
+    $this->assertInstanceOf(\Papaya\Filter\File\Path::class, $profile->getFilter());
   }
 }

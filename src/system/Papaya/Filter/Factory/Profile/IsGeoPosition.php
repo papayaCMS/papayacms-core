@@ -26,6 +26,6 @@ class IsGeoPosition extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterGeoPosition();
+    return new \Papaya\Filter\Geo\Position();
   }
 }

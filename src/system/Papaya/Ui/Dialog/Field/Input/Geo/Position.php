@@ -59,7 +59,7 @@ class PapayaUiDialogFieldInputGeoPosition extends \PapayaUiDialogFieldInput {
     parent::__construct($caption, $name, 100, $default);
     $this->setMandatory($mandatory);
     $this->setFilter(
-      new \PapayaFilterGeoPosition()
+      new \Papaya\Filter\Geo\Position()
     );
   }
 

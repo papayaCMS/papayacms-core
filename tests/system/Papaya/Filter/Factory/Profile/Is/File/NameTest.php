@@ -22,6 +22,6 @@ class PapayaFilterFactoryProfileIsFileNameTest extends \PapayaTestCase {
    */
   public function testGetFilterExpectTrue() {
     $profile = new \Papaya\Filter\Factory\Profile\IsFileName();
-    $this->assertInstanceOf(\PapayaFilterFileName::class, $profile->getFilter());
+    $this->assertInstanceOf(\Papaya\Filter\File\Name::class, $profile->getFilter());
   }
 }

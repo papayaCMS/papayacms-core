@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\File;
 /**
-* Papaya filter class validating a file name string
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterFileName extends \PapayaFilterPcre {
+ * Papaya filter class validating a file name string
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Name extends \PapayaFilterPcre {
 
   /**
    * set pattern in superclass constructor

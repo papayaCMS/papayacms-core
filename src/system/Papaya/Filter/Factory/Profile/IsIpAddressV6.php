@@ -26,6 +26,6 @@ class IsIpAddressV6 extends \Papaya\Filter\Factory\Profile {
    * @see \Papaya\Filter\Factory\Profile::getFilter()
    */
   public function getFilter() {
-    return new \PapayaFilterIpV6();
+    return new \Papaya\Filter\Ip\V6();
   }
 }

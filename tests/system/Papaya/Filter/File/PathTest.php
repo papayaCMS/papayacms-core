@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaFilterFilePathTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaFilterFilePath
+   * @covers \Papaya\Filter\File\Path
    */
   public function testFilter() {
-    $filter = new \PapayaFilterFilePath();
+    $filter = new \Papaya\Filter\File\Path();
     $this->assertTrue($filter->validate('/foo/bar/'));
   }
 

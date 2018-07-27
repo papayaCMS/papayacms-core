@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Ip;
 /**
-* This class validates and filters IP addresses in version 6 form.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterIpV6 implements \Papaya\Filter {
+ * This class validates and filters IP addresses in version 6 form.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class V6 implements \Papaya\Filter {
 
   /**
    * This method validates that an input string is a valid IP.
@@ -66,16 +67,16 @@ class PapayaFilterIpV6 implements \Papaya\Filter {
   }
 
   /**
-  * This method filters leading and trailing whitespaces from the input IP.
-  *
-  * @param string $value
-  * @return mixed string|NULL
-  */
+   * This method filters leading and trailing whitespaces from the input IP.
+   *
+   * @param string $value
+   * @return mixed string|NULL
+   */
   public function filter($value) {
     $result = trim($value);
     try {
       $this->validate($result);
-    } catch(\PapayaFilterException $e) {
+    } catch (\PapayaFilterException $e) {
       $result = NULL;
     }
     return $result;

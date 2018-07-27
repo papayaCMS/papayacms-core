@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Filter\Geo;
 /**
-* Papaya filter class validating a geo position string
-*
-* This Method checks if a string consists of 2 comma separated double values and if
-* they are between -180 and 180 degrees.
-*
-* @package Papaya-Library
-* @subpackage Filter
-*/
-class PapayaFilterGeoPosition extends \PapayaFilterPcre {
+ * Papaya filter class validating a geo position string
+ *
+ * This Method checks if a string consists of 2 comma separated double values and if
+ * they are between -180 and 180 degrees.
+ *
+ * @package Papaya-Library
+ * @subpackage Filter
+ */
+class Position extends \PapayaFilterPcre {
 
   /**
    * set pattern in superclass constructor

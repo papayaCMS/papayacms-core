@@ -28,8 +28,8 @@ class IsServerAddress extends \Papaya\Filter\Factory\Profile {
   public function getFilter() {
     return new \PapayaFilterLogicalOr(
       new \PapayaFilterUrlHost(),
-      new \PapayaFilterIpV4(),
-      new \PapayaFilterIpV6()
+      new \Papaya\Filter\Ip\V4(),
+      new \Papaya\Filter\Ip\V6()
     );
   }
 }

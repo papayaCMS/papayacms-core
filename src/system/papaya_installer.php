@@ -1548,7 +1548,7 @@ class papaya_installer extends base_db {
         'PAPAYA_PATH_DATA',
         -1,
         $this->getDefaultDataPath(),
-        new \PapayaFilterFilePath()
+        new \Papaya\Filter\File\Path()
       );
       $field->setMandatory(TRUE);
       $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup('Administrator');
