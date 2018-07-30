@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context\Interfaces;
 /**
-* Interface for message string contexts
-*
-* Message context can be converted to a unformatted string
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-interface PapayaMessageContextInterfaceString
-  extends \PapayaMessageContextInterface {
+ * Interface for message string contexts
+ *
+ * Message context can be converted to a unformatted string
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+interface Xhtml
+  extends \Papaya\Message\Context\Data {
 
   /**
-  * Get context as simple string, without formatting
-  *
-  * return @string
-  */
-  function asString();
+   * Get context as xhtml string
+   *
+   * @return string
+   */
+  function asXhtml();
 
 }

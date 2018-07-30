@@ -169,7 +169,7 @@ class PapayaXmlErrorsTest extends \PapayaTestCase {
     $errors = new \PapayaXmlErrors();
     $context = $errors->getMessageFromError($error)->context();
     $this->assertInstanceOf(
-      \PapayaMessageContextFile::class, $context->current()
+      \Papaya\Message\Context\File::class, $context->current()
     );
   }
 

@@ -1736,7 +1736,7 @@ class papaya_page extends base_object {
             $e->getMessage()
           );
           $message->context()->append(
-            new \PapayaMessageContextText($xml)
+            new \Papaya\Message\Context\Text($xml)
           );
           $this->papaya()->messages->dispatch($message);
           $errors->deactivate();

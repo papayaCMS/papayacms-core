@@ -329,8 +329,8 @@ class db_simple extends base_object {
         );
         $logMessage
           ->context()
-          ->append(new \PapayaMessageContextText($sql))
-          ->append(new \PapayaMessageContextBacktrace(1));
+          ->append(new \Papaya\Message\Context\Text($sql))
+          ->append(new \Papaya\Message\Context\Backtrace(1));
         $this->papaya()->messages->dispatch($logMessage);
       }
     }
@@ -455,7 +455,7 @@ class db_simple extends base_object {
             $explain = $queryResult->getExplain();
           }
         }
-        $backtrace = new \PapayaMessageContextBacktrace(9);
+        $backtrace = new \Papaya\Message\Context\Backtrace(9);
       }
       if ($dispatchLogMessage) {
         $logMessage = new \PapayaMessageLog(
@@ -463,12 +463,12 @@ class db_simple extends base_object {
           \Papaya\Message::SEVERITY_DEBUG,
           $caption
         );
-        $logMessage->context()->append(new \PapayaMessageContextRuntime($timeStart, $timeStop));
+        $logMessage->context()->append(new \Papaya\Message\Context\Runtime($timeStart, $timeStop));
         if (isset($counter)) {
-          $logMessage->context()->append(new \PapayaMessageContextText($counter));
+          $logMessage->context()->append(new \Papaya\Message\Context\Text($counter));
         }
         $logMessage->context()->append(
-          new \PapayaMessageContextVariable(array('sql' => $query['sql']), 3, 99999)
+          new \Papaya\Message\Context\Variable(array('sql' => $query['sql']), 3, 99999)
         );
         if ($dispatchLogMessageDetails) {
           $logMessage->context()->append($backtrace);
@@ -504,7 +504,7 @@ class db_simple extends base_object {
         }
         if ($populateQueryLogDetails) {
           $logData['query_backtrace'] = $backtrace->asString();
-          if (isset($explain) && $explain instanceof \PapayaMessageContextInterfaceString) {
+          if (isset($explain) && $explain instanceof \Papaya\Message\Context\Interfaces\Text) {
             $logData['query_explain'] = $explain->asString();
           }
         }

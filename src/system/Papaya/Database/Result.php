@@ -87,7 +87,7 @@ interface Result extends \IteratorAggregate {
   function free();
 
   /**
-   * @return NULL|\PapayaMessageContextInterface
+   * @return NULL|\Papaya\Message\Context\Data
    */
   function getExplain();
 }

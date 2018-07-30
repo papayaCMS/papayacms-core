@@ -812,7 +812,7 @@ class base_thumbnail extends base_object {
       $message
         ->context()
         ->append(
-          new \PapayaMessageContextBacktrace(2)
+          new \Papaya\Message\Context\Backtrace(2)
         );
       $this->papaya()->messages->dispatch($message);
     }

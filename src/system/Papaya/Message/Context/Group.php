@@ -13,53 +13,55 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context;
 /**
-* Message string context containing a group of other context objects
-*
-* This class is used for debug and error mesages, to provide additional information about
-* the callstack.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageContextGroup
+ * Message string context containing a group of other context objects
+ *
+ * This class is used for debug and error mesages, to provide additional information about
+ * the callstack.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Group
   implements
-    \PapayaMessageContextInterfaceString,
-    \PapayaMessageContextInterfaceXhtml,
-    \Iterator,
-    \Countable {
+  \Papaya\Message\Context\Interfaces\Text,
+  \Papaya\Message\Context\Interfaces\Xhtml,
+  \Iterator,
+  \Countable {
 
   /**
-  * context group elements
-  * @var array
-  */
+   * context group elements
+   *
+   * @var array
+   */
   private $_elements = array();
 
   /**
-  * Append a new context element to group
-  *
-  * @param \PapayaMessageContextInterface $context
-  * @return \PapayaMessageContextGroup $this
-  */
-  public function append(\PapayaMessageContextInterface $context) {
+   * Append a new context element to group
+   *
+   * @param \Papaya\Message\Context\Data $context
+   * @return \PapayaMessageContextGroup $this
+   */
+  public function append(\Papaya\Message\Context\Data $context) {
     $this->_elements[] = $context;
     return $this;
   }
 
   /**
-  * Get context elements as string output
-  *
-  * @return string
-  */
+   * Get context elements as string output
+   *
+   * @return string
+   */
   public function asString() {
     $result = '';
     foreach ($this as $element) {
-      if ($element instanceof \PapayaMessageContextInterfaceLabeled) {
+      if ($element instanceof \Papaya\Message\Context\Interfaces\Labeled) {
         $result .= "\n\n".$element->getLabel();
       }
-      if ($element instanceof \PapayaMessageContextInterfaceString) {
+      if ($element instanceof \Papaya\Message\Context\Interfaces\Text) {
         $result .= "\n\n".$element->asString();
-      } elseif ($element instanceof \PapayaMessageContextInterfaceXhtml) {
+      } elseif ($element instanceof \Papaya\Message\Context\Interfaces\Xhtml) {
         $result .= "\n\n".\PapayaUtilStringHtml::stripTags($element->asXhtml());
       }
     }
@@ -67,18 +69,18 @@ class PapayaMessageContextGroup
   }
 
   /**
-  * Get context elements as xhtml output
-  */
+   * Get context elements as xhtml output
+   */
   public function asXhtml() {
     $result = '';
     foreach ($this as $element) {
       $result .= '<div class="group">';
-      if ($element instanceof \PapayaMessageContextInterfaceLabeled) {
+      if ($element instanceof \Papaya\Message\Context\Interfaces\Labeled) {
         $result .= '<h3>'.\PapayaUtilStringXml::escape($element->getLabel()).'</h3>';
       }
-      if ($element instanceof \PapayaMessageContextInterfaceXhtml) {
+      if ($element instanceof \Papaya\Message\Context\Interfaces\Xhtml) {
         $result .= $element->asXhtml();
-      } elseif ($element instanceof \PapayaMessageContextInterfaceString) {
+      } elseif ($element instanceof \Papaya\Message\Context\Interfaces\Text) {
         $result .= str_replace(
           "\n", "\n<br />", \PapayaUtilStringXml::escape($element->asString())
         );
@@ -89,54 +91,55 @@ class PapayaMessageContextGroup
   }
 
   /**
-  * Iterator: Rewind position
-  *
-  * @return void
-  */
+   * Iterator: Rewind position
+   *
+   * @return void
+   */
   public function rewind() {
     reset($this->_elements);
   }
 
   /**
-  * Iterator: Get current element value
-  * @return FALSE|\PapayaMessageContextInterface
-  */
+   * Iterator: Get current element value
+   *
+   * @return FALSE|\Papaya\Message\Context\Data
+   */
   public function current() {
     return current($this->_elements);
   }
 
   /**
-  * Iterator: Get current element key
-  *
-  * @return integer|NULL
-  */
+   * Iterator: Get current element key
+   *
+   * @return integer|NULL
+   */
   public function key() {
     return key($this->_elements);
   }
 
   /**
-  * Iterator: Move position to next element
-  *
-  * @return FALSE|\PapayaMessageContextInterface
-  */
+   * Iterator: Move position to next element
+   *
+   * @return FALSE|\Papaya\Message\Context\Data
+   */
   public function next() {
     return next($this->_elements);
   }
 
   /**
-  * Iterator: Check if current position hold a valid element
-  *
-  * @return boolean
-  */
+   * Iterator: Check if current position hold a valid element
+   *
+   * @return boolean
+   */
   public function valid() {
     return $this->current() !== FALSE;
   }
 
   /**
-  * Countable: return number of elements
-  *
-  * @return integer
-  */
+   * Countable: return number of elements
+   *
+   * @return integer
+   */
   public function count() {
     return count($this->_elements);
   }

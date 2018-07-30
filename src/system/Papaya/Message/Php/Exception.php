@@ -26,11 +26,11 @@ class PapayaMessagePhpException
    * Create object and set values from erorr exception object
    *
    * @param \ErrorException $exception
-   * @param \PapayaMessageContextBacktrace $trace
+   * @param \Papaya\Message\Context\Backtrace $trace
    */
   public function __construct(
     \ErrorException $exception,
-    \PapayaMessageContextBacktrace $trace = NULL
+    \Papaya\Message\Context\Backtrace $trace = NULL
   ) {
     parent::__construct();
     $this->setSeverity($exception->getSeverity());
@@ -39,7 +39,7 @@ class PapayaMessagePhpException
       ->_context
       ->append(
         is_null($trace)
-          ? new \PapayaMessageContextBacktrace(0, $exception->getTrace())
+          ? new \Papaya\Message\Context\Backtrace(0, $exception->getTrace())
           : $trace
       );
   }

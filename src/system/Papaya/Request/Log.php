@@ -109,13 +109,13 @@ class PapayaRequestLog extends \Papaya\Application\BaseObject {
       $log
         ->context()
         ->append(
-          new \PapayaMessageContextText($event)
+          new \Papaya\Message\Context\Text($event)
         );
     }
     $log
       ->context()
       ->append(
-        new \PapayaMessageContextMemory()
+        new \Papaya\Message\Context\Memory()
       );
     $this->papaya()->messages->dispatch($log);
   }

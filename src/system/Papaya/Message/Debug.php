@@ -37,7 +37,8 @@ class PapayaMessageDebug
 
   /**
   * Message context
-  * @var NULL|\PapayaMessageContextGroup
+  *
+  * @var NULL|\Papaya\Message\Context\Group
   */
   protected $_context = NULL;
 
@@ -50,12 +51,12 @@ class PapayaMessageDebug
   public function __construct($group = \PapayaMessageLogable::GROUP_DEBUG, $message = '') {
     $this->_group = $group;
     $this->_message = $message;
-    $this->_context = new \PapayaMessageContextGroup();
+    $this->_context = new \Papaya\Message\Context\Group();
     $this
       ->_context
-      ->append(new \PapayaMessageContextMemory())
-      ->append(new \PapayaMessageContextRuntime())
-      ->append(new \PapayaMessageContextBacktrace(1));
+      ->append(new \Papaya\Message\Context\Memory())
+      ->append(new \Papaya\Message\Context\Runtime())
+      ->append(new \Papaya\Message\Context\Backtrace(1));
   }
 
   /**
@@ -88,7 +89,7 @@ class PapayaMessageDebug
   /**
   * Return the context object containing additional data about where and why the message happened.
   *
-  * @return \PapayaMessageContextGroup
+  * @return \Papaya\Message\Context\Group
   */
   public function context() {
     return $this->_context;

@@ -82,7 +82,7 @@ class PapayaMessageDispatcherDatabase
     $url = new \PapayaUrlCurrent();
     $options = $this->papaya()->options;
     $details = '<p>'.$message->getMessage().'</p>';
-    if ($message->context() instanceof \PapayaMessageContextInterfaceXhtml) {
+    if ($message->context() instanceof \Papaya\Message\Context\Interfaces\Xhtml) {
       $details .= $message->context()->asXhtml();
     }
     $cookies = ($message instanceof \PapayaMessagePhpError && !empty($_SERVER['HTTP_COOKIE']))

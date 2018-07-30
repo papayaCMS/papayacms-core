@@ -23,7 +23,7 @@ class PapayaMessagePhpTest extends \PapayaTestCase {
   public function testConstructor() {
     $message = new \PapayaMessagePhp();
     $this->assertAttributeInstanceOf(
-      \PapayaMessageContextGroup::class,
+      \Papaya\Message\Context\Group::class,
       '_context',
       $message
     );
@@ -81,7 +81,7 @@ class PapayaMessagePhpTest extends \PapayaTestCase {
   public function testContext() {
     $message = new \PapayaMessagePhp();
     $this->assertInstanceOf(
-      \PapayaMessageContextGroup::class,
+      \Papaya\Message\Context\Group::class,
       $message->context()
     );
   }
@@ -90,8 +90,8 @@ class PapayaMessagePhpTest extends \PapayaTestCase {
   * @covers \PapayaMessagePhp::setContext
   */
   public function testSetContext() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextGroup $context */
-    $context = $this->createMock(\PapayaMessageContextGroup::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Group $context */
+    $context = $this->createMock(\Papaya\Message\Context\Group::class);
     $message = new \PapayaMessagePhp();
     $message->setContext($context);
     $this->assertAttributeSame(

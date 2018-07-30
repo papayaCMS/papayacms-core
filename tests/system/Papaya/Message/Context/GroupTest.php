@@ -18,12 +18,12 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaMessageContextGroupTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMessageContextGroup::append
+  * @covers \Papaya\Message\Context\Group::append
   */
   public function testAppend() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $element */
-    $element = $this->createMock(\PapayaMessageContextInterface::class);
-    $group = new \PapayaMessageContextGroup();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Data $element */
+    $element = $this->createMock(\Papaya\Message\Context\Data::class);
+    $group = new \Papaya\Message\Context\Group();
     $this->assertSame(
       $group,
       $group->append($element)
@@ -36,7 +36,7 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextGroup::current
+  * @covers \Papaya\Message\Context\Group::current
   */
   public function testCurrent() {
     $group = $this->getContextGroupFixture();
@@ -48,7 +48,7 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextGroup::next
+  * @covers \Papaya\Message\Context\Group::next
   */
   public function testNext() {
     $group = $this->getContextGroupFixture();
@@ -61,7 +61,7 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextGroup::key
+  * @covers \Papaya\Message\Context\Group::key
   */
   public function testKey() {
     $group = $this->getContextGroupFixture();
@@ -73,7 +73,7 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextGroup::rewind
+  * @covers \Papaya\Message\Context\Group::rewind
   */
   public function testRewind() {
     $group = $this->getContextGroupFixture();
@@ -87,7 +87,7 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextGroup::rewind
+  * @covers \Papaya\Message\Context\Group::rewind
   */
   public function testValidExpectingTrue() {
     $group = $this->getContextGroupFixture();
@@ -97,17 +97,17 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextGroup::valid
+  * @covers \Papaya\Message\Context\Group::valid
   */
   public function testValidExpectingFalse() {
-    $group = new \PapayaMessageContextGroup();
+    $group = new \Papaya\Message\Context\Group();
     $this->assertFalse(
       $group->valid()
     );
   }
 
   /**
-  * @covers \PapayaMessageContextGroup::count
+  * @covers \Papaya\Message\Context\Group::count
   */
   public function testCount() {
     $group = $this->getContextGroupFixture();
@@ -118,7 +118,7 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextGroup::asString
+  * @covers \Papaya\Message\Context\Group::asString
   */
   public function testAsString() {
     $group = $this->getContextGroupFixture();
@@ -129,7 +129,7 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextGroup::asXhtml
+  * @covers \Papaya\Message\Context\Group::asXhtml
   */
   public function testAsXhtml() {
     $group = $this->getContextGroupFixture();
@@ -143,21 +143,21 @@ class PapayaMessageContextGroupTest extends \PapayaTestCase {
   }
 
   public function getContextGroupFixture() {
-    $group = new \PapayaMessageContextGroup();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $elementLabeled */
-    $elementLabeled = $this->createMock(\PapayaMessageContextInterfaceLabeled::class);
+    $group = new \Papaya\Message\Context\Group();
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Data $elementLabeled */
+    $elementLabeled = $this->createMock(\Papaya\Message\Context\Interfaces\Labeled::class);
     $elementLabeled
       ->expects($this->any())
       ->method('getLabel')
       ->will($this->returnValue('Universe'));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $elementString */
-    $elementString = $this->createMock(\PapayaMessageContextInterfaceString::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Data $elementString */
+    $elementString = $this->createMock(\Papaya\Message\Context\Interfaces\Text::class);
     $elementString
       ->expects($this->any())
       ->method('asString')
       ->willReturn(/** @lang Text */'Hello <World>');
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $elementXhtml */
-    $elementXhtml = $this->createMock(\PapayaMessageContextInterfaceXhtml::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Data $elementXhtml */
+    $elementXhtml = $this->createMock(\Papaya\Message\Context\Interfaces\Xhtml::class);
     $elementXhtml
       ->expects($this->any())
       ->method('asXhtml')

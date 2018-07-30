@@ -13,21 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context;
 /**
-* Interface for message string contexts
-*
-* Message context can be converted to a unformatted string
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-interface PapayaMessageContextInterfaceList
-  extends \PapayaMessageContextInterfaceLabeled {
-
-  /**
-  * Get context as simple string, without formatting
-  *
-  * @return array
-  */
-  function asArray();
+ * Interface for message contexts
+ *
+ * A message context describes additional information to a message, the intention is that the
+ * dispatcher has only to know the type of the data structure, not the actual content
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+interface Data {
 }

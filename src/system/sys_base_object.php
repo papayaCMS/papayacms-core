@@ -253,12 +253,12 @@ class base_object extends BaseObject implements \PapayaRequestParametersInterfac
     $logMessage = new \PapayaMessageLog($group, $type, $short);
     if (!empty($long)) {
       $logMessage->context()->append(
-        new \PapayaMessageContextText($long)
+        new \Papaya\Message\Context\Text($long)
       );
     }
     if ($addBacktrace) {
       $logMessage->context()->append(
-        new \PapayaMessageContextBacktrace($backtraceOffset)
+        new \Papaya\Message\Context\Backtrace($backtraceOffset)
       );
     }
     $this->papaya()->messages->dispatch(
@@ -282,11 +282,11 @@ class base_object extends BaseObject implements \PapayaRequestParametersInterfac
   ) {
     $logMessage = new \PapayaMessageLog($group, $level, $title);
     $logMessage->context()->append(
-      new \PapayaMessageContextVariable($variable)
+      new \Papaya\Message\Context\Variable($variable)
     );
     if ($addBacktrace) {
       $logMessage->context()->append(
-        new \PapayaMessageContextBacktrace($backtraceOffset)
+        new \Papaya\Message\Context\Backtrace($backtraceOffset)
       );
     }
     $this->papaya()->messages->dispatch(
@@ -975,7 +975,7 @@ class base_object extends BaseObject implements \PapayaRequestParametersInterfac
     );
     foreach (func_get_args() as $variable) {
       $debugMessage->context()->append(
-        new \PapayaMessageContextVariable($variable)
+        new \Papaya\Message\Context\Variable($variable)
       );
     }
     $this->papaya()->messages->dispatch($debugMessage);

@@ -79,16 +79,16 @@ class PapayaXmlErrors extends \Papaya\Application\BaseObject {
       $this->deactivate();
     } catch (\PapayaXmlException $e) {
       if ($emitErrors) {
-        $context = new \PapayaMessageContextGroup();
+        $context = new \Papaya\Message\Context\Group();
         if ($e->getContextFile()) {
           $context->append(
-            new \PapayaMessageContextFile(
+            new \Papaya\Message\Context\File(
               $e->getContextFile(), $e->getContextLine(), $e->getContextColumn()
             )
           );
         }
-        $context->append(new \PapayaMessageContextVariable($arguments));
-        $context->append(new \PapayaMessageContextBacktrace(1));
+        $context->append(new \Papaya\Message\Context\Variable($arguments));
+        $context->append(new \Papaya\Message\Context\Backtrace(1));
         $this->papaya()->messages->log(
           \PapayaMessageLogable::GROUP_SYSTEM,
           \Papaya\Message::SEVERITY_ERROR,
@@ -155,7 +155,7 @@ class PapayaXmlErrors extends \Papaya\Application\BaseObject {
       $message
         ->context()
         ->append(
-          new \PapayaMessageContextFile(
+          new \Papaya\Message\Context\File(
             $error->file, $error->line, $error->column
           )
         );
@@ -163,7 +163,7 @@ class PapayaXmlErrors extends \Papaya\Application\BaseObject {
     $message
       ->context()
       ->append(
-        new \PapayaMessageContextBacktrace(3)
+        new \Papaya\Message\Context\Backtrace(3)
       );
     return $message;
   }

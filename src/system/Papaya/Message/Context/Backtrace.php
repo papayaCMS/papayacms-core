@@ -13,34 +13,35 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context;
 /**
-* Message string context containing a backtrace
-*
-* This class is used for debug and error mesages, to provide additional information about
-* the callstack.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageContextBacktrace
+ * Message string context containing a backtrace
+ *
+ * This class is used for debug and error mesages, to provide additional information about
+ * the callstack.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Backtrace
   implements
-    \PapayaMessageContextInterfaceList,
-    \PapayaMessageContextInterfaceString,
-    \PapayaMessageContextInterfaceXhtml {
+  \Papaya\Message\Context\Interfaces\Items,
+  \Papaya\Message\Context\Interfaces\Text,
+  \Papaya\Message\Context\Interfaces\Xhtml {
 
   /**
-  * The offset is used to ignore the first elements of a backtrace,
-  * if they do not provide useful informations
-  *
-  * @var integer
-  */
+   * The offset is used to ignore the first elements of a backtrace,
+   * if they do not provide useful informations
+   *
+   * @var integer
+   */
   private $_offset = 0;
 
   /**
-  * Backtrace data from debug_backtrace()
-  *
-  * @var array
-  */
+   * Backtrace data from debug_backtrace()
+   *
+   * @var array
+   */
   private $_backtrace = NULL;
 
   /**
@@ -60,6 +61,7 @@ class PapayaMessageContextBacktrace
 
   /**
    * Check an set backtrace offset
+   *
    * @param integer $offset
    * @throws \InvalidArgumentException
    */
@@ -71,21 +73,21 @@ class PapayaMessageContextBacktrace
   }
 
   /**
-  * Set backtrace
-  *
-  * @param array $backtrace
-  * @param integer $offset
-  */
+   * Set backtrace
+   *
+   * @param array $backtrace
+   * @param integer $offset
+   */
   public function setBacktrace(array $backtrace, $offset = 0) {
     $this->_backtrace = $backtrace;
     $this->_offset = $offset;
   }
 
   /**
-  * Get backtrace, create one if not yet stored in object property
-  *
-  * @return array
-  */
+   * Get backtrace, create one if not yet stored in object property
+   *
+   * @return array
+   */
   public function getBacktrace() {
     if (is_null($this->_backtrace)) {
       return $this->_backtrace = debug_backtrace();
@@ -96,20 +98,20 @@ class PapayaMessageContextBacktrace
   }
 
   /**
-  * Convert list to a string (with line breaks for each item)
-  *
-  * @return string
-  */
+   * Convert list to a string (with line breaks for each item)
+   *
+   * @return string
+   */
   public function asString() {
     $list = $this->asArray();
     return implode("\n", $list);
   }
 
   /**
-  * Convert list to a xhtml string (with breaks for each item)
-  *
-  * @return string
-  */
+   * Convert list to a xhtml string (with breaks for each item)
+   *
+   * @return string
+   */
   public function asXhtml() {
     $list = $this->asArray();
     $result = '';
@@ -123,10 +125,10 @@ class PapayaMessageContextBacktrace
   }
 
   /**
-  * Convert backtrace to a list of strings
-  *
-  * @return array
-  */
+   * Convert backtrace to a list of strings
+   *
+   * @return array
+   */
   public function asArray() {
     $backtrace = $this->getBacktrace();
     $lines = array();
@@ -153,10 +155,10 @@ class PapayaMessageContextBacktrace
   }
 
   /**
-  * Provides a label/title for the context
-  *
-  * @return string
-  */
+   * Provides a label/title for the context
+   *
+   * @return string
+   */
   public function getLabel() {
     return 'Backtrace';
   }

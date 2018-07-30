@@ -83,7 +83,7 @@ class PapayaProfilerTimer extends \Papaya\Application\BaseObject implements \Ite
         \PapayaMessageLogable::GROUP_DEBUG,
         \Papaya\Message::SEVERITY_DEBUG,
         $take['text'],
-        new \PapayaMessageContextRuntime($take['start'], $take['end'])
+        new \Papaya\Message\Context\Runtime($take['start'], $take['end'])
       );
     }
   }

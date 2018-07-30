@@ -887,10 +887,10 @@ class dbcon_pgsql extends dbcon_base {
       );
       $logMessage
         ->context()
-        ->append(new \PapayaMessageContextBacktrace(3))
-        ->append(new \PapayaMessageContextText($table))
-        ->append(new \PapayaMessageContextText($index))
-        ->append(new \PapayaMessageContextText($e->getStatement()));
+        ->append(new \Papaya\Message\Context\Backtrace(3))
+        ->append(new \Papaya\Message\Context\Text($table))
+        ->append(new \Papaya\Message\Context\Text($index))
+        ->append(new \Papaya\Message\Context\Text($e->getStatement()));
       //$this->getApplication()->messages->dispatch($logMessage);
     }
     return FALSE;
@@ -1137,7 +1137,7 @@ class dbresult_pgsql extends dbresult_base {
   * Compile database explain for SELECT query
   *
   * @access public
-  * @return NULL|\PapayaMessageContextInterface
+  * @return NULL|\Papaya\Message\Context\Data
   */
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;
@@ -1147,7 +1147,7 @@ class dbresult_pgsql extends dbresult_base {
         $explain[] = $row[0];
       }
       if (!empty($explain)) {
-        return new \PapayaMessageContextList('Explain', $explain);
+        return new \Papaya\Message\Context\Items('Explain', $explain);
       }
     }
     return NULL;

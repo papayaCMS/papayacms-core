@@ -76,7 +76,7 @@ class PapayaMessageHookExceptions
       $this->_messageManager->dispatch(
         new \PapayaMessagePhpException(
           $error,
-          new \PapayaMessageContextBacktrace(0, $exception->getTrace())
+          new \Papaya\Message\Context\Backtrace(0, $exception->getTrace())
         )
       );
     }

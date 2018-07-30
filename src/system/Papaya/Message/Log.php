@@ -41,7 +41,8 @@ class PapayaMessageLog
 
   /**
   * Message context
-  * @var NULL|\PapayaMessageContextGroup
+  *
+  * @var NULL|\Papaya\Message\Context\Group
   */
   protected $_context = NULL;
 
@@ -88,11 +89,11 @@ class PapayaMessageLog
   /**
   * Return a context object containing additional data about where and why the message happened.
   *
-  * @return \PapayaMessageContextGroup
+  * @return \Papaya\Message\Context\Group
   */
   public function context() {
     if (is_null($this->_context)) {
-      $this->_context = new \PapayaMessageContextGroup();
+      $this->_context = new \Papaya\Message\Context\Group();
     }
     return $this->_context;
   }
@@ -100,9 +101,9 @@ class PapayaMessageLog
   /**
    * Set a context group object to the message.
    *
-   * @param \PapayaMessageContextGroup $context
+   * @param \Papaya\Message\Context\Group $context
    */
-  public function setContext(\PapayaMessageContextGroup $context) {
+  public function setContext(\Papaya\Message\Context\Group $context) {
     $this->_context = $context;
   }
 }

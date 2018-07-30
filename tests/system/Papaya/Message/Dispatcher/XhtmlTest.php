@@ -33,7 +33,7 @@ class PapayaMessageDispatcherXhtmlTest extends \PapayaTestCase {
   * @covers \PapayaMessageDispatcherXhtml::dispatch
   */
   public function testDispatch() {
-    $context = $this->createMock(\PapayaMessageContextInterfaceXhtml::class);
+    $context = $this->createMock(\Papaya\Message\Context\Interfaces\Xhtml::class);
     $context
       ->expects($this->any())
       ->method('asXhtml')

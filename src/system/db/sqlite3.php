@@ -1118,14 +1118,14 @@ class dbresult_sqlite3 extends dbresult_base {
   /**
    * Compile database explain for SELECT query
    *
-   * @return NULL|\PapayaMessageContextInterface
+   * @return NULL|\Papaya\Message\Context\Data
    */
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;
     /** @var SQLite3Result $res */
     if ($res = $this->connection->executeQuery($explainQuery)) {
       if ($res->numColumns() > 0) {
-        $explain = new \PapayaMessageContextTable('Explain');
+        $explain = new \Papaya\Message\Context\Table('Explain');
         while ($row = $res->fetchArray(SQLITE3_NUM)) {
           $explain->addRow($row);
         }

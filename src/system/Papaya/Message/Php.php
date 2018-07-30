@@ -38,7 +38,8 @@ class PapayaMessagePhp
 
   /**
   * Message context
-  * @var NULL|\PapayaMessageContextGroup
+  *
+  * @var NULL|\Papaya\Message\Context\Group
   */
   protected $_context = NULL;
 
@@ -60,7 +61,7 @@ class PapayaMessagePhp
   * Create context subobject, too
   */
   public function __construct() {
-    $this->_context = new \PapayaMessageContextGroup();
+    $this->_context = new \Papaya\Message\Context\Group();
   }
 
   /**
@@ -104,7 +105,7 @@ class PapayaMessagePhp
   /**
   * Return a context object containing additional data about where and why the message happened.
   *
-  * @return \PapayaMessageContextGroup
+  * @return \Papaya\Message\Context\Group
   */
   public function context() {
     return $this->_context;
@@ -113,10 +114,10 @@ class PapayaMessagePhp
   /**
    * Set a context group object to the message.
    *
-   * @param \PapayaMessageContextGroup $context
+   * @param \Papaya\Message\Context\Group $context
    * @internal param $\PapayaMessageContext
    */
-  public function setContext(\PapayaMessageContextGroup $context) {
+  public function setContext(\Papaya\Message\Context\Group $context) {
     $this->_context = $context;
   }
 }

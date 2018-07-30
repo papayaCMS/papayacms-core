@@ -398,9 +398,9 @@ class Access extends \Papaya\Application\BaseObject {
         $mapSeverity[$exception->getSeverity()],
         'Database #'.$exception->getCode().': '.$exception->getMessage()
       );
-      $logMsg->context()->append(new \PapayaMessageContextBacktrace(3));
+      $logMsg->context()->append(new \Papaya\Message\Context\Backtrace(3));
       if ($exception instanceof \Papaya\Database\Exception\Query) {
-        $logMsg->context()->append(new \PapayaMessageContextText($exception->getStatement()));
+        $logMsg->context()->append(new \Papaya\Message\Context\Text($exception->getStatement()));
       }
       $this->papaya()->messages->dispatch($logMsg);
     }

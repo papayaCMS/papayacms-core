@@ -75,7 +75,7 @@ interface PapayaMessageLogable extends \Papaya\Message {
   /**
   * Access to an context group element that allows to append addition details to the message
   *
-  * @return \PapayaMessageContextGroup
+  * @return \Papaya\Message\Context\Group
   */
   function context();
 }

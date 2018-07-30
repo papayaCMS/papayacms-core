@@ -35,7 +35,7 @@ class PapayaMessagePhpError
     $this->_message = $message;
     $this
       ->_context
-      ->append(new \PapayaMessageContextBacktrace(2))
-      ->append(new \PapayaMessageContextVariable($variableContext));
+      ->append(new \Papaya\Message\Context\Backtrace(2))
+      ->append(new \Papaya\Message\Context\Variable($variableContext));
   }
 }

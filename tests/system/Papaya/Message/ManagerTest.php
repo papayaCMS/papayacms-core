@@ -92,8 +92,8 @@ class PapayaMessageManagerTest extends \PapayaTestCase {
     $message = new \PapayaMessageLog(
       \Papaya\Message::SEVERITY_INFO, \PapayaMessageLogable::GROUP_COMMUNITY, 'TEST'
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $context */
-    $context = $this->createMock(\PapayaMessageContextInterface::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Data $context */
+    $context = $this->createMock(\Papaya\Message\Context\Data::class);
     $message->context()->append($context);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDispatcher $dispatcher */
     $dispatcher = $this->createMock(\PapayaMessageDispatcher::class);
@@ -118,8 +118,8 @@ class PapayaMessageManagerTest extends \PapayaTestCase {
     $message = new \PapayaMessageLog(
       \Papaya\Message::SEVERITY_INFO, \PapayaMessageLogable::GROUP_COMMUNITY, 'TEST'
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextInterface $context */
-    $context = $this->createMock(\PapayaMessageContextInterface::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Data $context */
+    $context = $this->createMock(\Papaya\Message\Context\Data::class);
     $message->context()->append($context);
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDispatcher $dispatcher */
     $dispatcher = $this->createMock(\PapayaMessageDispatcher::class);
@@ -144,7 +144,7 @@ class PapayaMessageManagerTest extends \PapayaTestCase {
     $message = new \PapayaMessageLog(
       \Papaya\Message::SEVERITY_INFO, \PapayaMessageLogable::GROUP_COMMUNITY, 'TEST'
     );
-    $message->context()->append(new \PapayaMessageContextVariable('data'));
+    $message->context()->append(new \Papaya\Message\Context\Variable('data'));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDispatcher $dispatcher */
     $dispatcher = $this->createMock(\PapayaMessageDispatcher::class);
     $dispatcher
@@ -231,7 +231,7 @@ class PapayaMessageManagerTest extends \PapayaTestCase {
     $manager->setUp($options);
 
     $this->assertAttributeGreaterThan(
-      0, '_startTime', \PapayaMessageContextRuntime::class
+      0, '_startTime', \Papaya\Message\Context\Runtime::class
     );
     $this->assertEquals(E_ALL & ~E_STRICT, error_reporting());
 

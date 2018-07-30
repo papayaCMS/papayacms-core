@@ -13,22 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context\Interfaces;
 /**
-* Interface for an addition label for contexts.
-*
-* Message contexts which implemeted this interface will get a title/label,
-* depending on the dispatcher.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-interface PapayaMessageContextInterfaceLabeled
-  extends \PapayaMessageContextInterface {
+ * Interface for message string contexts
+ *
+ * Message context can be converted to a unformatted string
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+interface Items
+  extends \Papaya\Message\Context\Interfaces\Labeled {
 
   /**
-  * Get label for the context
-  *
-  * @return string
-  */
-  function getLabel();
+   * Get context as simple string, without formatting
+   *
+   * @return array
+   */
+  function asArray();
 }

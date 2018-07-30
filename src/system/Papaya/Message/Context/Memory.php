@@ -13,54 +13,59 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context;
 /**
-* Message context containing the informations about the memory consumption
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageContextMemory
+ * Message context containing the informations about the memory consumption
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Memory
   implements
-    \PapayaMessageContextInterfaceString {
+  \Papaya\Message\Context\Interfaces\Text {
 
   /**
-  * Class variable to remember last memory usage status and calculate differences
-  * @var integer
-  */
+   * Class variable to remember last memory usage status and calculate differences
+   *
+   * @var integer
+   */
   private static $_previousUsage = 0;
 
   /**
-  * Current usage (set in constructor)
-  * @var integer
-  */
+   * Current usage (set in constructor)
+   *
+   * @var integer
+   */
   protected $_currentUsage = 0;
   /**
-  * Peak usage (set in constructor)
-  * @var integer
-  */
+   * Peak usage (set in constructor)
+   *
+   * @var integer
+   */
   protected $_peakUsage = 0;
   /**
-  * Usage difference, calculate in @see \PapayaMessageContextMemory::_setMemoryUsage()
-  * @var integer
-  */
+   * Usage difference, calculate in @see \PapayaMessageContextMemory::_setMemoryUsage()
+   *
+   * @var integer
+   */
   protected $_diffUsage = 0;
 
   /**
-  * Create object, get memory usage
-  */
+   * Create object, get memory usage
+   */
   public function __construct() {
     if (function_exists('memory_get_usage')) {
       $realUsage = version_compare(PHP_VERSION, '5.2', '>');
       $this->setMemoryUsage(
         $realUsage ? memory_get_usage(TRUE) : memory_get_usage(),
-        $realUsage ? memory_get_peak_usage(TRUE) :  memory_get_peak_usage()
+        $realUsage ? memory_get_peak_usage(TRUE) : memory_get_peak_usage()
       );
     }
   }
 
   /**
-  * Get memory usage string output
-  */
+   * Get memory usage string output
+   */
   public function asString() {
     $result = '';
     if ($this->_currentUsage > 0 || $this->_peakUsage > 0) {
@@ -76,11 +81,11 @@ class PapayaMessageContextMemory
   }
 
   /**
-  * Set memory usages, calculate difference to last call of this function
-  *
-  * @param integer $current
-  * @param integer $peak
-  */
+   * Set memory usages, calculate difference to last call of this function
+   *
+   * @param integer $current
+   * @param integer $peak
+   */
   public function setMemoryUsage($current, $peak) {
     $this->_currentUsage = $current;
     $this->_peakUsage = $peak;
@@ -89,10 +94,10 @@ class PapayaMessageContextMemory
   }
 
   /**
-  * Remember memory usage for difference calculation
-  *
-  * @param integer $current
-  */
+   * Remember memory usage for difference calculation
+   *
+   * @param integer $current
+   */
   public function rememberMemoryUsage($current) {
     self::$_previousUsage = $current;
   }

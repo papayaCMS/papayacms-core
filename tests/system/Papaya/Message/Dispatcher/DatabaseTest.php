@@ -57,7 +57,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
     $message
       ->expects($this->exactly(2))
       ->method('context')
-      ->will($this->returnValue($this->createMock(\PapayaMessageContextGroup::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
     $dispatcher = new \PapayaMessageDispatcherDatabase();
     $dispatcher->papaya(
       $this->mockPapaya()->application(
@@ -118,7 +118,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
     $message
       ->expects($this->exactly(2))
       ->method('context')
-      ->will($this->returnValue($this->createMock(\PapayaMessageContextGroup::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
     $dispatcher = new \PapayaMessageDispatcherDatabase();
     $dispatcher->papaya(
       $this->mockPapaya()->application(
@@ -210,7 +210,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
     $message
       ->expects($this->exactly(2))
       ->method('context')
-      ->will($this->returnValue($this->createMock(\PapayaMessageContextGroup::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
     $dispatcher = new \PapayaMessageDispatcherDatabaseProxy();
     $dispatcher->papaya(
       $this->mockPapaya()->application(

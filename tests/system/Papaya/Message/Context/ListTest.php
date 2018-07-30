@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaMessageContextListTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMessageContextList::__construct
+  * @covers \Papaya\Message\Context\Items::__construct
   */
   public function testConstructor() {
-    $context = new \PapayaMessageContextList('List Sample', array('Hello', 'World'));
+    $context = new \Papaya\Message\Context\Items('List Sample', array('Hello', 'World'));
     $this->assertAttributeEquals(
       'List Sample', '_label', $context
     );
@@ -31,20 +31,20 @@ class PapayaMessageContextListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextList::getLabel
+  * @covers \Papaya\Message\Context\Items::getLabel
   */
   public function testGetLabel() {
-    $context = new \PapayaMessageContextList('List Sample', array('Hello', 'World'));
+    $context = new \Papaya\Message\Context\Items('List Sample', array('Hello', 'World'));
     $this->assertEquals(
       'List Sample', $context->getLabel()
     );
   }
 
   /**
-  * @covers \PapayaMessageContextList::asArray
+  * @covers \Papaya\Message\Context\Items::asArray
   */
   public function testAsArray() {
-    $context = new \PapayaMessageContextList('', array('Hello', 'World'));
+    $context = new \Papaya\Message\Context\Items('', array('Hello', 'World'));
     $this->assertEquals(
       array('Hello', 'World'),
       $context->asArray()
@@ -52,10 +52,10 @@ class PapayaMessageContextListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextList::asXhtml
+  * @covers \Papaya\Message\Context\Items::asXhtml
   */
   public function testAsXhtml() {
-    $context = new \PapayaMessageContextList('', array('Hello', 'World'));
+    $context = new \Papaya\Message\Context\Items('', array('Hello', 'World'));
     $this->assertEquals(
       '<ol><li>Hello</li><li>World</li></ol>',
       $context->asXhtml()
@@ -63,10 +63,10 @@ class PapayaMessageContextListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextList::asXhtml
+  * @covers \Papaya\Message\Context\Items::asXhtml
   */
   public function testAsXhtmlWithEmptyList() {
-    $context = new \PapayaMessageContextList('', array());
+    $context = new \Papaya\Message\Context\Items('', array());
     $this->assertEquals(
       '',
       $context->asXhtml()
@@ -74,10 +74,10 @@ class PapayaMessageContextListTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextList::asString
+  * @covers \Papaya\Message\Context\Items::asString
   */
   public function testAsString() {
-    $context = new \PapayaMessageContextList('', array('Hello', 'World'));
+    $context = new \Papaya\Message\Context\Items('', array('Hello', 'World'));
     $this->assertEquals(
       'Hello'."\n".'World',
       $context->asString()

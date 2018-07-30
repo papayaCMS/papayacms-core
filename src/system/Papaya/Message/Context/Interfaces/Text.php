@@ -13,39 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Message\Context;
+namespace Papaya\Message\Context\Interfaces;
 /**
- * Message context containing simple plain text
+ * Interface for message string contexts
+ *
+ * Message context can be converted to a unformatted string
  *
  * @package Papaya-Library
  * @subpackage Messages
  */
-class Text
-  implements
-  \Papaya\Message\Context\Interfaces\Text {
+interface Text
+  extends \Papaya\Message\Context\Data {
 
   /**
-   * data buffer
+   * Get context as simple string, without formatting
    *
-   * @var string
+   * return @string
    */
-  private $_text = '';
+  function asString();
 
-  /**
-   * Create simple text context
-   *
-   * @param string $text
-   */
-  public function __construct($text) {
-    $this->_text = $text;
-  }
-
-  /**
-   * Get the text
-   *
-   * @return string
-   */
-  public function asString() {
-    return $this->_text;
-  }
 }

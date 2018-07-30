@@ -137,29 +137,29 @@ class PapayaMessageDispatcherWildfire
   /**
    * Send a message context using the Wildfire protocol
    *
-   * @param \PapayaMessageContextInterface $context
+   * @param \Papaya\Message\Context\Data $context
    * @throws \InvalidArgumentException
    */
   public function sendContext($context) {
-    if ($context instanceof \PapayaMessageContextVariable) {
+    if ($context instanceof \Papaya\Message\Context\Variable) {
       $this->_sendContextVariable($context);
-    } elseif ($context instanceof \PapayaMessageContextBacktrace) {
+    } elseif ($context instanceof \Papaya\Message\Context\Backtrace) {
       $this->_sendContextTrace($context);
-    } elseif ($context instanceof \PapayaMessageContextInterfaceTable) {
+    } elseif ($context instanceof \Papaya\Message\Context\Interfaces\Table) {
       $this->_sendContextTable($context);
     } else {
       $wildfire = $this->getHandler();
-      if ($context instanceof \PapayaMessageContextInterfaceLabeled) {
+      if ($context instanceof \Papaya\Message\Context\Interfaces\Labeled) {
         $wildfire->startGroup($context->getLabel());
       }
-      if ($context instanceof \PapayaMessageContextInterfaceList) {
+      if ($context instanceof \Papaya\Message\Context\Interfaces\Items) {
         foreach ($context->asArray() as $index => $item) {
           $wildfire->sendMessage('('.($index + 1).') '.$item, 'LOG');
         }
-      } elseif ($context instanceof \PapayaMessageContextInterfaceString) {
+      } elseif ($context instanceof \Papaya\Message\Context\Interfaces\Text) {
         $wildfire->sendMessage($context->asString(), 'LOG');
       }
-      if ($context instanceof \PapayaMessageContextInterfaceLabeled) {
+      if ($context instanceof \Papaya\Message\Context\Interfaces\Labeled) {
         $wildfire->endGroup();
       }
     }
@@ -210,10 +210,10 @@ class PapayaMessageDispatcherWildfire
    *
    * Variables dumps need to have a special format to display as much informations as possible.
    *
-   * @param \PapayaMessageContextVariable $context
+   * @param \Papaya\Message\Context\Variable $context
    * @throws \InvalidArgumentException
    */
-  private function _sendContextVariable(\PapayaMessageContextVariable $context) {
+  private function _sendContextVariable(\Papaya\Message\Context\Variable $context) {
     $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(
       $context->getDepth(), $context->getStringLength()
     );
@@ -227,10 +227,10 @@ class PapayaMessageDispatcherWildfire
    * FirePHP has a special formatted output for traces, that is a lot better then just
    * output a list.
    *
-   * @param \PapayaMessageContextBacktrace $context
+   * @param \Papaya\Message\Context\Backtrace $context
    * @throws \InvalidArgumentException
    */
-  private function _sendContextTrace(\PapayaMessageContextBacktrace $context) {
+  private function _sendContextTrace(\Papaya\Message\Context\Backtrace $context) {
     $trace = $context->getBacktrace();
     $count = count($trace);
     if ($count > 0) {
@@ -281,7 +281,7 @@ class PapayaMessageDispatcherWildfire
       'line' => $this->_getArrayElement($element, 'line'),
     );
     if (!empty($element['args'])) {
-      $arguments = new \PapayaMessageContextVariable($element['args']);
+      $arguments = new \Papaya\Message\Context\Variable($element['args']);
       $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(
         $arguments->getDepth(), $arguments->getStringLength()
       );
@@ -296,10 +296,10 @@ class PapayaMessageDispatcherWildfire
    *
    * FirePHP has a special formatted output for tables.
    *
-   * @param \PapayaMessageContextInterfaceTable $context
+   * @param \Papaya\Message\Context\Interfaces\Table $context
    * @throws \InvalidArgumentException
    */
-  private function _sendContextTable(\PapayaMessageContextInterfaceTable $context) {
+  private function _sendContextTable(\Papaya\Message\Context\Interfaces\Table $context) {
     $table = array();
     $columns = $context->getColumns();
     if (NULL !== $columns) {

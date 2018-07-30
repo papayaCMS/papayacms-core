@@ -91,6 +91,10 @@ class Autoloader {
     'PapayaIteratorArrayMapper' => Iterator\ArrayMapper::class,
     'PapayaIteratorMultiple' => Iterator\Union::class,
 
+    'PapayaMessageContextInterfaceList' => Message\Context\Interfaces\Items::class,
+    'PapayaMessageContextInterface' => Message\Context\Data::class,
+    'PapayaMessageContextList' => Message\Context\Items::class,
+
     'PapayaObject' => Application\BaseObject::class
   );
 

@@ -256,7 +256,7 @@ class PapayaPluginLoader extends \Papaya\Application\BaseObject {
           \Papaya\Message::SEVERITY_ERROR,
           sprintf('Can not include module file "%s"', $fileName)
         );
-        $logMessage->context()->append(new \PapayaMessageContextBacktrace());
+        $logMessage->context()->append(new \Papaya\Message\Context\Backtrace());
         $this->papaya()->messages->dispatch($logMessage);
         return FALSE;
       }
@@ -266,7 +266,7 @@ class PapayaPluginLoader extends \Papaya\Application\BaseObject {
           \Papaya\Message::SEVERITY_ERROR,
           sprintf('Can not find module class "%s"', $pluginData['class'])
         );
-        $logMessage->context()->append(new \PapayaMessageContextBacktrace());
+        $logMessage->context()->append(new \Papaya\Message\Context\Backtrace());
         $this->papaya()->messages->dispatch($logMessage);
         return FALSE;
       }

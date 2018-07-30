@@ -13,22 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context\Interfaces;
 /**
-* Interface for message string contexts
-*
-* Message context can be converted to a unformatted string
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-interface PapayaMessageContextInterfaceXhtml
-  extends \PapayaMessageContextInterface {
+ * Interface for message string contexts
+ *
+ * Message context can be converted to a unformatted string
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+interface Table
+  extends \Papaya\Message\Context\Interfaces\Items {
 
   /**
-  * Get context as xhtml string
-  *
-  * @return string
-  */
-  function asXhtml();
+   * Get table column header if available
+   *
+   * @return array|NULL
+   */
+  function getColumns();
 
+  /**
+   * Get the data row count
+   *
+   * @return integer
+   */
+  function getRowCount();
+
+  /**
+   * Get data row by position
+   *
+   * @param $position
+   * @return array
+   */
+  function getRow($position);
 }

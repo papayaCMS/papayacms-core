@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::get
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::get
   */
   public function testGet() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $this->assertSame(
       '',
       $visitor->get()
@@ -29,11 +29,11 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitArray
-  * @covers \PapayaMessageContextVariableVisitorString::_addLine
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitArray
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::_addLine
   */
   public function testVisitArrayWithEmptyArray() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $visitor->visitArray(array());
     $this->assertAttributeEquals(
       "array(0) {\n}",
@@ -43,13 +43,13 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitArray
-  * @covers \PapayaMessageContextVariableVisitorString::_addLine
-  * @covers \PapayaMessageContextVariableVisitorString::_increaseIndent
-  * @covers \PapayaMessageContextVariableVisitorString::_decreaseIndent
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitArray
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::_addLine
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::_increaseIndent
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::_decreaseIndent
   */
   public function testVisitArrayWithNestedArray() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $visitor->visitArray(array(array()));
     $this->assertAttributeEquals(
       "array(1) {\n  [0]=>\n  array(0) {\n  }\n}",
@@ -59,12 +59,12 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitArray
-  * @covers \PapayaMessageContextVariableVisitorString::_addLine
-  * @covers \PapayaMessageContextVariableVisitorString::_increaseIndent
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitArray
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::_addLine
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::_increaseIndent
   */
   public function testVisitArrayWithNestedArrayReachingLimit() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(1, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(1, 42);
     $visitor->visitArray(array(array()));
     $this->assertAttributeEquals(
       "array(1) {\n  ...recursion limit...\n}",
@@ -74,10 +74,10 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitBoolean
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitBoolean
   */
   public function testVisitBooleanWithTrue() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $visitor->visitBoolean(TRUE);
     $this->assertAttributeEquals(
       'bool(true)',
@@ -87,10 +87,10 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitBoolean
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitBoolean
   */
   public function testVisitBooleanWithFalse() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $visitor->visitBoolean(FALSE);
     $this->assertAttributeEquals(
       'bool(false)',
@@ -100,10 +100,10 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitInteger
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitInteger
   */
   public function testVisitInteger() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $visitor->visitInteger(3117);
     $this->assertAttributeEquals(
       'int(3117)',
@@ -113,10 +113,10 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitFloat
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitFloat
   */
   public function testVisitFloat() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $visitor->visitFloat(31.17);
     $this->assertAttributeEquals(
       'float(31.17)',
@@ -126,10 +126,10 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitNull
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitNull
   */
   public function testVisitNull() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $visitor->visitNull(NULL);
     $this->assertAttributeEquals(
       'NULL',
@@ -139,10 +139,10 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitObject
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitObject
   */
   public function testVisitObject() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $sample = new \PapayaMessageContextVariableVisitorString_SampleClass();
     $visitor->visitObject($sample);
     $this->assertAttributeEquals(
@@ -162,10 +162,10 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitObject
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitObject
   */
   public function testVisitObjectWithInheritance() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $sample = new \PapayaMessageContextVariableVisitorString_SampleChildClass();
     $visitor->visitObject($sample);
     $this->assertAttributeEquals(
@@ -187,10 +187,10 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitObject
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitObject
   */
   public function testVisitObjectWithRecursion() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $sample = new \PapayaMessageContextVariableVisitorString_SampleClass();
     $sample->recursion = $sample;
     $visitor->visitObject($sample);
@@ -213,10 +213,10 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitObject
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitObject
   */
   public function testVisitObjectWithRecursionLimit() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(1, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(1, 42);
     $sample = new \PapayaMessageContextVariableVisitorString_SampleClass();
     $sample->recursion = $sample;
     $visitor->visitObject($sample);
@@ -230,11 +230,11 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitArray
-  * @covers \PapayaMessageContextVariableVisitorString::visitObject
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitArray
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitObject
   */
   public function testVisitObjectWithDuplication() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $sample = new \PapayaMessageContextVariableVisitorString_SampleClass();
     $objects = array($sample, $sample);
     $visitor->visitArray($objects);
@@ -262,11 +262,11 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitResource
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitResource
   */
   public function testVisitResource() {
     $resource = fopen('php://memory', 'rwb');
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $visitor->visitResource($resource);
     $this->assertRegExp(
       "(^resource\(#\d+\)$)D",
@@ -276,10 +276,10 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitString
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitString
   */
   public function testVisitString() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 42);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 42);
     $visitor->visitString('Sample');
     $this->assertAttributeEquals(
       'string(6) "Sample"',
@@ -289,10 +289,10 @@ class PapayaMessageContextVariableVisitorStringTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextVariableVisitorString::visitString
+  * @covers \Papaya\Message\Context\Variable\Visitor\Text::visitString
   */
   public function testVisitLongString() {
-    $visitor = new \PapayaMessageContextVariableVisitorString(21, 3);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text(21, 3);
     $visitor->visitString('Sample');
     $this->assertAttributeEquals(
       'string(6) "Sam..."',

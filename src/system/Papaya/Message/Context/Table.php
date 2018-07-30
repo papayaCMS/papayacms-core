@@ -13,52 +13,56 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context;
 /**
-* Papaya message context for tabular data
-*
-* @package Papaya-Library
-* @subpackage Message
-*/
-class PapayaMessageContextTable
+ * Papaya message context for tabular data
+ *
+ * @package Papaya-Library
+ * @subpackage Message
+ */
+class Table
   implements
-    \PapayaMessageContextInterfaceTable,
-    \PapayaMessageContextInterfaceString,
-    \PapayaMessageContextInterfaceXhtml {
+  \Papaya\Message\Context\Interfaces\Table,
+  \Papaya\Message\Context\Interfaces\Text,
+  \Papaya\Message\Context\Interfaces\Xhtml {
 
   /**
-  * Field/column identifiers
-  * @var array
-  */
+   * Field/column identifiers
+   *
+   * @var array
+   */
   private $_fields = array();
 
   /**
-  * Field/column captions
-  * @var array|NULL
-  */
+   * Field/column captions
+   *
+   * @var array|NULL
+   */
   private $_captions = NULL;
 
   /**
-  * Data rows
-  * @var array
-  */
+   * Data rows
+   *
+   * @var array
+   */
   private $_rows = array();
 
   private $_label = '';
 
   /**
-  * Initialize object and set the label property
-  *
-  * @param string $label
-  */
+   * Initialize object and set the label property
+   *
+   * @param string $label
+   */
   public function __construct($label) {
     $this->_label = $label;
   }
 
   /**
-  * Get the context label (group caption)
-  *
-  * @return string
-  */
+   * Get the context label (group caption)
+   *
+   * @return string
+   */
   public function getLabel() {
     return $this->_label;
   }
@@ -88,21 +92,21 @@ class PapayaMessageContextTable
   }
 
   /**
-  * Get the table column headers
-  *
-  * return array
-  */
+   * Get the table column headers
+   *
+   * return array
+   */
   public function getColumns() {
     return $this->_captions;
   }
 
   /**
-  * Add a row to the context.
-  *
-  * If no columns are set, they are compiled from the keys in the $values argument.
-  *
-  * @param array $values
-  */
+   * Add a row to the context.
+   *
+   * If no columns are set, they are compiled from the keys in the $values argument.
+   *
+   * @param array $values
+   */
   public function addRow(array $values) {
     if (is_null($this->_captions)) {
       foreach ($values as $field => $content) {
@@ -115,14 +119,14 @@ class PapayaMessageContextTable
   }
 
   /**
-  * Get a table row specified by the row index.
-  *
-  * This method return an array with all column identifiers as keys and the values found
-  * in the current row. If a column identifier has no value for a column, NULL is used.
-  *
-  * @param integer $position
-  * @return array
-  */
+   * Get a table row specified by the row index.
+   *
+   * This method return an array with all column identifiers as keys and the values found
+   * in the current row. If a column identifier has no value for a column, NULL is used.
+   *
+   * @param integer $position
+   * @return array
+   */
   public function getRow($position) {
     $result = array();
     $row = isset($this->_rows[$position]) ? $this->_rows[$position] : array();
@@ -133,20 +137,21 @@ class PapayaMessageContextTable
   }
 
   /**
-  * Return the row count
-  * @return integer
-  */
+   * Return the row count
+   *
+   * @return integer
+   */
   public function getRowCount() {
     return count($this->_rows);
   }
 
   /**
-  * Compile a simple plain text output and return it
-  *
-  * This will result in a list of records rather then a table.
-  *
-  * @return string
-  */
+   * Compile a simple plain text output and return it
+   *
+   * This will result in a list of records rather then a table.
+   *
+   * @return string
+   */
   public function asString() {
     $result = '';
     if (count($this->_rows) > 0) {
@@ -154,7 +159,7 @@ class PapayaMessageContextTable
         foreach ($this->getRow($rowIndex) as $column => $content) {
           if (isset($this->_captions)) {
             if (isset($this->_captions[$column]) &&
-                !is_null($content)) {
+              !is_null($content)) {
               $result .= $this->_captions[$column].': '.$content."\n";
             }
           } else {
@@ -168,10 +173,10 @@ class PapayaMessageContextTable
   }
 
   /**
-  * Compile a array output from table, with one element for each table row
-  *
-  * @return array
-  */
+   * Compile a array output from table, with one element for each table row
+   *
+   * @return array
+   */
   public function asArray() {
     $result = array();
     if (count($this->_rows) > 0) {
@@ -180,7 +185,7 @@ class PapayaMessageContextTable
         foreach ($this->getRow($rowIndex) as $column => $content) {
           if (isset($this->_captions)) {
             if (isset($this->_captions[$column]) &&
-                !is_null($content)) {
+              !is_null($content)) {
               $line .= ', '.$this->_captions[$column].': '.$content;
             }
           } else {
@@ -194,13 +199,13 @@ class PapayaMessageContextTable
   }
 
   /**
-  * Compile a xhtml table output from the context and return it.
-  *
-  * @return string
-  */
+   * Compile a xhtml table output from the context and return it.
+   *
+   * @return string
+   */
   public function asXhtml() {
     if (isset($this->_captions) ||
-        count($this->_rows) > 0) {
+      count($this->_rows) > 0) {
       $result = '<table class="logContext" summary="">';
       if (isset($this->_captions)) {
         $result .= '<thead><tr>';

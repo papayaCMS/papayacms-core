@@ -64,8 +64,8 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
   }
 
   /**
-   * Log a message, if $context ist not an \PapayaMessageContextInterface it will be encapsulated
-   * into a \PapayaMessageContextVariable
+   * Log a message, if $context ist not an \Papaya\Message\Context\PapayaMessageContextInterface it will be encapsulated
+   * into a \Papaya\Message\Context\PapayaMessageContextVariable
    *
    * @param integer $severity
    * @param integer $group
@@ -74,12 +74,12 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
    */
   public function log($severity, $group, $text, $context = NULL) {
     $message = new \PapayaMessageLog($severity, $group, $text);
-    if ($context instanceof \PapayaMessageContextGroup) {
+    if ($context instanceof \Papaya\Message\Context\Group) {
       $message->setContext($context);
-    } elseif ($context instanceof \PapayaMessageContextInterface) {
+    } elseif ($context instanceof \Papaya\Message\Context\Data) {
       $message->context()->append($context);
     } elseif (isset($context)) {
-      $message->context()->append(new \PapayaMessageContextVariable($context));
+      $message->context()->append(new \Papaya\Message\Context\Variable($context));
     }
     $this->dispatch($message);
   }
@@ -94,13 +94,13 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
       \PapayaMessageLogable::GROUP_DEBUG, \Papaya\Message::SEVERITY_DEBUG, ''
     );
     if (func_num_args() > 0) {
-      $message->context()->append(new \PapayaMessageContextVariable(func_get_args(), 5, 9999));
+      $message->context()->append(new \Papaya\Message\Context\Variable(func_get_args(), 5, 9999));
     }
     $message
       ->context()
-      ->append(new \PapayaMessageContextMemory())
-      ->append(new \PapayaMessageContextRuntime())
-      ->append(new \PapayaMessageContextBacktrace(1));
+      ->append(new \Papaya\Message\Context\Memory())
+      ->append(new \Papaya\Message\Context\Runtime())
+      ->append(new \Papaya\Message\Context\Backtrace(1));
     $this->dispatch($message);
   }
 
@@ -142,7 +142,7 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
   * @param \Papaya\Configuration $options
   */
   public function setUp($options) {
-    \PapayaMessageContextRuntime::setStartTime(microtime(TRUE));
+    \Papaya\Message\Context\Runtime::setStartTime(microtime(TRUE));
     error_reporting($options->get('PAPAYA_LOG_PHP_ERRORLEVEL', E_ALL & ~E_STRICT));
     /** @var \PapayaMessageHook $hook */
     foreach ($this->hooks() as $hook) {

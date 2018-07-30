@@ -13,124 +13,128 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context\Variable;
 /**
-* Abstract superclass for variable dumps
-*
-* This class ist an abstract superclass for visitor classes used to convert a variable into an
-* formatted output (dump)
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-abstract class PapayaMessageContextVariableVisitor {
+ * Abstract superclass for variable dumps
+ *
+ * This class ist an abstract superclass for visitor classes used to convert a variable into an
+ * formatted output (dump)
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+abstract class Visitor {
 
   /**
-  * maximum recursion depth
-  * @var integer
-  */
+   * maximum recursion depth
+   *
+   * @var integer
+   */
   protected $_depth = 5;
 
   /**
-  * maximum string output length
-  * @var integer
-  */
+   * maximum string output length
+   *
+   * @var integer
+   */
   protected $_stringLength = 30;
 
   /**
-  * @var array internal object stack for recursions
-  */
+   * @var array internal object stack for recursions
+   */
   protected $_objectStack = array();
 
   /**
-  * @var array internal object list for duplicates
-  */
+   * @var array internal object list for duplicates
+   */
   protected $_objectList = array();
 
   /**
-  * compile result to string and return it
-  *
-  * @return string
-  */
+   * compile result to string and return it
+   *
+   * @return string
+   */
   abstract public function get();
 
   /**
-  * Visit an array variable
-  *
-  * @param array $array
-  */
+   * Visit an array variable
+   *
+   * @param array $array
+   */
   abstract public function visitArray(array $array);
 
   /**
-  * Visit a boolean variable
-  *
-  * @param boolean $boolean
-  */
+   * Visit a boolean variable
+   *
+   * @param boolean $boolean
+   */
   abstract public function visitBoolean($boolean);
 
   /**
-  * Visit an integer variable
-  *
-  * @param integer $integer
-  */
+   * Visit an integer variable
+   *
+   * @param integer $integer
+   */
   abstract public function visitInteger($integer);
 
   /**
-  * Visit a float variable
-  *
-  * @param float $float
-  */
+   * Visit a float variable
+   *
+   * @param float $float
+   */
   abstract public function visitFloat($float);
 
   /**
-  * Visit a NULL variable
-  * @param NULL $null
-  */
+   * Visit a NULL variable
+   *
+   * @param NULL $null
+   */
   abstract public function visitNull($null);
 
   /**
-  * Visit an object variable
-  *
-  * @param object $object
-  */
+   * Visit an object variable
+   *
+   * @param object $object
+   */
   abstract public function visitObject($object);
 
   /**
-  * Visit a resource
-  *
-  * @param resource $resource
-  */
+   * Visit a resource
+   *
+   * @param resource $resource
+   */
   abstract public function visitResource($resource);
 
   /**
-  * Visit a string variable
-  *
-  * @param string $string
-  */
+   * Visit a string variable
+   *
+   * @param string $string
+   */
   abstract public function visitString($string);
 
   /**
-  * Construct visitor object and set recursion depth and string length
-  *
-  * @param integer $depth
-  * @param integer $stringLength
-  */
+   * Construct visitor object and set recursion depth and string length
+   *
+   * @param integer $depth
+   * @param integer $stringLength
+   */
   public function __construct($depth, $stringLength) {
     $this->_depth = $depth;
     $this->_stringLength = $stringLength;
   }
 
   /**
-  * Magic method, allow to convert the visitor into a string
-  */
+   * Magic method, allow to convert the visitor into a string
+   */
   public function __toString() {
     return $this->get();
   }
 
   /**
-  * Visit a variable (calls the other visit* methods)
-  *
-  * @param mixed $variable
-  */
+   * Visit a variable (calls the other visit* methods)
+   *
+   * @param mixed $variable
+   */
   public function visitVariable($variable) {
     if (is_null($variable)) {
       $this->visitNull($variable);
@@ -152,10 +156,10 @@ abstract class PapayaMessageContextVariableVisitor {
   }
 
   /**
-  * pushes an object hash to the recursion stack and adds it to the object list
-  *
-  * @param string $hash
-  */
+   * pushes an object hash to the recursion stack and adds it to the object list
+   *
+   * @param string $hash
+   */
   protected function _pushObjectStack($hash) {
     $this->_objectStack[] = $hash;
     if (!isset($this->_objectList[$hash])) {
@@ -184,31 +188,31 @@ abstract class PapayaMessageContextVariableVisitor {
   }
 
   /**
-  * Check if object hash is in current recursion stack
-  *
-  * @param string $hash
-  * @return boolean
-  */
+   * Check if object hash is in current recursion stack
+   *
+   * @param string $hash
+   * @return boolean
+   */
   protected function _isObjectRecursion($hash) {
     return in_array($hash, $this->_objectStack);
   }
 
   /**
-  * Check if object hash is in object list (already visited)
-  *
-  * @param string $hash
-  * @return boolean
-  */
+   * Check if object hash is in object list (already visited)
+   *
+   * @param string $hash
+   * @return boolean
+   */
   protected function _isObjectDuplicate($hash) {
     return isset($this->_objectList[$hash]);
   }
 
   /**
-  * Return index of object in this context
-  *
-  * @param string $hash
-  * @return integer
-  */
+   * Return index of object in this context
+   *
+   * @param string $hash
+   * @return integer
+   */
   protected function _getObjectIndex($hash) {
     return $this->_objectList[$hash];
   }

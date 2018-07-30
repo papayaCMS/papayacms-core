@@ -18,30 +18,30 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaMessageContextTableTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMessageContextTable::__construct
+  * @covers \Papaya\Message\Context\Table::__construct
   */
   public function testConstructor() {
-    $context = new \PapayaMessageContextTable('Sample');
+    $context = new \Papaya\Message\Context\Table('Sample');
     $this->assertAttributeEquals(
       'Sample', '_label', $context
     );
   }
 
   /**
-  * @covers \PapayaMessageContextTable::getLabel
+  * @covers \Papaya\Message\Context\Table::getLabel
   */
   public function testGetLabel() {
-    $context = new \PapayaMessageContextTable('Sample');
+    $context = new \Papaya\Message\Context\Table('Sample');
     $this->assertEquals(
       'Sample', $context->getLabel()
     );
   }
 
   /**
-  * @covers \PapayaMessageContextTable::setColumns
+  * @covers \Papaya\Message\Context\Table::setColumns
   */
   public function testSetColumns() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->setColumns(array('sample' => 'Sample'));
     $this->assertAttributeEquals(
       array('sample' => 'Sample'), '_captions', $context
@@ -55,19 +55,19 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::setColumns
+  * @covers \Papaya\Message\Context\Table::setColumns
   */
   public function testSetColumnsWithEmptyArrayExpectingException() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $this->expectException(InvalidArgumentException::class);
     $context->setColumns(array());
   }
 
   /**
-  * @covers \PapayaMessageContextTable::setColumns
+  * @covers \Papaya\Message\Context\Table::setColumns
   */
   public function testSetColumnsResetRows() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->addRow(array('foo' => 'bar'));
     $context->setColumns(array('sample' => 'Sample'));
     $this->assertAttributeEquals(
@@ -76,10 +76,10 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::getColumns
+  * @covers \Papaya\Message\Context\Table::getColumns
   */
   public function testGetColumns() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->setColumns(array('sample' => 'Sample'));
     $this->assertEquals(
       array('sample' => 'Sample'), $context->getColumns()
@@ -87,10 +87,10 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::addRow
+  * @covers \Papaya\Message\Context\Table::addRow
   */
   public function testAddRow() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->addRow(array('fieldOne' => 'Content One'));
     $this->assertAttributeEquals(
       array(array('fieldOne' => 'Content One')), '_rows', $context
@@ -98,10 +98,10 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::addRow
+  * @covers \Papaya\Message\Context\Table::addRow
   */
   public function testAddRowMergingFieldIdentifiers() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->addRow(array('fieldOne' => 'Content One'));
     $context->addRow(array('fieldOne' => 'Content One', 'fieldTwo' => 'Content Two'));
     $this->assertAttributeEquals(
@@ -120,10 +120,10 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::getRow
+  * @covers \Papaya\Message\Context\Table::getRow
   */
   public function testGetRow() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->addRow(array('fieldOne' => 'Content One'));
     $this->assertEquals(
       array('fieldOne' => 'Content One'), $context->getRow(0)
@@ -131,10 +131,10 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::getRow
+  * @covers \Papaya\Message\Context\Table::getRow
   */
   public function testGetRowMergedFields() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->addRow(array('fieldOne' => 'Content One'));
     $context->addRow(array('fieldOne' => 'Content One', 'fieldTwo' => 'Content Two'));
     $this->assertEquals(
@@ -143,10 +143,10 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::getRow
+  * @covers \Papaya\Message\Context\Table::getRow
   */
   public function testGetRowColumnsDefined() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->setColumns(array('fieldOne' => 'Field One'));
     $context->addRow(array('fieldOne' => 'Content One'));
     $context->addRow(array('fieldOne' => 'Content One', 'fieldTwo' => 'Content Two'));
@@ -156,20 +156,20 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::getRowCount
+  * @covers \Papaya\Message\Context\Table::getRowCount
   */
   public function testGetRowCountExpectingZero() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $this->assertEquals(
       0, $context->getRowCount()
     );
   }
 
   /**
-  * @covers \PapayaMessageContextTable::getRowCount
+  * @covers \Papaya\Message\Context\Table::getRowCount
   */
   public function testGetRowCountExpectingOne() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->addRow(array('fieldOne' => 'Content One'));
     $this->assertEquals(
       1, $context->getRowCount()
@@ -177,20 +177,20 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::asString
+  * @covers \Papaya\Message\Context\Table::asString
   */
   public function testAsStringWithoutContent() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $this->assertEquals(
       '', $context->asString()
     );
   }
 
   /**
-  * @covers \PapayaMessageContextTable::asString
+  * @covers \Papaya\Message\Context\Table::asString
   */
   public function testAsStringWithColumns() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->setColumns(array('fieldOne' => 'Caption One', 'fieldTwo' => 'Caption Two'));
     $context->addRow(array('fieldOne' => '1.1'));
     $context->addRow(array('fieldOne' => '2.1', 'fieldTwo' => '2.2'));
@@ -203,10 +203,10 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::asString
+  * @covers \Papaya\Message\Context\Table::asString
   */
   public function testAsStringWithoutColumns() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->addRow(array('fieldOne' => '1.1'));
     $context->addRow(array('fieldOne' => '2.1', 'fieldTwo' => '2.2'));
     $this->assertEquals(
@@ -219,20 +219,20 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::asArray
+  * @covers \Papaya\Message\Context\Table::asArray
   */
   public function testAsArrayWithoutContent() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $this->assertEquals(
       array(), $context->asArray()
     );
   }
 
   /**
-  * @covers \PapayaMessageContextTable::asArray
+  * @covers \Papaya\Message\Context\Table::asArray
   */
   public function testAsArrayWithColumns() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->setColumns(array('fieldOne' => 'Caption One', 'fieldTwo' => 'Caption Two'));
     $context->addRow(array('fieldOne' => '1.1'));
     $context->addRow(array('fieldOne' => '2.1', 'fieldTwo' => '2.2'));
@@ -246,10 +246,10 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::asArray
+  * @covers \Papaya\Message\Context\Table::asArray
   */
   public function testAsArrayWithoutColumns() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->addRow(array('fieldOne' => '1.1'));
     $context->addRow(array('fieldOne' => '2.1', 'fieldTwo' => '2.2'));
     $this->assertEquals(
@@ -262,20 +262,20 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::asXhtml
+  * @covers \Papaya\Message\Context\Table::asXhtml
   */
   public function testAsXhtmlWithoutContent() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $this->assertEquals(
       '', $context->asXhtml()
     );
   }
 
   /**
-  * @covers \PapayaMessageContextTable::asXhtml
+  * @covers \Papaya\Message\Context\Table::asXhtml
   */
   public function testAsXhtmlWithColumns() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->setColumns(array('fieldOne' => 'Caption One', 'fieldTwo' => 'Caption Two'));
     $context->addRow(array('fieldOne' => '1.1'));
     $context->addRow(array('fieldOne' => '2.1', 'fieldTwo' => '2.2'));
@@ -289,10 +289,10 @@ class PapayaMessageContextTableTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageContextTable::asXhtml
+  * @covers \Papaya\Message\Context\Table::asXhtml
   */
   public function testAsXhtmlWithoutColumns() {
-    $context = new \PapayaMessageContextTable('');
+    $context = new \Papaya\Message\Context\Table('');
     $context->addRow(array('fieldOne' => '1.1'));
     $context->addRow(array('fieldOne' => '2.1', 'fieldTwo' => '2.2'));
     $this->assertEquals(

@@ -13,53 +13,58 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context\Variable\Visitor;
 /**
-* Visitor to convert a variable into a plain text string dump
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageContextVariableVisitorString
-  extends \PapayaMessageContextVariableVisitor {
+ * Visitor to convert a variable into a plain text string dump
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Text
+  extends \Papaya\Message\Context\Variable\Visitor {
 
   /**
-  * internal indent counter
-  * @var integer
-  */
+   * internal indent counter
+   *
+   * @var integer
+   */
   protected $_indent = 0;
 
   /**
-  * Indentation string
-  * @var string
-  */
+   * Indentation string
+   *
+   * @var string
+   */
   protected $_indentString = '  ';
 
   /**
-  * Suffix for truncated string values
-  * @var string
-  */
+   * Suffix for truncated string values
+   *
+   * @var string
+   */
   protected $_truncateSuffix = '...';
 
   /**
-  * Compiled string result
-  * @var string
-  */
+   * Compiled string result
+   *
+   * @var string
+   */
   protected $_variableString = '';
 
   /**
-  * return compiled string result
-  *
-  * @return string
-  */
+   * return compiled string result
+   *
+   * @return string
+   */
   public function get() {
     return $this->_variableString;
   }
 
   /**
-  * Add a line to the result
-  *
-  * @param string $line
-  */
+   * Add a line to the result
+   *
+   * @param string $line
+   */
   private function _addLine($line) {
     if ($this->_variableString != '') {
       $this->_variableString .= "\n";
@@ -68,15 +73,15 @@ class PapayaMessageContextVariableVisitorString
   }
 
   /**
-  * Visit an array, and all its elements
-  *
-  * array(n) {
-  *   [key] =>
-  *   value
-  * }
-  *
-  * @param array $array
-  */
+   * Visit an array, and all its elements
+   *
+   * array(n) {
+   *   [key] =>
+   *   value
+   * }
+   *
+   * @param array $array
+   */
   public function visitArray(array $array) {
     $count = count($array);
     $this->_addLine(sprintf('array(%d) {', $count));
@@ -108,12 +113,12 @@ class PapayaMessageContextVariableVisitorString
   }
 
   /**
-  * Visit an integer variable
-  *
-  * int(n)
-  *
-  * @param integer $integer
-  */
+   * Visit an integer variable
+   *
+   * int(n)
+   *
+   * @param integer $integer
+   */
   public function visitInteger($integer) {
     $this->_addLine(
       sprintf('int(%d)', $integer)
@@ -121,12 +126,12 @@ class PapayaMessageContextVariableVisitorString
   }
 
   /**
-  * Visit a float variable
-  *
-  * float(n.m)
-  *
-  * @param float $float
-  */
+   * Visit a float variable
+   *
+   * float(n.m)
+   *
+   * @param float $float
+   */
   public function visitFloat($float) {
     $this->_addLine(
       sprintf('float(%s)', (string)$float)
@@ -134,21 +139,21 @@ class PapayaMessageContextVariableVisitorString
   }
 
   /**
-  * Visit a NULL variable
-  *
-  * NULL
-  *
-  * @param NULL $null
-  */
+   * Visit a NULL variable
+   *
+   * NULL
+   *
+   * @param NULL $null
+   */
   public function visitNull($null) {
     $this->_addLine('NULL');
   }
 
   /**
-  * Visit an object variable, handle recursions and duplicates
-  *
-  * @param object $object
-  */
+   * Visit an object variable, handle recursions and duplicates
+   *
+   * @param object $object
+   */
   public function visitObject($object) {
     $reflection = new \ReflectionObject($object);
     $hash = spl_object_hash($object);
@@ -197,12 +202,12 @@ class PapayaMessageContextVariableVisitorString
   }
 
   /**
-  * Visit a resource
-  *
-  * resource(#n)
-  *
-  * @param resource $resource
-  */
+   * Visit a resource
+   *
+   * resource(#n)
+   *
+   * @param resource $resource
+   */
   public function visitResource($resource) {
     $this->_addLine(
       sprintf('resource(#%d)', (integer)$resource)
@@ -210,13 +215,13 @@ class PapayaMessageContextVariableVisitorString
   }
 
   /**
-  * Visit a string variable
-  *
-  * string(n) "sample"
-  * string(n) "sample..."
-  *
-  * @param string $string
-  */
+   * Visit a string variable
+   *
+   * string(n) "sample"
+   * string(n) "sample..."
+   *
+   * @param string $string
+   */
   public function visitString($string) {
     $length = strlen($string);
     if (strlen($string) > $this->_stringLength) {
@@ -228,10 +233,10 @@ class PapayaMessageContextVariableVisitorString
   }
 
   /**
-  * Increase indent, return FALSE if recusion limit is reached
-  *
-  * @return boolean
-  */
+   * Increase indent, return FALSE if recusion limit is reached
+   *
+   * @return boolean
+   */
   protected function _increaseIndent() {
     if ($this->_indent < ($this->_depth - 1)) {
       $this->_indent++;
@@ -242,10 +247,10 @@ class PapayaMessageContextVariableVisitorString
   }
 
   /**
-  * Decrease indent, throw an exception if indent whould be negative
-  *
-  * @return void
-  */
+   * Decrease indent, throw an exception if indent whould be negative
+   *
+   * @return void
+   */
   protected function _decreaseIndent() {
     $this->_indent--;
   }

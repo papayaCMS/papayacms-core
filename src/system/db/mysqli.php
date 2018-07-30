@@ -1092,13 +1092,13 @@ class dbresult_mysqli extends dbresult_base {
   * Compile database explain for SELECT query
   *
   * @access public
-  * @return NULL|\PapayaMessageContextInterface
+  * @return NULL|\Papaya\Message\Context\Data
   */
   public function getExplain() {
     $explainQuery = 'EXPLAIN '.$this->query;
     if ($res = $this->connection->executeQuery($explainQuery)) {
       if ($res->num_rows > 0) {
-        $explain = new \PapayaMessageContextTable('Explain');
+        $explain = new \Papaya\Message\Context\Table('Explain');
         $explain->setColumns(
           array(
             'id' => 'Id',

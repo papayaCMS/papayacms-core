@@ -113,7 +113,7 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
   * @covers \PapayaMessageDispatcherCli::dispatch
   */
   public function testDispatchWarning() {
-    $context = $this->getMockBuilder(\PapayaMessageContextInterfaceString::class)->getMock();
+    $context = $this->getMockBuilder(\Papaya\Message\Context\Interfaces\Text::class)->getMock();
     $context
       ->expects($this->any())
       ->method('asString')
@@ -148,7 +148,7 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
   * @covers \PapayaMessageDispatcherCli::dispatch
   */
   public function testDispatchDebug() {
-    $context = $this->createMock(\PapayaMessageContextInterfaceString::class);
+    $context = $this->createMock(\Papaya\Message\Context\Interfaces\Text::class);
     $context
       ->expects($this->any())
       ->method('asString')

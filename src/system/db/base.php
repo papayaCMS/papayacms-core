@@ -819,7 +819,7 @@ class dbresult_base extends base_object implements \Papaya\Database\Result {
   * Get an a database explain if possible
   *
   * @access public
-  * @return NULL|\PapayaMessageContextInterface
+  * @return NULL|\Papaya\Message\Context\Data
   */
   public function getExplain() {
     return NULL;

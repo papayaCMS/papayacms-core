@@ -13,37 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context;
 /**
-* Message context containing a variable
-*
-* This class is used for debugging variables.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageContextVariable
+ * Message context containing a variable
+ *
+ * This class is used for debugging variables.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Variable
   implements
-    \PapayaMessageContextInterfaceString,
-    \PapayaMessageContextInterfaceXhtml {
+  \Papaya\Message\Context\Interfaces\Text,
+  \Papaya\Message\Context\Interfaces\Xhtml {
 
   /**
-  * The depth defines the recursion depth for the variable output
-  *
-  * @var integer
-  */
+   * The depth defines the recursion depth for the variable output
+   *
+   * @var integer
+   */
   private $_depth = 3;
 
   /**
-  * The context variable
-  *
-  * @var array
-  */
+   * The context variable
+   *
+   * @var array
+   */
   private $_variable = NULL;
 
   /**
-  * Shorten string values to n bytes
-  * @var integer
-  */
+   * Shorten string values to n bytes
+   *
+   * @var integer
+   */
   private $_stringLength = 30;
 
   /**
@@ -73,10 +75,10 @@ class PapayaMessageContextVariable
   }
 
   /**
-  * Return the maximum recursion depth stored in the private property, used for additional visitors
-  *
-  * @return integer
-  */
+   * Return the maximum recursion depth stored in the private property, used for additional visitors
+   *
+   * @return integer
+   */
   public function getDepth() {
     return $this->_depth;
   }
@@ -95,45 +97,45 @@ class PapayaMessageContextVariable
   }
 
   /**
-  * Return the string length stored in the private property, used for additional visitors
-  *
-  * @return integer
-  */
+   * Return the string length stored in the private property, used for additional visitors
+   *
+   * @return integer
+   */
   public function getStringLength() {
     return $this->_stringLength;
   }
 
   /**
-  * Get a string representation of the variable
-  *
-  * @return string
-  */
+   * Get a string representation of the variable
+   *
+   * @return string
+   */
   public function asString() {
-    $visitor = new \PapayaMessageContextVariableVisitorString($this->_depth, $this->_stringLength);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Text($this->_depth, $this->_stringLength);
     $this->acceptVisitor($visitor);
     return (string)$visitor;
   }
 
   /**
-  * Get a string representation of the variable
-  *
-  * @return string
-  */
+   * Get a string representation of the variable
+   *
+   * @return string
+   */
   public function asXhtml() {
-    $visitor = new \PapayaMessageContextVariableVisitorXhtml($this->_depth, $this->_stringLength);
+    $visitor = new \Papaya\Message\Context\Variable\Visitor\Xhtml($this->_depth, $this->_stringLength);
     $this->acceptVisitor($visitor);
     return (string)$visitor;
   }
 
   /**
-  * Visitor method
-  *
-  * @see \PapayaMessageContextVariable::asString()
-  * @see \PapayaMessageContextVariable::asXhtml()
-  *
-  * @param \PapayaMessageContextVariableVisitor $visitor
-  */
-  public function acceptVisitor(\PapayaMessageContextVariableVisitor $visitor) {
+   * Visitor method
+   *
+   * @see \PapayaMessageContextVariable::asString()
+   * @see \PapayaMessageContextVariable::asXhtml()
+   *
+   * @param \Papaya\Message\Context\Variable\Visitor $visitor
+   */
+  public function acceptVisitor(\Papaya\Message\Context\Variable\Visitor $visitor) {
     $visitor->visitVariable($this->_variable);
   }
 }

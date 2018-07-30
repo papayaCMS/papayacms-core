@@ -13,34 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context\Interfaces;
 /**
-* Interface for message string contexts
-*
-* Message context can be converted to a unformatted string
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-interface PapayaMessageContextInterfaceTable
-  extends \PapayaMessageContextInterfaceList {
+ * Interface for an addition label for contexts.
+ *
+ * Message contexts which implemeted this interface will get a title/label,
+ * depending on the dispatcher.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+interface Labeled
+  extends \Papaya\Message\Context\Data {
 
   /**
-  * Get table column header if available
-  *
-  * @return array|NULL
-  */
-  function getColumns();
-
-  /**
-  * Get the data row count
-  * @return integer
-  */
-  function getRowCount();
-
-  /**
-   * Get data row by position
-   * @param $position
-   * @return array
+   * Get label for the context
+   *
+   * @return string
    */
-  function getRow($position);
+  function getLabel();
 }

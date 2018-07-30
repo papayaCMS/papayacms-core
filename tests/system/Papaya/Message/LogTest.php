@@ -83,8 +83,8 @@ class PapayaMessageLogTest extends \PapayaTestCase {
       \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextGroup $context */
-    $context = $this->createMock(\PapayaMessageContextGroup::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Group $context */
+    $context = $this->createMock(\Papaya\Message\Context\Group::class);
     $message->setContext($context);
     $this->assertAttributeSame(
       $context,
@@ -102,8 +102,8 @@ class PapayaMessageLogTest extends \PapayaTestCase {
       \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageContextGroup $context */
-    $context = $this->createMock(\PapayaMessageContextGroup::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Context\Group $context */
+    $context = $this->createMock(\Papaya\Message\Context\Group::class);
     $message->setContext($context);
     $this->assertSame(
       $context,
@@ -136,7 +136,7 @@ class PapayaMessageLogTest extends \PapayaTestCase {
       'Sample Message'
     );
     $this->assertInstanceOf(
-      \PapayaMessageContextGroup::class,
+      \Papaya\Message\Context\Group::class,
       $message->context()
     );
   }

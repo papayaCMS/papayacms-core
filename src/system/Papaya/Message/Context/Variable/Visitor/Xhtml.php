@@ -13,43 +13,47 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context\Variable\Visitor;
+
 /**
-* Visitor to convert a variable into a xhtml formatted string dump
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageContextVariableVisitorXhtml
-  extends \PapayaMessageContextVariableVisitor {
+ * Visitor to convert a variable into a xhtml formatted string dump
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Xhtml
+  extends \Papaya\Message\Context\Variable\Visitor {
 
   /**
-  * Suffix for truncated string values
-  * @var string
-  */
+   * Suffix for truncated string values
+   *
+   * @var string
+   */
   protected $_truncateSuffix = '...';
 
   /**
-  * @var DOMDocument
-  */
+   * @var \DOMDocument
+   */
   private $_document = NULL;
 
   /**
-  * @var DOMElement
-  */
+   * @var \DOMElement
+   */
   private $_currentNode = NULL;
 
   /**
-  * Handle a stack of nodes representing the indentation
-  * @var array
-  */
+   * Handle a stack of nodes representing the indentation
+   *
+   * @var array
+   */
   private $_indentStack = array();
 
   /**
-  * Construct visitor object and set recursion depth and string length
-  *
-  * @param integer $depth
-  * @param integer $stringLength
-  */
+   * Construct visitor object and set recursion depth and string length
+   *
+   * @param integer $depth
+   * @param integer $stringLength
+   */
   public function __construct($depth, $stringLength) {
     parent::__construct($depth, $stringLength);
     $this->_document = new \DOMDocument('1.0', 'UTF-8');
@@ -61,19 +65,19 @@ class PapayaMessageContextVariableVisitorXhtml
   }
 
   /**
-  * return compiled string result
-  *
-  * @return string
-  */
+   * return compiled string result
+   *
+   * @return string
+   */
   public function get() {
     return $this->_document->saveXML($this->_currentNode, LIBXML_NOEMPTYTAG);
   }
 
   /**
-  * Visit an array, and all its elements
-  *
-  * @param array $array
-  */
+   * Visit an array, and all its elements
+   *
+   * @param array $array
+   */
   public function visitArray(array $array) {
     $elementCount = count($array);
     $listNode = $this->_createListNode();
@@ -112,10 +116,10 @@ class PapayaMessageContextVariableVisitorXhtml
   }
 
   /**
-  * Visit an integer variable
-  *
-  * @param integer $integer
-  */
+   * Visit an integer variable
+   *
+   * @param integer $integer
+   */
   public function visitInteger($integer) {
     $listNode = $this->_createListNode();
     $this->_addTypeNode($listNode, 'int');
@@ -125,10 +129,10 @@ class PapayaMessageContextVariableVisitorXhtml
   }
 
   /**
-  * Visit a float variable
-  *
-  * @param float $float
-  */
+   * Visit a float variable
+   *
+   * @param float $float
+   */
   public function visitFloat($float) {
     $listNode = $this->_createListNode();
     $this->_addTypeNode($listNode, 'float');
@@ -138,20 +142,20 @@ class PapayaMessageContextVariableVisitorXhtml
   }
 
   /**
-  * Visit a NULL variable
-  *
-  * @param NULL $null
-  */
+   * Visit a NULL variable
+   *
+   * @param NULL $null
+   */
   public function visitNull($null) {
     $listNode = $this->_createListNode();
     $this->_addTypeNode($listNode, 'null');
   }
 
   /**
-  * Visit an object variable, handle recursions and duplicates
-  *
-  * @param object $object
-  */
+   * Visit an object variable, handle recursions and duplicates
+   *
+   * @param object $object
+   */
   public function visitObject($object) {
     $listNode = $this->_createListNode();
     $reflection = new \ReflectionObject($object);
@@ -205,10 +209,10 @@ class PapayaMessageContextVariableVisitorXhtml
   }
 
   /**
-  * Visit a resource
-  *
-  * @param resource $resource
-  */
+   * Visit a resource
+   *
+   * @param resource $resource
+   */
   public function visitResource($resource) {
     $listNode = $this->_createListNode();
     $this->_addTypeNode($listNode, 'resource');
@@ -218,10 +222,10 @@ class PapayaMessageContextVariableVisitorXhtml
   }
 
   /**
-  * Visit a string variable
-  *
-  * @param string $string
-  */
+   * Visit a string variable
+   *
+   * @param string $string
+   */
   public function visitString($string) {
     $length = strlen($string);
     if (strlen($string) > $this->_stringLength) {
@@ -239,10 +243,10 @@ class PapayaMessageContextVariableVisitorXhtml
   }
 
   /**
-  * Create a list node and add it to the current node
-  *
-  * @return \DOMElement
-  */
+   * Create a list node and add it to the current node
+   *
+   * @return \DOMElement
+   */
   protected function _createListNode() {
     $listNode = $this->_document->createElement('li');
     $this->_currentNode->appendChild($listNode);
@@ -250,12 +254,12 @@ class PapayaMessageContextVariableVisitorXhtml
   }
 
   /**
-  * Add a node describing the type of the variable
-  *
-  * @param \DOMElement $targetNode append childnode to this parent
-  * @param string $typeString
-  * @return \DOMElement new element
-  */
+   * Add a node describing the type of the variable
+   *
+   * @param \DOMElement $targetNode append childnode to this parent
+   * @param string $typeString
+   * @return \DOMElement new element
+   */
   protected function _addTypeNode(\DOMElement $targetNode, $typeString) {
     $typeNode = $this->_document->createElement('strong');
     $typeNode->appendChild($this->_document->createTextNode($typeString));
@@ -264,13 +268,13 @@ class PapayaMessageContextVariableVisitorXhtml
   }
 
   /**
-  * Add a node containing the value of the variable
-  *
-  * @param \DOMElement $targetNode append childnode to this parent
-  * @param string $valueClass type of value (number, string, boolean)
-  * @param string $value string representation of the value
-  * @return \DOMElement new element
-  */
+   * Add a node containing the value of the variable
+   *
+   * @param \DOMElement $targetNode append childnode to this parent
+   * @param string $valueClass type of value (number, string, boolean)
+   * @param string $value string representation of the value
+   * @return \DOMElement new element
+   */
   protected function _addValueNode(\DOMElement $targetNode, $valueClass, $value) {
     $valueNode = $this->_document->createElement('em');
     $valueNode->setAttribute('class', $valueClass);
@@ -280,21 +284,21 @@ class PapayaMessageContextVariableVisitorXhtml
   }
 
   /**
-  * Add some text to the target node contents
-  *
-  * @param \DOMElement $targetNode append childnode to this parent
-  * @param string $text
-  */
+   * Add some text to the target node contents
+   *
+   * @param \DOMElement $targetNode append childnode to this parent
+   * @param string $text
+   */
   protected function _addText(\DOMElement $targetNode, $text) {
     $targetNode->appendChild($this->_document->createTextNode($text));
   }
 
   /**
-  * Increase indent, add a new list to document, set parent node for list items
-  *
-  * @param \DOMElement $targetNode parent/position of the new list
-  * @return boolean return FALSE if identation limit is reached
-  */
+   * Increase indent, add a new list to document, set parent node for list items
+   *
+   * @param \DOMElement $targetNode parent/position of the new list
+   * @return boolean return FALSE if identation limit is reached
+   */
   protected function _increaseIndent(\DOMElement $targetNode) {
     if (count($this->_indentStack) < ($this->_depth - 1)) {
       $this->_indentStack[] = $this->_document->createElement('ul');
@@ -306,8 +310,8 @@ class PapayaMessageContextVariableVisitorXhtml
   }
 
   /**
-  * Decrease indent, remove node from indent stack, set parent node for list items
-  */
+   * Decrease indent, remove node from indent stack, set parent node for list items
+   */
   protected function _decreaseIndent() {
     array_splice($this->_indentStack, -1);
     $this->_currentNode = end($this->_indentStack);

@@ -20,7 +20,7 @@
 * @subpackage Messages
 */
 class PapayaMessageDispatcherWildfireVariableVisitor
-  extends \PapayaMessageContextVariableVisitor {
+  extends \Papaya\Message\Context\Variable\Visitor {
 
   /**
   * Suffix for truncated string values

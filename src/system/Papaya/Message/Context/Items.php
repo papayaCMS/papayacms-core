@@ -13,28 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Context;
 /**
-* Message context containing simple plain text
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageContextList
+ * Message context containing simple plain text
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Items
   implements
-    \PapayaMessageContextInterfaceList,
-    \PapayaMessageContextInterfaceXhtml,
-    \PapayaMessageContextInterfaceString {
+  \Papaya\Message\Context\Interfaces\Items,
+  \Papaya\Message\Context\Interfaces\Xhtml,
+  \Papaya\Message\Context\Interfaces\Text {
 
   /**
-  * List label/caption
-  * @var string
-  */
+   * List label/caption
+   *
+   * @var string
+   */
   private $_label = '';
 
   /**
-  * list items
-  * @var array
-  */
+   * list items
+   *
+   * @var array
+   */
   private $_items = array();
 
   /**
@@ -53,28 +56,28 @@ class PapayaMessageContextList
   }
 
   /**
-  * Return list as simple array
-  *
-  * @return string
-  */
+   * Return list as simple array
+   *
+   * @return string
+   */
   public function asArray() {
     return $this->_items;
   }
 
   /**
-  * Get a string representation of the list
-  *
-  * @return string
-  */
+   * Get a string representation of the list
+   *
+   * @return string
+   */
   public function asString() {
     return implode("\n", $this->_items);
   }
 
   /**
-  * Get a xhtml representation of the list
-  *
-  * @return string
-  */
+   * Get a xhtml representation of the list
+   *
+   * @return string
+   */
   public function asXhtml() {
     if (count($this->_items) > 0) {
       $result = '<ol>';
