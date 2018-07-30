@@ -13,17 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaMessageDispatcherCli
+namespace Papaya\Message\Dispatcher;
+
+class Cli
   extends \Papaya\Application\BaseObject
-  implements \PapayaMessageDispatcher {
+  implements \Papaya\Message\Dispatcher {
 
   const TARGET_STDOUT = 'stdout';
   const TARGET_STDERR = 'stderr';
 
   /**
-  * Options for message formatting
-  * @var array
-  */
+   * Options for message formatting
+   *
+   * @var array
+   */
   private $_messageOptions = array(
     \Papaya\Message::SEVERITY_ERROR => array(
       'label' => 'Error'
@@ -40,9 +43,10 @@ class PapayaMessageDispatcherCli
   );
 
   /**
-  * The php sapi name
-  * @var string
-  */
+   * The php sapi name
+   *
+   * @var string
+   */
   private $_phpSapiName = NULL;
 
   /**
@@ -56,14 +60,14 @@ class PapayaMessageDispatcherCli
   );
 
   /**
-  * Output log message to stdout
-  *
-  * @param \Papaya\Message $message
-  * @return boolean
-  */
+   * Output log message to stdout
+   *
+   * @param \Papaya\Message $message
+   * @return boolean
+   */
   public function dispatch(\Papaya\Message $message) {
     if ($message instanceof \PapayaMessageLogable &&
-        $this->allow()) {
+      $this->allow()) {
       $options = $this->getOptionsFromType($message->getType());
       $isError = in_array(
         $message->getType(), array(\Papaya\Message::SEVERITY_ERROR, \Papaya\Message::SEVERITY_WARNING)
@@ -82,12 +86,12 @@ class PapayaMessageDispatcherCli
   }
 
   /**
-  * Get/set the php sapi name
-  *
-  * @see php_sapi_name()
-  * @param string $name
-  * @return string
-  */
+   * Get/set the php sapi name
+   *
+   * @see php_sapi_name()
+   * @param string $name
+   * @return string
+   */
   public function phpSapiName($name = NULL) {
     if (isset($name)) {
       $this->_phpSapiName = $name;
@@ -99,18 +103,18 @@ class PapayaMessageDispatcherCli
   }
 
   /**
-  * Check if it is allowed to use the dispatcher
-  */
+   * Check if it is allowed to use the dispatcher
+   */
   public function allow() {
     return ('cli' === $this->phpSapiName());
   }
 
   /**
-  * Get formating options for the error message
-  *
-  * @param integer $type
-  * @return array
-  */
+   * Get formating options for the error message
+   *
+   * @param integer $type
+   * @return array
+   */
   public function getOptionsFromType($type) {
     if (isset($this->_messageOptions[$type])) {
       return $this->_messageOptions[$type];

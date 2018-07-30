@@ -13,22 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Dispatcher;
 /**
-* Papaya Message Dispatcher Xhtml, send out log messages as xhtml (just output to the browser)
-*
-* This will output invalid xhtml because it closes
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageDispatcherXhtml
+ * Papaya Message Dispatcher Xhtml, send out log messages as xhtml (just output to the browser)
+ *
+ * This will output invalid xhtml because it closes
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Xhtml
   extends \Papaya\Application\BaseObject
-  implements \PapayaMessageDispatcher {
+  implements \Papaya\Message\Dispatcher {
 
   /**
-  * Options for header formatting (background color, text color, label)
-  * @var array
-  */
+   * Options for header formatting (background color, text color, label)
+   *
+   * @var array
+   */
   private $_messageOptions = array(
     \Papaya\Message::SEVERITY_ERROR => array(
       '#CC0000', '#FFFFFF', 'Error'
@@ -45,14 +47,14 @@ class PapayaMessageDispatcherXhtml
   );
 
   /**
-  * Output log message to browser using xhtml output
-  *
-  * @param \Papaya\Message $message
-  * @return boolean
-  */
+   * Output log message to browser using xhtml output
+   *
+   * @param \Papaya\Message $message
+   * @return boolean
+   */
   public function dispatch(\Papaya\Message $message) {
     if ($message instanceof \PapayaMessageLogable &&
-        $this->allow()) {
+      $this->allow()) {
       $this->outputClosers();
       print('<div class="debug" style="border: none; margin: 3em; padding: 0; font-size: 1em;">');
       $headerOptions = $this->getHeaderOptionsFromType($message->getType());
@@ -70,17 +72,17 @@ class PapayaMessageDispatcherXhtml
   }
 
   /**
-  * Check if it is allowed to use the dispatcher
-  */
+   * Check if it is allowed to use the dispatcher
+   */
   public function allow() {
     $options = $this->papaya()->options;
     return $options->get('PAPAYA_PROTOCOL_XHTML', $options->get('PAPAYA_DBG_DEVMODE'));
   }
 
   /**
-  * Outputs additional clsoing tags before the message, to make sure that the debug message
-  * is visible.
-  */
+   * Outputs additional clsoing tags before the message, to make sure that the debug message
+   * is visible.
+   */
   public function outputClosers() {
     $doOutput = $this
       ->papaya()
@@ -92,11 +94,11 @@ class PapayaMessageDispatcherXhtml
   }
 
   /**
-  * Get header formating options and a label for the error message
-  *
-  * @param integer $type
-  * @return array
-  */
+   * Get header formating options and a label for the error message
+   *
+   * @param integer $type
+   * @return array
+   */
   public function getHeaderOptionsFromType($type) {
     if (isset($this->_messageOptions[$type])) {
       return $this->_messageOptions[$type];

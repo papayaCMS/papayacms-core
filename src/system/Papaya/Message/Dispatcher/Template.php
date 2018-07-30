@@ -13,18 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Dispatcher;
 /**
-* Papaya Message Dispatcher Template, handle messages to be shown to the user in browser
-*
-* Make sure that the dispatcher does not initialize it's resources only if needed,
-* It will be created at the start of the script, unused initialzation will slow the script down.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageDispatcherTemplate
+ * Papaya Message Dispatcher Template, handle messages to be shown to the user in browser
+ *
+ * Make sure that the dispatcher does not initialize it's resources only if needed,
+ * It will be created at the start of the script, unused initialzation will slow the script down.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Template
   extends \Papaya\Application\BaseObject
-  implements \PapayaMessageDispatcher {
+  implements \Papaya\Message\Dispatcher {
 
   private $severityStrings = array(
     \Papaya\Message::SEVERITY_INFO => 'info',
@@ -34,13 +35,13 @@ class PapayaMessageDispatcherTemplate
   );
 
   /**
-  * Add message to the output, for now uses the old error system.
-  *
-  * Only messages that implements \PapayaMessageDisplay are used, \all other message are ignored.
-  *
-  * @param \Papaya\Message $message
-  * @return boolean
-  */
+   * Add message to the output, for now uses the old error system.
+   *
+   * Only messages that implements \PapayaMessageDisplay are used, \all other message are ignored.
+   *
+   * @param \Papaya\Message $message
+   * @return boolean
+   */
   public function dispatch(\Papaya\Message $message) {
     if ($message instanceof \PapayaMessageDisplayable) {
       if (isset($GLOBALS['PAPAYA_LAYOUT'])) {

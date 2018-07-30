@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaMessageDispatcherTemplateTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMessageDispatcherTemplate::dispatch
+  * @covers \Papaya\Message\Dispatcher\Template::dispatch
   * @backupGlobals enabled
   */
   public function testDispatch() {
@@ -51,27 +51,27 @@ class PapayaMessageDispatcherTemplateTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('values')
       ->will($this->returnValue($values));
-    $dispatcher = new \PapayaMessageDispatcherTemplate();
+    $dispatcher = new \Papaya\Message\Dispatcher\Template();
     $this->assertTrue($dispatcher->dispatch($message));
   }
 
   /**
-  * @covers \PapayaMessageDispatcherTemplate::dispatch
+  * @covers \Papaya\Message\Dispatcher\Template::dispatch
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message $message */
     $message = $this->createMock(\Papaya\Message::class);
-    $dispatcher = new \PapayaMessageDispatcherTemplate();
+    $dispatcher = new \Papaya\Message\Dispatcher\Template();
     $this->assertFalse($dispatcher->dispatch($message));
   }
 
   /**
-  * @covers \PapayaMessageDispatcherTemplate::dispatch
+  * @covers \Papaya\Message\Dispatcher\Template::dispatch
   */
   public function testDispatchWithoutGlobalObjectExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDisplayable $message */
     $message = $this->createMock(\PapayaMessageDisplayable::class);
-    $dispatcher = new \PapayaMessageDispatcherTemplate();
+    $dispatcher = new \Papaya\Message\Dispatcher\Template();
     $this->assertFalse($dispatcher->dispatch($message));
   }
 }

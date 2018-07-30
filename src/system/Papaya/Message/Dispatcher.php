@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message;
 /**
-* Papaya Message Dispatcher, interface for message dispatchers
-*
-* Make sure that the dispatcher does not initialize it's resources only if needed,
-* It will be created at the start of the script, unused initialzation will slow the script down.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-interface PapayaMessageDispatcher {
+ * Papaya Message Dispatcher, interface for message dispatchers
+ *
+ * Make sure that the dispatcher does not initialize it's resources only if needed,
+ * It will be created at the start of the script, unused initialzation will slow the script down.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+interface Dispatcher {
 
   /**
-  * Dispatch/handle a message
-  *
-  * @param \Papaya\Message $message
-  * @return boolean message dispatched
-  */
+   * Dispatch/handle a message
+   *
+   * @param \Papaya\Message $message
+   * @return boolean message dispatched
+   */
   function dispatch(\Papaya\Message $message);
 }

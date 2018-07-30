@@ -30,16 +30,16 @@ class PapayaApplicationProfileMessagesTest extends \PapayaTestCase {
     );
     $dispatchers = $this->readAttribute($messages, '_dispatchers');
     $this->assertInstanceOf(
-      \PapayaMessageDispatcherTemplate::class, $dispatchers[0]
+      \Papaya\Message\Dispatcher\Template::class, $dispatchers[0]
     );
     $this->assertInstanceOf(
-      \PapayaMessageDispatcherDatabase::class, $dispatchers[1]
+      \Papaya\Message\Dispatcher\Database::class, $dispatchers[1]
     );
     $this->assertInstanceOf(
-      \PapayaMessageDispatcherWildfire::class, $dispatchers[2]
+      \Papaya\Message\Dispatcher\Wildfire::class, $dispatchers[2]
     );
     $this->assertInstanceOf(
-      \PapayaMessageDispatcherXhtml::class, $dispatchers[3]
+      \Papaya\Message\Dispatcher\Xhtml::class, $dispatchers[3]
     );
   }
 }

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::get
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::get
   */
   public function testGet() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $this->assertSame(
       '',
       $visitor->get()
@@ -29,10 +29,10 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::getDump
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::getDump
   */
   public function testGetDump() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $visitor->visitBoolean(TRUE);
     $this->assertTrue(
       $visitor->getDump()
@@ -40,11 +40,11 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitArray
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::_addElement
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitArray
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::_addElement
   */
   public function testVisitArrayWithEmptyArray() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $visitor->visitArray(array());
     $this->assertAttributeEquals(
       array(),
@@ -54,14 +54,14 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitArray
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::_addElement
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::_checkIndentLimit
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::_increaseIndent
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::_decreaseIndent
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitArray
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::_addElement
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::_checkIndentLimit
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::_increaseIndent
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::_decreaseIndent
   */
   public function testVisitArrayWithNestedArray() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $visitor->visitArray(array(array()));
     $this->assertAttributeEquals(
       array(
@@ -74,12 +74,12 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitArray
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::_addElement
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::_checkIndentLimit
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitArray
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::_addElement
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::_checkIndentLimit
   */
   public function testVisitArrayWithNestedArrayReachingLimit() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(1, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(1, 42);
     $visitor->visitArray(array(array()));
     $this->assertAttributeEquals(
       array(
@@ -91,10 +91,10 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitBoolean
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitBoolean
   */
   public function testVisitBooleanWithTrue() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $visitor->visitBoolean(TRUE);
     $this->assertAttributeEquals(
       TRUE,
@@ -104,10 +104,10 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitBoolean
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitBoolean
   */
   public function testVisitBooleanWithFalse() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $visitor->visitBoolean(FALSE);
     $this->assertAttributeEquals(
       FALSE,
@@ -117,10 +117,10 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitInteger
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitInteger
   */
   public function testVisitInteger() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $visitor->visitInteger(3117);
     $this->assertAttributeEquals(
       3117,
@@ -130,10 +130,10 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitFloat
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitFloat
   */
   public function testVisitFloat() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $visitor->visitFloat(31.17);
     $this->assertAttributeEquals(
       31.17,
@@ -143,10 +143,10 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitNull
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitNull
   */
   public function testVisitNull() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $visitor->visitNull(NULL);
     $this->assertAttributeEquals(
       NULL,
@@ -156,10 +156,10 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitObject
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitObject
   */
   public function testVisitObject() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $sample = new \PapayaMessageDispatcherWildfireVariableVisitor_SampleClass();
     $visitor->visitObject($sample);
     $this->assertAttributeEquals(
@@ -176,10 +176,10 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitObject
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitObject
   */
   public function testVisitObjectWithInheritance() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $sample = new \PapayaMessageDispatcherWildfireVariableVisitor_SampleChildClass();
     $visitor->visitObject($sample);
     $this->assertAttributeEquals(
@@ -197,10 +197,10 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitObject
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitObject
   */
   public function testVisitObjectWithRecursion() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $sample = new \PapayaMessageDispatcherWildfireVariableVisitor_SampleClass();
     $sample->recursion = $sample;
     $visitor->visitObject($sample);
@@ -219,10 +219,10 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitObject
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitObject
   */
   public function testVisitObjectWithRecursionLimit() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(1, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(1, 42);
     $sample = new \PapayaMessageDispatcherWildfireVariableVisitor_SampleClass();
     $sample->recursion = new \PapayaMessageDispatcherWildfireVariableVisitor_SampleClass();
     $visitor->visitObject($sample);
@@ -241,11 +241,11 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitArray
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitObject
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitArray
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitObject
   */
   public function testVisitObjectWithDuplication() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $sample = new \PapayaMessageDispatcherWildfireVariableVisitor_SampleClass();
     $objects = array($sample, $sample);
     $visitor->visitArray($objects);
@@ -266,11 +266,11 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitResource
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitResource
   */
   public function testVisitResource() {
     $resource = fopen('php://memory', 'rwb');
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $visitor->visitResource($resource);
     $this->assertRegExp(
       "(^\\*\\* Resource id #\d+ \*\*$)D",
@@ -280,10 +280,10 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitString
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitString
   */
   public function testVisitString() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 42);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 42);
     $visitor->visitString('Sample');
     $this->assertAttributeEquals(
       'Sample',
@@ -293,10 +293,10 @@ class PapayaMessageDispatcherWildfireVariableVisitorTest extends \PapayaTestCase
   }
 
   /**
-  * @covers \PapayaMessageDispatcherWildfireVariableVisitor::visitString
+  * @covers \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor::visitString
   */
   public function testVisitLongString() {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(21, 3);
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(21, 3);
     $visitor->visitString('Sample');
     $this->assertAttributeEquals(
       'Sam...(6)',

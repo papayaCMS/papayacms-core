@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Dispatcher;
 /**
-* Papaya Message Dispatcher Wildfire, send out log messages using the Wildfire protocol
-*
-* Wildfire ist the protocol behind FirePHP, an Firefox extension to display messages,
-* recieved in HTTP headers. {@link http://www.firephp.org}
-*
-* This dispatcher uses the json_encode() funtion and checks the user agent for 'FirePHP'.*
-* It will automatically disable itself if content was send to the browser. In this case sending
-* http headers is not possible any more.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageDispatcherWildfire
+ * Papaya Message Dispatcher Wildfire, send out log messages using the Wildfire protocol
+ *
+ * Wildfire ist the protocol behind FirePHP, an Firefox extension to display messages,
+ * recieved in HTTP headers. {@link http://www.firephp.org}
+ *
+ * This dispatcher uses the json_encode() funtion and checks the user agent for 'FirePHP'.*
+ * It will automatically disable itself if content was send to the browser. In this case sending
+ * http headers is not possible any more.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Wildfire
   extends \Papaya\Application\BaseObject
-  implements \PapayaMessageDispatcher {
+  implements \Papaya\Message\Dispatcher {
 
   private $_handler;
 
@@ -41,7 +42,7 @@ class PapayaMessageDispatcherWildfire
    */
   public function dispatch(\Papaya\Message $message) {
     if ($message instanceof \PapayaMessageLogable &&
-        $this->allow()) {
+      $this->allow()) {
       // @codeCoverageIgnoreStart
       $this->send($message);
     }
@@ -77,32 +78,32 @@ class PapayaMessageDispatcherWildfire
   }
 
   /**
-  * Check if WildFire can be used
-  *
-  * @return boolean
-  */
+   * Check if WildFire can be used
+   *
+   * @return boolean
+   */
   public static function usable() {
     return (function_exists('json_encode') && 'cli' !== PHP_SAPI && !headers_sent());
   }
 
   /**
-  * Set Wildfire protocol handler object
-  *
-  * @param \PapayaMessageDispatcherWildfireHandler $handler
-  */
-  public function setHandler(\PapayaMessageDispatcherWildfireHandler $handler) {
+   * Set Wildfire protocol handler object
+   *
+   * @param \Papaya\Message\Dispatcher\Wildfire\Handler $handler
+   */
+  public function setHandler(\Papaya\Message\Dispatcher\Wildfire\Handler $handler) {
     $this->_handler = $handler;
   }
 
   /**
    * Get Wildfire protocol handler object, create one if none ist set
    *
-   * @return \PapayaMessageDispatcherWildfireHandler
+   * @return \Papaya\Message\Dispatcher\Wildfire\Handler
    * @throws \InvalidArgumentException
    */
   public function getHandler() {
     if (NULL === $this->_handler) {
-      $this->_handler = new \PapayaMessageDispatcherWildfireHandler('header');
+      $this->_handler = new \Papaya\Message\Dispatcher\Wildfire\Handler('header');
     }
     return $this->_handler;
   }
@@ -166,42 +167,42 @@ class PapayaMessageDispatcherWildfire
   }
 
   /**
-  * Convert internal type to Wildfire message type
-  *
-  * @param integer $type
-  * @return string
-  */
+   * Convert internal type to Wildfire message type
+   *
+   * @param integer $type
+   * @return string
+   */
   public function getWildfireMessageType($type) {
     switch ($type) {
-    case \Papaya\Message::SEVERITY_ERROR :
-      return 'ERROR';
-    case \Papaya\Message::SEVERITY_WARNING :
-      return 'WARN';
-    case \Papaya\Message::SEVERITY_INFO :
-      return 'INFO';
-    case \Papaya\Message::SEVERITY_DEBUG :
-    default :
-      return 'LOG';
+      case \Papaya\Message::SEVERITY_ERROR :
+        return 'ERROR';
+      case \Papaya\Message::SEVERITY_WARNING :
+        return 'WARN';
+      case \Papaya\Message::SEVERITY_INFO :
+        return 'INFO';
+      case \Papaya\Message::SEVERITY_DEBUG :
+      default :
+        return 'LOG';
     }
   }
 
   /**
-  * Convert internal type to a group label
-  *
-  * @param integer $type
-  * @return string
-  */
+   * Convert internal type to a group label
+   *
+   * @param integer $type
+   * @return string
+   */
   public function getWildfireGroupLabelFromType($type) {
     switch ($type) {
-    case \Papaya\Message::SEVERITY_ERROR :
-      return 'Error';
-    case \Papaya\Message::SEVERITY_WARNING :
-      return 'Warning';
-    case \Papaya\Message::SEVERITY_INFO :
-      return 'Information';
-    case \Papaya\Message::SEVERITY_DEBUG :
-    default :
-      return 'Debug';
+      case \Papaya\Message::SEVERITY_ERROR :
+        return 'Error';
+      case \Papaya\Message::SEVERITY_WARNING :
+        return 'Warning';
+      case \Papaya\Message::SEVERITY_INFO :
+        return 'Information';
+      case \Papaya\Message::SEVERITY_DEBUG :
+      default :
+        return 'Debug';
     }
   }
 
@@ -214,7 +215,7 @@ class PapayaMessageDispatcherWildfire
    * @throws \InvalidArgumentException
    */
   private function _sendContextVariable(\Papaya\Message\Context\Variable $context) {
-    $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(
+    $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(
       $context->getDepth(), $context->getStringLength()
     );
     $context->acceptVisitor($visitor);
@@ -264,14 +265,14 @@ class PapayaMessageDispatcherWildfire
   }
 
   /**
-  * Prepare a trace element output for FirePHP
-  *
-  * Prepare and collect trace informations and get a better variable dump
-  * for arguments avoiding recursions.
-  *
-  * @param array $element
-  * @return array
-  */
+   * Prepare a trace element output for FirePHP
+   *
+   * Prepare and collect trace informations and get a better variable dump
+   * for arguments avoiding recursions.
+   *
+   * @param array $element
+   * @return array
+   */
   private function _traceElementToArray(array $element) {
     $trace = array(
       'class' => $this->_getArrayElement($element, 'class'),
@@ -282,7 +283,7 @@ class PapayaMessageDispatcherWildfire
     );
     if (!empty($element['args'])) {
       $arguments = new \Papaya\Message\Context\Variable($element['args']);
-      $visitor = new \PapayaMessageDispatcherWildfireVariableVisitor(
+      $visitor = new \Papaya\Message\Dispatcher\Wildfire\Variable\Visitor(
         $arguments->getDepth(), $arguments->getStringLength()
       );
       $arguments->acceptVisitor($visitor);
@@ -318,13 +319,13 @@ class PapayaMessageDispatcherWildfire
   }
 
   /**
-  * The table values need to be strings
-  *
-  * This has to be a public function, so it is possible to call it using array_map
-  *
-  * @param mixed $value
-  * @return string
-  */
+   * The table values need to be strings
+   *
+   * This has to be a public function, so it is possible to call it using array_map
+   *
+   * @param mixed $value
+   * @return string
+   */
   public function formatTableValue($value) {
     return (string)$value;
   }

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMessageDispatcherCli::phpSapiName
+  * @covers \Papaya\Message\Dispatcher\Cli::phpSapiName
   */
   public function testPhpSapiNameSet() {
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $dispatcher->phpSapiName('nosapi');
     $this->assertSame(
       'nosapi',
@@ -30,10 +30,10 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherCli::phpSapiName
+  * @covers \Papaya\Message\Dispatcher\Cli::phpSapiName
   */
   public function testPhpSapiNameInit() {
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $this->assertSame(
       PHP_SAPI,
       $dispatcher->phpSapiName()
@@ -41,10 +41,10 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherCli::allow
+  * @covers \Papaya\Message\Dispatcher\Cli::allow
   */
   public function testAllowWithDisabledDispatcherExpectingFalse() {
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $dispatcher->phpSapiName('nosapi');
     $this->assertFalse(
       $dispatcher->allow()
@@ -52,10 +52,10 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherCli::allow
+  * @covers \Papaya\Message\Dispatcher\Cli::allow
   */
   public function testAllowExpectingTrue() {
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $dispatcher->phpSapiName('cli');
     $this->assertTrue(
       $dispatcher->allow()
@@ -63,10 +63,10 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherCli::getOptionsFromType
+  * @covers \Papaya\Message\Dispatcher\Cli::getOptionsFromType
   */
   public function testGetOptionsFromType() {
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $this->assertContains(
       'Warning',
       $dispatcher->getOptionsFromType(\Papaya\Message::SEVERITY_WARNING)
@@ -74,10 +74,10 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherCli::getOptionsFromType
+  * @covers \Papaya\Message\Dispatcher\Cli::getOptionsFromType
   */
   public function testGetOptionsFromTypeWithInvalidTypeExpectingErrorOptions() {
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $this->assertContains(
       'Error',
       $dispatcher->getOptionsFromType(99999)
@@ -85,24 +85,24 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherCli::dispatch
+  * @covers \Papaya\Message\Dispatcher\Cli::dispatch
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message $message */
     $message = $this->createMock(\Papaya\Message::class);
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $this->assertFalse(
       $dispatcher->dispatch($message)
     );
   }
 
   /**
-  * @covers \PapayaMessageDispatcherCli::dispatch
+  * @covers \Papaya\Message\Dispatcher\Cli::dispatch
   */
   public function testDispatchWhileDisabledExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
     $message = $this->createMock(\PapayaMessageLogable::class);
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $dispatcher->phpSapiName('nosapi');
     $this->assertFalse(
       $dispatcher->dispatch($message)
@@ -110,7 +110,7 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherCli::dispatch
+  * @covers \Papaya\Message\Dispatcher\Cli::dispatch
   */
   public function testDispatchWarning() {
     $context = $this->getMockBuilder(\Papaya\Message\Context\Interfaces\Text::class)->getMock();
@@ -132,10 +132,10 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('context')
       ->will($this->returnValue($context));
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $dispatcher->phpSapiName('cli');
     $output = fopen('php://memory', 'rwb');
-    $dispatcher->stream(\PapayaMessageDispatcherCli::TARGET_STDERR, $output);
+    $dispatcher->stream(\Papaya\Message\Dispatcher\Cli::TARGET_STDERR, $output);
     $dispatcher->dispatch($message);
     fseek($output, 0);
     $this->assertEquals(
@@ -145,7 +145,7 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherCli::dispatch
+  * @covers \Papaya\Message\Dispatcher\Cli::dispatch
   */
   public function testDispatchDebug() {
     $context = $this->createMock(\Papaya\Message\Context\Interfaces\Text::class);
@@ -167,10 +167,10 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('context')
       ->will($this->returnValue($context));
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $dispatcher->phpSapiName('cli');
     $output = fopen('php://memory', 'rwb');
-    $dispatcher->stream(\PapayaMessageDispatcherCli::TARGET_STDOUT, $output);
+    $dispatcher->stream(\Papaya\Message\Dispatcher\Cli::TARGET_STDOUT, $output);
     $dispatcher->dispatch($message);
     fseek($output, 0);
     $this->assertEquals(
@@ -180,42 +180,42 @@ class PapayaMessageDispatcherCliTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherCli::stream
+  * @covers \Papaya\Message\Dispatcher\Cli::stream
   */
   public function testStreamGetAfterSet() {
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $output = fopen('php://memory', 'rwb');
-    $dispatcher->stream(\PapayaMessageDispatcherCli::TARGET_STDOUT, $output);
-    $this->assertSame($output, $dispatcher->stream(\PapayaMessageDispatcherCli::TARGET_STDOUT));
+    $dispatcher->stream(\Papaya\Message\Dispatcher\Cli::TARGET_STDOUT, $output);
+    $this->assertSame($output, $dispatcher->stream(\Papaya\Message\Dispatcher\Cli::TARGET_STDOUT));
   }
 
   /**
-  * @covers \PapayaMessageDispatcherCli::stream
+  * @covers \Papaya\Message\Dispatcher\Cli::stream
   */
   public function testStreamGetImplicitInitialization() {
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $this->assertInternalType(
-      'resource' ,$dispatcher->stream(\PapayaMessageDispatcherCli::TARGET_STDERR)
+      'resource' ,$dispatcher->stream(\Papaya\Message\Dispatcher\Cli::TARGET_STDERR)
     );
   }
 
   /**
-  * @covers \PapayaMessageDispatcherCli::stream
+  * @covers \Papaya\Message\Dispatcher\Cli::stream
   */
   public function testStreamGetWithInvalidTargetExpectingException() {
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid output target "fail".');
     $dispatcher->stream('fail', 0);
   }
 
   /**
-  * @covers \PapayaMessageDispatcherCli::stream
+  * @covers \Papaya\Message\Dispatcher\Cli::stream
   */
   public function testStreamGetWithInvalidStreamExpectingException() {
-    $dispatcher = new \PapayaMessageDispatcherCli();
+    $dispatcher = new \Papaya\Message\Dispatcher\Cli();
     $this->expectException(UnexpectedValueException::class);
-    $dispatcher->stream(\PapayaMessageDispatcherCli::TARGET_STDOUT, 0);
+    $dispatcher->stream(\Papaya\Message\Dispatcher\Cli::TARGET_STDOUT, 0);
   }
 
 }

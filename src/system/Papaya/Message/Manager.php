@@ -23,7 +23,7 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
 
   /**
   * Internal list of message dispatchers
-  * @var array(\PapayaMessageDispatcher)
+  * @var array(\Papaya\Message\PapayaMessageDispatcher)
   */
   private $_dispatchers = array();
 
@@ -35,9 +35,10 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
 
   /**
   * Add a dispatcher to the list
-  * @param \PapayaMessageDispatcher $dispatcher
+  *
+  * @param \Papaya\Message\Dispatcher $dispatcher
   */
-  public function addDispatcher(\PapayaMessageDispatcher $dispatcher) {
+  public function addDispatcher(\Papaya\Message\Dispatcher $dispatcher) {
     $this->_dispatchers[] = $dispatcher;
   }
 
@@ -47,7 +48,7 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
   * @param \Papaya\Message $message
   */
   public function dispatch(\Papaya\Message $message) {
-    /** @var \PapayaMessageDispatcher $dispatcher */
+    /** @var \Papaya\Message\Dispatcher $dispatcher */
     foreach ($this->_dispatchers as $dispatcher) {
       $dispatcher->dispatch($message);
     }

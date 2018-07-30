@@ -13,73 +13,79 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Dispatcher\Wildfire\Variable;
 /**
-* Visitor to convert a variable into a plain text string dump
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageDispatcherWildfireVariableVisitor
+ * Visitor to convert a variable into a plain text string dump
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Visitor
   extends \Papaya\Message\Context\Variable\Visitor {
 
   /**
-  * Suffix for truncated string values
-  * @var string
-  */
+   * Suffix for truncated string values
+   *
+   * @var string
+   */
   protected $_truncateSuffix = '...';
 
   /**
-  * Dump result buffer variable
-  * @var mixed
-  */
+   * Dump result buffer variable
+   *
+   * @var mixed
+   */
   protected $_dump;
 
   /**
-  * Current element reference (to $_dump) to add nested elements.
-  * @var mixed
-  */
+   * Current element reference (to $_dump) to add nested elements.
+   *
+   * @var mixed
+   */
   protected $_parent;
 
   /**
-  * Key for next nested element (buffer variable)
-  * @var mixed
-  */
+   * Key for next nested element (buffer variable)
+   *
+   * @var mixed
+   */
   protected $_currentKey;
 
   /**
-  * Dump stack, parent path references
-  * @var mixed
-  */
+   * Dump stack, parent path references
+   *
+   * @var mixed
+   */
   protected $_stack = array();
 
   /**
-  * return compiled string result
-  *
-  * @return string
-  */
+   * return compiled string result
+   *
+   * @return string
+   */
   public function get() {
     return print_r($this->_dump, TRUE);
   }
 
   /**
-  * Return created dump
-  *
-  * @return mixed
-  */
+   * Return created dump
+   *
+   * @return mixed
+   */
   public function getDump() {
     return $this->_dump;
   }
 
   /**
-  * Visit an array, and all its elements
-  *
-  * array(n) {
-  *   [key] =>
-  *   value
-  * }
-  *
-  * @param array $array
-  */
+   * Visit an array, and all its elements
+   *
+   * array(n) {
+   *   [key] =>
+   *   value
+   * }
+   *
+   * @param array $array
+   */
   public function visitArray(array $array) {
     if ($this->_checkIndentLimit()) {
       $arrayDump = &$this->_addElement(array());
@@ -110,34 +116,34 @@ class PapayaMessageDispatcherWildfireVariableVisitor
   }
 
   /**
-  * Visit an integer variable
-  *
-  * int(n)
-  *
-  * @param integer $integer
-  */
+   * Visit an integer variable
+   *
+   * int(n)
+   *
+   * @param integer $integer
+   */
   public function visitInteger($integer) {
     $this->_addElement($integer);
   }
 
   /**
-  * Visit a float variable
-  *
-  * float(n.m)
-  *
-  * @param float $float
-  */
+   * Visit a float variable
+   *
+   * float(n.m)
+   *
+   * @param float $float
+   */
   public function visitFloat($float) {
     $this->_addElement($float);
   }
 
   /**
-  * Visit a NULL variable
-  *
-  * NULL
-  *
-  * @param NULL $null
-  */
+   * Visit a NULL variable
+   *
+   * NULL
+   *
+   * @param NULL $null
+   */
   public function visitNull($null) {
     $this->_addElement($null);
   }
@@ -212,24 +218,24 @@ class PapayaMessageDispatcherWildfireVariableVisitor
   }
 
   /**
-  * Visit a resource
-  *
-  * resource(#n)
-  *
-  * @param resource $resource
-  */
+   * Visit a resource
+   *
+   * resource(#n)
+   *
+   * @param resource $resource
+   */
   public function visitResource($resource) {
     $this->_addElement('** '.(string)$resource.' **');
   }
 
   /**
-  * Visit a string variable
-  *
-  * string(n) "sample"
-  * string(n) "sample..."
-  *
-  * @param string $string
-  */
+   * Visit a string variable
+   *
+   * string(n) "sample"
+   * string(n) "sample..."
+   *
+   * @param string $string
+   */
   public function visitString($string) {
     $length = strlen($string);
     if (strlen($string) > $this->_stringLength) {
@@ -256,10 +262,10 @@ class PapayaMessageDispatcherWildfireVariableVisitor
   }
 
   /**
-  * Check if indent limit is reached
-  *
-  * @return boolean
-  */
+   * Check if indent limit is reached
+   *
+   * @return boolean
+   */
   protected function _checkIndentLimit() {
     return count($this->_stack) < $this->_depth;
   }
@@ -275,10 +281,10 @@ class PapayaMessageDispatcherWildfireVariableVisitor
   }
 
   /**
-  * Decrease indent, throw an exception if indent whould be negative
-  *
-  * @return void
-  */
+   * Decrease indent, throw an exception if indent whould be negative
+   *
+   * @return void
+   */
   protected function _decreaseIndent() {
     array_pop($this->_stack);
     $this->_parent = &$this->_stack[count($this->_stack) - 1];

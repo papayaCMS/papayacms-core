@@ -13,37 +13,40 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Dispatcher;
 /**
-* Papaya Message Dispatcher Database, handles messages logged to the database
-*
-* Make sure that the dispatcher does not initialize it's resources only if needed,
-* It will be created at the start of the script, unused initialzation will slow the script down.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageDispatcherDatabase
+ * Papaya Message Dispatcher Database, handles messages logged to the database
+ *
+ * Make sure that the dispatcher does not initialize it's resources only if needed,
+ * It will be created at the start of the script, unused initialzation will slow the script down.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Database
   extends \Papaya\Database\BaseObject
-  implements \PapayaMessageDispatcher {
+  implements \Papaya\Message\Dispatcher {
 
   /**
-  * Name of logging table
-  * @var string
-  */
+   * Name of logging table
+   *
+   * @var string
+   */
   private $_logTableName = 'log';
 
   /**
-  * Used to prevent DB errors from recursion
-  * @var boolean
-  */
+   * Used to prevent DB errors from recursion
+   *
+   * @var boolean
+   */
   protected $_preventMessageRecursion = FALSE;
 
   /**
-  * Log messages to database
-  *
-  * @param \Papaya\Message $message
-  * @return boolean
-  */
+   * Log messages to database
+   *
+   * @param \Papaya\Message $message
+   * @return boolean
+   */
   public function dispatch(\Papaya\Message $message) {
     if ($message instanceof \PapayaMessageLogable) {
       if ($this->allow($message)) {
@@ -63,8 +66,8 @@ class PapayaMessageDispatcherDatabase
     $options = $this->papaya()->options;
     if ($options->get('PAPAYA_PROTOCOL_DATABASE', FALSE)) {
       switch ($message->getType()) {
-      case \Papaya\Message::SEVERITY_DEBUG:
-        return $options->get('PAPAYA_PROTOCOL_DATABASE_DEBUG', FALSE);
+        case \Papaya\Message::SEVERITY_DEBUG:
+          return $options->get('PAPAYA_PROTOCOL_DATABASE_DEBUG', FALSE);
       }
       return TRUE;
     } else {
@@ -86,7 +89,7 @@ class PapayaMessageDispatcherDatabase
       $details .= $message->context()->asXhtml();
     }
     $cookies = ($message instanceof \PapayaMessagePhpError && !empty($_SERVER['HTTP_COOKIE']))
-      ? $_SERVER['HTTP_COOKIE'] :  '';
+      ? $_SERVER['HTTP_COOKIE'] : '';
     $values = array(
       'log_time' => time(),
       'log_msgtype' => $message->getGroup(),
@@ -102,7 +105,7 @@ class PapayaMessageDispatcherDatabase
       'log_version_project' => $options->get('PAPAYA_WEBSITE_REVISION', '')
     );
     if ($this->papaya()->hasObject('AdministrationUser', FALSE) &&
-        $this->papaya()->administrationUser->isLoggedIn()) {
+      $this->papaya()->administrationUser->isLoggedIn()) {
       $values['user_id'] = $this->papaya()->administrationUser->getUserId();
       $values['username'] = $this->papaya()->administrationUser->getDisplayName();
     }

@@ -30,10 +30,10 @@ class Messages implements \Papaya\Application\Profile {
    */
   public function createObject($application) {
     $messages = new \PapayaMessageManager();
-    $messages->addDispatcher(new \PapayaMessageDispatcherTemplate());
-    $messages->addDispatcher(new \PapayaMessageDispatcherDatabase());
-    $messages->addDispatcher(new \PapayaMessageDispatcherWildfire());
-    $messages->addDispatcher(new \PapayaMessageDispatcherXhtml());
+    $messages->addDispatcher(new \Papaya\Message\Dispatcher\Template());
+    $messages->addDispatcher(new \Papaya\Message\Dispatcher\Database());
+    $messages->addDispatcher(new \Papaya\Message\Dispatcher\Wildfire());
+    $messages->addDispatcher(new \Papaya\Message\Dispatcher\Xhtml());
     return $messages;
   }
 }

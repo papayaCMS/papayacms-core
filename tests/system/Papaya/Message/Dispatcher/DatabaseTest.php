@@ -30,8 +30,8 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMessageDispatcherDatabase::dispatch
-  * @covers \PapayaMessageDispatcherDatabase::save
+  * @covers \Papaya\Message\Dispatcher\Database::dispatch
+  * @covers \Papaya\Message\Dispatcher\Database::save
   */
   public function testDispatchExpectingTrue() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -58,7 +58,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
       ->expects($this->exactly(2))
       ->method('context')
       ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
-    $dispatcher = new \PapayaMessageDispatcherDatabase();
+    $dispatcher = new \Papaya\Message\Dispatcher\Database();
     $dispatcher->papaya(
       $this->mockPapaya()->application(
         array(
@@ -75,8 +75,8 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherDatabase::dispatch
-  * @covers \PapayaMessageDispatcherDatabase::save
+  * @covers \Papaya\Message\Dispatcher\Database::dispatch
+  * @covers \Papaya\Message\Dispatcher\Database::save
   */
   public function testDispatchWithDebugMessageExpectingTrue() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -119,7 +119,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
       ->expects($this->exactly(2))
       ->method('context')
       ->will($this->returnValue($this->createMock(\Papaya\Message\Context\Group::class)));
-    $dispatcher = new \PapayaMessageDispatcherDatabase();
+    $dispatcher = new \Papaya\Message\Dispatcher\Database();
     $dispatcher->papaya(
       $this->mockPapaya()->application(
         array(
@@ -138,17 +138,17 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherDatabase::dispatch
+  * @covers \Papaya\Message\Dispatcher\Database::dispatch
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
     $message = $this->createMock(\Papaya\Message::class);
-    $dispatcher = new \PapayaMessageDispatcherDatabase();
+    $dispatcher = new \Papaya\Message\Dispatcher\Database();
     $this->assertFalse($dispatcher->dispatch($message));
   }
 
   /**
-  * @covers \PapayaMessageDispatcherDatabase::dispatch
+  * @covers \Papaya\Message\Dispatcher\Database::dispatch
   */
   public function testDispatchWithDebugMessageExpectingFalse() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
@@ -157,7 +157,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getType')
       ->will($this->returnValue(\Papaya\Message::SEVERITY_DEBUG));
-    $dispatcher = new \PapayaMessageDispatcherDatabase();
+    $dispatcher = new \Papaya\Message\Dispatcher\Database();
     $dispatcher->papaya(
       $this->mockPapaya()->application(
         array(
@@ -174,10 +174,10 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherDatabase::save
+  * @covers \Papaya\Message\Dispatcher\Database::save
   */
   public function testDispatchPreventMessageRecursionDefault() {
-    $dispatcher = new \PapayaMessageDispatcherDatabase();
+    $dispatcher = new \Papaya\Message\Dispatcher\Database();
     $this->assertAttributeEquals(
       FALSE,
       '_preventMessageRecursion',
@@ -186,7 +186,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherDatabase::save
+  * @covers \Papaya\Message\Dispatcher\Database::save
   */
   public function testDispatchWithRecursion() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -233,7 +233,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDispatcherDatabase::allow
+  * @covers \Papaya\Message\Dispatcher\Database::allow
   * @dataProvider allowDataProvider
   *
   * @param boolean $expected
@@ -248,7 +248,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('getType')
       ->will($this->returnValue($type));
-    $dispatcher = new \PapayaMessageDispatcherDatabase();
+    $dispatcher = new \Papaya\Message\Dispatcher\Database();
     $dispatcher->papaya(
       $this->mockPapaya()->application(
         array(
@@ -280,7 +280,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
 }
 
 class PapayaMessageDispatcherDatabaseProxy
-  extends \PapayaMessageDispatcherDatabase {
+  extends \Papaya\Message\Dispatcher\Database {
   /* change the default to what we want to test */
   protected $_preventMessageRecursion = TRUE;
 }
