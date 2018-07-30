@@ -29,8 +29,8 @@ class PapayaThemeList extends \Papaya\Application\BaseObject implements \Iterato
    * @see \IteratorAggregate::getIterator()
    */
   public function getIterator() {
-    return new \PapayaIteratorCallback(
-      new \PapayaIteratorGlob($this->handler()->getLocalPath().'*', GLOB_ONLYDIR),
+    return new \Papaya\Iterator\Callback(
+      new \Papaya\Iterator\Glob($this->handler()->getLocalPath().'*', GLOB_ONLYDIR),
       array($this, 'callbackGetName')
     );
   }

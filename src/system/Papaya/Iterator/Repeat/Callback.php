@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Repeat;
 /**
-* This iterator uses a callback to fetch the next entry as long as the callback returns new
-* elements.
-*
-* The callback gets the current value and current key, it return value should be an array containing
-* the value and key or FALSE.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorRepeatCallback implements \Iterator {
+ * This iterator uses a callback to fetch the next entry as long as the callback returns new
+ * elements.
+ *
+ * The callback gets the current value and current key, it return value should be an array containing
+ * the value and key or FALSE.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Callback implements \Iterator {
 
   private $_callback;
   private $_startValue;
@@ -34,13 +35,13 @@ class PapayaIteratorRepeatCallback implements \Iterator {
   private $_valid = FALSE;
 
   /**
-  * Create object store callback, start value and key.
-  *
-  * @throws \InvalidArgumentException
-  * @param callable $callback
-  * @param mixed $startValue
-  * @param mixed $startKey
-  */
+   * Create object store callback, start value and key.
+   *
+   * @throws \InvalidArgumentException
+   * @param callable $callback
+   * @param mixed $startValue
+   * @param mixed $startKey
+   */
   public function __construct($callback, $startValue = NULL, $startKey = -1) {
     if (!is_callable($callback)) {
       throw new \InvalidArgumentException(
@@ -53,8 +54,8 @@ class PapayaIteratorRepeatCallback implements \Iterator {
   }
 
   /**
-  * Rewind iterator to start values, an fetch the first element
-  */
+   * Rewind iterator to start values, an fetch the first element
+   */
   public function rewind() {
     $this->_currentValue = $this->_startValue;
     $this->_currentKey = $this->_startKey;
@@ -62,8 +63,8 @@ class PapayaIteratorRepeatCallback implements \Iterator {
   }
 
   /**
-  * Use the callback to fetch the element
-  */
+   * Use the callback to fetch the element
+   */
   public function next() {
     $result = call_user_func(
       $this->_callback, $this->_currentValue, $this->_currentKey
@@ -78,28 +79,28 @@ class PapayaIteratorRepeatCallback implements \Iterator {
   }
 
   /**
-  * return the current element value
-  *
-  * @return mixed
-  */
+   * return the current element value
+   *
+   * @return mixed
+   */
   public function current() {
     return $this->_currentValue;
   }
 
   /**
-  * return the current element key
-  *
-  * @return mixed
-  */
+   * return the current element key
+   *
+   * @return mixed
+   */
   public function key() {
     return $this->_currentKey;
   }
 
   /**
-  * return the if the last call toi next() fetched an element.
-  *
-  * @return boolean
-  */
+   * return the if the last call toi next() fetched an element.
+   *
+   * @return boolean
+   */
   public function valid() {
     return $this->_valid;
   }

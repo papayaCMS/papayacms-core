@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator;
 /**
-* A CachingIterator that fills itself using a callback on first rewind or a class to getCache.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorCaching extends \CachingIterator {
+ * A CachingIterator that fills itself using a callback on first rewind or a class to getCache.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Caching extends \CachingIterator {
 
   private $_callback = NULL;
   private $_cached = FALSE;
 
   /**
-  * Create object and store innter iterator.
-  *
-  * @param \Traversable $iterator
-  * @param NULL|\Callable Callback
-  */
+   * Create object and store innter iterator.
+   *
+   * @param \Traversable $iterator
+   * @param NULL|\Callable Callback
+   */
   public function __construct(\Traversable $iterator, $callback = NULL) {
     parent::__construct(
       $iterator instanceof \Iterator ? $iterator : new \PapayaIteratorTraversable($iterator),
@@ -55,17 +56,17 @@ class PapayaIteratorCaching extends \CachingIterator {
   }
 
   /**
-  * Get the current callback function
-  *
-  * @return NULL|\Callable
-  */
+   * Get the current callback function
+   *
+   * @return NULL|\Callable
+   */
   public function getCallback() {
     return $this->_callback;
   }
 
   /**
-  * Execute callback function
-  */
+   * Execute callback function
+   */
   public function getCache() {
     if (isset($this->_callback)) {
       call_user_func($this->_callback);
@@ -75,8 +76,8 @@ class PapayaIteratorCaching extends \CachingIterator {
   }
 
   /**
-  * Rewind iterator to first element and initailize cache if that has not already happend once.
-  */
+   * Rewind iterator to first element and initailize cache if that has not already happend once.
+   */
   public function rewind() {
     if (!$this->_cached) {
       $this->getCache();

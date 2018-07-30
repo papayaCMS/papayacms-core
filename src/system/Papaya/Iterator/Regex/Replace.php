@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Regex;
 /**
-* This iterator allows convert the values on request using a preg_replace().
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorRegexReplace extends \PapayaIteratorCallback {
+ * This iterator allows convert the values on request using a preg_replace().
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Replace extends \Papaya\Iterator\Callback {
 
   /**
    * @var string

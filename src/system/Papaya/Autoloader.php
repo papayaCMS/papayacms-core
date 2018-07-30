@@ -44,6 +44,7 @@ class Autoloader {
   private static $_mapClasses = array(
     'PapayaAdministrationCommunityUsersListDialog' => Administration\Community\Users\Roster\Dialog::class,
     'PapayaConfigurationGlobal' => Configuration\GlobalValues::class,
+
     'PapayaDatabaseRecordOrderList' => Database\Record\Order\Collection::class,
     'PapayaDatabaseRecordList' => Database\Record\Collection::class,
 
@@ -83,9 +84,12 @@ class Autoloader {
     'PapayaFilterNoLinebreak' => Filter\NoLinebreak::class,
     'PapayaFilterNotEmpty' => Filter\NotEmpty::class,
     'PapayaFilterNumericWithUnit' => Filter\NumberWithUnit::class,
-    'Papaya\Filter\ArrayElement' => Filter\ArrayElement::class,
-    'Papaya\Filter\EmptyValue' => Filter\EmptyValue::class,
-    'Papaya\Filter\NotNull' => Filter\NotNull::class,
+    'PapayaFilterList' => Filter\ArrayElement::class,
+    'PapayaFilterEmpty' => Filter\EmptyValue::class,
+    'PapayaFilterIsset' => Filter\NotNull::class,
+
+    'PapayaIteratorArrayMapper' => Iterator\ArrayMapper::class,
+    'PapayaIteratorMultiple' => Iterator\Union::class,
 
     'PapayaObject' => Application\BaseObject::class
   );

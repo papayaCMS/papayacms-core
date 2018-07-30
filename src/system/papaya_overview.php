@@ -774,18 +774,18 @@ class papaya_overview extends base_db {
       );
       $this->modules()->load(array('type' => 'page', 'is_active' => TRUE));
       $modules = iterator_to_array(
-        new \PapayaIteratorMultiple(
-          \PapayaIteratorMultiple::MIT_KEYS_ASSOC,
+        new \Papaya\Iterator\Union(
+          \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
           new ArrayIterator(array('' => 'All')),
-          new \PapayaIteratorArrayMapper($this->modules(), 'title')
+          new \Papaya\Iterator\ArrayMapper($this->modules(), 'title')
         )
       );
       $this->views()->load(array('module_type' => 'page'));
       $views = iterator_to_array(
-        new \PapayaIteratorMultiple(
-          \PapayaIteratorMultiple::MIT_KEYS_ASSOC,
+        new \Papaya\Iterator\Union(
+          \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
           new ArrayIterator(array('' => 'All')),
-          new \PapayaIteratorArrayMapper($this->views(), 'title')
+          new \Papaya\Iterator\ArrayMapper($this->views(), 'title')
         )
       );
 

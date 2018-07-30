@@ -30,7 +30,7 @@ class Group
    * Create iterator to store lists and attach all function arguments to it.
    */
   public function __construct() {
-    $this->_lists = new \PapayaIteratorMultiple();
+    $this->_lists = new \Papaya\Iterator\Union();
     foreach (func_get_args() as $list) {
       $this->add($list);
     }

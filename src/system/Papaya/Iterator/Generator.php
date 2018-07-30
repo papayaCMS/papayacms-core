@@ -13,13 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator;
+
 /**
-* An IteratorAggregate implementation that uses a callback to create the iterator if needed.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorGenerator implements \IteratorAggregate {
+ * An IteratorAggregate implementation that uses a callback to create the iterator if needed.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Generator implements \IteratorAggregate {
 
   /**
    * @var callback
@@ -32,7 +34,7 @@ class PapayaIteratorGenerator implements \IteratorAggregate {
   private $_arguments = array();
 
   /**
-   * @var Iterator
+   * @var \Iterator
    */
   private $_iterator = NULL;
 

@@ -90,19 +90,19 @@ class Directory {
     );
     switch ($type) {
       case self::FETCH_FILES :
-        $result = new \PapayaIteratorFilterCallback(
+        $result = new \Papaya\Iterator\Filter\Callback(
           $result, array($this, 'callbackFileInfoIsFile')
         );
       break;
       case self::FETCH_DIRECTORIES :
-        $result = new \PapayaIteratorFilterCallback(
+        $result = new \Papaya\Iterator\Filter\Callback(
           $result, array($this, 'callbackFileInfoIsDirectory')
         );
       break;
     }
     if (!empty($filter)) {
-      return new \PapayaIteratorFilterRegex(
-        $result, $filter, 0, \PapayaIteratorFilterRegex::FILTER_KEYS
+      return new \Papaya\Iterator\Filter\Regex(
+        $result, $filter, 0, \Papaya\Iterator\Filter\Regex::FILTER_KEYS
       );
     } else {
       return $result;

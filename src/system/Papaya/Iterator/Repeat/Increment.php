@@ -13,16 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Repeat;
 /**
-* This iterator increments a value by step until an maximum is reached.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorRepeatIncrement extends \PapayaIteratorRepeatCallback {
+ * This iterator increments a value by step until an maximum is reached.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Increment extends Callback {
 
-  protected $_maximum = 0;
-  protected $_step = 0;
+  private $_maximum;
+  private $_step;
+  private $_mode;
 
   const MODE_LIST = 0;
   const MODE_ASSOC = 1;
@@ -43,23 +45,22 @@ class PapayaIteratorRepeatIncrement extends \PapayaIteratorRepeatCallback {
   }
 
   /**
-  * Increment the current value by step until it is larger then the maximim.
-  *
-  * @param integer $value
-  * @param integer $key
-  * @return boolean
-  */
+   * Increment the current value by step until it is larger then the maximim.
+   *
+   * @param integer $value
+   * @param integer $key
+   * @return FALSE|array
+   */
   public function increment($value, $key) {
     $value += $this->_step;
-    if ($this->_mode == self::MODE_ASSOC) {
+    if ($this->_mode === self::MODE_ASSOC) {
       $key = $value;
     } else {
       ++$key;
     }
     if ($value <= $this->_maximum) {
       return array($value, $key);
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 }

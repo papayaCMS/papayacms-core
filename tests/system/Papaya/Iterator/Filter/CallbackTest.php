@@ -18,33 +18,33 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaIteratorFilterCallbackTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaIteratorFilterCallback::__construct
-  * @covers \PapayaIteratorFilterCallback::setCallback
-  * @covers \PapayaIteratorFilterCallback::getCallback
+  * @covers \Papaya\Iterator\Filter\Callback::__construct
+  * @covers \Papaya\Iterator\Filter\Callback::setCallback
+  * @covers \Papaya\Iterator\Filter\Callback::getCallback
   */
   public function testConstructor() {
     $callback = function($element) { return is_int($element); };
-    $filter = new \PapayaIteratorFilterCallback(new EmptyIterator(), $callback);
+    $filter = new \Papaya\Iterator\Filter\Callback(new EmptyIterator(), $callback);
     $this->assertEquals($callback, $filter->getCallback());
   }
 
   /**
-  * @covers \PapayaIteratorFilterCallback::setCallback
+  * @covers \Papaya\Iterator\Filter\Callback::setCallback
   */
   public function testSetCallbackWithInvalidCallbackExpectingException() {
     $this->expectException(UnexpectedValueException::class);
-    new \PapayaIteratorFilterCallback(new EmptyIterator(), NULL);
+    new \Papaya\Iterator\Filter\Callback(new EmptyIterator(), NULL);
   }
 
   /**
-  * @covers \PapayaIteratorFilterCallback::accept
+  * @covers \Papaya\Iterator\Filter\Callback::accept
   */
   public function testAccept() {
     $data = array(
       'ok' => 42,
       'fail' => 'wrong'
     );
-    $filter = new \PapayaIteratorFilterCallback(
+    $filter = new \Papaya\Iterator\Filter\Callback(
       new ArrayIterator($data), function($element) { return is_int($element); }
     );
     $this->assertEquals(

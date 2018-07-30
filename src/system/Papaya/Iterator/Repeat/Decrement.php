@@ -13,17 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Repeat;
 /**
-* This iterator decrements a value by step until an minimum is reached.
-*
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorRepeatDecrement extends \PapayaIteratorRepeatCallback {
+ * This iterator decrements a value by step until an minimum is reached.
+ *
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Decrement extends Callback {
 
-  protected $_minimum = 0;
-  protected $_step = 0;
+  private $_minimum;
+  private $_step;
+  private $_mode;
 
   const MODE_LIST = 0;
   const MODE_ASSOC = 1;
@@ -44,23 +46,22 @@ class PapayaIteratorRepeatDecrement extends \PapayaIteratorRepeatCallback {
   }
 
   /**
-  * Increment the current value by step until it is larger then the maximim.
-  *
-  * @param integer $value
-  * @param integer $key
-  * @return boolean
-  */
+   * Increment the current value by step until it is larger then the maximim.
+   *
+   * @param integer $value
+   * @param integer $key
+   * @return FALSE|array
+   */
   public function decrement($value, $key) {
     $value -= $this->_step;
-    if ($this->_mode == self::MODE_ASSOC) {
+    if ($this->_mode === self::MODE_ASSOC) {
       $key = $value;
     } else {
       ++$key;
     }
     if ($value >= $this->_minimum) {
       return array($value, $key);
-    } else {
-      return FALSE;
     }
+    return FALSE;
   }
 }

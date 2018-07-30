@@ -13,19 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator;
 /**
-* This iterator allows to iterator over several given inner iterators. In other words
-* it combines the elements of multiple iterators.
-*
-* You can specify if it should use the keys or generate a new integer key.
-*
-* The interface is compareable to the MultipleIterator implemented in SPL, but this is only
-* available starting with PHP 5.3 and does not allow to specify the iterators in the constrcutor.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorMultiple implements \OuterIterator {
+ * This iterator allows to iterate over several given inner iterators. In other words
+ * it combines the elements of multiple iterators.
+ *
+ * You can specify if it should use the keys or generate a new integer key.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Union implements \OuterIterator {
 
   const MIT_NEED_ANY = 0;
   const MIT_KEYS_NUMERIC = 0;
@@ -40,13 +38,13 @@ class PapayaIteratorMultiple implements \OuterIterator {
   private $_flags = self::MIT_FLAGS_DEFAULT;
 
   /**
-  * Create iterator, store flags and attach all given iterators or arrays.
-  *
-  * All parameters are optional, and you can give as many iterators you like directly.
-  *
-  * @param integer $flags
-  * @param \Traversable,... $iterator
-  */
+   * Create iterator, store flags and attach all given iterators or arrays.
+   *
+   * All parameters are optional, and you can give as many iterators you like directly.
+   *
+   * @param integer $flags
+   * @param \Traversable|array ...$iterator
+   */
   public function __construct($flags = NULL) {
     $iterators = func_get_args();
     if (isset($flags) && !($flags instanceof \Traversable || is_array($flags))) {
@@ -57,10 +55,10 @@ class PapayaIteratorMultiple implements \OuterIterator {
   }
 
   /**
-  * Return internal flags
-  *
-  * @return integer
-  */
+   * Return internal flags
+   *
+   * @return integer
+   */
   public function getFlags() {
     return $this->_flags;
   }
@@ -77,19 +75,19 @@ class PapayaIteratorMultiple implements \OuterIterator {
   }
 
   /**
-  * Return how many iterators are attached
-  *
-  * @return integer
-  */
+   * Return how many iterators are attached
+   *
+   * @return integer
+   */
   public function countIterators() {
     return count($this->_iterators);
   }
 
   /**
-  * Attach one or more iterators. All parameters of this method will be attaches as iterators
-  *
-  * @param \Traversable,... $iterator
-  */
+   * Attach one or more iterators. All parameters of this method will be attaches as iterators
+   *
+   * @param \Traversable,... $iterator
+   */
   public function attachIterators() {
     foreach (func_get_args() as $iterator) {
       $this->attachIterator($iterator);
@@ -97,30 +95,30 @@ class PapayaIteratorMultiple implements \OuterIterator {
   }
 
   /**
-  * Attach one iterator
-  *
-  * @param array|\Traversable $iterator
-  */
+   * Attach one iterator
+   *
+   * @param array|\Traversable $iterator
+   */
   public function attachIterator($iterator) {
     $this->_iterators[$this->getIteratorIdentifier($iterator)] = ($iterator instanceof \Iterator)
       ? $iterator : new \PapayaIteratorTraversable($iterator);
   }
 
   /**
-  * Validate if an interator is attached.
-  *
-  * @param \Traversable|array $iterator
-  * @return boolean
-  */
+   * Validate if an interator is attached.
+   *
+   * @param \Traversable|array $iterator
+   * @return boolean
+   */
   public function containsIterator($iterator) {
     return array_key_exists($this->getIteratorIdentifier($iterator), $this->_iterators);
   }
 
   /**
-  * Detach an iterator
-  *
-  * @param \Traversable|array $iterator
-  */
+   * Detach an iterator
+   *
+   * @param \Traversable|array $iterator
+   */
   public function detachIterator($iterator) {
     $identifier = $this->getIteratorIdentifier($iterator);
     if (array_key_exists($identifier, $this->_iterators)) {
@@ -129,15 +127,15 @@ class PapayaIteratorMultiple implements \OuterIterator {
   }
 
   /**
-  * Return the currently activ inner iterator
-  */
+   * Return the currently activ inner iterator
+   */
   public function getInnerIterator() {
     return current($this->_iterators);
   }
 
   /**
-  * Rewind to the first element in the first iterator
-  */
+   * Rewind to the first element in the first iterator
+   */
   public function rewind() {
     $this->_position = -1;
     $iterator = reset($this->_iterators);
@@ -152,8 +150,8 @@ class PapayaIteratorMultiple implements \OuterIterator {
   }
 
   /**
-  * Validate if the current iterator element is valid
-  */
+   * Validate if the current iterator element is valid
+   */
   public function valid() {
     $iterator = $this->getInnerIterator();
     if ($iterator instanceof \Iterator) {
@@ -164,11 +162,11 @@ class PapayaIteratorMultiple implements \OuterIterator {
   }
 
   /**
-  * Return the key of the current element. Depending on the flags this is the position or
-  * the real key of the element in the inner iterator.
-  *
-  * @return mixed
-  */
+   * Return the key of the current element. Depending on the flags this is the position or
+   * the real key of the element in the inner iterator.
+   *
+   * @return mixed
+   */
   public function key() {
     if (($this->getFlags() & self::MIT_KEYS_ASSOC) === self::MIT_KEYS_ASSOC) {
       $iterator = $this->getInnerIterator();
@@ -179,20 +177,20 @@ class PapayaIteratorMultiple implements \OuterIterator {
   }
 
   /**
-  * Return the current element from the current iterator.
-  *
-  * @return mixed
-  */
+   * Return the current element from the current iterator.
+   *
+   * @return mixed
+   */
   public function current() {
     $iterator = $this->getInnerIterator();
     return ($iterator instanceof \Iterator) ? $iterator->current() : NULL;
   }
 
   /**
-  * Move the internal pointer to the next element in the current iterator. If here is no next
-  * element in the current iterator move to the next iterator and rewind it until a valid element
-  * ist found or here is no next iterator available.
-  */
+   * Move the internal pointer to the next element in the current iterator. If here is no next
+   * element in the current iterator move to the next iterator and rewind it until a valid element
+   * ist found or here is no next iterator available.
+   */
   public function next() {
     $iterator = $this->getInnerIterator();
     if ($iterator instanceof \Iterator) {

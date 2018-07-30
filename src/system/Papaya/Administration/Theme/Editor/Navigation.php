@@ -142,7 +142,7 @@ class Navigation extends \Papaya\Administration\Page\Part {
       if ($selectedSet > 0) {
         $setIterator->attachItemIterator(
           $selectedSet,
-          new \PapayaIteratorGenerator(
+          new \Papaya\Iterator\Generator(
             array($themes, 'getDefinition'),
             array($selectedTheme)
           )

@@ -107,9 +107,9 @@ class Browser
     if (isset($themes)) {
       $this->_themes = $themes;
     } elseif (NULL === $this->_themes) {
-      $this->_themes = new \PapayaIteratorCaching(
-        new \PapayaIteratorFilterCallback(
-          new \PapayaIteratorCallback(
+      $this->_themes = new \Papaya\Iterator\Caching(
+        new \Papaya\Iterator\Filter\Callback(
+          new \Papaya\Iterator\Callback(
             new \DirectoryIterator(
               \PapayaUtilFilePath::cleanup($this->themeHandler()->getLocalPath())
             ),

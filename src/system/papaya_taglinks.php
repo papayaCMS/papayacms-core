@@ -1246,7 +1246,7 @@ class papaya_taglinks extends base_tags {
       $dialog->fields[] = $field = new \PapayaUiDialogFieldSelect(
         new \PapayaUiStringTranslated('Priority'),
         'taglink_priority',
-        new \PapayaIteratorRepeatDecrement(100, 0, 10, \PapayaIteratorRepeatDecrement::MODE_ASSOC)
+        new \Papaya\Iterator\Repeat\Decrement(100, 0, 10, \Papaya\Iterator\Repeat\Decrement::MODE_ASSOC)
       );
       $field->callbacks()->getOptionCaption = array($this, 'callbackFormatPriority');
       $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));

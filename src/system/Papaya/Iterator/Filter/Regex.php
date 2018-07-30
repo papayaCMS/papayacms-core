@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Filter;
 /**
-* An filter iterator to filter an given iterator using a pcre pattern.
-*
-* The elements of the inner iterator are casted to string, so they can be objects implemening
-* the __toString method.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorFilterRegex extends \FilterIterator {
+ * An filter iterator to filter an given iterator using a pcre pattern.
+ *
+ * The elements of the inner iterator are casted to string, so they can be objects implemening
+ * the __toString method.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Regex extends \FilterIterator {
 
   const FILTER_VALUES = 1;
   const FILTER_KEYS = 2;
@@ -33,13 +34,13 @@ class PapayaIteratorFilterRegex extends \FilterIterator {
   private $_target = self::FILTER_VALUES;
 
   /**
-  * Create object and store iterator, pattern, flags and offset.
-  *
-  * @param \Iterator $iterator
-  * @param string $pattern
-  * @param integer $offset
-  * @param integer $target
-  */
+   * Create object and store iterator, pattern, flags and offset.
+   *
+   * @param \Iterator $iterator
+   * @param string $pattern
+   * @param integer $offset
+   * @param integer $target
+   */
   public function __construct(
     \Iterator $iterator, $pattern, $offset = 0, $target = self::FILTER_VALUES
   ) {
@@ -53,17 +54,17 @@ class PapayaIteratorFilterRegex extends \FilterIterator {
   }
 
   /**
-  * Validate the current item and/or key using the regex pattern.
-  *
-  * @return boolean
-  */
+   * Validate the current item and/or key using the regex pattern.
+   *
+   * @return boolean
+   */
   public function accept() {
     if (\PapayaUtilBitwise::inBitmask(self::FILTER_VALUES, $this->_target) &&
-        !$this->isMatch($this->getInnerIterator()->current())) {
+      !$this->isMatch($this->getInnerIterator()->current())) {
       return FALSE;
     }
     if (\PapayaUtilBitwise::inBitmask(self::FILTER_KEYS, $this->_target) &&
-        !$this->isMatch($this->getInnerIterator()->key())) {
+      !$this->isMatch($this->getInnerIterator()->key())) {
       return FALSE;
     }
     return TRUE;

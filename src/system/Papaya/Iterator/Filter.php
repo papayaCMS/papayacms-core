@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator;
 /**
  * An filter iterator to filter an given iterator using a papaya filter object.
  *
  * @package Papaya-Library
  * @subpackage Iterator
  */
-class PapayaIteratorFilter extends \FilterIterator {
+class Filter extends \FilterIterator {
 
   const FILTER_VALUES = 1;
   const FILTER_KEYS = 2;

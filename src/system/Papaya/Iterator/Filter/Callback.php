@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Filter;
 /**
-* An filter iterator to filter an given iterator using a callback function.
-*
-* Unlike PHP 5.4 {@see FilterIteratorCallback} this class allows to iterate a traversable, too.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorFilterCallback extends \FilterIterator {
+ * An filter iterator to filter an given iterator using a callback function.
+ *
+ * Unlike PHP 5.4 {@see FilterIteratorCallback} this class allows to iterate a traversable, too.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Callback extends \FilterIterator {
 
   private $_callback = NULL;
 
   /**
-  * Create filter iterator and store values, if the provided Iterator is only a
-  * Traversable, wrap it using IteratorIterator.
-  *
-  *
-  * @param \Traversable $iterator
-  * @param callable $callback
-  */
+   * Create filter iterator and store values, if the provided Iterator is only a
+   * Traversable, wrap it using IteratorIterator.
+   *
+   *
+   * @param \Traversable $iterator
+   * @param callable $callback
+   */
   public function __construct(\Traversable $iterator, $callback) {
     parent::__construct(
       $iterator instanceof \Iterator ? $iterator : new \IteratorIterator($iterator)
@@ -41,10 +42,10 @@ class PapayaIteratorFilterCallback extends \FilterIterator {
   }
 
   /**
-  * Validate and store the callback
-  *
-  * @param callable $callback
-  */
+   * Validate and store the callback
+   *
+   * @param callable $callback
+   */
   public function setCallback($callback) {
     \PapayaUtilConstraints::assertCallable($callback);
     $this->_callback = $callback;
@@ -52,19 +53,19 @@ class PapayaIteratorFilterCallback extends \FilterIterator {
 
 
   /**
-  * return stored the callback
-  *
-  * @return callable
-  */
+   * return stored the callback
+   *
+   * @return callable
+   */
   public function getCallback() {
     return $this->_callback;
   }
 
   /**
-  * Use the callback to validate an element
-  *
-  * @return boolean
-  */
+   * Use the callback to validate an element
+   *
+   * @return boolean
+   */
   public function accept() {
     return call_user_func(
       $this->_callback,

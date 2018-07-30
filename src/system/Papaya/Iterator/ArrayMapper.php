@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator;
 /**
-* This iterator allows convert array elements into scalars by fetching one specified subelement
-* from the array.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorArrayMapper extends \PapayaIteratorCallback {
+ * This iterator allows convert array elements into scalars by fetching one specified subelement
+ * from the array.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class ArrayMapper extends \Papaya\Iterator\Callback {
 
   private $_elementName;
 

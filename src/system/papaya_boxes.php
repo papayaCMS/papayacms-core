@@ -1523,7 +1523,7 @@ class papaya_boxes extends base_boxes {
       );
 
       $boxGroups = iterator_to_array(
-        new \PapayaIteratorArrayMapper($this->boxGroupsList, 'boxgroup_title')
+        new \Papaya\Iterator\ArrayMapper($this->boxGroupsList, 'boxgroup_title')
       );
 
       $fields = array();

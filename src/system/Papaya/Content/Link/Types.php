@@ -47,7 +47,7 @@ class Types extends \Papaya\Database\Records\Lazy {
    * @return \Iterator
    */
   protected function getResultIterator() {
-    return new \PapayaIteratorMultiple(
+    return new \Papaya\Iterator\Union(
       new \ArrayIterator(
         array(
           array(

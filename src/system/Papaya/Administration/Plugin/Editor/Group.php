@@ -64,7 +64,7 @@ class Group extends \PapayaPluginEditor {
       $toolbar->papaya($this->papaya());
       $toolbar->elements[] = $buttons = new \PapayaUiToolbarSelectButtons(
         $this->_indexParameterName,
-        new \PapayaIteratorCallback(
+        new \Papaya\Iterator\Callback(
           $this->_editors,
           function ($data) {
             return array('caption' => $data[1], 'image' => $data[2]);

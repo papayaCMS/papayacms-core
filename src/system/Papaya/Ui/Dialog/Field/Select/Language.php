@@ -43,8 +43,8 @@ class PapayaUiDialogFieldSelectLanguage extends \PapayaUiDialogFieldSelect {
       $any = 0;
     }
     if (\PapayaUtilBitwise::inBitmask(self::OPTION_ALLOW_ANY, $options)) {
-      $values = new \PapayaIteratorMultiple(
-        \PapayaIteratorMultiple::MIT_KEYS_ASSOC,
+      $values = new \Papaya\Iterator\Union(
+        \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
         array($any => new \PapayaUiStringTranslated('Any')),
         $items
       );

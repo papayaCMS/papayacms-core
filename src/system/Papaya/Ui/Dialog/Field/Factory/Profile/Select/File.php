@@ -43,8 +43,8 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
         $this->_fileSystemItems
       );
       if (!$this->options()->mandatory) {
-        $elements = new \PapayaIteratorMultiple(
-          \PapayaIteratorMultiple::MIT_KEYS_ASSOC,
+        $elements = new \Papaya\Iterator\Union(
+          \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
           new \ArrayIterator(array('' => 'none')),
           $elements
         );

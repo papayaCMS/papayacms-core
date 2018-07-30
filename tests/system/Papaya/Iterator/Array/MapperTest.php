@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaIteratorArrayMapperTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaIteratorArrayMapper
+  * @covers \Papaya\Iterator\ArrayMapper
   */
   public function testIteration() {
-    $iterator = new \PapayaIteratorArrayMapper(
+    $iterator = new \Papaya\Iterator\ArrayMapper(
       array(
         1 => array('title' => 'foo'),
         2 => array('title' => 'bar')
@@ -38,10 +38,10 @@ class PapayaIteratorArrayMapperTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaIteratorArrayMapper
+  * @covers \Papaya\Iterator\ArrayMapper
   */
   public function testIterationWithMultipleNames() {
-    $iterator = new \PapayaIteratorArrayMapper(
+    $iterator = new \Papaya\Iterator\ArrayMapper(
       array(
         1 => array('title' => 'foo'),
         2 => array('caption' => 'bar')
@@ -58,10 +58,10 @@ class PapayaIteratorArrayMapperTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaIteratorArrayMapper
+  * @covers \Papaya\Iterator\ArrayMapper
   */
   public function testIterationWithNonExistingNames() {
-    $iterator = new \PapayaIteratorArrayMapper(
+    $iterator = new \Papaya\Iterator\ArrayMapper(
       array(
         1 => array('title' => 'foo'),
         2 => array('caption' => 'bar')
