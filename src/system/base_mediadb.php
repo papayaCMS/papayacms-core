@@ -141,10 +141,10 @@ class base_mediadb extends base_db {
    *
    * @param string $mediaId
    * @param integer|null $versionId
-   * @return \PapayaMediaDatabaseItem
+   * @return \Papaya\Media\Database\Item
    */
   public function getItem($mediaId, $versionId = NULL) {
-    $item = new \PapayaMediaDatabaseItem(
+    $item = new \Papaya\Media\Database\Item(
       \PapayaMediaStorage::getService(
         $this->papaya()->options->get('PAPAYA_MEDIA_STORAGE_SERVICE'),
         $this->papaya()->options

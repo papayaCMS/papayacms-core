@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Media\Database;
 /**
  * Representing a media database item
  *
@@ -24,36 +25,41 @@
  * @package Papaya-Library
  * @subpackage Media-Database
  */
-class PapayaMediaDatabaseItem {
+class Item {
 
   /**
-  * database access object
-  * @var \Papaya\Database\Access
-  */
+   * database access object
+   *
+   * @var \Papaya\Database\Access
+   */
   private $_databaseAccessObject = NULL;
 
   /**
-  * Media storage service
-  * @var \PapayaMediaStorageService
-  */
+   * Media storage service
+   *
+   * @var \PapayaMediaStorageService
+   */
   private $_storage = NULL;
 
   /**
-  * Media item id
-  * @var string
-  */
+   * Media item id
+   *
+   * @var string
+   */
   private $_mediaId = '';
 
   /**
-  * Media item version id
-  * @var integer
-  */
+   * Media item version id
+   *
+   * @var integer
+   */
   private $_versionId = 0;
 
   /**
-  * Media item attributes
-  * @var array
-  */
+   * Media item attributes
+   *
+   * @var array
+   */
   private $_attributes = array(
     'name' => '',
     'mimeType' => '',
@@ -78,10 +84,10 @@ class PapayaMediaDatabaseItem {
    */
   public function __get($name) {
     switch ($name) {
-    case 'mediaId' :
-      return $this->_mediaId;
-    case 'versionId' :
-      return $this->_versionId;
+      case 'mediaId' :
+        return $this->_mediaId;
+      case 'versionId' :
+        return $this->_versionId;
     }
     if (isset($this->_attributes[$name])) {
       return $this->_attributes[$name];
@@ -106,46 +112,48 @@ class PapayaMediaDatabaseItem {
    */
   public function __set($name, $value) {
     switch ($name) {
-    case 'name' :
-      $this->_setName($value);
+      case 'name' :
+        $this->_setName($value);
       break;
-    case 'mediaId' :
-      $this->_setMediaId($value);
+      case 'mediaId' :
+        $this->_setMediaId($value);
       break;
-    case 'versionId' :
-      $this->_setVersionId($value);
+      case 'versionId' :
+        $this->_setVersionId($value);
       break;
-    case 'mimeType' :
-      $this->_setAttributeTrimString($name, $value);
+      case 'mimeType' :
+        $this->_setAttributeTrimString($name, $value);
       break;
-    default :
-      throw new \BadMethodCallException(
-        sprintf(
-          'Invalid attribute "%s:$%s."',
-          __CLASS__,
-          $name
-        )
-      );
+      default :
+        throw new \BadMethodCallException(
+          sprintf(
+            'Invalid attribute "%s:$%s."',
+            __CLASS__,
+            $name
+          )
+        );
     }
   }
 
   /**
-  * Get database access object (implicit create)
-  * @return \PapayaMediaDatabaseItemRecord
-  */
+   * Get database access object (implicit create)
+   *
+   * @return \Papaya\Media\Database\Item\Record
+   */
   public function getDatabaseAccessObject() {
-    if (!($this->_databaseAccessObject instanceof \PapayaMediaDatabaseItemRecord)) {
-      $this->_databaseAccessObject = new \PapayaMediaDatabaseItemRecord();
+    if (!($this->_databaseAccessObject instanceof \Papaya\Media\Database\Item\Record)) {
+      $this->_databaseAccessObject = new \Papaya\Media\Database\Item\Record();
     }
     return $this->_databaseAccessObject;
   }
 
   /**
-  * Set database access object
-  * @param \PapayaMediaDatabaseItemRecord $databaseAccessObject
-  * @return void
-  */
-  public function setDatabaseAccessObject(\PapayaMediaDatabaseItemRecord $databaseAccessObject) {
+   * Set database access object
+   *
+   * @param \Papaya\Media\Database\Item\Record $databaseAccessObject
+   * @return void
+   */
+  public function setDatabaseAccessObject(\Papaya\Media\Database\Item\Record $databaseAccessObject) {
     $this->_databaseAccessObject = $databaseAccessObject;
   }
 
@@ -179,9 +187,10 @@ class PapayaMediaDatabaseItem {
   }
 
   /**
-  * Return url to media file if availiable
-  * @return NULL|string
-  */
+   * Return url to media file if availiable
+   *
+   * @return NULL|string
+   */
   public function getUrl() {
     $identifier = $this->_mediaId.'v'.$this->versionId;
     $url = $this->_storage->getUrl('files', $identifier, $this->mimeType);
@@ -229,10 +238,11 @@ class PapayaMediaDatabaseItem {
   }
 
   /**
-  * Set name attribute
-  * @param string $value
-  * @return void
-  */
+   * Set name attribute
+   *
+   * @param string $value
+   * @return void
+   */
   protected function _setName($value) {
     $this->_setAttributeTrimString('name', $value);
   }

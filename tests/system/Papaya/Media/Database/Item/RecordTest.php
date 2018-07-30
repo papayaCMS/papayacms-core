@@ -20,10 +20,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaMediaDatabaseItemRecordTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMediaDatabaseItemRecord::load
+  * @covers \Papaya\Media\Database\Item\Record::load
   */
   public function testLoad() {
-    $record = new \PapayaMediaDatabaseItemRecord();
+    $record = new \Papaya\Media\Database\Item\Record();
     $databaseResult = $this
       ->getMockBuilder(dbresult_base::class)
       ->disableOriginalConstructor()
@@ -60,10 +60,10 @@ class PapayaMediaDatabaseItemRecordTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMediaDatabaseItemRecord::load
+  * @covers \Papaya\Media\Database\Item\Record::load
   */
   public function testLoadExpectingFalse() {
-    $record = new \PapayaMediaDatabaseItemRecord();
+    $record = new \Papaya\Media\Database\Item\Record();
     $databaseResult = $this
       ->getMockBuilder(dbresult_base::class)
       ->disableOriginalConstructor()
@@ -87,10 +87,10 @@ class PapayaMediaDatabaseItemRecordTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMediaDatabaseItemRecord::save
+  * @covers \Papaya\Media\Database\Item\Record::save
   */
   public function testSaveExpectingFalse() {
-    $record = new \PapayaMediaDatabaseItemRecord();
+    $record = new \Papaya\Media\Database\Item\Record();
     $this->assertFalse($record->save());
   }
 }

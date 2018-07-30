@@ -13,17 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Media\Database\Item;
 /**
-* Papaya Media Database Item Record
-* @package Papaya-Library
-* @subpackage Media-Database
-*/
-class PapayaMediaDatabaseItemRecord extends \Papaya\Database\BaseObject\Record {
+ * Papaya Media Database Item Record
+ *
+ * @package Papaya-Library
+ * @subpackage Media-Database
+ */
+class Record extends \Papaya\Database\BaseObject\Record {
 
   /**
-  * Fields (accessible using dynamic properties)
-  * @var array
-  */
+   * Fields (accessible using dynamic properties)
+   *
+   * @var array
+   */
   protected $_fields = array(
     'media_id', 'folder_id', 'surfer_id',
     'file_name', 'file_date', 'file_size',
@@ -31,10 +34,11 @@ class PapayaMediaDatabaseItemRecord extends \Papaya\Database\BaseObject\Record {
   );
 
   /**
-  * Load item from database
-  * @param string $mediaId
-  * @return boolean
-  */
+   * Load item from database
+   *
+   * @param string $mediaId
+   * @return boolean
+   */
   public function load($mediaId) {
     $sql = "SELECT f.file_id, f.folder_id, f.surfer_id, f.file_name, f.file_date,
                    f.file_size, f.width, f.height, f.metadata, f.file_sort,
@@ -61,6 +65,7 @@ class PapayaMediaDatabaseItemRecord extends \Papaya\Database\BaseObject\Record {
 
   /**
    * Make it readonly
+   *
    * @return bool|int
    */
   public function save() {
