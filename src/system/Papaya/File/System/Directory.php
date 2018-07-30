@@ -101,8 +101,8 @@ class Directory {
       break;
     }
     if (!empty($filter)) {
-      return new \Papaya\Iterator\Filter\Regex(
-        $result, $filter, 0, \Papaya\Iterator\Filter\Regex::FILTER_KEYS
+      return new \Papaya\Iterator\Filter\RegEx(
+        $result, $filter, 0, \Papaya\Iterator\Filter\RegEx::FILTER_KEYS
       );
     } else {
       return $result;

@@ -23,7 +23,7 @@ namespace Papaya\Iterator\Filter;
  * @package Papaya-Library
  * @subpackage Iterator
  */
-class Regex extends \FilterIterator {
+class RegEx extends \FilterIterator {
 
   const FILTER_VALUES = 1;
   const FILTER_KEYS = 2;

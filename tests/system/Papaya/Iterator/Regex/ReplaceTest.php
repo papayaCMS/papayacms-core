@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaIteratorRegexReplaceTest extends \PapayaTestCase {
 
   /**
-  * @covers \Papaya\Iterator\Regex\Replace
+  * @covers \Papaya\Iterator\RegEx\Replace
   */
   public function testIteration() {
-    $iterator = new \Papaya\Iterator\Regex\Replace(
+    $iterator = new \Papaya\Iterator\RegEx\Replace(
       new ArrayIterator(array('21 42', '42 84')),
       '(\d+)',
       '#$0'
@@ -36,10 +36,10 @@ class PapayaIteratorRegexReplaceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \Papaya\Iterator\Regex\Replace
+  * @covers \Papaya\Iterator\RegEx\Replace
   */
   public function testIterationLimitReplace() {
-    $iterator = new \Papaya\Iterator\Regex\Replace(
+    $iterator = new \Papaya\Iterator\RegEx\Replace(
       new ArrayIterator(array('21 42', '42 84')),
       '(\d+)',
       '#$0',

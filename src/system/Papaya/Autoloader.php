@@ -105,7 +105,8 @@ class Autoloader {
     'Switch' => 'Selector',
 
     // Typos
-    'Anchestors' => 'Ancestors'
+    'Anchestors' => 'Ancestors',
+    'Regex' => 'RegEx'
   );
 
   /**

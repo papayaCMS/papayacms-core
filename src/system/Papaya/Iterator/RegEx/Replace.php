@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Iterator\Regex;
+namespace Papaya\Iterator\RegEx;
 /**
  * This iterator allows convert the values on request using a preg_replace().
  *
