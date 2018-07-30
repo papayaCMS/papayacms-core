@@ -13,7 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaMediaFileInfoImage extends \PapayaMediaFileInfo {
+namespace Papaya\Media\File\Info;
+class Image extends \Papaya\Media\File\Info {
 
   protected function fetchProperties() {
     $properties = array(

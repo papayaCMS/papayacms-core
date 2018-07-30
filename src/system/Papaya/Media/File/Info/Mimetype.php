@@ -13,7 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaMediaFileInfoMimetype extends \PapayaMediaFileInfo {
+namespace Papaya\Media\File\Info;
+
+class Mimetype extends \Papaya\Media\File\Info {
 
   private $_fallbackMimeType = 'application/octet-stream';
 

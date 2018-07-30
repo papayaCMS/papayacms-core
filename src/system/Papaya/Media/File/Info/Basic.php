@@ -13,7 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaMediaFileInfoBasic extends \PapayaMediaFileInfo {
+namespace Papaya\Media\File\Info;
+
+class Basic extends \Papaya\Media\File\Info {
 
   protected function fetchProperties() {
     $fileName = $this->getFile();

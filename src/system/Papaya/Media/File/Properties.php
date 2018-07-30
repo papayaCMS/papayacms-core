@@ -13,7 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaMediaFileProperties extends \PapayaMediaFileInfo {
+namespace Papaya\Media\File;
+
+class Properties extends Info {
 
   private $_fetchers;
 
@@ -42,10 +44,10 @@ class PapayaMediaFileProperties extends \PapayaMediaFileInfo {
       $file = $this->getFile();
       $originalName = $this->getOriginalFileName();
       $this->_fetchers = array(
-        new \PapayaMediaFileInfoBasic($file, $originalName),
-        new \PapayaMediaFileInfoMimetype($file, $originalName),
-        new \PapayaMediaFileInfoImage($file, $originalName),
-        new \PapayaMediaFileInfoSvg($file, $originalName),
+        new Info\Basic($file, $originalName),
+        new Info\Mimetype($file, $originalName),
+        new Info\Image($file, $originalName),
+        new Info\Svg($file, $originalName),
       );
     }
     return $this->_fetchers;

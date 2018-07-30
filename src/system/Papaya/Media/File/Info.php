@@ -13,7 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-abstract class PapayaMediaFileInfo extends \Papaya\Application\BaseObject implements \ArrayAccess, \IteratorAggregate {
+namespace Papaya\Media\File;
+
+abstract class Info extends \Papaya\Application\BaseObject implements \ArrayAccess, \IteratorAggregate {
 
   private $_file;
   private $_properties;

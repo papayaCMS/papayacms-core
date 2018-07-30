@@ -1283,7 +1283,7 @@ class base_mediadb extends base_db {
   function getFileProperties($fileLocation, $originalFileName, array $meta = array()) {
     $this->initializeMimeObject();
 
-    $properties = iterator_to_array(new \PapayaMediaFileProperties($fileLocation, $originalFileName));
+    $properties = iterator_to_array(new \Papaya\Media\File\Properties($fileLocation, $originalFileName));
     if (empty($properties['extension'])) {
       $properties['extension'] = $this->getFileExtension($originalFileName);
     }

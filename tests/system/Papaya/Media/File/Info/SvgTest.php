@@ -21,7 +21,7 @@ class PapayaMediaFileInfoSvgTest extends \PapayaTestCase {
     if (!extension_loaded('xmlreader')) {
       $this->markTestSkipped('XMLReader not available');
     }
-    $info = new \PapayaMediaFileInfoSvg(__DIR__.'/TestData/minimum.svg');
+    $info = new \Papaya\Media\File\Info\Svg(__DIR__.'/TestData/minimum.svg');
     $this->assertTrue($info['is_valid']);
     $this->assertEquals(139, $info['width']);
     $this->assertEquals(144, $info['height']);
@@ -31,12 +31,12 @@ class PapayaMediaFileInfoSvgTest extends \PapayaTestCase {
     if (!extension_loaded('xmlreader')) {
       $this->markTestSkipped('XMLReader not available');
     }
-    $info = new \PapayaMediaFileInfoSvg('data://text/plain,');
+    $info = new \Papaya\Media\File\Info\Svg('data://text/plain,');
     $this->assertFalse($info['is_valid']);
   }
 
   public function testReadUsingDOM() {
-    $info = new \PapayaMediaFileInfoSvg(__DIR__.'/TestData/minimum.svg');
+    $info = new \Papaya\Media\File\Info\Svg(__DIR__.'/TestData/minimum.svg');
     $info->forceDOM = TRUE;
     $this->assertTrue($info['is_valid']);
     $this->assertEquals(139, $info['width']);
@@ -47,7 +47,7 @@ class PapayaMediaFileInfoSvgTest extends \PapayaTestCase {
     if (!extension_loaded('xmlreader')) {
       $this->markTestSkipped('XMLReader not available');
     }
-    $info = new \PapayaMediaFileInfoSvg('data://text/plain,');
+    $info = new \Papaya\Media\File\Info\Svg('data://text/plain,');
     $this->assertFalse($info['is_valid']);
   }
 
