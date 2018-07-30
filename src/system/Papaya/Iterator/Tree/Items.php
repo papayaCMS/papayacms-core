@@ -55,14 +55,14 @@ class PapayaIteratorTreeItems implements \OuterIterator, \RecursiveIterator {
   /**
   * Returns the (created if necessary) iterator instance for the provided traversable.
   * It it already was an iterator it is returned. It it is an Traversable or array the first
-  * call will created an {@see \PapayaIteratorTraversable} for it.
+  * call will created an {@see \Papaya\Iterator\PapayaIteratorTraversable} for it.
   *
   * return Iterator
   */
   public function getInnerIterator() {
     if (NULL === $this->_iterator) {
       $this->_iterator = ($this->_traversable instanceof \Iterator)
-         ? $this->_traversable : new \PapayaIteratorTraversable($this->_traversable);
+         ? $this->_traversable : new \Papaya\Iterator\Traversable($this->_traversable);
     }
     return $this->_iterator;
   }

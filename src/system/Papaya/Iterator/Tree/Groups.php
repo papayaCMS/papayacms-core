@@ -48,7 +48,7 @@ class PapayaIteratorTreeGroups implements \RecursiveIterator {
    * @param callback $callback
    */
   public function __construct($traversable, $callback) {
-    $this->_iterator = new \PapayaIteratorTraversable($traversable);
+    $this->_iterator = new \Papaya\Iterator\Traversable($traversable);
     \PapayaUtilConstraints::assertCallable($callback);
     $this->_callback = $callback;
   }

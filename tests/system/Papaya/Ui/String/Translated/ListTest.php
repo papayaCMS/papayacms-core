@@ -22,7 +22,7 @@ class PapayaUiStringTranslatedListTest extends \PapayaTestCase {
    */
   public function testConstructorWithArray() {
     $list = new \PapayaUiStringTranslatedList(array('foo'));
-    $this->assertInstanceOf(\PapayaIteratorTraversable::class, $list->getInnerIterator());
+    $this->assertInstanceOf(\Papaya\Iterator\Traversable::class, $list->getInnerIterator());
   }
 
   /**

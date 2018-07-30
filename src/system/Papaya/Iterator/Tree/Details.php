@@ -61,7 +61,7 @@ class PapayaIteratorTreeDetails
    * @param string|array|NULL $identifier
    */
   public function __construct($main, $details, $identifier = NULL) {
-    parent::__construct(new \PapayaIteratorTraversable($main));
+    parent::__construct(new \Papaya\Iterator\Traversable($main));
     $this->setDetails($details, $identifier);
   }
 

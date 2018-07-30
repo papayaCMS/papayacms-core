@@ -71,6 +71,6 @@ class Properties
    * @return \Iterator
    */
   public function getIterator() {
-    return new \PapayaIteratorTraversable($this->_list);
+    return new \Papaya\Iterator\Traversable($this->_list);
   }
 }

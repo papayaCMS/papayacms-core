@@ -13,39 +13,40 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator;
 /**
-* An iterator that converts any traversable into an iterator. Not unlike IteratorIterator but
-* with a lazy initialization.
-*
-* The iterator for the traversable is fetched/create on data access not directly
-* in the constructor.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorTraversable implements \OuterIterator {
+ * An iterator that converts any traversable into an iterator. Not unlike IteratorIterator but
+ * with a lazy initialization.
+ *
+ * The iterator for the traversable is fetched/create on data access not directly
+ * in the constructor.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Traversable implements \OuterIterator {
 
   private $_traversable = NULL;
   private $_iterator = NULL;
 
   /**
-  * Store the traversable to a member variable.
-  *
-  * @param \Traversable|array $traversable
-  */
+   * Store the traversable to a member variable.
+   *
+   * @param \Traversable|array $traversable
+   */
   public function __construct($traversable) {
     \PapayaUtilConstraints::assertArrayOrTraversable($traversable);
     $this->_traversable = $traversable;
   }
 
   /**
-  * Fetches/Creates an iterator for the stored traversable. This memtod will be called
-  * by the methods of the iterator interface. The methods use the $useCached argument
-  * to reuse an already fetched/created iterator.
-  *
-  * @param boolean $useCached
-  * @return \Iterator
-  */
+   * Fetches/Creates an iterator for the stored traversable. This memtod will be called
+   * by the methods of the iterator interface. The methods use the $useCached argument
+   * to reuse an already fetched/created iterator.
+   *
+   * @param boolean $useCached
+   * @return \Iterator
+   */
   public function getIteratorForTraversable($useCached = FALSE) {
     if (!$useCached || is_null($this->_iterator)) {
       if ($this->_traversable instanceof \Iterator) {
@@ -62,49 +63,49 @@ class PapayaIteratorTraversable implements \OuterIterator {
   }
 
   /**
-  * Return the original stored traversable or array, like in IteratorIterator
-  */
+   * Return the original stored traversable or array, like in IteratorIterator
+   */
   public function getInnerIterator() {
     return $this->_traversable;
   }
 
   /**
-  * Return current element
-  *
-  * @return mixed
-  */
+   * Return current element
+   *
+   * @return mixed
+   */
   public function current() {
     return $this->getIteratorForTraversable(TRUE)->current();
   }
 
   /**
-  * Return current key
-  *
-  * @return mixed
-  */
+   * Return current key
+   *
+   * @return mixed
+   */
   public function key() {
     return $this->getIteratorForTraversable(TRUE)->key();
   }
 
   /**
-  * Fetch next element
-  */
+   * Fetch next element
+   */
   public function next() {
     $this->getIteratorForTraversable(TRUE)->next();
   }
 
   /**
-  * Rewind iterator to first element
-  */
+   * Rewind iterator to first element
+   */
   public function rewind() {
     $this->getIteratorForTraversable(TRUE)->rewind();
   }
 
   /**
-  * Valid if the current element is valid.
-  *
-  * @return boolean
-  */
+   * Valid if the current element is valid.
+   *
+   * @return boolean
+   */
   public function valid() {
     return $this->getIteratorForTraversable(TRUE)->valid();
   }

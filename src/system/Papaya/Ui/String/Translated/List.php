@@ -50,7 +50,7 @@ class PapayaUiStringTranslatedList
    * @param NULL $groupName
    */
   public function __construct($traversable, \Papaya\Phrases $phrases = NULL, $groupName = NULL) {
-    parent::__construct(new \PapayaIteratorTraversable($traversable));
+    parent::__construct(new \Papaya\Iterator\Traversable($traversable));
     $this->_phrases = $phrases;
     $this->_phrasesGroupName = $groupName;
   }
