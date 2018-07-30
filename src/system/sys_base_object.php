@@ -809,7 +809,7 @@ class base_object extends BaseObject implements \PapayaRequestParametersInterfac
         }
       }
       if ($isPublic) {
-        $storage = \PapayaMediaStorage::getService(
+        $storage = \Papaya\Media\Storage::getService(
           $options->get('PAPAYA_MEDIA_STORAGE_SERVICE', ''),
           $options
         );

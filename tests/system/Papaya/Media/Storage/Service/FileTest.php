@@ -76,7 +76,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
 
   public function testSetConfiguration() {
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertSame(
       $this->_storageDirectory, $this->readAttribute($service, '_storageDirectory')
     );
@@ -89,7 +89,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testSetConfigurationWithNotExistingPublicDirectory() {
     $configuration = $this->getMockConfigurationObjectFixture();
     rmdir($this->_publicDirectory);
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertSame(
       '', $this->readAttribute($service, '_publicDirectory')
     );
@@ -121,7 +121,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testBrowse() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $expected = array(
       '012345678901234567890123456789012_v1',
       '012345678901234567890123456789012_v2'
@@ -132,7 +132,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testBrowseWithStartString() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $expected = array(
       '012345678901234567890123456789012_v2'
     );
@@ -142,13 +142,13 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testBrowseWithInvalidStorageGroup() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertSame(array(), $service->browse('INVALID_GROUP'));
   }
 
   public function testStore() {
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertTrue(
       $service->store(
         'media',
@@ -163,7 +163,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
 
   public function testStoreWithResourceId() {
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertTrue(
       $service->store(
         'media',
@@ -177,7 +177,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   }
 
   public function testStoreWithInvalidConfiguration() {
-    $service = new \PapayaMediaStorageServiceFile();
+    $service = new \Papaya\Media\Storage\Service\File();
     $this->assertFalse(
       $service->store(
         'media',
@@ -189,7 +189,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
 
   public function testStoreWithInvalidStorageParameters() {
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertFalse(
       $service->store(
         '',
@@ -201,7 +201,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
 
   public function testStoreLocalFile() {
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertTrue(
       $service->storeLocalFile(
         'media',
@@ -216,7 +216,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
 
   public function testStoreLocalFileWithInvalidStorageParameters() {
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertFalse(
       $service->storeLocalFile(
         '',
@@ -230,7 +230,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   }
 
   public function testStoreLocalFileWithInvalidConfiguration() {
-    $service = new \PapayaMediaStorageServiceFile();
+    $service = new \Papaya\Media\Storage\Service\File();
     $this->assertFalse(
       $service->storeLocalFile(
         'media',
@@ -246,7 +246,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testRemove() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertTrue(
       $service->remove(
         'media',
@@ -261,7 +261,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testRemoveWithInvalidStorageParameters() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertFalse(
       $service->remove('INVALID_GROUP', 'INVALID_STORAGE_ID')
     );
@@ -270,28 +270,28 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testExists() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertTrue($service->exists('media', '012345678901234567890123456789012_v1'));
   }
 
   public function testExistsWithInvalidStorageId() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertFalse($service->exists('media', 'INVALID_STORAGE_ID'));
   }
 
   public function testExistsWithInvalidStorageGroup() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertFalse($service->exists('INVALID_GROUP', '012345678901234567890123456789012_v1'));
   }
 
   public function testIsPublic() {
     $this->createSampleFilesFixture(TRUE);
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertTrue(
       $service->isPublic(
         'media',
@@ -304,7 +304,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testIsPublicWithPrivateFile() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertFalse(
       $service->isPublic(
         'media',
@@ -320,7 +320,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
     }
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertTrue(
       $service->setPublic(
         'media',
@@ -340,7 +340,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testSetPublicToTrueWithPublicFile() {
     $this->createSampleFilesFixture(TRUE);
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertTrue(
       $service->setPublic(
         'media',
@@ -360,7 +360,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testSetPublicToTrueWithUnacceptableMimetype() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertFalse(
       $service->setPublic(
         'media',
@@ -374,7 +374,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testSetPublicToTrueWithInvalidFile() {
     $this->createSampleFilesFixture(TRUE);
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertFalse(
       $service->setPublic(
         'media',
@@ -394,7 +394,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
         'PAPAYA_MEDIA_PUBLIC_URL' => ''
       )
     );
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertFalse(
       $service->setPublic(
         'media',
@@ -408,7 +408,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testSetPublicToFalseWithPrivateFile() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertTrue(
       $service->setPublic(
         'media',
@@ -422,7 +422,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testSetPublicToFalseWithPublicFile() {
     $this->createSampleFilesFixture(TRUE);
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertTrue(
       $service->setPublic(
         'media',
@@ -436,7 +436,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testGet() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertSame(
       'SAMPLE_VERSION_1',
       $service->get('media', '012345678901234567890123456789012_v1')
@@ -446,7 +446,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testGetWithInvalidStorageParameters() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertNull(
       $service->get('INVALID_GROUP', 'INVALID_STORAGE_ID')
     );
@@ -455,7 +455,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testGetUrl() {
     $this->createSampleFilesFixture(TRUE);
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertSame(
       'http://www.sample.tld/papaya-files/media/0/012345678901234567890123456789012_v1.gif',
       $service->getUrl(
@@ -469,7 +469,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testGetUrlWithExtension() {
     $this->createSampleFilesFixture(TRUE);
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertSame(
       'http://www.sample.tld/papaya-files/media/0/012345678901234567890123456789012_v1.gif',
       $service->getUrl(
@@ -483,7 +483,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testGetUrlWithInvalidStorageParameters() {
     $this->createSampleFilesFixture(TRUE);
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertNull(
       $service->getUrl('INVALID_GROUP', 'INVALID_STORAGE_ID', 'image/gif')
     );
@@ -498,7 +498,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
         'PAPAYA_MEDIA_PUBLIC_URL' => ''
       )
     );
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertNull(
       $service->getUrl(
         'media',
@@ -511,7 +511,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testGetLocalFile() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertSame(
       array(
         'filename' =>
@@ -527,7 +527,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
 
   public function testGetLocalFileWithInvalidStorageParameters() {
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertNull(
       $service->getLocalFile('INVALID_GROUP', 'INVALID_STORAGE_ID')
     );
@@ -536,7 +536,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testOutput() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     ob_start();
     $this->assertTrue(
       $service->output('media', '012345678901234567890123456789012_v1')
@@ -547,7 +547,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testOutputWithInvalidStorageParameters() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     $this->assertFalse(
       $service->output('media', '012345678901234567890123456789012_v99')
     );
@@ -556,7 +556,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testOutputWithSmallBufferSize() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     ob_start();
     $this->assertTrue(
       $service->output('media', '012345678901234567890123456789012_v1', 0, 0, 2)
@@ -567,7 +567,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testOutputWithRangeOffset() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     ob_start();
     $this->assertTrue(
       $service->output('media', '012345678901234567890123456789012_v1', 7)
@@ -578,7 +578,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   public function testOutputWithRangeParameters() {
     $this->createSampleFilesFixture();
     $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new \PapayaMediaStorageServiceFile($configuration);
+    $service = new \Papaya\Media\Storage\Service\File($configuration);
     ob_start();
     $this->assertTrue(
       $service->output('media', '012345678901234567890123456789012_v1', 7, 13)
@@ -594,7 +594,7 @@ class PapayaMediaStorageServiceFileTest extends \PapayaTestCase {
   }
 }
 
-class PapayaMediaStorageServiceFile_TestProxy extends \PapayaMediaStorageServiceFile {
+class PapayaMediaStorageServiceFile_TestProxy extends \Papaya\Media\Storage\Service\File {
 
   public function _verifyConfiguration() {
     return parent::_verifyConfiguration();

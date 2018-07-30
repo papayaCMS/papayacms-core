@@ -13,12 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Media;
 /**
-* Papaya Media Storage Service Factory
-* @package Papaya-Library
-* @subpackage Media-Storage
-*/
-class PapayaMediaStorage {
+ * Papaya Media Storage Service Factory
+ *
+ * @package Papaya-Library
+ * @subpackage Media-Storage
+ */
+class Storage {
 
   private static $_serviceObjects = array();
 
@@ -32,7 +34,7 @@ class PapayaMediaStorage {
    * @param boolean $static optional, default value TRUE
    * @throws \InvalidArgumentException
    * @access public
-   * @return \PapayaMediaStorageService
+   * @return \Papaya\Media\Storage\Service
    */
   public static function getService($service = '', $configuration = NULL, $static = TRUE) {
     if (empty($service)) {
@@ -44,7 +46,7 @@ class PapayaMediaStorage {
       if ($static && isset(self::$_serviceObjects[$service])) {
         return self::$_serviceObjects[$service];
       }
-      $class = 'PapayaMediaStorageService'.$service;
+      $class = __CLASS__.'\\Service\\'.$service;
       $object = new $class();
       if (isset($configuration) && method_exists($object, 'setConfiguration')) {
         $object->setConfiguration($configuration);

@@ -13,48 +13,53 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Service;
+namespace Papaya\Media\Storage\Service;
 
 /**
-* Amazon S3 based storage service for Papaya Media Storage
-*
-* @package Papaya-Library
-* @subpackage Media-Storage
-*/
-class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
+ * Amazon S3 based storage service for Papaya Media Storage
+ *
+ * @package Papaya-Library
+ * @subpackage Media-Storage
+ */
+class S3 extends \Papaya\Media\Storage\Service {
 
   /**
-  * Amazon S3 bucket name
-  * @var string
-  */
+   * Amazon S3 bucket name
+   *
+   * @var string
+   */
   private $_storageBucket = '';
 
   /**
-  * base storage directory - will contain subdirectories for each storage group
-  * @var string $_storageDirectory
-  */
+   * base storage directory - will contain subdirectories for each storage group
+   *
+   * @var string $_storageDirectory
+   */
   private $_storageDirectory = '';
 
   /**
-  * subdirectory levels to avoid to many files in one directory
-  * @var integer $_storageDirectoryDepth
-  */
+   * subdirectory levels to avoid to many files in one directory
+   *
+   * @var integer $_storageDirectoryDepth
+   */
   private $_storageDirectoryDepth = 1;
 
   /**
-  * how long is the status cache valid (in seconds)
-  * @var integer $_storageCacheExpire
-  */
+   * how long is the status cache valid (in seconds)
+   *
+   * @var integer $_storageCacheExpire
+   */
   private $_storageCacheExpire = 86400;
 
   /**
-  * handler object
-  * @var \PapayaMediaStorageServiceS3Handler
-  */
+   * handler object
+   *
+   * @var \Papaya\Media\Storage\Service\S3\Handler
+   */
   private $_handler;
 
   /**
-   * @var Service cache for meta information
+   * @var Papaya\Cache\Service cache for meta information
    */
   private $_cacheService;
 
@@ -76,7 +81,7 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
       'PAPAYA_MEDIA_STORAGE_S3_BUCKET', $this->_storageBucket
     );
 
-    $this->_handler = new \PapayaMediaStorageServiceS3Handler($configuration);
+    $this->_handler = new \Papaya\Media\Storage\Service\S3\Handler($configuration);
 
     $this->_storageDirectory = $configuration->get(
       'PAPAYA_MEDIA_STORAGE_SUBDIRECTORY', $this->_storageDirectory
@@ -105,29 +110,31 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   }
 
   /**
-  * Set the used HTTP client object.
-  *
-  * @param \Papaya\Http\Client $client
-  * @return void
-  */
+   * Set the used HTTP client object.
+   *
+   * @param \Papaya\Http\Client $client
+   * @return void
+   */
   public function setHTTPClient($client) {
     $this->_handler->setHTTPClient($client);
   }
 
   /**
-  * Get storage bucket url
-  * @return string
-  */
+   * Get storage bucket url
+   *
+   * @return string
+   */
   private function _getBucketUrl() {
     return 'http://'.$this->_storageBucket.'.s3.amazonaws.com';
   }
 
   /**
-  * Get Storage object path depending on given the directory depth
-  * @param string $storageGroup
-  * @param string $storageId
-  * @return string
-  */
+   * Get Storage object path depending on given the directory depth
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @return string
+   */
   private function _getStorageObject($storageGroup, $storageId) {
     $result = $this->_storageDirectory.$storageGroup;
     for ($i = $this->_storageDirectoryDepth, $offset = 0; $i > 0; $i--, $offset++) {
@@ -137,21 +144,21 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   }
 
   /**
-  * Set the used handler object.
-  *
-  * @param \PapayaMediaStorageServiceS3Handler $handler
-  * @return void
-  */
-  public function setHandler(\PapayaMediaStorageServiceS3Handler $handler) {
+   * Set the used handler object.
+   *
+   * @param \Papaya\Media\Storage\Service\S3\Handler $handler
+   * @return void
+   */
+  public function setHandler(\Papaya\Media\Storage\Service\S3\Handler $handler) {
     $this->_handler = $handler;
   }
 
   /**
-  * Get response xml and create xpath object
-  *
-  * @param \Papaya\Http\Client $client
-  * @return \DOMXPath
-  */
+   * Get response xml and create xpath object
+   *
+   * @param \Papaya\Http\Client $client
+   * @return \DOMXPath
+   */
   private function _doXmlRequest(\Papaya\Http\Client $client) {
     $client->send();
     $dom = new \DOMDocument('1.0', 'UTF-8');
@@ -165,12 +172,12 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   }
 
   /**
-  * Get a list of resource ids in a storage group
-  *
-  * @param string $storageGroup
-  * @param string $startsWith
-  * @return array
-  */
+   * Get a list of resource ids in a storage group
+   *
+   * @param string $storageGroup
+   * @param string $startsWith
+   * @return array
+   */
   public function browse($storageGroup, $startsWith = '') {
     $result = array();
     $client = $this->_handler->setUpRequest(
@@ -190,12 +197,12 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   }
 
   /**
-  * return resource content
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @return string | NULL
-  */
+   * return resource content
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @return string | NULL
+   */
   public function get($storageGroup, $storageId) {
     $client = $this->_handler->setUpRequest(
       $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId)
@@ -208,13 +215,13 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   }
 
   /**
-  * get public url for a storage id if possible
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param string $mimeType
-  * @return string | NULL
-  */
+   * get public url for a storage id if possible
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param string $mimeType
+   * @return string | NULL
+   */
   public function getURL($storageGroup, $storageId, $mimeType) {
     if ($this->isPublic($storageGroup, $storageId, $mimeType)) {
       return $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId);
@@ -223,14 +230,14 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   }
 
   /**
-  * get local file for storage resource and temporary status.
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @return array|FALSE array('filename' => string, 'is_temporary' => boolean)
-  */
+   * get local file for storage resource and temporary status.
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @return array|FALSE array('filename' => string, 'is_temporary' => boolean)
+   */
   public function getLocalFile($storageGroup, $storageId) {
-    $tempDirectory = (0 === strpos(PHP_OS, 'WIN')) ? 'c:\tmp' :  '/tmp';
+    $tempDirectory = (0 === strpos(PHP_OS, 'WIN')) ? 'c:\tmp' : '/tmp';
     if (function_exists('sys_get_temp_dir')) {
       $tempDirectory = sys_get_temp_dir();
     }
@@ -256,15 +263,15 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   }
 
   /**
-  * output resource content
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param integer $rangeFrom
-  * @param integer $rangeTo
-  * @param integer $bufferSize
-  * @return void
-  */
+   * output resource content
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param integer $rangeFrom
+   * @param integer $rangeTo
+   * @param integer $bufferSize
+   * @return void
+   */
   public function output(
     $storageGroup, $storageId, $rangeFrom = 0, $rangeTo = 0, $bufferSize = 2048
   ) {
@@ -296,16 +303,16 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   }
 
   /**
-  * Save object into storage
-  *
-  * @access private
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param \Papaya\Http\Client\File $resource
-  * @param string $mimeType
-  * @param boolean $isPublic
-  * @return boolean
-  */
+   * Save object into storage
+   *
+   * @access private
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param \Papaya\Http\Client\File $resource
+   * @param string $mimeType
+   * @param boolean $isPublic
+   * @return boolean
+   */
   private function _storeResource(
     $storageGroup, $storageId, $resource, $mimeType, $isPublic
   ) {
@@ -369,12 +376,12 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   }
 
   /**
-  * remove a resource from storage
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @return boolean
-  */
+   * remove a resource from storage
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @return boolean
+   */
   public function remove($storageGroup, $storageId) {
     $client = $this->_handler->setUpRequest(
       $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId),
@@ -385,12 +392,12 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   }
 
   /**
-  * check if resource exists in storage
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @return boolean
-  */
+   * check if resource exists in storage
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @return boolean
+   */
   public function exists($storageGroup, $storageId) {
     $client = $this->_handler->setUpRequest(
       $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId),
@@ -410,21 +417,21 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   }
 
   /**
-  * check if storage id is public
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param string $mimeType
-  * @return boolean $isPublic
-  */
+   * check if storage id is public
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param string $mimeType
+   * @return boolean $isPublic
+   */
   public function isPublic($storageGroup, $storageId, $mimeType) {
     $cacheParameters = array($storageId, $mimeType);
     if (
       ($cache = $this->cache()) &&
       (
-        $status = $cache->read(
-          $this->_statusCacheName, $storageGroup, $cacheParameters, $this->_storageCacheExpire
-        )
+      $status = $cache->read(
+        $this->_statusCacheName, $storageGroup, $cacheParameters, $this->_storageCacheExpire
+      )
       )
     ) {
       return 'public' === $status;
@@ -462,14 +469,14 @@ class PapayaMediaStorageServiceS3 extends \PapayaMediaStorageService {
   }
 
   /**
-  * set public status for storage id
-  *
-  * @param string $storageGroup
-  * @param string $storageId
-  * @param boolean $isPublic
-  * @param string $mimeType
-  * @return boolean file is now in target status
-  */
+   * set public status for storage id
+   *
+   * @param string $storageGroup
+   * @param string $storageId
+   * @param boolean $isPublic
+   * @param string $mimeType
+   * @return boolean file is now in target status
+   */
   public function setPublic($storageGroup, $storageId, $isPublic, $mimeType) {
     $client = $this->_handler->setUpRequest(
       $this->_getBucketUrl().'/'.$this->_getStorageObject($storageGroup, $storageId),

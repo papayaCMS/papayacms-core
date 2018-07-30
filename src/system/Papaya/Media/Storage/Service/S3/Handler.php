@@ -13,38 +13,41 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Media\Storage\Service\S3;
 /**
-* Amazon S3 based storage service for Papaya Media Storage
-*
-* @package Papaya-Library
-* @subpackage Media-Storage
-*/
-class PapayaMediaStorageServiceS3Handler {
+ * Amazon S3 based storage service for Papaya Media Storage
+ *
+ * @package Papaya-Library
+ * @subpackage Media-Storage
+ */
+class Handler {
 
   /**
-  * http client object
-  *
-  * @var \Papaya\Http\Client
-  */
+   * http client object
+   *
+   * @var \Papaya\Http\Client
+   */
   private $_client = NULL;
 
   /**
-  * Amazon S3 access key id
-  * @var string
-  */
+   * Amazon S3 access key id
+   *
+   * @var string
+   */
   private $_storageAccessKeyId = '';
 
   /**
-  * Amazon S3 private access key parts (already padded)
-  * @var array
-  */
+   * Amazon S3 private access key parts (already padded)
+   *
+   * @var array
+   */
   private $_storageAccessKey = array();
 
   /**
-  * Constructor - set configuration if provided
-  *
-  * @param \Papaya\Configuration $configuration
-  */
+   * Constructor - set configuration if provided
+   *
+   * @param \Papaya\Configuration $configuration
+   */
   public function __construct($configuration = NULL) {
     if (isset($configuration) && is_object($configuration)) {
       $this->setConfiguration($configuration);
@@ -52,20 +55,20 @@ class PapayaMediaStorageServiceS3Handler {
   }
 
   /**
-  * Set the used HTTP client object.
-  *
-  * @param \Papaya\Http\Client $client
-  * @return void
-  */
+   * Set the used HTTP client object.
+   *
+   * @param \Papaya\Http\Client $client
+   * @return void
+   */
   public function setHTTPClient(\Papaya\Http\Client $client) {
     $this->_client = $client;
   }
 
   /**
-  * Set the storage configuration values.
-  *
-  * @param \Papaya\Configuration $configuration
-  */
+   * Set the storage configuration values.
+   *
+   * @param \Papaya\Configuration $configuration
+   */
   public function setConfiguration($configuration) {
     $this->_storageAccessKeyId = $configuration->get(
       'PAPAYA_MEDIA_STORAGE_S3_KEYID', $this->_storageAccessKeyId
@@ -78,10 +81,10 @@ class PapayaMediaStorageServiceS3Handler {
   }
 
   /**
-  * Initialize HTTP client, create instance if not already exists, reset current instance
-  *
-  * @return void
-  */
+   * Initialize HTTP client, create instance if not already exists, reset current instance
+   *
+   * @return void
+   */
   public function initHTTPClient() {
     if (!isset($this->_client)) {
       $this->_client = new \Papaya\Http\Client();
@@ -90,14 +93,14 @@ class PapayaMediaStorageServiceS3Handler {
   }
 
   /**
-  * Prepare request (set up HTTP client object for action)
-  *
-  * @param string $url
-  * @param string $method
-  * @param array $parameters
-  * @param array $headers
-  * @return \Papaya\Http\Client
-  */
+   * Prepare request (set up HTTP client object for action)
+   *
+   * @param string $url
+   * @param string $method
+   * @param array $parameters
+   * @param array $headers
+   * @return \Papaya\Http\Client
+   */
   public function setUpRequest(
     $url, $method = 'GET', $parameters = array(), $headers = array()
   ) {
@@ -119,7 +122,7 @@ class PapayaMediaStorageServiceS3Handler {
     $this->_client->setHeader(
       'Authorization',
       'AWS '.$this->_storageAccessKeyId.':'.
-        $this->_getSignature($this->getSignatureData($url))
+      $this->_getSignature($this->getSignatureData($url))
     );
     return $this->_client;
   }
@@ -178,12 +181,12 @@ class PapayaMediaStorageServiceS3Handler {
 
 
   /**
-  * The storage key setter creates and sets the two parts of the storage key
-  * needed to create the signature.
-  *
-  * @param string $key
-  * @return void
-  */
+   * The storage key setter creates and sets the two parts of the storage key
+   * needed to create the signature.
+   *
+   * @param string $key
+   * @return void
+   */
   private function _setStorageKey($key) {
     if (strlen($key) < 64) {
       $key = str_pad($key, 64, chr(0));
@@ -195,11 +198,11 @@ class PapayaMediaStorageServiceS3Handler {
   }
 
   /**
-  * Create signature for data string.
-  *
-  * @param string $data
-  * @return string
-  */
+   * Create signature for data string.
+   *
+   * @param string $data
+   * @return string
+   */
   private function _getSignature($data) {
     return base64_encode(
       pack(

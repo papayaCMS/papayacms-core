@@ -37,7 +37,7 @@ class Item {
   /**
    * Media storage service
    *
-   * @var \PapayaMediaStorageService
+   * @var \Papaya\Media\Storage\Service
    */
   private $_storage = NULL;
 
@@ -68,10 +68,10 @@ class Item {
   /**
    * Constructor - define id and storage service
    *
-   * @param \PapayaMediaStorageService $storage
+   * @param \Papaya\Media\Storage\Service $storage
    * @return \PapayaMediaDatabaseItem
    */
-  public function __construct(\PapayaMediaStorageService $storage) {
+  public function __construct(\Papaya\Media\Storage\Service $storage) {
     $this->_storage = $storage;
   }
 

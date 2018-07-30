@@ -2052,7 +2052,7 @@ class papaya_page extends base_object {
   /**
   * Call setPublic() appropriately on the media file.
   *
-  * @see \PapayaMediaStorageService::setPublic
+  * @see \Papaya\Media\Storage\Service::setPublic
   * @param string $storageGroup
   * @param string $storageId
   * @param string $mimeType
@@ -2060,7 +2060,7 @@ class papaya_page extends base_object {
   */
   private function _storageSetPublic($storageGroup, $storageId, $mimeType) {
     $options = $this->papaya()->options;
-    $storage = \PapayaMediaStorage::getService(
+    $storage = \Papaya\Media\Storage::getService(
       $options->get('PAPAYA_MEDIA_STORAGE_SERVICE'),
       $options
     );
