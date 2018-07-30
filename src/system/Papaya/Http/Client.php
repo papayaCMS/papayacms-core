@@ -13,80 +13,92 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Http;
 /**
-* Simple HTTP client object - makes it a little easier to make HTTP requests
-*
-* Supports, GET, POST, PUT and other request methods,
-* header manipulation and file uploads (using streams)
-*
-* @package Papaya-Library
-* @subpackage HTTP-Client
-*/
-class PapayaHttpClient {
+ * Simple HTTP client object - makes it a little easier to make HTTP requests
+ *
+ * Supports, GET, POST, PUT and other request methods,
+ * header manipulation and file uploads (using streams)
+ *
+ * @package Papaya-Library
+ * @subpackage HTTP-Client
+ */
+class Client {
 
   /**
-  * internal socket object
-  * @var \PapayaHttpClientSocket
-  */
+   * internal socket object
+   *
+   * @var \Papaya\Http\Client\Socket
+   */
   private $_socket = NULL;
 
   /**
-  * request method
-  * @var string
-  */
+   * request method
+   *
+   * @var string
+   */
   private $_method = 'GET';
 
   /**
-  * remote url
-  * @var string
-  */
+   * remote url
+   *
+   * @var string
+   */
   private $_url = '';
 
   /**
-  * Transport protocol
-  * @var string
-  */
+   * Transport protocol
+   *
+   * @var string
+   */
   private $_transport = '';
 
   /**
-  * proxy server data
-  * @var array
-  */
+   * proxy server data
+   *
+   * @var array
+   */
   private $_proxy = NULL;
 
   /**
-  * proxy server authorization
-  * @var array
-  */
+   * proxy server authorization
+   *
+   * @var array
+   */
   private $_proxyAuthorization = NULL;
 
   /**
-  * timeout in seconds for request while connecting
-  * @var integer
-  */
+   * timeout in seconds for request while connecting
+   *
+   * @var integer
+   */
   private $_timeout = 10;
 
   /**
-  * timeout in seconds for request while reading data
-  * @var integer
-  */
+   * timeout in seconds for request while reading data
+   *
+   * @var integer
+   */
   private $_timeoutRead = 20;
 
   /**
-  * linebreak chars
-  * @var string
-  */
+   * linebreak chars
+   *
+   * @var string
+   */
   private $_lineBreak = "\r\n";
 
   /**
-  * http request headers
-  * @var \PapayaHttpHeaders
-  */
+   * http request headers
+   *
+   * @var \Papaya\Http\Headers
+   */
   private $_requestHeaders = NULL;
   /**
-  * http request headers
-  * @var string
-  */
+   * http request headers
+   *
+   * @var string
+   */
   private $_defaultRequestHeaders = array(
     'Accept' => '*/*',
     'Accept-Charset' => 'utf-8,*',
@@ -94,46 +106,52 @@ class PapayaHttpClient {
   );
 
   /**
-  * request data array
-  * @var array
-  */
+   * request data array
+   *
+   * @var array
+   */
   private $_requestData = array();
 
   /**
-  * request files array
-  * @var array(\PapayaHttpClientFile)
-  */
+   * request files array
+   *
+   * @var array(\Papaya\Http\Client\PapayaHttpClientFile)
+   */
   private $_requestFiles = array();
 
   /**
-  * http response headers
-  * @var \PapayaHttpHeaders
-  */
+   * http response headers
+   *
+   * @var \Papaya\Http\Headers
+   */
   protected $_responseHeaders = NULL;
 
   /**
-  * http response status code
-  * @var integer
-  */
+   * http response status code
+   *
+   * @var integer
+   */
   private $_responseStatus = 0;
 
   /**
-  * maximum internal redirects
-  * @var integer
-  */
+   * maximum internal redirects
+   *
+   * @var integer
+   */
   private $_redirectLimit = 10;
 
   /**
-  * internal redirect counter
-  * @var integer
-  */
+   * internal redirect counter
+   *
+   * @var integer
+   */
   private $_redirects = 0;
 
   /**
-  * constructor
-  *
-  * @param string $url
-  */
+   * constructor
+   *
+   * @param string $url
+   */
   public function __construct($url = '') {
     $this->reset();
     if (!empty($url)) {
@@ -172,9 +190,10 @@ class PapayaHttpClient {
   }
 
   /**
-  * reset request/response data
-  * @return void
-  */
+   * reset request/response data
+   *
+   * @return void
+   */
   public function reset() {
     $this->_requestHeaders = NULL;
     $this->_requestData = array();
@@ -186,48 +205,48 @@ class PapayaHttpClient {
 
   public function getRequestHeaders() {
     if (is_null($this->_requestHeaders)) {
-      $this->_requestHeaders = new \PapayaHttpHeaders($this->_defaultRequestHeaders);
+      $this->_requestHeaders = new \Papaya\Http\Headers($this->_defaultRequestHeaders);
     }
     return $this->_requestHeaders;
   }
 
   public function getResponseHeaders($reset = FALSE) {
     if ($reset || is_null($this->_responseHeaders)) {
-      $this->_responseHeaders = new \PapayaHttpHeaders();
+      $this->_responseHeaders = new \Papaya\Http\Headers();
     }
     return $this->_responseHeaders;
   }
 
   /**
-  * Dependency injection of a socket object
-  *
-  * @param $socket
-  * @access public
-  * @return void
-  */
-  public function setSocket(\PapayaHttpClientSocket $socket) {
+   * Dependency injection of a socket object
+   *
+   * @param $socket
+   * @access public
+   * @return void
+   */
+  public function setSocket(\Papaya\Http\Client\Socket $socket) {
     $this->_socket = $socket;
   }
 
   /**
-  * return socket object
-  *
-  * @access public
-  * @return object \PapayaHTTPsocket
-  */
+   * return socket object
+   *
+   * @access public
+   * @return object \PapayaHTTPsocket
+   */
   public function getSocket() {
     if (is_null($this->_socket)) {
-      $this->_socket = new \PapayaHttpClientSocket();
+      $this->_socket = new \Papaya\Http\Client\Socket();
     }
     return $this->_socket;
   }
 
   /**
-  * Set the transport protocol
-  *
-  * @param string $transport
-  * @return boolean TRUE if empty or available in stream_get_transports(), FALSE otherwise
-  */
+   * Set the transport protocol
+   *
+   * @param string $transport
+   * @return boolean TRUE if empty or available in stream_get_transports(), FALSE otherwise
+   */
   public function setTransport($transport) {
     $result = FALSE;
     if ($transport == '' || in_array($transport, stream_get_transports())) {
@@ -238,10 +257,10 @@ class PapayaHttpClient {
   }
 
   /**
-  * Get the transport protocol
-  *
-  * @return string
-  */
+   * Get the transport protocol
+   *
+   * @return string
+   */
   public function getTransport() {
     return $this->_transport;
   }
@@ -283,71 +302,72 @@ class PapayaHttpClient {
   }
 
   /**
-  * Set limit for internal redirects
-  * @param $redirectLimit
-  */
+   * Set limit for internal redirects
+   *
+   * @param $redirectLimit
+   */
   public function setRedirectLimit($redirectLimit) {
     $this->_redirectLimit = (int)$redirectLimit;
   }
 
   /**
-  * Get limit for internal redirects
-  */
+   * Get limit for internal redirects
+   */
   public function getRedirectLimit() {
     return $this->_redirectLimit;
   }
 
   /**
-  * send the request to the remote server
-  *
-  * @access public
-  * @return boolean
-  */
+   * send the request to the remote server
+   *
+   * @access public
+   * @return boolean
+   */
   public function send() {
     if ($socket = $this->open()) {
       switch ($this->_method) {
-      case 'GET' :
-      case 'HEAD' :
-      case 'COPY' :
-      case 'DELETE' :
-        $socket->write($this->_lineBreak);
+        case 'GET' :
+        case 'HEAD' :
+        case 'COPY' :
+        case 'DELETE' :
+          $socket->write($this->_lineBreak);
         break;
-      case 'POST' :
-        $requestHeaders = $this->getRequestHeaders();
-        if (isset($this->_requestFiles) &&
+        case 'POST' :
+          $requestHeaders = $this->getRequestHeaders();
+          if (isset($this->_requestFiles) &&
             is_array($this->_requestFiles) &&
             count($this->_requestFiles) > 0) {
-          $this->_sendMultipartFormData(
-            isset($requestHeaders['Transfer-Encoding']) &&
-            $requestHeaders['Transfer-Encoding'] == 'chunked'
-          );
-          break;
-        }
-        $contentType = isset($requestHeaders['Content-Type'])
-          ? $requestHeaders['Content-Type'] : 'application/x-www-form-urlencoded';
-        switch ($contentType) {
-        case 'text/xml':
-        case 'text/xml; charset=utf-8':
-        case 'application/soap+xml':
-          $this->_sendRawPostData();
-          break;
-        case 'application/x-www-form-urlencoded':
-        default:
-          $this->_sendUrlencodedFormData();
-        }
+            $this->_sendMultipartFormData(
+              isset($requestHeaders['Transfer-Encoding']) &&
+              $requestHeaders['Transfer-Encoding'] == 'chunked'
+            );
+            break;
+          }
+          $contentType = isset($requestHeaders['Content-Type'])
+            ? $requestHeaders['Content-Type'] : 'application/x-www-form-urlencoded';
+          switch ($contentType) {
+            case 'text/xml':
+            case 'text/xml; charset=utf-8':
+            case 'application/soap+xml':
+              $this->_sendRawPostData();
+            break;
+            case 'application/x-www-form-urlencoded':
+            default:
+              $this->_sendUrlencodedFormData();
+          }
         break;
-      case 'PUT' :
-        if (isset($this->_requestFiles) &&
+        case 'PUT' :
+          if (isset($this->_requestFiles) &&
             is_array($this->_requestFiles) &&
             count($this->_requestFiles) > 0) {
-          $file = reset($this->_requestFiles);
-          $socket->write(
-            'Content-Length: '.$file->getSize().$this->_lineBreak.$this->_lineBreak
-          );
-          $file->send($socket, FALSE);
-        } else {
-          $socket->write('Content-Length: 0'.$this->_lineBreak.$this->_lineBreak);
-        }
+            $file = reset($this->_requestFiles);
+            $socket->write(
+              'Content-Length: '.$file->getSize().$this->_lineBreak.$this->_lineBreak
+            );
+            $file->send($socket, FALSE);
+          } else {
+            $socket->write('Content-Length: 0'.$this->_lineBreak.$this->_lineBreak);
+          }
         break;
       }
       $this->readResponseHeaders();
@@ -357,10 +377,10 @@ class PapayaHttpClient {
   }
 
   /**
-  * Open the connection and return the socket object
-  *
-  * @return \PapayaHttpClientSocket
-  */
+   * Open the connection and return the socket object
+   *
+   * @return \Papaya\Http\Client\Socket
+   */
   public function open() {
     $socket = $this->getSocket();
     if (isset($this->_proxy)) {
@@ -394,11 +414,11 @@ class PapayaHttpClient {
   }
 
   /**
-  * send a multipart/form-data formatted request body
-  *
-  * @param boolean $chunked optional, default value FALSE
-  * @return void
-  */
+   * send a multipart/form-data formatted request body
+   *
+   * @param boolean $chunked optional, default value FALSE
+   * @return void
+   */
   private function _sendMultipartFormData($chunked = FALSE) {
     $boundary = '-------------'.md5(rand(0, time()));
     $this->_socket->write(
@@ -415,9 +435,9 @@ class PapayaHttpClient {
     $requestBodySize = strlen($requestBody) + strlen($requestBodyClose);
     $requestFileHeaders = array();
     if (isset($this->_requestFiles) &&
-        is_array($this->_requestFiles) &&
-        count($this->_requestFiles) > 0) {
-      /** @var \PapayaHttpClientFile $file */
+      is_array($this->_requestFiles) &&
+      count($this->_requestFiles) > 0) {
+      /** @var \Papaya\Http\Client\File $file */
       foreach ($this->_requestFiles as $name => $file) {
         $size = $file->getSize();
         if (!empty($name) && $size > 0) {
@@ -454,10 +474,10 @@ class PapayaHttpClient {
   }
 
   /**
-  * This method sends raw POST data without any conversion or additional headers.
-  *
-  * @return void
-  */
+   * This method sends raw POST data without any conversion or additional headers.
+   *
+   * @return void
+   */
   private function _sendRawPostData() {
     $data = $this->_lineBreak;
     $data .= implode('', $this->_requestData);
@@ -466,10 +486,10 @@ class PapayaHttpClient {
   }
 
   /**
-  * send urlencoded form data request body (no file uploads)
-  *
-  * @return void
-  */
+   * send urlencoded form data request body (no file uploads)
+   *
+   * @return void
+   */
   private function _sendUrlencodedFormData() {
     $data = '';
     foreach ($this->_requestData as $name => $value) {
@@ -477,7 +497,7 @@ class PapayaHttpClient {
     }
     $data = substr($data, 1);
     $requestHeaders = $this->getRequestHeaders();
-    $additionalRequestHeaders = new \PapayaHttpHeaders();
+    $additionalRequestHeaders = new \Papaya\Http\Headers();
     if (!isset($requestHeaders['Content-Type'])) {
       $additionalRequestHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
     }
@@ -486,12 +506,12 @@ class PapayaHttpClient {
   }
 
   /**
-  * Get the Request-URI for use in the HTTP Request-Line
-  * at the start of the Request.
-  * As this is usually a relative URI it is only useful for the actual request.
-  *
-  * @return string
-  */
+   * Get the Request-URI for use in the HTTP Request-Line
+   * at the start of the Request.
+   * As this is usually a relative URI it is only useful for the actual request.
+   *
+   * @return string
+   */
   public function getRequestUri() {
     if (empty($this->_url['path'])) {
       $path = '/';
@@ -502,8 +522,8 @@ class PapayaHttpClient {
       $path .= '?'.$this->_url['query'];
     }
     if (is_array($this->_requestData) &&
-        count($this->_requestData) > 0 &&
-        in_array($this->_method, array('GET', 'HEAD', 'COPY', 'DELETE'))) {
+      count($this->_requestData) > 0 &&
+      in_array($this->_method, array('GET', 'HEAD', 'COPY', 'DELETE'))) {
       $queryString = '';
       foreach ($this->_requestData as $name => $value) {
         $queryString .= '&'.rawurlencode($name).'='.rawurlencode($value);
@@ -529,11 +549,11 @@ class PapayaHttpClient {
   }
 
   /**
-  * get the request headers in one string
-  *
-  * @access public
-  * @return string
-  */
+   * get the request headers in one string
+   *
+   * @access public
+   * @return string
+   */
   public function getRequestHeaderString() {
     $result = '';
     $path = $this->getRequestUri();
@@ -555,11 +575,11 @@ class PapayaHttpClient {
   }
 
   /**
-  * close the current socket
-  *
-  * @access public
-  * @return boolean
-  */
+   * close the current socket
+   *
+   * @access public
+   * @return boolean
+   */
   public function close() {
     if (isset($this->_socket)) {
       return $this->_socket->close();
@@ -568,65 +588,66 @@ class PapayaHttpClient {
   }
 
   /**
-  * set the http method, note that not all methods support additional request data
-  *
-  * @param string $method
-  * @access public
-  * @return void
-  */
+   * set the http method, note that not all methods support additional request data
+   *
+   * @param string $method
+   * @access public
+   * @return void
+   */
   public function setMethod($method) {
     $method = strtoupper($method);
     switch ($method) {
-    case 'COPY' :
-    case 'DELETE' :
-    case 'GET' :
-    case 'HEAD' :
-    case 'POST' :
-    case 'PUT' :
-      $this->_method = $method;
+      case 'COPY' :
+      case 'DELETE' :
+      case 'GET' :
+      case 'HEAD' :
+      case 'POST' :
+      case 'PUT' :
+        $this->_method = $method;
       break;
     }
   }
 
   /**
-  * return current http method
-  *
-  * @return string
-  */
+   * return current http method
+   *
+   * @return string
+   */
   public function getMethod() {
     return $this->_method;
   }
 
   /**
-  * set a http header, the second parameter allows to set several headers with the same name.
-  *
-  * @param string $name header name
-  * @param string $value
-  * @param boolean $allowDuplicates optional, default value FALSE
-  * @access public
-  * @return boolean
-  */
+   * set a http header, the second parameter allows to set several headers with the same name.
+   *
+   * @param string $name header name
+   * @param string $value
+   * @param boolean $allowDuplicates optional, default value FALSE
+   * @access public
+   * @return boolean
+   */
   public function setHeader($name, $value, $allowDuplicates = FALSE) {
     return $this->getRequestHeaders()->set($name, $value, $allowDuplicates);
   }
 
   /**
-  * get a request http header value
-  * @param string $name
-  * @return string|array|NULL
-  */
+   * get a request http header value
+   *
+   * @param string $name
+   * @return string|array|NULL
+   */
   public function getHeader($name) {
     return $this->getRequestHeaders()->get($name);
   }
 
   /**
-  * add request data, this data will be encoded and send to the server
-  *
-  * @param mixed $data
-  * @param mixed $value - if value is set $data should be an simple name string
-  * @access public
-  * @return void
-  */
+   * add request data, this data will be encoded and send to the server
+   *
+   * @param mixed $data
+   * @param mixed $value - if value is set $data should be an simple name string
+   * @access public
+   * @return void
+   */
   public function addRequestData($data, $value = NULL) {
     if (isset($value)) {
       $data = array(
@@ -650,21 +671,21 @@ class PapayaHttpClient {
   /**
    * add files to request
    *
-   * @param \PapayaHttpClientFile $file
+   * @param \Papaya\Http\Client\File $file
    * @return boolean
    */
-  public function addRequestFile(\PapayaHttpClientFile $file) {
+  public function addRequestFile(\Papaya\Http\Client\File $file) {
     $this->_requestFiles[$file->getName()] = $file;
     return TRUE;
   }
 
   /**
-  * Flatten a recursive array to a single level depth - the keys are build using []
-  *
-  * @param string $name
-  * @param array $data
-  * @return array
-  */
+   * Flatten a recursive array to a single level depth - the keys are build using []
+   *
+   * @param string $name
+   * @param array $data
+   * @return array
+   */
   private function _flattenArray($name, $data) {
     $result = array();
     foreach ($data as $elementName => $value) {
@@ -682,14 +703,14 @@ class PapayaHttpClient {
   }
 
   /**
-  * read response headers from socket
-  *
-  * @return void
-  */
+   * read response headers from socket
+   *
+   * @return void
+   */
   public function readResponseHeaders() {
     $responseHeaders = $this->getResponseHeaders(TRUE);
     if (isset($this->_socket) &&
-        $this->_socket->isActive()) {
+      $this->_socket->isActive()) {
       $headerLines = array();
       $this->_socket->activateReadTimeout($this->_timeoutRead);
       while (!$this->_socket->eof()) {
@@ -719,23 +740,23 @@ class PapayaHttpClient {
   /**
    * act on certain response headers
    *
-   * @param \PapayaHttpHeaders $responseHeaders
+   * @param \Papaya\Http\Headers $responseHeaders
    */
   private function _actOnResponseHeaders($responseHeaders) {
     if (isset($responseHeaders['Connection']) &&
-        strtolower($responseHeaders['Connection']) === 'close') {
+      strtolower($responseHeaders['Connection']) === 'close') {
       $this->_socket->setKeepAlive(FALSE);
     }
     if ($this->_method === 'HEAD') {
       $this->_socket->setContentLength(0);
     } elseif (isset($responseHeaders['Location']) &&
-              $this->_redirectLimit > $this->_redirects++) {
+      $this->_redirectLimit > $this->_redirects++) {
       $this->_handleRedirect($responseHeaders['Location']);
     } elseif (isset($responseHeaders['Transfer-Encoding']) &&
-        strtolower($responseHeaders['Transfer-Encoding']) == 'chunked') {
+      strtolower($responseHeaders['Transfer-Encoding']) == 'chunked') {
       $this->_socket->setContentLength(-2);
     } elseif (isset($responseHeaders['Content-Length']) &&
-              $responseHeaders['Content-Length'] > 0) {
+      $responseHeaders['Content-Length'] > 0) {
       $this->_socket->setContentLength((int)$responseHeaders['Content-Length']);
     } else {
       $this->_socket->setContentLength(-1);
@@ -743,9 +764,10 @@ class PapayaHttpClient {
   }
 
   /**
-  * Do a redirect
-  * @param $targetLocation
-  */
+   * Do a redirect
+   *
+   * @param $targetLocation
+   */
   private function _handleRedirect($targetLocation) {
     $this->_socket->close();
     $this->setUrl($targetLocation);
@@ -753,36 +775,36 @@ class PapayaHttpClient {
   }
 
   /**
-  * return response status
-  *
-  * @access public
-  * @return integer
-  */
+   * return response status
+   *
+   * @access public
+   * @return integer
+   */
   public function getResponseStatus() {
     return $this->_responseStatus;
   }
 
   /**
-  * get response header value
-  *
-  * @param string $name
-  * @access public
-  * @return mixed
-  */
+   * get response header value
+   *
+   * @param string $name
+   * @access public
+   * @return mixed
+   */
   public function getResponseHeader($name) {
     return $this->getResponseHeaders()->get($name);
   }
 
   /**
-  * get response data and close socket
-  *
-  * @access public
-  * @return string
-  */
+   * get response data and close socket
+   *
+   * @access public
+   * @return string
+   */
   public function getResponseData() {
     $result = '';
     if (isset($this->_socket) &&
-        $this->_socket->isActive()) {
+      $this->_socket->isActive()) {
       while (!$this->_socket->eof()) {
         $data = $this->_socket->read();
         $result .= $data;

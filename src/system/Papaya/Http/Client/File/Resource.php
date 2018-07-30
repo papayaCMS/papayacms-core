@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Http\Client\File;
 /**
-* Papaya HTTP Client File Resource - handle file upload resource using a resource id
-*
-* @package Papaya-Library
-* @subpackage HTTP-Client
-*/
-class PapayaHttpClientFileResource extends \PapayaHttpClientFile {
+ * Papaya HTTP Client File Resource - handle file upload resource using a resource id
+ *
+ * @package Papaya-Library
+ * @subpackage HTTP-Client
+ */
+class Resource extends \Papaya\Http\Client\File {
 
   protected $_size = NULL;
 
@@ -32,8 +33,8 @@ class PapayaHttpClientFileResource extends \PapayaHttpClientFile {
    */
   public function __construct($name, $fileName, $resource, $mimeType = '') {
     if (!empty($name) &&
-        !empty($fileName) &&
-        is_resource($resource)) {
+      !empty($fileName) &&
+      is_resource($resource)) {
       $this->_name = $name;
       $this->_fileName = $fileName;
       $this->_resource = $resource;
@@ -46,11 +47,11 @@ class PapayaHttpClientFileResource extends \PapayaHttpClientFile {
   }
 
   /**
-  * read file resource size and/or return it
-  *
-  * @access public
-  * @return integer
-  */
+   * read file resource size and/or return it
+   *
+   * @access public
+   * @return integer
+   */
   public function getSize() {
     if (!isset($this->_size)) {
       $this->_size = 0;
@@ -65,12 +66,12 @@ class PapayaHttpClientFileResource extends \PapayaHttpClientFile {
   /**
    * send file data
    *
-   * @param \PapayaHttpClientSocket $socket
+   * @param \Papaya\Http\Client\Socket $socket
    * @param boolean $chunked optional, default value FALSE
    * @param integer $bufferSize optional, default value 0
    * @throws \UnexpectedValueException
    */
-  public function send(\PapayaHttpClientSocket $socket, $chunked = FALSE, $bufferSize = 0) {
+  public function send(\Papaya\Http\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {
     if (is_resource($this->_resource)) {
       if ($socket->isActive()) {
         if ($bufferSize <= 0) {

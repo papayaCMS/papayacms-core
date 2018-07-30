@@ -21,6 +21,6 @@ namespace Papaya\Email;
  * @package Papaya-Library
  * @subpackage Email
  */
-class Headers extends \PapayaHttpHeaders {
+class Headers extends \Papaya\Http\Headers {
 
 }

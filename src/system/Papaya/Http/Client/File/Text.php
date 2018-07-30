@@ -13,39 +13,42 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Http\Client\File;
 /**
-* Papaya HTTP Client File String - handle file upload resource using a data string
-*
-* @package Papaya-Library
-* @subpackage HTTP-Client
-*/
-class PapayaHttpClientFileString extends \PapayaHttpClientFile {
+ * Papaya HTTP Client File String - handle file upload resource using a data string
+ *
+ * @package Papaya-Library
+ * @subpackage HTTP-Client
+ */
+class Text extends \Papaya\Http\Client\File {
 
   /**
-  * data size
-  * @var NULL|Integer
-  */
+   * data size
+   *
+   * @var NULL|Integer
+   */
   protected $_size = NULL;
   /**
-  * content
-  * @var string
-  */
+   * content
+   *
+   * @var string
+   */
   private $_data = '';
 
   /**
-  * constructor
-  *
-  * @param string $name
-  * @param string $fileName
-  * @param string $data
-  * @param string $mimeType optional, default value ''
-  * @access public
-  */
+   * constructor
+   *
+   * @param string $name
+   * @param string $fileName
+   * @param string $data
+   * @param string $mimeType optional, default value ''
+   * @access public
+   */
   public function __construct($name, $fileName, $data, $mimeType = '') {
     if (!empty($name) &&
-        !empty($fileName) &&
-        is_string($data) &&
-        !empty($data)) {
+      !empty($fileName) &&
+      is_string($data) &&
+      !empty($data)) {
       $this->_name = $name;
       $this->_fileName = $fileName;
       $this->_data = $data;
@@ -58,11 +61,11 @@ class PapayaHttpClientFileString extends \PapayaHttpClientFile {
   }
 
   /**
-  * set data string size and/or return it
-  *
-  * @access public
-  * @return integer
-  */
+   * set data string size and/or return it
+   *
+   * @access public
+   * @return integer
+   */
   public function getSize() {
     if (!isset($this->_size)) {
       $this->_size = strlen($this->_data);
@@ -71,15 +74,15 @@ class PapayaHttpClientFileString extends \PapayaHttpClientFile {
   }
 
   /**
-  * send file data
-  *
-  * @param \PapayaHttpClientSocket $socket
-  * @param boolean $chunked optional, default value FALSE
-  * @param integer $bufferSize optional, default value 0
-  * @access public
-  * @return void
-  */
-  public function send(\PapayaHttpClientSocket $socket, $chunked = FALSE, $bufferSize = 0) {
+   * send file data
+   *
+   * @param \Papaya\Http\Client\Socket $socket
+   * @param boolean $chunked optional, default value FALSE
+   * @param integer $bufferSize optional, default value 0
+   * @access public
+   * @return void
+   */
+  public function send(\Papaya\Http\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {
     if (is_string($this->_data) && $this->getSize() > 0) {
       if ($socket->isActive()) {
         if ($chunked) {

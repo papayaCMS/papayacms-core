@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Http\Client\File;
 /**
-* Papaya HTTP Client File Name - handle file upload resource using a filename
-*
-* @package Papaya-Library
-* @subpackage HTTP-Client
-*/
-class PapayaHttpClientFileName extends \PapayaHttpClientFile {
+ * Papaya HTTP Client File Name - handle file upload resource using a filename
+ *
+ * @package Papaya-Library
+ * @subpackage HTTP-Client
+ */
+class Name extends \Papaya\Http\Client\File {
 
   /**
-  * initialize to an inter value on first @see getSize()
-  * @var integer
-  */
+   * initialize to an inter value on first @see getSize()
+   *
+   * @var integer
+   */
   protected $_size = NULL;
 
   /**
@@ -36,9 +38,9 @@ class PapayaHttpClientFileName extends \PapayaHttpClientFile {
    */
   public function __construct($name, $fileName, $mimeType = '') {
     if (!empty($name) &&
-        file_exists($fileName) &&
-        is_file($fileName) &&
-        is_readable($fileName)) {
+      file_exists($fileName) &&
+      is_file($fileName) &&
+      is_readable($fileName)) {
       $this->_name = $name;
       $this->_fileName = $fileName;
       if (!empty($mimeType)) {
@@ -50,11 +52,11 @@ class PapayaHttpClientFileName extends \PapayaHttpClientFile {
   }
 
   /**
-  * read filesize and/or return it
-  *
-  * @access public
-  * @return integer
-  */
+   * read filesize and/or return it
+   *
+   * @access public
+   * @return integer
+   */
   public function getSize() {
     if (!isset($this->_size)) {
       $this->_size = filesize($this->_fileName);
@@ -65,14 +67,14 @@ class PapayaHttpClientFileName extends \PapayaHttpClientFile {
   /**
    * send file data
    *
-   * @param \PapayaHttpClientSocket $socket
+   * @param \Papaya\Http\Client\Socket $socket
    * @param boolean $chunked optional, default value FALSE
    * @param integer $bufferSize optional, default value 0
    * @throws \LogicException
    * @access public
    * @return void
    */
-  public function send(\PapayaHttpClientSocket $socket, $chunked = FALSE, $bufferSize = 0) {
+  public function send(\Papaya\Http\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {
     if ($fh = @fopen($this->_fileName, 'r')) {
       if ($socket->isActive()) {
         if ($bufferSize <= 0) {

@@ -14,30 +14,31 @@
  */
 
 
+namespace Papaya\Http;
 /**
-* Papaya HTTP Client Headers - handles a list of http headers.
-*
-* Headers with the same name replace the original or create an subarray of the values. The header
-* name is normalized to camel case.
-*
-* @package Papaya-Library
-* @subpackage HTTP-Client
-*/
-class PapayaHttpHeaders
+ * Papaya HTTP Client Headers - handles a list of http headers.
+ *
+ * Headers with the same name replace the original or create an subarray of the values. The header
+ * name is normalized to camel case.
+ *
+ * @package Papaya-Library
+ * @subpackage HTTP-Client
+ */
+class Headers
   implements \IteratorAggregate, \Countable, \ArrayAccess {
 
   /**
-  * Internal header storage array
-  *
-  * @var array
-  */
+   * Internal header storage array
+   *
+   * @var array
+   */
   protected $_headers = array();
 
   /**
-  * Create object and assign some standard values to the internal storage if provided.
-  *
-  * @param array $defaults
-  */
+   * Create object and assign some standard values to the internal storage if provided.
+   *
+   * @param array $defaults
+   */
   public function __construct(array $defaults = NULL) {
     if (isset($defaults)) {
       foreach ($defaults as $name => $value) {
@@ -47,38 +48,39 @@ class PapayaHttpHeaders
   }
 
   /**
-  * Returns the internal headers array
-  *
-  * @return array
-  */
+   * Returns the internal headers array
+   *
+   * @return array
+   */
   public function toArray() {
     return $this->_headers;
   }
 
   /**
-  * IteratorAggregate Interface: allow to iterate the headers
-  *
-  * @return \ArrayIterator
-  */
+   * IteratorAggregate Interface: allow to iterate the headers
+   *
+   * @return \ArrayIterator
+   */
   public function getIterator() {
     return new \ArrayIterator($this->toArray());
   }
 
   /**
-  * Countable Interface: returns the count of the unique headers. Headers with the same name but
-  * different values will be counted only once.
-  *
-  * @return integer
-  */
+   * Countable Interface: returns the count of the unique headers. Headers with the same name but
+   * different values will be counted only once.
+   *
+   * @return integer
+   */
   public function count() {
     return count($this->_headers);
   }
 
   /**
-  * get a request http header value
-  * @param string $name
-  * @return string|array|NULL
-  */
+   * get a request http header value
+   *
+   * @param string $name
+   * @return string|array|NULL
+   */
   public function get($name) {
     if (trim($name) != '') {
       $name = $this->normalizeName($name);
@@ -90,22 +92,22 @@ class PapayaHttpHeaders
   }
 
   /**
-  * set a http header, the second parameter allows to set several headers with the same name.
-  *
-  * @param string $name header name
-  * @param string $value
-  * @param boolean $allowDuplicates optional, default value FALSE
-  * @access public
-  * @return boolean
-  */
+   * set a http header, the second parameter allows to set several headers with the same name.
+   *
+   * @param string $name header name
+   * @param string $value
+   * @param boolean $allowDuplicates optional, default value FALSE
+   * @access public
+   * @return boolean
+   */
   public function set($name, $value, $allowDuplicates = FALSE) {
     if (trim($name) != '') {
       $name = $this->normalizeName($name);
       if ($allowDuplicates &&
-          isset($this->_headers[$name])) {
+        isset($this->_headers[$name])) {
         if (!empty($value)) {
           if (isset($this->_headers[$name]) &&
-              !is_array($this->_headers[$name])) {
+            !is_array($this->_headers[$name])) {
             $this->_headers[$name] = array(
               $this->_headers[$name]
             );
@@ -125,34 +127,34 @@ class PapayaHttpHeaders
   }
 
   /**
-  * format header names lowercase but each first char
-  * (at string start or after a -) has to be uppercase
-  *
-  * @param string $name
-  * @access public
-  * @return string
-  */
+   * format header names lowercase but each first char
+   * (at string start or after a -) has to be uppercase
+   *
+   * @param string $name
+   * @access public
+   * @return string
+   */
   protected function normalizeName($name) {
     $parts = explode('-', strtolower($name));
     return implode('-', array_map('ucfirst', $parts));
   }
 
   /**
-  * ArrayAccess Interface: check if an heaer exists
-  *
-  * @param integer $offset
-  * @return boolean
-  */
+   * ArrayAccess Interface: check if an heaer exists
+   *
+   * @param integer $offset
+   * @return boolean
+   */
   public function offsetExists($offset) {
     return isset($this->_headers[$this->normalizeName($offset)]);
   }
 
   /**
-  * ArrayAccess Interface: get an header
-  *
-  * @param integer $offset
-  * @return string|array|NULL
-  */
+   * ArrayAccess Interface: get an header
+   *
+   * @param integer $offset
+   * @return string|array|NULL
+   */
   public function offsetGet($offset) {
     return $this->get($offset);
   }
@@ -169,19 +171,19 @@ class PapayaHttpHeaders
   }
 
   /**
-  * ArrayAccess Interface: remove an header
-  *
-  * @param integer $offset
-  */
+   * ArrayAccess Interface: remove an header
+   *
+   * @param integer $offset
+   */
   public function offsetUnset($offset) {
     unset($this->_headers[$this->normalizeName($offset)]);
   }
 
   /**
-  * Convert the headers array into a string an return it.
-  *
-  * @return string
-  */
+   * Convert the headers array into a string an return it.
+   *
+   * @return string
+   */
   public function __toString() {
     $result = '';
     $lineBreaks = array("\r\n", "\n\r", "\r", "\n");

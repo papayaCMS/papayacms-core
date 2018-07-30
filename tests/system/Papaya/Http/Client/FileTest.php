@@ -54,7 +54,7 @@ class PapayaHttpClientFileTest extends \PapayaTestCase {
   }
 }
 
-class PapayaHttpClientFile_TestProxy extends \PapayaHttpClientFile {
+class PapayaHttpClientFile_TestProxy extends \Papaya\Http\Client\File {
 
   public
     /** @noinspection PropertyInitializationFlawsInspection */
@@ -62,7 +62,7 @@ class PapayaHttpClientFile_TestProxy extends \PapayaHttpClientFile {
     /** @noinspection PropertyInitializationFlawsInspection */
     $_mimeType = '';
 
-  public function send(\PapayaHttpClientSocket $socket, $chunked = FALSE, $bufferSize = 0) {
+  public function send(\Papaya\Http\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0) {
     parent::send($socket, $chunked, $bufferSize);
   }
 

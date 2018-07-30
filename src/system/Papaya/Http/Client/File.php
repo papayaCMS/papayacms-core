@@ -13,65 +13,72 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Http\Client;
 /**
-* Abstract class for file upload handling
-*
-* @package Papaya-Library
-* @subpackage HTTP-Client
-*/
-abstract class PapayaHttpClientFile {
+ * Abstract class for file upload handling
+ *
+ * @package Papaya-Library
+ * @subpackage HTTP-Client
+ */
+abstract class File {
 
   /**
-  * linebreak chars
-  * @var string
-  */
+   * linebreak chars
+   *
+   * @var string
+   */
   protected $_lineBreak = "\r\n";
 
   /**
-  * buffer size for read and send file data
-  * @var integer
-  */
+   * buffer size for read and send file data
+   *
+   * @var integer
+   */
   protected $_bufferSize = 10240;
 
   /**
-  * field name
-  * @var string
-  */
+   * field name
+   *
+   * @var string
+   */
   protected $_name = '';
 
   /**
-  * file name
-  * @var string
-  */
+   * file name
+   *
+   * @var string
+   */
   protected $_fileName = '';
 
   /**
-  * file mime type
-  * @var string
-  */
+   * file mime type
+   *
+   * @var string
+   */
   protected $_mimeType = '';
 
   /**
-  * file size
-  * @var integer
-  */
+   * file size
+   *
+   * @var integer
+   */
   protected $_size = 0;
 
   /**
-  * abstract send function
-  *
-  * @param \PapayaHttpClientSocket $socket
-  * @param boolean $chunked optional, default value FALSE
-  * @param integer $bufferSize optional, default value 0
-  * @return void
-  */
-  abstract public function send(\PapayaHttpClientSocket $socket, $chunked = FALSE, $bufferSize = 0);
+   * abstract send function
+   *
+   * @param \Papaya\Http\Client\Socket $socket
+   * @param boolean $chunked optional, default value FALSE
+   * @param integer $bufferSize optional, default value 0
+   * @return void
+   */
+  abstract public function send(\Papaya\Http\Client\Socket $socket, $chunked = FALSE, $bufferSize = 0);
 
   /**
-  * get file size property value
-  *
-  * @return integer
-  */
+   * get file size property value
+   *
+   * @return integer
+   */
   public function getSize() {
     return $this->_size;
   }
@@ -91,10 +98,10 @@ abstract class PapayaHttpClientFile {
   }
 
   /**
-  * get http headers (for multipart formatting)
-  *
-  * @return string
-  */
+   * get http headers (for multipart formatting)
+   *
+   * @return string
+   */
   public function getHeaders() {
     $result = sprintf(
       'Content-Disposition: form-data; name="%s"; filename="%s"'.$this->_lineBreak,
@@ -112,12 +119,12 @@ abstract class PapayaHttpClientFile {
   }
 
   /**
-  * escape a header value (like the filename)
-  *
-  * @param $value
-  * @access public
-  * @return string
-  */
+   * escape a header value (like the filename)
+   *
+   * @param $value
+   * @access public
+   * @return string
+   */
   protected function _escapeHeaderValue($value) {
     return str_replace(array('\\', '"'), array('\\\\', '\\"'), $value);
   }

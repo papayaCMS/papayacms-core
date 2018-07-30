@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaHttpHeadersTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaHttpHeaders::__construct
+  * @covers \Papaya\Http\Headers::__construct
   */
   public function testConstructor() {
-    $headers = new \PapayaHttpHeaders(
+    $headers = new \Papaya\Http\Headers(
       array('X-Hello' => 'World')
     );
     $this->assertAttributeEquals(
@@ -30,10 +30,10 @@ class PapayaHttpHeadersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaHttpHeaders::toArray
+  * @covers \Papaya\Http\Headers::toArray
   */
   public function testToArray() {
-    $headers = new \PapayaHttpHeaders(
+    $headers = new \Papaya\Http\Headers(
       array('X-Hello' => 'World')
     );
     $this->assertEquals(
@@ -42,10 +42,10 @@ class PapayaHttpHeadersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaHttpHeaders::getIterator
+  * @covers \Papaya\Http\Headers::getIterator
   */
   public function testGetIterator() {
-    $headers = new \PapayaHttpHeaders(
+    $headers = new \Papaya\Http\Headers(
       array('X-Hello' => 'World')
     );
     $iterator = $headers->getIterator();
@@ -56,23 +56,23 @@ class PapayaHttpHeadersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaHttpHeaders::count
+  * @covers \Papaya\Http\Headers::count
   */
   public function testCount() {
-    $headers = new \PapayaHttpHeaders(
+    $headers = new \Papaya\Http\Headers(
       array('X-Hello' => 'World', 'X-World' => 'Hello')
     );
     $this->assertCount(2, $headers);
   }
 
   /**
-   * @covers \PapayaHttpHeaders::get
-   * @covers \PapayaHttpHeaders::normalizeName
+   * @covers \Papaya\Http\Headers::get
+   * @covers \Papaya\Http\Headers::normalizeName
    * @dataProvider provideValidHeaderVariants
    * @param string $name
    */
   public function testGet($name) {
-    $headers = new \PapayaHttpHeaders(
+    $headers = new \Papaya\Http\Headers(
       array('X-Hello' => 'World')
     );
     $this->assertEquals(
@@ -81,10 +81,10 @@ class PapayaHttpHeadersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaHttpHeaders::get
+  * @covers \Papaya\Http\Headers::get
   */
   public function testGetWithInvalidNameExpectingNull() {
-    $headers = new \PapayaHttpHeaders(
+    $headers = new \Papaya\Http\Headers(
       array('X-Hello' => 'World')
     );
     $this->assertNull(
@@ -93,10 +93,10 @@ class PapayaHttpHeadersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaHttpHeaders::set
+  * @covers \Papaya\Http\Headers::set
   */
   public function testSet() {
-    $headers = new \PapayaHttpHeaders();
+    $headers = new \Papaya\Http\Headers();
     $headers->set('X-Hello', 'World');
     $this->assertAttributeEquals(
       array('X-Hello' => 'World'), '_headers', $headers
@@ -104,10 +104,10 @@ class PapayaHttpHeadersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaHttpHeaders::set
+  * @covers \Papaya\Http\Headers::set
   */
   public function testSetReplacesFirst() {
-    $headers = new \PapayaHttpHeaders();
+    $headers = new \Papaya\Http\Headers();
     $headers->set('X-Hello', 'World');
     $headers->set('X-Hello', 'Moon');
     $this->assertAttributeEquals(
@@ -116,10 +116,10 @@ class PapayaHttpHeadersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaHttpHeaders::set
+  * @covers \Papaya\Http\Headers::set
   */
   public function testSetAllowsDuplicates() {
-    $headers = new \PapayaHttpHeaders();
+    $headers = new \Papaya\Http\Headers();
     $headers->set('X-Hello', 'World');
     $headers->set('X-Hello', 'Moon', TRUE);
     $this->assertAttributeEquals(
@@ -128,10 +128,10 @@ class PapayaHttpHeadersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaHttpHeaders::set
+  * @covers \Papaya\Http\Headers::set
   */
   public function testSetEmptyValueRemovesHeader() {
-    $headers = new \PapayaHttpHeaders();
+    $headers = new \Papaya\Http\Headers();
     $headers->set('X-Hello', 'World');
     $headers->set('X-Hello', '');
     $this->assertAttributeEquals(
@@ -140,10 +140,10 @@ class PapayaHttpHeadersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaHttpHeaders::set
+  * @covers \Papaya\Http\Headers::set
   */
   public function testSetEmptyValueOnNoneExistingHeader() {
-    $headers = new \PapayaHttpHeaders();
+    $headers = new \Papaya\Http\Headers();
     $headers->set('X-Hello', '');
     $this->assertAttributeEquals(
       array(), '_headers', $headers
@@ -151,46 +151,46 @@ class PapayaHttpHeadersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaHttpHeaders::set
+  * @covers \Papaya\Http\Headers::set
   */
   public function testSetEmptyNameReturnsFalse() {
-    $headers = new \PapayaHttpHeaders();
+    $headers = new \Papaya\Http\Headers();
     $this->assertFalse(
       $headers->set('', '')
     );
   }
 
   /**
-  * @covers \PapayaHttpHeaders::offsetExists
+  * @covers \Papaya\Http\Headers::offsetExists
   */
   public function testOffsetExistsExpectingTrue() {
-    $headers = new \PapayaHttpHeaders();
+    $headers = new \Papaya\Http\Headers();
     $headers->set('X-Hello', 'World');
     $this->assertTrue(isset($headers['X-Hello']));
   }
 
   /**
-  * @covers \PapayaHttpHeaders::offsetExists
+  * @covers \Papaya\Http\Headers::offsetExists
   */
   public function testOffsetExistsExpectingFalse() {
-    $headers = new \PapayaHttpHeaders();
+    $headers = new \Papaya\Http\Headers();
     $this->assertFalse(isset($headers['X-Hello']));
   }
 
   /**
-  * @covers \PapayaHttpHeaders::offsetGet
+  * @covers \Papaya\Http\Headers::offsetGet
   */
   public function testOffsetGet() {
-    $headers = new \PapayaHttpHeaders();
+    $headers = new \Papaya\Http\Headers();
     $headers->set('X-Hello', 'World');
     $this->assertEquals('World', $headers['X-Hello']);
   }
 
   /**
-  * @covers \PapayaHttpHeaders::offsetSet
+  * @covers \Papaya\Http\Headers::offsetSet
   */
   public function testOffsetSet() {
-    $headers = new \PapayaHttpHeaders();
+    $headers = new \Papaya\Http\Headers();
     $headers['X-Hello'] = 'World';
     $this->assertAttributeEquals(
       array('X-Hello' => 'World'), '_headers', $headers
@@ -198,10 +198,10 @@ class PapayaHttpHeadersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaHttpHeaders::offsetUnset
+  * @covers \Papaya\Http\Headers::offsetUnset
   */
   public function testOffsetUnset() {
-    $headers = new \PapayaHttpHeaders();
+    $headers = new \Papaya\Http\Headers();
     $headers->set('X-Hello', 'World');
     unset($headers['X-Hello']);
     $this->assertAttributeEquals(
@@ -210,10 +210,10 @@ class PapayaHttpHeadersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaHttpHeaders::offsetUnset
+  * @covers \Papaya\Http\Headers::offsetUnset
   */
   public function testOffetUnsetOnNoneExistingHeader() {
-    $headers = new \PapayaHttpHeaders();
+    $headers = new \Papaya\Http\Headers();
     unset($headers['X-Hello']);
     $this->assertAttributeEquals(
       array(), '_headers', $headers
@@ -221,10 +221,10 @@ class PapayaHttpHeadersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaHttpHeaders::__toString
+  * @covers \Papaya\Http\Headers::__toString
   */
   public function testMagicMethodToString() {
-    $headers = new \PapayaHttpHeaders();
+    $headers = new \Papaya\Http\Headers();
     $headers->set('X-Simple', 1);
     $headers->set('X-List', 2);
     $headers->set('X-List', 3, TRUE);

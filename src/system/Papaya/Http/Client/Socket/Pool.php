@@ -14,18 +14,20 @@
  */
 
 
+namespace Papaya\Http\Client\Socket;
 /**
-* Papaya HTTP Client Socket Pool - Manages a pool of connections (resources)
-*
-* @package Papaya-Library
-* @subpackage HTTP-Client
-*/
-class PapayaHttpClientSocketPool {
+ * Papaya HTTP Client Socket Pool - Manages a pool of connections (resources)
+ *
+ * @package Papaya-Library
+ * @subpackage HTTP-Client
+ */
+class Pool {
 
   /**
-  * connection pool array(host => array(port => array(resource)))
-  * @var array
-  */
+   * connection pool array(host => array(port => array(resource)))
+   *
+   * @var array
+   */
   private static $_connectionPool = array();
 
   /**
@@ -50,11 +52,12 @@ class PapayaHttpClientSocketPool {
   }
 
   /**
-  * Put a connection into pool for reusage
-  * @param resource|object $connection
-  * @param string $host
-  * @param integer $port
-  */
+   * Put a connection into pool for reusage
+   *
+   * @param resource|object $connection
+   * @param string $host
+   * @param integer $port
+   */
   public function putConnection($connection, $host, $port) {
     self::$_connectionPool[$host][$port][] = $connection;
   }

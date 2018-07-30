@@ -33,7 +33,7 @@ class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
   }
 
   private function getMockHTTPClient($response, $status = 200) {
-    $client = $this->createMock(\PapayaHttpClient::class);
+    $client = $this->createMock(\Papaya\Http\Client::class);
     $client
       ->expects($this->once())
       ->method('send');
@@ -84,7 +84,7 @@ class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
   public function testSetHTTPClient() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMediaStorageServiceS3Handler $handler */
     $handler = $this->createMock(\PapayaMediaStorageServiceS3Handler::class);
-    $client = new \PapayaHttpClient;
+    $client = new \Papaya\Http\Client;
     $handler
       ->expects($this->once())
       ->method('setHTTPClient')
@@ -298,7 +298,7 @@ class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
   public function testGetLocalFile() {
     $dataResponse = 'SAMPLE_DATA';
     $configuration = $this->getMockConfigurationObjectFixture();
-    $socket = $this->createMock(\PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
     $socket->expects($this->exactly(2))
            ->method('eof')
            ->will(
@@ -346,7 +346,7 @@ class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
   public function testOutput() {
     $dataResponse = 'SAMPLE_DATA';
     $configuration = $this->getMockConfigurationObjectFixture();
-    $socket = $this->createMock(\PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('eof')
            ->will($this->returnValue(FALSE));
@@ -393,7 +393,7 @@ class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
   public function testOutputWithRangeFrom() {
     $dataResponse = 'SAMPLE_DATA';
     $configuration = $this->getMockConfigurationObjectFixture();
-    $socket = $this->createMock(\PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('eof')
            ->will($this->returnValue(FALSE));
@@ -422,7 +422,7 @@ class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
   public function testOutputWithRangeFromAndTo() {
     $dataResponse = 'SAMPLE_DATA';
     $configuration = $this->getMockConfigurationObjectFixture();
-    $socket = $this->createMock(\PapayaHttpClientSocket::class);
+    $socket = $this->createMock(\Papaya\Http\Client\Socket::class);
     $socket->expects($this->at(0))
            ->method('eof')
            ->will($this->returnValue(FALSE));
@@ -631,7 +631,7 @@ class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
           </Grant>
         </AccessControlList>
       </AccessControlPolicy>';
-    $client = $this->createMock(\PapayaHttpClient::class);
+    $client = $this->createMock(\Papaya\Http\Client::class);
     $client
       ->expects($this->exactly(2))
       ->method('send');
@@ -708,7 +708,7 @@ class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
           </Grant>
         </AccessControlList>
       </AccessControlPolicy>';
-    $client = $this->createMock(\PapayaHttpClient::class);
+    $client = $this->createMock(\Papaya\Http\Client::class);
     $client
       ->expects($this->exactly(2))
       ->method('send');
@@ -768,7 +768,7 @@ class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
         <AccessControlList>
         </AccessControlList>
       </AccessControlPolicy>';
-    $client = $this->createMock(\PapayaHttpClient::class);
+    $client = $this->createMock(\Papaya\Http\Client::class);
     $client
       ->expects($this->exactly(2))
       ->method('getResponseStatus')
@@ -822,7 +822,7 @@ class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
   }
 
   public function testIsPublicWithFileNotFound() {
-    $client = $this->createMock(\PapayaHttpClient::class);
+    $client = $this->createMock(\Papaya\Http\Client::class);
     $client
       ->expects($this->once())
       ->method('getResponseStatus')
@@ -847,7 +847,7 @@ class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
   }
 
   public function testIsPublicWithDifferentMimetype() {
-    $client = $this->createMock(\PapayaHttpClient::class);
+    $client = $this->createMock(\Papaya\Http\Client::class);
     $client
       ->expects($this->once())
       ->method('getResponseStatus')
@@ -1018,7 +1018,7 @@ class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
           </Grant>
         </AccessControlList>
       </AccessControlPolicy>';
-    $client = $this->createMock(\PapayaHttpClient::class);
+    $client = $this->createMock(\Papaya\Http\Client::class);
     $client
       ->expects($this->exactly(2))
       ->method('getResponseStatus')
@@ -1054,7 +1054,7 @@ class PapayaMediaStorageServiceS3Test extends \PapayaTestCase {
         <AccessControlList>
         </AccessControlList>
       </AccessControlPolicy>';
-    $client = $this->createMock(\PapayaHttpClient::class);
+    $client = $this->createMock(\Papaya\Http\Client::class);
     $client
       ->expects($this->exactly(2))
       ->method('getResponseStatus')

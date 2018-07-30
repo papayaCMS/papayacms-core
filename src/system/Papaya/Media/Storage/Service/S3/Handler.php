@@ -23,7 +23,8 @@ class PapayaMediaStorageServiceS3Handler {
 
   /**
   * http client object
-  * @var \PapayaHttpClient
+  *
+  * @var \Papaya\Http\Client
   */
   private $_client = NULL;
 
@@ -53,10 +54,10 @@ class PapayaMediaStorageServiceS3Handler {
   /**
   * Set the used HTTP client object.
   *
-  * @param \PapayaHttpClient $client
+  * @param \Papaya\Http\Client $client
   * @return void
   */
-  public function setHTTPClient(\PapayaHttpClient $client) {
+  public function setHTTPClient(\Papaya\Http\Client $client) {
     $this->_client = $client;
   }
 
@@ -83,7 +84,7 @@ class PapayaMediaStorageServiceS3Handler {
   */
   public function initHTTPClient() {
     if (!isset($this->_client)) {
-      $this->_client = new \PapayaHttpClient();
+      $this->_client = new \Papaya\Http\Client();
     }
     $this->_client->reset();
   }
@@ -95,7 +96,7 @@ class PapayaMediaStorageServiceS3Handler {
   * @param string $method
   * @param array $parameters
   * @param array $headers
-  * @return \PapayaHttpClient
+  * @return \Papaya\Http\Client
   */
   public function setUpRequest(
     $url, $method = 'GET', $parameters = array(), $headers = array()
