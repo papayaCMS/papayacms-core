@@ -148,11 +148,11 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends \PapayaTestCas
   * @covers Change::dispatchSavedMessage
   */
   public function testDispatchSavedMessage() {
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessageDisplayTranslated::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display\Translated::class));
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages
@@ -178,11 +178,11 @@ class PapayaAdministrationPagesReferenceCommandChangeTest extends \PapayaTestCas
       ->expects($this->once())
       ->method('errors')
       ->will($this->returnValue($errors));
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessageDisplayTranslated::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display\Translated::class));
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages

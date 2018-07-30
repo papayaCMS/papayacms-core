@@ -13,40 +13,43 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message;
 /**
-* Papaya Message Manager, central message manager, handles the dispatchers
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageManager extends \Papaya\Application\BaseObject {
+ * Papaya Message Manager, central message manager, handles the dispatchers
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Manager extends \Papaya\Application\BaseObject {
 
   /**
-  * Internal list of message dispatchers
-  * @var array(\Papaya\Message\PapayaMessageDispatcher)
-  */
+   * Internal list of message dispatchers
+   *
+   * @var array(\Papaya\Message\PapayaMessageDispatcher)
+   */
   private $_dispatchers = array();
 
   /**
-  * List of php event hooks
-  * @var array
-  */
+   * List of php event hooks
+   *
+   * @var array
+   */
   private $_hooks = NULL;
 
   /**
-  * Add a dispatcher to the list
-  *
-  * @param \Papaya\Message\Dispatcher $dispatcher
-  */
+   * Add a dispatcher to the list
+   *
+   * @param \Papaya\Message\Dispatcher $dispatcher
+   */
   public function addDispatcher(\Papaya\Message\Dispatcher $dispatcher) {
     $this->_dispatchers[] = $dispatcher;
   }
 
   /**
-  * Dispatch a message to all available dispatchers
-  *
-  * @param \Papaya\Message $message
-  */
+   * Dispatch a message to all available dispatchers
+   *
+   * @param \Papaya\Message $message
+   */
   public function dispatch(\Papaya\Message $message) {
     /** @var \Papaya\Message\Dispatcher $dispatcher */
     foreach ($this->_dispatchers as $dispatcher) {
@@ -61,7 +64,7 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
    * @param $text
    */
   public function display($severity, $text) {
-    $this->dispatch(new \PapayaMessageDisplay($severity, $text));
+    $this->dispatch(new \Papaya\Message\Display($severity, $text));
   }
 
   /**
@@ -74,7 +77,7 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
    * @param mixed $context
    */
   public function log($severity, $group, $text, $context = NULL) {
-    $message = new \PapayaMessageLog($severity, $group, $text);
+    $message = new \Papaya\Message\Log($severity, $group, $text);
     if ($context instanceof \Papaya\Message\Context\Group) {
       $message->setContext($context);
     } elseif ($context instanceof \Papaya\Message\Context\Data) {
@@ -86,13 +89,13 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Debug message shortcut, creates a default log message with debug contexts
-  *
-  * If arguments are provided, they are added to a variable context as an array.
-  */
+   * Debug message shortcut, creates a default log message with debug contexts
+   *
+   * If arguments are provided, they are added to a variable context as an array.
+   */
   public function debug() {
-    $message = new \PapayaMessageLog(
-      \PapayaMessageLogable::GROUP_DEBUG, \Papaya\Message::SEVERITY_DEBUG, ''
+    $message = new \Papaya\Message\Log(
+      \Papaya\Message\Logable::GROUP_DEBUG, \Papaya\Message::SEVERITY_DEBUG, ''
     );
     if (func_num_args() > 0) {
       $message->context()->append(new \Papaya\Message\Context\Variable(func_get_args(), 5, 9999));
@@ -110,42 +113,42 @@ class PapayaMessageManager extends \Papaya\Application\BaseObject {
    * as logable error messages.
    *
    * @param \Callable $callback
-   * @return \PapayaMessageSandbox|callable
+   * @return \Papaya\Message\Sandbox|callable
    */
   public function encapsulate($callback) {
     \PapayaUtilConstraints::assertCallable($callback);
-    $sandbox = new \PapayaMessageSandbox($callback);
+    $sandbox = new \Papaya\Message\Sandbox($callback);
     $sandbox->papaya($this->papaya());
     return array($sandbox, '__invoke');
   }
 
   /**
-  * Register error and exceptions hooks
-  */
+   * Register error and exceptions hooks
+   */
   public function hooks(array $hooks = NULL) {
     if (isset($hooks)) {
       $this->_hooks = $hooks;
     } elseif (is_null($this->_hooks)) {
       $this->_hooks = array(
-        $exceptionsHook = new \PapayaMessageHookExceptions($this),
-        new \PapayaMessageHookErrors($this, $exceptionsHook),
+        $exceptionsHook = new \Papaya\Message\Hook\Exceptions($this),
+        new \Papaya\Message\Hook\Errors($this, $exceptionsHook),
       );
     }
     return $this->_hooks;
   }
 
   /**
-  * Setup message system
-  *
-  * This functions initializes the start time for runtime debug and activates the hooks for
-  * php messages and exceptions.
-  *
-  * @param \Papaya\Configuration $options
-  */
+   * Setup message system
+   *
+   * This functions initializes the start time for runtime debug and activates the hooks for
+   * php messages and exceptions.
+   *
+   * @param \Papaya\Configuration $options
+   */
   public function setUp($options) {
     \Papaya\Message\Context\Runtime::setStartTime(microtime(TRUE));
     error_reporting($options->get('PAPAYA_LOG_PHP_ERRORLEVEL', E_ALL & ~E_STRICT));
-    /** @var \PapayaMessageHook $hook */
+    /** @var \Papaya\Message\Hook $hook */
     foreach ($this->hooks() as $hook) {
       $hook->activate();
     }

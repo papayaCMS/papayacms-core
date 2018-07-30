@@ -13,40 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message;
 /**
-* Papaya Message Php, superclass for log messages for php erorrs and exceptions
-*
-* A log message with the ability to convert the php severity to a log message type.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessagePhp
-  implements \PapayaMessageLogable {
+ * Papaya Message Php, superclass for log messages for php erorrs and exceptions
+ *
+ * A log message with the ability to convert the php severity to a log message type.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+abstract class PHP
+  implements \Papaya\Message\Logable {
 
   /**
-  * Message type
-  * @var integer
-  */
+   * Message type
+   *
+   * @var integer
+   */
   protected $_type = \Papaya\Message::SEVERITY_ERROR;
 
   /**
-  * Message text
-  * @var string
-  */
+   * Message text
+   *
+   * @var string
+   */
   protected $_message = '';
 
   /**
-  * Message context
-  *
-  * @var NULL|\Papaya\Message\Context\Group
-  */
+   * Message context
+   *
+   * @var NULL|\Papaya\Message\Context\Group
+   */
   protected $_context = NULL;
 
   /**
-  * Mapping PHP error levels to message types
-  * @var array
-  */
+   * Mapping PHP error levels to message types
+   *
+   * @var array
+   */
   private $_errors = array(
     E_ERROR => \Papaya\Message::SEVERITY_ERROR,
     E_USER_ERROR => \Papaya\Message::SEVERITY_ERROR,
@@ -58,17 +62,17 @@ class PapayaMessagePhp
   );
 
   /**
-  * Create context subobject, too
-  */
+   * Create context subobject, too
+   */
   public function __construct() {
     $this->_context = new \Papaya\Message\Context\Group();
   }
 
   /**
-  * Set type from severity
-  *
-  * @param integer $severity
-  */
+   * Set type from severity
+   *
+   * @param integer $severity
+   */
   public function setSeverity($severity) {
     if (isset($this->_errors[$severity])) {
       $this->_type = $this->_errors[$severity];
@@ -76,37 +80,37 @@ class PapayaMessagePhp
   }
 
   /**
-  * Get group of message (system, php, content, ...)
-  *
-  * @return integer
-  */
+   * Get group of message (system, php, content, ...)
+   *
+   * @return integer
+   */
   public function getGroup() {
-    return \PapayaMessageLogable::GROUP_PHP;
+    return \Papaya\Message\Logable::GROUP_PHP;
   }
 
   /**
-  * Get type of message (info, warning, error)
-  *
-  * @return integer
-  */
+   * Get type of message (info, warning, error)
+   *
+   * @return integer
+   */
   public function getType() {
     return $this->_type;
   }
 
   /**
-  * Get message string
-  *
-  * @return string
-  */
+   * Get message string
+   *
+   * @return string
+   */
   public function getMessage() {
     return $this->_message;
   }
 
   /**
-  * Return a context object containing additional data about where and why the message happened.
-  *
-  * @return \Papaya\Message\Context\Group
-  */
+   * Return a context object containing additional data about where and why the message happened.
+   *
+   * @return \Papaya\Message\Context\Group
+   */
   public function context() {
     return $this->_context;
   }

@@ -48,7 +48,7 @@ class Database
    * @return boolean
    */
   public function dispatch(\Papaya\Message $message) {
-    if ($message instanceof \PapayaMessageLogable) {
+    if ($message instanceof \Papaya\Message\Logable) {
       if ($this->allow($message)) {
         return $this->save($message);
       }
@@ -59,10 +59,10 @@ class Database
   /**
    * Check if the current message should be logged
    *
-   * @param \Papaya\Message|\PapayaMessageLogable $message
+   * @param \Papaya\Message|\Papaya\Message\Logable $message
    * @return bool
    */
-  public function allow(\PapayaMessageLogable $message) {
+  public function allow(\Papaya\Message\Logable $message) {
     $options = $this->papaya()->options;
     if ($options->get('PAPAYA_PROTOCOL_DATABASE', FALSE)) {
       switch ($message->getType()) {
@@ -78,17 +78,17 @@ class Database
   /**
    * Save the message to database
    *
-   * @param \Papaya\Message|\PapayaMessageLogable $message
+   * @param \Papaya\Message|\Papaya\Message\Logable $message
    * @return bool
    */
-  protected function save(\PapayaMessageLogable $message) {
+  protected function save(\Papaya\Message\Logable $message) {
     $url = new \PapayaUrlCurrent();
     $options = $this->papaya()->options;
     $details = '<p>'.$message->getMessage().'</p>';
     if ($message->context() instanceof \Papaya\Message\Context\Interfaces\Xhtml) {
       $details .= $message->context()->asXhtml();
     }
-    $cookies = ($message instanceof \PapayaMessagePhpError && !empty($_SERVER['HTTP_COOKIE']))
+    $cookies = ($message instanceof \Papaya\Message\PHP\Error && !empty($_SERVER['HTTP_COOKIE']))
       ? $_SERVER['HTTP_COOKIE'] : '';
     $values = array(
       'log_time' => time(),

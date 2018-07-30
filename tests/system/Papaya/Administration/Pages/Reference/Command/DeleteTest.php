@@ -45,11 +45,11 @@ class PapayaAdministrationPagesReferenceCommandDeleteTest extends \PapayaTestCas
   * @covers Delete::dispatchDeleteMessage
   */
   public function testDispatchDeleteMessage() {
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessageDisplayTranslated::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display\Translated::class));
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages

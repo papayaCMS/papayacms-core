@@ -1730,8 +1730,8 @@ class papaya_page extends base_object {
           $errors->emit();
           $errors->deactivate();
         } catch (\PapayaXmlException $e) {
-          $message = new \PapayaMessageLog(
-            \PapayaMessageLogable::GROUP_SYSTEM,
+          $message = new \Papaya\Message\Log(
+            \Papaya\Message\Logable::GROUP_SYSTEM,
             \Papaya\Message::SEVERITY_ERROR,
             $e->getMessage()
           );
@@ -2777,7 +2777,7 @@ class papaya_page extends base_object {
       $errorMsg = 'WARNING #2 Cannot modify header information - headers already sent';
       $this->logMsg(
         MSG_WARNING,
-        \PapayaMessageLogable::GROUP_PHP,
+        \Papaya\Message\Logable::GROUP_PHP,
         $errorMsg,
         $errorMsg.' in '.$file.':'.$line,
         TRUE,

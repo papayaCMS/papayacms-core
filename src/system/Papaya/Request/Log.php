@@ -100,8 +100,8 @@ class PapayaRequestLog extends \Papaya\Application\BaseObject {
     if ($stop) {
       $this->logTime('Stopped');
     }
-    $log = new \PapayaMessageLog(
-      \PapayaMessageLogable::GROUP_DEBUG,
+    $log = new \Papaya\Message\Log(
+      \Papaya\Message\Logable::GROUP_DEBUG,
       \Papaya\Message::SEVERITY_DEBUG,
       'Request Log'
     );

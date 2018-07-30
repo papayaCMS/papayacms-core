@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Display;
 /**
-* A language specific message displayed to the user.
-*
-* The given message is translated to the UI language before displayed to the user.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageDisplayTranslated extends \PapayaMessageDisplay {
+ * A language specific message displayed to the user.
+ *
+ * The given message is translated to the UI language before displayed to the user.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Translated extends \Papaya\Message\Display {
 
   /**
-  * Initialize object, convert message into translation object
-  *
-  * @param integer $type
-  * @param string $message
-  * @param array $parameters message parameters
-  */
+   * Initialize object, convert message into translation object
+   *
+   * @param integer $type
+   * @param string $message
+   * @param array $parameters message parameters
+   */
   public function __construct($type, $message, array $parameters = array()) {
     parent::__construct($type, new \PapayaUiStringTranslated($message, $parameters));
   }

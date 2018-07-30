@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaMessageDisplayTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMessageDisplay::__construct
-  * @covers \PapayaMessageDisplay::_isValidType
+  * @covers \Papaya\Message\Display::__construct
+  * @covers \Papaya\Message\Display::_isValidType
   */
   public function testConstructor() {
-    $message = new \PapayaMessageDisplay(\Papaya\Message::SEVERITY_WARNING, 'Sample Message');
+    $message = new \Papaya\Message\Display(\Papaya\Message::SEVERITY_WARNING, 'Sample Message');
     $this->assertAttributeEquals(
       \Papaya\Message::SEVERITY_WARNING,
       '_type',
@@ -36,19 +36,19 @@ class PapayaMessageDisplayTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDisplay::__construct
-  * @covers \PapayaMessageDisplay::_isValidType
+  * @covers \Papaya\Message\Display::__construct
+  * @covers \Papaya\Message\Display::_isValidType
   */
   public function testConstructorWithInvalidTypeExpectingException() {
     $this->expectException(InvalidArgumentException::class);
-    new \PapayaMessageDisplay(\Papaya\Message::SEVERITY_DEBUG, 'Sample Message');
+    new \Papaya\Message\Display(\Papaya\Message::SEVERITY_DEBUG, 'Sample Message');
   }
 
   /**
-  * @covers \PapayaMessageDisplay::getType
+  * @covers \Papaya\Message\Display::getType
   */
   public function testGetType() {
-    $message = new \PapayaMessageDisplay(\Papaya\Message::SEVERITY_WARNING, 'Sample Message');
+    $message = new \Papaya\Message\Display(\Papaya\Message::SEVERITY_WARNING, 'Sample Message');
     $this->assertEquals(
       \Papaya\Message::SEVERITY_WARNING,
       $message->getType()
@@ -56,10 +56,10 @@ class PapayaMessageDisplayTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDisplay::getMessage
+  * @covers \Papaya\Message\Display::getMessage
   */
   public function testGetMessage() {
-    $message = new \PapayaMessageDisplay(\Papaya\Message::SEVERITY_WARNING, 'Sample Message');
+    $message = new \Papaya\Message\Display(\Papaya\Message::SEVERITY_WARNING, 'Sample Message');
     $this->assertEquals(
       'Sample Message',
       $message->getMessage()

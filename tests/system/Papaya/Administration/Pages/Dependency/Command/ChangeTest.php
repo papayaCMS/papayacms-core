@@ -196,11 +196,11 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends \PapayaTestCa
   * @covers Change::compareViewModules
   */
   public function testValidateOriginAndSynchronizationsWithModuleConflictExpectingFalse() {
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessageDisplay::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
     $databaseResult = $this->createMock(Result::class);
     $databaseResult
       ->expects($this->any())
@@ -304,11 +304,11 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends \PapayaTestCa
       ->method('synchronizeDependency')
       ->with($this->isInstanceOf(Dependency::class));
 
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessageDisplayTranslated::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display\Translated::class));
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages
@@ -335,11 +335,11 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends \PapayaTestCa
       ->expects($this->once())
       ->method('errors')
       ->will($this->returnValue($errors));
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessageDisplayTranslated::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display\Translated::class));
     $application = $this->mockPapaya()->application(
       array(
         'Messages' => $messages

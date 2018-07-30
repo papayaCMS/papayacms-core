@@ -18,15 +18,15 @@ use Papaya\Application\BaseObject;
 /**
 * log type for user messages (login/logout)
 */
-define('PAPAYA_LOGTYPE_USER', \PapayaMessageLogable::GROUP_USER);
+define('PAPAYA_LOGTYPE_USER', \Papaya\Message\Logable::GROUP_USER);
 /**
 * log type for page messages (published)
 */
-define('PAPAYA_LOGTYPE_PAGES', \PapayaMessageLogable::GROUP_CONTENT);
+define('PAPAYA_LOGTYPE_PAGES', \Papaya\Message\Logable::GROUP_CONTENT);
 /**
 * log type for database messages (errors)
 */
-define('PAPAYA_LOGTYPE_DATABASE', \PapayaMessageLogable::GROUP_DATABASE);
+define('PAPAYA_LOGTYPE_DATABASE', \Papaya\Message\Logable::GROUP_DATABASE);
 /**
 * log type for calendar messages
 */
@@ -34,19 +34,19 @@ define('PAPAYA_LOGTYPE_CALENDAR', 4);
 /**
 * log type for cronjob messages
 */
-define('PAPAYA_LOGTYPE_CRONJOBS', \PapayaMessageLogable::GROUP_CRONJOBS);
+define('PAPAYA_LOGTYPE_CRONJOBS', \Papaya\Message\Logable::GROUP_CRONJOBS);
 /**
 * log type for surfer/community messages
 */
-define('PAPAYA_LOGTYPE_SURFER', \PapayaMessageLogable::GROUP_COMMUNITY);
+define('PAPAYA_LOGTYPE_SURFER', \Papaya\Message\Logable::GROUP_COMMUNITY);
 /**
 * log type for system messages
 */
-define('PAPAYA_LOGTYPE_SYSTEM', \PapayaMessageLogable::GROUP_SYSTEM);
+define('PAPAYA_LOGTYPE_SYSTEM', \Papaya\Message\Logable::GROUP_SYSTEM);
 /**
 * log type for system messages
 */
-define('PAPAYA_LOGTYPE_MODULES', \PapayaMessageLogable::GROUP_MODULES);
+define('PAPAYA_LOGTYPE_MODULES', \Papaya\Message\Logable::GROUP_MODULES);
 
 /**
 * line break string constant
@@ -242,7 +242,7 @@ class base_object extends BaseObject implements \PapayaRequestParametersInterfac
   * The strings $short and $long may not be translated and must be in english.
   *
   * @param integer $type message priority, {@see \Papaya\Message}
-  * @param integer $group message group (@see \PapayaMessageLogable)
+  * @param integer $group message group (@see \Papaya\Message\PapayaMessageLogable)
   * @param string $short message short (for lists)
   * @param string $long message detailed
   * @param boolean $addBacktrace
@@ -250,7 +250,7 @@ class base_object extends BaseObject implements \PapayaRequestParametersInterfac
   * @access public
   */
   function logMsg($type, $group, $short, $long = '', $addBacktrace = FALSE, $backtraceOffset = 1) {
-    $logMessage = new \PapayaMessageLog($group, $type, $short);
+    $logMessage = new \Papaya\Message\Log($group, $type, $short);
     if (!empty($long)) {
       $logMessage->context()->append(
         new \Papaya\Message\Context\Text($long)
@@ -280,7 +280,7 @@ class base_object extends BaseObject implements \PapayaRequestParametersInterfac
   function logVariable(
     $level, $group, $title, $variable, $addBacktrace = FALSE, $backtraceOffset = 3
   ) {
-    $logMessage = new \PapayaMessageLog($group, $level, $title);
+    $logMessage = new \Papaya\Message\Log($group, $level, $title);
     $logMessage->context()->append(
       new \Papaya\Message\Context\Variable($variable)
     );
@@ -305,11 +305,11 @@ class base_object extends BaseObject implements \PapayaRequestParametersInterfac
    */
   public function addMsg($level, $text, $log = FALSE, $group = PAPAYA_LOGTYPE_SYSTEM) {
     $this->papaya()->messages->dispatch(
-      new \PapayaMessageDisplay($level, $text)
+      new \Papaya\Message\Display($level, $text)
     );
     if ($log) {
       $this->papaya()->messages->dispatch(
-        new \PapayaMessageLog($group, $level, $text)
+        new \Papaya\Message\Log($group, $level, $text)
       );
     }
   }
@@ -970,8 +970,8 @@ class base_object extends BaseObject implements \PapayaRequestParametersInterfac
    * @access public
    */
   public function debug() {
-    $debugMessage = new \PapayaMessageDebug(
-      \PapayaMessageLogable::GROUP_DEBUG, 'Variables'
+    $debugMessage = new \Papaya\Message\Debug(
+      \Papaya\Message\Logable::GROUP_DEBUG, 'Variables'
     );
     foreach (func_get_args() as $variable) {
       $debugMessage->context()->append(
@@ -988,7 +988,7 @@ class base_object extends BaseObject implements \PapayaRequestParametersInterfac
    */
   function debugMsg($message = '') {
     $this->papaya()->messages->dispatch(
-      new \PapayaMessageDebug(\PapayaMessageLogable::GROUP_DEBUG, $message)
+      new \Papaya\Message\Debug(\Papaya\Message\Logable::GROUP_DEBUG, $message)
     );
   }
 

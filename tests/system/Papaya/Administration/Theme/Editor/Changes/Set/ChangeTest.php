@@ -147,11 +147,11 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
    * @covers Change::callbackSaveValues
    */
   public function testCallbackSaveValues() {
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessageDisplay::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
     /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Change($record);
@@ -179,11 +179,11 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
       ->method('errors')
       ->will($this->returnValue($errors));
 
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessageDisplay::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
     /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Change($record);

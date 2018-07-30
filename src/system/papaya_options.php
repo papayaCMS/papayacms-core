@@ -1038,7 +1038,7 @@ class papaya_options extends base_options {
           return TRUE;
         }
         $this->papaya()->messages->dispatch(
-          new \PapayaMessageDisplay(
+          new \Papaya\Message\Display(
             \Papaya\Message::SEVERITY_ERROR,
             sprintf(
               $this->_gt('Statistic module (%s) not found.'),
@@ -1338,7 +1338,7 @@ class papaya_options extends base_options {
       $this->checkDirectoryWriteable(PAPAYA_PATH_CACHE, 'Cache path');
     } else {
       $this->papaya()->messages->dispatch(
-        new \PapayaMessageDisplay(
+        new \Papaya\Message\Display(
           \Papaya\Message::SEVERITY_ERROR,
           $this->_gt('Please set and save the PAPAYA_PATH_DATA option.')
         )

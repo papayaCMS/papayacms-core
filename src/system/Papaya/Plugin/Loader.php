@@ -251,8 +251,8 @@ class PapayaPluginLoader extends \Papaya\Application\BaseObject {
             is_readable($fileName) &&
             include_once($fileName)
           )) {
-        $logMessage = new \PapayaMessageLog(
-          \PapayaMessageLogable::GROUP_MODULES,
+        $logMessage = new \Papaya\Message\Log(
+          \Papaya\Message\Logable::GROUP_MODULES,
           \Papaya\Message::SEVERITY_ERROR,
           sprintf('Can not include module file "%s"', $fileName)
         );
@@ -261,8 +261,8 @@ class PapayaPluginLoader extends \Papaya\Application\BaseObject {
         return FALSE;
       }
       if (!class_exists($pluginData['class'], FALSE)) {
-        $logMessage = new \PapayaMessageLog(
-          \PapayaMessageLogable::GROUP_MODULES,
+        $logMessage = new \Papaya\Message\Log(
+          \Papaya\Message\Logable::GROUP_MODULES,
           \Papaya\Message::SEVERITY_ERROR,
           sprintf('Can not find module class "%s"', $pluginData['class'])
         );

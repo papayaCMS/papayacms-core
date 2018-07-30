@@ -1390,7 +1390,7 @@ class papaya_boxes extends base_boxes {
           );
         } else {
           $this->papaya()->messages->dispatch(
-            new \PapayaMessageDisplayTranslated(
+            new \Papaya\Message\Display\Translated(
               \Papaya\Message::SEVERITY_INFO,
               ($direction == 'down')
                 ? 'Box is already the last one.'

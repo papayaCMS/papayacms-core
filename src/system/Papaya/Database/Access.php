@@ -393,8 +393,8 @@ class Access extends \Papaya\Application\BaseObject {
         \Papaya\Database\Exception::SEVERITY_WARNING => \Papaya\Message::SEVERITY_WARNING,
         \Papaya\Database\Exception::SEVERITY_ERROR => \Papaya\Message::SEVERITY_ERROR,
       );
-      $logMsg = new \PapayaMessageLog(
-        \PapayaMessageLogable::GROUP_DATABASE,
+      $logMsg = new \Papaya\Message\Log(
+        \Papaya\Message\Logable::GROUP_DATABASE,
         $mapSeverity[$exception->getSeverity()],
         'Database #'.$exception->getCode().': '.$exception->getMessage()
       );

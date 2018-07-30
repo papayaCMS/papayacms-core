@@ -68,7 +68,7 @@ class Remove
    */
   public function callbackDeleted() {
     $this->papaya()->messages->dispatch(
-      new \PapayaMessageDisplayTranslated(
+      new \Papaya\Message\Display\Translated(
         \Papaya\Message::SEVERITY_INFO,
         'Theme set deleted.'
       )

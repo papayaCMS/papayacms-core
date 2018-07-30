@@ -37,13 +37,13 @@ class Template
   /**
    * Add message to the output, for now uses the old error system.
    *
-   * Only messages that implements \PapayaMessageDisplay are used, \all other message are ignored.
+   * Only messages that implements \Papaya\Message\PapayaMessageDisplay are used, \all other message are ignored.
    *
    * @param \Papaya\Message $message
    * @return boolean
    */
   public function dispatch(\Papaya\Message $message) {
-    if ($message instanceof \PapayaMessageDisplayable) {
+    if ($message instanceof \Papaya\Message\Displayable) {
       if (isset($GLOBALS['PAPAYA_LAYOUT'])) {
         /** @var \Papaya\Template $layout */
         $layout = $GLOBALS['PAPAYA_LAYOUT'];

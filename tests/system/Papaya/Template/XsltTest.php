@@ -129,7 +129,7 @@ class PapayaTemplateXsltTest extends \PapayaTestCase {
    * @covers \PapayaTemplateXslt
    */
   public function testParseWithProfiling() {
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->exactly(2))
       ->method('log');

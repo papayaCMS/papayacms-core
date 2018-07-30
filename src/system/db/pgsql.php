@@ -880,8 +880,8 @@ class dbcon_pgsql extends dbcon_base {
     try {
       return $this->changeIndex($table, $index, FALSE);
     } catch (\Papaya\Database\Exception\Query $e) {
-      $logMessage = new \PapayaMessageLog(
-        \PapayaMessageLogable::GROUP_DATABASE,
+      $logMessage = new \Papaya\Message\Log(
+        \Papaya\Message\Logable::GROUP_DATABASE,
         \Papaya\Message::SEVERITY_ERROR,
         'Database #' . $e->getCode() . ': ' . $e->getMessage()
       );

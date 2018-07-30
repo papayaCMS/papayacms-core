@@ -175,8 +175,8 @@ class PapayaMessageDispatcherWildfireTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('sendMessage')
       ->with($this->equalTo('Hello'), 'LOG');
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
-    $message = $this->createMock(\PapayaMessageLogable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+    $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->any())
       ->method('getType')
@@ -215,8 +215,8 @@ class PapayaMessageDispatcherWildfireTest extends \PapayaTestCase {
     $handler
       ->expects($this->once())
       ->method('endGroup');
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
-    $message = $this->createMock(\PapayaMessageLogable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+    $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->any())
       ->method('getType')

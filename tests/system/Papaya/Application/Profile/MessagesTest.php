@@ -26,7 +26,7 @@ class PapayaApplicationProfileMessagesTest extends \PapayaTestCase {
     $profile = new Messages();
     $messages = $profile->createObject($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \PapayaMessageManager::class, $messages
+      \Papaya\Message\Manager::class, $messages
     );
     $dispatchers = $this->readAttribute($messages, '_dispatchers');
     $this->assertInstanceOf(

@@ -13,69 +13,71 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message;
 /**
-* Interface for protocol messages
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-interface PapayaMessageLogable extends \Papaya\Message {
+ * Interface for protocol messages
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+interface Logable extends \Papaya\Message {
 
   /**
-  * log group for user messages (login/logout)
-  */
+   * log group for user messages (login/logout)
+   */
   const GROUP_USER = 1;
 
   /**
-  * log group for content messages (published, deleted, ...)
-  */
+   * log group for content messages (published, deleted, ...)
+   */
   const GROUP_CONTENT = 2;
 
   /**
-  * log group for database messages (warnings, errors)
-  */
+   * log group for database messages (warnings, errors)
+   */
   const GROUP_DATABASE = 3;
 
   /**
-  * log group for cronjob messages
-  */
+   * log group for cronjob messages
+   */
   const GROUP_CRONJOBS = 5;
 
   /**
-  * log group for surfer/community messages
-  */
+   * log group for surfer/community messages
+   */
   const GROUP_COMMUNITY = 6;
 
   /**
-  * log group for system messages
-  */
+   * log group for system messages
+   */
   const GROUP_SYSTEM = 7;
 
   /**
-  * log group for module specific messages
-  */
+   * log group for module specific messages
+   */
   const GROUP_MODULES = 8;
 
   /**
-  * log group for module specific messages
-  */
+   * log group for module specific messages
+   */
   const GROUP_PHP = 9;
 
   /**
-  * log group for module specific messages
-  */
+   * log group for module specific messages
+   */
   const GROUP_DEBUG = 10;
 
   /**
-  * Get log group of message
-  * @return integer
-  */
-  function getGroup();
+   * Get log group of message
+   *
+   * @return integer
+   */
+  public function getGroup();
 
   /**
-  * Access to an context group element that allows to append addition details to the message
-  *
-  * @return \Papaya\Message\Context\Group
-  */
-  function context();
+   * Access to an context group element that allows to append addition details to the message
+   *
+   * @return \Papaya\Message\Context\Group
+   */
+  public function context();
 }

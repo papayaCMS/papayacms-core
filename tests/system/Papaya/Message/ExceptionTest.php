@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaMessageExceptionTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMessageException::__construct
+  * @covers \Papaya\Message\Exception::__construct
   */
   public function testConstructor() {
-    $message = new \PapayaMessageException(
+    $message = new \Papaya\Message\Exception(
       new \PapayaMessageException_Exception('Sample Error')
     );
     $this->assertAttributeEquals(

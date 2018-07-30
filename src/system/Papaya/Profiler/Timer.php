@@ -80,7 +80,7 @@ class PapayaProfilerTimer extends \Papaya\Application\BaseObject implements \Ite
   public function emit() {
     foreach ($this as $take) {
       $this->papaya()->messages->log(
-        \PapayaMessageLogable::GROUP_DEBUG,
+        \Papaya\Message\Logable::GROUP_DEBUG,
         \Papaya\Message::SEVERITY_DEBUG,
         $take['text'],
         new \Papaya\Message\Context\Runtime($take['start'], $take['end'])

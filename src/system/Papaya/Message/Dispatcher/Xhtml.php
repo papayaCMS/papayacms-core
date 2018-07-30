@@ -53,7 +53,7 @@ class Xhtml
    * @return boolean
    */
   public function dispatch(\Papaya\Message $message) {
-    if ($message instanceof \PapayaMessageLogable &&
+    if ($message instanceof \Papaya\Message\Logable &&
       $this->allow()) {
       $this->outputClosers();
       print('<div class="debug" style="border: none; margin: 3em; padding: 0; font-size: 1em;">');

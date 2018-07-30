@@ -38,8 +38,8 @@ class PapayaMessageDispatcherXhtmlTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('asXhtml')
       ->will($this->returnValue('CONTEXT'));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
-    $message = $this->createMock(\PapayaMessageLogable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+    $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->any())
       ->method('getType')
@@ -71,8 +71,8 @@ class PapayaMessageDispatcherXhtmlTest extends \PapayaTestCase {
   * @covers \Papaya\Message\Dispatcher\Xhtml::allow
   */
   public function testAllowWithDisabledDispatcherExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
-    $message = $this->createMock(\PapayaMessageLogable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+    $message = $this->createMock(\Papaya\Message\Logable::class);
     $dispatcher = new \Papaya\Message\Dispatcher\Xhtml();
     $dispatcher->papaya(
       $this->getFixtureApplicationObject(FALSE, FALSE)

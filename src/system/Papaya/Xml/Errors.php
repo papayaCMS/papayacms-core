@@ -90,7 +90,7 @@ class PapayaXmlErrors extends \Papaya\Application\BaseObject {
         $context->append(new \Papaya\Message\Context\Variable($arguments));
         $context->append(new \Papaya\Message\Context\Backtrace(1));
         $this->papaya()->messages->log(
-          \PapayaMessageLogable::GROUP_SYSTEM,
+          \Papaya\Message\Logable::GROUP_SYSTEM,
           \Papaya\Message::SEVERITY_ERROR,
           $e->getMessage(),
           $context
@@ -136,12 +136,12 @@ class PapayaXmlErrors extends \Papaya\Application\BaseObject {
    * Converts a libxml error object into a \Papaya\PapayaMessage
    *
    * @param libXMLError $error
-   * @return \PapayaMessageLog
+   * @return \Papaya\Message\Log
    */
   public function getMessageFromError(libXMLError $error) {
     $messageType = $this->_errorMapping[$error->level];
-    $message = new \PapayaMessageLog(
-      \PapayaMessageLogable::GROUP_SYSTEM,
+    $message = new \Papaya\Message\Log(
+      \Papaya\Message\Logable::GROUP_SYSTEM,
       $messageType,
       sprintf(
         '%d: %s in line %d at char %d',

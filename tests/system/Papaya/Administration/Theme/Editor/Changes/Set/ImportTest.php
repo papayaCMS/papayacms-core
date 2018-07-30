@@ -166,11 +166,11 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends \PapayaTestCas
    * @covers Import
    */
   public function testOnValidationSuccessWithValidXml() {
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessageDisplay::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(\PapayaThemeHandler::class);
     $themeHandler
@@ -248,11 +248,11 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends \PapayaTestCas
    * @covers Import
    */
   public function testOnValidationSuccessWithValidXmlImportingIntoExistingSet() {
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessageDisplay::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(\PapayaThemeHandler::class);
     $themeHandler

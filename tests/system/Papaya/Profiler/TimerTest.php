@@ -70,12 +70,12 @@ class PapayaProfilerTimerTest extends \PapayaTestCase {
    * @covers \PapayaProfilerTimer
    */
   public function testEmit() {
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('log')
       ->with(
-        \PapayaMessageLogable::GROUP_DEBUG,
+        \Papaya\Message\Logable::GROUP_DEBUG,
         \Papaya\Message::SEVERITY_DEBUG,
         $this->isType('string'),
         $this->isInstanceOf(\Papaya\Message\Context\Runtime::class)

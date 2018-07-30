@@ -135,11 +135,11 @@ class PapayaAdministrationPluginEditorDialogTest extends \PapayaTestCase {
       ->method('errors')
       ->will($this->returnValue($dialogErrors));
 
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessageDisplay::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
 
     $editor = new Dialog($pluginContent);
     $editor->papaya(

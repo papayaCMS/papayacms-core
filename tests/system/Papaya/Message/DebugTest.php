@@ -18,12 +18,12 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaMessageDebugTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMessageDebug::__construct
+  * @covers \Papaya\Message\Debug::__construct
   */
   public function testConstructor() {
-    $message = new \PapayaMessageDebug(\PapayaMessageLogable::GROUP_SYSTEM, 'Sample Message');
+    $message = new \Papaya\Message\Debug(\Papaya\Message\Logable::GROUP_SYSTEM, 'Sample Message');
     $this->assertAttributeEquals(
-      \PapayaMessageLogable::GROUP_SYSTEM,
+      \Papaya\Message\Logable::GROUP_SYSTEM,
       '_group',
       $message
     );
@@ -40,22 +40,22 @@ class PapayaMessageDebugTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDebug::getGroup
+  * @covers \Papaya\Message\Debug::getGroup
   */
   public function testGetGroup() {
-    $message = new \PapayaMessageDebug();
+    $message = new \Papaya\Message\Debug();
     $this->assertEquals(
-      \PapayaMessageLogable::GROUP_DEBUG,
+      \Papaya\Message\Logable::GROUP_DEBUG,
       $message->getGroup()
     );
   }
 
 
   /**
-  * @covers \PapayaMessageDebug::getType
+  * @covers \Papaya\Message\Debug::getType
   */
   public function testGetType() {
-    $message = new \PapayaMessageDebug();
+    $message = new \Papaya\Message\Debug();
     $this->assertEquals(
       \Papaya\Message::SEVERITY_DEBUG,
       $message->getType()
@@ -63,10 +63,10 @@ class PapayaMessageDebugTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDebug::context
+  * @covers \Papaya\Message\Debug::context
   */
   public function testContext() {
-    $message = new \PapayaMessageDebug();
+    $message = new \Papaya\Message\Debug();
     $found = array();
     foreach ($message->context() as $subContext) {
       $found[] = get_class($subContext);
@@ -82,11 +82,11 @@ class PapayaMessageDebugTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageDebug::getMessage
+  * @covers \Papaya\Message\Debug::getMessage
   */
   public function testGetMessage() {
-    $message = new \PapayaMessageDebug(
-      \PapayaMessageLogable::GROUP_DEBUG,
+    $message = new \Papaya\Message\Debug(
+      \Papaya\Message\Logable::GROUP_DEBUG,
       'Sample Message'
     );
     $this->assertEquals(

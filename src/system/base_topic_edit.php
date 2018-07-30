@@ -201,8 +201,8 @@ class base_topic_edit extends base_topic {
           $this->changePosition($currentWeight, $direction);
           if ($this->papaya()->options->get('PAPAYA_LOG_EVENT_PAGE_MOVED', TRUE)) {
             $this->papaya()->messages->dispatch(
-              new \PapayaMessageLog(
-                \PapayaMessageLogable::GROUP_CONTENT,
+              new \Papaya\Message\Log(
+                \Papaya\Message\Logable::GROUP_CONTENT,
                 \Papaya\Message::SEVERITY_INFO,
                 sprintf(
                   'Page "%s (%s)" moved position (%d %s).',
@@ -251,8 +251,8 @@ class base_topic_edit extends base_topic {
             $this->changePosition($this->topic['topic_weight'], $moveSteps);
             if ($this->papaya()->options->get('PAPAYA_LOG_EVENT_PAGE_MOVED', TRUE)) {
               $this->papaya()->messages->dispatch(
-                new \PapayaMessageLog(
-                  \PapayaMessageLogable::GROUP_CONTENT,
+                new \Papaya\Message\Log(
+                  \Papaya\Message\Logable::GROUP_CONTENT,
                   \Papaya\Message::SEVERITY_INFO,
                   sprintf(
                     'Page "%s (%s)" moved position (%d %s).',
@@ -285,8 +285,8 @@ class base_topic_edit extends base_topic {
             )
           ) {
             $this->papaya()->messages->dispatch(
-              new \PapayaMessageLog(
-                \PapayaMessageLogable::GROUP_CONTENT,
+              new \Papaya\Message\Log(
+                \Papaya\Message\Logable::GROUP_CONTENT,
                 \Papaya\Message::SEVERITY_INFO,
                 new \PapayaUiString(
                   '%s created a new translation "%s" for page "#%d"',
@@ -299,7 +299,7 @@ class base_topic_edit extends base_topic {
               )
             );
             $this->papaya()->messages->dispatch(
-              new \PapayaMessageDisplay(
+              new \Papaya\Message\Display(
                 \Papaya\Message::SEVERITY_INFO,
                 new \PapayaUiString(
                   'New translation "%s" for page "#%d" added.',
@@ -341,8 +341,8 @@ class base_topic_edit extends base_topic {
          ) {
         if ($newId = $this->create()) {
           $this->papaya()->messages->dispatch(
-            new \PapayaMessageLog(
-              \PapayaMessageLogable::GROUP_CONTENT,
+            new \Papaya\Message\Log(
+              \Papaya\Message\Logable::GROUP_CONTENT,
               \Papaya\Message::SEVERITY_INFO,
               new \PapayaUiString(
                 '%s created the new page "#%d"',
@@ -1380,7 +1380,7 @@ class base_topic_edit extends base_topic {
       foreach ($pageViews as $pageId => $view) {
         if ($view['module_id'] != $moduleGuid) {
           $this->papaya()->messages->dispatch(
-            new \PapayaMessageDisplayTranslated(
+            new \Papaya\Message\Display\Translated(
               \Papaya\Message::SEVERITY_WARNING,
               'Dependend page #%d uses a view with a differnt module. Can not change content.',
               array(
@@ -2929,7 +2929,7 @@ class base_topic_edit extends base_topic {
           foreach ($pageViews as $pageId => $view) {
             if ($view['module_id'] != $selectView->currentView['module_guid']) {
               $this->papaya()->messages->dispatch(
-                new \PapayaMessageDisplayTranslated(
+                new \Papaya\Message\Display\Translated(
                   \Papaya\Message::SEVERITY_WARNING,
                   'Dependend page #%d uses a view with a different module and is not synced'.
                   ' automatically. Can not change view.',
@@ -2956,7 +2956,7 @@ class base_topic_edit extends base_topic {
             );
             if ($originTranslation->moduleGuid != $selectView->currentView['module_guid']) {
               $this->papaya()->messages->dispatch(
-                new \PapayaMessageDisplayTranslated(
+                new \Papaya\Message\Display\Translated(
                   \Papaya\Message::SEVERITY_WARNING,
                   'The selected view is not compatible with the view of the origin page'.
                   ' Can not change view.'

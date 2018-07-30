@@ -18,16 +18,16 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaMessageLogTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMessageLog::__construct
+  * @covers \Papaya\Message\Log::__construct
   */
   public function testConstructor() {
-    $message = new \PapayaMessageLog(
-      \PapayaMessageLogable::GROUP_SYSTEM,
+    $message = new \Papaya\Message\Log(
+      \Papaya\Message\Logable::GROUP_SYSTEM,
       \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
     $this->assertAttributeEquals(
-      \PapayaMessageLogable::GROUP_SYSTEM,
+      \Papaya\Message\Logable::GROUP_SYSTEM,
       '_group',
       $message
     );
@@ -44,27 +44,27 @@ class PapayaMessageLogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageLog::getGroup
+  * @covers \Papaya\Message\Log::getGroup
   */
   public function testGetGroup() {
-    $message = new \PapayaMessageLog(
-      \PapayaMessageLogable::GROUP_SYSTEM,
+    $message = new \Papaya\Message\Log(
+      \Papaya\Message\Logable::GROUP_SYSTEM,
       \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
     $this->assertEquals(
-      \PapayaMessageLogable::GROUP_SYSTEM,
+      \Papaya\Message\Logable::GROUP_SYSTEM,
       $message->getGroup()
     );
   }
 
 
   /**
-  * @covers \PapayaMessageLog::getType
+  * @covers \Papaya\Message\Log::getType
   */
   public function testGetType() {
-    $message = new \PapayaMessageLog(
-      \PapayaMessageLogable::GROUP_SYSTEM,
+    $message = new \Papaya\Message\Log(
+      \Papaya\Message\Logable::GROUP_SYSTEM,
       \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
@@ -75,11 +75,11 @@ class PapayaMessageLogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageLog::SetContext
+  * @covers \Papaya\Message\Log::SetContext
   */
   public function testSetContext() {
-    $message = new \PapayaMessageLog(
-      \PapayaMessageLogable::GROUP_SYSTEM,
+    $message = new \Papaya\Message\Log(
+      \Papaya\Message\Logable::GROUP_SYSTEM,
       \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
@@ -94,11 +94,11 @@ class PapayaMessageLogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageLog::context
+  * @covers \Papaya\Message\Log::context
   */
   public function testContext() {
-    $message = new \PapayaMessageLog(
-      \PapayaMessageLogable::GROUP_SYSTEM,
+    $message = new \Papaya\Message\Log(
+      \Papaya\Message\Logable::GROUP_SYSTEM,
       \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
@@ -112,11 +112,11 @@ class PapayaMessageLogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageLog::getMessage
+  * @covers \Papaya\Message\Log::getMessage
   */
   public function testGetMessage() {
-    $message = new \PapayaMessageLog(
-      \PapayaMessageLogable::GROUP_SYSTEM,
+    $message = new \Papaya\Message\Log(
+      \Papaya\Message\Logable::GROUP_SYSTEM,
       \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
@@ -127,11 +127,11 @@ class PapayaMessageLogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageLog::Context
+  * @covers \Papaya\Message\Log::Context
   */
   public function testContextImplizitCreate() {
-    $message = new \PapayaMessageLog(
-      \PapayaMessageLogable::GROUP_SYSTEM,
+    $message = new \Papaya\Message\Log(
+      \Papaya\Message\Logable::GROUP_SYSTEM,
       \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );

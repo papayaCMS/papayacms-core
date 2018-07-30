@@ -66,7 +66,7 @@ class Cli
    * @return boolean
    */
   public function dispatch(\Papaya\Message $message) {
-    if ($message instanceof \PapayaMessageLogable &&
+    if ($message instanceof \Papaya\Message\Logable &&
       $this->allow()) {
       $options = $this->getOptionsFromType($message->getType());
       $isError = in_array(

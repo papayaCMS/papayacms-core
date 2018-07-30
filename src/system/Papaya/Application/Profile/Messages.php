@@ -26,10 +26,10 @@ class Messages implements \Papaya\Application\Profile {
    * Create the profile object and return it
    *
    * @param \Papaya\Application $application
-   * @return \PapayaMessageManager
+   * @return \Papaya\Message\Manager
    */
   public function createObject($application) {
-    $messages = new \PapayaMessageManager();
+    $messages = new \Papaya\Message\Manager();
     $messages->addDispatcher(new \Papaya\Message\Dispatcher\Template());
     $messages->addDispatcher(new \Papaya\Message\Dispatcher\Database());
     $messages->addDispatcher(new \Papaya\Message\Dispatcher\Wildfire());

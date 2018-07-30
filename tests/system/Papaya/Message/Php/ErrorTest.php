@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaMessagePhpErrorTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaMessagePhpError::__construct
+  * @covers \Papaya\Message\PHP\Error::__construct
   */
   public function testConstructor() {
-    $message = new \PapayaMessagePhpError(E_USER_WARNING, 'Sample Warning', 'Sample Context');
+    $message = new \Papaya\Message\PHP\Error(E_USER_WARNING, 'Sample Warning', 'Sample Context');
     $this->assertAttributeEquals(
       \Papaya\Message::SEVERITY_WARNING,
       '_type',

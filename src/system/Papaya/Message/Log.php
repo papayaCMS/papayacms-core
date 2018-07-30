@@ -13,41 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message;
 /**
-* Papaya Message Log, standard log message class
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageLog
-  implements \PapayaMessageLogable {
+ * Papaya Message Log, standard log message class
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Log
+  implements \Papaya\Message\Logable {
 
   /**
-  * Message group
-  */
-  protected $_group = \PapayaMessageLogable::GROUP_SYSTEM;
+   * Message group
+   */
+  protected $_group = \Papaya\Message\Logable::GROUP_SYSTEM;
 
   /**
-  * Message type
-  * @var integer
-  */
+   * Message type
+   *
+   * @var integer
+   */
   protected $_type = \Papaya\Message::SEVERITY_INFO;
 
   /**
-  * Message text
-  * @var string
-  */
+   * Message text
+   *
+   * @var string
+   */
   protected $_message = '';
 
   /**
-  * Message context
-  *
-  * @var NULL|\Papaya\Message\Context\Group
-  */
+   * Message context
+   *
+   * @var NULL|\Papaya\Message\Context\Group
+   */
   protected $_context = NULL;
 
   /**
-   * PapayaMessageLog constructor
+   * Papaya\Message\PapayaMessageLog constructor
    *
    * @param integer $group
    * @param integer $type
@@ -60,37 +63,37 @@ class PapayaMessageLog
   }
 
   /**
-  * Get group of message (system, php, content, ...)
-  *
-  * @return integer
-  */
+   * Get group of message (system, php, content, ...)
+   *
+   * @return integer
+   */
   public function getGroup() {
     return $this->_group;
   }
 
   /**
-  * Get type of message (info, warning, error)
-  *
-  * @return integer
-  */
+   * Get type of message (info, warning, error)
+   *
+   * @return integer
+   */
   public function getType() {
     return $this->_type;
   }
 
   /**
-  * Get message string
-  *
-  * @return string
-  */
+   * Get message string
+   *
+   * @return string
+   */
   public function getMessage() {
     return (string)$this->_message;
   }
 
   /**
-  * Return a context object containing additional data about where and why the message happened.
-  *
-  * @return \Papaya\Message\Context\Group
-  */
+   * Return a context object containing additional data about where and why the message happened.
+   *
+   * @return \Papaya\Message\Context\Group
+   */
   public function context() {
     if (is_null($this->_context)) {
       $this->_context = new \Papaya\Message\Context\Group();

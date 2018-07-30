@@ -804,9 +804,9 @@ class base_thumbnail extends base_object {
     unset($this->error);
     $this->error = array('level' => $level, 'msg' => $msg);
     if ($this->papaya()->options->get('PAPAYA_LOG_ERROR_THUMBNAIL', TRUE)) {
-      $message = new \PapayaMessageLog(
+      $message = new \Papaya\Message\Log(
         $level,
-        \PapayaMessageLogable::GROUP_CONTENT,
+        \Papaya\Message\Logable::GROUP_CONTENT,
         $msg
       );
       $message

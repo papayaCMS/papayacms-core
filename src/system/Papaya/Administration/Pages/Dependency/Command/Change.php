@@ -158,7 +158,7 @@ class Change extends \PapayaUiControlCommandDialog {
       while ($row = $databaseResult->fetchRow(\Papaya\Database\Result::FETCH_ASSOC)) {
         if ($row['module_counter'] > 1) {
           $this->papaya()->messages->dispatch(
-            new \PapayaMessageDisplay(
+            new \Papaya\Message\Display(
               \Papaya\Message::SEVERITY_WARNING,
               new \PapayaUiStringTranslated(
                 'Views with different modules found. Please change befor activating'.
@@ -179,7 +179,7 @@ class Change extends \PapayaUiControlCommandDialog {
   public function handleExecutionSuccess($context) {
     $context->synchronizations->synchronizeDependency($context->dependency);
     $this->papaya()->messages->dispatch(
-      new \PapayaMessageDisplayTranslated(
+      new \Papaya\Message\Display\Translated(
         \Papaya\Message::SEVERITY_INFO, 'Dependency saved.'
       )
     );
@@ -190,7 +190,7 @@ class Change extends \PapayaUiControlCommandDialog {
    */
   public function dispatchErrorMessage($context, \PapayaUiDialog $dialog) {
     $this->papaya()->messages->dispatch(
-      new \PapayaMessageDisplayTranslated(
+      new \Papaya\Message\Display\Translated(
         \Papaya\Message::SEVERITY_ERROR,
         'Invalid input. Please check the fields "%s".',
         array(implode(', ', $dialog->errors()->getSourceCaptions()))

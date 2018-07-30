@@ -54,7 +54,7 @@ class Dialog extends \PapayaPluginEditor {
       }
     } elseif ($this->dialog()->isSubmitted()) {
       $this->papaya()->messages->dispatch(
-        new \PapayaMessageDisplayTranslated(
+        new \Papaya\Message\Display\Translated(
           \Papaya\Message::SEVERITY_ERROR,
           'Invalid input. Please check the field(s) "%s".',
           array(implode(', ', $this->dialog()->errors()->getSourceCaptions()))

@@ -13,55 +13,57 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\Hook;
 /**
-* Papaya Message Hook Exception, capture exceptions and handle them
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageHookExceptions
-  implements \PapayaMessageHook {
+ * Papaya Message Hook Exception, capture exceptions and handle them
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Exceptions
+  implements \Papaya\Message\Hook {
 
   /**
-  * Message manger object to dispatch the created messages
-  * @var \PapayaMessageManager
-  */
+   * Message manger object to dispatch the created messages
+   *
+   * @var \Papaya\Message\Manager
+   */
   private $_messageManager = NULL;
 
   /**
-  * Create hook and set message manager object
-  *
-  * @param \PapayaMessageManager $messageManager
-  */
-  public function __construct(\PapayaMessageManager $messageManager) {
+   * Create hook and set message manager object
+   *
+   * @param \Papaya\Message\Manager $messageManager
+   */
+  public function __construct(\Papaya\Message\Manager $messageManager) {
     $this->_messageManager = $messageManager;
   }
 
 
   /**
-  * Activate hook, override current exception handler. This will only capture exception not
-  * catched in the source.
-  */
+   * Activate hook, override current exception handler. This will only capture exception not
+   * catched in the source.
+   */
   public function activate() {
     set_exception_handler(array($this, 'handle'));
   }
 
   /**
-  * Deactivate hook, restore previous exception handler
-  */
+   * Deactivate hook, restore previous exception handler
+   */
   public function deactivate() {
     restore_exception_handler();
   }
 
   /**
-  * Actual exception handler, just generate an message for it.
-  *
-  * @param \Exception|\Throwable $exception
-  */
+   * Actual exception handler, just generate an message for it.
+   *
+   * @param \Exception|\Throwable $exception
+   */
   public function handle($exception) {
     if ($exception instanceof \ErrorException) {
       $this->_messageManager->dispatch(
-        new \PapayaMessagePhpException($exception)
+        new \Papaya\Message\PHP\Exception($exception)
       );
     } else {
       $error = new \ErrorException(
@@ -74,7 +76,7 @@ class PapayaMessageHookExceptions
         )
       );
       $this->_messageManager->dispatch(
-        new \PapayaMessagePhpException(
+        new \Papaya\Message\PHP\Exception(
           $error,
           new \Papaya\Message\Context\Backtrace(0, $exception->getTrace())
         )

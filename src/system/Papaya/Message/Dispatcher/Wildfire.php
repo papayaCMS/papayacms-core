@@ -41,7 +41,7 @@ class Wildfire
    * @throws \InvalidArgumentException
    */
   public function dispatch(\Papaya\Message $message) {
-    if ($message instanceof \PapayaMessageLogable &&
+    if ($message instanceof \Papaya\Message\Logable &&
       $this->allow()) {
       // @codeCoverageIgnoreStart
       $this->send($message);
@@ -111,10 +111,10 @@ class Wildfire
   /**
    * Send log message using the Wildfire protocol
    *
-   * @param \PapayaMessageLogable $message
+   * @param \Papaya\Message\Logable $message
    * @throws \InvalidArgumentException
    */
-  public function send(\PapayaMessageLogable $message) {
+  public function send(\Papaya\Message\Logable $message) {
     $wildfire = $this->getHandler();
     if (count($message->context()) > 0) {
       $wildfire->startGroup($this->getWildfireGroupLabelFromType($message->getType()));

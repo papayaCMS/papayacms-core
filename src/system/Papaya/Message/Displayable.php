@@ -13,12 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message;
 /**
-* Interface for messages that need to be shown to the user.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-interface PapayaMessageDisplayable extends \Papaya\Message {
+ * Interface for messages that need to be shown to the user.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+interface Displayable extends \Papaya\Message {
 
 }

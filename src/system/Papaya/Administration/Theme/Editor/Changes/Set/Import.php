@@ -120,7 +120,7 @@ class Import
           }
           if ($this->_themeSet->save()) {
             $this->papaya()->messages->dispatch(
-              new \PapayaMessageDisplayTranslated(
+              new \Papaya\Message\Display\Translated(
                 \Papaya\Message::SEVERITY_INFO,
                 'Values imported.'
               )

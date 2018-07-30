@@ -28,12 +28,12 @@ class PapayaMessageHookErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageHookErrors::__construct
+  * @covers \Papaya\Message\Hook\Errors::__construct
   */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(\PapayaMessageManager::class);
-    $hook = new \PapayaMessageHookErrors($manager);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Manager $manager */
+    $manager = $this->createMock(\Papaya\Message\Manager::class);
+    $hook = new \Papaya\Message\Hook\Errors($manager);
     $this->assertAttributeSame(
       $manager,
       '_messageManager',
@@ -42,12 +42,12 @@ class PapayaMessageHookErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageHookErrors::activate
+  * @covers \Papaya\Message\Hook\Errors::activate
   */
   public function testActivate() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(\PapayaMessageManager::class);
-    $hook = new \PapayaMessageHookErrors($manager);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Manager $manager */
+    $manager = $this->createMock(\Papaya\Message\Manager::class);
+    $hook = new \Papaya\Message\Hook\Errors($manager);
     $hook->activate();
     $this->assertSame(
       array($hook, 'handle'),
@@ -58,12 +58,12 @@ class PapayaMessageHookErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageHookErrors::deactivate
+  * @covers \Papaya\Message\Hook\Errors::deactivate
   */
   public function testDeactivate() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(\PapayaMessageManager::class);
-    $hook = new \PapayaMessageHookErrors($manager);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Manager $manager */
+    $manager = $this->createMock(\Papaya\Message\Manager::class);
+    $hook = new \Papaya\Message\Hook\Errors($manager);
     $hook->activate();
     $hook->deactivate();
     $this->assertNotSame(
@@ -74,12 +74,12 @@ class PapayaMessageHookErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageHookErrors::checkErrorDuplicates
+  * @covers \Papaya\Message\Hook\Errors::checkErrorDuplicates
   */
   public function testCheckErrorDuplicatesExpectingZero() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(\PapayaMessageManager::class);
-    $hook = new \PapayaMessageHookErrors($manager);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Manager $manager */
+    $manager = $this->createMock(\Papaya\Message\Manager::class);
+    $hook = new \Papaya\Message\Hook\Errors($manager);
     $hook->checkErrorDuplicates(E_USER_ERROR, 'file.php', 23);
     $this->assertSame(
       0,
@@ -88,12 +88,12 @@ class PapayaMessageHookErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageHookErrors::checkErrorDuplicates
+  * @covers \Papaya\Message\Hook\Errors::checkErrorDuplicates
   */
   public function testCheckErrorDuplicatesExpectingOne() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(\PapayaMessageManager::class);
-    $hook = new \PapayaMessageHookErrors($manager);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Manager $manager */
+    $manager = $this->createMock(\Papaya\Message\Manager::class);
+    $hook = new \Papaya\Message\Hook\Errors($manager);
     $hook->checkErrorDuplicates(E_USER_ERROR, 'file.php', 42);
     $this->assertSame(
       1,
@@ -102,68 +102,68 @@ class PapayaMessageHookErrorsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaMessageHookErrors::handle
-  * @covers \PapayaMessageHookErrors::handleException
+  * @covers \Papaya\Message\Hook\Errors::handle
+  * @covers \Papaya\Message\Hook\Errors::handleException
   */
   public function testHandleWithNotice() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(\PapayaMessageManager::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Manager $manager */
+    $manager = $this->createMock(\Papaya\Message\Manager::class);
     $manager
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessagePhpError::class));
-    $hook = new \PapayaMessageHookErrors($manager);
+      ->with($this->isInstanceOf(\Papaya\Message\PHP\Error::class));
+    $hook = new \Papaya\Message\Hook\Errors($manager);
     $hook->handle(E_USER_NOTICE, 'Sample Message', 'file.php', 42, 'CONTEXT');
   }
 
   /**
-  * @covers \PapayaMessageHookErrors::handle
-  * @covers \PapayaMessageHookErrors::handleException
+  * @covers \Papaya\Message\Hook\Errors::handle
+  * @covers \Papaya\Message\Hook\Errors::handleException
   */
   public function testHandleWithError() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(\PapayaMessageManager::class);
-    $hook = new \PapayaMessageHookErrors($manager);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Manager $manager */
+    $manager = $this->createMock(\Papaya\Message\Manager::class);
+    $hook = new \Papaya\Message\Hook\Errors($manager);
     $this->expectException(ErrorException::class);
     $hook->handle(E_USER_ERROR, 'Sample Message', 'file.php', 42, 'CONTEXT');
   }
 
   /**
-  * @covers \PapayaMessageHookErrors::handle
-  * @covers \PapayaMessageHookErrors::handleException
+  * @covers \Papaya\Message\Hook\Errors::handle
+  * @covers \Papaya\Message\Hook\Errors::handleException
   */
   public function testHandleWithErrorPushedToExceptionHook() {
     $exceptionHook = $this
-      ->getMockBuilder(\PapayaMessageHookExceptions::class)
+      ->getMockBuilder(\Papaya\Message\Hook\Exceptions::class)
       ->disableOriginalConstructor()
       ->getMock();
     $exceptionHook
       ->expects($this->once())
       ->method('handle')
       ->with($this->isInstanceOf(ErrorException::class));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(\PapayaMessageManager::class);
-    $hook = new \PapayaMessageHookErrors($manager, $exceptionHook);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Manager $manager */
+    $manager = $this->createMock(\Papaya\Message\Manager::class);
+    $hook = new \Papaya\Message\Hook\Errors($manager, $exceptionHook);
     $hook->handle(E_USER_ERROR, 'Sample Message', 'file.php', 42, 'CONTEXT');
   }
 
   /**
-  * @covers \PapayaMessageHookErrors::handle
-  * @covers \PapayaMessageHookErrors::handleException
+  * @covers \Papaya\Message\Hook\Errors::handle
+  * @covers \Papaya\Message\Hook\Errors::handleException
   */
   public function testHandleWithNoticeExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageManager $manager */
-    $manager = $this->createMock(\PapayaMessageManager::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Manager $manager */
+    $manager = $this->createMock(\Papaya\Message\Manager::class);
     $manager
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessagePhpError::class))
+      ->with($this->isInstanceOf(\Papaya\Message\PHP\Error::class))
       ->will(
         $this->returnCallback(
           array($this, 'callbackThrowANotice')
         )
       );
-    $hook = new \PapayaMessageHookErrors($manager);
+    $hook = new \Papaya\Message\Hook\Errors($manager);
     $this->assertFalse(
       $hook->handle(E_USER_NOTICE, 'Sample Message', 'file.php', 42, 'CONTEXT')
     );

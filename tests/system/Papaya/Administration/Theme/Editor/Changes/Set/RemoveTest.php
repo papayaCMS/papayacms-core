@@ -100,11 +100,11 @@ class PapayaAdministrationThemeEditorChangesSetRemoveTest extends \PapayaTestCas
    * @covers Remove::callbackDeleted
    */
   public function testCallbackDeleted() {
-    $messages = $this->createMock(\PapayaMessageManager::class);
+    $messages = $this->createMock(\Papaya\Message\Manager::class);
     $messages
       ->expects($this->once())
       ->method('dispatch')
-      ->with($this->isInstanceOf(\PapayaMessageDisplay::class));
+      ->with($this->isInstanceOf(\Papaya\Message\Display::class));
     /** @var PHPUnit_Framework_MockObject_MockObject|Record $record */
     $record = $this->createMock(Record::class);
     $command = new Remove($record);

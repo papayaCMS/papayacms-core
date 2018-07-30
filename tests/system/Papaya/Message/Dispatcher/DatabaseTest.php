@@ -40,12 +40,12 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
       ->method('insertRecord')
       ->with($this->equalTo('table_log'), $this->isNull(), $this->isType('array'))
       ->will($this->returnValue(TRUE));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
-    $message = $this->createMock(\PapayaMessageLogable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+    $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->once())
       ->method('getGroup')
-      ->will($this->returnValue(\PapayaMessageLogable::GROUP_SYSTEM));
+      ->will($this->returnValue(\Papaya\Message\Logable::GROUP_SYSTEM));
     $message
       ->expects($this->exactly(2))
       ->method('getType')
@@ -101,12 +101,12 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getDisplayName')
       ->will($this->returnValue('Sample User'));
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
-    $message = $this->createMock(\PapayaMessageLogable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+    $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->once())
       ->method('getGroup')
-      ->will($this->returnValue(\PapayaMessageLogable::GROUP_SYSTEM));
+      ->will($this->returnValue(\Papaya\Message\Logable::GROUP_SYSTEM));
     $message
       ->expects($this->exactly(2))
       ->method('getType')
@@ -141,7 +141,7 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
   * @covers \Papaya\Message\Dispatcher\Database::dispatch
   */
   public function testDispatchWithInvalidMessageExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
     $message = $this->createMock(\Papaya\Message::class);
     $dispatcher = new \Papaya\Message\Dispatcher\Database();
     $this->assertFalse($dispatcher->dispatch($message));
@@ -151,8 +151,8 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
   * @covers \Papaya\Message\Dispatcher\Database::dispatch
   */
   public function testDispatchWithDebugMessageExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
-    $message = $this->createMock(\PapayaMessageLogable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+    $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->once())
       ->method('getType')
@@ -193,12 +193,12 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
     $databaseAccess
       ->expects($this->never())
       ->method('insertRecord');
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
-    $message = $this->createMock(\PapayaMessageLogable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+    $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->once())
       ->method('getGroup')
-      ->will($this->returnValue(\PapayaMessageLogable::GROUP_SYSTEM));
+      ->will($this->returnValue(\Papaya\Message\Logable::GROUP_SYSTEM));
     $message
       ->expects($this->exactly(2))
       ->method('getType')
@@ -242,8 +242,8 @@ class PapayaMessageDispatcherDatabaseTest extends \PapayaTestCase {
   * @param boolean $dispatcherHandleDebug
   */
   public function testAllow($expected, $type, $dispatcherActive, $dispatcherHandleDebug) {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageLogable $message */
-    $message = $this->createMock(\PapayaMessageLogable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Logable $message */
+    $message = $this->createMock(\Papaya\Message\Logable::class);
     $message
       ->expects($this->any())
       ->method('getType')

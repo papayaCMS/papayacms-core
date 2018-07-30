@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message;
 /**
-* Papaya Message Exception, message object representing a php exception. This allows to convert
-* any exception into an error log message.
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageException
-  extends \PapayaMessagePhp {
+ * Papaya Message Exception, message object representing a php exception. This allows to convert
+ * any exception into an error log message.
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Exception
+  extends \Papaya\Message\PHP {
 
   /**
    * Create object and set values from exception object

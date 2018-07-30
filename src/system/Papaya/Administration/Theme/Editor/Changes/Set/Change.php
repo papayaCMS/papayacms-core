@@ -70,7 +70,7 @@ class Change
    */
   public function callbackSaveValues() {
     $this->papaya()->messages->dispatch(
-      new \PapayaMessageDisplayTranslated(
+      new \Papaya\Message\Display\Translated(
         \Papaya\Message::SEVERITY_INFO,
         'Theme set saved.'
       )
@@ -85,7 +85,7 @@ class Change
    */
   public function callbackShowError($context, $dialog) {
     $this->papaya()->messages->dispatch(
-      new \PapayaMessageDisplayTranslated(
+      new \Papaya\Message\Display\Translated(
         \Papaya\Message::SEVERITY_ERROR,
         'Invalid input. Please check the field(s) "%s".',
         array(implode(', ', $dialog->errors()->getSourceCaptions()))

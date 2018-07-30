@@ -24,8 +24,8 @@ class PapayaMessageDispatcherTemplateTest extends \PapayaTestCase {
   * @backupGlobals enabled
   */
   public function testDispatch() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDisplayable $message */
-    $message = $this->createMock(\PapayaMessageDisplayable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Displayable $message */
+    $message = $this->createMock(\Papaya\Message\Displayable::class);
     $message
       ->expects($this->once())
       ->method('getType')
@@ -69,8 +69,8 @@ class PapayaMessageDispatcherTemplateTest extends \PapayaTestCase {
   * @covers \Papaya\Message\Dispatcher\Template::dispatch
   */
   public function testDispatchWithoutGlobalObjectExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaMessageDisplayable $message */
-    $message = $this->createMock(\PapayaMessageDisplayable::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Displayable $message */
+    $message = $this->createMock(\Papaya\Message\Displayable::class);
     $dispatcher = new \Papaya\Message\Dispatcher\Template();
     $this->assertFalse($dispatcher->dispatch($message));
   }

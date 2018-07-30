@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message\PHP;
 /**
-* Papaya Message Php Error, message object representing an php error
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessagePhpError
-  extends \PapayaMessagePhp {
+ * Papaya Message Php Error, message object representing an php error
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Error
+  extends \Papaya\Message\PHP {
 
   /**
-  * Create object and set values from a captured error
-  *
-  * @param integer $severity
-  * @param string $message
-  * @param mixed $variableContext
-  */
+   * Create object and set values from a captured error
+   *
+   * @param integer $severity
+   * @param string $message
+   * @param mixed $variableContext
+   */
   public function __construct($severity, $message, $variableContext = NULL) {
     parent::__construct();
     $this->setSeverity($severity);

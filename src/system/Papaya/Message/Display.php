@@ -13,31 +13,35 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Message;
 /**
-* Papaya Message Display, simple message displayed to the user
-*
-* @package Papaya-Library
-* @subpackage Messages
-*/
-class PapayaMessageDisplay
-  implements \PapayaMessageDisplayable {
+ * Papaya Message Display, simple message displayed to the user
+ *
+ * @package Papaya-Library
+ * @subpackage Messages
+ */
+class Display
+  implements \Papaya\Message\Displayable {
 
   /**
-  * Message type
-  * @var integer
-  */
+   * Message type
+   *
+   * @var integer
+   */
   protected $_type = \Papaya\Message::SEVERITY_INFO;
 
   /**
-  * Message text
-  * @var string|\PapayaUiString
-  */
+   * Message text
+   *
+   * @var string|\PapayaUiString
+   */
   protected $_message = '';
 
   /**
-  * Allowed message types, creating a message with an invalid type will thrown an exception
-  * @var array
-  */
+   * Allowed message types, creating a message with an invalid type will thrown an exception
+   *
+   * @var array
+   */
   protected $_allowedTypes = array(
     \Papaya\Message::SEVERITY_INFO,
     \Papaya\Message::SEVERITY_WARNING,
@@ -45,11 +49,11 @@ class PapayaMessageDisplay
   );
 
   /**
-  * PapayaMessageDisplay constrcutor
-  *
-  * @param integer $type
-  * @param string|\PapayaUiString $message
-  */
+   * Papaya\Message\PapayaMessageDisplay constrcutor
+   *
+   * @param integer $type
+   * @param string|\PapayaUiString $message
+   */
   public function __construct($type, $message) {
     $this->_isValidType($type);
     $this->_type = $type;
@@ -57,8 +61,8 @@ class PapayaMessageDisplay
   }
 
   /**
-  * check if the given type is valid for this kind of messages
-  */
+   * check if the given type is valid for this kind of messages
+   */
   protected function _isValidType($type) {
     if (in_array($type, $this->_allowedTypes)) {
       return TRUE;
@@ -67,17 +71,19 @@ class PapayaMessageDisplay
   }
 
   /**
-  * Get type of message (info, warning, error)
-  * @return integer
-  */
+   * Get type of message (info, warning, error)
+   *
+   * @return integer
+   */
   public function getType() {
     return $this->_type;
   }
 
   /**
-  * Get message string
-  * @return string
-  */
+   * Get message string
+   *
+   * @return string
+   */
   public function getMessage() {
     return (string)$this->_message;
   }
