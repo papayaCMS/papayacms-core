@@ -20,18 +20,18 @@ namespace Papaya;
  * @package Papaya-Library
  * @subpackage Phrases
  *
- * @property \PapayaPhrasesGroups groups
+ * @property \Papaya\Phrases\Groups groups
  *
  */
 class Phrases extends Application\BaseObject {
 
   /**
-   * @var \PapayaPhrasesGroups
+   * @var \Papaya\Phrases\Groups
    */
   private $_groups;
 
   /**
-   * @var \PapayaPhrasesStorage
+   * @var \Papaya\Phrases\Storage
    */
   private $_storage;
 
@@ -42,13 +42,13 @@ class Phrases extends Application\BaseObject {
 
   private $_defaultGroup;
 
-  public function __construct(\PapayaPhrasesStorage $storage, Content\Language $language) {
+  public function __construct(Phrases\Storage $storage, Content\Language $language) {
     $this->_storage = $storage;
     $this->_language = $language;
   }
 
   /**
-   * @return \PapayaPhrasesStorage
+   * @return \Papaya\Phrases\Storage
    */
   public function getStorage() {
     return $this->_storage;
@@ -111,14 +111,14 @@ class Phrases extends Application\BaseObject {
    * $group = $phrases->groups()->get('GROUP_NAME');
    * $phrase = $group->get('PHRASE');
    *
-   * @param \PapayaPhrasesGroups $groups
-   * @return \PapayaPhrasesGroups
+   * @param \Papaya\Phrases\Groups $groups
+   * @return \Papaya\Phrases\Groups
    */
-  public function groups(\PapayaPhrasesGroups $groups = NULL) {
+  public function groups(Phrases\Groups $groups = NULL) {
     if (NULL !== $groups) {
       $this->_groups = $groups;
     } elseif (NULL === $this->_groups) {
-      $this->_groups = new \PapayaPhrasesGroups($this);
+      $this->_groups = new Phrases\Groups($this);
     }
     return $this->_groups;
   }

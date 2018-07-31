@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Phrases;
 /**
-* Grouped access to phrases. This is a factory for phrase objects. The methods create
-* objects with access to the translations engine. If needed the objects fetch the
-* translation.
-*
-* @package Papaya-Library
-* @subpackage Phrases
-*/
-class PapayaPhrasesGroup {
+ * Grouped access to phrases. This is a factory for phrase objects. The methods create
+ * objects with access to the translations engine. If needed the objects fetch the
+ * translation.
+ *
+ * @package Papaya-Library
+ * @subpackage Phrases
+ */
+class Group {
 
   private $_phrases = NULL;
   private $_name = '';

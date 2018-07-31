@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Phrases;
 /**
-* Array Access implementation for phrase group objects.
-*
-* @package Papaya-Library
-* @subpackage Phrases
-*/
-class PapayaPhrasesGroups implements \ArrayAccess {
+ * Array Access implementation for phrase group objects.
+ *
+ * @package Papaya-Library
+ * @subpackage Phrases
+ */
+class Groups implements \ArrayAccess {
 
   /**
    * @var array
@@ -37,7 +38,7 @@ class PapayaPhrasesGroups implements \ArrayAccess {
 
   /**
    * @param string $name
-   * @return \PapayaPhrasesGroup
+   * @return \Papaya\Phrases\Group
    */
   public function get($name) {
     return $this->offsetGet($name);
@@ -53,21 +54,21 @@ class PapayaPhrasesGroups implements \ArrayAccess {
 
   /**
    * @param string $name
-   * @return \PapayaPhrasesGroup
+   * @return \Papaya\Phrases\Group
    */
   public function offsetGet($name) {
     if (!isset($this->_groups[$name])) {
-      $this->_groups[$name] = new \PapayaPhrasesGroup($this->_phrases, $name);
+      $this->_groups[$name] = new \Papaya\Phrases\Group($this->_phrases, $name);
     }
     return $this->_groups[$name];
   }
 
   /**
    * @param string $name
-   * @param \PapayaPhrasesGroup $group
+   * @param \Papaya\Phrases\Group $group
    */
   public function offsetSet($name, $group) {
-    \PapayaUtilConstraints::assertInstanceOf(\PapayaPhrasesGroup::class, $group);
+    \PapayaUtilConstraints::assertInstanceOf(\Papaya\Phrases\Group::class, $group);
     $this->_groups[$name] = $group;
   }
 
