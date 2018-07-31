@@ -13,7 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaParserTagImage extends \PapayaParserTag {
+namespace Papaya\Parser\Tag;
+
+class Image extends \Papaya\Parser\Tag {
   /**
    * @var string
    */
@@ -51,6 +53,7 @@ class PapayaParserTagImage extends \PapayaParserTag {
 
   /**
    * Papaya tag pattern
+   *
    * @var string
    */
   private $_papayaTagPattern = '/<(papaya|ndim):([a-z]\w+)\s?([^>]*)\/?>(<\/(\1):(\2)>)?/ims';
@@ -117,12 +120,12 @@ class PapayaParserTagImage extends \PapayaParserTag {
     if (preg_match($this->_papayaTagPattern, $this->_mediaPropertyString, $regs)) {
       $this->parseMediaTag($this->_mediaPropertyString);
     } elseif (
-        preg_match(
-          '~^([^.,]+(\.\w+)?)(,(\d+)(,(\d+)(,(\w+))?)?)?$~i',
-          $this->_mediaPropertyString,
-          $regs
-        )
-      ) {
+    preg_match(
+      '~^([^.,]+(\.\w+)?)(,(\d+)(,(\d+)(,(\w+))?)?)?$~i',
+      $this->_mediaPropertyString,
+      $regs
+    )
+    ) {
       $this->_source = \papaya_strings::escapeHTMLChars($regs[1]);
       if ($this->_width == 0 && isset($regs[4])) {
         $this->_width = (int)$regs[4];

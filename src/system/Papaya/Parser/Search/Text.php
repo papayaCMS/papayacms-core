@@ -13,7 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaParserSearchString implements \IteratorAggregate {
+namespace Papaya\Parser\Search;
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+class Text implements \IteratorAggregate {
 
   /**
    * @var string
@@ -47,85 +61,85 @@ class PapayaParserSearchString implements \IteratorAggregate {
     while ($i < strlen($searchFor)) {
       $c = $searchFor[$i];
       switch ($c) {
-      case '\\':
-        if ($escaped && $inToken) {
-          $token['value'] .= $c;
-        }
-        $escaped = !($escaped);
+        case '\\':
+          if ($escaped && $inToken) {
+            $token['value'] .= $c;
+          }
+          $escaped = !($escaped);
         break;
-      case '+':
-        if ($escaped) {
-          $token['value'] .= $c;
-          $escaped = FALSE;
-        } elseif ($inToken) {
-          $token['value'] .= $c;
-        } else {
-          $token['mode'] = '+';
-        }
+        case '+':
+          if ($escaped) {
+            $token['value'] .= $c;
+            $escaped = FALSE;
+          } elseif ($inToken) {
+            $token['value'] .= $c;
+          } else {
+            $token['mode'] = '+';
+          }
         break;
-      case '-':
-        if ($escaped) {
-          $token['value'] .= $c;
-          $escaped = FALSE;
-        } elseif ($inToken) {
-          $token['value'] .= $c;
-        } else {
-          $token['mode'] = '-';
-        }
+        case '-':
+          if ($escaped) {
+            $token['value'] .= $c;
+            $escaped = FALSE;
+          } elseif ($inToken) {
+            $token['value'] .= $c;
+          } else {
+            $token['mode'] = '-';
+          }
         break;
-      case '"':
-        if ($escaped && $inToken) {
-          $token['value'] .= $c;
-          $escaped = FALSE;
-        } elseif ($inQuotes && $inToken) {
-          $count += $this->addToken($token);
-          $token = $this->createToken();
-          $inToken = FALSE;
-          $inQuotes = FALSE;
-        } elseif ((!$inQuotes) && $inToken) {
-          $token['value'] .= $c;
-        } else {
-          $token['quotes'] = TRUE;
-          $inQuotes = TRUE;
+        case '"':
+          if ($escaped && $inToken) {
+            $token['value'] .= $c;
+            $escaped = FALSE;
+          } elseif ($inQuotes && $inToken) {
+            $count += $this->addToken($token);
+            $token = $this->createToken();
+            $inToken = FALSE;
+            $inQuotes = FALSE;
+          } elseif ((!$inQuotes) && $inToken) {
+            $token['value'] .= $c;
+          } else {
+            $token['quotes'] = TRUE;
+            $inQuotes = TRUE;
+            $inToken = TRUE;
+          }
+        break;
+        case '(':
+          if (!($escaped || $inQuotes)) {
+            if ($inToken) {
+              $count += $this->addToken($token);
+              $token = $this->createToken();
+              $inToken = FALSE;
+            }
+            $groupLevel = $this->openTokenGroup($groupLevel);
+          } else {
+            $token['value'] .= $c;
+          }
+        break;
+        case ')':
+          if (!($escaped || $inQuotes)) {
+            if ($inToken) {
+              $count += $this->addToken($token);
+              $token = $this->createToken();
+              $inToken = FALSE;
+            }
+            $groupLevel = $this->closeTokenGroup($groupLevel);
+          } else {
+            $token['value'] .= $c;
+          }
+        break;
+        case ' ':
+          if ($inToken && $inQuotes) {
+            $token['value'] .= $c;
+          } elseif ($inToken) {
+            $count += $this->addToken($token);
+            $token = $this->createToken();
+            $inToken = FALSE;
+          }
+        break;
+        default:
           $inToken = TRUE;
-        }
-        break;
-      case '(':
-        if (!($escaped || $inQuotes)) {
-          if ($inToken) {
-            $count += $this->addToken($token);
-            $token = $this->createToken();
-            $inToken = FALSE;
-          }
-          $groupLevel = $this->openTokenGroup($groupLevel);
-        } else {
           $token['value'] .= $c;
-        }
-        break;
-      case ')':
-        if (!($escaped || $inQuotes)) {
-          if ($inToken) {
-            $count += $this->addToken($token);
-            $token = $this->createToken();
-            $inToken = FALSE;
-          }
-          $groupLevel = $this->closeTokenGroup($groupLevel);
-        } else {
-          $token['value'] .= $c;
-        }
-        break;
-      case ' ':
-        if ($inToken && $inQuotes) {
-          $token['value'] .= $c;
-        } elseif ($inToken) {
-          $count += $this->addToken($token);
-          $token = $this->createToken();
-          $inToken = FALSE;
-        }
-        break;
-      default:
-        $inToken = TRUE;
-        $token['value'] .= $c;
       }
       $i++;
     }
@@ -135,6 +149,7 @@ class PapayaParserSearchString implements \IteratorAggregate {
     $this->closeTokenGroup($groupLevel);
     return $count;
   }
+
   /**
    * Add element token
    *
@@ -170,22 +185,22 @@ class PapayaParserSearchString implements \IteratorAggregate {
             }
           }
         } else {
-          switch($str) {
-          case 'and':
-            $this->_tokens[] = array('mode' => ':', 'value' => 'AND');
-            $this->_ignoreConnector = TRUE;
+          switch ($str) {
+            case 'and':
+              $this->_tokens[] = array('mode' => ':', 'value' => 'AND');
+              $this->_ignoreConnector = TRUE;
             break;
-          case 'or':
-            $this->_tokens[] = array('mode' => ':', 'value' => 'OR');
-            $this->_ignoreConnector = TRUE;
+            case 'or':
+              $this->_tokens[] = array('mode' => ':', 'value' => 'OR');
+              $this->_ignoreConnector = TRUE;
             break;
-          default:
-            if (strlen($str) > 0) {
-              if ($this->addElementToken($token)) {
-                $this->_ignoreConnector = FALSE;
-                return 1;
+            default:
+              if (strlen($str) > 0) {
+                if ($this->addElementToken($token)) {
+                  $this->_ignoreConnector = FALSE;
+                  return 1;
+                }
               }
-            }
           }
         }
       } else {
@@ -207,7 +222,7 @@ class PapayaParserSearchString implements \IteratorAggregate {
    * @return array
    */
   private function createToken() {
-    return array('mode' => '+' , 'value' => '', 'quotes' => FALSE);
+    return array('mode' => '+', 'value' => '', 'quotes' => FALSE);
   }
 
   /**

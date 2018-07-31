@@ -24,7 +24,7 @@ class PapayaParserSearchStringTest extends \PapayaTestCase {
    * @dataProvider provideSearchStrings
    */
   public function testParse($expected, $searchFor) {
-    $tokens = new \PapayaParserSearchString($searchFor);
+    $tokens = new \Papaya\Parser\Search\Text($searchFor);
     $this->assertEquals($expected, iterator_to_array($tokens));
   }
 

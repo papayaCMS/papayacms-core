@@ -33,11 +33,11 @@ class Match extends \Papaya\Database\Condition\Fulltext {
   /**
    * Get filters for MySQL MATCH command
    *
-   * @param \PapayaParserSearchString $tokens
+   * @param \Papaya\Parser\Search\Text $tokens
    * @param array $fields
    * @return string
    */
-  protected function getFulltextCondition(\PapayaParserSearchString $tokens, array $fields) {
+  protected function getFulltextCondition(\Papaya\Parser\Search\Text $tokens, array $fields) {
     $result = '';
     $fieldGroups = array();
     foreach ($fields as $field) {
@@ -62,11 +62,11 @@ class Match extends \Papaya\Database\Condition\Fulltext {
   /**
    * Get filter line for MySQL MATCH command
    *
-   * @param \PapayaParserSearchString $tokens
+   * @param \Papaya\Parser\Search\Text $tokens
    * @param string $fieldString
    * @return string
    */
-  private function getMatchFilterLine(\PapayaParserSearchString $tokens, $fieldString) {
+  private function getMatchFilterLine(\Papaya\Parser\Search\Text $tokens, $fieldString) {
     $result = '';
     $connector = '';
     $indent = 0;

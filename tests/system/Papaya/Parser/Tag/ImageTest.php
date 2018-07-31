@@ -17,10 +17,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaParserTagImageTest extends \PapayaTestCase {
   /**
-   * @covers \PapayaParserTagImage::appendTo
+   * @covers \Papaya\Parser\Tag\Image::appendTo
    */
   public function testAppendTo() {
-    $image = new \PapayaParserTagImage('d74f6d0324f5d90b23bb3771200ddf7d,60,96,max');
+    $image = new \Papaya\Parser\Tag\Image('d74f6d0324f5d90b23bb3771200ddf7d,60,96,max');
     $document = new \PapayaXmlDocument();
     $container = $document->appendElement('container');
     $image->appendTo($container);

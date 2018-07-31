@@ -43,11 +43,11 @@ abstract class Fulltext {
   }
 
   /**
-   * @param \PapayaParserSearchString $tokens
+   * @param \Papaya\Parser\Search\Text $tokens
    * @param array|\Traversable $fields
    * @return mixed
    */
-  abstract protected function getFullTextCondition(\PapayaParserSearchString $tokens, array $fields);
+  abstract protected function getFullTextCondition(\Papaya\Parser\Search\Text $tokens, array $fields);
 
   public function getDatabaseAccess() {
     return $this->getParent()->getDatabaseAccess();
@@ -63,7 +63,7 @@ abstract class Fulltext {
 
   public function getSql($silent = FALSE) {
     try {
-      $tokens = new \PapayaParserSearchString($this->_searchFor);
+      $tokens = new \Papaya\Parser\Search\Text($this->_searchFor);
       return $this->getFullTextCondition($tokens, array_map([$this, 'mapFieldName'], $this->_fields));
     } catch (\LogicException $e) {
       if (!$silent) {

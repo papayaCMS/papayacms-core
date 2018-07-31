@@ -33,11 +33,11 @@ class Contains extends \Papaya\Database\Condition\Fulltext {
   /**
    * Get filters for a LIKE condition
    *
-   * @param \PapayaParserSearchString $tokens
+   * @param \Papaya\Parser\Search\Text $tokens
    * @param array $fields
    * @return string
    */
-  protected function getFulltextCondition(\PapayaParserSearchString $tokens, array $fields) {
+  protected function getFulltextCondition(\Papaya\Parser\Search\Text $tokens, array $fields) {
     $result = '';
     $connector = '';
     $indent = 0;

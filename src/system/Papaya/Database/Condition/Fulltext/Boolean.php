@@ -33,11 +33,11 @@ class Boolean extends \Papaya\Database\Condition\Fulltext {
   /**
    * Get filters for MySQL MATCH command
    *
-   * @param \PapayaParserSearchString $tokens
+   * @param \Papaya\Parser\Search\Text $tokens
    * @param array $fields
    * @return string
    */
-  protected function getFulltextCondition(\PapayaParserSearchString $tokens, array $fields) {
+  protected function getFulltextCondition(\Papaya\Parser\Search\Text $tokens, array $fields) {
     $result = '';
     $fieldGroups = array();
     foreach ($fields as $field) {
@@ -62,12 +62,12 @@ class Boolean extends \Papaya\Database\Condition\Fulltext {
   /**
    * Get Filters for MySQL MATCH Command in Boolean Mode (MySQL > 4.1)
    *
-   * @param \PapayaParserSearchString $tokens
+   * @param \Papaya\Parser\Search\Text $tokens
    * @param string $fieldString
    * @access public
    * @return string
    */
-  private function getBooleanFilterLine(\PapayaParserSearchString $tokens, $fieldString) {
+  private function getBooleanFilterLine(\Papaya\Parser\Search\Text $tokens, $fieldString) {
     $connector = '';
     $indent = 0;
     $matchString = '';
