@@ -24,8 +24,8 @@ class PapayaAdministrationPluginEditorFieldsTest extends \PapayaTestCase {
    * @covers Fields::__construct
    */
   public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableData $content */
-    $content = $this->createMock(\PapayaPluginEditableData::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Data $content */
+    $content = $this->createMock(\Papaya\Plugin\Editable\Data::class);
     $editor = new Fields($content, array());
     $this->assertSame($content, $editor->getData());
   }
@@ -45,8 +45,8 @@ class PapayaAdministrationPluginEditorFieldsTest extends \PapayaTestCase {
         )
       );
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableData $pluginContent */
-    $pluginContent = $this->createMock(\PapayaPluginEditableData::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Data $pluginContent */
+    $pluginContent = $this->createMock(\Papaya\Plugin\Editable\Data::class);
     $pluginContent
       ->expects($this->any())
       ->method('getIterator')
@@ -77,8 +77,8 @@ class PapayaAdministrationPluginEditorFieldsTest extends \PapayaTestCase {
    * @covers Fields::builder
    */
   public function testBuilderGetAfterSet() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
-    $content = $this->createMock(\PapayaPluginEditableContent::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */
+    $content = $this->createMock(\Papaya\Plugin\Editable\Content::class);
     $builder = $this
       ->getMockBuilder(\PapayaUiDialogFieldBuilderArray::class)
       ->disableOriginalConstructor()
@@ -92,8 +92,8 @@ class PapayaAdministrationPluginEditorFieldsTest extends \PapayaTestCase {
    * @covers Fields::builder
    */
   public function testBuilderGetImplicitCreate() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
-    $content = $this->createMock(\PapayaPluginEditableContent::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */
+    $content = $this->createMock(\Papaya\Plugin\Editable\Content::class);
     $editor = new Fields($content, array());
     $this->assertInstanceOf(\PapayaUiDialogFieldBuilderArray::class, $editor->builder());
   }

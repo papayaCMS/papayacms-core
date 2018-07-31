@@ -202,7 +202,7 @@ class base_boxes extends base_db {
           $topicObj,
           $this->box['TRANSLATION']['box_data']
         );
-        if ($plugin instanceof \PapayaPluginAppendable) {
+        if ($plugin instanceof \Papaya\Plugin\Appendable) {
           $dom = new \PapayaXmlDocument();
           $boxNode = $dom->appendElement('box');
           $boxNode->append($plugin);

@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin;
 /**
  * An interface to define that an object can be configured from a controller.
  * Page content modules get parameters like "fullpage" this way.
@@ -20,7 +21,7 @@
  * @package Papaya-Library
  * @subpackage Plugins
  */
-interface PapayaPluginConfigurable {
+interface Configurable {
 
   /**
    * @param \Papaya\BaseObject\Parameters $configuration

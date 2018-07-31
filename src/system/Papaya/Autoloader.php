@@ -113,8 +113,8 @@ class Autoloader {
 
     // Typos
     'Anchestors' => 'Ancestors',
-    'Regex' => 'RegEx',
-    'Php' => 'PHP'
+    'Php' => 'PHP',
+    'Regex' => 'RegEx'
   );
 
   /**

@@ -891,7 +891,7 @@ class papaya_page extends base_object {
         )
       )
     ) {
-      if ($pagePlugin instanceof \PapayaPluginCacheable) {
+      if ($pagePlugin instanceof \Papaya\Plugin\Cacheable) {
         $definition = $pagePlugin->cacheable();
       } elseif (isset($pagePlugin->cacheable) && $pagePlugin->cacheable == FALSE) {
         return FALSE;

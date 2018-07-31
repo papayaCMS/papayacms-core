@@ -18,40 +18,40 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaPluginEditorTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaPluginEditor::__construct
-   * @covers \PapayaPluginEditor::getContent
+   * @covers \Papaya\Plugin\Editor::__construct
+   * @covers \Papaya\Plugin\Editor::getContent
    */
   public function testConstructorAndGetContent() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
-    $content = $this->createMock(\PapayaPluginEditableContent::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */
+    $content = $this->createMock(\Papaya\Plugin\Editable\Content::class);
     $editor = new \PapayaPluginEditor_TestProxy($content);
     $this->assertSame($content, $editor->getData());
   }
 
   /**
-   * @covers \PapayaPluginEditor::context
+   * @covers \Papaya\Plugin\Editor::context
    */
   public function testContextGetAfterSet() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
-    $content = $this->createMock(\PapayaPluginEditableContent::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */
+    $content = $this->createMock(\Papaya\Plugin\Editable\Content::class);
     $editor = new \PapayaPluginEditor_TestProxy($content);
     $editor->context($context = $this->createMock(\PapayaRequestParameters::class));
     $this->assertSame($context, $editor->context());
   }
 
   /**
-   * @covers \PapayaPluginEditor::context
+   * @covers \Papaya\Plugin\Editor::context
    */
   public function testContextGetImplicitCreate() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaPluginEditableContent $content */
-    $content = $this->createMock(\PapayaPluginEditableContent::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */
+    $content = $this->createMock(\Papaya\Plugin\Editable\Content::class);
     $editor = new \PapayaPluginEditor_TestProxy($content);
     $this->assertInstanceOf(\PapayaRequestParameters::class, $editor->context());
   }
 
 }
 
-class PapayaPluginEditor_TestProxy extends \PapayaPluginEditor {
+class PapayaPluginEditor_TestProxy extends \Papaya\Plugin\Editor {
 
   public function appendTo(\PapayaXmlElement $parent) {
 

@@ -20,32 +20,32 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaPluginFilterContentRecordsTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaPluginFilterContentRecords
+   * @covers \Papaya\Plugin\Filter\Content\Records
    */
   public function testRecordsGetAfterSet() {
-    $filterGroup = new \PapayaPluginFilterContentRecords($this->getPageFixture());
+    $filterGroup = new \Papaya\Plugin\Filter\Content\Records($this->getPageFixture());
     $filterGroup->records($records = $this->createMock(Configurations::class));
     $this->assertSame($records, $filterGroup->records());
   }
 
   /**
-   * @covers \PapayaPluginFilterContentRecords
+   * @covers \Papaya\Plugin\Filter\Content\Records
    */
   public function testRecordsImplicitCreate() {
-    $filterGroup = new \PapayaPluginFilterContentRecords($this->getPageFixture());
+    $filterGroup = new \Papaya\Plugin\Filter\Content\Records($this->getPageFixture());
     $this->assertInstanceOf(Configurations::class, $filterGroup->records());
   }
 
   /**
-   * @covers \PapayaPluginFilterContentRecords
+   * @covers \Papaya\Plugin\Filter\Content\Records
    */
   public function testIteratorFetchesPlugins() {
-    $plugins = $this->createMock(\PapayaPluginLoader::class);
+    $plugins = $this->createMock(\Papaya\Plugin\Loader::class);
     $plugins
       ->expects($this->once())
       ->method('get')
       ->with('guid', $this->isInstanceOf(\PapayaUiContentPage::class), 'options')
-      ->will($this->returnValue($this->createMock(\PapayaPluginFilterContent::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Plugin\Filter\Content::class)));
 
     $records = $this->createMock(Configurations::class);
     $records
@@ -64,7 +64,7 @@ class PapayaPluginFilterContentRecordsTest extends \PapayaTestCase {
         )
       );
 
-    $filterGroup = new \PapayaPluginFilterContentRecords($this->getPageFixture());
+    $filterGroup = new \Papaya\Plugin\Filter\Content\Records($this->getPageFixture());
     $filterGroup->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
     $filterGroup->records($records);
 

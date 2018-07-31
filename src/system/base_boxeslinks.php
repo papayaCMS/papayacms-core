@@ -531,7 +531,7 @@ class base_boxeslinks extends base_db {
       } else {
         $this->parser->setLinkOutputMode(NULL);
         // If no cache data available, load box data from XML stored in $data[box_data]
-        if ($obj instanceof \PapayaPluginAppendable) {
+        if ($obj instanceof \Papaya\Plugin\Appendable) {
           $dom = new \PapayaXmlDocument();
           $boxNode = $dom->appendElement('box');
           $sandbox = $this->papaya()->messages->encapsulate(array($obj, 'appendTo'));
@@ -544,7 +544,7 @@ class base_boxeslinks extends base_db {
         if (!empty($str)) {
           $output = '';
           if ($wrapperTags) {
-            if ($obj instanceof \PapayaPluginAssignable) {
+            if ($obj instanceof \Papaya\Plugin\Assignable) {
               $output = $this->serializeParsedAttributes($obj->getAttributes());
             } elseif (method_exists($obj, 'getParsedAttributes')) {
               $output = $this->serializeParsedAttributes($obj->getParsedAttributes());
@@ -685,7 +685,7 @@ class base_boxeslinks extends base_db {
   function getBoxCacheId(array $boxData, $box, $lngId, $viewModeId) {
     if (isset($box) && is_object($box) && isset($GLOBALS['PAPAYA_PAGE']) &&
         $GLOBALS['PAPAYA_PAGE']->public) {
-      if ($box instanceof \PapayaPluginCacheable) {
+      if ($box instanceof \Papaya\Plugin\Cacheable) {
         $definition = $box->cacheable();
       } elseif (method_exists($box, 'getCacheId')) {
         $definition = new Cache\Identifier\Definition\Callback(array($box, 'getCacheId'));

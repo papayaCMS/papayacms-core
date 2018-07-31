@@ -14,9 +14,6 @@
  */
 
 namespace Papaya\Administration\Plugin\Editor;
-use PapayaPluginEditableData;
-use PapayaUiDialogFieldBuilderArray;
-use PapayaUtilConstraints;
 
 /**
  * An PluginEditor implementation that build a dialog based on an array of field definitions
@@ -33,10 +30,10 @@ class Fields extends Dialog {
   /**
    * Create the object store plugin instance and field definition
    *
-   * @param \PapayaPluginEditableData $data
+   * @param \Papaya\Plugin\Editable\Data $data
    * @param array $fields
    */
-  public function __construct(\PapayaPluginEditableData $data, array $fields) {
+  public function __construct(\Papaya\Plugin\Editable\Data $data, array $fields) {
     parent::__construct($data);
     \PapayaUtilConstraints::assertArrayOrTraversable($fields);
     $this->_fields = $fields;

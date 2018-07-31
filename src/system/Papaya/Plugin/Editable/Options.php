@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin\Editable;
 /**
- * Class \PapayaPluginEditableOptions
+ * Class \Papaya\Plugin\Editable\PapayaPluginEditableOptions
  */
-class PapayaPluginEditableOptions extends \PapayaPluginEditableData {
+class Options extends Data {
 
   /**
-   * Checksum buffer filled in {@see \PapayaPluginEditableOptions::modified()}
+   * Checksum buffer filled in {@see \Papaya\Plugin\Editable\PapayaPluginEditableOptions::modified()}
+   *
    * @var string|NULL
    */
   private $_checksum;
 
-  public function __construct(\PapayaPluginOptions $options) {
+  public function __construct(\Papaya\Plugin\Options $options) {
     parent::__construct(iterator_to_array($options));
     $this->_checksum = $this->getChecksum();
   }

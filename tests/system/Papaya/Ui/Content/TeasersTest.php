@@ -87,7 +87,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
         array(
           'id' => 42,
           'language_id' => 1,
-          'title' => 'implementing PapayaPluginQuoteable',
+          'title' => 'implementing Papaya\Plugin\PapayaPluginQuoteable',
           'module_guid' => '12345678901234567890123456789042',
           'content' => 'data',
           'created' => strtotime('2017-01-16T12:21Z'),
@@ -100,7 +100,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendQuoteTo');
 
-    $plugins = $this->createMock(\PapayaPluginLoader::class);
+    $plugins = $this->createMock(\Papaya\Plugin\Loader::class);
     $plugins
       ->expects($this->once())
       ->method('get')
@@ -141,7 +141,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
       ->disableOriginalConstructor()
       ->getMock();
 
-    $plugins = $this->createMock(\PapayaPluginLoader::class);
+    $plugins = $this->createMock(\Papaya\Plugin\Loader::class);
     $plugins
       ->expects($this->once())
       ->method('get')
@@ -177,7 +177,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
       )
     );
 
-    $plugins = $this->createMock(\PapayaPluginLoader::class);
+    $plugins = $this->createMock(\Papaya\Plugin\Loader::class);
     $plugins
       ->expects($this->once())
       ->method('get')
@@ -213,7 +213,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
       )
     );
 
-    $plugins = $this->createMock(\PapayaPluginLoader::class);
+    $plugins = $this->createMock(\Papaya\Plugin\Loader::class);
     $plugins
       ->expects($this->once())
       ->method('get')
@@ -280,7 +280,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
 }
 
 class PapayaUiContentTeasers_PagePluginMockClass
-  implements \PapayaPluginQuoteable {
+  implements \Papaya\Plugin\Quoteable {
 
   public function appendQuoteTo(\PapayaXmlElement $parent) {
     $parent->appendElement('title', array(), 'sample title');

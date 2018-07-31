@@ -13,7 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaPluginFilterContentRecords extends \PapayaPluginFilterContentGroup {
+namespace Papaya\Plugin\Filter\Content;
+/**
+ * Class Papaya\Plugin\Filter\Content\PapayaPluginFilterContentRecords
+ */
+class Records extends Group {
 
   private $_viewConfigurations = NULL;
   private $_loaded = FALSE;

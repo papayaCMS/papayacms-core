@@ -2441,7 +2441,7 @@ class base_topic_edit extends base_topic {
     $moduleData = $this->topic['TRANSLATION'];
     if (isset($moduleData['module_guid']) && $moduleData['module_guid'] != '') {
       $plugin = $this->papaya()->plugins->get($moduleData['module_guid'], $this);
-      if ($plugin instanceof \PapayaPluginEditable) {
+      if ($plugin instanceof \Papaya\Plugin\Editable) {
         $plugin->content()->setXml($moduleData['topic_content']);
         $pluginNode = $this->layout->values()->getValueByPath('/page/centercol');
         if ($plugin->content()->editor()) {

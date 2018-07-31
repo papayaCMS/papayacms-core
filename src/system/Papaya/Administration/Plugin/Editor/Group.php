@@ -14,8 +14,6 @@
  */
 
 namespace Papaya\Administration\Plugin\Editor;
-use PapayaPluginEditableData;
-use PapayaPluginEditor;
 
 /**
  * An PluginEditor implementation that combines several other dialogs,
@@ -26,7 +24,7 @@ use PapayaPluginEditor;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Group extends \PapayaPluginEditor {
+class Group extends \Papaya\Plugin\Editor {
 
   private $_editors = [];
   private $_toolbar;
@@ -35,20 +33,20 @@ class Group extends \PapayaPluginEditor {
   /**
    * Papaya\Administration\Plugin\Editor\PapayaAdministrationPluginEditorGroup constructor.
    *
-   * @param \PapayaPluginEditableData $data
+   * @param \Papaya\Plugin\Editable\Data $data
    * @param string $indexParameterName
    */
-  public function __construct(\PapayaPluginEditableData $data, $indexParameterName = 'editor_index') {
+  public function __construct(\Papaya\Plugin\Editable\Data $data, $indexParameterName = 'editor_index') {
     parent::__construct($data);
     $this->_indexParameterName = $indexParameterName;
   }
 
   /**
-   * @param \PapayaPluginEditor $editor
+   * @param \Papaya\Plugin\Editor $editor
    * @param $buttonCaption
    * @param string $buttonImage
    */
-  public function add(\PapayaPluginEditor $editor, $buttonCaption, $buttonImage = '') {
+  public function add(\Papaya\Plugin\Editor $editor, $buttonCaption, $buttonImage = '') {
     $this->_editors[] = [$editor, $buttonCaption, $buttonImage];
   }
 
@@ -79,13 +77,13 @@ class Group extends \PapayaPluginEditor {
   }
 
   /**
-   * @return \PapayaPluginEditor
+   * @return \Papaya\Plugin\Editor
    */
   private function getCurrentEditor() {
     $editorIndex = $this->parameters()->get($this->_indexParameterName, 0);
     $editorIndex = isset($this->_editors[$editorIndex]) ? $editorIndex : 0;
     if (isset($this->_editors[$editorIndex])) {
-      /** @var \PapayaPluginEditor $editor */
+      /** @var \Papaya\Plugin\Editor $editor */
       $editor = $this->_editors[$editorIndex][0];
       $editor->context()->set($this->_indexParameterName, $editorIndex);
       return $editor;

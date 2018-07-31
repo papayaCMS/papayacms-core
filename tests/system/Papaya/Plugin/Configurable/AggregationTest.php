@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Plugin\Configurable\Aggregation;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaPluginConfigurableAggregationTest extends \PapayaTestCase {
@@ -30,8 +32,8 @@ class PapayaPluginConfigurableAggregationTest extends \PapayaTestCase {
   }
 }
 
-class PapayaPluginConfigurableAggregation_TestProxy implements \PapayaPluginConfigurable {
+class PapayaPluginConfigurableAggregation_TestProxy implements \Papaya\Plugin\Configurable {
 
-  use PapayaPluginConfigurableAggregation;
+  use Aggregation;
 }
 

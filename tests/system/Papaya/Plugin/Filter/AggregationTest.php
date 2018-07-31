@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Plugin\Filter\Aggregation;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class PapayaPluginFilterAggregationTest extends \PapayaTestCase {
@@ -21,7 +23,7 @@ class PapayaPluginFilterAggregationTest extends \PapayaTestCase {
     $plugin = new \PapayaPluginFilterAggregation_TestProxy(
       $page = $this->createMock(\PapayaUiContentPage::class)
     );
-    $plugin->filters($content = $this->createMock(\PapayaPluginFilterContent::class));
+    $plugin->filters($content = $this->createMock(\Papaya\Plugin\Filter\Content::class));
     $this->assertSame($content, $plugin->filters());
   }
 
@@ -30,7 +32,7 @@ class PapayaPluginFilterAggregationTest extends \PapayaTestCase {
       $page = $this->createMock(\PapayaUiContentPage::class)
     );
     $content = $plugin->filters();
-    $this->assertInstanceOf(\PapayaPluginFilterContent::class, $content);
+    $this->assertInstanceOf(\Papaya\Plugin\Filter\Content::class, $content);
     $this->assertSame($content, $plugin->filters());
   }
 
@@ -38,7 +40,7 @@ class PapayaPluginFilterAggregationTest extends \PapayaTestCase {
 
 class PapayaPluginFilterAggregation_TestProxy {
 
-  use PapayaPluginFilterAggregation;
+  use Aggregation;
 
   public function __construct($page) {
     $this->_page = $page;

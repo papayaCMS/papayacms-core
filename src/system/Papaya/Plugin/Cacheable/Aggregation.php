@@ -13,8 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Identifier\Definition;
-
+namespace Papaya\Plugin\Cacheable;
 /**
  * Define the plugin output as cacheable. A cache definition allows to get
  * the cache values, but also the sources the are from.
@@ -22,17 +21,17 @@ use Papaya\Cache\Identifier\Definition;
  * @package Papaya-Library
  * @subpackage Plugins
  */
-trait PapayaPluginCacheableAggregation {
+trait Aggregation {
 
   /**
-   * @var Definition
+   * @var \Papaya\Cache\Identifier\Definition
    */
   private $_cacheDefinition;
 
   /**
    * Provide the cache definition for the output.
    *
-   * @see \PapayaPluginCacheable::cacheable()
+   * @see \Papaya\Plugin\Cacheable::cacheable()
    * @param \Papaya\Cache\Identifier\Definition $definition
    * @return \Papaya\Cache\Identifier\Definition
    */

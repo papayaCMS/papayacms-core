@@ -13,38 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin\Editable\Options;
 /**
  * This a standard implementation for editable plugin content. It
- * makes implements the \PapayaPluginEditable interface and
+ * makes implements the \Papaya\Plugin\PapayaPluginEditable interface and
  * expects an implementation of the abstract method "createEditor".
  *
- * The method needs to return a \PapayaPluginEditor instance.
+ * The method needs to return a \Papaya\Plugin\PapayaPluginEditor instance.
  *
  * @package Papaya-Library
  * @subpackage Plugins
  */
-trait PapayaPluginEditableOptionsAggregation {
+trait Aggregation {
 
   /**
-   * @var \PapayaPluginEditableContent
+   * @var \Papaya\Plugin\Editable\Content
    */
   private $_options;
 
   /**
    * The content is an {@see ArrayObject} child class containing the stored data.
    *
-   * @see \PapayaPluginAdaptable::options()
-   * @param \PapayaPluginEditableOptions $options
-   * @return \PapayaPluginEditableOptions
+   * @see \Papaya\Plugin\Adaptable::options()
+   * @param \Papaya\Plugin\Editable\Options $options
+   * @return \Papaya\Plugin\Editable\Options
    */
-  public function options(\PapayaPluginEditableOptions $options = NULL) {
+  public function options(\Papaya\Plugin\Editable\Options $options = NULL) {
     if (NULL !== $options) {
       $this->_options = $options;
     } elseif (NULL === $this->_options) {
-      $this->_options = new \PapayaPluginEditableOptions(
-        new \PapayaPluginOptions($this->getPluginGuid())
+      $this->_options = new \Papaya\Plugin\Editable\Options(
+        new \Papaya\Plugin\Options($this->getPluginGuid())
       );
-      $this->_options->callbacks()->onCreateEditor = function($context, \PapayaPluginEditableOptions $content) {
+      $this->_options->callbacks()->onCreateEditor = function ($context, \Papaya\Plugin\Editable\Options $content) {
         return $this->createOptionsEditor($content);
       };
     }
@@ -52,10 +53,10 @@ trait PapayaPluginEditableOptionsAggregation {
   }
 
   /**
-   * @param \PapayaPluginEditableOptions $content
-   * @return \PapayaPluginEditor
+   * @param \Papaya\Plugin\Editable\Options $content
+   * @return \Papaya\Plugin\Editor
    */
-  abstract public function createOptionsEditor(\PapayaPluginEditableOptions $content);
+  abstract public function createOptionsEditor(\Papaya\Plugin\Editable\Options $content);
 
   /**
    * The plugin guid will be set as a public property by the plugin manager.

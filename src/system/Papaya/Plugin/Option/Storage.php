@@ -13,42 +13,43 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin\Option;
 /**
-* This configuration storage load the module option records using {@see \Papaya\Content\Module\PapayaContentModuleOptions}
-* by the module guid and maps them into an associative array.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaPluginOptionStorage extends \Papaya\Application\BaseObject
+ * This configuration storage load the module option records using
+ * {@see \Papaya\Content\Module\PapayaContentModuleOptions} by the module guid and maps them into an associative array.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Storage extends \Papaya\Application\BaseObject
   implements \Papaya\Configuration\Storage {
 
   private $_guid;
   private $_options = NULL;
 
   /**
-  * Create storage object and store module guid
-  *
-  * @param string $guid
-  */
+   * Create storage object and store module guid
+   *
+   * @param string $guid
+   */
   public function __construct($guid) {
     $this->_guid = \PapayaUtilStringGuid::toLower($guid);
   }
 
   /**
-  * Load module options from database
-  *
-  * @return boolean
-  */
+   * Load module options from database
+   *
+   * @return boolean
+   */
   public function load() {
     return $this->options()->load(array('guid' => $this->_guid));
   }
 
   /**
-  * Map and return module options
-  *
-  * @return array
-  */
+   * Map and return module options
+   *
+   * @return array
+   */
   public function getIterator() {
     $result = array();
     foreach ($this->options() as $option) {
@@ -58,11 +59,11 @@ class PapayaPluginOptionStorage extends \Papaya\Application\BaseObject
   }
 
   /**
-  * Getter/Setter: Options database encapsultation subobject
-  *
-  * @param \Papaya\Content\Module\Options $options
-  * @return \Papaya\Content\Module\Options
-  */
+   * Getter/Setter: Options database encapsultation subobject
+   *
+   * @param \Papaya\Content\Module\Options $options
+   * @return \Papaya\Content\Module\Options
+   */
   public function options(\Papaya\Content\Module\Options $options = NULL) {
     if (isset($options)) {
       $this->_options = $options;

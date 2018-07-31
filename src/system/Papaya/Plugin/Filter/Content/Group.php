@@ -13,9 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaPluginFilterContentGroup
+namespace Papaya\Plugin\Filter\Content;
+
+class Group
   extends \Papaya\Application\BaseObject
-  implements \PapayaPluginFilterContent, \IteratorAggregate {
+  implements \Papaya\Plugin\Filter\Content, \IteratorAggregate {
 
   private $_filters = array();
 
@@ -49,7 +51,7 @@ class PapayaPluginFilterContentGroup
   public function prepare($content, \Papaya\BaseObject\Parameters $options = NULL) {
     $this->_options = isset($options) ? $options : new \Papaya\BaseObject\Parameters([]);
     foreach ($this as $filter) {
-      if ($filter instanceof \PapayaPluginFilterContent) {
+      if ($filter instanceof \Papaya\Plugin\Filter\Content) {
         $filter->prepare($content, $this->_options);
       } elseif (method_exists($filter, 'prepareFilterData')) {
         if (method_exists($filter, 'initialize')) {
@@ -69,7 +71,7 @@ class PapayaPluginFilterContentGroup
   public function applyTo($content) {
     $result = $content;
     foreach ($this as $filter) {
-      if ($filter instanceof \PapayaPluginFilterContent) {
+      if ($filter instanceof \Papaya\Plugin\Filter\Content) {
         $result = $filter->applyTo($result);
       } elseif (method_exists($filter, 'applyFilterData')) {
         $result = \PapayaUtilStringXml::repairEntities($filter->applyFilterData($result));
@@ -80,7 +82,7 @@ class PapayaPluginFilterContentGroup
 
   public function appendTo(\PapayaXmlElement $parent) {
     foreach ($this as $filter) {
-      if ($filter instanceof \PapayaPluginFilterContent) {
+      if ($filter instanceof \Papaya\Plugin\Filter\Content) {
         $parent->append($filter);
       } elseif (method_exists($filter, 'getFilterData')) {
         $parent->appendXml(

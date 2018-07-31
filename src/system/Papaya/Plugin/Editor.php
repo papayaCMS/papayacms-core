@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin;
 /**
-* An abstract superclass for plugin content editors. They need access to the plugin,
-* so it is stored in a buffer variable.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-abstract class PapayaPluginEditor extends \PapayaUiControlInteractive {
+ * An abstract superclass for plugin content editors. They need access to the plugin,
+ * so it is stored in a buffer variable.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+abstract class Editor extends \PapayaUiControlInteractive {
 
   /**
-   * @var \PapayaPluginEditableData
+   * @var Editable\Data
    */
   private $_data;
 
@@ -35,16 +36,16 @@ abstract class PapayaPluginEditor extends \PapayaUiControlInteractive {
   /**
    * Create object and store the editable content
    *
-   * @param \PapayaPluginEditableData $data
+   * @param Editable\Data $data
    */
-  public function __construct(\PapayaPluginEditableData $data) {
+  public function __construct(Editable\Data $data) {
     $this->_data = $data;
   }
 
   /**
    * Return the stored data object.
    *
-   * @return \PapayaPluginEditableData
+   * @return Editable\Data
    */
   public function getData() {
     return $this->_data;
@@ -54,7 +55,7 @@ abstract class PapayaPluginEditor extends \PapayaUiControlInteractive {
    * Return the stored data object - bc for old API
    *
    * @deprecated
-   * @return \PapayaPluginEditableData
+   * @return Editable\Data
    */
   public function getContent() {
     return $this->getData();

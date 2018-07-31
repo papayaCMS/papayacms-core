@@ -13,30 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin\Option;
 /**
-* This is a list of the plugin options, the option of each plugin in one separate object.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaPluginOptionGroups extends \Papaya\Application\BaseObject implements \ArrayAccess {
+ * This is a list of the plugin options, the option of each plugin in one separate object.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Groups extends \Papaya\Application\BaseObject implements \ArrayAccess {
 
   private $_groups = array();
 
   /**
-  * Check if it is already created.
-  */
+   * Check if it is already created.
+   */
   public function offsetExists($guid) {
     $guid = \PapayaUtilStringGuid::toLower($guid);
     return isset($this->_groups[$guid]);
   }
 
   /**
-  * Get options object for a plugin, create it if needed
-  *
-  * @param string $guid
-  * @return \Papaya\Configuration
-  */
+   * Get options object for a plugin, create it if needed
+   *
+   * @param string $guid
+   * @return \Papaya\Configuration
+   */
   public function offsetGet($guid) {
     $guid = \PapayaUtilStringGuid::toLower($guid);
     $this->createLazy($guid);
@@ -44,12 +45,11 @@ class PapayaPluginOptionGroups extends \Papaya\Application\BaseObject implements
   }
 
   /**
-  * Set options object for a plugin.
-  *
-  * @param string $guid
-  * @param \Papaya\Configuration $group
-  * @return \Papaya\Configuration
-  */
+   * Set options object for a plugin.
+   *
+   * @param string $guid
+   * @param \Papaya\Configuration $group
+   */
   public function offsetSet($guid, $group) {
     $guid = \PapayaUtilStringGuid::toLower($guid);
     \PapayaUtilConstraints::assertInstanceOf(\Papaya\Configuration::class, $group);
@@ -57,10 +57,10 @@ class PapayaPluginOptionGroups extends \Papaya\Application\BaseObject implements
   }
 
   /**
-  * Remove option object for a given guid if it exists.
-  *
-  * @param string $guid
-  */
+   * Remove option object for a given guid if it exists.
+   *
+   * @param string $guid
+   */
   public function offsetUnset($guid) {
     $guid = \PapayaUtilStringGuid::toLower($guid);
     if ($this->offsetExists($guid)) {
@@ -69,14 +69,14 @@ class PapayaPluginOptionGroups extends \Papaya\Application\BaseObject implements
   }
 
   /**
-  * If the option object does not exist, create it and store it in the internal array.
-  *
-  * @param string $guid
-  */
+   * If the option object does not exist, create it and store it in the internal array.
+   *
+   * @param string $guid
+   */
   private function createLazy($guid) {
     $guid = \PapayaUtilStringGuid::toLower($guid);
     if (!isset($this->_groups[$guid])) {
-      $this->_groups[$guid] = $options = new \PapayaPluginOptions($guid);
+      $this->_groups[$guid] = $options = new \Papaya\Plugin\Options($guid);
       $options->papaya($this->papaya());
     }
   }

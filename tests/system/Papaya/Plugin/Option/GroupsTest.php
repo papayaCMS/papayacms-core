@@ -18,52 +18,52 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaPluginOptionGroupsTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaPluginOptionGroups::offsetExists
+  * @covers \Papaya\Plugin\Option\Groups::offsetExists
   */
   public function testOffsetExistsExpectingTrue() {
     $options = $this
       ->getMockBuilder(\Papaya\Configuration::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $groups = new \PapayaPluginOptionGroups();
+    $groups = new \Papaya\Plugin\Option\Groups();
     $groups['123456789012345678901234567890ab'] = $options;
     $this->assertTrue(isset($groups['123456789012345678901234567890ab']));
   }
 
   /**
-  * @covers \PapayaPluginOptionGroups::offsetExists
+  * @covers \Papaya\Plugin\Option\Groups::offsetExists
   */
   public function testOffsetExistsExpectingFalse() {
     $options = $this
       ->getMockBuilder(\Papaya\Configuration::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $groups = new \PapayaPluginOptionGroups();
+    $groups = new \Papaya\Plugin\Option\Groups();
     $groups['ef123456789012345678901234567890'] = $options;
     $this->assertTrue(isset($groups['ef123456789012345678901234567890']));
   }
 
   /**
-  * @covers \PapayaPluginOptionGroups::offsetGet
-  * @covers \PapayaPluginOptionGroups::offsetSet
-  * @covers \PapayaPluginOptionGroups::createLazy
+  * @covers \Papaya\Plugin\Option\Groups::offsetGet
+  * @covers \Papaya\Plugin\Option\Groups::offsetSet
+  * @covers \Papaya\Plugin\Option\Groups::createLazy
   */
   public function testOffsetGetAfterOffsetSet() {
     $options = $this
       ->getMockBuilder(\Papaya\Configuration::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $groups = new \PapayaPluginOptionGroups();
+    $groups = new \Papaya\Plugin\Option\Groups();
     $groups['ef123456789012345678901234567890'] = $options;
     $this->assertSame($options, $groups['ef123456789012345678901234567890']);
   }
 
   /**
-  * @covers \PapayaPluginOptionGroups::offsetGet
-  * @covers \PapayaPluginOptionGroups::createLazy
+  * @covers \Papaya\Plugin\Option\Groups::offsetGet
+  * @covers \Papaya\Plugin\Option\Groups::createLazy
   */
   public function testOffsetGetImplicitCreate() {
-    $groups = new \PapayaPluginOptionGroups();
+    $groups = new \Papaya\Plugin\Option\Groups();
     $this->assertInstanceOf(
       \Papaya\Configuration::class,
       $groups['123456789012345678901234567890ab']
@@ -71,14 +71,14 @@ class PapayaPluginOptionGroupsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaPluginOptionGroups::offsetUnset
+  * @covers \Papaya\Plugin\Option\Groups::offsetUnset
   */
   public function testOffsetUnset() {
     $options = $this
       ->getMockBuilder(\Papaya\Configuration::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $groups = new \PapayaPluginOptionGroups();
+    $groups = new \Papaya\Plugin\Option\Groups();
     $groups['ef123456789012345678901234567890'] = $options;
     unset($groups['ef123456789012345678901234567890']);
     $this->assertFalse(isset($groups['ef123456789012345678901234567890']));

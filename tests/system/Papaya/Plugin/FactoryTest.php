@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaPluginFactoryTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaPluginFactory::__construct
+  * @covers \Papaya\Plugin\Factory::__construct
   */
   public function testConstrcutor() {
     $factory = new \PapayaPluginFactory_TestProxy($owner = new stdClass);
@@ -28,23 +28,23 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaPluginFactory::loader
+  * @covers \Papaya\Plugin\Factory::loader
   */
   public function testLoaderGetAfterSet() {
     $factory = new \PapayaPluginFactory_TestProxy();
-    $loader = $this->createMock(\PapayaPluginLoader::class);
+    $loader = $this->createMock(\Papaya\Plugin\Loader::class);
     $this->assertSame($loader, $factory->loader($loader));
   }
 
   /**
-  * @covers \PapayaPluginFactory::loader
+  * @covers \Papaya\Plugin\Factory::loader
   */
   public function testLoaderGetFromApplication() {
     $factory = new \PapayaPluginFactory_TestProxy();
     $factory->papaya(
       $this->mockPapaya()->application(
         array(
-          'plugins' => $loader = $this->createMock(\PapayaPluginLoader::class)
+          'plugins' => $loader = $this->createMock(\Papaya\Plugin\Loader::class)
         )
       )
     );
@@ -52,7 +52,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaPluginFactory::has
+  * @covers \Papaya\Plugin\Factory::has
   */
   public function testHasExpectingTrue() {
     $factory = new \PapayaPluginFactory_TestProxy();
@@ -60,7 +60,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaPluginFactory::has
+  * @covers \Papaya\Plugin\Factory::has
   */
   public function testHasExpectingFalse() {
     $factory = new \PapayaPluginFactory_TestProxy();
@@ -68,11 +68,11 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaPluginFactory::get
+  * @covers \Papaya\Plugin\Factory::get
   */
   public function testGet() {
     $factory = new \PapayaPluginFactory_TestProxy();
-    $loader = $this->createMock(\PapayaPluginLoader::class);
+    $loader = $this->createMock(\Papaya\Plugin\Loader::class);
     $loader
       ->expects($this->once())#
       ->method('get')
@@ -83,11 +83,11 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaPluginFactory::get
+  * @covers \Papaya\Plugin\Factory::get
   */
   public function testGetWithAllParameters() {
     $factory = new \PapayaPluginFactory_TestProxy($owner = new stdClass);
-    $loader = $this->createMock(\PapayaPluginLoader::class);
+    $loader = $this->createMock(\Papaya\Plugin\Loader::class);
     $loader
       ->expects($this->once())#
       ->method('get')
@@ -98,7 +98,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaPluginFactory::get
+  * @covers \Papaya\Plugin\Factory::get
   */
   public function testGetWithInvalidNameExpectingException() {
     $factory = new \PapayaPluginFactory_TestProxy();
@@ -110,7 +110,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaPluginFactory::__isset
+   * @covers \Papaya\Plugin\Factory::__isset
    */
   public function testMagicMethodIssetExpectingTrue() {
     $factory = new \PapayaPluginFactory_TestProxy();
@@ -118,7 +118,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaPluginFactory::__isset
+   * @covers \Papaya\Plugin\Factory::__isset
    */
   public function testMagicMethodIssetExpectingFalse() {
     $factory = new \PapayaPluginFactory_TestProxy();
@@ -127,11 +127,11 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
 
 
   /**
-  * @covers \PapayaPluginFactory::__get
+  * @covers \Papaya\Plugin\Factory::__get
   */
   public function testMagicMethodGet() {
     $factory = new \PapayaPluginFactory_TestProxy();
-    $loader = $this->createMock(\PapayaPluginLoader::class);
+    $loader = $this->createMock(\Papaya\Plugin\Loader::class);
     $loader
       ->expects($this->once())
       ->method('get')
@@ -142,7 +142,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaPluginFactory::__set
+   * @covers \Papaya\Plugin\Factory::__set
    */
   public function testMagicMethodSetExpectingException() {
     $factory = new \PapayaPluginFactory_TestProxy();
@@ -151,7 +151,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaPluginFactory::__unset
+   * @covers \Papaya\Plugin\Factory::__unset
    */
   public function testMagicMethodUnsetExpectingException() {
     $factory = new \PapayaPluginFactory_TestProxy();
@@ -161,7 +161,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
 
 
   /**
-  * @covers \PapayaPluginFactory::options
+  * @covers \Papaya\Plugin\Factory::options
   */
   public function testOptionsGetAfterSet() {
     $options = $this
@@ -174,20 +174,20 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaPluginFactory::options
+  * @covers \Papaya\Plugin\Factory::options
   */
   public function testOptionsGetFromLoader() {
     $options = $this
       ->getMockBuilder(\Papaya\Configuration::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $groups = $this->createMock(\PapayaPluginOptionGroups::class);
+    $groups = $this->createMock(\Papaya\Plugin\Option\Groups::class);
     $groups
       ->expects($this->once())
       ->method('offsetGet')
       ->with('123456789012345678901234567890ab')
       ->will($this->returnValue($options));
-    $loader = $this->createMock(\PapayaPluginLoader::class);
+    $loader = $this->createMock(\Papaya\Plugin\Loader::class);
     $loader
       ->expects($this->once())#
       ->method('__get')
@@ -200,7 +200,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaPluginFactory::options
+  * @covers \Papaya\Plugin\Factory::options
   */
   public function testOptionsWithInvalidPluginNameExpectingNull() {
     $factory = new \PapayaPluginFactory_TestProxy();
@@ -208,7 +208,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaPluginFactory::getOption
+  * @covers \Papaya\Plugin\Factory::getOption
   */
   public function testGetOption() {
     $options = $this
@@ -226,7 +226,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaPluginFactory::getOption
+  * @covers \Papaya\Plugin\Factory::getOption
   */
   public function testGetOptionWithInvalidPluginNameExpectingDefault() {
     $factory = new \PapayaPluginFactory_TestProxy();
@@ -237,7 +237,7 @@ class PapayaPluginFactoryTest extends \PapayaTestCase {
 /**
  * @property string samplePlugin
  */
-class PapayaPluginFactory_TestProxy extends \PapayaPluginFactory {
+class PapayaPluginFactory_TestProxy extends \Papaya\Plugin\Factory {
 
   protected $_plugins = array(
     'samplePlugin' => '123456789012345678901234567890ab'

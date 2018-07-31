@@ -24,7 +24,7 @@ namespace Papaya\Application;
  * @property \Papaya\Content\Languages $languages
  * @property \Papaya\Message\Manager $messages
  * @property \Papaya\Configuration\Cms $options
- * @property \PapayaPluginLoader $plugins
+ * @property \Papaya\Plugin\Loader $plugins
  * @property \Papaya\Profiler $profiler
  * @property \Papaya\Request $request
  * @property \Papaya\Response $response$response

@@ -30,7 +30,7 @@ class Plugins implements \Papaya\Application\Profile {
    * @return object
    */
   public function createObject($application) {
-    $plugins = new \PapayaPluginLoader();
+    $plugins = new \Papaya\Plugin\Loader();
     $plugins->papaya($application);
     return $plugins;
   }

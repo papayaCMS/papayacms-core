@@ -25,18 +25,18 @@ class PluginLoader_SampleClass extends \Papaya\Application\BaseObject {
 
 class PluginLoader_SampleClassEditable
   extends \Papaya\Application\BaseObject
-  implements \PapayaPluginEditable {
+  implements \Papaya\Plugin\Editable {
 
   /**
-   * @var \PapayaPluginEditableContent $content
+   * @var \Papaya\Plugin\Editable\Content $content
    */
   public $content;
 
-  public function content(\PapayaPluginEditableContent $content = NULL) {
+  public function content(\Papaya\Plugin\Editable\Content $content = NULL) {
     if (NULL !== $content) {
       $this->content = $content;
     } elseif (NULL === $this->content) {
-      $this->content = new \PapayaPluginEditableContent();
+      $this->content = new \Papaya\Plugin\Editable\Content();
     }
     return $this->content;
   }

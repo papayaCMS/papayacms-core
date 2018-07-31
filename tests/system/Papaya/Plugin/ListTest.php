@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaPluginListTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaPluginList::load
+  * @covers \Papaya\Plugin\Collection::load
   */
   public function testLoad() {
     $databaseResult = $this->createMock(Result::class);
@@ -47,7 +47,7 @@ class PapayaPluginListTest extends \PapayaTestCase {
       ->method('queryFmt')
       ->with($this->isType('string'), $this->equalTo(array('table_modules', 'table_modulegroups')))
       ->will($this->returnValue($databaseResult));
-    $list = new \PapayaPluginList();
+    $list = new \Papaya\Plugin\Collection();
     $list->setDatabaseAccess($databaseAccess);
     $this->assertTrue($list->load('123'));
     $this->assertEquals(

@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin\Filter;
 /**
-* An interface to define that allows to apply filter to a string content
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-interface PapayaPluginFilterContent extends \PapayaXmlAppendable {
+ * An interface to define that allows to apply filter to a string content
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+interface Content extends \PapayaXmlAppendable {
 
   /**
    * @param string $content
    * @param \Papaya\BaseObject\Parameters $options
    */
-  function prepare($content, \Papaya\BaseObject\Parameters $options = NULL);
+  public function prepare($content, \Papaya\BaseObject\Parameters $options = NULL);
 
   /**
    * @param string $content
    * @return string
    */
-  function applyTo($content);
+  public function applyTo($content);
 }

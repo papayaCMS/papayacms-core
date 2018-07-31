@@ -14,6 +14,7 @@
  */
 
 use Papaya\Cache\Identifier\Definition;
+use Papaya\Plugin\Cacheable\Aggregation;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -35,9 +36,9 @@ class PapayaPluginCacheableAggregationTest extends \PapayaTestCase {
 
 }
 
-class PapayaPluginCacheableAggregation_TestProxy implements \PapayaPluginCacheable {
+class PapayaPluginCacheableAggregation_TestProxy implements \Papaya\Plugin\Cacheable {
 
-  use PapayaPluginCacheableAggregation;
+  use Aggregation;
 
   /**
    * @var \PapayaTestCase

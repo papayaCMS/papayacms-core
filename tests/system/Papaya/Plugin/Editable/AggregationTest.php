@@ -14,6 +14,7 @@
  */
 
 use Papaya\Administration\Plugin\Editor\Dialog;
+use Papaya\Plugin\Editable\Aggregation;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
@@ -21,25 +22,25 @@ class PapayaPluginEditableAggregationTest extends \PapayaTestCase {
 
   public function testContentGetAfterSet() {
     $plugin = new \PapayaPluginEditableAggregation_TestProxy();
-    $plugin->content($content = $this->createMock(\PapayaPluginEditableContent::class));
+    $plugin->content($content = $this->createMock(\Papaya\Plugin\Editable\Content::class));
     $this->assertSame($content, $plugin->content());
   }
 
   public function testContentGetWithImplicitCreate() {
     $plugin = new \PapayaPluginEditableAggregation_TestProxy();
     $content = $plugin->content();
-    $this->assertInstanceOf(\PapayaPluginEditableContent::class, $content);
+    $this->assertInstanceOf(\Papaya\Plugin\Editable\Content::class, $content);
     $this->assertSame($content, $plugin->content());
-    $this->assertInstanceOf(\PapayaPluginEditor::class, $content->editor());
+    $this->assertInstanceOf(\Papaya\Plugin\Editor::class, $content->editor());
   }
 
 }
 
-class PapayaPluginEditableAggregation_TestProxy implements \PapayaPluginEditable {
+class PapayaPluginEditableAggregation_TestProxy implements \Papaya\Plugin\Editable {
 
-  use PapayaPluginEditableAggregation;
+  use Aggregation;
 
-  public function createEditor(\PapayaPluginEditableContent $content) {
+  public function createEditor(\Papaya\Plugin\Editable\Content $content) {
     return new Dialog($content);
   }
 }

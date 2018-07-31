@@ -27,16 +27,16 @@ class PapayaUiControlCommandDialogPluginContent extends \PapayaUiControlCommandD
   /**
    * This dialog command uses database record objects
    *
-   * @param \PapayaPluginEditableContent $content
+   * @param \Papaya\Plugin\Editable\Content $content
    */
-  public function __construct(\PapayaPluginEditableContent $content) {
+  public function __construct(\Papaya\Plugin\Editable\Content $content) {
     $this->_content = $content;
   }
 
   /**
    * Getter/Setter for the database record
    *
-   * @return NULL|\PapayaPluginEditableContent
+   * @return NULL|\Papaya\Plugin\Editable\Content
    */
   public function getContent() {
     return $this->_content;

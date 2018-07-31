@@ -183,8 +183,8 @@ class PapayaUiContentPage extends \Papaya\Application\BaseObject {
             'created' => \PapayaUtilDate::timestampToString($this->translation()->created)
           )
         );
-        if ($plugin instanceof \PapayaPluginQuoteable) {
-          if ($plugin instanceof \PapayaPluginConfigurable) {
+        if ($plugin instanceof \Papaya\Plugin\Quoteable) {
+          if ($plugin instanceof \Papaya\Plugin\Configurable) {
             $plugin->configuration()->merge($configuration);
           }
           $plugin->appendQuoteTo($teaser);

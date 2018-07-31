@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin;
 /**
-* An interface to define that an object is editable.
-*
-* The two methods provide access to the stored/edited content and the editor subsubject.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-interface PapayaPluginEditable {
+ * An interface to define that an object is editable.
+ *
+ * The two methods provide access to the stored/edited content and the editor subsubject.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+interface Editable {
 
   /**
    * Getter/Setter for the content.
    *
-   * @param \PapayaPluginEditableContent $content
-   * @return \PapayaPluginEditableContent
+   * @param Editable\Content $content
+   * @return Editable\Content
    */
-  public function content(\PapayaPluginEditableContent $content = NULL);
+  public function content(Editable\Content $content = NULL);
 }

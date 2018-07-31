@@ -13,15 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin;
 /**
-* An interface to define that an plguin with a teaser appendable to an DOM element. It
-* is provides an addiitonal method to \PapayaPluginAppendable to append a "quote"/short version
-* of the content to the DOM.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-interface PapayaPluginQuoteable {
+ * An interface to define that an plugin with a teaser appendable to an DOM element. It
+ * is provides an additional method to \Papaya\Plugin\PapayaPluginAppendable to append a "quote"/short version
+ * of the content to the DOM.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+interface Quoteable {
 
   /**
    * Append short content (aka "quote") to the parent xml element.
@@ -29,5 +30,5 @@ interface PapayaPluginQuoteable {
    * @param \PapayaXmlElement $parent
    * @return NULL|\PapayaXmlElement
    */
-  function appendQuoteTo(\PapayaXmlElement $parent);
+  public function appendQuoteTo(\PapayaXmlElement $parent);
 }

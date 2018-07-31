@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin;
 /**
-* An interface to define that an object is a plugin appendable to an DOM element. This
-* extends \PapayaXmlAppendable to provide the additional information that it is an content plugin.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-interface PapayaPluginAppendable extends \PapayaXmlAppendable {
+ * An interface to define that an object is a plugin appendable to an DOM element. This
+ * extends \PapayaXmlAppendable to provide the additional information that it is an content plugin.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+interface Appendable extends \PapayaXmlAppendable {
 
 }

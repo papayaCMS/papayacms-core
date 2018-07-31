@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin;
 /**
-* An interface to define that an object is hookable and needs a context.
-*
-* The two methods provide access to the stored/edited content and the editor subsubject.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-interface PapayaPluginHookable {
+ * An interface to define that an object is hookable and needs a context.
+ *
+ * The two methods provide access to the stored/edited content and the editor subsubject.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+interface Hookable {
 
   /**
    * Getter/Setter for the hook context.
    *
-   * @param \PapayaPluginEditableContent $context
-   * @return \PapayaPluginEditableContent
+   * @param Editable\Content $context
+   * @return Editable\Content
    */
-  function context(\PapayaPluginEditableContent $context = NULL);
+  public function context(Editable\Content $context = NULL);
 }

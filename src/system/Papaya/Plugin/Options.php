@@ -13,18 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Configuration\Storage;
+namespace Papaya\Plugin;
 
 /**
-* This is a list of the options for a single plugin module.
-*
-* The options will be loaded if the first option is read, making it a lazy load. It is
-* possible to load them manually and disable the lazy load this way.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaPluginOptions extends \Papaya\Configuration {
+ * This is a list of the options for a single plugin module.
+ *
+ * The options will be loaded if the first option is read, making it a lazy load. It is
+ * possible to load them manually and disable the lazy load this way.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Options extends \Papaya\Configuration {
 
   const STATUS_CREATED = 0;
   const STATUS_LOADING = 1;
@@ -35,21 +35,21 @@ class PapayaPluginOptions extends \Papaya\Configuration {
   private $_guid;
 
   /**
-  * Create object and store plugin guid for later loading
-  *
-  * @param string $guid
-  */
+   * Create object and store plugin guid for later loading
+   *
+   * @param string $guid
+   */
   public function __construct($guid) {
     parent::__construct(array());
     $this->_guid = \PapayaUtilStringGuid::toLower($guid);
   }
 
   /**
-  * Set an value
-  *
-  * @param string $name
-  * @param mixed $value
-  */
+   * Set an value
+   *
+   * @param string $name
+   * @param mixed $value
+   */
   public function set($name, $value) {
     $this->lazyLoad();
     $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
@@ -61,42 +61,42 @@ class PapayaPluginOptions extends \Papaya\Configuration {
   }
 
   /**
-  * Set an value, trigger loading if needed
-  *
-  * @param string $name
-  * @param mixed $default
-  * @param \Papaya\Filter $filter
-  * @return mixed
-  */
+   * Set an value, trigger loading if needed
+   *
+   * @param string $name
+   * @param mixed $default
+   * @param \Papaya\Filter $filter
+   * @return mixed
+   */
   public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
     $this->lazyLoad();
     return parent::get($name, $default, $filter);
   }
 
   /**
-  * Validate if an option is available
-  *
-  * @param string $name
-  * @return boolean
-  */
+   * Validate if an option is available
+   *
+   * @param string $name
+   * @return boolean
+   */
   public function has($name) {
     $this->lazyLoad();
     return parent::has($name);
   }
 
   /**
-  * IteratorAggregate Interface: return an iterator for the options.
-  *
-  * @return \Iterator
-  */
+   * IteratorAggregate Interface: return an iterator for the options.
+   *
+   * @return \Iterator
+   */
   public function getIterator() {
     $this->lazyLoad();
     return new \Papaya\Configuration\Iterator(array_keys($this->_options), $this);
   }
 
   /**
-  * Make sure that the option are loaded if needed.
-  */
+   * Make sure that the option are loaded if needed.
+   */
   private function lazyLoad() {
     if (self::STATUS_CREATED === $this->_status) {
       $this->load();
@@ -116,10 +116,10 @@ class PapayaPluginOptions extends \Papaya\Configuration {
   }
 
   /**
-  * Returns the current loading status
-  *
-  * @return integer
-  */
+   * Returns the current loading status
+   *
+   * @return integer
+   */
   public function getStatus() {
     return $this->_status;
   }
@@ -130,11 +130,11 @@ class PapayaPluginOptions extends \Papaya\Configuration {
    * @param \Papaya\Configuration\Storage $storage
    * @return \Papaya\Configuration\Storage
    */
-  public function storage(Storage $storage = NULL) {
+  public function storage(\Papaya\Configuration\Storage $storage = NULL) {
     if (NULL !== $storage) {
       $this->_storage = $storage;
     } elseif (NULL === $this->_storage) {
-      $this->_storage = new \PapayaPluginOptionStorage($this->_guid);
+      $this->_storage = new Option\Storage($this->_guid);
       $this->_storage->papaya($this->papaya());
     }
     return parent::storage($this->_storage);

@@ -204,7 +204,7 @@ class papaya_publictopic extends base_topic {
       $pageOptions = array();
     }
     $definition = NULL;
-    if ($pagePlugin instanceof \PapayaPluginCacheable) {
+    if ($pagePlugin instanceof \Papaya\Plugin\Cacheable) {
       $definition = $pagePlugin->cacheable();
     } elseif (!property_exists($pagePlugin, 'cacheable') || $pagePlugin->cacheable === FALSE) {
       return new Cache\Identifier\Definition\BooleanValue(FALSE);

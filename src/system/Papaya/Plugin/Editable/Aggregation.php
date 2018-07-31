@@ -13,9 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin\Editable;
+
 /**
- * @deprecated {@see \PapayaPluginEditableContentAggregation}
+ * @deprecated {@see \Papaya\Plugin\Editable\Content\Aggregation}
  */
-trait PapayaPluginEditableAggregation {
-  use PapayaPluginEditableContentAggregation;
+trait Aggregation {
+  use Content\Aggregation;
 }

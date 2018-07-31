@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin\Configurable;
 /**
  * This a standard implementation for a configurable plugin. It
  * add a configuration() getter/setter method to the plugin.
@@ -22,7 +23,7 @@
  * @package Papaya-Library
  * @subpackage Plugins
  */
-trait PapayaPluginConfigurableAggregation {
+trait Aggregation {
 
   /**
    * @var \Papaya\BaseObject\Parameters
@@ -34,7 +35,7 @@ trait PapayaPluginConfigurableAggregation {
    * The configuration is an {@see ArrayObject} containing options that can affect the
    * execution of other methods (like appendTo()).
    *
-   * @see \PapayaPluginConfigurable::configuration()
+   * @see \Papaya\Plugin\Configurable::configuration()
    * @param \Papaya\BaseObject\Parameters $configuration
    * @return \Papaya\BaseObject\Parameters
    */

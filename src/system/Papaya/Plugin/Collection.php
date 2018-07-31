@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin;
 /**
-* The PluginLoaderList allows to to load module/plugin data using a list of guids.
-*
-* It stores the loaded plugin data in an internal variable and loads additional data for missing
-* guids only. It does not reset the list with each load() call, but appends the new data.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaPluginList extends \Papaya\Database\Records\Lazy {
+ * The PluginLoaderList allows to to load module/plugin data using a list of guids.
+ *
+ * It stores the loaded plugin data in an internal variable and loads additional data for missing
+ * guids only. It does not reset the list with each load() call, but appends the new data.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Collection extends \Papaya\Database\Records\Lazy {
 
   /**
-  * @var array()
-  */
+   * @var array()
+   */
   protected $_fields = array(
     'guid' => 'm.module_guid',
     'class' => 'm.module_class',
@@ -38,16 +39,16 @@ class PapayaPluginList extends \Papaya\Database\Records\Lazy {
   );
 
   /**
-  * Database table name containing plugins/modules
-  *
-  * @var string
-  */
+   * Database table name containing plugins/modules
+   *
+   * @var string
+   */
   protected $_tablePlugins = 'modules';
   /**
-  * Database table name containing plugin/module groups
-  *
-  * @var string
-  */
+   * Database table name containing plugin/module groups
+   *
+   * @var string
+   */
   protected $_tablePluginGroups = 'modulegroups';
 
   /**

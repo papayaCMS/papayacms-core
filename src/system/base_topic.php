@@ -322,19 +322,19 @@ class base_topic extends base_db {
       $this->topic['TRANSLATION']['module_path'].$this->topic['TRANSLATION']['module_file']
     );
     if (isset($this->moduleObj) && is_object($this->moduleObj)) {
-      if ($this->moduleObj instanceof \PapayaPluginEditable) {
+      if ($this->moduleObj instanceof \Papaya\Plugin\Editable) {
         $this->moduleObj->content()->setXml($this->topic['TRANSLATION']['topic_content']);
       }
       $cacheId = $this->getContentCacheId($this->moduleObj, $pageContent);
       if ($cacheId && $result = $this->getContentCache($cacheId)) {
         return $result;
       } else {
-        if ($this->moduleObj instanceof \PapayaPluginConfigurable && !empty($parseParams)) {
+        if ($this->moduleObj instanceof \Papaya\Plugin\Configurable && !empty($parseParams)) {
           $this->moduleObj->configuration()->merge($parseParams);
         }
         if (!$pageContent) {
           $teaser = FALSE;
-          if ($this->moduleObj instanceof \PapayaPluginQuoteable) {
+          if ($this->moduleObj instanceof \Papaya\Plugin\Quoteable) {
             $dom = new \PapayaXmlDocument();
             $node = $dom->appendElement('content');
             $this->moduleObj->appendQuoteTo($node);
@@ -353,7 +353,7 @@ class base_topic extends base_db {
           }
         } else {
           $str = FALSE;
-          if ($this->moduleObj instanceof \PapayaPluginAppendable) {
+          if ($this->moduleObj instanceof \Papaya\Plugin\Appendable) {
             $dom = new \PapayaXmlDocument();
             $node = $dom->appendElement('content');
             $this->moduleObj->appendTo($node);
@@ -1073,7 +1073,7 @@ class base_topic extends base_db {
         $this->currentLanguage['code']
       );
       $isValid = NULL;
-      if ($this->moduleObj instanceof \PapayaPluginAddressable) {
+      if ($this->moduleObj instanceof \Papaya\Plugin\Addressable) {
         $url = $this->moduleObj->validateUrl($this->papaya()->request);
         if ($url === TRUE) {
           $isValid = TRUE;

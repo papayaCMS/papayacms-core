@@ -1817,7 +1817,7 @@ class papaya_boxes extends base_boxes {
     if (isset($this->box['TRANSLATION']) && $this->box['TRANSLATION']['module_class'] != '') {
       $moduleData = $this->box['TRANSLATION'];
       $plugin = $this->papaya()->plugins->get($moduleData['module_guid'], $this);
-      if ($plugin instanceof \PapayaPluginEditable) {
+      if ($plugin instanceof \Papaya\Plugin\Editable) {
         $plugin->content()->setXml($moduleData['box_data']);
         if ($plugin->content()->editor()) {
           $plugin->content()->editor()->context()->merge(

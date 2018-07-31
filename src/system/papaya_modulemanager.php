@@ -3361,7 +3361,7 @@ class papaya_modulemanager extends base_db {
         $this->module['module_guid'],
         $this
       );
-      if ($pluginObject instanceof \PapayaPluginAdaptable) {
+      if ($pluginObject instanceof \Papaya\Plugin\Adaptable) {
         $pluginNode = $this->layout->values()->getValueByPath('/page/rightcol');
         if ($editor = $pluginObject->options()->editor()) {
           $editor->context()->merge(

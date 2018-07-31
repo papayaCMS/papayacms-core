@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin\Hookable;
 /**
-* An context for an hookable plugin. Meaning that the current object provides context data
-* to the plugin. Like itself or another object and data in an parameters object
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-class PapayaPluginHookableContext {
+ * An context for an hookable plugin. Meaning that the current object provides context data
+ * to the plugin. Like itself or another object and data in an parameters object
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+class Context {
 
   /**
    * @var NULL|object
    */
   private $_parent = NULL;
   /**
-   * @var NULL|\PapayaPluginEditableContent
+   * @var NULL|\Papaya\Plugin\Editable\Content
    */
   private $_data = NULL;
 
@@ -35,7 +36,7 @@ class PapayaPluginHookableContext {
    * Create the context with data
    *
    * @param object $parent
-   * @param \PapayaPluginEditableContent|array|\Traversable|NULL $data
+   * @param \Papaya\Plugin\Editable\Content|array|\Traversable|NULL $data
    */
   public function __construct($parent = NULL, $data = NULL) {
     if (isset($parent)) {
@@ -67,22 +68,22 @@ class PapayaPluginHookableContext {
   }
 
   /**
-   * Getter/Setter for the context data. If a \PapayaPluginEditableContent ist provided it will be
-   * set a new context data, if an array or Traversalbe ist provided a new editable content
-   * will be created an the data assigned.
+   * Getter/Setter for the context data. If a \Papaya\Plugin\Editable\PapayaPluginEditableContent ist provided it will
+   * be set a new context data, if an array or Traversalbe ist provided a new editable content will be created an the
+   * data assigned.
    *
-   * @param \PapayaPluginEditableContent|array|\Traversable|NULL $data
-   * @return \PapayaPluginEditableContent
+   * @param \Papaya\Plugin\Editable\Content|array|\Traversable|NULL $data
+   * @return \Papaya\Plugin\Editable\Content
    */
   public function data($data = NULL) {
     if (isset($data)) {
-      if ($data instanceof \PapayaPluginEditableContent) {
+      if ($data instanceof \Papaya\Plugin\Editable\Content) {
         $this->_data = $data;
       } else {
-        $this->_data = new \PapayaPluginEditableContent($data);
+        $this->_data = new \Papaya\Plugin\Editable\Content($data);
       }
     } elseif (NULL === $this->_data) {
-      $this->_data = new \PapayaPluginEditableContent();
+      $this->_data = new \Papaya\Plugin\Editable\Content();
     }
     return $this->_data;
   }

@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin;
 /**
  * An interface to define that an object is editable.
  *
@@ -21,7 +22,7 @@
  * @package Papaya-Library
  * @subpackage Plugins
  */
-interface PapayaPluginAddressable {
+interface Addressable {
 
   /**
    * Getter/Setter for the content.

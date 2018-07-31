@@ -15,21 +15,13 @@
 
 namespace Papaya\Administration\Plugin\Editor;
 
-use Papaya\Administration\Languages\Image;
-use PapayaAdministrationLanguagesCaption;
-use PapayaPluginEditableContent;
-use PapayaPluginEditableOptions;
-use PapayaUiDialog;
-use PapayaUiDialogButtonSubmit;
-use PapayaUiStringTranslated;
-
 /**
  * An PluginEditor implementation that build a dialog based on an array of field definitions
  *
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Dialog extends \PapayaPluginEditor {
+class Dialog extends \Papaya\Plugin\Editor {
 
   private $_dialog;
   private $_onExecuteCallback;
@@ -97,13 +89,13 @@ class Dialog extends \PapayaPluginEditor {
     $dialog = new \PapayaUiDialog();
     $dialog->papaya($this->papaya());
 
-    if ($this->getData() instanceof \PapayaPluginEditableContent) {
-      $dialog->caption = new \PapayaAdministrationLanguagesCaption(
+    if ($this->getData() instanceof \Papaya\Plugin\Editable\Content) {
+      $dialog->caption = new \Papaya\Administration\Languages\Caption(
         new \PapayaUiStringTranslated('Edit content')
       );
-      $dialog->image = new Image();
+      $dialog->image = new \Papaya\Administration\Languages\Image();
       $dialog->parameterGroup('content');
-    } elseif ($this->getData() instanceof \PapayaPluginEditableOptions) {
+    } elseif ($this->getData() instanceof \Papaya\Plugin\Editable\Options) {
       $dialog->caption = new \PapayaUiStringTranslated('Edit options');
       $dialog->parameterGroup('options');
     } else {

@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Plugin;
 /**
-* An interface to define that an object has information (in an subobject)
-* which conditions decide how and if it is cachable.
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*/
-interface PapayaPluginCacheable {
+ * An interface to define that an object has information (in an subobject)
+ * which conditions decide how and if it is cacheable.
+ *
+ * @package Papaya-Library
+ * @subpackage Plugins
+ */
+interface Cacheable {
 
   /**
-   * An subobject implementing {@see \Papaya\Cache\Identifier\PapayaCacheIdentifierDefinition} compiling the cache parameter
-   * status
+   * An subobject implementing {@see \Papaya\Cache\Identifier\PapayaCacheIdentifierDefinition} compiling the cache
+   * parameter status
    *
    * @param \Papaya\Cache\Identifier\Definition $definition
    * @return \Papaya\Cache\Identifier\Definition
    */
-  function cacheable(\Papaya\Cache\Identifier\Definition $definition = NULL);
+  public function cacheable(\Papaya\Cache\Identifier\Definition $definition = NULL);
 
 }
