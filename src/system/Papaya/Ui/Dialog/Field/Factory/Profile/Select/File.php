@@ -102,7 +102,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
         $basePath,
         empty($parameters[2]) ? '' : (string)$parameters[2]
       );
-      if ($this->options()->context instanceof \PapayaObjectInterface) {
+      if ($this->options()->context instanceof \Papaya\Application\Access) {
         $path->papaya($this->options()->context->papaya());
       }
     }

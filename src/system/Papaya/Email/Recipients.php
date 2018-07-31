@@ -21,7 +21,7 @@ namespace Papaya\Email;
  * @package Papaya-Library
  * @subpackage Email
  */
-class Recipients extends \PapayaObjectList {
+class Recipients extends \Papaya\BaseObject\Collection {
 
   /**
    * Initialize object and set class restriction

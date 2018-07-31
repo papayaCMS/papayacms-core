@@ -12,27 +12,25 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+namespace Papaya\Application\Access {
 
-class PapayaTemplateSimpleAstNodes
-  extends \Papaya\BaseObject\Collection
-  implements \PapayaTemplateSimpleAst {
+  trait Aggregation {
 
-  public function __construct(array $nodes = array()) {
-    parent::__construct(\PapayaTemplateSimpleAstNode::class);
-    foreach ($nodes as $node) {
-      $this[] = $node;
-    }
-  }
+    private $_papayaApplicationObject;
 
-  /**
-   * Tell the nodes about the visitor.
-   *
-   * @param \PapayaTemplateSimpleVisitor $visitor
-   */
-  public function accept(\PapayaTemplateSimpleVisitor $visitor) {
-    /** @var \PapayaTemplateSimpleAst $node */
-    foreach ($this as $node) {
-      $node->accept($visitor);
+    /**
+     * An combined getter/setter for the Papaya Application object
+     *
+     * @param \Papaya\Application $application
+     * @return \Papaya\Application\Cms|\Papaya\Application
+     */
+    public function papaya(\Papaya\Application $application = NULL) {
+      if (NULL !== $application) {
+        $this->_papayaApplicationObject = $application;
+      } elseif (NULL === $this->_papayaApplicationObject) {
+        $this->_papayaApplicationObject = \Papaya\Application::getInstance();
+      }
+      return $this->_papayaApplicationObject;
     }
   }
 }

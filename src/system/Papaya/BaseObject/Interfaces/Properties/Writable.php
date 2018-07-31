@@ -13,19 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-/**
-* Papaya Object Interface - implementing objects provide access to the papaya application registry
-*
-* @package Papaya-Library
-* @subpackage Objects
-*/
-interface PapayaObjectInterface {
+namespace Papaya\BaseObject\Interfaces\Properties;
 
-  /**
-  * Getter/Setter for the application registry
-  *
-  * @param \PapayaApplication $application
-  * @return \Papaya\Application\Cms
-  */
-  function papaya(\PapayaApplication $application = NULL);
+interface Writable {
+
+  public function __set($name, $value);
 }

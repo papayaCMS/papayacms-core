@@ -157,7 +157,7 @@ class PapayaUiContentPage extends \Papaya\Application\BaseObject {
    * Append the page teaser
    *
    * @param \PapayaXmlElement $parent
-   * @param array|\PapayaObjectParameters $configuration
+   * @param array|\Papaya\BaseObject\Parameters $configuration
    */
   public function appendQuoteTo(\PapayaXmlElement $parent, $configuration = []) {
     $moduleGuid = $this->translation()->moduleGuid;

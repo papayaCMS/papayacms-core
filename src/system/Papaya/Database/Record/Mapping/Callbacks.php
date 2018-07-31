@@ -24,17 +24,17 @@ namespace Papaya\Database\Record\Mapping;
  * @package Papaya-Library
  * @subpackage Database
  *
- * @property \PapayaObjectCallback $onBeforeMapping
- * @property \PapayaObjectCallback $onBeforeMappingFieldsToProperties
- * @property \PapayaObjectCallback $onBeforeMappingPropertiesToFields
- * @property \PapayaObjectCallback $onAfterMapping
- * @property \PapayaObjectCallback $onAfterMappingFieldsToProperties
- * @property \PapayaObjectCallback $onAfterMappingPropertiesToFields
- * @property \PapayaObjectCallback $onMapValue
- * @property \PapayaObjectCallback $onMapValueFromFieldToProperty
- * @property \PapayaObjectCallback $onMapValueFromPropertyToField
- * @property \PapayaObjectCallback $onGetFieldForProperty
- * @property \PapayaObjectCallback $onGetPropertyForField
+ * @property \Papaya\BaseObject\Callback $onBeforeMapping
+ * @property \Papaya\BaseObject\Callback $onBeforeMappingFieldsToProperties
+ * @property \Papaya\BaseObject\Callback $onBeforeMappingPropertiesToFields
+ * @property \Papaya\BaseObject\Callback $onAfterMapping
+ * @property \Papaya\BaseObject\Callback $onAfterMappingFieldsToProperties
+ * @property \Papaya\BaseObject\Callback $onAfterMappingPropertiesToFields
+ * @property \Papaya\BaseObject\Callback $onMapValue
+ * @property \Papaya\BaseObject\Callback $onMapValueFromFieldToProperty
+ * @property \Papaya\BaseObject\Callback $onMapValueFromPropertyToField
+ * @property \Papaya\BaseObject\Callback $onGetFieldForProperty
+ * @property \Papaya\BaseObject\Callback $onGetPropertyForField
  * @method array onBeforeMapping(int $direction, array $properties, array $record)
  * @method array onBeforeMappingFieldsToProperties(array $properties, array $record)
  * @method array onBeforeMappingPropertiesToFields(array $properties, array $record)
@@ -47,7 +47,7 @@ namespace Papaya\Database\Record\Mapping;
  * @method string|NULL onGetFieldForProperty(string $propertyName, bool $withAlias = TRUE)
  * @method string|NULL onGetPropertyForField(string $fieldName)
  */
-class Callbacks extends \PapayaObjectCallbacks {
+class Callbacks extends \Papaya\BaseObject\Callbacks {
 
   public function __construct() {
     parent::__construct(

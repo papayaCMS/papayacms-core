@@ -17,8 +17,8 @@
 * Interface for classes that allow to convert a variable to a DOMElement
 * values tree usable by the template engines.
 *
-* @property \PapayaObjectOptionsList $parameters
-* @property \PapayaObjectList $loaders
+* @property \Papaya\BaseObject\Options\Collection $parameters
+* @property \Papaya\BaseObject\Collection $loaders
 * @property DOMDocument $values
 *
 * @package Papaya-Library

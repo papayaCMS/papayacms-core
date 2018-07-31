@@ -23,8 +23,8 @@
 interface PapayaPluginConfigurable {
 
   /**
-   * @param \PapayaObjectParameters $configuration
-   * @return \PapayaObjectParameters
+   * @param \Papaya\BaseObject\Parameters $configuration
+   * @return \Papaya\BaseObject\Parameters
    */
-  public function configuration(\PapayaObjectParameters $configuration = NULL);
+  public function configuration(\Papaya\BaseObject\Parameters $configuration = NULL);
 }

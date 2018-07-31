@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-interface PapayaRequestParametersInterface extends \PapayaObjectInterface {
+interface PapayaRequestParametersInterface extends \Papaya\Application\Access {
 
   /**
   * Parameter method post (read request body parameters)

@@ -24,7 +24,7 @@ namespace Papaya\Content\Structure;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Pages extends \PapayaObjectList {
+class Pages extends \Papaya\BaseObject\Collection {
 
   public function __construct() {
     parent::__construct(Page::class);

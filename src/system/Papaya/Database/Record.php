@@ -22,7 +22,7 @@ namespace Papaya\Database;
  * @version $Id: Record.php 39721 2014-04-07 13:13:23Z weinert $
  */
 abstract class Record
-  extends \PapayaObjectItem
+  extends \Papaya\BaseObject\Item
   implements Interfaces\Record {
 
   /**

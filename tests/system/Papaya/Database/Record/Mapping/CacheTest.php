@@ -36,9 +36,9 @@ class PapayaDatabaseRecordMappingCacheTest extends \PapayaTestCase {
   public function testConstructorWithCallbacks() {
     $callbacks = $this->getCallbacksMock(
       array(
-        'eventOne' => new \PapayaObjectCallback(NULL),
-        'eventTwo' => $callbackTwo = new \PapayaObjectCallback('42'),
-        'eventThree' => $callbackThree = new \PapayaObjectCallback(NULL)
+        'eventOne' => new \Papaya\BaseObject\Callback(NULL),
+        'eventTwo' => $callbackTwo = new \Papaya\BaseObject\Callback('42'),
+        'eventThree' => $callbackThree = new \Papaya\BaseObject\Callback(NULL)
       )
     );
     $callbackThree->callback = 'substr';
@@ -88,12 +88,12 @@ class PapayaDatabaseRecordMappingCacheTest extends \PapayaTestCase {
   public function testMapFieldsToPropertiesWithCallbacks() {
     $callbacks = $this->getCallbacksMock(
       array(
-        'onBeforeMappingFieldsToProperties' => new \PapayaObjectCallback(array()),
-        'onBeforeMapping' => new \PapayaObjectCallback(array()),
-        'onMapValueFromFieldToProperty' => new \PapayaObjectCallback(0),
-        'onMapValue' => new \PapayaObjectCallback(0),
-        'onAfterMappingFieldsToProperties' => new \PapayaObjectCallback(array()),
-        'onAfterMapping' => new \PapayaObjectCallback(array('propertyTwo' => 23)),
+        'onBeforeMappingFieldsToProperties' => new \Papaya\BaseObject\Callback(array()),
+        'onBeforeMapping' => new \Papaya\BaseObject\Callback(array()),
+        'onMapValueFromFieldToProperty' => new \Papaya\BaseObject\Callback(0),
+        'onMapValue' => new \Papaya\BaseObject\Callback(0),
+        'onAfterMappingFieldsToProperties' => new \Papaya\BaseObject\Callback(array()),
+        'onAfterMapping' => new \Papaya\BaseObject\Callback(array('propertyTwo' => 23)),
       )
     );
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */
@@ -145,12 +145,12 @@ class PapayaDatabaseRecordMappingCacheTest extends \PapayaTestCase {
   public function testMapPropertiesToFieldsWithCallbacks() {
     $callbacks = $this->getCallbacksMock(
       array(
-        'onBeforeMappingPropertiesToFields' => new \PapayaObjectCallback(array()),
-        'onBeforeMapping' => new \PapayaObjectCallback(array()),
-        'onMapValueFromPropertyToField' => new \PapayaObjectCallback(0),
-        'onMapValue' => new \PapayaObjectCallback(0),
-        'onAfterMappingPropertiesToFields' => new \PapayaObjectCallback(array()),
-        'onAfterMapping' => new \PapayaObjectCallback(array('fieldOne' => 23)),
+        'onBeforeMappingPropertiesToFields' => new \Papaya\BaseObject\Callback(array()),
+        'onBeforeMapping' => new \Papaya\BaseObject\Callback(array()),
+        'onMapValueFromPropertyToField' => new \Papaya\BaseObject\Callback(0),
+        'onMapValue' => new \Papaya\BaseObject\Callback(0),
+        'onAfterMappingPropertiesToFields' => new \Papaya\BaseObject\Callback(array()),
+        'onAfterMapping' => new \Papaya\BaseObject\Callback(array('fieldOne' => 23)),
       )
     );
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Record\Mapping $mapping */

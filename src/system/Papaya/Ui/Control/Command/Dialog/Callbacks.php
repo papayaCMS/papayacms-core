@@ -19,14 +19,14 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property \PapayaObjectCallback onCreateDialog
-* @property \PapayaObjectCallback onExecuteSuccessful
-* @property \PapayaObjectCallback onExecuteFailed
+* @property \Papaya\BaseObject\Callback onCreateDialog
+* @property \Papaya\BaseObject\Callback onExecuteSuccessful
+* @property \Papaya\BaseObject\Callback onExecuteFailed
 * @method boolean onCreateDialog
 * @method boolean onExecuteSuccessful
 * @method boolean onExecuteFailed
 */
-class PapayaUiControlCommandDialogCallbacks extends \PapayaObjectCallbacks {
+class PapayaUiControlCommandDialogCallbacks extends \Papaya\BaseObject\Callbacks {
 
   /**
   * Initialize object and set callback definition

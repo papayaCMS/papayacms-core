@@ -16,8 +16,8 @@
 /**
 * Papayas php implemented simple template engine.
 *
-* @property \PapayaObjectOptionsList $parameters
-* @property \PapayaObjectList $loaders
+* @property \Papaya\BaseObject\Options\Collection $parameters
+* @property \Papaya\BaseObject\Collection $loaders
 * @property DOMDocument $values
 *
 * @package Papaya-Library

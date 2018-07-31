@@ -30,7 +30,7 @@ class Cache implements \Papaya\Database\Interfaces\Mapping {
    */
   private $_mapping = NULL;
   /**
-   * @var array(\PapayaObjectCallback)
+   * @var array(\Papaya\BaseObject\PapayaObjectCallback)
    */
   private $_callbacks = array();
 

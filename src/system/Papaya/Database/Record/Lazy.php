@@ -82,7 +82,7 @@ abstract class Lazy
   /**
    * Deactivate lazy loading if data is assigned
    *
-   * @see \PapayaObjectItem::assign()
+   * @see \Papaya\BaseObject\Item::assign()
    * @param array|\Traversable $data
    */
   public function assign($data) {

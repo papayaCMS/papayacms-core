@@ -95,7 +95,9 @@ class Autoloader {
     'PapayaMessageContextInterface' => Message\Context\Data::class,
     'PapayaMessageContextList' => Message\Context\Items::class,
 
-    'PapayaObject' => Application\BaseObject::class
+    'PapayaObject' => Application\BaseObject::class,
+    'PapayaObjectInterface' => Application\Access::class,
+    'PapayaObjectInterfacePropertiesWriteable' => Papaya\BaseObject\Interfaces\Properties\Writable::class,
   );
 
   private static $_mapParts = array(
@@ -107,6 +109,7 @@ class Autoloader {
     'String' => 'Text',
     'Interface' => 'Interfaces',
     'Switch' => 'Selector',
+    'List' => 'Collection',
 
     // Typos
     'Anchestors' => 'Ancestors',

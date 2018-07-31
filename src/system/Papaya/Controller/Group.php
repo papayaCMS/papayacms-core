@@ -21,7 +21,7 @@ namespace Papaya\Controller;
  * @package Papaya-Library
  * @subpackage Controller
  */
-class Group extends \PapayaObjectList implements \Papaya\Controller {
+class Group extends \Papaya\BaseObject\Collection implements \Papaya\Controller {
 
   /**
    * Create an object list for \Papaya\PapayaController instances, add all arguments as

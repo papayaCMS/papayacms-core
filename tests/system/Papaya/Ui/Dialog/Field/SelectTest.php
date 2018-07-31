@@ -391,7 +391,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
     );
     $callbacks = $select->callbacks();
     $this->assertInstanceOf(
-      \PapayaObjectCallbacks::class, $callbacks
+      \Papaya\BaseObject\Callbacks::class, $callbacks
     );
   }
 

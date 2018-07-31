@@ -22,7 +22,7 @@ namespace Papaya\Database\Record\Order;
  * @subpackage Database
  */
 class Collection
-  extends \PapayaObjectList
+  extends \Papaya\BaseObject\Collection
   implements \Papaya\Database\Interfaces\Order {
 
   /**

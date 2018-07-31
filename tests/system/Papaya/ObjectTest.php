@@ -20,27 +20,12 @@ class PapayaObjectTest extends \PapayaTestCase {
   /**
   * @covers \Papaya\Application\BaseObject::setApplication
   */
-  public function testSetApplication() {
+  public function testSetGetApplication() {
     $object = new \PapayaObject_TestProxy();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaApplication $application */
     $application = $this->createMock(\PapayaApplication::class);
     /** @noinspection PhpDeprecationInspection */
     $object->setApplication($application);
-    $this->assertAttributeSame(
-      $application, '_applicationObject', $object
-    );
-  }
-
-  /**
-  * @covers \Papaya\Application\BaseObject::getApplication
-  */
-  public function testGetApplication() {
-    $object = new \PapayaObject_TestProxy();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaApplication $application */
-    $application = $this->createMock(\PapayaApplication::class);
-    /** @noinspection PhpDeprecationInspection */
-    $object->setApplication($application);
-    /** @noinspection PhpDeprecationInspection */
     $this->assertSame(
       $application,
       $object->getApplication()
@@ -53,13 +38,14 @@ class PapayaObjectTest extends \PapayaTestCase {
   public function testGetApplicationSingleton() {
     $object = new \PapayaObject_TestProxy();
     /** @noinspection PhpDeprecationInspection */
-    $app = $object->getApplication();
+    $application = $object->getApplication();
     $this->assertInstanceOf(
       \PapayaApplication::class,
-      $app
+      $application
     );
-    $this->assertAttributeSame(
-      $app, '_applicationObject', $object
+    $this->assertSame(
+      $application,
+      $object->getApplication()
     );
   }
 

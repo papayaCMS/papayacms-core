@@ -24,7 +24,7 @@ namespace Papaya\Content\Structure;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Groups extends \PapayaObjectList {
+class Groups extends \Papaya\BaseObject\Collection {
 
   private $_page;
 

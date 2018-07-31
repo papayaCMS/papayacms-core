@@ -13,31 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\BaseObject\Options;
 /**
-* A options list if a list of name => value pairs. The names consists of letters and
-* underscores (the first char can not be an underscore). Lowercase letters, will be converted
-* to uppercase, so the names are case insensitive.
-*
-* If the option name is camel case (e.g. sampleOptionName) it will be splittet at the uppercase
-* chars and joined again with underscores (e.g. SAMPLE_OPTION_NAME).
-*
-* The values have to be scalars, complex types are not allowed.
-*
-* @package Papaya-Library
-* @subpackage Objects
-*/
-class PapayaObjectOptionsList
+ * A options list if a list of name => value pairs. The names consists of letters and
+ * underscores (the first char can not be an underscore). Lowercase letters, will be converted
+ * to uppercase, so the names are case insensitive.
+ *
+ * If the option name is camel case (e.g. sampleOptionName) it will be splittet at the uppercase
+ * chars and joined again with underscores (e.g. SAMPLE_OPTION_NAME).
+ *
+ * The values have to be scalars, complex types are not allowed.
+ *
+ * @package Papaya-Library
+ * @subpackage Objects
+ */
+class Collection
   implements \ArrayAccess, \Countable, \IteratorAggregate {
 
   /**
-  * Options storage
-  * @var array
-  */
+   * Options storage
+   *
+   * @var array
+   */
   protected $_options = array();
 
   /**
-  * Constrcutor: create object with optional default data
-  */
+   * Constrcutor: create object with optional default data
+   */
   public function __construct(array $options = NULL) {
     if (is_array($options)) {
       foreach ($options as $name => $value) {
@@ -47,12 +49,12 @@ class PapayaObjectOptionsList
   }
 
   /**
-  * Convert to uppercase letters and check name
-  *
-  * @throws \InvalidArgumentException
-  * @param string $name
-  * @return string
-  */
+   * Convert to uppercase letters and check name
+   *
+   * @throws \InvalidArgumentException
+   * @param string $name
+   * @return string
+   */
   protected function _prepareName($name) {
     if (preg_match('(^[a-z][a-z\d]*([A-Z]+[a-z\d]*)+$)DS', $name)) {
       $camelCasePattern = '((?:[a-z][a-z\d]+)|(?:[A-Z][a-z\d]+)|(?:[A-Z]+(?![a-z\d])))S';
@@ -70,21 +72,21 @@ class PapayaObjectOptionsList
   }
 
   /**
-  * Read an option value
-  *
-  * @param $name
-  * @return mixed
-  */
+   * Read an option value
+   *
+   * @param $name
+   * @return mixed
+   */
   protected function _read($name) {
     return $this->_options[$name];
   }
 
   /**
-  * Write an option value
-  *
-  * @param $name
-  * @param $value
-  */
+   * Write an option value
+   *
+   * @param $name
+   * @param $value
+   */
   protected function _write($name, $value) {
     $this->_options[$name] = $value;
   }
@@ -110,13 +112,13 @@ class PapayaObjectOptionsList
   }
 
   /**
-  * ArrayAccess interface, set option value
-  *
-  * @throws \InvalidArgumentException
-  * @param string $name
-  * @param mixed $value
-  * @return string
-  */
+   * ArrayAccess interface, set option value
+   *
+   * @throws \InvalidArgumentException
+   * @param string $name
+   * @param mixed $value
+   * @return string
+   */
   public function offsetSet($name, $value) {
     $name = $this->_prepareName($name);
     if (is_scalar($value)) {
@@ -135,9 +137,9 @@ class PapayaObjectOptionsList
   }
 
   /**
-  * ArrayAccess interface, check if option exists
-  *
-  * @param string $name
+   * ArrayAccess interface, check if option exists
+   *
+   * @param string $name
    * @return bool
    */
   public function offsetExists($name) {
@@ -145,18 +147,19 @@ class PapayaObjectOptionsList
   }
 
   /**
-  * ArrayAccess interface: remove option
-  * @param string $name
-  */
+   * ArrayAccess interface: remove option
+   *
+   * @param string $name
+   */
   public function offsetUnset($name) {
     unset($this->_options[$this->_prepareName($name)]);
   }
 
   /**
-  * Countable interface: return options count
-  *
-  * @return integer
-  */
+   * Countable interface: return options count
+   *
+   * @return integer
+   */
   public function count() {
     return count($this->_options);
   }
@@ -182,34 +185,34 @@ class PapayaObjectOptionsList
   }
 
   /**
-  * Magic Method: access to options as properties to check if they exists
-  *
-  * @param string $name
-  * @return bool
-  */
+   * Magic Method: access to options as properties to check if they exists
+   *
+   * @param string $name
+   * @return bool
+   */
   public function __isset($name) {
     return $this->offsetExists($name);
   }
 
   /**
-  * Magic Method: write to options as properties to remove them
-  *
-  * @param string $name
-  */
+   * Magic Method: write to options as properties to remove them
+   *
+   * @param string $name
+   */
   public function __unset($name) {
     $this->offsetUnset($name);
   }
 
   /**
-  * Convert object to an array
-  */
+   * Convert object to an array
+   */
   public function toArray() {
     return $this->_options;
   }
 
   /**
-  * IteratorAggrate Interface: return an iterator for the options in this object
-  */
+   * IteratorAggrate Interface: return an iterator for the options in this object
+   */
   public function getIterator() {
     return new \ArrayIterator($this->toArray());
   }

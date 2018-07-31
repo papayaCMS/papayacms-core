@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaObjectInteractiveTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaObjectInteractive::parameterMethod
+   * @covers \Papaya\BaseObject\Interactive::parameterMethod
    */
   public function testParameterMethod() {
     $parts = new \PapayaObjectInteractive_TestProxy();
@@ -29,7 +29,7 @@ class PapayaObjectInteractiveTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaObjectInteractive::parameterMethod
+   * @covers \Papaya\BaseObject\Interactive::parameterMethod
    */
   public function testParameterMethodChange() {
     $parts = new \PapayaObjectInteractive_TestProxy();
@@ -50,7 +50,7 @@ class PapayaObjectInteractiveTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaObjectInteractive::parameterGroup
+   * @covers \Papaya\BaseObject\Interactive::parameterGroup
    */
   public function testParameterGroupWithoutChange() {
     $parts = new \PapayaObjectInteractive_TestProxy();
@@ -60,7 +60,7 @@ class PapayaObjectInteractiveTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaObjectInteractive::parameters
+   * @covers \Papaya\BaseObject\Interactive::parameters
    */
   public function testParametersGetAfterSet() {
     $parts = new \PapayaObjectInteractive_TestProxy();
@@ -71,7 +71,7 @@ class PapayaObjectInteractiveTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaObjectInteractive::parameters
+   * @covers \Papaya\BaseObject\Interactive::parameters
    */
   public function testParametersGetAllFromApplicationRequest() {
     $request = $this->createMock(\Papaya\Request::class);
@@ -90,7 +90,7 @@ class PapayaObjectInteractiveTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaObjectInteractive::parameters
+   * @covers \Papaya\BaseObject\Interactive::parameters
    */
   public function testParametersGetGroupFromApplicationRequest() {
     $request = $this->createMock(\Papaya\Request::class);
@@ -110,6 +110,6 @@ class PapayaObjectInteractiveTest extends \PapayaTestCase {
   }
 }
 
-class PapayaObjectInteractive_TestProxy extends \PapayaObjectInteractive {
+class PapayaObjectInteractive_TestProxy extends \Papaya\BaseObject\Interactive {
 
 }

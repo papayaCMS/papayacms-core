@@ -323,7 +323,7 @@ class PapayaPluginLoader extends \Papaya\Application\BaseObject {
       return $this->_instances[$pluginData['guid']];
     }
     $result = new $pluginData['class']($parent);
-    if ($result instanceof \PapayaObjectInterface) {
+    if ($result instanceof \Papaya\Application\Access) {
       $result->papaya($this->papaya());
     }
     /** @noinspection PhpUndefinedFieldInspection */

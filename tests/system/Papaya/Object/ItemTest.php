@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaObjectItemTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaObjectItem::__construct
+  * @covers \Papaya\BaseObject\Item::__construct
   */
   public function testConstructorSetsFields() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
@@ -33,7 +33,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::assign
+  * @covers \Papaya\BaseObject\Item::assign
   */
   public function testAssign() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
@@ -55,7 +55,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::clear
+  * @covers \Papaya\BaseObject\Item::clear
   */
   public function testClear() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
@@ -76,7 +76,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::assign
+  * @covers \Papaya\BaseObject\Item::assign
   */
   public function testAssignExpectingInvalid() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sampleTwo'));
@@ -87,7 +87,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::toArray
+  * @covers \Papaya\BaseObject\Item::toArray
   */
   public function testToArray() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
@@ -107,7 +107,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::getIterator
+  * @covers \Papaya\BaseObject\Item::getIterator
   */
   public function testGetIterator() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
@@ -122,7 +122,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::__isset
+  * @covers \Papaya\BaseObject\Item::__isset
   */
   public function testMagicMethodIssetExpectingTrue() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
@@ -131,7 +131,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::__isset
+  * @covers \Papaya\BaseObject\Item::__isset
   */
   public function testMagicMethodIssetExpectingFalse() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
@@ -139,7 +139,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::__get
+  * @covers \Papaya\BaseObject\Item::__get
   */
   public function testMagicMethodGetWithoutSetExpectingNull() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
@@ -147,8 +147,8 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::__get
-  * @covers \PapayaObjectItem::__set
+  * @covers \Papaya\BaseObject\Item::__get
+  * @covers \Papaya\BaseObject\Item::__set
   */
   public function testMagicMethodGetAfterSet() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
@@ -157,7 +157,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::__unset
+  * @covers \Papaya\BaseObject\Item::__unset
   */
   public function testMagicMethodUnsetAfterSet() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
@@ -167,7 +167,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::offsetExists
+  * @covers \Papaya\BaseObject\Item::offsetExists
   */
   public function testOffsetExistsExpectingTrue() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
@@ -176,7 +176,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::offsetExists
+  * @covers \Papaya\BaseObject\Item::offsetExists
   */
   public function testOffsetExistsExpectingFalse() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
@@ -184,7 +184,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::offsetGet
+  * @covers \Papaya\BaseObject\Item::offsetGet
   */
   public function testOffsetGetWithoutSet() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
@@ -192,8 +192,8 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::offsetGet
-  * @covers \PapayaObjectItem::offsetSet
+  * @covers \Papaya\BaseObject\Item::offsetGet
+  * @covers \Papaya\BaseObject\Item::offsetSet
   */
   public function testOffsetGetAfterSet() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
@@ -202,7 +202,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::offsetUnset
+  * @covers \Papaya\BaseObject\Item::offsetUnset
   */
   public function testOffsetUnset() {
     $item = new \PapayaObjectItem_TestProxy(array('sample_one', 'sample_two'));
@@ -212,7 +212,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaObjectItem::_prepareName
+   * @covers \Papaya\BaseObject\Item::_prepareName
    * @dataProvider provideNameVariants
    * @param string $name
    * @param string $normalizedName
@@ -236,7 +236,7 @@ class PapayaObjectItemTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectItem::_prepareName
+  * @covers \Papaya\BaseObject\Item::_prepareName
   */
   public function testPropertyValidationExpectingExceptionForUnknown() {
     $item = new \PapayaObjectItem_TestProxy(array());
@@ -250,5 +250,5 @@ class PapayaObjectItemTest extends \PapayaTestCase {
 /**
  * @property string sampleOne
  */
-class PapayaObjectItem_TestProxy extends \PapayaObjectItem {
+class PapayaObjectItem_TestProxy extends \Papaya\BaseObject\Item {
 }

@@ -18,27 +18,27 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaObjectCallbackTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaObjectCallback::__construct
+  * @covers \Papaya\BaseObject\Callback::__construct
   */
   public function testConstructor() {
-    $callback = new \PapayaObjectCallback('foo');
+    $callback = new \Papaya\BaseObject\Callback('foo');
     $this->assertEquals('foo', $callback->defaultReturn);
     $this->assertEquals(new StdClass, $callback->context);
   }
 
   /**
-  * @covers \PapayaObjectCallback::execute
+  * @covers \Papaya\BaseObject\Callback::execute
   */
   public function testExecuteReturnsDefault() {
-    $callback = new \PapayaObjectCallback('foo');
+    $callback = new \Papaya\BaseObject\Callback('foo');
     $this->assertEquals('foo', $callback->execute());
   }
 
   /**
-  * @covers \PapayaObjectCallback::execute
+  * @covers \Papaya\BaseObject\Callback::execute
   */
   public function testExecuteWithDefinedCallback() {
-    $callback = new \PapayaObjectCallback(NULL);
+    $callback = new \Papaya\BaseObject\Callback(NULL);
     $callback->callback = array($this, 'callbackSample');
     $callback->context->prefix = 'foo';
     $this->assertEquals('foobar', $callback->execute('bar'));
@@ -49,10 +49,10 @@ class PapayaObjectCallbackTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaObjectCallback::execute
+   * @covers \Papaya\BaseObject\Callback::execute
    */
   public function testExecuteWithDefinedCallbackWithoutContext() {
-    $callback = new \PapayaObjectCallback(NULL, FALSE);
+    $callback = new \Papaya\BaseObject\Callback(NULL, FALSE);
     $callback->callback = array($this, 'callbackSampleNoContext');
     $callback->context->prefix = 'foo';
     $this->assertEquals('bar', $callback->execute('bar'));
@@ -63,76 +63,76 @@ class PapayaObjectCallbackTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectCallback::__isset
-  * @covers \PapayaObjectCallback::getPropertyName
+  * @covers \Papaya\BaseObject\Callback::__isset
+  * @covers \Papaya\BaseObject\Callback::getPropertyName
   */
   public function testIssetPropertyDefaultReturnExpectingFalse() {
-    $callback = new \PapayaObjectCallback(NULL);
+    $callback = new \Papaya\BaseObject\Callback(NULL);
     $this->assertFalse(isset($callback->defaultReturn));
   }
 
   /**
-  * @covers \PapayaObjectCallback::__isset
-  * @covers \PapayaObjectCallback::getPropertyName
+  * @covers \Papaya\BaseObject\Callback::__isset
+  * @covers \Papaya\BaseObject\Callback::getPropertyName
   */
   public function testIssetPropertyDefaultReturnExpectingTrue() {
-    $callback = new \PapayaObjectCallback('foo');
+    $callback = new \Papaya\BaseObject\Callback('foo');
     $this->assertTrue(isset($callback->defaultReturn));
   }
 
   /**
-  * @covers \PapayaObjectCallback::__get
-  * @covers \PapayaObjectCallback::__set
-  * @covers \PapayaObjectCallback::getPropertyName
+  * @covers \Papaya\BaseObject\Callback::__get
+  * @covers \Papaya\BaseObject\Callback::__set
+  * @covers \Papaya\BaseObject\Callback::getPropertyName
   */
   public function testPropertyDefaultReturnGetAfterSet() {
-    $callback = new \PapayaObjectCallback(NULL);
+    $callback = new \Papaya\BaseObject\Callback(NULL);
     $callback->defaultReturn = 'foo';
     $this->assertEquals('foo', $callback->defaultReturn);
   }
 
   /**
-  * @covers \PapayaObjectCallback::__unset
-  * @covers \PapayaObjectCallback::getPropertyName
+  * @covers \Papaya\BaseObject\Callback::__unset
+  * @covers \Papaya\BaseObject\Callback::getPropertyName
   */
   public function testUnsetPropertyDefaultReturn() {
-    $callback = new \PapayaObjectCallback('foo');
+    $callback = new \Papaya\BaseObject\Callback('foo');
     unset($callback->defaultReturn);
     $this->assertFalse(isset($callback->defaultReturn));
   }
 
   /**
-  * @covers \PapayaObjectCallback::__isset
+  * @covers \Papaya\BaseObject\Callback::__isset
   */
   public function testIssetPropertyCallbackExpectingFalse() {
-    $callback = new \PapayaObjectCallback(NULL);
+    $callback = new \Papaya\BaseObject\Callback(NULL);
     $this->assertFalse(isset($callback->callback));
   }
 
   /**
-  * @covers \PapayaObjectCallback::__isset
+  * @covers \Papaya\BaseObject\Callback::__isset
   */
   public function testIssetPropertyCallbackExpectingTrue() {
-    $callback = new \PapayaObjectCallback(NULL);
+    $callback = new \Papaya\BaseObject\Callback(NULL);
     $callback->callback = 'substr';
     $this->assertTrue(isset($callback->callback));
   }
 
   /**
-  * @covers \PapayaObjectCallback::__get
-  * @covers \PapayaObjectCallback::__set
+  * @covers \Papaya\BaseObject\Callback::__get
+  * @covers \Papaya\BaseObject\Callback::__set
   */
   public function testPropertyCallbackGetAfterSet() {
-    $callback = new \PapayaObjectCallback(NULL);
+    $callback = new \Papaya\BaseObject\Callback(NULL);
     $callback->callback = 'substr';
     $this->assertEquals('substr', $callback->callback);
   }
 
   /**
-  * @covers \PapayaObjectCallback::__unset
+  * @covers \Papaya\BaseObject\Callback::__unset
   */
   public function testUnsetPropertyCallback() {
-    $callback = new \PapayaObjectCallback(NULL);
+    $callback = new \Papaya\BaseObject\Callback(NULL);
     /** @noinspection PhpUndefinedFieldInspection */
     $this->callback = 'substr';
     unset($callback->callback);
@@ -140,40 +140,40 @@ class PapayaObjectCallbackTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectCallback::__isset
+  * @covers \Papaya\BaseObject\Callback::__isset
   */
   public function testIssetPropertyContextExpectingTrue() {
-    $callback = new \PapayaObjectCallback(NULL);
+    $callback = new \Papaya\BaseObject\Callback(NULL);
     $this->assertTrue(isset($callback->context));
   }
 
   /**
-  * @covers \PapayaObjectCallback::__get
-  * @covers \PapayaObjectCallback::__set
+  * @covers \Papaya\BaseObject\Callback::__get
+  * @covers \Papaya\BaseObject\Callback::__set
   */
   public function testPropertyContextGetAfterSet() {
-    $callback = new \PapayaObjectCallback(NULL);
+    $callback = new \Papaya\BaseObject\Callback(NULL);
     $callback->context = $context = new stdClass;
     $this->assertSame($context, $callback->context);
   }
 
   /**
-  * @covers \PapayaObjectCallback::__unset
+  * @covers \Papaya\BaseObject\Callback::__unset
   */
   public function testUnsetPropertyContext() {
-    $callback = new \PapayaObjectCallback(NULL);
+    $callback = new \Papaya\BaseObject\Callback(NULL);
     $callback->context->foo = 'bar';
     unset($callback->context);
     $this->assertEquals(new stdClass, $callback->context);
   }
 
   /**
-  * @covers \PapayaObjectCallback::getPropertyName
+  * @covers \Papaya\BaseObject\Callback::getPropertyName
   */
   public function testMagicSetWithUnknownProperty() {
-    $callback = new \PapayaObjectCallback(NULL);
+    $callback = new \Papaya\BaseObject\Callback(NULL);
     $this->expectException(UnexpectedValueException::class);
-    $this->expectExceptionMessage('Unknown property PapayaObjectCallback::$UNKNOWN');
+    $this->expectExceptionMessage('Unknown property Papaya\BaseObject\Callback::$UNKNOWN');
     /** @noinspection PhpUndefinedFieldInspection */
     $callback->UNKNOWN = NULL;
   }

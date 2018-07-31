@@ -19,14 +19,14 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property \PapayaObjectCallback $onBeforeFill
-* @property \PapayaObjectCallback $onAfterFill
-* @property \PapayaObjectCallback $onCreateItem
+* @property \Papaya\BaseObject\Callback $onBeforeFill
+* @property \Papaya\BaseObject\Callback $onAfterFill
+* @property \Papaya\BaseObject\Callback $onCreateItem
 * @method boolean onBeforeFill(\PapayaUiListviewItems $items) if the callback returns FALSE, the items will be cleared.
 * @method boolean onAfterFill(\PapayaUiListviewItems $items)
 * @method boolean onCreateItem(\PapayaUiListviewItems $items, mixed $element, int $index)
 */
-class PapayaUiListviewItemsBuilderCallbacks extends \PapayaObjectCallbacks {
+class PapayaUiListviewItemsBuilderCallbacks extends \Papaya\BaseObject\Callbacks {
 
   /**
   * Initialize object and set callback definition

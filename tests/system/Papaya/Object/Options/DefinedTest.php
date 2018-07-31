@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaObjectOptionsDefinedTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaObjectOptionsDefined::toArray
+  * @covers \Papaya\BaseObject\Options\Defined::toArray
   */
   public function testToArray() {
     $options = new \PapayaObjectOptionsDefined_TestProxy();
@@ -30,7 +30,7 @@ class PapayaObjectOptionsDefinedTest extends \PapayaTestCase {
     );
   }
   /**
-  * @covers \PapayaObjectOptionsDefined::count
+  * @covers \Papaya\BaseObject\Options\Defined::count
   */
   public function testCount() {
     $options = new \PapayaObjectOptionsDefined_TestProxy();
@@ -38,7 +38,7 @@ class PapayaObjectOptionsDefinedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectOptionsDefined::_write
+  * @covers \Papaya\BaseObject\Options\Defined::_write
   */
   public function testSetOption() {
     $options = new \PapayaObjectOptionsDefined_TestProxy();
@@ -53,7 +53,7 @@ class PapayaObjectOptionsDefinedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectOptionsDefined::_write
+  * @covers \Papaya\BaseObject\Options\Defined::_write
   */
   public function testSetOptionExpectingException() {
     $options = new \PapayaObjectOptionsDefined_TestProxy();
@@ -63,7 +63,7 @@ class PapayaObjectOptionsDefinedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectOptionsDefined::_read
+  * @covers \Papaya\BaseObject\Options\Defined::_read
   */
   public function testGetOptionAfterSet() {
     $options = new \PapayaObjectOptionsDefined_TestProxy();
@@ -72,7 +72,7 @@ class PapayaObjectOptionsDefinedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectOptionsDefined::_read
+  * @covers \Papaya\BaseObject\Options\Defined::_read
   */
   public function testGetOptionReadingDefault() {
     $options = new \PapayaObjectOptionsDefined_TestProxy();
@@ -80,7 +80,7 @@ class PapayaObjectOptionsDefinedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectOptionsDefined::_read
+  * @covers \Papaya\BaseObject\Options\Defined::_read
   */
   public function testGetOptionExpectingException() {
     $options = new \PapayaObjectOptionsDefined_TestProxy();
@@ -90,7 +90,7 @@ class PapayaObjectOptionsDefinedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectOptionsDefined::_exists
+  * @covers \Papaya\BaseObject\Options\Defined::_exists
   */
   public function testIssetOptionExpectingTrue() {
     $options = new \PapayaObjectOptionsDefined_TestProxy();
@@ -98,7 +98,7 @@ class PapayaObjectOptionsDefinedTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectOptionsDefined::_exists
+  * @covers \Papaya\BaseObject\Options\Defined::_exists
   */
   public function testIssetOptionExpectingFalse() {
     $options = new \PapayaObjectOptionsDefined_TestProxy();
@@ -110,7 +110,7 @@ class PapayaObjectOptionsDefinedTest extends \PapayaTestCase {
 /**
  * @property bool validOption
  */
-class PapayaObjectOptionsDefined_TestProxy extends \PapayaObjectOptionsDefined {
+class PapayaObjectOptionsDefined_TestProxy extends \Papaya\BaseObject\Options\Defined {
 
   protected $_definitions = array(
     'VALID_OPTION' => array(TRUE, FALSE)

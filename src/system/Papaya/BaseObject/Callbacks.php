@@ -13,27 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\BaseObject;
 /**
-* A list of callbacks, this can be used in another object to allow the user to set
-* callbacks for different events inside the object.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaObjectCallbacks implements \IteratorAggregate {
+ * A list of callbacks, this can be used in another object to allow the user to set
+ * callbacks for different events inside the object.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Callbacks implements \IteratorAggregate {
 
   /**
-  * List of callbacks
-  *
-  * @var array(string=>\PapayaObjectCallback)
-  */
+   * List of callbacks
+   *
+   * @var array(string=>\Papaya\BaseObject\PapayaObjectCallback)
+   */
   private $_callbacks = array();
 
   /**
-  * List of callback defaults
-  *
-  * @var array(string=>mixed)
-  */
+   * List of callback defaults
+   *
+   * @var array(string=>mixed)
+   */
   private $_defaults = array();
 
   /**
@@ -53,15 +54,15 @@ class PapayaObjectCallbacks implements \IteratorAggregate {
   }
 
   /**
-  * This check the list of given callback names. For each name a \PapayaObjectCallback instance is
-  * created.
-  *
-  * If of of the given names is an existing method in the current object ($this) an exception
-  * is thrown.
-  *
-  * @throws \LogicException
-  * @param array $definitions
-  */
+   * This check the list of given callback names. For each name a \Papaya\BaseObject\PapayaObjectCallback instance is
+   * created.
+   *
+   * If of of the given names is an existing method in the current object ($this) an exception
+   * is thrown.
+   *
+   * @throws \LogicException
+   * @param array $definitions
+   */
   protected function defineCallbacks(array $definitions) {
     if (count($definitions) < 1) {
       throw new \LogicException('No callback definitions provided.');
@@ -76,45 +77,45 @@ class PapayaObjectCallbacks implements \IteratorAggregate {
           )
         );
       }
-      $this->_callbacks[$name] = new \PapayaObjectCallback($defaultReturn, $this->_addContext);
+      $this->_callbacks[$name] = new Callback($defaultReturn, $this->_addContext);
       $this->_defaults[$name] = $defaultReturn;
     }
   }
 
   /**
-  * Allows to check if a php callback is available for the given name.
-  *
-  * @param string $name
-  * @return boolean
-  */
+   * Allows to check if a php callback is available for the given name.
+   *
+   * @param string $name
+   * @return boolean
+   */
   public function __isset($name) {
     return isset($this->_callbacks[$name]->callback);
   }
 
   /**
-  * Returns the \PapayaObjectCallback instance for the given name.
-  *
-  * @param string $name
-  * @return \PapayaObjectCallback
-  */
+   * Returns the \Papaya\BaseObject\PapayaObjectCallback instance for the given name.
+   *
+   * @param string $name
+   * @return Callback
+   */
   public function __get($name) {
     $this->validateName($name);
     return $this->_callbacks[$name];
   }
 
   /**
-   * Change a callback. If the value is an instance of \PapayaObjectCallback is will be assigned.
-   * If it is a PHP callback it will be assigned to the \PapayaObjectCallback instance.
+   * Change a callback. If the value is an instance of \Papaya\BaseObject\PapayaObjectCallback is will be assigned.
+   * If it is a PHP callback it will be assigned to the \Papaya\BaseObject\PapayaObjectCallback instance.
    *
    * @param string $name
-   * @param NULL|\PapayaObjectCallback|\Callback $callback
+   * @param NULL|Callback|\Callback $callback
    * @throws \InvalidArgumentException
    */
   public function __set($name, $callback) {
     $this->validateName($name);
     if (is_null($callback)) {
-      $this->_callbacks[$name] = new \PapayaObjectCallback($this->_defaults[$name], $this->_addContext);
-    } elseif ($callback instanceof \PapayaObjectCallback) {
+      $this->_callbacks[$name] = new Callback($this->_defaults[$name], $this->_addContext);
+    } elseif ($callback instanceof Callback) {
       $this->_callbacks[$name] = $callback;
     } elseif (is_callable($callback)) {
       $this->_callbacks[$name]->callback = $callback;
@@ -122,23 +123,23 @@ class PapayaObjectCallbacks implements \IteratorAggregate {
       throw new \InvalidArgumentException(
         sprintf(
           'Argument $callback must be a callable or an instance of %s.',
-          \PapayaObjectCallback::class
+          Callback::class
         )
       );
     }
   }
 
   /**
-  * Unset the PHP callback in the match \PapayaObjectCallback
-  *
-  * @param string $name
-  */
+   * Unset the PHP callback in the match \Papaya\BaseObject\PapayaObjectCallback
+   *
+   * @param string $name
+   */
   public function __unset($name) {
     $this->__set($name, NULL);
   }
 
   /**
-   * Execute the callback using {@see \PapayaObjectCallback::execute()}.
+   * Execute the callback using {@see \Papaya\BaseObject\PapayaObjectCallback::execute()}.
    *
    * @param string $name
    * @param $arguments
@@ -146,7 +147,7 @@ class PapayaObjectCallbacks implements \IteratorAggregate {
    */
   public function __call($name, $arguments) {
     $this->validateName($name);
-    return call_user_func_array(array($this->_callbacks[$name], 'execute' ), $arguments);
+    return call_user_func_array(array($this->_callbacks[$name], 'execute'), $arguments);
   }
 
   /**

@@ -20,20 +20,15 @@ namespace Papaya\Application;
  * @package Papaya-Library
  * @subpackage Objects
  */
-abstract class BaseObject implements \PapayaObjectInterface {
+abstract class BaseObject implements Access {
 
-  /**
-   * Application object
-   *
-   * @var string
-   */
-  protected $_applicationObject = NULL;
+  use Access\Aggregation;
 
   /**
    * Get application object
    *
    * @deprecated {@see \Papaya\PapayaObject::papaya()}
-   * @return \PapayaApplication
+   * @return \Papaya\Application
    */
   public function getApplication() {
     return $this->papaya();
@@ -43,25 +38,9 @@ abstract class BaseObject implements \PapayaObjectInterface {
    * Set application object
    *
    * @deprecated {@see \Papaya\PapayaObject::papaya()}
-   * @param \PapayaApplication $application
+   * @param \Papaya\Application $application
    */
   public function setApplication($application) {
     $this->papaya($application);
-  }
-
-  /**
-   * An combined getter/setter for the Papaya Application object
-   *
-   * @param \PapayaApplication $application
-   * @return \Papaya\Application\Cms
-   */
-  public function papaya(\PapayaApplication $application = NULL) {
-    if (isset($application)) {
-      $this->_applicationObject = $application;
-    }
-    if (is_null($this->_applicationObject)) {
-      $this->_applicationObject = \PapayaApplication::getInstance();
-    }
-    return $this->_applicationObject;
   }
 }

@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaTemplateParameters extends \PapayaObjectOptionsList {
+class PapayaTemplateParameters extends \Papaya\BaseObject\Options\Collection {
 
   public function __construct(array $options = NULL) {
     $this['SYSTEM_TIME'] = date('Y-m-d H:i:s');

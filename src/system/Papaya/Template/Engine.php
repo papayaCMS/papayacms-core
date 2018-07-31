@@ -25,8 +25,8 @@
 * The values are converted into a DOMDocument. The context is used for restriction in the real
 * implementation.
 *
-* @property \PapayaObjectOptionsList $parameters
-* @property \PapayaObjectList $loaders
+* @property \Papaya\BaseObject\Options\Collection $parameters
+* @property \Papaya\BaseObject\Collection $loaders
 * @property DOMDocument $values
 *
 * @package Papaya-Library
@@ -37,13 +37,14 @@ abstract class PapayaTemplateEngine {
   /**
   * Parameter handling object
   *
-  * @var \PapayaObjectOptionsList
+  * @var \Papaya\BaseObject\Options\Collection
   */
   private $_parameters = NULL;
 
   /**
   * Loaders list
-  * @var \PapayaObjectList
+  *
+  * @var \Papaya\BaseObject\Collection
   */
   private $_loaders = NULL;
 
@@ -83,23 +84,23 @@ abstract class PapayaTemplateEngine {
   /**
    * Combined getter/setter for paramters
    *
-   * @param \PapayaObjectOptionsList|array $parameters
+   * @param \Papaya\BaseObject\Options\Collection|array $parameters
    * @throws \InvalidArgumentException
-   * @return \PapayaObjectOptionsList
+   * @return \Papaya\BaseObject\Options\Collection
    */
   public function parameters($parameters = NULL) {
     if (isset($parameters)) {
-      if ($parameters instanceof \PapayaObjectOptionsList) {
+      if ($parameters instanceof \Papaya\BaseObject\Options\Collection) {
         $this->_parameters = $parameters;
       } elseif (is_array($parameters)) {
-        $this->_parameters = new \PapayaObjectOptionsList($parameters);
+        $this->_parameters = new \Papaya\BaseObject\Options\Collection($parameters);
       } else {
         throw new \InvalidArgumentException(
-          'Argument must be an array or a PapayaObjectOptionsList object.'
+          'Argument must be an array or a Papaya\BaseObject\Options\PapayaObjectOptionsList object.'
         );
       }
     } elseif (!isset($this->_parameters)) {
-      $this->_parameters = new \PapayaObjectOptionsList();
+      $this->_parameters = new \Papaya\BaseObject\Options\Collection();
     }
     return $this->_parameters;
   }
@@ -107,11 +108,11 @@ abstract class PapayaTemplateEngine {
   /**
    * Combined getter/setter for loaders
    *
-   * @param \PapayaObjectList $loaders
+   * @param \Papaya\BaseObject\Collection $loaders
    * @throws \InvalidArgumentException
-   * @return \PapayaObjectList
+   * @return \Papaya\BaseObject\Collection
    */
-  public function loaders(\PapayaObjectList $loaders = NULL) {
+  public function loaders(\Papaya\BaseObject\Collection $loaders = NULL) {
     if (isset($loaders)) {
       if ($loaders->getItemClass() === \PapayaTemplateEngineValuesLoadable::class) {
         $this->_loaders = $loaders;
@@ -119,14 +120,14 @@ abstract class PapayaTemplateEngine {
         throw new \InvalidArgumentException(
           sprintf(
             '%1$s with %2$s expected: "%3$s" given.',
-            \PapayaObjectList::class,
+            \Papaya\BaseObject\Collection::class,
             \PapayaTemplateEngineValuesLoadable::class,
             $loaders->getItemClass()
           )
         );
       }
     } elseif (!isset($this->_loaders)) {
-      $this->_loaders = new \PapayaObjectList(\PapayaTemplateEngineValuesLoadable::class);
+      $this->_loaders = new \Papaya\BaseObject\Collection(\PapayaTemplateEngineValuesLoadable::class);
     }
     return $this->_loaders;
   }
@@ -194,7 +195,7 @@ abstract class PapayaTemplateEngine {
    * Magic Method, provides virtual properties
    *
    * @param string $name
-   * @return \PapayaObjectList|\PapayaObjectOptionsList|\PapayaXmlDocument
+   * @return \Papaya\BaseObject\Collection|\Papaya\BaseObject\Options\Collection|\PapayaXmlDocument
    */
   public function __get($name) {
     switch ($name) {

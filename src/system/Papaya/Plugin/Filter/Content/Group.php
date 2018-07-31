@@ -20,7 +20,7 @@ class PapayaPluginFilterContentGroup
   private $_filters = array();
 
   /**
-   * @var \PapayaObjectParameters
+   * @var \Papaya\BaseObject\Parameters
    */
   private $_options;
   private $_page = NULL;
@@ -28,7 +28,7 @@ class PapayaPluginFilterContentGroup
   public function __construct($page) {
     \PapayaUtilConstraints::assertObject($page);
     $this->_page = $page;
-    $this->_options = new \PapayaObjectParameters([]);
+    $this->_options = new \Papaya\BaseObject\Parameters([]);
   }
 
   /**
@@ -46,8 +46,8 @@ class PapayaPluginFilterContentGroup
     return new \ArrayIterator($this->_filters);
   }
 
-  public function prepare($content, \PapayaObjectParameters $options = NULL) {
-    $this->_options = isset($options) ? $options : new \PapayaObjectParameters([]);
+  public function prepare($content, \Papaya\BaseObject\Parameters $options = NULL) {
+    $this->_options = isset($options) ? $options : new \Papaya\BaseObject\Parameters([]);
     foreach ($this as $filter) {
       if ($filter instanceof \PapayaPluginFilterContent) {
         $filter->prepare($content, $this->_options);

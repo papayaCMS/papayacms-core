@@ -27,7 +27,7 @@ namespace Papaya\Administration\Page;
  * @subpackage Administration
  */
 class Parts
-  extends \PapayaObjectInteractive
+  extends \Papaya\BaseObject\Interactive
   implements \Iterator {
 
   const PART_CONTENT = 'content';

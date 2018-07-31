@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Request
 */
-class PapayaRequestParameters extends \PapayaObjectParameters {
+class PapayaRequestParameters extends \Papaya\BaseObject\Parameters {
 
   public static function createFromString($queryString) {
     $queryParameters = new \PapayaRequestParametersQuery();
@@ -49,7 +49,7 @@ class PapayaRequestParameters extends \PapayaObjectParameters {
    * Get the value, filter it, convert it to the type of the default value and
    * return the default value if no value is found.
    *
-   * @see \PapayaObjectParameters::get()
+   * @see \Papaya\BaseObject\Parameters::get()
    * @param array|int|string $offset
    * @param null $defaultValue
    * @param \Papaya\Filter $filter

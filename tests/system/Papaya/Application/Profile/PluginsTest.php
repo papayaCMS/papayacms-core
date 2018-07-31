@@ -27,7 +27,7 @@ class PapayaApplicationProfilePluginsTest extends \PapayaTestCase {
   */
   public function testCreateObject() {
     $profile = new Plugins();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaObjectInterface $plugins */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Application\Access $plugins */
     $plugins = $profile->createObject($application = $this->mockPapaya()->application());
     $this->assertInstanceOf(
       \PapayaPluginLoader::class,

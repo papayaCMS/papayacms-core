@@ -13,41 +13,45 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\BaseObject;
 /**
-* An basic framework object including request parameters handling
-*
-* @package Papaya-Library
-* @subpackage Objects
-*/
-abstract class PapayaObjectInteractive
+ * An basic framework object including request parameters handling
+ *
+ * @package Papaya-Library
+ * @subpackage Objects
+ */
+abstract class Interactive
   extends \Papaya\Application\BaseObject
   implements \PapayaRequestParametersInterface {
 
   /**
-  * Parameter request method
-  * @var NULL|string
-  */
+   * Parameter request method
+   *
+   * @var NULL|string
+   */
   private $_parameterMethod = self::METHOD_MIXED_POST;
 
   /**
-  * Parameter group name
-  * @var NULL|string
-  */
+   * Parameter group name
+   *
+   * @var NULL|string
+   */
   private $_parameterGroup = NULL;
 
   /**
-  * Request parameters object
-  * @var \PapayaRequestParameters
-  */
+   * Request parameters object
+   *
+   * @var \PapayaRequestParameters
+   */
   private $_parameters = NULL;
 
 
   /**
-  * Get/Set parameter handling method. This will be used to define the parameter sources.
-  *
-  * @param integer $method
-  * @return integer
-  */
+   * Get/Set parameter handling method. This will be used to define the parameter sources.
+   *
+   * @param integer $method
+   * @return integer
+   */
   public function parameterMethod($method = NULL) {
     if (!is_null($method)) {
       \PapayaUtilConstraints::assertInteger($method);
@@ -57,13 +61,13 @@ abstract class PapayaObjectInteractive
   }
 
   /**
-  * Get/Set the parameter group name.
-  *
-  * This puts all field parameters (except the hidden fields) into a parameter group.
-  *
-  * @param string|NULL $groupName
-  * @return string|NULL
-  */
+   * Get/Set the parameter group name.
+   *
+   * This puts all field parameters (except the hidden fields) into a parameter group.
+   *
+   * @param string|NULL $groupName
+   * @return string|NULL
+   */
   public function parameterGroup($groupName = NULL) {
     if (!is_null($groupName)) {
       \PapayaUtilConstraints::assertString($groupName);
@@ -74,13 +78,13 @@ abstract class PapayaObjectInteractive
   }
 
   /**
-  * Access request parameters
-  *
-  * This method gives you access to request parameters.
-  *
-  * @param \PapayaRequestParameters $parameters
-  * @return \PapayaRequestParameters
-  */
+   * Access request parameters
+   *
+   * This method gives you access to request parameters.
+   *
+   * @param \PapayaRequestParameters $parameters
+   * @return \PapayaRequestParameters
+   */
   public function parameters(\PapayaRequestParameters $parameters = NULL) {
     if (isset($parameters)) {
       $this->_parameters = $parameters;

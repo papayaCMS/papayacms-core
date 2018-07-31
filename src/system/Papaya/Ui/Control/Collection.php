@@ -91,7 +91,7 @@ class PapayaUiControlCollection
         \PapayaUtilConstraints::assertInstanceOf($this->_ownerClass, $owner);
       }
       $this->_owner = $owner;
-      if ($owner instanceof \PapayaObjectInterface) {
+      if ($owner instanceof \Papaya\Application\Access) {
         $this->papaya($owner->papaya());
       }
       foreach ($this->_items as $item) {

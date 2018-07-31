@@ -19,12 +19,12 @@
  * @package Papaya-Library
  * @subpackage Ui
  *
- * @property \PapayaObjectCallback $onMapRow
- * @property \PapayaObjectCallback $onMapField
+ * @property \Papaya\BaseObject\Callback $onMapRow
+ * @property \Papaya\BaseObject\Callback $onMapField
  * @method boolean onMapRow
  * @method boolean onMapField
  */
-class PapayaResponseContentCsvCallbacks extends \PapayaObjectCallbacks {
+class PapayaResponseContentCsvCallbacks extends \Papaya\BaseObject\Callbacks {
 
   /**
    * Initialize object and set callback definition

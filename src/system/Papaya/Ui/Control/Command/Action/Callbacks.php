@@ -19,14 +19,14 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property \PapayaObjectCallback $onValidationSuccessful
-* @property \PapayaObjectCallback $onValidationFailed
-* @property \PapayaObjectCallback $getDefinition
+* @property \Papaya\BaseObject\Callback $onValidationSuccessful
+* @property \Papaya\BaseObject\Callback $onValidationFailed
+* @property \Papaya\BaseObject\Callback $getDefinition
 * @method void onValidationSuccessful
 * @method void onValidationFailed
 * @method array getDefinition
 */
-class PapayaUiControlCommandActionCallbacks extends \PapayaObjectCallbacks {
+class PapayaUiControlCommandActionCallbacks extends \Papaya\BaseObject\Callbacks {
 
   /**
   * Initialize object and set callback definition

@@ -25,7 +25,7 @@
 trait PapayaPluginConfigurableAggregation {
 
   /**
-   * @var \PapayaObjectParameters
+   * @var \Papaya\BaseObject\Parameters
    */
   private $_configuration;
 
@@ -35,14 +35,14 @@ trait PapayaPluginConfigurableAggregation {
    * execution of other methods (like appendTo()).
    *
    * @see \PapayaPluginConfigurable::configuration()
-   * @param \PapayaObjectParameters $configuration
-   * @return \PapayaObjectParameters
+   * @param \Papaya\BaseObject\Parameters $configuration
+   * @return \Papaya\BaseObject\Parameters
    */
-  public function configuration(\PapayaObjectParameters $configuration = NULL) {
+  public function configuration(\Papaya\BaseObject\Parameters $configuration = NULL) {
     if (NULL !== $configuration) {
       $this->_configuration = $configuration;
     } elseif (NULL === $this->_configuration) {
-      $this->_configuration = new \PapayaObjectParameters();
+      $this->_configuration = new \Papaya\BaseObject\Parameters();
     }
     return $this->_configuration;
   }

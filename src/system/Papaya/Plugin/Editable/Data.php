@@ -29,7 +29,7 @@ use Papaya\Administration\Plugin\Editor\Dialog;
  *  FOR A PARTICULAR PURPOSE.
  */
 
-abstract class PapayaPluginEditableData extends \PapayaObjectParameters {
+abstract class PapayaPluginEditableData extends \Papaya\BaseObject\Parameters {
 
   /**
    * @var \PapayaPluginEditor

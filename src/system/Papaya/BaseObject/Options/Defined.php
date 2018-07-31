@@ -13,40 +13,42 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\BaseObject\Options;
 /**
-* A superclass for options list with a definition of possible options. The possible options are
-* defined in a array with names and list of possible values.
-*
-* If no value fo the given option is found in the options array, the first value from the
-* definition property is used.
-*
-* The values have to be scalars, complex types are not allowed.
-*
-* @package Papaya-Library
-* @subpackage Objects
-*/
-abstract class PapayaObjectOptionsDefined
-  extends \PapayaObjectOptionsList {
+ * A superclass for options list with a definition of possible options. The possible options are
+ * defined in a array with names and list of possible values.
+ *
+ * If no value fo the given option is found in the options array, the first value from the
+ * definition property is used.
+ *
+ * The values have to be scalars, complex types are not allowed.
+ *
+ * @package Papaya-Library
+ * @subpackage Objects
+ */
+abstract class Defined
+  extends \Papaya\BaseObject\Options\Collection {
 
 
   /**
-  * Dialog option definitions: The key is the option name, the element a list of possible values.
-  *
-  * @var array
-  */
+   * Dialog option definitions: The key is the option name, the element a list of possible values.
+   *
+   * @var array
+   */
   protected $_definitions = array();
 
   /**
-  * Dialog option values
-  * @var array
-  */
+   * Dialog option values
+   *
+   * @var array
+   */
   protected $_options = array();
 
   /**
-  * Convert options into an array with name => value pairs
-  *
-  * @return array
-  */
+   * Convert options into an array with name => value pairs
+   *
+   * @return array
+   */
   public function toArray() {
     $result = array();
     foreach (array_keys($this->_definitions) as $name) {
@@ -56,10 +58,10 @@ abstract class PapayaObjectOptionsDefined
   }
 
   /**
-  * Each option has a default value, so this method return the count of all option definitions.
-  *
-  * @return integer
-  */
+   * Each option has a default value, so this method return the count of all option definitions.
+   *
+   * @return integer
+   */
   public function count() {
     return count($this->_definitions);
   }

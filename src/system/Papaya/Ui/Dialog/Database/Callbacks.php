@@ -19,12 +19,12 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property \PapayaObjectCallback $onBeforeSave
-* @property \PapayaObjectCallback $onBeforeDelete
+* @property \Papaya\BaseObject\Callback $onBeforeSave
+* @property \Papaya\BaseObject\Callback $onBeforeDelete
 * @method boolean onBeforeSave(\Papaya\Database\Interfaces\Record $record)
 * @method boolean onBeforeDelete(\Papaya\Database\Interfaces\Record $record)
 */
-class PapayaUiDialogDatabaseCallbacks extends \PapayaObjectCallbacks {
+class PapayaUiDialogDatabaseCallbacks extends \Papaya\BaseObject\Callbacks {
 
   /**
   * Initialize object and set callback definition

@@ -23,7 +23,7 @@ namespace Papaya\Database\Record;
  * @version $Id: List.php 39429 2014-02-27 20:14:26Z weinert $
  */
 class Collection
-  extends \PapayaObjectList {
+  extends \Papaya\BaseObject\Collection {
 
   /**
    * Create list an set internal object type limitation

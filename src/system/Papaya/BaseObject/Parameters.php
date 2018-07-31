@@ -13,13 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\BaseObject;
 /**
-* Extends the ArrayObject to allow lists as keys and a get with filtering and casting
-**
-* @package Papaya-Library
-* @subpackage Objects
-*/
-class PapayaObjectParameters
+ * Extends the ArrayObject to allow lists as keys and a get with filtering and casting
+ **
+ *
+ * @package Papaya-Library
+ * @subpackage Objects
+ */
+class Parameters
   extends \ArrayObject {
 
   /**
@@ -238,10 +240,10 @@ class PapayaObjectParameters
   }
 
   /**
-  * Compile a checksum hash for the parameter data
-  *
-  * @return string
-  */
+   * Compile a checksum hash for the parameter data
+   *
+   * @return string
+   */
   public function getChecksum() {
     $data = (array)$this;
     ksort($data);

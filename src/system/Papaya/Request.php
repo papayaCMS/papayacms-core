@@ -36,7 +36,7 @@ namespace Papaya;
  */
 class Request
   extends Application\BaseObject
-  implements \PapayaObjectInterfaceProperties {
+  implements BaseObject\Interfaces\Properties {
 
   /**
    * Paramter source type: url path

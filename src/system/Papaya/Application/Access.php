@@ -13,22 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Application;
 /**
-* Callbacks for the plugin editable content
-*
-* @package Papaya-Library
-* @subpackage Plugins
-*
-* @property \Papaya\BaseObject\Callback $onCreateEditor
-* @method \PapayaPluginEditor onCreateEditor(\PapayaPluginEditableData $data)
-*/
-class PapayaPluginEditableCallbacks extends \Papaya\BaseObject\Callbacks {
+ * Papaya Object Interface - implementing objects provide access to the papaya application registry
+ *
+ * @package Papaya-Library
+ * @subpackage Objects
+ */
+interface Access {
 
-  public function __construct() {
-    parent::__construct(
-      array(
-        'onCreateEditor' => NULL
-      )
-    );
-  }
+  /**
+   * Getter/Setter for the application registry
+   *
+   * @param \Papaya\Application $application
+   * @return \Papaya\Application\Cms
+   */
+  public function papaya(\Papaya\Application $application = NULL);
 }

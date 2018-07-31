@@ -21,7 +21,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFileTest extends \PapayaTestCase {
    * @covers \PapayaUiDialogFieldFactoryProfileSelectFile
    */
   public function testGetField() {
-    $context = $this->createMock(\PapayaObjectInterface::class);
+    $context = $this->createMock(\Papaya\Application\Access::class);
     $context
       ->expects($this->once())
       ->method('papaya')

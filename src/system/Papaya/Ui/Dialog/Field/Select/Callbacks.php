@@ -21,14 +21,14 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property \PapayaObjectCallback $getOptionCaption
-* @property \PapayaObjectCallback $getOptionGroupCaption
-* @property \PapayaObjectCallback $getOptionData
+* @property \Papaya\BaseObject\Callback $getOptionCaption
+* @property \Papaya\BaseObject\Callback $getOptionGroupCaption
+* @property \Papaya\BaseObject\Callback $getOptionData
 * @method string getOptionCaption
 * @method string getOptionGroupCaption
 * @method array getOptionData
 */
-class PapayaUiDialogFieldSelectCallbacks extends \PapayaObjectCallbacks {
+class PapayaUiDialogFieldSelectCallbacks extends \Papaya\BaseObject\Callbacks {
 
   public function __construct() {
     parent::__construct(

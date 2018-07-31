@@ -13,20 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\BaseObject\Text;
+
 /**
-* A list of strings that is castable to a string using a default offset
-*
-* If you cast is to a string the default element will be casted to string and returned.
-*
-* But you can treat it like an array, too.
-*
-* @package Papaya-Library
-* @subpackage Objects
-*/
-class PapayaObjectStringValues implements \ArrayAccess, \Countable, \IteratorAggregate {
+ * A list of strings that is castable to a string using a default offset
+ *
+ * If you cast is to a string the default element will be casted to string and returned.
+ *
+ * But you can treat it like an array, too.
+ *
+ * @package Papaya-Library
+ * @subpackage Objects
+ */
+class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
 
   /**
-   * @var ArrayObject
+   * @var \ArrayObject
    */
   private $_values = NULL;
 

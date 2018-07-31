@@ -24,7 +24,7 @@
 */
 class PapayaUiStringTranslatedList
   extends \IteratorIterator
-  implements \PapayaObjectInterface {
+  implements \Papaya\Application\Access {
 
   /**
    * @var \Papaya\Phrases

@@ -18,7 +18,7 @@ namespace Papaya\Database\Interfaces;
 interface Record
   extends
   \Papaya\Database\Interfaces\Access,
-  \PapayaObjectInterfaceProperties,
+  \Papaya\BaseObject\Interfaces\Properties,
   \ArrayAccess,
   \IteratorAggregate {
 

@@ -21,12 +21,12 @@ namespace Papaya\Csv\Writer;
  * @package Papaya-Library
  * @subpackage Csv
  *
- * @property \PapayaObjectCallback $onMapRow
- * @property \PapayaObjectCallback $onMapHeader
+ * @property \Papaya\BaseObject\Callback $onMapRow
+ * @property \Papaya\BaseObject\Callback $onMapHeader
  * @method array onMapRow
  * @method array onMapHeader
  */
-class Callbacks extends \PapayaObjectCallbacks {
+class Callbacks extends \Papaya\BaseObject\Callbacks {
 
   public function __construct() {
     parent::__construct(

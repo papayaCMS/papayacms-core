@@ -55,7 +55,7 @@ class PapayaUiDialogDatabaseTest extends \PapayaTestCase {
     $dialog = new \PapayaUiDialogDatabase_TestProxy($this->getRecordFixture());
     $callbacks = $dialog->callbacks();
     $this->assertInstanceOf(
-      \PapayaObjectCallbacks::class, $callbacks
+      \Papaya\BaseObject\Callbacks::class, $callbacks
     );
   }
 

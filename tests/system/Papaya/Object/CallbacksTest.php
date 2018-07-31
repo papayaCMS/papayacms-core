@@ -18,8 +18,8 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaObjectCallbacksTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaObjectCallbacks::__construct
-  * @covers \PapayaObjectCallbacks::defineCallbacks
+  * @covers \Papaya\BaseObject\Callbacks::__construct
+  * @covers \Papaya\BaseObject\Callbacks::defineCallbacks
   */
   public function testContructor() {
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
@@ -27,18 +27,18 @@ class PapayaObjectCallbacksTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::__construct
-  * @covers \PapayaObjectCallbacks::defineCallbacks
+  * @covers \Papaya\BaseObject\Callbacks::__construct
+  * @covers \Papaya\BaseObject\Callbacks::defineCallbacks
   */
   public function testConstructorWithoutDefinitionsExpectingException() {
     $this->expectException(LogicException::class);
     $this->expectExceptionMessage('No callback definitions provided.');
-    new \PapayaObjectCallbacks(array());
+    new \Papaya\BaseObject\Callbacks(array());
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::__construct
-  * @covers \PapayaObjectCallbacks::defineCallbacks
+  * @covers \Papaya\BaseObject\Callbacks::__construct
+  * @covers \Papaya\BaseObject\Callbacks::defineCallbacks
   */
   public function testConstructorWithInvalidDefinitionsExpectingException() {
     $this->expectException(LogicException::class);
@@ -47,7 +47,7 @@ class PapayaObjectCallbacksTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::__isset
+  * @covers \Papaya\BaseObject\Callbacks::__isset
   */
   public function testMagicMethodIssetExpectingTrue() {
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
@@ -56,7 +56,7 @@ class PapayaObjectCallbacksTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::__isset
+  * @covers \Papaya\BaseObject\Callbacks::__isset
   */
   public function testMagicMethodIssetExpectingFalse() {
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
@@ -64,9 +64,9 @@ class PapayaObjectCallbacksTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::__get
-  * @covers \PapayaObjectCallbacks::__set
-  * @covers \PapayaObjectCallbacks::validateName
+  * @covers \Papaya\BaseObject\Callbacks::__get
+  * @covers \Papaya\BaseObject\Callbacks::__set
+  * @covers \Papaya\BaseObject\Callbacks::validateName
   */
   public function testGetAfterSetWithNull() {
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
@@ -78,9 +78,9 @@ class PapayaObjectCallbacksTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::__get
-  * @covers \PapayaObjectCallbacks::__set
-  * @covers \PapayaObjectCallbacks::validateName
+  * @covers \Papaya\BaseObject\Callbacks::__get
+  * @covers \Papaya\BaseObject\Callbacks::__set
+  * @covers \Papaya\BaseObject\Callbacks::validateName
   */
   public function testGetAfterSetWithCallback() {
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
@@ -90,31 +90,31 @@ class PapayaObjectCallbacksTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::__get
-  * @covers \PapayaObjectCallbacks::__set
-  * @covers \PapayaObjectCallbacks::validateName
+  * @covers \Papaya\BaseObject\Callbacks::__get
+  * @covers \Papaya\BaseObject\Callbacks::__set
+  * @covers \Papaya\BaseObject\Callbacks::validateName
   */
   public function testGetAfterSetWithPapayaObjectCallbackObject() {
-    $callback = $this->createMock(\PapayaObjectCallback::class);
+    $callback = $this->createMock(\Papaya\BaseObject\Callback::class);
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
     $list->sample = $callback;
     $this->assertSame($callback, $list->sample);
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::__set
-  * @covers \PapayaObjectCallbacks::validateName
+  * @covers \Papaya\BaseObject\Callbacks::__set
+  * @covers \Papaya\BaseObject\Callbacks::validateName
   */
   public function testGetWithInvalidValueExpectingException() {
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
     $this->expectException(LogicException::class);
-    $this->expectExceptionMessage('Argument $callback must be a callable or an instance of PapayaObjectCallback.');
+    $this->expectExceptionMessage('Argument $callback must be a callable or an instance of Papaya\BaseObject\Callback.');
     $list->sample = new stdClass;
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::__get
-  * @covers \PapayaObjectCallbacks::validateName
+  * @covers \Papaya\BaseObject\Callbacks::__get
+  * @covers \Papaya\BaseObject\Callbacks::validateName
   */
   public function testGetWithInvalidNameExpectingException() {
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
@@ -125,7 +125,7 @@ class PapayaObjectCallbacksTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::__unset
+  * @covers \Papaya\BaseObject\Callbacks::__unset
   */
   public function testUnsetCreatesNewPapayaObjectCallbackObject() {
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
@@ -135,7 +135,7 @@ class PapayaObjectCallbacksTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::__call
+  * @covers \Papaya\BaseObject\Callbacks::__call
   */
   public function testCallExecutesCallback() {
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
@@ -149,7 +149,7 @@ class PapayaObjectCallbacksTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::__call
+  * @covers \Papaya\BaseObject\Callbacks::__call
   */
   public function testCallWithInvalidNameExpectingException() {
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
@@ -160,21 +160,21 @@ class PapayaObjectCallbacksTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::getIterator
+  * @covers \Papaya\BaseObject\Callbacks::getIterator
   */
   public function testGetIterator() {
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
     $this->assertEquals(
-      array('sample' => new \PapayaObjectCallback(23)),
+      array('sample' => new \Papaya\BaseObject\Callback(23)),
       iterator_to_array($list)
     );
   }
 
   /**
-  * @covers \PapayaObjectCallbacks::getIterator
+  * @covers \Papaya\BaseObject\Callbacks::getIterator
   */
   public function testGetIteratorAfterSet() {
-    $callback = $this->createMock(\PapayaObjectCallback::class);
+    $callback = $this->createMock(\Papaya\BaseObject\Callback::class);
     $list = new \PapayaObjectCallbacks_TestProxy(array('sample' => 23));
     $list->sample = $callback;
     $this->assertSame(array('sample' => $callback), iterator_to_array($list));
@@ -182,10 +182,10 @@ class PapayaObjectCallbacksTest extends \PapayaTestCase {
 }
 
 /**
- * @property \PapayaObjectCallback $sample
+ * @property \Papaya\BaseObject\Callback $sample
  * @method mixed sample($argument)
  */
-class PapayaObjectCallbacks_TestProxy extends \PapayaObjectCallbacks {
+class PapayaObjectCallbacks_TestProxy extends \Papaya\BaseObject\Callbacks {
   public function blocker() {
   }
 }

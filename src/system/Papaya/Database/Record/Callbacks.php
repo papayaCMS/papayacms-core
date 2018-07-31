@@ -20,12 +20,12 @@ namespace Papaya\Database\Record;
  * @package Papaya-Library
  * @subpackage Database
  *
- * @property \PapayaObjectCallback $onBeforeUpdate
- * @property \PapayaObjectCallback $onBeforeInsert
- * @property \PapayaObjectCallback $onBeforeDelete
- * @property \PapayaObjectCallback $onAfterUpdate
- * @property \PapayaObjectCallback $onAfterInsert
- * @property \PapayaObjectCallback $onAfterDelete
+ * @property \Papaya\BaseObject\Callback $onBeforeUpdate
+ * @property \Papaya\BaseObject\Callback $onBeforeInsert
+ * @property \Papaya\BaseObject\Callback $onBeforeDelete
+ * @property \Papaya\BaseObject\Callback $onAfterUpdate
+ * @property \Papaya\BaseObject\Callback $onAfterInsert
+ * @property \Papaya\BaseObject\Callback $onAfterDelete
  * @method boolean onBeforeUpdate(\Papaya\Database\Record $record)
  * @method boolean onBeforeInsert(\Papaya\Database\Record $record)
  * @method boolean onBeforeDelete(\Papaya\Database\Record $record)
@@ -33,7 +33,7 @@ namespace Papaya\Database\Record;
  * @method boolean onAfterInsert(\Papaya\Database\Record $record)
  * @method boolean onAfterDelete(\Papaya\Database\Record $record)
  */
-class Callbacks extends \PapayaObjectCallbacks {
+class Callbacks extends \Papaya\BaseObject\Callbacks {
 
   public function __construct() {
     parent::__construct(

@@ -19,16 +19,16 @@
 * @package Papaya-Library
 * @subpackage Ui
 *
-* @property \PapayaObjectCallback $onBeforeAppend
-* @property \PapayaObjectCallback $onAfterAppend
-* @property \PapayaObjectCallback $onCreateItem
-* @property \PapayaObjectCallback $onAfterAppendItem
+* @property \Papaya\BaseObject\Callback $onBeforeAppend
+* @property \Papaya\BaseObject\Callback $onAfterAppend
+* @property \Papaya\BaseObject\Callback $onCreateItem
+* @property \Papaya\BaseObject\Callback $onAfterAppendItem
 * @method void onBeforeAppend(\PapayaUiNavigationItems $items)
 * @method void onAfterAppend(\PapayaUiNavigationItems $items)
 * @method NULL|\PapayaUiNavigationItem onCreateItem($element, $index)
 * @method void onAfterAppendItem(\PapayaUiNavigationItem $item, $element, $index)
 */
-class PapayaUiNavigationBuilderCallbacks extends \PapayaObjectCallbacks {
+class PapayaUiNavigationBuilderCallbacks extends \Papaya\BaseObject\Callbacks {
 
   public function __construct() {
     parent::__construct(

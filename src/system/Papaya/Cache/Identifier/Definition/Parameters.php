@@ -21,7 +21,7 @@ namespace Papaya\Cache\Identifier\Definition;
  * @subpackage Plugins
  */
 class Parameters
-  extends \PapayaObjectInteractive
+  extends \Papaya\BaseObject\Interactive
   implements \Papaya\Cache\Identifier\Definition {
 
   private $_names = array();

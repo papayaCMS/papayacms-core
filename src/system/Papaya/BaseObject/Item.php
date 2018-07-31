@@ -13,29 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\BaseObject;
 /**
-* The item class allows to define objects that have a set of properties, the properties are
-* accessible through property and array syntax and it is possbile to iterate over them.
-**
-* @package Papaya-Library
-* @subpackage Objects
-*/
-class PapayaObjectItem
+ * The item class allows to define objects that have a set of properties, the properties are
+ * accessible through property and array syntax and it is possbile to iterate over them.
+ **
+ *
+ * @package Papaya-Library
+ * @subpackage Objects
+ */
+class Item
   extends \Papaya\Application\BaseObject
   implements \ArrayAccess, \IteratorAggregate {
 
   /**
-  * Internal value store
-  *
-  * @var array
-  */
+   * Internal value store
+   *
+   * @var array
+   */
   private $_values = array();
 
   /**
-  * Create object and define properties provided as an list.
-  *
-  * @param array(string) $properties
-  */
+   * Create object and define properties provided as an list.
+   *
+   * @param array(string) $properties
+   */
   public function __construct(array $properties) {
     foreach ($properties as $name) {
       $this->_values[\PapayaUtilStringIdentifier::toUnderscoreLower($name)] = NULL;
@@ -74,94 +76,94 @@ class PapayaObjectItem
   }
 
   /**
-  * Get the values as an array
-  *
-  * @return array
-  */
+   * Get the values as an array
+   *
+   * @return array
+   */
   public function toArray() {
     return $this->_values;
   }
 
   /**
-  * Get an iterator for the defined values.
-  *
-  * @return \ArrayIterator
-  */
+   * Get an iterator for the defined values.
+   *
+   * @return \ArrayIterator
+   */
   public function getIterator() {
     return new \ArrayIterator($this->toArray());
   }
 
   /**
-  * Validate if the defined value is set.
-  *
-  * @param string $name
-  * @return boolean
-  */
+   * Validate if the defined value is set.
+   *
+   * @param string $name
+   * @return boolean
+   */
   public function __isset($name) {
     return isset($this->_values[$this->_prepareName($name)]);
   }
 
   /**
-  * Return the defined value
-  *
-  * @throws \OutOfBoundsException
-  * @param string $name
-  * @return mixed
-  */
+   * Return the defined value
+   *
+   * @throws \OutOfBoundsException
+   * @param string $name
+   * @return mixed
+   */
   public function __get($name) {
     return $this->_values[$this->_prepareName($name)];
   }
 
   /**
-  * Change a defined value
-  *
-  * @throws \OutOfBoundsException
-  * @param string $name
-  * @param mixed $value
-  */
+   * Change a defined value
+   *
+   * @throws \OutOfBoundsException
+   * @param string $name
+   * @param mixed $value
+   */
   public function __set($name, $value) {
     $this->_values[$this->_prepareName($name)] = $value;
   }
 
   /**
-  * Set the deifned value to NULL.
-  *
-  * @throws \OutOfBoundsException
-  * @param string $name
-  */
+   * Set the deifned value to NULL.
+   *
+   * @throws \OutOfBoundsException
+   * @param string $name
+   */
   public function __unset($name) {
     $this->_values[$this->_prepareName($name)] = NULL;
   }
 
   /**
-  * ArrayAccess: Validate if a index/property exists at all
-  *
-  * @param string $name
-  * @return boolean
-  */
+   * ArrayAccess: Validate if a index/property exists at all
+   *
+   * @param string $name
+   * @return boolean
+   */
   public function offsetExists($name) {
     $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
     return array_key_exists($name, $this->_values);
   }
 
   /**
-  * ArrayAccess: Return the defined vbalue
-  *
-  * @throws \OutOfBoundsException
-  * @param string $name
-  * @return mixed
-  */
+   * ArrayAccess: Return the defined vbalue
+   *
+   * @throws \OutOfBoundsException
+   * @param string $name
+   * @return mixed
+   */
   public function offsetGet($name) {
     return $this->__get($name);
   }
 
   /**
-  * ArrayAccess: Change the defined value.
-  *
-  * @throws \OutOfBoundsException
-  * @param string $name
-  * @param mixed $value
-  */
+   * ArrayAccess: Change the defined value.
+   *
+   * @throws \OutOfBoundsException
+   * @param string $name
+   * @param mixed $value
+   */
   public function offsetSet($name, $value) {
     $this->__set($name, $value);
   }

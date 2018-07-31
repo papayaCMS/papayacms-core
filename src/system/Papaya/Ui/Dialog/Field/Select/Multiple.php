@@ -48,7 +48,7 @@ class PapayaUiDialogFieldSelectMultiple extends \PapayaUiDialogField {
 
   /**
    * callbacks
-   * @var \PapayaObjectCallbacks
+   * @var \Papaya\BaseObject\Callbacks
    */
   protected $_callbacks = NULL;
   protected $_size = NULL;
