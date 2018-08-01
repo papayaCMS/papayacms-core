@@ -159,7 +159,7 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
 
   public function getPageFixture() {
     $page = $this
-      ->getMockBuilder(\PapayaUiContentPage::class)
+      ->getMockBuilder(\Papaya\Ui\Content\Page::class)
       ->disableOriginalConstructor()
       ->getMock();
     return $page;

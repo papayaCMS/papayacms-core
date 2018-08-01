@@ -13,33 +13,34 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Content\Teasers;
 /**
-* Create teaser list object including the needed pages database object for it.
-*
-* @package Papaya-Library
-* @subpackage Ui-Content
-*/
-class PapayaUiContentTeasersFactory extends \Papaya\Application\BaseObject {
+ * Create teaser list object including the needed pages database object for it.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui-Content
+ */
+class Factory extends \Papaya\Application\BaseObject {
 
   /**
-  * thumbnail width
-  *
-  * @var integer
-  */
+   * thumbnail width
+   *
+   * @var integer
+   */
   private $_width = 0;
 
   /**
-  * thumbnail height
-  *
-  * @var integer
-  */
+   * thumbnail height
+   *
+   * @var integer
+   */
   private $_height = 0;
 
   /**
-  * thumbnail resize mode (abs, max, min, mincrop)
-  *
-  * @var integer
-  */
+   * thumbnail resize mode (abs, max, min, mincrop)
+   *
+   * @var integer
+   */
   private $_resizeMode = 'max';
 
   const ORDER_TITLE_ASCENDING = 'title_asc';
@@ -104,7 +105,7 @@ class PapayaUiContentTeasersFactory extends \Papaya\Application\BaseObject {
    * @param string|\Papaya\Database\Interfaces\Order $order
    * @param integer $limit
    * @param integer $offset
-   * @return \PapayaUiContentTeasers
+   * @return \Papaya\Ui\Content\Teasers
    */
   public function byFilter(
     array $filter, $order = self::ORDER_POSITION_ASCENDING, $limit = 10, $offset = 0
@@ -117,7 +118,7 @@ class PapayaUiContentTeasersFactory extends \Papaya\Application\BaseObject {
       $filter['viewmode_id'] = $this->papaya()->request->modeId;
     }
     $pages->activateLazyLoad($filter, $limit, $offset);
-    return new \PapayaUiContentTeasers($pages, $this->_width, $this->_height, $this->_resizeMode);
+    return new \Papaya\Ui\Content\Teasers($pages, $this->_width, $this->_height, $this->_resizeMode);
   }
 
   /**
@@ -127,7 +128,7 @@ class PapayaUiContentTeasersFactory extends \Papaya\Application\BaseObject {
    * @param string|\Papaya\Database\Interfaces\Order $order
    * @param integer $limit
    * @param integer $offset
-   * @return \PapayaUiContentTeasers
+   * @return \Papaya\Ui\Content\Teasers
    */
   public function byParent(
     $pageIds, $order = self::ORDER_POSITION_ASCENDING, $limit = 10, $offset = 0
@@ -142,7 +143,7 @@ class PapayaUiContentTeasersFactory extends \Papaya\Application\BaseObject {
    * @param string|\Papaya\Database\Interfaces\Order $order
    * @param integer $limit
    * @param integer $offset
-   * @return \PapayaUiContentTeasers
+   * @return \Papaya\Ui\Content\Teasers
    */
   public function byPageId(
     $pageIds, $order = self::ORDER_TITLE_ASCENDING, $limit = 10, $offset = 0

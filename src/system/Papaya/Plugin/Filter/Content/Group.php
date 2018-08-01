@@ -34,7 +34,7 @@ class Group
   }
 
   /**
-   * @return \PapayaUiContentPage
+   * @return \Papaya\Ui\Content\Page
    */
   public function getPage() {
     return $this->_page;

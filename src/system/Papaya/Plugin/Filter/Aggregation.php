@@ -35,7 +35,7 @@ trait Aggregation {
   private $_contentFilters;
 
   /**
-   * @var \base_topic|\PapayaUiContentPage
+   * @var \base_topic|\Papaya\Ui\Content\Page
    */
   private $_page;
 
@@ -59,7 +59,7 @@ trait Aggregation {
    * This implementation expects that it was stored in the private
    * field $_page.
    *
-   * @return \base_topic|\PapayaUiContentPage
+   * @return \base_topic|\Papaya\Ui\Content\Page
    */
   public function getPage() {
     return $this->_page;

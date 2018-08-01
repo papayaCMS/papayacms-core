@@ -13,36 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Content;
 /**
-* Build teaser list xml from a list of pages.
-*
-* @package Papaya-Library
-* @subpackage Ui-Content
-*/
-class PapayaUiContentTeasers extends \PapayaUiControl {
+ * Build teaser list xml from a list of pages.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui-Content
+ */
+class Teasers extends \PapayaUiControl {
 
   private $_pages = NULL;
   private $_reference = NULL;
 
   /**
-  * thumbnail width
-  *
-  * @var integer
-  */
+   * thumbnail width
+   *
+   * @var integer
+   */
   private $_width = 0;
 
   /**
-  * thumbnail height
-  *
-  * @var integer
-  */
+   * thumbnail height
+   *
+   * @var integer
+   */
   private $_height = 0;
 
   /**
-  * thumbnail resize mode (abs, max, min, mincrop)
-  *
-  * @var integer
-  */
+   * thumbnail resize mode (abs, max, min, mincrop)
+   *
+   * @var integer
+   */
   private $_resizeMode = 'max';
 
   /**
@@ -113,7 +114,7 @@ class PapayaUiContentTeasers extends \PapayaUiControl {
    */
   private function appendTeaser(\Papaya\Xml\Element $parent, $record) {
     if (!empty($record['module_guid'])) {
-      $page = new \PapayaUiContentPage(
+      $page = new \Papaya\Ui\Content\Page(
         $record['id'], $record['language_id'], $this->pages()->isPublic()
       );
       $page->papaya($this->papaya());
@@ -129,7 +130,7 @@ class PapayaUiContentTeasers extends \PapayaUiControl {
    */
   private function appendThumbnails(\Papaya\Xml\Element $parent) {
     if ($this->_width > 0 || $this->_height > 0) {
-      $thumbnails = new \PapayaUiContentTeaserImages(
+      $thumbnails = new \Papaya\Ui\Content\Teaser\Images(
         $parent, $this->_width, $this->_height, $this->_resizeMode
       );
       $thumbnails->papaya($this->papaya());

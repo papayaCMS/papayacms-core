@@ -22,24 +22,24 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiContentTeasersFactoryTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiContentTeasersFactory
+   * @covers \Papaya\Ui\Content\Teasers\Factory
    */
   public function testByFilterWithParentIdAndViewId() {
     $orderBy = $this->createMock(Order::class);
 
-    $factory = new \PapayaUiContentTeasersFactory();
+    $factory = new \Papaya\Ui\Content\Teasers\Factory();
     $factory->papaya($this->mockPapaya()->application());
 
     $teasers = $factory->byFilter(
       array('parent' => 21, 'view_id' => 42, 'language_id' => 1), $orderBy
     );
-    $this->assertInstanceOf(\PapayaUiContentTeasers::class, $teasers);
+    $this->assertInstanceOf(\Papaya\Ui\Content\Teasers::class, $teasers);
     $this->assertInstanceOf(Publications::class, $teasers->pages());
 
   }
 
   /**
-   * @covers \PapayaUiContentTeasersFactory
+   * @covers \Papaya\Ui\Content\Teasers\Factory
    */
   public function testByParentWithOnePageIdInPreviewMode() {
     $request = $this->mockPapaya()->request();
@@ -55,7 +55,7 @@ class PapayaUiContentTeasersFactoryTest extends \PapayaTestCase {
         )
       );
 
-    $factory = new \PapayaUiContentTeasersFactory();
+    $factory = new \Papaya\Ui\Content\Teasers\Factory();
     $factory->papaya(
       $this->mockPapaya()->application(
         array('request' => $request)
@@ -63,46 +63,46 @@ class PapayaUiContentTeasersFactoryTest extends \PapayaTestCase {
     );
 
     $teasers = $factory->byParent(42);
-    $this->assertInstanceOf(\PapayaUiContentTeasers::class, $teasers);
+    $this->assertInstanceOf(\Papaya\Ui\Content\Teasers::class, $teasers);
     $this->assertInstanceOf(Pages::class, $teasers->pages());
     $this->assertNotInstanceOf(Publications::class, $teasers->pages());
   }
 
   /**
-   * @covers \PapayaUiContentTeasersFactory
+   * @covers \Papaya\Ui\Content\Teasers\Factory
    */
   public function testByParentWithTwoPageIdsWithIndividualOrderBy() {
     $orderBy = $this->createMock(Order::class);
 
-    $factory = new \PapayaUiContentTeasersFactory();
+    $factory = new \Papaya\Ui\Content\Teasers\Factory();
     $factory->papaya($this->mockPapaya()->application());
 
     $teasers = $factory->byParent(array(21, 42), $orderBy);
-    $this->assertInstanceOf(\PapayaUiContentTeasers::class, $teasers);
+    $this->assertInstanceOf(\Papaya\Ui\Content\Teasers::class, $teasers);
     $this->assertInstanceOf(Publications::class, $teasers->pages());
   }
 
   /**
-   * @covers \PapayaUiContentTeasersFactory
+   * @covers \Papaya\Ui\Content\Teasers\Factory
    */
   public function testByParentWithTwoPageIdsWithInvalidOrderBy() {
-    $factory = new \PapayaUiContentTeasersFactory();
+    $factory = new \Papaya\Ui\Content\Teasers\Factory();
     $factory->papaya($this->mockPapaya()->application());
 
     $teasers = $factory->byParent(array(21, 42), 'invalid');
-    $this->assertInstanceOf(\PapayaUiContentTeasers::class, $teasers);
+    $this->assertInstanceOf(\Papaya\Ui\Content\Teasers::class, $teasers);
     $this->assertInstanceOf(Publications::class, $teasers->pages());
   }
 
   /**
-   * @covers \PapayaUiContentTeasersFactory
+   * @covers \Papaya\Ui\Content\Teasers\Factory
    */
   public function testByPageIdWithOnePageId() {
-    $factory = new \PapayaUiContentTeasersFactory();
+    $factory = new \Papaya\Ui\Content\Teasers\Factory();
     $factory->papaya($this->mockPapaya()->application());
 
     $teasers = $factory->byPageId(42);
-    $this->assertInstanceOf(\PapayaUiContentTeasers::class, $teasers);
+    $this->assertInstanceOf(\Papaya\Ui\Content\Teasers::class, $teasers);
     $this->assertInstanceOf(Publications::class, $teasers->pages());
   }
 

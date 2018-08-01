@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Content;
+
 use Papaya\Content;
 
 /**
@@ -28,8 +30,7 @@ use Papaya\Content;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
-class PapayaUiContentPage extends \Papaya\Application\BaseObject {
+class Page extends \Papaya\Application\BaseObject {
 
   /**
    * @var \Papaya\Content\Page
@@ -188,8 +189,8 @@ class PapayaUiContentPage extends \Papaya\Application\BaseObject {
             $plugin->configuration()->merge($configuration);
           }
           $plugin->appendQuoteTo($teaser);
-        } elseif ($plugin instanceof base_content &&
-                  method_exists($plugin, 'getParsedTeaser')) {
+        } elseif ($plugin instanceof \base_content &&
+          method_exists($plugin, 'getParsedTeaser')) {
           $teaser->appendXml((string)$plugin->getParsedTeaser((array)$configuration));
         }
         /** @var \Papaya\Xml\Document $document */
