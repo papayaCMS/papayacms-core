@@ -18,38 +18,38 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaResponseContentFileTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaResponseContentFile::__construct
+  * @covers \Papaya\Response\Content\File::__construct
   */
   public function testConstructor() {
-    $content = new \PapayaResponseContentFile(__DIR__.'/TestData/data.txt');
+    $content = new \Papaya\Response\Content\File(__DIR__.'/TestData/data.txt');
     $this->assertStringEndsWith(
       '/TestData/data.txt', $this->readAttribute($content, '_filename')
     );
   }
 
   /**
-  * @covers \PapayaResponseContentFile::length
+  * @covers \Papaya\Response\Content\File::length
   */
   public function testLength() {
-    $content = new \PapayaResponseContentFile(__DIR__.'/TestData/data.txt');
+    $content = new \Papaya\Response\Content\File(__DIR__.'/TestData/data.txt');
     $this->assertEquals(4, $content->length());
   }
 
   /**
-  * @covers \PapayaResponseContentFile::output
+  * @covers \Papaya\Response\Content\File::output
   */
   public function testOutput() {
-    $content = new \PapayaResponseContentFile(__DIR__.'/TestData/data.txt');
+    $content = new \Papaya\Response\Content\File(__DIR__.'/TestData/data.txt');
     ob_start();
     $content->output();
     $this->assertEquals('DATA', ob_get_clean());
   }
 
   /**
-  * @covers \PapayaResponseContentFile::__toString
+  * @covers \Papaya\Response\Content\File::__toString
   */
   public function testMagicMethodToString() {
-    $content = new \PapayaResponseContentFile(__DIR__.'/TestData/data.txt');
+    $content = new \Papaya\Response\Content\File(__DIR__.'/TestData/data.txt');
     $this->assertEquals('DATA', (string)$content);
   }
 

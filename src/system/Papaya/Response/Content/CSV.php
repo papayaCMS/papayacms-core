@@ -21,7 +21,7 @@ namespace Papaya\Response\Content;
  * @package Papaya-Library
  * @subpackage Response
  */
-class CSV implements \PapayaResponseContent {
+class CSV implements \Papaya\Response\Content {
 
   /**
    * string content buffer

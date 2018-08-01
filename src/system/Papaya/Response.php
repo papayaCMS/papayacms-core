@@ -18,7 +18,7 @@ namespace Papaya;
  * @package Papaya-Library
  * @subpackage Response
  */
-class Response extends \Papaya\Application\BaseObject {
+class Response extends Application\BaseObject {
 
   /**
    * Status codes
@@ -88,38 +88,37 @@ class Response extends \Papaya\Application\BaseObject {
   /**
    * Response http headers
    *
-   * @var \PapayaResponseHeaders
+   * @var \Papaya\Response\Headers
    */
-  private $_headers = NULL;
+  private $_headers;
 
   /**
    * Response content
    *
-   * @var \PapayaResponseContent
+   * @var \Papaya\Response\Content
    */
-  private $_content = NULL;
+  private $_content;
 
   /**
    * Helper object (wraps php functions)
    *
-   * @var \PapayaResponseHelper
+   * @var \Papaya\Response\Helper
    */
-  private $_helper = NULL;
+  private $_helper;
 
   private $_isSent = FALSE;
 
   /**
    * Get response helper
    *
-   * @param \PapayaResponseHelper $helper
-   * @return \PapayaResponseHelper
+   * @param \Papaya\Response\Helper $helper
+   * @return \Papaya\Response\Helper
    */
-  public function helper(\PapayaResponseHelper $helper = NULL) {
-    if (isset($helper)) {
+  public function helper(Response\Helper $helper = NULL) {
+    if (NULL !== $helper) {
       $this->_helper = $helper;
-    }
-    if (is_null($this->_helper)) {
-      $this->_helper = new \PapayaResponseHelper();
+    } elseif (NULL === $this->_helper) {
+      $this->_helper = new Response\Helper();
     }
     return $this->_helper;
   }
@@ -127,15 +126,14 @@ class Response extends \Papaya\Application\BaseObject {
   /**
    * Get response http headers list
    *
-   * @param \PapayaResponseHeaders $headers
-   * @return \PapayaResponseHeaders
+   * @param \Papaya\Response\Headers $headers
+   * @return \Papaya\Response\Headers
    */
-  public function headers(\PapayaResponseHeaders $headers = NULL) {
-    if (isset($headers)) {
+  public function headers(Response\Headers $headers = NULL) {
+    if (NULL !== $headers) {
       $this->_headers = $headers;
-    }
-    if (is_null($this->_headers)) {
-      $this->_headers = new \PapayaResponseHeaders();
+    } elseif (NULL === $this->_headers) {
+      $this->_headers = new Response\Headers();
     }
     return $this->_headers;
   }
@@ -143,15 +141,14 @@ class Response extends \Papaya\Application\BaseObject {
   /**
    * Get/Set response content object
    *
-   * @param \PapayaResponseContent $content
-   * @return \PapayaResponseContent
+   * @param \Papaya\Response\Content $content
+   * @return \Papaya\Response\Content
    */
-  public function content(\PapayaResponseContent $content = NULL) {
-    if (isset($content)) {
+  public function content(Response\Content $content = NULL) {
+    if (NULL !== $content) {
       $this->_content = $content;
-    }
-    if (is_null($this->_content)) {
-      $this->_content = new \PapayaResponseContentString('');
+    } elseif (NULL === $this->_content) {
+      $this->_content = new Response\Content\Text('');
     }
     return $this->_content;
   }
@@ -202,12 +199,11 @@ class Response extends \Papaya\Application\BaseObject {
   public function setCache(
     $cacheMode, $cachePeriod = 0, $cacheStartTime = NULL, $currentTime = NULL
   ) {
-    if (in_array($cacheMode, array('private', 'public')) &&
-      $cachePeriod > 0) {
-      if (is_null($currentTime)) {
+    if ($cachePeriod > 0 && in_array($cacheMode, array('private', 'public'), TRUE)) {
+      if (NULL === $currentTime) {
         $currentTime = time();
       }
-      if (is_null($cacheStartTime)) {
+      if (NULL === $cacheStartTime) {
         $cacheStartTime = $currentTime;
         $cachePeriodDelta = $cachePeriod;
       } else {
@@ -294,7 +290,7 @@ class Response extends \Papaya\Application\BaseObject {
     if (!isset($this->_statusCodes[$status])) {
       $status = 200;
     }
-    $isCgiApi = (in_array(strtolower(PHP_SAPI), array('cgi', 'cgi-fcgi', 'fpm-fcgi')));
+    $isCgiApi = in_array(strtolower(PHP_SAPI), array('cgi', 'cgi-fcgi', 'fpm-fcgi'), TRUE);
     $prefix = $isCgiApi ? 'Status: ' : 'HTTP/1.1 ';
     $this->helper()->header($prefix.$status.' '.$this->_statusCodes[$status], TRUE, $status);
   }
@@ -308,14 +304,16 @@ class Response extends \Papaya\Application\BaseObject {
    * @return void
    */
   public function sendHeader($header, $disableXHeaders = NULL, $force = FALSE) {
-    if (is_null($disableXHeaders)) {
-      $disableXHeaders = $this->papaya()->options->get(
+    if (NULL === $disableXHeaders) {
+      $disableXHeaders = (bool)$this->papaya()->options->get(
         'PAPAYA_DISABLE_XHEADERS', FALSE
       );
     }
     if ($force || !$this->helper()->headersSent()) {
-      if ($disableXHeaders &&
-        substr($header, 0, 2) == 'X-') {
+      if (
+        $disableXHeaders &&
+        0 === strpos($header, 'X-')
+      ) {
         return;
       }
       $header = str_replace(array("\r", "\n"), '', $header);

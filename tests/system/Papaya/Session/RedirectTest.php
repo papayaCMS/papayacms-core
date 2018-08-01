@@ -122,7 +122,7 @@ class PapayaSessionRedirectTest extends \PapayaTestCase {
   */
   public function testSend() {
     $application = $this->mockPapaya()->application();
-    $helper = $this->createMock(\PapayaResponseHelper::class);
+    $helper = $this->createMock(\Papaya\Response\Helper::class);
     $helper
       ->expects($this->exactly(8))
       ->method('header')
@@ -142,7 +142,7 @@ class PapayaSessionRedirectTest extends \PapayaTestCase {
     $redirect->papaya($application);
     $redirect->helper($helper);
     $redirect->setContentType('text/plain');
-    $redirect->content(new \PapayaResponseContentString('SAMPLE'));
+    $redirect->content(new \Papaya\Response\Content\Text('SAMPLE'));
     ob_start();
     $redirect->send();
     $this->assertEquals(

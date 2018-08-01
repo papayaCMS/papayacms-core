@@ -299,7 +299,7 @@ abstract class Template extends Application\BaseObject {
        */
       $response = $this->papaya()->response;
       $response->setContentType('text/xml', 'utf-8');
-      $response->content(new \PapayaResponseContentString($this->getXml()));
+      $response->content(new Response\Content\Text($this->getXml()));
       $response->send(TRUE);
     } elseif ($result = $this->parse($options)) {
       return $result;

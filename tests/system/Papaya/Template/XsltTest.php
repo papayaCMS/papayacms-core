@@ -181,7 +181,7 @@ class PapayaTemplateXsltTest extends \PapayaTestCase {
     $response
       ->expects($this->once())
       ->method('content')
-      ->with($this->isInstanceOf(\PapayaResponseContentString::class));
+      ->with($this->isInstanceOf(\Papaya\Response\Content\Text::class));
     $response
       ->expects($this->once())
       ->method('send')

@@ -44,7 +44,7 @@ class GlobalValues extends \Papaya\Configuration {
    * @param string $name
    * @param mixed $default
    * @param \Papaya\Filter $filter
-   * @return NULL|int|boolean|float|string
+   * @return NULL|int|bool|float|string
    */
   public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
     $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);

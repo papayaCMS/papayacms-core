@@ -444,7 +444,7 @@ class papaya_page extends base_object {
   * @param string $reason
   */
   function doRedirect($code, $targetUrl, $reason = NULL) {
-    $response = new \PapayaResponseRedirect(
+    $response = new \Papaya\Response\Redirect(
       $targetUrl,
       ($code == 301) ? $code : 302,
       $reason
@@ -1440,10 +1440,10 @@ class papaya_page extends base_object {
                     $this->canUseGzip()) {
                   $response->sendHeader('Content-Encoding: gzip');
                   $response->sendHeader('X-Papaya-Gzip: yes');
-                  $response->content(new \PapayaResponseContentString(gzencode($str)));
+                  $response->content(new \Papaya\Response\Content\Text(gzencode($str)));
                 } else {
                   $this->sendHeader('X-Papaya-Gzip: disabled');
-                  $response->content(new \PapayaResponseContentString((string)$str));
+                  $response->content(new \Papaya\Response\Content\Text((string)$str));
                 }
                 if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
                   Request\Log::getInstance()->logTime('Page delivered');
@@ -2123,7 +2123,7 @@ class papaya_page extends base_object {
       if ($str = $this->getPageMetaXML()) {
         $response = $this->papaya()->response;
         $response->sendHeader('Content-type: text/xml; charset: utf-8');
-        $response->content(new \PapayaResponseContentString($str));
+        $response->content(new \Papaya\Response\Content\Text($str));
         $response->send(TRUE);
       } else {
         $this->getError(
@@ -2164,7 +2164,7 @@ class papaya_page extends base_object {
         $response = $this->papaya()->response;
         $response->setCache('nocache');
         $response->setContentType('text/xml', 'charset: utf-8');
-        $response->content(new \PapayaResponseContentString($str));
+        $response->content(new \Papaya\Response\Content\Text($str));
         $response->send(TRUE);
       } else {
         $this->getError(
@@ -2178,7 +2178,7 @@ class papaya_page extends base_object {
         $response = $this->papaya()->response;
         $response->setCache('nocache');
         $response->setContentType('text/xml', 'charset: utf-8');
-        $response->content(new \PapayaResponseContentString($str));
+        $response->content(new \Papaya\Response\Content\Text($str));
         $response->send(TRUE);
       } else {
         $this->getError(
@@ -2219,7 +2219,7 @@ class papaya_page extends base_object {
        */
       $response = $this->papaya()->response;
       if ($output = $this->getBox()) {
-        $response->content(new \PapayaResponseContentString((string)$output));
+        $response->content(new \Papaya\Response\Content\Text((string)$output));
       }
       $response->send();
       $response->end();

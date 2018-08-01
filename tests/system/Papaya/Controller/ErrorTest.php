@@ -68,7 +68,7 @@ class PapayaControllerErrorTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('content')
       ->with(
-        $this->isInstanceOf(\PapayaResponseContentString::class)
+        $this->isInstanceOf(\Papaya\Response\Content\Text::class)
       );
     $controller = new Error();
     $this->assertTrue(

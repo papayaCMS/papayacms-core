@@ -139,7 +139,7 @@ class Error extends \Papaya\Application\BaseObject implements \Papaya\Controller
     $response->setStatus($this->_status);
     $response->setContentType('text/html');
     $response->content(
-      new \PapayaResponseContentString($this->_getOutput())
+      new \Papaya\Response\Content\Text($this->_getOutput())
     );
     return TRUE;
   }

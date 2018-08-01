@@ -27,7 +27,7 @@ class PapayaResponseContentCsvTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaResponseContentFile::output
+   * @covers \Papaya\Response\Content\File::output
    */
   public function testOutputUsingNumericColumnIndex() {
     $content = new \Papaya\Response\Content\CSV(
@@ -48,7 +48,7 @@ class PapayaResponseContentCsvTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaResponseContentFile::output
+   * @covers \Papaya\Response\Content\File::output
    */
   public function testOutputUsingNamedColumnIndex() {
     $content = new \Papaya\Response\Content\CSV(
@@ -71,7 +71,7 @@ class PapayaResponseContentCsvTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaResponseContentFile::output
+   * @covers \Papaya\Response\Content\File::output
    */
   public function testOutputWithoutColumns() {
     $content = new \Papaya\Response\Content\CSV(
@@ -91,7 +91,7 @@ class PapayaResponseContentCsvTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaResponseContentFile::output
+   * @covers \Papaya\Response\Content\File::output
    */
   public function testOutputMappingRowAndField() {
     $content = new \Papaya\Response\Content\CSV(

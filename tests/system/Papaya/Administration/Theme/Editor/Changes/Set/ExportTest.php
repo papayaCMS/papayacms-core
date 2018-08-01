@@ -45,7 +45,7 @@ class PapayaAdministrationThemeEditorChangesSetExportTest extends \PapayaTestCas
     $response
       ->expects($this->once())
       ->method('content')
-      ->with($this->isInstanceOf(\PapayaResponseContentString::class));
+      ->with($this->isInstanceOf(\Papaya\Response\Content\Text::class));
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaThemeHandler $themeHandler */
     $themeHandler = $this->createMock(\PapayaThemeHandler::class);

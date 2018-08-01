@@ -18,38 +18,38 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaResponseContentStringTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaResponseContentString::__construct
+  * @covers \Papaya\Response\Content\Text::__construct
   */
   public function testConstructor() {
-    $content = new \PapayaResponseContentString('sample');
+    $content = new \Papaya\Response\Content\Text('sample');
     $this->assertAttributeEquals(
       'sample', '_content', $content
     );
   }
 
   /**
-  * @covers \PapayaResponseContentString::length
+  * @covers \Papaya\Response\Content\Text::length
   */
   public function testLength() {
-    $content = new \PapayaResponseContentString('sample');
+    $content = new \Papaya\Response\Content\Text('sample');
     $this->assertEquals(6, $content->length());
   }
 
   /**
-  * @covers \PapayaResponseContentString::output
+  * @covers \Papaya\Response\Content\Text::output
   */
   public function testOutput() {
-    $content = new \PapayaResponseContentString('sample');
+    $content = new \Papaya\Response\Content\Text('sample');
     ob_start();
     $content->output();
     $this->assertEquals('sample', ob_get_clean());
   }
 
   /**
-  * @covers \PapayaResponseContentString::__toString
+  * @covers \Papaya\Response\Content\Text::__toString
   */
   public function testMagicMethodToString() {
-    $content = new \PapayaResponseContentString('sample');
+    $content = new \Papaya\Response\Content\Text('sample');
     $this->assertEquals('sample', (string)$content);
   }
 

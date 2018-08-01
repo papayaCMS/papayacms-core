@@ -13,35 +13,36 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Response;
 /**
-* Papaya Response Helper Object
-*
-* @package Papaya-Library
-* @subpackage Response
-*/
-class PapayaResponseHelper {
+ * Papaya Response Helper Object
+ *
+ * @package Papaya-Library
+ * @subpackage Response
+ */
+class Helper {
 
   protected static $headerSent = FALSE;
 
   /**
-  * Send http header (wrapper for php function)
-  *
-  * @codeCoverageIgnore
-  *
-  * @param string $string
-  * @param boolean $replace
-  * @param integer|NULL $responseCode
-  * @return void
-  */
+   * Send http header (wrapper for php function)
+   *
+   * @codeCoverageIgnore
+   *
+   * @param string $string
+   * @param boolean $replace
+   * @param integer|NULL $responseCode
+   * @return void
+   */
   public function header($string, $replace = TRUE, $responseCode = NULL) {
     header($string, $replace, $responseCode);
   }
 
   /**
-  * Check if http headers where already sent (wrapper for php function)
-  *
-  * @return boolean
-  */
+   * Check if http headers where already sent (wrapper for php function)
+   *
+   * @return boolean
+   */
   public function headersSent() {
     if (!self::$headerSent) {
       self::$headerSent = headers_sent();

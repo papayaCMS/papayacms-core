@@ -13,17 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Response\Content;
+
 /**
  * Iterator the argument and output it.
  *
  * @package Papaya-Library
  * @subpackage Response
  */
-class PapayaResponseContentList implements \PapayaResponseContent {
+class Collection implements \Papaya\Response\Content {
 
   /**
    * string content buffer
-   * @var Traversable
+   *
+   * @var \Traversable
    */
   private $_traversable;
 

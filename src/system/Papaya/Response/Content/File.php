@@ -13,55 +13,57 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Response\Content;
 /**
-* Simple file response content
-*
-* Additionally to length() and output(), the object supports to be casted to a string.
-*
-* @package Papaya-Library
-* @subpackage Response
-*/
-class PapayaResponseContentFile implements \PapayaResponseContent {
+ * Simple file response content
+ *
+ * Additionally to length() and output(), the object supports to be casted to a string.
+ *
+ * @package Papaya-Library
+ * @subpackage Response
+ */
+class File implements \Papaya\Response\Content {
 
   /**
-  * string content buffer
-  * @var string
-  */
+   * string content buffer
+   *
+   * @var string
+   */
   private $_filename = '';
 
   /**
-  * Initialize object from a string
-  *
-  * @param string $filename
-  */
+   * Initialize object from a string
+   *
+   * @param string $filename
+   */
   public function __construct($filename) {
     \PapayaUtilConstraints::assertString($filename);
     $this->_filename = $filename;
   }
 
   /**
-  * Return content length for the http header
-  *
-  * @return integer
-  */
+   * Return content length for the http header
+   *
+   * @return integer
+   */
   public function length() {
     return filesize($this->_filename);
   }
 
   /**
-  * Output string content to standard output
-  *
-  * @return string
-  */
+   * Output string content to standard output
+   *
+   * @return string
+   */
   public function output() {
     readfile($this->_filename);
   }
 
   /**
-  * Cast object back into a string
-  *
-  * @return string
-  */
+   * Cast object back into a string
+   *
+   * @return string
+   */
   public function __toString() {
     return file_get_contents($this->_filename);
   }

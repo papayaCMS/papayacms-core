@@ -63,7 +63,7 @@ class Export
     );
     $response->setContentType('application/octet-stream');
     $response->content(
-      new \PapayaResponseContentString(
+      new \Papaya\Response\Content\Text(
         $this
           ->_themeSet
           ->getValuesXml(

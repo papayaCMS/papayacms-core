@@ -13,11 +13,12 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Response;
 /**
-* @package Papaya-Library
-* @subpackage Response
-*/
-class PapayaResponseRedirect extends \Papaya\Response {
+ * @package Papaya-Library
+ * @subpackage Response
+ */
+class Redirect extends \Papaya\Response {
 
   private $_location = '';
   private $_reason = '';

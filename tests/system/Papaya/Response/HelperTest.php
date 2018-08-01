@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaResponseHelperTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaResponseHelper::headersSent
+  * @covers \Papaya\Response\Helper::headersSent
   */
   public function testHeadersSent() {
-    $helper = new \PapayaResponseHelper();
+    $helper = new \Papaya\Response\Helper();
     $this->assertInternalType(
       'boolean',
       $helper->headersSent()

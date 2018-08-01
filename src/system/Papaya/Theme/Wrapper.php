@@ -144,7 +144,7 @@ class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
       }
       $response->setCache('public', $cacheTime);
     }
-    $response->content(new \PapayaResponseContentString($data));
+    $response->content(new \Papaya\Response\Content\Text($data));
     if ($compress) {
       $response->headers()->set('X-Papaya-Compress', 'yes');
       $response->headers()->set('Content-Encoding', 'gzip');

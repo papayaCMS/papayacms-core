@@ -13,55 +13,57 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Response\Content;
 /**
-* Simple string response content
-*
-* Additionally to length() and output(), the object supports to be casted to a string.
-*
-* @package Papaya-Library
-* @subpackage Response
-*/
-class PapayaResponseContentString implements \PapayaResponseContent {
+ * Simple string response content
+ *
+ * Additionally to length() and output(), the object supports to be casted to a string.
+ *
+ * @package Papaya-Library
+ * @subpackage Response
+ */
+class Text implements \Papaya\Response\Content {
 
   /**
-  * string content buffer
-  * @var string
-  */
+   * string content buffer
+   *
+   * @var string
+   */
   private $_content = '';
 
   /**
-  * Initialize object from a string
-  *
-  * @param string $contentString
-  */
+   * Initialize object from a string
+   *
+   * @param string $contentString
+   */
   public function __construct($contentString) {
     \PapayaUtilConstraints::assertString($contentString);
     $this->_content = $contentString;
   }
 
   /**
-  * Return content length for the http header
-  *
-  * @return integer
-  */
+   * Return content length for the http header
+   *
+   * @return integer
+   */
   public function length() {
     return strlen($this->_content);
   }
 
   /**
-  * Output string content to standard output
-  *
-  * @return string
-  */
+   * Output string content to standard output
+   *
+   * @return string
+   */
   public function output() {
     echo $this->_content;
   }
 
   /**
-  * Cast object back into a string
-  *
-  * @return string
-  */
+   * Cast object back into a string
+   *
+   * @return string
+   */
   public function __toString() {
     return $this->_content;
   }
