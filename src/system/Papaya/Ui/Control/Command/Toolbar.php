@@ -55,10 +55,10 @@ abstract class PapayaUiControlCommandToolbar extends \PapayaUiControlCommand {
   /**
    * appendTo is used as an trigger only - it actually does not modify the dom.
    *
-   * @param \PapayaXmlElement $parent
-   * @return \PapayaXmlElement
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $this->appendToolbarElements();
     return $parent;
   }

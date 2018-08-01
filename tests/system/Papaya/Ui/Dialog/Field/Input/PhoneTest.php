@@ -72,7 +72,7 @@ class PapayaUiDialogFieldInputPhoneTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldInputPhone::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $field = new \PapayaUiDialogFieldInputPhone('Phone', 'phone');
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('test'));

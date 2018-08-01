@@ -50,14 +50,14 @@ class PapayaUiToolbars extends \PapayaUiControl {
   * Append the existing toolbar to the parent xml eleemnt and set the position attribute.
   * Toolbars without elements will not be added.
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     /** @var \PapayaUiToolbar $toolbar */
     foreach ($this->_toolbars as $position => $toolbar) {
       if (isset($toolbar)) {
         $node = $toolbar->appendTo($parent);
-        if ($node instanceof \PapayaXmlElement) {
+        if ($node instanceof \Papaya\Xml\Element) {
           $node->setAttribute(
             'position', $this->_positions[$position]
           );

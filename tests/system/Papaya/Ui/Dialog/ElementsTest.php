@@ -35,14 +35,14 @@ class PapayaUiDialogElementsTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogElements::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('dummy');
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiDialogElement $element */
     $element = $this->createMock(\PapayaUiDialogElement::class);
     $element
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $elements = new \PapayaUiDialogElements_TestProxy();
     $elements->add($element);
     $elements->appendTo($node);

@@ -58,11 +58,11 @@ class PapayaUiControlCollection
   * Append item output to parent element. If a tag name was provided, the items will be wrapped
   * in an additional element.
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement|NULL parent the elements where appended to,
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element|NULL parent the elements where appended to,
   *    NULL if no items are appended.
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if (count($this->_items) > 0) {
       if (!empty($this->_tagName)) {
         $parent = $parent->appendElement($this->_tagName);

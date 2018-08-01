@@ -27,7 +27,7 @@ namespace Papaya\Parser;
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-abstract class Tag implements \PapayaXmlAppendable {
+abstract class Tag implements \Papaya\Xml\Appendable {
 
   /**
    * Compile output xml for the user interface element.
@@ -35,7 +35,7 @@ abstract class Tag implements \PapayaXmlAppendable {
    * @return string
    */
   public function getXml() {
-    $dom = new \PapayaXmlDocument();
+    $dom = new \Papaya\Xml\Document();
     $control = $dom->appendElement('tag');
     $this->appendTo($control);
     $xml = '';

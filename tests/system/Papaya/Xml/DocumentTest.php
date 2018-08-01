@@ -18,29 +18,29 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaXmlDocumentTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaXmlDocument::__construct
+  * @covers \Papaya\Xml\Document::__construct
   */
   public function testConstructor() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $this->assertInstanceOf(
-      \PapayaXmlElement::class, $document->createElement('test')
+      \Papaya\Xml\Element::class, $document->createElement('test')
     );
   }
 
   /**
-  * @covers \PapayaXmlDocument::xpath
+  * @covers \Papaya\Xml\Document::xpath
   */
   public function testGetXpath() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->loadXml(/** @lang XML */'<element attribute="value">text</element>');
     $this->assertInstanceOf('DOMXpath', $document->xpath());
   }
 
   /**
-  * @covers \PapayaXmlDocument::xpath
+  * @covers \Papaya\Xml\Document::xpath
   */
   public function testGetXpathRefreshesOnLoad() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $xpathOne = $document->xpath();
     $document->loadXml(/** @lang XML */'<element attribute="value">text</element>');
     $xpathTwo = $document->xpath();
@@ -48,22 +48,22 @@ class PapayaXmlDocumentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlDocument::registerNamespaces
-  * @covers \PapayaXmlDocument::xpath
+  * @covers \Papaya\Xml\Document::registerNamespaces
+  * @covers \Papaya\Xml\Document::xpath
   */
   public function testRegisterNamespacesOnXpathLazyRegistration() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->registerNamespaces(array('a' => 'urn:a'));
     $document->loadXml(/** @lang XML */'<element xmlns="urn:a" attribute="success">text</element>');
     $this->assertEquals('success', $document->xpath()->evaluate('string(/a:element/@attribute)'));
   }
 
   /**
-  * @covers \PapayaXmlDocument::registerNamespaces
-  * @covers \PapayaXmlDocument::xpath
+  * @covers \Papaya\Xml\Document::registerNamespaces
+  * @covers \Papaya\Xml\Document::xpath
   */
   public function testRegisterNamespacesOnXpathDirectRegistration() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->loadXml(/** @lang XML */'<element xmlns="urn:a" attribute="success">text</element>');
     $document->xpath();
     $document->registerNamespaces(array('a' => 'urn:a'));
@@ -71,37 +71,37 @@ class PapayaXmlDocumentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlDocument::getNamespace
+  * @covers \Papaya\Xml\Document::getNamespace
   */
   public function testGetNamespaceFromTagName() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->registerNamespaces(array('a' => 'urn:a'));
     $this->assertEquals('urn:a', $document->getNamespace('a:element'));
   }
 
   /**
-  * @covers \PapayaXmlDocument::getNamespace
+  * @covers \Papaya\Xml\Document::getNamespace
   */
   public function testGetNamespaceFromPrefix() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->registerNamespaces(array('a' => 'urn:a'));
     $this->assertEquals('urn:a', $document->getNamespace('a'));
   }
 
   /**
-  * @covers \PapayaXmlDocument::getNamespace
+  * @covers \Papaya\Xml\Document::getNamespace
   */
   public function testGetNamespaceExpectingException() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $this->expectException(UnexpectedValueException::class);
     $this->assertEquals('urn:a', $document->getNamespace('a'));
   }
 
   /**
-  * @covers \PapayaXmlDocument::appendXml
+  * @covers \Papaya\Xml\Document::appendXml
   */
   public function testAppendXml() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendXml(/** @lang XML */'<element attribute="value">text</element>');
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */'<element attribute="value">text</element>',
@@ -110,10 +110,10 @@ class PapayaXmlDocumentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlDocument::appendXml
+  * @covers \Papaya\Xml\Document::appendXml
   */
   public function testAppendXmlWithTarget() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $target = $document->appendElement('test');
     $document->appendXml(/** @lang XML */'<element attribute="value">text</element>', $target);
     $this->assertEquals(
@@ -123,10 +123,10 @@ class PapayaXmlDocumentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlDocument::appendXml
+  * @covers \Papaya\Xml\Document::appendXml
   */
   public function testAppendXmlToDocumentIgnoredAdditionalElements() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendXml(
       // language=XML prefix=<fragment> suffix=</fragment>
       '<one/><two/>'
@@ -138,10 +138,10 @@ class PapayaXmlDocumentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlDocument::appendXml
+  * @covers \Papaya\Xml\Document::appendXml
   */
   public function testAppendXmlToDocumentWithoutElements() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendXml('');
     $this->assertEquals(
       '<?xml version="1.0" encoding="UTF-8"?>'."\n",
@@ -150,10 +150,10 @@ class PapayaXmlDocumentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlDocument::appendXml
+  * @covers \Papaya\Xml\Document::appendXml
   */
   public function testAppendXmlWithInvalidChars() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $ansiiUmlauts = utf8_decode('äöü');
     $document->appendXml(/** @lang XML */"<element>$ansiiUmlauts</element>");
     $this->assertEquals(
@@ -163,11 +163,11 @@ class PapayaXmlDocumentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlDocument::appendElement
-  * @covers \PapayaXmlDocument::createElement
+  * @covers \Papaya\Xml\Document::appendElement
+  * @covers \Papaya\Xml\Document::createElement
   */
   public function testAppendElement() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample', array('attribute' => 42), 'content');
     $this->assertEquals(
       /** @lang XML */'<sample attribute="42">content</sample>',
@@ -176,13 +176,13 @@ class PapayaXmlDocumentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlDocument::appendElement
-  * @covers \PapayaXmlDocument::createElement
-  * @covers \PapayaXmlDocument::createAttribute
-  * @covers \PapayaXmlDocument::getNamespace
+  * @covers \Papaya\Xml\Document::appendElement
+  * @covers \Papaya\Xml\Document::createElement
+  * @covers \Papaya\Xml\Document::createAttribute
+  * @covers \Papaya\Xml\Document::getNamespace
   */
   public function testAppendElementWithNamespace() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->registerNamespaces(array('a' => 'urn:a'));
     $document->appendElement('a:sample', array('attribute' => 42), 'content');
     $this->assertEquals(
@@ -192,13 +192,13 @@ class PapayaXmlDocumentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlDocument::appendElement
-  * @covers \PapayaXmlDocument::createElement
-  * @covers \PapayaXmlDocument::createAttribute
-  * @covers \PapayaXmlDocument::getNamespace
+  * @covers \Papaya\Xml\Document::appendElement
+  * @covers \Papaya\Xml\Document::createElement
+  * @covers \Papaya\Xml\Document::createAttribute
+  * @covers \Papaya\Xml\Document::getNamespace
   */
   public function testAppendElementWithAttributeUsingNamespace() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->registerNamespaces(array('a' => 'urn:a'));
     $document->appendElement('sample', array('a:attribute' => 42), 'content');
     $this->assertEquals(
@@ -208,10 +208,10 @@ class PapayaXmlDocumentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlDocument::createElement
+  * @covers \Papaya\Xml\Document::createElement
   */
   public function testCreateElement() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $this->assertEquals(
       /** @lang XML */'<sample/>',
@@ -220,10 +220,10 @@ class PapayaXmlDocumentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlDocument::createElement
+  * @covers \Papaya\Xml\Document::createElement
   */
   public function testCreateElementWithContent() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample', 'content');
     $this->assertEquals(
     /** @lang XML */'<sample>content</sample>',
@@ -232,11 +232,11 @@ class PapayaXmlDocumentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlDocument::createElement
-  * @covers \PapayaXmlDocument::getNamespace
+  * @covers \Papaya\Xml\Document::createElement
+  * @covers \Papaya\Xml\Document::getNamespace
   */
   public function testCreateElementWithNamespace() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->registerNamespaces(array('a' => 'urn:a'));
     $node = $document->createElement('a:sample');
     $this->assertEquals(
@@ -246,54 +246,54 @@ class PapayaXmlDocumentTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlDocument::activateEntityLoader
+  * @covers \Papaya\Xml\Document::activateEntityLoader
   */
   public function testActivateEntityLoaderGetAfterSet() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->activateEntityLoader(TRUE);
     $this->assertTrue($document->activateEntityLoader());
   }
 
   /**
-  * @covers \PapayaXmlDocument::activateEntityLoader
+  * @covers \Papaya\Xml\Document::activateEntityLoader
   */
   public function testActivateEntityLoaderGetWithoutSet() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $this->assertFalse($document->activateEntityLoader());
   }
 
   /**
-  * @covers \PapayaXmlDocument::load
+  * @covers \Papaya\Xml\Document::load
   */
   public function testLoadXml() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->loadXml(file_get_contents(__DIR__.'/TestData/xmlWithoutEntity.xml'));
     $this->assertEquals('foo', $document->xpath()->evaluate('string(/sample)'));
   }
 
   /**
-  * @covers \PapayaXmlDocument::loadXml
+  * @covers \Papaya\Xml\Document::loadXml
   */
   public function testLoadXmlWithExternalEntity() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->activateEntityLoader(TRUE);
     $document->loadXml(file_get_contents(__DIR__.'/TestData/xmlWithEntity.xml'), LIBXML_NOENT);
     $this->assertEquals('ENTITY_STRING', $document->xpath()->evaluate('string(/sample)'));
   }
 
   /**
-  * @covers \PapayaXmlDocument::createFromXml
+  * @covers \Papaya\Xml\Document::createFromXml
   */
   public function testCreateFromXml() {
-    $document = \PapayaXmlDocument::createFromXml(/** @lang XML */'<foo/>');
+    $document = \Papaya\Xml\Document::createFromXml(/** @lang XML */'<foo/>');
     $this->assertEquals(/** @lang XML */'<foo/>', $document->documentElement->saveXml());
   }
 
   /**
-  * @covers \PapayaXmlDocument::createFromXml
+  * @covers \Papaya\Xml\Document::createFromXml
   */
   public function testCreateFromWithInvalidXmlButSilentExpectingNull() {
-    $document = \PapayaXmlDocument::createFromXml('abc', TRUE);
+    $document = \Papaya\Xml\Document::createFromXml('abc', TRUE);
     $this->assertNull($document);
   }
 }

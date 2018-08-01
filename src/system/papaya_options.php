@@ -1170,7 +1170,7 @@ class papaya_options extends base_options {
       return;
     }
     // Try to create an XML tree and check whether it's valid
-    $xml = \PapayaXmlDocument::createFromXML(file_get_contents($tempFileName), TRUE);
+    $xml = \Papaya\Xml\Document::createFromXML(file_get_contents($tempFileName), TRUE);
     if (!($xml && isset($xml->documentElement))) {
       $this->addMsg(MSG_ERROR, $this->_gt('This is not a valid XML file.'));
       return;

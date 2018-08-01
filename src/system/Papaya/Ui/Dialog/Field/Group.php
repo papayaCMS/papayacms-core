@@ -104,9 +104,9 @@ class PapayaUiDialogFieldGroup extends \PapayaUiDialogField {
   /**
   * Append group and fields in this group to the DOM.
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if (isset($this->_fields) && count($this->_fields) > 0) {
       $group = $parent->appendElement(
         'field-group',

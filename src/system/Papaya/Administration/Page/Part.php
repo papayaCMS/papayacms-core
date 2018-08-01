@@ -56,9 +56,9 @@ abstract class Part extends \PapayaUiControlInteractive {
    * Execute command controller and append output. Page parts are append in the order of
    * (Content -> Navigation -> Information). They share their parameters.
    *
-   * @param \PapayaXMlElement $parent
+   * @param \Papaya\Xml\Element $parent
    */
-  public function appendTo(\PapayaXMlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $parent->append($this->commands());
   }
 

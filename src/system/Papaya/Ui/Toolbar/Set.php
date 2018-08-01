@@ -63,10 +63,10 @@ class PapayaUiToolbarSet
   /**
   * Append group and elements to the output xml.
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   * @return NULL
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $this->elements()->appendTo($parent);
     return NULL;
   }

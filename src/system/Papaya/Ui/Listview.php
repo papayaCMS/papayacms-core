@@ -106,10 +106,10 @@ class PapayaUiListview extends \PapayaUiControlInteractive {
   /**
   * Append listview output to parent element.
   *
-  * @param \PapayaXmlElement $parent
-  * @return NULL|\PapayaXmlElement
+  * @param \Papaya\Xml\Element $parent
+  * @return NULL|\Papaya\Xml\Element
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $listview = $parent->appendElement('listview');
     if (!empty($this->_caption)) {
       $listview->setAttribute('title', (string)$this->_caption);

@@ -62,10 +62,10 @@ class PapayaUiControlCommandController
   /**
   * Execute command and append output after validating the user permission
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement|NULL
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element|NULL
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if ($this->validateCondition() &&
         $this->validatePermission()) {
       if ($command = $this->getCurrent()) {

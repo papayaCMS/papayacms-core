@@ -33,12 +33,12 @@ class Pages extends \Papaya\BaseObject\Collection {
   /**
    * Load page data from xml
    *
-   * @param \PapayaXmlElement $structure
+   * @param \Papaya\Xml\Element $structure
    */
-  public function load(\PapayaXmlElement $structure) {
-    /** @var \PapayaXmlDocument $document */
+  public function load(\Papaya\Xml\Element $structure) {
+    /** @var \Papaya\Xml\Document $document */
     $document = $structure->ownerDocument;
-    /** @var \PapayaXmlElement $node */
+    /** @var \Papaya\Xml\Element $node */
     foreach ($document->xpath()->evaluate('page', $structure) as $node) {
       $this[] = $page = new Page();
       $page->name = $node->getAttribute('name');

@@ -25,19 +25,19 @@ class PapayaAdministrationPagesAncestorsTest extends \PapayaTestCase {
   * @covers Ancestors::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
 
     $menu = $this->createMock(\PapayaUiHierarchyMenu::class);
     $menu
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class))
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class))
       ->will($this->returnValue($document->documentElement->appendElement('menu')));
     $ancestors = new Ancestors();
     $ancestors->menu($menu);
 
-    $this->assertInstanceOf(\PapayaXmlElement::class, $ancestors->appendTo($document->documentElement));
+    $this->assertInstanceOf(\Papaya\Xml\Element::class, $ancestors->appendTo($document->documentElement));
   }
 
   /**

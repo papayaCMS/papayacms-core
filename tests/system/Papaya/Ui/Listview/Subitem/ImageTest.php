@@ -81,7 +81,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
   * @covers \PapayaUiListviewSubitemImage::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
     $subitem = new \PapayaUiListviewSubitemImage('image');
     $subitem->papaya(
@@ -100,7 +100,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
   * @covers \PapayaUiListviewSubitemImage::appendTo
   */
   public function testAppendToWithHint() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
     $subitem = new \PapayaUiListviewSubitemImage('image', 'quickinfo');
     $subitem->papaya(
@@ -120,7 +120,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
   * @covers \PapayaUiListviewSubitemImage::getUrl
   */
   public function testAppendToWithReference() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
     $reference = $this->createMock(\PapayaUiReference::class);
     $reference
@@ -150,7 +150,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
   * @covers \PapayaUiListviewSubitemImage::getUrl
   */
   public function testAppendToWithReferenceFromListview() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
     $reference = $this->createMock(\PapayaUiReference::class);
     $reference

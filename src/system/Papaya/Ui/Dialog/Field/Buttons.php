@@ -87,9 +87,9 @@ class PapayaUiDialogFieldButtons extends \PapayaUiDialogField {
   /**
   * Append group and buttons in this group to the DOM.
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if (isset($this->_buttons) && count($this->_buttons) > 0) {
       $field = $this->_appendFieldTo($parent);
       $field

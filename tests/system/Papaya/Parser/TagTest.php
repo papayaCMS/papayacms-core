@@ -21,7 +21,7 @@ class PapayaParserTagTest extends \PapayaTestCase {
    */
   public function testGetXml() {
     $control = new \PapayaParserTag_TestProxy();
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $control->nodeStub = array(
       $document->appendElement('sample')
     );
@@ -35,7 +35,7 @@ class PapayaParserTagTest extends \PapayaTestCase {
    */
   public function testGetXmlWithTextNode() {
     $control = new \PapayaParserTag_TestProxy();
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $control->nodeStub = array(
       $document->createTextNode('sample')
     );
@@ -49,7 +49,7 @@ class PapayaParserTagTest extends \PapayaTestCase {
    */
   public function testGetXmlWithSeveralNodes() {
     $control = new \PapayaParserTag_TestProxy();
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $control->nodeStub = array(
       $document->createTextNode('sample'),
       $document->createElement('sample'),
@@ -66,7 +66,7 @@ class PapayaParserTagTest extends \PapayaTestCase {
 class PapayaParserTag_TestProxy extends \Papaya\Parser\Tag {
   public $nodeStub = array();
 
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     foreach ($this->nodeStub as $node) {
       $parent->appendChild(
         $parent->ownerDocument->importNode($node)

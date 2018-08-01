@@ -43,9 +43,9 @@ class PapayaUiControlCommandList
   /**
   * Execute commands and append result to output xml
   *
-  * @param \PapayaXmlElement
+  * @param \Papaya\Xml\Element
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     /** @var \PapayaUiControlCommand $command */
     foreach ($this->_commands as $command) {
       if ($command->validateCondition() &&

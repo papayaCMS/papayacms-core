@@ -13,36 +13,37 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Xml;
 /**
-* Replacement for the DOMElement adding some shortcuts for easier use
-*
-* @package Papaya-Library
-* @subpackage Xml
-*
-* @property \PapayaXmlDocument $ownerDocument
-*/
-class PapayaXmlElement
+ * Replacement for the DOMElement adding some shortcuts for easier use
+ *
+ * @package Papaya-Library
+ * @subpackage Xml
+ *
+ * @property \Papaya\Xml\Document $ownerDocument
+ */
+class Element
   extends \DOMElement
-  implements \PapayaXmlNodeInterface {
+  implements Node {
 
   /**
-  * Append a object (with interface PapayaXmlAppendable) to the element
-  *
-  * @param \PapayaXmlAppendable $object
-  * @return \PapayaXmlElement|NULL
-  */
-  public function append(\PapayaXmlAppendable $object) {
+   * Append a object (with interface Papaya\Xml\PapayaXmlAppendable) to the element
+   *
+   * @param Appendable $object
+   * @return self|NULL
+   */
+  public function append(Appendable $object) {
     return $object->appendTo($this);
   }
 
   /**
-  * Append an xml element with attributes and content
-  *
-  * @param string $name
-  * @param array $attributes
-  * @param string $content
-  * @return \PapayaXmlElement new element
-  */
+   * Append an xml element with attributes and content
+   *
+   * @param string $name
+   * @param array $attributes
+   * @param string $content
+   * @return self new element
+   */
   public function appendElement($name, array $attributes = array(), $content = NULL) {
     return $this->appendChild(
       $this->ownerDocument->createElement($name, $content, $attributes)
@@ -51,11 +52,11 @@ class PapayaXmlElement
   }
 
   /**
-  * Append a new text node into element
-  *
-  * @param string $content
-  * @return \PapayaXmlElement $this
-  */
+   * Append a new text node into element
+   *
+   * @param string $content
+   * @return self $this
+   */
   public function appendText($content) {
     $node = $this->ownerDocument->createTextNode($content);
     $this->appendChild($node);
@@ -63,11 +64,11 @@ class PapayaXmlElement
   }
 
   /**
-  * Append a xml fragment into element
-  *
-  * @param string $content
-  * @return \PapayaXmlElement $this
-  */
+   * Append a xml fragment into element
+   *
+   * @param string $content
+   * @return self $this
+   */
   public function appendXml($content) {
     /** @noinspection PhpUndefinedMethodInspection */
     return $this->ownerDocument->appendXml($content, $this);
@@ -100,19 +101,19 @@ class PapayaXmlElement
   }
 
   /**
-  * Store the xml of the current element into a string and return it.
-  *
-  * @return string
-  */
+   * Store the xml of the current element into a string and return it.
+   *
+   * @return string
+   */
   public function saveXml() {
     return $this->ownerDocument->saveXml($this);
   }
 
   /**
-  * Store the xml of all child nodes (including text nodes) into a string and return it.
-  *
-  * @return string
-  */
+   * Store the xml of all child nodes (including text nodes) into a string and return it.
+   *
+   * @return string
+   */
   public function saveFragment() {
     $result = '';
     foreach ($this->childNodes as $childNode) {

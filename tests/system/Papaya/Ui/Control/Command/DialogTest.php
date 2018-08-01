@@ -29,7 +29,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $command = new \PapayaUiControlCommandDialog();
     $command->dialog($dialog);
     $command->getXml();
@@ -47,7 +47,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $callbacks = $this
       ->getMockBuilder(\PapayaUiControlCommandDialogCallbacks::class)
       ->disableOriginalConstructor()
@@ -139,7 +139,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $callbacks = $this
       ->getMockBuilder(\PapayaUiControlCommandDialogCallbacks::class)
       ->disableOriginalConstructor()

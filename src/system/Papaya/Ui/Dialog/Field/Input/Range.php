@@ -111,9 +111,9 @@ class PapayaUiDialogFieldInputRange extends \PapayaUiDialogFieldInput {
   /**
   * Append field and input ouptut to DOM
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',

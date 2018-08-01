@@ -29,21 +29,21 @@ class PapayaUiSheet extends \PapayaUiControl {
   private $_subtitles = NULL;
 
   /**
-   * @var \PapayaXmlDocument
+   * @var \Papaya\Xml\Document
    */
   private $_document = NULL;
 
   /**
-   * @var \PapayaXmlElement|\PapayaXmlAppendable
+   * @var \Papaya\Xml\Element|\Papaya\Xml\Appendable
    */
   private $_content = NULL;
 
   public function __construct() {
-    $this->_document = new \PapayaXmlDocument();
+    $this->_document = new \Papaya\Xml\Document();
     $this->_content = $this->_document->appendElement('text');
   }
 
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $sheet = $parent->appendElement('sheet');
     $title = (string)$this->_title;
     if (!(empty($title) && count($this->subtitles()) == 0)) {
@@ -53,7 +53,7 @@ class PapayaUiSheet extends \PapayaUiControl {
       }
       $header->append($this->subtitles());
     }
-    if ($this->_content instanceof \PapayaXmlElement) {
+    if ($this->_content instanceof \Papaya\Xml\Element) {
       $sheet->appendChild(
         $parent->ownerDocument->importNode($this->_content, TRUE)
       );
@@ -89,19 +89,19 @@ class PapayaUiSheet extends \PapayaUiControl {
   }
 
   /**
-   * @param \PapayaXmlAppendable $content
-   * @return \PapayaXmlElement|\PapayaXmlAppendable $content
+   * @param \Papaya\Xml\Appendable $content
+   * @return \Papaya\Xml\Element|\Papaya\Xml\Appendable $content
    */
   public function content($content = NULL) {
     if (isset($content)) {
-      if ($content instanceof \PapayaXmlElement) {
+      if ($content instanceof \Papaya\Xml\Element) {
         $this->_document->replaceChild(
           $this->_document->importNode($content, TRUE),
           $this->_document->documentElement
         );
         $this->_content = $this->_document->documentElement;
       } else {
-        \Papaya\Utility\Constraints::assertInstanceOf(\PapayaXmlAppendable::class, $content);
+        \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Xml\Appendable::class, $content);
         $this->_content = $content;
       }
     }

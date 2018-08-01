@@ -68,9 +68,9 @@ class PapayaUiNavigationBuilder extends \PapayaUiControl {
   /**
   * Create items for each source element and append them to the parent xml element.
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $this->items()->clear();
     $this->callbacks()->onBeforeAppend($this->items());
     foreach ($this->elements() as $index => $element) {

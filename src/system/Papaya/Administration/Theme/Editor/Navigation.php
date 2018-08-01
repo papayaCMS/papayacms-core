@@ -32,9 +32,9 @@ class Navigation extends \Papaya\Administration\Page\Part {
   /**
    * Append navigation to parent xml element
    *
-   * @param \PapayaXmlElement $parent
+   * @param \Papaya\Xml\Element $parent
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $parent->append($this->listview());
     if ('' != ($themeName = $this->parameters()->get('theme', ''))) {
       $setId = $this->parameters()->get('set_id', 0);

@@ -75,9 +75,9 @@ class PapayaUiToolbarComposed extends \PapayaUiControl {
   * Append the existing toolbar to the parent xml element and set the position attribute.
   * Sets without elements will not be added.
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $toolbar = $this->toolbar();
     $toolbar->elements->clear();
     foreach ($this->_sets as $set) {

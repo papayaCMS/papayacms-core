@@ -96,10 +96,10 @@ class PapayaUiDialogFieldInputSuggest extends \PapayaUiDialogFieldInput {
   /**
    * Append field and input ouptut to DOM
    *
-   * @param \PapayaXmlElement $parent
-   * @return \PapayaXmlElement
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
       'input',

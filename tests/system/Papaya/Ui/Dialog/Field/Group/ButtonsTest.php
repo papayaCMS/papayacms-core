@@ -145,7 +145,7 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
     $buttons
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $buttons
       ->expects($this->once())
       ->method('count')
@@ -168,7 +168,7 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
     $buttons
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $buttons
       ->expects($this->once())
       ->method('count')
@@ -188,7 +188,7 @@ class PapayaUiDialogFieldGroupButtonsTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldGroupButtons::appendTo
   */
   public function testAppendToWithoutFields() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $group = new \PapayaUiDialogFieldGroupButtons('Group Caption');

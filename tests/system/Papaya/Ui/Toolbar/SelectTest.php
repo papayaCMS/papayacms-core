@@ -97,7 +97,7 @@ class PapayaUiToolbarSelectTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarSelect::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $document->appendElement('sample');
     $select = new \PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
     $select->papaya($this->mockPapaya()->application());
@@ -117,7 +117,7 @@ class PapayaUiToolbarSelectTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarSelect::appendTo
   */
   public function testAppendToWithAllProperties() {
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $document->appendElement('sample');
     $select = new \PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
     $select->papaya($this->mockPapaya()->application());
@@ -155,7 +155,7 @@ class PapayaUiToolbarSelectTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getParametersList')
       ->will($this->returnValue(array('additional' => '42')));
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $document->appendElement('sample');
     $select = new \PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
     $select->papaya($this->mockPapaya()->application());
@@ -177,7 +177,7 @@ class PapayaUiToolbarSelectTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarSelect::appendTo
   */
   public function testAppendToWithCurrentValue() {
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $document->appendElement('sample');
     $select = new \PapayaUiToolbarSelect('foo', array('foo' => 'bar'));
     $select->papaya($this->mockPapaya()->application());

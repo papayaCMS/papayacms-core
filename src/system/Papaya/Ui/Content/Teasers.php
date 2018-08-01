@@ -95,9 +95,9 @@ class PapayaUiContentTeasers extends \PapayaUiControl {
    * Fetch teasers from plugins and append them to parent xml element. Append thumnbails
    * if configuration was provided.
    *
-   * @see \PapayaXmlAppendable::appendTo()
+   * @see \Papaya\Xml\Appendable::appendTo()
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $teasers = $parent->appendElement('teasers');
     foreach ($this->pages() as $record) {
       $this->appendTeaser($teasers, $record);
@@ -108,10 +108,10 @@ class PapayaUiContentTeasers extends \PapayaUiControl {
   /**
    * Instanciate plugin and fetch the teaser from it.
    *
-   * @param \PapayaXmlElement $parent
+   * @param \Papaya\Xml\Element $parent
    * @param array $record
    */
-  private function appendTeaser(\PapayaXmlElement $parent, $record) {
+  private function appendTeaser(\Papaya\Xml\Element $parent, $record) {
     if (!empty($record['module_guid'])) {
       $page = new \PapayaUiContentPage(
         $record['id'], $record['language_id'], $this->pages()->isPublic()
@@ -125,9 +125,9 @@ class PapayaUiContentTeasers extends \PapayaUiControl {
   /**
    * Append thumnbail xml for the generated teasers
    *
-   * @param \PapayaXmlElement $parent
+   * @param \Papaya\Xml\Element $parent
    */
-  private function appendThumbnails(\PapayaXmlElement $parent) {
+  private function appendThumbnails(\Papaya\Xml\Element $parent) {
     if ($this->_width > 0 || $this->_height > 0) {
       $thumbnails = new \PapayaUiContentTeaserImages(
         $parent, $this->_width, $this->_height, $this->_resizeMode

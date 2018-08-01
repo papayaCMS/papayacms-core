@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaXmlExceptionTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaXmlException::__construct
+  * @covers \Papaya\Xml\Exception::__construct
   */
   public function testConstructor() {
-    $exception = new \PapayaXmlException($this->getLibxmlErrorFixture());
+    $exception = new \Papaya\Xml\Exception($this->getLibxmlErrorFixture());
     $this->assertEquals(
       'Libxml processing error 23 at line 42 char 21: libxml fatal error sample',
       $exception->getMessage()
@@ -29,59 +29,59 @@ class PapayaXmlExceptionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlException::getError
+  * @covers \Papaya\Xml\Exception::getError
   */
   public function testGetError() {
-    $exception = new \PapayaXmlException($error = $this->getLibxmlErrorFixture());
+    $exception = new \Papaya\Xml\Exception($error = $this->getLibxmlErrorFixture());
     $this->assertSame($error, $exception->getError());
   }
 
   /**
-  * @covers \PapayaXmlException::getErrorCode
+  * @covers \Papaya\Xml\Exception::getErrorCode
   */
   public function testGetErrorCode() {
-    $exception = new \PapayaXmlException($this->getLibxmlErrorFixture());
+    $exception = new \Papaya\Xml\Exception($this->getLibxmlErrorFixture());
     $this->assertEquals(23, $exception->getErrorCode());
   }
 
   /**
-  * @covers \PapayaXmlException::getErrorMessage
+  * @covers \Papaya\Xml\Exception::getErrorMessage
   */
   public function testGetErrorMessage() {
-    $exception = new \PapayaXmlException($this->getLibxmlErrorFixture());
+    $exception = new \Papaya\Xml\Exception($this->getLibxmlErrorFixture());
     $this->assertEquals('libxml fatal error sample', $exception->getErrorMessage());
   }
   /**
-  * @covers \PapayaXmlException::getContextLine
+  * @covers \Papaya\Xml\Exception::getContextLine
   */
   public function testGetContextLine() {
-    $exception = new \PapayaXmlException($this->getLibxmlErrorFixture());
+    $exception = new \Papaya\Xml\Exception($this->getLibxmlErrorFixture());
     $this->assertEquals(42, $exception->getContextLine());
   }
 
   /**
-  * @covers \PapayaXmlException::getContextColumn
+  * @covers \Papaya\Xml\Exception::getContextColumn
   */
   public function testGetContextColumn() {
-    $exception = new \PapayaXmlException($this->getLibxmlErrorFixture());
+    $exception = new \Papaya\Xml\Exception($this->getLibxmlErrorFixture());
     $this->assertEquals(21, $exception->getContextColumn());
   }
 
   /**
-  * @covers \PapayaXmlException::getContextFile
+  * @covers \Papaya\Xml\Exception::getContextFile
   */
   public function testGetContextFileExpectingEmptyString() {
-    $exception = new \PapayaXmlException($this->getLibxmlErrorFixture());
+    $exception = new \Papaya\Xml\Exception($this->getLibxmlErrorFixture());
     $this->assertEquals('', $exception->getContextFile());
   }
 
   /**
-  * @covers \PapayaXmlException::getContextFile
+  * @covers \Papaya\Xml\Exception::getContextFile
   */
   public function testGetContextFileExpectingString() {
     $error = $this->getLibxmlErrorFixture();
     $error->file = '/path/sample.xml';
-    $exception = new \PapayaXmlException($error);
+    $exception = new \Papaya\Xml\Exception($error);
     $this->assertEquals('/path/sample.xml', $exception->getContextFile());
   }
 

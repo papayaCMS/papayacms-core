@@ -67,7 +67,7 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
     $command
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class))
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class))
       ->will($this->returnValue(NULL));
 
     $controller = new \PapayaUiControlCommandController('sample', 'default');
@@ -98,7 +98,7 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
     $command
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class))
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class))
       ->will($this->returnValue(NULL));
 
     $controller = new \PapayaUiControlCommandController('sample', 'default');

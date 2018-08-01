@@ -31,9 +31,9 @@ class PapayaUiDialogFieldSelectMediaFolder extends \PapayaUiDialogField {
   /**
   * Append select field to DOM
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $select = $field->appendElement(
       'select',

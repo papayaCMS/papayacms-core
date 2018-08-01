@@ -54,10 +54,10 @@ class PapayaUiToolbarGroup
   /**
   * Append group and elements to the output xml.
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement|NULL
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element|NULL
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if (count($this->elements()) > 0) {
       $group = $parent->appendElement(
         'group',

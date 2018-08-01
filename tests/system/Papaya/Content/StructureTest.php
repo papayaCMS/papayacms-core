@@ -31,7 +31,7 @@ class PapayaContentStructureTest extends \PapayaTestCase {
     $pages
       ->expects($this->once())
       ->method('load')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
 
     $definition = new Structure();
     $definition->pages($pages);
@@ -46,7 +46,7 @@ class PapayaContentStructureTest extends \PapayaTestCase {
     $pages
       ->expects($this->once())
       ->method('load')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
 
     $definition = new Structure();
     $definition->pages($pages);
@@ -71,14 +71,14 @@ class PapayaContentStructureTest extends \PapayaTestCase {
    * @covers Structure::load
    */
   public function testLoadWithXmlElement() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->appendElement('structure');
 
     $pages = $this->createMock(Pages::class);
     $pages
       ->expects($this->once())
       ->method('load')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
 
     $definition = new Structure();
     $definition->pages($pages);
@@ -197,7 +197,7 @@ class PapayaContentStructureTest extends \PapayaTestCase {
     $group->values()->add($value = new Value($group));
     $value->name = 'value_one';
 
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->loadXml(
       /** @lang XML */
       '<values>
@@ -234,7 +234,7 @@ class PapayaContentStructureTest extends \PapayaTestCase {
     $value->name = 'value_one';
     $value->type = 'xhtml';
 
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->loadXml(
       /** @lang XML */
       '<values>

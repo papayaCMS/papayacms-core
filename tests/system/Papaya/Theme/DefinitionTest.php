@@ -27,7 +27,7 @@ class PapayaThemeDefinitionTest extends \PapayaTestCase {
     $pages
       ->expects($this->once())
       ->method('load')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
 
     $definition = new \Papaya\Theme\Definition();
     $definition->pages($pages);

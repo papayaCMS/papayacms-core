@@ -31,7 +31,7 @@ class PapayaUiToolbarGroupTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarGroup::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
     $group = new \PapayaUiToolbarGroup('group caption');
     $elements = $this
@@ -45,9 +45,9 @@ class PapayaUiToolbarGroupTest extends \PapayaTestCase {
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $group->elements($elements);
-    $this->assertInstanceOf(\PapayaXmlElement::class, $group->appendTo($document->documentElement));
+    $this->assertInstanceOf(\Papaya\Xml\Element::class, $group->appendTo($document->documentElement));
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
       '<group title="group caption"/>',
@@ -59,7 +59,7 @@ class PapayaUiToolbarGroupTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarGroup::appendTo
   */
   public function testAppendToWithoutElements() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
     $group = new \PapayaUiToolbarGroup('group caption');
     $elements = $this

@@ -49,7 +49,7 @@ class PapayaUiControlCommandToolbarTest extends \PapayaTestCase {
       ->method('add')
       ->with($this->isInstanceOf(\PapayaUiToolbarElement::class));
 
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
     $command = new \PapayaUiControlCommandToolbar_TestProxy($elements);
     $command->testElement = $this->createMock(\PapayaUiToolbarElement::class);

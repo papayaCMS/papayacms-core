@@ -54,7 +54,7 @@ class PapayaUiDialogFieldSelectLanguage extends \PapayaUiDialogFieldSelect {
     parent::__construct($caption, $name, $values);
   }
 
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $this->callbacks()->getOptionCaption = array($this, 'callbackGetLanguageCaption');
     return parent::appendTo($parent);
   }

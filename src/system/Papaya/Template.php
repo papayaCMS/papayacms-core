@@ -60,7 +60,7 @@ abstract class Template extends Application\BaseObject {
   private $_parameters = NULL;
 
   /**
-   * @var \PapayaXmlErrors
+   * @var \Papaya\Xml\Errors
    */
   private $_errors = NULL;
 
@@ -137,14 +137,14 @@ abstract class Template extends Application\BaseObject {
   /**
    * Combined getter/setter for the libxml errors
    *
-   * @param \PapayaXmlErrors $errors
-   * @return \PapayaXmlErrors
+   * @param \Papaya\Xml\Errors $errors
+   * @return \Papaya\Xml\Errors
    */
-  public function errors(\PapayaXmlErrors $errors = NULL) {
+  public function errors(Xml\Errors $errors = NULL) {
     if (isset($errors)) {
       $this->_errors = $errors;
     } elseif (is_null($this->_errors)) {
-      $this->_errors = new \PapayaXmlErrors();
+      $this->_errors = new Xml\Errors();
       $this->_errors->papaya($this->papaya());
     }
     return $this->_errors;
@@ -187,7 +187,7 @@ abstract class Template extends Application\BaseObject {
    * can be a simple element name or a sequence of element names separated by '/'.
    * If an element in the path does not exists, it will be created.
    *
-   * @param string|\PapayaXmlAppendable|\DOMNode $xml data
+   * @param string|\Papaya\Xml\Appendable|\DOMNode $xml data
    * @param string $path optional, default value 'centercol' the element path relative to '/page'
    * @param boolean $encodeInvalidEntities encode invalid entities like &
    * @return mixed
@@ -198,7 +198,7 @@ abstract class Template extends Application\BaseObject {
     } else {
       $path = '/page/'.$path;
     }
-    if ($xml instanceof \PapayaXmlAppendable || $xml instanceof \DOMNode) {
+    if ($xml instanceof Xml\Appendable || $xml instanceof \DOMNode) {
       return $this->errors()->encapsulate(
         array(
           $this->values()->getValueByPath($path),

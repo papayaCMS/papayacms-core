@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Xml;
 /**
-* Replacement for the DOMXpath without the (broken) automatic namespace registration if possible.
-*
-* @package Papaya-Library
-* @subpackage Xml
-*/
-class PapayaXmlXpath extends \DOMXpath {
+ * Replacement for the DOMXpath without the (broken) automatic namespace registration if possible.
+ *
+ * @package Papaya-Library
+ * @subpackage Xml
+ */
+class Xpath extends \DOMXpath {
 
   /**
    * @var boolean
@@ -27,7 +28,9 @@ class PapayaXmlXpath extends \DOMXpath {
   private $_registerNodeNamespaces = FALSE;
 
   /**
-   * Create object and diable the automatic namespace registration if possible.
+   * Create object and disable the automatic namespace registration if possible.
+   *
+   * @param \DOMDocument $dom
    */
   public function __construct(\DOMDocument $dom) {
     parent::__construct($dom);
@@ -41,7 +44,7 @@ class PapayaXmlXpath extends \DOMXpath {
    */
   public function registerNamespace($prefix, $namespaceUri) {
     $result = parent::registerNamespace($prefix, $namespaceUri);
-    if ($result && $this->document instanceof \PapayaXmlDocument) {
+    if ($result && $this->document instanceof Document) {
       /** @noinspection PhpUndefinedMethodInspection */
       $this->document->registerNamespaces(
         array($prefix => $namespaceUri),
@@ -53,11 +56,12 @@ class PapayaXmlXpath extends \DOMXpath {
 
   /**
    * Enable/Disable the automatic namespace registration, return the current status
+   *
    * @param boolean|NULL $enabled
    * @return boolean
    */
   public function registerNodeNamespaces($enabled = NULL) {
-    if (isset($enabled)) {
+    if (NULL !== $enabled) {
       $this->_registerNodeNamespaces = (boolean)$enabled;
     }
     return $this->_registerNodeNamespaces;
@@ -70,11 +74,11 @@ class PapayaXmlXpath extends \DOMXpath {
    * @param string $expression
    * @param \DOMNode|NULL $contextNode
    * @param null|boolean $registerNodeNS
-   * @return \DOMNodelist|string|float|int|bool|FALSE
+   * @return \DOMNodeList|string|float|int|bool|FALSE
    */
-  public function evaluate($expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL) {
+  public function evaluate($expression, $contextNode = NULL, $registerNodeNS = NULL) {
     if ($registerNodeNS || (NULL === $registerNodeNS && $this->_registerNodeNamespaces)) {
-      $result = isset($contextNode)
+      $result = NULL !== $contextNode
         ? parent::evaluate($expression, $contextNode)
         : parent::evaluate($expression);
     } else {
@@ -82,9 +86,8 @@ class PapayaXmlXpath extends \DOMXpath {
     }
     if (is_float($result) && is_nan($result)) {
       return 0.0;
-    } else {
-      return $result;
     }
+    return $result;
   }
 
   /**
@@ -93,12 +96,12 @@ class PapayaXmlXpath extends \DOMXpath {
    * @deprecated
    * @see \DOMXPath::query()
    * @param string $expression
-   * @param \DOMNode|NULL $contextnode
+   * @param \DOMNode|NULL $contextNode
    * @param null|boolean $registerNodeNS
    * @throws \LogicException
-   * @return \DOMNodelist
+   * @return \DOMNodeList
    */
-  public function query($expression, \DOMNode $contextnode = NULL, $registerNodeNS = NULL) {
+  public function query($expression, $contextNode = NULL, $registerNodeNS = NULL) {
     throw new \LogicException('"query()" should not be used, use "evaluate()".');
   }
 

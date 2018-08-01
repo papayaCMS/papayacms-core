@@ -80,7 +80,7 @@ class Group
     return $result;
   }
 
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     foreach ($this as $filter) {
       if ($filter instanceof \Papaya\Plugin\Filter\Content) {
         $parent->append($filter);

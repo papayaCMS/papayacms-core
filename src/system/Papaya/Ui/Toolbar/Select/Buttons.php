@@ -31,10 +31,10 @@ class PapayaUiToolbarSelectButtons extends \PapayaUiToolbarSelect {
   /**
    * Append button xml elemens to parent element.
    *
-   * @param \PapayaXmlElement $parent
-   * @return \PapayaXmlElement
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $currentValue = $this->getCurrentValue();
     $parameterName = new \Papaya\Request\Parameters\Name($this->_parameterName);
     foreach ($this->_options as $value => $data) {

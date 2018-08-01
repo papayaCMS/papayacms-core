@@ -45,7 +45,7 @@ class PapayaUiDialogFieldHiddenTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldHidden::appendTo
   */
   public function testAppendToWithDefaultValue() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $input = new \PapayaUiDialogFieldHidden('name', 'default');
@@ -69,7 +69,7 @@ class PapayaUiDialogFieldHiddenTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldHidden::appendTo
   */
   public function testAppendToWithId() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
 
     $input = new \PapayaUiDialogFieldHidden('name', 'default');

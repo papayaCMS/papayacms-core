@@ -161,7 +161,7 @@ class base_datafilter_list extends base_db {
           if ($filter instanceof base_datafilter) {
             $result .= $filter->getFilterData($parseParams);
           } elseif ($filter instanceof \Papaya\Plugin\Filter\Content) {
-            $document = new \PapayaXmlDocument();
+            $document = new \Papaya\Xml\Document();
             $content = $document->appendElement('content');
             $filter->appendTo($content);
             $result .= $content->saveFragment();

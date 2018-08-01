@@ -36,12 +36,12 @@ class Groups extends \Papaya\BaseObject\Collection {
   /**
    * Load group data from xml
    *
-   * @param \PapayaXmlElement $pageNode
+   * @param \Papaya\Xml\Element $pageNode
    */
-  public function load(\PapayaXmlElement $pageNode) {
-    /** @var \PapayaXmlDocument $document */
+  public function load(\Papaya\Xml\Element $pageNode) {
+    /** @var \Papaya\Xml\Document $document */
     $document = $pageNode->ownerDocument;
-    /** @var \PapayaXmlElement $node */
+    /** @var \Papaya\Xml\Element $node */
     foreach ($document->xpath()->evaluate('group', $pageNode) as $node) {
       $this[] = $group = new Group($this->_page);
       $group->name = $node->getAttribute('name');

@@ -43,7 +43,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
     $iconValid
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $iconInvalid = $this
       ->getMockBuilder(\PapayaUiIcon::class)
       ->disableOriginalConstructor()
@@ -72,7 +72,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
         )
       );
 
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $subitem = new \PapayaUiListviewSubitemImageList($icons, 'foo');
     $subitem->icons = $icons;
     $subitem->appendTo($document->appendElement('sample'));
@@ -95,7 +95,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
     $iconValid
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $iconInvalid = $this
       ->getMockBuilder(\PapayaUiIcon::class)
       ->disableOriginalConstructor()
@@ -124,7 +124,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
         )
       );
 
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $subitem = new \PapayaUiListviewSubitemImageList(
       $icons,
       array('foo' => TRUE),
@@ -151,7 +151,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
     $iconValid
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $iconInvalid = $this
       ->getMockBuilder(\PapayaUiIcon::class)
       ->disableOriginalConstructor()
@@ -180,7 +180,7 @@ class PapayaUiListviewSubitemImageListTest extends \PapayaTestCase {
         )
       );
 
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $subitem = new \PapayaUiListviewSubitemImageList(
       $icons,
       5,

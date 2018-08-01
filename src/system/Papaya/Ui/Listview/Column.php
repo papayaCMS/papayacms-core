@@ -82,9 +82,9 @@ class PapayaUiListviewColumn extends \PapayaUiControlCollectionItem {
   /**
   * Append column xml to parent node.
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $parent->appendElement(
       'col',
       array(

@@ -26,7 +26,7 @@ abstract class PapayaUiControl extends \PapayaUiControlPart {
   * @return string
   */
   public function getXml() {
-    $dom = new \PapayaXmlDocument();
+    $dom = new \Papaya\Xml\Document();
     $control = $dom->appendElement('control');
     $this->appendTo($control);
     $xml = '';

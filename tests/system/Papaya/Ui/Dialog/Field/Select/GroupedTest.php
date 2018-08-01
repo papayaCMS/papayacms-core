@@ -56,7 +56,7 @@ class PapayaUiDialogFieldSelectGroupedTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldSelectGrouped::_appendOptionGroups
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $select = new \PapayaUiDialogFieldSelectGrouped(
@@ -86,7 +86,7 @@ class PapayaUiDialogFieldSelectGroupedTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldSelectGrouped::_appendOptionGroups
   */
   public function testAppendToWithComplexLabel() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $select = new \PapayaUiDialogFieldSelectGrouped(

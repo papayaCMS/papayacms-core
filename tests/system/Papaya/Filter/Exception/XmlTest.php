@@ -28,7 +28,7 @@ class PapayaFilterExceptionXmlTest extends \PapayaTestCase {
     $error->column = 21;
     $error->file = '';
 
-    $exception = new \Papaya\Filter\Exception\InvalidXml(new \PapayaXmlException($error));
+    $exception = new \Papaya\Filter\Exception\InvalidXml(new \Papaya\Xml\Exception($error));
     $this->assertNotEmpty($exception->getMessage());
   }
 }

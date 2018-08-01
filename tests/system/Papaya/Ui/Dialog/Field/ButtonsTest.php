@@ -127,7 +127,7 @@ class PapayaUiDialogFieldButtonsTest extends \PapayaTestCase {
     $buttons
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $buttons
       ->expects($this->once())
       ->method('count')
@@ -150,7 +150,7 @@ class PapayaUiDialogFieldButtonsTest extends \PapayaTestCase {
     $buttons
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $buttons
       ->expects($this->once())
       ->method('count')

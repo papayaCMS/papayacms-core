@@ -424,10 +424,10 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   /**
    * Append field outer elements to DOM
    *
-   * @param \PapayaXmlElement $parent
-   * @return \PapayaXmlElement
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
    */
-  protected function _appendFieldTo(\PapayaXmlElement $parent) {
+  protected function _appendFieldTo(\Papaya\Xml\Element $parent) {
     if ($this->hasCollection() &&
         $this->collection()->hasOwner() &&
         !$this->collection()->owner()->isSubmitted()) {

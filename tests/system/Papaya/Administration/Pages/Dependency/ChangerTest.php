@@ -123,7 +123,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
     $listview
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $listview
       ->expects($this->once())
       ->method('pages')
@@ -162,7 +162,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
     $listview
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $listview
       ->expects($this->once())
       ->method('pages')
@@ -186,7 +186,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
     $commands
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
 
     $changer->menu()->elements($elements);
     $changer->commands($commands);
@@ -244,7 +244,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
     $listview
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $listview
       ->expects($this->once())
       ->method('pages')
@@ -268,7 +268,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
     $commands
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
 
     $changer->menu()->elements($elements);
     $changer->commands($commands);

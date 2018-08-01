@@ -13,13 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-interface PapayaXmlAppendable {
+namespace Papaya\Xml;
+
+interface Appendable {
 
   /**
-  * Create dom node structure of the given object and append it to the given xml
-  * element node.
-  *
-  * @param \PapayaXmlElement $parent
-  */
-  function appendTo(\PapayaXmlElement $parent);
+   * Create dom node structure of the given object and append it to the given xml
+   * element node.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
+  public function appendTo(\Papaya\Xml\Element $parent);
 }

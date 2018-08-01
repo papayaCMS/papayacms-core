@@ -114,7 +114,7 @@ class PapayaUiDialogFieldInputRangeTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldInputRange::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $field = new \PapayaUiDialogFieldInputRange('Range', 'range');
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('test'));

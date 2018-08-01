@@ -62,7 +62,7 @@ class Definition extends \Papaya\Content\Structure {
    * @param string $location
    */
   public function load($location) {
-    $dom = new \PapayaXmlDocument();
+    $dom = new \Papaya\Xml\Document();
     $dom->load($location);
     $xpath = $dom->xpath();
     $this->_properties['name'] = basename(dirname($location));
@@ -74,7 +74,7 @@ class Definition extends \Papaya\Content\Structure {
     $this->_properties['template_path'] = $xpath->evaluate(
       'string(/papaya-theme/templates/@directory)'
     );
-    /** @var \PapayaXmlElement $thumbNode */
+    /** @var \Papaya\Xml\Element $thumbNode */
     foreach ($xpath->evaluate('/papaya-theme/thumbs/thumb') as $thumbNode) {
       $size = $thumbNode->getAttribute('size');
       if (isset($this->_thumbnails[$size])) {

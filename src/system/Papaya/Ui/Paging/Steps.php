@@ -92,10 +92,10 @@ class PapayaUiPagingSteps extends \PapayaUiControl {
   /**
   * Append stepSize elements top parent xml element
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $list = $parent->appendElement($this->_xmlNames['list']);
     foreach ($this->getStepSizes() as $key => $stepSize) {
       $parameterValue = $this->_mode == self::USE_KEYS ? $key : (string)$stepSize;

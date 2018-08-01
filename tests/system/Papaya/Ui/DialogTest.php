@@ -183,7 +183,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));
     $dialog->papaya($application);
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
     $dialog->appendHidden($document->documentElement, new \Papaya\Request\Parameters($values), $group);
     $this->assertXmlStringEqualsXmlString(
@@ -302,12 +302,12 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $fields
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXMLElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $buttons = $this->createMock(\PapayaUiDialogButtons::class);
     $buttons
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXMLElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $dialog = new \PapayaUiDialog($owner);
     $dialog->papaya($this->mockPapaya()->application());
     $dialog->tokens($tokens);
@@ -468,7 +468,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $description
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
 
     $dialog = new \PapayaUiDialog(new stdClass());
     $dialog->papaya($this->mockPapaya()->application());
@@ -1044,7 +1044,7 @@ class PapayaUiDialog_TestProxy extends \PapayaUiDialog {
     return parent::getMethodString();
   }
 
-  public function appendHidden(\PapayaXmlElement $parent,
+  public function appendHidden(\Papaya\Xml\Element $parent,
                                \Papaya\Request\Parameters $values,
                                $path = NULL) {
     return parent::appendHidden($parent, $values, $path);

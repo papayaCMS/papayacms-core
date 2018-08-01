@@ -85,11 +85,11 @@ class PapayaUiListviewItemNode extends \PapayaUiControl {
   /**
    * Append the listview item node marker to the parent xml element
    *
-   * @param \PapayaXmlElement $parent
-   * @param \PapayaXmlElement|NULL
-   * @return null|\PapayaXmlElement
+   * @param \Papaya\Xml\Element $parent
+   * @param \Papaya\Xml\Element|NULL
+   * @return null|\Papaya\Xml\Element
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if ($this->status != self::NODE_HIDDEN) {
       $node = $parent->appendElement(
         'node',

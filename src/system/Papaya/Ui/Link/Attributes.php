@@ -163,10 +163,10 @@ class PapayaUiLinkAttributes extends \PapayaUiControlPart {
   /**
   * The object append the link attributes to a given element.
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $class = $this->class;
     if (!empty($class)) {
       $parent->setAttribute($this->_attributeNames['class'], $class);

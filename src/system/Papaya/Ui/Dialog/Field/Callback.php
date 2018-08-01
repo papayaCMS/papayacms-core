@@ -57,17 +57,17 @@ class PapayaUiDialogFieldCallback extends \PapayaUiDialogField {
   /**
   * Append field and input ouptut to DOM
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     if (is_callable($this->_callback)) {
       $target = $this->_isXhtml ? $field->appendElement('xhtml') : $field;
       $content = call_user_func(
         $this->_callback, $this->getName(), $this, $this->getCurrentValue()
       );
-      if ($content instanceof \PapayaXmlAppendable) {
+      if ($content instanceof \Papaya\Xml\Appendable) {
         $target->append($content);
       } elseif ($content instanceof \DOMElement) {
         $target->appendChild($field->ownerDocument->importNode($content, TRUE));

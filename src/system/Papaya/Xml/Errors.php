@@ -13,16 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Xml;
+
 /**
-* Encapsulation object for the libxml errors.
-*
-* This is a wrapper for the libxml error handling function, it converts the warnings and errors
-* into \Papaya\PapayaMessage objects and dispatches them into the MessageManager.
-*
-* @package Papaya-Library
-* @subpackage Xml
-*/
-class PapayaXmlErrors extends \Papaya\Application\BaseObject {
+ * Encapsulation object for the libxml errors.
+ *
+ * This is a wrapper for the libxml error handling function, it converts the warnings and errors
+ * into \Papaya\PapayaMessage objects and dispatches them into the MessageManager.
+ *
+ * @package Papaya-Library
+ * @subpackage Xml
+ */
+class Errors extends \Papaya\Application\BaseObject {
 
   /**
    * @var bool
@@ -30,9 +32,10 @@ class PapayaXmlErrors extends \Papaya\Application\BaseObject {
   private $_savedStatus = FALSE;
 
   /**
-  * Map libxml error types to message types
-  * @var array
-  */
+   * Map libxml error types to message types
+   *
+   * @var array
+   */
   private $_errorMapping = array(
     LIBXML_ERR_NONE => \Papaya\Message::SEVERITY_INFO,
     LIBXML_ERR_WARNING => \Papaya\Message::SEVERITY_WARNING,
@@ -41,16 +44,16 @@ class PapayaXmlErrors extends \Papaya\Application\BaseObject {
   );
 
   /**
-  * Activate the libxml internal error capturing (and clear the current buffer)
-  */
+   * Activate the libxml internal error capturing (and clear the current buffer)
+   */
   public function activate() {
     $this->_savedStatus = libxml_use_internal_errors(TRUE);
     libxml_clear_errors();
   }
 
   /**
-  * Deactivate the libxml internal error capturing (and clear the current buffer)
-  */
+   * Deactivate the libxml internal error capturing (and clear the current buffer)
+   */
   public function deactivate() {
     libxml_clear_errors();
     libxml_use_internal_errors($this->_savedStatus);
@@ -58,7 +61,7 @@ class PapayaXmlErrors extends \Papaya\Application\BaseObject {
 
   /**
    * Encapsulate a libxml method to capture errors into exceptions. Returns
-   * NULL if a \PapayaXmlException was captured, the result of the callback
+   * NULL if a \Papaya\Xml\PapayaXmlException was captured, the result of the callback
    * otherwise.
    *
    * @param callable $callback
@@ -77,7 +80,7 @@ class PapayaXmlErrors extends \Papaya\Application\BaseObject {
         $this->emit();
       }
       $this->deactivate();
-    } catch (\PapayaXmlException $e) {
+    } catch (\Papaya\Xml\Exception $e) {
       if ($emitErrors) {
         $context = new \Papaya\Message\Context\Group();
         if ($e->getContextFile()) {
@@ -105,13 +108,13 @@ class PapayaXmlErrors extends \Papaya\Application\BaseObject {
    * Dispatches messages for the libxml errors in the internal buffer.
    *
    * @param boolean $fatalOnly
-   * @throws \PapayaXmlException
+   * @throws \Papaya\Xml\Exception
    */
   public function emit($fatalOnly = FALSE) {
     $errors = libxml_get_errors();
     foreach ($errors as $error) {
       if ($error->level == LIBXML_ERR_FATAL) {
-        throw new \PapayaXmlException($error);
+        throw new \Papaya\Xml\Exception($error);
       } elseif (!$fatalOnly && 0 !== strpos($error->message, 'Namespace prefix papaya')) {
         $this
           ->papaya()
@@ -135,10 +138,10 @@ class PapayaXmlErrors extends \Papaya\Application\BaseObject {
   /**
    * Converts a libxml error object into a \Papaya\PapayaMessage
    *
-   * @param libXMLError $error
+   * @param \libXMLError $error
    * @return \Papaya\Message\Log
    */
-  public function getMessageFromError(libXMLError $error) {
+  public function getMessageFromError(\libXMLError $error) {
     $messageType = $this->_errorMapping[$error->level];
     $message = new \Papaya\Message\Log(
       \Papaya\Message\Logable::GROUP_SYSTEM,

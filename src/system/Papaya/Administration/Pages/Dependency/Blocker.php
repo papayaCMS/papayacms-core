@@ -87,10 +87,10 @@ class Blocker extends \PapayaUiControlInteractive {
   /**
    * Append the blocker message/goto dialog to the parent xml.
    *
-   * @param \PapayaXmlElement $parent
+   * @param \Papaya\Xml\Element $parent
    * @return \PapayaUiDialog
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $pageId = $this->dependency()->originId;
     $pages = $this->pages();
     $pages->load(

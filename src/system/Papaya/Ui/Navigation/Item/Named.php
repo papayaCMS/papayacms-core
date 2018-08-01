@@ -30,7 +30,7 @@ class PapayaUiNavigationItemNamed extends \PapayaUiNavigationItem {
   *
   * @see papaya-lib/system/Papaya/Ui/Navigation/PapayaUiNavigationItem#appendTo($parent)
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $result = parent::appendTo($parent);
     $result->setAttribute(
       'name', \Papaya\Utility\Text\Identifier::toUnderscoreLower((string)$this->_sourceValue)

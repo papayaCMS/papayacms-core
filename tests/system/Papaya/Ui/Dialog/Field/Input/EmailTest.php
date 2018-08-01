@@ -72,7 +72,7 @@ class PapayaUiDialogFieldInputEmailTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldInputEmail::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $field = new \PapayaUiDialogFieldInputEmail('Email', 'email');
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('test'));

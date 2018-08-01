@@ -42,11 +42,11 @@ class PapayaTemplateEngineSimple extends \PapayaTemplateEngine {
   * Execute/run template engine
   */
   public function run() {
-    $errors = new \PapayaXmlErrors();
+    $errors = new \Papaya\Xml\Errors();
     $errors->activate();
     try {
       $this->ast()->accept($this->visitor());
-    } catch (\PapayaXmlException $e) {
+    } catch (\Papaya\Xml\Exception $e) {
     }
     $errors->deactivate();
   }

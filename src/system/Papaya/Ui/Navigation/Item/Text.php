@@ -27,7 +27,7 @@ class PapayaUiNavigationItemText extends \PapayaUiNavigationItem {
   *
   * @see papaya-lib/system/Papaya/Ui/Navigation/PapayaUiNavigationItem#appendTo($parent)
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $result = parent::appendTo($parent);
     $result->appendText(
       (string)$this->_sourceValue

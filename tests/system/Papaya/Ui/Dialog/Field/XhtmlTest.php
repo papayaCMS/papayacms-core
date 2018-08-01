@@ -32,7 +32,7 @@ class PapayaUiDialogFieldXhtmlTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldXhtml::content
   */
   public function testContentGetAfterSet() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $content = $document->appendElement('html');
     $xhtml = new \PapayaUiDialogFieldXhtml();
     $this->assertSame($content, $xhtml->content($content));
@@ -43,7 +43,7 @@ class PapayaUiDialogFieldXhtmlTest extends \PapayaTestCase {
   */
   public function testContentGetImplicitCreate() {
     $xhtml = new \PapayaUiDialogFieldXhtml();
-    $this->assertInstanceOf(\PapayaXmlElement::class, $xhtml->content('<strong>Test</strong>'));
+    $this->assertInstanceOf(\Papaya\Xml\Element::class, $xhtml->content('<strong>Test</strong>'));
   }
 
   /**

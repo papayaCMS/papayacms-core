@@ -45,10 +45,10 @@ class PapayaUiMenu extends \PapayaUiToolbar {
   /**
   * Append menu and elements and set identifier if available
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement|NULL
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element|NULL
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if (count($this->elements()) > 0) {
       $menu = $parent->appendElement('menu');
       if (!empty($this->_identifier)) {

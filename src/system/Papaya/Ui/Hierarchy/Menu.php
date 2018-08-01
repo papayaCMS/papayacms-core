@@ -42,10 +42,10 @@ class PapayaUiHierarchyMenu extends \PapayaUiControl {
   /**
   * Append menu to parent xml element
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement|NULL
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element|NULL
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if (count($this->items()) > 0) {
       $menu = $parent->appendElement('hierarchy-menu');
       $this->items()->appendTo($menu);

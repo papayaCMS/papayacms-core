@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaXmlElementTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaXmlElement::append
+  * @covers \Papaya\Xml\Element::append
   */
   public function testAppend() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $element = $document->appendElement('sample');
     $element->append(new \PapayaXmlAppendable_TestImplementation());
     $this->assertEquals(
@@ -31,10 +31,10 @@ class PapayaXmlElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlElement::appendElement
+  * @covers \Papaya\Xml\Element::appendElement
   */
   public function testAppendElement() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $element = $document->createElement('sample');
     $document->appendChild($element);
     $element->appendElement('test', array('attribute' => 42), 'content');
@@ -45,10 +45,10 @@ class PapayaXmlElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlElement::appendText
+  * @covers \Papaya\Xml\Element::appendText
   */
   public function testAppendText() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $element = $document->createElement('sample');
     $document->appendChild($element);
     $element->appendText('content');
@@ -59,11 +59,11 @@ class PapayaXmlElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlElement::appendTo
+  * @covers \Papaya\Xml\Element::appendTo
   */
   public function testAppendToWithDocumentTarget() {
     $target = new DOMDocument('1.0', 'UTF-8');
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $element = $document->createElement('sample');
     $element->appendTo($target);
     $this->assertEquals(
@@ -73,10 +73,10 @@ class PapayaXmlElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlElement::appendTo
+  * @covers \Papaya\Xml\Element::appendTo
   */
   public function testAppendToWithElementTarget() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $target = $document->createElement('sample');
     $document->appendChild($target);
     $element = $document->createElement('test');
@@ -88,20 +88,20 @@ class PapayaXmlElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlElement::appendTo
+  * @covers \Papaya\Xml\Element::appendTo
   */
   public function testAppendToWithNodeTargetExpectingException() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $element = $document->createElement('test');
     $this->expectException(InvalidArgumentException::class);
     $element->appendTo($document->createTextNode('_'));
   }
 
   /**
-  * @covers \PapayaXmlElement::appendXml
+  * @covers \Papaya\Xml\Element::appendXml
   */
   public function testAppendXml() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $target = $document->createElement('sample');
     $document->appendChild($target);
     $target->appendXml(
@@ -115,10 +115,10 @@ class PapayaXmlElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlElement::saveXml
+  * @covers \Papaya\Xml\Element::saveXml
   */
   public function testSaveXml() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendChild($document->createElement('sample'));
     $target = $document->createElement('test');
     $document->documentElement->appendChild($target);
@@ -129,10 +129,10 @@ class PapayaXmlElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlElement::saveFragment
+  * @covers \Papaya\Xml\Element::saveFragment
   */
   public function testSaveFragment() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $target = $document->appendElement('test');
     $target->appendElement('element', array('attribute' => 42));
     $target->appendText('text');
@@ -144,13 +144,13 @@ class PapayaXmlElementTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaXmlElement::setAttribute
+   * @covers \Papaya\Xml\Element::setAttribute
    * @dataProvider provideAttributeValues
    * @param string $expected
    * @param mixed $value
    */
   public function testSetAttribute($expected, $value) {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $target = $document->appendElement('test');
     $target->setAttribute('attribute', $value);
     $this->assertXmlStringEqualsXmlString(
@@ -160,10 +160,10 @@ class PapayaXmlElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlElement::setAttribute
+  * @covers \Papaya\Xml\Element::setAttribute
   */
   public function testSetAttributeWithEmptyValueExpectingNoAttribute() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $target = $document->appendElement('test');
     $target->setAttribute('attribute', '');
     $this->assertEquals(
@@ -173,10 +173,10 @@ class PapayaXmlElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlElement::setAttribute
+  * @covers \Papaya\Xml\Element::setAttribute
   */
   public function testSetAttributeWithNamespaceAttribute() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $target = $document->appendElement('test');
     $target->setAttribute('xmlns:a', 'urn:a');
     /** @noinspection UnknownInspectionInspection */
@@ -188,10 +188,10 @@ class PapayaXmlElementTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaXmlElement::setAttribute
+  * @covers \Papaya\Xml\Element::setAttribute
   */
   public function testSetAttributeWithXmlIdAttribute() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $target = $document->appendElement('test');
     $target->setAttribute('xml:id', 'idOne');
     $this->assertEquals(
@@ -218,8 +218,8 @@ class PapayaXmlElementTest extends \PapayaTestCase {
   }
 }
 
-class PapayaXmlAppendable_TestImplementation implements \PapayaXmlAppendable {
-  public function appendTo(\PapayaXmlElement $parent) {
+class PapayaXmlAppendable_TestImplementation implements \Papaya\Xml\Appendable {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $parent->appendElement('success');
   }
 }

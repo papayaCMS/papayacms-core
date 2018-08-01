@@ -41,9 +41,9 @@ class PapayaUiDialogFieldHidden extends \PapayaUiDialogField {
   /**
   * Append field and input ouptut to DOM
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $parent->appendElement(
       'field',
       array(

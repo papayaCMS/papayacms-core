@@ -46,7 +46,7 @@ class PapayaUiContentTeaserImages extends \PapayaUiControl {
   /**
   * teasers parent element node
   *
-  * @var \PapayaXmlElement
+  * @var \Papaya\Xml\Element
   */
   private $_teasers = NULL;
 
@@ -64,12 +64,12 @@ class PapayaUiContentTeaserImages extends \PapayaUiControl {
   /**
   * Create object and store given parameters
   *
-  * @param \PapayaXmlElement $teasers
+  * @param \Papaya\Xml\Element $teasers
   * @param integer $width
   * @param integer $height
   * @param string $resizeMode
   */
-  public function __construct(\PapayaXmlElement $teasers, $width, $height, $resizeMode = 'max') {
+  public function __construct(\Papaya\Xml\Element $teasers, $width, $height, $resizeMode = 'max') {
     $this->_teasers = $teasers;
     $this->_width = $width;
     $this->_height = $height;
@@ -79,18 +79,18 @@ class PapayaUiContentTeaserImages extends \PapayaUiControl {
   /**
   * Append teaser thumbnail tags to given parent element.
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement|NULL
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element|NULL
   */
-  public function appendTo(\PapayaXmlElement $parent) {
-    /** @var \PapayaXmlDocument $targetDocument */
+  public function appendTo(\Papaya\Xml\Element $parent) {
+    /** @var \Papaya\Xml\Document $targetDocument */
     $targetDocument = $parent->ownerDocument;
     $targetDocument->registerNamespaces(
       array(
         'papaya' => 'http://www.papaya-cms.com/ns/papayacms'
       )
     );
-    /** @var \PapayaXmlDocument $dom */
+    /** @var \Papaya\Xml\Document $dom */
     $dom = $this->_teasers->ownerDocument;
     $images = $dom->xpath()->evaluate($this->_pattern['teaser_images'], $this->_teasers);
     $names = array(
@@ -108,7 +108,7 @@ class PapayaUiContentTeaserImages extends \PapayaUiControl {
     }
     if ($images->length > 0) {
       $thumbs = $parent->appendElement($names['list']);
-      /** @var \PapayaXmlElement $imageNode */
+      /** @var \Papaya\Xml\Element $imageNode */
       foreach ($images as $imageNode) {
         $thumbNode = $thumbs
           ->appendElement(

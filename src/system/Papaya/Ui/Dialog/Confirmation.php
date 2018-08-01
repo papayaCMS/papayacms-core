@@ -91,10 +91,10 @@ class PapayaUiDialogConfirmation extends \PapayaUiDialog {
   /**
    * Append dialog elements to dom
    *
-   * @param \PapayaXmlElement $parent
-   * @return NULL|\PapayaXmlElement|void
+   * @param \Papaya\Xml\Element $parent
+   * @return NULL|\Papaya\Xml\Element|void
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $dialog = $parent->appendElement(
       'confirmation-dialog',
       array('action' => $this->action(), 'method' => 'post')

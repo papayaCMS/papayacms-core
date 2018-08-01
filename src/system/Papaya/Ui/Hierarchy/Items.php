@@ -67,10 +67,10 @@ class PapayaUiHierarchyItems extends \PapayaUiControlCollection {
   * Append item output to parent element. If a tag name was provided, the items will be wrapped
   * in an additional element.
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement|NULL
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element|NULL
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $count = count($this->_items);
     if ($this->_limit > 0 && $count > $this->_limit) {
       $parent = $parent->appendElement($this->_tagName);

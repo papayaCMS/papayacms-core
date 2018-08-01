@@ -102,10 +102,10 @@ class Selector extends \PapayaUiControlInteractive {
   /**
    * Appends a <links> element with references for the different content languages.
    *
-   * @param \PapayaXmlElement $parent
-   * @return \PapayaXmlElement
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $current = $this->getCurrent();
     $links = $parent->appendElement(
       'links',

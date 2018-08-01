@@ -13,20 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Xml;
+
 /**
-* Replacement for the DOMDocument adding some shortcuts for easier use
-*
-* @package Papaya-Library
-* @subpackage Xml
-*
-* @property \PapayaXmlElement $documentElement
-*/
-class PapayaXmlDocument
+ * Replacement for the DOMDocument adding some shortcuts for easier use
+ *
+ * @package Papaya-Library
+ * @subpackage Xml
+ *
+ * @property \Papaya\Xml\Element $documentElement
+ */
+class Document
   extends \DOMDocument
-  implements \PapayaXmlNodeInterface {
+  implements Node {
 
   /**
-   * @var \PapayaXmlXpath
+   * @var \Papaya\Xml\Xpath
    */
   private $_xpath = NULL;
 
@@ -61,11 +63,11 @@ class PapayaXmlDocument
    *
    * @param string $version
    * @param string $encoding
-   * @return \PapayaXmlDocument
+   * @return self
    */
   public function __construct($version = '1.0', $encoding = 'UTF-8') {
     parent::__construct($version, $encoding);
-    $this->registerNodeClass(\DOMElement::class, \PapayaXmlElement::class);
+    $this->registerNodeClass(\DOMElement::class, \Papaya\Xml\Element::class);
     $this->_canDisableEntityLoader = function_exists('libxml_disable_entity_loader');
   }
 
@@ -77,7 +79,7 @@ class PapayaXmlDocument
    */
   public function xpath() {
     if (is_null($this->_xpath) || $this->_xpath->document != $this) {
-      $this->_xpath = new \PapayaXmlXpath($this);
+      $this->_xpath = new \Papaya\Xml\Xpath($this);
       foreach ($this->_namespaces as $prefix => $namespace) {
         $this->_xpath->registerNamespace($prefix, $namespace);
       }
@@ -111,7 +113,11 @@ class PapayaXmlDocument
       isset($this->_reservedNamespaces[$prefix]) &&
       !$this->_reservedNamespaces[$prefix] == $namespace) {
       throw new \InvalidArgumentException(
-        'Xml prefix "%s" is reserved for the namespace "%s".'
+        sprintf(
+          'Xml prefix "%s" is reserved for the namespace "%s".',
+          $prefix,
+          $this->_reservedNamespaces[$prefix]
+        )
       );
     }
     $this->_namespaces[$prefix] = $namespace;
@@ -142,30 +148,30 @@ class PapayaXmlDocument
   }
 
   /**
-  * Append an xml element with attributes and content
-  *
-  * @param string $name
-  * @param array $attributes
-  * @param string $content
-  * @return \PapayaXmlElement new element
-  */
+   * Append an xml element with attributes and content
+   *
+   * @param string $name
+   * @param array $attributes
+   * @param string $content
+   * @return \Papaya\Xml\Element new element
+   */
   public function appendElement($name, array $attributes = array(), $content = NULL) {
     return $this->appendChild($this->createElement($name, $content, $attributes));
   }
 
   /**
-  * Append a xml fragment into document.
-  *
-  * This will fail if the document already has an element
-  * or the document fragment does not contain one.
-  *
-  * If a target is provided, it will append the xml to the target node.
-  *
-  * @param string $content
-  * @param \PapayaXmlElement $target
-  * @return \PapayaXmlElement|\PapayaXmlDocument $target
-  */
-  public function appendXml($content, \PapayaXmlElement $target = NULL) {
+   * Append a xml fragment into document.
+   *
+   * This will fail if the document already has an element
+   * or the document fragment does not contain one.
+   *
+   * If a target is provided, it will append the xml to the target node.
+   *
+   * @param string $content
+   * @param \Papaya\Xml\Element $target
+   * @return \Papaya\Xml\Element|self $target
+   */
+  public function appendXml($content, \Papaya\Xml\Element $target = NULL) {
     if (NULL === $target) {
       $target = $this;
     }
@@ -178,7 +184,7 @@ class PapayaXmlDocument
     if ($fragment->firstChild) {
       if ($target->ownerDocument instanceof self) {
         foreach ($fragment->firstChild->childNodes as $node) {
-          /** @var DOMNode $node */
+          /** @var \DOMNode $node */
           $target->appendChild($node->cloneNode(TRUE));
         }
       } else {
@@ -200,7 +206,7 @@ class PapayaXmlDocument
    * @param string $name
    * @param string|NULL $value
    * @param array|NULL $attributes
-   * @return \PapayaXmlElement
+   * @return \Papaya\Xml\Element
    */
   public function createElement($name, $value = NULL, array $attributes = NULL) {
     if (FALSE !== strpos($name, ':')) {
@@ -243,17 +249,17 @@ class PapayaXmlDocument
   }
 
   /**
-  * Create an new element node for a given document
-  *
-  * @param \PapayaXmlDocument $document
-  * @param string $name
-  * @param array $attributes
-  * @param string $content
-  * @deprecated
-  * @return \PapayaXmlElement new node
-  */
+   * Create an new element node for a given document
+   *
+   * @param self $document
+   * @param string $name
+   * @param array $attributes
+   * @param string $content
+   * @deprecated
+   * @return \Papaya\Xml\Element new node
+   */
   public static function createElementNode(
-    \PapayaXmlDocument $document, $name, array $attributes = array(), $content = NULL
+    self $document, $name, array $attributes = array(), $content = NULL
   ) {
     return $document->createElement($name, $content, $attributes);
   }
@@ -290,8 +296,8 @@ class PapayaXmlDocument
    * create a DOM from an xml document, capture errors
    */
   public static function createFromXml($xmlString, $silent = FALSE) {
-    $errors = new \PapayaXmlErrors();
-    $dom = new \PapayaXmlDocument();
+    $errors = new \Papaya\Xml\Errors();
+    $dom = new self();
     $success = $errors->encapsulate(
       array($dom, 'loadXml'), array($xmlString), !$silent
     );

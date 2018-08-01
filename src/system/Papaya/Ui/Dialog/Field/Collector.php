@@ -40,8 +40,8 @@ class PapayaUiDialogFieldCollector extends \PapayaUiDialogField {
   /**
   * Empty, this field does not append anything to the DOM
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
   }
 }

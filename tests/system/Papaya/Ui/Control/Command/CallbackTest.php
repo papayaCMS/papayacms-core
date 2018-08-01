@@ -25,7 +25,7 @@ class PapayaUiControlCommandCallbackTest extends \PapayaTestCase {
     $this->assertAppendedXmlEqualsXmlFragment(/** @lang XML */'<success/>', $command);
   }
 
-  public function callbackAppendTo(\PapayaXmlElement $parent) {
+  public function callbackAppendTo(\Papaya\Xml\Element $parent) {
     return $parent->appendElement('success');
   }
 

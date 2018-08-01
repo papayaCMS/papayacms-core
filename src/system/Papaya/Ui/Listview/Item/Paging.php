@@ -104,10 +104,10 @@ abstract class PapayaUiListviewItemPaging extends \PapayaUiListviewItem {
   * Append the listitem to the listview. The list item will only be added, if it contains page
   * links.
   *
-  * @param \PapayaXmlElement $parent
-  * @return NULL|\PapayaXmlElement
+  * @param \Papaya\Xml\Element $parent
+  * @return NULL|\Papaya\Xml\Element
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $pages = $this->getPages();
     if (count($pages) > 0) {
       $page = $this->getImagePage();
@@ -140,9 +140,9 @@ abstract class PapayaUiListviewItemPaging extends \PapayaUiListviewItem {
   * The item needs an complex caption containing mutiple links, instead of the usual title
   * attribute and caption element is added.
   *
-  * @param \PapayaXmlElement $item
+  * @param \Papaya\Xml\Element $item
   */
-  public function appendCaption(\PapayaXmlElement $item) {
+  public function appendCaption(\Papaya\Xml\Element $item) {
     $caption = $item->appendElement(
       'caption'
     );
@@ -159,10 +159,10 @@ abstract class PapayaUiListviewItemPaging extends \PapayaUiListviewItem {
   /**
   * Append a single page link to the caption xml element.
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   * @param integer $page
   */
-  public function appendPageLink(\PapayaXmlElement $parent, $page) {
+  public function appendPageLink(\Papaya\Xml\Element $parent, $page) {
     $reference = clone $this->reference();
     $reference->getParameters()->set(
       (string)$this->_parameterName,

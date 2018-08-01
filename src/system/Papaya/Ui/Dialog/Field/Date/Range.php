@@ -70,7 +70,7 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
     $this->setMandatory($mandatory);
   }
 
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->setAttribute(
       'data-include-time', ($this->_includeTime == \Papaya\Filter\Date::DATE_NO_TIME) ? 'false' : 'true'

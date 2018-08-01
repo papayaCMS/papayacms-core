@@ -83,7 +83,7 @@ class PapayaUiDialogFieldInputTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldInput::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $input = new \PapayaUiDialogFieldInput('Caption', 'name');
@@ -107,7 +107,7 @@ class PapayaUiDialogFieldInputTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldInput::appendTo
   */
   public function testAppendToWithDefaultValue() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $input = new \PapayaUiDialogFieldInput('Caption', 'name');
@@ -132,7 +132,7 @@ class PapayaUiDialogFieldInputTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldInput::appendTo
   */
   public function testAppendToAffectedBySetType() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $input = new \PapayaUiDialogFieldInput('Caption', 'name');

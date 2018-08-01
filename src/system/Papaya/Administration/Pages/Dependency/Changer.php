@@ -178,9 +178,9 @@ class Changer extends \PapayaUiControlInteractive {
   /**
    * Execute commands and append output to xml.
    *
-   * @param \PapayaXmlElement $parent
+   * @param \Papaya\Xml\Element $parent
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $this->prepare();
     if ($this->getPageId() > 0) {
       $this->appendButtons();

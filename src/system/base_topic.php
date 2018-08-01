@@ -335,7 +335,7 @@ class base_topic extends base_db {
         if (!$pageContent) {
           $teaser = FALSE;
           if ($this->moduleObj instanceof \Papaya\Plugin\Quoteable) {
-            $dom = new \PapayaXmlDocument();
+            $dom = new \Papaya\Xml\Document();
             $node = $dom->appendElement('content');
             $this->moduleObj->appendQuoteTo($node);
             $teaser = $node->saveFragment();
@@ -354,7 +354,7 @@ class base_topic extends base_db {
         } else {
           $str = FALSE;
           if ($this->moduleObj instanceof \Papaya\Plugin\Appendable) {
-            $dom = new \PapayaXmlDocument();
+            $dom = new \Papaya\Xml\Document();
             $node = $dom->appendElement('content');
             $this->moduleObj->appendTo($node);
             $str = $node->saveFragment();

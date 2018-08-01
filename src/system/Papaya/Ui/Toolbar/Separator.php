@@ -24,9 +24,9 @@ class PapayaUiToolbarSeparator extends \PapayaUiToolbarElement {
   /**
   * Append the separator to the parent xml element
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if ($this->isDisplayed()) {
       $parent->appendElement('separator');
     }

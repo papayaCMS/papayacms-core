@@ -55,7 +55,7 @@ class PapayaAdministrationThemeEditorChangesSetExportTest extends \PapayaTestCas
       ->with('theme')
       ->will($this->returnValue($this->createMock(Structure::class)));
 
-    $document = $this->createMock(\PapayaXmlDocument::class);
+    $document = $this->createMock(\Papaya\Xml\Document::class);
     $document
       ->expects($this->once())
       ->method('saveXml')

@@ -24,18 +24,19 @@ class PapayaTemplateValues {
 
   /**
   * The Dom Document containg the actual values
-  * @var \PapayaXmlDocument
+  *
+  * @var \Papaya\Xml\Document
   */
   private $_document = NULL;
 
   /**
    * Construct object and initalize internal dom document.
    *
-   * @param \PapayaXmlDocument $document
+   * @param \Papaya\Xml\Document $document
    * @return \PapayaTemplateValues
    */
-  public function __construct(\PapayaXmlDocument $document = NULL) {
-    $this->document(isset($document) ? $document : new \PapayaXmlDocument());
+  public function __construct(\Papaya\Xml\Document $document = NULL) {
+    $this->document(isset($document) ? $document : new \Papaya\Xml\Document());
   }
 
   /**
@@ -109,7 +110,7 @@ class PapayaTemplateValues {
       }
       $context = $node;
     }
-    return ($node instanceof \PapayaXmlElement)
+    return ($node instanceof \Papaya\Xml\Element)
       ? new \PapayaTemplateValue($node) : FALSE;
   }
 
@@ -133,7 +134,7 @@ class PapayaTemplateValues {
       return $this->getValueByPath($selector);
     } elseif (is_null($selector)) {
       return new \PapayaTemplateValue($this->_document);
-    } elseif ($selector instanceof \PapayaXmlElement) {
+    } elseif ($selector instanceof \Papaya\Xml\Element) {
       return new \PapayaTemplateValue($selector);
     }
     throw new \InvalidArgumentException('Can not find specified template value');

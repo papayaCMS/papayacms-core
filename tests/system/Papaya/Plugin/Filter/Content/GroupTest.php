@@ -122,13 +122,13 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
    * @covers \Papaya\Plugin\Filter\Content\Group
    */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->appendElement('test');
     $filterOne = $this->createMock(\Papaya\Plugin\Filter\Content::class);
     $filterOne
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
 
     $filterGroup = new \Papaya\Plugin\Filter\Content\Group($page = $this->getPageFixture());
     $filterGroup->add($filterOne);
@@ -139,7 +139,7 @@ class PapayaPluginFilterContentGroupTest extends \PapayaTestCase {
    * @covers \Papaya\Plugin\Filter\Content\Group
    */
   public function testAppendToBC() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->appendElement('test');
     $filterOne = $this
       ->getMockBuilder(stdClass::class)

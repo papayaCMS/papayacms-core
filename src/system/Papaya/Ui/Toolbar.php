@@ -59,10 +59,10 @@ class PapayaUiToolbar extends \PapayaUiControl {
   /**
   * Append toolbar and elements and set identifier if available
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement|NULL
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element|NULL
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if (count($this->elements()) > 0) {
       $toolbar = $parent->appendElement('toolbar');
       $this->elements()->appendTo($toolbar);

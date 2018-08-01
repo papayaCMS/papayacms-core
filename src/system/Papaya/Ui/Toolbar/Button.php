@@ -107,9 +107,9 @@ class PapayaUiToolbarButton extends \PapayaUiToolbarElement {
   /**
   * Append button xml to menu. The button needs at least a caption or image to be shown.
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $image = $this->papaya()->images[(string)$this->_image];
     $caption = (string)$this->_caption;
     if (!(empty($image) && empty($caption))) {

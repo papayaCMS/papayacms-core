@@ -68,10 +68,10 @@ class PapayaUiDialogFieldSelectGrouped extends \PapayaUiDialogFieldSelect {
   /**
    * Append field output to DOM
    *
-   * @param \PapayaXMLElement $parent
-   * @return \PapayaXmlElement
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
    */
-  public function appendTo(\PapayaXMLElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $this->_appendOptionGroups(
       $this->_appendSelect(
         $this->_appendFieldTo($parent)
@@ -84,10 +84,10 @@ class PapayaUiDialogFieldSelectGrouped extends \PapayaUiDialogFieldSelect {
   /**
   * Append option groups to DOM.
   *
-  * @param \PapayaXMLElement $parent
+  * @param \Papaya\Xml\Element $parent
   * @param array $groups
   */
-  protected function _appendOptionGroups(\PapayaXMLElement $parent, array $groups) {
+  protected function _appendOptionGroups(\Papaya\Xml\Element $parent, array $groups) {
     foreach ($groups as $key => $group) {
       $options = isset($group['options']) ? $group['options'] : $group;
       $label = isset($group['caption']) ? $group['caption'] : $key;

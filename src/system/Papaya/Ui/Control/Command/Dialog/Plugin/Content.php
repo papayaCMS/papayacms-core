@@ -45,10 +45,10 @@ class PapayaUiControlCommandDialogPluginContent extends \PapayaUiControlCommandD
   /**
   * Execute command and append result to output xml
   *
-  * @param \PapayaXmlElement
-  * @return \PapayaXmlElement
+  * @param \Papaya\Xml\Element
+  * @return \Papaya\Xml\Element
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $showDialog = TRUE;
     $dialog = $this->dialog();
     if ($dialog->execute()) {

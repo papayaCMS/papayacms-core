@@ -38,10 +38,10 @@ class PapayaUiControlCommandAction extends \PapayaUiControlCommand {
   /**
   * Execute command and append result to output xml
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if ($this->data()->validate()) {
       $this->callbacks()->onValidationSuccessful($this, $parent);
     } else {

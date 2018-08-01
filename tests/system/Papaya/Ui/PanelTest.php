@@ -21,7 +21,7 @@ class PapayaUiPanelTest extends \PapayaTestCase {
   * @covers \PapayaUiPanel::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
     $panel = new \PapayaUiPanel_TestProxy();
     $this->assertXmlStringEqualsXmlString(
@@ -36,7 +36,7 @@ class PapayaUiPanelTest extends \PapayaTestCase {
   * @covers \PapayaUiPanel::setCaption
   */
   public function testAppendToWithCaption() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
     $panel = new \PapayaUiPanel_TestProxy();
     $panel->setCaption('sample caption');

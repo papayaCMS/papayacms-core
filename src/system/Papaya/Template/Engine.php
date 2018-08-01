@@ -138,7 +138,7 @@ abstract class PapayaTemplateEngine {
    *
    * @param mixed $values
    * @throws \UnexpectedValueException
-   * @return \PapayaXmlDocument
+   * @return \Papaya\Xml\Document
    */
   public function values($values = NULL) {
     if (isset($values)) {
@@ -155,18 +155,18 @@ abstract class PapayaTemplateEngine {
       } else {
         $loadedValues = $values;
       }
-      if ($loadedValues instanceof \PapayaXmlDocument) {
+      if ($loadedValues instanceof \Papaya\Xml\Document) {
         $this->_values = $loadedValues;
-      } elseif ($loadedValues instanceof \PapayaXmlElement) {
+      } elseif ($loadedValues instanceof \Papaya\Xml\Element) {
         $this->_values = $loadedValues->ownerDocument;
         $this->_context = $loadedValues;
       } elseif ($loadedValues instanceof \DOMDocument && isset($loadedValues->documentElement)) {
-        $this->_values = new \PapayaXmlDocument();
+        $this->_values = new \Papaya\Xml\Document();
         $this->_values->appendChild(
           $this->_values->importNode($loadedValues->documentElement, TRUE)
         );
       } elseif ($loadedValues instanceof \DOMElement) {
-        $this->_values = new \PapayaXmlDocument();
+        $this->_values = new \Papaya\Xml\Document();
         $this->_values->appendChild(
           $this->_values->importNode($loadedValues, TRUE)
         );
@@ -174,14 +174,14 @@ abstract class PapayaTemplateEngine {
       } else {
         throw new \UnexpectedValueException(
           sprintf(
-            '"%s" could not be converted into a PapayaXmlDocument.',
+            '"%s" could not be converted into a Papaya\Xml\PapayaXmlDocument.',
             is_object($values) ? get_class($values) : gettype($values)
           )
         );
       }
     }
     if (NULL === $this->_values) {
-      $this->_values = new \PapayaXmlDocument();
+      $this->_values = new \Papaya\Xml\Document();
       $this->_context = NULL;
     }
     return $this->_values;
@@ -195,7 +195,7 @@ abstract class PapayaTemplateEngine {
    * Magic Method, provides virtual properties
    *
    * @param string $name
-   * @return \Papaya\BaseObject\Collection|\Papaya\BaseObject\Options\Collection|\PapayaXmlDocument
+   * @return \Papaya\BaseObject\Collection|\Papaya\BaseObject\Options\Collection|\Papaya\Xml\Document
    */
   public function __get($name) {
     switch ($name) {

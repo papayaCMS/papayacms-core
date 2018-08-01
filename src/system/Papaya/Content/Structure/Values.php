@@ -36,12 +36,12 @@ class Values extends \Papaya\BaseObject\Collection {
   /**
    * Load value data from xml
    *
-   * @param \PapayaXmlElement $groupNode
+   * @param \Papaya\Xml\Element $groupNode
    */
-  public function load(\PapayaXmlElement $groupNode) {
-    /** @var \PapayaXmlDocument $document */
+  public function load(\Papaya\Xml\Element $groupNode) {
+    /** @var \Papaya\Xml\Document $document */
     $document = $groupNode->ownerDocument;
-    /** @var \PapayaXmlElement $node */
+    /** @var \Papaya\Xml\Element $node */
     foreach ($document->xpath()->evaluate('value', $groupNode) as $node) {
       $this[] = $value = new Value($this->_group);
       $value->name = $node->getAttribute('name');
@@ -62,7 +62,7 @@ class Values extends \Papaya\BaseObject\Collection {
         $parameterNodes = $document->xpath()->evaluate('field-parameter', $node);
         if ($parameterNodes->length > 0) {
           $fieldParameters = array();
-          /** @var \PapayaXmlElement $parameterNode */
+          /** @var \Papaya\Xml\Element $parameterNode */
           foreach ($parameterNodes as $parameterNode) {
             $key = $parameterNode->getAttribute('key');
             $text = $parameterNode->textContent;

@@ -60,7 +60,7 @@ class PapayaUiIconTest extends \PapayaTestCase {
   * @covers \PapayaUiIcon::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $icon = new \PapayaUiIcon('sample');
     $icon->papaya(
       $this->mockPapaya()->application(array('Images' => array('sample' => 'sample.png')))
@@ -77,7 +77,7 @@ class PapayaUiIconTest extends \PapayaTestCase {
   * @covers \PapayaUiIcon::appendTo
   */
   public function testAppendToWithHiddenIcon() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $icon = new \PapayaUiIcon('sample');
     $icon->papaya(
       $this->mockPapaya()->application(array('Images' => array('sample' => 'sample.png')))
@@ -95,7 +95,7 @@ class PapayaUiIconTest extends \PapayaTestCase {
   * @covers \PapayaUiIcon::appendTo
   */
   public function testAppendToWithLink() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $icon = new \PapayaUiIcon('sample', 'caption', 'hint', array('foo' => 'bar'));
     $icon->papaya(
       $this->mockPapaya()->application(array('Images' => array('sample' => 'sample.png')))

@@ -70,7 +70,7 @@ class PapayaUiDialogFieldInputGeoPositionTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldInputPage::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $field = new \PapayaUiDialogFieldInputGeoPosition('Position', 'geo_position', '', FALSE);
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('sample'));

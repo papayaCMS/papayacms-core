@@ -38,10 +38,10 @@ abstract class PapayaUiPanel extends \PapayaUiControl {
   /**
   * Append panel to output xml
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement $panel
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element $panel
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $panel = $parent->appendElement('panel');
     if (!empty($this->_caption)) {
       $panel->setAttribute('title', (string)$this->_caption);

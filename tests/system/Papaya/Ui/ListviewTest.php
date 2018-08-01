@@ -21,7 +21,7 @@ class PapayaUiListviewTest extends \PapayaTestCase {
   * @covers \PapayaUiListview::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
     $listview = new \PapayaUiListview();
     $items = $this
@@ -31,7 +31,7 @@ class PapayaUiListviewTest extends \PapayaTestCase {
     $items
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $listview->items($items);
     $columns = $this
       ->getMockBuilder(\PapayaUiListviewColumns::class)
@@ -40,13 +40,13 @@ class PapayaUiListviewTest extends \PapayaTestCase {
     $columns
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $listview->columns($columns);
     $toolbars = $this->createMock(\PapayaUiToolbars::class);
     $toolbars
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $listview->toolbars($toolbars);
     $listview->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
@@ -60,7 +60,7 @@ class PapayaUiListviewTest extends \PapayaTestCase {
   * @covers \PapayaUiListview::appendTo
   */
   public function testAppendToWithCaption() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
     $listview = new \PapayaUiListview();
     $listview->caption = 'test caption';
@@ -76,7 +76,7 @@ class PapayaUiListviewTest extends \PapayaTestCase {
   * @covers \PapayaUiListview::appendTo
   */
   public function testAppendToWithMode() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
     $listview = new \PapayaUiListview();
     $listview->mode = \PapayaUiListview::MODE_THUMBNAILS;

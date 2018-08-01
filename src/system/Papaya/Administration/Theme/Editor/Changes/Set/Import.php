@@ -84,19 +84,19 @@ class Import
   /**
    * @param \PapayaUiDialogFieldFileTemporary $uploadField
    * @return bool
-   * @throws \PapayaXmlException
+   * @throws \Papaya\Xml\Exception
    */
   public function onValidationSuccess(\PapayaUiDialogFieldFileTemporary $uploadField) {
     $theme = $this->parameters()->get('theme', '');
     if (!empty($theme)) {
       $file = $uploadField->file();
-      $errors = new \PapayaXmlErrors();
+      $errors = new \Papaya\Xml\Errors();
       try {
         $errors->activate();
-        $dom = new \PapayaXmlDocument();
+        $dom = new \Papaya\Xml\Document();
         $dom->load($file['temporary']);
         if ($dom->documentElement) {
-          /** @var \PapayaXmlElement $documentElement */
+          /** @var \Papaya\Xml\Element $documentElement */
           $documentElement = $dom->documentElement;
           $setId = $this->parameters()->get('set_id', 0);
           if ($setId > 0 && $this->parameters()->get('values/confirm_replace')) {
@@ -129,7 +129,7 @@ class Import
           }
         }
         //@codeCoverageIgnoreStart
-      } catch (\PapayaXmlException $e) {
+      } catch (\Papaya\Xml\Exception $e) {
         $errors->emit();
       }
       //@codeCoverageIgnoreEnd

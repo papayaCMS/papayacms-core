@@ -1966,7 +1966,7 @@ class papaya_boxes extends base_boxes {
     $fileName = $templateHandler->getLocalPath().'/info.xml';
     if (file_exists($fileName) && is_readable($fileName)) {
       $this->templateGroups = array();
-      $xmlTree = \PapayaXmlDocument::createFromXML(file_get_contents($fileName));
+      $xmlTree = \Papaya\Xml\Document::createFromXML(file_get_contents($fileName));
       for ($idx1 = 0; $idx1 < $xmlTree->documentElement->childNodes->length; $idx1++) {
         $node = $xmlTree->documentElement->childNodes->item($idx1);
         if ($node instanceof DOMElement &&

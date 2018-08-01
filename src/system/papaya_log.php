@@ -583,7 +583,7 @@ class papaya_log extends base_db {
       $result .= '</items>';
       $result .= '</listview>';
       $this->layout->add($result);
-      $dom = new \PapayaXmlDocument();
+      $dom = new \Papaya\Xml\Document();
       $dom
         ->appendElement('sheet', array('width' => '100%', 'align' => 'center'))
         ->appendElement('text')

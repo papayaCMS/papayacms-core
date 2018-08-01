@@ -79,7 +79,7 @@ class PapayaUiPanelFrame extends \PapayaUiPanel {
   *
   * @see papaya-lib/system/Papaya/Ui/PapayaUiPanel#appendTo($parent)
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $panel = parent::appendTo($parent);
     $panel->appendElement(
       'iframe',

@@ -222,7 +222,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $node
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $subitems = $this
       ->getMockBuilder(\PapayaUiListviewSubitems::class)
       ->setConstructorArgs(array($item))
@@ -230,7 +230,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $subitems
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $item->node($node);
     $item->subitems($subitems);
     $item->papaya(
@@ -255,7 +255,7 @@ class PapayaUiListviewItemTest extends \PapayaTestCase {
     $subitems
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $item->subitems($subitems);
     $item->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => '')))

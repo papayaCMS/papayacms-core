@@ -106,10 +106,10 @@ class PapayaUiIcon extends \PapayaUiControl {
   /**
   * append icon to output using a <glyph> element.
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if ($this->_visible) {
       $glyph = $parent->appendElement(
         'glyph',

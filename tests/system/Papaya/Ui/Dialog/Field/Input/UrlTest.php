@@ -72,7 +72,7 @@ class PapayaUiDialogFieldInputUrlTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldInputUrl::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $field = new \PapayaUiDialogFieldInputUrl('Url', 'url');
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('test'));

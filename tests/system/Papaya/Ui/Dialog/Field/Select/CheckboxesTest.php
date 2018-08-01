@@ -22,7 +22,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldSelectCheckboxes::_createFilter
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $select = new \PapayaUiDialogFieldSelectCheckboxes(
@@ -48,7 +48,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogFieldSelectCheckboxes::_createFilter
   */
   public function testAppendToWithSelectedElements() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $select = new \PapayaUiDialogFieldSelectCheckboxes(

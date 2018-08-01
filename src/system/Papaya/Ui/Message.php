@@ -71,10 +71,10 @@ abstract class PapayaUiMessage
   /**
   * Append message to parent xml element and return it.
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement the appended message xml element
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element the appended message xml element
   */
-  protected function appendMessageElement(\PapayaXmlElement $parent) {
+  protected function appendMessageElement(\Papaya\Xml\Element $parent) {
     return $parent->appendElement(
       $this->getTagName($this->_severity),
       array(

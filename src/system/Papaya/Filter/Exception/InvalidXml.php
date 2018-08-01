@@ -23,9 +23,9 @@ namespace Papaya\Filter\Exception;
 class InvalidXml extends \Papaya\Filter\Exception {
 
   /**
-   * @param \PapayaXmlException $e
+   * @param \Papaya\Xml\Exception $e
    */
-  public function __construct(\PapayaXmlException $e) {
+  public function __construct(\Papaya\Xml\Exception $e) {
     parent::__construct($e->getMessage());
   }
 

@@ -749,7 +749,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
       )
     );
 
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document
       ->appendElement('sample')
       ->append($factory->getLinkAttributes('de', 42));
@@ -790,7 +790,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
       )
     );
 
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document
       ->appendElement('sample')
       ->append($factory->getLinkAttributes('de', 42));
@@ -838,7 +838,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
       )
     );
 
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document
       ->appendElement('sample')
       ->append($factory->getLinkAttributes('de', 42));

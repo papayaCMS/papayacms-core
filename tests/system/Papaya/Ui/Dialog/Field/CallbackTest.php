@@ -89,11 +89,11 @@ class PapayaUiDialogFieldCallbackTest extends \PapayaTestCase {
   }
 
   public function callbackGetFieldPapayaXmlAppendable() {
-    $result = $this->createMock(\PapayaXmlAppendable::class);
+    $result = $this->createMock(\Papaya\Xml\Appendable::class);
     $result
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     return $result;
   }
 }

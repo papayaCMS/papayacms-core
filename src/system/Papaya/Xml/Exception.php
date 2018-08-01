@@ -13,29 +13,32 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Xml;
+
 /**
-* A exception wrapper for libxml errors.
-*
-* This excpetion provides is created from an libxml error object and provides
-* addition informations about the error.
-*
-* @package Papaya-Library
-* @subpackage Xml
-*/
-class PapayaXmlException extends \Papaya\Exception {
+ * A exception wrapper for libxml errors.
+ *
+ * This exception provides is created from an libxml error object and provides
+ * addition information about the error.
+ *
+ * @package Papaya-Library
+ * @subpackage Xml
+ */
+class Exception extends \Papaya\Exception {
 
   /**
-  * The libxml error
-  * @var libXMLError
-  */
-  private $_error = NULL;
+   * The libxml error
+   *
+   * @var \libXMLError
+   */
+  private $_error;
 
   /**
-  * Wrap an libxml error into a php exception
-  *
-  * @param libXMLError $error
-  */
-  public function __construct(libXMLError $error) {
+   * Wrap an libxml error into a php exception
+   *
+   * @param \libXMLError $error
+   */
+  public function __construct(\libXMLError $error) {
     parent::__construct(
       sprintf(
         'Libxml processing error %d at line %d char %d: %s',
@@ -49,61 +52,61 @@ class PapayaXmlException extends \Papaya\Exception {
   }
 
   /**
-  * Return the stored xml error;
-  *
-  * @return libXMLError
-  */
+   * Return the stored xml error;
+   *
+   * @return \libXMLError
+   */
   public function getError() {
     return $this->_error;
   }
 
   /**
-  * Getter for the libxml error code
-  *
-  * @return integer
-  */
+   * Getter for the libxml error code
+   *
+   * @return integer
+   */
   public function getErrorCode() {
     return $this->_error->code;
   }
 
   /**
-  * Getter for the libxml error message
-  *
-  * @return string
-  */
+   * Getter for the libxml error message
+   *
+   * @return string
+   */
   public function getErrorMessage() {
     return $this->_error->message;
   }
 
   /**
-  * Get the line context of the error
-  *
-  * This is the line position in the loaded document, not in the php script.
-  *
-  * @return integer
-  */
+   * Get the line context of the error
+   *
+   * This is the line position in the loaded document, not in the php script.
+   *
+   * @return integer
+   */
   public function getContextLine() {
     return (int)$this->_error->line;
   }
 
   /**
-  * Get the column context of the error
-  *
-  * This is the column position in the loaded document, not in the php script.
-  *
-  * @return integer
-  */
+   * Get the column context of the error
+   *
+   * This is the column position in the loaded document, not in the php script.
+   *
+   * @return integer
+   */
   public function getContextColumn() {
     return (int)$this->_error->column;
   }
 
   /**
-  * If the document was loaded from a file, the name is returned.
-  *
-  * If the document was loaded from a string the return value is empty.
-  *
-  * @return string
-  */
+   * If the document was loaded from a file, the name is returned.
+   *
+   * If the document was loaded from a string the return value is empty.
+   *
+   * @return string
+   */
   public function getContextFile() {
     return $this->_error->file;
   }

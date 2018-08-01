@@ -49,9 +49,9 @@ class PapayaUiDialogFieldInformation extends \PapayaUiDialogField {
   /**
   * Append message field to dialog xml dom
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $message = $field->appendElement(
       'message', array(), (string)$this->_text

@@ -247,7 +247,7 @@ class PapayaUiToolbarPagingTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarPaging::calculate
   */
   public function testAppendToWithAdditionalParameters() {
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $document->appendElement('sample');
     $paging = new \PapayaUiToolbarPaging('foo/page', 30);
     $paging->papaya(
@@ -283,7 +283,7 @@ class PapayaUiToolbarPagingTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarPaging::calculate
   */
   public function testAppendToWithCurrentPageEqualsTwo() {
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $document->appendElement('sample');
     $paging = new \PapayaUiToolbarPaging('foo/page', 30);
     $paging->papaya(
@@ -318,7 +318,7 @@ class PapayaUiToolbarPagingTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarPaging::calculate
   */
   public function testAppendToWithLimitedButton() {
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $document->appendElement('sample');
     $paging = new \PapayaUiToolbarPaging('foo/page', 300);
     $paging->papaya(
@@ -353,7 +353,7 @@ class PapayaUiToolbarPagingTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarPaging::calculate
   */
   public function testAppendToWithCurrentOffsetEquals10() {
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $document->appendElement('sample');
     $paging = new \PapayaUiToolbarPaging('foo/offset', 30, \PapayaUiToolbarPaging::MODE_OFFSET);
     $paging->papaya(

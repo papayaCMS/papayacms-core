@@ -238,13 +238,13 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
   /**
    * Append the dialog output to a DOM
    *
-   * @param \PapayaXmlElement $parent
-   * @return \PapayaXmlElement|NULL
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element|NULL
    * @throws \UnexpectedValueException
    * @throws \LogicException
    * @throws \InvalidArgumentException
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $dialog = $parent->appendElement(
       'dialog-box',
       array(
@@ -398,14 +398,14 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
   /**
    * Append a group hidden elements to the output (recursive function)
    *
-   * @param \PapayaXmlElement $parent
+   * @param \Papaya\Xml\Element $parent
    * @param \Papaya\Request\Parameters $values
    * @param string|NULL $path
-   * @return \PapayaXmlElement
+   * @return \Papaya\Xml\Element
    * @throws \InvalidArgumentException
    */
   protected function appendHidden(
-    \PapayaXmlElement $parent, \Papaya\Request\Parameters $values, $path = NULL
+    \Papaya\Xml\Element $parent, \Papaya\Request\Parameters $values, $path = NULL
   ) {
     foreach ($values as $name => $value) {
       $nameObject = $this->getParameterName($name);

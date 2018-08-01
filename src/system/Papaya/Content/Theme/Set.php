@@ -105,7 +105,7 @@ class Set extends \Papaya\Database\Record {
    * Return the values as a xml document
    *
    * @param \Papaya\Content\Structure $definition
-   * @return \PapayaXmlDocument
+   * @return \Papaya\Xml\Document
    */
   public function getValuesXml(\Papaya\Content\Structure $definition) {
     return $definition->getXmlDocument(isset($this->values) ? $this->values : array());
@@ -115,9 +115,9 @@ class Set extends \Papaya\Database\Record {
    * Loads the values from a xml document
    *
    * @param \Papaya\Content\Structure $definition
-   * @param \PapayaXmlElement $values
+   * @param \Papaya\Xml\Element $values
    */
-  public function setValuesXml(\Papaya\Content\Structure $definition, \PapayaXmlElement $values) {
+  public function setValuesXml(\Papaya\Content\Structure $definition, \Papaya\Xml\Element $values) {
     $this['values'] = $definition->getArray($values);
   }
 }

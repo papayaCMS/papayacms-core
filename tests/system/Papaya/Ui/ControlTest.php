@@ -22,7 +22,7 @@ class PapayaUiControlTest extends \PapayaTestCase {
   */
   public function testGetXml() {
     $control = new \PapayaUiControl_TestProxy();
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $control->nodeStub = array(
       $document->appendElement('sample')
     );
@@ -36,7 +36,7 @@ class PapayaUiControlTest extends \PapayaTestCase {
   */
   public function testGetXmlWithTextNode() {
     $control = new \PapayaUiControl_TestProxy();
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $control->nodeStub = array(
       $document->createTextNode('sample')
     );
@@ -50,7 +50,7 @@ class PapayaUiControlTest extends \PapayaTestCase {
   */
   public function testGetXmlWithSeveralNodes() {
     $control = new \PapayaUiControl_TestProxy();
-    $document = new \PapayaXmlDocument;
+    $document = new \Papaya\Xml\Document;
     $control->nodeStub = array(
       $document->createTextNode('sample'),
       $document->createElement('sample'),
@@ -67,7 +67,7 @@ class PapayaUiControl_TestProxy extends \PapayaUiControl {
 
   public $nodeStub = array();
 
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     foreach ($this->nodeStub as $node) {
       $parent->appendChild(
         $parent->ownerDocument->importNode($node)

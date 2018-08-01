@@ -21,7 +21,7 @@ class PapayaUiMenuTest extends \PapayaTestCase {
   * @covers \PapayaUiMenu::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
     $menu = new \PapayaUiMenu();
     $elements = $this
@@ -35,7 +35,7 @@ class PapayaUiMenuTest extends \PapayaTestCase {
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $menu->elements($elements);
     $menu->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
@@ -49,7 +49,7 @@ class PapayaUiMenuTest extends \PapayaTestCase {
   * @covers \PapayaUiMenu::appendTo
   */
   public function testAppendToWithIdentifier() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
     $menu = new \PapayaUiMenu();
     $elements = $this
@@ -63,7 +63,7 @@ class PapayaUiMenuTest extends \PapayaTestCase {
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $menu->elements($elements);
     $menu->identifier = 'sample_id';
     $menu->appendTo($document->documentElement);
@@ -78,7 +78,7 @@ class PapayaUiMenuTest extends \PapayaTestCase {
   * @covers \PapayaUiMenu::appendTo
   */
   public function testAppendToWithoutElements() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
     $menu = new \PapayaUiMenu();
     $elements = $this

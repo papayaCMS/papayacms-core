@@ -138,7 +138,7 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
 
 class PapayaUiControlInteractive_TestProxy extends \PapayaUiControlInteractive {
 
-  public function appendTo(\PapayaXmlElement $node) {
+  public function appendTo(\Papaya\Xml\Element $node) {
 
   }
 }

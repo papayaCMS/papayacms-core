@@ -40,10 +40,10 @@ class PapayaUiControlCommandCallback extends \PapayaUiControlCommand {
   /**
    * appendTo is used as an trigger only - it actually does not modify the dom.
    *
-   * @param \PapayaXmlElement $parent
-   * @return \PapayaXmlElement
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     return call_user_func($this->_callback, $parent);
   }
 }

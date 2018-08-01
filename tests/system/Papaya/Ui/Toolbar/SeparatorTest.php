@@ -21,7 +21,7 @@ class PapayaUiToolbarSeparatorTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarSeparator::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
     $collection = $this->createMock(\PapayaUiControlCollection::class);
     $collection
@@ -46,7 +46,7 @@ class PapayaUiToolbarSeparatorTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarSeparator::appendTo
   */
   public function testAppendToSeparatorNotDisplayed() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
     $separator = new \PapayaUiToolbarSeparator();
     $separator->appendTo($document->documentElement);

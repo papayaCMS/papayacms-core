@@ -267,9 +267,9 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
   /**
   * Append button xml to parent node. If the item count is zero no button are added.
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if ($this->_itemsCount > $this->_itemsPerPage) {
       $current = $this->getCurrentPage();
       if ($current > 2) {
@@ -334,12 +334,12 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
   * Append an arrow button to the parent. Arrow buttons navigate to the first/last or previous/next
   * page. The are only shown if needed.
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   * @param integer $page
   * @param string $image
   * @param string|\PapayaUiString $hint
   */
-  private function appendArrowButton(\PapayaXmlElement $parent, $page, $image, $hint) {
+  private function appendArrowButton(\Papaya\Xml\Element $parent, $page, $image, $hint) {
     $reference = clone $this->reference();
     $reference->getParameters()->set(
       (string)$this->_parameterName,

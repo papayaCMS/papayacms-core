@@ -34,7 +34,7 @@ class PapayaUiNavigationItemTest extends \PapayaTestCase {
   * @covers \PapayaUiNavigationItem::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $parent = $document->appendElement('test');
     $reference = $this->createMock(\PapayaUiReference::class);
     $reference
@@ -44,7 +44,7 @@ class PapayaUiNavigationItemTest extends \PapayaTestCase {
     $item = new \PapayaUiNavigationItem_TestProxy(NULL);
     $item->reference($reference);
     $this->assertInstanceOf(
-      \PapayaXmlElement::class, $item->appendTo($parent)
+      \Papaya\Xml\Element::class, $item->appendTo($parent)
     );
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -57,7 +57,7 @@ class PapayaUiNavigationItemTest extends \PapayaTestCase {
   * @covers \PapayaUiNavigationItem::appendTo
   */
   public function testAppendToWithSelectedItem() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $parent = $document->appendElement('test');
     $reference = $this->createMock(\PapayaUiReference::class);
     $reference
@@ -68,7 +68,7 @@ class PapayaUiNavigationItemTest extends \PapayaTestCase {
     $item->selected(TRUE);
     $item->reference($reference);
     $this->assertInstanceOf(
-      \PapayaXmlElement::class, $item->appendTo($parent)
+      \Papaya\Xml\Element::class, $item->appendTo($parent)
     );
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

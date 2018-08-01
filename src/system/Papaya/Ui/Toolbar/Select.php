@@ -164,10 +164,10 @@ class PapayaUiToolbarSelect extends \PapayaUiToolbarElement {
   /**
   * Append select xml elements to xml document
   *
-  * @param \PapayaXmlElement $parent
-  * @return \PapayaXmlElement
+  * @param \Papaya\Xml\Element $parent
+  * @return \Papaya\Xml\Element
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $select = $parent->appendElement(
       'combo',
       array(

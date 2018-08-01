@@ -67,9 +67,9 @@ class PapayaUiListviewSubitemDate extends \PapayaUiListviewSubitem {
   /**
   * Append subitem xml data to parent node.
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $parent->appendElement(
       'subitem',
       array(

@@ -23,7 +23,7 @@ class PapayaTemplateValuesTest extends \PapayaTestCase {
   public function testConstructor() {
     $values = new \PapayaTemplateValues();
     $this->assertAttributeInstanceOf(
-      \PapayaXmlDocument::class, '_document', $values
+      \Papaya\Xml\Document::class, '_document', $values
     );
   }
 
@@ -31,7 +31,7 @@ class PapayaTemplateValuesTest extends \PapayaTestCase {
   * @covers \PapayaTemplateValues::__construct
   */
   public function testConstructorWithDocument() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $values = new \PapayaTemplateValues($document);
     $this->assertAttributeSame(
       $document, '_document', $values
@@ -42,7 +42,7 @@ class PapayaTemplateValuesTest extends \PapayaTestCase {
   * @covers \PapayaTemplateValues::document
   */
   public function testDocument() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $values = new \PapayaTemplateValues($document);
     $this->assertSame(
       $document, $values->document()
@@ -53,7 +53,7 @@ class PapayaTemplateValuesTest extends \PapayaTestCase {
   * @covers \PapayaTemplateValues::document
   */
   public function testDocumentWithArgument() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $values = new \PapayaTemplateValues();
     $this->assertSame(
       $document, $values->document($document)
@@ -158,7 +158,7 @@ class PapayaTemplateValuesTest extends \PapayaTestCase {
   public function testGetValueWithNull() {
     $values = new \PapayaTemplateValues();
     $this->assertInstanceOf(
-      \PapayaXmlDocument::class, $values->getValue()->node()
+      \Papaya\Xml\Document::class, $values->getValue()->node()
     );
   }
 
@@ -166,7 +166,7 @@ class PapayaTemplateValuesTest extends \PapayaTestCase {
   * @covers \PapayaTemplateValues::getValue
   */
   public function testGetValueWithDomelement() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->appendChild($node = $document->createElement('sample'));
     $values = new \PapayaTemplateValues($document);
     $this->assertSame(

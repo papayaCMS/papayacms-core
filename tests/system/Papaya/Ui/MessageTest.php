@@ -125,7 +125,7 @@ class PapayaUiMessageTest extends \PapayaTestCase {
  */
 class PapayaUiMessage_TestProxy extends \PapayaUiMessage {
 
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     return parent::appendMessageElement($parent);
   }
 }

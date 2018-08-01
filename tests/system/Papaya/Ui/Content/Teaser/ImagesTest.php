@@ -30,7 +30,7 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
           </image>
         </subtopic>
       </subtopics>';
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->loadXml($xml);
     $images = new \PapayaUiContentTeaserImages($document->documentElement, 21, 42, 'min');
     $this->assertAttributeSame(
@@ -60,7 +60,7 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
           </image>
         </teaser>
       </teasers>';
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->loadXml($xml);
 
     $images = new \PapayaUiContentTeaserImages($document->documentElement, 100, 100);
@@ -89,7 +89,7 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
           '</image>'.
         '</subtopic>'.
       '</subtopics>';
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->loadXml($xml);
 
     $images = new \PapayaUiContentTeaserImages($document->documentElement, 100, 100);
@@ -114,7 +114,7 @@ class PapayaUiContentTeaserImagesTest extends \PapayaTestCase {
       '<teasers>
         <teaser page-id="42"/>
       </teasers>';
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->loadXml($xml);
 
     $images = new \PapayaUiContentTeaserImages($document->documentElement, 100, 100);

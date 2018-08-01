@@ -40,7 +40,7 @@ class PapayaUiListviewItemRadio extends \PapayaUiListviewItem {
     $this->_value = $value;
   }
 
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $node = parent::appendTo($parent);
     $input = $node->appendElement(
       'input',

@@ -243,7 +243,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
       ->method('getParameterName')
       ->with('truth')
       ->willReturnArgument(0);
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
     $select = new \PapayaUiDialogFieldSelect(

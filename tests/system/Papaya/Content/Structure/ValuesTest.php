@@ -43,7 +43,7 @@ class PapayaContentStructureValuesTest extends \PapayaTestCase {
       ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->load(__DIR__.'/../TestData/structure.xml');
     $values = new Values($group);
     $values->load($document->xpath()->evaluate('//page[1]/group[1]')->item(0));
@@ -65,7 +65,7 @@ class PapayaContentStructureValuesTest extends \PapayaTestCase {
       ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->load(__DIR__.'/../TestData/structure.xml');
     $values = new Values($group);
     $values->load($document->xpath()->evaluate('//page[1]/group[2]')->item(0));
@@ -90,7 +90,7 @@ class PapayaContentStructureValuesTest extends \PapayaTestCase {
       ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->load(__DIR__.'/../TestData/structure.xml');
     $values = new Values($group);
     $values->load($document->xpath()->evaluate('//page[1]/group[3]')->item(0));
@@ -107,7 +107,7 @@ class PapayaContentStructureValuesTest extends \PapayaTestCase {
       ->getMockBuilder(Group::class)
       ->disableOriginalConstructor()
       ->getMock();
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $document->load(__DIR__.'/../TestData/structure.xml');
     $values = new Values($group);
     $values->load($document->xpath()->evaluate('//page[1]/group[3]')->item(0));

@@ -52,7 +52,7 @@ class PapayaUiToolbarTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbar::appendTo
   */
   public function testAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $parent = $document->appendElement('sample');
     $menu = new \PapayaUiToolbar();
     $elements = $this
@@ -66,7 +66,7 @@ class PapayaUiToolbarTest extends \PapayaTestCase {
     $elements
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $menu->elements($elements);
     $menu->appendTo($parent);
     $this->assertXmlStringEqualsXmlString(
@@ -80,7 +80,7 @@ class PapayaUiToolbarTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbar::appendTo
   */
   public function testAppendToWithoutElements() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $parent = $document->appendElement('sample');
     $menu = new \PapayaUiToolbar();
     $elements = $this

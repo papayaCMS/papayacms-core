@@ -75,7 +75,7 @@ class PapayaUiNavigationBuilderTest extends \PapayaTestCase {
     $items
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
 
     $builder = new \PapayaUiNavigationBuilder(array('1' => 'Item One'));
     $builder->papaya($this->mockPapaya()->application());
@@ -128,7 +128,7 @@ class PapayaUiNavigationBuilderTest extends \PapayaTestCase {
     $items
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
 
     $builder = new \PapayaUiNavigationBuilder(array('1' => 'Item One'));
     $builder->papaya($this->mockPapaya()->application());

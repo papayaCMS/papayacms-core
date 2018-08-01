@@ -126,23 +126,23 @@ class PapayaContentThemeSetTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getXmlDocument')
       ->with(array())
-      ->will($this->returnValue(new \PapayaXmlDocument));
+      ->will($this->returnValue(new \Papaya\Xml\Document));
     $themeSet = new Set();
-    $this->assertInstanceOf(\PapayaXmlDocument::class, $themeSet->getValuesXml($definition));
+    $this->assertInstanceOf(\Papaya\Xml\Document::class, $themeSet->getValuesXml($definition));
   }
 
   /**
   * @covers Set::setValuesXml
   */
   public function testSetValuesXml() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $element = $document->appendElement('set');
     /** @var PHPUnit_Framework_MockObject_MockObject|Structure $definition */
     $definition = $this->createMock(Structure::class);
     $definition
       ->expects($this->once())
       ->method('getArray')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class))
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class))
       ->will($this->returnValue(array('foo' => 'bar')));
     $themeSet = new Set();
     $themeSet->setValuesXml($definition, $element);

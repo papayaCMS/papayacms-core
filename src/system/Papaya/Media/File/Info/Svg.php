@@ -56,7 +56,7 @@ class Svg extends \Papaya\Media\File\Info {
         }
       }
     } else {
-      $document = new \PapayaXmlDocument();
+      $document = new \Papaya\Xml\Document();
       if (@$document->load($this->getFile())) {
         $node = $document->documentElement;
         if ($node && $node->localName === 'svg' && $node->namespaceURI === self::XMLNS_SVG) {

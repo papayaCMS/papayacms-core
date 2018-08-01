@@ -51,9 +51,9 @@ class PapayaUiDialogButtonSubmit extends \PapayaUiDialogButton {
   /**
   * Append button output to DOM
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $parent->appendElement(
       'button',
       array(

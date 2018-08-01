@@ -46,7 +46,7 @@ class PapayaUiDialogFieldInputReadonlyTest extends \PapayaTestCase {
    * @covers \PapayaUiDialogFieldInputReadonly::appendTo
    */
   public function testStandardAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
 
@@ -68,7 +68,7 @@ class PapayaUiDialogFieldInputReadonlyTest extends \PapayaTestCase {
    * @covers \PapayaUiDialogFieldInputReadonly::appendTo
    */
   public function testWithDefaultAppendTo() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $node = $document->createElement('sample');
     $document->appendChild($node);
 

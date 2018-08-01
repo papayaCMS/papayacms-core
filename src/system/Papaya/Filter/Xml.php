@@ -48,9 +48,9 @@ class Xml implements \Papaya\Filter {
     if (empty($value)) {
       throw new \Papaya\Filter\Exception\IsEmpty();
     }
-    $errors = new \PapayaXmlErrors();
+    $errors = new \Papaya\Xml\Errors();
     $errors->activate();
-    $dom = new \PapayaXmlDocument();
+    $dom = new \Papaya\Xml\Document();
     try {
       if ($this->_allowFragments) {
         $root = $dom->appendElement('root');
@@ -59,7 +59,7 @@ class Xml implements \Papaya\Filter {
         $dom->loadXML($value);
       }
       $errors->emit(TRUE);
-    } catch (\PapayaXmlException $e) {
+    } catch (\Papaya\Xml\Exception $e) {
       throw new \Papaya\Filter\Exception\InvalidXml($e);
     }
     return TRUE;

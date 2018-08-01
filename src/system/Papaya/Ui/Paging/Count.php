@@ -192,9 +192,9 @@ class PapayaUiPagingCount extends \PapayaUiControl {
   /**
   * Append a list of paging links to the parent.
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $this->calculate();
     if ($this->_itemsCount > $this->_itemsPerPage) {
       $list = $this->appendListElement($parent, $this->_itemsCount);
@@ -220,10 +220,10 @@ class PapayaUiPagingCount extends \PapayaUiControl {
   /**
    * Append the list element to the xml
    *
-   * @param \PapayaXmlElement $parent
-   * @return \PapayaXmlElement
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
    */
-  protected function appendListElement(\PapayaXmlElement $parent) {
+  protected function appendListElement(\Papaya\Xml\Element $parent) {
     return $parent->appendElement(
       $this->_xmlNames['list'], array($this->_xmlNames['attr-count'] => $this->getLastPage())
     );
@@ -232,12 +232,12 @@ class PapayaUiPagingCount extends \PapayaUiControl {
   /**
    * Append one paging link xml element to the list
    *
-   * @param \PapayaXmlElement $parent
+   * @param \Papaya\Xml\Element $parent
    * @param integer $page
    * @param string|NULL $type
-   * @return \PapayaXmlElement
+   * @return \Papaya\Xml\Element
    */
-  protected function appendPageElement(\PapayaXmlElement $parent, $page, $type = NULL) {
+  protected function appendPageElement(\Papaya\Xml\Element $parent, $page, $type = NULL) {
     $reference = clone $this->reference();
     $reference->getParameters()->set(
       (string)$this->_parameterName,

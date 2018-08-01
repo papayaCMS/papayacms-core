@@ -91,10 +91,10 @@ class PapayaUiListviewSubitemImageList extends \PapayaUiListviewSubitemImageSele
   * Append the subitem to the listitem xml element. If the selected icon is not found
   * the subitem will be empty.
   *
-  * @param \PapayaXmlElement
-  * @return \PapayaXmlElement
+  * @param \Papaya\Xml\Element
+  * @return \Papaya\Xml\Element
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $subitem = $parent->appendElement(
       'subitem',
       array(

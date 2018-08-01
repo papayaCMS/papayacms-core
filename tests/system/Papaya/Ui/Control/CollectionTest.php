@@ -21,7 +21,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   * @covers \PapayaUiControlCollection::appendTo
   */
   public function testAppendToCallsItems() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $parentNode = $document->appendElement('sample');
     $itemOne = $this->getMockItemFixture();
     $itemOne
@@ -45,13 +45,13 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   * @covers \PapayaUiControlCollection::appendTo
   */
   public function testAppendToWithTagName() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $parentNode = $document->appendElement('sample');
     $item = $this->getMockItemFixture();
     $item
       ->expects($this->once())
       ->method('appendTo')
-      ->with($this->isInstanceOf(\PapayaXmlElement::class));
+      ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $collection = new \PapayaUiControlCollection_TestProxy();
     $collection->_tagName = 'items';
     $collection->add($item);
@@ -63,7 +63,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   * @covers \PapayaUiControlCollection::appendTo
   */
   public function testAppendToWithoutItems() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     $parentNode = $document->appendElement('sample');
     $collection = new \PapayaUiControlCollection();
     $this->assertNull($collection->appendTo($parentNode));

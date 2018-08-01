@@ -121,9 +121,9 @@ class PapayaUiDialogOptions
   /**
   * Append options to an xml element
   *
-  * @param \PapayaXmlElement $parent
+  * @param \Papaya\Xml\Element $parent
   */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     $options = $parent->appendElement('options');
     foreach ($this as $name => $value) {
       $options->appendElement(

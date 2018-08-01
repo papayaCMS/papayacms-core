@@ -45,10 +45,10 @@ class PapayaUiDialogDatabaseDelete extends \PapayaUiDialogDatabase {
   /**
    * If the dialog was executed, block the dialog output.
    *
-   * @param \PapayaXmlElement $parent
-   * @return \PapayaXmlElement|NULL
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element|NULL
    */
-  public function appendTo(\PapayaXmlElement $parent) {
+  public function appendTo(\Papaya\Xml\Element $parent) {
     if (!$this->_executionResult) {
       return parent::appendTo($parent);
     }

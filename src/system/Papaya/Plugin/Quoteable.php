@@ -27,8 +27,8 @@ interface Quoteable {
   /**
    * Append short content (aka "quote") to the parent xml element.
    *
-   * @param \PapayaXmlElement $parent
-   * @return NULL|\PapayaXmlElement
+   * @param \Papaya\Xml\Element $parent
+   * @return NULL|\Papaya\Xml\Element
    */
-  public function appendQuoteTo(\PapayaXmlElement $parent);
+  public function appendQuoteTo(\Papaya\Xml\Element $parent);
 }

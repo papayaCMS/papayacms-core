@@ -1276,7 +1276,7 @@ class papaya_page extends base_object {
       }
     }
     $this->sendHeader('Content-type: text/xml');
-    $result = new \PapayaXmlDocument();
+    $result = new \Papaya\Xml\Document();
     $cms = $result->appendElement('cms', array('status' => $allStatus ? 'OK' : 'ERROR'));
     foreach ($status as $option => $value) {
       $cms->appendElement(
@@ -1718,18 +1718,18 @@ class papaya_page extends base_object {
    */
   public function getPageDocument() {
     if (NULL === $this->_pageDocument) {
-      $this->_pageDocument = new \PapayaXmlDocument();
+      $this->_pageDocument = new \Papaya\Xml\Document();
       $xml = \Papaya\Utility\Text\Xml::repairEntities(
         $this->topic->parseContent(TRUE, $this->_filterOptions)
       );
       if (!empty($xml)) {
-        $errors = new \PapayaXmlErrors();
+        $errors = new \Papaya\Xml\Errors();
         $errors->activate();
         try {
           $this->_pageDocument->loadXml($xml);
           $errors->emit();
           $errors->deactivate();
-        } catch (\PapayaXmlException $e) {
+        } catch (\Papaya\Xml\Exception $e) {
           $message = new \Papaya\Message\Log(
             \Papaya\Message\Logable::GROUP_SYSTEM,
             \Papaya\Message::SEVERITY_ERROR,
@@ -1760,7 +1760,7 @@ class papaya_page extends base_object {
     $boxes = new papaya_boxes;
     if ($boxes->load($this->boxId, $this->topic->topic['TRANSLATION']['lng_id'])) {
       $result = $boxes->parsedBox($this->topic);
-      if (!\PapayaXmlDocument::createFromXml($result, TRUE)) {
+      if (!\Papaya\Xml\Document::createFromXml($result, TRUE)) {
         $result = '<box><![CDATA['.str_replace(']]>', ']]&gt;', $result).']]></box>';
       }
       return $result;

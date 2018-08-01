@@ -43,7 +43,7 @@ class PapayaTemplateTest extends \PapayaTestCase {
    * @covers Template
    */
   public function testSetXml() {
-    $document = $this->createMock(\PapayaXmlDocument::class);
+    $document = $this->createMock(\Papaya\Xml\Document::class);
     $document
       ->expects($this->once())
       ->method('loadXml')
@@ -63,7 +63,7 @@ class PapayaTemplateTest extends \PapayaTestCase {
    * @covers Template
    */
   public function testGetXml() {
-    $document = $this->createMock(\PapayaXmlDocument::class);
+    $document = $this->createMock(\Papaya\Xml\Document::class);
     $document
       ->expects($this->once())
       ->method('saveXml')
@@ -115,7 +115,7 @@ class PapayaTemplateTest extends \PapayaTestCase {
    * @covers Template
    */
   public function testErrorsGetAfterSet() {
-    $errors = $this->createMock(\PapayaXmlErrors::class);
+    $errors = $this->createMock(\Papaya\Xml\Errors::class);
     /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
     $template = $this->getMockForAbstractClass(Template::class);
     $template->errors($errors);
@@ -128,14 +128,14 @@ class PapayaTemplateTest extends \PapayaTestCase {
   public function testErrorsGetImplicitCreate() {
     /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
     $template = $this->getMockForAbstractClass(Template::class);
-    $this->assertInstanceOf(\PapayaXmlErrors::class, $template->errors());
+    $this->assertInstanceOf(\Papaya\Xml\Errors::class, $template->errors());
   }
 
   /**
    * @covers Template
    */
   public function testAddWithDomNode() {
-    $document = new \PapayaXmlDocument();
+    $document = new \Papaya\Xml\Document();
     /** @var PHPUnit_Framework_MockObject_MockObject|Template $template */
     $template = $this->getMockForAbstractClass(Template::class);
     $template->add($document->createElement('foo'));
@@ -149,7 +149,7 @@ class PapayaTemplateTest extends \PapayaTestCase {
    * @covers Template
    */
   public function testAddWithXmlAppendable() {
-    $appendable = $this->createMock(\PapayaXmlAppendable::class);
+    $appendable = $this->createMock(\Papaya\Xml\Appendable::class);
     $appendable
       ->expects($this->once())
       ->method('appendTo');
@@ -284,7 +284,7 @@ class PapayaTemplateTest extends \PapayaTestCase {
    * @covers Template
    */
   public function testXml() {
-    $document = $this->createMock(\PapayaXmlDocument::class);
+    $document = $this->createMock(\Papaya\Xml\Document::class);
     $document
       ->expects($this->once())
       ->method('saveXml')
