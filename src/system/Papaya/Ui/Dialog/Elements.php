@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiDialogElements extends \PapayaUiControlCollection {
+abstract class PapayaUiDialogElements extends \Papaya\Ui\Control\Collection {
 
   /**
   * Only \PapayaUiDialogElement objects are allows in this list

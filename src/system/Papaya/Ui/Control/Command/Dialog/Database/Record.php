@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command\Dialog\Database;
 /**
-* A command that executes a dialog. After dialog creation, and after successfull/failed execuution
-* callbacks are executed. This class adds record handling.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiControlCommandDialogDatabaseRecord extends \PapayaUiControlCommandDialog {
+ * A command that executes a dialog. After dialog creation, and after successfull/failed execuution
+ * callbacks are executed. This class adds record handling.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Record extends \Papaya\Ui\Control\Command\Dialog {
 
   const ACTION_SAVE = 'save';
   const ACTION_DELETE = 'delete';
 
-  private $_record = NULL;
+  private $_record;
 
-  private $_action = self::ACTION_SAVE;
+  private $_action;
 
   /**
    * This dialog command uses database record objects
@@ -47,7 +48,7 @@ class PapayaUiControlCommandDialogDatabaseRecord extends \PapayaUiControlCommand
    * @return \Papaya\Database\Interfaces\Record
    */
   public function record(\Papaya\Database\Interfaces\Record $record = NULL) {
-    if (isset($record)) {
+    if (NULL !== $record) {
       $this->_record = $record;
     }
     return $this->_record;
@@ -60,11 +61,11 @@ class PapayaUiControlCommandDialogDatabaseRecord extends \PapayaUiControlCommand
    */
   protected function createDialog() {
     switch ($this->_action) {
-    case self::ACTION_DELETE :
-      $dialog = new \PapayaUiDialogDatabaseDelete($this->record());
+      case self::ACTION_DELETE :
+        $dialog = new \PapayaUiDialogDatabaseDelete($this->record());
       break;
-    default :
-      $dialog = new \PapayaUiDialogDatabaseSave($this->record());
+      default :
+        $dialog = new \PapayaUiDialogDatabaseSave($this->record());
       break;
     }
     $dialog->papaya($this->papaya());

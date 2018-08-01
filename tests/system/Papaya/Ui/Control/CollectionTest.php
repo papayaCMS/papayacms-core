@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUiControlCollectionTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiControlCollection::appendTo
+  * @covers \Papaya\Ui\Control\Collection::appendTo
   */
   public function testAppendToCallsItems() {
     $document = new \Papaya\Xml\Document();
@@ -33,7 +33,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->equalTo($parentNode));
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection
       ->add($itemOne)
       ->add($itemTwo);
@@ -42,7 +42,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::appendTo
+  * @covers \Papaya\Ui\Control\Collection::appendTo
   */
   public function testAppendToWithTagName() {
     $document = new \Papaya\Xml\Document();
@@ -60,59 +60,59 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::appendTo
+  * @covers \Papaya\Ui\Control\Collection::appendTo
   */
   public function testAppendToWithoutItems() {
     $document = new \Papaya\Xml\Document();
     $parentNode = $document->appendElement('sample');
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $this->assertNull($collection->appendTo($parentNode));
   }
 
   /**
-  * @covers \PapayaUiControlCollection::owner
+  * @covers \Papaya\Ui\Control\Collection::owner
   */
   public function testOwnerGetAfterSet() {
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->owner($owner = $this->createMock(stdClass::class));
     $this->assertSame($owner, $collection->owner());
   }
 
   /**
-  * @covers \PapayaUiControlCollection::owner
+  * @covers \Papaya\Ui\Control\Collection::owner
   */
   public function testOwnerSetPreparesItems() {
     $item = $this->getMockItemFixture();
     $item
       ->expects($this->exactly(2))
       ->method('collection')
-      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
-    $collection = new \PapayaUiControlCollection();
+      ->with($this->isInstanceOf(\Papaya\Ui\Control\Collection::class));
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($item);
     $collection->owner($this->createMock(stdClass::class));
   }
 
   /**
-  * @covers \PapayaUiControlCollection::owner
+  * @covers \Papaya\Ui\Control\Collection::owner
   */
   public function testOwnerGetExpectingException() {
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $this->expectException(LogicException::class);
-    $this->expectExceptionMessage('LogicException: Collection "PapayaUiControlCollection" has no owner object.');
+    $this->expectExceptionMessage('LogicException: Collection "Papaya\Ui\Control\Collection" has no owner object.');
     $collection->owner();
   }
 
   /**
-  * @covers \PapayaUiControlCollection::owner
+  * @covers \Papaya\Ui\Control\Collection::owner
   */
   public function testOwnerSetNoObjectExpectingException() {
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $this->expectException(UnexpectedValueException::class);
     $collection->owner('WRONG');
   }
 
   /**
-  * @covers \PapayaUiControlCollection::owner
+  * @covers \Papaya\Ui\Control\Collection::owner
   */
   public function testOwnerSetInvalidClassExpectingException() {
     $collection = new \PapayaUiControlCollection_TestProxy();
@@ -121,7 +121,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::owner
+  * @covers \Papaya\Ui\Control\Collection::owner
   */
   public function testOwnerSetValidSuperclass() {
     $collection = new \PapayaUiControlCollection_TestProxy();
@@ -130,30 +130,30 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::hasOwner
+  * @covers \Papaya\Ui\Control\Collection::hasOwner
   */
   public function testHasOwnerExpectingTrue() {
     $owner = $this->createMock(stdClass::class);
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->owner($owner);
     $this->assertTrue($collection->hasOwner());
   }
 
   /**
-  * @covers \PapayaUiControlCollection::hasOwner
+  * @covers \Papaya\Ui\Control\Collection::hasOwner
   */
   public function testHasOwnerExpectingFalse() {
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $this->assertFalse($collection->hasOwner());
   }
 
   /**
-  * @covers \PapayaUiControlCollection::get
-  * @covers \PapayaUiControlCollection::prepareOffset
+  * @covers \Papaya\Ui\Control\Collection::get
+  * @covers \Papaya\Ui\Control\Collection::prepareOffset
   */
   public function testGetFirstItem() {
     $item = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($item);
     $this->assertSame(
       $item, $collection->get(0)
@@ -161,13 +161,13 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::get
-  * @covers \PapayaUiControlCollection::prepareOffset
+  * @covers \Papaya\Ui\Control\Collection::get
+  * @covers \Papaya\Ui\Control\Collection::prepareOffset
   */
   public function testGetSecondItem() {
     $itemOne = $this->getMockItemFixture();
     $itemTwo = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $collection->add($itemTwo);
     $this->assertSame(
@@ -176,13 +176,13 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::get
-  * @covers \PapayaUiControlCollection::prepareOffset
+  * @covers \Papaya\Ui\Control\Collection::get
+  * @covers \Papaya\Ui\Control\Collection::prepareOffset
   */
   public function testGetLastItemUsingNegativeOffset() {
     $itemOne = $this->getMockItemFixture();
     $itemTwo = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $collection->add($itemTwo);
     $this->assertSame(
@@ -191,41 +191,41 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   public function testGetWithoutItemExpectingException() {
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $this->expectException(OutOfBoundsException::class);
     $this->expectExceptionMessage('OutOfBoundsException: Invalid offset "0".');
     $collection->get(0);
   }
 
   /**
-  * @covers \PapayaUiControlCollection::has
+  * @covers \Papaya\Ui\Control\Collection::has
   */
   public function testHasExpectingTrue() {
     $itemOne = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $this->assertTrue($collection->has(0));
   }
 
   /**
-  * @covers \PapayaUiControlCollection::has
+  * @covers \Papaya\Ui\Control\Collection::has
   */
   public function testHasExpectingFalse() {
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $this->assertFalse($collection->has(99));
   }
 
   /**
-  * @covers \PapayaUiControlCollection::add
-  * @covers \PapayaUiControlCollection::validateItemClass
+  * @covers \Papaya\Ui\Control\Collection::add
+  * @covers \Papaya\Ui\Control\Collection::validateItemClass
   */
   public function testAdd() {
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $itemOne = $this->getMockItemFixture();
     $itemOne
       ->expects($this->once())
       ->method('collection')
-      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
+      ->with($this->isInstanceOf(\Papaya\Ui\Control\Collection::class));
     $itemOne
       ->expects($this->once())
       ->method('index')
@@ -234,7 +234,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
     $itemTwo
       ->expects($this->once())
       ->method('collection')
-      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
+      ->with($this->isInstanceOf(\Papaya\Ui\Control\Collection::class));
     $itemTwo
       ->expects($this->once())
       ->method('index')
@@ -251,16 +251,16 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::prepareItem
+  * @covers \Papaya\Ui\Control\Collection::prepareItem
   */
   public function testAddPreparesItem() {
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->papaya($application = $this->mockPapaya()->application());
     $item = $this->getMockItemFixture();
     $item
       ->expects($this->once())
       ->method('collection')
-      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
+      ->with($this->isInstanceOf(\Papaya\Ui\Control\Collection::class));
     $item
       ->expects($this->once())
       ->method('papaya')
@@ -269,20 +269,20 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::add
-  * @covers \PapayaUiControlCollection::validateItemClass
+  * @covers \Papaya\Ui\Control\Collection::add
+  * @covers \Papaya\Ui\Control\Collection::validateItemClass
   */
   public function testAddWithInvalidItemClassExpectingException() {
     $item = $this->getMockItemFixture();
     $collection = new \PapayaUiControlCollection_TestProxy();
-    $collection->_itemClass = \PapayaUiControlInteractive::class;
+    $collection->_itemClass = \Papaya\Ui\Control\Interactive::class;
     $this->expectException(InvalidArgumentException::class);
-    $this->expectExceptionMessage('InvalidArgumentException: Invalid item class "Mock_PapayaUiControl');
+    $this->expectExceptionMessage('InvalidArgumentException: Invalid item class');
     $collection->add($item);
   }
 
   /**
-  * @covers \PapayaUiControlCollection::set
+  * @covers \Papaya\Ui\Control\Collection::set
   */
   public function testSet() {
     $itemOne = $this->getMockItemFixture();
@@ -291,7 +291,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('index')
       ->with(0);
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $this->assertSame(
       $collection, $collection->set(0, $itemTwo)
@@ -302,7 +302,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::set
+  * @covers \Papaya\Ui\Control\Collection::set
   */
   public function testSetReplaceFirstItem() {
     $itemReplace = $this->getMockItemFixture();
@@ -310,7 +310,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('index')
       ->with(1);
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne = $this->getMockItemFixture());
     $collection->add($this->getMockItemFixture());
     $collection->add($itemTwo = $this->getMockItemFixture());
@@ -323,7 +323,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::prepareItem
+  * @covers \Papaya\Ui\Control\Collection::prepareItem
   */
   public function testSetPreparesItem() {
     $application = $this->mockPapaya()->application();
@@ -331,19 +331,19 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
     $item
       ->expects($this->exactly(2))
       ->method('collection')
-      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
+      ->with($this->isInstanceOf(\Papaya\Ui\Control\Collection::class));
     $item
       ->expects($this->exactly(2))
       ->method('papaya')
       ->with($this->equalTo($application));
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->papaya($application);
     $collection->add($item);
     $collection->set(0, $item);
   }
 
   /**
-  * @covers \PapayaUiControlCollection::set
+  * @covers \Papaya\Ui\Control\Collection::set
   */
   public function testSetWithInvalidItemClassExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiControlCollection_TestItem $itemOne */
@@ -357,12 +357,12 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::set
+  * @covers \Papaya\Ui\Control\Collection::set
   */
   public function testSetWithInvalidOffsetExpectingException() {
     $itemOne = $this->getMockItemFixture();
     $itemTwo = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $this->expectException(OutOfBoundsException::class);
     $this->expectExceptionMessage('OutOfBoundsException: Invalid offset "99".');
@@ -370,8 +370,8 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::insertBefore
-  * @covers \PapayaUiControlCollection::updateItemIndex
+  * @covers \Papaya\Ui\Control\Collection::insertBefore
+  * @covers \Papaya\Ui\Control\Collection::updateItemIndex
   */
   public function testInsertBefore() {
     $itemOne = $this->getMockItemFixture();
@@ -384,7 +384,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('index')
       ->with(0);
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $this->assertSame(
       $collection, $collection->insertBefore(0, $itemTwo)
@@ -395,16 +395,16 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::prepareItem
+  * @covers \Papaya\Ui\Control\Collection::prepareItem
   */
   public function testInsertBeforePreparesItem() {
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $application = $this->mockPapaya()->application();
     $itemOne = $this->getMockItemFixture();
     $itemOne
       ->expects($this->once())
       ->method('collection')
-      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
+      ->with($this->isInstanceOf(\Papaya\Ui\Control\Collection::class));
     $itemOne
       ->expects($this->once())
       ->method('papaya')
@@ -413,7 +413,7 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
     $itemTwo
       ->expects($this->once())
       ->method('collection')
-      ->with($this->isInstanceOf(\PapayaUiControlCollection::class));
+      ->with($this->isInstanceOf(\Papaya\Ui\Control\Collection::class));
     $itemTwo
       ->expects($this->once())
       ->method('papaya')
@@ -424,12 +424,12 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::insertBefore
+  * @covers \Papaya\Ui\Control\Collection::insertBefore
   */
   public function testInsertBeforeWithInvalidOffsetExpectingException() {
     $itemOne = $this->getMockItemFixture();
     $itemTwo = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $this->expectException(OutOfBoundsException::class);
     $this->expectExceptionMessage('OutOfBoundsException: Invalid offset "99".');
@@ -437,12 +437,12 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::remove
+  * @covers \Papaya\Ui\Control\Collection::remove
   */
   public function testRemove() {
     $itemOne = $this->getMockItemFixture();
     $itemTwo = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $collection->add($itemTwo);
     $collection->remove(0);
@@ -452,11 +452,11 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::remove
+  * @covers \Papaya\Ui\Control\Collection::remove
   */
   public function testRemoveWithInvalidOffsetExpectingException() {
     $itemOne = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $this->expectException(OutOfBoundsException::class);
     $this->expectExceptionMessage('OutOfBoundsException: Invalid offset "99".');
@@ -464,11 +464,11 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::clear
+  * @covers \Papaya\Ui\Control\Collection::clear
   */
   public function testClear() {
     $itemOne = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $collection->clear();
     $this->assertEquals(
@@ -477,12 +477,12 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::toArray
+  * @covers \Papaya\Ui\Control\Collection::toArray
   */
   public function testToArray() {
     $itemOne = $this->getMockItemFixture();
     $itemTwo = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $collection->add($itemTwo);
     $this->assertSame(
@@ -491,12 +491,12 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::getIterator
+  * @covers \Papaya\Ui\Control\Collection::getIterator
   */
   public function testGetIterator() {
     $itemOne = $this->getMockItemFixture();
     $itemTwo = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $collection->add($itemTwo);
     $iterator = $collection->getIterator();
@@ -507,51 +507,51 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::count
+  * @covers \Papaya\Ui\Control\Collection::count
   */
   public function testCount() {
     $itemOne = $this->getMockItemFixture();
     $itemTwo = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $collection->add($itemTwo);
     $this->assertCount(2, $collection);
   }
 
   /**
-  * @covers \PapayaUiControlCollection::offsetExists
+  * @covers \Papaya\Ui\Control\Collection::offsetExists
   */
   public function testOffsetExistsExpectingTrue() {
     $itemOne = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $this->assertTrue(isset($collection[0]));
   }
 
   /**
-  * @covers \PapayaUiControlCollection::offsetExists
+  * @covers \Papaya\Ui\Control\Collection::offsetExists
   */
   public function testOffsetExistsExpectingFalse() {
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $this->assertFalse(isset($collection[99]));
   }
 
   /**
-  * @covers \PapayaUiControlCollection::offsetGet
+  * @covers \Papaya\Ui\Control\Collection::offsetGet
   */
   public function testOffsetGet() {
     $itemOne = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $this->assertSame($itemOne, $collection[0]);
   }
 
   /**
-  * @covers \PapayaUiControlCollection::offsetSet
+  * @covers \Papaya\Ui\Control\Collection::offsetSet
   */
   public function testOffsetSetAppendingItem() {
     $itemOne = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection[] = $itemOne;
     $this->assertAttributeSame(
       array($itemOne), '_items', $collection
@@ -559,12 +559,12 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::offsetSet
+  * @covers \Papaya\Ui\Control\Collection::offsetSet
   */
   public function testOffsetSetReplacingItem() {
     $itemOne = $this->getMockItemFixture();
     $itemTwo = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $collection[0] = $itemTwo;
     $this->assertAttributeSame(
@@ -573,12 +573,12 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCollection::offsetUnset
+  * @covers \Papaya\Ui\Control\Collection::offsetUnset
   */
   public function testOffsetUnset() {
     $itemOne = $this->getMockItemFixture();
     $itemTwo = $this->getMockItemFixture();
-    $collection = new \PapayaUiControlCollection();
+    $collection = new \Papaya\Ui\Control\Collection();
     $collection->add($itemOne);
     $collection->add($itemTwo);
     unset($collection[0]);
@@ -588,24 +588,24 @@ class PapayaUiControlCollectionTest extends \PapayaTestCase {
   }
 
   /**
-   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaUiControlCollectionItem
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Ui\Control\Collection\Item
    */
   public function getMockItemFixture() {
-    return $this->createMock(\PapayaUiControlCollectionItem::class);
+    return $this->createMock(\Papaya\Ui\Control\Collection\Item::class);
   }
 }
 
-class PapayaUiControlCollection_TestProxy extends \PapayaUiControlCollection {
+class PapayaUiControlCollection_TestProxy extends \Papaya\Ui\Control\Collection {
 
   public /** @noinspection PropertyInitializationFlawsInspection */
     $_tagName = '';
 
-  public $_itemClass = \PapayaUiControl::class;
+  public $_itemClass = \Papaya\Ui\Control::class;
 
   public $_ownerClass = \Papaya\Application\BaseObject::class;
 }
 
 abstract class PapayaUiControlCollection_TestItem
-  extends \PapayaUiControlCollectionItem {
+  extends \Papaya\Ui\Control\Collection\Item {
 
 }

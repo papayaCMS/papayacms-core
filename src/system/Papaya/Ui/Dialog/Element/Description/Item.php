@@ -19,6 +19,6 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-abstract class PapayaUiDialogElementDescriptionItem extends \PapayaUiControlCollectionItem {
+abstract class PapayaUiDialogElementDescriptionItem extends \Papaya\Ui\Control\Collection\Item {
 
 }

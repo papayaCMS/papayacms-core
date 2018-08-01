@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiControlCommandDialog::appendTo
+  * @covers \Papaya\Ui\Control\Command\Dialog::appendTo
   */
   public function testAppendTo() {
     $dialog = $this->createMock(\PapayaUiDialog::class);
@@ -30,13 +30,13 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $command->dialog($dialog);
     $command->getXml();
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::appendTo
+  * @covers \Papaya\Ui\Control\Command\Dialog::appendTo
   */
   public function testAppendToExecuteSuccessful() {
     $dialog = $this->createMock(\PapayaUiDialog::class);
@@ -49,7 +49,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $callbacks = $this
-      ->getMockBuilder(\PapayaUiControlCommandDialogCallbacks::class)
+      ->getMockBuilder(\Papaya\Ui\Control\Command\Dialog\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onExecuteSuccessful'))
       ->getMock();
@@ -57,14 +57,14 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('onExecuteSuccessful')
       ->with($dialog);
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $command->dialog($dialog);
     $command->callbacks($callbacks);
     $command->getXml();
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::appendTo
+  * @covers \Papaya\Ui\Control\Command\Dialog::appendTo
   */
   public function testAppendToExecuteSuccessfulWhileHideAfterSuccessIsTrue() {
     $dialog = $this->createMock(\PapayaUiDialog::class);
@@ -76,7 +76,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
       ->expects($this->never())
       ->method('appendTo');
     $callbacks = $this
-      ->getMockBuilder(\PapayaUiControlCommandDialogCallbacks::class)
+      ->getMockBuilder(\Papaya\Ui\Control\Command\Dialog\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onExecuteSuccessful'))
       ->getMock();
@@ -84,7 +84,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('onExecuteSuccessful')
       ->with($dialog);
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $command->dialog($dialog);
     $command->hideAfterSuccess(TRUE);
     $command->callbacks($callbacks);
@@ -92,8 +92,8 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::appendTo
-  * @covers \PapayaUiControlCommandDialog::reset
+  * @covers \Papaya\Ui\Control\Command\Dialog::appendTo
+  * @covers \Papaya\Ui\Control\Command\Dialog::reset
   */
   public function testAppendToExecuteSuccessfulWhileResetAfterSuccessIsTrue() {
     $dialogOne = $this->createMock(\PapayaUiDialog::class);
@@ -102,7 +102,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
       ->method('execute')
       ->will($this->returnValue(TRUE));
     $callbacks = $this
-      ->getMockBuilder(\PapayaUiControlCommandDialogCallbacks::class)
+      ->getMockBuilder(\Papaya\Ui\Control\Command\Dialog\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onExecuteSuccessful', 'onCreateDialog'))
       ->getMock();
@@ -114,7 +114,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('onCreateDialog')
       ->with($this->isInstanceOf(\PapayaUiDialog::class));
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $command->papaya($this->mockPapaya()->application());
     $command->dialog($dialogOne);
     $command->resetAfterSuccess(TRUE);
@@ -124,7 +124,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
 
 
   /**
-  * @covers \PapayaUiControlCommandDialog::appendTo
+  * @covers \Papaya\Ui\Control\Command\Dialog::appendTo
   */
   public function testAppendToExecuteFailed() {
     $dialog = $this->createMock(\PapayaUiDialog::class);
@@ -141,7 +141,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
       ->method('appendTo')
       ->with($this->isInstanceOf(\Papaya\Xml\Element::class));
     $callbacks = $this
-      ->getMockBuilder(\PapayaUiControlCommandDialogCallbacks::class)
+      ->getMockBuilder(\Papaya\Ui\Control\Command\Dialog\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onExecuteFailed'))
       ->getMock();
@@ -149,37 +149,37 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('onExecuteFailed')
       ->with($dialog);
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $command->dialog($dialog);
     $command->callbacks($callbacks);
     $command->getXml();
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::dialog
+  * @covers \Papaya\Ui\Control\Command\Dialog::dialog
   */
   public function testDialogGetAfterSet() {
     $dialog = $this->createMock(\PapayaUiDialog::class);
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $this->assertSame($dialog, $command->dialog($dialog));
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::dialog
-  * @covers \PapayaUiControlCommandDialog::createDialog
+  * @covers \Papaya\Ui\Control\Command\Dialog::dialog
+  * @covers \Papaya\Ui\Control\Command\Dialog::createDialog
   */
   public function testDialogGetImplicitCreate() {
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $this->assertInstanceOf(\PapayaUiDialog::class, $command->dialog());
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::dialog
-  * @covers \PapayaUiControlCommandDialog::createDialog
+  * @covers \Papaya\Ui\Control\Command\Dialog::dialog
+  * @covers \Papaya\Ui\Control\Command\Dialog::createDialog
   */
   public function testDialogGetImplicitCreateMergingContext() {
     $context = new \Papaya\Request\Parameters(array('foo' => 'bar'));
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $command->context($context);
     $dialog = $command->dialog();
     $this->assertEquals(
@@ -189,71 +189,71 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::callbacks
+  * @covers \Papaya\Ui\Control\Command\Dialog::callbacks
   */
   public function testCallbacksGetAfterSet() {
-    $callbacks = $this->createMock(\PapayaUiControlCommandDialogCallbacks::class);
-    $command = new \PapayaUiControlCommandDialog();
+    $callbacks = $this->createMock(\Papaya\Ui\Control\Command\Dialog\Callbacks::class);
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $this->assertSame($callbacks, $command->callbacks($callbacks));
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::callbacks
+  * @covers \Papaya\Ui\Control\Command\Dialog::callbacks
   */
   public function testCallbacksGetImplicitCreate() {
-    $command = new \PapayaUiControlCommandDialog();
-    $this->assertInstanceOf(\PapayaUiControlCommandDialogCallbacks::class, $command->callbacks());
+    $command = new \Papaya\Ui\Control\Command\Dialog();
+    $this->assertInstanceOf(\Papaya\Ui\Control\Command\Dialog\Callbacks::class, $command->callbacks());
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::hideAfterSuccess
+  * @covers \Papaya\Ui\Control\Command\Dialog::hideAfterSuccess
   */
   public function testHideAfterSelectSetToTrue() {
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $command->hideAfterSuccess(TRUE);
     $this->assertTrue($command->hideAfterSuccess());
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::hideAfterSuccess
+  * @covers \Papaya\Ui\Control\Command\Dialog::hideAfterSuccess
   */
   public function testHideAfterSelectSetToFalse() {
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $command->hideAfterSuccess(FALSE);
     $this->assertFalse($command->hideAfterSuccess());
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::context
+  * @covers \Papaya\Ui\Control\Command\Dialog::context
   */
   public function testContextGetAfterSet() {
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $command->context($context = $this->createMock(\Papaya\Request\Parameters::class));
     $this->assertSame($context, $command->context());
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::context
+  * @covers \Papaya\Ui\Control\Command\Dialog::context
   */
   public function testContextGetWithoutSetExpectingNull() {
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $this->assertNull($command->context());
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::resetAfterSuccess
+  * @covers \Papaya\Ui\Control\Command\Dialog::resetAfterSuccess
   */
   public function testResetAfterSelectSetToTrue() {
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $command->resetAfterSuccess(TRUE);
     $this->assertTrue($command->resetAfterSuccess());
   }
 
   /**
-  * @covers \PapayaUiControlCommandDialog::resetAfterSuccess
+  * @covers \Papaya\Ui\Control\Command\Dialog::resetAfterSuccess
   */
   public function testResetAfterSelectSetToFalse() {
-    $command = new \PapayaUiControlCommandDialog();
+    $command = new \Papaya\Ui\Control\Command\Dialog();
     $command->resetAfterSuccess(FALSE);
     $this->assertFalse($command->resetAfterSuccess());
   }

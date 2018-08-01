@@ -125,10 +125,10 @@ class PapayaUiDialogFieldGroup extends \PapayaUiDialogField {
   /**
   * Return the owner collection of the item.
   *
-  * @param \PapayaUiControlCollection $collection
-  * @return \PapayaUiControlCollection
+  * @param \Papaya\Ui\Control\Collection $collection
+  * @return \Papaya\Ui\Control\Collection
   */
-  public function collection(\PapayaUiControlCollection $collection = NULL) {
+  public function collection(\Papaya\Ui\Control\Collection $collection = NULL) {
     $result = parent::collection($collection);
     if ($collection != NULL && $collection->hasOwner()) {
       $this->fields()->owner($collection->owner());

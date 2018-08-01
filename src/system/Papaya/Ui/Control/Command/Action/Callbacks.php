@@ -13,24 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command\Action;
 /**
-* Callbacks that are used by the action command
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \Papaya\BaseObject\Callback $onValidationSuccessful
-* @property \Papaya\BaseObject\Callback $onValidationFailed
-* @property \Papaya\BaseObject\Callback $getDefinition
-* @method void onValidationSuccessful
-* @method void onValidationFailed
-* @method array getDefinition
-*/
-class PapayaUiControlCommandActionCallbacks extends \Papaya\BaseObject\Callbacks {
+ * Callbacks that are used by the action command
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property \Papaya\BaseObject\Callback $onValidationSuccessful
+ * @property \Papaya\BaseObject\Callback $onValidationFailed
+ * @property \Papaya\BaseObject\Callback $getDefinition
+ * @method void onValidationSuccessful(\Papaya\Ui\Control\Command\Action $action, \Papaya\Xml\Element $parentNode)
+ * @method void onValidationFailed(\Papaya\Ui\Control\Command\Action $action, \Papaya\Xml\Element $parentNode)
+ * @method array getDefinition()
+ */
+class Callbacks extends \Papaya\BaseObject\Callbacks {
 
   /**
-  * Initialize object and set callback definition
-  */
+   * Initialize object and set callback definition
+   */
   public function __construct() {
     parent::__construct(
       array(

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiControlCommandCallbackTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiControlCommandCallback
+  * @covers \Papaya\Ui\Control\Command\Callback
   */
   public function testWithValidCallback() {
-    $command = new \PapayaUiControlCommandCallback(array($this, 'callbackAppendTo'));
+    $command = new \Papaya\Ui\Control\Command\Callback(array($this, 'callbackAppendTo'));
     $this->assertAppendedXmlEqualsXmlFragment(/** @lang XML */'<success/>', $command);
   }
 

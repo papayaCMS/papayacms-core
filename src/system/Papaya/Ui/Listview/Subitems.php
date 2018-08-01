@@ -21,7 +21,7 @@
 * @subpackage Ui
 */
 class PapayaUiListviewSubitems
-  extends \PapayaUiControlCollection {
+  extends \Papaya\Ui\Control\Collection {
 
   /**
   * Only {@see \PapayaUiListviewSubItem} objects are allowed in this list
@@ -32,7 +32,7 @@ class PapayaUiListviewSubitems
 
   /**
   * Provide no tag name, so no additional element will be added in
-  * {@see \PapayaUiControlCollection::appendTo()) that whould wrap the items.
+  * {@see \Papaya\Ui\Control\PapayaUiControlCollection::appendTo()) that whould wrap the items.
   *
   * @var string
   */

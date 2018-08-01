@@ -13,27 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command;
 /**
-* A command that executes a list of other commands. This can be used to combine separate commands
-* into a single one.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiControlCommandList
-  extends \PapayaUiControlCommand
+ * A command that executes a list of other commands. This can be used to combine separate commands
+ * into a single one.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Collection
+  extends \Papaya\Ui\Control\Command
   implements \ArrayAccess, \Countable, \IteratorAggregate {
 
   /**
-  * List of commands
-  *
-  * @var array
-  */
+   * List of commands
+   *
+   * @var array
+   */
   private $_commands = array();
 
   /**
-  * Create object, assign all arguments as commands to the internal list.
-  */
+   * Create object, assign all arguments as commands to the internal list.
+   */
   public function __construct() {
     foreach (func_get_args() as $command) {
       $this->offsetSet(NULL, $command);
@@ -41,15 +42,15 @@ class PapayaUiControlCommandList
   }
 
   /**
-  * Execute commands and append result to output xml
-  *
-  * @param \Papaya\Xml\Element
-  */
+   * Execute commands and append result to output xml
+   *
+   * @param \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
-    /** @var \PapayaUiControlCommand $command */
+    /** @var \Papaya\Ui\Control\Command $command */
     foreach ($this->_commands as $command) {
       if ($command->validateCondition() &&
-          $command->validatePermission()) {
+        $command->validatePermission()) {
         $command->appendTo($parent);
       }
     }
@@ -58,13 +59,13 @@ class PapayaUiControlCommandList
   /**
    * Overload owner method to set owner on all commands, too.
    *
-   * @param \Papaya\Request\Parameters\Access|\PapayaUiControlInteractive $owner
+   * @param \Papaya\Request\Parameters\Access|\Papaya\Ui\Control\Interactive $owner
    * @return \Papaya\Request\Parameters\Access
    */
   public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {
-    \Papaya\Utility\Constraints::assertInstanceOf(\PapayaUiControlInteractive::class, $owner);
-    if (isset($owner)) {
-      /** @var \PapayaUiControlCommand $command */
+    \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Ui\Control\Interactive::class, $owner);
+    if (NULL !== $owner) {
+      /** @var \Papaya\Ui\Control\Command $command */
       foreach ($this->_commands as $command) {
         $command->owner($owner);
       }
@@ -83,11 +84,11 @@ class PapayaUiControlCommandList
   }
 
   /**
-  * ArrayAccess interface: get command at given offset.
-  *
-  * @param integer $offset
-  * @return \PapayaUiControlCommand
-  */
+   * ArrayAccess interface: get command at given offset.
+   *
+   * @param integer $offset
+   * @return \Papaya\Ui\Control\Command
+   */
   public function offsetGet($offset) {
     return $this->_commands[$offset];
   }
@@ -96,17 +97,17 @@ class PapayaUiControlCommandList
    * ArrayAccess interface: add/replace command
    *
    * @param integer $offset
-   * @param \PapayaUiControlCommand $command
+   * @param \Papaya\Ui\Control\Command $command
    * @throws \UnexpectedValueException
    */
   public function offsetSet($offset, $command) {
-    if ($command instanceof \PapayaUiControlCommand) {
+    if ($command instanceof \Papaya\Ui\Control\Command) {
       $this->_commands[$offset] = $command;
       $this->_commands = array_values($this->_commands);
     } else {
       throw new \UnexpectedValueException(
         sprintf(
-          'Expected instance of "PapayaUiControlCommand" but "%s" was given.',
+          'Expected instance of "Papaya\Ui\Control\PapayaUiControlCommand" but "%s" was given.',
           is_object($command) ? get_class($command) : gettype($command)
         )
       );
@@ -114,29 +115,29 @@ class PapayaUiControlCommandList
   }
 
   /**
-  * ArrayAccess interface: remove command at given offset.
-  *
-  * @param integer $offset
-  */
+   * ArrayAccess interface: remove command at given offset.
+   *
+   * @param integer $offset
+   */
   public function offsetUnset($offset) {
     unset($this->_commands[$offset]);
     $this->_commands = array_values($this->_commands);
   }
 
   /**
-  * Countable interface: get command count.
-  *
-  * @return integer
-  */
+   * Countable interface: get command count.
+   *
+   * @return integer
+   */
   public function count() {
     return count($this->_commands);
   }
 
   /**
-  * IteratorAggregate interface: create iterator for commands
-  *
-  * @return \ArrayIterator
-  */
+   * IteratorAggregate interface: create iterator for commands
+   *
+   * @return \ArrayIterator
+   */
   public function getIterator() {
     return new \ArrayIterator($this->_commands);
   }

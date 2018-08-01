@@ -270,7 +270,7 @@ class PapayaUiDialogFieldGroupTest extends \PapayaTestCase {
   public function testCollectionGetAfterSet() {
     $owner = $this->createMock(\PapayaUiDialog::class);
     $papaya = $this->mockPapaya()->application();
-    $collection = $this->createMock(\PapayaUiControlCollection::class);
+    $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
     $collection
       ->expects($this->once())
       ->method('papaya')

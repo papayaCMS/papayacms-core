@@ -23,7 +23,7 @@ namespace Papaya\Administration\Pages\Dependency;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Blocker extends \PapayaUiControlInteractive {
+class Blocker extends \Papaya\Ui\Control\Interactive {
 
   /**
    * current page id

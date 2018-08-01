@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command;
 /**
-* A command that adds elements to a provided toolbar, this will not add elements to the DOM but
-* the papayaUI toolbar obkject.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiControlCommandToolbar extends \PapayaUiControlCommand {
+ * A command that adds elements to a provided toolbar, this will not add elements to the DOM but
+ * the papayaUI toolbar obkject.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Toolbar extends \Papaya\Ui\Control\Command {
 
   /**
    * @var \PapayaUiToolbarElements
    */
-  private $_elements = NULL;
+  private $_elements;
 
   /**
    * Append the elements to the provided toolbar, buttons, dropdowns, ...
@@ -46,7 +47,7 @@ abstract class PapayaUiControlCommandToolbar extends \PapayaUiControlCommand {
    * @return \PapayaUiToolbarElements
    */
   public function elements(\PapayaUiToolbarElements $elements = NULL) {
-    if (isset($elements)) {
+    if (NULL !== $elements) {
       $this->_elements = $elements;
     }
     return $this->_elements;

@@ -21,7 +21,7 @@
 *
 * @property \PapayaUiHierarchyItems $items
 */
-class PapayaUiHierarchyMenu extends \PapayaUiControl {
+class PapayaUiHierarchyMenu extends \Papaya\Ui\Control {
 
   /**
   * Items buffer variable

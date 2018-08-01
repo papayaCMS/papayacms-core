@@ -13,61 +13,66 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control;
 /**
-* A collection list of interface controls with the same superclass. Allows access with array syntax
-* and iterations.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiControlCollection
-  extends \PapayaUiControl
+ * A collection list of interface controls with the same superclass. Allows access with array syntax
+ * and iterations.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Collection
+  extends \Papaya\Ui\Control
   implements \IteratorAggregate, \Countable, \ArrayAccess {
 
   /**
-  * Most collection have an owner object, the generic handling stores it in this property
-  */
-  private $_owner = NULL;
+   * Most collection have an owner object, the generic handling stores it in this property
+   */
+  private $_owner;
 
   /**
-  * Internal items buffer
-  * @var array(\PapayaUiControlCollectionItem)
-  */
+   * Internal items buffer
+   *
+   * @var array(\Papaya\Ui\Control\Collection\PapayaUiControlCollectionItem)
+   */
   protected $_items = array();
 
   /**
-  * Superclass for items, only items of this class may be added.
-  * @var string
-  */
-  protected $_itemClass = \PapayaUiControlCollectionItem::class;
+   * Superclass for items, only items of this class may be added.
+   *
+   * @var string
+   */
+  protected $_itemClass = Collection\Item::class;
 
   /**
-  * Superclass or interface for the owner, only objects of this class/interface may be set as owner.
-  * @var string
-  */
-  protected $_ownerClass = NULL;
+   * Superclass or interface for the owner, only objects of this class/interface may be set as owner.
+   *
+   * @var string
+   */
+  protected $_ownerClass;
 
   /**
-  * If a tag name is provided, an additional element will be added in
-  * {@see \PapayaUiControlCollection::appendTo()) that will wrapp the items.
-  * @var string
-  */
+   * If a tag name is provided, an additional element will be added in
+   * {@see \Papaya\Ui\Control\PapayaUiControlCollection::appendTo()) that will wrapp the items.
+   *
+   * @var string
+   */
   protected $_tagName = '';
 
   /**
-  * Append item output to parent element. If a tag name was provided, the items will be wrapped
-  * in an additional element.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element|NULL parent the elements where appended to,
-  *    NULL if no items are appended.
-  */
+   * Append item output to parent element. If a tag name was provided, the items will be wrapped
+   * in an additional element.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element|NULL parent the elements where appended to,
+   *    NULL if no items are appended.
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     if (count($this->_items) > 0) {
       if (!empty($this->_tagName)) {
         $parent = $parent->appendElement($this->_tagName);
       }
-      /** @var \PapayaUiControlCollectionItem $item */
+      /** @var Collection\Item $item */
       foreach ($this->_items as $item) {
         $item->appendTo($parent);
       }
@@ -110,10 +115,10 @@ class PapayaUiControlCollection
   }
 
   /**
-  * Allow the items to check if the collection has an owner.
-  *
-  * @return boolean
-  */
+   * Allow the items to check if the collection has an owner.
+   *
+   * @return boolean
+   */
   public function hasOwner() {
     return isset($this->_owner);
   }
@@ -124,7 +129,7 @@ class PapayaUiControlCollection
    *
    * @param integer $offset
    * @throws \OutOfBoundsException
-   * @return \PapayaUiControl
+   * @return \Papaya\Ui\Control
    */
   public function get($offset) {
     $offset = $this->prepareOffset($offset);
@@ -137,25 +142,25 @@ class PapayaUiControlCollection
   }
 
   /**
-  * Validate that the $offset defines a valid item. If $offset is negative it will return
-  * the item counting from the end of the list.
-  *
-  * @param integer $offset
-  * @return boolean
-  */
+   * Validate that the $offset defines a valid item. If $offset is negative it will return
+   * the item counting from the end of the list.
+   *
+   * @param integer $offset
+   * @return boolean
+   */
   public function has($offset) {
     $offset = $this->prepareOffset($offset);
     return array_key_exists($offset, $this->_items);
   }
 
   /**
-  * Add (append) a new control to the item list. The method return the collection itself to
-  * provide a fluent api.
-  *
-  * @param \PapayaUiControlCollectionItem $item
-  * @return \PapayaUiControlCollection
-  */
-  public function add(\PapayaUiControlCollectionItem $item) {
+   * Add (append) a new control to the item list. The method return the collection itself to
+   * provide a fluent api.
+   *
+   * @param Collection\Item $item
+   * @return \PapayaUiControlCollection
+   */
+  public function add(Collection\Item $item) {
     $this->validateItemClass($item);
     $this->_items[] = $this->prepareItem($item);
     $item->index(count($this->_items) - 1);
@@ -168,11 +173,11 @@ class PapayaUiControlCollection
    * provide a fluent api.
    *
    * @param integer $offset
-   * @param \PapayaUiControlCollectionItem $item
+   * @param Collection\Item $item
    * @throws \OutOfBoundsException
    * @return \PapayaUiControlCollection
    */
-  public function set($offset, \PapayaUiControlCollectionItem $item) {
+  public function set($offset, Collection\Item $item) {
     $offset = $this->prepareOffset($offset);
     if (array_key_exists($offset, $this->_items)) {
       $this->validateItemClass($item);
@@ -192,11 +197,11 @@ class PapayaUiControlCollection
    * provide a fluent api.
    *
    * @param integer $offset
-   * @param \PapayaUiControlCollectionItem $item
+   * @param Collection\Item $item
    * @throws \OutOfBoundsException
    * @return \PapayaUiControlCollection
    */
-  public function insertBefore($offset, \PapayaUiControlCollectionItem $item) {
+  public function insertBefore($offset, Collection\Item $item) {
     $this->validateItemClass($item);
     $offset = $this->prepareOffset($offset);
     if (isset($this->_items[$offset])) {
@@ -234,70 +239,70 @@ class PapayaUiControlCollection
   }
 
   /**
-  * Clear all items in the given collection.  The method return the collection itself to
-  * provide a fluent api.
-  *
-  * @return \PapayaUiControlCollection
-  */
+   * Clear all items in the given collection.  The method return the collection itself to
+   * provide a fluent api.
+   *
+   * @return \PapayaUiControlCollection
+   */
   public function clear() {
     $this->_items = array();
     return $this;
   }
 
   /**
-  * Return an array containing all items.
-  *
-  * @return array
-  */
+   * Return an array containing all items.
+   *
+   * @return array
+   */
   public function toArray() {
     return $this->_items;
   }
 
   /**
-  * IteratorAggregate Interface, allow to iterator the items.
-  *
-  * @return \ArrayIterator
-  */
+   * IteratorAggregate Interface, allow to iterator the items.
+   *
+   * @return \ArrayIterator
+   */
   public function getIterator() {
     return new \ArrayIterator($this->toArray());
   }
 
   /**
-  * Countable Interface, returns the item count.
-  *
-  * @return integer
-  */
+   * Countable Interface, returns the item count.
+   *
+   * @return integer
+   */
   public function count() {
     return count($this->_items);
   }
 
   /**
-  * ArrayAccess interface, return true if an item at $offset exists. Negative values are possible.
-  *
-  * @param integer $offset
-  * @return boolean
-  */
+   * ArrayAccess interface, return true if an item at $offset exists. Negative values are possible.
+   *
+   * @param integer $offset
+   * @return boolean
+   */
   public function offsetExists($offset) {
     return $this->has($offset);
   }
 
   /**
-  * ArrayAccess interface, return tha item at $offset. Negative values are possible.
-  *
-  * @param integer $offset
-  * @return \PapayaUiControlCollectionItem
-  */
+   * ArrayAccess interface, return tha item at $offset. Negative values are possible.
+   *
+   * @param integer $offset
+   * @return Collection\Item
+   */
   public function offsetGet($offset) {
     return $this->get($offset);
   }
 
   /**
-  * ArrayAccess interface, Replace the item defined by $offset. If $offset is NULL, the item will
-  * be added to the end of the item list. Negative values are possible.
-  *
-  * @param integer $offset
-  * @param \PapayaUiControlCollectionItem $item
-  */
+   * ArrayAccess interface, Replace the item defined by $offset. If $offset is NULL, the item will
+   * be added to the end of the item list. Negative values are possible.
+   *
+   * @param integer $offset
+   * @param Collection\Item $item
+   */
   public function offsetSet($offset, $item) {
     if (is_null($offset)) {
       $this->add($item);
@@ -317,13 +322,13 @@ class PapayaUiControlCollection
   }
 
   /**
-  * Prepare the item before adding it to the internal item list. This allows to do things like
-  * setting the application object or parameter group in subclasses. It sets the colelction so
-  * the item knopws the list it is in.
-  *
-  * @param \PapayaUiControlCollectionItem $item
-  * @return \PapayaUiControlCollectionItem
-  */
+   * Prepare the item before adding it to the internal item list. This allows to do things like
+   * setting the application object or parameter group in subclasses. It sets the colelction so
+   * the item knopws the list it is in.
+   *
+   * @param Collection\Item $item
+   * @return Collection\Item
+   */
   protected function prepareItem($item) {
     $item->collection($this);
     $item->papaya($this->papaya());
@@ -337,7 +342,7 @@ class PapayaUiControlCollection
    * @param $item
    * @return bool
    */
-  protected function validateItemClass(\PapayaUiControlCollectionItem $item) {
+  protected function validateItemClass(Collection\Item $item) {
     if (is_a($item, $this->_itemClass)) {
       return TRUE;
     }
@@ -351,11 +356,11 @@ class PapayaUiControlCollection
   }
 
   /**
-  * Make sure that $offset is an integer. If it is an negative value calcluate the real $offset.
-  *
-  * @param integer $offset
-  * @return integer
-  */
+   * Make sure that $offset is an integer. If it is an negative value calcluate the real $offset.
+   *
+   * @param integer $offset
+   * @return integer
+   */
   protected function prepareOffset($offset) {
     \Papaya\Utility\Constraints::assertInteger($offset);
     if ($offset < 0) {
@@ -366,14 +371,14 @@ class PapayaUiControlCollection
   }
 
   /**
-  * Store the item index in the item to allow backwards access without loops.
-  *
-  * @param integer $offset
-  */
+   * Store the item index in the item to allow backwards access without loops.
+   *
+   * @param integer $offset
+   */
   protected function updateItemIndex($offset = 0) {
     $count = count($this->_items);
     for ($i = $offset; $i < $count; ++$i) {
-      /** @var \PapayaUiControlCollectionItem $item */
+      /** @var Collection\Item $item */
       $item = $this->_items[$i];
       $item->index($i);
     }

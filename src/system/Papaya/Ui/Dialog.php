@@ -29,7 +29,7 @@
 * @property \Papaya\Request\Parameters $data
 * @property \PapayaUiDialogOptions $options
 */
-class PapayaUiDialog extends \PapayaUiControlInteractive {
+class PapayaUiDialog extends \Papaya\Ui\Control\Interactive {
 
   /**
   * Default dialog form method and parameter handling

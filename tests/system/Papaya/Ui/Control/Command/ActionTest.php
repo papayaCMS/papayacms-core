@@ -18,20 +18,20 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiControlCommandActionTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiControlCommandAction
+  * @covers \Papaya\Ui\Control\Command\Action
   */
   public function testDataWithImplicitCreate() {
-    $command = new \PapayaUiControlCommandAction();
+    $command = new \Papaya\Ui\Control\Command\Action();
     $command->parameters(new \Papaya\Request\Parameters(array('test' => 'success')));
     $command->callbacks()->getDefinition = array($this, 'callbackGetDefinition');
     $this->assertEquals('success', $command->data()->get('test'));
   }
 
   /**
-  * @covers \PapayaUiControlCommandAction
+  * @covers \Papaya\Ui\Control\Command\Action
   */
   public function testAppendToWithValidationSuccessful() {
-    $command = new \PapayaUiControlCommandAction();
+    $command = new \Papaya\Ui\Control\Command\Action();
     $command->parameters(new \Papaya\Request\Parameters(array('test' => 'success')));
     $command->callbacks()->getDefinition = array($this, 'callbackGetDefinition');
     $command->callbacks()->onValidationSuccessful = array($this, 'callbackValidationSuccessful');
@@ -41,10 +41,10 @@ class PapayaUiControlCommandActionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCommandAction
+  * @covers \Papaya\Ui\Control\Command\Action
   */
   public function testAppendToWithValidationFailed() {
-    $command = new \PapayaUiControlCommandAction();
+    $command = new \Papaya\Ui\Control\Command\Action();
     $command->parameters(new \Papaya\Request\Parameters());
     $command->callbacks()->getDefinition = array($this, 'callbackGetDefinition');
     $command->callbacks()->onValidationFailed = array($this, 'callbackValidationFailed');
@@ -54,14 +54,14 @@ class PapayaUiControlCommandActionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCommandAction
+  * @covers \Papaya\Ui\Control\Command\Action
   */
   public function testDataGetAfterSet() {
     $validator = $this
       ->getMockBuilder(\Papaya\Request\Parameters\Validator::class)#
       ->disableOriginalConstructor()
       ->getMock();
-    $command = new \PapayaUiControlCommandAction();
+    $command = new \Papaya\Ui\Control\Command\Action();
     $command->data($validator);
     $this->assertSame(
       $validator, $command->data()
@@ -70,13 +70,13 @@ class PapayaUiControlCommandActionTest extends \PapayaTestCase {
 
   public function callbackValidationSuccessful(
     /** @noinspection PhpUnusedParameterInspection */
-    $context, \PapayaUiControlCommandAction $command, \Papaya\Xml\Element $parent) {
+    $context, \Papaya\Ui\Control\Command\Action $command, \Papaya\Xml\Element $parent) {
     $parent->appendElement('success', array(), $command->data()->get('test'));
   }
 
   public function callbackValidationFailed(
     /** @noinspection PhpUnusedParameterInspection */
-    $context, \PapayaUiControlCommandAction $command, \Papaya\Xml\Element $parent
+    $context, \Papaya\Ui\Control\Command\Action $command, \Papaya\Xml\Element $parent
   ) {
     $parent->appendElement('failed');
   }
@@ -88,19 +88,19 @@ class PapayaUiControlCommandActionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCommandAction::callbacks
+  * @covers \Papaya\Ui\Control\Command\Action::callbacks
   */
   public function testCallbacksGetAfterSet() {
-    $callbacks = $this->createMock(\PapayaUiControlCommandActionCallbacks::class);
-    $command = new \PapayaUiControlCommandAction();
+    $callbacks = $this->createMock(\Papaya\Ui\Control\Command\Action\Callbacks::class);
+    $command = new \Papaya\Ui\Control\Command\Action();
     $this->assertSame($callbacks, $command->callbacks($callbacks));
   }
 
   /**
-  * @covers \PapayaUiControlCommandAction::callbacks
+  * @covers \Papaya\Ui\Control\Command\Action::callbacks
   */
   public function testCallbacksGetImplicitCreate() {
-    $command = new \PapayaUiControlCommandAction();
-    $this->assertInstanceOf(\PapayaUiControlCommandActionCallbacks::class, $command->callbacks());
+    $command = new \Papaya\Ui\Control\Command\Action();
+    $this->assertInstanceOf(\Papaya\Ui\Control\Command\Action\Callbacks::class, $command->callbacks());
   }
 }

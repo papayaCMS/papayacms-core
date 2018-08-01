@@ -13,33 +13,34 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command;
 /**
-* A command that executes a dialog. After dialog creation, and after successfull/failed execuution
-* callbacks are executed.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiControlCommandDialog extends \PapayaUiControlCommand {
+ * A command that executes a dialog. After dialog creation, and after successfull/failed execuution
+ * callbacks are executed.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Dialog extends \Papaya\Ui\Control\Command {
 
   /**
-  * Dialog object
-  *
-  * @var \PapayaUiDialog
-  */
-  private $_dialog = NULL;
+   * Dialog object
+   *
+   * @var \PapayaUiDialog
+   */
+  private $_dialog;
 
   /**
    * @var \Papaya\Request\Parameters
    */
-  private $_context = NULL;
+  private $_context;
 
   /**
-  * Dialog event callbacks
-  *
-  * @var \PapayaUiControlCommandDialogCallbacks
-  */
-  private $_callbacks = NULL;
+   * Dialog event callbacks
+   *
+   * @var Dialog\Callbacks
+   */
+  private $_callbacks;
 
   /**
    * Hide dialog after it was executed successfully.
@@ -56,11 +57,11 @@ class PapayaUiControlCommandDialog extends \PapayaUiControlCommand {
   private $_resetAfterSuccess = FALSE;
 
   /**
-  * Execute command and append result to output xml
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element
-  */
+   * Execute command and append result to output xml
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $showDialog = TRUE;
     $dialog = $this->dialog();
@@ -92,24 +93,24 @@ class PapayaUiControlCommandDialog extends \PapayaUiControlCommand {
    * @return \Papaya\Request\Parameters
    */
   public function context(\Papaya\Request\Parameters $context = NULL) {
-    if (isset($context)) {
+    if (NULL !== $context) {
       $this->_context = $context;
     }
     return $this->_context;
   }
 
   /**
-  * Getter/Setter for the dialog. If implizit create is used the createDialog method is called.
-  *
-  * @param \PapayaUiDialog $dialog
-  * @return \PapayaUiDialog
-  */
+   * Getter/Setter for the dialog. If implizit create is used the createDialog method is called.
+   *
+   * @param \PapayaUiDialog $dialog
+   * @return \PapayaUiDialog
+   */
   public function dialog(\PapayaUiDialog $dialog = NULL) {
-    if (isset($dialog)) {
+    if (NULL !== $dialog) {
       $this->_dialog = $dialog;
-    } elseif (is_null($this->_dialog)) {
+    } elseif (NULL === $this->_dialog) {
       $this->_dialog = $this->createDialog();
-      if (isset($this->_context)) {
+      if (NULL !== $this->_context) {
         $this->_dialog->hiddenValues()->merge($this->_context);
       }
       $this->callbacks()->onCreateDialog($this->_dialog);
@@ -118,26 +119,26 @@ class PapayaUiControlCommandDialog extends \PapayaUiControlCommand {
   }
 
   /**
-  * Getter/Setter for the callbacks object
-  *
-  * @param \PapayaUiControlCommandDialogCallbacks $callbacks
-  * @return \PapayaUiControlCommandDialogCallbacks
-  */
-  public function callbacks(\PapayaUiControlCommandDialogCallbacks $callbacks = NULL) {
-    if (isset($callbacks)) {
+   * Getter/Setter for the callbacks object
+   *
+   * @param Dialog\Callbacks $callbacks
+   * @return Dialog\Callbacks
+   */
+  public function callbacks(Dialog\Callbacks $callbacks = NULL) {
+    if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
-    } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new \PapayaUiControlCommandDialogCallbacks();
+    } elseif (NULL === $this->_callbacks) {
+      $this->_callbacks = new Dialog\Callbacks();
     }
     return $this->_callbacks;
   }
 
   /**
-  * Create and return a dialog object, can be overloaded by child classes to create specific
-  * dialogs.
-  *
-  * @return \PapayaUiDialog
-  */
+   * Create and return a dialog object, can be overloaded by child classes to create specific
+   * dialogs.
+   *
+   * @return \PapayaUiDialog
+   */
   protected function createDialog() {
     $dialog = new \PapayaUiDialog();
     $dialog->papaya($this->papaya());
@@ -152,7 +153,7 @@ class PapayaUiControlCommandDialog extends \PapayaUiControlCommand {
    * @return boolean
    */
   public function hideAfterSuccess($hide = NULL) {
-    if (isset($hide)) {
+    if (NULL !== $hide) {
       $this->_hideAfterSuccess = (bool)$hide;
     }
     return $this->_hideAfterSuccess;
@@ -168,7 +169,7 @@ class PapayaUiControlCommandDialog extends \PapayaUiControlCommand {
    * @return boolean
    */
   public function resetAfterSuccess($reset = NULL) {
-    if (isset($reset)) {
+    if (NULL !== $reset) {
       $this->_resetAfterSuccess = (bool)$reset;
     }
     return $this->_resetAfterSuccess;
@@ -178,7 +179,7 @@ class PapayaUiControlCommandDialog extends \PapayaUiControlCommand {
    * Reset the action, (set the dialog to NULL again)
    */
   public function reset() {
-    if (isset($this->_dialog)) {
+    if (NULL !== $this->_dialog) {
       $this->_dialog = NULL;
     }
   }

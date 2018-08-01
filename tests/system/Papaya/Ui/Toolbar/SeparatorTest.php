@@ -23,7 +23,7 @@ class PapayaUiToolbarSeparatorTest extends \PapayaTestCase {
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('sample');
-    $collection = $this->createMock(\PapayaUiControlCollection::class);
+    $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
     $collection
       ->expects($this->once())
       ->method('count')
@@ -57,7 +57,7 @@ class PapayaUiToolbarSeparatorTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarSeparator::isDisplayed
   */
   public function testIsDisplayedExpectingTrue() {
-    $collection = $this->createMock(\PapayaUiControlCollection::class);
+    $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
     $collection
       ->expects($this->once())
       ->method('count')
@@ -84,7 +84,7 @@ class PapayaUiToolbarSeparatorTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarSeparator::isDisplayed
   */
   public function testIsDisplayedWhileLastElementExpectingFalse() {
-    $collection = $this->createMock(\PapayaUiControlCollection::class);
+    $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
     $collection
       ->expects($this->once())
       ->method('count')
@@ -98,7 +98,7 @@ class PapayaUiToolbarSeparatorTest extends \PapayaTestCase {
   * @covers \PapayaUiToolbarSeparator::isDisplayed
   */
   public function testIsDisplayedPreviousElementIsSeparatorExpectingFalse() {
-    $collection = $this->createMock(\PapayaUiControlCollection::class);
+    $collection = $this->createMock(\Papaya\Ui\Control\Collection::class);
     $collection
       ->expects($this->once())
       ->method('count')

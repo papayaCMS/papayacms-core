@@ -20,7 +20,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiToolbarElements extends \PapayaUiControlCollection {
+class PapayaUiToolbarElements extends \Papaya\Ui\Control\Collection {
 
   /**
   * Only {@see \PapayaUiToolbarElement} objects are allowed in this list
@@ -48,9 +48,9 @@ class PapayaUiToolbarElements extends \PapayaUiControlCollection {
   /**
   * Create object and set owner.
   *
-  * @param \PapayaUiControl $owner
+  * @param \Papaya\Ui\Control $owner
   */
-  public function __construct(\PapayaUiControl $owner = NULL) {
+  public function __construct(\Papaya\Ui\Control $owner = NULL) {
     $this->owner($owner);
   }
 
@@ -58,10 +58,10 @@ class PapayaUiToolbarElements extends \PapayaUiControlCollection {
   * Additionally to the standard validation, we block the groups in groups to avoid recursion.
   *
   * @throws \InvalidArgumentException
-  * @param \PapayaUiControlCollectionItem|\PapayaUiToolbarElement $item
+  * @param \Papaya\Ui\Control\Collection\Item|\PapayaUiToolbarElement $item
   * @return bool
   */
-  protected function validateItemClass(\PapayaUiControlCollectionItem $item) {
+  protected function validateItemClass(\Papaya\Ui\Control\Collection\Item $item) {
     \Papaya\Utility\Constraints::assertInstanceOf(\PapayaUiToolbarElement::class, $item);
     parent::validateItemClass($item);
     if (!$this->_allowGroups &&

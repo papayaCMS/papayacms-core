@@ -13,24 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command\Dialog;
 /**
-* Callbacks that are used by the dialog command
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \Papaya\BaseObject\Callback onCreateDialog
-* @property \Papaya\BaseObject\Callback onExecuteSuccessful
-* @property \Papaya\BaseObject\Callback onExecuteFailed
-* @method boolean onCreateDialog
-* @method boolean onExecuteSuccessful
-* @method boolean onExecuteFailed
-*/
-class PapayaUiControlCommandDialogCallbacks extends \Papaya\BaseObject\Callbacks {
+ * Callbacks that are used by the dialog command
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property \Papaya\BaseObject\Callback onCreateDialog
+ * @property \Papaya\BaseObject\Callback onExecuteSuccessful
+ * @property \Papaya\BaseObject\Callback onExecuteFailed
+ * @method boolean onCreateDialog(\PapayaUiDialog $dialog)
+ * @method boolean onExecuteSuccessful(\PapayaUiDialog $dialog, \Papaya\Xml\Element $parent)
+ * @method boolean onExecuteFailed(\PapayaUiDialog $dialog, \Papaya\Xml\Element $parent)
+ */
+class Callbacks extends \Papaya\BaseObject\Callbacks {
 
   /**
-  * Initialize object and set callback definition
-  */
+   * Initialize object and set callback definition
+   */
   public function __construct() {
     parent::__construct(
       array(

@@ -180,7 +180,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(\PapayaUiToolbarElement::class));
     $commands = $this
-      ->getMockBuilder(\PapayaUiControlCommandController::class)
+      ->getMockBuilder(\Papaya\Ui\Control\Command\Controller::class)
       ->disableOriginalConstructor()
       ->getMock();
     $commands
@@ -262,7 +262,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
       ->method('offsetSet')
       ->with(NULL, $this->isInstanceOf(\PapayaUiToolbarElement::class));
     $commands = $this
-      ->getMockBuilder(\PapayaUiControlCommandController::class)
+      ->getMockBuilder(\Papaya\Ui\Control\Command\Controller::class)
       ->disableOriginalConstructor()
       ->getMock();
     $commands
@@ -388,7 +388,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
   */
   public function testCommandsGetAfterSet() {
     $commands = $this
-      ->getMockBuilder(\PapayaUiControlCommandController::class)
+      ->getMockBuilder(\Papaya\Ui\Control\Command\Controller::class)
       ->disableOriginalConstructor()
       ->getMock();
     $changer = new Changer();
@@ -403,7 +403,7 @@ class PapayaAdministrationPagesDependencyChangerTest extends \PapayaTestCase {
   public function testCommandsGetImplicitCreate() {
     $changer = new Changer();
     $this->assertInstanceOf(
-      \PapayaUiControlCommandController::class, $commands = $changer->commands()
+      \Papaya\Ui\Control\Command\Controller::class, $commands = $changer->commands()
     );
     $this->assertNotNull($commands['dependency_show']);
     $this->assertNotNull($commands['dependency_delete']);

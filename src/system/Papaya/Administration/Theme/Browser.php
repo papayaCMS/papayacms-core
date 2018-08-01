@@ -30,7 +30,7 @@ namespace Papaya\Administration\Theme;
  */
 
 class Browser
-  extends \PapayaUiControl {
+  extends \Papaya\Ui\Control {
 
   private $_optionName = 'PAPAYA_LAYOUT_THEME';
 

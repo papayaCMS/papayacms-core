@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui;
 /**
-* Abstract superclass implementing basic features for user interface control.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiControl extends \PapayaUiControlPart {
+ * Abstract superclass implementing basic features for user interface control.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Control extends Control\Part {
 
   /**
-  * Compile output xml for the user interface element.
-  * @return string
-  */
+   * Compile output xml for the user interface element.
+   *
+   * @return string
+   */
   public function getXml() {
     $dom = new \Papaya\Xml\Document();
     $control = $dom->appendElement('control');

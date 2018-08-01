@@ -31,7 +31,7 @@ namespace Papaya\Administration\Languages;
  * @property-read string $image current language image including path
  * @property-read string $title current language title
  */
-class Selector extends \PapayaUiControlInteractive {
+class Selector extends \Papaya\Ui\Control\Interactive {
 
   /**
    * Internal property for language list

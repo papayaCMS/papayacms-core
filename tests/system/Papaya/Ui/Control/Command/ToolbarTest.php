@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiControlCommandToolbarTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiControlCommandToolbar
+  * @covers \Papaya\Ui\Control\Command\Toolbar
   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiToolbarElements $elements */
@@ -28,7 +28,7 @@ class PapayaUiControlCommandToolbarTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCommandToolbar
+  * @covers \Papaya\Ui\Control\Command\Toolbar
   */
   public function testGetAfterSet() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiToolbarElements $elements */
@@ -39,7 +39,7 @@ class PapayaUiControlCommandToolbarTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiControlCommandToolbar
+  * @covers \Papaya\Ui\Control\Command\Toolbar
   */
   public function testAppendTo() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaUiToolbarElements $elements */
@@ -59,7 +59,7 @@ class PapayaUiControlCommandToolbarTest extends \PapayaTestCase {
 
 }
 
-class PapayaUiControlCommandToolbar_TestProxy extends \PapayaUiControlCommandToolbar {
+class PapayaUiControlCommandToolbar_TestProxy extends \Papaya\Ui\Control\Command\Toolbar {
 
   public $testElement;
 

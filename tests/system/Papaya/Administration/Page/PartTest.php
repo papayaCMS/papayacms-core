@@ -23,7 +23,7 @@ class PapayaAdministrationPagePartTest extends \PapayaTestCase {
    * @covers Part::appendTo
    */
   public function testAppendTo() {
-    $commands = $this->createMock(\PapayaUiControlCommand::class);
+    $commands = $this->createMock(\Papaya\Ui\Control\Command::class);
     $commands
       ->expects($this->once())
       ->method('appendTo')
@@ -42,7 +42,7 @@ class PapayaAdministrationPagePartTest extends \PapayaTestCase {
    */
   public function testCommandsGetAfterSet() {
     $part = new \PapayaAdministrationPagePart_TestProxy();
-    $part->commands($commands = $this->createMock(\PapayaUiControlCommand::class));
+    $part->commands($commands = $this->createMock(\Papaya\Ui\Control\Command::class));
     $this->assertSame($commands, $part->commands());
   }
 
@@ -52,7 +52,7 @@ class PapayaAdministrationPagePartTest extends \PapayaTestCase {
    */
   public function testCommandsGetImplicitCreate() {
     $part = new \PapayaAdministrationPagePart_TestProxy();
-    $this->assertInstanceOf(\PapayaUiControlCommandController::class, $part->commands());
+    $this->assertInstanceOf(\Papaya\Ui\Control\Command\Controller::class, $part->commands());
   }
 
   /**

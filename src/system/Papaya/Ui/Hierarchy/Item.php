@@ -26,7 +26,7 @@
  * @property int $displayMode
  * @property \PapayaUiReference $reference
  */
-class PapayaUiHierarchyItem extends \PapayaUiControlCollectionItem {
+class PapayaUiHierarchyItem extends \Papaya\Ui\Control\Collection\Item {
 
   const DISPLAY_BOTH = 1;
   const DISPLAY_IMAGE_ONLY = 2;

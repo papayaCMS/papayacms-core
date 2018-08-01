@@ -13,27 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command;
 /**
-* Abstract superclass for ui command condition, allow to specify conditions that hav to
-* be fullfilled to execute the command.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiControlCommandCondition extends \Papaya\Application\BaseObject {
+ * Abstract superclass for ui command condition, allow to specify conditions that hav to
+ * be fullfilled to execute the command.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Condition extends \Papaya\Application\BaseObject {
 
   /**
-  * The command of the condition.
-  *
-  * @param \PapayaUiControlCommand
-  */
-  private $_command = NULL;
+   * The command of the condition.
+   *
+   * @param \Papaya\Ui\Control\Command
+   */
+  private $_command;
 
   /**
-  * Validate needs to be implemented in chzild classes.
-  *
-  * @return boolean
-  */
+   * Validate needs to be implemented in chzild classes.
+   *
+   * @return boolean
+   */
   abstract public function validate();
 
   /**
@@ -42,15 +43,15 @@ abstract class PapayaUiControlCommandCondition extends \Papaya\Application\BaseO
    * If the owner is emtpy and exception is thrown.
    *
    *
-   * @param \PapayaUiControlCommand $command
+   * @param \Papaya\Ui\Control\Command $command
    * @throws \LogicException
-   * @return \PapayaUiControlCommand
+   * @return \Papaya\Ui\Control\Command
    */
-  public function command(\PapayaUiControlCommand $command = NULL) {
-    if (isset($command)) {
+  public function command(\Papaya\Ui\Control\Command $command = NULL) {
+    if (NULL !== $command) {
       $this->_command = $command;
       $this->papaya($command->papaya());
-    } elseif (is_null($this->_command)) {
+    } elseif (NULL === $this->_command) {
       throw new \LogicException(
         sprintf(
           'LogicException: Instance of "%s" has no command assigned.',
@@ -62,11 +63,11 @@ abstract class PapayaUiControlCommandCondition extends \Papaya\Application\BaseO
   }
 
   /**
-  * Validate if an command object is assigned
-  *
-  * @return boolean
-  */
+   * Validate if an command object is assigned
+   *
+   * @return boolean
+   */
   public function hasCommand() {
-    return isset($this->_command);
+    return NULL !== $this->_command;
   }
 }

@@ -21,7 +21,7 @@ namespace Papaya\Administration\Pages;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Ancestors extends \PapayaUiControl {
+class Ancestors extends \Papaya\Ui\Control {
 
   /**
    * Member variable for pages subobject

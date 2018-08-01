@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiSheetSubtitle extends \PapayaUiControlCollectionItem {
+class PapayaUiSheetSubtitle extends \Papaya\Ui\Control\Collection\Item {
 
   private $_text = '';
 

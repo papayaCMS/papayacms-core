@@ -22,13 +22,13 @@ use Papaya\Administration\Pages\Dependency\Changer;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Change extends \PapayaUiControlCommandDialog {
+class Change extends \Papaya\Ui\Control\Command\Dialog {
 
   /**
    * create a condition that is used to activate the command execution
    */
   public function createCondition() {
-    return new \PapayaUiControlCommandConditionCallback(
+    return new \Papaya\Ui\Control\Command\Condition\Callback(
       array($this, 'validatePageId')
     );
   }

@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command\Condition;
 /**
-* A command condition based on a callback.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiControlCommandConditionCallback extends \PapayaUiControlCommandCondition {
+ * A command condition based on a callback.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Callback extends \Papaya\Ui\Control\Command\Condition {
 
   /**
-  * member variable to store the callback
-  *
-  * @var callable
-  */
-  private $_callback = NULL;
+   * member variable to store the callback
+   *
+   * @var callable
+   */
+  private $_callback;
 
   /**
    * Create object and store callback.
@@ -44,10 +45,10 @@ class PapayaUiControlCommandConditionCallback extends \PapayaUiControlCommandCon
   }
 
   /**
-  * Execute callback and return value.
-  *
-  * @return boolean
-  */
+   * Execute callback and return value.
+   *
+   * @return boolean
+   */
   public function validate() {
     return (boolean)call_user_func($this->_callback);
   }

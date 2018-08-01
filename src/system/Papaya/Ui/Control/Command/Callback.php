@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command;
 /**
-* A command that uses a callback to append elements to the DOM. Allows for direct implementation
-* of simple commands
-*
-* The first argument of the callback is the parent xml element.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiControlCommandCallback extends \PapayaUiControlCommand {
+ * A command that uses a callback to append elements to the DOM. Allows for direct implementation
+ * of simple commands
+ *
+ * The first argument of the callback is the parent xml element.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Callback extends \Papaya\Ui\Control\Command {
 
   /**
    * @var Callable
    */
-  private $_callback = NULL;
+  private $_callback;
 
   /**
    * @param \Callable $callback

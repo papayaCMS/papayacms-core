@@ -22,7 +22,7 @@ namespace Papaya\Administration\Theme\Editor\Changes\Set;
  * @subpackage Administration
  */
 class Import
-  extends \PapayaUiControlCommandDialog {
+  extends \Papaya\Ui\Control\Command\Dialog {
 
   /**
    * @var \Papaya\Content\Theme\Set
@@ -41,7 +41,7 @@ class Import
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
-   * @see \PapayaUiControlCommandDialog::createDialog()
+   * @see \Papaya\Ui\Control\Command\Dialog::createDialog()
    * @return \PapayaUiDialog
    */
   public function createDialog() {

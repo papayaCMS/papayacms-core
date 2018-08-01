@@ -18,7 +18,7 @@ use Papaya\Administration\Pages\Dependency\Listview;
 use Papaya\Administration\Pages\Dependency\Synchronizations;
 use Papaya\Content\Page\Dependencies;
 use Papaya\Content\Page\Dependency;
-use PapayaUiControlCommandController;
+use Papaya\Ui\Control\Command\Controller;
 use PapayaUiToolbar;
 
 /**
@@ -27,7 +27,7 @@ use PapayaUiToolbar;
  * @package Papaya-Library
  * @subpackage Administration
  */
-class Changer extends \PapayaUiControlInteractive {
+class Changer extends \Papaya\Ui\Control\Interactive {
 
   /**
    * Currently selected page
@@ -72,7 +72,7 @@ class Changer extends \PapayaUiControlInteractive {
   /**
    * Command controller for the needed actions
    *
-   * @var \PapayaUiControlCommandController
+   * @var \Papaya\Ui\Control\Command\Controller
    */
   private $_commands = NULL;
 
@@ -227,14 +227,14 @@ class Changer extends \PapayaUiControlInteractive {
   /**
    * Getter/Setter for commands, define commands on implicit create.
    *
-   * @param \PapayaUiControlCommandController $commands
-   * @return \PapayaUiControlCommandController
+   * @param \Papaya\Ui\Control\Command\Controller $commands
+   * @return \Papaya\Ui\Control\Command\Controller
    */
-  public function commands(\PapayaUiControlCommandController $commands = NULL) {
+  public function commands(\Papaya\Ui\Control\Command\Controller $commands = NULL) {
     if (isset($commands)) {
       $this->_commands = $commands;
     } elseif (is_null($this->_commands)) {
-      $commands = new \PapayaUiControlCommandController('cmd', 'dependency_show');
+      $commands = new \Papaya\Ui\Control\Command\Controller('cmd', 'dependency_show');
       $commands->owner($this);
       $commands['dependency_show'] = new \Papaya\Administration\Pages\Dependency\Command\Change();
       $commands['dependency_delete'] = new \Papaya\Administration\Pages\Dependency\Command\Delete();

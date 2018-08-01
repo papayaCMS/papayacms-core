@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command\Condition;
 /**
  * A command condition based on a database records existence.
  *
  * @package Papaya-Library
  * @subpackage Ui
  */
-class PapayaUiControlCommandConditionRecord extends \PapayaUiControlCommandCondition {
+class Record extends \Papaya\Ui\Control\Command\Condition {
 
   /**
    * member variable to store the record
    *
    * @var \Papaya\Database\Record
    */
-  private $_record = NULL;
+  private $_record;
 
   /**
    * Create object and store callback.

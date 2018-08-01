@@ -27,7 +27,7 @@
 * @property integer $itemsPerPage
 * @property integer $pageLimit
 */
-class PapayaUiPagingCount extends \PapayaUiControl {
+class PapayaUiPagingCount extends \Papaya\Ui\Control {
 
   const LINK_FIRST = 'first';
   const LINK_PREVIOUS = 'previous';

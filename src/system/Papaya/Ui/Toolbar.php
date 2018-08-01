@@ -21,7 +21,7 @@
 *
 * @property \PapayaUiToolbarElements $elements
 */
-class PapayaUiToolbar extends \PapayaUiControl {
+class PapayaUiToolbar extends \Papaya\Ui\Control {
 
   /**
   * menu elements collection

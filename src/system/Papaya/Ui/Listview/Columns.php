@@ -20,7 +20,7 @@
 * @subpackage Ui
 */
 class PapayaUiListviewColumns
-  extends \PapayaUiControlCollection {
+  extends \Papaya\Ui\Control\Collection {
 
   /**
   * Only {@see \PapayaUiListviewColumn} objects are allowed in this list
@@ -31,7 +31,7 @@ class PapayaUiListviewColumns
 
   /**
   * If a tag name is provided, an additional element will be added in
-  * {@see \PapayaUiControlCollection::appendTo()) that will wrapp the items.
+  * {@see \Papaya\Ui\Control\PapayaUiControlCollection::appendTo()) that will wrapp the items.
   * @var string
   */
   protected $_tagName = 'cols';

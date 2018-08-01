@@ -13,34 +13,35 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command;
 /**
-* A command that executes an action depending on a specific set of parameters
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiControlCommandAction extends \PapayaUiControlCommand {
+ * A command that executes an action depending on a specific set of parameters
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Action extends \Papaya\Ui\Control\Command {
 
   /**
-  * Dialog object
-  *
-  * @var \PapayaUiDialog
-  */
-  private $_data = NULL;
+   * Dialog object
+   *
+   * @var \PapayaUiDialog
+   */
+  private $_data;
 
   /**
-  * Dialog event callbacks
-  *
-  * @var \PapayaUiControlCommandDialogCallbacks
-  */
-  private $_callbacks = NULL;
+   * Dialog event callbacks
+   *
+   * @var \Papaya\Ui\Control\Command\Dialog\Callbacks
+   */
+  private $_callbacks;
 
   /**
-  * Execute command and append result to output xml
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element
-  */
+   * Execute command and append result to output xml
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     if ($this->data()->validate()) {
       $this->callbacks()->onValidationSuccessful($this, $parent);
@@ -54,10 +55,10 @@ class PapayaUiControlCommandAction extends \PapayaUiControlCommand {
    * Getter/Setter to the validated parameters data subobject.
    *
    * @param \Papaya\Request\Parameters\Validator $data
-   * @return null|\Papaya\Request\Parameters\Validator|\PapayaUiDialog
+   * @return \Papaya\Request\Parameters\Validator|\PapayaUiDialog
    */
   public function data(\Papaya\Request\Parameters\Validator $data = NULL) {
-    if (isset($data)) {
+    if (NULL !== $data) {
       $this->_data = $data;
     } elseif (NULL === $this->_data) {
       $this->_data = $this->_createData();
@@ -73,22 +74,22 @@ class PapayaUiControlCommandAction extends \PapayaUiControlCommand {
    */
   protected function _createData(array $definitions = NULL) {
     return new \Papaya\Request\Parameters\Validator(
-      isset($definitions) ? $definitions : $this->callbacks()->getDefinition(),
+      NULL !== $definitions ? $definitions : $this->callbacks()->getDefinition(),
       $this->parameters()
     );
   }
 
   /**
-  * Getter/Setter for the callbacks object
-  *
-  * @param \PapayaUiControlCommandActionCallbacks $callbacks
-  * @return \PapayaUiControlCommandActionCallbacks
-  */
-  public function callbacks(\PapayaUiControlCommandActionCallbacks $callbacks = NULL) {
-    if (isset($callbacks)) {
+   * Getter/Setter for the callbacks object
+   *
+   * @param Action\Callbacks $callbacks
+   * @return Action\Callbacks
+   */
+  public function callbacks(Action\Callbacks $callbacks = NULL) {
+    if (NULL !== $callbacks) {
       $this->_callbacks = $callbacks;
-    } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new \PapayaUiControlCommandActionCallbacks();
+    } elseif (NULL === $this->_callbacks) {
+      $this->_callbacks = new Action\Callbacks();
     }
     return $this->_callbacks;
   }

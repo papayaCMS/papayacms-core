@@ -15,7 +15,7 @@
 
 namespace Papaya\Administration\Page;
 use Papaya\Administration\PapayaAdministrationPage;
-use PapayaUiControlCommand;
+use Papaya\Ui\Control\Command;
 use PapayaUiToolbarSet;
 
 /**
@@ -24,10 +24,10 @@ use PapayaUiToolbarSet;
  * @package Papaya-Library
  * @subpackage Administration
  */
-abstract class Part extends \PapayaUiControlInteractive {
+abstract class Part extends \Papaya\Ui\Control\Interactive {
 
   /**
-   * @var \PapayaUiControlCommand
+   * @var \Papaya\Ui\Control\Command
    */
   private $_commands = NULL;
 
@@ -66,10 +66,10 @@ abstract class Part extends \PapayaUiControlInteractive {
    * Getter/Setter for the commands subobject,
    * {@see \Papaya\Administration\Page\PapayaAdministrationPagePart::_createCommands89} is called for lazy init
    *
-   * @param \PapayaUiControlCommand $commands
-   * @return \PapayaUiControlCommand
+   * @param \Papaya\Ui\Control\Command $commands
+   * @return \Papaya\Ui\Control\Command
    */
-  public function commands(\PapayaUiControlCommand $commands = NULL) {
+  public function commands(\Papaya\Ui\Control\Command $commands = NULL) {
     if (isset($commands)) {
       $this->_commands = $commands;
     } elseif (NULL === $this->_commands) {
@@ -83,10 +83,10 @@ abstract class Part extends \PapayaUiControlInteractive {
    *
    * @param string $name
    * @param string $default
-   * @return \PapayaUiControlCommandController
+   * @return \Papaya\Ui\Control\Command\Controller
    */
   protected function _createCommands($name = 'cmd', $default = 'show') {
-    $commands = new \PapayaUiControlCommandController($name, $default);
+    $commands = new \Papaya\Ui\Control\Command\Controller($name, $default);
     $commands->owner($this);
     return $commands;
   }

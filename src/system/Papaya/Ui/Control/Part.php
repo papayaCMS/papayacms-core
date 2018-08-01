@@ -13,38 +13,43 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control;
 /**
-* Abstract superclass implementing basic features for user interface control parts.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiControlPart extends \Papaya\Application\BaseObject implements \Papaya\Xml\Appendable {
+ * Abstract superclass implementing basic features for user interface control parts.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Part
+  extends \Papaya\Application\BaseObject
+  implements \Papaya\Xml\Appendable {
 
   /**
-  * Allows to declare dynamic properties with optional getter/setter methods. The read and write
-  * options can be methods or properties. If no write option is provided the property is read only.
-  *
-  * array(
-  *   'propertyName' => array('read', 'write')
-  * )
-  *
-  * @var array
-  */
+   * Allows to declare dynamic properties with optional getter/setter methods. The read and write
+   * options can be methods or properties. If no write option is provided the property is read only.
+   *
+   * array(
+   *   'propertyName' => array('read', 'write')
+   * )
+   *
+   * @var array
+   */
   protected $_declaredProperties = array();
 
 
   /**
-  * Validate dynamic property against the declared properties array. Call getter method or read
-  * protected property.
-  *
-  * @throws \UnexpectedValueException
-  * @param string $name
-  * @return mixed
-  */
+   * Validate dynamic property against the declared properties array. Call getter method or read
+   * protected property.
+   *
+   * @throws \UnexpectedValueException
+   * @param string $name
+   * @return mixed
+   */
   public function __get($name) {
-    if (isset($this->_declaredProperties[$name]) &&
-        isset($this->_declaredProperties[$name][0])) {
+    if (
+      isset($this->_declaredProperties[$name]) &&
+      isset($this->_declaredProperties[$name][0])
+    ) {
       $read = $this->_declaredProperties[$name][0];
       if (method_exists($this, $read)) {
         return $this->$read();
@@ -70,16 +75,16 @@ abstract class PapayaUiControlPart extends \Papaya\Application\BaseObject implem
   }
 
   /**
-  * Validate dynamic property against the declared properties array. Call setter method or write
-  * protected property.
-  *
-  * @throws \UnexpectedValueException
-  * @param string $name
-  * @param mixed $value
-  */
+   * Validate dynamic property against the declared properties array. Call setter method or write
+   * protected property.
+   *
+   * @throws \UnexpectedValueException
+   * @param string $name
+   * @param mixed $value
+   */
   public function __set($name, $value) {
     if (isset($this->_declaredProperties[$name]) &&
-        isset($this->_declaredProperties[$name][1])) {
+      isset($this->_declaredProperties[$name][1])) {
       $write = $this->_declaredProperties[$name][1];
       if (method_exists($this, $write)) {
         $this->$write($value);
@@ -97,7 +102,7 @@ abstract class PapayaUiControlPart extends \Papaya\Application\BaseObject implem
         );
       }
     } elseif (isset($this->_declaredProperties[$name]) &&
-              isset($this->_declaredProperties[$name][0])) {
+      isset($this->_declaredProperties[$name][0])) {
       throw new \UnexpectedValueException(
         sprintf(
           'Invalid declaration: Can not write readonly property "%s::$%s".',

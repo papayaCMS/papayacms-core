@@ -20,7 +20,7 @@ namespace Papaya\Ui\Content;
  * @package Papaya-Library
  * @subpackage Ui-Content
  */
-class Teasers extends \PapayaUiControl {
+class Teasers extends \Papaya\Ui\Control {
 
   private $_pages = NULL;
   private $_reference = NULL;

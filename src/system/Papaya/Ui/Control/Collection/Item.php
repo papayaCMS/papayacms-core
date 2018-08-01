@@ -13,32 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Collection;
 /**
-* A abstract superclass for collection items. This class provides access to the collection and
-* the position of the item in the collection.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiControlCollectionItem extends \PapayaUiControl {
+ * A abstract superclass for collection items. This class provides access to the collection and
+ * the position of the item in the collection.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Item extends \Papaya\Ui\Control {
 
   /**
-  * Position of item in the collection
-  *
-  * @var integer
-  */
+   * Position of item in the collection
+   *
+   * @var integer
+   */
   private $_index = 0;
 
   /**
-  * Owner collection of the item
-  *
-  * @var \PapayaUicontrolCollection
-  */
+   * Owner collection of the item
+   *
+   * @var \Papaya\Ui\Control\Collection
+   */
   private $_collection = NULL;
 
   /**
-  * Return TRUE if the item is part of a collection.
-  */
+   * Return TRUE if the item is part of a collection.
+   */
   public function hasCollection() {
     return isset($this->_collection);
   }
@@ -47,10 +48,10 @@ abstract class PapayaUiControlCollectionItem extends \PapayaUiControl {
    * Return the owner collection of the item.
    *
    * @throws \BadMethodCallException
-   * @param \PapayaUiControlCollection $collection
-   * @return \PapayaUiControlCollection
+   * @param \Papaya\Ui\Control\Collection $collection
+   * @return \Papaya\Ui\Control\Collection
    */
-  public function collection(\PapayaUiControlCollection $collection = NULL) {
+  public function collection(\Papaya\Ui\Control\Collection $collection = NULL) {
     if (isset($collection)) {
       $this->_collection = $collection;
       $this->papaya($collection->papaya());
@@ -72,7 +73,7 @@ abstract class PapayaUiControlCollectionItem extends \PapayaUiControl {
    */
   public function index($index = NULL) {
     if (isset($index) &&
-        $index != $this->_index) {
+      $index != $this->_index) {
       \Papaya\Utility\Constraints::assertInteger($index);
       if ($this->collection()->get($index) === $this) {
         $this->_index = $index;

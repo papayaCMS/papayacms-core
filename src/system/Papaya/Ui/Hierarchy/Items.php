@@ -22,7 +22,7 @@
 * @property integer $limit limit the create links
 * @property \PapayaUiHierarchyItem $spacer a spacer replacing the items not shown
 */
-class PapayaUiHierarchyItems extends \PapayaUiControlCollection {
+class PapayaUiHierarchyItems extends \Papaya\Ui\Control\Collection {
 
   /**
   * Superclass for validation, only items of this class may be added.
@@ -32,7 +32,7 @@ class PapayaUiHierarchyItems extends \PapayaUiControlCollection {
 
   /**
   * If a tag name is provided, an additional element will be added in
-  * {@see \PapayaUiControlCollection::appendTo()) that will wrapp the items.
+  * {@see \Papaya\Ui\Control\PapayaUiControlCollection::appendTo()) that will wrapp the items.
   * @var string
   */
   protected $_tagName = 'items';

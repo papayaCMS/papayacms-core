@@ -32,7 +32,7 @@ class PapayaAdministrationPagesDependencyCommandChangeTest extends \PapayaTestCa
     $command = new Change();
     $condition = $command->createCondition();
     $this->assertInstanceOf(
-      \PapayaUiControlCommandCondition::class, $condition
+      \Papaya\Ui\Control\Command\Condition::class, $condition
     );
   }
 

@@ -21,7 +21,7 @@ namespace Papaya\Ui\Content\Teaser;
  * @package Papaya-Library
  * @subpackage Ui-Content
  */
-class Images extends \PapayaUiControl {
+class Images extends \Papaya\Ui\Control {
 
   /**
    * thumbnail width

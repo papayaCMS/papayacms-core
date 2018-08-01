@@ -24,7 +24,7 @@ use Papaya\Administration\Pages\Dependency\Changer;
  * @subpackage Administration
  */
 class Delete
-  extends \PapayaUiControlCommandDialog {
+  extends \Papaya\Ui\Control\Command\Dialog {
 
   /**
    * Create confirmation dialog and assign callback for confirmation message.

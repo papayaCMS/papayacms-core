@@ -31,7 +31,7 @@
 * @property \PapayaUiReference $reference
 * @property \PapayaUiListviewItemNode $node
 */
-class PapayaUiListviewItem extends \PapayaUiControlCollectionItem {
+class PapayaUiListviewItem extends \Papaya\Ui\Control\Collection\Item {
 
   /**
   * Subitems collection
@@ -179,10 +179,10 @@ class PapayaUiListviewItem extends \PapayaUiControlCollectionItem {
   /**
   * Return the collection for the item, overload for code completion and type check
   *
-  * @param \PapayaUiListviewItems|\PapayaUiControlCollection $items
-  * @return \PapayaUiListviewItems|\PapayaUiControlCollection
+  * @param \PapayaUiListviewItems|\Papaya\Ui\Control\Collection $items
+  * @return \PapayaUiListviewItems|\Papaya\Ui\Control\Collection
   */
-  public function collection(\PapayaUiControlCollection $items = NULL) {
+  public function collection(\Papaya\Ui\Control\Collection $items = NULL) {
     \Papaya\Utility\Constraints::assertInstanceOfOrNull(\PapayaUiListviewItems::class, $items);
     return parent::collection($items);
   }

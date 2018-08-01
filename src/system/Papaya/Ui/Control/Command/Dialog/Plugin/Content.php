@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command\Dialog\Plugin;
 /**
-* A command that executes a dialog. After dialog creation, and after successfull/failed execution
-* callbacks are executed. This class adds read and write the data to an plugin content object
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiControlCommandDialogPluginContent extends \PapayaUiControlCommandDialog {
+ * A command that executes a dialog. After dialog creation, and after successfull/failed execution
+ * callbacks are executed. This class adds read and write the data to an plugin content object
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Content extends \Papaya\Ui\Control\Command\Dialog {
 
-  private $_content = NULL;
+  private $_content;
 
   /**
    * This dialog command uses database record objects
@@ -36,18 +37,18 @@ class PapayaUiControlCommandDialogPluginContent extends \PapayaUiControlCommandD
   /**
    * Getter/Setter for the database record
    *
-   * @return NULL|\Papaya\Plugin\Editable\Content
+   * @return \Papaya\Plugin\Editable\Content
    */
   public function getContent() {
     return $this->_content;
   }
 
   /**
-  * Execute command and append result to output xml
-  *
-  * @param \Papaya\Xml\Element
-  * @return \Papaya\Xml\Element
-  */
+   * Execute command and append result to output xml
+   *
+   * @param \Papaya\Xml\Element
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $showDialog = TRUE;
     $dialog = $this->dialog();
@@ -66,7 +67,8 @@ class PapayaUiControlCommandDialogPluginContent extends \PapayaUiControlCommandD
 
   /**
    * Create the dialog object and assign the content data to it.
-   * @see \PapayaUiControlCommandDialog::createDialog()
+   *
+   * @see \Papaya\Ui\Control\Command\Dialog::createDialog()
    * @return \PapayaUiDialog
    */
   protected function createDialog() {

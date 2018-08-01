@@ -23,7 +23,7 @@ use Papaya\Content\Structure;
  * @subpackage Administration
  */
 class Dialog
-  extends \PapayaUiControlCommandDialogDatabaseRecord {
+  extends \Papaya\Ui\Control\Command\Dialog\Database\Record {
 
   /**
    * @var \Papaya\Content\Structure\Page
@@ -45,7 +45,7 @@ class Dialog
   /**
    * Create dialog and add fields for the dynamic values defined by the current theme values page
    *
-   * @see \PapayaUiControlCommandDialog::createDialog()
+   * @see \Papaya\Ui\Control\Command\Dialog::createDialog()
    * @return \PapayaUiDialog
    */
   public function createDialog() {

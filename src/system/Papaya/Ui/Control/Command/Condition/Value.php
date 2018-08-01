@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command\Condition;
 /**
-* A command condition based on a value.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiControlCommandConditionValue extends \PapayaUiControlCommandCondition {
+ * A command condition based on a value.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Value extends \Papaya\Ui\Control\Command\Condition {
 
   /**
-  * member variable to store the value
-  *
-  * @var boolean
-  */
-  private $_value = NULL;
+   * member variable to store the value
+   *
+   * @var boolean
+   */
+  private $_value;
 
   /**
    * Create object and store callback.
@@ -39,10 +40,10 @@ class PapayaUiControlCommandConditionValue extends \PapayaUiControlCommandCondit
   }
 
   /**
-  * Execute callback and return value.
-  *
-  * @return boolean
-  */
+   * Execute callback and return value.
+   *
+   * @return boolean
+   */
   public function validate() {
     return $this->_value;
   }

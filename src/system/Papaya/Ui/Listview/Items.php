@@ -20,7 +20,7 @@
 * @subpackage Ui
 */
 class PapayaUiListviewItems
-  extends \PapayaUiControlCollection {
+  extends \Papaya\Ui\Control\Collection {
 
   /**
   * Only {@see \PapayaUiListviewItem} objects are allowed in this list
@@ -31,7 +31,7 @@ class PapayaUiListviewItems
 
   /**
   * If a tag name is provided, an additional element will be added in
-  * {@see \PapayaUiControlCollection::appendTo()) that will wrapp the items.
+  * {@see \Papaya\Ui\Control\PapayaUiControlCollection::appendTo()) that will wrapp the items.
   * @var string
   */
   protected $_tagName = 'items';

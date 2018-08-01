@@ -19,7 +19,7 @@
 * @package Papaya-Library
 * @subpackage Ui
 */
-class PapayaUiSheet extends \PapayaUiControl {
+class PapayaUiSheet extends \Papaya\Ui\Control {
 
   private $_title = '';
 

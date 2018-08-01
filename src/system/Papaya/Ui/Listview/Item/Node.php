@@ -32,7 +32,7 @@
 * @property \PapayaUiReference $reference
 * @property-read \PapayaUiListviewItem $item
 */
-class PapayaUiListviewItemNode extends \PapayaUiControl {
+class PapayaUiListviewItemNode extends \Papaya\Ui\Control {
 
   const NODE_HIDDEN = 0;
   const NODE_EMPTY = 1;

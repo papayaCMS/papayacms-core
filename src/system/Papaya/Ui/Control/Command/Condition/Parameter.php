@@ -13,48 +13,49 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Control\Command\Condition;
 /**
-* A command condition testing a request parameter.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiControlCommandConditionParameter extends \PapayaUiControlCommandCondition {
+ * A command condition testing a request parameter.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Parameter extends \Papaya\Ui\Control\Command\Condition {
 
   /**
-  * The parameter name
-  *
-  * @var string|array|\Papaya\Request\Parameters\Name
-  */
-  private $_parameterName = NULL;
+   * The parameter name
+   *
+   * @var string|array|\Papaya\Request\Parameters\Name
+   */
+  private $_parameterName;
 
   /**
-  * the filter object
-  *
-  * @var \Papaya\Filter
-  */
-  private $_filter = NULL;
+   * the filter object
+   *
+   * @var \Papaya\Filter
+   */
+  private $_filter;
 
   /**
-  * Create object, store parameter and filter.
-  *
-  * @param string|array|\Papaya\Request\Parameters\Name $parameterName
-  * @param \Papaya\Filter $filter
-  */
+   * Create object, store parameter and filter.
+   *
+   * @param string|array|\Papaya\Request\Parameters\Name $parameterName
+   * @param \Papaya\Filter $filter
+   */
   public function __construct($parameterName, \Papaya\Filter $filter) {
     $this->_parameterName = $parameterName;
     $this->_filter = $filter;
   }
 
   /**
-  * Validate the condition by fetch the parameter value and filtering it. If it is not NULL
-  * it is a usable value.
-  *
-  * @return boolean
-  */
+   * Validate the condition by fetch the parameter value and filtering it. If it is not NULL
+   * it is a usable value.
+   *
+   * @return boolean
+   */
   public function validate() {
     return NULL !== $this->_filter->filter(
-      $this->command()->owner()->parameters()->get($this->_parameterName)
-    );
+        $this->command()->owner()->parameters()->get($this->_parameterName)
+      );
   }
 }

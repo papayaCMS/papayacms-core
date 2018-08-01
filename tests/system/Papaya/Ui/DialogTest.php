@@ -986,9 +986,9 @@ class PapayaUiDialogTest extends \PapayaTestCase {
 
   public static function provideMethodsAndStringRepresentations() {
     return array(
-      array('post', \PapayaUiControlInteractive::METHOD_POST),
-      array('get', \PapayaUiControlInteractive::METHOD_GET),
-      array('post', \PapayaUiControlInteractive::METHOD_MIXED)
+      array('post', \Papaya\Ui\Control\Interactive::METHOD_POST),
+      array('get', \Papaya\Ui\Control\Interactive::METHOD_GET),
+      array('post', \Papaya\Ui\Control\Interactive::METHOD_MIXED)
     );
   }
 

@@ -26,7 +26,7 @@
 * @property array $actionParameters
 * @property \PapayaUiReference $reference
 */
-class PapayaUiIcon extends \PapayaUiControl {
+class PapayaUiIcon extends \Papaya\Ui\Control {
 
   /**
   * internal reference object buffer
