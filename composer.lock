@@ -219,12 +219,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/papayaCMS/papayacms-test-framework.git",
-                "reference": "c7670c47054cd8dd775ed00675a6dfcd5c38c3bb"
+                "reference": "1ae254fe73a3863a490065c5ce4769e9c47833b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/papayaCMS/papayacms-test-framework/zipball/c7670c47054cd8dd775ed00675a6dfcd5c38c3bb",
-                "reference": "c7670c47054cd8dd775ed00675a6dfcd5c38c3bb",
+                "url": "https://api.github.com/repos/papayaCMS/papayacms-test-framework/zipball/1ae254fe73a3863a490065c5ce4769e9c47833b9",
+                "reference": "1ae254fe73a3863a490065c5ce4769e9c47833b9",
                 "shasum": ""
             },
             "type": "library",
@@ -239,7 +239,7 @@
             ],
             "description": "papaya CMS unittest framework",
             "homepage": "http://www.papaya-cms.com/",
-            "time": "2018-04-25T17:40:45+00:00"
+            "time": "2018-08-01T13:24:49+00:00"
         },
         {
             "name": "papaya/theme-dynamic",
