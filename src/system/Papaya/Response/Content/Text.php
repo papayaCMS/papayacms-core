@@ -37,7 +37,7 @@ class Text implements \Papaya\Response\Content {
    * @param string $contentString
    */
   public function __construct($contentString) {
-    \PapayaUtilConstraints::assertString($contentString);
+    \Papaya\Utility\Constraints::assertString($contentString);
     $this->_content = $contentString;
   }
 

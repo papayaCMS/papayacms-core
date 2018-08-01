@@ -70,7 +70,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
           'parent' => 21,
           'path' => array(0, 1, 23),
           'title' => 'Sample Title',
-          'scheme' => \PapayaUtilServerProtocol::HTTPS,
+          'scheme' => \Papaya\Utility\Server\Protocol::HTTPS,
           'linktype_id' => 1
         )
       )
@@ -197,7 +197,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
           array(
             1 => array(
               'id' => 1,
-              'scheme' => \PapayaUtilServerProtocol::HTTP,
+              'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
               'host' => 'www.success.tld',
               'language_id' => '0',
               'group_id' => '0'
@@ -212,7 +212,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         $this->returnValue(
           array(
             'id' => 2,
-            'scheme' => \PapayaUtilServerProtocol::HTTP,
+            'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
             'host' => 'www.failed.tld',
             'language_id' => '0',
             'group_id' => '0'
@@ -260,7 +260,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
           array(
             1 => array(
               'id' => 1,
-              'scheme' => \PapayaUtilServerProtocol::BOTH,
+              'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
               'host' => 'www.success.tld',
               'language_id' => '0',
               'group_id' => '0'
@@ -275,7 +275,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         $this->returnValue(
           array(
             'id' => 2,
-            'scheme' => \PapayaUtilServerProtocol::BOTH,
+            'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
             'host' => 'www.failed.tld',
             'language_id' => '0',
             'group_id' => '0'
@@ -385,7 +385,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         $this->returnValue(
           array(
             'id' => 2,
-            'scheme' => \PapayaUtilServerProtocol::HTTP,
+            'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
             'host' => 'www.failed.tld',
             'language_id' => '0',
             'group_id' => '0'
@@ -508,7 +508,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
           array(
             1 => array(
               'id' => 1,
-              'scheme' => \PapayaUtilServerProtocol::HTTP,
+              'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
               'host' => 'www.success.tld',
               'language_id' => '0',
               'group_id' => '0'
@@ -523,7 +523,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         $this->returnValue(
           array(
             'id' => 1,
-            'scheme' => \PapayaUtilServerProtocol::HTTP,
+            'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
             'host' => 'www.success.tld',
             'language_id' => '0',
             'group_id' => '0'
@@ -558,7 +558,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         $this->returnValue(
           array(
             'id' => 1,
-            'scheme' => \PapayaUtilServerProtocol::HTTP,
+            'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
             'host' => 'www.success.tld',
             'language_id' => '0',
             'group_id' => '0'
@@ -641,7 +641,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
           array(
             1 => array(
               'id' => 1,
-              'scheme' => \PapayaUtilServerProtocol::HTTP,
+              'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
               'host' => 'www.success.tld',
               'language_id' => '0',
               'group_id' => '0'
@@ -656,7 +656,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         $this->returnValue(
           array(
             'id' => 2,
-            'scheme' => \PapayaUtilServerProtocol::HTTP,
+            'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
             'host' => 'www.failed.tld',
             'language_id' => '0',
             'group_id' => '0'
@@ -672,7 +672,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
     $this->assertEquals(
       array(
         'id' => 1,
-        'scheme' => \PapayaUtilServerProtocol::HTTP,
+        'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
         'host' => 'www.success.tld',
         'language_id' => '0',
         'group_id' => '0'
@@ -1201,7 +1201,7 @@ class PapayaUiReferencePageFactoryTest extends \PapayaTestCase {
         'parent' => 21,
         'path' => array(0, 1, 23),
         'title' => 'Sample Title',
-        'scheme' => \PapayaUtilServerProtocol::BOTH,
+        'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
         'linktype_id' => 1
       );
     }

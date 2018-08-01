@@ -164,8 +164,8 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   * @param string $id
   */
   public function setId($id) {
-    \PapayaUtilConstraints::assertString($id);
-    \PapayaUtilConstraints::assertNotEmpty($id);
+    \Papaya\Utility\Constraints::assertString($id);
+    \Papaya\Utility\Constraints::assertNotEmpty($id);
     $this->_id = $id;
   }
 
@@ -190,8 +190,8 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   * @param string $name
   */
   public function setName($name) {
-    \PapayaUtilConstraints::assertString($name);
-    \PapayaUtilConstraints::assertNotEmpty($name);
+    \Papaya\Utility\Constraints::assertString($name);
+    \Papaya\Utility\Constraints::assertNotEmpty($name);
     $this->_name = $name;
   }
 

@@ -110,7 +110,7 @@ abstract class Records
    */
   public function assign($data) {
     $this->_records = array();
-    foreach (\PapayaUtilArray::ensure($data) as $id => $row) {
+    foreach (\Papaya\Utility\Arrays::ensure($data) as $id => $row) {
       $record = array();
       foreach ($row as $field => $value) {
         if (in_array($field, $this->_fieldMapping)) {

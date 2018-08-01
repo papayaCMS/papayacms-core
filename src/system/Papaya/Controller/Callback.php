@@ -34,7 +34,7 @@ class Callback implements \Papaya\Controller {
    * elements of that list.
    */
   public function __construct($callback) {
-    \PapayaUtilConstraints::assertCallable($callback);
+    \Papaya\Utility\Constraints::assertCallable($callback);
     $this->_callback = $callback;
   }
 

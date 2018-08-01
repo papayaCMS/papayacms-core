@@ -30,7 +30,7 @@ class PapayaUiSheetSubtitles extends \PapayaUiControlCollection {
    */
   public function __construct($subtitles = NULL) {
     if (NULL !== $subtitles) {
-      \PapayaUtilConstraints::assertArrayOrTraversable($subtitles);
+      \Papaya\Utility\Constraints::assertArrayOrTraversable($subtitles);
       /** @var array|\Traversable $subtitles */
       foreach ($subtitles as $subtitle) {
         if (is_string($subtitle) || method_exists($subtitle, '__toString')) {

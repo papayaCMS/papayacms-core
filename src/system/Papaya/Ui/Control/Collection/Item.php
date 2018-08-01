@@ -73,7 +73,7 @@ abstract class PapayaUiControlCollectionItem extends \PapayaUiControl {
   public function index($index = NULL) {
     if (isset($index) &&
         $index != $this->_index) {
-      \PapayaUtilConstraints::assertInteger($index);
+      \Papaya\Utility\Constraints::assertInteger($index);
       if ($this->collection()->get($index) === $this) {
         $this->_index = $index;
       } else {

@@ -60,7 +60,7 @@ class NumberWithUnit implements \Papaya\Filter {
    * @param string $algebraicSign (optional)
    */
   public function __construct($units, $minimum = NULL, $maximum = NULL, $algebraicSign = NULL) {
-    \PapayaUtilConstraints::assertNotEmpty($units);
+    \Papaya\Utility\Constraints::assertNotEmpty($units);
     if (!is_array($units)) {
       $units = array($units);
     }

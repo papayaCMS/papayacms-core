@@ -28,7 +28,7 @@ class Group
   private $_page = NULL;
 
   public function __construct($page) {
-    \PapayaUtilConstraints::assertObject($page);
+    \Papaya\Utility\Constraints::assertObject($page);
     $this->_page = $page;
     $this->_options = new \Papaya\BaseObject\Parameters([]);
   }
@@ -74,7 +74,7 @@ class Group
       if ($filter instanceof \Papaya\Plugin\Filter\Content) {
         $result = $filter->applyTo($result);
       } elseif (method_exists($filter, 'applyFilterData')) {
-        $result = \PapayaUtilStringXml::repairEntities($filter->applyFilterData($result));
+        $result = \Papaya\Utility\Text\Xml::repairEntities($filter->applyFilterData($result));
       }
     }
     return $result;
@@ -86,7 +86,7 @@ class Group
         $parent->append($filter);
       } elseif (method_exists($filter, 'getFilterData')) {
         $parent->appendXml(
-          $filter->getFilterData(\PapayaUtilArray::ensure(iterator_to_array($this->_options)))
+          $filter->getFilterData(\Papaya\Utility\Arrays::ensure(iterator_to_array($this->_options)))
         );
       }
     }

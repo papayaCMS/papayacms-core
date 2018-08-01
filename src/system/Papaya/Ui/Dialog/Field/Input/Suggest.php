@@ -81,7 +81,7 @@ class PapayaUiDialogFieldInputSuggest extends \PapayaUiDialogFieldInput {
    */
 
   public function setSuggestionUrl($url) {
-    \PapayaUtilConstraints::assertNotEmpty($url);
+    \Papaya\Utility\Constraints::assertNotEmpty($url);
     $this->_suggestionData['url'] = $url;
   }
 

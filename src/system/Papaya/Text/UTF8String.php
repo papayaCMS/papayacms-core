@@ -176,7 +176,7 @@ class UTF8String implements \Iterator, \ArrayAccess {
    * @return int
    */
   public function setMode($mode) {
-    $this->_allowModes = \PapayaUtilArray::ensure($mode);
+    $this->_allowModes = \Papaya\Utility\Arrays::ensure($mode);
     $this->_mode = NULL;
     $this->_length = NULL;
     return $this->getMode();

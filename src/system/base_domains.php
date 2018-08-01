@@ -169,7 +169,7 @@ class base_domains extends base_db {
     }
     if (isset($protocol) && $protocol > 0 && $protocol <= 2) {
       $protocol = (int)$protocol;
-    } elseif (\PapayaUtilServerProtocol::isSecure()) {
+    } elseif (\Papaya\Utility\Server\Protocol::isSecure()) {
       $protocol = 2;
     } else {
       $protocol = 1;
@@ -299,7 +299,7 @@ class base_domains extends base_db {
         //load domain options
         if (isset($domainData['domain_options']) && trim($domainData['domain_options']) != '') {
           $this->papaya()->options->assign(
-            \PapayaUtilStringXml::unserializeArray($domainData['domain_options'])
+            \Papaya\Utility\Text\Xml::unserializeArray($domainData['domain_options'])
           );
         }
         break;
@@ -350,7 +350,7 @@ class base_domains extends base_db {
   * @return string
   */
   function getHTTPProtocol() {
-    return \PapayaUtilServerProtocol::get();
+    return \Papaya\Utility\Server\Protocol::get();
   }
 
   /**

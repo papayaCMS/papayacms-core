@@ -99,15 +99,15 @@ class Writer {
         $this->_stream = $value;
       break;
       case 'linebreak' :
-        \PapayaUtilConstraints::assertString($value);
+        \Papaya\Utility\Constraints::assertString($value);
         $this->_linebreak = $value;
       break;
       case 'encodedLinebreak' :
-        \PapayaUtilConstraints::assertString($value);
+        \Papaya\Utility\Constraints::assertString($value);
         $this->_encodedLinebreak = $value;
       break;
       case 'separator' :
-        \PapayaUtilConstraints::assertString($value);
+        \Papaya\Utility\Constraints::assertString($value);
         $this->_separator = $value;
         $this->_separatorLength = strlen($this->_separator);
       break;
@@ -116,7 +116,7 @@ class Writer {
           sprintf('Can not write read only property "%s".', $name)
         );
       case 'quote' :
-        \PapayaUtilConstraints::assertString($value);
+        \Papaya\Utility\Constraints::assertString($value);
         $this->_quote = $value;
       break;
       default :
@@ -157,7 +157,7 @@ class Writer {
    * @param array|\Traversable $list
    */
   public function writeList($list) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($list);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($list);
     foreach ($list as $row) {
       $this->writeRow($row);
     }

@@ -19,14 +19,14 @@ class PapayaUtilStringPapayaTest extends \PapayaTestCase {
 
   /**
    * @dataProvider getImageTagDataProvider
-   * @covers \PapayaUtilStringPapaya::getImageTag
+   * @covers \Papaya\Utility\Text\Papaya::getImageTag
    * @param string $expected
    * @param array $parameters
    */
   public function testGetImageTag($expected, array $parameters) {
     $this->assertEquals(
       $expected,
-      \PapayaUtilStringPapaya::getImageTag(
+      \Papaya\Utility\Text\Papaya::getImageTag(
         $parameters['str'],
         $parameters['width'],
         $parameters['height'],

@@ -18,27 +18,27 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilRandomTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUtilRandom::rand
+  * @covers \Papaya\Utility\Random::rand
   */
   public function testRand() {
-    $random = \PapayaUtilRandom::rand();
+    $random = \Papaya\Utility\Random::rand();
     $this->assertGreaterThanOrEqual(0, $random);
   }
 
   /**
-  * @covers \PapayaUtilRandom::rand
+  * @covers \Papaya\Utility\Random::rand
   */
   public function testRandWithLimits() {
-    $random = \PapayaUtilRandom::rand(1, 1);
+    $random = \Papaya\Utility\Random::rand(1, 1);
     $this->assertGreaterThanOrEqual(1, $random);
   }
 
   /**
-  * @covers \PapayaUtilRandom::getId
+  * @covers \Papaya\Utility\Random::getId
   */
   public function testGetId() {
-    $idOne = \PapayaUtilRandom::getId();
-    $idTwo = \PapayaUtilRandom::getId();
+    $idOne = \Papaya\Utility\Random::getId();
+    $idTwo = \Papaya\Utility\Random::getId();
     $this->assertNotEquals($idOne, $idTwo);
   }
 }

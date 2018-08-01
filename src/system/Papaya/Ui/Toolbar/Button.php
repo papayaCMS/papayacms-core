@@ -94,7 +94,7 @@ class PapayaUiToolbarButton extends \PapayaUiToolbarElement {
    * @throws \InvalidArgumentException
    */
   public function setAccessKey($key) {
-    \PapayaUtilConstraints::assertString($key);
+    \Papaya\Utility\Constraints::assertString($key);
     if (strlen($key) == 1) {
       $this->_accessKey = $key;
     } else {

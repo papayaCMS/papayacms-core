@@ -434,7 +434,7 @@ class base_surfer extends base_db {
   * @return mixed
   */
   public function __get($name) {
-    $identifer = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $identifer = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     switch ($identifer) {
     case 'id' :
       return $this->surferId;

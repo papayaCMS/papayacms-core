@@ -91,7 +91,7 @@ abstract class PapayaUiMessage
   * @param integer $severity
   */
   public function setSeverity($severity) {
-    \PapayaUtilConstraints::assertInteger($severity);
+    \Papaya\Utility\Constraints::assertInteger($severity);
     if (!array_key_exists($severity, $this->_tagNames)) {
       throw new \InvalidArgumentException('Invalid severity for message.');
     }
@@ -105,7 +105,7 @@ abstract class PapayaUiMessage
   */
   public function setEvent($event) {
     $event = (string)$event;
-    \PapayaUtilConstraints::assertNotEmpty($event);
+    \Papaya\Utility\Constraints::assertNotEmpty($event);
     $this->_event = $event;
   }
 

@@ -33,7 +33,7 @@ class PapayaUiDialogFieldSelectLanguage extends \PapayaUiDialogFieldSelect {
     }
     // @codeCoverageIgnoreEnd
     $items = array();
-    if (\PapayaUtilBitwise::inBitmask(self::OPTION_USE_IDENTIFIER, $options)) {
+    if (\Papaya\Utility\Bitwise::inBitmask(self::OPTION_USE_IDENTIFIER, $options)) {
       foreach ($languages as $language) {
         $items[$language['identifier']] = $language;
       }
@@ -42,7 +42,7 @@ class PapayaUiDialogFieldSelectLanguage extends \PapayaUiDialogFieldSelect {
       $items = $languages;
       $any = 0;
     }
-    if (\PapayaUtilBitwise::inBitmask(self::OPTION_ALLOW_ANY, $options)) {
+    if (\Papaya\Utility\Bitwise::inBitmask(self::OPTION_ALLOW_ANY, $options)) {
       $values = new \Papaya\Iterator\Union(
         \Papaya\Iterator\Union::MIT_KEYS_ASSOC,
         array($any => new \PapayaUiStringTranslated('Any')),

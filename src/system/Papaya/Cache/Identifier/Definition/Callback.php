@@ -27,7 +27,7 @@ class Callback
   private $_data = NULL;
 
   public function __construct($callback) {
-    \PapayaUtilConstraints::assertCallable($callback);
+    \Papaya\Utility\Constraints::assertCallable($callback);
     $this->_callback = $callback;
   }
 

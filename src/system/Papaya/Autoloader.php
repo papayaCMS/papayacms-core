@@ -102,7 +102,10 @@ class Autoloader {
     'PapayaRequestParametersInterface' => Request\Parameters\Access::class,
     'PapayaRequestParametersQuery' => Request\Parameters\QueryString::class,
 
-    'PapayaStringUtf8' => Text\UTF8String::class
+    'PapayaStringUtf8' => Text\UTF8String::class,
+
+    'PapayaUtilArrayMapper' => Utility\ArrayMapper::class,
+    'PapayaUtilArray' => Papaya\Utility\Arrays::class
   );
 
   private static $_mapParts = array(
@@ -120,7 +123,8 @@ class Autoloader {
     'Anchestors' => 'Ancestors',
     'Csv' => 'CSV',
     'Php' => 'PHP',
-    'Regex' => 'RegEx'
+    'Regex' => 'RegEx',
+    'Util' => 'Utility'
   );
 
   /**
@@ -258,7 +262,7 @@ class Autoloader {
   */
   public static function registerPath($modulePrefix, $modulePath) {
     self::$_paths[self::prepareFileName($modulePrefix).'/'] =
-      \PapayaUtilFilePath::cleanup($modulePath);
+      \Papaya\Utility\File\Path::cleanup($modulePath);
     uksort(self::$_paths, array('self', 'compareByCharacterLength'));
   }
 

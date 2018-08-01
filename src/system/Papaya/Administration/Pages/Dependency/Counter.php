@@ -52,7 +52,7 @@ class Counter extends \Papaya\Database\BaseObject {
    * @param integer $pageId
    */
   public function __construct($pageId) {
-    \PapayaUtilConstraints::assertInteger($pageId);
+    \Papaya\Utility\Constraints::assertInteger($pageId);
     $this->_pageId = $pageId;
   }
 

@@ -158,7 +158,7 @@ class Request
    * @return mixed
    */
   public function __get($name) {
-    $name = \PapayaUtilStringIdentifier::toCamelCase($name);
+    $name = Utility\Text\Identifier::toCamelCase($name);
     switch ($name) {
       case 'url' :
         return $this->getUrl();
@@ -209,7 +209,7 @@ class Request
    * @throws \LogicException
    */
   public function __set($name, $value) {
-    $name = \PapayaUtilStringIdentifier::toCamelCase($name);
+    $name = Utility\Text\Identifier::toCamelCase($name);
     switch ($name) {
       case 'language' :
         $this->language($value);
@@ -396,7 +396,7 @@ class Request
     foreach ($this->_parsers as $parser) {
       /** @var \Papaya\Request\Parser $parser */
       if ($requestData = $parser->parse($url)) {
-        $this->_pathData = \PapayaUtilArray::merge(
+        $this->_pathData = \Papaya\Utility\Arrays::merge(
           $this->_pathData,
           $requestData
         );

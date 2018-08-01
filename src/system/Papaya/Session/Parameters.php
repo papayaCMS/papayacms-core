@@ -77,7 +77,7 @@ class Parameters extends \Papaya\Application\BaseObject {
       $value = $this->parameters()->get($name, $default, $filter);
       $this->values()->set($sessionName, $value);
       if ($sessionValue != $value && !empty($dependencies)) {
-        foreach (\PapayaUtilArray::ensure($dependencies) as $dependency) {
+        foreach (\Papaya\Utility\Arrays::ensure($dependencies) as $dependency) {
           $this->remove($dependency);
         }
       }

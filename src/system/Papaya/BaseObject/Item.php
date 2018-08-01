@@ -40,7 +40,7 @@ class Item
    */
   public function __construct(array $properties) {
     foreach ($properties as $name) {
-      $this->_values[\PapayaUtilStringIdentifier::toUnderscoreLower($name)] = NULL;
+      $this->_values[\Papaya\Utility\Text\Identifier::toUnderscoreLower($name)] = NULL;
     }
   }
 
@@ -59,7 +59,7 @@ class Item
       );
     }
     foreach ($data as $name => $value) {
-      $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+      $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
       if (array_key_exists($name, $this->_values)) {
         $this->_values[$name] = $value;
       }
@@ -142,7 +142,7 @@ class Item
    * @return boolean
    */
   public function offsetExists($name) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     return array_key_exists($name, $this->_values);
   }
 
@@ -188,7 +188,7 @@ class Item
    * @return string
    */
   private function _prepareName($name) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     if (!array_key_exists($name, $this->_values)) {
       throw new \OutOfBoundsException(
         sprintf(

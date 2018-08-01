@@ -110,11 +110,11 @@ class Runtime
     switch ($this->_mode) {
       case self::MODE_GLOBAL :
         $timeFromStart = $this->_currentTime - self::$_startTime;
-        $result .= 'Time: '.\PapayaUtilDate::periodToString($timeFromStart);
-        $result .= ' (+'.\PapayaUtilDate::periodToString($this->_neededTime).')';
+        $result .= 'Time: '.\Papaya\Utility\Date::periodToString($timeFromStart);
+        $result .= ' (+'.\Papaya\Utility\Date::periodToString($this->_neededTime).')';
       break;
       case self::MODE_SINGLE :
-        $result = 'Time needed: '.\PapayaUtilDate::periodToString($this->_neededTime);
+        $result = 'Time needed: '.\Papaya\Utility\Date::periodToString($this->_neededTime);
       break;
     }
     return $result;

@@ -18,104 +18,104 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilArrayTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUtilArray::merge
+   * @covers \Papaya\Utility\Arrays::merge
    * @dataProvider mergeDataProvider
    * @param array|NULL $arrayOne
    * @param array|NULL $arrayTwo
    * @param array|NULL $expected
    */
   public function testMerge($arrayOne, $arrayTwo, $expected) {
-    $actual = \PapayaUtilArray::merge($arrayOne, $arrayTwo);
+    $actual = \Papaya\Utility\Arrays::merge($arrayOne, $arrayTwo);
     $this->assertSame($expected, $actual);
   }
 
   /**
-   * @covers \PapayaUtilArray::ensure
+   * @covers \Papaya\Utility\Arrays::ensure
    * @dataProvider toArrayDataProvider
    * @param array $expected
    * @param mixed $input
    * @param bool $useKeys
    */
   public function testEnsure(array $expected, $input, $useKeys = TRUE) {
-    $this->assertSame($expected, \PapayaUtilArray::ensure($input, $useKeys));
+    $this->assertSame($expected, \Papaya\Utility\Arrays::ensure($input, $useKeys));
   }
 
   /**
-  * @covers \PapayaUtilArray::get
+  * @covers \Papaya\Utility\Arrays::get
   */
   public function testGetWithExistingElement() {
     $this->assertEquals(
-      'success', \PapayaUtilArray::get(array('test' => 'success'), 'test')
+      'success', \Papaya\Utility\Arrays::get(array('test' => 'success'), 'test')
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::get
+  * @covers \Papaya\Utility\Arrays::get
   */
   public function testGetWithListArgumentSecondIndexExists() {
     $this->assertEquals(
-      'success', \PapayaUtilArray::get(array('test' => 'success'), array('non-existing', 'test'))
+      'success', \Papaya\Utility\Arrays::get(array('test' => 'success'), array('non-existing', 'test'))
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::get
+  * @covers \Papaya\Utility\Arrays::get
   */
   public function testGetWithNonexistingElementFetchingDefault() {
     $this->assertEquals(
-      'success', \PapayaUtilArray::get(array('test' => 'fail'), 'sample', 'success')
+      'success', \Papaya\Utility\Arrays::get(array('test' => 'fail'), 'sample', 'success')
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::get
+  * @covers \Papaya\Utility\Arrays::get
   */
   public function testGetWithListArgumentFetchingDefault() {
     $this->assertEquals(
-      'success', \PapayaUtilArray::get(array('test' => 'fail'), array('sample', 99), 'success')
+      'success', \Papaya\Utility\Arrays::get(array('test' => 'fail'), array('sample', 99), 'success')
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::get
+  * @covers \Papaya\Utility\Arrays::get
   */
   public function testGetWithEmptyIndexFetchingDefault() {
     $this->assertEquals(
-      'success', \PapayaUtilArray::get(array(), NULL, 'success')
+      'success', \Papaya\Utility\Arrays::get(array(), NULL, 'success')
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::getRecursive
+  * @covers \Papaya\Utility\Arrays::getRecursive
   */
   public function testGetRecursiveElementFromTopLevel() {
     $this->assertEquals(
       1,
-      \PapayaUtilArray::getRecursive(
+      \Papaya\Utility\Arrays::getRecursive(
         array('key' => 1), array('key')
       )
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::getRecursive
+  * @covers \Papaya\Utility\Arrays::getRecursive
   */
   public function testGetRecursiveElementFromFirstSublevel() {
     $this->assertEquals(
       2,
-      \PapayaUtilArray::getRecursive(
+      \Papaya\Utility\Arrays::getRecursive(
         array('group' => array('key' => 2)), array('group', 'key')
       )
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::getRecursive
+  * @covers \Papaya\Utility\Arrays::getRecursive
   */
   public function testGetRecursiveElementFromSecondSublevel() {
     $this->assertEquals(
       3,
-      \PapayaUtilArray::getRecursive(
+      \Papaya\Utility\Arrays::getRecursive(
         array('group' => array('subgroup' => array('key' => 3))),
         array('group', 'subgroup', 'key')
       )
@@ -123,24 +123,24 @@ class PapayaUtilArrayTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUtilArray::getRecursive
+  * @covers \Papaya\Utility\Arrays::getRecursive
   */
   public function testGetRecursiveElementFromEmptyListExpectingDefault() {
     $this->assertEquals(
       'DEFAULT',
-      \PapayaUtilArray::getRecursive(
+      \Papaya\Utility\Arrays::getRecursive(
         array(), array('invalid-key'), 'DEFAULT'
       )
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::getRecursive
+  * @covers \Papaya\Utility\Arrays::getRecursive
   */
   public function testGetRecursiveInvalidElementExpectingDefault() {
     $this->assertEquals(
       'DEFAULT',
-      \PapayaUtilArray::getRecursive(
+      \Papaya\Utility\Arrays::getRecursive(
         array('group' => array('subgroup' => array('key' => 3))),
         array('group' => 'subgroup', 'invalid-key'),
         'DEFAULT'
@@ -149,87 +149,87 @@ class PapayaUtilArrayTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUtilArray::decodeIdList
+  * @covers \Papaya\Utility\Arrays::decodeIdList
   */
   public function testDecodeIdList() {
     $this->assertEquals(
-      array(21, 42), \PapayaUtilArray::decodeIdList(';21;42;')
+      array(21, 42), \Papaya\Utility\Arrays::decodeIdList(';21;42;')
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::decodeIdList
+  * @covers \Papaya\Utility\Arrays::decodeIdList
   */
   public function testDecodeIdListWithSign() {
     $this->assertEquals(
-      array(-21, 42), \PapayaUtilArray::decodeIdList(';-21;+42;')
+      array(-21, 42), \Papaya\Utility\Arrays::decodeIdList(';-21;+42;')
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::decodeIdList
+  * @covers \Papaya\Utility\Arrays::decodeIdList
   */
   public function testDecodeIdListWithEmptyStringExpectingEmptyArray() {
     $this->assertEquals(
-      array(), \PapayaUtilArray::decodeIdList('')
+      array(), \Papaya\Utility\Arrays::decodeIdList('')
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::encodeIdList
+  * @covers \Papaya\Utility\Arrays::encodeIdList
   */
   public function testEncodeIdList() {
     $this->assertEquals(
-      '21;42', \PapayaUtilArray::encodeIdList(array(21, 42))
+      '21;42', \Papaya\Utility\Arrays::encodeIdList(array(21, 42))
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::encodeIdList
+  * @covers \Papaya\Utility\Arrays::encodeIdList
   */
   public function testEncodeIdListWithCommaSeparator() {
     $this->assertEquals(
-      '21,42', \PapayaUtilArray::encodeIdList(array(21, 42), ',')
+      '21,42', \Papaya\Utility\Arrays::encodeIdList(array(21, 42), ',')
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::encodeAndQuoteIdList
+  * @covers \Papaya\Utility\Arrays::encodeAndQuoteIdList
   */
   public function testEncodeAndQuoteIdList() {
     $this->assertEquals(
-      ';21;42;', \PapayaUtilArray::encodeAndQuoteIdList(array(21, 42))
+      ';21;42;', \Papaya\Utility\Arrays::encodeAndQuoteIdList(array(21, 42))
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::encodeAndQuoteIdList
+  * @covers \Papaya\Utility\Arrays::encodeAndQuoteIdList
   */
   public function testEncodeAndQuoteIdListWithNonStandardCharacters() {
     $this->assertEquals(
-      '!21|42!', \PapayaUtilArray::encodeAndQuoteIdList(array(21, 42), '!', '|')
+      '!21|42!', \Papaya\Utility\Arrays::encodeAndQuoteIdList(array(21, 42), '!', '|')
     );
   }
 
   /**
-   * @covers \PapayaUtilArray::normalize
+   * @covers \Papaya\Utility\Arrays::normalize
    * @dataProvider provideDataForNormalize
    * @param mixed $expected
    * @param mixed $input
    */
   public function testNormalize($expected, $input) {
-    \PapayaUtilArray::normalize($input);
+    \Papaya\Utility\Arrays::normalize($input);
     $this->assertSame(
       $expected, $input
     );
   }
 
   /**
-  * @covers \PapayaUtilArray::normalize
+  * @covers \Papaya\Utility\Arrays::normalize
   */
   public function testNormalizeWithCallback() {
     $input = 23;
-    \PapayaUtilArray::normalize($input, function($value) { return 'success'.$value; });
+    \Papaya\Utility\Arrays::normalize($input, function($value) { return 'success'.$value; });
     $this->assertSame(
       'success23', $input
     );

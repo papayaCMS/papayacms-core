@@ -18,68 +18,68 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUtilStringIdentifierTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUtilStringIdentifier::toUnderscoreUpper
+  * @covers \Papaya\Utility\Text\Identifier::toUnderscoreUpper
   */
   public function testToUnderscoreUpper() {
     $this->assertEquals(
-      'SAMPLE_IDENTIFIER', \PapayaUtilStringIdentifier::toUnderscoreUpper('sampleIdentifier')
+      'SAMPLE_IDENTIFIER', \Papaya\Utility\Text\Identifier::toUnderscoreUpper('sampleIdentifier')
     );
   }
 
   /**
-  * @covers \PapayaUtilStringIdentifier::toUnderscoreLower
+  * @covers \Papaya\Utility\Text\Identifier::toUnderscoreLower
   */
   public function testToUnderscoreLower() {
     $this->assertEquals(
-      'sample_identifier', \PapayaUtilStringIdentifier::toUnderscoreLower('sampleIdentifier')
+      'sample_identifier', \Papaya\Utility\Text\Identifier::toUnderscoreLower('sampleIdentifier')
     );
   }
 
   /**
-  * @covers \PapayaUtilStringIdentifier::toCamelCase
+  * @covers \Papaya\Utility\Text\Identifier::toCamelCase
   */
   public function testToCamelCase() {
     $this->assertEquals(
-      'sampleIdentifier', \PapayaUtilStringIdentifier::toCamelCase('Sample_Identifier')
+      'sampleIdentifier', \Papaya\Utility\Text\Identifier::toCamelCase('Sample_Identifier')
     );
   }
 
   /**
-  * @covers \PapayaUtilStringIdentifier::toCamelCase
+  * @covers \Papaya\Utility\Text\Identifier::toCamelCase
   */
   public function testToCamelCaseWithUpperCaseFirstChar() {
     $this->assertEquals(
-      'SampleIdentifier', \PapayaUtilStringIdentifier::toCamelCase('Sample_Identifier', TRUE)
+      'SampleIdentifier', \Papaya\Utility\Text\Identifier::toCamelCase('Sample_Identifier', TRUE)
     );
   }
 
   /**
-  * @covers \PapayaUtilStringIdentifier::toCamelCase
+  * @covers \Papaya\Utility\Text\Identifier::toCamelCase
   */
   public function testToCamelCaseWithNumericPart() {
     $this->assertEquals(
-      'numeric_23', \PapayaUtilStringIdentifier::toCamelCase('Numeric_23', FALSE)
+      'numeric_23', \Papaya\Utility\Text\Identifier::toCamelCase('Numeric_23', FALSE)
     );
   }
 
   /**
-   * @covers \PapayaUtilStringIdentifier::toArray
+   * @covers \Papaya\Utility\Text\Identifier::toArray
    * @dataProvider provideIdentifiersAndParts
    * @param string $identifier
    * @param array $parts
    */
   public function testToArray($identifier, array $parts) {
     $this->assertEquals(
-      $parts, \PapayaUtilStringIdentifier::toArray($identifier)
+      $parts, \Papaya\Utility\Text\Identifier::toArray($identifier)
     );
   }
 
   /**
-  * @covers \PapayaUtilStringIdentifier::toArray
+  * @covers \Papaya\Utility\Text\Identifier::toArray
   */
   public function testToArrayWithUnknownStructure() {
     $this->assertEquals(
-      array('1.2.3'), \PapayaUtilStringIdentifier::toArray('1.2.3')
+      array('1.2.3'), \Papaya\Utility\Text\Identifier::toArray('1.2.3')
     );
   }
 

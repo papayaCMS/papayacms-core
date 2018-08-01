@@ -43,7 +43,7 @@ class Content
   public function synchronize(array $targetIds, $originId, array $languages = NULL) {
     $this->translations()->load($originId);
     if (empty($languages)) {
-      $languages = array_keys(\PapayaUtilArray::ensure($this->translations()));
+      $languages = array_keys(\Papaya\Utility\Arrays::ensure($this->translations()));
     }
     $existing = $this->getExistingTargetTranslations($targetIds, $languages);
     $missing = $this->getMissingTargetTranslations($targetIds, $languages, $existing);
@@ -167,7 +167,7 @@ class Content
     return FALSE !== $databaseAccess->updateRecord(
         $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_TRANSLATIONS),
         array(
-          'topic_content' => \PapayaUtilStringXml::serializeArray($origin->content),
+          'topic_content' => \Papaya\Utility\Text\Xml::serializeArray($origin->content),
           'topic_trans_modified' => $origin->modified
         ),
         array(

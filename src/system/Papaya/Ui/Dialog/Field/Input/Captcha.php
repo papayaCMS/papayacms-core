@@ -52,7 +52,7 @@ class PapayaUiDialogFieldInputCaptcha extends \PapayaUiDialogFieldInput {
   public function __construct($caption, $name, $captchaImage = 'captcha') {
     parent::__construct($caption, $name, 1024, NULL);
     $this->setMandatory(TRUE);
-    \PapayaUtilConstraints::assertNotEmpty($captchaImage);
+    \Papaya\Utility\Constraints::assertNotEmpty($captchaImage);
     $this->_captchaImage = $captchaImage;
     $this->setFilter(new \Papaya\Filter\Equals(TRUE));
   }
@@ -136,6 +136,6 @@ class PapayaUiDialogFieldInputCaptcha extends \PapayaUiDialogFieldInput {
    * @return string
    */
   public function createCaptchaIdentifier() {
-    return md5(\PapayaUtilRandom::getId());
+    return md5(\Papaya\Utility\Random::getId());
   }
 }

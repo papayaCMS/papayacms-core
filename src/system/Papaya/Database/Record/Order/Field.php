@@ -48,7 +48,7 @@ class Field
    * @param integer $direction
    */
   public function __construct($field, $direction = self::ASCENDING) {
-    \PapayaUtilConstraints::assertNotEmpty($field);
+    \Papaya\Utility\Constraints::assertNotEmpty($field);
     $this->_field = (string)$field;
     $this->_direction = (int)$direction;
   }

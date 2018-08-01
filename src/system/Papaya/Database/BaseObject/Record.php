@@ -208,7 +208,7 @@ abstract class Record
    * @return boolean
    */
   public function offsetExists($offset) {
-    $offset = \PapayaUtilStringIdentifier::toUnderscoreLower($offset);
+    $offset = \Papaya\Utility\Text\Identifier::toUnderscoreLower($offset);
     return array_key_exists($offset, $this->_fields);
   }
 
@@ -220,7 +220,7 @@ abstract class Record
    * @return string|NULL
    */
   public function offsetGet($offset) {
-    $offset = \PapayaUtilStringIdentifier::toUnderscoreLower($offset);
+    $offset = \Papaya\Utility\Text\Identifier::toUnderscoreLower($offset);
     if (isset($this->_values[$offset])) {
       return $this->_values[$offset];
     } elseif ($this->offsetExists($offset)) {
@@ -239,7 +239,7 @@ abstract class Record
    * @throws \OutOfBoundsException
    */
   public function offsetSet($offset, $value) {
-    $offset = \PapayaUtilStringIdentifier::toUnderscoreLower($offset);
+    $offset = \Papaya\Utility\Text\Identifier::toUnderscoreLower($offset);
     if ($this->offsetExists($offset)) {
       $this->_values[$offset] = $value;
     } else {
@@ -256,7 +256,7 @@ abstract class Record
    * @return void
    */
   public function offsetUnset($offset) {
-    $offset = \PapayaUtilStringIdentifier::toUnderscoreLower($offset);
+    $offset = \Papaya\Utility\Text\Identifier::toUnderscoreLower($offset);
     if (isset($this->_values[$offset])) {
       unset($this->_values[$offset]);
     }
@@ -271,7 +271,7 @@ abstract class Record
    * @return boolean
    */
   public function __isset($name) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     return isset($this->_values[$name]);
   }
 
@@ -283,7 +283,7 @@ abstract class Record
    * @return string|NULL
    */
   public function __get($name) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     return $this->offsetGet($name);
   }
 
@@ -295,7 +295,7 @@ abstract class Record
    * @return void
    */
   public function __set($name, $value) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     $this->offsetSet($name, $value);
   }
 
@@ -306,7 +306,7 @@ abstract class Record
    * @return void
    */
   public function __unset($name) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     $this->offsetUnset($name);
   }
 

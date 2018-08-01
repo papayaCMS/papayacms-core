@@ -57,11 +57,11 @@ class Normalize implements \Papaya\Filter {
     if (!(isset($value) && is_scalar($value))) {
       return NULL;
     }
-    $asterisk = \PapayaUtilBitwise::inBitmask(self::OPTION_ALLOW_ASTERISK, $this->_options) ? '*' : '';
+    $asterisk = \Papaya\Utility\Bitwise::inBitmask(self::OPTION_ALLOW_ASTERISK, $this->_options) ? '*' : '';
     $pattern = '([^\pL\pN'.($asterisk).']+)u';
     $value = trim(preg_replace($pattern, ' ', $value));
-    if (\PapayaUtilBitwise::inBitmask(self::OPTION_LOWERCASE, $this->_options)) {
-      $value = \PapayaUtilStringUtf8::toLowerCase($value);
+    if (\Papaya\Utility\Bitwise::inBitmask(self::OPTION_LOWERCASE, $this->_options)) {
+      $value = \Papaya\Utility\Text\Utf8::toLowerCase($value);
     }
     return $value !== '' ? $value : NULL;
   }

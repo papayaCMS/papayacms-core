@@ -110,9 +110,9 @@ class Factory implements \IteratorAggregate {
     $key = strtolower($name);
     $namespace = __CLASS__.'\\Profile\\';
     if (isset(self::$_profiles[$key])) {
-      return $namespace.\PapayaUtilStringIdentifier::toCamelCase(self::$_profiles[$key], TRUE);
+      return $namespace.\Papaya\Utility\Text\Identifier::toCamelCase(self::$_profiles[$key], TRUE);
     }
-    return $namespace.\PapayaUtilStringIdentifier::toCamelCase($name, TRUE);
+    return $namespace.\Papaya\Utility\Text\Identifier::toCamelCase($name, TRUE);
   }
 
   /**

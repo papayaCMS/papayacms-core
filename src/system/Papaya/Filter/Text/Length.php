@@ -73,7 +73,7 @@ class Length implements \Papaya\Filter {
     if (is_array($value)) {
       throw new \Papaya\Filter\Exception\UnexpectedType('string');
     }
-    $length = \PapayaUtilStringUtf8::length((string)$value);
+    $length = \Papaya\Utility\Text\Utf8::length((string)$value);
     if (isset($this->_minimum) && $length < $this->_minimum) {
       throw new \Papaya\Filter\Exception\OutOfRange\ToSmall($this->_minimum, $length);
     }
@@ -92,12 +92,12 @@ class Length implements \Papaya\Filter {
    */
   public function filter($value) {
     $value = is_array($value) ? '' : (string)$value;
-    $length = \PapayaUtilStringUtf8::length($value);
+    $length = \Papaya\Utility\Text\Utf8::length($value);
     if (isset($this->_minimum) && $length < $this->_minimum) {
       return NULL;
     }
     if (isset($this->_maximum) && $length > $this->_maximum) {
-      return \PapayaUtilStringUtf8::copy($value, 0, $this->_maximum);
+      return \Papaya\Utility\Text\Utf8::copy($value, 0, $this->_maximum);
     }
     return $value;
   }

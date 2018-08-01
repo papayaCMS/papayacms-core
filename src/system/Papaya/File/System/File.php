@@ -30,7 +30,7 @@ class File {
    * @param string $filename
    */
   public function __construct($filename) {
-    \PapayaUtilConstraints::assertNotEmpty($filename);
+    \Papaya\Utility\Constraints::assertNotEmpty($filename);
     $this->_filename = $filename;
   }
 

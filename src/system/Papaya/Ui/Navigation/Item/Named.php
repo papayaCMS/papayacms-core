@@ -33,7 +33,7 @@ class PapayaUiNavigationItemNamed extends \PapayaUiNavigationItem {
   public function appendTo(\PapayaXmlElement $parent) {
     $result = parent::appendTo($parent);
     $result->setAttribute(
-      'name', \PapayaUtilStringIdentifier::toUnderscoreLower((string)$this->_sourceValue)
+      'name', \Papaya\Utility\Text\Identifier::toUnderscoreLower((string)$this->_sourceValue)
     );
     return $result;
   }

@@ -659,7 +659,7 @@ class base_sitemap extends base_db {
         if (!isset($this->linkTypeObj)) {
           $this->linkTypeObj = new base_linktypes();
         }
-        $this->linkTypes = \PapayaUtilArray::merge(
+        $this->linkTypes = \Papaya\Utility\Arrays::merge(
           $this->linkTypes,
           $this->linkTypeObj->getCompleteLinkTypes(array_keys($linkTypeIds))
         );
@@ -996,7 +996,7 @@ class base_sitemap extends base_db {
             $linkProtocol = 0;
           }
           if ($linkProtocol > 0) {
-            $currentProtocol = (\PapayaUtilServerProtocol::isSecure()) ? 2 : 1;
+            $currentProtocol = (\Papaya\Utility\Server\Protocol::isSecure()) ? 2 : 1;
             /* if the session fallback is active, we should not create absolute links because
              * that whould make caching impossible. So we keep the link without the protocol
              * and redirect later. */
@@ -1076,7 +1076,7 @@ class base_sitemap extends base_db {
         $cfgData = $this->linkTypes[$row['linktype_id']]['popup_config'];
         $target = sprintf(
           ' target="%s"',
-          \PapayaUtilStringXml::escapeAttribute(
+          \Papaya\Utility\Text\Xml::escapeAttribute(
             $this->linkTypes[$row['linktype_id']]['linktype_name']
           )
         );
@@ -1084,16 +1084,16 @@ class base_sitemap extends base_db {
           ' data-popup="%s"',
           papaya_strings::escapeHTMLChars(
             papaya_parser::getDataPopupAttribute(
-              \PapayaUtilArray::get($cfgData, 'width'),
-              \PapayaUtilArray::get($cfgData, 'height'),
-              \PapayaUtilArray::get($cfgData, 'scrollbars'),
-              \PapayaUtilArray::get($cfgData, 'resizable'),
-              \PapayaUtilArray::get($cfgData, 'toolbar'),
-              \PapayaUtilArray::get($cfgData, 'top'),
-              \PapayaUtilArray::get($cfgData, 'left'),
-              \PapayaUtilArray::get($cfgData, 'menubar'),
-              \PapayaUtilArray::get($cfgData, 'location'),
-              \PapayaUtilArray::get($cfgData, 'status')
+              \Papaya\Utility\Arrays::get($cfgData, 'width'),
+              \Papaya\Utility\Arrays::get($cfgData, 'height'),
+              \Papaya\Utility\Arrays::get($cfgData, 'scrollbars'),
+              \Papaya\Utility\Arrays::get($cfgData, 'resizable'),
+              \Papaya\Utility\Arrays::get($cfgData, 'toolbar'),
+              \Papaya\Utility\Arrays::get($cfgData, 'top'),
+              \Papaya\Utility\Arrays::get($cfgData, 'left'),
+              \Papaya\Utility\Arrays::get($cfgData, 'menubar'),
+              \Papaya\Utility\Arrays::get($cfgData, 'location'),
+              \Papaya\Utility\Arrays::get($cfgData, 'status')
             )
           )
         );

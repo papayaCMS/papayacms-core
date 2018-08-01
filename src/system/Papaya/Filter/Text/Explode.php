@@ -64,7 +64,7 @@ class Explode implements \Papaya\Filter {
     $tokens = explode($this->_separator, (string)$value);
     if ($this->_filter instanceof \Papaya\Filter) {
       foreach ($tokens as $token) {
-        if (\PapayaUtilBitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
+        if (\Papaya\Utility\Bitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
           $token = trim($token);
         }
         $this->_filter->validate($token);
@@ -81,7 +81,7 @@ class Explode implements \Papaya\Filter {
     $tokens = explode($this->_separator, (string)$value);
     $result = [];
     foreach ($tokens as $token) {
-      if (\PapayaUtilBitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
+      if (\Papaya\Utility\Bitwise::inBitmask(self::TRIM_TOKENS, $this->_options)) {
         $token = trim($token);
       }
       if ($this->_filter instanceof \Papaya\Filter) {

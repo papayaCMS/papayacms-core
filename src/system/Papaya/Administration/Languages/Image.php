@@ -35,7 +35,7 @@ class Image extends \Papaya\Application\BaseObject {
    * @param integer $languageId
    */
   public function __construct($languageId = 0) {
-    \PapayaUtilConstraints::assertInteger($languageId);
+    \Papaya\Utility\Constraints::assertInteger($languageId);
     $this->_languageId = $languageId;
   }
 

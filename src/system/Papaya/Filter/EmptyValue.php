@@ -45,8 +45,8 @@ class EmptyValue implements \Papaya\Filter {
    * @param bool $ignoreSpaces
    */
   public function __construct($ignoreZero = TRUE, $ignoreSpaces = TRUE) {
-    \PapayaUtilConstraints::assertBoolean($ignoreZero);
-    \PapayaUtilConstraints::assertBoolean($ignoreSpaces);
+    \Papaya\Utility\Constraints::assertBoolean($ignoreZero);
+    \Papaya\Utility\Constraints::assertBoolean($ignoreSpaces);
     $this->_ignoreZero = $ignoreZero;
     $this->_ignoreSpaces = $ignoreSpaces;
   }

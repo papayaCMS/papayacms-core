@@ -145,7 +145,7 @@ class db_simple extends base_object {
     if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_DATABASE', FALSE)) {
       if ($this->queryTimeSum > 0) {
         $message = 'Database Query Count: '.(int)$this->queryCounterObject. ' in '.
-          \PapayaUtilDate::periodToString($this->queryTimeSum);
+          \Papaya\Utility\Date::periodToString($this->queryTimeSum);
       } else {
         $message = 'Database Query Count: '.(int)$this->queryCounterObject;
       }

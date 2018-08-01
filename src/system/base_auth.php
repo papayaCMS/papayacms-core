@@ -1266,7 +1266,7 @@ class base_auth extends base_db {
         '<login title="%s" action="%s" is-secure="%s">',
         papaya_strings::escapeHTMLChars($this->_gt('Login')),
         papaya_strings::escapeHTMLChars($this->baseLink),
-        \PapayaUtilServerProtocol::isSecure() ? 'yes' : 'no'
+        \Papaya\Utility\Server\Protocol::isSecure() ? 'yes' : 'no'
       );
       $result .= sprintf(
         '<input type="hidden" name="%s[login]" value="1" />'.LF,
@@ -1283,7 +1283,7 @@ class base_auth extends base_db {
         papaya_strings::escapeHTMLChars($this->getLink(array('cmd' => 'forgot'))),
         papaya_strings::escapeHTMLChars($this->_gt('Forgot password?'))
       );
-      if (!\PapayaUtilServerProtocol::isSecure() &&
+      if (!\Papaya\Utility\Server\Protocol::isSecure() &&
           $this->papaya()->options->get('PAPAYA_UI_SECURE_WARNING', TRUE)) {
         $url = new \Papaya\Url\Current();
         $url->setScheme('https');

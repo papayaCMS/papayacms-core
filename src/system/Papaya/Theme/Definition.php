@@ -94,7 +94,7 @@ class Definition extends \Papaya\Content\Structure {
    * @return array
    */
   public function __get($name) {
-    $identifier = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $identifier = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     if (isset($this->_properties[$identifier])) {
       return $this->_properties[$identifier];
     } elseif ($identifier == 'thumbnails') {

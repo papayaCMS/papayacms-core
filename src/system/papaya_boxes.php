@@ -1198,11 +1198,11 @@ class papaya_boxes extends base_boxes {
   function publishBox() {
     if (isset($this->box) && is_array($this->box)) {
       if ($this->createVersion()) {
-        $publicFrom = \PapayaUtilDate::stringToTimestamp($this->params['box_public_from']);
+        $publicFrom = \Papaya\Utility\Date::stringToTimestamp($this->params['box_public_from']);
         if ($publicFrom <= time()) {
           $publicFrom = 0;
         }
-        $publicTo = \PapayaUtilDate::stringToTimestamp($this->params['box_public_to']);
+        $publicTo = \Papaya\Utility\Date::stringToTimestamp($this->params['box_public_to']);
         if ($publicTo <= $publicFrom) {
           $publicTo = 0;
         }
@@ -2223,7 +2223,7 @@ class papaya_boxes extends base_boxes {
           ),
           (isset($this->params['version_id']) && $id == $this->params['version_id'])
         );
-        $listitem->text = \PapayaUtilString::truncate(
+        $listitem->text = \Papaya\Utility\Text::truncate(
           $version['version_message'], 100, FALSE, "\xE2\x80\xA6"
         );
         $listitem->subitems[] = new \PapayaUiListviewSubitemText($version['fullname']);

@@ -49,8 +49,8 @@ class Reader {
    * @param string $fileName
    */
   public function __construct($fileName) {
-    \PapayaUtilConstraints::assertString($fileName);
-    \PapayaUtilConstraints::assertNotEmpty($fileName);
+    \Papaya\Utility\Constraints::assertString($fileName);
+    \Papaya\Utility\Constraints::assertNotEmpty($fileName);
     $this->_fileName = $fileName;
   }
 
@@ -60,7 +60,7 @@ class Reader {
    * @param integer $size
    */
   public function setMaximumFileSize($size) {
-    \PapayaUtilConstraints::assertInteger($size);
+    \Papaya\Utility\Constraints::assertInteger($size);
     $this->_maxFileSize = $size;
   }
 
@@ -70,7 +70,7 @@ class Reader {
    * @param integer $size
    */
   public function setMaximumLineSize($size) {
-    \PapayaUtilConstraints::assertInteger($size);
+    \Papaya\Utility\Constraints::assertInteger($size);
     $this->_maxLineSize = $size;
   }
 

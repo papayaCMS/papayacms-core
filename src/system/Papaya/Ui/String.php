@@ -49,8 +49,8 @@ class PapayaUiString extends \Papaya\Application\BaseObject {
   * @param $values
    */
   public function __construct($pattern, array $values = array()) {
-    \PapayaUtilConstraints::assertString($pattern);
-    \PapayaUtilConstraints::assertNotEmpty($pattern);
+    \Papaya\Utility\Constraints::assertString($pattern);
+    \Papaya\Utility\Constraints::assertNotEmpty($pattern);
     $this->_pattern = $pattern;
     $this->_values = $values;
   }

@@ -96,7 +96,7 @@ class PapayaUiToolbars extends \PapayaUiControl {
   * @param \PapayaUiToolbar $value
   */
   public function __set($name, $value) {
-    \PapayaUtilConstraints::assertInstanceOf(\PapayaUiToolbar::class, $value);
+    \Papaya\Utility\Constraints::assertInstanceOf(\PapayaUiToolbar::class, $value);
     if (array_key_exists($name, $this->_positions)) {
       $this->_toolbars[$name] = $value;
     } else {

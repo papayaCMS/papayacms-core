@@ -157,7 +157,7 @@ class PapayaUiListviewItem extends \PapayaUiControlCollectionItem {
    * @throws \InvalidArgumentException
    */
   protected function setIndentation($indentation) {
-    \PapayaUtilConstraints::assertInteger($indentation);
+    \Papaya\Utility\Constraints::assertInteger($indentation);
     if ($indentation >= 0) {
       $this->_indentation = $indentation;
     } else {
@@ -183,7 +183,7 @@ class PapayaUiListviewItem extends \PapayaUiControlCollectionItem {
   * @return \PapayaUiListviewItems|\PapayaUiControlCollection
   */
   public function collection(\PapayaUiControlCollection $items = NULL) {
-    \PapayaUtilConstraints::assertInstanceOfOrNull(\PapayaUiListviewItems::class, $items);
+    \Papaya\Utility\Constraints::assertInstanceOfOrNull(\PapayaUiListviewItems::class, $items);
     return parent::collection($items);
   }
 

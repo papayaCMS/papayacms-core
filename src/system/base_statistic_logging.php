@@ -68,7 +68,7 @@ class base_statistic_logging extends base_db_statistic {
 
     $requestId = NULL;
     if ($this->loggable($preview, $filename)) {
-      $protocol = \PapayaUtilServerProtocol::get();
+      $protocol = \Papaya\Utility\Server\Protocol::get();
 
       if (defined("PAPAYA_STATISTIC_PRESERVE_IP") && PAPAYA_STATISTIC_PRESERVE_IP) {
         $remoteAddress = $this->getRealIP();

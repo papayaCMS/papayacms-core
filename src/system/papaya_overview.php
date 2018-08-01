@@ -264,7 +264,7 @@ class papaya_overview extends base_db {
     $ancestorId = $this->papaya()->administrationUser->startNode;
     $ancestorCondition = '';
     if ($ancestorId > 0) {
-      $ancestorCondition = \PapayaUtilString::escapeForPrintf(
+      $ancestorCondition = \Papaya\Utility\Text::escapeForPrintf(
         sprintf(
         " AND (t.prev = %1\$d OR t.prev_path LIKE '%%;%1\$d;%%')", $ancestorId
         )
@@ -310,7 +310,7 @@ class papaya_overview extends base_db {
     $ancestorId = $this->papaya()->administrationUser->startNode;
     $ancestorCondition = '';
     if ($ancestorId > 0) {
-      $ancestorCondition = \PapayaUtilString::escapeForPrintf(
+      $ancestorCondition = \Papaya\Utility\Text::escapeForPrintf(
         sprintf(
         " AND (t.prev = %1\$d OR t.prev_path LIKE '%%;%1\$d;%%')", $ancestorId
         )
@@ -850,10 +850,10 @@ class papaya_overview extends base_db {
               LEFT OUTER JOIN %s v ON (v.view_id= tt.view_id)
               LEFT OUTER JOIN %s m ON (m.module_guid = v.module_guid)";
     $dateFrom = empty($this->params['filter_date_from'])
-      ? 0 : \PapayaUtilDate::stringToTimestamp($this->params['filter_date_from']);
+      ? 0 : \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_from']);
     $dateTo = empty($this->params['filter_date_to'])
       ? time() + 86400
-      : \PapayaUtilDate::stringToTimestamp($this->params['filter_date_to']) + 86400;
+      : \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_to']) + 86400;
     $sqlParams = array(
       $this->tableTopics,
       $this->tableAuthUser,
@@ -965,22 +965,22 @@ class papaya_overview extends base_db {
       case 'created':
         $conditions[] = sprintf(
           "t.topic_created >= '%d' AND t.topic_created <= '%d'",
-          \PapayaUtilDate::stringToTimestamp($this->params['filter_date_from']),
-          \PapayaUtilDate::stringToTimestamp($this->params['filter_date_to'])
+          \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_from']),
+          \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_to'])
         );
         break;
       case 'modified':
         $conditions[] = sprintf(
           "t.topic_modified >= '%d' AND t.topic_modified <= '%d'",
-          \PapayaUtilDate::stringToTimestamp($this->params['filter_date_from']),
-          \PapayaUtilDate::stringToTimestamp($this->params['filter_date_to'])
+          \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_from']),
+          \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_to'])
         );
         break;
       case 'published':
         $conditions[] = sprintf(
           "tp.topic_modified >= '%d' AND tp.topic_modified <= '%d'",
-          \PapayaUtilDate::stringToTimestamp($this->params['filter_date_from']),
-          \PapayaUtilDate::stringToTimestamp($this->params['filter_date_to'])
+          \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_from']),
+          \Papaya\Utility\Date::stringToTimestamp($this->params['filter_date_to'])
         );
         break;
       }
@@ -1014,7 +1014,7 @@ class papaya_overview extends base_db {
     if ($res = $this->databaseQueryFmt($sql, $sqlParams, $limit, $offset)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $key = $row["topic_id"]."-".(empty($row["lng_id"]) ? 0 : (int)$row["lng_id"]);
-        $ancestors = \PapayaUtilArray::decodeIdList($row['prev_path']);
+        $ancestors = \Papaya\Utility\Arrays::decodeIdList($row['prev_path']);
         $ancestors[] = (int)$row['prev'];
         array_shift($ancestors);
         $allAncestors = array_merge($allAncestors, $ancestors);

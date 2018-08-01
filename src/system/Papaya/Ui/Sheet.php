@@ -79,7 +79,7 @@ class PapayaUiSheet extends \PapayaUiControl {
       if (is_array($subtitles)) {
         $this->_subtitles = new \PapayaUiSheetSubtitles($subtitles);
       } else {
-        \PapayaUtilConstraints::assertInstanceOf(\PapayaUiSheetSubtitles::class, $subtitles);
+        \Papaya\Utility\Constraints::assertInstanceOf(\PapayaUiSheetSubtitles::class, $subtitles);
         $this->_subtitles = $subtitles;
       }
     } elseif (NULL === $this->_subtitles) {
@@ -101,7 +101,7 @@ class PapayaUiSheet extends \PapayaUiControl {
         );
         $this->_content = $this->_document->documentElement;
       } else {
-        \PapayaUtilConstraints::assertInstanceOf(\PapayaXmlAppendable::class, $content);
+        \Papaya\Utility\Constraints::assertInstanceOf(\PapayaXmlAppendable::class, $content);
         $this->_content = $content;
       }
     }

@@ -71,8 +71,8 @@ class Listview extends \PapayaUiListview {
     \Papaya\Content\Page\References $references,
     Synchronizations $synchronizations
   ) {
-    \PapayaUtilConstraints::assertInteger($originPageId);
-    \PapayaUtilConstraints::assertInteger($currentPageId);
+    \Papaya\Utility\Constraints::assertInteger($originPageId);
+    \Papaya\Utility\Constraints::assertInteger($currentPageId);
     $this->_originPageId = $originPageId;
     $this->_currentPageId = $currentPageId;
     $this->_dependencies = $dependencies;
@@ -125,7 +125,7 @@ class Listview extends \PapayaUiListview {
         );
         $listitem->indentation = 1;
         if (!empty($dependency['note'])) {
-          $listitem->text = \PapayaUtilString::truncate($dependency['note'], 60, TRUE);
+          $listitem->text = \Papaya\Utility\Text::truncate($dependency['note'], 60, TRUE);
         }
         $listitem->selected = $dependency['id'] == $this->_currentPageId;
         $listitem->subitems[] = new \PapayaUiListviewSubitemText('');
@@ -157,7 +157,7 @@ class Listview extends \PapayaUiListview {
         );
         $listitem->indentation = 1;
         if (!empty($reference['note'])) {
-          $listitem->text = \PapayaUtilString::truncate($reference['note'], 60, TRUE);
+          $listitem->text = \Papaya\Utility\Text::truncate($reference['note'], 60, TRUE);
         }
         $listitem->selected = in_array(
           $this->parameters()->get('target_id'),

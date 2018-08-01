@@ -81,8 +81,8 @@ class Session extends Application\BaseObject {
    * @param string $name
    */
   public function setName($name) {
-    \PapayaUtilConstraints::assertString($name);
-    \PapayaUtilConstraints::assertNotEmpty($name);
+    \Papaya\Utility\Constraints::assertString($name);
+    \Papaya\Utility\Constraints::assertNotEmpty($name);
     $this->_sessionName = $name;
   }
 
@@ -231,7 +231,7 @@ class Session extends Application\BaseObject {
    * @return boolean
    */
   public function isAllowed() {
-    return $this->isProtocolAllowed() && !\PapayaUtilServerAgent::isRobot();
+    return $this->isProtocolAllowed() && !Utility\Server\Agent::isRobot();
   }
 
   /**
@@ -241,7 +241,7 @@ class Session extends Application\BaseObject {
    */
   public function isProtocolAllowed() {
     if ($this->isSecureOnly()) {
-      if (\PapayaUtilServerProtocol::isSecure()) {
+      if (Utility\Server\Protocol::isSecure()) {
         return TRUE;
       } else {
         return FALSE;

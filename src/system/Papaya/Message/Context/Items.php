@@ -82,7 +82,7 @@ class Items
     if (count($this->_items) > 0) {
       $result = '<ol>';
       foreach ($this->_items as $item) {
-        $result .= '<li>'.\PapayaUtilStringXml::escape($item).'</li>';
+        $result .= '<li>'.\Papaya\Utility\Text\Xml::escape($item).'</li>';
       }
       $result .= '</ol>';
       return $result;

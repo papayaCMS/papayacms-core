@@ -40,7 +40,7 @@ class ArrayKey implements \Papaya\Filter {
    * @param array|\Traversable $elements
    */
   public function __construct($elements) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($elements);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($elements);
     $this->_list = $elements;
   }
 

@@ -40,7 +40,7 @@ class Context {
    */
   public function __construct($parent = NULL, $data = NULL) {
     if (isset($parent)) {
-      \PapayaUtilConstraints::assertObject($parent);
+      \Papaya\Utility\Constraints::assertObject($parent);
       $this->_parent = $parent;
     }
     if (isset($data)) {

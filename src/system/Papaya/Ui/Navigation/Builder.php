@@ -97,7 +97,7 @@ class PapayaUiNavigationBuilder extends \PapayaUiControl {
   */
   public function elements($elements = NULL) {
     if (isset($elements)) {
-      \PapayaUtilConstraints::assertArrayOrTraversable($elements);
+      \Papaya\Utility\Constraints::assertArrayOrTraversable($elements);
       $this->_elements = $elements;
     }
     return $this->_elements;

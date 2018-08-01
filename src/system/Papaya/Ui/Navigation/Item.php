@@ -69,7 +69,7 @@ abstract class PapayaUiNavigationItem extends \PapayaUiControlCollectionItem {
   */
   public function selected($selected = NULL) {
     if (isset($selected)) {
-      \PapayaUtilConstraints::assertBoolean($selected);
+      \Papaya\Utility\Constraints::assertBoolean($selected);
       $this->_selected = $selected;
     }
     return $this->_selected;

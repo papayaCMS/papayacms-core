@@ -75,7 +75,7 @@ class Length implements \Papaya\Filter {
   public function validate($value) {
     if ($this->_isUtf8) {
       $string = new \Papaya\Text\UTF8String(
-        \PapayaUtilStringUtf8::ensure($value)
+        \Papaya\Utility\Text\Utf8::ensure($value)
       );
       $length = $string->length();
     } else {
@@ -97,7 +97,7 @@ class Length implements \Papaya\Filter {
    * @return string|NULL
    */
   public function filter($value) {
-    $value = \PapayaUtilStringUtf8::ensure($value);
+    $value = \Papaya\Utility\Text\Utf8::ensure($value);
     try {
       $this->validate($value);
       return $value;

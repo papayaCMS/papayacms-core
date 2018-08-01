@@ -67,7 +67,7 @@ class Translation extends \Papaya\Database\Record\Lazy {
   public function load($filter) {
     $fields = implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields FROM %s AS tt, %s AS v WHERE v.view_id = tt.view_id ";
-    $sql .= \PapayaUtilString::escapeForPrintf($this->_compileCondition($filter, "AND"));
+    $sql .= \Papaya\Utility\Text::escapeForPrintf($this->_compileCondition($filter, "AND"));
     $parameters = array(
       $this->getDatabaseAccess()->getTableName($this->_tableName),
       $this->getDatabaseAccess()->getTableName($this->_tableNameViews)
@@ -103,7 +103,7 @@ class Translation extends \Papaya\Database\Record\Lazy {
   public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
     switch ($property) {
       case 'content' :
-        return \PapayaUtilStringXml::unserializeArray($value);
+        return \Papaya\Utility\Text\Xml::unserializeArray($value);
     }
     return $value;
   }
@@ -120,7 +120,7 @@ class Translation extends \Papaya\Database\Record\Lazy {
   public function callbackMapValueFromPropertyToField($context, $property, $field, $value) {
     switch ($property) {
       case 'content' :
-        return \PapayaUtilStringXml::serializeArray(empty($value) ? array() : $value);
+        return \Papaya\Utility\Text\Xml::serializeArray(empty($value) ? array() : $value);
     }
     return $value;
   }

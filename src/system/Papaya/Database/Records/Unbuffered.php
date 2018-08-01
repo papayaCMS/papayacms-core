@@ -111,7 +111,7 @@ abstract class Unbuffered
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {
     $fields = implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields FROM %s";
-    $sql .= \PapayaUtilString::escapeForPrintf(
+    $sql .= \Papaya\Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $parameters = array(

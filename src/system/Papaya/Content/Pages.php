@@ -149,8 +149,8 @@ class Pages extends \Papaya\Database\Records\Lazy {
          LEFT JOIN %s AS v ON (v.view_id = tt.view_id)
          LEFT JOIN %s AS vm ON (vm.view_id = tt.view_id AND vm.viewmode_id = '%d')
          LEFT JOIN %s AS au ON (t.author_id = au.user_id)
-              ".\PapayaUtilString::escapeForPrintf($this->_compileCondition($filter)).'
-              '.\PapayaUtilString::escapeForPrintf($this->_compileOrderBy());
+              ".\Papaya\Utility\Text::escapeForPrintf($this->_compileCondition($filter)).'
+              '.\Papaya\Utility\Text::escapeForPrintf($this->_compileOrderBy());
     $parameters = array(
       $databaseAccess->getTableName($this->_tablePages),
       $databaseAccess->getTableName($this->_tablePageTranslations),
@@ -216,9 +216,9 @@ class Pages extends \Papaya\Database\Records\Lazy {
   public function mapValue($context, $mode, $property, $field, $value) {
     if ($property == 'path') {
       if ($mode == \Papaya\Database\Record\Mapping::FIELD_TO_PROPERTY) {
-        return \PapayaUtilArray::decodeIdList($value);
+        return \Papaya\Utility\Arrays::decodeIdList($value);
       } else {
-        return ';'.\PapayaUtilArray::encodeIdList($value).';';
+        return ';'.\Papaya\Utility\Arrays::encodeIdList($value).';';
       }
     }
     return $value;

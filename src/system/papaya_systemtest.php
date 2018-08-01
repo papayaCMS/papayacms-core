@@ -216,7 +216,7 @@ class papaya_systemtest {
     if (substr($subPath, 0, 1) != '/') {
       $subPath = '/'.$subPath;
     }
-    $protocol = \PapayaUtilServerProtocol::get();
+    $protocol = \Papaya\Utility\Server\Protocol::get();
     $url = $protocol.'://'.$_SERVER['HTTP_HOST'].$subPath;
     return $url;
   }
@@ -399,7 +399,7 @@ class papaya_systemtest {
     $memoryLimit = @ini_get('memory_limit');
     if (extension_loaded('suhosin')) {
       if ($suhosinMemoryLimit = @ini_get('suhosin.memory_limit')) {
-        $suhosinMemoryLimit = \PapayaUtilBytes::fromString($suhosinMemoryLimit);
+        $suhosinMemoryLimit = \Papaya\Utility\Bytes::fromString($suhosinMemoryLimit);
       } else {
         $suhosinMemoryLimit = 0;
       }
@@ -738,11 +738,11 @@ class papaya_systemtest {
   */
   function testMemoryLimitIncrease() {
     if (is_callable('ini_get') && is_callable('ini_set')) {
-      $limit = \PapayaUtilBytes::fromString(@ini_get('memory_limit'));
+      $limit = \Papaya\Utility\Bytes::fromString(@ini_get('memory_limit'));
       if ($limit > 0) {
         $limit += 1024;
         ini_set('memory_limit', $limit);
-        if ($limit == \PapayaUtilBytes::fromString(@ini_get('memory_limit'))) {
+        if ($limit == \Papaya\Utility\Bytes::fromString(@ini_get('memory_limit'))) {
           return TESTRESULT_OK;
         }
       }

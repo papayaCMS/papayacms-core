@@ -70,7 +70,7 @@ class Options extends \Papaya\Database\Records {
       if ($mapValue) {
         switch ($values['type']) {
           case 'array' :
-            $result['moduleoption_value'] = \PapayaUtilStringXml::serializeArray($values['value']);
+            $result['moduleoption_value'] = \Papaya\Utility\Text\Xml::serializeArray($values['value']);
           break;
           default :
             $result['moduleoption_value'] = (string)$values['value'];
@@ -84,7 +84,7 @@ class Options extends \Papaya\Database\Records {
             if (empty($values['value'])) {
               $result['value'] = array();
             } elseif (substr($values['value'], 0, 1) == '<') {
-              $result['value'] = \PapayaUtilStringXml::unserializeArray($values['value']);
+              $result['value'] = \Papaya\Utility\Text\Xml::unserializeArray($values['value']);
             } else {
               $result['value'] = @unserialize($values['value']);
             }

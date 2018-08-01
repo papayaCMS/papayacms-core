@@ -30,7 +30,7 @@ class PapayaUiListviewItemsBuilder {
   * @param \Traversable|\Array $dataSource
   */
   public function __construct($dataSource) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($dataSource);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($dataSource);
     $this->_dataSource = $dataSource;
   }
 

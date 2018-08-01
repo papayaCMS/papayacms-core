@@ -145,7 +145,7 @@ class PapayaUiReferencePage extends \PapayaUiReference {
     if (preg_match('(^[a-zA-Z\d_-]+$)D', $pageTitle)) {
       $this->_pageData['title'] = (string)$pageTitle;
     } else {
-      $pageTitle = \PapayaUtilFile::normalizeName($pageTitle, 100, $this->getPageLanguage());
+      $pageTitle = \Papaya\Utility\File::normalizeName($pageTitle, 100, $this->getPageLanguage());
       if (!empty($pageTitle)) {
         $this->_pageData['title'] = (string)$pageTitle;
       }

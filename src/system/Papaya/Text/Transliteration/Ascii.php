@@ -54,7 +54,7 @@ class Ascii {
    * @return string
    */
   public function mapCharacterMatch($match) {
-    $codepoint = \PapayaUtilStringUtf8::getCodepoint($match[0]);
+    $codepoint = \Papaya\Utility\Text\Utf8::getCodepoint($match[0]);
     return $this->mapping()->get($codepoint, $this->_language);
   }
 

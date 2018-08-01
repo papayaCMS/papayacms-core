@@ -223,7 +223,7 @@ class PapayaUiContentTeasersTest extends \PapayaTestCase {
     $teasers = new \PapayaUiContentTeasers($pages, 200, 100);
     $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
-    $date = \PapayaUtilDate::timestampToString(strtotime('2017-01-16T12:21Z'));
+    $date = \Papaya\Utility\Date::timestampToString(strtotime('2017-01-16T12:21Z'));
     $this->assertXmlStringEqualsXmlString(
         /** @lang XML */
       "<teasers>

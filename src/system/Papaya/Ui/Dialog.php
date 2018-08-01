@@ -164,7 +164,7 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
    * @throws \UnexpectedValueException
    */
   public function __construct($owner = NULL) {
-    \PapayaUtilConstraints::assertObjectOrNull($owner);
+    \Papaya\Utility\Constraints::assertObjectOrNull($owner);
     $this->_owner = $owner;
   }
 
@@ -291,7 +291,7 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
    * @throws \UnexpectedValueException
    */
   public function setEncoding($encoding) {
-    \PapayaUtilConstraints::assertContains(
+    \Papaya\Utility\Constraints::assertContains(
       array(
         'application/x-www-form-urlencoded',
         'multipart/form-data',
@@ -525,7 +525,7 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
         $this->_fields = $fields;
         $fields->owner($this);
       } else {
-        \PapayaUtilConstraints::assertArrayOrTraversable($fields);
+        \Papaya\Utility\Constraints::assertArrayOrTraversable($fields);
         /** @noinspection ForeachSourceInspection */
         foreach ($fields as $field) {
           $this->fields()->add($field);

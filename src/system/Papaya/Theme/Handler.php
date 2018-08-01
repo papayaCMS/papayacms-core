@@ -31,7 +31,7 @@ class Handler extends \Papaya\Application\BaseObject {
   public function getUrl($themeName = NULL) {
     $options = $this->papaya()->options;
     $baseUrl = '';
-    if (\PapayaUtilServerProtocol::isSecure()) {
+    if (\Papaya\Utility\Server\Protocol::isSecure()) {
       $baseUrl = $options->get('PAPAYA_CDN_THEMES_SECURE', '');
     }
     if (empty($baseUrl)) {
@@ -43,7 +43,7 @@ class Handler extends \Papaya\Application\BaseObject {
         ->request
         ->getUrl()
         ->getHostUrl();
-      $baseUrl .= \PapayaUtilFilePath::cleanup(
+      $baseUrl .= \Papaya\Utility\File\Path::cleanup(
         $options->get('PAPAYA_PATH_WEB').$options->get('PAPAYA_PATH_THEMES')
       );
     }
@@ -60,14 +60,14 @@ class Handler extends \Papaya\Application\BaseObject {
    * @return string
    */
   public function getLocalPath() {
-    $root = \PapayaUtilFilePath::getDocumentRoot(
+    $root = \Papaya\Utility\File\Path::getDocumentRoot(
       $this->papaya()->options
     );
     $path = $this
       ->papaya()
       ->options
       ->get('PAPAYA_PATH_THEMES');
-    return \PapayaUtilFilePath::cleanup($root.'/'.$path);
+    return \Papaya\Utility\File\Path::cleanup($root.'/'.$path);
   }
 
   /**
@@ -80,7 +80,7 @@ class Handler extends \Papaya\Application\BaseObject {
     if (empty($themeName)) {
       $themeName = $this->getTheme();
     }
-    return \PapayaUtilFilePath::cleanup(
+    return \Papaya\Utility\File\Path::cleanup(
       $this->getLocalPath().$themeName
     );
   }

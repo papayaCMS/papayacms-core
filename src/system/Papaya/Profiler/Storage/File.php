@@ -86,7 +86,7 @@ class File implements \Papaya\Profiler\Storage {
         'No profiling directory defined.'
       );
     }
-    $directory = \PapayaUtilFilePath::cleanup($directory);
+    $directory = \Papaya\Utility\File\Path::cleanup($directory);
     if (file_exists($directory) && is_dir($directory) && is_readable($directory)) {
       return $directory;
     }

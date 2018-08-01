@@ -31,7 +31,7 @@ class Sandbox extends \Papaya\Application\BaseObject {
    * @param \Callable $callback
    */
   public function __construct($callback) {
-    \PapayaUtilConstraints::assertCallable($callback);
+    \Papaya\Utility\Constraints::assertCallable($callback);
     $this->_callback = $callback;
   }
 

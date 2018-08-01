@@ -59,7 +59,7 @@ abstract class Factory extends \Papaya\Application\BaseObject {
    * @param object $owner
    */
   public function __construct($owner = NULL) {
-    \PapayaUtilConstraints::assertObjectOrNull($owner);
+    \Papaya\Utility\Constraints::assertObjectOrNull($owner);
     $this->_owner = $owner;
   }
 

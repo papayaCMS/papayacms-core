@@ -71,8 +71,8 @@ class dbcon_sqlite3 extends dbcon_base {
       try {
         $fileName = $this->databaseConfiguration->filename;
         if (\substr($fileName, 0, 1) === '.') {
-          $fileName = \PapayaUtilFilePath::cleanup(
-            \PapayaUtilFilePath::getDocumentRoot().'../'.$fileName, FALSE
+          $fileName = \Papaya\Utility\File\Path::cleanup(
+            \Papaya\Utility\File\Path::getDocumentRoot().'../'.$fileName, FALSE
           );
         }
         $this->databaseConnection = new SQLite3($fileName);

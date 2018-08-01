@@ -445,7 +445,7 @@ class base_thumbnail extends base_object {
   * @return integer
   */
   function returnBytes($val) {
-    return \PapayaUtilBytes::fromString($val);
+    return \Papaya\Utility\Bytes::fromString($val);
   }
 
   /**

@@ -46,7 +46,7 @@ class Cleanup {
           $result .= ':'.$url['port'];
         }
       }
-      $result .= \PapayaUtilArray::get($url, 'path', '');
+      $result .= \Papaya\Utility\Arrays::get($url, 'path', '');
       if (isset($url['query'])) {
         $result .= '?'.$url['query'];
       }

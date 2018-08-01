@@ -47,8 +47,8 @@ class Translations extends \Papaya\Database\BaseObject\Records {
    * @param string $tableName
    */
   public function setTranslationsTableName($tableName) {
-    \PapayaUtilConstraints::assertString($tableName);
-    \PapayaUtilConstraints::assertNotEmpty($tableName);
+    \Papaya\Utility\Constraints::assertString($tableName);
+    \Papaya\Utility\Constraints::assertNotEmpty($tableName);
     $this->_translationsTableName = $tableName;
   }
 

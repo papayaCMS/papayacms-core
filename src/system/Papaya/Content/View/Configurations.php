@@ -50,7 +50,7 @@ class Configurations extends \Papaya\Database\Records\Lazy {
    */
   public function load($filter = array(), $limit = NULL, $offset = NULL) {
     $databaseAccess = $this->getDatabaseAccess();
-    $filter = \PapayaUtilString::escapeForPrintf($this->_compileCondition($filter));
+    $filter = \Papaya\Utility\Text::escapeForPrintf($this->_compileCondition($filter));
     $sql = "SELECT vl.view_id,
                     vl.viewmode_id,
                     vl.viewlink_data,

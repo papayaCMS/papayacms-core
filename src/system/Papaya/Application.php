@@ -164,7 +164,7 @@ class Application implements \ArrayAccess {
    * @throws \LogicException
    */
   public function setObject($identifier, $object, $duplicationMode = self::DUPLICATE_ERROR) {
-    \PapayaUtilConstraints::assertObject($object);
+    \Papaya\Utility\Constraints::assertObject($object);
     $index = strtolower($identifier);
     if (isset($this->_objects[$index])) {
       switch ($duplicationMode) {

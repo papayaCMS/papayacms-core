@@ -62,7 +62,7 @@ class Group
       if ($element instanceof \Papaya\Message\Context\Interfaces\Text) {
         $result .= "\n\n".$element->asString();
       } elseif ($element instanceof \Papaya\Message\Context\Interfaces\Xhtml) {
-        $result .= "\n\n".\PapayaUtilStringHtml::stripTags($element->asXhtml());
+        $result .= "\n\n".\Papaya\Utility\Text\Html::stripTags($element->asXhtml());
       }
     }
     return substr($result, 2);
@@ -76,13 +76,13 @@ class Group
     foreach ($this as $element) {
       $result .= '<div class="group">';
       if ($element instanceof \Papaya\Message\Context\Interfaces\Labeled) {
-        $result .= '<h3>'.\PapayaUtilStringXml::escape($element->getLabel()).'</h3>';
+        $result .= '<h3>'.\Papaya\Utility\Text\Xml::escape($element->getLabel()).'</h3>';
       }
       if ($element instanceof \Papaya\Message\Context\Interfaces\Xhtml) {
         $result .= $element->asXhtml();
       } elseif ($element instanceof \Papaya\Message\Context\Interfaces\Text) {
         $result .= str_replace(
-          "\n", "\n<br />", \PapayaUtilStringXml::escape($element->asString())
+          "\n", "\n<br />", \Papaya\Utility\Text\Xml::escape($element->asString())
         );
       }
       $result .= '</div>';

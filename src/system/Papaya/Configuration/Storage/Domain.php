@@ -29,7 +29,7 @@ class Domain extends \Papaya\Application\BaseObject
    *
    * @var int
    */
-  private $_scheme = \PapayaUtilServerProtocol::BOTH;
+  private $_scheme = \Papaya\Utility\Server\Protocol::BOTH;
 
   /**
    * member variable for the host name, set in constructor used in load()
@@ -54,7 +54,7 @@ class Domain extends \Papaya\Application\BaseObject
     if (preg_match('((?P<scheme>http(?:s)?)://(?P<host>.*))', $hostUrl, $match)) {
       $this->_host = $match['host'];
       $this->_scheme = ('https' === $match['scheme'])
-        ? \PapayaUtilServerProtocol::HTTPS : \PapayaUtilServerProtocol::HTTP;
+        ? \Papaya\Utility\Server\Protocol::HTTPS : \Papaya\Utility\Server\Protocol::HTTP;
     } else {
       $this->_host = $hostUrl;
     }

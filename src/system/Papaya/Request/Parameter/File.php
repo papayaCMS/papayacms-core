@@ -158,7 +158,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
   private function fetchValue($key, $default = NULL) {
     $name = clone $this->getName();
     $name->insertBefore(1, $key);
-    return \PapayaUtilArray::getRecursive($_FILES, iterator_to_array($name, FALSE), $default);
+    return \Papaya\Utility\Arrays::getRecursive($_FILES, iterator_to_array($name, FALSE), $default);
   }
 
   /**

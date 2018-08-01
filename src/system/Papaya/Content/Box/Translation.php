@@ -97,7 +97,7 @@ class Translation extends \Papaya\Database\BaseObject\Record {
    */
   protected function convertBoxRecordToValues($record) {
     $values = $this->convertRecordToValues($record);
-    $values['content'] = \PapayaUtilStringXml::unserializeArray($record['box_data']);
+    $values['content'] = \Papaya\Utility\Text\Xml::unserializeArray($record['box_data']);
     return $values;
   }
 
@@ -142,7 +142,7 @@ class Translation extends \Papaya\Database\BaseObject\Record {
       'lng_id' => (int)$this->languageId,
       'box_title' => (string)$this->title,
       'box_data' => is_array($this->content)
-        ? \PapayaUtilStringXml::serializeArray($this->content) : '',
+        ? \Papaya\Utility\Text\Xml::serializeArray($this->content) : '',
       'box_trans_created' => time(),
       'box_trans_modified' => time(),
       'view_id' => (int)(string)$this->viewId
@@ -167,7 +167,7 @@ class Translation extends \Papaya\Database\BaseObject\Record {
     $data = array(
       'box_title' => (string)$this->title,
       'box_data' => is_array($this->content)
-        ? \PapayaUtilStringXml::serializeArray($this->content) : '',
+        ? \Papaya\Utility\Text\Xml::serializeArray($this->content) : '',
       'box_trans_modified' => time(),
       'view_id' => (int)(string)$this->viewId
     );

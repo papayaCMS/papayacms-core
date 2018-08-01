@@ -29,7 +29,7 @@ class PapayaDomainsTest extends \PapayaTestCase {
     $this->assertEquals(
       array(
         1 => array(
-          'scheme' => \PapayaUtilServerProtocol::BOTH,
+          'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
           'host' => 'www.sample.tld',
           'mode' => Domain::MODE_VIRTUAL_DOMAIN,
           'data' => 42
@@ -49,7 +49,7 @@ class PapayaDomainsTest extends \PapayaTestCase {
       $this->getDomainDataFixture(
         array(
           1 => array(
-            'scheme' => \PapayaUtilServerProtocol::BOTH,
+            'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
             'host' => 'www.test.tld',
             'mode' => Domain::MODE_DEFAULT,
             'data' => ''
@@ -60,7 +60,7 @@ class PapayaDomainsTest extends \PapayaTestCase {
     $this->assertEquals(
       array(
         1 => array(
-          'scheme' => \PapayaUtilServerProtocol::BOTH,
+          'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
           'host' => 'www.test.tld',
           'mode' => Domain::MODE_DEFAULT,
           'data' => ''
@@ -78,12 +78,12 @@ class PapayaDomainsTest extends \PapayaTestCase {
     $domains->domains($this->getDomainDataFixture());
     $this->assertEquals(
       array(
-        'scheme' => \PapayaUtilServerProtocol::HTTP,
+        'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
         'host' => '*.test.tld',
         'mode' => Domain::MODE_REDIRECT_DOMAIN,
         'data' => ''
       ),
-      $domains->getDomainByHost('www.test.tld', \PapayaUtilServerProtocol::HTTP)
+      $domains->getDomainByHost('www.test.tld', \Papaya\Utility\Server\Protocol::HTTP)
     );
   }
 
@@ -96,19 +96,19 @@ class PapayaDomainsTest extends \PapayaTestCase {
       $this->getDomainDataFixture(
         array(
           1 => array(
-            'scheme' => \PapayaUtilServerProtocol::BOTH,
+            'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
             'host' => 'www.test.tld',
             'mode' => Domain::MODE_VIRTUAL_DOMAIN,
             'data' => 'failed'
           ),
           2 => array(
-            'scheme' => \PapayaUtilServerProtocol::HTTP,
+            'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
             'host' => 'www.test.tld',
             'mode' => Domain::MODE_VIRTUAL_DOMAIN,
             'data' => 'success'
           ),
           3 => array(
-            'scheme' => \PapayaUtilServerProtocol::HTTP,
+            'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
             'host' => '*.test.tld',
             'mode' => Domain::MODE_REDIRECT_DOMAIN,
             'data' => 'failed'
@@ -118,12 +118,12 @@ class PapayaDomainsTest extends \PapayaTestCase {
     );
     $this->assertEquals(
       array(
-        'scheme' => \PapayaUtilServerProtocol::HTTP,
+        'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
         'host' => 'www.test.tld',
         'mode' => Domain::MODE_VIRTUAL_DOMAIN,
         'data' => 'success'
       ),
-      $domains->getDomainByHost('www.test.tld', \PapayaUtilServerProtocol::HTTP)
+      $domains->getDomainByHost('www.test.tld', \Papaya\Utility\Server\Protocol::HTTP)
     );
   }
 
@@ -140,7 +140,7 @@ class PapayaDomainsTest extends \PapayaTestCase {
     $domains->getCurrent();
     $this->assertEquals(
       array(
-        'scheme' => \PapayaUtilServerProtocol::BOTH,
+        'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
         'host' => 'www.sample.tld',
         'mode' => Domain::MODE_VIRTUAL_DOMAIN,
         'data' => 42
@@ -261,13 +261,13 @@ class PapayaDomainsTest extends \PapayaTestCase {
     if (empty($domains)) {
       $domains = array(
         1 => array(
-          'scheme' => \PapayaUtilServerProtocol::BOTH,
+          'scheme' => \Papaya\Utility\Server\Protocol::BOTH,
           'host' => 'www.sample.tld',
           'mode' => Domain::MODE_VIRTUAL_DOMAIN,
           'data' => '42'
         ),
         2 => array(
-          'scheme' => \PapayaUtilServerProtocol::HTTP,
+          'scheme' => \Papaya\Utility\Server\Protocol::HTTP,
           'host' => '*.test.tld',
           'mode' => Domain::MODE_REDIRECT_DOMAIN,
           'data' => ''

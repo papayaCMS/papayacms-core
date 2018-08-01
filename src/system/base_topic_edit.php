@@ -143,7 +143,7 @@ class base_topic_edit extends base_topic {
     }
     $this->initializeSessionParam('version_datetime');
     if (!empty($this->params['version_date']) && !empty($this->params['version_time'])) {
-      $versionDateTime = \PapayaUtilDate::stringToTimestamp(
+      $versionDateTime = \Papaya\Utility\Date::stringToTimestamp(
         $this->params['version_date'].' '.$this->params['version_time']
       );
       $this->params['version_datetime'] = $versionDateTime;
@@ -444,7 +444,7 @@ class base_topic_edit extends base_topic {
        ) {
       if ($this->params['page_id'] != $authUser->user['start_node'] &&
           !empty($this->params['redirected'])) {
-        $protocol = \PapayaUtilServerProtocol::get();
+        $protocol = \Papaya\Utility\Server\Protocol::get();
         $toUrl = $protocol."://".$_SERVER['HTTP_HOST'].$this->getBasePath().
           $this->getLink(
             array(
@@ -948,7 +948,7 @@ class base_topic_edit extends base_topic {
   * Load and display the ancestors of the current page
   */
   public function getPageHierarchy() {
-    $pageIds = \PapayaUtilArray::decodeIdList($this->topic['prev_path']);
+    $pageIds = \Papaya\Utility\Arrays::decodeIdList($this->topic['prev_path']);
     $pageIds[] = $this->topic['prev'];
     $pageIds[] = $this->topicId;
     $hierarchy = new Administration\Pages\Ancestors();
@@ -2389,7 +2389,7 @@ class base_topic_edit extends base_topic {
   function getContentFrame($fileName, $caption, $views = NULL, $currentView = NULL) {
     $domains = $this->getVirtualDomains();
     $select = new \PapayaUiToolbarSelect('tt/preview_domain', $domains);
-    $current = 'http://'.\PapayaUtilServerName::get();
+    $current = 'http://'.\Papaya\Utility\Server\Name::get();
     if (!in_array($current, $select->options)) {
       $select->defaultCaption = $current;
     }
@@ -3715,7 +3715,7 @@ class base_topic_edit extends base_topic {
           ),
           (isset($this->params['version_id']) && $id == $this->params['version_id'])
         );
-        $listitem->text = \PapayaUtilString::truncate(
+        $listitem->text = \Papaya\Utility\Text::truncate(
           $version['version_message'], 100, FALSE, "\xE2\x80\xA6"
         );
         $listitem->subitems[] = new \PapayaUiListviewSubitemText($version['fullname']);
@@ -4652,7 +4652,7 @@ class base_topic_edit extends base_topic {
       $group->fields[] = new \PapayaUiDialogFieldSelectCheckboxes(
         new \PapayaUiStringTranslated('Languages'),
         'public_languages',
-        \PapayaUtilArrayMapper::byIndex(
+        \Papaya\Utility\ArrayMapper::byIndex(
           iterator_to_array($this->papaya()->administrationLanguage->languages()),
           'title'
         )
@@ -4794,7 +4794,7 @@ class base_topic_edit extends base_topic {
   function getShortTitle($topicId, $languageId) {
     $pages = new \Papaya\Content\Pages\Publications();
     $pages->load(array('id' => array($topicId), 'language_id' => $languageId));
-    $pageTitles = \PapayaUtilArrayMapper::byIndex($pages, 'title');
+    $pageTitles = \Papaya\Utility\ArrayMapper::byIndex($pages, 'title');
     $pageTitle = isset($pageTitles[$topicId]) ? $pageTitles[$topicId] : '';
     if (strlen($pageTitle) > 60) {
       $pageTitle = substr($pageTitle, 0, 57)."...";

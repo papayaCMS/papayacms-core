@@ -39,9 +39,9 @@ class Current extends \Papaya\Url {
    * @return string|NULL
    */
   public function getUrlFromEnvironment() {
-    $scheme = \PapayaUtilServerProtocol::get();
+    $scheme = \Papaya\Utility\Server\Protocol::get();
     $port = $this->_getServerValue(
-      'SERVER_PORT', ':', \PapayaUtilServerProtocol::getDefaultPort()
+      'SERVER_PORT', ':', \Papaya\Utility\Server\Protocol::getDefaultPort()
     );
     $host = $this->_getServerValue(array('HTTP_HOST', 'SERVER_NAME'));
     $requestUri = $this->_getServerValue('REQUEST_URI');

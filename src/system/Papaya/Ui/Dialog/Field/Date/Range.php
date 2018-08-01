@@ -80,10 +80,10 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
     $start = '';
     $end = '';
     if (!empty($values['start'])) {
-      $start = \PapayaUtilDate::stringToTimestamp($values['start']);
+      $start = \Papaya\Utility\Date::stringToTimestamp($values['start']);
     }
     if (!empty($values['end'])) {
-      $end = \PapayaUtilDate::stringToTimestamp($values['end']);
+      $end = \Papaya\Utility\Date::stringToTimestamp($values['end']);
     }
     $group = $field->appendElement('group');
     $labels = $group->appendElement('labels');

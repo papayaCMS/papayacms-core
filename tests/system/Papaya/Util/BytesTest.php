@@ -18,35 +18,35 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilBytesTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUtilBytes::toString
+   * @covers \Papaya\Utility\Bytes::toString
    * @dataProvider provideBytesAndStrings
    * @param string $expected
    * @param int $bytes
    */
   public function testToString($expected, $bytes) {
     $this->assertEquals(
-      $expected, \PapayaUtilBytes::toString($bytes)
+      $expected, \Papaya\Utility\Bytes::toString($bytes)
     );
   }
 
   /**
-  * @covers \PapayaUtilBytes::toString
+  * @covers \Papaya\Utility\Bytes::toString
   */
   public function testToStringWithGermanDecimalSeparator() {
     $this->assertEquals(
-      '39,1 GB', \PapayaUtilBytes::toString(42001231205, 1, ',')
+      '39,1 GB', \Papaya\Utility\Bytes::toString(42001231205, 1, ',')
     );
   }
 
   /**
-   * @covers \PapayaUtilBytes::fromString
+   * @covers \Papaya\Utility\Bytes::fromString
    * @dataProvider provideStringsAndBytes
    * @param int $expected
    * @param string $bytes
    */
   public function testFromString($expected, $bytes) {
     $this->assertEquals(
-      $expected, \PapayaUtilBytes::fromString($bytes)
+      $expected, \Papaya\Utility\Bytes::fromString($bytes)
     );
   }
 

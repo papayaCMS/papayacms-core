@@ -77,7 +77,7 @@ class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
    * @param integer $mode
    */
   public function setValueMode($mode) {
-    \PapayaUtilConstraints::assertInteger($mode);
+    \Papaya\Utility\Constraints::assertInteger($mode);
     $this->_valueMode = $mode;
     $this->setFilter($this->_createFilter());
   }
@@ -98,7 +98,7 @@ class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
   * @param array|\Traversable $values
   */
   public function setValues($values) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($values);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($values);
     $this->_values = $values;
     $this->setFilter($this->_createFilter());
   }
@@ -165,7 +165,7 @@ class PapayaUiDialogFieldSelect extends \PapayaUiDialogField {
    * @return \PapayaXmlElement
    */
   protected function _appendOptions(\PapayaXmlElement $parent, $options) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($options);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($options);
     $isRecursiveIterator = ($options instanceof \RecursiveIterator);
     foreach ($options as $index => $option) {
       if ($isRecursiveIterator && $options->hasChildren()) {

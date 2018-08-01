@@ -62,7 +62,7 @@ class PapayaUiControlCommandList
    * @return \Papaya\Request\Parameters\Access
    */
   public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {
-    \PapayaUtilConstraints::assertInstanceOf(\PapayaUiControlInteractive::class, $owner);
+    \Papaya\Utility\Constraints::assertInstanceOf(\PapayaUiControlInteractive::class, $owner);
     if (isset($owner)) {
       /** @var \PapayaUiControlCommand $command */
       foreach ($this->_commands as $command) {

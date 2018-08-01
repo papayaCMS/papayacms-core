@@ -54,7 +54,7 @@ class PapayaUiListviewSubitems
    * @return \PapayaUiListviewItem
    */
   public function owner($item = NULL) {
-    \PapayaUtilConstraints::assertInstanceOfOrNull(\PapayaUiListviewItem::class, $item);
+    \Papaya\Utility\Constraints::assertInstanceOfOrNull(\PapayaUiListviewItem::class, $item);
     return parent::owner($item);
   }
 

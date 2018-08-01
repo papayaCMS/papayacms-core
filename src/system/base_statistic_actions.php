@@ -65,7 +65,7 @@ class base_statistic_actions extends base_db_statistic {
   */
   function logAction($guid, $actionId, $message, $refererPage = '', $refererParams = '') {
     $statObj = base_statistic_actions::getInstance();
-    if (!\PapayaUtilServerAgent::isRobot()) {
+    if (!\Papaya\Utility\Server\Agent::isRobot()) {
       $data['statistic_action_id'] = NULL;
       $data['statistic_server_id'] = PAPAYA_WEBSERVER_IDENT;
       $data['module_guid'] = $guid;

@@ -114,7 +114,7 @@ class Callback {
     $this->getPropertyName($name);
     switch ($name) {
       case 'context' :
-        \PapayaUtilConstraints::assertObject($value);
+        \Papaya\Utility\Constraints::assertObject($value);
         $this->_context = $value;
       break;
       case 'defaultReturn' :

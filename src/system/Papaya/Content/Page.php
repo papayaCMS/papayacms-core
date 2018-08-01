@@ -171,7 +171,7 @@ class Page extends \Papaya\Database\Record\Lazy {
     switch ($property) {
       case 'parent_path' :
       case 'visitor_permissions' :
-        return \PapayaUtilArray::decodeIdList($value);
+        return \Papaya\Utility\Arrays::decodeIdList($value);
     }
     return $value;
   }
@@ -192,9 +192,9 @@ class Page extends \Papaya\Database\Record\Lazy {
   ) {
     switch ($property) {
       case 'parent_path' :
-        return \PapayaUtilArray::encodeAndQuoteIdList(empty($value) ? array() : $value);
+        return \Papaya\Utility\Arrays::encodeAndQuoteIdList(empty($value) ? array() : $value);
       case 'visitor_permissions' :
-        return \PapayaUtilArray::encodeIdList(empty($value) ? array() : $value);
+        return \Papaya\Utility\Arrays::encodeIdList(empty($value) ? array() : $value);
     }
     return $value;
   }

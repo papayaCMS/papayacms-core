@@ -1490,7 +1490,7 @@ class base_viewlist extends base_db {
         new \PapayaUiListviewItem('', new \PapayaUiStringTranslated('Path'));
       $item->indentation = 1;
       $item->subitems[] = new \PapayaUiListviewSubitemText(
-        \PapayaUtilString::truncate($module['module_path'], 30, '...')
+        \Papaya\Utility\Text::truncate($module['module_path'], 30, '...')
       );
       $listview->items[] = $item =
         new \PapayaUiListviewItem('', new \PapayaUiStringTranslated('Class'));
@@ -2248,7 +2248,7 @@ class base_viewlist extends base_db {
     $modes = array();
     if (is_array($this->view['MODES'])) {
       foreach ($this->view['MODES'] as $mode) {
-        $options = \PapayaUtilStringXml::unserializeArray($mode['viewlink_data']);
+        $options = \Papaya\Utility\Text\Xml::unserializeArray($mode['viewlink_data']);
         ksort($options);
         $modes[$mode['viewmode_id']] = $options;
       }

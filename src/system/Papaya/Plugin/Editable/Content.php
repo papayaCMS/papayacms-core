@@ -37,7 +37,7 @@ class Content extends Data {
    */
   public function setXml($xml) {
     $this->clear();
-    $this->merge(\PapayaUtilStringXml::unserializeArray($xml));
+    $this->merge(\Papaya\Utility\Text\Xml::unserializeArray($xml));
     $this->_checksum = $this->getChecksum();
   }
 
@@ -47,7 +47,7 @@ class Content extends Data {
    * @return string
    */
   public function getXml() {
-    return \PapayaUtilStringXml::serializeArray((array)$this);
+    return \Papaya\Utility\Text\Xml::serializeArray((array)$this);
   }
 
   /**

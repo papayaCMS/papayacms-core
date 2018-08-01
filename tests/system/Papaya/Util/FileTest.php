@@ -18,44 +18,44 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilFileTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUtilFile::formatBytes
+   * @covers \Papaya\Utility\File::formatBytes
    * @dataProvider provideBytesAndStrings
    * @param string $expected
    * @param int $bytes
    */
   public function testFormatBytes($expected, $bytes) {
     $this->assertEquals(
-      $expected, \PapayaUtilFile::formatBytes($bytes)
+      $expected, \Papaya\Utility\File::formatBytes($bytes)
     );
   }
 
   /**
-  * @covers \PapayaUtilFile::formatBytes
+  * @covers \Papaya\Utility\File::formatBytes
   */
   public function testFormatBytesWithGermanDecimalSeparator() {
     $this->assertEquals(
-      '39,1 GB', \PapayaUtilFile::formatBytes(42001231205, 1, ',')
+      '39,1 GB', \Papaya\Utility\File::formatBytes(42001231205, 1, ',')
     );
   }
 
   /**
-   * @covers \PapayaUtilFile::normalizeName
+   * @covers \Papaya\Utility\File::normalizeName
    * @dataProvider provideStringsForNames
    * @param string $expected
    * @param string $string
    */
   public function testNormalizeName($expected, $string) {
     $this->assertEquals(
-      $expected, \PapayaUtilFile::normalizeName($string, 15, 'de')
+      $expected, \Papaya\Utility\File::normalizeName($string, 15, 'de')
     );
   }
 
   /**
-  * @covers \PapayaUtilFile::normalizeName
+  * @covers \Papaya\Utility\File::normalizeName
   */
   public function testNormalizeNameWithUnderscoreSeparator() {
     $this->assertEquals(
-      'Hallo_Welt', \PapayaUtilFile::normalizeName('Hallo Welt', 15, 'de', '_')
+      'Hallo_Welt', \Papaya\Utility\File::normalizeName('Hallo Welt', 15, 'de', '_')
     );
   }
 

@@ -65,7 +65,7 @@ class PapayaUiStringTranslated extends \PapayaUiString {
   * return string
   */
   protected function translate($string) {
-    \PapayaUtilConstraints::assertString($string);
+    \Papaya\Utility\Constraints::assertString($string);
     $application = $this->papaya();
     if (isset($this->_phrases)) {
       return $this->_phrases->getText($string, $this->_phrasesGroupName);

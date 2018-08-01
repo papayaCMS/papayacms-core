@@ -221,8 +221,8 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
         $lng = 'en-US';
       }
     }
-    $fileName = \PapayaUtilFilePath::cleanup(
-      \PapayaUtilFilePath::getDocumentRoot($this->papaya()->options).
+    $fileName = \Papaya\Utility\File\Path::cleanup(
+      \Papaya\Utility\File\Path::getDocumentRoot($this->papaya()->options).
       $this->papaya()->options->get('PAPAYA_PATHWEB_ADMIN', '/papaya/').
       '/data/'.$lng.'/'
     ).$fileName;
@@ -230,7 +230,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       if ($fh = @fopen($fileName, 'r')) {
         $data = fread($fh, filesize($fileName));
         fclose($fh);
-        return \PapayaUtilStringUtf8::ensure($data);
+        return \Papaya\Utility\Text\Utf8::ensure($data);
       }
     }
     return '';
@@ -492,7 +492,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   * @return string
   */
   function getBasePath($withDocumentRoot = FALSE) {
-    return \PapayaUtilFilePath::getBasePath($withDocumentRoot);
+    return \Papaya\Utility\File\Path::getBasePath($withDocumentRoot);
   }
 
   /**
@@ -743,7 +743,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   * @return string
   */
   function escapeForFilename($str, $default = 'index', $language = NULL) {
-    $str = \PapayaUtilFile::normalizeName(
+    $str = \Papaya\Utility\File::normalizeName(
       $str,
       $this->papaya()->options->get('PAPAYA_URL_NAMELENGTH', 50),
       $language
@@ -895,13 +895,13 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $href = $baseHref.$pathWeb;
     } elseif (preg_match("(^(?:(\d+)\.)?(\d+)$)", trim($url), $regs)) {
       $href = $this->getWebLink(
-        \PapayaUtilArray::get($regs, 2, 0),
+        \Papaya\Utility\Arrays::get($regs, 2, 0),
         NULL,
         NULL,
         NULL,
         NULL,
         $text,
-        \PapayaUtilArray::get($regs, 1, 0)
+        \Papaya\Utility\Arrays::get($regs, 1, 0)
       );
       if (!preg_match('(^\w+://)', $href)) {
         $href = $baseHref.$sidStr.$pathWeb.$href;
@@ -1061,7 +1061,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
               $errorOutput .= sprintf(
                 '<li>%d: %s in line %d at char %d</li>'.LF,
                 (int)$error->code,
-                \PapayaUtilStringXml::escape($error->message),
+                \Papaya\Utility\Text\Xml::escape($error->message),
                 (int)$error->line,
                 (int)$error->column
               );
@@ -1071,13 +1071,13 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
           $errorOutput .= '<ol class="xmlBrokenFragment">'.LF;
           $lines = preg_split("(\r\n|\n\r|[\r\n])", $iStr);
           foreach ($lines as $line) {
-            $errorOutput .= sprintf('<li>%s</li>'.LF, \PapayaUtilStringXml::escape($line));
+            $errorOutput .= sprintf('<li>%s</li>'.LF, \Papaya\Utility\Text\Xml::escape($line));
           }
           $errorOutput .= '</ol>'.LF;
           $errorOutput .= '</div>'.LF;
           $iStr = $errorOutput;
         } else {
-          $iStr = \PapayaUtilStringXml::escape($iStr);
+          $iStr = \Papaya\Utility\Text\Xml::escape($iStr);
         }
       }
       libxml_clear_errors();

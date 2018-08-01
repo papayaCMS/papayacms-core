@@ -145,7 +145,7 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
    * @throws \UnexpectedValueException
    */
   public function setItemsCount($itemsCount) {
-    \PapayaUtilConstraints::assertInteger($itemsCount);
+    \Papaya\Utility\Constraints::assertInteger($itemsCount);
     if ($itemsCount < 0) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item count can not be negative.'
@@ -163,7 +163,7 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
    * @throws \UnexpectedValueException
    */
   public function setItemsPerPage($itemsPerPage) {
-    \PapayaUtilConstraints::assertInteger($itemsPerPage);
+    \Papaya\Utility\Constraints::assertInteger($itemsPerPage);
     if ($itemsPerPage < 1) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item page limit can not be less than 1.'
@@ -181,7 +181,7 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
    * @throws \UnexpectedValueException
    */
   public function setButtonLimit($buttonLimit) {
-    \PapayaUtilConstraints::assertInteger($buttonLimit);
+    \Papaya\Utility\Constraints::assertInteger($buttonLimit);
     if ($buttonLimit < 3) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Button limit can not be less than 3.'

@@ -43,8 +43,8 @@ class Id extends \Papaya\Application\BaseObject {
    * @param string $name
    */
   public function __construct($name = 'sid') {
-    \PapayaUtilConstraints::assertString($name);
-    \PapayaUtilConstraints::assertNotEmpty($name);
+    \Papaya\Utility\Constraints::assertString($name);
+    \Papaya\Utility\Constraints::assertNotEmpty($name);
     $this->_name = $name;
   }
 

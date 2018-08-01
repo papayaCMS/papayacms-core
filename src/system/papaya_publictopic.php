@@ -218,7 +218,7 @@ class papaya_publictopic extends base_topic {
     }
     if ($definition) {
       return new Cache\Identifier\Definition\Group(
-        new Cache\Identifier\Definition\BooleanValue(\PapayaUtilRequestMethod::isGet()),
+        new Cache\Identifier\Definition\BooleanValue(\Papaya\Utility\Request\Method::isGet()),
         new Cache\Identifier\Definition\Page(),
         new Cache\Identifier\Definition\Surfer(),
         $definition

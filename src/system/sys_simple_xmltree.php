@@ -177,7 +177,7 @@ class simple_xmltree {
   * @access public
   */
   public static function unserializeArrayFromXML($tagName, &$dataArr, $str) {
-    $dataArr = \PapayaUtilStringXml::unserializeArray($str);
+    $dataArr = \Papaya\Utility\Text\Xml::unserializeArray($str);
   }
 
   /**
@@ -191,7 +191,7 @@ class simple_xmltree {
   * @return string
   */
   public static function serializeArrayToXML($tagName, $dataArr) {
-    return \PapayaUtilStringXml::serializeArray($dataArr, $tagName);
+    return \Papaya\Utility\Text\Xml::serializeArray($dataArr, $tagName);
   }
 
   /**

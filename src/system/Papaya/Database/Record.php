@@ -105,7 +105,7 @@ abstract class Record
    * @return boolean
    */
   public function load($filter) {
-    $condition = \PapayaUtilString::escapeForPrintf($this->_compileCondition($filter));
+    $condition = \Papaya\Utility\Text::escapeForPrintf($this->_compileCondition($filter));
     $fields = implode(
       ', ',
       $this->mapping()->getFields()

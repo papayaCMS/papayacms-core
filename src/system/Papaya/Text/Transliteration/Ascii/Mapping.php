@@ -33,7 +33,7 @@ class Mapping {
    * Create object and store mapping file path
    */
   public function __construct() {
-    $this->_mappingFilesPath = \PapayaUtilFilePath::cleanup(
+    $this->_mappingFilesPath = \Papaya\Utility\File\Path::cleanup(
       __DIR__.'/../../../../utf8/external', FALSE
     );
   }
@@ -46,7 +46,7 @@ class Mapping {
    * @return null
    */
   public function get($codePoint, $language) {
-    \PapayaUtilConstraints::assertNotEmpty($language);
+    \Papaya\Utility\Constraints::assertNotEmpty($language);
     $bank = $codePoint >> 8;
     $this->lazyLoad($bank, $language);
     $index = $codePoint & 255;
@@ -77,7 +77,7 @@ class Mapping {
    * @return bool
    */
   public function isLoaded($bank, $language) {
-    \PapayaUtilConstraints::assertNotEmpty($language);
+    \Papaya\Utility\Constraints::assertNotEmpty($language);
     return (
       isset($this->_mappingTables[$language]) &&
       is_array($this->_mappingTables[$language]) &&

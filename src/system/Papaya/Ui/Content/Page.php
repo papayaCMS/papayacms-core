@@ -74,7 +74,7 @@ class PapayaUiContentPage extends \Papaya\Application\BaseObject {
    * @param array|\Traversable $data
    */
   public function assign($data) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($data);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($data);
     $this->page()->assign($data);
     $this->translation()->assign($data);
   }
@@ -179,8 +179,8 @@ class PapayaUiContentPage extends \Papaya\Application\BaseObject {
             'plugin' => get_class($plugin),
             'view' => $this->translation()->viewName,
             'href' => $reference->getRelative(),
-            'published' => \PapayaUtilDate::timestampToString($this->translation()->modified),
-            'created' => \PapayaUtilDate::timestampToString($this->translation()->created)
+            'published' => \Papaya\Utility\Date::timestampToString($this->translation()->modified),
+            'created' => \Papaya\Utility\Date::timestampToString($this->translation()->created)
           )
         );
         if ($plugin instanceof \Papaya\Plugin\Quoteable) {

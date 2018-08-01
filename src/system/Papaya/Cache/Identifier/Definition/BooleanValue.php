@@ -30,7 +30,7 @@ class BooleanValue
     if (is_bool($condition)) {
       $this->_cacheable = $condition;
     } else {
-      \PapayaUtilConstraints::assertCallable($condition);
+      \Papaya\Utility\Constraints::assertCallable($condition);
       $this->_callback = $condition;
     }
   }

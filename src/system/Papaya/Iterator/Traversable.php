@@ -35,7 +35,7 @@ class Traversable implements \OuterIterator {
    * @param \Traversable|array $traversable
    */
   public function __construct($traversable) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($traversable);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($traversable);
     $this->_traversable = $traversable;
   }
 

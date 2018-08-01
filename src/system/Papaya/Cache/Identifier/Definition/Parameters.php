@@ -34,7 +34,7 @@ class Parameters
    * @param int $method
    */
   public function __construct($names, $group = NULL, $method = self::METHOD_GET) {
-    \PapayaUtilConstraints::assertNotEmpty($names);
+    \Papaya\Utility\Constraints::assertNotEmpty($names);
     if (is_array($names) || $names instanceof \Traversable) {
       $this->_names = $names;
     } else {

@@ -1264,7 +1264,7 @@ class papaya_tags extends base_tags {
           $author = '';
         }
         if ((int)$categoryDetails['creation_time'] != 0) {
-          $date = \PapayaUtilDate::timestampToString(
+          $date = \Papaya\Utility\Date::timestampToString(
             (int)$categoryDetails['creation_time'], FALSE, FALSE, FALSE
           );
         } else {

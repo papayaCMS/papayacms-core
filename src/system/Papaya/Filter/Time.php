@@ -35,7 +35,7 @@ class Time implements \Papaya\Filter {
    * @throws \UnexpectedValueException
    */
   public function __construct($step = 1.0) {
-    \PapayaUtilConstraints::assertNumber($step, 'Step must be a number.');
+    \Papaya\Utility\Constraints::assertNumber($step, 'Step must be a number.');
     if ($step <= 0) {
       throw new \UnexpectedValueException('Step must be greater than 0.');
     }

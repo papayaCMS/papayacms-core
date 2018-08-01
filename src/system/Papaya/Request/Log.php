@@ -84,11 +84,11 @@ class Log extends \Papaya\Application\BaseObject {
    */
   public function logTime($message) {
     $now = microtime(TRUE);
-    $message .= ' after '.\PapayaUtilDate::periodToString(
+    $message .= ' after '.\Papaya\Utility\Date::periodToString(
         $now - $this->_startTime
       );
     if ($this->_previousTime > 0) {
-      $message .= ' (+'.\PapayaUtilDate::periodToString(
+      $message .= ' (+'.\Papaya\Utility\Date::periodToString(
           $now - $this->_previousTime
         ).')';
     }

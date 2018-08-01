@@ -30,13 +30,13 @@ class papaya_strings {
   * @return string
   */
   public static function entityToXML($str, $escapeTags = FALSE) {
-    $result = \PapayaUtilStringUtf8::ensure($str);
+    $result = \Papaya\Utility\Text\Utf8::ensure($str);
     $result = preg_replace(
       '/\&((amp)|(quot)|([gl]t)|(#((\d+)|(x[a-fA-F\d]{2,4}))))\;/iu',
       '#||\\1||#',
       $result
     );
-    $result = \PapayaUtilStringHtml::decodeNamedEntities($result);
+    $result = \Papaya\Utility\Text\Html::decodeNamedEntities($result);
     $result = str_replace('&', '&amp;', $result);
     $result = preg_replace('/\#\|\|([a-z\d\#]+)\|\|\#/iu', '&\\1;', $result);
     $result = str_replace('&amp;amp;', '&amp;', $result);
@@ -219,7 +219,7 @@ class papaya_strings {
   * @return string
   */
   public static function ensureUTF8($str) {
-    return \PapayaUtilStringUtf8::ensure($str);
+    return \Papaya\Utility\Text\Utf8::ensure($str);
   }
 
   /**
@@ -263,7 +263,7 @@ class papaya_strings {
    * @return string
    */
   public static function substr($str, $start, $length = NULL) {
-    return \PapayaUtilStringUtf8::copy($str, $start, $length);
+    return \Papaya\Utility\Text\Utf8::copy($str, $start, $length);
   }
 
   /**
@@ -274,7 +274,7 @@ class papaya_strings {
   * @return integer lenght of string
   */
   public static function strlen($str) {
-    return \PapayaUtilStringUtf8::length($str);
+    return \Papaya\Utility\Text\Utf8::length($str);
   }
 
   /**
@@ -287,7 +287,7 @@ class papaya_strings {
    * @return integer
    */
   public static function strpos($haystack, $needle, $offset = 0) {
-    return \PapayaUtilStringUtf8::position($haystack, $needle, $offset);
+    return \Papaya\Utility\Text\Utf8::position($haystack, $needle, $offset);
   }
 
   /**
@@ -314,7 +314,7 @@ class papaya_strings {
   * @return string
   */
   public static function strtolower($string) {
-    return \PapayaUtilStringUtf8::toLowerCase($string);
+    return \Papaya\Utility\Text\Utf8::toLowerCase($string);
   }
 
   /**
@@ -323,7 +323,7 @@ class papaya_strings {
   * @return string
   */
   public static function strtoupper($string) {
-    return \PapayaUtilStringUtf8::toUpperCase($string);
+    return \Papaya\Utility\Text\Utf8::toUpperCase($string);
   }
 
   /**
@@ -336,7 +336,7 @@ class papaya_strings {
   * @return string $str normalized string
   */
   public static function normalizeString($utf8String, $maxLength = 0, $language = NULL) {
-    return \PapayaUtilFile::normalizeName($utf8String, $maxLength, $language);
+    return \Papaya\Utility\File::normalizeName($utf8String, $maxLength, $language);
   }
 
   /**
@@ -696,7 +696,7 @@ class papaya_strings {
   * @return string
   */
   public static function base32_encode($bytes) {
-    return \PapayaUtilStringBase32::encode($bytes);
+    return \Papaya\Utility\Text\Base32::encode($bytes);
   }
 
   /**
@@ -707,7 +707,7 @@ class papaya_strings {
   * @return string
   */
   public static function base32_decode($encodedString) {
-    return \PapayaUtilStringBase32::decode($encodedString);
+    return \Papaya\Utility\Text\Base32::decode($encodedString);
   }
 
   /**

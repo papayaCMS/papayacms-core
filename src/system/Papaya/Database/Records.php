@@ -56,7 +56,7 @@ abstract class Records
   public function load($filter = array(), $limit = NULL, $offset = NULL) {
     $fields = implode(', ', $this->mapping()->getFields());
     $sql = "SELECT $fields FROM %s";
-    $sql .= \PapayaUtilString::escapeForPrintf(
+    $sql .= \Papaya\Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $parameters = array(
@@ -93,7 +93,7 @@ abstract class Records
    * @return bool
    */
   public function insert($data) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($data);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($data);
     $databaseAccess = $this->getDatabaseAccess();
     $records = array();
     foreach ($data as $values) {
@@ -192,7 +192,7 @@ abstract class Records
    * @param mixed $value
    */
   public function offsetSet($offset, $value) {
-    \PapayaUtilConstraints::assertArray($value);
+    \Papaya\Utility\Constraints::assertArray($value);
     $identifier = $this->getIdentifier($offset);
     $record = array();
     foreach ($this->mapping()->getProperties() as $property) {

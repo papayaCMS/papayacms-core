@@ -139,7 +139,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
     if ($stripSlashes) {
       $parameter = stripslashes($parameter);
     }
-    return \PapayaUtilStringUtf8::ensure($parameter);
+    return \Papaya\Utility\Text\Utf8::ensure($parameter);
   }
 
   /**
@@ -197,7 +197,7 @@ class Parameters extends \Papaya\BaseObject\Parameters {
         $fullName = $prefix.$groupSeparator.$name;
       }
       if (is_array($value)) {
-        $result = \PapayaUtilArray::merge(
+        $result = \Papaya\Utility\Arrays::merge(
           $result, $this->flattenArray($value, $groupSeparator, $fullName, $maxRecursions - 1)
         );
       } else {

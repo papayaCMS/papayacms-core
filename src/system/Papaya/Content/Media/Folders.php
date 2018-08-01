@@ -36,7 +36,7 @@ class Folders extends \Papaya\Database\Records\Tree {
 
   public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
     if ('ancestors' === $property) {
-      return \PapayaUtilArray::decodeIdList($value);
+      return \Papaya\Utility\Arrays::decodeIdList($value);
     }
     return $value;
   }
@@ -64,7 +64,7 @@ class Folders extends \Papaya\Database\Records\Tree {
     } else {
       $languageId = 0;
     }
-    $sql .= \PapayaUtilString::escapeForPrintf(
+    $sql .= \Papaya\Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $parameters = array(

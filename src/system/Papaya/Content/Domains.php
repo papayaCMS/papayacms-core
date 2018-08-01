@@ -73,7 +73,7 @@ class Domains extends \Papaya\Database\Records {
   public function callbackMapValueFromFieldToProperty($context, $property, $field, $value) {
     switch ($property) {
       case 'options' :
-        return \PapayaUtilStringXml::unserializeArray($value);
+        return \Papaya\Utility\Text\Xml::unserializeArray($value);
     }
     return $value;
   }

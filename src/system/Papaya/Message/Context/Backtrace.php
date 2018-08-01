@@ -119,7 +119,7 @@ class Backtrace
       if ($key > 0) {
         $result .= "<br />\n";
       }
-      $result .= \PapayaUtilStringXml::escape($element);
+      $result .= \Papaya\Utility\Text\Xml::escape($element);
     }
     return $result;
   }

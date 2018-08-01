@@ -50,7 +50,7 @@ class Phrase extends \Papaya\Database\Record {
     $sql = "SELECT $fields
               FROM %s AS p
               LEFT JOIN %s AS pt ON (pt.phrase_id = p.phrase_id AND pt.lng_id = '%d')";
-    $sql .= \PapayaUtilString::escapeForPrintf(
+    $sql .= \Papaya\Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter)
     );
     $parameters = array(

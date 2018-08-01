@@ -68,7 +68,7 @@ class Configuration
   protected function defineOptions(array $options) {
     foreach ($options as $name => $default) {
       if (!is_scalar($default) && !is_null($default)) {
-        $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+        $name = Utility\Text\Identifier::toUnderscoreUpper($name);
         throw new \UnexpectedValueException(
           sprintf('Default value for option "%s" is not a scalar.', $name)
         );
@@ -104,7 +104,7 @@ class Configuration
    * @return mixed
    */
   public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+    $name = Utility\Text\Identifier::toUnderscoreUpper($name);
     if (array_key_exists($name, $this->_options)) {
       return $this->filter($this->_options[$name], $default, $filter);
     } else {
@@ -154,7 +154,7 @@ class Configuration
    * @param mixed $value
    */
   public function set($name, $value) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+    $name = Utility\Text\Identifier::toUnderscoreUpper($name);
     if ($this->has($name) &&
       array_key_exists($name, $this->_options) &&
       ($this->_options[$name] !== $value)) {
@@ -171,7 +171,7 @@ class Configuration
    * @return bool
    */
   public function has($name) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+    $name = Utility\Text\Identifier::toUnderscoreUpper($name);
     return array_key_exists($name, $this->_options);
   }
 
@@ -182,7 +182,7 @@ class Configuration
    * @throws \InvalidArgumentException
    */
   public function assign($source) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($source);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($source);
     foreach ($source as $name => $value) {
       $this->set($name, $value);
     }

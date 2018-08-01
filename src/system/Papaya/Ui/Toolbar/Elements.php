@@ -62,7 +62,7 @@ class PapayaUiToolbarElements extends \PapayaUiControlCollection {
   * @return bool
   */
   protected function validateItemClass(\PapayaUiControlCollectionItem $item) {
-    \PapayaUtilConstraints::assertInstanceOf(\PapayaUiToolbarElement::class, $item);
+    \Papaya\Utility\Constraints::assertInstanceOf(\PapayaUiToolbarElement::class, $item);
     parent::validateItemClass($item);
     if (!$this->_allowGroups &&
         $item instanceof \PapayaUiToolbarGroup) {

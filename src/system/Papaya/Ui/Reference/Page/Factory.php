@@ -102,9 +102,9 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
           return $reference;
         } elseif (is_array($domain = $this->getDomainData($languageIdentifier, $pageId))) {
           $reference->url()->setHost($domain['host']);
-          if ($domain['scheme'] != \PapayaUtilServerProtocol::BOTH) {
+          if ($domain['scheme'] != \Papaya\Utility\Server\Protocol::BOTH) {
             $reference->url()->setScheme(
-              \PapayaUtilServerProtocol::get($domain['scheme'])
+              \Papaya\Utility\Server\Protocol::get($domain['scheme'])
             );
           } elseif (!$reference->url()->getScheme()) {
             $reference->url()->setScheme('http');
@@ -112,9 +112,9 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
         } elseif (!$domain) {
           $reference->valid(FALSE);
         }
-        if ($data['scheme'] != \PapayaUtilServerProtocol::BOTH) {
+        if ($data['scheme'] != \Papaya\Utility\Server\Protocol::BOTH) {
           $reference->url()->setScheme(
-            \PapayaUtilServerProtocol::get($data['scheme'])
+            \Papaya\Utility\Server\Protocol::get($data['scheme'])
           );
         }
       } else {
@@ -133,7 +133,7 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
    */
   private function prepareTitle($title, $languageIdentifier) {
     return strtolower(
-      \PapayaUtilFile::normalizeName(
+      \Papaya\Utility\File::normalizeName(
         $title,
         $this->papaya()->options->get('PAPAYA_URL_NAMELENGTH', 50),
         $languageIdentifier
@@ -309,10 +309,10 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
         $attributes = new \PapayaUiLinkAttributes();
         $attributes->class = $linkType['class'];
         if ($linkType['is_popup']) {
-          $width = \PapayaUtilArray::get($linkType['popup_options'], 'popup_width', '80%');
-          $height = \PapayaUtilArray::get($linkType['popup_options'], 'popup_height', '80%');
-          $top = \PapayaUtilArray::get($linkType['popup_options'], 'popup_top', NULL);
-          $left = \PapayaUtilArray::get($linkType['popup_options'], 'popup_left', NULL);
+          $width = \Papaya\Utility\Arrays::get($linkType['popup_options'], 'popup_width', '80%');
+          $height = \Papaya\Utility\Arrays::get($linkType['popup_options'], 'popup_height', '80%');
+          $top = \Papaya\Utility\Arrays::get($linkType['popup_options'], 'popup_top', NULL);
+          $left = \Papaya\Utility\Arrays::get($linkType['popup_options'], 'popup_left', NULL);
           $options = 0;
           $options = $this->setLinkPopupOption(
             $options,
@@ -349,7 +349,7 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
             1 => \PapayaUiLinkAttributes::OPTION_SCROLLBARS_ALWAYS,
             2 => \PapayaUiLinkAttributes::OPTION_SCROLLBARS_AUTO
           );
-          $scrollbarOptionIndex = \PapayaUtilArray::get(
+          $scrollbarOptionIndex = \Papaya\Utility\Arrays::get(
             $linkType['popup_options'], 'popup_scrollbars', 2
           );
           if (!empty($scrollbarOptions[$scrollbarOptionIndex])) {
@@ -376,7 +376,7 @@ class PapayaUiReferencePageFactory extends \Papaya\Application\BaseObject {
    * @return int
    */
   private function setLinkPopupOption($bitmask, $bit, $options, $name, $default = FALSE) {
-    if (\PapayaUtilArray::get($options, $name, $default)) {
+    if (\Papaya\Utility\Arrays::get($options, $name, $default)) {
       $bitmask |= $bit;
     }
     return $bitmask;

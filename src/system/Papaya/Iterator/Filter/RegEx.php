@@ -44,9 +44,9 @@ class RegEx extends \FilterIterator {
   public function __construct(
     \Iterator $iterator, $pattern, $offset = 0, $target = self::FILTER_VALUES
   ) {
-    \PapayaUtilConstraints::assertString($pattern);
-    \PapayaUtilConstraints::assertInteger($offset);
-    \PapayaUtilConstraints::assertInteger($target);
+    \Papaya\Utility\Constraints::assertString($pattern);
+    \Papaya\Utility\Constraints::assertInteger($offset);
+    \Papaya\Utility\Constraints::assertInteger($target);
     parent::__construct($iterator);
     $this->_pattern = $pattern;
     $this->_offset = $offset;
@@ -59,11 +59,11 @@ class RegEx extends \FilterIterator {
    * @return boolean
    */
   public function accept() {
-    if (\PapayaUtilBitwise::inBitmask(self::FILTER_VALUES, $this->_target) &&
+    if (\Papaya\Utility\Bitwise::inBitmask(self::FILTER_VALUES, $this->_target) &&
       !$this->isMatch($this->getInnerIterator()->current())) {
       return FALSE;
     }
-    if (\PapayaUtilBitwise::inBitmask(self::FILTER_KEYS, $this->_target) &&
+    if (\Papaya\Utility\Bitwise::inBitmask(self::FILTER_KEYS, $this->_target) &&
       !$this->isMatch($this->getInnerIterator()->key())) {
       return FALSE;
     }

@@ -74,9 +74,9 @@ class Details
    * @param string|array|NULL $identifier
    */
   public function setDetails($details, $identifier = NULL) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($details);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($details);
     $this->_list = $details;
-    $this->_identifier = isset($identifier) ? \PapayaUtilArray::ensure($identifier) : NULL;
+    $this->_identifier = isset($identifier) ? \Papaya\Utility\Arrays::ensure($identifier) : NULL;
     $this->_tree = NULL;
   }
 
@@ -107,8 +107,8 @@ class Details
   protected function getIdentifier($element, $key) {
     if (isset($this->_identifier)) {
       $result = array();
-      foreach (\PapayaUtilArray::ensure($this->_identifier) as $property) {
-        $result[] = \PapayaUtilArray::get($element, $property, '');
+      foreach (\Papaya\Utility\Arrays::ensure($this->_identifier) as $property) {
+        $result[] = \Papaya\Utility\Arrays::get($element, $property, '');
       }
       return implode('|', $result);
     } else {

@@ -449,7 +449,7 @@ class base_boxeslinks extends base_db {
     $result = $this->getBoxMetaElement($box);
     $result .= sprintf(
       '<data><![CDATA[<esi:include src="%s" />]]></data>',
-      \PapayaUtilStringXml::escapeAttribute($this->getBoxReference($box)->getRelative())
+      \Papaya\Utility\Text\Xml::escapeAttribute($this->getBoxReference($box)->getRelative())
     );
     $result .= '</box>';
     return $result;
@@ -459,7 +459,7 @@ class base_boxeslinks extends base_db {
     $result = $this->getBoxMetaElement($box);
     $result .= sprintf(
       '<data><![CDATA[<div data-fragment-replace="%s"> </div>]]></data>',
-      \PapayaUtilStringXml::escapeAttribute($this->getBoxReference($box)->get())
+      \Papaya\Utility\Text\Xml::escapeAttribute($this->getBoxReference($box)->get())
     );
     $result .= '</box>';
     return $result;
@@ -695,9 +695,9 @@ class base_boxeslinks extends base_db {
       $definition = new Cache\Identifier\Definition\Group(
         $definition,
         new Cache\Identifier\Definition\Values(
-          \PapayaUtilServerProtocol::get(),
-          \PapayaUtilServerName::get(),
-          \PapayaUtilServerPort::get(),
+          \Papaya\Utility\Server\Protocol::get(),
+          \Papaya\Utility\Server\Name::get(),
+          \Papaya\Utility\Server\Port::get(),
           $lngId,
           $viewModeId
         )

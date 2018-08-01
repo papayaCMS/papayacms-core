@@ -507,11 +507,11 @@ class base_topic extends base_db {
       papaya_strings::escapeHTMLChars($this->topic['TRANSLATION']['givenname']),
       papaya_strings::escapeHTMLChars($this->topic['TRANSLATION']['surname']),
       empty($this->topic['topic_created'])
-        ? '' : \PapayaUtilDate::timestampToString((int)$this->topic['topic_created']),
+        ? '' : \Papaya\Utility\Date::timestampToString((int)$this->topic['topic_created']),
       empty($this->topic['topic_created'])
         ? '' : date('D, d M Y H:i:s O', (int)$this->topic['topic_created']),
-      empty($published) ? '' : \PapayaUtilDate::timestampToString($published),
-      empty($audited) ? '' : \PapayaUtilDate::timestampToString($audited),
+      empty($published) ? '' : \Papaya\Utility\Date::timestampToString($published),
+      empty($audited) ? '' : \Papaya\Utility\Date::timestampToString($audited),
       papaya_strings::escapeHTMLChars(get_class($this->moduleObj)),
       papaya_strings::escapeHTMLChars($this->topic['TRANSLATION']['module_guid']),
       empty($this->topic['TRANSLATION']['view_name'])
@@ -873,8 +873,8 @@ class base_topic extends base_db {
 
   private function getAncestorId(array $filter) {
     if (isset($this->topic)) {
-      $previousIds = \PapayaUtilArray::decodeIdList(\PapayaUtilArray::get($this->topic, 'prev_path'));
-      $previousIds[] = \PapayaUtilArray::get($this->topic, 'prev');
+      $previousIds = \Papaya\Utility\Arrays::decodeIdList(\Papaya\Utility\Arrays::get($this->topic, 'prev_path'));
+      $previousIds[] = \Papaya\Utility\Arrays::get($this->topic, 'prev');
     } else {
       $previousIds = array();
     }

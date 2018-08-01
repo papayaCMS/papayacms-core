@@ -45,6 +45,6 @@ class ArrayMapper extends \Papaya\Iterator\Callback {
    * @return mixed
    */
   public function callbackMapElement($element) {
-    return \PapayaUtilArray::get($element, $this->_elementName, NULL);
+    return \Papaya\Utility\Arrays::get($element, $this->_elementName, NULL);
   }
 }

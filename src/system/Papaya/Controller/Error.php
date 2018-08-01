@@ -151,11 +151,11 @@ class Error extends \Papaya\Application\BaseObject implements \Papaya\Controller
    */
   protected function _getOutput() {
     $replace = array(
-      '{%status%}' => \PapayaUtilStringXml::escape($this->_status),
-      '{%artwork%}' => \PapayaUtilStringAsciiArtwork::get($this->_status),
-      '{%identifier%}' => \PapayaUtilStringXml::escape($this->_errorIdentifier),
-      '{%message%}' => \PapayaUtilStringXml::escape($this->_errorMessage),
-      '{%host%}' => \PapayaUtilStringXml::escape(\PapayaUtilServerName::get()),
+      '{%status%}' => \Papaya\Utility\Text\Xml::escape($this->_status),
+      '{%artwork%}' => \Papaya\Utility\Text\Ascii\Artwork::get($this->_status),
+      '{%identifier%}' => \Papaya\Utility\Text\Xml::escape($this->_errorIdentifier),
+      '{%message%}' => \Papaya\Utility\Text\Xml::escape($this->_errorMessage),
+      '{%host%}' => \Papaya\Utility\Text\Xml::escape(\Papaya\Utility\Server\Name::get()),
     );
     return str_replace(
       array_keys($replace),

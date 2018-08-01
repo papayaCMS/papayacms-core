@@ -58,9 +58,9 @@ class PapayaUiStringDate extends \PapayaUiString {
   */
   public function __toString() {
     $pattern = 'Y-m-d';
-    if (\PapayaUtilBitwise::inBitmask(self::SHOW_TIME, $this->_options)) {
+    if (\Papaya\Utility\Bitwise::inBitmask(self::SHOW_TIME, $this->_options)) {
       $pattern .= ' H:i';
-      if (\PapayaUtilBitwise::inBitmask(self::SHOW_SECONDS, $this->_options)) {
+      if (\Papaya\Utility\Bitwise::inBitmask(self::SHOW_SECONDS, $this->_options)) {
         $pattern .= ':s';
       }
     }

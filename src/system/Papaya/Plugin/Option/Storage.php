@@ -33,7 +33,7 @@ class Storage extends \Papaya\Application\BaseObject
    * @param string $guid
    */
   public function __construct($guid) {
-    $this->_guid = \PapayaUtilStringGuid::toLower($guid);
+    $this->_guid = \Papaya\Utility\Text\Guid::toLower($guid);
   }
 
   /**

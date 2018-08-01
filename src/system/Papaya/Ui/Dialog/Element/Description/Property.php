@@ -49,7 +49,7 @@ class PapayaUiDialogElementDescriptionProperty extends \PapayaUiDialogElementDes
   * @param string $name
   */
   public function setName($name) {
-    \PapayaUtilConstraints::assertNotEmpty($name);
+    \Papaya\Utility\Constraints::assertNotEmpty($name);
     $this->_name = $name;
   }
 

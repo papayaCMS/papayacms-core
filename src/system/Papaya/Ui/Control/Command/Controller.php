@@ -56,7 +56,7 @@ class PapayaUiControlCommandController
    */
   public function __construct($parameterName, $defaultCommand = '') {
     $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
-    $this->_defaultCommand = \PapayaUtilStringIdentifier::toUnderscoreLower($defaultCommand);
+    $this->_defaultCommand = \Papaya\Utility\Text\Identifier::toUnderscoreLower($defaultCommand);
   }
 
   /**
@@ -84,7 +84,7 @@ class PapayaUiControlCommandController
   * @return NULL|\PapayaUiControlCommand
   */
   public function getCurrent() {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreLower(
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower(
       $this->owner()->parameters()->get((string)$this->_parameterName, '')
     );
     if (isset($this->_commands[$name])) {
@@ -103,7 +103,7 @@ class PapayaUiControlCommandController
   * @return bool
   */
   public function offsetExists($name) {
-    return isset($this->_commands[\PapayaUtilStringIdentifier::toUnderscoreLower($name)]);
+    return isset($this->_commands[\Papaya\Utility\Text\Identifier::toUnderscoreLower($name)]);
   }
 
   /**
@@ -113,7 +113,7 @@ class PapayaUiControlCommandController
   * @return \PapayaUiControlCommand
   */
   public function offsetGet($name) {
-    return $this->_commands[\PapayaUtilStringIdentifier::toUnderscoreLower($name)];
+    return $this->_commands[\Papaya\Utility\Text\Identifier::toUnderscoreLower($name)];
   }
 
   /**
@@ -124,7 +124,7 @@ class PapayaUiControlCommandController
   * @param \PapayaUiControlCommand $command
   */
   public function offsetSet($name, $command) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     if ($this->hasOwner()) {
       $command->owner($this->owner());
     }
@@ -137,7 +137,7 @@ class PapayaUiControlCommandController
   * @param string $name
   */
   public function offsetUnset($name) {
-    unset($this->_commands[\PapayaUtilStringIdentifier::toUnderscoreLower($name)]);
+    unset($this->_commands[\Papaya\Utility\Text\Identifier::toUnderscoreLower($name)]);
   }
 
   /**

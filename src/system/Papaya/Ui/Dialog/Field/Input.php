@@ -70,7 +70,7 @@ class PapayaUiDialogFieldInput extends \PapayaUiDialogField {
   * @return \PapayaUiDialogFieldInput
   */
   public function setMaximumLength($maximumLength) {
-    \PapayaUtilConstraints::assertInteger($maximumLength);
+    \Papaya\Utility\Constraints::assertInteger($maximumLength);
     if ($maximumLength > 0) {
       $this->_maximumLength = $maximumLength;
     } else {
@@ -88,8 +88,8 @@ class PapayaUiDialogFieldInput extends \PapayaUiDialogField {
   * The method can uses by descendant classes, too.
   */
   public function setType($type) {
-    \PapayaUtilConstraints::assertString($type);
-    \PapayaUtilConstraints::assertNotEmpty($type);
+    \Papaya\Utility\Constraints::assertString($type);
+    \Papaya\Utility\Constraints::assertNotEmpty($type);
     $this->_type = $type;
   }
 

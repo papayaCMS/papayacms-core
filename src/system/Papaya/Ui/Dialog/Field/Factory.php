@@ -70,7 +70,7 @@ class PapayaUiDialogFieldFactory {
    * @return string
    */
   private function getProfileClass($name) {
-    $name = \PapayaUtilStringIdentifier::toCamelCase($name, TRUE);
+    $name = \Papaya\Utility\Text\Identifier::toCamelCase($name, TRUE);
     if (isset($this->_profiles[$name])) {
       return $this->_profiles[$name];
     } elseif (empty($name)) {
@@ -92,9 +92,9 @@ class PapayaUiDialogFieldFactory {
    * @param array|\Traversable $profiles
    */
   public function registerProfiles($profiles) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($profiles);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($profiles);
     foreach ($profiles as $name => $profile) {
-      $this->_profiles[\PapayaUtilStringIdentifier::toCamelCase($name, TRUE)] = $profile;
+      $this->_profiles[\Papaya\Utility\Text\Identifier::toCamelCase($name, TRUE)] = $profile;
     }
   }
 }

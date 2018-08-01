@@ -35,8 +35,8 @@ class Directory {
    * @param string $path
    */
   public function __construct($path) {
-    \PapayaUtilConstraints::assertNotEmpty($path);
-    $this->_path = \PapayaUtilFilePath::cleanup($path, FALSE);
+    \Papaya\Utility\Constraints::assertNotEmpty($path);
+    $this->_path = \Papaya\Utility\File\Path::cleanup($path, FALSE);
   }
 
   /**

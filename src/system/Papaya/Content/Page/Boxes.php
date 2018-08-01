@@ -64,7 +64,7 @@ class Boxes extends \Papaya\Database\BaseObject\Records {
     return FALSE !== $this->databaseDeleteRecord(
         $this->databaseGetTableName(\Papaya\Content\Tables::PAGE_BOXES),
         'topic_id',
-        \PapayaUtilArray::ensure($pageIds)
+        \Papaya\Utility\Arrays::ensure($pageIds)
       );
   }
 
@@ -75,7 +75,7 @@ class Boxes extends \Papaya\Database\BaseObject\Records {
    * @return boolean
    */
   public function copyTo($pageIds) {
-    $pageIds = \PapayaUtilArray::ensure($pageIds);
+    $pageIds = \Papaya\Utility\Arrays::ensure($pageIds);
     if (empty($this->_records) || empty($pageIds)) {
       return TRUE;
     }

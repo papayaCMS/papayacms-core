@@ -70,7 +70,7 @@ class Collection extends \Papaya\Database\Records\Lazy {
     $sql = "SELECT $fields
               FROM %s AS m, %s AS mg
              WHERE mg.modulegroup_id = m.modulegroup_id";
-    $sql .= \PapayaUtilString::escapeForPrintf(
+    $sql .= \Papaya\Utility\Text::escapeForPrintf(
       $this->_compileCondition($filter, ' AND ').$this->_compileOrderBy()
     );
     $parameters = array(

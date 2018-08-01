@@ -41,7 +41,7 @@ class PapayaUiTokens extends \Papaya\Application\BaseObject {
   * @param integer $maximum
   */
   public function __construct($maximum = 200) {
-    \PapayaUtilConstraints::assertInteger($maximum);
+    \Papaya\Utility\Constraints::assertInteger($maximum);
     $this->_maximum = $maximum;
   }
 
@@ -53,7 +53,7 @@ class PapayaUiTokens extends \Papaya\Application\BaseObject {
   * @return string|NULL $token New token
   */
   public function create($for = '', $expires = -1) {
-    \PapayaUtilConstraints::assertInteger($expires);
+    \Papaya\Utility\Constraints::assertInteger($expires);
     if (!isset($this->papaya()->session) ||
         !$this->papaya()->session->isActive()) {
       return NULL;
@@ -86,7 +86,7 @@ class PapayaUiTokens extends \Papaya\Application\BaseObject {
   * @return boolean
   */
   public function validate($token, $for = '') {
-    \PapayaUtilConstraints::assertString($token);
+    \Papaya\Utility\Constraints::assertString($token);
     if (!$this->papaya()->session->isActive()) {
       return TRUE;
     }
@@ -131,7 +131,7 @@ class PapayaUiTokens extends \Papaya\Application\BaseObject {
   * @return string
   */
   protected function getTokenHash() {
-    return md5(\PapayaUtilRandom::getId());
+    return md5(\Papaya\Utility\Random::getId());
   }
 
   /**

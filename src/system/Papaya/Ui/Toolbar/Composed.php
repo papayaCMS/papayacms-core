@@ -61,7 +61,7 @@ class PapayaUiToolbarComposed extends \PapayaUiControl {
       throw new \InvalidArgumentException('No sets defined');
     }
     foreach ($sets as $index => $name) {
-      $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+      $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
       if (empty($name)) {
         throw new \InvalidArgumentException(
           sprintf('Invalid set name "%s" in index "%s".', $name, $index)
@@ -111,7 +111,7 @@ class PapayaUiToolbarComposed extends \PapayaUiControl {
   * @return boolean
   */
   public function __isset($name) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     return array_key_exists($name, $this->_sets);
   }
 
@@ -124,7 +124,7 @@ class PapayaUiToolbarComposed extends \PapayaUiControl {
   * @return \PapayaUiToolbarSet
   */
   public function __get($name) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     if (array_key_exists($name, $this->_sets)) {
       if (!isset($this->_sets[$name])) {
         $this->_sets[$name] = $set = new \PapayaUiToolbarSet();
@@ -146,8 +146,8 @@ class PapayaUiToolbarComposed extends \PapayaUiControl {
   * @param \PapayaUiToolbarSet $value
   */
   public function __set($name, $value) {
-    \PapayaUtilConstraints::assertInstanceOf(\PapayaUiToolbarSet::class, $value);
-    $name = \PapayaUtilStringIdentifier::toUnderscoreLower($name);
+    \Papaya\Utility\Constraints::assertInstanceOf(\PapayaUiToolbarSet::class, $value);
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreLower($name);
     if (array_key_exists($name, $this->_sets)) {
       $this->_sets[$name] = $value;
     } else {

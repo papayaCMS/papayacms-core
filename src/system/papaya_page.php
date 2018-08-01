@@ -385,7 +385,7 @@ class papaya_page extends base_object {
    */
   function protectedRedirect($code, $targetUrl) {
     if ($this->papaya()->options->get('PAPAYA_REDIRECT_PROTECTION', FALSE)) {
-      $protocol = \PapayaUtilServerProtocol::get();
+      $protocol = \Papaya\Utility\Server\Protocol::get();
       $systemUrl = $protocol.'://'.strtolower(
         $this->papaya()->options->get(
           'PAPAYA_DEFAULT_HOST',
@@ -432,7 +432,7 @@ class papaya_page extends base_object {
     } else {
       $host = $_SERVER['HTTP_HOST'];
     }
-    $protocol = \PapayaUtilServerProtocol::get();
+    $protocol = \Papaya\Utility\Server\Protocol::get();
     $targetUrl = $protocol.'://'.strtolower($host).$path;
     $this->doRedirect($code, $targetUrl, $reason);
   }
@@ -666,7 +666,7 @@ class papaya_page extends base_object {
     $requestData['page_id'] = $alias['topic_id'];
     $requestData['language'] = $alias['lng_ident'];
     $requestData['ext'] = $alias['viewmode_ext'];
-    $this->requestData = \PapayaUtilArray::merge(
+    $this->requestData = \Papaya\Utility\Arrays::merge(
       $this->requestData,
       $requestData
     );
@@ -702,7 +702,7 @@ class papaya_page extends base_object {
     }
     $session->setName('sid'.$this->sessionName);
     $this->sendHeader('P3P: CP="NOI NID ADMa OUR IND UNI COM NAV"');
-    if (\PapayaUtilServerAgent::isRobot()) {
+    if (\Papaya\Utility\Server\Agent::isRobot()) {
       if ($redirect = $session->redirectIfNeeded()) {
         $redirect->send();
         exit;
@@ -804,7 +804,7 @@ class papaya_page extends base_object {
       $result = TRUE;
     }
     if ($result && $this->topic->topic['topic_protocol'] > 0) {
-      $protocol = \PapayaUtilServerProtocol::isSecure() ? 2 : 1;
+      $protocol = \Papaya\Utility\Server\Protocol::isSecure() ? 2 : 1;
       if ($protocol != $this->topic->topic['topic_protocol']) {
         $targetUrl = $this->topic->topic['topic_protocol'] == 2 ? 'https://' : 'http://';
         $targetUrl .= empty($_SERVER['HTTP_HOST']) ? 'localhost' : $_SERVER['HTTP_HOST'];
@@ -812,7 +812,7 @@ class papaya_page extends base_object {
         $this->protectedRedirect('302', $targetUrl);
       }
     } elseif ($result && defined('PAPAYA_DEFAULT_PROTOCOL') && PAPAYA_DEFAULT_PROTOCOL > 0) {
-      $protocol = \PapayaUtilServerProtocol::isSecure() ? 2 : 1;
+      $protocol = \Papaya\Utility\Server\Protocol::isSecure() ? 2 : 1;
       if ($protocol != PAPAYA_DEFAULT_PROTOCOL) {
         $targetUrl = PAPAYA_DEFAULT_PROTOCOL == 2 ? 'https://' : 'http://';
         $targetUrl .= empty($_SERVER['HTTP_HOST']) ? 'localhost' : $_SERVER['HTTP_HOST'];
@@ -901,7 +901,7 @@ class papaya_page extends base_object {
         $definition = new Cache\Identifier\Definition\BooleanValue(TRUE);
       }
       $definition = new Cache\Identifier\Definition\Group(
-        new Cache\Identifier\Definition\BooleanValue(\PapayaUtilRequestMethod::isGet()),
+        new Cache\Identifier\Definition\BooleanValue(\Papaya\Utility\Request\Method::isGet()),
         new Cache\Identifier\Definition\Url(),
         new Cache\Identifier\Definition\Surfer(),
         new Cache\Identifier\Definition\Parameters('PAPAYA_SESSION_PAGE_PARAMS'),
@@ -1604,7 +1604,7 @@ class papaya_page extends base_object {
     );
     $this->setVisitorLanguage($this->topic->currentLanguage['code']);
     if ($outputContent) {
-      $serverUrl = \PapayaUtilServerProtocol::get().'://'.\PapayaUtilServerName::get();
+      $serverUrl = \Papaya\Utility\Server\Protocol::get().'://'.\Papaya\Utility\Server\Name::get();
       $url = strtr(
         $serverUrl.$this->papaya()->options->get('PAPAYA_PATH_WEB', '/'),
         '\\',
@@ -1719,7 +1719,7 @@ class papaya_page extends base_object {
   public function getPageDocument() {
     if (NULL === $this->_pageDocument) {
       $this->_pageDocument = new \PapayaXmlDocument();
-      $xml = \PapayaUtilStringXml::repairEntities(
+      $xml = \Papaya\Utility\Text\Xml::repairEntities(
         $this->topic->parseContent(TRUE, $this->_filterOptions)
       );
       if (!empty($xml)) {
@@ -2503,8 +2503,8 @@ class papaya_page extends base_object {
           '&msg='.urlencode($errorString).
           '&code='.(int)$errorCode;
 
-        $protocol = \PapayaUtilServerProtocol::get();
-        $currentUrl = $protocol.'://'.\PapayaUtilServerName::get().$_SERVER['REQUEST_URI'];
+        $protocol = \Papaya\Utility\Server\Protocol::get();
+        $currentUrl = $protocol.'://'.\Papaya\Utility\Server\Name::get().$_SERVER['REQUEST_URI'];
 
         if (base_url_analyze::comparePathDepth($targetUrl, $currentUrl) !== 0) {
           $this->doRedirect(302, $targetUrl, 'Error Redirect');

@@ -279,7 +279,7 @@ class base_tags extends base_db {
   */
   function loadCategoryCounts(&$categories) {
     if (is_array($categories) && (count($categories) > 0)) {
-      $categoryCondition = \PapayaUtilString::escapeForPrintf(
+      $categoryCondition = \Papaya\Utility\Text::escapeForPrintf(
         $this->databaseGetSqlCondition('parent_id', array_keys($categories))
       );
       $sql = "SELECT COUNT(*) AS count, parent_id

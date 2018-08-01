@@ -824,7 +824,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
   * @return string
   */
   function formatByteValue($bytes) {
-    return \PapayaUtilBytes::toString($bytes);
+    return \Papaya\Utility\Bytes::toString($bytes);
   }
 
   /**
@@ -833,7 +833,7 @@ class papaya_mediadb_mime extends base_mediadb_edit {
   * @return integer
   */
   function decodeBytesInput($input) {
-    return \PapayaUtilBytes::fromString($input);
+    return \Papaya\Utility\Bytes::fromString($input);
   }
 
   /**

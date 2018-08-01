@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUtilStringHtmlTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUtilStringHtml::escapeStripped
+   * @covers \Papaya\Utility\Text\Html::escapeStripped
    * @dataProvider escapeStrippedDataProvider
    * @param string $expected
    * @param string $string
@@ -26,12 +26,12 @@ class PapayaUtilStringHtmlTest extends \PapayaTestCase {
   public function testEscapeStripped($expected, $string) {
     $this->assertEquals(
       $expected,
-      \PapayaUtilStringHtml::escapeStripped($string)
+      \Papaya\Utility\Text\Html::escapeStripped($string)
     );
   }
 
   /**
-   * @covers \PapayaUtilStringHtml::stripTags
+   * @covers \Papaya\Utility\Text\Html::stripTags
    * @dataProvider stripTagsDataProvider
    * @param string $expected
    * @param string $string
@@ -39,12 +39,12 @@ class PapayaUtilStringHtmlTest extends \PapayaTestCase {
   public function testStripTags($expected, $string) {
     $this->assertEquals(
       $expected,
-      \PapayaUtilStringHtml::stripTags($string)
+      \Papaya\Utility\Text\Html::stripTags($string)
     );
   }
 
   /**
-   * @covers \PapayaUtilStringHtml::decodeNamedEntities
+   * @covers \Papaya\Utility\Text\Html::decodeNamedEntities
    * @dataProvider decodeNamedEntitiesDataProvider
    * @param string $expected
    * @param string $string
@@ -52,7 +52,7 @@ class PapayaUtilStringHtmlTest extends \PapayaTestCase {
   public function testDecodeNamedEntities($expected, $string) {
     $this->assertEquals(
       $expected,
-      \PapayaUtilStringHtml::decodeNamedEntities($string)
+      \Papaya\Utility\Text\Html::decodeNamedEntities($string)
     );
   }
 

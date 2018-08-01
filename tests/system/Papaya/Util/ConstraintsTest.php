@@ -20,363 +20,363 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilConstraintsTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUtilConstraints::assertArray
+  * @covers \Papaya\Utility\Constraints::assertArray
   */
   public function testAssertArray() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertArray(array())
+      \Papaya\Utility\Constraints::assertArray(array())
     );
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertArray
+   * @covers \Papaya\Utility\Constraints::assertArray
    * @dataProvider provideInvalidValuesForAssertArray
    * @param mixed $value
    */
   public function testAssertArrayFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertArray($value);
+    \Papaya\Utility\Constraints::assertArray($value);
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertArrayOrTraversable
+  * @covers \Papaya\Utility\Constraints::assertArrayOrTraversable
   */
   public function testAssertArrayOrTraversableWithArray() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertArrayOrTraversable(array())
+      \Papaya\Utility\Constraints::assertArrayOrTraversable(array())
     );
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertArrayOrTraversable
+  * @covers \Papaya\Utility\Constraints::assertArrayOrTraversable
   */
   public function testAssertArrayOrTraversableWithTraversable() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertArrayOrTraversable(new ArrayIterator(array()))
+      \Papaya\Utility\Constraints::assertArrayOrTraversable(new ArrayIterator(array()))
     );
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertArrayOrTraversable
+   * @covers \Papaya\Utility\Constraints::assertArrayOrTraversable
    * @dataProvider provideInvalidValuesForAssertArrayOrTraversable
    * @param mixed $value
    */
   public function testAssertArrayOrTraversableFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertArrayOrTraversable($value);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($value);
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertBoolean
+  * @covers \Papaya\Utility\Constraints::assertBoolean
   */
   public function testAssertBooleanWithTrue() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertBoolean(TRUE)
+      \Papaya\Utility\Constraints::assertBoolean(TRUE)
     );
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertBoolean
+  * @covers \Papaya\Utility\Constraints::assertBoolean
   */
   public function testAssertBooleanWithFalse() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertBoolean(FALSE)
+      \Papaya\Utility\Constraints::assertBoolean(FALSE)
     );
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertBoolean
+   * @covers \Papaya\Utility\Constraints::assertBoolean
    * @dataProvider provideInvalidValuesForAssertBoolean
    * @param mixed $value
    */
   public function testAssertBooleanFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertBoolean($value);
+    \Papaya\Utility\Constraints::assertBoolean($value);
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertCallable
+   * @covers \Papaya\Utility\Constraints::assertCallable
    * @dataProvider provideValidValuesForAssertCallable
    * @param callable $value
    */
   public function testAssertCallable($value) {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertCallable($value)
+      \Papaya\Utility\Constraints::assertCallable($value)
     );
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertCallable
+  * @covers \Papaya\Utility\Constraints::assertCallable
   */
   public function testAssertCallableWithMethod() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertCallable(array($this, 'testAssertCallableWithMethod'))
+      \Papaya\Utility\Constraints::assertCallable(array($this, 'testAssertCallableWithMethod'))
     );
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertCallable
+   * @covers \Papaya\Utility\Constraints::assertCallable
    * @dataProvider provideInvalidValuesForAssertCallable
    * @param mixed $value
    */
   public function testAssertCallableFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertCallable($value);
+    \Papaya\Utility\Constraints::assertCallable($value);
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertContains
+  * @covers \Papaya\Utility\Constraints::assertContains
   */
   public function testAssertContainsExpectingTrue() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertContains(array('yes', 'no'), 'yes')
+      \Papaya\Utility\Constraints::assertContains(array('yes', 'no'), 'yes')
     );
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertContains
+  * @covers \Papaya\Utility\Constraints::assertContains
   */
   public function testAssertContainsExpectingException() {
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Array does not contains the given value.');
-    \PapayaUtilConstraints::assertContains(array('yes', 'no'), 'maybe');
+    \Papaya\Utility\Constraints::assertContains(array('yes', 'no'), 'maybe');
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertContains
+  * @covers \Papaya\Utility\Constraints::assertContains
   */
   public function testAssertContainsExpectingExceptionWithIndividualMessage() {
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('NOT IN LIST');
-    \PapayaUtilConstraints::assertContains(array('yes', 'no'), 'maybe', 'NOT IN LIST');
+    \Papaya\Utility\Constraints::assertContains(array('yes', 'no'), 'maybe', 'NOT IN LIST');
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertFloat
+  * @covers \Papaya\Utility\Constraints::assertFloat
   */
   public function testAssertFloat() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertFloat(42.21)
+      \Papaya\Utility\Constraints::assertFloat(42.21)
     );
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertFloat
+   * @covers \Papaya\Utility\Constraints::assertFloat
    * @dataProvider provideInvalidValuesForAssertFloat
    * @param mixed $value
    */
   public function testAssertFloatFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertFloat($value);
+    \Papaya\Utility\Constraints::assertFloat($value);
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertInstanceOf
+  * @covers \Papaya\Utility\Constraints::assertInstanceOf
   */
   public function testAssertInstanceOf() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertInstanceOf(stdClass::class, new stdClass)
+      \Papaya\Utility\Constraints::assertInstanceOf(stdClass::class, new stdClass)
     );
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertInstanceOf
+  * @covers \Papaya\Utility\Constraints::assertInstanceOf
   */
   public function testAssertInstanceOfWithSuperclass() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertInstanceOf(\PapayaTestCase::class, $this)
+      \Papaya\Utility\Constraints::assertInstanceOf(\PapayaTestCase::class, $this)
     );
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertInstanceOf
+  * @covers \Papaya\Utility\Constraints::assertInstanceOf
   */
   public function testAssertInstanceOfWithTwoClasses() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertInstanceOf(array(stdClass::class, \PapayaTestCase::class), $this)
+      \Papaya\Utility\Constraints::assertInstanceOf(array(stdClass::class, \PapayaTestCase::class), $this)
     );
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertInstanceOf
+  * @covers \Papaya\Utility\Constraints::assertInstanceOf
   */
   public function testAssertInstanceOfFailureExpectingException() {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertInstanceOf(stdClass::class, $this);
+    \Papaya\Utility\Constraints::assertInstanceOf(stdClass::class, $this);
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertInstanceOf
+  * @covers \Papaya\Utility\Constraints::assertInstanceOf
   */
   public function testAssertInstanceOfWithTwoClassesFailureExpectingException() {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertInstanceOf(array(Url::class, stdClass::class), $this);
+    \Papaya\Utility\Constraints::assertInstanceOf(array(Url::class, stdClass::class), $this);
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertInteger
+  * @covers \Papaya\Utility\Constraints::assertInteger
   */
   public function testAssertInteger() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertInteger(42)
+      \Papaya\Utility\Constraints::assertInteger(42)
     );
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertInteger
+   * @covers \Papaya\Utility\Constraints::assertInteger
    * @dataProvider provideInvalidValuesForAssertInteger
    * @param mixed $value
    */
   public function testAssertIntegerFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertInteger($value);
+    \Papaya\Utility\Constraints::assertInteger($value);
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertNotEmpty
+   * @covers \Papaya\Utility\Constraints::assertNotEmpty
    * @dataProvider provideValidValuesForAssertNotEmpty
    * @param mixed $value
    */
   public function testAssertNotEmptyWithValidValues($value) {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertNotEmpty($value)
+      \Papaya\Utility\Constraints::assertNotEmpty($value)
     );
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertNotEmpty
+   * @covers \Papaya\Utility\Constraints::assertNotEmpty
    * @dataProvider provideInvalidValuesForAssertNotEmpty
    * @param mixed $value
    */
   public function testAssertNotEmptyWithInValidValuesExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertNotEmpty($value);
+    \Papaya\Utility\Constraints::assertNotEmpty($value);
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertNotEmpty
+   * @covers \Papaya\Utility\Constraints::assertNotEmpty
    * @dataProvider provideInvalidValuesForAssertNotEmpty
    * @param mixed $value
    */
   public function testAssertNotEmptyWithInValidValuesExpectingExceptionIndividualMessage($value) {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertNotEmpty($value, 'SAMPLE MESSAGE');
+    \Papaya\Utility\Constraints::assertNotEmpty($value, 'SAMPLE MESSAGE');
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertNumber
+  * @covers \Papaya\Utility\Constraints::assertNumber
   */
   public function testAssertNumberWithInteger() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertNumber(42)
+      \Papaya\Utility\Constraints::assertNumber(42)
     );
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertNumber
+  * @covers \Papaya\Utility\Constraints::assertNumber
   */
   public function testAssertNumberWithFloat() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertNumber(42.21)
+      \Papaya\Utility\Constraints::assertNumber(42.21)
     );
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertNumber
+   * @covers \Papaya\Utility\Constraints::assertNumber
    * @dataProvider provideInvalidValuesForAssertNumber
    * @param mixed $value
    */
   public function testAssertNumberFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertNumber($value);
+    \Papaya\Utility\Constraints::assertNumber($value);
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertObject
+  * @covers \Papaya\Utility\Constraints::assertObject
   */
   public function testAssertObject() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertObject(new stdClass)
+      \Papaya\Utility\Constraints::assertObject(new stdClass)
     );
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertObject
+   * @covers \Papaya\Utility\Constraints::assertObject
    * @dataProvider provideInvalidValuesForAssertObject
    * @param mixed $value
    */
   public function testAssertObjectFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertObject($value);
+    \Papaya\Utility\Constraints::assertObject($value);
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertObjectOrNull
+  * @covers \Papaya\Utility\Constraints::assertObjectOrNull
   */
   public function testAssertObjectOrNullWithObject() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertObjectOrNull(new stdClass)
+      \Papaya\Utility\Constraints::assertObjectOrNull(new stdClass)
     );
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertObjectOrNull
+  * @covers \Papaya\Utility\Constraints::assertObjectOrNull
   */
   public function testAssertObjectOrNullWithNull() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertObjectOrNull(NULL)
+      \Papaya\Utility\Constraints::assertObjectOrNull(NULL)
     );
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertObjectOrNull
+   * @covers \Papaya\Utility\Constraints::assertObjectOrNull
    * @dataProvider provideInvalidValuesForAssertObjectOrNull
    * @param mixed $value
    */
   public function testAssertObjectOrNullFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertObjectOrNull($value);
+    \Papaya\Utility\Constraints::assertObjectOrNull($value);
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertResource
+  * @covers \Papaya\Utility\Constraints::assertResource
   */
   public function testAssertResource() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertResource($fh = fopen('php://memory', 'rwb'))
+      \Papaya\Utility\Constraints::assertResource($fh = fopen('php://memory', 'rwb'))
     );
     fclose($fh);
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertResource
+  * @covers \Papaya\Utility\Constraints::assertResource
   */
   public function testAssertResourceFailureExpectingException() {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertResource('');
+    \Papaya\Utility\Constraints::assertResource('');
   }
 
   /**
-  * @covers \PapayaUtilConstraints::assertString
+  * @covers \Papaya\Utility\Constraints::assertString
   */
   public function testAssertString() {
     $this->assertTrue(
-      \PapayaUtilConstraints::assertString('')
+      \Papaya\Utility\Constraints::assertString('')
     );
   }
 
   /**
-   * @covers \PapayaUtilConstraints::assertString
+   * @covers \Papaya\Utility\Constraints::assertString
    * @dataProvider provideInvalidValuesForAssertString
    * @param mixed $value
    */
   public function testAssertStringFailureExpectingException($value) {
     $this->expectException(UnexpectedValueException::class);
-    \PapayaUtilConstraints::assertString($value);
+    \Papaya\Utility\Constraints::assertString($value);
   }
 
   /**
-  * @covers \PapayaUtilConstraints::createException
+  * @covers \Papaya\Utility\Constraints::createException
   */
   public function testCreateExceptionWithScalar() {
     $this->expectException(UnexpectedValueException::class);
@@ -385,7 +385,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUtilConstraints::createException
+  * @covers \Papaya\Utility\Constraints::createException
   */
   public function testCreateExceptionWithObject() {
     $this->expectException(UnexpectedValueException::class);
@@ -394,7 +394,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUtilConstraints::createException
+  * @covers \Papaya\Utility\Constraints::createException
   */
   public function testCreateExceptionWithIndividualMessage() {
     $this->expectException(UnexpectedValueException::class);
@@ -442,7 +442,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   public static function provideValidValuesForAssertCallable() {
     return array(
       'function' => array('is_callable'),
-      'class function' => array(array(\PapayaUtilConstraints::class, 'assertCallable'))
+      'class function' => array(array(\Papaya\Utility\Constraints::class, 'assertCallable'))
     );
   }
 
@@ -542,7 +542,7 @@ class PapayaUtilConstraintsTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUtilConstraints_TestProxy extends \PapayaUtilConstraints {
+class PapayaUtilConstraints_TestProxy extends \Papaya\Utility\Constraints {
 
   public static function createException($expected, $value, $message) {
     return parent::createException($expected, $value, $message);

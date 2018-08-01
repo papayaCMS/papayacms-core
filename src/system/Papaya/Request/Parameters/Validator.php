@@ -61,7 +61,7 @@ class Validator
     if (is_array($parameters)) {
       $parameters = new \Papaya\Request\Parameters($parameters);
     }
-    \PapayaUtilConstraints::assertInstanceOf(\Papaya\Request\Parameters::class, $parameters);
+    \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Request\Parameters::class, $parameters);
     $this->_parameters = $parameters;
   }
 
@@ -73,19 +73,19 @@ class Validator
    */
   private function setDefinitions(array $definitions) {
     foreach ($definitions as $definition) {
-      $name = \PapayaUtilArray::get($definition, array('name', 0), NULL);
-      \PapayaUtilConstraints::assertNotEmpty(
+      $name = \Papaya\Utility\Arrays::get($definition, array('name', 0), NULL);
+      \Papaya\Utility\Constraints::assertNotEmpty(
         $name, 'Empty parameter name not allowed.'
       );
-      $default = \PapayaUtilArray::get($definition, array('default', 1), NULL);
+      $default = \Papaya\Utility\Arrays::get($definition, array('default', 1), NULL);
       if ($default instanceof \Papaya\Filter) {
         $filter = $default;
         $default = NULL;
       } else {
-        $filter = \PapayaUtilArray::get($definition, array('filter', 2), NULL);
+        $filter = \Papaya\Utility\Arrays::get($definition, array('filter', 2), NULL);
       }
       if (NULL !== $filter) {
-        \PapayaUtilConstraints::assertInstanceOf(\Papaya\Filter::class, $filter);
+        \Papaya\Utility\Constraints::assertInstanceOf(\Papaya\Filter::class, $filter);
       }
       $this->_definitions[$name] = array(
         'default' => $default, 'filter' => $filter

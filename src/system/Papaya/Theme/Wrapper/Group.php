@@ -65,8 +65,8 @@ class Group {
     $xpath = new \DOMXpath($document);
     $query = sprintf(
       '//wrapper-groups/%s-group[@name = "%s"]/file',
-      \PapayaUtilStringXml::escapeAttribute($mode),
-      \PapayaUtilStringXml::escapeAttribute($name)
+      \Papaya\Utility\Text\Xml::escapeAttribute($mode),
+      \Papaya\Utility\Text\Xml::escapeAttribute($name)
     );
     foreach ($xpath->evaluate($query) as $file) {
       $fileName = $xpath->evaluate('string(@href)', $file);
@@ -89,8 +89,8 @@ class Group {
     $xpath = new \DOMXpath($document);
     $query = sprintf(
       'boolean(//wrapper-groups/%s-group[@name = "%s"]/@recursive = "yes")',
-      \PapayaUtilStringXml::escapeAttribute($mode),
-      \PapayaUtilStringXml::escapeAttribute($name)
+      \Papaya\Utility\Text\Xml::escapeAttribute($mode),
+      \Papaya\Utility\Text\Xml::escapeAttribute($name)
     );
     return $xpath->evaluate($query);
   }

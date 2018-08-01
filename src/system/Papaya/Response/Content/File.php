@@ -37,7 +37,7 @@ class File implements \Papaya\Response\Content {
    * @param string $filename
    */
   public function __construct($filename) {
-    \PapayaUtilConstraints::assertString($filename);
+    \Papaya\Utility\Constraints::assertString($filename);
     $this->_filename = $filename;
   }
 

@@ -77,7 +77,7 @@ class Set extends \Papaya\Database\Record {
     $context, $property, $field, $value
   ) {
     if ('values' === $property) {
-      return \PapayaUtilStringXml::unserializeArray((string)$value);
+      return \Papaya\Utility\Text\Xml::unserializeArray((string)$value);
     }
     return $value;
   }
@@ -96,7 +96,7 @@ class Set extends \Papaya\Database\Record {
     $context, $property, $field, $value
   ) {
     if ('values' === $property) {
-      return \PapayaUtilStringXml::serializeArray((array)$value);
+      return \Papaya\Utility\Text\Xml::serializeArray((array)$value);
     }
     return $value;
   }

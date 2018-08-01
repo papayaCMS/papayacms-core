@@ -104,7 +104,7 @@ class Human extends \Papaya\Database\Sequence {
     $result = '';
     $max = count($this->_characterTable) - 1;
     for ($i = 0; $i < $length; $i++) {
-      $result .= $this->_characterTable[\PapayaUtilRandom::rand(0, $max)];
+      $result .= $this->_characterTable[\Papaya\Utility\Random::rand(0, $max)];
     }
     return $result;
   }

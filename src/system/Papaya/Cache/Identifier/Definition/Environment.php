@@ -31,8 +31,8 @@ class Environment
    * @param string $name
    */
   public function __construct($name) {
-    \PapayaUtilConstraints::assertString($name);
-    \PapayaUtilConstraints::assertNotEmpty($name);
+    \Papaya\Utility\Constraints::assertString($name);
+    \Papaya\Utility\Constraints::assertNotEmpty($name);
     $this->_name = $name;
   }
 

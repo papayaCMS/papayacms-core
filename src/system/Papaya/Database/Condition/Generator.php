@@ -78,8 +78,8 @@ class Generator {
         $field = FALSE !== strpos($match['fields'], ',') ? explode(',', $match['fields']) : $match['fields'];
       } else {
         $definition = explode(',', $key);
-        $field = \PapayaUtilArray::get($definition, 0, '');
-        $condition = strtoLower(\PapayaUtilArray::get($definition, 1, 'equal'));
+        $field = \Papaya\Utility\Arrays::get($definition, 0, '');
+        $condition = strtoLower(\Papaya\Utility\Arrays::get($definition, 1, 'equal'));
       }
       if ($condition == 'and' && is_array($value)) {
         $this->appendConditions($group->logicalAnd(), $value, $limit - 1);

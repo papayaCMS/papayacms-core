@@ -52,7 +52,7 @@ class PapayaUiListviewColumns
    * @return \PapayaUiListview
    */
   public function owner($listview = NULL) {
-    \PapayaUtilConstraints::assertInstanceOfOrNull(\PapayaUiListview::class, $listview);
+    \Papaya\Utility\Constraints::assertInstanceOfOrNull(\PapayaUiListview::class, $listview);
     return parent::owner($listview);
   }
 }

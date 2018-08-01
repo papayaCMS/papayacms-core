@@ -38,9 +38,9 @@ class Page
       return FALSE;
     }
     $data = array(
-      'scheme' => \PapayaUtilServerProtocol::get(),
-      'host' => \PapayaUtilServerName::get(),
-      'port' => \PapayaUtilServerPort::get(),
+      'scheme' => \Papaya\Utility\Server\Protocol::get(),
+      'host' => \Papaya\Utility\Server\Name::get(),
+      'port' => \Papaya\Utility\Server\Port::get(),
       'category_id' => $this->papaya()->request->getParameter(
         'category_id', 0, NULL, \Papaya\Request::SOURCE_PATH
       ),

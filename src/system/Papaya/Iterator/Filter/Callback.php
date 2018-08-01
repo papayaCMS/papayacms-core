@@ -47,7 +47,7 @@ class Callback extends \FilterIterator {
    * @param callable $callback
    */
   public function setCallback($callback) {
-    \PapayaUtilConstraints::assertCallable($callback);
+    \Papaya\Utility\Constraints::assertCallable($callback);
     $this->_callback = $callback;
   }
 

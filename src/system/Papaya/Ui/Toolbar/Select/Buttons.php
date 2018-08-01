@@ -42,8 +42,8 @@ class PapayaUiToolbarSelectButtons extends \PapayaUiToolbarSelect {
         if (array_key_exists('enabled', $data) && !$data['enabled']) {
           continue;
         }
-        $caption = \PapayaUtilArray::get($data, array('caption', 0), '');
-        $image = \PapayaUtilArray::get($data, array('image', 1), '');
+        $caption = \Papaya\Utility\Arrays::get($data, array('caption', 0), '');
+        $image = \Papaya\Utility\Arrays::get($data, array('image', 1), '');
       } else {
         $caption = $data;
         $image = '';

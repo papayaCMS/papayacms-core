@@ -49,7 +49,7 @@ class Items implements \OuterIterator, \RecursiveIterator {
    * @param integer $mode
    */
   public function __construct($traversable, $mode = self::ATTACH_TO_KEYS) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($traversable);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($traversable);
     $this->_traversable = $traversable;
     $this->_mode = $mode;
   }
@@ -76,7 +76,7 @@ class Items implements \OuterIterator, \RecursiveIterator {
    * @param \Traversable|array $traversable
    */
   public function attachItemIterator($target, $traversable) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($traversable);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($traversable);
     $this->_itemIterators[(string)$target] = $traversable;
   }
 

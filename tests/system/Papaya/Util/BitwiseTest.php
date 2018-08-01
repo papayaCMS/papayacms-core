@@ -18,37 +18,40 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilBitwiseTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUtilBitwise::inBitmask
+   * @covers \Papaya\Utility\Bitwise::inBitmask
    * @dataProvider provideInBitmaskPositiveData
    * @param int $bit
    * @param int $bitmask
    */
   public function testInBitmaskExpectingTrue($bit, $bitmask) {
     $this->assertTrue(
-      \PapayaUtilBitwise::inBitmask($bit, $bitmask)
+      \Papaya\Utility\Bitwise::inBitmask($bit, $bitmask)
     );
   }
 
   /**
-   * @covers \PapayaUtilBitwise::inBitmask
+   * @covers \Papaya\Utility\Bitwise::inBitmask
    * @dataProvider provideInBitmaskNegativeData
    * @param int $bit
    * @param int $bitmask
    */
   public function testInBitmaskExpectingFalse($bit, $bitmask) {
     $this->assertFalse(
-      \PapayaUtilBitwise::inBitmask($bit, $bitmask)
+      \Papaya\Utility\Bitwise::inBitmask($bit, $bitmask)
     );
   }
 
   /**
-   * @covers \PapayaUtilBitwise::union
+   * @covers \Papaya\Utility\Bitwise::union
    * @dataProvider provideUnionData
    * @param int $expected
    * @param array $bits
    */
   public function testUnion($expected, array $bits) {
-    $this->assertEquals($expected, call_user_func_array('PapayaUtilBitwise::union', $bits));
+    $this->assertEquals(
+      $expected,
+      call_user_func_array(Papaya\Utility\Bitwise::class.'::union', $bits)
+    );
   }
 
   /****************************************

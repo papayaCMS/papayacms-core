@@ -226,7 +226,7 @@ class File extends \Papaya\Cache\Service {
    */
   public function delete($group = NULL, $element = NULL, $parameters = NULL) {
     if ($this->verify()) {
-      $cache = \PapayaUtilFilePath::cleanup($this->_cacheDirectory);
+      $cache = \Papaya\Utility\File\Path::cleanup($this->_cacheDirectory);
       if (!empty($group)) {
         $cache .= $this->_escapeIdentifierString($group).'/';
       }
@@ -243,7 +243,7 @@ class File extends \Papaya\Cache\Service {
         $this->notify(\Papaya\File\System\Change\Notifier::ACTION_DELETED, $cache);
         return 1;
       } elseif (file_exists($cache) && is_dir($cache) && $this->_allowUnlink) {
-        $count = \PapayaUtilFilePath::clear($cache);
+        $count = \Papaya\Utility\File\Path::clear($cache);
         $this->notify(\Papaya\File\System\Change\Notifier::ACTION_CLEARED, NULL, $cache);
         return $count;
       } else {
@@ -265,7 +265,7 @@ class File extends \Papaya\Cache\Service {
    */
   protected function _getCacheIdentification($group, $element, $parameters) {
     $identification = parent::_getCacheIdentification($group, $element, $parameters);
-    $groupDirectory = \PapayaUtilFilePath::cleanup($this->_cacheDirectory).$identification['group'];
+    $groupDirectory = \Papaya\Utility\File\Path::cleanup($this->_cacheDirectory).$identification['group'];
     $cacheId =
       $identification['group'].'/'.$identification['element'].'/'.$identification['parameters'];
     if (strlen($cacheId) > 255) {

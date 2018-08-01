@@ -18,26 +18,26 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaUtilDateTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUtilDate::stringToTimestamp
+  * @covers \Papaya\Utility\Date::stringToTimestamp
   */
   public function testStringToTimestamp() {
     $this->assertEquals(
       '2010-12-18 14:37:42',
-      date('Y-m-d H:i:s', \PapayaUtilDate::stringToTimestamp('2010-12-18 14:37:42'))
+      date('Y-m-d H:i:s', \Papaya\Utility\Date::stringToTimestamp('2010-12-18 14:37:42'))
     );
   }
 
   /**
-  * @covers \PapayaUtilDate::stringToTimestamp
+  * @covers \Papaya\Utility\Date::stringToTimestamp
   */
   public function testStringToTimestampExpectingFalse() {
     $this->assertFalse(
-      \PapayaUtilDate::stringToTimestamp('')
+      \Papaya\Utility\Date::stringToTimestamp('')
     );
   }
 
   /**
-   * @covers \PapayaUtilDate::stringToISO
+   * @covers \Papaya\Utility\Date::stringToISO
    * @dataProvider stringToIsoDataProvider
    * @param string $dateString
    * @param bool $includeTime
@@ -46,23 +46,23 @@ class PapayaUtilDateTest extends \PapayaTestCase {
   public function testStringToISO($dateString, $includeTime, $expected) {
     $this->assertEquals(
       $expected,
-      \PapayaUtilDate::stringToISO($dateString, $includeTime)
+      \Papaya\Utility\Date::stringToISO($dateString, $includeTime)
     );
   }
 
   /**
-   * @covers \PapayaUtilDate::stringToArray
-   * @covers \PapayaUtilDate::_getValueFromArray
+   * @covers \Papaya\Utility\Date::stringToArray
+   * @covers \Papaya\Utility\Date::_getValueFromArray
    * @dataProvider stringToArrayDataProvider
    * @param string $dateString
    * @param array|FALSE $expected
    */
   public function testStringToArray($dateString, $expected) {
-    $this->assertSame($expected, \PapayaUtilDate::stringToArray($dateString));
+    $this->assertSame($expected, \Papaya\Utility\Date::stringToArray($dateString));
   }
 
   /**
-   * covers \PapayaUtilDate::timestampToString
+   * covers \Papaya\Utility\PapayaUtilDate::timestampToString
    *
    * @dataProvider timestampToStringDataProvider
    * @param int $timestamp
@@ -71,41 +71,41 @@ class PapayaUtilDateTest extends \PapayaTestCase {
    */
   public function testTimestampToString($timestamp, $timezone, $expected) {
     date_default_timezone_set($timezone);
-    $this->assertEquals($expected, \PapayaUtilDate::timestampToString($timestamp));
+    $this->assertEquals($expected, \Papaya\Utility\Date::timestampToString($timestamp));
   }
 
   /**
-  * @covers \PapayaUtilDate::timestampToString
+  * @covers \Papaya\Utility\Date::timestampToString
   */
   public function testTimestampToStringWithoutSeconds() {
     date_default_timezone_set('UTC');
     $this->assertEquals(
-      '2010-04-01 11:31', \PapayaUtilDate::timestampToString(1270121471, FALSE, TRUE, TRUE)
+      '2010-04-01 11:31', \Papaya\Utility\Date::timestampToString(1270121471, FALSE, TRUE, TRUE)
     );
   }
 
   /**
-  * @covers \PapayaUtilDate::timestampToString
+  * @covers \Papaya\Utility\Date::timestampToString
   */
   public function testTimestampToStringWithoutOffset() {
     date_default_timezone_set('UTC');
     $this->assertEquals(
-      '2010-04-01 11:31:11', \PapayaUtilDate::timestampToString(1270121471, TRUE, FALSE, TRUE)
+      '2010-04-01 11:31:11', \Papaya\Utility\Date::timestampToString(1270121471, TRUE, FALSE, TRUE)
     );
   }
 
   /**
-  * @covers \PapayaUtilDate::timestampToString
+  * @covers \Papaya\Utility\Date::timestampToString
   */
   public function testTimestampToStringWithoutWeekday() {
     date_default_timezone_set('UTC');
     $this->assertEquals(
-      '2010-04-01 11:31:11+0000', \PapayaUtilDate::timestampToString(1270121471, TRUE, TRUE, FALSE)
+      '2010-04-01 11:31:11+0000', \Papaya\Utility\Date::timestampToString(1270121471, TRUE, TRUE, FALSE)
     );
   }
 
   /**
-  * @covers \PapayaUtilDate::periodToArray
+  * @covers \Papaya\Utility\Date::periodToArray
   */
   public function testPeriodToArray() {
     $this->assertEquals(
@@ -118,15 +118,15 @@ class PapayaUtilDateTest extends \PapayaTestCase {
        's' => 11,
        'ms' => 220
       ),
-      \PapayaUtilDate::periodToArray(
+      \Papaya\Utility\Date::periodToArray(
         self::getTimePeriodFixture(21, 42, 3, 13, 31, 11.22)
       )
     );
   }
 
   /**
-   * @covers \PapayaUtilDate::periodToString
-   * @covers \PapayaUtilDate::_roundPeriodElement
+   * @covers \Papaya\Utility\Date::periodToString
+   * @covers \Papaya\Utility\Date::_roundPeriodElement
    * @dataProvider periodToArrayDataProvider
    * @param string $expected
    * @param string $period
@@ -135,18 +135,18 @@ class PapayaUtilDateTest extends \PapayaTestCase {
   public function testPeriodToString($expected, $period, $precision) {
     $this->assertEquals(
       $expected,
-      \PapayaUtilDate::periodToString($period, $precision)
+      \Papaya\Utility\Date::periodToString($period, $precision)
     );
   }
 
   /**
-  * @covers \PapayaUtilDate::periodToString
-  * @covers \PapayaUtilDate::_roundPeriodElement
+  * @covers \Papaya\Utility\Date::periodToString
+  * @covers \Papaya\Utility\Date::_roundPeriodElement
   */
   public function testPeriodToStringWithUnits() {
     $this->assertEquals(
       '21 Jahr(e) 42 Woche(n) 4 Tag(e)',
-      \PapayaUtilDate::periodToString(
+      \Papaya\Utility\Date::periodToString(
         self::getTimePeriodFixture(21, 42, 3, 13, 31, 11.22),
         3,
         array(
@@ -159,13 +159,13 @@ class PapayaUtilDateTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers       \PapayaUtilDate::iso8601ToTimestamp
+   * @covers       \Papaya\Utility\Date::iso8601ToTimestamp
    * @dataProvider iso8601ToTimestampDataProvider
    * @param $expected
    * @param $datetime
    */
   public function testIso8601ToTimestamp($expected, $datetime) {
-    $this->assertEquals($expected, \PapayaUtilDate::iso8601ToTimestamp($datetime));
+    $this->assertEquals($expected, \Papaya\Utility\Date::iso8601ToTimestamp($datetime));
   }
 
   /*************************************

@@ -66,7 +66,7 @@ class Timer extends \Papaya\Application\BaseObject implements \IteratorAggregate
       }
       $result[] = array(
         'time' => $take['time'] - $offset,
-        'time_string' => \PapayaUtilDate::periodToString($take['time'] - $offset),
+        'time_string' => \Papaya\Utility\Date::periodToString($take['time'] - $offset),
         'start' => $offset,
         'end' => $offset = $take['time'],
         'text' => $text

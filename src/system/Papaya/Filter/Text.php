@@ -47,13 +47,13 @@ class Text implements \Papaya\Filter {
    */
   private function getPattern() {
     $result = '([^\\pL\\pP';
-    if (\PapayaUtilBitwise::inBitmask(self::ALLOW_SPACES, $this->_options)) {
+    if (\Papaya\Utility\Bitwise::inBitmask(self::ALLOW_SPACES, $this->_options)) {
       $result .= '\\p{Zs} ';
     }
-    if (\PapayaUtilBitwise::inBitmask(self::ALLOW_LINES, $this->_options)) {
+    if (\Papaya\Utility\Bitwise::inBitmask(self::ALLOW_LINES, $this->_options)) {
       $result .= '\\p{Zl}\\r\\n';
     }
-    if (\PapayaUtilBitwise::inBitmask(self::ALLOW_DIGITS, $this->_options)) {
+    if (\Papaya\Utility\Bitwise::inBitmask(self::ALLOW_DIGITS, $this->_options)) {
       $result .= '\\pN';
     }
     $result .= ']+)u';

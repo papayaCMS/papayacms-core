@@ -42,7 +42,7 @@ class PapayaTemplateXslt extends \Papaya\Template {
    * @param $fileName
    */
   public function setXsl($fileName) {
-    \PapayaUtilConstraints::assertNotEmpty($fileName);
+    \Papaya\Utility\Constraints::assertNotEmpty($fileName);
     $this->_xslFile = $fileName;
   }
 

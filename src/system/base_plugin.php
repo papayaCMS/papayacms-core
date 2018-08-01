@@ -233,7 +233,7 @@ class base_plugin extends base_object {
   * @access public
   */
   function setData($xmlData) {
-    $this->data = \PapayaUtilStringXml::unserializeArray($xmlData);
+    $this->data = \Papaya\Utility\Text\Xml::unserializeArray($xmlData);
     $this->onLoad();
   }
 
@@ -283,7 +283,7 @@ class base_plugin extends base_object {
   * @return string $result XML-data string
   */
   function getData() {
-    return \PapayaUtilStringXml::serializeArray($this->data);
+    return \Papaya\Utility\Text\Xml::serializeArray($this->data);
   }
 
   /**
@@ -438,7 +438,7 @@ class base_plugin extends base_object {
   */
   function checkDialogInput() {
     if ($result = $this->dialog->checkDialogInput()) {
-      $this->data = \PapayaUtilArray::merge($this->data, $this->dialog->data, 1);
+      $this->data = \Papaya\Utility\Arrays::merge($this->data, $this->dialog->data, 1);
     }
     if (isset($this->dialog->inputErrors)) {
       $this->fieldErrors = $this->dialog->inputErrors;

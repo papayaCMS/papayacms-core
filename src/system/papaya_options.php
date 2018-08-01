@@ -1017,7 +1017,7 @@ class papaya_options extends base_options {
     case 'PAPAYA_UI_SECURE' :
     case 'PAPAYA_SESSION_SECURE' :
       if (0 != (int)$value) {
-        if (!\PapayaUtilServerProtocol::isSecure()) {
+        if (!\Papaya\Utility\Server\Protocol::isSecure()) {
           $this->addMsg(MSG_ERROR, $this->_gt('You need HTTPS to use this feature.'));
           return FALSE;
         }

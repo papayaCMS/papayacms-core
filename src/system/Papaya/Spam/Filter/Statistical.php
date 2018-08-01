@@ -103,7 +103,7 @@ class Statistical implements \Papaya\Spam\Filter {
    * @throws \RangeException
    */
   public function setTokenLimit($count) {
-    \PapayaUtilConstraints::assertInteger($count);
+    \Papaya\Utility\Constraints::assertInteger($count);
     if ($count <= 0) {
       throw new \RangeException('RangeException: $count must be greater than 0');
     }

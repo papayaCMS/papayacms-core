@@ -60,10 +60,10 @@ class Xhtml
       $headerOptions = $this->getHeaderOptionsFromType($message->getType());
       printf(
         '<h3 style="background-color: %s; color: %s; padding: 0.3em; margin: 0;">%s: %s</h3>',
-        \PapayaUtilStringXml::escapeAttribute($headerOptions[0]),
-        \PapayaUtilStringXml::escapeAttribute($headerOptions[1]),
-        \PapayaUtilStringXml::escape($headerOptions[2]),
-        \PapayaUtilStringXml::escape($message->getMessage())
+        \Papaya\Utility\Text\Xml::escapeAttribute($headerOptions[0]),
+        \Papaya\Utility\Text\Xml::escapeAttribute($headerOptions[1]),
+        \Papaya\Utility\Text\Xml::escape($headerOptions[2]),
+        \Papaya\Utility\Text\Xml::escape($message->getMessage())
       );
       print($message->context()->asXhtml());
       print('</div>');

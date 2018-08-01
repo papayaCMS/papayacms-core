@@ -31,7 +31,7 @@ class PapayaTemplateXsltHandler extends \Papaya\Application\BaseObject {
       ->papaya()
       ->options
       ->get('PAPAYA_PATH_TEMPLATES');
-    return \PapayaUtilFilePath::cleanup($path.'/'.$this->getTemplate());
+    return \Papaya\Utility\File\Path::cleanup($path.'/'.$this->getTemplate());
   }
 
   /**

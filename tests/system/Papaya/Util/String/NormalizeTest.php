@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUtilStringNormalizeTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUtilStringNormalize::toHttpHeaderName
+   * @covers \Papaya\Utility\Text\Normalize::toHttpHeaderName
    * @dataProvider toHttpHeaderNameDataProvider
    * @param string $string
    * @param string $expected
@@ -26,7 +26,7 @@ class PapayaUtilStringNormalizeTest extends \PapayaTestCase {
   public function testToHttpHeaderName($string, $expected) {
     $this->assertEquals(
       $expected,
-      \PapayaUtilStringNormalize::toHttpHeaderName($string)
+      \Papaya\Utility\Text\Normalize::toHttpHeaderName($string)
     );
   }
 

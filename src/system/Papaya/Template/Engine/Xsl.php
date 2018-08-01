@@ -125,7 +125,7 @@ class PapayaTemplateEngineXsl extends \PapayaTemplateEngine {
   * @param \XsltCache|\XsltProcessor $processor
   */
   public function setProcessor($processor) {
-    \PapayaUtilConstraints::assertInstanceOf(array('XsltProcessor', 'XsltCache'), $processor);
+    \Papaya\Utility\Constraints::assertInstanceOf(array('XsltProcessor', 'XsltCache'), $processor);
     $this->_processor = $processor;
   }
 

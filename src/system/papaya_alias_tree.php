@@ -729,9 +729,9 @@ class papaya_alias_tree extends base_db {
             isset($this->aliasPlugin->editFields) && is_array($this->aliasPlugin->editFields)) {
           $this->aliasPlugin->paramName = $this->paramName;
           if ($this->aliasPlugin instanceof \Papaya\Plugin\Editable) {
-            $data = \PapayaUtilArray::merge($data, $this->aliasPlugin->content());
+            $data = \Papaya\Utility\Arrays::merge($data, $this->aliasPlugin->content());
           } elseif (isset($this->aliasPlugin->data) && is_array($this->aliasPlugin->data)) {
-            $data = \PapayaUtilArray::merge($data, $this->aliasPlugin->data);
+            $data = \Papaya\Utility\Arrays::merge($data, $this->aliasPlugin->data);
           }
           $this->aliasPlugin->initializeParams();
           $this->aliasPlugin->initializeDialog();

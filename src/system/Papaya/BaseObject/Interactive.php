@@ -54,7 +54,7 @@ abstract class Interactive
    */
   public function parameterMethod($method = NULL) {
     if (!is_null($method)) {
-      \PapayaUtilConstraints::assertInteger($method);
+      \Papaya\Utility\Constraints::assertInteger($method);
       $this->_parameterMethod = $method;
     }
     return $this->_parameterMethod;
@@ -70,8 +70,8 @@ abstract class Interactive
    */
   public function parameterGroup($groupName = NULL) {
     if (!is_null($groupName)) {
-      \PapayaUtilConstraints::assertString($groupName);
-      \PapayaUtilConstraints::assertNotEmpty($groupName);
+      \Papaya\Utility\Constraints::assertString($groupName);
+      \Papaya\Utility\Constraints::assertNotEmpty($groupName);
       $this->_parameterGroup = $groupName;
     }
     return $this->_parameterGroup;

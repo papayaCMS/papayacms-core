@@ -28,31 +28,31 @@ class PapayaUtilServerNameTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUtilServerName::get
+  * @covers \Papaya\Utility\Server\Name::get
   */
   public function testGetFromHttpHost() {
     $_SERVER['HTTP_HOST'] = 'www.test.tld';
     $this->assertEquals(
-      'www.test.tld', \PapayaUtilServerName::get()
+      'www.test.tld', \Papaya\Utility\Server\Name::get()
     );
   }
 
   /**
-  * @covers \PapayaUtilServerName::get
+  * @covers \Papaya\Utility\Server\Name::get
   */
   public function testGetFromServerName() {
     $_SERVER['SERVER_NAME'] = 'www.test.tld';
     $this->assertEquals(
-      'www.test.tld', \PapayaUtilServerName::get()
+      'www.test.tld', \Papaya\Utility\Server\Name::get()
     );
   }
 
   /**
-  * @covers \PapayaUtilServerName::get
+  * @covers \Papaya\Utility\Server\Name::get
   */
   public function testGetExpectingEmptyString() {
     $this->assertEquals(
-      '', \PapayaUtilServerName::get()
+      '', \Papaya\Utility\Server\Name::get()
     );
   }
 }

@@ -70,7 +70,7 @@ class Union implements \OuterIterator {
    * @return integer
    */
   public function setFlags($flags) {
-    \PapayaUtilConstraints::assertInteger($flags);
+    \Papaya\Utility\Constraints::assertInteger($flags);
     $this->_flags = $flags;
   }
 
@@ -219,7 +219,7 @@ class Union implements \OuterIterator {
    * @return string
    */
   private function getIteratorIdentifier($iterator) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($iterator);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($iterator);
     return is_array($iterator) ? md5(serialize($iterator)) : spl_object_hash($iterator);
   }
 }

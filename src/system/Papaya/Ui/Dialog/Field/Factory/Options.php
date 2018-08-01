@@ -89,7 +89,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
    * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
    */
   public function assign($values) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($values);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($values);
     foreach ($values as $name => $value) {
       $this->set($name, $value, TRUE);
     }

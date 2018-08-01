@@ -541,14 +541,14 @@ class checkit {
    * convert ISO date/time to unix timestamp
    *
    * @deprecated
-   * @see \PapayaUtilDate::stringToTimestamp()
+   * @see \Papaya\Utility\Date::stringToTimestamp()
    *
    * @param string $str string to convert
    * @access public
    * @return integer
    */
   public static function convertISODateTimeToUnix($str) {
-    return (int)\PapayaUtilDate::stringToTimestamp($str);
+    return (int)\Papaya\Utility\Date::stringToTimestamp($str);
   }
 
   /**

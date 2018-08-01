@@ -31,7 +31,7 @@ class GlobalValues extends \Papaya\Configuration {
    * @return bool
    */
   public function has($name) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreUpper($name);
     if (defined($name)) {
       return TRUE;
     }
@@ -47,7 +47,7 @@ class GlobalValues extends \Papaya\Configuration {
    * @return NULL|int|bool|float|string
    */
   public function get($name, $default = NULL, \Papaya\Filter $filter = NULL) {
-    $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreUpper($name);
     if (defined($name)) {
       return $this->filter(constant($name), $default, $filter);
     }

@@ -50,7 +50,7 @@ class PapayaUiDialogFieldSelectMediaFolder extends \PapayaUiDialogField {
       if ($iterator->getDepth() > 0) {
         $caption .= str_repeat('  ', $iterator->getDepth() - 1).'->';
       }
-      $caption .= \PapayaUtilArray::get($folder, 'title', '');
+      $caption .= \Papaya\Utility\Arrays::get($folder, 'title', '');
       $option = $select->appendElement(
         'option', array('value' => $folderId), $caption
       );

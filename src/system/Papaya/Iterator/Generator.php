@@ -45,7 +45,7 @@ class Generator implements \IteratorAggregate {
    * @param array $arguments
    */
   public function __construct($callback, array $arguments = array()) {
-    \PapayaUtilConstraints::assertCallable($callback);
+    \Papaya\Utility\Constraints::assertCallable($callback);
     $this->_callback = $callback;
     $this->_arguments = $arguments;
   }

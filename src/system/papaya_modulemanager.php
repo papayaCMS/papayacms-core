@@ -154,14 +154,14 @@ class papaya_modulemanager extends base_db {
    */
   public function prependModulePath($path) {
     $map = array(
-      'vendor:' => \PapayaUtilFilePath::getVendorPath(),
-      'src:' => \PapayaUtilFilePath::getSourcePath()
+      'vendor:' => \Papaya\Utility\File\Path::getVendorPath(),
+      'src:' => \Papaya\Utility\File\Path::getSourcePath()
     );
     foreach ($map as $prefix => $mapPath) {
       if (0 === strpos($path, $prefix)) {
-        $basePath = \PapayaUtilFilePath::getDocumentRoot().$mapPath;
+        $basePath = \Papaya\Utility\File\Path::getDocumentRoot().$mapPath;
         $relativePath = substr($path, strlen($prefix));
-        return \PapayaUtilFilePath::cleanup(
+        return \Papaya\Utility\File\Path::cleanup(
           $basePath.$relativePath, TRUE
         );
       }
@@ -1266,8 +1266,8 @@ class papaya_modulemanager extends base_db {
     $this->packages = array();
     $this->modules = array();
     $paths = array(
-      \PapayaUtilFilePath::cleanup(\PapayaUtilFilePath::getDocumentRoot().\PapayaUtilFilePath::getVendorPath()),
-      \PapayaUtilFilePath::cleanup(\PapayaUtilFilePath::getDocumentRoot().\PapayaUtilFilePath::getSourcePath())
+      \Papaya\Utility\File\Path::cleanup(\Papaya\Utility\File\Path::getDocumentRoot().\Papaya\Utility\File\Path::getVendorPath()),
+      \Papaya\Utility\File\Path::cleanup(\Papaya\Utility\File\Path::getDocumentRoot().\Papaya\Utility\File\Path::getSourcePath())
     );
     foreach ($paths as $path) {
       if (file_exists($path) && is_dir($path) && is_readable($path)) {
@@ -2223,7 +2223,7 @@ class papaya_modulemanager extends base_db {
           '/',
           $this->papaya()->plugins->getFileName($this->module['module_guid'])
         );
-        $root = \PapayaUtilFilePath::getDocumentRoot();
+        $root = \Papaya\Utility\File\Path::getDocumentRoot();
         if (0 === strpos($fileName, $root)) {
           $fileName = substr($fileName, strlen($root));
         } elseif ($position = strpos($fileName, '/vendor/')) {

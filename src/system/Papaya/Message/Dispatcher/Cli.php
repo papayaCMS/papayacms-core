@@ -138,7 +138,7 @@ class Cli
       );
     }
     if (isset($stream)) {
-      \PapayaUtilConstraints::assertResource($stream);
+      \Papaya\Utility\Constraints::assertResource($stream);
       $this->_streams[$target] = $stream;
     } elseif (NULL === $this->_streams[$target]) {
       $name = 'php://'.$target;

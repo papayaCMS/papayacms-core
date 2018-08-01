@@ -18,67 +18,67 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaUtilStringGuidTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUtilStringGuid::validate
+  * @covers \Papaya\Utility\Text\Guid::validate
   */
   public function testValidateExpectingTrue() {
     $this->assertTrue(
-      \PapayaUtilStringGuid::validate('aB123456789012345678901234567890')
+      \Papaya\Utility\Text\Guid::validate('aB123456789012345678901234567890')
     );
   }
 
   /**
-  * @covers \PapayaUtilStringGuid::validate
+  * @covers \Papaya\Utility\Text\Guid::validate
   */
   public function testValidateExpectingFalse() {
     $this->assertFalse(
-      \PapayaUtilStringGuid::validate('invalid', TRUE)
+      \Papaya\Utility\Text\Guid::validate('invalid', TRUE)
     );
   }
 
   /**
-  * @covers \PapayaUtilStringGuid::validate
+  * @covers \Papaya\Utility\Text\Guid::validate
   */
   public function testValidateExpectingException() {
     $this->expectException(UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid guid: "invalid".');
-    \PapayaUtilStringGuid::validate('invalid');
+    \Papaya\Utility\Text\Guid::validate('invalid');
   }
 
   /**
-  * @covers \PapayaUtilStringGuid::toLower
+  * @covers \Papaya\Utility\Text\Guid::toLower
   */
   public function testToLower() {
     $this->assertEquals(
       'ab123456789012345678901234567890',
-      \PapayaUtilStringGuid::toLower('aB123456789012345678901234567890')
+      \Papaya\Utility\Text\Guid::toLower('aB123456789012345678901234567890')
     );
   }
 
   /**
-  * @covers \PapayaUtilStringGuid::toLower
+  * @covers \Papaya\Utility\Text\Guid::toLower
   */
   public function testToLowerWithInvalidValueSilentExpectingEmptyString() {
     $this->assertEquals(
-      '', \PapayaUtilStringGuid::toLower('invalid', TRUE)
+      '', \Papaya\Utility\Text\Guid::toLower('invalid', TRUE)
     );
   }
 
   /**
-  * @covers \PapayaUtilStringGuid::toUpper
+  * @covers \Papaya\Utility\Text\Guid::toUpper
   */
   public function testToUpper() {
     $this->assertEquals(
       'AB123456789012345678901234567890',
-      \PapayaUtilStringGuid::toUpper('aB123456789012345678901234567890')
+      \Papaya\Utility\Text\Guid::toUpper('aB123456789012345678901234567890')
     );
   }
 
   /**
-  * @covers \PapayaUtilStringGuid::toUpper
+  * @covers \Papaya\Utility\Text\Guid::toUpper
   */
   public function testToUpperWithInvalidValueSilentExpectingEmptyString() {
     $this->assertEquals(
-      '', \PapayaUtilStringGuid::toUpper('invalid', TRUE)
+      '', \Papaya\Utility\Text\Guid::toUpper('invalid', TRUE)
     );
   }
 }

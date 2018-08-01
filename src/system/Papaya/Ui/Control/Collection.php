@@ -86,9 +86,9 @@ class PapayaUiControlCollection
    */
   public function owner($owner = NULL) {
     if (isset($owner)) {
-      \PapayaUtilConstraints::assertObject($owner);
+      \Papaya\Utility\Constraints::assertObject($owner);
       if (isset($this->_ownerClass)) {
-        \PapayaUtilConstraints::assertInstanceOf($this->_ownerClass, $owner);
+        \Papaya\Utility\Constraints::assertInstanceOf($this->_ownerClass, $owner);
       }
       $this->_owner = $owner;
       if ($owner instanceof \Papaya\Application\Access) {
@@ -357,7 +357,7 @@ class PapayaUiControlCollection
   * @return integer
   */
   protected function prepareOffset($offset) {
-    \PapayaUtilConstraints::assertInteger($offset);
+    \Papaya\Utility\Constraints::assertInteger($offset);
     if ($offset < 0) {
       return count($this->_items) + $offset;
     } else {

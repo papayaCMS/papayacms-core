@@ -83,8 +83,8 @@ class Parameters
    * @param array|\Traversable $value
    */
   public function merge($value) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($value);
-    parent::exchangeArray(\PapayaUtilArray::merge($this, $value));
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($value);
+    parent::exchangeArray(\Papaya\Utility\Arrays::merge($this, $value));
   }
 
   /**
@@ -94,7 +94,7 @@ class Parameters
    * @internal param array|\Traversable $value
    */
   public function assign($values) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($values);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($values);
     foreach ($values as $key => $value) {
       $this[$key] = $value;
     }
@@ -247,7 +247,7 @@ class Parameters
   public function getChecksum() {
     $data = (array)$this;
     ksort($data);
-    \PapayaUtilArray::normalize($data);
+    \Papaya\Utility\Arrays::normalize($data);
     return md5(serialize($data));
   }
 }

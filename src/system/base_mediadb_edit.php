@@ -826,21 +826,21 @@ class base_mediadb_edit extends base_mediadb {
       default:
         $targetFolder = $this->getFolder($targetFolderId);
         $targetFolder = current($targetFolder);
-        $ancestors = \PapayaUtilArray::decodeIdList($targetFolder['parent_path']);
+        $ancestors = \Papaya\Utility\Arrays::decodeIdList($targetFolder['parent_path']);
         $ancestors[] = $targetFolderId;
       }
       $data = array(
         'parent_id' => $targetFolderId,
-        'parent_path' => \PapayaUtilArray::encodeAndQuoteIdList($ancestors)
+        'parent_path' => \Papaya\Utility\Arrays::encodeAndQuoteIdList($ancestors)
       );
       $condition = array('folder_id' => $folderId);
       if (FALSE !== $this->databaseUpdateRecord($this->tableFolders, $data, $condition)) {
-        $oldAncestors = \PapayaUtilArray::decodeIdList($folder['parent_path']);
+        $oldAncestors = \Papaya\Utility\Arrays::decodeIdList($folder['parent_path']);
         $oldAncestors[] = $folderId;
-        $oldPath = \PapayaUtilArray::encodeAndQuoteIdList($oldAncestors);
+        $oldPath = \Papaya\Utility\Arrays::encodeAndQuoteIdList($oldAncestors);
         $newAncestors = $ancestors;
         $newAncestors[] = $folderId;
-        $newPath = \PapayaUtilArray::encodeAndQuoteIdList($newAncestors);
+        $newPath = \Papaya\Utility\Arrays::encodeAndQuoteIdList($newAncestors);
         $sqlReplace = $this->databaseGetSQLSource(
           'CONCAT',
           $newPath,
@@ -999,7 +999,7 @@ class base_mediadb_edit extends base_mediadb {
   * @return integer
   */
   function iniGetSize($ident) {
-    return \PapayaUtilBytes::fromString(ini_get($ident));
+    return \Papaya\Utility\Bytes::fromString(ini_get($ident));
   }
 }
 

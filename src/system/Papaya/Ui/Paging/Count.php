@@ -282,7 +282,7 @@ class PapayaUiPagingCount extends \PapayaUiControl {
    * @throws \UnexpectedValueException
    */
   public function setItemsCount($itemsCount) {
-    \PapayaUtilConstraints::assertInteger($itemsCount);
+    \Papaya\Utility\Constraints::assertInteger($itemsCount);
     if ($itemsCount < 0) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item count can not be negative.'
@@ -300,7 +300,7 @@ class PapayaUiPagingCount extends \PapayaUiControl {
    * @throws \UnexpectedValueException
    */
   public function setItemsPerPage($itemsPerPage) {
-    \PapayaUtilConstraints::assertInteger($itemsPerPage);
+    \Papaya\Utility\Constraints::assertInteger($itemsPerPage);
     if ($itemsPerPage < 1) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Item page limit can not be less than 1.'
@@ -318,7 +318,7 @@ class PapayaUiPagingCount extends \PapayaUiControl {
    * @throws \UnexpectedValueException
    */
   public function setPageLimit($pageLimit) {
-    \PapayaUtilConstraints::assertInteger($pageLimit);
+    \Papaya\Utility\Constraints::assertInteger($pageLimit);
     if ($pageLimit < 3) {
       throw new \UnexpectedValueException(
         'UnexpectedValueException: Page limit can not be less than 3.'

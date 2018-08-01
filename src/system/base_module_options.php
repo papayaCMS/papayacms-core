@@ -115,7 +115,7 @@ class base_module_options extends base_db {
             $this->_options[$moduleGuid][$row['moduleoption_name']] = array();
           } elseif (substr($row['moduleoption_value'], 0, 1) == '<') {
             $this->_options[$moduleGuid][$row['moduleoption_name']] =
-              \PapayaUtilStringXml::unserializeArray($row['moduleoption_value']);
+              \Papaya\Utility\Text\Xml::unserializeArray($row['moduleoption_value']);
           } else {
             $this->_options[$moduleGuid][$row['moduleoption_name']] =
               @unserialize($row['moduleoption_value']);
@@ -142,7 +142,7 @@ class base_module_options extends base_db {
   * @return boolean
   */
   function saveOption($moduleGuid, $optionName, $value) {
-    $optionName = \PapayaUtilStringIdentifier::toUnderscoreUpper($optionName);
+    $optionName = \Papaya\Utility\Text\Identifier::toUnderscoreUpper($optionName);
     if (preg_match('~^[a-fA-F\d]{32}$~', $moduleGuid) &&
         preg_match('~^[A-Z_\d-]{3,50}$~', $optionName)) {
       $sql = "SELECT moduleoption_value
@@ -151,7 +151,7 @@ class base_module_options extends base_db {
                  AND moduleoption_name = '%s'";
       $params = array($this->tableModuleOptions, $moduleGuid, $optionName);
       if (isset($value) && is_array($value)) {
-        $value = \PapayaUtilStringXml::serializeArray($value);
+        $value = \Papaya\Utility\Text\Xml::serializeArray($value);
         $type = 'array';
       } else {
         $value = (string)$value;

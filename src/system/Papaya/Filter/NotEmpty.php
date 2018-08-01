@@ -37,7 +37,7 @@ class NotEmpty implements \Papaya\Filter {
    * @param boolean $ignoreSpaces
    */
   public function __construct($ignoreSpaces = TRUE) {
-    \PapayaUtilConstraints::assertBoolean($ignoreSpaces);
+    \Papaya\Utility\Constraints::assertBoolean($ignoreSpaces);
     $this->_ignoreSpaces = $ignoreSpaces;
   }
 

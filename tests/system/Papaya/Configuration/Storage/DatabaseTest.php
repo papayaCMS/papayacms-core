@@ -145,7 +145,7 @@ class PapayaConfigurationStorageDatabaseTest extends \PapayaTestCase {
     $storage->records($records);
     $this->assertEquals(
       array('SAMPLE_NAME' => 'sample value'),
-      \PapayaUtilArray::ensure($storage)
+      \Papaya\Utility\Arrays::ensure($storage)
     );
   }
 

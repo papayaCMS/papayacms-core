@@ -103,7 +103,7 @@ class Cms extends GlobalValues {
     'PAPAYA_CONTENT_LANGUAGE' => 1,
     'PAPAYA_CONTENT_LANGUAGE_COOKIE' => FALSE,
 
-    'PAPAYA_DEFAULT_PROTOCOL' => \PapayaUtilServerProtocol::BOTH,
+    'PAPAYA_DEFAULT_PROTOCOL' => \Papaya\Utility\Server\Protocol::BOTH,
     'PAPAYA_DEFAULT_HOST' => '',
     'PAPAYA_DEFAULT_HOST_ACTION' => 0,
     'PAPAYA_REDIRECT_PROTECTION' => FALSE,
@@ -364,7 +364,7 @@ class Cms extends GlobalValues {
         } else {
           $this->set(
             'PAPAYA_MEDIA_PUBLIC_DIRECTORY',
-            \PapayaUtilFilePath::cleanup(
+            \Papaya\Utility\File\Path::cleanup(
               $_SERVER['DOCUMENT_ROOT'].$this->get('PAPAYA_PATH_PUBLICFILES')
             )
           );
@@ -381,11 +381,11 @@ class Cms extends GlobalValues {
 
     if ($this->get('PAPAYA_PATH_TEMPLATES', '') == '') {
       $templatePaths = array(
-        \PapayaUtilFilePath::getDocumentRoot().'/../templates/',
+        \Papaya\Utility\File\Path::getDocumentRoot().'/../templates/',
         $this->get('PAPAYA_PATH_DATA').'templates/'
       );
       foreach ($templatePaths as $templatePath) {
-        $templatePath = \PapayaUtilFilePath::cleanup($templatePath);
+        $templatePath = \Papaya\Utility\File\Path::cleanup($templatePath);
         $this->set('PAPAYA_PATH_TEMPLATES', $templatePath);
         if (file_exists($templatePath) && is_dir($templatePath)) {
           break;
@@ -394,7 +394,7 @@ class Cms extends GlobalValues {
     }
     $this->set(
       'PAPAYA_PATHWEB_ADMIN',
-      \PapayaUtilFilePath::cleanup(
+      \Papaya\Utility\File\Path::cleanup(
         $this->get('PAPAYA_PATH_WEB').$this->get('PAPAYA_PATH_ADMIN')
       )
     );

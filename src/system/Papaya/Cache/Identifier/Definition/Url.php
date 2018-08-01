@@ -30,7 +30,7 @@ class Url
    * @return TRUE|array
    */
   public function getStatus() {
-    return array(get_class($this) => \PapayaUtilRequestUrl::get());
+    return array(get_class($this) => \Papaya\Utility\Request\Url::get());
   }
 
   /**

@@ -116,7 +116,7 @@ class Manager extends \Papaya\Application\BaseObject {
    * @return \Papaya\Message\Sandbox|callable
    */
   public function encapsulate($callback) {
-    \PapayaUtilConstraints::assertCallable($callback);
+    \Papaya\Utility\Constraints::assertCallable($callback);
     $sandbox = new \Papaya\Message\Sandbox($callback);
     $sandbox->papaya($this->papaya());
     return array($sandbox, '__invoke');

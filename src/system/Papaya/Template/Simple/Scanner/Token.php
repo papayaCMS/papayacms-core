@@ -52,9 +52,9 @@ class PapayaTemplateSimpleScannerToken {
    * @throws \InvalidArgumentException
    */
   public function __construct($type, $offset, $content) {
-    \PapayaUtilConstraints::assertInteger($type);
-    \PapayaUtilConstraints::assertInteger($offset);
-    \PapayaUtilConstraints::assertString($content);
+    \Papaya\Utility\Constraints::assertInteger($type);
+    \Papaya\Utility\Constraints::assertInteger($offset);
+    \Papaya\Utility\Constraints::assertString($content);
     $tokenTypes = self::getTokenTypes();
     if (!isset($tokenTypes[$type])) {
       throw new \InvalidArgumentException(

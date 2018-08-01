@@ -288,21 +288,21 @@ class Loader extends \Papaya\Application\BaseObject {
       return $path;
     }
     $map = array(
-      'vendor:' => \PapayaUtilFilePath::getVendorPath(),
-      'src:' => \PapayaUtilFilePath::getSourcePath()
+      'vendor:' => \Papaya\Utility\File\Path::getVendorPath(),
+      'src:' => \Papaya\Utility\File\Path::getSourcePath()
     );
-    $documentRoot = $this->papaya()->options->get('PAPAYA_DOCUMENT_ROOT', \PapayaUtilFilePath::getDocumentRoot());
+    $documentRoot = $this->papaya()->options->get('PAPAYA_DOCUMENT_ROOT', \Papaya\Utility\File\Path::getDocumentRoot());
     foreach ($map as $prefix => $mapPath) {
       if (0 === strpos($path, $prefix)) {
         $basePath = $documentRoot.$mapPath;
         $relativePath = substr($path, strlen($prefix));
-        return \PapayaUtilFilePath::cleanup(
+        return \Papaya\Utility\File\Path::cleanup(
           $basePath.$relativePath, TRUE
         );
       }
     }
     if ($includePath = $this->papaya()->options->get('PAPAYA_INCLUDE_PATH', '')) {
-      return \PapayaUtilFilePath::cleanup(
+      return \Papaya\Utility\File\Path::cleanup(
           $includePath.'/modules/', TRUE
         ).$path;
     }
@@ -342,7 +342,7 @@ class Loader extends \Papaya\Application\BaseObject {
    * @param string|array $data
    */
   public function configure($plugin, $data) {
-    \PapayaUtilConstraints::assertObject($plugin);
+    \Papaya\Utility\Constraints::assertObject($plugin);
     if ($plugin instanceof \Papaya\Plugin\Editable) {
       if (is_array($data) || $data instanceof \Traversable) {
         $plugin->content()->assign($data);
@@ -352,8 +352,8 @@ class Loader extends \Papaya\Application\BaseObject {
     } elseif (!empty($data) && method_exists($plugin, 'setData')) {
       if (is_array($data) || $data instanceof \Traversable) {
         $plugin->setData(
-          \PapayaUtilStringXml::serializeArray(
-            \PapayaUtilArray::ensure($data)
+          \Papaya\Utility\Text\Xml::serializeArray(
+            \Papaya\Utility\Arrays::ensure($data)
           )
         );
       } else {

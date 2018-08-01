@@ -170,7 +170,7 @@ class papaya_parser extends base_db {
   * @return string
   */
   function parse($data, $lngId) {
-    \PapayaUtilConstraints::assertString($data);
+    \Papaya\Utility\File\Constraints::assertString($data);
     $this->data = $data;
     if (defined('PAPAYA_ADMIN_PAGE') && PAPAYA_ADMIN_PAGE) {
       $this->lngId = $this->papaya()->administrationLanguage->id;
@@ -878,7 +878,7 @@ class papaya_parser extends base_db {
       $altText = preg_replace(
         '([\r\n ]+)',
         ' ',
-        \PapayaUtilStringHtml::stripTags($data['description'])
+        \Papaya\Utility\Text\Html::stripTags($data['description'])
       );
     } else {
       $altText = $hrefData['title'];

@@ -55,7 +55,7 @@ class PapayaUiDialogFieldSelectGrouped extends \PapayaUiDialogFieldSelect {
   * @param array $values
   */
   public function setValues($values) {
-    \PapayaUtilConstraints::assertArray($values);
+    \Papaya\Utility\Constraints::assertArray($values);
     $this->_values = $values;
     $allowedValues = array();
     foreach ($values as $group) {

@@ -163,15 +163,15 @@ abstract class Template extends Application\BaseObject {
         '(<([\w:-]+)\s\s*>)s'
       );
       $with = array('<$1>', '');
-      if (\PapayaUtilBitwise::inBitmask(self::STRIP_XML_PI, $options)) {
+      if (Utility\Bitwise::inBitmask(self::STRIP_XML_PI, $options)) {
         $replace[] = '(<\?xml[^>]+\?>)';
         $with [] = '';
       }
-      if (\PapayaUtilBitwise::inBitmask(self::STRIP_XML_EMPTY_NAMESPACE, $options)) {
+      if (Utility\Bitwise::inBitmask(self::STRIP_XML_EMPTY_NAMESPACE, $options)) {
         $replace[] = '(\s*xmlns(:[a-zA-Z]+)?="\s*")';
         $with [] = '';
       }
-      if (\PapayaUtilBitwise::inBitmask(self::STRIP_XML_DEFAULT_NAMESPACE, $options)) {
+      if (Utility\Bitwise::inBitmask(self::STRIP_XML_DEFAULT_NAMESPACE, $options)) {
         $replace[] = '(\s*xmlns="[^"]*")';
         $with [] = '';
       }
@@ -227,8 +227,8 @@ abstract class Template extends Application\BaseObject {
    * @return string
    */
   private function encodeInvalidEntities($xml) {
-    $result = \PapayaUtilStringUtf8::ensure($xml);
-    $result = \PapayaUtilStringHtml::decodeNamedEntities($result);
+    $result = Utility\Text\Utf8::ensure($xml);
+    $result = Utility\Text\Html::decodeNamedEntities($result);
     $result = str_replace('&', '&amp;', $result);
     $result = preg_replace(
       '(&amp;(gt|lt|quot|apos|amp|#\d{1,6}|#x[a-fA-F\d]{1,4});)',

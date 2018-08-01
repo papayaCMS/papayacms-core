@@ -49,7 +49,7 @@ abstract class Node extends \Papaya\Application\BaseObject {
   }
 
   public function __get($name) {
-    $getter = 'get'.\PapayaUtilStringIdentifier::toCamelCase($name, TRUE);
+    $getter = 'get'.\Papaya\Utility\Text\Identifier::toCamelCase($name, TRUE);
     if (method_exists($this, $getter)) {
       return call_user_func(array($this, $getter));
     } elseif (array_key_exists($name, $this->_properties)) {
@@ -65,7 +65,7 @@ abstract class Node extends \Papaya\Application\BaseObject {
   }
 
   public function __set($name, $value) {
-    $setter = 'set'.\PapayaUtilStringIdentifier::toCamelCase($name, TRUE);
+    $setter = 'set'.\Papaya\Utility\Text\Identifier::toCamelCase($name, TRUE);
     if (method_exists($this, $setter)) {
       call_user_func(array($this, $setter), $value);
     } else {
@@ -88,7 +88,7 @@ abstract class Node extends \Papaya\Application\BaseObject {
   }
 
   public function setName($name) {
-    \PapayaUtilStringXml::isQName($name);
+    \Papaya\Utility\Text\Xml::isQName($name);
     $this->_properties['name'] = $name;
   }
 

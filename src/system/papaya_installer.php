@@ -217,7 +217,7 @@ class papaya_installer extends base_db {
       if (!isset($this->sessionParams['installer_basic_options'])) {
         $this->sessionParams['installer_basic_options'] = array();
       }
-      $this->sessionParams['installer_basic_options'] = \PapayaUtilArray::merge(
+      $this->sessionParams['installer_basic_options'] = \Papaya\Utility\Arrays::merge(
         $this->sessionParams['installer_basic_options'],
         array(
           'PAPAYA_PATH_DATA' => $dialog->data['PAPAYA_PATH_DATA'],
@@ -543,7 +543,7 @@ class papaya_installer extends base_db {
         }
       }
     }
-    return \PapayaUtilFilePath::cleanup($path);
+    return \Papaya\Utility\File\Path::cleanup($path);
   }
   /**
   * update path data
@@ -1609,7 +1609,7 @@ class papaya_installer extends base_db {
     }
     $fileName = $this->installationPath.$this->papaya()->options->get('PAPAYA_PATH_ADMIN').
       '/data/'.$this->licenseLng.'/gpl.txt';
-    $fileName = \PapayaUtilFilePath::cleanup($fileName, FALSE);
+    $fileName = \Papaya\Utility\File\Path::cleanup($fileName, FALSE);
     if ($fileName) {
       if ($data = @file_get_contents($fileName)) {
         return papaya_strings::ensureUTF8($data);
@@ -1633,7 +1633,7 @@ class papaya_installer extends base_db {
     foreach ($allowedPaths as $name) {
       $path = $basePath.$name.'/';
       if (file_exists($path) && is_dir($path)) {
-        return \PapayaUtilFilePath::cleanup($path);
+        return \Papaya\Utility\File\Path::cleanup($path);
       }
     }
     return FALSE;

@@ -93,13 +93,13 @@ class File
             $result .= sprintf(
               '<li style="list-style-position: outside;">'.
               '<strong>%s<em>%s</em></strong></li>',
-              \PapayaUtilStringXml::escape($offsetContent),
-              \PapayaUtilStringXml::escape($highlightContent)
+              \Papaya\Utility\Text\Xml::escape($offsetContent),
+              \Papaya\Utility\Text\Xml::escape($highlightContent)
             );
           } else {
             $result .= sprintf(
               '<li style="list-style-position: outside;">%s</li>',
-              \PapayaUtilStringXml::escape($line)
+              \Papaya\Utility\Text\Xml::escape($line)
             );
           }
         }

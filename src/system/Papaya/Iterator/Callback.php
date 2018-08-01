@@ -56,8 +56,8 @@ class Callback implements \OuterIterator {
   public function __construct(
     $iterator, $callback = NULL, $target = self::MODIFY_VALUES
   ) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($iterator);
-    \PapayaUtilConstraints::assertCallable($callback);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($iterator);
+    \Papaya\Utility\Constraints::assertCallable($callback);
     $this->_iterator = ($iterator instanceof \Iterator)
       ? $iterator : new \Papaya\Iterator\Traversable($iterator);
     $this->_callback = $callback;
@@ -97,7 +97,7 @@ class Callback implements \OuterIterator {
    * @return mixed
    */
   public function current() {
-    if (\PapayaUtilBitwise::inBitmask(self::MODIFY_VALUES, $this->_target)) {
+    if (\Papaya\Utility\Bitwise::inBitmask(self::MODIFY_VALUES, $this->_target)) {
       return call_user_func(
         $this->_callback,
         $this->getInnerIterator()->current(),
@@ -115,7 +115,7 @@ class Callback implements \OuterIterator {
    * @return mixed
    */
   public function key() {
-    if (\PapayaUtilBitwise::inBitmask(self::MODIFY_KEYS, $this->_target)) {
+    if (\Papaya\Utility\Bitwise::inBitmask(self::MODIFY_KEYS, $this->_target)) {
       return call_user_func(
         $this->_callback,
         $this->getInnerIterator()->current(),

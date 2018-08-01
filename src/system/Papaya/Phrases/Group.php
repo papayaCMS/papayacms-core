@@ -28,7 +28,7 @@ class Group {
   private $_name = '';
 
   public function __construct(\Papaya\Phrases $phrases, $name) {
-    \PapayaUtilConstraints::assertNotEmpty($name);
+    \Papaya\Utility\Constraints::assertNotEmpty($name);
     $this->_phrases = $phrases;
     $this->_name = $name;
   }

@@ -146,7 +146,7 @@ class PapayaUiPagingSteps extends \PapayaUiControl {
   * @param \Traversable|array $stepSizes
   */
   public function setStepSizes($stepSizes) {
-    \PapayaUtilConstraints::assertArrayOrTraversable($stepSizes);
+    \Papaya\Utility\Constraints::assertArrayOrTraversable($stepSizes);
     $this->_stepSizes = $stepSizes;
   }
 

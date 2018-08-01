@@ -108,7 +108,7 @@ class Browser
         new \Papaya\Iterator\Filter\Callback(
           new \Papaya\Iterator\Callback(
             new \DirectoryIterator(
-              \PapayaUtilFilePath::cleanup($this->themeHandler()->getLocalPath())
+              \Papaya\Utility\File\Path::cleanup($this->themeHandler()->getLocalPath())
             ),
             function (\DirectoryIterator $fileInfo) {
               if ($fileInfo->isDir() && !$fileInfo->isDot()) {

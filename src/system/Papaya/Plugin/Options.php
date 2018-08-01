@@ -41,7 +41,7 @@ class Options extends \Papaya\Configuration {
    */
   public function __construct($guid) {
     parent::__construct(array());
-    $this->_guid = \PapayaUtilStringGuid::toLower($guid);
+    $this->_guid = \Papaya\Utility\Text\Guid::toLower($guid);
   }
 
   /**
@@ -52,7 +52,7 @@ class Options extends \Papaya\Configuration {
    */
   public function set($name, $value) {
     $this->lazyLoad();
-    $name = \PapayaUtilStringIdentifier::toUnderscoreUpper($name);
+    $name = \Papaya\Utility\Text\Identifier::toUnderscoreUpper($name);
     if ($this->_status === self::STATUS_LOADING) {
       $this->_options[$name] = $value;
     } else {

@@ -112,7 +112,7 @@ class base_switch_richtext extends base_object {
     $this->setSessionValue($this->sessionParamName, $this->sessionParams);
 
     if ($reloadPage) {
-      $protocol = \PapayaUtilServerProtocol::get();
+      $protocol = \Papaya\Utility\Server\Protocol::get();
       $toUrl = $protocol."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
       if (!(defined('PAPAYA_DISABLE_XHEADERS') && PAPAYA_DISABLE_XHEADERS)) {
         header('X-Papaya-Status: switching richtext editor');

@@ -160,6 +160,6 @@ class PapayaTemplateValues {
    * @return \PapayaTemplateValue
    */
   public function appendXml($parent, $xml) {
-    return $this->getValue($parent)->appendXml(\PapayaUtilStringUtf8::ensure($xml));
+    return $this->getValue($parent)->appendXml(\Papaya\Utility\Text\Utf8::ensure($xml));
   }
 }

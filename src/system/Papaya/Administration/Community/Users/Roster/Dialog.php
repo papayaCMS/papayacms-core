@@ -231,7 +231,7 @@ class Dialog extends \PapayaUiDialog {
         sprintf('Unknown parameter identifier "%s".', $identifier)
       );
     }
-    \PapayaUtilConstraints::assertNotEmpty($name);
+    \Papaya\Utility\Constraints::assertNotEmpty($name);
     $this->_parameterNames[$identifier] = $name;
   }
 }

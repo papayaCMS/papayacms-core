@@ -51,11 +51,11 @@ class Filter extends \FilterIterator {
    * @return boolean
    */
   public function accept() {
-    if (\PapayaUtilBitwise::inBitmask(self::FILTER_VALUES, $this->_target) &&
+    if (\Papaya\Utility\Bitwise::inBitmask(self::FILTER_VALUES, $this->_target) &&
       !$this->isMatch($this->getInnerIterator()->current())) {
       return FALSE;
     }
-    if (\PapayaUtilBitwise::inBitmask(self::FILTER_KEYS, $this->_target) &&
+    if (\Papaya\Utility\Bitwise::inBitmask(self::FILTER_KEYS, $this->_target) &&
       !$this->isMatch($this->getInnerIterator()->key())) {
       return FALSE;
     }
@@ -68,7 +68,7 @@ class Filter extends \FilterIterator {
    * @return mixed
    */
   public function current() {
-    if (\PapayaUtilBitwise::inBitmask(self::FILTER_VALUES, $this->_target)) {
+    if (\Papaya\Utility\Bitwise::inBitmask(self::FILTER_VALUES, $this->_target)) {
       return $this->_filter->filter(parent::current());
     }
     return parent::current();
@@ -80,7 +80,7 @@ class Filter extends \FilterIterator {
    * @return mixed
    */
   public function key() {
-    if (\PapayaUtilBitwise::inBitmask(self::FILTER_KEYS, $this->_target)) {
+    if (\Papaya\Utility\Bitwise::inBitmask(self::FILTER_KEYS, $this->_target)) {
       return $this->_filter->filter(parent::key());
     }
     return parent::current();

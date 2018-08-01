@@ -79,12 +79,12 @@ class Path extends \Papaya\Application\BaseObject {
         $result = $this->themeHandler()->getLocalThemePath().$this->_path;
       break;
       case self::PATH_INSTALLATION :
-        $result = \PapayaUtilFilePath::getDocumentRoot().
+        $result = \Papaya\Utility\File\Path::getDocumentRoot().
           $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
           $this->_path;
       break;
       case self::PATH_ADMINISTRATION :
-        $result = \PapayaUtilFilePath::getDocumentRoot().
+        $result = \Papaya\Utility\File\Path::getDocumentRoot().
           $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
           $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/').
           $this->_path;
@@ -97,7 +97,7 @@ class Path extends \Papaya\Application\BaseObject {
         $result = $this->_basePath.'/'.$this->_path;
       break;
     }
-    return \PapayaUtilFilePath::cleanup($result);
+    return \Papaya\Utility\File\Path::cleanup($result);
   }
 
   /**

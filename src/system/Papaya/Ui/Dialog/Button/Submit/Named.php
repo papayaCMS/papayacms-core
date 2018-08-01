@@ -45,9 +45,9 @@ class PapayaUiDialogButtonSubmitNamed extends \PapayaUiDialogButtonSubmit {
     $caption, $name, $value = '1', $align = \PapayaUiDialogButton::ALIGN_RIGHT
   ) {
     parent::__construct($caption, $align);
-    \PapayaUtilConstraints::assertString($name);
-    \PapayaUtilConstraints::assertNotEmpty($name);
-    \PapayaUtilConstraints::assertNotEmpty($value);
+    \Papaya\Utility\Constraints::assertString($name);
+    \Papaya\Utility\Constraints::assertNotEmpty($name);
+    \Papaya\Utility\Constraints::assertNotEmpty($value);
     $this->_name = $name;
     $this->_value = $value;
   }

@@ -33,7 +33,7 @@ class Sources implements \IteratorAggregate {
   private $_sources = 0;
 
   public function __construct($sources) {
-    \PapayaUtilConstraints::assertInteger($sources);
+    \Papaya\Utility\Constraints::assertInteger($sources);
     $this->_sources = $sources;
   }
 
@@ -51,7 +51,7 @@ class Sources implements \IteratorAggregate {
   private function toArray() {
     $result = array();
     foreach ($this->_names as $source => $name) {
-      if (\PapayaUtilBitwise::inBitmask($source, $this->_sources)) {
+      if (\Papaya\Utility\Bitwise::inBitmask($source, $this->_sources)) {
         $result[] = $name;
       }
     }

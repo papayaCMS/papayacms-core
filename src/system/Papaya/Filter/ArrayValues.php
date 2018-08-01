@@ -40,7 +40,7 @@ class ArrayValues implements \Papaya\Filter {
    * @param array $elements
    */
   public function __construct(array $elements) {
-    \PapayaUtilConstraints::assertNotEmpty($elements);
+    \Papaya\Utility\Constraints::assertNotEmpty($elements);
     $this->_list = $elements;
   }
 

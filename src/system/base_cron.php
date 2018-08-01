@@ -125,10 +125,10 @@ class base_cronjobs extends base_db {
       if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $row['cron_module_file'] = $row['cron_module_path'].$row['cron_module_file'];
         $row['job_module_file'] = $row['job_module_path'].$row['job_module_file'];
-        $row['cronjob_start_str'] = \PapayaUtilDate::timestampToString(
+        $row['cronjob_start_str'] = \Papaya\Utility\Date::timestampToString(
           $row['cronjob_start'], TRUE, FALSE
         );
-        $row['cronjob_end_str'] = \PapayaUtilDate::timestampToString(
+        $row['cronjob_end_str'] = \Papaya\Utility\Date::timestampToString(
           $row['cronjob_end'], TRUE, FALSE
         );
         $this->cronjob = $row;
@@ -407,9 +407,9 @@ class base_cronjobs extends base_db {
       );
     }
     $this->params['cronjob_start'] =
-      \PapayaUtilDate::stringToTimestamp($this->params['cronjob_start_str']);
+      \Papaya\Utility\Date::stringToTimestamp($this->params['cronjob_start_str']);
     $this->params['cronjob_end'] =
-      \PapayaUtilDate::stringToTimestamp($this->params['cronjob_end_str']);
+      \Papaya\Utility\Date::stringToTimestamp($this->params['cronjob_end_str']);
     if ($this->params['cronjob_end'] <= $this->params['cronjob_start']) {
       $result = FALSE;
       $this->addMsg(MSG_ERROR, $this->_gt('Invalid time frame.'));
@@ -525,7 +525,7 @@ class base_cronjobs extends base_db {
         $this->load((int)$this->params['id']);
         $dialog = $this->initializeActivateForm();
         if ($dialog->checkDialogInput()) {
-          $nextExecutionTime = \PapayaUtilDate::stringToTimestamp($dialog->data['nextexec']);
+          $nextExecutionTime = \Papaya\Utility\Date::stringToTimestamp($dialog->data['nextexec']);
           if ($this->activate($nextExecutionTime, 0, (int)$this->params['id'])) {
             $this->addMsg(MSG_INFO, $this->_gt('Cronjob activated'));
           } else {
@@ -964,14 +964,14 @@ class base_cronjobs extends base_db {
         '<listitem title="%s"><subitem>%s</subitem></listitem>'.LF,
         papaya_strings::escapeHTMLChars($this->_gt('Last execution')),
         ($this->cronjob['cronjob_lastexec'] > 1)
-          ? \PapayaUtilDate::timestampToString($this->cronjob['cronjob_lastexec'], TRUE, FALSE)
+          ? \Papaya\Utility\Date::timestampToString($this->cronjob['cronjob_lastexec'], TRUE, FALSE)
           : papaya_strings::escapeHTMLChars($this->_gt('never'))
       );
       $result .= sprintf(
         '<listitem title="%s"><subitem>%s</subitem></listitem>'.LF,
         papaya_strings::escapeHTMLChars($this->_gt('Next execution')),
         ($this->cronjob['cronjob_nextexec'] > time())
-          ? \PapayaUtilDate::timestampToString($this->cronjob['cronjob_nextexec'], TRUE, FALSE)
+          ? \Papaya\Utility\Date::timestampToString($this->cronjob['cronjob_nextexec'], TRUE, FALSE)
           : papaya_strings::escapeHTMLChars($this->_gt('instantaneous'))
       );
       $result .= sprintf(
@@ -1326,7 +1326,7 @@ class base_cronjobs extends base_db {
 
       if ($calculatedData = $this->checkCronJobData()) {
 
-        $data['nextexec'] = \PapayaUtilDate::timestampToString(
+        $data['nextexec'] = \Papaya\Utility\Date::timestampToString(
           $calculatedData['nextexec'], TRUE, FALSE
         );
 
@@ -1348,10 +1348,10 @@ class base_cronjobs extends base_db {
       $dialog->dialogDoubleButtons = FALSE;
       $dialog->initializeParams();
 
-      $currentNextExec = \PapayaUtilDate::stringToTimestamp($dialog->data['nextexec']);
+      $currentNextExec = \Papaya\Utility\Date::stringToTimestamp($dialog->data['nextexec']);
       if (empty($dialog->params['nextexec']) && $this->cronjob['cronjob_nextexec'] > time() &&
           $currentNextExec < $this->cronjob['cronjob_nextexec']) {
-        $dialog->params['nextexec'] = \PapayaUtilDate::timestampToString(
+        $dialog->params['nextexec'] = \Papaya\Utility\Date::timestampToString(
           $this->cronjob['cronjob_nextexec'], TRUE, FALSE
         );
       }

@@ -101,7 +101,7 @@ class Types extends \Papaya\Database\Records\Lazy {
    */
   public function mapFieldToProperty($context, $property, $field, $value) {
     if ($property == 'popup_options') {
-      return \PapayaUtilStringXml::unserializeArray((string)$value);
+      return \Papaya\Utility\Text\Xml::unserializeArray((string)$value);
     }
     return $value;
   }
@@ -117,7 +117,7 @@ class Types extends \Papaya\Database\Records\Lazy {
    */
   public function mapPropertyToField($context, $property, $field, $value) {
     if ($property == 'popup_options') {
-      return \PapayaUtilStringXml::serializeArray((array)$value);
+      return \Papaya\Utility\Text\Xml::serializeArray((array)$value);
     }
     return $value;
   }

@@ -55,7 +55,7 @@ class Domains extends Application\BaseObject {
     $result = array();
     foreach ($pageRootIds as $pageRootId) {
       if (isset($this->_domainsByRootId[$pageRootId])) {
-        $result = \PapayaUtilArray::merge($result, $this->_domainsByRootId[$pageRootId]);
+        $result = \Papaya\Utility\Arrays::merge($result, $this->_domainsByRootId[$pageRootId]);
       }
     }
     return $result;
@@ -77,7 +77,7 @@ class Domains extends Application\BaseObject {
         foreach ($this->_domainsByName[$name] as $domain) {
           if ($domain['scheme'] == $scheme) {
             return $domain;
-          } elseif ($domain['scheme'] == \PapayaUtilServerProtocol::BOTH && !$result) {
+          } elseif ($domain['scheme'] == Utility\Server\Protocol::BOTH && !$result) {
             $result = $domain;
           }
         }
@@ -97,9 +97,9 @@ class Domains extends Application\BaseObject {
       return $this->_current;
     }
     $this->_current = $this->getDomainByHost(
-      \PapayaUtilServerName::get(),
-      \PapayaUtilServerProtocol::isSecure()
-        ? \PapayaUtilServerProtocol::HTTPS : \PapayaUtilServerProtocol::HTTP
+      Utility\Server\Name::get(),
+      Utility\Server\Protocol::isSecure()
+        ? Utility\Server\Protocol::HTTPS : Utility\Server\Protocol::HTTP
     );
     return $this->_current;
   }
@@ -181,7 +181,7 @@ class Domains extends Application\BaseObject {
     $targetDomain = $this->getDomainByHost(
       $page->url()->getHost(),
       $page->url()->getScheme() == 'https'
-        ? \PapayaUtilServerProtocol::HTTPS : \PapayaUtilServerProtocol::HTTP
+        ? Utility\Server\Protocol::HTTPS : Utility\Server\Protocol::HTTP
     );
     $pageId = isset($targetDomain['options']['PAPAYA_PAGEID_DEFAULT']) ?
       $targetDomain['options']['PAPAYA_PAGEID_DEFAULT'] : $this->papaya()->options['PAPAYA_PAGEID_DEFAULT'];

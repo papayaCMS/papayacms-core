@@ -63,9 +63,9 @@ class PapayaSvnTags implements \IteratorAggregate, \Countable {
   * @param integer $newerThanRevision
   */
   public function __construct($tagDirectoryUrl, $newerThanRevision = 0) {
-    \PapayaUtilConstraints::assertString($tagDirectoryUrl);
+    \Papaya\Utility\Constraints::assertString($tagDirectoryUrl);
     $this->_tagDirectoryUrl = $tagDirectoryUrl;
-    \PapayaUtilConstraints::assertInteger($newerThanRevision);
+    \Papaya\Utility\Constraints::assertInteger($newerThanRevision);
     $this->_newerThanRevision = $newerThanRevision;
     $this->_highestRevisionSeen = $newerThanRevision;
   }
@@ -88,7 +88,7 @@ class PapayaSvnTags implements \IteratorAggregate, \Countable {
     }
     $this->_newTags = array();
     $this->_tagDirectoryUrl =
-      \PapayaUtilFilePath::ensureTrailingSlash($this->_tagDirectoryUrl);
+      \Papaya\Utility\File\Path::ensureTrailingSlash($this->_tagDirectoryUrl);
     $tagList = $this->svnClient()->ls($this->_tagDirectoryUrl);
     foreach ($tagList as $tag) {
       $revision = (int)$tag['created_rev'];
