@@ -44,7 +44,7 @@ class PapayaUtilFile {
    * @return string
    */
   public static function normalizeName($utf8string, $maxLength, $language = '', $unknown = '-') {
-    $transliterator = new \PapayaStringTransliterationAscii();
+    $transliterator = new \Papaya\Text\Transliteration\Ascii();
     $result = trim(
       preg_replace(
         '([^a-zA-Z\d]+)',

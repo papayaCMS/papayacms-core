@@ -13,24 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Text\Transliteration\Ascii;
 /**
-* Map unicode codepoints to ascii characters.
-*
-* This is used to generate an ascii representation of a unicode string. The mapping can be language
-* specific. A German "ä" will be mapped to "ae" while an English "ä" will be mapped to "a".
-*
-* @package Papaya-Library
-* @subpackage String
-*/
-class PapayaStringTransliterationAsciiMapping {
+ * Map unicode codepoints to ascii characters.
+ *
+ * This is used to generate an ascii representation of a unicode string. The mapping can be language
+ * specific. A German "ä" will be mapped to "ae" while an English "ä" will be mapped to "a".
+ *
+ * @package Papaya-Library
+ * @subpackage String
+ */
+class Mapping {
 
   private $_mappingTables = array();
 
   private $_mappingFilesPath;
 
   /**
-  * Create object and store mapping file path
-  */
+   * Create object and store mapping file path
+   */
   public function __construct() {
     $this->_mappingFilesPath = \PapayaUtilFilePath::cleanup(
       __DIR__.'/../../../../utf8/external', FALSE
@@ -62,8 +63,8 @@ class PapayaStringTransliterationAsciiMapping {
   }
 
   /**
-  * Clear the mapping data
-  */
+   * Clear the mapping data
+   */
   public function clear() {
     $this->_mappingTables = array();
   }
@@ -85,12 +86,12 @@ class PapayaStringTransliterationAsciiMapping {
   }
 
   /**
-  * Load the needed group of code point mappings into the internal buffer. If the language
-  * specific mapping does not exist the generic mapping will be loaded and referenced.
-  *
-  * @param integer $bank
-  * @param string $language
-  */
+   * Load the needed group of code point mappings into the internal buffer. If the language
+   * specific mapping does not exist the generic mapping will be loaded and referenced.
+   *
+   * @param integer $bank
+   * @param string $language
+   */
   public function lazyLoad($bank, $language) {
     if (!$this->isLoaded($bank, $language)) {
       $mappingFile = $this->getFile($bank, $language);
@@ -106,7 +107,7 @@ class PapayaStringTransliterationAsciiMapping {
           $language,
           isset($UTF8_TO_ASCII[$bank]) ? $UTF8_TO_ASCII[$bank] : array()
         );
-      } elseif (!(empty($language) || 'generic' === $language) ) {
+      } elseif (!(empty($language) || 'generic' === $language)) {
         $this->lazyLoad($bank, 'generic');
         $this->link($bank, $language, 'generic');
       }
@@ -114,23 +115,23 @@ class PapayaStringTransliterationAsciiMapping {
   }
 
   /**
-  * Add a group of code point mappings to the internal buffer
-  *
-  * @param integer $bank
-  * @param string $language
-  * @param array $mapping
-  */
+   * Add a group of code point mappings to the internal buffer
+   *
+   * @param integer $bank
+   * @param string $language
+   * @param array $mapping
+   */
   private function add($bank, $language, array $mapping) {
     $this->_mappingTables[$language][$bank] = $mapping;
   }
 
   /**
-  * Link the code point groups to two languages, this is used to avoid unessesary loading tries
-  *
-  * @param integer $bank
-  * @param string $languageTo
-  * @param string $languageFrom
-  */
+   * Link the code point groups to two languages, this is used to avoid unessesary loading tries
+   *
+   * @param integer $bank
+   * @param string $languageTo
+   * @param string $languageFrom
+   */
   private function link($bank, $languageTo, $languageFrom) {
     if ($this->isLoaded($bank, $languageFrom)) {
       $this->_mappingTables[$languageTo][$bank] = &$this->_mappingTables[$languageFrom][$bank];
@@ -146,9 +147,9 @@ class PapayaStringTransliterationAsciiMapping {
    */
   public function getFile($bank, $language) {
     return $this->_mappingFilesPath.sprintf(
-      '/%sx%02x.php',
-      (empty($language) || 'generic' === $language) ? '' : $language.'/',
-      $bank
-    );
+        '/%sx%02x.php',
+        (empty($language) || 'generic' === $language) ? '' : $language.'/',
+        $bank
+      );
   }
 }

@@ -18,41 +18,41 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaStringTransliterationAsciiTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaStringTransliterationAscii::transliterate
-   * @covers \PapayaStringTransliterationAscii::mapCharacterMatch
+   * @covers \Papaya\Text\Transliteration\Ascii::transliterate
+   * @covers \Papaya\Text\Transliteration\Ascii::mapCharacterMatch
    * @dataProvider provideTransliterationExamples
    * @param string $expected
    * @param string $string
    * @param string $language
    */
   public function testTransliterate($expected, $string, $language) {
-    $transliterator = new \PapayaStringTransliterationAscii();
+    $transliterator = new \Papaya\Text\Transliteration\Ascii();
     $this->assertEquals(
       $expected, $transliterator->transliterate($string, $language)
     );
   }
 
   /**
-  * @covers \PapayaStringTransliterationAscii::mapping
+  * @covers \Papaya\Text\Transliteration\Ascii::mapping
   */
   public function testMappingGetAfterSet() {
-    $mapping = $this->createMock(\PapayaStringTransliterationAsciiMapping::class);
-    $transliteratorOne = new \PapayaStringTransliterationAscii();
-    $transliteratorTwo = new \PapayaStringTransliterationAscii();
+    $mapping = $this->createMock(\Papaya\Text\Transliteration\Ascii\Mapping::class);
+    $transliteratorOne = new \Papaya\Text\Transliteration\Ascii();
+    $transliteratorTwo = new \Papaya\Text\Transliteration\Ascii();
     $transliteratorOne->mapping($mapping);
     $this->assertSame($mapping, $transliteratorTwo->mapping());
   }
 
   /**
-  * @covers \PapayaStringTransliterationAscii::mapping
-  * @covers \PapayaStringTransliterationAscii::resetMapping
+  * @covers \Papaya\Text\Transliteration\Ascii::mapping
+  * @covers \Papaya\Text\Transliteration\Ascii::resetMapping
   */
   public function testMappingImplicitCreate() {
-    $transliterator = new \PapayaStringTransliterationAscii();
+    $transliterator = new \Papaya\Text\Transliteration\Ascii();
     $mappingOne = $transliterator->mapping();
     $transliterator->resetMapping();
     $mappingTwo = $transliterator->mapping();
-    $this->assertInstanceOf(\PapayaStringTransliterationAsciiMapping::class, $mappingTwo);
+    $this->assertInstanceOf(\Papaya\Text\Transliteration\Ascii\Mapping::class, $mappingTwo);
     $this->assertNotSame($mappingOne, $mappingTwo);
   }
 

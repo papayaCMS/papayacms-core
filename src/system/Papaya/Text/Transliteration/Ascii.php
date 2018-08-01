@@ -13,25 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Text\Transliteration;
 /**
-* Transliterate a utf8 string into an ascii string.
-*
-* @package Papaya-Library
-* @subpackage String
-*/
-class PapayaStringTransliterationAscii {
+ * Transliterate a utf8 string into an ascii string.
+ *
+ * @package Papaya-Library
+ * @subpackage String
+ */
+class Ascii {
 
   private static $_mapping = NULL;
   private $_language = 'generic';
 
   /**
-  * Transliterate a utf8 string into an ascii string.
-  *
-  *
-  * @param string $string
-  * @param string $language
-  * @return string
-  */
+   * Transliterate a utf8 string into an ascii string.
+   *
+   *
+   * @param string $string
+   * @param string $language
+   * @return string
+   */
   public function transliterate($string, $language = 'generic') {
     $this->_language = empty($language) ? 'generic' : $language;
     $result = preg_replace_callback(
@@ -47,35 +48,35 @@ class PapayaStringTransliterationAscii {
   }
 
   /**
-  * Callback that maps a single matched utf8 character to ascii
-  *
-  * @param array $match
-  * @return string
-  */
+   * Callback that maps a single matched utf8 character to ascii
+   *
+   * @param array $match
+   * @return string
+   */
   public function mapCharacterMatch($match) {
     $codepoint = \PapayaUtilStringUtf8::getCodepoint($match[0]);
     return $this->mapping()->get($codepoint, $this->_language);
   }
 
   /**
-  * Mapping tables subobject, this is saved statically to improve performance and
-  * memory consumption.
-  *
-  * @param \PapayaStringTransliterationAsciiMapping $mapping
-  * @return \PapayaStringTransliterationAsciiMapping
-  */
-  public function mapping(\PapayaStringTransliterationAsciiMapping $mapping = NULL) {
+   * Mapping tables subobject, this is saved statically to improve performance and
+   * memory consumption.
+   *
+   * @param \Papaya\Text\Transliteration\Ascii\Mapping $mapping
+   * @return \Papaya\Text\Transliteration\Ascii\Mapping
+   */
+  public function mapping(\Papaya\Text\Transliteration\Ascii\Mapping $mapping = NULL) {
     if (isset($mapping)) {
       self::$_mapping = $mapping;
     } elseif (is_null(self::$_mapping)) {
-      self::$_mapping = new \PapayaStringTransliterationAsciiMapping;
+      self::$_mapping = new \Papaya\Text\Transliteration\Ascii\Mapping;
     }
     return self::$_mapping;
   }
 
   /**
-  * The mapping tables are stored statically, so an explicit method is needed to reset them.
-  */
+   * The mapping tables are stored statically, so an explicit method is needed to reset them.
+   */
   public function resetMapping() {
     self::$_mapping = NULL;
   }

@@ -13,7 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaStringUtf8 implements \Iterator, \ArrayAccess {
+namespace Papaya\Text;
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+class UTF8String implements \Iterator, \ArrayAccess {
 
   const MODE_INTL = 1;
   const MODE_ICONV = 2;
@@ -97,13 +111,13 @@ class PapayaStringUtf8 implements \Iterator, \ArrayAccess {
    */
   public function indexOf($needle, $offset = 0) {
     switch ($this->getMode()) {
-    case self::MODE_ICONV :
-      return iconv_strpos($this->_string, (string)$needle, $offset, 'utf-8');
-    case self::MODE_MBSTRING :
-      return mb_strpos($this->_string, (string)$needle, $offset, 'utf-8');
-    case self::MODE_INTL :
-    default :
-      return grapheme_strpos($this->_string, (string)$needle, $offset);
+      case self::MODE_ICONV :
+        return iconv_strpos($this->_string, (string)$needle, $offset, 'utf-8');
+      case self::MODE_MBSTRING :
+        return mb_strpos($this->_string, (string)$needle, $offset, 'utf-8');
+      case self::MODE_INTL :
+      default :
+        return grapheme_strpos($this->_string, (string)$needle, $offset);
       // @codeCoverageIgnoreStart
     }
     // @codeCoverageIgnoreEnd
@@ -120,14 +134,14 @@ class PapayaStringUtf8 implements \Iterator, \ArrayAccess {
   public function lastIndexOf($needle, $offset = NULL) {
     $string = isset($offset) ? $this->_getSubStr(0, $offset) : $this->_string;
     switch ($this->getMode()) {
-    case self::MODE_ICONV :
-      $string = isset($offset) ? $this->_getSubStr(0, $offset) : $this->_string;
-      return iconv_strrpos($string, (string)$needle, 'utf-8');
-    case self::MODE_MBSTRING :
-      return mb_strrpos($string, (string)$needle, 0, 'utf-8');
-    case self::MODE_INTL :
-    default :
-      return grapheme_strrpos($string, (string)$needle);
+      case self::MODE_ICONV :
+        $string = isset($offset) ? $this->_getSubStr(0, $offset) : $this->_string;
+        return iconv_strrpos($string, (string)$needle, 'utf-8');
+      case self::MODE_MBSTRING :
+        return mb_strrpos($string, (string)$needle, 0, 'utf-8');
+      case self::MODE_INTL :
+      default :
+        return grapheme_strrpos($string, (string)$needle);
       // @codeCoverageIgnoreStart
     }
     // @codeCoverageIgnoreEnd
@@ -179,7 +193,7 @@ class PapayaStringUtf8 implements \Iterator, \ArrayAccess {
     if (NULL === $this->_mode) {
       foreach ($this->_allowModes as $mode) {
         if (isset($this->_extensions[$mode]) &&
-            extension_loaded($this->_extensions[$mode])) {
+          extension_loaded($this->_extensions[$mode])) {
           return $this->_mode = $mode;
         }
       }
@@ -190,17 +204,17 @@ class PapayaStringUtf8 implements \Iterator, \ArrayAccess {
 
   private function _getLength($string) {
     switch ($this->getMode()) {
-    case self::MODE_ICONV :
-      return iconv_strlen($string, 'utf-8');
+      case self::MODE_ICONV :
+        return iconv_strlen($string, 'utf-8');
       break;
-    case self::MODE_MBSTRING :
-      return mb_strlen($string, 'utf-8');
+      case self::MODE_MBSTRING :
+        return mb_strlen($string, 'utf-8');
       break;
-    case self::MODE_INTL :
-    default :
-      return grapheme_strlen($string);
+      case self::MODE_INTL :
+      default :
+        return grapheme_strlen($string);
       break;
-    // @codeCoverageIgnoreStart
+      // @codeCoverageIgnoreStart
     }
     // @codeCoverageIgnoreEnd
   }
@@ -208,33 +222,33 @@ class PapayaStringUtf8 implements \Iterator, \ArrayAccess {
   private function _getSubStr($start, $length = NULL) {
     static $lengthBug = NULL;
     switch ($this->getMode()) {
-    case self::MODE_ICONV :
-      return iconv_substr(
-        $this->_string, $start, (NULL === $length) ? $this->length() : $length, 'utf-8'
-      );
-    case self::MODE_MBSTRING :
-      return mb_substr(
-        $this->_string, $start, (NULL === $length) ? $this->length() : $length, 'utf-8'
-      );
-    case self::MODE_INTL :
-    default :
-      if (NULL === $lengthBug) {
-        $lengthBug = version_compare(PHP_VERSION, '5.4', '>=');
-      }
-      // @codeCoverageIgnoreStart
-      if (NULL === $length) {
-        return grapheme_substr($this->_string, $start);
-      } elseif ($lengthBug && $length > 0) {
-        if ($start >= 0) {
-          $possibleLength = $this->length() - $start;
-        } else {
-          $possibleLength = abs($start);
+      case self::MODE_ICONV :
+        return iconv_substr(
+          $this->_string, $start, (NULL === $length) ? $this->length() : $length, 'utf-8'
+        );
+      case self::MODE_MBSTRING :
+        return mb_substr(
+          $this->_string, $start, (NULL === $length) ? $this->length() : $length, 'utf-8'
+        );
+      case self::MODE_INTL :
+      default :
+        if (NULL === $lengthBug) {
+          $lengthBug = version_compare(PHP_VERSION, '5.4', '>=');
         }
-        if ($possibleLength < $length) {
-          $length = $possibleLength;
+        // @codeCoverageIgnoreStart
+        if (NULL === $length) {
+          return grapheme_substr($this->_string, $start);
+        } elseif ($lengthBug && $length > 0) {
+          if ($start >= 0) {
+            $possibleLength = $this->length() - $start;
+          } else {
+            $possibleLength = abs($start);
+          }
+          if ($possibleLength < $length) {
+            $length = $possibleLength;
+          }
         }
-      }
-      return grapheme_substr($this->_string, $start, $length);
+        return grapheme_substr($this->_string, $start, $length);
     }
     // @codeCoverageIgnoreEnd
   }
