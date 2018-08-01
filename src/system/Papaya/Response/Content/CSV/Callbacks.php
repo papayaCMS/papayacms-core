@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Response\Content\CSV;
 /**
  * Callbacks that are used by the csv response content
  *
@@ -24,7 +25,7 @@
  * @method boolean onMapRow
  * @method boolean onMapField
  */
-class PapayaResponseContentCsvCallbacks extends \Papaya\BaseObject\Callbacks {
+class Callbacks extends \Papaya\BaseObject\Callbacks {
 
   /**
    * Initialize object and set callback definition

@@ -13,17 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Response\Content;
+
 /**
  * Iterate the argument and output it as a CSV.
  *
  * @package Papaya-Library
  * @subpackage Response
  */
-class PapayaResponseContentCsv implements \PapayaResponseContent {
+class CSV implements \PapayaResponseContent {
 
   /**
    * string content buffer
-   * @var Traversable
+   *
+   * @var \Traversable
    */
   private $_traversable;
 
@@ -42,7 +45,7 @@ class PapayaResponseContentCsv implements \PapayaResponseContent {
   private $_onMapValue;
 
   /**
-   * @var \PapayaResponseContentCsvCallbacks
+   * @var CSV\Callbacks
    */
   private $_callbacks;
 
@@ -59,17 +62,21 @@ class PapayaResponseContentCsv implements \PapayaResponseContent {
    * Getter/Setter for the callbacks, if you set your own callback object, make sure it has the
    * needed definitions.
    *
-   * @param \PapayaResponseContentCsvCallbacks $callbacks
-   * @return \PapayaResponseContentCsvCallbacks
+   * @param CSV\Callbacks $callbacks
+   * @return CSV\Callbacks
    */
-  public function callbacks(\PapayaResponseContentCsvCallbacks $callbacks = NULL) {
+  public function callbacks(CSV\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     }
     if (is_null($this->_callbacks)) {
-      $this->_callbacks = new \PapayaResponseContentCsvCallbacks();
-      $this->_callbacks->onMapRow = function($value) { return $value; };
-      $this->_callbacks->onMapField = function($value) { return $value; };
+      $this->_callbacks = new CSV\Callbacks();
+      $this->_callbacks->onMapRow = function ($value) {
+        return $value;
+      };
+      $this->_callbacks->onMapField = function ($value) {
+        return $value;
+      };
     }
     return $this->_callbacks;
   }

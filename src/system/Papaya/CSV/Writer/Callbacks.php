@@ -13,13 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Csv\Writer;
+namespace Papaya\CSV\Writer;
 
 /**
  * Callbacks that are used by the csv writer
  *
  * @package Papaya-Library
- * @subpackage Csv
+ * @subpackage CSV
  *
  * @property \Papaya\BaseObject\Callback $onMapRow
  * @property \Papaya\BaseObject\Callback $onMapHeader

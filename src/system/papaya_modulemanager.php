@@ -3597,7 +3597,7 @@ class papaya_modulemanager extends base_db {
             if (!empty($this->params['offset']) && $this->params['offset'] > 0) {
               $offset = (int)$this->params['offset'];
             }
-            $csvReader = new \Papaya\Csv\Reader($file);
+            $csvReader = new \Papaya\CSV\Reader($file);
             try {
               $csvReader->isValid(TRUE);
               $emptyTable = ($offset == 0);

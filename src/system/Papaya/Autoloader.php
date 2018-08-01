@@ -100,7 +100,7 @@ class Autoloader {
     'PapayaObjectInterfacePropertiesWriteable' => BaseObject\Interfaces\Properties\Writable::class,
 
     'PapayaRequestParametersInterface' => Request\Parameters\Access::class,
-    'PapayaRequestParametersQuery' => Request\Parameter\PapayaRequestParametersQuery::class
+    'PapayaRequestParametersQuery' => Request\Parameters\QueryString::class
   );
 
   private static $_mapParts = array(
@@ -116,6 +116,7 @@ class Autoloader {
 
     // Typos
     'Anchestors' => 'Ancestors',
+    'Csv' => 'CSV',
     'Php' => 'PHP',
     'Regex' => 'RegEx'
   );

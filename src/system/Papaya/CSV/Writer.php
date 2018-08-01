@@ -13,12 +13,12 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Csv;
+namespace Papaya\CSV;
 /**
- * Cav writer allows you write data as csv into a stream or output.
+ * CSV writer allows you write data as csv into a stream or output.
  *
  * @package Papaya-Library
- * @subpackage Csv
+ * @subpackage CSV
  *
  * @property resource|NULL $stream
  * @property string $linebreak
@@ -228,14 +228,14 @@ class Writer {
   /**
    * Getter/Setter for the callbacks subobject handlign the mapping callbacks
    *
-   * @param \Papaya\Csv\Writer\Callbacks $callbacks
-   * @return \Papaya\Csv\Writer\Callbacks
+   * @param Writer\Callbacks $callbacks
+   * @return Writer\Callbacks
    */
-  public function callbacks(\Papaya\Csv\Writer\Callbacks $callbacks = NULL) {
+  public function callbacks(Writer\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     } elseif (is_null($this->_callbacks)) {
-      $this->_callbacks = new \Papaya\Csv\Writer\Callbacks();
+      $this->_callbacks = new Writer\Callbacks();
     }
     return $this->_callbacks;
   }

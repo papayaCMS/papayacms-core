@@ -13,12 +13,12 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Csv;
+namespace Papaya\CSV;
 /**
- * Csv reader class
+ * CSV reader class
  *
  * @package Papaya-Library
- * @subpackage Csv
+ * @subpackage CSV
  */
 class Reader {
 
@@ -37,7 +37,7 @@ class Reader {
   private $_maxLineSize = 32000;
 
   /**
-   * Csv file name
+   * CSV file name
    *
    * @var string
    */

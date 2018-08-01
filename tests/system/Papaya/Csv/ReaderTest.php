@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Csv\Reader;
+use Papaya\CSV\Reader;
 
 require_once __DIR__.'/../../../bootstrap.php';
 

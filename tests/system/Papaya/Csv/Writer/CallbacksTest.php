@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Csv\Writer\Callbacks;
+use Papaya\CSV\Writer\Callbacks;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
