@@ -320,7 +320,7 @@ class base_spamfilter extends base_db {
   */
   function _categorize($tokens, $lngId) {
     $scores = array();
-    $filter = new \PapayaSpamFilterStatistical();
+    $filter = new \Papaya\Spam\Filter\Statistical();
     $probability = $filter->classify('', $tokens, $lngId);
     $scores['HAM'] = 1 - $probability;
     $scores['SPAM'] = $probability;

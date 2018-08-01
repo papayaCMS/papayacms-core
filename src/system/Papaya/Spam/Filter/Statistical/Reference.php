@@ -13,35 +13,36 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Spam\Filter\Statistical;
 /**
-* The refennce list provides the statistical spam filter with the spam/ham count for a given list of
-* words.
-*
-* Additionally it provides the total count of texts learned as spam and ham.
-*
-* @package Papaya-Library
-* @subpackage Spam
-*/
-class PapayaSpamFilterStatisticalReference extends \Papaya\Database\BaseObject\Records {
+ * The refennce list provides the statistical spam filter with the spam/ham count for a given list of
+ * words.
+ *
+ * Additionally it provides the total count of texts learned as spam and ham.
+ *
+ * @package Papaya-Library
+ * @subpackage Spam
+ */
+class Reference extends \Papaya\Database\BaseObject\Records {
 
   /**
-  * buffer array for the text count loaded from database
-  *
-  * @var array(string=>integer)
-  */
+   * buffer array for the text count loaded from database
+   *
+   * @var array(string=>integer)
+   */
   private $_totals = array(
     'ham' => 0,
     'spam' => 0
   );
 
   /**
-  * Loads the spam/ham counts for a given list of word in a language.
-  *
-  *
-  * @param array $words
-  * @param integer $languageId
-  * @return boolean
-  */
+   * Loads the spam/ham counts for a given list of word in a language.
+   *
+   *
+   * @param array $words
+   * @param integer $languageId
+   * @return boolean
+   */
   public function load(array $words, $languageId) {
     $this->_records = array();
     $this->_recordCount = 0;
@@ -81,10 +82,10 @@ class PapayaSpamFilterStatisticalReference extends \Papaya\Database\BaseObject\R
   }
 
   /**
-  * Load the text counts for both categories from database.
-  *
-  * @param integer $languageId
-  */
+   * Load the text counts for both categories from database.
+   *
+   * @param integer $languageId
+   */
   private function loadTotals($languageId) {
     $sql = "SELECT spamcategory_ident, count(*) text_count
               FROM %s
@@ -103,19 +104,19 @@ class PapayaSpamFilterStatisticalReference extends \Papaya\Database\BaseObject\R
   }
 
   /**
-  * Return the total count of texts learned as ham.
-  *
-  * @return integer
-  */
+   * Return the total count of texts learned as ham.
+   *
+   * @return integer
+   */
   public function getHamCount() {
     return $this->_totals['ham'];
   }
 
   /**
-  * Return the total count of texts learned as spam.
-  *
-  * @return integer
-  */
+   * Return the total count of texts learned as spam.
+   *
+   * @return integer
+   */
   public function getSpamCount() {
     return $this->_totals['spam'];
   }

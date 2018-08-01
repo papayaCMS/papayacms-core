@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Spam\Filter;
 /**
-* The statistical spam filter uses a reference table of tokens to calculate the spam probability of
-* a given token list.
-*
-* @package Papaya-Library
-* @subpackage Spam
-*/
-class PapayaSpamFilterStatistical implements \PapayaSpamFilter {
+ * The statistical spam filter uses a reference table of tokens to calculate the spam probability of
+ * a given token list.
+ *
+ * @package Papaya-Library
+ * @subpackage Spam
+ */
+class Statistical implements \Papaya\Spam\Filter {
 
   private $_minimumTokenLength = 3;
   private $_maximumTokenLength = 30;
@@ -34,13 +35,13 @@ class PapayaSpamFilterStatistical implements \PapayaSpamFilter {
 
 
   /**
-  * Classify the given token list, return the probability the token list is spam.
-  *
-  * @param string $text ignored - original text
-  * @param array $tokens prepared token list
-  * @param integer $languageId
-  * @return float probability between 0 and 1
-  */
+   * Classify the given token list, return the probability the token list is spam.
+   *
+   * @param string $text ignored - original text
+   * @param array $tokens prepared token list
+   * @param integer $languageId
+   * @return float probability between 0 and 1
+   */
   public function classify($text, array $tokens, $languageId) {
     $this->_report = array();
     $tokens = $this->filterTokens($tokens);
@@ -50,33 +51,33 @@ class PapayaSpamFilterStatistical implements \PapayaSpamFilter {
   }
 
   /**
-  * Return the details for the last call off classify. This will return an array with all
-  * relevant words, their count and their probability in percent (0 - 100).
-  *
-  * @return array(string=>array('count'=>integer,'probability'=>integer))
-  */
+   * Return the details for the last call off classify. This will return an array with all
+   * relevant words, their count and their probability in percent (0 - 100).
+   *
+   * @return array(string=>array('count'=>integer,'probability'=>integer))
+   */
   public function getDetails() {
     return $this->_report;
   }
 
   /**
-  * Getter for reference data object including implicit create.
-  *
-  * @return \PapayaSpamFilterStatisticalReference
-  */
+   * Getter for reference data object including implicit create.
+   *
+   * @return \Papaya\Spam\Filter\Statistical\Reference
+   */
   public function getReference() {
     if (is_null($this->_reference)) {
-      $this->_reference = new \PapayaSpamFilterStatisticalReference();
+      $this->_reference = new \Papaya\Spam\Filter\Statistical\Reference();
     }
     return $this->_reference;
   }
 
   /**
-  * Setter for reference data object.
-  *
-  * @param \PapayaSpamFilterStatisticalReference $reference
-  */
-  public function setReference(\PapayaSpamFilterStatisticalReference $reference) {
+   * Setter for reference data object.
+   *
+   * @param \Papaya\Spam\Filter\Statistical\Reference $reference
+   */
+  public function setReference(\Papaya\Spam\Filter\Statistical\Reference $reference) {
     $this->_reference = $reference;
   }
 
@@ -110,11 +111,11 @@ class PapayaSpamFilterStatistical implements \PapayaSpamFilter {
   }
 
   /**
-  * Check token list for tokens that are to short or two long. Return a list without them.
-  *
-  * @param array $tokens
-  * @return array(string=>integer)
-  */
+   * Check token list for tokens that are to short or two long. Return a list without them.
+   *
+   * @param array $tokens
+   * @return array(string=>integer)
+   */
   public function filterTokens($tokens) {
     $result = array();
     foreach ($tokens as $word => $count) {
@@ -127,11 +128,11 @@ class PapayaSpamFilterStatistical implements \PapayaSpamFilter {
   }
 
   /**
-  * Get the probabilities for all relevant tokens.
-  *
-  * @param array $tokens
-  * @return array(string=>float)
-  */
+   * Get the probabilities for all relevant tokens.
+   *
+   * @param array $tokens
+   * @return array(string=>float)
+   */
   public function getProbabilities(array $tokens) {
     $result = array();
     foreach ($tokens as $word => $count) {
@@ -145,13 +146,13 @@ class PapayaSpamFilterStatistical implements \PapayaSpamFilter {
   }
 
   /**
-  * Compare two probabilities by their relevance. The relevance is the distance from "0.5".
-  * The method is used by {@see self::getProbabilities()}
-  *
-  * @param $probabilityOne
-  * @param $probabilityTwo
-  * @return integer
-  */
+   * Compare two probabilities by their relevance. The relevance is the distance from "0.5".
+   * The method is used by {@see self::getProbabilities()}
+   *
+   * @param $probabilityOne
+   * @param $probabilityTwo
+   * @return integer
+   */
   public function compareProbabilityRelevance($probabilityOne, $probabilityTwo) {
     $relevanceOne = abs(0.5 - $probabilityOne);
     $relevanceTwo = abs(0.5 - $probabilityTwo);
@@ -164,12 +165,12 @@ class PapayaSpamFilterStatistical implements \PapayaSpamFilter {
   }
 
   /**
-  * Aggregate the probabilities of the relevant tokens into one value.
-  *
-  * @param array $tokens
-  * @param array $probabilities
-  * @return float
-  */
+   * Aggregate the probabilities of the relevant tokens into one value.
+   *
+   * @param array $tokens
+   * @param array $probabilities
+   * @return float
+   */
   private function aggregateProbabilities(array $tokens, array $probabilities) {
     $counter = $this->_maximumRelevant;
     $ratingCounter = 0;
@@ -219,20 +220,20 @@ class PapayaSpamFilterStatistical implements \PapayaSpamFilter {
   }
 
   /**
-  * Calculate the probability for a single item from reference db.
-  *
-  * @param array $data
-  * @param integer $summaryHam
-  * @param integer $summarySpam
-  * @return float
-  */
+   * Calculate the probability for a single item from reference db.
+   *
+   * @param array $data
+   * @param integer $summaryHam
+   * @param integer $summarySpam
+   * @return float
+   */
   private function calculateProbability($data, $summaryHam, $summarySpam) {
     $ham = ($summaryHam > 0) ? $data['ham'] / $summaryHam : $data['ham'];
     $spam = ($summarySpam > 0) ? $data['spam'] / $summarySpam : $data['spam'];
     $rating = $spam / ($ham + $spam);
     $all = $data['ham'] + $data['spam'];
     return (
-      ($this->_defaultRatingProbability * $this->_defaultRating) + ($all * $rating)
-    ) / ($this->_defaultRatingProbability + $all);
+        ($this->_defaultRatingProbability * $this->_defaultRating) + ($all * $rating)
+      ) / ($this->_defaultRatingProbability + $all);
   }
 }

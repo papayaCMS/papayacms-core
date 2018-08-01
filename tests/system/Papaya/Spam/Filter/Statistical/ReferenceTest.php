@@ -20,10 +20,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaSpamFilterStatisticalReferenceTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaSpamFilterStatisticalReference::load
-  * @covers \PapayaSpamFilterStatisticalReference::loadTotals
-  * @covers \PapayaSpamFilterStatisticalReference::getHamCount
-  * @covers \PapayaSpamFilterStatisticalReference::getSpamCount
+  * @covers \Papaya\Spam\Filter\Statistical\Reference::load
+  * @covers \Papaya\Spam\Filter\Statistical\Reference::loadTotals
+  * @covers \Papaya\Spam\Filter\Statistical\Reference::getHamCount
+  * @covers \Papaya\Spam\Filter\Statistical\Reference::getSpamCount
   */
   public function testLoad() {
     $totalsDatabaseResult = $this->createMock(Result::class);
@@ -90,7 +90,7 @@ class PapayaSpamFilterStatisticalReferenceTest extends \PapayaTestCase {
         )
       );
 
-    $reference = new \PapayaSpamFilterStatisticalReference();
+    $reference = new \Papaya\Spam\Filter\Statistical\Reference();
     $reference->setDatabaseAccess($databaseAccess);
     $this->assertTrue($reference->load(array('foo', 'bar'), 2));
     $this->assertAttributeEquals(
@@ -114,15 +114,15 @@ class PapayaSpamFilterStatisticalReferenceTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSpamFilterStatisticalReference::load
+  * @covers \Papaya\Spam\Filter\Statistical\Reference::load
   */
   public function testLoadWithEmptyWordList() {
-    $reference = new \PapayaSpamFilterStatisticalReference();
+    $reference = new \Papaya\Spam\Filter\Statistical\Reference();
     $this->assertFalse($reference->load(array(), 2));
   }
 
   /**
-  * @covers \PapayaSpamFilterStatisticalReference::load
+  * @covers \Papaya\Spam\Filter\Statistical\Reference::load
   */
   public function testLoadWithDatabaseError() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
@@ -137,7 +137,7 @@ class PapayaSpamFilterStatisticalReferenceTest extends \PapayaTestCase {
       ->with($this->isType('string'), $this->isType('array'))
       ->will($this->returnValue(FALSE));
 
-    $reference = new \PapayaSpamFilterStatisticalReference();
+    $reference = new \Papaya\Spam\Filter\Statistical\Reference();
     $reference->setDatabaseAccess($databaseAccess);
     $this->assertFalse($reference->load(array('foo', 'bar'), 2));
   }
