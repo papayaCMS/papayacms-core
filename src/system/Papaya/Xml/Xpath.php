@@ -76,7 +76,7 @@ class Xpath extends \DOMXpath {
    * @param null|boolean $registerNodeNS
    * @return \DOMNodeList|string|float|int|bool|FALSE
    */
-  public function evaluate($expression, $contextNode = NULL, $registerNodeNS = NULL) {
+  public function evaluate($expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL) {
     if ($registerNodeNS || (NULL === $registerNodeNS && $this->_registerNodeNamespaces)) {
       $result = NULL !== $contextNode
         ? parent::evaluate($expression, $contextNode)
