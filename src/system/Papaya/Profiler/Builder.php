@@ -13,51 +13,52 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Profiler;
 /**
-* Profiler objects builder, create the objects needed to initialize the profiler. The
-* Profiler needs an collector and a storage object. Which classes are created depends on the
-* current configuraiton.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-*/
-class PapayaProfilerBuilder extends \Papaya\Application\BaseObject {
+ * Profiler objects builder, create the objects needed to initialize the profiler. The
+ * Profiler needs an collector and a storage object. Which classes are created depends on the
+ * current configuraiton.
+ *
+ * @package Papaya-Library
+ * @subpackage Profiler
+ */
+class Builder extends \Papaya\Application\BaseObject {
 
   /**
-  * Create the profiler collector object. Currently heres is only the xhprof wrapper.
-  *
-  * @return \PapayaProfilerCollector
-  */
+   * Create the profiler collector object. Currently heres is only the xhprof wrapper.
+   *
+   * @return \Papaya\Profiler\Collector
+   */
   public function createCollector() {
-    return new \PapayaProfilerCollectorXhprof();
+    return new Collector\Xhprof();
   }
 
   /**
-  * Create the profiler storage object depending on the configuration.
-  *
-  * The default storage is a directory, and stores the data for the default xhprof html pages.
-  *
-  * "xhgui" stores the data into a database, optimized for XHGui
-  * (https://github.com/preinheimer/xhprof).
-  *
-  * @return \PapayaProfilerStorage
-  */
+   * Create the profiler storage object depending on the configuration.
+   *
+   * The default storage is a directory, and stores the data for the default xhprof html pages.
+   *
+   * "xhgui" stores the data into a database, optimized for XHGui
+   * (https://github.com/preinheimer/xhprof).
+   *
+   * @return \Papaya\Profiler\Storage
+   */
   public function createStorage() {
     switch ($this->papaya()->options->get('PAPAYA_PROFILER_STORAGE', 'file')) {
-    case 'xhgui' :
-      $storage = new \PapayaProfilerStorageXhgui(
-        $this->papaya()->options->get('PAPAYA_PROFILER_STORAGE_DATABASE', ''),
-        $this->papaya()->options->get('PAPAYA_PROFILER_STORAGE_DATABASE_TABLE', 'details'),
-        $this->papaya()->options->get('PAPAYA_PROFILER_SERVER_ID', '1')
-      );
+      case 'xhgui' :
+        $storage = new Storage\Xhgui(
+          $this->papaya()->options->get('PAPAYA_PROFILER_STORAGE_DATABASE', ''),
+          $this->papaya()->options->get('PAPAYA_PROFILER_STORAGE_DATABASE_TABLE', 'details'),
+          $this->papaya()->options->get('PAPAYA_PROFILER_SERVER_ID', '1')
+        );
       break;
-    case 'file' :
-    default :
-      $storage = new \PapayaProfilerStorageFile(
-        $this->papaya()->options->get(
-          'PAPAYA_PROFILER_STORAGE_DIRECTORY', ini_get('xhprof.output_dir')
-        )
-      );
+      case 'file' :
+      default :
+        $storage = new Storage\File(
+          $this->papaya()->options->get(
+            'PAPAYA_PROFILER_STORAGE_DIRECTORY', ini_get('xhprof.output_dir')
+          )
+        );
       break;
     }
     return $storage;

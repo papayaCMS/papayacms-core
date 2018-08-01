@@ -45,14 +45,14 @@ class Profiler implements \Papaya\Application\Profile {
   /**
    * Getter/Setter for profiler builder
    *
-   * @param \PapayaProfilerBuilder $builder
-   * @return \PapayaProfilerBuilder
+   * @param \Papaya\Profiler\Builder $builder
+   * @return \Papaya\Profiler\Builder
    */
-  public function builder(\PapayaProfilerBuilder $builder = NULL) {
+  public function builder(\Papaya\Profiler\Builder $builder = NULL) {
     if (NULL !== $builder) {
       $this->_builder = $builder;
     } elseif (NULL === $this->_builder) {
-      $this->_builder = new \PapayaProfilerBuilder();
+      $this->_builder = new \Papaya\Profiler\Builder();
     }
     return $this->_builder;
   }

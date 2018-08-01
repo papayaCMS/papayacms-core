@@ -13,24 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Profiler\Collector;
 /**
-* Profiling data collector for XHProf.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-*/
-class PapayaProfilerCollectorXhprof implements \PapayaProfilerCollector {
+ * Profiling data collector for XHProf.
+ *
+ * @package Papaya-Library
+ * @subpackage Profiler
+ */
+class Xhprof implements \Papaya\Profiler\Collector {
 
   /**
-  * Store if it is currently enabled (data is collected)
-  *
-  * @var boolean
-  */
+   * Store if it is currently enabled (data is collected)
+   *
+   * @var boolean
+   */
   private $_enabled = FALSE;
 
   /**
-  * Enable data collection
-  */
+   * Enable data collection
+   */
   public function enable() {
     if (!$this->_enabled && extension_loaded('xhprof')) {
       // @codeCoverageIgnoreStart
@@ -44,10 +45,10 @@ class PapayaProfilerCollectorXhprof implements \PapayaProfilerCollector {
   }
 
   /**
-  * Disable data collection and return collected data, If no data was collected, NULL is returned.
-  *
-  * @return NULL|array()
-  */
+   * Disable data collection and return collected data, If no data was collected, NULL is returned.
+   *
+   * @return NULL|array()
+   */
   public function disable() {
     if ($this->_enabled && extension_loaded('xhprof')) {
       // @codeCoverageIgnoreStart

@@ -35,10 +35,10 @@ class Profiler {
   /**
    * Create Profiler and set collector and storage objects.
    *
-   * @param \PapayaProfilerCollector $collector
-   * @param \PapayaProfilerStorage $storage
+   * @param \Papaya\Profiler\Collector $collector
+   * @param \Papaya\Profiler\Storage $storage
    */
-  public function __construct(\PapayaProfilerCollector $collector, \PapayaProfilerStorage $storage) {
+  public function __construct(Profiler\Collector $collector, Profiler\Storage $storage) {
     $this->_collector = $collector;
     $this->_storage = $storage;
   }

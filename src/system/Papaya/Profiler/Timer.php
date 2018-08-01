@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Profiler;
 /**
-* A stack of timings, it fetches a starting time at the moment the object is created.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-*/
-class PapayaProfilerTimer extends \Papaya\Application\BaseObject implements \IteratorAggregate {
+ * A stack of timings, it fetches a starting time at the moment the object is created.
+ *
+ * @package Papaya-Library
+ * @subpackage Profiler
+ */
+class Timer extends \Papaya\Application\BaseObject implements \IteratorAggregate {
 
   private $_start = 0;
 

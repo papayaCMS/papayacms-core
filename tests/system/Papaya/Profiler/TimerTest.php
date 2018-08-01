@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaProfilerTimerTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaProfilerTimer
+   * @covers \Papaya\Profiler\Timer
    */
   public function testTimerWithOnTake() {
-    $timer = new \PapayaProfilerTimer();
+    $timer = new \Papaya\Profiler\Timer();
     usleep(50);
     $timer->take('TEST');
     $takes = iterator_to_array($timer);
@@ -34,10 +34,10 @@ class PapayaProfilerTimerTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaProfilerTimer
+   * @covers \Papaya\Profiler\Timer
    */
   public function testTimerWithTwoTakes() {
-    $timer = new \PapayaProfilerTimer();
+    $timer = new \Papaya\Profiler\Timer();
     $timer->take('TEST');
     $timer->take('TEST');
     $takes = iterator_to_array($timer);
@@ -45,10 +45,10 @@ class PapayaProfilerTimerTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaProfilerTimer
+   * @covers \Papaya\Profiler\Timer
    */
   public function testTimerWithTextWithArgument() {
-    $timer = new \PapayaProfilerTimer();
+    $timer = new \Papaya\Profiler\Timer();
     $timer->take('Hello %s!', 'World');
     $takes = iterator_to_array($timer);
     $this->assertCount(1, $takes);
@@ -56,10 +56,10 @@ class PapayaProfilerTimerTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaProfilerTimer
+   * @covers \Papaya\Profiler\Timer
    */
   public function testTimerWithTextWithArrayArgument() {
-    $timer = new \PapayaProfilerTimer();
+    $timer = new \Papaya\Profiler\Timer();
     $timer->take('Hello %s and %s!', array('World', 'Universe'));
     $takes = iterator_to_array($timer);
     $this->assertCount(1, $takes);
@@ -67,7 +67,7 @@ class PapayaProfilerTimerTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaProfilerTimer
+   * @covers \Papaya\Profiler\Timer
    */
   public function testEmit() {
     $messages = $this->createMock(\Papaya\Message\Manager::class);
@@ -80,7 +80,7 @@ class PapayaProfilerTimerTest extends \PapayaTestCase {
         $this->isType('string'),
         $this->isInstanceOf(\Papaya\Message\Context\Runtime::class)
       );
-    $timer = new \PapayaProfilerTimer();
+    $timer = new \Papaya\Profiler\Timer();
     $timer->papaya(
       $this->mockPapaya()->application(
         array('messages' => $messages)

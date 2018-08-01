@@ -18,18 +18,18 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaProfilerBuilderTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaProfilerBuilder::createCollector
+  * @covers \Papaya\Profiler\Builder::createCollector
   */
   public function testCreateCollector() {
-    $builder = new \PapayaProfilerBuilder();
-    $this->assertInstanceOf(\PapayaProfilerCollectorXhprof::class, $builder->createCollector());
+    $builder = new \Papaya\Profiler\Builder();
+    $this->assertInstanceOf(\Papaya\Profiler\Collector\Xhprof::class, $builder->createCollector());
   }
 
   /**
-  * @covers \PapayaProfilerBuilder::createStorage
+  * @covers \Papaya\Profiler\Builder::createStorage
   */
   public function testCreateStorageExpectFile() {
-    $builder = new \PapayaProfilerBuilder();
+    $builder = new \Papaya\Profiler\Builder();
     $builder->papaya(
       $this->mockPapaya()->application(
         array(
@@ -41,14 +41,14 @@ class PapayaProfilerBuilderTest extends \PapayaTestCase {
     );
     $storage = $builder->createStorage();
     $this->removeTemporaryDirectory();
-    $this->assertInstanceOf(\PapayaProfilerStorageFile::class, $storage);
+    $this->assertInstanceOf(\Papaya\Profiler\Storage\File::class, $storage);
   }
 
   /**
-  * @covers \PapayaProfilerBuilder::createStorage
+  * @covers \Papaya\Profiler\Builder::createStorage
   */
   public function testCreateStorageExpectXhgui() {
-    $builder = new \PapayaProfilerBuilder();
+    $builder = new \Papaya\Profiler\Builder();
     $builder->papaya(
       $this->mockPapaya()->application(
         array(
@@ -61,6 +61,6 @@ class PapayaProfilerBuilderTest extends \PapayaTestCase {
       )
     );
     $storage = $builder->createStorage();
-    $this->assertInstanceOf(\PapayaProfilerStorageXhgui::class, $storage);
+    $this->assertInstanceOf(\Papaya\Profiler\Storage\Xhgui::class, $storage);
   }
 }

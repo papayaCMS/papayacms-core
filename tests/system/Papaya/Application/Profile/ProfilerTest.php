@@ -66,7 +66,7 @@ class PapayaApplicationProfileProfilerTest extends \PapayaTestCase {
   * @covers Profiler::builder
   */
   public function testBuilderGetAfterSet() {
-    $builder = $this->createMock(\PapayaProfilerBuilder::class);
+    $builder = $this->createMock(\Papaya\Profiler\Builder::class);
     $profile = new Profiler();
     $profile->builder($builder);
     $this->assertSame($builder, $profile->builder());
@@ -77,11 +77,11 @@ class PapayaApplicationProfileProfilerTest extends \PapayaTestCase {
   */
   public function testBuilderGetImplicitCreate() {
     $profile = new Profiler();
-    $this->assertInstanceOf(\PapayaProfilerBuilder::class, $profile->builder());
+    $this->assertInstanceOf(\Papaya\Profiler\Builder::class, $profile->builder());
   }
 
   private function getBuilderFixture() {
-    $builder = $this->createMock(\PapayaProfilerBuilder::class);
+    $builder = $this->createMock(\Papaya\Profiler\Builder::class);
     $builder
       ->expects($this->once())
       ->method('papaya')
@@ -89,11 +89,11 @@ class PapayaApplicationProfileProfilerTest extends \PapayaTestCase {
     $builder
       ->expects($this->once())
       ->method('createCollector')
-      ->will($this->returnValue($this->createMock(\PapayaProfilerCollector::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Profiler\Collector::class)));
     $builder
       ->expects($this->once())
       ->method('createStorage')
-      ->will($this->returnValue($this->createMock(\PapayaProfilerStorage::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Profiler\Storage::class)));
     return $builder;
   }
 }

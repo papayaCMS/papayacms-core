@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Profiler\Storage;
 /**
-* Stores the Xhrof profiling data into a file usable by the standard report app.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-*/
-class PapayaProfilerStorageFile implements \PapayaProfilerStorage {
+ * Stores the Xhrof profiling data into a file usable by the standard report app.
+ *
+ * @package Papaya-Library
+ * @subpackage Profiler
+ */
+class File implements \Papaya\Profiler\Storage {
 
   private $_suffix = 'xhprof';
   private $_directory = '/tmp/';
 
   /**
-  * Create storage object and store configuration options
-  *
-  * @param string $directory
-  * @param string $suffix
-  */
+   * Create storage object and store configuration options
+   *
+   * @param string $directory
+   * @param string $suffix
+   */
   public function __construct($directory, $suffix = NULL) {
     $this->_directory = $directory;
     if (!empty($suffix)) {
@@ -64,12 +65,12 @@ class PapayaProfilerStorageFile implements \PapayaProfilerStorage {
   }
 
   /**
-  * create id for profling run
-  *
-  * @return string
-  */
+   * create id for profling run
+   *
+   * @return string
+   */
   protected function getId() {
-    return uniqid();
+    return uniqid('papaya', TRUE);
   }
 
   /**

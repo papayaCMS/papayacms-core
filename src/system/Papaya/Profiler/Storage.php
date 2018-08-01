@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Profiler;
 /**
-* Interface for profiler storage objects.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-*/
-interface PapayaProfilerStorage {
+ * Interface for profiler storage objects.
+ *
+ * @package Papaya-Library
+ * @subpackage Profiler
+ */
+interface Storage {
 
   /**
-  * Save profiling data run
-  *
-  * @param array $data
-  * @param string $type
-  */
+   * Save profiling data run
+   *
+   * @param array $data
+   * @param string $type
+   */
   public function saveRun($data, $type);
 }

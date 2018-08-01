@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Profiler;
 /**
-* Profiling data collector interface.
-*
-* @package Papaya-Library
-* @subpackage Profiler
-*/
-interface PapayaProfilerCollector {
+ * Profiling data collector interface.
+ *
+ * @package Papaya-Library
+ * @subpackage Profiler
+ */
+interface Collector {
 
   /**
-  * Enable data collection
-  */
-  function enable();
+   * Enable data collection
+   */
+  public function enable();
 
   /**
-  * Disable data collection and return collected data, If no data was collected, NULL is returned.
-  *
-  * @return NULL|array()
-  */
-  function disable();
+   * Disable data collection and return collected data, If no data was collected, NULL is returned.
+   *
+   * @return NULL|array()
+   */
+  public function disable();
 }

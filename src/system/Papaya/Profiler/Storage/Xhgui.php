@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Profiler\Storage;
 /**
-* Stores the Xhrof profiling data into a database table for the XHGui by Paul Rheinheimer.
-*
-* https://github.com/preinheimer/xhprof/
-*
-* @package Papaya-Library
-* @subpackage Profiler
-*/
-class PapayaProfilerStorageXhgui
+ * Stores the Xhrof profiling data into a database table for the XHGui by Paul Rheinheimer.
+ *
+ * https://github.com/preinheimer/xhprof/
+ *
+ * @package Papaya-Library
+ * @subpackage Profiler
+ */
+class Xhgui
   extends \Papaya\Application\BaseObject
-  implements \PapayaProfilerStorage, \Papaya\Database\Interfaces\Access {
+  implements \Papaya\Profiler\Storage, \Papaya\Database\Interfaces\Access {
 
   /**
    * @var string
@@ -46,12 +47,12 @@ class PapayaProfilerStorageXhgui
   private $_databaseAccessObject = NULL;
 
   /**
-  * Create storage object and store configuration options
-  *
-  * @param string $database
-  * @param string $tableName
-  * @param string $serverId
-  */
+   * Create storage object and store configuration options
+   *
+   * @param string $database
+   * @param string $tableName
+   * @param string $serverId
+   */
   public function __construct($database, $tableName, $serverId) {
     $this->_database = $database;
     $this->_tableName = $tableName;
@@ -59,11 +60,11 @@ class PapayaProfilerStorageXhgui
   }
 
   /**
-  * Save the profiling data of a run into the database table
-  *
-  * @param array $data
-  * @param string $type
-  */
+   * Save the profiling data of a run into the database table
+   *
+   * @param array $data
+   * @param string $type
+   */
   public function saveRun($data, $type) {
     $databaseAccess = $this->getDatabaseAccess();
     $record = array(
@@ -79,7 +80,7 @@ class PapayaProfilerStorageXhgui
       'get' => serialize($_GET),
       'post' => serialize(array("Skipped" => "Post data omitted.")),
       'pmu' => isset($data['main()']['pmu']) ? $data['main()']['pmu'] : '',
-      'wt' => isset($data['main()']['wt'])  ? $data['main()']['wt']  : '',
+      'wt' => isset($data['main()']['wt']) ? $data['main()']['wt'] : '',
       'cpu' => isset($data['main()']['cpu']) ? $data['main()']['cpu'] : '',
       'server_id' => $this->_serverId
     );
@@ -92,20 +93,20 @@ class PapayaProfilerStorageXhgui
   }
 
   /**
-  * create id for profiling run
-  *
-  * @return string
-  */
+   * create id for profiling run
+   *
+   * @return string
+   */
   protected function getId() {
     return uniqid();
   }
 
   /**
-  * Remove session id, querystring and fragment from url
-  *
-  * @param string $url
-  * @return string
-  */
+   * Remove session id, querystring and fragment from url
+   *
+   * @param string $url
+   * @return string
+   */
   private function normalizeUrl($url) {
     $url = preg_replace('([?#].*$)', '', $url);
     return $url;
@@ -125,10 +126,10 @@ class PapayaProfilerStorageXhgui
   }
 
   /**
-  * Get database access object
-  *
-  * @return \Papaya\Database\Access
-  */
+   * Get database access object
+   *
+   * @return \Papaya\Database\Access
+   */
   public function getDatabaseAccess() {
     if (!isset($this->_databaseAccessObject)) {
       $this->_databaseAccessObject = new \Papaya\Database\Access($this, $this->_database);

@@ -99,7 +99,7 @@ class PapayaTemplateXslt extends \Papaya\Template {
    */
   public function process($engine) {
     if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_TEMPLATE', FALSE)) {
-      $timer = new \PapayaProfilerTimer();
+      $timer = new \Papaya\Profiler\Timer();
       $timer->papaya($this->papaya());
     } else {
       $timer = NULL;
