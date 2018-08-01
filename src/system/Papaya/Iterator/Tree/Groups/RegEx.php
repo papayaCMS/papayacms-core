@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Tree\Groups;
 /**
-* An iterator that group items using a regex match
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorTreeGroupsRegex extends \PapayaIteratorTreeGroups {
+ * An iterator that group items using a regex match
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class RegEx extends \Papaya\Iterator\Tree\Groups {
 
   const GROUP_VALUES = 1;
   const GROUP_KEYS = 2;
@@ -64,7 +65,7 @@ class PapayaIteratorTreeGroupsRegex extends \PapayaIteratorTreeGroups {
   private function matchValue($value) {
     $matches = array();
     if (preg_match($this->_pattern, (string)$value, $matches) &&
-        !empty($matches[$this->_subMatch])) {
+      !empty($matches[$this->_subMatch])) {
       return $matches[$this->_subMatch];
     }
     return NULL;

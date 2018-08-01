@@ -52,11 +52,11 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
       $field = new \PapayaUiDialogFieldSelect(
         $this->options()->caption,
         $this->options()->name,
-        new \PapayaIteratorTreeGroupsRegex(
+        new \Papaya\Iterator\Tree\Groups\RegEx(
           $elements,
           '(^(?P<group>.+)_([^_]+\\.[^.]+)$)',
           'group',
-          \PapayaIteratorTreeGroupsRegex::GROUP_KEYS
+          \Papaya\Iterator\Tree\Groups\RegEx::GROUP_KEYS
         ),
         $this->options()->mandatory
       );

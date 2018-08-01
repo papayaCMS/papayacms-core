@@ -13,35 +13,36 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Tree;
 /**
-* An iterator that attaches details from a second array or Traversable to the first.
-*
-* If an identifer is provided the key of the main array is one or more specified values
-* from the detail array elements joined by '|'.
-*
-* Example:
-*
-* $identifer = array('group', 'subgroup');
-* $main = array('foo|bar' => 'Group foo/bar', 'details' => '...');
-* $detail = array(array('group' => 'foo', 'subgroup' => 'bar', 'details' => '...'));
-*
-* If no identifer is provided the key of the details array should contain a list of all childrend
-* for the same key in the main array.
-* Example:
-*
-* $identifer = NULL;
-* $main = array('foo' => 'Group foo');
-* $detail = array('foo' => array('element one', 'elementTwo'));
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorTreeDetails
+ * An iterator that attaches details from a second array or Traversable to the first.
+ *
+ * If an identifier is provided the key of the main array is one or more specified values
+ * from the detail array elements joined by '|'.
+ *
+ * Example:
+ *
+ * $identifier = array('group', 'subgroup');
+ * $main = array('foo|bar' => 'Group foo/bar', 'details' => '...');
+ * $detail = array(array('group' => 'foo', 'subgroup' => 'bar', 'details' => '...'));
+ *
+ * If no identifier is provided the key of the details array should contain a list of all children
+ * for the same key in the main array.
+ * Example:
+ *
+ * $identifier = NULL;
+ * $main = array('foo' => 'Group foo');
+ * $detail = array('foo' => array('element one', 'elementTwo'));
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Details
   extends \IteratorIterator
   implements \RecursiveIterator {
 
   /**
-   * @var array|Traversable
+   * @var array|\Traversable
    */
   private $_list = NULL;
 
@@ -66,7 +67,7 @@ class PapayaIteratorTreeDetails
   }
 
   /**
-   * Store details and identifer definition, reset the internal tree so it gets compiled on next
+   * Store details and identifier definition, reset the internal tree so it gets compiled on next
    * read access
    *
    * @param array|\Traversable $details

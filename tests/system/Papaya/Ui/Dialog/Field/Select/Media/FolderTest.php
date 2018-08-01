@@ -81,7 +81,7 @@ class PapayaUiDialogFieldSelectMediaFolderTest extends \PapayaTestCase {
   }
 
   private function getMediaFoldersFixture() {
-    $folders = new \PapayaIteratorTreeChildren(
+    $folders = new \Papaya\Iterator\Tree\Children(
       array(
         '21' => array('id' => 21, 'title' => 'Folder 21'),
         '42' => array('id' => 42, 'title' => 'Folder 42'),

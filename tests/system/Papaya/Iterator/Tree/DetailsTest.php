@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaIteratorTreeDetails
+   * @covers \Papaya\Iterator\Tree\Details
    */
   public function testIterationWithArray() {
     $main = array(
@@ -31,7 +31,7 @@ class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
       2 => array('title' => '1.2', 'category_id' => 1),
       3 => array('title' => '2.1', 'category_id' => 2)
     );
-    $iterator = new \PapayaIteratorTreeDetails($main, $details, 'category_id');
+    $iterator = new \Papaya\Iterator\Tree\Details($main, $details, 'category_id');
     $this->assertEquals(
       array(
         array(
@@ -64,7 +64,7 @@ class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaIteratorTreeDetails
+   * @covers \Papaya\Iterator\Tree\Details
    */
   public function testIterationWithIterators() {
     $main = new ArrayIterator(
@@ -81,7 +81,7 @@ class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
         3 => array('title' => '2.1', 'category_id' => 2)
       )
     );
-    $iterator = new \PapayaIteratorTreeDetails($main, $details, 'category_id');
+    $iterator = new \Papaya\Iterator\Tree\Details($main, $details, 'category_id');
     $this->assertEquals(
       array(
         array(
@@ -114,7 +114,7 @@ class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaIteratorTreeDetails
+   * @covers \Papaya\Iterator\Tree\Details
    */
   public function testIterationGroupedByKey() {
     $main = new ArrayIterator(
@@ -130,7 +130,7 @@ class PapayaIteratorTreeDetailsTest extends \PapayaTestCase {
         2 => array('2.1')
       )
     );
-    $iterator = new \PapayaIteratorTreeDetails($main, $details);
+    $iterator = new \Papaya\Iterator\Tree\Details($main, $details);
     $this->assertEquals(
       array(
         0 => 'CategoryOne',

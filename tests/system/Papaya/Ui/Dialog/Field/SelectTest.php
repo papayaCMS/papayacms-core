@@ -197,7 +197,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
     $select = new \PapayaUiDialogFieldSelect(
       'Caption',
       'name',
-      new \PapayaIteratorTreeGroupsRegex(
+      new \Papaya\Iterator\Tree\Groups\RegEx(
         array('foo', 'bar', 'foobar'), '(^foo)'
       ),
       TRUE,
@@ -337,7 +337,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
     $select = new \PapayaUiDialogFieldSelect(
       'Caption',
       'name',
-      new \PapayaIteratorTreeGroupsRegex(
+      new \Papaya\Iterator\Tree\Groups\RegEx(
         array('foo', 'bar', 'foobar'), '(^foo)'
       ),
       TRUE,

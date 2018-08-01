@@ -13,16 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Tree;
+
 /**
-* An iterator that group items using a callback function on them.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorTreeGroups implements \RecursiveIterator {
+ * An iterator that group items using a callback function on them.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Groups implements \RecursiveIterator {
 
   /**
-   * @var Iterator
+   * @var \Iterator
    */
   private $_iterator = NULL;
 

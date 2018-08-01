@@ -133,7 +133,7 @@ class Groups implements \IteratorAggregate {
    * @see \IteratorAggregate::getIterator()
    */
   public function getIterator() {
-    return new \PapayaIteratorTreeDetails(
+    return new \Papaya\Iterator\Tree\Details(
       $this->_groups,
       $this->_groupedPermissions
     );

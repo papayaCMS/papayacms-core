@@ -82,9 +82,9 @@ abstract class Tree extends Lazy {
    * Return a tree iterator for the loaded records starting with the children of the virtual
    * element zero.
    *
-   * @return \PapayaIteratorTreeChildren
+   * @return \Papaya\Iterator\Tree\Children
    */
   public function getIterator() {
-    return new \PapayaIteratorTreeChildren($this->_records, $this->_children);
+    return new \Papaya\Iterator\Tree\Children($this->_records, $this->_children);
   }
 }

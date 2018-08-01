@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaIteratorTreeChildrenTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaIteratorTreeChildren
+  * @covers \Papaya\Iterator\Tree\Children
   */
   public function testIterateRoot() {
     $iterator = $this->getIteratorFixture();
@@ -31,7 +31,7 @@ class PapayaIteratorTreeChildrenTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaIteratorTreeChildren
+  * @covers \Papaya\Iterator\Tree\Children
   */
   public function testIterateLeafs() {
     $iterator = new RecursiveIteratorIterator($this->getIteratorFixture());
@@ -44,7 +44,7 @@ class PapayaIteratorTreeChildrenTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaIteratorTreeChildren
+  * @covers \Papaya\Iterator\Tree\Children
   */
   public function testIterateAll() {
     $iterator = new RecursiveIteratorIterator(
@@ -67,10 +67,10 @@ class PapayaIteratorTreeChildrenTest extends \PapayaTestCase {
   *
   * The element id 4 is included int the children ids to simulate a missing element.
   *
-  * @return \PapayaIteratorTreeChildren
+  * @return \Papaya\Iterator\Tree\Children
   */
   public function getIteratorFixture() {
-    return new \PapayaIteratorTreeChildren(
+    return new \Papaya\Iterator\Tree\Children(
       array(
         1 => 'one',
         2 => 'two',

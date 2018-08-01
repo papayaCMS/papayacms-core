@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaIteratorTreeGroupsTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaIteratorTreeGroups
+   * @covers \Papaya\Iterator\Tree\Groups
    */
   public function testIterationWithStringsGroupByFirstChar() {
-    $iterator = new \PapayaIteratorTreeGroups(
+    $iterator = new \Papaya\Iterator\Tree\Groups(
       array('Administration', 'Application', 'Cache', 'Configuration', 'Iterator'),
       array($this, 'callbackGetFirstChar')
     );
@@ -44,10 +44,10 @@ class PapayaIteratorTreeGroupsTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaIteratorTreeGroups
+   * @covers \Papaya\Iterator\Tree\Groups
    */
   public function testIterationWithStringsGeneratingGroupArrays() {
-    $iterator = new \PapayaIteratorTreeGroups(
+    $iterator = new \Papaya\Iterator\Tree\Groups(
       array('Administration', 'Application', 'Cache', 'Configuration', 'Iterator'),
       array($this, 'callbackGetFirstCharAsArray')
     );
@@ -70,10 +70,10 @@ class PapayaIteratorTreeGroupsTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaIteratorTreeGroups
+   * @covers \Papaya\Iterator\Tree\Groups
    */
   public function testIterationWithStringsGeneratingGroupObjects() {
-    $iterator = new \PapayaIteratorTreeGroups(
+    $iterator = new \Papaya\Iterator\Tree\Groups(
       array('Administration', 'Application', 'Cache', 'Configuration', 'Iterator'),
       array($this, 'callbackGetFirstCharAsObject')
     );
@@ -96,10 +96,10 @@ class PapayaIteratorTreeGroupsTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaIteratorTreeGroups
+   * @covers \Papaya\Iterator\Tree\Groups
    */
   public function testIterationWithStringsWithInvalidGroupAddingItemsToFirstLevel() {
-    $iterator = new \PapayaIteratorTreeGroups(
+    $iterator = new \Papaya\Iterator\Tree\Groups(
       array('Administration', 'Application', 'Cache', 'Configuration', 'Iterator'),
       array($this, 'callbackGetNull')
     );
@@ -119,10 +119,10 @@ class PapayaIteratorTreeGroupsTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaIteratorTreeGroups
+   * @covers \Papaya\Iterator\Tree\Groups
    */
   public function testIterationKeepsKeys() {
-    $iterator = new \PapayaIteratorTreeGroups(
+    $iterator = new \Papaya\Iterator\Tree\Groups(
       array(
         'admin' => 'Administration',
         'app' => 'Application',
