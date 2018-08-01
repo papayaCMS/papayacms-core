@@ -101,7 +101,7 @@ class Xpath extends \DOMXpath {
    * @throws \LogicException
    * @return \DOMNodeList
    */
-  public function query($expression, $contextNode = NULL, $registerNodeNS = NULL) {
+  public function query($expression, \DOMNode $contextNode = NULL, $registerNodeNS = NULL) {
     throw new \LogicException('"query()" should not be used, use "evaluate()".');
   }
 
