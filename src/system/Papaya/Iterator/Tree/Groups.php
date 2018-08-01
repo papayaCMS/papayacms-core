@@ -147,7 +147,7 @@ class PapayaIteratorTreeGroups implements \RecursiveIterator {
    */
   public function getChildren() {
     $key = $this->key();
-    return new \PapayaIteratorTreeItems(
+    return new \Papaya\Iterator\Tree\Items(
       isset($this->_children[$key]) ? $this->_children[$key] : array()
     );
   }

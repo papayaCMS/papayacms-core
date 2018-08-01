@@ -1208,11 +1208,11 @@ class papaya_page extends base_object {
   }
 
   public function getThemeFile() {
-    $themeWrapperUrl = new \PapayaThemeWrapperUrl();
+    $themeWrapperUrl = new \Papaya\Theme\Wrapper\Url();
     switch ($themeWrapperUrl->getMimetype()) {
     case 'text/javascript' :
     case 'text/css' :
-      $themeWrapper = new \PapayaThemeWrapper($themeWrapperUrl);
+      $themeWrapper = new \Papaya\Theme\Wrapper($themeWrapperUrl);
       $response = $themeWrapper->getResponse();
       $response->send(TRUE);
       return TRUE;
@@ -1634,7 +1634,7 @@ class papaya_page extends base_object {
         $this->layout->parameters()->set('PAPAYA_WEBSITE_REVISION', PAPAYA_WEBSITE_REVISION);
         $this->layout->parameters()->set('PAGE_WEBSITE_REVISION', PAPAYA_WEBSITE_REVISION);
       }
-      $themeHandler = new \PapayaThemeHandler();
+      $themeHandler = new \Papaya\Theme\Handler();
       $this->layout->parameters()->set('PAGE_THEME', $themeHandler->getTheme());
       $this->layout->parameters()->set('PAGE_THEME_SET', $themeHandler->getThemeSet());
       $this->layout->parameters()->set('PAGE_THEME_PATH', $themeHandler->getUrl());

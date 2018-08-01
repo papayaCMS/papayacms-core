@@ -30,15 +30,15 @@ class Export
   private $_themeSet = NULL;
 
   /**
-   * @var \PapayaThemeHandler
+   * @var \Papaya\Theme\Handler
    */
   private $_themeHandler = NULL;
 
   /**
    * @param \Papaya\Content\Theme\Set $themeSet
-   * @param \PapayaThemeHandler $themeHandler
+   * @param \Papaya\Theme\Handler $themeHandler
    */
-  public function __construct(\Papaya\Content\Theme\Set $themeSet, \PapayaThemeHandler $themeHandler) {
+  public function __construct(\Papaya\Content\Theme\Set $themeSet, \Papaya\Theme\Handler $themeHandler) {
     $this->_themeSet = $themeSet;
     $this->_themeHandler = $themeHandler;
   }

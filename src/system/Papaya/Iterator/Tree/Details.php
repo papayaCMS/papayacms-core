@@ -128,6 +128,6 @@ class PapayaIteratorTreeDetails
    */
   public function getChildren() {
     $details = $this->getDetails();
-    return new \PapayaIteratorTreeItems($details[$this->key()]);
+    return new \Papaya\Iterator\Tree\Items($details[$this->key()]);
   }
 }

@@ -128,16 +128,16 @@ class Navigation extends \Papaya\Administration\Page\Part {
    * @return \RecursiveIterator
    */
   private function createThemeList() {
-    $themes = new \PapayaThemeList();
+    $themes = new \Papaya\Theme\Collection();
     $themes->papaya($this->papaya());
-    $themeIterator = new \PapayaIteratorTreeItems(
-      $themes, \PapayaIteratorTreeItems::ATTACH_TO_VALUES
+    $themeIterator = new \Papaya\Iterator\Tree\Items(
+      $themes, \Papaya\Iterator\Tree\Items::ATTACH_TO_VALUES
     );
     $selectedTheme = $this->parameters()->get('theme', '');
     if (!empty($selectedTheme)) {
       $sets = new \Papaya\Content\Theme\Sets();
       $sets->activateLazyLoad(array('theme' => $selectedTheme));
-      $setIterator = new \PapayaIteratorTreeItems($sets);
+      $setIterator = new \Papaya\Iterator\Tree\Items($sets);
       $selectedSet = $this->parameters()->get('set_id', 0);
       if ($selectedSet > 0) {
         $setIterator->attachItemIterator(

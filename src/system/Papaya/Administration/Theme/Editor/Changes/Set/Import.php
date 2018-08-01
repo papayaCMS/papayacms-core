@@ -29,11 +29,11 @@ class Import
    */
   private $_themeSet;
   /**
-   * @var \PapayaThemeHandler
+   * @var \Papaya\Theme\Handler
    */
   private $_themeHandler;
 
-  public function __construct(\Papaya\Content\Theme\Set $themeSet, \PapayaThemeHandler $themeHandler) {
+  public function __construct(\Papaya\Content\Theme\Set $themeSet, \Papaya\Theme\Handler $themeHandler) {
     $this->_themeSet = $themeSet;
     $this->_themeHandler = $themeHandler;
   }

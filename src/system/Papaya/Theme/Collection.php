@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Theme;
 /**
-* Load a list of themes. The themes are subdirectories in a local directory.
-*
-* @package Papaya-Library
-* @subpackage Theme
-*/
-class PapayaThemeList extends \Papaya\Application\BaseObject implements \IteratorAggregate {
+ * Load a list of themes. The themes are subdirectories in a local directory.
+ *
+ * @package Papaya-Library
+ * @subpackage Theme
+ */
+class Collection extends \Papaya\Application\BaseObject implements \IteratorAggregate {
 
   private $_handler = NULL;
 
@@ -59,14 +60,14 @@ class PapayaThemeList extends \Papaya\Application\BaseObject implements \Iterato
    * The handler is an helper object to get general information about the
    * themes of the current installation
    *
-   * @param \PapayaThemeHandler $handler
-   * @return \PapayaThemeHandler
+   * @param \Papaya\Theme\Handler $handler
+   * @return \Papaya\Theme\Handler
    */
-  public function handler(\PapayaThemeHandler $handler = NULL) {
+  public function handler(\Papaya\Theme\Handler $handler = NULL) {
     if (isset($handler)) {
       $this->_handler = $handler;
     } elseif (NULL === $this->_handler) {
-      $this->_handler = new \PapayaThemeHandler();
+      $this->_handler = new \Papaya\Theme\Handler();
       $this->_handler->papaya($this->papaya());
     }
     return $this->_handler;

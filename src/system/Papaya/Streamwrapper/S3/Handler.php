@@ -15,7 +15,7 @@
 
 namespace Papaya\Streamwrapper\S3;
 /**
- * Papaya Streamwrapper Amazon S3 Handler
+ * Papaya Streamwrapper Amazon S3 Papaya\Theme\Handler
  *
  * @package Papaya-Library
  * @subpackage Streamwrapper

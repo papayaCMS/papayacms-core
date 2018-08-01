@@ -82,7 +82,7 @@ class PapayaAdministrationThemeEditorChangesTest extends \PapayaTestCase {
    */
   public function testThemeHandlerGetAfterSet() {
     $command = new Changes();
-    $command->themeHandler($themeHandler = $this->createMock(\PapayaThemeHandler::class));
+    $command->themeHandler($themeHandler = $this->createMock(\Papaya\Theme\Handler::class));
     $this->assertSame($themeHandler, $command->themeHandler());
   }
 
@@ -91,6 +91,6 @@ class PapayaAdministrationThemeEditorChangesTest extends \PapayaTestCase {
    */
   public function testThemeHandlerGetImplicitCreate() {
     $command = new Changes();
-    $this->assertInstanceOf(\PapayaThemeHandler::class, $command->themeHandler());
+    $this->assertInstanceOf(\Papaya\Theme\Handler::class, $command->themeHandler());
   }
 }

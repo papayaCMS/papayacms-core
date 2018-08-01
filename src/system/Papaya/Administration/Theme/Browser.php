@@ -14,9 +14,6 @@
  */
 
 namespace Papaya\Administration\Theme;
-use PapayaThemeHandler;
-use PapayaUiDialog;
-use Traversable;
 
 /**
  * papaya CMS
@@ -38,11 +35,11 @@ class Browser
   private $_optionName = 'PAPAYA_LAYOUT_THEME';
 
   /**
-   * @var Traversable
+   * @var \Traversable
    */
   private $_themes;
   /**
-   * @var \PapayaThemeHandler
+   * @var \Papaya\Theme\Handler
    */
   private $_themeHandler;
   /**
@@ -87,7 +84,7 @@ class Browser
       $listview->mode = \PapayaUiListview::MODE_TILES;
       $listview->builder($builder = new \PapayaUiListviewItemsBuilder($this->themes()));
       $builder->callbacks()->onCreateItem = function (
-        $context, \PapayaUiListviewItems $items, \PapayaThemeDefinition $theme
+        $context, \PapayaUiListviewItems $items, \Papaya\Theme\Definition $theme
       ) use ($dialog) {
         $items[] = $item = new \PapayaUiListviewItemRadio(
           $theme->thumbnails['medium'], $theme->title, $dialog, $this->_optionName, $theme->name
@@ -123,7 +120,7 @@ class Browser
             }
           ),
           function ($theme) {
-            return $theme instanceof \PapayaThemeDefinition;
+            return $theme instanceof \Papaya\Theme\Definition;
           }
         )
       );
@@ -132,21 +129,21 @@ class Browser
   }
 
   /**
-   * @param \PapayaThemeHandler|NULL $themeHandler
-   * @return \PapayaThemeHandler
+   * @param \Papaya\Theme\Handler|NULL $themeHandler
+   * @return \Papaya\Theme\Handler
    */
-  public function themeHandler(\PapayaThemeHandler $themeHandler = NULL) {
+  public function themeHandler(\Papaya\Theme\Handler $themeHandler = NULL) {
     if (isset($themeHandler)) {
       $this->_themeHandler = $themeHandler;
     } elseif (NULL === $this->_themeHandler) {
-      $this->_themeHandler = new \PapayaThemeHandler();
+      $this->_themeHandler = new \Papaya\Theme\Handler();
       $this->_themeHandler->papaya($this->papaya());
     }
     return $this->_themeHandler;
   }
 
   /**
-   * @return \PapayaThemeDefinition
+   * @return \Papaya\Theme\Definition
    */
   public function getCurrent() {
     return $this->themeHandler()->getDefinition($this->dialog()->data->get($this->_optionName));

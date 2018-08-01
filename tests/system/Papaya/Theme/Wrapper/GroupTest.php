@@ -18,20 +18,20 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaThemeWrapperGroupTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaThemeWrapperGroup::__construct
+  * @covers \Papaya\Theme\Wrapper\Group::__construct
   */
   public function testConstructor() {
-    $group = new \PapayaThemeWrapperGroup('sample.xml');
+    $group = new \Papaya\Theme\Wrapper\Group('sample.xml');
     $this->assertAttributeEquals(
       'sample.xml', '_themeFile', $group
     );
   }
 
   /**
-  * @covers \PapayaThemeWrapperGroup::getFiles
+  * @covers \Papaya\Theme\Wrapper\Group::getFiles
   */
   public function testGetFilesRequestingMainCss() {
-    $group = new \PapayaThemeWrapperGroup('sample.xml');
+    $group = new \Papaya\Theme\Wrapper\Group('sample.xml');
     $group->setDocument($this->getThemeDocumentFixture());
     $this->assertEquals(
       array('basic.css', 'main.css'), $group->getFiles('main')
@@ -39,10 +39,10 @@ class PapayaThemeWrapperGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaThemeWrapperGroup::getFiles
+  * @covers \Papaya\Theme\Wrapper\Group::getFiles
   */
   public function testGetFilesRequestingColorsCss() {
-    $group = new \PapayaThemeWrapperGroup('sample.xml');
+    $group = new \Papaya\Theme\Wrapper\Group('sample.xml');
     $group->setDocument($this->getThemeDocumentFixture());
     $this->assertEquals(
       array('colors.css'), $group->getFiles('colors')
@@ -50,10 +50,10 @@ class PapayaThemeWrapperGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaThemeWrapperGroup::getFiles
+  * @covers \Papaya\Theme\Wrapper\Group::getFiles
   */
   public function testGetFilesRequestingMainJavascript() {
-    $group = new \PapayaThemeWrapperGroup('sample.xml');
+    $group = new \Papaya\Theme\Wrapper\Group('sample.xml');
     $group->setDocument($this->getThemeDocumentFixture());
     $this->assertEquals(
       array('main.js'), $group->getFiles('main', 'js')
@@ -61,10 +61,10 @@ class PapayaThemeWrapperGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaThemeWrapperGroup::getFiles
+  * @covers \Papaya\Theme\Wrapper\Group::getFiles
   */
   public function testGetFilesRequestingNonExistingGroup() {
-    $group = new \PapayaThemeWrapperGroup('sample.xml');
+    $group = new \Papaya\Theme\Wrapper\Group('sample.xml');
     $group->setDocument($this->getThemeDocumentFixture());
     $this->assertEquals(
       array(), $group->getFiles('INVALID')
@@ -72,10 +72,10 @@ class PapayaThemeWrapperGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaThemeWrapperGroup::getFiles
+  * @covers \Papaya\Theme\Wrapper\Group::getFiles
   */
   public function testGetFilesWithEmptyDocument() {
-    $group = new \PapayaThemeWrapperGroup('sample.xml');
+    $group = new \Papaya\Theme\Wrapper\Group('sample.xml');
     $group->setDocument(new DOMDocument('1.0', 'UTF-8'));
     $this->assertEquals(
       array(), $group->getFiles('DUMMY')
@@ -83,46 +83,46 @@ class PapayaThemeWrapperGroupTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaThemeWrapperGroup::allowDirectories
+  * @covers \Papaya\Theme\Wrapper\Group::allowDirectories
   */
   public function testAllowDirectoriesExpectingTrue() {
-    $group = new \PapayaThemeWrapperGroup('sample.xml');
+    $group = new \Papaya\Theme\Wrapper\Group('sample.xml');
     $group->setDocument($this->getThemeDocumentFixture());
     $this->assertTrue($group->allowDirectories('main'));
   }
 
   /**
-  * @covers \PapayaThemeWrapperGroup::allowDirectories
+  * @covers \Papaya\Theme\Wrapper\Group::allowDirectories
   */
   public function testAllowDirectoriesExpectingFalse() {
-    $group = new \PapayaThemeWrapperGroup('sample.xml');
+    $group = new \Papaya\Theme\Wrapper\Group('sample.xml');
     $group->setDocument($this->getThemeDocumentFixture());
     $this->assertFalse($group->allowDirectories('colors'));
   }
 
   /**
-  * @covers \PapayaThemeWrapperGroup::setDocument
+  * @covers \Papaya\Theme\Wrapper\Group::setDocument
   */
   public function testSetDocument() {
-    $group = new \PapayaThemeWrapperGroup('sample.xml');
+    $group = new \Papaya\Theme\Wrapper\Group('sample.xml');
     $group->setDocument($document = new DOMDocument);
     $this->assertAttributeSame($document, '_document', $group);
   }
 
   /**
-  * @covers \PapayaThemeWrapperGroup::getDocument
+  * @covers \Papaya\Theme\Wrapper\Group::getDocument
   */
   public function testGetDocumentAfterSet() {
-    $group = new \PapayaThemeWrapperGroup('sample.xml');
+    $group = new \Papaya\Theme\Wrapper\Group('sample.xml');
     $group->setDocument($document = new DOMDocument);
     $this->assertSame($document, $group->getDocument());
   }
 
   /**
-  * @covers \PapayaThemeWrapperGroup::getDocument
+  * @covers \Papaya\Theme\Wrapper\Group::getDocument
   */
   public function testGetDocumentLoadingFile() {
-    $group = new \PapayaThemeWrapperGroup(__DIR__.'/TestData/theme.xml');
+    $group = new \Papaya\Theme\Wrapper\Group(__DIR__.'/TestData/theme.xml');
     $this->assertInstanceOf('DOMDocument', $group->getDocument());
   }
 

@@ -30,7 +30,7 @@ class Changes extends \Papaya\Administration\Page\Part {
   private $_themeSet = NULL;
 
   /**
-   * @var \PapayaThemeHandler
+   * @var \Papaya\Theme\Handler
    */
   private $_themeHandler = NULL;
 
@@ -92,14 +92,14 @@ class Changes extends \Papaya\Administration\Page\Part {
    * The theme handler is an helper object to get general information about the
    * themes of the current installation
    *
-   * @param \PapayaThemeHandler $themeHandler
-   * @return \PapayaThemeHandler
+   * @param \Papaya\Theme\Handler $themeHandler
+   * @return \Papaya\Theme\Handler
    */
-  public function themeHandler(\PapayaThemeHandler $themeHandler = NULL) {
+  public function themeHandler(\Papaya\Theme\Handler $themeHandler = NULL) {
     if (isset($themeHandler)) {
       $this->_themeHandler = $themeHandler;
     } elseif (NULL === $this->_themeHandler) {
-      $this->_themeHandler = new \PapayaThemeHandler();
+      $this->_themeHandler = new \Papaya\Theme\Handler();
       $this->_themeHandler->papaya($this->papaya());
     }
     return $this->_themeHandler;

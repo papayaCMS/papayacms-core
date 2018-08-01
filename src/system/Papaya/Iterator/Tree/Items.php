@@ -13,14 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Iterator\Tree;
+
 /**
-* An iterator that converts any traversable or array into an RecursiveIterator you can attach
-* other Traverables or arrays as children to each element.
-*
-* @package Papaya-Library
-* @subpackage Iterator
-*/
-class PapayaIteratorTreeItems implements \OuterIterator, \RecursiveIterator {
+ * An iterator that converts any traversable or array into an RecursiveIterator you can attach
+ * other Traverables or arrays as children to each element.
+ *
+ * @package Papaya-Library
+ * @subpackage Iterator
+ */
+class Items implements \OuterIterator, \RecursiveIterator {
 
   const ATTACH_TO_KEYS = 0;
   const ATTACH_TO_VALUES = 1;
@@ -28,11 +30,11 @@ class PapayaIteratorTreeItems implements \OuterIterator, \RecursiveIterator {
   private $_mode = self::ATTACH_TO_KEYS;
 
   /**
-   * @var Traversable|array
+   * @var \Traversable|array
    */
   private $_traversable = NULL;
   /**
-   * @var Iterator
+   * @var \Iterator
    */
   private $_iterator = NULL;
   /**
@@ -53,16 +55,16 @@ class PapayaIteratorTreeItems implements \OuterIterator, \RecursiveIterator {
   }
 
   /**
-  * Returns the (created if necessary) iterator instance for the provided traversable.
-  * It it already was an iterator it is returned. It it is an Traversable or array the first
-  * call will created an {@see \Papaya\Iterator\PapayaIteratorTraversable} for it.
-  *
-  * return Iterator
-  */
+   * Returns the (created if necessary) iterator instance for the provided traversable.
+   * It it already was an iterator it is returned. It it is an Traversable or array the first
+   * call will created an {@see \Papaya\Iterator\PapayaIteratorTraversable} for it.
+   *
+   * return Iterator
+   */
   public function getInnerIterator() {
     if (NULL === $this->_iterator) {
       $this->_iterator = ($this->_traversable instanceof \Iterator)
-         ? $this->_traversable : new \Papaya\Iterator\Traversable($this->_traversable);
+        ? $this->_traversable : new \Papaya\Iterator\Traversable($this->_traversable);
     }
     return $this->_iterator;
   }
@@ -128,42 +130,42 @@ class PapayaIteratorTreeItems implements \OuterIterator, \RecursiveIterator {
   }
 
   /**
-  * Rewind iterator to first element
-  */
+   * Rewind iterator to first element
+   */
   public function rewind() {
     $this->getInnerIterator()->rewind();
   }
 
   /**
-  * Fetch next element
-  */
+   * Fetch next element
+   */
   public function next() {
     $this->getInnerIterator()->next();
   }
 
   /**
-  * Return current key
-  *
-  * @return mixed
-  */
+   * Return current key
+   *
+   * @return mixed
+   */
   public function key() {
     return $this->getInnerIterator()->key();
   }
 
   /**
-  * Return current element
-  *
-  * @return mixed
-  */
+   * Return current element
+   *
+   * @return mixed
+   */
   public function current() {
     return $this->getInnerIterator()->current();
   }
 
   /**
-  * Valid if the current element is valid.
-  *
-  * @return boolean
-  */
+   * Valid if the current element is valid.
+   *
+   * @return boolean
+   */
   public function valid() {
     return $this->getInnerIterator()->valid();
   }

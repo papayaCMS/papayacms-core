@@ -20,16 +20,16 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaThemeListTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaThemeList::getIterator
-   * @covers \PapayaThemeList::callbackGetName
+   * @covers \Papaya\Theme\Collection::getIterator
+   * @covers \Papaya\Theme\Collection::callbackGetName
    */
   public function testGetIterator() {
-    $handler = $this->createMock(\PapayaThemeHandler::class);
+    $handler = $this->createMock(\Papaya\Theme\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getLocalPath')
       ->will($this->returnValue(__DIR__.'/TestDataList/'));
-    $list = new \PapayaThemeList();
+    $list = new \Papaya\Theme\Collection();
     $list->handler($handler);
     $this->assertEquals(
       array(
@@ -40,16 +40,16 @@ class PapayaThemeListTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaThemeList::getDefinition
+   * @covers \Papaya\Theme\Collection::getDefinition
    */
   public function testGetDefinition() {
-    $handler = $this->createMock(\PapayaThemeHandler::class);
+    $handler = $this->createMock(\Papaya\Theme\Handler::class);
     $handler
       ->expects($this->once())
       ->method('getDefinition')
       ->with('theme-sample')
       ->will($this->returnValue(new Structure()));
-    $list = new \PapayaThemeList();
+    $list = new \Papaya\Theme\Collection();
     $list->handler($handler);
     $this->assertInstanceOf(
       Structure::class,
@@ -58,20 +58,20 @@ class PapayaThemeListTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaThemeList::handler
+   * @covers \Papaya\Theme\Collection::handler
    */
   public function testHandlerGetAfterSet() {
-    $list = new \PapayaThemeList();
-    $list->handler($handler =  $this->createMock(\PapayaThemeHandler::class));
+    $list = new \Papaya\Theme\Collection();
+    $list->handler($handler =  $this->createMock(\Papaya\Theme\Handler::class));
     $this->assertSame($handler, $list->handler());
   }
 
   /**
-   * @covers \PapayaThemeList::handler
+   * @covers \Papaya\Theme\Collection::handler
    */
   public function testHandlerGetImplicitCreate() {
-    $list = new \PapayaThemeList();
-    $this->assertInstanceOf(\PapayaThemeHandler::class, $list->handler());
+    $list = new \Papaya\Theme\Collection();
+    $this->assertInstanceOf(\Papaya\Theme\Handler::class, $list->handler());
   }
 }
 

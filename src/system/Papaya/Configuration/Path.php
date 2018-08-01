@@ -14,7 +14,6 @@
  */
 
 namespace Papaya\Configuration;
-use PapayaThemeHandler;
 
 /**
  * Object representation a system path (depending on the configuration)
@@ -41,7 +40,7 @@ class Path extends \Papaya\Application\BaseObject {
   private $_path = '';
 
   /**
-   * @var \PapayaThemeHandler
+   * @var \Papaya\Theme\Handler
    */
   private $_themeHandler = NULL;
 
@@ -104,14 +103,14 @@ class Path extends \Papaya\Application\BaseObject {
   /**
    *Getter/Setter for a theme handler subobject.
    *
-   * @param \PapayaThemeHandler $handler
-   * @return \PapayaThemeHandler
+   * @param \Papaya\Theme\Handler $handler
+   * @return \Papaya\Theme\Handler
    */
-  public function themeHandler(\PapayaThemeHandler $handler = NULL) {
+  public function themeHandler(\Papaya\Theme\Handler $handler = NULL) {
     if (isset($handler)) {
       $this->_themeHandler = $handler;
     } elseif (NULL == $this->_themeHandler) {
-      $this->_themeHandler = new \PapayaThemeHandler();
+      $this->_themeHandler = new \Papaya\Theme\Handler();
       $this->_themeHandler->papaya($this->papaya());
     }
     return $this->_themeHandler;

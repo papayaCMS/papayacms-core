@@ -13,43 +13,43 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Cache\Service;
+namespace Papaya\Theme;
 
 /**
-* Combine, cache and output theme files (javascript/css)
-*
-* @package Papaya-Library
-* @subpackage Theme
-*/
-class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
+ * Combine, cache and output theme files (javascript/css)
+ *
+ * @package Papaya-Library
+ * @subpackage Theme
+ */
+class Wrapper extends \Papaya\Application\BaseObject {
 
   /**
-  * @var \PapayaThemeWrapperUrl
-  */
+   * @var \Papaya\Theme\Wrapper\Url
+   */
   private $_wrapperUrl = NULL;
 
   /**
-  * Theme handler object, provides current theme and local path
-  *
-  * @var \PapayaThemeHandler
-  */
+   * Theme handler object, provides current theme and local path
+   *
+   * @var \Papaya\Theme\Handler
+   */
   private $_handler = NULL;
 
   /**  *
-  * @var \PapayaThemeHandler
-  */
+   * @var \Papaya\Theme\Handler
+   */
   private $_themeSet = NULL;
 
   /**
-  * Theme group object, allows to read files from a group specified in theme.xml.
-  *
-  * @var \PapayaThemeWrapperGroup
-  */
+   * Theme group object, allows to read files from a group specified in theme.xml.
+   *
+   * @var \Papaya\Theme\Wrapper\Group
+   */
   private $_group = NULL;
 
   /**
-  * @var Service
-  */
+   * @var \Papaya\Cache\Service
+   */
   private $_cacheService = NULL;
 
   /**
@@ -58,32 +58,32 @@ class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
   private $_templateEngine = NULL;
 
   /**
-  * Initialize object using a wrapper url object.
-  *
-  * If no object if provided, a default object with access to the current request url is created.
-  *
-  * @param \PapayaThemeWrapperUrl $wrapperUrl
-  */
-  public function __construct(\PapayaThemeWrapperUrl $wrapperUrl = NULL) {
+   * Initialize object using a wrapper url object.
+   *
+   * If no object if provided, a default object with access to the current request url is created.
+   *
+   * @param \Papaya\Theme\Wrapper\Url $wrapperUrl
+   */
+  public function __construct(\Papaya\Theme\Wrapper\Url $wrapperUrl = NULL) {
     if (isset($wrapperUrl)) {
       $this->_wrapperUrl = $wrapperUrl;
     } else {
-      $this->_wrapperUrl = new \PapayaThemeWrapperUrl();
+      $this->_wrapperUrl = new \Papaya\Theme\Wrapper\Url();
     }
   }
 
   /**
    * Get/Set the theme wrapper group object.
    *
-   * @param \PapayaThemeWrapperGroup $group
-   * @return \PapayaThemeWrapperGroup
+   * @param \Papaya\Theme\Wrapper\Group $group
+   * @return \Papaya\Theme\Wrapper\Group
    */
-  public function group(\PapayaThemeWrapperGroup $group = NULL) {
+  public function group(\Papaya\Theme\Wrapper\Group $group = NULL) {
     if (isset($group)) {
       $this->_group = $group;
     }
     if (is_null($this->_group)) {
-      $this->_group = new \PapayaThemeWrapperGroup(
+      $this->_group = new \Papaya\Theme\Wrapper\Group(
         $this->handler()->getLocalThemePath().'theme.xml'
       );
     }
@@ -91,17 +91,17 @@ class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Return a response object containing http headers and content.
-  *
-  * If the current content is in the browser cache it will return a 304 status and an empty
-  * content.
-  *
-  * If the current content is cached on the server it will return this with needed headers for
-  * public caching.
-  *
-  * In other cases the newly generated content will be returned.
-  *
-  */
+   * Return a response object containing http headers and content.
+   *
+   * If the current content is in the browser cache it will return a 304 status and an empty
+   * content.
+   *
+   * If the current content is cached on the server it will return this with needed headers for
+   * public caching.
+   *
+   * In other cases the newly generated content will be returned.
+   *
+   */
   public function getResponse() {
     $application = $this->papaya();
     $mimetype = $this->_wrapperUrl->getMimetype();
@@ -155,28 +155,28 @@ class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Getter/setter for theme handler object including implicit create
-  *
-  * @param \PapayaThemeHandler $handler
-  * @return \PapayaThemeHandler
-  */
-  public function handler(\PapayaThemeHandler $handler = NULL) {
+   * Getter/setter for theme handler object including implicit create
+   *
+   * @param \Papaya\Theme\Handler $handler
+   * @return \Papaya\Theme\Handler
+   */
+  public function handler(\Papaya\Theme\Handler $handler = NULL) {
     if (isset($handler)) {
       $this->_handler = $handler;
     }
     if (is_null($this->_handler)) {
-      $this->_handler = new \PapayaThemeHandler();
+      $this->_handler = new \Papaya\Theme\Handler();
       $this->_handler->papaya($this->papaya());
     }
     return $this->_handler;
   }
 
   /**
-  * Getter/setter for theme set database object including a implicit create
-  *
-  * @param \Papaya\Content\Theme\Set $themeSet
-  * @return \Papaya\Content\Theme\Set
-  */
+   * Getter/setter for theme set database object including a implicit create
+   *
+   * @param \Papaya\Content\Theme\Set $themeSet
+   * @return \Papaya\Content\Theme\Set
+   */
   public function themeSet(\Papaya\Content\Theme\Set $themeSet = NULL) {
     if (isset($themeSet)) {
       $this->_themeSet = $themeSet;
@@ -189,11 +189,11 @@ class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Getter/setter for cache service object
-  *
-  * @param \Papaya\Cache\Service $service
-  * @return \Papaya\Cache\Service
-  */
+   * Getter/setter for cache service object
+   *
+   * @param \Papaya\Cache\Service $service
+   * @return \Papaya\Cache\Service
+   */
   public function cache(\Papaya\Cache\Service $service = NULL) {
     if (isset($service)) {
       $this->_cacheService = $service;
@@ -208,14 +208,14 @@ class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Compile file contents into a single output
-  *
-  * @param string $theme
-  * @param integer $themeSetId
-  * @param array $files
-  * @param boolean $compress use gzip compression
-  * @return string
-  */
+   * Compile file contents into a single output
+   *
+   * @param string $theme
+   * @param integer $themeSetId
+   * @param array $files
+   * @param boolean $compress use gzip compression
+   * @return string
+   */
   public function getCompiledContent($theme, $themeSetId, $files, $compress) {
     $localPath = $this->handler()->getLocalThemePath($theme);
     $result = '';
@@ -223,8 +223,8 @@ class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
     foreach ($files as $fileName) {
       $localFile = $localPath.$fileName;
       if (file_exists($localFile) &&
-          is_file($localFile) &&
-          is_readable($localFile)) {
+        is_file($localFile) &&
+        is_readable($localFile)) {
         if ($fileCount > 1) {
           $result .= "\n/* Adding file: ".$fileName." */\n";
         }
@@ -234,8 +234,8 @@ class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
       }
     }
     if (($engine = $this->templateEngine()) &&
-        $themeSetId > 0 &&
-        $this->themeSet()->load($themeSetId)) {
+      $themeSetId > 0 &&
+      $this->themeSet()->load($themeSetId)) {
       $engine->setTemplateString($result);
       $engine->values(
         $this->themeSet()->getValuesXml($this->handler()->getDefinition($theme))
@@ -277,15 +277,15 @@ class PapayaThemeWrapper extends \Papaya\Application\BaseObject {
     $mimetype = $this->_wrapperUrl->getMimetype();
     if ($mimetype) {
       switch ($mimetype) {
-      case 'text/javascript' :
-        $extension = 'js';
-        $allowDirectories = TRUE;
+        case 'text/javascript' :
+          $extension = 'js';
+          $allowDirectories = TRUE;
         break;
-      case 'text/css' :
-      default :
-        $extension = 'css';
-        $allowDirectories = $this->_wrapperUrl->allowDirectories();
-        $this->templateEngine(new \PapayaTemplateEngineSimple());
+        case 'text/css' :
+        default :
+          $extension = 'css';
+          $allowDirectories = $this->_wrapperUrl->allowDirectories();
+          $this->templateEngine(new \PapayaTemplateEngineSimple());
       }
       if ($group = $this->_wrapperUrl->getGroup()) {
         $files = $this->group()->getFiles($group, $extension);

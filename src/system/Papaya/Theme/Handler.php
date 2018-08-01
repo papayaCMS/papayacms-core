@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Theme;
 /**
-* Papaya theme handler class
-*
-* @package Papaya-Library
-* @subpackage Theme
-*/
-class PapayaThemeHandler extends \Papaya\Application\BaseObject {
+ * Papaya theme handler class
+ *
+ * @package Papaya-Library
+ * @subpackage Theme
+ */
+class Handler extends \Papaya\Application\BaseObject {
 
   /**
-  * Get url for theme files, is $themeName is empty the current theme is used.
-  *
-  * @param string $themeName
-  * @return string
-  */
+   * Get url for theme files, is $themeName is empty the current theme is used.
+   *
+   * @param string $themeName
+   * @return string
+   */
   public function getUrl($themeName = NULL) {
     $options = $this->papaya()->options;
     $baseUrl = '';
@@ -54,10 +55,10 @@ class PapayaThemeHandler extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Get local path on server to theme directories
-  *
-  * @return string
-  */
+   * Get local path on server to theme directories
+   *
+   * @return string
+   */
   public function getLocalPath() {
     $root = \PapayaUtilFilePath::getDocumentRoot(
       $this->papaya()->options
@@ -70,11 +71,11 @@ class PapayaThemeHandler extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Get local path on server to theme files
-  *
-  * @param string $themeName
-  * @return string
-  */
+   * Get local path on server to theme files
+   *
+   * @param string $themeName
+   * @return string
+   */
   public function getLocalThemePath($themeName = NULL) {
     if (empty($themeName)) {
       $themeName = $this->getTheme();
@@ -88,10 +89,10 @@ class PapayaThemeHandler extends \Papaya\Application\BaseObject {
    * Load the dynamic value defintion from the theme.xml and return it
    *
    * @param string $theme
-   * @return \PapayaThemeDefinition
+   * @return \Papaya\Theme\Definition
    */
   public function getDefinition($theme) {
-    $definition = new \PapayaThemeDefinition();
+    $definition = new \Papaya\Theme\Definition();
     $definition->load(
       $this->getLocalThemePath($theme).'/theme.xml'
     );
@@ -99,10 +100,10 @@ class PapayaThemeHandler extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Get the currently active theme name
-  *
-  * @return string
-  */
+   * Get the currently active theme name
+   *
+   * @return string
+   */
   public function getTheme() {
     $theme = '';
     $isPreview = $this
@@ -126,10 +127,10 @@ class PapayaThemeHandler extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Get the currently active theme set id
-  *
-  * @return string
-  */
+   * Get the currently active theme set id
+   *
+   * @return string
+   */
   public function getThemeSet() {
     $themeSet = 0;
     $isPreview = $this
@@ -153,11 +154,11 @@ class PapayaThemeHandler extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Set preview theme (saved in session)
-  *
-  * @param string $themeName
-  * @return void
-  */
+   * Set preview theme (saved in session)
+   *
+   * @param string $themeName
+   * @return void
+   */
   public function setThemePreview($themeName) {
     $this
       ->papaya()
@@ -167,10 +168,10 @@ class PapayaThemeHandler extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Remove preview theme (saved in session)
-  *
-  * @return void
-  */
+   * Remove preview theme (saved in session)
+   *
+   * @return void
+   */
   public function removeThemePreview() {
     $this
       ->papaya()

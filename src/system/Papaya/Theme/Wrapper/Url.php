@@ -13,27 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Theme\Wrapper;
 /**
-* Extract theme wrapper data from an url object
-*
-* The path of a theme url ends with "/theme/file". The theme name has to be present in the
-* url just before the file. The file indicates the mimetype of the files to compile together.
-*
-* The query string parameter 'files' is a comma separated list of file idenifiers
-* (filenames with or without the extension). For javascripts subdirectories are always allowed.
-* For css the parameter 'rec' (recursive) can be used to allow subdirectories.
-*
-* If you allow subdirectories for css, be aware of the relative urls inside the css file. The
-* browser will interpret them different from direct access.
-*
-* @package Papaya-Library
-* @subpackage Theme
-*/
-class PapayaThemeWrapperUrl {
+ * Extract theme wrapper data from an url object
+ *
+ * The path of a theme url ends with "/theme/file". The theme name has to be present in the
+ * url just before the file. The file indicates the mimetype of the files to compile together.
+ *
+ * The query string parameter 'files' is a comma separated list of file identifiers
+ * (file names with or without the extension). For JavaScript files subdirectories are always allowed.
+ * For css the parameter 'rec' (recursive) can be used to allow subdirectories.
+ *
+ * If you allow subdirectories for css, be aware of the relative urls inside the css file. The
+ * browser will interpret them different from direct access.
+ *
+ * @package Papaya-Library
+ * @subpackage Theme
+ */
+class Url {
 
   /**
-  * @var \Papaya\Url
-  */
+   * @var \Papaya\Url
+   */
   private $_requestUrl = NULL;
 
   private $_mimetypeIdentification = array(
@@ -48,10 +49,10 @@ class PapayaThemeWrapperUrl {
   private $_parameters;
 
   /**
-  * Initialize using an url object.
-  *
-  * @param \Papaya\Url $url
-  */
+   * Initialize using an url object.
+   *
+   * @param \Papaya\Url $url
+   */
   public function __construct(\Papaya\Url $url = NULL) {
     if (isset($url)) {
       $this->_requestUrl = $url;
@@ -61,10 +62,10 @@ class PapayaThemeWrapperUrl {
   }
 
   /**
-  * Get mimetype from url path
-  *
-  * @return string|NULL
-  */
+   * Get mimetype from url path
+   *
+   * @return string|NULL
+   */
   public function getMimetype() {
     $path = $this->_requestUrl->getPath();
     foreach ($this->_mimetypeIdentification as $type => $pattern) {
@@ -97,53 +98,53 @@ class PapayaThemeWrapperUrl {
   }
 
   /**
-  * Get the group name that provides the file list
-  *
-  * The groups are specified in the theme.xml
-  *
-  * @return string
-  */
+   * Get the group name that provides the file list
+   *
+   * The groups are specified in the theme.xml
+   *
+   * @return string
+   */
   public function getGroup() {
     return $this->parameters()->get('group');
   }
 
   /**
-  * Get the theme set id that provides the dynamic values
-  *
-  * @return string
-  */
+   * Get the theme set id that provides the dynamic values
+   *
+   * @return string
+   */
   public function getThemeSet() {
     return $this->parameters()->get('set', 0);
   }
 
   /**
-  * Get the files list from the query string parameter.
-  *
-  * The parameter is a comma separated string.
-  *
-  * @return array
-  */
+   * Get the files list from the query string parameter.
+   *
+   * The parameter is a comma separated string.
+   *
+   * @return array
+   */
   public function getFiles() {
     return explode(',', $this->parameters()->get('files'));
   }
 
   /**
-  * Get theme from url path
-  *
-  * The theme is the last directory before the wrapper script itself.
-  *
-  * @return string
-  */
+   * Get theme from url path
+   *
+   * The theme is the last directory before the wrapper script itself.
+   *
+   * @return string
+   */
   public function getTheme() {
     $path = strrchr(dirname($this->_requestUrl->getPath()), '/');
     return substr($path, 1);
   }
 
   /**
-  * Return if subdirectores are allowed.
-  *
-  * @return boolean
-  */
+   * Return if subdirectores are allowed.
+   *
+   * @return boolean
+   */
   public function allowDirectories() {
     return 'yes' === $this->parameters()->get('rec', 'no');
   }

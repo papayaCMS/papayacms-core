@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Theme;
 /**
  * Load and provide access to the theme definition stored in theme.xml inside the theme directory.
  *
@@ -28,10 +29,11 @@
  * @property string $templatePath
  * @property array('medium' => string, 'large' => string) $thumbnails
  */
-class PapayaThemeDefinition extends \Papaya\Content\Structure {
+class Definition extends \Papaya\Content\Structure {
 
   /**
    * Theme data
+   *
    * @var array
    */
   private $_properties = array(
@@ -46,6 +48,7 @@ class PapayaThemeDefinition extends \Papaya\Content\Structure {
 
   /**
    * Theme thunbnails
+   *
    * @var array
    */
   private $_thumbnails = array(
@@ -85,6 +88,7 @@ class PapayaThemeDefinition extends \Papaya\Content\Structure {
 
   /**
    * Get a theme property
+   *
    * @param string $name
    * @throws \UnexpectedValueException
    * @return array
