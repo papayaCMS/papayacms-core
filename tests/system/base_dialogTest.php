@@ -50,7 +50,7 @@ class base_dialogTest extends \PapayaTestCase {
 
     $session = $this->createMock(\Papaya\Session::class);
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->setConstructorArgs(array($session))
       ->getMock();
     $values

@@ -1535,7 +1535,7 @@ class papaya_parser extends base_db {
   */
   function isSessionInUri() {
     return $this->papaya()->session->id()->existsIn(
-      \PapayaSessionId::SOURCE_PARAMETER
+      \Papaya\Session\Id::SOURCE_PARAMETER
     );
   }
 

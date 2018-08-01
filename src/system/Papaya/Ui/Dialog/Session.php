@@ -24,8 +24,8 @@ class PapayaUiDialogSession extends \PapayaUiDialog {
   private $_sessionIdentifier = NULL;
 
   /**
-  * The session identifer does not need to be a string,
-  * read {@see \PapayaSessionValues::_compileIdentifer()} for more information.
+  * The session identifier does not need to be a string,
+  * read {@see \Papaya\Session\Values::_compileIdentifer()} for more information.
   *
   * @param mixed $sessionIdentifier
   */

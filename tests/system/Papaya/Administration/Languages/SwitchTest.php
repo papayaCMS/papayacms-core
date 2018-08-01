@@ -377,7 +377,7 @@ class PapayaAdministrationLanguagesSwitchTest extends \PapayaTestCase {
 
   public function getSessionFixture($languageSet = NULL, $languageGet = NULL) {
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->disableOriginalConstructor()
       ->getMock();
     if (NULL !== $languageSet) {

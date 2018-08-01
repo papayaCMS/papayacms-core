@@ -18,13 +18,13 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaSessionShareTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaSessionShare::getSessionValues
-  * @covers \PapayaSessionShare::setSessionValues
+  * @covers \Papaya\Session\Share::getSessionValues
+  * @covers \Papaya\Session\Share::setSessionValues
   */
   public function testGetSessionValuesAfterSet() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Session\Values $values */
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $share = new \PapayaSessionShare_TestProxy();
@@ -33,12 +33,12 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionShare::getSessionValues
+  * @covers \Papaya\Session\Share::getSessionValues
   */
   public function testGetSessionValuesFromApplicationRegistry() {
     $session = $this->createMock(\Papaya\Session::class);
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->setConstructorArgs(array($session))
       ->getMock();
     $session
@@ -53,13 +53,13 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionShare::__isset
+  * @covers \Papaya\Session\Share::__isset
   */
   public function testMagicMethodIssetExpectingTrue() {
     $share = new \PapayaSessionShare_TestProxy();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Session\Values $values */
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
@@ -72,14 +72,14 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaSessionShare::__isset
-   * @covers \PapayaSessionShare::getGroupName
+   * @covers \Papaya\Session\Share::__isset
+   * @covers \Papaya\Session\Share::getGroupName
    */
   public function testMagicMethodIssetExpectingFalse() {
     $share = new \PapayaSessionShare_TestProxy();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Session\Values $values */
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
@@ -92,14 +92,14 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaSessionShare::__get
-   * @covers \PapayaSessionShare::getGroupName
+   * @covers \Papaya\Session\Share::__get
+   * @covers \Papaya\Session\Share::getGroupName
    */
   public function testMagicMethodGet() {
     $share = new \PapayaSessionShare_TestProxy();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Session\Values $values */
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
@@ -112,14 +112,14 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaSessionShare::__set
-   * @covers \PapayaSessionShare::getGroupName
+   * @covers \Papaya\Session\Share::__set
+   * @covers \Papaya\Session\Share::getGroupName
    */
   public function testMagicMethodSet() {
     $share = new \PapayaSessionShare_TestProxy();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Session\Values $values */
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
@@ -131,14 +131,14 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaSessionShare::__unset
-   * @covers \PapayaSessionShare::getGroupName
+   * @covers \Papaya\Session\Share::__unset
+   * @covers \Papaya\Session\Share::getGroupName
    */
   public function testMagicMethodUnset() {
     $share = new \PapayaSessionShare_TestProxy();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Session\Values $values */
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
@@ -150,13 +150,13 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionShare::__call
+  * @covers \Papaya\Session\Share::__call
   */
   public function testMagicMethodCallTriggersSet() {
     $share = new \PapayaSessionShare_TestProxy();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Session\Values $values */
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
@@ -168,13 +168,13 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionShare::__call
+  * @covers \Papaya\Session\Share::__call
   */
   public function testMagicMethodCallTriggersGet() {
     $share = new \PapayaSessionShare_TestProxy();
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues $values */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Session\Values $values */
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
@@ -187,7 +187,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionShare::__call
+  * @covers \Papaya\Session\Share::__call
   */
   public function testMagicMethodCallExpectingException() {
     $share = new \PapayaSessionShare_TestProxy();
@@ -198,7 +198,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaSessionShare::preparePropertyName
+   * @covers \Papaya\Session\Share::preparePropertyName
    * @dataProvider providePropertyNames
    * @param string $propertyName
    */
@@ -208,7 +208,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionShare::preparePropertyName
+  * @covers \Papaya\Session\Share::preparePropertyName
   */
   public function testPreparePropertyNameWithDisabledNormalization() {
     $share = new \PapayaSessionShare_TestProxy();
@@ -219,7 +219,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionShare::preparePropertyName
+  * @covers \Papaya\Session\Share::preparePropertyName
   */
   public function testPreparePropertyNameExpectingException() {
     $share = new \PapayaSessionShare_TestProxy();
@@ -243,7 +243,7 @@ class PapayaSessionShareTest extends \PapayaTestCase {
  * @method mixed getSessionProperty()
  * @method void setSessionProperty($value)
  */
-class PapayaSessionShare_TestProxy extends \PapayaSessionShare {
+class PapayaSessionShare_TestProxy extends \Papaya\Session\Share {
 
   public
     /** @noinspection PropertyInitializationFlawsInspection */

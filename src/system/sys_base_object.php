@@ -873,7 +873,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
 
     $session = $this->papaya()->session;
     if ($session->isActive() &&
-        $session->id()->existsIn(\PapayaSessionId::SOURCE_PARAMETER) &&
+        $session->id()->existsIn(\Papaya\Session\Id::SOURCE_PARAMETER) &&
         $sid) {
       $sidStr = '/'.$session->name.$session->id;
     } else {

@@ -14,7 +14,6 @@
  */
 
 namespace Papaya\Cache\Identifier\Definition\Session;
-use PapayaSessionValues;
 
 /**
  * Request parameters are used to create cache condition data.
@@ -52,7 +51,7 @@ class Parameters
   public function getStatus() {
     $data = array();
     if ($this->papaya()->session && $this->papaya()->session->isActive()) {
-      /** @var \PapayaSessionValues $values */
+      /** @var \Papaya\Session\Values $values */
       $values = $this->papaya()->session->values();
       foreach ($this->_identifiers as $identifier) {
         $key = $values->getKey($identifier);

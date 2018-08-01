@@ -1004,7 +1004,7 @@ class base_sitemap extends base_db {
             if ($currentProtocol != $linkProtocol &&
                 !(
                   $session->isActive() &&
-                  $session->id()->existsIn(\PapayaSessionId::SOURCE_PATH)
+                  $session->id()->existsIn(\Papaya\Session\Id::SOURCE_PATH)
                 )
                ) {
               $href = $this->getAbsoluteURL(

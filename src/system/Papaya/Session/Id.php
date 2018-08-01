@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Session;
 /**
-* Papaya Session Id Handling, Read the session from different source, check if they exists in
-* different sources.
-*
-* @package Papaya-Library
-* @subpackage Session
-*/
-class PapayaSessionId extends \Papaya\Application\BaseObject {
+ * Papaya Session Id Handling, Read the session from different source, check if they exists in
+ * different sources.
+ *
+ * @package Papaya-Library
+ * @subpackage Session
+ */
+class Id extends \Papaya\Application\BaseObject {
 
   const SOURCE_ANY = 0;
   const SOURCE_COOKIE = 1;
@@ -36,11 +37,11 @@ class PapayaSessionId extends \Papaya\Application\BaseObject {
   private $_validationPattern = '([a-zA-Z\d,-]{20,40})';
 
   /**
-  * The session id needs a name. The default name is 'sid'. Use the constrcutor argument to
-  * change it.
-  *
-  * @param string $name
-  */
+   * The session id needs a name. The default name is 'sid'. Use the constrcutor argument to
+   * change it.
+   *
+   * @param string $name
+   */
   public function __construct($name = 'sid') {
     \PapayaUtilConstraints::assertString($name);
     \PapayaUtilConstraints::assertNotEmpty($name);
@@ -48,60 +49,60 @@ class PapayaSessionId extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Allow to cast the object into an string returning the current session id.
-  *
-  * @return string
-  */
+   * Allow to cast the object into an string returning the current session id.
+   *
+   * @return string
+   */
   public function __toString() {
     return $this->getId();
   }
 
   /**
-  * Read the session id from the different sources an return it. The sources are
-  * cookie, path (rewrite) and parameters (post and get).
-  *
-  * @return string
-  */
+   * Read the session id from the different sources an return it. The sources are
+   * cookie, path (rewrite) and parameters (post and get).
+   *
+   * @return string
+   */
   public function getId() {
     switch (TRUE) {
-    case (isset($this->_id)) :
-      return $this->_id;
-    case ($id = $this->_readCookie()) :
-    case ($id = $this->_readPath()) :
-    case ($id = $this->_readBody()) :
-    case ($id = $this->_readQuery()) :
-      return $this->_id = $id;
+      case (isset($this->_id)) :
+        return $this->_id;
+      case ($id = $this->_readCookie()) :
+      case ($id = $this->_readPath()) :
+      case ($id = $this->_readBody()) :
+      case ($id = $this->_readQuery()) :
+        return $this->_id = $id;
     }
     return '';
   }
 
   /**
-  * Resturn the sesion name stored on object creation.
-  *
-  * @return string
-  */
+   * Resturn the sesion name stored on object creation.
+   *
+   * @return string
+   */
   public function getName() {
     return $this->_name;
   }
 
   /**
-  * Test if the session id exists in any of the given sources.
-  *
-  * @param integer $source
-  * @return boolean
-  */
+   * Test if the session id exists in any of the given sources.
+   *
+   * @param integer $source
+   * @return boolean
+   */
   public function existsIn($source = self::SOURCE_ANY) {
     switch (TRUE) {
-    case ($source == self::SOURCE_ANY) :
-      return (boolean)$this->getId();
-    case (($source & self::SOURCE_COOKIE) && $this->_readCookie()) :
-      return TRUE;
-    case (($source & self::SOURCE_PATH) && $this->_readPath()) :
-      return TRUE;
-    case (($source & self::SOURCE_QUERY) && $this->_readQuery()) :
-      return TRUE;
-    case (($source & self::SOURCE_BODY) && $this->_readBody()) :
-      return TRUE;
+      case ($source == self::SOURCE_ANY) :
+        return (boolean)$this->getId();
+      case (($source & self::SOURCE_COOKIE) && $this->_readCookie()) :
+        return TRUE;
+      case (($source & self::SOURCE_PATH) && $this->_readPath()) :
+        return TRUE;
+      case (($source & self::SOURCE_QUERY) && $this->_readQuery()) :
+        return TRUE;
+      case (($source & self::SOURCE_BODY) && $this->_readBody()) :
+        return TRUE;
     }
     return FALSE;
   }
@@ -121,10 +122,10 @@ class PapayaSessionId extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Read a valid session id from the cookies if available.
-  *
-  * return string|NULL
-  */
+   * Read a valid session id from the cookies if available.
+   *
+   * return string|NULL
+   */
   private function _readCookie() {
     $id = $this->papaya()->request->getParameter(
       $this->_name, '', NULL, \Papaya\Request::SOURCE_COOKIE
@@ -136,10 +137,10 @@ class PapayaSessionId extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Read a valid session id from the url path of the request uri if available.
-  *
-  * return string|NULL
-  */
+   * Read a valid session id from the url path of the request uri if available.
+   *
+   * return string|NULL
+   */
   private function _readPath() {
     $parameter = $this->papaya()->request->getParameter(
       'session', '', NULL, \Papaya\Request::SOURCE_PATH
@@ -155,10 +156,10 @@ class PapayaSessionId extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Read a valid session id from the querystring of the request uri if available.
-  *
-  * return string|NULL
-  */
+   * Read a valid session id from the querystring of the request uri if available.
+   *
+   * return string|NULL
+   */
   private function _readQuery() {
     $id = $this->papaya()->request->getParameter(
       $this->_name, '', NULL, \Papaya\Request::SOURCE_QUERY
@@ -167,10 +168,10 @@ class PapayaSessionId extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Read a valid session id from the request body if available.
-  *
-  * return string|NULL
-  */
+   * Read a valid session id from the request body if available.
+   *
+   * return string|NULL
+   */
   private function _readBody() {
     $id = $this->papaya()->request->getParameter(
       $this->_name, '', NULL, \Papaya\Request::SOURCE_BODY
@@ -179,22 +180,22 @@ class PapayaSessionId extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Validate that the cookie is unique. If a cookie was send for a higher level (domain, path)
-  * it is possible that the browser sends more than one sid cookie back. Here is no way to identify
-  * the right one.
-  *
-  * If this happens you have to change the session name to resolve the conflict. The system will
-  * ignore the cookies until you resolved the conflict.
-  *
-  * If no cookie is providied the method will return TRUE, too.
-  *
-  * @return boolean
-  */
+   * Validate that the cookie is unique. If a cookie was send for a higher level (domain, path)
+   * it is possible that the browser sends more than one sid cookie back. Here is no way to identify
+   * the right one.
+   *
+   * If this happens you have to change the session name to resolve the conflict. The system will
+   * ignore the cookies until you resolved the conflict.
+   *
+   * If no cookie is providied the method will return TRUE, too.
+   *
+   * @return boolean
+   */
   public function _isCookieUnique() {
     $pattern = '((?:^|;\s*)'.preg_quote($this->_name).'=(?<sid>[^\s;=]+))';
     if (!empty($_SERVER['HTTP_COOKIE']) &&
-        substr_count($_SERVER['HTTP_COOKIE'], $this->_name.'=') > 1 &&
-        preg_match_all($pattern, $_SERVER['HTTP_COOKIE'], $cookieMatches, PREG_PATTERN_ORDER)) {
+      substr_count($_SERVER['HTTP_COOKIE'], $this->_name.'=') > 1 &&
+      preg_match_all($pattern, $_SERVER['HTTP_COOKIE'], $cookieMatches, PREG_PATTERN_ORDER)) {
       if (count(array_unique($cookieMatches['sid'])) > 1) {
         return FALSE;
       }

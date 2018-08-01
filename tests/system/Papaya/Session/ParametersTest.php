@@ -20,13 +20,13 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
   private $_sessionData = array();
 
   /**
-  * @covers \PapayaSessionParameters::__construct
-  * @covers \PapayaSessionParameters::parameters
+  * @covers \Papaya\Session\Parameters::__construct
+  * @covers \Papaya\Session\Parameters::parameters
   */
   public function testConstructor() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Request\Parameters $parameters */
     $parameters = $this->createMock(\Papaya\Request\Parameters::class);
-    $sessionParameters = new \PapayaSessionParameters(
+    $sessionParameters = new \Papaya\Session\Parameters(
       $group = new stdClass, $parameters
     );
     $this->assertSame(
@@ -38,13 +38,13 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionParameters::values
+  * @covers \Papaya\Session\Parameters::values
   */
   public function testValuesGetAfterSet() {
     $sessionValues = $this->getSessionValuesFixture();
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Request\Parameters $parameters */
     $parameters = $this->createMock(\Papaya\Request\Parameters::class);
-    $sessionParameters = new \PapayaSessionParameters(
+    $sessionParameters = new \Papaya\Session\Parameters(
       $group = new stdClass, $parameters
     );
     $this->assertSame(
@@ -53,7 +53,7 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionParameters::values
+  * @covers \Papaya\Session\Parameters::values
   */
   public function testValuesGetFromApplication() {
     $sessionValues = $this->getSessionValuesFixture();
@@ -65,7 +65,7 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
       ->will($this->returnValue($sessionValues));
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Request\Parameters $parameters */
     $parameters = $this->createMock(\Papaya\Request\Parameters::class);
-    $sessionParameters = new \PapayaSessionParameters(
+    $sessionParameters = new \Papaya\Session\Parameters(
       $group = new stdClass, $parameters
     );
     $sessionParameters->papaya(
@@ -81,8 +81,8 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionParameters::load
-  * @covers \PapayaSessionParameters::getIdentifier
+  * @covers \Papaya\Session\Parameters::load
+  * @covers \Papaya\Session\Parameters::getIdentifier
   */
   public function testLoadReadFromParametersChangeSessionValue() {
     $sessionValues = $this->getSessionValuesFixture(array('foo' => '21'));
@@ -90,7 +90,7 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('set')
       ->with(array(new stdClass, 'foo'), 42);
-    $sessionParameters = new \PapayaSessionParameters(
+    $sessionParameters = new \Papaya\Session\Parameters(
       new stdClass,
       new \Papaya\Request\Parameters(array('foo' => '42'))
     );
@@ -99,11 +99,11 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionParameters::load
+  * @covers \Papaya\Session\Parameters::load
   */
   public function testLoadReadFromSessionChangeParameters() {
     $sessionValues = $this->getSessionValuesFixture(array('foo' => '21'));
-    $sessionParameters = new \PapayaSessionParameters(
+    $sessionParameters = new \Papaya\Session\Parameters(
       new stdClass,
       $parameters = new \Papaya\Request\Parameters()
     );
@@ -113,7 +113,7 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionParameters::load
+  * @covers \Papaya\Session\Parameters::load
   */
   public function testLoadReadFromParametersRemovesOtherParameters() {
     $sessionValues = $this->getSessionValuesFixture(array('foo' => '21'));
@@ -125,7 +125,7 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
       ->expects($this->at(2))
       ->method('set')
       ->with(array(new stdClass, 'bar'), NULL);
-    $sessionParameters = new \PapayaSessionParameters(
+    $sessionParameters = new \Papaya\Session\Parameters(
       new stdClass,
       $parameters = new \Papaya\Request\Parameters(array('foo' => '42', 'bar' => 'failed'))
     );
@@ -135,11 +135,11 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionParameters::load
+  * @covers \Papaya\Session\Parameters::load
   */
   public function testLoadReturningDefault() {
     $sessionValues = $this->getSessionValuesFixture();
-    $sessionParameters = new \PapayaSessionParameters(
+    $sessionParameters = new \Papaya\Session\Parameters(
       new stdClass,
       new \Papaya\Request\Parameters()
     );
@@ -148,7 +148,7 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionParameters::store
+  * @covers \Papaya\Session\Parameters::store
   */
   public function testStore() {
     $sessionValues = $this->getSessionValuesFixture();
@@ -156,7 +156,7 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('set')
       ->with(array(new stdClass, 'foo'), 42);
-    $sessionParameters = new \PapayaSessionParameters(
+    $sessionParameters = new \Papaya\Session\Parameters(
       new stdClass,
       $parameters = new \Papaya\Request\Parameters()
     );
@@ -166,7 +166,7 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaSessionParameters::remove
+  * @covers \Papaya\Session\Parameters::remove
   */
   public function testRemove() {
     $sessionValues = $this->getSessionValuesFixture();
@@ -174,7 +174,7 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('set')
       ->with(array(new stdClass, 'foo'), NULL);
-    $sessionParameters = new \PapayaSessionParameters(
+    $sessionParameters = new \Papaya\Session\Parameters(
       new stdClass,
       $parameters = new \Papaya\Request\Parameters(array('foo' => 42))
     );
@@ -189,12 +189,12 @@ class PapayaSessionParametersTest extends \PapayaTestCase {
 
   /**
    * @param array $data
-   * @return \PHPUnit_Framework_MockObject_MockObject|\PapayaSessionValues
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Session\Values
    */
   private function getSessionValuesFixture(array $data = array()) {
     $this->_sessionData = $data;
     $sessionValues = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->disableOriginalConstructor()
       ->getMock();
     $sessionValues

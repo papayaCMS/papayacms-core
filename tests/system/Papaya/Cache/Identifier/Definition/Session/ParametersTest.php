@@ -25,7 +25,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends \PapayaTestCa
    */
   public function testGetStatus() {
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->disableOriginalConstructor()
       ->getMock();
     $values
@@ -67,7 +67,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends \PapayaTestCa
    */
   public function testGetStatusValueReturnsNull() {
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->disableOriginalConstructor()
       ->getMock();
     $values
@@ -130,7 +130,7 @@ class PapayaCacheIdentifierDefinitionSessionParametersTest extends \PapayaTestCa
    */
   public function testGetStatusMultipleParameters() {
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->disableOriginalConstructor()
       ->getMock();
     $values

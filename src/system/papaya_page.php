@@ -716,20 +716,20 @@ class papaya_page extends base_object {
       $fallback = $this->papaya()->options->get('PAPAYA_SESSION_ID_FALLBACK', 'rewrite');
       switch ($fallback) {
       case 'get' :
-        $session->options()->fallback = \PapayaSessionOptions::FALLBACK_PARAMETER;
+        $session->options()->fallback = \Papaya\Session\Options::FALLBACK_PARAMETER;
         break;
       case 'rewrite' :
-        $session->options()->fallback = \PapayaSessionOptions::FALLBACK_REWRITE;
+        $session->options()->fallback = \Papaya\Session\Options::FALLBACK_REWRITE;
         break;
       default :
         if ($this->isPreview()) {
-          $session->options()->fallback = \PapayaSessionOptions::FALLBACK_REWRITE;
+          $session->options()->fallback = \Papaya\Session\Options::FALLBACK_REWRITE;
         } else {
-          $session->options()->fallback = \PapayaSessionOptions::FALLBACK_NONE;
+          $session->options()->fallback = \Papaya\Session\Options::FALLBACK_NONE;
         }
       }
       $session->options()->cache = $this->papaya()->options->get(
-        'PAPAYA_SESSION_CACHE', \PapayaSessionOptions::CACHE_NONE
+        'PAPAYA_SESSION_CACHE', \Papaya\Session\Options::CACHE_NONE
       );
       if ($redirect = $session->activate($this->allowSessionRedirects)) {
         $redirect->send();

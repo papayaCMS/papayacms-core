@@ -25,8 +25,8 @@ namespace Papaya;
  * @property-read boolean $active
  * @property-read string $name
  * @property-read string $id
- * @property-read \PapayaSessionValues $values
- * @property-read \PapayaSessionOptions $options
+ * @property-read \Papaya\Session\Values $values
+ * @property-read \Papaya\Session\Options $options
  */
 class Session extends Application\BaseObject {
 
@@ -37,28 +37,28 @@ class Session extends Application\BaseObject {
   /**
    * Internal storage vor values subobject
    *
-   * @var \PapayaSessionValues
+   * @var \Papaya\Session\Values
    */
   private $_values = NULL;
 
   /**
    * Session options
    *
-   * @var \PapayaSessionOptions
+   * @var \Papaya\Session\Options
    */
   private $_options = NULL;
 
   /**
    * Session function wrapper
    *
-   * @var \PapayaSessionWrapper
+   * @var \Papaya\Session\Wrapper
    */
   private $_wrapper = NULL;
 
   /**
    * Session Identifier encapsulation
    *
-   * @var \PapayaSessionId
+   * @var \Papaya\Session\Id
    */
   private $_id = NULL;
 
@@ -99,15 +99,15 @@ class Session extends Application\BaseObject {
    * Allows to get/set the values subobject. The subobject provides an array access interface to
    * the session values.
    *
-   * @param \PapayaSessionValues $values
-   * @return \PapayaSessionValues
+   * @param \Papaya\Session\Values $values
+   * @return \Papaya\Session\Values
    */
-  public function values(\PapayaSessionValues $values = NULL) {
+  public function values(Session\Values $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
     }
     if (is_null($this->_values)) {
-      $this->_values = new \PapayaSessionValues($this);
+      $this->_values = new Session\Values($this);
     }
     return $this->_values;
   }
@@ -115,15 +115,15 @@ class Session extends Application\BaseObject {
   /**
    * Getter/Setter for session options object
    *
-   * @param \PapayaSessionOptions $options
-   * @return \PapayaSessionOptions
+   * @param \Papaya\Session\Options $options
+   * @return \Papaya\Session\Options
    */
-  public function options(\PapayaSessionOptions $options = NULL) {
+  public function options(Session\Options $options = NULL) {
     if (isset($options)) {
       $this->_options = $options;
     }
     if (is_null($this->_options)) {
-      $this->_options = new \PapayaSessionOptions();
+      $this->_options = new Session\Options();
     }
     return $this->_options;
   }
@@ -131,15 +131,15 @@ class Session extends Application\BaseObject {
   /**
    * Getter/Setter for session identifier object
    *
-   * @param \PapayaSessionId $id
-   * @return \PapayaSessionId
+   * @param \Papaya\Session\Id $id
+   * @return \Papaya\Session\Id
    */
-  public function id(\PapayaSessionId $id = NULL) {
+  public function id(Session\Id $id = NULL) {
     if (isset($id)) {
       $this->_id = $id;
     }
     if (is_null($this->_id)) {
-      $this->_id = new \PapayaSessionId($this->_sessionName);
+      $this->_id = new Session\Id($this->_sessionName);
     }
     return $this->_id;
   }
@@ -147,15 +147,15 @@ class Session extends Application\BaseObject {
   /**
    * Getter/Setter for session options object
    *
-   * @param \PapayaSessionWrapper $wrapper
-   * @return \PapayaSessionWrapper
+   * @param \Papaya\Session\Wrapper $wrapper
+   * @return \Papaya\Session\Wrapper
    */
-  public function wrapper(\PapayaSessionWrapper $wrapper = NULL) {
+  public function wrapper(Session\Wrapper $wrapper = NULL) {
     if (isset($wrapper)) {
       $this->_wrapper = $wrapper;
     }
     if (is_null($this->_wrapper)) {
-      $this->_wrapper = new \PapayaSessionWrapper();
+      $this->_wrapper = new Session\Wrapper();
     }
     return $this->_wrapper;
   }
@@ -284,7 +284,7 @@ class Session extends Application\BaseObject {
    * If the method returns a redirect response, the caller should send it.
    *
    * @param bool|string $redirect
-   * @return NULL|\PapayaSessionRedirect redirect response or null
+   * @return NULL|\Papaya\Session\Redirect redirect response or null
    */
   public function activate($redirect = FALSE) {
     if (!$this->_active) {
@@ -292,7 +292,7 @@ class Session extends Application\BaseObject {
         $wrapper = $this->wrapper();
         $wrapper->setName($this->_sessionName);
         $this->configure();
-        if ($this->id()->existsIn(\PapayaSessionId::SOURCE_ANY)) {
+        if ($this->id()->existsIn(Session\Id::SOURCE_ANY)) {
           $wrapper->setId((string)$this->id());
         }
         $this->_active = $wrapper->start();
@@ -327,26 +327,26 @@ class Session extends Application\BaseObject {
   /**
    * Trigger redirects for session id storage/removal in browser if needed.
    *
-   * @return null|\PapayaSessionRedirect
+   * @return null|\Papaya\Session\Redirect
    */
   public function redirectIfNeeded() {
     if ($this->_active &&
-      !$this->id()->existsIn(\PapayaSessionId::SOURCE_COOKIE)) {
+      !$this->id()->existsIn(Session\Id::SOURCE_COOKIE)) {
       switch ($this->options()->fallback) {
-        case \PapayaSessionOptions::FALLBACK_REWRITE :
+        case Session\Options::FALLBACK_REWRITE :
           // put sid in path if it is not here and remove it from query string if it is there
-          if (!$this->id()->existsIn(\PapayaSessionId::SOURCE_PATH) ||
-            $this->id()->existsIn(\PapayaSessionId::SOURCE_QUERY)) {
+          if (!$this->id()->existsIn(Session\Id::SOURCE_PATH) ||
+            $this->id()->existsIn(Session\Id::SOURCE_QUERY)) {
             return $this->_createRedirect(
-              \PapayaSessionId::SOURCE_PATH, 'session rewrite active'
+              Session\Id::SOURCE_PATH, 'session rewrite active'
             );
           }
         break;
-        case \PapayaSessionOptions::FALLBACK_PARAMETER :
+        case Session\Options::FALLBACK_PARAMETER :
           // remove sid from path if it is there
-          if ($this->id()->existsIn(\PapayaSessionId::SOURCE_PATH)) {
+          if ($this->id()->existsIn(Session\Id::SOURCE_PATH)) {
             return $this->_createRedirect(
-              \PapayaSessionId::SOURCE_QUERY, 'session rewrite inactive'
+              Session\Id::SOURCE_QUERY, 'session rewrite inactive'
             );
           }
         break;
@@ -354,7 +354,7 @@ class Session extends Application\BaseObject {
       return NULL;
     } elseif (
     $this->id()->existsIn(
-      \PapayaSessionId::SOURCE_PATH | \PapayaSessionId::SOURCE_QUERY
+      Session\Id::SOURCE_PATH | Session\Id::SOURCE_QUERY
     )
     ) {
       return $this->_createRedirect();
@@ -396,18 +396,18 @@ class Session extends Application\BaseObject {
    * Create a new session id, redirect if session id is in path
    *
    * @param string $targetUrl
-   * @return \PapayaSessionRedirect|FALSE
+   * @return \Papaya\Session\Redirect|FALSE
    */
   public function regenerateId($targetUrl = NULL) {
     if ($this->_active) {
       $this->wrapper()->regenerateId();
-      if (isset($targetUrl) || $this->id()->existsIn(\PapayaSessionId::SOURCE_PATH)) {
+      if (isset($targetUrl) || $this->id()->existsIn(Session\Id::SOURCE_PATH)) {
         $transports = array(
-          \PapayaSessionId::SOURCE_COOKIE,
-          \PapayaSessionId::SOURCE_PATH,
-          \PapayaSessionId::SOURCE_QUERY
+          Session\Id::SOURCE_COOKIE,
+          Session\Id::SOURCE_PATH,
+          Session\Id::SOURCE_QUERY
         );
-        $transport = \PapayaSessionId::SOURCE_COOKIE;
+        $transport = Session\Id::SOURCE_COOKIE;
         foreach ($transports as $transport) {
           if ($this->id()->existsIn($transport)) {
             break;
@@ -428,11 +428,11 @@ class Session extends Application\BaseObject {
    *
    * @param integer $transport
    * @param string $reason
-   * @return \PapayaSessionRedirect
+   * @return \Papaya\Session\Redirect
    */
   private function _createRedirect($transport = 0, $reason = 'session redirect') {
     // remove sid from path and/or query string
-    $redirect = new \PapayaSessionRedirect(
+    $redirect = new Session\Redirect(
       $this->_sessionName, $this->wrapper()->getId(), $transport, $reason
     );
     $redirect->papaya($this->papaya());

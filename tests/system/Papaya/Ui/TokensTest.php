@@ -67,7 +67,7 @@ class PapayaUiTokensTest extends \PapayaTestCase {
   public function testCreateIntegration() {
     $tokens = new \PapayaUiTokens();
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->setConstructorArgs(array($this->createMock(\Papaya\Session::class)))
       ->getMock();
     $values
@@ -343,7 +343,7 @@ class PapayaUiTokensTest extends \PapayaTestCase {
   public function getSessionObjectFixture($owner, $get = NULL, $set = NULL) {
     $session = $this->createMock(\Papaya\Session::class);
     $values = $this
-      ->getMockBuilder(\PapayaSessionValues::class)
+      ->getMockBuilder(\Papaya\Session\Values::class)
       ->setConstructorArgs(array($session))
       ->getMock();
     $session
