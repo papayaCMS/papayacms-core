@@ -348,11 +348,11 @@ class Cms extends GlobalValues {
         $basePath = 's3://'.
           $this->get('PAPAYA_MEDIA_STORAGE_S3_KEYID').':@'.
           $this->get('PAPAYA_MEDIA_STORAGE_S3_BUCKET').'/';
-        \PapayaStreamwrapperS3::setSecret(
+        \Papaya\Streamwrapper\S3::setSecret(
           $this->get('PAPAYA_MEDIA_STORAGE_S3_KEYID'),
           $this->get('PAPAYA_MEDIA_STORAGE_S3_KEY')
         );
-        \PapayaStreamwrapperS3::register('s3');
+        \Papaya\Streamwrapper\S3::register('s3');
         $this->set('PAPAYA_MEDIA_STORAGE_SUBDIRECTORY', 'media/');
       break;
       default :

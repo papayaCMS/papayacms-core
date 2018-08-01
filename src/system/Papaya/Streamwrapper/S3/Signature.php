@@ -13,37 +13,42 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Streamwrapper\S3;
 /**
-* Papaya Streamwrapper Signature for Amazon S3
-*
-* @package Papaya-Library
-* @subpackage Streamwrapper
-*/
-class PapayaStreamwrapperS3Signature {
+ * Papaya Streamwrapper Signature for Amazon S3
+ *
+ * @package Papaya-Library
+ * @subpackage Streamwrapper
+ */
+class Signature {
 
   /**
-  * resource data
-  * @var array
-  */
+   * resource data
+   *
+   * @var array
+   */
   private $_resource;
   /**
-  * http method
-  * @var string
-  */
+   * http method
+   *
+   * @var string
+   */
   private $_method;
   /**
-  * http headers
-  * @var array
-  */
+   * http headers
+   *
+   * @var array
+   */
   private $_headers;
 
   /**
-  * Constructor initialize signature object
-  * @param array $resource
-  * @param string $method
-  * @param array $headers
-  * @return \PapayaStreamwrapperS3Signature
-  */
+   * Constructor initialize signature object
+   *
+   * @param array $resource
+   * @param string $method
+   * @param array $headers
+   * @return \PapayaStreamwrapperS3Signature
+   */
   public function __construct($resource, $method, $headers) {
     $this->_resource = $resource;
     $this->_method = $method;
@@ -51,10 +56,10 @@ class PapayaStreamwrapperS3Signature {
   }
 
   /**
-  * Collect and aggregate signature data
-  *
-  * @return string
-  */
+   * Collect and aggregate signature data
+   *
+   * @return string
+   */
   private function _getSignatureData() {
     // method
     $signatureData = $this->_method."\n";
@@ -95,9 +100,10 @@ class PapayaStreamwrapperS3Signature {
   }
 
   /**
-  * Convert object to signature string
-  * @return string
-  */
+   * Convert object to signature string
+   *
+   * @return string
+   */
   public function __toString() {
     return $this->_getSignature();
   }
