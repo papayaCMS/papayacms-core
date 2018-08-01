@@ -208,7 +208,7 @@ class base_urlmounter extends base_db {
     $target = new \Papaya\Url($targetUrl);
     $application = $this->papaya();
     $request = $application->getObject('Request');
-    $transformer = new \PapayaUrlTransformerRelative();
+    $transformer = new \Papaya\Url\Transformer\Relative();
     $relative = $transformer->transform(
       $request->getUrl(),
       $target

@@ -137,7 +137,7 @@ class PapayaRequestTest extends \PapayaTestCase {
     $request = new \Papaya\Request();
     $request->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \PapayaUrlCurrent::class,
+      Url\Current::class,
       $request->getUrl()
     );
   }
@@ -149,7 +149,7 @@ class PapayaRequestTest extends \PapayaTestCase {
     $request = new \Papaya\Request();
     $request->papaya($this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \PapayaUrlCurrent::class,
+      Url\Current::class,
       $request->url
     );
   }

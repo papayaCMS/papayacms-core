@@ -180,7 +180,7 @@ class Client {
       if (isset($this->_url['path'])) {
         $urlObject->path = $this->_url['path'];
       }
-      $transformer = new \PapayaUrlTransformerAbsolute;
+      $transformer = new \Papaya\Url\Transformer\Absolute;
       $newUrl = $transformer->transform($urlObject, $url);
       $url = $newUrl;
       $this->_url = parse_url($url);

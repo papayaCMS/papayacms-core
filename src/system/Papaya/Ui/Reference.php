@@ -120,12 +120,12 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
       return '';
     }
     $this->url()->setUrl($this->get());
-    $transformer = new \PapayaUrlTransformerRelative();
+    $transformer = new \Papaya\Url\Transformer\Relative();
     if (!$includeQueryString) {
       $this->url()->setQuery('');
     }
     $relative = $transformer->transform(
-      isset($currentUrl) ? $currentUrl : new \PapayaUrlCurrent(),
+      isset($currentUrl) ? $currentUrl : new \Papaya\Url\Current(),
       $this->url()
     );
     return is_null($relative) ? $this->get() : $relative;
@@ -137,7 +137,7 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   * @param string $relativeUrl
   */
   public function setRelative($relativeUrl) {
-    $transformer = new \PapayaUrlTransformerAbsolute();
+    $transformer = new \Papaya\Url\Transformer\Absolute();
     $absoluteUrl = $transformer->transform($this->url(), $relativeUrl);
     $this->url()->setUrl($absoluteUrl);
     $this->getParameters()->setQueryString($this->url()->getQuery());

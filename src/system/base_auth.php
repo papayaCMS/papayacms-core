@@ -1285,7 +1285,7 @@ class base_auth extends base_db {
       );
       if (!\PapayaUtilServerProtocol::isSecure() &&
           $this->papaya()->options->get('PAPAYA_UI_SECURE_WARNING', TRUE)) {
-        $url = new \PapayaUrlCurrent();
+        $url = new \Papaya\Url\Current();
         $url->setScheme('https');
         $result .= sprintf(
           '<hint><p>%s</p><a href="%s">%s</a></hint>'.LF,

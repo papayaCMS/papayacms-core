@@ -82,7 +82,7 @@ class Database
    * @return bool
    */
   protected function save(\Papaya\Message\Logable $message) {
-    $url = new \PapayaUrlCurrent();
+    $url = new \Papaya\Url\Current();
     $options = $this->papaya()->options;
     $details = '<p>'.$message->getMessage().'</p>';
     if ($message->context() instanceof \Papaya\Message\Context\Interfaces\Xhtml) {

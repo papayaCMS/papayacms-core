@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Url\Transformer;
 /**
-* Papaya URL Transformer Cleanup, parses a url, removes "./", "../" and "//" from it.
-*
-* @package Papaya-Library
-* @subpackage URL
-*/
-class PapayaUrlTransformerCleanup {
+ * Papaya URL Transformer Cleanup, parses a url, removes "./", "../" and "//" from it.
+ *
+ * @package Papaya-Library
+ * @subpackage URL
+ */
+class Cleanup {
 
   /**
-  * Remove relative paths from the url
-  *
-  * @param string $target url to transform
-  * @return string
-  */
+   * Remove relative paths from the url
+   *
+   * @param string $target url to transform
+   * @return string
+   */
   public function transform($target) {
     $result = '';
     if ($url = parse_url($target)) {
@@ -57,33 +58,33 @@ class PapayaUrlTransformerCleanup {
   }
 
   /**
-  * This method calculates /../ occurrences and removes // and /./ occurrences from a path
-  *
-  * @param string $path
-  * @return string
-  */
+   * This method calculates /../ occurrences and removes // and /./ occurrences from a path
+   *
+   * @param string $path
+   * @return string
+   */
   protected function _calculateRealPath($path) {
     // in order to keep leading/trailing slashes, remember them
-    $leadingSlash = ($path{0} == '/');
-    $trailingSlash = (substr($path, -1) == '/');
+    $leadingSlash = (0 === strpos($path, '/'));
+    $trailingSlash = ('/' === substr($path, -1));
 
     $pathElements = explode('/', $path);
     $outputElements = array();
     foreach ($pathElements as $element) {
-      if ($element == '..') {
+      if ('..' === $element) {
         if (count($outputElements) > 0) {
           // going one level up, we drop the last valid folder element
           array_pop($outputElements);
         }
-      } elseif ($element != '.' && $element != '') {
+      } elseif ('.' !== $element && '' !== $element) {
         // ignoring same folder and empty elements, adding valid folders to output
         $outputElements[] = $element;
       }
     }
 
-    $result = ($leadingSlash) ? '/' : '';
+    $result = $leadingSlash ? '/' : '';
     $result .= implode('/', $outputElements);
-    if ($result != '/' && $trailingSlash) {
+    if ('/' !== $result && $trailingSlash) {
       $result .= '/';
     }
 

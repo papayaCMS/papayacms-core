@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Url\Transformer;
 /**
-* Papaya URL Transformer, calculates new absolute url from an absolute url and a relative url
-*
-* @package Papaya-Library
-* @subpackage URL
-*/
-class PapayaUrlTransformerAbsolute {
+ * Papaya URL Transformer, calculates new absolute url from an absolute url and a relative url
+ *
+ * @package Papaya-Library
+ * @subpackage URL
+ */
+class Absolute {
 
   /**
-  * Calculates an absolute url from a url and a (possibly relative) path
-  *
-  * @param \Papaya\Url $currentUrl current url
-  * @param string $target url to transform
-  * @return string
-  */
+   * Calculates an absolute url from a url and a (possibly relative) path
+   *
+   * @param \Papaya\Url $currentUrl current url
+   * @param string $target url to transform
+   * @return string
+   */
   public function transform(\Papaya\Url $currentUrl, $target) {
     $result = NULL;
     if (($url = parse_url($target)) && isset($url['host'])) {
@@ -47,11 +48,11 @@ class PapayaUrlTransformerAbsolute {
   }
 
   /**
-  * This method calculates /../ occurrences and removes // and /./ occurrences from a path
-  *
-  * @param string $path
-  * @return string
-  */
+   * This method calculates /../ occurrences and removes // and /./ occurrences from a path
+   *
+   * @param string $path
+   * @return string
+   */
   protected function _calculateRealPath($path) {
     // in order to keep leading/trailing slashes, remember them
     $leadingSlash = ($path{0} == '/');

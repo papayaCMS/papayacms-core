@@ -63,15 +63,15 @@ class PapayaUrlTransformerAbsoluteTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUrlTransformerAbsolute::transform
-   * @covers \PapayaUrlTransformerAbsolute::_calculateRealPath
+   * @covers \Papaya\Url\Transformer\Absolute::transform
+   * @covers \Papaya\Url\Transformer\Absolute::_calculateRealPath
    * @dataProvider transformDataProvider
    * @param string $currentUrl
    * @param string $targetPath
    * @param string $expected
    */
   public function testTransform($currentUrl, $targetPath, $expected) {
-    $transformer = new \PapayaUrlTransformerAbsolute();
+    $transformer = new Url\Transformer\Absolute();
     $this->assertSame(
       $expected,
       $transformer->transform(

@@ -57,7 +57,7 @@ class Url {
     if (isset($url)) {
       $this->_requestUrl = $url;
     } else {
-      $this->_requestUrl = new \PapayaUrlCurrent();
+      $this->_requestUrl = new \Papaya\Url\Current();
     }
   }
 

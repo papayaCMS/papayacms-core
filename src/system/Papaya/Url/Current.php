@@ -13,20 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Url;
 /**
-* Papaya URL representation, representing the current url
-*
-* @package Papaya-Library
-* @subpackage URL
-*/
-class PapayaUrlCurrent extends \Papaya\Url {
+ * Papaya URL representation, representing the current url
+ *
+ * @package Papaya-Library
+ * @subpackage URL
+ */
+class Current extends \Papaya\Url {
 
   /**
-  * If no $url is provided, the object will compile it from server environment
-  *
-  * @param string $url
-  * @return \PapayaUrlCurrent
-  */
+   * If no $url is provided, the object will compile it from server environment
+   *
+   * @param string $url
+   */
   public function __construct($url = NULL) {
     parent::__construct(
       empty($url) ? $this->getUrlFromEnvironment() : $url
@@ -34,10 +34,10 @@ class PapayaUrlCurrent extends \Papaya\Url {
   }
 
   /**
-  * Compile url string from server environment variables
-  *
-  * @return string|NULL
-  */
+   * Compile url string from server environment variables
+   *
+   * @return string|NULL
+   */
   public function getUrlFromEnvironment() {
     $scheme = \PapayaUtilServerProtocol::get();
     $port = $this->_getServerValue(
@@ -66,7 +66,7 @@ class PapayaUrlCurrent extends \Papaya\Url {
     }
     foreach ($keys as $key) {
       if (!empty($_SERVER[$key]) &&
-          $ignoreValue != $_SERVER[$key]) {
+        $ignoreValue != $_SERVER[$key]) {
         $result = $_SERVER[$key];
       }
     }

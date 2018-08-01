@@ -242,7 +242,7 @@ class Request
    */
   public function getUrl() {
     if (NULL === $this->_url) {
-      $this->load(new \PapayaUrlCurrent());
+      $this->load(new Url\Current());
     }
     return $this->_url;
   }

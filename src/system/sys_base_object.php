@@ -647,7 +647,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     $reference->setOutputMode($this->_getWebLinkPageModeExtension($mode));
     $reference->setParameters($params, $paramName);
 
-    $transformer = new \PapayaUrlTransformerRelative();
+    $transformer = new \Papaya\Url\Transformer\Relative();
     $absolute = $reference->get();
     $relative = $transformer->transform(
       $request->getUrl(),
@@ -833,7 +833,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
         'index'
       )
     );
-    $transformer = new \PapayaUrlTransformerRelative();
+    $transformer = new \Papaya\Url\Transformer\Relative();
     $absolute = $reference->get();
     $relative = $transformer
       ->transform(
@@ -925,7 +925,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     $href = preg_replace(
       '('.preg_quote($pathAdmin).'/../)', '/', $href
     );
-    $transformer = new \PapayaUrlTransformerCleanup();
+    $transformer = new \Papaya\Url\Transformer\Cleanup();
     return $transformer->transform($href.$urlAppend);
   }
 

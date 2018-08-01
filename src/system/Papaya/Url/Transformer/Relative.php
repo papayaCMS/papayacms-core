@@ -13,36 +13,41 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Url\Transformer;
 /**
-* Papaya URL Transformer, transforms a absolute url to a relative url depending on conditional url
-*
-* @package Papaya-Library
-* @subpackage URL
-*/
-class PapayaUrlTransformerRelative {
+ * Papaya URL Transformer, transforms a absolute url to a relative url depending on conditional url
+ *
+ * @package Papaya-Library
+ * @subpackage URL
+ */
+class Relative {
 
   /**
-  * Transforms a absolute url to a relative url.
-  *
-  * @param \Papaya\Url $currentUrl current url
-  * @param \Papaya\Url $targetUrl url to transform
-  * @return string
-  */
+   * Transforms a absolute url to a relative url.
+   *
+   * @param \Papaya\Url $currentUrl current url
+   * @param \Papaya\Url $targetUrl url to transform
+   * @return string
+   */
   public function transform($currentUrl, $targetUrl) {
-    if ($targetUrl->getHost() != '' &&
-        $targetUrl->getScheme() == $currentUrl->getScheme() &&
-        $targetUrl->getHost() == $currentUrl->getHost() &&
-        $this->_comparePorts($targetUrl->getPort(), $currentUrl->getPort())) {
-      if ($targetUrl->getUser() == '' ||
-          $targetUrl->getUser() == $currentUrl->getUser()) {
+    if (
+      '' !== (string)$targetUrl->getHost() &&
+      $targetUrl->getScheme() === (string)$currentUrl->getScheme() &&
+      $targetUrl->getHost() === (string)$currentUrl->getHost() &&
+      $this->_comparePorts($targetUrl->getPort(), $currentUrl->getPort())
+    ) {
+      if (
+        '' === (string)$targetUrl->getUser() ||
+        (string)$targetUrl->getUser() === (string)$currentUrl->getUser()
+      ) {
         $path = $this->getRelativePath(
           $currentUrl->getPath(),
           $targetUrl->getPath()
         );
-        if ($targetUrl->getQuery() != '') {
+        if ('' !== (string)$targetUrl->getQuery()) {
           $path .= '?'.$targetUrl->getQuery();
         }
-        if ($targetUrl->getFragment() != '') {
+        if ('' !== (string)$targetUrl->getFragment()) {
           $path .= '#'.$targetUrl->getFragment();
         }
         return $path;
@@ -52,15 +57,16 @@ class PapayaUrlTransformerRelative {
   }
 
   /**
-  * Compare two port and return TRUE if equal
-  * @param string $portOne
-  * @param string $portTwo
-  * @return boolean
-  */
+   * Compare two port and return TRUE if equal
+   *
+   * @param string $portOne
+   * @param string $portTwo
+   * @return boolean
+   */
   private function _comparePorts($portOne, $portTwo) {
     if ($portOne == $portTwo ||
-        ($portOne == '80' && empty($portTwo)) ||
-        ($portTwo == '80' && empty($portOne))) {
+      ($portOne == '80' && empty($portTwo)) ||
+      ($portTwo == '80' && empty($portOne))) {
       return TRUE;
     } else {
       return FALSE;
@@ -68,11 +74,12 @@ class PapayaUrlTransformerRelative {
   }
 
   /**
-  * Get relative path from condition to target.
-  * @param string $currentPath
-  * @param string $targetPath
-  * @return string
-  */
+   * Get relative path from condition to target.
+   *
+   * @param string $currentPath
+   * @param string $targetPath
+   * @return string
+   */
   public function getRelativePath($currentPath, $targetPath) {
     $parts = explode('/', $currentPath);
     array_pop($parts);
