@@ -32,7 +32,7 @@ class QueryString {
   /**
    * Values object
    *
-   * @var \PapayaRequestParameters
+   * @var \Papaya\Request\Parameters
    */
   private $_values = NULL;
 
@@ -66,15 +66,15 @@ class QueryString {
   /**
    * Get/set the values object
    *
-   * @param \PapayaRequestParameters $values
-   * @return \PapayaRequestParameters
+   * @param \Papaya\Request\Parameters $values
+   * @return \Papaya\Request\Parameters
    */
-  public function values(\PapayaRequestParameters $values = NULL) {
+  public function values(\Papaya\Request\Parameters $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
     }
     if (is_null($this->_values)) {
-      $this->_values = new \PapayaRequestParameters();
+      $this->_values = new \Papaya\Request\Parameters();
     }
     return $this->_values;
   }
@@ -84,11 +84,11 @@ class QueryString {
    *
    * @param string $queryString
    * @param boolean $stripSlashes
-   * @return \PapayaRequestParametersQuery
+   * @return self
    */
   public function setString($queryString, $stripSlashes = FALSE) {
     if (isset($queryString)) {
-      $this->_values = new \PapayaRequestParameters();
+      $this->_values = new \Papaya\Request\Parameters();
       $this->_decode($queryString, $stripSlashes);
     }
     return $this;

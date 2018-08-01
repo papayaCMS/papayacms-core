@@ -30,7 +30,7 @@ class PapayaUiControlCommandDialog extends \PapayaUiControlCommand {
   private $_dialog = NULL;
 
   /**
-   * @var \PapayaRequestParameters
+   * @var \Papaya\Request\Parameters
    */
   private $_context = NULL;
 
@@ -88,10 +88,10 @@ class PapayaUiControlCommandDialog extends \PapayaUiControlCommand {
   /**
    * A context for the dialog - to be set as hidden values or used in links
    *
-   * @param \PapayaRequestParameters $context
-   * @return \PapayaRequestParameters
+   * @param \Papaya\Request\Parameters $context
+   * @return \Papaya\Request\Parameters
    */
-  public function context(\PapayaRequestParameters $context = NULL) {
+  public function context(\Papaya\Request\Parameters $context = NULL) {
     if (isset($context)) {
       $this->_context = $context;
     }

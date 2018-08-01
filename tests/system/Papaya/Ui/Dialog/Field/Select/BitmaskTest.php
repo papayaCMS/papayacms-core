@@ -118,7 +118,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
     $dialog
       ->expects($this->exactly(2))
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array('name' => array(1, 2)))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('name' => array(1, 2)))));
     $select = new \PapayaUiDialogFieldSelectBitmask(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
@@ -137,7 +137,7 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array())));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array())));
     $dialog
       ->expects($this->once())
       ->method('isSubmitted')
@@ -160,11 +160,11 @@ class PapayaUiDialogFieldSelectBitmaskTest extends \PapayaTestCase {
     $dialog
       ->expects($this->any())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array())));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array())));
     $dialog
       ->expects($this->any())
       ->method('data')
-      ->will($this->returnValue(new \PapayaRequestParameters(array())));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array())));
     $dialog
       ->expects($this->once())
       ->method('isSubmitted')

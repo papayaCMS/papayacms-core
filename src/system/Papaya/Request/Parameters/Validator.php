@@ -25,7 +25,7 @@ class Validator
   implements \ArrayAccess, \IteratorAggregate {
 
   /**
-   * @var \PapayaRequestParameters
+   * @var \Papaya\Request\Parameters
    */
   private $_parameters;
 
@@ -53,15 +53,15 @@ class Validator
    * Papaya\Request\Parameters\PapayaRequestParametersValidator constructor.
    *
    * @param array $definitions
-   * @param array|\PapayaRequestParameters $parameters
+   * @param array|\Papaya\Request\Parameters $parameters
    * @throws \UnexpectedValueException
    */
   public function __construct(array $definitions, $parameters) {
     $this->setDefinitions($definitions);
     if (is_array($parameters)) {
-      $parameters = new \PapayaRequestParameters($parameters);
+      $parameters = new \Papaya\Request\Parameters($parameters);
     }
-    \PapayaUtilConstraints::assertInstanceOf(\PapayaRequestParameters::class, $parameters);
+    \PapayaUtilConstraints::assertInstanceOf(\Papaya\Request\Parameters::class, $parameters);
     $this->_parameters = $parameters;
   }
 

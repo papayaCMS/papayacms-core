@@ -189,10 +189,10 @@ abstract class PapayaUiControlCommand extends \PapayaUiControlInteractive {
   * This method gives you access to request parameters.
   * If an owner is available, its parameters function will be used.
   *
-  * @param \PapayaRequestParameters $parameters
-  * @return \PapayaRequestParameters
+  * @param \Papaya\Request\Parameters $parameters
+  * @return \Papaya\Request\Parameters
   */
-  public function parameters(\PapayaRequestParameters $parameters = NULL) {
+  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
     if ($this->hasOwner()) {
       $parameters = $this->owner()->parameters($parameters);
     }

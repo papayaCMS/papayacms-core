@@ -168,7 +168,7 @@ class PapayaUiContentPage extends \Papaya\Application\BaseObject {
         $reference->setPageId($this->getPageId(), TRUE);
         if (isset($configuration['query_string'])) {
           $reference->setParameters(
-            \PapayaRequestParameters::createFromString($configuration['query_string'])
+            \Papaya\Request\Parameters::createFromString($configuration['query_string'])
           );
         }
         $teaser = $parent->appendElement(

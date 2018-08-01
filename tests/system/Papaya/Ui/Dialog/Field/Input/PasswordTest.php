@@ -56,7 +56,7 @@ class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
     $dialog
       ->expects($this->exactly(1))
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array())));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array())));
     $dialog
       ->expects($this->never())
       ->method('data');
@@ -76,7 +76,7 @@ class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
     $dialog
       ->expects($this->exactly(2))
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => 'success'))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => 'success'))));
     $field = new \PapayaUiDialogFieldInputPassword('Caption', 'foo');
     $field->collection($this->getCollectionMock($dialog));
     $this->assertEquals('success', $field->getCurrentValue());

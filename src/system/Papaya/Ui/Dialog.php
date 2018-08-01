@@ -24,9 +24,9 @@
 * @property \PapayaUiDialogElementDescription $description
 * @property \PapayaUiDialogFields $fields
 * @property \PapayaUiDialogButtons $buttons
-* @property \PapayaRequestParameters $hiddenFields
-* @property \PapayaRequestParameters $hiddenValues
-* @property \PapayaRequestParameters $data
+* @property \Papaya\Request\Parameters $hiddenFields
+* @property \Papaya\Request\Parameters $hiddenValues
+* @property \Papaya\Request\Parameters $data
 * @property \PapayaUiDialogOptions $options
 */
 class PapayaUiDialog extends \PapayaUiControlInteractive {
@@ -77,13 +77,15 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
 
   /**
   * Hidden values are output as hidden input field but not part of the parameter group
-  * @var \PapayaRequestParameters|NULL
+  *
+  * @var \Papaya\Request\Parameters|NULL
   */
   private $_hiddenValues;
 
   /**
   * Hidden fields are output as hidden input fields, the parameter group value ist used for them
-  * @var \PapayaRequestParameters|NULL
+  *
+   * @var \Papaya\Request\Parameters|NULL
   */
   private $_hiddenFields;
 
@@ -113,7 +115,8 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
 
   /**
   * Dialog data
-  * @var \PapayaRequestParameters
+   *
+   * @var \Papaya\Request\Parameters
   */
   private $_data;
 
@@ -266,7 +269,7 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
     $this->options()->appendTo($dialog);
     $this->appendHidden($dialog, $this->hiddenValues());
     $this->appendHidden($dialog, $this->hiddenFields(), $this->parameterGroup());
-    $values = new \PapayaRequestParameters();
+    $values = new \Papaya\Request\Parameters();
     if ($this->options()->useConfirmation) {
       $values->set(
         'confirmation',
@@ -325,15 +328,15 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
   * This function gives you access to parameters object holding the hidden values of the
   * dialog. Hidden values do not use the parameter group name.
   *
-  * @param \PapayaRequestParameters $values
-  * @return \PapayaRequestParameters
+   * @param \Papaya\Request\Parameters $values
+   * @return \Papaya\Request\Parameters
   */
-  public function hiddenValues(\PapayaRequestParameters $values = NULL) {
+  public function hiddenValues(\Papaya\Request\Parameters $values = NULL) {
     if (NULL !== $values) {
       $this->_hiddenValues = $values;
     }
     if (NULL === $this->_hiddenValues) {
-      $this->_hiddenValues = new \PapayaRequestParameters();
+      $this->_hiddenValues = new \Papaya\Request\Parameters();
     }
     return $this->_hiddenValues;
   }
@@ -344,15 +347,15 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
   * This function gives you access to parameters object holding the hidden fields of the
   * dialog. Hidden fields use the parameter group name.
   *
-  * @param \PapayaRequestParameters|NULL $values
-  * @return \PapayaRequestParameters
+   * @param \Papaya\Request\Parameters|NULL $values
+   * @return \Papaya\Request\Parameters
   */
-  public function hiddenFields(\PapayaRequestParameters $values = NULL) {
+  public function hiddenFields(\Papaya\Request\Parameters $values = NULL) {
     if (NULL !== $values) {
       $this->_hiddenFields = $values;
     }
     if (NULL === $this->_hiddenFields) {
-      $this->_hiddenFields = new \PapayaRequestParameters();
+      $this->_hiddenFields = new \Papaya\Request\Parameters();
     }
     return $this->_hiddenFields;
   }
@@ -396,13 +399,13 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
    * Append a group hidden elements to the output (recursive function)
    *
    * @param \PapayaXmlElement $parent
-   * @param \PapayaRequestParameters $values
+   * @param \Papaya\Request\Parameters $values
    * @param string|NULL $path
    * @return \PapayaXmlElement
    * @throws \InvalidArgumentException
    */
   protected function appendHidden(
-    \PapayaXmlElement $parent, \PapayaRequestParameters $values, $path = NULL
+    \PapayaXmlElement $parent, \Papaya\Request\Parameters $values, $path = NULL
   ) {
     foreach ($values as $name => $value) {
       $nameObject = $this->getParameterName($name);
@@ -563,15 +566,15 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
    *
    * The execution call the method collect() on each field and button to fill up this object.
    *
-   * @param \PapayaRequestParameters $data
-   * @return \PapayaRequestParameters
+   * @param \Papaya\Request\Parameters $data
+   * @return \Papaya\Request\Parameters
    */
-  public function data(\PapayaRequestParameters $data = NULL) {
+  public function data(\Papaya\Request\Parameters $data = NULL) {
     if (NULL !== $data) {
       $this->_data = $data;
     }
     if (NULL === $this->_data) {
-      $this->_data = new \PapayaRequestParameters();
+      $this->_data = new \Papaya\Request\Parameters();
       $this->_data->merge($this->hiddenFields());
     }
     return $this->_data;

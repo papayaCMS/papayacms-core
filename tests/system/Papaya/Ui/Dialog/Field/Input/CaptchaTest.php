@@ -71,7 +71,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters()));
+      ->will($this->returnValue(new \Papaya\Request\Parameters()));
     $collection = $this->createMock(\PapayaUiDialogFields::class);
     $collection
       ->expects($this->once())
@@ -97,7 +97,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
       ->method('parameters')
       ->will(
         $this->returnValue(
-          new \PapayaRequestParameters(array('somecaptcha' => array('someident' => 'somevalue')))
+          new \Papaya\Request\Parameters(array('somecaptcha' => array('someident' => 'somevalue')))
         )
       );
     $collection = $this->createMock(\PapayaUiDialogFields::class);
@@ -133,7 +133,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
       ->method('parameters')
       ->will(
         $this->returnValue(
-          new \PapayaRequestParameters(array('somecaptcha' => array('someident' => 'somevalue')))
+          new \Papaya\Request\Parameters(array('somecaptcha' => array('someident' => 'somevalue')))
         )
       );
     $collection = $this->createMock(\PapayaUiDialogFields::class);
@@ -170,7 +170,7 @@ class PapayaUiDialogFieldInputCaptchaTest extends \PapayaTestCase {
       ->method('parameters')
       ->will(
         $this->returnValue(
-          new \PapayaRequestParameters(array('somecaptcha' => array('someident' => 'somevalue')))
+          new \Papaya\Request\Parameters(array('somecaptcha' => array('someident' => 'somevalue')))
         )
       );
     $collection = $this->createMock(\PapayaUiDialogFields::class);

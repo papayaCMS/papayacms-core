@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parser;
 /**
-* Papaya request parser for default page links (no page id)
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParserStart extends \PapayaRequestParser {
+ * Papaya request parser for default page links (no page id)
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class Start extends \Papaya\Request\Parser {
 
   /**
-  * PCRE pattern
-  * @var string
-  */
+   * PCRE pattern
+   *
+   * @var string
+   */
   private $_pattern = '(/
     (?:(?P<page_title>index)\.) # title
     (?:(?P<language>[a-zA-Z]{2,4})\.)? # language identifier
@@ -37,6 +39,7 @@ class PapayaRequestParserStart extends \PapayaRequestParser {
 
   /**
    * Parse url and return data
+   *
    * @param \Papaya\Url $url
    * @return FALSE|array
    */
@@ -56,7 +59,7 @@ class PapayaRequestParserStart extends \PapayaRequestParser {
       if (!empty($matches['preview'])) {
         $result['preview'] = TRUE;
         if (isset($matches['preview_time']) &&
-            $matches['preview_time'] > 0) {
+          $matches['preview_time'] > 0) {
           $result['preview_time'] = (int)$matches['preview_time'];
         }
       }

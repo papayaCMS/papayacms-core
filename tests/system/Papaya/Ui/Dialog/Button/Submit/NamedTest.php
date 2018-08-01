@@ -99,13 +99,13 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogButtonSubmitNamed::collect
   */
   public function testCollectExpectingTrue() {
-    $parameters = $this->createMock(\PapayaRequestParameters::class);
+    $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $parameters
       ->expects($this->once())
       ->method('has')
       ->with($this->equalTo('buttonname[42]'))
       ->will($this->returnValue(TRUE));
-    $data =  $this->createMock(\PapayaRequestParameters::class);
+    $data =  $this->createMock(\Papaya\Request\Parameters::class);
     $data
       ->expects($this->once())
       ->method('set')
@@ -134,13 +134,13 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogButtonSubmitNamed::collect
   */
   public function testCollectWithGroupExpectingTrue() {
-    $parameters = $this->createMock(\PapayaRequestParameters::class);
+    $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $parameters
       ->expects($this->once())
       ->method('has')
       ->with($this->equalTo('buttonname[42]'))
       ->will($this->returnValue(TRUE));
-    $data =  $this->createMock(\PapayaRequestParameters::class);
+    $data =  $this->createMock(\Papaya\Request\Parameters::class);
     $data
       ->expects($this->once())
       ->method('set')
@@ -183,7 +183,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogButtonSubmitNamed::collect
   */
   public function testCollectExpectingFalse() {
-    $parameters = $this->createMock(\PapayaRequestParameters::class);
+    $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $parameters
       ->expects($this->once())
       ->method('has')

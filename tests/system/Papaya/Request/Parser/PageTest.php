@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaRequestParserPageTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaRequestParserPage::parse
+   * @covers \Papaya\Request\Parser\Page::parse
    * @dataProvider parseDataProvider
    * @param string $path
    * @param array|FALSE $expected
@@ -35,7 +35,7 @@ class PapayaRequestParserPageTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getPath')
       ->will($this->returnValue($path));
-    $parser = new \PapayaRequestParserPage();
+    $parser = new \Papaya\Request\Parser\Page();
     $this->assertSame(
       $expected,
       $parser->parse($url)

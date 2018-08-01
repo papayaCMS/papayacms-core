@@ -13,20 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parser;
 /**
-* Papaya request parser for wrapper calls
-*
-* current urls: css, css.php, js, js.php
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParserWrapper extends \PapayaRequestParser {
+ * Papaya request parser for wrapper calls
+ *
+ * current urls: css, css.php, js, js.php
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class Wrapper extends \Papaya\Request\Parser {
 
   /**
-  * PCRE pattern for thumbnail links
-  * @var string
-  */
+   * PCRE pattern for thumbnail links
+   *
+   * @var string
+   */
   private $_pattern = '(/
     (?P<group>(css|js))
     (?:\.php)?
@@ -34,6 +36,7 @@ class PapayaRequestParserWrapper extends \PapayaRequestParser {
 
   /**
    * Parse url and return data
+   *
    * @param \Papaya\Url $url
    * @return FALSE|array
    */

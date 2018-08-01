@@ -44,7 +44,7 @@ class PapayaUiControlCommandConditionParameterTest extends \PapayaTestCase {
   }
 
   public function getCommandFixture() {
-    $parameters = $this->createMock(\PapayaRequestParameters::class);
+    $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $parameters
       ->expects($this->once())
       ->method('get')

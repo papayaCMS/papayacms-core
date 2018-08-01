@@ -44,7 +44,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   * @covers \PapayaUiDialog::hiddenValues
   */
   public function testHiddenValuesSet() {
-    $values = $this->createMock(\PapayaRequestParameters::class);
+    $values = $this->createMock(\Papaya\Request\Parameters::class);
     $dialog = new \PapayaUiDialog(new stdClass());
     $dialog->hiddenValues($values);
     $this->assertAttributeSame(
@@ -56,7 +56,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   * @covers \PapayaUiDialog::hiddenValues
   */
   public function testHiddenValuesGetAfterSet() {
-    $values = $this->createMock(\PapayaRequestParameters::class);
+    $values = $this->createMock(\Papaya\Request\Parameters::class);
     $dialog = new \PapayaUiDialog(new stdClass());
     $this->assertSame(
       $values, $dialog->hiddenValues($values)
@@ -69,7 +69,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   public function testHiddenValuesGetImplicitCreate() {
     $dialog = new \PapayaUiDialog(new stdClass());
     $this->assertInstanceOf(
-      \PapayaRequestParameters::class, $dialog->hiddenValues()
+      \Papaya\Request\Parameters::class, $dialog->hiddenValues()
     );
   }
 
@@ -77,7 +77,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   * @covers \PapayaUiDialog::hiddenFields
   */
   public function testHiddenFieldsSet() {
-    $fields = $this->createMock(\PapayaRequestParameters::class);
+    $fields = $this->createMock(\Papaya\Request\Parameters::class);
     $dialog = new \PapayaUiDialog(new stdClass());
     $dialog->hiddenFields($fields);
     $this->assertAttributeSame(
@@ -89,7 +89,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   * @covers \PapayaUiDialog::hiddenFields
   */
   public function testHiddenFieldsGetAfterSet() {
-    $fields = $this->createMock(\PapayaRequestParameters::class);
+    $fields = $this->createMock(\Papaya\Request\Parameters::class);
     $dialog = new \PapayaUiDialog(new stdClass());
     $this->assertSame(
       $fields, $dialog->hiddenFields($fields)
@@ -102,7 +102,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   public function testHiddenFieldsGetImplicitCreate() {
     $dialog = new \PapayaUiDialog(new stdClass());
     $this->assertInstanceOf(
-      \PapayaRequestParameters::class, $dialog->hiddenFields()
+      \Papaya\Request\Parameters::class, $dialog->hiddenFields()
     );
   }
 
@@ -185,7 +185,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $dialog->papaya($application);
     $document = new \PapayaXmlDocument();
     $document->appendElement('test');
-    $dialog->appendHidden($document->documentElement, new \PapayaRequestParameters($values), $group);
+    $dialog->appendHidden($document->documentElement, new \Papaya\Request\Parameters($values), $group);
     $this->assertXmlStringEqualsXmlString(
       $expected,
       $document->saveXML($document->documentElement)
@@ -656,7 +656,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   public function testDataGetImplicitCreate() {
     $dialog = new \PapayaUiDialog(new stdClass());
     $this->assertInstanceOf(
-      \PapayaRequestParameters::class, $dialog->data()
+      \Papaya\Request\Parameters::class, $dialog->data()
     );
   }
 
@@ -676,7 +676,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   */
   public function testDataSet() {
     $dialog = new \PapayaUiDialog(new stdClass());
-    $data = $this->createMock(\PapayaRequestParameters::class);
+    $data = $this->createMock(\Papaya\Request\Parameters::class);
     $dialog->data($data);
     $this->assertAttributeSame(
       $data, '_data', $dialog
@@ -688,7 +688,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   */
   public function testDataGetAfterSet() {
     $dialog = new \PapayaUiDialog(new stdClass());
-    $data = $this->createMock(\PapayaRequestParameters::class);
+    $data = $this->createMock(\Papaya\Request\Parameters::class);
     $this->assertSame(
       $data, $dialog->data($data)
     );
@@ -732,7 +732,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $dialog = new \PapayaUiDialog(new stdClass());
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $dialog->parameters(
-      new \PapayaRequestParameters(array('confirmation' => 'true'))
+      new \Papaya\Request\Parameters(array('confirmation' => 'true'))
     );
     $dialog->options()->useToken = FALSE;
     $dialog->parameterMethod($dialogMethod);
@@ -752,7 +752,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $dialog->hiddenFields()->set('foo', 'bar');
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $dialog->parameters(
-      new \PapayaRequestParameters(array('confirmation' => '49a3696adf0fbfacc12383a2d7400d51'))
+      new \Papaya\Request\Parameters(array('confirmation' => '49a3696adf0fbfacc12383a2d7400d51'))
     );
     $dialog->options()->useToken = FALSE;
     $this->assertTrue($dialog->isSubmitted());
@@ -778,7 +778,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $dialog->tokens($tokens);
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $dialog->parameters(
-      new \PapayaRequestParameters(
+      new \Papaya\Request\Parameters(
         array(
           'confirmation' => '40cd750bba9870f18aada2478b24840a',
           'token' => 'TOKEN_STRING'
@@ -808,7 +808,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $dialog->tokens($tokens);
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $dialog->parameters(
-      new \PapayaRequestParameters(
+      new \Papaya\Request\Parameters(
         array(
           'confirmation' => '40cd750bba9870f18aada2478b24840a',
           'token' => 'TOKEN_STRING'
@@ -871,7 +871,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $dialog->fields($fields);
     $dialog->buttons($buttons);
     $dialog->parameters(
-      new \PapayaRequestParameters(
+      new \Papaya\Request\Parameters(
         array(
           'confirmation' => '40cd750bba9870f18aada2478b24840a',
           'token' => 'TOKEN_STRING'
@@ -909,7 +909,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $dialog->fields($fields);
     $dialog->buttons($buttons);
     $dialog->parameters(
-      new \PapayaRequestParameters(
+      new \Papaya\Request\Parameters(
         array(
           'confirmation' => '40cd750bba9870f18aada2478b24840a'
         )
@@ -938,7 +938,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $dialog->options()->useToken = FALSE;
     $dialog->fields($fields);
     $dialog->parameters(
-      new \PapayaRequestParameters(
+      new \Papaya\Request\Parameters(
         array(
           'confirmation' => '40cd750bba9870f18aada2478b24840a'
         )
@@ -1045,7 +1045,7 @@ class PapayaUiDialog_TestProxy extends \PapayaUiDialog {
   }
 
   public function appendHidden(\PapayaXmlElement $parent,
-                               \PapayaRequestParameters $values,
+                               \Papaya\Request\Parameters $values,
                                $path = NULL) {
     return parent::appendHidden($parent, $values, $path);
   }

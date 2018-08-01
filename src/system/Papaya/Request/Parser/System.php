@@ -13,22 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parser;
 /**
-* Papaya request parser for system urls
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParserSystem extends \PapayaRequestParser {
+ * Papaya request parser for system urls
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class System extends \Papaya\Request\Parser {
 
   /**
-  * PCRE pattern for thumbnail links
-  * @var string
-  */
+   * PCRE pattern for thumbnail links
+   *
+   * @var string
+   */
   private $_pattern = '(/index\.(?P<mode>urls|status)$)Dix';
 
   /**
    * Parse url and return data
+   *
    * @param \Papaya\Url $url
    * @return FALSE|array
    */

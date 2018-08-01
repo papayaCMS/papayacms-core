@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parser;
 /**
-* Papaya request parser for media database thumbnail links
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParserThumbnail extends \PapayaRequestParser {
+ * Papaya request parser for media database thumbnail links
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class Thumbnail extends \Papaya\Request\Parser {
 
   /**
-  * PCRE pattern for thumbnail links
-  * @var string
-  */
+   * PCRE pattern for thumbnail links
+   *
+   * @var string
+   */
   private $_pattern = '(/
     (?:[a-zA-Z\d_-]+\.) # title
     (?P<mode>thumb)\. # mode
@@ -41,6 +43,7 @@ class PapayaRequestParserThumbnail extends \PapayaRequestParser {
 
   /**
    * Parse url and return data
+   *
    * @param \Papaya\Url $url
    * @return FALSE|array
    */
@@ -54,7 +57,7 @@ class PapayaRequestParserThumbnail extends \PapayaRequestParser {
       $result['media_id'] = $matches['id'];
       $result['media_uri'] = $matches['media_uri'];
       if (!empty($matches['version']) &&
-          $matches['version'] > 0) {
+        $matches['version'] > 0) {
         $result['media_version'] = (int)$matches['version'];
       }
       $result['thumbnail_mode'] = $matches['thumbnail_mode'];

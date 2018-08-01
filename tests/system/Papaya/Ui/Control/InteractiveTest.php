@@ -65,7 +65,7 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
   * @covers \PapayaUiControlInteractive::parameters
   */
   public function testParametersGetAfterSet() {
-    $parameters = $this->createMock(\PapayaRequestParameters::class);
+    $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $dialog = new \PapayaUiControlInteractive_TestProxy();
     $this->assertSame(
       $parameters, $dialog->parameters($parameters)
@@ -81,7 +81,7 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getParameters')
       ->with(\Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY)
-      ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => 'bar'))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => 'bar'))));
     $dialog = new \PapayaUiControlInteractive_TestProxy();
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $this->assertEquals(
@@ -98,7 +98,7 @@ class PapayaUiControlInteractiveTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getParameterGroup')
       ->with('group', \Papaya\Request::SOURCE_QUERY | \Papaya\Request::SOURCE_BODY)
-      ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => 'bar'))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => 'bar'))));
     $dialog = new \PapayaUiControlInteractive_TestProxy();
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $dialog->parameterGroup('group');

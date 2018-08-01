@@ -35,7 +35,7 @@ class PapayaPluginEditorTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */
     $content = $this->createMock(\Papaya\Plugin\Editable\Content::class);
     $editor = new \PapayaPluginEditor_TestProxy($content);
-    $editor->context($context = $this->createMock(\PapayaRequestParameters::class));
+    $editor->context($context = $this->createMock(\Papaya\Request\Parameters::class));
     $this->assertSame($context, $editor->context());
   }
 
@@ -46,7 +46,7 @@ class PapayaPluginEditorTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */
     $content = $this->createMock(\Papaya\Plugin\Editable\Content::class);
     $editor = new \PapayaPluginEditor_TestProxy($content);
-    $this->assertInstanceOf(\PapayaRequestParameters::class, $editor->context());
+    $this->assertInstanceOf(\Papaya\Request\Parameters::class, $editor->context());
   }
 
 }

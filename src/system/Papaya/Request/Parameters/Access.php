@@ -87,9 +87,9 @@ interface Access extends \Papaya\Application\Access {
    *
    * This method gives you access to request parameters.
    *
-   * @param \PapayaRequestParameters $parameters
-   * @return \PapayaRequestParameters
+   * @param \Papaya\Request\Parameters $parameters
+   * @return \Papaya\Request\Parameters
    */
-  public function parameters(\PapayaRequestParameters $parameters = NULL);
+  public function parameters(\Papaya\Request\Parameters $parameters = NULL);
 
 }

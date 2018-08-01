@@ -29,7 +29,7 @@ class PapayaSessionParameters extends \Papaya\Application\BaseObject {
   private $_group = NULL;
 
   /**
-  * @var \PapayaRequestParameters
+  * @var \Papaya\Request\Parameters
   */
   private $_parameters = NULL;
 
@@ -45,9 +45,9 @@ class PapayaSessionParameters extends \Papaya\Application\BaseObject {
   * an object. If it is an object, the classname is used.
   *
   * @param object|string $group
-  * @param \PapayaRequestParameters $parameters
+  * @param \Papaya\Request\Parameters $parameters
   */
-  public function __construct($group, \PapayaRequestParameters $parameters) {
+  public function __construct($group, \Papaya\Request\Parameters $parameters) {
     $this->_group = $group;
     $this->parameters($parameters);
   }
@@ -113,10 +113,10 @@ class PapayaSessionParameters extends \Papaya\Application\BaseObject {
   /**
   * Getter/Setter for the associated request parameters
   *
-  * @param \PapayaRequestParameters $parameters
-  * @return \PapayaRequestParameters
+  * @param \Papaya\Request\Parameters $parameters
+  * @return \Papaya\Request\Parameters
   */
-  public function parameters(\PapayaRequestParameters $parameters = NULL) {
+  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
     if (isset($parameters)) {
       $this->_parameters = $parameters;
     }

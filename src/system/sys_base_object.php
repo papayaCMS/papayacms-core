@@ -132,7 +132,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   public $baseLink;
 
   /**
-   * @var \PapayaRequestParameters
+   * @var \Papaya\Request\Parameters
    */
   private $_parameters = NULL;
 
@@ -692,7 +692,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   */
   function encodeQueryString($params, $paramName = NULL, $maxDepth = 5) {
     if (isset($params) && is_array($params)) {
-      $parameters = new \PapayaRequestParameters();
+      $parameters = new \Papaya\Request\Parameters();
       if (empty($paramName)) {
         $parameters->merge($params);
       } else {
@@ -1121,15 +1121,15 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   *
   * This method gives you access to request parameters.
   *
-  * @param \PapayaRequestParameters $parameters
-  * @return \PapayaRequestParameters
+  * @param \Papaya\Request\Parameters $parameters
+  * @return \Papaya\Request\Parameters
   */
-  public function parameters(\PapayaRequestParameters $parameters = NULL) {
+  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
     if (isset($parameters)) {
       $this->_parameters = $parameters;
       $this->params = $parameters->toArray();
     } elseif ($this->_parameters === NULL) {
-      $this->_parameters = new \PapayaRequestParameters($this->params);
+      $this->_parameters = new \Papaya\Request\Parameters($this->params);
     }
     return $this->_parameters;
   }

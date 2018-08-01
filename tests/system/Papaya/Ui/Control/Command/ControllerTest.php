@@ -39,7 +39,7 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
     $owner
       ->expects($this->once())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters()));
+      ->will($this->returnValue(new \Papaya\Request\Parameters()));
     $controller = new \PapayaUiControlCommandController('sample', 'default');
     $controller->owner($owner);
     $controller->getXml();
@@ -54,7 +54,7 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
     $owner
       ->expects($this->once())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array('sample' => 'command'))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('sample' => 'command'))));
     $command = $this->createMock(\PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
@@ -85,7 +85,7 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
     $owner
       ->expects($this->once())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters()));
+      ->will($this->returnValue(new \Papaya\Request\Parameters()));
     $command = $this->createMock(\PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
@@ -116,7 +116,7 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
     $owner
       ->expects($this->once())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters()));
+      ->will($this->returnValue(new \Papaya\Request\Parameters()));
     $command = $this->createMock(\PapayaUiControlCommand::class);
     $command
       ->expects($this->once())
@@ -145,7 +145,7 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
     $owner
       ->expects($this->once())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters()));
+      ->will($this->returnValue(new \Papaya\Request\Parameters()));
     $command = $this->createMock(\PapayaUiControlCommand::class);
     $command
       ->expects($this->once())

@@ -41,7 +41,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
     $navigation = new Navigation();
     $navigation->papaya($this->mockPapaya()->application());
     $navigation->listview($this->createMock(\PapayaUiListview::class));
-    $navigation->parameters(new \PapayaRequestParameters(array('theme' => 'default')));
+    $navigation->parameters(new \Papaya\Request\Parameters(array('theme' => 'default')));
     $navigation->getXml();
     $this->assertXmlFragmentEqualsXmlFragment(
        /* language=xml prefix=<fragment> suffix=</fragment> */
@@ -65,7 +65,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
     $navigation->papaya($this->mockPapaya()->application());
     $navigation->listview($this->createMock(\PapayaUiListview::class));
     $navigation->parameters(
-      new \PapayaRequestParameters(array('theme' => 'default', 'set_id' => 42))
+      new \Papaya\Request\Parameters(array('theme' => 'default', 'set_id' => 42))
     );
     $navigation->getXml();
     $this->assertXmlFragmentEqualsXmlFragment(
@@ -105,7 +105,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
    */
   public function testListviewImplicitCreate() {
     $navigation = new Navigation();
-    $navigation->parameters(new \PapayaRequestParameters());
+    $navigation->parameters(new \Papaya\Request\Parameters());
     $this->assertInstanceOf(
       \PapayaUiListview::class, $navigation->listview()
     );
@@ -117,7 +117,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
    */
   public function testListviewImplicitCreateWithSelectedTheme() {
     $navigation = new Navigation();
-    $navigation->parameters(new \PapayaRequestParameters(array('theme' => 'default')));
+    $navigation->parameters(new \Papaya\Request\Parameters(array('theme' => 'default')));
     $this->assertInstanceOf(
       \PapayaUiListview::class, $navigation->listview()
     );
@@ -130,7 +130,7 @@ class PapayaAdministrationThemeEditorNavigationTest extends \PapayaTestCase {
   public function testListviewImplicitCreateWithSelectedSet() {
     $navigation = new Navigation();
     $navigation->parameters(
-      new \PapayaRequestParameters(array('theme' => 'default', 'set_id' => 23))
+      new \Papaya\Request\Parameters(array('theme' => 'default', 'set_id' => 23))
     );
     $this->assertInstanceOf(
       \PapayaUiListview::class, $navigation->listview()

@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parser;
 /**
-* Papaya request parser for dynamic image links
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParserImage extends \PapayaRequestParser {
+ * Papaya request parser for dynamic image links
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class Image extends \Papaya\Request\Parser {
 
   /**
-  * PCRE pattern for thumbnail links
-  * @var string
-  */
+   * PCRE pattern for thumbnail links
+   *
+   * @var string
+   */
   private $_pattern = '(/
     (?:(?P<image_id>[a-zA-Z\d_-]+)\.) # identifier
     (?:(?P<mode>image)) # output mode
@@ -37,6 +39,7 @@ class PapayaRequestParserImage extends \PapayaRequestParser {
 
   /**
    * Parse url and return data
+   *
    * @param \Papaya\Url $url
    * @return FALSE|array
    */

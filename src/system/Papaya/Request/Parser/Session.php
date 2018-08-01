@@ -13,24 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parser;
 /**
-* Papaya request parser for page links
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParserSession extends \PapayaRequestParser {
+ * Papaya request parser for page links
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class Session extends \Papaya\Request\Parser {
 
   /**
-  * PCRE pattern for thumbnail links
-  * @var string
-  */
+   * PCRE pattern for thumbnail links
+   *
+   * @var string
+   */
   private $_pattern = '(
     /(?P<session>sid(?:[a-z]*?)(?:[a-zA-Z\d,-]{20,40}))/
   )Dix';
 
   /**
    * Parse url and return data
+   *
    * @param \Papaya\Url $url
    * @return FALSE|array
    */
@@ -46,9 +49,10 @@ class PapayaRequestParserSession extends \PapayaRequestParser {
   }
 
   /**
-  * Allow other parsers after this
-  * @return boolean
-  */
+   * Allow other parsers after this
+   *
+   * @return boolean
+   */
   public function isLast() {
     return FALSE;
   }

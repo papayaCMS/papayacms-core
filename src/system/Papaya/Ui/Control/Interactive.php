@@ -37,7 +37,8 @@ abstract class PapayaUiControlInteractive
 
   /**
   * Request parameters object
-  * @var \PapayaRequestParameters
+  *
+  * @var \Papaya\Request\Parameters
   */
   private $_parameters = NULL;
 
@@ -77,10 +78,10 @@ abstract class PapayaUiControlInteractive
   *
   * This method gives you access to request parameters.
   *
-  * @param \PapayaRequestParameters $parameters
-  * @return \PapayaRequestParameters
+  * @param \Papaya\Request\Parameters $parameters
+  * @return \Papaya\Request\Parameters
   */
-  public function parameters(\PapayaRequestParameters $parameters = NULL) {
+  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
     if (isset($parameters)) {
       $this->_parameters = $parameters;
     } elseif (is_null($this->_parameters)) {

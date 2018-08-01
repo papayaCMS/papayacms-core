@@ -237,7 +237,7 @@ class PapayaUiDialogFieldSelectTest extends \PapayaTestCase {
     $dialog
       ->expects($this->any())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array('truth' => 42))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('truth' => 42))));
     $dialog
       ->expects($this->any())
       ->method('getParameterName')

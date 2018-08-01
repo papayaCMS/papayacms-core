@@ -178,7 +178,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
   * @covers \PapayaUiControlCommandDialog::createDialog
   */
   public function testDialogGetImplicitCreateMergingContext() {
-    $context = new \PapayaRequestParameters(array('foo' => 'bar'));
+    $context = new \Papaya\Request\Parameters(array('foo' => 'bar'));
     $command = new \PapayaUiControlCommandDialog();
     $command->context($context);
     $dialog = $command->dialog();
@@ -228,7 +228,7 @@ class PapayaUiControlCommandDialogTest extends \PapayaTestCase {
   */
   public function testContextGetAfterSet() {
     $command = new \PapayaUiControlCommandDialog();
-    $command->context($context = $this->createMock(\PapayaRequestParameters::class));
+    $command->context($context = $this->createMock(\Papaya\Request\Parameters::class));
     $this->assertSame($context, $command->context());
   }
 

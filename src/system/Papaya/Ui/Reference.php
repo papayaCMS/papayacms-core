@@ -29,7 +29,8 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
 
   /**
   * parameters list
-  * @var \PapayaRequestParameters
+  *
+  * @var \Papaya\Request\Parameters
   */
   private $_parametersObject = NULL;
 
@@ -230,22 +231,23 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
 
   /**
   * Set several parameters at once
-  * @param array|\PapayaRequestParameters $parameters
+  *
+  * @param array|\Papaya\Request\Parameters $parameters
   * @param string|NULL $parameterGroup
   * @return \PapayaUiReference
   */
   public function setParameters($parameters, $parameterGroup = NULL) {
     if (NULL === $this->_parametersObject) {
-      $this->_parametersObject = new \PapayaRequestParameters();
+      $this->_parametersObject = new \Papaya\Request\Parameters();
     }
     if (
       is_array($parameters) ||
-      $parameters instanceof \PapayaRequestParameters
+      $parameters instanceof \Papaya\Request\Parameters
     ) {
       if (NULL !== $parameterGroup && '' !== trim($parameterGroup)) {
         $this->_parametersObject->merge(
           array(
-            $parameterGroup => $parameters instanceof \PapayaRequestParameters
+            $parameterGroup => $parameters instanceof \Papaya\Request\Parameters
               ? $parameters->toArray() : $parameters
           )
         );
@@ -259,11 +261,11 @@ class PapayaUiReference extends \Papaya\Application\BaseObject {
   /**
   * Provides access to the parameters object of the reference
   *
-  * @return \PapayaRequestParameters $parameters
+  * @return \Papaya\Request\Parameters $parameters
   */
   public function getParameters() {
     if (!isset($this->_parametersObject)) {
-      $this->_parametersObject = new \PapayaRequestParameters();
+      $this->_parametersObject = new \Papaya\Request\Parameters();
     }
     return $this->_parametersObject;
   }

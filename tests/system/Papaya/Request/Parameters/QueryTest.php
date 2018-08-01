@@ -56,7 +56,7 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
   public function testValuesReadImplicitCreate() {
     $query = new \Papaya\Request\Parameters\QueryString();
     $this->assertInstanceOf(
-      \PapayaRequestParameters::class, $query->values()
+      \Papaya\Request\Parameters::class, $query->values()
     );
   }
 
@@ -65,7 +65,7 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
   */
   public function testValuesWrite() {
     $query = new \Papaya\Request\Parameters\QueryString();
-    $parameters = new \PapayaRequestParameters();
+    $parameters = new \Papaya\Request\Parameters();
     $query->values($parameters);
     $this->assertAttributeSame(
       $parameters, '_values', $query
@@ -77,7 +77,7 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
   */
   public function testValuesRead() {
     $query = new \Papaya\Request\Parameters\QueryString();
-    $parameters = new \PapayaRequestParameters();
+    $parameters = new \Papaya\Request\Parameters();
     $query->values($parameters);
     $this->assertSame(
       $parameters, $query->values()
@@ -113,7 +113,7 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
    */
   public function testGetString($values, $groupSeparator, $expected) {
     $query = new \Papaya\Request\Parameters\QueryString($groupSeparator);
-    $parameters = new \PapayaRequestParameters();
+    $parameters = new \Papaya\Request\Parameters();
     $parameters->merge($values);
     $query->values($parameters);
     $this->assertEquals(
@@ -135,7 +135,7 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
       ->method('__toString')
       ->will($this->returnValue('bar'));
     $query = new \Papaya\Request\Parameters\QueryString('[]');
-    $parameters = new \PapayaRequestParameters();
+    $parameters = new \Papaya\Request\Parameters();
     $parameters->merge(array('foo' => $mock));
     $query->values($parameters);
     $this->assertEquals(

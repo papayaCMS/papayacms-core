@@ -47,7 +47,7 @@ class PapayaUiDialogConfirmation extends \PapayaUiDialog {
   * Initialize object, set owner, field data and parameters group
   *
   * @param object $owner
-  * @param \PapayaRequestParameters|array $hiddenFields
+  * @param \Papaya\Request\Parameters|array $hiddenFields
   * @param string $parameterGroup
    */
   public function __construct($owner, $hiddenFields, $parameterGroup = NULL) {
@@ -101,7 +101,7 @@ class PapayaUiDialogConfirmation extends \PapayaUiDialog {
     );
     $this->appendHidden($dialog, $this->hiddenValues());
     $this->appendHidden($dialog, $this->hiddenFields(), $this->parameterGroup());
-    $values = new \PapayaRequestParameters(
+    $values = new \Papaya\Request\Parameters(
       array(
         'confirmation' => $this->hiddenFields()->getCheckSum(),
         'token' => $this->tokens()->create($this->_owner)

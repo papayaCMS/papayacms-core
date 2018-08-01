@@ -193,11 +193,11 @@ class PapayaAdministrationPagePartsTest extends \PapayaTestCase {
     $part
       ->expects($this->at(0))
       ->method('parameters')
-      ->with($this->isInstanceOf(\PapayaRequestParameters::class));
+      ->with($this->isInstanceOf(\Papaya\Request\Parameters::class));
     $part
       ->expects($this->at(1))
       ->method('parameters')
-      ->will($this->returnValue($this->createMock(\PapayaRequestParameters::class)));
+      ->will($this->returnValue($this->createMock(\Papaya\Request\Parameters::class)));
     return $part;
   }
 }

@@ -102,7 +102,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
     $dialog
       ->expects($this->exactly(2))
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array('name' => array(1, 2)))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('name' => array(1, 2)))));
     $select = new \PapayaUiDialogFieldSelectCheckboxes(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );
@@ -125,7 +125,7 @@ class PapayaUiDialogFieldSelectCheckboxesTest extends \PapayaTestCase {
     $dialog
       ->expects($this->any())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters()));
+      ->will($this->returnValue(new \Papaya\Request\Parameters()));
     $select = new \PapayaUiDialogFieldSelectCheckboxes(
       'Caption', 'name', array(1 => 'One', 2 => 'Two')
     );

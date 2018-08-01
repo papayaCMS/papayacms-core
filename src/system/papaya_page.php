@@ -231,7 +231,7 @@ class papaya_page extends base_object {
   * @access public
   */
   function execute() {
-    \PapayaRequestLog::getInstance();
+    Request\Log::getInstance();
     $application = $this->papaya();
     $application->registerProfiles(
       new Application\Profiles\Cms()
@@ -1430,8 +1430,8 @@ class papaya_page extends base_object {
                 $application = $this->papaya();
                 $application->session->close();
                 if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
-                  \PapayaRequestLog::getInstance()->logTime('Page generated');
-                  \PapayaRequestLog::getInstance()->emit(FALSE);
+                  Request\Log::getInstance()->logTime('Page generated');
+                  Request\Log::getInstance()->emit(FALSE);
                 }
                 $response = $this->papaya()->response;
                 $response->sendHeader('X-Papaya-Cache: no');
@@ -1446,7 +1446,7 @@ class papaya_page extends base_object {
                   $response->content(new \PapayaResponseContentString((string)$str));
                 }
                 if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
-                  \PapayaRequestLog::getInstance()->logTime('Page delivered');
+                  Request\Log::getInstance()->logTime('Page delivered');
                 }
                 $response->send();
                 $this->logRequest($this->topic->getContentLanguageId());
@@ -2207,7 +2207,7 @@ class papaya_page extends base_object {
   */
   function getPageOutput() {
     if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
-      \PapayaRequestLog::getInstance()->logTime('Page defined');
+      Request\Log::getInstance()->logTime('Page defined');
     }
     $this->domains->validateLanguage(
       $this->papaya()->request->languageId
@@ -2292,7 +2292,7 @@ class papaya_page extends base_object {
       );
     }
     if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
-      \PapayaRequestLog::getInstance()->emit();
+      Request\Log::getInstance()->emit();
     }
     return FALSE;
   }

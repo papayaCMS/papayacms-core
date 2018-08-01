@@ -13,42 +13,47 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request;
 /**
-* Request log, a debugging object, colleting and omitting informations about the events during the
-* request processing.
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestLog extends \Papaya\Application\BaseObject {
+ * Request log, a debugging object, colleting and omitting informations about the events during the
+ * request processing.
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class Log extends \Papaya\Application\BaseObject {
 
   /**
-  * Same instance to make it usable like a singleton
-  * @var \PapayaRequestLog
-  */
+   * Same instance to make it usable like a singleton
+   *
+   * @var \PapayaRequestLog
+   */
   private static $_instance = NULL;
 
   /**
-  * Time the object instance was created.
-  * @var float
-  */
+   * Time the object instance was created.
+   *
+   * @var float
+   */
   private $_startTime = 0;
 
   /**
-  * Last time an event was logged
-  * @var float
-  */
+   * Last time an event was logged
+   *
+   * @var float
+   */
   private $_previousTime = 0;
 
   /**
-  * Logged event messages
-  * @var array(string)
-  */
+   * Logged event messages
+   *
+   * @var array(string)
+   */
   private $_events = array();
 
   /**
-  * Construct object and initialize start time.
-  */
+   * Construct object and initialize start time.
+   */
   public function __construct() {
     $now = microtime(TRUE);
     $dateString = date('Y-m-d H:i:s:');
@@ -73,19 +78,19 @@ class PapayaRequestLog extends \Papaya\Application\BaseObject {
   }
 
   /**
-  * Log an event an the time
-  *
-  * @param string $message
-  */
+   * Log an event an the time
+   *
+   * @param string $message
+   */
   public function logTime($message) {
     $now = microtime(TRUE);
     $message .= ' after '.\PapayaUtilDate::periodToString(
-      $now - $this->_startTime
-    );
+        $now - $this->_startTime
+      );
     if ($this->_previousTime > 0) {
       $message .= ' (+'.\PapayaUtilDate::periodToString(
-        $now - $this->_previousTime
-      ).')';
+          $now - $this->_previousTime
+        ).')';
     }
     $this->_previousTime = $now;
     $this->_events[] = $message;

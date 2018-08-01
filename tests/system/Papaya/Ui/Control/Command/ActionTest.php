@@ -22,7 +22,7 @@ class PapayaUiControlCommandActionTest extends \PapayaTestCase {
   */
   public function testDataWithImplicitCreate() {
     $command = new \PapayaUiControlCommandAction();
-    $command->parameters(new \PapayaRequestParameters(array('test' => 'success')));
+    $command->parameters(new \Papaya\Request\Parameters(array('test' => 'success')));
     $command->callbacks()->getDefinition = array($this, 'callbackGetDefinition');
     $this->assertEquals('success', $command->data()->get('test'));
   }
@@ -32,7 +32,7 @@ class PapayaUiControlCommandActionTest extends \PapayaTestCase {
   */
   public function testAppendToWithValidationSuccessful() {
     $command = new \PapayaUiControlCommandAction();
-    $command->parameters(new \PapayaRequestParameters(array('test' => 'success')));
+    $command->parameters(new \Papaya\Request\Parameters(array('test' => 'success')));
     $command->callbacks()->getDefinition = array($this, 'callbackGetDefinition');
     $command->callbacks()->onValidationSuccessful = array($this, 'callbackValidationSuccessful');
     $this->assertAppendedXmlEqualsXmlFragment(
@@ -45,7 +45,7 @@ class PapayaUiControlCommandActionTest extends \PapayaTestCase {
   */
   public function testAppendToWithValidationFailed() {
     $command = new \PapayaUiControlCommandAction();
-    $command->parameters(new \PapayaRequestParameters());
+    $command->parameters(new \Papaya\Request\Parameters());
     $command->callbacks()->getDefinition = array($this, 'callbackGetDefinition');
     $command->callbacks()->onValidationFailed = array($this, 'callbackValidationFailed');
     $this->assertAppendedXmlEqualsXmlFragment(

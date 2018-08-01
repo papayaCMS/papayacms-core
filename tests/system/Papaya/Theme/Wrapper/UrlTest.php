@@ -85,7 +85,7 @@ class PapayaThemeWrapperUrlTest extends \PapayaTestCase {
   * @covers \PapayaThemeWrapperUrl::parameters
   */
   public function testParametersSetParameters() {
-    $parameters = $this->createMock(\PapayaRequestParameters::class);
+    $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $wrapper = new \PapayaThemeWrapperUrl(new Url('http://www.sample.tld'));
     $wrapper->parameters($parameters);
     $this->assertAttributeSame(
@@ -97,7 +97,7 @@ class PapayaThemeWrapperUrlTest extends \PapayaTestCase {
   * @covers \PapayaThemeWrapperUrl::parameters
   */
   public function testParametersGetParametersAfterSet() {
-    $parameters = $this->createMock(\PapayaRequestParameters::class);
+    $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $wrapper = new \PapayaThemeWrapperUrl(new Url('http://www.sample.tld'));
     $this->assertSame(
       $parameters, $wrapper->parameters($parameters)
@@ -110,7 +110,7 @@ class PapayaThemeWrapperUrlTest extends \PapayaTestCase {
   public function testParametersGetParametersImplicitCreate() {
     $wrapper = new \PapayaThemeWrapperUrl(new Url('http://www.sample.tld?foo=bar'));
     $parameters = $wrapper->parameters();
-    $this->assertInstanceOf(\PapayaRequestParameters::class, $parameters);
+    $this->assertInstanceOf(\Papaya\Request\Parameters::class, $parameters);
     $this->assertEquals(array('foo' => 'bar'), $parameters->toArray());
   }
 

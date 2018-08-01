@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parser;
 /**
-* Papaya request parser for links path and file name
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParserFile extends \PapayaRequestParser {
+ * Papaya request parser for links path and file name
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class File extends \Papaya\Request\Parser {
 
   /**
-  * PCRE pattern for thumbnail links
-  * @var string
-  */
+   * PCRE pattern for thumbnail links
+   *
+   * @var string
+   */
   private $_pattern = '(
     (?:/sid(?:[a-z]*?)(?:[a-zA-Z\d,-]{20,40}))?
     (?P<path>(?:/[^/]+)*/)
@@ -38,6 +40,7 @@ class PapayaRequestParserFile extends \PapayaRequestParser {
 
   /**
    * Parse url and return data
+   *
    * @param \Papaya\Url $url
    * @return FALSE|array
    */
@@ -60,9 +63,10 @@ class PapayaRequestParserFile extends \PapayaRequestParser {
   }
 
   /**
-  * Allow other parsers after this
-  * @return boolean
-  */
+   * Allow other parsers after this
+   *
+   * @return boolean
+   */
   public function isLast() {
     return FALSE;
   }

@@ -31,7 +31,7 @@ namespace Papaya\Database\Source;
  * @property string $port
  * @property string $socket
  * @property string $database
- * @property \PapayaRequestParameters $parameters
+ * @property \Papaya\Request\Parameters $parameters
  */
 class Name {
 
@@ -52,7 +52,7 @@ class Name {
   /**
    * Additional parameters
    *
-   * @var \PapayaRequestParameters
+   * @var \Papaya\Request\Parameters
    */
   private $_parameters;
 
@@ -160,7 +160,7 @@ class Name {
         $query = new \Papaya\Request\Parameters\QueryString();
         $this->_parameters = $query->setString(substr($name, $queryStringStart + 1))->values();
       } else {
-        $this->_parameters = new \PapayaRequestParameters();
+        $this->_parameters = new \Papaya\Request\Parameters();
       }
     } else {
       throw new \Papaya\Database\Exception\Connect(

@@ -312,7 +312,7 @@ class PapayaUiControlCommandTest extends \PapayaTestCase {
   * @covers \PapayaUiControlCommand::parameters
   */
   public function testParametersGetAfterSet() {
-    $parameters = $this->createMock(\PapayaRequestParameters::class);
+    $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $command = new \PapayaUiControlCommand_TestProxy();
     $this->assertSame(
       $parameters,
@@ -324,7 +324,7 @@ class PapayaUiControlCommandTest extends \PapayaTestCase {
   * @covers \PapayaUiControlCommand::parameters
   */
   public function testParametersGetAfterSetWithOwner() {
-    $parameters = $this->createMock(\PapayaRequestParameters::class);
+    $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $owner = $this->createMock(\PapayaUiControlInteractive::class);
     $owner
       ->expects($this->once())

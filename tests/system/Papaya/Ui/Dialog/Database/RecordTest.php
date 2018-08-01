@@ -378,7 +378,7 @@ class PapayaUiDialogDatabaseRecordTest extends \PapayaTestCase {
     $request
       ->expects($this->any())
       ->method('getParameters')
-      ->will($this->returnValue(new \PapayaRequestParameters($parameters)));
+      ->will($this->returnValue(new \Papaya\Request\Parameters($parameters)));
     $dialog->papaya(
       $this->mockPapaya()->application(array('Request' => $request))
     );

@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 class PapayaRequestParserTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaRequestParser::isLast
+  * @covers \Papaya\Request\Parser::isLast
   */
   public function testIsLast() {
     $parser = new \PapayaRequestParser_TestProxy();
@@ -26,7 +26,7 @@ class PapayaRequestParserTest extends \PapayaTestCase {
   }
 }
 
-class PapayaRequestParser_TestProxy extends \PapayaRequestParser {
+class PapayaRequestParser_TestProxy extends \Papaya\Request\Parser {
 
   public function parse($url) {
   }

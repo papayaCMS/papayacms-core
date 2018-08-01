@@ -356,7 +356,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   public function testGetParamtersWithImplizitCreate() {
     $reference = new \PapayaUiReference();
     $parameters = $reference->getParameters();
-    $this->assertInstanceOf(\PapayaRequestParameters::class, $parameters);
+    $this->assertInstanceOf(\Papaya\Request\Parameters::class, $parameters);
   }
 
   /**
@@ -422,7 +422,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
   public function testSetParametersWithParametersObjectAndGroup() {
     $reference = new \PapayaUiReference();
     $reference->setParameters(
-      new \PapayaRequestParameters(array('mode' => 'sample')),
+      new \Papaya\Request\Parameters(array('mode' => 'sample')),
       'test'
     );
     $parameters = $this->readAttribute($reference, '_parametersObject');
@@ -491,7 +491,7 @@ class PapayaUiReferenceTest extends \PapayaTestCase {
       )
     );
     $this->assertEquals(
-      new \PapayaRequestParameters(
+      new \Papaya\Request\Parameters(
         array(
           'cmd' => 'show',
           'id' => 1

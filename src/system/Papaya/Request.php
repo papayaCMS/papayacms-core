@@ -31,7 +31,7 @@ namespace Papaya;
  * @property-read string $languageIdentifier
  * @property-read integer $modeId
  * @property-read boolean $isPreview
- * @property-read \PapayaRequestContent $content
+ * @property-read \Papaya\Request\Content $content
  * @property-read int $contentLength
  */
 class Request
@@ -135,7 +135,7 @@ class Request
   /**
    * Access to the raw request content
    *
-   * @var \PapayaRequestContent
+   * @var \Papaya\Request\Content
    */
   private $_content = NULL;
 
@@ -356,17 +356,17 @@ class Request
   private function _initParsers() {
     if (empty($this->_parsers)) {
       $this->_parsers = array(
-        new \PapayaRequestParserSession(),
-        new \PapayaRequestParserFile(),
-        new \PapayaRequestParserSystem(),
-        new \PapayaRequestParserPage(),
-        new \PapayaRequestParserThumbnail(),
-        new \PapayaRequestParserMedia(),
-        new \PapayaRequestParserImage(),
-        new \PapayaRequestParserWrapper(),
-        new \PapayaRequestParserStart()
+        new Request\Parser\Session(),
+        new Request\Parser\File(),
+        new Request\Parser\System(),
+        new Request\Parser\Page(),
+        new Request\Parser\Thumbnail(),
+        new Request\Parser\Media(),
+        new Request\Parser\Image(),
+        new Request\Parser\Wrapper(),
+        new Request\Parser\Start()
       );
-      /** @var \PapayaRequestParser $parser */
+      /** @var \Papaya\Request\Parser $parser */
       foreach ($this->_parsers as $parser) {
         $parser->papaya($this->papaya());
       }
@@ -394,7 +394,7 @@ class Request
     $this->_initParsers();
     $this->_pathData = array();
     foreach ($this->_parsers as $parser) {
-      /** @var \PapayaRequestParser $parser */
+      /** @var \Papaya\Request\Parser $parser */
       if ($requestData = $parser->parse($url)) {
         $this->_pathData = \PapayaUtilArray::merge(
           $this->_pathData,
@@ -421,14 +421,14 @@ class Request
    * Initialize and cache parameter for the specified source
    *
    * @param \Integer $source
-   * @return \PapayaRequestParameters
+   * @return \Papaya\Request\Parameters
    */
   private function _loadParametersForSource($source) {
     if (isset($this->_parameterCache[$source]) &&
-      $this->_parameterCache[$source] instanceof \PapayaRequestParameters) {
+      $this->_parameterCache[$source] instanceof Request\Parameters) {
       return $this->_parameterCache[$source];
     }
-    $parameters = new \PapayaRequestParameters();
+    $parameters = new Request\Parameters();
     switch ($source) {
       case \PapayaRequest::SOURCE_PATH :
         $parameters->merge(
@@ -465,16 +465,16 @@ class Request
   }
 
   /**
-   * Load parameters into \PapayaRequestParameters object and return it.
+   * Load parameters into \Papaya\Request\PapayaRequestParameters object and return it.
    *
    * Merges parameter data from different sources and uses an object cache
    *
    * @param $sources
-   * @return \PapayaRequestParameters
+   * @return \Papaya\Request\Parameters
    */
   public function loadParameters($sources = self::SOURCE_ALL) {
     if (!isset($this->_parameterCache[$sources])) {
-      $parameters = new \PapayaRequestParameters();
+      $parameters = new Request\Parameters();
       if ($sources === self::SOURCE_COOKIE) {
         return $this->_loadParametersForSource(self::SOURCE_COOKIE);
       }
@@ -505,7 +505,7 @@ class Request
    * Get a parameters object containing all parameters from the given sources
    *
    * @param integer $sources
-   * @return \PapayaRequestParameters
+   * @return \Papaya\Request\Parameters
    */
   public function getParameters($sources = \PapayaRequest::SOURCE_ALL) {
     return $this->loadParameters($sources);
@@ -532,7 +532,7 @@ class Request
    *
    * @param string $name
    * @param integer $sources
-   * @return \PapayaRequestParameters
+   * @return \Papaya\Request\Parameters
    */
   public function getParameterGroup($name, $sources = \PapayaRequest::SOURCE_ALL) {
     $parameters = $this->loadParameters($sources);
@@ -543,7 +543,7 @@ class Request
    * Set parameters object for a source. This resets all merged parameter caches
    *
    * @param integer $source
-   * @param \PapayaRequestParameters $parameters
+   * @param \Papaya\Request\Parameters $parameters
    * @throws \InvalidArgumentException
    * @return void
    */
@@ -555,7 +555,7 @@ class Request
       self::SOURCE_COOKIE
     );
     if (
-      $parameters instanceof \PapayaRequestParameters &&
+      $parameters instanceof Request\Parameters &&
       in_array($source, $validSources, TRUE)
     ) {
       $this->_parameterCache[$source] = $parameters;
@@ -657,14 +657,14 @@ class Request
    * Returns the content of the request (as available in php://input) as an object that
    * takes it castable to a string.
    *
-   * @param \PapayaRequestContent $content
-   * @return \PapayaRequestContent
+   * @param \Papaya\Request\Content $content
+   * @return \Papaya\Request\Content
    */
-  public function content(\PapayaRequestContent $content = NULL) {
+  public function content(Request\Content $content = NULL) {
     if (isset($content)) {
       $this->_content = $content;
     } elseif (NULL === $this->_content) {
-      $this->_content = new \PapayaRequestContent();
+      $this->_content = new Request\Content();
     }
     return $this->_content;
   }

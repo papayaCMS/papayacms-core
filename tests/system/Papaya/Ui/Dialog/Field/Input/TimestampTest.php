@@ -30,7 +30,7 @@ class PapayaUiDialogFieldInputTimestampTest extends \PapayaTestCase {
       ->method('parameters')
       ->will(
         $this->returnValue(
-          new \PapayaRequestParameters(array('date' => '2011-01-01 18:00'))
+          new \Papaya\Request\Parameters(array('date' => '2011-01-01 18:00'))
         )
       );
     $field = new \PapayaUiDialogFieldInputTimestamp(

@@ -84,7 +84,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
     $dialog = new \PapayaUiDialogConfirmation(new stdClass(), array('sample' => 'foo'));
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $dialog->parameters(
-      new \PapayaRequestParameters(array('confirmation' => 'a9994ecdd4cc99b5ac3b59272afa0d47'))
+      new \Papaya\Request\Parameters(array('confirmation' => 'a9994ecdd4cc99b5ac3b59272afa0d47'))
     );
     $this->assertTrue($dialog->isSubmitted());
   }
@@ -123,7 +123,7 @@ class PapayaUiDialogConfirmationTest extends \PapayaTestCase {
     $dialog->papaya($this->mockPapaya()->application(array('Request' => $request)));
     $dialog->tokens($tokens);
     $dialog->parameters(
-      new \PapayaRequestParameters(
+      new \Papaya\Request\Parameters(
         array(
           'confirmation' => 'a9994ecdd4cc99b5ac3b59272afa0d47',
           'token' => 'TOKEN_STRING'

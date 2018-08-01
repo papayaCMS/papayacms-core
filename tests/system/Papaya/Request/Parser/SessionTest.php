@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaRequestParserSessionTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaRequestParserSession::parse
+   * @covers \Papaya\Request\Parser\Session::parse
    * @dataProvider parseDataProvider
    * @param string $path
    * @param array|FALSE $expected
@@ -35,7 +35,7 @@ class PapayaRequestParserSessionTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('getPath')
       ->will($this->returnValue($path));
-    $parser = new \PapayaRequestParserSession();
+    $parser = new \Papaya\Request\Parser\Session();
     $this->assertSame(
       $expected,
       $parser->parse($url)
@@ -43,10 +43,10 @@ class PapayaRequestParserSessionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaRequestParserSession::isLast
+  * @covers \Papaya\Request\Parser\Session::isLast
   */
   public function testIsLast() {
-    $parser = new \PapayaRequestParserSession();
+    $parser = new \Papaya\Request\Parser\Session();
     $this->assertFalse($parser->isLast());
   }
 

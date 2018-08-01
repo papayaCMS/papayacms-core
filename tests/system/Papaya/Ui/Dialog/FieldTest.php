@@ -388,7 +388,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogField::collect
   */
   public function testCollect() {
-    $data = $this->createMock(\PapayaRequestParameters::class);
+    $data = $this->createMock(\Papaya\Request\Parameters::class);
     $data
       ->expects($this->once())
       ->method('set')
@@ -400,7 +400,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $dialog
       ->expects($this->exactly(2))
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => '42'))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => '42'))));
     $dialog
       ->expects($this->once())
       ->method('data')
@@ -415,7 +415,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogField::collect
   */
   public function testCollectWithDefaultValue() {
-    $data = $this->createMock(\PapayaRequestParameters::class);
+    $data = $this->createMock(\Papaya\Request\Parameters::class);
     $data
       ->expects($this->once())
       ->method('set')
@@ -427,7 +427,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $dialog
       ->expects($this->exactly(2))
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => '42'))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => '42'))));
     $dialog
       ->expects($this->once())
       ->method('data')
@@ -444,7 +444,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogField::collect
   */
   public function testCollectWithObjectDefaultValue() {
-    $data = $this->createMock(\PapayaRequestParameters::class);
+    $data = $this->createMock(\Papaya\Request\Parameters::class);
     $data
       ->expects($this->once())
       ->method('set')
@@ -456,7 +456,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $dialog
       ->expects($this->exactly(2))
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => 42))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => 42))));
     $dialog
       ->expects($this->once())
       ->method('data')
@@ -479,7 +479,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
       ->method('filter')
       ->with($this->identicalTo('42'))
       ->will($this->returnValue(42));
-    $data = $this->createMock(\PapayaRequestParameters::class);
+    $data = $this->createMock(\Papaya\Request\Parameters::class);
     $data
       ->expects($this->once())
       ->method('set')
@@ -491,7 +491,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $dialog
       ->expects($this->exactly(2))
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => '42'))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => '42'))));
     $dialog
       ->expects($this->once())
       ->method('data')
@@ -514,7 +514,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
       ->method('filter')
       ->with($this->identicalTo(''))
       ->will($this->returnValue(NULL));
-    $data = $this->createMock(\PapayaRequestParameters::class);
+    $data = $this->createMock(\Papaya\Request\Parameters::class);
     $data
       ->expects($this->once())
       ->method('set')
@@ -526,7 +526,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $dialog
       ->expects($this->exactly(2))
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => ''))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => ''))));
     $dialog
       ->expects($this->once())
       ->method('data')
@@ -569,11 +569,11 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters()));
+      ->will($this->returnValue(new \Papaya\Request\Parameters()));
     $dialog
       ->expects($this->once())
       ->method('data')
-      ->will($this->returnValue(new \PapayaRequestParameters()));
+      ->will($this->returnValue(new \Papaya\Request\Parameters()));
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock($dialog));
     $field->setName('foo');
@@ -592,7 +592,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $dialog
       ->expects($this->exactly(2))
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => 42))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => 42))));
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock($dialog));
     $field->setName('foo');
@@ -610,11 +610,11 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters()));
+      ->will($this->returnValue(new \Papaya\Request\Parameters()));
     $dialog
       ->expects($this->exactly(2))
       ->method('data')
-      ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => 42))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => 42))));
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock($dialog));
     $field->setName('foo');
@@ -632,11 +632,11 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters()));
+      ->will($this->returnValue(new \Papaya\Request\Parameters()));
     $dialog
       ->expects($this->once())
       ->method('data')
-      ->will($this->returnValue(new \PapayaRequestParameters()));
+      ->will($this->returnValue(new \Papaya\Request\Parameters()));
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock($dialog));
     $field->setName('foo');
@@ -654,11 +654,11 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('parameters')
-      ->will($this->returnValue(new \PapayaRequestParameters()));
+      ->will($this->returnValue(new \Papaya\Request\Parameters()));
     $dialog
       ->expects($this->exactly(2))
       ->method('data')
-      ->will($this->returnValue(new \PapayaRequestParameters(array('foo' => NULL))));
+      ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => NULL))));
     $field = new \PapayaUiDialogField_TestProxy();
     $field->collection($this->getCollectionMock($dialog));
     $field->setName('foo');

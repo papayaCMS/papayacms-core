@@ -29,7 +29,7 @@ abstract class Editor extends \PapayaUiControlInteractive {
   private $_data;
 
   /**
-   * @var \PapayaRequestParameters
+   * @var \Papaya\Request\Parameters
    */
   private $_context;
 
@@ -65,14 +65,14 @@ abstract class Editor extends \PapayaUiControlInteractive {
    * The context specifies a parameter status needed to reach the editor/dialog. These
    * parameters need to be added to links and dialogs
    *
-   * @param \PapayaRequestParameters $context
-   * @return \PapayaRequestParameters
+   * @param \Papaya\Request\Parameters $context
+   * @return \Papaya\Request\Parameters
    */
-  public function context(\PapayaRequestParameters $context = NULL) {
+  public function context(\Papaya\Request\Parameters $context = NULL) {
     if (NULL !== $context) {
       $this->_context = $context;
     } elseif (NULL === $this->_context) {
-      $this->_context = new \PapayaRequestParameters();
+      $this->_context = new \Papaya\Request\Parameters();
     }
     return $this->_context;
   }

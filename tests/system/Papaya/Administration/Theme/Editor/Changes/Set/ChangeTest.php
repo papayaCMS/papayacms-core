@@ -70,7 +70,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
       ->will($this->returnValue(TRUE));
     $command = new Change($record);
     $command->papaya($this->mockPapaya()->application());
-    $command->parameters(new \PapayaRequestParameters(array('set_id' => 42)));
+    $command->parameters(new \Papaya\Request\Parameters(array('set_id' => 42)));
 
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;
@@ -113,7 +113,7 @@ class PapayaAdministrationThemeEditorChangesSetChangeTest extends \PapayaTestCas
       ->will($this->returnValue(FALSE));
     $command = new Change($record);
     $command->papaya($this->mockPapaya()->application());
-    $command->parameters(new \PapayaRequestParameters(array('set_id' => 42)));
+    $command->parameters(new \Papaya\Request\Parameters(array('set_id' => 42)));
 
     $dialog = $command->dialog();
     $dialog->options()->useToken = FALSE;

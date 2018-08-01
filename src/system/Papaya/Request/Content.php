@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request;
 /**
  * Encapsulation for the raw request content.
  *
@@ -22,7 +23,7 @@
  * @package Papaya-Library
  * @subpackage Request
  */
-class PapayaRequestContent {
+class Content {
 
   const STREAM_PHP_INPUT = 'php://input';
 

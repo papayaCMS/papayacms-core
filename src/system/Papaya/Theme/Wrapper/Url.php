@@ -43,7 +43,7 @@ class PapayaThemeWrapperUrl {
   );
 
   /**
-   * @var \PapayaRequestParameters
+   * @var \Papaya\Request\Parameters
    */
   private $_parameters;
 
@@ -81,10 +81,10 @@ class PapayaThemeWrapperUrl {
    * If the $_parameters property is not set it will be initialized using the query string of the
    * $_requestUrl property.
    *
-   * @param \PapayaRequestParameters $parameters
-   * @return \PapayaRequestParameters
+   * @param \Papaya\Request\Parameters $parameters
+   * @return \Papaya\Request\Parameters
    */
-  public function parameters(\PapayaRequestParameters $parameters = NULL) {
+  public function parameters(\Papaya\Request\Parameters $parameters = NULL) {
     if (isset($parameters)) {
       $this->_parameters = $parameters;
     }

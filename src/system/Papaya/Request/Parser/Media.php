@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parser;
 /**
-* Papaya request parser for media database links
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParserMedia extends \PapayaRequestParser {
+ * Papaya request parser for media database links
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class Media extends \Papaya\Request\Parser {
 
   /**
-  * PCRE pattern for media and download links
-  * @var string
-  */
+   * PCRE pattern for media and download links
+   *
+   * @var string
+   */
   private $_pattern = '(/
     (?:[a-zA-Z\d_-]+\.) #title
     (?P<mode>media|download|thumb)\. # mode
@@ -38,6 +40,7 @@ class PapayaRequestParserMedia extends \PapayaRequestParser {
 
   /**
    * Parse url and return data
+   *
    * @param \Papaya\Url $url
    * @return FALSE|array
    */
@@ -55,7 +58,7 @@ class PapayaRequestParserMedia extends \PapayaRequestParser {
       $result['media_id'] = $matches['id'];
       $result['media_uri'] = $matches['media_uri'];
       if (!empty($matches['version']) &&
-          $matches['version'] > 0) {
+        $matches['version'] > 0) {
         $result['media_version'] = (int)$matches['version'];
       }
       return $result;

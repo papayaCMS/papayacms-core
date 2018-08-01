@@ -21,7 +21,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
 
   public function testConstructor() {
-    $parameters = new \PapayaRequestParameters();
+    $parameters = new \Papaya\Request\Parameters();
     $definitions = array(
       array('example', 'default', new \Papaya\Filter\NotEmpty())
     );
@@ -49,7 +49,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testConstructorWithNamedDefinition() {
-    $parameters = new \PapayaRequestParameters();
+    $parameters = new \Papaya\Request\Parameters();
     $definitions = array(
       array(
         'name' => 'example',
@@ -67,7 +67,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testConstructorWithoutFilter() {
-    $parameters = new \PapayaRequestParameters();
+    $parameters = new \Papaya\Request\Parameters();
     $definitions = array(
       array(
         'name' => 'example',
@@ -84,7 +84,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testConstructorWithoutDefault() {
-    $parameters = new \PapayaRequestParameters();
+    $parameters = new \Papaya\Request\Parameters();
     $definitions = array(
       array(
         'name' => 'example'
@@ -100,7 +100,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testConstructorWithValidatorAsSecondParameter() {
-    $parameters = new \PapayaRequestParameters(
+    $parameters = new \Papaya\Request\Parameters(
       array('example' => 21)
     );
     $definitions = array(
@@ -116,7 +116,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testValidateWithTwoValues() {
-    $parameters = new \PapayaRequestParameters(
+    $parameters = new \Papaya\Request\Parameters(
       array(
         'foo' => '21',
         'bar' => '42'
@@ -138,7 +138,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testValidateWithInvalidValue() {
-    $parameters = new \PapayaRequestParameters(
+    $parameters = new \Papaya\Request\Parameters(
       array(
         'foo' => '21'
       )
@@ -158,7 +158,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testIssetValueExpectingTrue() {
-    $parameters = new \PapayaRequestParameters(array());
+    $parameters = new \Papaya\Request\Parameters(array());
     $definitions = array(
       array('foo', 42)
     );
@@ -167,7 +167,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testIssetValueExpectingFalse() {
-    $parameters = new \PapayaRequestParameters(array());
+    $parameters = new \Papaya\Request\Parameters(array());
     $definitions = array(
       array('foo', 42)
     );
@@ -176,7 +176,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testGetFetchingValue() {
-    $parameters = new \PapayaRequestParameters(array('foo' => 21));
+    $parameters = new \Papaya\Request\Parameters(array('foo' => 21));
     $definitions = array(
       array('foo', 42)
     );
@@ -185,7 +185,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testOffsetGetFetchingValue() {
-    $parameters = new \PapayaRequestParameters(array('foo' => 21));
+    $parameters = new \Papaya\Request\Parameters(array('foo' => 21));
     $definitions = array(
       array('foo', 42)
     );
@@ -194,7 +194,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testOffsetGetFetchingDefaultValue() {
-    $parameters = new \PapayaRequestParameters(array());
+    $parameters = new \Papaya\Request\Parameters(array());
     $definitions = array(
       array('foo', 42)
     );
@@ -203,7 +203,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testOffsetGetWithInvalidNameExpectingNull() {
-    $parameters = new \PapayaRequestParameters(array());
+    $parameters = new \Papaya\Request\Parameters(array());
     $definitions = array();
     $validator = new \Papaya\Request\Parameters\Validator($definitions, $parameters);
     $this->assertNull($validator['bar']);
@@ -216,7 +216,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
    * @param mixed $value
    */
   public function testSet($expected, $name, $value) {
-    $parameters = new \PapayaRequestParameters(array());
+    $parameters = new \Papaya\Request\Parameters(array());
     $definitions = array(
       array('integer', 0),
       array('float', 0.0),
@@ -245,7 +245,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testSetWithInvalidName() {
-    $parameters = new \PapayaRequestParameters(array());
+    $parameters = new \Papaya\Request\Parameters(array());
     $definitions = array();
     $validator = new \Papaya\Request\Parameters\Validator($definitions, $parameters);
     $this->expectException(InvalidArgumentException::class);
@@ -253,7 +253,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testUnsetSetToDefaultValue() {
-    $parameters = new \PapayaRequestParameters(array('foo' => 21));
+    $parameters = new \Papaya\Request\Parameters(array('foo' => 21));
     $definitions = array(
       array('foo', 42)
     );
@@ -263,7 +263,7 @@ class PapayaRequestParametersValidatorTest extends \PapayaTestCase {
   }
 
   public function testUnsetSetToInvalidParameterExpectingException() {
-    $parameters = new \PapayaRequestParameters(array('foo' => 21));
+    $parameters = new \Papaya\Request\Parameters(array('foo' => 21));
     $definitions = array();
     $validator = new \Papaya\Request\Parameters\Validator($definitions, $parameters);
     $this->expectException(InvalidArgumentException::class);
