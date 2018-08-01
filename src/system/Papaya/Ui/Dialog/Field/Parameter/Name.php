@@ -46,7 +46,7 @@ class PapayaUiDialogFieldParameterName {
         $name->prepend($prefix);
       }
     } else {
-      $name = new \PapayaRequestParametersName($this->_fieldName);
+      $name = new \Papaya\Request\Parameters\Name($this->_fieldName);
     }
     return (string)$name;
   }

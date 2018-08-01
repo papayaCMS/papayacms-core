@@ -13,41 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parameters;
 /**
-* Decode a query string into an array or encode an array into an query string
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParametersQuery {
+ * Decode a query string into an array or encode an array into an query string
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class QueryString {
 
   /**
-  * Additional group separator ([] is always supported)
-  * @var string
-  */
+   * Additional group separator ([] is always supported)
+   *
+   * @var string
+   */
   private $_separator = '';
 
   /**
-  * Values object
-  * @var \PapayaRequestParameters
-  */
+   * Values object
+   *
+   * @var \PapayaRequestParameters
+   */
   private $_values = NULL;
 
   /**
-  * Initialize object and set group separator.
-  *
-  * @param string $groupSeparator
-  */
+   * Initialize object and set group separator.
+   *
+   * @param string $groupSeparator
+   */
   public function __construct($groupSeparator = '') {
     $this->setSeparator($groupSeparator);
   }
 
   /**
-  * Set the group separator
-  *
-  * @throws \InvalidArgumentException
-  * @param string $groupSeparator
-  */
+   * Set the group separator
+   *
+   * @throws \InvalidArgumentException
+   * @param string $groupSeparator
+   */
   public function setSeparator($groupSeparator) {
     if (in_array($groupSeparator, array(',', ':', '/', '*', '!'))) {
       $this->_separator = $groupSeparator;
@@ -61,11 +64,11 @@ class PapayaRequestParametersQuery {
   }
 
   /**
-  * Get/set the values object
-  *
-  * @param \PapayaRequestParameters $values
-  * @return \PapayaRequestParameters
-  */
+   * Get/set the values object
+   *
+   * @param \PapayaRequestParameters $values
+   * @return \PapayaRequestParameters
+   */
   public function values(\PapayaRequestParameters $values = NULL) {
     if (isset($values)) {
       $this->_values = $values;
@@ -77,12 +80,12 @@ class PapayaRequestParametersQuery {
   }
 
   /**
-  * Set the query string (parse into values)
-  *
-  * @param string $queryString
-  * @param boolean $stripSlashes
-  * @return \PapayaRequestParametersQuery
-  */
+   * Set the query string (parse into values)
+   *
+   * @param string $queryString
+   * @param boolean $stripSlashes
+   * @return \PapayaRequestParametersQuery
+   */
   public function setString($queryString, $stripSlashes = FALSE) {
     if (isset($queryString)) {
       $this->_values = new \PapayaRequestParameters();
@@ -92,10 +95,10 @@ class PapayaRequestParametersQuery {
   }
 
   /**
-  * Get the query string
-  *
-  * @return string
-  */
+   * Get the query string
+   *
+   * @return string
+   */
   public function getString() {
     return $this->_encode(NULL, $this->values()->toArray());
   }
@@ -123,12 +126,12 @@ class PapayaRequestParametersQuery {
   }
 
   /**
-  * Prepare parameters, make sure it is utf8 and strip slashes if needed
-  *
-  * @param string|array $parameter
-  * @param boolean $stripSlashes
-  * @return array|string
-  */
+   * Prepare parameters, make sure it is utf8 and strip slashes if needed
+   *
+   * @param string|array $parameter
+   * @param boolean $stripSlashes
+   * @return array|string
+   */
   private function _prepare($parameter, $stripSlashes = FALSE) {
     if ($stripSlashes) {
       $parameter = stripslashes($parameter);
@@ -137,13 +140,13 @@ class PapayaRequestParametersQuery {
   }
 
   /**
-  * Encode recursive parameters array
-  *
-  * @param string $prefix
-  * @param array $parameters
-  * @param integer $maxRecursions
-  * @return string
-  */
+   * Encode recursive parameters array
+   *
+   * @param string $prefix
+   * @param array $parameters
+   * @param integer $maxRecursions
+   * @return string
+   */
   private function _encode($prefix, $parameters, $maxRecursions = 10) {
     $result = '';
     if (is_array($parameters)) {
@@ -158,8 +161,8 @@ class PapayaRequestParametersQuery {
         }
         if (is_array($value) && !empty($value)) {
           $result .= '&'.$this->_encode(
-            $fullName, $value, $maxRecursions - 1
-          );
+              $fullName, $value, $maxRecursions - 1
+            );
         } elseif (is_scalar($value)) {
           $result .= '&'.$fullName.'='.urlencode($value);
         } elseif (is_object($value) && method_exists($value, '__toString')) {

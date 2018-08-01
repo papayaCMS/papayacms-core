@@ -301,7 +301,7 @@ class PapayaAdministrationThemeEditorChangesSetImportTest extends \PapayaTestCas
    */
   public function getUploadFieldFixture($data = 'data://text/xml,') {
     $file = $this
-      ->getMockBuilder(\PapayaRequestParameterFile::class)
+      ->getMockBuilder(\Papaya\Request\Parameter\File::class)
       ->disableOriginalConstructor()
       ->getMock();
     $file

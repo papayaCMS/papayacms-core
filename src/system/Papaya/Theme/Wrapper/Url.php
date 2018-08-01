@@ -89,7 +89,7 @@ class PapayaThemeWrapperUrl {
       $this->_parameters = $parameters;
     }
     if (is_null($parameters)) {
-      $query = new \PapayaRequestParametersQuery();
+      $query = new \Papaya\Request\Parameters\QueryString();
       $query->setString($this->_requestUrl->getQuery());
       $this->_parameters = $query->values();
     }

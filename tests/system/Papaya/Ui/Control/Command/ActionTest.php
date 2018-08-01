@@ -58,7 +58,7 @@ class PapayaUiControlCommandActionTest extends \PapayaTestCase {
   */
   public function testDataGetAfterSet() {
     $validator = $this
-      ->getMockBuilder(\PapayaRequestParametersValidator::class)#
+      ->getMockBuilder(\Papaya\Request\Parameters\Validator::class)#
       ->disableOriginalConstructor()
       ->getMock();
     $command = new \PapayaUiControlCommandAction();

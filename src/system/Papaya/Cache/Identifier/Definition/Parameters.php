@@ -56,7 +56,7 @@ class Parameters
   public function getStatus() {
     $data = array();
     foreach ($this->_names as $name) {
-      $name = new \PapayaRequestParametersName($name);
+      $name = new \Papaya\Request\Parameters\Name($name);
       if ($this->parameters()->has((string)$name)) {
         $value = $this->parameters()->get((string)$name, NULL);
         $data[(string)$name] = $value;

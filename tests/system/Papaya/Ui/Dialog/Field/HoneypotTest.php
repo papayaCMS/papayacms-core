@@ -67,7 +67,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('getParameterName')
       ->with('name')
-      ->will($this->returnValue(new \PapayaRequestParametersName('name')));
+      ->will($this->returnValue(new \Papaya\Request\Parameters\Name('name')));
     $dialog
       ->expects($this->any())
       ->method('parameterGroup')
@@ -116,7 +116,7 @@ class PapayaUiDialogFieldHoneypotTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('getParameterName')
       ->with('name')
-      ->will($this->returnValue(new \PapayaRequestParametersName('name')));
+      ->will($this->returnValue(new \Papaya\Request\Parameters\Name('name')));
     $dialog
       ->expects($this->any())
       ->method('parameterGroup')

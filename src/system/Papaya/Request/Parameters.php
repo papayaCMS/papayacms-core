@@ -22,7 +22,7 @@
 class PapayaRequestParameters extends \Papaya\BaseObject\Parameters {
 
   public static function createFromString($queryString) {
-    $queryParameters = new \PapayaRequestParametersQuery();
+    $queryParameters = new \Papaya\Request\Parameters\QueryString();
     $queryParameters->setString($queryString);
     $parameters = new self();
     $parameters->assign($queryParameters->values());
@@ -112,7 +112,7 @@ class PapayaRequestParameters extends \Papaya\BaseObject\Parameters {
   * @return array|string
   */
   private function _parseParameterName($name, $groupSeparator = '') {
-    $parts = new \PapayaRequestParametersName(str_replace('.', '_', $name), $groupSeparator);
+    $parts = new \Papaya\Request\Parameters\Name(str_replace('.', '_', $name), $groupSeparator);
     return $parts->getArray();
   }
 
@@ -147,7 +147,7 @@ class PapayaRequestParameters extends \Papaya\BaseObject\Parameters {
    * @return string
    */
   public function getQueryString($groupSeparator) {
-    $query = new \PapayaRequestParametersQuery($groupSeparator);
+    $query = new \Papaya\Request\Parameters\QueryString($groupSeparator);
     $query->values($this);
     return $query->getString();
   }
@@ -157,7 +157,7 @@ class PapayaRequestParameters extends \Papaya\BaseObject\Parameters {
    * @return $this
    */
   public function setQueryString($queryString) {
-    $query = new \PapayaRequestParametersQuery();
+    $query = new \Papaya\Request\Parameters\QueryString();
     $query->setString($queryString);
     $this->assign($query->values());
     return $this;

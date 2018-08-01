@@ -80,7 +80,7 @@ abstract class PapayaUiListviewItemPaging extends \PapayaUiListviewItem {
   * @param integer $mode
   */
   public function __construct($parameterName, $currentValue, $itemsCount, $mode = self::MODE_PAGE) {
-    $this->_parameterName = new \PapayaRequestParametersName($parameterName);
+    $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
     $this->_mode = $mode;
     $this->setItemsCount($itemsCount);
     $this->setCurrentValue($currentValue);

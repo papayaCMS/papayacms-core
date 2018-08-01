@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parameter;
 /**
-* Encapsulate an uploaded file.
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParameterFile implements \ArrayAccess, \IteratorAggregate {
+ * Encapsulate an uploaded file.
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class File implements \ArrayAccess, \IteratorAggregate {
 
   private $_values = array(
     'temporary' => NULL,
@@ -30,7 +31,7 @@ class PapayaRequestParameterFile implements \ArrayAccess, \IteratorAggregate {
   );
 
   /**
-   * @var \PapayaRequestParametersName
+   * @var \Papaya\Request\Parameters\Name
    */
   private $_name = '';
 
@@ -40,14 +41,15 @@ class PapayaRequestParameterFile implements \ArrayAccess, \IteratorAggregate {
 
   /**
    * Create file object, provide name and group
-   * @param string|\PapayaRequestParametersName $name
+   *
+   * @param string|\Papaya\Request\Parameters\Name $name
    * @param string $group
    */
   public function __construct($name, $group = NULL) {
-    if ($name instanceof \PapayaRequestParametersName) {
+    if ($name instanceof \Papaya\Request\Parameters\Name) {
       $this->_name = $name;
     } else {
-      $this->_name = new \PapayaRequestParametersName($name);
+      $this->_name = new \Papaya\Request\Parameters\Name($name);
     }
     if (!empty($group)) {
       $this->_name->prepend($group);
@@ -55,7 +57,7 @@ class PapayaRequestParameterFile implements \ArrayAccess, \IteratorAggregate {
   }
 
   /**
-   * @return \PapayaRequestParametersName
+   * @return \Papaya\Request\Parameters\Name
    */
   public function getName() {
     return $this->_name;
@@ -63,6 +65,7 @@ class PapayaRequestParameterFile implements \ArrayAccess, \IteratorAggregate {
 
   /**
    * Return file path to the uploaded file
+   *
    * @return string
    */
   public function __toString() {
@@ -112,6 +115,7 @@ class PapayaRequestParameterFile implements \ArrayAccess, \IteratorAggregate {
 
   /**
    * Block changes trough array syntax
+   *
    * @see \ArrayAccess::offsetSet()
    */
   public function offsetSet($offset, $value) {
@@ -121,6 +125,7 @@ class PapayaRequestParameterFile implements \ArrayAccess, \IteratorAggregate {
 
   /**
    * Block changes trough array syntax
+   *
    * @see \ArrayAccess::offsetSet()
    */
   public function offsetUnset($offset) {
@@ -136,7 +141,7 @@ class PapayaRequestParameterFile implements \ArrayAccess, \IteratorAggregate {
       if (count($this->getName())) {
         $temporaryFile = $this->fetchValue('tmp_name');
         if (!empty($temporaryFile) &&
-            $this->fileSystem()->getFile($temporaryFile)->isUploadedFile()) {
+          $this->fileSystem()->getFile($temporaryFile)->isUploadedFile()) {
           $this->_values['temporary'] = $temporaryFile;
           $this->_values['name'] = $this->fetchValue('name', $this->_values['name']);
           $this->_values['type'] = $this->fetchValue('type', $this->_values['type']);

@@ -133,7 +133,7 @@ class PapayaUiToolbarPaging extends \PapayaUiToolbarElement {
   * @param integer $mode
   */
   public function __construct($parameterName, $itemsCount, $mode = self::MODE_PAGE) {
-    $this->_parameterName = new \PapayaRequestParametersName($parameterName);
+    $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
     $this->setItemsCount($itemsCount);
     $this->_mode = $mode;
   }

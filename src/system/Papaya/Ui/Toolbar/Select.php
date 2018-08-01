@@ -127,7 +127,7 @@ class PapayaUiToolbarSelect extends \PapayaUiToolbarElement {
   */
   public function getCurrentValue() {
     if (is_null($this->_currentValue)) {
-      $name = new \PapayaRequestParametersName(
+      $name = new \Papaya\Request\Parameters\Name(
         $this->_parameterName, $this->reference()->getParameterGroupSeparator()
       );
       $this->_currentValue = $this->validateCurrentValue(
@@ -171,7 +171,7 @@ class PapayaUiToolbarSelect extends \PapayaUiToolbarElement {
     $select = $parent->appendElement(
       'combo',
       array(
-        'name' => new \PapayaRequestParametersName(
+        'name' => new \Papaya\Request\Parameters\Name(
           $this->_parameterName, $this->reference()->getParameterGroupSeparator()
         ),
         'action' => $this->reference()->getRelative(NULL, FALSE)

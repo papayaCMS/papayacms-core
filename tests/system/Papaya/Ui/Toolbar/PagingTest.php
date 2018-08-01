@@ -23,7 +23,7 @@ class PapayaUiToolbarPagingTest extends \PapayaTestCase {
   public function testConstructor() {
     $paging = new \PapayaUiToolbarPaging('foo/page', 30);
     $this->assertAttributeEquals(
-      new \PapayaRequestParametersName('foo/page'), '_parameterName', $paging
+      new \Papaya\Request\Parameters\Name('foo/page'), '_parameterName', $paging
     );
     $this->assertAttributeEquals(
       30, '_itemsCount', $paging

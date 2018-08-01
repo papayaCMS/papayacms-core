@@ -36,7 +36,7 @@ class PapayaUiControlCommandController
   /**
   * Parameter name
   *
-  * @var \PapayaRequestParametersName
+  * @var \Papaya\Request\Parameters\Name
   */
   private $_parameterName = NULL;
 
@@ -51,11 +51,11 @@ class PapayaUiControlCommandController
   /**
    * Initialize parameter controller, set parameter name and default command identifier
    *
-   * @param array|\PapayaRequestParametersName|string $parameterName
+   * @param array|\Papaya\Request\Parameters\Name|string $parameterName
    * @param string $defaultCommand
    */
   public function __construct($parameterName, $defaultCommand = '') {
-    $this->_parameterName = new \PapayaRequestParametersName($parameterName);
+    $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
     $this->_defaultCommand = \PapayaUtilStringIdentifier::toUnderscoreLower($defaultCommand);
   }
 
@@ -161,11 +161,11 @@ class PapayaUiControlCommandController
   /**
    * Overload owner method to set owner on all commands, too.
    *
-   * @param \PapayaRequestParametersInterface $owner
-   * @internal param $ NULL|\PapayaRequestParametersInterface
-   * @return \PapayaRequestParametersInterface
+   * @param \Papaya\Request\Parameters\Access $owner
+   * @internal param $ NULL|\Papaya\Request\Parameters\PapayaRequestParametersInterface
+   * @return \Papaya\Request\Parameters\Access
    */
-  public function owner(\PapayaRequestParametersInterface $owner = NULL) {
+  public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {
     if (isset($owner)) {
       /** @var \PapayaUiControlCommand $command */
       foreach ($this->_commands as $command) {

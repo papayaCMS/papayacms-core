@@ -57,7 +57,7 @@ class PapayaCacheIdentifierDefinitionParametersTest extends \PapayaTestCase {
    */
   public function testGetSourcesWithMethodPost() {
     $definition = new Parameters(
-      array('foo'), NULL, \PapayaRequestParametersInterface::METHOD_POST
+      array('foo'), NULL, \Papaya\Request\Parameters\Access::METHOD_POST
     );
     $this->assertEquals(
       Definition::SOURCE_REQUEST,

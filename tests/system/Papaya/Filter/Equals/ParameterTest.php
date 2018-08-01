@@ -24,7 +24,7 @@ class PapayaFilterEqualsParameterTest extends \PapayaTestCase {
     $parameters = new \PapayaRequestParameters(array('foo' => 'bar'));
     $filter = new \Papaya\Filter\Equals\Parameter($parameters, 'foo');
     $this->assertAttributeSame($parameters, '_parameters', $filter);
-    $this->assertAttributeEquals(new \PapayaRequestParametersName('foo'), '_parameterName', $filter);
+    $this->assertAttributeEquals(new \Papaya\Request\Parameters\Name('foo'), '_parameterName', $filter);
   }
 
   /**

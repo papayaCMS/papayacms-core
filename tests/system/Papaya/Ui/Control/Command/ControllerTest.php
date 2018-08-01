@@ -23,7 +23,7 @@ class PapayaUiControlCommandControllerTest extends \PapayaTestCase {
   public function testConstructor() {
     $controller = new \PapayaUiControlCommandController('group/sample', 'default');
     $this->assertAttributeEquals(
-      new \PapayaRequestParametersName(array('group', 'sample')), '_parameterName', $controller
+      new \Papaya\Request\Parameters\Name(array('group', 'sample')), '_parameterName', $controller
     );
     $this->assertAttributeEquals(
       'default', '_defaultCommand', $controller

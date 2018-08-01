@@ -21,7 +21,7 @@
 */
 abstract class PapayaUiControlInteractive
   extends \PapayaUiControl
-  implements \PapayaRequestParametersInterface {
+  implements \Papaya\Request\Parameters\Access {
 
   /**
   * Parameter request method

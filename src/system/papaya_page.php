@@ -630,7 +630,7 @@ class papaya_page extends base_object {
       ->get('PAPAYA_URL_LEVEL_SEPARATOR');
     $request = $application->request;
     $parameters = $request->getParameters(Request::SOURCE_QUERY);
-    $query = new \PapayaRequestParametersQuery($parameterGroupSeparator);
+    $query = new Request\Parameters\QueryString($parameterGroupSeparator);
     //get addtional parameters and merge them
     if (!empty($_SERVER['REDIRECT_QUERY_STRING'])) {
       $parameters->merge(
@@ -679,7 +679,7 @@ class papaya_page extends base_object {
   * @return array
   */
   function queryStringToArray($queryString) {
-    $query = new \PapayaRequestParametersQuery(
+    $query = new Request\Parameters\QueryString(
       $this->papaya()->options->get('PAPAYA_URL_LEVEL_SEPARATOR', '')
     );
     return $query->setString($queryString)->values()->toArray();

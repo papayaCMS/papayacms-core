@@ -18,23 +18,23 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaRequestParametersQueryTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaRequestParametersQuery::__construct
+  * @covers \Papaya\Request\Parameters\QueryString::__construct
   */
   public function testConstructor() {
-    $query = new \PapayaRequestParametersQuery(':');
+    $query = new \Papaya\Request\Parameters\QueryString(':');
     $this->assertAttributeEquals(
       ':', '_separator', $query
     );
   }
 
   /**
-   * @covers \PapayaRequestParametersQuery::setSeparator
+   * @covers \Papaya\Request\Parameters\QueryString::setSeparator
    * @dataProvider provideValidSeparators
    * @param string $separator
    * @param string $expected
    */
   public function testSetSeparator($separator, $expected) {
-    $query = new \PapayaRequestParametersQuery();
+    $query = new \Papaya\Request\Parameters\QueryString();
     $query->setSeparator($separator);
     $this->assertAttributeEquals(
       $expected, '_separator', $query
@@ -42,29 +42,29 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaRequestParametersQuery::setSeparator
+  * @covers \Papaya\Request\Parameters\QueryString::setSeparator
   */
   public function testSetSeparatorWithInvalidValueExpectingException() {
-    $query = new \PapayaRequestParametersQuery();
+    $query = new \Papaya\Request\Parameters\QueryString();
     $this->expectException(InvalidArgumentException::class);
     $query->setSeparator('I');
   }
 
   /**
-  * @covers \PapayaRequestParametersQuery::values
+  * @covers \Papaya\Request\Parameters\QueryString::values
   */
   public function testValuesReadImplicitCreate() {
-    $query = new \PapayaRequestParametersQuery();
+    $query = new \Papaya\Request\Parameters\QueryString();
     $this->assertInstanceOf(
       \PapayaRequestParameters::class, $query->values()
     );
   }
 
   /**
-  * @covers \PapayaRequestParametersQuery::values
+  * @covers \Papaya\Request\Parameters\QueryString::values
   */
   public function testValuesWrite() {
-    $query = new \PapayaRequestParametersQuery();
+    $query = new \Papaya\Request\Parameters\QueryString();
     $parameters = new \PapayaRequestParameters();
     $query->values($parameters);
     $this->assertAttributeSame(
@@ -73,10 +73,10 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaRequestParametersQuery::values
+  * @covers \Papaya\Request\Parameters\QueryString::values
   */
   public function testValuesRead() {
-    $query = new \PapayaRequestParametersQuery();
+    $query = new \Papaya\Request\Parameters\QueryString();
     $parameters = new \PapayaRequestParameters();
     $query->values($parameters);
     $this->assertSame(
@@ -85,16 +85,16 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaRequestParametersQuery::setString
-   * @covers \PapayaRequestParametersQuery::_decode
-   * @covers \PapayaRequestParametersQuery::_prepare
+   * @covers \Papaya\Request\Parameters\QueryString::setString
+   * @covers \Papaya\Request\Parameters\QueryString::_decode
+   * @covers \Papaya\Request\Parameters\QueryString::_prepare
    * @dataProvider provideQueryStringsForDecode
    * @param string $queryString
    * @param bool $stripSlashes
    * @param array $expected
    */
   public function testSetString($queryString, $stripSlashes, $expected) {
-    $query = new \PapayaRequestParametersQuery(':');
+    $query = new \Papaya\Request\Parameters\QueryString(':');
     $this->assertSame(
       $query, $query->setString($queryString, $stripSlashes)
     );
@@ -104,15 +104,15 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaRequestParametersQuery::GetString
-   * @covers \PapayaRequestParametersQuery::_encode
+   * @covers \Papaya\Request\Parameters\QueryString::GetString
+   * @covers \Papaya\Request\Parameters\QueryString::_encode
    * @dataProvider provideValuesForEncode
    * @param array $values
    * @param string $groupSeparator
    * @param string $expected
    */
   public function testGetString($values, $groupSeparator, $expected) {
-    $query = new \PapayaRequestParametersQuery($groupSeparator);
+    $query = new \Papaya\Request\Parameters\QueryString($groupSeparator);
     $parameters = new \PapayaRequestParameters();
     $parameters->merge($values);
     $query->values($parameters);
@@ -122,8 +122,8 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaRequestParametersQuery::GetString
-  * @covers \PapayaRequestParametersQuery::_encode
+  * @covers \Papaya\Request\Parameters\QueryString::GetString
+  * @covers \Papaya\Request\Parameters\QueryString::_encode
   */
   public function testGetStringWithObjectArgument() {
     $mock = $this
@@ -134,7 +134,7 @@ class PapayaRequestParametersQueryTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('__toString')
       ->will($this->returnValue('bar'));
-    $query = new \PapayaRequestParametersQuery('[]');
+    $query = new \Papaya\Request\Parameters\QueryString('[]');
     $parameters = new \PapayaRequestParameters();
     $parameters->merge(array('foo' => $mock));
     $query->values($parameters);

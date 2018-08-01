@@ -437,7 +437,7 @@ class Request
       break;
       case \PapayaRequest::SOURCE_QUERY :
         if (isset($this->_url)) {
-          $query = new \PapayaRequestParametersQuery($this->_separator);
+          $query = new Request\Parameters\QueryString($this->_separator);
           $parameters->merge(
             $query->setString($this->_url->getQuery())->values()
           );

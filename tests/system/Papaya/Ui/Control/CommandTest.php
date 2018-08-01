@@ -256,8 +256,8 @@ class PapayaUiControlCommandTest extends \PapayaTestCase {
   public function testParameterMethodGetAfterSet() {
     $command = new \PapayaUiControlCommand_TestProxy();
     $this->assertEquals(
-      \PapayaRequestParametersInterface::METHOD_GET,
-      $command->parameterMethod(\PapayaRequestParametersInterface::METHOD_GET)
+      \Papaya\Request\Parameters\Access::METHOD_GET,
+      $command->parameterMethod(\Papaya\Request\Parameters\Access::METHOD_GET)
     );
   }
 
@@ -269,13 +269,13 @@ class PapayaUiControlCommandTest extends \PapayaTestCase {
     $owner
       ->expects($this->once())
       ->method('parameterMethod')
-      ->with($this->equalTo(\PapayaRequestParametersInterface::METHOD_POST))
+      ->with($this->equalTo(\Papaya\Request\Parameters\Access::METHOD_POST))
       ->will($this->returnArgument(0));
     $command = new \PapayaUiControlCommand_TestProxy();
     $command->owner($owner);
     $this->assertEquals(
-      \PapayaRequestParametersInterface::METHOD_POST,
-      $command->parameterMethod(\PapayaRequestParametersInterface::METHOD_POST)
+      \Papaya\Request\Parameters\Access::METHOD_POST,
+      $command->parameterMethod(\Papaya\Request\Parameters\Access::METHOD_POST)
     );
   }
 

@@ -77,7 +77,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('getParameterName')
       ->with(array('buttonname', 1))
-      ->will($this->returnValue(new \PapayaRequestParametersName('buttonname[1]')));
+      ->will($this->returnValue(new \Papaya\Request\Parameters\Name('buttonname[1]')));
     $document = new \PapayaXmlDocument();
     $document->appendElement('test');
     $button = new \PapayaUiDialogButtonSubmitNamed('Test Caption', 'buttonname');
@@ -153,7 +153,7 @@ class PapayaUiDialogButtonSubmitNamedTest extends \PapayaTestCase {
       ->expects($this->any())
       ->method('getParameterName')
       ->with(array('buttonname', 42))
-      ->will($this->returnValue(new \PapayaRequestParametersName('buttonname[42]')));
+      ->will($this->returnValue(new \Papaya\Request\Parameters\Name('buttonname[42]')));
     $dialog
       ->expects($this->any())
       ->method('parameterGroup')

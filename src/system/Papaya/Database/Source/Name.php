@@ -157,7 +157,7 @@ class Name {
         'database' => $this->_getMatchValue($matches, 'database')
       );
       if ($queryStringStart > 0) {
-        $query = new \PapayaRequestParametersQuery();
+        $query = new \Papaya\Request\Parameters\QueryString();
         $this->_parameters = $query->setString(substr($name, $queryStringStart + 1))->values();
       } else {
         $this->_parameters = new \PapayaRequestParameters();

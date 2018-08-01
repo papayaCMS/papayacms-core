@@ -18,42 +18,42 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class PapayaRequestParametersNameTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaRequestParametersName::__construct
+  * @covers \Papaya\Request\Parameters\Name::__construct
   */
   public function testContructorWithoutParameters() {
     $this->assertInstanceOf(
-      \PapayaRequestParametersName::class, new \PapayaRequestParametersName()
+      \Papaya\Request\Parameters\Name::class, new \Papaya\Request\Parameters\Name()
     );
   }
 
   /**
-  * @covers \PapayaRequestParametersName::separator
+  * @covers \Papaya\Request\Parameters\Name::separator
   */
   public function testSetSeparator() {
-    $name = new \PapayaRequestParametersName();
+    $name = new \Papaya\Request\Parameters\Name();
     $this->assertEquals(
       '*', $name->separator('*')
     );
   }
 
   /**
-  * @covers \PapayaRequestParametersName::separator
+  * @covers \Papaya\Request\Parameters\Name::separator
   */
   public function testSetSeparatorExpectingException() {
-    $name = new \PapayaRequestParametersName();
+    $name = new \Papaya\Request\Parameters\Name();
     $this->expectException(InvalidArgumentException::class);
     $this->expectExceptionMessage('Invalid parameter group separator: "fail".');
     $name->separator('fail');
   }
 
   /**
-  * @covers \PapayaRequestParametersName::__construct
-  * @covers \PapayaRequestParametersName::set
-  * @covers \PapayaRequestParametersName::parse
-  * @covers \PapayaRequestParametersName::parseArray
+  * @covers \Papaya\Request\Parameters\Name::__construct
+  * @covers \Papaya\Request\Parameters\Name::set
+  * @covers \Papaya\Request\Parameters\Name::parse
+  * @covers \Papaya\Request\Parameters\Name::parseArray
   */
   public function testContructorWithArray() {
-    $name = new \PapayaRequestParametersName(array('foo', 'bar'), '/');
+    $name = new \Papaya\Request\Parameters\Name(array('foo', 'bar'), '/');
     $this->assertAttributeEquals(
       array('foo', 'bar'), '_parts', $name
     );
@@ -63,22 +63,22 @@ class PapayaRequestParametersNameTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaRequestParametersName::__construct
-  * @covers \PapayaRequestParametersName::set
+  * @covers \Papaya\Request\Parameters\Name::__construct
+  * @covers \Papaya\Request\Parameters\Name::set
   */
   public function testContructorWithSeparator() {
-    $name = new \PapayaRequestParametersName(array('foo', 'bar'), '/');
+    $name = new \Papaya\Request\Parameters\Name(array('foo', 'bar'), '/');
     $this->assertEquals(
       '/', $name->separator()
     );
   }
 
   /**
-  * @covers \PapayaRequestParametersName::set
+  * @covers \Papaya\Request\Parameters\Name::set
   */
   public function testSetFromObject() {
-    $original = new \PapayaRequestParametersName('foo/bar[]', '/');
-    $name = new \PapayaRequestParametersName($original);
+    $original = new \Papaya\Request\Parameters\Name('foo/bar[]', '/');
+    $name = new \Papaya\Request\Parameters\Name($original);
     $name->set($original);
     $this->assertEquals(
       array('foo', 'bar', ''), iterator_to_array($name)
@@ -89,10 +89,10 @@ class PapayaRequestParametersNameTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaRequestParametersName::setArray
+  * @covers \Papaya\Request\Parameters\Name::setArray
   */
   public function testSetArray() {
-    $name = new \PapayaRequestParametersName();
+    $name = new \Papaya\Request\Parameters\Name();
     $name->setArray(array('foo', 'bar'));
     $this->assertAttributeEquals(
       array('foo', 'bar'), '_parts', $name
@@ -100,50 +100,50 @@ class PapayaRequestParametersNameTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaRequestParametersName::__construct
-  * @covers \PapayaRequestParametersName::set
-  * @covers \PapayaRequestParametersName::parse
-  * @covers \PapayaRequestParametersName::parseString
+  * @covers \Papaya\Request\Parameters\Name::__construct
+  * @covers \Papaya\Request\Parameters\Name::set
+  * @covers \Papaya\Request\Parameters\Name::parse
+  * @covers \Papaya\Request\Parameters\Name::parseString
   */
   public function testContructorWithString() {
-    $name = new \PapayaRequestParametersName('foo/bar');
+    $name = new \Papaya\Request\Parameters\Name('foo/bar');
     $this->assertAttributeEquals(
       array('foo', 'bar'), '_parts', $name
     );
   }
 
   /**
-  * @covers \PapayaRequestParametersName::__construct
-  * @covers \PapayaRequestParametersName::set
-  * @covers \PapayaRequestParametersName::parse
-  * @covers \PapayaRequestParametersName::parseString
+  * @covers \Papaya\Request\Parameters\Name::__construct
+  * @covers \Papaya\Request\Parameters\Name::set
+  * @covers \Papaya\Request\Parameters\Name::parse
+  * @covers \Papaya\Request\Parameters\Name::parseString
   */
   public function testContructorWithInteger() {
-    $name = new \PapayaRequestParametersName(23);
+    $name = new \Papaya\Request\Parameters\Name(23);
     $this->assertAttributeEquals(
       array('23'), '_parts', $name
     );
   }
 
   /**
-  * @covers \PapayaRequestParametersName::parse
+  * @covers \Papaya\Request\Parameters\Name::parse
   */
   public function testParseWithInvalidArgument() {
-    $name = new \PapayaRequestParametersName();
+    $name = new \Papaya\Request\Parameters\Name();
     $this->expectException(InvalidArgumentException::class);
     $name->parse(NULL);
   }
 
   /**
-   * @covers \PapayaRequestParametersName::setString
-   * @covers \PapayaRequestParametersName::parseString
+   * @covers \Papaya\Request\Parameters\Name::setString
+   * @covers \Papaya\Request\Parameters\Name::parseString
    * @dataProvider provideNameStrings
    * @param array $nameArray
    * @param string $nameString
    * @param string $separator
    */
   public function testSetString(array $nameArray, $nameString, $separator) {
-    $name = new \PapayaRequestParametersName();
+    $name = new \Papaya\Request\Parameters\Name();
     $name->setString($nameString, $separator);
     $this->assertAttributeEquals(
       $nameArray, '_parts', $name
@@ -151,11 +151,11 @@ class PapayaRequestParametersNameTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaRequestParametersName::setString
-  * @covers \PapayaRequestParametersName::parseString
+  * @covers \Papaya\Request\Parameters\Name::setString
+  * @covers \Papaya\Request\Parameters\Name::parseString
   */
   public function testSetStringWithListSyntax() {
-    $name = new \PapayaRequestParametersName();
+    $name = new \Papaya\Request\Parameters\Name();
     $name->setString('foo/bar[]', '/');
     $this->assertAttributeEquals(
       array('foo', 'bar', ''), '_parts', $name
@@ -163,10 +163,10 @@ class PapayaRequestParametersNameTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaRequestParametersName::append
+  * @covers \Papaya\Request\Parameters\Name::append
   */
   public function testAppend() {
-    $name = new \PapayaRequestParametersName(array('foo', 'bar'));
+    $name = new \Papaya\Request\Parameters\Name(array('foo', 'bar'));
     $name->append('moo');
     $this->assertAttributeEquals(
       array('foo', 'bar', 'moo'), '_parts', $name
@@ -174,10 +174,10 @@ class PapayaRequestParametersNameTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaRequestParametersName::prepend
+  * @covers \Papaya\Request\Parameters\Name::prepend
   */
   public function testPrepend() {
-    $name = new \PapayaRequestParametersName(array('foo', 'bar'));
+    $name = new \Papaya\Request\Parameters\Name(array('foo', 'bar'));
     $name->prepend('moo');
     $this->assertAttributeEquals(
       array('moo', 'foo', 'bar'), '_parts', $name
@@ -185,14 +185,14 @@ class PapayaRequestParametersNameTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaRequestParametersName::insertBefore
+   * @covers \Papaya\Request\Parameters\Name::insertBefore
    * @dataProvider provideInsertBeforeData
    * @param array $expected
    * @param int $index
    * @param string $additional
    */
   public function testInsertBefore(array $expected, $index, $additional) {
-    $name = new \PapayaRequestParametersName(array('foo', 'bar'));
+    $name = new \Papaya\Request\Parameters\Name(array('foo', 'bar'));
     $name->insertBefore($index, $additional);
     $this->assertEquals(
       $expected,
@@ -201,67 +201,67 @@ class PapayaRequestParametersNameTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaRequestParametersName::getString
+   * @covers \Papaya\Request\Parameters\Name::getString
    * @dataProvider provideNameStrings
    * @param array $nameArray
    * @param string $nameString
    * @param string $separator
    */
   public function testGetString(array $nameArray, $nameString, $separator) {
-    $name = new \PapayaRequestParametersName($nameArray);
+    $name = new \Papaya\Request\Parameters\Name($nameArray);
     $this->assertEquals(
       $nameString, $name->getString($separator)
     );
   }
 
   /**
-  * @covers \PapayaRequestParametersName::getString
+  * @covers \Papaya\Request\Parameters\Name::getString
   */
   public function testGetStringExpectingEmpty() {
-    $name = new \PapayaRequestParametersName();
+    $name = new \Papaya\Request\Parameters\Name();
     $this->assertEquals(
       '', $name->getString()
     );
   }
 
   /**
-  * @covers \PapayaRequestParametersName::__toString
+  * @covers \Papaya\Request\Parameters\Name::__toString
   */
   public function testMagicMethodToString() {
-    $name = new \PapayaRequestParametersName('foo/bar');
+    $name = new \Papaya\Request\Parameters\Name('foo/bar');
     $this->assertEquals(
       'foo[bar]', (string)$name
     );
   }
 
   /**
-  * @covers \PapayaRequestParametersName::__toString
+  * @covers \Papaya\Request\Parameters\Name::__toString
   */
   public function testMagicMethodToStringWihtSeparator() {
-    $name = new \PapayaRequestParametersName('foo/bar', '*');
+    $name = new \Papaya\Request\Parameters\Name('foo/bar', '*');
     $this->assertEquals(
       'foo*bar', (string)$name
     );
   }
 
   /**
-  * @covers \PapayaRequestParametersName::getArray
+  * @covers \Papaya\Request\Parameters\Name::getArray
   */
   public function testGetArray() {
-    $name = new \PapayaRequestParametersName('foo/bar');
+    $name = new \Papaya\Request\Parameters\Name('foo/bar');
     $this->assertEquals(
       array('foo', 'bar'), $name->getArray()
     );
   }
 
   /**
-  * @covers \PapayaRequestParametersName::__construct
-  * @covers \PapayaRequestParametersName::set
-  * @covers \PapayaRequestParametersName::parse
+  * @covers \Papaya\Request\Parameters\Name::__construct
+  * @covers \Papaya\Request\Parameters\Name::set
+  * @covers \Papaya\Request\Parameters\Name::parse
   */
   public function testContructorWithItself() {
-    $name = new \PapayaRequestParametersName(
-      new \PapayaRequestParametersName(array('foo', 'bar'), '/')
+    $name = new \Papaya\Request\Parameters\Name(
+      new \Papaya\Request\Parameters\Name(array('foo', 'bar'), '/')
     );
     $this->assertAttributeEquals(
       array('foo', 'bar'), '_parts', $name
@@ -272,53 +272,53 @@ class PapayaRequestParametersNameTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaRequestParametersName::offsetExists
+  * @covers \Papaya\Request\Parameters\Name::offsetExists
   */
   public function testArrayAccessExistsExpectingTrue() {
-    $name = new \PapayaRequestParametersName('foo/bar');
+    $name = new \Papaya\Request\Parameters\Name('foo/bar');
     $this->assertTrue(isset($name[1]));
   }
 
   /**
-  * @covers \PapayaRequestParametersName::offsetExists
+  * @covers \Papaya\Request\Parameters\Name::offsetExists
   */
   public function testArrayAccessExistsExpectingFalse() {
-    $name = new \PapayaRequestParametersName('foo');
+    $name = new \Papaya\Request\Parameters\Name('foo');
     $this->assertFalse(isset($name[1]));
   }
 
   /**
-  * @covers \PapayaRequestParametersName::offsetGet
-  * @covers \PapayaRequestParametersName::offsetSet
+  * @covers \Papaya\Request\Parameters\Name::offsetGet
+  * @covers \Papaya\Request\Parameters\Name::offsetSet
   */
   public function testArrayAccessGetAfterSet() {
-    $name = new \PapayaRequestParametersName('foo');
+    $name = new \Papaya\Request\Parameters\Name('foo');
     $name[] = 'bar';
     $this->assertEquals('bar', $name[1]);
   }
 
   /**
-  * @covers \PapayaRequestParametersName::offsetUnset
+  * @covers \Papaya\Request\Parameters\Name::offsetUnset
   */
   public function testArrayAccessUnset() {
-    $name = new \PapayaRequestParametersName('foo/bar');
+    $name = new \Papaya\Request\Parameters\Name('foo/bar');
     unset($name[0]);
     $this->assertFalse(isset($name[1]));
   }
 
   /**
-  * @covers \PapayaRequestParametersName::count
+  * @covers \Papaya\Request\Parameters\Name::count
   */
   public function testCountable() {
-    $name = new \PapayaRequestParametersName('foo/bar');
+    $name = new \Papaya\Request\Parameters\Name('foo/bar');
     $this->assertCount(2, $name);
   }
 
   /**
-  * @covers \PapayaRequestParametersName::getIterator
+  * @covers \Papaya\Request\Parameters\Name::getIterator
   */
   public function testIteratorAggregate() {
-    $name = new \PapayaRequestParametersName('foo/bar');
+    $name = new \Papaya\Request\Parameters\Name('foo/bar');
     $this->assertEquals(array('foo', 'bar'), $name->getIterator()->getArrayCopy());
   }
 

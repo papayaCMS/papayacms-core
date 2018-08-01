@@ -156,7 +156,7 @@ class PapayaUiPagingCount extends \PapayaUiControl {
   /**
   * Create object and store needed data.
   *
-  * @param string|array|\PapayaRequestParametersName $parameterName
+  * @param string|array|\Papaya\Request\Parameters\Name $parameterName
   * @param integer $currentPage
   * @param integer $itemsCount
   */

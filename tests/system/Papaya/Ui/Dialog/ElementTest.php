@@ -65,7 +65,7 @@ class PapayaUiDialogElementTest extends \PapayaTestCase {
     $dialog
       ->expects($this->once())
       ->method('getParameterName')
-      ->will($this->returnValue(new \PapayaRequestParametersName('param')));
+      ->will($this->returnValue(new \Papaya\Request\Parameters\Name('param')));
     $element = new \PapayaUiDialogElement_TestProxy();
     $request = $this->mockPapaya()->request();
     $application = $this->mockPapaya()->application(array('request' => $request));

@@ -32,7 +32,7 @@ class Parameter implements \Papaya\Filter {
   /**
    * Given parameters name object
    *
-   * @var \PapayaRequestParametersName
+   * @var \Papaya\Request\Parameters\Name
    */
   private $_parameterName = TRUE;
 
@@ -44,7 +44,7 @@ class Parameter implements \Papaya\Filter {
    */
   public function __construct(\PapayaRequestParameters $parameters, $parameterName) {
     $this->_parameters = $parameters;
-    $this->_parameterName = new \PapayaRequestParametersName($parameterName);
+    $this->_parameterName = new \Papaya\Request\Parameters\Name($parameterName);
   }
 
   /**

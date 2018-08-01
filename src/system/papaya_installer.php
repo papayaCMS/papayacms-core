@@ -1513,7 +1513,7 @@ class papaya_installer extends base_db {
   }
 
   public function getOptionsValidator() {
-    return new \PapayaRequestParametersValidator(
+    return new \Papaya\Request\Parameters\Validator(
       array(
         array('PAPAYA_PATH_DATA', new \Papaya\Filter\NotEmpty()),
         array('givenname', new \Papaya\Filter\NotEmpty()),

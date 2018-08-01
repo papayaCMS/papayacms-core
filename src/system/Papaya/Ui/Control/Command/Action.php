@@ -53,10 +53,10 @@ class PapayaUiControlCommandAction extends \PapayaUiControlCommand {
   /**
    * Getter/Setter to the validated parameters data subobject.
    *
-   * @param \PapayaRequestParametersValidator $data
-   * @return null|\PapayaRequestParametersValidator|\PapayaUiDialog
+   * @param \Papaya\Request\Parameters\Validator $data
+   * @return null|\Papaya\Request\Parameters\Validator|\PapayaUiDialog
    */
-  public function data(\PapayaRequestParametersValidator $data = NULL) {
+  public function data(\Papaya\Request\Parameters\Validator $data = NULL) {
     if (isset($data)) {
       $this->_data = $data;
     } elseif (NULL === $this->_data) {
@@ -69,10 +69,10 @@ class PapayaUiControlCommandAction extends \PapayaUiControlCommand {
    * Create parameters validator using the "getDefintion()" callback
    *
    * @param array|NULL $definitions
-   * @return \PapayaRequestParametersValidator
+   * @return \Papaya\Request\Parameters\Validator
    */
   protected function _createData(array $definitions = NULL) {
-    return new \PapayaRequestParametersValidator(
+    return new \Papaya\Request\Parameters\Validator(
       isset($definitions) ? $definitions : $this->callbacks()->getDefinition(),
       $this->parameters()
     );

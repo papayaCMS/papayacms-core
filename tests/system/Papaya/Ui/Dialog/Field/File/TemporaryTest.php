@@ -46,7 +46,7 @@ class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
    */
   public function testValidateWithFileExpectingTrue() {
     $file = $this
-      ->getMockBuilder(\PapayaRequestParameterFile::class)
+      ->getMockBuilder(\Papaya\Request\Parameter\File::class)
       ->disableOriginalConstructor()
       ->getMock();
     $file
@@ -64,7 +64,7 @@ class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
    */
   public function testValidateWithoutOptionalFileExpectingTrue() {
     $file = $this
-      ->getMockBuilder(\PapayaRequestParameterFile::class)
+      ->getMockBuilder(\Papaya\Request\Parameter\File::class)
       ->disableOriginalConstructor()
       ->getMock();
     $file
@@ -82,7 +82,7 @@ class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
    */
   public function testValidateWithoutManatoryFileExpectingFalse() {
     $file = $this
-      ->getMockBuilder(\PapayaRequestParameterFile::class)
+      ->getMockBuilder(\Papaya\Request\Parameter\File::class)
       ->disableOriginalConstructor()
       ->getMock();
     $file
@@ -109,7 +109,7 @@ class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
    */
   public function testFileGetAfterSet() {
     $file = $this
-      ->getMockBuilder(\PapayaRequestParameterFile::class)
+      ->getMockBuilder(\Papaya\Request\Parameter\File::class)
       ->disableOriginalConstructor()
       ->getMock();
     $field = new \PapayaUiDialogFieldFileTemporary('Caption', 'name');
@@ -122,6 +122,6 @@ class PapayaUiDialogFieldFileTemporaryTest extends \PapayaTestCase {
    */
   public function testFileGetWithImplicitCreate() {
     $field = new \PapayaUiDialogFieldFileTemporary('Caption', 'name');
-    $this->assertInstanceOf(\PapayaRequestParameterFile::class, $field->file());
+    $this->assertInstanceOf(\Papaya\Request\Parameter\File::class, $field->file());
   }
 }

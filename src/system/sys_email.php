@@ -516,7 +516,7 @@ class email extends base_object {
         if (!(isset($this->imgGenerator) && is_object($this->imgGenerator))) {
           $this->imgGenerator = new base_imagegenerator();
         }
-        $query = new \PapayaRequestParametersQuery();
+        $query = new \Papaya\Request\Parameters\QueryString();
         $params = $query->setString($regs[10])->values()->toArray();
         if (isset($regs[6]) &&
             $this->imgGenerator->loadByIdent($regs[6]) &&

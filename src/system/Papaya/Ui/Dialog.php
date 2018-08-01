@@ -422,15 +422,15 @@ class PapayaUiDialog extends \PapayaUiControlInteractive {
   }
 
   /**
-   * Parses a parameter name into an {@see \PapayaRequestParametersName}. The object can be casted to
+   * Parses a parameter name into an {@see \Papaya\Request\Parameters\Papaya\Request\Parameters\Name}. The object can be casted to
    * string. If the dialog uses the method "GET" the request parameter level sepearator will be used.
    *
    * @param string|array $name
-   * @return \PapayaRequestParametersName
+   * @return \Papaya\Request\Parameters\Name
    * @throws \InvalidArgumentException
    */
   public function getParameterName($name) {
-    $parts = new \PapayaRequestParametersName($name);
+    $parts = new \Papaya\Request\Parameters\Name($name);
     if ($this->parameterMethod() === self::METHOD_GET) {
       $parts->separator($this->papaya()->request->getParameterGroupSeparator());
     }

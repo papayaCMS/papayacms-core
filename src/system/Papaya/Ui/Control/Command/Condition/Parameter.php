@@ -24,7 +24,7 @@ class PapayaUiControlCommandConditionParameter extends \PapayaUiControlCommandCo
   /**
   * The parameter name
   *
-  * @var string|array|\PapayaRequestParametersName
+  * @var string|array|\Papaya\Request\Parameters\Name
   */
   private $_parameterName = NULL;
 
@@ -38,7 +38,7 @@ class PapayaUiControlCommandConditionParameter extends \PapayaUiControlCommandCo
   /**
   * Create object, store parameter and filter.
   *
-  * @param string|array|\PapayaRequestParametersName $parameterName
+  * @param string|array|\Papaya\Request\Parameters\Name $parameterName
   * @param \Papaya\Filter $filter
   */
   public function __construct($parameterName, \Papaya\Filter $filter) {

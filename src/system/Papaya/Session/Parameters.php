@@ -145,7 +145,7 @@ class PapayaSessionParameters extends \Papaya\Application\BaseObject {
   * @return array string
   */
   private function getIdentifier($parameterName) {
-    $name = new \PapayaRequestParametersName($parameterName);
+    $name = new \Papaya\Request\Parameters\Name($parameterName);
     return array($this->_group, $name->getString());
   }
 }

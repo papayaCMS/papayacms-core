@@ -22,7 +22,7 @@ namespace Papaya\BaseObject;
  */
 abstract class Interactive
   extends \Papaya\Application\BaseObject
-  implements \PapayaRequestParametersInterface {
+  implements \Papaya\Request\Parameters\Access {
 
   /**
    * Parameter request method

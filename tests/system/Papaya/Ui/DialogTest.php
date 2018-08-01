@@ -197,7 +197,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   */
   public function testGetParameterNameReturnsObject() {
     $dialog = new \PapayaUiDialog_TestProxy(new stdClass());
-    $this->assertInstanceOf(\PapayaRequestParametersName::class, $dialog->getParameterName('foo'));
+    $this->assertInstanceOf(\Papaya\Request\Parameters\Name::class, $dialog->getParameterName('foo'));
   }
 
   /**

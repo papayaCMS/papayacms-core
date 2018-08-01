@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Request\Parameters;
 /**
-* Papaya Request Parameter validation, allows to validate a group of parameters
-* against an definition and access them in a filtered variant
-*
-* @package Papaya-Library
-* @subpackage Request
-*/
-class PapayaRequestParametersValidator
+ * Papaya Request Parameter validation, allows to validate a group of parameters
+ * against an definition and access them in a filtered variant
+ *
+ * @package Papaya-Library
+ * @subpackage Request
+ */
+class Validator
   implements \ArrayAccess, \IteratorAggregate {
 
   /**
@@ -49,7 +50,7 @@ class PapayaRequestParametersValidator
   private $_validationResult;
 
   /**
-   * PapayaRequestParametersValidator constructor.
+   * Papaya\Request\Parameters\PapayaRequestParametersValidator constructor.
    *
    * @param array $definitions
    * @param array|\PapayaRequestParameters $parameters

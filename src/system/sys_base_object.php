@@ -76,7 +76,7 @@ define('MSG_ERROR', \Papaya\Message::SEVERITY_ERROR);
 * @package Papaya
 * @subpackage Core
 */
-class base_object extends BaseObject implements \PapayaRequestParametersInterface {
+class base_object extends BaseObject implements \Papaya\Request\Parameters\Access {
   /**
   * Error messages, not used any more
   * @deprecated
@@ -721,7 +721,7 @@ class base_object extends BaseObject implements \PapayaRequestParametersInterfac
    * @return string
    */
   public function recodeQueryString($queryString, $newQueryParams = array()) {
-    $query = new \PapayaRequestParametersQuery(
+    $query = new \Papaya\Request\Parameters\QueryString(
       $this->papaya()->options->get('PAPAYA_URL_LEVEL_SEPARATOR')
     );
     $query->setString($queryString);

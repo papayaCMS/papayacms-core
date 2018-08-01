@@ -97,7 +97,10 @@ class Autoloader {
 
     'PapayaObject' => Application\BaseObject::class,
     'PapayaObjectInterface' => Application\Access::class,
-    'PapayaObjectInterfacePropertiesWriteable' => Papaya\BaseObject\Interfaces\Properties\Writable::class,
+    'PapayaObjectInterfacePropertiesWriteable' => BaseObject\Interfaces\Properties\Writable::class,
+
+    'PapayaRequestParametersInterface' => Request\Parameters\Access::class,
+    'PapayaRequestParametersQuery' => Request\Parameter\PapayaRequestParametersQuery::class
   );
 
   private static $_mapParts = array(

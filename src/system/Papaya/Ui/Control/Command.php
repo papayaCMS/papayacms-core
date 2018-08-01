@@ -125,10 +125,10 @@ abstract class PapayaUiControlCommand extends \PapayaUiControlInteractive {
   * If the owner is emtpy and exception is thrown.
   *
   * @throws \LogicException
-  * @param \PapayaRequestParametersInterface|NULL $owner
-  * @return \PapayaRequestParametersInterface
+  * @param \Papaya\Request\Parameters\Access|NULL $owner
+  * @return \Papaya\Request\Parameters\Access
   */
-  public function owner(\PapayaRequestParametersInterface $owner = NULL) {
+  public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {
     if (isset($owner)) {
       $this->_owner = $owner;
       $this->papaya($owner->papaya());

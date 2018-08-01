@@ -23,7 +23,7 @@ class PapayaObjectInteractiveTest extends \PapayaTestCase {
   public function testParameterMethod() {
     $parts = new \PapayaObjectInteractive_TestProxy();
     $this->assertEquals(
-      \PapayaRequestParametersInterface::METHOD_MIXED_POST,
+      \Papaya\Request\Parameters\Access::METHOD_MIXED_POST,
       $parts->parameterMethod()
     );
   }
@@ -34,8 +34,8 @@ class PapayaObjectInteractiveTest extends \PapayaTestCase {
   public function testParameterMethodChange() {
     $parts = new \PapayaObjectInteractive_TestProxy();
     $this->assertEquals(
-      \PapayaRequestParametersInterface::METHOD_MIXED_GET,
-      $parts->parameterMethod(\PapayaRequestParametersInterface::METHOD_MIXED_GET)
+      \Papaya\Request\Parameters\Access::METHOD_MIXED_GET,
+      $parts->parameterMethod(\Papaya\Request\Parameters\Access::METHOD_MIXED_GET)
     );
   }
 

@@ -34,7 +34,7 @@ class PapayaUiDialogFieldFileTemporary extends \PapayaUiDialogField {
   protected $_type = 'file';
 
   /**
-   * @var \PapayaRequestParameterFile
+   * @var \Papaya\Request\Parameter\File
    */
   private $_file = NULL;
 
@@ -97,14 +97,14 @@ class PapayaUiDialogFieldFileTemporary extends \PapayaUiDialogField {
    * Getter/Setter for the file values subobject. It encapsulates the data from the $_FILES
    * superglobal array
    *
-   * @param \PapayaRequestParameterFile $file
-   * @return \PapayaRequestParameterFile
+   * @param \Papaya\Request\Parameter\File $file
+   * @return \Papaya\Request\Parameter\File
    */
-  public function file(\PapayaRequestParameterFile $file = NULL) {
+  public function file(\Papaya\Request\Parameter\File $file = NULL) {
     if (isset($file)) {
       $this->_file = $file;
     } elseif (NULL == $this->_file) {
-      $this->_file = new \PapayaRequestParameterFile(
+      $this->_file = new \Papaya\Request\Parameter\File(
         $this->_getParameterName($this->getName())
       );
     }

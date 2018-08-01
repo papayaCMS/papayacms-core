@@ -36,7 +36,7 @@ class PapayaUiToolbarSelectButtons extends \PapayaUiToolbarSelect {
    */
   public function appendTo(\PapayaXmlElement $parent) {
     $currentValue = $this->getCurrentValue();
-    $parameterName = new \PapayaRequestParametersName($this->_parameterName);
+    $parameterName = new \Papaya\Request\Parameters\Name($this->_parameterName);
     foreach ($this->_options as $value => $data) {
       if (is_array($data)) {
         if (array_key_exists('enabled', $data) && !$data['enabled']) {

@@ -58,10 +58,10 @@ class PapayaUiControlCommandList
   /**
    * Overload owner method to set owner on all commands, too.
    *
-   * @param \PapayaRequestParametersInterface|\PapayaUiControlInteractive $owner
-   * @return \PapayaRequestParametersInterface
+   * @param \Papaya\Request\Parameters\Access|\PapayaUiControlInteractive $owner
+   * @return \Papaya\Request\Parameters\Access
    */
-  public function owner(\PapayaRequestParametersInterface $owner = NULL) {
+  public function owner(\Papaya\Request\Parameters\Access $owner = NULL) {
     \PapayaUtilConstraints::assertInstanceOf(\PapayaUiControlInteractive::class, $owner);
     if (isset($owner)) {
       /** @var \PapayaUiControlCommand $command */
