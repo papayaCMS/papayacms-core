@@ -53,7 +53,7 @@ class PapayaAdministrationPluginEditorFieldsTest extends \PapayaTestCase {
       ->will($this->returnValue(new EmptyIterator()));
 
     $builder = $this
-      ->getMockBuilder(\PapayaUiDialogFieldBuilderArray::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog\Field\Builder\FromArray::class)
       ->disableOriginalConstructor()
       ->getMock();
     $builder
@@ -80,7 +80,7 @@ class PapayaAdministrationPluginEditorFieldsTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */
     $content = $this->createMock(\Papaya\Plugin\Editable\Content::class);
     $builder = $this
-      ->getMockBuilder(\PapayaUiDialogFieldBuilderArray::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog\Field\Builder\FromArray::class)
       ->disableOriginalConstructor()
       ->getMock();
     $editor = new Fields($content, array());
@@ -95,6 +95,6 @@ class PapayaAdministrationPluginEditorFieldsTest extends \PapayaTestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Plugin\Editable\Content $content */
     $content = $this->createMock(\Papaya\Plugin\Editable\Content::class);
     $editor = new Fields($content, array());
-    $this->assertInstanceOf(\PapayaUiDialogFieldBuilderArray::class, $editor->builder());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Builder\FromArray::class, $editor->builder());
   }
 }

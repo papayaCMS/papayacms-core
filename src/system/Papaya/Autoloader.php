@@ -107,7 +107,8 @@ class Autoloader {
     'PapayaUtilArrayMapper' => Utility\ArrayMapper::class,
     'PapayaUtilArray' => Utility\Arrays::class,
 
-    'PapayaUiDialogButtonSubmitNamed' => Ui\Dialog\Button\NamedSubmit::class
+    'PapayaUiDialogButtonSubmitNamed' => Ui\Dialog\Button\NamedSubmit::class,
+    'PapayaUiDialogFieldBuilderArray' => Ui\Dialog\Field\Builder\FromArray::class
   );
 
   private static $_mapParts = array(

@@ -13,27 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Builder;
 /**
-* Created dialog fields from an $editFields array. This object is used to allow an easier migration.
-*
-* The $editFields where used before to create dialogs from array declarations. The array looks like
-* this:
-*
-* array(
-*   subtitle,
-*   fieldIdentifier => array(
-*     caption, valdation, mandatory, fieldType, parameters, hint, defaultValue, alignment
-*   )
-* );
-*
-* An string element without a key will be interpreted as an field group.
-*
-* The alignment property will get ignored. The new field types does not have one.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldBuilderArray {
+ * Created dialog fields from an $editFields array. This object is used to allow an easier migration.
+ *
+ * The $editFields where used before to create dialogs from array declarations. The array looks like
+ * this:
+ *
+ * array(
+ *   subtitle,
+ *   fieldIdentifier => array(
+ *     caption, valdation, mandatory, fieldType, parameters, hint, defaultValue, alignment
+ *   )
+ * );
+ *
+ * An string element without a key will be interpreted as an field group.
+ *
+ * The alignment property will get ignored. The new field types does not have one.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class FromArray {
 
   /**
    * @var object
@@ -41,15 +42,17 @@ class PapayaUiDialogFieldBuilderArray {
   private $_owner = NULL;
 
   /**
-  * Editfields definition, stored for later getFields() call
-  * @var array
-  */
+   * Editfields definition, stored for later getFields() call
+   *
+   * @var array
+   */
   private $_editFields = array();
 
   /**
-  * Translate captions and hints?
-  * @var boolean
-  */
+   * Translate captions and hints?
+   *
+   * @var boolean
+   */
   private $_translatePhrases = array();
 
   /**
@@ -108,12 +111,12 @@ class PapayaUiDialogFieldBuilderArray {
   );
 
   /**
-  * Create builder object, store field definition and translation mode
-  *
-  * @param object $owner Owner for callback functions
-  * @param array $editFields
-  * @param boolean $translatePhrases
-  */
+   * Create builder object, store field definition and translation mode
+   *
+   * @param object $owner Owner for callback functions
+   * @param array $editFields
+   * @param boolean $translatePhrases
+   */
   public function __construct($owner, array $editFields, $translatePhrases = FALSE) {
     $this->_owner = $owner;
     $this->_editFields = $editFields;
@@ -122,10 +125,10 @@ class PapayaUiDialogFieldBuilderArray {
   }
 
   /**
-  * Create fields array from definition
-  *
-  * @return array
-  */
+   * Create fields array from definition
+   *
+   * @return array
+   */
   public function getFields() {
     $fields = array();
     $group = NULL;
@@ -147,11 +150,11 @@ class PapayaUiDialogFieldBuilderArray {
   }
 
   /**
-  * Add a field group object, group definitions hav only a caption
-  *
-  * @param string $caption
-  * @return \PapayaUiDialogFieldGroup
-  */
+   * Add a field group object, group definitions hav only a caption
+   *
+   * @param string $caption
+   * @return \PapayaUiDialogFieldGroup
+   */
   private function _addGroup($caption) {
     $group = new \PapayaUiDialogFieldGroup(
       $this->_createPhrase($caption)
@@ -160,13 +163,13 @@ class PapayaUiDialogFieldBuilderArray {
   }
 
   /**
-  * Read the field definition and create a field from it
-  *
-  * The field definition is a numerical array.
-  *
-  * @param string $name
-  * @param array $data
-  * @return \PapayaUiDialogField|NULL
+   * Read the field definition and create a field from it
+   *
+   * The field definition is a numerical array.
+   *
+   * @param string $name
+   * @param array $data
+   * @return \PapayaUiDialogField|NULL
    */
   private function _addField($name, array $data) {
     $type = (string)\Papaya\Utility\Arrays::get($data, array('type', 3), 'input');
@@ -200,11 +203,11 @@ class PapayaUiDialogFieldBuilderArray {
   }
 
   /**
-  * If a phrase could need a translation, this method is used to wrap it into an object.
-  *
-  * @param string $string
-  * @return string|\PapayaUiStringTranslated
-  */
+   * If a phrase could need a translation, this method is used to wrap it into an object.
+   *
+   * @param string $string
+   * @return string|\PapayaUiStringTranslated
+   */
   private function _createPhrase($string) {
     return $this->_translatePhrases ? new \PapayaUiStringTranslated($string) : $string;
   }
