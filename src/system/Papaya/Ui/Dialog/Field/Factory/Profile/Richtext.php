@@ -13,17 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a default rte field.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileRichtext extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profiles for a default rte field.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Richtext extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
    * @return \PapayaUiDialogFieldTextareaRichtext
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
     $field = new \PapayaUiDialogFieldTextareaRichtext(

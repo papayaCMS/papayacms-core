@@ -18,26 +18,26 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileInputTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileInput::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Input::getField
    */
   public function testGetField() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
         'default' => 'some value'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileInput();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Input();
     $profile->options($options);
     $this->assertInstanceOf(\PapayaUiDialogFieldInput::class, $field = $profile->getField());
   }
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileInput::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Input::getField
    */
   public function testGetFieldDisabled() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -45,17 +45,17 @@ class PapayaUiDialogFieldFactoryProfileInputTest extends \PapayaTestCase {
         'disabled' => TRUE
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileInput();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Input();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertTrue($field->getDisabled());
   }
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileInput::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Input::getField
    */
   public function testGetFieldWithHint() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -63,7 +63,7 @@ class PapayaUiDialogFieldFactoryProfileInputTest extends \PapayaTestCase {
         'hint' => 'Some hint text'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileInput();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Input();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertSame('Some hint text', $field->getHint());

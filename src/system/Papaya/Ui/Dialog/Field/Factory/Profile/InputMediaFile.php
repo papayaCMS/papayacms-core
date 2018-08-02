@@ -13,27 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a select field displayed as checkboxes. Beaucser of the
-* nature of this field type, multiple selection are possible
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileSelectCheckboxes
-  extends \PapayaUiDialogFieldFactoryProfileSelect {
+ * Field factory profile for a media file selection field.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class InputMediaFile extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
-   * Create a select field displayed as checkboxes
-   *
-   * @param array|\Traversable $elements
-   * @return \PapayaUiDialogFieldSelect
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
+   * @return \PapayaUiDialogFieldInputMediaFile
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
-  protected function createField($elements) {
-    return new \PapayaUiDialogFieldSelectCheckboxes(
+  public function getField() {
+    $field = new \PapayaUiDialogFieldInputMediaFile(
       $this->options()->caption,
-      $this->options()->name,
-      $elements
+      $this->options()->name
     );
+    $field->setHint($this->options()->hint);
+    return $field;
   }
 }

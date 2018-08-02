@@ -13,22 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a rte field using a simpler configuration wiht less elements.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileRichtextIndividual
-  extends \PapayaUiDialogFieldFactoryProfileRichtext {
+ * Field factory profiles for a select field display the media database folders
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class SelectMediaFolder
+  extends Select {
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
-   * @return \PapayaUiDialogFieldTextareaRichtext
+   * @param array|\Traversable $elements
+   * @return \PapayaUiDialogFieldSelectMediaFolder
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
-  public function getField() {
-    $field = parent::getField();
-    $field->setRteMode(\PapayaUiDialogFieldTextareaRichtext::RTE_INDIVIDUAL);
-    return $field;
+  protected function createField($elements) {
+    return new \PapayaUiDialogFieldSelectMediaFolder(
+      $this->options()->caption,
+      $this->options()->name
+    );
   }
 }

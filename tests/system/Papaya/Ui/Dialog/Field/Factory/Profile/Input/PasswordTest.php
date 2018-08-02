@@ -18,26 +18,26 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileInputPasswordTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileInputPassword::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\InputPassword::getField
    */
   public function testGetField() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
         'default' => 'some value'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileInputPassword();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputPassword();
     $profile->options($options);
     $this->assertInstanceOf(\PapayaUiDialogFieldInputPassword::class, $field = $profile->getField());
   }
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileInputPassword::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\InputPassword::getField
    */
   public function testGetFieldWithHint() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -45,7 +45,7 @@ class PapayaUiDialogFieldFactoryProfileInputPasswordTest extends \PapayaTestCase
         'hint' => 'Some hint text'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileInputPassword();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputPassword();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertSame('Some hint text', $field->getHint());

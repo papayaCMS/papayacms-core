@@ -13,24 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profile for a media image selection field.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileInputMediaImage extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profiles for a rte field using a simpler configuration wiht less elements.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class RichtextIndividual
+  extends Richtext {
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
-   * @return \PapayaUiDialogFieldInputMediaImage
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
+   * @return \PapayaUiDialogFieldTextareaRichtext
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldInputMediaImage(
-      $this->options()->caption,
-      $this->options()->name
-    );
-    $field->setHint($this->options()->hint);
+    $field = parent::getField();
+    $field->setRteMode(\PapayaUiDialogFieldTextareaRichtext::RTE_INDIVIDUAL);
     return $field;
   }
 }

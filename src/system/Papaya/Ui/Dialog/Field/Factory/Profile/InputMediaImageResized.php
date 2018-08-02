@@ -13,18 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profile for a media image selection field with resize arguments.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileInputMediaImageResized
-  extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profile for a media image selection field with resize arguments.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class InputMediaImageResized
+  extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
-   * @return \PapayaUiDialogFieldInputMediaImage
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
+   * @return \PapayaUiDialogFieldInputMediaImageResized
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
     $field = new \PapayaUiDialogFieldInputMediaImageResized(

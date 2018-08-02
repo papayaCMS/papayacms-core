@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileSelectTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileSelect::getField
-   * @covers \PapayaUiDialogFieldFactoryProfileSelect::createField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Select::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Select::createField
    */
   public function testGetField() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -30,17 +30,17 @@ class PapayaUiDialogFieldFactoryProfileSelectTest extends \PapayaTestCase {
         'parameters' => array('foo', 'bar')
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileSelect();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Select();
     $profile->options($options);
     $this->assertInstanceOf(\PapayaUiDialogFieldSelect::class, $field = $profile->getField());
   }
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileSelect::getField
-   * @covers \PapayaUiDialogFieldFactoryProfileSelect::createField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Select::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Select::createField
    */
   public function testGetFieldEmptyElementsList() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -48,17 +48,17 @@ class PapayaUiDialogFieldFactoryProfileSelectTest extends \PapayaTestCase {
         'parameters' => NULL
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileSelect();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Select();
     $profile->options($options);
     $this->assertInstanceOf(\PapayaUiDialogFieldSelect::class, $field = $profile->getField());
   }
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileSelect::getField
-   * @covers \PapayaUiDialogFieldFactoryProfileSelect::createField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Select::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Select::createField
    */
   public function testGetFieldWithHint() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -67,7 +67,7 @@ class PapayaUiDialogFieldFactoryProfileSelectTest extends \PapayaTestCase {
         'parameters' => array('foo', 'bar')
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileSelect();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Select();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertSame('Some hint text', $field->getHint());

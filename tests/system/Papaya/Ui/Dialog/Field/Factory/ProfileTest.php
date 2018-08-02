@@ -18,11 +18,11 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfile::options
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile::options
    */
   public function testOptionsGetAfterSet() {
     $profile = new \PapayaUiDialogFieldFactoryProfile_TestProxy();
-    $profile->options($options = $this->createMock(\PapayaUiDialogFieldFactoryOptions::class));
+    $profile->options($options = $this->createMock(\Papaya\Ui\Dialog\Field\Factory\Options::class));
     $this->assertSame(
       $options,
       $profile->options()
@@ -30,19 +30,19 @@ class PapayaUiDialogFieldFactoryProfileTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfile::options
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile::options
    */
   public function testOptionsGetImplicitCreate() {
     $profile = new \PapayaUiDialogFieldFactoryProfile_TestProxy();
     $this->assertInstanceOf(
-      \PapayaUiDialogFieldFactoryOptions::class,
+      \Papaya\Ui\Dialog\Field\Factory\Options::class,
       $profile->options()
     );
   }
 
 }
 
-class PapayaUiDialogFieldFactoryProfile_TestProxy extends \PapayaUiDialogFieldFactoryProfile {
+class PapayaUiDialogFieldFactoryProfile_TestProxy extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   public function getField() {
   }

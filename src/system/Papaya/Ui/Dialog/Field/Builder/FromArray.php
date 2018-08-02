@@ -56,7 +56,7 @@ class FromArray {
   private $_translatePhrases = array();
 
   /**
-   * @var \PapayaUiDialogFieldFactory
+   * @var \Papaya\Ui\Dialog\Field\Factory
    */
   private $_fieldFactory = NULL;
 
@@ -185,7 +185,7 @@ class FromArray {
     if (is_string($filter) && !empty($filter)) {
       $filter = \Papaya\Utility\Arrays::get($this->_filterMapping, $filter, $filter);
     }
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => $name,
         'caption' => \Papaya\Utility\Arrays::get($data, array('caption', 0), ''),
@@ -215,14 +215,14 @@ class FromArray {
   /**
    * Getter/Setter for the field factory
    *
-   * @param \PapayaUiDialogFieldFactory $factory
-   * @return \PapayaUiDialogFieldFactory
+   * @param \Papaya\Ui\Dialog\Field\Factory $factory
+   * @return \Papaya\Ui\Dialog\Field\Factory
    */
-  public function fieldFactory(\PapayaUiDialogFieldFactory $factory = NULL) {
+  public function fieldFactory(\Papaya\Ui\Dialog\Field\Factory $factory = NULL) {
     if (isset($factory)) {
       $this->_fieldFactory = $factory;
     } elseif (NULL === $this->_fieldFactory) {
-      $this->_fieldFactory = new \PapayaUiDialogFieldFactory();
+      $this->_fieldFactory = new \Papaya\Ui\Dialog\Field\Factory();
     }
     return $this->_fieldFactory;
   }

@@ -18,17 +18,17 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileColorTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileColor
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Color
    */
   public function testGetField() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'colorfield',
         'caption' => 'Color',
         'default' => '#FFF'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileColor();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Color();
     $profile->options($options);
     $this->assertInstanceOf(\PapayaUiDialogFieldInputColor::class, $profile->getField());
   }

@@ -13,25 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a generic input with an additional javascript based counter.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileInputCounted extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profiles for a input for an iso datetime.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class InputDateTime extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
    * @return \PapayaUiDialogFieldInput
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldInputCounted(
+    $field = new \PapayaUiDialogFieldInputDate(
       $this->options()->caption,
       $this->options()->name,
-      (int)$this->options()->parameters,
       $this->options()->default,
-      $this->options()->validation
+      $this->options()->mandatory,
+      \Papaya\Filter\Date::DATE_OPTIONAL_TIME
     );
     if ($hint = $this->options()->hint) {
       $field->setHint($hint);

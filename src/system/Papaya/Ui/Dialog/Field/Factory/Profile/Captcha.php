@@ -13,19 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profile for a "captcha" field.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileCaptcha extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profile for a "captcha" field.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Captcha extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
    * Create a color input field
    *
    * @see \PapayaUiDialogFieldInputColor
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
     $field = new \PapayaUiDialogFieldInputCaptcha(

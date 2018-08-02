@@ -13,23 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a select field display the media database folders
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileSelectMediaFolder
-  extends \PapayaUiDialogFieldFactoryProfileSelect {
+ * Field factory profiles for a select field displayed as radio boxes.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class SelectRadio
+  extends Select {
 
   /**
+   * Create a select field displayed as radio boxes
+   *
    * @param array|\Traversable $elements
    * @return \PapayaUiDialogFieldSelect
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
-    return new \PapayaUiDialogFieldSelectMediaFolder(
+    return new \PapayaUiDialogFieldSelectRadio(
       $this->options()->caption,
-      $this->options()->name
+      $this->options()->name,
+      $elements
     );
   }
 }

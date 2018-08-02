@@ -13,26 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a select field that translates the elements of the given list.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileSelectTranslated
-  extends \PapayaUiDialogFieldFactoryProfileSelect {
+ * Field factory profiles for a input for a password.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class InputPassword extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
-   * Wrap elements in a string so they get translated
-   *
-   * @param array|\Traversable $elements
-   * @return \PapayaUiDialogFieldSelect
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
+   * @return \PapayaUiDialogFieldInput
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
-  protected function createField($elements) {
-    return new \PapayaUiDialogFieldSelect(
+  public function getField() {
+    $field = new \PapayaUiDialogFieldInputPassword(
       $this->options()->caption,
       $this->options()->name,
-      new \PapayaUiStringTranslatedList($elements)
+      (int)$this->options()->parameters,
+      $this->options()->validation
     );
+    if ($hint = $this->options()->hint) {
+      $field->setHint($hint);
+    }
+    return $field;
   }
 }

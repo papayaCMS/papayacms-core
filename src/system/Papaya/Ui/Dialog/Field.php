@@ -459,7 +459,7 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
    * @return string
    */
   protected function _getFieldClass($prefix = 'PapayaUi') {
-    $class = get_class($this);
+    $class = str_replace('\\', '', get_class($this));
     if (0 === strpos($class, $prefix)) {
       $class = substr($class, strlen($prefix));
     }

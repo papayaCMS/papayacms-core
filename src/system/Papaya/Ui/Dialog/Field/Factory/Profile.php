@@ -13,41 +13,43 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory;
 /**
-* Abstract superclass for field factory profiles.
-*
-* Each profile defines how a field {@see \PapayaUiDialogField} is created for a specified
-* type. Here is an options subobject to provide data for the field configuration.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiDialogFieldFactoryProfile {
+ * Abstract superclass for field factory profiles.
+ *
+ * Each profile defines how a field {@see \PapayaUiDialogField} is created for a specified
+ * type. Here is an options subobject to provide data for the field configuration.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Profile {
 
   /**
-   * @var \PapayaUiDialogFieldFactoryOptions
+   * @var Options
    */
   private $_options = NULL;
 
   /**
-   * Create the field and return it. Throw an exception if somthing goes wrong
+   * Create the field and return it. Throw an exception if something goes wrong
    *
    * @return \PapayaUiDialogField
-   * @throw \PapayaUiDialogFieldFactoryException
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception
    */
   abstract public function getField();
 
   /**
    * Getter/Setter for the options subobject
    *
-   * @param \PapayaUiDialogFieldFactoryOptions $options
-   * @return \PapayaUiDialogFieldFactoryOptions
+   * @param Options $options
+   * @return Options
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
-  public function options(\PapayaUiDialogFieldFactoryOptions $options = NULL) {
-    if (isset($options)) {
+  public function options(Options $options = NULL) {
+    if (NULL !== $options) {
       $this->_options = $options;
-    } elseif (NULL == $this->_options) {
-      $this->_options = new \PapayaUiDialogFieldFactoryOptions();
+    } elseif (NULL === $this->_options) {
+      $this->_options = new Options();
     }
     return $this->_options;
   }

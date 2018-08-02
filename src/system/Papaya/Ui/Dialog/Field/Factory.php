@@ -13,17 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field;
 /**
-* Create dialog fields using profile objects.
-*
-* The factory looks for a matching profile object/class, and uses it to create a dialog field.
-*
-* Profile objects can be registered using the register() method
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactory {
+ * Create dialog fields using profile objects.
+ *
+ * The factory looks for a matching profile object/class, and uses it to create a dialog field.
+ *
+ * Profile objects can be registered using the register() method
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Factory {
 
   /**
    * @var array
@@ -34,27 +35,28 @@ class PapayaUiDialogFieldFactory {
    * Get the profile object for the given name.
    *
    * @param string $name
-   * @return \PapayaUiDialogFieldFactoryProfile
+   * @return Factory\Profile
+   * @throws Factory\Exception\InvalidProfile
    */
   public function getProfile($name) {
     $class = $this->getProfileClass($name);
-    $profile = new $class();
-    return $profile;
+    return new $class();
   }
 
   /**
    * Get a field for the given profile type and options. Profile can either be a valid profile
    * object or a profile name.
    *
-   * @param string|\PapayaUiDialogFieldFactoryProfile $profile
-   * @param \PapayaUiDialogFieldFactoryOptions $options
+   * @param string|Factory\Profile $profile
+   * @param Factory\Options $options
    * @return \PapayaUiDialogField
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception
    */
-  public function getField($profile, \PapayaUiDialogFieldFactoryOptions $options = NULL) {
-    if (!($profile instanceof \PapayaUiDialogFieldFactoryProfile)) {
+  public function getField($profile, Factory\Options $options = NULL) {
+    if (!($profile instanceof Factory\Profile)) {
       $profile = $this->getProfile($profile);
     }
-    if (isset($options)) {
+    if (NULL !== $options) {
       $profile->options($options);
     }
     return $profile->getField();
@@ -62,29 +64,30 @@ class PapayaUiDialogFieldFactory {
 
   /**
    * First check the $_profiles member variable for a registered profile class. If it is not
-   * registered look for a class like "PapayaUiDialogFieldFactoryProfile$name". $name is
+   * registered look for a class like "Papaya\Ui\Dialog\Field\Factory\Profile\$name". $name is
    * converted to camel case with the first letter uppercase.
    *
    * @param string $name
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidProfile
+   * @throws Factory\Exception\InvalidProfile
    * @return string
    */
   private function getProfileClass($name) {
     $name = \Papaya\Utility\Text\Identifier::toCamelCase($name, TRUE);
     if (isset($this->_profiles[$name])) {
       return $this->_profiles[$name];
-    } elseif (empty($name)) {
-      return __CLASS__.'ProfileInput';
     }
-    $class = __CLASS__.'Profile'.$name;
+    if (empty($name)) {
+      return __CLASS__.'\\Profile\\Input';
+    }
+    $class = __CLASS__.'\\Profile\\'.$name;
     if (class_exists($class)) {
       return $class;
     }
-    throw new \PapayaUiDialogFieldFactoryExceptionInvalidProfile($name);
+    throw new Factory\Exception\InvalidProfile($name);
   }
 
   /**
-   * Register profile classes. They must extend from \PapayaUiDialogFieldFactoryProfile.
+   * Register profile classes. They must extend from \Papaya\Ui\Dialog\Field\Factory\Profile.
    *
    * The are not validated at this point. For a validation the need to be loaded and they may no be
    * needed.

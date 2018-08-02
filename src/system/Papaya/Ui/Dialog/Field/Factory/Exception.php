@@ -13,14 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory;
 /**
-* Abstract superclass for field factory exceptions.
-*
-* A child class is used if something unexpected happend while creating a field using the factory
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiDialogFieldFactoryException extends \Papaya\Exception {
+ * Abstract superclass for field factory exceptions.
+ *
+ * A child class is used if something unexpected happend while creating a field using the factory
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Exception extends \Papaya\Exception {
 
 }

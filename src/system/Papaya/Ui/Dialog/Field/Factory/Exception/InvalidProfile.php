@@ -13,22 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Exception;
 /**
-* Field factory profiles for a rte field using a simpler configuration wiht less elements.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileRichtextSimple
-  extends \PapayaUiDialogFieldFactoryProfileRichtext {
+ * The profile name is invalid, no mapping or profile class was found.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class InvalidProfile
+  extends \Papaya\Ui\Dialog\Field\Factory\Exception {
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
-   * @return \PapayaUiDialogFieldTextareaRichtext
+   * Create exception with compiled message
+   *
+   * @param string $profileName
    */
-  public function getField() {
-    $field = parent::getField();
-    $field->setRteMode(\PapayaUiDialogFieldTextareaRichtext::RTE_SIMPLE);
-    return $field;
+  public function __construct($profileName) {
+    parent::__construct(
+      sprintf('Invalid field factory profile name "%s".', $profileName)
+    );
   }
 }

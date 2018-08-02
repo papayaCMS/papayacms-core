@@ -108,7 +108,9 @@ class Autoloader {
     'PapayaUtilArray' => Utility\Arrays::class,
 
     'PapayaUiDialogButtonSubmitNamed' => Ui\Dialog\Button\NamedSubmit::class,
-    'PapayaUiDialogFieldBuilderArray' => Ui\Dialog\Field\Builder\FromArray::class
+    'PapayaUiDialogFieldBuilderArray' => Ui\Dialog\Field\Builder\FromArray::class,
+    'PapayaUiDialogFieldFactoryExceptionInvalidOption' => Ui\Dialog\Field\Factory\Exception\InvalidOption::class,
+    'PapayaUiDialogFieldFactoryExceptionInvalidProfile' => Ui\Dialog\Field\Factory\Exception\InvalidProfile::class
   );
 
   private static $_mapParts = array(

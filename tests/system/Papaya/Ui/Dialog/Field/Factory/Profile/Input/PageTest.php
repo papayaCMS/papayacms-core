@@ -18,26 +18,26 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileInputPageTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileInputPage::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\InputPage::getField
    */
   public function testGetField() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
         'default' => 'some value'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileInputPage();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputPage();
     $profile->options($options);
     $this->assertInstanceOf(\PapayaUiDialogFieldInputPage::class, $field = $profile->getField());
   }
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileInputPage::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\InputPage::getField
    */
   public function testGetFieldWithHint() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -45,27 +45,27 @@ class PapayaUiDialogFieldFactoryProfileInputPageTest extends \PapayaTestCase {
         'hint' => 'Some hint text'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileInputPage();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputPage();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertSame('Some hint text', $field->getHint());
   }
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileInputPage
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\InputPage
    * @dataProvider provideValidPageInputs
    * @param string $value
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function testValidateDifferentInputs($value) {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
         'default' => $value
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileInputPage();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputPage();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertTrue($field->validate());

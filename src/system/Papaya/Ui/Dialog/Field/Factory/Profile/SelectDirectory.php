@@ -13,23 +13,15 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* The option name is invalid, aka the option does not exist
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryExceptionInvalidOption
-  extends \PapayaUiDialogFieldFactoryException {
+ * Field factory profiles for a select field for a subdirectory list.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class SelectDirectory
+  extends \Papaya\Ui\Dialog\Field\Factory\Profile\SelectFile {
 
-  /**
-   * Create exception with compiled message
-   *
-   * @param string $optionName
-   */
-  public function __construct($optionName) {
-    parent::__construct(
-      sprintf('Invalid field factory option name "%s".', $optionName)
-    );
-  }
+  protected $_fileSystemItems = \Papaya\File\System\Directory::FETCH_DIRECTORIES;
 }

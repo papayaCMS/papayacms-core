@@ -34,7 +34,7 @@ class Dialog
    */
   private $_themeHandler;
   /**
-   * @var \PapayaUiDialogFieldFactory
+   * @var \Papaya\Ui\Dialog\Field\Factory
    */
   private $_fieldFactory;
   /**
@@ -73,7 +73,7 @@ class Dialog
         /** @var Structure\Value $value */
         foreach ($group->values() as $value) {
           try {
-            $options = new \PapayaUiDialogFieldFactoryOptions(
+            $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
               array(
                 'name' => 'values/'.$value->getIdentifier(),
                 'caption' => $value->title,
@@ -85,7 +85,7 @@ class Dialog
               $value->fieldType, $options
             );
             $field->setHint($value->hint);
-          } catch (\PapayaUiDialogFieldFactoryException $e) {
+          } catch (\Papaya\Ui\Dialog\Field\Factory\Exception $e) {
             $fieldset->fields[] = new \PapayaUiDialogFieldMessage(
               \Papaya\Message::SEVERITY_ERROR, $e->getMessage()
             );
@@ -185,14 +185,14 @@ class Dialog
    * The dialog field factory creates field for the given field types using profile classes/objects
    * defined by the field type name.
    *
-   * @param \PapayaUiDialogFieldFactory $factory
-   * @return \PapayaUiDialogFieldFactory
+   * @param \Papaya\Ui\Dialog\Field\Factory $factory
+   * @return \Papaya\Ui\Dialog\Field\Factory
    */
-  public function fieldFactory(\PapayaUiDialogFieldFactory $factory = NULL) {
+  public function fieldFactory(\Papaya\Ui\Dialog\Field\Factory $factory = NULL) {
     if (NULL !== $factory) {
       $this->_fieldFactory = $factory;
     } elseif (NULL === $this->_fieldFactory) {
-      $this->_fieldFactory = new \PapayaUiDialogFieldFactory();
+      $this->_fieldFactory = new \Papaya\Ui\Dialog\Field\Factory();
     }
     return $this->_fieldFactory;
   }

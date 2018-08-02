@@ -13,25 +13,36 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a input for a password.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileInputPassword extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profiles for a generic input.
+ *
+ * Each profile defines how a field {@see \PapayaUiDialogField} is created for a specified
+ * type. Here is an options subobject to provide data for the field configuration.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class InputSuggest
+  extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
    * @return \PapayaUiDialogFieldInput
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldInputPassword(
+    $field = new \PapayaUiDialogFieldInputSuggest(
       $this->options()->caption,
       $this->options()->name,
-      (int)$this->options()->parameters,
+      $this->options()->parameters,
+      $this->options()->default,
       $this->options()->validation
     );
+    $field->setMandatory($this->options()->mandatory);
+    if ($this->options()->disabled) {
+      $field->setDisabled(TRUE);
+    }
     if ($hint = $this->options()->hint) {
       $field->setHint($hint);
     }

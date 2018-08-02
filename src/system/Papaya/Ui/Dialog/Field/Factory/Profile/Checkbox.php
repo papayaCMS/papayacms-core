@@ -13,22 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a checkbox.
-*
-* Each profile defines how a field {@see \PapayaUiDialogField} is created for a specified
-* type. Here is an options subobject to provide data for the field configuration.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileCheckbox extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profiles for a checkbox.
+ *
+ * Each profile defines how a field {@see \PapayaUiDialogField} is created for a specified
+ * type. Here is an options subobject to provide data for the field configuration.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Checkbox extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
    * Create a checkbox input field
    *
    * @see \PapayaUiDialogFieldInputCheckbox
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
     $field = new \PapayaUiDialogFieldInputCheckbox(

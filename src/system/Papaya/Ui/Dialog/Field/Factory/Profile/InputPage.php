@@ -13,26 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a field with two radio boxes displaying "yes" and "no"
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileSelectBoolean
-  extends \PapayaUiDialogFieldFactoryProfileSelect {
+ * Field factory profiles for a input for a page id.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class InputPage extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
-   * Create a select field with two elements displayed as radio boxes
-   *
-   * @param array|\Traversable $elements
-   * @return \PapayaUiDialogFieldSelect
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
+   * @return \PapayaUiDialogFieldInputPage
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
-  protected function createField($elements) {
-    return new \PapayaUiDialogFieldSelectRadio(
+  public function getField() {
+    $field = new \PapayaUiDialogFieldInputPage(
       $this->options()->caption,
       $this->options()->name,
-      new \PapayaUiStringTranslatedList(array('no', 'yes'))
+      $this->options()->default,
+      $this->options()->mandatory
     );
+    if ($hint = $this->options()->hint) {
+      $field->setHint($hint);
+    }
+    $field->setFilter(
+      new \Papaya\Filter\Text(\Papaya\Filter\Text::ALLOW_DIGITS)
+    );
+    return $field;
   }
 }

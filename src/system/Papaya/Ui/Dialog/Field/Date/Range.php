@@ -13,7 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
+namespace Papaya\Ui\Dialog\Field\Date;
+use Traversable;
+
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+class Range extends \PapayaUiDialogField {
 
   private $_includeTime = FALSE;
 
@@ -88,7 +104,7 @@ class PapayaUiDialogFieldDateRange extends \PapayaUiDialogField {
     $group = $field->appendElement('group');
     $labels = $group->appendElement('labels');
     foreach ($this->labels() as $id => $label) {
-      $labels->appendElement('label', ['for' => $id ], $label);
+      $labels->appendElement('label', ['for' => $id], $label);
     }
     $group->setAttribute(
       'data-selected-page',

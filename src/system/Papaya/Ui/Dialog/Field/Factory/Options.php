@@ -13,26 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory;
 /**
-* Field factory option for profiles.
-*
-* This object store and provide data for the individual profiles needed to create the field.
-* Not each profile needs to each all data and may use it in complete different ways.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string $name field name
-* @property string $caption field caption
-* @property string $hint field info/hint
-* @property mixed $default field default value
-* @property boolean $mandatory mandatory field status
-* @property boolean $disabled disabled field status
-* @property \Papaya\Filter $validation the validation filter, can be set from string|array as well
-* @property mixed $parameters an individual parameters value
-* @property \Papaya\Application\BaseObject $context used for callbacks or access to the application registry
-*/
-class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
+ * Field factory option for profiles.
+ *
+ * This object store and provide data for the individual profiles needed to create the field.
+ * Not each profile needs to each all data and may use it in complete different ways.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string $name field name
+ * @property string $caption field caption
+ * @property string $hint field info/hint
+ * @property mixed $default field default value
+ * @property boolean $mandatory mandatory field status
+ * @property boolean $disabled disabled field status
+ * @property \Papaya\Filter $validation the validation filter, can be set from string|array as well
+ * @property mixed $parameters an individual parameters value
+ * @property \Papaya\Application\BaseObject $context used for callbacks or access to the application registry
+ */
+class Options implements \ArrayAccess {
 
   /**
    * Definition of options and default values
@@ -42,16 +43,16 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
   private
     /** @noinspection PropertyCanBeStaticInspection */
     $_definition = array(
-      'name' => '',
-      'caption' => '',
-      'hint' => '',
-      'default' => NULL,
-      'mandatory' => FALSE,
-      'disabled' => FALSE,
-      'validation' => NULL,
-      'parameters' => NULL,
-      'context' => NULL
-    );
+    'name' => '',
+    'caption' => '',
+    'hint' => '',
+    'default' => NULL,
+    'mandatory' => FALSE,
+    'disabled' => FALSE,
+    'validation' => NULL,
+    'parameters' => NULL,
+    'context' => NULL
+  );
 
   /**
    * Buffer for the current option values, if the value here is NULL or not set, use the
@@ -73,7 +74,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
    *
    * @param array|\Traversable $values
    * @throws \UnexpectedValueException
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function __construct(
     $values = array()
@@ -86,7 +87,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
    *
    * @param array|\Traversable $values
    * @throws \UnexpectedValueException
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function assign($values) {
     \Papaya\Utility\Constraints::assertArrayOrTraversable($values);
@@ -100,7 +101,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
    *
    * @param string $name
    * @return bool
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function __isset($name) {
     return $this->exists($name, TRUE) && (NULL !== $this->get($name));
@@ -111,7 +112,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
    *
    * @param string $name
    * @return NULL
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function __get($name) {
     return $this->get($name);
@@ -122,7 +123,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
    *
    * @param string $name
    * @param mixed $value
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function __set($name, $value) {
     $this->set($name, $value);
@@ -133,7 +134,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
    *
    * @param string $name
    * @internal param mixed $value
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function __unset($name) {
     if ($this->exists($name)) {
@@ -147,7 +148,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
    * @see \ArrayAccess::offsetExists()
    * @param mixed $offset
    * @return bool
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function offsetExists($offset) {
     return $this->exists($offset, TRUE);
@@ -159,7 +160,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
    * @see \ArrayAccess::offsetGet()
    * @param mixed $offset
    * @return mixed
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function offsetGet($offset) {
     return $this->__get($offset);
@@ -171,7 +172,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
    * @see \ArrayAccess::offsetSet()
    * @param mixed $offset
    * @param mixed $value
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function offsetSet($offset, $value) {
     $this->__set($offset, $value);
@@ -182,7 +183,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
    *
    * @see \ArrayAccess::offsetGet()
    * @param mixed $offset
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function offsetUnset($offset) {
     $this->__unset($offset);
@@ -193,7 +194,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
    *
    * @param string $name
    * @param boolean $silent
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    * @return boolean
    */
   private function exists($name, $silent = FALSE) {
@@ -203,13 +204,13 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
     if ($silent) {
       return FALSE;
     }
-    throw new \PapayaUiDialogFieldFactoryExceptionInvalidOption($name);
+    throw new \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption($name);
   }
 
   /**
    * Fetch a value from the buffer or return the default value
    *
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    * @param string $name
    * @return mixed
    */
@@ -225,7 +226,7 @@ class PapayaUiDialogFieldFactoryOptions implements \ArrayAccess {
   /**
    * Set the option value, if silent is set to false invalid option names will trigger an exception.
    *
-   * @throws \PapayaUiDialogFieldFactoryExceptionInvalidOption
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    * @param string $name
    * @param mixed $value
    * @param boolean $silent

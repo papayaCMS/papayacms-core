@@ -13,24 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a generic select field.
-*
-* Each profile defines how a field {@see \PapayaUiDialogField} is created for a specified
-* type. Here is an options subobject to provide data for the field configuration.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileSelect extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profiles for a generic select field.
+ *
+ * Each profile defines how a field {@see \PapayaUiDialogField} is created for a specified
+ * type. Here is an options subobject to provide data for the field configuration.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Select extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
    * @return \PapayaUiDialogFieldSelect
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
     if (is_array($this->options()->parameters) ||
-        $this->options()->parameters instanceof \Traversable) {
+      $this->options()->parameters instanceof \Traversable) {
       $elements = $this->options()->parameters;
     } else {
       $elements = array();
@@ -48,6 +50,7 @@ class PapayaUiDialogFieldFactoryProfileSelect extends \PapayaUiDialogFieldFactor
    *
    * @param array|\Traversable $elements
    * @return \PapayaUiDialogFieldSelect
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   protected function createField($elements) {
     return new \PapayaUiDialogFieldSelect(

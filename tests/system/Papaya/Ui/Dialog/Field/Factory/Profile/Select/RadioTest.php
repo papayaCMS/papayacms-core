@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileSelectRadioTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileSelectRadio::createField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\SelectRadio::createField
    */
   public function testGetField() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -29,7 +29,7 @@ class PapayaUiDialogFieldFactoryProfileSelectRadioTest extends \PapayaTestCase {
         'parameters' => array('foo', 'bar')
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileSelectRadio();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectRadio();
     $profile->options($options);
     $this->assertInstanceOf(\PapayaUiDialogFieldSelectRadio::class, $field = $profile->getField());
   }

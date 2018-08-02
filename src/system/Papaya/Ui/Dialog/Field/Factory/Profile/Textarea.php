@@ -13,20 +13,19 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a generic input.
-*
-* Each profile defines how a field {@see \PapayaUiDialogField} is created for a specified
-* type. Here is an options subobject to provide data for the field configuration.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileTextarea extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profiles for a textarea input.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Textarea extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
-   * @return \PapayaUiDialogFieldInput
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
+   * @return \PapayaUiDialogFieldTextarea
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
     $field = new \PapayaUiDialogFieldTextarea(

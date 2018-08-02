@@ -13,29 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a input for an iso datetime.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileInputDateTime extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profiles for a field with two radio boxes displaying "yes" and "no"
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class SelectBoolean
+  extends Select {
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
-   * @return \PapayaUiDialogFieldInput
+   * Create a select field with two elements displayed as radio boxes
+   *
+   * @param array|\Traversable $elements
+   * @return \PapayaUiDialogFieldSelect
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
-  public function getField() {
-    $field = new \PapayaUiDialogFieldInputDate(
+  protected function createField($elements) {
+    return new \PapayaUiDialogFieldSelectRadio(
       $this->options()->caption,
       $this->options()->name,
-      $this->options()->default,
-      $this->options()->mandatory,
-      \Papaya\Filter\Date::DATE_OPTIONAL_TIME
+      new \PapayaUiStringTranslatedList(array('no', 'yes'))
     );
-    if ($hint = $this->options()->hint) {
-      $field->setHint($hint);
-    }
-    return $field;
   }
 }

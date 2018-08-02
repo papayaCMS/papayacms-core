@@ -13,29 +13,29 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a geo position input
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileInputGeoPosition extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profiles for a select field displayed as checkboxes. Beaucser of the
+ * nature of this field type, multiple selection are possible
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class SelectCheckboxes
+  extends Select {
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
-   * @return \PapayaUiDialogFieldInput
+   * Create a select field displayed as checkboxes
+   *
+   * @param array|\Traversable $elements
+   * @return \PapayaUiDialogFieldSelect
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
-  public function getField() {
-    $field = new \PapayaUiDialogFieldInputGeoPosition(
+  protected function createField($elements) {
+    return new \PapayaUiDialogFieldSelectCheckboxes(
       $this->options()->caption,
       $this->options()->name,
-      (int)$this->options()->parameters,
-      $this->options()->default,
-      $this->options()->validation
+      $elements
     );
-    if ($hint = $this->options()->hint) {
-      $field->setHint($hint);
-    }
-    return $field;
   }
 }

@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryExceptionInvalidOptionTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryExceptionInvalidOption::__construct
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption::__construct
    */
   public function testConstructor() {
-    $exception = new \PapayaUiDialogFieldFactoryExceptionInvalidOption('OptionName');
+    $exception = new \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption('OptionName');
     $this->assertEquals(
       'Invalid field factory option name "OptionName".',
       $exception->getMessage()

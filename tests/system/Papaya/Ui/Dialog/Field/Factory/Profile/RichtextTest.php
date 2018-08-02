@@ -18,17 +18,17 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileRichtextTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileRichtext::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Richtext::getField
    */
   public function testGetField() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'rtefield',
         'caption' => 'Richtext',
         'default' => 'some value'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileRichtext();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Richtext();
     $profile->options($options);
     $this->assertInstanceOf(
       \PapayaUiDialogFieldTextareaRichtext::class, $field = $profile->getField()
@@ -40,17 +40,17 @@ class PapayaUiDialogFieldFactoryProfileRichtextTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileRichtext::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Richtext::getField
    */
   public function testGetFieldWihtHint() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'rtefield',
         'caption' => 'Richtext',
         'hint' => 'Richtext Hint'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileRichtext();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Richtext();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertEquals(

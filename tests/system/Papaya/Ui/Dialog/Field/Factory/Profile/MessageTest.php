@@ -18,16 +18,16 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileMessageTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileMessage::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Message::getField
    */
   public function testGetField() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'default' => 'some value',
         'parameters' => \Papaya\Message::SEVERITY_INFO
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileMessage();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Message();
     $profile->options($options);
     $this->assertInstanceOf(\PapayaUiDialogFieldMessage::class, $field = $profile->getField());
   }

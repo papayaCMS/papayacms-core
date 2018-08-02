@@ -13,32 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a input for a page id.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileInputPage extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profile for a media image selection field.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class InputMediaImage extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
-   * @return \PapayaUiDialogFieldInput
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
+   * @return \PapayaUiDialogFieldInputMediaImage
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldInputPage(
+    $field = new \PapayaUiDialogFieldInputMediaImage(
       $this->options()->caption,
-      $this->options()->name,
-      (int)$this->options()->parameters,
-      $this->options()->default,
-      $this->options()->validation
+      $this->options()->name
     );
-    if ($hint = $this->options()->hint) {
-      $field->setHint($hint);
-    }
-    $field->setFilter(
-      new \Papaya\Filter\Text(\Papaya\Filter\Text::ALLOW_DIGITS)
-    );
+    $field->setHint($this->options()->hint);
     return $field;
   }
 }

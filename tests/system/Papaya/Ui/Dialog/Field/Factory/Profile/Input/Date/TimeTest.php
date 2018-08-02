@@ -18,26 +18,26 @@ require_once __DIR__.'/../../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileInputDateTimeTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileInputDateTime::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\InputDateTime::getField
    */
   public function testGetField() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
         'default' => 'some value'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileInputDateTime();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputDateTime();
     $profile->options($options);
     $this->assertInstanceOf(\PapayaUiDialogFieldInputDate::class, $field = $profile->getField());
   }
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileInputDateTime::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\InputDateTime::getField
    */
   public function testGetFieldWithHint() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -45,7 +45,7 @@ class PapayaUiDialogFieldFactoryProfileInputDateTimeTest extends \PapayaTestCase
         'hint' => 'Some hint text'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileInputDateTime();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputDateTime();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertSame('Some hint text', $field->getHint());

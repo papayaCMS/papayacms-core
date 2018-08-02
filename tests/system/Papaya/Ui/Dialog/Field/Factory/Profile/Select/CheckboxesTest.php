@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileSelectCheckboxesTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileSelectCheckboxes::createField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\SelectCheckboxes::createField
    */
   public function testGetField() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -29,7 +29,7 @@ class PapayaUiDialogFieldFactoryProfileSelectCheckboxesTest extends \PapayaTestC
         'parameters' => array('foo', 'bar')
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileSelectCheckboxes();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectCheckboxes();
     $profile->options($options);
     $this->assertInstanceOf(\PapayaUiDialogFieldSelectCheckboxes::class, $field = $profile->getField());
   }

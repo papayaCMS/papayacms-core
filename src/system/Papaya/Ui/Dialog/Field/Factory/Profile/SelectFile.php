@@ -13,14 +13,16 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
+
 /**
-* Field factory profiles for a select field for a file list.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileSelectFile
-  extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profiles for a select field for a file list.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class SelectFile
+  extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
    * @var \Papaya\File\System\Factory
@@ -30,8 +32,9 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
   protected $_fileSystemItems = \Papaya\File\System\Directory::FETCH_FILES;
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
    * @return \PapayaUiDialogFieldSelect
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
     $parameters = $this->options()->parameters;
@@ -78,7 +81,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
    * If the element is a fileinfo get the filename from it, cast the variable to string otherwise
    *
    * @param object $context
-   * @param string|splFileInfo $element
+   * @param string|\splFileInfo $element
    * @return string
    */
   public function callbackGetFilename($context, $element) {
@@ -90,6 +93,7 @@ class PapayaUiDialogFieldFactoryProfileSelectFile
    * a \Papaya\Configuration\PapayaConfigurationPath object.
    *
    * @return string|\Papaya\Configuration\Path
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   private function getPath() {
     $parameters = $this->options()->parameters;

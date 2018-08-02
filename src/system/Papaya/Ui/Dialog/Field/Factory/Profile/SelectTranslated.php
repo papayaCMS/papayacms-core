@@ -13,24 +13,28 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profile for a media file selection field.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileInputMediaFile extends \PapayaUiDialogFieldFactoryProfile {
+ * Field factory profiles for a select field that translates the elements of the given list.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class SelectTranslated
+  extends Select {
 
   /**
-   * @see \PapayaUiDialogFieldFactoryProfile::getField()
-   * @return \PapayaUiDialogFieldInputMediaFile
+   * Wrap elements in a string so they get translated
+   *
+   * @param array|\Traversable $elements
+   * @return \PapayaUiDialogFieldSelect
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
-  public function getField() {
-    $field = new \PapayaUiDialogFieldInputMediaFile(
+  protected function createField($elements) {
+    return new \PapayaUiDialogFieldSelect(
       $this->options()->caption,
-      $this->options()->name
+      $this->options()->name,
+      new \PapayaUiStringTranslatedList($elements)
     );
-    $field->setHint($this->options()->hint);
-    return $field;
   }
 }

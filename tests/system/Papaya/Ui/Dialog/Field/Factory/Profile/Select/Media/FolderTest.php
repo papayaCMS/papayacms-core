@@ -18,17 +18,17 @@ require_once __DIR__.'/../../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileSelectMediaFolderTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileSelectMediaFolder::createField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\SelectMediaFolder::createField
    */
   public function testGetField() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'mediafolder',
         'caption' => 'Folder'
       )
     );
 
-    $profile = new \PapayaUiDialogFieldFactoryProfileSelectMediaFolder();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\SelectMediaFolder();
     $profile->options($options);
     $this->assertInstanceOf(\PapayaUiDialogFieldSelectMediaFolder::class, $profile->getField());
   }

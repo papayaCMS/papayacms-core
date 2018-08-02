@@ -18,26 +18,26 @@ require_once __DIR__.'/../../../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileInputGeoPositionTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileInputGeoPosition::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\InputGeoPosition::getField
    */
   public function testGetField() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
         'default' => 'some value'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileInputGeoPosition();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputGeoPosition();
     $profile->options($options);
     $this->assertInstanceOf(\PapayaUiDialogFieldInputGeoPosition::class, $field = $profile->getField());
   }
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileInputGeoPosition::getField
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\InputGeoPosition::getField
    */
   public function testGetFieldWithHint() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'inputfield',
         'caption' => 'Input',
@@ -45,7 +45,7 @@ class PapayaUiDialogFieldFactoryProfileInputGeoPositionTest extends \PapayaTestC
         'hint' => 'Some hint text'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileInputGeoPosition();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputGeoPosition();
     $profile->options($options);
     $field = $profile->getField();
     $this->assertSame('Some hint text', $field->getHint());

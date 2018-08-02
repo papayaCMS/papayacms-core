@@ -18,16 +18,16 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldFactoryProfileCaptchaTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldFactoryProfileCaptcha
+   * @covers \Papaya\Ui\Dialog\Field\Factory\Profile\Captcha
    */
   public function testGetField() {
-    $options = new \PapayaUiDialogFieldFactoryOptions(
+    $options = new \Papaya\Ui\Dialog\Field\Factory\Options(
       array(
         'name' => 'captcha',
         'caption' => 'Captcha'
       )
     );
-    $profile = new \PapayaUiDialogFieldFactoryProfileCaptcha();
+    $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Captcha();
     $profile->options($options);
     $this->assertInstanceOf(\PapayaUiDialogFieldInputCaptcha::class, $field = $profile->getField());
   }

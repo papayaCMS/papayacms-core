@@ -13,26 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Factory\Profile;
 /**
-* Field factory profiles for a select field displayed as radio boxes.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFactoryProfileSelectRadio
-  extends \PapayaUiDialogFieldFactoryProfileSelect {
+ * Field factory profiles for a generic input with an additional javascript based counter.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class InputCounted extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
-   * Create a select field displayed as radio boxes
-   *
-   * @param array|\Traversable $elements
-   * @return \PapayaUiDialogFieldSelect
+   * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
+   * @return \PapayaUiDialogFieldInput
+   * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
-  protected function createField($elements) {
-    return new \PapayaUiDialogFieldSelectRadio(
+  public function getField() {
+    $field = new \PapayaUiDialogFieldInputCounted(
       $this->options()->caption,
       $this->options()->name,
-      $elements
+      (int)$this->options()->parameters,
+      $this->options()->default,
+      $this->options()->validation
     );
+    if ($hint = $this->options()->hint) {
+      $field->setHint($hint);
+    }
+    return $field;
   }
 }
