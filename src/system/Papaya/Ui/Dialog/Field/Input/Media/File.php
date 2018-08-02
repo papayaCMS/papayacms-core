@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input\Media;
 /**
-* A single line input for a file from the media database
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldInputMediaFile extends \PapayaUiDialogFieldInput {
+ * A single line input for a file from the media database
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class File extends \PapayaUiDialogFieldInput {
 
   /**
-  * Field type, used in template
-  *
-  * @var boolean
-  */
+   * Field type, used in template
+   *
+   * @var boolean
+   */
   protected $_type = 'media_file';
 
   public function __construct($caption, $name, $mandatory = FALSE) {

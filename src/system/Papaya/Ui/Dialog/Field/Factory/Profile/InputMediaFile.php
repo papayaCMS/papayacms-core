@@ -24,11 +24,11 @@ class InputMediaFile extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
-   * @return \PapayaUiDialogFieldInputMediaFile
+   * @return \Papaya\Ui\Dialog\Field\Input\Media\File
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldInputMediaFile(
+    $field = new \Papaya\Ui\Dialog\Field\Input\Media\File(
       $this->options()->caption,
       $this->options()->name
     );

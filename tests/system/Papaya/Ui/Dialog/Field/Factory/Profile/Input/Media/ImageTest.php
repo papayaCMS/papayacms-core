@@ -29,6 +29,6 @@ class PapayaUiDialogFieldFactoryProfileInputMediaImageTest extends \PapayaTestCa
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputMediaImage();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldInputMediaImage::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Input\Media\Image::class, $field = $profile->getField());
   }
 }

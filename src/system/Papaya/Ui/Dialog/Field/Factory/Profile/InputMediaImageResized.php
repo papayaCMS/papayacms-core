@@ -25,11 +25,11 @@ class InputMediaImageResized
 
   /**
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
-   * @return \PapayaUiDialogFieldInputMediaImageResized
+   * @return \Papaya\Ui\Dialog\Field\Input\Media\ImageResized
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldInputMediaImageResized(
+    $field = new \Papaya\Ui\Dialog\Field\Input\Media\ImageResized(
       $this->options()->caption,
       $this->options()->name
     );

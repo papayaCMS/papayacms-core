@@ -29,6 +29,6 @@ class PapayaUiDialogFieldFactoryProfileInputMediaFileTest extends \PapayaTestCas
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputMediaFile();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldInputMediaFile::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Input\Media\File::class, $field = $profile->getField());
   }
 }

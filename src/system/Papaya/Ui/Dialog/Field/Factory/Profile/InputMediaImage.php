@@ -24,11 +24,11 @@ class InputMediaImage extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
-   * @return \PapayaUiDialogFieldInputMediaImage
+   * @return \Papaya\Ui\Dialog\Field\Input\Media\Image
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldInputMediaImage(
+    $field = new \Papaya\Ui\Dialog\Field\Input\Media\Image(
       $this->options()->caption,
       $this->options()->name
     );

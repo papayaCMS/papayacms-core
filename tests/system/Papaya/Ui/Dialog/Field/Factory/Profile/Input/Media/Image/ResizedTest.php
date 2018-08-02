@@ -29,6 +29,6 @@ class PapayaUiDialogFieldFactoryProfileInputMediaImageResizedTest extends \Papay
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputMediaImageResized();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldInputMediaImageResized::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Input\Media\ImageResized::class, $field = $profile->getField());
   }
 }

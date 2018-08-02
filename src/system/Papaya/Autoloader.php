@@ -111,7 +111,8 @@ class Autoloader {
     'PapayaUiDialogFieldBuilderArray' => Ui\Dialog\Field\Builder\FromArray::class,
     'PapayaUiDialogFieldFactoryExceptionInvalidOption' => Ui\Dialog\Field\Factory\Exception\InvalidOption::class,
     'PapayaUiDialogFieldFactoryExceptionInvalidProfile' => Ui\Dialog\Field\Factory\Exception\InvalidProfile::class,
-    'PapayaUiDialogFieldInputGeoPosition' => Ui\Dialog\Field\Input\GeoPosition::class
+    'PapayaUiDialogFieldInputGeoPosition' => Ui\Dialog\Field\Input\GeoPosition::class,
+    'PapayaUiDialogFieldInputMediaImageResized' => Ui\Dialog\Field\Input\Media\ImageResized::class
   );
 
   private static $_mapParts = array(
