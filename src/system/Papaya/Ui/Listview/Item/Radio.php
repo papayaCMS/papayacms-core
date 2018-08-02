@@ -46,7 +46,7 @@ class PapayaUiListviewItemRadio extends \PapayaUiListviewItem {
       'input',
       [
         'type' => 'radio',
-        'name' => new \PapayaUiDialogFieldParameterName($this->_dialog, $this->_fieldName),
+        'name' => new \Papaya\Ui\Dialog\Field\Parameter\Name($this->_fieldName, $this->_dialog),
         'value' => $this->_value
       ]
     );

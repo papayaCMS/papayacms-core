@@ -13,7 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-class PapayaUiDialogFieldParameterName {
+namespace Papaya\Ui\Dialog\Field\Parameter;
+/**
+ * papaya CMS
+ *
+ * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ *
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
+ */
+class Name {
 
   /**
    * @var \PapayaUiDialog|NULL
@@ -25,11 +39,12 @@ class PapayaUiDialogFieldParameterName {
   private $_fieldName;
 
   /**
-   * PapayaUiDialogFieldParameterName constructor.
-   * @param \PapayaUiDialog|NULL $dialog
+   * Papaya\Ui\Dialog\Field\Parameter\PapayaUiDialogFieldParameterName constructor.
+   *
    * @param $fieldName
+   * @param \PapayaUiDialog|NULL $dialog
    */
-  public function __construct(\PapayaUiDialog $dialog = NULL, $fieldName) {
+  public function __construct($fieldName, \PapayaUiDialog $dialog = NULL) {
     $this->_dialog = $dialog;
     $this->_fieldName = $fieldName;
   }
@@ -42,7 +57,7 @@ class PapayaUiDialogFieldParameterName {
     if ($withGroup && $this->_dialog instanceof \PapayaUiDialog) {
       $name = $this->_dialog->getParameterName($this->_fieldName);
       $prefix = $this->_dialog->parameterGroup();
-      if (isset($prefix)) {
+      if (NULL !== $prefix) {
         $name->prepend($prefix);
       }
     } else {

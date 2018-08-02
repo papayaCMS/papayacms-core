@@ -44,8 +44,8 @@ abstract class PapayaUiDialogElement extends \Papaya\Ui\Control\Collection\Item 
   * @return string
   */
   protected function _getParameterName($key, $withGroup = TRUE) {
-    $name = new \PapayaUiDialogFieldParameterName(
-      $this->hasDialog() ? $this->getDialog() : NULL, $key
+    $name = new \Papaya\Ui\Dialog\Field\Parameter\Name(
+      $key, $this->hasDialog() ? $this->getDialog() : NULL
     );
     return $name->get($withGroup);
   }
