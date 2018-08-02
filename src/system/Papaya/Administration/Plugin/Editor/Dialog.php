@@ -105,7 +105,7 @@ class Dialog extends \Papaya\Plugin\Editor {
     $dialog->data()->assign($this->getData());
 
     $dialog->options->topButtons = TRUE;
-    $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));
+    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Save'));
 
     return $dialog;
   }

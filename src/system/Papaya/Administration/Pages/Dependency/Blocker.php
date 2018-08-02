@@ -119,7 +119,7 @@ class Blocker extends \Papaya\Ui\Control\Interactive {
       ),
       'status-system-locked'
     );
-    $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(
+    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
       new \PapayaUiStringTranslated('GoTo Origin Page')
     );
     $dialog->appendTo($parent);

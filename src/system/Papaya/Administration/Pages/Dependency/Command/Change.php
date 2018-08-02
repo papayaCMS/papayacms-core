@@ -90,7 +90,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
     $dialog->fields[] = new \PapayaUiDialogFieldTextarea(
       new \PapayaUiStringTranslated('Note'), 'note', 8, ''
     );
-    $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));
+    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Save'));
 
     $dialog->callbacks()->onBeforeSave = array($this, 'validateOriginAndSynchronizations');
     $dialog->callbacks()->onBeforeSave->context->originIdField = $originIdField;

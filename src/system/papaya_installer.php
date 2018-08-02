@@ -1576,7 +1576,7 @@ class papaya_installer extends base_db {
         new \Papaya\Filter\Equals\Parameter($dialog->parameters(), 'password')
       );
       $field->setMandatory($dialog->parameters()->get('password') != '');
-      $dialog->buttons[] = new \PapayaUiDialogButtonSubmit('Save');
+      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit('Save');
     }
     return $this->_optionsDialog;
   }

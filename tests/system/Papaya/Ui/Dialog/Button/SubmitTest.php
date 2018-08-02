@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogButtonSubmit::__construct
+  * @covers \Papaya\Ui\Dialog\Button\Submit::__construct
   */
   public function testConstructor() {
-    $button = new \PapayaUiDialogButtonSubmit('Test Caption');
+    $button = new \Papaya\Ui\Dialog\Button\Submit('Test Caption');
     $this->assertAttributeEquals(
       'Test Caption',
       '_caption',
@@ -30,10 +30,10 @@ class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogButtonSubmit::__construct
+  * @covers \Papaya\Ui\Dialog\Button\Submit::__construct
   */
   public function testConstructorWithAlignment() {
-    $button = new \PapayaUiDialogButtonSubmit(
+    $button = new \Papaya\Ui\Dialog\Button\Submit(
       'Test Caption', \PapayaUiDialogButton::ALIGN_LEFT
     );
     $this->assertAttributeEquals(
@@ -44,12 +44,12 @@ class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogButtonSubmit::appendTo
+  * @covers \Papaya\Ui\Dialog\Button\Submit::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
-    $button = new \PapayaUiDialogButtonSubmit('Test Caption');
+    $button = new \Papaya\Ui\Dialog\Button\Submit('Test Caption');
     $button->appendTo($document->documentElement);
     $this->assertEquals(
       /** @lang XML */
@@ -59,7 +59,7 @@ class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogButtonSubmit::appendTo
+  * @covers \Papaya\Ui\Dialog\Button\Submit::appendTo
   */
   public function testAppendToWithInterfaceStringObject() {
     $caption = $this
@@ -72,7 +72,7 @@ class PapayaUiDialogButtonSubmitTest extends \PapayaTestCase {
       ->will($this->returnValue('Test Caption'));
     $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
-    $button = new \PapayaUiDialogButtonSubmit(
+    $button = new \Papaya\Ui\Dialog\Button\Submit(
       $caption, \PapayaUiDialogButton::ALIGN_LEFT
     );
     $button->appendTo($document->documentElement);

@@ -99,7 +99,7 @@ class Dialog
           new \PapayaUiStringTranslated('Invalid value definition!')
         );
       } else {
-        $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));
+        $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Save'));
         $this->callbacks()->onExecuteSuccessful = array($this, 'callbackSaveValues');
         $this->callbacks()->onExecuteFailed = array($this, 'callbackShowError');
       }

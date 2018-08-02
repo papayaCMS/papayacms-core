@@ -53,7 +53,7 @@ class Remove
         new \PapayaUiStringTranslated('Delete theme set'),
         'places-trash'
       );
-      $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Delete'));
+      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Delete'));
       $this->callbacks()->onExecuteSuccessful = array($this, 'callbackDeleted');
     } else {
       $dialog->fields[] = new \PapayaUiDialogFieldMessage(

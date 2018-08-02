@@ -73,7 +73,7 @@ class Import
       );
       $field->setDefaultValue(FALSE);
     }
-    $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(
+    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
       new \PapayaUiStringTranslated('Upload')
     );
     $this->callbacks()->onExecuteSuccessful = array($this, 'onValidationSuccess');

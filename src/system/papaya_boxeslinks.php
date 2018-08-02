@@ -231,7 +231,7 @@ class papaya_boxeslinks extends base_boxeslinks {
       $modes
     );
     $field->setDefaultValue($mode);
-    $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(
+    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
       new \PapayaUiStringTranslated('Save')
     );
     return $dialog;

@@ -44,7 +44,7 @@ class Delete
       new \PapayaUiStringTranslated('Delete dependency?'),
       'places-trash'
     );
-    $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Delete'));
+    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Delete'));
 
     $this->callbacks()->onExecuteSuccessful = array(
       $this, 'dispatchDeleteMessage'

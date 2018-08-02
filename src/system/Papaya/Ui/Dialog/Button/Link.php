@@ -13,28 +13,30 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Button;
 /**
-* A simple button with a caption and without a name. That links to the specified reference.
-*
-* Usage:
-*   $dialog->buttons()->add(new \PapayaUiDialogButtonSubmit('Save'));
-*
-*   $dialog->buttons()->add(
-*     new \PapayaUiDialogButtonSubmit(
-*       new \PapayaUiStringTranslated('Save')
-*     ),
-*     \PapayaUiDialogButton::ALIGN_LEFT
-*   );
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogButtonLink extends \PapayaUiDialogButton {
+ * A simple button with a caption and without a name. That links to the specified reference.
+ *
+ * Usage:
+ *   $dialog->buttons()->add(new \Papaya\Ui\Dialog\Button\PapayaUiDialogButtonSubmit('Save'));
+ *
+ *   $dialog->buttons()->add(
+ *     new \Papaya\Ui\Dialog\Button\PapayaUiDialogButtonSubmit(
+ *       new \PapayaUiStringTranslated('Save')
+ *     ),
+ *     \PapayaUiDialogButton::ALIGN_LEFT
+ *   );
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Link extends \PapayaUiDialogButton {
 
   /**
-  * Button caption
-  * @var string|\PapayaUiString
-  */
+   * Button caption
+   *
+   * @var string|\PapayaUiString
+   */
   protected $_caption = 'Submit';
 
   /**
@@ -43,21 +45,21 @@ class PapayaUiDialogButtonLink extends \PapayaUiDialogButton {
   private $_reference;
 
   /**
-  * Initialize object, set caption and alignment
-  *
-  * @param string|\PapayaUiString $caption
-  * @param integer $align
-  */
+   * Initialize object, set caption and alignment
+   *
+   * @param string|\PapayaUiString $caption
+   * @param integer $align
+   */
   public function __construct($caption, $align = \PapayaUiDialogButton::ALIGN_RIGHT) {
     parent::__construct($align);
     $this->_caption = $caption;
   }
 
   /**
-  * Append button output to DOM
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append button output to DOM
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $parent->appendElement(
       'button',

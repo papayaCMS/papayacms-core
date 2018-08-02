@@ -262,7 +262,7 @@ class papaya_topic_tree extends base_topic_tree {
         'synchronization',
         $this->sychronizations()->getList()
       );
-      $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Copy'));
+      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Copy'));
     }
     return $this->_dialogCopyPageConfirmation;
   }

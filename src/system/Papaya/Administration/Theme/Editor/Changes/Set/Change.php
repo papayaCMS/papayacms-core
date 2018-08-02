@@ -57,7 +57,7 @@ class Change
       new \PapayaUiStringTranslated('Title'), 'title', 200, '', new \Papaya\Filter\Text()
     );
     $field->setMandatory(TRUE);
-    $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(
+    $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
       new \PapayaUiStringTranslated($buttonCaption)
     );
     $this->callbacks()->onExecuteSuccessful = array($this, 'callbackSaveValues');

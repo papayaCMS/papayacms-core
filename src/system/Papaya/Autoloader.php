@@ -105,7 +105,9 @@ class Autoloader {
     'PapayaStringUtf8' => Text\UTF8String::class,
 
     'PapayaUtilArrayMapper' => Utility\ArrayMapper::class,
-    'PapayaUtilArray' => Papaya\Utility\Arrays::class
+    'PapayaUtilArray' => Utility\Arrays::class,
+
+    'PapayaUiDialogButtonSubmitNamed' => Ui\Dialog\Button\NamedSubmit::class
   );
 
   private static $_mapParts = array(

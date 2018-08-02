@@ -91,7 +91,7 @@ class Browser
         );
         $item->text = $theme->templatePath;
       };
-      $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));
+      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Save'));
     }
     return $this->_dialog;
   }

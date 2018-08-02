@@ -4659,11 +4659,11 @@ class base_topic_edit extends base_topic {
       );
 
       if ($this->papaya()->options->get('PAPAYA_PUBLICATION_AUDITING', FALSE)) {
-        $dialog->buttons[] = new \PapayaUiDialogButtonSubmitNamed(
+        $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\NamedSubmit(
           new \PapayaUiStringTranslated('Audited'), 'audit', 1, \PapayaUiDialogButton::ALIGN_LEFT
         );
       }
-      $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(
+      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
         new \PapayaUiStringTranslated('Publish')
       );
       return TRUE;
@@ -4760,7 +4760,7 @@ class base_topic_edit extends base_topic {
             $message
           );
       }
-      $this->dialogSocialMedia->buttons[] = new \PapayaUiDialogButtonSubmit(
+      $this->dialogSocialMedia->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
         new \PapayaUiStringTranslated('Send tweets')
       );
     }
@@ -5081,7 +5081,7 @@ class base_topic_edit extends base_topic {
     $dialog
       ->buttons()
       ->add(
-        new \PapayaUiDialogButtonSubmit(
+        new \Papaya\Ui\Dialog\Button\Submit(
           new \PapayaUiStringTranslated('GoTo')
         )
       );

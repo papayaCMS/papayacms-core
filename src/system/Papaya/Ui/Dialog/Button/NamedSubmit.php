@@ -13,24 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Button;
 /**
-* A named submit button sets a value in the dialog data if it was "clicked".
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogButtonSubmitNamed extends \PapayaUiDialogButtonSubmit {
+ * A named submit button sets a value in the dialog data if it was "clicked".
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class NamedSubmit extends Submit {
 
   /**
-  * Button name
-  * @var string
-  */
+   * Button name
+   *
+   * @var string
+   */
   protected $_name = '';
 
   /**
-  * Button value
-  * @var string
-  */
+   * Button value
+   *
+   * @var string
+   */
   protected $_value = '';
 
   /**
@@ -53,10 +56,10 @@ class PapayaUiDialogButtonSubmitNamed extends \PapayaUiDialogButtonSubmit {
   }
 
   /**
-  * Append button ouptut to DOM
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append button ouptut to DOM
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $parent->appendElement(
       'button',
@@ -70,13 +73,13 @@ class PapayaUiDialogButtonSubmitNamed extends \PapayaUiDialogButtonSubmit {
   }
 
   /**
-  * If the button was clicked, put the value in the dialog data.
-  *
-  * The function checks for a existing parameter 'name_value'. The value of the parameter is not
-  * used because it is the caption.
-  *
-  * @return boolean
-  */
+   * If the button was clicked, put the value in the dialog data.
+   *
+   * The function checks for a existing parameter 'name_value'. The value of the parameter is not
+   * used because it is the caption.
+   *
+   * @return boolean
+   */
   public function collect() {
     if (parent::collect()) {
       $parameterName = $this->_getParameterName(array($this->_name, $this->_value), FALSE);

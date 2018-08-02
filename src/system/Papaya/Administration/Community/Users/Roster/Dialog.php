@@ -76,11 +76,11 @@ class Dialog extends \PapayaUiDialog {
       $this->_parameterNames['filter']
     );
     $this->fields[] = $buttons = new \PapayaUiDialogFieldButtons();
-    $buttons->buttons[] = new \PapayaUiDialogButtonSubmit(
+    $buttons->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(
       new \PapayaUiStringTranslated('Filter'),
       \PapayaUiDialogButton::ALIGN_RIGHT
     );
-    $buttons->buttons[] = new \PapayaUiDialogButtonSubmitNamed(
+    $buttons->buttons[] = new \Papaya\Ui\Dialog\Button\NamedSubmit(
       new \PapayaUiStringTranslated('Reset'),
       $this->_parameterNames['reset'],
       TRUE,

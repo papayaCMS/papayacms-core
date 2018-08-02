@@ -1249,7 +1249,7 @@ class papaya_taglinks extends base_tags {
         new \Papaya\Iterator\Repeat\Decrement(100, 0, 10, \Papaya\Iterator\Repeat\Decrement::MODE_ASSOC)
       );
       $field->callbacks()->getOptionCaption = array($this, 'callbackFormatPriority');
-      $dialog->buttons[] = new \PapayaUiDialogButtonSubmit(new \PapayaUiStringTranslated('Save'));
+      $dialog->buttons[] = new \Papaya\Ui\Dialog\Button\Submit(new \PapayaUiStringTranslated('Save'));
       if (isset($this->linkedTags[$tagId])) {
         $dialog->data()->set(
           'taglink_priority', $this->linkedTags[$tagId]['link_priority']
