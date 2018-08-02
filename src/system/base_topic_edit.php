@@ -4607,7 +4607,7 @@ class base_topic_edit extends base_topic {
           $message, 'items-publication'
         );
       }
-      $group->fields[] = $field = new \PapayaUiDialogFieldInput(
+      $group->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input(
         new \PapayaUiStringTranslated('message'),
         'commit_message',
         200,
@@ -4622,7 +4622,7 @@ class base_topic_edit extends base_topic {
           base_statictables::getChangeLevels()
         );
       }
-      $group->fields[] = new \PapayaUiDialogFieldInputTimestamp(
+      $group->fields[] = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
         new \PapayaUiStringTranslated('Created'),
         'topic_created',
         NULL,
@@ -4632,14 +4632,14 @@ class base_topic_edit extends base_topic {
       $dialog->fields[] = $group = new \PapayaUiDialogFieldGroup(
         new \PapayaUiStringTranslated('Publication period')
       );
-      $group->fields[] = new \PapayaUiDialogFieldInputTimestamp(
+      $group->fields[] = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
         new \PapayaUiStringTranslated('Published from'),
         'published_from',
         time(),
         TRUE,
         \Papaya\Filter\Date::DATE_MANDATORY_TIME
       );
-      $group->fields[] = new \PapayaUiDialogFieldInputTimestamp(
+      $group->fields[] = new \Papaya\Ui\Dialog\Field\Input\Timestamp(
         new \PapayaUiStringTranslated('Published to'),
         'published_to',
         0,
@@ -4728,7 +4728,7 @@ class base_topic_edit extends base_topic {
           ->getLanguage($languageId)
           ->identifier;
         $this->dialogSocialMedia->fields[] =
-          new \PapayaUiDialogFieldInputCheckbox(
+          new \Papaya\Ui\Dialog\Field\Input\Checkbox(
             new \PapayaUiStringTranslated(
               'Send tweet (%s)',
               array($languageName)
@@ -4753,7 +4753,7 @@ class base_topic_edit extends base_topic {
           );
         }
         $this->dialogSocialMedia->fields[] =
-          new \PapayaUiDialogFieldInput(
+          new \Papaya\Ui\Dialog\Field\Input(
             'Message',
             'message_'.$languageId,
             140,
@@ -5071,7 +5071,7 @@ class base_topic_edit extends base_topic {
     $dialog
       ->fields()
       ->add(
-        new \PapayaUiDialogFieldInputPage(
+        new \Papaya\Ui\Dialog\Field\Input\Page(
           new \PapayaUiStringTranslated('Page Id'),
           'page_id',
           $this->topicId,

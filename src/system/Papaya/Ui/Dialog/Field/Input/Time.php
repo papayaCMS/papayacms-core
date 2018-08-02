@@ -13,38 +13,40 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
 /**
-* A single line input for ISO time
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property string $name
-* @property string $hint
-* @property string|NULL $defaultValue
-* @property boolean $mandatory
-*/
-class PapayaUiDialogFieldInputTime extends \PapayaUiDialogFieldInput {
+ * A single line input for ISO time
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property string $name
+ * @property string $hint
+ * @property string|NULL $defaultValue
+ * @property boolean $mandatory
+ */
+class Time extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
-  * Field type, used in template
-  *
-  * @var string
-  */
+   * Field type, used in template
+   *
+   * @var string
+   */
   protected $_type = 'time';
 
   /**
-  * Step for time filter
-  * @var float
-  */
+   * Step for time filter
+   *
+   * @var float
+   */
   protected $_step = 60.0;
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('getCaption', 'setCaption'),
     'name' => array('getName', 'setName'),

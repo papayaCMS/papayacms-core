@@ -28,11 +28,11 @@ class InputSuggest
 
   /**
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
-   * @return \PapayaUiDialogFieldInput
+   * @return \Papaya\Ui\Dialog\Field\Input
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldInputSuggest(
+    $field = new \Papaya\Ui\Dialog\Field\Input\Suggest(
       $this->options()->caption,
       $this->options()->name,
       $this->options()->parameters,

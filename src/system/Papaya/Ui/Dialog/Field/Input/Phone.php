@@ -13,32 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
 /**
-* A single line input for phone
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property string $name
-* @property string $hint
-* @property string|NULL $defaultValue
-* @property boolean $mandatory
-*/
-class PapayaUiDialogFieldInputPhone extends \PapayaUiDialogFieldInput {
+ * A single line input for phone
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property string $name
+ * @property string $hint
+ * @property string|NULL $defaultValue
+ * @property boolean $mandatory
+ */
+class Phone extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
-  * Field type, used in template
-  *
-  * @var string
-  */
+   * Field type, used in template
+   *
+   * @var string
+   */
   protected $_type = 'phone';
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('getCaption', 'setCaption'),
     'name' => array('getName', 'setName'),
@@ -48,14 +49,14 @@ class PapayaUiDialogFieldInputPhone extends \PapayaUiDialogFieldInput {
   );
 
   /**
-  * Creates dialog field for phone number input with caption, name, default value and
-  * mandatory status
-  *
-  * @param string $caption
-  * @param string $name
-  * @param mixed $default optional, default NULL
-  * @param boolean $mandatory optional, default FALSE
-  */
+   * Creates dialog field for phone number input with caption, name, default value and
+   * mandatory status
+   *
+   * @param string $caption
+   * @param string $name
+   * @param mixed $default optional, default NULL
+   * @param boolean $mandatory optional, default FALSE
+   */
   public function __construct($caption, $name, $default = NULL, $mandatory = FALSE) {
     parent::__construct($caption, $name, 1024, $default);
     $this->setMandatory($mandatory);

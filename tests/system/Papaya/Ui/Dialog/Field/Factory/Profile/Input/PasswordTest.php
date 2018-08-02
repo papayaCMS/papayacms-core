@@ -30,7 +30,7 @@ class PapayaUiDialogFieldFactoryProfileInputPasswordTest extends \PapayaTestCase
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputPassword();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldInputPassword::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Input\Password::class, $field = $profile->getField());
   }
 
   /**

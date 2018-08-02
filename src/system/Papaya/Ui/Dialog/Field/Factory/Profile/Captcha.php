@@ -25,7 +25,7 @@ class Captcha extends \Papaya\Ui\Dialog\Field\Factory\Profile {
   /**
    * Create a color input field
    *
-   * @see \PapayaUiDialogFieldInputColor
+   * @see \Papaya\Ui\Dialog\Field\Input\Color
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */

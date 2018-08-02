@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field\Input\Media;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class ImageResized extends \PapayaUiDialogFieldInput {
+class ImageResized extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
    * Field type, used in template

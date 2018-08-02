@@ -24,7 +24,7 @@ class InputGeoPosition extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
-   * @return \PapayaUiDialogFieldInput
+   * @return \Papaya\Ui\Dialog\Field\Input
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {

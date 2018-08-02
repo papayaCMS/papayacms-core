@@ -26,7 +26,7 @@ namespace Papaya\Ui\Dialog\Field\Input;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class GeoPosition extends \PapayaUiDialogFieldInput {
+class GeoPosition extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
    * Field type, used in template

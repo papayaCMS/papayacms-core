@@ -135,7 +135,7 @@ class PapayaUiDialogFieldFactoryTest extends \PapayaTestCase {
 class PapayaUiDialogFieldFactoryProfile_TestDummy extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   public function getField() {
-    return new \PapayaUiDialogFieldInput('Sample', 'sample');
+    return new \Papaya\Ui\Dialog\Field\Input('Sample', 'sample');
   }
 }
 

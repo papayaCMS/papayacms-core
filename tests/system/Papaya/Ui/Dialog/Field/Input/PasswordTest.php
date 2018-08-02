@@ -18,35 +18,35 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
 
   /**
-   * @covers \PapayaUiDialogFieldInputPassword::__construct
+   * @covers \Papaya\Ui\Dialog\Field\Input\Password::__construct
    */
   public function testConstructorCreatesDefaultFilter() {
-    $field = new \PapayaUiDialogFieldInputPassword('Caption', 'fieldname');
+    $field = new \Papaya\Ui\Dialog\Field\Input\Password('Caption', 'fieldname');
     $field->setMandatory(TRUE);
     $this->assertInstanceOf(\Papaya\Filter\Password::class, $field->getFilter());
   }
 
   /**
-   * @covers \PapayaUiDialogFieldInputPassword::__construct
+   * @covers \Papaya\Ui\Dialog\Field\Input\Password::__construct
    */
   public function testConstructorAttachingFilter() {
     $filter = $this->createMock(\Papaya\Filter::class);
-    $field = new \PapayaUiDialogFieldInputPassword('Caption', 'fieldname', 42, $filter);
+    $field = new \Papaya\Ui\Dialog\Field\Input\Password('Caption', 'fieldname', 42, $filter);
     $field->setMandatory(TRUE);
     $this->assertSame($filter, $field->getFilter());
   }
 
   /**
-   * @covers \PapayaUiDialogFieldInputPassword::getCurrentValue
+   * @covers \Papaya\Ui\Dialog\Field\Input\Password::getCurrentValue
    */
   public function testGetCurrentValueIgnoresDefaultValue() {
-    $field = new \PapayaUiDialogFieldInputPassword('Caption', 'fieldname');
+    $field = new \Papaya\Ui\Dialog\Field\Input\Password('Caption', 'fieldname');
     $field->setDefaultValue('not ok');
     $this->assertEmpty($field->getCurrentValue());
   }
 
   /**
-   * @covers \PapayaUiDialogFieldInputPassword::getCurrentValue
+   * @covers \Papaya\Ui\Dialog\Field\Input\Password::getCurrentValue
    */
   public function testGetCurrentValueIgnoreData() {
     $dialog = $this
@@ -60,13 +60,13 @@ class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
     $dialog
       ->expects($this->never())
       ->method('data');
-    $field = new \PapayaUiDialogFieldInputPassword('Caption', 'foo');
+    $field = new \Papaya\Ui\Dialog\Field\Input\Password('Caption', 'foo');
     $field->collection($this->getCollectionMock($dialog));
     $this->assertEmpty($field->getCurrentValue());
   }
 
   /**
-   * @covers \PapayaUiDialogFieldInputPassword::getCurrentValue
+   * @covers \Papaya\Ui\Dialog\Field\Input\Password::getCurrentValue
    */
   public function testGetCurrentValueReadParameter() {
     $dialog = $this
@@ -77,7 +77,7 @@ class PapayaUiDialogFieldInputPasswordTest extends \PapayaTestCase {
       ->expects($this->exactly(2))
       ->method('parameters')
       ->will($this->returnValue(new \Papaya\Request\Parameters(array('foo' => 'success'))));
-    $field = new \PapayaUiDialogFieldInputPassword('Caption', 'foo');
+    $field = new \Papaya\Ui\Dialog\Field\Input\Password('Caption', 'foo');
     $field->collection($this->getCollectionMock($dialog));
     $this->assertEquals('success', $field->getCurrentValue());
   }

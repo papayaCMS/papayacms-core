@@ -71,7 +71,7 @@ class Dialog extends \PapayaUiDialog {
     $this->options->useToken = FALSE;
     $this->options->useConfirmation = FALSE;
     $this->parameterMethod(self::METHOD_MIXED_GET);
-    $this->fields[] = $field = new \PapayaUiDialogFieldInput(
+    $this->fields[] = $field = new \Papaya\Ui\Dialog\Field\Input(
       new \PapayaUiStringTranslated('Search'),
       $this->_parameterNames['filter']
     );

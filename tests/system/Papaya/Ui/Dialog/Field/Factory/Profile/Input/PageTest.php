@@ -30,7 +30,7 @@ class PapayaUiDialogFieldFactoryProfileInputPageTest extends \PapayaTestCase {
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputPage();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldInputPage::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Input\Page::class, $field = $profile->getField());
   }
 
   /**

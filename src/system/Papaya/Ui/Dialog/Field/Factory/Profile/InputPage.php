@@ -24,11 +24,11 @@ class InputPage extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
-   * @return \PapayaUiDialogFieldInputPage
+   * @return \Papaya\Ui\Dialog\Field\Input\Page
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldInputPage(
+    $field = new \Papaya\Ui\Dialog\Field\Input\Page(
       $this->options()->caption,
       $this->options()->name,
       $this->options()->default,

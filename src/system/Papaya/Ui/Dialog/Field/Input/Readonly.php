@@ -13,13 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
 /**
  * A simple single line readonly input field with a caption.
  *
  * @package Papaya-Library
  * @subpackage Ui
  */
-class PapayaUiDialogFieldInputReadonly extends \PapayaUiDialogFieldInput {
+class Readonly extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
    * Initialize object, set caption and field name

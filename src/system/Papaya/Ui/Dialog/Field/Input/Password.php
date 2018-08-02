@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
 /**
-* A single line input for password - the characters are not shown and the value is never read from
-* data() - only from parameters
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldInputPassword extends \PapayaUiDialogFieldInput {
+ * A single line input for password - the characters are not shown and the value is never read from
+ * data() - only from parameters
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Password extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
-  * Field type, used in template
-  *
-  * @var string
-  */
+   * Field type, used in template
+   *
+   * @var string
+   */
   protected $_type = 'password';
 
   /**
@@ -50,20 +51,20 @@ class PapayaUiDialogFieldInputPassword extends \PapayaUiDialogFieldInput {
   }
 
   /**
-  * Get the current field value.
-  *
-  * If the dialog object has a matching paremeter it is used. Unlike the other input fields
-  * data is ignored to avoid displaying stored passwords. the default value will be ignored, too.
-  *
-  * If neither dialog parameter or data is available, the default value is returned.
-  *
-  * @return mixed
-  */
+   * Get the current field value.
+   *
+   * If the dialog object has a matching paremeter it is used. Unlike the other input fields
+   * data is ignored to avoid displaying stored passwords. the default value will be ignored, too.
+   *
+   * If neither dialog parameter or data is available, the default value is returned.
+   *
+   * @return mixed
+   */
   public function getCurrentValue() {
     $name = $this->getName();
     if ($this->hasCollection() &&
-        $this->collection()->hasOwner() &&
-        !empty($name)) {
+      $this->collection()->hasOwner() &&
+      !empty($name)) {
       if (!$this->getDisabled() && $this->collection()->owner()->parameters()->has($name)) {
         return $this->collection()->owner()->parameters()->get($name);
       }

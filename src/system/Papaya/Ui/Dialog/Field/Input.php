@@ -13,40 +13,42 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field;
 /**
-* A simple single line input field with a caption.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldInput extends \PapayaUiDialogField {
+ * A simple single line input field with a caption.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Input extends \PapayaUiDialogField {
 
   /**
-  * Field maximum input length
-  * @var integer
-  */
+   * Field maximum input length
+   *
+   * @var integer
+   */
   protected $_maximumLength = 0;
 
   /**
-  * An input field is always an single line text input field.
-  *
-  * However here are variants and not all of them require special php logic. The
-  * type is included in the xml so the xslt template can access it and add special handling like
-  * css classes for defensive javascript.
-  *
-  * @var string
-  */
+   * An input field is always an single line text input field.
+   *
+   * However here are variants and not all of them require special php logic. The
+   * type is included in the xml so the xslt template can access it and add special handling like
+   * css classes for defensive javascript.
+   *
+   * @var string
+   */
   protected $_type = 'text';
 
   /**
-  * Initialize object, set caption, field name and maximum length
-  *
-  * @param string|\PapayaUiString $caption
-  * @param string $name
-  * @param integer $length
-  * @param mixed $default
-  * @param \Papaya\Filter|NULL $filter
-  */
+   * Initialize object, set caption, field name and maximum length
+   *
+   * @param string|\PapayaUiString $caption
+   * @param string $name
+   * @param integer $length
+   * @param mixed $default
+   * @param \Papaya\Filter|NULL $filter
+   */
   public function __construct(
     $caption,
     $name,
@@ -58,17 +60,16 @@ class PapayaUiDialogFieldInput extends \PapayaUiDialogField {
     $this->setName($name);
     $this->setMaximumLength($length);
     $this->setDefaultValue($default);
-    if (isset($filter)) {
+    if (NULL !== $filter) {
       $this->setFilter($filter);
     }
   }
 
   /**
-  * Set the maximum field length of this element.
-  *
-  * @param integer $maximumLength
-  * @return \PapayaUiDialogFieldInput
-  */
+   * Set the maximum field length of this element.
+   *
+   * @param integer $maximumLength
+   */
   public function setMaximumLength($maximumLength) {
     \Papaya\Utility\Constraints::assertInteger($maximumLength);
     if ($maximumLength > 0) {
@@ -79,14 +80,16 @@ class PapayaUiDialogFieldInput extends \PapayaUiDialogField {
   }
 
   /**
-  * Set the type of this input field.
-  *
-  * An input field is always an single line text input field. However here are variants and
-  * not all of them require special php logic. The type is included in the xml so the xslt template
-  * can access it and add special handling like css classes for defensive javascript.
-  *
-  * The method can uses by descendant classes, too.
-  */
+   * Set the type of this input field.
+   *
+   * An input field is always an single line text input field. However here are variants and
+   * not all of them require special php logic. The type is included in the xml so the xslt template
+   * can access it and add special handling like css classes for defensive javascript.
+   *
+   * The method can uses by descendant classes, too.
+   *
+   * @param string $type
+   */
   public function setType($type) {
     \Papaya\Utility\Constraints::assertString($type);
     \Papaya\Utility\Constraints::assertNotEmpty($type);
@@ -94,19 +97,19 @@ class PapayaUiDialogFieldInput extends \PapayaUiDialogField {
   }
 
   /**
-  * Read the type of this input field.
-  *
-  * @return string
-  */
+   * Read the type of this input field.
+   *
+   * @return string
+   */
   public function getType() {
     return $this->_type;
   }
 
   /**
-  * Append field and input ouptut to DOM
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append field and input ouptut to DOM
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(

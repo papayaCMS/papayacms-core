@@ -13,32 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
 /**
-* A single line input for color
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property string $name
-* @property string $hint
-* @property string|NULL $defaultValue
-* @property boolean $mandatory
-*/
-class PapayaUiDialogFieldInputColor extends \PapayaUiDialogFieldInput {
+ * A single line input for color
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property string $name
+ * @property string $hint
+ * @property string|NULL $defaultValue
+ * @property boolean $mandatory
+ */
+class Color extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
-  * Field type, used in template
-  *
-  * @var string
-  */
+   * Field type, used in template
+   *
+   * @var string
+   */
   protected $_type = 'color';
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('getCaption', 'setCaption'),
     'name' => array('getName', 'setName'),
@@ -48,14 +49,14 @@ class PapayaUiDialogFieldInputColor extends \PapayaUiDialogFieldInput {
   );
 
   /**
-  * Creates dialog field for color input with caption, name, default value and
-  * mandatory status
-  *
-  * @param string $caption
-  * @param string $name
-  * @param mixed $default optional, default NULL
-  * @param boolean $mandatory optional, default FALSE
-  */
+   * Creates dialog field for color input with caption, name, default value and
+   * mandatory status
+   *
+   * @param string $caption
+   * @param string $name
+   * @param mixed $default optional, default NULL
+   * @param boolean $mandatory optional, default FALSE
+   */
   public function __construct($caption, $name, $default = NULL, $mandatory = FALSE) {
     parent::__construct($caption, $name, 7, $default);
     $this->setMandatory($mandatory);

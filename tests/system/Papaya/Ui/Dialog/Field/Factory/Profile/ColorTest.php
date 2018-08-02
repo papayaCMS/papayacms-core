@@ -30,6 +30,6 @@ class PapayaUiDialogFieldFactoryProfileColorTest extends \PapayaTestCase {
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Color();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldInputColor::class, $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Input\Color::class, $profile->getField());
   }
 }

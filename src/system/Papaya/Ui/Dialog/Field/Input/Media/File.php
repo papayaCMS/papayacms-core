@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field\Input\Media;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class File extends \PapayaUiDialogFieldInput {
+class File extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
    * Field type, used in template

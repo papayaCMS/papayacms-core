@@ -17,10 +17,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInputColorTest extends \PapayaTestCase {
   /**
-  * @covers \PapayaUiDialogFieldInputColor::__construct
+  * @covers \Papaya\Ui\Dialog\Field\Input\Color::__construct
   */
   public function testConstructor() {
-    $field = new \PapayaUiDialogFieldInputColor('Color', 'color', '#000000', TRUE);
+    $field = new \Papaya\Ui\Dialog\Field\Input\Color('Color', 'color', '#000000', TRUE);
     $this->assertEquals(
       'Color',
       $field->caption
@@ -39,13 +39,13 @@ class PapayaUiDialogFieldInputColorTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUiDialogFieldInputColor
+   * @covers \Papaya\Ui\Dialog\Field\Input\Color
    * @dataProvider provideValidColorInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $field = new \PapayaUiDialogFieldInputColor('Color', 'color');
+    $field = new \Papaya\Ui\Dialog\Field\Input\Color('Color', 'color');
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
     $this->assertTrue(
@@ -54,13 +54,13 @@ class PapayaUiDialogFieldInputColorTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUiDialogFieldInputColor
+   * @covers \Papaya\Ui\Dialog\Field\Input\Color
    * @dataProvider provideInvalidColorInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $field = new \PapayaUiDialogFieldInputColor('Color', 'color');
+    $field = new \Papaya\Ui\Dialog\Field\Input\Color('Color', 'color');
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
     $this->assertFalse(
@@ -69,10 +69,10 @@ class PapayaUiDialogFieldInputColorTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldInputColor::appendTo
+  * @covers \Papaya\Ui\Dialog\Field\Input\Color::appendTo
   */
   public function testAppendTo() {
-    $field = new \PapayaUiDialogFieldInputColor('Color', 'color');
+    $field = new \Papaya\Ui\Dialog\Field\Input\Color('Color', 'color');
     $field->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

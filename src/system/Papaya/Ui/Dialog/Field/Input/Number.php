@@ -13,38 +13,40 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
 /**
-* A single line input for unsigned numbers with optional minimum/maximum length
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property string $name
-* @property string $hint
-* @property string|NULL $defaultValue
-* @property boolean $mandatory
-*/
-class PapayaUiDialogFieldInputNumber extends \PapayaUiDialogFieldInput {
+ * A single line input for unsigned numbers with optional minimum/maximum length
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property string $name
+ * @property string $hint
+ * @property string|NULL $defaultValue
+ * @property boolean $mandatory
+ */
+class Number extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
-  * Field type, used in template
-  *
-  * @var string
-  */
+   * Field type, used in template
+   *
+   * @var string
+   */
   protected $_type = 'number';
 
   /**
-  * Minimum length
-  * @var integer
-  */
+   * Minimum length
+   *
+   * @var integer
+   */
   protected $_minimumLength = NULL;
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('getCaption', 'setCaption'),
     'name' => array('getName', 'setName'),

@@ -24,11 +24,11 @@ class InputPassword extends \Papaya\Ui\Dialog\Field\Factory\Profile {
 
   /**
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
-   * @return \PapayaUiDialogFieldInput
+   * @return \Papaya\Ui\Dialog\Field\Input
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldInputPassword(
+    $field = new \Papaya\Ui\Dialog\Field\Input\Password(
       $this->options()->caption,
       $this->options()->name,
       (int)$this->options()->parameters,

@@ -13,32 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
 /**
-* A single line input for a page id
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property string $name
-* @property string|\PapayaUiString $hint
-* @property integer|NULL $defaultValue
-* @property boolean $mandatory
-*/
-class PapayaUiDialogFieldInputPage extends \PapayaUiDialogFieldInput {
+ * A single line input for a page id
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property string $name
+ * @property string|\PapayaUiString $hint
+ * @property integer|NULL $defaultValue
+ * @property boolean $mandatory
+ */
+class Page extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
-  * Field type, used in template
-  *
-  * @var boolean
-  */
+   * Field type, used in template
+   *
+   * @var boolean
+   */
   protected $_type = 'page';
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('getCaption', 'setCaption'),
     'name' => array('getName', 'setName'),
@@ -48,13 +49,13 @@ class PapayaUiDialogFieldInputPage extends \PapayaUiDialogFieldInput {
   );
 
   /**
-  * Create field, set caption, name, defaultvalue and mandatory status
-  *
-  * @param string|\PapayaUiString $caption
-  * @param string $name
-  * @param integer|NULL $default
-  * @param boolean $mandatory
-  */
+   * Create field, set caption, name, defaultvalue and mandatory status
+   *
+   * @param string|\PapayaUiString $caption
+   * @param string $name
+   * @param integer|NULL $default
+   * @param boolean $mandatory
+   */
   public function __construct($caption, $name, $default = NULL, $mandatory = FALSE) {
     parent::__construct($caption, $name, 20, $default);
     $this->setMandatory($mandatory);

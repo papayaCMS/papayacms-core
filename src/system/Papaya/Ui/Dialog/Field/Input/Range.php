@@ -13,56 +13,57 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
 /**
-* A single line input for Range
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property string $name
-* @property string $hint
-* @property float|NULL $defaultValue
-* @property boolean $mandatory
-* @property float $minimum
-* @property float $maximum
-* @property float $step
-*/
-class PapayaUiDialogFieldInputRange extends \PapayaUiDialogFieldInput {
+ * A single line input for Range
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property string $name
+ * @property string $hint
+ * @property float|NULL $defaultValue
+ * @property boolean $mandatory
+ * @property float $minimum
+ * @property float $maximum
+ * @property float $step
+ */
+class Range extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
-  * Field type, used in template
-  *
-  * @var string
-  */
+   * Field type, used in template
+   *
+   * @var string
+   */
   protected $_type = 'range';
 
   /**
-  * Minimum value for range
-  *
-  * @var float
-  */
+   * Minimum value for range
+   *
+   * @var float
+   */
   protected $_minimum = NULL;
 
   /**
-  * Maximum value for range
-  *
-  * @var float
-  */
+   * Maximum value for range
+   *
+   * @var float
+   */
   protected $_maximum = NULL;
 
   /**
-  * step value for Range
-  *
-  * @var float
-  */
+   * step value for Range
+   *
+   * @var float
+   */
   protected $_step = NULL;
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('getCaption', 'setCaption'),
     'name' => array('getName', 'setName'),
@@ -109,10 +110,10 @@ class PapayaUiDialogFieldInputRange extends \PapayaUiDialogFieldInput {
   }
 
   /**
-  * Append field and input ouptut to DOM
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append field and input ouptut to DOM
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(

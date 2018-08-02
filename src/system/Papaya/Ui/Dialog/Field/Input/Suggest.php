@@ -13,19 +13,20 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
 /**
-* A single line input with auto suggest
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property string $name
-* @property string $hint
-* @property string|NULL $defaultValue
-* @property boolean $mandatory
-*/
-class PapayaUiDialogFieldInputSuggest extends \PapayaUiDialogFieldInput {
+ * A single line input with auto suggest
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property string $name
+ * @property string $hint
+ * @property string|NULL $defaultValue
+ * @property boolean $mandatory
+ */
+class Suggest extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
    * Field type, used in template
@@ -51,12 +52,12 @@ class PapayaUiDialogFieldInputSuggest extends \PapayaUiDialogFieldInput {
    * @var array
    */
   protected $_declaredProperties = array(
-      'caption' => array('getCaption', 'setCaption'),
-      'name' => array('getName', 'setName'),
-      'hint' => array('getHint', 'setHint'),
-      'defaultValue' => array('getDefaultValue', 'setDefaultValue'),
-      'suggestionUrl' => array('getSuggestionUrl', 'setSuggestionUrl'),
-      'mandatory' => array('getMandatory', 'setMandatory')
+    'caption' => array('getCaption', 'setCaption'),
+    'name' => array('getName', 'setName'),
+    'hint' => array('getHint', 'setHint'),
+    'defaultValue' => array('getDefaultValue', 'setDefaultValue'),
+    'suggestionUrl' => array('getSuggestionUrl', 'setSuggestionUrl'),
+    'mandatory' => array('getMandatory', 'setMandatory')
   );
 
   /**

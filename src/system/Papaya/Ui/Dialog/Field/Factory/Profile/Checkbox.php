@@ -28,12 +28,12 @@ class Checkbox extends \Papaya\Ui\Dialog\Field\Factory\Profile {
   /**
    * Create a checkbox input field
    *
-   * @see \PapayaUiDialogFieldInputCheckbox
+   * @see \Papaya\Ui\Dialog\Field\Input\Checkbox
    * @see \Papaya\Ui\Dialog\Field\Factory\Profile::getField()
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldInputCheckbox(
+    $field = new \Papaya\Ui\Dialog\Field\Input\Checkbox(
       $this->options()->caption,
       $this->options()->name,
       $this->options()->default,

@@ -31,7 +31,7 @@ class PapayaUiDialogFieldFactoryProfileInputSuggestTest extends \PapayaTestCase 
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputSuggest();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldInputSuggest::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Input\Suggest::class, $field = $profile->getField());
   }
 
   /**

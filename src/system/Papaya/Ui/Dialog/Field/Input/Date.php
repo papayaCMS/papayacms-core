@@ -13,46 +13,49 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
 /**
-* A single line input for date and optional time
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property string $name
-* @property string $hint
-* @property string|NULL $defaultValue
-* @property boolean $mandatory
-* @property float $step
-* @property-read int $includeTime
-*/
-class PapayaUiDialogFieldInputDate extends \PapayaUiDialogFieldInput {
+ * A single line input for date and optional time
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property string $name
+ * @property string $hint
+ * @property string|NULL $defaultValue
+ * @property boolean $mandatory
+ * @property float $step
+ * @property-read int $includeTime
+ */
+class Date extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
-  * Field type, used in template
-  *
-  * @var string
-  */
+   * Field type, used in template
+   *
+   * @var string
+   */
   protected $_type = 'date';
 
   /**
-  * Include time?
-  * @var int
-  */
+   * Include time?
+   *
+   * @var int
+   */
   protected $_includeTime = \Papaya\Filter\Date::DATE_NO_TIME;
 
   /**
-  * Step for time filter
-  * @var float
-  */
+   * Step for time filter
+   *
+   * @var float
+   */
   protected $_step = 60.0;
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('getCaption', 'setCaption'),
     'name' => array('getName', 'setName'),
@@ -91,7 +94,7 @@ class PapayaUiDialogFieldInputDate extends \PapayaUiDialogFieldInput {
     ) {
       throw new \InvalidArgumentException(
         sprintf(
-        'Argument must be %1$s::DATE_NO_TIME, %1$s::DATE_OPTIONAL_TIME, or %1$s::DATE_MANDATORY_TIME.',
+          'Argument must be %1$s::DATE_NO_TIME, %1$s::DATE_OPTIONAL_TIME, or %1$s::DATE_MANDATORY_TIME.',
           \Papaya\Filter\Date::class
         )
       );

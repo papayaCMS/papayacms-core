@@ -13,21 +13,22 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
 /**
-* A single line input for date and optional time, the internal value is an unix timestamp.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property string $name
-* @property string $hint
-* @property string|NULL $defaultValue
-* @property boolean $mandatory
-* @property float $step
-* @property-read int $includeTime
-*/
-class PapayaUiDialogFieldInputTimestamp extends \PapayaUiDialogFieldInputDate {
+ * A single line input for date and optional time, the internal value is an unix timestamp.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property string $name
+ * @property string $hint
+ * @property string|NULL $defaultValue
+ * @property boolean $mandatory
+ * @property float $step
+ * @property-read int $includeTime
+ */
+class Timestamp extends Date {
 
   /**
    * Create object and initalize integer filter
@@ -52,21 +53,21 @@ class PapayaUiDialogFieldInputTimestamp extends \PapayaUiDialogFieldInputDate {
   }
 
   /**
-  * Get the current field value.
-  *
-  * If the dialog object has a matching paremeter it is used. Otherwise the data object of the
-  * dialog is checked and used.
-  *
-  * If neither dialog parameter or data is available, the default value is returned.
-  *
-  * @return mixed
-  */
+   * Get the current field value.
+   *
+   * If the dialog object has a matching paremeter it is used. Otherwise the data object of the
+   * dialog is checked and used.
+   *
+   * If neither dialog parameter or data is available, the default value is returned.
+   *
+   * @return mixed
+   */
   public function getCurrentValue() {
     $name = $this->getName();
     if ($this->hasCollection() &&
-        $this->collection()->hasOwner() &&
-        !empty($name) &&
-        $this->collection()->owner()->parameters()->has($name)) {
+      $this->collection()->hasOwner() &&
+      !empty($name) &&
+      $this->collection()->owner()->parameters()->has($name)) {
       $dateTime = $this->collection()->owner()->parameters()->get($name);
       return strtotime($dateTime);
     }
@@ -96,12 +97,12 @@ class PapayaUiDialogFieldInputTimestamp extends \PapayaUiDialogFieldInputDate {
   }
 
   /**
-  * Convert timestamp into a string
-  *
-  * @param integer $timestamp
-  * @param boolean $includeTime
-  * @return string
-  */
+   * Convert timestamp into a string
+   *
+   * @param integer $timestamp
+   * @param boolean $includeTime
+   * @return string
+   */
   private function formatDateTime($timestamp, $includeTime = TRUE) {
     if ($timestamp == 0) {
       return '';

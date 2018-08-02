@@ -17,10 +17,10 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 
 class PapayaUiDialogFieldInputPhoneTest extends \PapayaTestCase {
   /**
-  * @covers \PapayaUiDialogFieldInputPhone::__construct
+  * @covers \Papaya\Ui\Dialog\Field\Input\Phone::__construct
   */
   public function testConstructor() {
-    $field = new \PapayaUiDialogFieldInputPhone('Phone', 'phone', '1234567890', TRUE);
+    $field = new \Papaya\Ui\Dialog\Field\Input\Phone('Phone', 'phone', '1234567890', TRUE);
     $this->assertEquals(
       'Phone',
       $field->caption
@@ -39,13 +39,13 @@ class PapayaUiDialogFieldInputPhoneTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUiDialogFieldInputPhone
+   * @covers \Papaya\Ui\Dialog\Field\Input\Phone
    * @dataProvider provideValidPhoneInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $field = new \PapayaUiDialogFieldInputPhone('Phone', 'phone');
+    $field = new \Papaya\Ui\Dialog\Field\Input\Phone('Phone', 'phone');
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
     $this->assertTrue(
@@ -54,13 +54,13 @@ class PapayaUiDialogFieldInputPhoneTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUiDialogFieldInputPhone
+   * @covers \Papaya\Ui\Dialog\Field\Input\Phone
    * @dataProvider provideInvalidPhoneInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $field = new \PapayaUiDialogFieldInputPhone('Phone', 'phone');
+    $field = new \Papaya\Ui\Dialog\Field\Input\Phone('Phone', 'phone');
     $field->mandatory = $mandatory;
     $field->defaultValue = $value;
     $this->assertFalse(
@@ -69,11 +69,11 @@ class PapayaUiDialogFieldInputPhoneTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldInputPhone::appendTo
+  * @covers \Papaya\Ui\Dialog\Field\Input\Phone::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
-    $field = new \PapayaUiDialogFieldInputPhone('Phone', 'phone');
+    $field = new \Papaya\Ui\Dialog\Field\Input\Phone('Phone', 'phone');
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('test'));
     $this->assertXmlStringEqualsXmlString(

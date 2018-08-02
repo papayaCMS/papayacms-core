@@ -18,18 +18,18 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputCountedTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogFieldInputCounted
+  * @covers \Papaya\Ui\Dialog\Field\Input\Counted
   */
   public function testConstructor() {
-    $field = new \PapayaUiDialogFieldInputCounted('Caption', 'fieldname', 42, TRUE);
+    $field = new \Papaya\Ui\Dialog\Field\Input\Counted('Caption', 'fieldname', 42, TRUE);
     $this->assertEquals('counted', $field->getType());
   }
 
   /**
-  * @covers \PapayaUiDialogFieldInputCounted
+  * @covers \Papaya\Ui\Dialog\Field\Input\Counted
   */
   public function testAppendTo() {
-    $field = new \PapayaUiDialogFieldInputCounted('Caption', 'fieldname');
+    $field = new \Papaya\Ui\Dialog\Field\Input\Counted('Caption', 'fieldname');
     $field->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

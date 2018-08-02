@@ -69,7 +69,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
       )
     );
 
-    $dialog->fields[] = $targetIdField = new \PapayaUiDialogFieldInputPage(
+    $dialog->fields[] = $targetIdField = new \Papaya\Ui\Dialog\Field\Input\Page(
       new \PapayaUiStringTranslated('Target page'), 'target_id', NULL, TRUE
     );
     $dialog->fields[] = new \PapayaUiDialogFieldTextarea(

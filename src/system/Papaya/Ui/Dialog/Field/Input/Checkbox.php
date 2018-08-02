@@ -13,42 +13,44 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
+
 /**
-* A checkbox for an active/inactive value
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property string $name
-* @property string $hint
-* @property string|NULL $defaultValue
-* @property boolean $mandatory
-*/
-class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
+ * A checkbox for an active/inactive value
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property string $name
+ * @property string $hint
+ * @property string|NULL $defaultValue
+ * @property boolean $mandatory
+ */
+class Checkbox extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
-  * Specify the field type for the template
-  *
-  * @var string
-  */
+   * Specify the field type for the template
+   *
+   * @var string
+   */
   protected $_type = 'checkbox';
 
   /**
-  * Field type, used in template
-  *
-  * @var array
-  */
+   * Field type, used in template
+   *
+   * @var array
+   */
   protected $_values = array(
     'active' => TRUE,
     'inactive' => FALSE
   );
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('getCaption', 'setCaption'),
     'name' => array('getName', 'setName'),
@@ -58,14 +60,14 @@ class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
   );
 
   /**
-  * Creates dialog field for time input with caption, name, default value and
-  * mandatory status
-  *
-  * @param string $caption
-  * @param string $name
-  * @param mixed $default optional, default NULL
-  * @param boolean $mandatory optional, default FALSE
-  */
+   * Creates dialog field for time input with caption, name, default value and
+   * mandatory status
+   *
+   * @param string $caption
+   * @param string $name
+   * @param mixed $default optional, default NULL
+   * @param boolean $mandatory optional, default FALSE
+   */
   public function __construct($caption, $name, $default = NULL, $mandatory = TRUE) {
     parent::__construct($caption, $name, 9, $default);
     $this->setMandatory($mandatory);
@@ -75,11 +77,11 @@ class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
   }
 
   /**
-  * Append the field to the xml output
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element
-  */
+   * Append the field to the xml output
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $currentValue = $this->getCurrentValue();
@@ -111,7 +113,7 @@ class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
       );
     }
     if ((string)$active === (string)$inactive) {
-      throw new InvalidArgumentException(
+      throw new \InvalidArgumentException(
         'The active value and the inactive value must be different.'
       );
     }
@@ -125,11 +127,11 @@ class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
   }
 
   /**
-  * Get the current field value. This can be either of two values specified by the member
-  * variable $_values
-  *
-  * @return mixed
-  */
+   * Get the current field value. This can be either of two values specified by the member
+   * variable $_values
+   *
+   * @return mixed
+   */
   public function getCurrentValue() {
     $name = $this->getName();
     if (!empty($name) && ($dialog = $this->getDialog())) {
@@ -152,10 +154,10 @@ class PapayaUiDialogFieldInputCheckbox extends \PapayaUiDialogFieldInput {
   }
 
   /**
-  * Get the default value for the field.
-  *
-  * @return string
-  */
+   * Get the default value for the field.
+   *
+   * @return string
+   */
   public function getDefaultValue() {
     $value = parent::getDefaultValue();
     $isActive = (string)$value === (string)$this->_values['active'];

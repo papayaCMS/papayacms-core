@@ -52,7 +52,7 @@ class PapayaUiDialogFieldTextarea extends \PapayaUiDialogField {
   * Set the line count of this element.
   *
   * @param integer $lineCount
-  * @return \PapayaUiDialogFieldInput
+  * @return \Papaya\Ui\Dialog\Field\Input
   */
   public function setLineCount($lineCount) {
     \Papaya\Utility\Constraints::assertInteger($lineCount);

@@ -74,7 +74,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
         )
       )
     );
-    $dialog->fields[] = $originIdField = new \PapayaUiDialogFieldInputPage(
+    $dialog->fields[] = $originIdField = new \Papaya\Ui\Dialog\Field\Input\Page(
       new \PapayaUiStringTranslated('Origin page'), 'origin_id', NULL, TRUE
     );
     $originIdField->setHint(

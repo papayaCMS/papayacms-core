@@ -52,7 +52,7 @@ class PapayaUiDialogFieldInputGeoPositionTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUiDialogFieldInputPage
+   * @covers \Papaya\Ui\Dialog\Field\Input\Page
    * @dataProvider provideInvalidGeoPositionInputs
    * @param mixed $value
    * @param bool $mandatory
@@ -67,7 +67,7 @@ class PapayaUiDialogFieldInputGeoPositionTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogFieldInputPage::appendTo
+  * @covers \Papaya\Ui\Dialog\Field\Input\Page::appendTo
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();

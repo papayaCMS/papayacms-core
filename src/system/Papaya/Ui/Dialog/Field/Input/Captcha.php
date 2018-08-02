@@ -20,7 +20,7 @@ namespace Papaya\Ui\Dialog\Field\Input;
  * @package Papaya-Library
  * @subpackage Ui
  */
-class Captcha extends \PapayaUiDialogFieldInput {
+class Captcha extends \Papaya\Ui\Dialog\Field\Input {
 
   /**
    * Field type, used in template
