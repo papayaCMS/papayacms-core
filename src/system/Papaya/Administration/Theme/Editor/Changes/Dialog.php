@@ -53,7 +53,7 @@ class Dialog
     if ($setId > 0) {
       $this->record()->load($setId);
     }
-    $dialog = new \PapayaUiDialogDatabaseSave($this->record());
+    $dialog = new \Papaya\Ui\Dialog\Database\Save($this->record());
     if ($page = $this->themePage()) {
       $dialog->caption = new \PapayaUiStringTranslated('Dynamic Values: %s', array($page->title));
       $dialog->options->topButtons = TRUE;

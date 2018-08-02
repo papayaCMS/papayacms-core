@@ -31,7 +31,7 @@ class Delete
   public function createDialog() {
     /** @var \Papaya\Administration\Pages\Dependency\Changer $changer */
     $changer = $this->owner();
-    $dialog = new \PapayaUiDialogDatabaseDelete($changer->dependency());
+    $dialog = new \Papaya\Ui\Dialog\Database\Delete($changer->dependency());
     $dialog->caption = new \PapayaUiStringTranslated('Delete');
     $dialog->parameterGroup($this->owner()->parameterGroup());
     $dialog->hiddenFields->merge(

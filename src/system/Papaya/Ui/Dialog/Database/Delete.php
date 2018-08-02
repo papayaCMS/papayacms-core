@@ -13,25 +13,26 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Database;
 /**
-* A dialog that can delete a record from a database table using a {@see \Papaya\Database\BaseObject\PapayaDatabaseObjectRecord}
-* object.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogDatabaseDelete extends \PapayaUiDialogDatabase {
+ * A dialog that can delete a record from a database table using a
+ * {@see \Papaya\Database\BaseObject\PapayaDatabaseObjectRecord} object.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Delete extends \PapayaUiDialogDatabase {
 
   /**
-  * If the dialog is successfully executed the records is delete.
-  *
-  * Before deleting the record the callback function is executed to validate the action. If the
-  * delete was successful the second callback is executed.
-  *
-  * To delete the record the method delete() of the record is called.
-  *
-  * @return boolean
-  */
+   * If the dialog is successfully executed the records is deleted.
+   *
+   * Before deleting the record the callback function is executed to validate the action. If the
+   * delete was successful the second callback is executed.
+   *
+   * To delete the record the method delete() of the record is called.
+   *
+   * @return boolean
+   */
   public function execute() {
     if (parent::execute()) {
       $record = $this->record();

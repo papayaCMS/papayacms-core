@@ -39,7 +39,7 @@ class PapayaUiDialogDatabaseTest extends \PapayaTestCase {
   */
   public function testCallbacksGetAfterSet() {
     $callbacks = $this
-      ->getMockBuilder(\PapayaUiDialogDatabaseCallbacks::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog\Database\Callbacks::class)
       ->disableOriginalConstructor()
       ->getMock();
     $dialog = new \PapayaUiDialogDatabase_TestProxy($this->getRecordFixture());

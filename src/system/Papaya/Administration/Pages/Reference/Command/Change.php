@@ -28,7 +28,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
   /**
    * Create the add/edit dialog and assign callbacks.
    *
-   * @return \PapayaUiDialogDatabaseSave
+   * @return \Papaya\Ui\Dialog\Database\Save
    */
   public function createDialog() {
     /** @var Changer $changer */
@@ -43,7 +43,7 @@ class Change extends \Papaya\Ui\Control\Command\Dialog {
       $targetId = $record->sourceId;
     }
 
-    $dialog = new \PapayaUiDialogDatabaseSave($record);
+    $dialog = new \Papaya\Ui\Dialog\Database\Save($record);
 
     $dialog->caption = new \PapayaUiStringTranslated('Page reference');
     $dialog->data->merge(

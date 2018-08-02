@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogDatabaseCallbacksTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogDatabaseCallbacks::__construct
+  * @covers \Papaya\Ui\Dialog\Database\Callbacks::__construct
   */
   public function testConstructor() {
-    $callbacks = new \PapayaUiDialogDatabaseCallbacks();
+    $callbacks = new \Papaya\Ui\Dialog\Database\Callbacks();
     $this->assertTrue($callbacks->onBeforeDelete->defaultReturn);
     $this->assertTrue($callbacks->onBeforeSave->defaultReturn);
   }

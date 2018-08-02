@@ -20,11 +20,11 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogDatabaseDeleteTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogDatabaseDelete::execute
+  * @covers \Papaya\Ui\Dialog\Database\Delete::execute
   */
   public function testExecuteExpectingTrue() {
     $callbacks = $this
-      ->getMockBuilder(\PapayaUiDialogDatabaseCallbacks::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog\Database\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onBeforeDelete'))
       ->getMock();
@@ -44,11 +44,11 @@ class PapayaUiDialogDatabaseDeleteTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogDatabaseDelete::execute
+  * @covers \Papaya\Ui\Dialog\Database\Delete::execute
   */
   public function testExecuteBlockedByCallbackExpectingFalse() {
     $callbacks = $this
-      ->getMockBuilder(\PapayaUiDialogDatabaseCallbacks::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog\Database\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onBeforeDelete'))
       ->getMock();
@@ -67,7 +67,7 @@ class PapayaUiDialogDatabaseDeleteTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogDatabaseDelete::execute
+  * @covers \Papaya\Ui\Dialog\Database\Delete::execute
   */
   public function testExecuteNoSubmitExpectingFalse() {
     $dialog = new \PapayaUiDialogDatabaseDelete_TestProxy($this->getRecordFixture());
@@ -76,7 +76,7 @@ class PapayaUiDialogDatabaseDeleteTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogDatabaseDelete::appendTo
+  * @covers \Papaya\Ui\Dialog\Database\Delete::appendTo
   */
   public function testAppendTo() {
     $dialog = new \PapayaUiDialogDatabaseDelete_TestProxy($this->getRecordFixture());
@@ -91,7 +91,7 @@ class PapayaUiDialogDatabaseDeleteTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogDatabaseDelete::appendTo
+  * @covers \Papaya\Ui\Dialog\Database\Delete::appendTo
   */
   public function testAppendToExecutionBlocksOutput() {
     $dialog = new \PapayaUiDialogDatabaseDelete_TestProxy($this->getRecordFixture());
@@ -122,7 +122,7 @@ class PapayaUiDialogDatabaseDeleteTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiDialogDatabaseDelete_TestProxy extends \PapayaUiDialogDatabaseDelete {
+class PapayaUiDialogDatabaseDelete_TestProxy extends \Papaya\Ui\Dialog\Database\Delete {
   public $_isSubmittedResult = TRUE;
   public $_executionResult;
 }

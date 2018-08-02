@@ -13,23 +13,24 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Database;
 /**
-* A dialog that can add/edit a record to a database table using a {@see \Papaya\Database\BaseObject\PapayaDatabaseObjectRecord}
-* object.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogDatabaseSave extends \PapayaUiDialogDatabase {
+ * A dialog that can add/edit a record to a database table using a
+ * {@see \Papaya\Database\BaseObject\PapayaDatabaseObjectRecord} object.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Save extends \PapayaUiDialogDatabase {
 
   /**
-  * If the dialog is successfully executed the records is saved.
-  *
-  * Before saving the record, the orignal object is cloned, gets the new data assigned and
-  * a callback function is executed if defined.
-  *
-  * @return boolean
-  */
+   * If the dialog is successfully executed the records is saved.
+   *
+   * Before saving the record, the orignal object is cloned, gets the new data assigned and
+   * a callback function is executed if defined.
+   *
+   * @return boolean
+   */
   public function execute() {
     if (parent::execute()) {
       $record = clone $this->record();

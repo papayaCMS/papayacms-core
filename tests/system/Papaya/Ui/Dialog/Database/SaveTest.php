@@ -20,11 +20,11 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 class PapayaUiDialogDatabaseSaveTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogDatabaseSave::execute
+  * @covers \Papaya\Ui\Dialog\Database\Save::execute
   */
   public function testExecuteExpectingTrue() {
     $callbacks = $this
-      ->getMockBuilder(\PapayaUiDialogDatabaseCallbacks::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog\Database\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onBeforeSave'))
       ->getMock();
@@ -47,11 +47,11 @@ class PapayaUiDialogDatabaseSaveTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogDatabaseSave::execute
+  * @covers \Papaya\Ui\Dialog\Database\Save::execute
   */
   public function testExecuteBlockedByCallbackExpectingFalse() {
     $callbacks = $this
-      ->getMockBuilder(\PapayaUiDialogDatabaseCallbacks::class)
+      ->getMockBuilder(\Papaya\Ui\Dialog\Database\Callbacks::class)
       ->disableOriginalConstructor()
       ->setMethods(array('onBeforeSave'))
       ->getMock();
@@ -70,7 +70,7 @@ class PapayaUiDialogDatabaseSaveTest extends \PapayaTestCase {
   }
 
   /**
-  * @covers \PapayaUiDialogDatabaseSave::execute
+  * @covers \Papaya\Ui\Dialog\Database\Save::execute
   */
   public function testExecuteNoSubmitExpectingFalse() {
     $record = $this->getRecordFixture();
@@ -99,6 +99,6 @@ class PapayaUiDialogDatabaseSaveTest extends \PapayaTestCase {
   }
 }
 
-class PapayaUiDialogDatabaseSave_TestProxy extends \PapayaUiDialogDatabaseSave {
+class PapayaUiDialogDatabaseSave_TestProxy extends \Papaya\Ui\Dialog\Database\Save {
   public $_isSubmittedResult = TRUE;
 }

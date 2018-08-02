@@ -32,7 +32,7 @@ class Delete
   public function createDialog() {
     /** @var Changer $changer */
     $changer = $this->owner();
-    $dialog = new \PapayaUiDialogDatabaseDelete(
+    $dialog = new \Papaya\Ui\Dialog\Database\Delete(
       $reference = $changer->reference()
     );
     $dialog->caption = new \PapayaUiStringTranslated('Delete');

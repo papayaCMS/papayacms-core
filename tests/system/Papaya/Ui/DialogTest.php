@@ -464,7 +464,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
       ->expects($this->once())
       ->method('appendTo');
 
-    $description = $this->createMock(\PapayaUiDialogElementDescription::class);
+    $description = $this->createMock(\Papaya\Ui\Dialog\Element\Description::class);
     $description
       ->expects($this->once())
       ->method('appendTo')
@@ -699,7 +699,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
   */
   public function testDescriptionGetAfterSet() {
     $dialog = new \PapayaUiDialog(new stdClass());
-    $description = $this->createMock(\PapayaUiDialogElementDescription::class);
+    $description = $this->createMock(\Papaya\Ui\Dialog\Element\Description::class);
     $this->assertSame(
       $description, $dialog->description($description)
     );
@@ -712,7 +712,7 @@ class PapayaUiDialogTest extends \PapayaTestCase {
     $dialog = new \PapayaUiDialog(new stdClass());
     $dialog->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \PapayaUiDialogElementDescription::class, $description = $dialog->description()
+      \Papaya\Ui\Dialog\Element\Description::class, $description = $dialog->description()
     );
     $this->assertSame($papaya, $description->papaya());
   }

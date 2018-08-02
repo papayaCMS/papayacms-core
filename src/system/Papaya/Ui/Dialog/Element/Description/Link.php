@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Element\Description;
 /**
-* Dialog element description item encapsulationing a simple link.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogElementDescriptionLink extends \PapayaUiDialogElementDescriptionItem {
+ * Dialog element description item encapsulationing a simple link.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Link extends Item {
 
-  private $_reference = NULL;
+  private $_reference;
 
   /**
-  * Append description element with href attribute to parent xml element.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element
-  */
+   * Append description element with href attribute to parent xml element.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     return $parent->appendElement(
       'link',
@@ -42,12 +43,12 @@ class PapayaUiDialogElementDescriptionLink extends \PapayaUiDialogElementDescrip
    * Getter/Setter for the reference subobject.
    *
    * @param \PapayaUiReference $reference
-   * @return null|\PapayaUiReference
+   * @return \PapayaUiReference
    */
   public function reference(\PapayaUiReference $reference = NULL) {
-    if (isset($reference)) {
+    if (NULL !== $reference) {
       $this->_reference = $reference;
-    } elseif (is_null($this->_reference)) {
+    } elseif (NULL === $this->_reference) {
       $this->_reference = new \PapayaUiReference();
     }
     return $this->_reference;

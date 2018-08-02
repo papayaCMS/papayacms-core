@@ -13,20 +13,21 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Element;
 /**
-* Superclass for dialog element description. In the most cases this is a separate page opened
-* directly or in an popup, so it needs a reference
-*
-* For simple text information the dialog fields use the "hint".
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @codeCoverageIgnore
-*/
-class PapayaUiDialogElementDescription extends \Papaya\Ui\Control\Collection {
+ * Superclass for dialog element description. In the most cases this is a separate page opened
+ * directly or in an popup, so it needs a reference
+ *
+ * For simple text information the dialog fields use the "hint".
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @codeCoverageIgnore
+ */
+class Description extends \Papaya\Ui\Control\Collection {
 
-  protected $_itemClass = \PapayaUiDialogElementDescriptionItem::class;
+  protected $_itemClass = Description\Item::class;
 
   protected $_tagName = 'description';
 }

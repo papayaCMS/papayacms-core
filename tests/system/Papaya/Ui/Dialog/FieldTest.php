@@ -107,7 +107,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogField::description
   */
   public function testDescriptionGetAfterSet() {
-    $description = $this->createMock(\PapayaUiDialogElementDescription::class);
+    $description = $this->createMock(\Papaya\Ui\Dialog\Element\Description::class);
     $field = new \PapayaUiDialogField_TestProxy();
     $field->description($description);
     $this->assertSame($description, $field->description());
@@ -120,7 +120,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
     $field = new \PapayaUiDialogField_TestProxy();
     $field->papaya($papaya = $this->mockPapaya()->application());
     $this->assertInstanceOf(
-      \PapayaUiDialogElementDescription::class, $description = $field->description()
+      \Papaya\Ui\Dialog\Element\Description::class, $description = $field->description()
     );
     $this->assertSame($papaya, $description->papaya());
   }
@@ -696,7 +696,7 @@ class PapayaUiDialogFieldTest extends \PapayaTestCase {
   * @covers \PapayaUiDialogField::_appendFieldTo
   */
   public function testAppendFieldToWithFullData() {
-    $description = $this->createMock(\PapayaUiDialogElementDescription::class);
+    $description = $this->createMock(\Papaya\Ui\Dialog\Element\Description::class);
     $description
       ->expects($this->once())
       ->method('appendTo')

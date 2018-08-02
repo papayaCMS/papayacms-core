@@ -21,7 +21,7 @@
 *
 * @property string|\PapayaUiString $caption
 * @property string $image
-* @property \PapayaUiDialogElementDescription $description
+* @property \Papaya\Ui\Dialog\Element\Description $description
 * @property \PapayaUiDialogFields $fields
 * @property \PapayaUiDialogButtons $buttons
 * @property \Papaya\Request\Parameters $hiddenFields
@@ -128,7 +128,8 @@ class PapayaUiDialog extends \Papaya\Ui\Control\Interactive {
 
   /**
   * Dialog description data (additional properties)
-  * @var \PapayaUiDialogElementDescription
+  *
+  * @var \Papaya\Ui\Dialog\Element\Description
   */
   private $_description;
 
@@ -583,14 +584,14 @@ class PapayaUiDialog extends \Papaya\Ui\Control\Interactive {
   /**
   * Getter/Setter for the description subobject.
   *
-  * @param \PapayaUiDialogElementDescription
-  * @return \PapayaUiDialogElementDescription
+  * @param \Papaya\Ui\Dialog\Element\Description
+  * @return \Papaya\Ui\Dialog\Element\Description
   */
-  public function description(\PapayaUiDialogElementDescription $description = NULL) {
+  public function description(\Papaya\Ui\Dialog\Element\Description $description = NULL) {
     if (NULL !== $description) {
       $this->_description = $description;
     } elseif (NULL === $this->_description) {
-      $this->_description = new \PapayaUiDialogElementDescription();
+      $this->_description = new \Papaya\Ui\Dialog\Element\Description();
       $this->_description->papaya($this->papaya());
     }
     return $this->_description;

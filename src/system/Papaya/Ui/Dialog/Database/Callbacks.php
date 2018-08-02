@@ -13,22 +13,23 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Database;
 /**
-* Callbacks that are used by the database dialogs.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property \Papaya\BaseObject\Callback $onBeforeSave
-* @property \Papaya\BaseObject\Callback $onBeforeDelete
-* @method boolean onBeforeSave(\Papaya\Database\Interfaces\Record $record)
-* @method boolean onBeforeDelete(\Papaya\Database\Interfaces\Record $record)
-*/
-class PapayaUiDialogDatabaseCallbacks extends \Papaya\BaseObject\Callbacks {
+ * Callbacks that are used by the database dialogs.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property \Papaya\BaseObject\Callback $onBeforeSave
+ * @property \Papaya\BaseObject\Callback $onBeforeDelete
+ * @method boolean onBeforeSave(\Papaya\Database\Interfaces\Record $record)
+ * @method boolean onBeforeDelete(\Papaya\Database\Interfaces\Record $record)
+ */
+class Callbacks extends \Papaya\BaseObject\Callbacks {
 
   /**
-  * Initialize object and set callback definition
-  */
+   * Initialize object and set callback definition
+   */
   public function __construct() {
     parent::__construct(
       array(

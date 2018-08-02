@@ -40,7 +40,8 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
 
   /**
   * Field description
-  * @var NULL|\PapayaUiDialogElementDescription
+  *
+  * @var NULL|\Papaya\Ui\Dialog\Element\Description
   */
   private $_description = NULL;
 
@@ -299,14 +300,14 @@ abstract class PapayaUiDialogField extends \PapayaUiDialogElement {
   /**
    * Getter/Setter for the description subobject.
    *
-   * @param \PapayaUiDialogElementDescription $description
-   * @return \PapayaUiDialogElementDescription
+   * @param \Papaya\Ui\Dialog\Element\Description $description
+   * @return \Papaya\Ui\Dialog\Element\Description
    */
-  public function description(\PapayaUiDialogElementDescription $description = NULL) {
+  public function description(\Papaya\Ui\Dialog\Element\Description $description = NULL) {
     if (isset($description)) {
       $this->_description = $description;
     } elseif (is_null($this->_description)) {
-      $this->_description = new \PapayaUiDialogElementDescription();
+      $this->_description = new \Papaya\Ui\Dialog\Element\Description();
       $this->_description->papaya($this->papaya());
     }
     return $this->_description;

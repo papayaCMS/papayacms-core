@@ -36,7 +36,7 @@ class Remove
     } else {
       $loaded = FALSE;
     }
-    $dialog = new \PapayaUiDialogDatabaseDelete($this->record());
+    $dialog = new \Papaya\Ui\Dialog\Database\Delete($this->record());
     $dialog->papaya($this->papaya());
     $dialog->caption = new \PapayaUiStringTranslated('Delete theme set');
     if ($loaded) {

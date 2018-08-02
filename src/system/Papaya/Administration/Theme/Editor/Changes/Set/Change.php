@@ -41,7 +41,7 @@ class Change
         $setId = 0;
       }
     }
-    $dialog = new \PapayaUiDialogDatabaseSave($this->record());
+    $dialog = new \Papaya\Ui\Dialog\Database\Save($this->record());
     $dialog->papaya($this->papaya());
     $dialog->parameterGroup($this->parameterGroup());
     $dialog->parameters($this->parameters());

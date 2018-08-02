@@ -13,16 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Element\Description;
 /**
-* Dialog element description item encapsulationing a simple link.
-*
-* @property string $name
-* @property string $value
+ * Dialog element description item encapsulating a named property.
  *
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogElementDescriptionProperty extends \PapayaUiDialogElementDescriptionItem {
+ * @property string $name
+ * @property string $value
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Property extends Item {
 
   protected $_name = '';
   protected $_value = '';
@@ -33,32 +34,32 @@ class PapayaUiDialogElementDescriptionProperty extends \PapayaUiDialogElementDes
   );
 
   /**
-  * Create object, and store name and value data
-  *
-  * @param string $name
-  * @param string $value
-  */
+   * Create object, and store name and value data
+   *
+   * @param string $name
+   * @param string $value
+   */
   public function __construct($name, $value) {
     $this->setName($name);
     $this->_value = $value;
   }
 
   /**
-  * Name can not be empty - not a very strong validation, but should be enough for the most cases.
-  *
-  * @param string $name
-  */
+   * Name can not be empty - not a very strong validation, but should be enough for the most cases.
+   *
+   * @param string $name
+   */
   public function setName($name) {
     \Papaya\Utility\Constraints::assertNotEmpty($name);
     $this->_name = $name;
   }
 
   /**
-  * Append description element with href attribute to parent xml element.
-  *
-  * @param \Papaya\Xml\Element $parent
-  * @return \Papaya\Xml\Element
-  */
+   * Append description element with href attribute to parent xml element.
+   *
+   * @param \Papaya\Xml\Element $parent
+   * @return \Papaya\Xml\Element
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     return $parent->appendElement(
       'property',

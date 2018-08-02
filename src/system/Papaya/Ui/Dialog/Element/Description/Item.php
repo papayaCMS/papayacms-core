@@ -13,12 +13,13 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Element\Description;
 /**
-* Dialog element description item superclass.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-abstract class PapayaUiDialogElementDescriptionItem extends \Papaya\Ui\Control\Collection\Item {
+ * Dialog element description item superclass.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+abstract class Item extends \Papaya\Ui\Control\Collection\Item {
 
 }

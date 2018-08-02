@@ -13,85 +13,88 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Database;
+
 /**
-* A dialog that can add/edit a record to a database table
-*
-* @deprecated
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
+ * A dialog that can add/edit a record to a database table
+ *
+ * @deprecated
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Record extends \PapayaUiDialog {
 
   /**
-  * @var integer
-  */
+   * @var integer
+   */
   const ACTION_NONE = 0;
   /**
-  * @var integer
-  */
+   * @var integer
+   */
   const ACTION_INSERT = 1;
 
   /**
-  * @var integer
-  */
+   * @var integer
+   */
   const ACTION_UPDATE = 2;
 
   /**
-  * Dialog form method
-  * @var NULL|integer
-  */
+   * Dialog form method
+   *
+   * @var NULL|integer
+   */
   protected $_method = \PapayaUiDialog::METHOD_MIXED;
 
   /**
-  * Internal database access object variable
-  *
-  * @var \Papaya\Database\Access $_databaseAccessObject
-  */
+   * Internal database access object variable
+   *
+   * @var \Papaya\Database\Access $_databaseAccessObject
+   */
   private $_databaseAccessObject = NULL;
 
   /**
-  * Database table
-  *
-  * @var string
-  */
+   * Database table
+   *
+   * @var string
+   */
   protected $_table = '';
 
   /**
-  * Identifier/primary key field
-  *
-  * @var string
-  */
+   * Identifier/primary key field
+   *
+   * @var string
+   */
   protected $_identifierColumn = '';
 
   /**
-  * Column definition.
-  *
-  * The keys are the fields, the elements define the type. You can provide \Papaya\PapayaFilter objects
-  * or types. Types are provided as strings like 'integer' {@link http://www.php.net/settype}.
-  *
-  * @var array
-  */
+   * Column definition.
+   *
+   * The keys are the fields, the elements define the type. You can provide \Papaya\PapayaFilter objects
+   * or types. Types are provided as strings like 'integer' {@link http://www.php.net/settype}.
+   *
+   * @var array
+   */
   protected $_columns = array();
 
   /**
-  * Callback to check permissions
-  *
-  * @var Closure|Callback $_callbackPermissions
-  */
+   * Callback to check permissions
+   *
+   * @var callable $_callbackPermissions
+   */
   protected $_callbackPermissions = NULL;
 
   /**
-  * Was the database action an insert or update.
-  *
-  * @var integer
-  */
+   * Was the database action an insert or update.
+   *
+   * @var integer
+   */
   protected $_databaseAction = 0;
 
   /**
-  * Will the database action be an insert or update.
-  *
-  * @var integer
-  */
+   * Will the database action be an insert or update.
+   *
+   * @var integer
+   */
   protected $_databaseActionNext = 1;
 
   /**
@@ -110,10 +113,10 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
   }
 
   /**
-  * Execute dialog an trigger database action if nessesary
-  *
-  * @return boolean
-  */
+   * Execute dialog an trigger database action if nessesary
+   *
+   * @return boolean
+   */
   public function execute() {
     $identifier = $this->_getIdentifierValue($this->_identifierColumn);
     $this->hiddenFields()->set($this->_identifierColumn, $identifier);
@@ -145,7 +148,7 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
       } catch (\Papaya\Filter\Exception $e) {
       }
     } elseif (!empty($identifier) &&
-              ($data = $this->_load($identifier))) {
+      ($data = $this->_load($identifier))) {
       $this->hiddenFields()->set($this->_identifierColumn, $identifier);
       /** @noinspection PhpDeprecationInspection */
       $this->_databaseActionNext = self::ACTION_UPDATE;
@@ -164,7 +167,7 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
    */
   private function _getIdentifierValue($column) {
     if (isset($this->_columns[$column]) &&
-        $this->_columns[$column] instanceof \Papaya\Filter) {
+      $this->_columns[$column] instanceof \Papaya\Filter) {
       return $this->parameters()->get(
         $column, NULL, $this->_columns[$column]
       );
@@ -194,11 +197,11 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
   }
 
   /**
-  * The permission callback will be called to check if the current user is allowed to
-  * change the record.
-  *
-  * @param \Closure|\Callback $callback
-  */
+   * The permission callback will be called to check if the current user is allowed to
+   * change the record.
+   *
+   * @param callable $callback
+   */
   public function setPermissionCallback($callback) {
     $this->_callbackPermissions = $callback;
   }
@@ -218,19 +221,19 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
   }
 
   /**
-  * Set the database access object.
-  *
-  * @param \Papaya\Database\Access $databaseAccess
-  */
+   * Set the database access object.
+   *
+   * @param \Papaya\Database\Access $databaseAccess
+   */
   public function setDatabaseAccess(\Papaya\Database\Access $databaseAccess) {
     $this->_databaseAccessObject = $databaseAccess;
   }
 
   /**
-  * Get the database access object, create a default object if nessesary.
-  *
-  * @return \Papaya\Database\Access
-  */
+   * Get the database access object, create a default object if nessesary.
+   *
+   * @return \Papaya\Database\Access
+   */
   public function getDatabaseAccess() {
     if (is_null($this->_databaseAccessObject)) {
       $this->_databaseAccessObject = new \Papaya\Database\Access($this);
@@ -250,10 +253,10 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
   }
 
   /**
-  * Insert data as new record into the database table.
-  *
-  * @return string|integer New identifier
-  */
+   * Insert data as new record into the database table.
+   *
+   * @return string|integer New identifier
+   */
   protected function _insert() {
     return $this->getDatabaseAccess()->insertRecord(
       $this->_table, $this->_identifierColumn, $this->_compileRecord()
@@ -274,11 +277,11 @@ class PapayaUiDialogDatabaseRecord extends \PapayaUiDialog {
   }
 
   /**
-  * Compile dialog data into record data foir the sql queries.
-  *
-  * @see \PapayaUiDialogDatabaseRecord::_insert
-  * @see \PapayaUiDialogDatabaseRecord::_update
-  */
+   * Compile dialog data into record data foir the sql queries.
+   *
+   * @see \PapayaUiDialogDatabaseRecord::_insert
+   * @see \PapayaUiDialogDatabaseRecord::_update
+   */
   private function _compileRecord() {
     $data = array();
     foreach ($this->_columns as $field => $filter) {

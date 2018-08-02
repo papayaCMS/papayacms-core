@@ -57,15 +57,15 @@ class Record extends \Papaya\Ui\Control\Command\Dialog {
   /**
    * Create a database record aware dialog.
    *
-   * @return \PapayaUiDialogDatabaseDelete|\PapayaUiDialogDatabaseSave
+   * @return \Papaya\Ui\Dialog\Database\Delete|\Papaya\Ui\Dialog\Database\Save
    */
   protected function createDialog() {
     switch ($this->_action) {
       case self::ACTION_DELETE :
-        $dialog = new \PapayaUiDialogDatabaseDelete($this->record());
+        $dialog = new \Papaya\Ui\Dialog\Database\Delete($this->record());
       break;
       default :
-        $dialog = new \PapayaUiDialogDatabaseSave($this->record());
+        $dialog = new \Papaya\Ui\Dialog\Database\Save($this->record());
       break;
     }
     $dialog->papaya($this->papaya());

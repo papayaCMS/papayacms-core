@@ -66,15 +66,15 @@ abstract class PapayaUiDialogDatabase extends \PapayaUiDialog {
   * Getter/Setter for the callbacks, if you set your own callback object, make sure it has the
   * needed definitions.
   *
-  * @param \PapayaUiDialogDatabaseCallbacks $callbacks
-  * @return \PapayaUiDialogDatabaseCallbacks
+  * @param \Papaya\Ui\Dialog\Database\Callbacks $callbacks
+  * @return \Papaya\Ui\Dialog\Database\Callbacks
   */
-  public function callbacks(\PapayaUiDialogDatabaseCallbacks $callbacks = NULL) {
+  public function callbacks(\Papaya\Ui\Dialog\Database\Callbacks $callbacks = NULL) {
     if (isset($callbacks)) {
       $this->_callbacks = $callbacks;
     }
     if (is_null($this->_callbacks)) {
-      $this->_callbacks = new \PapayaUiDialogDatabaseCallbacks();
+      $this->_callbacks = new \Papaya\Ui\Dialog\Database\Callbacks();
     }
     return $this->_callbacks;
   }
