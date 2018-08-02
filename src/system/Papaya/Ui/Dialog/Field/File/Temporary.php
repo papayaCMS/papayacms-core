@@ -13,30 +13,31 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\File;
 /**
-* A file input that moves the uploaded file to the temp directory an returns the path
-* to the temporery file.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldFileTemporary extends \PapayaUiDialogField {
+ * A file input that moves the uploaded file to the temp directory an returns the path
+ * to the temporary file.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Temporary extends \PapayaUiDialogField {
 
   /**
-  * An input field is always an single line text input field.
-  *
-  * However here are variants and not all of them require special php logic. The
-  * type is included in the xml so the xslt template can access it and add special handling like
-  * css classes for defensive javascript.
-  *
-  * @var string
-  */
+   * An input field is always an single line text input field.
+   *
+   * However here are variants and not all of them require special php logic. The
+   * type is included in the xml so the xslt template can access it and add special handling like
+   * css classes for defensive javascript.
+   *
+   * @var string
+   */
   protected $_type = 'file';
 
   /**
    * @var \Papaya\Request\Parameter\File
    */
-  private $_file = NULL;
+  private $_file;
 
   /**
    * Initialize object, set caption, field name and maximum length
@@ -50,10 +51,10 @@ class PapayaUiDialogFieldFileTemporary extends \PapayaUiDialogField {
   }
 
   /**
-  * Append field and input ouptut to DOM
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append field and input ouptut to DOM
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     $field = $this->_appendFieldTo($parent);
     $field->appendElement(
@@ -73,19 +74,18 @@ class PapayaUiDialogFieldFileTemporary extends \PapayaUiDialogField {
    * return boolean
    */
   public function validate() {
-    if (isset($this->_validationResult)) {
+    if (NULL !== $this->_validationResult) {
       return $this->_validationResult;
     }
     if ($this->file()->isValid()) {
       return $this->_validationResult = TRUE;
-    } else {
-      return $this->_validationResult = !$this->getMandatory();
     }
+    return $this->_validationResult = !$this->getMandatory();
   }
 
   /**
    * Here is no data that can be put into the dialgo data directly.
-   * Use {@see \PapayaUiDialogFieldFileTemporary::file()}
+   * Use {@see \Papaya\Ui\Dialog\Field\File\PapayaUiDialogFieldFileTemporary::file()}
    *
    * return TRUE
    */
@@ -101,9 +101,9 @@ class PapayaUiDialogFieldFileTemporary extends \PapayaUiDialogField {
    * @return \Papaya\Request\Parameter\File
    */
   public function file(\Papaya\Request\Parameter\File $file = NULL) {
-    if (isset($file)) {
+    if (NULL !== $file) {
       $this->_file = $file;
-    } elseif (NULL == $this->_file) {
+    } elseif (NULL === $this->_file) {
       $this->_file = new \Papaya\Request\Parameter\File(
         $this->_getParameterName($this->getName())
       );

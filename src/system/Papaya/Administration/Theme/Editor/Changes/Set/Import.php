@@ -58,7 +58,7 @@ class Import
         'set_id' => $setId
       )
     );
-    $dialog->fields[] = $uploadField = new \PapayaUiDialogFieldFileTemporary(
+    $dialog->fields[] = $uploadField = new \Papaya\Ui\Dialog\Field\File\Temporary(
       new \PapayaUiStringTranslated('File'), 'values/file'
     );
     $uploadField->setMandatory(TRUE);
@@ -82,11 +82,11 @@ class Import
   }
 
   /**
-   * @param \PapayaUiDialogFieldFileTemporary $uploadField
+   * @param \Papaya\Ui\Dialog\Field\File\Temporary $uploadField
    * @return bool
    * @throws \Papaya\Xml\Exception
    */
-  public function onValidationSuccess(\PapayaUiDialogFieldFileTemporary $uploadField) {
+  public function onValidationSuccess(\Papaya\Ui\Dialog\Field\File\Temporary $uploadField) {
     $theme = $this->parameters()->get('theme', '');
     if (!empty($theme)) {
       $file = $uploadField->file();
