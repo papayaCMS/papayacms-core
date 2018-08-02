@@ -30,7 +30,7 @@ class Captcha extends \Papaya\Ui\Dialog\Field\Factory\Profile {
    * @throws \Papaya\Ui\Dialog\Field\Factory\Exception\InvalidOption
    */
   public function getField() {
-    $field = new \PapayaUiDialogFieldInputCaptcha(
+    $field = new \Papaya\Ui\Dialog\Field\Input\Captcha(
       $this->options()->caption,
       $this->options()->name,
       empty($this->options()->parameters) ? 'captcha' : $this->options()->parameters

@@ -110,7 +110,8 @@ class Autoloader {
     'PapayaUiDialogButtonSubmitNamed' => Ui\Dialog\Button\NamedSubmit::class,
     'PapayaUiDialogFieldBuilderArray' => Ui\Dialog\Field\Builder\FromArray::class,
     'PapayaUiDialogFieldFactoryExceptionInvalidOption' => Ui\Dialog\Field\Factory\Exception\InvalidOption::class,
-    'PapayaUiDialogFieldFactoryExceptionInvalidProfile' => Ui\Dialog\Field\Factory\Exception\InvalidProfile::class
+    'PapayaUiDialogFieldFactoryExceptionInvalidProfile' => Ui\Dialog\Field\Factory\Exception\InvalidProfile::class,
+    'PapayaUiDialogFieldInputGeoPosition' => Ui\Dialog\Field\Input\GeoPosition::class
   );
 
   private static $_mapParts = array(

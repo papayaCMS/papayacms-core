@@ -29,6 +29,6 @@ class PapayaUiDialogFieldFactoryProfileCaptchaTest extends \PapayaTestCase {
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\Captcha();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldInputCaptcha::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Input\Captcha::class, $field = $profile->getField());
   }
 }

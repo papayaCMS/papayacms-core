@@ -13,38 +13,40 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Group;
 /**
-* A simple single line input field with a caption.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*
-* @property string|\PapayaUiString $caption
-* @property \PapayaUiDialogButtons $buttons
-*/
-class PapayaUiDialogFieldGroupButtons extends \PapayaUiDialogField {
+ * A simple single line input field with a caption.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ *
+ * @property string|\PapayaUiString $caption
+ * @property \PapayaUiDialogButtons $buttons
+ */
+class Buttons extends \PapayaUiDialogField {
 
   /**
-  * Grouped input buttons
-  * @var \PapayaUiDialogButtons
-  */
+   * Grouped input buttons
+   *
+   * @var \PapayaUiDialogButtons
+   */
   protected $_buttons = NULL;
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('getCaption', 'setCaption'),
     'buttons' => array('_buttons', '_buttons')
   );
 
   /**
-  * Initialize object, set caption
-  *
-  * @param string|\PapayaUiString $caption
-  */
+   * Initialize object, set caption
+   *
+   * @param string|\PapayaUiString $caption
+   */
   public function __construct($caption) {
     $this->setCaption($caption);
   }
@@ -71,11 +73,11 @@ class PapayaUiDialogFieldGroupButtons extends \PapayaUiDialogField {
   }
 
   /**
-  * Return the owner collection of the item.
-  *
-  * @param \Papaya\Ui\Control\Collection $collection
-  * @return \Papaya\Ui\Control\Collection
-  */
+   * Return the owner collection of the item.
+   *
+   * @param \Papaya\Ui\Control\Collection $collection
+   * @return \Papaya\Ui\Control\Collection
+   */
   public function collection(\Papaya\Ui\Control\Collection $collection = NULL) {
     $result = parent::collection($collection);
     if ($collection != NULL && $collection->hasOwner()) {
@@ -85,22 +87,22 @@ class PapayaUiDialogFieldGroupButtons extends \PapayaUiDialogField {
   }
 
   /**
-  * Validate field group
-  *
-  * @return boolean
-  */
+   * Validate field group
+   *
+   * @return boolean
+   */
   public function validate() {
     return TRUE;
   }
 
   /**
-  * Collect field group data
-  *
-  * @return boolean
-  */
+   * Collect field group data
+   *
+   * @return boolean
+   */
   public function collect() {
     if (parent::collect() &&
-        isset($this->_buttons)) {
+      isset($this->_buttons)) {
       $this->_buttons->collect();
       return TRUE;
     }
@@ -108,10 +110,10 @@ class PapayaUiDialogFieldGroupButtons extends \PapayaUiDialogField {
   }
 
   /**
-  * Append group and buttons in this group to the DOM.
-  *
-  * @param \Papaya\Xml\Element $parent
-  */
+   * Append group and buttons in this group to the DOM.
+   *
+   * @param \Papaya\Xml\Element $parent
+   */
   public function appendTo(\Papaya\Xml\Element $parent) {
     if (isset($this->_buttons) && count($this->_buttons) > 0) {
       $group = $parent->appendElement(

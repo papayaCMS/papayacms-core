@@ -18,10 +18,10 @@ require_once __DIR__.'/../../../../../../../bootstrap.php';
 class PapayaUiDialogFieldInputGeoPositionTest extends \PapayaTestCase {
 
   /**
-  * @covers \PapayaUiDialogFieldInputGeoPosition::__construct
+  * @covers \Papaya\Ui\Dialog\Field\Input\GeoPosition::__construct
   */
   public function testConstructor() {
-    $field = new \PapayaUiDialogFieldInputGeoPosition('Position', 'geo_position', '21,42', TRUE);
+    $field = new \Papaya\Ui\Dialog\Field\Input\GeoPosition('Position', 'geo_position', '21,42', TRUE);
     $this->assertEquals(
       'Position', $field->caption
     );
@@ -37,13 +37,13 @@ class PapayaUiDialogFieldInputGeoPositionTest extends \PapayaTestCase {
   }
 
   /**
-   * @covers \PapayaUiDialogFieldInputGeoPosition
+   * @covers \Papaya\Ui\Dialog\Field\Input\GeoPosition
    * @dataProvider provideValidGeoPositionInputs
    * @param mixed $value
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $field = new \PapayaUiDialogFieldInputGeoPosition(
+    $field = new \Papaya\Ui\Dialog\Field\Input\GeoPosition(
       'Position', 'geo_position', $value, $mandatory
     );
     $this->assertTrue(
@@ -58,7 +58,7 @@ class PapayaUiDialogFieldInputGeoPositionTest extends \PapayaTestCase {
    * @param bool $mandatory
    */
   public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $field = new \PapayaUiDialogFieldInputGeoPosition(
+    $field = new \Papaya\Ui\Dialog\Field\Input\GeoPosition(
       'Position', 'geo_position', $value, $mandatory
     );
     $this->assertFalse(
@@ -71,7 +71,7 @@ class PapayaUiDialogFieldInputGeoPositionTest extends \PapayaTestCase {
   */
   public function testAppendTo() {
     $document = new \Papaya\Xml\Document();
-    $field = new \PapayaUiDialogFieldInputGeoPosition('Position', 'geo_position', '', FALSE);
+    $field = new \Papaya\Ui\Dialog\Field\Input\GeoPosition('Position', 'geo_position', '', FALSE);
     $field->papaya($this->mockPapaya()->application());
     $field->appendTo($document->appendElement('sample'));
     $this->assertXmlStringEqualsXmlString(

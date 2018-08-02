@@ -13,32 +13,33 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
 /**
-* A single line input for a geographic position
-*
-* @property string|\PapayaUiString $caption
-* @property string $name
-* @property string|\PapayaUiString $hint
-* @property string $defaultValue
-* @property boolean $mandatory
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldInputGeoPosition extends \PapayaUiDialogFieldInput {
+ * A single line input for a geographic position
+ *
+ * @property string|\PapayaUiString $caption
+ * @property string $name
+ * @property string|\PapayaUiString $hint
+ * @property string $defaultValue
+ * @property boolean $mandatory
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class GeoPosition extends \PapayaUiDialogFieldInput {
 
   /**
-  * Field type, used in template
-  *
-  * @var string
-  */
+   * Field type, used in template
+   *
+   * @var string
+   */
   protected $_type = 'geoposition';
 
   /**
-  * declare dynamic properties
-  *
-  * @var array
-  */
+   * declare dynamic properties
+   *
+   * @var array
+   */
   protected $_declaredProperties = array(
     'caption' => array('getCaption', 'setCaption'),
     'name' => array('getName', 'setName'),
@@ -48,13 +49,13 @@ class PapayaUiDialogFieldInputGeoPosition extends \PapayaUiDialogFieldInput {
   );
 
   /**
-  * Create field, set caption, name, defaultvalue and mandatory status
-  *
-  * @param string|\PapayaUiString $caption
-  * @param string $name
-  * @param integer|NULL $default
-  * @param boolean $mandatory
-  */
+   * Create field, set caption, name, defaultvalue and mandatory status
+   *
+   * @param string|\PapayaUiString $caption
+   * @param string $name
+   * @param integer|NULL $default
+   * @param boolean $mandatory
+   */
   public function __construct($caption, $name, $default = NULL, $mandatory = FALSE) {
     parent::__construct($caption, $name, 100, $default);
     $this->setMandatory($mandatory);

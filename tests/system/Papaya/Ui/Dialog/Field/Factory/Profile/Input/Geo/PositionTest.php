@@ -30,7 +30,7 @@ class PapayaUiDialogFieldFactoryProfileInputGeoPositionTest extends \PapayaTestC
     );
     $profile = new \Papaya\Ui\Dialog\Field\Factory\Profile\InputGeoPosition();
     $profile->options($options);
-    $this->assertInstanceOf(\PapayaUiDialogFieldInputGeoPosition::class, $field = $profile->getField());
+    $this->assertInstanceOf(\Papaya\Ui\Dialog\Field\Input\GeoPosition::class, $field = $profile->getField());
   }
 
   /**

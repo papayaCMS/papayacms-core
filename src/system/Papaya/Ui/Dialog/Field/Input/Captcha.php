@@ -13,23 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Dialog\Field\Input;
 /**
-* An image captcha input field
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiDialogFieldInputCaptcha extends \PapayaUiDialogFieldInput {
+ * An image captcha input field
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Captcha extends \PapayaUiDialogFieldInput {
 
   /**
-  * Field type, used in template
-  *
-  * @var string
-  */
+   * Field type, used in template
+   *
+   * @var string
+   */
   protected $_type = 'captcha';
 
   /**
    * String name/idnetifier of the dynamic image
+   *
    * @var string
    */
   private $_captchaImage = '';
@@ -78,8 +80,8 @@ class PapayaUiDialogFieldInputCaptcha extends \PapayaUiDialogFieldInput {
     $field->appendElement(
       'input',
       array(
-       'type' => $this->getType(),
-       'name' => $this->_getParameterName($this->getName().'['.$identifier.']', TRUE),
+        'type' => $this->getType(),
+        'name' => $this->_getParameterName($this->getName().'['.$identifier.']', TRUE),
       )
     );
     $reference = new \PapayaUiReference(clone $this->papaya()->request->getUrl());
@@ -96,7 +98,7 @@ class PapayaUiDialogFieldInputCaptcha extends \PapayaUiDialogFieldInput {
    */
   public function getCurrentValue() {
     if ($this->hasCollection() &&
-        $this->collection()->hasOwner()) {
+      $this->collection()->hasOwner()) {
       return $this->validateCaptcha();
     }
     return TRUE;
