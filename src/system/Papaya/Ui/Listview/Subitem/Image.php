@@ -83,7 +83,7 @@ class Image extends Text {
     $subitem = $parent->appendElement(
       'subitem',
       array(
-        'align' => \PapayaUiOptionAlign::getString($this->getAlign())
+        'align' => \Papaya\Ui\Option\Align::getString($this->getAlign())
       )
     );
     if (!empty($this->_image)) {

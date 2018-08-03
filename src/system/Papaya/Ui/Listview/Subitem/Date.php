@@ -74,7 +74,7 @@ class Date extends \Papaya\Ui\Listview\Subitem {
     $parent->appendElement(
       'subitem',
       array(
-        'align' => \PapayaUiOptionAlign::getString($this->getAlign())
+        'align' => \Papaya\Ui\Option\Align::getString($this->getAlign())
       ),
       (string)(
       $this->_timestamp > 0 ? new \PapayaUiStringDate($this->_timestamp, $this->_options) : ''

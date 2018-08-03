@@ -393,13 +393,13 @@ class papaya_log extends base_db {
       $listview->toolbars->topLeft->elements[] = $paging;
 
       $listview->columns[] = new \Papaya\Ui\Listview\Column(
-        new \PapayaUiStringTranslated('Message'), \PapayaUiOptionAlign::LEFT
+        new \PapayaUiStringTranslated('Message'), \Papaya\Ui\Option\Align::LEFT
       );
       $listview->columns[] = new \Papaya\Ui\Listview\Column(
-        new \PapayaUiStringTranslated('Group'), \PapayaUiOptionAlign::CENTER
+        new \PapayaUiStringTranslated('Group'), \Papaya\Ui\Option\Align::CENTER
       );
       $listview->columns[] = new \Papaya\Ui\Listview\Column(
-        new \PapayaUiStringTranslated('Date'), \PapayaUiOptionAlign::CENTER
+        new \PapayaUiStringTranslated('Date'), \Papaya\Ui\Option\Align::CENTER
       );
 
       foreach ($this->messageList as $msgId => $msg) {

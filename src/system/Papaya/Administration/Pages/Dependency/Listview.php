@@ -95,15 +95,15 @@ class Listview extends \Papaya\Ui\Listview {
     );
     $this->columns[] = new \Papaya\Ui\Listview\Column(
       new \PapayaUiStringTranslated('GoTo'),
-      \PapayaUiOptionAlign::CENTER
+      \Papaya\Ui\Option\Align::CENTER
     );
     $this->columns[] = new \Papaya\Ui\Listview\Column(
       new \PapayaUiStringTranslated('Synchronization'),
-      \PapayaUiOptionAlign::CENTER
+      \Papaya\Ui\Option\Align::CENTER
     );
     $this->columns[] = new \Papaya\Ui\Listview\Column(
       new \PapayaUiStringTranslated('Modified'),
-      \PapayaUiOptionAlign::CENTER
+      \Papaya\Ui\Option\Align::CENTER
     );
     if (count($this->_dependencies) > 0) {
       $this->items[] = $listitem = new \Papaya\Ui\Listview\Item(

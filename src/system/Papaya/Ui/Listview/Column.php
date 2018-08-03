@@ -37,7 +37,7 @@ class Column extends \Papaya\Ui\Control\Collection\Item {
    *
    * @var integer
    */
-  protected $_align = \PapayaUiOptionAlign::LEFT;
+  protected $_align = \Papaya\Ui\Option\Align::LEFT;
 
   /**
    * Allow to assign the internal (protected) variables using a public property
@@ -55,7 +55,7 @@ class Column extends \Papaya\Ui\Control\Collection\Item {
    * @param string|\PapayaUiString $caption
    * @param integer $align
    */
-  public function __construct($caption, $align = \PapayaUiOptionAlign::LEFT) {
+  public function __construct($caption, $align = \Papaya\Ui\Option\Align::LEFT) {
     $this->_caption = $caption;
     $this->setAlign($align);
   }
@@ -67,7 +67,7 @@ class Column extends \Papaya\Ui\Control\Collection\Item {
    * @param integer $align
    */
   public function setAlign($align) {
-    \PapayaUiOptionAlign::validate($align);
+    \Papaya\Ui\Option\Align::validate($align);
     $this->_align = $align;
   }
 
@@ -89,7 +89,7 @@ class Column extends \Papaya\Ui\Control\Collection\Item {
     $parent->appendElement(
       'col',
       array(
-        'align' => \PapayaUiOptionAlign::getString($this->_align)
+        'align' => \Papaya\Ui\Option\Align::getString($this->_align)
       ),
       (string)$this->_caption
     );

@@ -2211,7 +2211,7 @@ class papaya_boxes extends base_boxes {
         new \PapayaUiStringTranslated('User')
       );
       $listview->columns[] = new \Papaya\Ui\Listview\Column(
-        '', \PapayaUiOptionAlign::CENTER
+        '', \Papaya\Ui\Option\Align::CENTER
       );
       foreach ($this->versions as $id => $version) {
         $listitem = new \Papaya\Ui\Listview\Item(

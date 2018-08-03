@@ -1835,15 +1835,15 @@ class base_viewlist extends base_db {
       $listview->columns[] = new \Papaya\Ui\Listview\Column('');
       $listview->columns[] = new \Papaya\Ui\Listview\Column(
         new \PapayaUiStringTranslated('Current'),
-        \PapayaUiOptionAlign::CENTER
+        \Papaya\Ui\Option\Align::CENTER
       );
       $listview->columns[] = new \Papaya\Ui\Listview\Column(
         new \PapayaUiStringTranslated('Published'),
-        \PapayaUiOptionAlign::CENTER
+        \Papaya\Ui\Option\Align::CENTER
       );
       $listview->columns[] = new \Papaya\Ui\Listview\Column(
         new \PapayaUiStringTranslated('Versions'),
-        \PapayaUiOptionAlign::CENTER
+        \Papaya\Ui\Option\Align::CENTER
       );
       switch ($this->view['module_type']) {
       case 'box' :

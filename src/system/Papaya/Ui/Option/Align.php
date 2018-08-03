@@ -13,38 +13,39 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+namespace Papaya\Ui\Option;
 /**
-* Generic definition and handling for alignment attribute values.
-*
-* @package Papaya-Library
-* @subpackage Ui
-*/
-class PapayaUiOptionAlign {
+ * Generic definition and handling for alignment attribute values.
+ *
+ * @package Papaya-Library
+ * @subpackage Ui
+ */
+class Align {
 
   /**
-  * Alignment left
-  *
-  * @var integer
-  */
+   * Alignment left
+   *
+   * @var integer
+   */
   const LEFT = 0;
   /**
-  * Alignment center
-  *
-  * @var integer
-  */
+   * Alignment center
+   *
+   * @var integer
+   */
   const CENTER = 1;
   /**
-  * Alignment right
-  *
-  * @var integer
-  */
+   * Alignment right
+   *
+   * @var integer
+   */
   const RIGHT = 2;
 
   /**
-  * string representation of the column alignment, used in the xml attributes
-  *
-  * @var array
-  */
+   * string representation of the column alignment, used in the xml attributes
+   *
+   * @var array
+   */
   private static $_alignAttributes = array(
     self::LEFT => 'left',
     self::CENTER => 'center',
@@ -52,12 +53,12 @@ class PapayaUiOptionAlign {
   );
 
   /**
-  * Get the string representation of the alignment value for a xml attribute. If the align
-  * argument is invalid it will return "left".
-  *
-  * @param integer $align
-  * @return string
-  */
+   * Get the string representation of the alignment value for a xml attribute. If the align
+   * argument is invalid it will return "left".
+   *
+   * @param integer $align
+   * @return string
+   */
   public static function getString($align) {
     if (isset(self::$_alignAttributes[$align])) {
       return self::$_alignAttributes[$align];
@@ -67,14 +68,14 @@ class PapayaUiOptionAlign {
   }
 
   /**
-  * Validate an alignment value. This will throw an exception if the argument is invalid.
-  * An individual message for the exception can be provided, too.
-  *
-  * @throws \InvalidArgumentException
-  * @param integer $align
-  * @param string $message
-  * @return TRUE
-  */
+   * Validate an alignment value. This will throw an exception if the argument is invalid.
+   * An individual message for the exception can be provided, too.
+   *
+   * @throws \InvalidArgumentException
+   * @param integer $align
+   * @param string $message
+   * @return TRUE
+   */
   public static function validate($align, $message = NULL) {
     if (isset(self::$_alignAttributes[$align])) {
       return TRUE;

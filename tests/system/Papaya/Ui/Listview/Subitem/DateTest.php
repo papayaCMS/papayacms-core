@@ -35,7 +35,7 @@ class PapayaUiListviewSubitemDateTest extends \PapayaTestCase {
     $document = new \Papaya\Xml\Document();
     $document->appendElement('test');
     $subitem = new \Papaya\Ui\Listview\Subitem\Date(strtotime('2011-05-18 12:13:45'));
-    $subitem->align = \PapayaUiOptionAlign::CENTER;
+    $subitem->align = \Papaya\Ui\Option\Align::CENTER;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -54,7 +54,7 @@ class PapayaUiListviewSubitemDateTest extends \PapayaTestCase {
       strtotime('2011-05-18 12:13:45'),
       \Papaya\Ui\Listview\Subitem\Date::SHOW_DATE
     );
-    $subitem->align = \PapayaUiOptionAlign::CENTER;
+    $subitem->align = \Papaya\Ui\Option\Align::CENTER;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -73,7 +73,7 @@ class PapayaUiListviewSubitemDateTest extends \PapayaTestCase {
       strtotime('2011-05-18 12:13:45'),
       \Papaya\Ui\Listview\Subitem\Date::SHOW_TIME | \Papaya\Ui\Listview\Subitem\Date::SHOW_SECONDS
     );
-    $subitem->align = \PapayaUiOptionAlign::CENTER;
+    $subitem->align = \Papaya\Ui\Option\Align::CENTER;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

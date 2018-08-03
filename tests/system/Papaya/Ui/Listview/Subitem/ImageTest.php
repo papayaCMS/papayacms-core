@@ -87,7 +87,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
     $subitem->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
-    $subitem->align = \PapayaUiOptionAlign::CENTER;
+    $subitem->align = \Papaya\Ui\Option\Align::CENTER;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -106,7 +106,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
     $subitem->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
-    $subitem->align = \PapayaUiOptionAlign::CENTER;
+    $subitem->align = \Papaya\Ui\Option\Align::CENTER;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -136,7 +136,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
     $subitem->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
-    $subitem->align = \PapayaUiOptionAlign::CENTER;
+    $subitem->align = \Papaya\Ui\Option\Align::CENTER;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
@@ -190,7 +190,7 @@ class PapayaUiListviewSubitemImageTest extends \PapayaTestCase {
     $subitem->papaya(
       $this->mockPapaya()->application(array('Images' => array('image' => 'sample.png')))
     );
-    $subitem->align = \PapayaUiOptionAlign::CENTER;
+    $subitem->align = \Papaya\Ui\Option\Align::CENTER;
     $subitem->appendTo($document->documentElement);
     $this->assertXmlStringEqualsXmlString(
       /** @lang XML */

@@ -23,9 +23,9 @@ class PapayaUiListviewSubitemTest extends \PapayaTestCase {
   */
   public function testGetAlignAfterSetAlign() {
     $subitem = new \PapayaUiListviewSubitem_TestProxy();
-    $subitem->setAlign(\PapayaUiOptionAlign::RIGHT);
+    $subitem->setAlign(\Papaya\Ui\Option\Align::RIGHT);
     $this->assertEquals(
-      \PapayaUiOptionAlign::RIGHT, $subitem->getAlign()
+      \Papaya\Ui\Option\Align::RIGHT, $subitem->getAlign()
     );
   }
 
@@ -40,7 +40,7 @@ class PapayaUiListviewSubitemTest extends \PapayaTestCase {
     $column
       ->expects($this->once())
       ->method('getAlign')
-      ->will($this->returnValue(\PapayaUiOptionAlign::CENTER));
+      ->will($this->returnValue(\Papaya\Ui\Option\Align::CENTER));
     $listview = $this->createMock(\Papaya\Ui\Listview::class);
     $columns = $this
       ->getMockBuilder(\Papaya\Ui\Listview\Columns::class)
@@ -78,7 +78,7 @@ class PapayaUiListviewSubitemTest extends \PapayaTestCase {
     $subitem = new \PapayaUiListviewSubitem_TestProxy();
     $subitem->collection($subitems);
     $this->assertEquals(
-      \PapayaUiOptionAlign::CENTER, $subitem->getAlign()
+      \Papaya\Ui\Option\Align::CENTER, $subitem->getAlign()
     );
   }
 
@@ -118,7 +118,7 @@ class PapayaUiListviewSubitemTest extends \PapayaTestCase {
     $subitem = new \PapayaUiListviewSubitem_TestProxy();
     $subitem->collection($subitems);
     $this->assertEquals(
-      \PapayaUiOptionAlign::LEFT, $subitem->getAlign()
+      \Papaya\Ui\Option\Align::LEFT, $subitem->getAlign()
     );
   }
 

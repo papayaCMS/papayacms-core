@@ -62,7 +62,7 @@ abstract class Subitem extends \Papaya\Ui\Control\Collection\Item {
         /** @noinspection PhpUndefinedMethodInspection */
         return $collection->getListview()->columns()->get($columnIndex + 1)->getAlign();
       } else {
-        return \PapayaUiOptionAlign::LEFT;
+        return \Papaya\Ui\Option\Align::LEFT;
       }
     } else {
       return $this->_align;
